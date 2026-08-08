@@ -1,0 +1,19 @@
+127.0.0.1 - - [03/Aug/2026 11:49:19] "GET /Geography%20Questions.dc.html?v=side-guide-clear-text-2 HTTP/1.1" 304 -
+127.0.0.1 - - [03/Aug/2026 11:49:19] "GET /hyper-focus.js?v=side-guide-clear-text-2 HTTP/1.1" 304 -
+127.0.0.1 - - [03/Aug/2026 11:49:19] "GET /_ds/nocturne-33e0d293-7a77-4942-b468-b858b49d86ac/styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [03/Aug/2026 11:49:19] "GET /_ds/nocturne-33e0d293-7a77-4942-b468-b858b49d86ac/_ds_bundle.js HTTP/1.1" 304 -
+127.0.0.1 - - [03/Aug/2026 11:49:19] "GET /assets/rower-full.png HTTP/1.1" 304 -
+127.0.0.1 - - [03/Aug/2026 11:49:19] "GET /screenshot-2026-07-26-at-15-15-16-ms1vr8hn-b58t.png HTTP/1.1" 304 -
+127.0.0.1 - - [03/Aug/2026 11:49:19] "GET /support.js HTTP/1.1" 304 -
+127.0.0.1 - - [03/Aug/2026 11:49:19] "GET /assets/rower-arrow-forward-cropped.png HTTP/1.1" 304 -
+127.0.0.1 - - [03/Aug/2026 11:49:19] "GET /assets/rower-arrow-resistance-cropped.png HTTP/1.1" 304 -
+127.0.0.1 - - [03/Aug/2026 11:49:19] "GET /assets/desk.png HTTP/1.1" 304 -
+127.0.0.1 - - [03/Aug/2026 11:49:19] code 404, message File not found
+127.0.0.1 - - [03/Aug/2026 11:49:19] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [03/Aug/2026 12:23:04] "GET /Geography%20Questions.dc.html?v=plain-force-wording-1 HTTP/1.1" 200 -
+127.0.0.1 - - [03/Aug/2026 12:23:04] "GET /hyper-focus.js?v=plain-force-wording-1 HTTP/1.1" 200 -
+127.0.0.1 - - [03/Aug/2026 12:27:12] "GET /Geography%20Questions.dc.html?v=plain-force-wording-1 HTTP/1.1" 304 -
+127.0.0.1 - - [03/Aug/2026 12:27:12] "GET /hyper-focus.js?v=plain-force-wording-1 HTTP/1.1" 304 -
+127.0.0.1 - - [03/Aug/2026 12:52:28] "GET /Geography%20Questions.dc.html?v=focus-mask-clean-1 HTTP/1.1" 200 -
+127.0.0.1 - - [03/Aug/2026 12:52:28] "GET /hyper-focus.js?v=focus-mask-clean-1 HTTP/1.1" 200 -
+127.0.0.1 - - [03/Aug/2026 12:55:58] "GET /Geography%20Questions.dc.html?v=focus-zoom-plus-1 HTTP/1.1" 200 -

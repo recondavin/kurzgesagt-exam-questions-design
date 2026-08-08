@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./hyper-focus.js?v=question-zoom-match-5a"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/nocturne-33e0d293-7a77-4942-b468-b858b49d86ac/styles.css">
+<script src="_ds/nocturne-33e0d293-7a77-4942-b468-b858b49d86ac/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&amp;family=Fredoka:wdth,wght@100..125,400..700&amp;family=Nunito:ital,wght@0,400;0,600;0,700;1,400&amp;family=Chakra+Petch:wght@500;600;700&amp;display=swap">
+<style>
+  :root {
+    --color-bg: #EDF1F7;
+    --color-surface: #F9FBFE;
+    --color-text: #1B2430;
+    --color-section: #E7EEF9;
+    --color-neutral-100: #FFFFFF;
+    --color-neutral-200: #39465A;
+    --color-neutral-300: #4E5C70;
+    --color-neutral-400: #78859A;
+    --color-neutral-500: #94A0B2;
+    --color-neutral-600: #C6CDD8;
+    --color-neutral-700: #DFE3EA;
+    --color-neutral-800: #E9EEF6;
+    --color-neutral-900: #DFE6F0;
+    --color-accent: #2E6BD6;
+    --color-accent-100: #F2F6FD;
+    --color-accent-200: #D6E4FA;
+    --color-accent-300: #1E4C9E;
+    --color-accent-400: #5288DF;
+    --color-accent-500: #2E6BD6;
+    --color-accent-600: #2857AE;
+    --color-accent-700: #21478E;
+    --color-accent-800: #E8F0FC;
+    --color-accent-900: #16345F;
+    --shadow-sm: 0 1px 2px rgba(27,36,48,.06);
+    --shadow-md: 0 2px 10px rgba(27,36,48,.08);
+    --shadow-lg: 0 8px 28px rgba(27,36,48,.12);
+  }
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); }
+  a { color: var(--color-accent); text-decoration: none; }
+  a:hover { color: var(--color-accent-300); text-decoration: underline; }
+  @keyframes labelIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @keyframes nudge { 0%,100% { transform: none; } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+  @keyframes pulseRing { 0% { opacity: .9; r: 12; } 100% { opacity: 0; r: 30; } }
+  @keyframes goodGlow {
+    0%   { box-shadow: 0 0 0 0 rgba(28,154,99,.7), 0 0 0 0 rgba(28,154,99,.4); border-color: #1C9A63; transform: scale(1); }
+    18%  { box-shadow: 0 0 0 6px rgba(28,154,99,.45), 0 0 44px 10px rgba(28,154,99,.32); transform: scale(1.014); }
+    46%  { box-shadow: 0 0 0 3px rgba(28,154,99,.4), 0 0 30px 4px rgba(28,154,99,.24); transform: scale(.998); }
+    70%  { box-shadow: 0 0 0 5px rgba(28,154,99,.32), 0 0 40px 8px rgba(28,154,99,.22); transform: scale(1.006); }
+    100% { box-shadow: 0 0 0 2px rgba(28,154,99,.5), 0 0 26px 2px rgba(28,154,99,.18); border-color: #1C9A63; transform: scale(1); }
+  }
+  @keyframes badGlow {
+    0%   { box-shadow: 0 0 0 0 rgba(210,72,27,.6); border-color: #D2481B; transform: translateX(0); }
+    15%  { box-shadow: 0 0 0 5px rgba(210,72,27,.4), 0 0 34px 6px rgba(210,72,27,.24); transform: translateX(-7px); }
+    32%  { transform: translateX(6px); }
+    48%  { transform: translateX(-4px); }
+    64%  { transform: translateX(3px); }
+    100% { box-shadow: 0 0 0 2px rgba(210,72,27,.45), 0 0 22px 2px rgba(210,72,27,.16); border-color: #D2481B; transform: translateX(0); }
+  }
+  @keyframes sparkOut {
+    0%   { opacity: 0; transform: translate(0,0) scale(.4); }
+    25%  { opacity: 1; }
+    100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.1); }
+  }
+  @keyframes tickIn { 0% { opacity: 0; transform: scale(.5) rotate(-14deg); } 60% { transform: scale(1.18) rotate(4deg); } 100% { opacity: 1; transform: scale(1) rotate(0); } }
+  @keyframes annRing { 0% { transform: scale(.6); opacity: .95; } 100% { transform: scale(2.6); opacity: 0; } }
+  @keyframes dotGrow { 0% { transform: scale(0); opacity: 0; } 55% { transform: scale(1.45); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+  @keyframes lineGrow { 0% { transform: scaleX(0); } 100% { transform: scaleX(1); } }
+  @keyframes arrowWipeForward {
+    from { clip-path: polygon(-150% 0, -140% 0, -10% 100%, -150% 100%); }
+    to   { clip-path: polygon(0 0, 110% 0, 240% 100%, 0 100%); }
+  }
+  @keyframes arrowWipeResistance {
+    from { clip-path: polygon(110% 0, 250% 0, 250% 100%, 240% 100%); }
+    to   { clip-path: polygon(-140% 0, 100% 0, 100% 100%, -10% 100%); }
+  }
+  .arrow-reveal-forward,
+  .arrow-reveal-resistance { opacity: 0; }
+  body.hf-arrows-active .arrow-reveal-forward { opacity: 1; animation: arrowWipeForward 1.8s cubic-bezier(.4,0,.2,1) 0s both; }
+  body.hf-arrows-active .arrow-reveal-resistance { opacity: 1; animation: arrowWipeResistance 1.8s cubic-bezier(.4,0,.2,1) 0s both; }
+  [data-hf-scene] {
+    transform-origin: 0 0;
+    transition: transform .8s cubic-bezier(.22,.78,.24,1);
+    will-change: transform;
+  }
+  body.hf-camera-active { overflow: hidden; }
+  [data-hf-target] {
+    position: relative;
+    transform-origin: center;
+    transition: transform .34s cubic-bezier(.22,.78,.24,1), box-shadow .34s ease, outline-color .34s ease;
+    outline: 2px solid transparent;
+  }
+  [data-hf-target].hf-current {
+    z-index: 30;
+    transform: none;
+    outline-color: transparent;
+    box-shadow: 0 14px 46px rgba(20,43,78,.20), 0 0 0 7px rgba(242,246,253,.86);
+  }
+  body.hf-camera-moving .hf-guide { opacity: 0; pointer-events: none; }
+  body.hf-camera-moving [data-hf-target].hf-current {
+    outline-color: transparent;
+    box-shadow: none;
+  }
+  .hf-key {
+    margin: 0 -2px;
+    padding: 1px 5px 2px;
+    border-radius: 5px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    transition: color .3s ease, background-color .3s ease, box-shadow .3s ease;
+  }
+  [data-hf-target="context"].hf-current .hf-key {
+    color: #102E55;
+    background: #FFE45C;
+    box-shadow: inset 0 -3px 0 rgba(221,157,0,.34), 0 0 0 2px rgba(255,228,92,.32), 0 4px 12px rgba(211,157,0,.22);
+  }
+  [data-hf-target="context"].hf-current .hf-key:nth-of-type(2) { transition-delay: .14s; }
+  [data-hf-target="context"].hf-current .hf-key:nth-of-type(3) { transition-delay: .28s; }
+  .hf-veil {
+    position: fixed;
+    z-index: 2147482000;
+    background: transparent;
+    transition: opacity .22s ease;
+    cursor: zoom-out;
+    opacity: 0;
+    pointer-events: none;
+  }
+  body.hf-active .hf-veil { opacity: 1; pointer-events: auto; }
+  .hf-eye-frame {
+    position: fixed;
+    z-index: 2147482001;
+    pointer-events: none;
+    border: 2px solid rgba(214,228,250,.9);
+    border-radius: 16px;
+    box-shadow: 0 0 0 2px rgba(46,107,214,.35), 0 0 0 9999px rgba(11,18,31,.43), 0 10px 34px rgba(8,17,35,.24);
+    transition: opacity .22s ease;
+    opacity: 0;
+  }
+  body.hf-active .hf-eye-frame { opacity: 1; }
+  .hf-focus-hidden-section { visibility: hidden !important; }
+  .hf-guide {
+    position: fixed;
+    z-index: 2147483000;
+    width: min(760px, calc(100vw - 40px));
+    min-height: 610px;
+    box-sizing: border-box;
+    padding: 35px 35px 32px;
+    border: 1px solid rgba(82,136,223,.42);
+    border-radius: 18px;
+    background: rgba(249,251,254,.97);
+    box-shadow: 0 18px 54px rgba(9,25,52,.28);
+    color: #1B2430;
+    font-family: 'Nunito', sans-serif;
+    opacity: 0;
+    transform: translateY(10px) scale(.98);
+    pointer-events: none;
+    transition: opacity .24s ease, transform .34s cubic-bezier(.22,.78,.24,1);
+  }
+  body.hf-active .hf-guide { opacity: 1; transform: none; pointer-events: auto; }
+  .hf-guide__top { display: flex; align-items: flex-start; gap: 16px; }
+  .hf-guide__copy { flex: 1; min-width: 0; }
+  .hf-guide__meta { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 7px; }
+  .hf-guide__kicker { display: block; margin-bottom: 10px; color: #1E4C9E; font: 850 19px/1.2 'Chakra Petch', monospace; letter-spacing: .12em; text-transform: uppercase; }
+  .hf-guide__meta .hf-guide__kicker { margin-bottom: 0; }
+  .hf-guide__title { min-height: 2.1em; margin: 0; color: #0D1725; font: 750 48px/1.06 'Fredoka', sans-serif; letter-spacing: -.014em; }
+  .hf-guide__close { flex: none; width: 44px; height: 44px; border: 1px solid #C6CDD8; border-radius: 999px; background: #fff; color: #39465A; cursor: pointer; font: 700 23px/1 'Nunito', sans-serif; }
+  .hf-guide__summary { min-height: 2.55em; margin: 21px 0 17px; color: #142942; font-size: 35px; font-weight: 850; line-height: 1.28; }
+  .hf-guide__points { min-height: 6.3em; margin: 0; padding-left: 35px; display: grid; align-content: start; gap: 14px; color: #10243B; font-size: 31px; font-weight: 775; line-height: 1.3; }
+  .hf-guide__points strong { color: #102E55; font-weight: 850; }
+  .hf-guide__controls { display: flex; align-items: center; gap: 11px; margin-top: 20px; }
+  .hf-guide__button { border: 1px solid #2E6BD6; border-radius: 999px; padding: 14px 23px; background: #2E6BD6; color: #fff; cursor: pointer; font: 650 20px/1 'Fredoka', sans-serif; }
+  .hf-guide__button--ghost { background: transparent; color: #2E6BD6; }
+  .hf-guide__step { margin-left: auto; color: #78859A; font: 700 14px/1 'Chakra Petch', monospace; letter-spacing: .08em; }
+  .hf-start {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 15px;
+    border: 1px solid #2E6BD6;
+    border-radius: 999px;
+    background: #F2F6FD;
+    color: #1E4C9E;
+    cursor: pointer;
+    font: 600 14px/1 'Fredoka', sans-serif;
+  }
+  .hf-start::before { content: '\25C9'; font-size: 15px; color: #2E6BD6; }
+  @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+  @keyframes cardIn { 0% { opacity: 0; transform: translateY(18px) scale(.96); } 100% { opacity: 1; transform: none; } }
+  @keyframes splash { 0% { transform: scale(.3); opacity: .95; } 100% { transform: scale(2.7); opacity: 0; } }
+  @keyframes splashDrop { 0% { transform: translate(0,0) scale(1); opacity: .9; } 100% { transform: translate(var(--sx), var(--sy)) scale(.2); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+</style>
+</helmet>
+
+<section style="display: flex; flex-direction: column; gap: 0; padding: 0;">
+    <div data-hf-scene style="position: relative; width: 3177px; height: 1788px; background: url(assets/desk.png) center/100% 100% no-repeat;">
+  <div style="position: absolute; left: 901px; top: 27px; width: 1370px; height: 1743px; box-sizing: border-box; padding: 26px; overflow: hidden; background: var(--color-bg); border-radius: 6px;">
+  <div id="3a" style="width: 1318px; transform: scale(1.0); display: flex; flex-direction: column; gap: 12px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span class="tag tag-outline" style="font-family: 'Fredoka', sans-serif;">3a</span>
+      <span style="font-family: 'Fredoka', sans-serif; font-size: 14px; color: var(--color-neutral-300);">Fixed stem · scrolling question rail</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <div style="flex: 1; height: 8px; border-radius: 999px; background: var(--color-neutral-800); position: relative;">
+        <div style="height: 100%; border-radius: 999px; background: var(--color-accent); width: {{ barPct }}; transition: width .62s cubic-bezier(.85,0,.2,1); position: relative;">
+          <sc-for list="{{ barSplash }}" as="b" hint-placeholder-count="0">
+            <span style="position: absolute; right: -4px; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 0; border-radius: 999px; border: 2px solid var(--color-accent-300); animation: splash .6s ease-out .6s both;"></span>
+          </sc-for>
+          <sc-for list="{{ barSplash }}" as="b" hint-placeholder-count="0">
+            <span style="position: absolute; right: 1px; top: 50%; width: 5px; height: 5px; margin: -2.5px 0 0 0; border-radius: 999px; background: var(--color-accent-300); --sx: 15px; --sy: -13px; animation: splashDrop .5s ease-out .6s both;"></span>
+          </sc-for>
+          <sc-for list="{{ barSplash }}" as="b" hint-placeholder-count="0">
+            <span style="position: absolute; right: 1px; top: 50%; width: 4px; height: 4px; margin: -2px 0 0 0; border-radius: 999px; background: var(--color-accent-300); --sx: 12px; --sy: 14px; animation: splashDrop .5s ease-out .66s both;"></span>
+          </sc-for>
+          <sc-for list="{{ barSplash }}" as="b" hint-placeholder-count="0">
+            <span style="position: absolute; right: 0; top: 50%; width: 4px; height: 4px; margin: -2px 0 0 0; border-radius: 999px; background: var(--color-accent-300); --sx: 18px; --sy: 3px; animation: splashDrop .52s ease-out .63s both;"></span>
+          </sc-for>
+        </div>
+      </div>
+      <span style="font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 12.5px; color: var(--color-neutral-400); white-space: nowrap;">{{ barLabel }}</span>
+    </div>
+    <div class="card elev-md" style="padding: 14px 24px 16px; display: grid; grid-template-columns: 860px 1fr; column-gap: 24px; row-gap: 10px; align-items: start;">
+
+      <div style="display: contents;">
+        <div style="grid-column: 2; grid-row: 1; align-self: stretch; display: flex; flex-direction: column; justify-content: flex-start; gap: 14px; margin-top: -6px; transform: {{ topStemScale }}; transform-origin: left top; transition: transform .6s cubic-bezier(.5,0,.2,1);">
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <span style="font-family: 'Chakra Petch', monospace; font-weight: 600; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--color-accent-300); padding: 8px 18px; background: var(--color-accent-800); border: 1px solid var(--color-accent-600); border-radius: 8px; clip-path: polygon(9px 0, 100% 0, calc(100% - 9px) 100%, 0 100%);">Higher · Strand 1</span>
+            <span style="font-family: 'Chakra Petch', monospace; font-weight: 600; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--color-neutral-200); padding: 8px 18px; background: var(--color-neutral-800); border: 1px solid var(--color-neutral-600); border-radius: 8px; clip-path: polygon(9px 0, 100% 0, calc(100% - 9px) 100%, 0 100%);">15 marks</span>
+          </div>
+          <h2 style="font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 46px; line-height: 1.02; margin: 0;">Question 7</h2>
+          <button type="button" class="hf-start" data-hf-start aria-label="Start guided hyper focus for Question 7">Enter hyper focus</button>
+          <div data-hf-target="context" tabindex="0" aria-label="Question 7 context" style="background: #E6E7EA; border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 10px;">
+            <p style="font-family: 'Nunito', sans-serif; font-size: 21px; line-height: 1.45; color: #1B2430; margin: 0; max-width: 100%; text-wrap: pretty;">Cian races in a <span class="hf-key">single scull</span>. He drives with his legs, back and arms to pull the blades through the water, and the <span class="hf-key">boat surges forward</span> with every stroke.</p>
+            <p style="font-family: 'Nunito', sans-serif; font-size: 21px; line-height: 1.45; color: #1B2430; margin: 0; max-width: 100%; text-wrap: pretty;">Each stroke is a <span class="hf-key">force applied against the water</span> — the diagram traces where those forces act.</p>
+          </div>
+        </div>
+        <figure data-hf-target="image" tabindex="0" aria-label="Figure 7.1 rowing force diagram" style="margin: 0; grid-column: 1; grid-row: 1; width: 860px; align-self: center; display: flex; flex-direction: column; gap: 12px;">
+          <div style="width: 860px; height: {{ topFigH }}; transition: height .6s cubic-bezier(.5,0,.2,1);">
+          <div style="position: relative; width: 1160px; height: 700px; transform: {{ topFigScale }}; transform-origin: top left; transition: transform .6s cubic-bezier(.5,0,.2,1);">
+            <div style="position: absolute; left: 250px; top: 100px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 23px; line-height: 1; color: var(--color-neutral-300);">Figure 7.1</div>
+            <div style="position: absolute; left: 250px; top: 140px; width: 660px; height: 440px; line-height: 0; border-radius: 26px; overflow: hidden;">
+              <img src="assets/rower-full.png" alt="A single sculler rowing on open water, seen from above" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+              <svg viewBox="0 0 791 527" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;">
+                <defs>
+                  <filter id="force-arrow-shadow" x="-20%" y="-25%" width="150%" height="165%" color-interpolation-filters="sRGB">
+                    <feDropShadow dx="2.5" dy="3" stdDeviation="1.6" flood-color="#44314F" flood-opacity="0.25"></feDropShadow>
+                  </filter>
+                </defs>
+                <!-- Cropped directly from the approved arrow reference; the rower artwork remains locked. -->
+                <g class="arrow-reveal-forward">
+                  <image href="assets/rower-arrow-forward-cropped.png" x="350" y="35" width="245" height="142" preserveAspectRatio="none" filter="url(#force-arrow-shadow)"></image>
+                  <g transform="rotate(-4 469 111)">
+                    <text x="469" y="111" text-anchor="middle" transform="translate(469 111) matrix(0.899 -0.438 0.749 0.334 0 0) translate(-469 -111)" fill="#168357" fill-opacity="0.96" stroke="#0D6240" stroke-opacity="0.42" stroke-width="0.6" paint-order="stroke fill" style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 25px; letter-spacing: 0.035em;">ACCELERATION</text>
+                  </g>
+                </g>
+                <g class="arrow-reveal-resistance">
+                  <image href="assets/rower-arrow-resistance-cropped.png" x="225" y="350" width="245" height="144" preserveAspectRatio="none" filter="url(#force-arrow-shadow)"></image>
+                  <g transform="rotate(-4 351 423)">
+                    <text x="351" y="423" text-anchor="middle" transform="translate(351 423) matrix(0.899 -0.438 0.749 0.334 0 0) translate(-351 -423)" fill="#C83E42" fill-opacity="0.96" stroke="#922A32" stroke-opacity="0.42" stroke-width="0.6" paint-order="stroke fill" style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 25px; letter-spacing: 0.035em;">RESISTANCE</text>
+                  </g>
+                </g>
+              </svg>
+              <div style="position: absolute; inset: 0; pointer-events: none; border-radius: 26px; background: radial-gradient(circle 78px at {{ spotX }} {{ spotY }}, rgba(12,10,26,0) 0%, rgba(12,10,26,{{ spotMidA }}) 44%, rgba(12,10,26,{{ spotDimA }}) 80%, rgba(12,10,26,{{ spotDimA }}) 100%);"></div>
+            </div>
+            <sc-for list="{{ annLines }}" as="l" hint-placeholder-count="0">
+              <span style="position: absolute; left: {{ l.left }}; top: {{ l.top }}; width: {{ l.len }}; height: 7px; margin-top: -3.5px; transform: rotate({{ l.angle }}); transform-origin: left center;">
+                <span style="display: block; width: 100%; height: 100%; border-radius: 3px; background: #2E6BD6; transform-origin: left center; animation: {{ l.anim }};"></span>
+              </span>
+            </sc-for>
+            <sc-for list="{{ annDots }}" as="d" hint-placeholder-count="0">
+              <span style="position: absolute; left: {{ d.left }}; top: {{ d.top }}; width: 24px; height: 24px; margin: -12px 0 0 -12px; border-radius: 999px; background: #2E6BD6; box-shadow: 0 0 0 1.5px rgba(253,250,244,.95), 0 0 16px rgba(46,107,214,.35); animation: {{ d.anim }};"></span>
+            </sc-for>
+            <sc-for list="{{ annLabels }}" as="t" hint-placeholder-count="0">
+              <div style="position: absolute; left: {{ t.left }}; top: {{ t.top }}; width: {{ t.width }}; box-sizing: border-box; display: flex; flex-direction: column; gap: 3px;">
+                <span style="font-family: 'Chakra Petch', monospace; font-weight: 700; font-size: 23px; letter-spacing: .17em; text-transform: uppercase; color: #2E6BD6;">{{ t.kicker }}</span>
+                <span style="font-family: 'Chakra Petch', monospace; font-weight: 600; font-size: 28px; letter-spacing: .015em; line-height: 1.42; color: var(--color-text); text-wrap: pretty;">{{ t.text }}<span style="display: inline-block; width: 8px; margin-left: 2px; border-bottom: {{ t.caret }}; animation: blink .9s step-end infinite;"></span></span>
+              </div>
+            </sc-for>
+          </div>
+          </div>
+          <figcaption style="width: 860px; margin-left: 0; margin-top: 0; display: flex; align-items: center; gap: 12px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13.5px; color: var(--color-neutral-300);">
+            <button type="button" data-hf-arrow-replay onClick="{{ arrowReplay }}" style="margin-left: auto; flex: none; display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; cursor: pointer; background: transparent; color: #2E6BD6; border: 1px solid #2E6BD6; font-family: 'Fredoka', sans-serif; font-size: 12.5px; transition: background .18s ease;" style-hover="background: rgba(46,107,214,.10);">↻ Replay arrows</button>
+            <button type="button" data-hf-diagram-replay onClick="{{ annReplay }}" style="flex: none; display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; cursor: pointer; background: transparent; color: #2E6BD6; border: 1px solid #2E6BD6; font-family: 'Fredoka', sans-serif; font-size: 12.5px; transition: background .18s ease;" style-hover="background: rgba(46,107,214,.10);">↻ Replay diagram</button>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div style="grid-column: 1 / span 2; display: flex; flex-direction: column; gap: 16px; border-top: 1px solid var(--color-neutral-800); padding-top: 12px; margin-top: -4px;">
+        <sc-if value="{{ notFinished }}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="display: flex; gap: 6px;">
+            <sc-for list="{{ dots }}" as="dot" hint-placeholder-count="3">
+              <span style="width: {{ dot.w }}; height: 6px; border-radius: 999px; background: {{ dot.bg }}; transition: all .3s ease;"></span>
+            </sc-for>
+          </div>
+          <span data-hf-progress style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 13px; color: var(--color-neutral-400);">{{ progressLabel }}</span>
+        </div>
+
+        <div style="height: auto; overflow: visible; position: relative;">
+          <div style="display: flex; flex-direction: column; transform: translateY({{ railOffset }}); transition: transform .66s cubic-bezier(.66,0,.24,1);">
+            <sc-for list="{{ questions }}" as="q" hint-placeholder-count="3">
+              <div data-hf-target="{{ q.focusId }}" tabindex="0" aria-label="Question 7 {{ q.part }}" style="height: auto; flex: none; padding-bottom: 26px; display: flex; flex-direction: column; gap: 14px; opacity: {{ q.opacity }}; transition: opacity .5s ease, transform .34s cubic-bezier(.22,.78,.24,1), box-shadow .34s ease, outline-color .34s ease;">
+                <div style="display: flex; gap: 14px; align-items: flex-start;">
+                  <span style="font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 33px; color: var(--color-accent-300); line-height: 1.2;">{{ q.part }}</span>
+                  <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <p style="font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 34px; line-height: 1.2; margin: 0; text-wrap: pretty;">{{ q.prompt }}</p>
+                    <span style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 15px; color: var(--color-neutral-500);">{{ q.meta }}</span>
+                  </div>
+                </div>
+                <div style="position: relative; border-radius: var(--radius-md); border: 1px solid var(--color-neutral-700); background: var(--color-neutral-800); padding: 16px; animation: {{ q.anim }};">
+                  <textarea value="{{ q.value }}" onChange="{{ q.onType }}" placeholder="{{ q.placeholder }}" style="width: 100%; box-sizing: border-box; height: 130px; resize: none; background: transparent; border: 0; outline: none; color: var(--color-text); font-family: 'Nunito', sans-serif; font-size: 19px; line-height: 1.6;"></textarea>
+                  <div style="position: absolute; inset: 0; pointer-events: none;">
+                    <sc-for list="{{ q.sparks }}" as="s" hint-placeholder-count="0">
+                      <span style="position: absolute; left: {{ s.left }}; top: {{ s.top }}; width: 9px; height: 9px; border-radius: 2px; background: #1C9A63; --dx: {{ s.dx }}; --dy: {{ s.dy }}; animation: sparkOut .95s ease-out both;"></span>
+                    </sc-for>
+                  </div>
+                  <sc-if value="{{ q.showTick }}" hint-placeholder-val="{{ false }}">
+                    <div style="position: absolute; right: -14px; top: -16px; width: 40px; height: 40px; border-radius: 999px; background: #1C9A63; color: #F7FBF8; display: grid; place-items: center; font-family: 'Fredoka', sans-serif; font-size: 21px; animation: tickIn .5s cubic-bezier(.3,1.6,.5,1) both;">✓</div>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+          <button type="button" class="btn btn-primary" data-hf-submit onClick="{{ submitQ }}" style="cursor: pointer; white-space: nowrap; font-family: 'Fredoka', sans-serif; opacity: {{ submitOpacity }};">{{ submitLabel }}</button>
+          <span style="font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 14.5px; color: {{ feedbackColor }};">{{ feedback }}</span>
+        </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ finished }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; gap: 20px; padding-top: 6px; animation: labelIn .45s ease both;">
+
+            <div style="display: flex; align-items: center; gap: 26px; border-radius: var(--radius-md); background: var(--color-neutral-800); padding: 20px 24px;">
+              <div style="display: flex; align-items: baseline; gap: 10px;">
+                <span style="font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 50px; line-height: 1; color: var(--color-accent-300); font-variant-numeric: tabular-nums;">{{ ticker }}</span>
+                <span style="font-family: 'Fredoka', sans-serif; font-size: 22px; color: var(--color-neutral-400);">/ 15</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 7px; flex: 1;">
+                <span style="font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 14px; color: var(--color-neutral-300);">marks credited against the marking scheme</span>
+                <div style="height: 5px; border-radius: 999px; background: var(--color-neutral-700); overflow: hidden;">
+                  <div style="height: 100%; background: var(--color-accent); width: {{ tickerPct }}; transition: width .3s linear;"></div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 14px; padding-left: 26px; border-left: 1px solid var(--color-neutral-700);">
+                <span style="font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 42px; line-height: 1; color: var(--color-text);">{{ grade }}</span>
+                <span style="font-family: 'Nunito', sans-serif; font-size: 13.5px; line-height: 1.5; width: 210px; color: var(--color-neutral-300); text-wrap: pretty;">{{ gradeNote }}</span>
+              </div>
+              <button type="button" class="btn btn-ghost" onClick="{{ restart }}" style="cursor: pointer; font-family: 'Fredoka', sans-serif;">Start again</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;">
+              <sc-for list="{{ review }}" as="r" hint-placeholder-count="3">
+                <div style="min-width: 0; box-sizing: border-box; overflow: hidden; display: flex; flex-direction: column; gap: {{ boxGap }}; padding: {{ boxPad }}; border-radius: var(--radius-md); border: 1px solid {{ r.color }}; background: {{ r.bg }}; animation: {{ r.delay }};">
+                  <div style="display: flex; align-items: baseline; gap: 8px;">
+                    <span style="font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: {{ boxTitle }}; color: {{ r.color }};">{{ r.part }}</span>
+                    <span style="font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: {{ r.color }};">{{ r.verdict }}</span>
+                    <span style="margin-left: auto; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: {{ boxTitle }}; color: var(--color-text);">{{ r.score }}</span>
+                  </div>
+                  <p style="font-family: 'Nunito', sans-serif; font-style: italic; font-size: {{ boxBody }}; line-height: 1.45; margin: 0; color: var(--color-neutral-300); display: -webkit-box; -webkit-line-clamp: {{ quoteClamp }}; -webkit-box-orient: vertical; overflow: hidden; text-wrap: pretty;">“{{ r.answer }}”</p>
+                  <div style="display: flex; flex-direction: column; gap: 5px; padding: 9px 11px; border-radius: 10px; background: rgba(27,36,48,.05);">
+                    <span style="font-family: 'Fredoka', sans-serif; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--color-accent-300);">{{ r.fixLabel }}</span>
+                    <sc-for list="{{ r.missing }}" as="m" hint-placeholder-count="1">
+                      <div style="display: flex; gap: 8px; align-items: baseline;">
+                        <span style="font-family: 'Fredoka', sans-serif; font-size: 12px; color: #1C9A63; white-space: nowrap;">{{ m.marks }}</span>
+                        <span style="font-family: 'Nunito', sans-serif; font-size: {{ boxCrit }}; line-height: 1.4; color: var(--color-neutral-200);">{{ m.label }}</span>
+                      </div>
+                    </sc-for>
+                    <sc-for list="{{ r.model }}" as="md" hint-placeholder-count="1">
+                      <span style="font-family: 'Nunito', sans-serif; font-size: 12px; line-height: 1.4; color: var(--color-neutral-400); text-wrap: pretty;">{{ md.text }}</span>
+                    </sc-for>
+                  </div>
+                  <div style="margin-top: auto; display: flex; flex-direction: column; gap: 4px;">
+                    <sc-for list="{{ r.criteria }}" as="c" hint-placeholder-count="3">
+                      <div style="display: flex; gap: 8px; align-items: baseline;">
+                        <span style="font-family: 'Fredoka', sans-serif; font-size: 12.5px; color: {{ c.color }};">{{ c.mark }}</span>
+                        <span style="font-family: 'Nunito', sans-serif; font-size: {{ boxCrit }}; line-height: 1.35; color: var(--color-neutral-200);">{{ c.label }}</span>
+                        <span style="margin-left: auto; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 12px; color: var(--color-neutral-400); white-space: nowrap;">{{ c.marks }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+          </div>
+        </sc-if>
+      </div>
+    </div>
+    
+  </div>
+  </div>
+  </div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 40px; padding: 56px 64px 40px;">
+  <div style="max-width: 760px; display: flex; flex-direction: column; gap: 12px;">
+    <div style="font-family: 'Fredoka', sans-serif; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--color-accent-300);">Turn 2 · Leaving Cert PE</div>
+    <h1 style="font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: 40px; line-height: 1.1; margin: 0; text-wrap: pretty;">An explain question, scaffolded into the three sentences the examiner is counting</h1>
+    <p style="font-family: 'Nunito', sans-serif; font-size: 15.5px; line-height: 1.6; color: var(--color-neutral-300); margin: 0; text-wrap: pretty;">Rounded display type over a rounded reading face, on Nocturne's ground. The image carries the physics; the force arrows are the answer, so they stay hidden until the student has written theirs. See <a href="#2a">2a</a>.</p>
+  </div>
+
+  <div id="2a" style="width: 820px; display: flex; flex-direction: column; gap: 12px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span class="tag tag-outline" style="font-family: 'Fredoka', sans-serif;">2a</span>
+      <span style="font-family: 'Fredoka', sans-serif; font-size: 14px; color: var(--color-neutral-300);">Explain question — scaffolded long answer</span>
+    </div>
+    <div class="card elev-md" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+      <div style="position: relative; line-height: 0; clip-path: polygon(9% 146%, 125.5% 28.6%, 89.1% -56%, -27.4% 61.9%);">
+        <img src="assets/rower-full.png" alt="A single sculler rowing on open water, seen from above" style="width: 100%; display: block;">
+        <svg viewBox="0 0 1210 790" style="position: absolute; inset: 0; width: 100%; height: 100%;" role="img">
+          <title>Force arrows on a rower</title>
+          <desc>An action arrow at the oar blade pointing towards the stern, and a reaction arrow along the hull pointing towards the bow.</desc>
+          <defs>
+            <marker id="ah-warm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 Z" fill="#FFE066"></path>
+            </marker>
+            <marker id="ah-cool" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 Z" fill="#9184d9"></path>
+            </marker>
+          </defs>
+          <circle cx="806" cy="587" r="26" fill="none" stroke="#FFE066" stroke-width="4">
+            <animate attributeName="r" values="22;56" dur="2.8s" repeatCount="indefinite"></animate>
+            <animate attributeName="opacity" values=".95;0" dur="2.8s" repeatCount="indefinite"></animate>
+          </circle>
+          <sc-if value="{{ peShown }}" hint-placeholder-val="{{ false }}">
+            <g style="animation: labelIn .6s ease both;">
+              <path d="M786 601 L646 695" stroke="#FFE066" stroke-width="10" stroke-linecap="round" marker-end="url(#ah-warm)" fill="none"></path>
+              <rect x="298" y="645" width="352" height="44" rx="12" fill="#161826" opacity=".9"></rect>
+              <text x="318" y="674" fill="#FFE066" font-family="Fredoka, sans-serif" font-size="22" font-weight="500">ACTION · oar drives water back</text>
+              <path d="M532 351 L846 143" stroke="#9184d9" stroke-width="10" stroke-linecap="round" marker-end="url(#ah-cool)" fill="none"></path>
+              <rect x="536" y="281" width="366" height="44" rx="12" fill="#161826" opacity=".9"></rect>
+              <text x="554" y="309" fill="#c9c0f0" font-family="Fredoka, sans-serif" font-size="22" font-weight="500">REACTION · water drives boat on</text>
+            </g>
+          </sc-if>
+        </svg>
+      </div>
+      <div style="padding: 26px 28px 28px; display: flex; flex-direction: column; gap: 18px;">
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <span class="tag tag-neutral" style="font-family: 'Fredoka', sans-serif;">Higher · Strand 1 Biomechanics</span>
+          <span class="tag tag-neutral" style="font-family: 'Fredoka', sans-serif;">15 marks</span>
+          <span class="tag tag-neutral" style="font-family: 'Fredoka', sans-serif;">~8 min</span>
+        </div>
+        <p style="font-family: 'Fredoka', sans-serif; font-size: 24px; font-weight: 500; line-height: 1.3; margin: 0; text-wrap: pretty;">The sculler above drives the blade through the water and the boat surges forward.</p>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <p style="font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 16px; line-height: 1.5; margin: 0;">(a) Name the law of motion at work here. <span style="color: var(--color-neutral-400); font-weight: 400;">3 marks</span></p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <sc-for list="{{ peLaws }}" as="law" hint-placeholder-count="3">
+              <button type="button" onClick="{{ law.pick }}" style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 14.5px; padding: 10px 16px; border-radius: 999px; cursor: pointer; background: {{ law.bg }}; color: var(--color-text); border: 1px solid {{ law.border }}; transition: background .18s ease, border-color .18s ease;" style-hover="background: var(--color-accent-800);">{{ law.text }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <p style="font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 16px; line-height: 1.5; margin: 0; text-wrap: pretty;">(b) Explain how that law applies to the rower. Write one clear sentence in each box. <span style="color: var(--color-neutral-400); font-weight: 400;">12 marks</span></p>
+          <sc-for list="{{ peParts }}" as="part" hint-placeholder-count="3">
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div style="display: flex; align-items: baseline; gap: 8px;">
+                <span style="font-family: 'Fredoka', sans-serif; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: {{ part.labelColor }};">{{ part.label }}</span>
+                <span style="font-family: 'Nunito', sans-serif; font-size: 13px; color: var(--color-neutral-500);">{{ part.hint }}</span>
+                <span style="margin-left: auto; font-family: 'Fredoka', sans-serif; font-size: 14px; color: {{ part.markColor }};">{{ part.mark }}</span>
+              </div>
+              <textarea value="{{ part.value }}" onChange="{{ part.onType }}" placeholder="{{ part.placeholder }}" class="input" style="min-height: 66px; resize: vertical; font-family: 'Nunito', sans-serif; font-size: 15px; line-height: 1.6;"></textarea>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+          <button type="button" class="btn btn-primary" onClick="{{ peSubmit }}" style="cursor: pointer; font-family: 'Fredoka', sans-serif; opacity: {{ peSubmitOpacity }};">Submit my explanation</button>
+          <span style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 14px; color: {{ peStatusColor }};">{{ peStatus }}</span>
+        </div>
+        <sc-if value="{{ peShown }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; gap: 14px; border-radius: var(--radius-md); background: var(--color-neutral-800); padding: 18px 20px; animation: labelIn .45s ease both;">
+            <div style="display: flex; align-items: baseline; gap: 10px;">
+              <span style="font-family: 'Fredoka', sans-serif; font-size: 30px; color: var(--color-accent-300);">{{ peMarks }}</span>
+              <span style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 14px; color: var(--color-neutral-300);">of 15 · the arrows above are now on the picture</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="font-family: 'Fredoka', sans-serif; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--color-accent-300);">A full-mark answer reads</div>
+              <p style="font-family: 'Nunito', sans-serif; font-size: 15px; line-height: 1.7; color: var(--color-neutral-200); margin: 0; text-wrap: pretty;">Newton's Third Law: for every action there is an equal and opposite reaction. The rower's legs, back and arms drive the blade so that it applies a backward force on the water. The water applies an equal force forward on the blade, which is transferred through the oar and the gate into the hull, so the boat accelerates towards the bow. A stronger drive means a bigger action force, so a bigger reaction and a faster boat.</p>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+    <p style="font-family: 'Nunito', sans-serif; font-size: 13.5px; line-height: 1.6; color: var(--color-neutral-400); margin: 0; text-wrap: pretty;">Three boxes instead of one blank page: students lose marks on “explain” questions by describing the movement and never naming the force pair. Each box is one marking-scheme line, so a half-written answer still shows where the gap is.</p>
+  </div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 40px; padding: 56px 64px 96px;">
+  <div style="max-width: 720px; display: flex; flex-direction: column; gap: 12px;">
+    <div style="font-family: var(--font-heading); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--color-accent-300);">Turn 1 · Question patterns</div>
+    <h1 style="font-family: var(--font-heading); font-weight: 500; font-size: 40px; line-height: 1.1; margin: 0; text-wrap: pretty;">Leaving Cert Geography, answered against a moving diagram</h1>
+    <p style="font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: var(--color-neutral-300); margin: 0; text-wrap: pretty;">Three question archetypes, all working. The animation is never decoration — it is the answer, held back until the student commits. Compare <a href="#1a">1a</a>, <a href="#1b">1b</a> and <a href="#1c">1c</a>.</p>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start;">
+
+    <div id="1a" style="width: 620px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="tag tag-outline" style="font-family: var(--font-heading);">1a</span>
+        <span style="font-family: var(--font-heading); font-size: 14px; color: var(--color-neutral-300);">Name the feature — diagram hotspot</span>
+      </div>
+      <div class="card elev-md" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+        <div style="position: relative; background: #E9EDF3;">
+          <svg viewBox="0 0 620 280" role="img" style="width: 100%; display: block;">
+            <title>Cross-section of an oceanic plate subducting beneath a continental plate</title>
+            <desc>An oceanic plate moves right and sinks beneath a continental plate, forming an ocean trench at the surface and a magma chamber feeding a volcano inland.</desc>
+            <rect x="0" y="0" width="620" height="96" fill="#24365c"></rect>
+            <rect x="0" y="86" width="330" height="34" fill="#2f7fa3"></rect>
+            <rect x="0" y="86" width="330" height="6" fill="#4FC3E8" opacity=".7"></rect>
+            <path d="M0 120 L300 120 L340 168 L620 230 L620 280 L0 280 Z" fill="#3E2154"></path>
+            <path d="M0 118 L302 118 L344 168 L620 232 L620 262 L0 240 Z" fill="#241428"></path>
+            <path d="M300 118 L620 118 L620 280 L360 280 L318 170 Z" fill="#5B3172"></path>
+            <path d="M300 118 L620 118 L620 138 L306 132 Z" fill="#6B2D4A"></path>
+            <path d="M420 118 L462 60 L504 118 Z" fill="#241428"></path>
+            <path d="M446 88 L462 60 L478 88 Z" fill="#6B2D3A"></path>
+            <ellipse cx="430" cy="196" rx="34" ry="15" fill="#FFC42E" opacity=".85">
+              <animate attributeName="rx" values="30;38;30" dur="6s" repeatCount="indefinite"></animate>
+              <animate attributeName="ry" values="13;17;13" dur="6s" repeatCount="indefinite"></animate>
+            </ellipse>
+            <ellipse cx="430" cy="196" rx="16" ry="7" fill="#FFE066"></ellipse>
+            <path d="M430 190 Q450 150 462 96" stroke="#FFC42E" stroke-width="7" fill="none" stroke-linecap="round" opacity=".9"></path>
+            <circle cx="462" cy="60" r="5" fill="#FFE066">
+              <animate attributeName="cy" values="60;24" dur="4s" repeatCount="indefinite"></animate>
+              <animate attributeName="r" values="5;12" dur="4s" repeatCount="indefinite"></animate>
+              <animate attributeName="opacity" values=".9;0" dur="4s" repeatCount="indefinite"></animate>
+            </circle>
+            <circle cx="470" cy="60" r="4" fill="#FDF7E8">
+              <animate attributeName="cy" values="60;18" dur="4s" begin="1.6s" repeatCount="indefinite"></animate>
+              <animate attributeName="opacity" values=".7;0" dur="4s" begin="1.6s" repeatCount="indefinite"></animate>
+            </circle>
+            <path d="M40 150 L250 150" stroke="#A8E4F5" stroke-width="4" stroke-dasharray="18 16" fill="none" opacity=".8">
+              <animate attributeName="stroke-dashoffset" values="34;0" dur="3.4s" repeatCount="indefinite"></animate>
+            </path>
+            <path d="M600 160 L470 160" stroke="#F5A03C" stroke-width="4" stroke-dasharray="18 16" fill="none" opacity=".7">
+              <animate attributeName="stroke-dashoffset" values="34;0" dur="3.4s" repeatCount="indefinite"></animate>
+            </path>
+            <circle cx="316" cy="126" r="12" fill="none" stroke="#9184d9" stroke-width="2">
+              <animate attributeName="r" values="12;28" dur="2.6s" repeatCount="indefinite"></animate>
+              <animate attributeName="opacity" values=".9;0" dur="2.6s" repeatCount="indefinite"></animate>
+            </circle>
+            <circle cx="316" cy="126" r="7" fill="#9184d9"></circle>
+            <text x="316" y="106" fill="#e9e9ed" font-family="Lexend, sans-serif" font-size="15" font-weight="600" text-anchor="middle">X</text>
+            <sc-if value="{{ q1Done }}" hint-placeholder-val="{{ false }}">
+              <g style="animation: labelIn .5s ease both;">
+                <path d="M316 140 L316 214 L250 214" stroke="#9184d9" stroke-width="1.5" fill="none"></path>
+                <rect x="66" y="200" width="180" height="28" rx="8" fill="#262a60"></rect>
+                <text x="156" y="219" fill="#e9e9ed" font-family="Lexend, sans-serif" font-size="13" font-weight="600" letter-spacing="1.4" text-anchor="middle">OCEAN TRENCH</text>
+              </g>
+            </sc-if>
+          </svg>
+        </div>
+        <div style="padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <span class="tag tag-neutral" style="font-family: var(--font-heading);">Higher · Plate tectonics</span>
+            <span class="tag tag-neutral" style="font-family: var(--font-heading);">2 marks</span>
+          </div>
+          <p style="font-family: var(--font-heading); font-size: 21px; font-weight: 500; line-height: 1.35; margin: 0; text-wrap: pretty;">The oceanic plate is sinking beneath the continental plate. Name the surface feature marked <strong style="color: var(--color-accent-300);">X</strong>.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <sc-for list="{{ q1Options }}" as="opt" hint-placeholder-count="4">
+              <button type="button" onClick="{{ opt.pick }}" style="text-align: left; font-family: var(--font-body); font-size: 15px; padding: 12px 14px; border-radius: var(--radius-md); cursor: pointer; display: flex; gap: 10px; align-items: center; background: var(--color-neutral-800); color: var(--color-text); border: 1px solid var(--color-neutral-700); transition: background .18s ease, border-color .18s ease;" style-hover="background: var(--color-accent-800); border-color: var(--color-accent);">
+                <span style="width: 22px; height: 22px; flex: none; border-radius: 999px; display: grid; place-items: center; font-family: var(--font-heading); font-size: 12px; color: var(--color-neutral-200); border: 1px solid var(--color-neutral-600);">{{ opt.key }}</span>
+                <span>{{ opt.text }}</span>
+                <span style="margin-left: auto; font-family: var(--font-heading); font-size: 14px; color: {{ opt.markColor }};">{{ opt.mark }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ q1Done }}" hint-placeholder-val="{{ false }}">
+            <div style="border-left: 2px solid var(--color-accent); padding: 10px 0 10px 14px; display: flex; flex-direction: column; gap: 6px; animation: labelIn .4s ease both;">
+              <div style="font-family: var(--font-heading); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--color-accent-300);">What the examiner wants</div>
+              <p style="font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: var(--color-neutral-200); margin: 0; text-wrap: pretty;">“Ocean trench” — the deep, narrow depression where the denser oceanic plate bends downward. A ridge forms where plates <em>separate</em>, so it cannot be the answer at a destructive margin.</p>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+      <p style="font-family: var(--font-body); font-size: 13px; line-height: 1.6; color: var(--color-neutral-400); margin: 0; text-wrap: pretty;">The diagram loops before the answer too — plates and magma keep moving — but the label only lands once they commit. Wrong picks tick red and stay visible, so the misconception is on screen next to the correction.</p>
+    </div>
+
+    <div id="1b" style="width: 620px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="tag tag-outline" style="font-family: var(--font-heading);">1b</span>
+        <span style="font-family: var(--font-heading); font-size: 14px; color: var(--color-neutral-300);">Order the process — sequence question</span>
+      </div>
+      <div class="card elev-md" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+        <div style="position: relative; background: #E9EDF3;">
+          <svg viewBox="0 0 620 280" role="img" style="width: 100%; display: block;">
+            <title>Cross-section of a waterfall retreating upstream</title>
+            <desc>A river crosses hard rock and falls onto softer rock, undercutting it and deepening a plunge pool, leaving a gorge of recession downstream.</desc>
+            <rect x="0" y="0" width="620" height="70" fill="#24365c"></rect>
+            <rect x="0" y="60" width="620" height="220" fill="#3E2154"></rect>
+            <rect x="0" y="60" width="300" height="34" fill="#241428"></rect>
+            <rect x="300" y="94" width="320" height="24" fill="#241428"></rect>
+            <rect x="0" y="94" width="300" height="26" fill="#D2481B"></rect>
+            <rect x="0" y="120" width="620" height="18" fill="#D63A12"></rect>
+            <rect x="30" y="126" width="60" height="4" fill="#F5A03C"></rect>
+            <rect x="150" y="126" width="46" height="4" fill="#F5A03C"></rect>
+            <rect x="0" y="46" width="300" height="16" fill="#4FC3E8"></rect>
+            <rect x="0" y="46" width="300" height="4" fill="#A8E4F5"></rect>
+            <path d="M300 62 L300 176 L620 176 L620 118 L340 118 L340 62 Z" fill="#E9EDF3" opacity=".55"></path>
+            <ellipse cx="330" cy="176" rx="42" ry="16" fill="#2f7fa3"></ellipse>
+            <ellipse cx="330" cy="174" rx="26" ry="8" fill="#4FC3E8" opacity=".8"></ellipse>
+            <rect x="360" y="168" width="240" height="14" fill="#2f7fa3"></rect>
+            <g stroke="#A8E4F5" stroke-width="5" stroke-linecap="round" stroke-dasharray="16 20" opacity=".95">
+              <line x1="306" y1="58" x2="306" y2="168">
+                <animate attributeName="stroke-dashoffset" values="36;0" dur="1.1s" repeatCount="indefinite"></animate>
+              </line>
+              <line x1="316" y1="58" x2="316" y2="168">
+                <animate attributeName="stroke-dashoffset" values="36;0" dur="1.1s" begin="0.35s" repeatCount="indefinite"></animate>
+              </line>
+              <line x1="326" y1="58" x2="326" y2="168">
+                <animate attributeName="stroke-dashoffset" values="36;0" dur="1.1s" begin="0.7s" repeatCount="indefinite"></animate>
+              </line>
+            </g>
+            <circle cx="342" cy="170" r="4" fill="#FDF7E8">
+              <animate attributeName="cy" values="172;158" dur="2.2s" repeatCount="indefinite"></animate>
+              <animate attributeName="opacity" values=".8;0" dur="2.2s" repeatCount="indefinite"></animate>
+            </circle>
+            <circle cx="356" cy="170" r="3" fill="#FDF7E8">
+              <animate attributeName="cy" values="172;160" dur="2.2s" begin="0.9s" repeatCount="indefinite"></animate>
+              <animate attributeName="opacity" values=".7;0" dur="2.2s" begin="0.9s" repeatCount="indefinite"></animate>
+            </circle>
+            <sc-if value="{{ q2Correct }}" hint-placeholder-val="{{ false }}">
+              <g style="animation: labelIn .5s ease both;">
+                <path d="M330 190 L330 226 L262 226" stroke="#9184d9" stroke-width="1.5" fill="none"></path>
+                <rect x="82" y="212" width="180" height="28" rx="8" fill="#262a60"></rect>
+                <text x="172" y="231" fill="#e9e9ed" font-family="Lexend, sans-serif" font-size="13" font-weight="600" letter-spacing="1.2" text-anchor="middle">PLUNGE POOL</text>
+                <path d="M470 190 L470 226 L540 226" stroke="#9184d9" stroke-width="1.5" fill="none"></path>
+                <rect x="400" y="240" width="200" height="28" rx="8" fill="#262a60"></rect>
+                <text x="500" y="259" fill="#e9e9ed" font-family="Lexend, sans-serif" font-size="12" font-weight="600" letter-spacing="1" text-anchor="middle">GORGE OF RECESSION</text>
+              </g>
+            </sc-if>
+          </svg>
+        </div>
+        <div style="padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <span class="tag tag-neutral" style="font-family: var(--font-heading);">Ordinary · River processes</span>
+            <span class="tag tag-neutral" style="font-family: var(--font-heading);">4 marks</span>
+          </div>
+          <p style="font-family: var(--font-heading); font-size: 21px; font-weight: 500; line-height: 1.35; margin: 0; text-wrap: pretty;">Put the stages of waterfall retreat in order. Tap a stage to place it.</p>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <sc-for list="{{ slots }}" as="slot" hint-placeholder-count="4">
+              <div onClick="{{ slot.clear }}" style="display: flex; gap: 12px; align-items: center; min-height: 48px; padding: 8px 14px; border-radius: var(--radius-md); background: {{ slot.bg }}; border: 1px dashed {{ slot.border }}; cursor: {{ slot.cursor }};">
+                <span style="font-family: var(--font-heading); font-size: 13px; width: 18px; color: var(--color-neutral-400);">{{ slot.n }}</span>
+                <span style="font-family: var(--font-body); font-size: 14.5px; line-height: 1.5; color: var(--color-text);">{{ slot.text }}</span>
+                <span style="margin-left: auto; font-family: var(--font-heading); font-size: 15px; color: {{ slot.markColor }};">{{ slot.mark }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <sc-for list="{{ bank }}" as="chip" hint-placeholder-count="4">
+              <button type="button" onClick="{{ chip.place }}" style="font-family: var(--font-body); font-size: 14px; text-align: left; max-width: 268px; padding: 10px 12px; border-radius: var(--radius-md); cursor: pointer; background: transparent; color: var(--color-text); border: 1px solid var(--color-accent); opacity: {{ chip.opacity }}; transition: background .18s ease;" style-hover="background: var(--color-accent-800);">{{ chip.text }}</button>
+            </sc-for>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <button type="button" class="btn btn-primary" onClick="{{ check2 }}" style="cursor: pointer;">Check order</button>
+            <button type="button" class="btn btn-ghost" onClick="{{ reset2 }}" style="cursor: pointer;">Reset</button>
+            <span style="font-family: var(--font-heading); font-size: 14px; color: {{ q2Color }};">{{ q2Feedback }}</span>
+          </div>
+        </div>
+      </div>
+      <p style="font-family: var(--font-body); font-size: 13px; line-height: 1.6; color: var(--color-neutral-400); margin: 0; text-wrap: pretty;">Sequence beats multiple choice for processes: the student has to hold the causal chain, not recognise a phrase. Get it right and the diagram labels the two features the marking scheme rewards.</p>
+    </div>
+
+    <div id="1c" style="width: 620px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="tag tag-outline" style="font-family: var(--font-heading);">1c</span>
+        <span style="font-family: var(--font-heading); font-size: 14px; color: var(--color-neutral-300);">Long question — live marking scheme</span>
+      </div>
+      <div class="card elev-md" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <span class="tag tag-neutral" style="font-family: var(--font-heading);">Higher · Q2(B)</span>
+          <span class="tag tag-neutral" style="font-family: var(--font-heading);">30 marks</span>
+        </div>
+        <p style="font-family: var(--font-heading); font-size: 21px; font-weight: 500; line-height: 1.35; margin: 0; text-wrap: pretty;">Explain the formation of one feature of river erosion you have studied. Refer to a named example.</p>
+        <textarea value="{{ answer }}" onChange="{{ onType }}" placeholder="Write as you would in the exam — full sentences, named example, a diagram reference." class="input" style="min-height: 150px; resize: vertical; font-family: var(--font-body); font-size: 14.5px; line-height: 1.65;"></textarea>
+        <div style="display: flex; align-items: baseline; gap: 10px;">
+          <span style="font-family: var(--font-heading); font-size: 30px; font-weight: 500; color: var(--color-accent-300);">{{ marks }}</span>
+          <span style="font-family: var(--font-heading); font-size: 14px; color: var(--color-neutral-400);">of 30 marks credited · {{ wordCount }} words</span>
+        </div>
+        <div style="height: 4px; border-radius: 999px; background: var(--color-neutral-800); overflow: hidden;">
+          <div style="height: 100%; background: var(--color-accent); width: {{ marksPct }}; transition: width .3s ease;"></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <div style="font-family: var(--font-heading); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--color-accent-300); padding-bottom: 8px;">Marking scheme, ticking live</div>
+          <sc-for list="{{ scheme }}" as="row" hint-placeholder-count="5">
+            <div style="display: flex; gap: 12px; align-items: baseline; padding: 9px 0; border-top: 1px solid var(--color-neutral-800);">
+              <span style="font-family: var(--font-heading); font-size: 14px; width: 16px; color: {{ row.color }};">{{ row.mark }}</span>
+              <span style="font-family: var(--font-body); font-size: 14px; line-height: 1.5; color: {{ row.textColor }};">{{ row.text }}</span>
+              <span style="margin-left: auto; font-family: var(--font-heading); font-size: 12px; color: var(--color-neutral-500); white-space: nowrap;">{{ row.worth }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ canReveal }}" hint-placeholder-val="{{ false }}">
+          <button type="button" class="btn btn-secondary" onClick="{{ reveal }}" style="cursor: pointer; align-self: flex-start;">Show the diagram you should have drawn</button>
+        </sc-if>
+        <sc-if value="{{ revealed }}" hint-placeholder-val="{{ false }}">
+          <div style="border-radius: var(--radius-md); overflow: hidden; background: #E9EDF3; animation: labelIn .5s ease both;">
+            <svg viewBox="0 0 572 220" role="img" style="width: 100%; display: block;">
+              <title>Annotated waterfall cross-section as an exam answer diagram</title>
+              <desc>Hard rock cap over softer rock, undercutting, an overhang collapsing into a plunge pool, with a gorge of recession downstream.</desc>
+              <rect x="0" y="0" width="572" height="52" fill="#24365c"></rect>
+              <rect x="0" y="44" width="572" height="176" fill="#3E2154"></rect>
+              <rect x="0" y="44" width="272" height="28" fill="#241428"></rect>
+              <rect x="272" y="72" width="300" height="20" fill="#241428"></rect>
+              <rect x="0" y="72" width="272" height="24" fill="#D2481B"></rect>
+              <rect x="0" y="96" width="572" height="16" fill="#D63A12"></rect>
+              <rect x="0" y="32" width="272" height="14" fill="#4FC3E8"></rect>
+              <path d="M272 46 L272 150 L572 150 L572 92 L306 92 L306 46 Z" fill="#E9EDF3" opacity=".5"></path>
+              <ellipse cx="298" cy="150" rx="38" ry="14" fill="#2f7fa3"></ellipse>
+              <rect x="330" y="143" width="242" height="12" fill="#2f7fa3"></rect>
+              <g stroke="#A8E4F5" stroke-width="5" stroke-linecap="round" stroke-dasharray="14 18">
+                <line x1="278" y1="44" x2="278" y2="142">
+                  <animate attributeName="stroke-dashoffset" values="32;0" dur="1.1s" repeatCount="indefinite"></animate>
+                </line>
+                <line x1="290" y1="44" x2="290" y2="142">
+                  <animate attributeName="stroke-dashoffset" values="32;0" dur="1.1s" begin="0.4s" repeatCount="indefinite"></animate>
+                </line>
+              </g>
+              <g font-family="Lexend, sans-serif" font-size="11" font-weight="600" fill="#e9e9ed">
+                <rect x="14" y="52" width="120" height="22" rx="7" fill="#262a60"></rect>
+                <text x="74" y="67" text-anchor="middle" letter-spacing=".8">HARD ROCK CAP</text>
+                <rect x="14" y="100" width="122" height="22" rx="7" fill="#262a60"></rect>
+                <text x="75" y="115" text-anchor="middle" letter-spacing=".8">SOFTER ROCK</text>
+                <path d="M258 84 L214 84" stroke="#9184d9" stroke-width="1.5" fill="none"></path>
+                <rect x="140" y="74" width="74" height="22" rx="7" fill="#262a60"></rect>
+                <text x="177" y="89" text-anchor="middle" letter-spacing=".8">UNDERCUT</text>
+                <path d="M298 166 L298 186 L246 186" stroke="#9184d9" stroke-width="1.5" fill="none"></path>
+                <rect x="146" y="175" width="100" height="22" rx="7" fill="#262a60"></rect>
+                <text x="196" y="190" text-anchor="middle" letter-spacing=".8">PLUNGE POOL</text>
+                <path d="M450 158 L450 186 L470 186" stroke="#9184d9" stroke-width="1.5" fill="none"></path>
+                <rect x="418" y="192" width="146" height="22" rx="7" fill="#262a60"></rect>
+                <text x="491" y="207" text-anchor="middle" letter-spacing=".8">GORGE OF RECESSION</text>
+              </g>
+            </svg>
+          </div>
+        </sc-if>
+      </div>
+      <p style="font-family: var(--font-body); font-size: 13px; line-height: 1.6; color: var(--color-neutral-400); margin: 0; text-wrap: pretty;">Try typing: <em>Hard rock lies over softer rock. Hydraulic action undercuts the soft layer until the overhang collapses; the plunge pool deepens and the waterfall retreats upstream, leaving a gorge — for example Torc Waterfall, Co. Kerry.</em></p>
+    </div>
+
+  </div>
+</section>
+<img src="./screenshot-2026-07-26-at-15-15-16-ms1vr8hn-b58t.png" alt="screenshot-2026-07-26-at-15-15-16" width="2100" height="1688" style="max-width: 100%; height: auto; display: block; object-fit: cover; width: 2100px; aspect-ratio: 2100 / 1688"></x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1400,&quot;height&quot;:1100},&quot;compactBoxes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Marking boxes&quot;},&quot;quoteLines&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:3,&quot;min&quot;:1,&quot;max&quot;:6,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Marking boxes&quot;},&quot;showModelAnswer&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Marking boxes&quot;}}">
+const Q1 = [
+  { key: 'A', id: 'ridge', text: 'Mid-ocean ridge' },
+  { key: 'B', id: 'trench', text: 'Ocean trench' },
+  { key: 'C', id: 'rift', text: 'Rift valley' },
+  { key: 'D', id: 'fold', text: 'Fold mountain' },
+];
+
+const STAGES = [
+  'A band of hard rock lies over softer rock in the river bed.',
+  'The softer rock is worn away faster, so the river drops over a step.',
+  'Falling water and hydraulic action undercut the hard rock cap.',
+  'The unsupported overhang collapses and the waterfall retreats upstream.',
+];
+
+const SCHEME = [
+  { text: 'Feature named (waterfall, gorge, V-shaped valley…)', worth: '2m', keys: [/waterfall|gorge|v-shaped|valley|rapid/i] },
+  { text: 'Named Irish example identified', worth: '2m', keys: [/torc|powerscourt|assaranca|glencar|aasleagh|shannon|liffey|co\.\s*\w+/i] },
+  { text: 'Rock types and their differing resistance explained', worth: '6m', keys: [/hard(er)? rock/i, /soft(er)? rock/i] },
+  { text: 'Named erosion process used (hydraulic action / abrasion)', worth: '6m', keys: [/hydraulic action|abrasion|attrition|solution/i] },
+  { text: 'Undercutting and collapse of the overhang described', worth: '8m', keys: [/undercut|underminin?g/i, /collapse|falls away|breaks off/i] },
+  { text: 'Plunge pool and upstream retreat / gorge of recession', worth: '6m', keys: [/plunge pool/i, /retreat|recession|upstream/i] },
+];
+
+const PE_LAWS = [
+  { id: 'first', text: 'First law — inertia' },
+  { id: 'second', text: 'Second law — acceleration' },
+  { id: 'third', text: 'Third law — action & reaction' },
+];
+
+const PE_PARTS = [
+  {
+    key: 'peA', label: 'The action force', hint: 'what the rower does to the water',
+    placeholder: 'The rower drives the blade so that it pushes the water…',
+    keys: [/blade|oar|paddle/i, /push|press|drive|force/i, /water/i], worth: 4,
+  },
+  {
+    key: 'peB', label: 'The reaction force', hint: 'what the water does back',
+    placeholder: 'The water pushes back on the blade with a force that is…',
+    keys: [/water/i, /back|equal|opposite|reaction/i, /forward|opposite|bow/i], worth: 4,
+  },
+  {
+    key: 'peC', label: 'The effect on the boat', hint: 'why the hull actually moves',
+    placeholder: 'That force is transferred through the oar into the boat, so…',
+    keys: [/boat|hull|shell/i, /forward|accelerat|speed|move/i], worth: 4,
+  },
+];
+
+const Q7 = [
+  {
+    part: '(a)', worth: 3, meta: '3 marks · one sentence',
+    prompt: 'Which of Newton’s laws lets you calculate the acceleration of the boat, and why that one?',
+    placeholder: 'Name the law, then say what it links together…',
+    criteria: [
+      { m: 1, re: /second|2nd|f\s*=\s*ma/i, label: 'Second law named' },
+      { m: 1, re: /force/i, label: 'Force identified as the cause' },
+      { m: 1, re: /mass|accelerat/i, label: 'Mass or acceleration linked to that force' },
+    ],
+    note: 'Second law — acceleration depends on the force applied and the mass being moved (F = ma).',
+  },
+  {
+    part: '(b)', worth: 6, meta: '6 marks · name it and define it',
+    prompt: 'Name and define one other law of motion, then apply it to Cian’s stroke.',
+    placeholder: 'Third law: for every action there is an equal and opposite reaction. When the blade…',
+    criteria: [
+      { m: 2, re: /third|3rd|first|1st|inertia/i, label: 'A second law correctly named' },
+      { m: 2, re: /equal and opposite|reaction|remains? at rest|stays? at rest|unbalanced/i, label: 'Definition stated in exam wording' },
+      { m: 2, re: /blade|oar|water|boat|hull/i, label: 'Applied to the rowing stroke' },
+    ],
+    note: 'Third law defined as equal-and-opposite, then tied to the blade pushing water back and the water pushing the hull forward.',
+  },
+  {
+    part: '(c)', worth: 6, meta: '6 marks · explain, with a reason',
+    prompt: 'Explain why a coach would use Newton’s laws when analysing human movement.',
+    placeholder: 'Because the laws explain what causes the movement, a coach can…',
+    criteria: [
+      { m: 2, re: /force/i, label: 'Forces named as the cause of movement' },
+      { m: 2, re: /technique|performance|efficien|analys|coach|train|improv/i, label: 'Linked to analysing or improving technique' },
+      { m: 2, re: /injur|power|speed|faster|safe|economy/i, label: 'A named benefit — power, speed or injury prevention' },
+    ],
+    note: 'Forces explain the cause of movement, so technique can be measured, corrected and made more efficient or safer.',
+  },
+];
+
+const GRADES = [[90, 'H1'], [80, 'H2'], [70, 'H3'], [60, 'H4'], [50, 'H5'], [40, 'H6'], [30, 'H7'], [0, 'H8']];
+const GRADE_NOTE = {
+  H1: 'Top band — this would score full or near-full marks.',
+  H2: 'Nearly complete; one criterion short of full marks.',
+  H3: 'Strong on the laws, thin on the application.',
+  H4: 'The right ideas are there but the scheme wording is missing.',
+  H5: 'Half the criteria credited — name the law AND define it.',
+  H6: 'Some credit, but most answers stop at description.',
+  H7: 'Very little the examiner can credit yet.',
+  H8: 'Start again with the model answers below.',
+};
+
+const IMG_X = 250, IMG_Y = 140;
+const ANN = [
+  { dot: [394, 89], label: [0, 8, 240], anchor: [252, 52], kicker: '2nd law · F = ma',
+    text: 'The stroke pushes the boat forward and makes it accelerate.' },
+  { dot: [547, 96], label: [920, 8, 240], anchor: [908, 52], kicker: '1st law · inertia',
+    text: 'Between strokes the boat keeps gliding until a force changes it.' },
+  { dot: [290, 352], label: [0, 330, 240], anchor: [252, 374], kicker: '3rd law · reaction',
+    text: 'Water resistance pushes back on the hull, equal and opposite.' },
+  { dot: [482, 327], label: [920, 330, 240], anchor: [908, 374], straightFirst: true, kicker: '3rd law · action',
+    text: 'The blade pushes the water backwards.' },
+];
+const ANN_WAIT = 0, ANN_DOT = 120, ANN_LINE = 380, ANN_TEXT = 720, ANN_CPS = 34, ANN_HOLD = 360;
+
+class Component extends DCLogic {
+  state = { pick1: null, order: [], checked2: false, answer: '', revealed: false, peLaw: null, peA: '', peB: '', peC: '', peShown: false,
+    q7i: 0, q7ans: ['', '', ''], q7res: [null, null, null], q7anim: null, q7nonce: 0, q7done: false, ticker: 0,
+    annOn: false, annAt: 0 };
+
+  componentDidMount() {
+    if (typeof window !== 'undefined' && window.ExamHyperFocusSetup) window.ExamHyperFocusSetup();
+  }
+
+  annStart() {
+    clearInterval(this._ann);
+    this.setState({ annOn: true, annAt: Date.now() });
+    this._ann = setInterval(() => {
+      if (!this.state.annOn) return;
+      const total = ANN.reduce((s, a) => s + ANN_TEXT + a.text.length * ANN_CPS + ANN_HOLD, 0);
+      if (Date.now() - this.state.annAt > total) { clearInterval(this._ann); this.forceUpdate(); return; }
+      this.forceUpdate();
+    }, 40);
+  }
+
+  arrowStart() {
+    if (typeof document === 'undefined') return;
+    document.body.classList.add('hf-arrows-active');
+    const arrowReveals = Array.from(document.querySelectorAll('.arrow-reveal-forward, .arrow-reveal-resistance'));
+    arrowReveals.forEach(el => { el.style.animation = 'none'; });
+    void document.body.offsetWidth;
+    arrowReveals.forEach(el => { el.style.animation = ''; });
+  }
+
+  componentWillUnmount() { clearTimeout(this._q7t); clearInterval(this._ann); clearInterval(this._tick); }
+
+
+
+  annClock() {
+    const annOn = this.state.annOn;
+    let left = annOn ? Date.now() - this.state.annAt : 0;
+    for (let n = 0; n < ANN.length; n++) {
+      const dur = ANN_TEXT + ANN[n].text.length * ANN_CPS + ANN_HOLD;
+      if (left < dur || n === ANN.length - 1) return { annI: n, annT: Math.min(left, dur), annOn, done: n === ANN.length - 1 && left >= dur };
+      left -= dur;
+    }
+    return { annI: 0, annT: 0, annOn, done: false };
+  }
+
+  annVals() {
+    const { annI, annT, annOn, done } = this.annClock();
+    const dots = [], lines = [], labels = [];
+    for (let n = 0; annOn && n <= annI && n < ANN.length; n++) {
+      const a = ANN[n];
+      const cur = n === annI;
+      const t = cur ? annT : Infinity;
+      const dx = a.dot[0] + IMG_X, dy = a.dot[1] + IMG_Y;
+      const tx = a.anchor[0], ty = a.anchor[1];
+      const h1 = tx >= dx ? 1 : -1, v = ty >= dy ? 1 : -1;
+      const adx = Math.abs(tx - dx), ady = Math.abs(ty - dy);
+      const segs = [];
+      if (adx >= ady && a.straightFirst) {
+        segs.push({ x: dx, y: dy, len: Math.round(adx - ady) + 3, angle: h1 > 0 ? 0 : 180 });
+        segs.push({ x: dx + h1 * (adx - ady), y: dy, len: Math.round(ady * Math.SQRT2) + 2, angle: h1 > 0 ? v * 45 : 180 - v * 45 });
+      } else if (adx >= ady) {
+        segs.push({ x: dx, y: dy, len: Math.round(ady * Math.SQRT2) + 3, angle: h1 > 0 ? v * 45 : 180 - v * 45 });
+        segs.push({ x: dx + h1 * ady, y: ty, len: Math.round(adx - ady) + 2, angle: h1 > 0 ? 0 : 180 });
+      } else {
+        segs.push({ x: dx, y: dy, len: Math.round(ady - adx) + 3, angle: v > 0 ? 90 : -90 });
+        segs.push({ x: dx, y: dy + v * (ady - adx), len: Math.round(adx * Math.SQRT2) + 2, angle: h1 > 0 ? v * 45 : 180 - v * 45 });
+      }
+      dots.push({
+        left: dx + 'px', top: dy + 'px',
+        anim: cur ? 'dotGrow .38s cubic-bezier(.3,1.7,.5,1) both ' + (ANN_DOT / 1000) + 's' : 'none',
+      });
+      if (t >= ANN_LINE) segs.forEach((sg, k) => lines.push({
+        left: sg.x + 'px', top: sg.y + 'px', len: sg.len + 'px', angle: sg.angle + 'deg',
+        anim: cur ? 'lineGrow .2s cubic-bezier(.35,0,.25,1) both ' + (k * 0.2) + 's' : 'none',
+      }));
+      if (t >= ANN_TEXT) {
+        const chars = Math.max(0, Math.floor((t - ANN_TEXT) / ANN_CPS));
+        labels.push({
+          left: a.label[0] + 'px', top: a.label[1] + 'px', width: a.label[2] + 'px',
+          kicker: a.kicker, text: a.text.slice(0, chars),
+          caret: chars < a.text.length ? '3px solid #2E6BD6' : '0',
+        });
+      }
+    }
+    const step = ANN[annI];
+    const textEnd = ANN_TEXT + step.text.length * ANN_CPS;
+    const finishedAll = done;
+    let k = 0;
+    if (annT < 200) k = annT / 200;
+    else if (annT < ANN_TEXT + 140) k = 1;
+    else k = Math.max(0, 1 - (annT - (ANN_TEXT + 140)) / 280);
+    if (!annOn || finishedAll) k = 0;
+    const prev = annI > 0 ? ANN[annI - 1].dot : [330, 220];
+    const glide = Math.max(0, Math.min(1, (annT - ANN_WAIT) / (ANN_DOT - ANN_WAIT)));
+    const e = glide < 1 ? 1 - Math.pow(1 - glide, 3) : 1;
+    return {
+      annDots: dots,
+      annLines: lines,
+      annLabels: labels,
+      spotX: Math.round(prev[0] + (step.dot[0] - prev[0]) * e) + 'px',
+      spotY: Math.round(prev[1] + (step.dot[1] - prev[1]) * e) + 'px',
+      spotDimA: (0.82 * k).toFixed(3),
+      spotMidA: (0.16 * k).toFixed(3),
+      arrowReplay: () => this.arrowStart(),
+      annReplay: () => this.annStart(),
+    };
+  }
+
+  q7Submit() {
+    const { q7i, q7ans, q7res } = this.state;
+    const q = Q7[q7i];
+    const text = q7ans[q7i] || '';
+    if (text.trim().length < 12 || this.state.q7anim) return;
+    const met = q.criteria.map(c => c.re.test(text));
+    const score = q.criteria.reduce((sum, c, k) => sum + (met[k] ? c.m : 0), 0);
+    const good = score >= Math.ceil(q.worth * 0.66);
+    const res = q7res.slice();
+    res[q7i] = { good, score, met };
+    this.setState({ q7res: res, q7anim: good ? 'good' : 'bad', q7nonce: this.state.q7nonce + 1 });
+    clearTimeout(this._q7t);
+    this._q7t = setTimeout(() => {
+      const last = q7i >= Q7.length - 1;
+      this.setState({ q7anim: null, q7done: last, q7i: last ? q7i : q7i + 1 });
+      if (last) this.startTicker(res.reduce((sum, r) => sum + (r ? r.score : 0), 0));
+    }, good ? 900 : 1000);
+  }
+
+  startTicker(target) {
+    clearInterval(this._tick);
+    this.setState({ ticker: 0 });
+    this._tick = setInterval(() => {
+      const v = this.state.ticker + 1;
+      if (v >= target) { clearInterval(this._tick); this.setState({ ticker: target }); }
+      else this.setState({ ticker: v });
+    }, 110);
+  }
+
+  q7Vals() {
+    const s = this.state;
+    const compact = this.props.compactBoxes ?? true;
+    const showModel = this.props.showModelAnswer ?? true;
+    const i = s.q7i;
+    const anim = s.q7anim;
+    const res = s.q7res[i];
+    const ready = (s.q7ans[i] || '').trim().length >= 12;
+    const sparks = [];
+    for (let k = 0; k < 12; k++) {
+      const a = (k / 12) * Math.PI * 2;
+      sparks.push({
+        left: (18 + (k * 67) % 64) + '%', top: (k % 2 ? 12 : 74) + '%',
+        dx: Math.round(Math.cos(a) * 78) + 'px', dy: Math.round(Math.sin(a) * 62 - 14) + 'px',
+      });
+    }
+    const total = s.q7res.reduce((sum, r) => sum + (r ? r.score : 0), 0);
+    return {
+      questions: Q7.map((q, n) => {
+        const active = n === i;
+        return {
+          part: q.part, prompt: q.prompt, meta: q.meta, placeholder: q.placeholder,
+          focusId: 'question-' + ['a', 'b', 'c'][n],
+          opacity: 1,
+          value: s.q7ans[n] || '',
+          onType: e => {
+            const next = s.q7ans.slice();
+            next[n] = e.target.value;
+            this.setState({ q7ans: next });
+          },
+          anim: active && anim === 'good' ? 'goodGlow 1.5s cubic-bezier(.3,1,.4,1) both'
+            : active && anim === 'bad' ? 'badGlow 1.15s ease-out both' : 'none',
+          sparks: active && anim === 'good' ? sparks : [],
+          showTick: active && anim === 'good',
+        };
+      }),
+      railOffset: '0px',
+      dots: Q7.map((q, n) => ({
+        w: n === i ? '28px' : '6px',
+        bg: s.q7res[n] ? (s.q7res[n].good ? '#1C9A63' : '#D2481B') : n === i ? 'var(--color-accent)' : 'var(--color-neutral-700)',
+      })),
+      progressLabel: s.q7done ? 'Question 7 complete' : 'Part ' + (i + 1) + ' of ' + Q7.length,
+      currentAnswer: s.q7ans[i] || '',
+      currentPlaceholder: Q7[i].placeholder,
+      onTypeQ: e => {
+        const next = s.q7ans.slice();
+        next[i] = e.target.value;
+        this.setState({ q7ans: next });
+      },
+      cardAnim: anim === 'good' ? 'goodGlow 1.5s cubic-bezier(.3,1,.4,1) both' : anim === 'bad' ? 'badGlow 1.15s ease-out both' : 'none',
+      showSparks: anim === 'good',
+      sparks: anim === 'good' ? sparks : [],
+      showTick: anim === 'good',
+      submitQ: () => this.q7Submit(),
+      submitLabel: i === Q7.length - 1 ? 'Submit part (c)' : 'Submit and continue',
+      submitOpacity: ready && !anim ? 1 : 0.45,
+      feedback: anim === 'good'
+        ? (res && res.hits === Q7[i].keys.length ? 'Full marks — that is the answer.' : 'Good — the key idea is there.')
+        : anim === 'bad' ? 'Not enough yet: name the law and say what it does.'
+        : ready ? '' : 'Write at least a full sentence.',
+      feedbackColor: anim === 'good' ? '#1C9A63' : anim === 'bad' ? '#D2481B' : 'var(--color-neutral-500)',
+      finished: s.q7done,
+      totalMarks: total,
+      ticker: s.ticker,
+      tickerPct: Math.round((s.ticker / 15) * 100) + '%',
+      grade: (GRADES.find(g => (total / 15) * 100 >= g[0]) || GRADES[GRADES.length - 1])[1],
+      gradeNote: GRADE_NOTE[(GRADES.find(g => (total / 15) * 100 >= g[0]) || GRADES[GRADES.length - 1])[1]],
+      review: Q7.map((q, n) => {
+        const r = s.q7res[n];
+        return {
+          part: q.part,
+          note: q.note,
+          answer: (s.q7ans[n] || '').trim() || 'No answer given',
+          score: r ? r.score + '/' + q.worth : '0/' + q.worth,
+          color: r && r.good ? '#1C9A63' : '#D2481B',
+          bg: r && r.good ? 'rgba(28,154,99,.07)' : 'rgba(210,72,27,.07)',
+          verdict: r && r.good ? 'Credited' : 'Partially credited',
+          delay: 'cardIn .5s cubic-bezier(.3,1.3,.4,1) both ' + (n * 0.14) + 's',
+          criteria: q.criteria.map((c, k) => ({
+            label: c.label,
+            marks: (r && r.met[k] ? c.m : 0) + '/' + c.m,
+            mark: r && r.met[k] ? '✓' : '✗',
+            color: r && r.met[k] ? '#1C9A63' : '#D2481B',
+          })),
+          missing: q.criteria
+            .filter((c, k) => !(r && r.met[k]))
+            .map(c => ({ label: c.label, marks: '+' + c.m })),
+          fixLabel: q.criteria.every((c, k) => r && r.met[k]) ? 'Full marks — nothing to add' : 'To pick up the rest',
+          model: showModel ? [{ text: 'Model: ' + q.note }] : [],
+        };
+      }),
+      barPct: Math.round((s.q7res.filter(Boolean).length / Q7.length) * 100) + '%',
+      barSplash: s.q7res.filter(Boolean).length > 0 ? [{ n: s.q7res.filter(Boolean).length }] : [],
+      barLabel: s.q7res.filter(Boolean).length + ' of ' + Q7.length + ' answered',
+      boxPad: compact ? '14px' : '18px',
+      boxGap: compact ? '8px' : '10px',
+      boxTitle: compact ? '17px' : '20px',
+      boxBody: compact ? '12.5px' : '13.5px',
+      boxCrit: compact ? '12px' : '13px',
+      quoteClamp: String(this.props.quoteLines ?? 3),
+      notFinished: !s.q7done,
+      topFigScale: s.q7done ? 'scale(.648)' : 'scale(.741)',
+      topFigH: s.q7done ? '454px' : '519px',
+      topStemScale: s.q7done ? 'scale(.88)' : 'scale(1)',
+      restart: () => { clearInterval(this._tick); this.setState({ q7i: 0, q7ans: ['', '', ''], q7res: [null, null, null], q7anim: null, q7done: false, ticker: 0 }); },
+    };
+  }
+
+  peVals() {
+    const s = this.state;
+    const filled = PE_PARTS.every(p => (s[p.key] || '').trim().length > 18);
+    const ready = filled && s.peLaw !== null;
+    const peParts = PE_PARTS.map(p => {
+      const value = s[p.key] || '';
+      const hit = p.keys.every(k => k.test(value));
+      return {
+        label: p.label, hint: p.hint, placeholder: p.placeholder, value,
+        onType: e => this.setState({ [p.key]: e.target.value }),
+        labelColor: s.peShown ? (hit ? 'var(--color-accent-300)' : '#D2481B') : 'var(--color-neutral-300)',
+        mark: s.peShown ? (hit ? '✓ ' + p.worth + '/4' : '✗ 1/4 — force pair not named') : '',
+        markColor: s.peShown && hit ? 'var(--color-accent-300)' : '#D2481B',
+      };
+    });
+    const bodyMarks = PE_PARTS.reduce((sum, p) => sum + (p.keys.every(k => k.test(s[p.key] || '')) ? p.worth : 1), 0);
+    return {
+      peLaws: PE_LAWS.map(l => ({
+        text: l.text,
+        pick: () => this.setState({ peLaw: l.id }),
+        bg: s.peLaw === l.id ? 'var(--color-accent-800)' : 'transparent',
+        border: s.peLaw === l.id ? 'var(--color-accent)' : 'var(--color-neutral-700)',
+      })),
+      peParts,
+      peShown: s.peShown,
+      peSubmit: () => { if (ready) this.setState({ peShown: true }); },
+      peSubmitOpacity: ready ? 1 : 0.45,
+      peStatus: s.peShown
+        ? (s.peLaw === 'third' ? 'Third law — correct.' : 'Part (a) is wrong: the force pair means this is the third law.')
+        : ready ? '' : 'Pick a law and write a sentence in each box.',
+      peStatusColor: s.peShown && s.peLaw === 'third' ? 'var(--color-accent-300)' : s.peShown ? '#D2481B' : 'var(--color-neutral-500)',
+      peMarks: bodyMarks + (s.peLaw === 'third' ? 3 : 0),
+    };
+  }
+
+  renderVals() {
+    const { pick1, order, checked2, answer, revealed } = this.state;
+    const done1 = pick1 !== null;
+
+    const q1Options = Q1.map(o => {
+      const chosen = pick1 === o.id;
+      const right = o.id === 'trench';
+      return {
+        ...o,
+        pick: () => this.setState({ pick1: o.id }),
+        mark: done1 && (chosen || right) ? (right ? '✓' : '✗') : '',
+        markColor: right ? 'var(--color-accent-300)' : '#D2481B',
+      };
+    });
+
+    const slots = [0, 1, 2, 3].map(i => {
+      const idx = order[i];
+      const filled = idx !== undefined;
+      const right = checked2 && idx === i;
+      return {
+        n: i + 1,
+        text: filled ? STAGES[idx] : 'Tap a stage below',
+        bg: filled ? 'var(--color-neutral-800)' : 'transparent',
+        border: checked2 ? (right ? 'var(--color-accent)' : '#D2481B') : 'var(--color-neutral-700)',
+        cursor: filled ? 'pointer' : 'default',
+        mark: checked2 ? (right ? '✓' : '✗') : '',
+        markColor: right ? 'var(--color-accent-300)' : '#D2481B',
+        clear: filled ? () => this.setState(s => ({ order: s.order.filter(v => v !== idx), checked2: false })) : undefined,
+      };
+    });
+
+    const bank = STAGES.map((text, i) => ({
+      text,
+      opacity: order.includes(i) ? 0.35 : 1,
+      place: () => this.setState(s => (s.order.includes(i) || s.order.length >= 4 ? null : { order: [...s.order, i], checked2: false })),
+    }));
+
+    const allRight = checked2 && order.length === 4 && order.every((v, i) => v === i);
+
+    const scheme = SCHEME.map(r => {
+      const hit = r.keys.every(k => k.test(answer));
+      return {
+        text: r.text,
+        worth: r.worth,
+        mark: hit ? '✓' : '·',
+        color: hit ? 'var(--color-accent-300)' : 'var(--color-neutral-600)',
+        textColor: hit ? 'var(--color-text)' : 'var(--color-neutral-400)',
+      };
+    });
+    const marks = SCHEME.reduce((sum, r) => sum + (r.keys.every(k => k.test(answer)) ? parseInt(r.worth, 10) : 0), 0);
+    const words = answer.trim() ? answer.trim().split(/\s+/).length : 0;
+
+    return {
+      ...this.peVals(),
+      ...this.q7Vals(),
+      ...this.annVals(),
+      q1Options,
+      q1Done: done1,
+      slots,
+      bank,
+      check2: () => this.setState({ checked2: this.state.order.length === 4 }),
+      reset2: () => this.setState({ order: [], checked2: false }),
+      q2Correct: allRight,
+      q2Feedback: !checked2 ? (order.length < 4 ? '' : 'Ready to check') : allRight ? 'All four in sequence — full marks.' : 'Some stages are out of order. Tap one to lift it out.',
+      q2Color: allRight ? 'var(--color-accent-300)' : checked2 ? '#D2481B' : 'var(--color-neutral-400)',
+      answer,
+      onType: e => this.setState({ answer: e.target.value }),
+      scheme,
+      marks,
+      marksPct: Math.round((marks / 30) * 100) + '%',
+      wordCount: words,
+      canReveal: !revealed,
+      revealed,
+      reveal: () => this.setState({ revealed: true }),
+    };
+  }
+}
+</script>
+<script type="text/plain" data-hf-legacy-inline>
+(() => {
+  const STEPS = [
+    {
+      id: 'context',
+      kicker: '1 · Read the context',
+      title: 'Strip the stem down to evidence',
+      summary: 'Blur the noise. Keep only the details that change how the question should be answered.',
+      points: [
+        '<strong>Single scull</strong> tells you one athlete is producing the motion.',
+        '<strong>Boat surges forward</strong> identifies acceleration, not just movement.',
+        '<strong>Force against the water</strong> signals Newton’s laws and a force pair.'
+      ]
+    },
+    {
+      id: 'image',
+      kicker: '2 · Read Figure 7.1',
+      title: 'Turn the picture into a force map',
+      summary: 'The two force arrows reveal first. The existing diagram annotations then replay automatically.',
+      points: [
+        '<strong>Acceleration:</strong> the boat is pushed along its forward path.',
+        '<strong>Resistance:</strong> the opposing force acts in the reverse direction.',
+        'Track where each force starts, its direction, and the effect it has on the boat.'
+      ]
+    },
+    {
+      id: 'question-a',
+      kicker: '3 · Decode part (a)',
+      title: 'Calculate acceleration: choose the matching law',
+      summary: 'Do not list every law. The command asks which law lets you calculate acceleration and why.',
+      points: [
+        '<strong>Name Newton’s second law</strong> (or F = ma).',
+        'Link the <strong>overall forward push</strong> from the stroke to acceleration.',
+        'Mention the boat-and-rower <strong>mass</strong>. One precise sentence can earn all 3 marks.'
+      ]
+    },
+    {
+      id: 'question-b',
+      kicker: '4 · Decode part (b)',
+      title: 'Name it, define it, then apply it',
+      summary: 'The trap is giving a definition with no rowing example—or an example with no definition.',
+      points: [
+        '<strong>Name another law:</strong> the third law is the cleanest fit here.',
+        '<strong>Define it:</strong> action and reaction are equal and opposite.',
+        '<strong>Apply it:</strong> blade pushes water back; water pushes boat forward.'
+      ]
+    },
+    {
+      id: 'question-c',
+      kicker: '5 · Decode part (c)',
+      title: 'Build the H1 explanation chain',
+      summary: 'Move from scientific cause to coaching decision to a named performance benefit.',
+      points: [
+        '<strong>Cause:</strong> forces explain and predict movement.',
+        '<strong>Use:</strong> a coach measures and corrects technique.',
+        '<strong>Benefit:</strong> greater speed or efficiency, or lower injury risk.'
+      ]
+    }
+  ];
+
+  let activeId = null;
+  let imageTimer = null;
+  let switchTimer = null;
+  let layoutFrame = 0;
+  let observer = null;
+  let ui = null;
+
+  function buildUI() {
+    if (ui) return ui;
+    const panels = ['top', 'right', 'bottom', 'left'].map(side => {
+      const panel = document.createElement('div');
+      panel.className = 'hf-veil hf-veil--' + side;
+      panel.dataset.hfExit = '';
+      panel.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(panel);
+      return panel;
+    });
+
+    const eye = document.createElement('div');
+    eye.className = 'hf-eye-frame';
+    eye.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(eye);
+
+    const guide = document.createElement('aside');
+    guide.className = 'hf-guide';
+    guide.setAttribute('aria-live', 'polite');
+    guide.innerHTML = `
+      <div class="hf-guide__top">
+        <div class="hf-guide__copy">
+          <span class="hf-guide__kicker" data-hf-kicker></span>
+          <h3 class="hf-guide__title" data-hf-title></h3>
+        </div>
+        <button type="button" class="hf-guide__close" data-hf-exit aria-label="Exit hyper focus">×</button>
+      </div>
+      <p class="hf-guide__summary" data-hf-summary></p>
+      <ul class="hf-guide__points" data-hf-points></ul>
+      <div class="hf-guide__controls">
+        <button type="button" class="hf-guide__button hf-guide__button--ghost" data-hf-prev>Back</button>
+        <button type="button" class="hf-guide__button" data-hf-next>Next focus</button>
+        <span class="hf-guide__step" data-hf-count></span>
+      </div>`;
+    document.body.appendChild(guide);
+    ui = { panels, eye, guide };
+    return ui;
+  }
+
+  function targetFor(id) {
+    return document.querySelector('[data-hf-target="' + id + '"]');
+  }
+
+  function stepIndex(id) {
+    return STEPS.findIndex(step => step.id === id);
+  }
+
+  function updateGuide(step) {
+    const index = stepIndex(step.id);
+    const guide = buildUI().guide;
+    guide.querySelector('[data-hf-kicker]').textContent = step.kicker;
+    guide.querySelector('[data-hf-title]').textContent = step.title;
+    guide.querySelector('[data-hf-summary]').textContent = step.summary;
+    guide.querySelector('[data-hf-points]').innerHTML = step.points.map(point => '<li>' + point + '</li>').join('');
+    guide.querySelector('[data-hf-count]').textContent = (index + 1) + ' / ' + STEPS.length;
+    guide.querySelector('[data-hf-prev]').disabled = index === 0;
+    guide.querySelector('[data-hf-prev]').style.opacity = index === 0 ? '.38' : '1';
+    guide.querySelector('[data-hf-next]').textContent = index === STEPS.length - 1 ? 'Return to full paper' : 'Next focus';
+  }
+
+  function setBox(el, left, top, width, height) {
+    el.style.left = Math.max(0, left) + 'px';
+    el.style.top = Math.max(0, top) + 'px';
+    el.style.width = Math.max(0, width) + 'px';
+    el.style.height = Math.max(0, height) + 'px';
+  }
+
+  function layout() {
+    layoutFrame = 0;
+    if (!activeId || !ui) return;
+    const target = targetFor(activeId);
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    const pad = 12;
+    const left = Math.max(0, rect.left - pad);
+    const top = Math.max(0, rect.top - pad);
+    const right = Math.min(window.innerWidth, rect.right + pad);
+    const bottom = Math.min(window.innerHeight, rect.bottom + pad);
+    setBox(ui.panels[0], 0, 0, window.innerWidth, top);
+    setBox(ui.panels[1], right, top, window.innerWidth - right, bottom - top);
+    setBox(ui.panels[2], 0, bottom, window.innerWidth, window.innerHeight - bottom);
+    setBox(ui.panels[3], 0, top, left, bottom - top);
+    setBox(ui.eye, left, top, right - left, bottom - top);
+
+    const targetIsRight = (left + right) / 2 > window.innerWidth / 2;
+    const guideWidth = Math.min(390, window.innerWidth - 40);
+    ui.guide.style.top = '20px';
+    if (targetIsRight) {
+      ui.guide.style.left = '20px';
+      ui.guide.style.right = 'auto';
+    } else {
+      ui.guide.style.left = 'auto';
+      ui.guide.style.right = '20px';
+    }
+    if (window.innerWidth < 820 || (right - left) > window.innerWidth - guideWidth - 70) {
+      ui.guide.style.left = '20px';
+      ui.guide.style.right = 'auto';
+      ui.guide.style.top = Math.max(20, Math.min(window.innerHeight - 310, bottom + 16)) + 'px';
+    }
+  }
+
+  function scheduleLayout() {
+    if (layoutFrame) return;
+    layoutFrame = requestAnimationFrame(layout);
+  }
+
+  function replayFigure() {
+    clearTimeout(imageTimer);
+    const arrowButton = document.querySelector('[data-hf-arrow-replay]');
+    if (arrowButton) arrowButton.click();
+    imageTimer = setTimeout(() => {
+      if (activeId !== 'image') return;
+      const diagramButton = document.querySelector('[data-hf-diagram-replay]');
+      if (diagramButton) diagramButton.click();
+    }, 2050);
+  }
+
+  function enter(id) {
+    const step = STEPS.find(item => item.id === id);
+    const target = targetFor(id);
+    if (!step || !target) return;
+    buildUI();
+    activeId = id;
+    document.body.classList.add('hf-active');
+    document.querySelectorAll('[data-hf-target].hf-current').forEach(el => el.classList.remove('hf-current'));
+    target.classList.add('hf-current');
+    updateGuide(step);
+    target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+    scheduleLayout();
+    setTimeout(scheduleLayout, 180);
+    setTimeout(scheduleLayout, 460);
+    if (id === 'image') replayFigure();
+  }
+
+  function exit() {
+    clearTimeout(imageTimer);
+    clearTimeout(switchTimer);
+    imageTimer = null;
+    switchTimer = null;
+    activeId = null;
+    document.querySelectorAll('[data-hf-target].hf-current').forEach(el => el.classList.remove('hf-current'));
+    document.body.classList.remove('hf-active');
+  }
+
+  function focus(id) {
+    if (!targetFor(id) || activeId === id) return;
+    if (!activeId) {
+      enter(id);
+      return;
+    }
+    clearTimeout(imageTimer);
+    document.querySelectorAll('[data-hf-target].hf-current').forEach(el => el.classList.remove('hf-current'));
+    document.body.classList.remove('hf-active');
+    activeId = null;
+    clearTimeout(switchTimer);
+    switchTimer = setTimeout(() => enter(id), 280);
+  }
+
+  function move(delta) {
+    const index = stepIndex(activeId);
+    if (index < 0) return;
+    const next = index + delta;
+    if (next < 0) return;
+    if (next >= STEPS.length) {
+      exit();
+      return;
+    }
+    focus(STEPS[next].id);
+  }
+
+  function rebindAfterRender() {
+    if (!activeId) return;
+    const target = targetFor(activeId);
+    if (!target) return;
+    if (!target.classList.contains('hf-current')) target.classList.add('hf-current');
+    scheduleLayout();
+  }
+
+  function init() {
+    if (!targetFor('context') || !targetFor('image')) return false;
+    buildUI();
+    document.addEventListener('click', event => {
+      const start = event.target.closest('[data-hf-start]');
+      if (start) {
+        event.preventDefault();
+        focus('context');
+        return;
+      }
+      const exitButton = event.target.closest('[data-hf-exit]');
+      if (exitButton) {
+        event.preventDefault();
+        exit();
+        return;
+      }
+      if (event.target.closest('[data-hf-next]')) {
+        event.preventDefault();
+        move(1);
+        return;
+      }
+      if (event.target.closest('[data-hf-prev]')) {
+        event.preventDefault();
+        move(-1);
+        return;
+      }
+      const target = event.target.closest('[data-hf-target]');
+      if (target && target.dataset.hfTarget !== activeId) focus(target.dataset.hfTarget);
+
+      const submit = event.target.closest('[data-hf-submit]');
+      if (submit && activeId && activeId.indexOf('question-') === 0) {
+        const before = document.querySelector('[data-hf-progress]')?.textContent || '';
+        setTimeout(() => {
+          const after = document.querySelector('[data-hf-progress]')?.textContent || '';
+          if (after === before) return;
+          if (/complete/i.test(after)) exit();
+          else move(1);
+        }, 1150);
+      }
+    }, true);
+
+    document.addEventListener('keydown', event => {
+      if (!activeId) {
+        if ((event.key === 'Enter' || event.key === ' ') && event.target.matches('[data-hf-target]')) {
+          event.preventDefault();
+          focus(event.target.dataset.hfTarget);
+        }
+        return;
+      }
+      if (event.key === 'Escape') exit();
+      if (!/INPUT|TEXTAREA/.test(event.target.tagName) && event.key === 'ArrowRight') move(1);
+      if (!/INPUT|TEXTAREA/.test(event.target.tagName) && event.key === 'ArrowLeft') move(-1);
+    });
+
+    window.addEventListener('resize', scheduleLayout);
+    window.addEventListener('scroll', scheduleLayout, true);
+    observer = new MutationObserver(rebindAfterRender);
+    observer.observe(document.querySelector('x-dc') || document.body, { childList: true, subtree: true });
+    window.ExamHyperFocus = { start: () => focus('context'), focus, next: () => move(1), previous: () => move(-1), exit };
+    return true;
+  }
+
+  let attempts = 0;
+  const ready = setInterval(() => {
+    attempts += 1;
+    if (init() || attempts > 120) clearInterval(ready);
+  }, 100);
+})();
+</script>
+</body>
+</html>
