@@ -60,6 +60,8 @@ Completed:
 11. Removed the `3a / Fixed stem / scrolling question rail` header and its progress strip. Reduced the exam paper height from 1743 to 1530 scene pixels so it ends immediately after the real question card with normal padding and no large blank footer.
 12. At the user's request, changed the paper to an exact A4 portrait proportion: 1370 × 1938 scene pixels (210:297 rounded to the nearest whole pixel). Extended the desk scene to 1992 pixels high so the complete sheet remains visible with a 27-pixel lower desk margin; no question, image, context, hand, or interaction markup changed.
 13. Replaced the truncated 1370 × 973 question raster with a 1370 × 1320 crop rendered from page 9 of the edited source PDF, so part (c) and its complete answer box continue into the A4 sheet. Recalibrated the three transparent answer hotspots to the taller asset and bumped its cache key to `v=5`.
+14. Verified the rugby Leaving Cert source gives part (c) six writing rows (seven horizontal rules). Locked the 1370 × 1320 question reference against flex shrinking and bumped its cache key to `v=6`, ensuring the full authentic part (c) answer space is displayed rather than a cached or compressed crop.
+15. Verified `assets/exam-question-7-heading.png` is pixel-for-pixel identical to the Question 7 heading crop rendered from the original exam PDF. Removed the decorative `Higher · Strand 1` and `15 marks` badge row that made the surrounding area look like an app rather than an exam, and bumped the heading cache key to `v=2`.
 
 Exact part `(a)` typography:
 
