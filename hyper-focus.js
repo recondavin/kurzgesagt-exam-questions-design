@@ -28,9 +28,8 @@
   ];
   var activeId = null;
   var imageTimer = null;
-  var autoStartTimer = null;
+  var diagramTimer = null;
   var cameraTimer = null;
-  var autoStarted = false;
   var layoutFrame = 0;
   var trackingFrame = 0;
   var typeTimers = [];
@@ -39,7 +38,8 @@
   var cameraScale = 1.88;
   var savedScrollX = 0;
   var savedScrollY = 0;
-  var IMAGE_SEQUENCE_MS = 11900;
+  var DIAGRAM_START_MS = 5600;
+  var IMAGE_SEQUENCE_MS = 17500;
 
   function targetFor(id) { return document.querySelector('[data-hf-target="' + id + '"]'); }
   function stepIndex(id) { return steps.findIndex(function (step) { return step.id === id; }); }
@@ -235,6 +235,24 @@
     trackingFrame = requestAnimationFrame(follow);
   }
 
+  function fitSceneToViewport() {
+    var scene = document.querySelector('[data-hf-scene]');
+    if (!scene) return;
+    var sceneWidth = scene.offsetWidth || 3177;
+    var sceneHeight = scene.offsetHeight || 1788;
+    var viewportWidth = window.innerWidth;
+    var viewportHeight = window.innerHeight;
+    var fitScale = Math.min(viewportWidth / sceneWidth, viewportHeight / sceneHeight);
+    var tx = (viewportWidth - sceneWidth * fitScale) / 2;
+    var ty = (viewportHeight - sceneHeight * fitScale) / 2;
+    scene.style.transition = 'none';
+    scene.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + fitScale + ')';
+    scene.setAttribute('data-hf-fit-scale', fitScale.toFixed(6));
+    void scene.offsetWidth;
+    scene.style.transition = '';
+    window.scrollTo(0, 0);
+  }
+
   function moveCameraTo(target) {
     var scene = document.querySelector('[data-hf-scene]');
     if (!scene || !target) return;
@@ -254,9 +272,10 @@
     // scale. Wide question boxes therefore remain readable on the left rather
     // than filling the viewport and forcing the guide over their centre.
     var isQuestion = activeId && activeId.indexOf('question-') === 0;
+    var isImageOnly = activeId === 'image';
     var preferredGuideColumn = isQuestion ? 700 : 760;
-    var guideColumn = Math.min(preferredGuideColumn, Math.max(400, window.innerWidth * .40));
-    var availableWidth = Math.max(520, window.innerWidth - guideColumn - 76);
+    var guideColumn = isImageOnly ? 0 : Math.min(preferredGuideColumn, Math.max(400, window.innerWidth * .40));
+    var availableWidth = Math.max(520, window.innerWidth - guideColumn - (isImageOnly ? 48 : 76));
     var desiredScale = isQuestion ? 1.55 : cameraScale;
     if (activeId === 'image') desiredScale = 1.60;
     // Let a focused question extend slightly beneath the edge of the advice
@@ -266,7 +285,7 @@
     var widthScale = (availableWidth + questionWidthAllowance) / Math.max(1, localWidth);
     var heightScale = (window.innerHeight - 90) / Math.max(1, localHeight);
     var nextScale = Math.max(.72, Math.min(desiredScale, widthScale, heightScale));
-    var focusX = 24 + (availableWidth + questionWidthAllowance) / 2;
+    var focusX = isImageOnly ? window.innerWidth / 2 : 24 + (availableWidth + questionWidthAllowance) / 2;
     var focusY = window.innerHeight * 0.50;
     var tx = focusX - localX * nextScale;
     var ty = focusY - localY * nextScale;
@@ -276,21 +295,49 @@
   }
 
   function resetCamera() {
-    var scene = document.querySelector('[data-hf-scene]');
-    if (scene) scene.style.transform = 'translate(0px,0px) scale(1)';
     document.body.classList.remove('hf-camera-active');
-    window.scrollTo(savedScrollX, savedScrollY);
+    fitSceneToViewport();
+  }
+
+  function figureVideo() {
+    return document.querySelector('[data-hf-image-video]');
+  }
+
+  function startFigureVideo(reset) {
+    var video = figureVideo();
+    if (!video) return;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+    video.playsInline = true;
+    if (reset) {
+      try { video.currentTime = 0; } catch (_) {}
+    }
+    if (video.paused) {
+      var playback = video.play();
+      if (playback && typeof playback.catch === 'function') playback.catch(function () {});
+    }
+  }
+
+  function stopFigureVideo() {
+    var video = figureVideo();
+    if (!video) return;
+    video.pause();
+    try { video.currentTime = 0; } catch (_) {}
   }
 
   function replayFigure() {
-    clearTimeout(imageTimer);
+    clearTimeout(diagramTimer);
     document.body.classList.add('hf-arrows-active');
     var arrowButton = document.querySelector('[data-hf-arrow-replay]');
     if (arrowButton) arrowButton.click();
-    // The force arrows and the annotation diagram both begin together. The
-    // manual Next button is enabled only after this sequence has completed.
-    var diagramButton = document.querySelector('[data-hf-diagram-replay]');
-    if (diagramButton) diagramButton.click();
+    // Acceleration reveals first. After it finishes, hold for one second,
+    // reveal resistance, hold for one more second, then begin the diagram.
+    diagramTimer = setTimeout(function () {
+      if (activeId !== 'image') return;
+      var diagramButton = document.querySelector('[data-hf-diagram-replay]');
+      if (diagramButton) diagramButton.click();
+    }, DIAGRAM_START_MS);
   }
 
   function enter(id) {
@@ -318,22 +365,27 @@
       // the class first guarantees the arrow reveal restarts cleanly.
       document.body.classList.remove('hf-arrows-active');
       clearTimeout(imageTimer);
+      clearTimeout(diagramTimer);
       void document.body.offsetWidth;
       replayFigure();
+      startFigureVideo(true);
       setNextEnabled(false);
       imageTimer = setTimeout(function () {
         if (activeId === 'image') setNextEnabled(true);
       }, IMAGE_SEQUENCE_MS);
+    } else {
+      stopFigureVideo();
     }
   }
 
   function exit() {
     clearTimeout(imageTimer);
-    clearTimeout(autoStartTimer);
+    clearTimeout(diagramTimer);
     clearTimeout(cameraTimer);
     clearTyping();
     cancelAnimationFrame(trackingFrame);
     trackingFrame = 0;
+    stopFigureVideo();
     activeId = null;
     document.querySelectorAll('[data-hf-target].hf-current').forEach(function (el) { el.classList.remove('hf-current'); });
     document.body.classList.remove('hf-active');
@@ -346,7 +398,9 @@
   function focus(id) {
     if (!targetFor(id) || activeId === id) return;
     if (!activeId) { enter(id); return; }
+    if (activeId === 'image' && id !== 'image') stopFigureVideo();
     clearTimeout(imageTimer);
+    clearTimeout(diagramTimer);
     clearTimeout(cameraTimer);
     // Keep the veil and guide active between steps. Only the highlighted target
     // changes, so the student's view glides across the paper without zooming
@@ -355,7 +409,6 @@
   }
 
   function startTour() {
-    clearTimeout(autoStartTimer);
     if (activeId) exit();
     document.body.classList.remove('hf-arrows-active');
     savedScrollX = window.scrollX || 0;
@@ -377,6 +430,7 @@
     if (!activeId) return;
     var target = targetFor(activeId);
     if (target && !target.classList.contains('hf-current')) target.classList.add('hf-current');
+    if (activeId === 'image') startFigureVideo(false);
     scheduleLayout();
   }
 
@@ -410,7 +464,11 @@
       if (!/INPUT|TEXTAREA/.test(event.target.tagName) && event.key === 'ArrowRight') move(1);
       if (!/INPUT|TEXTAREA/.test(event.target.tagName) && event.key === 'ArrowLeft') move(-1);
     });
-    window.addEventListener('resize', scheduleLayout);
+    window.addEventListener('resize', function () {
+      if (activeId) moveCameraTo(targetFor(activeId));
+      else fitSceneToViewport();
+      scheduleLayout();
+    });
     window.addEventListener('scroll', scheduleLayout, true);
     new MutationObserver(sync).observe(document.querySelector('x-dc') || document.body, { childList: true, subtree: true });
   }
@@ -418,12 +476,7 @@
   window.ExamHyperFocusSetup = function () {
     installEvents();
     buildUI();
+    fitSceneToViewport();
     window.ExamHyperFocus = { start: startTour, focus: focus, next: function () { move(1); }, previous: function () { move(-1); }, exit: exit };
-    if (!autoStarted) {
-      autoStarted = true;
-      autoStartTimer = setTimeout(function () {
-        if (!activeId) focus('context');
-      }, 700);
-    }
   };
 })();

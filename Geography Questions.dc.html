@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./hyper-focus.js?v=question-zoom-match-5a"></script>
+<script src="./hyper-focus.js?v=question-layout-5"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -15,6 +15,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&amp;family=Fredoka:wdth,wght@100..125,400..700&amp;family=Nunito:ital,wght@0,400;0,600;0,700;1,400&amp;family=Chakra+Petch:wght@500;600;700&amp;display=swap">
 <style>
+  @font-face {
+    font-family: 'Exam Calibri';
+    src: url('assets/fonts/exam-calibri-regular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
   :root {
     --color-bg: #EDF1F7;
     --color-surface: #F9FBFE;
@@ -43,7 +50,19 @@
     --shadow-md: 0 2px 10px rgba(27,36,48,.08);
     --shadow-lg: 0 8px 28px rgba(27,36,48,.12);
   }
-  body { margin: 0; background: var(--color-bg); color: var(--color-text); }
+  html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+  body { background: var(--color-bg); color: var(--color-text); }
+  #dc-root,
+  #dc-root > .sc-host { width: 100%; height: 100%; overflow: hidden; }
+  .exam-primary-layout {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(assets/cartoon-desk.svg) center/cover no-repeat;
+  }
+  .exam-primary-layout ~ section,
+  .exam-primary-layout ~ img { display: none !important; }
   a { color: var(--color-accent); text-decoration: none; }
   a:hover { color: var(--color-accent-300); text-decoration: underline; }
   @keyframes labelIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
@@ -81,14 +100,262 @@
     from { clip-path: polygon(110% 0, 250% 0, 250% 100%, 240% 100%); }
     to   { clip-path: polygon(-140% 0, 100% 0, 100% 100%, -10% 100%); }
   }
+  @keyframes forceArrowThrob {
+    0%, 100% { transform: scale(1); }
+    46% { transform: scale(1.018); }
+  }
   .arrow-reveal-forward,
   .arrow-reveal-resistance { opacity: 0; }
   body.hf-arrows-active .arrow-reveal-forward { opacity: 1; animation: arrowWipeForward 1.8s cubic-bezier(.4,0,.2,1) 0s both; }
-  body.hf-arrows-active .arrow-reveal-resistance { opacity: 1; animation: arrowWipeResistance 1.8s cubic-bezier(.4,0,.2,1) 0s both; }
+  body.hf-arrows-active .arrow-reveal-resistance { opacity: 1; animation: arrowWipeResistance 1.8s cubic-bezier(.4,0,.2,1) 2.8s both; }
+  .force-arrow-throb {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  body.hf-image-focus .arrow-reveal-forward .force-arrow-throb {
+    animation: forceArrowThrob .65s ease-in-out 1.8s infinite both;
+  }
+  body.hf-image-focus .arrow-reveal-resistance .force-arrow-throb {
+    animation: forceArrowThrob .65s ease-in-out 4.6s infinite both;
+  }
+  .exam-question-sheet {
+    padding-top: 4px;
+    margin-inline: 46px;
+    color: #111111;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .exam-question-list {
+    display: flex;
+    flex-direction: column;
+    gap: 37px;
+  }
+  .exam-question-block {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0;
+  }
+  .exam-question-prompt-row {
+    display: grid;
+    grid-template-columns: 68px minmax(0, 1fr);
+    align-items: start;
+    gap: 8px;
+  }
+  .exam-question-part,
+  .exam-question-prompt {
+    color: #111111;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    line-height: 1.32;
+  }
+  .exam-question-part {
+    font-family: "Arial Black", Arial, Helvetica, sans-serif;
+    font-weight: 900;
+  }
+  .exam-question-prompt {
+    margin: 0;
+    font-weight: 700;
+    text-wrap: pretty;
+  }
+  .exam-question-emphasis {
+    font-family: "Arial Black", Arial, Helvetica, sans-serif;
+    font-weight: 900;
+  }
+  .exam-answer-wrap {
+    position: relative;
+    margin-left: 0;
+  }
+  .exam-answer-box {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    resize: none;
+    overflow: hidden;
+    border: 2px solid #151515;
+    border-radius: 0;
+    outline: 0;
+    padding: 0 16px;
+    background-color: #FFFFFF;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 60px,
+      rgba(21, 21, 21, .82) 60px,
+      rgba(21, 21, 21, .82) 61px
+    );
+    color: #111111;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    line-height: 61px;
+    transition: border-color .18s ease, box-shadow .18s ease;
+  }
+  .exam-answer-box::placeholder {
+    color: transparent;
+    opacity: 1;
+  }
+  .exam-answer-box:focus::placeholder {
+    color: rgba(17, 17, 17, .28);
+  }
+  .exam-answer-box:focus {
+    border-color: #1E4C9E;
+    box-shadow: 0 0 0 3px rgba(46, 107, 214, .14);
+  }
+  .exam-answer-box--short {
+    height: 78px;
+    padding: 12px 16px;
+    background-image: none;
+    line-height: 1.55;
+  }
+  .exam-answer-box--medium { height: 307px; }
+  .exam-answer-box--long { height: 368px; }
+  .exam-question-submit {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease;
+  }
+  .exam-question-sheet:focus-within .exam-question-submit,
+  .exam-question-sheet:has(.exam-answer-box:not(:placeholder-shown)) .exam-question-submit {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .exam-question-reference {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1370 / 973;
+    overflow: hidden;
+    background: #FFFFFF;
+  }
+  .exam-question-reference__image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    user-select: none;
+  }
+  .exam-question-number {
+    display: flex;
+    align-items: center;
+    height: 47px;
+    margin: 0;
+  }
+  .exam-question-number img {
+    display: block;
+    width: 200px;
+    height: 48px;
+    object-fit: contain;
+    object-position: left center;
+  }
+  .exam-context-copy {
+    font-family: 'Exam Calibri', Calibri, Arial, sans-serif;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 1.22;
+  }
+  .exam-reference-hotspot {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    outline: 0;
+  }
+  .exam-reference-hotspot--short { top: 0; height: 19%; }
+  .exam-reference-hotspot--medium { top: 25.2%; height: 45.5%; }
+  .exam-reference-hotspot--long { top: 76.8%; height: 23.2%; }
+  .exam-question-reference .exam-answer-box {
+    position: absolute;
+    left: .58%;
+    width: 92.1%;
+    margin: 0;
+    padding: 7px 14px;
+    border: 0;
+    border-radius: 0;
+    resize: none;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: transparent;
+    background-image: none;
+    color: #111111;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 61px;
+    outline: 0;
+  }
+  .exam-reference-hotspot--short .exam-answer-box { top: 56.8%; height: 42%; line-height: 1.45; }
+  .exam-reference-hotspot--medium .exam-answer-box { top: 13%; height: 87%; }
+  .exam-reference-hotspot--long .exam-answer-box { top: 26%; height: 74%; }
+  .exam-question-reference .exam-answer-box:focus {
+    border: 0;
+    box-shadow: inset 0 0 0 3px rgba(46, 107, 214, .18);
+  }
+  .exam-question-reference .exam-answer-box::placeholder,
+  .exam-question-reference .exam-answer-box:focus::placeholder {
+    color: transparent;
+  }
+  .figure-focus-still,
+  .figure-focus-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity .22s ease;
+  }
+  .figure-focus-still { opacity: 1; }
+  .figure-focus-video { opacity: 0; }
+  body.hf-active [data-hf-target="image"].hf-current .figure-focus-still { opacity: 0; }
+  body.hf-active [data-hf-target="image"].hf-current .figure-focus-video { opacity: 1; }
   [data-hf-scene] {
     transform-origin: 0 0;
     transition: transform .8s cubic-bezier(.22,.78,.24,1);
     will-change: transform;
+  }
+  .exam-hand-motion {
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    z-index: 1;
+    object-fit: contain;
+    pointer-events: none;
+  }
+  .exam-hand-motion--left {
+    left: 0;
+    top: 880px;
+  }
+  .exam-hand-motion--right {
+    left: 2277px;
+    top: 880px;
+  }
+  .exam-paper {
+    background:
+      linear-gradient(90deg, rgba(52, 66, 89, .13) 0%, rgba(52, 66, 89, .035) 3%, rgba(255, 255, 255, 0) 8%, rgba(255, 255, 255, 0) 92%, rgba(52, 66, 89, .04) 97%, rgba(52, 66, 89, .14) 100%),
+      linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 70%, #F3F6F9 100%);
+    border: 1px solid rgba(76, 48, 31, .22);
+    box-shadow:
+      0 34px 68px rgba(69, 38, 21, .32),
+      0 9px 20px rgba(69, 38, 21, .2),
+      inset 0 1px 0 rgba(255, 255, 255, .95),
+      inset 0 -24px 30px rgba(39, 53, 76, .07);
+  }
+  .exam-paper::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 40;
+    border-radius: inherit;
+    box-shadow:
+      inset 13px 0 22px rgba(38, 49, 67, .06),
+      inset -15px 0 24px rgba(38, 49, 67, .075),
+      inset 0 -20px 26px rgba(38, 49, 67, .06);
+    pointer-events: none;
   }
   body.hf-camera-active { overflow: hidden; }
   [data-hf-target] {
@@ -164,6 +431,12 @@
     transition: opacity .24s ease, transform .34s cubic-bezier(.22,.78,.24,1);
   }
   body.hf-active .hf-guide { opacity: 1; transform: none; pointer-events: auto; }
+  body.hf-active.hf-image-focus .hf-guide {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px) scale(.985);
+    pointer-events: none;
+  }
   .hf-guide__top { display: flex; align-items: flex-start; gap: 16px; }
   .hf-guide__copy { flex: 1; min-width: 0; }
   .hf-guide__meta { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 7px; }
@@ -200,9 +473,11 @@
 </style>
 </helmet>
 
-<section style="display: flex; flex-direction: column; gap: 0; padding: 0;">
-    <div data-hf-scene style="position: relative; width: 3177px; height: 1788px; background: url(assets/desk.png) center/100% 100% no-repeat;">
-  <div style="position: absolute; left: 901px; top: 27px; width: 1370px; height: 1743px; box-sizing: border-box; padding: 26px; overflow: hidden; background: var(--color-bg); border-radius: 6px;">
+<section class="exam-primary-layout" style="display: flex; flex-direction: column; gap: 0; padding: 0;">
+    <div data-hf-scene style="position: absolute; left: 0; top: 0; width: 3177px; height: 1788px; background: url(assets/cartoon-desk.svg) center/100% 100% no-repeat;">
+  <img class="exam-hand-motion exam-hand-motion--left" src="assets/hands/left-resting-layered.svg" alt="" aria-hidden="true">
+  <img class="exam-hand-motion exam-hand-motion--right" src="assets/hands/right-writing-gentle-rig.svg" alt="" aria-hidden="true">
+  <div class="exam-paper" style="position: absolute; left: 901px; top: 27px; width: 1370px; height: 1743px; z-index: 2; box-sizing: border-box; padding: 26px; overflow: hidden; border-radius: 6px;">
   <div id="3a" style="width: 1318px; transform: scale(1.0); display: flex; flex-direction: column; gap: 12px;">
     <div style="display: flex; align-items: center; gap: 10px;">
       <span class="tag tag-outline" style="font-family: 'Fredoka', sans-serif;">3a</span>
@@ -235,11 +510,11 @@
             <span style="font-family: 'Chakra Petch', monospace; font-weight: 600; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--color-accent-300); padding: 8px 18px; background: var(--color-accent-800); border: 1px solid var(--color-accent-600); border-radius: 8px; clip-path: polygon(9px 0, 100% 0, calc(100% - 9px) 100%, 0 100%);">Higher · Strand 1</span>
             <span style="font-family: 'Chakra Petch', monospace; font-weight: 600; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--color-neutral-200); padding: 8px 18px; background: var(--color-neutral-800); border: 1px solid var(--color-neutral-600); border-radius: 8px; clip-path: polygon(9px 0, 100% 0, calc(100% - 9px) 100%, 0 100%);">15 marks</span>
           </div>
-          <h2 style="font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 46px; line-height: 1.02; margin: 0;">Question 7</h2>
+          <h2 class="exam-question-number"><img src="assets/exam-question-7-heading.png?v=1" alt="Question 7"></h2>
           <button type="button" class="hf-start" data-hf-start aria-label="Start guided hyper focus for Question 7">Enter hyper focus</button>
           <div data-hf-target="context" tabindex="0" aria-label="Question 7 context" style="background: #E6E7EA; border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 10px;">
-            <p style="font-family: 'Nunito', sans-serif; font-size: 21px; line-height: 1.45; color: #1B2430; margin: 0; max-width: 100%; text-wrap: pretty;">Cian races in a <span class="hf-key">single scull</span>. He drives with his legs, back and arms to pull the blades through the water, and the <span class="hf-key">boat surges forward</span> with every stroke.</p>
-            <p style="font-family: 'Nunito', sans-serif; font-size: 21px; line-height: 1.45; color: #1B2430; margin: 0; max-width: 100%; text-wrap: pretty;">Each stroke is a <span class="hf-key">force applied against the water</span> — the diagram traces where those forces act.</p>
+            <p class="exam-context-copy" style="color: #1B2430; margin: 0; max-width: 100%; text-wrap: pretty;">Cian races in a <span class="hf-key">single scull</span>. He drives with his legs, back and arms to pull the blades through the water, and the <span class="hf-key">boat surges forward</span> with every stroke.</p>
+            <p class="exam-context-copy" style="color: #1B2430; margin: 0; max-width: 100%; text-wrap: pretty;">Each stroke is a <span class="hf-key">force applied against the water</span> — the diagram traces where those forces act.</p>
           </div>
         </div>
         <figure data-hf-target="image" tabindex="0" aria-label="Figure 7.1 rowing force diagram" style="margin: 0; grid-column: 1; grid-row: 1; width: 860px; align-self: center; display: flex; flex-direction: column; gap: 12px;">
@@ -247,7 +522,10 @@
           <div style="position: relative; width: 1160px; height: 700px; transform: {{ topFigScale }}; transform-origin: top left; transition: transform .6s cubic-bezier(.5,0,.2,1);">
             <div style="position: absolute; left: 250px; top: 100px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 23px; line-height: 1; color: var(--color-neutral-300);">Figure 7.1</div>
             <div style="position: absolute; left: 250px; top: 140px; width: 660px; height: 440px; line-height: 0; border-radius: 26px; overflow: hidden;">
-              <img src="assets/rower-full.png" alt="A single sculler rowing on open water, seen from above" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+              <img class="figure-focus-still" src="assets/rower-focus-still.png" alt="A single sculler rowing on open water, seen from above">
+              <video class="figure-focus-video" data-hf-image-video muted loop playsinline preload="auto" poster="assets/rower-focus-still.png" aria-hidden="true">
+                <source src="assets/rower-layered-perfect-loop.mp4" type="video/mp4">
+              </video>
               <svg viewBox="0 0 791 527" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;">
                 <defs>
                   <filter id="force-arrow-shadow" x="-20%" y="-25%" width="150%" height="165%" color-interpolation-filters="sRGB">
@@ -256,15 +534,19 @@
                 </defs>
                 <!-- Cropped directly from the approved arrow reference; the rower artwork remains locked. -->
                 <g class="arrow-reveal-forward">
-                  <image href="assets/rower-arrow-forward-cropped.png" x="350" y="35" width="245" height="142" preserveAspectRatio="none" filter="url(#force-arrow-shadow)"></image>
-                  <g transform="rotate(-4 469 111)">
-                    <text x="469" y="111" text-anchor="middle" transform="translate(469 111) matrix(0.899 -0.438 0.749 0.334 0 0) translate(-469 -111)" fill="#168357" fill-opacity="0.96" stroke="#0D6240" stroke-opacity="0.42" stroke-width="0.6" paint-order="stroke fill" style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 25px; letter-spacing: 0.035em;">ACCELERATION</text>
+                  <g class="force-arrow-throb">
+                    <image href="assets/rower-arrow-forward-cropped.png" x="350" y="35" width="245" height="142" preserveAspectRatio="none" filter="url(#force-arrow-shadow)"></image>
+                    <g transform="rotate(-4 469 111)">
+                      <text x="469" y="111" text-anchor="middle" transform="translate(469 111) matrix(0.899 -0.438 0.749 0.334 0 0) translate(-469 -111)" fill="#168357" fill-opacity="0.96" stroke="#0D6240" stroke-opacity="0.42" stroke-width="0.6" paint-order="stroke fill" style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 25px; letter-spacing: 0.035em;">ACCELERATION</text>
+                    </g>
                   </g>
                 </g>
                 <g class="arrow-reveal-resistance">
-                  <image href="assets/rower-arrow-resistance-cropped.png" x="225" y="350" width="245" height="144" preserveAspectRatio="none" filter="url(#force-arrow-shadow)"></image>
-                  <g transform="rotate(-4 351 423)">
-                    <text x="351" y="423" text-anchor="middle" transform="translate(351 423) matrix(0.899 -0.438 0.749 0.334 0 0) translate(-351 -423)" fill="#C83E42" fill-opacity="0.96" stroke="#922A32" stroke-opacity="0.42" stroke-width="0.6" paint-order="stroke fill" style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 25px; letter-spacing: 0.035em;">RESISTANCE</text>
+                  <g class="force-arrow-throb">
+                    <image href="assets/rower-arrow-resistance-cropped.png" x="225" y="350" width="245" height="144" preserveAspectRatio="none" filter="url(#force-arrow-shadow)"></image>
+                    <g transform="rotate(-4 351 423)">
+                      <text x="351" y="423" text-anchor="middle" transform="translate(351 423) matrix(0.899 -0.438 0.749 0.334 0 0) translate(-351 -423)" fill="#C83E42" fill-opacity="0.96" stroke="#922A32" stroke-opacity="0.42" stroke-width="0.6" paint-order="stroke fill" style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 25px; letter-spacing: 0.035em;">RESISTANCE</text>
+                    </g>
                   </g>
                 </g>
               </svg>
@@ -293,46 +575,21 @@
         </figure>
       </div>
 
-      <div style="grid-column: 1 / span 2; display: flex; flex-direction: column; gap: 16px; border-top: 1px solid var(--color-neutral-800); padding-top: 12px; margin-top: -4px;">
+      <div class="exam-question-sheet" style="grid-column: 1 / span 2; display: flex; flex-direction: column; gap: 16px;">
         <sc-if value="{{ notFinished }}" hint-placeholder-val="{{ true }}">
-        <div style="display: flex; flex-direction: column; gap: 16px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <div style="display: flex; gap: 6px;">
-            <sc-for list="{{ dots }}" as="dot" hint-placeholder-count="3">
-              <span style="width: {{ dot.w }}; height: 6px; border-radius: 999px; background: {{ dot.bg }}; transition: all .3s ease;"></span>
-            </sc-for>
-          </div>
-          <span data-hf-progress style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 13px; color: var(--color-neutral-400);">{{ progressLabel }}</span>
-        </div>
-
-        <div style="height: auto; overflow: visible; position: relative;">
-          <div style="display: flex; flex-direction: column; transform: translateY({{ railOffset }}); transition: transform .66s cubic-bezier(.66,0,.24,1);">
+        <div style="display: flex; flex-direction: column; gap: 0;">
+        <div class="exam-question-reference">
+          <img class="exam-question-reference__image" src="assets/exam-question-reference.png?v=4" alt="Exam-style answer layout for Question 7">
+          <div class="exam-question-list">
             <sc-for list="{{ questions }}" as="q" hint-placeholder-count="3">
-              <div data-hf-target="{{ q.focusId }}" tabindex="0" aria-label="Question 7 {{ q.part }}" style="height: auto; flex: none; padding-bottom: 26px; display: flex; flex-direction: column; gap: 14px; opacity: {{ q.opacity }}; transition: opacity .5s ease, transform .34s cubic-bezier(.22,.78,.24,1), box-shadow .34s ease, outline-color .34s ease;">
-                <div style="display: flex; gap: 14px; align-items: flex-start;">
-                  <span style="font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 33px; color: var(--color-accent-300); line-height: 1.2;">{{ q.part }}</span>
-                  <div style="display: flex; flex-direction: column; gap: 5px;">
-                    <p style="font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 34px; line-height: 1.2; margin: 0; text-wrap: pretty;">{{ q.prompt }}</p>
-                    <span style="font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 15px; color: var(--color-neutral-500);">{{ q.meta }}</span>
-                  </div>
-                </div>
-                <div style="position: relative; border-radius: var(--radius-md); border: 1px solid var(--color-neutral-700); background: var(--color-neutral-800); padding: 16px; animation: {{ q.anim }};">
-                  <textarea value="{{ q.value }}" onChange="{{ q.onType }}" placeholder="{{ q.placeholder }}" style="width: 100%; box-sizing: border-box; height: 130px; resize: none; background: transparent; border: 0; outline: none; color: var(--color-text); font-family: 'Nunito', sans-serif; font-size: 19px; line-height: 1.6;"></textarea>
-                  <div style="position: absolute; inset: 0; pointer-events: none;">
-                    <sc-for list="{{ q.sparks }}" as="s" hint-placeholder-count="0">
-                      <span style="position: absolute; left: {{ s.left }}; top: {{ s.top }}; width: 9px; height: 9px; border-radius: 2px; background: #1C9A63; --dx: {{ s.dx }}; --dy: {{ s.dy }}; animation: sparkOut .95s ease-out both;"></span>
-                    </sc-for>
-                  </div>
-                  <sc-if value="{{ q.showTick }}" hint-placeholder-val="{{ false }}">
-                    <div style="position: absolute; right: -14px; top: -16px; width: 40px; height: 40px; border-radius: 999px; background: #1C9A63; color: #F7FBF8; display: grid; place-items: center; font-family: 'Fredoka', sans-serif; font-size: 21px; animation: tickIn .5s cubic-bezier(.3,1.6,.5,1) both;">✓</div>
-                  </sc-if>
-                </div>
+              <div class="exam-reference-hotspot exam-reference-hotspot--{{ q.answerClass }}" data-hf-target="{{ q.focusId }}" tabindex="0" aria-label="Question 7 {{ q.part }}">
+                <textarea class="exam-answer-box" value="{{ q.value }}" onChange="{{ q.onType }}" placeholder="{{ q.placeholder }}" aria-label="Answer for Question 7 {{ q.part }}"></textarea>
               </div>
             </sc-for>
           </div>
         </div>
 
-        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <div class="exam-question-submit">
           <button type="button" class="btn btn-primary" data-hf-submit onClick="{{ submitQ }}" style="cursor: pointer; white-space: nowrap; font-family: 'Fredoka', sans-serif; opacity: {{ submitOpacity }};">{{ submitLabel }}</button>
           <span style="font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 14.5px; color: {{ feedbackColor }};">{{ feedback }}</span>
         </div>
@@ -418,7 +675,7 @@
     </div>
     <div class="card elev-md" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
       <div style="position: relative; line-height: 0; clip-path: polygon(9% 146%, 125.5% 28.6%, 89.1% -56%, -27.4% 61.9%);">
-        <img src="assets/rower-full.png" alt="A single sculler rowing on open water, seen from above" style="width: 100%; display: block;">
+        <img src="assets/rower-focus-still.png" alt="A single sculler rowing on open water, seen from above" style="width: 100%; display: block;">
         <svg viewBox="0 0 1210 790" style="position: absolute; inset: 0; width: 100%; height: 100%;" role="img">
           <title>Force arrows on a rower</title>
           <desc>An action arrow at the oar blade pointing towards the stern, and a reaction arrow along the hull pointing towards the bow.</desc>
@@ -751,7 +1008,7 @@
   </div>
 </section>
 <img src="./screenshot-2026-07-26-at-15-15-16-ms1vr8hn-b58t.png" alt="screenshot-2026-07-26-at-15-15-16" width="2100" height="1688" style="max-width: 100%; height: auto; display: block; object-fit: cover; width: 2100px; aspect-ratio: 2100 / 1688"></x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1400,&quot;height&quot;:1100},&quot;compactBoxes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Marking boxes&quot;},&quot;quoteLines&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:3,&quot;min&quot;:1,&quot;max&quot;:6,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Marking boxes&quot;},&quot;showModelAnswer&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Marking boxes&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1600,&quot;height&quot;:900},&quot;compactBoxes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Marking boxes&quot;},&quot;quoteLines&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:3,&quot;min&quot;:1,&quot;max&quot;:6,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Marking boxes&quot;},&quot;showModelAnswer&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Marking boxes&quot;}}">
 const Q1 = [
   { key: 'A', id: 'ridge', text: 'Mid-ocean ridge' },
   { key: 'B', id: 'trench', text: 'Ocean trench' },
@@ -802,7 +1059,11 @@ const PE_PARTS = [
 const Q7 = [
   {
     part: '(a)', worth: 3, meta: '3 marks · one sentence',
-    prompt: 'Which of Newton’s laws lets you calculate the acceleration of the boat, and why that one?',
+    answerClass: 'short',
+    prompt: 'Which of Newton’s laws of motion can be used to calculate the acceleration of the boat during the stroke?',
+    promptBefore: 'Which of Newton’s laws of motion can be used to calculate the acceleration of the boat during the stroke?',
+    promptEmphasis: '',
+    promptAfter: '',
     placeholder: 'Name the law, then say what it links together…',
     criteria: [
       { m: 1, re: /second|2nd|f\s*=\s*ma/i, label: 'Second law named' },
@@ -813,18 +1074,25 @@ const Q7 = [
   },
   {
     part: '(b)', worth: 6, meta: '6 marks · name it and define it',
-    prompt: 'Name and define one other law of motion, then apply it to Cian’s stroke.',
+    answerClass: 'medium',
+    prompt: 'Name and define one other Newton’s law, then apply it to Cian’s stroke.',
+    promptBefore: 'Name and define ',
+    promptEmphasis: 'one',
+    promptAfter: ' other Newton’s law, then apply it to Cian’s stroke.',
     placeholder: 'Third law: for every action there is an equal and opposite reaction. When the blade…',
     criteria: [
-      { m: 2, re: /third|3rd|first|1st|inertia/i, label: 'A second law correctly named' },
-      { m: 2, re: /equal and opposite|reaction|remains? at rest|stays? at rest|unbalanced/i, label: 'Definition stated in exam wording' },
-      { m: 2, re: /blade|oar|water|boat|hull/i, label: 'Applied to the rowing stroke' },
+      { m: 2, re: /third|3rd|first|1st|inertia/i, label: 'Another law correctly named' },
+      { m: 4, re: /equal and opposite|reaction|remains? at rest|stays? at rest|unbalanced/i, label: 'Definition stated accurately' },
     ],
-    note: 'Third law defined as equal-and-opposite, then tied to the blade pushing water back and the water pushing the hull forward.',
+    note: 'Third law: for every action there is an equal and opposite reaction.',
   },
   {
     part: '(c)', worth: 6, meta: '6 marks · explain, with a reason',
-    prompt: 'Explain why a coach would use Newton’s laws when analysing human movement.',
+    answerClass: 'long',
+    prompt: 'Explain why a coach uses Newton’s laws when analysing human movement.',
+    promptBefore: 'Explain why a coach uses Newton’s laws when analysing human movement.',
+    promptEmphasis: '',
+    promptAfter: '',
     placeholder: 'Because the laws explain what causes the movement, a coach can…',
     criteria: [
       { m: 2, re: /force/i, label: 'Forces named as the cause of movement' },
@@ -851,10 +1119,10 @@ const IMG_X = 250, IMG_Y = 140;
 const ANN = [
   { dot: [394, 89], label: [0, 8, 240], anchor: [252, 52], kicker: '2nd law · F = ma',
     text: 'The stroke pushes the boat forward and makes it accelerate.' },
-  { dot: [547, 96], label: [920, 8, 240], anchor: [908, 52], kicker: '1st law · inertia',
-    text: 'Between strokes the boat keeps gliding until a force changes it.' },
   { dot: [290, 352], label: [0, 330, 240], anchor: [252, 374], kicker: '3rd law · reaction',
     text: 'Water resistance pushes back on the hull, equal and opposite.' },
+  { dot: [547, 96], label: [920, 8, 240], anchor: [908, 52], kicker: '1st law · inertia',
+    text: 'Between strokes the boat keeps gliding until a force changes it.' },
   { dot: [482, 327], label: [920, 330, 240], anchor: [908, 374], straightFirst: true, kicker: '3rd law · action',
     text: 'The blade pushes the water backwards.' },
 ];
@@ -1017,7 +1285,14 @@ class Component extends DCLogic {
       questions: Q7.map((q, n) => {
         const active = n === i;
         return {
-          part: q.part, prompt: q.prompt, meta: q.meta, placeholder: q.placeholder,
+          part: q.part,
+          prompt: q.prompt,
+          promptBefore: q.promptBefore,
+          promptEmphasis: q.promptEmphasis,
+          promptAfter: q.promptAfter,
+          meta: q.meta,
+          placeholder: q.placeholder,
+          answerClass: q.answerClass,
           focusId: 'question-' + ['a', 'b', 'c'][n],
           opacity: 1,
           value: s.q7ans[n] || '',
@@ -1390,6 +1665,31 @@ class Component extends DCLogic {
     layoutFrame = requestAnimationFrame(layout);
   }
 
+  function figureVideo() {
+    return document.querySelector('[data-hf-image-video]');
+  }
+
+  function startFigureVideo(reset) {
+    const video = figureVideo();
+    if (!video) return;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+    video.playsInline = true;
+    if (reset) {
+      try { video.currentTime = 0; } catch (_) {}
+    }
+    const playback = video.play();
+    if (playback && typeof playback.catch === 'function') playback.catch(() => {});
+  }
+
+  function stopFigureVideo() {
+    const video = figureVideo();
+    if (!video) return;
+    video.pause();
+    try { video.currentTime = 0; } catch (_) {}
+  }
+
   function replayFigure() {
     clearTimeout(imageTimer);
     const arrowButton = document.querySelector('[data-hf-arrow-replay]');
@@ -1398,7 +1698,7 @@ class Component extends DCLogic {
       if (activeId !== 'image') return;
       const diagramButton = document.querySelector('[data-hf-diagram-replay]');
       if (diagramButton) diagramButton.click();
-    }, 2050);
+    }, 5600);
   }
 
   function enter(id) {
@@ -1415,7 +1715,12 @@ class Component extends DCLogic {
     scheduleLayout();
     setTimeout(scheduleLayout, 180);
     setTimeout(scheduleLayout, 460);
-    if (id === 'image') replayFigure();
+    if (id === 'image') {
+      startFigureVideo(true);
+      replayFigure();
+    } else {
+      stopFigureVideo();
+    }
   }
 
   function exit() {
@@ -1423,6 +1728,7 @@ class Component extends DCLogic {
     clearTimeout(switchTimer);
     imageTimer = null;
     switchTimer = null;
+    stopFigureVideo();
     activeId = null;
     document.querySelectorAll('[data-hf-target].hf-current').forEach(el => el.classList.remove('hf-current'));
     document.body.classList.remove('hf-active');
@@ -1434,6 +1740,7 @@ class Component extends DCLogic {
       enter(id);
       return;
     }
+    if (activeId === 'image' && id !== 'image') stopFigureVideo();
     clearTimeout(imageTimer);
     document.querySelectorAll('[data-hf-target].hf-current').forEach(el => el.classList.remove('hf-current'));
     document.body.classList.remove('hf-active');
@@ -1459,6 +1766,7 @@ class Component extends DCLogic {
     const target = targetFor(activeId);
     if (!target) return;
     if (!target.classList.contains('hf-current')) target.classList.add('hf-current');
+    if (activeId === 'image') startFigureVideo(false);
     scheduleLayout();
   }
 
