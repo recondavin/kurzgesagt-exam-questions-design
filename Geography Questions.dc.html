@@ -249,6 +249,11 @@
     position: relative;
     width: 100%;
   }
+  .exam-context-panel {
+    width: calc(100% + 150px);
+    margin-left: -150px;
+    box-sizing: border-box;
+  }
   .exam-context-render__text {
     position: relative;
     z-index: 2;
@@ -259,16 +264,14 @@
   .exam-context-highlight {
     position: absolute;
     z-index: 1;
-    height: 9.5%;
+    height: 11.3%;
     border-radius: 5px;
     opacity: 0;
     transition: opacity .3s ease, background-color .3s ease, box-shadow .3s ease;
   }
-  .exam-context-highlight--single { left: .85%; top: 11.8%; width: 51.15%; }
-  .exam-context-highlight--boat-a { left: 81.8%; top: 33.45%; width: 17.05%; transition-delay: .14s; }
-  .exam-context-highlight--boat-b { left: .85%; top: 44.25%; width: 59.65%; transition-delay: .14s; }
-  .exam-context-highlight--force-a { left: 51.95%; top: 57.3%; width: 25.6%; transition-delay: .28s; }
-  .exam-context-highlight--force-b { left: .85%; top: 68.1%; width: 72.45%; transition-delay: .28s; }
+  .exam-context-highlight--single { left: 49.8%; top: 1%; width: 36.9%; }
+  .exam-context-highlight--boat { left: 12.9%; top: 40.45%; width: 58.4%; transition-delay: .14s; }
+  .exam-context-highlight--force { left: 37.5%; top: 56.3%; width: 58.4%; transition-delay: .28s; }
   [data-hf-target="context"].hf-current .exam-context-highlight {
     opacity: 1;
     background: #FFE45C;
@@ -539,15 +542,13 @@
           </div>
           <h2 class="exam-question-number"><img src="assets/exam-question-7-heading.png?v=1" alt="Question 7"></h2>
           <button type="button" class="hf-start" data-hf-start aria-label="Start guided hyper focus for Question 7">Enter hyper focus</button>
-          <div data-hf-target="context" tabindex="0" aria-label="Question 7 context" style="background: #E6E7EA; border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 10px;">
+          <div class="exam-context-panel" data-hf-target="context" tabindex="0" aria-label="Question 7 context" style="background: #E6E7EA; border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 10px;">
             <div class="exam-context-render">
               <span class="exam-context-highlight exam-context-highlight--single"></span>
-              <span class="exam-context-highlight exam-context-highlight--boat-a"></span>
-              <span class="exam-context-highlight exam-context-highlight--boat-b"></span>
-              <span class="exam-context-highlight exam-context-highlight--force-a"></span>
-              <span class="exam-context-highlight exam-context-highlight--force-b"></span>
-              <img class="exam-context-render__text" src="assets/exam-context-pdf.png?v=3" alt="">
-              <span class="exam-context-accessible">Cian races in a single scull. He pulls the blades through the water, and the boat surges forward. Each stroke pushes against the water. The diagram shows where the forces act.</span>
+              <span class="exam-context-highlight exam-context-highlight--boat"></span>
+              <span class="exam-context-highlight exam-context-highlight--force"></span>
+              <img class="exam-context-render__text" src="assets/exam-context-pdf.png?v=4" alt="">
+              <span class="exam-context-accessible">Cian races in a single scull. He pulls the blades through the water. The boat surges forward. Each stroke pushes on the water. The diagram shows where those forces act.</span>
             </div>
           </div>
         </div>
