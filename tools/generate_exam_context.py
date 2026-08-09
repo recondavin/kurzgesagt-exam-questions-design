@@ -19,21 +19,23 @@ OUTPUT = ROOT / "assets/exam-context-pdf.png"
 TMP_ROOT = ROOT / "tmp/pdfs"
 
 FONT_KEY = "/TT2"
-FONT_SIZE = 15.0
-LEADING = 18.25
-PARAGRAPH_GAP = 4.0
-BOX_X, BOX_Y, BOX_W, BOX_H = 20.0, 20.0, 225.0, 132.0
+FONT_SIZE = 20.0
+LEADING = 24.33
+PARAGRAPH_GAP = 5.0
+BOX_X, BOX_Y, BOX_W, BOX_H = 20.0, 20.0, 238.0, 225.0
 LEFT = BOX_X + 2.0
-FIRST_BASELINE = BOX_Y + BOX_H - 13.75
+FIRST_BASELINE = BOX_Y + BOX_H - 18.3
 
 LINES = [
-    "Cian races in a single scull.",
-    "He pulls the blades through",
+    "Cian races in a",
+    "single scull. He pulls",
+    "the blades through",
     "the water, and the boat",
     "surges forward.",
-    "Each stroke applies force",
-    "against the water. The diagram",
-    "shows where the forces act.",
+    "Each stroke pushes",
+    "against the water.",
+    "The diagram shows",
+    "where the forces act.",
 ]
 
 
@@ -83,7 +85,7 @@ def main() -> None:
     ]
     baseline = FIRST_BASELINE
     for index, line in enumerate(LINES):
-        if index == 4:
+        if index == 5:
             baseline -= PARAGRAPH_GAP
         operations.append(
             f"BT {FONT_KEY} {FONT_SIZE} Tf 1 0 0 1 {LEFT:.2f} {baseline:.2f} Tm <{encode(line, mapping)}> Tj ET"
