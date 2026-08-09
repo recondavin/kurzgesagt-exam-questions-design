@@ -56,7 +56,7 @@ Completed:
 7. Rasterized `(a)`, `(b)` and `(c)` together so all three use the identical PDF rendering pipeline.
 8. Reworded `(b)` to apply another law to Cian's stroke and `(c)` to ask why a coach uses Newton's laws; `(a)` was preserved unchanged.
 9. Replaced the stylized top-right `Question 7` heading with a raster extracted directly from the same source exam PDF (`assets/exam-question-7-heading.png`). It preserves the embedded Calibri Bold face at 12 pt and the original title spacing while keeping the surrounding layout fixed.
-10. Changed both rowing context paragraphs to the extracted exam Calibri Regular font at 25 px with compact exam-style line spacing. The context panel, image, controls and lower question block retain their existing positions.
+10. Re-rendered the rowing context through the original exam PDF's embedded Calibri resource and Poppler, then placed the transparent raster in the context panel as `assets/exam-context-pdf.png`. The copy is condensed to seven longer lines and rendered at 15 pt for greater clarity. This matches part `(a)`'s PDF rendering path while preserving staged yellow evidence highlights, accessible text, panel position and surrounding layout. The reproducible generator is `tools/generate_exam_context.py`; its preserved source PDF is under `assets/source/`.
 
 Exact part `(a)` typography:
 

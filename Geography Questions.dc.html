@@ -15,13 +15,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&amp;family=Fredoka:wdth,wght@100..125,400..700&amp;family=Nunito:ital,wght@0,400;0,600;0,700;1,400&amp;family=Chakra+Petch:wght@500;600;700&amp;display=swap">
 <style>
-  @font-face {
-    font-family: 'Exam Calibri';
-    src: url('assets/fonts/exam-calibri-regular.ttf') format('truetype');
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-  }
   :root {
     --color-bg: #EDF1F7;
     --color-surface: #F9FBFE;
@@ -252,11 +245,45 @@
     object-fit: contain;
     object-position: left center;
   }
-  .exam-context-copy {
-    font-family: 'Exam Calibri', Calibri, Arial, sans-serif;
-    font-size: 25px;
-    font-weight: 400;
-    line-height: 1.22;
+  .exam-context-render {
+    position: relative;
+    width: 100%;
+  }
+  .exam-context-render__text {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .exam-context-highlight {
+    position: absolute;
+    z-index: 1;
+    height: 13.4%;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity .3s ease, background-color .3s ease, box-shadow .3s ease;
+  }
+  .exam-context-highlight--single { left: 55%; top: 1%; width: 40.6%; }
+  .exam-context-highlight--boat-a { left: 65.1%; top: 28.7%; width: 13.55%; transition-delay: .14s; }
+  .exam-context-highlight--boat-b { left: .9%; top: 42.5%; width: 47.35%; transition-delay: .14s; }
+  .exam-context-highlight--force-a { left: 41.45%; top: 59.3%; width: 43.95%; transition-delay: .28s; }
+  .exam-context-highlight--force-b { left: .9%; top: 73.2%; width: 57.5%; transition-delay: .28s; }
+  [data-hf-target="context"].hf-current .exam-context-highlight {
+    opacity: 1;
+    background: #FFE45C;
+    box-shadow: inset 0 -3px 0 rgba(221,157,0,.34), 0 0 0 2px rgba(255,228,92,.32), 0 4px 12px rgba(211,157,0,.22);
+  }
+  .exam-context-accessible {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
   .exam-reference-hotspot {
     position: absolute;
@@ -513,8 +540,15 @@
           <h2 class="exam-question-number"><img src="assets/exam-question-7-heading.png?v=1" alt="Question 7"></h2>
           <button type="button" class="hf-start" data-hf-start aria-label="Start guided hyper focus for Question 7">Enter hyper focus</button>
           <div data-hf-target="context" tabindex="0" aria-label="Question 7 context" style="background: #E6E7EA; border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 10px;">
-            <p class="exam-context-copy" style="color: #1B2430; margin: 0; max-width: 100%; text-wrap: pretty;">Cian races in a <span class="hf-key">single scull</span>. He drives with his legs, back and arms to pull the blades through the water, and the <span class="hf-key">boat surges forward</span> with every stroke.</p>
-            <p class="exam-context-copy" style="color: #1B2430; margin: 0; max-width: 100%; text-wrap: pretty;">Each stroke is a <span class="hf-key">force applied against the water</span> — the diagram traces where those forces act.</p>
+            <div class="exam-context-render">
+              <span class="exam-context-highlight exam-context-highlight--single"></span>
+              <span class="exam-context-highlight exam-context-highlight--boat-a"></span>
+              <span class="exam-context-highlight exam-context-highlight--boat-b"></span>
+              <span class="exam-context-highlight exam-context-highlight--force-a"></span>
+              <span class="exam-context-highlight exam-context-highlight--force-b"></span>
+              <img class="exam-context-render__text" src="assets/exam-context-pdf.png?v=2" alt="">
+              <span class="exam-context-accessible">Cian races in a single scull. He pulls the blades through the water, and the boat surges forward. Each stroke applies force against the water. The diagram shows where the forces act.</span>
+            </div>
           </div>
         </div>
         <figure data-hf-target="image" tabindex="0" aria-label="Figure 7.1 rowing force diagram" style="margin: 0; grid-column: 1; grid-row: 1; width: 860px; align-self: center; display: flex; flex-direction: column; gap: 12px;">
