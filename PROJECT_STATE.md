@@ -63,6 +63,7 @@ Completed:
 14. Verified the rugby Leaving Cert source gives part (c) six writing rows (seven horizontal rules). Locked the 1370 × 1320 question reference against flex shrinking and bumped its cache key to `v=6`, ensuring the full authentic part (c) answer space is displayed rather than a cached or compressed crop.
 15. Verified `assets/exam-question-7-heading.png` is pixel-for-pixel identical to the Question 7 heading crop rendered from the original exam PDF. Removed the decorative `Higher · Strand 1` and `15 marks` badge row that made the surrounding area look like an app rather than an exam, and bumped the heading cache key to `v=2`.
 16. Lowered both approved 900 × 900 hand assets together by 100 scene pixels, from `top: 880px` to `top: 980px`. Their scale, horizontal position, sleeves, rigging and animation remain unchanged; both frames end at 1880px within the 1992px scene.
+17. Extended both hand SVG canvases from 1254 × 1254 to 1254 × 1410 and added matching white-school-shirt forearm extensions behind the approved wrist/cuff artwork. Changed the scene render boxes from 900 × 900 to 900 × 1012, preserving the original 900/1254 scale while carrying both arms naturally to the 1992px scene bottom; hand and finger animation remains unchanged.
 
 Exact part `(a)` typography:
 

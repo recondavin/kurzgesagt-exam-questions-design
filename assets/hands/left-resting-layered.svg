@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1254 1254" role="img" aria-labelledby="left-hand-title left-hand-desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1254 1410" role="img" aria-labelledby="left-hand-title left-hand-desc">
   <title id="left-hand-title">Anatomically layered coral left resting hand</title>
   <desc id="left-hand-desc">The approved artwork preserved exactly and separated only into wrist, palm, thumb bones, and finger joint layers.</desc>
   <style>
@@ -85,6 +85,10 @@
   </defs>
   <g id="left-hand-position">
   <g id="left-hand">
+    <g id="left-forearm-extension" aria-hidden="true">
+      <path d="M 82 1190 C 220 1210 414 1228 650 1218 C 696 1275 731 1340 756 1410 L 38 1410 C 43 1332 58 1254 82 1190 Z" fill="url(#left-sleeve-gradient)" stroke="#D7E5F1" stroke-width="4" stroke-linejoin="round" />
+      <path d="M 92 1270 C 274 1294 470 1300 685 1284" fill="none" stroke="#E5EDF5" stroke-width="4" stroke-linecap="round" />
+    </g>
     <g id="left-skin-tone" filter="url(#left-skin-tone-filter)">
     <g id="wrist" class="anatomy-layer joint" data-pivot-x="535" data-pivot-y="970" style="transform-origin:535px 970px" clip-path="url(#clip-wrist)">
       <use href="#approved-pixels" />
