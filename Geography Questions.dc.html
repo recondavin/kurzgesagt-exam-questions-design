@@ -250,8 +250,8 @@
     width: 100%;
   }
   .exam-context-panel {
-    width: calc(100% + 150px);
-    margin-left: -150px;
+    width: calc(100% + 65px);
+    margin-left: -65px;
     box-sizing: border-box;
   }
   .exam-context-render__text {
@@ -269,9 +269,9 @@
     opacity: 0;
     transition: opacity .3s ease, background-color .3s ease, box-shadow .3s ease;
   }
-  .exam-context-highlight--single { left: 49.8%; top: 1%; width: 36.9%; }
-  .exam-context-highlight--boat { left: 12.9%; top: 40.45%; width: 58.4%; transition-delay: .14s; }
-  .exam-context-highlight--force { left: 37.5%; top: 56.3%; width: 58.4%; transition-delay: .28s; }
+  .exam-context-highlight--single { left: 43.4%; top: 1%; width: 31.9%; }
+  .exam-context-highlight--boat { left: 13%; top: 40.45%; width: 58.4%; transition-delay: .14s; }
+  .exam-context-highlight--force { left: 37.75%; top: 56.3%; width: 57.9%; transition-delay: .28s; }
   [data-hf-target="context"].hf-current .exam-context-highlight {
     opacity: 1;
     background: #FFE45C;
@@ -507,31 +507,8 @@
     <div data-hf-scene style="position: absolute; left: 0; top: 0; width: 3177px; height: 1788px; background: url(assets/cartoon-desk.svg) center/100% 100% no-repeat;">
   <img class="exam-hand-motion exam-hand-motion--left" src="assets/hands/left-resting-layered.svg" alt="" aria-hidden="true">
   <img class="exam-hand-motion exam-hand-motion--right" src="assets/hands/right-writing-gentle-rig.svg" alt="" aria-hidden="true">
-  <div class="exam-paper" style="position: absolute; left: 901px; top: 27px; width: 1370px; height: 1743px; z-index: 2; box-sizing: border-box; padding: 26px; overflow: hidden; border-radius: 6px;">
+  <div class="exam-paper" style="position: absolute; left: 901px; top: 27px; width: 1370px; height: 1530px; z-index: 2; box-sizing: border-box; padding: 26px; overflow: hidden; border-radius: 6px;">
   <div id="3a" style="width: 1318px; transform: scale(1.0); display: flex; flex-direction: column; gap: 12px;">
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <span class="tag tag-outline" style="font-family: 'Fredoka', sans-serif;">3a</span>
-      <span style="font-family: 'Fredoka', sans-serif; font-size: 14px; color: var(--color-neutral-300);">Fixed stem · scrolling question rail</span>
-    </div>
-    <div style="display: flex; align-items: center; gap: 14px;">
-      <div style="flex: 1; height: 8px; border-radius: 999px; background: var(--color-neutral-800); position: relative;">
-        <div style="height: 100%; border-radius: 999px; background: var(--color-accent); width: {{ barPct }}; transition: width .62s cubic-bezier(.85,0,.2,1); position: relative;">
-          <sc-for list="{{ barSplash }}" as="b" hint-placeholder-count="0">
-            <span style="position: absolute; right: -4px; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 0; border-radius: 999px; border: 2px solid var(--color-accent-300); animation: splash .6s ease-out .6s both;"></span>
-          </sc-for>
-          <sc-for list="{{ barSplash }}" as="b" hint-placeholder-count="0">
-            <span style="position: absolute; right: 1px; top: 50%; width: 5px; height: 5px; margin: -2.5px 0 0 0; border-radius: 999px; background: var(--color-accent-300); --sx: 15px; --sy: -13px; animation: splashDrop .5s ease-out .6s both;"></span>
-          </sc-for>
-          <sc-for list="{{ barSplash }}" as="b" hint-placeholder-count="0">
-            <span style="position: absolute; right: 1px; top: 50%; width: 4px; height: 4px; margin: -2px 0 0 0; border-radius: 999px; background: var(--color-accent-300); --sx: 12px; --sy: 14px; animation: splashDrop .5s ease-out .66s both;"></span>
-          </sc-for>
-          <sc-for list="{{ barSplash }}" as="b" hint-placeholder-count="0">
-            <span style="position: absolute; right: 0; top: 50%; width: 4px; height: 4px; margin: -2px 0 0 0; border-radius: 999px; background: var(--color-accent-300); --sx: 18px; --sy: 3px; animation: splashDrop .52s ease-out .63s both;"></span>
-          </sc-for>
-        </div>
-      </div>
-      <span style="font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 12.5px; color: var(--color-neutral-400); white-space: nowrap;">{{ barLabel }}</span>
-    </div>
     <div class="card elev-md" style="padding: 14px 24px 16px; display: grid; grid-template-columns: 860px 1fr; column-gap: 24px; row-gap: 10px; align-items: start;">
 
       <div style="display: contents;">
@@ -547,7 +524,7 @@
               <span class="exam-context-highlight exam-context-highlight--single"></span>
               <span class="exam-context-highlight exam-context-highlight--boat"></span>
               <span class="exam-context-highlight exam-context-highlight--force"></span>
-              <img class="exam-context-render__text" src="assets/exam-context-pdf.png?v=4" alt="">
+              <img class="exam-context-render__text" src="assets/exam-context-pdf.png?v=5" alt="">
               <span class="exam-context-accessible">Cian races in a single scull. He pulls the blades through the water. The boat surges forward. Each stroke pushes on the water. The diagram shows where those forces act.</span>
             </div>
           </div>

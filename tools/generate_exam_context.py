@@ -138,6 +138,11 @@ def main() -> None:
                 r, g, b = source_pixels[x, y]
                 alpha = 255 - round((r + g + b) / 3)
                 target_pixels[x, y] = (0, 0, 0, alpha)
+        ink_bounds = rgba.getchannel("A").getbbox()
+        if not ink_bounds:
+            raise RuntimeError("Rendered context contains no visible text")
+        crop_right = min(rgba.width, ink_bounds[2] + 10)
+        rgba = rgba.crop((0, 0, crop_right, rgba.height))
         rgba.save(OUTPUT)
 
     measure = ImageFont.truetype(FONT_FILE, 1000)
