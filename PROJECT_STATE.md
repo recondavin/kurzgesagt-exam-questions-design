@@ -64,6 +64,7 @@ Completed:
 15. Verified `assets/exam-question-7-heading.png` is pixel-for-pixel identical to the Question 7 heading crop rendered from the original exam PDF. Removed the decorative `Higher · Strand 1` and `15 marks` badge row that made the surrounding area look like an app rather than an exam, and bumped the heading cache key to `v=2`.
 16. Lowered both approved 900 × 900 hand assets together by 100 scene pixels, from `top: 880px` to `top: 980px`. Their scale, horizontal position, sleeves, rigging and animation remain unchanged; both frames end at 1880px within the 1992px scene.
 17. Extended both hand SVG canvases from 1254 × 1254 to 1254 × 1410 and added matching white-school-shirt forearm extensions behind the approved wrist/cuff artwork. Changed the scene render boxes from 900 × 900 to 900 × 1012, preserving the original 900/1254 scale while carrying both arms naturally to the 1992px scene bottom; hand and finger animation remains unchanged.
+18. Replaced the generic vector forearm shapes after visual rejection. Extracted each approved cuff's exact embedded PNG, preserved the upper 220-pixel cuff/seam region, and vertically extended its real lower-shirt pixels into `left-shirt-sleeve-extended.png` and `right-shirt-sleeve-extended.png`. Each extension uses the original cuff transform and renders in front of the wrist, so the approved fabric gradient, edge shading, seam and angle continue down the forearm while the cuff visibly covers the skin. The original embedded cuff groups remain hidden in the SVGs for recovery.
 
 Exact part `(a)` typography:
 
