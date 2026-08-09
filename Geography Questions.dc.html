@@ -218,7 +218,7 @@
   .exam-question-reference {
     position: relative;
     width: 100%;
-    aspect-ratio: 1370 / 973;
+    aspect-ratio: 1370 / 1320;
     overflow: hidden;
     background: #FFFFFF;
   }
@@ -295,9 +295,9 @@
     right: 0;
     outline: 0;
   }
-  .exam-reference-hotspot--short { top: 0; height: 19%; }
-  .exam-reference-hotspot--medium { top: 25.2%; height: 45.5%; }
-  .exam-reference-hotspot--long { top: 76.8%; height: 23.2%; }
+  .exam-reference-hotspot--short { top: 0; height: 14.1%; }
+  .exam-reference-hotspot--medium { top: 18.6%; height: 33.6%; }
+  .exam-reference-hotspot--long { top: 56.6%; height: 43.4%; }
   .exam-question-reference .exam-answer-box {
     position: absolute;
     left: .58%;
@@ -320,7 +320,7 @@
   }
   .exam-reference-hotspot--short .exam-answer-box { top: 56.8%; height: 42%; line-height: 1.45; }
   .exam-reference-hotspot--medium .exam-answer-box { top: 13%; height: 87%; }
-  .exam-reference-hotspot--long .exam-answer-box { top: 26%; height: 74%; }
+  .exam-reference-hotspot--long .exam-answer-box { top: 10.8%; height: 89.2%; }
   .exam-question-reference .exam-answer-box:focus {
     border: 0;
     box-shadow: inset 0 0 0 3px rgba(46, 107, 214, .18);
@@ -504,10 +504,10 @@
 </helmet>
 
 <section class="exam-primary-layout" style="display: flex; flex-direction: column; gap: 0; padding: 0;">
-    <div data-hf-scene style="position: absolute; left: 0; top: 0; width: 3177px; height: 1788px; background: url(assets/cartoon-desk.svg) center/100% 100% no-repeat;">
+    <div data-hf-scene style="position: absolute; left: 0; top: 0; width: 3177px; height: 1992px; background: url(assets/cartoon-desk.svg) center/100% 100% no-repeat;">
   <img class="exam-hand-motion exam-hand-motion--left" src="assets/hands/left-resting-layered.svg" alt="" aria-hidden="true">
   <img class="exam-hand-motion exam-hand-motion--right" src="assets/hands/right-writing-gentle-rig.svg" alt="" aria-hidden="true">
-  <div class="exam-paper" style="position: absolute; left: 901px; top: 27px; width: 1370px; height: 1530px; z-index: 2; box-sizing: border-box; padding: 26px; overflow: hidden; border-radius: 6px;">
+  <div class="exam-paper" style="position: absolute; left: 901px; top: 27px; width: 1370px; height: 1938px; z-index: 2; box-sizing: border-box; padding: 26px; overflow: hidden; border-radius: 6px;">
   <div id="3a" style="width: 1318px; transform: scale(1.0); display: flex; flex-direction: column; gap: 12px;">
     <div class="card elev-md" style="padding: 14px 24px 16px; display: grid; grid-template-columns: 860px 1fr; column-gap: 24px; row-gap: 10px; align-items: start;">
 
@@ -591,7 +591,7 @@
         <sc-if value="{{ notFinished }}" hint-placeholder-val="{{ true }}">
         <div style="display: flex; flex-direction: column; gap: 0;">
         <div class="exam-question-reference">
-          <img class="exam-question-reference__image" src="assets/exam-question-reference.png?v=4" alt="Exam-style answer layout for Question 7">
+          <img class="exam-question-reference__image" src="assets/exam-question-reference.png?v=5" alt="Exam-style answer layout for Question 7">
           <div class="exam-question-list">
             <sc-for list="{{ questions }}" as="q" hint-placeholder-count="3">
               <div class="exam-reference-hotspot exam-reference-hotspot--{{ q.answerClass }}" data-hf-target="{{ q.focusId }}" tabindex="0" aria-label="Question 7 {{ q.part }}">
