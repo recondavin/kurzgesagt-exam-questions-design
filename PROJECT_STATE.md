@@ -1,12 +1,20 @@
 # Project State
 
-Updated: 2026-08-09
+Updated: 2026-09-02
 
 ## Project location
 
-- Root: `/Users/davin/Documents/study app/kurzgesagt-exam-questions-design`
-- Primary page: `/Users/davin/Documents/study app/kurzgesagt-exam-questions-design/Geography Questions.dc.html`
-- Focus controller: `/Users/davin/Documents/study app/kurzgesagt-exam-questions-design/hyper-focus.js`
+- Root: `/Users/davin/Documents/project/kurzgesagt-exam-questions-design`
+- Primary page: `/Users/davin/Documents/project/kurzgesagt-exam-questions-design/Geography Questions.dc.html`
+- Focus controller: `/Users/davin/Documents/project/kurzgesagt-exam-questions-design/hyper-focus.js`
+
+## Current active paper
+
+- The PE Question 7 version is preserved in Git commit `1f903e7` (`Save PE Question 7 page before Geography swap`).
+- The visible paper is now page 5 of the official 2024 Leaving Certificate Geography Higher Level Part Two paper, containing the complete Question 3 page.
+- The source PDF is `assets/source/geography-2024-hl-part2.pdf`.
+- The rendered page asset is `assets/geography-2024-hl-part2-question-3-page.png`.
+- Focus mode targets Question 3C and gives four concise steps: decoding the two-part task, balancing the 13 explained SRPs, structuring one SRP, and small non-answering prompts.
 
 ## What currently exists
 

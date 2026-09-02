@@ -1,29 +1,24 @@
 (function () {
   var steps = [
     {
-      id: 'context', kicker: '1 · Read the context', title: 'Strip the stem down to evidence',
-      summary: 'Keep only the clues that determine the answer.',
-      points: ['<strong>Single scull:</strong> one athlete creates the motion.', '<strong>Boat surges forward:</strong> this is acceleration.', '<strong>Force against the water:</strong> look for an action–reaction pair.']
+      id: 'question-3c', target: 'question-3c', kicker: '1 · Decode the task', title: 'This essay has two jobs',
+      summary: 'The marking scheme expects prediction and reduction, not a general earthquake essay.',
+      points: ['Underline <strong>predicted</strong> and <strong>effects reduced</strong>.', 'Make one clear reference to each side before developing your explanation.', 'Keep every point tied to earthquakes.']
     },
     {
-      id: 'image', kicker: '2 · Read Figure 7.1', title: 'Turn the picture into a force map',
-      summary: 'Read the arrows as a simple force map.',
-      points: ['<strong>Acceleration:</strong> the boat is pushed forward.', '<strong>Resistance:</strong> the opposing force acts backward.', 'Follow each force’s starting point and direction.']
+      id: 'question-3c-plan', target: 'question-3c', kicker: '2 · Plan the marks', title: 'Balance the two halves',
+      summary: 'After the two reference marks, the explanation is credited through 13 SRPs.',
+      points: ['Aim for roughly <strong>six or seven SRPs per half</strong>.', 'Use short paragraphs: one idea, then its effect or reason.', 'Answering only one half caps the developed SRPs at seven.']
     },
     {
-      id: 'question-a', kicker: '3 · Decode part (a)', title: 'Calculate acceleration: choose the matching law',
-      summary: 'Choose the law that calculates acceleration.',
-      points: ['Name <strong>Newton’s second law</strong> or F = ma.', 'Link the <strong>overall forward push</strong> to acceleration.', 'Mention <strong>mass</strong>. One precise sentence can earn all 3 marks.']
+      id: 'question-3c-srp', target: 'question-3c', kicker: '3 · Build an SRP', title: 'Make each point earn its place',
+      summary: 'An SRP is a specific, relevant point that directly advances the answer.',
+      points: ['Use <strong>point → how or why → earthquake link</strong>.', 'Do not stop after naming a method; explain what it detects or changes.', 'One precise sentence, or a tight sentence pair, is usually enough.']
     },
     {
-      id: 'question-b', kicker: '4 · Decode part (b)', title: 'Name it, define it, then apply it',
-      summary: 'Give the law, its definition, and the rowing example.',
-      points: ['Name <strong>Newton’s third law</strong>.', 'Define equal and opposite action–reaction forces.', 'Apply it: blade pushes water back; water pushes boat forward.']
-    },
-    {
-      id: 'question-c', kicker: '5 · Decode part (c)', title: 'Build the H1 explanation chain',
-      summary: 'Build a short cause → coaching → benefit chain.',
-      points: ['<strong>Cause:</strong> forces explain movement.', '<strong>Use:</strong> a coach corrects technique.', '<strong>Benefit:</strong> speed, efficiency, or safety.']
+      id: 'question-3c-hints', target: 'question-3c', kicker: '4 · Small prompts', title: 'Ask yourself, then supply the detail',
+      summary: 'These prompts point you toward ideas without writing the essay for you.',
+      points: ['What changes might instruments notice <strong>before</strong> strong shaking?', 'How could <strong>where and how people build</strong> alter the damage?', 'What can communities prepare before an event that helps during and after it?']
     }
   ];
   var activeId = null;
@@ -41,7 +36,12 @@
   var DIAGRAM_START_MS = 5600;
   var IMAGE_SEQUENCE_MS = 17500;
 
-  function targetFor(id) { return document.querySelector('[data-hf-target="' + id + '"]'); }
+  function stepFor(id) { return steps.find(function (step) { return step.id === id; }); }
+  function targetFor(id) {
+    var step = stepFor(id);
+    var targetId = step && step.target ? step.target : id;
+    return document.querySelector('[data-hf-target="' + targetId + '"]');
+  }
   function stepIndex(id) { return steps.findIndex(function (step) { return step.id === id; }); }
 
   function buildUI() {
@@ -179,13 +179,15 @@
     // the artwork ends much earlier. Viewport-relative `right: 20px` therefore
     // placed the guide outside the picture.
     var scene = document.querySelector('[data-hf-scene]');
-    var sceneRect = scene ? scene.getBoundingClientRect() : { left: 0, right: window.innerWidth, top: 0, bottom: window.innerHeight };
-    var sceneLeft = Math.max(0, sceneRect.left);
-    var sceneRight = Math.min(window.innerWidth, sceneRect.right);
-    var sceneTop = Math.max(0, sceneRect.top);
-    var sceneBottom = Math.min(window.innerHeight, sceneRect.bottom);
+    var stableFitScale = scene ? Math.min(window.innerWidth / scene.offsetWidth, window.innerHeight / scene.offsetHeight) : 1;
+    var stableSceneWidth = scene ? scene.offsetWidth * stableFitScale : window.innerWidth;
+    var stableSceneHeight = scene ? scene.offsetHeight * stableFitScale : window.innerHeight;
+    var sceneLeft = Math.max(0, (window.innerWidth - stableSceneWidth) / 2);
+    var sceneRight = Math.min(window.innerWidth, sceneLeft + stableSceneWidth);
+    var sceneTop = Math.max(0, (window.innerHeight - stableSceneHeight) / 2);
+    var sceneBottom = Math.min(window.innerHeight, sceneTop + stableSceneHeight);
     var sceneWidth = Math.max(0, sceneRight - sceneLeft);
-    var preferredGuideWidth = activeId && activeId.indexOf('question-') === 0 ? 700 : 760;
+    var preferredGuideWidth = activeId && activeId.indexOf('question-') === 0 ? 620 : 760;
     var guideWidth = Math.max(400, Math.min(preferredGuideWidth, sceneWidth - 40));
     ui.guide.style.width = guideWidth + 'px';
     var guideHeight = ui.guide.getBoundingClientRect().height || 300;
@@ -273,19 +275,23 @@
     // than filling the viewport and forcing the guide over their centre.
     var isQuestion = activeId && activeId.indexOf('question-') === 0;
     var isImageOnly = activeId === 'image';
-    var preferredGuideColumn = isQuestion ? 700 : 760;
-    var guideColumn = isImageOnly ? 0 : Math.min(preferredGuideColumn, Math.max(400, window.innerWidth * .40));
-    var availableWidth = Math.max(520, window.innerWidth - guideColumn - (isImageOnly ? 48 : 76));
+    var preferredGuideColumn = isQuestion ? 620 : 760;
+    var guideColumn = isImageOnly ? 0 : Math.min(preferredGuideColumn, Math.max(400, window.innerWidth * .48));
+    var fitScale = Math.min(window.innerWidth / scene.offsetWidth, window.innerHeight / scene.offsetHeight);
+    var fittedSceneWidth = scene.offsetWidth * fitScale;
+    var fittedSceneLeft = (window.innerWidth - fittedSceneWidth) / 2;
+    var availableWidth = Math.max(500, fittedSceneWidth - guideColumn - (isImageOnly ? 48 : 76));
     var desiredScale = isQuestion ? 1.55 : cameraScale;
     if (activeId === 'image') desiredScale = 1.60;
     // Let a focused question extend slightly beneath the edge of the advice
     // column. This makes its prompt visually match the advice heading without
     // changing the advice card itself or cropping the question's leading text.
-    var questionWidthAllowance = isQuestion ? 185 : 0;
+    var questionWidthAllowance = 0;
     var widthScale = (availableWidth + questionWidthAllowance) / Math.max(1, localWidth);
     var heightScale = (window.innerHeight - 90) / Math.max(1, localHeight);
-    var nextScale = Math.max(.72, Math.min(desiredScale, widthScale, heightScale));
-    var focusX = isImageOnly ? window.innerWidth / 2 : 24 + (availableWidth + questionWidthAllowance) / 2;
+    var minScale = isQuestion ? .44 : .72;
+    var nextScale = Math.max(minScale, Math.min(desiredScale, widthScale, heightScale));
+    var focusX = isImageOnly ? window.innerWidth / 2 : fittedSceneLeft + 24 + (availableWidth + questionWidthAllowance) / 2;
     var focusY = window.innerHeight * 0.50;
     var tx = focusX - localX * nextScale;
     var ty = focusY - localY * nextScale;
@@ -414,7 +420,7 @@
     savedScrollX = window.scrollX || 0;
     savedScrollY = window.scrollY || 0;
     window.scrollTo(0, 0);
-    focus('context');
+    focus('question-3c');
   }
 
   function move(delta) {
