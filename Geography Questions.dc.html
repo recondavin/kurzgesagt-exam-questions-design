@@ -299,6 +299,40 @@
   .exam-reference-hotspot--short { top: 0; height: 14.1%; }
   .exam-reference-hotspot--medium { top: 18.6%; height: 33.6%; }
   .exam-reference-hotspot--long { top: 56.6%; height: 43.4%; }
+  .exam-part-focus {
+    position: absolute;
+    z-index: 5;
+    top: 8px;
+    right: .9%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 86px;
+    height: 34px;
+    padding: 0 13px;
+    border: 1.5px solid #2E6BD6;
+    border-radius: 999px;
+    background: rgba(255,255,255,.96);
+    color: #1E4C9E;
+    cursor: zoom-in;
+    font: 800 16px/1 'Nunito', sans-serif;
+    letter-spacing: .01em;
+    box-shadow: 0 3px 10px rgba(30,76,158,.10);
+    opacity: .82;
+    transition: opacity .18s ease, background-color .18s ease, box-shadow .18s ease, transform .18s ease;
+  }
+  .exam-part-focus:hover,
+  .exam-part-focus:focus-visible {
+    opacity: 1;
+    background: #F2F6FD;
+    box-shadow: 0 5px 15px rgba(30,76,158,.18);
+    transform: translateY(-1px);
+    outline: none;
+  }
+  .exam-reference-hotspot.hf-current .exam-part-focus {
+    opacity: 0;
+    pointer-events: none;
+  }
   .exam-question-reference .exam-answer-box {
     position: absolute;
     left: .58%;
@@ -389,8 +423,10 @@
     pointer-events: none;
   }
   body.hf-camera-active { overflow: hidden; }
-  [data-hf-target] {
+  [data-hf-target]:not(.exam-reference-hotspot) {
     position: relative;
+  }
+  [data-hf-target] {
     transform-origin: center;
     transition: transform .34s cubic-bezier(.22,.78,.24,1), box-shadow .34s ease, outline-color .34s ease;
     outline: 2px solid transparent;
@@ -506,8 +542,8 @@
 
 <section class="exam-primary-layout" style="display: flex; flex-direction: column; gap: 0; padding: 0;">
     <div data-hf-scene style="position: absolute; left: 0; top: 0; width: 3177px; height: 1992px; background: url(assets/cartoon-desk.svg) center/100% 100% no-repeat;">
-  <img class="exam-hand-motion exam-hand-motion--left" src="assets/hands/left-resting-layered.svg?v=normal-sleeves-1" alt="" aria-hidden="true">
-  <img class="exam-hand-motion exam-hand-motion--right" src="assets/hands/right-writing-gentle-rig.svg?v=normal-sleeves-1" alt="" aria-hidden="true">
+  <img class="exam-hand-motion exam-hand-motion--left" src="assets/hands/left-resting-layered.svg?v=generated-sleeves-5" alt="" aria-hidden="true">
+  <img class="exam-hand-motion exam-hand-motion--right" src="assets/hands/right-writing-gentle-rig.svg?v=generated-sleeves-4" alt="" aria-hidden="true">
   <div class="exam-paper" style="position: absolute; left: 901px; top: 27px; width: 1370px; height: 1938px; z-index: 2; box-sizing: border-box; padding: 26px; overflow: hidden; border-radius: 6px;">
   <div id="3a" style="width: 1318px; transform: scale(1.0); display: flex; flex-direction: column; gap: 12px;">
     <div class="card elev-md" style="padding: 14px 24px 16px; display: grid; grid-template-columns: 860px 1fr; column-gap: 24px; row-gap: 10px; align-items: start;">
@@ -592,6 +628,7 @@
           <div class="exam-question-list">
             <sc-for list="{{ questions }}" as="q" hint-placeholder-count="3">
               <div class="exam-reference-hotspot exam-reference-hotspot--{{ q.answerClass }}" data-hf-target="{{ q.focusId }}" tabindex="0" aria-label="Question 7 {{ q.part }}">
+                <button type="button" class="exam-part-focus" aria-label="Focus on Question 7 {{ q.part }}">Focus {{ q.part }}</button>
                 <textarea class="exam-answer-box" value="{{ q.value }}" onChange="{{ q.onType }}" placeholder="{{ q.placeholder }}" aria-label="Answer for Question 7 {{ q.part }}"></textarea>
               </div>
             </sc-for>
