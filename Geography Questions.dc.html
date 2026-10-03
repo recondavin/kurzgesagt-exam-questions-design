@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./hyper-focus.js?v=sedimentary-guide-47"></script>
+<script src="./hyper-focus.js?v=sedimentary-guide-48"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -879,6 +879,21 @@
   .hf-guide__voice[aria-pressed="true"] .hf-voice-mute, .hf-guide__voice[aria-pressed="false"] .hf-voice-waves { display: none; }
   .hf-guide__voice[aria-pressed="false"] { opacity: .6; }
   .hf-guide__voice:focus-visible { outline: 2px solid #FFE14D; outline-offset: 2px; }
+  /* No yellow bars under the title or beside the lead line. */
+  body .hf-guide .hf-guide__copy::after, body .hf-guide .hf-guide__summary::before { display: none; }
+  body .hf-guide .hf-guide__copy { padding-bottom: 0; }
+  body .hf-guide .hf-guide__summary { padding-left: 0; }
+  /* Friendly, chunky close and voice buttons: soft rounded squares with a pressable 3D edge. */
+  body .hf-guide .hf-guide__close, body .hf-guide .hf-guide__voice {
+    display: grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 0; border-radius: 16px;
+    background: rgba(255,255,255,.16); color: #FFFFFF; box-shadow: 0 4px 0 rgba(0,0,0,.4); cursor: pointer;
+    transition: transform .08s ease, box-shadow .08s ease, background-color .15s ease;
+  }
+  body .hf-guide .hf-guide__close { font-family: 'Fredoka', 'Nunito', sans-serif !important; font-weight: 700 !important; font-size: 34px !important; line-height: 1 !important; padding-bottom: 3px; }
+  body .hf-guide .hf-guide__voice svg { width: 26px; height: 26px; }
+  body .hf-guide .hf-guide__close:hover, body .hf-guide .hf-guide__voice:hover { background: rgba(255,255,255,.26); }
+  body .hf-guide .hf-guide__close:active, body .hf-guide .hf-guide__voice:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(0,0,0,.4); }
+  body .hf-guide .hf-guide__voice[aria-pressed="false"] { opacity: 1; background: rgba(255,255,255,.08); color: rgba(255,255,255,.6); }
   /* Typed text: each letter fades and rises into place as it is typed. */
   .hf-guide .hf-word { white-space: nowrap; }
   .hf-guide .hf-ch { display: inline-block; opacity: 0; }
