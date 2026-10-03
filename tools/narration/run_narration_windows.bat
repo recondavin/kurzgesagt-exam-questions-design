@@ -10,6 +10,8 @@ if not exist .venv-narration (
   rem CUDA build of PyTorch: uses an NVIDIA graphics card when present, otherwise the CPU.
   pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu124 || goto :error
   pip install -U qwen-tts lameenc || goto :error
+  rem Not needed for narration, and Windows Smart App Control blocks its DLLs; transformers imports it if present.
+  pip uninstall -y scikit-learn
 ) else (
   call .venv-narration\Scripts\activate.bat || goto :error
 )

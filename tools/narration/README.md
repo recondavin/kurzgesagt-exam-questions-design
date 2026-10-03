@@ -17,6 +17,13 @@ It writes one MP3 per line to `assets/narration/`, then commit and push those fi
 Re-running only makes lines that are missing. Use `--force` to redo everything,
 or `--only question-3b-1` for single lines.
 
+## Windows Smart App Control
+
+If Windows reports *"An Application Control policy has blocked this file"* for a
+scikit-learn DLL, remove that package (narration does not use it):
+`.venv-narration\Scripts\pip.exe uninstall -y scikit-learn`. The Windows launcher
+does this automatically.
+
 ## Files
 
 - `lines.json` — every line the guide shows, by id (`<step>-title`, `<step>-summary`, `<step>-1`…).
