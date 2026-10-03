@@ -232,7 +232,7 @@
   // it has a doing-word, at least six words, a space after its last word and no dangling ending.
   function wordSet(list) { var o = {}; list.split(' ').forEach(function (w) { o[w] = true; }); return o; }
   var LINKING = wordSet('and or but nor the a an of to from by into onto which that because so as such with in on at is are was were be been can could will would may might called when where while than then their its this these those his her our your my if since until unless like through over under about for after before during between also very more most');
-  var PROPER = wordSet('i ireland irish burren clare co county kerry cork munster leinster ulster connacht midlands central lowlands macgillycuddy macgillycuddys reeks galtee galtees comeragh knockmealdown carrauntoohil mourne mournes slieve aran moher cliffs liscannor fermanagh sligo benbulben ben bulben marble arch arigna leitrim roscommon castlecomer kilkenny tipperary dublin antrim giants causeway old red sandstone carboniferous devonian atlantic pacific europe european africa african american america eurasian japan japanese tokyo kobe fukushima tohoku california san francisco andreas los angeles chile new zealand christchurch turkey haiti nepal italy iceland indonesia china mexico ring fire richter mercalli gps usgs transamerica');
+  var PROPER = wordSet('i ireland irish burren clare co county kerry cork munster leinster ulster connacht midlands central lowlands macgillycuddy macgillycuddys reeks galtee galtees comeragh knockmealdown carrauntoohil mourne mournes slieve aran moher cliffs liscannor fermanagh sligo benbulben ben bulben marble arch arigna leitrim roscommon castlecomer kilkenny tipperary dublin antrim giants causeway carboniferous devonian atlantic pacific europe european africa african american america eurasian japan japanese tokyo kobe fukushima tohoku california san francisco andreas los angeles chile new zealand christchurch turkey haiti nepal italy iceland indonesia china mexico ring fire richter mercalli gps usgs transamerica');
   var VERB_WORDS = wordSet('is are was were be been am has have had can will may might could would do does did lay laid made make makes built ran sank rose fell took gave saw seen got went came kept stuck broke broken found ground hit cut shut put set sent taught bent wore swept');
   var VERB_STEMS = 'becom form compact compress cement carr transport deposit settl build erod weather break turn contain occur caus use record measur detect predict reduc design sway absorb warn send stop prevent practi protect collaps shak mov rise releas help tak happen call squeez press pile glue stick harden lithif creat develop show appear give fold uplift expos sink die live chang kill destroy monitor stud look watch bend evacuat train teach keep store plan strengthen need allow mean tell say get come wear grind accumulat build drop wash blow flow erupt crack split slip shift strike hit ris fall bulg tilt leak emit indicat suggest mak find lead result produc dissolv precipitat evaporat bind bond fill cover bury buri sit lie remain fossilis fossiliz compos consist includ involv requir reinforc retrofit install fit add place equip educat inform alert notif track map identif analys analyz' .split(' ');
   function hasVerb(words) {
@@ -255,7 +255,7 @@
       if (/[,;:(\-]$/.test(prev)) continue;
       var p = bare(prev), n = bare(next[0]);
       if (!p || LINKING[p] || PROPER[n] || n.length < 2 && n !== 'a') continue;
-      if (/^[A-Z]/.test(prev) && PROPER[p] && PROPER[n]) continue;
+      if (/^[A-Z]/.test(prev)) continue; // inside a run of capitalised words, e.g. Old Red Sandstone
       out.push(m.index + m[0].length);
     }
     return out;
@@ -350,10 +350,13 @@
     return open[0];
   }
   // A message has a title and up to three levels; "Still don't get it" steps down a level.
-  function say(title, levels, tone) {
+  // `result` swaps OK for Continue writing / Finish after the answer has been checked.
+  function say(title, levels, tone, result) {
     var coach = state.coach;
     state.msg = { title: title, levels: levels, level: 0, tone: tone || '' };
     coach.classList.remove('am-coach--min');
+    coach.classList.toggle('am-coach--result', Boolean(result));
+    coach.querySelector('[data-am-ok]').textContent = result ? 'Continue writing' : 'OK';
     renderMsg(true);
   }
   function renderMsg(fresh) {
@@ -504,10 +507,11 @@
       };
       var html = '', p = 0;
       state.sentences.forEach(function (s, i) {
-        if (!s.hits.length) return;
+        if (!s.hits.length && !s.miss) return;
         var a = Math.max(s.start - off, 0), b = Math.min(s.end - off, v.length);
         if (b <= a) return;
         if (a > p) html += slice(p, a);
+        if (!s.hits.length) { html += '<mark class="am-miss">' + slice(a, b) + '</mark>'; p = b; return; }
         var fresh = s.hits.some(function (h) { return state.fresh[h.id]; });
         html += '<mark class="am-hit' + (fresh ? ' am-hit--new' : '') + '">' + slice(a, b) + '</mark>';
         if (s.end - off <= v.length) html += '<span class="am-end" data-am-s="' + i + '"></span>';
@@ -605,60 +609,119 @@
     });
     Array.prototype.slice.call(layer.children).forEach(function (b) { if (!keep[b.getAttribute('data-am-b')]) b.remove(); });
   }
-  // `settled` is true once the student has paused: then a sentence without a full stop can count too.
-  function check(silent, settled) {
-    var before = state.got;
-    state.sentences = evaluate(state.q, fullText(), function (s) { return settled || s.start === state.openStart; });
-    state.sentences.forEach(function (s) { if (s.open && s.hits.length) state.openStart = s.start; });
-    var got = {}, newly = [];
-    state.sentences.forEach(function (s) { s.hits.forEach(function (p) { got[p.id] = true; if (!before[p.id]) newly.push(p); }); });
+  // ---------- marking ----------
+  // Writing is not marked while the student types. "Check my answer" marks the whole answer:
+  // each sentence that earns an SRP turns green in turn, and sentences that don't are underlined.
+  // Awarded points stay green while the student keeps editing.
+  function always() { return true; }
+  function save() {
+    store('am-answer-' + state.id, JSON.stringify(state.pages.map(function (p) { return p.ta.value; })));
+    store('am-granted-' + state.id, JSON.stringify(Object.keys(state.granted)));
+  }
+  function refresh() {
+    state.sentences = evaluate(state.q, fullText(), always);
+    var got = {};
+    state.sentences.forEach(function (s) {
+      s.hits = s.hits.filter(function (p) { return state.granted[p.id]; });
+      s.hits.forEach(function (p) { got[p.id] = true; });
+      s.miss = !s.hits.length && Boolean(state.missed[s.text]);
+    });
     state.got = got;
     state.count = Object.keys(got).length;
-    if (!silent) newly.forEach(function (p) { state.fresh[p.id] = true; });
+    state.firstDone = state.count > state.base;
     render();
     refreshScore();
-    store('am-answer-' + state.id, JSON.stringify(state.pages.map(function (p) { return p.ta.value; })));
-    if (silent) { state.firstDone = state.count > state.base; return; }
-    if (newly.length) {
-      state.firstDone = state.count > state.base;
-      state.ghostOn = false;
-      celebrate(newly);
-      return;
-    }
-    var done = state.sentences.filter(function (s) { return s.complete; });
-    var last = done[done.length - 1];
-    if (!last || last.hits.length || last.text === state.lastJudged) return;
-    state.lastJudged = last.text;
-    if (last.near) {
-      var c = clueFor(last.near);
-      say('Nearly there!', ['You mentioned the right idea. Now <b>explain</b> it: say what it does, how it works or why it matters.', c[1], c[2]], 'near');
-    }
   }
-  function celebrate(points) {
-    var sheet = (state.pages[state.active] || state.pages[0]).el;
-    sheet.classList.remove('am-sheet--yay'); void sheet.offsetWidth; sheet.classList.add('am-sheet--yay');
+  function markAll() {
+    if (state.marking) return;
+    var all = evaluate(state.q, fullText(), always);
+    var queue = [], missed = {}, near = null;
+    all.forEach(function (s) {
+      var fresh = s.hits.filter(function (p) { return !state.granted[p.id]; });
+      if (fresh.length) queue.push(fresh);
+      else if (!s.hits.length && s.words >= 3) { missed[s.text] = true; if (!near && s.near) near = s; }
+    });
+    state.marking = true;
+    state.missed = {};
+    state.ghostOn = false;
+    state.coach.classList.add('am-coach--min');
+    var btn = state.root.querySelector('[data-am-check]');
+    btn.disabled = true;
+    btn.textContent = 'Checking…';
+    var gained = [];
+    function step(i) {
+      if (!state) return;
+      if (i >= queue.length) { later(function () { doneMarking(gained, missed, near); }, queue.length ? 650 : 250); return; }
+      queue[i].forEach(function (p) { state.granted[p.id] = true; state.fresh[p.id] = true; gained.push(p); });
+      refresh();
+      var badge = state.root.querySelector('[data-am-b="' + queue[i][0].id + '"]');
+      if (badge) {
+        badge.scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' });
+        var sheet = badge.closest('.am-page');
+        if (sheet) { sheet.classList.remove('am-sheet--yay'); void sheet.offsetWidth; sheet.classList.add('am-sheet--yay'); }
+      }
+      later(function () { step(i + 1); }, reduced() ? 0 : 650);
+    }
+    step(0);
+  }
+  function doneMarking(gained, missed, near) {
+    if (!state) return;
+    state.marking = false;
+    var btn = state.root.querySelector('[data-am-check]');
+    btn.disabled = false;
+    btn.textContent = 'Check my answer';
+    state.missed = missed;
+    refresh();
+    save();
     later(function () {
-      points.forEach(function (p) { delete state.fresh[p.id]; });
+      state.fresh = {};
       state.root.querySelectorAll('.am-badge--new').forEach(function (b) { b.classList.remove('am-badge--new'); });
       state.root.querySelectorAll('.am-hit--new').forEach(function (m) { m.classList.remove('am-hit--new'); });
     }, 1400);
-    later(function () {
-      var names = points.map(function (p) { return '<b>' + p.label + '</b>'; }).join(' and ');
-      if (state.count >= state.q.total) {
-        say('Full marks! ' + state.q.total * 2 + ' / ' + state.q.total * 2, ['That\'s ' + state.q.total + ' SRPs. Read it over once and check every sentence explains its point clearly.'], 'yay');
-        return;
-      }
-      var p = nextPoint(), c = clueFor(p);
-      var first = state.count - state.base === points.length;
-      say((first ? 'Your first SRP! ' : 'Nice! ') + '+' + points.length * 2 + ' marks',
-        [names + ' matches the marking scheme.<span class="am-next"><b>Next:</b> ' + c[0] + '</span>', c[1], c[2]], 'yay');
-    }, 900);
+    var total = state.q.total * 2;
+    var marks = Math.min(state.q.total, state.count) * 2;
+    var misses = Object.keys(missed).length;
+    var first = 'You have <b>' + marks + ' / ' + total + '</b>.';
+    if (gained.length) first += ' New: ' + gained.map(function (p) { return '<b>' + p.label + '</b>'; }).join(', ') + '.';
+    if (misses) first += '<span class="am-next">' + (misses === 1 ? '1 sentence' : misses + ' sentences') + ' underlined in orange didn\'t match the marking scheme yet.' +
+      (near ? ' "' + esc(near.text.slice(0, 60)) + (near.text.length > 60 ? '…' : '') + '" is close: explain <b>how</b> or <b>why</b>.' : '') + '</span>';
+    var levels = [first];
+    var title;
+    if (state.count >= state.q.total) {
+      title = 'Full marks!';
+    } else {
+      title = gained.length ? '+' + gained.length * 2 + ' marks!' : 'No new marks yet';
+      var c = clueFor(nextPoint());
+      levels[0] += '<span class="am-next"><b>Next:</b> ' + c[0] + '</span>';
+      levels.push(c[1], c[2]);
+    }
+    say(title, levels, gained.length ? 'yay' : 'near', true);
+  }
+  function showResults() {
+    var q = state.q;
+    var old = state.root.querySelector('.am-finish');
+    if (old) old.remove();
+    var marks = Math.min(q.total, state.count) * 2;
+    var made = state.sentences.reduce(function (list, s) { return list.concat(s.hits); }, []);
+    var missing = q.path.map(pointById).filter(function (p) { return p && !state.got[p.id]; }).slice(0, 4);
+    var card = el('div', 'am-finish');
+    card.innerHTML = '<div class="am-finish__card" role="dialog" aria-label="Your result">' +
+      '<div class="am-finish__kicker">' + q.code + ' &middot; ' + q.title + '</div>' +
+      '<div class="am-finish__score"><b>' + marks + '</b> / ' + q.total * 2 + '</div>' +
+      '<div class="am-pips am-finish__pips">' + new Array(q.total + 1).join('<i></i>') + '</div>' +
+      '<div class="am-finish__cols"><div><h4>Points you made</h4><ul>' + (made.length ? made.map(function (p) { return '<li class="ok">' + p.label + '</li>'; }).join('') : '<li>None yet</li>') + '</ul></div>' +
+      '<div><h4>Points you could add</h4><ul>' + (missing.length ? missing.map(function (p) { return '<li>' + p.label + '</li>'; }).join('') : '<li>Nothing! You covered it all.</li>') + '</ul></div></div>' +
+      '<div class="am-finish__buttons"><button type="button" class="am-btn am-btn--more" data-am-keep>Keep working</button><button type="button" class="am-btn am-btn--ok" data-am-close>Back to the paper</button></div>' +
+      '</div>';
+    state.root.appendChild(card);
+    Array.prototype.forEach.call(card.querySelectorAll('.am-pips i'), function (pip, k) {
+      if (k < state.count) later(function () { pip.classList.add('on'); }, 250 + k * 70);
+    });
   }
   function onInput() {
     if (state.ghostOn && !ghostText(state.pages[state.active])) state.ghostOn = false;
-    render();
-    clearTimeout(state.checkTimer);
-    state.checkTimer = later(function () { check(false, false); }, 700);
+    refresh();
+    save();
   }
 
   // ---------- open / close ----------
@@ -676,11 +739,12 @@
         '</div></div>' +
         '<aside class="am-coach" aria-live="polite">' +
           '<div class="am-score"><div class="am-score__top"><span class="am-score__num"><b data-am-marks>0</b> / ' + q.total * 2 + '</span><span class="am-score__unit">marks</span></div><div class="am-pips"></div><div class="am-score__meta"></div></div>' +
+          '<button type="button" class="am-btn am-btn--check" data-am-check>Check my answer</button>' +
           '<div class="am-coach__body">' +
             '<div class="am-coach__head"><span class="am-coach__face" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#FFD43B"/><circle cx="17" cy="21" r="3.2" fill="#10243B"/><circle cx="31" cy="21" r="3.2" fill="#10243B"/><path d="M15 29q9 8 18 0" fill="none" stroke="#10243B" stroke-width="3.2" stroke-linecap="round"/></svg></span><span>Coach</span></div>' +
             '<div class="am-coach__msg"></div>' +
           '</div>' +
-          '<div class="am-coach__buttons"><button type="button" class="am-btn am-btn--ok" data-am-ok>OK</button><button type="button" class="am-btn am-btn--more" data-am-more>Still don\'t get it</button></div>' +
+          '<div class="am-coach__buttons"><button type="button" class="am-btn am-btn--ok" data-am-ok>OK</button><button type="button" class="am-btn am-btn--finish" data-am-finish>Finish</button><button type="button" class="am-btn am-btn--more" data-am-more>Still don\'t get it</button></div>' +
           '<button type="button" class="am-btn am-btn--clue" data-am-clue>Stuck?</button>' +
           '<div class="am-coach__foot"><button type="button" class="am-link" data-am-guide>Watch the guide again</button><span>Checked against SEC-style SRP marking. A practice guide, not an official grade.</span></div>' +
         '</aside>' +
@@ -710,7 +774,13 @@
     else if (values.join(' ').indexOf(q.example) >= 0) state.base = 1;
     values.forEach(function (v, k) { (state.pages[k] || addPage(true)).ta.value = v; });
     reflow(0);
-    check(true, true);
+    state.missed = {};
+    state.granted = {};
+    var granted = null;
+    try { granted = JSON.parse(store('am-granted-' + id) || 'null'); } catch (err) {}
+    if (granted) granted.forEach(function (pid) { state.granted[pid] = true; });
+    else evaluate(q, fullText(), always).forEach(function (s) { s.hits.forEach(function (p) { state.granted[p.id] = true; }); });
+    refresh();
     state.coach.classList.add('am-coach--min');
     refreshScore();
 
@@ -722,6 +792,9 @@
         return;
       }
       if (e.target.closest('[data-am-clue]')) { offerClue(true); return; }
+      if (e.target.closest('[data-am-check]')) { markAll(); return; }
+      if (e.target.closest('[data-am-finish]')) { showResults(); return; }
+      if (e.target.closest('[data-am-keep]')) { var card = state.root.querySelector('.am-finish'); if (card) card.remove(); state.coach.classList.add('am-coach--min'); focusPage(state.active, Infinity); return; }
       if (e.target.closest('[data-am-addpage]')) {
         var page = addPage();
         state.root.classList.add('am-lines-in');
@@ -899,7 +972,30 @@
     '.am-pop .am-coach__title{animation:amIn .4s cubic-bezier(.22,.8,.2,1) both}',
     '.am-next{display:block;margin-top:10px}',
     '.am-green{color:#5BE39A !important}',
-    '.am-coach__buttons{display:flex;gap:10px}',
+    '.am-coach__buttons{display:flex;gap:10px;flex-wrap:wrap}',
+    '.am-btn--finish{display:none;flex:1;background:#5CD6FF;color:#0C1628;box-shadow:0 4px 0 #2A9BC4}',
+    '.am-btn--finish:active{box-shadow:0 1px 0 #2A9BC4}',
+    '.am-coach--result .am-btn--finish{display:block}',
+    '.am-coach--result .am-btn--ok{flex:1 1 auto}',
+    '.am-coach--result .am-btn--more{flex:1 1 100%}',
+    '.am-btn--check{background:#2BC46F;color:#fff;box-shadow:0 4px 0 #1E9A55;font-size:19px;padding:14px 16px}',
+    '.am-btn--check:active{box-shadow:0 1px 0 #1E9A55}',
+    '.am-btn--check:disabled{opacity:.75;cursor:wait;transform:none}',
+    '.am-miss{background:transparent;color:inherit;text-decoration:underline wavy #F5A03C;text-decoration-thickness:2px;text-underline-offset:7px}',
+    '.am-finish{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:rgba(8,14,24,.72);animation:amIn .3s ease both;padding:16px;box-sizing:border-box}',
+    '.am-finish__card{width:min(640px,100%);max-height:100%;overflow:auto;box-sizing:border-box;background:#14243B;border-radius:22px;padding:28px;color:#F4F7FF;animation:amPop .5s cubic-bezier(.3,1.4,.5,1) both}',
+    '.am-finish__kicker{font:600 16px Fredoka,Nunito,sans-serif;color:#9FB0CC;letter-spacing:.04em}',
+    '.am-finish__score{font:600 64px/1.1 Fredoka,Nunito,sans-serif;color:#fff;margin:6px 0 8px}',
+    '.am-finish__score b{color:#5BE39A}',
+    '.am-finish__cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:14px 0 22px}',
+    '.am-finish__cols h4{margin:0 0 8px;font:700 18px Fredoka,Nunito,sans-serif;color:#FFE14D}',
+    '.am-finish__cols ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}',
+    '.am-finish__cols li{font:700 16px/1.35 Nunito,sans-serif;color:#C9D6EE;padding-left:24px;position:relative}',
+    '.am-finish__cols li::before{content:"+";position:absolute;left:4px;color:#5CD6FF;font-weight:900}',
+    '.am-finish__cols li.ok::before{content:"\\2713";color:#5BE39A}',
+    '.am-finish__buttons{display:flex;gap:12px}',
+    '.am-finish__buttons .am-btn{flex:1}',
+    '@media (max-width:600px){.am-finish__cols{grid-template-columns:1fr}.am-finish__score{font-size:48px}}',
     '.am-btn{font:700 17px Fredoka,Nunito,sans-serif;border:0;border-radius:14px;padding:12px 16px;cursor:pointer;letter-spacing:.02em}',
     '.am-btn:active{transform:translateY(3px)}',
     '.am-btn--ok{flex:0 0 96px;background:#2BC46F;color:#fff;box-shadow:0 4px 0 #1E9A55}',

@@ -143,7 +143,9 @@ Continue from the screenshot-based question block. Do not return to the rejected
 ## Answer mode (answer-mode.js)
 
 - Finishing the 3B or 3C focus guide opens answer mode: the page clears, the real question crop (`assets/answer/q3b.png`, `q3c.png`) flies to the top of a ruled sheet, and the student types on the lines.
-- Each sentence is checked against an SRP bank written in the SEC style (15 SRPs x 2 marks). Matches turn green with a tick, +2 and a burst; the coach panel then says what to do next. "Still don't get it" breaks the clue down further (three levels).
+- Nothing is marked while typing. "Check my answer" marks the whole answer against an SRP bank written in the SEC style (15 SRPs x 2 marks): scoring sentences turn green one by one with a tick and +2, non-scoring ones get an orange wavy underline. The coach then shows the result with Continue writing / Finish / Still don't get it; Finish opens a results card (points made, points to add).
+- Sentences are found even without full stops (a capital after an ordinary word starts a new one; place names and capitalised runs like Old Red Sandstone don't). Awarded points are saved in localStorage `am-granted-<question>`.
+- Best upgrade: send the answer to Claude through a small server (e.g. a Cloudflare Worker holding the API key) from the same Check button, for marking that understands any wording.
 - The answer is written on ruled pages (22 lines on page 1, 28 on each later page); text that overflows a page moves onto the next, and "+ Add a page" adds more.
 - Page 1 starts with one worked SRP already written in (`example` in each question).
 - The blinking cursor is drawn by the page (`.am-caret`) so it sits on the line; the textarea's own caret is hidden.
