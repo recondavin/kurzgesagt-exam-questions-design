@@ -139,3 +139,11 @@ No session files need to be deleted. Project history and assets live in this pro
 ## Recommended next action
 
 Continue from the screenshot-based question block. Do not return to the rejected hand-built CSS version unless the user explicitly asks.
+
+## Answer mode (answer-mode.js)
+
+- Finishing the 3B or 3C focus guide opens answer mode: the page clears, the real question crop (`assets/answer/q3b.png`, `q3c.png`) flies to the top of a ruled sheet, and the student types on the lines.
+- Each sentence is checked against an SRP bank written in the SEC style (15 SRPs x 2 marks). Matches turn green with a tick, +2 and a burst; the coach panel then says what to do next. "Still don't get it" breaks the clue down further (three levels).
+- Grey ghost text (Tab to accept) appears only for the first point, and only after the student has been idle for about 8 seconds.
+- The official SEC 2024 marking scheme PDF could not be downloaded (Cloudflare blocks automated access). If you have it, refine the `points` lists in `answer-mode.js`.
+- Test the matcher with `window.ExamAnswerMode.score('question-3b', text)`.

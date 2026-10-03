@@ -651,7 +651,18 @@
     if (index < 0) return;
     var next = index + delta;
     if (next < 0) return;
-    if (next >= group.length) { exit(); return; }
+    if (next >= group.length) {
+      // Questions 3B and 3C hand over to answer mode: the page clears and the question flies to a ruled sheet.
+      var answer = window.ExamAnswerMode;
+      var target = targetFor(activeId);
+      if (answer && target && answer.has(current.target)) {
+        clearTyping();
+        answer.open(current.target, target.getBoundingClientRect(), exit);
+        return;
+      }
+      exit();
+      return;
+    }
     focus(group[next].id);
   }
 
