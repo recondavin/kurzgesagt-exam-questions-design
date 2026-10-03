@@ -7,9 +7,8 @@
 
   var LINE = 46; // ruled line spacing in px; the textarea uses the same line height
   var MIN_WORDS = 5; // a single sentence must say at least this much to count as an explained point
-  var MAX_PER_SENTENCE = 2;
+  var MAX_PER_SENTENCE = 1;
   var STUCK_FIRST_MS = 8000;
-  var STUCK_LATER_MS = 30000;
 
   // Each point lists word groups; a sentence earns the point when it hits every group.
   // A stem matches any word starting with it (small typos allowed for longer stems);
@@ -22,7 +21,7 @@
       intro: [
         'Write your answer on the lines, <b>one point in each sentence</b>. When a sentence matches the marking scheme it turns <b class="am-green">green</b> and earns 2 marks.',
         'Each green sentence is an <b>SRP</b>, a Significant Relevant Point. You need <b>15</b> for full marks. Follow the rock\'s story: <b>broken down</b>, <b>carried</b>, <b>laid down</b>, <b>squeezed</b>, <b>glued</b>. Then name <b>Irish examples</b>.',
-        'Just write one sentence about where the bits of rock come from. That\'s it. Tap <b>Need a clue?</b> any time and I\'ll help.'
+        'Just write one sentence about where the bits of rock come from. That\'s it. Tap <b>Need a hand?</b> any time and I\'ll help.'
       ],
       path: ['weather', 'transport', 'deposit', 'compact', 'cement', 'sandstone', 'sandEx', 'limestone', 'limeEx', 'warmSea', 'redDesert', 'shale', 'shaleEx', 'fossils', 'time', 'uplift', 'caco3', 'coal'],
       examples: ['sandEx', 'limeEx', 'shaleEx', 'coalEx'],
@@ -115,7 +114,7 @@
       intro: [
         'Write your answer on the lines, <b>one point in each sentence</b>. When a sentence matches the marking scheme it turns <b class="am-green">green</b> and earns 2 marks.',
         'Each green sentence is an <b>SRP</b>, a Significant Relevant Point. You need <b>15</b>. Split them across two halves: how earthquakes are <b>predicted</b> and how their effects are <b>reduced</b>. About 7 or 8 each.',
-        'Just write one sentence about a tool scientists use to watch for earthquakes. That\'s it. Tap <b>Need a clue?</b> any time and I\'ll help.'
+        'Just write one sentence about a tool scientists use to watch for earthquakes. That\'s it. Tap <b>Need a hand?</b> any time and I\'ll help.'
       ],
       path: ['seismo', 'build', 'gaps', 'base', 'tilt', 'damper', 'radon', 'drills', 'laser', 'warning', 'animals', 'zoning', 'difficult', 'emergency', 'shutoff', 'retrofit', 'tsunami'],
       points: [
@@ -123,7 +122,7 @@
           clue: ['How do scientists keep watch for earthquakes? What instrument do they use?',
             'A <b>seismograph</b> records vibrations in the ground. Small tremors (<b>foreshocks</b>) can warn that a bigger earthquake may follow.',
             'Try: <i>"Seismographs record small tremors called foreshocks, which may warn of a bigger earthquake."</i>'] },
-        { id: 'foreshock', side: 'p', label: 'Foreshocks as a warning', all: [['foreshock', 'small tremor', 'minor tremor', 'small earthquake', 'tremors before']] },
+        { id: 'foreshock', side: 'p', label: 'Foreshocks as a warning', all: [['foreshock', 'small tremor', 'minor tremor', 'small earthquake', 'tremors before'], ['warn', 'before', 'bigger', 'larger', 'main', 'follow', 'sign', 'coming']] },
         { id: 'gaps', side: 'p', label: 'Seismic gaps and past patterns', all: [['gap', 'pattern', 'history', 'historic', 'previous', 'past', 'records', 'frequency'], ['earthquake', 'fault', 'area', 'quake', 'happen', 'occur', 'region', 'place']],
           clue: ['Can the past help us guess where the next earthquake will be?',
             'Scientists map where earthquakes have happened before. A part of a fault that has not moved for a long time, a <b>seismic gap</b>, is likely to be next.',
@@ -255,7 +254,7 @@
     sentences.forEach(function (s) {
       var norm = normalise(q, s.text);
       var tokens = norm.trim().split(' ');
-      var counts = s.words >= MIN_WORDS && (s.complete || s.words >= 7);
+      var counts = s.words >= MIN_WORDS && s.complete;
       for (var i = 0; counts && i < q.points.length && s.hits.length < MAX_PER_SENTENCE; i++) {
         var p = q.points[i];
         if (used[p.id]) continue;
@@ -332,7 +331,7 @@
     var p = nextPoint();
     if (!p) { say('You\'ve covered everything!', ['There\'s nothing left that I can hint at. Read your answer over and make every sentence clear.']); return; }
     var c = clueFor(p);
-    say(fromButton ? 'Here\'s a clue' : 'Need a hand?', [c[0], c[1], c[2]], 'clue');
+    say('Here\'s a hand', [c[0], c[1], c[2]], 'clue');
     if (!state.firstDone) showGhost(true);
   }
   function refreshScore() {
@@ -409,7 +408,7 @@
     var lines = state.lines;
     while (lines.children.length < rows) {
       var line = el('div', 'am-line' + (state.linesDrawn ? ' am-line--now' : ''));
-      line.style.top = (lines.children.length * LINE + LINE - 8) + 'px';
+      line.style.top = (lines.children.length * LINE + 35) + 'px';
       line.style.setProperty('--i', lines.children.length);
       lines.appendChild(line);
     }
@@ -448,7 +447,7 @@
           }
           layer.appendChild(badge);
         }
-        badge.style.top = (top + (LINE - 34) / 2 - 3) + 'px';
+        badge.style.top = (top + 6) + 'px';
         badge.style.right = (-50 - (shift + k) * 40) + 'px';
       });
       shift += s.hits.length - 1;
@@ -483,12 +482,6 @@
       say('Nearly there!', ['You mentioned the right idea. Now <b>explain</b> it: say what it does, how it works or why it matters.', c[1], c[2]], 'near');
       return;
     }
-    if (last.words >= 4) state.misses += 1;
-    if (state.misses >= 2) {
-      state.misses = 0;
-      var p = nextPoint(), cl = clueFor(p);
-      say('Not quite matching yet', ['Those last sentences don\'t match the marking scheme yet. Try this: ' + cl[0], cl[1], cl[2]], 'clue');
-    }
   }
   function celebrate(points) {
     var sheet = state.sheet;
@@ -518,10 +511,8 @@
       if (!state.firstDone) {
         say('Stuck? Here\'s a start', ['I\'ve written the start of a first point in grey. Press <b>Tab</b> to use it, or just keep typing your own.', 'Your first point can simply say where the story begins. ' + clueFor(state.q.points.filter(function (p) { return p.id === state.q.path[0]; })[0])[1], 'Press <b>Tab</b> to accept the grey sentence. Then read it and see why it counts.'], 'clue');
         showGhost(true);
-      } else {
-        offerClue(false);
       }
-    }, state.firstDone ? STUCK_LATER_MS : STUCK_FIRST_MS);
+    }, STUCK_FIRST_MS);
   }
   function onInput() {
     if (state.ghostOn && !ghostText()) state.ghostOn = false;
@@ -558,7 +549,7 @@
             '<div class="am-coach__msg"></div>' +
           '</div>' +
           '<div class="am-coach__buttons"><button type="button" class="am-btn am-btn--ok" data-am-ok>OK</button><button type="button" class="am-btn am-btn--more" data-am-more>Still don\'t get it</button></div>' +
-          '<button type="button" class="am-btn am-btn--clue" data-am-clue>Need a clue?</button>' +
+          '<button type="button" class="am-btn am-btn--clue" data-am-clue>Need a hand?</button>' +
           '<div class="am-coach__foot"><button type="button" class="am-link" data-am-guide>Watch the guide again</button><span>Checked against SEC-style SRP marking. A practice guide, not an official grade.</span></div>' +
         '</aside>' +
       '</div>';
@@ -697,13 +688,18 @@
     '.am-lines-in .am-line--now{animation-delay:0s}',
     '@keyframes amLine{to{transform:scaleX(1)}}',
     '.am-mirror,.am-input{display:block;width:100%;box-sizing:border-box;margin:0;padding:0 4px;border:0;font:600 22px/46px Nunito,system-ui,sans-serif;letter-spacing:.01em;word-spacing:.04em;white-space:pre-wrap;overflow-wrap:break-word;word-break:normal;tab-size:4}',
+    '.am-root .am-input,.am-root .am-mirror,.am-root .am-mirror *{font-family:Nunito,system-ui,sans-serif !important;font-weight:600 !important;font-size:22px !important;line-height:46px !important;letter-spacing:.01em !important}',
+    '.am-root .am-ghost__key{font-family:Fredoka,Nunito,sans-serif !important;font-weight:700 !important;font-size:13px !important;line-height:24px !important}',
+    '.am-root .am-coach__p,.am-root .am-coach__p *,.am-root .am-coach__foot span{font-family:Nunito,system-ui,sans-serif !important;font-weight:700 !important}',
+    '.am-root .am-coach__title,.am-root .am-coach__head span,.am-root .am-btn,.am-root .am-link,.am-root .am-tag,.am-root .am-score span,.am-root .am-score b,.am-root .am-coach__p b,.am-root .am-plus,.am-root .am-label{font-family:Fredoka,Nunito,sans-serif !important}',
+    '.am-root .am-coach__p b{font-weight:600 !important}',
     '.am-mirror{position:absolute;left:0;top:0;color:#13294A;pointer-events:none}',
     '.am-input{position:relative;background:transparent;color:transparent;caret-color:#2E6BD6;resize:none;outline:none;overflow:hidden;min-height:460px}',
     '.am-root textarea.am-input,.am-root textarea.am-input:focus,.am-root textarea.am-input:focus-visible{outline:none !important;border:0 !important;box-shadow:none !important;background:transparent !important}',
     '.am-input::selection{background:rgba(46,107,214,.25);color:transparent}',
-    '.am-hit{background:#DDF7E8;color:#0E5A33;border-radius:6px;box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:2px 0;box-shadow:inset 0 -3px 0 #2BC46F}',
+    '.am-hit{background:transparent;color:#118A4C;border-radius:6px;box-decoration-break:clone;-webkit-box-decoration-break:clone}',
     '.am-hit--new{animation:amHit 1.2s ease both}',
-    '@keyframes amHit{0%{background:#FFFEF8;box-shadow:inset 0 0 0 #2BC46F}25%{background:#9BEBBE;box-shadow:inset 0 -3px 0 #2BC46F}100%{background:#DDF7E8;box-shadow:inset 0 -3px 0 #2BC46F}}',
+    '@keyframes amHit{0%{background:rgba(43,196,111,0);color:#13294A}20%{background:rgba(43,196,111,.35);color:#0B6B3A}100%{background:rgba(43,196,111,0);color:#118A4C}}',
     '.am-ghost{color:#A3AFC2}',
     '.am-ghost__key{display:inline-block;margin-left:10px;padding:0 8px;line-height:24px;font:700 13px/24px Fredoka,Nunito,sans-serif;color:#7A8BA6;border:2px solid #C7D3E6;border-radius:7px;vertical-align:3px}',
     '.am-badges{position:absolute;inset:0;pointer-events:none}',
@@ -759,13 +755,14 @@
     '.am-btn--ok:active{box-shadow:0 1px 0 #1E9A55}',
     '.am-btn--more{flex:1;background:#fff;color:#14243B;box-shadow:0 4px 0 #9FB0CC}',
     '.am-btn--more:active{box-shadow:0 1px 0 #9FB0CC}',
-    '.am-btn--clue{display:none;background:#FFD43B;color:#14243B;box-shadow:0 4px 0 #C9A215}',
+    '.am-btn--clue{background:#FFD43B;color:#14243B;box-shadow:0 4px 0 #C9A215}',
+    '.am-btn--clue:active{box-shadow:0 1px 0 #C9A215}',
     '.am-coach--min .am-coach__body,.am-coach--min .am-coach__buttons{display:none}',
-    '.am-coach--min .am-btn--clue{display:block}',
+    
     '.am-coach__foot{display:flex;flex-direction:column;gap:6px;font:600 12.5px/1.35 Nunito,sans-serif;color:#7F92B3}',
     '.am-link{align-self:flex-start;background:none;border:0;padding:0;color:#8FE3FF;font:700 14px Fredoka,Nunito,sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px}',
     '@media (max-width:1100px){.am-stage{flex-direction:column;padding:72px 12px 12px;gap:12px}.am-sheet-wrap{max-width:none}.am-sheet{padding:22px 60px 40px 22px}.am-coach{flex:0 0 auto;margin:0;align-self:stretch;max-height:42vh}.am-close{top:12px;right:12px}}',
-    '@media (max-width:600px){.am-mirror,.am-input{font-size:19px}.am-sheet{padding-right:52px}.am-coach{padding:14px;gap:10px;max-height:48vh}.am-score{padding:8px 12px}.am-score__num{font-size:22px}.am-pips{margin:6px 0}.am-coach__head{display:none}.am-coach__title{font-size:20px}.am-coach__p{font-size:16px}.am-coach__foot span{display:none}.am-btn{padding:10px 12px}}',
+    '@media (max-width:600px){.am-root .am-mirror,.am-root .am-input,.am-root .am-mirror *{font-size:19px !important}.am-sheet{padding-right:52px}.am-coach{padding:14px;gap:10px;max-height:48vh}.am-score{padding:8px 12px}.am-score__num{font-size:22px}.am-pips{margin:6px 0}.am-coach__head{display:none}.am-coach__title{font-size:20px}.am-coach__p{font-size:16px}.am-coach__foot span{display:none}.am-btn{padding:10px 12px}}',
     '@media (prefers-reduced-motion:reduce){.am-root *{animation-duration:.01ms !important;transition-duration:.01ms !important}}'
   ].join('\n');
   var style = document.createElement('style');
