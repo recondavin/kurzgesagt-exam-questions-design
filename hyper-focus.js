@@ -1,24 +1,43 @@
 (function () {
   var steps = [
     {
-      id: 'question-3c', target: 'question-3c', kicker: '1 · Decode the task', title: 'This essay has two jobs',
-      summary: 'The marking scheme expects prediction and reduction, not a general earthquake essay.',
-      points: ['Underline <strong>predicted</strong> and <strong>effects reduced</strong>.', 'Make one clear reference to each side before developing your explanation.', 'Keep every point tied to earthquakes.']
+      id: 'question-3c', target: 'question-3c', kicker: '1 · Plan the marks', title: '15 explained points',
+      summary: 'Split your answer across both parts.',
+      visual: '<div class="hf-split"><div class="hf-topic hf-topic--predict"><span class="hf-topic__label">Predict earthquakes</span><strong>7</strong><span>points</span></div><div class="hf-topic hf-topic--reduce"><span class="hf-topic__label">Reduce the effects</span><strong>8</strong><span>points</span></div></div><p class="hf-takeaway"><span>An example split — 8 + 7 works too.</span></p>',
+      prose: 'Share them across both parts: predicting earthquakes and reducing their effects. Aim for about seven or eight on each side, with one idea in each short paragraph.',
+      points: []
     },
     {
-      id: 'question-3c-plan', target: 'question-3c', kicker: '2 · Plan the marks', title: 'Balance the two halves',
-      summary: 'After the two reference marks, the explanation is credited through 13 SRPs.',
-      points: ['Aim for roughly <strong>six or seven SRPs per half</strong>.', 'Use short paragraphs: one idea, then its effect or reason.', 'Answering only one half caps the developed SRPs at seven.']
+      id: 'question-3c-srp', target: 'question-3c', kicker: '2 · Build an SRP', title: 'Make every SRP count',
+      summary: 'An SRP is one explained point.',
+      visual: '<div class="hf-srp-builder" aria-label="An SRP being assembled"><div class="hf-srp-piece"><span>POINT</span><strong>Base isolation</strong></div><i>+</i><div class="hf-srp-piece"><span>EXPLAIN</span><strong>absorbs movement</strong></div><i>+</i><div class="hf-srp-piece"><span>LINK</span><strong>less damage</strong></div></div><p class="hf-srp-result"><span>FULL SRP</span><strong>Base isolation absorbs ground movement, reducing structural damage.</strong></p><p class="hf-takeaway"><span>Tap the pieces to replay the build.</span></p>',
+      prose: 'State the idea, show how or why it matters, then link it back to earthquakes. Naming a method on its own is not enough.',
+      points: []
     },
     {
-      id: 'question-3c-srp', target: 'question-3c', kicker: '3 · Build an SRP', title: 'Make each point earn its place',
-      summary: 'An SRP is a specific, relevant point that directly advances the answer.',
-      points: ['Use <strong>point → how or why → earthquake link</strong>.', 'Do not stop after naming a method; explain what it detects or changes.', 'One precise sentence, or a tight sentence pair, is usually enough.']
+      id: 'question-3c-hints', target: 'question-3c', kicker: '3 · Small prompts', title: 'Find your own examples',
+      summary: 'Use the question to spark ideas.',
+      visual: '<div class="hf-idea-deck"><button type="button" class="hf-idea is-active" data-idea="monitor"><svg viewBox="0 0 72 50" aria-hidden="true"><path class="hf-mini-trace" d="M3 27H17L23 20L29 34L35 8L42 43L48 19L54 27H69" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" pathLength="100"/></svg><span>MONITOR</span><strong>Seismometers and GPS</strong></button><button type="button" class="hf-idea" data-idea="build"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M18 39V11H54V39M25 18H31M41 18H47M25 27H31M41 27H47M12 40H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg><span>BUILD SAFELY</span><strong>Flexible, reinforced structures</strong></button><button type="button" class="hf-idea" data-idea="prepare"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M22 15H50V43H22ZM28 9H44M30 23H42M30 31H42" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M16 19L11 24L16 29M56 19L61 24L56 29" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg><span>PREPARE</span><strong>Drills and emergency plans</strong></button></div><p class="hf-idea-answer"><strong data-idea-title>Monitor changing ground movement.</strong><span data-idea-copy>This helps estimate risk, but it cannot give an exact date.</span></p>',
+      prose: 'Think about warning signs before the shaking, safer buildings and planning, and what communities can prepare for during and after an earthquake.',
+      points: []
     },
     {
-      id: 'question-3c-hints', target: 'question-3c', kicker: '4 · Small prompts', title: 'Ask yourself, then supply the detail',
-      summary: 'These prompts point you toward ideas without writing the essay for you.',
-      points: ['What changes might instruments notice <strong>before</strong> strong shaking?', 'How could <strong>where and how people build</strong> alter the damage?', 'What can communities prepare before an event that helps during and after it?']
+      id: 'question-3b', target: 'question-3b', kicker: '1 · Plan the marks', title: '15 explained points',
+      summary: 'Tell the formation story in order.',
+      visual: '<div class="hf-rock-cycle"><div><svg viewBox="0 0 90 64" aria-hidden="true"><circle cx="22" cy="18" r="7"/><circle cx="45" cy="13" r="6"/><circle cx="68" cy="20" r="8"/><path d="M8 38Q22 31 36 38T64 38T84 38V57H8Z"/></svg><strong>1 · Sediment</strong></div><i>→</i><div><svg viewBox="0 0 90 64" aria-hidden="true"><path d="M9 17H81M9 30H81M9 43H81M9 56H81"/><path class="hf-compress-arrow" d="M45 5V15M40 11L45 16L50 11"/></svg><strong>2 · Compact</strong></div><i>→</i><div><svg viewBox="0 0 90 64" aria-hidden="true"><rect x="9" y="12" width="72" height="44" rx="4"/><path d="M9 26H81M9 41H81M29 12V26M58 26V41M37 41V56"/></svg><strong>3 · Rock</strong></div></div><p class="hf-takeaway"><span>Explain each stage and include a named Irish example.</span></p>',
+      prose: '', points: []
+    },
+    {
+      id: 'question-3b-srp', target: 'question-3b', kicker: '2 · Build an SRP', title: 'Turn a stage into marks',
+      summary: 'Add the process and its result.',
+      visual: '<div class="hf-srp-builder hf-rock-builder" aria-label="A sedimentary rock SRP being assembled"><div class="hf-srp-piece"><span>STAGE</span><strong>Sediment builds up</strong></div><i>+</i><div class="hf-srp-piece"><span>PROCESS</span><strong>layers compact</strong></div><i>+</i><div class="hf-srp-piece"><span>RESULT</span><strong>grains cement</strong></div></div><p class="hf-srp-result"><span>FULL SRP</span><strong>As layers build up, pressure compacts the sediment and minerals cement the grains into rock.</strong></p><p class="hf-takeaway"><span>Tap the pieces to replay the build.</span></p>',
+      prose: '', points: []
+    },
+    {
+      id: 'question-3b-explore', target: 'question-3b', kicker: '3 · Explore examples', title: 'Choose a rock example',
+      summary: 'Connect formation to a real Irish landscape.',
+      visual: '<div class="hf-idea-deck hf-rock-deck"><button type="button" class="hf-idea is-active" data-rock="limestone"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M8 38L20 17L29 27L40 10L63 38Z"/><path d="M15 38H57M23 29H49"/></svg><span>LIMESTONE</span><strong>The Burren</strong></button><button type="button" class="hf-idea" data-rock="sandstone"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M8 13H64V39H8Z M8 22H64M8 31H64M25 13V22M48 22V31M31 31V39"/></svg><span>SANDSTONE</span><strong>MacGillycuddy’s Reeks</strong></button><button type="button" class="hf-idea" data-rock="shale"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M9 15H63M14 23H58M9 31H63M16 39H56"/></svg><span>SHALE</span><strong>County Clare</strong></button></div><p class="hf-idea-answer"><strong data-rock-title>Limestone forms from calcium-rich remains.</strong><span data-rock-copy>The Burren, County Clare, is a named Irish limestone landscape.</span></p>',
+      prose: '', points: []
     }
   ];
   var activeId = null;
@@ -42,6 +61,7 @@
     var targetId = step && step.target ? step.target : id;
     return document.querySelector('[data-hf-target="' + targetId + '"]');
   }
+  function tourSteps(step) { return steps.filter(function (item) { return item.target === step.target; }); }
   function stepIndex(id) { return steps.findIndex(function (step) { return step.id === id; }); }
 
   function buildUI() {
@@ -61,37 +81,132 @@
     var guide = document.createElement('aside');
     guide.className = 'hf-guide';
     guide.setAttribute('aria-live', 'polite');
-    guide.innerHTML = '<div class="hf-guide__top"><div class="hf-guide__copy"><div class="hf-guide__meta"><span class="hf-guide__kicker" data-hf-kicker></span></div><h3 class="hf-guide__title" data-hf-title></h3></div><button type="button" class="hf-guide__close" data-hf-exit aria-label="Exit hyper focus">×</button></div><p class="hf-guide__summary" data-hf-summary></p><ul class="hf-guide__points" data-hf-points></ul><div class="hf-guide__controls"><button type="button" class="hf-guide__button hf-guide__button--ghost" data-hf-prev>Back</button><button type="button" class="hf-guide__button" data-hf-next>Next</button><span class="hf-guide__step" data-hf-count></span></div>';
+    guide.innerHTML = '<div class="hf-guide__top"><div class="hf-guide__copy"><div class="hf-guide__meta"><span class="hf-guide__kicker" data-hf-kicker></span></div><h3 class="hf-guide__title" data-hf-title></h3></div><button type="button" class="hf-guide__close" data-hf-exit aria-label="Exit hyper focus">×</button></div><p class="hf-guide__summary" data-hf-summary></p><p class="hf-guide__prose" data-hf-prose hidden></p><ul class="hf-guide__points" data-hf-points></ul><div class="hf-guide__controls"><button type="button" class="hf-guide__button hf-guide__button--ghost" data-hf-prev>Back</button><button type="button" class="hf-guide__button" data-hf-next>Next</button><span class="hf-guide__step" data-hf-count></span></div>';
+    var content = document.createElement('div');
+    content.className = 'hf-guide__content';
+    content.tabIndex = 0;
+    content.setAttribute('aria-label', 'Study guidance');
+    ['summary', 'prose', 'points'].forEach(function (name) {
+      content.appendChild(guide.querySelector('.hf-guide__' + name));
+    });
+    guide.insertBefore(content, guide.querySelector('.hf-guide__controls'));
     document.body.appendChild(guide);
     ui = { panels: panels, eye: eye, guide: guide };
     return ui;
   }
 
   function updateGuide(step) {
-    var index = stepIndex(step.id);
+    var group = tourSteps(step);
+    var index = group.findIndex(function (item) { return item.id === step.id; });
     var guide = buildUI().guide;
     clearTyping();
+    guide.querySelector('.hf-guide__content').scrollTop = 0;
     guide.setAttribute('aria-live', 'off');
     guide.querySelector('[data-hf-kicker]').textContent = step.kicker;
+    var progress = guide.querySelector('.hf-guide__progress');
+    if (!progress) {
+      progress = document.createElement('div');
+      progress.className = 'hf-guide__progress';
+      guide.insertBefore(progress, guide.querySelector('.hf-guide__content'));
+    }
+    progress.innerHTML = ['Plan', 'Build', 'Explore'].map(function (label, i) {
+      return '<span class="' + (i === index ? 'is-current' : i < index ? 'is-done' : '') + '"' + (i === index ? ' aria-current="step"' : '') + '><b>' + (i + 1) + '</b>' + label + '</span>';
+    }).join('');
     var title = guide.querySelector('[data-hf-title]');
     var summary = guide.querySelector('[data-hf-summary]');
+    var prose = guide.querySelector('[data-hf-prose]');
     var points = guide.querySelector('[data-hf-points]');
+    var hasProse = Boolean(step.prose);
     title.textContent = '';
     summary.textContent = '';
+    prose.textContent = '';
+    prose.hidden = !hasProse;
+    points.hidden = hasProse;
     points.innerHTML = step.points.map(function () { return '<li></li>'; }).join('');
-    guide.querySelector('[data-hf-count]').textContent = (index + 1) + ' / ' + steps.length;
+    guide.querySelector('[data-hf-count]').textContent = (index + 1) + ' / ' + group.length;
     guide.querySelector('[data-hf-prev]').disabled = index === 0;
     guide.querySelector('[data-hf-prev]').style.opacity = index === 0 ? '.38' : '1';
     var nextButton = guide.querySelector('[data-hf-next]');
-    nextButton.textContent = index === steps.length - 1 ? 'Finish' : 'Next';
+    nextButton.textContent = index === group.length - 1 ? 'Finish' : 'Next';
     nextButton.disabled = false;
     nextButton.style.opacity = '1';
     nextButton.style.cursor = 'pointer';
 
+    var visual = guide.querySelector('.hf-guide__visual');
+    if (!visual) {
+      visual = document.createElement('div');
+      visual.className = 'hf-guide__visual';
+      guide.querySelector('.hf-guide__content').appendChild(visual);
+    }
+    visual.hidden = !step.visual;
+    if (step.visual) {
+      title.textContent = step.title;
+      summary.textContent = step.summary;
+      prose.hidden = true;
+      points.hidden = true;
+      visual.innerHTML = step.visual;
+      if (step.id === 'question-3c') {
+        var illustrations = [
+          '<svg viewBox="0 0 160 90" role="img" aria-label="Seismometer recording ground vibrations"><rect x="8" y="8" width="144" height="66" rx="10" fill="#20354B"/><path d="M18 28H142M18 44H142M18 60H142M42 18V66M80 18V66M118 18V66" stroke="#3B5065" stroke-width="1"/><path class="hf-seismic-trace" d="M18 44H36L42 39L48 50L54 44H62L68 26L75 62L82 18L89 65L96 34L103 48L110 44H142" fill="none" stroke="#72E2CA" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" pathLength="100"/><rect x="58" y="76" width="44" height="5" rx="2" fill="#64758A"/></svg>',
+          '<svg viewBox="0 0 160 90" role="img" aria-label="Building on flexible bearings: ground moves more than the building"><g class="hf-isolated-building"><rect x="49" y="8" width="62" height="53" rx="4" fill="#E6B85D"/><path d="M61 20H69M81 20H89M99 20H103M61 33H69M81 33H89M99 33H103M61 46H69M81 46H89M99 46H103" stroke="#5B452D" stroke-width="5"/><path d="M42 63H118" stroke="#39495E" stroke-width="5" stroke-linecap="round"/></g><path d="M55 67V75M80 67V75M105 67V75" stroke="#528E87" stroke-width="7" stroke-linecap="round"/><g class="hf-moving-ground"><rect x="17" y="78" width="126" height="8" rx="3" fill="#B78C63"/><path d="M29 82H42M118 82H131" stroke="#765231" stroke-width="2"/></g></svg>'
+        ];
+        visual.querySelectorAll('.hf-topic').forEach(function (topic, i) {
+          topic.classList.add('hf-topic--illustrated');
+          var art = document.createElement('div');
+          art.className = 'hf-topic-art';
+          art.innerHTML = illustrations[i];
+          topic.querySelector('strong').before(art);
+        });
+        visual.querySelector('.hf-takeaway span').textContent = 'Monitoring estimates risk, not an exact date. 7 + 8 is an example split.';
+      } else if (step.id === 'question-3c-srp' || step.id === 'question-3b-srp') {
+        var builder = visual.querySelector('.hf-srp-builder');
+        builder.onclick = function () {
+          builder.classList.remove('is-playing');
+          void builder.offsetWidth;
+          builder.classList.add('is-playing');
+        };
+        builder.classList.add('is-playing');
+      } else if (step.id === 'question-3c-hints') {
+        var ideaCopy = {
+          monitor: ['Monitor changing ground movement.', 'Seismometers and GPS help estimate risk, but cannot give an exact date.'],
+          build: ['Design structures to move safely.', 'Reinforcement and base isolation reduce collapse and damage.'],
+          prepare: ['Practise before an emergency.', 'Drills, secured furniture and response plans reduce injuries.']
+        };
+        visual.querySelectorAll('.hf-idea').forEach(function (button) {
+          button.onclick = function () {
+            visual.querySelectorAll('.hf-idea').forEach(function (item) { item.classList.remove('is-active'); });
+            button.classList.add('is-active');
+            visual.querySelector('[data-idea-title]').textContent = ideaCopy[button.dataset.idea][0];
+            visual.querySelector('[data-idea-copy]').textContent = ideaCopy[button.dataset.idea][1];
+          };
+        });
+      } else if (step.id === 'question-3b-explore') {
+        var rockCopy = {
+          limestone: ['Limestone forms from calcium-rich remains.', 'The Burren, County Clare, is a named Irish limestone landscape.'],
+          sandstone: ['Sandstone forms when sand is compacted and cemented.', 'Old Red Sandstone forms MacGillycuddy’s Reeks in County Kerry.'],
+          shale: ['Shale forms from compressed mud and clay.', 'Shale occurs in the sedimentary rocks of County Clare.']
+        };
+        visual.querySelectorAll('[data-rock]').forEach(function (button) {
+          button.onclick = function () {
+            visual.querySelectorAll('[data-rock]').forEach(function (item) { item.classList.remove('is-active'); });
+            button.classList.add('is-active');
+            visual.querySelector('[data-rock-title]').textContent = rockCopy[button.dataset.rock][0];
+            visual.querySelector('[data-rock-copy]').textContent = rockCopy[button.dataset.rock][1];
+          };
+        });
+      }
+      guide.setAttribute('aria-live', 'polite');
+      return;
+    }
+
     var pointEls = Array.prototype.slice.call(points.querySelectorAll('li'));
     typeText(title, step.title, 12, function () {
       typeText(summary, step.summary, 7, function () {
-        typePoint(0);
+        if (hasProse) {
+          typeText(prose, step.prose, 4, function () { guide.setAttribute('aria-live', 'polite'); });
+        } else {
+          typePoint(0);
+        }
       });
     });
 
@@ -187,13 +302,23 @@
     var sceneTop = Math.max(0, (window.innerHeight - stableSceneHeight) / 2);
     var sceneBottom = Math.min(window.innerHeight, sceneTop + stableSceneHeight);
     var sceneWidth = Math.max(0, sceneRight - sceneLeft);
-    var preferredGuideWidth = activeId && activeId.indexOf('question-') === 0 ? 620 : 760;
-    var guideWidth = Math.max(400, Math.min(preferredGuideWidth, sceneWidth - 40));
+    var compact = window.innerWidth < 820;
+    var guideWidth = Math.min(380, window.innerWidth - 24);
     ui.guide.style.width = guideWidth + 'px';
+    ui.guide.style.maxHeight = Math.max(120, compact ? Math.min(Math.max(280, window.innerHeight * .64), window.innerHeight - 24) : window.innerHeight - 40) + 'px';
+    if (compact) {
+      ui.guide.style.left = (window.innerWidth - guideWidth) / 2 + 'px';
+      ui.guide.style.right = 'auto';
+      ui.guide.style.top = 'auto';
+      ui.guide.style.bottom = '12px';
+      return;
+    }
     var guideHeight = ui.guide.getBoundingClientRect().height || 300;
     var gap = 18;
-    var minGuideLeft = sceneLeft + 20;
-    var maxGuideLeft = sceneRight - guideWidth - 20;
+    var minGuideLeft = 20;
+    var maxGuideLeft = activeId && activeId.indexOf('question-') === 0
+      ? window.innerWidth - guideWidth - 20
+      : sceneRight - guideWidth - 20;
     var rightCandidate = right + gap;
     var leftCandidate = left - guideWidth - gap;
     var guideLeft;
@@ -206,8 +331,8 @@
     else if (activeId && activeId.indexOf('question-') === 0) guideLeft = maxGuideLeft;
     else guideLeft = (left + right) / 2 < (sceneLeft + sceneRight) / 2 ? maxGuideLeft : minGuideLeft;
 
-    var minGuideTop = Math.max(20, sceneTop + 20);
-    var maxGuideTop = Math.min(window.innerHeight - guideHeight - 20, sceneBottom - guideHeight - 20);
+    var minGuideTop = 20;
+    var maxGuideTop = window.innerHeight - guideHeight - 20;
     var guideTop = Math.max(minGuideTop, Math.min(maxGuideTop, (top + bottom - guideHeight) / 2));
 
     ui.guide.style.left = guideLeft + 'px';
@@ -275,12 +400,12 @@
     // than filling the viewport and forcing the guide over their centre.
     var isQuestion = activeId && activeId.indexOf('question-') === 0;
     var isImageOnly = activeId === 'image';
-    var preferredGuideColumn = isQuestion ? 620 : 760;
-    var guideColumn = isImageOnly ? 0 : Math.min(preferredGuideColumn, Math.max(400, window.innerWidth * .48));
+    var compact = window.innerWidth < 820;
+    var guideColumn = isImageOnly || compact ? 0 : 400;
     var fitScale = Math.min(window.innerWidth / scene.offsetWidth, window.innerHeight / scene.offsetHeight);
     var fittedSceneWidth = scene.offsetWidth * fitScale;
     var fittedSceneLeft = (window.innerWidth - fittedSceneWidth) / 2;
-    var availableWidth = Math.max(500, fittedSceneWidth - guideColumn - (isImageOnly ? 48 : 76));
+    var availableWidth = Math.max(1, window.innerWidth - guideColumn - 48);
     var desiredScale = isQuestion ? 1.55 : cameraScale;
     if (activeId === 'image') desiredScale = 1.60;
     // Let a focused question extend slightly beneath the edge of the advice
@@ -289,10 +414,10 @@
     var questionWidthAllowance = 0;
     var widthScale = (availableWidth + questionWidthAllowance) / Math.max(1, localWidth);
     var heightScale = (window.innerHeight - 90) / Math.max(1, localHeight);
-    var minScale = isQuestion ? .44 : .72;
+    var minScale = isQuestion ? .25 : .72;
     var nextScale = Math.max(minScale, Math.min(desiredScale, widthScale, heightScale));
-    var focusX = isImageOnly ? window.innerWidth / 2 : fittedSceneLeft + 24 + (availableWidth + questionWidthAllowance) / 2;
-    var focusY = window.innerHeight * 0.50;
+    var focusX = isImageOnly ? window.innerWidth / 2 : 24 + availableWidth / 2;
+    var focusY = window.innerHeight * (compact && !isImageOnly ? .25 : .50);
     var tx = focusX - localX * nextScale;
     var ty = focusY - localY * nextScale;
     scene.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + nextScale + ')';
@@ -352,6 +477,7 @@
     if (!step || !target) return;
     buildUI();
     activeId = id;
+    ui.eye.classList.toggle('hf-eye-frame--spotlight', /^question-3[bc]$/.test(step.target));
     document.body.classList.add('hf-active');
     hideNonFocusSections(true);
     document.body.classList.toggle('hf-image-focus', id === 'image');
@@ -414,22 +540,24 @@
     enter(id);
   }
 
-  function startTour() {
+  function startTour(firstId) {
     if (activeId) exit();
     document.body.classList.remove('hf-arrows-active');
     savedScrollX = window.scrollX || 0;
     savedScrollY = window.scrollY || 0;
     window.scrollTo(0, 0);
-    focus('question-3c');
+    focus(firstId || 'question-3c');
   }
 
   function move(delta) {
-    var index = stepIndex(activeId);
+    var current = stepFor(activeId);
+    var group = current ? tourSteps(current) : [];
+    var index = group.findIndex(function (item) { return item.id === activeId; });
     if (index < 0) return;
     var next = index + delta;
     if (next < 0) return;
-    if (next >= steps.length) { exit(); return; }
-    focus(steps[next].id);
+    if (next >= group.length) { exit(); return; }
+    focus(group[next].id);
   }
 
   function sync() {
@@ -445,7 +573,7 @@
     installed = true;
     document.addEventListener('click', function (event) {
       var start = event.target.closest('[data-hf-start]');
-      if (start) { event.preventDefault(); startTour(); return; }
+      if (start) { event.preventDefault(); startTour(start.getAttribute('data-hf-start') || 'question-3c'); return; }
       if (event.target.closest('[data-hf-exit]')) { event.preventDefault(); exit(); return; }
       if (event.target.closest('[data-hf-next]')) { event.preventDefault(); move(1); return; }
       if (event.target.closest('[data-hf-prev]')) { event.preventDefault(); move(-1); return; }
