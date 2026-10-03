@@ -156,3 +156,4 @@ Continue from the screenshot-based question block. Do not return to the rejected
   - See `officialMarks()` in `answer-mode.js`.
 - Marker accuracy is measured with `node tools/answer-mode-tests/run.mjs -v` on three sets of student-style sentences (the third was written after all word-list changes): all 100% at last run. A free in-browser meaning model (all-MiniLM, bge-small, gte-small) was tested and was less accurate than the word lists, so it is not used.
 - Test the matcher with `window.ExamAnswerMode.score('question-3b', text)`.
+- Answer plans (`PLANS` in `answer-mode.js`): a "How to get 30 marks" card on first open, then a step checklist in the side panel (3B: name two rocks, sandstone's full story, what's different about limestone, two extras; 3C: predicting / reducing halves). Each step explains why, can show an example sentence, and can start the sentence on the lines. Steps tick green as they are earned.

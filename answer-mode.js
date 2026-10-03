@@ -20,7 +20,7 @@
       normalise: [[/sedimentary\s+rocks?/g, ' srock '], [/sedimentary/g, ' srock ']],
       example: 'Sedimentary rocks begin when older rocks are weathered and eroded into small pieces called sediment.',
       ghost: 'This sediment is then transported by rivers, wind and ice to lakes and seas.',
-      path: ['weather', 'transport', 'deposit', 'compact', 'cement', 'sandstone', 'sandEx', 'limestone', 'limeEx', 'warmSea', 'redDesert', 'shale', 'shaleEx', 'fossils', 'time', 'uplift', 'caco3', 'coal'],
+      path: ['weather', 'transport', 'deposit', 'compact', 'cement', 'redDesert', 'sandEx', 'limestone', 'warmSea', 'caco3', 'fossils', 'limeEx', 'time', 'uplift', 'sandstone', 'shale', 'shaleEx', 'fossils', 'time', 'uplift', 'caco3', 'coal'],
       examples: ['sandEx', 'limeEx', 'shaleEx', 'coalEx'],
       points: [
         { id: 'define', label: 'What sedimentary rock is made from', all: [['srock'], ['sediment', 'fragment', 'particle', 'grain', 'remains', 'pieces', 'bits'], ['form', 'made', 'compos', 'consist', 'creat', 'build']] },
@@ -188,6 +188,76 @@
             'Try: <i>"Japan has tsunami warning systems and sea walls to protect coastal towns."</i>'] },
         { id: 'fire', side: 'r', label: 'Fire prevention', all: [['fire'], ['break', 'hydrant', 'prevent', 'spread', 'gas', 'service', 'brigade', 'stop']] },
         { id: 'aid', side: 'r', label: 'Aid and recovery', all: [['insurance', 'aid', 'recovery', 'rebuild', 'donation', 'donate']] }
+      ]
+    }
+  };
+
+  // ---------- answer plans ----------
+  // A step-by-step plan for each question, shown in the side panel. Each step is one SRP (or, for
+  // "_named", the marks for naming two rocks) and ticks green once the student has earned it.
+  // `why` explains what is actually happening, so students understand the point, not just copy it.
+  var PLANS = {
+    'question-3b': {
+      overview: [
+        ['Name two sedimentary rocks', '4 marks'],
+        ['Sandstone: tell its full story', 'up to 7 SRPs'],
+        ['Limestone: say what is different about it', 'up to 5 SRPs'],
+        ['Finish strong: two extra facts', 'up to 2 SRPs']
+      ],
+      rules: ['You can earn up to 13 SRPs (26 marks) plus 4 for the names, so 30 in total.', 'Every sentence should say <b>what happens</b> and <b>why or how</b>.', 'Irish examples count for 2 SRPs at most. Describing a rock without saying how it formed earns almost nothing.'],
+      sections: [
+        { title: 'Name your two rocks', items: [
+          { id: '_named', title: 'Name sandstone and limestone', ask: 'Which two rocks will you write about?', why: 'The marking scheme gives 2 marks for each sedimentary rock you name. Sandstone and limestone are the easiest pair: one is made from broken rock, the other from sea life.', starter: 'Two examples of sedimentary rocks are sandstone and limestone. ' }
+        ] },
+        { title: 'Rock 1: Sandstone, the full story', items: [
+          { id: 'weather', title: 'Broken down', ask: 'Where do the sand grains come from?', why: 'Sandstone is made of bits of older rock. Weathering (rain, frost, plant roots) and erosion break rocks like granite into grains of sand.', starter: 'Sandstone begins when older rocks are weathered and eroded into ' },
+          { id: 'transport', title: 'Carried away', ask: 'How do the grains move?', why: 'Rivers, wind and ice carry the sand away from the rock it broke off.', starter: 'The sand is transported by ' },
+          { id: 'deposit', title: 'Laid down in layers', ask: 'Where do the grains settle?', why: 'When a river slows down it drops the sand. Over time it builds up in flat layers called strata on the sea or lake floor.', starter: 'When the river slows down, the sand is deposited in ' },
+          { id: 'compact', title: 'Squeezed', ask: 'What does the weight of new layers do?', why: 'New layers keep piling on top. Their weight presses the grains together and squeezes the water out. This is compaction.', starter: 'The weight of the layers above ' },
+          { id: 'cement', title: 'Glued', ask: 'What sticks the grains together?', why: 'Minerals left by the water, like silica or iron oxide, act like glue between the grains. This is cementation, and the sand becomes solid rock.', starter: 'Minerals such as silica cement ' },
+          { id: 'redDesert', title: 'Why it is red', ask: 'Why is Irish sandstone often red?', why: 'Old Red Sandstone formed in hot desert conditions about 400 million years ago, when iron in the sand rusted and stained it red.', starter: 'Old Red Sandstone is red because ' },
+          { id: 'sandEx', title: 'Irish example', ask: 'Where can you see it in Ireland?', why: 'The mountains of Munster are made of Old Red Sandstone, like the MacGillycuddy\'s Reeks in Co. Kerry.', starter: 'Old Red Sandstone can be seen in ' }
+        ] },
+        { title: 'Rock 2: Limestone, what is different', note: 'Don\'t repeat the squeezing and gluing. Say what is special about limestone.', items: [
+          { id: 'limestone', title: 'Made from sea life', ask: 'What is limestone made from?', why: 'Limestone forms from the shells and skeletons of sea creatures and coral that piled up on the sea floor when they died.', starter: 'Limestone is formed from ' },
+          { id: 'warmSea', title: 'Warm, shallow seas', ask: 'What kind of sea did those creatures live in?', why: 'About 350 million years ago Ireland was near the equator and covered by warm, clear, shallow seas full of life.', starter: 'This happened in ' },
+          { id: 'caco3', title: 'Calcium carbonate', ask: 'What chemical is it mostly made of?', why: 'The shells are made of calcium carbonate, so limestone is mostly calcium carbonate too.', starter: 'Limestone is made mainly of ' },
+          { id: 'fossils', title: 'Fossils', ask: 'What can you still find inside it?', why: 'Shells trapped in the layers are often preserved as fossils that you can still see today.', starter: 'Limestone often contains ' },
+          { id: 'limeEx', title: 'Irish example', ask: 'Where can you see it in Ireland?', why: 'The Burren in Co. Clare is Ireland\'s most famous limestone landscape. Most of the Midlands sit on limestone too.', starter: 'Limestone can be seen at ' }
+        ] },
+        { title: 'Finish strong', items: [
+          { id: 'time', title: 'How long it takes', ask: 'How long does all of this take?', why: 'The whole process, from loose bits to solid rock, takes millions of years.', starter: 'This process takes ' },
+          { id: 'uplift', title: 'How they reached land', ask: 'They formed under the sea, so how are they on land now?', why: 'Plate movements later folded and uplifted the rocks, so we can see them at the surface today.', starter: 'The rocks were later ' }
+        ] }
+      ]
+    },
+    'question-3c': {
+      overview: [
+        ['Mention a way to predict earthquakes', '2 marks'],
+        ['Mention a way to reduce their effects', '2 marks'],
+        ['Explain 6 or 7 prediction methods', 'about 7 SRPs'],
+        ['Explain 6 or 7 ways to reduce the effects', 'about 7 SRPs']
+      ],
+      rules: ['You can earn up to 13 SRPs (26 marks) plus 4 for the two mentions, so 30 in total.', 'Every sentence should say <b>what the method is</b> and <b>how it helps</b>.', 'If you only explain one half, you are capped at 7 SRPs, so always do both.'],
+      sections: [
+        { title: 'Predicting earthquakes', items: [
+          { id: 'seismo', title: 'Seismographs', ask: 'What do seismographs record?', why: 'A seismograph records vibrations in the ground. Scientists watch for small tremors (foreshocks) that can come before a big earthquake.', starter: 'Seismographs are used to ' },
+          { id: 'gaps', title: 'Seismic gaps', ask: 'Which parts of a fault are most at risk?', why: 'A part of a fault that hasn\'t moved for a long time is storing up stress, so it is likely to slip next. This is called a seismic gap.', starter: 'Scientists study seismic gaps, which are ' },
+          { id: 'tilt', title: 'Tiltmeters', ask: 'Does the ground change shape before a quake?', why: 'Stress can make the ground bulge or tilt very slightly. Tiltmeters measure these tiny changes.', starter: 'Tiltmeters measure ' },
+          { id: 'laser', title: 'Lasers and GPS', ask: 'How can satellites help?', why: 'Lasers and GPS satellites measure tiny movements along a fault, showing where stress is building up.', starter: 'Lasers and GPS satellites are used to ' },
+          { id: 'radon', title: 'Radon gas', ask: 'What can come out of the ground before a quake?', why: 'As rocks crack under stress, radon gas escapes into well water, so a rise in radon can be a warning sign.', starter: 'An increase in radon gas ' },
+          { id: 'animals', title: 'Animal behaviour', ask: 'Have animals ever warned of a quake?', why: 'Animals have been reported acting strangely before earthquakes, perhaps because they sense small vibrations. It isn\'t reliable though.', starter: 'Unusual animal behaviour ' },
+          { id: 'difficult', title: 'The limits', ask: 'Can scientists say exactly when a quake will hit?', why: 'No. They can say where an earthquake is likely, but not the exact time. That is why reducing the effects matters so much.', starter: 'However, scientists cannot predict ' }
+        ] },
+        { title: 'Reducing the effects', items: [
+          { id: 'build', title: 'Building design', ask: 'How can buildings survive shaking?', why: 'Buildings are designed to sway with the shaking instead of cracking, and building codes make this the law.', starter: 'Buildings are designed to ' },
+          { id: 'base', title: 'Shock absorbers', ask: 'What can go under a building?', why: 'Rubber pads (base isolators) sit between the building and the ground and absorb the shaking.', starter: 'Rubber shock absorbers in the foundations ' },
+          { id: 'damper', title: 'Counterweights', ask: 'How do skyscrapers stop swaying?', why: 'A huge weight near the top moves against the sway and steadies the building.', starter: 'Tall buildings have counterweights ' },
+          { id: 'drills', title: 'Earthquake drills', ask: 'How do people learn what to do?', why: 'In Japan people practise drills so they know to drop, cover and hold on.', starter: 'People practise earthquake drills so ' },
+          { id: 'warning', title: 'Early warnings', ask: 'How can people get a few seconds\' warning?', why: 'Sensors detect the first waves and send alerts to phones and trains seconds before the strong shaking arrives.', starter: 'Early warning systems ' },
+          { id: 'emergency', title: 'Emergency kits', ask: 'What helps after the shaking stops?', why: 'Families keep water, food and a torch ready, because services may be cut off for days.', starter: 'Families keep emergency kits ' },
+          { id: 'shutoff', title: 'Gas shut-off', ask: 'How can fires be prevented?', why: 'Gas and electricity shut off automatically, so broken pipes don\'t start fires.', starter: 'Gas supplies are shut off automatically ' }
+        ] }
       ]
     }
   };
@@ -399,6 +469,12 @@
     p: ['seismograph', 'seismometer', 'tiltmeter', 'creepmeter', 'radon', 'foreshock', 'laser', 'gps', 'satellite', 'seismic gap', 'water level', 'animal behav', 'predict', 'forecast'],
     r: ['earthquake proof', 'building code', 'base isolat', 'shock absorb', 'rubber', 'counterweight', 'damper', 'cross brac', 'steel frame', 'retrofit', 'drill', 'drop cover', 'early warning', 'warning system', 'emergency', 'evacuat', 'sea wall', 'shut off', 'land use', 'zoning']
   };
+  // A sentence that names two rocks has done its job (it earns the naming marks), so it is not underlined.
+  function namesRocks(text) {
+    if (state.q.sides) return false;
+    var t = ' ' + text.toLowerCase().replace(/[^a-z]+/g, ' ');
+    return ROCKS.filter(function (rock) { return t.indexOf(' ' + rock) >= 0; }).length >= 2;
+  }
   function officialMarks() {
     var q = state.q, got = state.got, ids = Object.keys(got);
     var text = ' ' + fullText().toLowerCase().replace(/[^a-z]+/g, ' ');
@@ -442,8 +518,94 @@
     var pips = score.querySelector('.am-pips');
     if (pips.children.length !== q.total) pips.innerHTML = new Array(q.total + 1).join('<i></i>');
     Array.prototype.forEach.call(pips.children, function (pip, k) { pip.classList.toggle('on', k < o.srps); });
+    updatePlan(o);
     score.querySelector('.am-score__meta').innerHTML = o.tags.map(function (t) { return '<span class="am-tag ' + (t[1] ? 'am-tag--' + t[1] : '') + '">' + t[0] + '</span>'; }).join('');
     return o;
+  }
+
+  // ---------- plan panel ----------
+  function planItems() {
+    var list = [];
+    PLANS[state.id].sections.forEach(function (sec) { sec.items.forEach(function (it) { list.push(it); }); });
+    return list;
+  }
+  function planDone(item, o) {
+    if (item.id === '_named') return /Rocks named 2\/2/.test(o.tags.map(function (t) { return t[0]; }).join(' '));
+    return Boolean(state.got[item.id]);
+  }
+  function renderPlan() {
+    var plan = PLANS[state.id];
+    var html = '<div class="am-plan__head"><span>Your plan</span><button type="button" class="am-link" data-am-howto>How to get 30</button></div>';
+    plan.sections.forEach(function (sec) {
+      html += '<div class="am-plan__sec"><h5>' + sec.title + '</h5>' + (sec.note ? '<p class="am-plan__note">' + sec.note + '</p>' : '');
+      sec.items.forEach(function (it) {
+        html += '<div class="am-plan__item" data-am-item="' + it.id + '">' +
+          '<button type="button" class="am-plan__row" data-am-plan="' + it.id + '"><i class="am-plan__dot"></i><span>' + it.title + '</span></button>' +
+          '<div class="am-plan__more"><p class="am-plan__ask">' + it.ask + '</p><p>' + it.why + '</p><p class="am-plan__example" hidden></p>' +
+          '<div class="am-plan__btns"><button type="button" class="am-btn am-btn--mini" data-am-starter="' + it.id + '">Start my sentence</button>' +
+          (it.id === '_named' ? '' : '<button type="button" class="am-btn am-btn--mini am-btn--ghost" data-am-example="' + it.id + '">Show an example</button>') + '</div></div></div>';
+      });
+      html += '</div>';
+    });
+    state.planEl.innerHTML = html;
+  }
+  function updatePlan(o) {
+    if (!state.planEl) return;
+    var nextOpen = null;
+    planItems().forEach(function (it) {
+      var row = state.planEl.querySelector('[data-am-item="' + it.id + '"]');
+      if (!row) return;
+      var done = planDone(it, o);
+      row.classList.toggle('am-plan__item--done', done);
+      if (!done && !nextOpen) nextOpen = it.id;
+    });
+    state.planEl.querySelectorAll('.am-plan__item--next').forEach(function (r) { r.classList.remove('am-plan__item--next'); });
+    if (nextOpen) state.planEl.querySelector('[data-am-item="' + nextOpen + '"]').classList.add('am-plan__item--next');
+  }
+  function togglePlanItem(id) {
+    var row = state.planEl.querySelector('[data-am-item="' + id + '"]');
+    var open = !row.classList.contains('am-plan__item--open');
+    state.planEl.querySelectorAll('.am-plan__item--open').forEach(function (r) { r.classList.remove('am-plan__item--open'); });
+    if (open) row.classList.add('am-plan__item--open');
+  }
+  function showExample(id) {
+    var row = state.planEl.querySelector('[data-am-item="' + id + '"]');
+    var p = pointById(id);
+    var line = row.querySelector('.am-plan__example');
+    var c = p && p.clue ? p.clue[2] : '';
+    var m = c.match(/<i>(.*?)<\/i>/);
+    line.innerHTML = m ? m[1] : '';
+    line.hidden = !m;
+  }
+  function insertStarter(id) {
+    var it = planItems().filter(function (x) { return x.id === id; })[0];
+    if (!it) return;
+    var k = 0;
+    state.pages.forEach(function (p, i) { if (p.ta.value.trim()) k = i; });
+    var ta = state.pages[k].ta;
+    var v = ta.value;
+    ta.value = v + (v && !/\s$/.test(v) ? ' ' : '') + it.starter;
+    reflow(k);
+    var last = 0;
+    state.pages.forEach(function (p, i) { if (p.ta.value.trim()) last = i; });
+    focusPage(last, Infinity);
+    onInput();
+  }
+  function showPlanIntro() {
+    var plan = PLANS[state.id];
+    var old = state.root.querySelector('.am-finish');
+    if (old) old.remove();
+    var card = el('div', 'am-finish am-howto');
+    card.innerHTML = '<div class="am-finish__card" role="dialog" aria-label="How to get 30 marks">' +
+      '<div class="am-finish__kicker">' + state.q.code + ' &middot; ' + state.q.title + '</div>' +
+      '<h3 class="am-howto__title">How to get 30 marks</h3>' +
+      '<div class="am-howto__map">' + plan.overview.map(function (r, k) {
+        return '<div class="am-howto__row" style="--k:' + k + '"><span>' + r[0] + '</span><b>' + r[1] + '</b></div>';
+      }).join('') + '</div>' +
+      '<ul class="am-howto__rules">' + plan.rules.map(function (r) { return '<li>' + r + '</li>'; }).join('') + '</ul>' +
+      '<div class="am-finish__buttons"><button type="button" class="am-btn am-btn--ok" data-am-keep>Show me the plan</button></div>' +
+      '</div>';
+    state.root.appendChild(card);
   }
 
   // ---------- writing area ----------
@@ -683,7 +845,7 @@
     all.forEach(function (s) {
       var fresh = s.hits.filter(function (p) { return !state.granted[p.id]; });
       if (fresh.length) queue.push(fresh);
-      else if (!s.hits.length && s.words >= 3) { missed[s.text] = true; if (!near && s.near) near = s; }
+      else if (!s.hits.length && s.words >= 3 && !namesRocks(s.text)) { missed[s.text] = true; if (!near && s.near) near = s; }
     });
     state.marking = true;
     state.marksBefore = state.marks || 0;
@@ -718,6 +880,13 @@
     state.missed = missed;
     refresh();
     save();
+    // Close finished plan steps and open the next one to work on.
+    var open = state.planEl.querySelector('.am-plan__item--open');
+    if (open && open.classList.contains('am-plan__item--done')) {
+      open.classList.remove('am-plan__item--open');
+      var next = state.planEl.querySelector('.am-plan__item--next');
+      if (next) { next.classList.add('am-plan__item--open'); next.scrollIntoView({ block: 'nearest' }); }
+    }
     later(function () {
       state.fresh = {};
       state.root.querySelectorAll('.am-badge--new').forEach(function (b) { b.classList.remove('am-badge--new'); });
@@ -789,6 +958,7 @@
         '<aside class="am-coach" aria-live="polite">' +
           '<div class="am-score"><div class="am-score__top"><span class="am-score__num"><b data-am-marks>0</b> / 30</span><span class="am-score__unit">marks</span></div><div class="am-pips"></div><div class="am-score__meta"></div></div>' +
           '<button type="button" class="am-btn am-btn--check" data-am-check>Check my answer</button>' +
+          '<div class="am-plan"></div>' +
           '<div class="am-coach__body">' +
             '<div class="am-coach__head"><span class="am-coach__face" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#FFD43B"/><circle cx="17" cy="21" r="3.2" fill="#10243B"/><circle cx="31" cy="21" r="3.2" fill="#10243B"/><path d="M15 29q9 8 18 0" fill="none" stroke="#10243B" stroke-width="3.2" stroke-linecap="round"/></svg></span><span>Coach</span></div>' +
             '<div class="am-coach__msg"></div>' +
@@ -809,7 +979,9 @@
     var root = build(id);
     state = { id: id, q: q, root: root, timers: [], got: {}, fresh: {}, count: 0, sentences: [], pages: [], active: 0, base: 0,
       firstDone: false, ghostOn: false, linesDrawn: false,
-      pagesEl: root.querySelector('.am-pages'), addBtn: root.querySelector('[data-am-addpage]'), coach: root.querySelector('.am-coach') };
+      pagesEl: root.querySelector('.am-pages'), addBtn: root.querySelector('[data-am-addpage]'), coach: root.querySelector('.am-coach'),
+      planEl: root.querySelector('.am-plan') };
+    renderPlan();
     addPage(true);
     addPage(true);
     state.measure = el('div', 'am-mirror am-measure');
@@ -842,8 +1014,26 @@
       }
       if (e.target.closest('[data-am-clue]')) { offerClue(true); return; }
       if (e.target.closest('[data-am-check]')) { markAll(); return; }
+      var planBtn = e.target.closest('[data-am-plan]');
+      if (planBtn) { togglePlanItem(planBtn.getAttribute('data-am-plan')); return; }
+      var starter = e.target.closest('[data-am-starter]');
+      if (starter) { insertStarter(starter.getAttribute('data-am-starter')); return; }
+      var example = e.target.closest('[data-am-example]');
+      if (example) { showExample(example.getAttribute('data-am-example')); return; }
+      if (e.target.closest('[data-am-howto]')) { showPlanIntro(); return; }
       if (e.target.closest('[data-am-finish]')) { showResults(); return; }
-      if (e.target.closest('[data-am-keep]')) { var card = state.root.querySelector('.am-finish'); if (card) card.remove(); state.coach.classList.add('am-coach--min'); focusPage(state.active, Infinity); return; }
+      if (e.target.closest('[data-am-keep]')) {
+        var card = state.root.querySelector('.am-finish');
+        var howto = card && card.classList.contains('am-howto');
+        if (card) card.remove();
+        state.coach.classList.add('am-coach--min');
+        if (howto) {
+          var next = state.planEl.querySelector('.am-plan__item--next');
+          if (next && !next.classList.contains('am-plan__item--open')) togglePlanItem(next.getAttribute('data-am-item'));
+        }
+        focusPage(state.active, Infinity);
+        return;
+      }
       if (e.target.closest('[data-am-addpage]')) {
         var page = addPage();
         state.root.classList.add('am-lines-in');
@@ -902,6 +1092,7 @@
       var last = 0;
       state.pages.forEach(function (p, k) { if (p.ta.value.trim()) last = k; });
       focusPage(last, Infinity);
+      if (!store('am-howto-' + id)) { store('am-howto-' + id, '1'); showPlanIntro(); }
     }, fast ? 0 : 1700);
     return true;
   }
@@ -1022,6 +1213,38 @@
     '.am-pop .am-coach__title{animation:amIn .4s cubic-bezier(.22,.8,.2,1) both}',
     '.am-next{display:block;margin-top:10px}',
     '.am-green{color:#5BE39A !important}',
+    '.am-plan{flex:1 1 auto;min-height:140px;overflow-y:auto;scrollbar-width:thin;background:#0C1628;border-radius:14px;padding:12px 12px 6px}',
+    '.am-plan__head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}',
+    '.am-plan__head span{font:700 18px Fredoka,Nunito,sans-serif;color:#FFE14D}',
+    '.am-plan__sec{margin-bottom:8px}',
+    '.am-plan__sec h5{margin:6px 0 4px;font:600 14px Fredoka,Nunito,sans-serif;letter-spacing:.03em;color:#8FE3FF}',
+    '.am-plan__note{margin:0 0 4px;font:600 13px/1.35 Nunito,sans-serif;color:#9FB0CC}',
+    '.am-plan__row{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;border-radius:10px;padding:6px 6px;color:#E8EEFA;font:700 16px/1.25 Nunito,sans-serif;text-align:left;cursor:pointer}',
+    '.am-plan__row:hover{background:#1B2E4B}',
+    '.am-plan__dot{flex:0 0 20px;height:20px;border-radius:50%;border:3px solid #3A5175;box-sizing:border-box;position:relative}',
+    '.am-plan__item--next .am-plan__dot{border-color:#FFD43B}',
+    '.am-plan__item--next .am-plan__row{color:#fff}',
+    '.am-plan__item--done .am-plan__dot{background:#2BC46F;border-color:#2BC46F}',
+    '.am-plan__item--done .am-plan__dot::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}',
+    '.am-plan__item--done .am-plan__row span{color:#7DF0B0}',
+    '.am-plan__more{display:none;margin:2px 0 8px 36px;padding:10px 12px;background:#14243B;border-radius:12px}',
+    '.am-plan__item--open .am-plan__more{display:block;animation:amIn .3s ease both}',
+    '.am-plan__more p{margin:0 0 8px;font:700 15px/1.45 Nunito,sans-serif;color:#C9D6EE}',
+    '.am-plan__ask{color:#FFE14D !important}',
+    '.am-plan__example{color:#BFF5D6 !important;border-left:3px solid #2BC46F;padding-left:10px}',
+    '.am-plan__btns{display:flex;gap:8px;flex-wrap:wrap}',
+    '.am-btn--mini{font-size:14px;padding:8px 12px;border-radius:10px;background:#2BC46F;color:#fff;box-shadow:0 3px 0 #1E9A55}',
+    '.am-btn--ghost{background:#26395A;color:#E8EEFA;box-shadow:0 3px 0 #0A1220}',
+    '.am-howto__title{margin:4px 0 14px;font:700 32px/1.1 Fredoka,Nunito,sans-serif;color:#fff}',
+    '.am-howto__map{display:grid;gap:8px;margin-bottom:16px}',
+    '.am-howto__row{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#0C1628;border-radius:12px;padding:12px 14px;animation:amIn .4s cubic-bezier(.22,.8,.2,1) both;animation-delay:calc(var(--k) * 120ms + 150ms)}',
+    '.am-howto__row span{font:700 17px/1.3 Nunito,sans-serif;color:#E8EEFA}',
+    '.am-howto__row b{flex:0 0 auto;font:700 16px Fredoka,Nunito,sans-serif;color:#5BE39A}',
+    '.am-howto__rules{margin:0 0 20px;padding-left:20px;display:grid;gap:6px}',
+    '.am-howto__rules li{font:700 15px/1.45 Nunito,sans-serif;color:#C9D6EE}',
+    '.am-howto__rules b{color:#FFE14D;font-family:Fredoka,Nunito,sans-serif;font-weight:600}',
+    '.am-root .am-plan__row,.am-root .am-plan__more p,.am-root .am-plan__note,.am-root .am-howto__row span,.am-root .am-howto__rules li{font-family:Nunito,system-ui,sans-serif !important}',
+    '.am-root .am-plan__head span,.am-root .am-plan__sec h5,.am-root .am-howto__title,.am-root .am-howto__row b{font-family:Fredoka,Nunito,sans-serif !important}',
     '.am-coach__buttons{display:flex;gap:10px;flex-wrap:wrap}',
     '.am-btn--finish{display:none;flex:1;background:#5CD6FF;color:#0C1628;box-shadow:0 4px 0 #2A9BC4}',
     '.am-btn--finish:active{box-shadow:0 1px 0 #2A9BC4}',
