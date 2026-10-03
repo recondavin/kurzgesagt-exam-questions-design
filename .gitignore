@@ -3,3 +3,4 @@
 
 .venv-narration/
 __pycache__/
+checkpoints/
