@@ -23,9 +23,6 @@ from scipy.signal import lfilter
 ROOT = Path(__file__).resolve().parent.parent.parent
 OUT = ROOT / "assets" / "narration"
 RATE = 48000
-# Voice tone: about one semitone deeper (timbre kept), plus the warmth EQ in mic_finish.
-PITCH = 0.9439
-PITCH_FILTER = f"rubberband=pitch={PITCH}:formant=preserved:pitchq=quality"
 
 
 def sample_rate(path):
@@ -45,12 +42,6 @@ def biquad(kind, freq, gain_db=0.0, q=0.707, sr=RATE):
     elif kind == "bandpass":
         b = [alpha, 0, -alpha]
         a = [1 + alpha, -2 * cos, 1 - alpha]
-    elif kind == "shelf":  # high shelf
-        sq = 2 * np.sqrt(a_gain) * alpha
-        b = [a_gain * ((a_gain + 1) + (a_gain - 1) * cos + sq), -2 * a_gain * ((a_gain - 1) + (a_gain + 1) * cos),
-             a_gain * ((a_gain + 1) + (a_gain - 1) * cos - sq)]
-        a = [(a_gain + 1) - (a_gain - 1) * cos + sq, 2 * ((a_gain - 1) - (a_gain + 1) * cos),
-             (a_gain + 1) - (a_gain - 1) * cos - sq]
     else:  # peak
         b = [1 + alpha * a_gain, -2 * cos, 1 - alpha * a_gain]
         a = [1 + alpha / a_gain, -2 * cos, 1 - alpha / a_gain]
@@ -68,17 +59,6 @@ def envelope(x, attack, release, sr=RATE):
     return env
 
 
-WARMTH = [("peak", 220, 2.0, 0.9),        # fuller, richer chest tone
-          ("shelf", 7000, -1.5, 0.707)]     # slightly softer highs
-
-
-def warm(audio):
-    for kind, freq, gain, q in WARMTH:
-        b, a = biquad(kind, freq, gain, q)
-        audio = lfilter(b, a, audio).astype(np.float32)
-    return audio
-
-
 def mic_finish(audio):
     """Studio-mic character: clean low end with a touch of proximity warmth, natural highs, de-essed."""
     for kind, freq, gain, q in [("highpass", 70, 0, 0.707),   # rumble and handling noise
@@ -86,7 +66,6 @@ def mic_finish(audio):
                                 ("peak", 9500, -7.0, 0.9)]:    # tame the over-bright band super-resolution adds
         b, a = biquad(kind, freq, gain, q)
         audio = lfilter(b, a, audio).astype(np.float32)
-    audio = warm(audio)
     # De-esser: when the 5-9 kHz sibilance band jumps above the voice, turn just that band down.
     b, a = biquad("bandpass", 6500, q=0.9)
     sib = lfilter(b, a, audio).astype(np.float32)
@@ -120,10 +99,7 @@ def main():
             subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(mp3), "-ac", "1", "-ar", str(RATE),
                             str(wav_in)], check=True)
             model.write(model(input_path=str(wav_in), online_write=False), output_path=str(wav_out))
-            wav_deep = tmp / "deep.wav"
-            subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(wav_out), "-af", PITCH_FILTER,
-                            "-ar", str(RATE), str(wav_deep)], check=True)
-            audio, sr = sf.read(str(wav_deep), dtype="float32", always_2d=False)
+            audio, sr = sf.read(str(wav_out), dtype="float32", always_2d=False)
             if audio.ndim > 1:
                 audio = audio.mean(axis=1)
             sf.write(str(wav_out), mic_finish(audio), RATE)
