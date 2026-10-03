@@ -1,0 +1,126 @@
+[
+  {
+    "id": "question-3c-title",
+    "text": "15 explained points"
+  },
+  {
+    "id": "question-3c-summary",
+    "text": "Split your answer across both parts."
+  },
+  {
+    "id": "question-3c-1",
+    "text": "Predict earthquakes: about 7 points."
+  },
+  {
+    "id": "question-3c-2",
+    "text": "Reduce the effects: about 8 points."
+  },
+  {
+    "id": "question-3c-srp-title",
+    "text": "Make every SRP count"
+  },
+  {
+    "id": "question-3c-srp-summary",
+    "text": "An SRP is one explained point."
+  },
+  {
+    "id": "question-3c-srp-1",
+    "text": "Point: base isolation."
+  },
+  {
+    "id": "question-3c-srp-2",
+    "text": "Explain: it absorbs ground movement."
+  },
+  {
+    "id": "question-3c-srp-3",
+    "text": "Link: so there is less damage."
+  },
+  {
+    "id": "question-3c-srp-4",
+    "text": "Full SRP: Base isolation absorbs ground movement, reducing structural damage."
+  },
+  {
+    "id": "question-3c-hints-title",
+    "text": "Find your own examples"
+  },
+  {
+    "id": "question-3c-hints-summary",
+    "text": "Use the question to spark ideas."
+  },
+  {
+    "id": "question-3c-hints-1",
+    "text": "Monitor: seismometers and GPS track ground movement."
+  },
+  {
+    "id": "question-3c-hints-2",
+    "text": "Build safely: flexible, reinforced buildings."
+  },
+  {
+    "id": "question-3c-hints-3",
+    "text": "Prepare: drills and emergency plans."
+  },
+  {
+    "id": "question-3b-title",
+    "text": "15 explained points"
+  },
+  {
+    "id": "question-3b-summary",
+    "text": "Tell the formation story in order."
+  },
+  {
+    "id": "question-3b-1",
+    "text": "Sediment: layers build up on a sea or lake bed."
+  },
+  {
+    "id": "question-3b-2",
+    "text": "Compaction: the weight above squeezes the layers."
+  },
+  {
+    "id": "question-3b-3",
+    "text": "Cementation: minerals glue the grains into rock."
+  },
+  {
+    "id": "question-3b-srp-title",
+    "text": "Turn a stage into marks"
+  },
+  {
+    "id": "question-3b-srp-summary",
+    "text": "Add the process and its result."
+  },
+  {
+    "id": "question-3b-srp-1",
+    "text": "Stage: sediment builds up."
+  },
+  {
+    "id": "question-3b-srp-2",
+    "text": "Process: the layers compact."
+  },
+  {
+    "id": "question-3b-srp-3",
+    "text": "Result: the grains cement."
+  },
+  {
+    "id": "question-3b-srp-4",
+    "text": "Full SRP: As layers build up, pressure compacts the sediment and minerals cement the grains into rock."
+  },
+  {
+    "id": "question-3b-explore-title",
+    "text": "Choose a rock example"
+  },
+  {
+    "id": "question-3b-explore-summary",
+    "text": "Connect formation to a real Irish landscape."
+  },
+  {
+    "id": "question-3b-explore-1",
+    "text": "Limestone: the Burren, Co. Clare."
+  },
+  {
+    "id": "question-3b-explore-2",
+    "text": "Sandstone: MacGillycuddy’s Reeks, Co. Kerry."
+  },
+  {
+    "id": "question-3b-explore-3",
+    "text": "Shale: cliffs in Co. Clare."
+  }
+]

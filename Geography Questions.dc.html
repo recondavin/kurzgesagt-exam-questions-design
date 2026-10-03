@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./hyper-focus.js?v=sedimentary-guide-40"></script>
+<script src="./hyper-focus.js?v=sedimentary-guide-41"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -867,6 +867,14 @@
   body .hf-guide .hf-bullet-result { background: rgba(180,140,255,.14); border: 2px solid var(--hf-c4); border-radius: 14px; }
   body .hf-guide .hf-guide__button:not(.hf-guide__button--ghost) { background: #7B5CFF; border: 0; box-shadow: none; }
   body .hf-guide .hf-guide__button:not(.hf-guide__button--ghost):not(:disabled):hover { background: #8E73FF; }
+  /* Lines wait hidden until their turn in the narration. */
+  .hf-guide .hf-pending { opacity: 0; }
+  /* Narrator voice toggle, styled like the close button. */
+  .hf-guide__voice { flex: none; display: grid; place-items: center; width: 44px; height: 44px; margin-left: auto; padding: 0; border: 1px solid rgba(255,255,255,.7); border-radius: 999px; background: transparent; color: #FFFFFF; cursor: pointer; }
+  .hf-guide__voice svg { width: 22px; height: 22px; }
+  .hf-guide__voice[aria-pressed="true"] .hf-voice-mute, .hf-guide__voice[aria-pressed="false"] .hf-voice-waves { display: none; }
+  .hf-guide__voice[aria-pressed="false"] { opacity: .6; }
+  .hf-guide__voice:focus-visible { outline: 2px solid #FFE14D; outline-offset: 2px; }
   /* Typed text: each letter fades and rises into place as it is typed. */
   .hf-guide .hf-word { white-space: nowrap; }
   .hf-guide .hf-ch { display: inline-block; opacity: 0; }

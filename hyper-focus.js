@@ -81,7 +81,7 @@
     var guide = document.createElement('aside');
     guide.className = 'hf-guide';
     guide.setAttribute('aria-live', 'polite');
-    guide.innerHTML = '<div class="hf-guide__top"><div class="hf-guide__copy"><h3 class="hf-guide__title" data-hf-title></h3></div><button type="button" class="hf-guide__close" data-hf-exit aria-label="Exit hyper focus">×</button></div><p class="hf-guide__summary" data-hf-summary></p><p class="hf-guide__prose" data-hf-prose hidden></p><ul class="hf-guide__points" data-hf-points></ul><div class="hf-guide__controls"><button type="button" class="hf-guide__button hf-guide__button--ghost" data-hf-prev>Back</button><button type="button" class="hf-guide__button" data-hf-next>Next</button><span class="hf-guide__step" data-hf-count></span></div>';
+    guide.innerHTML = '<div class="hf-guide__top"><div class="hf-guide__copy"><h3 class="hf-guide__title" data-hf-title></h3></div><button type="button" class="hf-guide__voice" data-hf-voice aria-pressed="true" aria-label="Narrator voice"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="hf-voice-waves" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="hf-voice-mute" d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><button type="button" class="hf-guide__close" data-hf-exit aria-label="Exit hyper focus">×</button></div><p class="hf-guide__summary" data-hf-summary></p><p class="hf-guide__prose" data-hf-prose hidden></p><ul class="hf-guide__points" data-hf-points></ul><div class="hf-guide__controls"><button type="button" class="hf-guide__button hf-guide__button--ghost" data-hf-prev>Back</button><button type="button" class="hf-guide__button" data-hf-next>Next</button><span class="hf-guide__step" data-hf-count></span></div>';
     var content = document.createElement('div');
     content.className = 'hf-guide__content';
     content.tabIndex = 0;
@@ -135,7 +135,7 @@
       prose.hidden = true;
       points.hidden = true;
       visual.innerHTML = step.visual;
-      revealInOrder(summary, visual);
+      revealInOrder(summary, visual, step);
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         visual.querySelectorAll('svg').forEach(function (svgEl) { if (svgEl.pauseAnimations) svgEl.pauseAnimations(); });
       }
@@ -222,39 +222,107 @@
     return chars;
   }
 
-  // Type the card out: title, lead line, then each bullet (its picture fades in first).
-  function revealInOrder(summary, visual) {
+  // Narration: one MP3 per line (assets/narration/<step>-title|summary|n.mp3, made by
+  // tools/narration/generate_narration.py). Missing files are skipped silently.
+  var NARRATION_VERSION = '1';
+  var narration = { on: true, audio: null, finish: null, token: 0 };
+  try { narration.on = window.localStorage.getItem('hf-narration') !== 'off'; } catch (err) {}
+
+  function stopNarration() {
+    narration.token += 1;
+    if (narration.audio) { narration.audio.pause(); narration.audio = null; }
+    if (narration.finish) { var finish = narration.finish; narration.finish = null; finish(); }
+  }
+
+  function playLine(id, done) {
+    if (!narration.on || !id) { done(); return; }
+    var audio = new Audio('assets/narration/' + id + '.mp3?v=' + NARRATION_VERSION);
+    var finished = false;
+    function finish() {
+      if (finished) return;
+      finished = true;
+      if (narration.audio === audio) { narration.audio = null; narration.finish = null; }
+      done();
+    }
+    narration.audio = audio;
+    narration.finish = finish;
+    audio.addEventListener('ended', finish);
+    audio.addEventListener('error', finish);
+    var playing = audio.play();
+    if (playing && playing.catch) playing.catch(finish);
+  }
+
+  function updateVoiceButton() {
+    var button = ui && ui.guide.querySelector('[data-hf-voice]');
+    if (!button) return;
+    button.setAttribute('aria-pressed', narration.on ? 'true' : 'false');
+    button.setAttribute('aria-label', narration.on ? 'Narrator voice on' : 'Narrator voice off');
+  }
+
+  function toggleNarration() {
+    narration.on = !narration.on;
+    try { window.localStorage.setItem('hf-narration', narration.on ? 'on' : 'off'); } catch (err) {}
+    if (!narration.on && narration.finish) {
+      if (narration.audio) narration.audio.pause();
+      var finish = narration.finish; narration.finish = null; narration.audio = null; finish();
+    }
+    updateVoiceButton();
+  }
+
+  // Type the card out line by line: title, lead line, then each bullet (its picture fades in first).
+  // Each line types while its narration plays; the next line starts once both have finished.
+  function revealInOrder(summary, visual, step) {
     var title = ui.guide.querySelector('[data-hf-title]');
     var items = [title, summary];
+    var ids = [step.id + '-title', step.id + '-summary'];
     Array.prototype.forEach.call(visual.children, function (child) {
-      if (child.matches(GROUPS)) items.push.apply(items, child.children);
-      else items.push(child);
+      var parts = child.matches(GROUPS) ? Array.prototype.slice.call(child.children) : [child];
+      parts.forEach(function (part, k) {
+        items.push(part);
+        ids.push(child.matches('.hf-bullets') ? step.id + '-' + (k + 1) : null);
+      });
     });
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // When the camera is still travelling, wait for it so typing starts once the guide is visible.
-    var t = document.body.classList.contains('hf-camera-moving') ? 500 : 0;
-    items.forEach(function (item) {
+    var token = narration.token;
+    var plans = items.map(function (item) {
       item.classList.remove('hf-reveal');
-      void item.offsetWidth;
-      item.style.setProperty('--d', (t / 1000) + 's');
-      item.classList.add('hf-reveal');
-      if (reduce) return;
+      if (reduce) return { chars: [], host: item };
+      item.classList.add('hf-pending');
       var host = item.matches('li') ? item.querySelector(':scope > span:last-child') : item;
-      var chars = splitChars(host);
-      var start = t + (item.querySelector && item.querySelector('.hf-bullet-art') ? 260 : 0);
-      chars.forEach(function (ch, k) {
-        typeTimers.push(setTimeout(function () { ch.classList.add('on'); }, start + k * CHAR_MS));
+      return { chars: splitChars(host), host: host };
+    });
+    updateVoiceButton();
+
+    function run(n) {
+      if (token !== narration.token || n >= items.length) return;
+      var item = items[n];
+      var plan = plans[n];
+      item.classList.remove('hf-pending');
+      item.style.setProperty('--d', '0s');
+      void item.offsetWidth;
+      item.classList.add('hf-reveal');
+      var lead = item.querySelector && item.querySelector('.hf-bullet-art') ? 260 : 0;
+      plan.chars.forEach(function (ch, k) {
+        typeTimers.push(setTimeout(function () { ch.classList.add('on'); }, lead + k * CHAR_MS));
       });
       // Sweep each key word's underline in just after that word finishes typing.
-      Array.prototype.forEach.call(host.querySelectorAll('b'), function (b) {
-        var last = chars.indexOf(b.querySelectorAll('.hf-ch')[b.querySelectorAll('.hf-ch').length - 1]);
-        b.style.animationDelay = ((start + last * CHAR_MS + 60) / 1000) + 's';
+      Array.prototype.forEach.call(plan.host.querySelectorAll('b'), function (b) {
+        var own = b.querySelectorAll('.hf-ch');
+        var last = own.length ? plan.chars.indexOf(own[own.length - 1]) : 0;
+        b.style.animationDelay = ((lead + last * CHAR_MS + 60) / 1000) + 's';
       });
-      t = start + chars.length * CHAR_MS + 160;
-    });
+      var typed = false;
+      var spoken = false;
+      function next() { if (typed && spoken) run(n + 1); }
+      typeTimers.push(setTimeout(function () { typed = true; next(); }, plan.chars.length ? lead + plan.chars.length * CHAR_MS + 160 : 0));
+      playLine(ids[n], function () { if (token !== narration.token) return; spoken = true; next(); });
+    }
+    // When the camera is still travelling, wait for it so typing starts once the guide is visible.
+    typeTimers.push(setTimeout(function () { run(0); }, document.body.classList.contains('hf-camera-moving') ? 500 : 0));
   }
 
   function clearTyping() {
+    stopNarration();
     typeTimers.forEach(function (timer) { clearTimeout(timer); });
     typeTimers = [];
   }
@@ -592,6 +660,7 @@
     document.addEventListener('click', function (event) {
       var start = event.target.closest('[data-hf-start]');
       if (start) { event.preventDefault(); startTour(start.getAttribute('data-hf-start') || 'question-3c'); return; }
+      if (event.target.closest('[data-hf-voice]')) { event.preventDefault(); toggleNarration(); return; }
       if (event.target.closest('[data-hf-exit]')) { event.preventDefault(); exit(); return; }
       if (event.target.closest('[data-hf-next]')) { event.preventDefault(); move(1); return; }
       if (event.target.closest('[data-hf-prev]')) { event.preventDefault(); move(-1); return; }
