@@ -235,6 +235,11 @@
     el.style.height = Math.max(0, height) + 'px';
   }
 
+  // Questions get a wide guide column (about a third of the screen) so the bullets can be large.
+  function questionGuideWidth() {
+    return Math.round(Math.max(420, Math.min(620, window.innerWidth * 0.34)));
+  }
+
   function layout() {
     layoutFrame = 0;
     if (!activeId || !ui) return;
@@ -265,8 +270,10 @@
     var sceneBottom = Math.min(window.innerHeight, sceneTop + stableSceneHeight);
     var sceneWidth = Math.max(0, sceneRight - sceneLeft);
     var compact = window.innerWidth < 820;
-    var guideWidth = Math.min(380, window.innerWidth - 24);
+    var questionGuide = !compact && activeId && activeId.indexOf('question-') === 0;
+    var guideWidth = questionGuide ? questionGuideWidth() : Math.min(380, window.innerWidth - 24);
     ui.guide.style.width = guideWidth + 'px';
+    ui.guide.style.setProperty('--hf-s', questionGuide ? Math.min(1.35, guideWidth / 420).toFixed(3) : '1');
     ui.guide.style.maxHeight = Math.max(120, compact ? Math.min(Math.max(280, window.innerHeight * .64), window.innerHeight - 24) : window.innerHeight - 40) + 'px';
     if (compact) {
       ui.guide.style.left = (window.innerWidth - guideWidth) / 2 + 'px';
@@ -363,7 +370,7 @@
     var isQuestion = activeId && activeId.indexOf('question-') === 0;
     var isImageOnly = activeId === 'image';
     var compact = window.innerWidth < 820;
-    var guideColumn = isImageOnly || compact ? 0 : 400;
+    var guideColumn = isImageOnly || compact ? 0 : isQuestion ? questionGuideWidth() + 40 : 400;
     var fitScale = Math.min(window.innerWidth / scene.offsetWidth, window.innerHeight / scene.offsetHeight);
     var fittedSceneWidth = scene.offsetWidth * fitScale;
     var fittedSceneLeft = (window.innerWidth - fittedSceneWidth) / 2;
