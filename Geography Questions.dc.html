@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./hyper-focus.js?v=sedimentary-guide-36"></script>
+<script src="./hyper-focus.js?v=sedimentary-guide-37"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -844,6 +844,27 @@
   .hf-guide .hf-bullets > li:nth-child(3) b { --hf-mark: #F5A03C; color: #FFB877; }
   .hf-guide .hf-bullets > li.hf-bullet-result b { --hf-mark: #B9AEF7; color: #D3CCFF; }
   .hf-guide .hf-bullets > li.hf-reveal b { animation: hf-mark-in .6s cubic-bezier(.22,.78,.24,1) calc(var(--d, 0s) + .35s) backwards; }
+  /* Vibrant theme: saturated colour per idea, glows, gradient accents and a soft aurora behind the guide. */
+  body .hf-guide { --hf-c1: #FFD23F; --hf-c2: #3EC6FF; --hf-c3: #FF7A59; --hf-c4: #B48CFF; isolation: isolate; overflow: visible; }
+  body .hf-guide::before { content: ''; position: absolute; inset: -40px -30px; z-index: -1; pointer-events: none; filter: blur(30px); opacity: .55;
+    background: radial-gradient(40% 35% at 20% 25%, rgba(180,140,255,.55), transparent 70%), radial-gradient(40% 35% at 85% 55%, rgba(62,198,255,.45), transparent 70%), radial-gradient(35% 30% at 30% 90%, rgba(255,122,89,.4), transparent 70%); }
+  body .hf-guide .hf-guide__copy { position: relative; padding-bottom: 12px; }
+  body .hf-guide .hf-guide__copy::after { content: ''; position: absolute; left: 0; bottom: 0; width: 120px; height: 5px; border-radius: 5px; background: linear-gradient(90deg, var(--hf-c1), var(--hf-c3), var(--hf-c4), var(--hf-c2)); }
+  body .hf-guide .hf-guide__summary::before { background: linear-gradient(var(--hf-c1), var(--hf-c3)); width: 5px; }
+  .hf-guide .hf-bullets b { --hf-mark: var(--hf-c1); color: var(--hf-c1); }
+  .hf-guide .hf-bullets > li:nth-child(2) b { --hf-mark: var(--hf-c2); color: var(--hf-c2); }
+  .hf-guide .hf-bullets > li:nth-child(3) b { --hf-mark: var(--hf-c3); color: var(--hf-c3); }
+  .hf-guide .hf-bullets > li.hf-bullet-result b { --hf-mark: var(--hf-c4); color: var(--hf-c4); }
+  .hf-guide .hf-bullets > li { --hf-glow: var(--hf-c1); }
+  .hf-guide .hf-bullets > li:nth-child(2) { --hf-glow: var(--hf-c2); }
+  .hf-guide .hf-bullets > li:nth-child(3) { --hf-glow: var(--hf-c3); }
+  .hf-guide .hf-bullets > li.hf-bullet-result { --hf-glow: var(--hf-c4); }
+  .hf-guide .hf-bullet-art svg { box-shadow: 0 0 0 3px var(--hf-glow), 0 0 22px color-mix(in srgb, var(--hf-glow) 55%, transparent); }
+  body .hf-guide .hf-bullet-dot, body .hf-guide .hf-bullets--steps > li .hf-bullet-dot { width: 12px; height: 12px; background: var(--hf-glow) !important; box-shadow: 0 0 10px var(--hf-glow); }
+  body .hf-guide .hf-bullet-result { background: linear-gradient(135deg, rgba(180,140,255,.18), rgba(62,198,255,.12)); border: 2px solid transparent; border-radius: 14px;
+    background-clip: padding-box; box-shadow: 0 0 0 2px rgba(180,140,255,.7), 0 0 24px rgba(180,140,255,.35); }
+  body .hf-guide .hf-guide__button:not(.hf-guide__button--ghost) { background: linear-gradient(135deg, #7B5CFF, #E2489C); border: 0; box-shadow: 0 6px 20px rgba(226,72,156,.45); }
+  body .hf-guide .hf-guide__button:not(.hf-guide__button--ghost):not(:disabled):hover { background: linear-gradient(135deg, #8E73FF, #F05AAE); }
   /* Typed text: each letter fades and rises into place as it is typed. */
   .hf-guide .hf-word { white-space: nowrap; }
   .hf-guide .hf-ch { display: inline-block; opacity: 0; }
