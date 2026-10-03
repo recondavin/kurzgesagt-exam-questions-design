@@ -52,7 +52,7 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: url(assets/cartoon-desk.svg) center/cover no-repeat;
+    background: url(assets/cartoon-desk.svg?v=straight-1) center/cover no-repeat;
   }
   .exam-primary-layout ~ section,
   .exam-primary-layout ~ img { display: none !important; }
@@ -382,6 +382,18 @@
     transform-origin: 0 0;
     transition: transform .8s cubic-bezier(.22,.78,.24,1);
     will-change: transform;
+  }
+  /* Continue the desk past the scene's sides at the same scale, so no seam shows against the outer desk layer. */
+  [data-hf-scene]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -3177px;
+    right: -3177px;
+    z-index: -1;
+    background: url(assets/cartoon-desk.svg?v=straight-1) 0 0/3177px 1992px repeat-x;
+    pointer-events: none;
   }
   .exam-hand-motion {
     position: absolute;
@@ -826,7 +838,7 @@
 </helmet>
 
 <section class="exam-primary-layout" style="display: flex; flex-direction: column; gap: 0; padding: 0;">
-    <div data-hf-scene style="position: absolute; left: 0; top: 0; width: 3177px; height: 1992px; background: url(assets/cartoon-desk.svg) center/100% 100% no-repeat;">
+    <div data-hf-scene style="position: absolute; left: 0; top: 0; width: 3177px; height: 1992px; background: url(assets/cartoon-desk.svg?v=straight-1) center/100% 100% no-repeat;">
   <img class="exam-hand-motion exam-hand-motion--left" src="assets/hands/left-resting-layered.svg?v=generated-sleeves-5" alt="" aria-hidden="true">
   <img class="exam-hand-motion exam-hand-motion--right" src="assets/hands/right-writing-gentle-rig.svg?v=generated-sleeves-4" alt="" aria-hidden="true">
   <div class="exam-paper" style="position: absolute; left: 901px; top: 27px; width: 1370px; height: 1938px; z-index: 2; box-sizing: border-box; padding: 26px; overflow: hidden; border-radius: 6px;">
