@@ -3,7 +3,7 @@
     {
       id: 'question-3c', target: 'question-3c', kicker: '1 · Plan the marks', title: '15 explained points',
       summary: 'Split your answer across both parts.',
-      visual: '<div class="hf-split"><div class="hf-topic hf-topic--predict"><span class="hf-topic__label">Predict earthquakes</span><strong>7</strong><span>points</span></div><div class="hf-topic hf-topic--reduce"><span class="hf-topic__label">Reduce the effects</span><strong>8</strong><span>points</span></div></div><p class="hf-takeaway"><span>An example split — 8 + 7 works too.</span></p>',
+      visual: '<div class="hf-split"><div class="hf-topic hf-topic--predict"><span class="hf-topic__label">Predict earthquakes</span><strong>7</strong><span>points</span></div><div class="hf-topic hf-topic--reduce"><span class="hf-topic__label">Reduce the effects</span><strong>8</strong><span>points</span></div></div>',
       prose: 'Share them across both parts: predicting earthquakes and reducing their effects. Aim for about seven or eight on each side, with one idea in each short paragraph.',
       points: []
     },
@@ -17,14 +17,14 @@
     {
       id: 'question-3c-hints', target: 'question-3c', kicker: '3 · Small prompts', title: 'Find your own examples',
       summary: 'Use the question to spark ideas.',
-      visual: '<div class="hf-idea-deck"><button type="button" class="hf-idea is-active" data-idea="monitor"><svg viewBox="0 0 72 50" aria-hidden="true"><path class="hf-mini-trace" d="M3 27H17L23 20L29 34L35 8L42 43L48 19L54 27H69" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" pathLength="100"/></svg><span>MONITOR</span><strong>Seismometers and GPS</strong></button><button type="button" class="hf-idea" data-idea="build"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M18 39V11H54V39M25 18H31M41 18H47M25 27H31M41 27H47M12 40H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg><span>BUILD SAFELY</span><strong>Flexible, reinforced structures</strong></button><button type="button" class="hf-idea" data-idea="prepare"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M22 15H50V43H22ZM28 9H44M30 23H42M30 31H42" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M16 19L11 24L16 29M56 19L61 24L56 29" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg><span>PREPARE</span><strong>Drills and emergency plans</strong></button></div><p class="hf-idea-answer"><strong data-idea-title>Monitor changing ground movement.</strong><span data-idea-copy>This helps estimate risk, but it cannot give an exact date.</span></p>',
+      visual: '<div class="hf-idea-deck"><button type="button" class="hf-idea is-active" data-idea="monitor"><svg viewBox="0 0 72 50" aria-hidden="true"><path class="hf-mini-trace" d="M3 27H17L23 20L29 34L35 8L42 43L48 19L54 27H69" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" pathLength="100"/></svg><span>MONITOR</span><strong>Seismometers and GPS</strong></button><button type="button" class="hf-idea" data-idea="build"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M18 39V11H54V39M25 18H31M41 18H47M25 27H31M41 27H47M12 40H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg><span>BUILD SAFELY</span><strong>Flexible, reinforced structures</strong></button><button type="button" class="hf-idea" data-idea="prepare"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M22 15H50V43H22ZM28 9H44M30 23H42M30 31H42" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M16 19L11 24L16 29M56 19L61 24L56 29" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg><span>PREPARE</span><strong>Drills and emergency plans</strong></button></div><p class="hf-idea-answer"><strong data-idea-title>Monitor changing ground movement.</strong></p>',
       prose: 'Think about warning signs before the shaking, safer buildings and planning, and what communities can prepare for during and after an earthquake.',
       points: []
     },
     {
       id: 'question-3b', target: 'question-3b', kicker: '1 · Plan the marks', title: '15 explained points',
       summary: 'Tell the formation story in order.',
-      visual: '<div class="hf-rock-cycle"><div><svg viewBox="0 0 90 64" aria-hidden="true"><circle cx="22" cy="18" r="7"/><circle cx="45" cy="13" r="6"/><circle cx="68" cy="20" r="8"/><path d="M8 38Q22 31 36 38T64 38T84 38V57H8Z"/></svg><strong>1 · Sediment</strong></div><i>→</i><div><svg viewBox="0 0 90 64" aria-hidden="true"><path d="M9 17H81M9 30H81M9 43H81M9 56H81"/><path class="hf-compress-arrow" d="M45 5V15M40 11L45 16L50 11"/></svg><strong>2 · Compact</strong></div><i>→</i><div><svg viewBox="0 0 90 64" aria-hidden="true"><rect x="9" y="12" width="72" height="44" rx="4"/><path d="M9 26H81M9 41H81M29 12V26M58 26V41M37 41V56"/></svg><strong>3 · Rock</strong></div></div><p class="hf-takeaway"><span>Explain each stage and include a named Irish example.</span></p>',
+      visual: '<div class="hf-rock-cycle"><div><svg viewBox="0 0 90 64" aria-hidden="true"><circle cx="22" cy="18" r="7"/><circle cx="45" cy="13" r="6"/><circle cx="68" cy="20" r="8"/><path d="M8 38Q22 31 36 38T64 38T84 38V57H8Z"/></svg><strong>1 · Sediment</strong></div><i>→</i><div><svg viewBox="0 0 90 64" aria-hidden="true"><path d="M9 17H81M9 30H81M9 43H81M9 56H81"/><path class="hf-compress-arrow" d="M45 5V15M40 11L45 16L50 11"/></svg><strong>2 · Compact</strong></div><i>→</i><div><svg viewBox="0 0 90 64" aria-hidden="true"><rect x="9" y="12" width="72" height="44" rx="4"/><path d="M9 26H81M9 41H81M29 12V26M58 26V41M37 41V56"/></svg><strong>3 · Rock</strong></div></div>',
       prose: '', points: []
     },
     {
@@ -36,7 +36,7 @@
     {
       id: 'question-3b-explore', target: 'question-3b', kicker: '3 · Explore examples', title: 'Choose a rock example',
       summary: 'Connect formation to a real Irish landscape.',
-      visual: '<div class="hf-idea-deck hf-rock-deck"><button type="button" class="hf-idea is-active" data-rock="limestone"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M8 38L20 17L29 27L40 10L63 38Z"/><path d="M15 38H57M23 29H49"/></svg><span>LIMESTONE</span><strong>The Burren</strong></button><button type="button" class="hf-idea" data-rock="sandstone"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M8 13H64V39H8Z M8 22H64M8 31H64M25 13V22M48 22V31M31 31V39"/></svg><span>SANDSTONE</span><strong>MacGillycuddy’s Reeks</strong></button><button type="button" class="hf-idea" data-rock="shale"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M9 15H63M14 23H58M9 31H63M16 39H56"/></svg><span>SHALE</span><strong>County Clare</strong></button></div><p class="hf-idea-answer"><strong data-rock-title>Limestone forms from calcium-rich remains.</strong><span data-rock-copy>The Burren, County Clare, is a named Irish limestone landscape.</span></p>',
+      visual: '<div class="hf-idea-deck hf-rock-deck"><button type="button" class="hf-idea is-active" data-rock="limestone"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M8 38L20 17L29 27L40 10L63 38Z"/><path d="M15 38H57M23 29H49"/></svg><span>LIMESTONE</span><strong>The Burren</strong></button><button type="button" class="hf-idea" data-rock="sandstone"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M8 13H64V39H8Z M8 22H64M8 31H64M25 13V22M48 22V31M31 31V39"/></svg><span>SANDSTONE</span><strong>MacGillycuddy’s Reeks</strong></button><button type="button" class="hf-idea" data-rock="shale"><svg viewBox="0 0 72 50" aria-hidden="true"><path d="M9 15H63M14 23H58M9 31H63M16 39H56"/></svg><span>SHALE</span><strong>County Clare</strong></button></div><p class="hf-idea-answer"><strong data-rock-title>Limestone forms from calcium-rich remains.</strong></p>',
       prose: '', points: []
     }
   ];
@@ -102,15 +102,6 @@
     clearTyping();
     guide.querySelector('.hf-guide__content').scrollTop = 0;
     guide.setAttribute('aria-live', 'off');
-    var progress = guide.querySelector('.hf-guide__progress');
-    if (!progress) {
-      progress = document.createElement('div');
-      progress.className = 'hf-guide__progress';
-      guide.insertBefore(progress, guide.querySelector('.hf-guide__content'));
-    }
-    progress.innerHTML = ['Plan', 'Build', 'Explore'].map(function (label, i) {
-      return '<span class="' + (i === index ? 'is-current' : i < index ? 'is-done' : '') + '"' + (i === index ? ' aria-current="step"' : '') + '><b>' + (i + 1) + '</b>' + label + '</span>';
-    }).join('');
     var title = guide.querySelector('[data-hf-title]');
     var summary = guide.querySelector('[data-hf-summary]');
     var prose = guide.querySelector('[data-hf-prose]');
@@ -156,7 +147,6 @@
           art.innerHTML = illustrations[i];
           topic.querySelector('strong').before(art);
         });
-        visual.querySelector('.hf-takeaway span').textContent = 'Monitoring estimates risk, not an exact date. 7 + 8 is an example split.';
       } else if (step.id === 'question-3c-srp' || step.id === 'question-3b-srp') {
         var builder = visual.querySelector('.hf-srp-builder');
         builder.onclick = function () {
@@ -164,7 +154,6 @@
           void builder.offsetWidth;
           builder.classList.add('is-playing');
         };
-        builder.classList.add('is-playing');
       } else if (step.id === 'question-3c-hints') {
         var ideaCopy = {
           monitor: ['Monitor changing ground movement.', 'Seismometers and GPS help estimate risk, but cannot give an exact date.'],
@@ -176,7 +165,6 @@
             visual.querySelectorAll('.hf-idea').forEach(function (item) { item.classList.remove('is-active'); });
             button.classList.add('is-active');
             visual.querySelector('[data-idea-title]').textContent = ideaCopy[button.dataset.idea][0];
-            visual.querySelector('[data-idea-copy]').textContent = ideaCopy[button.dataset.idea][1];
           };
         });
       } else if (step.id === 'question-3b-explore') {
@@ -190,10 +178,10 @@
             visual.querySelectorAll('[data-rock]').forEach(function (item) { item.classList.remove('is-active'); });
             button.classList.add('is-active');
             visual.querySelector('[data-rock-title]').textContent = rockCopy[button.dataset.rock][0];
-            visual.querySelector('[data-rock-copy]').textContent = rockCopy[button.dataset.rock][1];
           };
         });
       }
+      revealInOrder(summary, visual);
       guide.setAttribute('aria-live', 'polite');
       return;
     }
@@ -243,6 +231,22 @@
     var temp = document.createElement('div');
     temp.innerHTML = html;
     return temp.textContent || '';
+  }
+
+  // Fade the card in piece by piece: the instruction first, then each box in reading order.
+  var GROUPS = '.hf-split, .hf-srp-builder, .hf-rock-cycle, .hf-idea-deck';
+  function revealInOrder(summary, visual) {
+    var items = [summary];
+    Array.prototype.forEach.call(visual.children, function (child) {
+      if (child.matches(GROUPS)) items.push.apply(items, child.children);
+      else items.push(child);
+    });
+    items.forEach(function (item, i) {
+      item.classList.remove('hf-reveal');
+      void item.offsetWidth;
+      item.style.animationDelay = (i * 0.32) + 's';
+      item.classList.add('hf-reveal');
+    });
   }
 
   function clearTyping() {
