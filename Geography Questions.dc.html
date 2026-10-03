@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./hyper-focus.js?v=sedimentary-guide-38"></script>
+<script src="./hyper-focus.js?v=sedimentary-guide-39"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -820,16 +820,16 @@
   body .hf-guide { background: transparent; border: 0; box-shadow: none; border-radius: 0; color: #F4EFE6; }
   body .hf-guide .hf-guide__top { background: transparent; }
   body .hf-guide .hf-guide__title { color: #FFFFFF; }
-  body .hf-guide .hf-guide__summary, .hf-guide .hf-bullets, .hf-guide .hf-bullets * { color: #F4EFE6; }
-  body .hf-guide .hf-guide__close { background: transparent; border-color: rgba(244,239,230,.45); color: #F4EFE6; }
+  body .hf-guide .hf-guide__summary, .hf-guide .hf-bullets, .hf-guide .hf-bullets * { color: #FFFFFF; }
+  body .hf-guide .hf-guide__close { background: transparent; border-color: rgba(255,255,255,.7); color: #FFFFFF; }
   body .hf-guide .hf-bullet-result { background: rgba(244,239,230,.1); }
   body .hf-guide .hf-bullet-dot { background: #FFC42E; }
   body .hf-guide .hf-bullets--steps > li:nth-child(2) .hf-bullet-dot { background: #4FC3E8; }
   body .hf-guide .hf-bullets--steps > li:nth-child(3) .hf-bullet-dot { background: #F5A03C; }
   body .hf-guide .hf-bullets--steps > li.hf-bullet-result .hf-bullet-dot { background: #B9AEF7; }
   body .hf-guide .hf-guide__controls { border-top-color: rgba(244,239,230,.2); }
-  body .hf-guide .hf-guide__button--ghost { color: #F4EFE6; }
-  body .hf-guide .hf-guide__button--ghost:disabled { color: rgba(244,239,230,.4); }
+  body .hf-guide .hf-guide__button--ghost { color: #FFFFFF; }
+  body .hf-guide .hf-guide__button--ghost:disabled { color: rgba(255,255,255,.5); }
   /* Livelier but still easy to read: bigger title, a lead line with an accent bar, a colour per idea with a marker underline that sweeps in. */
   body .hf-guide .hf-guide__title { font-size: calc(27px * var(--hf-s, 1)); }
   body .hf-guide .hf-guide__summary { position: relative; padding-left: 14px; font-size: calc(18px * var(--hf-s, 1)); font-weight: 500 !important; color: #FFFFFF; }
@@ -845,7 +845,7 @@
   .hf-guide .hf-bullets > li.hf-bullet-result b { --hf-mark: #B9AEF7; color: #D3CCFF; }
   .hf-guide .hf-bullets > li.hf-reveal b { animation: hf-mark-in .6s cubic-bezier(.22,.78,.24,1) calc(var(--d, 0s) + .35s) backwards; }
   /* Vibrant theme: saturated flat colour per idea on the dark backdrop, with glowing rings and dots. No gradients. */
-  body .hf-guide { --hf-c1: #FFD23F; --hf-c2: #3EC6FF; --hf-c3: #FF7A59; --hf-c4: #B48CFF; isolation: isolate; overflow: visible; }
+  body .hf-guide { --hf-c1: #FFE14D; --hf-c2: #5CD6FF; --hf-c3: #FF8A6B; --hf-c4: #C6A8FF; isolation: isolate; overflow: visible; }
   body .hf-guide .hf-guide__copy { position: relative; padding-bottom: 12px; }
   body .hf-guide .hf-guide__copy::after { content: ''; position: absolute; left: 0; bottom: 0; width: 120px; height: 5px; border-radius: 5px; background: var(--hf-c1); }
   body .hf-guide .hf-guide__summary::before { background: var(--hf-c1); width: 5px; }
@@ -871,7 +871,7 @@
   @keyframes hf-ch-in { from { opacity: 0; transform: translateY(.3em); } to { opacity: 1; transform: none; } }
   @keyframes hf-mark-in { from { background-size: 0 3px; } to { background-size: 100% 3px; } }
   body .hf-guide .hf-guide__button { font-size: calc(17px * var(--hf-s, 1)); }
-  body .hf-guide .hf-guide__step { display: block; order: 1; margin: 0 auto; color: rgba(244,239,230,.7); font-size: calc(15px * var(--hf-s, 1)); letter-spacing: .08em; }
+  body .hf-guide .hf-guide__step { display: block; order: 1; margin: 0 auto; color: rgba(255,255,255,.9); font-size: calc(15px * var(--hf-s, 1)); letter-spacing: .08em; }
   body .hf-guide .hf-guide__button:not(.hf-guide__button--ghost) { order: 2; margin-left: 0; }
   @media (prefers-reduced-motion: reduce) { .hf-guide .hf-bullets > li.hf-reveal b { animation: none; } }
   .hf-squash { transform-box: fill-box; transform-origin: 50% 100%; animation: hf-squash 3.2s ease-in-out infinite; }
