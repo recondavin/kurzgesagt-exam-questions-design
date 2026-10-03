@@ -29,7 +29,7 @@ DESIGN_MODEL_ID = "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign"
 # Quality: steadier sampling than the model defaults (temperature 0.9, top_p 1.0), several takes per
 # line keeping the most typical one, then trim, de-click and level each clip. Changing QUALITY
 # regenerates every line on the next update.
-QUALITY = "q2"
+QUALITY = "q3"
 TAKES = 3
 SAMPLING = dict(temperature=0.7, top_p=0.9, top_k=50, repetition_penalty=1.05,
                 subtalker_temperature=0.7, subtalker_top_p=0.9, subtalker_top_k=50)
@@ -93,9 +93,15 @@ def polish(samples, sample_rate):
     if voiced.size:
         pad = int(sample_rate * 0.06)
         audio = audio[max(0, voiced[0] - pad): voiced[-1] + pad]
+    for stage in ("level", "master"):
+        if stage == "master":
+            audio = master(audio, sample_rate)
+        rms = float(np.sqrt(np.mean(audio[np.abs(audio) > 1e-3] ** 2))) if np.any(np.abs(audio) > 1e-3) else 0.0
+        if rms > 0 and stage == "level":
+            audio = audio * (10 ** (-20 / 20) / rms)      # level first so the compressor sees a steady input
     rms = float(np.sqrt(np.mean(audio[np.abs(audio) > 1e-3] ** 2))) if np.any(np.abs(audio) > 1e-3) else 0.0
     if rms > 0:
-        audio = audio * (10 ** (-20 / 20) / rms)          # about -20 dBFS speech level
+        audio = audio * (10 ** (-18 / 20) / rms)          # about -18 dBFS speech level, like produced voice-over
     peak = float(np.max(np.abs(audio))) or 1.0
     if peak > 0.89:
         audio = audio * (0.89 / peak)                     # keep 1 dB of headroom
@@ -105,6 +111,54 @@ def polish(samples, sample_rate):
         audio[:fade] *= ramp
         audio[-fade:] *= ramp[::-1]
     return audio
+
+
+def biquad(kind, freq, sample_rate, gain_db=0.0, q=0.707):
+    """RBJ audio-EQ-cookbook filter coefficients (b, a)."""
+    import numpy as np
+    a_gain = 10 ** (gain_db / 40)
+    w0 = 2 * np.pi * freq / sample_rate
+    alpha = np.sin(w0) / (2 * q)
+    cos = np.cos(w0)
+    if kind == "highpass":
+        b = [(1 + cos) / 2, -(1 + cos), (1 + cos) / 2]
+        a = [1 + alpha, -2 * cos, 1 - alpha]
+    elif kind == "peak":
+        b = [1 + alpha * a_gain, -2 * cos, 1 - alpha * a_gain]
+        a = [1 + alpha / a_gain, -2 * cos, 1 - alpha / a_gain]
+    else:  # high shelf
+        sq = 2 * np.sqrt(a_gain) * alpha
+        b = [a_gain * ((a_gain + 1) + (a_gain - 1) * cos + sq), -2 * a_gain * ((a_gain - 1) + (a_gain + 1) * cos),
+             a_gain * ((a_gain + 1) + (a_gain - 1) * cos - sq)]
+        a = [(a_gain + 1) - (a_gain - 1) * cos + sq, 2 * ((a_gain - 1) - (a_gain + 1) * cos),
+             (a_gain + 1) - (a_gain - 1) * cos - sq]
+    return np.array(b) / a[0], np.array(a) / a[0]
+
+
+def master(audio, sample_rate):
+    """Voice-over mastering chain, like a produced video narration: low cut, mud cut, presence and air,
+    then gentle compression so every word sits close and even."""
+    import numpy as np
+    from scipy.signal import lfilter
+    for kind, freq, gain, q in [("highpass", 80, 0, 0.707),     # rumble
+                                ("peak", 300, -2.5, 1.0),        # boxy / muddy
+                                ("peak", 4000, 3.0, 1.0),        # presence and clarity
+                                ("shelf", 9000, 2.0, 0.707)]:    # air
+        b, a = biquad(kind, freq, sample_rate, gain, q)
+        audio = lfilter(b, a, audio).astype(np.float32)
+    # Compressor: 3:1 above -24 dBFS on a smoothed level, 5 ms attack, 120 ms release.
+    level = np.abs(audio)
+    env = np.empty_like(level)
+    att, rel = np.exp(-1 / (0.005 * sample_rate)), np.exp(-1 / (0.120 * sample_rate))
+    prev = 0.0
+    for i, x in enumerate(level):
+        coef = att if x > prev else rel
+        prev = coef * prev + (1 - coef) * x
+        env[i] = prev
+    env_db = 20 * np.log10(np.maximum(env, 1e-6))
+    over = np.maximum(env_db - (-24.0), 0.0)
+    gain_db = -over * (1 - 1 / 3.0)
+    return (audio * 10 ** (gain_db / 20)).astype(np.float32)
 
 
 def pick_take(takes):
