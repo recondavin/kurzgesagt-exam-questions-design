@@ -40,6 +40,11 @@ MANIFEST = OUT / "manifest.json"
 DESIGNED_TEXT = ("Have you ever wondered how a mountain is made? Let's find out together, "
                  "one layer at a time, and see what the rocks can tell us.")
 
+# Custom voice: a clean clip of the chosen narrator (used with the speaker's permission) and its
+# exact transcript. When present it is the default voice.
+CUSTOM_WAV = HERE / "custom_reference.wav"
+CUSTOM_TEXT_FILE = HERE / "custom_reference.txt"
+
 # The original take (first-qwen-voice-88hz.mp3), still available with --voice original.
 REFERENCE_WAV = HERE / "reference.wav"
 # Transcript of reference.wav; voice cloning is most faithful with the exact words.
@@ -109,8 +114,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--force", action="store_true", help="regenerate lines that already have an MP3")
     parser.add_argument("--only", nargs="*", help="line ids to generate")
-    parser.add_argument("--voice", choices=["designed", "original"], default="designed",
-                        help="designed: the curious British narrator (default); original: first-qwen-voice-88hz")
+    parser.add_argument("--voice", choices=["custom", "designed", "original"],
+                        default="custom" if CUSTOM_WAV.exists() else "designed",
+                        help="custom: custom_reference.wav (default when present); designed: the described "
+                             "British narrator; original: first-qwen-voice-88hz")
     parser.add_argument("--redesign", action="store_true", help="make a new designed reference voice first")
     args = parser.parse_args()
 
@@ -120,7 +127,11 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     stored_key = DESIGNED_KEY.read_text(encoding="utf-8").strip() if DESIGNED_KEY.exists() else ""
     redesign = args.voice == "designed" and (args.redesign or not DESIGNED_WAV.exists() or stored_key != designed_voice_key())
-    voice_key = "redesign" if redesign else (designed_voice_key() if args.voice == "designed" else "original")
+    if args.voice == "custom":
+        custom_text = CUSTOM_TEXT_FILE.read_text(encoding="utf-8").strip()
+        voice_key = short_hash("custom", hashlib.sha1(CUSTOM_WAV.read_bytes()).hexdigest(), custom_text)
+    else:
+        voice_key = "redesign" if redesign else (designed_voice_key() if args.voice == "designed" else "original")
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8")) if MANIFEST.exists() else {}
     wanted = {line["id"]: short_hash(MODEL_ID, voice_key, spoken(line["text"])) for line in lines}
     todo = [line for line in lines
@@ -140,6 +151,8 @@ def main():
             voice_key = designed_voice_key()
             wanted = {line["id"]: short_hash(MODEL_ID, voice_key, spoken(line["text"])) for line in lines}
         ref_wav, ref_text = DESIGNED_WAV, DESIGNED_TEXT
+    elif args.voice == "custom":
+        ref_wav, ref_text = CUSTOM_WAV, custom_text
     else:
         ref_wav, ref_text = REFERENCE_WAV, REFERENCE_TEXT
 

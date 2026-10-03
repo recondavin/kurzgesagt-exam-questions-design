@@ -7,7 +7,12 @@ as the text types. The audio is generated locally with
 
 ## The voice
 
-By default the voice is *designed*: the VoiceDesign model first makes
+If `custom_reference.wav` exists it is the voice: a clean ~16 s clip of the chosen
+narrator, used with the speaker's permission, with its exact words in
+`custom_reference.txt` (music removed with Demucs, loudness-normalised, 24 kHz mono).
+Replacing either file makes the next update regenerate every line.
+
+Otherwise the voice is *designed*: the VoiceDesign model first makes
 `designed_reference.wav` from the description in `generate_narration.py`
 (a soft, curious British documentary narrator), then the Base model clones that
 clip for every line so they all match. `--redesign` makes a new take of the voice;
