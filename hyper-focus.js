@@ -10,7 +10,7 @@
     {
       id: 'question-3c-srp', target: 'question-3c', kicker: '2 · Build an SRP', title: 'Make every SRP count',
       summary: 'An SRP is one explained point.',
-      visual: '<div class="hf-srp-builder" aria-label="An SRP being assembled"><div class="hf-srp-piece"><span>POINT</span><strong>Base isolation</strong></div><i>+</i><div class="hf-srp-piece"><span>EXPLAIN</span><strong>absorbs movement</strong></div><i>+</i><div class="hf-srp-piece"><span>LINK</span><strong>less damage</strong></div></div><p class="hf-srp-result"><span>FULL SRP</span><strong>Base isolation absorbs ground movement, reducing structural damage.</strong></p><p class="hf-takeaway"><span>Tap the pieces to replay the build.</span></p>',
+      visual: '<div class="hf-srp-builder" aria-label="An SRP being assembled"><div class="hf-srp-piece"><span>POINT</span><strong>Base isolation</strong></div><i>+</i><div class="hf-srp-piece"><span>EXPLAIN</span><strong>absorbs movement</strong></div><i>+</i><div class="hf-srp-piece"><span>LINK</span><strong>less damage</strong></div></div><p class="hf-srp-result"><span>FULL SRP</span><strong>Base isolation absorbs ground movement, reducing structural damage.</strong></p>',
       prose: 'State the idea, show how or why it matters, then link it back to earthquakes. Naming a method on its own is not enough.',
       points: []
     },
@@ -30,7 +30,7 @@
     {
       id: 'question-3b-srp', target: 'question-3b', kicker: '2 · Build an SRP', title: 'Turn a stage into marks',
       summary: 'Add the process and its result.',
-      visual: '<div class="hf-srp-builder hf-rock-builder" aria-label="A sedimentary rock SRP being assembled"><div class="hf-srp-piece"><span>STAGE</span><strong>Sediment builds up</strong></div><i>+</i><div class="hf-srp-piece"><span>PROCESS</span><strong>layers compact</strong></div><i>+</i><div class="hf-srp-piece"><span>RESULT</span><strong>grains cement</strong></div></div><p class="hf-srp-result"><span>FULL SRP</span><strong>As layers build up, pressure compacts the sediment and minerals cement the grains into rock.</strong></p><p class="hf-takeaway"><span>Tap the pieces to replay the build.</span></p>',
+      visual: '<div class="hf-srp-builder hf-rock-builder" aria-label="A sedimentary rock SRP being assembled"><div class="hf-srp-piece"><span>STAGE</span><strong>Sediment builds up</strong></div><i>+</i><div class="hf-srp-piece"><span>PROCESS</span><strong>layers compact</strong></div><i>+</i><div class="hf-srp-piece"><span>RESULT</span><strong>grains cement</strong></div></div><p class="hf-srp-result"><span>FULL SRP</span><strong>As layers build up, pressure compacts the sediment and minerals cement the grains into rock.</strong></p>',
       prose: '', points: []
     },
     {
@@ -81,7 +81,7 @@
     var guide = document.createElement('aside');
     guide.className = 'hf-guide';
     guide.setAttribute('aria-live', 'polite');
-    guide.innerHTML = '<div class="hf-guide__top"><div class="hf-guide__copy"><div class="hf-guide__meta"><span class="hf-guide__kicker" data-hf-kicker></span></div><h3 class="hf-guide__title" data-hf-title></h3></div><button type="button" class="hf-guide__close" data-hf-exit aria-label="Exit hyper focus">×</button></div><p class="hf-guide__summary" data-hf-summary></p><p class="hf-guide__prose" data-hf-prose hidden></p><ul class="hf-guide__points" data-hf-points></ul><div class="hf-guide__controls"><button type="button" class="hf-guide__button hf-guide__button--ghost" data-hf-prev>Back</button><button type="button" class="hf-guide__button" data-hf-next>Next</button><span class="hf-guide__step" data-hf-count></span></div>';
+    guide.innerHTML = '<div class="hf-guide__top"><div class="hf-guide__copy"><h3 class="hf-guide__title" data-hf-title></h3></div><button type="button" class="hf-guide__close" data-hf-exit aria-label="Exit hyper focus">×</button></div><p class="hf-guide__summary" data-hf-summary></p><p class="hf-guide__prose" data-hf-prose hidden></p><ul class="hf-guide__points" data-hf-points></ul><div class="hf-guide__controls"><button type="button" class="hf-guide__button hf-guide__button--ghost" data-hf-prev>Back</button><button type="button" class="hf-guide__button" data-hf-next>Next</button><span class="hf-guide__step" data-hf-count></span></div>';
     var content = document.createElement('div');
     content.className = 'hf-guide__content';
     content.tabIndex = 0;
@@ -102,7 +102,6 @@
     clearTyping();
     guide.querySelector('.hf-guide__content').scrollTop = 0;
     guide.setAttribute('aria-live', 'off');
-    guide.querySelector('[data-hf-kicker]').textContent = step.kicker;
     var progress = guide.querySelector('.hf-guide__progress');
     if (!progress) {
       progress = document.createElement('div');
