@@ -229,7 +229,7 @@ def main():
     else:
         voice_key = "redesign" if redesign else (designed_voice_key() if args.voice == "designed" else "original")
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8")) if MANIFEST.exists() else {}
-    wanted = {line["id"]: short_hash(MODEL_ID, QUALITY, voice_key, spoken(line["text"])) for line in lines}
+    wanted = {line["id"]: short_hash(MODEL_ID, QUALITY, voice_key, spoken(line.get("say") or line["text"])) for line in lines}
     todo = [line for line in lines
             if args.force or redesign or manifest.get(line["id"]) != wanted[line["id"]]
             or not (OUT / f"{line['id']}.mp3").exists()]
@@ -245,7 +245,7 @@ def main():
         if redesign:
             design_reference(torch, device, dtype)
             voice_key = designed_voice_key()
-            wanted = {line["id"]: short_hash(MODEL_ID, QUALITY, voice_key, spoken(line["text"])) for line in lines}
+            wanted = {line["id"]: short_hash(MODEL_ID, QUALITY, voice_key, spoken(line.get("say") or line["text"])) for line in lines}
         ref_wav, ref_text = DESIGNED_WAV, DESIGNED_TEXT
     elif args.voice == "custom":
         ref_wav, ref_text = CUSTOM_WAV, custom_text
@@ -258,7 +258,7 @@ def main():
     voice = model.create_voice_clone_prompt(ref_audio=str(ref_wav), ref_text=ref_text, x_vector_only_mode=False)
 
     for n, line in enumerate(todo, 1):
-        text = spoken(line["text"])
+        text = spoken(line.get("say") or line["text"])
         print(f"[{n}/{len(todo)}] {line['id']}: {text}")
         takes = []
         for take in range(TAKES):

@@ -1,126 +1,157 @@
 [
   {
     "id": "question-3c-title",
-    "text": "15 explained points"
+    "text": "15 explained points",
+    "say": "This question is worth thirty marks, and that usually means around fifteen explained points."
   },
   {
     "id": "question-3c-summary",
-    "text": "Split your answer across both parts."
+    "text": "Split your answer across both parts.",
+    "say": "It really has two halves, so your points need to cover both of them."
   },
   {
     "id": "question-3c-1",
-    "text": "Predict earthquakes: about 7 points."
+    "text": "Predict earthquakes: about 7 points.",
+    "say": "First, prediction. We can't give an exact date, but you can explain how scientists watch for warning signs. Aim for about seven points here."
   },
   {
     "id": "question-3c-2",
-    "text": "Reduce the effects: about 8 points."
+    "text": "Reduce the effects: about 8 points.",
+    "say": "Then, reducing the effects: safer buildings, good planning, and people who know what to do. That's about eight points."
   },
   {
     "id": "question-3c-srp-title",
-    "text": "Make every SRP count"
+    "text": "Make every SRP count",
+    "say": "So what actually earns the marks?"
   },
   {
     "id": "question-3c-srp-summary",
-    "text": "An SRP is one explained point."
+    "text": "An SRP is one explained point.",
+    "say": "An S.R.P. is a significant relevant point. One idea, properly explained."
   },
   {
     "id": "question-3c-srp-1",
-    "text": "Point: base isolation."
+    "text": "Point: base isolation.",
+    "say": "Start with the point itself. Say, base isolation."
   },
   {
     "id": "question-3c-srp-2",
-    "text": "Explain: it absorbs ground movement."
+    "text": "Explain: it absorbs ground movement.",
+    "say": "Then explain it. The building sits on flexible bearings that soak up the ground's movement."
   },
   {
     "id": "question-3c-srp-3",
-    "text": "Link: so there is less damage."
+    "text": "Link: so there is less damage.",
+    "say": "And link it back to the question. Less shaking reaches the building, so there's less damage."
   },
   {
     "id": "question-3c-srp-4",
-    "text": "Full SRP: Base isolation absorbs ground movement, reducing structural damage."
+    "text": "Full SRP: Base isolation absorbs ground movement, reducing structural damage.",
+    "say": "Put it all together, and it reads like this: base isolation absorbs ground movement, reducing structural damage."
   },
   {
     "id": "question-3c-hints-title",
-    "text": "Find your own examples"
+    "text": "Find your own examples",
+    "say": "Finally, you'll need examples of your own."
   },
   {
     "id": "question-3c-hints-summary",
-    "text": "Use the question to spark ideas."
+    "text": "Use the question to spark ideas.",
+    "say": "The question itself gives you clues. Here are three directions to think about."
   },
   {
     "id": "question-3c-hints-1",
-    "text": "Monitor: seismometers and GPS track ground movement."
+    "text": "Monitor: seismometers and GPS track ground movement.",
+    "say": "Monitoring. Seismometers and GPS pick up tiny movements in the ground, which helps scientists estimate the risk."
   },
   {
     "id": "question-3c-hints-2",
-    "text": "Build safely: flexible, reinforced buildings."
+    "text": "Build safely: flexible, reinforced buildings.",
+    "say": "Building safely. Flexible, reinforced buildings are far less likely to collapse when the shaking starts."
   },
   {
     "id": "question-3c-hints-3",
-    "text": "Prepare: drills and emergency plans."
+    "text": "Prepare: drills and emergency plans.",
+    "say": "And preparing. Earthquake drills and emergency plans mean people know exactly what to do."
   },
   {
     "id": "question-3b-title",
-    "text": "15 explained points"
+    "text": "15 explained points",
+    "say": "Again, thirty marks, so you're aiming for about fifteen explained points."
   },
   {
     "id": "question-3b-summary",
-    "text": "Tell the formation story in order."
+    "text": "Tell the formation story in order.",
+    "say": "The best way in is to tell the story of how the rock forms, one step at a time."
   },
   {
     "id": "question-3b-1",
-    "text": "Sediment: layers build up on a sea or lake bed."
+    "text": "Sediment: layers build up on a sea or lake bed.",
+    "say": "It starts with sediment. Bits of eroded rock, sand, mud and shells settle in layers on the bed of a sea or lake."
   },
   {
     "id": "question-3b-2",
-    "text": "Compaction: the weight above squeezes the layers."
+    "text": "Compaction: the weight above squeezes the layers.",
+    "say": "Over millions of years, more layers pile on top, and their weight squeezes the ones below, pushing out the water."
   },
   {
     "id": "question-3b-3",
-    "text": "Cementation: minerals glue the grains into rock."
+    "text": "Cementation: minerals glue the grains into rock.",
+    "say": "Then minerals in that water act like glue, cementing the grains together into solid rock."
   },
   {
     "id": "question-3b-srp-title",
-    "text": "Turn a stage into marks"
+    "text": "Turn a stage into marks",
+    "say": "So how do you turn that story into marks?"
   },
   {
     "id": "question-3b-srp-summary",
-    "text": "Add the process and its result."
+    "text": "Add the process and its result.",
+    "say": "For each stage, don't just name it. Add the process, and what it leads to."
   },
   {
     "id": "question-3b-srp-1",
-    "text": "Stage: sediment builds up."
+    "text": "Stage: sediment builds up.",
+    "say": "Take a stage. Sediment builds up."
   },
   {
     "id": "question-3b-srp-2",
-    "text": "Process: the layers compact."
+    "text": "Process: the layers compact.",
+    "say": "Add the process. The layers are compacted."
   },
   {
     "id": "question-3b-srp-3",
-    "text": "Result: the grains cement."
+    "text": "Result: the grains cement.",
+    "say": "And the result. The grains are cemented together."
   },
   {
     "id": "question-3b-srp-4",
-    "text": "Full SRP: As layers build up, pressure compacts the sediment and minerals cement the grains into rock."
+    "text": "Full SRP: As layers build up, pressure compacts the sediment and minerals cement the grains into rock.",
+    "say": "That's one full S.R.P.: as layers build up, pressure compacts the sediment, and minerals cement the grains into rock."
   },
   {
     "id": "question-3b-explore-title",
-    "text": "Choose a rock example"
+    "text": "Choose a rock example",
+    "say": "The question also asks for Irish examples, and that's where marks are often lost."
   },
   {
     "id": "question-3b-explore-summary",
-    "text": "Connect formation to a real Irish landscape."
+    "text": "Connect formation to a real Irish landscape.",
+    "say": "So link each rock to a real place you can name."
   },
   {
     "id": "question-3b-explore-1",
-    "text": "Limestone: the Burren, Co. Clare."
+    "text": "Limestone: the Burren, Co. Clare.",
+    "say": "Limestone, made from the shells and skeletons of sea creatures. The Burren in County Clare is the classic example."
   },
   {
     "id": "question-3b-explore-2",
-    "text": "Sandstone: MacGillycuddy’s Reeks, Co. Kerry."
+    "text": "Sandstone: MacGillycuddy’s Reeks, Co. Kerry.",
+    "say": "Sandstone, made from compacted sand. MacGillycuddy's Reeks in County Kerry are Old Red Sandstone."
   },
   {
     "id": "question-3b-explore-3",
-    "text": "Shale: cliffs in Co. Clare."
+    "text": "Shale: cliffs in Co. Clare.",
+    "say": "And shale, made from fine mud and clay. You can see it in the sea cliffs of County Clare."
   }
 ]

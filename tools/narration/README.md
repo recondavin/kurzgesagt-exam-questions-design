@@ -53,7 +53,9 @@ It only touches clips still at 24 kHz, so run it after each narration update
 
 ## Files
 
-- `lines.json` — every line the guide shows, by id (`<step>-title`, `<step>-summary`, `<step>-1`…).
+- `lines.json` — every line the guide shows, by id, with `text` (what appears on screen) and `say`
+  (what the narrator says: a short, natural explanation of that line). Lines without `say` read `text`.
+  Ids: (`<step>-title`, `<step>-summary`, `<step>-1`…).
   Update it when the guide wording in `hyper-focus.js` changes.
 - `reference.wav` — the narrator clip the voice is cloned from (24 kHz mono).
 - `generate_narration.py` — the generator; the reference transcript is inside it.
