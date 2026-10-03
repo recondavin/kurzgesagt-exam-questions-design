@@ -13,7 +13,13 @@ By default the voice is *designed*: the VoiceDesign model first makes
 clip for every line so they all match. `--redesign` makes a new take of the voice;
 `--voice original` uses the first-qwen-voice-88hz take instead.
 
-## Generate the audio
+## Update the voice (one click)
+
+**Windows:** double-click `tools\narration\update_voice_windows.bat`. It pulls the latest
+changes, regenerates only the lines whose words or voice changed (tracked in
+`assets/narration/manifest.json`), then commits and pushes the new audio so the site updates.
+
+## Generate the audio manually
 
 - **Windows:** double-click `tools\narration\run_narration_windows.bat`.
 - **Mac:** `bash tools/narration/run_narration_mac.sh`.

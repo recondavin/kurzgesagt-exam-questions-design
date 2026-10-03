@@ -226,7 +226,14 @@
   // tools/narration/generate_narration.py). Missing files are skipped silently.
   var NARRATION_VERSION = '1';
   var NARRATION_VOLUME = 0.55; // a soft voice under the reading
-  var narration = { on: true, audio: null, finish: null, token: 0 };
+  var narration = { on: true, audio: null, finish: null, token: 0, versions: {} };
+  // manifest.json maps each line to a hash of its voice + words, used to bust stale cached clips.
+  try {
+    fetch('assets/narration/manifest.json', { cache: 'no-store' })
+      .then(function (res) { return res.ok ? res.json() : {}; })
+      .then(function (versions) { narration.versions = versions || {}; })
+      .catch(function () {});
+  } catch (err) {}
   try { narration.on = window.localStorage.getItem('hf-narration') !== 'off'; } catch (err) {}
 
   function stopNarration() {
@@ -237,7 +244,7 @@
 
   function playLine(id, done) {
     if (!narration.on || !id) { done(); return; }
-    var audio = new Audio('assets/narration/' + id + '.mp3?v=' + NARRATION_VERSION);
+    var audio = new Audio('assets/narration/' + id + '.mp3?v=' + (narration.versions[id] || NARRATION_VERSION));
     audio.volume = NARRATION_VOLUME;
     var finished = false;
     function finish() {

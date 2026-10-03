@@ -10,6 +10,7 @@ Usage (from the repository root):
     python tools/narration/generate_narration.py --only question-3b-1
 """
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -32,6 +33,10 @@ VOICE_DESCRIPTION = (
     "like a calm nature documentary narrator. He speaks quietly and warmly at an unhurried pace, "
     "sounding genuinely curious and quietly fascinated, with a light rise of wonder in his voice.")
 DESIGNED_WAV = HERE / "designed_reference.wav"
+DESIGNED_KEY = HERE / "designed_reference.key"
+# Records which voice + words each MP3 was made from, so only changed lines are regenerated
+# (and the page uses it to avoid playing a stale cached clip).
+MANIFEST = OUT / "manifest.json"
 DESIGNED_TEXT = ("Have you ever wondered how a mountain is made? Let's find out together, "
                  "one layer at a time, and see what the rocks can tell us.")
 
@@ -75,6 +80,14 @@ def write_mp3(path, samples, sample_rate):
     path.write_bytes(data)
 
 
+def short_hash(*parts):
+    return hashlib.sha1("\n".join(parts).encode("utf-8")).hexdigest()[:10]
+
+
+def designed_voice_key():
+    return short_hash(DESIGN_MODEL_ID, VOICE_DESCRIPTION, DESIGNED_TEXT)
+
+
 def design_reference(torch, device, dtype):
     """Create designed_reference.wav from VOICE_DESCRIPTION with the VoiceDesign model."""
     import soundfile as sf
@@ -85,6 +98,7 @@ def design_reference(torch, device, dtype):
     wavs, sample_rate = model.generate_voice_design(
         text=DESIGNED_TEXT, instruct=VOICE_DESCRIPTION, language="English")
     sf.write(str(DESIGNED_WAV), wavs[0], sample_rate)
+    DESIGNED_KEY.write_text(designed_voice_key(), encoding="utf-8")
     print(f"Saved {DESIGNED_WAV.name}; listen to it, and use --redesign for a different take.")
     del model
     if torch.cuda.is_available():
@@ -104,9 +118,16 @@ def main():
     if args.only:
         lines = [line for line in lines if line["id"] in set(args.only)]
     OUT.mkdir(parents=True, exist_ok=True)
-    todo = [line for line in lines if args.force or not (OUT / f"{line['id']}.mp3").exists()]
+    stored_key = DESIGNED_KEY.read_text(encoding="utf-8").strip() if DESIGNED_KEY.exists() else ""
+    redesign = args.voice == "designed" and (args.redesign or not DESIGNED_WAV.exists() or stored_key != designed_voice_key())
+    voice_key = "redesign" if redesign else (designed_voice_key() if args.voice == "designed" else "original")
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8")) if MANIFEST.exists() else {}
+    wanted = {line["id"]: short_hash(MODEL_ID, voice_key, spoken(line["text"])) for line in lines}
+    todo = [line for line in lines
+            if args.force or redesign or manifest.get(line["id"]) != wanted[line["id"]]
+            or not (OUT / f"{line['id']}.mp3").exists()]
     if not todo:
-        print("Every line already has an MP3. Use --force to regenerate.")
+        print("Every line is already up to date. Use --force to regenerate anyway.")
         return
 
     import torch
@@ -114,8 +135,10 @@ def main():
 
     device, dtype = pick_device(torch)
     if args.voice == "designed":
-        if args.redesign or not DESIGNED_WAV.exists():
+        if redesign:
             design_reference(torch, device, dtype)
+            voice_key = designed_voice_key()
+            wanted = {line["id"]: short_hash(MODEL_ID, voice_key, spoken(line["text"])) for line in lines}
         ref_wav, ref_text = DESIGNED_WAV, DESIGNED_TEXT
     else:
         ref_wav, ref_text = REFERENCE_WAV, REFERENCE_TEXT
@@ -131,6 +154,8 @@ def main():
         wavs, sample_rate = model.generate_voice_clone(
             text=text, language="English", voice_clone_prompt=voice)
         write_mp3(OUT / f"{line['id']}.mp3", wavs[0], sample_rate)
+        manifest[line["id"]] = wanted[line["id"]]
+        MANIFEST.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
 
     print(f"Done. {len(todo)} file(s) written to {OUT}")
 
