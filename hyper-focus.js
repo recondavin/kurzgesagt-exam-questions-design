@@ -237,7 +237,7 @@
 
   // Questions get a wide guide column (about a third of the screen) so the bullets can be large.
   function questionGuideWidth() {
-    return Math.round(Math.max(420, Math.min(620, window.innerWidth * 0.34)));
+    return Math.round(Math.max(440, Math.min(800, window.innerWidth * 0.42)));
   }
 
   function layout() {
@@ -273,7 +273,7 @@
     var questionGuide = !compact && activeId && activeId.indexOf('question-') === 0;
     var guideWidth = questionGuide ? questionGuideWidth() : Math.min(380, window.innerWidth - 24);
     ui.guide.style.width = guideWidth + 'px';
-    ui.guide.style.setProperty('--hf-s', questionGuide ? Math.min(1.35, guideWidth / 420).toFixed(3) : '1');
+    ui.guide.style.setProperty('--hf-s', questionGuide ? Math.min(1.55, guideWidth / 440).toFixed(3) : '1');
     ui.guide.style.maxHeight = Math.max(120, compact ? Math.min(Math.max(280, window.innerHeight * .64), window.innerHeight - 24) : window.innerHeight - 40) + 'px';
     if (compact) {
       ui.guide.style.left = (window.innerWidth - guideWidth) / 2 + 'px';
@@ -370,11 +370,11 @@
     var isQuestion = activeId && activeId.indexOf('question-') === 0;
     var isImageOnly = activeId === 'image';
     var compact = window.innerWidth < 820;
-    var guideColumn = isImageOnly || compact ? 0 : isQuestion ? questionGuideWidth() + 40 : 400;
+    var guideColumn = isImageOnly || compact ? 0 : isQuestion ? questionGuideWidth() + 28 : 400;
     var fitScale = Math.min(window.innerWidth / scene.offsetWidth, window.innerHeight / scene.offsetHeight);
     var fittedSceneWidth = scene.offsetWidth * fitScale;
     var fittedSceneLeft = (window.innerWidth - fittedSceneWidth) / 2;
-    var availableWidth = Math.max(1, window.innerWidth - guideColumn - 48);
+    var availableWidth = Math.max(1, window.innerWidth - guideColumn - (isQuestion ? 24 : 48));
     var desiredScale = isQuestion ? 1.55 : cameraScale;
     if (activeId === 'image') desiredScale = 1.60;
     // Let a focused question extend slightly beneath the edge of the advice
@@ -385,7 +385,8 @@
     var heightScale = (window.innerHeight - 90) / Math.max(1, localHeight);
     var minScale = isQuestion ? .25 : .72;
     var nextScale = Math.max(minScale, Math.min(desiredScale, widthScale, heightScale));
-    var focusX = isImageOnly ? window.innerWidth / 2 : 24 + availableWidth / 2;
+    // Questions hug the left edge so the guide column gets as much room as possible.
+    var focusX = isImageOnly ? window.innerWidth / 2 : isQuestion ? 12 + Math.min(availableWidth, localWidth * nextScale) / 2 : 24 + availableWidth / 2;
     var focusY = window.innerHeight * (compact && !isImageOnly ? .25 : .50);
     var tx = focusX - localX * nextScale;
     var ty = focusY - localY * nextScale;
