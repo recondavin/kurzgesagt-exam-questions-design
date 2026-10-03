@@ -150,5 +150,9 @@ Continue from the screenshot-based question block. Do not return to the rejected
 - Page 1 starts with one worked SRP already written in (`example` in each question).
 - The blinking cursor is drawn by the page (`.am-caret`) so it sits on the line; the textarea's own caret is hidden.
 - Help only appears when the student clicks Stuck?. On the first point of their own, that also shows grey ghost text (Tab to accept).
-- The official SEC 2024 marking scheme PDF could not be downloaded (Cloudflare blocks automated access). If you have it, refine the `points` lists in `answer-mode.js`.
+- Marks follow the official SEC 2024 Geography HL marking scheme (copy found at educateplus.ie, `Geography HL.pdf`):
+  - 3B: 2 + 2 marks for two sedimentary rocks named, 13 SRPs for formation; Irish locations max 2 SRPs; no formation explained means max 2 SRPs.
+  - 3C: 2 marks for a reference to prediction, 2 for reducing effects, 13 SRPs; a 2nd reference on a side earns 1 SRP; one side only is capped at 7 SRPs.
+  - See `officialMarks()` in `answer-mode.js`.
+- Marker accuracy is measured with `node tools/answer-mode-tests/run.mjs -v` on three sets of student-style sentences (the third was written after all word-list changes): all 100% at last run. A free in-browser meaning model (all-MiniLM, bge-small, gte-small) was tested and was less accurate than the word lists, so it is not used.
 - Test the matcher with `window.ExamAnswerMode.score('question-3b', text)`.

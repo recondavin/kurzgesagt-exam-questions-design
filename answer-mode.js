@@ -16,7 +16,7 @@
   // stems of three letters or fewer must be whole words; stems with a space are phrases.
   var QUESTIONS = {
     'question-3b': {
-      code: '3B', title: 'Sedimentary Rocks', image: 'assets/answer/q3b.png?v=1', total: 15,
+      code: '3B', title: 'Sedimentary Rocks', image: 'assets/answer/q3b.png?v=1', total: 13,
       normalise: [[/sedimentary\s+rocks?/g, ' srock '], [/sedimentary/g, ' srock ']],
       example: 'Sedimentary rocks begin when older rocks are weathered and eroded into small pieces called sediment.',
       ghost: 'This sediment is then transported by rivers, wind and ice to lakes and seas.',
@@ -24,28 +24,28 @@
       examples: ['sandEx', 'limeEx', 'shaleEx', 'coalEx'],
       points: [
         { id: 'define', label: 'What sedimentary rock is made from', all: [['srock'], ['sediment', 'fragment', 'particle', 'grain', 'remains', 'pieces', 'bits'], ['form', 'made', 'compos', 'consist', 'creat', 'build']] },
-        { id: 'weather', label: 'Weathering and erosion make sediment', all: [['weather', 'erod', 'erosion', 'broken', 'break', 'worn'], ['rock', 'sediment', 'particle', 'piece', 'bits', 'sand', 'grain', 'fragment']],
+        { id: 'weather', label: 'Weathering and erosion make sediment', all: [['weather', 'erod', 'erosion', 'broken', 'break', 'worn', 'wear', 'freeze thaw', 'crumbl'], ['rock', 'sediment', 'particle', 'piece', 'bits', 'sand', 'grain', 'fragment', 'smaller', 'mountain', 'debris']],
           clue: ['Start at the very beginning. Where do the bits that make up a sedimentary rock come from?',
             'Older rocks get broken down by <b>weathering</b> (rain, frost, plant roots) and <b>erosion</b>. The broken bits are called <b>sediment</b>: sand, mud and pebbles.',
             'Picture a rock slowly crumbling into sand. Try: <i>"Sedimentary rocks begin when older rocks are weathered and eroded into sediment."</i>'] },
-        { id: 'transport', label: 'Sediment is transported', all: [['transport', 'carried', 'carry', 'carries', 'washed', 'blown', 'moved'], ['river', 'wind', 'ice', 'glacier', 'water', 'sea', 'current', 'wave', 'stream']],
+        { id: 'transport', label: 'Sediment is transported', all: [['transport', 'carried', 'carry', 'carries', 'wash', 'blow', 'blew', 'moved', 'travel', 'flow', 'swept'], ['river', 'wind', 'ice', 'glacier', 'water', 'sea', 'current', 'wave', 'stream', 'desert', 'downstream', 'ocean']],
           clue: ['Once the rock is broken into bits, how do those bits travel?',
             '<b>Rivers</b>, <b>wind</b>, <b>ice</b> and sea currents carry the sediment away. Say what carries it and where it ends up.',
             'Picture a river carrying sand down to the sea. Try: <i>"The sediment is transported by rivers and wind to lakes and seas."</i>'] },
-        { id: 'deposit', label: 'Deposited in layers', all: [['deposit', 'laid down', 'settle', 'accumulat', 'build up', 'built up', 'piled', 'pile up', 'dropped'], ['layer', 'strata', 'stratum', 'bed', 'sea', 'ocean', 'lake', 'floor', 'bottom']],
+        { id: 'deposit', label: 'Deposited in layers', all: [['deposit', 'laid down', 'settl', 'accumulat', 'build up', 'builds up', 'built up', 'building up', 'pile', 'piling', 'drop', 'layer upon layer', 'collect'], ['layer', 'strata', 'stratum', 'bed', 'seabed', 'sea', 'ocean', 'lake', 'floor', 'bottom', 'delta', 'estuary', 'load']],
           clue: ['When the river slows down, what happens to the sediment it was carrying?',
             'It drops: it is <b>deposited</b>. Over time the bits pile up in flat <b>layers</b>, called <b>strata</b>, on the sea or lake floor.',
             'Like sand settling at the bottom of a glass of water. Try: <i>"The sediment is deposited in layers called strata on the sea floor."</i>'] },
-        { id: 'compact', label: 'Compaction', all: [['compact', 'compress', 'squeez', 'squash', 'weight', 'pressure', 'pressed'], ['layer', 'sediment', 'grain', 'particle', 'water', 'above', 'overlying', 'together', 'below', 'beneath']],
+        { id: 'compact', label: 'Compaction', all: [['compact', 'compress', 'squeez', 'squash', 'weight', 'pressure', 'press', 'crush'], ['layer', 'sediment', 'grain', 'particle', 'water', 'above', 'overlying', 'together', 'below', 'beneath', 'upper', 'lower', 'down', 'underneath', 'top']],
           clue: ['The layers keep piling up for millions of years. What does all that weight do to the layers underneath?',
             'The weight <b>squeezes</b> the lower layers. Water is pushed out and the grains press tightly together. This is <b>compaction</b>.',
             'Like stacking heavy books on a sponge. Try: <i>"The weight of the layers above compacts the sediment and squeezes out the water."</i>'] },
-        { id: 'cement', label: 'Cementation', all: [['cement', 'glue', 'bind', 'bound', 'stuck', 'stick'], ['calcite', 'silica', 'iron', 'mineral', 'grain', 'particle', 'together', 'sediment']],
+        { id: 'cement', label: 'Cementation', all: [['cement', 'glue', 'bind', 'bound', 'stuck', 'stick', 'join', 'fuse'], ['calcite', 'silica', 'iron', 'mineral', 'grain', 'particle', 'together', 'sediment']],
           clue: ['The grains are squeezed together, but what glues them into solid rock?',
             'Minerals like <b>calcite</b> or <b>silica</b> come out of the water and stick the grains together. This is <b>cementation</b>.',
             'Like glue on sand. Try: <i>"Minerals such as calcite cement the grains together, turning the sediment into solid rock."</i>'] },
         { id: 'lithify', label: 'Lithification', all: [['lithif', 'turn into rock', 'turns into rock', 'turned into rock', 'harden', 'solid rock', 'becomes rock', 'become rock']] },
-        { id: 'sandstone', label: 'Sandstone forms from sand', all: [['sandstone'], ['sand', 'grain', 'quartz', 'desert', 'river', 'compact', 'cement']],
+        { id: 'sandstone', label: 'Sandstone forms from sand', all: [['sandstone'], ['=sand', 'grain', 'quartz', 'desert', 'river', 'compact', 'cement', 'deposit', 'form']],
           clue: ['Time to name a rock. Which sedimentary rock is made of sand?',
             '<b>Sandstone</b>. Sand grains (mostly quartz) were laid down by rivers or in deserts, then compacted and cemented.',
             'Try: <i>"Sandstone is formed from grains of sand that were compacted and cemented together."</i>'] },
@@ -57,7 +57,7 @@
           clue: ['The question asks for Irish examples. Where in Ireland is there sandstone?',
             '<b>Old Red Sandstone</b> forms the mountains of Munster, like the <b>MacGillycuddy\'s Reeks</b> in Co. Kerry and the Galtees.',
             'Try: <i>"Old Red Sandstone is found in the MacGillycuddy\'s Reeks in Co. Kerry."</i>'] },
-        { id: 'limestone', label: 'Limestone from shells and skeletons', all: [['limestone'], ['shell', 'skeleton', 'coral', 'organism', 'creature', 'marine', 'animal', 'remains', 'calcium', 'fish']],
+        { id: 'limestone', label: 'Limestone from shells and skeletons', all: [['limestone'], ['shell', 'skeleton', 'coral', 'organism', 'creature', 'marine', 'animal', 'remains', 'calcium', 'fish', 'organic', 'dead']],
           clue: ['Not every sedimentary rock comes from broken rock. Which one is made from sea creatures?',
             '<b>Limestone</b>. The <b>shells and skeletons</b> of tiny sea creatures and coral piled up on the sea floor, then were compacted and cemented.',
             'Try: <i>"Limestone is formed from the shells and skeletons of sea creatures that built up on the sea floor."</i>'] },
@@ -73,7 +73,7 @@
           clue: ['What chemical is limestone mostly made of?',
             '<b>Calcium carbonate</b>. It comes from the shells of the sea creatures.',
             'Try: <i>"Limestone is made mainly of calcium carbonate from the shells."</i>'] },
-        { id: 'shale', label: 'Shale forms from mud', all: [['shale', 'mudstone', 'siltstone'], ['mud', 'clay', 'silt', 'fine']],
+        { id: 'shale', label: 'Shale forms from mud', all: [['shale', 'mudstone', 'siltstone'], ['mud', 'clay', 'silt', 'fine', 'compact', 'compress', 'thin layer']],
           clue: ['Which sedimentary rock forms from the finest mud?',
             '<b>Shale</b>. Very fine <b>mud and clay</b> settle in calm water and are compacted into thin layers.',
             'Try: <i>"Shale is formed when fine mud and clay are compacted into thin layers."</i>'] },
@@ -95,7 +95,7 @@
             'Try: <i>"The rocks were later uplifted by plate movements and are now on land."</i>'] },
         { id: 'bedding', label: 'Bedding planes and joints', all: [['bedding plane', 'bedding planes', 'joints', 'horizontal']] },
         { id: 'chemical', label: 'Chemically formed rocks', all: [['chemical', 'evaporat', 'precipitat', 'rock salt', 'gypsum']] },
-        { id: 'coal', label: 'Coal forms from plants', all: [['coal'], ['plant', 'vegetation', 'swamp', 'peat', 'forest', 'tree']],
+        { id: 'coal', label: 'Coal forms from plants', all: [['coal'], ['plant', 'vegetation', 'swamp', 'peat', 'forest', 'tree', 'marsh', 'bog']],
           clue: ['Which sedimentary rock is made from ancient plants?',
             '<b>Coal</b>. Swamp plants died, were buried and compacted, and slowly turned into coal.',
             'Try: <i>"Coal formed from swamp plants that were buried and compacted, as at Castlecomer in Co. Kilkenny."</i>'] },
@@ -104,7 +104,7 @@
       ]
     },
     'question-3c': {
-      code: '3C', title: 'Seismic Activity', image: 'assets/answer/q3c.png?v=1', total: 15,
+      code: '3C', title: 'Seismic Activity', image: 'assets/answer/q3c.png?v=1', total: 13,
       sides: { p: 'Predict', r: 'Reduce' },
       normalise: [],
       example: 'Seismologists use seismographs to record small tremors called foreshocks, which can warn that a bigger earthquake may follow.',
@@ -115,8 +115,8 @@
           clue: ['How do scientists keep watch for earthquakes? What instrument do they use?',
             'A <b>seismograph</b> records vibrations in the ground. Small tremors (<b>foreshocks</b>) can warn that a bigger earthquake may follow.',
             'Try: <i>"Seismographs record small tremors called foreshocks, which may warn of a bigger earthquake."</i>'] },
-        { id: 'foreshock', side: 'p', label: 'Foreshocks as a warning', all: [['foreshock', 'small tremor', 'minor tremor', 'small earthquake', 'tremors before'], ['warn', 'before', 'bigger', 'larger', 'main', 'follow', 'sign', 'coming']] },
-        { id: 'gaps', side: 'p', label: 'Seismic gaps and past patterns', all: [['gap', 'pattern', 'history', 'historic', 'previous', 'past', 'records', 'frequency'], ['earthquake', 'fault', 'area', 'quake', 'happen', 'occur', 'region', 'place']],
+        { id: 'foreshock', side: 'p', label: 'Foreshocks as a warning', all: [['foreshock', 'tremor', 'shake', 'shaking', 'quake', 'vibration'], ['warn', 'before', 'bigger', 'larger', 'major', 'main', 'follow', 'sign', 'coming', 'precede']] },
+        { id: 'gaps', side: 'p', label: 'Seismic gaps and past patterns', all: [['gap', 'pattern', 'history', 'historic', 'previous', 'past', 'records', 'frequency', 'not moved', 'quiet', 'locked', 'stuck', 'ages', 'long time'], ['earthquake', 'fault', 'area', 'quake', 'happen', 'occur', 'region', 'place', 'risk', 'next', 'soon', 'due', 'likely', 'boundar']],
           clue: ['Can the past help us guess where the next earthquake will be?',
             'Scientists map where earthquakes have happened before. A part of a fault that has not moved for a long time, a <b>seismic gap</b>, is likely to be next.',
             'Try: <i>"Scientists study seismic gaps, parts of a fault that have not moved in a long time, because stress is building there."</i>'] },
@@ -132,18 +132,18 @@
           clue: ['Are there clues coming out of the ground itself?',
             'As rocks crack under stress, <b>radon gas</b> can escape and <b>water levels in wells</b> can change.',
             'Try: <i>"A rise in radon gas in wells may show that rocks are cracking before an earthquake."</i>'] },
-        { id: 'animals', side: 'p', label: 'Unusual animal behaviour', all: [['animal', 'dog', 'cat', 'toad', 'snake', 'bird', 'fish', 'pets', 'horse'], ['behav', 'strange', 'unusual', 'restless', 'flee', 'leave', 'odd', 'nervous', 'act']],
+        { id: 'animals', side: 'p', label: 'Unusual animal behaviour', all: [['animal', 'dog', 'cat', 'toad', 'snake', 'bird', 'fish', 'pets', 'horse', 'frog', 'cow'], ['behav', 'strange', 'unusual', 'restless', 'flee', 'fled', 'leav', 'odd', 'weird', 'nervous', 'act', 'panic', 'escap', 'disappear', 'seen']],
           clue: ['Have people noticed animals acting strangely?',
             'Some reports say animals become <b>restless</b> before earthquakes, maybe sensing tiny vibrations. It is not reliable though.',
             'Try: <i>"Strange animal behaviour, such as dogs becoming restless, has been reported before earthquakes."</i>'] },
         { id: 'stress', side: 'p', label: 'Monitoring stress on faults', all: [['stress', 'strain', 'creep', 'pressure'], ['fault', 'rock', 'build', 'measur', 'plate', 'monitor']] },
-        { id: 'plates', side: 'p', label: 'Plate boundaries show where', all: [['plate boundar', 'boundary', 'boundaries', 'fault line', 'fault zone', 'ring of fire', 'san andreas', 'subduction'], ['likely', 'occur', 'predict', 'risk', 'map', 'where', 'zone', 'happen', 'common']] },
+        { id: 'plates', side: 'p', label: 'Plate boundaries show where', all: [['plate boundar', 'boundary', 'boundaries', 'fault line', 'fault zone', 'ring of fire', 'san andreas', 'subduction'], ['likely', 'predict', 'risk', 'map', 'where', 'expect', 'monitor', 'watch']] },
         { id: 'magnetic', side: 'p', label: 'Magnetic and electrical changes', all: [['magnetic', 'electrical', 'electromagnetic', 'conductiv']] },
-        { id: 'difficult', side: 'p', label: 'Prediction is not exact', all: [['difficult', 'hard', 'impossible', 'cannot', 'can t', 'not possible', 'unreliable', 'not accurate', 'inaccurate', 'not exact'], ['predict', 'forecast', 'when', 'exact', 'time', 'tell']],
+        { id: 'difficult', side: 'p', label: 'Prediction is not exact', all: [['difficult', 'hard', 'impossible', 'can not', 'not possible', 'unreliable', 'not accurate', 'inaccurate', 'not exact', 'no way', 'not know'], ['predict', 'forecast', 'when', 'exact', 'time', 'tell', 'say', 'know', 'date']],
           clue: ['Can scientists say exactly when an earthquake will strike?',
             'No. They can say <b>where</b> one is likely, but not the <b>exact time</b>. That is why reducing the effects matters too.',
             'Try: <i>"Scientists cannot predict the exact time of an earthquake, only the areas most at risk."</i>'] },
-        { id: 'build', side: 'r', label: 'Earthquake-proof building design', all: [['building', 'structure', 'skyscraper', 'house', 'bridge'], ['proof', 'resist', 'design', 'flexib', 'sway', 'absorb', 'strong', 'regulation', 'code', 'collaps', 'standard', 'law']],
+        { id: 'build', side: 'r', label: 'Earthquake-proof building design', all: [['building', 'structure', 'skyscraper', 'house', 'bridge'], ['proof', 'resist', 'design', 'flexib', 'flex', 'bend', 'sway', 'absorb', 'strong', 'regulation', 'code', 'collaps', 'standard', 'law', 'safe']],
           clue: ['Now the other half. How can we stop buildings from falling down?',
             'Buildings can be designed to <b>bend and sway</b> instead of cracking, and strict <b>building codes</b> make sure they are built that way.',
             'Try: <i>"Buildings are designed to sway with the shaking so that they do not collapse."</i>'] },
@@ -152,12 +152,12 @@
             '<b>Rubber pads</b> or <b>springs</b> (base isolators) sit between the building and its foundations and <b>absorb</b> the shaking.',
             'Try: <i>"Rubber shock absorbers in the foundations absorb the movement of the ground."</i>'] },
         { id: 'bracing', side: 'r', label: 'Steel frames and cross-bracing', all: [['steel', 'cross brac', 'cross-brac', 'bracing', 'reinforc', 'frame'], ['building', 'strong', 'support', 'collaps', 'shak', 'stop', 'hold', 'wall', 'concrete']] },
-        { id: 'damper', side: 'r', label: 'Counterweights steady tall buildings', all: [['counterweight', 'counter weight', 'damper', 'pendulum', 'weight on the roof', 'weight at the top'], ['sway', 'building', 'reduce', 'shak', 'movement', 'balance', 'steady']],
+        { id: 'damper', side: 'r', label: 'Counterweights steady tall buildings', all: [['counterweight', 'counter weight', 'damper', 'pendulum', 'weight'], ['sway', 'swing', 'building', 'skyscraper', 'tower', 'reduce', 'shak', 'movement', 'balance', 'steady', 'top', 'roof']],
           clue: ['What can stop a tall skyscraper swaying too much?',
             'A huge <b>counterweight</b> near the top moves the opposite way to the shaking and steadies the building.',
             'Try: <i>"Tall buildings use counterweights on the roof to reduce swaying."</i>'] },
         { id: 'shape', side: 'r', label: 'Pyramid shapes and wide bases', all: [['pyramid', 'transamerica', 'wide base', 'tapered']] },
-        { id: 'drills', side: 'r', label: 'Earthquake drills and education', all: [['drill', 'educat', 'practi', 'train', 'aware', 'teach', 'school', 'taught'], ['earthquake', 'people', 'children', 'student', 'drop', 'cover', 'shelter', 'hold', 'what to do', 'safe']],
+        { id: 'drills', side: 'r', label: 'Earthquake drills and education', all: [['drill', 'educat', 'practi', 'train', 'aware', 'teach', 'school', 'taught', 'learn', 'hide', 'hiding'], ['earthquake', 'people', 'children', 'kids', 'student', 'drop', 'cover', 'shelter', 'hold', 'what to do', 'safe', 'desk', 'table', 'under']],
           clue: ['What can people practise so they know what to do?',
             '<b>Earthquake drills</b> in schools and workplaces teach people to <b>drop, cover and hold on</b>.',
             'Try: <i>"In Japan, people practise earthquake drills so they know to drop, cover and hold on."</i>'] },
@@ -182,7 +182,7 @@
           clue: ['What about old buildings that were built before the rules?',
             'Old buildings can be <b>retrofitted</b>: strengthened with steel braces or new foundations.',
             'Try: <i>"Older buildings are retrofitted with steel braces to make them stronger."</i>'] },
-        { id: 'tsunami', side: 'r', label: 'Tsunami defences', all: [['tsunami'], ['warning', 'wall', 'barrier', 'evacuat', 'buoy', 'sea wall', 'high ground', 'alert']],
+        { id: 'tsunami', side: 'r', label: 'Tsunami defences', all: [['tsunami'], ['warning', 'wall', 'barrier', 'evacuat', 'buoy', 'sea wall', 'high ground', 'alert', 'protect', 'defen']],
           clue: ['Earthquakes under the sea cause another danger. What is it and how can coasts be protected?',
             'A <b>tsunami</b>. Warning buoys, sea walls and evacuation routes to high ground protect coastal towns.',
             'Try: <i>"Japan has tsunami warning systems and sea walls to protect coastal towns."</i>'] },
@@ -208,12 +208,18 @@
     return prev[n];
   }
   function normalise(q, text) {
-    var t = ' ' + text.toLowerCase().replace(/[‘’']/g, ' ').replace(/[^a-z0-9]+/g, ' ') + ' ';
+    var t = ' ' + text.toLowerCase()
+      .replace(/\b(can)['’]?t\b/g, 'can not').replace(/\bcannot\b/g, 'can not')
+      .replace(/\b(has|have|had|is|are|was|were|does|do|did|could|would|should)n['’]?t\b/g, '$1 not')
+      .replace(/\bwon['’]?t\b/g, 'will not')
+      .replace(/[‘’']/g, ' ').replace(/[^a-z0-9]+/g, ' ') + ' ';
     q.normalise.forEach(function (rule) { t = t.replace(rule[0], rule[1]); });
     return t.replace(/\s+/g, ' ');
   }
   function stemHit(stem, norm, tokens) {
     if (stem.indexOf(' ') >= 0) return norm.indexOf(' ' + stem) >= 0;
+    // "=word" means the whole word only (so "=sand" doesn't match "sandstone").
+    if (stem.charAt(0) === '=') { stem = stem.slice(1); return tokens.some(function (t) { return t === stem || t === stem + 's' || t === stem + 'y'; }); }
     if (stem.length <= 3) return tokens.some(function (t) { return t === stem || t === stem + 's'; });
     return tokens.some(function (t) {
       if (t.indexOf(stem) === 0) return true;
@@ -300,7 +306,7 @@
     sentences.forEach(function (s) {
       var norm = normalise(q, s.text);
       var tokens = norm.trim().split(' ');
-      var counts = s.words >= MIN_WORDS && (s.complete || (open && s.words >= 6 && open(s)));
+      var counts = s.words >= MIN_WORDS && (s.complete || (open && open(s)));
       for (var i = 0; counts && i < q.points.length && s.hits.length < MAX_PER_SENTENCE; i++) {
         var p = q.points[i];
         if (used[p.id]) continue;
@@ -383,23 +389,61 @@
     say('Here\'s a hand', [c[0], c[1], c[2]], 'clue');
     if (!state.firstDone) showGhost(true);
   }
+  // ---------- official marks (SEC 2024 Leaving Certificate marking scheme, Geography HL) ----------
+  // 3B: 2 + 2 marks for two sedimentary rocks named, then 13 SRPs examining their formation.
+  //     Irish locations earn at most 2 SRPs; with no formation explained, at most 2 SRPs.
+  // 3C: 2 marks for a reference to prediction, 2 for a reference to reducing effects, then 13 SRPs.
+  //     A 2nd reference on a side earns 1 SRP even unexplained; explaining only one side caps at 7 SRPs.
+  var ROCKS = ['sandstone', 'limestone', 'shale', 'mudstone', 'siltstone', 'conglomerate', 'breccia', 'coal', 'chalk', 'chert', 'flint', 'rock salt', 'gypsum'];
+  var METHODS = {
+    p: ['seismograph', 'seismometer', 'tiltmeter', 'creepmeter', 'radon', 'foreshock', 'laser', 'gps', 'satellite', 'seismic gap', 'water level', 'animal behav', 'predict', 'forecast'],
+    r: ['earthquake proof', 'building code', 'base isolat', 'shock absorb', 'rubber', 'counterweight', 'damper', 'cross brac', 'steel frame', 'retrofit', 'drill', 'drop cover', 'early warning', 'warning system', 'emergency', 'evacuat', 'sea wall', 'shut off', 'land use', 'zoning']
+  };
+  function officialMarks() {
+    var q = state.q, got = state.got, ids = Object.keys(got);
+    var text = ' ' + fullText().toLowerCase().replace(/[^a-z]+/g, ' ');
+    var out = { tags: [] };
+    if (!q.sides) {
+      var named = Math.min(2, ROCKS.filter(function (rock) { return text.indexOf(' ' + rock) >= 0; }).length);
+      var examples = ids.filter(function (id) { return q.examples.indexOf(id) >= 0; }).length;
+      var formation = ids.length - examples;
+      var srps = formation + Math.min(2, examples);
+      if (!formation) srps = Math.min(2, srps);
+      out.srps = Math.min(13, srps);
+      out.marks = named * 2 + out.srps * 2;
+      out.tags.push(['Rocks named ' + named + '/2', named >= 2 ? 'ok' : '']);
+      out.tags.push(['Irish example ' + (examples ? '&#10003;' : 'needed'), examples ? 'ok' : '']);
+      if (named < 2) out.note = 'Name two sedimentary rocks (for example sandstone and limestone): 2 marks each.';
+    } else {
+      var side = { p: 0, r: 0 };
+      ids.forEach(function (id) { var p = pointById(id); if (p) side[p.side]++; });
+      var refs = {};
+      ['p', 'r'].forEach(function (k) {
+        refs[k] = METHODS[k].filter(function (m) { return text.indexOf(' ' + m) >= 0; }).length;
+      });
+      var refMarks = (side.p || refs.p ? 2 : 0) + (side.r || refs.r ? 2 : 0);
+      var bonus = (refs.p >= 2 && refs.p > side.p ? 1 : 0) + (refs.r >= 2 && refs.r > side.r ? 1 : 0);
+      var cap = side.p && side.r ? 13 : 7;
+      out.srps = Math.min(cap, side.p + side.r + bonus);
+      out.marks = refMarks + out.srps * 2;
+      out.tags.push(['Predict ' + side.p, 'p']);
+      out.tags.push(['Reduce ' + side.r, 'r']);
+      if (cap === 7 && side.p + side.r + bonus > 7) out.note = 'Explain both prediction and reducing effects: one side alone is capped at 7 SRPs.';
+    }
+    out.marks = Math.min(30, out.marks);
+    return out;
+  }
   function refreshScore() {
     var q = state.q;
-    var marks = Math.min(q.total, state.count) * 2;
+    var o = officialMarks();
+    state.marks = o.marks;
     var score = state.coach.querySelector('.am-score');
-    score.querySelector('[data-am-marks]').textContent = marks;
+    score.querySelector('[data-am-marks]').textContent = o.marks;
     var pips = score.querySelector('.am-pips');
     if (pips.children.length !== q.total) pips.innerHTML = new Array(q.total + 1).join('<i></i>');
-    Array.prototype.forEach.call(pips.children, function (pip, k) { pip.classList.toggle('on', k < state.count); });
-    var meta = score.querySelector('.am-score__meta');
-    if (q.sides) {
-      var counts = { p: 0, r: 0 };
-      Object.keys(state.got).forEach(function (id) { var p = pointById(id); if (p) counts[p.side]++; });
-      meta.innerHTML = '<span class="am-tag am-tag--p">Predict ' + counts.p + '</span><span class="am-tag am-tag--r">Reduce ' + counts.r + '</span>';
-    } else {
-      var hasEx = q.examples.some(function (id) { return state.got[id]; });
-      meta.innerHTML = '<span class="am-tag ' + (hasEx ? 'am-tag--ok' : '') + '">Irish example ' + (hasEx ? '&#10003;' : 'needed') + '</span>';
-    }
+    Array.prototype.forEach.call(pips.children, function (pip, k) { pip.classList.toggle('on', k < o.srps); });
+    score.querySelector('.am-score__meta').innerHTML = o.tags.map(function (t) { return '<span class="am-tag ' + (t[1] ? 'am-tag--' + t[1] : '') + '">' + t[0] + '</span>'; }).join('');
+    return o;
   }
 
   // ---------- writing area ----------
@@ -642,6 +686,7 @@
       else if (!s.hits.length && s.words >= 3) { missed[s.text] = true; if (!near && s.near) near = s; }
     });
     state.marking = true;
+    state.marksBefore = state.marks || 0;
     state.missed = {};
     state.ghostOn = false;
     state.coach.classList.add('am-coach--min');
@@ -678,19 +723,22 @@
       state.root.querySelectorAll('.am-badge--new').forEach(function (b) { b.classList.remove('am-badge--new'); });
       state.root.querySelectorAll('.am-hit--new').forEach(function (m) { m.classList.remove('am-hit--new'); });
     }, 1400);
-    var total = state.q.total * 2;
-    var marks = Math.min(state.q.total, state.count) * 2;
+    var total = 30;
+    var o = officialMarks();
+    var marks = o.marks;
+    var delta = marks - (state.marksBefore || 0);
     var misses = Object.keys(missed).length;
     var first = 'You have <b>' + marks + ' / ' + total + '</b>.';
     if (gained.length) first += ' New: ' + gained.map(function (p) { return '<b>' + p.label + '</b>'; }).join(', ') + '.';
     if (misses) first += '<span class="am-next">' + (misses === 1 ? '1 sentence' : misses + ' sentences') + ' underlined in orange didn\'t match the marking scheme yet.' +
       (near ? ' "' + esc(near.text.slice(0, 60)) + (near.text.length > 60 ? '…' : '') + '" is close: explain <b>how</b> or <b>why</b>.' : '') + '</span>';
+    if (o.note) first += '<span class="am-next">' + o.note + '</span>';
     var levels = [first];
     var title;
-    if (state.count >= state.q.total) {
+    if (marks >= 30) {
       title = 'Full marks!';
     } else {
-      title = gained.length ? '+' + gained.length * 2 + ' marks!' : 'No new marks yet';
+      title = delta > 0 ? '+' + delta + ' marks!' : 'No new marks yet';
       var c = clueFor(nextPoint());
       levels[0] += '<span class="am-next"><b>Next:</b> ' + c[0] + '</span>';
       levels.push(c[1], c[2]);
@@ -701,21 +749,22 @@
     var q = state.q;
     var old = state.root.querySelector('.am-finish');
     if (old) old.remove();
-    var marks = Math.min(q.total, state.count) * 2;
+    var o = officialMarks();
+    var marks = o.marks;
     var made = state.sentences.reduce(function (list, s) { return list.concat(s.hits); }, []);
-    var missing = q.path.map(pointById).filter(function (p) { return p && !state.got[p.id]; }).slice(0, 4);
+    var missing = marks >= 30 ? [] : q.path.map(pointById).filter(function (p) { return p && !state.got[p.id]; }).slice(0, 4);
     var card = el('div', 'am-finish');
     card.innerHTML = '<div class="am-finish__card" role="dialog" aria-label="Your result">' +
       '<div class="am-finish__kicker">' + q.code + ' &middot; ' + q.title + '</div>' +
-      '<div class="am-finish__score"><b>' + marks + '</b> / ' + q.total * 2 + '</div>' +
+      '<div class="am-finish__score"><b>' + marks + '</b> / 30</div>' +
       '<div class="am-pips am-finish__pips">' + new Array(q.total + 1).join('<i></i>') + '</div>' +
       '<div class="am-finish__cols"><div><h4>Points you made</h4><ul>' + (made.length ? made.map(function (p) { return '<li class="ok">' + p.label + '</li>'; }).join('') : '<li>None yet</li>') + '</ul></div>' +
-      '<div><h4>Points you could add</h4><ul>' + (missing.length ? missing.map(function (p) { return '<li>' + p.label + '</li>'; }).join('') : '<li>Nothing! You covered it all.</li>') + '</ul></div></div>' +
+      '<div><h4>Points you could add</h4><ul>' + (missing.length ? missing.map(function (p) { return '<li>' + p.label + '</li>'; }).join('') : '<li class="ok">Nothing: full marks!</li>') + '</ul></div></div>' +
       '<div class="am-finish__buttons"><button type="button" class="am-btn am-btn--more" data-am-keep>Keep working</button><button type="button" class="am-btn am-btn--ok" data-am-close>Back to the paper</button></div>' +
       '</div>';
     state.root.appendChild(card);
     Array.prototype.forEach.call(card.querySelectorAll('.am-pips i'), function (pip, k) {
-      if (k < state.count) later(function () { pip.classList.add('on'); }, 250 + k * 70);
+      if (k < o.srps) later(function () { pip.classList.add('on'); }, 250 + k * 70);
     });
   }
   function onInput() {
@@ -738,7 +787,7 @@
           '<button type="button" class="am-addpage" data-am-addpage>+ Add a page</button>' +
         '</div></div>' +
         '<aside class="am-coach" aria-live="polite">' +
-          '<div class="am-score"><div class="am-score__top"><span class="am-score__num"><b data-am-marks>0</b> / ' + q.total * 2 + '</span><span class="am-score__unit">marks</span></div><div class="am-pips"></div><div class="am-score__meta"></div></div>' +
+          '<div class="am-score"><div class="am-score__top"><span class="am-score__num"><b data-am-marks>0</b> / 30</span><span class="am-score__unit">marks</span></div><div class="am-pips"></div><div class="am-score__meta"></div></div>' +
           '<button type="button" class="am-btn am-btn--check" data-am-check>Check my answer</button>' +
           '<div class="am-coach__body">' +
             '<div class="am-coach__head"><span class="am-coach__face" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#FFD43B"/><circle cx="17" cy="21" r="3.2" fill="#10243B"/><circle cx="31" cy="21" r="3.2" fill="#10243B"/><path d="M15 29q9 8 18 0" fill="none" stroke="#10243B" stroke-width="3.2" stroke-linecap="round"/></svg></span><span>Coach</span></div>' +
@@ -746,7 +795,7 @@
           '</div>' +
           '<div class="am-coach__buttons"><button type="button" class="am-btn am-btn--ok" data-am-ok>OK</button><button type="button" class="am-btn am-btn--finish" data-am-finish>Finish</button><button type="button" class="am-btn am-btn--more" data-am-more>Still don\'t get it</button></div>' +
           '<button type="button" class="am-btn am-btn--clue" data-am-clue>Stuck?</button>' +
-          '<div class="am-coach__foot"><button type="button" class="am-link" data-am-guide>Watch the guide again</button><span>Checked against SEC-style SRP marking. A practice guide, not an official grade.</span></div>' +
+          '<div class="am-coach__foot"><button type="button" class="am-link" data-am-guide>Watch the guide again</button><span>Marked with the rules of the SEC 2024 marking scheme. A practice guide, not an official grade.</span></div>' +
         '</aside>' +
       '</div>';
     document.body.appendChild(root);
@@ -874,6 +923,7 @@
     open: open,
     close: close,
     // Exposed for testing: how text splits into sentences, and which points each one earns.
+    scoreIds: function (id, text) { return evaluate(QUESTIONS[id], text, function () { return true; }).map(function (s) { return s.hits.map(function (p) { return p.id; }); }); },
     sentences: function (text) { return splitSentences(text).map(function (s) { return [s.text, s.complete]; }); },
     score: function (id, text) {
       return evaluate(QUESTIONS[id], text, function () { return true; }).map(function (s) { return { text: s.text, points: s.hits.map(function (p) { return p.label; }), near: s.near ? s.near.label : null }; });
