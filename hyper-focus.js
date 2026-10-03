@@ -224,7 +224,7 @@
 
   // Narration: one MP3 per line (assets/narration/<step>-title|summary|n.mp3, made by
   // tools/narration/generate_narration.py). Missing files are skipped silently.
-  var NARRATION_VERSION = '2'; // bump when clips are re-processed without new words (e.g. the studio upgrade)
+  var NARRATION_VERSION = '3'; // bump when clips are re-processed without new words (e.g. the studio upgrade)
   var NARRATION_VOLUME = 0.55; // a soft voice under the reading
   var narration = { on: true, audio: null, finish: null, token: 0, versions: {} };
   // manifest.json maps each line to a hash of its voice + words, used to bust stale cached clips.
