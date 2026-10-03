@@ -24,7 +24,7 @@
     {
       id: 'question-3b', target: 'question-3b', kicker: '1 · Plan the marks', title: '15 explained points',
       summary: 'Tell the formation story in order.',
-      visual: '<div class="hf-rock-cycle"><div><svg viewBox="0 0 90 64" aria-hidden="true"><circle cx="22" cy="18" r="7"/><circle cx="45" cy="13" r="6"/><circle cx="68" cy="20" r="8"/><path d="M8 38Q22 31 36 38T64 38T84 38V57H8Z"/></svg><strong>1 · Sediment</strong></div><i>→</i><div><svg viewBox="0 0 90 64" aria-hidden="true"><path d="M9 17H81M9 30H81M9 43H81M9 56H81"/><path class="hf-compress-arrow" d="M45 5V15M40 11L45 16L50 11"/></svg><strong>2 · Compact</strong></div><i>→</i><div><svg viewBox="0 0 90 64" aria-hidden="true"><rect x="9" y="12" width="72" height="44" rx="4"/><path d="M9 26H81M9 41H81M29 12V26M58 26V41M37 41V56"/></svg><strong>3 · Rock</strong></div></div>',
+      visual: '<div class="hf-rock-cycle"><div><svg viewBox="0 0 90 64" aria-hidden="true"><circle cx="22" cy="18" r="7"/><circle cx="45" cy="13" r="6"/><circle cx="68" cy="20" r="8"/><path d="M8 38Q22 31 36 38T64 38T84 38V57H8Z"/></svg><strong>1 · Sediment</strong></div><i>→</i><div><svg viewBox="0 0 90 64" aria-hidden="true"><path d="M9 17H81M9 30H81M9 43H81M9 56H81"/><path class="hf-compress-arrow" d="M45 5V15M40 11L45 16L50 11"/></svg><strong>2 · Compact</strong></div><i>→</i><div><svg viewBox="0 0 90 64" aria-hidden="true"><rect x="9" y="12" width="72" height="44" rx="4"/><path class="hf-rock-joints" pathLength="100" d="M9 26H81M9 41H81M29 12V26M58 26V41M37 41V56"/></svg><strong>3 · Rock</strong></div></div>',
       prose: '', points: []
     },
     {
@@ -165,6 +165,7 @@
             visual.querySelectorAll('.hf-idea').forEach(function (item) { item.classList.remove('is-active'); });
             button.classList.add('is-active');
             visual.querySelector('[data-idea-title]').textContent = ideaCopy[button.dataset.idea][0];
+            swapAnswer(visual.querySelector('.hf-idea-answer'));
           };
         });
       } else if (step.id === 'question-3b-explore') {
@@ -178,6 +179,7 @@
             visual.querySelectorAll('[data-rock]').forEach(function (item) { item.classList.remove('is-active'); });
             button.classList.add('is-active');
             visual.querySelector('[data-rock-title]').textContent = rockCopy[button.dataset.rock][0];
+            swapAnswer(visual.querySelector('.hf-idea-answer'));
           };
         });
       }
@@ -237,6 +239,8 @@
   var GROUPS = '.hf-split, .hf-srp-builder, .hf-rock-cycle, .hf-idea-deck';
   function revealInOrder(summary, visual) {
     var items = [summary];
+    // When the camera is still travelling, wait for it so the pieces start once the card is visible.
+    var base = document.body.classList.contains('hf-camera-moving') ? 0.5 : 0;
     Array.prototype.forEach.call(visual.children, function (child) {
       if (child.matches(GROUPS)) items.push.apply(items, child.children);
       else items.push(child);
@@ -244,9 +248,33 @@
     items.forEach(function (item, i) {
       item.classList.remove('hf-reveal');
       void item.offsetWidth;
-      item.style.animationDelay = (i * 0.32) + 's';
+      item.style.setProperty('--d', (base + i * 0.32) + 's');
       item.classList.add('hf-reveal');
+      // Count the plan numbers up from zero once their box has arrived.
+      var number = item.matches('.hf-topic') && item.querySelector(':scope > strong');
+      if (number && /^\d+$/.test(number.textContent)) countUp(number, (base + i * 0.32) * 1000 + 250);
     });
+  }
+
+  function countUp(element, delay) {
+    var target = Number(element.textContent);
+    element.textContent = '0';
+    typeTimers.push(setTimeout(function () {
+      var start = performance.now();
+      (function tick(now) {
+        if (!element.isConnected) return;
+        var t = Math.min(1, (now - start) / 650);
+        element.textContent = String(Math.round(target * (1 - Math.pow(1 - t, 3))));
+        if (t < 1) requestAnimationFrame(tick);
+      })(start);
+    }, delay));
+  }
+
+  // Slide the answer box to its new text when another example is chosen.
+  function swapAnswer(answer) {
+    answer.classList.remove('hf-answer-swap');
+    void answer.offsetWidth;
+    answer.classList.add('hf-answer-swap');
   }
 
   function clearTyping() {
@@ -484,11 +512,13 @@
     document.body.classList.add('hf-active');
     hideNonFocusSections(true);
     document.body.classList.toggle('hf-image-focus', id === 'image');
+    // Only hide the card while the camera actually travels to a new target, not on Back/Next within one question.
+    var travelling = !target.classList.contains('hf-current');
     document.querySelectorAll('[data-hf-target].hf-current').forEach(function (el) { el.classList.remove('hf-current'); });
     target.classList.add('hf-current');
-    updateGuide(step);
     clearTimeout(cameraTimer);
-    document.body.classList.add('hf-camera-moving');
+    document.body.classList.toggle('hf-camera-moving', travelling);
+    updateGuide(step);
     moveCameraTo(target);
     cameraTimer = setTimeout(function () {
       if (activeId !== id) return;
