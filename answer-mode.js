@@ -8,7 +8,6 @@
   var LINE = 46; // ruled line spacing in px; the textarea uses the same line height
   var MIN_WORDS = 5; // a single sentence must say at least this much to count as an explained point
   var MAX_PER_SENTENCE = 1;
-  var STUCK_FIRST_MS = 8000;
 
   // Each point lists word groups; a sentence earns the point when it hits every group.
   // A stem matches any word starting with it (small typos allowed for longer stems);
@@ -504,22 +503,11 @@
         [names + ' matches the marking scheme.<span class="am-next"><b>Next:</b> ' + c[0] + '</span>', c[1], c[2]], 'yay');
     }, 900);
   }
-  function armStuck() {
-    clearTimeout(state.stuckTimer);
-    state.stuckTimer = later(function () {
-      if (!state) return;
-      if (!state.firstDone) {
-        say('Stuck? Here\'s a start', ['I\'ve written the start of a first point in grey. Press <b>Tab</b> to use it, or just keep typing your own.', 'Your first point can simply say where the story begins. ' + clueFor(state.q.points.filter(function (p) { return p.id === state.q.path[0]; })[0])[1], 'Press <b>Tab</b> to accept the grey sentence. Then read it and see why it counts.'], 'clue');
-        showGhost(true);
-      }
-    }, STUCK_FIRST_MS);
-  }
   function onInput() {
     if (state.ghostOn && !ghostText()) state.ghostOn = false;
     render();
     clearTimeout(state.checkTimer);
     state.checkTimer = later(function () { check(false); }, 700);
-    armStuck();
   }
 
   // ---------- open / close ----------
@@ -549,7 +537,7 @@
             '<div class="am-coach__msg"></div>' +
           '</div>' +
           '<div class="am-coach__buttons"><button type="button" class="am-btn am-btn--ok" data-am-ok>OK</button><button type="button" class="am-btn am-btn--more" data-am-more>Still don\'t get it</button></div>' +
-          '<button type="button" class="am-btn am-btn--clue" data-am-clue>Need a hand?</button>' +
+          '<button type="button" class="am-btn am-btn--clue" data-am-clue>Stuck?</button>' +
           '<div class="am-coach__foot"><button type="button" class="am-link" data-am-guide>Watch the guide again</button><span>Checked against SEC-style SRP marking. A practice guide, not an official grade.</span></div>' +
         '</aside>' +
       '</div>';
@@ -569,7 +557,7 @@
     var ta = state.ta;
     ta.value = store('am-answer-' + id) || '';
     check(true);
-    say('Your turn', q.intro);
+    state.coach.classList.add('am-coach--min');
     refreshScore();
     ta.addEventListener('input', onInput);
     ta.addEventListener('keydown', function (e) {
@@ -578,7 +566,6 @@
     });
     ta.addEventListener('keyup', function (e) { if (/Arrow|Home|End/.test(e.key)) render(); });
     ta.addEventListener('click', render);
-    ta.addEventListener('focus', armStuck);
     root.addEventListener('click', function (e) {
       if (e.target.closest('[data-am-close]')) { close(); return; }
       if (e.target.closest('[data-am-ok]')) { state.coach.classList.add('am-coach--min'); ta.focus(); return; }
@@ -757,6 +744,7 @@
     '.am-btn--more:active{box-shadow:0 1px 0 #9FB0CC}',
     '.am-btn--clue{background:#FFD43B;color:#14243B;box-shadow:0 4px 0 #C9A215}',
     '.am-btn--clue:active{box-shadow:0 1px 0 #C9A215}',
+    '.am-coach:not(.am-coach--min) .am-btn--clue{display:none}',
     '.am-coach--min .am-coach__body,.am-coach--min .am-coach__buttons{display:none}',
     
     '.am-coach__foot{display:flex;flex-direction:column;gap:6px;font:600 12.5px/1.35 Nunito,sans-serif;color:#7F92B3}',
