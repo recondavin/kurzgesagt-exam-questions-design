@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./hyper-focus.js?v=sedimentary-guide-30"></script>
+<script src="./hyper-focus.js?v=sedimentary-guide-31"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -798,6 +798,24 @@
   .hf-guide .hf-reveal svg { animation: hf-icon-settle .7s cubic-bezier(.2,.9,.3,1.45) calc(var(--d, 0s) + .15s) backwards; }
   /* Animated card art (SMIL loops inside each SVG): flat scenes with their own colours. */
   .hf-guide svg.hf-art { fill: initial; stroke: none; overflow: hidden; border-radius: 8px; }
+  /* Bullet layout: one short idea per line, picture first, plenty of space. */
+  .hf-bullets { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 14px; }
+  .hf-bullets > li { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 14px; }
+  .hf-bullet-art svg { display: block; width: 72px; height: auto; }
+  .hf-bullets--steps { gap: 12px; }
+  .hf-bullets--steps > li { grid-template-columns: 12px 1fr; align-items: baseline; }
+  .hf-bullet-dot { width: 10px; height: 10px; border-radius: 50%; background: #6350CC; transform: translateY(-1px); }
+  .hf-bullets--steps > li:nth-child(2) .hf-bullet-dot { background: #146D63; }
+  .hf-bullets--steps > li:nth-child(3) .hf-bullet-dot { background: #B17A27; }
+  .hf-bullet-result { margin-top: 4px; padding: 12px 14px; border-radius: 12px; background: #F1EEFB; grid-template-columns: 12px 1fr !important; }
+  /* Dyslexia-friendly reading: Lexend, regular weight, generous spacing, off-white page, no capitals or italics. */
+  .hf-guide, .hf-guide * { font-family: 'Lexend', Verdana, sans-serif !important; font-weight: 400 !important; font-style: normal !important; text-transform: none !important; }
+  .hf-guide { background: #FDFBF5; color: #1F2633; }
+  .hf-guide .hf-guide__title, .hf-guide .hf-guide__button, .hf-guide b { font-weight: 600 !important; }
+  .hf-guide .hf-guide__summary { font-size: 17px; line-height: 1.6; color: #1F2633; margin-bottom: 14px; }
+  body .hf-guide .hf-guide__title, body .hf-guide .hf-guide__button { font-family: 'Lexend', Verdana, sans-serif !important; letter-spacing: .01em; }
+  body .hf-guide .hf-guide__title { font-size: 24px; line-height: 1.3; }
+  .hf-bullets, .hf-bullets * { font-size: 17px; line-height: 1.6; letter-spacing: .02em; word-spacing: .08em; color: #1F2633; text-align: left; }
   .hf-squash { transform-box: fill-box; transform-origin: 50% 100%; animation: hf-squash 3.2s ease-in-out infinite; }
   @keyframes hf-squash { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.82); } }
   /* The chosen example lifts slightly. */
