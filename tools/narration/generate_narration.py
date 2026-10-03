@@ -26,6 +26,14 @@ OUT = ROOT / "assets" / "narration"
 MODEL_ID = "Qwen/Qwen3-TTS-12Hz-1.7B-Base"
 DESIGN_MODEL_ID = "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign"
 
+# Quality: steadier sampling than the model defaults (temperature 0.9, top_p 1.0), several takes per
+# line keeping the most typical one, then trim, de-click and level each clip. Changing QUALITY
+# regenerates every line on the next update.
+QUALITY = "q2"
+TAKES = 3
+SAMPLING = dict(temperature=0.7, top_p=0.9, top_k=50, repetition_penalty=1.05,
+                subtalker_temperature=0.7, subtalker_top_p=0.9, subtalker_top_k=50)
+
 # Voice: first described with the VoiceDesign model (one reference clip), then that clip is
 # cloned with the Base model for every line, so all lines share one consistent voice.
 VOICE_DESCRIPTION = (
@@ -66,10 +74,44 @@ def spoken(text):
 
 def pick_device(torch):
     if torch.cuda.is_available():
-        return "cuda:0", torch.bfloat16
+        # Full precision when the graphics card has room for it; slightly cleaner audio.
+        big = torch.cuda.get_device_properties(0).total_memory >= 12 * 1024 ** 3
+        return "cuda:0", torch.float32 if big else torch.bfloat16
     if getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
         return "mps", torch.float32
     return "cpu", torch.float32
+
+
+def polish(samples, sample_rate):
+    """Trim leading/trailing silence, remove DC offset, add short fades and level to a steady loudness."""
+    import numpy as np
+    audio = np.asarray(samples, dtype=np.float32)
+    audio = audio - float(np.mean(audio))
+    frame = max(1, int(sample_rate * 0.01))
+    energy = np.sqrt(np.convolve(audio ** 2, np.ones(frame) / frame, mode="same"))
+    voiced = np.where(energy > max(1e-4, energy.max() * 0.02))[0]
+    if voiced.size:
+        pad = int(sample_rate * 0.06)
+        audio = audio[max(0, voiced[0] - pad): voiced[-1] + pad]
+    rms = float(np.sqrt(np.mean(audio[np.abs(audio) > 1e-3] ** 2))) if np.any(np.abs(audio) > 1e-3) else 0.0
+    if rms > 0:
+        audio = audio * (10 ** (-20 / 20) / rms)          # about -20 dBFS speech level
+    peak = float(np.max(np.abs(audio))) or 1.0
+    if peak > 0.89:
+        audio = audio * (0.89 / peak)                     # keep 1 dB of headroom
+    fade = min(len(audio) // 4, int(sample_rate * 0.015))
+    if fade:
+        ramp = np.linspace(0.0, 1.0, fade, dtype=np.float32)
+        audio[:fade] *= ramp
+        audio[-fade:] *= ramp[::-1]
+    return audio
+
+
+def pick_take(takes):
+    """Keep the take whose length is nearest the median: drops clipped or rambling outliers."""
+    lengths = sorted(len(t) for t in takes)
+    median = lengths[len(lengths) // 2]
+    return min(takes, key=lambda t: abs(len(t) - median))
 
 
 def write_mp3(path, samples, sample_rate):
@@ -77,7 +119,7 @@ def write_mp3(path, samples, sample_rate):
     import numpy as np
     pcm = np.clip(np.asarray(samples, dtype=np.float32), -1.0, 1.0)
     encoder = lameenc.Encoder()
-    encoder.set_bit_rate(128)
+    encoder.set_bit_rate(192)
     encoder.set_in_sample_rate(int(sample_rate))
     encoder.set_channels(1)
     encoder.set_quality(2)
@@ -133,7 +175,7 @@ def main():
     else:
         voice_key = "redesign" if redesign else (designed_voice_key() if args.voice == "designed" else "original")
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8")) if MANIFEST.exists() else {}
-    wanted = {line["id"]: short_hash(MODEL_ID, voice_key, spoken(line["text"])) for line in lines}
+    wanted = {line["id"]: short_hash(MODEL_ID, QUALITY, voice_key, spoken(line["text"])) for line in lines}
     todo = [line for line in lines
             if args.force or redesign or manifest.get(line["id"]) != wanted[line["id"]]
             or not (OUT / f"{line['id']}.mp3").exists()]
@@ -149,7 +191,7 @@ def main():
         if redesign:
             design_reference(torch, device, dtype)
             voice_key = designed_voice_key()
-            wanted = {line["id"]: short_hash(MODEL_ID, voice_key, spoken(line["text"])) for line in lines}
+            wanted = {line["id"]: short_hash(MODEL_ID, QUALITY, voice_key, spoken(line["text"])) for line in lines}
         ref_wav, ref_text = DESIGNED_WAV, DESIGNED_TEXT
     elif args.voice == "custom":
         ref_wav, ref_text = CUSTOM_WAV, custom_text
@@ -164,9 +206,12 @@ def main():
     for n, line in enumerate(todo, 1):
         text = spoken(line["text"])
         print(f"[{n}/{len(todo)}] {line['id']}: {text}")
-        wavs, sample_rate = model.generate_voice_clone(
-            text=text, language="English", voice_clone_prompt=voice)
-        write_mp3(OUT / f"{line['id']}.mp3", wavs[0], sample_rate)
+        takes = []
+        for take in range(TAKES):
+            wavs, sample_rate = model.generate_voice_clone(
+                text=text, language="English", voice_clone_prompt=voice, do_sample=True, **SAMPLING)
+            takes.append(wavs[0])
+        write_mp3(OUT / f"{line['id']}.mp3", polish(pick_take(takes), sample_rate), sample_rate)
         manifest[line["id"]] = wanted[line["id"]]
         MANIFEST.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
 
