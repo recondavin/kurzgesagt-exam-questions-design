@@ -2,3 +2,4 @@
 **/.DS_Store
 
 .venv-narration/
+__pycache__/
