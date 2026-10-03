@@ -6,6 +6,8 @@
   // further, and a ghost-text hint appears for the first point only when the student is stuck.
 
   var LINE = 46; // ruled line spacing in px; the textarea uses the same line height
+  var FIRST_ROWS = 22; // lines on the first page (under the question)
+  var PAGE_ROWS = 28; // lines on every page after it
   var MIN_WORDS = 5; // a single sentence must say at least this much to count as an explained point
   var MAX_PER_SENTENCE = 1;
 
@@ -16,7 +18,8 @@
     'question-3b': {
       code: '3B', title: 'Sedimentary Rocks', image: 'assets/answer/q3b.png?v=1', total: 15,
       normalise: [[/sedimentary\s+rocks?/g, ' srock '], [/sedimentary/g, ' srock ']],
-      ghost: 'Sedimentary rocks begin when older rocks are weathered and eroded into small pieces called sediment.',
+      example: 'Sedimentary rocks begin when older rocks are weathered and eroded into small pieces called sediment.',
+      ghost: 'This sediment is then transported by rivers, wind and ice to lakes and seas.',
       path: ['weather', 'transport', 'deposit', 'compact', 'cement', 'sandstone', 'sandEx', 'limestone', 'limeEx', 'warmSea', 'redDesert', 'shale', 'shaleEx', 'fossils', 'time', 'uplift', 'caco3', 'coal'],
       examples: ['sandEx', 'limeEx', 'shaleEx', 'coalEx'],
       points: [
@@ -104,7 +107,8 @@
       code: '3C', title: 'Seismic Activity', image: 'assets/answer/q3c.png?v=1', total: 15,
       sides: { p: 'Predict', r: 'Reduce' },
       normalise: [],
-      ghost: 'Seismologists use seismographs to record small tremors called foreshocks, which can warn that a bigger earthquake may follow.',
+      example: 'Seismologists use seismographs to record small tremors called foreshocks, which can warn that a bigger earthquake may follow.',
+      ghost: 'Buildings are designed to sway with the shaking so that they do not collapse.',
       path: ['seismo', 'build', 'gaps', 'base', 'tilt', 'damper', 'radon', 'drills', 'laser', 'warning', 'animals', 'zoning', 'difficult', 'emergency', 'shutoff', 'retrofit', 'tsunami'],
       points: [
         { id: 'seismo', side: 'p', label: 'Seismographs record tremors', all: [['seismograph', 'seismometer', 'seismic monitor', 'sensors'], ['record', 'measur', 'detect', 'vibration', 'tremor', 'movement', 'shak', 'monitor', 'foreshock']],
@@ -236,9 +240,8 @@
     }
     return out;
   }
-  function evaluate() {
-    var q = state.q;
-    var sentences = splitSentences(state.ta.value);
+  function evaluate(q, text) {
+    var sentences = splitSentences(text);
     var used = {};
     sentences.forEach(function (s) {
       var norm = normalise(q, s.text);
@@ -343,27 +346,138 @@
   }
 
   // ---------- writing area ----------
-  function render() {
-    var text = state.ta.value;
-    var html = '';
-    var pos = 0;
-    state.sentences.forEach(function (s, i) {
-      if (!s.hits.length) return;
-      html += esc(text.slice(pos, s.start));
-      var fresh = s.hits.some(function (p) { return state.fresh[p.id]; });
-      html += '<mark class="am-hit' + (fresh ? ' am-hit--new' : '') + '">' + esc(text.slice(s.start, s.end)) + '</mark><span class="am-end" data-am-s="' + i + '"></span>';
-      pos = s.end;
-    });
-    html += esc(text.slice(pos));
-    var ghost = ghostText();
-    if (ghost) html += '<span class="am-ghost">' + esc(ghost) + '<span class="am-ghost__key">Tab</span></span>';
-    state.mirror.innerHTML = html + '​';
-    sizeLines();
-    placeBadges();
+  // The answer is written across ruled pages. Each page is its own textarea with a fixed number
+  // of lines; when a page fills up, the overflow moves onto the next page (a new one is added if needed).
+  // The pages are joined with a space for marking, so a sentence can run over a page break.
+  function fullText() { return state.pages.map(function (p) { return p.ta.value; }).join(' '); }
+  function rowsFor(text) {
+    var m = state.measure;
+    m.textContent = text + '​';
+    return Math.round(m.scrollHeight / LINE);
   }
-  function ghostText() {
-    if (!state.ghostOn || state.firstDone) return '';
-    var ta = state.ta, text = ta.value;
+  function addPage(silent) {
+    var k = state.pages.length;
+    var q = state.q;
+    var node = el('div', 'am-sheet am-page' + (k ? ' am-page--more' : ''));
+    node.innerHTML = (k === 0
+      ? '<img class="am-question" alt="Question ' + q.code + ': ' + q.title + '" src="' + q.image + '"><div class="am-label">Your answer</div>'
+      : '<div class="am-page__head">' + q.code + ' &middot; ' + q.title + ' (continued)</div>') +
+      '<div class="am-write"><div class="am-lines" aria-hidden="true"></div><div class="am-mirror" aria-hidden="true"></div>' +
+      '<textarea class="am-input" spellcheck="true" aria-label="Answer to question ' + q.code + ', page ' + (k + 1) + '"></textarea>' +
+      '<div class="am-badges" aria-hidden="true"></div><div class="am-caret" aria-hidden="true"></div></div>' +
+      '<div class="am-page__num">' + (k + 1) + '</div>';
+    state.pagesEl.insertBefore(node, state.addBtn);
+    var page = { el: node, ta: node.querySelector('.am-input'), mirror: node.querySelector('.am-mirror'), lines: node.querySelector('.am-lines'),
+      badges: node.querySelector('.am-badges'), caret: node.querySelector('.am-caret'), rows: k ? PAGE_ROWS : FIRST_ROWS, index: k };
+    page.ta.style.height = page.rows * LINE + 'px';
+    page.mirror.style.height = page.rows * LINE + 'px';
+    for (var i = 0; i < page.rows; i++) {
+      var line = el('div', 'am-line' + (state.linesDrawn ? ' am-line--now' : ''));
+      line.style.top = (i * LINE + 35) + 'px';
+      line.style.setProperty('--i', i);
+      page.lines.appendChild(line);
+    }
+    var ta = page.ta;
+    ta.addEventListener('input', function () { reflow(page.index); onInput(); });
+    ta.addEventListener('focus', function () { state.active = page.index; render(); });
+    ta.addEventListener('blur', function () { later(render, 0); });
+    ta.addEventListener('keydown', function (e) {
+      if (e.key === 'Tab' && !e.shiftKey && acceptGhost()) { e.preventDefault(); return; }
+      if (e.key === 'Escape') { e.stopPropagation(); if (state.ghostOn) { state.ghostOn = false; render(); } else close(); return; }
+      // Backspace or Up at the very start of a page carries on at the end of the page before.
+      if (page.index > 0 && ta.selectionStart === 0 && ta.selectionEnd === 0 && (e.key === 'Backspace' || e.key === 'ArrowUp' || e.key === 'ArrowLeft')) {
+        e.preventDefault();
+        focusPage(page.index - 1, Infinity);
+      }
+      if (e.key === 'ArrowDown' && ta.selectionStart === ta.value.length && state.pages[page.index + 1]) {
+        e.preventDefault();
+        focusPage(page.index + 1, 0);
+      }
+    });
+    ['keyup', 'click', 'mouseup', 'select'].forEach(function (type) { ta.addEventListener(type, render); });
+    state.pages.push(page);
+    if (!silent) node.classList.add('am-page--new');
+    return page;
+  }
+  function focusPage(k, caret) {
+    var ta = state.pages[k].ta;
+    ta.focus({ preventScroll: true });
+    var at = caret === Infinity ? ta.value.length : Math.min(caret, ta.value.length);
+    ta.selectionStart = ta.selectionEnd = at;
+    state.active = k;
+    render();
+    var caret = state.pages[k].caret;
+    if (caret.scrollIntoView) caret.scrollIntoView({ block: 'nearest' });
+  }
+  function reflow(k) {
+    for (; k < state.pages.length; k++) {
+      var page = state.pages[k], t = page.ta.value;
+      if (rowsFor(t) <= page.rows) return;
+      var lo = 0, hi = t.length;
+      while (lo < hi) { var mid = (lo + hi + 1) >> 1; if (rowsFor(t.slice(0, mid)) <= page.rows) lo = mid; else hi = mid - 1; }
+      var cut = lo;
+      var space = t.slice(0, cut + 1).search(/\s\S*$/);
+      if (space > 0) cut = space;
+      var drop = /\s/.test(t.charAt(cut)) ? 1 : 0;
+      var rest = t.slice(cut + drop);
+      var caret = page.ta.selectionStart, focused = document.activeElement === page.ta;
+      page.ta.value = t.slice(0, cut);
+      var next = state.pages[k + 1] || addPage();
+      next.ta.value = rest + (rest && next.ta.value ? ' ' : '') + next.ta.value;
+      if (focused) {
+        if (caret > cut) focusPage(k + 1, Math.max(0, caret - cut - drop));
+        else { page.ta.selectionStart = page.ta.selectionEnd = caret; }
+      }
+    }
+  }
+  function render() {
+    if (!state) return;
+    var off = 0;
+    state.pages.forEach(function (page, k) {
+      var v = page.ta.value;
+      page.off = off;
+      var focused = document.activeElement === page.ta;
+      var caretAt = focused && page.ta.selectionStart === page.ta.selectionEnd ? page.ta.selectionStart : -1;
+      var CARET = '<span class="am-cm"></span>';
+      var slice = function (a, b) {
+        if (caretAt >= a && caretAt < b) return esc(v.slice(a, caretAt)) + CARET + esc(v.slice(caretAt, b));
+        return esc(v.slice(a, b));
+      };
+      var html = '', p = 0;
+      state.sentences.forEach(function (s, i) {
+        if (!s.hits.length) return;
+        var a = Math.max(s.start - off, 0), b = Math.min(s.end - off, v.length);
+        if (b <= a) return;
+        if (a > p) html += slice(p, a);
+        var fresh = s.hits.some(function (h) { return state.fresh[h.id]; });
+        html += '<mark class="am-hit' + (fresh ? ' am-hit--new' : '') + '">' + slice(a, b) + '</mark>';
+        if (s.end - off <= v.length) html += '<span class="am-end" data-am-s="' + i + '"></span>';
+        p = b;
+      });
+      html += slice(p, v.length);
+      if (caretAt === v.length) html += CARET;
+      var ghost = k === state.active ? ghostText(page) : '';
+      if (ghost) html += '<span class="am-ghost">' + esc(ghost) + '<span class="am-ghost__key">Tab</span></span>';
+      page.mirror.innerHTML = html + '​';
+      var mark = page.mirror.querySelector('.am-cm');
+      if (mark) {
+        var row = Math.round(mark.offsetTop / LINE);
+        var pos = row + ':' + mark.offsetLeft;
+        page.caret.style.transform = 'translate(' + (mark.offsetLeft - 1) + 'px,' + (row * LINE + 8) + 'px)';
+        if (pos !== page.caretPos) { page.caret.classList.remove('am-caret--on'); void page.caret.offsetWidth; }
+        page.caret.classList.add('am-caret--on');
+        page.caretPos = pos;
+      } else {
+        page.caret.classList.remove('am-caret--on');
+        page.caretPos = null;
+      }
+      placeBadges(page);
+      off += v.length + 1;
+    });
+  }
+  function ghostText(page) {
+    if (!state.ghostOn || state.firstDone || !page) return '';
+    var ta = page.ta, text = ta.value;
     if (ta.selectionStart !== text.length || ta.selectionEnd !== text.length) return '';
     var tail = text.slice(Math.max(text.lastIndexOf('.'), text.lastIndexOf('\n'), text.lastIndexOf('!'), text.lastIndexOf('?')) + 1);
     var typed = tail.replace(/^\s+/, '');
@@ -375,42 +489,31 @@
   }
   function showGhost(on) {
     state.ghostOn = on && !state.firstDone;
-    render();
+    var page = state.pages[state.active];
+    if (on && page && document.activeElement !== page.ta) focusPage(state.active, Infinity);
+    else render();
   }
   function acceptGhost() {
-    var g = ghostText();
+    var page = state.pages[state.active];
+    var g = ghostText(page);
     if (!g) return false;
-    var ta = state.ta;
+    var ta = page.ta;
     ta.value = ta.value + g + ' ';
     ta.selectionStart = ta.selectionEnd = ta.value.length;
     state.ghostOn = false;
+    reflow(page.index);
     onInput();
     return true;
   }
-  function sizeLines() {
-    var ta = state.ta;
-    ta.style.height = 'auto';
-    state.mirror.style.height = 'auto';
-    var rows = Math.max(state.minRows, Math.ceil((Math.max(ta.scrollHeight, state.mirror.scrollHeight) - 4) / LINE) + 2);
-    ta.style.height = rows * LINE + 'px';
-    state.mirror.style.height = rows * LINE + 'px';
-    var lines = state.lines;
-    while (lines.children.length < rows) {
-      var line = el('div', 'am-line' + (state.linesDrawn ? ' am-line--now' : ''));
-      line.style.top = (lines.children.length * LINE + 35) + 'px';
-      line.style.setProperty('--i', lines.children.length);
-      lines.appendChild(line);
-    }
-  }
-  function placeBadges() {
-    var layer = state.badges;
+  function placeBadges(page) {
+    var layer = page.badges;
     var keep = {};
     var lastTop = -1, shift = 0;
     state.sentences.forEach(function (s, i) {
       if (!s.hits.length) return;
-      var end = state.mirror.querySelector('[data-am-s="' + i + '"]');
+      var end = page.mirror.querySelector('[data-am-s="' + i + '"]');
       if (!end) return;
-      var top = Math.floor(end.offsetTop / LINE) * LINE;
+      var top = Math.round(end.offsetTop / LINE) * LINE;
       shift = top === lastTop ? shift + 1 : 0;
       lastTop = top;
       s.hits.forEach(function (p, k) {
@@ -445,7 +548,7 @@
   }
   function check(silent) {
     var before = state.got;
-    state.sentences = evaluate();
+    state.sentences = evaluate(state.q, fullText());
     var got = {}, newly = [];
     state.sentences.forEach(function (s) { s.hits.forEach(function (p) { got[p.id] = true; if (!before[p.id]) newly.push(p); }); });
     state.got = got;
@@ -453,12 +556,11 @@
     if (!silent) newly.forEach(function (p) { state.fresh[p.id] = true; });
     render();
     refreshScore();
-    store('am-answer-' + state.id, state.ta.value);
-    if (silent) { if (state.count) state.firstDone = true; return; }
+    store('am-answer-' + state.id, JSON.stringify(state.pages.map(function (p) { return p.ta.value; })));
+    if (silent) { state.firstDone = state.count > state.base; return; }
     if (newly.length) {
-      state.firstDone = true;
+      state.firstDone = state.count > state.base;
       state.ghostOn = false;
-      state.misses = 0;
       celebrate(newly);
       return;
     }
@@ -469,17 +571,15 @@
     if (last.near) {
       var c = clueFor(last.near);
       say('Nearly there!', ['You mentioned the right idea. Now <b>explain</b> it: say what it does, how it works or why it matters.', c[1], c[2]], 'near');
-      return;
     }
   }
   function celebrate(points) {
-    var sheet = state.sheet;
+    var sheet = (state.pages[state.active] || state.pages[0]).el;
     sheet.classList.remove('am-sheet--yay'); void sheet.offsetWidth; sheet.classList.add('am-sheet--yay');
     later(function () {
       points.forEach(function (p) { delete state.fresh[p.id]; });
-      var badge = state.badges.querySelectorAll('.am-badge--new');
-      Array.prototype.forEach.call(badge, function (b) { b.classList.remove('am-badge--new'); });
-      state.mirror.querySelectorAll('.am-hit--new').forEach(function (m) { m.classList.remove('am-hit--new'); });
+      state.root.querySelectorAll('.am-badge--new').forEach(function (b) { b.classList.remove('am-badge--new'); });
+      state.root.querySelectorAll('.am-hit--new').forEach(function (m) { m.classList.remove('am-hit--new'); });
     }, 1400);
     later(function () {
       var names = points.map(function (p) { return '<b>' + p.label + '</b>'; }).join(' and ');
@@ -488,13 +588,13 @@
         return;
       }
       var p = nextPoint(), c = clueFor(p);
-      var first = state.count === points.length;
+      var first = state.count - state.base === points.length;
       say((first ? 'Your first SRP! ' : 'Nice! ') + '+' + points.length * 2 + ' marks',
         [names + ' matches the marking scheme.<span class="am-next"><b>Next:</b> ' + c[0] + '</span>', c[1], c[2]], 'yay');
     }, 900);
   }
   function onInput() {
-    if (state.ghostOn && !ghostText()) state.ghostOn = false;
+    if (state.ghostOn && !ghostText(state.pages[state.active])) state.ghostOn = false;
     render();
     clearTimeout(state.checkTimer);
     state.checkTimer = later(function () { check(false); }, 700);
@@ -510,15 +610,8 @@
       '<div class="am-backdrop"></div>' +
       '<button type="button" class="am-close" data-am-close aria-label="Close and go back to the paper"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg></button>' +
       '<div class="am-stage">' +
-        '<div class="am-sheet-wrap"><div class="am-sheet">' +
-          '<img class="am-question" alt="Question ' + q.code + ': ' + q.title + '" src="' + q.image + '">' +
-          '<div class="am-label">Your answer</div>' +
-          '<div class="am-write">' +
-            '<div class="am-lines" aria-hidden="true"></div>' +
-            '<div class="am-mirror" aria-hidden="true"></div>' +
-            '<textarea class="am-input" spellcheck="true" aria-label="Write your answer to question ' + q.code + '"></textarea>' +
-            '<div class="am-badges" aria-hidden="true"></div>' +
-          '</div>' +
+        '<div class="am-sheet-wrap"><div class="am-pages">' +
+          '<button type="button" class="am-addpage" data-am-addpage>+ Add a page</button>' +
         '</div></div>' +
         '<aside class="am-coach" aria-live="polite">' +
           '<div class="am-score"><div class="am-score__top"><span class="am-score__num"><b data-am-marks>0</b> / ' + q.total * 2 + '</span><span class="am-score__unit">marks</span></div><div class="am-pips"></div><div class="am-score__meta"></div></div>' +
@@ -540,37 +633,49 @@
     if (!q) return false;
     if (state) close(true);
     var root = build(id);
-    state = { id: id, q: q, root: root, timers: [], got: {}, fresh: {}, count: 0, sentences: [], misses: 0,
-      firstDone: false, ghostOn: false, minRows: 10, linesDrawn: false,
-      sheet: root.querySelector('.am-sheet'), ta: root.querySelector('.am-input'), mirror: root.querySelector('.am-mirror'),
-      lines: root.querySelector('.am-lines'), badges: root.querySelector('.am-badges'), coach: root.querySelector('.am-coach') };
-    var ta = state.ta;
-    ta.value = store('am-answer-' + id) || '';
+    state = { id: id, q: q, root: root, timers: [], got: {}, fresh: {}, count: 0, sentences: [], pages: [], active: 0, base: 0,
+      firstDone: false, ghostOn: false, linesDrawn: false,
+      pagesEl: root.querySelector('.am-pages'), addBtn: root.querySelector('[data-am-addpage]'), coach: root.querySelector('.am-coach') };
+    addPage(true);
+    addPage(true);
+    state.measure = el('div', 'am-mirror am-measure');
+    state.measure.setAttribute('aria-hidden', 'true');
+    state.pages[0].el.querySelector('.am-write').appendChild(state.measure);
+
+    // Restore a saved answer, or start with one worked SRP already written in.
+    var saved = store('am-answer-' + id), values = null;
+    if (saved) { try { values = saved.charAt(0) === '[' ? JSON.parse(saved) : [saved]; } catch (err) { values = [saved]; } }
+    if (!values || !values.join('').trim()) { values = [q.example + ' ']; state.base = 1; }
+    else if (values.join(' ').indexOf(q.example) >= 0) state.base = 1;
+    values.forEach(function (v, k) { (state.pages[k] || addPage(true)).ta.value = v; });
+    reflow(0);
     check(true);
     state.coach.classList.add('am-coach--min');
     refreshScore();
-    ta.addEventListener('input', onInput);
-    ta.addEventListener('keydown', function (e) {
-      if (e.key === 'Tab' && !e.shiftKey && acceptGhost()) { e.preventDefault(); return; }
-      if (e.key === 'Escape') { e.stopPropagation(); if (state.ghostOn) { state.ghostOn = false; render(); } else close(); }
-    });
-    ta.addEventListener('keyup', function (e) { if (/Arrow|Home|End/.test(e.key)) render(); });
-    ta.addEventListener('click', render);
+
     root.addEventListener('click', function (e) {
       if (e.target.closest('[data-am-close]')) { close(); return; }
-      if (e.target.closest('[data-am-ok]')) { state.coach.classList.add('am-coach--min'); ta.focus(); return; }
+      if (e.target.closest('[data-am-ok]')) { state.coach.classList.add('am-coach--min'); focusPage(state.active, Infinity); return; }
       if (e.target.closest('[data-am-more]')) {
         if (state.msg.level < state.msg.levels.length - 1) { state.msg.level += 1; renderMsg(false); }
         return;
       }
       if (e.target.closest('[data-am-clue]')) { offerClue(true); return; }
+      if (e.target.closest('[data-am-addpage]')) {
+        var page = addPage();
+        state.root.classList.add('am-lines-in');
+        focusPage(page.index, 0);
+        requestAnimationFrame(function () { state.pagesEl.parentNode.scrollTo({ top: page.el.offsetTop - 12, behavior: reduced() ? 'auto' : 'smooth' }); });
+        return;
+      }
       if (e.target.closest('[data-am-guide]')) {
         close();
         if (window.ExamHyperFocus) window.ExamHyperFocus.start(id);
       }
     });
     root.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-    window.addEventListener('resize', state.onResize = function () { if (state) render(); });
+    window.addEventListener('resize', state.onResize = function () { if (state) { reflow(0); render(); } });
+    document.addEventListener('selectionchange', state.onSelect = function () { if (state) render(); });
 
     // 1. The page clears behind the question. 2. The question flies to the top of the sheet.
     // 3. The ruled lines draw in one by one. 4. The coach slides in and the cursor is ready.
@@ -611,9 +716,9 @@
     later(function () {
       state.linesDrawn = true;
       root.classList.add('am-coach-in');
-      ta.focus();
-      ta.selectionStart = ta.selectionEnd = ta.value.length;
-      render();
+      var last = 0;
+      state.pages.forEach(function (p, k) { if (p.ta.value.trim()) last = k; });
+      focusPage(last, Infinity);
     }, fast ? 0 : 1700);
     return true;
   }
@@ -624,6 +729,7 @@
     state = null;
     s.timers.forEach(clearTimeout);
     window.removeEventListener('resize', s.onResize);
+    document.removeEventListener('selectionchange', s.onSelect);
     if (instant || reduced()) { s.root.remove(); return; }
     s.root.classList.add('am-out');
     setTimeout(function () { s.root.remove(); }, 420);
@@ -635,12 +741,7 @@
     close: close,
     // Exposed for testing the matcher: returns the point labels a piece of text earns.
     score: function (id, text) {
-      var keep = state;
-      var q = QUESTIONS[id];
-      state = { q: q, ta: { value: text } };
-      var out = evaluate().map(function (s) { return { text: s.text, points: s.hits.map(function (p) { return p.label; }), near: s.near ? s.near.label : null }; });
-      state = keep;
-      return out;
+      return evaluate(QUESTIONS[id], text).map(function (s) { return { text: s.text, points: s.hits.map(function (p) { return p.label; }), near: s.near ? s.near.label : null }; });
     }
   };
 
@@ -651,7 +752,18 @@
     '.am-out{transition:opacity .38s ease;opacity:0}',
     '.am-stage{position:absolute;inset:0;display:flex;justify-content:center;align-items:stretch;gap:28px;padding:24px 28px;box-sizing:border-box}',
     '.am-sheet-wrap{flex:1 1 auto;max-width:980px;min-width:0;overflow-y:auto;overflow-x:hidden;border-radius:18px;scrollbar-width:thin}',
-    '.am-sheet{position:relative;background:#FFFEF8;border-radius:18px;padding:34px 118px 60px 56px;box-sizing:border-box;min-height:100%;clip-path:inset(0 0 100% 0 round 18px);transition:clip-path .7s cubic-bezier(.22,.8,.2,1)}',
+    '.am-pages{display:flex;flex-direction:column;gap:22px;padding-bottom:24px}',
+    '.am-sheet{position:relative;flex:0 0 auto;background:#FFFEF8;border-radius:18px;padding:34px 118px 56px 56px;box-sizing:border-box;clip-path:inset(0 0 100% 0 round 18px);transition:clip-path .7s cubic-bezier(.22,.8,.2,1)}',
+    '.am-page--new{animation:amIn .45s cubic-bezier(.22,.8,.2,1) both}',
+    '.am-page__head{font:600 15px Fredoka,Nunito,sans-serif;letter-spacing:.04em;color:#7A8BA6;margin:0 0 6px}',
+    '.am-page__num{position:absolute;left:0;right:0;bottom:18px;text-align:center;font:600 15px Fredoka,Nunito,sans-serif;color:#9AA8BD}',
+    '.am-addpage{align-self:center;border:0;border-radius:14px;padding:12px 22px;background:#1B2E4B;color:#CFE0FF;font:700 17px Fredoka,Nunito,sans-serif;cursor:pointer;box-shadow:0 4px 0 #0A1220}',
+    '.am-addpage:active{transform:translateY(3px);box-shadow:0 1px 0 #0A1220}',
+    '.am-measure{visibility:hidden;height:auto !important;right:0;pointer-events:none}',
+    '.am-caret{position:absolute;left:0;top:0;width:3px;height:28px;border-radius:2px;background:#2E6BD6;opacity:0;pointer-events:none}',
+    '.am-caret--on{animation:amBlink 1.06s steps(1) infinite}',
+    '@keyframes amBlink{0%{opacity:1}50%{opacity:0}}',
+    '.am-cm{display:inline}',
     '.am-sheet-in .am-sheet{clip-path:inset(0 0 0 0 round 18px)}',
     '.am-question{display:block;width:100%;height:auto;margin:0 0 10px -10px;mix-blend-mode:multiply}',
     '.am-fly{position:fixed;z-index:3;height:auto;transform-origin:0 0;border-radius:6px;background:#fff;box-shadow:0 18px 50px rgba(0,0,0,.35);transition:transform .8s cubic-bezier(.22,.8,.2,1),box-shadow .8s ease}',
@@ -661,7 +773,7 @@
     '.am-write{position:relative}',
     '.am-lines{position:absolute;inset:0;pointer-events:none}',
     '.am-line{position:absolute;left:0;right:0;height:2px;background:#C7D3E6;border-radius:2px;transform:scaleX(0);transform-origin:left center}',
-    '.am-lines-in .am-line{animation:amLine .5s cubic-bezier(.3,.7,.2,1) both;animation-delay:calc(var(--i) * 55ms)}',
+    '.am-lines-in .am-line{animation:amLine .5s cubic-bezier(.3,.7,.2,1) both;animation-delay:calc(var(--i) * 30ms)}',
     '.am-lines-in .am-line--now{animation-delay:0s}',
     '@keyframes amLine{to{transform:scaleX(1)}}',
     '.am-mirror,.am-input{display:block;width:100%;box-sizing:border-box;margin:0;padding:0 4px;border:0;font:600 22px/46px Nunito,system-ui,sans-serif;letter-spacing:.01em;word-spacing:.04em;white-space:pre-wrap;overflow-wrap:break-word;word-break:normal;tab-size:4}',
@@ -671,7 +783,7 @@
     '.am-root .am-coach__title,.am-root .am-coach__head span,.am-root .am-btn,.am-root .am-link,.am-root .am-tag,.am-root .am-score span,.am-root .am-score b,.am-root .am-coach__p b,.am-root .am-plus,.am-root .am-label{font-family:Fredoka,Nunito,sans-serif !important}',
     '.am-root .am-coach__p b{font-weight:600 !important}',
     '.am-mirror{position:absolute;left:0;top:0;color:#13294A;pointer-events:none}',
-    '.am-input{position:relative;background:transparent;color:transparent;caret-color:#2E6BD6;resize:none;outline:none;overflow:hidden;min-height:460px}',
+    '.am-input{position:relative;background:transparent;color:transparent;caret-color:transparent;resize:none;outline:none;overflow:hidden}',
     '.am-root textarea.am-input,.am-root textarea.am-input:focus,.am-root textarea.am-input:focus-visible{outline:none !important;border:0 !important;box-shadow:none !important;background:transparent !important}',
     '.am-input::selection{background:rgba(46,107,214,.25);color:transparent}',
     '.am-hit{background:transparent;color:#118A4C;border-radius:6px;box-decoration-break:clone;-webkit-box-decoration-break:clone}',
