@@ -5,6 +5,14 @@ The guide reads each line aloud in the British narrator's voice
 as the text types. The audio is generated locally with
 [Qwen3-TTS](https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-Base) voice cloning.
 
+## The voice
+
+By default the voice is *designed*: the VoiceDesign model first makes
+`designed_reference.wav` from the description in `generate_narration.py`
+(a soft, curious British documentary narrator), then the Base model clones that
+clip for every line so they all match. `--redesign` makes a new take of the voice;
+`--voice original` uses the first-qwen-voice-88hz take instead.
+
 ## Generate the audio
 
 - **Windows:** double-click `tools\narration\run_narration_windows.bat`.

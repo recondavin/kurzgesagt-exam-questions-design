@@ -225,6 +225,7 @@
   // Narration: one MP3 per line (assets/narration/<step>-title|summary|n.mp3, made by
   // tools/narration/generate_narration.py). Missing files are skipped silently.
   var NARRATION_VERSION = '1';
+  var NARRATION_VOLUME = 0.55; // a soft voice under the reading
   var narration = { on: true, audio: null, finish: null, token: 0 };
   try { narration.on = window.localStorage.getItem('hf-narration') !== 'off'; } catch (err) {}
 
@@ -237,6 +238,7 @@
   function playLine(id, done) {
     if (!narration.on || !id) { done(); return; }
     var audio = new Audio('assets/narration/' + id + '.mp3?v=' + NARRATION_VERSION);
+    audio.volume = NARRATION_VOLUME;
     var finished = false;
     function finish() {
       if (finished) return;

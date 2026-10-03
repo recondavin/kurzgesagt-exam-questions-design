@@ -23,6 +23,19 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 OUT = ROOT / "assets" / "narration"
 MODEL_ID = "Qwen/Qwen3-TTS-12Hz-1.7B-Base"
+DESIGN_MODEL_ID = "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign"
+
+# Voice: first described with the VoiceDesign model (one reference clip), then that clip is
+# cloned with the Base model for every line, so all lines share one consistent voice.
+VOICE_DESCRIPTION = (
+    "A softly spoken middle-aged British man with a gentle Received Pronunciation accent, "
+    "like a calm nature documentary narrator. He speaks quietly and warmly at an unhurried pace, "
+    "sounding genuinely curious and quietly fascinated, with a light rise of wonder in his voice.")
+DESIGNED_WAV = HERE / "designed_reference.wav"
+DESIGNED_TEXT = ("Have you ever wondered how a mountain is made? Let's find out together, "
+                 "one layer at a time, and see what the rocks can tell us.")
+
+# The original take (first-qwen-voice-88hz.mp3), still available with --voice original.
 REFERENCE_WAV = HERE / "reference.wav"
 # Transcript of reference.wav; voice cloning is most faithful with the exact words.
 REFERENCE_TEXT = ("Welcome. Today, we shall explore how the human heart moves blood around the body, "
@@ -62,10 +75,29 @@ def write_mp3(path, samples, sample_rate):
     path.write_bytes(data)
 
 
+def design_reference(torch, device, dtype):
+    """Create designed_reference.wav from VOICE_DESCRIPTION with the VoiceDesign model."""
+    import soundfile as sf
+    from qwen_tts import Qwen3TTSModel
+    print(f"Designing the narrator voice with {DESIGN_MODEL_ID} (first run downloads about 4 GB)...")
+    torch.manual_seed(7)
+    model = Qwen3TTSModel.from_pretrained(DESIGN_MODEL_ID, device_map=device, dtype=dtype)
+    wavs, sample_rate = model.generate_voice_design(
+        text=DESIGNED_TEXT, instruct=VOICE_DESCRIPTION, language="English")
+    sf.write(str(DESIGNED_WAV), wavs[0], sample_rate)
+    print(f"Saved {DESIGNED_WAV.name}; listen to it, and use --redesign for a different take.")
+    del model
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--force", action="store_true", help="regenerate lines that already have an MP3")
     parser.add_argument("--only", nargs="*", help="line ids to generate")
+    parser.add_argument("--voice", choices=["designed", "original"], default="designed",
+                        help="designed: the curious British narrator (default); original: first-qwen-voice-88hz")
+    parser.add_argument("--redesign", action="store_true", help="make a new designed reference voice first")
     args = parser.parse_args()
 
     lines = json.loads((HERE / "lines.json").read_text(encoding="utf-8"))
@@ -81,10 +113,17 @@ def main():
     from qwen_tts import Qwen3TTSModel
 
     device, dtype = pick_device(torch)
+    if args.voice == "designed":
+        if args.redesign or not DESIGNED_WAV.exists():
+            design_reference(torch, device, dtype)
+        ref_wav, ref_text = DESIGNED_WAV, DESIGNED_TEXT
+    else:
+        ref_wav, ref_text = REFERENCE_WAV, REFERENCE_TEXT
+
     print(f"Loading {MODEL_ID} on {device} (first run downloads about 4 GB)...")
+    torch.manual_seed(7)
     model = Qwen3TTSModel.from_pretrained(MODEL_ID, device_map=device, dtype=dtype)
-    voice = model.create_voice_clone_prompt(
-        ref_audio=str(REFERENCE_WAV), ref_text=REFERENCE_TEXT, x_vector_only_mode=False)
+    voice = model.create_voice_clone_prompt(ref_audio=str(ref_wav), ref_text=ref_text, x_vector_only_mode=False)
 
     for n, line in enumerate(todo, 1):
         text = spoken(line["text"])
