@@ -43,6 +43,14 @@ scikit-learn DLL, remove that package (narration does not use it):
 `.venv-narration\Scripts\pip.exe uninstall -y scikit-learn`. The Windows launcher
 does this automatically.
 
+## Studio sound
+
+`studio_upgrade.py` makes the clips sound like a high-quality studio microphone: ClearerVoice
+speech super-resolution rebuilds the top end the 24 kHz voice model leaves out (48 kHz output),
+then a mic-style finish adds warmth, balances the highs, de-esses and levels each clip.
+It only touches clips still at 24 kHz, so run it after each narration update
+(`pip install clearvoice scipy soundfile`, plus ffmpeg).
+
 ## Files
 
 - `lines.json` — every line the guide shows, by id (`<step>-title`, `<step>-summary`, `<step>-1`…).
