@@ -11,9 +11,13 @@ Usage (from the repository root):
 """
 import argparse
 import json
+import os
 import re
 import sys
 from pathlib import Path
+
+# The model is public: never send a saved Hugging Face login (an expired one makes the download fail with 401).
+os.environ.setdefault("HF_HUB_DISABLE_IMPLICIT_TOKEN", "1")
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
