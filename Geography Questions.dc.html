@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./hyper-focus.js?v=sedimentary-guide-29"></script>
+<script src="./hyper-focus.js?v=sedimentary-guide-30"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -796,11 +796,10 @@
   .hf-guide .hf-reveal { animation: hf-reveal-in .5s cubic-bezier(.22,.78,.24,1) var(--d, 0s) backwards; }
   .hf-guide i.hf-reveal { animation-name: hf-pop-in; animation-timing-function: cubic-bezier(.2,.9,.3,1.5); }
   .hf-guide .hf-reveal svg { animation: hf-icon-settle .7s cubic-bezier(.2,.9,.3,1.45) calc(var(--d, 0s) + .15s) backwards; }
-  /* Sediment grains drop in one by one; the rock's joints draw themselves. */
-  .hf-rock-cycle .hf-reveal circle { transform-box: fill-box; animation: hf-grain-drop .55s cubic-bezier(.3,1.5,.5,1) calc(var(--d, 0s) + .2s) backwards; }
-  .hf-rock-cycle .hf-reveal circle:nth-of-type(2) { animation-delay: calc(var(--d, 0s) + .34s); }
-  .hf-rock-cycle .hf-reveal circle:nth-of-type(3) { animation-delay: calc(var(--d, 0s) + .48s); }
-  .hf-rock-cycle .hf-reveal .hf-rock-joints { stroke-dasharray: 100; animation: hf-draw .9s ease-out calc(var(--d, 0s) + .25s) backwards; }
+  /* Animated card art (SMIL loops inside each SVG): flat scenes with their own colours. */
+  .hf-guide svg.hf-art { fill: initial; stroke: none; overflow: hidden; border-radius: 8px; }
+  .hf-squash { transform-box: fill-box; transform-origin: 50% 100%; animation: hf-squash 3.2s ease-in-out infinite; }
+  @keyframes hf-squash { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.82); } }
   /* The chosen example lifts slightly. */
   .hf-idea.is-active { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(36,35,67,.12); }
   .hf-guide .hf-srp-result.hf-reveal, .hf-guide .hf-idea-answer.hf-reveal {
@@ -810,14 +809,12 @@
   .hf-idea { transition: transform .25s cubic-bezier(.22,.78,.24,1), box-shadow .25s ease, border-color .25s ease, background-color .25s ease, color .25s ease; }
   /* Opacity and a small drop only: no blur or scaling, so text stays sharp, and nothing overflows the card to flash its scrollbar. */
   @keyframes hf-reveal-in { 0% { opacity: 0; transform: translateY(-8px); } 100% { opacity: 1; transform: none; } }
-  @keyframes hf-grain-drop { 0% { opacity: 0; transform: translateY(-16px); } 100% { opacity: 1; transform: none; } }
-  @keyframes hf-draw { 0% { stroke-dashoffset: 100; } 100% { stroke-dashoffset: 0; } }
   @keyframes hf-pop-in { 0% { opacity: 0; transform: scale(0) rotate(-25deg); } 100% { opacity: 1; transform: none; } }
   @keyframes hf-icon-settle { 0% { transform: translateY(6px) scale(.82); } 100% { transform: none; } }
   @keyframes hf-glow { 0% { box-shadow: 0 0 0 0 rgba(99,80,204,.4); } 100% { box-shadow: 0 0 0 12px rgba(99,80,204,0); } }
   @keyframes hf-answer-swap { 0% { opacity: 0; transform: translateX(10px); } 100% { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) {
-    .hf-guide .hf-reveal, .hf-guide .hf-reveal svg, .hf-guide .hf-reveal circle, .hf-guide .hf-rock-joints, .hf-guide .hf-idea-answer.hf-answer-swap { animation: none !important; }
+    .hf-guide .hf-reveal, .hf-guide .hf-reveal svg, .hf-squash, .hf-guide .hf-idea-answer.hf-answer-swap { animation: none !important; }
   }
   .hf-srp-builder.is-playing .hf-srp-piece { animation: hf-piece-in .45s both; }
   .hf-srp-builder.is-playing .hf-srp-piece:nth-of-type(2) { animation-delay: .18s; }
