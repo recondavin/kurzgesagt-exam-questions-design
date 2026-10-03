@@ -240,13 +240,14 @@
     }
     return out;
   }
-  function evaluate(q, text) {
+  // `open` decides whether an unfinished sentence (no full stop yet) may count.
+  function evaluate(q, text, open) {
     var sentences = splitSentences(text);
     var used = {};
     sentences.forEach(function (s) {
       var norm = normalise(q, s.text);
       var tokens = norm.trim().split(' ');
-      var counts = s.words >= MIN_WORDS && s.complete;
+      var counts = s.words >= MIN_WORDS && (s.complete || (open && s.words >= 6 && open(s)));
       for (var i = 0; counts && i < q.points.length && s.hits.length < MAX_PER_SENTENCE; i++) {
         var p = q.points[i];
         if (used[p.id]) continue;
@@ -546,9 +547,11 @@
     });
     Array.prototype.slice.call(layer.children).forEach(function (b) { if (!keep[b.getAttribute('data-am-b')]) b.remove(); });
   }
-  function check(silent) {
+  // `settled` is true once the student has paused: then a sentence without a full stop can count too.
+  function check(silent, settled) {
     var before = state.got;
-    state.sentences = evaluate(state.q, fullText());
+    state.sentences = evaluate(state.q, fullText(), function (s) { return settled || s.start === state.openStart; });
+    state.sentences.forEach(function (s) { if (!s.complete && s.hits.length) state.openStart = s.start; });
     var got = {}, newly = [];
     state.sentences.forEach(function (s) { s.hits.forEach(function (p) { got[p.id] = true; if (!before[p.id]) newly.push(p); }); });
     state.got = got;
@@ -597,7 +600,9 @@
     if (state.ghostOn && !ghostText(state.pages[state.active])) state.ghostOn = false;
     render();
     clearTimeout(state.checkTimer);
-    state.checkTimer = later(function () { check(false); }, 700);
+    clearTimeout(state.settleTimer);
+    state.checkTimer = later(function () { check(false, false); }, 700);
+    state.settleTimer = later(function () { check(false, true); }, 2200);
   }
 
   // ---------- open / close ----------
@@ -649,7 +654,7 @@
     else if (values.join(' ').indexOf(q.example) >= 0) state.base = 1;
     values.forEach(function (v, k) { (state.pages[k] || addPage(true)).ta.value = v; });
     reflow(0);
-    check(true);
+    check(true, true);
     state.coach.classList.add('am-coach--min');
     refreshScore();
 
@@ -741,7 +746,7 @@
     close: close,
     // Exposed for testing the matcher: returns the point labels a piece of text earns.
     score: function (id, text) {
-      return evaluate(QUESTIONS[id], text).map(function (s) { return { text: s.text, points: s.hits.map(function (p) { return p.label; }), near: s.near ? s.near.label : null }; });
+      return evaluate(QUESTIONS[id], text, function () { return true; }).map(function (s) { return { text: s.text, points: s.hits.map(function (p) { return p.label; }), near: s.near ? s.near.label : null }; });
     }
   };
 
