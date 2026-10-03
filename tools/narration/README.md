@@ -7,7 +7,7 @@ as the text types. The audio is generated locally with
 
 ## The voice
 
-If `custom_reference.wav` exists it is the voice: a clean ~16 s clip of the chosen
+If `custom_reference.wav` exists it is the voice: a clean ~15 s clip of the chosen
 narrator, used with the speaker's permission, with its exact words in
 `custom_reference.txt` (music removed with Demucs, loudness-normalised, 24 kHz mono).
 Replacing either file makes the next update regenerate every line.
