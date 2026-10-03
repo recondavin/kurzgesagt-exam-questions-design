@@ -17,11 +17,6 @@
       code: '3B', title: 'Sedimentary Rocks', image: 'assets/answer/q3b.png?v=1', total: 15,
       normalise: [[/sedimentary\s+rocks?/g, ' srock '], [/sedimentary/g, ' srock ']],
       ghost: 'Sedimentary rocks begin when older rocks are weathered and eroded into small pieces called sediment.',
-      intro: [
-        'Write your answer on the lines, <b>one point in each sentence</b>. When a sentence matches the marking scheme it turns <b class="am-green">green</b> and earns 2 marks.',
-        'Each green sentence is an <b>SRP</b>, a Significant Relevant Point. You need <b>15</b> for full marks. Follow the rock\'s story: <b>broken down</b>, <b>carried</b>, <b>laid down</b>, <b>squeezed</b>, <b>glued</b>. Then name <b>Irish examples</b>.',
-        'Just write one sentence about where the bits of rock come from. That\'s it. Tap <b>Need a hand?</b> any time and I\'ll help.'
-      ],
       path: ['weather', 'transport', 'deposit', 'compact', 'cement', 'sandstone', 'sandEx', 'limestone', 'limeEx', 'warmSea', 'redDesert', 'shale', 'shaleEx', 'fossils', 'time', 'uplift', 'caco3', 'coal'],
       examples: ['sandEx', 'limeEx', 'shaleEx', 'coalEx'],
       points: [
@@ -110,11 +105,6 @@
       sides: { p: 'Predict', r: 'Reduce' },
       normalise: [],
       ghost: 'Seismologists use seismographs to record small tremors called foreshocks, which can warn that a bigger earthquake may follow.',
-      intro: [
-        'Write your answer on the lines, <b>one point in each sentence</b>. When a sentence matches the marking scheme it turns <b class="am-green">green</b> and earns 2 marks.',
-        'Each green sentence is an <b>SRP</b>, a Significant Relevant Point. You need <b>15</b>. Split them across two halves: how earthquakes are <b>predicted</b> and how their effects are <b>reduced</b>. About 7 or 8 each.',
-        'Just write one sentence about a tool scientists use to watch for earthquakes. That\'s it. Tap <b>Need a hand?</b> any time and I\'ll help.'
-      ],
       path: ['seismo', 'build', 'gaps', 'base', 'tilt', 'damper', 'radon', 'drills', 'laser', 'warning', 'animals', 'zoning', 'difficult', 'emergency', 'shutoff', 'retrofit', 'tsunami'],
       points: [
         { id: 'seismo', side: 'p', label: 'Seismographs record tremors', all: [['seismograph', 'seismometer', 'seismic monitor', 'sensors'], ['record', 'measur', 'detect', 'vibration', 'tremor', 'movement', 'shak', 'monitor', 'foreshock']],
