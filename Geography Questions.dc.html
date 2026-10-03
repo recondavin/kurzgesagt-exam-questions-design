@@ -607,6 +607,8 @@
     transition: border-color .18s ease, background-color .18s ease;
   }
   .geography-focus-target--3b { top: 69.2%; height: 7.2%; }
+  /* Beat the generic [data-hf-target] position: relative, which stacked 3C under 3B in normal flow. */
+  .geography-page-shell .geography-focus-target { position: absolute; }
   .geography-focus-target:hover,
   .geography-focus-target:focus-visible {
     border-color: rgba(46,107,214,.55);
