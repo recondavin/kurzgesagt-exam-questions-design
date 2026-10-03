@@ -31,6 +31,11 @@ REFERENCE_TEXT = ("Welcome. Today, we shall explore how the human heart moves bl
 
 def spoken(text):
     """Small wording changes so abbreviations are read naturally."""
+    # Say small numbers as words: a line starting with digits ("15 explained points") came out silent.
+    words = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven",
+             "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"]
+    text = re.sub(r"\b(\d{1,2})\b", lambda m: words[int(m.group(1))] if int(m.group(1)) <= 20 else m.group(1), text)
+    text = text[:1].upper() + text[1:]
     text = re.sub(r"\bCo\. ", "County ", text)
     text = re.sub(r"\bSRPs?\b", lambda m: "S.R.P." + ("s" if m.group(0).endswith("s") else ""), text)
     return text
