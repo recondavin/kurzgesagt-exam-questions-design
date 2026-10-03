@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./hyper-focus.js?v=sedimentary-guide-46"></script>
+<script src="./hyper-focus.js?v=sedimentary-guide-47"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="_ds/nocturne-33e0d293-7a77-4942-b468-b858b49d86ac/styles.css">
 <script src="_ds/nocturne-33e0d293-7a77-4942-b468-b858b49d86ac/_ds_bundle.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&amp;family=Fredoka:wdth,wght@100..125,400..700&amp;family=Nunito:ital,wght@0,400;0,600;0,700;1,400&amp;family=Chakra+Petch:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&amp;family=Fredoka:wdth,wght@100..125,400..700&amp;family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&amp;family=Chakra+Petch:wght@500;600;700&amp;display=swap">
 <style>
   :root {
     --color-bg: #EDF1F7;
@@ -808,12 +808,16 @@
   .hf-bullets--steps > li:nth-child(2) .hf-bullet-dot { background: #146D63; }
   .hf-bullets--steps > li:nth-child(3) .hf-bullet-dot { background: #B17A27; }
   .hf-bullet-result { margin-top: 4px; padding: 12px 14px; border-radius: 12px; background: #F1EEFB; grid-template-columns: 12px 1fr !important; }
-  /* Dyslexia-friendly reading: Nunito (soft, rounded), regular weight, generous spacing, off-white page, no capitals or italics. */
-  .hf-guide, .hf-guide * { font-family: 'Nunito', 'Lexend', Verdana, sans-serif !important; font-weight: 400 !important; font-style: normal !important; text-transform: none !important; }
+  /* Dyslexia-friendly reading: Nunito (soft, rounded), thick weight, generous spacing, off-white page, no capitals or italics. */
+  .hf-guide, .hf-guide * { font-family: 'Nunito', 'Lexend', Verdana, sans-serif !important; font-weight: 700 !important; font-style: normal !important; text-transform: none !important; }
   .hf-guide { background: #FDFBF5; color: #1F2633; }
   .hf-guide .hf-guide__title, .hf-guide .hf-guide__button, .hf-guide b { font-weight: 700 !important; }
+  /* Duolingo-style mix: chunky rounded Fredoka (like Duolingo's Feather) for headings, key words and buttons;
+     thick Nunito (like its rounded body face) for the reading text. */
+  .hf-guide .hf-guide__title, .hf-guide .hf-guide__title *, .hf-guide b, .hf-guide b *, .hf-guide .hf-guide__button,
+  .hf-guide .hf-guide__step { font-family: 'Fredoka', 'Nunito', sans-serif !important; font-weight: 700 !important; letter-spacing: .01em; }
   .hf-guide .hf-guide__summary { font-size: 17px; line-height: 1.6; color: #1F2633; margin-bottom: 14px; }
-  body .hf-guide .hf-guide__title, body .hf-guide .hf-guide__button { font-family: 'Nunito', 'Lexend', Verdana, sans-serif !important; letter-spacing: .01em; }
+  body .hf-guide .hf-guide__title, body .hf-guide .hf-guide__button { font-family: 'Fredoka', 'Nunito', sans-serif !important; letter-spacing: .01em; }
   body .hf-guide .hf-guide__title { font-size: 24px; line-height: 1.3; }
   .hf-bullets, .hf-bullets * { font-size: 17px; line-height: 1.6; letter-spacing: .02em; word-spacing: .08em; color: #1F2633; text-align: left; }
   /* No card: the guide sits straight on the dimmed backdrop as light text and bullets. */
@@ -832,7 +836,7 @@
   body .hf-guide .hf-guide__button--ghost:disabled { color: rgba(255,255,255,.5); }
   /* Livelier but still easy to read: bigger title, a lead line with an accent bar, a colour per idea with a marker underline that sweeps in. */
   body .hf-guide .hf-guide__title { font-size: calc(27px * var(--hf-s, 1)); }
-  body .hf-guide .hf-guide__summary { position: relative; padding-left: 14px; font-size: calc(18px * var(--hf-s, 1)); font-weight: 500 !important; color: #FFFFFF; }
+  body .hf-guide .hf-guide__summary { position: relative; padding-left: 14px; font-size: calc(18px * var(--hf-s, 1)); font-weight: 700 !important; color: #FFFFFF; }
   body .hf-guide .hf-guide__summary::before { content: ''; position: absolute; left: 0; top: .2em; bottom: .2em; width: 4px; border-radius: 4px; background: #FFC42E; }
   .hf-guide .hf-bullets, .hf-guide .hf-bullets * { font-size: calc(18px * var(--hf-s, 1)); }
   .hf-guide .hf-bullets { gap: calc(16px * var(--hf-s, 1)); }
