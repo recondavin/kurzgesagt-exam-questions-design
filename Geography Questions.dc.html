@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./hyper-focus.js?v=sedimentary-guide-32"></script>
+<script src="./hyper-focus.js?v=sedimentary-guide-33"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -823,12 +823,31 @@
   body .hf-guide .hf-guide__summary, .hf-guide .hf-bullets, .hf-guide .hf-bullets * { color: #F4EFE6; }
   body .hf-guide .hf-guide__close { background: transparent; border-color: rgba(244,239,230,.45); color: #F4EFE6; }
   body .hf-guide .hf-bullet-result { background: rgba(244,239,230,.1); }
-  body .hf-guide .hf-bullet-dot { background: #B9AEF7; }
-  body .hf-guide .hf-bullets--steps > li:nth-child(2) .hf-bullet-dot { background: #7FD6BF; }
-  body .hf-guide .hf-bullets--steps > li:nth-child(3) .hf-bullet-dot { background: #F2C27A; }
+  body .hf-guide .hf-bullet-dot { background: #FFC42E; }
+  body .hf-guide .hf-bullets--steps > li:nth-child(2) .hf-bullet-dot { background: #4FC3E8; }
+  body .hf-guide .hf-bullets--steps > li:nth-child(3) .hf-bullet-dot { background: #F5A03C; }
+  body .hf-guide .hf-bullets--steps > li.hf-bullet-result .hf-bullet-dot { background: #B9AEF7; }
   body .hf-guide .hf-guide__controls { border-top-color: rgba(244,239,230,.2); }
   body .hf-guide .hf-guide__button--ghost { color: #F4EFE6; }
   body .hf-guide .hf-guide__button--ghost:disabled { color: rgba(244,239,230,.4); }
+  /* Livelier but still easy to read: bigger title, a lead line with an accent bar, a colour per idea with a marker underline that sweeps in. */
+  body .hf-guide .hf-guide__title { font-size: 27px; }
+  body .hf-guide .hf-guide__summary { position: relative; padding-left: 14px; font-size: 18px; font-weight: 500 !important; color: #FFFFFF; }
+  body .hf-guide .hf-guide__summary::before { content: ''; position: absolute; left: 0; top: .2em; bottom: .2em; width: 4px; border-radius: 4px; background: #FFC42E; }
+  .hf-guide .hf-bullets, .hf-guide .hf-bullets * { font-size: 18px; }
+  .hf-guide .hf-bullets { gap: 16px; }
+  .hf-guide .hf-bullets > li { grid-template-columns: 84px 1fr; }
+  .hf-guide .hf-bullets--steps > li { grid-template-columns: 12px 1fr; }
+  .hf-guide .hf-bullet-art svg { width: 84px; border-radius: 12px; box-shadow: 0 0 0 2px rgba(244,239,230,.18); }
+  .hf-guide .hf-bullets b { --hf-mark: #FFC42E; color: #FFD86B; background: linear-gradient(var(--hf-mark), var(--hf-mark)) 0 100% / 100% 3px no-repeat; padding-bottom: 2px; }
+  .hf-guide .hf-bullets > li:nth-child(2) b { --hf-mark: #4FC3E8; color: #8FDDF5; }
+  .hf-guide .hf-bullets > li:nth-child(3) b { --hf-mark: #F5A03C; color: #FFB877; }
+  .hf-guide .hf-bullets > li.hf-bullet-result b { --hf-mark: #B9AEF7; color: #D3CCFF; }
+  .hf-guide .hf-bullets > li.hf-reveal b { animation: hf-mark-in .6s cubic-bezier(.22,.78,.24,1) calc(var(--d, 0s) + .35s) backwards; }
+  @keyframes hf-mark-in { from { background-size: 0 3px; } to { background-size: 100% 3px; } }
+  body .hf-guide .hf-guide__step { display: block; order: 1; margin: 0 auto; color: rgba(244,239,230,.7); font-size: 15px; letter-spacing: .08em; }
+  body .hf-guide .hf-guide__button:not(.hf-guide__button--ghost) { order: 2; margin-left: 0; }
+  @media (prefers-reduced-motion: reduce) { .hf-guide .hf-bullets > li.hf-reveal b { animation: none; } }
   .hf-squash { transform-box: fill-box; transform-origin: 50% 100%; animation: hf-squash 3.2s ease-in-out infinite; }
   @keyframes hf-squash { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.82); } }
   /* The chosen example lifts slightly. */
