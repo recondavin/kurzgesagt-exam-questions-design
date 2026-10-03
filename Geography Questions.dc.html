@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./hyper-focus.js?v=sedimentary-guide-35"></script>
+<script src="./hyper-focus.js?v=sedimentary-guide-36"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -844,6 +844,13 @@
   .hf-guide .hf-bullets > li:nth-child(3) b { --hf-mark: #F5A03C; color: #FFB877; }
   .hf-guide .hf-bullets > li.hf-bullet-result b { --hf-mark: #B9AEF7; color: #D3CCFF; }
   .hf-guide .hf-bullets > li.hf-reveal b { animation: hf-mark-in .6s cubic-bezier(.22,.78,.24,1) calc(var(--d, 0s) + .35s) backwards; }
+  /* Typed text: each letter fades and rises into place as it is typed. */
+  .hf-guide .hf-word { white-space: nowrap; }
+  .hf-guide .hf-ch { display: inline-block; opacity: 0; }
+  .hf-guide .hf-word, .hf-guide .hf-ch { color: inherit; font-size: inherit; font-weight: inherit !important; }
+  .hf-guide .hf-ch.on { animation: hf-ch-in .28s cubic-bezier(.22,.78,.24,1) both; }
+  @media (prefers-reduced-motion: reduce) { .hf-guide .hf-ch { opacity: 1; animation: none !important; } }
+  @keyframes hf-ch-in { from { opacity: 0; transform: translateY(.3em); } to { opacity: 1; transform: none; } }
   @keyframes hf-mark-in { from { background-size: 0 3px; } to { background-size: 100% 3px; } }
   body .hf-guide .hf-guide__button { font-size: calc(17px * var(--hf-s, 1)); }
   body .hf-guide .hf-guide__step { display: block; order: 1; margin: 0 auto; color: rgba(244,239,230,.7); font-size: calc(15px * var(--hf-s, 1)); letter-spacing: .08em; }

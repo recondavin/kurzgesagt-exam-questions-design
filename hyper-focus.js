@@ -192,19 +192,65 @@
 
   // Fade the card in piece by piece: the instruction first, then each box in reading order.
   var GROUPS = '.hf-bullets';
+  var CHAR_MS = 22;
+
+  // Wrap every letter in its own span (words kept together so lines never break mid-word).
+  // The full text keeps its layout from the start; letters simply appear in turn.
+  function splitChars(host) {
+    var chars = [];
+    var walker = document.createTreeWalker(host, NodeFilter.SHOW_TEXT);
+    var nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(function (node) {
+      var frag = document.createDocumentFragment();
+      node.nodeValue.split(/(\s+)/).forEach(function (part) {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+        var word = document.createElement('span');
+        word.className = 'hf-word';
+        Array.prototype.forEach.call(part, function (letter) {
+          var ch = document.createElement('span');
+          ch.className = 'hf-ch';
+          ch.textContent = letter;
+          word.appendChild(ch);
+          chars.push(ch);
+        });
+        frag.appendChild(word);
+      });
+      node.parentNode.replaceChild(frag, node);
+    });
+    return chars;
+  }
+
+  // Type the card out: title, lead line, then each bullet (its picture fades in first).
   function revealInOrder(summary, visual) {
-    var items = [summary];
-    // When the camera is still travelling, wait for it so the pieces start once the card is visible.
-    var base = document.body.classList.contains('hf-camera-moving') ? 0.5 : 0;
+    var title = ui.guide.querySelector('[data-hf-title]');
+    var items = [title, summary];
     Array.prototype.forEach.call(visual.children, function (child) {
       if (child.matches(GROUPS)) items.push.apply(items, child.children);
       else items.push(child);
     });
-    items.forEach(function (item, i) {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // When the camera is still travelling, wait for it so typing starts once the guide is visible.
+    var t = document.body.classList.contains('hf-camera-moving') ? 500 : 0;
+    items.forEach(function (item) {
       item.classList.remove('hf-reveal');
       void item.offsetWidth;
-      item.style.setProperty('--d', (base + i * 0.32) + 's');
+      item.style.setProperty('--d', (t / 1000) + 's');
       item.classList.add('hf-reveal');
+      if (reduce) return;
+      var host = item.matches('li') ? item.querySelector(':scope > span:last-child') : item;
+      var chars = splitChars(host);
+      var start = t + (item.querySelector && item.querySelector('.hf-bullet-art') ? 260 : 0);
+      chars.forEach(function (ch, k) {
+        typeTimers.push(setTimeout(function () { ch.classList.add('on'); }, start + k * CHAR_MS));
+      });
+      // Sweep each key word's underline in just after that word finishes typing.
+      Array.prototype.forEach.call(host.querySelectorAll('b'), function (b) {
+        var last = chars.indexOf(b.querySelectorAll('.hf-ch')[b.querySelectorAll('.hf-ch').length - 1]);
+        b.style.animationDelay = ((start + last * CHAR_MS + 60) / 1000) + 's';
+      });
+      t = start + chars.length * CHAR_MS + 160;
     });
   }
 
