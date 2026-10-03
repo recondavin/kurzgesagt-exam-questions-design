@@ -225,18 +225,71 @@
   function groupHits(point, norm, tokens) {
     return point.all.map(function (group) { return group.some(function (stem) { return stemHit(stem, norm, tokens); }); });
   }
+  // ---------- sentence detection ----------
+  // Students often skip full stops, so sentences are also found from the words themselves:
+  // a capital letter after an ordinary word starts a new sentence (place names and words like
+  // "the" or "and" before it don't count), and a sentence still being typed counts as finished once
+  // it has a doing-word, at least six words, a space after its last word and no dangling ending.
+  function wordSet(list) { var o = {}; list.split(' ').forEach(function (w) { o[w] = true; }); return o; }
+  var LINKING = wordSet('and or but nor the a an of to from by into onto which that because so as such with in on at is are was were be been can could will would may might called when where while than then their its this these those his her our your my if since until unless like through over under about for after before during between also very more most');
+  var PROPER = wordSet('i ireland irish burren clare co county kerry cork munster leinster ulster connacht midlands central lowlands macgillycuddy macgillycuddys reeks galtee galtees comeragh knockmealdown carrauntoohil mourne mournes slieve aran moher cliffs liscannor fermanagh sligo benbulben ben bulben marble arch arigna leitrim roscommon castlecomer kilkenny tipperary dublin antrim giants causeway old red sandstone carboniferous devonian atlantic pacific europe european africa african american america eurasian japan japanese tokyo kobe fukushima tohoku california san francisco andreas los angeles chile new zealand christchurch turkey haiti nepal italy iceland indonesia china mexico ring fire richter mercalli gps usgs transamerica');
+  var VERB_WORDS = wordSet('is are was were be been am has have had can will may might could would do does did lay laid made make makes built ran sank rose fell took gave saw seen got went came kept stuck broke broken found ground hit cut shut put set sent taught bent wore swept');
+  var VERB_STEMS = 'becom form compact compress cement carr transport deposit settl build erod weather break turn contain occur caus use record measur detect predict reduc design sway absorb warn send stop prevent practi protect collaps shak mov rise releas help tak happen call squeez press pile glue stick harden lithif creat develop show appear give fold uplift expos sink die live chang kill destroy monitor stud look watch bend evacuat train teach keep store plan strengthen need allow mean tell say get come wear grind accumulat build drop wash blow flow erupt crack split slip shift strike hit ris fall bulg tilt leak emit indicat suggest mak find lead result produc dissolv precipitat evaporat bind bond fill cover bury buri sit lie remain fossilis fossiliz compos consist includ involv requir reinforc retrofit install fit add place equip educat inform alert notif track map identif analys analyz' .split(' ');
+  function hasVerb(words) {
+    return words.some(function (w) {
+      var t = w.toLowerCase().replace(/[^a-z]/g, '');
+      if (!t) return false;
+      if (VERB_WORDS[t] || (t.length > 4 && /ed$/.test(t))) return true;
+      return VERB_STEMS.some(function (stem) { return t.indexOf(stem) === 0 && t.length <= stem.length + 4; });
+    });
+  }
+  function bare(w) { return w.toLowerCase().replace(/'s$/, '').replace(/[^a-z']/g, ''); }
+  // Offsets inside `body` where a new sentence starts without punctuation.
+  function capitalBreaks(body) {
+    var out = [];
+    var re = /(\S+)(\s+)(?=[A-Z])/g, m;
+    while ((m = re.exec(body))) {
+      var prev = m[1];
+      var next = body.slice(m.index + m[0].length).match(/^[A-Za-z']+/);
+      if (!next) continue;
+      if (/[,;:(\-]$/.test(prev)) continue;
+      var p = bare(prev), n = bare(next[0]);
+      if (!p || LINKING[p] || PROPER[n] || n.length < 2 && n !== 'a') continue;
+      if (/^[A-Z]/.test(prev) && PROPER[p] && PROPER[n]) continue;
+      out.push(m.index + m[0].length);
+    }
+    return out;
+  }
+  function looksFinished(body, followedBySpace) {
+    var words = body.trim().split(/\s+/);
+    if (words.length < 6 || !followedBySpace) return false;
+    if (LINKING[bare(words[words.length - 1])]) return false;
+    return hasVerb(words);
+  }
   function splitSentences(text) {
     var out = [];
+    // Dots in abbreviations (Co. Clare, Mt. Fuji, e.g.) do not end a sentence.
+    var masked = text.replace(/\b(Co|St|Mt|Mr|Mrs|Dr|approx|etc|e\.g|i\.e|eg|ie|vs)\./gi, function (w) { return w.slice(0, -1) + '\u2024'; });
     var re = /[^.!?\n]+[.!?]*/g, m;
-    while ((m = re.exec(text))) {
-      var lead = m[0].match(/^\s*/)[0].length;
-      var body = m[0].slice(lead);
-      if (!body.trim()) continue;
-      var end = m.index + m[0].length;
-      var trimmedEnd = m.index + lead + body.replace(/\s+$/, '').length;
-      out.push({ start: m.index + lead, end: trimmedEnd, text: body.trim(),
-        complete: /[.!?]$/.test(body.trim()) || end < text.length,
-        words: body.trim().split(/\s+/).length, hits: [] });
+    while ((m = re.exec(masked))) {
+      var raw = text.slice(m.index, m.index + m[0].length);
+      var punct = /[.!?]\s*$/.test(raw);
+      var cuts = [0].concat(capitalBreaks(raw), [raw.length]);
+      for (var c = 0; c < cuts.length - 1; c++) {
+        var piece = raw.slice(cuts[c], cuts[c + 1]);
+        var lead = piece.match(/^\s*/)[0].length;
+        var body = piece.slice(lead).replace(/\s+$/, '');
+        if (!body) continue;
+        var start = m.index + cuts[c] + lead;
+        var end = start + body.length;
+        var lastPiece = c === cuts.length - 2;
+        var followed = end < text.length && /\s/.test(text.charAt(end));
+        var finishedByText = !lastPiece || punct || m.index + raw.length < text.length;
+        out.push({ start: start, end: end, text: body,
+          complete: finishedByText || looksFinished(body, followed),
+          open: lastPiece && !punct && m.index + raw.length >= text.length,
+          words: body.split(/\s+/).length, hits: [] });
+      }
     }
     return out;
   }
@@ -350,7 +403,12 @@
   // The answer is written across ruled pages. Each page is its own textarea with a fixed number
   // of lines; when a page fills up, the overflow moves onto the next page (a new one is added if needed).
   // The pages are joined with a space for marking, so a sentence can run over a page break.
-  function fullText() { return state.pages.map(function (p) { return p.ta.value; }).join(' '); }
+  function fullText() {
+    // Join up to the last page with writing on it, so empty pages don't add a fake trailing space.
+    var values = state.pages.map(function (p) { return p.ta.value; });
+    while (values.length > 1 && !values[values.length - 1]) values.pop();
+    return values.join(' ');
+  }
   function rowsFor(text) {
     var m = state.measure;
     m.textContent = text + '​';
@@ -551,7 +609,7 @@
   function check(silent, settled) {
     var before = state.got;
     state.sentences = evaluate(state.q, fullText(), function (s) { return settled || s.start === state.openStart; });
-    state.sentences.forEach(function (s) { if (!s.complete && s.hits.length) state.openStart = s.start; });
+    state.sentences.forEach(function (s) { if (s.open && s.hits.length) state.openStart = s.start; });
     var got = {}, newly = [];
     state.sentences.forEach(function (s) { s.hits.forEach(function (p) { got[p.id] = true; if (!before[p.id]) newly.push(p); }); });
     state.got = got;
@@ -600,9 +658,7 @@
     if (state.ghostOn && !ghostText(state.pages[state.active])) state.ghostOn = false;
     render();
     clearTimeout(state.checkTimer);
-    clearTimeout(state.settleTimer);
     state.checkTimer = later(function () { check(false, false); }, 700);
-    state.settleTimer = later(function () { check(false, true); }, 2200);
   }
 
   // ---------- open / close ----------
@@ -744,7 +800,8 @@
     has: function (id) { return Boolean(QUESTIONS[id]); },
     open: open,
     close: close,
-    // Exposed for testing the matcher: returns the point labels a piece of text earns.
+    // Exposed for testing: how text splits into sentences, and which points each one earns.
+    sentences: function (text) { return splitSentences(text).map(function (s) { return [s.text, s.complete]; }); },
     score: function (id, text) {
       return evaluate(QUESTIONS[id], text, function () { return true; }).map(function (s) { return { text: s.text, points: s.hits.map(function (p) { return p.label; }), near: s.near ? s.near.label : null }; });
     }
