@@ -262,6 +262,42 @@
     }
   };
 
+  // ---------- "Confused?" help for each plan step ----------
+  // chain: three boxes, "this -> this -> leads to this", with '?' marking the one to choose.
+  // options[answer] is right; hint shows after a wrong answer; drag is a sentence whose
+  // [bracketed] words become gaps to fill by dragging word boxes.
+  var QUIZ = {
+    _named: { chain: ['Rock made of layers', '?', '2 marks each'], options: ['Limestone and sandstone', 'Granite and basalt', 'Marble and slate'], answer: 0, hint: 'Sedimentary rocks are made from layers of sediment. Granite and basalt cool from magma (igneous). Marble and slate are changed by heat (metamorphic).', drag: 'Two examples of sedimentary rocks are [sandstone] and [limestone].' },
+    weather: { chain: ['Rain, frost and plant roots', '?', 'Small grains called sediment'], options: ['Break old rock down', 'Melt the rock', 'Glue the rock together'], answer: 0, hint: 'Weathering means rock being broken down. Think of frost: water in a crack freezes, swells and splits the rock.', drag: 'Older rocks are [weathered] and [eroded] into small pieces called [sediment].' },
+    transport: { chain: ['Loose sediment', '?', 'Ends up in the sea'], options: ['Rivers and wind carry it', 'It sinks into the ground', 'It turns into lava'], answer: 0, hint: 'Transport just means moving. Rivers, wind and ice are like conveyor belts for sediment.', drag: 'The sediment is [transported] by [rivers] and wind to the [sea].' },
+    deposit: { chain: ['The river slows down', '?', 'Flat layers called strata'], options: ['It drops the sand', 'It speeds up', 'It digs deeper'], answer: 0, hint: 'A slow river has less energy, so it can\'t carry its load any more. It drops it, layer after layer.', drag: 'When the river slows down, the sand is [deposited] in [layers] called [strata].' },
+    compact: { chain: ['More layers pile on top', '?', 'Water squeezed out'], options: ['Their weight presses down', 'They float away', 'They melt'], answer: 0, hint: 'Picture heavy books stacked on a sponge: the weight squeezes the water out. That is compaction.', drag: 'The [weight] of the layers above [compacts] the sediment and squeezes out the [water].' },
+    cement: { chain: ['Minerals in the water', '?', 'Solid rock'], options: ['Glue the grains together', 'Wash the grains away', 'Turn the grains to gas'], answer: 0, hint: 'Minerals like silica act like glue between the grains, the way cement holds bricks together.', drag: 'Minerals such as [silica] [cement] the grains together into solid [rock].' },
+    redDesert: { chain: ['Hot desert conditions', '?', 'Red sandstone'], options: ['Iron in the sand rusts', 'Plants grow on it', 'Snow covers it'], answer: 0, hint: 'Rust is red. Iron in the sand rusted (oxidised) in the hot, dry desert and stained the rock red.', drag: 'Old Red Sandstone is red because [iron] in the sand [oxidised] in hot [desert] conditions.' },
+    sandEx: { chain: ['Old Red Sandstone', '?', 'An Irish example'], options: ['MacGillycuddy\'s Reeks, Kerry', 'The Burren, Clare', 'Giant\'s Causeway, Antrim'], answer: 0, hint: 'The Burren is limestone and the Giant\'s Causeway is basalt. The mountains of Munster are sandstone.', drag: 'Old Red Sandstone can be seen in the [MacGillycuddy\'s] Reeks in Co. [Kerry].' },
+    limestone: { chain: ['Sea creatures die', '?', 'Limestone'], options: ['Their shells pile up on the sea floor', 'Birds eat them', 'They wash onto the beach'], answer: 0, hint: 'Limestone is made of life: the shells and skeletons of sea creatures and coral piled up on the sea floor.', drag: 'Limestone is formed from the [shells] and [skeletons] of sea creatures on the sea [floor].' },
+    warmSea: { chain: ['Ireland near the equator', '?', 'Lots of sea life'], options: ['Warm, shallow seas covered it', 'It was covered in ice', 'It was a dry desert'], answer: 0, hint: 'About 350 million years ago Ireland sat near the equator under warm, clear, shallow seas where sea life thrived.', drag: 'This happened in [warm] [shallow] seas when Ireland was near the [equator].' },
+    caco3: { chain: ['Shells', '?', 'What limestone is made of'], options: ['Calcium carbonate', 'Iron oxide', 'Salt'], answer: 0, hint: 'Shells are made of calcium carbonate, so the rock made from them is mostly calcium carbonate too.', drag: 'Limestone is made mainly of [calcium] [carbonate] from the shells.' },
+    fossils: { chain: ['Shells buried in layers', '?', 'Fossils'], options: ['Their shape is kept in the rock', 'They dissolve away', 'They turn into sand'], answer: 0, hint: 'When shells are buried in layers, their shape is preserved in the rock. That is a fossil.', drag: 'Limestone often contains [fossils] of [sea] creatures.' },
+    limeEx: { chain: ['Limestone', '?', 'An Irish example'], options: ['The Burren, Clare', 'MacGillycuddy\'s Reeks, Kerry', 'Mourne Mountains, Down'], answer: 0, hint: 'The Burren in Clare is a famous bare limestone landscape. The Reeks are sandstone and the Mournes are granite.', drag: 'Limestone can be seen at the [Burren] in Co. [Clare].' },
+    time: { chain: ['Loose sediment', '?', 'Solid rock'], options: ['Millions of years', 'A few days', 'One winter'], answer: 0, hint: 'Rock forms incredibly slowly: millions of years of layering, squeezing and gluing.', drag: 'This process takes [millions] of [years].' },
+    uplift: { chain: ['Rock formed under the sea', '?', 'Rock on land today'], options: ['Plate movements lift it up', 'The sea dries up in a day', 'People dig it up'], answer: 0, hint: 'Moving plates push rock layers up and fold them, lifting old sea floor onto land.', drag: 'The rocks were later [uplifted] by [plate] movements and are now on [land].' },
+    seismo: { chain: ['The ground vibrates', '?', 'Warning of a bigger quake'], options: ['A seismograph records it', 'A thermometer measures it', 'A barometer measures it'], answer: 0, hint: 'Seismographs record shaking. Small tremors (foreshocks) can come before a big earthquake.', drag: 'Seismographs [record] small [tremors] called [foreshocks].' },
+    gaps: { chain: ['A fault hasn\'t moved for years', '?', 'Likely to have the next quake'], options: ['Stress keeps building up', 'The fault disappears', 'The plates stop moving'], answer: 0, hint: 'The plates keep pushing. If part of a fault hasn\'t slipped, stress is building there like a stretched elastic band.', drag: 'A [seismic] [gap] is part of a fault that has not moved, so [stress] is building up.' },
+    tilt: { chain: ['Stress builds underground', '?', 'A tiltmeter detects it'], options: ['The ground bulges and tilts', 'The ground turns red', 'Rivers dry up'], answer: 0, hint: 'Rock under stress bends very slightly, so the surface bulges. Tiltmeters measure the tiny tilt.', drag: '[Tiltmeters] measure [bulging] of the ground as [stress] builds up.' },
+    laser: { chain: ['Plates creep along a fault', '?', 'We see where stress builds'], options: ['Lasers and GPS measure it', 'Telescopes watch the moon', 'Radios listen to the ground'], answer: 0, hint: 'Satellites and lasers can measure movements of just millimetres along a fault.', drag: '[GPS] satellites measure tiny [movements] along [fault] lines.' },
+    radon: { chain: ['Rocks crack under stress', '?', 'A warning sign in wells'], options: ['Radon gas escapes', 'The water freezes', 'Gold appears'], answer: 0, hint: 'Cracking rock lets radon gas escape into well water, so more radon can mean a quake is coming.', drag: 'As rocks [crack], [radon] gas escapes into well [water].' },
+    animals: { chain: ['Tiny vibrations before a quake', '?', 'A possible warning'], options: ['Animals act strangely', 'Plants grow faster', 'The sky turns green'], answer: 0, hint: 'Animals may sense small vibrations people can\'t, so they act restless. It isn\'t reliable though.', drag: '[Unusual] animal [behaviour] has been reported before [earthquakes].' },
+    difficult: { chain: ['We know where quakes happen', '?', 'Reducing effects matters'], options: ['But not exactly when', 'And exactly when', 'So they never happen'], answer: 0, hint: 'Scientists know the risky places but can\'t name the day or hour, so people must always be ready.', drag: 'Scientists cannot predict the [exact] [time] of an earthquake.' },
+    build: { chain: ['The ground shakes', '?', 'The building stays up'], options: ['It is designed to sway, not crack', 'It is painted brighter', 'It is made taller'], answer: 0, hint: 'A building that bends with the shaking survives; a stiff one cracks. Building codes make this the law.', drag: 'Buildings are [designed] to [sway] so they do not [collapse].' },
+    base: { chain: ['The ground shakes', '?', 'The building shakes less'], options: ['Rubber pads absorb it', 'Windows are opened', 'The roof is removed'], answer: 0, hint: 'Base isolators work like shock absorbers in a car, soaking up the jolts.', drag: 'Rubber [shock] [absorbers] in the foundations absorb the [shaking].' },
+    damper: { chain: ['A skyscraper sways', '?', 'The building steadies'], options: ['A counterweight moves against it', 'People run to the top', 'The lights go off'], answer: 0, hint: 'A heavy weight near the top swings the opposite way to the sway, cancelling it out.', drag: 'Tall buildings use [counterweights] on the roof to reduce [swaying].' },
+    drills: { chain: ['People practise drills', '?', 'Fewer injuries'], options: ['They know to drop, cover, hold on', 'They forget what to do', 'They run outside while it shakes'], answer: 0, hint: 'Practice makes the safe response automatic: drop, cover and hold on.', drag: 'People practise earthquake [drills] so they know to [drop], cover and hold on.' },
+    warning: { chain: ['The first waves are detected', '?', 'Trains stop, people take cover'], options: ['Alerts go out to phones', 'Nothing happens', 'The waves are stopped'], answer: 0, hint: 'The first, weaker waves travel ahead of the strong shaking, giving a few seconds of warning.', drag: 'Early [warning] systems send [alerts] to phones.' },
+    emergency: { chain: ['Power and water are cut off', '?', 'Families get through the first days'], options: ['They use emergency kits', 'They wait for summer', 'They move house'], answer: 0, hint: 'Kits with water, food and a torch keep people going until help arrives.', drag: 'Families keep [emergency] kits with [food] and [water].' },
+    shutoff: { chain: ['Pipes break in the shaking', '?', 'No fires start'], options: ['Gas shuts off by itself', 'Gas flows faster', 'People light candles'], answer: 0, hint: 'Leaking gas causes fires after earthquakes, so valves shut it off as soon as shaking starts.', drag: 'Gas supplies [shut] off [automatically] to prevent [fires].' }
+  };
+
   var state = null;
 
   // ---------- matching ----------
@@ -535,15 +571,16 @@
   }
   function renderPlan() {
     var plan = PLANS[state.id];
-    var html = '<div class="am-plan__head"><span>Your plan</span><button type="button" class="am-link" data-am-howto>How to get 30</button></div>';
+    var html = '<div class="am-plan__head"><span>Your plan</span></div>';
     plan.sections.forEach(function (sec) {
       html += '<div class="am-plan__sec"><h5>' + sec.title + '</h5>' + (sec.note ? '<p class="am-plan__note">' + sec.note + '</p>' : '');
       sec.items.forEach(function (it) {
         html += '<div class="am-plan__item" data-am-item="' + it.id + '">' +
           '<button type="button" class="am-plan__row" data-am-plan="' + it.id + '"><i class="am-plan__dot"></i><span>' + it.title + '</span></button>' +
-          '<div class="am-plan__more"><p class="am-plan__ask">' + it.ask + '</p><p>' + it.why + '</p><p class="am-plan__example" hidden></p>' +
+          '<div class="am-plan__more"><p class="am-plan__ask">' + it.ask + '</p>' +
           '<div class="am-plan__btns"><button type="button" class="am-btn am-btn--mini" data-am-starter="' + it.id + '">Start my sentence</button>' +
-          (it.id === '_named' ? '' : '<button type="button" class="am-btn am-btn--mini am-btn--ghost" data-am-example="' + it.id + '">Show an example</button>') + '</div></div></div>';
+          '<button type="button" class="am-btn am-btn--mini am-btn--ghost" data-am-confused="' + it.id + '">Confused?</button></div>' +
+          '<div class="am-help" hidden></div></div></div>';
       });
       html += '</div>';
     });
@@ -568,15 +605,6 @@
     state.planEl.querySelectorAll('.am-plan__item--open').forEach(function (r) { r.classList.remove('am-plan__item--open'); });
     if (open) row.classList.add('am-plan__item--open');
   }
-  function showExample(id) {
-    var row = state.planEl.querySelector('[data-am-item="' + id + '"]');
-    var p = pointById(id);
-    var line = row.querySelector('.am-plan__example');
-    var c = p && p.clue ? p.clue[2] : '';
-    var m = c.match(/<i>(.*?)<\/i>/);
-    line.innerHTML = m ? m[1] : '';
-    line.hidden = !m;
-  }
   function insertStarter(id) {
     var it = planItems().filter(function (x) { return x.id === id; })[0];
     if (!it) return;
@@ -591,21 +619,146 @@
     focusPage(last, Infinity);
     onInput();
   }
-  function showPlanIntro() {
-    var plan = PLANS[state.id];
-    var old = state.root.querySelector('.am-finish');
-    if (old) old.remove();
-    var card = el('div', 'am-finish am-howto');
-    card.innerHTML = '<div class="am-finish__card" role="dialog" aria-label="How to get 30 marks">' +
-      '<div class="am-finish__kicker">' + state.q.code + ' &middot; ' + state.q.title + '</div>' +
-      '<h3 class="am-howto__title">How to get 30 marks</h3>' +
-      '<div class="am-howto__map">' + plan.overview.map(function (r, k) {
-        return '<div class="am-howto__row" style="--k:' + k + '"><span>' + r[0] + '</span><b>' + r[1] + '</b></div>';
+  // ---------- "Confused?": quiz, then drag the words into the sentence ----------
+  function shuffle(list, seed) {
+    var a = list.slice(), s = seed || 7;
+    for (var i = a.length - 1; i > 0; i--) { s = (s * 9301 + 49297) % 233280; var j = Math.floor(s / 233280 * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+  // A green tick or red cross that draws itself over `host`.
+  function stamp(host, ok) {
+    var mark = el('span', 'am-stamp ' + (ok ? 'am-stamp--ok' : 'am-stamp--no'),
+      ok ? '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M6.5 12.5l3.6 3.6L17.5 8.5"/></svg>'
+         : '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M8 8l8 8M16 8l-8 8"/></svg>');
+    host.appendChild(mark);
+    if (!ok) { host.classList.remove('am-shake'); void host.offsetWidth; host.classList.add('am-shake'); }
+    later(function () { mark.remove(); }, 1100);
+  }
+  function helpBox(id) { return state.planEl.querySelector('[data-am-item="' + id + '"] .am-help'); }
+  function showQuiz(id) {
+    var qz = QUIZ[id], box = helpBox(id);
+    if (!qz || !box) return;
+    var order = shuffle(qz.options.map(function (o, k) { return k; }), id.length * 31);
+    box.innerHTML = '<div class="am-chain">' + qz.chain.map(function (c, k) {
+        return (k ? '<i class="am-chain__arrow">&darr;</i>' : '') + '<span class="am-chain__box' + (c === '?' ? ' am-chain__box--gap' : '') + '">' + (c === '?' ? '?' : c) + '</span>';
       }).join('') + '</div>' +
-      '<ul class="am-howto__rules">' + plan.rules.map(function (r) { return '<li>' + r + '</li>'; }).join('') + '</ul>' +
-      '<div class="am-finish__buttons"><button type="button" class="am-btn am-btn--ok" data-am-keep>Show me the plan</button></div>' +
-      '</div>';
-    state.root.appendChild(card);
+      '<p class="am-help__q">Which fits the gap?</p>' +
+      '<div class="am-quiz">' + order.map(function (k) { return '<button type="button" class="am-quiz__opt" data-am-opt="' + id + ':' + k + '">' + qz.options[k] + '</button>'; }).join('') + '</div>' +
+      '<p class="am-help__hint" hidden></p>' +
+      '<div class="am-help__foot"><button type="button" class="am-link" data-am-drag="' + id + '">Still confused?</button></div>';
+    box.hidden = false;
+    box.setAttribute('data-wrong', '0');
+    box.scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' });
+  }
+  function answerQuiz(id, k) {
+    var qz = QUIZ[id], box = helpBox(id);
+    var btn = box.querySelector('[data-am-opt="' + id + ':' + k + '"]');
+    if (k === qz.answer) {
+      btn.classList.add('am-quiz__opt--ok');
+      stamp(btn, true);
+      var gap = box.querySelector('.am-chain__box--gap');
+      gap.textContent = qz.options[k];
+      gap.classList.add('am-chain__box--filled');
+      box.querySelectorAll('.am-quiz__opt').forEach(function (b) { b.disabled = true; });
+      var hint = box.querySelector('.am-help__hint');
+      hint.hidden = false;
+      hint.classList.add('am-help__hint--ok');
+      hint.textContent = 'That\'s it! ' + qz.hint;
+      box.querySelector('.am-help__foot').innerHTML = '<button type="button" class="am-btn am-btn--mini" data-am-starter="' + id + '">Now write it</button><button type="button" class="am-link" data-am-drag="' + id + '">Build the sentence</button>';
+      return;
+    }
+    btn.classList.add('am-quiz__opt--no');
+    btn.disabled = true;
+    stamp(btn, false);
+    var wrong = +box.getAttribute('data-wrong') + 1;
+    box.setAttribute('data-wrong', wrong);
+    var h = box.querySelector('.am-help__hint');
+    h.hidden = false;
+    h.textContent = 'Not quite. ' + qz.hint;
+    if (wrong >= 2) later(function () { showDrag(id); }, 1300);
+  }
+  function showDrag(id) {
+    var qz = QUIZ[id], box = helpBox(id);
+    if (!qz || !box) return;
+    var parts = qz.drag.split(/\[([^\]]+)\]/);
+    var words = parts.filter(function (p, k) { return k % 2; });
+    var others = Object.keys(QUIZ).filter(function (k) { return k !== id; }).map(function (k) { return QUIZ[k].drag.match(/\[([^\]]+)\]/)[1]; });
+    var decoy = shuffle(others, id.length * 17)[0];
+    var tiles = shuffle(words.concat([decoy]), id.length * 13);
+    box.innerHTML = '<p class="am-help__q">Drag the words into the gaps.</p>' +
+      '<p class="am-drag__sentence">' + parts.map(function (p, k) {
+        return k % 2 ? '<span class="am-drag__gap" data-am-gap="' + esc(p.toLowerCase()) + '"></span>' : esc(p);
+      }).join('') + '</p>' +
+      '<div class="am-drag__tiles">' + tiles.map(function (w) { return '<span class="am-drag__tile" data-am-tile="' + esc(w.toLowerCase()) + '">' + esc(w) + '</span>'; }).join('') + '</div>' +
+      '<div class="am-help__foot"></div>';
+    box.hidden = false;
+    box.scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' });
+    box.querySelectorAll('.am-drag__tile').forEach(function (tile) { tile.addEventListener('pointerdown', function (e) { startTileDrag(e, tile, id); }); });
+  }
+  function startTileDrag(e, tile, id) {
+    if (tile.classList.contains('am-drag__tile--used')) return;
+    e.preventDefault();
+    var startX = e.clientX, startY = e.clientY, moved = false;
+    var ghost = null;
+    function move(ev) {
+      if (!moved && Math.abs(ev.clientX - startX) + Math.abs(ev.clientY - startY) > 6) {
+        moved = true;
+        ghost = tile.cloneNode(true);
+        ghost.classList.add('am-drag__tile--ghost');
+        document.body.appendChild(ghost);
+        tile.classList.add('am-drag__tile--lifted');
+      }
+      if (ghost) { ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px'; }
+    }
+    function up(ev) {
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerup', up);
+      tile.classList.remove('am-drag__tile--lifted');
+      var gap = null;
+      if (ghost) {
+        ghost.remove();
+        var under = document.elementFromPoint(ev.clientX, ev.clientY);
+        gap = under && under.closest('.am-drag__gap');
+      } else {
+        // A tap places the word in the first empty gap.
+        gap = helpBox(id).querySelector('.am-drag__gap:not(.am-drag__gap--full)');
+      }
+      if (gap && !gap.classList.contains('am-drag__gap--full')) dropTile(tile, gap, id);
+    }
+    document.addEventListener('pointermove', move);
+    document.addEventListener('pointerup', up);
+  }
+  function dropTile(tile, gap, id) {
+    if (tile.getAttribute('data-am-tile') !== gap.getAttribute('data-am-gap')) {
+      stamp(tile, false);
+      stamp(gap, false);
+      return;
+    }
+    gap.textContent = tile.textContent;
+    gap.classList.add('am-drag__gap--full');
+    tile.classList.add('am-drag__tile--used');
+    stamp(gap, true);
+    var box = helpBox(id);
+    if (box.querySelector('.am-drag__gap:not(.am-drag__gap--full)')) return;
+    later(function () {
+      var sentence = box.querySelector('.am-drag__sentence');
+      sentence.classList.add('am-drag__sentence--done');
+      stamp(sentence, true);
+      box.querySelector('.am-drag__tiles').remove();
+      box.querySelector('.am-help__foot').innerHTML = '<span class="am-help__well">You built it! That is one SRP.</span><button type="button" class="am-btn am-btn--mini" data-am-use="' + id + '">Put it on my lines</button>';
+    }, 450);
+  }
+  function useSentence(id) {
+    var text = QUIZ[id].drag.replace(/\[([^\]]+)\]/g, '$1');
+    var k = 0;
+    state.pages.forEach(function (p, i) { if (p.ta.value.trim()) k = i; });
+    var ta = state.pages[k].ta, v = ta.value;
+    ta.value = v + (v && !/\s$/.test(v) ? ' ' : '') + text + ' ';
+    reflow(k);
+    var last = 0;
+    state.pages.forEach(function (p, i) { if (p.ta.value.trim()) last = i; });
+    focusPage(last, Infinity);
+    onInput();
   }
 
   // ---------- writing area ----------
@@ -964,7 +1117,7 @@
           '</div>' +
           '<div class="am-coach__buttons"><button type="button" class="am-btn am-btn--ok" data-am-ok>OK</button><button type="button" class="am-btn am-btn--finish" data-am-finish>Finish</button><button type="button" class="am-btn am-btn--more" data-am-more>Still don\'t get it</button></div>' +
           '<button type="button" class="am-btn am-btn--clue" data-am-clue>Stuck?</button>' +
-          '<div class="am-coach__foot"><button type="button" class="am-link" data-am-guide>Watch the guide again</button><span>Marked with the rules of the SEC 2024 marking scheme. A practice guide, not an official grade.</span></div>' +
+          '<div class="am-coach__foot"><span>Marked with the rules of the SEC 2024 marking scheme. A practice guide, not an official grade.</span></div>' +
         '</aside>' +
       '</div>';
     document.body.appendChild(root);
@@ -1017,9 +1170,14 @@
       if (planBtn) { togglePlanItem(planBtn.getAttribute('data-am-plan')); return; }
       var starter = e.target.closest('[data-am-starter]');
       if (starter) { insertStarter(starter.getAttribute('data-am-starter')); return; }
-      var example = e.target.closest('[data-am-example]');
-      if (example) { showExample(example.getAttribute('data-am-example')); return; }
-      if (e.target.closest('[data-am-howto]')) { showPlanIntro(); return; }
+      var confused = e.target.closest('[data-am-confused]');
+      if (confused) { showQuiz(confused.getAttribute('data-am-confused')); return; }
+      var opt = e.target.closest('[data-am-opt]');
+      if (opt) { var bits = opt.getAttribute('data-am-opt').split(':'); answerQuiz(bits[0], +bits[1]); return; }
+      var drag = e.target.closest('[data-am-drag]');
+      if (drag) { showDrag(drag.getAttribute('data-am-drag')); return; }
+      var use = e.target.closest('[data-am-use]');
+      if (use) { useSentence(use.getAttribute('data-am-use')); return; }
       if (e.target.closest('[data-am-finish]')) { showResults(); return; }
       if (e.target.closest('[data-am-keep]')) {
         var card = state.root.querySelector('.am-finish');
@@ -1039,10 +1197,6 @@
         focusPage(page.index, 0);
         requestAnimationFrame(function () { state.pagesEl.parentNode.scrollTo({ top: page.el.offsetTop - 12, behavior: reduced() ? 'auto' : 'smooth' }); });
         return;
-      }
-      if (e.target.closest('[data-am-guide]')) {
-        close();
-        if (window.ExamHyperFocus) window.ExamHyperFocus.start(id);
       }
     });
     root.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
@@ -1091,7 +1245,6 @@
       var last = 0;
       state.pages.forEach(function (p, k) { if (p.ta.value.trim()) last = k; });
       focusPage(last, Infinity);
-      if (!store('am-howto-' + id)) { store('am-howto-' + id, '1'); showPlanIntro(); }
     }, fast ? 0 : 1700);
     return true;
   }
@@ -1216,21 +1369,21 @@
     '.am-root .am-plan,.am-root .am-coach,.am-root .am-coach__body,.am-root .am-sheet-wrap,.am-root .am-finish__card{scrollbar-width:none}',
     '.am-root .am-plan::-webkit-scrollbar,.am-root .am-coach::-webkit-scrollbar,.am-root .am-coach__body::-webkit-scrollbar,.am-root .am-sheet-wrap::-webkit-scrollbar,.am-root .am-finish__card::-webkit-scrollbar{display:none}',
     '.am-plan__head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}',
-    '.am-plan__head span{font:600 16px Fredoka,Nunito,sans-serif;color:#9FB0CC;letter-spacing:.03em}',
+    '.am-plan__head span{font:600 19px Fredoka,Nunito,sans-serif;color:#C9D6EE;letter-spacing:.02em}',
     '.am-plan__sec{margin-bottom:8px}',
-    '.am-plan__sec h5{margin:10px 0 2px;font:600 13px Fredoka,Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#6F84A6}',
+    '.am-plan__sec h5{margin:14px 0 4px;font:600 14px Fredoka,Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#6F84A6}',
     '.am-plan__note{margin:0 0 4px;font:600 13px/1.35 Nunito,sans-serif;color:#9FB0CC}',
-    '.am-plan__row{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;border-radius:8px;padding:5px 4px;color:#8D9FBF;font:700 15px/1.25 Nunito,sans-serif;text-align:left;cursor:pointer;transition:color .2s ease}',
+    '.am-plan__row{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;border-radius:8px;padding:7px 4px;color:#8D9FBF;font:700 18px/1.25 Nunito,sans-serif;text-align:left;cursor:pointer;transition:color .2s ease}',
     '.am-plan__row:hover{color:#E8EEFA}',
-    '.am-plan__dot{flex:0 0 16px;height:16px;border-radius:50%;border:2px solid #3A5175;box-sizing:border-box;position:relative}',
+    '.am-plan__dot{flex:0 0 20px;height:20px;border-radius:50%;border:2px solid #3A5175;box-sizing:border-box;position:relative}',
     '.am-plan__item--next .am-plan__dot{border-color:#FFD43B}',
     '.am-plan__item--next .am-plan__row{color:#fff}',
     '.am-plan__item--done .am-plan__dot{background:#2BC46F;border-color:#2BC46F}',
-    '.am-plan__item--done .am-plan__dot::after{content:"";position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}',
+    '.am-plan__item--done .am-plan__dot::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}',
     '.am-plan__item--done .am-plan__row span{color:#5E9C7C}',
     '.am-plan__more{display:none;margin:2px 0 10px 30px;padding:2px 0 2px 12px;border-left:2px solid #2A3D5E}',
     '.am-plan__item--open .am-plan__more{display:block;animation:amIn .3s ease both}',
-    '.am-plan__more p{margin:0 0 8px;font:700 15px/1.45 Nunito,sans-serif;color:#C9D6EE}',
+    '.am-plan__more p{margin:0 0 10px;font:700 16px/1.45 Nunito,sans-serif;color:#C9D6EE}',
     '.am-plan__ask{color:#FFE14D !important}',
     '.am-plan__example{color:#BFF5D6 !important;border-left:3px solid #2BC46F;padding-left:10px}',
     '.am-plan__btns{display:flex;gap:8px;flex-wrap:wrap}',
@@ -1246,6 +1399,42 @@
     '.am-howto__rules b{color:#FFE14D;font-family:Fredoka,Nunito,sans-serif;font-weight:600}',
     '.am-root .am-plan__row,.am-root .am-plan__more p,.am-root .am-plan__note,.am-root .am-howto__row span,.am-root .am-howto__rules li{font-family:Nunito,system-ui,sans-serif !important}',
     '.am-root .am-plan__head span,.am-root .am-plan__sec h5,.am-root .am-howto__title,.am-root .am-howto__row b{font-family:Fredoka,Nunito,sans-serif !important}',
+    '.am-help{margin-top:12px}',
+    '.am-chain{display:flex;flex-direction:column;align-items:flex-start;gap:4px;margin-bottom:12px}',
+    '.am-chain__box{position:relative;background:#1B2E4B;color:#E8EEFA;border-radius:10px;padding:7px 10px;font:700 14px/1.3 Nunito,sans-serif}',
+    '.am-chain__box--gap{background:transparent;border:2px dashed #FFD43B;color:#FFD43B;min-width:28px;text-align:center}',
+    '.am-chain__box--filled{border:2px solid #2BC46F;background:#173B2A;color:#7DF0B0;animation:amPop .45s cubic-bezier(.3,1.6,.5,1) both}',
+    '.am-chain__arrow{font-style:normal;color:#6F84A6;font-weight:900;padding-left:14px;line-height:1}',
+    '.am-help__q{color:#FFE14D !important;margin-bottom:8px !important}',
+    '.am-quiz{display:grid;gap:8px}',
+    '.am-quiz__opt{position:relative;text-align:left;border:2px solid #2A3D5E;background:transparent;color:#E8EEFA;border-radius:12px;padding:10px 12px;font:700 15px/1.3 Nunito,sans-serif;cursor:pointer;transition:border-color .2s ease,background .2s ease}',
+    '.am-quiz__opt:hover:not(:disabled){border-color:#5CD6FF}',
+    '.am-quiz__opt--ok{border-color:#2BC46F;background:#173B2A;color:#7DF0B0}',
+    '.am-quiz__opt--no{border-color:#E5484D;color:#FF9A9D;opacity:.75}',
+    '.am-help__hint{margin-top:10px !important;color:#FFC9A8 !important}',
+    '.am-help__hint--ok{color:#BFF5D6 !important}',
+    '.am-help__foot{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px}',
+    '.am-help__well{font:700 15px Fredoka,Nunito,sans-serif;color:#7DF0B0}',
+    '.am-drag__sentence{position:relative;font:700 17px/2.3 Nunito,sans-serif !important;color:#E8EEFA !important;border-radius:10px;transition:background .3s ease}',
+    '.am-drag__sentence--done{background:#173B2A;padding:4px 10px}',
+    '.am-drag__gap{position:relative;display:inline-block;min-width:74px;height:30px;line-height:26px;vertical-align:middle;border:2px dashed #FFD43B;border-radius:9px;margin:0 3px;padding:0 8px;box-sizing:border-box;color:#7DF0B0;text-align:center}',
+    '.am-drag__gap--full{border:2px solid #2BC46F;background:#173B2A;animation:amPop .4s cubic-bezier(.3,1.6,.5,1) both}',
+    '.am-drag__tiles{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 4px}',
+    '.am-drag__tile{position:relative;user-select:none;touch-action:none;cursor:grab;background:#E8EEFA;color:#14243B;border-radius:10px;padding:6px 12px;font:700 16px Nunito,sans-serif;box-shadow:0 3px 0 #9FB0CC}',
+    '.am-drag__tile--lifted{opacity:.35}',
+    '.am-drag__tile--used{visibility:hidden}',
+    '.am-drag__tile--ghost{position:fixed;z-index:2147483647;pointer-events:none;transform:translate(-50%,-60%) rotate(-3deg) scale(1.08);box-shadow:0 10px 24px rgba(0,0,0,.4)}',
+    '.am-stamp{position:absolute;right:-10px;top:-12px;width:28px;height:28px;pointer-events:none;animation:amStamp 1.1s ease both;z-index:2}',
+    '.am-stamp svg{width:100%;height:100%;display:block}',
+    '.am-stamp--ok circle{fill:#2BC46F}',
+    '.am-stamp--no circle{fill:#E5484D}',
+    '.am-stamp path{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30;animation:amDraw .35s .12s ease forwards}',
+    '@keyframes amDraw{to{stroke-dashoffset:0}}',
+    '@keyframes amStamp{0%{transform:scale(0)}18%{transform:scale(1.25)}30%{transform:scale(1)}80%{opacity:1}100%{opacity:0}}',
+    '.am-shake{animation:amShake .4s ease}',
+    '@keyframes amShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}',
+    '.am-root .am-chain__box,.am-root .am-quiz__opt,.am-root .am-drag__tile,.am-root .am-drag__gap{font-family:Nunito,system-ui,sans-serif !important}',
+    'body > .am-drag__tile--ghost{font-family:Nunito,system-ui,sans-serif !important}',
     '.am-coach__buttons{display:flex;gap:10px;flex-wrap:wrap}',
     '.am-btn--finish{display:none;flex:1;background:#5CD6FF;color:#0C1628;box-shadow:0 4px 0 #2A9BC4}',
     '.am-btn--finish:active{box-shadow:0 1px 0 #2A9BC4}',
