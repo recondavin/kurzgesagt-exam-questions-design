@@ -730,6 +730,118 @@
     onInput();
   }
 
+  // ---------- Brain dump: write everything you remember, then learn how to phrase it ----------
+  var DUMP_SECONDS = 240;
+  function keyWords(id) {
+    var qz = QUIZ[id];
+    return qz ? (qz.drag.match(/\[([^\]]+)\]/g) || []).map(function (k) { return k.slice(1, -1); }) : [];
+  }
+  // The exam version of a step, with its key words highlighted.
+  function examVersion(id) {
+    var qz = QUIZ[id];
+    return qz ? esc(qz.drag).replace(/\[([^\]]+)\]/g, '<b>$1</b>') : '';
+  }
+  function phraseTips(id, line) {
+    var low = line.toLowerCase();
+    var missing = keyWords(id).filter(function (k) {
+      var root = k.toLowerCase().replace(/[^a-z']/g, '');
+      return root && low.indexOf(root.slice(0, Math.max(4, root.length - 3))) < 0;
+    });
+    var tips = [];
+    if (missing.length) tips.push('Use the key word' + (missing.length > 1 ? 's' : '') + ': <b>' + missing.map(esc).join('</b>, <b>') + '</b>');
+    var isExample = id === '_named' || (state.q.examples || []).indexOf(id) >= 0;
+    if (!isExample && line.trim().split(/\s+/).length < 8) tips.push('Add the why or how: "&hellip;<b>because</b>&hellip;" or "&hellip;<b>so</b>&hellip;"');
+    return tips;
+  }
+  function openBrainDump() {
+    var old = state.root.querySelector('.am-finish');
+    if (old) old.remove();
+    clearInterval(state.dumpTimer);
+    var card = el('div', 'am-finish am-dump');
+    card.innerHTML = '<div class="am-finish__card am-dump__card" role="dialog" aria-label="Brain dump">' +
+      '<div class="am-dump__top"><div><div class="am-finish__kicker">' + state.q.code + ' &middot; ' + state.q.title + '</div>' +
+      '<h3 class="am-dump__title">Brain dump</h3></div><div class="am-dump__clock" data-am-clock>4:00</div></div>' +
+      '<div class="am-dump__bar"><i data-am-bar></i></div>' +
+      '<p class="am-dump__how">Write every fact you remember. <b>One fact per line.</b> Don\'t worry about wording yet.</p>' +
+      '<textarea class="am-dump__box" spellcheck="true" aria-label="Write everything you remember"></textarea>' +
+      '<div class="am-finish__buttons"><button type="button" class="am-btn am-btn--more" data-am-keep>Cancel</button><button type="button" class="am-btn am-btn--ok" data-am-dumpdone>I\'m done</button></div>' +
+      '</div>';
+    state.root.appendChild(card);
+    var box = card.querySelector('.am-dump__box');
+    box.focus();
+    var left = DUMP_SECONDS;
+    var clock = card.querySelector('[data-am-clock]'), bar = card.querySelector('[data-am-bar]');
+    state.dumpTimer = setInterval(function () {
+      if (!state || !card.isConnected) { clearInterval(state && state.dumpTimer); return; }
+      left -= 1;
+      clock.textContent = Math.floor(left / 60) + ':' + ('0' + (left % 60)).slice(-2);
+      bar.style.width = (left / DUMP_SECONDS * 100) + '%';
+      if (left <= 30) clock.classList.add('am-dump__clock--low');
+      if (left <= 0) finishBrainDump();
+    }, 1000);
+  }
+  function finishBrainDump() {
+    clearInterval(state.dumpTimer);
+    var card = state.root.querySelector('.am-dump');
+    if (!card) return;
+    var text = card.querySelector('.am-dump__box').value;
+    var sentences = evaluate(state.q, text, always);
+    var got = {}, gotLines = [], misses = [];
+    sentences.forEach(function (s) {
+      if (s.hits.length) s.hits.forEach(function (p) { if (!got[p.id]) { got[p.id] = true; gotLines.push({ id: p.id, line: s.text }); } });
+      else if (s.words >= 3) misses.push(s);
+    });
+    var named = !state.q.sides && ROCKS.filter(function (r) { return (' ' + text.toLowerCase()).indexOf(' ' + r) >= 0; }).length >= 2;
+    if (named) got._named = true;
+    var items = planItems();
+    var remembered = items.filter(function (it) { return got[it.id]; });
+    var forgot = items.filter(function (it) { return !got[it.id]; });
+    store('am-dump-' + state.id, JSON.stringify({ at: Date.now(), got: Object.keys(got) }));
+
+    var html = '<div class="am-finish__kicker">' + state.q.code + ' &middot; ' + state.q.title + '</div>' +
+      '<h3 class="am-dump__title">You remembered ' + remembered.length + ' of ' + items.length + '</h3>' +
+      '<div class="am-dump__bar am-dump__bar--score"><i style="width:' + Math.round(remembered.length / items.length * 100) + '%"></i></div>';
+    if (gotLines.length) {
+      html += '<h4 class="am-dump__h">How to phrase it</h4><p class="am-dump__sub">Your words, then the exam version. The <b>highlighted</b> words are the ones that earn the mark.</p>';
+      gotLines.forEach(function (g) {
+        var tips = phraseTips(g.id, g.line);
+        html += '<div class="am-dump__pair">' +
+          '<div class="am-dump__yours"><span>You wrote</span>' + esc(g.line) + '</div>' +
+          '<div class="am-dump__exam"><span>Exam version</span>' + examVersion(g.id) + '</div>' +
+          '<div class="am-dump__tips">' + (tips.length ? tips.map(function (t) { return '<em class="am-dump__tip">' + t + '</em>'; }).join('') : '<em class="am-dump__tip am-dump__tip--ok">Exam-ready. Nothing to change.</em>') + '</div></div>';
+      });
+    }
+    if (misses.length) {
+      html += '<h4 class="am-dump__h">Didn\'t count yet</h4>';
+      misses.forEach(function (s) {
+        html += '<div class="am-dump__miss"><div class="am-dump__yours"><span>You wrote</span>' + esc(s.text) + '</div>' +
+          '<em class="am-dump__tip">' + (s.near ? 'Close to <b>' + esc(s.near.label) + '</b>: say what happens and why.' : 'Too vague to earn a mark. Be specific: say exactly what happens, how, or how long.') + '</em></div>';
+      });
+    }
+    if (forgot.length) {
+      html += '<h4 class="am-dump__h">What you missed</h4><p class="am-dump__sub">Learn these. Tap Practise to fill one in.</p>';
+      forgot.forEach(function (it) {
+        html += '<div class="am-dump__forgot"><div><b class="am-dump__step">' + it.title + '</b><p>' + examVersion(it.id) + '</p></div>' +
+          '<button type="button" class="am-btn am-btn--mini" data-am-practise="' + it.id + '">Practise</button></div>';
+      });
+    }
+    html += '<div class="am-finish__buttons"><button type="button" class="am-btn am-btn--more" data-am-dump>Try again</button><button type="button" class="am-btn am-btn--ok" data-am-keep>Back to my answer</button></div>';
+    var cardEl = card.querySelector('.am-finish__card');
+    cardEl.classList.add('am-dump__card--results');
+    cardEl.innerHTML = html;
+    cardEl.scrollTop = 0;
+  }
+  function practiseStep(id) {
+    var card = state.root.querySelector('.am-finish');
+    if (card) card.remove();
+    state.coach.classList.add('am-coach--min');
+    var row = state.planEl.querySelector('[data-am-item="' + id + '"]');
+    if (!row) return;
+    if (!row.classList.contains('am-plan__item--open')) togglePlanItem(id);
+    showDrag(id);
+    row.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' });
+  }
+
   // ---------- writing area ----------
   // The answer is written across ruled pages. Each page is its own textarea with a fixed number
   // of lines; when a page fills up, the overflow moves onto the next page (a new one is added if needed).
@@ -1080,6 +1192,7 @@
         '<aside class="am-coach" aria-live="polite">' +
           '<div class="am-score"><div class="am-score__top"><span class="am-score__num"><b data-am-marks>0</b> / 30</span><span class="am-score__unit">marks</span></div><div class="am-pips"></div><div class="am-score__meta"></div></div>' +
           '<button type="button" class="am-btn am-btn--check" data-am-check>Check my answer</button>' +
+          '<button type="button" class="am-btn am-btn--dump" data-am-dump>Brain dump</button>' +
           '<div class="am-plan"></div>' +
           '<div class="am-coach__body">' +
             '<div class="am-coach__msg"></div>' +
@@ -1135,6 +1248,10 @@
       }
       if (e.target.closest('[data-am-clue]')) { offerClue(true); return; }
       if (e.target.closest('[data-am-check]')) { markAll(); return; }
+      if (e.target.closest('[data-am-dump]')) { openBrainDump(); return; }
+      if (e.target.closest('[data-am-dumpdone]')) { finishBrainDump(); return; }
+      var practise = e.target.closest('[data-am-practise]');
+      if (practise) { practiseStep(practise.getAttribute('data-am-practise')); return; }
       var planBtn = e.target.closest('[data-am-plan]');
       if (planBtn) { togglePlanItem(planBtn.getAttribute('data-am-plan')); return; }
       var starter = e.target.closest('[data-am-starter]');
@@ -1145,6 +1262,7 @@
       if (use) { useSentence(use.getAttribute('data-am-use')); return; }
       if (e.target.closest('[data-am-finish]')) { showResults(); return; }
       if (e.target.closest('[data-am-keep]')) {
+        clearInterval(state.dumpTimer);
         var card = state.root.querySelector('.am-finish');
         var howto = card && card.classList.contains('am-howto');
         if (card) card.remove();
@@ -1219,6 +1337,7 @@
     var s = state;
     state = null;
     s.timers.forEach(clearTimeout);
+    clearInterval(s.dumpTimer);
     window.removeEventListener('resize', s.onResize);
     document.removeEventListener('selectionchange', s.onSelect);
     if (instant || reduced()) { s.root.remove(); return; }
@@ -1400,6 +1519,37 @@
     '@keyframes amShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}',
     '.am-root .am-chain__box,.am-root .am-quiz__opt,.am-root .am-drag__tile,.am-root .am-drag__gap{font-family:Nunito,system-ui,sans-serif !important}',
     'body > .am-drag__tile--ghost{font-family:Nunito,system-ui,sans-serif !important}',
+    '.am-root .am-btn--dump{background:transparent;color:#8FE3FF;border:2px solid #2A5D7A;box-shadow:none;padding:10px 14px}',
+    '.am-root .am-btn--dump:hover{border-color:#5CD6FF;color:#fff}',
+    '.am-dump__card{width:min(820px,100%);max-height:calc(100% - 24px)}',
+    '.am-dump__top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}',
+    '.am-dump__title{margin:4px 0 10px;font:700 32px/1.1 Fredoka,Nunito,sans-serif;color:#fff}',
+    '.am-dump__clock{font:700 40px Fredoka,Nunito,sans-serif;color:#5BE39A;font-variant-numeric:tabular-nums}',
+    '.am-dump__clock--low{color:#FF8A6B;animation:amShake .4s ease}',
+    '.am-dump__bar{height:8px;border-radius:4px;background:#26395A;overflow:hidden;margin-bottom:14px}',
+    '.am-dump__bar i{display:block;height:100%;width:100%;background:#5BE39A;border-radius:4px;transition:width 1s linear}',
+    '.am-dump__bar--score i{background:#2BC46F;transition:width .8s cubic-bezier(.22,.8,.2,1)}',
+    '.am-dump__how{margin:0 0 12px;font:700 18px/1.4 Nunito,sans-serif;color:#C9D6EE}',
+    '.am-dump__how b{color:#FFE14D}',
+    '.am-dump__box{display:block;width:100%;box-sizing:border-box;min-height:340px;resize:vertical;border:0;border-radius:14px;padding:6px 14px;margin-bottom:16px;background:#FFFEF8 repeating-linear-gradient(transparent 0 39px,#C7D3E6 39px 41px);color:#13294A;font:600 20px/41px Nunito,sans-serif;outline:none}',
+    '.am-dump__h{margin:22px 0 4px;font:700 22px Fredoka,Nunito,sans-serif;color:#FFE14D}',
+    '.am-dump__sub{margin:0 0 10px;font:700 15px/1.4 Nunito,sans-serif;color:#9FB0CC}',
+    '.am-dump__sub b{color:#7DF0B0}',
+    '.am-dump__pair,.am-dump__miss{border-left:3px solid #2BC46F;padding:4px 0 4px 14px;margin:0 0 16px}',
+    '.am-dump__miss{border-left-color:#F5A03C}',
+    '.am-dump__yours,.am-dump__exam{font:700 17px/1.45 Nunito,sans-serif;color:#E8EEFA;margin-bottom:6px}',
+    '.am-dump__yours span,.am-dump__exam span{display:block;font:600 12px Fredoka,Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#6F84A6;margin-bottom:2px}',
+    '.am-dump__exam{color:#BFF5D6}',
+    '.am-dump__exam b,.am-dump__forgot p b{color:#5BE39A;background:rgba(43,196,111,.16);border-radius:5px;padding:0 4px}',
+    '.am-dump__tips{display:flex;flex-direction:column;gap:4px}',
+    '.am-dump__tip{display:block;font:700 15px/1.4 Nunito,sans-serif;font-style:normal;color:#FFC9A8}',
+    '.am-dump__tip b{color:#FFE14D}',
+    '.am-dump__tip--ok{color:#7DF0B0}',
+    '.am-dump__forgot{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 0;border-top:1px solid #23365A}',
+    '.am-dump__forgot p{margin:4px 0 0;font:700 16px/1.45 Nunito,sans-serif;color:#C9D6EE}',
+    '.am-dump__step{font:600 17px Fredoka,Nunito,sans-serif;color:#fff}',
+    '.am-root .am-dump__box,.am-root .am-dump__yours,.am-root .am-dump__exam,.am-root .am-dump__tip,.am-root .am-dump__forgot p,.am-root .am-dump__how,.am-root .am-dump__sub{font-family:Nunito,system-ui,sans-serif !important}',
+    '.am-root .am-dump__title,.am-root .am-dump__clock,.am-root .am-dump__h,.am-root .am-dump__step,.am-root .am-dump__yours span,.am-root .am-dump__exam span{font-family:Fredoka,Nunito,sans-serif !important}',
     '.am-coach__buttons{display:flex;gap:10px;flex-wrap:wrap}',
     '.am-btn--finish{display:none;flex:1;background:#5CD6FF;color:#0C1628;box-shadow:0 4px 0 #2A9BC4}',
     '.am-btn--finish:active{box-shadow:0 1px 0 #2A9BC4}',
