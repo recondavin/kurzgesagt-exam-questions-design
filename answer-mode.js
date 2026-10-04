@@ -23,7 +23,7 @@
       path: ['weather', 'transport', 'deposit', 'compact', 'cement', 'redDesert', 'sandEx', 'limestone', 'warmSea', 'caco3', 'fossils', 'limeEx', 'time', 'uplift', 'sandstone', 'shale', 'shaleEx', 'fossils', 'time', 'uplift', 'caco3', 'coal'],
       examples: ['sandEx', 'limeEx', 'shaleEx', 'coalEx'],
       points: [
-        { id: 'define', label: 'What sedimentary rock is made from', all: [['srock'], ['sediment', 'fragment', 'particle', 'grain', 'remains', 'pieces', 'bits'], ['form', 'made', 'compos', 'consist', 'creat', 'build']] },
+        { id: 'define', label: 'What sedimentary rock is made from', all: [['srock'], ['sediment', 'fragment', 'particle', 'grain', 'remains', 'pieces', 'bits', 'creature', 'shell'], ['form', 'made', 'compos', 'consist', 'creat', 'build', 'from', 'come']] },
         { id: 'weather', label: 'Weathering and erosion make sediment', all: [['weather', 'erod', 'erosion', 'broken', 'break', 'worn', 'wear', 'freeze thaw', 'crumbl'], ['rock', 'sediment', 'particle', 'piece', 'bits', 'sand', 'grain', 'fragment', 'smaller', 'mountain', 'debris']],
           clue: ['Start at the very beginning. Where do the bits that make up a sedimentary rock come from?',
             'Older rocks get broken down by <b>weathering</b> (rain, frost, plant roots) and <b>erosion</b>. The broken bits are called <b>sediment</b>: sand, mud and pebbles.',
@@ -36,7 +36,7 @@
           clue: ['When the river slows down, what happens to the sediment it was carrying?',
             'It drops: it is <b>deposited</b>. Over time the bits pile up in flat <b>layers</b>, called <b>strata</b>, on the sea or lake floor.',
             'Like sand settling at the bottom of a glass of water. Try: <i>"The sediment is deposited in layers called strata on the sea floor."</i>'] },
-        { id: 'compact', label: 'Compaction', all: [['compact', 'compress', 'squeez', 'squash', 'weight', 'pressure', 'press', 'crush'], ['layer', 'sediment', 'grain', 'particle', 'water', 'above', 'overlying', 'together', 'below', 'beneath', 'upper', 'lower', 'down', 'underneath', 'top']],
+        { id: 'compact', label: 'Compaction', all: [['compact', 'compress', 'squeez', 'squash', 'weight', 'pressure', 'press', 'crush'], ['layer', 'sediment', 'grain', 'particle', 'water', 'above', 'overlying', 'together', 'below', 'beneath', 'upper', 'lower', 'down', 'underneath', 'top', '=them', 'remains', 'ocean', 'sea', 'rock', 'sand', 'mud']],
           clue: ['The layers keep piling up for millions of years. What does all that weight do to the layers underneath?',
             'The weight <b>squeezes</b> the lower layers. Water is pushed out and the grains press tightly together. This is <b>compaction</b>.',
             'Like stacking heavy books on a sponge. Try: <i>"The weight of the layers above compacts the sediment and squeezes out the water."</i>'] },
@@ -376,6 +376,25 @@
     }
     return out;
   }
+  // A long sentence joined by commas often holds several facts ("…sea creatures, the sand is
+  // carried by rivers, the weight compacts it…"). Split at a comma or semicolon when both sides
+  // are a real clause (5+ words before, 4+ words after), so each fact can earn its own SRP.
+  function clauseBreaks(raw, cuts) {
+    var out = cuts.slice();
+    var re = /[,;]\s+/g, m;
+    while ((m = re.exec(raw))) {
+      var pos = m.index + m[0].length;
+      var prev = 0, next = raw.length;
+      out.forEach(function (c) { if (c <= m.index && c > prev) prev = c; if (c >= pos && c < next) next = c; });
+      var rest = raw.slice(pos, next);
+      var nextComma = rest.search(/[,;]\s/);
+      if (nextComma > 0) rest = rest.slice(0, nextComma);
+      var left = raw.slice(prev, m.index).trim().split(/\s+/).length;
+      var right = rest.trim().split(/\s+/).filter(Boolean).length;
+      if (left >= 5 && right >= 4) out.push(pos);
+    }
+    return out.sort(function (a, b) { return a - b; }).filter(function (c, k, a) { return k === 0 || c !== a[k - 1]; });
+  }
   function looksFinished(body, followedBySpace) {
     var words = body.trim().split(/\s+/);
     if (words.length < 6 || !followedBySpace) return false;
@@ -390,7 +409,7 @@
     while ((m = re.exec(masked))) {
       var raw = text.slice(m.index, m.index + m[0].length);
       var punct = /[.!?]\s*$/.test(raw);
-      var cuts = [0].concat(capitalBreaks(raw), [raw.length]);
+      var cuts = clauseBreaks(raw, [0].concat(capitalBreaks(raw), [raw.length]));
       for (var c = 0; c < cuts.length - 1; c++) {
         var piece = raw.slice(cuts[c], cuts[c + 1]);
         var lead = piece.match(/^\s*/)[0].length;
@@ -417,7 +436,9 @@
       var norm = normalise(q, s.text);
       var tokens = norm.trim().split(' ');
       var counts = s.words >= MIN_WORDS && (s.complete || (open && open(s)));
-      for (var i = 0; counts && i < q.points.length && s.hits.length < MAX_PER_SENTENCE; i++) {
+      // A long clause (20+ words) can hold two facts, so it may earn two SRPs.
+      var cap = s.words >= 20 ? 2 : MAX_PER_SENTENCE;
+      for (var i = 0; counts && i < q.points.length && s.hits.length < cap; i++) {
         var p = q.points[i];
         if (used[p.id]) continue;
         if (groupHits(p, norm, tokens).every(Boolean)) { used[p.id] = true; s.hits.push(p); }
@@ -739,7 +760,12 @@
   // The exam version of a step, with its key words highlighted.
   function examVersion(id) {
     var qz = QUIZ[id];
-    return qz ? esc(qz.drag).replace(/\[([^\]]+)\]/g, '<b>$1</b>') : '';
+    if (qz) return esc(qz.drag).replace(/\[([^\]]+)\]/g, '<b>$1</b>');
+    var p = pointById(id);
+    var m = p && p.clue && p.clue[2].match(/<i>"?(.*?)"?<\/i>/);
+    if (m) return m[1];
+    if (id === 'define') return 'Sedimentary rocks are formed from <b>sediment</b>: broken bits of older rock and the <b>remains</b> of plants and animals.';
+    return p ? esc(p.label) + '.' : '';
   }
   function phraseTips(id, line) {
     var low = line.toLowerCase();
@@ -808,7 +834,7 @@
         html += '<div class="am-dump__pair">' +
           '<div class="am-dump__yours"><span>You wrote</span>' + esc(g.line) + '</div>' +
           '<div class="am-dump__exam"><span>Exam version</span>' + examVersion(g.id) + '</div>' +
-          '<div class="am-dump__tips">' + (tips.length ? tips.map(function (t) { return '<em class="am-dump__tip">' + t + '</em>'; }).join('') : '<em class="am-dump__tip am-dump__tip--ok">Exam-ready. Nothing to change.</em>') + '</div></div>';
+          '<div class="am-dump__tips">' + (!QUIZ[g.id] ? '<em class="am-dump__tip am-dump__tip--ok">Good point. Use the exam version\'s wording if it helps.</em>' : tips.length ? tips.map(function (t) { return '<em class="am-dump__tip">' + t + '</em>'; }).join('') : '<em class="am-dump__tip am-dump__tip--ok">Exam-ready. Nothing to change.</em>') + '</div></div>';
       });
     }
     if (misses.length) {
@@ -1531,7 +1557,8 @@
     '.am-dump__bar--score i{background:#2BC46F;transition:width .8s cubic-bezier(.22,.8,.2,1)}',
     '.am-dump__how{margin:0 0 12px;font:700 18px/1.4 Nunito,sans-serif;color:#C9D6EE}',
     '.am-dump__how b{color:#FFE14D}',
-    '.am-dump__box{display:block;width:100%;box-sizing:border-box;min-height:340px;resize:vertical;border:0;border-radius:14px;padding:6px 14px;margin-bottom:16px;background:#FFFEF8 repeating-linear-gradient(transparent 0 39px,#C7D3E6 39px 41px);color:#13294A;font:600 20px/41px Nunito,sans-serif;outline:none}',
+    '.am-dump__box{display:block;width:100%;box-sizing:border-box;height:352px;resize:none;border:0;border-radius:14px;padding:0 14px;margin-bottom:16px;background-color:#FFFEF8;background-image:repeating-linear-gradient(transparent 0 36px,#C7D3E6 36px 38px,transparent 38px 44px);background-attachment:local;color:#13294A;font:600 20px/44px Nunito,sans-serif;outline:none;overflow-y:auto}',
+    '.am-root .am-dump__box{line-height:44px !important;font-size:20px !important}',
     '.am-dump__h{margin:22px 0 4px;font:700 22px Fredoka,Nunito,sans-serif;color:#FFE14D}',
     '.am-dump__sub{margin:0 0 10px;font:700 15px/1.4 Nunito,sans-serif;color:#9FB0CC}',
     '.am-dump__sub b{color:#7DF0B0}',
