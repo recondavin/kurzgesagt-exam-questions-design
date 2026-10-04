@@ -1473,7 +1473,8 @@
 
   var css = [
     '.am-root{position:fixed;inset:0;z-index:2147483200;font-family:Nunito,system-ui,sans-serif;color:#10243B}',
-    '.am-backdrop{position:absolute;inset:0;background:#0C1628;opacity:0;transition:opacity .38s ease}',
+    // Writing happens on the same wooden desk as the rest of the page.
+    '.am-backdrop{position:absolute;inset:0;background:#BF7843 url(assets/cartoon-desk.svg?v=straight-1) center/cover no-repeat;opacity:0;transition:opacity .38s ease}',
     '.am-in .am-backdrop{opacity:1}',
     '.am-out{transition:opacity .38s ease;opacity:0}',
     '.am-stage{position:absolute;inset:0;display:flex;justify-content:center;align-items:stretch;gap:28px;padding:24px 28px;box-sizing:border-box}',
@@ -1764,6 +1765,13 @@
     '.am-root .am-cover__title{font-family:Nunito,system-ui,sans-serif !important}',
     '.am-root .am-cover__h,.am-root .am-needhelp__h,.am-root .am-cover__count,.am-root .am-cover__toggle{font-family:Fredoka,Nunito,sans-serif !important}',
     '@media (max-width:1100px){.am-cover__title{font-size:17px}.am-cover__row{padding:8px 10px}}',
+    // ---- on the desk: paper sheets with a shadow, the side panel as a dark card ----
+    '.am-root .am-sheet-wrap{padding:6px 18px 30px;border-radius:0}',
+    '.am-root .am-sheet{border-radius:8px;box-shadow:0 14px 30px rgba(70,35,10,.35),0 2px 4px rgba(70,35,10,.25)}',
+    '.am-root .am-sheet{clip-path:inset(0 -40px 100% -40px round 8px)}',
+    '.am-root.am-sheet-in .am-sheet{clip-path:inset(-40px -40px -40px -40px round 8px)}',
+    '.am-root .am-coach{background:#14243B;border-radius:22px;padding:24px 22px;box-shadow:0 16px 36px rgba(40,18,4,.45)}',
+    '.am-root .am-addpage{box-shadow:0 4px 0 #0A1220,0 10px 20px rgba(70,35,10,.3)}',
     '@media (max-width:1100px){.am-stage{flex-direction:column;padding:72px 12px 12px;gap:12px}.am-sheet-wrap{max-width:none}.am-sheet{padding:22px 60px 40px 22px}.am-coach{flex:0 0 auto;margin:0;align-self:stretch;max-height:42vh}.am-close{top:12px;right:12px}}',
     '@media (max-width:600px){.am-root .am-mirror,.am-root .am-input,.am-root .am-mirror *{font-size:19px !important}.am-sheet{padding-right:52px}.am-coach{padding:14px;gap:10px;max-height:48vh}.am-score{padding:8px 12px}.am-score__num{font-size:22px}.am-pips{margin:6px 0}.am-coach__head{display:none}.am-coach__title{font-size:20px}.am-coach__p{font-size:16px}.am-coach__foot span{display:none}.am-btn{padding:10px 12px}}',
     '@media (prefers-reduced-motion:reduce){.am-root *{animation-duration:.01ms !important;transition-duration:.01ms !important}}'
