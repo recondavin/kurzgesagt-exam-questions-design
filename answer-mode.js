@@ -368,6 +368,10 @@
       var p = bare(prev), n = bare(next[0]);
       if (!p || LINKING[p] || PROPER[n] || n.length < 2 && n !== 'a') continue;
       if (/^[A-Z]/.test(prev)) continue; // inside a run of capitalised words, e.g. Old Red Sandstone
+      // Only split when the words before the capital already make a whole sentence, so a stray
+      // capital ("This process takes Millions of years") doesn't cut a sentence in half.
+      var before = body.slice(out.length ? out[out.length - 1] : 0, m.index + prev.length).trim().split(/\s+/);
+      if (before.length < 5 || !hasVerb(before)) continue;
       out.push(m.index + m[0].length);
     }
     return out;

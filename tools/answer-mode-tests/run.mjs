@@ -3,12 +3,13 @@
 import { TESTS } from './first-set.mjs';
 import { HOLD } from './held-out.mjs';
 import { FRESH } from './fresh.mjs';
+import { REGRESSIONS } from './regressions.mjs';
 import { fileURLToPath } from 'url';
 global.window = { matchMedia: () => ({ matches: false }), addEventListener() {} };
 global.document = { createElement: () => ({}), head: { appendChild() {} } };
 await import(fileURLToPath(new URL('../../answer-mode.js', import.meta.url)));
 const A = window.ExamAnswerMode;
-for (const [name, set] of [['first set', TESTS], ['held-out', HOLD], ['fresh', FRESH]]) {
+for (const [name, set] of [['first set', TESTS], ['held-out', HOLD], ['fresh', FRESH], ['regressions', REGRESSIONS]]) {
   let ok = 0, n = 0; const bad = [];
   for (const q of Object.keys(set)) for (const [t, want] of set[q]) {
     n++;
