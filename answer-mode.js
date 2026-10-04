@@ -922,7 +922,7 @@
         focusPage(page.index + 1, 0);
       }
     });
-    ['keyup', 'click', 'mouseup', 'select'].forEach(function (type) { ta.addEventListener(type, render); });
+    ['keyup', 'click', 'mouseup', 'select'].forEach(function (type) { ta.addEventListener(type, renderSoon); });
     state.pages.push(page);
     if (!silent) node.classList.add('am-page--new');
     return page;
@@ -1087,10 +1087,12 @@
   function refresh() {
     state.sentences = evaluate(state.q, fullText(), always);
     var got = {};
+    state.hitCache = {};
     state.sentences.forEach(function (s) {
       s.hits = s.hits.filter(function (p) { return state.granted[p.id]; });
       s.hits.forEach(function (p) { got[p.id] = true; });
       s.miss = !s.hits.length && Boolean(state.missed[s.text]);
+      if (s.hits.length) state.hitCache[s.text] = s.hits;
     });
     state.got = got;
     state.count = Object.keys(got).length;
@@ -1196,10 +1198,27 @@
       if (k < o.srps) later(function () { pip.classList.add('on'); }, 250 + k * 70);
     });
   }
+  // Typing must feel instant, so each key press only re-splits the text (cheap) and keeps the
+  // green highlights of sentences it already knows. The full marking and saving run once the
+  // student pauses for a moment.
+  function quickRefresh() {
+    var cache = state.hitCache || {};
+    state.sentences = splitSentences(fullText());
+    state.sentences.forEach(function (s) {
+      s.hits = cache[s.text] || [];
+      s.miss = !s.hits.length && Boolean(state.missed[s.text]);
+    });
+    render();
+  }
+  function renderSoon() {
+    if (!state || state.renderFrame) return;
+    state.renderFrame = requestAnimationFrame(function () { if (!state) return; state.renderFrame = 0; render(); });
+  }
   function onInput() {
     if (state.ghostOn && !ghostText(state.pages[state.active])) state.ghostOn = false;
-    refresh();
-    save();
+    quickRefresh();
+    clearTimeout(state.refreshTimer);
+    state.refreshTimer = later(function () { refresh(); save(); }, 450);
   }
 
   // ---------- open / close ----------
@@ -1310,7 +1329,9 @@
     });
     root.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
     window.addEventListener('resize', state.onResize = function () { if (state) { reflow(0); render(); } });
-    document.addEventListener('selectionchange', state.onSelect = function () { if (state) render(); });
+    document.addEventListener('selectionchange', state.onSelect = function () {
+      if (state && document.activeElement && document.activeElement.classList.contains('am-input')) renderSoon();
+    });
 
     // 1. The page clears behind the question. 2. The question flies to the top of the sheet.
     // 3. The ruled lines draw in one by one. 4. The coach slides in and the cursor is ready.
@@ -1361,6 +1382,7 @@
   function close(instant) {
     if (!state) return;
     var s = state;
+    try { save(); } catch (err) {}
     state = null;
     s.timers.forEach(clearTimeout);
     clearInterval(s.dumpTimer);
