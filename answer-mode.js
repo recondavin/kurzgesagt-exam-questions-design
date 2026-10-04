@@ -635,48 +635,6 @@
     later(function () { mark.remove(); }, 1100);
   }
   function helpBox(id) { return state.planEl.querySelector('[data-am-item="' + id + '"] .am-help'); }
-  function showQuiz(id) {
-    var qz = QUIZ[id], box = helpBox(id);
-    if (!qz || !box) return;
-    var order = shuffle(qz.options.map(function (o, k) { return k; }), id.length * 31);
-    box.innerHTML = '<div class="am-chain">' + qz.chain.map(function (c, k) {
-        return (k ? '<i class="am-chain__arrow">&darr;</i>' : '') + '<span class="am-chain__box' + (c === '?' ? ' am-chain__box--gap' : '') + '">' + (c === '?' ? '?' : c) + '</span>';
-      }).join('') + '</div>' +
-      '<p class="am-help__q">Which fits the gap?</p>' +
-      '<div class="am-quiz">' + order.map(function (k) { return '<button type="button" class="am-quiz__opt" data-am-opt="' + id + ':' + k + '">' + qz.options[k] + '</button>'; }).join('') + '</div>' +
-      '<p class="am-help__hint" hidden></p>' +
-      '<div class="am-help__foot"><button type="button" class="am-link" data-am-drag="' + id + '">Still confused?</button></div>';
-    box.hidden = false;
-    box.setAttribute('data-wrong', '0');
-    box.scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' });
-  }
-  function answerQuiz(id, k) {
-    var qz = QUIZ[id], box = helpBox(id);
-    var btn = box.querySelector('[data-am-opt="' + id + ':' + k + '"]');
-    if (k === qz.answer) {
-      btn.classList.add('am-quiz__opt--ok');
-      stamp(btn, true);
-      var gap = box.querySelector('.am-chain__box--gap');
-      gap.textContent = qz.options[k];
-      gap.classList.add('am-chain__box--filled');
-      box.querySelectorAll('.am-quiz__opt').forEach(function (b) { b.disabled = true; });
-      var hint = box.querySelector('.am-help__hint');
-      hint.hidden = false;
-      hint.classList.add('am-help__hint--ok');
-      hint.textContent = 'That\'s it! ' + qz.hint;
-      box.querySelector('.am-help__foot').innerHTML = '<button type="button" class="am-btn am-btn--mini" data-am-starter="' + id + '">Now write it</button><button type="button" class="am-link" data-am-drag="' + id + '">Build the sentence</button>';
-      return;
-    }
-    btn.classList.add('am-quiz__opt--no');
-    btn.disabled = true;
-    stamp(btn, false);
-    var wrong = +box.getAttribute('data-wrong') + 1;
-    box.setAttribute('data-wrong', wrong);
-    var h = box.querySelector('.am-help__hint');
-    h.hidden = false;
-    h.textContent = 'Not quite. ' + qz.hint;
-    if (wrong >= 2) later(function () { showDrag(id); }, 1300);
-  }
   function showDrag(id) {
     var qz = QUIZ[id], box = helpBox(id);
     if (!qz || !box) return;
@@ -690,6 +648,7 @@
         return k % 2 ? '<span class="am-drag__gap" data-am-gap="' + esc(p.toLowerCase()) + '"></span>' : esc(p);
       }).join('') + '</p>' +
       '<div class="am-drag__tiles">' + tiles.map(function (w) { return '<span class="am-drag__tile" data-am-tile="' + esc(w.toLowerCase()) + '">' + esc(w) + '</span>'; }).join('') + '</div>' +
+      '<p class="am-help__hint" hidden></p>' +
       '<div class="am-help__foot"></div>';
     box.hidden = false;
     box.scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' });
@@ -732,6 +691,8 @@
     if (tile.getAttribute('data-am-tile') !== gap.getAttribute('data-am-gap')) {
       stamp(tile, false);
       stamp(gap, false);
+      var hint = helpBox(id).querySelector('.am-help__hint');
+      if (hint) { hint.hidden = false; hint.textContent = 'Not quite. ' + QUIZ[id].hint; }
       return;
     }
     gap.textContent = tile.textContent;
@@ -745,6 +706,10 @@
       sentence.classList.add('am-drag__sentence--done');
       stamp(sentence, true);
       box.querySelector('.am-drag__tiles').remove();
+      var hint = box.querySelector('.am-help__hint');
+      hint.hidden = false;
+      hint.classList.add('am-help__hint--ok');
+      hint.textContent = QUIZ[id].hint;
       box.querySelector('.am-help__foot').innerHTML = '<span class="am-help__well">You built it! That is one SRP.</span><button type="button" class="am-btn am-btn--mini" data-am-use="' + id + '">Put it on my lines</button>';
     }, 450);
   }
@@ -1171,11 +1136,7 @@
       var starter = e.target.closest('[data-am-starter]');
       if (starter) { insertStarter(starter.getAttribute('data-am-starter')); return; }
       var confused = e.target.closest('[data-am-confused]');
-      if (confused) { showQuiz(confused.getAttribute('data-am-confused')); return; }
-      var opt = e.target.closest('[data-am-opt]');
-      if (opt) { var bits = opt.getAttribute('data-am-opt').split(':'); answerQuiz(bits[0], +bits[1]); return; }
-      var drag = e.target.closest('[data-am-drag]');
-      if (drag) { showDrag(drag.getAttribute('data-am-drag')); return; }
+      if (confused) { showDrag(confused.getAttribute('data-am-confused')); return; }
       var use = e.target.closest('[data-am-use]');
       if (use) { useSentence(use.getAttribute('data-am-use')); return; }
       if (e.target.closest('[data-am-finish]')) { showResults(); return; }
