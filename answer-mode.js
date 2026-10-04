@@ -1438,6 +1438,30 @@
     
     '.am-coach__foot{display:flex;flex-direction:column;gap:6px;font:600 12.5px/1.35 Nunito,sans-serif;color:#7F92B3}',
     '.am-link{align-self:flex-start;background:none;border:0;padding:0;color:#8FE3FF;font:700 14px Fredoka,Nunito,sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px}',
+    // Bigger side text (desktop); the phone layout below keeps its own sizes.
+    '@media (min-width:1101px){' +
+      '.am-root .am-coach{flex-basis:450px}' +
+      '.am-root .am-plan__head span{font-size:23px !important}' +
+      '.am-root .am-plan__sec h5{font-size:16px !important}' +
+      '.am-root .am-plan__note{font-size:15px !important}' +
+      '.am-root .am-plan__row{font-size:21px !important;padding:8px 4px}' +
+      '.am-root .am-plan__dot{flex-basis:24px;height:24px}' +
+      '.am-root .am-plan__item--done .am-plan__dot::after{left:7px;top:3px;width:6px;height:11px}' +
+      '.am-root .am-plan__more{margin-left:36px}' +
+      '.am-root .am-plan__more p{font-size:19px !important}' +
+      '.am-root .am-btn--mini{font-size:16px !important;padding:8px 14px !important}' +
+      '.am-root .am-drag__sentence{font-size:20px !important;line-height:2.4 !important}' +
+      '.am-root .am-drag__gap{min-width:90px;height:36px;line-height:32px}' +
+      '.am-root .am-drag__tile{font-size:19px !important;padding:8px 14px}' +
+      '.am-root .am-help__well{font-size:18px !important}' +
+      '.am-root .am-coach__title{font-size:28px !important}' +
+      '.am-root .am-coach__p{font-size:20px !important}' +
+      '.am-root .am-btn{font-size:19px}' +
+      '.am-root .am-btn--check{font-size:22px !important}' +
+      '.am-root .am-score__num{font-size:36px}' +
+      '.am-root .am-tag{font-size:16px !important}' +
+      '.am-root .am-coach__foot span{font-size:14px !important}' +
+    '}',
     '@media (max-width:1100px){.am-stage{flex-direction:column;padding:72px 12px 12px;gap:12px}.am-sheet-wrap{max-width:none}.am-sheet{padding:22px 60px 40px 22px}.am-coach{flex:0 0 auto;margin:0;align-self:stretch;max-height:42vh}.am-close{top:12px;right:12px}}',
     '@media (max-width:600px){.am-root .am-mirror,.am-root .am-input,.am-root .am-mirror *{font-size:19px !important}.am-sheet{padding-right:52px}.am-coach{padding:14px;gap:10px;max-height:48vh}.am-score{padding:8px 12px}.am-score__num{font-size:22px}.am-pips{margin:6px 0}.am-coach__head{display:none}.am-coach__title{font-size:20px}.am-coach__p{font-size:16px}.am-coach__foot span{display:none}.am-btn{padding:10px 12px}}',
     '@media (prefers-reduced-motion:reduce){.am-root *{animation-duration:.01ms !important;transition-duration:.01ms !important}}'
