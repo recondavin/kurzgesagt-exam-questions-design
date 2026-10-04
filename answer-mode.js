@@ -580,6 +580,7 @@
     if (pips.children.length !== q.total) pips.innerHTML = new Array(q.total + 1).join('<i></i>');
     Array.prototype.forEach.call(pips.children, function (pip, k) { pip.classList.toggle('on', k < o.srps); });
     updatePlan(o);
+    updateCover(o);
     score.querySelector('.am-score__meta').innerHTML = o.tags.map(function (t) { return '<span class="am-tag ' + (t[1] ? 'am-tag--' + t[1] : '') + '">' + t[0] + '</span>'; }).join('');
     return o;
   }
@@ -596,7 +597,7 @@
   }
   function renderPlan() {
     var plan = PLANS[state.id];
-    var html = '<div class="am-plan__head"><span>Your plan</span></div>';
+    var html = '';
     plan.sections.forEach(function (sec) {
       html += '<div class="am-plan__sec"><h5>' + sec.title + '</h5>' + (sec.note ? '<p class="am-plan__note">' + sec.note + '</p>' : '');
       sec.items.forEach(function (it) {
@@ -861,11 +862,69 @@
     var card = state.root.querySelector('.am-finish');
     if (card) card.remove();
     state.coach.classList.add('am-coach--min');
+    setBreakdown(true);
     var row = state.planEl.querySelector('[data-am-item="' + id + '"]');
     if (!row) return;
     if (!row.classList.contains('am-plan__item--open')) togglePlanItem(id);
     showDrag(id);
     row.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' });
+  }
+
+  // ---------- "What to cover": a short summary of the plan ----------
+  // Each group bundles several plan steps; the full step list stays in the breakdown below it.
+  var COVER = {
+    'question-3b': [
+      { title: 'Name two rocks', ids: ['_named'] },
+      { title: 'Explain sandstone', ids: ['weather', 'transport', 'deposit', 'compact', 'cement', 'redDesert'] },
+      { title: 'Explain limestone', ids: ['limestone', 'warmSea', 'caco3', 'fossils'] },
+      { title: 'Give Irish examples', ids: ['sandEx', 'limeEx'] },
+      { title: 'Explain the timescale', ids: ['time', 'uplift'] }
+    ],
+    'question-3c': [
+      { title: 'Monitoring instruments', ids: ['seismo', 'tilt', 'laser'] },
+      { title: 'Warning signs', ids: ['gaps', 'radon', 'animals', 'difficult'] },
+      { title: 'Safer buildings', ids: ['build', 'base', 'damper'] },
+      { title: 'Being prepared', ids: ['drills', 'warning', 'emergency', 'shutoff'] }
+    ]
+  };
+  function renderCover() {
+    state.coverEl.innerHTML = COVER[state.id].map(function (g, k) {
+      return '<button type="button" class="am-cover__row" data-am-group="' + k + '"><i class="am-cover__dot"></i>' +
+        '<span class="am-cover__title">' + g.title + '</span><span class="am-cover__count"></span></button>';
+    }).join('');
+  }
+  function updateCover(o) {
+    if (!state.coverEl) return;
+    var items = {};
+    planItems().forEach(function (it) { items[it.id] = it; });
+    COVER[state.id].forEach(function (g, k) {
+      var done = g.ids.filter(function (id) { return items[id] && planDone(items[id], o); }).length;
+      var row = state.coverEl.querySelector('[data-am-group="' + k + '"]');
+      var wasDone = row.classList.contains('am-cover__row--done');
+      var isDone = done === g.ids.length;
+      row.classList.toggle('am-cover__row--done', isDone);
+      row.classList.toggle('am-cover__row--part', done > 0 && !isDone);
+      row.querySelector('.am-cover__count').textContent = isDone ? 'Complete' : done + '/' + g.ids.length;
+      if (isDone && !wasDone && state.coverReady) { row.classList.remove('am-cover__row--pop'); void row.offsetWidth; row.classList.add('am-cover__row--pop'); }
+    });
+    state.coverReady = true;
+  }
+  function setBreakdown(open) {
+    state.planEl.hidden = !open;
+    var btn = state.root.querySelector('[data-am-breakdown]');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.querySelector('span').textContent = open ? 'Hide full marking breakdown' : 'View full marking breakdown';
+    state.coach.classList.toggle('am-coach--detail', open);
+  }
+  function openGroup(k) {
+    var g = COVER[state.id][k];
+    setBreakdown(true);
+    var next = g.ids.map(function (id) { return state.planEl.querySelector('[data-am-item="' + id + '"]'); })
+      .filter(function (row) { return row && !row.classList.contains('am-plan__item--done'); })[0] ||
+      state.planEl.querySelector('[data-am-item="' + g.ids[0] + '"]');
+    if (!next) return;
+    if (!next.classList.contains('am-plan__item--open')) togglePlanItem(next.getAttribute('data-am-item'));
+    next.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' });
   }
 
   // ---------- writing area ----------
@@ -1237,13 +1296,16 @@
         '<aside class="am-coach" aria-live="polite">' +
           '<div class="am-score"><div class="am-score__top"><span class="am-score__num"><b data-am-marks>0</b> / 30</span><span class="am-score__unit">marks</span></div><div class="am-pips"></div><div class="am-score__meta"></div></div>' +
           '<button type="button" class="am-btn am-btn--check" data-am-check>Check my answer</button>' +
-          '<button type="button" class="am-btn am-btn--dump" data-am-dump>Brain dump</button>' +
-          '<div class="am-plan"></div>' +
           '<div class="am-coach__body">' +
             '<div class="am-coach__msg"></div>' +
           '</div>' +
           '<div class="am-coach__buttons"><button type="button" class="am-btn am-btn--ok" data-am-ok>OK</button><button type="button" class="am-btn am-btn--finish" data-am-finish>Finish</button><button type="button" class="am-btn am-btn--more" data-am-more>Still don\'t get it</button></div>' +
-          '<button type="button" class="am-btn am-btn--clue" data-am-clue>Stuck?</button>' +
+          '<div class="am-cover"><h5 class="am-cover__h">What to cover</h5><div class="am-cover__list"></div>' +
+            '<button type="button" class="am-cover__toggle" data-am-breakdown aria-expanded="false"><span>View full marking breakdown</span><i></i></button></div>' +
+          '<div class="am-plan" hidden></div>' +
+          '<div class="am-needhelp"><h5 class="am-needhelp__h">Need help?</h5><div class="am-needhelp__btns">' +
+            '<button type="button" class="am-btn am-btn--dump" data-am-dump>Brain dump</button>' +
+            '<button type="button" class="am-btn am-btn--clue" data-am-clue>Stuck?</button></div></div>' +
           '<div class="am-coach__foot"><span>Marked with the rules of the SEC 2024 marking scheme. A practice guide, not an official grade.</span></div>' +
         '</aside>' +
       '</div>';
@@ -1259,8 +1321,9 @@
     state = { id: id, q: q, root: root, timers: [], got: {}, fresh: {}, count: 0, sentences: [], pages: [], active: 0, base: 0,
       firstDone: false, ghostOn: false, linesDrawn: false,
       pagesEl: root.querySelector('.am-pages'), addBtn: root.querySelector('[data-am-addpage]'), coach: root.querySelector('.am-coach'),
-      planEl: root.querySelector('.am-plan') };
+      planEl: root.querySelector('.am-plan'), coverEl: root.querySelector('.am-cover__list') };
     renderPlan();
+    renderCover();
     addPage(true);
     addPage(true);
     state.measure = el('div', 'am-mirror am-measure');
@@ -1293,6 +1356,9 @@
       }
       if (e.target.closest('[data-am-clue]')) { offerClue(true); return; }
       if (e.target.closest('[data-am-check]')) { markAll(); return; }
+      if (e.target.closest('[data-am-breakdown]')) { setBreakdown(state.planEl.hidden); return; }
+      var group = e.target.closest('[data-am-group]');
+      if (group) { openGroup(+group.getAttribute('data-am-group')); return; }
       if (e.target.closest('[data-am-dump]')) { openBrainDump(); return; }
       if (e.target.closest('[data-am-dumpdone]')) { finishBrainDump(); return; }
       var practise = e.target.closest('[data-am-practise]');
@@ -1632,7 +1698,6 @@
     '.am-root .am-btn--clue{background:transparent;color:#C9D6EE;border:2px solid #2A3D5E;box-shadow:none;font-size:15px;padding:9px 14px}',
     '.am-btn--clue:hover{border-color:#5CD6FF;color:#fff}',
     '.am-btn--clue:active{box-shadow:none}',
-    '.am-coach:not(.am-coach--min) .am-btn--clue{display:none}',
     '.am-coach--min .am-coach__body,.am-coach--min .am-coach__buttons{display:none}',
     
     '.am-coach__foot{display:flex;flex-direction:column;gap:6px;font:600 12.5px/1.35 Nunito,sans-serif;color:#7F92B3}',
@@ -1661,6 +1726,44 @@
       '.am-root .am-tag{font-size:16px !important}' +
       '.am-root .am-coach__foot span{font-size:14px !important}' +
     '}',
+    // ---- calmer right panel: score, Check, What to cover, breakdown, help ----
+    '.am-root .am-coach{gap:22px}',
+    '.am-root .am-score{background:transparent;padding:0}',
+    '.am-root .am-score__num{font-size:46px !important}',
+    '.am-root .am-coach__body{flex:0 0 auto;max-height:300px}',
+    '.am-root .am-coach__buttons{flex:0 0 auto}',
+    '.am-root .am-score__meta{display:none}',
+    '.am-root .am-pips{margin:10px 0 0}',
+    '.am-cover{display:flex;flex-direction:column;gap:4px}',
+    '.am-cover__h,.am-needhelp__h{margin:0 0 6px;font:600 14px Fredoka,Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#7F92B3}',
+    '.am-cover__row{display:flex;align-items:center;gap:14px;width:100%;background:transparent;border:0;border-radius:14px;padding:11px 12px;cursor:pointer;text-align:left;transition:background .2s ease}',
+    '.am-cover__row:hover{background:#15243C}',
+    '.am-cover__dot{position:relative;flex:0 0 24px;height:24px;border-radius:50%;border:2px solid #3A5175;box-sizing:border-box}',
+    '.am-cover__row--part .am-cover__dot{border-color:#8FB3E0}',
+    '.am-cover__row--part .am-cover__dot::after{content:"";position:absolute;left:5px;top:5px;width:10px;height:10px;border-radius:50%;background:#8FB3E0}',
+    '.am-cover__row--part .am-cover__count{color:#C9D6EE}',
+    '.am-cover__row--done .am-cover__dot{background:#2BC46F;border-color:#2BC46F}',
+    '.am-cover__row--done .am-cover__dot::after{content:"";position:absolute;left:7px;top:3px;width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}',
+    '.am-cover__title{flex:1;font:700 20px/1.25 Nunito,sans-serif;color:#E8EEFA}',
+    '.am-cover__count{font:600 15px Fredoka,Nunito,sans-serif;color:#7F92B3}',
+    '.am-cover__row--done .am-cover__title{color:#9FB0CC}',
+    '.am-cover__row--done .am-cover__count{color:#5E9C7C}',
+    '.am-cover__row--pop .am-cover__dot{animation:amPop .5s cubic-bezier(.3,1.6,.5,1) both}',
+    '.am-cover__toggle{align-self:flex-start;display:flex;align-items:center;gap:8px;margin:8px 0 0 12px;background:none;border:0;padding:4px 0;cursor:pointer;color:#8FB3E0;font:600 16px Fredoka,Nunito,sans-serif}',
+    '.am-cover__toggle:hover{color:#fff}',
+    '.am-cover__toggle i{display:inline-block;width:8px;height:8px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg) translateY(-2px);transition:transform .25s ease}',
+    '.am-cover__toggle[aria-expanded="true"] i{transform:rotate(-135deg) translateY(-2px)}',
+    '.am-root .am-plan[hidden]{display:none}',
+    '.am-root .am-plan{border-top:1px solid #1E3050;padding-top:10px}',
+    '.am-root .am-plan__item--done .am-plan__row span{color:#6F84A6}',
+    '.am-root .am-plan__item--done .am-plan__dot{background:#2A6B4A;border-color:#2A6B4A}',
+    '.am-needhelp{border-top:1px solid #1E3050;padding-top:16px}',
+    '.am-needhelp__btns{display:flex;gap:10px}',
+    '.am-root .am-needhelp .am-btn{flex:1;background:transparent;color:#C9D6EE;border:2px solid #2A3D5E;box-shadow:none;font-size:16px !important;padding:9px 12px !important}',
+    '.am-root .am-needhelp .am-btn:hover{border-color:#5CD6FF;color:#fff}',
+    '.am-root .am-cover__title{font-family:Nunito,system-ui,sans-serif !important}',
+    '.am-root .am-cover__h,.am-root .am-needhelp__h,.am-root .am-cover__count,.am-root .am-cover__toggle{font-family:Fredoka,Nunito,sans-serif !important}',
+    '@media (max-width:1100px){.am-cover__title{font-size:17px}.am-cover__row{padding:8px 10px}}',
     '@media (max-width:1100px){.am-stage{flex-direction:column;padding:72px 12px 12px;gap:12px}.am-sheet-wrap{max-width:none}.am-sheet{padding:22px 60px 40px 22px}.am-coach{flex:0 0 auto;margin:0;align-self:stretch;max-height:42vh}.am-close{top:12px;right:12px}}',
     '@media (max-width:600px){.am-root .am-mirror,.am-root .am-input,.am-root .am-mirror *{font-size:19px !important}.am-sheet{padding-right:52px}.am-coach{padding:14px;gap:10px;max-height:48vh}.am-score{padding:8px 12px}.am-score__num{font-size:22px}.am-pips{margin:6px 0}.am-coach__head{display:none}.am-coach__title{font-size:20px}.am-coach__p{font-size:16px}.am-coach__foot span{display:none}.am-btn{padding:10px 12px}}',
     '@media (prefers-reduced-motion:reduce){.am-root *{animation-duration:.01ms !important;transition-duration:.01ms !important}}'
