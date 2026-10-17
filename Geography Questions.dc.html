@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-IE">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./hyper-focus.js?v=answer-mode-23"></script>
-<script src="./answer-mode.js?v=answer-mode-23"></script>
+<title>Geography Question 3 | Leaving Cert revision</title>
+<meta name="theme-color" content="#BF7843">
+<script src="./hyper-focus.js?v=answer-mode-24"></script>
+<script src="./answer-mode.js?v=answer-mode-24"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -14,6 +16,7 @@
 <link rel="stylesheet" href="_ds/nocturne-33e0d293-7a77-4942-b468-b858b49d86ac/styles.css">
 <script src="_ds/nocturne-33e0d293-7a77-4942-b468-b858b49d86ac/_ds_bundle.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&amp;family=Fredoka:wdth,wght@100..125,400..700&amp;family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&amp;family=Chakra+Petch:wght@500;600;700&amp;display=swap">
 <style>
   :root {
@@ -616,6 +619,25 @@
     border-color: rgba(46,107,214,.55);
     background: rgba(46,107,214,.035);
   }
+  /* The scene is scaled down to about half size, so the keyboard ring is drawn thick to stay visible. */
+  .geography-focus-target:focus-visible { outline: 6px solid #1E4C9E; outline-offset: 6px; }
+  .hf-start:hover { background: #E3ECFB; }
+  .hf-start:focus-visible { outline: 6px solid #1E4C9E; outline-offset: 4px; }
+  button, [data-hf-target] { touch-action: manipulation; }
+  :root { color-scheme: light; }
+  /* Visually hidden, still read by screen readers. */
+  .hf-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .hf-guide__title:focus { outline: none; }
   .geography-focus-target::after {
     content: '';
     position: absolute;
@@ -867,7 +889,7 @@
   .hf-guide .hf-bullet-art svg.hf-art { width: 100%; height: auto; border-radius: 0; box-shadow: none; }
   /* Breathing room inside the scroll area so rings and glows are never cut at its edges. */
   body .hf-guide .hf-guide__content { padding: 10px 12px 12px 10px; margin-left: -10px; margin-right: -12px; }
-  body .hf-guide .hf-bullet-dot, body .hf-guide .hf-bullets--steps > li .hf-bullet-dot { width: 12px; height: 12px; background: var(--hf-glow) !important; box-shadow: 0 0 10px var(--hf-glow); }
+  body .hf-guide .hf-bullet-dot, body .hf-guide .hf-bullets--steps > li .hf-bullet-dot { width: 12px; height: 12px; background: var(--hf-glow) !important; box-shadow: none; }
   body .hf-guide .hf-bullet-result { background: rgba(180,140,255,.14); border: 2px solid var(--hf-c4); border-radius: 14px; }
   body .hf-guide .hf-guide__button:not(.hf-guide__button--ghost) { background: #7B5CFF; border: 0; box-shadow: none; }
   body .hf-guide .hf-guide__button:not(.hf-guide__button--ghost):not(:disabled):hover { background: #8E73FF; }
@@ -968,7 +990,9 @@
   @keyframes cardIn { 0% { opacity: 0; transform: translateY(18px) scale(.96); } 100% { opacity: 1; transform: none; } }
   @keyframes splash { 0% { transform: scale(.3); opacity: .95; } 100% { transform: scale(2.7); opacity: 0; } }
   @keyframes splashDrop { 0% { transform: translate(0,0) scale(1); opacity: .9; } 100% { transform: translate(var(--sx), var(--sy)) scale(.2); opacity: 0; } }
-  @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  }
   /* Heavier, tighter type in the guide: same fonts, more solid letters. */
   body .hf-guide:not(#hf-weight), body .hf-guide *:not(#hf-weight) { font-weight: 800 !important; }
   body .hf-guide .hf-bullets:not(#hf-weight), body .hf-guide .hf-bullets *:not(#hf-weight),
@@ -978,29 +1002,39 @@
 
 <section class="exam-primary-layout" style="display: flex; flex-direction: column; gap: 0; padding: 0;">
     <div data-hf-scene style="position: absolute; left: 0; top: 0; width: 3177px; height: 1992px; background: url(assets/cartoon-desk.svg?v=straight-1) center/100% 100% no-repeat;">
-  <img class="exam-hand-motion exam-hand-motion--left" src="assets/hands/left-resting-layered.svg?v=vector-sleeves-1" alt="" aria-hidden="true">
-  <img class="exam-hand-motion exam-hand-motion--right" src="assets/hands/right-writing-gentle-rig.svg?v=vector-sleeves-1" alt="" aria-hidden="true">
+  <img class="exam-hand-motion exam-hand-motion--left" src="assets/hands/left-resting-layered.svg?v=vector-sleeves-2" alt="" aria-hidden="true" fetchpriority="low" decoding="async">
+  <img class="exam-hand-motion exam-hand-motion--right" src="assets/hands/right-writing-gentle-rig.svg?v=vector-sleeves-2" alt="" aria-hidden="true" fetchpriority="low" decoding="async">
   <div class="exam-paper" style="position: absolute; left: 901px; top: 27px; width: 1370px; height: 1938px; z-index: 2; box-sizing: border-box; padding: 26px; overflow: hidden; border-radius: 6px;">
   <div class="geography-page-shell">
-    <img class="geography-page-image" src="assets/geography-2024-hl-part2-question-3-page.png?v=1" alt="Leaving Certificate 2024 Geography Higher Level Part Two, Question 3 page">
-    <button type="button" class="hf-start geography-focus-start" data-hf-start="question-3c" aria-label="Start guided focus for Geography Question 3C">Focus on 3C</button>
-    <div class="geography-focus-target geography-focus-target--3b" data-hf-target="question-3b" tabindex="0" aria-label="Question 3B: Sedimentary Rocks. Select for a guided breakdown."></div>
-    <div class="geography-focus-target" data-hf-target="question-3c" tabindex="0" aria-label="Question 3C: Seismic Activity"></div>
-    <span class="geography-page-accessible">Question 3C, Seismic Activity. Explain how the occurrence of earthquakes can be predicted and their effects reduced. Thirty marks.</span>
+    <img class="geography-page-image" src="assets/geography-2024-hl-part2-question-3-page.png?v=1" alt="" fetchpriority="high">
+    <button type="button" class="hf-start geography-focus-start" data-hf-start="question-3c" aria-label="Focus on 3C: start the guided walkthrough">Focus on 3C</button>
+    <div class="geography-focus-target geography-focus-target--3b" data-hf-target="question-3b" role="button" tabindex="0" aria-label="Question 3B: Sedimentary Rocks. Start the guided walkthrough."></div>
+    <div class="geography-focus-target" data-hf-target="question-3c" role="button" tabindex="0" aria-label="Question 3C: Seismic Activity. Start the guided walkthrough."></div>
+    <div class="geography-page-accessible">
+      <h1>Leaving Certificate 2024 Geography, Higher Level, Part Two: Question 3</h1>
+      <h2>3A. Dynamic Boundaries</h2>
+      <p>A map of Iceland shows the Mid-Atlantic Ridge running through the island, with plate movement to the west and east, the capital Reykjavík, and the Litli-Hrútur volcano to its southwest.</p>
+      <p>When Litli-Hrútur formed at a fissure, 61.2&nbsp;km southwest of the capital Reykjavík, it became Iceland’s youngest volcano. Thousands of tremors and earthquakes were recorded in the days leading up to the eruption. Molten lava flowed across the landscape of Iceland as pyroclastic material was thrown into the air and plumes of gas released into the atmosphere. The volcanic cone grew to a height of 30 metres in the first seven days due to continuous lava flow. Lava flowing from the crater moved slowly across the landscape, creating picturesque lava streams. This encouraged more tourist interest in Litli-Hrútur, but fires and dangerously high gas levels prevented access for several days. Amended from www.scienceworld.com.</p>
+      <p>Examine the map and text above that highlight tectonic activity in Iceland. Answer each of the following questions. (i) To what height, in metres, did the cone of the Litli-Hrútur volcano grow in the first seven days? (ii) Give one reason, from the text above, why access was prevented after the eruption. (iii) Name two gases emitted from a volcano. (iv) Iceland is located on two tectonic plates. Name both plates. (v) Explain briefly one benefit of volcanic activity. (vi) Explain briefly what is meant by the term caldera. 20&nbsp;marks.</p>
+      <h2>3B. Sedimentary Rocks</h2>
+      <p>Examine the formation of sedimentary rocks, with reference to examples from Ireland. 30&nbsp;marks.</p>
+      <h2>3C. Seismic Activity</h2>
+      <p>Explain how the occurrence of earthquakes can be predicted and their effects reduced. 30&nbsp;marks.</p>
+    </div>
   </div>
   <div id="3a" style="width: 1318px; transform: scale(1.0); display: flex; flex-direction: column; gap: 12px;">
     <div class="card elev-md" style="padding: 14px 24px 16px; display: grid; grid-template-columns: 860px 1fr; column-gap: 24px; row-gap: 10px; align-items: start;">
 
       <div style="display: contents;">
         <div style="grid-column: 2; grid-row: 1; align-self: stretch; display: flex; flex-direction: column; justify-content: flex-start; gap: 14px; margin-top: -6px; transform: {{ topStemScale }}; transform-origin: left top; transition: transform .6s cubic-bezier(.5,0,.2,1);">
-          <h2 class="exam-question-number"><img src="assets/exam-question-7-heading.png?v=2" alt="Question 7"></h2>
+          <h2 class="exam-question-number"><img loading="lazy" src="assets/exam-question-7-heading.png?v=2" alt="Question 7"></h2>
           <button type="button" class="hf-start" data-hf-start aria-label="Start guided hyper focus for Question 7">Enter hyper focus</button>
           <div class="exam-context-panel" data-hf-target="context" tabindex="0" aria-label="Question 7 context" style="background: #E6E7EA; border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 10px;">
             <div class="exam-context-render">
               <span class="exam-context-highlight exam-context-highlight--single"></span>
               <span class="exam-context-highlight exam-context-highlight--boat"></span>
               <span class="exam-context-highlight exam-context-highlight--force"></span>
-              <img class="exam-context-render__text" src="assets/exam-context-pdf.png?v=5" alt="">
+              <img loading="lazy" class="exam-context-render__text" src="assets/exam-context-pdf.png?v=5" alt="">
               <span class="exam-context-accessible">Cian races in a single scull. He pulls the blades through the water. The boat surges forward. Each stroke pushes on the water. The diagram shows where those forces act.</span>
             </div>
           </div>
@@ -1010,8 +1044,8 @@
           <div style="position: relative; width: 1160px; height: 700px; transform: {{ topFigScale }}; transform-origin: top left; transition: transform .6s cubic-bezier(.5,0,.2,1);">
             <div style="position: absolute; left: 250px; top: 100px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 23px; line-height: 1; color: var(--color-neutral-300);">Figure 7.1</div>
             <div style="position: absolute; left: 250px; top: 140px; width: 660px; height: 440px; line-height: 0; border-radius: 26px; overflow: hidden;">
-              <img class="figure-focus-still" src="assets/rower-focus-still.png" alt="A single sculler rowing on open water, seen from above">
-              <video class="figure-focus-video" data-hf-image-video muted loop playsinline preload="auto" poster="assets/rower-focus-still.png" aria-hidden="true">
+              <img loading="lazy" class="figure-focus-still" src="assets/rower-focus-still.png" alt="A single sculler rowing on open water, seen from above">
+              <video class="figure-focus-video" data-hf-image-video muted loop playsinline preload="none" poster="assets/rower-focus-still.png" aria-hidden="true">
                 <source src="assets/rower-layered-perfect-loop.mp4" type="video/mp4">
               </video>
               <svg viewBox="0 0 791 527" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;">
@@ -1067,7 +1101,7 @@
         <sc-if value="{{ notFinished }}" hint-placeholder-val="{{ true }}">
         <div style="display: flex; flex-direction: column; gap: 0;">
         <div class="exam-question-reference">
-          <img class="exam-question-reference__image" src="assets/exam-question-reference.png?v=6" alt="Exam-style answer layout for Question 7">
+          <img loading="lazy" class="exam-question-reference__image" src="assets/exam-question-reference.png?v=6" alt="Exam-style answer layout for Question 7">
           <div class="exam-question-list">
             <sc-for list="{{ questions }}" as="q" hint-placeholder-count="3">
               <div class="exam-reference-hotspot exam-reference-hotspot--{{ q.answerClass }}" data-hf-target="{{ q.focusId }}" tabindex="0" aria-label="Question 7 {{ q.part }}">
@@ -1164,7 +1198,7 @@
     </div>
     <div class="card elev-md" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
       <div style="position: relative; line-height: 0; clip-path: polygon(9% 146%, 125.5% 28.6%, 89.1% -56%, -27.4% 61.9%);">
-        <img src="assets/rower-focus-still.png" alt="A single sculler rowing on open water, seen from above" style="width: 100%; display: block;">
+        <img loading="lazy" src="assets/rower-focus-still.png" alt="A single sculler rowing on open water, seen from above" style="width: 100%; display: block;">
         <svg viewBox="0 0 1210 790" style="position: absolute; inset: 0; width: 100%; height: 100%;" role="img">
           <title>Force arrows on a rower</title>
           <desc>An action arrow at the oar blade pointing towards the stern, and a reaction arrow along the hull pointing towards the bow.</desc>
@@ -1496,7 +1530,7 @@
 
   </div>
 </section>
-<img src="./screenshot-2026-07-26-at-15-15-16-ms1vr8hn-b58t.png" alt="screenshot-2026-07-26-at-15-15-16" width="2100" height="1688" style="max-width: 100%; height: auto; display: block; object-fit: cover; width: 2100px; aspect-ratio: 2100 / 1688"></x-dc>
+<img loading="lazy" src="./screenshot-2026-07-26-at-15-15-16-ms1vr8hn-b58t.png" alt="screenshot-2026-07-26-at-15-15-16" width="2100" height="1688" style="max-width: 100%; height: auto; display: block; object-fit: cover; width: 2100px; aspect-ratio: 2100 / 1688"></x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1600,&quot;height&quot;:900},&quot;compactBoxes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Marking boxes&quot;},&quot;quoteLines&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:3,&quot;min&quot;:1,&quot;max&quot;:6,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Marking boxes&quot;},&quot;showModelAnswer&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Marking boxes&quot;}}">
 const Q1 = [
   { key: 'A', id: 'ridge', text: 'Mid-ocean ridge' },

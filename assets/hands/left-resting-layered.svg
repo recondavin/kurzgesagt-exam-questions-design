@@ -39,6 +39,7 @@
       76% { transform: rotate(-0.18deg) translate(-0.3px, 0.2px); }
     }
 
+      @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
   </style>
   <defs>
     <filter id="left-skin-tone-filter" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">

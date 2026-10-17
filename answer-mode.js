@@ -16,7 +16,7 @@
   // stems of three letters or fewer must be whole words; stems with a space are phrases.
   var QUESTIONS = {
     'question-3b': {
-      code: '3B', title: 'Sedimentary Rocks', image: 'assets/answer/q3b.png?v=1', total: 13,
+      code: '3B', title: 'Sedimentary Rocks', image: 'assets/answer/q3b.png?v=1', imageHeight: 194, total: 13,
       normalise: [[/sedimentary\s+rocks?/g, ' srock '], [/sedimentary/g, ' srock ']],
       example: 'Sedimentary rocks begin when older rocks are weathered and eroded into small pieces called sediment.',
       ghost: 'This sediment is then transported by rivers, wind and ice to lakes and seas.',
@@ -104,7 +104,7 @@
       ]
     },
     'question-3c': {
-      code: '3C', title: 'Seismic Activity', image: 'assets/answer/q3c.png?v=1', total: 13,
+      code: '3C', title: 'Seismic Activity', image: 'assets/answer/q3c.png?v=1', imageHeight: 192, total: 13,
       sides: { p: 'Predict', r: 'Reduce' },
       normalise: [],
       example: 'Seismologists use seismographs to record small tremors called foreshocks, which can warn that a bigger earthquake may follow.',
@@ -317,13 +317,13 @@
     lithify: { pic: 'Cementation', say: 'Compaction and cementation turn loose sediment into <b>solid rock</b>. This whole change is called <b>lithification</b>.',
       q: 'What is lithification?', a: ['Loose sediment turning into solid rock', 'Rock melting into magma', 'Rock breaking into bits'], why: '"Litho" means stone: lithification is sediment becoming stone.' },
     sandstone: { pic: 'Sandstone', say: '<b>Sandstone</b> forms from grains of <b>sand</b> that were compacted and cemented together. You can often feel the grains on its surface.',
-      q: 'Sandstone is made from...', a: ['Grains of sand', 'Shells of sea creatures', 'Fine mud'], why: 'The name gives it away: sand-stone.' },
+      q: 'Sandstone is made from…', a: ['Grains of sand', 'Shells of sea creatures', 'Fine mud'], why: 'The name gives it away: sand-stone.' },
     redDesert: { pic: 'Sandstone', say: 'Ireland\'s <b>Old Red Sandstone</b> formed about 400 million years ago in hot <b>desert</b> conditions. Iron in the sand <b>oxidised</b> (rusted), which turned it red.',
       q: 'Why is Old Red Sandstone red?', a: ['Iron in it rusted in hot desert conditions', 'It was heated by lava', 'It is full of red shells'], why: 'The red colour is rust: iron oxide formed in the hot, dry desert.' },
     sandEx: { pic: 'Sandstone', say: 'Old Red Sandstone makes many of Munster\'s mountains, like the <b>MacGillycuddy\'s Reeks</b> in Co. Kerry and the <b>Comeragh Mountains</b> in Co. Waterford.',
       q: 'Where in Ireland can you find sandstone?', a: ['MacGillycuddy\'s Reeks, Co. Kerry', 'The Burren, Co. Clare', 'Giant\'s Causeway, Co. Antrim'], why: 'The Burren is limestone and the Giant\'s Causeway is basalt, an igneous rock.' },
     limestone: { pic: 'Limestone', say: '<b>Limestone</b> forms from the <b>shells and skeletons</b> of sea creatures. When they die they sink and pile up on the sea floor, then get compacted and cemented.',
-      q: 'Limestone is mainly made from...', a: ['Shells and skeletons of sea creatures', 'Grains of desert sand', 'Cooled lava'], why: 'Limestone is built from the remains of sea life, which is why it often has fossils.' },
+      q: 'Limestone is mainly made from…', a: ['Shells and skeletons of sea creatures', 'Grains of desert sand', 'Cooled lava'], why: 'Limestone is built from the remains of sea life, which is why it often has fossils.' },
     warmSea: { pic: 'Limestone', say: 'Irish limestone formed about 350 million years ago in <b>warm, shallow, clear seas</b>, when Ireland lay near the <b>equator</b>.',
       q: 'Where did Irish limestone form?', a: ['In warm, shallow seas near the equator', 'In cold, deep seas near the North Pole', 'In hot deserts'], why: 'Shelled sea creatures thrive in warm, shallow, clear water, and Ireland was near the equator then.' },
     limeEx: { pic: 'Limestone', say: 'The <b>Burren</b> in Co. Clare is Ireland\'s most famous limestone area. Limestone also lies under much of the <b>Central Lowlands</b>.',
@@ -331,7 +331,7 @@
     caco3: { pic: 'Limestone', say: 'Limestone is mostly <b>calcium carbonate</b>, the same stuff as the shells it came from. That\'s why weak acid in rainwater can slowly dissolve it.',
       q: 'What is limestone mainly made of?', a: ['Calcium carbonate', 'Iron oxide', 'Salt'], why: 'Shells are calcium carbonate, so limestone is too.' },
     shale: { pic: 'Shale', say: '<b>Shale</b> forms from very fine <b>mud</b> and <b>clay</b> that settled in calm water. It splits easily into thin layers.',
-      q: 'Shale forms from...', a: ['Fine mud and clay', 'Grains of sand', 'Coral'], why: 'Only calm water lets the finest mud settle, and that mud becomes shale.' },
+      q: 'Shale forms from…', a: ['Fine mud and clay', 'Grains of sand', 'Coral'], why: 'Only calm water lets the finest mud settle, and that mud becomes shale.' },
     shaleEx: { pic: 'Shale', say: 'You can see dark layers of shale and sandstone in the <b>Cliffs of Moher</b> in Co. Clare.',
       q: 'Where can you see shale in Ireland?', a: ['The Cliffs of Moher, Co. Clare', 'The Mourne Mountains, Co. Down', 'Giant\'s Causeway, Co. Antrim'], why: 'The Mournes are granite and the Causeway is basalt. Both are igneous.' },
     fossils: { pic: 'Cementation', say: 'Plants and animals trapped in the layers can be preserved as <b>fossils</b>. Limestone often has fossils of shells and coral.',
@@ -571,6 +571,12 @@
   }
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
   function reduced() { return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  // The guided walkthrough can make the same elements inert; an element stays inert until every owner lets go.
+  function holdInert(el, owner, on) {
+    var owners = el.inertOwners || (el.inertOwners = {});
+    if (on) owners[owner] = true; else delete owners[owner];
+    el.inert = Object.keys(owners).length > 0;
+  }
   function later(fn, ms) { var t = setTimeout(fn, ms); state.timers.push(t); return t; }
   function pointById(id) { return state.q.points.filter(function (p) { return p.id === id; })[0]; }
   function store(key, value) { try { if (value == null) return window.localStorage.getItem(key); window.localStorage.setItem(key, value); } catch (err) {} return null; }
@@ -614,7 +620,9 @@
     box.innerHTML = html;
     if (fresh) { box.classList.remove('am-pop'); void box.offsetWidth; box.classList.add('am-pop'); }
     var more = coach.querySelector('[data-am-more]');
-    more.hidden = msg.level >= msg.levels.length - 1;
+    var last = msg.level >= msg.levels.length - 1;
+    if (last && document.activeElement === more) coach.querySelector('[data-am-ok]').focus();
+    more.hidden = last;
     coach.querySelector('.am-coach__body').scrollTop = fresh ? 0 : 1e6;
   }
   function clueFor(p) {
@@ -659,30 +667,32 @@
         '<div class="am-quiz">' + opts.map(function (o) {
           return '<button type="button" class="am-quiz__opt" data-am-teachopt="' + (o.ok ? 1 : 0) + '">' + esc(o.text) + '</button>';
         }).join('') + '</div>' +
-        '<p class="am-teach__why" hidden></p></div>' +
+        '<p class="am-teach__why" role="status" hidden></p></div>' +
       (others.length ? '<div class="am-teach__others"><span>Not this bit?</span>' + others.map(function (k) {
         return '<button type="button" class="am-teach__chip" data-am-teach="' + k + '">' + esc(pointById(k).label) + '</button>';
       }).join('') + '</div>' : '') +
       '<div class="am-finish__buttons"><button type="button" class="am-btn am-btn--more" data-am-keep>Back to writing</button></div>' +
       '</div>';
-    state.root.appendChild(card);
+    showCard(card);
   }
   function answerTeach(btn) {
     var card = btn.closest('.am-teach'), ok = btn.getAttribute('data-am-teachopt') === '1';
+    if (btn.getAttribute('aria-disabled') === 'true') return;
     var why = card.querySelector('.am-teach__why');
     stamp(btn, ok);
     why.hidden = false;
     if (ok) {
-      card.querySelectorAll('.am-quiz__opt').forEach(function (b) { b.disabled = true; });
+      card.querySelectorAll('.am-quiz__opt').forEach(function (b) { b.setAttribute('aria-disabled', 'true'); });
       btn.classList.add('am-quiz__opt--ok');
       why.className = 'am-teach__why am-teach__why--ok';
       why.textContent = 'You\'ve got it. Now write it in your own words.';
       var back = card.querySelector('[data-am-keep]');
       back.className = 'am-btn am-btn--ok';
       back.textContent = 'Write it now';
+      back.focus();
     } else {
       btn.classList.add('am-quiz__opt--no');
-      btn.disabled = true;
+      btn.setAttribute('aria-disabled', 'true');
       why.className = 'am-teach__why';
       why.textContent = 'Not quite. ' + TEACH[card.getAttribute('data-am-teachid')].why;
     }
@@ -769,7 +779,7 @@
       html += '<div class="am-plan__sec"><h5>' + sec.title + '</h5>' + (sec.note ? '<p class="am-plan__note">' + sec.note + '</p>' : '');
       sec.items.forEach(function (it) {
         html += '<div class="am-plan__item" data-am-item="' + it.id + '">' +
-          '<button type="button" class="am-plan__row" data-am-plan="' + it.id + '"><i class="am-plan__dot"></i><span>' + it.title + '</span></button>' +
+          '<button type="button" class="am-plan__row" data-am-plan="' + it.id + '" aria-expanded="false"><i class="am-plan__dot"></i><span>' + it.title + '</span></button>' +
           '<div class="am-plan__more"><p class="am-plan__ask">' + it.ask + '</p>' +
           '<div class="am-plan__btns"><button type="button" class="am-btn am-btn--mini" data-am-starter="' + it.id + '">Start my sentence</button>' +
           '<button type="button" class="am-btn am-btn--mini am-btn--ghost" data-am-confused="' + it.id + '">Confused?</button></div>' +
@@ -797,6 +807,9 @@
     var open = !row.classList.contains('am-plan__item--open');
     state.planEl.querySelectorAll('.am-plan__item--open').forEach(function (r) { r.classList.remove('am-plan__item--open'); });
     if (open) row.classList.add('am-plan__item--open');
+    state.planEl.querySelectorAll('[data-am-plan]').forEach(function (b) {
+      b.setAttribute('aria-expanded', String(b.closest('.am-plan__item').classList.contains('am-plan__item--open')));
+    });
   }
   function insertStarter(id) {
     var it = planItems().filter(function (x) { return x.id === id; })[0];
@@ -821,8 +834,8 @@
   // A green tick or red cross that draws itself over `host`.
   function stamp(host, ok) {
     var mark = el('span', 'am-stamp ' + (ok ? 'am-stamp--ok' : 'am-stamp--no'),
-      ok ? '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M6.5 12.5l3.6 3.6L17.5 8.5"/></svg>'
-         : '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M8 8l8 8M16 8l-8 8"/></svg>');
+      ok ? '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M6.5 12.5l3.6 3.6L17.5 8.5"/></svg>'
+         : '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M8 8l8 8M16 8l-8 8"/></svg>');
     host.appendChild(mark);
     if (!ok) { host.classList.remove('am-shake'); void host.offsetWidth; host.classList.add('am-shake'); }
     later(function () { mark.remove(); }, 1100);
@@ -838,14 +851,23 @@
     var tiles = shuffle(words.concat([decoy]), id.length * 13);
     box.innerHTML = '<p class="am-help__q">Drag the words into the gaps.</p>' +
       '<p class="am-drag__sentence">' + parts.map(function (p, k) {
-        return k % 2 ? '<span class="am-drag__gap" data-am-gap="' + esc(p.toLowerCase()) + '"></span>' : esc(p);
+        return k % 2 ? '<span class="am-drag__gap" data-am-gap="' + esc(p.toLowerCase()) + '" aria-label="blank ' + ((k + 1) / 2) + '"></span>' : esc(p);
       }).join('') + '</p>' +
-      '<div class="am-drag__tiles">' + tiles.map(function (w) { return '<span class="am-drag__tile" data-am-tile="' + esc(w.toLowerCase()) + '">' + esc(w) + '</span>'; }).join('') + '</div>' +
-      '<p class="am-help__hint" hidden></p>' +
+      '<div class="am-drag__tiles">' + tiles.map(function (w) { return '<button type="button" class="am-drag__tile" data-am-tile="' + esc(w.toLowerCase()) + '">' + esc(w) + '</button>'; }).join('') + '</div>' +
+      '<p class="am-help__hint" role="status" hidden></p>' +
       '<div class="am-help__foot"></div>';
     box.hidden = false;
     box.scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' });
-    box.querySelectorAll('.am-drag__tile').forEach(function (tile) { tile.addEventListener('pointerdown', function (e) { startTileDrag(e, tile, id); }); });
+    box.querySelectorAll('.am-drag__tile').forEach(function (tile) {
+      tile.addEventListener('pointerdown', function (e) { startTileDrag(e, tile, id); });
+      // A tap, Enter or Space places the word in the first empty gap.
+      tile.addEventListener('click', function () {
+        if (tile.hasAttribute('data-am-dragged')) { tile.removeAttribute('data-am-dragged'); return; }
+        if (tile.classList.contains('am-drag__tile--used')) return;
+        var gap = helpBox(id).querySelector('.am-drag__gap:not(.am-drag__gap--full)');
+        if (gap) dropTile(tile, gap, id);
+      });
+    });
   }
   function startTileDrag(e, tile, id) {
     if (tile.classList.contains('am-drag__tile--used')) return;
@@ -862,23 +884,25 @@
       }
       if (ghost) { ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px'; }
     }
-    function up(ev) {
+    function stop() {
       document.removeEventListener('pointermove', move);
       document.removeEventListener('pointerup', up);
+      document.removeEventListener('pointercancel', stop);
       tile.classList.remove('am-drag__tile--lifted');
-      var gap = null;
-      if (ghost) {
-        ghost.remove();
-        var under = document.elementFromPoint(ev.clientX, ev.clientY);
-        gap = under && under.closest('.am-drag__gap');
-      } else {
-        // A tap places the word in the first empty gap.
-        gap = helpBox(id).querySelector('.am-drag__gap:not(.am-drag__gap--full)');
-      }
+      if (ghost) ghost.remove();
+    }
+    function up(ev) {
+      stop();
+      // Without movement this was a tap: the click handler places the word.
+      if (!ghost) return;
+      tile.setAttribute('data-am-dragged', '');
+      var under = document.elementFromPoint(ev.clientX, ev.clientY);
+      var gap = under && under.closest('.am-drag__gap');
       if (gap && !gap.classList.contains('am-drag__gap--full')) dropTile(tile, gap, id);
     }
     document.addEventListener('pointermove', move);
     document.addEventListener('pointerup', up);
+    document.addEventListener('pointercancel', stop);
   }
   function dropTile(tile, gap, id) {
     if (tile.getAttribute('data-am-tile') !== gap.getAttribute('data-am-gap')) {
@@ -889,10 +913,15 @@
       return;
     }
     gap.textContent = tile.textContent;
+    gap.removeAttribute('aria-label');
     gap.classList.add('am-drag__gap--full');
+    var hadFocus = document.activeElement === tile;
     tile.classList.add('am-drag__tile--used');
     stamp(gap, true);
     var box = helpBox(id);
+    // The used tile disappears, so keyboard focus moves on to the next word.
+    var nextTile = box.querySelector('.am-drag__tile:not(.am-drag__tile--used)');
+    if (hadFocus && nextTile) nextTile.focus();
     if (box.querySelector('.am-drag__gap:not(.am-drag__gap--full)')) return;
     later(function () {
       var sentence = box.querySelector('.am-drag__sentence');
@@ -904,6 +933,7 @@
       hint.classList.add('am-help__hint--ok');
       hint.textContent = QUIZ[id].hint;
       box.querySelector('.am-help__foot').innerHTML = '<span class="am-help__well">You built it! That is one SRP.</span><button type="button" class="am-btn am-btn--mini" data-am-use="' + id + '">Put it on my lines</button>';
+      if (hadFocus || !state.root.contains(document.activeElement)) box.querySelector('[data-am-use]').focus();
     }, 450);
   }
   function useSentence(id) {
@@ -960,9 +990,9 @@
       '<textarea class="am-dump__box" spellcheck="true" aria-label="Write everything you remember"></textarea>' +
       '<div class="am-finish__buttons"><button type="button" class="am-btn am-btn--more" data-am-keep>Cancel</button><button type="button" class="am-btn am-btn--ok" data-am-dumpdone>I\'m done</button></div>' +
       '</div>';
-    state.root.appendChild(card);
     var box = card.querySelector('.am-dump__box');
-    box.focus();
+    box.value = store('am-dumpdraft-' + state.id) || '';
+    showCard(card, box);
     var left = DUMP_SECONDS;
     var clock = card.querySelector('[data-am-clock]'), bar = card.querySelector('[data-am-bar]');
     state.dumpTimer = setInterval(function () {
@@ -1020,20 +1050,58 @@
       });
     }
     html += '<div class="am-finish__buttons"><button type="button" class="am-btn am-btn--more" data-am-dump>Try again</button><button type="button" class="am-btn am-btn--ok" data-am-keep>Back to my answer</button></div>';
+    store('am-dumpdraft-' + state.id, '');
     var cardEl = card.querySelector('.am-finish__card');
     cardEl.classList.add('am-dump__card--results');
+    cardEl.setAttribute('aria-label', 'Brain dump results');
     cardEl.innerHTML = html;
     cardEl.scrollTop = 0;
+    showCard(card);
+  }
+  // A card (results, brain dump, "Let's go over it") covers the sheet: the sheet behind it is
+  // inert, and focus moves into the card.
+  function syncCard() {
+    if (!state) return;
+    var open = Boolean(state.root.querySelector('.am-finish'));
+    state.root.querySelector('.am-stage').inert = open;
+    state.root.querySelector('.am-close').inert = open;
+  }
+  function showCard(card, focusEl) {
+    var dialog = card.querySelector('[role="dialog"]');
+    dialog.setAttribute('aria-modal', 'true');
+    dialog.setAttribute('tabindex', '-1');
+    if (!card.isConnected) state.root.appendChild(card);
+    syncCard();
+    (focusEl || dialog).focus({ preventScroll: true });
+  }
+  function closeCard() {
+    clearInterval(state.dumpTimer);
+    var card = state.root.querySelector('.am-finish');
+    if (!card) return;
+    var howto = card.classList.contains('am-howto');
+    var draft = card.querySelector('.am-dump__box');
+    if (draft) store('am-dumpdraft-' + state.id, draft.value);
+    card.remove();
+    syncCard();
+    state.coach.classList.add('am-coach--min');
+    if (howto) {
+      var next = state.planEl.querySelector('.am-plan__item--next');
+      if (next && !next.classList.contains('am-plan__item--open')) togglePlanItem(next.getAttribute('data-am-item'));
+    }
+    focusPage(state.active, Infinity);
   }
   function practiseStep(id) {
     var card = state.root.querySelector('.am-finish');
     if (card) card.remove();
+    syncCard();
     state.coach.classList.add('am-coach--min');
     setBreakdown(true);
     var row = state.planEl.querySelector('[data-am-item="' + id + '"]');
     if (!row) return;
     if (!row.classList.contains('am-plan__item--open')) togglePlanItem(id);
     showDrag(id);
+    var tile = helpBox(id) && helpBox(id).querySelector('.am-drag__tile');
+    if (tile) tile.focus({ preventScroll: true });
     row.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' });
   }
 
@@ -1114,7 +1182,7 @@
     var q = state.q;
     var node = el('div', 'am-sheet am-page' + (k ? ' am-page--more' : ''));
     node.innerHTML = (k === 0
-      ? '<img class="am-question" alt="Question ' + q.code + ': ' + q.title + '" src="' + q.image + '"><div class="am-label">Your answer</div>'
+      ? '<img class="am-question" alt="Question ' + q.code + ': ' + q.title + '" src="' + q.image + '" width="1431" height="' + q.imageHeight + '"><div class="am-label">Your answer</div>'
       : '<div class="am-page__head">' + q.code + ' &middot; ' + q.title + ' (continued)</div>') +
       '<div class="am-write"><div class="am-lines" aria-hidden="true"></div><div class="am-mirror" aria-hidden="true"></div>' +
       '<textarea class="am-input" spellcheck="true" aria-label="Answer to question ' + q.code + ', page ' + (k + 1) + '"></textarea>' +
@@ -1341,7 +1409,7 @@
     state.ghostOn = false;
     state.coach.classList.add('am-coach--min');
     var btn = state.root.querySelector('[data-am-check]');
-    btn.disabled = true;
+    btn.setAttribute('aria-disabled', 'true');
     btn.textContent = 'Checking…';
     var gained = [];
     function step(i) {
@@ -1363,7 +1431,7 @@
     if (!state) return;
     state.marking = false;
     var btn = state.root.querySelector('[data-am-check]');
-    btn.disabled = false;
+    btn.removeAttribute('aria-disabled');
     btn.textContent = 'Check my answer';
     state.missed = missed;
     refresh();
@@ -1387,8 +1455,9 @@
     var misses = Object.keys(missed).length;
     var first = 'You have <b>' + marks + ' / ' + total + '</b>.';
     if (gained.length) first += ' New: ' + gained.map(function (p) { return '<b>' + p.label + '</b>'; }).join(', ') + '.';
-    if (misses) first += '<span class="am-next">' + (misses === 1 ? '1 sentence' : misses + ' sentences') + ' underlined in orange didn\'t match the marking scheme yet.' +
-      (near ? ' "' + esc(near.text.slice(0, 60)) + (near.text.length > 60 ? '…' : '') + '" is close: explain <b>how</b> or <b>why</b>.' : '') + '</span>';
+    var quote = function (t) { return '“' + esc(t.slice(0, 60)) + (t.length > 60 ? '…' : '') + '”'; };
+    if (misses) first += '<span class="am-next">' + (misses === 1 ? '1 sentence' : misses + ' sentences') + ' (underlined in orange) didn\'t match the marking scheme yet' +
+      (near ? '. ' + quote(near.text) + ' is close: explain <b>how</b> or <b>why</b>.' : ', starting with ' + quote(Object.keys(missed)[0]) + '.') + '</span>';
     if (o.note) first += '<span class="am-next">' + o.note + '</span>';
     var levels = [first];
     var title;
@@ -1419,9 +1488,9 @@
       '<div><h4>Points you could add</h4><ul>' + (missing.length ? missing.map(function (p) { return '<li>' + p.label + '</li>'; }).join('') : '<li class="ok">Nothing: full marks!</li>') + '</ul></div></div>' +
       '<div class="am-finish__buttons"><button type="button" class="am-btn am-btn--more" data-am-keep>Keep working</button><button type="button" class="am-btn am-btn--ok" data-am-close>Back to the paper</button></div>' +
       '</div>';
-    state.root.appendChild(card);
+    showCard(card);
     Array.prototype.forEach.call(card.querySelectorAll('.am-pips i'), function (pip, k) {
-      if (k < o.srps) later(function () { pip.classList.add('on'); }, 250 + k * 70);
+      if (k < o.srps) later(function () { pip.classList.add('on'); }, reduced() ? 0 : 250 + k * 70);
     });
   }
   // Typing must feel instant, so each key press only re-splits the text (cheap) and keeps the
@@ -1452,6 +1521,7 @@
     var q = QUESTIONS[id];
     var root = el('div', 'am-root');
     root.setAttribute('role', 'dialog');
+    root.setAttribute('aria-modal', 'true');
     root.setAttribute('aria-label', 'Answer question ' + q.code);
     root.innerHTML =
       '<div class="am-backdrop"></div>' +
@@ -1460,11 +1530,11 @@
         '<div class="am-sheet-wrap"><div class="am-pages">' +
           '<button type="button" class="am-addpage" data-am-addpage>+ Add a page</button>' +
         '</div></div>' +
-        '<aside class="am-coach" aria-live="polite">' +
+        '<aside class="am-coach" aria-label="Marks and help">' +
           '<div class="am-score"><div class="am-score__top"><span class="am-score__num"><b data-am-marks>0</b> / 30</span><span class="am-score__unit">marks</span></div><div class="am-pips"></div><div class="am-score__meta"></div></div>' +
           '<button type="button" class="am-btn am-btn--check" data-am-check>Check my answer</button>' +
           '<div class="am-coach__body">' +
-            '<div class="am-coach__msg"></div>' +
+            '<div class="am-coach__msg" role="status"></div>' +
           '</div>' +
           '<div class="am-coach__buttons"><button type="button" class="am-btn am-btn--ok" data-am-ok>OK</button><button type="button" class="am-btn am-btn--finish" data-am-finish>Finish</button><button type="button" class="am-btn am-btn--more" data-am-more>Still don\'t get it</button></div>' +
           '<div class="am-cover"><h5 class="am-cover__h">What to cover</h5><div class="am-cover__list"></div>' +
@@ -1489,6 +1559,9 @@
       firstDone: false, ghostOn: false, linesDrawn: false,
       pagesEl: root.querySelector('.am-pages'), addBtn: root.querySelector('[data-am-addpage]'), coach: root.querySelector('.am-coach'),
       planEl: root.querySelector('.am-plan'), coverEl: root.querySelector('.am-cover__list') };
+    // The page behind the answer sheet can't be reached by Tab or a screen reader while it's open.
+    state.inerted = Array.prototype.filter.call(document.body.children, function (n) { return n !== root; });
+    state.inerted.forEach(function (n) { holdInert(n, 'am', true); });
     renderPlan();
     renderCover();
     addPage(true);
@@ -1543,19 +1616,7 @@
       var use = e.target.closest('[data-am-use]');
       if (use) { useSentence(use.getAttribute('data-am-use')); return; }
       if (e.target.closest('[data-am-finish]')) { showResults(); return; }
-      if (e.target.closest('[data-am-keep]')) {
-        clearInterval(state.dumpTimer);
-        var card = state.root.querySelector('.am-finish');
-        var howto = card && card.classList.contains('am-howto');
-        if (card) card.remove();
-        state.coach.classList.add('am-coach--min');
-        if (howto) {
-          var next = state.planEl.querySelector('.am-plan__item--next');
-          if (next && !next.classList.contains('am-plan__item--open')) togglePlanItem(next.getAttribute('data-am-item'));
-        }
-        focusPage(state.active, Infinity);
-        return;
-      }
+      if (e.target.closest('[data-am-keep]')) { closeCard(); return; }
       if (e.target.closest('[data-am-addpage]')) {
         var page = addPage();
         state.root.classList.add('am-lines-in');
@@ -1564,7 +1625,12 @@
         return;
       }
     });
-    root.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    // Escape closes an open card first, then the whole answer sheet.
+    root.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      if (state.root.querySelector('.am-finish')) { e.stopPropagation(); closeCard(); return; }
+      close();
+    });
     window.addEventListener('resize', state.onResize = function () { if (state) { reflow(0); render(); } });
     document.addEventListener('selectionchange', state.onSelect = function () {
       if (state && document.activeElement && document.activeElement.classList.contains('am-input')) renderSoon();
@@ -1620,11 +1686,17 @@
     if (!state) return;
     var s = state;
     try { save(); } catch (err) {}
+    var draft = s.root.querySelector('.am-dump__box');
+    if (draft) store('am-dumpdraft-' + s.id, draft.value);
     state = null;
     s.timers.forEach(clearTimeout);
     clearInterval(s.dumpTimer);
     window.removeEventListener('resize', s.onResize);
     document.removeEventListener('selectionchange', s.onSelect);
+    s.inerted.forEach(function (n) { holdInert(n, 'am', false); });
+    // Put focus back on the question this answer belongs to.
+    var back = document.querySelector('[data-hf-target="' + s.id + '"]');
+    if (back) back.focus({ preventScroll: true });
     if (instant || reduced()) { s.root.remove(); return; }
     s.root.classList.add('am-out');
     setTimeout(function () { s.root.remove(); }, 420);
@@ -1653,7 +1725,7 @@
     '.am-pages{display:flex;flex-direction:column;gap:22px;padding-bottom:24px}',
     '.am-sheet{position:relative;flex:0 0 auto;background:#FFFEF8;border-radius:18px;padding:34px 118px 56px 56px;box-sizing:border-box;clip-path:inset(0 0 100% 0 round 18px);transition:clip-path .7s cubic-bezier(.22,.8,.2,1)}',
     '.am-page--new{animation:amIn .45s cubic-bezier(.22,.8,.2,1) both}',
-    '.am-page__head{font:700 15px Fredoka,Nunito,sans-serif;letter-spacing:.04em;color:#7A8BA6;margin:0 0 6px}',
+    '.am-page__head{font:700 15px Fredoka,Nunito,sans-serif;letter-spacing:.04em;color:#5E6F8A;margin:0 0 6px}',
     '.am-page__num{position:absolute;left:0;right:0;bottom:18px;text-align:center;font:700 15px Fredoka,Nunito,sans-serif;color:#9AA8BD}',
     '.am-addpage{align-self:center;border:0;border-radius:14px;padding:12px 22px;background:#1B2E4B;color:#CFE0FF;font:700 17px Fredoka,Nunito,sans-serif;cursor:pointer;box-shadow:0 4px 0 #0A1220}',
     '.am-addpage:active{transform:translateY(3px);box-shadow:0 1px 0 #0A1220}',
@@ -1666,7 +1738,7 @@
     '.am-question{display:block;width:100%;height:auto;margin:0 0 10px -10px;mix-blend-mode:multiply}',
     '.am-fly{position:fixed;z-index:3;height:auto;transform-origin:0 0;border-radius:6px;background:#fff;box-shadow:0 18px 50px rgba(0,0,0,.35);transition:transform .8s cubic-bezier(.22,.8,.2,1),box-shadow .8s ease}',
     '.am-fly--go{box-shadow:0 0 0 rgba(0,0,0,0)}',
-    '.am-label{font-family:Fredoka,Nunito,sans-serif;font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#7A8BA6;margin:4px 0 2px;opacity:0;transition:opacity .4s ease}',
+    '.am-label{font-family:Fredoka,Nunito,sans-serif;font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#5E6F8A;margin:4px 0 2px;opacity:0;transition:opacity .4s ease}',
     '.am-lines-in .am-label{opacity:1}',
     '.am-write{position:relative}',
     '.am-lines{position:absolute;inset:0;pointer-events:none}',
@@ -1742,7 +1814,7 @@
     '.am-plan__head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}',
     '.am-plan__head span{font:700 19px Fredoka,Nunito,sans-serif;color:#C9D6EE;letter-spacing:.02em}',
     '.am-plan__sec{margin-bottom:8px}',
-    '.am-plan__sec h5{margin:14px 0 4px;font:700 14px Fredoka,Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#6F84A6}',
+    '.am-plan__sec h5{margin:14px 0 4px;font:700 14px Fredoka,Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#8496B6}',
     '.am-plan__note{margin:0 0 4px;font:700 13px/1.35 Nunito,sans-serif;color:#9FB0CC}',
     '.am-plan__row{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;border-radius:8px;padding:7px 4px;color:#8D9FBF;font:800 18px/1.25 Nunito,sans-serif;text-align:left;cursor:pointer;transition:color .2s ease}',
     '.am-plan__row:hover{color:#E8EEFA}',
@@ -1775,11 +1847,12 @@
     '.am-chain__box{position:relative;background:#1B2E4B;color:#E8EEFA;border-radius:10px;padding:7px 10px;font:800 14px/1.3 Nunito,sans-serif}',
     '.am-chain__box--gap{background:transparent;border:2px dashed #FFD43B;color:#FFD43B;min-width:28px;text-align:center}',
     '.am-chain__box--filled{border:2px solid #2BC46F;background:#173B2A;color:#7DF0B0;animation:amPop .45s cubic-bezier(.3,1.6,.5,1) both}',
-    '.am-chain__arrow{font-style:normal;color:#6F84A6;font-weight:900;padding-left:14px;line-height:1}',
+    '.am-chain__arrow{font-style:normal;color:#8496B6;font-weight:900;padding-left:14px;line-height:1}',
     '.am-help__q{color:#FFE14D !important;margin-bottom:8px !important}',
     '.am-quiz{display:grid;gap:8px}',
     '.am-quiz__opt{position:relative;text-align:left;border:2px solid #2A3D5E;background:transparent;color:#E8EEFA;border-radius:12px;padding:10px 12px;font:800 15px/1.3 Nunito,sans-serif;cursor:pointer;transition:border-color .2s ease,background .2s ease}',
-    '.am-quiz__opt:hover:not(:disabled){border-color:#5CD6FF}',
+    '.am-quiz__opt:hover:not([aria-disabled="true"]){border-color:#5CD6FF}',
+    '.am-quiz__opt[aria-disabled="true"]{cursor:default}',
     '.am-quiz__opt--ok{border-color:#2BC46F;background:#173B2A;color:#7DF0B0}',
     '.am-quiz__opt--no{border-color:#E5484D;color:#FF9A9D;opacity:.75}',
     '.am-help__hint{margin-top:10px !important;color:#FFC9A8 !important}',
@@ -1842,7 +1915,7 @@
     '.am-dump__pair,.am-dump__miss{border-left:3px solid #2BC46F;padding:4px 0 4px 14px;margin:0 0 16px}',
     '.am-dump__miss{border-left-color:#F5A03C}',
     '.am-dump__yours,.am-dump__exam{font:800 17px/1.45 Nunito,sans-serif;color:#E8EEFA;margin-bottom:6px}',
-    '.am-dump__yours span,.am-dump__exam span{display:block;font:700 12px Fredoka,Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#6F84A6;margin-bottom:2px}',
+    '.am-dump__yours span,.am-dump__exam span{display:block;font:700 12px Fredoka,Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8496B6;margin-bottom:2px}',
     '.am-dump__exam{color:#BFF5D6}',
     '.am-dump__exam b,.am-dump__forgot p b{color:#5BE39A;background:rgba(43,196,111,.16);border-radius:5px;padding:0 4px}',
     '.am-dump__tips{display:flex;flex-direction:column;gap:4px}',
@@ -1862,7 +1935,7 @@
     '.am-coach--result .am-btn--more{flex:1 1 100%}',
     '.am-btn--check{background:#2BC46F;color:#fff;box-shadow:0 4px 0 #1E9A55;font-size:19px;padding:14px 16px}',
     '.am-btn--check:active{box-shadow:0 1px 0 #1E9A55}',
-    '.am-btn--check:disabled{opacity:.75;cursor:wait;transform:none}',
+    '.am-btn--check[aria-disabled="true"]{opacity:.75;cursor:wait;transform:none}',
     '.am-miss{background:transparent;color:inherit;text-decoration:underline wavy #F5A03C;text-decoration-thickness:2px;text-underline-offset:7px}',
     '.am-finish{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:rgba(8,14,24,.72);animation:amIn .3s ease both;padding:16px;box-sizing:border-box}',
     '.am-finish__card{width:min(640px,100%);max-height:100%;overflow:auto;box-sizing:border-box;background:#14243B;border-radius:22px;padding:28px;color:#F4F7FF;animation:amPop .5s cubic-bezier(.3,1.4,.5,1) both}',
@@ -1944,7 +2017,7 @@
     '.am-cover__toggle[aria-expanded="true"] i{transform:rotate(-135deg) translateY(-2px)}',
     '.am-root .am-plan[hidden]{display:none}',
     '.am-root .am-plan{border-top:1px solid #1E3050;padding-top:10px}',
-    '.am-root .am-plan__item--done .am-plan__row span{color:#6F84A6}',
+    '.am-root .am-plan__item--done .am-plan__row span{color:#8496B6}',
     '.am-root .am-plan__item--done .am-plan__dot{background:#2A6B4A;border-color:#2A6B4A}',
     '.am-needhelp{border-top:1px solid #1E3050;padding-top:16px}',
     '.am-needhelp__btns{display:flex;gap:10px}',
@@ -1962,7 +2035,18 @@
     '.am-root .am-addpage{box-shadow:0 4px 0 #0A1220,0 10px 20px rgba(70,35,10,.3)}',
     '@media (max-width:1100px){.am-stage{flex-direction:column;padding:72px 12px 12px;gap:12px}.am-sheet-wrap{max-width:none}.am-sheet{padding:22px 60px 40px 22px}.am-coach{flex:0 0 auto;margin:0;align-self:stretch;max-height:42vh}.am-close{top:12px;right:12px}}',
     '@media (max-width:600px){.am-root .am-mirror,.am-root .am-input,.am-root .am-mirror *{font-size:19px !important}.am-sheet{padding-right:52px}.am-coach{padding:14px;gap:10px;max-height:48vh}.am-score{padding:8px 12px}.am-score__num{font-size:22px}.am-pips{margin:6px 0}.am-coach__head{display:none}.am-coach__title{font-size:20px}.am-coach__p{font-size:16px}.am-coach__foot span{display:none}.am-btn{padding:10px 12px}}',
-    '@media (prefers-reduced-motion:reduce){.am-root *{animation-duration:.01ms !important;transition-duration:.01ms !important}}'
+    // Keyboard focus is always visible; a card that takes focus doesn't draw a ring around itself.
+    '.am-root :is(button,a,[tabindex="0"]):focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
+    '.am-root .am-finish__card:focus{outline:none}',
+    '.am-root .am-dump__box:focus-visible{box-shadow:inset 0 0 0 2px #5CD6FF}',
+    '.am-root .am-drag__tile{border:0}',
+    '.am-root .am-sheet-wrap,.am-root .am-coach__body,.am-root .am-plan,.am-root .am-dump__box,.am-root .am-finish__card{overscroll-behavior:contain}',
+    '.am-root button:not(.am-drag__tile){touch-action:manipulation;-webkit-tap-highlight-color:transparent}',
+    '.am-root .am-btn:not([aria-disabled="true"]):hover{filter:brightness(1.07)}',
+    '.am-root .am-score__num,.am-root .am-finish__score{font-variant-numeric:tabular-nums}',
+    '.am-root .am-dump__yours{overflow-wrap:anywhere}',
+    '@media (prefers-reduced-motion:reduce){.am-root *,.am-root *::before,.am-root *::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;animation-delay:0s !important;transition-duration:.01ms !important;transition-delay:0s !important}' +
+      '.am-root .am-caret--on{animation:none !important;opacity:1}.am-root .am-stamp{animation:none !important}}'
   ].join('\n');
   var style = document.createElement('style');
   style.textContent = css;

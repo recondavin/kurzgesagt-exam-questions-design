@@ -52,6 +52,7 @@
   var cameraScale = 1.88;
   var savedScrollX = 0;
   var savedScrollY = 0;
+  var returnFocus = null;
   var DIAGRAM_START_MS = 5600;
   var IMAGE_SEQUENCE_MS = 17500;
 
@@ -80,19 +81,30 @@
     document.body.appendChild(eye);
     var guide = document.createElement('aside');
     guide.className = 'hf-guide';
-    guide.setAttribute('aria-live', 'polite');
-    guide.innerHTML = '<div class="hf-guide__top"><div class="hf-guide__copy"><h3 class="hf-guide__title" data-hf-title></h3></div><button type="button" class="hf-guide__voice" data-hf-voice aria-pressed="true" aria-label="Narrator voice"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="hf-voice-waves" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="hf-voice-mute" d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><button type="button" class="hf-guide__close" data-hf-exit aria-label="Exit hyper focus">×</button></div><p class="hf-guide__summary" data-hf-summary></p><p class="hf-guide__prose" data-hf-prose hidden></p><ul class="hf-guide__points" data-hf-points></ul><div class="hf-guide__controls"><button type="button" class="hf-guide__button hf-guide__button--ghost" data-hf-prev>Back</button><button type="button" class="hf-guide__button" data-hf-next>Next</button><span class="hf-guide__step" data-hf-count></span></div>';
+    guide.setAttribute('role', 'dialog');
+    guide.setAttribute('aria-modal', 'true');
+    guide.setAttribute('aria-labelledby', 'hf-guide-title');
+    guide.innerHTML = '<p class="hf-sr" role="status" data-hf-status></p><div class="hf-guide__top"><div class="hf-guide__copy"><h3 class="hf-guide__title" id="hf-guide-title" tabindex="-1" data-hf-title></h3></div><button type="button" class="hf-guide__voice" data-hf-voice aria-pressed="true" aria-label="Narrator voice"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="hf-voice-waves" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="hf-voice-mute" d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><button type="button" class="hf-guide__close" data-hf-exit aria-label="Exit hyper focus">×</button></div><p class="hf-guide__summary" data-hf-summary></p><p class="hf-guide__prose" data-hf-prose hidden></p><ul class="hf-guide__points" data-hf-points></ul><div class="hf-guide__controls"><button type="button" class="hf-guide__button hf-guide__button--ghost" data-hf-prev>Back</button><button type="button" class="hf-guide__button" data-hf-next>Next</button><span class="hf-guide__step" data-hf-count></span></div>';
     var content = document.createElement('div');
     content.className = 'hf-guide__content';
     content.tabIndex = 0;
+    content.setAttribute('role', 'region');
     content.setAttribute('aria-label', 'Study guidance');
     ['summary', 'prose', 'points'].forEach(function (name) {
       content.appendChild(guide.querySelector('.hf-guide__' + name));
     });
     guide.insertBefore(content, guide.querySelector('.hf-guide__controls'));
     document.body.appendChild(guide);
+    holdInert(guide, 'hf-idle', true);
     ui = { panels: panels, eye: eye, guide: guide };
     return ui;
+  }
+
+  // Answer mode can make the same elements inert; an element stays inert until every owner lets go.
+  function holdInert(el, owner, on) {
+    var owners = el.inertOwners || (el.inertOwners = {});
+    if (on) owners[owner] = true; else delete owners[owner];
+    el.inert = Object.keys(owners).length > 0;
   }
 
   function updateGuide(step) {
@@ -101,7 +113,7 @@
     var guide = buildUI().guide;
     clearTyping();
     guide.querySelector('.hf-guide__content').scrollTop = 0;
-    guide.setAttribute('aria-live', 'off');
+    guide.querySelector('[data-hf-status]').textContent = 'Step ' + (index + 1) + ' of ' + group.length + ': ' + step.title;
     var title = guide.querySelector('[data-hf-title]');
     var summary = guide.querySelector('[data-hf-summary]');
     var prose = guide.querySelector('[data-hf-prose]');
@@ -114,7 +126,9 @@
     points.hidden = hasProse;
     points.innerHTML = step.points.map(function () { return '<li></li>'; }).join('');
     guide.querySelector('[data-hf-count]').textContent = (index + 1) + ' / ' + group.length;
-    guide.querySelector('[data-hf-prev]').disabled = index === 0;
+    var prevButton = guide.querySelector('[data-hf-prev]');
+    if (index === 0 && document.activeElement === prevButton) guide.querySelector('[data-hf-next]').focus();
+    prevButton.disabled = index === 0;
     guide.querySelector('[data-hf-prev]').style.opacity = index === 0 ? '.38' : '1';
     var nextButton = guide.querySelector('[data-hf-next]');
     nextButton.textContent = index === group.length - 1 ? 'Finish' : 'Next';
@@ -139,7 +153,6 @@
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         visual.querySelectorAll('svg').forEach(function (svgEl) { if (svgEl.pauseAnimations) svgEl.pauseAnimations(); });
       }
-      guide.setAttribute('aria-live', 'polite');
       return;
     }
 
@@ -147,7 +160,7 @@
     typeText(title, step.title, 12, function () {
       typeText(summary, step.summary, 7, function () {
         if (hasProse) {
-          typeText(prose, step.prose, 4, function () { guide.setAttribute('aria-live', 'polite'); });
+          typeText(prose, step.prose, 4);
         } else {
           typePoint(0);
         }
@@ -155,10 +168,7 @@
     });
 
     function typePoint(pointIndex) {
-      if (pointIndex >= step.points.length) {
-        guide.setAttribute('aria-live', 'polite');
-        return;
-      }
+      if (pointIndex >= step.points.length) return;
       var plain = plainText(step.points[pointIndex]);
       typeText(pointEls[pointIndex], plain, 5, function () {
         pointEls[pointIndex].innerHTML = step.points[pointIndex];
@@ -198,6 +208,7 @@
   // Wrap every letter in its own span (words kept together so lines never break mid-word).
   // The full text keeps its layout from the start; letters simply appear in turn.
   function splitChars(host) {
+    var label = host.textContent;
     var chars = [];
     var walker = document.createTreeWalker(host, NodeFilter.SHOW_TEXT);
     var nodes = [];
@@ -220,6 +231,15 @@
       });
       node.parentNode.replaceChild(frag, node);
     });
+    // Screen readers would read the one-span-per-letter text in pieces, so they get a plain copy.
+    var shown = document.createElement('span');
+    shown.setAttribute('aria-hidden', 'true');
+    while (host.firstChild) shown.appendChild(host.firstChild);
+    host.appendChild(shown);
+    var plain = document.createElement('span');
+    plain.className = 'hf-sr';
+    plain.textContent = label;
+    host.appendChild(plain);
     return chars;
   }
 
@@ -266,7 +286,6 @@
     var button = ui && ui.guide.querySelector('[data-hf-voice]');
     if (!button) return;
     button.setAttribute('aria-pressed', narration.on ? 'true' : 'false');
-    button.setAttribute('aria-label', narration.on ? 'Narrator voice on' : 'Narrator voice off');
   }
 
   function toggleNarration() {
@@ -572,7 +591,14 @@
     var target = targetFor(id);
     if (!step || !target) return;
     buildUI();
+    var starting = !activeId;
     activeId = id;
+    if (starting) {
+      returnFocus = document.activeElement;
+      holdInert(ui.guide, 'hf-idle', false);
+      var scene = document.querySelector('[data-hf-scene]');
+      if (scene) holdInert(scene, 'hf', true);
+    }
     ui.eye.classList.toggle('hf-eye-frame--spotlight', /^question-3[bc]$/.test(step.target));
     document.body.classList.add('hf-active');
     hideNonFocusSections(true);
@@ -584,6 +610,7 @@
     clearTimeout(cameraTimer);
     document.body.classList.toggle('hf-camera-moving', travelling);
     updateGuide(step);
+    if (starting) ui.guide.querySelector('[data-hf-title]').focus({ preventScroll: true });
     moveCameraTo(target);
     cameraTimer = setTimeout(function () {
       if (activeId !== id) return;
@@ -623,6 +650,12 @@
     document.body.classList.remove('hf-camera-moving');
     hideNonFocusSections(false);
     resetCamera();
+    if (ui) holdInert(ui.guide, 'hf-idle', true);
+    var scene = document.querySelector('[data-hf-scene]');
+    if (scene) holdInert(scene, 'hf', false);
+    // Give focus back to whatever opened the guide, unless answer mode has taken over.
+    if (returnFocus && returnFocus.isConnected && !document.querySelector('.am-root')) returnFocus.focus({ preventScroll: true });
+    returnFocus = null;
   }
 
   function focus(id) {
@@ -688,7 +721,8 @@
       if (event.target.closest('[data-hf-next]')) { event.preventDefault(); move(1); return; }
       if (event.target.closest('[data-hf-prev]')) { event.preventDefault(); move(-1); return; }
       var target = event.target.closest('[data-hf-target]');
-      if (target && target.getAttribute('data-hf-target') !== activeId) focus(target.getAttribute('data-hf-target'));
+      var current = activeId && stepFor(activeId);
+      if (target && target.getAttribute('data-hf-target') !== (current ? current.target : activeId)) focus(target.getAttribute('data-hf-target'));
       var submit = event.target.closest('[data-hf-submit]');
       if (submit && activeId && activeId.indexOf('question-') === 0) {
         var before = (document.querySelector('[data-hf-progress]') || {}).textContent || '';
@@ -705,6 +739,7 @@
         return;
       }
       if (event.key === 'Escape') exit();
+      if (event.altKey || event.ctrlKey || event.metaKey || event.repeat || event.defaultPrevented) return;
       if (!/INPUT|TEXTAREA/.test(event.target.tagName) && event.key === 'ArrowRight') move(1);
       if (!/INPUT|TEXTAREA/.test(event.target.tagName) && event.key === 'ArrowLeft') move(-1);
     });
