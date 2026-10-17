@@ -149,7 +149,7 @@ Continue from the screenshot-based question block. Do not return to the rejected
 - The answer is written on ruled pages (22 lines on page 1, 28 on each later page); text that overflows a page moves onto the next, and "+ Add a page" adds more.
 - Page 1 starts with one worked SRP already written in (`example` in each question).
 - The blinking cursor is drawn by the page (`.am-caret`) so it sits on the line; the textarea's own caret is hidden.
-- Help only appears when the student clicks Stuck?. On the first point of their own, that also shows grey ghost text (Tab to accept).
+- Help only appears when the student clicks Stuck?. It opens a "Let's go over it" card for the next uncovered point: the guide's picture for that idea (`ExamHyperFocus.pictures()`), a short simple explanation and one quick check question (`TEACH` in `answer-mode.js`, one entry per point). "Not this bit?" chips switch to another uncovered point.
 - Marks follow the official SEC 2024 Geography HL marking scheme (copy found at educateplus.ie, `Geography HL.pdf`):
   - 3B: 2 + 2 marks for two sedimentary rocks named, 13 SRPs for formation; Irish locations max 2 SRPs; no formation explained means max 2 SRPs.
   - 3C: 2 marks for a reference to prediction, 2 for reducing effects, 13 SRPs; a 2nd reference on a side earns 1 SRP; one side only is capped at 7 SRPs.

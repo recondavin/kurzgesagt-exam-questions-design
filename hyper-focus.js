@@ -717,10 +717,25 @@
     new MutationObserver(sync).observe(document.querySelector('x-dc') || document.body, { childList: true, subtree: true });
   }
 
+  // Each guide picture keyed by its bold word (e.g. "Compaction"), so answer mode can reuse the art.
+  function pictures() {
+    var out = {};
+    var box = document.createElement('div');
+    steps.forEach(function (step) {
+      if (!step.visual) return;
+      box.innerHTML = step.visual;
+      box.querySelectorAll('li').forEach(function (li) {
+        var art = li.querySelector('.hf-bullet-art'), b = li.querySelector('b');
+        if (art && b) out[b.textContent.replace(/:\s*$/, '').trim()] = art.innerHTML;
+      });
+    });
+    return out;
+  }
+
   window.ExamHyperFocusSetup = function () {
     installEvents();
     buildUI();
     fitSceneToViewport();
-    window.ExamHyperFocus = { start: startTour, focus: focus, next: function () { move(1); }, previous: function () { move(-1); }, exit: exit };
+    window.ExamHyperFocus = { start: startTour, focus: focus, next: function () { move(1); }, previous: function () { move(-1); }, exit: exit, pictures: pictures };
   };
 })();
