@@ -916,81 +916,372 @@
     var last = box.lastElementChild;
     if (last && !keepFocus) last.focus({ preventScroll: true });
   }
-  function trainCards() {
+  // ---------- Training run: 12 quick cards of mixed kinds, 3 hearts, combos and a speed bonus ----------
+  // Each run takes the four points you know least, meets each one easy first (tap an answer) and
+  // harder later (fill a gap, then type it). Every right answer adds a layer to the rock (3B) or a
+  // floor to the building (3C) beside the cards.
+  var RUN_HEARTS = 3;
+  var RUN_KINDS = {
+    pick: { title: 'Tap the right answer', base: 10, fast: 6000 },
+    gap: { title: 'Fill the gap', base: 10, fast: 6000 },
+    judge: { title: 'Would this earn a mark?', base: 10, fast: 6000 },
+    type: { title: 'Type the answer', base: 20, fast: 15000 }
+  };
+  var HEART_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.6-4.7-9.5-9.5C1.1 7.4 3.4 3.8 7 3.8c2.2 0 3.9 1.2 5 2.9 1.1-1.7 2.8-2.9 5-2.9 3.6 0 5.9 3.6 4.5 7.2-1.9 4.8-9.5 9.5-9.5 9.5z"/></svg>';
+  function mastery() { try { return JSON.parse(store('am-master-' + state.id) || '{}') || {}; } catch (err) { return {}; } }
+  function trainIds() {
     var seen = {};
     return state.q.path.filter(function (id) {
       if (seen[id] || !TEACH[id]) return false;
       seen[id] = true;
       return true;
-    }).slice(0, 6);
+    });
+  }
+  // The four points you know least (the question's own order breaks ties), so runs move on through the list.
+  function runPoints() {
+    var known = mastery();
+    return trainIds().map(function (id, k) { return { id: id, k: k, m: known[id] || 0 }; })
+      .sort(function (a, b) { return a.m - b.m || a.k - b.k; }).slice(0, 4).map(function (x) { return x.id; });
+  }
+  // A gap card blanks one key word of the point's exam sentence. The other choices are key words from
+  // the rest of the question, written the same way (place names against place names), never one
+  // that would also fit (SAME_WORDS).
+  var SAME_WORDS = [['shaking', 'sway', 'swaying', 'tremors', 'movements', 'bulging'], ['sea', 'water']];
+  function gapCard(id, seed) {
+    if (!QUIZ[id]) return null;
+    var parts = QUIZ[id].drag.split(/\[([^\]]+)\]/), keys = [];
+    parts.forEach(function (p, k) { if (k % 2 && (k > 1 || parts[0].trim())) keys.push(k); });
+    var lower = keys.filter(function (k) { return parts[k].charAt(0) === parts[k].charAt(0).toLowerCase(); });
+    var pool = lower.length ? lower : keys;
+    if (!pool.length) return null;
+    var blank = pool[seed % pool.length], word = parts[blank], cap = word.charAt(0) !== word.charAt(0).toLowerCase();
+    var mine = parts.filter(function (p, k) { return k % 2; }).map(function (w) { return w.toLowerCase(); });
+    SAME_WORDS.forEach(function (group) { if (group.indexOf(word.toLowerCase()) >= 0) mine = mine.concat(group); });
+    var seen = {}, others = [];
+    trainIds().forEach(function (other) {
+      if (other === id || !QUIZ[other]) return;
+      var op = QUIZ[other].drag.split(/\[([^\]]+)\]/);
+      op.forEach(function (w, k) {
+        var low = w.toLowerCase();
+        if (!(k % 2) || (k === 1 && !op[0].trim()) || seen[low] || mine.indexOf(low) >= 0) return;
+        if ((w.charAt(0) !== low.charAt(0)) !== cap) return;
+        seen[low] = true;
+        others.push(w);
+      });
+    });
+    if (others.length < 2) return null;
+    var options = shuffle([word].concat(shuffle(others, seed + 5).slice(0, 3)), seed + 9);
+    return { kind: 'gap', id: id, before: parts.slice(0, blank).join(''), after: parts.slice(blank + 1).join(''), options: options, answer: options.indexOf(word) };
+  }
+  // A point you haven't typed right yet is taught on its first card: read it, then answer.
+  function pickCard(id, seed) {
+    var opts = shuffle(TEACH[id].a.map(function (text, k) { return { text: text, ok: !k }; }), seed);
+    return { kind: 'pick', id: id, teach: !mastery()[id], options: opts.map(function (o) { return o.text; }), answer: opts.map(function (o) { return o.ok; }).indexOf(true) };
+  }
+  function runDeck() {
+    var p = runPoints(), seed = Date.now() % 997 + 1, data = TRAIN[state.id];
+    var real = shuffle(data.real, seed).map(function (r) { return { kind: 'judge', text: r[0], label: r[1], answer: 1 }; });
+    var vague = shuffle(data.vague, seed + 7).map(function (v) { return { kind: 'judge', text: v[0], why: v[1], answer: 0 }; });
+    var judges = shuffle([real[0], vague[0], real[1], vague[1], seed % 2 ? real[2] : vague[2]], seed + 13);
+    var gap = function (id, k) { return gapCard(id, seed + k) || judges.pop(); };
+    return [pickCard(p[0], seed), pickCard(p[1], seed + 1), judges.shift(), gap(p[0], 2), pickCard(p[2], seed + 3), { kind: 'type', id: p[1] },
+      judges.shift(), pickCard(p[3], seed + 4), gap(p[2], 5), { kind: 'type', id: p[0] }, judges.shift(), { kind: 'type', id: p[3] }];
   }
   function openTraining() {
     var old = state.root.querySelector('.am-finish');
     if (old) old.remove();
     clearInterval(state.dumpTimer);
+    var tower = Boolean(state.q.sides);
     var card = el('div', 'am-finish am-train');
-    card.innerHTML = '<div class="am-finish__card am-train__card" role="dialog" aria-label="Training">' +
-      '<div class="am-train__top"><div><div class="am-finish__kicker">' + state.q.code + ' &middot; Training</div>' +
-        '<h3 class="am-train__title" data-am-ttitle></h3></div><div class="am-train__streak" data-am-streak hidden></div></div>' +
-      '<ol class="am-train__rounds"><li data-r="learn">Learn</li><li data-r="judge">Real or vague?</li><li data-r="sprint">Sprint</li></ol>' +
-      '<div class="am-train__bar"><i data-am-tbar></i></div>' +
-      '<div class="am-train__body" data-am-tbody></div>' +
-      '<div class="am-finish__buttons" data-am-tbtns></div></div>';
-    state.train = { streak: 0 };
+    card.innerHTML = '<div class="am-finish__card am-train__card am-run" role="dialog" aria-label="Training run">' +
+      '<div class="am-run__hud">' +
+        '<button type="button" class="am-run__quit" data-am-keep aria-label="Stop training"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
+        '<div class="am-run__segs" data-am-segs aria-hidden="true"></div>' +
+        '<div class="am-run__hearts" data-am-hearts role="img"></div>' +
+        '<div class="am-run__score"><b data-am-rscore>0</b><span>pts</span></div></div>' +
+      '<div class="am-run__timer" aria-hidden="true"><i data-am-rtimer></i></div>' +
+      '<div class="am-run__main"><div class="am-run__stage">' +
+          '<div class="am-run__top"><h3 class="am-run__kind" data-am-rkind></h3><span class="am-run__combo" data-am-combo hidden></span></div>' +
+          '<div class="am-train__body" data-am-tbody></div></div>' +
+        '<div class="am-run__side" aria-hidden="true"><div class="am-build' + (tower ? ' am-build--tower' : '') + '" data-am-build></div>' +
+          '<p class="am-build__cap" data-am-bcap>' + (tower ? 'Build it up' : 'Build the rock') + '</p></div></div>' +
+      '<div class="am-finish__buttons am-run__btns" data-am-tbtns></div></div>';
+    state.train = { deck: runDeck(), i: 0, hearts: RUN_HEARTS, score: 0, streak: 0, best: 0, right: 0, fast: 0, results: [] };
+    card.querySelector('[data-am-segs]').innerHTML = new Array(state.train.deck.length + 1).join('<i></i>');
+    card.addEventListener('keydown', runKeys);
     showCard(card);
-    learnRound(card);
+    drawHearts(card, false);
+    showRunCard(card);
   }
-  function trainSet(card, round, title, progress, timer) {
-    var order = ['learn', 'judge', 'sprint'];
-    card.querySelectorAll('.am-train__rounds li').forEach(function (li) {
-      var k = order.indexOf(li.getAttribute('data-r')), now = order.indexOf(round);
-      li.className = k < now ? 'is-done' : k === now ? 'is-current' : '';
-    });
-    card.querySelector('[data-am-ttitle]').textContent = title;
-    var bar = card.querySelector('[data-am-tbar]');
-    bar.className = timer ? 'is-timer' : '';
-    bar.style.width = (progress * 100) + '%';
+  // 1-4 pick an answer on tap and gap cards (1 and 2 on real-or-vague cards).
+  function runKeys(e) {
+    var t = state && state.train;
+    if (!t || t.answered || t.deck === undefined || e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
+    var b = /^[1-4]$/.test(e.key) && e.currentTarget.querySelector('[data-am-ropt="' + (e.key - 1) + '"]');
+    if (b) { e.preventDefault(); b.click(); }
   }
-  function streak(card, up) {
-    var t = state.train, chip = card.querySelector('[data-am-streak]');
-    t.streak = up ? t.streak + 1 : 0;
-    if (up) ding(t.streak - 1);
-    chip.hidden = t.streak < 2;
-    if (t.streak >= 2) {
-      chip.textContent = t.streak + ' in a row';
-      if (!reduced()) { chip.classList.remove('am-bump'); void chip.offsetWidth; chip.classList.add('am-bump'); }
+  function drawHearts(card, lost) {
+    var t = state.train, box = card.querySelector('[data-am-hearts]');
+    box.setAttribute('aria-label', t.hearts + (t.hearts === 1 ? ' heart' : ' hearts') + ' left');
+    box.innerHTML = '';
+    for (var k = 0; k < RUN_HEARTS; k++) {
+      var h = el('i', 'am-run__heart' + (k >= t.hearts ? ' is-lost' : ''), HEART_ICON);
+      if (lost && k === t.hearts && !reduced()) h.classList.add('am-run__heart--break');
+      if (lost === 'gain' && k === t.hearts - 1 && !reduced()) h.classList.add('am-run__heart--gain');
+      box.appendChild(h);
     }
   }
-  function learnRound(card) {
-    var t = state.train;
-    t.round = 'learn';
-    t.queue = trainCards();
-    t.total = t.queue.length;
-    t.done = 0;
-    t.again = {};
-    showLearnCard(card);
+  function runTimer(card, ms) {
+    var bar = card.querySelector('[data-am-rtimer]'), fresh = bar.cloneNode(false);
+    fresh.style.width = '';
+    // The drain is a countdown, not decoration, so it keeps its real length even with reduced motion.
+    fresh.style.setProperty('animation-duration', ms + 'ms', 'important');
+    fresh.className = ms ? 'is-running' : '';
+    bar.parentNode.replaceChild(fresh, bar);
   }
-  function showLearnCard(card) {
+  function showRunCard(card) {
     var t = state.train;
-    if (!t.queue.length) { judgeRound(card); return; }
-    var id = t.queue[0], T = TEACH[id], pic = pictureFor(T.pic);
-    trainSet(card, 'learn', 'Learn the points', t.done / t.total);
-    card.querySelector('[data-am-tbody]').innerHTML = '<div class="am-flip"><div class="am-flip__inner">' +
-      '<div class="am-flip__face am-flip__front">' + (pic ? '<div class="am-flip__pic">' + pic + '</div>' : '') +
-        '<p class="am-flip__q" id="am-flip-q">' + esc(T.tq || T.q) + '</p>' +
-        '<input class="am-flip__input" type="text" autocomplete="off" spellcheck="true" placeholder="Type your answer…" aria-labelledby="am-flip-q">' +
+    if (t.i >= t.deck.length || t.hearts <= 0) { endRun(card); return; }
+    var c = t.deck[t.i], kind = RUN_KINDS[c.kind], body = card.querySelector('[data-am-tbody]');
+    t.answered = false;
+    t.hinted = false;
+    t.started = performance.now();
+    card.querySelector('[data-am-rkind]').textContent = t.i === t.deck.length - 1 ? 'Last card! ' + kind.title : kind.title;
+    Array.prototype.forEach.call(card.querySelectorAll('[data-am-segs] i'), function (seg, k) {
+      seg.className = k < t.i ? (t.results[k] ? 'is-ok' : 'is-no') : k === t.i ? 'is-current' : '';
+    });
+    t.window = c.teach ? kind.fast * 2 : kind.fast;
+    runTimer(card, t.window);
+    var keys = function (list) {
+      return list.map(function (text, k) {
+        return '<button type="button" class="am-run__opt" data-am-ropt="' + k + '"><kbd aria-hidden="true">' + (k + 1) + '</kbd><span>' + esc(text) + '</span></button>';
+      }).join('');
+    };
+    var pic = c.id ? pictureFor(TEACH[c.id].pic) : '';
+    if (c.kind === 'pick') {
+      body.innerHTML = (c.teach ? '<div class="am-run__ask am-run__ask--teach">' + (pic ? '<div class="am-run__pic">' + pic + '</div>' : '') +
+          '<div><span class="am-run__new">New point</span><p class="am-run__say">' + TEACH[c.id].say + '</p></div></div>' +
+          '<p class="am-run__q am-run__q--small" id="am-run-q">' + esc(TEACH[c.id].q) + '</p>'
+        : '<div class="am-run__ask">' + (pic ? '<div class="am-run__pic">' + pic + '</div>' : '') +
+          '<p class="am-run__q" id="am-run-q">' + esc(TEACH[c.id].q) + '</p></div>') +
+        '<div class="am-run__opts" role="group" aria-labelledby="am-run-q">' + keys(c.options) + '</div>';
+    } else if (c.kind === 'gap') {
+      body.innerHTML = '<p class="am-run__gap" id="am-run-q">' + esc(c.before) + '<span class="am-run__slot" data-am-slot><span class="am-sr">blank</span></span>' + esc(c.after) + '</p>' +
+        '<div class="am-run__opts am-run__opts--tiles" role="group" aria-labelledby="am-run-q">' + keys(c.options) + '</div>';
+    } else if (c.kind === 'judge') {
+      body.innerHTML = '<p class="am-judge__s" id="am-run-q">“' + esc(c.text) + '”</p>' +
+        '<div class="am-run__opts am-run__opts--two" role="group" aria-labelledby="am-run-q">' + keys(['Too vague', 'Earns a mark']) + '</div>';
+    } else {
+      var T = TEACH[c.id];
+      body.innerHTML = '<div class="am-run__ask">' + (pic ? '<div class="am-run__pic">' + pic + '</div>' : '') +
+        '<p class="am-run__q" id="am-run-q">' + esc(T.tq || T.q) + '</p></div>' +
+        '<input class="am-flip__input am-run__input" type="text" autocomplete="off" spellcheck="true" placeholder="Type your answer…" aria-labelledby="am-run-q">' +
         '<p class="am-flip__hint" data-am-fliphint>A few words is enough.</p>' +
-        (T.hint ? '<p class="am-flip__hintline" data-am-hintline><button type="button" class="am-flip__hintbtn" data-am-thint>Show hint</button></p>' : '') + '</div>' +
-      '<div class="am-flip__face am-flip__back" aria-hidden="true">' +
-        '<p class="am-flip__verdict" role="status"></p>' +
-        '<p class="am-flip__label">' + esc(pointById(id).label) + '</p>' +
-        '<p class="am-flip__a">' + (T.model || examVersion(id)) + '</p>' +
-        '<p class="am-flip__yours"></p></div>' +
-      '</div></div>';
-    fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-tskip', 'I don\'t know'], ['ok', 'data-am-tcheck', 'Check']], true);
-    var input = card.querySelector('.am-flip__input');
-    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); checkLearn(card, false); } });
-    input.focus({ preventScroll: true });
+        (T.hint ? '<p class="am-flip__hintline" data-am-hintline><button type="button" class="am-flip__hintbtn" data-am-thint>Show hint</button></p>' : '');
+    }
+    var btns = card.querySelector('[data-am-tbtns]');
+    if (c.kind === 'type') {
+      fillButtons(btns, [['more', 'data-am-rskip', 'I don\'t know'], ['ok', 'data-am-rcheck', 'Check']], true);
+      var input = body.querySelector('.am-run__input');
+      input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); checkRunType(card, false); } });
+      input.focus({ preventScroll: true });
+    } else {
+      btns.innerHTML = '';
+      // Focus the question, not an answer, so the keyboard doesn't lean towards any choice.
+      var q = body.querySelector('#am-run-q');
+      q.setAttribute('tabindex', '-1');
+      q.focus({ preventScroll: true });
+    }
+    if (!reduced()) { body.classList.remove('am-run__in'); void body.offsetWidth; body.classList.add('am-run__in'); }
+  }
+  function answerRun(card, k) {
+    var t = state.train, c = t.deck[t.i];
+    if (t.answered) return;
+    // Real or vague: the marker has the final say, so a card can never disagree with the marking.
+    if (c.kind === 'judge') c.answer = evaluate(state.q, c.text, always).some(function (s) { return s.hits.length > 0; }) ? 1 : 0;
+    var right = k === c.answer;
+    var opts = card.querySelectorAll('[data-am-ropt]');
+    Array.prototype.forEach.call(opts, function (b, n) {
+      b.setAttribute('aria-disabled', 'true');
+      if (n === c.answer) b.classList.add('am-run__opt--ok');
+    });
+    opts[k].classList.add(right ? 'am-run__opt--ok' : 'am-run__opt--no');
+    if (c.kind === 'gap') {
+      var slot = card.querySelector('[data-am-slot]');
+      slot.textContent = c.options[c.answer];
+      slot.classList.add(right ? 'am-run__slot--ok' : 'am-run__slot--no');
+    }
+    var host = c.kind === 'judge' ? card.querySelector('.am-judge__s') : opts[k];
+    stamp(host, right);
+    var fb;
+    if (c.kind === 'pick') fb = right ? '' : esc(TEACH[c.id].why);
+    else if (c.kind === 'gap') fb = right ? '' : 'The word is <b>' + esc(c.options[c.answer]) + '</b>.';
+    else fb = c.answer ? 'It earns a mark: <b>' + esc(c.label || 'a valid point') + '</b>.' : esc(c.why || 'It\'s too vague to earn a mark.');
+    scoreRun(card, right, fb);
+  }
+  function checkRunType(card, skipped) {
+    var t = state.train, c = t.deck[t.i], T = TEACH[c.id], input = card.querySelector('.am-run__input');
+    if (t.answered) return;
+    var answer = input.value.trim();
+    if (!skipped && !answer) {
+      var hint = card.querySelector('[data-am-fliphint]');
+      hint.textContent = 'Type what you remember first, or tap I don\'t know.';
+      hint.classList.add('am-flip__hint--warn');
+      input.focus();
+      return;
+    }
+    var right = !skipped && learnAnswerRight(c.id, T.tq || T.q, answer);
+    input.readOnly = true;
+    input.classList.add(right ? 'am-run__input--ok' : 'am-run__input--no');
+    if (!right && !skipped) stamp(input.parentNode.querySelector('.am-run__q'), false);
+    var known = mastery();
+    known[c.id] = right ? Math.min(3, (known[c.id] || 0) + 1) : Math.max(0, (known[c.id] || 0) - 1);
+    store('am-master-' + state.id, JSON.stringify(known));
+    t.typed = answer;
+    scoreRun(card, right, '<span class="am-run__exam"><span>In the exam</span>' + (T.model || examVersion(c.id)) + '</span>');
+  }
+  // Points: 10 a card (20 for typing), doubled from 3 in a row and tripled from 6, +5 for a fast answer.
+  // A hint halves a typed card. Every 5 in a row wins back a lost heart.
+  function scoreRun(card, right, feedback) {
+    var t = state.train, c = t.deck[t.i], kind = RUN_KINDS[c.kind];
+    t.answered = true;
+    t.results[t.i] = right;
+    var bar = card.querySelector('[data-am-rtimer]'), quick = performance.now() - t.started <= t.window;
+    bar.style.width = getComputedStyle(bar).width;
+    bar.className = '';
+    var gained = 0, extra = [];
+    if (right) {
+      t.streak += 1;
+      t.right += 1;
+      t.best = Math.max(t.best, t.streak);
+      var times = t.streak >= 6 ? 3 : t.streak >= 3 ? 2 : 1;
+      gained = (c.kind === 'type' && t.hinted ? kind.base / 2 : kind.base) * times;
+      if (times > 1) extra.push('x' + times + ' combo');
+      if (quick) { gained += 5; t.fast += 1; extra.push('fast +5'); }
+      t.score += gained;
+      rollTo(card.querySelector('[data-am-rscore]'), t.score);
+      ding(t.streak - 1, t.streak >= 6);
+      addLayer(card);
+      if (t.streak % 5 === 0 && t.hearts < RUN_HEARTS) { t.hearts += 1; drawHearts(card, 'gain'); extra.push('+1 heart'); }
+    } else {
+      t.streak = 0;
+      t.hearts -= 1;
+      drawHearts(card, true);
+      bonk();
+    }
+    var combo = card.querySelector('[data-am-combo]'), times2 = t.streak >= 6 ? 3 : t.streak >= 3 ? 2 : 1;
+    combo.hidden = t.streak < 2;
+    if (t.streak >= 2) {
+      combo.textContent = t.streak + ' in a row' + (times2 > 1 ? ' · x' + times2 : '');
+      if (!reduced()) { combo.classList.remove('am-bump'); void combo.offsetWidth; combo.classList.add('am-bump'); }
+    }
+    var seg = card.querySelectorAll('[data-am-segs] i')[t.i];
+    if (seg) seg.className = right ? 'is-ok' : 'is-no';
+    var last = t.i >= t.deck.length - 1 || t.hearts <= 0;
+    var head = right ? (c.kind === 'type' && t.hinted ? 'Right, with a hint!' : ['Right!', 'Nice!', 'Yes!', 'Spot on!'][t.right % 4])
+      : c.kind === 'type' && !t.typed ? 'Here\'s the answer' : 'Not quite';
+    var sheet = '<div class="am-run__sheet ' + (right ? 'am-run__sheet--ok' : 'am-run__sheet--no') + '" role="status">' +
+      '<div class="am-run__sheettext"><p class="am-run__verdict">' + head + (gained ? ' <b>+' + gained + '</b>' : '') +
+        (extra.length ? '<span>' + extra.join(' · ') + '</span>' : '') + (!right && t.hearts > 0 ? '<span>' + t.hearts + (t.hearts === 1 ? ' heart' : ' hearts') + ' left</span>' : '') + '</p>' +
+        (feedback ? '<p class="am-run__fb">' + feedback + '</p>' : '') + '</div>' +
+      '<div class="am-run__sheetbtns">' + (!right && c.kind === 'type' && t.typed ? '<button type="button" class="am-run__override" data-am-rright>I was right</button>' : '') +
+        '<button type="button" class="am-btn am-btn--ok" data-am-rnext>' + (last ? 'See my score' : 'Continue') + '</button></div></div>';
+    var btns = card.querySelector('[data-am-tbtns]');
+    btns.innerHTML = sheet;
+    btns.querySelector('[data-am-rnext]').focus({ preventScroll: true });
+    t.typed = '';
+  }
+  // "I was right": the typed answer counts after all, and the lost heart comes back.
+  function overrideRun(card) {
+    var t = state.train, c = t.deck[t.i];
+    t.hearts = Math.min(RUN_HEARTS, t.hearts + 1);
+    drawHearts(card, false);
+    var known = mastery();
+    known[c.id] = Math.min(3, (known[c.id] || 0) + 2);
+    store('am-master-' + state.id, JSON.stringify(known));
+    t.results[t.i] = true;
+    t.right += 1;
+    t.score += RUN_KINDS.type.base;
+    rollTo(card.querySelector('[data-am-rscore]'), t.score);
+    addLayer(card);
+    nextRun(card);
+  }
+  function nextRun(card) {
+    state.train.i += 1;
+    showRunCard(card);
+  }
+  function bonk() {
+    if (!soundOn()) return;
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      var now = audio.currentTime + 0.01;
+      tone(220, now, 0.18, 0.1);
+      tone(174.61, now + 0.12, 0.3, 0.1);
+    } catch (err) {}
+  }
+  // One more layer of rock (3B) or floor of the building (3C) drops onto the pile.
+  function addLayer(card) {
+    var build = card.querySelector('[data-am-build]'), n = build.children.length;
+    var layer = el('i', 'am-build__l am-build__l--' + (n % 5));
+    build.appendChild(layer);
+    if (!reduced()) layer.classList.add('am-build__l--drop');
+  }
+  function endRun(card) {
+    var t = state.train, n = t.deck.length, out = t.hearts <= 0;
+    var bonus = !out && t.right === n ? 50 : 0;
+    t.score += bonus;
+    var best = +store('am-run-' + state.id) || 0, newBest = t.score > best;
+    if (newBest) store('am-run-' + state.id, String(t.score));
+    store('am-trained-' + state.id, '1');
+    updateTrainTile();
+    var tower = Boolean(state.q.sides), layers = card.querySelectorAll('[data-am-build] i').length;
+    var build = card.querySelector('[data-am-build]'), cap = card.querySelector('[data-am-bcap]');
+    cap.textContent = tower ? layers + (layers === 1 ? ' floor' : ' floors') : layers + (layers === 1 ? ' layer' : ' layers');
+    if (layers) {
+      later(function () {
+        build.classList.add(tower ? 'am-build--quake' : 'am-build--rock');
+        cap.textContent = tower ? (out ? layers + (layers === 1 ? ' floor' : ' floors') : 'It stood up to the quake!') : 'Squeezed and glued into rock!';
+      }, reduced() ? 0 : 500);
+    }
+    card.querySelector('[data-am-rkind]').textContent = out ? 'Out of hearts' : newBest && best ? 'New best!' : 'Run complete!';
+    card.querySelector('[data-am-combo]').hidden = true;
+    card.querySelector('.am-run').classList.add('am-run--end');
+    runTimer(card, 0);
+    var known = mastery(), points = [];
+    t.deck.forEach(function (c) { if (c.id && points.indexOf(c.id) < 0) points.push(c.id); });
+    card.querySelector('[data-am-tbody]').innerHTML = '<div class="am-run__end">' +
+      '<div class="am-run__big" data-am-rbig>0</div>' +
+      '<p class="am-run__sub">points' + (bonus ? ' &middot; includes +50 for a perfect run' : '') +
+        (newBest ? (best ? ' &middot; beat your best of ' + best : '') : best ? ' &middot; your best is ' + best : '') + '</p>' +
+      '<div class="am-run__stats"><span><b>' + t.right + '/' + n + '</b> right</span><span><b>' + t.best + '</b> best streak</span><span><b>' + t.fast + '</b> fast answers</span></div>' +
+      '<div class="am-run__points"><p class="am-run__pointsh">Points this run</p>' + points.map(function (id) {
+        var m = known[id] || 0;
+        return '<div class="am-run__point"><span>' + esc(pointById(id).label) + '</span><span class="am-run__dots" role="img" aria-label="Known ' + m + ' of 3">' +
+          [0, 1, 2].map(function (k) { return '<i' + (k < m ? ' class="on"' : '') + '></i>'; }).join('') + '</span></div>';
+      }).join('') + '<p class="am-run__pointsnote">Type a point right to fill a dot. Next run brings in points you know less.</p></div></div>';
+    rollTo(card.querySelector('[data-am-rbig]'), t.score);
+    rollTo(card.querySelector('[data-am-rscore]'), t.score);
+    fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-keep', 'Back to writing'], ['more', 'data-am-rsprint', '90s sprint'], ['ok', 'data-am-rrun', 'Play again']]);
+    if (newBest && t.score) later(fanfare, 300);
+  }
+  function updateTrainTile() {
+    var line = state.root.querySelector('[data-am-tilebest]'), best = +store('am-run-' + state.id) || 0;
+    if (line) line.textContent = best ? 'Your best: ' + best + ' points' : '12 quick cards, 3 hearts';
+  }
+  function sprintIntro(card) {
+    var best = +store('am-sprint-' + state.id) || 0;
+    clearInterval(state.dumpTimer);
+    state.train = { sprint: true };
+    var run = card.querySelector('.am-run');
+    run.classList.remove('am-run--end');
+    run.classList.add('am-run--sprint');
+    card.querySelector('[data-am-rkind]').textContent = 'SRP Sprint';
+    card.querySelector('[data-am-combo]').hidden = true;
+    runTimer(card, 0);
+    card.querySelector('[data-am-tbody]').innerHTML = '<div class="am-sprint__intro">' +
+      '<p><b>' + SPRINT_SECONDS + ' seconds.</b> Write as many different SRPs as you can, one per sentence. Each new one dings.</p>' +
+      (best ? '<p class="am-sprint__best">Your best: <b>' + best + '</b> SRPs</p>' : '') + '</div>';
+    fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-rrun', 'Training run'], ['ok', 'data-am-tsprint', 'Start']]);
   }
   // Is a short typed answer right? Each point has an answer key: acc lists the words that make it
   // right (any one group, all words in it), rej the classic mix-ups that make it wrong. Words copied
@@ -1004,93 +1295,21 @@
     if ((t.rej || []).some(function (r) { return mine.indexOf(r) >= 0; })) return false;
     return (t.acc || []).some(function (alt) { return alt.every(function (stem) { return mine.indexOf(stem) >= 0; }); });
   }
-  function checkLearn(card, skipped) {
-    var t = state.train, id = t.queue[0], input = card.querySelector('.am-flip__input');
-    var answer = input.value.trim();
-    if (!skipped && !answer) {
-      var hint = card.querySelector('[data-am-fliphint]');
-      hint.textContent = 'Type what you remember first, or tap I don\'t know.';
-      hint.classList.add('am-flip__hint--warn');
-      input.focus();
-      return;
-    }
-    var right = !skipped && learnAnswerRight(id, TEACH[id].tq || TEACH[id].q, answer);
-    t.lastRight = right;
-    var hinted = Boolean(card.querySelector('.am-flip__hintline--open'));
-    var flip = card.querySelector('.am-flip');
-    flip.classList.add('am-flip--over');
-    flip.querySelector('.am-flip__front').setAttribute('aria-hidden', 'true');
-    flip.querySelector('.am-flip__back').removeAttribute('aria-hidden');
-    var verdict = flip.querySelector('.am-flip__verdict');
-    verdict.className = 'am-flip__verdict ' + (right ? 'am-flip__verdict--ok' : 'am-flip__verdict--no');
-    verdict.textContent = right ? (hinted ? 'Right, with a hint!' : 'Right!') : skipped ? 'Here\'s the answer' : 'Not quite';
-    if (answer) flip.querySelector('.am-flip__yours').innerHTML = '<span>You wrote</span>' + esc(answer);
-    streak(card, right);
-    fillButtons(card.querySelector('[data-am-tbtns]'), right || skipped ? [['ok', 'data-am-tnext2', 'Next']]
-      : [['more', 'data-am-tright', 'I was right'], ['ok', 'data-am-tnext2', 'Next']]);
-  }
-  // Next card. A card you missed comes back once at the end of the round.
-  function nextLearn(card, overrideRight) {
-    var t = state.train, id = t.queue.shift();
-    var right = t.lastRight || overrideRight;
-    if (overrideRight && !t.lastRight) streak(card, true);
-    if (!right && !t.again[id]) { t.again[id] = true; t.queue.push(id); } else t.done += 1;
-    showLearnCard(card);
-  }
-  function judgeRound(card) {
-    var t = state.train, data = TRAIN[state.id], seed = Date.now() % 997 + 1;
-    var real = shuffle(data.real, seed).slice(0, 4).map(function (r) { return { text: r[0], label: r[1] }; });
-    var vague = shuffle(data.vague, seed + 7).slice(0, 4).map(function (v) { return { text: v[0], why: v[1] }; });
-    t.round = 'judge';
-    t.items = shuffle(real.concat(vague), seed + 13);
-    t.i = 0;
-    t.right = 0;
-    showJudge(card);
-  }
-  function showJudge(card) {
-    var t = state.train;
-    if (t.i >= t.items.length) { sprintIntro(card); return; }
-    trainSet(card, 'judge', 'Would this earn a mark?', t.i / t.items.length);
-    card.querySelector('[data-am-tbody]').innerHTML = '<p class="am-judge__s" tabindex="-1">“' + esc(t.items[t.i].text) + '”</p>' +
-      '<p class="am-train__fb" role="status" hidden></p>';
-    // Focus the sentence, not an answer button, so the keyboard doesn't lean towards either choice.
-    fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-tjudge="0"', 'Too vague'], ['ok', 'data-am-tjudge="1"', 'Earns a mark']], true);
-    card.querySelector('.am-judge__s').focus({ preventScroll: true });
-  }
-  function judge(card, sayReal) {
-    var t = state.train, item = t.items[t.i];
-    var real = evaluate(state.q, item.text, always).some(function (s) { return s.hits.length > 0; });
-    var right = sayReal === real, fb = card.querySelector('.am-train__fb');
-    if (right) t.right += 1;
-    stamp(card.querySelector('.am-judge__s'), right);
-    streak(card, right);
-    fb.hidden = false;
-    fb.className = 'am-train__fb' + (right ? ' am-train__fb--ok' : '');
-    fb.innerHTML = (right ? 'Right! ' : 'Not quite. ') + (real ? 'It earns a mark: <b>' + esc(item.label || 'a valid point') + '</b>.' : esc(item.why || 'It\'s too vague to earn a mark.'));
-    t.i += 1;
-    fillButtons(card.querySelector('[data-am-tbtns]'), [['ok', 'data-am-tnext', t.i >= t.items.length ? 'On to the sprint' : 'Next']]);
-  }
-  function sprintIntro(card) {
-    var t = state.train, best = +store('am-sprint-' + state.id) || 0;
-    trainSet(card, 'sprint', 'SRP Sprint', 1);
-    card.querySelector('[data-am-tbody]').innerHTML = '<div class="am-sprint__intro">' +
-      (t.items ? '<p>You got <b>' + t.right + ' of ' + t.items.length + '</b> right. Now put it to work.</p>' : '') +
-      '<p><b>' + SPRINT_SECONDS + ' seconds.</b> Write as many different SRPs as you can, one per sentence. Each new one dings.</p>' +
-      (best ? '<p class="am-sprint__best">Your best: <b>' + best + '</b> SRPs</p>' : '') + '</div>';
-    fillButtons(card.querySelector('[data-am-tbtns]'), [['ok', 'data-am-tsprint', 'Start']]);
-  }
   function startSprint(card) {
     var t = state.train;
     t.round = 'sprint';
     t.got = [];
     t.left = SPRINT_SECONDS;
-    trainSet(card, 'sprint', 'SRP Sprint', 1, true);
+    card.querySelector('[data-am-rkind]').textContent = 'SRP Sprint';
+    var bar = card.querySelector('[data-am-rtimer]');
+    bar.className = 'is-clock';
+    bar.style.width = '100%';
     card.querySelector('[data-am-tbody]').innerHTML = '<div class="am-sprint__head"><div class="am-sprint__count"><b data-am-scount>0</b> SRPs</div>' +
       '<div class="am-sprint__clock" data-am-sclock role="timer">1:30</div></div>' +
       '<textarea class="am-sprint__box" spellcheck="true" aria-label="Sprint: write as many SRPs as you can"></textarea>' +
       '<div class="am-sprint__chips" aria-live="polite"></div>';
     fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-tstop', 'Stop']]);
-    var box = card.querySelector('.am-sprint__box'), bar = card.querySelector('[data-am-tbar]');
+    var box = card.querySelector('.am-sprint__box');
     box.focus();
     var wait = 0;
     box.addEventListener('input', function () { clearTimeout(wait); wait = setTimeout(function () { if (state && box.isConnected) scoreSprint(card, false); }, 250); });
@@ -1127,14 +1346,15 @@
     if (newBest) store('am-sprint-' + state.id, String(n));
     store('am-trained-' + state.id, '1');
     var missing = state.q.path.filter(function (id, k, all) { return all.indexOf(id) === k && t.got.indexOf(id) < 0; }).slice(0, 3);
-    trainSet(card, 'sprint', newBest && n ? 'New best!' : 'Time!', 1);
+    card.querySelector('[data-am-rkind]').textContent = newBest && n ? 'New best!' : 'Time!';
+    runTimer(card, 0);
     card.querySelector('[data-am-tbody]').innerHTML = '<div class="am-sprint__result"><div class="am-sprint__big">' + n + '</div>' +
       '<p class="am-sprint__sub">' + (n === 1 ? 'SRP' : 'SRPs') + ' in ' + SPRINT_SECONDS + ' seconds' +
         (newBest ? (best ? ' &middot; beat your best of ' + best : '') : ' &middot; your best is ' + best) + '</p>' +
       (n ? '<div class="am-sprint__chips">' + t.got.map(function (id) { return '<span class="am-sprint__chip">' + esc(pointById(id).label) + '</span>'; }).join('') + '</div>' : '') +
       (missing.length ? '<p class="am-sprint__next">Try these next time: ' + missing.map(function (id) { return '<b>' + esc(pointById(id).label) + '</b>'; }).join(', ') + '.</p>' : '') +
       '</div>';
-    fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-keep', 'Back to my answer'], ['ok', 'data-am-tsprint', 'Sprint again']]);
+    fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-keep', 'Back to writing'], ['more', 'data-am-rrun', 'Training run'], ['ok', 'data-am-tsprint', 'Sprint again']]);
     if (newBest && n) later(fanfare, 200);
   }
 
@@ -2027,7 +2247,7 @@
           '<div class="am-plan" hidden></div>' +
           '<div class="am-practise"><h5 class="am-needhelp__h">Practise</h5><button type="button" class="am-train-tile" data-am-train>' +
             '<span class="am-train-tile__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13.5 2.5L5 13.5h6l-1.5 8 8.5-11h-6z" fill="currentColor"/></svg></span>' +
-            '<span class="am-train-tile__text"><b>Learn &amp; sprint</b><span>Flip cards, then a 90-second race</span></span>' +
+            '<span class="am-train-tile__text"><b>Training run</b><span data-am-tilebest>12 quick cards, 3 hearts</span></span>' +
             '<i class="am-train-tile__go" aria-hidden="true"></i></button></div>' +
           '<div class="am-needhelp"><h5 class="am-needhelp__h">Need help?</h5><div class="am-needhelp__btns">' +
             '<button type="button" class="am-btn am-btn--dump" data-am-dump>Brain dump</button>' +
@@ -2054,6 +2274,7 @@
     renderPlan();
     renderCover();
     updateSoundButton();
+    updateTrainTile();
     addPage(true);
     addPage(true);
     state.measure = el('div', 'am-mirror am-measure');
@@ -2093,17 +2314,19 @@
         if (e.target.closest('[data-am-thint]')) {
           var line = trainCard.querySelector('[data-am-hintline]');
           line.classList.add('am-flip__hintline--open');
-          line.innerHTML = '<b>Hint –</b> ' + esc(TEACH[state.train.queue[0]].hint);
-          trainCard.querySelector('.am-flip__input').focus();
+          line.innerHTML = '<b>Hint –</b> ' + esc(TEACH[state.train.deck[state.train.i].id].hint);
+          state.train.hinted = true;
+          trainCard.querySelector('.am-run__input').focus();
           return;
         }
-        if (e.target.closest('[data-am-tcheck]')) { checkLearn(trainCard, false); return; }
-        if (e.target.closest('[data-am-tskip]')) { checkLearn(trainCard, true); return; }
-        if (e.target.closest('[data-am-tnext2]')) { nextLearn(trainCard, false); return; }
-        if (e.target.closest('[data-am-tright]')) { nextLearn(trainCard, true); return; }
-        var judgeBtn = e.target.closest('[data-am-tjudge]');
-        if (judgeBtn) { judge(trainCard, judgeBtn.getAttribute('data-am-tjudge') === '1'); return; }
-        if (e.target.closest('[data-am-tnext]')) { showJudge(trainCard); return; }
+        var runOpt = e.target.closest('[data-am-ropt]');
+        if (runOpt) { answerRun(trainCard, +runOpt.getAttribute('data-am-ropt')); return; }
+        if (e.target.closest('[data-am-rcheck]')) { checkRunType(trainCard, false); return; }
+        if (e.target.closest('[data-am-rskip]')) { checkRunType(trainCard, true); return; }
+        if (e.target.closest('[data-am-rnext]')) { nextRun(trainCard); return; }
+        if (e.target.closest('[data-am-rright]')) { overrideRun(trainCard); return; }
+        if (e.target.closest('[data-am-rrun]')) { openTraining(); return; }
+        if (e.target.closest('[data-am-rsprint]')) { sprintIntro(trainCard); return; }
         if (e.target.closest('[data-am-tsprint]')) { startSprint(trainCard); return; }
         if (e.target.closest('[data-am-tstop]')) { endSprint(trainCard); return; }
       }
@@ -2414,32 +2637,139 @@
     '.am-root .am-btn--dump:hover{border-color:#5CD6FF;color:#fff}',
     '.am-practise{margin:0 0 4px}',
     '.am-root .am-btn--train{width:100%;background:#FFC42E;color:#14243B;box-shadow:0 4px 0 #C98E00}',
-    '.am-train__card{width:min(640px,100%)}',
-    '.am-train__top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}',
-    '.am-train__title{margin:4px 0 14px;font:700 28px/1.15 Fredoka,Nunito,sans-serif;color:#fff}',
-    '.am-train__streak{flex:none;margin-top:4px;padding:6px 12px;border-radius:999px;background:#FFC42E;color:#14243B;box-shadow:0 3px 0 #C98E00;font:700 15px Fredoka,Nunito,sans-serif;white-space:nowrap}',
-    '.am-train__streak[hidden]{display:none}',
-    '.am-train__streak.am-bump{animation:amBump .45s cubic-bezier(.3,1.6,.5,1)}',
-    '.am-train__rounds{display:flex;gap:8px;list-style:none;margin:0 0 10px;padding:0}',
-    '.am-train__rounds li{flex:1;padding-bottom:6px;border-bottom:3px solid #26395A;text-align:center;font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#8496B6}',
-    '.am-train__rounds li.is-current{color:#fff;border-color:#5CD6FF}',
-    '.am-train__rounds li.is-done{color:#7DF0B0;border-color:#2BC46F}',
-    '.am-train__bar{height:10px;margin:0 0 18px;border-radius:5px;background:#26395A;overflow:hidden}',
-    '.am-train__bar i{display:block;height:100%;width:0;border-radius:5px;background:#2BC46F;transition:width .4s ease}',
-    '.am-train__bar i.is-timer{background:#FFC42E;transition:width 1s linear}',
+    '.am-train__card{width:min(680px,100%)}',
+    '.am-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}',
+    '.am-run{position:relative}',
+    '.am-run__hud{display:flex;align-items:center;gap:12px;margin:-6px 0 8px}',
+    '.am-run__quit{flex:none;display:grid;place-items:center;width:36px;height:36px;margin-left:-8px;border:0;border-radius:10px;background:transparent;color:#8496B6;cursor:pointer}',
+    '.am-run__quit svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round}',
+    '.am-run__quit:hover{color:#fff;background:#1B3150}',
+    '.am-run__quit:focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
+    '.am-run__segs{flex:1;display:flex;gap:4px}',
+    '.am-run__segs i{flex:1;height:10px;border-radius:5px;background:#26395A;transition:background .3s ease}',
+    '.am-run__segs i.is-current{background:#5CD6FF}',
+    '.am-run__segs i.is-ok{background:#2BC46F}',
+    '.am-run__segs i.is-no{background:#E5484D}',
+    '.am-run__hearts{flex:none;display:flex;gap:2px}',
+    '.am-run__heart{display:block;width:24px;height:24px;color:#FF5A6E}',
+    '.am-run__heart svg{display:block;width:100%;height:100%;fill:currentColor}',
+    '.am-run__heart.is-lost{color:#33476A}',
+    '.am-run__heart--break{animation:amHeartOut .5s ease}',
+    '.am-run__heart--gain{animation:amBump .45s cubic-bezier(.3,1.6,.5,1)}',
+    '@keyframes amHeartOut{0%{transform:scale(1);color:#FF5A6E}35%{transform:scale(1.35) rotate(-12deg);color:#FF5A6E}100%{transform:none}}',
+    '.am-run__score{flex:none;display:flex;align-items:baseline;justify-content:flex-end;gap:4px;min-width:76px}',
+    '.am-run__score b{display:inline-block;font:700 26px Fredoka,Nunito,sans-serif;color:#FFE14D;font-variant-numeric:tabular-nums}',
+    '.am-run__score b.am-bump{animation:amBump .45s cubic-bezier(.3,1.6,.5,1)}',
+    '.am-run__score span{font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#8496B6}',
+    '.am-run__timer{height:4px;margin:0 0 16px;border-radius:2px;overflow:hidden}',
+    '.am-run__timer i{display:block;height:100%;width:0;border-radius:2px;background:#FFC42E}',
+    '.am-run__timer i.is-running{width:100%;animation:amDrain 6s linear forwards}',
+    '.am-run__timer i.is-clock{transition:width 1s linear}',
+    '@keyframes amDrain{from{width:100%}to{width:0}}',
+    '.am-run__main{display:flex;gap:18px;align-items:stretch}',
+    '.am-run__stage{flex:1;min-width:0}',
+    '.am-run__top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 14px}',
+    '.am-run__kind{margin:0;font:700 24px/1.15 Fredoka,Nunito,sans-serif;color:#fff}',
+    '.am-run__combo{flex:none;padding:5px 12px;border-radius:999px;background:#FFC42E;color:#14243B;box-shadow:0 3px 0 #C98E00;font:700 14px Fredoka,Nunito,sans-serif;white-space:nowrap}',
+    '.am-run__combo[hidden]{display:none}',
+    '.am-run__combo.am-bump{animation:amBump .45s cubic-bezier(.3,1.6,.5,1)}',
+    '.am-run .am-train__body{min-height:330px}',
+    '.am-run__in{animation:amCardIn .35s cubic-bezier(.3,1.3,.5,1) both}',
+    '@keyframes amCardIn{0%{opacity:0;transform:translateX(28px)}100%{opacity:1;transform:none}}',
+    '.am-run__ask{display:flex;align-items:center;gap:16px;margin:0 0 16px}',
+    '.am-run__pic{flex:none;width:118px;border-radius:12px;overflow:hidden;line-height:0}',
+    '.am-run__pic svg{display:block;width:100%;height:auto}',
+    '.am-run__q{position:relative;margin:0;font:800 20px/1.35 Nunito,sans-serif;color:#fff}',
+    '#am-run-q:focus{outline:none}',
+    '.am-run__ask--teach{align-items:flex-start;margin:0 0 14px;padding:14px;border-radius:16px;background:#1B3150}',
+    '.am-run__new{display:inline-block;margin:0 0 6px;padding:2px 10px;border-radius:999px;background:#5CD6FF;color:#0C1628;font:700 12px Fredoka,Nunito,sans-serif;letter-spacing:.05em;text-transform:uppercase}',
+    '.am-run__say{margin:0;font:800 16px/1.5 Nunito,sans-serif;color:#E8EEFA}',
+    '.am-run__say b{color:#FFE14D}',
+    '.am-run__q--small{margin:0 0 12px;font-size:18px}',
+    '.am-run__opts{display:grid;gap:8px}',
+    '.am-run__opts--tiles,.am-run__opts--two{grid-template-columns:1fr 1fr;gap:10px}',
+    '.am-run__opt{position:relative;display:flex;align-items:center;gap:12px;text-align:left;border:2px solid #2A3D5E;border-bottom-width:4px;border-radius:14px;background:#1B3150;color:#E8EEFA;padding:10px 12px;font:800 16px/1.3 Nunito,sans-serif;cursor:pointer;transition:border-color .15s ease,background .15s ease}',
+    '.am-run__opt:hover:not([aria-disabled="true"]){border-color:#5CD6FF}',
+    '.am-run__opt:active:not([aria-disabled="true"]){transform:translateY(2px)}',
+    '.am-run__opt:focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
+    '.am-run__opt[aria-disabled="true"]{cursor:default}',
+    '.am-run__opt kbd{flex:none;display:grid;place-items:center;width:24px;height:24px;border:2px solid #3A5078;border-radius:7px;font:700 13px Fredoka,Nunito,sans-serif;color:#8496B6}',
+    '.am-run__opt--ok{border-color:#2BC46F !important;background:#173B2A;color:#7DF0B0}',
+    '.am-run__opt--ok kbd{border-color:#2BC46F;color:#7DF0B0}',
+    '.am-run__opt--no{border-color:#E5484D !important;background:#3A1E26;color:#FFB3B5}',
+    '.am-run__opt--no kbd{border-color:#E5484D;color:#FFB3B5}',
+    '.am-run__opts--tiles .am-run__opt{font-size:18px;padding:12px}',
+    '.am-run__opts--two .am-run__opt{justify-content:center;padding:16px 12px;font:700 19px Fredoka,Nunito,sans-serif}',
+    '.am-run__gap{margin:4px 0 22px;padding:22px 20px;border-radius:18px;background:#FFFEF8;color:#13294A;text-align:center;font:800 21px/1.7 Nunito,sans-serif}',
+    '.am-run__slot{display:inline-block;min-width:110px;margin:0 3px;padding:0 8px;border-bottom:3px solid #13294A;line-height:1.35;vertical-align:baseline}',
+    '.am-run__slot--ok{border-color:#2BC46F;border-radius:6px 6px 0 0;background:#D4F7E2;color:#14763F}',
+    '.am-run__slot--no{border-color:#C98E00;border-radius:6px 6px 0 0;background:#FFE45C;color:#13294A}',
+    '.am-run .am-judge__s{margin:4px 0 22px}',
+    '.am-run .am-run__input{display:block;width:100%;text-align:left}',
+    '.am-run__input--ok{border-color:#2BC46F;background:#E9FBEF}',
+    '.am-run__input--no{border-color:#E5484D;background:#FFF1EC}',
+    '.am-run .am-flip__hint{margin:8px 0 0}',
+    '.am-run .am-flip__hintline{margin:12px 0 0;max-width:none}',
+    '.am-run__side{flex:none;width:84px;display:flex;flex-direction:column;align-items:center}',
+    '.am-build{flex:1;width:100%;min-height:220px;display:flex;flex-direction:column-reverse;gap:2px;box-sizing:border-box;padding:0 6px;border-bottom:4px solid #4B5E80;overflow:hidden;transform-origin:50% 100%;transition:transform .7s cubic-bezier(.3,1.4,.5,1),gap .7s ease}',
+    '.am-build__l{display:block;flex:none;height:20px;border-radius:3px;background:#E9C46A}',
+    '.am-build__l--1{height:15px;background:#A48A6A}',
+    '.am-build__l--2{height:22px;background:#DCD5C3}',
+    '.am-build__l--3{height:17px;background:#C4683F}',
+    '.am-build__l--4{height:13px;background:#8A8390}',
+    '.am-build__l--drop{animation:amDrop .55s cubic-bezier(.3,1.3,.5,1) both}',
+    '@keyframes amDrop{0%{transform:translateY(-260px)}100%{transform:none}}',
+    '.am-build--rock{gap:0;transform:scaleY(.84)}',
+    '.am-build--tower{align-items:center;border-bottom-color:#5B7A4A}',
+    '.am-build--tower .am-build__l{position:relative;width:60px;height:22px;border-radius:2px;background:#C9D6EE}',
+    '.am-build--tower .am-build__l--1,.am-build--tower .am-build__l--3{background:#AFC0DD}',
+    '.am-build--tower .am-build__l::before,.am-build--tower .am-build__l::after{content:"";position:absolute;top:7px;width:10px;height:8px;border-radius:1px;background:#14243B}',
+    '.am-build--tower .am-build__l::before{left:11px}',
+    '.am-build--tower .am-build__l::after{right:11px}',
+    '.am-build--quake{animation:amQuake 1s ease}',
+    '@keyframes amQuake{0%,100%{transform:none}10%{transform:translateX(-5px) rotate(-1.5deg)}25%{transform:translateX(5px) rotate(1.5deg)}40%{transform:translateX(-4px) rotate(-1deg)}55%{transform:translateX(4px) rotate(1deg)}70%{transform:translateX(-2px)}85%{transform:translateX(2px)}}',
+    '.am-build__cap{margin:8px 0 0;font:800 12px/1.3 Nunito,sans-serif;color:#8496B6;text-align:center}',
+    '.am-run__btns{margin-top:18px;min-height:52px}',
+    '.am-run__sheet{flex:1;display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;animation:amSheet .3s cubic-bezier(.3,1.3,.5,1) both}',
+    '@keyframes amSheet{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:none}}',
+    '.am-run__sheet--ok{background:#173B2A}',
+    '.am-run__sheet--no{background:#3A1E26}',
+    '.am-run__sheettext{flex:1;min-width:0}',
+    '.am-run__verdict{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;font:700 21px Fredoka,Nunito,sans-serif;color:#7DF0B0}',
+    '.am-run__sheet--no .am-run__verdict{color:#FF9A9D}',
+    '.am-run__verdict b{color:#FFE14D}',
+    '.am-run__verdict span{font:800 14px Nunito,sans-serif;color:#C9D6EE}',
+    '.am-run__fb{margin:4px 0 0;font:800 15px/1.45 Nunito,sans-serif;color:#E8EEFA}',
+    '.am-run__fb b{color:#FFE14D}',
+    '.am-run__exam{display:block}',
+    '.am-run__exam > span{display:block;margin:0 0 2px;font:700 12px Fredoka,Nunito,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#8496B6}',
+    '.am-run__sheetbtns{flex:none;display:flex;flex-direction:column;align-items:stretch;gap:4px}',
+    '.am-root .am-run__sheet .am-btn{flex:none;min-width:140px}',
+    '.am-run__sheet--no .am-btn--ok{background:#E5484D;box-shadow:0 4px 0 #A8282C}',
+    '.am-run__sheet--no .am-btn--ok:active{box-shadow:0 1px 0 #A8282C}',
+    '.am-run__override{border:0;background:transparent;padding:4px;color:#C9D6EE;font:700 14px Fredoka,Nunito,sans-serif;text-decoration:underline;cursor:pointer}',
+    '.am-run__override:hover{color:#fff}',
+    '.am-run__end{text-align:center}',
+    '.am-run__big{font:700 84px/1 Fredoka,Nunito,sans-serif;color:#FFE14D;font-variant-numeric:tabular-nums;animation:amPop .6s cubic-bezier(.3,1.6,.5,1) both}',
+    '.am-run__sub{margin:6px 0 14px;font:800 16px/1.4 Nunito,sans-serif;color:#C9D6EE}',
+    '.am-run__stats{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 0 16px}',
+    '.am-run__stats span{padding:6px 12px;border-radius:12px;background:#1B3150;font:800 14px Nunito,sans-serif;color:#C9D6EE}',
+    '.am-run__stats b{margin-right:4px;font:700 18px Fredoka,Nunito,sans-serif;color:#fff}',
+    '.am-run__points{padding:12px 14px;border-radius:14px;background:#1B3150;text-align:left}',
+    '.am-run__pointsh{margin:0 0 6px;font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#8496B6}',
+    '.am-run__point{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;font:800 15px Nunito,sans-serif;color:#E8EEFA}',
+    '.am-run__dots{flex:none;display:flex;gap:4px}',
+    '.am-run__dots i{width:10px;height:10px;border-radius:50%;background:#33476A}',
+    '.am-run__dots i.on{background:#2BC46F}',
+    '.am-run__pointsnote{margin:8px 0 0;font:800 13px/1.4 Nunito,sans-serif;color:#8496B6}',
+    '.am-run--end .am-run__timer i{visibility:hidden}',
+    '.am-run--sprint .am-run__segs,.am-run--sprint .am-run__hearts,.am-run--sprint .am-run__score,.am-run--sprint .am-run__side{display:none}',
+    '.am-run--sprint .am-run__hud{justify-content:space-between}',
+    '.am-root .am-run__q,.am-root .am-run__say,.am-root .am-run__say b,.am-root .am-run__opt span,.am-root .am-run__gap,.am-root .am-run__gap span,.am-root .am-run__fb,.am-root .am-run__fb *,.am-root .am-run__verdict span,.am-root .am-run__sub,.am-root .am-run__stats span,.am-root .am-run__point span,.am-root .am-run__pointsnote,.am-root .am-build__cap{font-family:Nunito,system-ui,sans-serif !important}',
+    '.am-root .am-run__kind,.am-root .am-run__new,.am-root .am-run__combo,.am-root .am-run__score b,.am-root .am-run__score span,.am-root .am-run__opt kbd,.am-root .am-run__opts--two .am-run__opt span,.am-root .am-run__verdict,.am-root .am-run__verdict b,.am-root .am-run__exam > span,.am-root .am-run__big,.am-root .am-run__stats b,.am-root .am-run__pointsh,.am-root .am-run__override{font-family:Fredoka,Nunito,sans-serif !important}',
+    '@media (max-width:600px){.am-run__kind{font-size:20px}.am-run__side{width:52px}.am-build__cap{display:none}.am-run__main{gap:12px}.am-run__ask{flex-direction:column;align-items:flex-start}.am-run__pic{width:96px}.am-run__opts--tiles{grid-template-columns:1fr}.am-run__sheet{flex-direction:column;align-items:stretch}.am-run__big{font-size:64px}}',
     '.am-judge__s:focus{outline:none}',
-    '.am-train__body{min-height:280px;margin:0 0 18px}',
-    '.am-flip{perspective:1200px}',
-    '.am-flip__inner{position:relative;min-height:380px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.3,1.25,.5,1)}',
-    '.am-flip--over .am-flip__inner{transform:rotateY(180deg)}',
-    '.am-flip__face{position:absolute;inset:0;box-sizing:border-box;padding:18px 22px;overflow:hidden;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;backface-visibility:hidden;-webkit-backface-visibility:hidden}',
-    '.am-flip__front{background:#1B3150}',
-    '.am-flip__back{background:#FFFEF8;transform:rotateY(180deg)}',
-    '.am-flip__pic{width:min(200px,52%);border-radius:12px;overflow:hidden;line-height:0}',
-    '.am-flip__pic svg{width:100%;height:auto;display:block}',
-    '.am-flip__q{margin:0;font:800 21px/1.35 Nunito,sans-serif;color:#fff}',
     '.am-flip__hint{margin:0;font:800 14px Nunito,sans-serif;color:#8496B6}',
-    '.am-flip__back .am-flip__hint{color:#5E6F8A}',
     '.am-flip__input{width:min(420px,100%);box-sizing:border-box;padding:12px 16px;border:2px solid #2A3D5E;border-radius:14px;background:#FFFEF8;color:#13294A;font:800 18px Nunito,sans-serif;text-align:center}',
     '.am-flip__input:focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
     '.am-flip__hintline{margin:2px 0 0;font:800 15px/1.4 Nunito,sans-serif;color:#C9D6EE;max-width:440px}',
@@ -2450,20 +2780,7 @@
     '.am-root .am-flip__hintline,.am-root .am-flip__hintline *:not(button){font-family:Nunito,system-ui,sans-serif !important}',
     '.am-root .am-flip__hintbtn,.am-root .am-flip__hintline b{font-family:Fredoka,Nunito,sans-serif !important}',
     '.am-flip__hint--warn{color:#FFB18F !important}',
-    '.am-flip__verdict{margin:0;padding:4px 14px;border-radius:999px;font:700 17px Fredoka,Nunito,sans-serif}',
-    '.am-flip__verdict--ok{background:#D4F7E2;color:#14763F}',
-    '.am-flip__verdict--no{background:#FDE3DA;color:#B4441E}',
-    '.am-flip__yours{margin:0;font:800 15px/1.4 Nunito,sans-serif;color:#5E6F8A}',
-    '.am-flip__yours span{display:block;font:700 12px Fredoka,Nunito,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#8496B6}',
-    '.am-root .am-flip__input,.am-root .am-flip__yours{font-family:Nunito,system-ui,sans-serif !important}',
-    '.am-root .am-flip__verdict,.am-root .am-flip__yours span{font-family:Fredoka,Nunito,sans-serif !important}',
-    '.am-flip__label{margin:0;font:700 14px Fredoka,Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#5E6F8A}',
-    '.am-flip__a{margin:0;font:800 21px/1.45 Nunito,sans-serif;color:#13294A}',
-    '.am-flip__a b{background:#FFE45C;border-radius:4px;padding:0 3px}',
     '.am-judge__s{position:relative;margin:28px 0 18px;padding:24px;border-radius:18px;background:#FFFEF8;color:#13294A;text-align:center;font:800 22px/1.45 Nunito,sans-serif}',
-    '.am-train__fb{margin:0;font:800 17px/1.45 Nunito,sans-serif;color:#FF9A9D}',
-    '.am-train__fb--ok{color:#7DF0B0}',
-    '.am-train__fb b{color:#FFE14D}',
     '.am-sprint__intro p{margin:0 0 12px;font:800 19px/1.5 Nunito,sans-serif;color:#E8EEFA}',
     '.am-sprint__intro b,.am-sprint__next b{color:#FFE14D}',
     '.am-sprint__best{color:#9FB0CC !important}',
@@ -2483,8 +2800,8 @@
     '.am-sprint__sub{margin:6px 0 14px;font:800 17px Nunito,sans-serif;color:#C9D6EE}',
     '.am-sprint__result .am-sprint__chips{justify-content:center}',
     '.am-sprint__next{margin:16px 0 0;font:800 16px/1.45 Nunito,sans-serif;color:#C9D6EE}',
-    '.am-root .am-flip__q,.am-root .am-flip__a,.am-root .am-flip__a *,.am-root .am-flip__hint,.am-root .am-judge__s,.am-root .am-train__fb,.am-root .am-train__fb *,.am-root .am-sprint__intro p,.am-root .am-sprint__intro b,.am-root .am-sprint__box,.am-root .am-sprint__chip,.am-root .am-sprint__sub,.am-root .am-sprint__next,.am-root .am-sprint__next b{font-family:Nunito,system-ui,sans-serif !important}',
-    '.am-root .am-train__title,.am-root .am-train__streak,.am-root .am-train__rounds li,.am-root .am-flip__label,.am-root .am-sprint__count,.am-root .am-sprint__count b,.am-root .am-sprint__clock,.am-root .am-sprint__big{font-family:Fredoka,Nunito,sans-serif !important}',
+    '.am-root .am-flip__hint,.am-root .am-flip__input,.am-root .am-judge__s,.am-root .am-sprint__intro p,.am-root .am-sprint__intro b,.am-root .am-sprint__box,.am-root .am-sprint__chip,.am-root .am-sprint__sub,.am-root .am-sprint__next,.am-root .am-sprint__next b{font-family:Nunito,system-ui,sans-serif !important}',
+    '.am-root .am-sprint__count,.am-root .am-sprint__count b,.am-root .am-sprint__clock,.am-root .am-sprint__big{font-family:Fredoka,Nunito,sans-serif !important}',
     '.am-teach__card{width:min(600px,100%)}',
     '.am-teach__title{margin:4px 0 14px;font:700 28px/1.15 Fredoka,Nunito,sans-serif;color:#fff}',
     '.am-teach__pic{width:min(300px,70%);margin:0 0 16px;border-radius:14px;overflow:hidden;line-height:0}',
