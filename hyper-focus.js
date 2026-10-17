@@ -193,6 +193,7 @@
   // Fade the card in piece by piece: the instruction first, then each box in reading order.
   var GROUPS = '.hf-bullets';
   var CHAR_MS = 22;
+  var CHAR_MS_QUIET = 10; // with the voice off there is nothing to wait for, so lines type faster
 
   // Wrap every letter in its own span (words kept together so lines never break mid-word).
   // The full text keeps its layout from the start; letters simply appear in turn.
@@ -310,20 +311,22 @@
       item.style.setProperty('--d', '0s');
       void item.offsetWidth;
       item.classList.add('hf-reveal');
-      var lead = item.querySelector && item.querySelector('.hf-bullet-art') ? 260 : 0;
+      var quiet = !narration.on;
+      var ms = quiet ? CHAR_MS_QUIET : CHAR_MS;
+      var lead = item.querySelector && item.querySelector('.hf-bullet-art') ? (quiet ? 140 : 260) : 0;
       plan.chars.forEach(function (ch, k) {
-        typeTimers.push(setTimeout(function () { ch.classList.add('on'); }, lead + k * CHAR_MS));
+        typeTimers.push(setTimeout(function () { ch.classList.add('on'); }, lead + k * ms));
       });
       // Sweep each key word's underline in just after that word finishes typing.
       Array.prototype.forEach.call(plan.host.querySelectorAll('b'), function (b) {
         var own = b.querySelectorAll('.hf-ch');
         var last = own.length ? plan.chars.indexOf(own[own.length - 1]) : 0;
-        b.style.animationDelay = ((lead + last * CHAR_MS + 60) / 1000) + 's';
+        b.style.animationDelay = ((lead + last * ms + 60) / 1000) + 's';
       });
       var typed = false;
       var spoken = false;
       function next() { if (typed && spoken) run(n + 1); }
-      typeTimers.push(setTimeout(function () { typed = true; next(); }, plan.chars.length ? lead + plan.chars.length * CHAR_MS + 160 : 0));
+      typeTimers.push(setTimeout(function () { typed = true; next(); }, plan.chars.length ? lead + plan.chars.length * ms + (quiet ? 80 : 160) : 0));
       playLine(ids[n], function () { if (token !== narration.token) return; spoken = true; next(); });
     }
     // When the camera is still travelling, wait for it so typing starts once the guide is visible.
