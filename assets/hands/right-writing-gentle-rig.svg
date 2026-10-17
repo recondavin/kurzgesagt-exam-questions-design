@@ -2,7 +2,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1254 1600" role="img" aria-label="Layered peach writing hand holding a pen">
   <defs>
     <clipPath id="right-hand-cuff-cutoff" clipPathUnits="userSpaceOnUse">
-      <path d="M 0 0 H 1254 V 900 C 1160 900 1080 900 1020 907 C 900 925 780 955 650 980 C 550 1000 450 1010 350 1010 L 0 1010 Z" />
+      <path d="M 0 0 H 1254 V 828 L 1004 828 L 1000 859 L 975 836 L 950 832 L 925 829 L 900 828 L 875 828 L 850 829 L 825 831 L 800 833 L 775 837 L 750 842 L 725 847 L 700 853 L 675 860 L 650 868 L 625 878 L 600 888 L 575 902 L 550 918 L 525 949 L 505 1010 L 0 1010 Z" />
     </clipPath>
     <linearGradient id="right-sleeve-gradient" x1="0" y1="0" x2="0.85" y2="1">
       <stop offset="0" stop-color="#FFFFFF" />
