@@ -855,6 +855,249 @@
     closeCard();
     appendToAnswer(text.charAt(0).toUpperCase() + text.slice(1));
   }
+  // ---------- Training: learn the points (flip cards), judge real vs vague, then a 90-second SRP sprint ----------
+  // real: [sentence, what it earns]; vague: [sentence, why it earns nothing]. Verdicts always come from the marker.
+  var TRAIN = {
+    'question-3b': {
+      real: [
+        ['Mechanical weathering like frost shattering breaks the rock into fragments.', 'Weathering'],
+        ['The sediment is carried by the river current to the sea.', 'Transport'],
+        ['When rivers lose energy they deposit their load in layers.', 'Deposition in layers'],
+        ['The layers at the bottom are compressed by the weight above them.', 'Compaction'],
+        ['Minerals in the water cement the particles together.', 'Cementation'],
+        ['Old Red Sandstone formed in desert conditions when Ireland was hot and dry.', 'Old Red Sandstone'],
+        ['Limestone formed from the shells of dead sea creatures.', 'Limestone from shells'],
+        ['Limestone can be found in the Burren in Co. Clare.', 'An Irish example'],
+        ['Limestone often contains fossils of shells and coral.', 'Fossils'],
+        ['Shale is formed from mud and clay that was deposited in calm water.', 'Shale from mud']
+      ],
+      vague: [
+        ['Sedimentary rocks are very common in Ireland.', 'True, but it doesn\'t say how they form.'],
+        ['Limestone is a very useful rock.', 'An opinion, not a fact about how it forms.'],
+        ['The Burren is a beautiful place to visit.', 'It names a place but says nothing about the rock.'],
+        ['Sandstone is red.', 'Too short: say why it\'s red (iron rusted in desert conditions).'],
+        ['Rocks can be different colours.', 'Too general: which rock, and why?'],
+        ['Marble is formed when limestone is heated.', 'That\'s a metamorphic rock, not a sedimentary one.'],
+        ['Sandstone is used for building houses.', 'A use of the rock, not how it forms.'],
+        ['The rocks are very old.', 'Too vague: say how long (millions of years) and what happened.'],
+        ['Cementation is an important part of how rocks form.', 'It names cementation but doesn\'t explain it: what glues the grains?']
+      ]
+    },
+    'question-3c': {
+      real: [
+        ['Seismographs are used to detect small movements in the crust.', 'Seismographs'],
+        ['A series of small tremors may come before a larger earthquake.', 'Foreshocks'],
+        ['A tiltmeter measures any bulging of the ground.', 'Tiltmeters'],
+        ['Water levels in wells sometimes change before an earthquake.', 'Well water'],
+        ['It\'s impossible to say exactly when an earthquake will strike.', 'Prediction isn\'t exact'],
+        ['Rubber shock absorbers are built into the foundations of buildings.', 'Base isolation'],
+        ['A counterweight on the roof stops the building swaying.', 'Counterweights'],
+        ['Schools hold earthquake drills so students know what to do.', 'Drills'],
+        ['Warning systems alert people seconds before the shaking arrives.', 'Early warning'],
+        ['Gas pipes automatically shut off during an earthquake to prevent fires.', 'Gas shut-off']
+      ],
+      vague: [
+        ['Earthquakes are very dangerous.', 'True, but it\'s not about predicting quakes or reducing their effects.'],
+        ['The 2011 earthquake in Japan killed thousands.', 'A fact about damage, not a way to predict or reduce it.'],
+        ['Earthquakes are measured on the Richter scale.', 'Measuring a quake\'s size doesn\'t predict it or reduce its effects.'],
+        ['Plates move apart at constructive boundaries.', 'About plates in general, not prediction or reduction.'],
+        ['Many people die in earthquakes each year.', 'It describes the problem, not a solution.'],
+        ['Japan has a lot of earthquakes.', 'It names a place but gives no method.'],
+        ['Seismographs are used.', 'It names the tool but not what it does: say it records tremors.'],
+        ['Scientists try to predict earthquakes.', 'Too general: say how they predict them.']
+      ]
+    }
+  };
+  var SPRINT_SECONDS = 90;
+  function fillButtons(box, list, keepFocus) {
+    box.innerHTML = list.map(function (b) {
+      return '<button type="button" class="am-btn am-btn--' + b[0] + '" ' + b[1] + '>' + b[2] + '</button>';
+    }).join('');
+    var last = box.lastElementChild;
+    if (last && !keepFocus) last.focus({ preventScroll: true });
+  }
+  function trainCards() {
+    var seen = {};
+    return state.q.path.filter(function (id) {
+      if (seen[id] || !TEACH[id]) return false;
+      seen[id] = true;
+      return true;
+    }).slice(0, 6);
+  }
+  function openTraining() {
+    var old = state.root.querySelector('.am-finish');
+    if (old) old.remove();
+    clearInterval(state.dumpTimer);
+    var card = el('div', 'am-finish am-train');
+    card.innerHTML = '<div class="am-finish__card am-train__card" role="dialog" aria-label="Training">' +
+      '<div class="am-train__top"><div><div class="am-finish__kicker">' + state.q.code + ' &middot; Training</div>' +
+        '<h3 class="am-train__title" data-am-ttitle></h3></div><div class="am-train__streak" data-am-streak hidden></div></div>' +
+      '<ol class="am-train__rounds"><li data-r="learn">Learn</li><li data-r="judge">Real or vague?</li><li data-r="sprint">Sprint</li></ol>' +
+      '<div class="am-train__bar"><i data-am-tbar></i></div>' +
+      '<div class="am-train__body" data-am-tbody></div>' +
+      '<div class="am-finish__buttons" data-am-tbtns></div></div>';
+    state.train = { streak: 0 };
+    showCard(card);
+    learnRound(card);
+  }
+  function trainSet(card, round, title, progress, timer) {
+    var order = ['learn', 'judge', 'sprint'];
+    card.querySelectorAll('.am-train__rounds li').forEach(function (li) {
+      var k = order.indexOf(li.getAttribute('data-r')), now = order.indexOf(round);
+      li.className = k < now ? 'is-done' : k === now ? 'is-current' : '';
+    });
+    card.querySelector('[data-am-ttitle]').textContent = title;
+    var bar = card.querySelector('[data-am-tbar]');
+    bar.className = timer ? 'is-timer' : '';
+    bar.style.width = (progress * 100) + '%';
+  }
+  function streak(card, up) {
+    var t = state.train, chip = card.querySelector('[data-am-streak]');
+    t.streak = up ? t.streak + 1 : 0;
+    if (up) ding(t.streak - 1);
+    chip.hidden = t.streak < 2;
+    if (t.streak >= 2) {
+      chip.textContent = t.streak + ' in a row';
+      if (!reduced()) { chip.classList.remove('am-bump'); void chip.offsetWidth; chip.classList.add('am-bump'); }
+    }
+  }
+  function learnRound(card) {
+    var t = state.train;
+    t.round = 'learn';
+    t.queue = trainCards();
+    t.total = t.queue.length;
+    t.done = 0;
+    t.again = {};
+    showLearnCard(card);
+  }
+  function showLearnCard(card) {
+    var t = state.train;
+    if (!t.queue.length) { judgeRound(card); return; }
+    var id = t.queue[0], T = TEACH[id], pic = pictureFor(T.pic);
+    trainSet(card, 'learn', 'Learn the points', t.done / t.total);
+    card.querySelector('[data-am-tbody]').innerHTML = '<div class="am-flip"><div class="am-flip__inner">' +
+      '<div class="am-flip__face am-flip__front">' + (pic ? '<div class="am-flip__pic">' + pic + '</div>' : '') +
+        '<p class="am-flip__q">' + esc(T.q) + '</p><p class="am-flip__hint">Say the answer in your head, then flip.</p></div>' +
+      '<div class="am-flip__face am-flip__back" aria-hidden="true"><p class="am-flip__label">' + esc(pointById(id).label) + '</p>' +
+        '<p class="am-flip__a">' + (T.model || examVersion(id)) + '</p><p class="am-flip__hint">Did you know it?</p></div>' +
+      '</div></div>';
+    fillButtons(card.querySelector('[data-am-tbtns]'), [['ok', 'data-am-tflip', 'Flip']]);
+  }
+  function flipCard(card) {
+    var flip = card.querySelector('.am-flip');
+    flip.classList.add('am-flip--over');
+    flip.querySelector('.am-flip__front').setAttribute('aria-hidden', 'true');
+    flip.querySelector('.am-flip__back').removeAttribute('aria-hidden');
+    fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-tnot', 'Not yet'], ['ok', 'data-am-tgot', 'Got it']]);
+  }
+  function rateCard(card, knew) {
+    var t = state.train, id = t.queue.shift();
+    // A card you didn't know comes back once at the end of the round.
+    if (!knew && !t.again[id]) { t.again[id] = true; t.queue.push(id); } else t.done += 1;
+    streak(card, knew);
+    showLearnCard(card);
+  }
+  function judgeRound(card) {
+    var t = state.train, data = TRAIN[state.id], seed = Date.now() % 997 + 1;
+    var real = shuffle(data.real, seed).slice(0, 4).map(function (r) { return { text: r[0], label: r[1] }; });
+    var vague = shuffle(data.vague, seed + 7).slice(0, 4).map(function (v) { return { text: v[0], why: v[1] }; });
+    t.round = 'judge';
+    t.items = shuffle(real.concat(vague), seed + 13);
+    t.i = 0;
+    t.right = 0;
+    showJudge(card);
+  }
+  function showJudge(card) {
+    var t = state.train;
+    if (t.i >= t.items.length) { sprintIntro(card); return; }
+    trainSet(card, 'judge', 'Would this earn a mark?', t.i / t.items.length);
+    card.querySelector('[data-am-tbody]').innerHTML = '<p class="am-judge__s" tabindex="-1">“' + esc(t.items[t.i].text) + '”</p>' +
+      '<p class="am-train__fb" role="status" hidden></p>';
+    // Focus the sentence, not an answer button, so the keyboard doesn't lean towards either choice.
+    fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-tjudge="0"', 'Too vague'], ['ok', 'data-am-tjudge="1"', 'Earns a mark']], true);
+    card.querySelector('.am-judge__s').focus({ preventScroll: true });
+  }
+  function judge(card, sayReal) {
+    var t = state.train, item = t.items[t.i];
+    var real = evaluate(state.q, item.text, always).some(function (s) { return s.hits.length > 0; });
+    var right = sayReal === real, fb = card.querySelector('.am-train__fb');
+    if (right) t.right += 1;
+    stamp(card.querySelector('.am-judge__s'), right);
+    streak(card, right);
+    fb.hidden = false;
+    fb.className = 'am-train__fb' + (right ? ' am-train__fb--ok' : '');
+    fb.innerHTML = (right ? 'Right! ' : 'Not quite. ') + (real ? 'It earns a mark: <b>' + esc(item.label || 'a valid point') + '</b>.' : esc(item.why || 'It\'s too vague to earn a mark.'));
+    t.i += 1;
+    fillButtons(card.querySelector('[data-am-tbtns]'), [['ok', 'data-am-tnext', t.i >= t.items.length ? 'On to the sprint' : 'Next']]);
+  }
+  function sprintIntro(card) {
+    var t = state.train, best = +store('am-sprint-' + state.id) || 0;
+    trainSet(card, 'sprint', 'SRP Sprint', 1);
+    card.querySelector('[data-am-tbody]').innerHTML = '<div class="am-sprint__intro">' +
+      (t.items ? '<p>You got <b>' + t.right + ' of ' + t.items.length + '</b> right. Now put it to work.</p>' : '') +
+      '<p><b>' + SPRINT_SECONDS + ' seconds.</b> Write as many different SRPs as you can, one per sentence. Each new one dings.</p>' +
+      (best ? '<p class="am-sprint__best">Your best: <b>' + best + '</b> SRPs</p>' : '') + '</div>';
+    fillButtons(card.querySelector('[data-am-tbtns]'), [['ok', 'data-am-tsprint', 'Start']]);
+  }
+  function startSprint(card) {
+    var t = state.train;
+    t.round = 'sprint';
+    t.got = [];
+    t.left = SPRINT_SECONDS;
+    trainSet(card, 'sprint', 'SRP Sprint', 1, true);
+    card.querySelector('[data-am-tbody]').innerHTML = '<div class="am-sprint__head"><div class="am-sprint__count"><b data-am-scount>0</b> SRPs</div>' +
+      '<div class="am-sprint__clock" data-am-sclock role="timer">1:30</div></div>' +
+      '<textarea class="am-sprint__box" spellcheck="true" aria-label="Sprint: write as many SRPs as you can"></textarea>' +
+      '<div class="am-sprint__chips" aria-live="polite"></div>';
+    fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-tstop', 'Stop']]);
+    var box = card.querySelector('.am-sprint__box'), bar = card.querySelector('[data-am-tbar]');
+    box.focus();
+    var wait = 0;
+    box.addEventListener('input', function () { clearTimeout(wait); wait = setTimeout(function () { if (state && box.isConnected) scoreSprint(card, false); }, 250); });
+    state.dumpTimer = setInterval(function () {
+      if (!state || !card.isConnected) { clearInterval(state && state.dumpTimer); return; }
+      t.left -= 1;
+      bar.style.width = (t.left / SPRINT_SECONDS * 100) + '%';
+      var clock = card.querySelector('[data-am-sclock]');
+      clock.textContent = Math.floor(t.left / 60) + ':' + ('0' + (t.left % 60)).slice(-2);
+      clock.classList.toggle('am-sprint__clock--low', t.left <= 10);
+      if (t.left <= 0) endSprint(card);
+    }, 1000);
+  }
+  // Every new point that lands dings and drops a chip; finished sentences count as you type.
+  function scoreSprint(card, final) {
+    var t = state.train, box = card.querySelector('.am-sprint__box');
+    var sentences = evaluate(state.q, box.value, final ? always : function () { return false; });
+    sentences.forEach(function (s) {
+      s.hits.forEach(function (p) {
+        if (t.got.indexOf(p.id) >= 0) return;
+        t.got.push(p.id);
+        var gold = isPerfect(s, p);
+        ding(t.got.length - 1, gold);
+        card.querySelector('.am-sprint__chips').appendChild(el('span', 'am-sprint__chip' + (gold ? ' am-sprint__chip--gold' : ''), (gold ? '&#9733; ' : '') + esc(p.label)));
+        rollTo(card.querySelector('[data-am-scount]'), t.got.length);
+      });
+    });
+  }
+  function endSprint(card) {
+    clearInterval(state.dumpTimer);
+    var t = state.train;
+    scoreSprint(card, true);
+    var n = t.got.length, best = +store('am-sprint-' + state.id) || 0, newBest = n > best;
+    if (newBest) store('am-sprint-' + state.id, String(n));
+    store('am-trained-' + state.id, '1');
+    var missing = state.q.path.filter(function (id, k, all) { return all.indexOf(id) === k && t.got.indexOf(id) < 0; }).slice(0, 3);
+    trainSet(card, 'sprint', newBest && n ? 'New best!' : 'Time!', 1);
+    card.querySelector('[data-am-tbody]').innerHTML = '<div class="am-sprint__result"><div class="am-sprint__big">' + n + '</div>' +
+      '<p class="am-sprint__sub">' + (n === 1 ? 'SRP' : 'SRPs') + ' in ' + SPRINT_SECONDS + ' seconds' +
+        (newBest ? (best ? ' &middot; beat your best of ' + best : '') : ' &middot; your best is ' + best) + '</p>' +
+      (n ? '<div class="am-sprint__chips">' + t.got.map(function (id) { return '<span class="am-sprint__chip">' + esc(pointById(id).label) + '</span>'; }).join('') + '</div>' : '') +
+      (missing.length ? '<p class="am-sprint__next">Try these next time: ' + missing.map(function (id) { return '<b>' + esc(pointById(id).label) + '</b>'; }).join(', ') + '.</p>' : '') +
+      '</div>';
+    fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-keep', 'Back to my answer'], ['ok', 'data-am-tsprint', 'Sprint again']]);
+    if (newBest && n) later(fanfare, 200);
+  }
+
   // ---------- official marks (SEC 2024 Leaving Certificate marking scheme, Geography HL) ----------
   // 3B: 2 + 2 marks for two sedimentary rocks named, then 13 SRPs examining their formation.
   //     Irish locations earn at most 2 SRPs; with no formation explained, at most 2 SRPs.
@@ -1739,6 +1982,7 @@
           '<div class="am-cover"><h5 class="am-cover__h">What to cover</h5><div class="am-cover__list"></div>' +
             '<button type="button" class="am-cover__toggle" data-am-breakdown aria-expanded="false"><span>View full marking breakdown</span><i></i></button></div>' +
           '<div class="am-plan" hidden></div>' +
+          '<div class="am-practise"><h5 class="am-needhelp__h">Practise</h5><button type="button" class="am-btn am-btn--train" data-am-train>Learn &amp; sprint</button></div>' +
           '<div class="am-needhelp"><h5 class="am-needhelp__h">Need help?</h5><div class="am-needhelp__btns">' +
             '<button type="button" class="am-btn am-btn--dump" data-am-dump>Brain dump</button>' +
             '<button type="button" class="am-btn am-btn--clue" data-am-clue>Stuck?</button></div></div>' +
@@ -1797,6 +2041,18 @@
       if (e.target.closest('[data-am-clue]')) { openTeach(); return; }
       var teachOpt = e.target.closest('[data-am-teachopt]');
       if (teachOpt) { answerTeach(teachOpt); return; }
+      if (e.target.closest('[data-am-train]')) { openTraining(); return; }
+      var trainCard = e.target.closest('.am-train');
+      if (trainCard) {
+        if (e.target.closest('[data-am-tflip]')) { flipCard(trainCard); return; }
+        if (e.target.closest('[data-am-tgot]')) { rateCard(trainCard, true); return; }
+        if (e.target.closest('[data-am-tnot]')) { rateCard(trainCard, false); return; }
+        var judgeBtn = e.target.closest('[data-am-tjudge]');
+        if (judgeBtn) { judge(trainCard, judgeBtn.getAttribute('data-am-tjudge') === '1'); return; }
+        if (e.target.closest('[data-am-tnext]')) { showJudge(trainCard); return; }
+        if (e.target.closest('[data-am-tsprint]')) { startSprint(trainCard); return; }
+        if (e.target.closest('[data-am-tstop]')) { endSprint(trainCard); return; }
+      }
       var teachGo = e.target.closest('[data-am-teachgo]');
       if (teachGo) { teachStage(teachGo.closest('.am-teach'), teachGo.getAttribute('data-am-teachgo')); return; }
       var teachCheck = e.target.closest('[data-am-teachcheck]');
@@ -2102,6 +2358,62 @@
     'body > .am-drag__tile--ghost{font-family:Nunito,system-ui,sans-serif !important}',
     '.am-root .am-btn--dump{background:transparent;color:#8FE3FF;border:2px solid #2A5D7A;box-shadow:none;padding:10px 14px}',
     '.am-root .am-btn--dump:hover{border-color:#5CD6FF;color:#fff}',
+    '.am-practise{margin:0 0 4px}',
+    '.am-root .am-btn--train{width:100%;background:#FFC42E;color:#14243B;box-shadow:0 4px 0 #C98E00}',
+    '.am-train__card{width:min(640px,100%)}',
+    '.am-train__top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}',
+    '.am-train__title{margin:4px 0 14px;font:700 28px/1.15 Fredoka,Nunito,sans-serif;color:#fff}',
+    '.am-train__streak{flex:none;margin-top:4px;padding:6px 12px;border-radius:999px;background:#FFC42E;color:#14243B;box-shadow:0 3px 0 #C98E00;font:700 15px Fredoka,Nunito,sans-serif;white-space:nowrap}',
+    '.am-train__streak[hidden]{display:none}',
+    '.am-train__streak.am-bump{animation:amBump .45s cubic-bezier(.3,1.6,.5,1)}',
+    '.am-train__rounds{display:flex;gap:8px;list-style:none;margin:0 0 10px;padding:0}',
+    '.am-train__rounds li{flex:1;padding-bottom:6px;border-bottom:3px solid #26395A;text-align:center;font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#8496B6}',
+    '.am-train__rounds li.is-current{color:#fff;border-color:#5CD6FF}',
+    '.am-train__rounds li.is-done{color:#7DF0B0;border-color:#2BC46F}',
+    '.am-train__bar{height:10px;margin:0 0 18px;border-radius:5px;background:#26395A;overflow:hidden}',
+    '.am-train__bar i{display:block;height:100%;width:0;border-radius:5px;background:#2BC46F;transition:width .4s ease}',
+    '.am-train__bar i.is-timer{background:#FFC42E;transition:width 1s linear}',
+    '.am-judge__s:focus{outline:none}',
+    '.am-train__body{min-height:280px;margin:0 0 18px}',
+    '.am-flip{perspective:1200px}',
+    '.am-flip__inner{position:relative;min-height:300px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.3,1.25,.5,1)}',
+    '.am-flip--over .am-flip__inner{transform:rotateY(180deg)}',
+    '.am-flip__face{position:absolute;inset:0;box-sizing:border-box;padding:22px;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;backface-visibility:hidden;-webkit-backface-visibility:hidden}',
+    '.am-flip__front{background:#1B3150}',
+    '.am-flip__back{background:#FFFEF8;transform:rotateY(180deg)}',
+    '.am-flip__pic{width:min(230px,62%);border-radius:12px;overflow:hidden;line-height:0}',
+    '.am-flip__pic svg{width:100%;height:auto;display:block}',
+    '.am-flip__q{margin:0;font:800 21px/1.35 Nunito,sans-serif;color:#fff}',
+    '.am-flip__hint{margin:0;font:800 14px Nunito,sans-serif;color:#8496B6}',
+    '.am-flip__back .am-flip__hint{color:#5E6F8A}',
+    '.am-flip__label{margin:0;font:700 14px Fredoka,Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#5E6F8A}',
+    '.am-flip__a{margin:0;font:800 21px/1.45 Nunito,sans-serif;color:#13294A}',
+    '.am-flip__a b{background:#FFE45C;border-radius:4px;padding:0 3px}',
+    '.am-judge__s{position:relative;margin:28px 0 18px;padding:24px;border-radius:18px;background:#FFFEF8;color:#13294A;text-align:center;font:800 22px/1.45 Nunito,sans-serif}',
+    '.am-train__fb{margin:0;font:800 17px/1.45 Nunito,sans-serif;color:#FF9A9D}',
+    '.am-train__fb--ok{color:#7DF0B0}',
+    '.am-train__fb b{color:#FFE14D}',
+    '.am-sprint__intro p{margin:0 0 12px;font:800 19px/1.5 Nunito,sans-serif;color:#E8EEFA}',
+    '.am-sprint__intro b,.am-sprint__next b{color:#FFE14D}',
+    '.am-sprint__best{color:#9FB0CC !important}',
+    '.am-sprint__head{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 10px}',
+    '.am-sprint__count{font:700 20px Fredoka,Nunito,sans-serif;color:#9FB0CC}',
+    '.am-sprint__count b{display:inline-block;font-size:46px;color:#5BE39A;font-variant-numeric:tabular-nums}',
+    '.am-sprint__count b.am-bump{animation:amBump .45s cubic-bezier(.3,1.6,.5,1)}',
+    '.am-sprint__clock{font:700 36px Fredoka,Nunito,sans-serif;color:#fff;font-variant-numeric:tabular-nums}',
+    '.am-sprint__clock--low{color:#FF8A6B}',
+    '.am-sprint__box{display:block;width:100%;box-sizing:border-box;min-height:190px;resize:vertical;border:2px solid #2A3D5E;border-radius:12px;background:#FFFEF8;color:#13294A;padding:12px 14px;font:800 18px/1.5 Nunito,sans-serif;overscroll-behavior:contain}',
+    '.am-sprint__box:focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
+    '.am-sprint__chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}',
+    '.am-sprint__chip{padding:4px 10px;border:2px solid #2BC46F;border-radius:999px;background:#173B2A;color:#7DF0B0;font:800 13px Nunito,sans-serif;animation:amPop .4s cubic-bezier(.3,1.6,.5,1) both}',
+    '.am-sprint__chip--gold{border-color:#FFC42E;background:#3A2E05;color:#FFD86B}',
+    '.am-sprint__result{text-align:center}',
+    '.am-sprint__big{font:700 84px/1 Fredoka,Nunito,sans-serif;color:#5BE39A;animation:amPop .6s cubic-bezier(.3,1.6,.5,1) both}',
+    '.am-sprint__sub{margin:6px 0 14px;font:800 17px Nunito,sans-serif;color:#C9D6EE}',
+    '.am-sprint__result .am-sprint__chips{justify-content:center}',
+    '.am-sprint__next{margin:16px 0 0;font:800 16px/1.45 Nunito,sans-serif;color:#C9D6EE}',
+    '.am-root .am-flip__q,.am-root .am-flip__a,.am-root .am-flip__a *,.am-root .am-flip__hint,.am-root .am-judge__s,.am-root .am-train__fb,.am-root .am-train__fb *,.am-root .am-sprint__intro p,.am-root .am-sprint__intro b,.am-root .am-sprint__box,.am-root .am-sprint__chip,.am-root .am-sprint__sub,.am-root .am-sprint__next,.am-root .am-sprint__next b{font-family:Nunito,system-ui,sans-serif !important}',
+    '.am-root .am-train__title,.am-root .am-train__streak,.am-root .am-train__rounds li,.am-root .am-flip__label,.am-root .am-sprint__count,.am-root .am-sprint__count b,.am-root .am-sprint__clock,.am-root .am-sprint__big{font-family:Fredoka,Nunito,sans-serif !important}',
     '.am-teach__card{width:min(600px,100%)}',
     '.am-teach__title{margin:4px 0 14px;font:700 28px/1.15 Fredoka,Nunito,sans-serif;color:#fff}',
     '.am-teach__pic{width:min(300px,70%);margin:0 0 16px;border-radius:14px;overflow:hidden;line-height:0}',
