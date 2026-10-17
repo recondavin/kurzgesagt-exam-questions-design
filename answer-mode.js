@@ -1267,6 +1267,8 @@
   function updateTrainTile() {
     var line = state.root.querySelector('[data-am-tilebest]'), best = +store('am-run-' + state.id) || 0;
     if (line) line.textContent = best ? 'Your best: ' + best + ' points' : '12 quick cards, 3 hearts';
+    var drawLine = state.root.querySelector('[data-am-drawbest]'), drawBest = +store('am-draw-' + state.id) || 0;
+    if (drawLine) drawLine.textContent = drawBest ? 'Your best: ' + drawBest + ' labels' : 'Sketch the exam diagrams';
   }
   function sprintIntro(card) {
     var best = +store('am-sprint-' + state.id) || 0;
@@ -1356,6 +1358,403 @@
       '</div>';
     fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-keep', 'Back to writing'], ['more', 'data-am-rrun', 'Training run'], ['ok', 'data-am-tsprint', 'Sprint again']]);
     if (newBest && n) later(fanfare, 200);
+  }
+
+  // ---------- Draw it: sketch an exam diagram in 60 seconds, then the real one draws itself beside it ----------
+  // Drawings are kept the way Quick, Draw! keeps them: pen strokes, each a list of [x, y, ms] points, in
+  // the same 480 x 320 space as the diagrams (draw-it-diagrams.js). For now they stay on this device
+  // (am-sketchbook), in the shape a shared dataset would want later.
+  var DRAW_SECONDS = 60, DRAW_W = 480, DRAW_H = 320, DRAW_INK = '#1F3FA8';
+  var PEN_CURSOR = 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'26\' height=\'26\'%3E%3Cpath d=\'M3 23l2.2-6.6L18 3.6l4.4 4.4L9.6 20.8z\' fill=\'%231F3FA8\' stroke=\'white\' stroke-width=\'1.6\' stroke-linejoin=\'round\'/%3E%3Cpath d=\'M3 23l2.2-6.6 4.4 4.4z\' fill=\'%23FFE14D\'/%3E%3C/svg%3E") 3 23, crosshair';
+  function drawSet() { return window.ExamDrawDiagrams && window.ExamDrawDiagrams[state.id]; }
+  function openDraw() {
+    var set = drawSet();
+    if (!set) return;
+    var old = state.root.querySelector('.am-finish');
+    if (old) old.remove();
+    clearInterval(state.dumpTimer);
+    var card = el('div', 'am-finish am-draw');
+    card.innerHTML = '<div class="am-finish__card am-draw__card" role="dialog" aria-label="Draw it">' +
+      '<div class="am-run__hud am-draw__hud">' +
+        '<button type="button" class="am-run__quit" data-am-keep aria-label="Stop drawing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
+        '<div class="am-run__segs am-draw__segs" data-am-dsegs aria-hidden="true"></div>' +
+        '<div class="am-draw__clock" data-am-dclock role="timer" aria-label="Time left" hidden><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="19"/><circle class="am-draw__ring" cx="22" cy="22" r="19" pathLength="100"/></svg><b data-am-dsecs>' + DRAW_SECONDS + '</b></div>' +
+        '<div class="am-run__score"><b data-am-dscore>0</b><span>labels</span></div></div>' +
+      '<div class="am-draw__body" data-am-dbody></div>' +
+      '<div class="am-finish__buttons am-draw__btns" data-am-dbtns></div></div>';
+    state.draw = { list: shuffle(set.diagrams, Date.now() % 997 + 1), set: set, i: 0, results: [], total: 0 };
+    card.querySelector('[data-am-dsegs]').innerHTML = new Array(state.draw.list.length + 1).join('<i></i>');
+    card.addEventListener('keydown', function (e) {
+      var d = state && state.draw;
+      if (d && d.drawing && (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z' && !/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) { e.preventDefault(); drawUndo(card); }
+    });
+    showCard(card);
+    drawIntro(card);
+    if (document.fonts && document.fonts.load) document.fonts.load('600 12.5px Lexend').catch(function () {});
+  }
+  function drawIntro(card) {
+    var d = state.draw, book = sketchbook().length;
+    card.querySelector('[data-am-dbody]').innerHTML = '<div class="am-draw__intro">' +
+      '<div class="am-draw__fan" aria-hidden="true">' + d.list.map(function (x, k) { return '<i style="--k:' + k + '">?</i>'; }).join('') + '</div>' +
+      '<h3 class="am-draw__title">Draw it</h3>' +
+      '<p>' + d.list.length + ' exam diagrams. You get <b>' + DRAW_SECONDS + ' seconds</b> to draw each one, then the exam version draws itself next to yours.</p>' +
+      '<p>Label as you go: tap <b>Aa Label</b>, then tap where the label goes. Typed labels get checked for you.</p>' +
+      (book ? '<p class="am-draw__note">Your sketchbook has ' + book + (book === 1 ? ' drawing' : ' drawings') + ' on this device.</p>' : '') + '</div>';
+    fillButtons(card.querySelector('[data-am-dbtns]'), [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-dgo', 'Let\'s draw']]);
+  }
+  function drawSegs(card) {
+    var d = state.draw;
+    Array.prototype.forEach.call(card.querySelectorAll('[data-am-dsegs] i'), function (seg, k) {
+      var r = d.results[k];
+      seg.className = r ? (r.got * 2 >= r.max ? 'is-ok' : 'is-no') : k === d.i ? 'is-current' : '';
+    });
+  }
+  // Quick, Draw!-style prompt: the thing to draw, big, then Go.
+  function drawPrompt(card) {
+    var d = state.draw, item = d.list[d.i];
+    drawSegs(card);
+    card.querySelector('[data-am-dclock]').hidden = true;
+    card.querySelector('[data-am-dbody]').innerHTML = '<div class="am-draw__prompt">' +
+      '<p class="am-draw__pk">Diagram ' + (d.i + 1) + ' of ' + d.list.length + '</p>' +
+      '<p class="am-draw__pdraw">Draw</p><h3 class="am-draw__pname">' + esc(item.say) + '</h3>' +
+      '<p class="am-draw__psub">in under ' + DRAW_SECONDS + ' seconds. Label as much as you can.</p></div>';
+    fillButtons(card.querySelector('[data-am-dbtns]'), [['ok', 'data-am-dstart', 'Go!']]);
+  }
+  function drawStart(card) {
+    var d = state.draw, item = d.list[d.i];
+    d.actions = [];
+    d.tool = 'pen';
+    d.drawing = true;
+    d.over = false;
+    card.querySelector('[data-am-dbody]').innerHTML = '<div class="am-draw__stage">' +
+      '<div class="am-draw__paper" data-am-paper><canvas class="am-draw__canvas" role="img" aria-label="Your drawing of ' + esc(item.say) + '"></canvas>' +
+        '<p class="am-draw__ghost" data-am-dghost aria-hidden="true">Draw ' + esc(item.say) + '</p></div>' +
+      '<div class="am-draw__tools" role="toolbar" aria-label="Drawing tools">' +
+        '<button type="button" class="am-draw__tool is-on" data-am-dtool="pen" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.6-4.8L16 4.8l3.2 3.2L8.8 18.4z"/></svg>Pen</button>' +
+        '<button type="button" class="am-draw__tool" data-am-dtool="label" aria-pressed="false"><b aria-hidden="true">Aa</b>Label</button>' +
+        '<button type="button" class="am-draw__tool" data-am-dundo><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7L4 12l5 5M4 12h10a6 6 0 0 1 0 12"/></svg>Undo</button>' +
+        '<button type="button" class="am-draw__tool" data-am-dclear><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/></svg>Clear</button></div></div>';
+    fillButtons(card.querySelector('[data-am-dbtns]'), [['ok', 'data-am-ddone', 'Done']], true);
+    var paper = card.querySelector('[data-am-paper]'), canvas = paper.querySelector('canvas');
+    drawSize(card);
+    canvas.style.cursor = PEN_CURSOR;
+    var frame = 0, paintSoon = function () { if (!frame) frame = requestAnimationFrame(function () { frame = 0; drawPaint(canvas, d.actions); }); };
+    var at = function (e) {
+      var r = canvas.getBoundingClientRect();
+      return [Math.round(Math.max(0, Math.min(DRAW_W, (e.clientX - r.left) / r.width * DRAW_W)) * 10) / 10,
+        Math.round(Math.max(0, Math.min(DRAW_H, (e.clientY - r.top) / r.height * DRAW_H)) * 10) / 10,
+        Math.round(performance.now() - d.t0)];
+    };
+    canvas.addEventListener('pointerdown', function (e) {
+      if (d.over || e.button > 0) return;
+      e.preventDefault();
+      var p = at(e);
+      if (d.tool === 'label') { drawLabelInput(card, p[0], p[1]); return; }
+      commitLabel(card);
+      canvas.setPointerCapture(e.pointerId);
+      d.stroke = { k: 's', p: [p] };
+      d.actions.push(d.stroke);
+      card.querySelector('[data-am-dghost]').hidden = true;
+      paintSoon();
+    });
+    canvas.addEventListener('pointermove', function (e) {
+      if (!d.stroke) return;
+      (e.getCoalescedEvents ? e.getCoalescedEvents() : [e]).forEach(function (ev) {
+        var p = at(ev), last = d.stroke.p[d.stroke.p.length - 1];
+        if (Math.abs(p[0] - last[0]) + Math.abs(p[1] - last[1]) >= 0.8) d.stroke.p.push(p);
+      });
+      paintSoon();
+    });
+    var lift = function () { d.stroke = null; paintSoon(); };
+    canvas.addEventListener('pointerup', lift);
+    canvas.addEventListener('pointercancel', lift);
+    d.t0 = performance.now();
+    var clock = card.querySelector('[data-am-dclock]'), ring = clock.querySelector('.am-draw__ring'), secs = clock.querySelector('[data-am-dsecs]'), shown = DRAW_SECONDS;
+    clock.hidden = false;
+    clock.classList.remove('am-draw__clock--low');
+    ring.style.strokeDashoffset = 0;
+    secs.textContent = DRAW_SECONDS;
+    clearInterval(state.dumpTimer);
+    state.dumpTimer = setInterval(function () {
+      if (!state || !card.isConnected || d.over) { clearInterval(state && state.dumpTimer); return; }
+      var left = Math.max(0, DRAW_SECONDS * 1000 - (performance.now() - d.t0)), s = Math.ceil(left / 1000);
+      ring.style.strokeDashoffset = 100 - left / (DRAW_SECONDS * 10);
+      if (s !== shown) {
+        shown = s;
+        secs.textContent = s;
+        clock.classList.toggle('am-draw__clock--low', s <= 10);
+        if (s <= 10 && !reduced()) { secs.classList.remove('am-bump'); void secs.offsetWidth; secs.classList.add('am-bump'); }
+        if (s <= 5 && s > 0) clockTick();
+      }
+      if (left <= 0) drawFinish(card, true);
+    }, 100);
+  }
+  // The paper keeps the diagrams' 3:2 shape and fits the window.
+  function drawSize(card) {
+    var paper = card.querySelector('[data-am-paper]');
+    if (!paper) return;
+    var canvas = paper.querySelector('canvas'), room = card.querySelector('[data-am-dbody]').clientWidth;
+    var w = Math.floor(Math.min(room, Math.max(300, window.innerHeight - 300) * 1.5));
+    paper.style.width = w + 'px';
+    paper.style.height = Math.round(w / 1.5) + 'px';
+    fitCanvas(canvas, w);
+    drawPaint(canvas, state.draw.actions);
+  }
+  function fitCanvas(canvas, w) {
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    canvas.style.width = w + 'px';
+    canvas.style.height = Math.round(w / 1.5) + 'px';
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(w / 1.5 * dpr);
+  }
+  // Paints the strokes and typed labels. limit: how many points to draw (for replays).
+  function drawPaint(canvas, actions, limit) {
+    var ctx = canvas.getContext('2d'), s = canvas.width / DRAW_W, n = 0;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = ctx.fillStyle = DRAW_INK;
+    ctx.lineWidth = 2.6 * s;
+    ctx.font = '800 ' + (13 * s) + 'px Nunito, sans-serif';
+    ctx.textBaseline = 'middle';
+    for (var a = 0; a < actions.length; a++) {
+      var act = actions[a];
+      if (limit != null && n >= limit) return;
+      if (act.k === 'l') { ctx.fillText(act.s, act.x * s, act.y * s); n += 1; continue; }
+      var p = act.p, m = limit == null ? p.length : Math.min(p.length, limit - n);
+      ctx.beginPath();
+      if (m === 1 || p.length === 1) {
+        ctx.arc(p[0][0] * s, p[0][1] * s, 1.4 * s, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.moveTo(p[0][0] * s, p[0][1] * s);
+        for (var i = 1; i < m - 1; i++) ctx.quadraticCurveTo(p[i][0] * s, p[i][1] * s, (p[i][0] + p[i + 1][0]) / 2 * s, (p[i][1] + p[i + 1][1]) / 2 * s);
+        ctx.lineTo(p[m - 1][0] * s, p[m - 1][1] * s);
+        ctx.stroke();
+      }
+      n += m;
+    }
+  }
+  function replayDrawing(canvas, actions, ms) {
+    var total = actions.reduce(function (n, a) { return n + (a.k === 'l' ? 1 : a.p.length); }, 0);
+    cancelAnimationFrame(canvas.replayFrame);
+    if (!total || reduced()) { drawPaint(canvas, actions); return; }
+    var start = performance.now();
+    (function frame(now) {
+      var t = Math.min(1, (now - start) / ms);
+      drawPaint(canvas, actions, Math.ceil(total * t));
+      if (t < 1 && canvas.isConnected) canvas.replayFrame = requestAnimationFrame(frame);
+    })(start);
+  }
+  // Labels are typed straight onto the paper, so they can be checked against the exam diagram.
+  function drawLabelInput(card, x, y) {
+    commitLabel(card);
+    var paper = card.querySelector('[data-am-paper]'), input = el('input', 'am-draw__labelin');
+    x = Math.min(x, DRAW_W - 150);
+    input.type = 'text';
+    input.maxLength = 40;
+    input.placeholder = 'Type a label';
+    input.setAttribute('aria-label', 'Label text');
+    input.setAttribute('data-x', x);
+    input.setAttribute('data-y', y);
+    input.style.left = (x / DRAW_W * 100) + '%';
+    input.style.top = (y / DRAW_H * 100) + '%';
+    paper.appendChild(input);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); commitLabel(card); }
+      if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); input.value = ''; commitLabel(card); }
+    });
+    input.addEventListener('blur', function () { commitLabel(card); });
+    requestAnimationFrame(function () { input.focus({ preventScroll: true }); });
+  }
+  function commitLabel(card) {
+    var input = card.querySelector('.am-draw__labelin'), d = state.draw;
+    if (!input || input.done) return;
+    input.done = true;
+    var text = input.value.trim();
+    if (text) {
+      d.actions.push({ k: 'l', x: +input.getAttribute('data-x'), y: +input.getAttribute('data-y'), s: text, t: Math.round(performance.now() - d.t0) });
+      card.querySelector('[data-am-dghost]').hidden = true;
+    }
+    var keep = document.activeElement === input;
+    input.remove();
+    drawPaint(card.querySelector('.am-draw__canvas'), d.actions);
+    if (keep) card.querySelector('[data-am-dtool="label"]').focus({ preventScroll: true });
+  }
+  function drawTool(card, btn, byKeyboard) {
+    var d = state.draw, tool = btn.getAttribute('data-am-dtool');
+    d.tool = tool;
+    card.querySelectorAll('[data-am-dtool]').forEach(function (b) {
+      var on = b === btn;
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    card.querySelector('.am-draw__canvas').style.cursor = tool === 'label' ? 'text' : PEN_CURSOR;
+    // From the keyboard there's no spot to tap, so the label box opens down the left side.
+    if (tool === 'label' && byKeyboard) {
+      var n = d.actions.filter(function (a) { return a.k === 'l'; }).length;
+      drawLabelInput(card, 12, 22 + (n % 11) * 26);
+    }
+  }
+  function drawUndo(card) {
+    var d = state.draw;
+    if (!d.drawing || d.over) return;
+    commitLabel(card);
+    d.actions.pop();
+    drawPaint(card.querySelector('.am-draw__canvas'), d.actions);
+  }
+  function drawClear(card) {
+    var d = state.draw;
+    if (!d.drawing || d.over) return;
+    commitLabel(card);
+    d.actions = [];
+    drawPaint(card.querySelector('.am-draw__canvas'), d.actions);
+  }
+  function clockTick() {
+    if (!soundOn()) return;
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      tone(1318.51, audio.currentTime + 0.01, 0.07, 0.05);
+    } catch (err) {}
+  }
+  function drawFinish(card, timeUp) {
+    var d = state.draw;
+    if (d.over) return;
+    commitLabel(card);
+    d.over = true;
+    d.drawing = false;
+    d.ms = Math.round(Math.min(DRAW_SECONDS * 1000, performance.now() - d.t0));
+    clearInterval(state.dumpTimer);
+    card.querySelector('[data-am-dbtns]').innerHTML = '';
+    if (timeUp) {
+      bonk();
+      card.querySelector('[data-am-paper]').appendChild(el('div', 'am-draw__timesup', 'Time\'s up!'));
+      later(function () { if (card.isConnected) drawCompare(card); }, reduced() ? 400 : 1100);
+    } else drawCompare(card);
+  }
+  // A typed label matches an exam label when it has every word stem of one of the label's keys.
+  function labelMatches(label, typed) {
+    return typed.some(function (t) {
+      return label.keys.some(function (group) { return group.every(function (stem) { return t.indexOf(stem) >= 0; }); });
+    });
+  }
+  function drawCompare(card) {
+    var d = state.draw, item = d.list[d.i];
+    var typed = d.actions.filter(function (a) { return a.k === 'l'; }).map(function (a) { return ' ' + a.s.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ') + ' '; });
+    d.ticked = item.labels.map(function () { return false; });
+    d.auto = item.labels.map(function (l) { return labelMatches(l, typed); });
+    card.querySelector('[data-am-dclock]').hidden = true;
+    var empty = !d.actions.length;
+    card.querySelector('[data-am-dbody]').innerHTML = '<div class="am-draw__compare">' +
+      '<figure class="am-draw__panel"><figcaption>Yours</figcaption><div class="am-draw__mine">' +
+        (empty ? '<p class="am-draw__blank">Nothing drawn this time. Have a look at the exam version, then try the next one.</p>' : '<canvas aria-label="Your drawing"></canvas>') +
+        (empty ? '' : '<button type="button" class="am-draw__replay" data-am-dreplay aria-label="Replay your drawing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>') + '</div></figure>' +
+      '<figure class="am-draw__panel"><figcaption>Exam version</figcaption><div class="am-draw__ref" data-am-dref>' + item.svg + '</div></figure></div>' +
+      '<div class="am-draw__checks"><p class="am-draw__checksh">Tick the labels you put on yours</p>' +
+        '<div class="am-draw__checklist" role="group" aria-label="Labels">' + item.labels.map(function (l, k) {
+          return '<button type="button" class="am-draw__check am-draw__check--wait" data-am-dtick="' + k + '" aria-pressed="false"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><span>' + esc(l.text) + '</span><em></em></button>';
+        }).join('') + '</div></div>' +
+      '<p class="am-draw__tip"><b>Tip</b>' + esc(item.tip) + '</p>';
+    fillButtons(card.querySelector('[data-am-dbtns]'), [['ok', 'data-am-dnext', d.i >= d.list.length - 1 ? 'See my sketchbook' : 'Next diagram']], true);
+    card.querySelector('.am-finish__card').scrollTop = 0;
+    if (!empty) {
+      var mine = card.querySelector('.am-draw__mine canvas');
+      fitCanvas(mine, mine.parentNode.clientWidth);
+      replayDrawing(mine, d.actions, Math.min(3200, Math.max(1400, d.ms / 6)));
+    }
+    var svg = card.querySelector('[data-am-dref] svg'), rows = card.querySelectorAll('[data-am-dtick]');
+    sizeTags(svg);
+    var parts = Array.prototype.slice.call(svg.querySelectorAll('[data-part]')), labels = Array.prototype.slice.call(svg.querySelectorAll('[data-label]'));
+    var showLabel = function (k) {
+      if (!card.isConnected || !rows[k].isConnected) return;
+      if (labels[k]) labels[k].classList.remove('dd-wait');
+      rows[k].classList.remove('am-draw__check--wait');
+      if (d.auto[k]) { setTick(card, k, true); rows[k].querySelector('em').textContent = 'On yours'; }
+    };
+    if (reduced()) {
+      svg.querySelectorAll('animate,animateTransform,animateMotion').forEach(function (a) { a.remove(); });
+      labels.forEach(function (g, k) { showLabel(k); });
+      return;
+    }
+    // The exam diagram builds itself in the order it would be drawn, then the labels pop on one by one.
+    parts.concat(labels).forEach(function (g) { g.classList.add('dd-wait'); });
+    parts.forEach(function (g, k) { later(function () { g.classList.remove('dd-wait'); }, 300 + k * 230); });
+    var from = 300 + parts.length * 230 + 250;
+    labels.forEach(function (g, k) { later(function () { showLabel(k); }, from + k * 520); });
+  }
+  // Each label's tag fits its text, measured again once the label font has loaded.
+  function sizeTags(svg) {
+    var fit = function () {
+      if (!svg.isConnected) return;
+      svg.querySelectorAll('[data-label]').forEach(function (g) {
+        var t = g.querySelector('text'), r = g.querySelector('rect'), bb = t.getBBox();
+        r.setAttribute('x', bb.x - 9);
+        r.setAttribute('width', bb.width + 18);
+      });
+    };
+    fit();
+    if (document.fonts && document.fonts.load) document.fonts.load('600 12.5px Lexend').then(fit, function () {});
+  }
+  function setTick(card, k, on) {
+    var d = state.draw, row = card.querySelector('[data-am-dtick="' + k + '"]');
+    if (d.ticked[k] === on) return;
+    d.ticked[k] = on;
+    row.setAttribute('aria-pressed', String(on));
+    row.classList.toggle('is-on', on);
+    var got = d.ticked.filter(Boolean).length;
+    if (on) {
+      ding(got - 1, got === d.ticked.length);
+      if (!reduced()) { row.classList.remove('am-bump'); void row.offsetWidth; row.classList.add('am-bump'); }
+    }
+    rollTo(card.querySelector('[data-am-dscore]'), d.total + got);
+  }
+  function drawNext(card) {
+    var d = state.draw, item = d.list[d.i], got = d.ticked.filter(Boolean).length;
+    d.results.push({ item: item, actions: d.actions, got: got, max: item.labels.length });
+    d.total += got;
+    saveSketch({
+      v: 1, subject: d.set.subject, topic: d.set.topic, thing: item.id, name: item.name, w: DRAW_W, h: DRAW_H, ms: d.ms,
+      strokes: d.actions.filter(function (a) { return a.k === 's'; }).map(function (a) { return a.p; }),
+      labels: d.actions.filter(function (a) { return a.k === 'l'; }).map(function (a) { return { x: a.x, y: a.y, s: a.s, t: a.t }; }),
+      ticked: item.labels.filter(function (l, k) { return d.ticked[k]; }).map(function (l) { return l.text; }),
+      auto: item.labels.filter(function (l, k) { return d.auto[k]; }).map(function (l) { return l.text; }),
+      at: new Date().toISOString()
+    });
+    d.i += 1;
+    if (d.i >= d.list.length) drawEnd(card); else drawPrompt(card);
+  }
+  function sketchbook() { try { return JSON.parse(store('am-sketchbook') || '[]') || []; } catch (err) { return []; } }
+  function saveSketch(record) {
+    var book = sketchbook();
+    book.push(record);
+    store('am-sketchbook', JSON.stringify(book.slice(-40)));
+  }
+  function drawEnd(card) {
+    var d = state.draw, max = d.results.reduce(function (n, r) { return n + r.max; }, 0);
+    var best = +store('am-draw-' + state.id) || 0, newBest = d.total > best;
+    if (newBest) store('am-draw-' + state.id, String(d.total));
+    updateTrainTile();
+    drawSegs(card);
+    card.querySelector('[data-am-dbody]').innerHTML = '<div class="am-draw__end">' +
+      '<p class="am-draw__pk">Your sketchbook</p>' +
+      '<div class="am-run__big"><span data-am-dbig>0</span><small>/' + max + '</small></div>' +
+      '<p class="am-run__sub">labels across ' + d.results.length + ' diagrams' + (newBest ? (best ? ' &middot; beat your best of ' + best : '') : best ? ' &middot; your best is ' + best : '') + '</p>' +
+      '<div class="am-draw__book">' + d.results.map(function (r, k) {
+        return '<figure class="am-draw__page" tabindex="0" data-am-dpage="' + k + '"><div class="am-draw__thumb"><canvas aria-label="Your drawing of ' + esc(r.item.say) + '"></canvas></div>' +
+          '<figcaption><b>' + esc(r.item.name) + '</b><span>' + r.got + ' of ' + r.max + ' labels</span></figcaption></figure>';
+      }).join('') + '</div>' +
+      '<p class="am-draw__note">Saved in your sketchbook on this device. Hover over a drawing to watch it again.</p></div>';
+    card.querySelectorAll('[data-am-dpage]').forEach(function (page) {
+      var r = d.results[+page.getAttribute('data-am-dpage')], c = page.querySelector('canvas');
+      fitCanvas(c, page.querySelector('.am-draw__thumb').clientWidth);
+      drawPaint(c, r.actions);
+      var again = function () { replayDrawing(c, r.actions, 1600); };
+      page.addEventListener('mouseenter', again);
+      page.addEventListener('focus', again);
+    });
+    rollTo(card.querySelector('[data-am-dbig]'), d.total);
+    fillButtons(card.querySelector('[data-am-dbtns]'), [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-dagain', 'Draw again']]);
+    if (newBest && d.total) later(fanfare, 300);
   }
 
   // ---------- official marks (SEC 2024 Leaving Certificate marking scheme, Geography HL) ----------
@@ -2248,7 +2647,11 @@
           '<div class="am-practise"><h5 class="am-needhelp__h">Practise</h5><button type="button" class="am-train-tile" data-am-train>' +
             '<span class="am-train-tile__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13.5 2.5L5 13.5h6l-1.5 8 8.5-11h-6z" fill="currentColor"/></svg></span>' +
             '<span class="am-train-tile__text"><b>Training run</b><span data-am-tilebest>12 quick cards, 3 hearts</span></span>' +
-            '<i class="am-train-tile__go" aria-hidden="true"></i></button></div>' +
+            '<i class="am-train-tile__go" aria-hidden="true"></i></button>' +
+            (window.ExamDrawDiagrams && window.ExamDrawDiagrams[id] ? '<button type="button" class="am-train-tile am-train-tile--draw" data-am-draw>' +
+              '<span class="am-train-tile__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20l1.6-4.8L16 4.8l3.2 3.2L8.8 18.4z" fill="currentColor"/><path d="M14.4 6.4l3.2 3.2" stroke="#5CD6FF" stroke-width="1.6"/></svg></span>' +
+              '<span class="am-train-tile__text"><b>Draw it</b><span data-am-drawbest>Sketch the exam diagrams</span></span>' +
+              '<i class="am-train-tile__go" aria-hidden="true"></i></button>' : '') + '</div>' +
           '<div class="am-needhelp"><h5 class="am-needhelp__h">Need help?</h5><div class="am-needhelp__btns">' +
             '<button type="button" class="am-btn am-btn--dump" data-am-dump>Brain dump</button>' +
             '<button type="button" class="am-btn am-btn--clue" data-am-clue>Stuck?</button></div></div>' +
@@ -2309,6 +2712,22 @@
       var teachOpt = e.target.closest('[data-am-teachopt]');
       if (teachOpt) { answerTeach(teachOpt); return; }
       if (e.target.closest('[data-am-train]')) { openTraining(); return; }
+      if (e.target.closest('[data-am-draw]')) { openDraw(); return; }
+      var drawCard = e.target.closest('.am-draw');
+      if (drawCard) {
+        if (e.target.closest('[data-am-dgo]')) { drawPrompt(drawCard); return; }
+        if (e.target.closest('[data-am-dstart]')) { drawStart(drawCard); return; }
+        var drawToolBtn = e.target.closest('[data-am-dtool]');
+        if (drawToolBtn) { drawTool(drawCard, drawToolBtn, e.detail === 0); return; }
+        if (e.target.closest('[data-am-dundo]')) { drawUndo(drawCard); return; }
+        if (e.target.closest('[data-am-dclear]')) { drawClear(drawCard); return; }
+        if (e.target.closest('[data-am-ddone]')) { drawFinish(drawCard, false); return; }
+        var tickBtn = e.target.closest('[data-am-dtick]');
+        if (tickBtn) { var tk = +tickBtn.getAttribute('data-am-dtick'); setTick(drawCard, tk, !state.draw.ticked[tk]); return; }
+        if (e.target.closest('[data-am-dreplay]')) { replayDrawing(drawCard.querySelector('.am-draw__mine canvas'), state.draw.actions, 1800); return; }
+        if (e.target.closest('[data-am-dnext]')) { drawNext(drawCard); return; }
+        if (e.target.closest('[data-am-dagain]')) { openDraw(); return; }
+      }
       var trainCard = e.target.closest('.am-train');
       if (trainCard) {
         if (e.target.closest('[data-am-thint]')) {
@@ -2373,7 +2792,13 @@
       if (state.root.querySelector('.am-finish')) { e.stopPropagation(); closeCard(); return; }
       close();
     });
-    window.addEventListener('resize', state.onResize = function () { if (state) { reflow(0); render(); } });
+    window.addEventListener('resize', state.onResize = function () {
+      if (!state) return;
+      reflow(0);
+      render();
+      var drawCard = state.root.querySelector('.am-draw');
+      if (drawCard && state.draw && state.draw.drawing) drawSize(drawCard);
+    });
     document.addEventListener('selectionchange', state.onSelect = function () {
       if (state && document.activeElement && document.activeElement.classList.contains('am-input')) renderSoon();
     });
@@ -2638,6 +3063,97 @@
     '.am-practise{margin:0 0 4px}',
     '.am-root .am-btn--train{width:100%;background:#FFC42E;color:#14243B;box-shadow:0 4px 0 #C98E00}',
     '.am-train__card{width:min(680px,100%)}',
+    '.am-train-tile + .am-train-tile{margin-top:10px}',
+    '.am-train-tile--draw .am-train-tile__icon{background:#5CD6FF;color:#0C1628;box-shadow:0 3px 0 #2A9BC4}',
+    '.am-train-tile--draw:hover{border-color:#5CD6FF}',
+    '.am-train-tile--draw .am-train-tile__go{border-color:#5CD6FF}',
+    '.am-finish__card.am-draw__card{width:min(980px,100%)}',
+    '.am-draw__clock{position:relative;flex:none;display:grid;place-items:center;width:44px;height:44px}',
+    '.am-draw__clock[hidden]{display:none}',
+    '.am-draw__clock svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}',
+    '.am-draw__clock circle{fill:none;stroke:#26395A;stroke-width:4}',
+    '.am-draw__clock .am-draw__ring{stroke:#FFC42E;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:0;transition:stroke-dashoffset .1s linear}',
+    '.am-draw__clock b{position:relative;display:inline-block;font:700 16px Fredoka,Nunito,sans-serif;color:#fff;font-variant-numeric:tabular-nums}',
+    '.am-draw__clock b.am-bump{animation:amBump .45s cubic-bezier(.3,1.6,.5,1)}',
+    '.am-draw__clock--low .am-draw__ring{stroke:#FF8A6B}',
+    '.am-draw__clock--low b{color:#FF8A6B}',
+    '.am-draw__body{min-height:340px;margin:6px 0 0}',
+    '.am-draw__btns{margin-top:16px}',
+    '.am-draw__btns:empty{display:none}',
+    '.am-draw__intro{padding:6px 0 0;text-align:center}',
+    '.am-draw__fan{position:relative;width:220px;height:124px;margin:0 auto 18px}',
+    '.am-draw__fan i{position:absolute;left:50%;top:12px;display:grid;place-items:center;width:72px;height:96px;margin-left:-36px;box-sizing:border-box;border:3px solid #5CD6FF;border-radius:12px;background:#FFFEF8;color:#2A9BC4;box-shadow:0 4px 0 #2A9BC4;font:700 34px Fredoka,Nunito,sans-serif;font-style:normal;transform:translateX(calc((var(--k) - 1.5) * 40px)) rotate(calc((var(--k) - 1.5) * 10deg));animation:amFan .6s cubic-bezier(.3,1.4,.5,1) both;animation-delay:calc(var(--k) * 90ms)}',
+    '@keyframes amFan{0%{opacity:0;translate:0 40px}100%{opacity:1;translate:0 0}}',
+    '.am-draw__title{margin:0 0 10px;font:700 34px/1.1 Fredoka,Nunito,sans-serif;color:#fff}',
+    '.am-draw__intro p{max-width:540px;margin:0 auto 10px;font:800 17px/1.5 Nunito,sans-serif;color:#E8EEFA}',
+    '.am-draw__intro b{color:#FFE14D}',
+    '.am-draw__intro .am-draw__note,.am-draw__note{margin:12px auto 0;font:800 14px/1.45 Nunito,sans-serif;color:#8496B6}',
+    '.am-draw__prompt{display:grid;place-content:center;min-height:340px;text-align:center}',
+    '.am-draw__pk{margin:0 0 6px;font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8496B6}',
+    '.am-draw__pdraw{margin:0;font:700 24px Fredoka,Nunito,sans-serif;color:#5CD6FF;animation:amIn .4s ease both}',
+    '.am-draw__pname{max-width:640px;margin:4px auto 14px;font:700 44px/1.1 Fredoka,Nunito,sans-serif;color:#fff;animation:amZoom .6s .12s cubic-bezier(.3,1.5,.5,1) both}',
+    '@keyframes amZoom{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:none}}',
+    '.am-draw__psub{margin:0;font:800 16px Nunito,sans-serif;color:#9FB0CC;animation:amIn .4s .35s ease both}',
+    '.am-draw__stage{display:flex;flex-direction:column;align-items:center;gap:12px}',
+    '.am-draw__paper{position:relative;overflow:hidden;border-radius:14px;background-color:#FFFEF8;background-image:radial-gradient(#D5DCE8 1.2px,transparent 1.5px);background-size:22px 22px;box-shadow:0 0 0 3px #2A3D5E}',
+    '.am-draw__canvas{display:block;touch-action:none}',
+    '.am-draw__ghost{position:absolute;inset:0;display:grid;place-items:center;margin:0;padding:24px;text-align:center;font:800 22px Nunito,sans-serif;color:#BFC8D8;pointer-events:none}',
+    '.am-draw__ghost[hidden]{display:none}',
+    '.am-draw__labelin{position:absolute;width:170px;box-sizing:border-box;padding:4px 8px;border:2px solid #1F3FA8;border-radius:8px;background:#FFFFFF;color:#1F3FA8;font:800 15px Nunito,sans-serif;transform:translateY(-50%);outline:none}',
+    '.am-draw__tools{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}',
+    '.am-draw__tool{display:flex;align-items:center;gap:7px;padding:8px 14px;border:2px solid #2A3D5E;border-radius:12px;background:#1B3150;color:#C9D6EE;font:700 15px Fredoka,Nunito,sans-serif;cursor:pointer}',
+    '.am-draw__tool svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}',
+    '.am-draw__tool[data-am-dtool="pen"] svg{fill:currentColor;stroke:none}',
+    '.am-draw__tool b{font:700 15px Fredoka,Nunito,sans-serif}',
+    '.am-draw__tool:hover{border-color:#5CD6FF;color:#fff}',
+    '.am-draw__tool.is-on{border-color:#5CD6FF;background:#123E5C;color:#fff}',
+    '.am-draw__tool:focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
+    '.am-draw__timesup{position:absolute;left:50%;top:50%;padding:10px 24px;border-radius:16px;background:#E5484D;color:#FFFFFF;font:700 32px Fredoka,Nunito,sans-serif;white-space:nowrap;transform:translate(-50%,-50%) rotate(-6deg);animation:amStampIn .5s cubic-bezier(.3,1.6,.5,1) both}',
+    '@keyframes amStampIn{0%{opacity:0;scale:2}100%{opacity:1;scale:1}}',
+    '.am-draw__compare{display:grid;grid-template-columns:1fr 1fr;gap:14px}',
+    '.am-draw__panel{min-width:0;margin:0}',
+    '.am-draw__panel figcaption{margin:0 0 6px;font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8496B6}',
+    '.am-draw__mine{position:relative;overflow:hidden;aspect-ratio:3/2;border-radius:12px;background:#FFFEF8}',
+    '.am-draw__mine canvas{display:block}',
+    '.am-draw__blank{display:grid;place-items:center;height:100%;box-sizing:border-box;margin:0;padding:20px;text-align:center;font:800 15px/1.45 Nunito,sans-serif;color:#5E6F8A}',
+    '.am-draw__replay{position:absolute;right:8px;bottom:8px;display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:50%;background:#14243B;color:#FFFFFF;cursor:pointer}',
+    '.am-draw__replay svg{width:16px;height:16px;fill:currentColor}',
+    '.am-draw__replay:focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
+    '.am-draw__ref{overflow:hidden;border-radius:12px;line-height:0}',
+    '.am-draw__ref svg{display:block;width:100%;height:auto}',
+    '.am-draw__ref [data-part]{transition:opacity .5s ease,transform .6s cubic-bezier(.3,1.3,.5,1)}',
+    '.am-draw__ref [data-part].dd-wait{opacity:0;transform:translateY(12px)}',
+    '.am-draw__ref [data-label]{transform-box:fill-box;transform-origin:center;transition:opacity .25s ease,transform .45s cubic-bezier(.3,1.6,.5,1)}',
+    '.am-draw__ref [data-label].dd-wait{opacity:0;transform:scale(.4)}',
+    '.am-draw__checks{margin:16px 0 0}',
+    '.am-draw__checksh{margin:0 0 8px;font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8496B6}',
+    '.am-draw__checklist{display:grid;grid-template-columns:1fr 1fr;gap:8px}',
+    '.am-draw__check{display:flex;align-items:center;gap:10px;padding:8px 12px;border:2px solid #2A3D5E;border-radius:12px;background:#1B3150;color:#E8EEFA;text-align:left;font:800 15px/1.3 Nunito,sans-serif;cursor:pointer;transition:border-color .15s ease,background .15s ease,opacity .3s ease}',
+    '.am-draw__check--wait{visibility:hidden;opacity:0}',
+    '.am-draw__check i{flex:none;display:grid;place-items:center;width:24px;height:24px;box-sizing:border-box;border:2px solid #3A5078;border-radius:7px}',
+    '.am-draw__check i svg{width:16px;height:16px;fill:none;stroke:#FFFFFF;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0}',
+    '.am-draw__check span{flex:1}',
+    '.am-draw__check em{font:700 12px Fredoka,Nunito,sans-serif;font-style:normal;color:#7DF0B0;white-space:nowrap}',
+    '.am-draw__check:hover{border-color:#5CD6FF}',
+    '.am-draw__check:focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
+    '.am-draw__check.is-on{border-color:#2BC46F;background:#173B2A}',
+    '.am-draw__check.is-on i{border-color:#2BC46F;background:#2BC46F}',
+    '.am-draw__check.is-on i svg{opacity:1}',
+    '.am-draw__check.am-bump i{animation:amBump .45s cubic-bezier(.3,1.6,.5,1)}',
+    '.am-draw__tip{margin:14px 0 0;font:800 15px/1.5 Nunito,sans-serif;color:#C9D6EE}',
+    '.am-draw__tip b{margin-right:8px;padding:2px 9px;border-radius:999px;background:#FFE14D;color:#14243B;font:700 12px Fredoka,Nunito,sans-serif;letter-spacing:.05em;text-transform:uppercase}',
+    '.am-draw__end{text-align:center}',
+    '.am-draw__end .am-run__big small{font-size:.42em;color:#8496B6}',
+    '.am-draw__book{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:4px 0 0}',
+    '.am-draw__page{margin:0;padding:8px;border-radius:14px;background:#1B3150;text-align:left;cursor:pointer;animation:amIn .4s ease both}',
+    '.am-draw__page:focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
+    '.am-draw__thumb{overflow:hidden;aspect-ratio:3/2;border-radius:10px;background:#FFFEF8}',
+    '.am-draw__thumb canvas{display:block}',
+    '.am-draw__page figcaption{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 8px;margin:8px 2px 0;font:800 13px Nunito,sans-serif;color:#9FB0CC}',
+    '.am-draw__page figcaption b{font:700 14px Fredoka,Nunito,sans-serif;color:#FFFFFF}',
+    '.am-root .am-draw__intro p,.am-root .am-draw__intro b,.am-root .am-draw__note,.am-root .am-draw__psub,.am-root .am-draw__ghost,.am-root .am-draw__check span,.am-root .am-draw__tip,.am-root .am-draw__blank,.am-root .am-draw__page figcaption span,.am-root .am-draw__labelin{font-family:Nunito,system-ui,sans-serif !important}',
+    '.am-root .am-draw__title,.am-root .am-draw__pk,.am-root .am-draw__pdraw,.am-root .am-draw__pname,.am-root .am-draw__clock b,.am-root .am-draw__tool,.am-root .am-draw__tool b,.am-root .am-draw__panel figcaption,.am-root .am-draw__checksh,.am-root .am-draw__check em,.am-root .am-draw__tip b,.am-root .am-draw__timesup,.am-root .am-draw__fan i,.am-root .am-draw__page figcaption b,.am-root .am-run__big span,.am-root .am-run__big small{font-family:Fredoka,Nunito,sans-serif !important}',
+    '@media (max-width:640px){.am-draw__compare,.am-draw__checklist{grid-template-columns:1fr}.am-draw__pname{font-size:32px}.am-draw__tool{padding:7px 10px}.am-draw__title{font-size:28px}}',
     '.am-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}',
     '.am-run{position:relative}',
     '.am-run__hud{display:flex;align-items:center;gap:12px;margin:-6px 0 8px}',
