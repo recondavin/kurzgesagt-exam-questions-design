@@ -303,106 +303,106 @@
   // q/a: the check question; a[0] is right. why: shown after a wrong pick.
   var TEACH = {
     define: { pic: 'Sediment', say: 'Sedimentary rocks are made from <b>sediment</b>: bits of older rock, sand, mud and the <b>remains</b> of plants and sea creatures. These pile up and slowly turn into new rock.',
-      q: 'What are sedimentary rocks made from?', a: ['Sediment: bits of older rock and remains of living things', 'Lava that cooled down', 'Rock changed by heat and pressure'], why: 'Cooled lava makes igneous rock, and rock changed by heat makes metamorphic rock.' },
+      q: 'What are sedimentary rocks made from?', a: ['Sediment: bits of older rock and remains of living things', 'Magma that cooled slowly underground', 'Older rock changed by great heat and pressure', 'Lava that cooled quickly on the surface'], why: 'Cooled magma or lava makes igneous rock, and rock changed by heat and pressure is metamorphic.' },
     weather: { pic: 'Sediment', say: 'It starts with older rock being broken down by <b>weathering</b> (rain, frost, plant roots) and worn away by <b>erosion</b>. The small broken bits are called sediment.',
-      q: 'How does sediment start?', a: ['Older rock is weathered and eroded into small bits', 'Magma cools under the ground', 'Shells grow on the sea bed'], why: 'Sediment is broken-down older rock. Weathering breaks it, erosion carries the bits away.' },
+      q: 'How is sediment first made?', a: ['Older rock is broken down by weathering and erosion', 'Minerals glue loose grains together', 'Layers are squeezed by the weight above', 'Sea creatures build shells on the sea bed'], why: 'Gluing is cementation and squeezing is compaction. Those come later: sediment starts as broken-down rock.' },
     transport: { pic: 'Sediment', say: '<b>Rivers</b>, <b>wind</b> and <b>ice</b> carry the sediment away. Most of it ends up in <b>lakes</b> and the <b>sea</b>.',
-      q: 'What carries sediment to the sea?', a: ['Rivers, wind and ice', 'Earthquakes', 'Plant roots'], why: 'Moving water, wind and ice are what carry (transport) sediment.' },
+      q: 'What carries sediment to lakes and the sea?', a: ['Rivers, wind and ice', 'Plate movements', 'Cementing minerals', 'Groundwater seeping through rock'], why: 'Moving water, wind and ice carry (transport) sediment. Plates move solid rock, not loose sediment.' },
     deposit: { pic: 'Sediment', say: 'When the water slows down it drops the sediment. It settles on the sea or lake bed in flat <b>layers</b> called <b>strata</b>.',
-      q: 'What are the layers of sediment called?', a: ['Strata', 'Faults', 'Magma'], why: 'Layers of sediment are called strata (one layer is a stratum).' },
+      q: 'Why does a river drop its sediment?', a: ['It slows down and loses energy', 'The water gets colder', 'The sediment dissolves', 'The river freezes over'], why: 'A slower river has less energy, so it can\'t carry its load and drops it in layers called strata.' },
     compact: { pic: 'Compaction', say: 'As more layers pile on top, their <b>weight</b> squeezes the layers below. Water is pushed out and the grains are packed tight. This is <b>compaction</b>.',
-      q: 'What squeezes the lower layers?', a: ['The weight of the layers above', 'Heat from the sun', 'Waves on the beach'], why: 'Think of heavy books stacked on a sponge: the weight on top does the squeezing.' },
+      q: 'What happens during compaction?', a: ['The weight of layers above squeezes out water and packs the grains', 'Minerals glue the grains together', 'Heat melts the grains together', 'Rivers wear the grains down'], why: 'Gluing is cementation, and melting would make igneous rock. Compaction is squeezing by weight.' },
     cement: { pic: 'Cementation', say: 'Water seeping through the layers carries dissolved <b>minerals</b> like <b>calcite</b> and <b>silica</b>. They glue the grains together, like cement in a wall. This is <b>cementation</b>.',
-      q: 'What glues the grains together?', a: ['Minerals like calcite and silica', 'Ice', 'Lava'], why: 'Minerals left by water act like glue between the grains.' },
+      q: 'What happens during cementation?', a: ['Minerals like calcite and silica glue the grains together', 'The weight above squeezes out the water', 'Heat bakes the grains into rock', 'Rivers round the grains off'], why: 'Squeezing is compaction. Cementation is the gluing step, done by minerals left by water.' },
     lithify: { pic: 'Cementation', say: 'Compaction and cementation turn loose sediment into <b>solid rock</b>. This whole change is called <b>lithification</b>.',
-      q: 'What is lithification?', a: ['Loose sediment turning into solid rock', 'Rock melting into magma', 'Rock breaking into bits'], why: '"Litho" means stone: lithification is sediment becoming stone.' },
+      q: 'What is lithification?', a: ['Loose sediment turning into solid rock', 'Rock breaking down into sediment', 'Sediment being carried to the sea', 'Rock being pushed up into mountains'], why: 'Breaking down is weathering, carrying is transport and pushing up is uplift. "Litho" means stone.' },
     sandstone: { pic: 'Sandstone', say: '<b>Sandstone</b> forms from grains of <b>sand</b> that were compacted and cemented together. You can often feel the grains on its surface.',
-      q: 'Sandstone is made from…', a: ['Grains of sand', 'Shells of sea creatures', 'Fine mud'], why: 'The name gives it away: sand-stone.' },
+      q: 'How does sandstone form?', a: ['Sand grains are compacted and cemented together', 'Shells pile up on a warm sea floor', 'Fine mud settles in calm water', 'Plants are buried in swamps'], why: 'Shells make limestone, mud makes shale and plants make coal.' },
     redDesert: { pic: 'Sandstone', say: 'Ireland\'s <b>Old Red Sandstone</b> formed about 400 million years ago in hot <b>desert</b> conditions. Iron in the sand <b>oxidised</b> (rusted), which turned it red.',
-      q: 'Why is Old Red Sandstone red?', a: ['Iron in it rusted in hot desert conditions', 'It was heated by lava', 'It is full of red shells'], why: 'The red colour is rust: iron oxide formed in the hot, dry desert.' },
+      q: 'Why is Old Red Sandstone red?', a: ['Iron in it oxidised (rusted) in hot desert conditions', 'It was baked by nearby lava', 'It is full of red coral', 'Rivers mixed red clay into it'], why: 'The red is rust: iron oxide formed in a hot, dry desert about 400 million years ago.' },
     sandEx: { pic: 'Sandstone', say: 'Old Red Sandstone makes many of Munster\'s mountains, like the <b>MacGillycuddy\'s Reeks</b> in Co. Kerry and the <b>Comeragh Mountains</b> in Co. Waterford.',
-      q: 'Where in Ireland can you find sandstone?', a: ['MacGillycuddy\'s Reeks, Co. Kerry', 'The Burren, Co. Clare', 'Giant\'s Causeway, Co. Antrim'], why: 'The Burren is limestone and the Giant\'s Causeway is basalt, an igneous rock.' },
+      q: 'Which is an Irish sandstone area?', a: ['MacGillycuddy\'s Reeks, Co. Kerry', 'The Burren, Co. Clare', 'Giant\'s Causeway, Co. Antrim', 'The Mourne Mountains, Co. Down'], why: 'The Burren is limestone, the Causeway is basalt and the Mournes are granite.' },
     limestone: { pic: 'Limestone', say: '<b>Limestone</b> forms from the <b>shells and skeletons</b> of sea creatures. When they die they sink and pile up on the sea floor, then get compacted and cemented.',
-      q: 'Limestone is mainly made from…', a: ['Shells and skeletons of sea creatures', 'Grains of desert sand', 'Cooled lava'], why: 'Limestone is built from the remains of sea life, which is why it often has fossils.' },
+      q: 'How does limestone form?', a: ['Shells and skeletons of sea creatures pile up and are cemented', 'Sand grains are cemented in a desert', 'Fine mud settles in calm water', 'Lava cools on the sea floor'], why: 'Sand makes sandstone, mud makes shale and lava makes basalt. Limestone is built from sea life.' },
     warmSea: { pic: 'Limestone', say: 'Irish limestone formed about 350 million years ago in <b>warm, shallow, clear seas</b>, when Ireland lay near the <b>equator</b>.',
-      q: 'Where did Irish limestone form?', a: ['In warm, shallow seas near the equator', 'In cold, deep seas near the North Pole', 'In hot deserts'], why: 'Shelled sea creatures thrive in warm, shallow, clear water, and Ireland was near the equator then.' },
+      q: 'In what conditions did Irish limestone form?', a: ['Warm, shallow, clear seas near the equator', 'Cold, deep oceans near the North Pole', 'Hot, dry deserts', 'Freshwater lakes in the mountains'], why: 'Shelled sea creatures thrive in warm, shallow, clear water, and Ireland lay near the equator then. Deserts made the Old Red Sandstone.' },
     limeEx: { pic: 'Limestone', say: 'The <b>Burren</b> in Co. Clare is Ireland\'s most famous limestone area. Limestone also lies under much of the <b>Central Lowlands</b>.',
-      q: 'Which Irish area is famous for limestone?', a: ['The Burren, Co. Clare', 'MacGillycuddy\'s Reeks, Co. Kerry', 'Giant\'s Causeway, Co. Antrim'], why: 'The Reeks are sandstone and the Giant\'s Causeway is basalt.' },
+      q: 'Which is an Irish limestone area?', a: ['The Burren, Co. Clare', 'MacGillycuddy\'s Reeks, Co. Kerry', 'Giant\'s Causeway, Co. Antrim', 'The Wicklow Mountains'], why: 'The Reeks are sandstone, the Causeway is basalt and the Wicklow Mountains are granite.' },
     caco3: { pic: 'Limestone', say: 'Limestone is mostly <b>calcium carbonate</b>, the same stuff as the shells it came from. That\'s why weak acid in rainwater can slowly dissolve it.',
-      q: 'What is limestone mainly made of?', a: ['Calcium carbonate', 'Iron oxide', 'Salt'], why: 'Shells are calcium carbonate, so limestone is too.' },
+      q: 'What is limestone mainly made of?', a: ['Calcium carbonate', 'Silica', 'Iron oxide', 'Sodium chloride'], why: 'Shells are calcium carbonate, so limestone is too. Silica is quartz, iron oxide is rust and sodium chloride is salt.' },
     shale: { pic: 'Shale', say: '<b>Shale</b> forms from very fine <b>mud</b> and <b>clay</b> that settled in calm water. It splits easily into thin layers.',
-      q: 'Shale forms from…', a: ['Fine mud and clay', 'Grains of sand', 'Coral'], why: 'Only calm water lets the finest mud settle, and that mud becomes shale.' },
+      q: 'How does shale form?', a: ['Fine mud and clay settle in calm water and are compacted', 'Sand is cemented together in a desert', 'Shells pile up on a warm sea floor', 'Salty water evaporates'], why: 'Only calm water lets the finest mud settle. Sand makes sandstone, shells make limestone and evaporation makes rock salt.' },
     shaleEx: { pic: 'Shale', say: 'You can see dark layers of shale and sandstone in the <b>Cliffs of Moher</b> in Co. Clare.',
-      q: 'Where can you see shale in Ireland?', a: ['The Cliffs of Moher, Co. Clare', 'The Mourne Mountains, Co. Down', 'Giant\'s Causeway, Co. Antrim'], why: 'The Mournes are granite and the Causeway is basalt. Both are igneous.' },
+      q: 'Where can you see shale in Ireland?', a: ['The Cliffs of Moher, Co. Clare', 'The Mourne Mountains, Co. Down', 'Giant\'s Causeway, Co. Antrim', 'The Wicklow Mountains'], why: 'The Mournes and Wicklow Mountains are granite and the Causeway is basalt: all igneous.' },
     fossils: { pic: 'Cementation', say: 'Plants and animals trapped in the layers can be preserved as <b>fossils</b>. Limestone often has fossils of shells and coral.',
-      q: 'Why do sedimentary rocks often have fossils?', a: ['Dead plants and animals got trapped in the layers', 'Lava burned them into the rock', 'People carved them'], why: 'The layers build up gently, so remains get buried and kept instead of destroyed.' },
+      q: 'Why are fossils found in sedimentary rock but not in igneous rock?', a: ['Remains are buried gently in layers instead of being melted', 'Fossils only form in cold places', 'Igneous rock is too young', 'Sedimentary rock is harder'], why: 'Igneous rock comes from melted rock, which would destroy any remains.' },
     time: { pic: 'Compaction', say: 'All of this is very slow. The layers build up and harden over <b>millions of years</b>.',
-      q: 'How long does sedimentary rock take to form?', a: ['Millions of years', 'A few days', 'About 100 years'], why: 'Layers pile up only millimetres at a time, so it takes millions of years.' },
+      q: 'How long does sedimentary rock take to form?', a: ['Millions of years', 'Thousands of years', 'About 100 years', 'A few days'], why: 'Layers build up only millimetres a year, so it takes millions of years.' },
     uplift: { pic: 'Sandstone', say: 'Rocks that formed under the sea are on land today because <b>plate movements</b> pushed them up (<b>uplift</b>) and folded them into mountains.',
-      q: 'How did rocks made under the sea end up on land?', a: ['Plate movements pushed them up', 'The sea dried up overnight', 'Rivers carried them there'], why: 'Plates colliding push rock upwards: that is uplift.' },
+      q: 'Why is rock that formed under the sea now on land?', a: ['Plate movements pushed it up (uplift)', 'Sea levels dropped by thousands of metres', 'Rivers carried it there', 'It floated up as it hardened'], why: 'Colliding plates push and fold rock upwards: that is uplift.' },
     bedding: { pic: 'Shale', say: 'The layers are separated by <b>bedding planes</b>, and cracks called <b>joints</b> run across them. That gives the rock its layered, blocky look.',
-      q: 'What are the lines between the layers called?', a: ['Bedding planes', 'Fault lines', 'Contour lines'], why: 'Each layer is a bed, so the line between beds is a bedding plane.' },
+      q: 'What separates the layers in sedimentary rock?', a: ['Bedding planes', 'Fault lines', 'Joints', 'Contour lines'], why: 'Joints are the cracks that run across the layers. The lines between the layers are bedding planes.' },
     chemical: { say: 'Some sedimentary rocks form <b>chemically</b>. When salty water <b>evaporates</b>, minerals are left behind as rock, like <b>rock salt</b> and <b>gypsum</b>.',
-      q: 'How does rock salt form?', a: ['Salty water evaporates and leaves minerals behind', 'Shells pile up on the sea floor', 'Sand is cemented in a desert'], why: 'Chemical sedimentary rocks come from minerals left behind by water.' },
+      q: 'How does a chemical sedimentary rock like rock salt form?', a: ['Salty water evaporates and leaves minerals behind', 'Shells pile up on the sea floor', 'Sand is compacted and cemented', 'Plants are buried in swamps'], why: 'Chemical sedimentary rocks come from minerals left behind when water evaporates.' },
     coal: { say: '<b>Coal</b> forms from the remains of <b>plants</b> in ancient swamp forests. They were buried, squashed and slowly turned to rock.',
-      q: 'What is coal made from?', a: ['Remains of plants from ancient swamps', 'Shells of sea creatures', 'Fine mud'], why: 'Coal is squashed plant material, which is why it burns.' },
-    coalEx: { say: 'Coal was mined at <b>Arigna</b> in Co. Roscommon and around <b>Castlecomer</b> in Co. Kilkenny.',
-      q: 'Where was coal mined in Ireland?', a: ['Arigna, Co. Roscommon', 'The Burren, Co. Clare', 'The Cliffs of Moher, Co. Clare'], why: 'Arigna was Ireland\'s last working coal mine.' },
-    types: { say: 'There are three main types: <b>mechanical</b> (from bits of rock, like sandstone), <b>organic</b> (from living things, like limestone and coal) and <b>chemical</b> (from minerals left by water, like rock salt).',
-      q: 'Which type of sedimentary rock is limestone?', a: ['Organic: made from living things', 'Chemical: left by evaporating water', 'Mechanical: made from sand grains'], why: 'Limestone comes from shells and skeletons, so it is organic.' },
+      q: 'What is coal made from?', a: ['Remains of plants from ancient swamp forests', 'Shells of sea creatures', 'Fine mud from lake beds', 'Oil that hardened underground'], why: 'Coal is squashed plant material, which is why it burns.' },
+    coalEx: { model: '<b>Coal</b> was mined at <b>Arigna</b> in Co. Roscommon, where it formed from buried swamp plants.', say: 'Coal was mined at <b>Arigna</b> in Co. Roscommon and around <b>Castlecomer</b> in Co. Kilkenny.',
+      q: 'Where was coal mined in Ireland?', a: ['Arigna, Co. Roscommon', 'The Burren, Co. Clare', 'The Cliffs of Moher, Co. Clare', 'Giant\'s Causeway, Co. Antrim'], why: 'Arigna was Ireland\'s last working coal mine. Castlecomer in Co. Kilkenny is another.' },
+    types: { model: 'Sedimentary rocks are formed in three ways: <b>mechanical</b> (sandstone), <b>organic</b> (limestone) and <b>chemical</b> (rock salt).', say: 'There are three main types: <b>mechanical</b> (from bits of rock, like sandstone), <b>organic</b> (from living things, like limestone and coal) and <b>chemical</b> (from minerals left by water, like rock salt).',
+      q: 'Which type of sedimentary rock is limestone?', a: ['Organic: made from living things', 'Chemical: left by evaporating water', 'Mechanical: made from bits of rock', 'Igneous: made from cooled lava'], why: 'Limestone comes from shells and skeletons, so it is organic.' },
 
     seismo: { pic: 'Predict earthquakes', say: 'A <b>seismograph</b> records how much the ground shakes. Scientists watch for small tremors that might warn of a bigger quake.',
-      q: 'What does a seismograph record?', a: ['Shaking (vibrations) of the ground', 'Rainfall', 'Wind speed'], why: '"Seismic" means to do with earthquakes, so a seismograph draws the shaking.' },
+      q: 'What does a seismograph record?', a: ['How much the ground shakes', 'Gas levels in the ground', 'How much the ground tilts', 'Changes in the magnetic field'], why: 'Gas is measured in wells, tilt by a tiltmeter and magnetism by a magnetometer. A seismograph records shaking.' },
     foreshock: { pic: 'Predict earthquakes', say: '<b>Foreshocks</b> are small tremors that sometimes come before a big earthquake. A sudden rise in them can be a <b>warning sign</b>.',
-      q: 'What are foreshocks?', a: ['Small tremors that can come before a big quake', 'Waves that hit the coast', 'Shocks felt after the main quake'], why: 'Fore means before. Shocks after the main quake are aftershocks.' },
+      q: 'What are foreshocks?', a: ['Small tremors that can come before a big quake', 'Smaller shocks that follow the main quake', 'The first wave of a tsunami', 'Shaking felt far from the epicentre'], why: 'Fore means before. Shocks after the main quake are aftershocks.' },
     gaps: { pic: 'Monitor', say: 'A <b>seismic gap</b> is part of a fault that hasn\'t moved for a long time. Stress is building there, so a quake is more likely. Scientists also study <b>past patterns</b> of quakes.',
-      q: 'Why is a seismic gap a warning sign?', a: ['Stress has been building there for a long time', 'It has lots of small quakes every day', 'It is far from any fault'], why: 'A quiet stretch of fault is storing stress that will be released one day.' },
+      q: 'Why is a seismic gap a warning sign?', a: ['The fault hasn\'t moved in a long time, so stress is building', 'It has lots of small quakes every day', 'It is far from any plate boundary', 'The plates there have stopped moving'], why: 'A quiet stretch of an active fault is storing stress that will be released one day.' },
     tilt: { pic: 'Monitor', say: 'A <b>tiltmeter</b> measures tiny changes in the slope of the ground. The ground can <b>bulge</b> as stress builds up before a quake.',
-      q: 'What does a tiltmeter measure?', a: ['Tiny tilts or bulges in the ground', 'Gas in wells', 'Animal movement'], why: 'Tilt-meter: it measures tilt, the ground bulging as stress builds.' },
+      q: 'What does a tiltmeter detect?', a: ['The ground bulging or tilting as stress builds', 'Shaking of the ground', 'Radon gas in wells', 'Movement measured from satellites'], why: 'Shaking is the seismograph, radon is a gas test and satellites are GPS. A tiltmeter measures tilt.' },
     laser: { pic: 'Monitor', say: '<b>Lasers</b> and <b>GPS satellites</b> measure tiny movements along faults, sometimes only millimetres. Sudden changes can warn of a quake.',
-      q: 'What do lasers and GPS measure?', a: ['Tiny movements of the ground along faults', 'The temperature of rocks', 'How deep the sea is'], why: 'They track how far the ground on each side of a fault has moved.' },
+      q: 'What do lasers and GPS satellites measure?', a: ['Tiny movements of the ground along faults', 'The temperature of rocks', 'How deep earthquakes start', 'Gas escaping from the ground'], why: 'They track how far the ground on each side of a fault has moved, sometimes just millimetres.' },
     radon: { say: 'Before some quakes, <b>radon gas</b> levels in the ground and in <b>well water</b> rise as cracks open in the rock. Water levels in wells can change too.',
-      q: 'Which gas is watched before earthquakes?', a: ['Radon', 'Oxygen', 'Nitrogen'], why: 'Radon escapes from cracking rock, so a rise in it can be a warning.' },
+      q: 'Why can radon levels in wells warn of a quake?', a: ['Cracks opening in stressed rock release the gas', 'Earthquakes heat the water', 'Animals stir up the water', 'Rain washes radon into wells'], why: 'Stressed rock cracks, letting radon escape into the ground and the well water.' },
     animals: { say: 'People have reported <b>animals acting strangely</b> (dogs barking, snakes leaving their burrows) before quakes. It isn\'t <b>reliable</b>, but it is often mentioned.',
-      q: 'Is strange animal behaviour a reliable warning?', a: ['No: it has been reported but isn\'t reliable', 'Yes: it always works', 'Animals can\'t sense anything'], why: 'There are many stories, but scientists can\'t use it to predict quakes reliably.' },
+      q: 'How useful is strange animal behaviour for predicting quakes?', a: ['It has been reported but isn\'t reliable', 'It is the most accurate method', 'Scientists use it to give exact times', 'It has never been reported'], why: 'There are many stories, but it can\'t be used to predict quakes reliably.' },
     stress: { pic: 'Monitor', say: '<b>Stress</b> builds where plates lock together along a <b>fault</b>. Instruments like <b>strainmeters</b> and <b>creepmeters</b> measure how much the rock is bending or slipping.',
-      q: 'Why do scientists monitor stress on faults?', a: ['Stress builds until the rocks suddenly slip', 'Stress makes volcanoes cool down', 'Stress stops earthquakes'], why: 'An earthquake is the sudden release of stress that has built up.' },
+      q: 'Why do scientists monitor stress on faults?', a: ['Stress builds until the rocks suddenly slip', 'Stress makes the plates stop moving', 'Stress cools the magma below', 'Stress is what makes tsunamis'], why: 'An earthquake is the sudden release of stress that has built up along a fault.' },
     plates: { pic: 'Predict earthquakes', say: 'Most earthquakes happen at <b>plate boundaries</b>, like the San Andreas Fault in California. So we can predict <b>where</b> quakes are likely, but not exactly when.',
-      q: 'Where do most earthquakes happen?', a: ['At plate boundaries', 'In the middle of plates', 'Only under the sea'], why: 'Plates grinding past or into each other cause most quakes.' },
+      q: 'What can plate boundaries tell us about earthquakes?', a: ['Where they are likely, but not when', 'The exact time of the next one', 'How strong every one will be', 'Nothing: quakes happen everywhere equally'], why: 'Most quakes happen at plate boundaries, so we know where, but not exactly when.' },
     magnetic: { pic: 'Monitor', say: 'Some scientists measure changes in the <b>magnetic</b> field and <b>electrical</b> currents in rocks, which can change as stress builds.',
-      q: 'What can change in rocks as stress builds?', a: ['Their magnetism and electrical currents', 'Their colour', 'Their age'], why: 'Squeezed rock can change its magnetic and electrical signals.' },
+      q: 'What can change in rocks as stress builds?', a: ['Their magnetism and electrical currents', 'Their colour', 'Their age', 'Their fossils'], why: 'Squeezed rock can change its magnetic and electrical signals.' },
     difficult: { pic: 'Predict earthquakes', say: 'Even with all this, scientists <b>cannot predict the exact time</b> of an earthquake. They can only say where one is likely and how probable it is.',
-      q: 'Can scientists predict the exact time of a quake?', a: ['No: only where one is likely', 'Yes: to the minute', 'Yes: a week ahead'], why: 'No method can yet give an exact time. Saying so is a valid point in the exam.' },
+      q: 'What can scientists predict about earthquakes today?', a: ['Where one is likely and how probable it is', 'The exact day and time', 'The exact strength a week ahead', 'Nothing at all'], why: 'No method can give an exact time yet. Saying so is a valid point in the exam.' },
     build: { pic: 'Build safely', say: '<b>Earthquake-proof buildings</b> are designed to bend and sway, not snap. Strict <b>building codes</b> make sure new buildings follow these rules.',
-      q: 'Why are earthquake-proof buildings made to sway?', a: ['So they bend instead of breaking', 'So they look modern', 'So they catch the wind'], why: 'A stiff building cracks. One that can sway soaks up the shaking.' },
+      q: 'Why are earthquake-proof buildings designed to sway?', a: ['So they bend instead of breaking', 'So they can be built taller', 'So wind can pass through', 'So they cost less'], why: 'A stiff building cracks. One that can sway absorbs the shaking.' },
     base: { pic: 'Reduce the effects', say: 'In <b>base isolation</b>, the building sits on <b>rubber bearings</b> (shock absorbers). The ground shakes, but the building above stays steadier.',
-      q: 'What do rubber bearings under a building do?', a: ['Absorb the shaking so the building moves less', 'Keep the building warm', 'Stop water getting in'], why: 'The rubber soaks up the movement, like a car\'s shock absorbers.' },
-    bracing: { pic: 'Build safely', say: '<b>Steel frames</b> and diagonal <b>cross-bracing</b> make buildings stronger, so they hold together while they sway.',
-      q: 'What does cross-bracing do?', a: ['Strengthens the frame so it holds together', 'Lets light into the building', 'Makes the building lighter'], why: 'Diagonal braces stop the frame from folding sideways.' },
+      q: 'How does base isolation protect a building?', a: ['Rubber bearings absorb the shaking, so the building above moves less', 'Deep foundations stop the ground shaking', 'A heavy weight on the roof steadies it', 'Steel braces stop the walls bending'], why: 'A weight on the roof is a damper and braces are cross-bracing. Base isolation uses rubber bearings underneath.' },
+    bracing: { pic: 'Build safely', model: 'Buildings are strengthened with <b>steel frames</b> and diagonal <b>cross-bracing</b> so they hold together when they shake.', say: '<b>Steel frames</b> and diagonal <b>cross-bracing</b> make buildings stronger, so they hold together while they sway.',
+      q: 'What does diagonal cross-bracing do?', a: ['Strengthens the frame so it holds together while swaying', 'Absorbs shaking at the foundations', 'Swings against the sway at the top', 'Makes the building lighter'], why: 'Absorbing at the base is base isolation, and swinging at the top is a damper.' },
     damper: { pic: 'Build safely', say: 'Tall buildings can have a huge <b>counterweight</b> (a <b>damper</b>) near the top. It swings the opposite way to the building and steadies it. Taipei 101 in Taiwan has one.',
-      q: 'What does a counterweight at the top of a tower do?', a: ['Swings against the sway to steady it', 'Holds the roof down in storms', 'Stores water'], why: 'It moves the opposite way to the building and cancels out the sway.' },
+      q: 'What does a counterweight (damper) at the top of a tower do?', a: ['Swings the opposite way to the sway and steadies the building', 'Holds the roof down in storms', 'Absorbs shaking at the foundations', 'Stores water for firefighting'], why: 'It moves against the building\'s sway and cancels much of it out, as in Taipei 101.' },
     shape: { pic: 'Build safely', say: 'Buildings with a <b>wide base</b> that narrow towards the top, like a <b>pyramid</b>, are more stable when the ground shakes.',
-      q: 'Which shape is more stable in an earthquake?', a: ['Wide at the bottom, narrow at the top', 'Narrow at the bottom, wide at the top', 'Tall and thin all the way up'], why: 'A wide base keeps the weight low, so it is harder to topple.' },
+      q: 'Which building shape is most stable in an earthquake?', a: ['Wide at the base, narrow at the top', 'Narrow at the base, wide at the top', 'Tall and thin all the way up', 'Raised up on stilts'], why: 'A wide base keeps the weight low, so it is harder to topple.' },
     drills: { pic: 'Prepare', say: 'In places like <b>Japan</b> and <b>California</b>, people practise <b>earthquake drills</b> in schools and workplaces so they know what to do. <b>Education</b> saves lives.',
-      q: 'Why do schools hold earthquake drills?', a: ['So people know what to do when one hits', 'To predict the next quake', 'To test the buildings'], why: 'Practice means people act fast and safely instead of panicking.' },
+      q: 'Why do schools in Japan hold earthquake drills?', a: ['So people react quickly and safely when one hits', 'To predict the next quake', 'To test if buildings are earthquake-proof', 'To measure the shaking'], why: 'Practice means people act fast instead of panicking.' },
     dropcover: { pic: 'Prepare', say: 'People are taught to <b>drop, cover and hold on</b>: get down, get under a strong table, and hold on until the shaking stops.',
-      q: 'What should you do when an earthquake starts?', a: ['Drop, cover and hold on', 'Run outside straight away', 'Stand by a window'], why: 'Running and windows are dangerous: falling glass and debris cause most injuries.' },
+      q: 'What should you do when the shaking starts indoors?', a: ['Drop, get under a strong table and hold on', 'Run outside straight away', 'Stand by a window', 'Take the lift to the ground floor'], why: 'Running, windows and lifts are dangerous: falling glass and debris cause most injuries.' },
     warning: { say: '<b>Early warning systems</b> detect the first, fast waves and send <b>alerts to phones</b> seconds before the strong shaking arrives. Trains can stop and gas can be shut off.',
-      q: 'How much warning can these systems give?', a: ['A few seconds before strong shaking', 'A few weeks', 'A whole year'], why: 'They only warn once a quake has started, so it is seconds, but seconds save lives.' },
+      q: 'How do early warning systems work?', a: ['They detect the first fast waves and send alerts seconds before strong shaking', 'They predict quakes weeks in advance', 'They stop the shaking from spreading', 'They measure radon in wells'], why: 'They only work once a quake has started, so they give seconds, but seconds save lives.' },
     emergency: { pic: 'Prepare', say: 'Families keep <b>emergency kits</b> with water, food, a torch and first aid. <b>Emergency services</b> train and plan so they can respond fast.',
-      q: 'What goes in an earthquake emergency kit?', a: ['Water, food, a torch and first aid', 'Only a phone charger', 'Building tools'], why: 'After a big quake, water and power can be off for days.' },
+      q: 'Why do families keep emergency kits?', a: ['Water, power and help may be cut off for days', 'To predict the next quake', 'To strengthen their house', 'To stop tsunamis'], why: 'After a big quake, water and power can be off for days before help arrives.' },
     shutoff: { say: 'Gas and power can be fitted with <b>automatic shut-off valves</b>. They close when the shaking starts, which stops <b>fires</b> breaking out.',
-      q: 'Why shut off gas automatically?', a: ['To stop fires starting', 'To save money', 'To warn people'], why: 'Broken gas pipes plus sparks cause fires after quakes.' },
+      q: 'Why are automatic gas shut-off valves fitted?', a: ['To stop fires from broken gas pipes', 'To save money on gas bills', 'To warn people a quake is coming', 'To stop buildings swaying'], why: 'Broken gas pipes plus sparks cause fires after quakes.' },
     zoning: { say: '<b>Land-use planning</b> keeps big buildings, schools and hospitals off the most dangerous ground, like <b>soft soil</b> or right on a fault line.',
-      q: 'What does land-use planning do?', a: ['Keeps important buildings off dangerous ground', 'Predicts the next quake', 'Builds sea walls'], why: 'Soft ground shakes more, so planners keep key buildings off it.' },
+      q: 'How does land-use planning reduce earthquake damage?', a: ['It keeps key buildings off dangerous ground like soft soil and fault lines', 'It predicts when the next quake will happen', 'It builds sea walls on the coast', 'It adds rubber bearings to buildings'], why: 'Soft ground shakes more, so planners keep schools and hospitals off it.' },
     retrofit: { pic: 'Build safely', say: '<b>Retrofitting</b> means strengthening <b>old buildings</b>, for example adding steel braces, so they meet modern earthquake rules.',
-      q: 'What is retrofitting?', a: ['Strengthening old buildings', 'Knocking down old buildings', 'Building on new land'], why: 'Retro means going back: fixing up buildings that already exist.' },
+      q: 'What is retrofitting?', a: ['Strengthening old buildings to modern earthquake rules', 'Knocking down old buildings', 'Building new towns away from faults', 'Fitting early warning sirens'], why: 'Retro means going back: fixing up buildings that already exist.' },
     tsunami: { say: 'Earthquakes under the sea can cause <b>tsunamis</b>. <b>Sea walls</b>, warning sirens and marked <b>escape routes</b> to high ground reduce the damage.',
-      q: 'Which of these reduces tsunami damage?', a: ['Sea walls and escape routes to high ground', 'Rubber bearings', 'Tiltmeters'], why: 'Tsunamis are huge waves, so the defences are on the coast.' },
+      q: 'Which of these reduces tsunami damage?', a: ['Sea walls and marked escape routes to high ground', 'Rubber bearings under buildings', 'Tiltmeters on faults', 'Counterweights in towers'], why: 'Tsunamis are huge waves, so the defences are on the coast and help people reach high ground.' },
     fire: { say: 'After a quake, broken gas pipes can start big <b>fires</b>, as in San Francisco in 1906. <b>Fire-resistant</b> materials and quick fire services cut the damage.',
-      q: 'Why are fires a danger after an earthquake?', a: ['Broken gas pipes and wires can start them', 'Earthquakes heat the air', 'Lava comes up'], why: 'In big city quakes, fire can do more damage than the shaking.' },
+      q: 'Why are fires a big danger after an earthquake?', a: ['Broken gas pipes and power lines can start them', 'Earthquakes heat the air', 'Lava comes up through cracks', 'Friction on the fault sets towns alight'], why: 'In big city quakes, fire can do more damage than the shaking, as in San Francisco in 1906.' },
     aid: { say: 'After a quake, <b>search and rescue</b> teams, field hospitals and <b>international aid</b> (food, water, shelter) help people survive and rebuild.',
-      q: 'What helps people most in the days after a big quake?', a: ['Search and rescue teams and aid', 'Seismographs', 'Tiltmeters'], why: 'Seismographs and tiltmeters are for prediction, not for helping afterwards.' }
+      q: 'What helps people most in the days after a big quake?', a: ['Search and rescue teams, and aid like food, water and shelter', 'Seismographs and tiltmeters', 'Earthquake drills', 'New building codes'], why: 'Instruments, drills and codes help before a quake. Afterwards, rescue and aid save lives.' }
   };
 
   var state = null;
@@ -646,6 +646,9 @@
       return true;
     });
   }
+  // Learn it (picture + explanation), then a proper test with the explanation hidden:
+  // 1. a multiple-choice question with believable wrong answers, 2. write it as one exam
+  // sentence, checked by the real marker for this point.
   function openTeach(id) {
     var list = stuckList();
     if (!id) { var p = nextPoint(); id = p && TEACH[p.id] && !state.got[p.id] ? p.id : list[0]; }
@@ -659,43 +662,153 @@
     var card = el('div', 'am-finish am-teach');
     card.setAttribute('data-am-teachid', id);
     card.innerHTML = '<div class="am-finish__card am-teach__card" role="dialog" aria-label="Go over this point">' +
-      '<div class="am-finish__kicker">' + state.q.code + ' &middot; Let\'s go over it</div>' +
+      '<div class="am-finish__kicker" data-am-teachkicker>' + state.q.code + ' &middot; Let\'s go over it</div>' +
       '<h3 class="am-teach__title">' + esc(point ? point.label : '') + '</h3>' +
-      (pic ? '<div class="am-teach__pic">' + pic + '</div>' : '') +
-      '<p class="am-teach__say">' + t.say + '</p>' +
-      '<div class="am-teach__check"><p class="am-teach__q">Quick check: ' + esc(t.q) + '</p>' +
+      '<div class="am-teach__learn">' +
+        (pic ? '<div class="am-teach__pic">' + pic + '</div>' : '') +
+        '<p class="am-teach__say">' + t.say + '</p>' +
+      '</div>' +
+      '<div class="am-teach__test" hidden>' +
+        '<p class="am-teach__step">Question 1 of 2</p>' +
+        '<p class="am-teach__q">' + esc(t.q) + '</p>' +
         '<div class="am-quiz">' + opts.map(function (o) {
           return '<button type="button" class="am-quiz__opt" data-am-teachopt="' + (o.ok ? 1 : 0) + '">' + esc(o.text) + '</button>';
         }).join('') + '</div>' +
-        '<p class="am-teach__why" role="status" hidden></p></div>' +
+        '<p class="am-teach__why" role="status" hidden></p>' +
+      '</div>' +
+      '<div class="am-teach__write" hidden>' +
+        '<p class="am-teach__step">Question 2 of 2</p>' +
+        '<p class="am-teach__q">Now write it as one exam sentence, in your own words.</p>' +
+        '<textarea class="am-teach__box" rows="3" spellcheck="true" aria-label="Your exam sentence"></textarea>' +
+        '<p class="am-teach__why" role="status" data-am-teachfb hidden></p>' +
+        '<p class="am-teach__model" hidden></p>' +
+      '</div>' +
       (others.length ? '<div class="am-teach__others"><span>Not this bit?</span>' + others.map(function (k) {
         return '<button type="button" class="am-teach__chip" data-am-teach="' + k + '">' + esc(pointById(k).label) + '</button>';
       }).join('') + '</div>' : '') +
-      '<div class="am-finish__buttons"><button type="button" class="am-btn am-btn--more" data-am-keep>Back to writing</button></div>' +
+      '<div class="am-finish__buttons" data-am-teachbtns></div>' +
       '</div>';
+    teachButtons(card, [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-teachgo="test"', 'Test me']]);
     showCard(card);
+  }
+  function teachButtons(card, list) {
+    card.querySelector('[data-am-teachbtns]').innerHTML = list.map(function (b) {
+      return '<button type="button" class="am-btn am-btn--' + b[0] + '" ' + b[1] + '>' + b[2] + '</button>';
+    }).join('');
+  }
+  function teachStage(card, stage) {
+    card.querySelector('.am-teach__learn').hidden = stage !== 'learn';
+    card.querySelector('.am-teach__test').hidden = stage !== 'test';
+    card.querySelector('.am-teach__write').hidden = stage !== 'write';
+    var others = card.querySelector('.am-teach__others');
+    if (others) others.hidden = stage !== 'learn';
+    card.querySelector('[data-am-teachkicker]').innerHTML = state.q.code + ' &middot; ' + (stage === 'learn' ? 'Let\'s go over it' : 'Test yourself');
+    card.querySelector('.am-finish__card').scrollTop = 0;
+    var reached = card.getAttribute('data-am-reached');
+    if (stage === 'learn') {
+      // Reading it again mid-test is allowed, but it no longer counts as from memory.
+      if (reached) card.setAttribute('data-am-missed', '');
+      teachButtons(card, [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-teachgo="' + (reached || 'test') + '"', reached ? 'Back to the test' : 'Test me']]);
+      card.querySelector('.am-finish__card').focus({ preventScroll: true });
+      return;
+    }
+    card.setAttribute('data-am-reached', stage);
+    if (stage === 'test') {
+      var solved = card.querySelector('.am-quiz__opt--ok');
+      teachButtons(card, solved ? [['ok', 'data-am-teachgo="write"', 'Next question']] : [['more', 'data-am-teachgo="learn"', 'Read it again']]);
+      (solved ? card.querySelector('[data-am-teachgo]') : card.querySelector('.am-quiz__opt:not([aria-disabled="true"])')).focus();
+    } else {
+      var box = card.querySelector('.am-teach__box');
+      teachButtons(card, box.readOnly ? [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-teachuse', 'Put it on my lines']]
+        : [['more', 'data-am-teachgo="learn"', 'Read it again'], ['ok', 'data-am-teachcheck', 'Check']]);
+      (box.readOnly ? card.querySelector('[data-am-teachuse]') : box).focus();
+    }
   }
   function answerTeach(btn) {
     var card = btn.closest('.am-teach'), ok = btn.getAttribute('data-am-teachopt') === '1';
     if (btn.getAttribute('aria-disabled') === 'true') return;
-    var why = card.querySelector('.am-teach__why');
+    var why = card.querySelector('.am-teach__test .am-teach__why');
     stamp(btn, ok);
     why.hidden = false;
     if (ok) {
       card.querySelectorAll('.am-quiz__opt').forEach(function (b) { b.setAttribute('aria-disabled', 'true'); });
       btn.classList.add('am-quiz__opt--ok');
       why.className = 'am-teach__why am-teach__why--ok';
-      why.textContent = 'You\'ve got it. Now write it in your own words.';
-      var back = card.querySelector('[data-am-keep]');
-      back.className = 'am-btn am-btn--ok';
-      back.textContent = 'Write it now';
-      back.focus();
+      why.textContent = card.hasAttribute('data-am-missed') ? 'That\'s it.' : 'Right first time.';
+      teachButtons(card, [['ok', 'data-am-teachgo="write"', 'Next question']]);
+      card.querySelector('[data-am-teachgo]').focus();
     } else {
+      card.setAttribute('data-am-missed', '');
       btn.classList.add('am-quiz__opt--no');
       btn.setAttribute('aria-disabled', 'true');
       why.className = 'am-teach__why';
       why.textContent = 'Not quite. ' + TEACH[card.getAttribute('data-am-teachid')].why;
     }
+  }
+  // Would this sentence earn this point's SRP? Uses the same rules as the answer marking.
+  function teachMarks(id, text) {
+    var p = pointById(id), norm = normalise(state.q, text), tokens = norm.trim().split(' ');
+    var g = groupHits(p, norm, tokens);
+    return { ok: g.every(Boolean), near: g[0] && !g.every(Boolean) };
+  }
+  function checkTeachWrite(card) {
+    var id = card.getAttribute('data-am-teachid'), box = card.querySelector('.am-teach__box');
+    var text = box.value.trim(), fb = card.querySelector('[data-am-teachfb]');
+    fb.hidden = false;
+    var words = text ? text.split(/\s+/).length : 0;
+    var result = words >= MIN_WORDS ? teachMarks(id, text) : { ok: false, near: false };
+    if (result.ok) {
+      stamp(box.parentNode, true);
+      fb.className = 'am-teach__why am-teach__why--ok';
+      fb.innerHTML = 'That earns the mark. ' + (card.hasAttribute('data-am-missed') ? 'You got there.' : 'Two out of two!');
+      box.readOnly = true;
+      teachButtons(card, [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-teachuse', 'Put it on my lines']]);
+      card.querySelector('[data-am-teachuse]').focus();
+      return;
+    }
+    stamp(box.parentNode, false);
+    var tries = (+card.getAttribute('data-am-tries') || 0) + 1;
+    card.setAttribute('data-am-tries', tries);
+    var keys = (TEACH[id].say.match(/<b>[^<]+<\/b>/g) || []).slice(0, 2).map(function (k) {
+      var word = k.replace(/<\/?b>/g, '');
+      // Only the explanation's first word is capitalised for the sentence; names keep theirs.
+      return TEACH[id].say.indexOf(k) === 0 ? word.charAt(0).toLowerCase() + word.slice(1) : word;
+    });
+    var tip;
+    if (words < MIN_WORDS) tip = 'Write a full sentence: say what happens, and how or why.';
+    else if (result.near) tip = 'Close! You\'ve got the key idea. Now add <b>how</b> or <b>why</b> it happens.';
+    else tip = 'Not yet. Try using ' + (keys.length > 1 ? 'the key words <b>' + esc(keys[0]) + '</b> and <b>' + esc(keys[1]) + '</b>' : 'the key word <b>' + esc(keys[0] || '') + '</b>') + '.';
+    fb.className = 'am-teach__why';
+    fb.innerHTML = tip;
+    if (tries >= 2) {
+      teachButtons(card, [['more', 'data-am-teachmodel', 'Show me how'], ['ok', 'data-am-teachcheck', 'Check']]);
+    }
+    box.focus();
+  }
+  function showTeachModel(card) {
+    var id = card.getAttribute('data-am-teachid'), model = card.querySelector('.am-teach__model');
+    model.hidden = false;
+    model.innerHTML = '<span>One way to say it</span>' + (TEACH[id].model || examVersion(id)) + '<em>Read it, then write it your own way.</em>';
+    teachButtons(card, [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-teachcheck', 'Check']]);
+    card.querySelector('.am-teach__box').focus();
+  }
+  // Add a sentence to the end of the answer and put the cursor after it.
+  function appendToAnswer(text) {
+    var k = 0;
+    state.pages.forEach(function (p, i) { if (p.ta.value.trim()) k = i; });
+    var ta = state.pages[k].ta, v = ta.value;
+    ta.value = v + (v && !/\s$/.test(v) ? ' ' : '') + text + ' ';
+    reflow(k);
+    var last = 0;
+    state.pages.forEach(function (p, i) { if (p.ta.value.trim()) last = i; });
+    focusPage(last, Infinity);
+    onInput();
+  }
+  function useTeachSentence(card) {
+    var text = card.querySelector('.am-teach__box').value.trim().replace(/\s+/g, ' ');
+    if (!/[.!?]$/.test(text)) text += '.';
+    closeCard();
+    appendToAnswer(text.charAt(0).toUpperCase() + text.slice(1));
   }
   // ---------- official marks (SEC 2024 Leaving Certificate marking scheme, Geography HL) ----------
   // 3B: 2 + 2 marks for two sedimentary rocks named, then 13 SRPs examining their formation.
@@ -937,16 +1050,7 @@
     }, 450);
   }
   function useSentence(id) {
-    var text = QUIZ[id].drag.replace(/\[([^\]]+)\]/g, '$1');
-    var k = 0;
-    state.pages.forEach(function (p, i) { if (p.ta.value.trim()) k = i; });
-    var ta = state.pages[k].ta, v = ta.value;
-    ta.value = v + (v && !/\s$/.test(v) ? ' ' : '') + text + ' ';
-    reflow(k);
-    var last = 0;
-    state.pages.forEach(function (p, i) { if (p.ta.value.trim()) last = i; });
-    focusPage(last, Infinity);
-    onInput();
+    appendToAnswer(QUIZ[id].drag.replace(/\[([^\]]+)\]/g, '$1'));
   }
 
   // ---------- Brain dump: write everything you remember, then learn how to phrase it ----------
@@ -1597,6 +1701,14 @@
       if (e.target.closest('[data-am-clue]')) { openTeach(); return; }
       var teachOpt = e.target.closest('[data-am-teachopt]');
       if (teachOpt) { answerTeach(teachOpt); return; }
+      var teachGo = e.target.closest('[data-am-teachgo]');
+      if (teachGo) { teachStage(teachGo.closest('.am-teach'), teachGo.getAttribute('data-am-teachgo')); return; }
+      var teachCheck = e.target.closest('[data-am-teachcheck]');
+      if (teachCheck) { checkTeachWrite(teachCheck.closest('.am-teach')); return; }
+      var teachModel = e.target.closest('[data-am-teachmodel]');
+      if (teachModel) { showTeachModel(teachModel.closest('.am-teach')); return; }
+      var teachUse = e.target.closest('[data-am-teachuse]');
+      if (teachUse) { useTeachSentence(teachUse.closest('.am-teach')); return; }
       var teachChip = e.target.closest('[data-am-teach]');
       if (teachChip) { openTeach(teachChip.getAttribute('data-am-teach')); return; }
       if (e.target.closest('[data-am-check]')) { markAll(); return; }
@@ -1887,15 +1999,25 @@
     '.am-teach__pic svg{width:100%;height:auto;display:block}',
     '.am-teach__say{margin:0 0 20px;font:800 18px/1.5 Nunito,sans-serif;color:#E8EEFA}',
     '.am-teach__say b{color:#FFE14D}',
-    '.am-teach__check{margin:0 0 18px}',
+    '.am-teach__test,.am-teach__write{margin:0 0 18px}',
+    '.am-teach__step{margin:0 0 6px;font:700 14px Fredoka,Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#8496B6}',
+    '.am-teach__box{display:block;width:100%;box-sizing:border-box;resize:vertical;min-height:96px;border:2px solid #2A3D5E;border-radius:12px;background:#FFFEF8;color:#13294A;padding:10px 12px;font:800 18px/1.45 Nunito,sans-serif;overscroll-behavior:contain}',
+    '.am-teach__box:focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
+    '.am-teach__write{position:relative}',
+    '.am-teach__model{margin:12px 0 0;padding:12px 14px;border-radius:12px;background:#1B3150;font:800 16px/1.5 Nunito,sans-serif;color:#E8EEFA}',
+    '.am-teach__model span{display:block;margin-bottom:4px;font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#8496B6}',
+    '.am-teach__model b{color:#FFE14D}',
+    '.am-teach__model em{display:block;margin-top:6px;font-style:normal;color:#9FB0CC;font-size:14px}',
     '.am-teach__q{margin:0 0 10px;font:800 17px/1.4 Nunito,sans-serif;color:#5CD6FF}',
     '.am-teach__why{margin:10px 0 0;font:800 15px/1.45 Nunito,sans-serif;color:#FF9A9D}',
     '.am-teach__why--ok{color:#7DF0B0}',
     '.am-teach__others{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 20px}',
+    '.am-teach__others[hidden]{display:none}',
     '.am-teach__others span{font:700 14px Fredoka,Nunito,sans-serif;color:#9FB0CC;margin-right:4px}',
     '.am-teach__chip{border:2px solid #2A3D5E;background:transparent;color:#C9D6EE;border-radius:999px;padding:5px 12px;font:800 13px Nunito,sans-serif;cursor:pointer}',
     '.am-teach__chip:hover{border-color:#5CD6FF;color:#fff}',
-    '.am-root .am-teach__say,.am-root .am-teach__say *,.am-root .am-teach__q,.am-root .am-teach__why,.am-root .am-teach__chip{font-family:Nunito,system-ui,sans-serif !important}',
+    '.am-root .am-teach__say,.am-root .am-teach__say *,.am-root .am-teach__q,.am-root .am-teach__why,.am-root .am-teach__why *,.am-root .am-teach__chip,.am-root .am-teach__box,.am-root .am-teach__model,.am-root .am-teach__model *:not(span){font-family:Nunito,system-ui,sans-serif !important}',
+    '.am-root .am-teach__step,.am-root .am-teach__model span{font-family:Fredoka,Nunito,sans-serif !important}',
     '.am-root .am-teach__title,.am-root .am-teach__others span{font-family:Fredoka,Nunito,sans-serif !important}',
     '.am-dump__card{width:min(820px,100%);max-height:calc(100% - 24px)}',
     '.am-dump__top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}',
