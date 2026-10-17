@@ -862,9 +862,8 @@
   .hf-guide .hf-bullets > li:nth-child(2) { --hf-glow: var(--hf-c2); }
   .hf-guide .hf-bullets > li:nth-child(3) { --hf-glow: var(--hf-c3); }
   .hf-guide .hf-bullets > li.hf-bullet-result { --hf-glow: var(--hf-c4); }
-  /* Ring is a real border on a wrapper (not a shadow), so nothing can clip part of it. */
-  .hf-guide .hf-bullet-art { display: block; line-height: 0; border: 3px solid var(--hf-glow); border-radius: 14px; overflow: hidden;
-    box-shadow: 0 0 18px color-mix(in srgb, var(--hf-glow) 50%, transparent); }
+  /* Pictures sit plain on the backdrop: rounded corners, no outline or glow. */
+  .hf-guide .hf-bullet-art { display: block; line-height: 0; border: 0; border-radius: 14px; overflow: hidden; box-shadow: none; }
   .hf-guide .hf-bullet-art svg.hf-art { width: 100%; height: auto; border-radius: 0; box-shadow: none; }
   /* Breathing room inside the scroll area so rings and glows are never cut at its edges. */
   body .hf-guide .hf-guide__content { padding: 10px 12px 12px 10px; margin-left: -10px; margin-right: -12px; }
