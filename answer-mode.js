@@ -581,6 +581,49 @@
   function pointById(id) { return state.q.points.filter(function (p) { return p.id === id; })[0]; }
   function store(key, value) { try { if (value == null) return window.localStorage.getItem(key); window.localStorage.setItem(key, value); } catch (err) {} return null; }
 
+  // ---------- sound: a soft ding per SRP, climbing in pitch as points land in a row ----------
+  var NOTES = [523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1174.66, 1318.51, 1567.98, 1760, 2093];
+  var audio = null;
+  function soundOn() { return store('am-sound') !== 'off'; }
+  function tone(freq, at, length, level) {
+    var ctx = audio, osc = ctx.createOscillator(), over = ctx.createOscillator(), gain = ctx.createGain();
+    osc.type = 'sine';
+    over.type = 'sine';
+    osc.frequency.value = freq;
+    over.frequency.value = freq * 2.01;
+    var overGain = ctx.createGain();
+    overGain.gain.value = 0.25;
+    gain.gain.setValueAtTime(0.0001, at);
+    gain.gain.exponentialRampToValueAtTime(level, at + 0.008);
+    gain.gain.exponentialRampToValueAtTime(0.0001, at + length);
+    osc.connect(gain);
+    over.connect(overGain).connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(at); over.start(at);
+    osc.stop(at + length + 0.05); over.stop(at + length + 0.05);
+  }
+  // n: how many points in a row so far (0 = first). gold: a perfect sentence gets a sparkle on top.
+  function ding(n, gold) {
+    if (!soundOn()) return;
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      if (audio.state === 'suspended') audio.resume();
+      var now = audio.currentTime + 0.01, f = NOTES[Math.min(n, NOTES.length - 1)];
+      tone(f, now, 0.5, 0.16);
+      if (gold) { tone(f * 1.5, now + 0.09, 0.45, 0.1); tone(f * 2, now + 0.18, 0.6, 0.08); }
+    } catch (err) {}
+  }
+  function fanfare() {
+    if (!soundOn()) return;
+    [1046.5, 1318.51, 1567.98, 2093].forEach(function (f, k) {
+      try { tone(f, audio.currentTime + 0.05 + k * 0.11, k === 3 ? 0.9 : 0.4, 0.13); } catch (err) {}
+    });
+  }
+  function updateSoundButton() {
+    var b = state.root.querySelector('[data-am-sound]');
+    if (b) b.setAttribute('aria-pressed', String(soundOn()));
+  }
+
   // ---------- coach ----------
   function nextPoint() {
     var q = state.q, got = state.got;
@@ -735,6 +778,7 @@
       btn.classList.add('am-quiz__opt--ok');
       why.className = 'am-teach__why am-teach__why--ok';
       why.textContent = card.hasAttribute('data-am-missed') ? 'That\'s it.' : 'Right first time.';
+      ding(0);
       teachButtons(card, [['ok', 'data-am-teachgo="write"', 'Next question']]);
       card.querySelector('[data-am-teachgo]').focus();
     } else {
@@ -761,6 +805,7 @@
       stamp(box.parentNode, true);
       fb.className = 'am-teach__why am-teach__why--ok';
       fb.innerHTML = 'That earns the mark. ' + (card.hasAttribute('data-am-missed') ? 'You got there.' : 'Two out of two!');
+      ding(card.hasAttribute('data-am-missed') ? 1 : 2, !card.hasAttribute('data-am-missed'));
       box.readOnly = true;
       teachButtons(card, [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-teachuse', 'Put it on my lines']]);
       card.querySelector('[data-am-teachuse]').focus();
@@ -865,14 +910,35 @@
     var o = officialMarks();
     state.marks = o.marks;
     var score = state.coach.querySelector('.am-score');
-    score.querySelector('[data-am-marks]').textContent = o.marks;
+    var first = !state.scoreShown;
+    state.scoreShown = true;
+    rollTo(score.querySelector('[data-am-marks]'), o.marks, first);
     var pips = score.querySelector('.am-pips');
     if (pips.children.length !== q.total) pips.innerHTML = new Array(q.total + 1).join('<i></i>');
-    Array.prototype.forEach.call(pips.children, function (pip, k) { pip.classList.toggle('on', k < o.srps); });
+    Array.prototype.forEach.call(pips.children, function (pip, k) {
+      var was = pip.classList.contains('on'), on = k < o.srps;
+      pip.classList.toggle('on', on);
+      if (on && !was && !first && !reduced()) { pip.classList.remove('am-pip--pop'); void pip.offsetWidth; pip.classList.add('am-pip--pop'); }
+    });
     updatePlan(o);
     updateCover(o);
     score.querySelector('.am-score__meta').innerHTML = o.tags.map(function (t) { return '<span class="am-tag ' + (t[1] ? 'am-tag--' + t[1] : '') + '">' + t[0] + '</span>'; }).join('');
     return o;
+  }
+
+  // The marks count up (or down) to the new total instead of jumping, with a little bump when they rise.
+  function rollTo(node, to, instant) {
+    var from = +node.textContent || 0;
+    cancelAnimationFrame(node.rollFrame);
+    if (from === to || instant || reduced()) { node.textContent = to; return; }
+    var start = performance.now(), length = Math.min(900, 250 + Math.abs(to - from) * 70);
+    function tick(now) {
+      var t = Math.min(1, (now - start) / length), eased = 1 - Math.pow(1 - t, 3);
+      node.textContent = Math.round(from + (to - from) * eased);
+      if (t < 1) { node.rollFrame = requestAnimationFrame(tick); return; }
+      if (to > from) { node.classList.remove('am-bump'); void node.offsetWidth; node.classList.add('am-bump'); }
+    }
+    node.rollFrame = requestAnimationFrame(tick);
   }
 
   // ---------- plan panel ----------
@@ -1432,6 +1498,22 @@
     onInput();
     return true;
   }
+  // A sentence that earns its point using all of the exam's key words, in a full sentence, is "perfect".
+  var CHECK_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var STAR_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2l2.6 5.5 6 .7-4.4 4.1 1.2 5.9L12 16.5l-5.4 2.9 1.2-5.9-4.4-4.1 6-.7z" fill="#fff"/></svg>';
+  function perfectKeys(id) {
+    var keys = keyWords(id);
+    if (!keys.length && TEACH[id]) keys = (TEACH[id].say.match(/<b>[^<]+<\/b>/g) || []).slice(0, 3).map(function (k) { return k.replace(/<\/?b>/g, ''); });
+    return keys;
+  }
+  function isPerfect(s, p) {
+    if (s.words < 8) return false;
+    var low = s.text.toLowerCase().replace(/[^a-z ]/g, ''), keys = perfectKeys(p.id);
+    return keys.length > 0 && keys.every(function (k) {
+      var root = k.toLowerCase().replace(/[^a-z ]/g, '').trim();
+      return root && low.indexOf(root.slice(0, Math.max(4, root.length - 3))) >= 0;
+    });
+  }
   function placeBadges(page) {
     var layer = page.badges;
     var keep = {};
@@ -1448,12 +1530,13 @@
         keep[key] = true;
         var badge = layer.querySelector('[data-am-b="' + key + '"]');
         if (!badge) {
-          badge = el('div', 'am-badge', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+          var gold = isPerfect(s, p);
+          badge = el('div', 'am-badge' + (gold ? ' am-badge--gold' : ''), gold ? STAR_ICON : CHECK_ICON);
           badge.setAttribute('data-am-b', key);
-          badge.title = p.label;
+          badge.title = p.label + (gold ? ': perfect exam wording' : '');
           if (state.fresh[key]) {
             badge.classList.add('am-badge--new');
-            badge.appendChild(el('span', 'am-plus', '+2'));
+            badge.appendChild(el('span', 'am-plus' + (gold ? ' am-plus--gold' : ''), gold ? '+2 Perfect!' : '+2'));
             var colours = ['#2BC46F', '#FFD43B', '#5CD6FF', '#2BC46F', '#FF8A6B', '#2BC46F', '#C6A8FF', '#FFD43B'];
             for (var d = 0; d < 8; d++) {
               var dot = el('i', 'am-burst');
@@ -1465,6 +1548,13 @@
             }
           }
           layer.appendChild(badge);
+        } else {
+          // Rewording a sentence can win or lose its gold.
+          var nowGold = isPerfect(s, p);
+          if (nowGold !== badge.classList.contains('am-badge--gold')) {
+            badge.classList.toggle('am-badge--gold', nowGold);
+            badge.querySelector('svg').outerHTML = nowGold ? STAR_ICON : CHECK_ICON;
+          }
         }
         badge.style.top = (top + 6) + 'px';
         badge.style.right = (-50 - (shift + k) * 40) + 'px';
@@ -1522,6 +1612,7 @@
       queue[i].forEach(function (p) { state.granted[p.id] = true; state.fresh[p.id] = true; gained.push(p); });
       refresh();
       var badge = state.root.querySelector('[data-am-b="' + queue[i][0].id + '"]');
+      ding(i, Boolean(badge && badge.classList.contains('am-badge--gold')));
       if (badge) {
         badge.scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' });
         var sheet = badge.closest('.am-page');
@@ -1559,6 +1650,8 @@
     var misses = Object.keys(missed).length;
     var first = 'You have <b>' + marks + ' / ' + total + '</b>.';
     if (gained.length) first += ' New: ' + gained.map(function (p) { return '<b>' + p.label + '</b>'; }).join(', ') + '.';
+    var golds = gained.filter(function (p) { var b = state.root.querySelector('[data-am-b="' + p.id + '"]'); return b && b.classList.contains('am-badge--gold'); }).length;
+    if (golds) first += '<span class="am-next">&#9733; ' + (golds === 1 ? '1 perfect sentence' : golds + ' perfect sentences') + ': exam wording, every key word.</span>';
     var quote = function (t) { return '“' + esc(t.slice(0, 60)) + (t.length > 60 ? '…' : '') + '”'; };
     if (misses) first += '<span class="am-next">' + (misses === 1 ? '1 sentence' : misses + ' sentences') + ' (underlined in orange) didn\'t match the marking scheme yet' +
       (near ? '. ' + quote(near.text) + ' is close: explain <b>how</b> or <b>why</b>.' : ', starting with ' + quote(Object.keys(missed)[0]) + '.') + '</span>';
@@ -1567,6 +1660,7 @@
     var title;
     if (marks >= 30) {
       title = 'Full marks!';
+      if (delta > 0) later(fanfare, 250);
     } else {
       title = delta > 0 ? '+' + delta + ' marks!' : 'No new marks yet';
       var c = clueFor(nextPoint());
@@ -1635,7 +1729,8 @@
           '<button type="button" class="am-addpage" data-am-addpage>+ Add a page</button>' +
         '</div></div>' +
         '<aside class="am-coach" aria-label="Marks and help">' +
-          '<div class="am-score"><div class="am-score__top"><span class="am-score__num"><b data-am-marks>0</b> / 30</span><span class="am-score__unit">marks</span></div><div class="am-pips"></div><div class="am-score__meta"></div></div>' +
+          '<div class="am-score"><div class="am-score__top"><span class="am-score__num"><b data-am-marks>0</b> / 30</span><span class="am-score__unit">marks</span>' +
+            '<button type="button" class="am-sound" data-am-sound aria-pressed="true" aria-label="Sound effects"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="am-sound__waves" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="am-sound__mute" d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div class="am-pips"></div><div class="am-score__meta"></div></div>' +
           '<button type="button" class="am-btn am-btn--check" data-am-check>Check my answer</button>' +
           '<div class="am-coach__body">' +
             '<div class="am-coach__msg" role="status"></div>' +
@@ -1668,6 +1763,7 @@
     state.inerted.forEach(function (n) { holdInert(n, 'am', true); });
     renderPlan();
     renderCover();
+    updateSoundButton();
     addPage(true);
     addPage(true);
     state.measure = el('div', 'am-mirror am-measure');
@@ -1712,6 +1808,7 @@
       var teachChip = e.target.closest('[data-am-teach]');
       if (teachChip) { openTeach(teachChip.getAttribute('data-am-teach')); return; }
       if (e.target.closest('[data-am-check]')) { markAll(); return; }
+      if (e.target.closest('[data-am-sound]')) { store('am-sound', soundOn() ? 'off' : 'on'); updateSoundButton(); if (soundOn()) ding(0); return; }
       if (e.target.closest('[data-am-breakdown]')) { setBreakdown(state.planEl.hidden); return; }
       var group = e.target.closest('[data-am-group]');
       if (group) { openGroup(+group.getAttribute('data-am-group')); return; }
@@ -1896,6 +1993,18 @@
     '.am-score__num{font-size:30px;font-weight:700;color:#fff}',
     '.am-score__num b{color:#5BE39A;font-weight:700}',
     '.am-score__unit{font-size:16px;color:#9FB0CC;font-weight:700}',
+    '.am-sound{margin-left:auto;align-self:center;width:34px;height:34px;padding:0;border:2px solid #2A3D5E;border-radius:50%;background:transparent;color:#C9D6EE;display:grid;place-items:center;cursor:pointer}',
+    '.am-sound:hover{border-color:#5CD6FF;color:#fff}',
+    '.am-sound svg{width:18px;height:18px}',
+    '.am-sound .am-sound__mute,.am-sound[aria-pressed="false"] .am-sound__waves{display:none}',
+    '.am-sound[aria-pressed="false"] .am-sound__mute{display:inline}',
+    '.am-score__num b{display:inline-block}',
+    '.am-score__num b.am-bump{animation:amBump .45s cubic-bezier(.3,1.6,.5,1)}',
+    '@keyframes amBump{40%{transform:scale(1.3)}100%{transform:none}}',
+    '.am-pips i.am-pip--pop{animation:amPip .45s cubic-bezier(.3,1.6,.5,1)}',
+    '@keyframes amPip{40%{transform:scaleY(1.8)}100%{transform:none}}',
+    '.am-badge--gold{background:#FFC42E;box-shadow:0 3px 0 #C98E00}',
+    '.am-plus--gold{color:#B57F00}',
     '.am-pips{display:grid;grid-template-columns:repeat(15,1fr);gap:4px;margin:8px 0 10px}',
     '.am-pips i{height:10px;border-radius:5px;background:#26395A;transition:background .3s ease}',
     '.am-pips i.on{background:#2BC46F}',
