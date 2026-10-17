@@ -1537,7 +1537,9 @@
   };
   function renderCover() {
     state.coverEl.innerHTML = COVER[state.id].map(function (g, k) {
-      return '<button type="button" class="am-cover__row" data-am-group="' + k + '"><i class="am-cover__dot"></i>' +
+      return '<button type="button" class="am-cover__row" data-am-group="' + k + '"><svg class="am-ring" viewBox="0 0 24 24" aria-hidden="true">' +
+        '<circle class="am-ring__track" cx="12" cy="12" r="9.5"/><circle class="am-ring__fill" cx="12" cy="12" r="9.5" pathLength="100" stroke-dasharray="0 100"/>' +
+        '<path class="am-ring__tick" d="M7.6 12.4l3 3 5.8-6.2"/></svg>' +
         '<span class="am-cover__title">' + g.title + '</span><span class="am-cover__count"></span></button>';
     }).join('');
   }
@@ -1553,7 +1555,8 @@
       row.classList.toggle('am-cover__row--done', isDone);
       row.classList.toggle('am-cover__row--part', done > 0 && !isDone);
       row.querySelector('.am-cover__count').textContent = isDone ? 'Complete' : done + '/' + g.ids.length;
-      if (isDone && !wasDone && state.coverReady) { row.classList.remove('am-cover__row--pop'); void row.offsetWidth; row.classList.add('am-cover__row--pop'); }
+      row.querySelector('.am-ring__fill').setAttribute('stroke-dasharray', Math.round(done / g.ids.length * 100) + ' 100');
+      if (isDone && !wasDone && state.coverReady && !reduced()) { row.classList.remove('am-cover__row--pop'); void row.offsetWidth; row.classList.add('am-cover__row--pop'); }
     });
     state.coverReady = true;
   }
@@ -1982,7 +1985,10 @@
           '<div class="am-cover"><h5 class="am-cover__h">What to cover</h5><div class="am-cover__list"></div>' +
             '<button type="button" class="am-cover__toggle" data-am-breakdown aria-expanded="false"><span>View full marking breakdown</span><i></i></button></div>' +
           '<div class="am-plan" hidden></div>' +
-          '<div class="am-practise"><h5 class="am-needhelp__h">Practise</h5><button type="button" class="am-btn am-btn--train" data-am-train>Learn &amp; sprint</button></div>' +
+          '<div class="am-practise"><h5 class="am-needhelp__h">Practise</h5><button type="button" class="am-train-tile" data-am-train>' +
+            '<span class="am-train-tile__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13.5 2.5L5 13.5h6l-1.5 8 8.5-11h-6z" fill="currentColor"/></svg></span>' +
+            '<span class="am-train-tile__text"><b>Learn &amp; sprint</b><span>Flip cards, then a 90-second race</span></span>' +
+            '<i class="am-train-tile__go" aria-hidden="true"></i></button></div>' +
           '<div class="am-needhelp"><h5 class="am-needhelp__h">Need help?</h5><div class="am-needhelp__btns">' +
             '<button type="button" class="am-btn am-btn--dump" data-am-dump>Brain dump</button>' +
             '<button type="button" class="am-btn am-btn--clue" data-am-clue>Stuck?</button></div></div>' +
@@ -2588,6 +2594,41 @@
     '.am-root .am-btn:not([aria-disabled="true"]):hover{filter:brightness(1.07)}',
     '.am-root .am-score__num,.am-root .am-finish__score{font-variant-numeric:tabular-nums}',
     '.am-root .am-dump__yours{overflow-wrap:anywhere}',
+    // ---- side panel polish ----
+    '.am-root .am-pips{display:flex;gap:5px}',
+    '.am-root .am-pips i{flex:1}',
+    '.am-root .am-cover__row{padding:9px 12px}',
+    '.am-ring{flex:0 0 26px;width:26px;height:26px;transform:rotate(-90deg)}',
+    '.am-ring__track{fill:none;stroke:#2A3D5E;stroke-width:3}',
+    '.am-ring__fill{fill:none;stroke:#5CD6FF;stroke-width:3;stroke-linecap:round;transition:stroke-dasharray .5s ease}',
+    '.am-ring__tick{fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:rotate(90deg);transform-origin:12px 12px}',
+    '.am-cover__row--done .am-ring__track{fill:#2BC46F;stroke:#2BC46F}',
+    '.am-cover__row--done .am-ring__fill{stroke:#2BC46F}',
+    '.am-cover__row--done .am-ring__tick{opacity:1}',
+    '.am-cover__row--pop .am-ring{animation:amPop .5s cubic-bezier(.3,1.6,.5,1) both}',
+    '.am-root .am-plan__row,.am-root .am-plan__row *,.am-root .am-cover__toggle,.am-root .am-cover__toggle *{font-family:Nunito,system-ui,sans-serif !important}',
+    '.am-root .am-cover__toggle,.am-root .am-cover__toggle *{font-weight:800 !important;font-size:15px !important}',
+    '.am-root .am-plan__row{font-size:17px !important;padding:6px 4px;color:#C9D6EE}',
+    '.am-root .am-plan__dot{flex-basis:18px;height:18px}',
+    '.am-root .am-plan__item--done .am-plan__dot::after{left:5px;top:2px;width:4px;height:8px}',
+    '.am-root .am-plan__sec h5{font-size:13px !important}',
+    '.am-root .am-plan__more{margin-left:28px}',
+    '.am-root .am-coach{gap:18px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#2A3D5E transparent}',
+    '.am-root .am-coach > *{flex-shrink:0}',
+    '.am-cover__row:not(.am-cover__row--part):not(.am-cover__row--done) .am-ring__fill{stroke:transparent}',
+    '.am-root .am-practise{border-top:1px solid #1E3050;padding-top:16px;margin:0}',
+    '.am-root .am-needhelp{padding-top:14px}',
+    '.am-train-tile{display:flex;align-items:center;gap:14px;width:100%;padding:12px 14px;border:2px solid #2A3D5E;border-radius:16px;background:#1B3150;color:#fff;text-align:left;cursor:pointer;transition:border-color .2s ease,transform .15s ease}',
+    '.am-train-tile:hover{border-color:#FFC42E}',
+    '.am-train-tile:active{transform:translateY(1px)}',
+    '.am-train-tile__icon{flex:0 0 40px;height:40px;border-radius:12px;background:#FFC42E;color:#14243B;display:grid;place-items:center;box-shadow:0 3px 0 #C98E00}',
+    '.am-train-tile__icon svg{width:22px;height:22px}',
+    '.am-train-tile__text{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}',
+    '.am-train-tile__text b{font:700 18px Fredoka,Nunito,sans-serif;color:#fff}',
+    '.am-train-tile__text span{font:800 13.5px/1.3 Nunito,sans-serif;color:#9FB0CC}',
+    '.am-train-tile__go{flex:none;width:9px;height:9px;margin-right:4px;border:solid #FFC42E;border-width:2.5px 2.5px 0 0;transform:rotate(45deg)}',
+    '.am-root .am-train-tile__text b{font-family:Fredoka,Nunito,sans-serif !important}',
+    '.am-root .am-train-tile__text span{font-family:Nunito,system-ui,sans-serif !important;font-weight:800 !important}',
     '@media (prefers-reduced-motion:reduce){.am-root *,.am-root *::before,.am-root *::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;animation-delay:0s !important;transition-duration:.01ms !important;transition-delay:0s !important}' +
       '.am-root .am-caret--on{animation:none !important;opacity:1}.am-root .am-stamp{animation:none !important}}'
   ].join('\n');
