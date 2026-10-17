@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./hyper-focus.js?v=answer-mode-20"></script>
-<script src="./answer-mode.js?v=answer-mode-20"></script>
+<script src="./hyper-focus.js?v=answer-mode-21"></script>
+<script src="./answer-mode.js?v=answer-mode-21"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -970,6 +970,10 @@
   @keyframes splash { 0% { transform: scale(.3); opacity: .95; } 100% { transform: scale(2.7); opacity: 0; } }
   @keyframes splashDrop { 0% { transform: translate(0,0) scale(1); opacity: .9; } 100% { transform: translate(var(--sx), var(--sy)) scale(.2); opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  /* Heavier, tighter type in the guide: same fonts, more solid letters. */
+  body .hf-guide:not(#hf-weight), body .hf-guide *:not(#hf-weight) { font-weight: 800 !important; }
+  body .hf-guide .hf-bullets:not(#hf-weight), body .hf-guide .hf-bullets *:not(#hf-weight),
+  body .hf-guide .hf-guide__summary:not(#hf-weight), body .hf-guide .hf-guide__title:not(#hf-weight) { letter-spacing: 0 !important; word-spacing: 0 !important; }
 </style>
 </helmet>
 
