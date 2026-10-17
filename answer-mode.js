@@ -1850,7 +1850,7 @@
     state.coach.classList.add('am-coach--min');
     var btn = state.root.querySelector('[data-am-check]');
     btn.setAttribute('aria-disabled', 'true');
-    btn.textContent = 'Checking…';
+    btn.querySelector('span').textContent = 'Checking…';
     var gained = [];
     function step(i) {
       if (!state) return;
@@ -1873,7 +1873,7 @@
     state.marking = false;
     var btn = state.root.querySelector('[data-am-check]');
     btn.removeAttribute('aria-disabled');
-    btn.textContent = 'Check my answer';
+    btn.querySelector('span').textContent = 'Check my answer';
     state.missed = missed;
     refresh();
     save();
@@ -1977,7 +1977,7 @@
         '<aside class="am-coach" aria-label="Marks and help">' +
           '<div class="am-score"><div class="am-score__top"><span class="am-score__num"><b data-am-marks>0</b> / 30</span><span class="am-score__unit">marks</span>' +
             '<button type="button" class="am-sound" data-am-sound aria-pressed="true" aria-label="Sound effects"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="am-sound__waves" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="am-sound__mute" d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><div class="am-pips"></div><div class="am-score__meta"></div></div>' +
-          '<button type="button" class="am-btn am-btn--check" data-am-check>Check my answer</button>' +
+          '<button type="button" class="am-btn am-btn--check" data-am-check><svg class="am-check-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.6 4.6L19 7.5"/></svg><span>Check my answer</span></button>' +
           '<div class="am-coach__body">' +
             '<div class="am-coach__msg" role="status"></div>' +
           '</div>' +
@@ -2482,7 +2482,10 @@
     '.am-coach--result .am-btn--finish{display:block}',
     '.am-coach--result .am-btn--ok{flex:1 1 auto}',
     '.am-coach--result .am-btn--more{flex:1 1 100%}',
-    '.am-btn--check{background:#2BC46F;color:#fff;box-shadow:0 4px 0 #1E9A55;font-size:19px;padding:14px 16px}',
+    '.am-btn--check{background:#2BC46F;color:#fff;box-shadow:0 4px 0 #1E9A55;font-size:19px;padding:14px 16px;display:flex;align-items:center;justify-content:center;gap:10px}',
+    '.am-check-ico{flex:none;width:24px;height:24px;fill:none;stroke:#fff;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}',
+    '.am-btn--check[aria-disabled="true"] .am-check-ico{opacity:.6}',
+    '.am-root .am-btn--check span{font-family:Fredoka,Nunito,sans-serif !important;font-size:inherit}',
     '.am-btn--check:active{box-shadow:0 1px 0 #1E9A55}',
     '.am-btn--check[aria-disabled="true"]{opacity:.75;cursor:wait;transform:none}',
     '.am-miss{background:transparent;color:inherit;text-decoration:underline wavy #F5A03C;text-decoration-thickness:2px;text-underline-offset:7px}',

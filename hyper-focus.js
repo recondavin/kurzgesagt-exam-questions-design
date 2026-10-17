@@ -125,13 +125,16 @@
     prose.hidden = !hasProse;
     points.hidden = hasProse;
     points.innerHTML = step.points.map(function () { return '<li></li>'; }).join('');
-    guide.querySelector('[data-hf-count]').textContent = (index + 1) + ' / ' + group.length;
+    guide.querySelector('[data-hf-count]').innerHTML = group.map(function (item, k) {
+      return '<i class="' + (k < index ? 'is-done' : k === index ? 'is-current' : '') + '"></i>';
+    }).join('') + '<span class="hf-sr">Step ' + (index + 1) + ' of ' + group.length + '</span>';
     var prevButton = guide.querySelector('[data-hf-prev]');
     if (index === 0 && document.activeElement === prevButton) guide.querySelector('[data-hf-next]').focus();
     prevButton.disabled = index === 0;
-    guide.querySelector('[data-hf-prev]').style.opacity = index === 0 ? '.38' : '1';
+    prevButton.style.visibility = index === 0 ? 'hidden' : '';
     var nextButton = guide.querySelector('[data-hf-next]');
-    nextButton.textContent = index === group.length - 1 ? 'Finish' : 'Next';
+    var answerNext = window.ExamAnswerMode && window.ExamAnswerMode.has(step.target);
+    nextButton.textContent = index === group.length - 1 ? (answerNext ? 'Start writing' : 'Finish') : 'Next';
     nextButton.disabled = false;
     nextButton.style.opacity = '1';
     nextButton.style.cursor = 'pointer';

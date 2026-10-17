@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Geography Question 3 | Leaving Cert revision</title>
 <meta name="theme-color" content="#BF7843">
-<script src="./hyper-focus.js?v=answer-mode-28"></script>
-<script src="./answer-mode.js?v=answer-mode-28"></script>
+<script src="./hyper-focus.js?v=answer-mode-29"></script>
+<script src="./answer-mode.js?v=answer-mode-29"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -866,7 +866,7 @@
   .hf-guide .hf-bullets > li { grid-template-columns: calc(84px * var(--hf-s, 1)) 1fr; gap: calc(14px * var(--hf-s, 1)); }
   .hf-guide .hf-bullets--steps > li { grid-template-columns: 12px 1fr; }
   .hf-guide .hf-bullet-art svg { width: calc(84px * var(--hf-s, 1)); border-radius: 12px; box-shadow: 0 0 0 2px rgba(244,239,230,.18); }
-  .hf-guide .hf-bullets b { --hf-mark: #FFC42E; color: #FFD86B; background: linear-gradient(var(--hf-mark), var(--hf-mark)) 0 100% / 100% 3px no-repeat; padding-bottom: 2px; }
+  .hf-guide .hf-bullets b { --hf-mark: #FFC42E; color: #FFD86B; background: linear-gradient(var(--hf-band), var(--hf-band)) 0 90% / 100% 42% no-repeat; --hf-band: color-mix(in srgb, var(--hf-mark) 30%, transparent); padding: 0 3px; margin: 0 -1px; border-radius: 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
   .hf-guide .hf-bullets > li:nth-child(2) b { --hf-mark: #4FC3E8; color: #8FDDF5; }
   .hf-guide .hf-bullets > li:nth-child(3) b { --hf-mark: #F5A03C; color: #FFB877; }
   .hf-guide .hf-bullets > li.hf-bullet-result b { --hf-mark: #B9AEF7; color: #D3CCFF; }
@@ -923,10 +923,18 @@
   .hf-guide .hf-ch.on { animation: hf-ch-in .28s cubic-bezier(.22,.78,.24,1) both; }
   @media (prefers-reduced-motion: reduce) { .hf-guide .hf-ch { opacity: 1; animation: none !important; } }
   @keyframes hf-ch-in { from { opacity: 0; transform: translateY(.3em); } to { opacity: 1; transform: none; } }
-  @keyframes hf-mark-in { from { background-size: 0 3px; } to { background-size: 100% 3px; } }
+  @keyframes hf-mark-in { from { background-size: 0 42%; } to { background-size: 100% 42%; } }
   body .hf-guide .hf-guide__button { font-size: calc(17px * var(--hf-s, 1)); }
   body .hf-guide .hf-guide__step { display: block; order: 1; margin: 0 auto; color: rgba(255,255,255,.9); font-size: calc(15px * var(--hf-s, 1)); letter-spacing: .08em; }
   body .hf-guide .hf-guide__button:not(.hf-guide__button--ghost) { order: 2; margin-left: 0; }
+  /* Controls match the answer sheet: a green Next with a solid edge, and step segments instead of "1 / 3". */
+  body .hf-guide .hf-guide__button:not(.hf-guide__button--ghost) { background: #2BC46F; box-shadow: 0 4px 0 #1E9A55; border-radius: 14px; min-width: calc(120px * var(--hf-s, 1)); padding: calc(12px * var(--hf-s, 1)) calc(22px * var(--hf-s, 1)); }
+  body .hf-guide .hf-guide__button:not(.hf-guide__button--ghost):not(:disabled):hover { background: #34D07A; }
+  body .hf-guide .hf-guide__button:not(.hf-guide__button--ghost):active { transform: translateY(3px); box-shadow: 0 1px 0 #1E9A55; }
+  body .hf-guide .hf-guide__step { display: flex; gap: 6px; width: calc(130px * var(--hf-s, 1)); }
+  body .hf-guide .hf-guide__step i { flex: 1; height: 8px; border-radius: 4px; background: rgba(255,255,255,.18); transition: background .3s ease; }
+  body .hf-guide .hf-guide__step i.is-done { background: #2BC46F; }
+  body .hf-guide .hf-guide__step i.is-current { background: #FFFFFF; }
   @media (prefers-reduced-motion: reduce) { .hf-guide .hf-bullets > li.hf-reveal b { animation: none; } }
   .hf-squash { transform-box: fill-box; transform-origin: 50% 100%; animation: hf-squash 3.2s ease-in-out infinite; }
   @keyframes hf-squash { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.82); } }
