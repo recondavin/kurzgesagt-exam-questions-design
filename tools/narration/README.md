@@ -60,6 +60,9 @@ It only touches clips still at 24 kHz, so run it after each narration update
 - `bio_lines.json` — the Biology desk's guide lines (made by `node tools/bio/build_bio_narration.mjs` from
   `bio/guide.js` and `bio/guide<N>.js`). The generator reads it after `lines.json`, so the one-click update voices
   them too. Lines with the same words share one clip (`bio-<hash>`); the rest are named (`bio-cmd-describe-1`).
+- `make_standin.py` — voices any `bio_lines.json` line that has no clip yet with Kokoro-82M (a small open model,
+  British voice `bm_george`), at the same loudness, so the Biology guide talks before the narrator's clips are made.
+  Those clips are not in `manifest.json`, so the next one-click update replaces them all with the narrator's voice.
 - `reference.wav` — the narrator clip the voice is cloned from (24 kHz mono).
 - `generate_narration.py` — the generator; the reference transcript is inside it.
 
