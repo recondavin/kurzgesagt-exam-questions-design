@@ -2162,7 +2162,8 @@
     face.setAttribute('data-mood', mood);
     if (!reduced()) { face.classList.remove('is-react'); void face.offsetWidth; face.classList.add('is-react'); }
     clearTimeout(m.sayTimer);
-    if (!line) return;
+    // No bubble while he's hidden (on phones there's no room beside the card).
+    if (!line || !m.classList.contains('is-on')) return;
     say.textContent = line;
     say.classList.remove('is-on');
     void say.offsetWidth;
@@ -2177,9 +2178,555 @@
     var size = Math.min(220, room);
     var show = Boolean(box) && !card.classList.contains('am-exam') && size >= 110;
     if (show) m.style.setProperty('--size', Math.round(size) + 'px');
-    if (show && !m.classList.contains('is-on')) mascot('ok', card.classList.contains('am-teach') ? 'Stuck? Typical. Fine, I\'ll explain.' : card.classList.contains('am-dump') ? 'Everything you know. Go.' : '');
+    var arriving = show && !m.classList.contains('is-on');
     m.classList.toggle('is-on', show);
+    if (arriving) mascot('ok', card.classList.contains('am-teach') ? 'Stuck? Typical. Fine, I\'ll explain.' : card.classList.contains('am-dump') ? 'Everything you know. Go.' : card.classList.contains('am-games') ? 'Games? In my day we had textbooks.' : '');
     if (!show) m.querySelector('[data-am-msay]').classList.remove('is-on');
+  }
+
+  // ---------- Mini games: short games that each train one thing examiners reward ----------
+  // Chain reaction: put a process in order, then read it as one "because... so..." explanation.
+  // Level up: grow one bare SRP into three (development, then an example, place or number), avoiding
+  // the traps (filler, off-question, vague, wrong). Be the examiner: mark a made-up student's answer.
+  // Each trap in Level up has a type: f = filler, o = off the question, v = vague, w = wrong (with why).
+  var GAMES = {
+    'question-3b': {
+      student: 'Ciarán',
+      chains: [
+        { title: 'How sandstone forms', steps: ['Rain and frost break up older rock', 'Rivers carry the sand grains away', 'The river slows and drops the sand', 'Layers (strata) build up on the sea bed', 'The weight of new layers squeezes them (compaction)', 'Minerals glue the grains together (cementation)'],
+          why: 'Older rock is <b>weathered</b>, so rivers can <b>carry</b> the grains away. When a river slows it <b>deposits</b> them in <b>layers</b>; the weight of new layers <b>compacts</b> them and minerals <b>cement</b> them into sandstone.' },
+        { title: 'How limestone forms', steps: ['Sea creatures live in warm, shallow seas', 'They die and their shells sink', 'Shells pile up on the sea floor', 'New layers bury and squeeze them', 'Calcium carbonate cements them together', 'Limestone forms, often with fossils'],
+          why: 'Sea creatures in <b>warm, shallow seas</b> die and their shells <b>sink</b> and <b>pile up</b>. Buried under new layers, they are <b>compacted</b> and cemented by <b>calcium carbonate</b> into limestone, often keeping <b>fossils</b>.' },
+        { title: 'Old Red Sandstone', steps: ['Ireland lay in a hot desert', 'Rivers dropped sand in desert basins', 'Iron in the sand rusted red', 'The sand was compacted and cemented', 'Old Red Sandstone formed about 400 million years ago'],
+          why: 'About 400 million years ago Ireland was a <b>hot desert</b>. Rivers dropped sand in basins, <b>iron</b> in it <b>rusted</b> and stained it red, and the sand was <b>compacted and cemented</b> into Old Red Sandstone.' },
+        { title: 'From sea bed to mountain', steps: ['Sediment settles on the sea bed', 'Layers are compacted and cemented into rock', 'Plates collide and fold the rock layers', 'The rock is uplifted above sea level', 'Weathering and erosion expose it at the surface'],
+          why: 'Sediment <b>settles</b> under the sea and becomes rock. Later, <b>plate collisions fold</b> the layers and <b>uplift</b> them, and <b>weathering and erosion</b> expose them, which is why we see sedimentary rock in mountains.' }
+      ],
+      level: [
+        { id: 'weather', statement: 'Sandstone is made from grains of sand.',
+          steps: [
+            [['The grains come from older rocks like granite, broken down by weathering such as frost action.'], ['Sand is something you can find on beaches and in deserts.', 'f'], ['Granite forms when magma cools slowly underground.', 'o']],
+            [['For example, the Old Red Sandstone of the MacGillycuddy\'s Reeks in Co. Kerry formed from sand worn off older mountains.'], ['For example, there is sandstone in lots of places in Ireland.', 'v'], ['For example, the Burren in Co. Clare is made of sandstone.', 'w', 'The Burren is limestone. Sandstone examples are in Munster, like the MacGillycuddy\'s Reeks.']]
+          ] },
+        { id: 'compact', statement: 'The sand is deposited in layers.',
+          steps: [
+            [['As more layers pile on top, their weight squeezes the grains together and pushes out the water (compaction).'], ['Layers are very common in geography.', 'f'], ['Lava builds up in layers on the sides of a volcano.', 'o']],
+            [['This takes millions of years: Irish Old Red Sandstone formed around 400 million years ago.'], ['This takes a really long time.', 'v'], ['This process only takes a few years.', 'w', 'It takes millions of years, not a few.']]
+          ] },
+        { id: 'cement', statement: 'The grains are then cemented together.',
+          steps: [
+            [['Minerals such as silica and calcite, carried by water seeping through, glue the grains into solid rock.'], ['Cement is used to build houses and walls.', 'f'], ['Marble forms when limestone is heated and squeezed.', 'o']],
+            [['In Old Red Sandstone, iron oxide (rust) coats the grains, which gives the rock its red colour.'], ['This makes the rock very strong.', 'v'], ['The red colour comes from red sea creatures in the sand.', 'w', 'The red comes from iron oxide (rust), formed in hot desert conditions.']]
+          ] },
+        { id: 'limestone', statement: 'Limestone forms from the remains of sea creatures.',
+          steps: [
+            [['Their shells and skeletons, made of calcium carbonate, pile up on the sea floor and are compacted and cemented.'], ['Sea creatures are very interesting animals.', 'f'], ['Basalt forms when lava cools quickly.', 'o']],
+            [['This happened in warm, shallow seas about 350 million years ago, when Ireland lay near the equator.'], ['This happened a long time ago in the sea.', 'v'], ['This happened in freezing seas near the North Pole.', 'w', 'Irish limestone formed in warm, shallow seas near the equator.']]
+          ] },
+        { id: 'fossils', statement: 'Limestone often contains fossils.',
+          steps: [
+            [['Shells and corals trapped in the layers are preserved, so their shapes can still be seen in the rock.'], ['Fossils are very old and can be seen in museums.', 'f'], ['Dinosaurs lived millions of years ago.', 'o']],
+            [['For example, fossil corals and shells can be found in the limestone of the Burren in Co. Clare.'], ['For example, you can find fossils in Ireland.', 'v'], ['For example, fossils are found in the granite of the Wicklow Mountains.', 'w', 'Granite is igneous: it cooled from magma, so it has no fossils.']]
+          ] }
+      ],
+      // Be the examiner: [a sentence that earns an SRP, the same point again in other words, the point].
+      repeats: [['The layers at the bottom are compressed by the weight above them.', 'The weight of the sediment on top squeezes the layers underneath.', 'Compaction'],
+        ['Minerals in the water cement the particles together.', 'The grains are glued together by minerals such as silica.', 'Cementation'],
+        ['Limestone formed from the shells of dead sea creatures.', 'Limestone is made up of the remains of sea animals like shells.', 'Limestone from shells'],
+        ['When rivers lose energy they deposit their load in layers.', 'The river drops its sediment in layers when it slows down.', 'Deposition in layers'],
+        ['The sediment is carried by the river current to the sea.', 'Rivers transport the sediment down to the sea.', 'Transport'],
+        ['Mechanical weathering like frost shattering breaks the rock into fragments.', 'Freeze-thaw weathering breaks rocks up into small pieces.', 'Weathering']],
+      off: ['Granite forms when magma cools slowly deep underground.', 'Volcanoes erupt where plates pull apart.', 'The Giant\'s Causeway is made of basalt columns.'],
+      wrong: [['Limestone is formed when lava cools on the sea floor.', 'Lava makes igneous rock. Limestone forms from shells and skeletons of sea creatures.'], ['Sandstone is made from the shells of sea creatures.', 'That\'s limestone. Sandstone is made of sand grains.'], ['Sedimentary rocks form in just a few weeks.', 'They take millions of years to form.']]
+    },
+    'question-3c': {
+      student: 'Aoife',
+      chains: [
+        { title: 'Why an earthquake happens', steps: ['Plates push against each other', 'Friction locks them together at the fault', 'Stress builds up over many years', 'The rocks suddenly snap and slip', 'Energy travels out as seismic waves'],
+          why: 'Plates <b>push</b> against each other, but <b>friction</b> locks them, so <b>stress builds</b>. When the rocks finally <b>snap</b>, the stored energy travels out as <b>seismic waves</b>. That build-up is what prediction tries to spot.' },
+        { title: 'Radon as a warning sign', steps: ['Stress builds up along a fault', 'Rocks begin to crack under the strain', 'Radon gas escapes through the cracks', 'Radon levels rise in well water', 'Scientists measure the rise and warn people'],
+          why: '<b>Stress</b> makes the rocks <b>crack</b>, so <b>radon gas</b> escapes into groundwater. A rise in radon in <b>wells</b> can be measured, which may <b>warn</b> that an earthquake is coming.' },
+        { title: 'An early warning system', steps: ['The earthquake starts deep underground', 'Sensors detect the first, faster waves', 'Alerts are sent to phones and trains', 'Trains brake and people take cover', 'The strong shaking arrives seconds later'],
+          why: 'The <b>first waves</b> travel faster than the damaging ones, so <b>sensors</b> pick them up and send <b>alerts</b>. That buys a few <b>seconds</b> for trains to brake and people to take cover <b>before</b> the strong shaking.' },
+        { title: 'A base-isolated building', steps: ['The ground starts to shake', 'Rubber pads under the building flex', 'They absorb most of the movement', 'The building above sways gently', 'It stays standing and people are safe'],
+          why: 'When the ground <b>shakes</b>, <b>rubber pads</b> (base isolators) flex and <b>absorb</b> the movement, so the building above only <b>sways gently</b> and <b>stays standing</b>.' }
+      ],
+      level: [
+        { id: 'seismo', statement: 'Seismographs record vibrations in the ground.',
+          steps: [
+            [['They pick up small tremors called foreshocks, which can come before a big earthquake.'], ['This is a very important and useful job for scientists.', 'f'], ['Volcanoes also erupt where plates meet.', 'o']],
+            [['For example, a network of seismographs monitors the San Andreas Fault in California.'], ['For example, they are used in lots of countries.', 'v'], ['For example, seismographs told scientists the exact date of the 2011 Japan earthquake.', 'w', 'No earthquake has been predicted to the exact date. Seismographs show where risk is high, not when.']]
+          ] },
+        { id: 'gaps', statement: 'Scientists study seismic gaps along fault lines.',
+          steps: [
+            [['A seismic gap is a part of a fault that hasn\'t moved for a long time, so stress is building up there.'], ['This helps them a lot with their important work.', 'f'], ['Fold mountains form where two plates collide.', 'o']],
+            [['For example, the 1999 Izmit earthquake in Turkey struck a known seismic gap on the North Anatolian Fault.'], ['For example, there are gaps in many places.', 'v'], ['For example, seismic gaps tell scientists the exact hour of the next quake.', 'w', 'A gap shows where a quake is likely, not when it will happen.']]
+          ] },
+        { id: 'radon', statement: 'Radon gas levels are monitored in wells.',
+          steps: [
+            [['As stress cracks the rocks, radon escapes into groundwater, so a sudden rise can warn of an earthquake.'], ['Gas is something that can be found in lots of places.', 'f'], ['Volcanoes give off gases like sulphur dioxide.', 'o']],
+            [['For example, radon in groundwater rose sharply in the months before the 1995 Kobe earthquake in Japan.'], ['For example, this has happened in some places before.', 'v'], ['For example, radon gas is what causes earthquakes.', 'w', 'Radon doesn\'t cause earthquakes. It escapes because the rocks are cracking under stress.']]
+          ] },
+        { id: 'build', statement: 'Buildings in earthquake zones are designed to sway.',
+          steps: [
+            [['A flexible steel frame bends with the shaking instead of cracking, so the building doesn\'t collapse.'], ['Buildings are very important for people to live and work in.', 'f'], ['Tall buildings are built in big cities like New York.', 'o']],
+            [['For example, Taipei 101 in Taiwan has a huge steel ball near the top that steadies it as it sways.'], ['For example, lots of buildings are built like this now.', 'v'], ['For example, buildings in Japan are built completely rigid so they can\'t move at all.', 'w', 'Rigid buildings crack. Earthquake-proof buildings are designed to flex and sway.']]
+          ] },
+        { id: 'drills', statement: 'People take part in earthquake drills.',
+          steps: [
+            [['They practise "drop, cover and hold on", so they react quickly when the shaking starts.'], ['Drills are a good idea and everyone should do them.', 'f'], ['Schools hold fire drills every year.', 'o']],
+            [['For example, Japan holds national earthquake drills every year on 1 September, Disaster Prevention Day.'], ['For example, they happen in some schools.', 'v'], ['For example, people are taught to run outside as soon as the shaking starts.', 'w', 'Running during shaking is dangerous. The advice is drop, cover and hold on.']]
+          ] },
+        { id: 'warning', statement: 'Early warning systems alert people before strong shaking.',
+          steps: [
+            [['Sensors detect the first, faster waves and send alerts to phones seconds before the strongest shaking arrives.'], ['Warnings are always useful for everyone.', 'f'], ['Volcanoes can be watched for swelling ground before they erupt.', 'o']],
+            [['For example, Japan\'s system braked bullet trains before the strongest shaking of the 2011 Tohoku earthquake.'], ['For example, phones sometimes get messages.', 'v'], ['For example, the warnings arrive several days before the earthquake.', 'w', 'Warnings come seconds before the shaking, not days.']]
+          ] }
+      ],
+      repeats: [['Seismographs are used to detect small movements in the crust.', 'Small vibrations in the ground are picked up by seismographs.', 'Seismographs'],
+        ['A tiltmeter measures any bulging of the ground.', 'Tiltmeters are used to detect the ground bulging upwards.', 'Tiltmeters'],
+        ['Schools hold earthquake drills so students know what to do.', 'Students practise earthquake drills in school so they know how to react.', 'Drills'],
+        ['A series of small tremors may come before a larger earthquake.', 'Small foreshocks often happen before a big earthquake.', 'Foreshocks']],
+      off: ['Volcanoes erupt when magma rises through the crust.', 'Fold mountains like the Andes form where plates collide.', 'The Burren in Co. Clare is made of limestone.'],
+      wrong: [['Scientists can predict the exact day and hour of an earthquake.', 'They can say where one is likely, but not exactly when.'], ['People should run outside as soon as the shaking starts.', 'That\'s dangerous. The advice is drop, cover and hold on.'], ['Buildings should be made completely rigid so they cannot move.', 'Rigid buildings crack. Safe buildings are designed to flex and sway.']]
+    }
+  };
+  var CHAIN_ROUND = 3, LEVEL_ROUND = 4, MARK_REAL = 5;
+  // What each Level up trap is called, why it earns nothing, and what the examiner shouts.
+  var GAME_TRAPS = {
+    f: ['Filler', 'It sounds fine, but it adds no geography.', 'Waffle!'],
+    o: ['Not relevant', 'True, but it isn\'t about this question.', 'Not relevant!'],
+    v: ['Too vague', 'No name, place or number, so it can\'t earn a mark.', 'Vague!'],
+    w: ['Wrong', '', 'Wrong!']
+  };
+  var GAME_INFO = {
+    chain: { name: 'Chain reaction', what: 'Put the steps of a process in order.', unit: 'stars',
+      icon: '<svg viewBox="0 0 24 24"><rect x="2" y="7" width="5" height="12" rx="1.4" fill="currentColor"/><rect x="9.5" y="7" width="5" height="12" rx="1.4" fill="currentColor" transform="rotate(14 12 19)"/><rect x="17" y="7" width="5" height="12" rx="1.4" fill="currentColor" transform="rotate(32 19.5 19)"/></svg>' },
+    level: { name: 'Level up', what: 'Turn one point into three SRPs.', unit: 'right first time',
+      icon: '<svg viewBox="0 0 24 24"><path d="M3 20h5v-5h5v-5h5V5h3" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>' },
+    mark: { name: 'Be the examiner', what: 'Mark a student\'s answer. Spot the SRPs.', unit: 'lines right',
+      icon: '<svg viewBox="0 0 24 24"><path d="M5 19L10.5 5M12 19L17.5 5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" fill="none"/></svg>' }
+  };
+  var STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2l2.6 5.5 6 .7-4.4 4.1 1.2 5.9L12 16.5l-5.4 2.9 1.2-5.9-4.4-4.1 6-.7z"/></svg>';
+  var CROSS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  var SLASHES = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 20L11 4M13 20L18 4"/></svg>';
+  var TICK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>';
+  // Best scores are kept as "score/out of" (am-chain-<id>, am-level-<id>, am-mark-<id>).
+  function gameBest(kind) {
+    var v = (store('am-' + kind + '-' + state.id) || '').split('/');
+    return v.length === 2 && +v[1] ? { score: +v[0], out: +v[1] } : null;
+  }
+  function saveBest(kind, score, out) {
+    var b = gameBest(kind), better = !b || score / out > b.score / b.out;
+    if (better) store('am-' + kind + '-' + state.id, score + '/' + out);
+    return better && Boolean(b);
+  }
+  function openGames() {
+    var old = state.root.querySelector('.am-finish');
+    if (old) old.remove();
+    clearInterval(state.dumpTimer);
+    var card = el('div', 'am-finish am-games');
+    card.innerHTML = '<div class="am-finish__card am-games__card" role="dialog" aria-label="Mini games">' +
+      '<div class="am-run__hud">' +
+        '<button type="button" class="am-run__quit" data-am-keep aria-label="Stop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
+        '<div class="am-run__segs" data-am-gsegs aria-hidden="true"></div>' +
+        '<div class="am-run__score" data-am-gscorebox hidden><b data-am-gscore>0</b><span data-am-gunit></span></div></div>' +
+      '<div class="am-games__body" data-am-gbody></div>' +
+      '<div class="am-finish__buttons am-games__btns" data-am-gbtns></div></div>';
+    card.addEventListener('keydown', gameKeys);
+    showCard(card);
+    gamesHub(card);
+  }
+  // 1-3 pick an answer in Level up.
+  function gameKeys(e) {
+    var x = state && state.game;
+    if (!x || x.kind !== 'level' || x.done || e.altKey || e.ctrlKey || e.metaKey) return;
+    var b = /^[1-3]$/.test(e.key) && e.currentTarget.querySelector('[data-am-lopt="' + (e.key - 1) + '"]');
+    if (b) { e.preventDefault(); b.click(); }
+  }
+  // The top bar: one segment per item of the round, and the score so far.
+  function gameHud(card, segs, unit) {
+    card.querySelector('[data-am-gsegs]').innerHTML = new Array(segs + 1).join('<i></i>');
+    card.querySelector('[data-am-gscorebox]').hidden = !unit;
+    card.querySelector('[data-am-gunit]').textContent = unit || '';
+    rollTo(card.querySelector('[data-am-gscore]'), 0, true);
+  }
+  function gameSeg(card, k, cls) {
+    var seg = card.querySelectorAll('[data-am-gsegs] i')[k];
+    if (seg) seg.className = cls;
+  }
+  function gameBody(card, html) {
+    var body = card.querySelector('[data-am-gbody]');
+    body.innerHTML = html;
+    card.querySelector('.am-finish__card').scrollTop = 0;
+    if (!reduced()) body.firstChild.classList.add('am-run__in');
+    return body;
+  }
+  function gamesHub(card) {
+    state.game = null;
+    gameHud(card, 0, '');
+    var g = GAMES[state.id];
+    gameBody(card, '<div class="am-games__hub">' +
+      '<h3 class="am-games__title">Mini games</h3>' +
+      '<p class="am-games__sub">Quick games. Each one trains something examiners give marks for.</p>' +
+      '<div class="am-games__list">' + ['chain', 'level', 'mark'].map(function (kind) {
+        var info = GAME_INFO[kind], b = gameBest(kind);
+        return '<button type="button" class="am-games__tile am-games__tile--' + kind + '" data-am-game="' + kind + '">' +
+          '<span class="am-games__icon" aria-hidden="true">' + info.icon + '</span>' +
+          '<span class="am-games__text"><b>' + info.name + '</b><span>' + (kind === 'mark' ? 'Mark ' + esc(g.student) + '\'s answer. Spot the SRPs.' : info.what) + '</span>' +
+            (b ? '<em>Your best: ' + b.score + ' of ' + b.out + ' ' + info.unit + '</em>' : '') + '</span>' +
+          '<i class="am-train-tile__go" aria-hidden="true"></i></button>';
+      }).join('') + '</div></div>');
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-keep', 'Back to writing']], true);
+    card.querySelector('[data-am-game]').focus({ preventScroll: true });
+  }
+  function startGame(card, kind) {
+    if (kind === 'chain') chainStart(card); else if (kind === 'level') levelStart(card); else markStart(card);
+  }
+  // A round's end for Chain reaction and Level up.
+  function gameEnd(card) {
+    var x = state.game, chain = x.kind === 'chain', score = chain ? x.stars : x.right, out = x.list.length * (chain ? 3 : 2);
+    var before = gameBest(x.kind), newBest = saveBest(x.kind, score, out), perfect = score === out, good = score >= out * 0.75;
+    gameBody(card, '<div class="am-games__end">' +
+      '<p class="am-games__big">' + score + '<span>/' + out + '</span></p>' +
+      '<h3 class="am-games__title">' + (perfect ? 'Perfect!' : good ? 'Nice work!' : 'Keep practising') + '</h3>' +
+      '<p class="am-games__sub">' + (chain ? '3 stars for a chain right first time, 2 for the second try.' : 'Your picks that were right first time.') +
+        (newBest ? ' <b>New best!</b>' : before ? ' Your best: ' + before.score + ' of ' + before.out + '.' : '') + '</p>' +
+      (chain ? '' : '<div class="am-games__built"><h4>The points you built</h4>' + x.list.map(function (it) {
+        return '<p>' + esc([it.statement, it.steps[0][0][0], it.steps[1][0][0]].join(' ')) + '</p>';
+      }).join('') + '<p class="am-games__built-note">Each one is a statement, a development and an example: three SRPs, 6 marks.</p></div>') + '</div>');
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-ghub', 'Mini games'], ['ok', 'data-am-gagain', 'Play again']]);
+    mascot(good ? 'happy' : 'angry', perfect ? 'Perfect. I\'m almost proud.' : good ? 'Hmph. Not bad.' : 'Again. Properly this time.');
+    if (perfect) later(fanfare, 300);
+    updateTrainTile();
+  }
+
+  // Chain reaction: tap the steps into order. Right ones lock, wrong ones go back; then the chain falls
+  // like dominoes and you read it as one "because... so..." explanation.
+  function chainStart(card) {
+    state.game = { kind: 'chain', list: shuffle(GAMES[state.id].chains, Date.now() % 233280).slice(0, CHAIN_ROUND), i: 0, stars: 0 };
+    gameHud(card, state.game.list.length, 'stars');
+    mascot('ok', 'Order matters. Like in my class.');
+    chainShow(card);
+  }
+  function chainShow(card) {
+    var x = state.game, c = x.list[x.i];
+    // A starting order that isn't already the answer.
+    var order = c.steps.map(function (s, k) { return k; }), seed = (Date.now() + x.i * 97) % 233280;
+    do { order = shuffle(order, seed++); } while (order.every(function (v, k) { return v === k; }));
+    x.pool = order;
+    x.placed = c.steps.map(function () { return -1; });
+    x.locked = c.steps.map(function () { return false; });
+    x.tries = 0;
+    x.solved = false;
+    x.busy = false;
+    gameSeg(card, x.i, 'is-current');
+    gameBody(card, '<div class="am-order">' +
+      '<div class="am-run__top"><h3 class="am-run__kind">' + esc(c.title) + '</h3><span class="am-games__step">' + (x.i + 1) + ' of ' + x.list.length + '</span></div>' +
+      '<p class="am-games__ask">Tap the steps in the right order.</p>' +
+      '<ol class="am-chain__slots" data-am-cslots></ol>' +
+      '<div class="am-chain__pool" data-am-cpool></div>' +
+      '<p class="am-games__note" data-am-gnote role="status"></p></div>');
+    chainRender(card);
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-ghub', 'Mini games'], ['ok', 'data-am-ccheck', 'Check']], true);
+    chainSync(card);
+    card.querySelector('[data-am-ctile]').focus({ preventScroll: true });
+  }
+  function chainRender(card, fresh) {
+    var x = state.game, c = x.list[x.i];
+    card.querySelector('[data-am-cslots]').innerHTML = c.steps.map(function (s, k) {
+      var v = x.placed[k], filled = v >= 0;
+      return '<li><button type="button" class="am-chain__slot' + (x.locked[k] ? ' is-lock' : filled ? ' is-filled' : '') + (k === fresh ? ' is-in' : '') + '" data-am-cslot="' + k + '"' +
+        (x.locked[k] || !filled ? ' aria-disabled="true"' : '') + '>' +
+        '<span class="am-chain__n">' + (k + 1) + '</span><span class="am-chain__t">' + (filled ? esc(c.steps[v]) : '<span class="am-sr">Empty</span>') + '</span>' +
+        (filled && !x.locked[k] ? '<span class="am-sr">, tap to take it out</span>' : '') + '</button></li>';
+    }).join('');
+    var pool = card.querySelector('[data-am-cpool]');
+    if (pool) pool.innerHTML = x.pool.map(function (v) {
+      return '<button type="button" class="am-chain__tile" data-am-ctile="' + v + '">' + esc(c.steps[v]) + '</button>';
+    }).join('');
+  }
+  function chainSync(card) {
+    var btn = card.querySelector('[data-am-ccheck]');
+    if (btn) btn.disabled = state.game.placed.indexOf(-1) >= 0;
+  }
+  function chainPlace(card, v) {
+    var x = state.game, k = x.placed.indexOf(-1);
+    if (x.solved || x.busy || k < 0 || x.pool.indexOf(v) < 0) return;
+    x.placed[k] = v;
+    x.pool.splice(x.pool.indexOf(v), 1);
+    chainRender(card, k);
+    chainSync(card);
+    var next = card.querySelector('[data-am-ctile]') || card.querySelector('[data-am-ccheck]');
+    if (next) next.focus({ preventScroll: true });
+  }
+  function chainTakeOut(card, k) {
+    var x = state.game;
+    if (x.solved || x.busy || x.locked[k] || x.placed[k] < 0) return;
+    x.pool.push(x.placed[k]);
+    x.placed[k] = -1;
+    chainRender(card);
+    chainSync(card);
+    card.querySelector('[data-am-ctile="' + x.pool[x.pool.length - 1] + '"]').focus({ preventScroll: true });
+  }
+  function chainCheck(card) {
+    var x = state.game;
+    if (x.solved || x.busy || x.placed.indexOf(-1) >= 0) return;
+    x.tries += 1;
+    var bad = [];
+    x.placed.forEach(function (v, k) { if (v === k) x.locked[k] = true; else bad.push(k); });
+    if (!bad.length) { chainSolved(card); return; }
+    // The right ones lock green straight away; the wrong ones shake, then go back to the pool.
+    x.busy = true;
+    x.locked.forEach(function (on, k) { if (on) card.querySelector('[data-am-cslot="' + k + '"]').className = 'am-chain__slot is-lock'; });
+    bad.forEach(function (k) {
+      var s = card.querySelector('[data-am-cslot="' + k + '"]');
+      s.classList.add('is-bad');
+      if (!reduced()) s.classList.add('am-shake');
+    });
+    bonk();
+    mascot('angry', pick(['Wrong order!', 'No. What causes what?', 'Not in that order!']));
+    var right = x.placed.length - bad.length;
+    card.querySelector('[data-am-gnote]').textContent = right ? right + ' in the right place. They stay. Try the rest again.' : 'None in the right place yet. Think: what has to happen first?';
+    later(function () {
+      if (state.game !== x || !card.isConnected) return;
+      bad.forEach(function (k) { x.pool.push(x.placed[k]); x.placed[k] = -1; });
+      x.busy = false;
+      chainRender(card);
+      chainSync(card);
+      var tile = card.querySelector('[data-am-ctile]');
+      if (tile) tile.focus({ preventScroll: true });
+    }, reduced() ? 300 : 700);
+  }
+  function chainSolved(card) {
+    var x = state.game, c = x.list[x.i], stars = x.tries === 1 ? 3 : x.tries === 2 ? 2 : 1;
+    x.solved = true;
+    x.stars += stars;
+    chainRender(card);
+    // The chain falls like dominoes, one ding per step, climbing.
+    card.querySelectorAll('.am-chain__slot').forEach(function (s, k) {
+      if (!reduced()) { s.style.animationDelay = k * 0.12 + 's'; s.classList.add('is-fall'); }
+      later(function () { ding(k, k === c.steps.length - 1 && stars === 3); }, k * 120);
+    });
+    card.querySelector('[data-am-cpool]').outerHTML = '<div class="am-chain__why">' +
+      '<div class="am-chain__stars" role="img" aria-label="' + stars + ' of 3 stars">' + [0, 1, 2].map(function (k) { return '<i' + (k < stars ? ' class="is-on"' : '') + '>' + STAR + '</i>'; }).join('') + '</div>' +
+      '<p><b class="am-chain__say">Now say it as one explanation:</b> ' + c.why + '</p></div>';
+    card.querySelector('[data-am-gnote]').textContent = stars === 3 ? 'Right first time!' : 'All in order.';
+    gameSeg(card, x.i, stars === 3 ? 'is-ok' : 'is-half');
+    rollTo(card.querySelector('[data-am-gscore]'), x.stars);
+    mascot('happy', stars === 3 ? 'First try? Hmph. Fine.' : pick(MASCOT.right));
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['ok', 'data-am-cnext', x.i + 1 >= x.list.length ? 'See my score' : 'Next chain']]);
+  }
+  function chainNext(card) {
+    var x = state.game;
+    x.i += 1;
+    if (x.i >= x.list.length) gameEnd(card); else chainShow(card);
+  }
+
+  // Level up: start from a bare statement (one SRP) and add a development, then an example, place or
+  // number. Each step is a new fact, so a new SRP: 2, then 4, then 6 marks. The wrong picks are traps.
+  var LEVEL_STEPS = [['Development', 'Add a development: which sentence explains it further?'], ['Example', 'Add an example: which one gives a real place, name or number?']];
+  function levelStart(card) {
+    state.game = { kind: 'level', list: shuffle(GAMES[state.id].level, Date.now() % 233280).slice(0, LEVEL_ROUND), i: 0, right: 0 };
+    gameHud(card, state.game.list.length, 'right');
+    mascot('ok', 'Make it worth marks.');
+    levelShow(card);
+  }
+  function levelRow(tag, text, fresh) {
+    return '<div class="am-level__row' + (fresh ? ' is-new' : '') + '"><span class="am-level__tag">' + tag + '</span><p>' + esc(text) + '</p></div>';
+  }
+  function levelShow(card) {
+    var x = state.game, it = x.list[x.i];
+    x.step = 0;
+    x.clean = true;
+    gameSeg(card, x.i, 'is-current');
+    gameBody(card, '<div class="am-level">' +
+      '<div class="am-run__top"><h3 class="am-run__kind">Level up</h3><span class="am-games__step">' + (x.i + 1) + ' of ' + x.list.length + '</span></div>' +
+      '<div class="am-level__paper"><div class="am-level__rows" data-am-lrows>' + levelRow('Statement', it.statement) + '</div>' +
+        '<div class="am-level__meter" aria-hidden="true"><i class="is-on">2</i><i>4</i><i>6</i><span>marks</span></div></div>' +
+      '<p class="am-games__ask" data-am-lask></p>' +
+      '<div class="am-run__opts" data-am-lopts></div>' +
+      '<p class="am-games__note" data-am-gnote role="status"></p></div>');
+    levelStep(card);
+  }
+  function levelStep(card) {
+    var x = state.game, it = x.list[x.i];
+    x.first = true;
+    x.done = false;
+    x.opts = shuffle(it.steps[x.step], (Date.now() + x.step * 31) % 233280);
+    card.querySelector('[data-am-lask]').innerHTML = '<b>Level ' + (x.step + 2) + '.</b> ' + LEVEL_STEPS[x.step][1];
+    card.querySelector('[data-am-lopts]').innerHTML = x.opts.map(function (o, n) {
+      return '<button type="button" class="am-run__opt am-level__opt" data-am-lopt="' + n + '"><kbd aria-hidden="true">' + (n + 1) + '</kbd><span>' + esc(o[0]) + '</span></button>';
+    }).join('');
+    card.querySelector('[data-am-gnote]').textContent = '';
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-ghub', 'Mini games']], true);
+    card.querySelector('[data-am-lopt]').focus({ preventScroll: true });
+  }
+  function levelPick(card, n) {
+    var x = state.game, o = x.opts[n], btn = card.querySelector('[data-am-lopt="' + n + '"]');
+    if (x.done || !btn || btn.getAttribute('aria-disabled') === 'true') return;
+    if (!o[1]) {
+      x.done = true;
+      if (x.first) { x.right += 1; rollTo(card.querySelector('[data-am-gscore]'), x.right); } else x.clean = false;
+      btn.classList.add('am-run__opt--ok');
+      card.querySelectorAll('[data-am-lopt]').forEach(function (b) { b.setAttribute('aria-disabled', 'true'); });
+      card.querySelector('[data-am-lrows]').insertAdjacentHTML('beforeend', levelRow(LEVEL_STEPS[x.step][0], o[0], !reduced()));
+      var pip = card.querySelectorAll('.am-level__meter i')[x.step + 1];
+      pip.classList.add('is-on');
+      if (!reduced()) pip.classList.add('am-bump');
+      ding(x.step + 1, x.step === 1);
+      mascot('happy', pick(MASCOT.right));
+      var last = x.step === 1;
+      card.querySelector('[data-am-gnote]').innerHTML = '<b>+2 marks.</b> ' + (last ? 'A real example: that\'s three SRPs from one point.' : 'It explains the point with a new fact, so it\'s a new SRP.');
+      if (last) gameSeg(card, x.i, x.clean ? 'is-ok' : 'is-half');
+      fillButtons(card.querySelector('[data-am-gbtns]'), [['ok', 'data-am-lnext', !last ? 'Next level' : x.i + 1 >= x.list.length ? 'See my score' : 'Next point']]);
+      return;
+    }
+    // A trap: say what kind, and why it earns nothing. Pick again.
+    var trap = GAME_TRAPS[o[1]];
+    x.first = false;
+    btn.classList.add('am-run__opt--no');
+    btn.setAttribute('aria-disabled', 'true');
+    btn.querySelector('span').insertAdjacentHTML('beforeend', '<small class="am-level__why"><b>' + trap[0] + '.</b> ' + esc(o[2] || trap[1]) + '</small>');
+    if (!reduced()) { btn.classList.remove('am-shake'); void btn.offsetWidth; btn.classList.add('am-shake'); }
+    bonk();
+    mascot('angry', trap[2]);
+    card.querySelector('[data-am-gnote]').textContent = 'No marks for that one. Pick again.';
+  }
+  function levelNext(card) {
+    var x = state.game;
+    if (x.step === 0) { x.step = 1; levelStep(card); return; }
+    x.i += 1;
+    if (x.i >= x.list.length) gameEnd(card); else levelShow(card);
+  }
+
+  // Be the examiner: a made-up student's answer, one sentence per line. You mark each line // (an SRP)
+  // or X (no marks), then see what the marking scheme says. The truth comes from the marker reading the
+  // whole answer in order, so a point made twice only counts the first time.
+  function markEarned(lines) {
+    var prev = 0;
+    lines.forEach(function (l, k) {
+      var ids = {};
+      evaluate(state.q, lines.slice(0, k + 1).map(function (m) { return m.text; }).join(' '), always).forEach(function (s) {
+        s.hits.forEach(function (p) { ids[p.id] = true; });
+      });
+      var n = Object.keys(ids).length;
+      l.srp = n > prev;
+      prev = n;
+    });
+  }
+  function markAnswer() {
+    var g = GAMES[state.id], T = TRAIN[state.id], q = state.q, seed = Date.now() % 233280;
+    function idOf(text) {
+      var ids = [];
+      evaluate(q, text, always).forEach(function (s) { s.hits.forEach(function (p) { ids.push(p.id); }); });
+      return ids.length === 1 ? ids[0] : null;
+    }
+    // One point the student makes twice, then more real points, each about a different part of the plan.
+    var pair = shuffle(g.repeats, seed).filter(function (r) { return idOf(r[0]) && idOf(r[0]) === idOf(r[1]); })[0];
+    var used = {}, real = [], first = null;
+    if (pair) { used[idOf(pair[0])] = true; first = { text: pair[0], type: 'srp', label: pair[2], id: idOf(pair[0]) }; real.push(first); }
+    shuffle(T.real, seed + 1).forEach(function (r) {
+      var id = idOf(r[0]);
+      if (real.length >= MARK_REAL || !id || used[id] || (pair && r[0] === pair[0])) return;
+      used[id] = true;
+      real.push({ text: r[0], type: 'srp', label: r[1], id: id });
+    });
+    // The real points go in the order of the plan, as a student would write them; the rest go anywhere.
+    var order = q.points.map(function (p) { return p.id; });
+    real.sort(function (a, b) { return order.indexOf(a.id) - order.indexOf(b.id); });
+    var lines = real.slice();
+    shuffle(T.vague, seed + 2).slice(0, 2).map(function (r) { return { text: r[0], type: 'vague', why: r[1] }; })
+      .concat([{ text: pick(g.off), type: 'off' }], shuffle(g.wrong, seed + 3).slice(0, 1).map(function (r) { return { text: r[0], type: 'wrong', why: r[1] }; }))
+      .forEach(function (l) { lines.splice(Math.floor(Math.random() * (lines.length + 1)), 0, l); });
+    if (first) {
+      var at = lines.indexOf(first) + 2;
+      lines.splice(at + Math.floor(Math.random() * (lines.length - at + 1)), 0, { text: pair[1], type: 'repeat', of: first });
+    }
+    // Safety net: a line the marker reads differently from its type is left out.
+    for (var guard = 0; guard < lines.length; guard++) {
+      markEarned(lines);
+      var odd = lines.filter(function (l) { return l.srp !== (l.type === 'srp'); })[0];
+      if (!odd) break;
+      lines.splice(lines.indexOf(odd), 1);
+    }
+    return lines;
+  }
+  function markStart(card) {
+    var g = GAMES[state.id], q = state.q, lines = markAnswer();
+    state.game = { kind: 'mark', lines: lines, calls: lines.map(function () { return null; }), done: false };
+    gameHud(card, 0, '');
+    mascot('ok', 'Now YOU mark. See how you like it.');
+    gameBody(card, '<div class="am-mark">' +
+      '<div class="am-run__top"><h3 class="am-run__kind">Be the examiner</h3><span class="am-games__step">Question ' + esc(q.code) + '</span></div>' +
+      '<div data-am-msum></div>' +
+      '<p class="am-games__ask">' + esc(g.student) + ' answered the question on ' + esc(q.title.toLowerCase()) + '. Mark each line: <b>//</b> if it earns an SRP, <b>X</b> if it doesn\'t.</p>' +
+      '<button type="button" class="am-games__rules" data-am-mrules aria-expanded="false">What counts as an SRP?</button>' +
+      '<p class="am-games__rulebox" data-am-mrulebox hidden>One <b>specific</b>, <b>correct</b> fact that <b>answers the question</b>. No marks for vague lines, wrong facts, other topics, or a point already made.</p>' +
+      '<div class="am-mark__paper"><span class="am-mark__name">' + esc(g.student) + '</span>' + lines.map(function (l, k) {
+        return '<div class="am-mark__row" data-am-mrow="' + k + '"><span class="am-mark__n" aria-hidden="true">' + (k + 1) + '</span>' +
+          '<p class="am-mark__text"><span class="am-sr">Line ' + (k + 1) + ': </span>' + esc(l.text) + '</p>' +
+          '<div class="am-mark__btns" role="group" aria-label="Mark line ' + (k + 1) + '">' +
+            '<button type="button" class="am-mark__btn" data-am-mcall="' + k + ':1" aria-pressed="false" aria-label="SRP">' + SLASHES + '</button>' +
+            '<button type="button" class="am-mark__btn am-mark__btn--x" data-am-mcall="' + k + ':0" aria-pressed="false" aria-label="No SRP">' + CROSS + '</button></div></div>';
+      }).join('') + '</div>' +
+      '<p class="am-games__note" data-am-gnote role="status"></p></div>');
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-ghub', 'Mini games'], ['ok', 'data-am-mhand', 'Hand back']], true);
+    card.querySelector('[data-am-mcall]').focus({ preventScroll: true });
+  }
+  function markRules(card) {
+    var btn = card.querySelector('[data-am-mrules]'), box = card.querySelector('[data-am-mrulebox]');
+    box.hidden = !box.hidden;
+    btn.setAttribute('aria-expanded', String(!box.hidden));
+  }
+  function markCall(card, k, v) {
+    var x = state.game, row = card.querySelector('[data-am-mrow="' + k + '"]');
+    if (x.done || !row) return;
+    x.calls[k] = v;
+    row.classList.remove('is-yes', 'is-no');
+    row.classList.add(v ? 'is-yes' : 'is-no');
+    row.querySelectorAll('[data-am-mcall]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-am-mcall') === k + ':' + v)); });
+    var left = x.calls.filter(function (c) { return c === null; }).length;
+    card.querySelector('[data-am-gnote]').textContent = left ? '' : 'All marked. Hand it back when you\'re sure.';
+  }
+  function markHand(card) {
+    var x = state.game, left = x.calls.indexOf(null);
+    if (x.done) return;
+    if (left >= 0) {
+      card.querySelector('[data-am-gnote]').textContent = 'Mark every line first (' + x.calls.filter(function (c) { return c === null; }).length + ' left).';
+      card.querySelector('[data-am-mcall="' + left + ':1"]').focus();
+      return;
+    }
+    x.done = true;
+    var right = 0, gave = 0, real = 0, off = EXAM_OFF[state.id].topic;
+    x.lines.forEach(function (l, k) {
+      var ok = x.calls[k] === (l.srp ? 1 : 0), row = card.querySelector('[data-am-mrow="' + k + '"]');
+      if (ok) right += 1;
+      if (x.calls[k]) gave += 1;
+      if (l.srp) real += 1;
+      var tag = l.srp ? 'SRP' : l.type === 'off' ? 'Not relevant' : l.type === 'wrong' ? 'Wrong' : l.type === 'repeat' ? 'Repeat' : 'No SRP';
+      var why = l.srp ? esc(l.label) : l.type === 'off' ? 'True, but the question is about ' + esc(off) + '.'
+        : l.type === 'repeat' ? 'Line ' + (x.lines.indexOf(l.of) + 1) + ' already made this point. It only counts once.' : esc(l.why);
+      row.classList.add(ok ? 'is-right' : 'is-wrong');
+      row.querySelector('.am-mark__n').innerHTML = ok ? TICK : CROSS;
+      row.querySelectorAll('[data-am-mcall]').forEach(function (b) { b.setAttribute('aria-disabled', 'true'); });
+      row.insertAdjacentHTML('beforeend', '<p class="am-mark__why"><b class="am-mark__tag am-mark__tag--' + (l.srp ? 'srp' : 'no') + '">' + tag + '</b> ' +
+        (ok ? '' : '<span class="am-sr">You marked this wrong. </span>') + why + '</p>');
+      if (!reduced()) row.style.animationDelay = k * 0.06 + 's';
+    });
+    var n = x.lines.length, newBest = saveBest('mark', right, n), great = right >= n - 1;
+    card.querySelector('[data-am-gscorebox]').hidden = false;
+    card.querySelector('[data-am-gunit]').textContent = '/' + n;
+    rollTo(card.querySelector('[data-am-gscore]'), right);
+    card.querySelector('[data-am-msum]').innerHTML = '<div class="am-mark__sum ' + (great ? 'is-good' : '') + '"><b>' + right + ' of ' + n + ' lines marked right.</b> ' +
+      'You gave ' + gave + (gave === 1 ? ' SRP' : ' SRPs') + '. The marking scheme gives ' + real + ' (' + real * 2 + ' marks).' + (newBest ? ' New best!' : '') + '</div>';
+    card.querySelector('.am-mark').classList.add('is-marked');
+    card.querySelector('[data-am-gnote]').textContent = '';
+    card.querySelector('.am-finish__card').scrollTop = 0;
+    mascot(great ? 'happy' : right >= n * 0.7 ? 'ok' : 'angry', great ? 'You\'d make a decent examiner. Better than some.' : right >= n * 0.7 ? 'Not bad. Not good either.' : 'You\'d be a terrible examiner.');
+    if (right === n) later(fanfare, 300);
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-ghub', 'Mini games'], ['ok', 'data-am-magain', 'Mark another']]);
+    updateTrainTile();
   }
 
   // ---------- official marks (SEC 2024 Leaving Certificate marking scheme, Geography HL) ----------
@@ -3085,7 +3632,11 @@
             '<button type="button" class="am-train-tile am-train-tile--exam" data-am-exam>' +
               '<span class="am-train-tile__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19L10.5 5M12 19L17.5 5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" fill="none"/></svg></span>' +
               '<span class="am-train-tile__text"><b>Beat the Examiner</b><span data-am-exambest>Get each point past a strict examiner</span></span>' +
-              '<i class="am-train-tile__go" aria-hidden="true"></i></button></div>' +
+              '<i class="am-train-tile__go" aria-hidden="true"></i></button>' +
+            (GAMES[id] ? '<button type="button" class="am-train-tile am-train-tile--games" data-am-games>' +
+              '<span class="am-train-tile__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 7.5h10a4.5 4.5 0 0 1 4.5 4.5v3a2.6 2.6 0 0 1-4.7 1.5L15.2 14.5H8.8l-1.6 2A2.6 2.6 0 0 1 2.5 15v-3A4.5 4.5 0 0 1 7 7.5z" fill="currentColor"/><path d="M7.8 10.2v3.6M6 12h3.6" stroke="#FF7B54" stroke-width="1.8" stroke-linecap="round"/><circle cx="15.6" cy="10.9" r="1.1" fill="#FF7B54"/><circle cx="17.8" cy="13.1" r="1.1" fill="#FF7B54"/></svg></span>' +
+              '<span class="am-train-tile__text"><b>Mini games</b><span>Chain reaction, Level up, Be the examiner</span></span>' +
+              '<i class="am-train-tile__go" aria-hidden="true"></i></button>' : '') + '</div>' +
           '<div class="am-needhelp"><h5 class="am-needhelp__h">Need help?</h5><div class="am-needhelp__btns">' +
             '<button type="button" class="am-btn am-btn--dump" data-am-dump>Brain dump</button>' +
             '<button type="button" class="am-btn am-btn--clue" data-am-clue>Stuck?</button></div></div>' +
@@ -3148,6 +3699,28 @@
       if (e.target.closest('[data-am-train]')) { openTraining(); return; }
       if (e.target.closest('[data-am-draw]')) { openDraw(); return; }
       if (e.target.closest('[data-am-exam]')) { openExaminer(); return; }
+      if (e.target.closest('[data-am-games]')) { openGames(); return; }
+      var gamesCard = e.target.closest('.am-games');
+      if (gamesCard) {
+        var gameBtn = e.target.closest('[data-am-game]');
+        if (gameBtn) { startGame(gamesCard, gameBtn.getAttribute('data-am-game')); return; }
+        if (e.target.closest('[data-am-ghub]')) { gamesHub(gamesCard); return; }
+        if (e.target.closest('[data-am-gagain]')) { startGame(gamesCard, state.game.kind); return; }
+        var cTile = e.target.closest('[data-am-ctile]');
+        if (cTile) { chainPlace(gamesCard, +cTile.getAttribute('data-am-ctile')); return; }
+        var cSlot = e.target.closest('[data-am-cslot]');
+        if (cSlot) { chainTakeOut(gamesCard, +cSlot.getAttribute('data-am-cslot')); return; }
+        if (e.target.closest('[data-am-ccheck]')) { chainCheck(gamesCard); return; }
+        if (e.target.closest('[data-am-cnext]')) { chainNext(gamesCard); return; }
+        var lOpt = e.target.closest('[data-am-lopt]');
+        if (lOpt) { levelPick(gamesCard, +lOpt.getAttribute('data-am-lopt')); return; }
+        if (e.target.closest('[data-am-lnext]')) { levelNext(gamesCard); return; }
+        var mCall = e.target.closest('[data-am-mcall]');
+        if (mCall) { var mc = mCall.getAttribute('data-am-mcall').split(':'); markCall(gamesCard, +mc[0], +mc[1]); return; }
+        if (e.target.closest('[data-am-mrules]')) { markRules(gamesCard); return; }
+        if (e.target.closest('[data-am-mhand]')) { markHand(gamesCard); return; }
+        if (e.target.closest('[data-am-magain]')) { markStart(gamesCard); return; }
+      }
       var examCard = e.target.closest('.am-exam');
       if (examCard) {
         if (e.target.closest('[data-am-estart]')) { examRound(examCard); return; }
@@ -3693,6 +4266,126 @@
     '.am-mascot__say{position:absolute;left:4px;bottom:calc(100% + 4px);width:max-content;max-width:calc(var(--size) + 60px);margin:0;padding:8px 14px;border-radius:16px 16px 16px 4px;background:#FFFEF8;color:#13294A;font:700 26px/1.1 Caveat,"Segoe Print","Comic Sans MS",cursive;opacity:0;transform:translateY(8px) scale(.9);transform-origin:0 100%;transition:opacity .2s ease,transform .3s cubic-bezier(.3,1.6,.5,1)}',
     '.am-mascot__say.is-on{opacity:1;transform:none}',
     '.am-root .am-mascot__say{font-family:Caveat,"Segoe Print","Comic Sans MS",cursive !important}',
+    '.am-train-tile--games .am-train-tile__icon{background:#FF7B54;color:#FFFFFF;box-shadow:0 3px 0 #C9502E}',
+    '.am-train-tile--games:hover{border-color:#FF7B54}',
+    '.am-train-tile--games .am-train-tile__go{border-color:#FF7B54}',
+    '.am-finish__card.am-games__card{width:min(720px,100%)}',
+    '.am-games [hidden]{display:none !important}',
+    '.am-games__body{min-height:300px}',
+    '.am-games__btns{margin-top:16px}',
+    '.am-games__btns .am-btn:disabled{opacity:.4;cursor:default;box-shadow:none;transform:none}',
+    '.am-games .am-run__segs i.is-half{background:#FFC42E}',
+    '.am-games__hub,.am-games__end{text-align:center}',
+    '.am-games__title{margin:4px 0 6px;font:700 30px/1.15 Fredoka,Nunito,sans-serif;color:#FFFFFF}',
+    '.am-games__sub{max-width:520px;margin:0 auto 18px;font:800 16px/1.5 Nunito,sans-serif;color:#C9D6EE}',
+    '.am-games__sub b{color:#FFE14D}',
+    '.am-games__list{display:grid;gap:10px;text-align:left}',
+    '.am-games__tile{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;border:2px solid #2A3D5E;border-bottom-width:4px;border-radius:16px;background:#1B3150;color:#FFFFFF;text-align:left;cursor:pointer;transition:border-color .2s ease}',
+    '.am-games__tile:active{transform:translateY(2px)}',
+    '.am-games__tile:focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
+    '.am-games__icon{flex:0 0 48px;height:48px;border-radius:14px;display:grid;place-items:center;color:#14243B}',
+    '.am-games__icon svg{width:26px;height:26px}',
+    '.am-games__tile--chain .am-games__icon{background:#FFC42E;box-shadow:0 3px 0 #C98E00}',
+    '.am-games__tile--level .am-games__icon{background:#5CD6FF;box-shadow:0 3px 0 #2A9BC4}',
+    '.am-games__tile--mark .am-games__icon{background:#2BC46F;color:#FFFFFF;box-shadow:0 3px 0 #1E9A55}',
+    '.am-games__tile--chain:hover{border-color:#FFC42E}',
+    '.am-games__tile--level:hover{border-color:#5CD6FF}',
+    '.am-games__tile--mark:hover{border-color:#2BC46F}',
+    '.am-games__text{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}',
+    '.am-games__text b{font:700 20px Fredoka,Nunito,sans-serif;color:#FFFFFF}',
+    '.am-games__text span{font:800 14.5px/1.35 Nunito,sans-serif;color:#9FB0CC}',
+    '.am-games__text em{font:800 13.5px Nunito,sans-serif;font-style:normal;color:#FFE14D}',
+    '.am-games__step{flex:none;font:700 14px Fredoka,Nunito,sans-serif;color:#8496B6}',
+    '.am-games__ask{margin:0 0 12px;font:800 17px/1.45 Nunito,sans-serif;color:#E8EEFA}',
+    '.am-games__ask b{color:#FFE14D}',
+    '.am-games__note{min-height:24px;margin:10px 0 0;font:800 15px/1.45 Nunito,sans-serif;color:#C9D6EE}',
+    '.am-games__note b{color:#7DF0B0}',
+    '.am-games__big{margin:6px 0 0;font:700 72px/1 Fredoka,Nunito,sans-serif;color:#FFE14D}',
+    '.am-games__big span{font-size:30px;color:#8496B6}',
+    '.am-games__built{margin:6px 0 0;padding:14px 16px;border-radius:14px;background:#FFFEF8;text-align:left}',
+    '.am-games__built h4{margin:0 0 8px;font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#5E6F8A}',
+    '.am-games__built p{margin:0 0 8px;font:800 15px/1.5 Nunito,sans-serif;color:#13294A}',
+    '.am-games__built .am-games__built-note{margin:0;color:#0B6B3A}',
+    '.am-chain__slots{display:grid;gap:6px;margin:0 0 14px;padding:0;list-style:none}',
+    '.am-chain__slots li{margin:0}',
+    '.am-chain__slot{display:flex;align-items:center;gap:12px;width:100%;min-height:50px;box-sizing:border-box;padding:6px 12px 6px 7px;border:2px dashed #33476A;border-radius:12px;background:transparent;color:#E8EEFA;text-align:left;font:800 16px/1.3 Nunito,sans-serif;cursor:default}',
+    '.am-chain__slot.is-filled{border:2px solid #5CD6FF;background:#1B3150;cursor:pointer}',
+    '.am-chain__slot.is-filled:hover{background:#22406A}',
+    '.am-chain__slot.is-in{animation:amChainIn .3s cubic-bezier(.3,1.5,.5,1)}',
+    '@keyframes amChainIn{0%{transform:scale(.95)}100%{transform:none}}',
+    '.am-chain__slot.is-lock{border:2px solid #2BC46F;background:#173B2A;color:#7DF0B0}',
+    '.am-chain__slot.is-bad{border:2px solid #E5484D;background:#3A1E26;color:#FFB3B5}',
+    '.am-chain__slot.is-fall{animation:amDomino .5s cubic-bezier(.3,1.5,.5,1) both}',
+    '@keyframes amDomino{0%{transform:none}35%{transform:translateY(-5px) rotate(-1.5deg)}100%{transform:none}}',
+    '.am-chain__n{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:#26395A;color:#9FB0CC;font:700 16px Fredoka,Nunito,sans-serif}',
+    '.am-chain__slot.is-filled .am-chain__n{background:#5CD6FF;color:#0C1628}',
+    '.am-chain__slot.is-lock .am-chain__n{background:#2BC46F;color:#FFFFFF}',
+    '.am-chain__slot.is-bad .am-chain__n{background:#E5484D;color:#FFFFFF}',
+    '.am-chain__pool{display:flex;flex-wrap:wrap;gap:8px}',
+    '.am-chain__tile{padding:10px 14px;border:2px solid #D5DCE8;border-bottom-width:4px;border-radius:12px;background:#FFFEF8;color:#13294A;font:800 15.5px/1.3 Nunito,sans-serif;text-align:left;cursor:pointer;animation:amIn .25s ease both}',
+    '.am-chain__tile:hover{border-color:#5CD6FF}',
+    '.am-chain__tile:active{transform:translateY(2px)}',
+    '.am-chain__tile:focus-visible,.am-chain__slot:focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
+    '.am-chain__why{padding:14px 16px;border-radius:14px;background:#FFFEF8;animation:amIn .35s ease .3s both}',
+    '.am-chain__why p{margin:0;font:800 16px/1.6 Nunito,sans-serif;color:#13294A}',
+    '.am-chain__why p b{color:#13294A;box-shadow:inset 0 -.42em 0 #FFE98A}',
+    '.am-chain__why .am-chain__say{display:block;margin:0 0 2px;font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#5E6F8A;box-shadow:none}',
+    '.am-chain__stars{display:flex;gap:6px;margin:0 0 8px}',
+    '.am-chain__stars i{width:30px;height:30px;color:#D5DCE8}',
+    '.am-chain__stars svg{display:block;width:100%;height:100%;fill:currentColor}',
+    '.am-chain__stars i.is-on{color:#FFC42E;animation:amPop .45s cubic-bezier(.3,1.6,.5,1) .35s both}',
+    '.am-chain__stars i.is-on:nth-child(2){animation-delay:.5s}',
+    '.am-chain__stars i.is-on:nth-child(3){animation-delay:.65s}',
+    '.am-level__paper{margin:0 0 14px;padding:14px 16px 12px;border-radius:14px;background:#FFFEF8}',
+    '.am-level__rows{display:grid;gap:8px}',
+    '.am-level__row{display:flex;align-items:baseline;gap:10px}',
+    '.am-level__row p{margin:0;font:800 17px/1.45 Nunito,sans-serif;color:#13294A}',
+    '.am-level__row.is-new{animation:amIn .4s ease both}',
+    '.am-level__tag{flex:none;width:100px;padding:3px 0;border-radius:6px;background:#E3E9F4;color:#4A5B78;font:700 12px Fredoka,Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase;text-align:center}',
+    '.am-level__row:nth-child(2) .am-level__tag{background:#D7F1FF;color:#1D6E8E}',
+    '.am-level__row:nth-child(3) .am-level__tag{background:#D4F7E2;color:#0B6B3A}',
+    '.am-level__meter{display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-top:12px}',
+    '.am-level__meter i{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#E3E9F4;color:#8496B6;font:700 14px/1 Fredoka,Nunito,sans-serif;font-style:normal;transition:background .3s ease,color .3s ease}',
+    '.am-level__meter i.is-on{background:#2BC46F;color:#FFFFFF}',
+    '.am-level__meter i.am-bump{animation:amBump .45s cubic-bezier(.3,1.6,.5,1)}',
+    '.am-level__meter span{margin-left:2px;font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#5E6F8A}',
+    '.am-level__why{display:block;margin-top:4px;font:800 14px/1.4 Nunito,sans-serif;color:#FFB3B5}',
+    '.am-level__why b{color:#FF9A9D}',
+    '.am-games__rules{display:inline-block;margin:-4px 0 12px;padding:0;border:0;background:none;color:#8FE3FF;font:800 15px Nunito,sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer}',
+    '.am-games__rules:focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
+    '.am-games__rulebox{margin:-2px 0 14px;padding:10px 12px;border-radius:12px;background:#1B3150;font:800 15px/1.5 Nunito,sans-serif;color:#E8EEFA}',
+    '.am-games__rulebox b{color:#FFE14D}',
+    '.am-mark__paper{position:relative;padding:36px 12px 6px 0;border-radius:14px;background:#FFFEF8;box-shadow:inset 46px 0 0 #FFFEF8,inset 47px 0 0 #F4B6B6}',
+    '.am-mark__name{position:absolute;left:60px;top:6px;font:700 24px/1 Caveat,"Segoe Print","Comic Sans MS",cursive;color:#1F3FA8}',
+    '.am-mark__row{display:grid;grid-template-columns:46px 1fr auto;align-items:start;column-gap:12px;padding:7px 0;border-top:1px solid #CDEFF9}',
+    '.am-mark__n{display:grid;place-items:center;height:32px;font:700 13px Fredoka,Nunito,sans-serif;color:#B8C2D4}',
+    '.am-mark__n svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}',
+    '.am-mark__row.is-right .am-mark__n{color:#14A04A}',
+    '.am-mark__row.is-wrong .am-mark__n{color:#E5484D}',
+    '.am-mark__row.is-wrong{background:#FFF0F0}',
+    '.am-mark__row.is-right,.am-mark__row.is-wrong{animation:amIn .35s ease both}',
+    '.am-mark__text{margin:0;padding-top:3px;font:700 24px/1.2 Caveat,"Segoe Print","Comic Sans MS",cursive;color:#1F3FA8}',
+    '.am-mark__btns{display:flex;gap:6px}',
+    '.am-mark__btn{display:grid;place-items:center;width:46px;height:40px;padding:0;border:2px solid #D5DCE8;border-radius:10px;background:#FFFFFF;color:#8496B6;cursor:pointer;transition:background .15s ease,border-color .15s ease}',
+    '.am-mark__btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:3.2;stroke-linecap:round}',
+    '.am-mark__btn:hover:not([aria-disabled="true"]){border-color:#14A04A;color:#14A04A}',
+    '.am-mark__btn--x:hover:not([aria-disabled="true"]){border-color:#E5484D;color:#E5484D}',
+    '.am-mark__btn[aria-pressed="true"]{border-color:#14A04A;background:#14A04A;color:#FFFFFF !important}',
+    '.am-mark__btn--x[aria-pressed="true"]{border-color:#E5484D;background:#E5484D}',
+    '.am-mark__btn[aria-disabled="true"]{cursor:default}',
+    '.am-mark.is-marked .am-mark__btn[aria-pressed="false"]{opacity:.3}',
+    '.am-mark__btn:focus-visible{outline:2px solid #1F3FA8;outline-offset:2px}',
+    '.am-mark__why{grid-column:2 / 4;margin:4px 0 2px;font:800 14.5px/1.45 Nunito,sans-serif;color:#3A4A66}',
+    '.am-mark__tag{display:inline-block;margin-right:6px;padding:1px 8px;border-radius:6px;font:700 12.5px Fredoka,Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase}',
+    '.am-mark__tag--srp{background:#D4F7E2;color:#0B6B3A}',
+    '.am-mark__tag--no{background:#FFE1E1;color:#B3262B}',
+    '.am-mark__sum{margin:0 0 14px;padding:12px 14px;border-radius:14px;background:#3A1E26;font:800 16px/1.5 Nunito,sans-serif;color:#E8EEFA;animation:amIn .35s ease both}',
+    '.am-mark__sum.is-good{background:#173B2A}',
+    '.am-mark__sum b{color:#FFE14D}',
+    '.am-root .am-games__sub,.am-root .am-games__text span,.am-root .am-games__ask,.am-root .am-games__note,.am-root .am-chain__slot,.am-root .am-chain__t,.am-root .am-chain__tile,.am-root .am-chain__why p,.am-root .am-level__row p,.am-root .am-games__rules,.am-root .am-games__rulebox,.am-root .am-mark__why,.am-root .am-mark__sum,.am-root .am-games__built p{font-family:Nunito,system-ui,sans-serif !important;font-weight:800 !important}',
+    '.am-root .am-games__title,.am-root .am-games__step,.am-root .am-chain__n,.am-root .am-level__tag,.am-root .am-level__meter span,.am-root .am-mark__n,.am-root .am-games__big,.am-root .am-games__big span{font-family:Fredoka,Nunito,sans-serif !important}',
+    '.am-root .am-mark__text,.am-root .am-mark__name{font-family:Caveat,"Segoe Print","Comic Sans MS",cursive !important}',
+    '@media (max-width:600px){.am-games__title{font-size:25px}.am-games__icon{flex-basis:42px;height:42px}.am-chain__slot{font-size:15px}.am-chain__tile{font-size:14.5px}.am-level__row{flex-direction:column;gap:3px}.am-level__tag{width:auto;padding:2px 8px}.am-mark__paper{box-shadow:inset 30px 0 0 #FFFEF8,inset 31px 0 0 #F4B6B6}.am-mark__name{left:40px}.am-mark__row{grid-template-columns:30px 1fr;column-gap:8px}.am-mark__btns{grid-column:2;justify-content:flex-end;margin-top:4px}.am-mark__why{grid-column:2}.am-mark__text{font-size:22px}.am-games__big{font-size:60px}}',
     '.am-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}',
     '.am-run{position:relative}',
     '.am-run__hud{display:flex;align-items:center;gap:12px;margin:-6px 0 8px}',
