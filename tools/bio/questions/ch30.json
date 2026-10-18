@@ -1,0 +1,3534 @@
+{
+ "chapter": 30,
+ "topic": "The Digestive System",
+ "questions": [
+  {
+   "id": "2004-Q6",
+   "source": "LC Biology HL 2004, Section A, Question 6",
+   "file": "papers/2004_ep_LC025ALPO00EV.pdf",
+   "page": 5,
+   "section": "A",
+   "stem": "Answer the following questions in relation to the human alimentary canal.",
+   "diagram": null,
+   "total_marks": 20,
+   "scheme_rule": "2(5) + 5(2)",
+   "parts": [
+    {
+     "label": "1",
+     "text": "What is peristalsis?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Muscular activity or description e.g. contractions to move food",
+       "marks": null,
+       "accept": [
+        "movement of food"
+       ]
+      }
+     ],
+     "rule": "2(5) + 5(2) for the whole question",
+     "scheme_note": "Scheme: [allow 'movement of food']. The printed question has no part letters; parts are numbered here in order.",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "2",
+     "text": "State one reason why a low pH is important in the stomach.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Kills germs",
+       "marks": null,
+       "accept": [
+        "optimal pH for enzymes",
+        "hydrolysis of starch",
+        "other correct reason"
+       ]
+      }
+     ],
+     "rule": "2(5) + 5(2) for the whole question",
+     "scheme_note": "Scheme wording: 'Kills germs or optimal pH for enzymes or hydrolysis of starch or other correct reason'.",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "3",
+     "text": "Why is fibre important?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Peristalsis or explained (e.g. bulk for movement)",
+       "marks": null,
+       "accept": [
+        "reference to constipation",
+        "reference to bowel cancer"
+       ]
+      }
+     ],
+     "rule": "2(5) + 5(2) for the whole question",
+     "scheme_note": "Scheme: [accept reference to constipation or bowel cancer].",
+     "outcomes": [
+      "2.6.6"
+     ]
+    },
+    {
+     "label": "4",
+     "text": "Name an enzyme that is involved in the digestion of fat.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Lipase",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "2(5) + 5(2) for the whole question",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "5",
+     "text": "What are the products of fat digestion?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Fatty acids",
+       "marks": null,
+       "accept": [
+        "glycerol"
+       ]
+      }
+     ],
+     "rule": "2(5) + 5(2) for the whole question",
+     "scheme_note": "Scheme: 'Fatty acids or glycerol' - either product earns the point.",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "6",
+     "text": "What is the role of bile in fat digestion?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Emulsification (must imply smaller globules produced)",
+       "marks": null,
+       "accept": [
+        "pH effect or explained"
+       ]
+      }
+     ],
+     "rule": "2(5) + 5(2) for the whole question",
+     "scheme_note": "Emulsification answer must imply that smaller globules are produced.",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "7",
+     "text": "State a role of beneficial bacteria in the alimentary canal.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Production of vitamins",
+       "marks": null,
+       "accept": [
+        "inhibition of pathogens",
+        "(aids) digestion",
+        "example"
+       ]
+      }
+     ],
+     "rule": "2(5) + 5(2) for the whole question",
+     "scheme_note": "Gut bacteria are on the new course under the microbiome (3.2.4), not under 2.6.",
+     "outcomes": [
+      "3.2.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "All parts are on the new course; part 7 (gut bacteria) is taught under the microbiome (3.2.4), not 2.6."
+  },
+  {
+   "id": "2005-Q6",
+   "source": "LC Biology HL 2005, Section A, Question 6",
+   "file": "papers/2005_ep_LC025ALPO00EV.pdf",
+   "page": 4,
+   "section": "A",
+   "stem": "The diagram shows part of a section of the human small intestine.",
+   "diagram": {
+    "page": 4,
+    "what": "Longitudinal section of a single villus projecting from the small-intestine wall: columnar epithelium with a network of blood capillaries and a central vessel, with the muscular wall shown underneath.",
+    "labels": {
+     "A": "villus (bracket spans the whole projection)",
+     "B": "lacteal (central lymph vessel)",
+     "C": "muscle layer of the wall (bracket)"
+    }
+   },
+   "total_marks": 20,
+   "scheme_rule": "5(2) + 2(5)",
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Name A, B, C.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "A = villus",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "B = lacteal",
+       "marks": null,
+       "accept": [
+        "lymph vessel"
+       ]
+      },
+      {
+       "answer": "C = muscle",
+       "marks": null,
+       "accept": [
+        "wall"
+       ]
+      }
+     ],
+     "rule": "5(2) + 2(5) for the whole question",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(b)",
+     "text": "State two ways in which A is adapted for the absorption of soluble foods.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Large surface area",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Rich blood supply",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Microvilli",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Thin-walled",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Lacteal",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any two",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(c)",
+     "text": "Name a process by which soluble foods are absorbed into the blood from the small intestine.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Diffusion (passive transport)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Scheme lists only diffusion (passive transport); active transport is not listed.",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(d)",
+     "text": "What type of food is mainly absorbed into B?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Fats",
+       "marks": null,
+       "accept": [
+        "fatty acids",
+        "glycerol",
+        "lipids"
+       ]
+      }
+     ],
+     "rule": "any one",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2006-Q1f",
+   "source": "LC Biology HL 2006, Section A, Question 1 (f)",
+   "file": "papers/2006_ep_LC025ALPO00EV.pdf",
+   "page": 2,
+   "section": "A",
+   "stem": "Answer five of the following by filling in the blank space.",
+   "diagram": null,
+   "total_marks": 20,
+   "scheme_rule": "Any five 5(4)",
+   "parts": [
+    {
+     "label": "(f)",
+     "text": "What are the final products of the digestion of a protein?",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "amino acid",
+       "marks": 4,
+       "accept": [
+        "peptide"
+       ]
+      }
+     ],
+     "rule": "any five of (a)-(f), 4 marks each",
+     "scheme_note": "Scheme: [accept peptide].",
+     "outcomes": [
+      "2.6.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Other parts of Q1 (minerals, lignin, phospholipids, vitamins) belong to other chapters."
+  },
+  {
+   "id": "2006-Q3",
+   "source": "LC Biology HL 2006, Section A, Question 3",
+   "file": "papers/2006_ep_LC025ALPO00EV.pdf",
+   "page": 3,
+   "section": "A",
+   "stem": "The graph shows how the rate of reaction of a carbohydrate-digesting enzyme in the human alimentary canal varies with pH.",
+   "diagram": {
+    "page": 3,
+    "what": "Graph of rate of reaction (y-axis) against pH (x-axis) with no numbers on the axes; a narrow bell-shaped curve with its peak marked by a dashed vertical line at A.",
+    "labels": {
+     "A": "optimum pH (scheme: pH 7-9)"
+    }
+   },
+   "total_marks": 20,
+   "scheme_rule": "6(3) + 2",
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Name a carbohydrate-digesting enzyme in the human alimentary canal.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "amylase",
+       "marks": null,
+       "accept": [
+        "any correct enzyme"
+       ]
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "Scheme: [accept any correct enzyme].",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(b)",
+     "text": "Where in the alimentary canal does this enzyme act?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "mouth",
+       "marks": null,
+       "accept": [
+        "small intestine",
+        "named part of small intestine"
+       ]
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(c)",
+     "text": "State the enzyme's product(s).",
+     "marks": null,
+     "points": [
+      {
+       "answer": "matching carbohydrate product (e.g. maltose for amylase)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "Scheme says only 'matching carbohydrate product'; the example in brackets is added here.",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(d)",
+     "text": "What is the pH at A?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "pH 7 - 9",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(e)",
+     "text": "A is said to be the enzyme's ............ pH",
+     "marks": null,
+     "points": [
+      {
+       "answer": "optimum",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Parts (f) (temperature at which human enzymes work best: 35-40 C) and (g) (shape of an enzyme: folded) are general enzyme questions and are omitted here."
+  },
+  {
+   "id": "2006-Q5",
+   "source": "LC Biology HL 2006, Section A, Question 5",
+   "file": "papers/2006_ep_LC025ALPO00EV.pdf",
+   "page": 4,
+   "section": "A",
+   "stem": "Study the diagram and then answer the following questions.",
+   "diagram": {
+    "page": 4,
+    "what": "Outline of the liver (organ X) with the hepatic vein leaving and the hepatic artery entering at the top, and a branched vessel Y running from the intestine (a coiled tube below) up into the liver.",
+    "labels": {
+     "X": "liver",
+     "Y": "hepatic portal vein",
+     "Hepatic Vein": "given",
+     "Hepatic Artery": "given",
+     "Intestine": "given"
+    }
+   },
+   "total_marks": 20,
+   "scheme_rule": "6(3) + 2",
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Name X and Y.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "X: liver",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Y: (hepatic) portal vein",
+       "marks": null,
+       "accept": [
+        "portal system"
+       ]
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(b)",
+     "text": "Place arrows on Y, the hepatic artery and the hepatic vein to indicate the direction of blood flow.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Arrow 1 - on Y (hepatic portal vein): from the intestine towards the liver",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Arrow 2 - on the hepatic artery: into the liver",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Arrow 3 - on the hepatic vein: away from the liver",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "Scheme ambiguous: it lists only 'Arrow 1 - / Arrow 2 - / Arrow 3 -' with no directions given. The directions written here are the correct ones, inferred, not quoted from the scheme.",
+     "outcomes": [
+      "2.6.5",
+      "2.6.10"
+     ]
+    },
+    {
+     "label": "(c)",
+     "text": "State the precise location of organ X in the human body.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "upper abdomen",
+       "marks": null,
+       "accept": [
+        "under diaphragm",
+        "correctly related to stomach"
+       ]
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(f)",
+     "text": "State a role that organ X plays in the digestive process.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "(produces) bile",
+       "marks": null,
+       "accept": [
+        "emulsification",
+        "(produces) NaHCO3",
+        "neutralizes acid"
+       ]
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "The exam paper prints this part as (f) (there is no (d) or (e)); the marking scheme calls it (d).",
+     "outcomes": [
+      "2.6.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2008-Q12a",
+   "source": "LC Biology HL 2008, Section C, Question 12 (a)",
+   "file": "papers/2008_ep_LC025ALP000EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "total_marks": 9,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Distinguish between mechanical and chemical digestion.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "mechanical: physical or grinding or cutting or churning or chewing or emulsifying",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "chemical: enzyme or acidic action or molecular breakdown",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name a structure in the human digestive system, other than teeth, which is involved in mechanical digestion.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "tongue",
+       "marks": 3,
+       "accept": [
+        "oesophagus",
+        "stomach",
+        "small intestine",
+        "named part of small intestine"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2008-Q12b",
+   "source": "LC Biology HL 2008, Section C, Question 12 (b)",
+   "file": "papers/2008_ep_LC025ALP000EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "The diagram shows the human digestive system.",
+   "diagram": {
+    "page": 9,
+    "what": "Outline of the human digestive system in the trunk: oesophagus entering the stomach, liver (shaded) and pancreas, coiled small intestine framed by the large intestine, appendix at the lower left and rectum at the bottom.",
+    "labels": {
+     "A": "oesophagus",
+     "B": "stomach",
+     "C": "small intestine (ileum)",
+     "D": "rectum",
+     "E": "appendix",
+     "F": "large intestine (colon)"
+    }
+   },
+   "total_marks": 27,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name the parts A, B, C, D, E and F.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "A = oesophagus",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "B = stomach",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "C = small intestine",
+       "marks": 2,
+       "accept": [
+        "ileum"
+       ]
+      },
+      {
+       "answer": "D = rectum",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "E = appendix",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "F = large intestine",
+       "marks": 2,
+       "accept": [
+        "colon"
+       ]
+      }
+     ],
+     "rule": "6(2)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Describe two functions of bile in relation to digestion.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "emulsification or explained",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "neutralisation or raises pH or makes alkaline",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(iii) 1.",
+     "text": "Answer the following in relation to a lipase: Where is it secreted?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "pancreas",
+       "marks": 3,
+       "accept": [
+        "duodenum"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Scheme: [allow duodenum].",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(iii) 2.",
+     "text": "Where does it act?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "duodenum",
+       "marks": 3,
+       "accept": [
+        "small intestine",
+        "ileum"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(iii) 3.",
+     "text": "What is the approximate pH at its site of action?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "7 - 9 inclusive",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2008-Q12c",
+   "source": "LC Biology HL 2008, Section C, Question 12 (c)",
+   "file": "papers/2008_ep_LC025ALP000EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "total_marks": 24,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What are symbiotic bacteria?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "(bacteria that) live in (or on) another organism involving benefit",
+       "marks": 6,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "3.2.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Give two activities of symbiotic bacteria in the human digestive system.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "digestion",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "production of vitamins",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "benefit immune system",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "compete with other micro-organisms",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two, 2(3)",
+     "scheme_note": "Scheme: [allow one reference to harmful activity].",
+     "outcomes": [
+      "3.2.4"
+     ]
+    },
+    {
+     "label": "(iii) 1.",
+     "text": "Name the part(s) of the digestive system in which the following are absorbed into the blood: the products of digestion.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "ileum or villi",
+       "marks": 3,
+       "accept": [
+        "duodenum",
+        "small intestine"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Scheme: [allow duodenum or small intestine].",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(iii) 2.",
+     "text": "Name the part(s) of the digestive system in which the following are absorbed into the blood: water.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Colon",
+       "marks": 3,
+       "accept": [
+        "any named part from stomach onwards"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Scheme: [allow any named part from stomach onwards].",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Name a process involved in the passage of the products of digestion into the blood.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "diffusion",
+       "marks": 3,
+       "accept": [
+        "passive transport"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Scheme lists only diffusion or passive transport.",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Explain how the structure that you have named in (iii) 1. is adapted for the absorption of the products of digestion.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "large surface area (folding)",
+       "marks": 3,
+       "accept": [
+        "good blood supply",
+        "lymph supply",
+        "(lining) one cell thick",
+        "long",
+        "villi",
+        "microvilli"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Parts (i)-(ii) (symbiotic gut bacteria) are on the new course under the microbiome (3.2.4), not 2.6."
+  },
+  {
+   "id": "2009-Q13b",
+   "source": "LC Biology HL 2009, Section C, Question 13 (b)",
+   "file": "papers/2009_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "(ii) Comment on the effect of each of the following on the circulatory system: 1. Diet. 2. Exercise.",
+   "diagram": null,
+   "total_marks": 27,
+   "parts": [
+    {
+     "label": "(ii) 1.",
+     "text": "Comment on the effect of diet on the circulatory system.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Dietary factor + matching effect",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Scheme gives no examples. A typical acceptable answer would name a dietary factor and its effect (e.g. a diet high in saturated fat/cholesterol leads to fatty deposits in arteries / raised blood pressure / heart disease) - this example is not from the scheme.",
+     "outcomes": [
+      "2.6.6"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "This is one part of a circulatory-system question; included for dietary choices (2.6.6). The rest of Q13 belongs to the circulatory chapter."
+  },
+  {
+   "id": "2010-Q15b",
+   "source": "LC Biology HL 2010, Section C, Question 15 (b)",
+   "file": "papers/2010_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "total_marks": 30,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Draw a labelled diagram to show the relationship between the liver, the small intestine and the hepatic portal vein.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Diagram (liver, connection, gut)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Label: liver",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Label: intestine",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Label: portal vein",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "Diagram 3, 0; labels 3(2)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name a substance transported to the liver by the blood in the hepatic portal vein.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Named food",
+       "marks": 3,
+       "accept": [
+        "CO2"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Name the blood vessel that brings oxygenated blood to the liver.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Hepatic artery",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* = a correct answer is cancelled by adding an incorrect one.",
+     "outcomes": [
+      "2.6.10"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Where in the human body is the liver located in relation to the stomach?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Above",
+       "marks": 3,
+       "accept": [
+        "to the right",
+        "behind"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Scheme accepts 'behind'; anatomically the liver lies above and to the right of the stomach, partly overlapping it in front.",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Where is bile stored after it has been made in the liver?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Gall bladder",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "Give one role that the bile salts play in the digestive process.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Emulsify fats (or explained)",
+       "marks": 3,
+       "accept": [
+        "neutralise (or comment on pH)"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(vii)",
+     "text": "Give two further functions of the liver, other than the manufacture of bile.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Storage of (fat-soluble) vitamins (or glycogen or named mineral)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "deamination",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "heat generation",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "detoxification",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "plasma protein production",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "cholesterol production",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two, 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2010-Q15c",
+   "source": "LC Biology HL 2010, Section C, Question 15 (c)",
+   "file": "papers/2010_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "Suggest a biological explanation for each of the following observations:",
+   "diagram": null,
+   "total_marks": 30,
+   "parts": [
+    {
+     "label": "(iii)",
+     "text": "A person who has suffered from constipation may be advised to increase the amount of wholegrain cereal in her/his diet.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Adds fibre",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "fibre absorbs water",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "peristalsis encouraged",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "faster digestive transit",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two, 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.6"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Only part (iii) of 15(c) is on digestion."
+  },
+  {
+   "id": "2011-Q5",
+   "source": "LC Biology HL 2011, Section A, Question 5",
+   "file": "papers/2011_ep_LC025ALP000EV.pdf",
+   "page": 4,
+   "section": "A",
+   "stem": "(b) The diagram shows part of the human alimentary canal and associated structures.",
+   "diagram": {
+    "page": 4,
+    "what": "A large oval organ X joined by the bile duct to a C-shaped tube W; the pancreatic duct from the pancreas joins the bile duct where it enters W.",
+    "labels": {
+     "W": "duodenum",
+     "X": "gall bladder (scheme also accepts liver)",
+     "bile duct": "given",
+     "pancreas": "given"
+    }
+   },
+   "total_marks": 20,
+   "scheme_rule": "6(3) + 2",
+   "parts": [
+    {
+     "label": "(a)(i)",
+     "text": "What is meant by the term digestion?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "The breakdown of food",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(a)(ii)",
+     "text": "Why is digestion necessary?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "For solubility",
+       "marks": null,
+       "accept": [
+        "for absorption",
+        "for transport"
+       ]
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(a)(iii)",
+     "text": "Distinguish between mechanical and chemical digestion by writing a sentence about each.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Mechanical: physical or grinding or cutting or churning or chewing or emulsifying",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Chemical: (action of) enzyme or named enzyme or (action of) acid or named acid",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(b)(i)",
+     "text": "What part of the alimentary canal is labelled W?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Duodenum",
+       "marks": null,
+       "accept": [
+        "small intestine"
+       ]
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(b)(ii)",
+     "text": "The bile duct is connected to X. Name X.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Gall bladder",
+       "marks": null,
+       "accept": [
+        "liver"
+       ]
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(b)(iii)",
+     "text": "From which part of the alimentary canal does food arrive into W?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Stomach",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(b)(iv)",
+     "text": "State one digestive function of the pancreas.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "(Produces) enzymes or named enzyme",
+       "marks": null,
+       "accept": [
+        "neutralises (chyme)"
+       ]
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2012-Q15a",
+   "source": "LC Biology HL 2012, Section C, Question 15 (a)",
+   "file": "papers/2012_ep_LC025ALP000EV.pdf",
+   "page": 13,
+   "section": "C",
+   "stem": "The diagram shows part of a transverse section through the small intestine.",
+   "diagram": {
+    "page": 13,
+    "what": "Three finger-like villi on the inner lining of the small intestine, each with a central vessel; beneath them a band of two muscle layers.",
+    "labels": {
+     "X": "villus",
+     "Y": "lacteal",
+     "Z": "muscle layers (circular and longitudinal) - their contraction causes peristalsis"
+    }
+   },
+   "total_marks": 30,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name structures X and Y.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "(X =) *Villus",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Y =) *Lacteal",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* = a correct answer is cancelled by adding an incorrect one.",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "What process results from the contraction of the two parts of tissue Z?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Peristalsis",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "In your answer book, indicate which of the following most accurately represents the pH of the contents of the small intestine. Acidic. Neutral. Alkaline.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Alkaline",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Name two glands that pass their secretions into the small intestine.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "*Pancreas",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "*Liver",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(v) 1.",
+     "text": "What are symbiotic bacteria?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(Bacteria) living on or in another organism involving benefit",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "3.2.4"
+     ]
+    },
+    {
+     "label": "(v) 2.",
+     "text": "Give two functions of symbiotic bacteria in the human alimentary canal.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Vitamin production",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "compete with pathogens",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "reference to digestion",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "inhibits cancer cells",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two, 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "3.2.4"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "Where in the human alimentary canal is most water absorbed?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Colon",
+       "marks": 3,
+       "accept": [
+        "*large intestine"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Scheme gives colon or large intestine. Note: in fact most water is absorbed in the small intestine; for the exam, give the scheme answer.",
+     "outcomes": [
+      "2.6.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Part (v) (symbiotic gut bacteria) is on the new course under the microbiome (3.2.4), not 2.6."
+  },
+  {
+   "id": "2012-Q15c",
+   "source": "LC Biology HL 2012, Section C, Question 15 (c)",
+   "file": "papers/2012_ep_LC025ALP000EV.pdf",
+   "page": 13,
+   "section": "C",
+   "stem": "(iii) State one way in which each of the following contributes to homeostasis. 1. Liver. 2. Lungs. 3. Nephrons of kidneys.",
+   "diagram": null,
+   "total_marks": 30,
+   "parts": [
+    {
+     "label": "(iii) 1.",
+     "text": "Liver.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Absorption of glucose",
+       "marks": 3,
+       "accept": [
+        "release of glucose",
+        "heat generation"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Only the liver item is included here (glucose uptake/release is linked to glycogen storage in the liver). Lungs and nephrons belong to other chapters.",
+     "outcomes": [
+      "2.6.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Homeostasis question; only the liver part is relevant to this chapter."
+  },
+  {
+   "id": "2013-Q10a",
+   "source": "LC Biology HL 2013, Section C, Question 10 (a)",
+   "file": "papers/2013_ep_LC025ALP000EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "(i) What term is used for glands that secrete hormones? (ii) How do these glands differ from those that do not secrete hormones?",
+   "diagram": null,
+   "total_marks": 9,
+   "parts": [
+    {
+     "label": "(iii)",
+     "text": "Explain why the pancreas may be described as a dual-function gland.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Hormone (or insulin) secretion & non-hormone (enzyme) secretions",
+       "marks": 3,
+       "accept": [
+        "has endocrine and exocrine function (or described)"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Endocrine-system question; only (iii) touches the pancreas's digestive (enzyme-secreting) role. (i) endocrine and (ii) ductless belong to the endocrine chapter."
+  },
+  {
+   "id": "2014-Q2a",
+   "source": "LC Biology HL 2014, Section A, Question 2 (a)",
+   "file": "papers/2014_ep_LC025ALP000EV.pdf",
+   "page": 2,
+   "section": "A",
+   "stem": "The following biochemical reactions took place in some living cells:",
+   "diagram": null,
+   "total_marks": 20,
+   "scheme_rule": "7 + 6 + 7(1)",
+   "parts": [
+    {
+     "label": "(ii)",
+     "text": "Fat --(X)--> Fatty Acids + Y. Identify X and Y.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "X = lipase",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Y = glycerol",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "7 + 6 + 7(1) for the whole question",
+     "scheme_note": "This is a biomolecules question (catabolism), not set in the gut; included because it tests the products of a lipase.",
+     "outcomes": [
+      "2.6.4",
+      "1.2.1"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Rest of Q2 is biomolecules (catabolism, phospholipids, vitamins, minerals) - other chapter."
+  },
+  {
+   "id": "2015-Q11a",
+   "source": "LC Biology HL 2015, Section C, Question 11 (a)",
+   "file": "papers/2015_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "total_marks": 9,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Humans are heterotrophic and omnivorous. Explain each of these terms.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Heterotrophic: must consume food or eats other organisms or cannot make their food",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Omnivorous: eats both animal and plant (material)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Heterotrophic nutrition is on the new course under microorganisms (3.2.1); omnivore under ecology/feeding relationships.",
+     "outcomes": [
+      "3.2.1"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "What is meant by a balanced diet?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Correct amounts of each food type (for health)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.6"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "(i) is taught elsewhere in the new course (nutrition types, ecology), not in 2.6."
+  },
+  {
+   "id": "2015-Q11b",
+   "source": "LC Biology HL 2015, Section C, Question 11 (b)",
+   "file": "papers/2015_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "total_marks": 27,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Draw a large diagram of the human alimentary canal and its associated glands. On your diagram label all of the following: 1. Two associated glands. Name each gland labelled and put the letter G in brackets after each name to indicate it is a gland. 2. Two parts of the small intestine. Name each part labelled and put the letter S in brackets after each name to indicate it is part of the small intestine. 3. Two parts of the large intestine. Name each part labelled and put the letter L in brackets after each name to indicate it is part of the large intestine.",
+     "marks": 18,
+     "points": [
+      {
+       "answer": "Diagram: continuous tube + stomach + intestines + a gland",
+       "marks": 6,
+       "accept": []
+      },
+      {
+       "answer": "1. Liver / salivary glands / pancreas (two, each marked G)",
+       "marks": 4,
+       "accept": []
+      },
+      {
+       "answer": "2. Duodenum / ileum (each marked S)",
+       "marks": 4,
+       "accept": []
+      },
+      {
+       "answer": "3. Colon / caecum (or appendix) / rectum (two, each marked L)",
+       "marks": 4,
+       "accept": []
+      }
+     ],
+     "rule": "Diagram 6, 3, 0; each of 1, 2, 3: 2(2, 1, 0)",
+     "scheme_note": "Each label item scores 2, 1 or 0 for each of the two names.",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(ii) 1.",
+     "text": "Answer the following questions in relation to lipase. What is lipase?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Enzyme that digests lipids (or fats or oils)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(ii) 2.",
+     "text": "Give one part of the alimentary canal that secretes lipase.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Stomach or duodenum",
+       "marks": 3,
+       "accept": [
+        "small intestine",
+        "ileum",
+        "salivary glands",
+        "pancreas"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Scheme: [accept small intestine or ileum or salivary glands or pancreas].",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(ii) 3.",
+     "text": "What is the approximate pH at the site of lipase action?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Stomach: (pH) < 7; Duodenum or small intestine or ileum: (pH) 7 - 9",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "The pH must match the site given.",
+     "outcomes": [
+      "2.6.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2015-Q11c",
+   "source": "LC Biology HL 2015, Section C, Question 11 (c)",
+   "file": "papers/2015_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "",
+   "diagram": {
+    "page": 10,
+    "what": "Black-and-white photograph of the front teeth of a mammal with its lips drawn back: a row of small incisors with very long, pointed canines on each side (a carnivore).",
+    "labels": {}
+   },
+   "total_marks": 24,
+   "parts": [
+    {
+     "label": "(i) 1.",
+     "text": "Write the dental formula for an adult human with a full set of teeth.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "I 2/2 C 1/1 PM 2/2 M 3/3",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Scheme prints the formula as fractions (upper jaw over lower jaw).",
+     "outcomes": []
+    },
+    {
+     "label": "(i) 2.",
+     "text": "Give one difference between the dental formula referred to above and the tooth arrangement of the mammal in the photograph below.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(Humans have) fewer incisors (or fewer canines)",
+       "marks": 3,
+       "accept": [
+        "Animal shown has more incisors (or more canines)"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": []
+    },
+    {
+     "label": "(i) 3.",
+     "text": "What type of food do you think is mainly consumed by the mammal in the photograph? Explain your answer.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Type of food: meat or flesh or other animals",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Explanation: long (or sharp or pointed or large or extra) canines (or incisors)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Give two functions of the large intestine.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Absorption of water",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "peristalsis",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "egestion",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "absorb vitamins",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two, 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Outline two beneficial functions of the bacteria that live in the digestive tract.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Production of vitamins",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "compete with other micro-organisms",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "digestion",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "benefit immune system",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two, 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "3.2.4"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "Dental formula and comparing another mammal's teeth (c)(i)1-2 are not on the new course (only the role of teeth). Gut bacteria (iii) are under the microbiome (3.2.4)."
+  },
+  {
+   "id": "2016-Q12a",
+   "source": "LC Biology HL 2016, Section C, Question 12 (a)",
+   "file": "papers/2016_ep_LC025ALP000EV.pdf",
+   "page": 12,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "total_marks": 9,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Distinguish between the terms excretion and egestion by writing a sentence about each term.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Excretion: Removal of metabolic waste",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Egestion: Removal of undigested (or unabsorbed) material",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4",
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Part (ii) (excretion in Amoeba) omitted; the excretion half of (i) also belongs to the urinary chapter."
+  },
+  {
+   "id": "2016-Q15a",
+   "source": "LC Biology HL 2016, Section C, Question 15 (a)",
+   "file": "papers/2016_ep_LC025ALP000EV.pdf",
+   "page": 15,
+   "section": "C",
+   "stem": "(ii) In each of the following cases name a vein which fits the description.",
+   "diagram": null,
+   "total_marks": 30,
+   "parts": [
+    {
+     "label": "(ii) 5.",
+     "text": "Has capillaries at both ends.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Hepatic portal (vein)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5",
+      "2.6.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Circulatory-system question about veins; only item 5 (hepatic portal vein) is included."
+  },
+  {
+   "id": "2016-Q15c",
+   "source": "LC Biology HL 2016, Section C, Question 15 (c)",
+   "file": "papers/2016_ep_LC025ALP000EV.pdf",
+   "page": 15,
+   "section": "C",
+   "stem": "(iii) Explain the biological basis of each of the following.",
+   "diagram": null,
+   "total_marks": 30,
+   "parts": [
+    {
+     "label": "(iii) 4.",
+     "text": "Increasing the amount of wholegrain foods in the diet.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Stimulates peristalsis",
+       "marks": 3,
+       "accept": [
+        "moves food through alimentary canal"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.6"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Only item 4 of 15(c)(iii) is on this chapter."
+  },
+  {
+   "id": "2017-Q14c",
+   "source": "LC Biology HL 2017, Section C, Question 14 (c)",
+   "file": "papers/2017_ep_LC025ALP000EV.pdf",
+   "page": 14,
+   "section": "C",
+   "stem": "In each of the following, state two features that show how the named structure is adapted to carry out the named function.",
+   "diagram": null,
+   "total_marks": 30,
+   "scheme_rule": "5(4) + 5(2) across (c)(i)-(v)",
+   "parts": [
+    {
+     "label": "(iii)",
+     "text": "An intestinal villus for absorbing soluble food.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Wall one cell thick",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "large surface area (or microvilli)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "lacteal",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "rich blood supply",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any two; whole of (c) marked 5(4) + 5(2)",
+     "scheme_note": "Marks per point depend on position among the 10 points of (c) (first five 4 marks, next five 2 marks).",
+     "outcomes": [
+      "2.6.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Other items (lens, neuron, glomerulus, flower) belong to other chapters."
+  },
+  {
+   "id": "2018-Q12b",
+   "source": "LC Biology HL 2018, Section C, Question 12 (b)",
+   "file": "papers/2018_ep_LC025ALP000EV.pdf",
+   "page": 12,
+   "section": "C",
+   "stem": "Answer the following questions from your knowledge of respiration.",
+   "diagram": null,
+   "total_marks": 27,
+   "scheme_rule": "Equation 6, 4, 0; parts (ii) to (vi), inclusive 5 + 3(4) + 4(1)",
+   "parts": [
+    {
+     "label": "(ii) 1.",
+     "text": "Name the storage polysaccharide in humans from which glucose is produced.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "*Glycogen",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "parts (ii)-(vi): 5 + 3(4) + 4(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5",
+      "1.2.1"
+     ]
+    },
+    {
+     "label": "(ii) 2.",
+     "text": "Give one major storage location of this polysaccharide in the body.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Liver",
+       "marks": null,
+       "accept": [
+        "muscle"
+       ]
+      }
+     ],
+     "rule": "parts (ii)-(vi): 5 + 3(4) + 4(1)",
+     "scheme_note": "Respiration question; included for glycogen storage in the liver.",
+     "outcomes": [
+      "2.6.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Rest of 12(b) is respiration (other chapter)."
+  },
+  {
+   "id": "2018-Q15b",
+   "source": "LC Biology HL 2018, Section C, Question 15 (b)",
+   "file": "papers/2018_ep_LC025ALP000EV.pdf",
+   "page": 15,
+   "section": "C",
+   "stem": "Give a detailed biological explanation for each of the following.",
+   "diagram": null,
+   "total_marks": 30,
+   "scheme_rule": "2(5) + 4(4) + 4(1) across (b)(i)-(v)",
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Bile contains bile salts e.g. sodium hydrogencarbonate (NaHCO3).",
+     "marks": null,
+     "points": [
+      {
+       "answer": "(They) emulsify fats",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "neutralise acid from stomach or neutralise chyme",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "provide optimum (or suitable) pH for enzymes (in the duodenum)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any two; whole of (b) marked 2(5) + 4(4) + 4(1)",
+     "scheme_note": "Marks per point depend on position among the 10 points of (b). Note: the question wrongly calls NaHCO3 a bile salt; bile salts emulsify fats, while the hydrogencarbonate neutralises acid.",
+     "outcomes": [
+      "2.6.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Other items of 15(b) belong to other chapters."
+  },
+  {
+   "id": "2019-Q15b",
+   "source": "LC Biology HL 2019, Section C, Question 15 (b)",
+   "file": "papers/2019_ep_LC025ALP040EV.pdf",
+   "page": 8,
+   "section": "C",
+   "stem": "Answer the following questions from your knowledge of the human digestive system.",
+   "diagram": null,
+   "total_marks": 30,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What is meant by the term digestion?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Breaking down food",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Give two reasons why digestion is necessary.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "To make food soluble",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "easier to absorb",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "easier to transport",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two, 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Name and describe the method by which food is passed along the alimentary canal.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "*Peristalsis",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Description: Muscular contractions (of the walls of the alimentary canal)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Name an enzyme that digests dietary protein.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Protease or pepsin (or other named protease)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Where is this enzyme produced?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Stomach",
+       "marks": 3,
+       "accept": [
+        "small intestine",
+        "duodenum",
+        "ileum",
+        "pancreas"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Must match answer (iv).",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "Where is this enzyme active?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Stomach",
+       "marks": 3,
+       "accept": [
+        "small intestine",
+        "duodenum",
+        "ileum"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Must match answer (iv) and must also match (v) where (v) is answered correctly.",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(vii)",
+     "text": "Name the products formed by the complete digestion of a protein molecule.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Amino acids",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(viii)",
+     "text": "These products are transported to the liver. Name the blood vessel that transports these digestion products to the liver.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Hepatic portal vein",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2020-Q13b",
+   "source": "LC Biology HL 2020, Section C, Question 13 (b)",
+   "file": "papers/2020_ep_LC025ALP040EV.pdf",
+   "page": 5,
+   "section": "C",
+   "stem": "Urine produced by the kidney contains water, salts and urea.",
+   "diagram": null,
+   "total_marks": 27,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "State the precise location in the body where urea is made.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Liver",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "(b)(i)-(iii) are marked by number of correct responses: 1 = 3, 2 = 6, 3 = 9, 4 = 12, 5 = 15.",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name the food biomolecule from which urea is derived.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Protein",
+       "marks": 3,
+       "accept": [
+        "*Amino acids"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Urinary-system question; (i)-(ii) test deamination in the liver. (iii)-(iv) on kidney structure belong to the urinary chapter."
+  },
+  {
+   "id": "2021-Q14a",
+   "source": "LC Biology HL 2021, Section C, Question 14 (a)",
+   "file": "papers/2021_ep_LC025ALP040EV.pdf",
+   "page": 5,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "total_marks": 9,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What is meant by the term digestion?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "The breakdown of food",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Why is digestion necessary in humans?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "To make nutrients (or food) soluble",
+       "marks": 3,
+       "accept": [
+        "for absorption of nutrients (or food)",
+        "for transport of nutrients (or food)"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "What name is given to the removal of undigested wastes from the human body?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Egestion",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2021-Q14b",
+   "source": "LC Biology HL 2021, Section C, Question 14 (b)",
+   "file": "papers/2021_ep_LC025ALP040EV.pdf",
+   "page": 5,
+   "section": "C",
+   "stem": "The diagram shows a longitudinal section (L.S.) of a villus from the human digestive system.",
+   "diagram": {
+    "page": 5,
+    "what": "3-D cut-away L.S. of a villus with neighbouring villi: surface epithelium, a network of blood capillaries, and a central vessel X; the base of the intestinal wall is shown below.",
+    "labels": {
+     "Epithelium": "given",
+     "X": "lacteal",
+     "Blood capillary": "given"
+    }
+   },
+   "total_marks": 27,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Give the precise location where villi are most abundant.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Small intestine",
+       "marks": 3,
+       "accept": [
+        "ileum",
+        "duodenum",
+        "jejunum"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "What is the main function of villi?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "To increase surface area",
+       "marks": 3,
+       "accept": [
+        "for absorption (of nutrients)"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Name the part labelled X and state its role.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Name: *Lacteal",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Role: To absorb (digested) fats (or fatty acids)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Name the blood vessel that carries digested nutrients away from the digestive system.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Hepatic portal vein",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "To what organ in the body are digested nutrients first transported?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Liver",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "Give one function of the organ you named at part (v) above other than the storage of nutrients.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Detoxification",
+       "marks": 3,
+       "accept": [
+        "produces bile",
+        "breaks down red blood cells",
+        "deamination",
+        "any other valid function"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(vii)",
+     "text": "Name and explain the process of how food is moved along the digestive system.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Name: *Peristalsis",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Explain: Muscular contractions",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2022-Q6",
+   "source": "LC Biology HL 2022, Section A, Question 6",
+   "file": "papers/2022_ep_LC025ALP038EV.pdf",
+   "page": 8,
+   "section": "A",
+   "stem": "A student carried out an experiment comparing the action of lipase on its own with the action of both lipase and bile salts on lipid digestion over time. The graph below illustrates the student's experimental results.",
+   "diagram": {
+    "page": 8,
+    "what": "Graph of mass of lipid digested (y) against time (x), no scale. Solid line (lipase and bile salts) rises steeply and levels off early; dashed line (lipase) rises more slowly and reaches the same level only at the end.",
+    "labels": {
+     "solid line": "Lipase and bile salts",
+     "dashed line": "Lipase"
+    }
+   },
+   "total_marks": 20,
+   "scheme_rule": "6(3) + 2",
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "What conclusion could the student make about lipid digestion based on the graph of results shown above?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(Lipid digestion) is faster (higher rate) with both lipase and bile salts (than with lipase alone)",
+       "marks": 3,
+       "accept": [
+        "(Lipid digestion) is slower (lower rate) with lipase alone"
+       ]
+      }
+     ],
+     "rule": "6(3) + 2: 7 responses = 20 marks",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(b)",
+     "text": "Name the two products of complete lipid digestion by lipase.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Fatty acids",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Glycerol",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(c)",
+     "text": "Name a location in the digestive system where lipase digests lipids.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Duodenum",
+       "marks": 3,
+       "accept": [
+        "jejunum",
+        "ileum",
+        "small intestine",
+        "stomach"
+       ]
+      }
+     ],
+     "rule": "6(3) + 2",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(d)",
+     "text": "Suggest an optimum pH for digestion of lipids in the location you named at part (c) above.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "7-9 (matched to small intestine)",
+       "marks": 3,
+       "accept": [
+        "in range of 1-5 matched to stomach"
+       ]
+      }
+     ],
+     "rule": "6(3) + 2",
+     "scheme_note": "Must match location in (c).",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(e)",
+     "text": "Describe the action of bile salts on lipids.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Emulsifies (or described)",
+       "marks": 3,
+       "accept": [
+        "increases surface area"
+       ]
+      }
+     ],
+     "rule": "6(3) + 2",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(f)",
+     "text": "Villi are microscopic structures in the digestive system that aid the absorption of nutrients. Name the structure inside each villus that absorbs the products of lipid digestion.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Lacteal",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2",
+     "scheme_note": "Seventh correct response earns 2, not 3 (total 20).",
+     "outcomes": [
+      "2.6.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2023-Q17c",
+   "source": "LC Biology HL 2023, Section C, Question 17 (c)",
+   "file": "papers/2023_ep_LC025ALP040EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "Answer the following questions in relation to your knowledge of the human circulatory and breathing systems. (i) In each of the following, name the vein that best matches the description:",
+   "diagram": null,
+   "total_marks": 30,
+   "parts": [
+    {
+     "label": "(i) 2.",
+     "text": "Carries blood between the intestine and the liver.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Hepatic portal (vein)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "10(3) for the whole of (c)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5",
+      "2.6.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Circulatory/breathing question; only item (i) 2 is on this chapter."
+  },
+  {
+   "id": "2024-Q3",
+   "source": "LC Biology HL 2024, Section A, Question 3",
+   "file": "papers/2024_ep_LC025ALP038EV.pdf",
+   "page": 5,
+   "section": "A",
+   "stem": "The diagram shows the human alimentary canal.",
+   "diagram": {
+    "page": 5,
+    "what": "Line drawing of the alimentary canal from the mouth to the rectum: a long tube A from the mouth to the stomach, a large organ B on the left above the stomach, a gland C behind and below the stomach, and the coiled small intestine framed by the large intestine.",
+    "labels": {
+     "A": "oesophagus",
+     "B": "liver",
+     "C": "pancreas",
+     "Small intestine": "given"
+    }
+   },
+   "total_marks": 20,
+   "scheme_rule": "(a) 3(1); (b)-(f) 5(3) + 2",
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Name tube A, organ B and gland C.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Tube A: Oesophagus",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Organ B: Liver",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Gland C: Pancreas",
+       "marks": 1,
+       "accept": []
+      }
+     ],
+     "rule": "3(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(b)",
+     "text": "Give one function of tube A.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Transport food to the stomach",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(b)-(f): 5(3) + 2",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(c)",
+     "text": "Give one function of organ B.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Produce bile",
+       "marks": 3,
+       "accept": [
+        "stores vitamins",
+        "store minerals",
+        "stores glycogen",
+        "produces plasma proteins",
+        "detoxifies",
+        "other correct"
+       ]
+      }
+     ],
+     "rule": "(b)-(f): 5(3) + 2",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4",
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(d)",
+     "text": "Give one function of gland C in relation to the digestive system.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Produces pancreatic juice",
+       "marks": 3,
+       "accept": [
+        "correctly named substance",
+        "named enzyme"
+       ]
+      }
+     ],
+     "rule": "(b)-(f): 5(3) + 2",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(e)",
+     "text": "State one structural feature of the small intestine that enables it to carry out its function.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Long",
+       "marks": 3,
+       "accept": [
+        "has villi",
+        "has a large network of capillaries",
+        "thin walls",
+        "other correct"
+       ]
+      }
+     ],
+     "rule": "(b)-(f): 5(3) + 2",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(f)",
+     "text": "Symbiotic bacteria are present in the alimentary canal. Give two functions of these symbiotic bacteria.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Vitamin (B and K) production",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "compete with pathogens",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "reference to digestion",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "other correct",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two; (b)-(f): 5(3) + 2",
+     "scheme_note": "Six responses in (b)-(f): five at 3 marks and one at 2 (17 marks).",
+     "outcomes": [
+      "3.2.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Part (f) (gut bacteria) is on the new course under the microbiome (3.2.4), not 2.6."
+  },
+  {
+   "id": "2024-Q17a",
+   "source": "LC Biology HL 2024, Section C, Question 17 (a)",
+   "file": "papers/2024_ep_LC025ALP040EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "The graph below shows how the rate of activity of two human digestive enzymes (A and B) changes with pH.",
+   "diagram": {
+    "page": 9,
+    "what": "Graph of enzyme activity (y) against pH 0-10 (x) on a grid. Solid curve A: activity from about pH 1 to 3, peak at pH 2. Dashed curve B: activity from about pH 6 to 8, peak at pH 7.",
+    "labels": {
+     "A": "optimum pH 2 (stomach enzyme, e.g. pepsin)",
+     "B": "optimum pH 7"
+    }
+   },
+   "total_marks": 30,
+   "parts": [
+    {
+     "label": "(i) 1.",
+     "text": "What is the optimal pH of enzyme A?",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "*2",
+       "marks": 4,
+       "accept": []
+      }
+     ],
+     "rule": "2(4)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(i) 2.",
+     "text": "What is the optimal pH of enzyme B?",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "*7",
+       "marks": 4,
+       "accept": []
+      }
+     ],
+     "rule": "2(4)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Which of these enzymes (A or B) is most likely to be found in the stomach? Justify your answer.",
+     "marks": 7,
+     "points": [
+      {
+       "answer": "Enzyme: *A",
+       "marks": 4,
+       "accept": []
+      },
+      {
+       "answer": "Justify: pH in the stomach is low or acidic environment in the stomach",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "1(4) + 1(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Amylase, lipase and protease are three enzymes found in the human digestive system. Amylase acts on starch, lipase acts on lipids, and protease acts on proteins. Give the product(s) of each enzyme.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Amylase: *Maltose",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Lipase: *Glycerol and fatty acids",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Protease: *Amino acids or peptides",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "3(2)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Part (iii) (active site theory, 3(3) = 9 marks) is a general enzyme question and is omitted here."
+  },
+  {
+   "id": "2025-Q6",
+   "source": "LC Biology HL 2025, Section A, Question 6",
+   "file": "papers/2025_ep_LC025ALP038EV.pdf",
+   "page": 8,
+   "section": "A",
+   "stem": "The diagram shows the human digestive system.",
+   "diagram": {
+    "page": 8,
+    "what": "Shaded outline of a human head and trunk showing the digestive system: a tube A running down the neck and chest, a sac-like organ B beside the liver, the small intestine framed by the large intestine; an arrow from the 'Pancreas' label points to the area under the stomach.",
+    "labels": {
+     "A": "oesophagus",
+     "B": "stomach",
+     "Pancreas": "given",
+     "Small intestine": "given"
+    }
+   },
+   "total_marks": 20,
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Name the parts labelled A and B.",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "A: Oesophagus",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "B: Stomach",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(b)",
+     "text": "Name and describe briefly the method by which food travels through structure A.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Name: Peristalsis",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Description: (involuntary) muscular contractions (that push food)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(c)",
+     "text": "How does the pH of the food material change as it travels from A to B?",
+     "marks": 2,
+     "points": [
+      {
+       "answer": "Lowers",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(d)",
+     "text": "Name the enzyme produced in the pancreas which digests lipids.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Lipase",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    },
+    {
+     "label": "(e)",
+     "text": "The villus is present in the small intestine. In the space below, draw and label the internal structure of a villus.",
+     "marks": 5,
+     "points": [
+      {
+       "answer": "Drawing: villus / lacteal / blood vessels (any two)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Labels: villus / lacteal / capillary (or blood vessel or named) (any two)",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "Drawing any two = 3; labels any two 2(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2025-Q17a",
+   "source": "LC Biology HL 2025, Section C, Question 17 (a)",
+   "file": "papers/2025_ep_LC025ALP040EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "(i) Using the diagram as an aid, answer the following questions:",
+   "diagram": {
+    "page": 9,
+    "what": "Diagram of the double circulation: heart in the centre, lungs above, and below them the liver, gut, kidneys and lower body capillary beds, joined by blood vessels.",
+    "labels": {}
+   },
+   "total_marks": 30,
+   "parts": [
+    {
+     "label": "(i) 4.",
+     "text": "Name the blood vessel that is carrying blood highest in nutrients.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Hepatic portal vein",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5",
+      "2.6.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Circulatory-system question; only item (i) 4 is on this chapter."
+  },
+  {
+   "id": "2026-Q7c",
+   "source": "LC Biology HL 2026, Section A, Question 7 (c)",
+   "file": "papers/2026_ep_LC025ALP038EV.pdf",
+   "page": 9,
+   "section": "A",
+   "stem": "For each of the following structures, identify its precise location and its main function.",
+   "diagram": null,
+   "total_marks": 20,
+   "parts": [
+    {
+     "label": "(c)",
+     "text": "Gall bladder",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "Precise location: Underneath liver",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Main function: Storage of bile",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Other structures in Q7 (retina, SA node, adrenal gland, cerebellum) belong to other chapters."
+  },
+  {
+   "id": "2026-Q17a",
+   "source": "LC Biology HL 2026, Section C, Question 17 (a)",
+   "file": "papers/2026_ep_LC025ALP040EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "(vi) Describe the effects of the following factors on the circulatory system: 1. Exercise 2. Diet",
+   "diagram": null,
+   "total_marks": 30,
+   "parts": [
+    {
+     "label": "(vi) 2.",
+     "text": "Diet",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Correct matching effect described",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Scheme gives no examples. A typical acceptable answer: a diet high in saturated fat/cholesterol or salt raises blood pressure / causes fatty deposits in arteries / heart disease (example not from the scheme).",
+     "outcomes": [
+      "2.6.6"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Circulatory-system question; only the diet item is included (dietary choices, 2.6.6)."
+  },
+  {
+   "id": "S1-Q1a",
+   "source": "LC Biology HL Sample Paper 1 (new course, 2027), Question 1 (a)",
+   "file": "sample/lc-biology-2027-1-qp-smlwu.pdf",
+   "page": 3,
+   "section": "sample",
+   "stem": "",
+   "diagram": {
+    "page": 3,
+    "what": "Two colour pictures of organs: left, a large reddish-brown lobed organ with blood vessels (A); right, a yellow lobular gland lying in the curve of the duodenum, with the green gall bladder attached above (B).",
+    "labels": {
+     "A": "liver",
+     "B": "pancreas"
+    }
+   },
+   "total_marks": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Identify each of the following organs (A and B) associated with the digestive system.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "A: liver",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "B: pancreas",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "No official scheme.",
+     "outcomes": [
+      "2.6.4"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(ii)",
+     "text": "Describe a role organ A plays in digestion.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Makes bile (stored in the gall bladder and released into the duodenum)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Bile salts emulsify fats/lipids into small droplets, increasing the surface area for lipase",
+       "marks": null,
+       "accept": [
+        "neutralises acidic chyme / raises the pH to suit enzymes in the duodenum"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "No official scheme. Likely: one role described (making bile plus what bile does).",
+     "outcomes": [
+      "2.6.4"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "S1-Q6c",
+   "source": "LC Biology HL Sample Paper 1 (new course, 2027), Question 6 (c)",
+   "file": "sample/lc-biology-2027-1-qp-smlwu.pdf",
+   "page": 26,
+   "section": "sample",
+   "stem": "Read the article and answer the questions that follow. 'Helicobacter pylori and peptic ulcers: Helicobacter pylori (H. pylori) is a species of bacteria that has evolved to survive in the acidic environment of the stomach. It weakens the mucus lining allowing acid to damage the stomach wall, causing painful disorders such as peptic ulcers. Long term infection by H. pylori can inhibit genes that regulate normal cell division of epithelial cells in the stomach leading to cancer.' (Adapted from mayoclinic.org)",
+   "diagram": {
+    "page": 26,
+    "what": "Small drawing of the stomach with an ulcer marked on its wall.",
+    "labels": {
+     "Ulcer": "given",
+     "Stomach": "given"
+    }
+   },
+   "total_marks": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What is the normal pH of the stomach?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "pH 2",
+       "marks": null,
+       "accept": [
+        "about pH 1-3",
+        "acidic (with a value in this range)"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "No official scheme. Old-course schemes accept stomach pH < 7 / 1-5 where matched to the stomach; a number around 2 is safest.",
+     "outcomes": [
+      "2.6.4"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(ii)",
+     "text": "State a function of the acid produced in the stomach.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Kills bacteria / micro-organisms (pathogens) in food",
+       "marks": null,
+       "accept": [
+        "provides the optimum (low) pH for pepsin (protease)",
+        "activates pepsinogen to pepsin",
+        "helps break down (denature) proteins"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "No official scheme.",
+     "outcomes": [
+      "2.6.4"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": "Parts (iii) (epigenetics) and (iv) (mutations) belong to genetics chapters."
+  },
+  {
+   "id": "S2-Q7c",
+   "source": "LC Biology HL Sample Paper 2 (new course, 2027, Irish version), Question 7 (c)",
+   "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+   "page": 30,
+   "section": "sample",
+   "stem": "Translated from Irish: 'Tarraing learaid lipeadaithe de choras dilea an duine.'",
+   "diagram": null,
+   "total_marks": null,
+   "parts": [
+    {
+     "label": "(c)",
+     "text": "Draw a labelled diagram of the human digestive system.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Diagram: continuous tube from mouth to anus with stomach + small and large intestine + at least one associated gland",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Labels (any correct, e.g.): mouth, oesophagus, stomach, liver, gall bladder, pancreas, small intestine (duodenum, ileum), large intestine (colon), rectum, anus",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "No official scheme. Based on the 2015 Q11(b) scheme style (diagram: continuous tube + stomach + intestines + a gland; then marks for correct labels).",
+     "outcomes": [
+      "2.6.4"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": "Q7(d) (enzymes as selective catalysts / induced-fit model, set in the context of digestion) is a general enzyme question and is not included."
+  }
+ ],
+ "not_covered": [
+  "Ingestion as a term, and the full sequence ingestion -> digestion -> absorption -> egestion (digestion and egestion are asked; ingestion and absorption are never defined) [2.6.4]",
+  "Role of each type of tooth (incisors cut, canines tear, premolars and molars grind) in mechanical breakdown - only the dental formula and a carnivore comparison were asked (2015) [2.6.4]",
+  "Churning in the stomach as mechanical breakdown (appears only as an accepted answer in 2008 and 2011) [2.6.4]",
+  "Modelling the complete digestion of carbohydrates, proteins and fats from mouth to small intestine: enzyme, production site, site of action, pH and products for each in one sequence - only asked piecemeal [2.6.4]",
+  "Explaining deamination (excess amino acids lose their amino group in the liver, which forms urea; the rest is used for energy) - only 'where urea is made' (2020) and as an accepted liver function [2.6.5]",
+  "Fate of absorbed glucose: carried in the hepatic portal vein to the liver and stored as glycogen - only the glycogen storage site in a respiration question (2018) and as accepted answers [2.6.5]",
+  "Formation of faeces and their elimination through the rectum and anus (rectum only as a diagram label; the anus never asked) [2.6.5]",
+  "Balanced diet related to health, age, gender and activity level, variety of foods and enough water - only a one-line definition (2015) [2.6.6]",
+  "Biological implications of dietary choices, e.g. high-sugar/fat/salt diets, obesity, type 2 diabetes, vegetarian/vegan diets - only 'effect of diet on the circulatory system' (2009, 2026) [2.6.6]"
+ ],
+ "diagrams_to_memorise": [
+  {
+   "name": "Human digestive system (alimentary canal and associated glands)",
+   "labels": [
+    "mouth",
+    "salivary glands",
+    "oesophagus",
+    "stomach",
+    "liver",
+    "gall bladder",
+    "bile duct",
+    "pancreas",
+    "duodenum",
+    "ileum (small intestine)",
+    "caecum",
+    "appendix",
+    "colon (large intestine)",
+    "rectum",
+    "anus"
+   ],
+   "asked_in": [
+    "2008-Q12b",
+    "2015-Q11b",
+    "2024-Q3",
+    "2025-Q6",
+    "S1-Q1a",
+    "S2-Q7c"
+   ]
+  },
+  {
+   "name": "Villus (L.S.) and the small-intestine wall",
+   "labels": [
+    "villus",
+    "epithelium (one cell thick)",
+    "microvilli",
+    "blood capillary network",
+    "lacteal",
+    "muscle layers (circular and longitudinal)"
+   ],
+   "asked_in": [
+    "2005-Q6",
+    "2012-Q15a",
+    "2017-Q14c",
+    "2021-Q14b",
+    "2022-Q6",
+    "2025-Q6"
+   ]
+  },
+  {
+   "name": "Liver blood supply and the hepatic portal vein",
+   "labels": [
+    "liver",
+    "hepatic portal vein (from intestine to liver)",
+    "hepatic artery (in)",
+    "hepatic vein (out)",
+    "small intestine"
+   ],
+   "asked_in": [
+    "2006-Q5",
+    "2010-Q15b",
+    "2016-Q15a",
+    "2019-Q15b",
+    "2021-Q14b",
+    "2023-Q17c",
+    "2025-Q17a"
+   ]
+  },
+  {
+   "name": "Duodenum with bile duct, gall bladder and pancreas",
+   "labels": [
+    "stomach",
+    "duodenum",
+    "liver",
+    "gall bladder",
+    "bile duct",
+    "pancreas",
+    "pancreatic duct"
+   ],
+   "asked_in": [
+    "2011-Q5",
+    "S1-Q1a",
+    "2026-Q7c"
+   ]
+  },
+  {
+   "name": "Graph: digestive enzyme activity against pH (stomach enzyme vs small-intestine enzyme)",
+   "labels": [
+    "stomach protease (pepsin) optimum about pH 2",
+    "small-intestine enzymes (e.g. amylase, lipase) optimum about pH 7-8 (schemes accept 7-9)"
+   ],
+   "asked_in": [
+    "2006-Q3",
+    "2024-Q17a"
+   ]
+  },
+  {
+   "name": "Adult human dental formula (old course only)",
+   "labels": [
+    "I 2/2",
+    "C 1/1",
+    "PM 2/2",
+    "M 3/3"
+   ],
+   "asked_in": [
+    "2015-Q11c"
+   ]
+  }
+ ]
+}

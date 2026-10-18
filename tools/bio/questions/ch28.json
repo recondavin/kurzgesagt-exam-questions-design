@@ -1,0 +1,2242 @@
+{
+  "chapter": 28,
+  "topic": "The Breathing System",
+  "questions": [
+    {
+      "id": "2007-Q13a",
+      "source": "LC Biology HL 2007, Section C, Question 13 (a)",
+      "file": "papers/2007_ep_LC025ALP000EV.pdf",
+      "page": 9,
+      "section": "C",
+      "stem": "",
+      "diagram": null,
+      "parts": [
+        {
+          "label": "(i)",
+          "text": "Name the blood vessel that returns blood to the heart from the lungs.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Pulmonary vein*",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "* in the scheme = only this specific term is accepted; an incorrect additional answer cancels it.",
+          "outcomes": [
+            "2.6.10"
+          ]
+        },
+        {
+          "label": "(ii)",
+          "text": "Name the main gas transported in the blood vessel that you have named in (i). How is this gas transported?",
+          "marks": 6,
+          "points": [
+            {
+              "answer": "Oxygen*",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "By (oxy)haemoglobin",
+              "marks": 3,
+              "accept": [
+                "by iron"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "* in the scheme = only this specific term is accepted; an incorrect additional answer cancels it.",
+          "outcomes": [
+            "2.6.12",
+            "2.6.7"
+          ]
+        }
+      ],
+      "new_course": "yes",
+      "why": "Opening part of a breathing-system question; content is circulation/blood (overlaps the circulatory-system chapter)."
+    },
+    {
+      "id": "2007-Q13b",
+      "source": "LC Biology HL 2007, Section C, Question 13 (b)",
+      "file": "papers/2007_ep_LC025ALP000EV.pdf",
+      "page": 9,
+      "section": "C",
+      "stem": "",
+      "diagram": null,
+      "parts": [
+        {
+          "label": "(i)",
+          "text": "Draw a large diagram of the human breathing system. Label the trachea, bronchus and lung.",
+          "marks": 9,
+          "points": [
+            {
+              "answer": "Diagram showing trachea, bronchus, alveoli, diaphragm or ribs",
+              "marks": 6,
+              "accept": []
+            },
+            {
+              "answer": "Label: trachea",
+              "marks": 1,
+              "accept": []
+            },
+            {
+              "answer": "Label: bronchus",
+              "marks": 1,
+              "accept": []
+            },
+            {
+              "answer": "Label: lung",
+              "marks": 1,
+              "accept": []
+            }
+          ],
+          "rule": "Diagram 6, 3, 0 + labels 3(1)",
+          "scheme_note": "Diagram must show trachea, bronchus, alveoli, diaphragm or ribs; [any one missing: 3 marks].",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(ii)",
+          "text": "State the function of the following: epiglottis, larynx.",
+          "marks": 6,
+          "points": [
+            {
+              "answer": "Epiglottis: to close off trachea",
+              "marks": 3,
+              "accept": [
+                "described, e.g. covers the trachea when swallowing"
+              ]
+            },
+            {
+              "answer": "Larynx: to make sound",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "2(3)",
+          "scheme_note": "",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(iii)",
+          "text": "Describe briefly the role of the diaphragm and intercostal muscles in inhalation. In your answer refer to volume and thoracic air pressure.",
+          "marks": 12,
+          "points": [
+            {
+              "answer": "# Volume of chest (cavity) increased",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "# Decreased pressure",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Diaphragm contracts",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "(Diaphragm) lowers",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Intercostal muscles contract",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Rib cage up",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Air in",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "To equalise pressure",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "#2(3) + 2(3)",
+          "scheme_note": "The two # points (volume increased, pressure decreased) are compulsory; plus any two of the other points.",
+          "outcomes": [
+            "2.6.7"
+          ]
+        }
+      ],
+      "new_course": "yes",
+      "why": ""
+    },
+    {
+      "id": "2007-Q13c",
+      "source": "LC Biology HL 2007, Section C, Question 13 (c)",
+      "file": "papers/2007_ep_LC025ALP000EV.pdf",
+      "page": 9,
+      "section": "C",
+      "stem": "",
+      "diagram": null,
+      "parts": [
+        {
+          "label": "(i)",
+          "text": "Give three ways in which an alveolus is adapted for efficient gas exchange.",
+          "marks": 9,
+          "points": [
+            {
+              "answer": "Capillary network",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Moist surface",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Thin walled",
+              "marks": 3,
+              "accept": [
+                "one cell thick",
+                "thin membrane"
+              ]
+            },
+            {
+              "answer": "Elastic wall",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Large surface area",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "any three, 3(3)",
+          "scheme_note": "Scheme lists capillary network / moist surface / thin walled / elastic wall, and adds [allow large surface area or one cell thick or thin membrane].",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(ii)",
+          "text": "Name the process involved in the passage of gas between the alveolus and the blood.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Diffusion",
+              "marks": 3,
+              "accept": [
+                "passive transport"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "",
+          "outcomes": [
+            "2.6.7",
+            "2.6.1"
+          ]
+        },
+        {
+          "label": "(iii)",
+          "text": "Name a breathing disorder.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Asthma or bronchitis",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "",
+          "outcomes": []
+        },
+        {
+          "label": "(iv)",
+          "text": "In the case of the breathing disorder that you have named in (iii) state: 1. a cause, 2. a means of prevention, 3. a treatment.",
+          "marks": 9,
+          "points": [
+            {
+              "answer": "1. Cause (matching the named disorder)",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "2. Means of prevention",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "3. Treatment",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "3 + 3 + 3",
+          "scheme_note": "The 2007 scheme gives no model answers here, only 3 marks each. Answers credited in later schemes: asthma - cause: allergens e.g. dust, pet dander, smoke, or constriction of bronchioles; treatment: inhaler (bronchodilator), avoid allergens (2017, 2019). Bronchitis - cause: infection (viruses or bacteria) or irritants e.g. smoke; treatment: antibiotics, inhalers, bronchodilators, cough medicine, mucolytics, anti-inflammatories (2017, 2019). No scheme lists prevention answers (e.g. avoiding allergens / not smoking would be expected).",
+          "outcomes": []
+        }
+      ],
+      "new_course": "partly",
+      "why": "(iii)-(iv) breathing disorders (asthma, bronchitis) are not in the new specification."
+    },
+    {
+      "id": "2009-Q13c",
+      "source": "LC Biology HL 2009, Section C, Question 13 (c)",
+      "file": "papers/2009_ep_LC025ALP000EV.pdf",
+      "page": 10,
+      "section": "C",
+      "stem": "The diagram shows microscopic detail from a human lung.",
+      "diagram": {
+        "page": 10,
+        "what": "A cluster of alveoli at the end of a small airway, one alveolus cut open, with small blood vessels running alongside the airway.",
+        "labels": {
+          "A": "Bronchiole",
+          "B": "Alveolus",
+          "C": "Arteriole or capillary"
+        }
+      },
+      "parts": [
+        {
+          "label": "(i)",
+          "text": "Name the parts labelled A, B and C.",
+          "marks": 6,
+          "points": [
+            {
+              "answer": "A = Bronchiole",
+              "marks": 2,
+              "accept": []
+            },
+            {
+              "answer": "B = Alveolus",
+              "marks": 2,
+              "accept": []
+            },
+            {
+              "answer": "C = Arteriole or Capillary",
+              "marks": 2,
+              "accept": []
+            }
+          ],
+          "rule": "3(2)",
+          "scheme_note": "",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(ii)",
+          "text": "Give two features of the structures in the diagram that allow for efficient gas exchange.",
+          "marks": 6,
+          "points": [
+            {
+              "answer": "Thin walled",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Moist surfaces",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Proximity (of alveoli and capillaries)",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Large surface area",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Large number (of alveoli or capillaries)",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "any two, 2(3)",
+          "scheme_note": "",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(iii)",
+          "text": "Name a disorder of the breathing system and say how it may be: 1. Caused. 2. Prevented. 3. Treated.",
+          "marks": 9,
+          "points": [
+            {
+              "answer": "Named disorder",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "1. Cause",
+              "marks": 2,
+              "accept": []
+            },
+            {
+              "answer": "2. Prevention",
+              "marks": 2,
+              "accept": []
+            },
+            {
+              "answer": "3. Treatment",
+              "marks": 2,
+              "accept": []
+            }
+          ],
+          "rule": "3 + 2 + 2 + 2",
+          "scheme_note": "Scheme gives no model answers (it spells 'Preventation'). See 2017-Q15a and 2019-Q6 for accepted causes/treatments of asthma and bronchitis.",
+          "outcomes": []
+        },
+        {
+          "label": "(iv)",
+          "text": "Which gas, dissolved in the blood, can trigger deeper or faster breathing?",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "CO2*",
+              "marks": 3,
+              "accept": [
+                "carbon dioxide"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "* in the scheme = only this specific term is accepted; an incorrect additional answer cancels it.",
+          "outcomes": [
+            "2.6.8"
+          ]
+        }
+      ],
+      "new_course": "partly",
+      "why": "(iii) breathing disorder is not in the new specification."
+    },
+    {
+      "id": "2010-Q7a",
+      "source": "LC Biology HL 2010, Section B, Question 7 (a) (i)",
+      "file": "papers/2010_ep_LC025ALP000EV.pdf",
+      "page": 5,
+      "section": "B",
+      "stem": "Question 7 is on the dissection of a heart; only (a)(i) is on this topic.",
+      "diagram": null,
+      "parts": [
+        {
+          "label": "(i)",
+          "text": "Name the cavity of the body in which the heart and lungs are located.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Thoracic",
+              "marks": 3,
+              "accept": [
+                "chest"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "",
+          "outcomes": [
+            "2.6.7"
+          ]
+        }
+      ],
+      "new_course": "yes",
+      "why": ""
+    },
+    {
+      "id": "2011-Q8b",
+      "source": "LC Biology HL 2011, Section B, Question 8 (b) (iii)",
+      "file": "papers/2011_ep_LC025ALP000EV.pdf",
+      "page": 6,
+      "section": "B",
+      "stem": "Question 8 is on laboratory practical work; only (b)(iii) is on this topic.",
+      "diagram": null,
+      "parts": [
+        {
+          "label": "(iii)",
+          "text": "In the course of your practical studies you found that heart rate and breathing rate increase with exercise. Explain why this is the case.",
+          "marks": 6,
+          "points": [
+            {
+              "answer": "More energy (required)",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "More oxygen (required)",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "More CO2 (produced)",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "any two, 2(3)",
+          "scheme_note": "",
+          "outcomes": [
+            "2.6.7",
+            "2.6.8"
+          ]
+        }
+      ],
+      "new_course": "partly",
+      "why": "Set on the old mandatory activity (effect of exercise on breathing/pulse rate), which is not a prescribed investigation in the new specification; the explanation itself (more O2 needed, more CO2 produced) is new-course content."
+    },
+    {
+      "id": "2012-Q15c",
+      "source": "LC Biology HL 2012, Section C, Question 15 (c) (iii) 2.",
+      "file": "papers/2012_ep_LC025ALP000EV.pdf",
+      "page": 13,
+      "section": "C",
+      "stem": "(iii) State one way in which each of the following contributes to homeostasis. 1. Liver. 2. Lungs. 3. Nephrons of kidneys. (Only 2. Lungs is on this topic.)",
+      "diagram": null,
+      "parts": [
+        {
+          "label": "(iii) 2.",
+          "text": "Lungs.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Excretion of CO2",
+              "marks": 3,
+              "accept": [
+                "excretion of water",
+                "release of heat"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Scheme: 'Excretion of water or excretion of CO2 or release of heat'.",
+          "outcomes": [
+            "2.6.7"
+          ]
+        }
+      ],
+      "new_course": "yes",
+      "why": ""
+    },
+    {
+      "id": "2014-Q8b",
+      "source": "LC Biology HL 2014, Section B, Question 8 (b) (ii)",
+      "file": "papers/2014_ep_LC025ALP000EV.pdf",
+      "page": 8,
+      "section": "B",
+      "stem": "Answer the following in relation to investigations that you carried out in the laboratory. ((b)(i) on heart dissection is not included.)",
+      "diagram": null,
+      "parts": [
+        {
+          "label": "(ii) 1.",
+          "text": "When you investigated the effect of exercise on the human pulse rate or breathing rate what did you first establish?",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "The resting (pulse) rate or resting (breathing) rate",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(ii) 2.",
+          "text": "How did you measure pulse rate or breathing rate?",
+          "marks": 6,
+          "points": [
+            {
+              "answer": "Feel (or locate) pulse (or observe breathing)",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Count heart beats (or breaths) for stated time",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Repeat and find average",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "2(3)",
+          "scheme_note": "Scheme lists three points but awards 2(3), i.e. any two.",
+          "outcomes": [
+            "2.6.7"
+          ]
+        }
+      ],
+      "new_course": "partly",
+      "why": "Old mandatory activity (effect of exercise on breathing or pulse rate) is not a prescribed investigation in the new specification."
+    },
+    {
+      "id": "2014-Q12b",
+      "source": "LC Biology HL 2014, Section C, Question 12 (b)",
+      "file": "papers/2014_ep_LC025ALP000EV.pdf",
+      "page": 11,
+      "section": "C",
+      "stem": "",
+      "diagram": null,
+      "parts": [
+        {
+          "label": "(i)",
+          "text": "Draw a large labelled diagram of the human breathing tract.",
+          "marks": 9,
+          "points": [
+            {
+              "answer": "Diagram showing trachea, bronchus and bronchioles",
+              "marks": 6,
+              "accept": []
+            },
+            {
+              "answer": "Label: trachea",
+              "marks": 1,
+              "accept": []
+            },
+            {
+              "answer": "Label: cartilage",
+              "marks": 1,
+              "accept": []
+            },
+            {
+              "answer": "Label: bronchi",
+              "marks": 1,
+              "accept": []
+            },
+            {
+              "answer": "Label: bronchioles",
+              "marks": 1,
+              "accept": []
+            },
+            {
+              "answer": "Label: alveoli",
+              "marks": 1,
+              "accept": []
+            }
+          ],
+          "rule": "Diagram 6, 3, 0 + labels 3(1) (any three labels)",
+          "scheme_note": "",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(ii)",
+          "text": "Outline the details of the process of inhalation.",
+          "marks": 18,
+          "points": [
+            {
+              "answer": "Brain sends message to muscles",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Intercostals contract",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Diaphragm contracts",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Ribcage moves up and out",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Diaphragm moves down",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Volume of thoracic cavity increases",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Pressure drops",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Air in",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "any six, 6(3)",
+          "scheme_note": "",
+          "outcomes": [
+            "2.6.7"
+          ]
+        }
+      ],
+      "new_course": "yes",
+      "why": ""
+    },
+    {
+      "id": "2014-Q12c",
+      "source": "LC Biology HL 2014, Section C, Question 12 (c)",
+      "file": "papers/2014_ep_LC025ALP000EV.pdf",
+      "page": 11,
+      "section": "C",
+      "stem": "Answer the following questions in relation to carbon dioxide.",
+      "diagram": null,
+      "parts": [
+        {
+          "label": "(i)",
+          "text": "Name a structure found in cells in which carbon dioxide is produced.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Mitochondrion*",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "* in the scheme = only this specific term is accepted; an incorrect additional answer cancels it.",
+          "outcomes": [
+            "2.2.5"
+          ]
+        },
+        {
+          "label": "(ii)",
+          "text": "Give a feature of a capillary which allows the rapid uptake of carbon dioxide.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Wall one cell thick",
+              "marks": 3,
+              "accept": [
+                "thin wall"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "",
+          "outcomes": [
+            "2.6.13",
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(iii)",
+          "text": "Carbon dioxide levels are usually higher in venous blood than in arterial blood. Why is this the case?",
+          "marks": 6,
+          "points": [
+            {
+              "answer": "Venous blood has collected CO2",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "From respiration (or cells)",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Arterial blood has been cleared of CO2 (in lungs)",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "any two, 2(3)",
+          "scheme_note": "",
+          "outcomes": [
+            "2.6.7",
+            "2.6.10"
+          ]
+        },
+        {
+          "label": "(iv)",
+          "text": "Name a blood vessel which is an exception to the situation outlined in (iii) above. Give a reason for the exception.",
+          "marks": 6,
+          "points": [
+            {
+              "answer": "Pulmonary vein",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "(Reason) Blood has been cleared of CO2 in the lungs",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "named vessel 3 + matching reason 3",
+          "scheme_note": "Alternative accepted: Pulmonary artery (3) + brings CO2-rich blood to the lungs (3).",
+          "outcomes": [
+            "2.6.10",
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(v)",
+          "text": "Briefly outline the role of carbon dioxide in the control of the human breathing rate.",
+          "marks": 6,
+          "points": [
+            {
+              "answer": "Medulla oblongata registers blood CO2 levels",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "More CO2 results in faster (breathing)",
+              "marks": 3,
+              "accept": [
+                "less CO2 results in slower (breathing)"
+              ]
+            }
+          ],
+          "rule": "3 + 3",
+          "scheme_note": "",
+          "outcomes": [
+            "2.6.8"
+          ]
+        }
+      ],
+      "new_course": "yes",
+      "why": ""
+    },
+    {
+      "id": "2016-Q8b",
+      "source": "LC Biology HL 2016, Section B, Question 8 (b)",
+      "file": "papers/2016_ep_LC025ALP000EV.pdf",
+      "page": 8,
+      "section": "B",
+      "stem": "Answer the following questions in relation to the investigation you carried out on the effect of exercise on the breathing rate or pulse rate.",
+      "diagram": {
+        "page": 8,
+        "what": "A blank pair of unlabelled axes on which the candidate labels the axes and draws two curves.",
+        "labels": {}
+      },
+      "parts": [
+        {
+          "label": "(i)",
+          "text": "What was the control in this investigation?",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Rate (measured) at rest",
+              "marks": null,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Whole of (b) = 24 marks, 4(4) + 4(2): eight points in total; the first four correct points encountered score 4 marks each, the other four score 2 marks each.",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(ii)",
+          "text": "What is the purpose of this control?",
+          "marks": null,
+          "points": [
+            {
+              "answer": "To compare with the results (of the experiment)",
+              "marks": null,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Whole of (b) = 24 marks, 4(4) + 4(2): eight points in total; the first four correct points encountered score 4 marks each, the other four score 2 marks each.",
+          "outcomes": []
+        },
+        {
+          "label": "(iii)",
+          "text": "You carried out this investigation on two women of the same age. One of the women (A) was a very fit athlete. The other (B) was overweight and rarely took exercise. 1. Appropriately label each of the axes below. 2. Draw two curves or plots to summarise the most likely results of your investigation, clearly labelling which curve relates to which individual.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "x-axis 'duration (of exercise)'",
+              "marks": null,
+              "accept": [
+                "time",
+                "level of exercise"
+              ]
+            },
+            {
+              "answer": "y-axis 'rate'",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Curve or plot showing B increases by a greater amount",
+              "marks": null,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Whole of (b) = 24 marks, 4(4) + 4(2): eight points in total; the first four correct points encountered score 4 marks each, the other four score 2 marks each.",
+          "outcomes": [
+            "2.6.7",
+            "2.6.8"
+          ]
+        },
+        {
+          "label": "(iv)",
+          "text": "Recovery time is the duration of the period following exercise during which the breathing rate or pulse rate returns to normal. Suggest how you might measure recovery time.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Immediately (after exercise)",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Count pulse or breathing",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Rate or per minute",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Measure length of time until resting rate reached",
+              "marks": null,
+              "accept": []
+            }
+          ],
+          "rule": "any three",
+          "scheme_note": "Whole of (b) = 24 marks, 4(4) + 4(2): eight points in total; the first four correct points encountered score 4 marks each, the other four score 2 marks each. The scheme line break makes 'count pulse or breathing / rate or per minute' slightly ambiguous; read as separate points.",
+          "outcomes": [
+            "2.6.7"
+          ]
+        }
+      ],
+      "new_course": "partly",
+      "why": "Old mandatory activity (effect of exercise on breathing or pulse rate) is not a prescribed investigation in the new specification; graphing exercise/breathing data still appears in the new sample paper (S1-Q3d)."
+    },
+    {
+      "id": "2017-Q15a",
+      "source": "LC Biology HL 2017, Section C, Question 15 (a) (iii)-(v)",
+      "file": "papers/2017_ep_LC025ALP000EV.pdf",
+      "page": 15,
+      "section": "C",
+      "stem": "Parts (i) 'Explain the term homeostasis' and (ii) 'Why is homeostasis important in the human body?' are on homeostasis and are not included.",
+      "diagram": null,
+      "parts": [
+        {
+          "label": "(iii)",
+          "text": "Describe in detail the process of inhalation.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Increased CO2",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Message from brain",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Diaphragm contracts and flattens",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Intercostal muscles contract and rib cage moves up (or out)",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Volume of thoracic cavity (or lungs) increases",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Pressure in thorax (or lungs) decreases",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Air in",
+              "marks": null,
+              "accept": []
+            }
+          ],
+          "rule": "any five",
+          "scheme_note": "Whole of (a) = 30 marks, 5(4) + 5(2) over ten points including (i) and (ii): the first five correct points score 4 marks each, the next five 2 marks each.",
+          "outcomes": [
+            "2.6.7",
+            "2.6.8"
+          ]
+        },
+        {
+          "label": "(iv)",
+          "text": "Name a human breathing disorder.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Asthma or bronchitis",
+              "marks": null,
+              "accept": [
+                "any valid disorder"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Whole of (a) = 30 marks, 5(4) + 5(2) over ten points including (i) and (ii): the first five correct points score 4 marks each, the next five 2 marks each.",
+          "outcomes": []
+        },
+        {
+          "label": "(v)",
+          "text": "State a cause and a treatment for the breathing disorder referred to in part (iv).",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Cause of asthma: constriction of (lower) bronchioles or by allergens e.g. dust",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Treatment for asthma: avoid (or minimise exposure) to allergens or use an inhaler",
+              "marks": null,
+              "accept": [
+                "other valid"
+              ]
+            },
+            {
+              "answer": "Cause of bronchitis: infection or caused by irritants e.g. smoke",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Treatment for bronchitis: antibiotics",
+              "marks": null,
+              "accept": [
+                "other valid"
+              ]
+            }
+          ],
+          "rule": "cause + treatment (for the disorder named in (iv))",
+          "scheme_note": "Whole of (a) = 30 marks, 5(4) + 5(2) over ten points including (i) and (ii): the first five correct points score 4 marks each, the next five 2 marks each.",
+          "outcomes": []
+        }
+      ],
+      "new_course": "partly",
+      "why": "(iv)-(v) breathing disorders are not in the new specification."
+    },
+    {
+      "id": "2019-Q6",
+      "source": "LC Biology HL 2019, Section A, Question 6",
+      "file": "papers/2019_ep_LC025ALP038EV.pdf",
+      "page": 8,
+      "section": "A",
+      "stem": "The diagram shows microscopic detail of an alveolus and a capillary from the human lung.",
+      "diagram": {
+        "page": 8,
+        "what": "Section of one alveolus with a capillary (containing red blood cells) wrapped closely around it; a curved arrow shows the direction of blood flow round the alveolus.",
+        "labels": {
+          "Capillary": "capillary",
+          "Alveolus": "alveolus",
+          "Blood flow": "arrow showing direction of blood flow"
+        }
+      },
+      "parts": [
+        {
+          "label": "(a)",
+          "text": "Name the blood vessel from which the capillary arises.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Pulmonary artery",
+              "marks": null,
+              "accept": [
+                "(pulmonary) arteriole"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Question total 20 marks, scheme '4+2+2+2+2+2+6' over seven points ((a) 1, (b) 3, (c) 3): read as cumulative - 1st correct point 4 marks, each of the next five 2 marks, the 7th correct point 6 marks (all seven = 20).",
+          "outcomes": [
+            "2.6.10",
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(b)",
+          "text": "Give any three features of alveoli or their capillaries that allow for efficient gas exchange.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Alveoli: membrane (or wall) is thin (or is 1 cell thick)",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Alveoli: large surface area",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Alveoli: large numbers",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Alveoli: moist surface",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Capillaries: wall is thin (or is 1 cell thick)",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Capillaries: close contact with alveoli",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Capillaries: large number or (capillary) network or highly branched",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Capillaries: large surface area",
+              "marks": null,
+              "accept": []
+            }
+          ],
+          "rule": "any three",
+          "scheme_note": "Question total 20 marks, scheme '4+2+2+2+2+2+6' over seven points ((a) 1, (b) 3, (c) 3): read as cumulative - 1st correct point 4 marks, each of the next five 2 marks, the 7th correct point 6 marks (all seven = 20).",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(c)",
+          "text": "Name a disorder of the human breathing system and suggest how it is caused and treated. Name. Cause. Treatment.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Disorder: Asthma",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Cause (asthma): pet dander or allergens or smoke or dust",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Treatment (asthma): an inhaler (bronchodilator)",
+              "marks": null,
+              "accept": [
+                "named ones"
+              ]
+            },
+            {
+              "answer": "Disorder: Bronchitis",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Cause (bronchitis): viruses or bacteria or smoke or airborne particles",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Treatment (bronchitis): cough medicine or inhalers or bronchodilators or mucolytics or anti-inflammatories or antibiotics",
+              "marks": null,
+              "accept": []
+            }
+          ],
+          "rule": "Asthma OR Bronchitis: name + cause + treatment",
+          "scheme_note": "Question total 20 marks, scheme '4+2+2+2+2+2+6' over seven points ((a) 1, (b) 3, (c) 3): read as cumulative - 1st correct point 4 marks, each of the next five 2 marks, the 7th correct point 6 marks (all seven = 20).",
+          "outcomes": []
+        }
+      ],
+      "new_course": "partly",
+      "why": "(c) breathing disorders are not in the new specification."
+    },
+    {
+      "id": "2021-Q16d",
+      "source": "LC Biology HL 2021, Section C, Question 16 (d)",
+      "file": "papers/2021_ep_LC025ALP040EV.pdf",
+      "page": 8,
+      "section": "C",
+      "stem": "",
+      "diagram": null,
+      "parts": [
+        {
+          "label": "(i)",
+          "text": "Name the structures located at the end of the breathing tract involved in gaseous exchange.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Alveoli*",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Marked by number of correct responses across (i)-(vi): 1-10 correct = 3-30 marks (3 marks each). * in the scheme = only this specific term is accepted; an incorrect additional answer cancels it.",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(ii)",
+          "text": "State two adaptations of the structures named at part (i) above, to increase the efficiency of gaseous exchange.",
+          "marks": 6,
+          "points": [
+            {
+              "answer": "Large surface area",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Rich (blood) capillary supply",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Moist surface",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Membranes (or walls) are thin",
+              "marks": 3,
+              "accept": [
+                "walls one cell thick"
+              ]
+            }
+          ],
+          "rule": "any two, 2(3)",
+          "scheme_note": "Marked by number of correct responses across (i)-(vi): 1-10 correct = 3-30 marks (3 marks each).",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(iii)",
+          "text": "Identify the gas, soluble in blood plasma, which controls the rate of breathing.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Carbon dioxide (CO2)*",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Marked by number of correct responses across (i)-(vi): 1-10 correct = 3-30 marks (3 marks each). * in the scheme = only this specific term is accepted; an incorrect additional answer cancels it.",
+          "outcomes": [
+            "2.6.8"
+          ]
+        },
+        {
+          "label": "(iv)",
+          "text": "Identify the region of the human brain which detects the gas you have named at part (iii) above.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Medulla oblongata*",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Marked by number of correct responses across (i)-(vi): 1-10 correct = 3-30 marks (3 marks each). * in the scheme = only this specific term is accepted; an incorrect additional answer cancels it.",
+          "outcomes": [
+            "2.6.8",
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(v)",
+          "text": "How does the breathing system respond to a high level of the gas named at part (iii) above?",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Increases rate (of breathing)",
+              "marks": 3,
+              "accept": [
+                "increases depth (of breathing)"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Marked by number of correct responses across (i)-(vi): 1-10 correct = 3-30 marks (3 marks each). The scheme heading says 'named at (ii) above' - a typo for (iii).",
+          "outcomes": [
+            "2.6.8"
+          ]
+        },
+        {
+          "label": "(vi)",
+          "text": "Describe in detail the process of inhalation.",
+          "marks": 12,
+          "points": [
+            {
+              "answer": "Brain sends impulse (message) to muscles",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Intercostal muscles and diaphragm contract",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Ribcage moves up and out",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Diaphragm moves down",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Volume of thoracic cavity (or chest) increases",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Pressure inside (thoracic cavity or chest) decreases",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Air moves in",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "any four, 4(3)",
+          "scheme_note": "Marked by number of correct responses across (i)-(vi): 1-10 correct = 3-30 marks (3 marks each).",
+          "outcomes": [
+            "2.6.7"
+          ]
+        }
+      ],
+      "new_course": "yes",
+      "why": ""
+    },
+    {
+      "id": "2023-Q17c",
+      "source": "LC Biology HL 2023, Section C, Question 17 (c) (ii)-(iii)",
+      "file": "papers/2023_ep_LC025ALP040EV.pdf",
+      "page": 10,
+      "section": "C",
+      "stem": "Answer the following questions in relation to your knowledge of the human circulatory and breathing systems. (Part (i), naming four veins, is circulatory and not included.)",
+      "diagram": {
+        "page": 10,
+        "what": "Two side views of a person showing rib cage and diaphragm. X: arrows on the chest point outwards and upwards; an arrow below the rib cage points down (diaphragm moving down). Y: arrows on the chest point inwards; an arrow below the rib cage points up (diaphragm moving up).",
+        "labels": {
+          "X": "inhalation (rib cage up and out, diaphragm down)",
+          "Y": "exhalation (rib cage in, diaphragm up)"
+        }
+      },
+      "parts": [
+        {
+          "label": "(ii)",
+          "text": "In your answerbook, sketch the structure of an alveolus and its associated blood supply. On your diagram, clearly indicate the overall directions in which oxygen and carbon dioxide are moving.",
+          "marks": 9,
+          "points": [
+            {
+              "answer": "Sketch: alveolus and capillary",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Oxygen from alveolus to blood",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Carbon dioxide from blood to alveolus",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "3(3)",
+          "scheme_note": "Scheme marks (c)(i)-(iii) as 10(3) by number of correct responses.",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(iii)",
+          "text": "The diagrams (X and Y) show the two stages of breathing with the arrows representing the body movements involved in breathing. 1. State which diagram (X or Y) represents inhalation. 2. Explain in detail how you know inhalation is occurring in this diagram.",
+          "marks": 9,
+          "points": [
+            {
+              "answer": "1. X*",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "2. Ribs are moving outwards (and upward)",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "2. Volume (of chest) increasing",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "2. Diaphragm is moving downwards",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "1: 3 marks; 2: any two, 2(3)",
+          "scheme_note": "Scheme marks (c)(i)-(iii) as 10(3) by number of correct responses. * in the scheme = only this specific term is accepted; an incorrect additional answer cancels it.",
+          "outcomes": [
+            "2.6.7"
+          ]
+        }
+      ],
+      "new_course": "yes",
+      "why": ""
+    },
+    {
+      "id": "2025-Q16b",
+      "source": "LC Biology HL 2025, Section C, Question 16 (b)",
+      "file": "papers/2025_ep_LC025ALP040EV.pdf",
+      "page": 7,
+      "section": "C",
+      "stem": "The diagram shows gases X and Y and their main directions of movement at the site of gas exchange in the lungs.",
+      "diagram": {
+        "page": 7,
+        "what": "An alveolus (B) open at the top (double arrow: air in and out) wrapped by a capillary (A) containing red blood cells (C); arrows show blood entering on the left and leaving on the right. Arrow X runs from the capillary into the alveolus; arrow Y runs from the alveolus into the capillary.",
+        "labels": {
+          "A": "Capillary",
+          "B": "Alveolus",
+          "C": "Red blood cell",
+          "X": "Carbon dioxide",
+          "Y": "Oxygen"
+        }
+      },
+      "parts": [
+        {
+          "label": "(i)",
+          "text": "Name the structures A and B, and the type of blood cell labelled C, that transports a gas around the body.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "A: Capillary*",
+              "marks": 1,
+              "accept": []
+            },
+            {
+              "answer": "B: Alveolus*",
+              "marks": 1,
+              "accept": []
+            },
+            {
+              "answer": "C: Red (blood cell)*",
+              "marks": 1,
+              "accept": []
+            }
+          ],
+          "rule": "3(1)",
+          "scheme_note": "Scheme total 30 = 3(1) + 9(3). * in the scheme = only this specific term is accepted; an incorrect additional answer cancels it.",
+          "outcomes": [
+            "2.6.7",
+            "2.6.12"
+          ]
+        },
+        {
+          "label": "(ii)",
+          "text": "Give one way structure B is adapted for its function in gas exchange.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Moist (internal) surface",
+              "marks": 3,
+              "accept": [
+                "thin walled",
+                "covered in capillaries",
+                "large surface area"
+              ]
+            }
+          ],
+          "rule": "any one",
+          "scheme_note": "Scheme total 30 = 3(1) + 9(3).",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(iii) 1.",
+          "text": "Oxygen and carbon dioxide are two gases that are exchanged between structures A and B. Match each gas to the letters X and Y, based on their main directions of movement.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "X: Carbon dioxide (CO2)* and Y: Oxygen (O2)*",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Scheme total 30 = 3(1) + 9(3). * in the scheme = only this specific term is accepted; an incorrect additional answer cancels it.",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(iii) 2.",
+          "text": "What term describes the movement of these gases?",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Diffusion*",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Scheme total 30 = 3(1) + 9(3). * in the scheme = only this specific term is accepted; an incorrect additional answer cancels it.",
+          "outcomes": [
+            "2.6.7",
+            "2.6.1"
+          ]
+        },
+        {
+          "label": "(iv)",
+          "text": "Name two muscles that are directly involved in inhalation.",
+          "marks": 6,
+          "points": [
+            {
+              "answer": "Intercostals*",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Diaphragm*",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "2(3)",
+          "scheme_note": "Scheme total 30 = 3(1) + 9(3). * in the scheme = only this specific term is accepted; an incorrect additional answer cancels it.",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(v)",
+          "text": "Describe the changes that occur in the chest during exhalation.",
+          "marks": 9,
+          "points": [
+            {
+              "answer": "Muscles (or named) relax",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Rib cage moves down and inwards",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Diaphragm moves up",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Volume decreases",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "(Air) pressure increases",
+              "marks": 3,
+              "accept": []
+            },
+            {
+              "answer": "Air moves out (of the lungs)",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "any three, 3(3)",
+          "scheme_note": "Scheme total 30 = 3(1) + 9(3).",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(vi)",
+          "text": "Give one treatment for one of the following breathing disorders: bronchitis or asthma. In your answer, state clearly to which disorder you are referring.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Correct matching treatment",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Scheme total 30 = 3(1) + 9(3). Scheme gives no list. Treatments credited in 2017/2019: asthma - inhaler (bronchodilator), avoid allergens; bronchitis - antibiotics, inhalers, bronchodilators, cough medicine, mucolytics, anti-inflammatories.",
+          "outcomes": []
+        }
+      ],
+      "new_course": "partly",
+      "why": "(vi) breathing disorders (bronchitis, asthma) are not in the new specification."
+    },
+    {
+      "id": "2026-Q3",
+      "source": "LC Biology HL 2026, Section A, Question 3",
+      "file": "papers/2026_ep_LC025ALP038EV.pdf",
+      "page": 5,
+      "section": "A",
+      "stem": "The diagram shows parts of the human breathing system.",
+      "diagram": {
+        "page": 5,
+        "what": "Head in section (nasal cavity, mouth, pharynx) above the trachea and two lungs; one lung is cut open to show the branching bronchi and bronchioles ending in alveoli. Diaphragm and ribs are not drawn.",
+        "labels": {
+          "Epiglottis": "epiglottis",
+          "Trachea": "trachea"
+        }
+      },
+      "parts": [
+        {
+          "label": "(a)",
+          "text": "Name the body cavity in which the breathing system is located.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Thoracic (cavity)",
+              "marks": 3,
+              "accept": [
+                "chest (cavity)"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Question total 20 = 6(3) + 1(2).",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(b)",
+          "text": "State the function of the epiglottis.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Prevent food entering the trachea",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Question total 20 = 6(3) + 1(2).",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(c)",
+          "text": "The trachea has rings of cartilage in its wall. What is the function of these rings of cartilage?",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "To keep (the trachea) open",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Question total 20 = 6(3) + 1(2).",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(d)(i)",
+          "text": "On the diagram above, sketch and label the diaphragm muscle in its correct location.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Diaphragm muscle drawn correctly just under the lungs and labelled",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Question total 20 = 6(3) + 1(2).",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(d)(ii)",
+          "text": "On the diagram above, draw an arrow to show the direction of movement of the diaphragm during inhalation.",
+          "marks": 2,
+          "points": [
+            {
+              "answer": "Down arrow",
+              "marks": 2,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Question total 20 = 6(3) + 1(2).",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(e)",
+          "text": "Name one other muscle involved in inhalation.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Intercostal (muscle)",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Question total 20 = 6(3) + 1(2).",
+          "outcomes": [
+            "2.6.7"
+          ]
+        },
+        {
+          "label": "(f)",
+          "text": "The ribs are not shown on the diagram. Briefly describe what happens to the rib cage during inhalation.",
+          "marks": 3,
+          "points": [
+            {
+              "answer": "Moves up and out",
+              "marks": 3,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "Question total 20 = 6(3) + 1(2).",
+          "outcomes": [
+            "2.6.7"
+          ]
+        }
+      ],
+      "new_course": "yes",
+      "why": ""
+    },
+    {
+      "id": "S1-Q3a",
+      "source": "SEC Sample Paper 1 (2027), Higher Level, Question 3 (a)",
+      "file": "sample/lc-biology-2027-1-qp-smlwu.pdf",
+      "page": 12,
+      "section": "sample",
+      "stem": "The diagram shows a transverse section through an alveolus in the lungs. The arrow shows the overall movement of water vapour during gas exchange.",
+      "diagram": {
+        "page": 12,
+        "what": "Transverse section through an alveolus: a large air space surrounded by a thin wall, an alveolar macrophage on the wall, and a capillary below separated from the air space by a very thin barrier. A dashed arrow labelled H2O runs from the capillary lumen into the alveolus.",
+        "labels": {
+          "Alveolus (air space)": "alveolus",
+          "Alveolar macrophage": "alveolar macrophage",
+          "Capillary lumen": "capillary lumen",
+          "H2O": "arrow: water vapour moves from capillary into alveolus"
+        }
+      },
+      "parts": [
+        {
+          "label": "(i)",
+          "text": "On the diagram, draw labelled arrows to clearly indicate the overall direction in which each gas, oxygen (O2) and carbon dioxide (CO2) move during gas exchange.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Arrow labelled O2 from the alveolus (air space) into the capillary lumen",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Arrow labelled CO2 from the capillary lumen into the alveolus (air space)",
+              "marks": null,
+              "accept": []
+            }
+          ],
+          "rule": "both arrows, each labelled",
+          "scheme_note": "No official scheme: unofficial answer. The sample paper gives only the question total (50 marks), no part marks.",
+          "outcomes": [
+            "2.6.7"
+          ],
+          "unofficial": true
+        },
+        {
+          "label": "(ii)",
+          "text": "Name the process by which this gas exchange occurs.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Diffusion",
+              "marks": null,
+              "accept": [
+                "simple diffusion",
+                "passive transport"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "No official scheme: unofficial answer. The sample paper gives only the question total (50 marks), no part marks.",
+          "outcomes": [
+            "2.6.7",
+            "2.6.1"
+          ],
+          "unofficial": true
+        },
+        {
+          "label": "(iii)",
+          "text": "Outline one way that alveoli are adapted to carry out efficient gas exchange.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Walls thin / one cell thick - short diffusion distance",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Large surface area (very many alveoli)",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Moist lining - gases dissolve before diffusing",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Surrounded by a dense capillary network / in close contact with capillaries - keeps the concentration gradient high",
+              "marks": null,
+              "accept": []
+            }
+          ],
+          "rule": "any one adaptation, linked to how it aids gas exchange",
+          "scheme_note": "No official scheme: unofficial answer. The sample paper gives only the question total (50 marks), no part marks.",
+          "outcomes": [
+            "2.6.7"
+          ],
+          "unofficial": true
+        }
+      ],
+      "new_course": "yes",
+      "why": ""
+    },
+    {
+      "id": "S1-Q3c",
+      "source": "SEC Sample Paper 1 (2027), Higher Level, Question 3 (c)",
+      "file": "sample/lc-biology-2027-1-qp-smlwu.pdf",
+      "page": 13,
+      "section": "sample",
+      "stem": "Carbon dioxide and oxygen are two common gases carried in the blood between the heart and the lungs in the pulmonary system. [Before (iii), page 14:] Increased carbon dioxide in the blood increases its acidity (acidosis). Respiratory acidosis is a condition that results from lower than normal blood pH. The normal pH range of the blood is between 7.35 and 7.45. The blood pH of two individuals (A and B) was measured after resting for 5 minutes. Person A had a blood pH of 7.43 and person B had a blood pH of 7.42. Their blood pH was then measured at set times during an exercise period. The data from this study is shown in the table. Blood pH - Time: 5 min, 10 min, 15 min, 20 min, 25 min, 30 min; Person A: 7.43, 7.40, 7.37, 7.36, 7.35, 7.35; Person B: 7.42, 7.36, 7.27, 7.24, 7.20, 7.17. (Adapted from S. Ratel et al., 2002.) A scale bar shows: Acidosis below 7.35, Normal 7.35-7.45 (7.40 centre), Alkalosis above 7.45.",
+      "diagram": {
+        "page": 14,
+        "what": "Normal blood pH scale arrow (acidosis - 7.35 / 7.40 / 7.45 - alkalosis), the data table, and a blank grid for the graph.",
+        "labels": {}
+      },
+      "parts": [
+        {
+          "label": "(i) 1.",
+          "text": "Describe the main way carbon dioxide is transported in the blood.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "As hydrogencarbonate (bicarbonate, HCO3-) ions dissolved in the plasma",
+              "marks": null,
+              "accept": [
+                "dissolved in the plasma (as hydrogen carbonate)"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "No official scheme: unofficial answer. The sample paper gives only the question total (50 marks), no part marks. Smaller amounts are carried bound to haemoglobin or dissolved directly; these are not the 'main' way.",
+          "outcomes": [
+            "2.6.12",
+            "2.6.7"
+          ],
+          "unofficial": true
+        },
+        {
+          "label": "(i) 2.",
+          "text": "Describe the main way oxygen is transported in the blood.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Combined with haemoglobin in red blood cells, as oxyhaemoglobin",
+              "marks": null,
+              "accept": [
+                "by haemoglobin",
+                "by red blood cells"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "No official scheme: unofficial answer. The sample paper gives only the question total (50 marks), no part marks. Compare 2007-Q13a(ii): 'by (oxy)haemoglobin or by iron'.",
+          "outcomes": [
+            "2.6.12",
+            "2.6.7"
+          ],
+          "unofficial": true
+        },
+        {
+          "label": "(ii)",
+          "text": "Compare the relative concentration of each gas (carbon dioxide and oxygen) in arterial pulmonary blood and venous pulmonary blood by writing the words 'High' or 'Low' into the correct boxes.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Arterial pulmonary blood (pulmonary artery, heart to lungs): carbon dioxide High, oxygen Low",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Venous pulmonary blood (pulmonary vein, lungs to heart): carbon dioxide Low, oxygen High",
+              "marks": null,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "No official scheme: unofficial answer. The sample paper gives only the question total (50 marks), no part marks. 'Arterial pulmonary blood' is read as blood in the pulmonary artery (going to the lungs); a candidate who reads 'arterial' as oxygenated would reverse the answers, which an examiner would probably not credit.",
+          "outcomes": [
+            "2.6.7",
+            "2.6.10"
+          ],
+          "unofficial": true
+        },
+        {
+          "label": "(iii)",
+          "text": "On the grid below, plot a suitable graph to represent all the data in the table above.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Axes labelled: x-axis time (min); y-axis blood pH",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Suitable even scales (pH axis need not start at 0, e.g. 7.15-7.45)",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "All points plotted correctly for both people",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Two lines/curves, each identified as Person A and Person B (labels or key)",
+              "marks": null,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "No official scheme: unofficial answer. The sample paper gives only the question total (50 marks), no part marks.",
+          "outcomes": [
+            "2.6.8"
+          ],
+          "unofficial": true
+        },
+        {
+          "label": "(iv)",
+          "text": "Which person is better adapted at removing carbon dioxide from their bloodstream? Explain your answer.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Person: A",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "A's blood pH stays within the normal range (falls only to 7.35) while B's falls to 7.17 (acidosis)",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "So less CO2 builds up in A's blood: A removes CO2 faster (e.g. by increasing breathing rate/depth to exhale it)",
+              "marks": null,
+              "accept": []
+            }
+          ],
+          "rule": "person + explanation",
+          "scheme_note": "No official scheme: unofficial answer. The sample paper gives only the question total (50 marks), no part marks.",
+          "outcomes": [
+            "2.6.8"
+          ],
+          "unofficial": true
+        }
+      ],
+      "new_course": "yes",
+      "why": ""
+    },
+    {
+      "id": "S1-Q3d",
+      "source": "SEC Sample Paper 1 (2027), Higher Level, Question 3 (d)",
+      "file": "sample/lc-biology-2027-1-qp-smlwu.pdf",
+      "page": 15,
+      "section": "sample",
+      "stem": "As part of their training, athletes often use a spirometer to measure the volume of air inhaled and exhaled during exercise. The graph below shows how the volume of air in the lungs changes for an athlete before, during and after a short period of exercise.",
+      "diagram": {
+        "page": 15,
+        "what": "Spirometer-style trace: volume of air in lungs (L, 0-5) against time (s, 0-40). 0-15 s: slow, shallow breaths between 2.0 and 2.5 L (a breath about every 4.5 s). About 15-30 s: rapid, deep breaths swinging between about 1.1 and 3.5 L (a breath about every 1.2 s). After about 32 s: back to slow breaths between 2.0 and 2.5 L.",
+        "labels": {}
+      },
+      "parts": [
+        {
+          "label": "(i)",
+          "text": "Name the two muscles responsible for inhalation and indicate whether these muscles are contracting or relaxing during this inhalation process.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "1. Diaphragm - contracting",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "2. Intercostal muscles - contracting",
+              "marks": null,
+              "accept": [
+                "external intercostal muscles"
+              ]
+            }
+          ],
+          "rule": "name + contracting, for each",
+          "scheme_note": "No official scheme: unofficial answer. The sample paper gives only the question total (50 marks), no part marks.",
+          "outcomes": [
+            "2.6.7"
+          ],
+          "unofficial": true
+        },
+        {
+          "label": "(ii)",
+          "text": "Using information from the graph, estimate the volume of air that enters and leaves the lungs of the athlete at rest.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "About 0.5 L (volume rises from 2.0 L to 2.5 L each breath)",
+              "marks": null,
+              "accept": [
+                "500 cm3",
+                "0.5 litres"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "No official scheme: unofficial answer. The sample paper gives only the question total (50 marks), no part marks.",
+          "outcomes": [
+            "2.6.7"
+          ],
+          "unofficial": true
+        },
+        {
+          "label": "(iii)",
+          "text": "On the graph above, write the letter X to show the time at which exercise began and the letter Y to show the time at which the breathing rate returned to the resting rate.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "X at about 15 s (where breaths become faster and deeper)",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Y at about 32 s (where the trace returns to slow 2.0-2.5 L breaths)",
+              "marks": null,
+              "accept": [
+                "about 31-33 s"
+              ]
+            }
+          ],
+          "rule": "",
+          "scheme_note": "No official scheme: unofficial answer. The sample paper gives only the question total (50 marks), no part marks.",
+          "outcomes": [
+            "2.6.7"
+          ],
+          "unofficial": true
+        },
+        {
+          "label": "(iv)",
+          "text": "Analysing information from the graph, describe two ways the breathing of the athlete changed during exercise.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "Breathing rate increased: from about one breath every 4.5 s (about 13 per minute) to about one every 1.2 s (about 50 per minute)",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "Breathing became deeper: volume per breath rose from about 0.5 L to about 2.4 L (lungs filled to about 3.5 L and emptied to about 1.1 L)",
+              "marks": null,
+              "accept": []
+            }
+          ],
+          "rule": "any two, using graph data",
+          "scheme_note": "No official scheme: unofficial answer. The sample paper gives only the question total (50 marks), no part marks.",
+          "outcomes": [
+            "2.6.7",
+            "2.6.8"
+          ],
+          "unofficial": true
+        }
+      ],
+      "new_course": "yes",
+      "why": ""
+    },
+    {
+      "id": "S2-Q5a",
+      "source": "SEC Sample Paper 2 (2027), Higher Level (Irish version), Question 5 (a) (iv)",
+      "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+      "page": 20,
+      "section": "sample",
+      "stem": "(Translated from Irish.) The diagram shows the internal structure of the human heart. ((i) asks to identify the vessels labelled A and B; (ii), (iii) and (v) are on the heart and blood vessels and are not included.)",
+      "diagram": {
+        "page": 20,
+        "what": "Cut-away drawing of the human heart. Arrow A points to the red arched vessel leaving the top of the heart; arrow B points to the grey vessel branching to the right at the top; 'Comhla' (valve) points to a valve inside the heart.",
+        "labels": {
+          "A": "aorta",
+          "B": "pulmonary artery",
+          "Comhla": "valve"
+        }
+      },
+      "parts": [
+        {
+          "label": "(iv)",
+          "text": "Describe how the concentration of carbon dioxide in the blood plasma changes between vessels A and B.",
+          "marks": null,
+          "points": [
+            {
+              "answer": "A (aorta) has a low CO2 concentration: this blood has just come from the lungs, where CO2 diffused out into the alveoli",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "B (pulmonary artery) has a high CO2 concentration: CO2 from respiring body cells was added as the blood passed through the body",
+              "marks": null,
+              "accept": []
+            },
+            {
+              "answer": "So the CO2 concentration increases from A to B",
+              "marks": null,
+              "accept": []
+            }
+          ],
+          "rule": "",
+          "scheme_note": "No official scheme: unofficial answer; labels A = aorta and B = pulmonary artery are read from the diagram. The sample paper gives only the question total (50 marks). Overlaps the heart/circulation chapter.",
+          "outcomes": [
+            "2.6.7",
+            "2.6.10"
+          ],
+          "unofficial": true
+        }
+      ],
+      "new_course": "yes",
+      "why": ""
+    }
+  ],
+  "not_covered": [
+    "Function of the nose/nasal cavity: filtering air (hairs, mucus), warming and moistening it before it reaches the lungs.",
+    "Mucus and cilia lining the trachea and bronchi: trapping dust and microbes and sweeping them up away from the lungs (asked only as an immunity barrier, not as breathing-tract function).",
+    "Functions of the pharynx, bronchi and bronchioles, and the full pathway of air from nose to alveolus in order (these parts are only ever labelled, never asked about).",
+    "How the concentration gradients at the alveolus are kept steep: breathing keeps renewing alveolar air, and blood flow keeps carrying O2 away and bringing CO2.",
+    "The chain linking CO2 to breathing: CO2 makes blood more acidic (lower pH), the brain (medulla) detects this and sends nerve impulses to the diaphragm and intercostal muscles to breathe faster and deeper. S1-Q3c only gives the CO2-acidity link as data and never asks for the chain."
+  ],
+  "diagrams_to_memorise": [
+    {
+      "name": "Human breathing system (breathing tract)",
+      "labels": [
+        "nasal cavity",
+        "pharynx",
+        "epiglottis",
+        "larynx",
+        "trachea (with rings of cartilage)",
+        "bronchus",
+        "bronchioles",
+        "alveoli",
+        "lung",
+        "ribs",
+        "intercostal muscles",
+        "diaphragm"
+      ],
+      "asked_in": [
+        "2007-Q13b",
+        "2014-Q12b",
+        "2026-Q3"
+      ]
+    },
+    {
+      "name": "Alveolus and its capillary supply, with directions of O2 and CO2 diffusion",
+      "labels": [
+        "bronchiole",
+        "alveolus (air space)",
+        "thin, moist alveolar wall (one cell thick)",
+        "capillary network",
+        "red blood cell",
+        "arteriole from pulmonary artery (deoxygenated blood in)",
+        "venule to pulmonary vein (oxygenated blood out)",
+        "O2: alveolus to blood",
+        "CO2: blood to alveolus"
+      ],
+      "asked_in": [
+        "2009-Q13c",
+        "2019-Q6",
+        "2023-Q17c",
+        "2025-Q16b",
+        "S1-Q3a"
+      ]
+    },
+    {
+      "name": "Chest movements in inhalation and exhalation",
+      "labels": [
+        "rib cage up and out (inhalation) / down and in (exhalation)",
+        "intercostal muscles contract (inhalation) / relax (exhalation)",
+        "diaphragm contracts, flattens and moves down (inhalation) / relaxes and domes up (exhalation)",
+        "thoracic volume up and pressure down (inhalation), and the reverse"
+      ],
+      "asked_in": [
+        "2023-Q17c",
+        "2025-Q16b",
+        "2026-Q3"
+      ]
+    },
+    {
+      "name": "Graph: effect of exercise on breathing (or pulse) rate",
+      "labels": [
+        "x-axis: time / duration of exercise",
+        "y-axis: rate (breaths or beats per minute) or lung volume",
+        "resting rate before exercise",
+        "rise in rate and depth during exercise",
+        "recovery period back to resting rate",
+        "unfit person rises more and recovers more slowly"
+      ],
+      "asked_in": [
+        "2016-Q8b",
+        "S1-Q3d"
+      ]
+    }
+  ]
+}

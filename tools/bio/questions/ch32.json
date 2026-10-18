@@ -1,0 +1,4620 @@
+{
+ "chapter": 32,
+ "topic": "Infectious Disease and the Human Immune Response",
+ "questions": [
+  {
+   "id": "2005-Q15a",
+   "source": "LC Biology HL 2005, Section C, Question 15 (a)",
+   "file": "papers/2005_ep_LC025ALPO00EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c). (30, 30)",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Comment briefly on the difficulty in classifying viruses as living organisms.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "non-cellular",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "one nucleic acid",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "can reproduce in host cell only",
+       "marks": 3,
+       "accept": [
+        "obligate parasite"
+       ]
+      },
+      {
+       "answer": "do not possess organelles",
+       "marks": 3,
+       "accept": [
+        "named organelle"
+       ]
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name two diseases of humans caused by viruses.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Cold",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "'flu",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "polio",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "rabies",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "mumps",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "measles",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "AIDS (HIV)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2",
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Name two types of lymphocyte and state a role of each when viruses or other micro-organisms enter the blood.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Name: B-cells",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Name: T-cells",
+       "marks": 3,
+       "accept": [
+        "two named T cells e.g. helper / killer / suppressor / memory"
+       ]
+      },
+      {
+       "answer": "B-cells – produce antibodies / agglutination or lysis / memory",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "T-cells – recognise / destroy infected or damaged cells / memory / activation / suppress immune system",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Helper T – stimulate B cells or stimulate killer T cells / recognise antigens",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Killer T – destroy infected or damaged cells",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Suppressor T – switch off immune system or explained",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Memory T – memorise antigen",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "names: any two 2(3); roles: any two 2(3)",
+     "scheme_note": "Role must match the lymphocyte named.",
+     "outcomes": [
+      "2.4.14",
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "“Immunity that results from vaccination is effectively the same as the immunity that develops following an infection”. Do you agree with this statement? Explain your answer.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "yes",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "in both cases the result is the production of antibodies",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2005-Q15b",
+   "source": "LC Biology HL 2005, Section C, Question 15 (b) (iv)-(v)",
+   "file": "papers/2005_ep_LC025ALPO00EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c). [Q15 (b) is a question on bacteria; parts (i)-(iii), on bacterial cell structure and survival in unfavourable conditions, are not on this chapter and are omitted.]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iv)",
+     "text": "What is meant when a bacterium is described as being pathogenic?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Disease-causing",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "What are antibiotics? Use your knowledge of the Theory of Natural Selection to explain the possible danger involved in the misuse of antibiotics.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Substances produced by micro-organisms",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "inhibit (growth or reproduction) of bacteria or fungi",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Misuse: survival of resistant strains / build up of resistant population",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "antibiotics 2(3) + misuse 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12",
+      "1.5.3",
+      "2.4.15"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2006-Q6e",
+   "source": "LC Biology HL 2006, Section A, Question 6 (e)",
+   "file": "papers/2006_ep_LC025ALPO00EV.pdf",
+   "page": 4,
+   "section": "A",
+   "stem": "Distinguish between the members of each of the following pairs by making a brief comment on each.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(e)",
+     "text": "Antigen and antibody",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "antigen: substance on cell membrane or surface of virus or bacteria",
+       "marks": 2,
+       "accept": [
+        "causes antibody production",
+        "foreign substance"
+       ]
+      },
+      {
+       "answer": "antibody: produced in response to antigen",
+       "marks": 2,
+       "accept": [
+        "destroys antigen",
+        "defence protein",
+        "produced by lymphocytes"
+       ]
+      }
+     ],
+     "rule": "2 + 2 (whole question 5(2 + 2))",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2006-Q15b",
+   "source": "LC Biology HL 2006, Section C, Question 15 (b) (iii)-(iv)",
+   "file": "papers/2006_ep_LC025ALPO00EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "Answer any two of (a), (b) and (c). (b) Answer the following in relation to bacteria. [Parts (i)-(ii), on bacterial nutrition, are not on this chapter and are omitted.]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iii)",
+     "text": "What are antibiotics? For what purpose are they used?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "substances produced by bacteria or fungi",
+       "marks": 3,
+       "accept": [
+        "micro-organisms"
+       ]
+      },
+      {
+       "answer": "treat infections",
+       "marks": 3,
+       "accept": [
+        "correct example"
+       ]
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "Scheme: '[accept micro-organisms]'.",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Explain what is meant by antibiotic resistance and suggest how it may develop.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "resistance: bacteria or fungi not killed by or inhibited by or immune to (antibiotic)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "how develops: natural selection has occurred",
+       "marks": 3,
+       "accept": [
+        "surviving strains multiply",
+        "misuse comment",
+        "plasmid transfer"
+       ]
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "1.5.3",
+      "2.4.15"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2006-Q15c",
+   "source": "LC Biology HL 2006, Section C, Question 15 (c) (ii)",
+   "file": "papers/2006_ep_LC025ALPO00EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "Answer any two of (a), (b) and (c). (c) Write notes on three of the following. [Only topic (ii) is on this chapter.]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii)",
+     "text": "Biological benefits of breastfeeding.",
+     "marks": 10,
+     "points": [
+      {
+       "answer": "Antibodies or immunity",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "less danger of infection",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "uterus contracts",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "may reduce risk of breast cancer",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "bonding",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "correct nutrients or easier to digest",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "suitable temperature",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "delayed ovulation",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any three: 4 + 2(3) (first correct point 4 marks, next two 3 marks each)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "Only the antibody / passive-immunity benefit is in the new course (2.4.12 lists breastfeeding as a means of passive immunity); the other benefits (bonding, nutrition, uterus contraction, delayed ovulation, cancer risk) are not in the new specification."
+  },
+  {
+   "id": "2007-Q14b",
+   "source": "LC Biology HL 2007, Section C, Question 14 (b)",
+   "file": "papers/2007_ep_LC025ALP000EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "Answer any two of (a), (b) and (c). (30, 30)",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Comment on the difficulty of defining viruses as living organisms.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "obligate parasite",
+       "marks": 3,
+       "accept": [
+        "explained"
+       ]
+      },
+      {
+       "answer": "non-cellular",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "can be crystallised",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "no metabolism",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "one nucleic acid",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "What are the two main biochemical components of a virus particle?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "DNA or RNA or nucleic acid",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "protein",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2",
+      "2.4.13"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Name two diseases caused by viruses.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "smallpox",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "chicken pox",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "measles",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "polio",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "'flu",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "common cold",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "leaf mosaic",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "others",
+       "marks": 3,
+       "accept": [
+        "AIDS",
+        "HIV"
+       ]
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "Scheme: '[allow AIDS or HIV]'.",
+     "outcomes": [
+      "1.1.2",
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Give an example of a beneficial application of a virus.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "bacteriophage",
+       "marks": 3,
+       "accept": [
+        "used in genetic engineering",
+        "vaccine production",
+        "vector (in disease treatment)"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "What is an antibiotic?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "substance produced by micro-organisms",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "that kills (some) micro-organisms or bacteria or fungi",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "Antibiotics should not be prescribed for a person suffering from a viral infection. Suggest a reason for this.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(antibiotics) have no effect (on viruses)",
+       "marks": 3,
+       "accept": [
+        "promote resistant bacteria"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12",
+      "2.4.15"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2007-Q14c",
+   "source": "LC Biology HL 2007, Section C, Question 14 (c)",
+   "file": "papers/2007_ep_LC025ALP000EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "Answer any two of (a), (b) and (c). (30, 30)",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What is meant by the term immunity?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "resistance to infection or to antigens",
+       "marks": 3,
+       "accept": [
+        "disease"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Scheme: '[allow disease]'.",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Outline briefly the role of B lymphocytes in the human immune system.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "recognition",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "produce antibodies",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "specific to antigens or in response to antigens",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "memory cells",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "Scheme: '[allow memory cells]'.",
+     "outcomes": [
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Distinguish between active and passive immunity.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "active immunity: body produces antibodies",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "passive immunity: antibodies introduced to body",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "“Vaccination gives rise to active immunity”. Explain this statement.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "vaccination introduces antigen",
+       "marks": 3,
+       "accept": [
+        "explained"
+       ]
+      },
+      {
+       "answer": "causes antibody production",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(v) 1.",
+     "text": "In certain situations a person is given a specific antibody rather than being vaccinated. 1. Is this an example of active or passive immunity?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "passive",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Asterisked in scheme (*): a specific term; the correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(v) 2.",
+     "text": "Under what circumstances might an antibody, rather than a vaccination, be given?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "infection may already have occurred",
+       "marks": 3,
+       "accept": [
+        "possibility of dangerous infection",
+        "example",
+        "no vaccine available",
+        "vaccine too expensive"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(v) 3.",
+     "text": "Comment on the duration of immunity that follows the administration of an antibody.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "short",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2008-Q6d",
+   "source": "LC Biology HL 2008, Section A, Question 6 (d)",
+   "file": "papers/2008_ep_LC025ALP000EV.pdf",
+   "page": 4,
+   "section": "A",
+   "stem": "The diagram shows the female reproductive system. [Parts (a)-(c), on the reproductive system, are omitted.]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(d)",
+     "text": "Give two biological advantages of breastfeeding.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "(transfer of) antibodies",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "balanced diet",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "bonding",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "contraception",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "correct temperature",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "milk sterile",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "uterus recovers more quickly",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "reduced cancer risk",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "psychological wellbeing",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "Only the antibody (passive immunity) advantage is in the new course (2.4.12); the other advantages are not in the new specification."
+  },
+  {
+   "id": "2008-Q15b",
+   "source": "LC Biology HL 2008, Section C, Question 15 (b)",
+   "file": "papers/2008_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "Answer any two of (a), (b) and (c). (b) Just over fifty years ago the myxoma virus was brought to Ireland. The disease for which it is responsible in rabbits, myxomatosis, quickly decimated the wild population. Now, however, the disease is much less common and is responsible for far fewer deaths. [Part (iii), on the advantage and disadvantage of biological control, is ecology and is omitted.]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Why do you think that the rabbit population was decimated when the myxoma virus was first brought to Ireland?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "no immunity in population",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "suitable vectors (e.g. fleas)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "rapid spread",
+       "marks": 3,
+       "accept": [
+        "high population"
+       ]
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.15"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Suggest a reason why myxomatosis is no longer a major threat to the Irish rabbit population.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "natural immunity",
+       "marks": 3,
+       "accept": [
+        "Natural Selection",
+        "virus mutated"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.15"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "The human immunodeficiency virus (HIV) is responsible for AIDS in the human population. Would you expect a similar trend to that shown by myxomatosis as time passes? Explain your answer.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Yes + plausible answer",
+       "marks": 6,
+       "accept": [
+        "No + plausible answer"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.15",
+      "2.4.16"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Outline briefly how a virus replicates (reproduces).",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "attaches to (host) cell",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "introduces nucleic acid (DNA or RNA)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(host) DNA inactivated",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "viral DNA or RNA replicated",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "using resources of host cell",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "protein coat formed",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "assembly (of virus)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any three 3(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.13"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2009-Q15c",
+   "source": "LC Biology HL 2009, Section C, Question 15 (c) (i) and (v)",
+   "file": "papers/2009_ep_LC025ALP000EV.pdf",
+   "page": 12,
+   "section": "C",
+   "stem": "Answer any two of (a), (b) and (c). (c) Write notes on three of the following topics: [topics (ii)-(iv), on neurotransmitters, homeostasis and wind-pollinated flowers, are omitted]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "The role of lymphocytes.",
+     "marks": 10,
+     "points": [
+      {
+       "answer": "Immune system (or described)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "B lymphocytes",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "produce antibodies",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "T lymphocytes",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "any function of T lymphocyte",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any three points: 4 + 3 + 3 (question marked 'Any three' topics, 3(4+3+3))",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "The economic and medical importance of viruses.",
+     "marks": 10,
+     "points": [
+      {
+       "answer": "Economic importance: Crop damage / example of viral crop disease / animal disease / example of viral animal disease / human medical costs",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Medical importance: Human diseases / examples of viral human diseases / used in medical research / virus control of bacteria / genetic engineering (or described)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "three points: 4 + 3 + 3; at least one from each category",
+     "scheme_note": "Scheme: 'At least one from each category'.",
+     "outcomes": [
+      "1.1.2",
+      "2.4.16"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2010-Q6",
+   "source": "LC Biology HL 2010, Section A, Question 6",
+   "file": "papers/2010_ep_LC025ALP000EV.pdf",
+   "page": 4,
+   "section": "A",
+   "stem": "The diagram shows a virus attached to a host cell.",
+   "diagram": {
+    "page": 4,
+    "what": "Line drawing of a bacteriophage-type virus (a polygonal head containing a coiled strand, with a short tail and tail fibres) attached by its tail to the surface of a large oval host cell. 'Virus' labels the whole particle; A points to the outer wall of the head; B points to the coiled strand inside the head.",
+    "labels": {
+     "A": "protein coat (capsid)",
+     "B": "nucleic acid (DNA or RNA)",
+     "Host cell": "host cell"
+    }
+   },
+   "parts": [
+    {
+     "label": "(a) (i)",
+     "text": "What is part A made of?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "protein",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(a) (ii)",
+     "text": "What is part B made of?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Nucleic acid",
+       "marks": 3,
+       "accept": [
+        "DNA",
+        "RNA"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(b)",
+     "text": "Briefly describe how viruses reproduce",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Attachment",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(viral) nucleic acid into (host) cell",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "uses host structures (or described)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "part(s) replicated",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "virus assembly",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "release (or lysis)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any three 3(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.13"
+     ]
+    },
+    {
+     "label": "(c)",
+     "text": "During 2009 swine flu spread through the population of many countries. Younger people were more at risk of becoming ill with swine flu than older people. Using your knowledge of the immune system, suggest a reason for this.",
+     "marks": 5,
+     "points": [
+      {
+       "answer": "(Older people) previous exposure",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "antibodies",
+       "marks": 2,
+       "accept": [
+        "active immunity",
+        "memory cells"
+       ]
+      }
+     ],
+     "rule": "3 + 2",
+     "scheme_note": "Scheme prints '3+2' against the answer line; read as 3 for previous exposure of older people and 2 for antibodies (or active immunity or memory cells).",
+     "outcomes": [
+      "2.4.12",
+      "2.4.15"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2010-Q15c",
+   "source": "LC Biology HL 2010, Section C, Question 15 (c) (ii)",
+   "file": "papers/2010_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c). (c) Suggest a biological explanation for each of the following observations: [only (ii) is on this chapter]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii)",
+     "text": "Doctors are reluctant to prescribe antibiotics to patients suffering from common cold-like symptoms.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Common cold is a viral disease",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "antibiotics do not affect viruses",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(overuse of antibiotics) may lead to antibiotic resistance in bacteria (in patients)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12",
+      "2.4.15"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2011-Q10b",
+   "source": "LC Biology HL 2011, Section C, Question 10 (b) (ii)",
+   "file": "papers/2011_ep_LC025ALP000EV.pdf",
+   "page": 8,
+   "section": "C",
+   "stem": "(b) What deduction is it possible to make from each of the following observations? [Only observation (ii) is on this chapter; the others are ecology.] (27)",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii)",
+     "text": "Mortality levels resulting from infection by a particular virus tend to decline over the years.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "(Host) immunity develops",
+       "marks": null,
+       "accept": [
+        "comment on natural selection (or described)",
+        "most virulent strains die off",
+        "vaccination"
+       ]
+      }
+     ],
+     "rule": "Whole of (b) is marked 3(7) + 2(3): the first three correct deductions earn 7 marks each and the remaining two earn 3 marks each (27).",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.15"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2012-Q15b",
+   "source": "LC Biology HL 2012, Section C, Question 15 (b)",
+   "file": "papers/2012_ep_LC025ALP000EV.pdf",
+   "page": 13,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c). (30, 30)",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "State two ways, other than colour, in which red blood cells differ from white blood cells.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Smaller",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "more of them",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "biconcave",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "disc (shape)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "no nucleus (when mature)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "no mitochondria",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "transport oxygen",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "contain haemoglobin",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "transport CO2",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "Answers describe the red blood cell.",
+     "outcomes": [
+      "2.6.12",
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name a group of white blood cells, other than lymphocytes.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Phagocytic (white cells)",
+       "marks": 3,
+       "accept": [
+        "monocytes"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(iii) 1.",
+     "text": "Lymphocytes may be divided into B cells and T cells. B cells produce antibodies. 1. What is the role of antibodies in the body?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "To inactivate antigens (or described)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12",
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(iii) 2.",
+     "text": "Name any three types of T cell.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Helper",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "killer",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "suppressor",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "memory",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any three 3(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(iii) 3.",
+     "text": "State a role of each of the T cell types that you named in part 2.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Helper: recognise antigens",
+       "marks": 3,
+       "accept": [
+        "secrete interferon",
+        "stimulate B-cell (or antibody production)",
+        "activate killer cell"
+       ]
+      },
+      {
+       "answer": "Killer: attack infected cells",
+       "marks": 3,
+       "accept": [
+        "secrete perforin"
+       ]
+      },
+      {
+       "answer": "Suppressor: stop immune responses",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Memory: long term protection",
+       "marks": 3,
+       "accept": [
+        "remember antigens (to which they have been exposed)",
+        "explained"
+       ]
+      }
+     ],
+     "rule": "any three 3(3)",
+     "scheme_note": "Role must match a T cell type named in part 2.",
+     "outcomes": [
+      "2.4.14"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2013-Q12a",
+   "source": "LC Biology HL 2013, Section C, Question 12 (a)",
+   "file": "papers/2013_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "A virus has been described as a piece of genetic material that has escaped from a cell. Give one piece of evidence that supports this description.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Composed of nucleic acid",
+       "marks": 3,
+       "accept": [
+        "DNA",
+        "RNA"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Viruses are examples of obligate parasites. Explain why this is the case.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Can only replicate (or reproduce) inside a cell (or host)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2",
+      "2.4.13"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Give an example of how a virus might be beneficial to mankind.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Genetic engineering",
+       "marks": 3,
+       "accept": [
+        "vaccine (production)",
+        "cancer treatment",
+        "pest control",
+        "disease control"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2013-Q12c",
+   "source": "LC Biology HL 2013, Section C, Question 12 (c)",
+   "file": "papers/2013_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Distinguish clearly between antibodies and antibiotics by writing a note about each.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Antibodies – proteins",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Antibodies – produced by body",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Antibodies – in response to antigen (or to infection)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Antibiotics – produced by micro-organisms",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Antibiotics – kill (or destroy or stop growth of) other micro-organisms",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Antibiotics – do not affect viruses",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "4(3)",
+     "scheme_note": "Scheme lists six points across the two terms and awards 4(3); it does not state a minimum number per term.",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "In relation to antibodies, distinguish between active and passive immunity.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Active - antibodies produced in body",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Passive – antibodies given",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Using your knowledge of antibiotics and bacteria, suggest why a person is more likely to pick up an infection in hospital than at home.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Antibiotic resistance strains",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "more pathogens",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "more people (or poor hygiene)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "patients weaker",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.15",
+      "1.5.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2014-Q15b",
+   "source": "LC Biology HL 2014, Section C, Question 15 (b) (v)",
+   "file": "papers/2014_ep_LC025ALP000EV.pdf",
+   "page": 14,
+   "section": "C",
+   "stem": "(b) Read the passage below and answer the questions that follow. European rabbits were introduced by settlers into Australia in 1859. Within 70 years the rabbit population grew enormously across most of the continent. [...] Farmers battled the problem, fencing their properties with special netting, using poisons, digging out warrens and finally introducing the Myxoma virus as a form of biological control. This virus, a benign parasite of the Brazilian forest rabbit, was lethal for European rabbits. It quickly reduced Australia's rabbits to a mere 5% of former numbers. However, this solution was not long-lasting and rabbit numbers recovered. [Parts (i)-(iv) are ecology and are omitted; note the scheme for (iv) also accepted 'immunity develops' as a disadvantage of biological control.]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(v)",
+     "text": "Suggest one reason why the rabbit numbers recovered.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Immunity (to the virus evolved)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.15"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2015-Q3",
+   "source": "LC Biology HL 2015, Section A, Question 3",
+   "file": "papers/2015_ep_LC025ALP000EV.pdf",
+   "page": 3,
+   "section": "A",
+   "stem": "The diagram shows the structure of a type of virus.",
+   "diagram": {
+    "page": 3,
+    "what": "Spherical virus: a dark grey circular core containing a wavy strand, surrounded by a lighter grey outer layer from which short club-shaped spikes project. A points to the light grey outer layer; B points to the wavy strand in the core.",
+    "labels": {
+     "A": "protein coat (capsid)",
+     "B": "nucleic acid (DNA or RNA)"
+    }
+   },
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "What is the main chemical constituent of part A?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Protein",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Whole question marked 'Best 6: 8 + 8 + 4(1)': of the seven parts, the best six answers count; the first two correct earn 8 marks each and the next four earn 1 mark each (20).",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(b)",
+     "text": "Viruses are obligate parasites. What does this mean in relation to viruses?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Can only replicate (or reproduce) in a cell",
+       "marks": null,
+       "accept": [
+        "can only replicate using a cell"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2",
+      "2.4.13"
+     ]
+    },
+    {
+     "label": "(c)",
+     "text": "B is one of two possible biomolecules. Name one of these.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "RNA",
+       "marks": null,
+       "accept": [
+        "DNA"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2",
+      "2.4.13"
+     ]
+    },
+    {
+     "label": "(d)",
+     "text": "Name one virus that causes disease in plants.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "mosaic (virus)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12",
+      "2.4.16"
+     ]
+    },
+    {
+     "label": "(e)",
+     "text": "How do scientists distinguish between different viruses?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Shape (of protein coat)",
+       "marks": null,
+       "accept": [
+        "type of nucleic acid",
+        "antibody (antigen) reaction",
+        "size",
+        "host species",
+        "structure"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.13"
+     ]
+    },
+    {
+     "label": "(f)",
+     "text": "Viruses are difficult to classify into a kingdom. Why is this so?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Non cellular",
+       "marks": null,
+       "accept": [
+        "no (cell) organelles"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(g)",
+     "text": "Give one way in which viruses are economically important to humans.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Manufacture of vaccines",
+       "marks": null,
+       "accept": [
+        "enhancement of plant phenotype (or example)",
+        "used in medical research",
+        "control of bacteria",
+        "genetic engineering (or described)",
+        "pathogenic",
+        "biological control",
+        "harms plants (or harms animals)"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2015-Q14a",
+   "source": "LC Biology HL 2015, Section C, Question 14 (a)",
+   "file": "papers/2015_ep_LC025ALP000EV.pdf",
+   "page": 13,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c). (30, 30)",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Outline how any one named feature of the human general defence system works.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Feature named",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Mechanism described",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name two organs in the human body that are specific to the immune system.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Thymus",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "spleen",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "lymph nodes",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "tonsils",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Distinguish clearly between an antigen and an antibody.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Antigen: (foreign particle that) causes an antibody response",
+       "marks": 3,
+       "accept": [
+        "Antibody: (protein) produced in response to an antigen (or to infection)"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Only 3 marks: a correct note on EITHER antigen OR antibody earns the 3 marks ('OR' in scheme).",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(iv) 1.",
+     "text": "T cells are a type of lymphocyte, with different sub-types having different roles in our immune system. 1. Describe the specific roles of both killer T cells and helper T cells in an immune response.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Killer T cells: recognise infected cell (or cancer or antigen)",
+       "marks": 6,
+       "accept": [
+        "produce perforin",
+        "perforates (cell) membrane",
+        "kill the infected cell",
+        "kill cancer cell"
+       ]
+      },
+      {
+       "answer": "Helper T cells: produce interferon",
+       "marks": 6,
+       "accept": [
+        "recognise antigens",
+        "stimulate B-cell (or antibody production)",
+        "activate Killer T cells"
+       ]
+      }
+     ],
+     "rule": "6 + 6",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(iv) 2.",
+     "text": "Name the T cells that stop the immune response.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Suppressor (T cells)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Asterisked in scheme (*): a specific term; cancelled by an added incorrect answer.",
+     "outcomes": [
+      "2.4.14"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "Part (ii) (organs specific to the immune system: thymus, spleen, lymph nodes, tonsils) is not in the new specification; the rest is (2.4.12, 2.4.14)."
+  },
+  {
+   "id": "2015-Q15c",
+   "source": "LC Biology HL 2015, Section C, Question 15 (c) (ii)",
+   "file": "papers/2015_ep_LC025ALP000EV.pdf",
+   "page": 15,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c). [Q15 (c) is on bacteria; only part (ii) is on this chapter.]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii)",
+     "text": "What is meant by the term pathogen?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Disease-causing (agent or organism)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2016-Q15c",
+   "source": "LC Biology HL 2016, Section C, Question 15 (c) (ii) 4 and (iii) 2",
+   "file": "papers/2016_ep_LC025ALP000EV.pdf",
+   "page": 15,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c). [Only the virus and vaccination items of (c) are on this chapter.]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii) 4.",
+     "text": "Diseases in humans occur for a number of different reasons. In each of the following cases explain how the presence of a named disease may be recognised. 4. Caused by a virus.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Named disease + matching recognition",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3, 2, 0",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(iii) 2.",
+     "text": "Explain the biological basis of each of the following. 2. Vaccination.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Stimulates antibody production",
+       "marks": 3,
+       "accept": [
+        "stimulates active immunity"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "Recognising a named viral disease by its symptoms is not an explicit new-course outcome; vaccination is (2.4.12)."
+  },
+  {
+   "id": "2017-Q4",
+   "source": "LC Biology HL 2017, Section A, Question 4 (a) and (d)",
+   "file": "papers/2017_ep_LC025ALP000EV.pdf",
+   "page": 5,
+   "section": "A",
+   "stem": "From your knowledge of microorganisms, explain what is meant by each of the following terms. [Terms (b) saprophyte, (c) heterotroph, (e) asepsis, (f) bioprocessing and (g) bioreactor are omitted.]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Pathogen.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Disease-causing (organism or agent)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Whole question marked 2(5) + 5(2): the first two correct answers earn 5 marks each and the remaining correct answers 2 marks each (20).",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(d)",
+     "text": "Antibiotic.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "(Chemical) produced by microorganisms (or bacteria and fungi) to kill (or stop growth of) other microorganisms (or bacteria or fungi)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "As (a): 2(5) + 5(2) for the whole question.",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2017-Q14a",
+   "source": "LC Biology HL 2017, Section C, Question 14 (a)",
+   "file": "papers/2017_ep_LC025ALP000EV.pdf",
+   "page": 14,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c). (a) Read the passage below and answer the questions that follow. Zika virus is a mosquito-borne virus. Mosquitoes usually bite during the day, peaking during early morning and late afternoon or evening. Researchers are studying a potential link between Zika virus infection and a surge in microcephaly cases. Microcephaly is a condition in which a baby is born with a small head or the head stops growing after birth. Rio de Janeiro, was an area with ongoing Zika virus transmission during the 2016 summer Olympic Games.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Suggest a reason why the World Health Organisation (WHO) advised women of childbearing age or those who were pregnant not to travel to areas where a Zika virus outbreak was occurring.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "To prevent microcephaly or described or from passage",
+       "marks": null,
+       "accept": [
+        "to minimise Zika transmission"
+       ]
+      }
+     ],
+     "rule": "Whole of this (a)/(b)/(c) option is marked 5(4) + 5(2) over 10 marked points: the first five correct points earn 4 marks each, the next five earn 2 marks each (30 marks). This part supplies 1 point.",
+     "scheme_note": "Scheme: '[allow to minimise Zika transmission]'.",
+     "outcomes": [
+      "2.4.15",
+      "2.4.16"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Give two precautions people could take to prevent Zika virus transmission if they did travel to affected areas.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Protect against mosquito bites (nets or repellents or clothing)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "reference to time of day",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "delay conception for the following six months or use condoms for sex (or don't have sex)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Any two (2 of the 10 points).",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12",
+      "2.4.15"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Although the Zika virus can cause harm, other viruses can be beneficial. Give one example of a beneficial virus.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Bacteriophages (which kill bacteria)",
+       "marks": null,
+       "accept": [
+        "used to treat certain tumours",
+        "(vectors) in gene therapy",
+        "(vectors) in genetic engineering",
+        "plant example described",
+        "biological control (or described)"
+       ]
+      }
+     ],
+     "rule": "1 point.",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Describe how a virus replicates.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Virus attaches to cell (or to host)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "(viral) nucleic acid into cell (or into host)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "host structures used (or described) or virus (parts) replicated",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "virus assembly",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "release (or lysis or cell bursts)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Any four (4 of the 10 points).",
+     "scheme_note": "If 'cell' is not mentioned at least once, award a maximum of three unit marks.",
+     "outcomes": [
+      "2.4.13"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Discuss the statement “Viruses are not considered to be living organisms”.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Cannot reproduce independently (or explained)",
+       "marks": null,
+       "accept": [
+        "obligate parasites"
+       ]
+      },
+      {
+       "answer": "Non-cellular",
+       "marks": null,
+       "accept": [
+        "no organelles",
+        "no metabolism (or no metabolism described)",
+        "only one type of nucleic acid"
+       ]
+      }
+     ],
+     "rule": "2 points (the scheme lists two answer lines; with 1+2+1+4 points in (i)-(iv) this completes the 10 points).",
+     "scheme_note": "Point count for (v) inferred from the 10-point total; the scheme does not print 'any two' here.",
+     "outcomes": [
+      "1.1.2"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2017-Q14b",
+   "source": "LC Biology HL 2017, Section C, Question 14 (b)",
+   "file": "papers/2017_ep_LC025ALP000EV.pdf",
+   "page": 14,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c).",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "An outbreak of measles occurred in Ireland during the summer of 2016. Name a group of people who would be most at risk if exposed to such an outbreak.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Non-vaccinated (or example)",
+       "marks": null,
+       "accept": [
+        "those with weakened immune systems (or example)",
+        "babies"
+       ]
+      }
+     ],
+     "rule": "Whole of this (a)/(b)/(c) option is marked 5(4) + 5(2) over 10 marked points: the first five correct points earn 4 marks each, the next five earn 2 marks each (30 marks). This part supplies 1 point.",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.15"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "What is a vaccine and how does it result in immunity?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Vaccine: Non-disease-causing dose of pathogen (or antigen)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "How vaccine gives immunity: (Introduces) antigen",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Stimulates antibody production",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "3 points.",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "List any three types of T lymphocyte active in the human immune response.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Helper",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "killer",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "suppressor",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "memory",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Any three (3 points).",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Describe the role of each of the T cells referred to in part (iii) above.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Helper T cells: Recognise antigens",
+       "marks": null,
+       "accept": [
+        "activate killer cells",
+        "secrete interferon",
+        "stimulate B-cells",
+        "stimulate antibody production"
+       ]
+      },
+      {
+       "answer": "Killer T cells: Recognise (or attack or burst) infected cells (or cancer or antigen)",
+       "marks": null,
+       "accept": [
+        "secrete perforin"
+       ]
+      },
+      {
+       "answer": "Suppressor T cells: Stop immune response",
+       "marks": null,
+       "accept": [
+        "inhibit B (or T) cell (production)"
+       ]
+      },
+      {
+       "answer": "Memory T cells: Remember antigens",
+       "marks": null,
+       "accept": [
+        "long-term protection"
+       ]
+      }
+     ],
+     "rule": "Any one role from each of three types (3 points).",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.14"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2018-Q13a",
+   "source": "LC Biology HL 2018, Section C, Question 13 (a) (i)",
+   "file": "papers/2018_ep_LC025ALP000EV.pdf",
+   "page": 13,
+   "section": "C",
+   "stem": "(a) Most organisms contain both nucleic acids, RNA and DNA. [Part (ii), on where RNA but no DNA is found in eukaryotic cells, is omitted.] (9)",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name the biologically active entities, each of which contains only one type of nucleic acid.",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "Viruses",
+       "marks": 4,
+       "accept": []
+      }
+     ],
+     "rule": "(a) marked 4 + 3 + 2: (i) 4 marks",
+     "scheme_note": "Asterisked in scheme (*): a specific term; cancelled by an added incorrect answer.",
+     "outcomes": [
+      "2.4.13",
+      "1.1.2"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2018-Q15a",
+   "source": "LC Biology HL 2018, Section C, Question 15 (a) (iii) 2",
+   "file": "papers/2018_ep_LC025ALP000EV.pdf",
+   "page": 15,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c). [Q15 (a) is on bacteria; parts (i), (ii), (iii) 1 and (iv), on effects of bacteria, binary fission, batch processing and endospores, are omitted.] (iii) Penicillin is an example of an antibiotic produced in large quantities using the batch processing method.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iii) 2.",
+     "text": "Explain why overuse of antibiotics is potentially dangerous.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Development of resistant bacteria or described",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Whole of this option is marked 2(5) + 4(4) + 4(1) over 10 marked points: first two correct points 5 marks each, next four 4 marks each, last four 1 mark each (30 marks). This part supplies 1 point.",
+     "scheme_note": "",
+     "outcomes": [
+      "1.5.3",
+      "2.4.15"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2018-Q15b",
+   "source": "LC Biology HL 2018, Section C, Question 15 (b) (ii) and (iv)",
+   "file": "papers/2018_ep_LC025ALP000EV.pdf",
+   "page": 15,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c). (b) Give a detailed biological explanation for each of the following. [Items (i), (iii) and (v) are on other topics and are omitted.]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii)",
+     "text": "Active immunity results in long-lasting immunity.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Antibodies produced",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "by (body's own) lymphocytes",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "(production of) memory cells",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Whole of this option is marked 2(5) + 4(4) + 4(1) over 10 marked points: first two correct points 5 marks each, next four 4 marks each, last four 1 mark each (30 marks). Any two (2 of the 10 points).",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12",
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Antibiotics should not be prescribed to directly treat influenza.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Antibiotics are not effective against viruses (or influenza)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "influenza is (caused by) a virus",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "antibiotics could kill useful bacteria or do not kill resistant bacteria",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Any two (2 of the 10 points).",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12",
+      "2.4.15"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2019-Q14b",
+   "source": "LC Biology HL 2019, Section C, Question 14 (b) (i)-(ii)",
+   "file": "papers/2019_ep_LC025ALP040EV.pdf",
+   "page": 7,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c). (b) Write notes on three of the following topics: [topics (iii)-(v), on tropisms, batch food processing and heart sounds, are omitted]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Vaccination.",
+     "marks": 10,
+     "points": [
+      {
+       "answer": "A non-harmful (or attenuated or weakened or dead) dose of the pathogen (or antigen) introduced (or injected) into an organism (or into the body)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Stimulates (active) immunity",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Production of antibodies",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Production of memory cells (or T cells or B cells)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Prevents infectious disease or prevents spread of disease",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any three: 4 + 3 + 3 (any three of the five topics)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Antibiotic resistance in bacteria.",
+     "marks": 10,
+     "points": [
+      {
+       "answer": "(Antibiotic resistant bacteria) are not affected (by antibiotics)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Can be caused by overuse (or misuse) (of antibiotics) or by failure to complete a course (of antibiotics)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "bacteria mutate (or evolve or change)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Plasmid carries resistant gene or (resistance) acquired by bacteria from other bacteria",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "resistant population (or example)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "(antibiotics) produced by microorganisms, which kill (or slow down the growth of) bacteria (or fungi or microorganisms)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any three: 4 + 3 + 3",
+     "scheme_note": "The official scheme PDF prints this list with duplicated fragments ('other bacteria/ resistant population (or example)' appears twice and one bracket is unbalanced); the points above are the de-duplicated reading.",
+     "outcomes": [
+      "1.5.3",
+      "2.4.15"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2020-Q15b",
+   "source": "LC Biology HL 2020, Section C, Question 15 (b)",
+   "file": "papers/2020_ep_LC025ALP040EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c). (b) Human papilloma virus (HPV) is a virus that can infect cells and cause some cancers in males and females. A vaccine has been produced to prevent infection by the human papilloma virus and is now available to all first year students attending Irish second-level schools. The vaccine contains particles from the coat of the virus only, in a saline solution, and stimulates induced immunity in humans.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "From which biochemical component are viral coats made?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Protein",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Asterisked in scheme (*): a specific term; cancelled by an added incorrect answer.",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name the other main chemical component of a virus.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Nucleic acid",
+       "marks": 3,
+       "accept": [
+        "DNA",
+        "RNA"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2",
+      "2.4.13"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Why can viruses be described as obligate parasites?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Can only replicate (reproduce) in a host (or cell)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2",
+      "2.4.13"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Describe how virus particles can infect and replicate in host cells.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Attachment (of virus to host cell)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "entry of nucleic acid (or DNA or RNA)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "uses host structures (to replicate viral parts)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "virus assembles",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(new) virus (particles) produced (or released)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any three 3(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.13"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Immunity is the ability to resist infection. Name the two types of induced immunity.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Active",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Passive",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "Both asterisked (*): specific terms; cancelled by an added incorrect answer.",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "Which of these types of immunity that you have named at (v), occurs after a vaccination with the HPV vaccine?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Active",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Asterisked (*).",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(vii)",
+     "text": "Give one difference between the types of induced immunity that you have named at (v).",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Active is longer lasting (than passive)",
+       "marks": 3,
+       "accept": [
+        "active the body makes antibodies and passive the body receives antibodies"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Whole of (b) also given as a 10-response table, 3 marks per correct response (30).",
+     "outcomes": [
+      "2.4.12"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2021-Q16c",
+   "source": "LC Biology HL 2021, Section C, Question 16 (c)",
+   "file": "papers/2021_ep_LC025ALP040EV.pdf",
+   "page": 8,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c), (d). (c) SARS-CoV-2 is a novel coronavirus which led to a global COVID-19 pandemic in 2020. A race to produce a vaccine began. The vaccine causes an immune response where antibodies are produced.",
+   "diagram": {
+    "page": 8,
+    "what": "Line graph: y-axis 'Relative antibody concentration', x-axis 'Time (days)'. Arrow A marks the vaccine at the start: a small, low, slow rise in antibody followed by a fall back to near zero. Arrow B marks later infection with the virus: a rapid, steep rise to a much higher peak, then a fall to a level that stays above the baseline.",
+    "labels": {
+     "A": "vaccination (first exposure, primary response: slow and small)",
+     "B": "infection with the virus (second exposure, secondary response: fast and large, due to memory cells)"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Mucous membrane linings produce mucus which can help as a physical barrier against the entry of viruses. Name two places in the body where mucus membrane linings are found.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Respiratory tract",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "digestive tract",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "reproductive tract",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "any correct examples",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Give the precise location in the body where lymphocytes are produced.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(Red) bone marrow",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Asterisked (*): a specific term; cancelled by an added incorrect answer.",
+     "outcomes": [
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Identify the specific type of lymphocyte that produces antibodies.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "B (lymphocytes)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Asterisked (*).",
+     "outcomes": [
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Identify one type of white blood cell, other than lymphocytes, that is involved in an immune response.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Monocyte",
+       "marks": 3,
+       "accept": [
+        "macrophage",
+        "phagocyte (phagocytic)",
+        "other correctly named WBC"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(v) 1.",
+     "text": "The graph below shows the antibody production after a person receives a vaccine (A) and after the same person becomes infected with the virus (B). 1. Using the information from the graph, compare the antibody response after receiving the vaccine at A with the antibody response after becoming infected with the virus at B.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "(Antibody response) is slow after vaccine (or A) and fast after infection (or B)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Number (of antibodies) produced is low after vaccine (or A) and high after infection (or B)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(v) 2.",
+     "text": "Suggest a reason for your answer at part 1. above.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "After A, 1st time infected (or described) or no memory cells (present)",
+       "marks": 3,
+       "accept": [
+        "After B, memory cells present"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12",
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "Identify the part of the virus that is recognised by antibodies.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Protein (coat)",
+       "marks": 3,
+       "accept": [
+        "capsid",
+        "antigen"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(vii)",
+     "text": "Explain why antibiotics are not prescribed to cure COVID-19.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Antibiotics have no effect against viruses",
+       "marks": 3,
+       "accept": [
+        "antibiotics only kill bacteria"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Whole of (c) also given as a 10-response table, 3 marks per correct response (30).",
+     "outcomes": [
+      "2.4.12"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "Part (ii), the site of lymphocyte production (bone marrow), is not stated in the new specification; all other parts are (2.4.12, 2.4.14)."
+  },
+  {
+   "id": "2022-Q5d",
+   "source": "LC Biology HL 2022, Section A, Question 5 (d)",
+   "file": "papers/2022_ep_LC025ALP038EV.pdf",
+   "page": 7,
+   "section": "A",
+   "stem": "Indicate whether the following statements are true or false by placing a tick (✓) in the appropriate box in each case.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(d)",
+     "text": "Macrophages are white blood cells that secrete perforin.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "False",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Whole question (7 statements) marked 6(3) + 2: 3 marks for each of the first six correct responses, 2 for the seventh (20).",
+     "scheme_note": "Answer read from the tick in the scheme PDF (page 9); the text version loses the ticks. (Not in scheme: perforin is secreted by killer T cells, not macrophages.)",
+     "outcomes": [
+      "2.4.14"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2022-Q7",
+   "source": "LC Biology HL 2022, Section A, Question 7",
+   "file": "papers/2022_ep_LC025ALP038EV.pdf",
+   "page": 9,
+   "section": "A",
+   "stem": "The diagram below shows the structure of a typical virus, such as SARS-CoV-2 (a type of coronavirus). It is one example of a harmful virus and it causes COVID-19 in humans.",
+   "diagram": {
+    "page": 9,
+    "what": "Drawing of a spherical coronavirus particle: a pale round body with an outer envelope studded with projecting club-shaped spike proteins; inside, a long coiled/folded strand. Arrow A points to the coiled strand inside. An empty box labelled X stands to the right for the candidate to draw an arrow from.",
+    "labels": {
+     "A": "nucleic acid (RNA in SARS-CoV-2)",
+     "X": "candidate's arrow should go to a surface spike protein (antigen)"
+    }
+   },
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Name molecule A.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Nucleic acid",
+       "marks": null,
+       "accept": [
+        "RNA",
+        "DNA"
+       ]
+      }
+     ],
+     "rule": "Whole question marked 6(3) + 2 over 7 responses ((d) has two): 3 marks for each of the first six correct responses, 2 for the seventh (20).",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(b)",
+     "text": "Antigens are present in viruses. On the diagram above, draw an arrow from 'X' to accurately show the location of an antigen.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Correct arrow",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Scheme says only 'Correct arrow': i.e. to a surface (spike) protein on the outside of the virus.",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(c)",
+     "text": "Explain why viruses are described as obligate parasites.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Need a host to replicate (or reproduce)",
+       "marks": null,
+       "accept": [
+        "cannot replicate by themselves"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2",
+      "2.4.13"
+     ]
+    },
+    {
+     "label": "(d)",
+     "text": "Vaccination has proved to be very effective in combatting COVID-19. Explain in detail the term vaccination.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "What it is: Administration of a non-disease-causing (non-living) dose of a pathogen (or antigen or part of a pathogen) or described",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "What it does: Stimulates production of antibodies",
+       "marks": null,
+       "accept": [
+        "stimulates active immunity",
+        "stimulates memory cells"
+       ]
+      }
+     ],
+     "rule": "two responses",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(e)",
+     "text": "Name one harmful virus, other than SARS-CoV-2 (coronavirus).",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Any valid harmful virus.",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2",
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(f)",
+     "text": "Give one example of a beneficial application of a virus.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Genetic engineering (vector)",
+       "marks": null,
+       "accept": [
+        "treat bacterial infection",
+        "vaccine production",
+        "any other valid answer"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2022-Q11b",
+   "source": "LC Biology HL 2022, Section C, Question 11 (b) (iii)",
+   "file": "papers/2022_ep_LC025ALP040EV.pdf",
+   "page": 2,
+   "section": "C",
+   "stem": "(b) [Parts (i) bacterial cell diagram and (ii) endospore formation are omitted.] (iii) Harmful bacteria can cause disease in humans. (27)",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iii) 1.",
+     "text": "Give any two examples of harmful bacteria.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Any correctly named (harmful) bacterium or named bacterial disease (two required)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "Scheme: 'Any two correctly named bacteria or named bacterial diseases'.",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(iii) 2.",
+     "text": "Bacterial infections can be treated with antibiotics. What is an antibiotic?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "A chemical that kills (or inhibits growth of) bacteria",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(iii) 3.",
+     "text": "State one possible reason why antibiotic resistance has arisen in bacteria.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Overuse (misuse)",
+       "marks": 3,
+       "accept": [
+        "mutation in bacteria"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "(b)(ii)-(iii) together are marked as 7 responses x 3 marks (21).",
+     "outcomes": [
+      "1.5.3",
+      "2.4.15"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2022-Q17b",
+   "source": "LC Biology HL 2022, Section C, Question 17 (b) (v)",
+   "file": "papers/2022_ep_LC025ALP040EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c), (d). (b) Answer the following questions based on human reproduction. [Parts (i)-(iv), on the placenta, birth, birth control and prolactin, are omitted.]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(v)",
+     "text": "State two biological benefits of breastfeeding.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Balanced supply of nutrients",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "supplies antibodies (passive immunity)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "correct temperature",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "any correct benefit",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "Only the antibody / passive-immunity benefit is in the new course (2.4.12); the other benefits are not in the new specification."
+  },
+  {
+   "id": "2023-Q5e",
+   "source": "LC Biology HL 2023, Section A, Question 5 (e)",
+   "file": "papers/2023_ep_LC025ALP038EV.pdf",
+   "page": 7,
+   "section": "A",
+   "stem": "The picture shows a transmission electron microscope image of a bacterial cell. [Parts (a)-(d) and (f), on bacterial shape, cell wall, binary fission, growth factors and the growth curve, are omitted.]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(e)",
+     "text": "Name any one harmful bacterium.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Any named harmful bacterium",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Whole question marked 2(5) + 5(2): 5 marks each for the first two correct responses, 2 for each later one (20).",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2023-Q6e",
+   "source": "LC Biology HL 2023, Section A, Question 6 (e)",
+   "file": "papers/2023_ep_LC025ALP038EV.pdf",
+   "page": 8,
+   "section": "A",
+   "stem": "Give a brief biological explanation for each of the following:",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(e)",
+     "text": "Doctors do not prescribe antibiotics for viral infections.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "(Antibiotics) do not affect viruses",
+       "marks": null,
+       "accept": [
+        "(antibiotics) only kill bacteria (or fungi)"
+       ]
+      }
+     ],
+     "rule": "Whole question marked 2(5) + 5(2): 5 marks each for the first two correct responses, 2 for each later one (20).",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2023-Q11b",
+   "source": "LC Biology HL 2023, Section C, Question 11 (b) (i)-(ii)",
+   "file": "papers/2023_ep_LC025ALP040EV.pdf",
+   "page": 2,
+   "section": "C",
+   "stem": "(b) Read the passage below and answer the questions that follow. Ash dieback is a serious disease of ash trees caused by the invasive pathogen Hymenoscyphus fraxineus, which originates in Asia and was brought to Europe in the early 1990s. Ash dieback was first detected in the Republic of Ireland in October 2012 on plants imported from continental Europe. The disease is now prevalent throughout most of the island of Ireland and is likely to cause the death of the majority of the ash trees over the next two decades. This will also have an effect on organisms that feed on ash (such as moths) and other animals along the food chain (such as birds, e.g. the robin). Teagasc, the Irish agriculture development authority, is aiming to establish a gene bank composed of genotypes of ash trees that are tolerant or resistant to the deadly pathogen with the future aim of producing planting stocks for forests and hedgerows in Ireland. (Adapted from Ash Dieback Disease, www.teagasc.ie) [Parts (iii)-(vi), on food chains, pyramids and predation, are omitted.]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name the type of ecological relationship that exists between ash trees and the pathogen that causes ash dieback.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Parasitism",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "From the passage, or otherwise, state a way that ecologists could ensure the survival of ash trees in Ireland.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Establish a gene bank of resistant (or tolerant) trees",
+       "marks": 3,
+       "accept": [
+        "thinning",
+        "diversifying species",
+        "other correct way"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.15",
+      "2.4.16"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2023-Q16c",
+   "source": "LC Biology HL 2023, Section C, Question 16 (c)",
+   "file": "papers/2023_ep_LC025ALP040EV.pdf",
+   "page": 8,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c), (d). (c) Viruses are found in all habitats in nature.",
+   "diagram": {
+    "page": 8,
+    "what": "A large circle with a thick outer boundary (a spherical virus) containing a long coiled double-stranded helix. X points to the thick outer boundary; Y points to the coiled strand inside.",
+    "labels": {
+     "X": "protein coat (capsid)",
+     "Y": "nucleic acid (DNA or RNA)"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "The diagram shows a typical spherical-shaped virus. Name the structures X and Y.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "X: Protein (coat)",
+       "marks": 3,
+       "accept": [
+        "capsid"
+       ]
+      },
+      {
+       "answer": "Y: Nucleic acid",
+       "marks": 3,
+       "accept": [
+        "DNA",
+        "RNA"
+       ]
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Explain the difficulty in describing viruses as living.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Non-cellular",
+       "marks": 3,
+       "accept": [
+        "no metabolism"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Name two harmful viruses.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Common cold virus",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "coronavirus",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "HIV",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "hepatitis virus",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "other correct",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2",
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Give one way in which viruses can be beneficial to humans.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Can be used (as a vector) in genetic engineering",
+       "marks": 3,
+       "accept": [
+        "can be (potentially) used to treat bacterial infection",
+        "vaccine production",
+        "any other valid answer"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "The human body can defend itself against viruses using two defence systems: the general defence system and the specific defence system. Give two ways in which the general defence system works to defend against viruses and two ways in which the specific defence system defends against viruses.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "General: Skin acts as a barrier",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "General: mucus traps pathogens",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "General: phagocytes engulf (viral)-infected cells",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "General: infected cells release chemicals",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "General: white blood cells release chemicals that coordinate the immune response to a pathogen",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "General: stomach acid kills pathogens",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "General: tears keeps eyes free of pathogens",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "General: blood clotting prevents entry of pathogens",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "General: fever stops pathogen enzymes working properly",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "General: other correct answer",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Specific: (B cells) produce antibodies (against the virus)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Specific: memory cells recognise virus",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Specific: T cells coordinate the immune response",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Specific: killer T cells kill (viral) infected cells",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Specific: regulatory (or suppressor T cells) control the immune response",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Specific: other correct answer",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "General: any two 2(3); Specific: any two 2(3)",
+     "scheme_note": "Whole of (c) marked 10(3).",
+     "outcomes": [
+      "2.4.12",
+      "2.4.14"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2024-Q14b",
+   "source": "LC Biology HL 2024, Section C, Question 14 (b) (iv)-(v)",
+   "file": "papers/2024_ep_LC025ALP040EV.pdf",
+   "page": 5,
+   "section": "C",
+   "stem": "(b) Answer the following questions in relation to bacteria. [Parts (i)-(iii), on the bacterial cell, prokaryotes and binary fission, are omitted.] (27)",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iv)",
+     "text": "Some bacteria are pathogenic. Explain the term pathogenic.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Disease causing",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Antibiotics are used to treat pathogenic bacterial infections, but are often misused. Give a possible effect of the misuse of antibiotics.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(Antibiotic) resistance or described",
+       "marks": 3,
+       "accept": [
+        "other correct"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.5.3",
+      "2.4.15"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2024-Q14c",
+   "source": "LC Biology HL 2024, Section C, Question 14 (c)",
+   "file": "papers/2024_ep_LC025ALP040EV.pdf",
+   "page": 5,
+   "section": "C",
+   "stem": "(c) Viruses are shown in the image. (24)",
+   "diagram": {
+    "page": 5,
+    "what": "Transmission electron micrograph (photograph, no labels) of several bacteriophage viruses: each has a dark polyhedral (hexagonal) head and a straight tail.",
+    "labels": {}
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Explain the difficulty in describing viruses as living organisms.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Non-cellular",
+       "marks": 3,
+       "accept": [
+        "no metabolism",
+        "other correct"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name the two biochemical components that make up all viruses.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Protein",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Nucleic acid (or DNA or RNA)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2",
+      "2.4.13"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Describe the process of viral replication.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "(Virus) attaches or DNA (or nucleic acid) enters",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(viral) DNA replication and protein synthesis",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "using host cell organelles",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "viruses assembled",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "viruses released",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any three 3(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.13"
+     ]
+    },
+    {
+     "label": "(iv) 1.",
+     "text": "Some viruses can be harmful and some can be beneficial. 1. Give one example of a harmful virus.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Common cold virus",
+       "marks": 3,
+       "accept": [
+        "coronavirus",
+        "HIV",
+        "hepatitis virus",
+        "other correct"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2",
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(iv) 2.",
+     "text": "Give one way in which viruses can be beneficial.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Can be used (as a vector) in genetic engineering",
+       "marks": 3,
+       "accept": [
+        "vaccine production",
+        "any other valid answer"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Whole of (c) marked 8(3).",
+     "outcomes": [
+      "1.1.2"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2024-Q16d",
+   "source": "LC Biology HL 2024, Section C, Question 16 (d)",
+   "file": "papers/2024_ep_LC025ALP040EV.pdf",
+   "page": 8,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c), (d). (d) Answer the following questions in relation to the human defence system.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i) 1.",
+     "text": "The human defence system can be categorised as the general defence system and the specific defence system (immune system). 1. Name any two methods used by the general defence system.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Barrier (e.g. skin)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "phagocytosis",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "chemicals (e.g. sebum, sweat, interferon)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "fever",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(stomach) acid",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "tears",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "blood clotting",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "other correct",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(i) 2.",
+     "text": "Name any one organ that is specific to the immune system.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Spleen",
+       "marks": 3,
+       "accept": [
+        "thymus",
+        "lymph node",
+        "tonsils",
+        "other correct"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(ii) 1.",
+     "text": "The organs of the immune system have lymphocytes that take part in an antigen-antibody response. 1. Distinguish between the terms antigen and antibody by writing a sentence on each term.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Antigen: chemical (or molecule) that stimulates the production of antibodies",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Antibody: protein produced in response to an antigen",
+       "marks": 3,
+       "accept": [
+        "protein produced by lymphocytes",
+        "protein which inactivates an antigen"
+       ]
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(ii) 2.",
+     "text": "T cells are one type of lymphocyte involved in the antigen-antibody response. Name the other type of lymphocyte.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "B",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Asterisked (*): a specific term; cancelled by an added incorrect answer.",
+     "outcomes": [
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(ii) 3.",
+     "text": "There are four types of T cells in the human immune system. Name any two types and give one function for each named type.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Suppressor (or regulatory)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "helper",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "killer (cytotoxic)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "memory",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Matching functions",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "names: any two 2(3); matching functions: any two 2(3)",
+     "scheme_note": "Whole of (d) marked 10(3).",
+     "outcomes": [
+      "2.4.14"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "(i) 2. (an organ specific to the immune system: spleen, thymus, lymph node, tonsils) is not in the new specification; the rest is (2.4.12, 2.4.14)."
+  },
+  {
+   "id": "2025-Q16d",
+   "source": "LC Biology HL 2025, Section C, Question 16 (d)",
+   "file": "papers/2025_ep_LC025ALP040EV.pdf",
+   "page": 8,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c), (d).",
+   "diagram": {
+    "page": 8,
+    "what": "A round lymphocyte with a large dark nucleus; Y-shaped antibody molecules project from its surface membrane and many free Y-shaped antibodies are drawn being released from the cell. One label: 'Lymphocyte'.",
+    "labels": {
+     "Lymphocyte": "the cell (a B lymphocyte: the Y-shaped molecules on its surface and being released are antibodies)"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i) 1.",
+     "text": "Lymphocytes, such as the one shown in the diagram, mature in the lymphatic system, which is part of the human defence system. 1. Name two organs of the lymphatic system.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Lymph vessel",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "lymph node",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "thymus",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "adenoid",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "tonsil",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "spleen",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": []
+    },
+    {
+     "label": "(i) 2.",
+     "text": "Other than maturation of lymphocytes, give two functions of the lymphatic system.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Return (excess tissue) fluid to the blood",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "transport fats",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "fight infection",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "Scheme list ends with '……….' (other valid functions presumably accepted).",
+     "outcomes": []
+    },
+    {
+     "label": "(ii)",
+     "text": "Lymphocytes play a role in the specific defence system. State the precise location in the body where lymphocytes are produced.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Bone marrow",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Asterisked (*): a specific term; cancelled by an added incorrect answer.",
+     "outcomes": [
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Name two types of lymphocyte and describe the role of each.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Name of lymphocyte 1",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Correct matching role of lymphocyte 1",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Name of lymphocyte 2",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Correct matching role of lymphocyte 2",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3 + 3 + 3",
+     "scheme_note": "Scheme gives no list; acceptable names are B lymphocytes and T lymphocytes (or named T cells: helper, killer, suppressor, memory) with matching roles as in other years' schemes.",
+     "outcomes": [
+      "2.4.14"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Explain the term vaccination.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Administration of an attenuated pathogen (or antigen) (that stimulates active immunity)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Whole of (d) marked 10(3).",
+     "outcomes": [
+      "2.4.12"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "(i) The lymphatic system (its organs and functions) and (ii) the site of lymphocyte production are not in the new specification; (iii) and (iv) are (2.4.12, 2.4.14)."
+  },
+  {
+   "id": "2026-Q16b",
+   "source": "LC Biology HL 2026, Section C, Question 16 (b)",
+   "file": "papers/2026_ep_LC025ALP040EV.pdf",
+   "page": 7,
+   "section": "C",
+   "stem": "Answer any two of (a), (b), (c), (d). (b) Viruses can have a variety of shapes, but always contain two types of biomolecules (X and Y). There is a difficulty in classifying viruses as living.",
+   "diagram": {
+    "page": 7,
+    "what": "Diagram 1: a round virus - a circular particle with a double outer layer studded with projecting spikes; X points to the outer coat; Y points to a coiled strand inside. Diagram 2: a large host cell (grey nucleus inside) with a small virus particle containing a coiled strand fused at its membrane; an arrow shows the viral material entering the cell.",
+    "labels": {
+     "X": "protein (coat/capsid)",
+     "Y": "nucleic acid (DNA or RNA)"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name the types of biomolecules X and Y shown in diagram 1 of this virus.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "X: Protein",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Y: DNA or RNA or nucleic acid",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "2 + 1 (first correct name = 2 marks)",
+     "scheme_note": "All three terms asterisked (*): specific terms; cancelled by an added incorrect answer.",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "The virus in diagram 1 is a round-shaped virus. State any other possible shape of a virus.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Rod",
+       "marks": 3,
+       "accept": [
+        "complex"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Diagram 2 shows a virus attaching to a host cell. Describe how the virus uses this host cell to produce a large number of viruses.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "DNA or RNA or nucleic acid enters (the host cell)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Uses host cell's nucleic acid (or DNA or RNA) or uses cell organelles",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "To make viral nucleic acid (or DNA or RNA) or to make (viral) protein",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Virus) particles assemble",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Viruses are released from the cell or (host) cell bursts",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any four 4(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.13"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Suggest a reason why a red blood cell is not a suitable host cell for viruses.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(RBCs) do not contain a nucleus",
+       "marks": 3,
+       "accept": [
+        "do not contain organelles",
+        "explained"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.13",
+      "2.6.12"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "State two examples of harmful viruses.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Any harmful virus (two required)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "Scheme: 'Any two harmful viruses'.",
+     "outcomes": [
+      "1.1.2",
+      "2.4.12"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "State one example of the beneficial use of viruses.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Any one beneficial use of viruses",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.2"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "S1-Q3b",
+   "source": "SEC Sample Paper 1 (2027), Higher Level, Question 3 (b)",
+   "file": "sample/lc-biology-2027-1-qp-smlwu.pdf",
+   "page": 13,
+   "section": "sample",
+   "stem": "Question 3 (a) shows a diagram of a transverse section through an alveolus in the lungs, with an alveolar macrophage on the alveolar wall. (b) (i) The alveolar macrophage is an example of a monocyte that has migrated from the bloodstream into the alveolus.",
+   "diagram": {
+    "page": 12,
+    "what": "Coloured diagram of a transverse section through an alveolus: a large central air space labelled 'Alveolus (air space)'; a large irregular cell with many surface projections sitting on the alveolar wall labelled 'Alveolar macrophage'; a capillary below labelled 'Capillary lumen'; a dashed arrow labelled H2O from the capillary into the alveolus.",
+    "labels": {
+     "Alveolus (air space)": "alveolus",
+     "Alveolar macrophage": "a monocyte that has left the blood: a phagocyte of the innate system",
+     "Capillary lumen": "inside of the capillary"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Describe the role monocytes play in the innate immune system.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Monocytes/macrophages engulf (ingest) pathogens or foreign particles (e.g. bacteria, dust) by phagocytosis",
+       "marks": null,
+       "accept": [
+        "phagocytosis described"
+       ]
+      },
+      {
+       "answer": "and digest/destroy them using enzymes (lysosomes)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "non-specific: act against any pathogen (first internal line of defence)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "release chemicals (e.g. cytokines) that trigger inflammation or attract other white blood cells",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "present antigens to lymphocytes, activating the adaptive (specific) response",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "likely any two or three points (no official scheme)",
+     "scheme_note": "Unofficial answer: no SEC marking scheme exists for the sample papers; part marks are not printed (Question 3 = 50 marks).",
+     "outcomes": [
+      "2.4.12",
+      "2.4.14"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(ii)",
+     "text": "Describe one other innate immune response in the body.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Inflammation: damaged cells/mast cells release histamine, blood vessels dilate and become leaky, more phagocytes reach the site",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Fever: raised body temperature slows pathogen growth / denatures pathogen enzymes",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Skin acts as a physical barrier (keratin; sebum and sweat are antimicrobial)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Mucus traps pathogens and cilia sweep them away",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Stomach acid kills pathogens",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Lysozyme in tears/saliva destroys bacteria",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Blood clotting seals wounds and prevents entry of pathogens",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Natural killer cells destroy virus-infected (or cancer) cells",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Infected cells release interferon, which protects neighbouring cells",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "one response named + described (no official scheme)",
+     "scheme_note": "Unofficial answer.",
+     "outcomes": [
+      "2.4.12",
+      "2.4.14"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "S2-Q1b",
+   "source": "SEC Sample Paper 2 (2027), Higher Level, Question 1 (b) (Irish version, translated)",
+   "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+   "page": 4,
+   "section": "sample",
+   "stem": "(Translated from Irish.) The following experiment was carried out to investigate the effectiveness of a vaccine. Read the article and answer the questions that follow. 'An international, double-blind, placebo-controlled trial was carried out to find out whether the vaccine was effective. In total 43 448 people received injections: 21 720 of them with the vaccine and 21 728 with the placebo. People aged 16 years or over were randomly assigned and they received two doses, 21 days apart, of the placebo or the vaccine. Two doses of the vaccine gave 95% protection against the pathogen in people aged 16 years or over.' (Adapted from Polack et al., 2020.)",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Why was it important to test the vaccine on people from all over the world?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "People in different regions differ genetically (different ethnic backgrounds) and may respond differently to the vaccine",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "so the sample is representative of the global population / results apply worldwide (valid)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "different strains/variants of the pathogen or different environments in different countries",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "likely one point (no official scheme)",
+     "scheme_note": "Unofficial answer.",
+     "outcomes": [
+      "2.4.12",
+      "U2.3"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(ii)",
+     "text": "What is meant by 'placebo-controlled' in the context of this experiment?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "A control group was given a placebo: an injection identical in appearance but with no vaccine (no active ingredient)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "so the results of the vaccinated group can be compared with an unvaccinated group / any difference is due to the vaccine only (rules out the placebo effect)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "likely one or two points (no official scheme)",
+     "scheme_note": "Unofficial answer.",
+     "outcomes": [
+      "U2.3"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(iii)",
+     "text": "In total, 43 448 people aged 16 years or over took part in this experiment. Comment on the number of people in the sample used in this experiment in terms of the reliability of the data.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "A large sample size increases the reliability of the data",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "because it reduces the effect of chance / individual variation / anomalous results (results more representative and repeatable)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "likely one or two points (no official scheme)",
+     "scheme_note": "Unofficial answer.",
+     "outcomes": [
+      "U2.3",
+      "U2.4"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(iv)",
+     "text": "Should the conclusion be drawn that this vaccine works on children under 16 years of age? Justify your answer.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "No",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Only people aged 16 or over were tested, so the data cannot be extrapolated to children (children's immune systems may respond differently); a separate trial on under-16s would be needed",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "No + justification (no official scheme)",
+     "scheme_note": "Unofficial answer.",
+     "outcomes": [
+      "U2.4",
+      "2.4.12"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "S2-Q1e",
+   "source": "SEC Sample Paper 2 (2027), Higher Level, Question 1 (e) (Irish version, translated)",
+   "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+   "page": 7,
+   "section": "sample",
+   "stem": "(Translated from Irish.) Read the following passage and answer the questions that follow. 'Transmissible spongiform encephalopathies (TSEs) are a family of neurodegenerative disorders of the central nervous system (CNS) which include scrapie in sheep, bovine spongiform encephalopathy (BSE) in cattle, and Creutzfeldt-Jakob disease (CJD) and variant CJD (vCJD) in humans (World Health Organisation, WHO, 2002). TSEs occur as a result of the misfolding of a particular protein, called a prion, which is normally found on nerve-cell membranes in the brain.' (Adapted from fsai.ie)",
+   "diagram": {
+    "page": 7,
+    "what": "Two ribbon models side by side: a normal protein (labelled 'Próitéin normálta', mostly coiled alpha-helices) and a prion (labelled 'Prión', the same chain refolded mostly into flat beta-sheet arrows).",
+    "labels": {
+     "Próitéin normálta": "normal protein",
+     "Prión": "prion (misfolded form of the same protein)"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Explain why prions can be classified as pathogens.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "They cause disease (e.g. BSE, CJD)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "they are infectious / transmissible: a prion causes normal proteins to misfold into prions",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "likely one or two points (no official scheme)",
+     "scheme_note": "Unofficial answer.",
+     "outcomes": [
+      "2.4.12"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(ii)",
+     "text": "BSE was first identified in cattle in the United Kingdom in the 1980s, and the first cases of variant CJD were reported in 1996. Suggest a way in which this prion could be transmitted from cattle to humans, causing disease.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Eating beef or beef products from infected cattle (especially nervous tissue: brain or spinal cord)",
+       "marks": null,
+       "accept": [
+        "consuming contaminated meat"
+       ]
+      }
+     ],
+     "rule": "one point (no official scheme)",
+     "scheme_note": "Unofficial answer.",
+     "outcomes": [
+      "2.4.15"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(iii)",
+     "text": "Prions are an example of misfolded proteins. Explain the importance of folding in proteins.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Folding gives the protein its specific 3D shape",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "the shape determines the protein's function (e.g. an enzyme's active site, a receptor's binding site); a misfolded protein cannot function / may cause disease",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "likely two points (no official scheme)",
+     "scheme_note": "Unofficial answer.",
+     "outcomes": [
+      "1.2.1"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(iv)",
+     "text": "Name another non-cellular pathogen.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Virus",
+       "marks": null,
+       "accept": [
+        "any named virus"
+       ]
+      }
+     ],
+     "rule": "one point (no official scheme)",
+     "scheme_note": "Unofficial answer.",
+     "outcomes": [
+      "2.4.12",
+      "1.1.2"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  }
+ ],
+ "not_covered": [
+  "Protists and parasitic animals as pathogens (e.g. Plasmodium/malaria, tapeworms, nematodes) (2.4.12).",
+  "Fungi as pathogens of humans or animals in a disease/immunity context (e.g. athlete's foot, ringworm); only a plant fungal pathogen (ash dieback, 2023-Q11b) appears (2.4.12).",
+  "Natural killer (NK) cells and their role (2.4.14).",
+  "B and T lymphocyte roles in the cell-mediated response as distinct from the antibody (humoral) response (2.4.12).",
+  "Differences between DNA and RNA viruses (e.g. RNA viruses mutate faster; retroviruses such as HIV use reverse transcriptase; examples of each) - only 'a virus contains DNA or RNA' is asked (2.4.13).",
+  "Reproduction number R0 (R value) and what it tells us about spread (2.4.15).",
+  "Persistence of a pathogen in a host (latent or chronic infection, carriers) as a factor in spread (2.4.15).",
+  "Chemical resistance other than antibiotic resistance (e.g. pesticide, fungicide or antiviral resistance) (2.4.15).",
+  "Local, regional and global movement of organisms/people as a factor in spread - appears only in passages (Zika and the Olympics, imported ash plants), never asked directly (2.4.15).",
+  "Novel viruses in plants and animals (emergence of a new virus, zoonotic spill-over) and why knowledge of emerging diseases matters to society (2.4.16).",
+  "Autoimmune diseases (e.g. type 1 diabetes, rheumatoid arthritis, multiple sclerosis) (2.4.16).",
+  "Strategies to control an emerging disease beyond vaccination, antibiotics and Zika precautions (surveillance, isolation/quarantine, contact tracing, vector control) (2.4.16).",
+  "Treating microbial disease with antivirals or antifungals (2.4.12)."
+ ],
+ "diagrams_to_memorise": [
+  {
+   "name": "Structure of a virus (protein coat/capsid around a nucleic-acid core, with surface spike proteins = antigens)",
+   "labels": [
+    "protein coat (capsid)",
+    "nucleic acid (DNA or RNA)",
+    "surface proteins/spikes (antigens)",
+    "envelope (some viruses)"
+   ],
+   "asked_in": [
+    "2010-Q6",
+    "2015-Q3",
+    "2022-Q7",
+    "2023-Q16c",
+    "2026-Q16b",
+    "2024-Q14c"
+   ]
+  },
+  {
+   "name": "Virus attaching to and replicating in a host cell (bacteriophage-type virus on a host cell; nucleic acid entering)",
+   "labels": [
+    "virus",
+    "host cell",
+    "protein coat",
+    "nucleic acid injected/entering",
+    "host nucleus"
+   ],
+   "asked_in": [
+    "2010-Q6",
+    "2026-Q16b",
+    "2024-Q14c"
+   ]
+  },
+  {
+   "name": "Antibody response graph: primary (after vaccine/first exposure) vs secondary (after later infection) response",
+   "labels": [
+    "relative antibody concentration (y-axis)",
+    "time in days (x-axis)",
+    "A: first exposure/vaccine - slow, small rise",
+    "B: second exposure/infection - fast, large rise (memory cells)"
+   ],
+   "asked_in": [
+    "2021-Q16c"
+   ]
+  },
+  {
+   "name": "Lymphocyte (B cell) with antibody receptors releasing Y-shaped antibodies",
+   "labels": [
+    "lymphocyte",
+    "nucleus",
+    "antibodies (Y-shaped)"
+   ],
+   "asked_in": [
+    "2025-Q16d"
+   ]
+  },
+  {
+   "name": "Alveolus with an alveolar macrophage (monocyte in the lung)",
+   "labels": [
+    "alveolus (air space)",
+    "alveolar macrophage",
+    "capillary lumen"
+   ],
+   "asked_in": [
+    "S1-Q3b"
+   ]
+  }
+ ]
+}

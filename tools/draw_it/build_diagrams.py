@@ -421,4 +421,5 @@ def main():
     print('wrote', os.path.normpath(out), sum(len(q['diagrams']) for q in data.values()), 'diagrams')
 
 
-main()
+if __name__ == '__main__':
+    main()

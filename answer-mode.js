@@ -731,7 +731,7 @@
       }).join('') + '</div>' : '') +
       '<div class="am-finish__buttons" data-am-teachbtns></div>' +
       '</div>';
-    teachButtons(card, [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-teachgo="test"', 'Test me']]);
+    teachButtons(card, [['more', 'data-am-keep', backLabel()], ['ok', 'data-am-teachgo="test"', 'Test me']]);
     showCard(card);
   }
   function teachButtons(card, list) {
@@ -751,7 +751,7 @@
     if (stage === 'learn') {
       // Reading it again mid-test is allowed, but it no longer counts as from memory.
       if (reached) card.setAttribute('data-am-missed', '');
-      teachButtons(card, [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-teachgo="' + (reached || 'test') + '"', reached ? 'Back to the test' : 'Test me']]);
+      teachButtons(card, [['more', 'data-am-keep', backLabel()], ['ok', 'data-am-teachgo="' + (reached || 'test') + '"', reached ? 'Back to the test' : 'Test me']]);
       card.querySelector('.am-finish__card').focus({ preventScroll: true });
       return;
     }
@@ -762,7 +762,7 @@
       (solved ? card.querySelector('[data-am-teachgo]') : card.querySelector('.am-quiz__opt:not([aria-disabled="true"])')).focus();
     } else {
       var box = card.querySelector('.am-teach__box');
-      teachButtons(card, box.readOnly ? [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-teachuse', 'Put it on my lines']]
+      teachButtons(card, box.readOnly ? [['more', 'data-am-keep', backLabel()], ['ok', 'data-am-teachuse', 'Put it on my lines']]
         : [['more', 'data-am-teachgo="learn"', 'Read it again'], ['ok', 'data-am-teachcheck', 'Check']]);
       (box.readOnly ? card.querySelector('[data-am-teachuse]') : box).focus();
     }
@@ -809,7 +809,7 @@
       fb.innerHTML = 'That earns the mark. ' + (card.hasAttribute('data-am-missed') ? 'You got there.' : 'Two out of two!');
       ding(card.hasAttribute('data-am-missed') ? 1 : 2, !card.hasAttribute('data-am-missed'));
       box.readOnly = true;
-      teachButtons(card, [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-teachuse', 'Put it on my lines']]);
+      teachButtons(card, [['more', 'data-am-keep', backLabel()], ['ok', 'data-am-teachuse', 'Put it on my lines']]);
       card.querySelector('[data-am-teachuse]').focus();
       return;
     }
@@ -836,7 +836,7 @@
     var id = card.getAttribute('data-am-teachid'), model = card.querySelector('.am-teach__model');
     model.hidden = false;
     model.innerHTML = '<span>One way to say it</span>' + (TEACH[id].model || examVersion(id)) + '<em>Read it, then write it your own way.</em>';
-    teachButtons(card, [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-teachcheck', 'Check']]);
+    teachButtons(card, [['more', 'data-am-keep', backLabel()], ['ok', 'data-am-teachcheck', 'Check']]);
     card.querySelector('.am-teach__box').focus();
   }
   // Add a sentence to the end of the answer and put the cursor after it.
@@ -912,6 +912,9 @@
     }
   };
   var SPRINT_SECONDS = 90;
+  function backLabel() { return state && state.host ? 'Close' : 'Back to writing'; }
+  // Back to the games hub, or (for another page's own drills, with no hub) close.
+  function hubButton() { return GAMES[state.id] ? ['more', 'data-am-ghub', 'Mini games'] : ['more', 'data-am-keep', backLabel()]; }
   function fillButtons(box, list, keepFocus) {
     box.innerHTML = list.map(function (b) {
       return '<button type="button" class="am-btn am-btn--' + b[0] + '" ' + b[1] + '>' + b[2] + '</button>';
@@ -1268,10 +1271,11 @@
       }).join('') + '<p class="am-run__pointsnote">Type a point right to fill a dot. Next run brings in points you know less.</p></div></div>';
     rollTo(card.querySelector('[data-am-rbig]'), t.score);
     rollTo(card.querySelector('[data-am-rscore]'), t.score);
-    fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-keep', 'Back to writing'], ['more', 'data-am-rsprint', '90s sprint'], ['ok', 'data-am-rrun', 'Play again']]);
+    fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-keep', backLabel()], ['more', 'data-am-rsprint', '90s sprint'], ['ok', 'data-am-rrun', 'Play again']]);
     if (newBest && t.score) later(fanfare, 300);
   }
   function updateTrainTile() {
+    if (state.host) return;
     var line = state.root.querySelector('[data-am-tilebest]'), best = +store('am-run-' + state.id) || 0;
     if (line) line.textContent = best ? 'Your best: ' + best + ' points' : '12 quick cards, 3 hearts';
     var drawLine = state.root.querySelector('[data-am-drawbest]'), drawBest = +store('am-draw-' + state.id) || 0;
@@ -1367,7 +1371,7 @@
       (n ? '<div class="am-sprint__chips">' + t.got.map(function (id) { return '<span class="am-sprint__chip">' + esc(pointById(id).label) + '</span>'; }).join('') + '</div>' : '') +
       (missing.length ? '<p class="am-sprint__next">Try these next time: ' + missing.map(function (id) { return '<b>' + esc(pointById(id).label) + '</b>'; }).join(', ') + '.</p>' : '') +
       '</div>';
-    fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-keep', 'Back to writing'], ['more', 'data-am-rrun', 'Training run'], ['ok', 'data-am-tsprint', 'Sprint again']]);
+    fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-keep', backLabel()], ['more', 'data-am-rrun', 'Training run'], ['ok', 'data-am-tsprint', 'Sprint again']]);
     if (newBest && n) later(fanfare, 200);
     mascot(newBest && n ? 'happy' : n < 3 ? 'angry' : 'ok', newBest && n ? 'Fine. That\'s a lot of points.' : n < 3 ? 'That\'s it?' : 'Hmph. Faster next time.');
   }
@@ -1416,7 +1420,7 @@
       '<p>' + d.list.length + ' exam diagrams. Study each one for <b>' + STUDY_SECONDS + ' seconds</b>, then it disappears.</p>' +
       '<p>Draw it from memory in <b>' + DRAW_SECONDS + ' seconds</b> and put its labels in the right places.</p>' +
       (book ? '<p class="am-draw__note">Your sketchbook has ' + book + (book === 1 ? ' drawing' : ' drawings') + ' on this device.</p>' : '') + '</div>';
-    fillButtons(card.querySelector('[data-am-dbtns]'), [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-dgo', 'Let\'s draw']]);
+    fillButtons(card.querySelector('[data-am-dbtns]'), [['more', 'data-am-keep', backLabel()], ['ok', 'data-am-dgo', 'Let\'s draw']]);
   }
   function drawSegs(card) {
     var d = state.draw;
@@ -1877,7 +1881,7 @@
       page.addEventListener('focus', again);
     });
     rollTo(card.querySelector('[data-am-dbig]'), d.total);
-    fillButtons(card.querySelector('[data-am-dbtns]'), [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-dagain', 'Draw again']]);
+    fillButtons(card.querySelector('[data-am-dbtns]'), [['more', 'data-am-keep', backLabel()], ['ok', 'data-am-dagain', 'Draw again']]);
     if (newBest && d.total) later(fanfare, 300);
     mascot(d.total * 2 >= max ? 'happy' : 'angry', d.total * 2 >= max ? 'Hmph. Decent drawings.' : 'My cat draws better than that.');
   }
@@ -1967,7 +1971,7 @@
       '<p>If he says no, fix it. Every point you get past him goes into your essay. All ' + slots.length + ' and you\'ve written a full-marks answer.</p>' +
       (n ? '<p class="am-exam__note">Your essay so far: ' + n + ' of ' + slots.length + ' points, ' + examMarks(bank).marks + '/30.</p>' : '') + '</div>';
     var left = slots.filter(function (it) { return !bank[it.id]; }).length;
-    fillButtons(card.querySelector('[data-am-ebtns]'), left ? [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-estart', n ? 'Keep going' : 'Start']]
+    fillButtons(card.querySelector('[data-am-ebtns]'), left ? [['more', 'data-am-keep', backLabel()], ['ok', 'data-am-estart', n ? 'Keep going' : 'Start']]
       : [['more', 'data-am-ereset', 'Start a new essay'], ['ok', 'data-am-elines', 'Put my essay on my lines']]);
     examMood(card, 'ok');
   }
@@ -2111,7 +2115,7 @@
       '<ol class="am-exam__essay">' + examEssay(bank).map(function (e) {
         return '<li' + (x.banked.indexOf(e.id) >= 0 ? ' class="is-new"' : '') + '>' + esc(e.text) + '</li>';
       }).join('') + '</ol></div>';
-    var btns = [['more', 'data-am-keep', 'Back to writing']];
+    var btns = [['more', 'data-am-keep', backLabel()]];
     if (n) btns.push(['more', 'data-am-elines', 'Put it on my lines']);
     btns.push(done ? ['ok', 'data-am-ereset', 'New essay'] : ['ok', 'data-am-estart', 'Next 5 points']);
     fillButtons(card.querySelector('[data-am-ebtns]'), btns);
@@ -2325,11 +2329,15 @@
     return better && Boolean(b);
   }
   function openGames() {
+    gamesHub(gameCard('Mini games'));
+  }
+  // The games card: a top bar (stop, progress, score), a body and a row of buttons.
+  function gameCard(label) {
     var old = state.root.querySelector('.am-finish');
     if (old) old.remove();
     clearInterval(state.dumpTimer);
     var card = el('div', 'am-finish am-games');
-    card.innerHTML = '<div class="am-finish__card am-games__card" role="dialog" aria-label="Mini games">' +
+    card.innerHTML = '<div class="am-finish__card am-games__card" role="dialog" aria-label="' + esc(label) + '">' +
       '<div class="am-run__hud">' +
         '<button type="button" class="am-run__quit" data-am-keep aria-label="Stop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
         '<div class="am-run__segs" data-am-gsegs aria-hidden="true"></div>' +
@@ -2338,7 +2346,7 @@
       '<div class="am-finish__buttons am-games__btns" data-am-gbtns></div></div>';
     card.addEventListener('keydown', gameKeys);
     showCard(card);
-    gamesHub(card);
+    return card;
   }
   // 1-3 pick an answer in Level up.
   function gameKeys(e) {
@@ -2377,7 +2385,9 @@
     gameBody(card, '<div class="am-games__hub">' +
       '<h3 class="am-games__title">Mini games</h3>' +
       '<p class="am-games__sub">Quick games. Each one trains something examiners give marks for.</p>' +
-      '<div class="am-games__list">' + ['chain', 'level', 'mark'].map(function (kind) {
+      '<div class="am-games__list">' + ['chain', 'level', 'mark'].filter(function (kind) {
+        return kind === 'chain' ? g.chains && g.chains.length : kind === 'level' ? g.level && g.level.length : Boolean(TRAIN[state.id] && g.student);
+      }).map(function (kind) {
         var info = GAME_INFO[kind], b = gameBest(kind);
         return '<button type="button" class="am-games__tile am-games__tile--' + kind + '" data-am-game="' + kind + '">' +
           '<span class="am-games__icon" aria-hidden="true">' + info.icon + '</span>' +
@@ -2385,7 +2395,7 @@
             (b ? '<em>Your best: ' + b.score + ' of ' + b.out + ' ' + info.unit + '</em>' : '') + '</span>' +
           '<i class="am-train-tile__go" aria-hidden="true"></i></button>';
       }).join('') + '</div></div>');
-    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-keep', 'Back to writing']], true);
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-keep', backLabel()]], true);
     card.querySelector('[data-am-game]').focus({ preventScroll: true });
   }
   function startGame(card, kind) {
@@ -2403,7 +2413,7 @@
       (x.recall ? '<p class="am-games__memory">From memory: <b>' + x.recall.got + ' of ' + x.recall.out + '</b> ' + x.recall.unit + '</p>' : '') +
       (chain ? '' : '<div class="am-games__built"><h4>The points you built</h4>' + x.list.map(function (it) {
         return '<p>' + esc([it.statement, it.steps[0][0][0], it.steps[1][0][0]].join(' ')) + '</p>';
-      }).join('') + '<p class="am-games__built-note">Each one is a statement, a development and an example: three SRPs, 6 marks.</p></div>') + '</div>');
+      }).join('') + '<p class="am-games__built-note">' + levelText().note + '</p></div>') + '</div>');
     fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-ghub', 'Mini games'], ['ok', 'data-am-gagain', 'Play again']]);
     mascot(good ? 'happy' : 'angry', perfect ? 'Perfect. I\'m almost proud.' : good ? 'Hmph. Not bad.' : 'Again. Properly this time.');
     if (perfect) later(fanfare, 300);
@@ -2451,7 +2461,7 @@
     };
     box.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (x.typing) x.typing(); } });
     box.addEventListener('paste', function (e) { e.preventDefault(); note.textContent = 'Type it yourself: that\'s what makes it stick.'; });
-    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-ghub', 'Mini games'], ['ok', 'data-am-gtyped', 'Done']], true);
+    fillButtons(card.querySelector('[data-am-gbtns]'), [hubButton(), ['ok', 'data-am-gtyped', 'Done']], true);
     box.focus({ preventScroll: true });
     // On a small screen the box can be below the fold.
     host.scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' });
@@ -2487,7 +2497,7 @@
       '<textarea class="am-type__box am-recall__box" rows="5" spellcheck="true" aria-label="' + esc(it.cue) + ', from memory" placeholder="Write it from memory…"></textarea>' +
       '<div class="am-recall__result" data-am-rcresult></div>' +
       '<p class="am-games__note" data-am-gnote role="status"></p></div>');
-    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-ghub', 'Mini games'], ['ok', 'data-am-rccheck', 'Check']], true);
+    fillButtons(card.querySelector('[data-am-gbtns]'), [hubButton(), ['ok', 'data-am-rccheck', 'Check']], true);
     card.querySelector('.am-recall__box').focus({ preventScroll: true });
   }
   function recallCheck(card) {
@@ -2679,6 +2689,10 @@
   // Level up: start from a bare statement (one SRP) and add a development, then an example, place or
   // number. Each step is a new fact, so a new SRP: 2, then 4, then 6 marks. The wrong picks are traps.
   var LEVEL_STEPS = [['Development', 'Add a development: which sentence explains it further?'], ['Example', 'Add an example: which one gives a real place, name or number?']];
+  var LEVEL_TEXT = { steps: LEVEL_STEPS, tags: ['Statement', 'Development', 'Example'], per: 2, start: 'Here\'s the statement: one SRP. Type it out in full.',
+    gain: ['It explains the point with a new fact, so it\'s a new SRP.', 'A real example: that\'s three SRPs from one point.'],
+    note: 'Each one is a statement, a development and an example: three SRPs, 6 marks.', recall: 'Write the whole point from memory: the statement, the development and the example.' };
+  function levelText() { var t = GAMES[state.id].levelText || {}, o = {}; Object.keys(LEVEL_TEXT).forEach(function (k) { o[k] = t[k] || LEVEL_TEXT[k]; }); return o; }
   function levelStart(card) {
     state.game = { kind: 'level', list: shuffle(GAMES[state.id].level, Date.now() % 233280).slice(0, LEVEL_ROUND), i: 0, right: 0 };
     gameHud(card, state.game.list.length, 'right');
@@ -2689,7 +2703,7 @@
     return '<div class="am-level__row' + (fresh ? ' is-new' : '') + '"><span class="am-level__tag">' + tag + '</span><p>' + esc(text) + '</p></div>';
   }
   function levelShow(card) {
-    var x = state.game, it = x.list[x.i];
+    var x = state.game, it = x.list[x.i], t = levelText();
     x.step = 0;
     x.clean = true;
     gameSeg(card, x.i, 'is-current');
@@ -2697,14 +2711,14 @@
     gameBody(card, '<div class="am-level">' +
       '<div class="am-run__top"><h3 class="am-run__kind">Level up</h3><span class="am-games__step">' + (x.i + 1) + ' of ' + x.list.length + '</span></div>' +
       '<div class="am-level__paper' + (pic ? ' has-pic' : '') + '">' + (pic ? '<div class="am-level__pic" aria-hidden="true">' + pic + '</div>' : '') +
-        '<div class="am-level__rows" data-am-lrows>' + levelRow('Statement', it.statement) + '</div>' +
-        '<div class="am-level__meter" aria-hidden="true"><i class="is-on">2</i><i>4</i><i>6</i><span>marks</span></div></div>' +
+        '<div class="am-level__rows" data-am-lrows>' + levelRow(t.tags[0], it.statement) + '</div>' +
+        '<div class="am-level__meter" aria-hidden="true"><i class="is-on">' + t.per + '</i><i>' + t.per * 2 + '</i><i>' + t.per * 3 + '</i><span>marks</span></div></div>' +
       '<p class="am-games__ask" data-am-lask></p>' +
       '<div class="am-run__opts" data-am-lopts></div>' +
       '<div class="am-games__type" data-am-typehost></div>' +
       '<p class="am-games__note" data-am-gnote role="status"></p></div>');
     // Level 1: type the statement out before building on it.
-    card.querySelector('[data-am-lask]').innerHTML = '<b>Level 1.</b> Here\'s the statement: one SRP. Type it out in full.';
+    card.querySelector('[data-am-lask]').innerHTML = '<b>Level 1.</b> ' + t.start;
     typeIt(card, it.statement, function () { levelStep(card); });
   }
   function levelStep(card) {
@@ -2712,7 +2726,7 @@
     x.first = true;
     x.done = false;
     x.opts = shuffle(it.steps[x.step], (Date.now() + x.step * 31) % 233280);
-    card.querySelector('[data-am-lask]').innerHTML = '<b>Level ' + (x.step + 2) + '.</b> ' + LEVEL_STEPS[x.step][1];
+    card.querySelector('[data-am-lask]').innerHTML = '<b>Level ' + (x.step + 2) + '.</b> ' + levelText().steps[x.step][1];
     card.querySelector('[data-am-lopts]').innerHTML = x.opts.map(function (o, n) {
       return '<button type="button" class="am-run__opt am-level__opt" data-am-lopt="' + n + '"><kbd aria-hidden="true">' + (n + 1) + '</kbd><span>' + esc(o[0]) + '</span></button>';
     }).join('');
@@ -2729,14 +2743,15 @@
       if (x.first) { x.right += 1; rollTo(card.querySelector('[data-am-gscore]'), x.right); } else x.clean = false;
       btn.classList.add('am-run__opt--ok');
       card.querySelectorAll('[data-am-lopt]').forEach(function (b) { b.setAttribute('aria-disabled', 'true'); });
-      card.querySelector('[data-am-lrows]').insertAdjacentHTML('beforeend', levelRow(LEVEL_STEPS[x.step][0], o[0], !reduced()));
+      var t = levelText();
+      card.querySelector('[data-am-lrows]').insertAdjacentHTML('beforeend', levelRow(t.steps[x.step][0], o[0], !reduced()));
       var pip = card.querySelectorAll('.am-level__meter i')[x.step + 1];
       pip.classList.add('is-on');
       if (!reduced()) pip.classList.add('am-bump');
       ding(x.step + 1, x.step === 1);
       mascot('happy', pick(MASCOT.right));
       var last = x.step === 1;
-      card.querySelector('[data-am-gnote]').innerHTML = '<b>+2 marks.</b> ' + (last ? 'A real example: that\'s three SRPs from one point.' : 'It explains the point with a new fact, so it\'s a new SRP.');
+      card.querySelector('[data-am-gnote]').innerHTML = '<b>+' + t.per + ' marks.</b> ' + t.gain[last ? 1 : 0];
       if (last) gameSeg(card, x.i, x.clean ? 'is-ok' : 'is-half');
       typeIt(card, o[0], function () {
         fillButtons(card.querySelector('[data-am-gbtns]'), [['ok', 'data-am-lnext', !last ? 'Next level' : x.i + 1 >= x.list.length ? 'From memory' : 'Next point']]);
@@ -2763,13 +2778,13 @@
   }
   // Each point you built, from memory: the statement, the development and the example all count.
   function levelRecall(it) {
-    var lines = [it.statement, it.steps[0][0][0], it.steps[1][0][0]];
+    var lines = [it.statement, it.steps[0][0][0], it.steps[1][0][0]], tags = levelText().tags;
     return {
-      cue: it.cue || it.statement, prompt: 'Write the whole point from memory: the statement, the development and the example.',
+      cue: it.cue || it.statement, prompt: levelText().recall,
       units: lines.map(function (t) { return { text: t, keys: recallKeys(t) }; }),
       render: function (typed, results) {
         return lines.map(function (t, k) {
-          return '<p class="' + (results[k] ? 'is-got' : 'is-miss') + '"><span class="am-level__tag">' + ['Statement', 'Development', 'Example'][k] + '</span> ' + markKeys(t, recallKeys(t), typed) + '</p>';
+          return '<p class="' + (results[k] ? 'is-got' : 'is-miss') + '"><span class="am-level__tag">' + tags[k] + '</span> ' + markKeys(t, recallKeys(t), typed) + '</p>';
         }).join('');
       }
     };
@@ -3405,6 +3420,7 @@
     (focusEl || dialog).focus({ preventScroll: true });
   }
   function closeCard() {
+    if (state.host) { close(); return; }
     clearInterval(state.dumpTimer);
     var card = state.root.querySelector('.am-finish');
     if (!card) return;
@@ -3968,7 +3984,29 @@
     state.coach.classList.add('am-coach--min');
     refreshScore();
 
-    root.addEventListener('click', function (e) {
+    root.addEventListener('click', onRootClick);
+    // Escape closes an open card first, then the whole answer sheet.
+    root.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      if (state.root.querySelector('.am-finish')) { e.stopPropagation(); closeCard(); return; }
+      close();
+    });
+    window.addEventListener('resize', state.onResize = function () {
+      if (!state) return;
+      reflow(0);
+      render();
+      var drawCard = state.root.querySelector('.am-draw');
+      if (drawCard && state.draw && state.draw.drawing) drawSize(drawCard);
+      placeMascot();
+    });
+    document.addEventListener('selectionchange', state.onSelect = function () {
+      if (state && document.activeElement && document.activeElement.classList.contains('am-input')) renderSoon();
+    });
+    openAnimation(root, q, fromRect, whenCovered);
+    return true;
+  }
+  // Every click inside the answer sheet or the practice host.
+  function onRootClick(e) {
       if (e.target.closest('[data-am-close]')) { close(); return; }
       if (e.target.closest('[data-am-ok]')) { state.coach.classList.add('am-coach--min'); focusPage(state.active, Infinity); return; }
       if (e.target.closest('[data-am-more]')) {
@@ -4091,27 +4129,11 @@
         requestAnimationFrame(function () { state.pagesEl.parentNode.scrollTo({ top: page.el.offsetTop - 12, behavior: reduced() ? 'auto' : 'smooth' }); });
         return;
       }
-    });
-    // Escape closes an open card first, then the whole answer sheet.
-    root.addEventListener('keydown', function (e) {
-      if (e.key !== 'Escape') return;
-      if (state.root.querySelector('.am-finish')) { e.stopPropagation(); closeCard(); return; }
-      close();
-    });
-    window.addEventListener('resize', state.onResize = function () {
-      if (!state) return;
-      reflow(0);
-      render();
-      var drawCard = state.root.querySelector('.am-draw');
-      if (drawCard && state.draw && state.draw.drawing) drawSize(drawCard);
-      placeMascot();
-    });
-    document.addEventListener('selectionchange', state.onSelect = function () {
-      if (state && document.activeElement && document.activeElement.classList.contains('am-input')) renderSoon();
-    });
+  }
 
-    // 1. The page clears behind the question. 2. The question flies to the top of the sheet.
-    // 3. The ruled lines draw in one by one. 4. The coach slides in and the cursor is ready.
+  // 1. The page clears behind the question. 2. The question flies to the top of the sheet.
+  // 3. The ruled lines draw in one by one. 4. The coach slides in and the cursor is ready.
+  function openAnimation(root, q, fromRect, whenCovered) {
     var fast = reduced();
     var fly = null;
     var finalImg = root.querySelector('.am-question');
@@ -4153,12 +4175,42 @@
       state.pages.forEach(function (p, k) { if (p.ta.value.trim()) last = k; });
       focusPage(last, Infinity);
     }, fast ? 0 : 1700);
-    return true;
   }
+
+  // ---------- Practice host: the practice cards on their own, for other pages ----------
+  // Another page (Biology) opens Draw it and the mini games without an answer sheet. Its content goes in
+  // under its own id: ExamDrawDiagrams[id] for Draw it, addGames(id, data) for the mini games. kind is
+  // 'draw', 'games', 'chain', 'level' or 'none' (a page's own card, made with kit.gameCard). onClose runs when it closes.
+  function practice(id, kind, onClose) {
+    if (state) close(true);
+    var root = el('div', 'am-root am-root--host am-in', '<div class="am-stage" hidden></div><button type="button" class="am-close" hidden tabindex="-1" aria-hidden="true"></button>');
+    document.body.appendChild(root);
+    state = { id: id, q: QUESTIONS[id] || { points: [], code: '', title: '' }, root: root, timers: [], host: true, onClose: onClose };
+    state.inerted = Array.prototype.filter.call(document.body.children, function (n) { return n !== root; });
+    state.inerted.forEach(function (n) { holdInert(n, 'am', true); });
+    root.addEventListener('click', onRootClick);
+    // Escape closes it wherever focus is (tapping a diagram can leave focus on the page).
+    document.addEventListener('keydown', state.onKey = function (e) {
+      if (e.key === 'Escape' && state && state.host) { e.stopPropagation(); close(); }
+    });
+    window.addEventListener('resize', state.onResize = function () {
+      if (!state) return;
+      var drawCard = state.root.querySelector('.am-draw');
+      if (drawCard && state.draw && state.draw.drawing) drawSize(drawCard);
+      placeMascot();
+    });
+    if (kind === 'draw') openDraw();
+    else if (kind === 'games') openGames();
+    else if (kind === 'chain' || kind === 'level') { openGames(); startGame(state.root.querySelector('.am-games'), kind); }
+    return root;
+  }
+  // Mini-game content from another page: { chains, level, levelText, student... } (see GAMES).
+  function addGames(id, data) { GAMES[id] = data; }
 
   function close(instant) {
     if (!state) return;
     var s = state;
+    if (s.onClose) try { s.onClose(); } catch (err) {}
     try { save(); } catch (err) {}
     var draft = s.root.querySelector('.am-dump__box');
     if (draft) store('am-dumpdraft-' + s.id, draft.value);
@@ -4166,6 +4218,7 @@
     s.timers.forEach(clearTimeout);
     clearInterval(s.dumpTimer);
     window.removeEventListener('resize', s.onResize);
+    if (s.onKey) document.removeEventListener('keydown', s.onKey);
     document.removeEventListener('selectionchange', s.onSelect);
     s.inerted.forEach(function (n) { holdInert(n, 'am', false); });
     // Put focus back on the question this answer belongs to.
@@ -4180,6 +4233,20 @@
     has: function (id) { return Boolean(QUESTIONS[id]); },
     open: open,
     close: close,
+    practice: practice,
+    addGames: addGames,
+    // The pieces another page's own games are built from (they run inside the practice host).
+    kit: {
+      el: el, esc: esc, reduced: reduced, store: store, shuffle: shuffle, pick: pick, rollTo: rollTo,
+      later: function (fn, ms) { return later(fn, ms); },
+      ding: ding, bonk: bonk, fanfare: fanfare, mascot: mascot, face: EXAMINER_FACE,
+      fillButtons: fillButtons, showCard: showCard, closeCard: closeCard,
+      gameCard: gameCard, gameBody: gameBody, gameHud: gameHud, gameSeg: gameSeg, saveBest: saveBest, gameBest: gameBest,
+      typeIt: typeIt, typedScore: typedScore, recallStart: recallStart, recallKeys: recallKeys, plainWords: plainWords, sameWord: sameWord,
+      game: function (g) { if (g !== undefined && state) state.game = g; return state ? state.game : null; },
+      root: function () { return state ? state.root : null; },
+      id: function () { return state ? state.id : null; }
+    },
     // Exposed for testing: how text splits into sentences, and which points each one earns.
     scoreIds: function (id, text) { return evaluate(QUESTIONS[id], text, function () { return true; }).map(function (s) { return s.hits.map(function (p) { return p.id; }); }); },
     sentences: function (text) { return splitSentences(text).map(function (s) { return [s.text, s.complete]; }); },
@@ -4735,6 +4802,7 @@
     '.am-root .am-type__box,.am-root .am-type__note,.am-root .am-recall__model p,.am-root .am-games__memory,.am-root .am-fix__ok,.am-root .am-fix__better{font-family:Nunito,system-ui,sans-serif !important;font-weight:800 !important}',
     '.am-root .am-recall__model .am-level__tag{font-family:Fredoka,Nunito,sans-serif !important;margin-right:4px}',
     '.am-root .am-fix__line .am-mark__text{font-family:Caveat,"Segoe Print","Comic Sans MS",cursive !important}',
+    '.am-root--host .am-stage,.am-root--host .am-close{display:none !important}',
     '.am-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}',
     '.am-run{position:relative}',
     '.am-run__hud{display:flex;align-items:center;gap:12px;margin:-6px 0 8px}',

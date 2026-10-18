@@ -1,0 +1,3943 @@
+{
+ "chapter": 31,
+ "topic": "The Circulatory System",
+ "questions": [
+  {
+   "id": "2004-Q9",
+   "source": "LC Biology HL 2004, Section B, Question 9",
+   "file": "papers/2004_ep_LC025ALPO00EV.pdf",
+   "page": 8,
+   "section": "B",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(a)(i)",
+     "text": "Cardiac muscle may be described as a contractile tissue. Explain the meaning of the underlined term. [The underlined term is 'contractile'.]",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "It can shorten or contract",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(a)(ii)",
+     "text": "Which chamber of the heart has the greatest amount of muscle in its wall?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Left ventricle",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(b) dissection",
+     "text": "Describe how you dissected a mammalian heart in order to investigate the internal structure of atria and ventricles.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Identify sides (or front/back)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "How identified",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Ventral side uppermost",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "On board or dish",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Named cutting instrument",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Described (location of) cut",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Any safety procedure stated",
+       "marks": 3,
+       "accept": [
+        "gloves",
+        "goggles",
+        "white coat"
+       ]
+      }
+     ],
+     "rule": "any three 3(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(b) diagram",
+     "text": "Draw a labelled diagram of your dissection to show the location and structure of the bicuspid and tricuspid valves.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Diagram: 4 chambers + indication of 2 valves",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Labels: bicuspid and tricuspid valves in correct position",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Diagram 3, 0 + labels 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(b) expose semilunar valve",
+     "text": "State the procedure that you followed to expose a semilunar valve.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Cut aorta or cut pulmonary artery",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(b) function of semilunar valve",
+     "text": "What is the function of a semilunar valve?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Stops back flow of blood (into ventricle or from artery)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(b) coronary artery",
+     "text": "Where in your dissection did you find the origin of the coronary artery?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Aorta or near semilunar valve",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9",
+      "2.6.11"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2005-Q3",
+   "source": "LC Biology HL 2005, Section A, Question 3 (e), (f)",
+   "file": "papers/2005_ep_LC025ALPO00EV.pdf",
+   "page": 2,
+   "section": "A",
+   "stem": "Indicate whether the following are true (T) or false (F) by drawing a circle around T or F.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(e)",
+     "text": "The sino-atrial node (pacemaker) is located on the right side of the heart.   T / F",
+     "marks": null,
+     "points": [
+      {
+       "answer": "True",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "5(1) + 5(3) for the whole question (10 statements, 20 marks)",
+     "scheme_note": "The scheme gives only '5(1) + 5(3)' for the ten statements and does not say which correct answers earn 1 mark and which earn 3.",
+     "outcomes": [
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(f)",
+     "text": "A nucleus is absent from human red blood cells.   T / F",
+     "marks": null,
+     "points": [
+      {
+       "answer": "True",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "5(1) + 5(3) for the whole question (10 statements, 20 marks)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2006-Q5",
+   "source": "LC Biology HL 2006, Section A, Question 5 (a), (b)",
+   "file": "papers/2006_ep_LC025ALPO00EV.pdf",
+   "page": 4,
+   "section": "A",
+   "stem": "Study the diagram and then answer the following questions.",
+   "diagram": {
+    "page": 4,
+    "what": "Organ X (the liver) with the hepatic vein leaving its upper surface and the hepatic artery entering it (both labelled on the diagram); vessel Y runs from branches on a loop of intestine (labelled 'Intestine') up to organ X.",
+    "labels": {
+     "X": "liver",
+     "Y": "(hepatic) portal vein"
+    }
+   },
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Name X and Y.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "X: liver",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Y: (hepatic) portal vein or portal system",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question (20 marks)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.10",
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(b)",
+     "text": "Place arrows on Y, the hepatic artery and the hepatic vein to indicate the direction of blood flow.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Arrow on Y (hepatic portal vein): from the intestine towards the liver",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Arrow on hepatic artery: towards (into) the liver",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Arrow on hepatic vein: away from (out of) the liver",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2 for the whole question (20 marks)",
+     "scheme_note": "The published scheme prints only 'Arrow 1 – / Arrow 2 – / Arrow 3 –' without showing the directions; the directions given here are the anatomically correct ones. Whole question 6(3) + 2: presumably 3 marks for each of the first six correct answers and 2 for the seventh (parts (c) and (d) of the question are on the liver/digestion and are not included here).",
+     "outcomes": [
+      "2.6.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2006-Q13a",
+   "source": "LC Biology HL 2006, Section C, Question 13 (a)",
+   "file": "papers/2006_ep_LC025ALPO00EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "State a precise location in the human body at which red blood cells are made.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Marrow or named bone",
+       "marks": 3,
+       "accept": [
+        "skull",
+        "ribs",
+        "long bones",
+        "sternum"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "State two ways in which red blood cells differ from typical body cells e.g. from the cheek lining.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "No nucleus",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Haemoglobin",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Shape comment",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Size comment",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "No mitochondria",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Carries oxygen or CO2",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2006-Q13b",
+   "source": "LC Biology HL 2006, Section C, Question 13 (b)(i)",
+   "file": "papers/2006_ep_LC025ALPO00EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "Use your knowledge of the human vascular and excretory systems to answer the following.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Explain the terms, plasma, glomerular filtrate.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Plasma: liquid part of blood",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Glomerular filtrate: (plasma) that has entered Bowman's capsule or has left the glomerulus or plasma less proteins",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Only (b)(i) is included because it defines plasma; the glomerular-filtrate half and (b)(ii)-(v) belong to the urinary system chapter.",
+     "outcomes": [
+      "2.6.12",
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2006-Q13c",
+   "source": "LC Biology HL 2006, Section C, Question 13 (c)",
+   "file": "papers/2006_ep_LC025ALPO00EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Describe the structure of the lymphatic system.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "(Lymph) nodes",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Lymph) vessels",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": []
+    },
+    {
+     "label": "(ii)",
+     "text": "Give an account of three functions of the lymphatic system.",
+     "marks": 18,
+     "points": [
+      {
+       "answer": "Transport",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Defence",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Fluid collection",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Transport) of fats",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Transport) of hormones",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Transport) of excretory matter",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Nodes filter",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Bacteria or pathogens",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Produce lymphocytes or antibodies",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Returns fluid to blood",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Absorbs fat",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "At lacteals",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any six 6(3)",
+     "scheme_note": "",
+     "outcomes": []
+    }
+   ],
+   "new_course": "no",
+   "why": "The lymphatic system is not in the new course."
+  },
+  {
+   "id": "2007-Q13a",
+   "source": "LC Biology HL 2007, Section C, Question 13 (a)",
+   "file": "papers/2007_ep_LC025ALP000EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name the blood vessel that returns blood to the heart from the lungs.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Pulmonary vein*",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.6.10"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name the main gas transported in the blood vessel that you have named in (i). How is this gas transported?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Oxygen*",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "By (oxy)haemoglobin or by iron",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.6.12"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2009-Q13a",
+   "source": "LC Biology HL 2009, Section C, Question 13 (a)",
+   "file": "papers/2009_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "The human circulatory system has two circuits.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Give the name of each of these circuits.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Pulmonary circuit",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Systemic circuit",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.10"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Which of these circuits involves the pumping of blood by the left ventricle?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Systemic or described",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2009-Q13b",
+   "source": "LC Biology HL 2009, Section C, Question 13 (b)",
+   "file": "papers/2009_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Write a short note on each of the following: 1. Pulse. 2. Blood pressure.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. Pulse: contraction of (wall of) artery or expansion of artery or due to pumping of heart (or of left ventricle) or rate at which heart beats",
+       "marks": 3,
+       "accept": [
+        "relevant medical reference"
+       ]
+      },
+      {
+       "answer": "2. Blood pressure: force exerted by blood (or by heart)",
+       "marks": 3,
+       "accept": [
+        "relevant medical reference"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Comment on the effect of each of the following on the circulatory system: 1. Diet. 2. Exercise.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. Diet: dietary factor + matching effect",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Exercise: comment + matching effect",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Effects of diet and exercise on the circulatory system are not named explicitly in the new specification.",
+     "outcomes": [
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Give two ways, other than colour, in which a red blood cell differs in structure or composition from a typical body cell such as one in the cheek lining.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Contain haemoglobin",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "No nucleus (or other named organelle)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Comment on shape",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "What is the role of the SA (sinoatrial) and AV (atrioventricular) nodes in the heart?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Causes contraction (of heart muscle) or pacemaker (or described) or impulse generation",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Give the precise locations of both the SA and the AV nodes in the heart.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "SA: (in wall of) right atrium or indicated on diagram",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "AV: in (or near) septum or near tricuspid valve or between atrium and ventricle or indicated accurately on diagram",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "The AV node is not named in the new specification (only the pacemaker).",
+     "outcomes": [
+      "2.6.11"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "The AV node is not named in the new specification (only the pacemaker/SA node); effects of diet and exercise are not explicitly listed."
+  },
+  {
+   "id": "2010-Q7",
+   "source": "LC Biology HL 2010, Section B, Question 7",
+   "file": "papers/2010_ep_LC025ALP000EV.pdf",
+   "page": 5,
+   "section": "B",
+   "stem": "(b) Answer the following questions in relation to a dissection that you carried out to investigate the structure of an ox's or a sheep's heart.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(a)(i)",
+     "text": "Name the cavity of the body in which the heart and lungs are located.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Thoracic or chest",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(a)(ii)",
+     "text": "State one way in which heart muscle differs from other muscles in the body.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Doesn't tire",
+       "marks": 3,
+       "accept": [
+        "involuntary"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Scheme: [allow involuntary].",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(b)(i)",
+     "text": "Describe the steps that you followed in order to identify and display the inner structures of the heart. Use suitably labelled diagrams if necessary.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Identify front (or back or left or right)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "How identified",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Named cutting instrument",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Location of first cut",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Second cut described",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Locate (find or flag label) named structure",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Safety precaution described",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any four 4(3)",
+     "scheme_note": "Any of these points can be got from labelled diagrams.",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(b)(ii)",
+     "text": "What did you do in order to expose a semi-lunar valve?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Cut open aorta or cut open pulmonary artery",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(b)(iii)",
+     "text": "In the space below draw and label sufficient of your dissection to show the tricuspid valve, the right atrium and the right ventricle.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Diagram of dissection",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Label: right atrium",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Label: tricuspid valve",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Label: right ventricle",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "Diagram 3, 0 + labels 3(2)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2010-Q15b",
+   "source": "LC Biology HL 2010, Section C, Question 15 (b)(i)-(iii)",
+   "file": "papers/2010_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Draw a labelled diagram to show the relationship between the liver, the small intestine and the hepatic portal vein.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Diagram (liver, connection, gut)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Label: liver",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Label: intestine",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Label: portal vein",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "Diagram 3, 0 + labels 3(2)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.10",
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name a substance transported to the liver by the blood in the hepatic portal vein.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Named food or CO2",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.10",
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Name the blood vessel that brings oxygenated blood to the liver.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Hepatic artery",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.6.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2011-Q8b",
+   "source": "LC Biology HL 2011, Section B, Question 8 (b)(iii)",
+   "file": "papers/2011_ep_LC025ALP000EV.pdf",
+   "page": 6,
+   "section": "B",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iii)",
+     "text": "In the course of your practical studies you found that heart rate and breathing rate increase with exercise. Explain why this is the case.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "More energy (required)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "More oxygen (required)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "More CO2 (produced)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11",
+      "2.6.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2011-Q12b",
+   "source": "LC Biology HL 2011, Section C, Question 12 (b)(iii)",
+   "file": "papers/2011_ep_LC025ALP000EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iii)",
+     "text": "1. Name the blood vessel that supplies blood to a kidney. 2. From which blood vessel does the blood vessel referred to in (iii)1 arise?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. *Renal artery",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. *Aorta",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added. Only (b)(iii) is included; the rest of Q12 belongs to the urinary system chapter.",
+     "outcomes": [
+      "2.6.10",
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2012-Q7b",
+   "source": "LC Biology HL 2012, Section B, Question 7 (b)(i)",
+   "file": "papers/2012_ep_LC025ALP000EV.pdf",
+   "page": 5,
+   "section": "B",
+   "stem": "(b) Answer the following by reference to some of the investigations that you carried out in the course of your studies.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "How did you expose the semi-lunar valves when dissecting the sheep's or ox's heart?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Cut (open) the aorta or cut (open) the pulmonary artery",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2012-Q15b",
+   "source": "LC Biology HL 2012, Section C, Question 15 (b)(i), (ii)",
+   "file": "papers/2012_ep_LC025ALP000EV.pdf",
+   "page": 13,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "State two ways, other than colour, in which red blood cells differ from white blood cells.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Smaller",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "More of them",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Biconcave",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Disc (shape)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "No nucleus (when mature)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "No mitochondria",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Transport oxygen",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Contain haemoglobin",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Transport CO2",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name a group of white blood cells, other than lymphocytes.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Phagocytic (white cells) or monocytes",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "(b)(iii) (antibodies and T cells) belongs to the immunity chapter.",
+     "outcomes": [
+      "2.6.12",
+      "2.4.14"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2014-Q3",
+   "source": "LC Biology HL 2014, Section A, Question 3",
+   "file": "papers/2014_ep_LC025ALP000EV.pdf",
+   "page": 3,
+   "section": "A",
+   "stem": "The diagram shows a region of tissue that includes body cells and parts of the circulatory and lymphatic systems.",
+   "diagram": {
+    "page": 3,
+    "what": "A capillary network running between body cells (labelled 'Body Cells'). An arrow labelled 'Direction of blood flow' shows blood entering at vessel A (top right) and leaving at vessel B (bottom left). C is a blind-ended vessel lying beside the network.",
+    "labels": {
+     "A": "arteriole (scheme accepts artery)",
+     "B": "venule (not asked; blood leaving the capillary bed)",
+     "C": "lymph vessel"
+    }
+   },
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Name part C.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Lymph vessel",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "8 + 7 + 5(1) for the whole question (20 marks): first correct answer 8, second 7, each further correct answer 1",
+     "scheme_note": "",
+     "outcomes": []
+    },
+    {
+     "label": "(b)",
+     "text": "What type of blood vessel is A?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Arteriole",
+       "marks": null,
+       "accept": [
+        "artery"
+       ]
+      }
+     ],
+     "rule": "8 + 7 + 5(1) for the whole question (20 marks): first correct answer 8, second 7, each further correct answer 1",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.13"
+     ]
+    },
+    {
+     "label": "(c)",
+     "text": "If a transverse section of A were viewed under the microscope state one way in which it would differ from a transverse section through B.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Narrow(er) lumen or thick(er) wall or no valves",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "8 + 7 + 5(1) for the whole question (20 marks): first correct answer 8, second 7, each further correct answer 1",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.13"
+     ]
+    },
+    {
+     "label": "(d)",
+     "text": "Give two functions of the lymphatic system.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Maintains a constant level of ECF or drains fluid or returns fluid to blood",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Manufacture of lymphocytes or maturation of lymphocytes",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Filtering bacteria",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Fighting infection",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Transport of named material",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "8 + 7 + 5(1) for the whole question (20 marks): first correct answer 8, second 7, each further correct answer 1",
+     "scheme_note": "",
+     "outcomes": []
+    },
+    {
+     "label": "(e)",
+     "text": "Give one way in which lymph differs from blood.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "No red blood cells or no haemoglobin / no platelets / no clotting (proteins) / higher fat level",
+       "marks": null,
+       "accept": [
+        "correct colour difference"
+       ]
+      }
+     ],
+     "rule": "8 + 7 + 5(1) for the whole question (20 marks): first correct answer 8, second 7, each further correct answer 1",
+     "scheme_note": "",
+     "outcomes": []
+    },
+    {
+     "label": "(f)",
+     "text": "Name a major blood vessel that returns the blood in B to the heart.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Vena cava",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "8 + 7 + 5(1) for the whole question (20 marks): first correct answer 8, second 7, each further correct answer 1",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.10"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "Parts (a), (d) and (e) are on the lymphatic system, which is not in the new course."
+  },
+  {
+   "id": "2014-Q9b",
+   "source": "LC Biology HL 2014, Section B, Question 9 (b)",
+   "file": "papers/2014_ep_LC025ALP000EV.pdf",
+   "page": 8,
+   "section": "B",
+   "stem": "(b) Answer the following in relation to investigations that you carried out in the laboratory.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)1",
+     "text": "When dissecting a mammalian heart where, precisely, did you locate the tricuspid valve?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Between the right atrium and right ventricle",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(i)2",
+     "text": "Briefly describe how you carried out the dissection to expose this valve.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Cut through the right side of the heart",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Using a scalpel",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(i)3",
+     "text": "Where did you find the semilunar valves during the dissection?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "At the base",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Of the aorta or the pulmonary artery",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(ii)1",
+     "text": "When you investigated the effect of exercise on the human pulse rate or breathing rate what did you first establish?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "The resting (pulse) rate or resting (breathing) rate",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(ii)2",
+     "text": "How did you measure pulse rate or breathing rate?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Feel (or locate) pulse (or observe breathing)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Count heart beats (or breaths) for stated time",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Repeat and find average",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "Part (ii) is the old-course mandatory activity on the effect of exercise on pulse/breathing rate, which is not specified in the new course (the pulse itself is in 2.6.11)."
+  },
+  {
+   "id": "2014-Q12c",
+   "source": "LC Biology HL 2014, Section C, Question 12 (c)(ii)-(iv)",
+   "file": "papers/2014_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "(c) Answer the following questions in relation to carbon dioxide.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii)",
+     "text": "Give a feature of a capillary which allows the rapid uptake of carbon dioxide.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Wall one cell thick or thin wall",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.13"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Carbon dioxide levels are usually higher in venous blood than in arterial blood. Why is this the case?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Venous blood has collected CO2",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "From respiration (or cells)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Arterial blood has been cleared of CO2 (in lungs)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.10"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Name a blood vessel which is an exception to the situation outlined in (iii) above. Give a reason for the exception.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Vessel: pulmonary vein OR pulmonary artery",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Matching reason: pulmonary vein - blood has been cleared of CO2 in the lungs; pulmonary artery - brings CO2-rich blood to the lungs",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2015-Q4",
+   "source": "LC Biology HL 2015, Section A, Question 4 (b)",
+   "file": "papers/2015_ep_LC025ALP000EV.pdf",
+   "page": 3,
+   "section": "A",
+   "stem": "Indicate whether the following statements are true or false by placing a tick in the appropriate box in each case.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(b)",
+     "text": "Mitosis occurs in mature red blood cells in humans.   True / False",
+     "marks": null,
+     "points": [
+      {
+       "answer": "False",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "8 + 7 + 5(1) for the whole question (7 statements, 20 marks)",
+     "scheme_note": "The scheme gives only 'F'. Reason: mature human red blood cells have no nucleus.",
+     "outcomes": [
+      "2.6.12"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2016-Q6",
+   "source": "LC Biology HL 2016, Section A, Question 6 (e)",
+   "file": "papers/2016_ep_LC025ALP000EV.pdf",
+   "page": 6,
+   "section": "A",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(e)",
+     "text": "Suggest why mature human red blood cells do not undergo cell division.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "No nucleus",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "2(5) + 5(2) for the whole question (20 marks): first two correct answers 5 marks each, further correct answers 2 each",
+     "scheme_note": "The rest of Question 6 is on interphase / the cell cycle.",
+     "outcomes": [
+      "2.6.12"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2016-Q8",
+   "source": "LC Biology HL 2016, Section B, Question 8",
+   "file": "papers/2016_ep_LC025ALP000EV.pdf",
+   "page": 8,
+   "section": "B",
+   "stem": "(a) Answer the following questions in relation to the human pulse. (b) Answer the following questions in relation to the investigation you carried out on the effect of exercise on the breathing rate or pulse rate.",
+   "diagram": {
+    "page": 8,
+    "what": "A blank pair of axes (no labels) on which candidates label the axes and draw curves for woman A (very fit athlete) and woman B (overweight, rarely exercises).",
+    "labels": {}
+   },
+   "parts": [
+    {
+     "label": "(a)(i)",
+     "text": "What is the pulse?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "The (rhythmic) stretching (or expanding or vibrating) of an artery",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(a) 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(a)(ii)",
+     "text": "What makes the wrist (or temple, or neck) a suitable part of the body to detect a pulse?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Artery near the surface",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(a) 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(b)(i)",
+     "text": "What was the control in this investigation?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Rate (measured) at rest",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "(b) 4(4) + 4(2): eight points; first four correct 4 marks each, next four 2 marks each (24 marks)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(b)(ii)",
+     "text": "What is the purpose of this control?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "To compare with the results (of the experiment)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "(b) 4(4) + 4(2)",
+     "scheme_note": "",
+     "outcomes": []
+    },
+    {
+     "label": "(b)(iii)",
+     "text": "You carried out this investigation on two women of the same age. One of the women (A) was a very fit athlete. The other (B) was overweight and rarely took exercise. 1. Appropriately label each of the axes below. 2. Draw two curves or plots to summarise the most likely results of your investigation, clearly labelling which curve relates to which individual.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Axes labels: x-axis 'duration (of exercise)' or 'time' or level of exercise",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Axes labels: y-axis 'rate'",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Curve or plot showing: B increases by a greater amount",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "(b) 4(4) + 4(2)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(b)(iv)",
+     "text": "Recovery time is the duration of the period following exercise during which the breathing rate or pulse rate returns to normal. Suggest how you might measure recovery time.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Immediately (after exercise)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Count pulse or breathing",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Rate or per minute",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Measure length of time until resting rate reached",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any three; (b) 4(4) + 4(2)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "Part (b) is the old-course mandatory activity on the effect of exercise on breathing/pulse rate, which is not specified in the new course; the pulse itself (part (a)) is in 2.6.11."
+  },
+  {
+   "id": "2016-Q15a",
+   "source": "LC Biology HL 2016, Section C, Question 15 (a)",
+   "file": "papers/2016_ep_LC025ALP000EV.pdf",
+   "page": 15,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Draw a labelled diagram of a transverse section and a labelled diagram of a longitudinal section through a human vein to show its structure.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "T.S. vein diagram: thin wall + large lumen (> 50% total diameter)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "L.S. vein diagram: clearly longitudinal + valve",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Label: lumen",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Label: muscle or wall or endothelium",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Label: valve",
+       "marks": 1,
+       "accept": []
+      }
+     ],
+     "rule": "T.S. 3, 0 + L.S. 3, 0 + labels 3(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.13"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "In each of the following cases name a vein which fits the description. 1. Transports blood out of the muscle of the heart. 2. Brings blood away from the kidneys. 3. Carries very little carbon dioxide. 4. Brings blood into the right atrium. 5. Has capillaries at both ends.",
+     "marks": 15,
+     "points": [
+      {
+       "answer": "1. Cardiac or coronary (vein)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Renal (vein)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "3. Pulmonary (vein)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "4. Vena cava",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "5. Hepatic portal (vein)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "5(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.10",
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Briefly describe how blood is moved through veins.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "(Skeletal or voluntary) muscles contracting (squeezing)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Valves prevent backflow",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.13"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2017-Q1",
+   "source": "LC Biology HL 2017, Section A, Question 1 (e)",
+   "file": "papers/2017_ep_LC025ALP000EV.pdf",
+   "page": 2,
+   "section": "A",
+   "stem": "Answer any five of the following parts (a) to (f):",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(e)",
+     "text": "Name the metallic element present in haemoglobin.",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "Iron (or Fe)",
+       "marks": 4,
+       "accept": []
+      }
+     ],
+     "rule": "5(4) i.e. best five answers from (a)-(f)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2018-Q11a",
+   "source": "LC Biology HL 2018, Section C, Question 11 (a)",
+   "file": "papers/2018_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Blood acts as a transport medium in the human body. Name two substances, other than food molecules and water, that are transported in the blood.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Urea",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Hormones (or a named hormone)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Antibodies",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Oxygen",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Carbon dioxide",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "(Plasma) proteins",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Enzymes",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Clotting factors (or a named clotting factor)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any two; (a) 4 + 2(2) + 1 (9 marks): of the four answers, first correct 4, next two 2 each, last 1",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12",
+      "2.6.10"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Give the location in the body where each of the substances you named in (i) enters the blood.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Urea enters at liver",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Hormones enter at endocrine gland",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Antibodies enter from (B) lymphocytes",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Oxygen enters at lungs (or alveoli)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Carbon dioxide enters at cells",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Enzymes (or clotting factors or proteins) enter from liver",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any two; (a) 4 + 2(2) + 1",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2018-Q11b",
+   "source": "LC Biology HL 2018, Section C, Question 11 (b)",
+   "file": "papers/2018_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Draw a diagram to show the structure of the human heart and associated blood vessels, labelling each of the following: Vena cava; tricuspid valve; aorta; left ventricle; semi-lunar valve; pulmonary artery.",
+     "marks": 17,
+     "points": [
+      {
+       "answer": "Drawing: four chambers including their valves + four correctly placed main blood vessels + left ventricle wall thicker than right ventricle wall",
+       "marks": 6,
+       "accept": []
+      },
+      {
+       "answer": "Label: vena cava",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Label: tricuspid valve",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Label: aorta",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Label: left ventricle",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Label: semi-lunar valve",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Label: pulmonary artery",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Drawing 6, 4, 0 + Labels 2(3) + 2 + 3(1): first two correct labels 3 marks each, the third 2, the remaining three 1 each",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "1. State the precise location and describe the role of the sinoatrial (SA) node. 2. State the precise location and describe the role of the atrioventricular (AV) node.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "SA node location: *Right atrium",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "SA node role: generates (or sends) (electrical) impulses or causes contraction in the atria (or causes atrial systole) or controls the heart rate",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "AV node location: in septum between right atrium and right ventricle or in septum near tricuspid valve",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "AV node role: generates (or sends) (electrical) impulses or causes contraction in the ventricles (or causes ventricular systole) or controls the heart rate",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "(ii) & (iii) together 2(3) + 2 + 2(1) (10 marks, five points)",
+     "scheme_note": "Accept 'controls heart rate' once only, i.e. for the role of either the SA node or the AV node. * in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "What exactly is being measured when a person's blood pressure is taken?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Force of the blood against the wall of the artery or force required to stop flow of blood in the artery or systolic and diastolic pressures",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "(ii) & (iii) together 2(3) + 2 + 2(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "The AV node is not named in the new specification (only the pacemaker/SA node)."
+  },
+  {
+   "id": "2019-Q5",
+   "source": "LC Biology HL 2019, Section A, Question 5",
+   "file": "papers/2019_ep_LC025ALP038EV.pdf",
+   "page": 7,
+   "section": "A",
+   "stem": "Some typical human red blood cells are shown below. They are disc shaped.",
+   "diagram": {
+    "page": 7,
+    "what": "Image of three human red blood cells: disc-shaped with depressed (concave) centres.",
+    "labels": {}
+   },
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "What word is used to describe the shape of the two faces of these cells?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Concave or biconcave",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "4+2+2+2+2+2+6 for the whole question (20 marks; successive correct answers)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12"
+     ]
+    },
+    {
+     "label": "(b)",
+     "text": "Red blood cells are wider than some capillaries. What feature of red blood cells allows them to pass through the narrow capillaries?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Flexible or described",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "4+2+2+2+2+2+6 for the whole question (20 marks; successive correct answers)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12"
+     ]
+    },
+    {
+     "label": "(c)",
+     "text": "Name the molecule in red blood cells that carries oxygen.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Haemoglobin",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "4+2+2+2+2+2+6 for the whole question (20 marks; successive correct answers)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12"
+     ]
+    },
+    {
+     "label": "(d)",
+     "text": "Human red blood cells live for about 120 days. Give a reason for this, based on the composition of these cells.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "No nucleus or no mitochondria or no organelles or cannot reproduce",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "4+2+2+2+2+2+6 for the whole question (20 marks; successive correct answers)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12"
+     ]
+    },
+    {
+     "label": "(e)",
+     "text": "Give a location in the body where red blood cells are: 1. Produced. 2. Usually broken down.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "1. (Bone) marrow",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "2. Liver or spleen",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "4+2+2+2+2+2+6 for the whole question (20 marks; successive correct answers)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12"
+     ]
+    },
+    {
+     "label": "(f)",
+     "text": "Red blood cells are transported in the blood plasma. Name the transport fluid in humans that does not contain red blood cells.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Lymph",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "4+2+2+2+2+2+6 for the whole question (20 marks; successive correct answers)",
+     "scheme_note": "",
+     "outcomes": []
+    }
+   ],
+   "new_course": "partly",
+   "why": "Part (f) asks about lymph; the lymphatic system is not in the new course."
+  },
+  {
+   "id": "2019-Q6",
+   "source": "LC Biology HL 2019, Section A, Question 6 (a)",
+   "file": "papers/2019_ep_LC025ALP038EV.pdf",
+   "page": 8,
+   "section": "A",
+   "stem": "The diagram shows microscopic detail of an alveolus and a capillary from the human lung.",
+   "diagram": {
+    "page": 8,
+    "what": "An alveolus with a capillary (containing red blood cells) wrapped closely around it; an arrow labelled 'Blood flow' shows the direction of flow through the capillary. Printed labels: Capillary, Alveolus.",
+    "labels": {}
+   },
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Name the blood vessel from which the capillary arises.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Pulmonary artery (arteriole)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "4+2+2+2+2+2+6 for the whole question (20 marks; successive correct answers)",
+     "scheme_note": "Only (a) is included; (b) and (c) are on gas exchange and breathing disorders.",
+     "outcomes": [
+      "2.6.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2019-Q14b",
+   "source": "LC Biology HL 2019, Section C, Question 14 (b)(v)",
+   "file": "papers/2019_ep_LC025ALP040EV.pdf",
+   "page": 7,
+   "section": "C",
+   "stem": "Write notes on three of the following topics:",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(v)",
+     "text": "The sounds created during the cardiac cycle.",
+     "marks": 10,
+     "points": [
+      {
+       "answer": "The sounds are 'lub' + 'dub'",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Caused by valves closing",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Tricuspid and bicuspid (or 'sinoatrial valves') close",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Causes 'lub' sound or creates first sound",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Semilunar valves close",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Causes 'dub' sound or creates second sound",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any three, 4+3+3 (10 marks per topic)",
+     "scheme_note": "The scheme's '(or sinoatrial valves)' presumably means atrioventricular valves; there are no 'sinoatrial valves'.",
+     "outcomes": []
+    }
+   ],
+   "new_course": "no",
+   "why": "Heart sounds are part of the cardiac cycle, which the new course explicitly does not require (valve function itself is in 2.6.9)."
+  },
+  {
+   "id": "2019-Q15b",
+   "source": "LC Biology HL 2019, Section C, Question 15 (b)(viii)",
+   "file": "papers/2019_ep_LC025ALP040EV.pdf",
+   "page": 8,
+   "section": "C",
+   "stem": "Answer the following questions from your knowledge of the human digestive system. ... (vii) Name the products formed by the complete digestion of a protein molecule. These products are transported to the liver.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(viii)",
+     "text": "Name the blood vessel that transports these digestion products to the liver.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Hepatic portal vein",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.6.10",
+      "2.6.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2020-Q9",
+   "source": "LC Biology HL 2020, Section B, Question 9",
+   "file": "papers/2020_ep_LC025ALP038EV.pdf",
+   "page": 11,
+   "section": "B",
+   "stem": "(b) Answer the following in relation to an investigation you carried out to dissect, display and identify the parts of a sheep's or an ox's heart.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(a)(i)",
+     "text": "Why is the blood in the right side of the heart kept separate from the blood in the left?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Prevents oxygenated and deoxygenated blood mixing or to allow difference in blood pressure or oxygenated on LHS and deoxygenated on RHS",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(a) 3+3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(a)(ii)",
+     "text": "In relation to the heartbeat, what is meant by the term diastole?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Relaxation",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(a) 3+3",
+     "scheme_note": "",
+     "outcomes": []
+    },
+    {
+     "label": "(b)(i)",
+     "text": "How did you identify the right hand side from the left hand side of the heart?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Left thicker (or firmer)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(b) 8(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(b)(ii)",
+     "text": "On which surface of the heart did you observe the coronary artery (groove)?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Front or ventral",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(b) 8(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9",
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(b)(iii)",
+     "text": "Describe how you dissected the heart to identify the bicuspid valve.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "(Shallow) cut (incision)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "With a scalpel",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "On left (side)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Dissecting) board or washing or safety point",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Valve) between top and bottom chambers (atria and ventricle)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any four 4(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(b)(iv)",
+     "text": "State the precise location of one semilunar valve and describe how you further dissected the heart to locate this valve.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Location: base of aorta or base of pulmonary artery or between ventricle and aorta (or pulmonary artery)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Dissection: cut into the aorta or cut into the pulmonary artery",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "(a)(ii) asks about diastole, part of the cardiac cycle, which is not required in the new course."
+  },
+  {
+   "id": "2021-Q14b",
+   "source": "LC Biology HL 2021, Section C, Question 14 (b)(iv), (v)",
+   "file": "papers/2021_ep_LC025ALP040EV.pdf",
+   "page": 5,
+   "section": "C",
+   "stem": "The diagram shows a longitudinal section (L.S.) of a villus from the human digestive system.",
+   "diagram": {
+    "page": 5,
+    "what": "L.S. of a villus: epithelium (labelled), a central vessel X and a network labelled 'Blood capillary'.",
+    "labels": {
+     "X": "lacteal"
+    }
+   },
+   "parts": [
+    {
+     "label": "(iv)",
+     "text": "Name the blood vessel that carries digested nutrients away from the digestive system.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Hepatic portal vein",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.6.10",
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "To what organ in the body are digested nutrients first transported?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Liver",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added. Only (iv) and (v) are included; the rest of (b) is on digestion.",
+     "outcomes": [
+      "2.6.10",
+      "2.6.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2022-Q17d",
+   "source": "LC Biology HL 2022, Section C, Question 17 (d)",
+   "file": "papers/2022_ep_LC025ALP040EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "Diagrams X, Y and Z below show the heart during periods of the heart cycle. Study these diagrams carefully and answer the questions that follow.",
+   "diagram": {
+    "page": 10,
+    "what": "Three vertical sections of the heart. X: arrows show blood entering the atria from the veins (chambers relaxed, filling). Y: arrows show blood passing from the atria down through the open atrioventricular valves into the ventricles. Z: arrows show blood leaving the ventricles upwards into the aorta and pulmonary artery; AV valves closed.",
+    "labels": {
+     "X": "atria filling; heart relaxed (diastole)",
+     "Y": "atria contracting (atrial systole)",
+     "Z": "ventricles contracting (ventricular systole) - the only one confirmed by the scheme"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name the period of the heart cycle when the cardiac muscle of the heart is: 1. Contracting 2. Not contracting",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. *Systole",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. *Diastole",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": []
+    },
+    {
+     "label": "(ii)",
+     "text": "In which diagram, X or Y or Z, are the ventricles contracting? Explain how you know the ventricles are contracting.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "*Z",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Ventricle) volumes are reduced or semilunar valves are open or AV valves (or bicuspid or tricuspid) are closed or blood is flowing into arteries (or out of heart)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Framed on the cardiac cycle (not required in the new course), though the explanation uses valve function (2.6.9).",
+     "outcomes": []
+    },
+    {
+     "label": "(iii)",
+     "text": "State the location of the sinoatrial (SA) node in the heart.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(Wall of) right atrium",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "There is a two-circuit circulatory system in humans. Name the circuit to which: 1. the right ventricle pumps blood. 2. the left ventricle pumps blood.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. *Pulmonary (circuit)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. *Systemic (circuit)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.6.10"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Each heartbeat creates two audible sounds. What causes these sounds?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Valves closing",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": []
+    },
+    {
+     "label": "(vi)",
+     "text": "What is the function of the coronary (cardiac) artery?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "To supply heart (cardiac) muscle (or tissue or cells) with blood",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(vii)",
+     "text": "Describe the effect on the circulatory system of either one of the following: smoking or exercise.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Smoking: increase heart rate or increase blood pressure or any valid effect; OR Exercise: increase heart rate or strengthens heart muscle or any valid effect",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Effects of smoking/exercise are not named explicitly in the new specification.",
+     "outcomes": [
+      "2.6.11"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "(i), (ii) and (v) are on the cardiac cycle (systole/diastole, heart sounds), which is not required in the new course."
+  },
+  {
+   "id": "2023-Q6",
+   "source": "LC Biology HL 2023, Section A, Question 6 (g)",
+   "file": "papers/2023_ep_LC025ALP038EV.pdf",
+   "page": 8,
+   "section": "A",
+   "stem": "Give a brief biological explanation for each of the following:",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(g)",
+     "text": "The septum separates the two sides of the human heart.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "To prevent oxygenated and deoxygenated blood from mixing",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "2(5) + 5(2) for the whole question (20 marks): 1 correct = 5, 2 = 10, 3 = 12, 4 = 14, 5 = 16, 6 = 18, 7 = 20",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2023-Q10b",
+   "source": "LC Biology HL 2023, Section B, Question 10 (b)(ii)",
+   "file": "papers/2023_ep_LC025ALP038EV.pdf",
+   "page": 12,
+   "section": "B",
+   "stem": "(b) The questions below all relate to Unit 3 practical activities. (ii) Answer the following based on dissecting, displaying and identifying an ox's or sheep's heart.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii)1",
+     "text": "Name one instrument you used to make the incisions.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Scalpel or blade",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(b) 8(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(ii)2",
+     "text": "Describe one difference between the walls of the right and left ventricles.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "The walls of the left (ventricle) were thicker (than the walls of the right)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(b) 8(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2023-Q17c",
+   "source": "LC Biology HL 2023, Section C, Question 17 (c)(i)",
+   "file": "papers/2023_ep_LC025ALP040EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "Answer the following questions in relation to your knowledge of the human circulatory and breathing systems.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "In each of the following, name the vein that best matches the description: 1. Carries blood richest in oxygen. 2. Carries blood between the intestine and the liver. 3. Carries blood lowest in metabolic wastes. 4. Carries blood into the right atrium of the heart.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "1. *Pulmonary (vein)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. *Hepatic portal (vein)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "3. *Renal (vein)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "4. *Vena cava",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(c) 10(3)",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added. (ii) (alveolus sketch) and (iii) (breathing) belong to the gas exchange chapter.",
+     "outcomes": [
+      "2.6.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2024-Q6",
+   "source": "LC Biology HL 2024, Section A, Question 6 (e)",
+   "file": "papers/2024_ep_LC025ALP038EV.pdf",
+   "page": 8,
+   "section": "A",
+   "stem": "Distinguish clearly between each member of the following pairs of terms.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(e)",
+     "text": "Systole and diastole",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "Systole: heart muscle is contracting",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Diastole: heart muscle is relaxing",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "10(2) for the whole question",
+     "scheme_note": "",
+     "outcomes": []
+    }
+   ],
+   "new_course": "no",
+   "why": "Systole and diastole are cardiac-cycle terms; the cardiac cycle is not required in the new course."
+  },
+  {
+   "id": "2025-Q16b",
+   "source": "LC Biology HL 2025, Section C, Question 16 (b)(i)",
+   "file": "papers/2025_ep_LC025ALP040EV.pdf",
+   "page": 7,
+   "section": "C",
+   "stem": "The diagram shows gases X and Y and their main directions of movement at the site of gas exchange in the lungs.",
+   "diagram": {
+    "page": 7,
+    "what": "An alveolus (B) with a capillary (A) wrapped around it; C points to a red blood cell inside the capillary; arrows X (from blood into the alveolus) and Y (from the alveolus into the blood) show gas movement.",
+    "labels": {
+     "A": "capillary",
+     "B": "alveolus",
+     "C": "red blood cell",
+     "X": "carbon dioxide",
+     "Y": "oxygen"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name the structures A and B, and the type of blood cell labelled C, that transports a gas around the body.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "A: *Capillary",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "B: *Alveolus",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "C: *Red (blood cell)",
+       "marks": 1,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added. Only (i) is included; (ii)-(vi) are on gas exchange and breathing.",
+     "outcomes": [
+      "2.6.12",
+      "2.6.13",
+      "2.6.7"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2025-Q16d",
+   "source": "LC Biology HL 2025, Section C, Question 16 (d)(i)",
+   "file": "papers/2025_ep_LC025ALP040EV.pdf",
+   "page": 8,
+   "section": "C",
+   "stem": "Lymphocytes, such as the one shown in the diagram, mature in the lymphatic system, which is part of the human defence system.",
+   "diagram": {
+    "page": 8,
+    "what": "A lymphocyte (labelled) releasing Y-shaped antibody molecules.",
+    "labels": {}
+   },
+   "parts": [
+    {
+     "label": "(i)1",
+     "text": "Name two organs of the lymphatic system.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Lymph vessel",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Lymph node",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Thymus",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Adenoid",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Tonsil",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Spleen",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": []
+    },
+    {
+     "label": "(i)2",
+     "text": "Other than maturation of lymphocytes, give two functions of the lymphatic system.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Return (excess tissue) fluid to the blood",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Transport fats",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Fight infection",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "Scheme list ends 'fight infection……….', i.e. other valid functions presumably accepted. (d)(ii)-(iv) are on immunity (other chapter).",
+     "outcomes": []
+    }
+   ],
+   "new_course": "no",
+   "why": "The lymphatic system is not in the new course."
+  },
+  {
+   "id": "2025-Q17a",
+   "source": "LC Biology HL 2025, Section C, Question 17 (a)",
+   "file": "papers/2025_ep_LC025ALP040EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "",
+   "diagram": {
+    "page": 9,
+    "what": "Plan of the human double circulation: heart in the centre, pulmonary circuit to the lungs above, systemic circuit with capillary beds in the upper body, liver, gut (portal connection to the liver), kidneys and lower body. No letter labels.",
+    "labels": {}
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Using the diagram as an aid, answer the following questions: 1. The human circulatory system has two circuits. Name both circuits. 2. Which of these circuits receives blood from the left ventricle? 3. Name the blood vessel that is carrying blood highest in oxygen. 4. Name the blood vessel that is carrying blood highest in nutrients.",
+     "marks": 15,
+     "points": [
+      {
+       "answer": "1. *Pulmonary",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "1. *Systemic",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. *Systemic",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "3. *Pulmonary vein",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "4. *Hepatic portal vein",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.6.10"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "State the precise function of the following in the heart: 1. Sino-atrial (SA) node 2. Septum",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. SA node: sends impulse to the atria (to cause contraction) or sends impulse to AV node or controls the rate of contractions (of atria) or pacemaker",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Septum: separates oxygenated and deoxygenated bloods or separates blood in the left side from the right side",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11",
+      "2.6.9"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "What term is used to describe the period of time during which the heart muscle is contracting?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Systole",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": []
+    },
+    {
+     "label": "(iv)",
+     "text": "Give two structural differences between arteries and veins.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Arteries have thick walls and veins have thin walls",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Arteries have no valves and veins have valves",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Arteries have a narrow lumen and veins have a wide lumen",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.13"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "(iii) asks for 'systole', a cardiac-cycle term not required in the new course."
+  },
+  {
+   "id": "2026-Q7",
+   "source": "LC Biology HL 2026, Section A, Question 7 (b)",
+   "file": "papers/2026_ep_LC025ALP038EV.pdf",
+   "page": 9,
+   "section": "A",
+   "stem": "For each of the following structures, identify its precise location and its main function.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(b)",
+     "text": "Sino-atrial node. Precise location: ... Main function: ...",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "Precise location: wall of the right atrium (of the heart)",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Main function: sends impulse to the atria or sends impulse to AV node or controls the rate of contractions (of atria) or pacemaker",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "2 marks per answer (10 answers = 20 marks)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2026-Q16b",
+   "source": "LC Biology HL 2026, Section C, Question 16 (b)(iv)",
+   "file": "papers/2026_ep_LC025ALP040EV.pdf",
+   "page": 7,
+   "section": "C",
+   "stem": "Viruses can have a variety of shapes, but always contain two types of biomolecules (X and Y). There is a difficulty in classifying viruses as living.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iv)",
+     "text": "Suggest a reason why a red blood cell is not a suitable host cell for viruses.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(RBCs) do not contain a nucleus or do not contain organelles or explained",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Rest of (b) is on viruses (other chapter).",
+     "outcomes": [
+      "2.6.12",
+      "2.4.13"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2026-Q17a",
+   "source": "LC Biology HL 2026, Section C, Question 17 (a)",
+   "file": "papers/2026_ep_LC025ALP040EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "The diagram shows a capillary network and associated blood supply in an organ. X and Y are blood vessels. One connects to a vein and the other connects to an artery.",
+   "diagram": {
+    "page": 9,
+    "what": "A capillary network between two vessels: 'Blood in' at X (left) and 'Blood out' at Y (right); an arrow labelled 'Blood flow' points from X to Y.",
+    "labels": {
+     "X": "arteriole",
+     "Y": "venule"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Identify each type of blood vessel, X and Y.",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "X: *Arteriole",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Y: *Venule",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.6.13"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Explain the following terms: 1. Blood pressure 2. Pulse",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. Blood pressure: the force the blood exerts on the walls of blood vessels (or named blood vessel)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Pulse: (rhythmic) expansion (and contraction) of arteries",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "How does the blood pressure change as blood flows in the direction indicated on the diagram?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Decreases",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.6.11",
+      "2.6.13"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Draw labelled diagrams of a vein and an artery and a capillary to clearly show the structural differences between them.",
+     "marks": 8,
+     "points": [
+      {
+       "answer": "Diagram of vein: thin wall and large lumen",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Diagram of artery: thick wall and small lumen",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Diagram of capillary: wall one cell thick",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Label: muscle wall",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Label: lumen",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Label: valve",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Label: endothelium",
+       "marks": 1,
+       "accept": []
+      }
+     ],
+     "rule": "3 diagrams x 2 + labels any two 2(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.13"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Name the type of vessel that is also present in capillary networks that absorbs the excess tissue fluid around the cells.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Lymph (vessel)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": []
+    },
+    {
+     "label": "(vi)",
+     "text": "Describe the effects of the following factors on the circulatory system: 1. Exercise 2. Diet",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. Exercise: correct matching effect described",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Diet: correct matching effect described",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Effects of exercise and diet are not named explicitly in the new specification.",
+     "outcomes": [
+      "2.6.11"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "(v) is on lymph vessels (lymphatic system), which is not in the new course; effects of exercise and diet are not explicitly listed in the new specification."
+  },
+  {
+   "id": "S1-Q3c",
+   "source": "SEC Sample Paper 1 (new course, first exam 2027), Higher Level, Question 3 (c)(i), (ii)",
+   "file": "sample/lc-biology-2027-1-qp-smlwu.pdf",
+   "page": 13,
+   "section": "sample",
+   "stem": "Carbon dioxide and oxygen are two common gases carried in the blood between the heart and the lungs in the pulmonary system.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)1",
+     "text": "Describe the main way carbon dioxide is transported in the blood.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Dissolved in the plasma, mainly as hydrogencarbonate (bicarbonate, HCO3-) ions",
+       "marks": null,
+       "accept": [
+        "in the plasma",
+        "as carbonic acid / hydrogencarbonate"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Unofficial. A small amount is carried by haemoglobin or dissolved directly, but the 'main' way is in the plasma as hydrogencarbonate.",
+     "outcomes": [
+      "2.6.12"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(i)2",
+     "text": "Describe the main way oxygen is transported in the blood.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Bound to (combined with) haemoglobin in red blood cells, as oxyhaemoglobin",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(ii)",
+     "text": "Compare the relative concentration of each gas (carbon dioxide and oxygen) in arterial pulmonary blood and venous pulmonary blood by writing the words 'High' or 'Low' into the correct boxes. [Table: rows Carbon dioxide, Oxygen; columns Arterial pulmonary blood, Venous pulmonary blood]",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Arterial pulmonary blood: carbon dioxide High, oxygen Low",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Venous pulmonary blood: carbon dioxide Low, oxygen High",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Unofficial. 'Arterial pulmonary blood' = blood in the pulmonary artery (deoxygenated, going to the lungs); 'venous pulmonary blood' = blood in the pulmonary vein (oxygenated, returning to the heart). A student who reads 'arterial' as 'oxygenated' will reverse the answer.",
+     "outcomes": [
+      "2.6.10"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "S1-Q5d",
+   "source": "SEC Sample Paper 1 (new course, first exam 2027), Higher Level, Question 5 (d)",
+   "file": "sample/lc-biology-2027-1-qp-smlwu.pdf",
+   "page": 23,
+   "section": "sample",
+   "stem": "During antenatal screening blood samples may be taken to determine the blood group of the mother.",
+   "diagram": {
+    "page": 23,
+    "what": "Illustration of red blood cells with small antigen molecules projecting from their surfaces.",
+    "labels": {}
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name the two common blood grouping systems in humans.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "1. ABO (system)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "2. Rhesus (Rh) (system)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(ii)",
+     "text": "Why is knowledge of a person's blood group important?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Blood transfusions: donor blood must be compatible with the recipient's blood group, otherwise the recipient's antibodies make the donated red blood cells clump (agglutinate) / be destroyed",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Pregnancy: a Rhesus-negative mother carrying a Rhesus-positive baby may make anti-Rhesus antibodies that destroy the (next) baby's red blood cells (haemolytic disease of the newborn); she can be given an anti-D injection",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any one (unofficial)",
+     "scheme_note": "Unofficial. Organ-transplant matching would probably also be accepted.",
+     "outcomes": [
+      "2.6.12"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "S2-Q5a",
+   "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level (Irish-language paper, translated), Question 5 (a)",
+   "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+   "page": 20,
+   "section": "sample",
+   "stem": "The diagram shows the internal structure of the human heart.",
+   "diagram": {
+    "page": 20,
+    "what": "Cut-away drawing of the human heart showing the chambers, the vena cava (blue), the aortic arch (A, red) and the pulmonary trunk branching left and right (B, grey). A label 'Comhla' (valve) points to the cup-shaped semilunar valve at the base of the pulmonary artery.",
+    "labels": {
+     "A": "aorta",
+     "B": "pulmonary artery",
+     "Comhla (valve)": "semilunar (pulmonary) valve"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Identify the blood vessels labelled A and B.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "A: aorta",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "B: pulmonary artery",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.9",
+      "2.6.10"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(ii)",
+     "text": "What happens to the valve labelled in the diagram when the ventricles contract?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "It opens (pushed open by the blood), letting blood pass from the ventricle into the artery",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Unofficial. The labelled valve appears to be the semilunar valve at the base of the pulmonary artery (it closes again when the ventricles relax, preventing backflow).",
+     "outcomes": [
+      "2.6.9"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(iii)",
+     "text": "On the diagram, draw X where the pacemaker is located.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "X drawn in the wall of the right atrium (upper part, near where the vena cava enters)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(iv)",
+     "text": "Describe how the concentration of carbon dioxide in blood plasma changes between blood vessels A and B.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "CO2 concentration is higher in B (pulmonary artery) than in A (aorta)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Blood in B has come from the body tissues, where respiration added CO2; blood in A has lost CO2 in the lungs",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.10",
+      "2.6.12"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(v)",
+     "text": "In the space below, model one structural difference between an artery and a vein, by describing the difference and/or by drawing a labelled diagram.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Artery has a thick (muscular, elastic) wall; vein has a thin wall",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Artery has a narrow lumen; vein has a wide lumen",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Veins have valves; arteries do not (except at their base)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any one (unofficial)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.13"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "S2-Q5b",
+   "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level (Irish-language paper, translated), Question 5 (b)",
+   "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+   "page": 21,
+   "section": "sample",
+   "stem": "Materials are transported within humans by a two-circuit circulatory system.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Identify the two circuits.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "1. Pulmonary (circuit)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "2. Systemic (circuit)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.10"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(ii)",
+     "text": "Describe the pathway of blood circulation in one of these circuits. [Named pathway: ...]",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Pulmonary: right ventricle -> pulmonary artery -> lungs (capillaries; CO2 out, O2 in) -> pulmonary vein -> left atrium",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "OR Systemic: left ventricle -> aorta -> arteries -> arterioles -> capillaries in body organs/tissues -> venules -> veins -> vena cava -> right atrium",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "named circuit + structures in correct order (unofficial)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.10"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(iii)",
+     "text": "Describe what could happen to the heart if a coronary artery were completely blocked.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "The heart muscle supplied by that artery gets no blood / oxygen / nutrients",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Those cardiac muscle cells cannot respire and die (are damaged)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Heart attack (myocardial infarction) / the heart may stop pumping",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any two (unofficial)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(iv)",
+     "text": "Explain the term blood pressure.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "The force (pressure) exerted by the blood on the walls of the blood vessels (arteries)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "S2-Q5c",
+   "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level (Irish-language paper, translated), Question 5 (c)",
+   "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+   "page": 22,
+   "section": "sample",
+   "stem": "The graph below shows the change in the arterial blood pressure of an athlete over two consecutive heartbeats. Analyse the graph and answer the following questions.",
+   "diagram": {
+    "page": 22,
+    "what": "Line graph: y-axis 'relative arterial pressure', x-axis 'time (s)' marked 0, 0.5 and 1.0. Two identical waves: pressure rises steeply to a peak at about 0.08 s and 0.58 s, then falls gradually to minima at about 0, 0.5 and 1.0 s.",
+    "labels": {}
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "On the graph above, write the letter X to indicate a point in time at which the left ventricle is contracting.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "X on a steeply rising part / peak of either wave (about 0-0.1 s or 0.5-0.6 s), where arterial pressure rises to its maximum",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(ii)",
+     "text": "Based on the information given on the graph above, calculate the athlete's heart rate in beats per minute (bpm). [Calculation: ...]",
+     "marks": null,
+     "points": [
+      {
+       "answer": "One heartbeat (peak to peak) takes 0.5 s",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Heart rate = 60 / 0.5 = 120 bpm",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(iii)",
+     "text": "Does the graph above show an athlete at rest? Justify your answer.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "No",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "120 bpm is well above a normal resting heart rate (about 60-80 bpm, lower in a fit athlete), so the athlete is exercising / has just exercised",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.11"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "S2-Q5d",
+   "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level (Irish-language paper, translated), Question 5 (d)(i)",
+   "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+   "page": 23,
+   "section": "sample",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Explain why there is a large number of mitochondria in cardiac muscle cells.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Cardiac muscle contracts continuously (never rests) and needs a lot of energy (ATP)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Mitochondria carry out aerobic respiration to release this energy, so the heart does not tire (fatigue)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Unofficial. (d)(ii) (antagonistic muscle pair at a synovial joint) is musculoskeletal and is not included.",
+     "outcomes": [
+      "2.6.9"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  }
+ ],
+ "not_covered": [
+  "Platelets: structure (cell fragments, no nucleus) and role in blood clotting - no question in any exam paper or sample paper.",
+  "Blood groups (ABO) and the Rhesus factor, and the value of blood-group knowledge for health (transfusion compatibility, Rhesus disease in pregnancy) - never asked in a real exam; only SEC Sample Paper 1 Q5(d).",
+  "Plasma as a component: its composition (water, dissolved nutrients, hormones, plasma proteins, CO2 as hydrogencarbonate, urea) and roles - only touched on (2006 'liquid part of blood'; 2018 Q11(a) substances carried); never asked directly.",
+  "Composition of blood as a whole (the four components and their proportions, relating each to its function) - no question asks for it; white blood cells appear in a blood-composition context only once (2012 Q15(b)).",
+  "Describing the full pathway of blood around a circuit (e.g. right ventricle -> pulmonary artery -> lungs -> pulmonary vein -> left atrium) - only SEC Sample Paper 2 Q5(b)(ii); real exams only ask to name circuits or vessels.",
+  "Effect of a blocked coronary artery (heart attack) and using a pressure/pulse trace to calculate heart rate - only SEC Sample Paper 2 Q5(b)(iii) and Q5(c)."
+ ],
+ "diagrams_to_memorise": [
+  {
+   "name": "Human heart - vertical section with chambers, valves and main blood vessels",
+   "labels": [
+    "right atrium",
+    "left atrium",
+    "right ventricle",
+    "left ventricle (thicker wall)",
+    "septum",
+    "tricuspid valve",
+    "bicuspid (mitral) valve",
+    "semilunar valves (base of aorta and pulmonary artery)",
+    "aorta",
+    "pulmonary artery",
+    "pulmonary veins",
+    "vena cava (superior and inferior)",
+    "coronary artery",
+    "SA node / pacemaker (wall of right atrium)",
+    "AV node (septum near tricuspid valve)"
+   ],
+   "asked_in": [
+    "2018-Q11b",
+    "S2-Q5a",
+    "2009-Q13b",
+    "2022-Q17d",
+    "2025-Q17a"
+   ]
+  },
+  {
+   "name": "Heart dissection (ox or sheep heart) - what you see and where you cut",
+   "labels": [
+    "ventral (front) surface with coronary artery groove",
+    "left side firmer / left ventricle wall thicker",
+    "right atrium",
+    "right ventricle",
+    "tricuspid valve (between right atrium and right ventricle)",
+    "bicuspid valve (left side)",
+    "semilunar valves (exposed by cutting open the aorta or pulmonary artery)"
+   ],
+   "asked_in": [
+    "2004-Q9",
+    "2010-Q7",
+    "2012-Q7b",
+    "2014-Q9b",
+    "2020-Q9",
+    "2023-Q10b"
+   ]
+  },
+  {
+   "name": "Artery, vein and capillary (transverse sections; longitudinal section of a vein with valve)",
+   "labels": [
+    "lumen (narrow in artery, wide in vein)",
+    "thick muscular/elastic wall (artery)",
+    "thin wall (vein)",
+    "valve (vein)",
+    "endothelium",
+    "capillary wall one cell thick"
+   ],
+   "asked_in": [
+    "2016-Q15a",
+    "2026-Q17a",
+    "S2-Q5a",
+    "2025-Q17a",
+    "2014-Q3"
+   ]
+  },
+  {
+   "name": "Capillary network in a tissue",
+   "labels": [
+    "arteriole (blood in)",
+    "capillary network",
+    "venule (blood out)",
+    "body cells",
+    "direction of blood flow",
+    "lymph vessel (old course only)"
+   ],
+   "asked_in": [
+    "2014-Q3",
+    "2026-Q17a"
+   ]
+  },
+  {
+   "name": "Double circulation plan (pulmonary and systemic circuits with portal system)",
+   "labels": [
+    "right side of heart",
+    "left side of heart",
+    "pulmonary artery",
+    "lungs",
+    "pulmonary vein",
+    "aorta",
+    "vena cava",
+    "hepatic artery",
+    "hepatic portal vein",
+    "hepatic vein",
+    "liver",
+    "intestine",
+    "renal artery",
+    "renal vein",
+    "kidneys",
+    "body capillaries"
+   ],
+   "asked_in": [
+    "2025-Q17a",
+    "2009-Q13a",
+    "2022-Q17d",
+    "S2-Q5b",
+    "2016-Q15a",
+    "2023-Q17c"
+   ]
+  },
+  {
+   "name": "Liver, intestine and hepatic portal vein (portal system) with direction of flow",
+   "labels": [
+    "liver",
+    "small intestine",
+    "hepatic portal vein (intestine to liver)",
+    "hepatic artery (into liver)",
+    "hepatic vein (out of liver)"
+   ],
+   "asked_in": [
+    "2006-Q5",
+    "2010-Q15b",
+    "2019-Q15b",
+    "2021-Q14b"
+   ]
+  },
+  {
+   "name": "Blood cells",
+   "labels": [
+    "red blood cell (biconcave disc, no nucleus, haemoglobin)",
+    "white blood cells (with nucleus: lymphocyte, monocyte/phagocyte)",
+    "platelets (cell fragments)",
+    "plasma"
+   ],
+   "asked_in": [
+    "2019-Q5",
+    "2012-Q15b",
+    "2025-Q16b",
+    "S1-Q5d"
+   ]
+  },
+  {
+   "name": "Graphs of heart activity: arterial pressure trace (new course) and pulse rate before/during/after exercise (old course activity)",
+   "labels": [
+    "pressure peak = left ventricle contracting",
+    "time for one beat (peak to peak)",
+    "heart rate = 60 / time per beat",
+    "x-axis time / duration of exercise",
+    "y-axis pulse (or breathing) rate",
+    "resting rate",
+    "recovery time",
+    "unfit person rises more"
+   ],
+   "asked_in": [
+    "S2-Q5c",
+    "2016-Q8"
+   ]
+  }
+ ]
+}

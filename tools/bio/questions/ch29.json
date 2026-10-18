@@ -1,0 +1,2863 @@
+{
+ "chapter": 29,
+ "topic": "The Urinary System",
+ "questions": [
+  {
+   "id": "2004-Q12a",
+   "source": "LC Biology HL 2004, Section C, Question 12 (a)",
+   "file": "papers/2004_ep_LC025ALPO00EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "What is homeostasis? State the role of the kidneys in homeostasis.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Homeostasis: maintaining (a constant) internal environment or described",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Role of kidneys: maintaining salt balance or explained",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Role of kidneys: maintaining water balance or explained",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Note: Osmoregulation = 2 points.",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5",
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2004-Q12b",
+   "source": "LC Biology HL 2004, Section C, Question 12 (b)",
+   "file": "papers/2004_ep_LC025ALPO00EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Draw a labelled diagram of a nephron. Include blood vessels in your diagram.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Diagram of nephron",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Diagram of blood supply",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Labels: any three correct labels (1 mark each)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "nephron diagram 3, 0; blood supply diagram 3, 0; labels 3(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Filtration and reabsorption are vital processes that take place in the nephron. Describe how each of these processes occurs.",
+     "marks": 18,
+     "points": [
+      {
+       "answer": "Filtration: blood in arteriole",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Filtration: under pressure",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Filtration: plasma (accept blood) or small molecules or named, from (or in) glomerulus",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Filtration: in or into (Bowman's) capsule",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Filtration: large molecules or named or cells or named cells cannot pass",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Reabsorption: substance (or named) from (or in) tubule (or named part or from filtrate)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Reabsorption: into blood",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Reabsorption: active transport",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Reabsorption: diffusion",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Reabsorption: osmosis",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Reabsorption: mention of hormonal control",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Filtration: any three 3(3); Reabsorption: any three 3(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3",
+      "2.6.1"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2005-Q1f",
+   "source": "LC Biology HL 2005, Section A, Question 1 (f)",
+   "file": "papers/2005_ep_LC025ALPO00EV.pdf",
+   "page": 2,
+   "section": "A",
+   "stem": "Answer five of the following by writing a word in the space provided.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(f)",
+     "text": "Removal from the body of the waste products of metabolism is called ……………",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "Excretion",
+       "marks": 4,
+       "accept": []
+      }
+     ],
+     "rule": "Q1: any five 5(4)",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2005-Q3a",
+   "source": "LC Biology HL 2005, Section A, Question 3 (a)",
+   "file": "papers/2005_ep_LC025ALPO00EV.pdf",
+   "page": 2,
+   "section": "A",
+   "stem": "Indicate whether the following are true (T) or false (F) by drawing a circle around T or F.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Urea is formed in the kidneys.   T   F",
+     "marks": null,
+     "points": [
+      {
+       "answer": "False",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Q3 (ten items (a)-(j)) marked 5(1) + 5(3)",
+     "scheme_note": "Ambiguous: the scheme gives only '5(1) + 5(3)' for the whole question (20 marks), so this single item is worth 1 or 3 marks. (Not in scheme: urea is made in the liver by deamination; the kidneys only remove it.)",
+     "outcomes": [
+      "2.6.3",
+      "2.6.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2006-Q6b",
+   "source": "LC Biology HL 2006, Section A, Question 6 (b)",
+   "file": "papers/2006_ep_LC025ALPO00EV.pdf",
+   "page": 4,
+   "section": "A",
+   "stem": "Distinguish between the members of each of the following pairs by making a brief comment on each.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(b)",
+     "text": "Ureter and urethra",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "Ureter: from kidney or to bladder",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Urethra: from bladder or to outside",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "Q6: 5(2 + 2)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2006-Q13b",
+   "source": "LC Biology HL 2006, Section C, Question 13 (b)",
+   "file": "papers/2006_ep_LC025ALPO00EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "Use your knowledge of the human vascular and excretory systems to answer the following.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Explain the terms, plasma, glomerular filtrate.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Plasma: liquid part of blood",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Glomerular filtrate: (plasma) that has entered Bowman's capsule or has left the glomerulus or plasma less proteins",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.12",
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Explain why red blood cells are normally absent from glomerular filtrate.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Too big (to pass into Bowman's capsule)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "The concentration of glucose is the same in plasma and glomerular filtrate. Why is this?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(Glucose) small or passes through",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Why is glucose normally absent from urine?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Reabsorbed or explained",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Following a period of heavy exercise an athlete may produce only a small volume of concentrated urine. Explain this observation and give an account of the process that concentrates the urine.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Sweating or water loss or dehydration",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Blood volume drops or concentration increases",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Detected by receptors",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Brain alerted",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "ADH secreted",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "From pituitary",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Stimulates) reabsorption of water",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "In distal tubule or collecting duct",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any four 4(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3",
+      "2.4.10",
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2007-Q15c",
+   "source": "LC Biology HL 2007, Section C, Question 15 (c) (i)",
+   "file": "papers/2007_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What is homeostasis? Note one reason why it is important in the human body.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Homeostasis: maintenance",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "of constant internal environment or two named factors constant",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Reason: allows normal metabolic activities or example or keeps temperature suitable for enzyme reactions",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Homeostasis 2(3); reason 3",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "General homeostasis (new course 1.1.1 and 2.4.5), not kidney-specific. Omitted: (c)(ii)-(iv) on skin and temperature regulation (skin is not in the new course)."
+  },
+  {
+   "id": "2008-Q13a",
+   "source": "LC Biology HL 2008, Section C, Question 13 (a)",
+   "file": "papers/2008_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What is meant by excretion?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Elimination of waste products of metabolism or explained",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Urea and carbon dioxide are excretory products of the human body. In the case of each product name a substance from which it is derived.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Urea: protein or amino acid",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Carbon dioxide: carbohydrate or named example or fat or named example of fat or fatty acids",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5",
+      "2.2.1"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2008-Q13b",
+   "source": "LC Biology HL 2008, Section C, Question 13 (b)",
+   "file": "papers/2008_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "The diagram shows the structure of a nephron and its associated blood supply.",
+   "diagram": {
+    "page": 10,
+    "what": "Line drawing of a nephron with its blood supply: an arteriole (arrow showing blood in) entering a glomerulus inside a cup-shaped Bowman's capsule; coiled proximal tubule; a loop of Henle dipping down, wrapped in a capillary network, with a blood vessel leaving towards the left; the ascending limb rising to a coiled distal tubule that joins a collecting duct (drawn with cells, on the right) which branches downward.",
+    "labels": {
+     "A": "arteriole (afferent arteriole carrying blood in)",
+     "B": "Bowman's capsule",
+     "C": "proximal tubule",
+     "D": "loop of Henle (two arrows to the bottom of the loop)",
+     "E": "collecting duct",
+     "F": "distal tubule or loop of Henle (points to the thick ascending limb rising towards the distal tubule)"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name the parts A, B, C, D, E and F.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "A = arteriole",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "B = Bowman's capsule",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "C = proximal tubule",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "D = Loop of Henle",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "E = collecting duct",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "F = distal tubule or Loop of Henle",
+       "marks": 1,
+       "accept": []
+      }
+     ],
+     "rule": "6(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "From which blood vessel is A derived?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Renal artery or renal arteriole",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Where in the kidney is B located?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Cortex",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* = only this specific term accepted; a correct answer is cancelled by an added incorrect one.",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Give the part of the nephron in which each of the following takes place: 1. filtration, 2. reabsorption of amino acids.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. Bowman's capsule or glomerulus or B",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Proximal tubule or C",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Give two features of the nephron that aid filtration.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Large surface area",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Porous capillary walls",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Lining) one cell thick",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Efferent arteriole narrower than afferent arteriole or arterioles in, arteriole out or arteriole to capillary network",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "NB not more than one arteriole point.",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "Name a group of biomolecules in the blood which are too large to pass through the filtration system of the nephron.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Proteins or named group of proteins",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2008-Q13c",
+   "source": "LC Biology HL 2008, Section C, Question 13 (c)",
+   "file": "papers/2008_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Suggest two situations which may result in a drop in the water content of the blood.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Infection",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Hot conditions or perspiration or exercise",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "High salt intake",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Low water intake",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Diuretic(s)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "When the water content of the blood drops a hormone is released. Name this hormone and the endocrine gland from which it is secreted.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "*ADH (vasopressin)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "*Pituitary",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* = only this specific term accepted.",
+     "outcomes": [
+      "2.6.3",
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Give a precise target area for this hormone. How does the hormone reach the target area?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Distal tubule or collecting duct",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "In the blood",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3",
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Explain the role of the hormone at its target area, when the water content of the blood is low.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "(Makes walls) more permeable (resulting in) more absorption of water",
+       "marks": 6,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2009-Q15c",
+   "source": "LC Biology HL 2009, Section C, Question 15 (c) (iii)",
+   "file": "papers/2009_ep_LC025ALP000EV.pdf",
+   "page": 12,
+   "section": "C",
+   "stem": "Write notes on three of the following topics: (i) The role of lymphocytes. (ii) Neurotransmitters. (iii) Homeostasis. (iv) Adaptations of wind-pollinated flowers. (v) The economic and medical importance of viruses.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iii)",
+     "text": "Homeostasis.",
+     "marks": 10,
+     "points": [
+      {
+       "answer": "Maintenance of",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "constant internal environment",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "example how",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "example why",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Any three topics 3(4+3+3): in each topic the first correct point gets 4 marks, the next two 3 marks each",
+     "scheme_note": "(Example = pH, solute concentrations or examples of such solutes, temperature, water)",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "General homeostasis (new course 1.1.1 and 2.4.5), not kidney-specific. Other topics in (c) belong to other chapters."
+  },
+  {
+   "id": "2010-Q15c",
+   "source": "LC Biology HL 2010, Section C, Question 15 (c) (iv)",
+   "file": "papers/2010_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "Suggest a biological explanation for each of the following observations:",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iv)",
+     "text": "After a long session of heavy exercise, an athlete's urine is likely to be concentrated and low in volume.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Water lost by exhaling (or by sweating)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Less water in blood",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "ADH secreted",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Causes collecting ducts (or distal tubes or kidney)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "To reabsorb water",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3",
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Other observations in (c) belong to other chapters."
+  },
+  {
+   "id": "2011-Q12a",
+   "source": "LC Biology HL 2011, Section C, Question 12 (a) (i)",
+   "file": "papers/2011_ep_LC025ALP000EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What is meant by the term excretion?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Eliminating waste",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Made in the body",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Omitted: (a)(ii) excretion in flowering plants (not this chapter)."
+  },
+  {
+   "id": "2011-Q12b",
+   "source": "LC Biology HL 2011, Section C, Question 12 (b)",
+   "file": "papers/2011_ep_LC025ALP000EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Draw a large labelled diagram of a vertical section through a human kidney. Label the following parts of your diagram: cortex, medulla, pelvis.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Diagram",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Label: cortex",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Label: medulla",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Label: pelvis",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "Diagram 3, 0; Labels 3(2)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Indicate clearly on your diagram where re-absorption takes place.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Position of reabsorption indicated",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "1. Name the blood vessel that supplies blood to a kidney. 2. From which blood vessel does the blood vessel referred to in (iii)1 arise?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. *Renal artery",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. *Aorta",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* = only this specific term accepted.",
+     "outcomes": [
+      "2.6.3",
+      "2.6.10"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "In which cavity of the body are the kidneys located?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Abdominal (cavity) or *Abdomen",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Name one substance, other than water, excreted in the urine.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Urea or salt or uric acid",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "Give a feature of the kidney which indicates that it is an exocrine gland.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Has ducts or does not produce hormones",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Exocrine/endocrine distinction for the kidney is not in the new specification.",
+     "outcomes": []
+    }
+   ],
+   "new_course": "partly",
+   "why": "(vi) exocrine gland feature of the kidney is not in the new course."
+  },
+  {
+   "id": "2011-Q12c",
+   "source": "LC Biology HL 2011, Section C, Question 12 (c)",
+   "file": "papers/2011_ep_LC025ALP000EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "The diagram above shows the structure of a nephron and its associated blood supply.",
+   "diagram": {
+    "page": 9,
+    "what": "Nephron with its blood supply, numbered 1-9: an arteriole (3) entering the glomerulus (2) inside Bowman's capsule (1); a narrower arteriole (4) leaving the glomerulus; proximal convoluted tubule (5) coiling at the top; distal convoluted tubule (6) at top right leading to a long branched collecting duct (7) on the right; loop of Henle (8) at the bottom, wrapped in a capillary network (9). Large blood vessels (dark and light) on the left.",
+    "labels": {
+     "1": "Bowman's capsule",
+     "2": "glomerulus",
+     "3": "afferent arteriole",
+     "4": "efferent arteriole",
+     "5": "proximal (convoluted) tubule",
+     "6": "distal (convoluted) tubule",
+     "7": "collecting duct (not asked to be named; site of ADH action)",
+     "8": "loop of Henle (not asked)",
+     "9": "capillary network around the loop (not asked)"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "1. Name the parts numbered 1 to 6. 2. Indicate clearly by number where filtration takes place. 3. Name the hormone associated with changing the permeability of the structure at 7.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "1 = Bowman's capsule",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "2 = glomerulus",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "3 = afferent arteriole",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "4 = efferent arteriole",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "5 = proximal (convoluted) tubule",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "6 = distal (convoluted) tubule",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Filtration: *1 or *2 or *1 and 2",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Anti-diuretic hormone or ADH or vasopressin",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "1. 6(1); 2. 3; 3. 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3",
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "A sample of urine was found to contain protein. 1. Would you consider this to be normal? 2. Explain your answer.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. *No",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Protein molecules too big (to pass into the filtrate)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Note: 'Yes' correctly qualified (e.g. low level or pregnancy) for 6m.",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "A sample of urine was found to contain glucose. 1. Would you consider this to be normal? 2. Explain your answer.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. *No",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Glucose (in the filtrate should have been) reabsorbed",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2012-Q15c",
+   "source": "LC Biology HL 2012, Section C, Question 15 (c) (i) and (iii)",
+   "file": "papers/2012_ep_LC025ALP000EV.pdf",
+   "page": 13,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Explain the term homeostasis.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Maintenance of a constant internal environment",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "State one way in which each of the following contributes to homeostasis. 1. Liver. 2. Lungs. 3. Nephrons of kidneys.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "1. Liver: absorption of glucose or release of glucose or heat generation",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Lungs: excretion of water or excretion of CO2 or release of heat",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "3. Nephrons: excretion of water or reabsorption of water or excretion of salts (or ions) or reabsorption of salts (or ions)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.5",
+      "2.6.3",
+      "2.6.5",
+      "2.6.7"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Liver and lungs items belong partly to other chapters (2.6.5, 2.6.7). Omitted: (c)(ii) diffusion/osmosis/active transport (2.6.1, membranes chapter) and (c)(iv) skin and temperature control (skin not in the new course)."
+  },
+  {
+   "id": "2016-Q12a",
+   "source": "LC Biology HL 2016, Section C, Question 12 (a) (i)",
+   "file": "papers/2016_ep_LC025ALP000EV.pdf",
+   "page": 12,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Distinguish between the terms excretion and egestion by writing a sentence about each term.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Excretion: removal of metabolic waste",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Egestion: removal of undigested (or unabsorbed) material",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.6.3",
+      "2.6.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Omitted: (a)(ii) excretion in Amoeba (not this chapter)."
+  },
+  {
+   "id": "2016-Q12b",
+   "source": "LC Biology HL 2016, Section C, Question 12 (b) (i)-(iii)",
+   "file": "papers/2016_ep_LC025ALP000EV.pdf",
+   "page": 12,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name two excretory products, other than water, of mammals.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Carbon dioxide",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Urea",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Salt(s)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "For each product referred to in (i), give a location in the body in which it is produced.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "First product + matching location",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Second product + matching location",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "The scheme lists no locations. (Not in scheme, for guidance: urea - liver; carbon dioxide - (all) cells / mitochondria, by respiration.)",
+     "outcomes": [
+      "2.6.3",
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Describe the role of ADH (vasopressin) in human excretion.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "(Produced in response to) high salt levels or low water levels or dehydration",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Acts on) collecting ducts or (acts on) distal convoluted tubules",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "More permeable",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "More water reabsorbed (into blood)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Urine volume lowered (or urine more conc.)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any three 3(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3",
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Omitted: (b)(iv) excretion structures in flowering plants (not this chapter). (b) is worth 27 in total; the parts kept total 21."
+  },
+  {
+   "id": "2016-Q12c",
+   "source": "LC Biology HL 2016, Section C, Question 12 (c) (i)",
+   "file": "papers/2016_ep_LC025ALP000EV.pdf",
+   "page": 12,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What is meant by the term homeostasis?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Maintenance of a constant internal environment",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "General homeostasis. Omitted: (c)(ii) metabolism and temperature regulation (not this chapter)."
+  },
+  {
+   "id": "2016-Q15a",
+   "source": "LC Biology HL 2016, Section C, Question 15 (a) (ii) 2",
+   "file": "papers/2016_ep_LC025ALP000EV.pdf",
+   "page": 15,
+   "section": "C",
+   "stem": "In each of the following cases name a vein which fits the description.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii) 2.",
+     "text": "Brings blood away from the kidneys.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Renal (vein)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3",
+      "2.6.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Only the kidney item of a vein question; the rest belongs to the circulatory system chapter."
+  },
+  {
+   "id": "2017-Q14c",
+   "source": "LC Biology HL 2017, Section C, Question 14 (c) (iv)",
+   "file": "papers/2017_ep_LC025ALP000EV.pdf",
+   "page": 14,
+   "section": "C",
+   "stem": "In each of the following, state two features that show how the named structure is adapted to carry out the named function.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iv)",
+     "text": "A glomerulus for filtering blood.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Consists of capillaries",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "High (blood) pressure",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Wall one cell thick",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Large surface area",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Any two; Q14(c) as a whole is marked 5(4) + 5(2)",
+     "scheme_note": "The 30 marks for (c) are 5(4) + 5(2) over its five structures: the first five correct answers encountered get 4 marks each and each later correct answer 2 marks, so a point here is worth 4 or 2 depending on order.",
+     "outcomes": [
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Other structures in (c) belong to other chapters."
+  },
+  {
+   "id": "2017-Q15a",
+   "source": "LC Biology HL 2017, Section C, Question 15 (a) (i)-(ii)",
+   "file": "papers/2017_ep_LC025ALP000EV.pdf",
+   "page": 15,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Explain the term homeostasis.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Maintenance of constant internal environment",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Q15(a) as a whole is marked 5(4) + 5(2)",
+     "scheme_note": "First five correct answers encountered in (a) get 4 marks each, later ones 2 marks, so this point is worth 4 or 2.",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Why is homeostasis important in the human body?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Allows normal (efficient) metabolic activity or keeps temperature (or pH) suitable for enzyme reactions",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Q15(a) as a whole is marked 5(4) + 5(2)",
+     "scheme_note": "As for (i): worth 4 or 2.",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "General homeostasis. Omitted: (a)(iii)-(v) breathing (other chapter)."
+  },
+  {
+   "id": "2018-Q6",
+   "source": "LC Biology HL 2018, Section A, Question 6",
+   "file": "papers/2018_ep_LC025ALP000EV.pdf",
+   "page": 6,
+   "section": "A",
+   "stem": "The diagram shows the structure of a nephron and part of its associated blood supply.",
+   "diagram": {
+    "page": 6,
+    "what": "Line drawing of a nephron and part of its blood supply: glomerulus in Bowman's capsule (X) at top left, coiled tubules at the top, a long loop of Henle hanging down surrounded by capillaries, and a collecting duct on the right. Y points to the coiled tubule just before it joins the collecting duct. A box labelled 'Target area' sits below the diagram for the candidate to draw a line from.",
+    "labels": {
+     "X": "Bowman's capsule",
+     "Y": "distal (convoluted) tubule (DCT)",
+     "Target area": "line should go to the distal convoluted tubule or the collecting duct"
+    }
+   },
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Name the structures labelled X and Y.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "X = Bowman's capsule",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Y = Distal (convoluted) tubule (or DCT)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Q6 marked 2(5) + 5(2): first two correct answers 5 marks each, each later correct answer 2 marks",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(b)",
+     "text": "Draw a line from the 'Target area' box above, to a precise location on the diagram to indicate where the hormone ADH has its effect.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Line drawn to distal convoluted tubule or to collecting duct",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Q6 marked 2(5) + 5(2): first two correct answers 5 marks each, each later correct answer 2 marks",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(c)",
+     "text": "Briefly describe the effect of ADH on its target area.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "It becomes more permeable to water or more water is reabsorbed",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Q6 marked 2(5) + 5(2): first two correct answers 5 marks each, each later correct answer 2 marks",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(d)",
+     "text": "What change in blood composition triggers the secretion of ADH?",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Increasing (salt) concentration or decreasing water concentration",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Q6 marked 2(5) + 5(2): first two correct answers 5 marks each, each later correct answer 2 marks",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3",
+      "2.4.5"
+     ]
+    },
+    {
+     "label": "(e)",
+     "text": "Name the endocrine gland in which ADH is produced.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Hypothalamus",
+       "marks": null,
+       "accept": [
+        "(posterior) pituitary"
+       ]
+      }
+     ],
+     "rule": "Q6 marked 2(5) + 5(2): first two correct answers 5 marks each, each later correct answer 2 marks",
+     "scheme_note": "Scheme: 'Hypothalamus [allow (posterior) pituitary]'. Other years' schemes and the new specification give the pituitary.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(f)",
+     "text": "Suggest one possible treatment for kidney failure.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Dialysis or transplant",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Q6 marked 2(5) + 5(2): first two correct answers 5 marks each, each later correct answer 2 marks",
+     "scheme_note": "",
+     "outcomes": []
+    }
+   ],
+   "new_course": "partly",
+   "why": "(f) treatment of kidney failure (dialysis, transplant) is not in the new course. Marking: whole question 2(5) + 5(2) = 20 marks; the first two correct answers encountered get 5 marks each and each later correct answer 2 marks, so per-point marks are left null."
+  },
+  {
+   "id": "2020-Q13a",
+   "source": "LC Biology HL 2020, Section C, Question 13 (a)",
+   "file": "papers/2020_ep_LC025ALP040EV.pdf",
+   "page": 5,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Explain what is meant by the term homeostasis.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(Ability to) maintain a constant (or stable) internal environment",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Give one reason why homeostasis is important in organisms.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(For) metabolism or (for) enzyme activity",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Explain what is meant by the term excretion.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Removal of metabolic waste or getting rid of waste products from cells (or body)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2020-Q13b",
+   "source": "LC Biology HL 2020, Section C, Question 13 (b)",
+   "file": "papers/2020_ep_LC025ALP040EV.pdf",
+   "page": 5,
+   "section": "C",
+   "stem": "Urine produced by the kidney contains water, salts and urea.",
+   "diagram": {
+    "page": 5,
+    "what": "Drawing of a vertical (longitudinal) section of a human kidney with the outer region labelled Cortex, the inner pyramids labelled Medulla, the central funnel labelled Pelvis, and the tube leaving the pelvis labelled A.",
+    "labels": {
+     "Cortex": "given",
+     "Medulla": "given",
+     "Pelvis": "given",
+     "A": "ureter"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "State the precise location in the body where urea is made.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Liver",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name the food biomolecule from which urea is derived.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Protein (*Amino acids)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.5"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "A diagram of a human kidney is shown on the right. 1. In which part of the kidney is the Bowman's capsule located? 2. In which part of the kidney is the Loop of Henle located? 3. Name the part labelled 'A'.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "1. *Cortex",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. *Medulla",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "3. *Ureter",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Draw a large diagram of a nephron and its associated blood supply from a human kidney. Label the following parts: Bowman's capsule, Loop of Henle, Proximal convoluted tubule, Collecting duct, Distal convoluted tubule, Glomerulus.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Drawing: Bowman's capsule + 2 convoluted tubules with loop",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Drawing: glomerulus + capillary (blood vessels) surrounding tubules",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Labels: Bowman's capsule, Loop of Henle, proximal convoluted tubule, collecting duct, distal convoluted tubule, glomerulus (1 mark each)",
+       "marks": 6,
+       "accept": []
+      }
+     ],
+     "rule": "Drawing 2(3); Labels 6(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2020-Q13c",
+   "source": "LC Biology HL 2020, Section C, Question 13 (c)",
+   "file": "papers/2020_ep_LC025ALP040EV.pdf",
+   "page": 5,
+   "section": "C",
+   "stem": "The following table shows the representative composition of blood plasma, glomerular filtrate and urine from a typical adult, (each in g/100 cm3 of fluid).\n\n| | Blood Plasma | Glomerular filtrate | Urine |\n| Urea | 0.03 | 0.03 | 1.8 |\n| Glucose | 0.1 | 0.1 | 0 |\n| Proteins | 7 | 0 | 0 |",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Using the data from the table above, what is the main difference between the composition of blood plasma and glomerular filtrate? Explain why this is so.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Plasma has proteins (7 g/100 cm3), filtrate has none",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Explain: proteins too big to pass through (the glomerulus wall)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Using the data from the table above, in relation to glucose, explain the findings in the composition of the fluids between: 1. Blood plasma and glomerular filtrate. 2. Glomerular filtrate and urine.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. Glucose (molecules) small enough to pass through (the glomerulus wall) or all the glucose passes through (or is filtered)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. (All) glucose is reabsorbed (back into the blood)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Using your knowledge of homeostasis and excretion: 1. State the effect on the volume of urine produced by a high salt intake. 2. Explain your answer to part 1.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "1. (Volume) decreases (or lowers) or low (volume)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. ADH",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. From pituitary",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Makes (walls of) collecting duct (or of distal tubule)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. More permeable to water",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. More water reabsorbed",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "1: 3; 2: any three 3(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3",
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2021-Q15a",
+   "source": "LC Biology HL 2021, Section C, Question 15 (a) (i)",
+   "file": "papers/2021_ep_LC025ALP040EV.pdf",
+   "page": 6,
+   "section": "C",
+   "stem": "Organisms can respond to changes in their external and internal environment in different ways including through homeostasis. [homeostasis is underlined]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Explain the underlined term.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Maintaining a constant (or stable) internal environment",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "General homeostasis. Omitted: (a)(ii) plant defences (other chapter)."
+  },
+  {
+   "id": "2022-Q15a",
+   "source": "LC Biology HL 2022, Section C, Question 15 (a) (i)",
+   "file": "papers/2022_ep_LC025ALP040EV.pdf",
+   "page": 6,
+   "section": "C",
+   "stem": "Excretion is an important process in homeostasis in living organisms. [Excretion and homeostasis are underlined]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Explain the underlined terms.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Excretion: removal of metabolic waste from a cell (or organism)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Homeostasis: maintaining a constant internal environment",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5",
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Omitted: (a)(ii) excretory organ in plants (not this chapter)."
+  },
+  {
+   "id": "2022-Q15b",
+   "source": "LC Biology HL 2022, Section C, Question 15 (b)",
+   "file": "papers/2022_ep_LC025ALP040EV.pdf",
+   "page": 6,
+   "section": "C",
+   "stem": "The diagrams below are of a human kidney and one of its nephrons. (PCT = proximal convoluted tubule; DCT = distal convoluted tubule)",
+   "diagram": {
+    "page": 6,
+    "what": "Left: a shaded drawing of a human kidney cut lengthways, with A pointing to the outer layer, B to a pyramid in the inner region and C to the central funnel where the ureter leaves; renal blood vessels enter at the hilum. A small box in the outer layer is enlarged on the right as a nephron with its blood supply: glomerulus at the top, PCT, a capillary network, the loop of Henle and the DCT labelled, with the collecting duct drawn (unlabelled) on the right.",
+    "labels": {
+     "A": "cortex",
+     "B": "medulla (pyramid)",
+     "C": "pelvis",
+     "Glomerulus": "given",
+     "DCT": "given",
+     "PCT": "given",
+     "Capillary": "given",
+     "Loop of Henle": "given"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "The kidneys are located in the abdomen surrounded by a thick layer of fat. What is the function of this layer of fat?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Protection",
+       "marks": 3,
+       "accept": [
+        "insulation"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": []
+    },
+    {
+     "label": "(ii)",
+     "text": "Identify the regions of the kidney labelled A, B and C.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "A: *Cortex",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "B: *Medulla (pyramid)",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "C: *Pelvis",
+       "marks": 1,
+       "accept": []
+      }
+     ],
+     "rule": "3(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Identify the region in the kidney, by name or label, where the process of filtration occurs.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*A or *cortex",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Explain the importance of blood entering the glomerulus under pressure.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Force filtered (or ultrafiltration) or small molecules are forced out of the blood (or described)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "State two reasons why there are many capillaries surrounding the proximal convoluted tubule (PCT), loop of Henle and distal convoluted tubule (DCT) of the nephron.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Reabsorption (or described)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Secretion (or described)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Tubular secretion is not named in the new specification.",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "Describe how ADH (anti-diuretic hormone) affects the volume of urine.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "(ADH) acts on collecting duct (or DCT) or makes walls more permeable or more water reabsorbed",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(More ADH) leads to low volume of urine",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "(converse also accepted)",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(vii)",
+     "text": "Urine collects at the region labelled C on the diagram of the kidney and travels on towards the bladder. Name the structure through which urine travels to the bladder.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Ureter",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "(i) the protective fat layer and the 'secretion' answer in (v) are not in the new specification; the rest is."
+  },
+  {
+   "id": "2023-Q6d",
+   "source": "LC Biology HL 2023, Section A, Question 6 (d)",
+   "file": "papers/2023_ep_LC025ALP038EV.pdf",
+   "page": 8,
+   "section": "A",
+   "stem": "Give a brief biological explanation for each of the following:",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(d)",
+     "text": "Urine volume will be low if a person does not regularly drink fluids.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "More water is reabsorbed or ADH increases permeability of collecting duct (or distal convoluted tubule)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Q6 (a)-(g) marked 2(5) + 5(2): correct responses 1, 2, 3, 4, 5, 6, 7 = 5, 10, 12, 14, 16, 18, 20 marks",
+     "scheme_note": "This item is worth 5 or 2 marks depending on how many other items are answered correctly first.",
+     "outcomes": [
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Other items in Q6 belong to other chapters."
+  },
+  {
+   "id": "2023-Q17c",
+   "source": "LC Biology HL 2023, Section C, Question 17 (c) (i) 3",
+   "file": "papers/2023_ep_LC025ALP040EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "Answer the following questions in relation to your knowledge of the human circulatory and breathing systems. (i) In each of the following, name the vein that best matches the description:",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i) 3.",
+     "text": "Carries blood lowest in metabolic wastes.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Renal (vein)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Q17(c) 10(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3",
+      "2.6.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Only the kidney item of a circulatory question; the rest belongs to the circulatory and breathing chapters."
+  },
+  {
+   "id": "2024-Q17c",
+   "source": "LC Biology HL 2024, Section C, Question 17 (c)",
+   "file": "papers/2024_ep_LC025ALP040EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "Answer the following questions in relation to the kidneys and urine formation.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "The kidneys are important in maintaining a constant internal environment within the body. What term describes the maintenance of a constant internal environment within the body?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Homeostasis",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "1(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "The nephron is the functional unit of the kidney. Draw a large labelled diagram of the human nephron and its associated blood supply.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Diagram: Bowman's capsule and (proximal or distal) convoluted tubule and loop of Henle",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Diagram: glomerulus or other blood supply",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Labels: any six correct labels e.g. glomerulus / Bowman's capsule / proximal convoluted tubule / loop of Henle / distal convoluted tubule / collecting duct / afferent arteriole / efferent arteriole / renal venule / renal arteriole / capillary (1 mark each)",
+       "marks": 6,
+       "accept": []
+      }
+     ],
+     "rule": "Diagram 2(3); Labels any six 6(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Give one way in which the composition of blood is different to the composition of glomerular filtrate.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Blood contains blood cells, glomerular filtrate does not or blood contains (large, plasma) proteins, glomerular filtrate does not or other correctly described difference",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Large amounts of water are reabsorbed into the blood during urine formation. 1. Name any two parts of the nephron that reabsorb water. 2. Name any two other substances that are reabsorbed during urine formation.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "1. Proximal convoluted tubule",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "1. Loop of Henle",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "1. Distal convoluted tubule",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "1. Collecting duct",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Glucose",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Amino acids",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Minerals",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Salts",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Ions",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Other correct",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "1. any two 2(3); 2. any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2025-Q17c",
+   "source": "LC Biology HL 2025, Section C, Question 17 (c)",
+   "file": "papers/2025_ep_LC025ALP040EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "Homeostasis is an important process in living organisms. [Homeostasis is underlined]",
+   "diagram": {
+    "page": 10,
+    "what": "Two sketch graphs side by side, both against Time. Graph X: Blood volume - a dashed line falling steadily from high to lower. Graph Y: ADH levels - a solid line low and level at first, then rising more and more steeply.",
+    "labels": {
+     "Graph X": "blood volume v. time (falling)",
+     "Graph Y": "ADH levels v. time (rising)"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Explain the underlined term.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(Homeostasis is) the maintenance of a constant internal environment",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "ADH (anti-diuretic hormone) is an important hormone in homeostasis. Name the endocrine gland that secretes ADH.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Pituitary",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Name one specific part of the nephron (functional unit of the kidney) that ADH affects.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Distal convoluted tubule or collecting duct",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "What effect does increased ADH have on the volume of urine produced by the kidneys?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Lowers (the volume)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "The graphs (X and Y) show the relationship between blood volume and ADH levels in an athlete's body over the same period of time. The athlete is exercising vigourously. Using the information given in the description above and from analysing the graphs, answer the following questions. 1. State the relationship between blood volume and ADH levels in this case. 2. Suggest how the athlete might increase their blood volume back to normal. 3. Copy graph Y into your answerbook and continue the line to show how ADH levels would change if the athlete brought their blood volume back to normal after exercising.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "1. Blood volume decreases and ADH levels increases",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Intake fluids",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "3. Line reducing",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "3. Line levels off at the same level as the start",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3",
+      "2.4.5"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "The skin of the athlete is also involved in homeostasis during vigourous exercise. State two ways the skin can help the athlete's homeostasis.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Sweating",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Vasodilation",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Vasoconstriction",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Piloerection",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Any two 2(3)",
+     "scheme_note": "",
+     "outcomes": []
+    }
+   ],
+   "new_course": "partly",
+   "why": "(vi) the skin's role in homeostasis is not in the new course; (i)-(v) are."
+  },
+  {
+   "id": "2026-Q17b",
+   "source": "LC Biology HL 2026, Section C, Question 17 (b) (vi)-(vii)",
+   "file": "papers/2026_ep_LC025ALP040EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "The diagram shows the basic structure of the skin. [Parts (i)-(v) on sweat, hair and endotherms omitted.]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(vi)",
+     "text": "What name is given to the ability of organisms to maintain a constant internal environment?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Homeostasis",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5"
+     ]
+    },
+    {
+     "label": "(vii)",
+     "text": "State one reason why it is important for organisms to maintain a constant internal environment.",
+     "marks": 2,
+     "points": [
+      {
+       "answer": "So enzymes (or metabolism) can work efficiently or described",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "General homeostasis only. Omitted: (b)(i)-(v) skin, sweat and temperature regulation (skin is not in the new course)."
+  },
+  {
+   "id": "2026-Q17c",
+   "source": "LC Biology HL 2026, Section C, Question 17 (c)",
+   "file": "papers/2026_ep_LC025ALP040EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "The urinary system functions in excretion.",
+   "diagram": {
+    "page": 10,
+    "what": "Simplified nephron (for part (iii)): a glomerulus inside a cup at top left (A), a coiled tubule, a long U-shaped loop hanging down (B at the bottom of the loop), a second coiled tubule, and a branched collecting duct on the right (unlabelled). No blood vessels other than the glomerulus.",
+    "labels": {
+     "A": "Bowman's capsule",
+     "B": "loop of Henle"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Explain the term excretion.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Removal of the waste products of metabolism from the body (or cells or organisms)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.1.1",
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "1. Draw a large diagram of the human urinary system labelling the following parts: Kidney; Ureter; Bladder; Urethra. 2. On the diagram you have drawn, place an arrow to clearly show the pathway of urine flowing through the ureter.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "1. Diagram: kidney and ureter and bladder and urethra all in correct locations",
+       "marks": 6,
+       "accept": []
+      },
+      {
+       "answer": "1. Labels: Kidney / Ureter / Bladder / Urethra (1 mark each)",
+       "marks": 4,
+       "accept": []
+      },
+      {
+       "answer": "2. Correct arrow showing pathway of urine (through the ureter)",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "Diagram 2(3); Labels 4(1); Arrow 2",
+     "scheme_note": "Diagram: one missing or incorrect location = 3 marks; two missing or incorrect locations = 0 marks.",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "The diagram on the right shows the functional unit of the kidney. 1. What name is given to this structure? 2. Name the parts labelled A and B. 3. Outline what happens in each part labelled A and B during urine production.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "1. *Nephron",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "2. A: *Bowman's capsule",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "2. B: *Loop of Henle",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "3. A: Filtration (of small molecules) or described",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "3. B: Reabsorption of water or reabsorption of ions (or salts) or described",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Under normal conditions, there is no protein in urine. State a reason for its absence from urine.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(Protein) is too big to be filtered or described",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "S1-Q1e",
+   "source": "SEC Sample Paper 1 (new course, first exam 2027), Higher Level, Question 1 (e)",
+   "file": "sample/lc-biology-2027-1-qp-smlwu.pdf",
+   "page": 6,
+   "section": "sample",
+   "stem": "The diagram shows a nephron from a human kidney which plays a part in the filtration of blood.",
+   "diagram": {
+    "page": 6,
+    "what": "Coloured drawing of a nephron with its blood vessels (red = arterial, blue = venous, purple capillaries). A dashed red line marks the Cortex (above) / Medulla (below) boundary. Glomerulus in Bowman's capsule at top left; coiled tubule in the cortex (A points to one of its coils, part of the tubule leading from the capsule to the loop); the loop of Henle dips into the medulla with capillaries ('Blood vessels' labelled) around it, B pointing to the bottom of the loop; a second coiled tubule leads to a long branched tube on the right labelled 'Collecting duct containing urine'.",
+    "labels": {
+     "A": "proximal convoluted tubule (traced from Bowman's capsule; no official answer)",
+     "B": "loop of Henle",
+     "F (to be written by candidate)": "glomerulus / Bowman's capsule",
+     "Cortex": "given",
+     "Medulla": "given",
+     "Blood vessels": "given",
+     "Collecting duct containing urine": "given"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name the parts of the nephron labelled A and B.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "A: proximal convoluted tubule (PCT)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "B: loop of Henle",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "No official scheme. Q1 carries 50 marks over (a)-(e); per-part marks are not printed.",
+     "outcomes": [
+      "2.6.3"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(ii)",
+     "text": "Filtration in the kidney occurs under a form of high pressure known as ultrafiltration. On the diagram above, write the letter F to show where this type of filtration occurs.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "F written on the glomerulus / Bowman's capsule",
+       "marks": null,
+       "accept": [
+        "F on the glomerulus",
+        "F on Bowman's capsule"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(iii)",
+     "text": "Name a constituent of the blood not normally present in urine.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Protein (plasma proteins)",
+       "marks": null,
+       "accept": [
+        "red blood cells",
+        "white blood cells",
+        "platelets",
+        "glucose",
+        "amino acids"
+       ]
+      }
+     ],
+     "rule": "any one",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3",
+      "2.6.12"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(iv)",
+     "text": "The structure labelled B has evolved to be longer in certain animal species such as camels and desert rats. Suggest an advantage this provides to these animals.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "More water reabsorbed (into the blood)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Produces (small volume of) concentrated urine / conserves water",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Survive in dry (desert) habitat with little water to drink",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "likely: any one or two points",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  }
+ ],
+ "not_covered": [
+  "Function of the urinary bladder (storing urine until it leaves through the urethra) and how urine moves along the ureter. No question asks about the bladder's role; 2026 Q17(c) only has it drawn and labelled, and 2006 Q6(b) contrasts ureter with urethra.",
+  "Where each substance is reabsorbed along the nephron, and how. Glucose and amino acids are taken back by active transport in the proximal convoluted tubule, and the PCT is adapted for this (microvilli, many mitochondria); water and salts are reabsorbed in the loop of Henle and DCT. Questions only touch this in general terms (2004 Q12b(ii), 2008 Q13b(iv), 2024 Q17c(iv)) and never ask for the whole comparison.",
+  "The term 'osmoregulation' in humans (control of the body's water and salt balance by the kidney and ADH). It is never asked to be explained; only the 2004 scheme accepts it as an answer.",
+  "ADH negative feedback when the blood is too dilute, e.g. after drinking a lot of water: osmoreceptors in the hypothalamus, less ADH, less permeable collecting duct, a large volume of dilute urine. This direction is only accepted as the 'converse' (2022 Q15b(vi)) or implied by the graph in 2025 Q17c(v)."
+ ],
+ "diagrams_to_memorise": [
+  {
+   "name": "Nephron and its blood supply",
+   "labels": [
+    "Bowman's capsule",
+    "glomerulus",
+    "afferent arteriole",
+    "efferent arteriole",
+    "proximal convoluted tubule",
+    "loop of Henle",
+    "distal convoluted tubule",
+    "collecting duct",
+    "capillary network around the tubules",
+    "renal arteriole (from renal artery)",
+    "renal venule (to renal vein)",
+    "cortex / medulla boundary (capsule and convoluted tubules in cortex; loop of Henle and collecting duct in medulla)"
+   ],
+   "asked_in": [
+    "2004-Q12b",
+    "2008-Q13b",
+    "2011-Q12c",
+    "2018-Q6",
+    "2020-Q13b",
+    "2022-Q15b",
+    "2024-Q17c",
+    "2026-Q17c",
+    "S1-Q1e"
+   ]
+  },
+  {
+   "name": "Vertical (longitudinal) section through a human kidney",
+   "labels": [
+    "cortex",
+    "medulla (pyramid)",
+    "pelvis",
+    "ureter",
+    "renal artery",
+    "renal vein"
+   ],
+   "asked_in": [
+    "2011-Q12b",
+    "2020-Q13b",
+    "2022-Q15b"
+   ]
+  },
+  {
+   "name": "Human urinary system",
+   "labels": [
+    "kidney",
+    "ureter",
+    "bladder",
+    "urethra",
+    "arrow showing urine flowing down the ureter"
+   ],
+   "asked_in": [
+    "2026-Q17c"
+   ]
+  }
+ ]
+}
