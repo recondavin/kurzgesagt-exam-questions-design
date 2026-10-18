@@ -133,7 +133,7 @@
     prevButton.disabled = index === 0;
     prevButton.style.visibility = index === 0 ? 'hidden' : '';
     var nextButton = guide.querySelector('[data-hf-next]');
-    var answerNext = window.ExamAnswerMode && window.ExamAnswerMode.has(step.target);
+    var answerNext = (window.ExamAnswerMode && window.ExamAnswerMode.has(step.target)) || Boolean(group[group.length - 1].finish);
     nextButton.textContent = index === group.length - 1 ? (answerNext ? 'Start writing' : 'Finish') : 'Next';
     nextButton.disabled = false;
     nextButton.style.opacity = '1';
@@ -314,12 +314,19 @@
         ids.push(child.matches('.hf-bullets') ? step.id + '-' + (k + 1) : null);
       });
     });
+    // A step can name its own clips (title, summary, then each bullet), so lines shared by many steps share one clip.
+    if (step.voice) {
+      var bullet = 2;
+      ids = ids.map(function (id, k) { return k < 2 ? step.voice[k] || null : id === null ? null : step.voice[bullet++] || null; });
+    }
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var token = narration.token;
     var plans = items.map(function (item) {
       item.classList.remove('hf-reveal');
       if (reduce) return { chars: [], host: item };
       item.classList.add('hf-pending');
+      // A picture (data-hf-still) fades in whole; its SVG text must not be split into letters.
+      if (item.hasAttribute('data-hf-still')) return { chars: [], host: item };
       var host = item.matches('li') ? item.querySelector(':scope > span:last-child') : item;
       return { chars: splitChars(host), host: host };
     });
@@ -602,7 +609,7 @@
       var scene = document.querySelector('[data-hf-scene]');
       if (scene) holdInert(scene, 'hf', true);
     }
-    ui.eye.classList.toggle('hf-eye-frame--spotlight', /^question-3[bc]$/.test(step.target));
+    ui.eye.classList.toggle('hf-eye-frame--spotlight', /^question-3[bc]$/.test(step.target) || Boolean(step.spotlight));
     document.body.classList.add('hf-active');
     hideNonFocusSections(true);
     document.body.classList.toggle('hf-image-focus', id === 'image');
@@ -694,6 +701,13 @@
       // Questions 3B and 3C hand over to answer mode: the page clears and the question flies to a ruled sheet.
       var answer = window.ExamAnswerMode;
       var target = targetFor(activeId);
+      // Another page's question (the Biology desk) says what happens at the end of its tour.
+      var finish = group[group.length - 1].finish;
+      if (finish && target) {
+        clearTyping();
+        finish(target.getBoundingClientRect(), exit);
+        return;
+      }
       if (answer && target && answer.has(current.target)) {
         clearTyping();
         answer.open(current.target, target.getBoundingClientRect(), exit);
@@ -770,10 +784,18 @@
     return out;
   }
 
+  // Guide steps from another page (the Biology desk): replaces the ones it added last time.
+  var added = [];
+  function use(list) {
+    steps = steps.filter(function (step) { return added.indexOf(step) < 0; });
+    added = (list || []).slice();
+    steps = steps.concat(added);
+  }
+
   window.ExamHyperFocusSetup = function () {
     installEvents();
     buildUI();
     fitSceneToViewport();
-    window.ExamHyperFocus = { start: startTour, focus: focus, next: function () { move(1); }, previous: function () { move(-1); }, exit: exit, pictures: pictures };
+    window.ExamHyperFocus = { start: startTour, focus: focus, next: function () { move(1); }, previous: function () { move(-1); }, exit: exit, pictures: pictures, use: use, fit: fitSceneToViewport };
   };
 })();

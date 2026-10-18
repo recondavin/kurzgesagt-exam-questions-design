@@ -57,6 +57,9 @@ It only touches clips still at 24 kHz, so run it after each narration update
   (what the narrator says: a short, natural explanation of that line). Lines without `say` read `text`.
   Ids: (`<step>-title`, `<step>-summary`, `<step>-1`…).
   Update it when the guide wording in `hyper-focus.js` changes.
+- `bio_lines.json` — the Biology desk's guide lines (made by `node tools/bio/build_bio_narration.mjs` from
+  `bio/guide.js` and `bio/guide<N>.js`). The generator reads it after `lines.json`, so the one-click update voices
+  them too. Lines with the same words share one clip (`bio-<hash>`); the rest are named (`bio-cmd-describe-1`).
 - `reference.wav` — the narrator clip the voice is cloned from (24 kHz mono).
 - `generate_narration.py` — the generator; the reference transcript is inside it.
 

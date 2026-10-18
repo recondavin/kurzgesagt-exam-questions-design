@@ -212,8 +212,9 @@
     if (!d) return '<p class="bio-empty">Questions for this chapter are coming.</p>';
     var f = store('bio-filter') || 'all';
     var list = allQuestions(n).filter(function (q) { return f === 'all' || q.sec === f || (f === 'sample' && q.year === 2027 && q.sec !== 'practice'); });
-    return '<p class="bio-note">' + d.questions.length + ' real exam questions. Each part is marked against the official marking scheme' +
-      ' (the 2027 sample papers have no official scheme, so their answers are ours). Old-course questions that go beyond the new course are marked.</p>' +
+    return '<p class="bio-note">' + d.questions.length + ' real exam questions. Each one opens on the desk as the real exam paper, the narrator explains it, then you answer it' +
+      ' and each part is marked against the official marking scheme (the 2027 sample papers have no official scheme, so their answers are ours).' +
+      ' Old-course questions that go beyond the new course are marked.</p>' +
       '<div class="bio-filters">' + FILTERS.map(function (x) {
         return '<button type="button" class="bio-chip" data-bio-filter="' + x[0] + '" aria-pressed="' + (x[0] === f) + '">' + x[1] + '</button>';
       }).join('') + '</div>' +
@@ -288,15 +289,17 @@
     var d = QS[n], p = (LEARN[n] || {}).practice || [];
     return (d ? d.questions : []).concat(p.map(function (q) { q.year = q.year || 2027; q.sec = 'practice'; q.fresh = 'yes'; return q; }));
   }
-  function openQuestion(n, qid) {
+  // onClose: what happens when the card closes (the page refreshes its scores by default). onNext: the desk moves
+  // its paper to the next question instead of swapping the card.
+  function openQuestion(n, qid, onClose, onNext) {
     var list = allQuestions(n), q = list.filter(function (x) { return x.id === qid; })[0];
     if (!q || !AM) return;
-    AM.practice('bio-' + n, 'none', refresh);
+    AM.practice('bio-' + n, 'none', onClose || refresh);
     var card = K.gameCard(q.src);
     card.classList.add('bio-sheet');
     var tapPart = null;
     q.parts.forEach(function (p, k) { if (p.kind === 'tap' && p.tap) tapPart = String(k); });
-    sheet = { n: n, q: q, card: card, got: q.parts.map(function () { return null; }), tap: {}, tf: {} };
+    sheet = { n: n, q: q, card: card, got: q.parts.map(function () { return null; }), tap: {}, tf: {}, onNext: onNext };
     K.gameHud(card, q.parts.length, '/' + questionOutOf(q));
     K.gameBody(card, '<div class="bio-paper">' +
       '<p class="bio-src">' + esc(q.src) + (q.fresh !== 'yes' ? ' <i class="bio-old' + (q.fresh === 'partly' ? ' bio-old--part' : '') + '">' + (q.fresh === 'no' ? 'Old course' : 'Partly old course') + '</i>' : '') + '</p>' +
@@ -332,7 +335,7 @@
       return;
     }
     if ((t = e.target.closest('[data-bio-self]'))) { selfTick(t); return; }
-    if ((t = e.target.closest('[data-bio-next]'))) { openQuestion(sheet.n, t.getAttribute('data-bio-next')); return; }
+    if ((t = e.target.closest('[data-bio-next]'))) { if (sheet.onNext) sheet.onNext(t.getAttribute('data-bio-next')); else openQuestion(sheet.n, t.getAttribute('data-bio-next')); return; }
   }
   function answerWords(sec, part, k) {
     if (part.kind === 'fields') {
@@ -427,11 +430,18 @@
     var t;
     if ((t = e.target.closest('[data-bio-tab]'))) { var n = +location.hash.replace(/\D/g, ''); showTab(n, t.getAttribute('data-bio-tab')); return; }
     if ((t = e.target.closest('[data-bio-filter]'))) { store('bio-filter', t.getAttribute('data-bio-filter')); showTab(+location.hash.replace(/\D/g, ''), 'questions'); return; }
-    if ((t = e.target.closest('[data-bio-open]'))) { openQuestion(+location.hash.replace(/\D/g, ''), t.getAttribute('data-bio-open')); return; }
+    if ((t = e.target.closest('[data-bio-open]'))) { openOnDesk(+location.hash.replace(/\D/g, ''), t.getAttribute('data-bio-open')); return; }
     if ((t = e.target.closest('[data-bio-draw]'))) { AM.practice('bio-' + t.getAttribute('data-bio-draw'), 'draw', refresh); return; }
     if ((t = e.target.closest('[data-bio-build]'))) { if (window.BioBuild) window.BioBuild.open(t.getAttribute('data-bio-build')); return; }
     if ((t = e.target.closest('[data-bio-game]'))) { openGame(+location.hash.replace(/\D/g, ''), t.getAttribute('data-bio-game')); return; }
     if ((t = e.target.closest('[data-bio-learn]'))) { if (window.BioMemory) window.BioMemory.open(+location.hash.replace(/\D/g, ''), +t.getAttribute('data-bio-learn')); }
+  }
+  // A real exam question opens on the desk (the Geography page's desk scene), as its real paper page, with the
+  // narrated guide; practice questions have no paper, so they open here.
+  var DESK = 'Geography%20Questions.dc.html';
+  function openOnDesk(n, qid) {
+    if ((window.BioPapers || {})[n + '/' + qid]) { location.href = DESK + '#bio/' + n + '/' + encodeURIComponent(qid); return; }
+    openQuestion(n, qid);
   }
   function openGame(n, kind) {
     var L = LEARN[n] || {};
@@ -449,7 +459,7 @@
   }
   window.BioApp = {
     refresh: refresh, words: bioWords, hasPoint: hasPoint, partScore: partScore, pointMarks: pointMarks, partOutOf: partOutOf, chapter: chapter,
-    graphSvg: graphSvg, diagramHtml: diagramHtml, questions: allQuestions,
+    graphSvg: graphSvg, diagramHtml: diagramHtml, questions: allQuestions, openQuestion: openQuestion, outOf: questionOutOf,
     // For tests: does a typed answer get each point of a part?
     check: function (n, qid, partIndex, text) {
       var q = QS[n].questions.filter(function (x) { return x.id === qid; })[0], part = q.parts[partIndex], w = bioWords(text);

@@ -1,0 +1,1912 @@
+[
+ {
+  "id": "bio-ask-title",
+  "text": "What it's asking",
+  "say": "So, what is this question really asking for?"
+ },
+ {
+  "id": "bio-687b73ae",
+  "text": "12 marks in 3 parts.",
+  "say": "This one is worth twelve marks, in three parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-4fb980c5",
+  "text": "(i) Use the diagram: 2 points, 6 marks.",
+  "say": "For part one, read the diagram and find the exact part. That's two points, for six marks."
+ },
+ {
+  "id": "bio-5aa6cd01",
+  "text": "(ii) Name: one point, 3 marks.",
+  "say": "For part two, just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-4bee9620",
+  "text": "(iii) Describe: one point, 3 marks.",
+  "say": "For part three, describe it: say what happens, step by step. That's one point, for three marks."
+ },
+ {
+  "id": "bio-cmd-describe-title",
+  "text": "Describe: what happens, in order",
+  "say": "Describe: what happens, in order"
+ },
+ {
+  "id": "bio-cmd-describe-summary",
+  "text": "Walk through it step by step.",
+  "say": "Describing is a bit like telling a story, one step after another."
+ },
+ {
+  "id": "bio-cmd-describe-1",
+  "text": "In order: start to finish.",
+  "say": "Start at the beginning and go step by step to the end, so nothing gets left out."
+ },
+ {
+  "id": "bio-cmd-describe-2",
+  "text": "Name the parts: where each step happens.",
+  "say": "Name the exact structure where each step happens. Those names are what the examiner is looking for."
+ },
+ {
+  "id": "bio-cmd-describe-3",
+  "text": "Count the marks: nine marks, three points.",
+  "say": "Count the marks. Nine marks usually means three separate points, so make sure you have at least three."
+ },
+ {
+  "id": "bio-a432d718",
+  "text": "33 marks in 5 parts.",
+  "say": "This one is worth thirty-three marks, in five parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-4b63542d",
+  "text": "(i) 1., (i) 2. Describe: 2 points, 6 marks.",
+  "say": "For parts one 1., one 2., describe it: say what happens, step by step. That's two points, for six marks."
+ },
+ {
+  "id": "bio-d02a6753",
+  "text": "(ii) Compare: 2 points, 6 marks.",
+  "say": "For part two, say how they differ, with something about each one. That's two points, for six marks."
+ },
+ {
+  "id": "bio-48e8bbac",
+  "text": "(iii), (iv) Name: 7 points, 21 marks.",
+  "say": "For parts three, four, just name it: a word or a short phrase is enough. That's seven points, for twenty-one marks."
+ },
+ {
+  "id": "bio-cmd-compare-title",
+  "text": "Tell them apart",
+  "say": "Tell them apart"
+ },
+ {
+  "id": "bio-cmd-compare-summary",
+  "text": "Say something about each one.",
+  "say": "A difference always has two sides, and you need both of them."
+ },
+ {
+  "id": "bio-cmd-compare-1",
+  "text": "Both sides: A does this, B does that.",
+  "say": "Say what the first one is like, and then what the second one is like."
+ },
+ {
+  "id": "bio-cmd-compare-2",
+  "text": "Same feature: compare like with like.",
+  "say": "Compare the same feature on both. Wall thickness against wall thickness, not against colour."
+ },
+ {
+  "id": "bio-cmd-compare-3",
+  "text": "Use whereas: one sentence, both halves.",
+  "say": "The word whereas is your friend. Arteries have thick walls, whereas veins have thin walls."
+ },
+ {
+  "id": "bio-72341b17",
+  "text": "21 marks in 4 parts.",
+  "say": "This one is worth twenty-one marks, in four parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-35467a15",
+  "text": "(i), (iii) Use the diagram: 4 points, 12 marks.",
+  "say": "For parts one, three, read the diagram and find the exact part. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-057e33eb",
+  "text": "(ii), (iv) Name: 3 points, 9 marks.",
+  "say": "For parts two, four, just name it: a word or a short phrase is enough. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-cmd-label-title",
+  "text": "Find it on the diagram",
+  "say": "Find it on the diagram"
+ },
+ {
+  "id": "bio-cmd-label-summary",
+  "text": "Point to the exact spot.",
+  "say": "This one is about reading the diagram carefully."
+ },
+ {
+  "id": "bio-cmd-label-1",
+  "text": "Look first: trace the structure.",
+  "say": "Before you write anything, follow the structure on the diagram and work out what each part does."
+ },
+ {
+  "id": "bio-cmd-label-2",
+  "text": "Exact name: spelled right.",
+  "say": "Give the exact name, spelled correctly. Close isn't enough when two parts have similar names."
+ },
+ {
+  "id": "bio-cmd-label-3",
+  "text": "On the diagram: a clear letter or arrow.",
+  "say": "If you have to mark the diagram, put a clear letter or arrow right on the part."
+ },
+ {
+  "id": "bio-426013e2",
+  "text": "9 marks.",
+  "say": "This one is worth nine marks. Here's what each part wants."
+ },
+ {
+  "id": "bio-6a675827",
+  "text": "(iv) Describe: 3 points, 9 marks.",
+  "say": "For part four, describe it: say what happens, step by step. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-5123bff7",
+  "text": "20 marks in 7 parts.",
+  "say": "This one is worth twenty marks, in seven parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-2ee4b299",
+  "text": "(a)–(e) Name: 4 points, 12 marks.",
+  "say": "For parts a, b, c, e, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-40761e2f",
+  "text": "(d)(i), (d)(ii), (f) Use the diagram: 3 points, 8 marks.",
+  "say": "For parts d one, d two, f, read the diagram and find the exact part. That's three points, for eight marks."
+ },
+ {
+  "id": "bio-da9c7956",
+  "text": "30 marks in 7 parts.",
+  "say": "This one is worth thirty marks, in seven parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-5da23457",
+  "text": "(i) Use the diagram: 3 points, 3 marks.",
+  "say": "For part one, read the diagram and find the exact part. That's three points, for three marks."
+ },
+ {
+  "id": "bio-0778eb41",
+  "text": "(ii)–(vi) Name: 6 points, 18 marks.",
+  "say": "For parts two, three 1., three 2., four, six, just name it: a word or a short phrase is enough. That's six points, for eighteen marks."
+ },
+ {
+  "id": "bio-8148a533",
+  "text": "(v) Describe: 3 points, 9 marks.",
+  "say": "For part five, describe it: say what happens, step by step. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-649707f0",
+  "text": "18 marks in 2 parts.",
+  "say": "This one is worth eighteen marks, in two parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-50864dc4",
+  "text": "(ii) Name: 3 points, 9 marks.",
+  "say": "For part two, just name it: a word or a short phrase is enough. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-035923c3",
+  "text": "(iii) Use the diagram: 2 points, 9 marks.",
+  "say": "For part three, read the diagram and find the exact part. That's two points, for nine marks."
+ },
+ {
+  "id": "bio-05cfe713",
+  "text": "30 marks in 6 parts.",
+  "say": "This one is worth thirty marks, in six parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-87bff434",
+  "text": "(i)–(iv) Name: 5 points, 15 marks.",
+  "say": "For parts one, two, three, four, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-5d0bfa37",
+  "text": "(v), (vi) Describe: 5 points, 15 marks.",
+  "say": "For parts five, six, describe it: say what happens, step by step. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-f2b98aab",
+  "text": "30 marks in 3 parts.",
+  "say": "This one is worth thirty marks, in three parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-a087ed3a",
+  "text": "(a), (b), (c) Name: 10 points, 30 marks.",
+  "say": "For parts a, b, c, just name it: a word or a short phrase is enough. That's ten points, for thirty marks."
+ },
+ {
+  "id": "bio-cmd-name-title",
+  "text": "Name it: short and exact",
+  "say": "Name it: short and exact"
+ },
+ {
+  "id": "bio-cmd-name-summary",
+  "text": "A word or a short phrase is enough.",
+  "say": "Name, state, give. These just want the fact, and nothing more."
+ },
+ {
+  "id": "bio-cmd-name-1",
+  "text": "Exact name: glomerulus, not \"the filter\".",
+  "say": "Examiners want the exact biological name. Glomerulus, not the filter. Collecting duct, not the tube."
+ },
+ {
+  "id": "bio-cmd-name-2",
+  "text": "No essay: the fact earns the marks.",
+  "say": "There is no need for a long answer here. The right name earns the marks, so save your time for the longer parts."
+ },
+ {
+  "id": "bio-cmd-name-3",
+  "text": "Count them: two asked, give two.",
+  "say": "If it asks for two, give two. Extra answers don't earn extra marks."
+ },
+ {
+  "id": "bio-6870f56e",
+  "text": "(iii) Describe: 5 points, 15 marks.",
+  "say": "For part three, describe it: say what happens, step by step. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-9d846e5a",
+  "text": "(iv), (v) Name: 5 points, 15 marks.",
+  "say": "For parts four, five, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-bc99b761",
+  "text": "24 marks in 4 parts.",
+  "say": "This one is worth twenty-four marks, in four parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-109f2f38",
+  "text": "(i)–(iv) Name: 8 points, 24 marks.",
+  "say": "For parts one, two, three, four, just name it: a word or a short phrase is enough. That's eight points, for twenty-four marks."
+ },
+ {
+  "id": "bio-2841cc90",
+  "text": "27 marks in 2 parts.",
+  "say": "This one is worth twenty-seven marks, in two parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-845545c2",
+  "text": "(i) Draw: 3 points, 9 marks.",
+  "say": "For part one, draw it large, and label it clearly. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-8ac6d874",
+  "text": "(ii) Describe: 6 points, 18 marks.",
+  "say": "For part two, describe it: say what happens, step by step. That's six points, for eighteen marks."
+ },
+ {
+  "id": "bio-cmd-draw-title",
+  "text": "Draw it big, label it well",
+  "say": "Draw it big, label it well"
+ },
+ {
+  "id": "bio-cmd-draw-summary",
+  "text": "The labels earn most of the marks.",
+  "say": "In a drawing question, most of the marks are in the labels."
+ },
+ {
+  "id": "bio-cmd-draw-1",
+  "text": "Large and clear: half a page, in pencil.",
+  "say": "Make your diagram large and clear, in pencil, so the examiner can see every part."
+ },
+ {
+  "id": "bio-cmd-draw-2",
+  "text": "Label lines: straight, touching the part.",
+  "say": "Each label needs a straight line that touches the exact part it names."
+ },
+ {
+  "id": "bio-cmd-draw-3",
+  "text": "Count the labels: as many as it asks for.",
+  "say": "Count how many labels the question asks for, and make sure every one is there."
+ },
+ {
+  "id": "bio-766c4d49",
+  "text": "24 marks in 5 parts.",
+  "say": "This one is worth twenty-four marks, in five parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-dcf1c2fc",
+  "text": "(i)–(v) Name: 8 points, 24 marks.",
+  "say": "For parts one, two, three, four, five, just name it: a word or a short phrase is enough. That's eight points, for twenty-four marks."
+ },
+ {
+  "id": "bio-87b80ec9",
+  "text": "9 marks in 2 parts.",
+  "say": "This one is worth nine marks, in two parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-094a490e",
+  "text": "(ii) 1., (ii) 2. Name: 3 points, 9 marks.",
+  "say": "For parts two 1., two 2., just name it: a word or a short phrase is enough. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-f26a81e8",
+  "text": "3 marks.",
+  "say": "This one is worth three marks. Here's what each part wants."
+ },
+ {
+  "id": "bio-89a638d5",
+  "text": "(iii) 2. Name: one point, 3 marks.",
+  "say": "For part three 2., just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-f528a1c0",
+  "text": "6 marks.",
+  "say": "This one is worth six marks. Here's what each part wants."
+ },
+ {
+  "id": "bio-328783ac",
+  "text": "(iii) Name: 2 points, 6 marks.",
+  "say": "For part three, just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-8f23e31b",
+  "text": "(i) Name: one point, 3 marks.",
+  "say": "For part one, just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-544a2bb7",
+  "text": "(i) Use the diagram: 3 points, 6 marks.",
+  "say": "For part one, read the diagram and find the exact part. That's three points, for six marks."
+ },
+ {
+  "id": "bio-65151ff1",
+  "text": "(ii), (iii), (iv) Name: 7 points, 18 marks.",
+  "say": "For parts two, three, four, just name it: a word or a short phrase is enough. That's seven points, for eighteen marks."
+ },
+ {
+  "id": "bio-77cbb27f",
+  "text": "(i), (ii) Name: 3 points, 9 marks.",
+  "say": "For parts one, two, just name it: a word or a short phrase is enough. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-e1eba4c2",
+  "text": "27 marks in 3 parts.",
+  "say": "This one is worth twenty-seven marks, in three parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-a5528176",
+  "text": "(i) Draw: 4 points, 9 marks.",
+  "say": "For part one, draw it large, and label it clearly. That's four points, for nine marks."
+ },
+ {
+  "id": "bio-2d71ad4a",
+  "text": "(ii) Name: 2 points, 6 marks.",
+  "say": "For part two, just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-f7529204",
+  "text": "(iii) Describe: 4 points, 12 marks.",
+  "say": "For part three, describe it: say what happens, step by step. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-1f214934",
+  "text": "(i), (ii), (iii) Name: 5 points, 15 marks.",
+  "say": "For parts one, two, three, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-1a46b55b",
+  "text": "(iv) Use the diagram: 3 points, 9 marks.",
+  "say": "For part four, read the diagram and find the exact part. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-680f7d2a",
+  "text": "15 marks in 4 parts.",
+  "say": "This one is worth fifteen marks, in four parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-801e86cf",
+  "text": "(i), (ii), (iv) Use the diagram: 4 points, 12 marks.",
+  "say": "For parts one, two, four, read the diagram and find the exact part. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-5cc3074b",
+  "text": "(iii) Name: one point, 3 marks.",
+  "say": "For part three, just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-29-loop-title",
+  "text": "The loop of Henle: saving water",
+  "say": "The loop of Henle: saving water"
+ },
+ {
+  "id": "bio-29-loop-summary",
+  "text": "A salty medulla pulls the water out.",
+  "say": "The loop of Henle is the kidney's water-saving trick."
+ },
+ {
+  "id": "bio-29-loop-1",
+  "text": "Salty medulla: the loop pumps salt out.",
+  "say": "As it dips down into the medulla, the loop pumps salt out around itself, making the medulla very salty."
+ },
+ {
+  "id": "bio-29-loop-2",
+  "text": "Osmosis: water follows the salt.",
+  "say": "Water then leaves the tubule by osmosis, drawn towards all that salt, and goes back into the blood."
+ },
+ {
+  "id": "bio-29-loop-3",
+  "text": "Desert animals: have longer loops.",
+  "say": "Camels and desert rats have extra long loops, so they save more water and make very concentrated urine."
+ },
+ {
+  "id": "bio-26512829",
+  "text": "5 marks in 2 parts.",
+  "say": "This one is worth five marks, in two parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-4796081a",
+  "text": "(vi), (vii) Name: 2 points, 5 marks.",
+  "say": "For parts six, seven, just name it: a word or a short phrase is enough. That's two points, for five marks."
+ },
+ {
+  "id": "bio-29-homeo-title",
+  "text": "Homeostasis and excretion",
+  "say": "Homeostasis and excretion"
+ },
+ {
+  "id": "bio-29-homeo-summary",
+  "text": "Keeping the inside of you steady.",
+  "say": "This chapter is really about one big idea: keeping your insides steady."
+ },
+ {
+  "id": "bio-29-homeo-1",
+  "text": "Homeostasis: a constant internal environment.",
+  "say": "Homeostasis means keeping your internal environment constant: the same temperature, the same water and salt, whatever is happening outside."
+ },
+ {
+  "id": "bio-29-homeo-2",
+  "text": "Excretion: removing waste from metabolism.",
+  "say": "Excretion is getting rid of waste made by your own cells, like urea and carbon dioxide."
+ },
+ {
+  "id": "bio-29-homeo-3",
+  "text": "Not egestion: that's undigested food.",
+  "say": "Don't mix it up with egestion. That's just getting rid of food you never digested."
+ },
+ {
+  "id": "bio-d1eb6daf",
+  "text": "30 marks in 4 parts.",
+  "say": "This one is worth thirty marks, in four parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-b547ed72",
+  "text": "(i) Define: one point, 3 marks.",
+  "say": "For part one, say what it means, in one clear sentence. That's one point, for three marks."
+ },
+ {
+  "id": "bio-8f88b769",
+  "text": "(ii), (iii) Use the diagram: 8 points, 24 marks.",
+  "say": "For parts two, three, read the diagram and find the exact part. That's eight points, for twenty-four marks."
+ },
+ {
+  "id": "bio-7cda6b3d",
+  "text": "(iv) Name: one point, 3 marks.",
+  "say": "For part four, just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-29-filter-title",
+  "text": "Filtration: squeezing the blood",
+  "say": "Filtration: squeezing the blood"
+ },
+ {
+  "id": "bio-29-filter-summary",
+  "text": "High pressure pushes small molecules out.",
+  "say": "It all starts with a squeeze."
+ },
+ {
+  "id": "bio-29-filter-1",
+  "text": "Narrow exit: efferent narrower than afferent.",
+  "say": "Blood comes into the glomerulus through a wide vessel, the afferent arteriole, and leaves through a narrower one, the efferent arteriole. That squeeze builds up pressure."
+ },
+ {
+  "id": "bio-29-filter-2",
+  "text": "Pushed out: water, glucose, salts, urea.",
+  "say": "The pressure pushes small molecules out of the blood and into Bowman's capsule: water, glucose, salts, amino acids and urea."
+ },
+ {
+  "id": "bio-29-filter-3",
+  "text": "Too big: cells and proteins stay.",
+  "say": "Blood cells and proteins are too big to fit through, so they stay in the blood. Protein in urine is a sign that something is wrong."
+ },
+ {
+  "id": "bio-cmd-meant-title",
+  "text": "Say what it means",
+  "say": "Say what it means"
+ },
+ {
+  "id": "bio-cmd-meant-summary",
+  "text": "One clear sentence.",
+  "say": "When a question asks what a word means, it wants one clear, complete sentence."
+ },
+ {
+  "id": "bio-cmd-meant-1",
+  "text": "Start with the word: \"Excretion is…\"",
+  "say": "Start with the word itself. Excretion is, and then finish the sentence. It keeps you on track."
+ },
+ {
+  "id": "bio-cmd-meant-2",
+  "text": "The key idea: the one thing it's about.",
+  "say": "Every definition has one key idea. For homeostasis, it's keeping the inside of the body constant. Make sure yours has it."
+ },
+ {
+  "id": "bio-cmd-meant-3",
+  "text": "Learn it word for word: the Learn it drills help.",
+  "say": "Definitions come up again and again, so they're worth learning word for word. The Learn it drills are made for exactly that."
+ },
+ {
+  "id": "bio-94d80c0c",
+  "text": "(ii)–(vi) Name: 5 points, 15 marks.",
+  "say": "For parts two, three, four, six, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-11401dfa",
+  "text": "(v) Use the diagram: 4 points, 12 marks.",
+  "say": "For part five, read the diagram and find the exact part. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-29-adh-title",
+  "text": "ADH: the water dial",
+  "say": "ADH: the water dial"
+ },
+ {
+  "id": "bio-29-adh-summary",
+  "text": "Your brain decides how much water to keep.",
+  "say": "Your kidneys don't decide on their own how much water to keep. Your brain turns the dial."
+ },
+ {
+  "id": "bio-29-adh-1",
+  "text": "Short of water: the hypothalamus notices.",
+  "say": "When you're short of water, after sweating or not drinking enough, your blood gets more concentrated. A part of your brain called the hypothalamus notices."
+ },
+ {
+  "id": "bio-29-adh-2",
+  "text": "More ADH: from the pituitary gland.",
+  "say": "It gets the pituitary gland to release more of a hormone called ADH into the blood."
+ },
+ {
+  "id": "bio-29-adh-3",
+  "text": "Leakier ducts: more water goes back.",
+  "say": "ADH makes the collecting ducts more permeable, so more water goes back into the blood. You make a little concentrated urine. Drink a lot, and the opposite happens."
+ },
+ {
+  "id": "bio-9174cbbf",
+  "text": "(i), (ii), (iii) Name: 8 points, 18 marks.",
+  "say": "For parts one, two, three, just name it: a word or a short phrase is enough. That's eight points, for eighteen marks."
+ },
+ {
+  "id": "bio-370a316a",
+  "text": "(iv) Use the diagram: 2 points, 12 marks.",
+  "say": "For part four, read the diagram and find the exact part. That's two points, for twelve marks."
+ },
+ {
+  "id": "bio-5de452f8",
+  "text": "(i) 3. Name: one point, 3 marks.",
+  "say": "For part one 3., just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-a4ec7a67",
+  "text": "(d) Name: one point, 3 marks.",
+  "say": "For part d, just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-092437a7",
+  "text": "(i) Define: 2 points, 6 marks.",
+  "say": "For part one, say what it means, in one clear sentence. That's two points, for six marks."
+ },
+ {
+  "id": "bio-78ac926f",
+  "text": "27 marks in 7 parts.",
+  "say": "This one is worth twenty-seven marks, in seven parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-ac8eff74",
+  "text": "(i), (iii), (v) Name: 4 points, 12 marks.",
+  "say": "For parts one, three, five, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-9a783989",
+  "text": "(ii), (vii) Use the diagram: 4 points, 6 marks.",
+  "say": "For parts two, seven, read the diagram and find the exact part. That's four points, for six marks."
+ },
+ {
+  "id": "bio-139512f0",
+  "text": "(iv) Define: one point, 3 marks.",
+  "say": "For part four, say what it means, in one clear sentence. That's one point, for three marks."
+ },
+ {
+  "id": "bio-c086356d",
+  "text": "(vi) Describe: 2 points, 6 marks.",
+  "say": "For part six, describe it: say what happens, step by step. That's two points, for six marks."
+ },
+ {
+  "id": "bio-29-reabsorb-title",
+  "text": "Reabsorption: taking back the good stuff",
+  "say": "Reabsorption: taking back the good stuff"
+ },
+ {
+  "id": "bio-29-reabsorb-summary",
+  "text": "The proximal tubule rescues what you need.",
+  "say": "Filtering is messy. Lots of useful things get pushed out too, so the kidney takes them back."
+ },
+ {
+  "id": "bio-29-reabsorb-1",
+  "text": "All the glucose: and amino acids go back.",
+  "say": "In the proximal convoluted tubule, all of the glucose and amino acids are taken back into the blood."
+ },
+ {
+  "id": "bio-29-reabsorb-2",
+  "text": "Active transport: which needs energy.",
+  "say": "This is done by active transport, which needs energy, so the cells here are packed with mitochondria."
+ },
+ {
+  "id": "bio-29-reabsorb-3",
+  "text": "Microvilli: a huge surface area.",
+  "say": "Their walls are folded into microvilli, which gives a huge surface area to take things back through."
+ },
+ {
+  "id": "bio-471454cb",
+  "text": "9 marks in 3 parts.",
+  "say": "This one is worth nine marks, in three parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-36c55756",
+  "text": "(i), (iii) Define: 2 points, 6 marks.",
+  "say": "For parts one, three, say what it means, in one clear sentence. That's two points, for six marks."
+ },
+ {
+  "id": "bio-e714b3a8",
+  "text": "(ii) Explain: one point, 3 marks.",
+  "say": "For part two, explain it: say what happens, and why. That's one point, for three marks."
+ },
+ {
+  "id": "bio-cmd-explain-title",
+  "text": "Explain: say why",
+  "say": "Explain: say why"
+ },
+ {
+  "id": "bio-cmd-explain-summary",
+  "text": "Each point is a fact and its reason.",
+  "say": "Explain means the examiner wants to see the reason, not just the fact."
+ },
+ {
+  "id": "bio-cmd-explain-1",
+  "text": "Fact: what happens.",
+  "say": "First, the fact: what actually happens."
+ },
+ {
+  "id": "bio-cmd-explain-2",
+  "text": "Because: why it happens.",
+  "say": "Then the reason. Use the word because, or so, and the examiner can follow your thinking."
+ },
+ {
+  "id": "bio-cmd-explain-3",
+  "text": "One idea a sentence: each can earn marks.",
+  "say": "Keep one idea to each sentence. Every separate, correct idea is another chance at marks."
+ },
+ {
+  "id": "bio-56ad860c",
+  "text": "27 marks in 4 parts.",
+  "say": "This one is worth twenty-seven marks, in four parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-190102b3",
+  "text": "(i), (ii) Name: 2 points, 6 marks.",
+  "say": "For parts one, two, just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-36c4900d",
+  "text": "(iii) Use the diagram: 3 points, 9 marks.",
+  "say": "For part three, read the diagram and find the exact part. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-8c74b1f3",
+  "text": "(iv) Draw: 3 points, 12 marks.",
+  "say": "For part four, draw it large, and label it clearly. That's three points, for twelve marks."
+ },
+ {
+  "id": "bio-7e10c719",
+  "text": "24 marks in 3 parts.",
+  "say": "This one is worth twenty-four marks, in three parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-b2d5732d",
+  "text": "(i) Compare: 2 points, 6 marks.",
+  "say": "For part one, say how they differ, with something about each one. That's two points, for six marks."
+ },
+ {
+  "id": "bio-ccf184e9",
+  "text": "(ii) Define: 2 points, 6 marks.",
+  "say": "For part two, say what it means, in one clear sentence. That's two points, for six marks."
+ },
+ {
+  "id": "bio-ef3a7022",
+  "text": "(iii) Use the diagram: 3 points, 12 marks.",
+  "say": "For part three, read the diagram and find the exact part. That's three points, for twelve marks."
+ },
+ {
+  "id": "bio-6f5c00fb",
+  "text": "21 marks in 6 parts.",
+  "say": "This one is worth twenty-one marks, in six parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-8dc09429",
+  "text": "(a), (b) Use the diagram: 3 points, 9 marks.",
+  "say": "For parts a, b, read the diagram and find the exact part. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-a3d9528b",
+  "text": "(c), (d), (e) Name: 3 points, 9 marks.",
+  "say": "For parts c, d, e, just name it: a word or a short phrase is enough. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-a46122a5",
+  "text": "(f) Suggest: one point, 3 marks.",
+  "say": "For part f, suggest a sensible reason, using what you know. That's one point, for three marks."
+ },
+ {
+  "id": "bio-cmd-suggest-title",
+  "text": "Suggest: use what you know",
+  "say": "Suggest: use what you know"
+ },
+ {
+  "id": "bio-cmd-suggest-summary",
+  "text": "A sensible, specific answer.",
+  "say": "Suggest means the answer won't be in your notes word for word. You have to think it through."
+ },
+ {
+  "id": "bio-cmd-suggest-1",
+  "text": "Apply it: use the biology you know.",
+  "say": "Take the biology you know and apply it to the situation in the question."
+ },
+ {
+  "id": "bio-cmd-suggest-2",
+  "text": "Be specific: say exactly what and why.",
+  "say": "A vague guess gets nothing. A specific, sensible reason gets the marks."
+ },
+ {
+  "id": "bio-cmd-suggest-3",
+  "text": "Link it back: to the question.",
+  "say": "Finish by linking your answer back to what the question described."
+ },
+ {
+  "id": "bio-34ad76f6",
+  "text": "(iv) Name: 2 points, 6 marks.",
+  "say": "For part four, just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-063c373b",
+  "text": "6 marks in 2 parts.",
+  "say": "This one is worth six marks, in two parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-3efc30a3",
+  "text": "21 marks in 3 parts.",
+  "say": "This one is worth twenty-one marks, in three parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-d756eaba",
+  "text": "(i), (ii) Name: 4 points, 12 marks.",
+  "say": "For parts one, two, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-2fab1685",
+  "text": "(iii) Describe: 3 points, 9 marks.",
+  "say": "For part three, describe it: say what happens, step by step. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-8a1801a7",
+  "text": "(ii) 2. Name: one point, 3 marks.",
+  "say": "For part two 2., just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-80e032ac",
+  "text": "12 marks in 2 parts.",
+  "say": "This one is worth twelve marks, in two parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-0d49ea12",
+  "text": "27 marks in 6 parts.",
+  "say": "This one is worth twenty-seven marks, in six parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-c711de2c",
+  "text": "(i), (ii) Draw: 5 points, 12 marks.",
+  "say": "For parts one, two, draw it large, and label it clearly. That's five points, for twelve marks."
+ },
+ {
+  "id": "bio-cac19355",
+  "text": "(iii) Use the diagram: 2 points, 6 marks.",
+  "say": "For part three, read the diagram and find the exact part. That's two points, for six marks."
+ },
+ {
+  "id": "bio-77d47865",
+  "text": "(iv), (v), (vi) Name: 3 points, 9 marks.",
+  "say": "For parts four, five, six, just name it: a word or a short phrase is enough. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-29-inside-title",
+  "text": "Inside a kidney",
+  "say": "Inside a kidney"
+ },
+ {
+  "id": "bio-29-inside-summary",
+  "text": "Three zones, each with a job.",
+  "say": "Cut a kidney in half, and you can see three different zones."
+ },
+ {
+  "id": "bio-29-inside-1",
+  "text": "Cortex: the outer layer: filtering.",
+  "say": "The outer layer is the cortex. That's where the filtering happens, in about a million tiny tubes called nephrons."
+ },
+ {
+  "id": "bio-29-inside-2",
+  "text": "Medulla: the pyramids: saving water.",
+  "say": "Inside is the medulla, made of cone-shaped pyramids. The long loops of the nephrons dip down here to save water."
+ },
+ {
+  "id": "bio-29-inside-3",
+  "text": "Pelvis: collects the urine.",
+  "say": "In the middle is the pelvis, a funnel that collects the urine and pours it into the ureter."
+ },
+ {
+  "id": "bio-c65ebeee",
+  "text": "(i) Name: 8 points, 12 marks.",
+  "say": "For part one, just name it: a word or a short phrase is enough. That's eight points, for twelve marks."
+ },
+ {
+  "id": "bio-9a68bb0f",
+  "text": "(ii), (iii) Use the diagram: 4 points, 12 marks.",
+  "say": "For parts two, three, read the diagram and find the exact part. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-50d727bf",
+  "text": "10 marks.",
+  "say": "This one is worth ten marks. Here's what each part wants."
+ },
+ {
+  "id": "bio-9049214f",
+  "text": "(iii) Name: 3 points, 10 marks.",
+  "say": "For part three, just name it: a word or a short phrase is enough. That's three points, for ten marks."
+ },
+ {
+  "id": "bio-29-urea-title",
+  "text": "Where urea comes from",
+  "say": "Where urea comes from"
+ },
+ {
+  "id": "bio-29-urea-summary",
+  "text": "Spare protein becomes waste.",
+  "say": "Urea starts its journey somewhere you might not expect: the liver."
+ },
+ {
+  "id": "bio-29-urea-1",
+  "text": "Spare amino acids: can't be stored.",
+  "say": "Your body can't store spare amino acids, so the liver breaks them down. This is called deamination."
+ },
+ {
+  "id": "bio-29-urea-2",
+  "text": "Urea: is made in the liver.",
+  "say": "The part with nitrogen becomes urea, which travels in the blood to the kidneys."
+ },
+ {
+  "id": "bio-29-urea-3",
+  "text": "Filtered out: and leaves in urine.",
+  "say": "There it's filtered out of the blood, and leaves the body in urine."
+ },
+ {
+  "id": "bio-62cdac9e",
+  "text": "(i), (iv) Use the diagram: 8 points, 12 marks.",
+  "say": "For parts one, four, read the diagram and find the exact part. That's eight points, for twelve marks."
+ },
+ {
+  "id": "bio-987277a0",
+  "text": "(ii)–(vi) Name: 5 points, 15 marks.",
+  "say": "For parts two, three, five, six, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-078d2450",
+  "text": "(i) Suggest: 2 points, 6 marks.",
+  "say": "For part one, suggest a sensible reason, using what you know. That's two points, for six marks."
+ },
+ {
+  "id": "bio-4233786a",
+  "text": "(ii), (iii) Name: 4 points, 12 marks.",
+  "say": "For parts two, three, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-45b68dd0",
+  "text": "(iv) Define: one point, 6 marks.",
+  "say": "For part four, say what it means, in one clear sentence. That's one point, for six marks."
+ },
+ {
+  "id": "bio-b688b7d2",
+  "text": "(i) Name: 3 points, 9 marks.",
+  "say": "For part one, just name it: a word or a short phrase is enough. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-ef463278",
+  "text": "27 marks in 5 parts.",
+  "say": "This one is worth twenty-seven marks, in five parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-1a7bfd92",
+  "text": "(ii), (iv) Explain: 2 points, 6 marks.",
+  "say": "For parts two, four, explain it: say what happens, and why. That's two points, for six marks."
+ },
+ {
+  "id": "bio-c0ee9c02",
+  "text": "(iii), (v) Name: 5 points, 15 marks.",
+  "say": "For parts three, five, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-100ec072",
+  "text": "4 marks.",
+  "say": "This one is worth four marks. Here's what each part wants."
+ },
+ {
+  "id": "bio-b0d7fc6a",
+  "text": "(b) Name: 2 points, 4 marks.",
+  "say": "For part b, just name it: a word or a short phrase is enough. That's two points, for four marks."
+ },
+ {
+  "id": "bio-29-organs-title",
+  "text": "The urinary system",
+  "say": "The urinary system"
+ },
+ {
+  "id": "bio-29-organs-summary",
+  "text": "Two kidneys clean your blood, all day.",
+  "say": "Your urinary system is small, but it cleans all of your blood many times a day."
+ },
+ {
+  "id": "bio-29-organs-1",
+  "text": "Kidneys: clean the blood.",
+  "say": "Blood arrives at each kidney in the renal artery, gets cleaned, and leaves in the renal vein."
+ },
+ {
+  "id": "bio-29-organs-2",
+  "text": "Ureters: carry urine down.",
+  "say": "The waste becomes urine, which trickles down two thin tubes, the ureters, to the bladder."
+ },
+ {
+  "id": "bio-29-organs-3",
+  "text": "Bladder and urethra: store it, then let it out.",
+  "say": "The bladder stores it until a ring of muscle, the sphincter, relaxes and lets it out through the urethra."
+ },
+ {
+  "id": "bio-84cf4d4c",
+  "text": "(f) Name: 5 points, 4 marks.",
+  "say": "For part f, just name it: a word or a short phrase is enough. That's five points, for four marks."
+ },
+ {
+  "id": "bio-8db89f1d",
+  "text": "(a) True or false: one point, 3 marks.",
+  "say": "For part a, decide if each statement is true or false. That's one point, for three marks."
+ },
+ {
+  "id": "bio-cmd-tf-title",
+  "text": "True or false?",
+  "say": "True or false?"
+ },
+ {
+  "id": "bio-cmd-tf-summary",
+  "text": "Read every word.",
+  "say": "True or false questions are quick, but they hide their traps in single words."
+ },
+ {
+  "id": "bio-cmd-tf-1",
+  "text": "One word: can make it false.",
+  "say": "One word, like all, never or only, can turn a true statement false."
+ },
+ {
+  "id": "bio-cmd-tf-2",
+  "text": "Picture it: think of the real thing.",
+  "say": "Picture the real structure or process, and check the statement against it."
+ },
+ {
+  "id": "bio-cmd-tf-3",
+  "text": "Move on: don't overthink it.",
+  "say": "Decide, and move on. Don't spend long on a single mark."
+ },
+ {
+  "id": "bio-0fafbea9",
+  "text": "(a) Name: 3 points, 9 marks.",
+  "say": "For part a, just name it: a word or a short phrase is enough. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-91416d47",
+  "text": "(ii) Name: 3 points, 18 marks.",
+  "say": "For part two, just name it: a word or a short phrase is enough. That's three points, for eighteen marks."
+ },
+ {
+  "id": "bio-050922df",
+  "text": "(ii) Describe: 2 points, 6 marks.",
+  "say": "For part two, describe it: say what happens, step by step. That's two points, for six marks."
+ },
+ {
+  "id": "bio-f1ccac09",
+  "text": "(c) Draw: 2 points, 6 marks.",
+  "say": "For part c, draw it large, and label it clearly. That's two points, for six marks."
+ },
+ {
+  "id": "bio-fba511f5",
+  "text": "(vi) 2. Name: one point, 3 marks.",
+  "say": "For part six 2., just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-2d5b4229",
+  "text": "(c) Name: 2 points, 4 marks.",
+  "say": "For part c, just name it: a word or a short phrase is enough. That's two points, for four marks."
+ },
+ {
+  "id": "bio-a8c53643",
+  "text": "(i) 4. Name: one point, 3 marks.",
+  "say": "For part one 4., just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-db319390",
+  "text": "20 marks in 5 parts.",
+  "say": "This one is worth twenty marks, in five parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-53fcf140",
+  "text": "(a) Use the diagram: 2 points, 4 marks.",
+  "say": "For part a, read the diagram and find the exact part. That's two points, for four marks."
+ },
+ {
+  "id": "bio-2f61fc74",
+  "text": "(b), (d), (e) Name: 5 points, 14 marks.",
+  "say": "For parts b, d, e, just name it: a word or a short phrase is enough. That's five points, for fourteen marks."
+ },
+ {
+  "id": "bio-07a45701",
+  "text": "(c) Describe: one point, 2 marks.",
+  "say": "For part c, describe it: say what happens, step by step. That's one point, for two marks."
+ },
+ {
+  "id": "bio-68b87792",
+  "text": "(i) 1.–(iv) Name: 9 points, 21 marks.",
+  "say": "For parts one 1., one 2., two, four, just name it: a word or a short phrase is enough. That's nine points, for twenty-one marks."
+ },
+ {
+  "id": "bio-13d76e5e",
+  "text": "(a)–(f) Name: 9 points, 21 marks.",
+  "say": "For parts a, b, c, d, e, f, just name it: a word or a short phrase is enough. That's nine points, for twenty-one marks."
+ },
+ {
+  "id": "bio-9e067165",
+  "text": "(i) 2. Name: one point, 3 marks.",
+  "say": "For part one 2., just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-3d1889c0",
+  "text": "(a)–(f) Name: 5 points, 15 marks.",
+  "say": "For parts a, b, c, f, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-befe7c13",
+  "text": "(d) Suggest: one point, 3 marks.",
+  "say": "For part d, suggest a sensible reason, using what you know. That's one point, for three marks."
+ },
+ {
+  "id": "bio-39e04545",
+  "text": "(e) Describe: one point, 3 marks.",
+  "say": "For part e, describe it: say what happens, step by step. That's one point, for three marks."
+ },
+ {
+  "id": "bio-b5ee8560",
+  "text": "(i)–(vi) Name: 5 points, 15 marks.",
+  "say": "For parts one, two, four, five, six, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-aa5ac4e4",
+  "text": "(vii) Define: 2 points, 6 marks.",
+  "say": "For part seven, say what it means, in one clear sentence. That's two points, for six marks."
+ },
+ {
+  "id": "bio-8548a388",
+  "text": "30 marks in 8 parts.",
+  "say": "This one is worth thirty marks, in eight parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-eb50c0a5",
+  "text": "(ii) Explain: 2 points, 6 marks.",
+  "say": "For part two, explain it: say what happens, and why. That's two points, for six marks."
+ },
+ {
+  "id": "bio-f02707ac",
+  "text": "(iii)–(viii) Name: 7 points, 21 marks.",
+  "say": "For parts three, four, five, six, seven, eight, just name it: a word or a short phrase is enough. That's seven points, for twenty-one marks."
+ },
+ {
+  "id": "bio-91beebc8",
+  "text": "(ii) 1., (ii) 2. Name: 2 points, 6 marks.",
+  "say": "For parts two 1., two 2., just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-308cac7c",
+  "text": "(i) Name: 2 points, 6 marks.",
+  "say": "For part one, just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-c08a9934",
+  "text": "(ii) 5. Name: one point, 3 marks.",
+  "say": "For part two 5., just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-31326df3",
+  "text": "(iii) 4. Name: one point, 3 marks.",
+  "say": "For part three 4., just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-f188e55c",
+  "text": "(ii) Define: one point, 3 marks.",
+  "say": "For part two, say what it means, in one clear sentence. That's one point, for three marks."
+ },
+ {
+  "id": "bio-981c3ee1",
+  "text": "(i) Draw: 4 points, 18 marks.",
+  "say": "For part one, draw it large, and label it clearly. That's four points, for eighteen marks."
+ },
+ {
+  "id": "bio-7f5fb9f1",
+  "text": "(ii) 1., (ii) 2., (ii) 3. Name: 3 points, 9 marks.",
+  "say": "For parts two 1., two 2., two 3., just name it: a word or a short phrase is enough. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-ceef2c06",
+  "text": "(i) 1., (i) 3., (ii) Name: 5 points, 15 marks.",
+  "say": "For parts one 1., one 3., two, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-a2facf42",
+  "text": "(i) 2. Compare: one point, 3 marks.",
+  "say": "For part one 2., say how they differ, with something about each one. That's one point, for three marks."
+ },
+ {
+  "id": "bio-3be6f3cd",
+  "text": "(iii) Describe: 2 points, 6 marks.",
+  "say": "For part three, describe it: say what happens, step by step. That's two points, for six marks."
+ },
+ {
+  "id": "bio-9d5049ab",
+  "text": "(ii) Use the diagram: 2 points, 6 marks.",
+  "say": "For part two, read the diagram and find the exact part. That's two points, for six marks."
+ },
+ {
+  "id": "bio-6d9cba76",
+  "text": "(iii) Explain: one point, 3 marks.",
+  "say": "For part three, explain it: say what happens, and why. That's one point, for three marks."
+ },
+ {
+  "id": "bio-850fec27",
+  "text": "(i)–(vi) Name: 10 points, 30 marks.",
+  "say": "For parts one, two, three, four, five 1., five 2., six, just name it: a word or a short phrase is enough. That's ten points, for thirty marks."
+ },
+ {
+  "id": "bio-a4d728aa",
+  "text": "(iii) 1. Name: one point, 3 marks.",
+  "say": "For part three 1., just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-5c6ff97c",
+  "text": "24 marks in 7 parts.",
+  "say": "This one is worth twenty-four marks, in seven parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-0af8c311",
+  "text": "(a)(i) Define: one point, 3 marks.",
+  "say": "For part a one, say what it means, in one clear sentence. That's one point, for three marks."
+ },
+ {
+  "id": "bio-799c1d91",
+  "text": "(a)(ii) Explain: one point, 3 marks.",
+  "say": "For part a two, explain it: say what happens, and why. That's one point, for three marks."
+ },
+ {
+  "id": "bio-997ceef4",
+  "text": "(a)(iii) Compare: 2 points, 6 marks.",
+  "say": "For part a three, say how they differ, with something about each one. That's two points, for six marks."
+ },
+ {
+  "id": "bio-5d0b99fe",
+  "text": "(b)(i) Use the diagram: one point, 3 marks.",
+  "say": "For part b one, read the diagram and find the exact part. That's one point, for three marks."
+ },
+ {
+  "id": "bio-8a8ae607",
+  "text": "(ii)–(vii) Name: 7 points, 21 marks.",
+  "say": "For parts two, three, four, five, six, seven, just name it: a word or a short phrase is enough. That's seven points, for twenty-one marks."
+ },
+ {
+  "id": "bio-77667e28",
+  "text": "(ii) 1. Name: one point, 3 marks.",
+  "say": "For part two 1., just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-5dc3e32a",
+  "text": "(i) Use the diagram: 6 points, 12 marks.",
+  "say": "For part one, read the diagram and find the exact part. That's six points, for twelve marks."
+ },
+ {
+  "id": "bio-17c59977",
+  "text": "(iii) 1., (iii) 2., (iii) 3. Name: 3 points, 9 marks.",
+  "say": "For parts three 1., three 2., three 3., just name it: a word or a short phrase is enough. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-6387e4e1",
+  "text": "24 marks in 6 parts.",
+  "say": "This one is worth twenty-four marks, in six parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-b4bd1a94",
+  "text": "(i)–(iv) Name: 6 points, 21 marks.",
+  "say": "For parts one, two, three 1., three 2., four, just name it: a word or a short phrase is enough. That's six points, for twenty-one marks."
+ },
+ {
+  "id": "bio-8cc73150",
+  "text": "(v) Explain: one point, 3 marks.",
+  "say": "For part five, explain it: say what happens, and why. That's one point, for three marks."
+ },
+ {
+  "id": "bio-4724aaba",
+  "text": "15 marks in 5 parts.",
+  "say": "This one is worth fifteen marks, in five parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-8facda05",
+  "text": "(a)–(e) Name: 5 points, 15 marks.",
+  "say": "For parts a, b, c, d, e, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-3e925424",
+  "text": "(a) Use the diagram: 2 points, 6 marks.",
+  "say": "For part a, read the diagram and find the exact part. That's two points, for six marks."
+ },
+ {
+  "id": "bio-67dc67e9",
+  "text": "(b), (c), (f) Name: 5 points, 15 marks.",
+  "say": "For parts b, c, f, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-f96612fa",
+  "text": "(a) Use the diagram: 3 points, 9 marks.",
+  "say": "For part a, read the diagram and find the exact part. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-b26e2967",
+  "text": "(b), (c), (d) Name: 4 points, 12 marks.",
+  "say": "For parts b, c, d, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-3f1d250e",
+  "text": "21 marks in 7 parts.",
+  "say": "This one is worth twenty-one marks, in seven parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-b9a7c6e5",
+  "text": "1–7 Name: 6 points, 18 marks.",
+  "say": "For parts 1, 2, 4, 5, 6, 7, just name it: a word or a short phrase is enough. That's six points, for eighteen marks."
+ },
+ {
+  "id": "bio-d2e67e29",
+  "text": "3 Explain: one point, 3 marks.",
+  "say": "For part 3, explain it: say what happens, and why. That's one point, for three marks."
+ },
+ {
+  "id": "bio-9741e71d",
+  "text": "(i)1, (i)2 Describe: 2 points, 6 marks.",
+  "say": "For parts one 1, one 2, describe it: say what happens, step by step. That's two points, for six marks."
+ },
+ {
+  "id": "bio-93cdf033",
+  "text": "21 marks in 5 parts.",
+  "say": "This one is worth twenty-one marks, in five parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-144e3ea2",
+  "text": "(i), (iii) Use the diagram: 3 points, 9 marks.",
+  "say": "For parts one, three, read the diagram and find the exact part. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-b28fecba",
+  "text": "(ii), (iv) Describe: 3 points, 9 marks.",
+  "say": "For parts two, four, describe it: say what happens, step by step. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-9db63526",
+  "text": "(v) Compare: one point, 3 marks.",
+  "say": "For part five, say how they differ, with something about each one. That's one point, for three marks."
+ },
+ {
+  "id": "bio-ad69fb91",
+  "text": "(ii), (iii) Describe: 4 points, 12 marks.",
+  "say": "For parts two, three, describe it: say what happens, step by step. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-62ee9774",
+  "text": "15 marks in 3 parts.",
+  "say": "This one is worth fifteen marks, in three parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-9ac44248",
+  "text": "(i) Use the diagram: one point, 3 marks.",
+  "say": "For part one, read the diagram and find the exact part. That's one point, for three marks."
+ },
+ {
+  "id": "bio-1e738fbb",
+  "text": "(i) Explain: 2 points, 6 marks.",
+  "say": "For part one, explain it: say what happens, and why. That's two points, for six marks."
+ },
+ {
+  "id": "bio-2543cb05",
+  "text": "(iv) Suggest: one point, 3 marks.",
+  "say": "For part four, suggest a sensible reason, using what you know. That's one point, for three marks."
+ },
+ {
+  "id": "bio-bd1e3213",
+  "text": "(i), (iii), (vi) Use the diagram: 5 points, 13 marks.",
+  "say": "For parts one, three, six, read the diagram and find the exact part. That's five points, for thirteen marks."
+ },
+ {
+  "id": "bio-737da6db",
+  "text": "(iv) Draw: 2 points, 8 marks.",
+  "say": "For part four, draw it large, and label it clearly. That's two points, for eight marks."
+ },
+ {
+  "id": "bio-63b23fd9",
+  "text": "(v) Name: one point, 3 marks.",
+  "say": "For part five, just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-83abb3a5",
+  "text": "(i)1, (i)2 Name: 4 points, 12 marks.",
+  "say": "For parts one 1, one 2, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-488dbe69",
+  "text": "(i), (ii) Use the diagram: 7 points, 21 marks.",
+  "say": "For parts one, two, read the diagram and find the exact part. That's seven points, for twenty-one marks."
+ },
+ {
+  "id": "bio-0f6dd43f",
+  "text": "(iv) Compare: 2 points, 6 marks.",
+  "say": "For part four, say how they differ, with something about each one. That's two points, for six marks."
+ },
+ {
+  "id": "bio-13684c8b",
+  "text": "(e) Name: 2 points, 4 marks.",
+  "say": "For part e, just name it: a word or a short phrase is enough. That's two points, for four marks."
+ },
+ {
+  "id": "bio-ea98e6a2",
+  "text": "(ii)1 Name: one point, 3 marks.",
+  "say": "For part two 1, just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-90319628",
+  "text": "(ii)2 Compare: one point, 3 marks.",
+  "say": "For part two 2, say how they differ, with something about each one. That's one point, for three marks."
+ },
+ {
+  "id": "bio-8f7db50f",
+  "text": "12 marks.",
+  "say": "This one is worth twelve marks. Here's what each part wants."
+ },
+ {
+  "id": "bio-a9ac1f6c",
+  "text": "(i) Use the diagram: 4 points, 12 marks.",
+  "say": "For part one, read the diagram and find the exact part. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-ec656706",
+  "text": "(g) Name: one point, 3 marks.",
+  "say": "For part g, just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-a70769f5",
+  "text": "(i), (iv) Use the diagram: 4 points, 12 marks.",
+  "say": "For parts one, four, read the diagram and find the exact part. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-7b38b7c7",
+  "text": "(vii) Describe: one point, 3 marks.",
+  "say": "For part seven, describe it: say what happens, step by step. That's one point, for three marks."
+ },
+ {
+  "id": "bio-518e4f01",
+  "text": "(iv), (v) Name: 2 points, 6 marks.",
+  "say": "For parts four, five, just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-f59f8e53",
+  "text": "(a)(i) Explain: one point, 3 marks.",
+  "say": "For part a one, explain it: say what happens, and why. That's one point, for three marks."
+ },
+ {
+  "id": "bio-0bda75cf",
+  "text": "(a)(ii) Define: one point, 3 marks.",
+  "say": "For part a two, say what it means, in one clear sentence. That's one point, for three marks."
+ },
+ {
+  "id": "bio-e9343b88",
+  "text": "(b)(i), (b)(ii), (b)(iv) Name: 4 points, 12 marks.",
+  "say": "For parts b one, b two, b four, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-feb9acfa",
+  "text": "(b)(iii) Describe: 4 points, 12 marks.",
+  "say": "For part b three, describe it: say what happens, step by step. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-6bd7b369",
+  "text": "(v) Name: 3 points, 10 marks.",
+  "say": "For part five, just name it: a word or a short phrase is enough. That's three points, for ten marks."
+ },
+ {
+  "id": "bio-e2164874",
+  "text": "(viii) Name: one point, 3 marks.",
+  "say": "For part eight, just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-a924d7a4",
+  "text": "(a)–(f) Name: 5 points, 15 marks.",
+  "say": "For parts a, b, c, d, f, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-3b43e258",
+  "text": "(e) Use the diagram: 2 points, 6 marks.",
+  "say": "For part e, read the diagram and find the exact part. That's two points, for six marks."
+ },
+ {
+  "id": "bio-89314ff4",
+  "text": "(a) Name: one point, 3 marks.",
+  "say": "For part a, just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-2f655e8c",
+  "text": "32 marks in 3 parts.",
+  "say": "This one is worth thirty-two marks, in three parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-3adf5486",
+  "text": "(i) Draw: 7 points, 17 marks.",
+  "say": "For part one, draw it large, and label it clearly. That's seven points, for seventeen marks."
+ },
+ {
+  "id": "bio-5fbfbe30",
+  "text": "(ii), (iii) Name: 5 points, 15 marks.",
+  "say": "For parts two, three, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-8e9ec41c",
+  "text": "(e) Name: one point, 4 marks.",
+  "say": "For part e, just name it: a word or a short phrase is enough. That's one point, for four marks."
+ },
+ {
+  "id": "bio-fc12dc12",
+  "text": "(i) Draw: 5 points, 9 marks.",
+  "say": "For part one, draw it large, and label it clearly. That's five points, for nine marks."
+ },
+ {
+  "id": "bio-490e2dc8",
+  "text": "(ii) Use the diagram: 5 points, 15 marks.",
+  "say": "For part two, read the diagram and find the exact part. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-52430ffc",
+  "text": "(e) Suggest: one point, 3 marks.",
+  "say": "For part e, suggest a sensible reason, using what you know. That's one point, for three marks."
+ },
+ {
+  "id": "bio-64811ecc",
+  "text": "(a)(i)–(b)(iv) Name: 10 points, 30 marks.",
+  "say": "For parts a one, a two, b one, b two, b three, b four, just name it: a word or a short phrase is enough. That's ten points, for thirty marks."
+ },
+ {
+  "id": "bio-108d260e",
+  "text": "(b) True or false: one point, 3 marks.",
+  "say": "For part b, decide if each statement is true or false. That's one point, for three marks."
+ },
+ {
+  "id": "bio-2d70a160",
+  "text": "(ii), (iii), (iv) Name: 5 points, 15 marks.",
+  "say": "For parts two, three, four, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-e9cd5281",
+  "text": "(a)–(f) Name: 10 points, 30 marks.",
+  "say": "For parts a, b, c, d, e, f, just name it: a word or a short phrase is enough. That's ten points, for thirty marks."
+ },
+ {
+  "id": "bio-247b25e3",
+  "text": "(i)1–(ii)2 Name: 8 points, 24 marks.",
+  "say": "For parts one 1, one 2, one 3, two 1, two 2, just name it: a word or a short phrase is enough. That's eight points, for twenty-four marks."
+ },
+ {
+  "id": "bio-95813583",
+  "text": "(ii), (iii) Name: 2 points, 6 marks.",
+  "say": "For parts two, three, just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-819f33eb",
+  "text": "30 marks in 5 parts.",
+  "say": "This one is worth thirty marks, in five parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-191bb071",
+  "text": "(a)(i)–(b)(iii) Name: 7 points, 18 marks.",
+  "say": "For parts a one, a two, b two, b three, just name it: a word or a short phrase is enough. That's seven points, for eighteen marks."
+ },
+ {
+  "id": "bio-4cc8bf2e",
+  "text": "(b)(i) Describe: 4 points, 12 marks.",
+  "say": "For part b one, describe it: say what happens, step by step. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-34496dbf",
+  "text": "(i), (ii) Use the diagram: 4 points, 12 marks.",
+  "say": "For parts one, two, read the diagram and find the exact part. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-5696fa76",
+  "text": "(iii), (iv), (v) Name: 5 points, 15 marks.",
+  "say": "For parts three, four, five, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-243925eb",
+  "text": "24 marks in 2 parts.",
+  "say": "This one is worth twenty-four marks, in two parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-5b026e47",
+  "text": "(i), (ii) Describe: 8 points, 24 marks.",
+  "say": "For parts one, two, describe it: say what happens, step by step. That's eight points, for twenty-four marks."
+ },
+ {
+  "id": "bio-260e1026",
+  "text": "15 marks in 2 parts.",
+  "say": "This one is worth fifteen marks, in two parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-63f49d24",
+  "text": "(b) Name: 3 points, 9 marks.",
+  "say": "For part b, just name it: a word or a short phrase is enough. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-58936ac9",
+  "text": "(e), (f) True or false: 2 points, 6 marks.",
+  "say": "For parts e, f, decide if each statement is true or false. That's two points, for six marks."
+ },
+ {
+  "id": "bio-c8d8f84e",
+  "text": "(a)(ii)–(b) coronary artery Name: 4 points, 12 marks.",
+  "say": "For parts a two, b expose semilunar valve, b function of semilunar valve, b coronary artery, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-bbb088e4",
+  "text": "(b) dissection Describe: 3 points, 9 marks.",
+  "say": "For part b dissection, describe it: say what happens, step by step. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-68ea1573",
+  "text": "(b) diagram Draw: 2 points, 6 marks.",
+  "say": "For part b diagram, draw it large, and label it clearly. That's two points, for six marks."
+ },
+ {
+  "id": "bio-fe726930",
+  "text": "33 marks in 2 parts.",
+  "say": "This one is worth thirty-three marks, in two parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-985ed680",
+  "text": "(i), (ii) Describe: 11 points, 33 marks.",
+  "say": "For parts one, two, describe it: say what happens, step by step. That's eleven points, for thirty-three marks."
+ },
+ {
+  "id": "bio-166d14c7",
+  "text": "(i) Explain: 3 points, 9 marks.",
+  "say": "For part one, explain it: say what happens, and why. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-95b30058",
+  "text": "(iii), (iv) Name: 4 points, 12 marks.",
+  "say": "For parts three, four, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-008b826c",
+  "text": "18 marks in 4 parts.",
+  "say": "This one is worth eighteen marks, in four parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-cd0e0bbf",
+  "text": "(ii), (iv) Name: 2 points, 6 marks.",
+  "say": "For parts two, four, just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-e48e0737",
+  "text": "(iii) Define: 2 points, 6 marks.",
+  "say": "For part three, say what it means, in one clear sentence. That's two points, for six marks."
+ },
+ {
+  "id": "bio-3144e535",
+  "text": "(i) Use the diagram: 2 points, 3 marks.",
+  "say": "For part one, read the diagram and find the exact part. That's two points, for three marks."
+ },
+ {
+  "id": "bio-76a56e14",
+  "text": "(ii)–(vi) Name: 8 points, 24 marks.",
+  "say": "For parts two, three, five, six, just name it: a word or a short phrase is enough. That's eight points, for twenty-four marks."
+ },
+ {
+  "id": "bio-4ddd11c3",
+  "text": "(i) 1.–(iii) Name: 9 points, 27 marks.",
+  "say": "For parts one 1., one 2., two, three, just name it: a word or a short phrase is enough. That's nine points, for twenty-seven marks."
+ },
+ {
+  "id": "bio-e8970e2d",
+  "text": "(ii), (iv) 1., (iv) 2. Name: 4 points, 12 marks.",
+  "say": "For parts two, four 1., four 2., just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-81481625",
+  "text": "(i) 1.–(ii) 3. Name: 8 points, 30 marks.",
+  "say": "For parts one 1., one 2., two 1., two 2., two 3., just name it: a word or a short phrase is enough. That's eight points, for thirty marks."
+ },
+ {
+  "id": "bio-2ab8fb5f",
+  "text": "(iii), (iv), (v) Name: 5 points, 21 marks.",
+  "say": "For parts three, four, five, just name it: a word or a short phrase is enough. That's five points, for twenty-one marks."
+ },
+ {
+  "id": "bio-cd6c2680",
+  "text": "(e) Name: one point, 3 marks.",
+  "say": "For part e, just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-1121a642",
+  "text": "(iii) 1., (iii) 2., (iii) 3. Name: 4 points, 12 marks.",
+  "say": "For parts three 1., three 2., three 3., just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-eb5b7cf2",
+  "text": "(v) Name: 2 points, 6 marks.",
+  "say": "For part five, just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-0f24715c",
+  "text": "(d) True or false: one point, 3 marks.",
+  "say": "For part d, decide if each statement is true or false. That's one point, for three marks."
+ },
+ {
+  "id": "bio-9a091c70",
+  "text": "(a)–(f) Name: 5 points, 15 marks.",
+  "say": "For parts a, d, e, f, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-e3a03596",
+  "text": "(b) Use the diagram: one point, 3 marks.",
+  "say": "For part b, read the diagram and find the exact part. That's one point, for three marks."
+ },
+ {
+  "id": "bio-a60e1699",
+  "text": "(c) Explain: one point, 3 marks.",
+  "say": "For part c, explain it: say what happens, and why. That's one point, for three marks."
+ },
+ {
+  "id": "bio-42e4d285",
+  "text": "(i)–(v) 1. Name: 7 points, 21 marks.",
+  "say": "For parts one, two, three, four, five 1., just name it: a word or a short phrase is enough. That's seven points, for twenty-one marks."
+ },
+ {
+  "id": "bio-6c5feecb",
+  "text": "(v) 2. Suggest: one point, 3 marks.",
+  "say": "For part five 2., suggest a sensible reason, using what you know. That's one point, for three marks."
+ },
+ {
+  "id": "bio-60a85b38",
+  "text": "(vi) Use the diagram: one point, 3 marks.",
+  "say": "For part six, read the diagram and find the exact part. That's one point, for three marks."
+ },
+ {
+  "id": "bio-49325055",
+  "text": "(vii) Explain: one point, 3 marks.",
+  "say": "For part seven, explain it: say what happens, and why. That's one point, for three marks."
+ },
+ {
+  "id": "bio-df560f30",
+  "text": "(i)–(vi) Name: 5 points, 15 marks.",
+  "say": "For parts one, two, five, six, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-1a12fe39",
+  "text": "(vii) Compare: one point, 3 marks.",
+  "say": "For part seven, say how they differ, with something about each one. That's one point, for three marks."
+ },
+ {
+  "id": "bio-88051118",
+  "text": "20 marks in 2 parts.",
+  "say": "This one is worth twenty marks, in two parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-80bf5910",
+  "text": "(i), (ii) Name: 6 points, 20 marks.",
+  "say": "For parts one, two, just name it: a word or a short phrase is enough. That's six points, for twenty marks."
+ },
+ {
+  "id": "bio-335a572d",
+  "text": "(i) Name: one point, 4 marks.",
+  "say": "For part one, just name it: a word or a short phrase is enough. That's one point, for four marks."
+ },
+ {
+  "id": "bio-7849d994",
+  "text": "(iii) 2. Explain: one point, 3 marks.",
+  "say": "For part three 2., explain it: say what happens, and why. That's one point, for three marks."
+ },
+ {
+  "id": "bio-08992f26",
+  "text": "(ii), (iv) Name: 4 points, 12 marks.",
+  "say": "For parts two, four, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-e46cd36f",
+  "text": "(i) Suggest: one point, 3 marks.",
+  "say": "For part one, suggest a sensible reason, using what you know. That's one point, for three marks."
+ },
+ {
+  "id": "bio-2762a9f4",
+  "text": "(ii), (iii), (v) Name: 5 points, 15 marks.",
+  "say": "For parts two, three, five, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-67ae6f32",
+  "text": "(iv) Describe: 4 points, 12 marks.",
+  "say": "For part four, describe it: say what happens, step by step. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-f429a600",
+  "text": "(i), (iii) Name: 4 points, 12 marks.",
+  "say": "For parts one, three, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-9ca88241",
+  "text": "(ii) Define: 3 points, 9 marks.",
+  "say": "For part two, say what it means, in one clear sentence. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-19971fa6",
+  "text": "(iv) Describe: one point, 3 marks.",
+  "say": "For part four, describe it: say what happens, step by step. That's one point, for three marks."
+ },
+ {
+  "id": "bio-acaa7722",
+  "text": "(a), (d) Name: 2 points, 6 marks.",
+  "say": "For parts a, d, just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-33e0cc51",
+  "text": "(ii) 4. Name: one point, 3 marks.",
+  "say": "For part two 4., just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-17ff5d18",
+  "text": "(iii) 2. Define: one point, 3 marks.",
+  "say": "For part three 2., say what it means, in one clear sentence. That's one point, for three marks."
+ },
+ {
+  "id": "bio-a4e7b5bd",
+  "text": "(i) Describe: 2 points, 6 marks.",
+  "say": "For part one, describe it: say what happens, step by step. That's two points, for six marks."
+ },
+ {
+  "id": "bio-08f6d536",
+  "text": "(ii), (iv) 1., (iv) 2. Name: 5 points, 21 marks.",
+  "say": "For parts two, four 1., four 2., just name it: a word or a short phrase is enough. That's five points, for twenty-one marks."
+ },
+ {
+  "id": "bio-860c5ef0",
+  "text": "(iii) Compare: one point, 3 marks.",
+  "say": "For part three, say how they differ, with something about each one. That's one point, for three marks."
+ },
+ {
+  "id": "bio-fa46d44d",
+  "text": "(a)–(g) Name: 6 points, 18 marks.",
+  "say": "For parts a, b, c, d, f, g, just name it: a word or a short phrase is enough. That's six points, for eighteen marks."
+ },
+ {
+  "id": "bio-c4f30549",
+  "text": "(v) Suggest: one point, 3 marks.",
+  "say": "For part five, suggest a sensible reason, using what you know. That's one point, for three marks."
+ },
+ {
+  "id": "bio-679290eb",
+  "text": "(i), (ii), (iii) Name: 3 points, 9 marks.",
+  "say": "For parts one, two, three, just name it: a word or a short phrase is enough. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-f9d33de4",
+  "text": "(i) Compare: 4 points, 12 marks.",
+  "say": "For part one, say how they differ, with something about each one. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-7b93554e",
+  "text": "(i)–(iii) 3. Name: 10 points, 30 marks.",
+  "say": "For parts one, two, three 1., three 2., three 3., just name it: a word or a short phrase is enough. That's ten points, for thirty marks."
+ },
+ {
+  "id": "bio-62441924",
+  "text": "20 marks in 4 parts.",
+  "say": "This one is worth twenty marks, in four parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-4bc44158",
+  "text": "(a) (i)–(c) Name: 7 points, 20 marks.",
+  "say": "For parts a one, a two, b, c, just name it: a word or a short phrase is enough. That's seven points, for twenty marks."
+ },
+ {
+  "id": "bio-c0ac720c",
+  "text": "(i), (v) Name: 5 points, 20 marks.",
+  "say": "For parts one, five, just name it: a word or a short phrase is enough. That's five points, for twenty marks."
+ },
+ {
+  "id": "bio-003a5651",
+  "text": "(ii) Suggest: one point, 3 marks.",
+  "say": "For part two, suggest a sensible reason, using what you know. That's one point, for three marks."
+ },
+ {
+  "id": "bio-93c4aebd",
+  "text": "(iv) Name: one point, 6 marks.",
+  "say": "For part four, just name it: a word or a short phrase is enough. That's one point, for six marks."
+ },
+ {
+  "id": "bio-65b3dcf8",
+  "text": "(d) Name: 2 points, 6 marks.",
+  "say": "For part d, just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-26b170d4",
+  "text": "(i)–(vi) Name: 8 points, 24 marks.",
+  "say": "For parts one, two, three, four, six, just name it: a word or a short phrase is enough. That's eight points, for twenty-four marks."
+ },
+ {
+  "id": "bio-ce630941",
+  "text": "(v) Define: 2 points, 6 marks.",
+  "say": "For part five, say what it means, in one clear sentence. That's two points, for six marks."
+ },
+ {
+  "id": "bio-39be939d",
+  "text": "(iii) Compare: 2 points, 6 marks.",
+  "say": "For part three, say how they differ, with something about each one. That's two points, for six marks."
+ },
+ {
+  "id": "bio-0903e4b4",
+  "text": "(iv)–(v) 3. Name: 5 points, 15 marks.",
+  "say": "For parts four, five 1., five 2., five 3., just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+ },
+ {
+  "id": "bio-eb538f9d",
+  "text": "(iv) Define: 2 points, 6 marks.",
+  "say": "For part four, say what it means, in one clear sentence. That's two points, for six marks."
+ },
+ {
+  "id": "bio-b812b4b1",
+  "text": "(ii) Name: 3 points, 10 marks.",
+  "say": "For part two, just name it: a word or a short phrase is enough. That's three points, for ten marks."
+ },
+ {
+  "id": "bio-27bd2c64",
+  "text": "(i)–(iv) Name: 8 points, 30 marks.",
+  "say": "For parts one, two, three, four, just name it: a word or a short phrase is enough. That's eight points, for thirty marks."
+ },
+ {
+  "id": "bio-6638e039",
+  "text": "(v) Define: 3 points, 9 marks.",
+  "say": "For part five, say what it means, in one clear sentence. That's three points, for nine marks."
+ }
+]

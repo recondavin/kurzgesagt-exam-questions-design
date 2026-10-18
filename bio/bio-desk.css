@@ -1,0 +1,38 @@
+/* The Biology desk (bio/bio-desk.js) on the desk page: its buttons, the guide's diagram, and the answer sheet's type
+   (the desk page sets Verdana on everything, so the sheet's own fonts are put back here). */
+
+/* Geography / Biology switch, top right of the screen. */
+.desk-subjects { position: fixed; z-index: 60; top: 14px; right: 14px; display: flex; gap: 2px; padding: 4px; border-radius: 999px; background: rgba(19, 41, 74, .92); }
+body .desk-subjects a { padding: 7px 14px; border-radius: 999px; color: #C9D6EE; text-decoration: none; font: 600 15px/1 Fredoka, Nunito, sans-serif !important; }
+body .desk-subjects a[aria-current="page"] { background: #FFC42E; color: #13294A; }
+body .desk-subjects a:hover:not([aria-current]) { color: #FFFFFF; }
+body .desk-subjects a:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
+
+/* Biology question bar, top left: back to the chapter, previous / next, answer it. */
+body.bio-desk .geography-focus-target--3b { display: none !important; }
+.bio-deskbar { position: fixed; z-index: 60; top: 14px; left: 14px; display: flex; align-items: center; gap: 6px; padding: 4px; border-radius: 999px; background: rgba(19, 41, 74, .92); }
+body .bio-deskbar a, body .bio-deskbar span, body .bio-deskbar button { font: 600 15px/1 Fredoka, Nunito, sans-serif !important; }
+.bio-deskbar__back { padding: 8px 14px 8px 12px; border-radius: 999px; color: #FFFFFF; text-decoration: none; }
+.bio-deskbar__back::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 8px; border: solid currentColor; border-width: 0 0 2.5px 2.5px; transform: rotate(45deg) translateY(-2px); }
+.bio-deskbar__where { padding: 0 6px; color: #A9BAD6; }
+.bio-deskbar__btn { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #1B3150; color: #FFFFFF; text-decoration: none; font-size: 22px !important; }
+.bio-deskbar__write { padding: 9px 16px; border: 0; border-radius: 999px; background: #2BC46F; color: #FFFFFF; cursor: pointer; }
+.bio-deskbar a:hover, .bio-deskbar__btn:hover { background: #26395A; }
+.bio-deskbar__write:hover { background: #1E9A55; }
+.bio-deskbar a:focus-visible, .bio-deskbar button:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
+body.hf-active .desk-subjects, body.hf-active .bio-deskbar { display: none; }
+@media (max-width: 700px) {
+  .desk-subjects { top: auto; bottom: 10px; right: 10px; }
+  .bio-deskbar { top: 10px; left: 10px; right: 10px; justify-content: space-between; }
+  .bio-deskbar__where { display: none; }
+}
+
+/* The guide's diagram for "The science" step, with its key parts ringed. */
+.hf-bio-pic { margin: 0 0 14px; border-radius: 12px; overflow: hidden; line-height: 0; background: #FFFFFF; }
+.hf-bio-pic svg { display: block; width: 100%; height: auto; max-height: 34vh; }
+@media (max-width: 820px) { .hf-bio-pic svg { max-height: 20vh; } }
+
+/* The answer sheet's type (the desk page forces Verdana with !important). */
+body .am-root .bio-paper :is(p, span, button, input, textarea, label, li, em, i, b, a, h3, div) { font-family: Nunito, system-ui, sans-serif !important; }
+body .am-root .bio-paper :is(.bio-src, .bio-part__q b, .bio-field b, .bio-part__got, .bio-part__got b, .bio-pts__mark, .bio-old, .bio-btn, .bio-self) { font-family: Fredoka, Nunito, sans-serif !important; }
+body .am-root .bio-paper .am-type__box { font-family: Nunito, system-ui, sans-serif !important; }

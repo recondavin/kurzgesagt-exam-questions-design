@@ -23,6 +23,13 @@ a { color: inherit; }
 button { font: inherit; }
 .bio-app { max-width: 880px; margin: 0 auto; padding: 24px 16px 64px; }
 
+/* Geography / Biology switch (the desk page has the same one). */
+.bio-subjects { display: flex; justify-content: flex-end; gap: 2px; max-width: 880px; margin: 0 auto; padding: 14px 16px 0; }
+.bio-subjects a { padding: 7px 14px; border-radius: 999px; color: var(--soft); text-decoration: none; font: 600 15px/1 Fredoka, Nunito, sans-serif; }
+.bio-subjects a[aria-current="page"] { background: var(--yellow); color: var(--panel); }
+.bio-subjects a:hover:not([aria-current]) { color: #fff; }
+.bio-subjects a:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
+
 /* Top of the home page: the examiner and the title. */
 .bio-top { display: flex; align-items: center; gap: 18px; margin: 4px 0 24px; }
 .bio-face { flex: 0 0 96px; height: 96px; }
@@ -85,54 +92,12 @@ button { font: inherit; }
 .bio-d__text b { font: 700 20px/1.2 Fredoka, Nunito, sans-serif; }
 .bio-d__text span { color: var(--soft); font-size: 14.5px; }
 .bio-d__btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-.bio-btn { padding: 9px 16px; border: 0; border-radius: 12px; background: var(--green); color: #fff; box-shadow: 0 3px 0 var(--green-d); font: 700 16px Fredoka, Nunito, sans-serif; cursor: pointer; }
-.bio-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--green-d); }
-.bio-btn:disabled { opacity: .45; cursor: default; transform: none; }
-.bio-btn--ghost { background: transparent; color: var(--soft); border: 2px solid var(--line); box-shadow: none; padding: 7px 14px; }
-.bio-btn--ghost[aria-pressed="true"] { border-color: var(--yellow); color: #fff; background: #26395A; }
 .bio-g { display: flex; flex-direction: column; gap: 2px; position: relative; width: 100%; padding: 14px 44px 14px 16px; border: 2px solid var(--line); border-bottom-width: 4px; border-radius: 16px; background: var(--card); color: var(--text); text-align: left; cursor: pointer; }
 .bio-g:hover { border-color: var(--yellow); }
 .bio-g b { font: 700 20px Fredoka, Nunito, sans-serif; }
 .bio-g span { color: var(--soft); font-size: 14.5px; }
 .bio-g .bio-go { position: absolute; right: 18px; top: 50%; margin-top: -5px; }
 
-/* The exam paper inside a question card (answer-mode.js styles the card itself). */
-.bio-paper { padding: 16px 18px; border-radius: 14px; background: var(--paper); color: var(--ink); }
-.bio-src { margin: 0 0 6px; font: 700 13px Fredoka, Nunito, sans-serif; letter-spacing: .04em; text-transform: uppercase; color: #5E6F8A; }
-.bio-why { margin: 0 0 8px; padding: 6px 10px; border-radius: 8px; background: #FFF6DB; color: #6B5310; font-size: 14px; }
-.bio-stem { margin: 0 0 12px; font-size: 17px; line-height: 1.5; }
-.bio-dia { margin: 0 0 14px; border-radius: 10px; overflow: hidden; line-height: 0; border: 1px solid #D5DCE8; }
-.bio-dia svg { width: 100%; height: auto; display: block; }
-.bio-dia--two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; border: 0; }
-.bio-dia--two > div { border: 1px solid #D5DCE8; border-radius: 10px; overflow: hidden; }
-.bio-dia__note { margin: 0 0 12px; padding: 8px 12px; border-radius: 10px; background: #EEF2F8; font-size: 14.5px; }
-.bio-taps .bio-tap { fill: transparent; stroke: #1F3FA8; stroke-width: 2; stroke-dasharray: 4 4; cursor: pointer; }
-.bio-taps .bio-tap:hover, .bio-taps .bio-tap:focus { fill: rgba(31, 63, 168, .12); outline: none; }
-.bio-part { margin: 0; padding: 14px 0; border-top: 1px solid #E3E9F4; }
-.bio-part__q { margin: 0 0 8px; font-size: 16.5px; line-height: 1.45; }
-.bio-part__q b { font: 700 16px Fredoka, Nunito, sans-serif; color: #1F3FA8; }
-.bio-part__m { color: #5E6F8A; font-size: 14px; white-space: nowrap; }
-.bio-part .am-type__box { background: #FFFFFF; border-color: #CBD5E4; }
-.bio-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
-.bio-field { display: flex; align-items: center; gap: 8px; }
-.bio-field b { flex: 0 0 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--ink); font: 700 14px Fredoka, Nunito, sans-serif; }
-.bio-field input { flex: 1; min-width: 0; padding: 9px 11px; border: 2px solid #CBD5E4; border-radius: 10px; font: 800 16px Nunito, sans-serif; color: var(--ink); background: #fff; }
-.bio-field input:focus { outline: none; border-color: #FFC42E; }
-.bio-tf { display: flex; gap: 8px; }
-.bio-tf .bio-btn--ghost { color: var(--ink); border-color: #CBD5E4; }
-.bio-tf .bio-btn--ghost[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
-.bio-hint { margin: 0; color: #5E6F8A; font-size: 14.5px; }
-.bio-part__act { display: flex; align-items: center; gap: 12px; margin: 10px 0 0; }
-.bio-part__got { font: 700 16px Fredoka, Nunito, sans-serif; color: #5E6F8A; }
-.bio-part__got b { padding: 3px 12px; border-radius: 999px; background: var(--ink); color: #fff; }
-.bio-pts { margin: 10px 0 0; padding: 0; list-style: none; }
-.bio-pts li { display: flex; align-items: flex-start; gap: 8px; margin: 0 0 6px; padding: 7px 10px; border-radius: 10px; font-size: 15px; line-height: 1.4; }
-.bio-pts li.is-got { background: #D4F7E2; color: #0B4F2C; }
-.bio-pts li.is-miss { background: #F1F4F9; color: #3A4A66; }
-.bio-pts__mark { flex: none; width: 18px; font: 700 16px Fredoka, Nunito, sans-serif; text-align: center; }
-.bio-pts em { font-style: normal; color: #5E6F8A; }
-.bio-self { flex: none; margin-left: auto; padding: 2px 8px; border: 1.5px solid #9FB0CC; border-radius: 8px; background: transparent; color: #3A4A66; font: 700 12.5px Fredoka, Nunito, sans-serif; cursor: pointer; }
-.bio-rule { margin: 4px 0 0; color: #5E6F8A; font-size: 13.5px; }
 
 @media (max-width: 600px) {
   .bio-h1 { font-size: 27px; }
@@ -140,8 +105,6 @@ button { font: inherit; }
   .bio-q { grid-template-columns: 64px 1fr; }
   .bio-q__meta { grid-column: 2; flex-direction: row; align-items: center; }
   .bio-d { grid-template-columns: 1fr; }
-  .bio-dia--two { grid-template-columns: 1fr; }
-  .bio-paper { padding: 12px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
@@ -158,8 +121,6 @@ button { font: inherit; }
 .bb-piece[aria-pressed="true"] { border-color: #FFC42E; box-shadow: 0 0 0 3px #FFC42E; }
 .bb-piece:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
 .bb-opts { margin-top: 12px; grid-template-columns: 1fr 1fr; }
-.bio-taps .bio-tap.is-right { fill: rgba(43, 196, 111, .35); stroke: #1E9A55; stroke-dasharray: none; }
-.bio-taps .bio-tap.is-wrong { fill: rgba(229, 72, 77, .3); stroke: #B3262B; stroke-dasharray: none; }
 .am-root .bb-piece span, .am-root .vw-text, .am-root .so-card, .am-root .so-bin, .am-root .tb-table th, .am-root .tb-cell, .am-root .nr-overlay p, .am-root .nr-result { font-family: Nunito, system-ui, sans-serif !important; }
 
 /* Nephron run. */

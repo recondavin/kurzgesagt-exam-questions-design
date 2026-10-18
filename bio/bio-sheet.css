@@ -1,0 +1,65 @@
+/* The exam question sheet (bio/bio.js) and its marked points. Used on biology.html and on the desk
+   (Geography Questions.dc.html#bio/...), so the colours are set on the answer-mode root, not the page. */
+.am-root {
+  --bg: #0F1D31;
+  --panel: #14243B;
+  --card: #1B3150;
+  --line: #2A3D5E;
+  --text: #F4F7FF;
+  --soft: #C9D6EE;
+  --mute: #8496B6;
+  --yellow: #FFC42E;
+  --yellow-d: #C98E00;
+  --green: #2BC46F;
+  --green-d: #1E9A55;
+  --red: #E5484D;
+  --paper: #FFFEF8;
+  --ink: #13294A;
+}
+.bio-btn { padding: 9px 16px; border: 0; border-radius: 12px; background: var(--green); color: #fff; box-shadow: 0 3px 0 var(--green-d); font: 700 16px Fredoka, Nunito, sans-serif; cursor: pointer; }
+.bio-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--green-d); }
+.bio-btn:disabled { opacity: .45; cursor: default; transform: none; }
+.bio-btn--ghost { background: transparent; color: var(--soft); border: 2px solid var(--line); box-shadow: none; padding: 7px 14px; }
+.bio-btn--ghost[aria-pressed="true"] { border-color: var(--yellow); color: #fff; background: #26395A; }
+.bio-paper { padding: 16px 18px; border-radius: 14px; background: var(--paper); color: var(--ink); }
+.bio-src { margin: 0 0 6px; font: 700 13px Fredoka, Nunito, sans-serif; letter-spacing: .04em; text-transform: uppercase; color: #5E6F8A; }
+.bio-why { margin: 0 0 8px; padding: 6px 10px; border-radius: 8px; background: #FFF6DB; color: #6B5310; font-size: 14px; }
+.bio-stem { margin: 0 0 12px; font-size: 17px; line-height: 1.5; }
+.bio-dia { margin: 0 0 14px; border-radius: 10px; overflow: hidden; line-height: 0; border: 1px solid #D5DCE8; }
+.bio-dia svg { width: 100%; height: auto; display: block; }
+.bio-dia--two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; border: 0; }
+.bio-dia--two > div { border: 1px solid #D5DCE8; border-radius: 10px; overflow: hidden; }
+.bio-dia__note { margin: 0 0 12px; padding: 8px 12px; border-radius: 10px; background: #EEF2F8; font-size: 14.5px; }
+.bio-taps .bio-tap { fill: transparent; stroke: #1F3FA8; stroke-width: 2; stroke-dasharray: 4 4; cursor: pointer; }
+.bio-taps .bio-tap:hover, .bio-taps .bio-tap:focus { fill: rgba(31, 63, 168, .12); outline: none; }
+.bio-part { margin: 0; padding: 14px 0; border-top: 1px solid #E3E9F4; }
+.bio-part__q { margin: 0 0 8px; font-size: 16.5px; line-height: 1.45; }
+.bio-part__q b { font: 700 16px Fredoka, Nunito, sans-serif; color: #1F3FA8; }
+.bio-part__m { color: #5E6F8A; font-size: 14px; white-space: nowrap; }
+.bio-part .am-type__box { background: #FFFFFF; border-color: #CBD5E4; }
+.bio-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+.bio-field { display: flex; align-items: center; gap: 8px; }
+.bio-field b { flex: 0 0 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--ink); font: 700 14px Fredoka, Nunito, sans-serif; }
+.bio-field input { flex: 1; min-width: 0; padding: 9px 11px; border: 2px solid #CBD5E4; border-radius: 10px; font: 800 16px Nunito, sans-serif; color: var(--ink); background: #fff; }
+.bio-field input:focus { outline: none; border-color: #FFC42E; }
+.bio-tf { display: flex; gap: 8px; }
+.bio-tf .bio-btn--ghost { color: var(--ink); border-color: #CBD5E4; }
+.bio-tf .bio-btn--ghost[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+.bio-hint { margin: 0; color: #5E6F8A; font-size: 14.5px; }
+.bio-part__act { display: flex; align-items: center; gap: 12px; margin: 10px 0 0; }
+.bio-part__got { font: 700 16px Fredoka, Nunito, sans-serif; color: #5E6F8A; }
+.bio-part__got b { padding: 3px 12px; border-radius: 999px; background: var(--ink); color: #fff; }
+.bio-pts { margin: 10px 0 0; padding: 0; list-style: none; }
+.bio-pts li { display: flex; align-items: flex-start; gap: 8px; margin: 0 0 6px; padding: 7px 10px; border-radius: 10px; font-size: 15px; line-height: 1.4; }
+.bio-pts li.is-got { background: #D4F7E2; color: #0B4F2C; }
+.bio-pts li.is-miss { background: #F1F4F9; color: #3A4A66; }
+.bio-pts__mark { flex: none; width: 18px; font: 700 16px Fredoka, Nunito, sans-serif; text-align: center; }
+.bio-pts em { font-style: normal; color: #5E6F8A; }
+.bio-self { flex: none; margin-left: auto; padding: 2px 8px; border: 1.5px solid #9FB0CC; border-radius: 8px; background: transparent; color: #3A4A66; font: 700 12.5px Fredoka, Nunito, sans-serif; cursor: pointer; }
+.bio-rule { margin: 4px 0 0; color: #5E6F8A; font-size: 13.5px; }
+.bio-taps .bio-tap.is-right { fill: rgba(43, 196, 111, .35); stroke: #1E9A55; stroke-dasharray: none; }
+.bio-taps .bio-tap.is-wrong { fill: rgba(229, 72, 77, .3); stroke: #B3262B; stroke-dasharray: none; }
+@media (max-width: 600px) {
+  .bio-dia--two { grid-template-columns: 1fr; }
+  .bio-paper { padding: 12px; }
+}

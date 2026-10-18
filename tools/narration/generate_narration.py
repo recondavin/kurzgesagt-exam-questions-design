@@ -218,6 +218,9 @@ def main():
     args = parser.parse_args()
 
     lines = json.loads((HERE / "lines.json").read_text(encoding="utf-8"))
+    # The Biology desk's guide lines (made by tools/bio/build_bio_narration.mjs).
+    if (HERE / "bio_lines.json").exists():
+        lines += json.loads((HERE / "bio_lines.json").read_text(encoding="utf-8"))
     if args.only:
         lines = [line for line in lines if line["id"] in set(args.only)]
     OUT.mkdir(parents=True, exist_ok=True)
