@@ -116,18 +116,50 @@
     }
     return art.plain.replace(/<\/svg>$/, overlay + '</svg>');
   }
+  // A graph from the paper. Simple: {title, trend: 'up' | 'down'} (one dashed line over time). Full:
+  // {title, x, y (axis names), series: [{name, pts: [[x, y], ...]}], marks: [{t, at: [x, y]}], xt / yt (tick labels:
+  // [[x, 'text'], ...]), key: 'left' to put the key top left}, x and y from 0 to 100. Series after the first are dashed.
+  var GRAPH_COLORS = ['#E5484D', '#3E6FD8', '#2BC46F', '#7E5BA3'];
   function graphSvg(g) {
-    var y1 = g.trend === 'down' ? 40 : 120, y2 = g.trend === 'down' ? 120 : 40;
-    return '<svg viewBox="0 0 220 160" role="img"><title>' + esc(g.title) + '</title><rect width="220" height="160" fill="#FFFFFF"/>' +
-      '<path d="M30 14V140H210" fill="none" stroke="#14243B" stroke-width="2"/>' +
-      '<path d="M34 ' + y1 + 'C90 ' + y1 + ' 150 ' + y2 + ' 204 ' + y2 + '" fill="none" stroke="#E5484D" stroke-width="3" stroke-dasharray="7 5"/>' +
-      '<text x="120" y="156" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="11" fill="#14243B">Time</text>' +
-      '<text x="36" y="12" font-family="Nunito, sans-serif" font-weight="800" font-size="11" fill="#14243B">' + esc(g.title) + '</text></svg>';
+    var T = function (x, y, txt, more, size) { return '<text x="' + x + '" y="' + y + '" font-family="Nunito, sans-serif" font-weight="800" font-size="' + (size || 11) + '" fill="#14243B"' + (more || '') + '>' + esc(txt) + '</text>'; };
+    if (!g.series) {
+      var y1 = g.trend === 'down' ? 40 : 120, y2 = g.trend === 'down' ? 120 : 40;
+      return '<svg viewBox="0 0 220 160" role="img"><title>' + esc(g.title) + '</title><rect width="220" height="160" fill="#FFFFFF"/>' +
+        '<path d="M30 14V140H210" fill="none" stroke="#14243B" stroke-width="2"/>' +
+        '<path d="M34 ' + y1 + 'C90 ' + y1 + ' 150 ' + y2 + ' 204 ' + y2 + '" fill="none" stroke="#E5484D" stroke-width="3" stroke-dasharray="7 5"/>' +
+        T(120, 156, 'Time', ' text-anchor="middle"') + T(36, 12, g.title) + '</svg>';
+    }
+    // Plot area: x 56..456, y 36..260 on a 480 x 320 card.
+    var X = function (v) { return (56 + v * 4).toFixed(1); }, Y = function (v) { return (260 - v * 2.24).toFixed(1); };
+    var out = '<svg viewBox="0 0 480 320" role="img"><title>' + esc(g.title || '') + '</title><rect width="480" height="320" fill="#FFFFFF"/>';
+    if (g.title) out += T(240, 20, g.title, ' text-anchor="middle"', 13);
+    out += '<path d="M56 30V260H462" fill="none" stroke="#14243B" stroke-width="2"/>';
+    (g.xt || []).forEach(function (t) { out += '<path d="M' + X(t[0]) + ' 260v5" stroke="#14243B" stroke-width="1.5"/>' + T(X(t[0]), 278, t[1], ' text-anchor="middle"', 10); });
+    (g.yt || []).forEach(function (t) { out += '<path d="M51 ' + Y(t[0]) + 'h5" stroke="#14243B" stroke-width="1.5"/>' + T(47, +Y(t[0]) + 4, t[1], ' text-anchor="end"', 10); });
+    if (g.x) out += T(259, 304, g.x, ' text-anchor="middle"');
+    if (g.y) out += '<g transform="translate(18 145) rotate(-90)">' + T(0, 0, g.y, ' text-anchor="middle"') + '</g>';
+    g.series.forEach(function (sr, k) {
+      var c = GRAPH_COLORS[k % GRAPH_COLORS.length], P = sr.pts.map(function (p) { return [+X(p[0]), +Y(p[1])]; }), d = 'M' + P[0].join(' ');
+      // A smooth curve through the points (Catmull-Rom); "straight: true" for straight lines between them.
+      for (var i = 1; i < P.length; i++) {
+        var a = P[i - 2] || P[i - 1], b = P[i - 1], e = P[i], f = P[i + 1] || e;
+        d += sr.straight ? 'L' + e.join(' ') : 'C' + [b[0] + (e[0] - a[0]) / 6, b[1] + (e[1] - a[1]) / 6, e[0] - (f[0] - b[0]) / 6, e[1] - (f[1] - b[1]) / 6, e[0], e[1]].map(function (v) { return v.toFixed(1); }).join(' ');
+      }
+      out += '<path d="' + d + '" fill="none" stroke="' + c + '" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"' + (k ? ' stroke-dasharray="8 6"' : '') + '/>';
+      var kx = g.key === 'left' ? 76 : 300;
+      if (g.series.length > 1 && sr.name) out += '<path d="M' + kx + ' ' + (40 + k * 18) + 'h22" stroke="' + c + '" stroke-width="3"' + (k ? ' stroke-dasharray="6 4"' : '') + '/>' + T(kx + 28, 44 + k * 18, sr.name);
+    });
+    (g.marks || []).forEach(function (m) {
+      out += '<circle cx="' + X(m.at[0]) + '" cy="' + Y(m.at[1]) + '" r="11" fill="#FFFFFF" stroke="#14243B" stroke-width="2"/>' +
+        '<text x="' + X(m.at[0]) + '" y="' + (+Y(m.at[1]) + 0.5) + '" text-anchor="middle" dominant-baseline="central" font-family="Fredoka, Nunito, sans-serif" font-weight="700" font-size="13" fill="#14243B">' + esc(m.t) + '</text>';
+    });
+    return out + '</svg>';
   }
   function diagramHtml(dia, tapPart) {
     if (!dia) return '';
     if (dia.panels) return '<div class="bio-dia bio-dia--two">' + dia.panels.map(function (p) { return '<div>' + baseSvg(p.base, p.marks, null) + '</div>'; }).join('') + '</div>';
-    if (dia.graphs) return '<div class="bio-dia bio-dia--two">' + dia.graphs.map(function (g) { return '<div>' + graphSvg(g) + '</div>'; }).join('') + '</div>';
+    if (dia.graphs) return dia.graphs.length === 1 ? '<div class="bio-dia">' + graphSvg(dia.graphs[0]) + '</div>' :
+      '<div class="bio-dia bio-dia--two">' + dia.graphs.map(function (g) { return '<div>' + graphSvg(g) + '</div>'; }).join('') + '</div>';
     if (dia.base && ART[dia.base]) return '<div class="bio-dia">' + baseSvg(dia.base, dia.marks, tapPart) + '</div>';
     return '<p class="bio-dia__note"><b>Diagram on the paper:</b> ' + esc(dia.note || '') + '</p>';
   }
@@ -414,7 +446,7 @@
     route();
   }
   window.BioApp = {
-    refresh: refresh, words: bioWords, hasPoint: hasPoint, partScore: partScore, chapter: chapter,
+    refresh: refresh, words: bioWords, hasPoint: hasPoint, partScore: partScore, chapter: chapter, graphSvg: graphSvg, diagramHtml: diagramHtml,
     // For tests: does a typed answer get each point of a part?
     check: function (n, qid, partIndex, text) {
       var q = QS[n].questions.filter(function (x) { return x.id === qid; })[0], part = q.parts[partIndex], w = bioWords(text);

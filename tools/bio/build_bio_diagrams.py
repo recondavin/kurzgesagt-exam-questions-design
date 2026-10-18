@@ -7,6 +7,8 @@ window.BioArt[<id>] with:
   anchors  where each structure is, by name (exam-question letters and Build it pins go there),
   parts    the data-part groups in build order, named (Build it drags these into place).
 Labels carry data-label, keys (words that count when you name it) and tag (the words on its pill).
+A chapter can also have CHAIN_ART: {chain title: svg}, the Chain reaction pictures (400 x 300, drawn with the
+step/until/badge helpers in tools/mini_games/build_game_art.py), which go into window.ExamGameArt.chains['bio-<chapter>'].
 Run: python3 tools/bio/build_bio_diagrams.py [chapter ...]   (no chapter: all of them)
 """
 import importlib, json, os, sys
@@ -36,6 +38,11 @@ def build(ch):
         f.write('window.BioArt = window.BioArt || {};\n')
         for k, v in art.items():
             f.write('window.BioArt[' + json.dumps(k) + '] = ' + json.dumps(v, ensure_ascii=False, indent=1) + ';\n')
+        chain_art = getattr(mod, 'CHAIN_ART', None)
+        if chain_art:
+            chain_art = chain_art() if callable(chain_art) else chain_art
+            f.write('window.ExamGameArt = window.ExamGameArt || {};\nwindow.ExamGameArt.chains = window.ExamGameArt.chains || {};\n')
+            f.write('window.ExamGameArt.chains[' + json.dumps('bio-%d' % ch) + '] = ' + json.dumps(chain_art, ensure_ascii=False, indent=1) + ';\n')
     print('wrote', os.path.normpath(out), len(ds), 'diagrams:', ', '.join(d['id'] for d in ds))
 
 

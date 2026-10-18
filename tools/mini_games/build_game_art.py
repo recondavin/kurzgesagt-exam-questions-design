@@ -572,4 +572,5 @@ def main():
     print('wrote', os.path.normpath(out), sum(len(v) for v in data['chains'].values()), 'chain pictures,', len(data['students']), 'students')
 
 
-main()
+if __name__ == '__main__':
+    main()
