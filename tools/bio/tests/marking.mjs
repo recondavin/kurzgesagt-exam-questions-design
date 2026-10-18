@@ -2,10 +2,13 @@
 // common wrong answers must not earn marks. Run: node tools/bio/tests/marking.mjs [-v]
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
-global.window = { ExamAnswerMode: null };
+// A stand-in for answer-mode.js's kit, so bio-examiner.js loads.
+global.window = { ExamAnswerMode: { kit: {} }, BioKit: { esc: x => x, pick: a => a[0], buttons() {}, body() {} } };
 global.document = { readyState: 'loading', addEventListener() {}, getElementById() { return null; } };
 for (const ch of [28, 29, 30, 31, 32]) require(`../../../bio/q${ch}.js`);
+for (const ch of [28, 29, 30, 31, 32]) require(`../../../bio/learn${ch}.js`);
 require('../../../bio/bio.js');
+require('../../../bio/bio-examiner.js');
 const B = window.BioApp, verbose = process.argv[2];
 // The answer as a student might write it: the scheme's wording without its notation.
 const plain = a => a.replace(/^\*+/, '').replace(/^(?:[A-Z]|\d{1,2})\s*(?:[=:.)]|\s-)\s*/, '').replace(/\*/g, '');
@@ -47,3 +50,14 @@ for (const [ch, id, k, text, idx] of RIGHT) {
   if (!miss.length) rok++; else console.log('   RIGHT ANSWER MISSED:', id, k, text, miss);
 }
 console.log(`right answers found: ${rok}/${RIGHT.length}`);
+// Be the examiner: lines written to earn (ok) must earn, the rest must earn nothing, and each fix must earn a new point.
+let eok = 0, en = 0;
+for (const ch of [28, 29, 30, 31, 32]) for (const it of (window.BioLearn[ch] || {}).examiner || []) {
+  const got = window.BioExaminer.mark(ch, it);
+  it.lines.forEach((l, k) => {
+    en++;
+    const bad = Boolean(l.ok) !== got[k].earns || (l.fix && !got[k].fixNew);
+    if (!bad) eok++; else console.log('   EXAMINER LINE:', ch, it.q, k, l.t, JSON.stringify(got[k]));
+  });
+}
+console.log(`examiner lines as written: ${eok}/${en}`);

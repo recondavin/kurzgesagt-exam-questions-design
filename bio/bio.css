@@ -194,3 +194,11 @@ button { font: inherit; }
 .tb-cell.is-no { border-color: #E5484D; background: #FFE1E1; }
 .tb-cell s { color: #B3262B; }
 @media (max-width: 600px) { .bb-opts { grid-template-columns: 1fr; } .so-card { font-size: 22px; padding: 20px 14px; } .vw-text { font-size: 17px; } }
+
+/* Be the examiner (bio-examiner.js): the question being marked, above the student's answer. */
+.am-root .bx-q { margin: 0 0 12px; padding: 10px 14px; border-radius: 12px; background: #1B3150; color: #E8EEFA; }
+.am-root .bx-q p { margin: 0; font: 700 16px/1.45 Nunito, system-ui, sans-serif !important; }
+.am-root .bx-q b { color: #FFE14D; }
+.am-root .bx-q .bx-q__m, .am-root .bx-q .bx-q__rule { color: #A9BAD6; }
+.am-root .bx-q .bx-q__rule { margin-top: 6px; font-size: 13.5px !important; }
+.am-root .bx-q--small p { font-size: 14.5px !important; }

@@ -109,6 +109,45 @@ window.BioLearn[29] = {
       why: 'Proteins are too big to be filtered. Glucose is filtered but all of it is reabsorbed, so none is in urine. Urea is filtered and not taken back, so it is more concentrated in urine.' }
   ],
 
+  // Be the examiner (bio/bio-examiner.js): a made-up student's answer to a real exam part, one line each. ok: written
+  // to earn a scheme point. Lines that earn nothing have why (the examiner's note) and fix (a line that earns a new point).
+  examiner: [
+    { q: '2016-Q12b', part: 2, student: 'Aoife', lines: [
+      { t: 'ADH is released by the pituitary when you are dehydrated.', ok: true },
+      { t: 'It works somewhere in the kidney.', why: 'Vague: where exactly does it act?', fix: 'It acts on the collecting ducts and the distal convoluted tubules.' },
+      { t: 'It makes the walls of the tubules more permeable.', ok: true },
+      { t: 'So more water is reabsorbed back into the blood.', ok: true },
+      { t: 'ADH makes you produce more urine.', why: 'Wrong: more ADH means less urine, and it is more concentrated.', fix: 'The volume of urine is lowered, so the urine is more concentrated.' }
+    ] },
+    { q: '2006-Q13b', part: 4, student: 'Ciarán', lines: [
+      { t: 'The athlete loses a lot of water by sweating.', ok: true },
+      { t: 'So the concentration of the blood increases.', ok: true },
+      { t: 'The brain knows about it.', why: 'Vague: how does the brain find out?', fix: 'The change is detected by receptors in the brain.' },
+      { t: 'The kidneys release ADH, which makes the urine concentrated.', why: 'Wrong: ADH is made in the brain and released by the pituitary gland, not the kidneys.', fix: 'ADH is secreted by the pituitary gland.' },
+      { t: 'ADH causes more water to be reabsorbed.', ok: true },
+      { t: 'He loses water by sweating.', why: 'Repeat of line 1.', fix: 'The water is taken back in the collecting duct.' }
+    ] },
+    { q: '2004-Q12a', part: 0, student: 'Aoife', lines: [
+      { t: 'Homeostasis is maintaining a constant internal environment.', ok: true },
+      { t: 'The kidneys keep the body healthy.', why: 'Vague: how do the kidneys help?', fix: 'The kidneys maintain the water balance of the blood.' },
+      { t: 'The kidneys maintain the salt balance of the body.', ok: true },
+      { t: 'The kidneys control body temperature by sweating.', why: 'Wrong: the skin controls temperature. The kidneys control water and salt.', fix: 'They maintain the water balance by changing how much water is reabsorbed.' },
+      { t: 'It is about maintaining the internal environment.', why: 'Repeat of line 1.', fix: 'The kidneys maintain the water balance of the body.' }
+    ] },
+    { q: '2010-Q15c', part: 0, student: 'Ciarán', lines: [
+      { t: 'The athlete lost water by exhaling and sweating.', ok: true },
+      { t: 'So there is less water in the blood.', ok: true },
+      { t: 'ADH is secreted by the pituitary gland.' },
+      { t: 'The kidneys stop working when you exercise.', why: 'Wrong: the kidneys keep working. They save water when you are short of it.', fix: 'ADH causes the collecting ducts to reabsorb water.' }
+    ] },
+    { q: '2007-Q15c', part: 0, student: 'Aoife', lines: [
+      { t: 'Homeostasis is the maintenance of a constant internal environment.', ok: true },
+      { t: 'It is important because it is good for you.', why: 'Vague: say what it lets the body do.', fix: 'It allows normal metabolic activities to happen in the cells.' },
+      { t: 'Homeostasis is when your temperature goes up and down.', why: 'Wrong: homeostasis keeps things steady. It doesn\'t let them swing.', fix: 'It keeps the temperature suitable for enzyme reactions.' },
+      { t: 'Keeping the internal environment constant is very important.', why: 'Repeat of line 1.', fix: 'For example, it keeps the water and salt balance of the blood steady.' }
+    ] }
+  ],
+
   // Practice questions for parts of the course no exam has asked yet (our questions and answer keys, not the SEC's).
   practice: [
     { id: 'P29-1', src: 'Practice question (not from a real paper)', stem: '', parts: [

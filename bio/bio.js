@@ -245,6 +245,7 @@
     if (L.action) items.push(['action', L.action.name, L.action.what]);
     if (L.games && L.games.chains) items.push(['chain', 'Chain reaction', 'Put each process in order, type it out, then write it from memory.']);
     if (L.games && L.games.level) items.push(['level', 'Level up', 'Build one answer point into full marks, then write it from memory.']);
+    if (L.examiner && L.examiner.length) items.push(['examiner', 'Be the examiner', 'Mark a student\'s answer against the real marking scheme, then fix the lines that got nothing.']);
     if (!items.length) return '<p class="bio-empty">Games for this chapter are coming.</p>';
     return '<ul class="bio-glist">' + items.map(function (g) {
       return '<li><button type="button" class="bio-g bio-g--' + g[0] + '" data-bio-game="' + g[0] + '"><b>' + esc(g[1]) + '</b><span>' + esc(g[2]) + '</span><i class="bio-go" aria-hidden="true"></i></button></li>';
@@ -435,6 +436,7 @@
   function openGame(n, kind) {
     var L = LEARN[n] || {};
     if (kind === 'action') { if (window.BioAction) window.BioAction.open(n); return; }
+    if (kind === 'examiner') { if (window.BioExaminer) window.BioExaminer.open(n); return; }
     AM.addGames('bio-' + n, L.games);
     AM.practice('bio-' + n, kind, refresh);
   }
@@ -446,7 +448,8 @@
     route();
   }
   window.BioApp = {
-    refresh: refresh, words: bioWords, hasPoint: hasPoint, partScore: partScore, chapter: chapter, graphSvg: graphSvg, diagramHtml: diagramHtml,
+    refresh: refresh, words: bioWords, hasPoint: hasPoint, partScore: partScore, pointMarks: pointMarks, partOutOf: partOutOf, chapter: chapter,
+    graphSvg: graphSvg, diagramHtml: diagramHtml, questions: allQuestions,
     // For tests: does a typed answer get each point of a part?
     check: function (n, qid, partIndex, text) {
       var q = QS[n].questions.filter(function (x) { return x.id === qid; })[0], part = q.parts[partIndex], w = bioWords(text);

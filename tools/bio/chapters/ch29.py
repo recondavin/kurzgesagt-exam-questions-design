@@ -229,3 +229,177 @@ OVERRIDES = {
     },
     'kind': {'2011-Q12b(ii)': 'draw'},
 }
+
+
+# ---------------------------------------------------------------- Chain reaction pictures (400 x 300)
+# Each builds up as the chain's steps go into place (step/until/badge from tools/mini_games/build_game_art.py).
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'mini_games'))
+import build_game_art as ga  # noqa: E402
+
+INK, SNOW, PURP, YEL = ga.INK, ga.SNOW, ga.PURP, ga.YEL
+SALT, WATER, UREA, GLU, AMINO, ADH = '#E3E9F4', '#45C4EE', '#B5A642', '#FFC42E', '#2BC46F', '#9B4A8C'
+
+
+def dots(path, colors, dur, r=3.2, stroke=INK):
+    """Molecules moving along a path, evenly spaced in time."""
+    n = len(colors)
+    # Negative begins start every molecule at once, spread along the path (none wait at the corner).
+    return ''.join(f'<circle r="{r}" fill="{c}" stroke="{stroke}" stroke-width=".8"><animateMotion path="{path}" dur="{dur}s" begin="-{k * dur / n:.2f}s" repeatCount="indefinite"/></circle>'
+                   for k, c in enumerate(colors))
+
+
+def out_of(x, y, dx, dy, color, dur=1.8, begin=0.0, r=3):
+    """A molecule leaving a tube sideways and fading (reabsorbed)."""
+    return (f'<circle cx="{x}" cy="{y}" r="{r}" fill="{color}" stroke="{INK}" stroke-width=".8">'
+            f'<animate attributeName="cx" values="{x};{x + dx}" dur="{dur}s" begin="-{begin}s" repeatCount="indefinite"/>'
+            f'<animate attributeName="cy" values="{y};{y + dy}" dur="{dur}s" begin="-{begin}s" repeatCount="indefinite"/>'
+            f'<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.75;1" dur="{dur}s" begin="-{begin}s" repeatCount="indefinite"/></circle>')
+
+
+def urine_chain():
+    b = '<rect width="400" height="300" fill="#FBEFE3"/><rect y="170" width="400" height="130" fill="#F3DCCB"/>'
+    b += '<path d="M0 170H400" stroke="#C4683F" stroke-width="2" stroke-dasharray="8 6"/>'
+    # 1 The wide afferent arteriole brings blood into the glomerulus.
+    aff = 'M-4 62C30 62 54 66 80 74'
+    glom = ('<g fill="none" stroke="#E5484D" stroke-width="3.6" stroke-linecap="round">'
+            '<path d="M80 74c4-16 26-18 30-4s-20 18-16 2 24-18 30-2-14 22-24 10M84 92c6 12 28 12 30-2s-20-14-18 0 20 8 22-6"/></g>')
+    b += ga.step(0, vessel(aff, RED, 11) + flow(aff) + glom)
+    # 2 The narrower efferent arteriole leaves: the blood backs up, so the pressure in the glomerulus is high.
+    eff = 'M82 98C64 116 66 132 88 138C112 144 150 134 178 138'
+    s1 = vessel(eff, '#C2364A', 5) + flow(eff)
+    s1 += ''.join(ga.arrow(100 + 22 * dx, 82 + 22 * dy, 100 + 34 * dx, 82 + 34 * dy, PURP, 2.4) for dx, dy in [(0, -1), (.8, -.6), (.8, .6), (0, 1)])
+    b += ga.step(1, s1)
+    # 3 Bowman's capsule: small molecules are forced in; cells and proteins stay in the blood.
+    cup = 'M72 54C84 30 120 28 136 44C150 58 150 104 136 118C120 134 86 130 74 108'
+    s2 = (f'<path d="{cup}" fill="none" stroke="{TUBE_D}" stroke-width="12" stroke-linecap="round"/>'
+          f'<path d="{cup}" fill="none" stroke="#F7D27A" stroke-width="8" stroke-linecap="round"/>')
+    s2 += dots('M112 64Q126 52 134 46Q140 42 146 44', [GLU, WATER, UREA, SALT], 2.4, 2.6)
+    s2 += '<circle cx="44" cy="62" r="6" fill="#E5484D" stroke="#B3262B" stroke-width="1.4"/><circle cx="44" cy="62" r="2.4" fill="#B3262B"/>'
+    b += ga.step(2, s2)
+    # 4 The PCT: all the glucose and amino acids go back into the blood.
+    pct = 'M142 46C156 44 160 30 172 32C188 34 184 58 170 64C156 70 160 92 178 90C196 88 192 66 206 62C222 58 222 84 214 100C208 112 206 124 206 140'
+    s3 = tube(pct, 10) + flow(pct, TUBE_D, 3)
+    s3 += '<path d="M150 18C176 14 196 22 230 18" fill="none" stroke="#9B4A8C" stroke-width="2.4"/>'
+    s3 += ''.join(out_of(x, y, 0, -28, c, 1.8, k * .45) for k, (x, y, c) in enumerate([(160, 44, GLU), (182, 52, AMINO), (196, 70, GLU), (174, 80, AMINO)]))
+    b += ga.step(3, s3)
+    # 5 Water leaves the loop of Henle (into the salty medulla) and the DCT.
+    loop = 'M206 140V262C206 280 236 280 236 262V140'
+    dct = 'M236 140C236 122 254 120 258 106C262 90 246 82 254 68C262 56 282 62 284 78C286 94 302 98 312 86C322 74 330 60 346 60'
+    s4 = tube(loop, 10) + flow(loop, TUBE_D, 3.4) + tube(dct, 10) + flow(dct, TUBE_D, 3)
+    s4 += ''.join(out_of(x, y, dx, 0, WATER, 1.6, k * .4) for k, (x, y, dx) in enumerate([(200, 196, -26), (200, 236, -26), (242, 214, 24), (292, 82, 0)]))
+    s4 += out_of(292, 82, 0, 26, WATER, 1.6, .8)
+    b += ga.step(4, s4)
+    # 6 What is left is urine: down the collecting duct to the pelvis.
+    duct = 'M356 -6V306'
+    s5 = tube(duct, 16) + tube('M346 60H356', 10) + flow(duct, TUBE_D, 2.6)
+    s5 += dots('M356 120V300', [UREA, SALT, WATER, UREA], 2.8, 3)
+    s5 += f'<rect x="300" y="276" width="44" height="18" rx="9" fill="{INK}"/><text x="322" y="285" text-anchor="middle" dominant-baseline="central" font-family="Lexend, Nunito, sans-serif" font-weight="600" font-size="10" fill="#FFFFFF">URINE</text>'
+    b += ga.step(5, s5)
+    b += ga.badge(0, 24, 44) + ga.badge(1, 52, 150) + ga.badge(2, 158, 126) + ga.badge(3, 236, 34) + ga.badge(4, 260, 244) + ga.badge(5, 380, 240)
+    return ga.svg('How urine is made', "Blood comes into the glomerulus in the wide afferent arteriole and leaves in the narrow efferent arteriole, so the pressure is high and small molecules are pushed into Bowman's capsule. Glucose and amino acids go back into the blood from the PCT, water leaves the loop of Henle and the DCT, and urine flows down the collecting duct.", b)
+
+
+def head():
+    """A head in profile, facing right, with the hypothalamus and the pituitary gland showing."""
+    h = ('<path d="M34 150C18 120 20 70 52 48C82 28 128 36 140 70C146 86 144 96 150 106C154 112 150 118 144 118C146 128 142 138 132 140C126 150 116 152 104 150L100 176H50Z" fill="#F2C9A0" stroke="#7A4A35" stroke-width="2"/>'
+         '<path d="M44 92C40 64 64 46 92 46C120 46 136 62 134 84C132 104 112 112 90 112C66 112 46 108 44 92Z" fill="#F6B8C4" stroke="#C26A7E" stroke-width="1.6"/>'
+         '<path d="M58 72Q72 60 88 70T118 70M54 92Q70 82 86 92T124 90" fill="none" stroke="#C26A7E" stroke-width="1.4"/>'
+         '<circle cx="124" cy="82" r="3.5" fill="#14243B"/>')
+    return h
+
+
+def adh_chain(more):
+    b = f'<rect width="400" height="300" fill="{ga.BG}"/>'
+    b += head()
+    hyp, pit = (92, 104), (92, 122)
+    b += f'<ellipse cx="{hyp[0]}" cy="{hyp[1]}" rx="11" ry="6" fill="#7E5BA3"/><path d="M92 110V116" stroke="#7E5BA3" stroke-width="3"/><ellipse cx="{pit[0]}" cy="{pit[1]}" rx="7" ry="6" fill="#E07A70" stroke="#B5543A" stroke-width="1.4"/>'
+    # The blood vessel across the bottom and the collecting duct on the right.
+    vessel_d = 'M0 228H400'
+    b += vessel(vessel_d, RED, 16)
+    if more:
+        # 1 Sweating on a hot day.
+        s0 = ga.star(36, 28, 18, 12, 10, YEL) + '<circle cx="36" cy="28" r="11" fill="#FFC42E" stroke="#E89B1A" stroke-width="1.6"/>'
+        s0 += ''.join(ga.fall(x, y, 3, WATER, 1.4, k * .35, 22) for k, (x, y) in enumerate([(40, 64), (30, 110), (146, 126)]))
+    else:
+        # 1 Drinking lots of water.
+        s0 = ('<path d="M154 108L160 150H184L190 108Z" fill="#CFEFFB" stroke="#7FB8D0" stroke-width="2"/>'
+              '<path d="M157 124L160 150H184L187 124Z" fill="#45C4EE"/>' + ga.rise(172, 140, 2, '#FFFFFF', '#7FB8D0', 1.6, 0, 14))
+    b += ga.step(0, s0)
+    # 2 The blood becomes too concentrated (salty) or too dilute (watery).
+    mix = [SALT, SALT, WATER, SALT, SALT, SALT] if more else [WATER, WATER, SALT, WATER, WATER, WATER]
+    s1 = dots('M-6 228H406', mix, 5, 3.6)
+    s1 += (f'<rect x="{134 if more else 150}" y="248" width="{132 if more else 100}" height="22" rx="11" fill="{INK}"/><text x="200" y="259" text-anchor="middle" dominant-baseline="central" '
+           f'font-family="Lexend, Nunito, sans-serif" font-weight="600" font-size="10.5" fill="#FFFFFF">{"TOO CONCENTRATED" if more else "TOO DILUTE"}</text>')
+    b += ga.step(1, s1)
+    # 3 The hypothalamus detects it.
+    b += ga.step(2, ga.rings(hyp[0], hyp[1], '#7E5BA3', 2.4, 1.6, 26))
+    # 4 The pituitary releases more (or less) ADH into the blood.
+    path = f'M{pit[0]} {pit[1] + 6}C{pit[0]} 180 120 214 150 222C200 230 260 228 300 222'
+    s3 = vessel(path, '#C2364A', 3)
+    s3 += dots(path, [ADH] * (5 if more else 1), 3, 4.2, '#5B3172')
+    s3 += (f'<rect x="108" y="160" width="{88 if more else 82}" height="22" rx="11" fill="{INK}"/><text x="{152 if more else 149}" y="171" text-anchor="middle" dominant-baseline="central" '
+           f'font-family="Lexend, Nunito, sans-serif" font-weight="600" font-size="10.5" fill="#FFFFFF">{"MORE ADH" if more else "LESS ADH"}</text>')
+    b += ga.step(3, s3)
+    # 5 The collecting duct: its wall lets water through (more ADH) or not (less ADH).
+    duct = 'M318 20V204'
+    s4 = tube(duct, 22) + vessel('M352 20V210', '#9B4A8C', 3)
+    if more:
+        s4 += ''.join(f'<rect x="326" y="{y}" width="8" height="6" fill="#F7D27A"/>' for y in (50, 90, 130, 170))
+        s4 += ''.join(out_of(320, y + 3, 30, 0, WATER, 1.5, k * .3) for k, y in enumerate((50, 90, 130, 170)))
+    else:
+        s4 += ''.join(ga.fall(318, y, 3, WATER, 1.6, k * .4, 30) for k, y in enumerate((40, 90, 140)))
+    b += ga.step(4, s4)
+    # 6 The urine: a little, dark (more ADH) or a lot, pale (less ADH).
+    level, colour = (276, '#E8A21A') if more else (240, '#FBE7A1')
+    s5 = (f'<path d="M296 228V292H340V228" fill="#FFFFFF" fill-opacity=".6" stroke="{INK}" stroke-width="2.4"/>'
+          f'<rect x="297.2" y="{level}" width="41.6" height="{291 - level}" fill="{colour}"/>'
+          f'<path d="M296 228V292H340V228" fill="none" stroke="{INK}" stroke-width="2.4"/>')
+    s5 += tube('M318 204V226', 8)
+    b += ga.step(5, s5)
+    b += ga.badge(0, 70 if more else 200, 20 if more else 112) + ga.badge(1, 30, 254) + ga.badge(2, 120, 98) + ga.badge(3, 210, 172) + ga.badge(4, 372, 104) + ga.badge(5, 362, 266)
+    title = 'Short of water: ADH' if more else 'Too much water: less ADH'
+    desc = ('After sweating, the blood is too concentrated. The hypothalamus detects it and the pituitary releases more ADH, so the collecting ducts let more water back into the blood and a small volume of dark, concentrated urine is made.'
+            if more else 'After drinking a lot, the blood is too dilute. The hypothalamus detects it and the pituitary releases less ADH, so the collecting ducts keep their water and a large volume of pale, dilute urine is made.')
+    return ga.svg(title, desc, b)
+
+
+def urea_chain():
+    b = f'<rect width="400" height="300" fill="{ga.BG}"/>'
+    # 1 A protein-rich meal.
+    s0 = ('<ellipse cx="62" cy="58" rx="46" ry="16" fill="#FFFFFF" stroke="#B8C2D4" stroke-width="2"/>'
+          '<path d="M34 54C34 40 58 36 72 42C84 46 82 58 70 60C58 62 34 64 34 54Z" fill="#B5543A" stroke="#7A3A2A" stroke-width="1.6"/>'
+          '<ellipse cx="90" cy="52" rx="12" ry="8" fill="#FFFFFF" stroke="#D5DCE8" stroke-width="1.2"/><circle cx="90" cy="52" r="4.4" fill="#FFC42E"/>')
+    b += ga.step(0, s0)
+    # 2 Spare amino acids are carried to the liver.
+    portal = 'M62 80C62 110 80 130 104 146'
+    s1 = vessel(portal, BLUE, 6) + dots(portal, [AMINO] * 4, 2.4, 3.4)
+    b += ga.step(1, s1)
+    # 3 The liver breaks them down (deamination), making urea.
+    liver = ('<path d="M30 168C30 146 70 138 120 140C170 142 196 150 194 166C192 186 150 200 112 214C80 226 52 224 40 208C32 198 30 184 30 168Z" fill="#9C3F2C" stroke="#6B2D3A" stroke-width="2.4"/>'
+             '<path d="M120 142C118 170 112 196 108 214" fill="none" stroke="#6B2D3A" stroke-width="1.8"/>')
+    s2 = liver + ''.join(ga.rise(x, y, 3.2, UREA, INK, 1.8, k * .5, 16) for k, (x, y) in enumerate([(80, 178), (140, 170), (110, 196)]))
+    b += ga.step(2, s2)
+    # 4 Urea travels in the blood to the kidneys.
+    art = 'M190 162C230 150 250 120 286 116'
+    s3 = vessel(art, RED, 6) + dots(art, [UREA] * 3, 2.2, 3.2)
+    s3 += f'<path d="{bean(312, 110, 50, 74, False)}" fill="#C4683F" stroke="#7A3A2A" stroke-width="2.2"/><path d="{bean(312, 110, 32, 54, False)}" fill="#D9895F"/>'
+    b += ga.step(3, s3)
+    # 5 It is filtered into Bowman's capsule.
+    zin = ('<rect x="300" y="0" width="100" height="100" fill="#FBEFE3"/>'
+           '<path d="M330 50c6-12 22-12 24 0s-16 14-12 2 18-14 22-2" fill="none" stroke="#E5484D" stroke-width="3" stroke-linecap="round"/>'
+           '<path d="M326 36C336 22 362 20 372 34C382 46 380 66 370 74C360 82 336 80 328 68" fill="none" stroke="#A9822F" stroke-width="7" stroke-linecap="round"/>'
+           + ga.fall(346, 50, 3.2, UREA, 1.6, 0, 18) + ga.fall(356, 46, 3.2, UREA, 1.6, .8, 18))
+    b += ga.step(4, ga.zoom(352, 50, 34, zin, 'b29-urea-z', (318, 104)))
+    # 6 It leaves in urine: ureter, bladder, urethra.
+    ure = 'M300 140C292 180 270 206 254 232'
+    s5 = tube(ure, 6) + flow(ure, '#FFFFFF', 2.6)
+    s5 += '<path d="M222 236C222 216 286 216 286 236C286 266 268 276 254 276C240 276 222 266 222 236Z" fill="#F2948C" stroke="#B5543A" stroke-width="2.2"/>'
+    s5 += tube('M254 276V298', 6) + dots('M254 276V304', [UREA, UREA], 1.6, 2.6)
+    b += ga.step(5, s5)
+    b += ga.badge(0, 112, 34) + ga.badge(1, 92, 104) + ga.badge(2, 172, 196) + ga.badge(3, 234, 120) + ga.badge(4, 388, 92) + ga.badge(5, 310, 252)
+    return ga.svg('Where urea comes from', 'Protein you do not need is broken down: the amino acids go to the liver, which removes their amino groups (deamination) and makes urea. Urea travels in the blood to the kidneys, is filtered into Bowman\'s capsule and leaves in urine through the ureter, bladder and urethra.', b)
+
+
+def CHAIN_ART():
+    return {'How urine is made': urine_chain(), 'Short of water: ADH': adh_chain(True), 'Too much water: less ADH': adh_chain(False),
+            'Where urea comes from': urea_chain()}
