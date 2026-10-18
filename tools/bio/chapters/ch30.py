@@ -439,7 +439,7 @@ OVERRIDES = {
                                   'xt': [[k * 10, str(k)] for k in range(11)],
                                   'series': [{'pts': [[8, 2], [14, 40], [20, 94], [26, 40], [32, 2]]}, {'pts': [[58, 2], [64, 40], [70, 94], [76, 40], [82, 2]]}],
                                   'marks': [{'t': 'A', 'at': [28, 72]}, {'t': 'B', 'at': [78, 72]}]}]},
-        '2025-Q17a': {'note': 'The double circulation: the heart in the middle, the lungs above, and the liver, gut, kidneys and the rest of the body below, joined by blood vessels.'},
+        '2025-Q17a': {'base': 'circulation', 'marks': []},  # chapter 31's double circulation (no letters on the paper)
     },
     # Drawing on paper (arrows on the diagram, a villus to draw): the student ticks the scheme's points.
     'kind': {'2006-Q5(b)': 'draw', '2025-Q6(e)': 'draw'},

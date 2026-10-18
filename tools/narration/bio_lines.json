@@ -1800,6 +1800,56 @@
   "say": "For parts one 1, one 2, describe it: say what happens, step by step. That's two points, for six marks."
  },
  {
+  "id": "bio-31-redcells-title",
+  "text": "Red blood cells: built to carry oxygen",
+  "say": "Red blood cells: built to carry oxygen"
+ },
+ {
+  "id": "bio-31-redcells-summary",
+  "text": "No nucleus, lots of haemoglobin.",
+  "say": "Red blood cells are some of the simplest cells in your body, and that's exactly what makes them so good at their job."
+ },
+ {
+  "id": "bio-31-redcells-1",
+  "text": "Haemoglobin: with iron, picks up oxygen.",
+  "say": "They're packed with haemoglobin, a protein containing iron. It picks up oxygen in the lungs and lets it go in the tissues. Most carbon dioxide travels back in the plasma."
+ },
+ {
+  "id": "bio-31-redcells-2",
+  "text": "No nucleus: more room, but a short life.",
+  "say": "A mature red blood cell has no nucleus, which leaves more room for haemoglobin. But it can't divide or repair itself, so it only lives about 120 days. New ones are made in the bone marrow."
+ },
+ {
+  "id": "bio-31-redcells-3",
+  "text": "Biconcave and flexible: a big surface for gases.",
+  "say": "Their biconcave shape gives a large surface for oxygen to pass through, and they're flexible enough to squeeze through the narrowest capillaries."
+ },
+ {
+  "id": "bio-31-groups-title",
+  "text": "Blood groups",
+  "say": "Blood groups"
+ },
+ {
+  "id": "bio-31-groups-summary",
+  "text": "Markers on the surface of your red cells.",
+  "say": "Your red blood cells carry tiny markers on their surface, and they decide whose blood you can safely receive."
+ },
+ {
+  "id": "bio-31-groups-1",
+  "text": "ABO: antigens A, B, both or neither.",
+  "say": "In the ABO system, your red cells carry antigen A, antigen B, both, or neither. That makes you group A, B, AB or O."
+ },
+ {
+  "id": "bio-31-groups-2",
+  "text": "Antibodies: against the ones you don't have.",
+  "say": "Your plasma has antibodies against the antigens you don't have. Give someone the wrong group, and their antibodies make the donated cells clump together."
+ },
+ {
+  "id": "bio-31-groups-3",
+  "text": "Rhesus: positive or negative.",
+  "say": "The Rhesus system is a second marker. It matters in pregnancy, when a Rhesus negative mother carries a Rhesus positive baby."
+ },
+ {
   "id": "bio-93cdf033",
   "text": "21 marks in 5 parts.",
   "say": "This one is worth twenty-one marks, in five parts. Here's what each part wants."
@@ -1820,9 +1870,59 @@
   "say": "For part five, say how they differ, with something about each one. That's one point, for three marks."
  },
  {
+  "id": "bio-31-heart-title",
+  "text": "The heart: two pumps in one",
+  "say": "The heart: two pumps in one"
+ },
+ {
+  "id": "bio-31-heart-summary",
+  "text": "Four chambers, kept apart by a wall.",
+  "say": "Your heart is really two pumps, side by side, beating together."
+ },
+ {
+  "id": "bio-31-heart-1",
+  "text": "Four chambers: two atria on top, two ventricles below.",
+  "say": "Blood comes into the two atria at the top, then drops into the two ventricles below, which do the hard pumping."
+ },
+ {
+  "id": "bio-31-heart-2",
+  "text": "The septum: keeps the two sides apart.",
+  "say": "A wall of muscle called the septum keeps the two sides apart, so oxygenated and deoxygenated blood never mix. The left ventricle has the thickest wall, because it pumps blood all the way round the body."
+ },
+ {
+  "id": "bio-31-heart-3",
+  "text": "Valves: keep blood going one way.",
+  "say": "The tricuspid and bicuspid valves stop blood flowing back into the atria, and the semilunar valves stop it flowing back from the arteries. The valves snapping shut make the lub-dub sound of your heartbeat."
+ },
+ {
   "id": "bio-ad69fb91",
   "text": "(ii), (iii) Describe: 4 points, 12 marks.",
   "say": "For parts two, three, describe it: say what happens, step by step. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-31-circuits-title",
+  "text": "Two circuits: the double circulation",
+  "say": "Two circuits: the double circulation"
+ },
+ {
+  "id": "bio-31-circuits-summary",
+  "text": "Through the heart twice on every trip.",
+  "say": "Follow a single red blood cell, and you'll find it passes through your heart twice on every trip around your body."
+ },
+ {
+  "id": "bio-31-circuits-1",
+  "text": "Pulmonary circuit: right side to the lungs and back.",
+  "say": "The right ventricle pumps blood along the pulmonary artery to the lungs, where it picks up oxygen. It comes back in the pulmonary vein to the left atrium."
+ },
+ {
+  "id": "bio-31-circuits-2",
+  "text": "Systemic circuit: left side to the body and back.",
+  "say": "The left ventricle pumps that oxygenated blood into the aorta and out to the whole body, at a much higher pressure. It returns, low in oxygen, through the vena cava."
+ },
+ {
+  "id": "bio-31-circuits-3",
+  "text": "Named vessels: renal, hepatic, coronary.",
+  "say": "Each organ has its own vessels, like the renal artery and vein for the kidneys. Arteries always carry blood away from the heart, and veins always bring it back."
  },
  {
   "id": "bio-62ee9774",
@@ -1835,9 +1935,59 @@
   "say": "For part one, read the diagram and find the exact part. That's one point, for three marks."
  },
  {
+  "id": "bio-31-pressure-title",
+  "text": "Pulse and blood pressure",
+  "say": "Pulse and blood pressure"
+ },
+ {
+  "id": "bio-31-pressure-summary",
+  "text": "You can feel every heartbeat in an artery.",
+  "say": "Press two fingers gently on your wrist, and you can feel your heart at work."
+ },
+ {
+  "id": "bio-31-pressure-1",
+  "text": "Pulse: an artery stretching with each beat.",
+  "say": "Your pulse is an artery stretching and relaxing each time the left ventricle pumps. You can feel it where an artery runs close to the surface, like your wrist or your neck."
+ },
+ {
+  "id": "bio-31-pressure-2",
+  "text": "Blood pressure: the push on the vessel walls.",
+  "say": "Blood pressure is the force the blood puts on the walls of the blood vessels. It's highest in the arteries, and it falls as the blood moves on through the capillaries into the veins."
+ },
+ {
+  "id": "bio-31-pressure-3",
+  "text": "Exercise: a faster rate, then recovery.",
+  "say": "When you exercise, your heart rate rises to bring more oxygen to your muscles and carry away carbon dioxide. A fitter person's rate rises less, and recovers faster."
+ },
+ {
   "id": "bio-1e738fbb",
   "text": "(i) Explain: 2 points, 6 marks.",
   "say": "For part one, explain it: say what happens, and why. That's two points, for six marks."
+ },
+ {
+  "id": "bio-31-beat-title",
+  "text": "The pacemaker: the heart's own rhythm",
+  "say": "The pacemaker: the heart's own rhythm"
+ },
+ {
+  "id": "bio-31-beat-summary",
+  "text": "A tiny patch of cells sets the pace.",
+  "say": "Your heart doesn't wait to be told when to beat. It starts every beat by itself."
+ },
+ {
+  "id": "bio-31-beat-1",
+  "text": "SA node: the pacemaker, in the right atrium.",
+  "say": "In the wall of the right atrium there's a small patch of cells called the SA node: the pacemaker. It sends out an electrical impulse, and the atria contract."
+ },
+ {
+  "id": "bio-31-beat-2",
+  "text": "AV node: passes it on to the ventricles.",
+  "say": "The AV node, low in the septum, picks up the impulse and passes it down to the ventricles, so they contract just after the atria."
+ },
+ {
+  "id": "bio-31-beat-3",
+  "text": "Systole and diastole: contracting, then relaxing.",
+  "say": "When heart muscle contracts, that's systole. When it relaxes and fills up again, that's diastole. Heart muscle never tires, and it's packed with mitochondria for the energy it needs."
  },
  {
   "id": "bio-2543cb05",
@@ -1860,9 +2010,59 @@
   "say": "For part five, just name it: a word or a short phrase is enough. That's one point, for three marks."
  },
  {
+  "id": "bio-31-vessels-title",
+  "text": "Arteries, veins and capillaries",
+  "say": "Arteries, veins and capillaries"
+ },
+ {
+  "id": "bio-31-vessels-summary",
+  "text": "Three kinds of tube, three different jobs.",
+  "say": "Your blood travels through three very different kinds of tube."
+ },
+ {
+  "id": "bio-31-vessels-1",
+  "text": "Arteries: thick, elastic, high pressure.",
+  "say": "Arteries carry blood away from the heart. Their walls are thick, with muscle and elastic fibres to take the high pressure, and their lumen is narrow."
+ },
+ {
+  "id": "bio-31-vessels-2",
+  "text": "Veins: thin walls, wide lumen, valves.",
+  "say": "Veins bring blood back to the heart at low pressure. They have thin walls, a wide lumen and valves, and the squeeze of the muscles around them keeps the blood moving."
+ },
+ {
+  "id": "bio-31-vessels-3",
+  "text": "Capillaries: one cell thick: for exchange.",
+  "say": "Capillaries link the two. Their walls are just one cell thick, so oxygen, food and waste pass easily between the blood and the cells."
+ },
+ {
   "id": "bio-83abb3a5",
   "text": "(i)1, (i)2 Name: 4 points, 12 marks.",
   "say": "For parts one 1, one 2, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-31-lymph-title",
+  "text": "The lymphatic system: the body's drain",
+  "say": "The lymphatic system: the body's drain"
+ },
+ {
+  "id": "bio-31-lymph-summary",
+  "text": "Collecting the fluid that leaks out.",
+  "say": "Every day, fluid leaks out of your capillaries. Something has to bring it back."
+ },
+ {
+  "id": "bio-31-lymph-1",
+  "text": "Tissue fluid: leaks out and bathes the cells.",
+  "say": "Blood pressure forces fluid out of the capillaries. This tissue fluid bathes your cells, bringing them food and oxygen."
+ },
+ {
+  "id": "bio-31-lymph-2",
+  "text": "Lymph vessels: drain the extra back to the blood.",
+  "say": "Most of it goes back into the capillaries. The rest drains into lymph vessels, where it's called lymph, and it rejoins the blood in veins near the heart."
+ },
+ {
+  "id": "bio-31-lymph-3",
+  "text": "Lymph nodes: filter it and fight infection.",
+  "say": "On the way, lymph nodes filter out bacteria, and the lymphocytes there help fight infection. Lacteals in the villi carry absorbed fats into the lymph too."
  },
  {
   "id": "bio-488dbe69",
@@ -1888,6 +2088,31 @@
   "id": "bio-90319628",
   "text": "(ii)2 Compare: one point, 3 marks.",
   "say": "For part two 2, say how they differ, with something about each one. That's one point, for three marks."
+ },
+ {
+  "id": "bio-31-dissection-title",
+  "text": "Dissecting a heart",
+  "say": "Dissecting a heart"
+ },
+ {
+  "id": "bio-31-dissection-summary",
+  "text": "What a real heart shows you.",
+  "say": "A real sheep's heart is the best way to see how all of this fits together."
+ },
+ {
+  "id": "bio-31-dissection-1",
+  "text": "Find the front: the coronary artery groove.",
+  "say": "First, find the front, or ventral side: a groove with the coronary artery runs down it. The left side feels firmer, because its wall is thicker."
+ },
+ {
+  "id": "bio-31-dissection-2",
+  "text": "Cut with a scalpel: down the right side.",
+  "say": "On a dissecting board, cut carefully with a scalpel down the right side, to open the right atrium and ventricle. You'll see the tricuspid valve between them."
+ },
+ {
+  "id": "bio-31-dissection-3",
+  "text": "Semilunar valves: cut into the artery.",
+  "say": "To find a semilunar valve, cut open the pulmonary artery or the aorta near its base. Take care with the blade, and wash your hands afterwards."
  },
  {
   "id": "bio-8f7db50f",
@@ -1918,6 +2143,31 @@
   "id": "bio-518e4f01",
   "text": "(iv), (v) Name: 2 points, 6 marks.",
   "say": "For parts four, five, just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-31-portal-title",
+  "text": "The hepatic portal vein",
+  "say": "The hepatic portal vein"
+ },
+ {
+  "id": "bio-31-portal-summary",
+  "text": "Food goes to the liver first.",
+  "say": "Everything you absorb from a meal takes a detour before it reaches the rest of your body."
+ },
+ {
+  "id": "bio-31-portal-1",
+  "text": "From the intestine: digested food enters the blood.",
+  "say": "Digested food, like glucose and amino acids, is absorbed into the blood in the villi of the small intestine."
+ },
+ {
+  "id": "bio-31-portal-2",
+  "text": "Hepatic portal vein: carries it to the liver.",
+  "say": "The hepatic portal vein carries that blood straight to the liver. It's called a portal vein because it runs from one set of capillaries to another, without going through the heart."
+ },
+ {
+  "id": "bio-31-portal-3",
+  "text": "The liver: sorts it, then sends it on.",
+  "say": "The liver stores spare glucose as glycogen and deals with what isn't needed. It also gets oxygenated blood from the hepatic artery, and the hepatic vein takes blood away."
  },
  {
   "id": "bio-f59f8e53",
@@ -1965,6 +2215,31 @@
   "say": "For part a, just name it: a word or a short phrase is enough. That's one point, for three marks."
  },
  {
+  "id": "bio-31-blood-title",
+  "text": "What blood is made of",
+  "say": "What blood is made of"
+ },
+ {
+  "id": "bio-31-blood-summary",
+  "text": "Cells floating in a busy river.",
+  "say": "Blood looks like a simple red liquid, but it's really a crowd of different cells floating in a busy river."
+ },
+ {
+  "id": "bio-31-blood-1",
+  "text": "Plasma: the liquid that carries almost everything.",
+  "say": "Just over half of your blood is plasma, a watery liquid. It carries dissolved food, hormones, urea, carbon dioxide and heat around the body."
+ },
+ {
+  "id": "bio-31-blood-2",
+  "text": "White blood cells: fight infection.",
+  "say": "White blood cells have a nucleus and fight infection. Phagocytes, like monocytes, swallow germs, and lymphocytes make antibodies."
+ },
+ {
+  "id": "bio-31-blood-3",
+  "text": "Platelets: help blood to clot.",
+  "say": "Platelets are tiny pieces of cells. At a cut, they help the blood to clot, which stops the bleeding and keeps germs out."
+ },
+ {
   "id": "bio-2f655e8c",
   "text": "32 marks in 3 parts.",
   "say": "This one is worth thirty-two marks, in three parts. Here's what each part wants."
@@ -2000,9 +2275,14 @@
   "say": "For part e, suggest a sensible reason, using what you know. That's one point, for three marks."
  },
  {
-  "id": "bio-64811ecc",
-  "text": "(a)(i)–(b)(iv) Name: 10 points, 30 marks.",
-  "say": "For parts a one, a two, b one, b two, b three, b four, just name it: a word or a short phrase is enough. That's ten points, for thirty marks."
+  "id": "bio-da35bd24",
+  "text": "(a)(i)–(b)(iv) Name: 7 points, 21 marks.",
+  "say": "For parts a one, a two, b one, b two, b four, just name it: a word or a short phrase is enough. That's seven points, for twenty-one marks."
+ },
+ {
+  "id": "bio-3a9adb8c",
+  "text": "(b)(iii) Draw: 3 points, 9 marks.",
+  "say": "For part b three, draw it large, and label it clearly. That's three points, for nine marks."
  },
  {
   "id": "bio-108d260e",
