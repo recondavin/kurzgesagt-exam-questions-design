@@ -858,7 +858,8 @@
     appendToAnswer(text.charAt(0).toUpperCase() + text.slice(1));
   }
   // ---------- Real-or-vague sentences for the training run ----------
-  // real: [sentence, what it earns]; vague: [sentence, why it earns nothing]. Verdicts always come from the marker.
+  // real: [sentence, what it earns]; vague: [sentence, why it earns nothing, a version that earns a mark].
+  // Verdicts always come from the marker.
   var TRAIN = {
     'question-3b': {
       real: [
@@ -874,15 +875,15 @@
         ['Shale is formed from mud and clay that was deposited in calm water.', 'Shale from mud']
       ],
       vague: [
-        ['Sedimentary rocks are very common in Ireland.', 'True, but it doesn\'t say how they form.'],
-        ['Limestone is a very useful rock.', 'An opinion, not a fact about how it forms.'],
-        ['The Burren is a beautiful place to visit.', 'It names a place but says nothing about the rock.'],
-        ['Sandstone is red.', 'Too short: say why it\'s red (iron rusted in desert conditions).'],
-        ['Rocks can be different colours.', 'Too general: which rock, and why?'],
-        ['Marble is formed when limestone is heated.', 'That\'s a metamorphic rock, not a sedimentary one.'],
-        ['Sandstone is used for building houses.', 'A use of the rock, not how it forms.'],
-        ['The rocks are very old.', 'Too vague: say how long (millions of years) and what happened.'],
-        ['Cementation is an important part of how rocks form.', 'It names cementation but doesn\'t explain it: what glues the grains?']
+        ['Sedimentary rocks are very common in Ireland.', 'True, but it doesn\'t say how they form.', 'Limestone, which covers much of the Irish midlands, formed from the shells of sea creatures.'],
+        ['Limestone is a very useful rock.', 'An opinion, not a fact about how it forms.', 'Limestone forms when the shells of dead sea creatures are compacted and cemented together.'],
+        ['The Burren is a beautiful place to visit.', 'It names a place but says nothing about the rock.', 'The Burren in Co. Clare is made of limestone that formed in warm, shallow seas.'],
+        ['Sandstone is red.', 'Too short: say why it\'s red (iron rusted in desert conditions).', 'Old Red Sandstone is red because iron in the sand oxidised in hot desert conditions.'],
+        ['Rocks can be different colours.', 'Too general: which rock, and why?', 'Shale is dark because it formed from fine mud deposited in calm water.'],
+        ['Marble is formed when limestone is heated.', 'That\'s a metamorphic rock, not a sedimentary one.', 'Limestone is formed from the shells and skeletons of sea creatures on the sea floor.'],
+        ['Sandstone is used for building houses.', 'A use of the rock, not how it forms.', 'Sandstone forms when sand grains are deposited in layers and cemented together by minerals.'],
+        ['The rocks are very old.', 'Too vague: say how long (millions of years) and what happened.', 'These rocks took millions of years to form as the layers were slowly buried and compacted.'],
+        ['Cementation is an important part of how rocks form.', 'It names cementation but doesn\'t explain it: what glues the grains?', 'In cementation, minerals such as silica and calcite glue the grains together into solid rock.']
       ]
     },
     'question-3c': {
@@ -899,14 +900,14 @@
         ['Gas pipes automatically shut off during an earthquake to prevent fires.', 'Gas shut-off']
       ],
       vague: [
-        ['Earthquakes are very dangerous.', 'True, but it\'s not about predicting quakes or reducing their effects.'],
-        ['The 2011 earthquake in Japan killed thousands.', 'A fact about damage, not a way to predict or reduce it.'],
-        ['Earthquakes are measured on the Richter scale.', 'Measuring a quake\'s size doesn\'t predict it or reduce its effects.'],
-        ['Plates move apart at constructive boundaries.', 'About plates in general, not prediction or reduction.'],
-        ['Many people die in earthquakes each year.', 'It describes the problem, not a solution.'],
-        ['Japan has a lot of earthquakes.', 'It names a place but gives no method.'],
-        ['Seismographs are used.', 'It names the tool but not what it does: say it records tremors.'],
-        ['Scientists try to predict earthquakes.', 'Too general: say how they predict them.']
+        ['Earthquakes are very dangerous.', 'True, but it\'s not about predicting quakes or reducing their effects.', 'Seismographs detect small tremors called foreshocks, which can warn that a larger earthquake is coming.'],
+        ['The 2011 earthquake in Japan killed thousands.', 'A fact about damage, not a way to predict or reduce it.', 'In Japan, warning systems stopped bullet trains seconds before the strong shaking of the 2011 earthquake.'],
+        ['Earthquakes are measured on the Richter scale.', 'Measuring a quake\'s size doesn\'t predict it or reduce its effects.', 'Seismographs record the tremors along a fault, so scientists can see where stress is building up.'],
+        ['Plates move apart at constructive boundaries.', 'About plates in general, not prediction or reduction.', 'GPS satellites measure tiny movements of the plates along fault lines.'],
+        ['Many people die in earthquakes each year.', 'It describes the problem, not a solution.', 'Earthquake drills teach people to drop, cover and hold on, which reduces deaths.'],
+        ['Japan has a lot of earthquakes.', 'It names a place but gives no method.', 'Buildings in Japan have rubber shock absorbers in their foundations to absorb the shaking.'],
+        ['Seismographs are used.', 'It names the tool but not what it does: say it records tremors.', 'Seismographs are used to record small tremors in the ground before an earthquake.'],
+        ['Scientists try to predict earthquakes.', 'Too general: say how they predict them.', 'Scientists measure radon gas levels in wells, which can rise before an earthquake.']
       ]
     }
   };
@@ -2189,6 +2190,7 @@
   // Level up: grow one bare SRP into three (development, then an example, place or number), avoiding
   // the traps (filler, off-question, vague, wrong). Be the examiner: mark a made-up student's answer.
   // Each trap in Level up has a type: f = filler, o = off the question, v = vague, w = wrong (with why).
+  // wrong: [sentence, why it's wrong, a corrected version]. A Level up point's cue names it for the from-memory round.
   // A Level up point shows its picture from the guide (TEACH[id].pic, or its own pic).
   var GAMES = {
     'question-3b': {
@@ -2204,27 +2206,27 @@
           why: 'Sediment <b>settles</b> under the sea and becomes rock. Later, <b>plate collisions fold</b> the layers and <b>uplift</b> them, and <b>weathering and erosion</b> expose them, which is why we see sedimentary rock in mountains.' }
       ],
       level: [
-        { id: 'weather', pic: 'Sandstone', statement: 'Sandstone is made from grains of sand.',
+        { id: 'weather', cue: 'Where sandstone\'s grains come from', pic: 'Sandstone', statement: 'Sandstone is made from grains of sand.',
           steps: [
             [['The grains come from older rocks like granite, broken down by weathering such as frost action.'], ['Sand is something you can find on beaches and in deserts.', 'f'], ['Granite forms when magma cools slowly underground.', 'o']],
             [['For example, the Old Red Sandstone of the MacGillycuddy\'s Reeks in Co. Kerry formed from sand worn off older mountains.'], ['For example, there is sandstone in lots of places in Ireland.', 'v'], ['For example, the Burren in Co. Clare is made of sandstone.', 'w', 'The Burren is limestone. Sandstone examples are in Munster, like the MacGillycuddy\'s Reeks.']]
           ] },
-        { id: 'compact', statement: 'The sand is deposited in layers.',
+        { id: 'compact', cue: 'Layers and compaction', statement: 'The sand is deposited in layers.',
           steps: [
             [['As more layers pile on top, their weight squeezes the grains together and pushes out the water (compaction).'], ['Layers are very common in geography.', 'f'], ['Lava builds up in layers on the sides of a volcano.', 'o']],
             [['This takes millions of years: Irish Old Red Sandstone formed around 400 million years ago.'], ['This takes a really long time.', 'v'], ['This process only takes a few years.', 'w', 'It takes millions of years, not a few.']]
           ] },
-        { id: 'cement', statement: 'The grains are then cemented together.',
+        { id: 'cement', cue: 'Cementation', statement: 'The grains are then cemented together.',
           steps: [
             [['Minerals such as silica and calcite, carried by water seeping through, glue the grains into solid rock.'], ['Cement is used to build houses and walls.', 'f'], ['Marble forms when limestone is heated and squeezed.', 'o']],
             [['In Old Red Sandstone, iron oxide (rust) coats the grains, which gives the rock its red colour.'], ['This makes the rock very strong.', 'v'], ['The red colour comes from red sea creatures in the sand.', 'w', 'The red comes from iron oxide (rust), formed in hot desert conditions.']]
           ] },
-        { id: 'limestone', statement: 'Limestone forms from the remains of sea creatures.',
+        { id: 'limestone', cue: 'How limestone forms', statement: 'Limestone forms from the remains of sea creatures.',
           steps: [
             [['Their shells and skeletons, made of calcium carbonate, pile up on the sea floor and are compacted and cemented.'], ['Sea creatures are very interesting animals.', 'f'], ['Basalt forms when lava cools quickly.', 'o']],
             [['This happened in warm, shallow seas about 350 million years ago, when Ireland lay near the equator.'], ['This happened a long time ago in the sea.', 'v'], ['This happened in freezing seas near the North Pole.', 'w', 'Irish limestone formed in warm, shallow seas near the equator.']]
           ] },
-        { id: 'fossils', pic: 'Limestone', statement: 'Limestone often contains fossils.',
+        { id: 'fossils', cue: 'Fossils in limestone', pic: 'Limestone', statement: 'Limestone often contains fossils.',
           steps: [
             [['Shells and corals trapped in the layers are preserved, so their shapes can still be seen in the rock.'], ['Fossils are very old and can be seen in museums.', 'f'], ['Dinosaurs lived millions of years ago.', 'o']],
             [['For example, fossil corals and shells can be found in the limestone of the Burren in Co. Clare.'], ['For example, you can find fossils in Ireland.', 'v'], ['For example, fossils are found in the granite of the Wicklow Mountains.', 'w', 'Granite is igneous: it cooled from magma, so it has no fossils.']]
@@ -2238,7 +2240,7 @@
         ['The sediment is carried by the river current to the sea.', 'Rivers transport the sediment down to the sea.', 'Transport'],
         ['Mechanical weathering like frost shattering breaks the rock into fragments.', 'Freeze-thaw weathering breaks rocks up into small pieces.', 'Weathering']],
       off: ['Granite forms when magma cools slowly deep underground.', 'Volcanoes erupt where plates pull apart.', 'The Giant\'s Causeway is made of basalt columns.'],
-      wrong: [['Limestone is formed when lava cools on the sea floor.', 'Lava makes igneous rock. Limestone forms from shells and skeletons of sea creatures.'], ['Sandstone is made from the shells of sea creatures.', 'That\'s limestone. Sandstone is made of sand grains.'], ['Sedimentary rocks form in just a few weeks.', 'They take millions of years to form.']]
+      wrong: [['Limestone is formed when lava cools on the sea floor.', 'Lava makes igneous rock. Limestone forms from shells and skeletons of sea creatures.', 'Limestone is formed from the shells of sea creatures that pile up on the sea floor.'], ['Sandstone is made from the shells of sea creatures.', 'That\'s limestone. Sandstone is made of sand grains.', 'Sandstone is made from grains of sand that are compacted and cemented together.'], ['Sedimentary rocks form in just a few weeks.', 'They take millions of years to form.', 'Sedimentary rocks take millions of years to form as layers are slowly buried and compacted.']]
     },
     'question-3c': {
       student: 'Aoife',
@@ -2253,32 +2255,32 @@
           why: 'When the ground <b>shakes</b>, <b>rubber pads</b> (base isolators) flex and <b>absorb</b> the movement, so the building above only <b>sways gently</b> and <b>stays standing</b>.' }
       ],
       level: [
-        { id: 'seismo', statement: 'Seismographs record vibrations in the ground.',
+        { id: 'seismo', cue: 'Seismographs', statement: 'Seismographs record vibrations in the ground.',
           steps: [
             [['They pick up small tremors called foreshocks, which can come before a big earthquake.'], ['This is a very important and useful job for scientists.', 'f'], ['Volcanoes also erupt where plates meet.', 'o']],
             [['For example, a network of seismographs monitors the San Andreas Fault in California.'], ['For example, they are used in lots of countries.', 'v'], ['For example, seismographs told scientists the exact date of the 2011 Japan earthquake.', 'w', 'No earthquake has been predicted to the exact date. Seismographs show where risk is high, not when.']]
           ] },
-        { id: 'gaps', statement: 'Scientists study seismic gaps along fault lines.',
+        { id: 'gaps', cue: 'Seismic gaps', statement: 'Scientists study seismic gaps along fault lines.',
           steps: [
             [['A seismic gap is a part of a fault that hasn\'t moved for a long time, so stress is building up there.'], ['This helps them a lot with their important work.', 'f'], ['Fold mountains form where two plates collide.', 'o']],
             [['For example, the 1999 Izmit earthquake in Turkey struck a known seismic gap on the North Anatolian Fault.'], ['For example, there are gaps in many places.', 'v'], ['For example, seismic gaps tell scientists the exact hour of the next quake.', 'w', 'A gap shows where a quake is likely, not when it will happen.']]
           ] },
-        { id: 'radon', statement: 'Radon gas levels are monitored in wells.',
+        { id: 'radon', cue: 'Radon gas in wells', statement: 'Radon gas levels are monitored in wells.',
           steps: [
             [['As stress cracks the rocks, radon escapes into groundwater, so a sudden rise can warn of an earthquake.'], ['Gas is something that can be found in lots of places.', 'f'], ['Volcanoes give off gases like sulphur dioxide.', 'o']],
             [['For example, radon in groundwater rose sharply in the months before the 1995 Kobe earthquake in Japan.'], ['For example, this has happened in some places before.', 'v'], ['For example, radon gas is what causes earthquakes.', 'w', 'Radon doesn\'t cause earthquakes. It escapes because the rocks are cracking under stress.']]
           ] },
-        { id: 'build', statement: 'Buildings in earthquake zones are designed to sway.',
+        { id: 'build', cue: 'Buildings that sway', statement: 'Buildings in earthquake zones are designed to sway.',
           steps: [
             [['A flexible steel frame bends with the shaking instead of cracking, so the building doesn\'t collapse.'], ['Buildings are very important for people to live and work in.', 'f'], ['Tall buildings are built in big cities like New York.', 'o']],
             [['For example, Taipei 101 in Taiwan has a huge steel ball near the top that steadies it as it sways.'], ['For example, lots of buildings are built like this now.', 'v'], ['For example, buildings in Japan are built completely rigid so they can\'t move at all.', 'w', 'Rigid buildings crack. Earthquake-proof buildings are designed to flex and sway.']]
           ] },
-        { id: 'drills', statement: 'People take part in earthquake drills.',
+        { id: 'drills', cue: 'Earthquake drills', statement: 'People take part in earthquake drills.',
           steps: [
             [['They practise "drop, cover and hold on", so they react quickly when the shaking starts.'], ['Drills are a good idea and everyone should do them.', 'f'], ['Schools hold fire drills every year.', 'o']],
             [['For example, Japan holds national earthquake drills every year on 1 September, Disaster Prevention Day.'], ['For example, they happen in some schools.', 'v'], ['For example, people are taught to run outside as soon as the shaking starts.', 'w', 'Running during shaking is dangerous. The advice is drop, cover and hold on.']]
           ] },
-        { id: 'warning', statement: 'Early warning systems alert people before strong shaking.',
+        { id: 'warning', cue: 'Early warning systems', statement: 'Early warning systems alert people before strong shaking.',
           steps: [
             [['Sensors detect the first, faster waves and send alerts to phones seconds before the strongest shaking arrives.'], ['Warnings are always useful for everyone.', 'f'], ['Volcanoes can be watched for swelling ground before they erupt.', 'o']],
             [['For example, Japan\'s system braked bullet trains before the strongest shaking of the 2011 Tohoku earthquake.'], ['For example, phones sometimes get messages.', 'v'], ['For example, the warnings arrive several days before the earthquake.', 'w', 'Warnings come seconds before the shaking, not days.']]
@@ -2289,7 +2291,7 @@
         ['Schools hold earthquake drills so students know what to do.', 'Students practise earthquake drills in school so they know how to react.', 'Drills'],
         ['A series of small tremors may come before a larger earthquake.', 'Small foreshocks often happen before a big earthquake.', 'Foreshocks']],
       off: ['Volcanoes erupt when magma rises through the crust.', 'Fold mountains like the Andes form where plates collide.', 'The Burren in Co. Clare is made of limestone.'],
-      wrong: [['Scientists can predict the exact day and hour of an earthquake.', 'They can say where one is likely, but not exactly when.'], ['People should run outside as soon as the shaking starts.', 'That\'s dangerous. The advice is drop, cover and hold on.'], ['Buildings should be made completely rigid so they cannot move.', 'Rigid buildings crack. Safe buildings are designed to flex and sway.']]
+      wrong: [['Scientists can predict the exact day and hour of an earthquake.', 'They can say where one is likely, but not exactly when.', 'Scientists cannot predict exactly when an earthquake will strike, but they can say where one is likely.'], ['People should run outside as soon as the shaking starts.', 'That\'s dangerous. The advice is drop, cover and hold on.', 'People are taught to drop, cover and hold on until the shaking stops.'], ['Buildings should be made completely rigid so they cannot move.', 'Rigid buildings crack. Safe buildings are designed to flex and sway.', 'Buildings are designed with flexible steel frames so they sway instead of collapsing.']]
     }
   };
   var CHAIN_ROUND = 3, LEVEL_ROUND = 4, MARK_REAL = 5;
@@ -2341,7 +2343,7 @@
   // 1-3 pick an answer in Level up.
   function gameKeys(e) {
     var x = state && state.game;
-    if (!x || x.kind !== 'level' || x.done || e.altKey || e.ctrlKey || e.metaKey) return;
+    if (!x || x.kind !== 'level' || x.done || e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
     var b = /^[1-3]$/.test(e.key) && e.currentTarget.querySelector('[data-am-lopt="' + (e.key - 1) + '"]');
     if (b) { e.preventDefault(); b.click(); }
   }
@@ -2398,6 +2400,7 @@
       '<h3 class="am-games__title">' + (perfect ? 'Perfect!' : good ? 'Nice work!' : 'Keep practising') + '</h3>' +
       '<p class="am-games__sub">' + (chain ? '3 stars for a chain right first time, 2 for the second try.' : 'Your picks that were right first time.') +
         (newBest ? ' <b>New best!</b>' : before ? ' Your best: ' + before.score + ' of ' + before.out + '.' : '') + '</p>' +
+      (x.recall ? '<p class="am-games__memory">From memory: <b>' + x.recall.got + ' of ' + x.recall.out + '</b> ' + x.recall.unit + '</p>' : '') +
       (chain ? '' : '<div class="am-games__built"><h4>The points you built</h4>' + x.list.map(function (it) {
         return '<p>' + esc([it.statement, it.steps[0][0][0], it.steps[1][0][0]].join(' ')) + '</p>';
       }).join('') + '<p class="am-games__built-note">Each one is a statement, a development and an example: three SRPs, 6 marks.</p></div>') + '</div>');
@@ -2405,6 +2408,113 @@
     mascot(good ? 'happy' : 'angry', perfect ? 'Perfect. I\'m almost proud.' : good ? 'Hmph. Not bad.' : 'Again. Properly this time.');
     if (perfect) later(fanfare, 300);
     updateTrainTile();
+  }
+
+  // ---------- Typing it out, then writing it from memory ----------
+  // Copy-typing makes you produce every word of an answer once; the from-memory round at the end of a game
+  // then checks what stuck. Both compare words loosely: case, punctuation and one-letter slips don't matter.
+  var STOP_WORDS = wordSet('the a an of to and or in on at is are was were be been by for with as that this these those it its their there they them from into than then so such which who what when where can could will would may might has have had not no also very more most many much some any each other onto over under about after before during while because between both but if until make made makes form forms formed happen happens happened take takes took use used uses lay lies ago here just only even still all get got');
+  function plainWords(text) { return text.toLowerCase().replace(/<[^>]+>/g, ' ').replace(/[’']/g, '').replace(/[^a-z0-9]+/g, ' ').trim().split(' ').filter(Boolean); }
+  function sameWord(a, b) { return a === b || (a.length > 3 && b.length > 3 && lev(a, b) <= 1); }
+  // How much of a sentence was typed: 1 minus the word edits needed, over the sentence's words.
+  function typedScore(typed, target) {
+    var a = plainWords(typed), b = plainWords(target), prev = [], cur, i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      cur = [i];
+      for (j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (sameWord(a[i - 1], b[j - 1]) ? 0 : 1));
+      prev = cur;
+    }
+    return { score: 1 - prev[b.length] / Math.max(1, b.length), miss: b.filter(function (w) { return !a.some(function (t) { return sameWord(t, w); }); })[0] };
+  }
+  // Type the sentence out in full (it stays in view). 85% of the words in order passes; pasting doesn't.
+  function typeIt(card, target, done) {
+    var host = card.querySelector('[data-am-typehost]');
+    host.innerHTML = '<div class="am-type"><label class="am-type__k" for="am-type-box">Now type it out in full</label>' +
+      '<textarea class="am-type__box" id="am-type-box" rows="2" spellcheck="false" autocomplete="off" placeholder="Type the sentence…"></textarea>' +
+      '<p class="am-type__note" data-am-tnote role="status"></p></div>';
+    var box = host.querySelector('textarea'), note = host.querySelector('[data-am-tnote]'), x = state.game;
+    x.typing = function () {
+      var r = typedScore(box.value, target);
+      if (r.score >= 0.85) {
+        x.typing = null;
+        box.readOnly = true;
+        host.firstChild.classList.add('is-done');
+        note.innerHTML = '<b>Typed.</b> ' + (r.score < 1 ? 'Close enough.' : 'Word for word.');
+        ding(4);
+        done();
+        return;
+      }
+      note.textContent = !box.value.trim() ? 'Type the sentence first.' : r.miss ? 'Nearly. Check "' + r.miss + '".' : 'Nearly. Check the order of the words.';
+      if (!reduced()) { host.classList.remove('am-shake'); void host.offsetWidth; host.classList.add('am-shake'); }
+      box.focus();
+    };
+    box.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (x.typing) x.typing(); } });
+    box.addEventListener('paste', function (e) { e.preventDefault(); note.textContent = 'Type it yourself: that\'s what makes it stick.'; });
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-ghub', 'Mini games'], ['ok', 'data-am-gtyped', 'Done']], true);
+    box.focus({ preventScroll: true });
+    // On a small screen the box can be below the fold.
+    host.scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' });
+  }
+  // Key words of a sentence: everything but the small linking words.
+  function recallKeys(text) {
+    var seen = {};
+    return plainWords(text).filter(function (w) { var k = !STOP_WORDS[w] && (w.length > 2 || /\d/.test(w)) && !seen[w]; seen[w] = true; return k; });
+  }
+  function recalled(typed, key) { return typed.some(function (w) { return sameWord(w, key) || (key.length > 5 && w.slice(0, 5) === key.slice(0, 5)); }); }
+  // Wrap each key word of a sentence: green if it came back, red if it didn't.
+  function markKeys(text, keys, typed) {
+    return esc(text).replace(/[A-Za-z0-9’']+/g, function (w) {
+      var k = plainWords(w)[0];
+      if (!k || keys.indexOf(k) < 0) return w;
+      return '<mark class="' + (recalled(typed, k) ? 'is-got' : 'is-miss') + '">' + w + '</mark>';
+    });
+  }
+  // Items for the round: { cue, prompt, units: [{ text, keys }], render(typed, results) }. A unit (a sentence,
+  // or one key term) comes back if 60% of its key words do.
+  function recallStart(card, items, unitName, done) {
+    state.game.recall = { items: items, i: 0, got: 0, out: items.reduce(function (n, it) { return n + it.units.length; }, 0), unit: unitName, done: done };
+    mascot('ok', 'Now from memory. No peeking.');
+    recallShow(card);
+  }
+  function recallShow(card) {
+    var r = state.game.recall, it = r.items[r.i];
+    r.checked = false;
+    gameBody(card, '<div class="am-recall">' +
+      '<div class="am-run__top"><h3 class="am-run__kind">From memory</h3><span class="am-games__step">' + (r.i + 1) + ' of ' + r.items.length + '</span></div>' +
+      '<p class="am-games__ask">' + it.prompt + '</p>' +
+      '<p class="am-recall__cue">' + esc(it.cue) + '</p>' +
+      '<textarea class="am-type__box am-recall__box" rows="5" spellcheck="true" aria-label="' + esc(it.cue) + ', from memory" placeholder="Write it from memory…"></textarea>' +
+      '<div class="am-recall__result" data-am-rcresult></div>' +
+      '<p class="am-games__note" data-am-gnote role="status"></p></div>');
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-ghub', 'Mini games'], ['ok', 'data-am-rccheck', 'Check']], true);
+    card.querySelector('.am-recall__box').focus({ preventScroll: true });
+  }
+  function recallCheck(card) {
+    var r = state.game.recall, it = r.items[r.i], box = card.querySelector('.am-recall__box'), note = card.querySelector('[data-am-gnote]');
+    if (r.checked) return;
+    if (!box.value.trim()) { note.textContent = 'Write what you remember first. Even a little counts.'; box.focus(); return; }
+    r.checked = true;
+    box.readOnly = true;
+    var typed = plainWords(box.value), got = 0;
+    var results = it.units.map(function (u) {
+      var have = u.keys.filter(function (k) { return recalled(typed, k); }).length, ok = have >= Math.ceil(u.keys.length * 0.6);
+      if (ok) got += 1;
+      return ok;
+    });
+    r.got += got;
+    card.querySelector('[data-am-rcresult]').innerHTML = '<div class="am-recall__model"><b class="am-chain__say">What it should say</b>' + it.render(typed, results) + '</div>';
+    note.innerHTML = '<b>' + got + ' of ' + it.units.length + '</b> ' + r.unit + ' remembered.' + (got < it.units.length ? ' The red words are the ones you missed.' : '');
+    if (got === it.units.length) { ding(5, true); mascot('happy', pick(['Hmph. It stuck.', 'Word perfect. Fine.', 'You actually learned it.'])); }
+    else if (got) { ding(2); mascot('ok', 'Half-remembered is half-marked.'); }
+    else { bonk(); mascot('angry', 'In one ear, out the other.'); }
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['ok', 'data-am-rcnext', r.i + 1 >= r.items.length ? 'See my score' : 'Next']]);
+    card.querySelector('[data-am-rcresult]').scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' });
+  }
+  function recallNext(card) {
+    var r = state.game.recall;
+    r.i += 1;
+    if (r.i >= r.items.length) r.done(); else recallShow(card);
   }
 
   // Chain reaction: tap the steps into order. Right ones lock, wrong ones go back; then the chain falls
@@ -2435,6 +2545,7 @@
       '<div class="am-order__main"><ol class="am-chain__slots" data-am-cslots></ol>' +
         (art ? '<div class="am-order__art" data-am-cart>' + art + '</div>' : '') + '</div>' +
       '<div class="am-chain__pool" data-am-cpool></div>' +
+      '<div class="am-games__type" data-am-typehost></div>' +
       '<p class="am-games__note" data-am-gnote role="status"></p></div>', Boolean(art));
     chainArt(card.querySelector('[data-am-cart]'), 0);
     chainRender(card);
@@ -2541,12 +2652,28 @@
     gameSeg(card, x.i, stars === 3 ? 'is-ok' : 'is-half');
     rollTo(card.querySelector('[data-am-gscore]'), x.stars);
     mascot('happy', stars === 3 ? 'First try? Hmph. Fine.' : pick(MASCOT.right));
-    fillButtons(card.querySelector('[data-am-gbtns]'), [['ok', 'data-am-cnext', x.i + 1 >= x.list.length ? 'See my score' : 'Next chain']]);
+    // Then type the explanation out in full.
+    typeIt(card, c.why.replace(/<[^>]+>/g, ''), function () {
+      fillButtons(card.querySelector('[data-am-gbtns]'), [['ok', 'data-am-cnext', x.i + 1 >= x.list.length ? 'From memory' : 'Next chain']]);
+    });
+  }
+  // Each chain's explanation from memory: its key terms (the bold words) are what count.
+  function chainRecall(c) {
+    var terms = (c.why.match(/<b>[^<]+<\/b>/g) || []).map(function (t) { return t.replace(/<[^>]+>/g, ''); });
+    return {
+      cue: c.title, prompt: 'Write the explanation from memory, as one chain: <b>because</b>… <b>so</b>…',
+      units: terms.map(function (t) { return { text: t, keys: recallKeys(t).length ? recallKeys(t) : plainWords(t) }; }),
+      render: function (typed, results) {
+        var k = 0;
+        return '<p>' + c.why.replace(/<b>([^<]+)<\/b>/g, function (m, t) { return '<mark class="' + (results[k++] ? 'is-got' : 'is-miss') + '">' + t + '</mark>'; }) + '</p>';
+      }
+    };
   }
   function chainNext(card) {
     var x = state.game;
     x.i += 1;
-    if (x.i >= x.list.length) gameEnd(card); else chainShow(card);
+    if (x.i < x.list.length) { chainShow(card); return; }
+    recallStart(card, x.list.map(chainRecall), 'key terms', function () { gameEnd(card); });
   }
 
   // Level up: start from a bare statement (one SRP) and add a development, then an example, place or
@@ -2574,8 +2701,11 @@
         '<div class="am-level__meter" aria-hidden="true"><i class="is-on">2</i><i>4</i><i>6</i><span>marks</span></div></div>' +
       '<p class="am-games__ask" data-am-lask></p>' +
       '<div class="am-run__opts" data-am-lopts></div>' +
+      '<div class="am-games__type" data-am-typehost></div>' +
       '<p class="am-games__note" data-am-gnote role="status"></p></div>');
-    levelStep(card);
+    // Level 1: type the statement out before building on it.
+    card.querySelector('[data-am-lask]').innerHTML = '<b>Level 1.</b> Here\'s the statement: one SRP. Type it out in full.';
+    typeIt(card, it.statement, function () { levelStep(card); });
   }
   function levelStep(card) {
     var x = state.game, it = x.list[x.i];
@@ -2587,6 +2717,7 @@
       return '<button type="button" class="am-run__opt am-level__opt" data-am-lopt="' + n + '"><kbd aria-hidden="true">' + (n + 1) + '</kbd><span>' + esc(o[0]) + '</span></button>';
     }).join('');
     card.querySelector('[data-am-gnote]').textContent = '';
+    card.querySelector('[data-am-typehost]').innerHTML = '';
     fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-ghub', 'Mini games']], true);
     card.querySelector('[data-am-lopt]').focus({ preventScroll: true });
   }
@@ -2607,7 +2738,9 @@
       var last = x.step === 1;
       card.querySelector('[data-am-gnote]').innerHTML = '<b>+2 marks.</b> ' + (last ? 'A real example: that\'s three SRPs from one point.' : 'It explains the point with a new fact, so it\'s a new SRP.');
       if (last) gameSeg(card, x.i, x.clean ? 'is-ok' : 'is-half');
-      fillButtons(card.querySelector('[data-am-gbtns]'), [['ok', 'data-am-lnext', !last ? 'Next level' : x.i + 1 >= x.list.length ? 'See my score' : 'Next point']]);
+      typeIt(card, o[0], function () {
+        fillButtons(card.querySelector('[data-am-gbtns]'), [['ok', 'data-am-lnext', !last ? 'Next level' : x.i + 1 >= x.list.length ? 'From memory' : 'Next point']]);
+      });
       return;
     }
     // A trap: say what kind, and why it earns nothing. Pick again.
@@ -2625,7 +2758,21 @@
     var x = state.game;
     if (x.step === 0) { x.step = 1; levelStep(card); return; }
     x.i += 1;
-    if (x.i >= x.list.length) gameEnd(card); else levelShow(card);
+    if (x.i < x.list.length) { levelShow(card); return; }
+    recallStart(card, x.list.map(levelRecall), 'sentences', function () { gameEnd(card); });
+  }
+  // Each point you built, from memory: the statement, the development and the example all count.
+  function levelRecall(it) {
+    var lines = [it.statement, it.steps[0][0][0], it.steps[1][0][0]];
+    return {
+      cue: it.cue || it.statement, prompt: 'Write the whole point from memory: the statement, the development and the example.',
+      units: lines.map(function (t) { return { text: t, keys: recallKeys(t) }; }),
+      render: function (typed, results) {
+        return lines.map(function (t, k) {
+          return '<p class="' + (results[k] ? 'is-got' : 'is-miss') + '"><span class="am-level__tag">' + ['Statement', 'Development', 'Example'][k] + '</span> ' + markKeys(t, recallKeys(t), typed) + '</p>';
+        }).join('');
+      }
+    };
   }
 
   // Be the examiner: a made-up student's answer, one sentence per line. You mark each line // (an SRP)
@@ -2727,15 +2874,13 @@
       return;
     }
     x.done = true;
-    var right = 0, gave = 0, real = 0, off = EXAM_OFF[state.id].topic;
+    var right = 0, gave = 0, real = 0;
     x.lines.forEach(function (l, k) {
       var ok = x.calls[k] === (l.srp ? 1 : 0), row = card.querySelector('[data-am-mrow="' + k + '"]');
       if (ok) right += 1;
       if (x.calls[k]) gave += 1;
       if (l.srp) real += 1;
-      var tag = l.srp ? 'SRP' : l.type === 'off' ? 'Not relevant' : l.type === 'wrong' ? 'Wrong' : l.type === 'repeat' ? 'Repeat' : 'No SRP';
-      var why = l.srp ? esc(l.label) : l.type === 'off' ? 'True, but the question is about ' + esc(off) + '.'
-        : l.type === 'repeat' ? 'Line ' + (x.lines.indexOf(l.of) + 1) + ' already made this point. It only counts once.' : esc(l.why);
+      var v = markVerdict(x, l), tag = v.tag, why = v.why;
       row.classList.add(ok ? 'is-right' : 'is-wrong');
       row.querySelector('.am-mark__n').innerHTML = ok ? TICK : CROSS;
       row.querySelectorAll('[data-am-mcall]').forEach(function (b) { b.setAttribute('aria-disabled', 'true'); });
@@ -2762,8 +2907,108 @@
     card.querySelector('.am-finish__card').scrollTop = 0;
     mascot(great ? 'happy' : right >= n * 0.7 ? 'ok' : 'angry', great ? 'You\'d make a decent examiner. Better than some.' : right >= n * 0.7 ? 'Not bad. Not good either.' : 'You\'d be a terrible examiner.');
     if (right === n) later(fanfare, 300);
-    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-ghub', 'Mini games'], ['ok', 'data-am-magain', 'Mark another']]);
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-magain', 'Mark another'], ['ok', 'data-am-mfix', 'Fix the weak lines']]);
     updateTrainTile();
+  }
+  function markVerdict(x, l) {
+    var tag = l.srp ? 'SRP' : l.type === 'off' ? 'Not relevant' : l.type === 'wrong' ? 'Wrong' : l.type === 'repeat' ? 'Repeat' : 'No SRP';
+    var why = l.srp ? esc(l.label) : l.type === 'off' ? 'True, but the question is about ' + esc(EXAM_OFF[state.id].topic) + '.'
+      : l.type === 'repeat' ? 'Line ' + (x.lines.indexOf(l.of) + 1) + ' already made this point. It only counts once.' : esc(l.why);
+    return { tag: tag, why: why };
+  }
+  function pointIds(text) {
+    var ids = [];
+    evaluate(state.q, text, always).forEach(function (s) { s.hits.forEach(function (p) { if (ids.indexOf(p.id) < 0) ids.push(p.id); }); });
+    return ids;
+  }
+  // Fix it: up to three lines that earned nothing (vague and wrong ones first). You rewrite each so it earns
+  // a mark the answer doesn't have yet, then see a version that does.
+  function markFixStart(card) {
+    var x = state.game, order = ['vague', 'wrong', 'repeat', 'off'];
+    x.have = {};
+    pointIds(x.lines.map(function (l) { return l.text; }).join(' ')).forEach(function (id) { x.have[id] = true; });
+    x.spare = shuffle(TRAIN[state.id].real.filter(function (r) { return !x.lines.some(function (l) { return l.text === r[0]; }); }), Date.now() % 233280)
+      .filter(function (r) { return pointIds(r[0]).some(function (id) { return !x.have[id]; }); });
+    // Lines whose own better version would earn a new mark come first, so the better version always matches the line.
+    var fresh = function (t) { return pointIds(t).some(function (id) { return !x.have[id]; }); };
+    x.fixes = x.lines.filter(function (l) { return !l.srp; }).map(function (l) {
+      l.freshFix = Boolean(l.fix) && fresh(l.fix);
+      return l;
+    }).sort(function (a, b) {
+      var rank = function (l) { return l.freshFix ? 0 : l.type === 'off' || l.type === 'repeat' ? 1 : 2; };
+      return rank(a) - rank(b) || order.indexOf(a.type) - order.indexOf(b.type);
+    }).slice(0, 3);
+    x.fi = 0;
+    x.fixed = 0;
+    mascot('ok', 'Go on then. Fix them.');
+    markFixShow(card);
+  }
+  function markFixShow(card) {
+    var x = state.game, l = x.fixes[x.fi], v = markVerdict(x, l);
+    x.tries = 0;
+    x.fixDone = false;
+    // Vague and wrong lines show their own better version; lines that can't be fixed (off the question,
+    // repeats) show a new point the answer doesn't have yet.
+    l.better = l.fix || (x.spare.shift() || [''])[0];
+    var replace = l.type === 'repeat' || l.type === 'off';
+    gameBody(card, '<div class="am-fix">' +
+      '<div class="am-run__top"><h3 class="am-run__kind">Fix it</h3><span class="am-games__step">' + (x.fi + 1) + ' of ' + x.fixes.length + '</span></div>' +
+      '<p class="am-games__ask">' + (replace ? 'This line can\'t earn a mark however it\'s worded. Replace it with a new point that answers the question.' : 'Rewrite this line so it earns an SRP.') + '</p>' +
+      '<div class="am-fix__line"><p class="am-mark__text">' + esc(l.text) + '</p><p class="am-mark__why"><b class="am-mark__tag am-mark__tag--no">' + v.tag + '</b> ' + v.why + '</p></div>' +
+      '<textarea class="am-type__box am-fix__box" rows="3" spellcheck="true" aria-label="Your better sentence" placeholder="Your better sentence…"></textarea>' +
+      '<div data-am-fixresult></div><p class="am-games__note" data-am-gnote role="status"></p></div>');
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-ghub', 'Mini games'], ['ok', 'data-am-fcheck', 'Check']], true);
+    card.querySelector('.am-fix__box').focus({ preventScroll: true });
+  }
+  function markFixCheck(card) {
+    var x = state.game, l = x.fixes[x.fi], box = card.querySelector('.am-fix__box'), note = card.querySelector('[data-am-gnote]');
+    if (x.fixDone) return;
+    var text = box.value.trim().replace(/\s+/g, ' ');
+    if (!text) { note.textContent = 'Write your sentence first.'; box.focus(); return; }
+    if (!/[.!?]$/.test(text)) text += '.';
+    var hits = [], near = null;
+    evaluate(state.q, text, always).forEach(function (s) {
+      s.hits.forEach(function (p) { hits.push(p); });
+      if (!near && s.near) near = s.near;
+    });
+    var fresh = hits.filter(function (p) { return !x.have[p.id]; })[0];
+    var better = '<p class="am-fix__better"><b>A version that earns the mark:</b> ' + esc(l.better) +
+      (l.fix && !l.freshFix ? ' <span>(This answer already has that point on another line, so here you\'d need a different one.)</span>' : '') + '</p>';
+    if (fresh) {
+      x.fixDone = true;
+      x.fixed += 1;
+      box.readOnly = true;
+      ding(3, true);
+      mascot('happy', pick(MASCOT.right));
+      card.querySelector('[data-am-fixresult]').innerHTML = '<p class="am-fix__ok"><b>That earns an SRP:</b> ' + esc(fresh.label) + '.</p>' + better;
+      note.textContent = '';
+    } else {
+      x.tries += 1;
+      bonk();
+      mascot('angry', pick(MASCOT.wrong));
+      var repeat = hits[0] ? 'That\'s a real point, but the answer already has it ("' + esc(hits[0].label) + '"), so here it\'s a repeat. Make a different one.' : '';
+      var hint = repeat || (near ? 'Closer: that\'s heading towards "' + esc(near.label) + '". Say what it does, or why.' : 'Still no mark. Say exactly what happens, and how or why.');
+      if (x.tries < 2) { note.innerHTML = hint + ' <em>One more try.</em>'; box.focus(); return; }
+      x.fixDone = true;
+      box.readOnly = true;
+      note.innerHTML = hint;
+      card.querySelector('[data-am-fixresult]').innerHTML = better;
+    }
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['ok', 'data-am-fnext', x.fi + 1 >= x.fixes.length ? 'Finish' : 'Next line']]);
+    card.querySelector('[data-am-fixresult]').scrollIntoView({ block: 'nearest', behavior: reduced() ? 'auto' : 'smooth' });
+  }
+  function markFixNext(card) {
+    var x = state.game;
+    x.fi += 1;
+    if (x.fi < x.fixes.length) { markFixShow(card); return; }
+    var all = x.fixed === x.fixes.length;
+    gameBody(card, '<div class="am-games__end">' +
+      '<p class="am-games__big">' + x.fixed + '<span>/' + x.fixes.length + '</span></p>' +
+      '<h3 class="am-games__title">' + (all ? 'Every line fixed!' : x.fixed ? 'Some lines fixed' : 'Those were tricky') + '</h3>' +
+      '<p class="am-games__sub">A line earns a mark when it says one specific, correct thing that answers the question, and the answer doesn\'t already have it.</p></div>');
+    fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-ghub', 'Mini games'], ['ok', 'data-am-magain', 'Mark another']]);
+    mascot(all ? 'happy' : 'ok', all ? 'Now write like that in the exam.' : 'Better. Still not good enough.');
+    if (all) later(fanfare, 300);
   }
 
   // ---------- official marks (SEC 2024 Leaving Certificate marking scheme, Geography HL) ----------
@@ -3757,6 +4002,12 @@
         if (e.target.closest('[data-am-mrules]')) { markRules(gamesCard); return; }
         if (e.target.closest('[data-am-mhand]')) { markHand(gamesCard); return; }
         if (e.target.closest('[data-am-magain]')) { markStart(gamesCard); return; }
+        if (e.target.closest('[data-am-gtyped]')) { if (state.game && state.game.typing) state.game.typing(); return; }
+        if (e.target.closest('[data-am-rccheck]')) { recallCheck(gamesCard); return; }
+        if (e.target.closest('[data-am-rcnext]')) { recallNext(gamesCard); return; }
+        if (e.target.closest('[data-am-mfix]')) { markFixStart(gamesCard); return; }
+        if (e.target.closest('[data-am-fcheck]')) { markFixCheck(gamesCard); return; }
+        if (e.target.closest('[data-am-fnext]')) { markFixNext(gamesCard); return; }
       }
       var examCard = e.target.closest('.am-exam');
       if (examCard) {
@@ -4453,6 +4704,37 @@
     '.am-level__pic{grid-column:2;grid-row:1 / span 2;border-radius:10px;overflow:hidden;line-height:0}',
     '.am-level__pic svg{display:block;width:100%;height:auto}',
     '@media (max-width:600px){.am-level__paper.has-pic{grid-template-columns:1fr}.am-level__pic{grid-column:1;grid-row:auto;width:100%;max-width:260px;margin:0 0 12px}}',
+    '.am-games__type:empty{display:none}',
+    '.am-games__type{margin:14px 0 0}',
+    '.am-type{padding:12px 14px;border-radius:14px;background:#1B3150;border:2px solid #2A3D5E;transition:border-color .2s ease}',
+    '.am-type.is-done{border-color:#2BC46F}',
+    '.am-type__k{display:block;margin:0 0 6px;font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#FFE14D}',
+    '.am-type.is-done .am-type__k{color:#7DF0B0}',
+    '.am-type__box{display:block;width:100%;box-sizing:border-box;margin:0;padding:10px 12px;border:2px solid #2A3D5E;border-radius:10px;background:#FFFEF8;color:#13294A;font:800 17px/1.45 Nunito,sans-serif;resize:vertical;outline:none}',
+    '.am-type__box:focus{border-color:#FFE14D}',
+    '.am-type__box[readonly]{background:#EAF7EF;border-color:#2BC46F}',
+    '.am-type__note{min-height:20px;margin:6px 0 0;font:800 14.5px/1.4 Nunito,sans-serif;color:#C9D6EE}',
+    '.am-type__note b{color:#7DF0B0}',
+    '.am-recall__cue{margin:0 0 10px;padding:10px 14px;border-radius:12px;background:#FFFEF8;font:700 20px/1.3 Fredoka,Nunito,sans-serif;color:#13294A}',
+    '.am-recall__model{margin:12px 0 0;padding:12px 14px;border-radius:14px;background:#FFFEF8;animation:amIn .35s ease both}',
+    '.am-recall__model .am-chain__say{display:block;font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#5E6F8A}',
+    '.am-recall__model p{margin:6px 0 0;font:800 15.5px/1.55 Nunito,sans-serif;color:#13294A}',
+    '.am-recall__model p.is-miss .am-level__tag{background:#FFE1E1;color:#B3262B}',
+    '.am-recall__model mark{padding:0 2px;border-radius:4px;color:#13294A}',
+    '.am-recall__model mark.is-got{background:#D4F7E2}',
+    '.am-recall__model mark.is-miss{background:#FFD3D3;color:#8E1F24}',
+    '.am-games__memory{margin:-8px auto 14px;font:800 17px Nunito,sans-serif;color:#C9D6EE}',
+    '.am-games__memory b{color:#7DF0B0}',
+    '.am-fix__line{margin:0 0 12px;padding:10px 14px;border-radius:14px;background:#FFFEF8}',
+    '.am-fix__line .am-mark__why{margin:6px 0 0}',
+    '.am-fix__ok,.am-fix__better{margin:10px 0 0;padding:10px 14px;border-radius:12px;font:800 15.5px/1.5 Nunito,sans-serif;animation:amIn .35s ease both}',
+    '.am-fix__ok{background:#173B2A;color:#7DF0B0}',
+    '.am-fix__better{background:#FFFEF8;color:#13294A}',
+    '.am-fix__better b{color:#0B6B3A}',
+    '.am-root .am-type__k,.am-root .am-recall__cue{font-family:Fredoka,Nunito,sans-serif !important}',
+    '.am-root .am-type__box,.am-root .am-type__note,.am-root .am-recall__model p,.am-root .am-games__memory,.am-root .am-fix__ok,.am-root .am-fix__better{font-family:Nunito,system-ui,sans-serif !important;font-weight:800 !important}',
+    '.am-root .am-recall__model .am-level__tag{font-family:Fredoka,Nunito,sans-serif !important;margin-right:4px}',
+    '.am-root .am-fix__line .am-mark__text{font-family:Caveat,"Segoe Print","Comic Sans MS",cursive !important}',
     '.am-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}',
     '.am-run{position:relative}',
     '.am-run__hud{display:flex;align-items:center;gap:12px;margin:-6px 0 8px}',
