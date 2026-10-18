@@ -27,6 +27,7 @@
 .bio-stem { margin: 0 0 12px; font-size: 17px; line-height: 1.5; }
 .bio-dia { margin: 0 0 14px; border-radius: 10px; overflow: hidden; line-height: 0; border: 1px solid #D5DCE8; }
 .bio-dia svg { width: 100%; height: auto; display: block; }
+.bio-dia .bio-flow { display: none; } /* exam diagrams don't show which way things flow: questions often ask it */
 .bio-dia--two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; border: 0; }
 .bio-dia--two > div { border: 1px solid #D5DCE8; border-radius: 10px; overflow: hidden; }
 .bio-dia__note { margin: 0 0 12px; padding: 8px 12px; border-radius: 10px; background: #EEF2F8; font-size: 14.5px; }

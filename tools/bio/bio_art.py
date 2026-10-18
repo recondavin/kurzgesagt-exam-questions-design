@@ -49,8 +49,9 @@ def vessel(d, color, w=6):
 
 
 def flow(d, color='#FFFFFF', dur=2.4):
-    """A dashed stroke moving along a path: blood or urine flowing."""
-    return (f'<path d="{d}" fill="none" stroke="{color}" stroke-width="1.6" stroke-dasharray="4 10" stroke-linecap="round" opacity=".85">'
+    """A dashed stroke moving along a path: blood or urine flowing. Class bio-flow: hidden on exam-question
+    diagrams, where the direction of flow is often what the question asks."""
+    return (f'<path class="bio-flow" d="{d}" fill="none" stroke="{color}" stroke-width="1.6" stroke-dasharray="4 10" stroke-linecap="round" opacity=".85">'
             f'<animate attributeName="stroke-dashoffset" values="0;-28" dur="{dur}s" repeatCount="indefinite"/></path>')
 
 

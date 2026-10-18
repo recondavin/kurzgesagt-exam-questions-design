@@ -10,7 +10,7 @@ Exam questions (tools/bio/build_bio_questions.py reads these):
 import math, os, re, sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
-from bio_art import part, tube, vessel, flow, finish, INK, RED, RED_D, BLUE, PURPLE, BG  # noqa: E402
+from bio_art import label, part, tube, vessel, flow, finish, INK, RED, RED_D, BLUE, PURPLE, BG  # noqa: E402
 
 CHAPTER = 30
 TOPIC = 'The digestive system'
@@ -25,30 +25,12 @@ SKIN, SKIN_D = '#F9E0CF', '#E2B79A'
 LYMPH, LYMPH_D = '#FFF9E6', '#C9B27A'
 
 
-def label(i, text, side, ax, ay, fx, fy):
-    """The Draw it label (a leader line to the feature and a dark pill), sized for Lexend capitals."""
-    w = len(text) * 8.2 + 20
-    if side == 'start':
-        tx, ty, anchor, rx = ax + 10, ay, 'start', ax
-    elif side == 'end':
-        tx, ty, anchor, rx = ax - 10, ay, 'end', ax - w
-    elif side == 'top':
-        tx, ty, anchor, rx = ax, ay + 11, 'middle', ax - w / 2
-    else:
-        tx, ty, anchor, rx = ax, ay - 11, 'middle', ax - w / 2
-    return (f'<g data-label="{i}"><path d="M{fx} {fy}L{ax} {ay}" stroke="{INK}" stroke-width="1.6" fill="none"/>'
-            f'<circle cx="{fx}" cy="{fy}" r="3" fill="{INK}" stroke="#FFFFFF" stroke-width="1.2"/>'
-            f'<rect x="{rx:.1f}" y="{ty - 11}" width="{w:.1f}" height="22" rx="11" fill="{INK}"/>'
-            f'<text x="{tx}" y="{ty}" text-anchor="{anchor}" dominant-baseline="central" font-family="Lexend, Nunito, sans-serif" '
-            f'font-weight="600" font-size="12.5" fill="#FFFFFF">{text}</text></g>')
-
-
 def head_arrow(x, y, angle, color, size=7):
     """A small solid arrowhead at (x, y) pointing along angle (degrees): which way the blood flows."""
     a = math.radians(angle)
     bx, by = x - size * math.cos(a), y - size * math.sin(a)
     px, py = -math.sin(a) * size * .7, math.cos(a) * size * .7
-    return f'<path d="M{x:.1f} {y:.1f}L{bx + px:.1f} {by + py:.1f}L{bx - px:.1f} {by - py:.1f}Z" fill="{color}"/>'
+    return f'<path class="bio-flow" d="M{x:.1f} {y:.1f}L{bx + px:.1f} {by + py:.1f}L{bx - px:.1f} {by - py:.1f}Z" fill="{color}"/>'
 
 
 def haustra(points, w):

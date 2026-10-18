@@ -1215,14 +1215,114 @@
   "say": "For part two, describe it: say what happens, step by step. That's two points, for six marks."
  },
  {
+  "id": "bio-30-bile-title",
+  "text": "Bile: breaking up fat",
+  "say": "Bile: breaking up fat"
+ },
+ {
+  "id": "bio-30-bile-summary",
+  "text": "Made in the liver, stored in the gall bladder.",
+  "say": "Fat doesn't mix with water, so your body has a clever trick for it."
+ },
+ {
+  "id": "bio-30-bile-1",
+  "text": "Made and stored: liver, then gall bladder.",
+  "say": "Bile is made in the liver and stored in the gall bladder, which squeezes it down the bile duct into the duodenum."
+ },
+ {
+  "id": "bio-30-bile-2",
+  "text": "Emulsifies: big drops into tiny droplets.",
+  "say": "Bile salts emulsify fat: they break big globules into tiny droplets, giving lipase a much bigger surface area to work on."
+ },
+ {
+  "id": "bio-30-bile-3",
+  "text": "Neutralises: the stomach acid.",
+  "say": "Bile is alkaline too, so it neutralises the acid coming from the stomach, giving the enzymes in the duodenum their best pH."
+ },
+ {
+  "id": "bio-30-acid-title",
+  "text": "The stomach: an acid bath",
+  "say": "The stomach: an acid bath"
+ },
+ {
+  "id": "bio-30-acid-summary",
+  "text": "Churning, acid and pepsin.",
+  "say": "Your stomach is one of the most acidic places in your body."
+ },
+ {
+  "id": "bio-30-acid-1",
+  "text": "Hydrochloric acid: about pH 2.",
+  "say": "The stomach wall makes hydrochloric acid, which keeps the pH at about 2."
+ },
+ {
+  "id": "bio-30-acid-2",
+  "text": "Kills bacteria: and suits pepsin.",
+  "say": "The acid kills most of the bacteria in your food, and it's just right for pepsin, the stomach's protein-digesting enzyme."
+ },
+ {
+  "id": "bio-30-acid-3",
+  "text": "Churning: muscles mix it all.",
+  "say": "Strong muscles in the stomach wall churn the food with the juice into a thick liquid, before it moves on to the duodenum."
+ },
+ {
   "id": "bio-f1ccac09",
   "text": "(c) Draw: 2 points, 6 marks.",
   "say": "For part c, draw it large, and label it clearly. That's two points, for six marks."
  },
  {
+  "id": "bio-30-tube-title",
+  "text": "The gut: one long tube",
+  "say": "The gut: one long tube"
+ },
+ {
+  "id": "bio-30-tube-summary",
+  "text": "From mouth to anus, with glands along the way.",
+  "say": "Your gut is really one long tube running right through you, about nine metres of it."
+ },
+ {
+  "id": "bio-30-tube-1",
+  "text": "The tube: mouth, oesophagus, stomach.",
+  "say": "Food goes in at the mouth, down the oesophagus and into the stomach, a stretchy bag that churns it."
+ },
+ {
+  "id": "bio-30-tube-2",
+  "text": "Small, then large: the intestines.",
+  "say": "Next comes the small intestine: first the duodenum, then the long, coiled ileum. The large intestine, the colon, frames it, and ends at the rectum and anus."
+ },
+ {
+  "id": "bio-30-tube-3",
+  "text": "The glands: salivary glands, liver, pancreas.",
+  "say": "Along the way, glands pour in their juices: the salivary glands in the mouth, and the liver and pancreas into the duodenum."
+ },
+ {
   "id": "bio-fba511f5",
   "text": "(vi) 2. Name: one point, 3 marks.",
   "say": "For part six 2., just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-30-diet-title",
+  "text": "A balanced diet",
+  "say": "A balanced diet"
+ },
+ {
+  "id": "bio-30-diet-summary",
+  "text": "The right amounts of everything.",
+  "say": "What you eat shapes your health in ways you can't always see."
+ },
+ {
+  "id": "bio-30-diet-1",
+  "text": "Balanced: the right amounts of each food.",
+  "say": "A balanced diet has the correct amounts of each type of food, plus fibre and enough water. What's right depends on your age, your size and how active you are."
+ },
+ {
+  "id": "bio-30-diet-2",
+  "text": "Too much: fat, sugar and salt.",
+  "say": "Too much saturated fat and salt can block arteries and raise blood pressure. Too much sugar can lead to obesity and type 2 diabetes."
+ },
+ {
+  "id": "bio-30-diet-3",
+  "text": "Heterotrophs: we have to eat.",
+  "say": "We're heterotrophs: we can't make our own food, so we eat other organisms. As omnivores, we eat both plants and animals."
  },
  {
   "id": "bio-2d5b4229",
@@ -1235,6 +1335,31 @@
   "say": "For part one 4., just name it: a word or a short phrase is enough. That's one point, for three marks."
  },
  {
+  "id": "bio-30-liver-title",
+  "text": "The liver and the hepatic portal vein",
+  "say": "The liver and the hepatic portal vein"
+ },
+ {
+  "id": "bio-30-liver-summary",
+  "text": "Digested food goes to the liver first.",
+  "say": "Everything you absorb from your gut makes a stop at the liver before it goes anywhere else."
+ },
+ {
+  "id": "bio-30-liver-1",
+  "text": "Hepatic portal vein: from the gut to the liver.",
+  "say": "Blood rich in digested food leaves the intestine in the hepatic portal vein, which goes straight to the liver. It's a vein with capillaries at both ends."
+ },
+ {
+  "id": "bio-30-liver-2",
+  "text": "Storing and sorting: glycogen and urea.",
+  "say": "The liver stores spare glucose as glycogen, and breaks down spare amino acids, deamination, which makes urea."
+ },
+ {
+  "id": "bio-30-liver-3",
+  "text": "Other jobs: bile, poisons, heat.",
+  "say": "It also makes bile, breaks down poisons like alcohol, stores vitamins and iron, and makes heat. Oxygen comes in by the hepatic artery, and blood leaves by the hepatic vein."
+ },
+ {
   "id": "bio-db319390",
   "text": "20 marks in 5 parts.",
   "say": "This one is worth twenty marks, in five parts. Here's what each part wants."
@@ -1245,9 +1370,9 @@
   "say": "For part a, read the diagram and find the exact part. That's two points, for four marks."
  },
  {
-  "id": "bio-2f61fc74",
-  "text": "(b), (d), (e) Name: 5 points, 14 marks.",
-  "say": "For parts b, d, e, just name it: a word or a short phrase is enough. That's five points, for fourteen marks."
+  "id": "bio-204c6753",
+  "text": "(b), (d) Name: 3 points, 9 marks.",
+  "say": "For parts b, d, just name it: a word or a short phrase is enough. That's three points, for nine marks."
  },
  {
   "id": "bio-07a45701",
@@ -1255,9 +1380,64 @@
   "say": "For part c, describe it: say what happens, step by step. That's one point, for two marks."
  },
  {
+  "id": "bio-fc35f301",
+  "text": "(e) Draw: 2 points, 5 marks.",
+  "say": "For part e, draw it large, and label it clearly. That's two points, for five marks."
+ },
+ {
+  "id": "bio-30-move-title",
+  "text": "Peristalsis and fibre",
+  "say": "Peristalsis and fibre"
+ },
+ {
+  "id": "bio-30-move-summary",
+  "text": "Waves of muscle push food along.",
+  "say": "Food doesn't just fall through your gut. It's pushed, every step of the way."
+ },
+ {
+  "id": "bio-30-move-1",
+  "text": "Peristalsis: waves of muscle.",
+  "say": "Rings of muscle in the gut wall contract behind the food and relax in front of it. These waves, called peristalsis, push the food along, even if you're upside down."
+ },
+ {
+  "id": "bio-30-move-2",
+  "text": "Fibre: bulk to push against.",
+  "say": "We can't digest fibre, but it adds bulk and soaks up water, so the muscles have something to push against."
+ },
+ {
+  "id": "bio-30-move-3",
+  "text": "No constipation: food moves faster.",
+  "say": "That keeps food moving faster through the gut, which is why wholegrain foods help to prevent constipation."
+ },
+ {
   "id": "bio-68b87792",
   "text": "(i) 1.–(iv) Name: 9 points, 21 marks.",
   "say": "For parts one 1., one 2., two, four, just name it: a word or a short phrase is enough. That's nine points, for twenty-one marks."
+ },
+ {
+  "id": "bio-30-enzymes-title",
+  "text": "The digestive enzymes",
+  "say": "The digestive enzymes"
+ },
+ {
+  "id": "bio-30-enzymes-summary",
+  "text": "Each one has its own food, place and pH.",
+  "say": "Enzymes are the real workers of digestion, and each one is picky."
+ },
+ {
+  "id": "bio-30-enzymes-1",
+  "text": "Amylase: starch to maltose, pH 7.",
+  "say": "Amylase from the salivary glands and the pancreas breaks starch into maltose. It works best at about pH 7, in the mouth and the duodenum."
+ },
+ {
+  "id": "bio-30-enzymes-2",
+  "text": "Protease: protein to peptides, pH 2.",
+  "say": "Pepsin, a protease made in the stomach, breaks proteins into peptides, and later amino acids. It works best in the stomach's acid, at about pH 2."
+ },
+ {
+  "id": "bio-30-enzymes-3",
+  "text": "Lipase: fat to fatty acids and glycerol.",
+  "say": "Lipase from the pancreas breaks fats into fatty acids and glycerol, in the slightly alkaline duodenum, at about pH 8."
  },
  {
   "id": "bio-13d76e5e",
@@ -1285,6 +1465,31 @@
   "say": "For part e, describe it: say what happens, step by step. That's one point, for three marks."
  },
  {
+  "id": "bio-30-why-title",
+  "text": "Why we digest food",
+  "say": "Why we digest food"
+ },
+ {
+  "id": "bio-30-why-summary",
+  "text": "Big molecules in, small soluble ones out.",
+  "say": "The food on your plate is made of molecules far too big to get into your blood."
+ },
+ {
+  "id": "bio-30-why-1",
+  "text": "Digestion: breaking food down.",
+  "say": "Digestion is the breakdown of food into small, soluble molecules, small enough to pass into the blood and be carried around the body."
+ },
+ {
+  "id": "bio-30-why-2",
+  "text": "Mechanical: teeth, churning, bile.",
+  "say": "Mechanical digestion breaks food into smaller pieces without changing the molecules: chewing, the stomach churning, and bile breaking up fat."
+ },
+ {
+  "id": "bio-30-why-3",
+  "text": "Chemical: enzymes change the molecules.",
+  "say": "Chemical digestion is done by enzymes, which break the big molecules themselves into smaller ones, like starch into maltose."
+ },
+ {
   "id": "bio-b5ee8560",
   "text": "(i)–(vi) Name: 5 points, 15 marks.",
   "say": "For parts one, two, four, five, six, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
@@ -1293,6 +1498,31 @@
   "id": "bio-aa5ac4e4",
   "text": "(vii) Define: 2 points, 6 marks.",
   "say": "For part seven, say what it means, in one clear sentence. That's two points, for six marks."
+ },
+ {
+  "id": "bio-30-villus-title",
+  "text": "Villi: absorbing digested food",
+  "say": "Villi: absorbing digested food"
+ },
+ {
+  "id": "bio-30-villus-summary",
+  "text": "A huge surface, packed with vessels.",
+  "say": "Once food is digested, it has to get from your gut into your blood. That happens in the villi."
+ },
+ {
+  "id": "bio-30-villus-1",
+  "text": "Huge surface: villi and microvilli.",
+  "say": "The ileum is lined with millions of tiny finger-like villi, and their cells are covered in microvilli. Together they give a huge surface area for absorbing food."
+ },
+ {
+  "id": "bio-30-villus-2",
+  "text": "Thin and rich: one cell thick, many capillaries.",
+  "say": "Each villus has a wall just one cell thick and a rich network of blood capillaries. Glucose and amino acids pass into them by diffusion and active transport."
+ },
+ {
+  "id": "bio-30-villus-3",
+  "text": "Lacteal: for the fats.",
+  "say": "Up the middle runs a lacteal, a lymph vessel, which takes in the fatty acids and glycerol."
  },
  {
   "id": "bio-8548a388",
@@ -1318,6 +1548,31 @@
   "id": "bio-308cac7c",
   "text": "(i) Name: 2 points, 6 marks.",
   "say": "For part one, just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-30-large-title",
+  "text": "The large intestine and its bacteria",
+  "say": "The large intestine and its bacteria"
+ },
+ {
+  "id": "bio-30-large-summary",
+  "text": "Water out, faeces formed, helpful bacteria.",
+  "say": "By the time food reaches the large intestine, almost everything useful has been taken out. Almost."
+ },
+ {
+  "id": "bio-30-large-1",
+  "text": "Water back: absorbed in the colon.",
+  "say": "The colon absorbs most of the remaining water back into the blood, turning what's left into faeces."
+ },
+ {
+  "id": "bio-30-large-2",
+  "text": "Helpful bacteria: vitamins B and K.",
+  "say": "Billions of symbiotic bacteria live here. They make vitamins like B and K, help digest some food, and crowd out harmful microbes."
+ },
+ {
+  "id": "bio-30-large-3",
+  "text": "Egestion: out through the anus.",
+  "say": "Faeces are stored in the rectum and leave through the anus. That's egestion: getting rid of food that was never digested."
  },
  {
   "id": "bio-c08a9934",
@@ -1360,6 +1615,31 @@
   "say": "For part three, describe it: say what happens, step by step. That's two points, for six marks."
  },
  {
+  "id": "bio-30-teeth-title",
+  "text": "Teeth: the first tools",
+  "say": "Teeth: the first tools"
+ },
+ {
+  "id": "bio-30-teeth-summary",
+  "text": "Cut, tear, then grind.",
+  "say": "Digestion starts with a set of tools you carry around in your mouth."
+ },
+ {
+  "id": "bio-30-teeth-1",
+  "text": "Four kinds: incisors, canines, premolars, molars.",
+  "say": "On each side of each jaw, an adult has two incisors, one canine, two premolars and three molars. That's the dental formula, and 32 teeth in all."
+ },
+ {
+  "id": "bio-30-teeth-2",
+  "text": "Jobs: cut, tear, grind.",
+  "say": "Incisors cut, canines tear, and premolars and molars grind and crush, giving the enzymes a bigger surface to work on."
+ },
+ {
+  "id": "bio-30-teeth-3",
+  "text": "Meat eaters: long, pointed canines.",
+  "say": "A meat-eating animal has much longer, sharper canines than we do, for gripping and tearing flesh."
+ },
+ {
   "id": "bio-9d5049ab",
   "text": "(ii) Use the diagram: 2 points, 6 marks.",
   "say": "For part two, read the diagram and find the exact part. That's two points, for six marks."
@@ -1368,6 +1648,31 @@
   "id": "bio-6d9cba76",
   "text": "(iii) Explain: one point, 3 marks.",
   "say": "For part three, explain it: say what happens, and why. That's one point, for three marks."
+ },
+ {
+  "id": "bio-30-pancreas-title",
+  "text": "The pancreas: a gland with two jobs",
+  "say": "The pancreas: a gland with two jobs"
+ },
+ {
+  "id": "bio-30-pancreas-summary",
+  "text": "Enzymes for the gut, hormones for the blood.",
+  "say": "The pancreas is a quiet organ tucked behind the stomach, but it does two very different jobs."
+ },
+ {
+  "id": "bio-30-pancreas-1",
+  "text": "Pancreatic juice: amylase, protease, lipase.",
+  "say": "It makes pancreatic juice, full of enzymes: amylase, a protease and lipase. Its duct carries the juice into the duodenum."
+ },
+ {
+  "id": "bio-30-pancreas-2",
+  "text": "Alkaline: neutralises the acid.",
+  "say": "The juice is alkaline, so like bile it helps neutralise the acid from the stomach."
+ },
+ {
+  "id": "bio-30-pancreas-3",
+  "text": "Hormones too: insulin, into the blood.",
+  "say": "It also makes the hormone insulin, straight into the blood. Enzymes through a duct and hormones into the blood: that's why it's called a dual-function gland."
  },
  {
   "id": "bio-850fec27",
@@ -1455,9 +1760,14 @@
   "say": "For part a, read the diagram and find the exact part. That's two points, for six marks."
  },
  {
-  "id": "bio-67dc67e9",
-  "text": "(b), (c), (f) Name: 5 points, 15 marks.",
-  "say": "For parts b, c, f, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+  "id": "bio-3c6d8620",
+  "text": "(b) Draw: 3 points, 9 marks.",
+  "say": "For part b, draw it large, and label it clearly. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-e71087fa",
+  "text": "(c), (f) Name: 2 points, 6 marks.",
+  "say": "For parts c, f, just name it: a word or a short phrase is enough. That's two points, for six marks."
  },
  {
   "id": "bio-f96612fa",

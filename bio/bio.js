@@ -110,7 +110,8 @@
   function markSvg(m, at, center) {
     var dx = at[0] - center[0], dy = at[1] - center[1], len = Math.sqrt(dx * dx + dy * dy) || 1;
     var off = m.given ? 40 : 30, lx = at[0] + dx / len * off, ly = at[1] + dy / len * off;
-    lx = Math.max(m.given ? 46 : 14, Math.min(480 - (m.given ? 46 : 14), lx));
+    var half = m.given ? (m.t.length * 6.8 + 16) / 2 + 4 : 14;  // keep the whole tag inside the frame
+    lx = Math.max(half, Math.min(480 - half, lx));
     ly = Math.max(14, Math.min(306, ly));
     var line = '<path d="M' + lx.toFixed(1) + ' ' + ly.toFixed(1) + 'L' + at[0] + ' ' + at[1] + '" stroke="#14243B" stroke-width="1.8"/><circle cx="' + at[0] + '" cy="' + at[1] + '" r="2.6" fill="#14243B"/>';
     if (m.given) {
