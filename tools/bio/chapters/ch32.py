@@ -30,9 +30,8 @@ TISSUE = '#FBEFE3'
 
 
 def lab(i, text, side, ax, ay, fx, fy):
-    """label() with two no-break spaces after the words: the pill's width is a guess, and Lexend's wide capitals
-    (M, W) otherwise run to its rounded end."""
-    return label(i, text + '  ', side, ax, ay, fx, fy)
+    """label() from bio_art (its pills are sized from Lexend's measured letter widths)."""
+    return label(i, text, side, ax, ay, fx, fy)
 
 
 def pt(cx, cy, r, deg):

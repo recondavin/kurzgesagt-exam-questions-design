@@ -5,7 +5,33 @@ Everything is drawn in the Draw it format: 480 x 320, flat, side-on, the diagram
 import os, re, sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'draw_it'))
-from build_diagrams import label, part, svg, arrow, INK  # noqa: E402,F401
+from build_diagrams import part, svg, arrow, INK  # noqa: E402,F401
+
+# Lexend 600 at 12.5px, measured in the browser (tools/draw_it's label() guesses 7.4px a letter, too narrow for
+# capitals). Same markup as that label(), so Draw it reads it the same way.
+LEX = dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 '(),-.:/+", [9, 9, 9, 10, 8, 8, 10, 10, 7, 8, 9, 8, 11, 10, 10, 8, 10, 9, 8, 8, 9, 9, 12, 9, 8, 8,
+                                                                   8, 7, 7, 7, 8, 7, 7, 7, 7, 7, 4, 3, 5, 5, 4, 5, 3, 3, 7, 7]))
+
+
+def label(i, text, side, ax, ay, fx, fy, outline=False):
+    """A label pill joined to a feature. side: start = pill runs right from (ax, ay); end = pill ends at (ax, ay);
+    top = pill hangs below (ax, ay); bottom = pill sits above (ax, ay). (fx, fy) is the feature."""
+    text = text.strip('\u00a0 ')
+    w = sum(LEX.get(c, 9) for c in text) + 20
+    if side == 'start':
+        tx, ty, anchor, rx = ax + 10, ay, 'start', ax
+    elif side == 'end':
+        tx, ty, anchor, rx = ax - 10, ay, 'end', ax - w
+    elif side == 'top':
+        tx, ty, anchor, rx = ax, ay + 11, 'middle', ax - w / 2
+    else:
+        tx, ty, anchor, rx = ax, ay - 11, 'middle', ax - w / 2
+    stroke = ' stroke="#FFFFFF" stroke-width="1.5"' if outline else ''
+    return (f'<g data-label="{i}"><path d="M{fx} {fy}L{ax} {ay}" stroke="{INK}" stroke-width="1.6" fill="none"/>'
+            f'<circle cx="{fx}" cy="{fy}" r="3" fill="{INK}" stroke="#FFFFFF" stroke-width="1.2"/>'
+            f'<rect x="{rx:.1f}" y="{ty - 11}" width="{w}" height="22" rx="11" fill="{INK}"{stroke}/>'
+            f'<text x="{tx}" y="{ty}" text-anchor="{anchor}" dominant-baseline="central" font-family="Lexend, Nunito, sans-serif" '
+            f'font-weight="600" font-size="12.5" fill="#FFFFFF">{text}</text></g>')
 
 RED, RED_D, BLUE, BLUE_D, PURPLE = '#E5484D', '#B3262B', '#3E6FD8', '#24479E', '#7E5BA3'
 TUBE, TUBE_L, TUBE_D = '#F7D27A', '#FCE9B8', '#A9822F'

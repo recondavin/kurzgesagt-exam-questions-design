@@ -163,7 +163,7 @@ def nephron():
         {'text': 'Capillaries and renal venule', 'keys': [['capillar'], ['venule'], ['vein']]},
     ]
     body += label(0, 'AFFERENT ARTERIOLE', 'start', 6, 16, 64, 55)
-    body += label(1, 'GLOMERULUS', 'top', 52, 108, 132, 88)
+    body += label(1, 'GLOMERULUS', 'top', 60, 108, 132, 88)
     body += label(2, "BOWMAN'S CAPSULE", 'start', 186, 16, 164, 60)
     body += label(3, 'EFFERENT ARTERIOLE', 'start', 6, 262, 106, 122)
     body += label(4, 'PCT', 'bottom', 214, 50, 214, 102)
