@@ -779,6 +779,7 @@
       why.className = 'am-teach__why am-teach__why--ok';
       why.textContent = card.hasAttribute('data-am-missed') ? 'That\'s it.' : 'Right first time.';
       ding(0);
+      mascot('happy', card.hasAttribute('data-am-missed') ? 'Finally.' : 'Correct. First time, even.');
       teachButtons(card, [['ok', 'data-am-teachgo="write"', 'Next question']]);
       card.querySelector('[data-am-teachgo]').focus();
     } else {
@@ -787,6 +788,7 @@
       btn.setAttribute('aria-disabled', 'true');
       why.className = 'am-teach__why';
       why.textContent = 'Not quite. ' + TEACH[card.getAttribute('data-am-teachid')].why;
+      mascot('angry', 'No. Read it again.');
     }
   }
   // Would this sentence earn this point's SRP? Uses the same rules as the answer marking.
@@ -1007,6 +1009,7 @@
           '<p class="am-build__cap" data-am-bcap>' + (tower ? 'Build it up' : 'Build the rock') + '</p></div></div>' +
       '<div class="am-finish__buttons am-run__btns" data-am-tbtns></div></div>';
     state.train = { deck: runDeck(), i: 0, hearts: RUN_HEARTS, score: 0, streak: 0, best: 0, right: 0, fast: 0, results: [] };
+    later(function () { mascot('ok', 'Let\'s see what you actually know.'); }, 400);
     card.querySelector('[data-am-segs]').innerHTML = new Array(state.train.deck.length + 1).join('<i></i>');
     card.addEventListener('keydown', runKeys);
     showCard(card);
@@ -1163,11 +1166,13 @@
       ding(t.streak - 1, t.streak >= 6);
       addLayer(card);
       if (t.streak % 5 === 0 && t.hearts < RUN_HEARTS) { t.hearts += 1; drawHearts(card, 'gain'); extra.push('+1 heart'); }
+      mascot('happy', pick(t.streak >= 3 ? MASCOT.hot : MASCOT.right));
     } else {
       t.streak = 0;
       t.hearts -= 1;
       drawHearts(card, true);
       bonk();
+      if (t.hearts <= 0) mascot('furious', 'Out of hearts! Again!'); else mascot('angry', pick(MASCOT.wrong));
     }
     var combo = card.querySelector('[data-am-combo]'), times2 = t.streak >= 6 ? 3 : t.streak >= 3 ? 2 : 1;
     combo.hidden = t.streak < 2;
@@ -1244,6 +1249,7 @@
       }, reduced() ? 0 : 500);
     }
     card.querySelector('[data-am-rkind]').textContent = out ? 'Out of hearts' : newBest && best ? 'New best!' : 'Run complete!';
+    if (!out) mascot(newBest && best ? 'happy' : t.right * 3 >= n * 2 ? 'happy' : 'ok', newBest && best ? 'A new best? I\'m... impressed.' : t.right * 3 >= n * 2 ? 'Hmph. Decent.' : 'Again. Properly this time.');
     card.querySelector('[data-am-combo]').hidden = true;
     card.querySelector('.am-run').classList.add('am-run--end');
     runTimer(card, 0);
@@ -1286,6 +1292,7 @@
       '<p><b>' + SPRINT_SECONDS + ' seconds.</b> Write as many different SRPs as you can, one per sentence. Each new one dings.</p>' +
       (best ? '<p class="am-sprint__best">Your best: <b>' + best + '</b> SRPs</p>' : '') + '</div>';
     fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-rrun', 'Training run'], ['ok', 'data-am-tsprint', 'Start']]);
+    mascot('ok', 'Ninety seconds. Impress me.');
   }
   // Is a short typed answer right? Each point has an answer key: acc lists the words that make it
   // right (any one group, all words in it), rej the classic mix-ups that make it wrong. Words copied
@@ -1337,6 +1344,7 @@
         t.got.push(p.id);
         var gold = isPerfect(s, p);
         ding(t.got.length - 1, gold);
+        mascot('happy', t.got.length % 3 ? '' : pick(MASCOT.hot));
         card.querySelector('.am-sprint__chips').appendChild(el('span', 'am-sprint__chip' + (gold ? ' am-sprint__chip--gold' : ''), (gold ? '&#9733; ' : '') + esc(p.label)));
         rollTo(card.querySelector('[data-am-scount]'), t.got.length);
       });
@@ -1360,6 +1368,7 @@
       '</div>';
     fillButtons(card.querySelector('[data-am-tbtns]'), [['more', 'data-am-keep', 'Back to writing'], ['more', 'data-am-rrun', 'Training run'], ['ok', 'data-am-tsprint', 'Sprint again']]);
     if (newBest && n) later(fanfare, 200);
+    mascot(newBest && n ? 'happy' : n < 3 ? 'angry' : 'ok', newBest && n ? 'Fine. That\'s a lot of points.' : n < 3 ? 'That\'s it?' : 'Hmph. Faster next time.');
   }
 
   // ---------- Draw it: study an exam diagram, then draw it from memory using its labels ----------
@@ -1395,6 +1404,7 @@
     });
     showCard(card);
     drawIntro(card);
+    later(function () { mascot('ok', 'Draw. Neatly.'); }, 400);
     if (document.fonts && document.fonts.load) document.fonts.load('600 12.5px Lexend').catch(function () {});
   }
   function drawIntro(card) {
@@ -1478,6 +1488,7 @@
     buildDiagram(card, fig.querySelector('svg'));
     fillButtons(card.querySelector('[data-am-dbtns]'), [['ok', 'data-am-dready', 'I\'m ready']]);
     d.studyT0 = runClock(card, STUDY_SECONDS, true, function () { drawHide(card); });
+    mascot('ok', 'Memorise it. All of it.');
   }
   // The exam diagram builds itself in the order it would be drawn, then its labels pop on one by one.
   function buildDiagram(card, svg) {
@@ -1572,6 +1583,7 @@
     canvas.addEventListener('pointerup', lift);
     canvas.addEventListener('pointercancel', lift);
     d.t0 = runClock(card, DRAW_SECONDS, false, function () { drawFinish(card, true); });
+    mascot('ok', 'From memory. No peeking.');
   }
   function drawSize(card) {
     var paper = card.querySelector('[data-am-paper]');
@@ -1715,6 +1727,7 @@
     card.querySelector('[data-am-dbtns]').innerHTML = '';
     if (timeUp) {
       bonk();
+      mascot('furious', 'Time\'s up! Pens down!');
       card.querySelector('[data-am-paper]').appendChild(el('div', 'am-draw__timesup', 'Time\'s up!'));
       later(function () { if (card.isConnected) drawCompare(card); }, reduced() ? 400 : 1100);
     } else drawCompare(card);
@@ -1811,6 +1824,7 @@
     var got = d.ticked.filter(Boolean).length;
     if (on) {
       ding(got - 1, got === d.ticked.length);
+      mascot('happy', got === d.ticked.length ? 'Every label. Hmph.' : '');
       if (!reduced()) { row.classList.remove('am-bump'); void row.offsetWidth; row.classList.add('am-bump'); }
     }
     rollTo(card.querySelector('[data-am-dscore]'), d.total + got);
@@ -1864,6 +1878,7 @@
     rollTo(card.querySelector('[data-am-dbig]'), d.total);
     fillButtons(card.querySelector('[data-am-dbtns]'), [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-dagain', 'Draw again']]);
     if (newBest && d.total) later(fanfare, 300);
+    mascot(d.total * 2 >= max ? 'happy' : 'angry', d.total * 2 >= max ? 'Hmph. Decent drawings.' : 'My cat draws better than that.');
   }
 
   // ---------- Beat the Examiner: get each point of the essay past a strict examiner ----------
@@ -2123,6 +2138,49 @@
   // m-ok, m-happy and m-angry parts swap in, the skin reddens when he's angry, and steam (x-steam) shows
   // when he's furious.
   var EXAMINER_FACE = '<svg viewBox="0 0 100 100"> <g class="x-steam"><circle cx="9" cy="40" r="4.5"/><circle cx="5" cy="30" r="3.5"/><circle cx="91" cy="40" r="4.5"/><circle cx="95" cy="30" r="3.5"/></g> <g stroke="#7A4A35" stroke-width="2.2"><ellipse cx="15" cy="54" rx="8" ry="11" fill="#E9B48C"/><ellipse cx="85" cy="54" rx="8" ry="11" fill="#E9B48C"/></g> <path d="M11 52q4-3 6 2M89 52q-4-3-6 2" fill="none" stroke="#7A4A35" stroke-width="1.6"/> <path d="M12 49l-5-3M12 52l-6 0M88 49l5-3M88 52l6 0" stroke="#5E6F8A" stroke-width="1.3" stroke-linecap="round"/> <path class="x-skin" d="M50 11C73 11 84 27 84 50C84 74 73 91 50 91C27 91 16 74 16 50C16 27 27 11 50 11Z" fill="#F2C9A0" stroke="#7A4A35" stroke-width="2.4"/> <path d="M35 87q15 8 30 0" fill="none" stroke="#7A4A35" stroke-width="1.8" stroke-linecap="round"/> <g fill="#B08A72"><circle cx="34" cy="80" r=".8"/><circle cx="38" cy="84" r=".8"/><circle cx="43" cy="86" r=".8"/><circle cx="57" cy="86" r=".8"/><circle cx="62" cy="84" r=".8"/><circle cx="66" cy="80" r=".8"/><circle cx="40" cy="80" r=".8"/><circle cx="60" cy="80" r=".8"/><circle cx="50" cy="87" r=".8"/></g> <path d="M18 46q-3-15 8-23q-2 9 3 13zM82 46q3-15-8-23q2 9-3 13z" fill="#9AA3B2"/> <path d="M23 31Q45 15 75 24M26 35Q48 21 77 30M31 27Q50 13 70 18" fill="none" stroke="#5E6F8A" stroke-width="1.9" stroke-linecap="round"/> <path class="x-lines" d="M40 30q10-3 20 0M42 34q8-2 16 0" fill="none" stroke="#C99778" stroke-width="1.3" stroke-linecap="round"/> <g class="m-ok" stroke="#2E2A2A" stroke-width="4.2" stroke-linecap="round" fill="none"><path d="M28 37q8-9 17-4"/><path d="M55 37h17"/></g> <g class="m-happy" stroke="#2E2A2A" stroke-width="4.2" stroke-linecap="round" fill="none"><path d="M28 36q8-7 17-2"/><path d="M55 34q9-5 17 2"/></g> <g class="m-angry" stroke="#2E2A2A" stroke-width="4.6" stroke-linecap="round" fill="none"><path d="M27 33L47 41"/><path d="M73 33L53 41"/></g> <g stroke="#1E1E24" stroke-width="3.4" fill="#FDFDF8"><circle cx="38" cy="48" r="10"/><circle cx="62" cy="48" r="10"/></g> <path d="M48 47q2-2.5 4 0M28 47L19 45M72 47L81 45" fill="none" stroke="#1E1E24" stroke-width="3"/> <g class="m-ok x-eyes" fill="#1E1E24"><circle cx="39" cy="49" r="2.4"/><circle cx="61" cy="48.5" r="3.2"/></g> <g class="m-happy" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"><path d="M34 50q4-5 8 0M57 50q4-5 8 0"/></g> <g class="m-angry"><g fill="#1E1E24"><circle cx="40" cy="50" r="2"/><circle cx="60" cy="50" r="2"/></g><path d="M30 45L46 48M70 45L54 48" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"/></g> <path d="M50 51q-10 12-6 19q6 5 12 0q4-7-6-19z" fill="#E8A07E" stroke="#7A4A35" stroke-width="2"/> <g fill="#7A4A35"><circle cx="46.5" cy="68" r="1.3"/><circle cx="53.5" cy="68" r="1.3"/></g> <circle cx="55.5" cy="62" r="2.1" fill="#8B5E46"/><path d="M55.5 60.5l1.5-4.5M55.5 60.5l-.8-3.8" stroke="#1E1E24" stroke-width=".8" stroke-linecap="round"/> <circle cx="30" cy="66" r="1.9" fill="#6B4436"/> <g class="m-ok"><path d="M37 78q12-2 25 1.5" fill="none" stroke="#5A2A24" stroke-width="3" stroke-linecap="round"/></g> <g class="m-happy"><path d="M33 72q17 16 34 0z" fill="#5A1E24" stroke="#5A2A24" stroke-width="2" stroke-linejoin="round"/><path d="M37 72.5h26l-1 3.5h-24z" fill="#FFF3C4"/><path d="M45 72.5v3.4M53 72.5v3.4" stroke="#5A1E24" stroke-width="1.6"/><rect x="48.4" y="72.5" width="2.2" height="3.5" fill="#E2B33C"/><ellipse cx="27" cy="63" rx="5" ry="3" fill="#F2948C"/><ellipse cx="73" cy="63" rx="5" ry="3" fill="#F2948C"/></g> <g class="m-angry"><path d="M32 85q18-20 36 0q-18-7-36 0z" fill="#5A1E24" stroke="#5A2A24" stroke-width="2" stroke-linejoin="round"/><path d="M38 78.5q12-6.5 24 0" fill="none" stroke="#FFF3C4" stroke-width="2.6"/><path d="M66 13v4h-4M71 13v4h4M66 23v-4h-4M71 23v-4h4" fill="none" stroke="#E5484D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g> <path d="M84 97l12-13" stroke="#2BC46F" stroke-width="5" stroke-linecap="round"/><path d="M96 84l2-2" stroke="#1E9A55" stroke-width="5" stroke-linecap="round"/> </svg>';
+
+  // ---------- The examiner, watching: his head rises from the bottom corner during every activity ----------
+  // and reacts to what you do: happy when you get it right, angry when you don't, furious when you run out
+  // of hearts or time. Beat the Examiner already has him in the card, so there he stays down.
+  var MASCOT = {
+    right: ['Hmph. Correct.', 'Fine.', 'Not bad.', 'Lucky guess?', 'Correct. Don\'t get cocky.'],
+    hot: ['Hmph. You\'re on a roll.', 'Fine, fine. Keep going.', 'Who taught you that? Not me.'],
+    wrong: ['Wrong!', 'No!', 'Did you even study?', 'Read the question!', 'Nope.']
+  };
+  function mascotEl() {
+    var m = state.root.querySelector('.am-mascot');
+    if (!m) {
+      m = el('div', 'am-mascot', '<p class="am-mascot__say" data-am-msay></p><div class="am-exam__face am-mascot__face" data-mood="ok">' + EXAMINER_FACE + '</div>');
+      m.setAttribute('aria-hidden', 'true');
+      state.root.appendChild(m);
+    }
+    return m;
+  }
+  function mascot(mood, line) {
+    if (!state) return;
+    var m = mascotEl(), face = m.querySelector('.am-mascot__face'), say = m.querySelector('[data-am-msay]');
+    face.setAttribute('data-mood', mood);
+    if (!reduced()) { face.classList.remove('is-react'); void face.offsetWidth; face.classList.add('is-react'); }
+    clearTimeout(m.sayTimer);
+    if (!line) return;
+    say.textContent = line;
+    say.classList.remove('is-on');
+    void say.offsetWidth;
+    say.classList.add('is-on');
+    m.sayTimer = setTimeout(function () { say.classList.remove('is-on'); }, 2800);
+  }
+  // He only comes up beside an open card, sized to the space left next to it.
+  function placeMascot() {
+    var m = mascotEl(), card = state.root.querySelector('.am-finish'), box = card && card.querySelector('.am-finish__card');
+    // offsetWidth, not the on-screen size: the card pops in from a small scale.
+    var room = box ? (state.root.clientWidth - box.offsetWidth) / 2 - 24 : 0;
+    var size = Math.min(220, room);
+    var show = Boolean(box) && !card.classList.contains('am-exam') && size >= 110;
+    if (show) m.style.setProperty('--size', Math.round(size) + 'px');
+    if (show && !m.classList.contains('is-on')) mascot('ok', card.classList.contains('am-teach') ? 'Stuck? Typical. Fine, I\'ll explain.' : card.classList.contains('am-dump') ? 'Everything you know. Go.' : '');
+    m.classList.toggle('is-on', show);
+    if (!show) m.querySelector('[data-am-msay]').classList.remove('is-on');
+  }
 
   // ---------- official marks (SEC 2024 Leaving Certificate marking scheme, Geography HL) ----------
   // 3B: 2 + 2 marks for two sedimentary rocks named, then 13 SRPs examining their formation.
@@ -2498,6 +2556,7 @@
     cardEl.innerHTML = html;
     cardEl.scrollTop = 0;
     showCard(card);
+    mascot(remembered.length * 2 >= items.length ? 'happy' : 'angry', remembered.length * 2 >= items.length ? 'You know more than I thought.' : 'Is that all you remember?');
   }
   // A card (results, brain dump, "Let's go over it") covers the sheet: the sheet behind it is
   // inert, and focus moves into the card.
@@ -2506,6 +2565,7 @@
     var open = Boolean(state.root.querySelector('.am-finish'));
     state.root.querySelector('.am-stage').inert = open;
     state.root.querySelector('.am-close').inert = open;
+    placeMascot();
   }
   function showCard(card, focusEl) {
     var dialog = card.querySelector('[role="dialog"]');
@@ -2961,6 +3021,7 @@
       '<div class="am-finish__buttons"><button type="button" class="am-btn am-btn--more" data-am-keep>Keep working</button><button type="button" class="am-btn am-btn--ok" data-am-close>Back to the paper</button></div>' +
       '</div>';
     showCard(card);
+    mascot(marks >= 24 ? 'happy' : marks >= 15 ? 'ok' : 'angry', marks >= 24 ? 'Hmph. That\'s a strong answer.' : marks >= 15 ? 'Passable. Not great.' : 'That would not pass.');
     Array.prototype.forEach.call(card.querySelectorAll('.am-pips i'), function (pip, k) {
       if (k < o.srps) later(function () { pip.classList.add('on'); }, reduced() ? 0 : 250 + k * 70);
     });
@@ -3182,6 +3243,7 @@
       render();
       var drawCard = state.root.querySelector('.am-draw');
       if (drawCard && state.draw && state.draw.drawing) drawSize(drawCard);
+      placeMascot();
     });
     document.addEventListener('selectionchange', state.onSelect = function () {
       if (state && document.activeElement && document.activeElement.classList.contains('am-input')) renderSoon();
@@ -3625,6 +3687,12 @@
     '@keyframes amHop{40%{transform:translateY(-8px) rotate(-5deg)}100%{transform:none}}',
     '.am-exam__line{margin:0 0 4px;font:700 20px Caveat,"Segoe Print","Comic Sans MS",cursive;color:#7DF0B0}',
     '.am-root .am-exam__line,.am-root .am-exam__intro .am-exam__line{margin:0 0 4px;font-family:Caveat,"Segoe Print","Comic Sans MS",cursive !important;font-size:26px;color:#7DF0B0}',
+    '.am-mascot{--size:200px;position:absolute;left:14px;bottom:10px;z-index:6;width:var(--size);pointer-events:none;transform:translateY(calc(100% + 20px));transition:transform .55s cubic-bezier(.3,1.3,.5,1)}',
+    '.am-mascot.is-on{transform:none}',
+    '.am-mascot__face.am-exam__face{width:var(--size);height:var(--size)}',
+    '.am-mascot__say{position:absolute;left:4px;bottom:calc(100% + 4px);width:max-content;max-width:calc(var(--size) + 60px);margin:0;padding:8px 14px;border-radius:16px 16px 16px 4px;background:#FFFEF8;color:#13294A;font:700 26px/1.1 Caveat,"Segoe Print","Comic Sans MS",cursive;opacity:0;transform:translateY(8px) scale(.9);transform-origin:0 100%;transition:opacity .2s ease,transform .3s cubic-bezier(.3,1.6,.5,1)}',
+    '.am-mascot__say.is-on{opacity:1;transform:none}',
+    '.am-root .am-mascot__say{font-family:Caveat,"Segoe Print","Comic Sans MS",cursive !important}',
     '.am-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}',
     '.am-run{position:relative}',
     '.am-run__hud{display:flex;align-items:center;gap:12px;margin:-6px 0 8px}',

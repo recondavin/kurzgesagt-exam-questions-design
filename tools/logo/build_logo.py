@@ -1,6 +1,6 @@
 """Builds the site logo from the examiner's face in answer-mode.js (EXAMINER_FACE), in his angry mood:
-assets/logo/examiner.svg (the browser tab icon) and assets/logo/examiner-sticker.svg (a sticker on the desk).
-Run: python3 tools/logo/build_logo.py  (then render apple-touch-icon.png from the sticker)."""
+assets/logo/examiner.svg, used for the browser tab icon and on the desk.
+Run: python3 tools/logo/build_logo.py  (then render apple-touch-icon.png: the face on the desk colour)."""
 import os, re
 
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
@@ -37,9 +37,4 @@ angry = re.sub(r' class="x-lines"', '', angry)
 
 head = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">'
 open(os.path.join(ROOT, 'assets/logo/examiner.svg'), 'w').write(head + '<title>The Examiner</title>' + angry + '</svg>\n')
-sticker = (head + '<title>The Examiner</title>'
-           '<circle cx="50" cy="53" r="47" fill="#5C3418" opacity=".3"/>'
-           '<circle cx="50" cy="50" r="47" fill="#FFFFFF" stroke="#E6DED2" stroke-width="1.5"/>'
-           '<g transform="translate(9 9) scale(.82)">' + angry + '</g></svg>\n')
-open(os.path.join(ROOT, 'assets/logo/examiner-sticker.svg'), 'w').write(sticker)
-print('wrote assets/logo/examiner.svg and examiner-sticker.svg')
+print('wrote assets/logo/examiner.svg')
