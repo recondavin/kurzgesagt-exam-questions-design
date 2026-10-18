@@ -163,7 +163,7 @@ button { font: inherit; }
 .am-root .bb-piece span, .am-root .vw-text, .am-root .so-card, .am-root .so-bin, .am-root .tb-table th, .am-root .tb-cell, .am-root .nr-overlay p, .am-root .nr-result { font-family: Nunito, system-ui, sans-serif !important; }
 
 /* Nephron run. */
-.nr-stage { position: relative; display: flex; justify-content: center; border-radius: 12px; overflow: hidden; background: #FBEFE3; }
+.nr-stage { position: relative; max-width: 640px; margin: 0 auto; display: flex; justify-content: center; border-radius: 12px; overflow: hidden; background: #FBEFE3; }
 .nr-canvas { display: block; max-width: 100%; touch-action: none; outline: none; }
 .nr-canvas:focus-visible { box-shadow: inset 0 0 0 3px #FFE14D; }
 .nr-overlay { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(15, 29, 49, .55); }

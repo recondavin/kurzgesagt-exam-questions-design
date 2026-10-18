@@ -4,12 +4,14 @@ Source: tools/bio/questions/ch<N>.json, extracted from the SEC papers and markin
 two 2027 sample papers). This turns each marking-scheme point into words the site can look for in a typed
 answer (k: alternatives, each a list of word stems and how many of them must appear), decides how each part
 is answered (one box, a box per letter or number, a tick list for drawings, tapping the diagram, true/false),
-and works out which diagram a question shows and where its letters go.
-Run: python3 tools/bio/build_bio_questions.py
+and works out which diagram a question shows and where its letters go (each chapter's diagrams, anchor words and
+per-question OVERRIDES are in tools/bio/chapters/ch<N>.py).
+Run: python3 tools/bio/build_bio_questions.py [chapter ...]   (no chapter: all of them)
 """
-import json, math, os, re
+import importlib, json, math, os, re, sys
 
-HERE = os.path.dirname(__file__)
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
 STOP = set('the a an of to and or in on at is are was were be been by for with as that this these those it its their there they them from into '
            'than then so such which who what when where can could will would may might has have had not no also very more most much some any '
            'each other over under about after before during while because between both but if until e.g eg i.e ie etc accept allow named name '
@@ -124,42 +126,48 @@ def kind_of(part):
     return 'text'
 
 
-# Where each structure is on a base diagram: the words that name it, in the order they are checked.
-ANCHOR_WORDS = {
-    'nephron': [('ascending', ['ascending']), ('descending', ['descending']), ('efferent', ['efferent', 'narrower arteriole']),
-                ('afferent', ['afferent', 'arteriole']), ('glomerulus', ['glomerul']), ('capsule', ['bowman', 'capsule']),
-                ('pct', ['proximal', 'pct']), ('dct', ['distal', 'dct']), ('loop', ['henle', 'loop']), ('duct', ['collecting']),
-                ('capillaries', ['capillar', 'blood vessel']), ('venule', ['venule', 'vein']), ('cortex', ['cortex']), ('medulla', ['medulla'])],
-    'kidney': [('cortex', ['cortex']), ('medulla', ['medulla', 'pyramid']), ('pelvis', ['pelvis']), ('ureter', ['ureter']),
-               ('renalArtery', ['artery']), ('renalVein', ['vein'])],
-    'urinary': [('kidney', ['kidney']), ('ureter', ['ureter']), ('bladder', ['bladder']), ('urethra', ['urethra']), ('renalArtery', ['artery']),
-                ('renalVein', ['vein']), ('aorta', ['aorta']), ('venaCava', ['vena cava']), ('sphincter', ['sphincter'])],
-}
-
-
-def base_of(what):
-    w = what.lower()
-    if 'graph' in w and 'nephron' not in w:
+def chapter_module(ch, own=True):
+    """tools/bio/chapters/ch<N>.py: the chapter's diagrams, the words naming their anchors, and its OVERRIDES."""
+    if not os.path.exists(os.path.join(HERE, 'chapters', 'ch%d.py' % ch)):
         return None
-    if 'nephron' in w:
-        return 'nephron'
-    if 'urinary system' in w:
-        return 'urinary'
-    if 'kidney' in w:
-        return 'kidney'
-    return None
+    if own:
+        return importlib.import_module('chapters.ch%d' % ch)
+    try:
+        return importlib.import_module('chapters.ch%d' % ch)
+    except Exception as err:  # another chapter's file mid-edit shouldn't stop this one
+        print('  (skipped chapters/ch%d.py: %s)' % (ch, err))
+        return None
 
 
-def anchor_for(base, text):
+def chapter_bits(ch):
+    mods = [chapter_module(ch)] + [chapter_module(n, False) for n in CHAPTERS if n != ch]
+    anchor_words = {}
+    for m in mods:
+        if m is not None:
+            for base, keys in getattr(m, 'ANCHOR_WORDS', {}).items():
+                anchor_words.setdefault(base, keys)
+    own = mods[0]
+
+    def base_of(what):
+        # The chapter's own diagrams first, then another chapter's (an alveolus in an immunity question).
+        for m in mods:
+            b = m and hasattr(m, 'base_of') and m.base_of(what)
+            if b:
+                return b
+        return None
+    return base_of, anchor_words, (getattr(own, 'OVERRIDES', {}) if own else {})
+
+
+def anchor_for(anchor_words, base, text):
     # The structure's own name comes first; words in brackets ("traced from Bowman's capsule") only if nothing else matches.
     for t in (text.split('(')[0].lower(), text.lower()):
-        for name, keys in ANCHOR_WORDS.get(base, []):
+        for name, keys in anchor_words.get(base, []):
             if any(k in t for k in keys):
                 return name
     return None
 
 
-def diagram_of(q, overrides):
+def diagram_of(q, overrides, base_of, anchor_words):
     if q['id'] in overrides.get('dia', {}):
         return overrides['dia'][q['id']]
     d = q.get('diagram')
@@ -174,7 +182,7 @@ def diagram_of(q, overrides):
         given = 'given' in desc.lower()
         if not letter and not given:
             continue
-        a = anchor_for(base, key if given else desc)
+        a = anchor_for(anchor_words, base, key if given else desc)
         if not a:
             missing.append(key)
             continue
@@ -185,37 +193,18 @@ def diagram_of(q, overrides):
     return out
 
 
-# Per-question corrections the general rules can't work out: diagrams with two panels or graphs, the right
-# answer areas for 'tap' parts, and answer types.
-OVERRIDES = {
-    29: {
-        'dia': {
-            '2022-Q15b': {'panels': [
-                {'base': 'kidney', 'marks': [{'t': 'A', 'a': 'cortex'}, {'t': 'B', 'a': 'medulla'}, {'t': 'C', 'a': 'pelvis'}]},
-                {'base': 'nephron', 'marks': [{'t': 'Glomerulus', 'a': 'glomerulus', 'given': True}, {'t': 'DCT', 'a': 'dct', 'given': True},
-                                              {'t': 'PCT', 'a': 'pct', 'given': True}, {'t': 'Capillary', 'a': 'capillaries', 'given': True},
-                                              {'t': 'Loop of Henle', 'a': 'loop', 'given': True}]}]},
-            '2025-Q17c': {'graphs': [{'title': 'X: Blood volume', 'trend': 'down'}, {'title': 'Y: ADH levels', 'trend': 'up'}]},
-            '2018-Q6': {'base': 'nephron', 'marks': [{'t': 'X', 'a': 'capsule'}, {'t': 'Y', 'a': 'dct'}]},
-        },
-        'tap': {  # part id -> anchors that are right
-            '2018-Q6(b)': ['dct', 'duct'],
-            'S1-Q1e(ii)': ['glomerulus', 'capsule'],
-        },
-        'kind': {'2011-Q12b(ii)': 'draw'},
-    },
-}
+CHAPTERS = (28, 29, 30, 31, 32)
 
 
 def build(ch):
     src = json.load(open(os.path.join(HERE, 'questions', 'ch%d.json' % ch)))
-    ov = OVERRIDES.get(ch, {})
+    base_of, anchor_words, ov = chapter_bits(ch)
     out = []
     for q in src['questions']:
         y = re.match(r'(\d{4})', q['id'])
         rec = {'id': q['id'], 'src': q['source'], 'year': int(y.group(1)) if y else 2027, 'sec': q['section'],
                'fresh': q.get('new_course', 'yes'), 'why': q.get('why', ''), 'stem': q.get('stem', ''), 'parts': []}
-        dia = diagram_of(q, ov)
+        dia = diagram_of(q, ov, base_of, anchor_words)
         if dia:
             rec['dia'] = dia
         for p in q['parts']:
@@ -257,7 +246,7 @@ def build(ch):
 
 def main():
     os.makedirs(os.path.join(HERE, '..', '..', 'bio'), exist_ok=True)
-    for ch in (28, 29, 30, 31, 32):
+    for ch in [int(a) for a in sys.argv[1:]] or CHAPTERS:
         data = build(ch)
         path = os.path.join(HERE, '..', '..', 'bio', 'q%d.js' % ch)
         with open(path, 'w') as f:
