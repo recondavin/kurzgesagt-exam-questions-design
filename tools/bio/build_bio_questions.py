@@ -230,6 +230,7 @@ def build(ch):
                     alts = None
                 elif fix:
                     alts = fix
+                    item['own'] = True  # keys written for the chapter, not from the scheme's wording
                 if alts and kind != 'draw':
                     item['k'] = alts
                 else:

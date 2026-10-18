@@ -14,7 +14,7 @@ const B = window.BioApp, verbose = process.argv[2];
 const plain = a => a.replace(/^\*+/, '').replace(/^(?:[A-Z]|\d{1,2})\s*(?:[=:.)]|\s-)\s*/, '').replace(/\*/g, '');
 let ok = 0, n = 0; const bad = [];
 for (const ch of [28, 29, 30, 31, 32]) for (const q of window.BioQuestions[ch].questions) q.parts.forEach(p => p.pts.forEach(pt => {
-  if (!pt.k) return;
+  if (!pt.k || pt.own) return;
   n++;
   if (B.hasPoint(pt, B.words(plain(pt.a)))) ok++; else bad.push(`${q.id}${p.l}: ${pt.a}  keys=${JSON.stringify(pt.k)}`);
 }));

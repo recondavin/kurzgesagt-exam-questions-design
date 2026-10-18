@@ -10,9 +10,9 @@
   "say": "This one is worth twelve marks, in three parts. Here's what each part wants."
  },
  {
-  "id": "bio-4fb980c5",
-  "text": "(i) Use the diagram: 2 points, 6 marks.",
-  "say": "For part one, read the diagram and find the exact part. That's two points, for six marks."
+  "id": "bio-8992c0cc",
+  "text": "(i) Draw: 2 points, 6 marks.",
+  "say": "For part one, draw it large, and label it clearly. That's two points, for six marks."
  },
  {
   "id": "bio-5aa6cd01",
@@ -25,29 +25,54 @@
   "say": "For part three, describe it: say what happens, step by step. That's one point, for three marks."
  },
  {
-  "id": "bio-cmd-describe-title",
-  "text": "Describe: what happens, in order",
-  "say": "Describe: what happens, in order"
+  "id": "bio-28-alveolus-title",
+  "text": "The alveolus: built for diffusion",
+  "say": "The alveolus: built for diffusion"
  },
  {
-  "id": "bio-cmd-describe-summary",
-  "text": "Walk through it step by step.",
-  "say": "Describing is a bit like telling a story, one step after another."
+  "id": "bio-28-alveolus-summary",
+  "text": "Thin, moist and huge, all at once.",
+  "say": "Deep in your lungs are hundreds of millions of tiny air sacs. This is where the air finally meets your blood."
  },
  {
-  "id": "bio-cmd-describe-1",
-  "text": "In order: start to finish.",
-  "say": "Start at the beginning and go step by step to the end, so nothing gets left out."
+  "id": "bio-28-alveolus-1",
+  "text": "Diffusion: high to low concentration.",
+  "say": "Oxygen moves from the air into your blood, and carbon dioxide moves the other way, by diffusion: from where there's a lot of it to where there's less."
  },
  {
-  "id": "bio-cmd-describe-2",
-  "text": "Name the parts: where each step happens.",
-  "say": "Name the exact structure where each step happens. Those names are what the examiner is looking for."
+  "id": "bio-28-alveolus-2",
+  "text": "Thin and moist: one cell thick.",
+  "say": "The wall of each alveolus is just one cell thick, and lined with moisture for the gases to dissolve in. So the distance is tiny."
  },
  {
-  "id": "bio-cmd-describe-3",
-  "text": "Count the marks: nine marks, three points.",
-  "say": "Count the marks. Nine marks usually means three separate points, so make sure you have at least three."
+  "id": "bio-28-alveolus-3",
+  "text": "Huge and busy: big surface, many capillaries.",
+  "say": "Together the alveoli have a huge surface area, and each one is wrapped in a dense net of capillaries that keeps carrying the oxygen away."
+ },
+ {
+  "id": "bio-cmd-draw-title",
+  "text": "Draw it big, label it well",
+  "say": "Draw it big, label it well"
+ },
+ {
+  "id": "bio-cmd-draw-summary",
+  "text": "The labels earn most of the marks.",
+  "say": "In a drawing question, most of the marks are in the labels."
+ },
+ {
+  "id": "bio-cmd-draw-1",
+  "text": "Large and clear: half a page, in pencil.",
+  "say": "Make your diagram large and clear, in pencil, so the examiner can see every part."
+ },
+ {
+  "id": "bio-cmd-draw-2",
+  "text": "Label lines: straight, touching the part.",
+  "say": "Each label needs a straight line that touches the exact part it names."
+ },
+ {
+  "id": "bio-cmd-draw-3",
+  "text": "Count the labels: as many as it asks for.",
+  "say": "Count how many labels the question asks for, and make sure every one is there."
  },
  {
   "id": "bio-a432d718",
@@ -68,6 +93,31 @@
   "id": "bio-48e8bbac",
   "text": "(iii), (iv) Name: 7 points, 21 marks.",
   "say": "For parts three, four, just name it: a word or a short phrase is enough. That's seven points, for twenty-one marks."
+ },
+ {
+  "id": "bio-28-control-title",
+  "text": "Carbon dioxide sets the pace",
+  "say": "Carbon dioxide sets the pace"
+ },
+ {
+  "id": "bio-28-control-summary",
+  "text": "Your brain watches the carbon dioxide.",
+  "say": "You don't have to think about breathing. Something else is keeping count."
+ },
+ {
+  "id": "bio-28-control-1",
+  "text": "More carbon dioxide: makes the blood acidic.",
+  "say": "When you exercise, your muscles make more carbon dioxide, and it makes your blood more acidic."
+ },
+ {
+  "id": "bio-28-control-2",
+  "text": "The medulla: notices.",
+  "say": "A part of your brain called the medulla oblongata detects the change."
+ },
+ {
+  "id": "bio-28-control-3",
+  "text": "Faster and deeper: impulses to the muscles.",
+  "say": "It sends impulses to your diaphragm and intercostal muscles, so you breathe faster and deeper, until the carbon dioxide is back to normal."
  },
  {
   "id": "bio-cmd-compare-title",
@@ -100,14 +150,209 @@
   "say": "This one is worth twenty-one marks, in four parts. Here's what each part wants."
  },
  {
-  "id": "bio-35467a15",
-  "text": "(i), (iii) Use the diagram: 4 points, 12 marks.",
-  "say": "For parts one, three, read the diagram and find the exact part. That's four points, for twelve marks."
+  "id": "bio-4fb980c5",
+  "text": "(i) Use the diagram: 2 points, 6 marks.",
+  "say": "For part one, read the diagram and find the exact part. That's two points, for six marks."
  },
  {
   "id": "bio-057e33eb",
   "text": "(ii), (iv) Name: 3 points, 9 marks.",
   "say": "For parts two, four, just name it: a word or a short phrase is enough. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-7aba6bfc",
+  "text": "(iii) Draw: 2 points, 6 marks.",
+  "say": "For part three, draw it large, and label it clearly. That's two points, for six marks."
+ },
+ {
+  "id": "bio-28-exercise-title",
+  "text": "Exercise and breathing rate",
+  "say": "Exercise and breathing rate"
+ },
+ {
+  "id": "bio-28-exercise-summary",
+  "text": "The investigation: measure, exercise, measure again.",
+  "say": "You can see all of this happen in your own body, with a simple experiment."
+ },
+ {
+  "id": "bio-28-exercise-1",
+  "text": "Resting rate first: that's the control.",
+  "say": "First, measure the breathing rate or pulse at rest. That's your control, to compare with."
+ },
+ {
+  "id": "bio-28-exercise-2",
+  "text": "Count and repeat: breaths per minute, then average.",
+  "say": "Count the breaths or beats for a set time, work out the rate per minute, and repeat it to get an average."
+ },
+ {
+  "id": "bio-28-exercise-3",
+  "text": "After exercise: it rises, then recovers.",
+  "say": "After exercise the rate rises, because the muscles need more oxygen and make more carbon dioxide. A fitter person rises less and gets back to resting sooner."
+ },
+ {
+  "id": "bio-426013e2",
+  "text": "9 marks.",
+  "say": "This one is worth nine marks. Here's what each part wants."
+ },
+ {
+  "id": "bio-6a675827",
+  "text": "(iv) Describe: 3 points, 9 marks.",
+  "say": "For part four, describe it: say what happens, step by step. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-28-transport-title",
+  "text": "Carrying the gases",
+  "say": "Carrying the gases"
+ },
+ {
+  "id": "bio-28-transport-summary",
+  "text": "Oxygen rides on red blood cells.",
+  "say": "Once the gases are in your blood, they need a ride."
+ },
+ {
+  "id": "bio-28-transport-1",
+  "text": "Oxygen: joins haemoglobin.",
+  "say": "Oxygen joins haemoglobin inside your red blood cells, forming oxyhaemoglobin, and is carried to every cell in your body."
+ },
+ {
+  "id": "bio-28-transport-2",
+  "text": "Carbon dioxide: mostly in the plasma.",
+  "say": "Carbon dioxide, made by respiration in your cells' mitochondria, travels back mostly dissolved in the plasma, as hydrogencarbonate."
+ },
+ {
+  "id": "bio-28-transport-3",
+  "text": "The odd ones out: pulmonary artery and vein.",
+  "say": "Usually arteries carry oxygen-rich blood. But the pulmonary artery carries blood low in oxygen to the lungs, and the pulmonary vein brings oxygen-rich blood back."
+ },
+ {
+  "id": "bio-cmd-describe-title",
+  "text": "Describe: what happens, in order",
+  "say": "Describe: what happens, in order"
+ },
+ {
+  "id": "bio-cmd-describe-summary",
+  "text": "Walk through it step by step.",
+  "say": "Describing is a bit like telling a story, one step after another."
+ },
+ {
+  "id": "bio-cmd-describe-1",
+  "text": "In order: start to finish.",
+  "say": "Start at the beginning and go step by step to the end, so nothing gets left out."
+ },
+ {
+  "id": "bio-cmd-describe-2",
+  "text": "Name the parts: where each step happens.",
+  "say": "Name the exact structure where each step happens. Those names are what the examiner is looking for."
+ },
+ {
+  "id": "bio-cmd-describe-3",
+  "text": "Count the marks: nine marks, three points.",
+  "say": "Count the marks. Nine marks usually means three separate points, so make sure you have at least three."
+ },
+ {
+  "id": "bio-5123bff7",
+  "text": "20 marks in 7 parts.",
+  "say": "This one is worth twenty marks, in seven parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-2ee4b299",
+  "text": "(a)–(e) Name: 4 points, 12 marks.",
+  "say": "For parts a, b, c, e, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-417ebff3",
+  "text": "(d)(i), (d)(ii) Draw: 2 points, 5 marks.",
+  "say": "For parts d one, d two, draw it large, and label it clearly. That's two points, for five marks."
+ },
+ {
+  "id": "bio-5941172a",
+  "text": "(f) Use the diagram: one point, 3 marks.",
+  "say": "For part f, read the diagram and find the exact part. That's one point, for three marks."
+ },
+ {
+  "id": "bio-28-inhale-title",
+  "text": "Breathing in",
+  "say": "Breathing in"
+ },
+ {
+  "id": "bio-28-inhale-summary",
+  "text": "Make the chest bigger, and air rushes in.",
+  "say": "Your lungs have no muscles of their own. So how do they fill with air?"
+ },
+ {
+  "id": "bio-28-inhale-1",
+  "text": "Muscles contract: the brain sends the signal.",
+  "say": "Your brain sends impulses to two sets of muscles: the diaphragm under your lungs, and the intercostal muscles between your ribs. Both contract."
+ },
+ {
+  "id": "bio-28-inhale-2",
+  "text": "Chest grows: diaphragm down, ribs up and out.",
+  "say": "The diaphragm flattens and moves down, and the rib cage swings up and out. The space inside your chest gets bigger."
+ },
+ {
+  "id": "bio-28-inhale-3",
+  "text": "Air rushes in: volume up, pressure down.",
+  "say": "More volume means lower pressure inside the lungs than in the air outside, so air rushes in to fill them."
+ },
+ {
+  "id": "bio-da9c7956",
+  "text": "30 marks in 7 parts.",
+  "say": "This one is worth thirty marks, in seven parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-5da23457",
+  "text": "(i) Use the diagram: 3 points, 3 marks.",
+  "say": "For part one, read the diagram and find the exact part. That's three points, for three marks."
+ },
+ {
+  "id": "bio-0778eb41",
+  "text": "(ii)–(vi) Name: 6 points, 18 marks.",
+  "say": "For parts two, three 1., three 2., four, six, just name it: a word or a short phrase is enough. That's six points, for eighteen marks."
+ },
+ {
+  "id": "bio-8148a533",
+  "text": "(v) Describe: 3 points, 9 marks.",
+  "say": "For part five, describe it: say what happens, step by step. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-28-exhale-title",
+  "text": "Breathing out",
+  "say": "Breathing out"
+ },
+ {
+  "id": "bio-28-exhale-summary",
+  "text": "Let the muscles go, and the air follows.",
+  "say": "Breathing out, when you're resting, takes almost no effort at all. You just let go."
+ },
+ {
+  "id": "bio-28-exhale-1",
+  "text": "Muscles relax: diaphragm and intercostals.",
+  "say": "The diaphragm and the intercostal muscles between your ribs relax."
+ },
+ {
+  "id": "bio-28-exhale-2",
+  "text": "Chest shrinks: ribs down and in, diaphragm up.",
+  "say": "Your rib cage falls down and in, and the diaphragm springs back up into its dome. The chest gets smaller."
+ },
+ {
+  "id": "bio-28-exhale-3",
+  "text": "Air out: volume down, pressure up.",
+  "say": "Less volume means more pressure inside the lungs than outside, so the air is pushed out."
+ },
+ {
+  "id": "bio-649707f0",
+  "text": "18 marks in 2 parts.",
+  "say": "This one is worth eighteen marks, in two parts. Here's what each part wants."
+ },
+ {
+  "id": "bio-50864dc4",
+  "text": "(ii) Name: 3 points, 9 marks.",
+  "say": "For part two, just name it: a word or a short phrase is enough. That's three points, for nine marks."
+ },
+ {
+  "id": "bio-035923c3",
+  "text": "(iii) Use the diagram: 2 points, 9 marks.",
+  "say": "For part three, read the diagram and find the exact part. That's two points, for nine marks."
  },
  {
   "id": "bio-cmd-label-title",
@@ -133,66 +378,6 @@
   "id": "bio-cmd-label-3",
   "text": "On the diagram: a clear letter or arrow.",
   "say": "If you have to mark the diagram, put a clear letter or arrow right on the part."
- },
- {
-  "id": "bio-426013e2",
-  "text": "9 marks.",
-  "say": "This one is worth nine marks. Here's what each part wants."
- },
- {
-  "id": "bio-6a675827",
-  "text": "(iv) Describe: 3 points, 9 marks.",
-  "say": "For part four, describe it: say what happens, step by step. That's three points, for nine marks."
- },
- {
-  "id": "bio-5123bff7",
-  "text": "20 marks in 7 parts.",
-  "say": "This one is worth twenty marks, in seven parts. Here's what each part wants."
- },
- {
-  "id": "bio-2ee4b299",
-  "text": "(a)–(e) Name: 4 points, 12 marks.",
-  "say": "For parts a, b, c, e, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
- },
- {
-  "id": "bio-40761e2f",
-  "text": "(d)(i), (d)(ii), (f) Use the diagram: 3 points, 8 marks.",
-  "say": "For parts d one, d two, f, read the diagram and find the exact part. That's three points, for eight marks."
- },
- {
-  "id": "bio-da9c7956",
-  "text": "30 marks in 7 parts.",
-  "say": "This one is worth thirty marks, in seven parts. Here's what each part wants."
- },
- {
-  "id": "bio-5da23457",
-  "text": "(i) Use the diagram: 3 points, 3 marks.",
-  "say": "For part one, read the diagram and find the exact part. That's three points, for three marks."
- },
- {
-  "id": "bio-0778eb41",
-  "text": "(ii)–(vi) Name: 6 points, 18 marks.",
-  "say": "For parts two, three 1., three 2., four, six, just name it: a word or a short phrase is enough. That's six points, for eighteen marks."
- },
- {
-  "id": "bio-8148a533",
-  "text": "(v) Describe: 3 points, 9 marks.",
-  "say": "For part five, describe it: say what happens, step by step. That's three points, for nine marks."
- },
- {
-  "id": "bio-649707f0",
-  "text": "18 marks in 2 parts.",
-  "say": "This one is worth eighteen marks, in two parts. Here's what each part wants."
- },
- {
-  "id": "bio-50864dc4",
-  "text": "(ii) Name: 3 points, 9 marks.",
-  "say": "For part two, just name it: a word or a short phrase is enough. That's three points, for nine marks."
- },
- {
-  "id": "bio-035923c3",
-  "text": "(iii) Use the diagram: 2 points, 9 marks.",
-  "say": "For part three, read the diagram and find the exact part. That's two points, for nine marks."
  },
  {
   "id": "bio-05cfe713",
@@ -280,31 +465,6 @@
   "say": "For part two, describe it: say what happens, step by step. That's six points, for eighteen marks."
  },
  {
-  "id": "bio-cmd-draw-title",
-  "text": "Draw it big, label it well",
-  "say": "Draw it big, label it well"
- },
- {
-  "id": "bio-cmd-draw-summary",
-  "text": "The labels earn most of the marks.",
-  "say": "In a drawing question, most of the marks are in the labels."
- },
- {
-  "id": "bio-cmd-draw-1",
-  "text": "Large and clear: half a page, in pencil.",
-  "say": "Make your diagram large and clear, in pencil, so the examiner can see every part."
- },
- {
-  "id": "bio-cmd-draw-2",
-  "text": "Label lines: straight, touching the part.",
-  "say": "Each label needs a straight line that touches the exact part it names."
- },
- {
-  "id": "bio-cmd-draw-3",
-  "text": "Count the labels: as many as it asks for.",
-  "say": "Count how many labels the question asks for, and make sure every one is there."
- },
- {
   "id": "bio-766c4d49",
   "text": "24 marks in 5 parts.",
   "say": "This one is worth twenty-four marks, in five parts. Here's what each part wants."
@@ -348,6 +508,31 @@
   "id": "bio-8f23e31b",
   "text": "(i) Name: one point, 3 marks.",
   "say": "For part one, just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-28-tract-title",
+  "text": "The airway: nose to alveoli",
+  "say": "The airway: nose to alveoli"
+ },
+ {
+  "id": "bio-28-tract-summary",
+  "text": "Every breath takes the same route.",
+  "say": "Every breath you take follows the same path, from your nose down into the depths of your lungs."
+ },
+ {
+  "id": "bio-28-tract-1",
+  "text": "The nose: filters, warms and moistens.",
+  "say": "In the nasal cavity, hairs and mucus filter the air, and it's warmed and moistened on its way in."
+ },
+ {
+  "id": "bio-28-tract-2",
+  "text": "Throat to chest: pharynx, larynx, trachea.",
+  "say": "It passes the pharynx and the larynx, your voice box, into the trachea. Rings of cartilage hold the trachea open, and the epiglottis closes over it when you swallow."
+ },
+ {
+  "id": "bio-28-tract-3",
+  "text": "Into the lungs: bronchi, bronchioles, alveoli.",
+  "say": "The trachea splits into two bronchi, which branch into thousands of bronchioles, ending in tiny air sacs: the alveoli. It all sits in your chest, the thoracic cavity."
  },
  {
   "id": "bio-544a2bb7",
@@ -1610,6 +1795,31 @@
   "say": "For parts one, two, describe it: say what happens, step by step. That's eleven points, for thirty-three marks."
  },
  {
+  "id": "bio-32-general-title",
+  "text": "The general defence system",
+  "say": "The general defence system"
+ },
+ {
+  "id": "bio-32-general-summary",
+  "text": "Always on guard, against anything.",
+  "say": "Before your immune system even notices an invader, it has to get past your general defences."
+ },
+ {
+  "id": "bio-32-general-1",
+  "text": "Barriers: skin, mucus, acid.",
+  "say": "Your skin is a tough barrier. Mucus traps microbes, cilia sweep them away, and acid in your stomach kills most of what you swallow."
+ },
+ {
+  "id": "bio-32-general-2",
+  "text": "Phagocytes: engulf and digest.",
+  "say": "Any pathogen that gets through meets the phagocytes, like monocytes and macrophages. They engulf it, and digest it with enzymes."
+ },
+ {
+  "id": "bio-32-general-3",
+  "text": "Not specific: the same for every invader.",
+  "say": "These defences treat every invader the same way, and they're always ready. That's why this is called the general, or innate, system."
+ },
+ {
   "id": "bio-166d14c7",
   "text": "(i) Explain: 3 points, 9 marks.",
   "say": "For part one, explain it: say what happens, and why. That's three points, for nine marks."
@@ -1618,6 +1828,31 @@
   "id": "bio-95b30058",
   "text": "(iii), (iv) Name: 4 points, 12 marks.",
   "say": "For parts three, four, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-32-trials-title",
+  "text": "Testing a new vaccine",
+  "say": "Testing a new vaccine"
+ },
+ {
+  "id": "bio-32-trials-summary",
+  "text": "A fair test, on a lot of people.",
+  "say": "Before a new vaccine is used, it has to be tested very carefully. Here's how scientists make that test fair."
+ },
+ {
+  "id": "bio-32-trials-1",
+  "text": "A control group: gets a placebo.",
+  "say": "Half the volunteers get the vaccine. The other half, the control group, get a placebo: a harmless injection with no vaccine in it, so the two groups can be compared fairly."
+ },
+ {
+  "id": "bio-32-trials-2",
+  "text": "A big sample: from everywhere.",
+  "say": "Tens of thousands of people, from many countries, take part. A large, varied sample makes the results more reliable, and true for everyone."
+ },
+ {
+  "id": "bio-32-trials-3",
+  "text": "Only who was tested: no further than the data.",
+  "say": "And the conclusion can only cover the people who were tested. If no children took part, we can't say it works for children."
  },
  {
   "id": "bio-008b826c",
@@ -1635,6 +1870,31 @@
   "say": "For part three, say what it means, in one clear sentence. That's two points, for six marks."
  },
  {
+  "id": "bio-32-pathogens-title",
+  "text": "Pathogens: what makes us ill",
+  "say": "Pathogens: what makes us ill"
+ },
+ {
+  "id": "bio-32-pathogens-summary",
+  "text": "Anything that causes disease.",
+  "say": "A pathogen is anything that causes disease. And they come in surprisingly different shapes and sizes."
+ },
+ {
+  "id": "bio-32-pathogens-1",
+  "text": "Many kinds: bacteria, viruses, fungi and more.",
+  "say": "Pathogens include bacteria, viruses, fungi, protists like the one that causes malaria, and even parasitic worms."
+ },
+ {
+  "id": "bio-32-pathogens-2",
+  "text": "Prions: misfolded proteins.",
+  "say": "The oddest are prions: proteins folded into the wrong shape. They cause brain diseases like BSE and CJD, with no cells and no genes at all."
+ },
+ {
+  "id": "bio-32-pathogens-3",
+  "text": "Foreign markers: antigens give them away.",
+  "say": "Every pathogen carries molecules on its surface that your body doesn't recognise. These antigens are how your immune system knows something is wrong."
+ },
+ {
   "id": "bio-3144e535",
   "text": "(i) Use the diagram: 2 points, 3 marks.",
   "say": "For part one, read the diagram and find the exact part. That's two points, for three marks."
@@ -1645,14 +1905,114 @@
   "say": "For parts two, three, five, six, just name it: a word or a short phrase is enough. That's eight points, for twenty-four marks."
  },
  {
+  "id": "bio-32-replicate-title",
+  "text": "How a virus multiplies",
+  "say": "How a virus multiplies"
+ },
+ {
+  "id": "bio-32-replicate-summary",
+  "text": "It hijacks your cells to make copies of itself.",
+  "say": "A virus can't make anything by itself. So it borrows a cell, and takes it over."
+ },
+ {
+  "id": "bio-32-replicate-1",
+  "text": "Attach and enter: its nucleic acid gets in.",
+  "say": "First, the virus attaches to a host cell, and its DNA or RNA gets inside."
+ },
+ {
+  "id": "bio-32-replicate-2",
+  "text": "Copies: made by the host cell.",
+  "say": "Then the host cell's own ribosomes, enzymes and energy are used to copy the viral genes and make new protein coats."
+ },
+ {
+  "id": "bio-32-replicate-3",
+  "text": "Assembled and released: the cell often bursts.",
+  "say": "The parts are assembled into hundreds of new viruses, which burst out of the cell to infect the next one."
+ },
+ {
   "id": "bio-4ddd11c3",
   "text": "(i) 1.–(iii) Name: 9 points, 27 marks.",
   "say": "For parts one 1., one 2., two, three, just name it: a word or a short phrase is enough. That's nine points, for twenty-seven marks."
  },
  {
+  "id": "bio-32-lymph-title",
+  "text": "B and T lymphocytes",
+  "say": "B and T lymphocytes"
+ },
+ {
+  "id": "bio-32-lymph-summary",
+  "text": "The specific defence system's special forces.",
+  "say": "Lymphocytes are the specialists of your immune system. Each one is trained to recognise just one antigen."
+ },
+ {
+  "id": "bio-32-lymph-1",
+  "text": "B cells: make antibodies.",
+  "say": "Lymphocytes are made in the bone marrow. B lymphocytes make antibodies against the antigens they recognise."
+ },
+ {
+  "id": "bio-32-lymph-2",
+  "text": "T cells: helper, killer, suppressor, memory.",
+  "say": "Helper T cells recognise antigens and switch the other lymphocytes on. Killer T cells find infected cells and burst them with a chemical called perforin."
+ },
+ {
+  "id": "bio-32-lymph-3",
+  "text": "Off, and remember: suppressor and memory cells.",
+  "say": "Suppressor T cells switch the attack off when it's over. Memory cells stay for years, ready for the next time."
+ },
+ {
+  "id": "bio-32-antibiotics-title",
+  "text": "Antibiotics and resistance",
+  "say": "Antibiotics and resistance"
+ },
+ {
+  "id": "bio-32-antibiotics-summary",
+  "text": "Powerful against bacteria, useless against viruses.",
+  "say": "Antibiotics are one of medicine's greatest discoveries. But bacteria are fighting back."
+ },
+ {
+  "id": "bio-32-antibiotics-1",
+  "text": "Antibiotics: made by microbes, kill bacteria.",
+  "say": "An antibiotic is a substance made by a micro-organism, like penicillin from a fungus, that kills bacteria or stops them growing."
+ },
+ {
+  "id": "bio-32-antibiotics-2",
+  "text": "Not viruses: no effect on them at all.",
+  "say": "They have no effect on viruses. So antibiotics won't cure a cold, the flu or COVID-19."
+ },
+ {
+  "id": "bio-32-antibiotics-3",
+  "text": "Resistance: natural selection at work.",
+  "say": "When antibiotics are overused, a few bacteria with resistance genes survive and multiply. Soon the whole population is resistant, and the antibiotic stops working."
+ },
+ {
   "id": "bio-e8970e2d",
   "text": "(ii), (iv) 1., (iv) 2. Name: 4 points, 12 marks.",
   "say": "For parts two, four 1., four 2., just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-32-virus-title",
+  "text": "What is a virus?",
+  "say": "What is a virus?"
+ },
+ {
+  "id": "bio-32-virus-summary",
+  "text": "Genes in a protein shell, and not quite alive.",
+  "say": "A virus is one of the strangest things in biology. It's not even made of cells."
+ },
+ {
+  "id": "bio-32-virus-1",
+  "text": "Two parts: nucleic acid in a protein coat.",
+  "say": "Every virus has just two main parts: its genes, made of DNA or RNA, packed inside a coat of protein called the capsid."
+ },
+ {
+  "id": "bio-32-virus-2",
+  "text": "No cells: so is it living?",
+  "say": "It has no cells, no organelles and no metabolism of its own. That's why biologists find it so hard to call a virus living."
+ },
+ {
+  "id": "bio-32-virus-3",
+  "text": "Obligate parasite: it needs a host cell.",
+  "say": "A virus can only reproduce inside a living host cell. On its own, it simply waits. That makes it an obligate parasite."
  },
  {
   "id": "bio-81481625",
@@ -1678,6 +2038,31 @@
   "id": "bio-eb5b7cf2",
   "text": "(v) Name: 2 points, 6 marks.",
   "say": "For part five, just name it: a word or a short phrase is enough. That's two points, for six marks."
+ },
+ {
+  "id": "bio-32-immunity-title",
+  "text": "Vaccination and immunity",
+  "say": "Vaccination and immunity"
+ },
+ {
+  "id": "bio-32-immunity-summary",
+  "text": "Meeting the enemy safely, ahead of time.",
+  "say": "What if your body could practise fighting a disease, without ever getting sick? That's exactly what a vaccine does."
+ },
+ {
+  "id": "bio-32-immunity-1",
+  "text": "Harmless dose: a weakened or dead pathogen.",
+  "say": "A vaccine is a harmless form of a pathogen, weakened, dead, or just its antigens, put into the body."
+ },
+ {
+  "id": "bio-32-immunity-2",
+  "text": "Active immunity: your own antibodies and memory cells.",
+  "say": "Your body makes its own antibodies and memory cells against it. That's active immunity, and it can last for years."
+ },
+ {
+  "id": "bio-32-immunity-3",
+  "text": "Passive immunity: ready-made antibodies.",
+  "say": "Passive immunity is when you're given ready-made antibodies, from an injection, or from breast milk. It works straight away, but fades within weeks."
  },
  {
   "id": "bio-0f24715c",
@@ -1825,6 +2210,31 @@
   "say": "For part five, suggest a sensible reason, using what you know. That's one point, for three marks."
  },
  {
+  "id": "bio-32-spread-title",
+  "text": "How diseases spread",
+  "say": "How diseases spread"
+ },
+ {
+  "id": "bio-32-spread-summary",
+  "text": "A pathogen needs to reach new hosts.",
+  "say": "For a disease to spread, the pathogen has to keep finding new people to infect."
+ },
+ {
+  "id": "bio-32-spread-1",
+  "text": "Getting about: travel, touch, water, mosquitoes.",
+  "say": "Pathogens spread through the air, through touch, food and water, or carried by animals like mosquitoes, and travel takes them around the world."
+ },
+ {
+  "id": "bio-32-spread-2",
+  "text": "No immunity: and it spreads fast.",
+  "say": "In a population with no immunity, like the rabbits hit by myxomatosis, or people who haven't been vaccinated, a disease can spread very quickly."
+ },
+ {
+  "id": "bio-32-spread-3",
+  "text": "Immunity builds: and the death rate falls.",
+  "say": "Over time the survivors, and their offspring, can be immune, so the disease kills fewer of them."
+ },
+ {
   "id": "bio-679290eb",
   "text": "(i), (ii), (iii) Name: 3 points, 9 marks.",
   "say": "For parts one, two, three, just name it: a word or a short phrase is enough. That's three points, for nine marks."
@@ -1833,6 +2243,31 @@
   "id": "bio-f9d33de4",
   "text": "(i) Compare: 4 points, 12 marks.",
   "say": "For part one, say how they differ, with something about each one. That's four points, for twelve marks."
+ },
+ {
+  "id": "bio-32-antibody-title",
+  "text": "Antigens and antibodies",
+  "say": "Antigens and antibodies"
+ },
+ {
+  "id": "bio-32-antibody-summary",
+  "text": "A lock, and the key made to fit it.",
+  "say": "Your specific defences work a bit like a lock and a key."
+ },
+ {
+  "id": "bio-32-antibody-1",
+  "text": "Antigen: a foreign molecule.",
+  "say": "An antigen is a foreign molecule, usually a protein on the surface of a pathogen, that makes your body produce antibodies."
+ },
+ {
+  "id": "bio-32-antibody-2",
+  "text": "Antibody: a protein made to fit it.",
+  "say": "An antibody is a Y-shaped protein, made by B lymphocytes, with a shape that fits one antigen, and only that one."
+ },
+ {
+  "id": "bio-32-antibody-3",
+  "text": "Locked on: marked for destruction.",
+  "say": "When antibodies lock onto antigens, the pathogens clump together and are marked, so phagocytes can find them and destroy them."
  },
  {
   "id": "bio-7b93554e",
@@ -1853,6 +2288,31 @@
   "id": "bio-c0ac720c",
   "text": "(i), (v) Name: 5 points, 20 marks.",
   "say": "For parts one, five, just name it: a word or a short phrase is enough. That's five points, for twenty marks."
+ },
+ {
+  "id": "bio-32-uses-title",
+  "text": "Harmful and helpful viruses",
+  "say": "Harmful and helpful viruses"
+ },
+ {
+  "id": "bio-32-uses-summary",
+  "text": "Most cause disease, but some are useful.",
+  "say": "Viruses are famous for making us ill. But some of them are surprisingly useful."
+ },
+ {
+  "id": "bio-32-uses-1",
+  "text": "Harmful: colds, flu, measles, HIV.",
+  "say": "Viruses cause the common cold, flu, measles, COVID-19 and AIDS in people, and diseases like tobacco mosaic in plants."
+ },
+ {
+  "id": "bio-32-uses-2",
+  "text": "Helpful: carrying genes.",
+  "say": "But scientists can use them to carry useful genes into cells. That's genetic engineering, with the virus as the vector."
+ },
+ {
+  "id": "bio-32-uses-3",
+  "text": "Bacteriophages: viruses that kill bacteria.",
+  "say": "Some viruses, called bacteriophages, attack only bacteria. They could be used to treat infections that antibiotics can no longer cure."
  },
  {
   "id": "bio-003a5651",
