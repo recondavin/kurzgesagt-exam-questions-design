@@ -18,12 +18,16 @@ STOP = set('the a an of to and or in on at is are was were be been by for with a
            'explained explain described describe correct answer answers mark marks reference ref given one two three four five six '
            # Filler nouns a student can swap for another word ("undigested material" / "undigested food").
            'material materials substance substances thing things stuff matter part parts item items way ways'.split())
-SYNONYMS = {'big': 'large', 'huge': 'large', 'tiny': 'small', 'lots': 'many', 'quick': 'fast', 'quicker': 'faster'}
+SYNONYMS = {'big': 'large', 'huge': 'large', 'tiny': 'small', 'lots': 'many', 'quick': 'fast', 'quicker': 'faster', 'o2': 'oxygen', 'h2o': 'water'}
+# Two-word names written as one (the same list in bio/bio.js).
+PHRASES = [(re.compile(r'carbon\s*dioxide'), 'co2'), (re.compile(r'rib\s+cage'), 'ribcage')]
 WORDS = re.compile(r"[a-z0-9]+")
 
 
 def words(text):
     text = text.lower().replace("'", '').replace('’', '')
+    for pat, one in PHRASES:
+        text = pat.sub(one, text)
     return [SYNONYMS.get(w, w) for w in WORDS.findall(text)]
 
 
@@ -215,12 +219,17 @@ def build(ch):
             max_n = rule_count(p.get('rule'), p)
             per = None if p.get('marks') is None else None
             pts = []
-            for pt in p['points']:
+            for j, pt in enumerate(p['points']):
                 item = {'a': pt['answer'], 'm': pt.get('marks')}
                 f = field_of(pt['answer'])
                 if kind == 'fields' and f:
                     item['f'] = f
                 alts = alternatives(pt['answer'])
+                fix = ov.get('points', {}).get(pid, {}).get(j)  # the chapter's own keys, or 'self'
+                if fix == 'self':
+                    alts = None
+                elif fix:
+                    alts = fix
                 if alts and kind != 'draw':
                     item['k'] = alts
                 else:

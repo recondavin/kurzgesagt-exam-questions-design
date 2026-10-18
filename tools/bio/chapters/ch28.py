@@ -402,6 +402,12 @@ OVERRIDES = {
     'tap': {},
     # Parts that say "on the diagram" but are drawn on the paper, or are a written answer.
     'kind': {'S1-Q3a(i)': 'draw', 'S1-Q3d(iii)': 'draw', '2026-Q3(d)(i)': 'draw', '2026-Q3(d)(ii)': 'draw', '2026-Q3(f)': 'text'},
+    # Points whose scheme wording can't be keyed: the disorder is named by the student, and its cause, prevention
+    # and treatment depend on which one, so those are ticked by the student.
+    'points': {'2009-Q13c(iii)': {
+        0: [{'w': [w], 'n': 1} for w in ('asthma', 'bronchit', 'emphysema', 'pneumonia', 'tubercul', 'copd')] +
+           [{'w': ['lung', 'cancer'], 'n': 2}, {'w': ['cystic', 'fibrosis'], 'n': 2}],
+        1: 'self', 2: 'self', 3: 'self'}},
 }
 
 

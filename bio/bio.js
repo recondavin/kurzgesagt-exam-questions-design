@@ -25,7 +25,9 @@
   function scoreOf(qid) { try { return JSON.parse(store('bio-q-' + qid) || 'null'); } catch (err) { return null; } }
 
   // ---------- marking: the same word rules as tools/bio/build_bio_questions.py ----------
-  var SYNONYMS = { big: 'large', huge: 'large', tiny: 'small', lots: 'many', quick: 'fast', quicker: 'faster' };
+  var SYNONYMS = { big: 'large', huge: 'large', tiny: 'small', lots: 'many', quick: 'fast', quicker: 'faster', o2: 'oxygen', h2o: 'water' };
+  // Two-word names written as one (the same list in tools/bio/build_bio_questions.py).
+  var PHRASES = [[/carbon\s*dioxide/g, 'co2'], [/rib\s+cage/g, 'ribcage']];
   var SUFFIXES = ['ation', 'ition', 'tion', 'sion', 'ment', 'ing', 'ous', 'ive', 'ed', 'er', 'ly', 'al'];
   // Words that share a start but mean different things.
   var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog']];
@@ -41,7 +43,9 @@
     return w;
   }
   function bioWords(text) {
-    return (String(text).toLowerCase().replace(/[’']/g, '').match(/[a-z0-9]+/g) || []).map(function (w) { return bioStem(SYNONYMS[w] || w); });
+    var t = String(text).toLowerCase().replace(/[’']/g, '');
+    PHRASES.forEach(function (p) { t = t.replace(p[0], p[1]); });
+    return (t.match(/[a-z0-9]+/g) || []).map(function (w) { return bioStem(SYNONYMS[w] || w); });
   }
   function lev(a, b) {
     if (Math.abs(a.length - b.length) > 1) return 2;
@@ -72,6 +76,20 @@
       var got = alt.w.filter(function (k) { return words.some(function (w) { return sameStem(w, k); }); }).length;
       return got >= alt.n;
     });
+  }
+  // Some schemes list the same fact twice ("Alveoli: large surface area", "Capillaries: large surface area"), so the
+  // points have the same keys. Saying it once earns one of them; each further sentence that says it earns another.
+  function onePerSentence(part, got, text) {
+    var groups = {};
+    part.pts.forEach(function (pt, i) { if (got[i] && pt.k) (groups[JSON.stringify(pt.k)] = groups[JSON.stringify(pt.k)] || []).push(i); });
+    var out = got.slice(), sentences = String(text).split(/[.;!?\n]+/).map(bioWords);
+    Object.keys(groups).forEach(function (key) {
+      var ids = groups[key];
+      if (ids.length < 2) return;
+      var said = sentences.filter(function (w) { return hasPoint(part.pts[ids[0]], w); }).length;
+      ids.slice(Math.max(1, said)).forEach(function (i) { out[i] = false; });
+    });
+    return out;
   }
   function pointMarks(part, pt) {
     if (pt.m) return pt.m;
@@ -361,11 +379,12 @@
     var words = answerWords(sec, part, k);
     var got = part.pts.map(function (pt) {
       if (pt.self) return false;
-      if (part.kind === 'tap') return part.tap.indexOf(sheet.tap[k]) >= 0;
+      if (part.kind === 'tap') return part.tap ? part.tap.indexOf(sheet.tap[k]) >= 0 : false;
       if (part.kind === 'fields') return hasPoint(pt, words[pt.f] || []);
       return hasPoint(pt, words);
     });
     if (part.kind === 'tap' && part.tap) got = got.map(function (g, i) { return i === 0 ? g : false; });
+    if (part.kind === 'text') { var box = sec.querySelector('.bio-in'); got = onePerSentence(part, got, box ? box.value : ''); }
     sheet.got[k] = got;
     sec.querySelectorAll('.bio-in').forEach(function (i) { i.readOnly = true; });
     renderResult(k);
@@ -458,7 +477,7 @@
     route();
   }
   window.BioApp = {
-    refresh: refresh, words: bioWords, hasPoint: hasPoint, partScore: partScore, pointMarks: pointMarks, partOutOf: partOutOf, chapter: chapter,
+    refresh: refresh, words: bioWords, hasPoint: hasPoint, partScore: partScore, pointMarks: pointMarks, partOutOf: partOutOf, chapter: chapter, onePerSentence: onePerSentence,
     graphSvg: graphSvg, diagramHtml: diagramHtml, questions: allQuestions, openQuestion: openQuestion, outOf: questionOutOf,
     // For tests: does a typed answer get each point of a part?
     check: function (n, qid, partIndex, text) {

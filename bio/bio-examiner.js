@@ -19,7 +19,19 @@
     var have = {}, first = {}, count = 0;
     lines.forEach(function (l, k) {
       var w = BA().words(l.t), fresh = [], old = [];
-      part.pts.forEach(function (pt, i) { if (pt.k && BA().hasPoint(pt, w)) (have[i] ? old : fresh).push(i); });
+      // One line makes a fact once, even when the scheme lists it twice with the same keys (it takes the first copy
+      // the answer doesn't have yet, so a second line saying it again can earn the other).
+      var groups = {}, order = [];
+      part.pts.forEach(function (pt, i) {
+        if (!pt.k || !BA().hasPoint(pt, w)) return;
+        var key = JSON.stringify(pt.k);
+        if (!groups[key]) { groups[key] = []; order.push(key); }
+        groups[key].push(i);
+      });
+      order.forEach(function (key) {
+        var ids = groups[key], open = ids.filter(function (i) { return !have[i]; });
+        if (open.length) fresh.push(open[0]); else old.push(ids[0]);
+      });
       l.hits = [];
       l.capped = false;
       l.repeatOf = null;
