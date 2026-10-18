@@ -855,7 +855,7 @@
     closeCard();
     appendToAnswer(text.charAt(0).toUpperCase() + text.slice(1));
   }
-  // ---------- Training: learn the points (flip cards), judge real vs vague, then a 90-second SRP sprint ----------
+  // ---------- Real-or-vague sentences for the training run ----------
   // real: [sentence, what it earns]; vague: [sentence, why it earns nothing]. Verdicts always come from the marker.
   var TRAIN = {
     'question-3b': {
@@ -1269,6 +1269,8 @@
     if (line) line.textContent = best ? 'Your best: ' + best + ' points' : '12 quick cards, 3 hearts';
     var drawLine = state.root.querySelector('[data-am-drawbest]'), drawBest = +store('am-draw-' + state.id) || 0;
     if (drawLine) drawLine.textContent = drawBest ? 'Your best: ' + drawBest + ' labels' : 'Sketch the exam diagrams';
+    var examLine = state.root.querySelector('[data-am-exambest]'), bank = examBank(), slots = planItems(), n = slots.filter(function (it) { return bank[it.id]; }).length;
+    if (examLine) examLine.textContent = n ? 'Your essay: ' + n + ' of ' + slots.length + ' points, ' + examMarks(bank).marks + '/30' : 'Get each point past a strict examiner';
   }
   function sprintIntro(card) {
     var best = +store('am-sprint-' + state.id) || 0;
@@ -1864,6 +1866,247 @@
     if (newBest && d.total) later(fanfare, 300);
   }
 
+  // ---------- Beat the Examiner: get each point of the essay past a strict examiner ----------
+  // The examiner asks for the points of the answer plan in order. A sentence that earns an SRP under the
+  // marking rules (specific, correct, on the question, not a repeat) gets a "//" and is banked into your
+  // essay (am-bank-<id>); anything else gets a short note in green pen ("Vague", "Not relevant"...) and
+  // you fix it. Three tries per point, then the examiner shows a sentence that would have got it.
+  var EXAM_ROUND = 5, EXAM_TRIES = 3;
+  // Words that give away a sentence about another topic, and what that topic is.
+  var EXAM_OFF = {
+    'question-3b': { topic: 'how sedimentary rocks form', words: [['volcan', 'volcanoes'], ['magma', 'volcanoes'], ['lava', 'volcanoes'], ['earthquake', 'earthquakes'], ['granite', 'igneous rock'], ['basalt', 'igneous rock'], ['igneous', 'igneous rock'], ['marble', 'metamorphic rock'], ['slate', 'metamorphic rock'], ['metamorphic', 'metamorphic rock']] },
+    'question-3c': { topic: 'predicting earthquakes and reducing their effects', words: [['volcan', 'volcanoes'], ['magma', 'volcanoes'], ['lava', 'volcanoes'], ['erupt', 'volcanoes'], ['fold mountain', 'fold mountains'], ['subduct', 'how plates move'], ['convection', 'how plates move'], ['sediment', 'rocks']] }
+  };
+  var EXAM_SAYS = {
+    ok: ['Fine. Two marks.', 'Specific. I\'ll allow it.', 'Correct, relevant, specific. Two marks.', 'Hmm. Yes, that\'s an SRP.', 'Good. That one counts.'],
+    two: 'Two points in one go. Four marks.',
+    other: 'Not what I asked for, but it\'s valid. Two marks.',
+    surplus: 'You already have marks for that. I don\'t pay twice.',
+    short: 'That\'s not a sentence. Notes don\'t get marks.',
+    wrong: 'Incorrect.',
+    off: 'Not relevant. Answer the question asked.',
+    vague: 'Vague. What does it actually do?',
+    none: 'No marks for that.',
+    lost: 'No. Here\'s what would have got it.'
+  };
+  var GREEN_TICK = '<svg viewBox="0 0 60 40" aria-hidden="true"><path d="M8 34L22 6M26 34L40 6"/></svg>';
+  function examBank() { try { return JSON.parse(store('am-bank-' + state.id) || '{}') || {}; } catch (err) { return {}; } }
+  function examSlots() { return planItems(); }
+  // The banked sentences in essay order, each once (one sentence can earn two points).
+  function examEssay(bank, skip) {
+    var seen = {};
+    return examSlots().filter(function (it) {
+      var text = bank[it.id];
+      if (!text || seen[text] || (skip && skip[it.id])) return false;
+      seen[text] = true;
+      return true;
+    }).map(function (it) { return { id: it.id, text: bank[it.id] }; });
+  }
+  function examMarks(bank) {
+    var ids = Object.keys(bank).filter(function (id) { return pointById(id); });
+    return marksFor(ids, Object.keys(bank).map(function (id) { return bank[id]; }).join(' '));
+  }
+  function openExaminer() {
+    var old = state.root.querySelector('.am-finish');
+    if (old) old.remove();
+    clearInterval(state.dumpTimer);
+    var card = el('div', 'am-finish am-exam');
+    card.innerHTML = '<div class="am-finish__card am-exam__card" role="dialog" aria-label="Beat the Examiner">' +
+      '<div class="am-run__hud">' +
+        '<button type="button" class="am-run__quit" data-am-keep aria-label="Stop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
+        '<div class="am-exam__map" data-am-emap aria-hidden="true"></div>' +
+        '<div class="am-run__score"><b data-am-emarks>0</b><span>/30</span></div></div>' +
+      '<div class="am-exam__body" data-am-ebody></div>' +
+      '<div class="am-finish__buttons am-exam__btns" data-am-ebtns></div></div>';
+    state.exam = { round: [], i: 0, beaten: 0, banked: [] };
+    showCard(card);
+    examMap(card, false);
+    examIntro(card);
+  }
+  // The essay map: one slot per point of the plan, filled as points are banked.
+  function examMap(card, popId) {
+    var bank = examBank(), slots = examSlots(), box = card.querySelector('[data-am-emap]');
+    box.innerHTML = slots.map(function (it) {
+      return '<i class="' + (bank[it.id] ? 'is-on' : '') + (it.id === popId ? ' am-exam__pop' : '') + '" title="' + esc(it.title) + '"></i>';
+    }).join('');
+    rollTo(card.querySelector('[data-am-emarks]'), examMarks(bank).marks);
+  }
+  function examIntro(card) {
+    var bank = examBank(), slots = examSlots(), n = slots.filter(function (it) { return bank[it.id]; }).length;
+    card.querySelector('[data-am-ebody]').innerHTML = '<div class="am-exam__intro">' +
+      '<div class="am-exam__face am-exam__face--big" aria-hidden="true">' + EXAMINER_FACE + '</div>' +
+      '<h3 class="am-exam__title">Beat the Examiner</h3>' +
+      '<p>He asks for one point at a time. Write it in one sentence. He only ticks it if it\'s <b>specific</b>, <b>correct</b> and <b>about the question</b>.</p>' +
+      '<p>If he says no, fix it. Every point you get past him goes into your essay. All ' + slots.length + ' and you\'ve written a full-marks answer.</p>' +
+      (n ? '<p class="am-exam__note">Your essay so far: ' + n + ' of ' + slots.length + ' points, ' + examMarks(bank).marks + '/30.</p>' : '') + '</div>';
+    var left = slots.filter(function (it) { return !bank[it.id]; }).length;
+    fillButtons(card.querySelector('[data-am-ebtns]'), left ? [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-estart', n ? 'Keep going' : 'Start']]
+      : [['more', 'data-am-ereset', 'Start a new essay'], ['ok', 'data-am-elines', 'Put my essay on my lines']]);
+  }
+  // A round is the next few points of the plan you haven't banked yet, in essay order.
+  function examRound(card) {
+    var bank = examBank();
+    state.exam = { round: examSlots().filter(function (it) { return !bank[it.id]; }).slice(0, EXAM_ROUND), i: 0, beaten: 0, banked: [] };
+    examAsk(card);
+  }
+  function examAsk(card) {
+    var x = state.exam, it = x.round[x.i];
+    x.tries = 0;
+    x.done = false;
+    card.querySelector('[data-am-ebody]').innerHTML = '<div class="am-exam__desk">' +
+      '<div class="am-exam__who"><div class="am-exam__face" aria-hidden="true">' + EXAMINER_FACE + '</div>' +
+        '<div class="am-exam__bubble"><span class="am-exam__k">Point ' + (x.i + 1) + ' of ' + x.round.length + ' &middot; ' + esc(it.title) + '</span>' +
+        '<p class="am-exam__ask" id="am-exam-ask">' + esc(it.ask) + '</p></div></div>' +
+      '<div class="am-exam__paper"><textarea class="am-exam__box" rows="3" spellcheck="true" aria-labelledby="am-exam-ask" placeholder="Write one sentence…"></textarea>' +
+        '<div class="am-exam__mark" data-am-emark aria-hidden="true"></div></div>' +
+      '<div class="am-exam__tries" aria-hidden="true">' + new Array(EXAM_TRIES + 1).join('<i></i>') + '</div>' +
+      '<p class="am-exam__says" data-am-esays role="status"></p></div>';
+    fillButtons(card.querySelector('[data-am-ebtns]'), [['more', 'data-am-ehelp', 'Teach me first'], ['ok', 'data-am-ehand', 'Hand it in']], true);
+    var box = card.querySelector('.am-exam__box');
+    box.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); examJudge(card); } });
+    box.focus({ preventScroll: true });
+    if (!reduced()) { var desk = card.querySelector('.am-exam__desk'); desk.classList.add('am-run__in'); }
+  }
+  // What the examiner makes of a sentence: { ids: SRPs it earns, note: green-pen note, say: his line, why: the reason in plain words }.
+  function examVerdict(it, text) {
+    var x = state.exam, bank = examBank(), q = state.q, low = ' ' + text.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ') + ' ';
+    var words = text.split(/\s+/).filter(Boolean).length;
+    if (words < MIN_WORDS) return { note: 'Full sentence?', say: EXAM_SAYS.short, why: 'An examiner can only credit a sentence that says something. Write the whole point out.' };
+    if (it.id === '_named') {
+      if (namesRocks(text)) return { ids: ['_named'], note: '', say: 'Two sedimentary rocks named. Two marks each.' };
+      var wrongRock = EXAM_OFF[state.id].words.filter(function (w) { return low.indexOf(' ' + w[0]) >= 0; })[0];
+      return { note: wrongRock ? 'Not sedimentary' : 'Name two', say: wrongRock ? EXAM_SAYS.wrong : EXAM_SAYS.none,
+        why: wrongRock ? 'That\'s ' + wrongRock[1] + '. Sedimentary rocks are ones like sandstone, limestone and shale.' : 'Name two sedimentary rocks in the sentence, for example sandstone and limestone.' };
+    }
+    var hits = [], near = null;
+    evaluate(q, text, always).forEach(function (s) {
+      s.hits.forEach(function (p) { if (hits.indexOf(p.id) < 0) hits.push(p.id); });
+      if (!near && s.near) near = s.near;
+    });
+    var fresh = hits.filter(function (id) { return !bank[id]; });
+    if (fresh.indexOf(it.id) >= 0) fresh = [it.id].concat(fresh.filter(function (id) { return id !== it.id; }));
+    if (fresh.length) {
+      fresh = fresh.slice(0, 2);
+      return { ids: fresh, note: '', say: fresh.length > 1 ? EXAM_SAYS.two : fresh[0] === it.id ? pick(EXAM_SAYS.ok) : EXAM_SAYS.other,
+        why: fresh[0] !== it.id ? 'It earns marks for "' + pointById(fresh[0]).label + '". He\'ll still ask for the one he wanted later.' : '' };
+    }
+    if (hits.length) return { note: 'Surplus', say: EXAM_SAYS.surplus, why: 'Your essay already has a mark for "' + pointById(hits[0]).label + '". The same point only counts once, so say something new.' };
+    var T = TEACH[it.id];
+    var wrong = T && (T.rej || []).filter(function (r) { return low.indexOf(r) >= 0; })[0];
+    if (wrong) return { note: 'Incorrect', say: EXAM_SAYS.wrong, why: T.why };
+    var off = EXAM_OFF[state.id].words.filter(function (w) { return low.indexOf(' ' + w[0]) >= 0; })[0];
+    if (off) return { note: 'Not relevant', say: EXAM_SAYS.off, why: 'That\'s about ' + off[1] + '. The question is about ' + EXAM_OFF[state.id].topic + ', so it can\'t earn marks here.' };
+    if (near) return { note: 'Vague', say: EXAM_SAYS.vague, why: 'That\'s heading towards "' + esc(near.label) + '", but it isn\'t explained yet. Say what it does or why it matters.' };
+    return { note: '?', say: EXAM_SAYS.none, why: T && T.hint ? 'Hint: ' + T.hint : 'Say exactly what happens, and how or why.' };
+  }
+  function pick(list) { return list[Math.floor(Math.random() * list.length)]; }
+  function examJudge(card) {
+    var x = state.exam, it = x.round[x.i], box = card.querySelector('.am-exam__box');
+    if (x.done) return;
+    var text = box.value.trim().replace(/\s+/g, ' ');
+    var says = card.querySelector('[data-am-esays]');
+    if (!text) { says.textContent = 'Write your sentence first.'; box.focus(); return; }
+    if (!/[.!?]$/.test(text)) text += '.';
+    var v = examVerdict(it, text), mark = card.querySelector('[data-am-emark]');
+    mark.className = 'am-exam__mark';
+    void mark.offsetWidth;
+    if (v.ids) {
+      x.done = true;
+      // The gain comes from the official marks before and after, so naming marks, second references
+      // and caps all count the way the marking scheme counts them.
+      var bank = examBank(), before = examMarks(bank);
+      v.ids.forEach(function (id) { bank[id] = text.charAt(0).toUpperCase() + text.slice(1); x.banked.push(id); });
+      store('am-bank-' + state.id, JSON.stringify(bank));
+      var after = examMarks(bank), gain = after.marks - before.marks;
+      if (gain <= 0) { v.say = 'Valid, but it adds no marks yet.'; v.why = after.note || 'This part of the question has already earned all it can.'; }
+      else if (gain > 2 && it.id !== '_named') {
+        // Say where the marks came from: SRPs, and the marks for a first mention of each side.
+        var srps = after.srps - before.srps, mention = (after.marks - after.srps * 2) - (before.marks - before.srps * 2), parts = [];
+        if (srps) parts.push(srps === 1 ? '1 SRP' : srps + ' SRPs');
+        if (mention > 0) parts.push(mention + ' for your first ' + (pointById(v.ids[0]).side === 'r' ? 'way to reduce the effects' : 'way to predict'));
+        v.say = gain + ' marks: ' + parts.join(' and ') + '.';
+      }
+      if (v.ids.indexOf(it.id) >= 0) x.beaten += 1;
+      mark.innerHTML = GREEN_TICK + '<span>+' + Math.max(0, gain) + '</span>';
+      mark.classList.add('am-exam__mark--ok');
+      box.readOnly = true;
+      card.querySelector('.am-exam__paper').classList.add('is-ticked');
+      says.innerHTML = '<b>' + esc(v.say) + '</b>' + (v.why ? ' <span>' + v.why + '</span>' : '');
+      ding(x.banked.length - 1, v.ids.length > 1);
+      examMap(card, v.ids[0]);
+      var stillWanted = v.ids.indexOf(it.id) < 0;
+      if (stillWanted) x.round.splice(x.i + 1, 0, it);
+      fillButtons(card.querySelector('[data-am-ebtns]'), [['ok', 'data-am-enext', x.i + 1 >= x.round.length ? 'See my essay' : 'Next point']]);
+      return;
+    }
+    x.tries += 1;
+    var dots = card.querySelectorAll('.am-exam__tries i');
+    for (var k = 0; k < x.tries && k < dots.length; k++) dots[k].className = 'is-used';
+    mark.innerHTML = '<span>' + esc(v.note) + '</span>';
+    mark.classList.add('am-exam__mark--no');
+    bonk();
+    var paper = card.querySelector('.am-exam__paper');
+    if (!reduced()) { paper.classList.remove('am-shake'); void paper.offsetWidth; paper.classList.add('am-shake'); }
+    if (x.tries >= EXAM_TRIES) {
+      x.done = true;
+      box.readOnly = true;
+      says.innerHTML = '<b>' + esc(EXAM_SAYS.lost) + '</b><span class="am-exam__model">' + examVersion(it.id === '_named' ? '_named' : it.id) + '</span>';
+      fillButtons(card.querySelector('[data-am-ebtns]'), [['ok', 'data-am-enext', x.i + 1 >= x.round.length ? 'See my essay' : 'Next point']]);
+      return;
+    }
+    says.innerHTML = '<b>' + esc(v.say) + '</b> <span>' + v.why + '</span> <em>Fix it and hand it in again (' + (EXAM_TRIES - x.tries) + (EXAM_TRIES - x.tries === 1 ? ' try' : ' tries') + ' left).</em>';
+    box.focus();
+  }
+  // "Teach me first": the plan's explanation of the point, before you try it.
+  function examHelp(card) {
+    var x = state.exam, it = x.round[x.i], says = card.querySelector('[data-am-esays]');
+    says.innerHTML = '<span class="am-exam__teach"><b>' + esc(it.title) + ':</b> ' + esc(it.why) + '</span>';
+    card.querySelector('[data-am-ehelp]').remove();
+    card.querySelector('.am-exam__box').focus();
+  }
+  function examNext(card) {
+    var x = state.exam;
+    x.i += 1;
+    if (x.i >= x.round.length) examEnd(card); else examAsk(card);
+  }
+  function examEnd(card) {
+    var x = state.exam, bank = examBank(), slots = examSlots(), o = examMarks(bank);
+    var n = slots.filter(function (it) { return bank[it.id]; }).length, done = n >= slots.length;
+    card.querySelector('[data-am-ebody]').innerHTML = '<div class="am-exam__end">' +
+      '<div class="am-exam__face am-exam__face--big" aria-hidden="true">' + EXAMINER_FACE + '</div>' +
+      '<h3 class="am-exam__title">' + (done ? 'Full essay. He has nothing left to say.' : 'You beat him ' + x.beaten + ' of ' + x.round.length + ' times') + '</h3>' +
+      '<p class="am-exam__sum">Your essay: <b>' + n + ' of ' + slots.length + '</b> points, <b>' + o.marks + '/30</b></p>' +
+      '<ol class="am-exam__essay">' + examEssay(bank).map(function (e) {
+        return '<li' + (x.banked.indexOf(e.id) >= 0 ? ' class="is-new"' : '') + '>' + esc(e.text) + '</li>';
+      }).join('') + '</ol></div>';
+    var btns = [['more', 'data-am-keep', 'Back to writing']];
+    if (n) btns.push(['more', 'data-am-elines', 'Put it on my lines']);
+    btns.push(done ? ['ok', 'data-am-ereset', 'New essay'] : ['ok', 'data-am-estart', 'Next 5 points']);
+    fillButtons(card.querySelector('[data-am-ebtns]'), btns);
+    updateTrainTile();
+    if (done) later(fanfare, 300);
+  }
+  // Your banked sentences go onto the answer lines in the order of the plan, except points the answer
+  // already makes (they would only be surplus).
+  function examToLines() {
+    var answer = fullText(), have = {};
+    evaluate(state.q, answer, always).forEach(function (s) { s.hits.forEach(function (p) { have[p.id] = true; }); });
+    if (namesRocks(answer)) have._named = true;
+    var text = examEssay(examBank(), have).map(function (e) { return e.text; }).join(' ');
+    closeCard();
+    if (text) appendToAnswer(text);
+  }
+  function examReset(card) {
+    store('am-bank-' + state.id, '{}');
+    examMap(card, false);
+    updateTrainTile();
+    examRound(card);
+  }
+  var EXAMINER_FACE = '<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#E8EEFA"/><path d="M12 26q2-16 20-17q18 1 20 17q-4-7-10-8q-6 4-20 2q-7 1-10 6z" fill="#5E6F8A"/>' +
+    '<circle cx="23" cy="33" r="7" fill="none" stroke="#14243B" stroke-width="2.6"/><circle cx="41" cy="33" r="7" fill="none" stroke="#14243B" stroke-width="2.6"/><path d="M30 33h4" stroke="#14243B" stroke-width="2.6"/>' +
+    '<circle cx="23" cy="34" r="2.2" fill="#14243B"/><circle cx="41" cy="34" r="2.2" fill="#14243B"/><path d="M16 23l12 3M48 23l-12 3" stroke="#14243B" stroke-width="2.8" stroke-linecap="round"/>' +
+    '<path d="M25 47h14" stroke="#14243B" stroke-width="2.8" stroke-linecap="round"/><path d="M46 52l12-12" stroke="#2BC46F" stroke-width="4" stroke-linecap="round"/></svg>';
+
   // ---------- official marks (SEC 2024 Leaving Certificate marking scheme, Geography HL) ----------
   // 3B: 2 + 2 marks for two sedimentary rocks named, then 13 SRPs examining their formation.
   //     Irish locations earn at most 2 SRPs; with no formation explained, at most 2 SRPs.
@@ -1880,9 +2123,11 @@
     var t = ' ' + text.toLowerCase().replace(/[^a-z]+/g, ' ');
     return ROCKS.filter(function (rock) { return t.indexOf(' ' + rock) >= 0; }).length >= 2;
   }
-  function officialMarks() {
-    var q = state.q, got = state.got, ids = Object.keys(got);
-    var text = ' ' + fullText().toLowerCase().replace(/[^a-z]+/g, ' ');
+  function officialMarks() { return marksFor(Object.keys(state.got), fullText()); }
+  // The marks for a set of awarded points (ids) and the text they came from.
+  function marksFor(ids, raw) {
+    var q = state.q;
+    var text = ' ' + raw.toLowerCase().replace(/[^a-z]+/g, ' ');
     var out = { tags: [] };
     if (!q.sides) {
       var named = Math.min(2, ROCKS.filter(function (rock) { return text.indexOf(' ' + rock) >= 0; }).length);
@@ -2758,7 +3003,11 @@
             (window.ExamDrawDiagrams && window.ExamDrawDiagrams[id] ? '<button type="button" class="am-train-tile am-train-tile--draw" data-am-draw>' +
               '<span class="am-train-tile__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20l1.6-4.8L16 4.8l3.2 3.2L8.8 18.4z" fill="currentColor"/><path d="M14.4 6.4l3.2 3.2" stroke="#5CD6FF" stroke-width="1.6"/></svg></span>' +
               '<span class="am-train-tile__text"><b>Draw it</b><span data-am-drawbest>Sketch the exam diagrams</span></span>' +
-              '<i class="am-train-tile__go" aria-hidden="true"></i></button>' : '') + '</div>' +
+              '<i class="am-train-tile__go" aria-hidden="true"></i></button>' : '') +
+            '<button type="button" class="am-train-tile am-train-tile--exam" data-am-exam>' +
+              '<span class="am-train-tile__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19L10.5 5M12 19L17.5 5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" fill="none"/></svg></span>' +
+              '<span class="am-train-tile__text"><b>Beat the Examiner</b><span data-am-exambest>Get each point past a strict examiner</span></span>' +
+              '<i class="am-train-tile__go" aria-hidden="true"></i></button></div>' +
           '<div class="am-needhelp"><h5 class="am-needhelp__h">Need help?</h5><div class="am-needhelp__btns">' +
             '<button type="button" class="am-btn am-btn--dump" data-am-dump>Brain dump</button>' +
             '<button type="button" class="am-btn am-btn--clue" data-am-clue>Stuck?</button></div></div>' +
@@ -2820,6 +3069,16 @@
       if (teachOpt) { answerTeach(teachOpt); return; }
       if (e.target.closest('[data-am-train]')) { openTraining(); return; }
       if (e.target.closest('[data-am-draw]')) { openDraw(); return; }
+      if (e.target.closest('[data-am-exam]')) { openExaminer(); return; }
+      var examCard = e.target.closest('.am-exam');
+      if (examCard) {
+        if (e.target.closest('[data-am-estart]')) { examRound(examCard); return; }
+        if (e.target.closest('[data-am-ehand]')) { examJudge(examCard); return; }
+        if (e.target.closest('[data-am-ehelp]')) { examHelp(examCard); return; }
+        if (e.target.closest('[data-am-enext]')) { examNext(examCard); return; }
+        if (e.target.closest('[data-am-elines]')) { examToLines(); return; }
+        if (e.target.closest('[data-am-ereset]')) { examReset(examCard); return; }
+      }
       var drawCard = e.target.closest('.am-draw');
       if (drawCard) {
         if (e.target.closest('[data-am-dgo]')) { drawPrompt(drawCard); return; }
@@ -3276,6 +3535,58 @@
     '.am-root .am-draw__intro p,.am-root .am-draw__intro b,.am-root .am-draw__note,.am-root .am-draw__psub,.am-root .am-draw__ghost,.am-root .am-draw__check span,.am-root .am-draw__tip,.am-root .am-draw__blank,.am-root .am-draw__page figcaption span,.am-root .am-draw__chip,.am-root .am-draw__studyhint{font-family:Nunito,system-ui,sans-serif !important}',
     '.am-root .am-draw__title,.am-root .am-draw__pk,.am-root .am-draw__pdraw,.am-root .am-draw__pname,.am-root .am-draw__clock b,.am-root .am-draw__tool,.am-root .am-draw__bankh,.am-root .am-draw__panel figcaption,.am-root .am-draw__checksh,.am-root .am-draw__check em,.am-root .am-draw__tip b,.am-root .am-draw__timesup,.am-root .am-draw__fan i,.am-root .am-draw__page figcaption b,.am-root .am-run__big span,.am-root .am-run__big small{font-family:Fredoka,Nunito,sans-serif !important}',
     '@media (max-width:640px){.am-draw__compare,.am-draw__checklist{grid-template-columns:1fr}.am-draw__pname{font-size:32px}.am-draw__tool{padding:7px 10px}.am-draw__title{font-size:28px}}',
+    '.am-train-tile--exam .am-train-tile__icon{background:#2BC46F;color:#FFFFFF;box-shadow:0 3px 0 #1E9A55}',
+    '.am-train-tile--exam:hover{border-color:#2BC46F}',
+    '.am-train-tile--exam .am-train-tile__go{border-color:#2BC46F}',
+    '.am-finish__card.am-exam__card{width:min(720px,100%)}',
+    '.am-exam__map{flex:1;display:flex;gap:4px}',
+    '.am-exam__map i{flex:1;height:10px;border-radius:5px;background:#26395A;transition:background .3s ease}',
+    '.am-exam__map i.is-on{background:#2BC46F}',
+    '.am-exam__map i.am-exam__pop{animation:amPip .5s ease}',
+    '.am-exam__body{min-height:330px;margin:4px 0 0}',
+    '.am-exam__btns{margin-top:16px}',
+    '.am-exam__intro,.am-exam__end{text-align:center}',
+    '.am-exam__face{flex:none;width:58px;height:58px}',
+    '.am-exam__face svg{display:block;width:100%;height:100%}',
+    '.am-exam__face--big{width:96px;height:96px;margin:4px auto 12px}',
+    '.am-exam__title{margin:0 0 10px;font:700 30px/1.15 Fredoka,Nunito,sans-serif;color:#FFFFFF}',
+    '.am-exam__intro p{max-width:540px;margin:0 auto 10px;font:800 17px/1.5 Nunito,sans-serif;color:#E8EEFA}',
+    '.am-exam__intro b{color:#FFE14D}',
+    '.am-exam__intro .am-exam__note{margin-top:14px;font-size:14px;color:#8496B6}',
+    '.am-exam__who{display:flex;align-items:flex-start;gap:14px;margin:0 0 14px}',
+    '.am-exam__bubble{position:relative;flex:1;padding:12px 16px;border-radius:16px;background:#FFFEF8;color:#13294A}',
+    '.am-exam__bubble::before{content:"";position:absolute;left:-9px;top:20px;border:9px solid transparent;border-left:0;border-right-color:#FFFEF8}',
+    '.am-exam__k{display:block;margin:0 0 2px;font:700 12px Fredoka,Nunito,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#5E6F8A}',
+    '.am-exam__ask{margin:0;font:800 20px/1.35 Nunito,sans-serif;color:#13294A}',
+    '.am-exam__paper{position:relative;border-radius:12px;background-color:#FFFEF8;background-image:repeating-linear-gradient(#FFFEF8 0 31px,#CDEFF9 31px 32px);background-position:0 8px;box-shadow:0 0 0 2px #2A3D5E;transition:box-shadow .2s ease}',
+    '.am-exam__paper:focus-within{box-shadow:0 0 0 2px #FFE14D}',
+    '.am-exam__paper.is-ticked{box-shadow:0 0 0 3px #2BC46F}',
+    '.am-exam__box{display:block;width:100%;min-height:104px;box-sizing:border-box;margin:0;padding:8px 150px 8px 14px;border:0;background:transparent;color:#13294A;font:800 18px/32px Nunito,sans-serif;resize:none;outline:none}',
+    '.am-exam__mark{position:absolute;right:14px;top:10px;color:#14A04A;font:700 32px/1 Caveat,"Segoe Print","Comic Sans MS",cursive;text-align:right;transform:rotate(-6deg);pointer-events:none}',
+    '.am-exam__mark:empty{display:none}',
+    '.am-exam__mark--ok,.am-exam__mark--no{animation:amStampIn .45s cubic-bezier(.3,1.6,.5,1) both}',
+    '.am-exam__mark svg{display:block;width:62px;height:42px;fill:none;stroke:#14A04A;stroke-width:4.5;stroke-linecap:round}',
+    '.am-exam__mark--ok span{position:absolute;right:-10px;top:-16px;font-size:26px}',
+    '.am-exam__mark--no span{display:block;max-width:150px}',
+    '.am-exam__tries{display:flex;justify-content:flex-end;gap:6px;margin:8px 2px 0}',
+    '.am-exam__tries i{width:10px;height:10px;border-radius:50%;background:#33476A}',
+    '.am-exam__tries i.is-used{background:#E5484D}',
+    '.am-exam__says{min-height:50px;margin:8px 0 0;font:800 16px/1.5 Nunito,sans-serif;color:#C9D6EE}',
+    '.am-exam__says b{margin-right:4px;font:700 17px Fredoka,Nunito,sans-serif;color:#FFFFFF}',
+    '.am-exam__says em{display:block;margin-top:2px;font-style:normal;color:#FFE14D}',
+    '.am-exam__model{display:block;margin-top:8px;padding:10px 12px;border-radius:12px;background:#173B2A;color:#E8EEFA}',
+    '.am-exam__model b{color:#7DF0B0}',
+    '.am-exam__teach{display:block;padding:10px 12px;border-radius:12px;background:#1B3150;color:#E8EEFA}',
+    '.am-exam__teach b{color:#FFE14D}',
+    '.am-exam__sum{margin:0 0 12px;font:800 17px Nunito,sans-serif;color:#C9D6EE}',
+    '.am-exam__sum b{color:#FFFFFF}',
+    '.am-exam__essay{max-height:230px;overflow:auto;margin:0;padding:12px 14px 12px 34px;border-radius:14px;background:#FFFEF8;color:#13294A;text-align:left;font:800 15px/1.5 Nunito,sans-serif}',
+    '.am-exam__essay li{margin:0 0 6px;padding:0 4px}',
+    '.am-exam__essay li.is-new{border-radius:4px;background:#D4F7E2}',
+    '.am-root .am-exam__ask,.am-root .am-exam__intro p,.am-root .am-exam__intro b,.am-root .am-exam__says,.am-root .am-exam__says span,.am-root .am-exam__says em,.am-root .am-exam__model,.am-root .am-exam__model *,.am-root .am-exam__teach,.am-root .am-exam__teach b,.am-root .am-exam__sum,.am-root .am-exam__sum b,.am-root .am-exam__box{font-family:Nunito,system-ui,sans-serif !important}',
+    '.am-root .am-exam__k,.am-root .am-exam__says > b,.am-root .am-exam__title{font-family:Fredoka,Nunito,sans-serif !important}',
+    '.am-root .am-exam__mark span{font-family:Caveat,"Segoe Print","Comic Sans MS",cursive !important}',
+    '@media (max-width:600px){.am-exam__box{padding-right:14px;padding-bottom:44px}.am-exam__mark{top:auto;bottom:6px}.am-exam__face{width:44px;height:44px}.am-exam__ask{font-size:18px}.am-exam__title{font-size:24px}}',
     '.am-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}',
     '.am-run{position:relative}',
     '.am-run__hud{display:flex;align-items:center;gap:12px;margin:-6px 0 8px}',
