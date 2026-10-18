@@ -1,1 +1,4 @@
-/* Chapter 30: styles for its action game. */
+/* Chapter 30: Gut run (bio/act30.js). The stage, canvas, overlay and hearts reuse the Nephron run (.nr-*) styles in bio.css. */
+.gr-why { margin: 12px 0 0; padding: 10px 14px; border-radius: 12px; background: #1B3150; color: #E8EEF8; font: 700 15px/1.45 Nunito, sans-serif; }
+.gr-why[hidden] { display: none; }
+.am-root .gr-why { font-family: Nunito, system-ui, sans-serif !important; }
