@@ -1360,11 +1360,14 @@
     if (newBest && n) later(fanfare, 200);
   }
 
-  // ---------- Draw it: sketch an exam diagram in 60 seconds, then the real one draws itself beside it ----------
+  // ---------- Draw it: study an exam diagram, then draw it from memory using its labels ----------
+  // 1. The diagram builds itself and you study it. 2. It disappears, its labels fly into a label bank,
+  // and you draw it from memory, placing each label where it belongs. 3. Yours and the exam version side
+  // by side: labels in a sensible spot tick themselves, the rest you tick.
   // Drawings are kept the way Quick, Draw! keeps them: pen strokes, each a list of [x, y, ms] points, in
-  // the same 480 x 320 space as the diagrams (draw-it-diagrams.js). For now they stay on this device
-  // (am-sketchbook), in the shape a shared dataset would want later.
-  var DRAW_SECONDS = 60, DRAW_W = 480, DRAW_H = 320, DRAW_INK = '#1F3FA8';
+  // the same 480 x 320 space as the diagrams (draw-it-diagrams.js), plus where each label went. For now
+  // they stay on this device (am-sketchbook), in the shape a shared dataset would want later.
+  var STUDY_SECONDS = 20, DRAW_SECONDS = 60, DRAW_W = 480, DRAW_H = 320, DRAW_INK = '#1F3FA8';
   var PEN_CURSOR = 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'26\' height=\'26\'%3E%3Cpath d=\'M3 23l2.2-6.6L18 3.6l4.4 4.4L9.6 20.8z\' fill=\'%231F3FA8\' stroke=\'white\' stroke-width=\'1.6\' stroke-linejoin=\'round\'/%3E%3Cpath d=\'M3 23l2.2-6.6 4.4 4.4z\' fill=\'%23FFE14D\'/%3E%3C/svg%3E") 3 23, crosshair';
   function drawSet() { return window.ExamDrawDiagrams && window.ExamDrawDiagrams[state.id]; }
   function openDraw() {
@@ -1378,15 +1381,15 @@
       '<div class="am-run__hud am-draw__hud">' +
         '<button type="button" class="am-run__quit" data-am-keep aria-label="Stop drawing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
         '<div class="am-run__segs am-draw__segs" data-am-dsegs aria-hidden="true"></div>' +
-        '<div class="am-draw__clock" data-am-dclock role="timer" aria-label="Time left" hidden><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="19"/><circle class="am-draw__ring" cx="22" cy="22" r="19" pathLength="100"/></svg><b data-am-dsecs>' + DRAW_SECONDS + '</b></div>' +
+        '<div class="am-draw__clock" data-am-dclock role="timer" hidden><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="19"/><circle class="am-draw__ring" cx="22" cy="22" r="19" pathLength="100"/></svg><b data-am-dsecs></b></div>' +
         '<div class="am-run__score"><b data-am-dscore>0</b><span>labels</span></div></div>' +
       '<div class="am-draw__body" data-am-dbody></div>' +
       '<div class="am-finish__buttons am-draw__btns" data-am-dbtns></div></div>';
-    state.draw = { list: shuffle(set.diagrams, Date.now() % 997 + 1), set: set, i: 0, results: [], total: 0 };
+    state.draw = { list: shuffle(set.diagrams, Date.now() % 997 + 1), set: set, i: 0, results: [], total: 0, step: 0 };
     card.querySelector('[data-am-dsegs]').innerHTML = new Array(state.draw.list.length + 1).join('<i></i>');
     card.addEventListener('keydown', function (e) {
       var d = state && state.draw;
-      if (d && d.drawing && (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z' && !/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) { e.preventDefault(); drawUndo(card); }
+      if (d && d.drawing && (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); drawUndo(card); }
     });
     showCard(card);
     drawIntro(card);
@@ -1397,8 +1400,8 @@
     card.querySelector('[data-am-dbody]').innerHTML = '<div class="am-draw__intro">' +
       '<div class="am-draw__fan" aria-hidden="true">' + d.list.map(function (x, k) { return '<i style="--k:' + k + '">?</i>'; }).join('') + '</div>' +
       '<h3 class="am-draw__title">Draw it</h3>' +
-      '<p>' + d.list.length + ' exam diagrams. You get <b>' + DRAW_SECONDS + ' seconds</b> to draw each one, then the exam version draws itself next to yours.</p>' +
-      '<p>Label as you go: tap <b>Aa Label</b>, then tap where the label goes. Typed labels get checked for you.</p>' +
+      '<p>' + d.list.length + ' exam diagrams. Study each one for <b>' + STUDY_SECONDS + ' seconds</b>, then it disappears.</p>' +
+      '<p>Draw it from memory in <b>' + DRAW_SECONDS + ' seconds</b> and put its labels in the right places.</p>' +
       (book ? '<p class="am-draw__note">Your sketchbook has ' + book + (book === 1 ? ' drawing' : ' drawings') + ' on this device.</p>' : '') + '</div>';
     fillButtons(card.querySelector('[data-am-dbtns]'), [['more', 'data-am-keep', 'Back to writing'], ['ok', 'data-am-dgo', 'Let\'s draw']]);
   }
@@ -1409,35 +1412,134 @@
       seg.className = r ? (r.got * 2 >= r.max ? 'is-ok' : 'is-no') : k === d.i ? 'is-current' : '';
     });
   }
-  // Quick, Draw!-style prompt: the thing to draw, big, then Go.
+  // Quick, Draw!-style prompt: the thing to learn, big, then Go.
   function drawPrompt(card) {
     var d = state.draw, item = d.list[d.i];
     drawSegs(card);
-    card.querySelector('[data-am-dclock]').hidden = true;
+    stopClock(card);
     card.querySelector('[data-am-dbody]').innerHTML = '<div class="am-draw__prompt">' +
       '<p class="am-draw__pk">Diagram ' + (d.i + 1) + ' of ' + d.list.length + '</p>' +
-      '<p class="am-draw__pdraw">Draw</p><h3 class="am-draw__pname">' + esc(item.say) + '</h3>' +
-      '<p class="am-draw__psub">in under ' + DRAW_SECONDS + ' seconds. Label as much as you can.</p></div>';
-    fillButtons(card.querySelector('[data-am-dbtns]'), [['ok', 'data-am-dstart', 'Go!']]);
+      '<p class="am-draw__pdraw">Study, then draw</p><h3 class="am-draw__pname">' + esc(item.say) + '</h3>' +
+      '<p class="am-draw__psub">' + STUDY_SECONDS + ' seconds to study it, then ' + DRAW_SECONDS + ' seconds to draw it from memory.</p></div>';
+    fillButtons(card.querySelector('[data-am-dbtns]'), [['ok', 'data-am-dstudy', 'Go!']]);
   }
-  function drawStart(card) {
+  // The ring clock in the top bar. Study time is blue; drawing time turns red and ticks at the end.
+  function runClock(card, seconds, study, done) {
+    var d = state.draw, clock = card.querySelector('[data-am-dclock]'), ring = clock.querySelector('.am-draw__ring'), secs = clock.querySelector('[data-am-dsecs]');
+    var shown = seconds, t0 = performance.now(), step = d.step = d.step + 1;
+    clock.hidden = false;
+    clock.classList.toggle('am-draw__clock--study', study);
+    clock.classList.remove('am-draw__clock--low');
+    clock.setAttribute('aria-label', study ? 'Study time left' : 'Drawing time left');
+    ring.style.strokeDashoffset = 0;
+    secs.textContent = seconds;
+    clearInterval(state.dumpTimer);
+    var id = state.dumpTimer = setInterval(function () {
+      if (!state || state.draw !== d || d.step !== step || !card.isConnected) { clearInterval(id); return; }
+      var left = Math.max(0, seconds * 1000 - (performance.now() - t0)), s = Math.ceil(left / 1000);
+      ring.style.strokeDashoffset = 100 - left / (seconds * 10);
+      if (s !== shown) {
+        shown = s;
+        secs.textContent = s;
+        if (!study) {
+          clock.classList.toggle('am-draw__clock--low', s <= 10);
+          if (s <= 10 && !reduced()) { secs.classList.remove('am-bump'); void secs.offsetWidth; secs.classList.add('am-bump'); }
+          if (s <= 5 && s > 0) clockTick();
+        }
+      }
+      if (left <= 0) { clearInterval(id); done(); }
+    }, 100);
+    return t0;
+  }
+  function stopClock(card) {
+    state.draw.step += 1;
+    clearInterval(state.dumpTimer);
+    card.querySelector('[data-am-dclock]').hidden = true;
+  }
+  // The paper (and the diagram you study) keep the diagrams' 3:2 shape and fit the window.
+  function drawWidth(card, withBank) {
+    var room = card.querySelector('[data-am-dbody]').clientWidth, side = withBank && room >= 700 ? 200 : 0;
+    var high = Math.max(220, window.innerHeight - (withBank && !side ? 390 : 300));
+    return Math.floor(Math.min(room - side, high * 1.5));
+  }
+  function drawStudy(card) {
     var d = state.draw, item = d.list[d.i];
     d.actions = [];
-    d.tool = 'pen';
-    d.drawing = true;
+    d.armed = null;
     d.over = false;
+    d.drawing = false;
+    var body = card.querySelector('[data-am-dbody]');
+    body.innerHTML = '<div class="am-draw__study"><div class="am-draw__ref am-draw__fig" data-am-dref>' + item.svg + '</div>' +
+      '<p class="am-draw__studyhint">Study it. Then it disappears and you draw it from memory, using these labels.</p></div>';
+    var fig = body.querySelector('[data-am-dref]');
+    fig.style.width = drawWidth(card, false) + 'px';
+    buildDiagram(card, fig.querySelector('svg'));
+    fillButtons(card.querySelector('[data-am-dbtns]'), [['ok', 'data-am-dready', 'I\'m ready']]);
+    d.studyT0 = runClock(card, STUDY_SECONDS, true, function () { drawHide(card); });
+  }
+  // The exam diagram builds itself in the order it would be drawn, then its labels pop on one by one.
+  function buildDiagram(card, svg) {
+    sizeTags(svg);
+    var parts = Array.prototype.slice.call(svg.querySelectorAll('[data-part]')), labels = Array.prototype.slice.call(svg.querySelectorAll('[data-label]'));
+    if (reduced()) { svg.querySelectorAll('animate,animateTransform,animateMotion').forEach(function (a) { a.remove(); }); return; }
+    parts.concat(labels).forEach(function (g) { g.classList.add('dd-wait'); });
+    parts.forEach(function (g, k) { later(function () { g.classList.remove('dd-wait'); }, 250 + k * 230); });
+    var from = 250 + parts.length * 230 + 200;
+    labels.forEach(function (g, k) { later(function () { g.classList.remove('dd-wait'); }, from + k * 420); });
+  }
+  // Each label's tag fits its text, measured again once the label font has loaded.
+  function sizeTags(svg) {
+    var fit = function () {
+      if (!svg.isConnected) return;
+      svg.querySelectorAll('[data-label]').forEach(function (g) {
+        var t = g.querySelector('text'), r = g.querySelector('rect'), bb = t.getBBox();
+        r.setAttribute('x', bb.x - 9);
+        r.setAttribute('width', bb.width + 18);
+      });
+    };
+    fit();
+    if (document.fonts && document.fonts.load) document.fonts.load('600 12.5px Lexend').then(fit, function () {});
+  }
+  function drawHide(card) {
+    var d = state.draw;
+    if (!card.querySelector('.am-draw__study')) return;
+    d.studyMs = Math.round(Math.min(STUDY_SECONDS * 1000, performance.now() - d.studyT0));
+    var rects = Array.prototype.map.call(card.querySelectorAll('[data-am-dref] [data-label] rect'), function (r) { return r.getBoundingClientRect(); });
+    drawStart(card, rects);
+  }
+  function drawStart(card, rects) {
+    var d = state.draw, item = d.list[d.i];
+    d.drawing = true;
+    var order = shuffle(item.labels.map(function (l, k) { return k; }), d.i * 7 + 5);
     card.querySelector('[data-am-dbody]').innerHTML = '<div class="am-draw__stage">' +
-      '<div class="am-draw__paper" data-am-paper><canvas class="am-draw__canvas" role="img" aria-label="Your drawing of ' + esc(item.say) + '"></canvas>' +
-        '<p class="am-draw__ghost" data-am-dghost aria-hidden="true">Draw ' + esc(item.say) + '</p></div>' +
-      '<div class="am-draw__tools" role="toolbar" aria-label="Drawing tools">' +
-        '<button type="button" class="am-draw__tool is-on" data-am-dtool="pen" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.6-4.8L16 4.8l3.2 3.2L8.8 18.4z"/></svg>Pen</button>' +
-        '<button type="button" class="am-draw__tool" data-am-dtool="label" aria-pressed="false"><b aria-hidden="true">Aa</b>Label</button>' +
-        '<button type="button" class="am-draw__tool" data-am-dundo><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7L4 12l5 5M4 12h10a6 6 0 0 1 0 12"/></svg>Undo</button>' +
-        '<button type="button" class="am-draw__tool" data-am-dclear><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/></svg>Clear</button></div></div>';
+      '<div class="am-draw__left"><div class="am-draw__paper" data-am-paper><canvas class="am-draw__canvas" role="img" aria-label="Your drawing of ' + esc(item.say) + '"></canvas>' +
+        '<p class="am-draw__ghost" data-am-dghost aria-hidden="true">Draw it from memory. Then tap a label and tap where it goes.</p></div>' +
+        '<div class="am-draw__tools" role="toolbar" aria-label="Drawing tools">' +
+          '<button type="button" class="am-draw__tool" data-am-dundo><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7L4 12l5 5M4 12h10a6 6 0 0 1 0 12"/></svg>Undo</button>' +
+          '<button type="button" class="am-draw__tool" data-am-dclear><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/></svg>Clear</button></div></div>' +
+      '<div class="am-draw__bank" role="group" aria-label="Labels to place"><p class="am-draw__bankh">Labels</p>' + order.map(function (k) {
+        return '<button type="button" class="am-draw__chip" data-am-dchip="' + k + '" aria-pressed="false">' + esc(item.labels[k].tag) + '</button>';
+      }).join('') + '</div></div>';
     fillButtons(card.querySelector('[data-am-dbtns]'), [['ok', 'data-am-ddone', 'Done']], true);
     var paper = card.querySelector('[data-am-paper]'), canvas = paper.querySelector('canvas');
     drawSize(card);
     canvas.style.cursor = PEN_CURSOR;
+    // The labels fly from where they sat on the diagram into the label bank.
+    if (rects && !reduced()) {
+      card.querySelectorAll('[data-am-dchip]').forEach(function (chip, n) {
+        var from = rects[+chip.getAttribute('data-am-dchip')], to = chip.getBoundingClientRect();
+        if (!from || !from.width) return;
+        chip.style.transition = 'none';
+        chip.style.transform = 'translate(' + Math.round(from.left - to.left) + 'px,' + Math.round(from.top - to.top) + 'px)';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            chip.style.transition = 'transform .7s cubic-bezier(.3,1.2,.5,1) ' + (n * 70) + 'ms';
+            chip.style.transform = '';
+            later(function () { chip.style.transition = ''; }, 800 + n * 70);
+          });
+        });
+      });
+    }
     var frame = 0, paintSoon = function () { if (!frame) frame = requestAnimationFrame(function () { frame = 0; drawPaint(canvas, d.actions); }); };
     var at = function (e) {
       var r = canvas.getBoundingClientRect();
@@ -1449,12 +1551,11 @@
       if (d.over || e.button > 0) return;
       e.preventDefault();
       var p = at(e);
-      if (d.tool === 'label') { drawLabelInput(card, p[0], p[1]); return; }
-      commitLabel(card);
+      card.querySelector('[data-am-dghost]').hidden = true;
+      if (d.armed != null) { placeLabel(card, d.armed, p[0], p[1]); return; }
       canvas.setPointerCapture(e.pointerId);
       d.stroke = { k: 's', p: [p] };
       d.actions.push(d.stroke);
-      card.querySelector('[data-am-dghost]').hidden = true;
       paintSoon();
     });
     canvas.addEventListener('pointermove', function (e) {
@@ -1468,37 +1569,16 @@
     var lift = function () { d.stroke = null; paintSoon(); };
     canvas.addEventListener('pointerup', lift);
     canvas.addEventListener('pointercancel', lift);
-    d.t0 = performance.now();
-    var clock = card.querySelector('[data-am-dclock]'), ring = clock.querySelector('.am-draw__ring'), secs = clock.querySelector('[data-am-dsecs]'), shown = DRAW_SECONDS;
-    clock.hidden = false;
-    clock.classList.remove('am-draw__clock--low');
-    ring.style.strokeDashoffset = 0;
-    secs.textContent = DRAW_SECONDS;
-    clearInterval(state.dumpTimer);
-    state.dumpTimer = setInterval(function () {
-      if (!state || !card.isConnected || d.over) { clearInterval(state && state.dumpTimer); return; }
-      var left = Math.max(0, DRAW_SECONDS * 1000 - (performance.now() - d.t0)), s = Math.ceil(left / 1000);
-      ring.style.strokeDashoffset = 100 - left / (DRAW_SECONDS * 10);
-      if (s !== shown) {
-        shown = s;
-        secs.textContent = s;
-        clock.classList.toggle('am-draw__clock--low', s <= 10);
-        if (s <= 10 && !reduced()) { secs.classList.remove('am-bump'); void secs.offsetWidth; secs.classList.add('am-bump'); }
-        if (s <= 5 && s > 0) clockTick();
-      }
-      if (left <= 0) drawFinish(card, true);
-    }, 100);
+    d.t0 = runClock(card, DRAW_SECONDS, false, function () { drawFinish(card, true); });
   }
-  // The paper keeps the diagrams' 3:2 shape and fits the window.
   function drawSize(card) {
     var paper = card.querySelector('[data-am-paper]');
     if (!paper) return;
-    var canvas = paper.querySelector('canvas'), room = card.querySelector('[data-am-dbody]').clientWidth;
-    var w = Math.floor(Math.min(room, Math.max(300, window.innerHeight - 300) * 1.5));
+    var w = drawWidth(card, true);
     paper.style.width = w + 'px';
     paper.style.height = Math.round(w / 1.5) + 'px';
-    fitCanvas(canvas, w);
-    drawPaint(canvas, state.draw.actions);
+    fitCanvas(paper.querySelector('canvas'), w);
+    drawPaint(paper.querySelector('canvas'), state.draw.actions);
   }
   function fitCanvas(canvas, w) {
     var dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -1507,21 +1587,34 @@
     canvas.width = Math.round(w * dpr);
     canvas.height = Math.round(w / 1.5 * dpr);
   }
-  // Paints the strokes and typed labels. limit: how many points to draw (for replays).
-  function drawPaint(canvas, actions, limit) {
+  // Labels are drawn as little tags, the same as the exam diagram's. hl: a label to pick out in yellow.
+  function labelTag(ctx, act, s, hl) {
+    ctx.font = '800 ' + (12 * s) + 'px Nunito, sans-serif';
+    var w = ctx.measureText(act.s).width + 16 * s, h = 20 * s, x = act.x * s - w / 2, y = act.y * s - h / 2;
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(x, y, w, h, h / 2); else ctx.rect(x, y, w, h);
+    ctx.fillStyle = hl === act.i ? '#FFE14D' : '#FFFFFF';
+    ctx.fill();
+    ctx.lineWidth = 1.6 * s;
+    ctx.stroke();
+    ctx.fillStyle = DRAW_INK;
+    ctx.fillText(act.s, act.x * s, act.y * s);
+  }
+  // Paints the strokes and placed labels. limit: how many points to draw (for replays).
+  function drawPaint(canvas, actions, limit, hl) {
     var ctx = canvas.getContext('2d'), s = canvas.width / DRAW_W, n = 0;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.strokeStyle = ctx.fillStyle = DRAW_INK;
-    ctx.lineWidth = 2.6 * s;
-    ctx.font = '800 ' + (13 * s) + 'px Nunito, sans-serif';
+    ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     for (var a = 0; a < actions.length; a++) {
       var act = actions[a];
       if (limit != null && n >= limit) return;
-      if (act.k === 'l') { ctx.fillText(act.s, act.x * s, act.y * s); n += 1; continue; }
+      if (act.k === 'l') { labelTag(ctx, act, s, hl); n += 1; continue; }
       var p = act.p, m = limit == null ? p.length : Math.min(p.length, limit - n);
+      ctx.lineWidth = 2.6 * s;
       ctx.beginPath();
       if (m === 1 || p.length === 1) {
         ctx.arc(p[0][0] * s, p[0][1] * s, 1.4 * s, 0, Math.PI * 2);
@@ -1546,68 +1639,60 @@
       if (t < 1 && canvas.isConnected) canvas.replayFrame = requestAnimationFrame(frame);
     })(start);
   }
-  // Labels are typed straight onto the paper, so they can be checked against the exam diagram.
-  function drawLabelInput(card, x, y) {
-    commitLabel(card);
-    var paper = card.querySelector('[data-am-paper]'), input = el('input', 'am-draw__labelin');
-    x = Math.min(x, DRAW_W - 150);
-    input.type = 'text';
-    input.maxLength = 40;
-    input.placeholder = 'Type a label';
-    input.setAttribute('aria-label', 'Label text');
-    input.setAttribute('data-x', x);
-    input.setAttribute('data-y', y);
-    input.style.left = (x / DRAW_W * 100) + '%';
-    input.style.top = (y / DRAW_H * 100) + '%';
-    paper.appendChild(input);
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); commitLabel(card); }
-      if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); input.value = ''; commitLabel(card); }
-    });
-    input.addEventListener('blur', function () { commitLabel(card); });
-    requestAnimationFrame(function () { input.focus({ preventScroll: true }); });
-  }
-  function commitLabel(card) {
-    var input = card.querySelector('.am-draw__labelin'), d = state.draw;
-    if (!input || input.done) return;
-    input.done = true;
-    var text = input.value.trim();
-    if (text) {
-      d.actions.push({ k: 'l', x: +input.getAttribute('data-x'), y: +input.getAttribute('data-y'), s: text, t: Math.round(performance.now() - d.t0) });
-      card.querySelector('[data-am-dghost]').hidden = true;
+  // Tap a label, then tap the paper to put it there. Tapping a placed label picks it up again.
+  function armLabel(card, chip, byKeyboard) {
+    var d = state.draw, k = +chip.getAttribute('data-am-dchip');
+    if (!d.drawing || d.over) return;
+    if (chip.classList.contains('is-placed')) {
+      d.actions = d.actions.filter(function (a) { return !(a.k === 'l' && a.i === k); });
+      chip.classList.remove('is-placed');
+      drawPaint(card.querySelector('.am-draw__canvas'), d.actions);
     }
-    var keep = document.activeElement === input;
-    input.remove();
-    drawPaint(card.querySelector('.am-draw__canvas'), d.actions);
-    if (keep) card.querySelector('[data-am-dtool="label"]').focus({ preventScroll: true });
-  }
-  function drawTool(card, btn, byKeyboard) {
-    var d = state.draw, tool = btn.getAttribute('data-am-dtool');
-    d.tool = tool;
-    card.querySelectorAll('[data-am-dtool]').forEach(function (b) {
-      var on = b === btn;
-      b.classList.toggle('is-on', on);
-      b.setAttribute('aria-pressed', String(on));
+    d.armed = d.armed === k && !byKeyboard ? null : k;
+    card.querySelectorAll('[data-am-dchip]').forEach(function (c) {
+      var on = +c.getAttribute('data-am-dchip') === d.armed;
+      c.classList.toggle('is-armed', on);
+      c.setAttribute('aria-pressed', String(on));
     });
-    card.querySelector('.am-draw__canvas').style.cursor = tool === 'label' ? 'text' : PEN_CURSOR;
-    // From the keyboard there's no spot to tap, so the label box opens down the left side.
-    if (tool === 'label' && byKeyboard) {
+    card.querySelector('.am-draw__canvas').style.cursor = d.armed == null ? PEN_CURSOR : 'copy';
+    // From the keyboard there's no spot to tap, so the label goes down the left side of the paper.
+    if (byKeyboard && d.armed != null) {
       var n = d.actions.filter(function (a) { return a.k === 'l'; }).length;
-      drawLabelInput(card, 12, 22 + (n % 11) * 26);
+      placeLabel(card, k, 0, 24 + (n % 11) * 27);
     }
+  }
+  function placeLabel(card, k, x, y) {
+    var d = state.draw, item = d.list[d.i], canvas = card.querySelector('.am-draw__canvas'), ctx = canvas.getContext('2d');
+    ctx.font = '800 12px Nunito, sans-serif';
+    var half = (ctx.measureText(item.labels[k].tag).width + 16) / 2;
+    d.actions.push({ k: 'l', i: k, x: Math.round(Math.max(half + 2, Math.min(DRAW_W - half - 2, x)) * 10) / 10, y: Math.round(Math.max(12, Math.min(DRAW_H - 12, y)) * 10) / 10, s: item.labels[k].tag, t: Math.round(performance.now() - d.t0) });
+    d.armed = null;
+    var chip = card.querySelector('[data-am-dchip="' + k + '"]');
+    chip.classList.remove('is-armed');
+    chip.classList.add('is-placed');
+    chip.setAttribute('aria-pressed', 'false');
+    canvas.style.cursor = PEN_CURSOR;
+    card.querySelector('[data-am-dghost]').hidden = true;
+    drawPaint(canvas, d.actions);
+    ding(d.actions.filter(function (a) { return a.k === 'l'; }).length - 1);
+  }
+  function syncChips(card) {
+    var d = state.draw, placed = {};
+    d.actions.forEach(function (a) { if (a.k === 'l') placed[a.i] = true; });
+    card.querySelectorAll('[data-am-dchip]').forEach(function (c) { c.classList.toggle('is-placed', Boolean(placed[+c.getAttribute('data-am-dchip')])); });
   }
   function drawUndo(card) {
     var d = state.draw;
     if (!d.drawing || d.over) return;
-    commitLabel(card);
     d.actions.pop();
+    syncChips(card);
     drawPaint(card.querySelector('.am-draw__canvas'), d.actions);
   }
   function drawClear(card) {
     var d = state.draw;
     if (!d.drawing || d.over) return;
-    commitLabel(card);
     d.actions = [];
+    syncChips(card);
     drawPaint(card.querySelector('.am-draw__canvas'), d.actions);
   }
   function clockTick() {
@@ -1619,12 +1704,12 @@
   }
   function drawFinish(card, timeUp) {
     var d = state.draw;
-    if (d.over) return;
-    commitLabel(card);
+    if (d.over || !d.drawing) return;
     d.over = true;
     d.drawing = false;
+    d.armed = null;
     d.ms = Math.round(Math.min(DRAW_SECONDS * 1000, performance.now() - d.t0));
-    clearInterval(state.dumpTimer);
+    stopClock(card);
     card.querySelector('[data-am-dbtns]').innerHTML = '';
     if (timeUp) {
       bonk();
@@ -1632,72 +1717,92 @@
       later(function () { if (card.isConnected) drawCompare(card); }, reduced() ? 400 : 1100);
     } else drawCompare(card);
   }
-  // A typed label matches an exam label when it has every word stem of one of the label's keys.
-  function labelMatches(label, typed) {
-    return typed.some(function (t) {
-      return label.keys.some(function (group) { return group.every(function (stem) { return t.indexOf(stem) >= 0; }); });
+  // A label is in a good spot when it sits on the same side of the other labels (left or right, above or
+  // below) as on the exam diagram, wherever the diagram has them clearly apart. Drawings differ in size
+  // and position, so only the layout is compared, never exact places. The most out-of-place labels (up to
+  // a third) are set aside first, so one wrong label can't drag the right ones down with it.
+  function goodSpots(item, placed) {
+    var out = {}, ids = item.labels.map(function (l, k) { return k; }).filter(function (k) { return placed[k]; });
+    var score = function (k) {
+      var l = item.labels[k], me = placed[k], votes = 0, agree = 0;
+      ids.forEach(function (j) {
+        if (j === k || out[j]) return;
+        var o = item.labels[j], other = placed[j], rx = o.at[0] - l.at[0], ry = o.at[1] - l.at[1];
+        if (Math.abs(rx) > 90) { votes += 1; if (rx * (other.x - me.x) > 0) agree += 1; }
+        if (Math.abs(ry) > 60) { votes += 1; if (ry * (other.y - me.y) > 0) agree += 1; }
+      });
+      return { votes: votes, ratio: votes ? agree / votes : 0 };
+    };
+    for (var n = 0; n < Math.floor(ids.length / 3); n++) {
+      var worst = null;
+      ids.forEach(function (k) {
+        if (out[k]) return;
+        var sc = score(k);
+        if (sc.votes && sc.ratio < 0.8 && (!worst || sc.ratio < worst.ratio)) worst = { k: k, ratio: sc.ratio };
+      });
+      if (!worst) break;
+      out[worst.k] = true;
+    }
+    return item.labels.map(function (l, k) {
+      if (!placed[k] || out[k]) return false;
+      var sc = score(k);
+      return sc.votes >= 2 && sc.ratio >= 0.8;
     });
   }
   function drawCompare(card) {
-    var d = state.draw, item = d.list[d.i];
-    var typed = d.actions.filter(function (a) { return a.k === 'l'; }).map(function (a) { return ' ' + a.s.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ') + ' '; });
+    var d = state.draw, item = d.list[d.i], placed = {};
+    d.actions.forEach(function (a) { if (a.k === 'l') placed[a.i] = a; });
     d.ticked = item.labels.map(function () { return false; });
-    d.auto = item.labels.map(function (l) { return labelMatches(l, typed); });
-    card.querySelector('[data-am-dclock]').hidden = true;
+    d.auto = goodSpots(item, placed);
     var empty = !d.actions.length;
     card.querySelector('[data-am-dbody]').innerHTML = '<div class="am-draw__compare">' +
       '<figure class="am-draw__panel"><figcaption>Yours</figcaption><div class="am-draw__mine">' +
-        (empty ? '<p class="am-draw__blank">Nothing drawn this time. Have a look at the exam version, then try the next one.</p>' : '<canvas aria-label="Your drawing"></canvas>') +
+        (empty ? '<p class="am-draw__blank">Nothing drawn this time. Have a good look at the exam version, then try the next one.</p>' : '<canvas aria-label="Your drawing"></canvas>') +
         (empty ? '' : '<button type="button" class="am-draw__replay" data-am-dreplay aria-label="Replay your drawing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>') + '</div></figure>' +
       '<figure class="am-draw__panel"><figcaption>Exam version</figcaption><div class="am-draw__ref" data-am-dref>' + item.svg + '</div></figure></div>' +
-      '<div class="am-draw__checks"><p class="am-draw__checksh">Tick the labels you put on yours</p>' +
+      '<div class="am-draw__checks"><p class="am-draw__checksh">Tick each label you put on the right part</p>' +
         '<div class="am-draw__checklist" role="group" aria-label="Labels">' + item.labels.map(function (l, k) {
-          return '<button type="button" class="am-draw__check am-draw__check--wait" data-am-dtick="' + k + '" aria-pressed="false"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><span>' + esc(l.text) + '</span><em></em></button>';
+          return '<button type="button" class="am-draw__check" data-am-dtick="' + k + '" aria-pressed="false"' + (placed[k] ? '' : ' aria-disabled="true"') + '>' +
+            '<i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><span>' + esc(l.tag) + '</span><em>' + (placed[k] ? '' : 'Not placed') + '</em></button>';
         }).join('') + '</div></div>' +
       '<p class="am-draw__tip"><b>Tip</b>' + esc(item.tip) + '</p>';
     fillButtons(card.querySelector('[data-am-dbtns]'), [['ok', 'data-am-dnext', d.i >= d.list.length - 1 ? 'See my sketchbook' : 'Next diagram']], true);
     card.querySelector('.am-finish__card').scrollTop = 0;
-    if (!empty) {
-      var mine = card.querySelector('.am-draw__mine canvas');
+    var mine = card.querySelector('.am-draw__mine canvas');
+    if (mine) {
       fitCanvas(mine, mine.parentNode.clientWidth);
       replayDrawing(mine, d.actions, Math.min(3200, Math.max(1400, d.ms / 6)));
     }
-    var svg = card.querySelector('[data-am-dref] svg'), rows = card.querySelectorAll('[data-am-dtick]');
+    var svg = card.querySelector('[data-am-dref] svg');
     sizeTags(svg);
-    var parts = Array.prototype.slice.call(svg.querySelectorAll('[data-part]')), labels = Array.prototype.slice.call(svg.querySelectorAll('[data-label]'));
-    var showLabel = function (k) {
-      if (!card.isConnected || !rows[k].isConnected) return;
-      if (labels[k]) labels[k].classList.remove('dd-wait');
-      rows[k].classList.remove('am-draw__check--wait');
-      if (d.auto[k]) { setTick(card, k, true); rows[k].querySelector('em').textContent = 'On yours'; }
-    };
-    if (reduced()) {
-      svg.querySelectorAll('animate,animateTransform,animateMotion').forEach(function (a) { a.remove(); });
-      labels.forEach(function (g, k) { showLabel(k); });
-      return;
-    }
-    // The exam diagram builds itself in the order it would be drawn, then the labels pop on one by one.
-    parts.concat(labels).forEach(function (g) { g.classList.add('dd-wait'); });
-    parts.forEach(function (g, k) { later(function () { g.classList.remove('dd-wait'); }, 300 + k * 230); });
-    var from = 300 + parts.length * 230 + 250;
-    labels.forEach(function (g, k) { later(function () { showLabel(k); }, from + k * 520); });
+    if (reduced()) svg.querySelectorAll('animate,animateTransform,animateMotion').forEach(function (a) { a.remove(); });
+    // Pointing at a label row picks it out on both drawings.
+    card.querySelectorAll('[data-am-dtick]').forEach(function (row) {
+      var k = +row.getAttribute('data-am-dtick');
+      var on = function () { drawHighlight(card, k); }, off = function () { drawHighlight(card, null); };
+      row.addEventListener('mouseenter', on);
+      row.addEventListener('focus', on);
+      row.addEventListener('mouseleave', off);
+      row.addEventListener('blur', off);
+    });
+    var step = d.step, n = 0;
+    item.labels.forEach(function (l, k) {
+      if (!d.auto[k]) return;
+      later(function () {
+        if (!card.isConnected || d.step !== step || state.draw !== d) return;
+        setTick(card, k, true);
+        card.querySelector('[data-am-dtick="' + k + '"] em').textContent = 'Good spot';
+      }, reduced() ? 0 : 900 + (n++) * 380);
+    });
   }
-  // Each label's tag fits its text, measured again once the label font has loaded.
-  function sizeTags(svg) {
-    var fit = function () {
-      if (!svg.isConnected) return;
-      svg.querySelectorAll('[data-label]').forEach(function (g) {
-        var t = g.querySelector('text'), r = g.querySelector('rect'), bb = t.getBBox();
-        r.setAttribute('x', bb.x - 9);
-        r.setAttribute('width', bb.width + 18);
-      });
-    };
-    fit();
-    if (document.fonts && document.fonts.load) document.fonts.load('600 12.5px Lexend').then(fit, function () {});
+  function drawHighlight(card, k) {
+    var d = state.draw, mine = card.querySelector('.am-draw__mine canvas');
+    card.querySelectorAll('[data-am-dref] [data-label]').forEach(function (g) { g.classList.toggle('dd-hl', +g.getAttribute('data-label') === k); });
+    if (mine) { cancelAnimationFrame(mine.replayFrame); drawPaint(mine, d.actions, null, k); }
   }
   function setTick(card, k, on) {
     var d = state.draw, row = card.querySelector('[data-am-dtick="' + k + '"]');
-    if (d.ticked[k] === on) return;
+    if (!row || d.ticked[k] === on || row.getAttribute('aria-disabled') === 'true') return;
     d.ticked[k] = on;
     row.setAttribute('aria-pressed', String(on));
     row.classList.toggle('is-on', on);
@@ -1712,12 +1817,13 @@
     var d = state.draw, item = d.list[d.i], got = d.ticked.filter(Boolean).length;
     d.results.push({ item: item, actions: d.actions, got: got, max: item.labels.length });
     d.total += got;
+    d.step += 1;
     saveSketch({
-      v: 1, subject: d.set.subject, topic: d.set.topic, thing: item.id, name: item.name, w: DRAW_W, h: DRAW_H, ms: d.ms,
+      v: 2, subject: d.set.subject, topic: d.set.topic, thing: item.id, name: item.name, w: DRAW_W, h: DRAW_H, studyMs: d.studyMs, ms: d.ms,
       strokes: d.actions.filter(function (a) { return a.k === 's'; }).map(function (a) { return a.p; }),
-      labels: d.actions.filter(function (a) { return a.k === 'l'; }).map(function (a) { return { x: a.x, y: a.y, s: a.s, t: a.t }; }),
-      ticked: item.labels.filter(function (l, k) { return d.ticked[k]; }).map(function (l) { return l.text; }),
-      auto: item.labels.filter(function (l, k) { return d.auto[k]; }).map(function (l) { return l.text; }),
+      labels: d.actions.filter(function (a) { return a.k === 'l'; }).map(function (a) { return { i: a.i, s: a.s, x: a.x, y: a.y, t: a.t }; }),
+      ticked: item.labels.filter(function (l, k) { return d.ticked[k]; }).map(function (l) { return l.tag; }),
+      goodSpot: item.labels.filter(function (l, k) { return d.auto[k]; }).map(function (l) { return l.tag; }),
       at: new Date().toISOString()
     });
     d.i += 1;
@@ -1735,13 +1841,14 @@
     if (newBest) store('am-draw-' + state.id, String(d.total));
     updateTrainTile();
     drawSegs(card);
+    stopClock(card);
     card.querySelector('[data-am-dbody]').innerHTML = '<div class="am-draw__end">' +
       '<p class="am-draw__pk">Your sketchbook</p>' +
       '<div class="am-run__big"><span data-am-dbig>0</span><small>/' + max + '</small></div>' +
-      '<p class="am-run__sub">labels across ' + d.results.length + ' diagrams' + (newBest ? (best ? ' &middot; beat your best of ' + best : '') : best ? ' &middot; your best is ' + best : '') + '</p>' +
+      '<p class="am-run__sub">labels in the right place' + (newBest ? (best ? ' &middot; beat your best of ' + best : '') : best ? ' &middot; your best is ' + best : '') + '</p>' +
       '<div class="am-draw__book">' + d.results.map(function (r, k) {
         return '<figure class="am-draw__page" tabindex="0" data-am-dpage="' + k + '"><div class="am-draw__thumb"><canvas aria-label="Your drawing of ' + esc(r.item.say) + '"></canvas></div>' +
-          '<figcaption><b>' + esc(r.item.name) + '</b><span>' + r.got + ' of ' + r.max + ' labels</span></figcaption></figure>';
+          '<figcaption><b>' + esc(r.item.name) + '</b><span>' + r.got + ' of ' + r.max + '</span></figcaption></figure>';
       }).join('') + '</div>' +
       '<p class="am-draw__note">Saved in your sketchbook on this device. Hover over a drawing to watch it again.</p></div>';
     card.querySelectorAll('[data-am-dpage]').forEach(function (page) {
@@ -2716,9 +2823,10 @@
       var drawCard = e.target.closest('.am-draw');
       if (drawCard) {
         if (e.target.closest('[data-am-dgo]')) { drawPrompt(drawCard); return; }
-        if (e.target.closest('[data-am-dstart]')) { drawStart(drawCard); return; }
-        var drawToolBtn = e.target.closest('[data-am-dtool]');
-        if (drawToolBtn) { drawTool(drawCard, drawToolBtn, e.detail === 0); return; }
+        if (e.target.closest('[data-am-dstudy]')) { drawStudy(drawCard); return; }
+        if (e.target.closest('[data-am-dready]')) { drawHide(drawCard); return; }
+        var chip = e.target.closest('[data-am-dchip]');
+        if (chip) { armLabel(drawCard, chip, e.detail === 0); return; }
         if (e.target.closest('[data-am-dundo]')) { drawUndo(drawCard); return; }
         if (e.target.closest('[data-am-dclear]')) { drawClear(drawCard); return; }
         if (e.target.closest('[data-am-ddone]')) { drawFinish(drawCard, false); return; }
@@ -3094,19 +3202,34 @@
     '.am-draw__pname{max-width:640px;margin:4px auto 14px;font:700 44px/1.1 Fredoka,Nunito,sans-serif;color:#fff;animation:amZoom .6s .12s cubic-bezier(.3,1.5,.5,1) both}',
     '@keyframes amZoom{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:none}}',
     '.am-draw__psub{margin:0;font:800 16px Nunito,sans-serif;color:#9FB0CC;animation:amIn .4s .35s ease both}',
-    '.am-draw__stage{display:flex;flex-direction:column;align-items:center;gap:12px}',
-    '.am-draw__paper{position:relative;overflow:hidden;border-radius:14px;background-color:#FFFEF8;background-image:radial-gradient(#D5DCE8 1.2px,transparent 1.5px);background-size:22px 22px;box-shadow:0 0 0 3px #2A3D5E}',
+    '.am-draw__stage{display:flex;justify-content:center;align-items:flex-start;gap:16px}',
+    '.am-draw__left{display:flex;flex-direction:column;align-items:center;gap:12px;min-width:0}',
+    '.am-draw__bank{flex:0 0 184px;display:flex;flex-direction:column;align-items:flex-start;gap:8px}',
+    '.am-draw__bankh{margin:0 0 2px;font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8496B6}',
+    '.am-draw__chip{max-width:100%;padding:6px 12px;border:2px solid #1F3FA8;border-radius:999px;background:#FFFFFF;color:#1F3FA8;text-align:left;font:800 13.5px/1.25 Nunito,sans-serif;box-shadow:0 3px 0 #8FA3D6;cursor:pointer;transition:transform .15s ease,background .15s ease,opacity .2s ease}',
+    '.am-draw__chip:hover{transform:translateY(-1px)}',
+    '.am-draw__chip:focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
+    '.am-draw__chip.is-armed{border-color:#14243B;background:#FFE14D;color:#14243B;box-shadow:0 3px 0 #C98E00;transform:scale(1.06)}',
+    '.am-draw__chip.is-placed{opacity:.45;box-shadow:none}',
+    '.am-draw__chip.is-placed::before{content:"\\2713\\00a0"}',
+    '.am-draw__study{display:flex;flex-direction:column;align-items:center;gap:12px}',
+    '.am-draw__fig{box-shadow:0 0 0 3px #2A3D5E}',
+    '.am-draw__studyhint{margin:0;font:800 16px/1.45 Nunito,sans-serif;color:#C9D6EE;text-align:center}',
+    '.am-draw__clock--study .am-draw__ring{stroke:#5CD6FF}',
+    '.am-draw__ref [data-label].dd-hl rect{fill:#FFE14D}',
+    '.am-draw__ref [data-label].dd-hl text{fill:#14243B}',
+    '.am-draw__check[aria-disabled="true"]{opacity:.55;cursor:default}',
+    '.am-draw__check[aria-disabled="true"]:hover{border-color:#2A3D5E}',
+    '.am-draw__check[aria-disabled="true"] em{color:#9FB0CC}',
+    '@media (max-width:790px){.am-draw__stage{flex-direction:column;align-items:center}.am-draw__bank{flex:none;flex-direction:row;flex-wrap:wrap;justify-content:center;width:100%}.am-draw__bankh{width:100%;text-align:center}}',
+    '.am-draw__paper{animation:amIn .35s ease both;position:relative;overflow:hidden;border-radius:14px;background-color:#FFFEF8;background-image:radial-gradient(#D5DCE8 1.2px,transparent 1.5px);background-size:22px 22px;box-shadow:0 0 0 3px #2A3D5E}',
     '.am-draw__canvas{display:block;touch-action:none}',
     '.am-draw__ghost{position:absolute;inset:0;display:grid;place-items:center;margin:0;padding:24px;text-align:center;font:800 22px Nunito,sans-serif;color:#BFC8D8;pointer-events:none}',
     '.am-draw__ghost[hidden]{display:none}',
-    '.am-draw__labelin{position:absolute;width:170px;box-sizing:border-box;padding:4px 8px;border:2px solid #1F3FA8;border-radius:8px;background:#FFFFFF;color:#1F3FA8;font:800 15px Nunito,sans-serif;transform:translateY(-50%);outline:none}',
     '.am-draw__tools{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}',
     '.am-draw__tool{display:flex;align-items:center;gap:7px;padding:8px 14px;border:2px solid #2A3D5E;border-radius:12px;background:#1B3150;color:#C9D6EE;font:700 15px Fredoka,Nunito,sans-serif;cursor:pointer}',
     '.am-draw__tool svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}',
-    '.am-draw__tool[data-am-dtool="pen"] svg{fill:currentColor;stroke:none}',
-    '.am-draw__tool b{font:700 15px Fredoka,Nunito,sans-serif}',
     '.am-draw__tool:hover{border-color:#5CD6FF;color:#fff}',
-    '.am-draw__tool.is-on{border-color:#5CD6FF;background:#123E5C;color:#fff}',
     '.am-draw__tool:focus-visible{outline:2px solid #FFE14D;outline-offset:2px}',
     '.am-draw__timesup{position:absolute;left:50%;top:50%;padding:10px 24px;border-radius:16px;background:#E5484D;color:#FFFFFF;font:700 32px Fredoka,Nunito,sans-serif;white-space:nowrap;transform:translate(-50%,-50%) rotate(-6deg);animation:amStampIn .5s cubic-bezier(.3,1.6,.5,1) both}',
     '@keyframes amStampIn{0%{opacity:0;scale:2}100%{opacity:1;scale:1}}',
@@ -3129,7 +3252,6 @@
     '.am-draw__checksh{margin:0 0 8px;font:700 13px Fredoka,Nunito,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8496B6}',
     '.am-draw__checklist{display:grid;grid-template-columns:1fr 1fr;gap:8px}',
     '.am-draw__check{display:flex;align-items:center;gap:10px;padding:8px 12px;border:2px solid #2A3D5E;border-radius:12px;background:#1B3150;color:#E8EEFA;text-align:left;font:800 15px/1.3 Nunito,sans-serif;cursor:pointer;transition:border-color .15s ease,background .15s ease,opacity .3s ease}',
-    '.am-draw__check--wait{visibility:hidden;opacity:0}',
     '.am-draw__check i{flex:none;display:grid;place-items:center;width:24px;height:24px;box-sizing:border-box;border:2px solid #3A5078;border-radius:7px}',
     '.am-draw__check i svg{width:16px;height:16px;fill:none;stroke:#FFFFFF;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0}',
     '.am-draw__check span{flex:1}',
@@ -3151,8 +3273,8 @@
     '.am-draw__thumb canvas{display:block}',
     '.am-draw__page figcaption{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 8px;margin:8px 2px 0;font:800 13px Nunito,sans-serif;color:#9FB0CC}',
     '.am-draw__page figcaption b{font:700 14px Fredoka,Nunito,sans-serif;color:#FFFFFF}',
-    '.am-root .am-draw__intro p,.am-root .am-draw__intro b,.am-root .am-draw__note,.am-root .am-draw__psub,.am-root .am-draw__ghost,.am-root .am-draw__check span,.am-root .am-draw__tip,.am-root .am-draw__blank,.am-root .am-draw__page figcaption span,.am-root .am-draw__labelin{font-family:Nunito,system-ui,sans-serif !important}',
-    '.am-root .am-draw__title,.am-root .am-draw__pk,.am-root .am-draw__pdraw,.am-root .am-draw__pname,.am-root .am-draw__clock b,.am-root .am-draw__tool,.am-root .am-draw__tool b,.am-root .am-draw__panel figcaption,.am-root .am-draw__checksh,.am-root .am-draw__check em,.am-root .am-draw__tip b,.am-root .am-draw__timesup,.am-root .am-draw__fan i,.am-root .am-draw__page figcaption b,.am-root .am-run__big span,.am-root .am-run__big small{font-family:Fredoka,Nunito,sans-serif !important}',
+    '.am-root .am-draw__intro p,.am-root .am-draw__intro b,.am-root .am-draw__note,.am-root .am-draw__psub,.am-root .am-draw__ghost,.am-root .am-draw__check span,.am-root .am-draw__tip,.am-root .am-draw__blank,.am-root .am-draw__page figcaption span,.am-root .am-draw__chip,.am-root .am-draw__studyhint{font-family:Nunito,system-ui,sans-serif !important}',
+    '.am-root .am-draw__title,.am-root .am-draw__pk,.am-root .am-draw__pdraw,.am-root .am-draw__pname,.am-root .am-draw__clock b,.am-root .am-draw__tool,.am-root .am-draw__bankh,.am-root .am-draw__panel figcaption,.am-root .am-draw__checksh,.am-root .am-draw__check em,.am-root .am-draw__tip b,.am-root .am-draw__timesup,.am-root .am-draw__fan i,.am-root .am-draw__page figcaption b,.am-root .am-run__big span,.am-root .am-run__big small{font-family:Fredoka,Nunito,sans-serif !important}',
     '@media (max-width:640px){.am-draw__compare,.am-draw__checklist{grid-template-columns:1fr}.am-draw__pname{font-size:32px}.am-draw__tool{padding:7px 10px}.am-draw__title{font-size:28px}}',
     '.am-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}',
     '.am-run{position:relative}',
