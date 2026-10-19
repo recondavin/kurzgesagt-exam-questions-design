@@ -96,6 +96,10 @@ blab, bn = ndi.label(bcand)
 bsize = ndi.sum(bcand, blab, range(1, bn + 1))
 brow = np.isin(blab, [i + 1 for i, v in enumerate(bsize) if v > 1500])
 brow &= ~((yy < 171) & (xx > 292) & (xx < 340))         # the hair stroke above the left brow stays with the head
+# the dark wedge between the left brow's outer end and the side of his head is brow too; his head's outline stays
+deep = ndi.distance_transform_edt(fig)
+brow |= ink & (xx >= 228) & (xx < 300) & (yy > 150) & (yy < 232) & (deep > 7) & ~rimL
+edge_line = fig & (deep <= 7) & (xx >= 228) & (xx < 300) & (yy > 150) & (yy < 232)   # his outline there, kept whole
 browL = (ndi.binary_dilation(brow & (xx < 386), iterations=3) & ink) | (brow & (xx < 386))
 browR = (ndi.binary_dilation(brow & (xx >= 386), iterations=3) & ink) | (brow & (xx >= 386))
 
@@ -184,7 +188,7 @@ svg = (
     '<g class="tch-hand" ' + turn + ' fill="none" stroke-linecap="round"><path d="' + line + '" stroke="' + INK + '" stroke-width="%.0f"/>' % SW +
     '<path d="' + line + '" stroke="#A8743F" stroke-width="%.0f"/></g>' % (SW - 8) +
     '<path d="' + fig_d + '" fill="' + FILL + '" fill-rule="evenodd"/>' + PATCHES +
-    '<path d="' + trace((ink & ~stick & ~moving & ~handR) | filler) + '" fill="' + INK + '" fill-rule="evenodd"/>'
+    '<path d="' + trace((ink & ~stick & ~moving & ~handR) | filler | edge_line) + '" fill="' + INK + '" fill-rule="evenodd"/>'
     # the hand holding the stick
     '<g class="tch-hand" ' + turn + '><path d="' + trace(ndi.binary_dilation(handR & ~ink, iterations=2) & handD) + '" fill="' + FILL + '"/>'
     '<path d="' + trace(ndi.binary_dilation(hand, iterations=3) & handR) + '" fill="' + SKIN + '"/>'
@@ -205,7 +209,7 @@ hx0, hy0 = hx.min() - 16, min(hy.min() - 16, -30)
 HEAD_BOX = '%d %d %d %d' % (hx0, hy0, hx.max() + 16 - hx0, hy.max() + 16 - hy0)
 head_d = trace(head)
 hk = ndi.binary_dilation(head, iterations=4)                 # a little past the edge, then clipped to it
-static_ink = (ink & ~stick & ~moving & ~handR) | filler
+static_ink = (ink & ~stick & ~moving & ~handR) | filler | edge_line
 inner = ('<path d="' + trace(fig & hk) + '" fill="' + FILL + '"/>'
          + ''.join('<path%s d="%s" fill="%s"/>' % (' class="%s"' % k if k else '', trace(m & hk), c) for c, k, m in COLOURS if (m & hk).any())
          + '<path d="' + trace(static_ink & hk) + '" fill="' + INK + '" fill-rule="evenodd"/>'
