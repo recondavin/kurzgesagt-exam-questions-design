@@ -170,17 +170,17 @@ def centre(m):
 
 
 pl, pr = centre(pupilL), centre(pupilR)
-# His smile: his mouth (its tooth hole filled) turned half a turn, so the frown becomes a smile with the thick end on
-# the other side, moved down a little; then the same tooth hangs just under its top edge.
+# His smile: his mouth (its tooth hole filled) turned upside down, so the frown becomes a smile, moved down a little;
+# then the same tooth hangs just under its top edge.
 SMILE_DROP = 14
 solid_m = ndi.binary_fill_holes(mouth)
 my_, mx_ = np.where(solid_m)
 mx0, mx1, my0, my1 = mx_.min(), mx_.max(), my_.min(), my_.max()
 smile = np.zeros_like(mouth)
-smile[my0 + SMILE_DROP:my1 + 1 + SMILE_DROP, mx0:mx1 + 1] = solid_m[my0:my1 + 1, mx0:mx1 + 1][::-1, ::-1]
+smile[my0 + SMILE_DROP:my1 + 1 + SMILE_DROP, mx0:mx1 + 1] = solid_m[my0:my1 + 1, mx0:mx1 + 1][::-1, :]
 ty_, tx_ = np.where(np.isin(llab, [121]))                         # the tooth as it shows in his mouth, no bigger
 t_cx = int(round(tx_.mean()))
-new_cx = mx0 + mx1 - t_cx                                         # the same place, measured from the other end
+new_cx = t_cx                                                     # the same place along his mouth
 new_top = np.where(smile[:, new_cx])[0].min() + 7                # just under his top lip
 smile_tooth = np.zeros_like(mouth)
 smile_tooth[ty_ - ty_.min() + new_top, tx_ - t_cx + new_cx] = True
@@ -216,7 +216,7 @@ svg = (
     '<path class="tch-eye" d="' + trace(pupilR) + '" fill="' + INK + '" style="transform-origin:%.0fpx %.0fpx"/></g>' % pr +
     '<g class="tch-mouth" style="transform-origin:%.0fpx %dpx"><path d="' % (mx, my) + trace(tooth) + '" fill="#FFFFFF"/>'
     '<path d="' + trace(mouth) + '" fill="' + INK + '" fill-rule="evenodd"/></g>'
-    # his smile, shown instead of his mouth when he's pleased: his mouth turned round, a little lower, with its tooth on top
+    # his smile, shown instead of his mouth when he's pleased: his mouth upside down, a little lower, with its tooth on top
     '<g class="tch-smile" style="transform-origin:%.0fpx %dpx">' % (mx, SMILE_TOP) +
     '<path d="' + trace(smile) + '" fill="' + INK + '"/><path d="' + trace(smile_tooth) + '" fill="#FFFFFF"/></g>'
     '</g></svg>'
