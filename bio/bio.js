@@ -207,17 +207,29 @@
   function progressApi() {
     return { chapters: CHAPTERS, questions: allQuestions, real: function (n) { return QS[n] ? QS[n].questions.length : 0; }, scoreOf: scoreOf, store: store, esc: esc, drills: drills };
   }
-  // Each chapter's drills (games, Learn it, Build it) and how many have a saved best.
-  function drills(n) {
-    var L = LEARN[n] || {}, keys = [];
-    if (L.action) keys.push('bio-act-' + n);
-    if (L.games && L.games.chains) keys.push('am-chain-bio-' + n);
-    if (L.games && L.games.level) keys.push('am-level-bio-' + n);
-    if (L.examiner && L.examiner.length) keys.push('bio-exam-' + n);
-    ['match', 'spot', 'sprint'].forEach(function (k) { if (L[k] && L[k].length) keys.push('bio-' + k + '-' + n); });
-    (L.learn || []).forEach(function (x, k) { keys.push('bio-learn-' + n + '-' + k); });
-    Object.keys(ART).forEach(function (id) { if (ART[id].chapter === n) keys.push('bio-build-' + id); });
-    return [keys.filter(function (k) { return store(k); }).length, keys.length];
+  // Every drill in a chapter (its games, Learn it and Build it): its name, what it is, the attribute that opens it and
+  // its saved best ("10/12", or points for an action game).
+  var GAMES = [
+    ['chain', 'Chain reaction', 'Put each process in order, type it out, then write it from memory.', 'am-chain-bio-', function (L) { return L.games && L.games.chains; }],
+    ['level', 'Level up', 'Build one answer point into full marks, then write it from memory.', 'am-level-bio-', function (L) { return L.games && L.games.level; }],
+    ['examiner', 'Be the examiner', 'Mark a student\'s answer against the real marking scheme, then fix the lines that got nothing.', 'bio-exam-', function (L) { return L.examiner && L.examiner.length; }],
+    ['match', 'Match pairs', 'Tap each word, then what it means. Three quick rounds against the clock.', 'bio-match-', function (L) { return L.match && L.match.length; }],
+    ['spot', 'Spot the mistake', 'Each sentence has one wrong word. Find it, then fix it.', 'bio-spot-', function (L) { return L.spot && L.spot.length; }],
+    ['sprint', 'Label sprint', 'A part comes up: tap it on the diagram before the time runs out.', 'bio-sprint-', function (L) { return L.sprint && L.sprint.length; }]
+  ];
+  function drillItems(n) {
+    var L = LEARN[n] || {}, out = [];
+    function add(kind, key, name, what, attr) { out.push({ kind: kind, key: key, name: name, what: what, attr: attr, best: store(key) }); }
+    if (L.action) add('game', 'bio-act-' + n, L.action.name, L.action.what, 'data-bio-game="action"');
+    GAMES.forEach(function (g) { if (g[4](L)) add('game', g[3] + n, g[1], g[2], 'data-bio-game="' + g[0] + '"'); });
+    (L.learn || []).forEach(function (x, k) { add('learn', 'bio-learn-' + n + '-' + k, x.name, x.what, 'data-bio-learn="' + k + '"'); });
+    Object.keys(ART).forEach(function (id) { if (ART[id].chapter === n) add('build', 'bio-build-' + id, 'Build it: ' + ART[id].name, '', 'data-bio-build="' + id + '"'); });
+    return out;
+  }
+  function drills(n) { var d = drillItems(n); return [d.filter(function (x) { return x.best; }).length, d.length]; }
+  function bestHtml(v) {
+    if (!v) return '<em class="bio-best is-none">Not played yet</em>';
+    return '<em class="bio-best">Best <b class="num">' + esc(/\//.test(v) ? v : v + ' points') + '</b></em>';
   }
   function chapterRows() { return window.BioProgress ? window.BioProgress.model(progressApi()).now.rows : []; }
   function renderShell(active, crumb) {
@@ -257,14 +269,41 @@
     tab = tab || store('bio-tab') || 'questions';
     document.title = c.short + ' | Leaving Cert Biology';
     renderShell(n, c.title);
-    var k = counts(n), r = chapterRows()[CHAPTERS.indexOf(c)], seen = r && r.seen != null ? Math.round(r.seen * 100) : null;
+    var k = counts(n);
     app.innerHTML = '<div class="cv-title rise" style="--i:0"><div><h1 class="cv-h1">' + esc(c.title) + '</h1>' +
-      '<p class="cv-sub">Chapter ' + n + ' · ' + k.questions + ' exam questions' + (k.diagrams ? ' · ' + k.diagrams + ' diagrams' : '') +
-        (seen != null ? ' · you\'ve answered ' + r.count + (r.count === 1 ? ' question' : ' questions') + ' and got ' + seen + '% of their marks' : ' · none answered yet') + '</p></div></div>' +
-      '<nav class="bio-tabs rise" style="--i:1" role="tablist">' + TABS.map(function (t) {
+      '<p class="cv-sub">Chapter ' + n + ' · ' + esc(c.unit) + ' · ' + k.questions + ' exam questions' + (k.diagrams ? ' · ' + k.diagrams + ' diagrams' : '') + '</p></div></div>' +
+      '<div class="ch-layout"><div class="ch-main"><nav class="bio-tabs rise" style="--i:1" role="tablist">' + TABS.map(function (t) {
         return '<button type="button" role="tab" class="bio-tab" data-bio-tab="' + t[0] + '" aria-selected="' + (t[0] === tab) + '">' + t[1] + '</button>';
-      }).join('') + '</nav><section class="bio-panel" data-bio-panel></section>';
+      }).join('') + '</nav><section class="bio-panel" data-bio-panel></section></div>' + chapterRail(n) + '</div>';
     showTab(n, tab);
+  }
+  // Beside the tabs: how the chapter is going, the next question, and the drills not tried yet.
+  function chapterRail(n) {
+    var r = chapterRows()[CHAPTERS.indexOf(chapter(n))] || {}, seen = r.seen != null ? Math.round(r.seen * 100) : null, items = drillItems(n);
+    var todo = items.filter(function (x) { return !x.best; }), done = items.length - todo.length, log = [], last = null;
+    try { log = JSON.parse(store('bio-log') || '[]'); } catch (err) {}
+    (Array.isArray(log) ? log : []).forEach(function (e) { if (e.n === n && (!last || e.d > last)) last = e.d; });
+    var grade = seen == null ? null : window.BioProgress ? window.BioProgress.gradeOf(seen).name : null;
+    return '<section class="card ch-prog rise" style="--i:2" aria-labelledby="ch-h-prog"><h2 class="card-h" id="ch-h-prog">Your progress</h2>' +
+        (seen == null ? '<p class="ch-none">No questions answered in this chapter yet.</p>'
+          : '<p class="ch-big"><b class="num">' + seen + '%</b>' + (grade ? '<span class="ch-grade">' + grade + '</span>' : '') + '</p>' +
+            '<p class="ch-cap">of the marks you\'ve answered in this chapter</p><span class="pg-track ch-track"><i style="--w:' + seen + '%"></i></span>') +
+        '<dl class="ch-facts"><div><dt>Questions tried</dt><dd><span class="num">' + (r.count || 0) + '</span><span class="of"> of ' + allQuestions(n).length + '</span></dd></div>' +
+          '<div><dt>Drills tried</dt><dd><span class="num">' + done + '</span><span class="of"> of ' + items.length + '</span></dd></div>' +
+          '<div><dt>Last answered</dt><dd>' + (last ? esc(ago(last)) : '<span class="dash">–</span>') + '</dd></div></dl>' +
+        '<button type="button" class="btn-primary ch-next" data-pg-next="' + n + '">' + (hasUntried(n) ? 'Answer the next question' : 'Retry your lowest score') + '</button></section>' +
+      (todo.length ? '<section class="card ch-todo rise" style="--i:3" aria-labelledby="ch-h-todo"><header class="card-head"><h2 class="card-h" id="ch-h-todo">Not tried yet</h2>' +
+        '<span class="card-meta">' + todo.length + (todo.length === 1 ? ' drill' : ' drills') + '</span></header><ul class="ch-list">' +
+        todo.slice(0, 6).map(function (x) { return '<li><button type="button" class="ch-item" ' + x.attr + '>' + esc(x.name) + '<i class="bio-go" aria-hidden="true"></i></button></li>'; }).join('') +
+        '</ul>' + (todo.length > 6 ? '<p class="card-foot">And ' + (todo.length - 6) + ' more in the Games, Learn it and Diagrams tabs.</p>' : '') + '</section>'
+        : '<section class="card ch-todo rise" style="--i:3"><h2 class="card-h">Every drill tried</h2><p class="card-foot">Play them again to beat your bests.</p></section>');
+  }
+  // Whether a chapter still has a real exam question you haven't tried.
+  function hasUntried(n) { return ((QS[n] || {}).questions || []).some(function (q) { return !scoreOf(n, q); }); }
+  function ago(d) {
+    var t = new Date(), today = new Date(t.getFullYear(), t.getMonth(), t.getDate()), p = d.split('-'), then = new Date(+p[0], +p[1] - 1, +p[2]);
+    var days = Math.round((today - then) / 86400000);
+    return days <= 0 ? 'Today' : days === 1 ? 'Yesterday' : days + ' days ago';
   }
   function showTab(n, tab) {
     store('bio-tab', tab);
@@ -283,9 +322,8 @@
     if (!d) return '<p class="bio-empty">Questions for this chapter are coming.</p>';
     var f = store('bio-filter') || 'all';
     var list = allQuestions(n).filter(function (q) { return f === 'all' || q.sec === f || (f === 'sample' && q.year === 2027 && q.sec !== 'practice'); });
-    return '<p class="bio-note">' + d.questions.length + ' real exam questions. Each one opens on the desk as the real exam paper, the narrator explains it, then you answer it' +
-      ' and each part is marked against the official marking scheme (the 2027 sample papers have no official scheme, so their answers are ours).' +
-      ' Old-course questions that go beyond the new course are marked.</p>' +
+    return '<p class="bio-note">Each question opens on the desk as the real paper. The narrator explains it, then every part you answer is marked against the official scheme' +
+      ' (the 2027 samples have none, so their answers are ours).</p>' +
       '<div class="bio-filters">' + FILTERS.map(function (x) {
         return '<button type="button" class="bio-chip" data-bio-filter="' + x[0] + '" aria-pressed="' + (x[0] === f) + '">' + x[1] + '</button>';
       }).join('') + '</div>' +
@@ -312,27 +350,14 @@
           '<button type="button" class="bio-btn bio-btn--ghost" data-bio-draw="' + n + '">Draw it</button></div></div></li>';
       }).join('') + '</ul>';
   }
-  function gameList(n) {
-    var L = LEARN[n] || {}, items = [];
-    if (L.action) items.push(['action', L.action.name, L.action.what]);
-    if (L.games && L.games.chains) items.push(['chain', 'Chain reaction', 'Put each process in order, type it out, then write it from memory.']);
-    if (L.games && L.games.level) items.push(['level', 'Level up', 'Build one answer point into full marks, then write it from memory.']);
-    if (L.examiner && L.examiner.length) items.push(['examiner', 'Be the examiner', 'Mark a student\'s answer against the real marking scheme, then fix the lines that got nothing.']);
-    if (L.match && L.match.length) items.push(['match', 'Match pairs', 'Tap each word, then what it means. Three quick rounds against the clock.']);
-    if (L.spot && L.spot.length) items.push(['spot', 'Spot the mistake', 'Each sentence has one wrong word. Find it, then fix it.']);
-    if (L.sprint && L.sprint.length) items.push(['sprint', 'Label sprint', 'A part comes up: tap it on the diagram before the time runs out.']);
-    if (!items.length) return '<p class="bio-empty">Games for this chapter are coming.</p>';
+  function drillRows(items, empty) {
+    if (!items.length) return '<p class="bio-empty">' + empty + '</p>';
     return '<ul class="bio-glist">' + items.map(function (g) {
-      return '<li><button type="button" class="bio-g bio-g--' + g[0] + '" data-bio-game="' + g[0] + '"><b>' + esc(g[1]) + '</b><span>' + esc(g[2]) + '</span><i class="bio-go" aria-hidden="true"></i></button></li>';
+      return '<li><button type="button" class="bio-g" ' + g.attr + '><b>' + esc(g.name) + '</b><span>' + esc(g.what) + '</span>' + bestHtml(g.best) + '<i class="bio-go" aria-hidden="true"></i></button></li>';
     }).join('') + '</ul>';
   }
-  function learnList(n) {
-    var L = LEARN[n] || {}, items = (L.learn || []);
-    if (!items.length) return '<p class="bio-empty">Memory games for this chapter are coming.</p>';
-    return '<ul class="bio-glist">' + items.map(function (g, k) {
-      return '<li><button type="button" class="bio-g bio-g--learn" data-bio-learn="' + k + '"><b>' + esc(g.name) + '</b><span>' + esc(g.what) + '</span><i class="bio-go" aria-hidden="true"></i></button></li>';
-    }).join('') + '</ul>';
-  }
+  function gameList(n) { return drillRows(drillItems(n).filter(function (g) { return g.kind === 'game'; }), 'Games for this chapter are coming.'); }
+  function learnList(n) { return drillRows(drillItems(n).filter(function (g) { return g.kind === 'learn'; }), 'Memory games for this chapter are coming.'); }
 
   // ---------- the exam question sheet ----------
   function partHtml(q, part, k) {
