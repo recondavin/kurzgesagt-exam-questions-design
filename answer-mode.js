@@ -4247,7 +4247,7 @@
     kit: {
       el: el, esc: esc, reduced: reduced, store: store, shuffle: shuffle, pick: pick, rollTo: rollTo,
       later: function (fn, ms) { return later(fn, ms); },
-      ding: ding, bonk: bonk, fanfare: fanfare, mascot: mascot, get face() { return examinerFace(); },
+      ding: ding, bonk: bonk, fanfare: fanfare, mascot: mascot, get face() { return window.ExamTeacher ? window.ExamTeacher.head() : ''; },
       fillButtons: fillButtons, showCard: showCard, closeCard: closeCard,
       gameCard: gameCard, gameBody: gameBody, gameHud: gameHud, gameSeg: gameSeg, saveBest: saveBest, gameBest: gameBest,
       typeIt: typeIt, typedScore: typedScore, recallStart: recallStart, recallKeys: recallKeys, plainWords: plainWords, sameWord: sameWord,
