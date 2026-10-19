@@ -99,7 +99,7 @@ brow &= ~((yy < 171) & (xx > 292) & (xx < 340))         # the hair stroke above 
 # the dark wedge between the left brow's outer end and the side of his head is brow too; his head's outline stays
 deep = ndi.distance_transform_edt(fig)
 brow |= ink & (xx >= 228) & (xx < 300) & (yy > 150) & (yy < 232) & (deep > 7) & ~rimL
-edge_line = fig & (deep <= 7) & (xx >= 228) & (xx < 300) & (yy > 150) & (yy < 232)   # his outline there, kept whole
+edge_line = fig & (deep <= 16) & (xx >= 228) & (xx < 300) & (yy > 150) & (yy < 232)   # his outline there, kept whole
 browL = (ndi.binary_dilation(brow & (xx < 386), iterations=3) & ink) | (brow & (xx < 386))
 browR = (ndi.binary_dilation(brow & (xx >= 386), iterations=3) & ink) | (brow & (xx >= 386))
 
