@@ -262,5 +262,48 @@ window.BioLearn[32] = {
       { t: 'It introduces the antigen into the body.', ok: true },
       { t: 'The vaccine kills the virus straight away.', why: 'Wrong: a vaccine doesn\'t kill anything. It makes the body produce its own antibodies and memory cells.', fix: 'It stimulates antibody production by the B lymphocytes.' }
     ] }
-  ]
+  ],
+  // Quick games: match pairs (term, what it means), spot the mistake (the wrong words are in *stars*; fix is the right
+  // words, opts are wrong ones to choose from), and which diagrams label sprint uses.
+  match: [
+    ['Pathogen', 'Anything that causes disease'],
+    ['Antigen', 'Foreign molecule that triggers antibodies'],
+    ['Antibody', 'Y-shaped protein that binds one antigen'],
+    ['B lymphocyte', 'Makes antibodies'],
+    ['Helper T cell', 'Switches on B cells and killer T cells'],
+    ['Killer T cell', 'Destroys body cells infected by a virus'],
+    ['Suppressor T cell', 'Switches the response off'],
+    ['Memory cell', 'Remembers an antigen for years'],
+    ['Macrophage', 'Engulfs and digests pathogens'],
+    ['Vaccine', 'Gives you active immunity without the disease'],
+    ['Antibiotic', 'Kills bacteria, but not viruses'],
+    ['Lysozyme', 'Enzyme in tears that kills bacteria']
+  ],
+  spot: [
+    { s: 'Antibiotics are used to treat infections caused by *viruses*.', fix: 'bacteria', opts: ['prions', 'vaccines'],
+      why: 'Antibiotics kill bacteria or stop them growing. They don\'t work on viruses.' },
+    { s: 'Antibodies are made by *T lymphocytes*.', fix: 'B lymphocytes', opts: ['red blood cells', 'platelets'],
+      why: 'B lymphocytes make antibodies. T cells help, kill or switch the response off.' },
+    { s: '*Helper* T cells destroy body cells infected by a virus.', fix: 'Killer', opts: ['Suppressor', 'Memory'],
+      why: 'Killer T cells destroy infected cells. Helper T cells switch on B cells and killer T cells.' },
+    { s: '*Suppressor* T cells stay in the body for years, so a second infection is beaten quickly.', fix: 'Memory', opts: ['Helper', 'Killer'],
+      why: 'Memory cells remain after an infection. Suppressor T cells switch the response off.' },
+    { s: 'A vaccine gives you *passive* immunity.', fix: 'active', opts: ['innate', 'no'],
+      why: 'A vaccine makes your own B lymphocytes make antibodies and memory cells: that is active immunity.' },
+    { s: 'Antibodies in a mother\'s milk give her baby *active* immunity.', fix: 'passive', opts: ['innate', 'lifelong'],
+      why: 'The baby is given ready-made antibodies, so it is passive immunity, and it doesn\'t last.' },
+    { s: 'A virus can only reproduce *outside* a host cell.', fix: 'inside', opts: ['without', 'next to'],
+      why: 'Viruses are obligate parasites: they can only reproduce inside a living host cell.' },
+    { s: 'Macrophages destroy bacteria by *osmosis*.', fix: 'phagocytosis', opts: ['diffusion', 'filtration'],
+      why: 'Macrophages engulf and digest pathogens. This is phagocytosis.' },
+    { s: 'An *antibody* is a foreign molecule that makes the body produce antibodies.', fix: 'antigen', opts: ['enzyme', 'hormone'],
+      why: 'An antigen triggers the response. Antibodies are the proteins made to bind to it.' },
+    { s: 'Skin, mucus and stomach acid are part of the *adaptive* immune system.', fix: 'innate', opts: ['specific', 'memory'],
+      why: 'These are general defences that work against any pathogen: that is innate immunity.' },
+    { s: 'A virus is a protein coat around *a nucleus*.', fix: 'nucleic acid', opts: ['cytoplasm', 'a cell wall'],
+      why: 'A virus is nucleic acid (DNA or RNA) inside a protein coat. It has no nucleus or cytoplasm.' },
+    { s: 'Penicillin is an antibiotic made by a *bacterium*.', fix: 'fungus', opts: ['virus', 'plant'],
+      why: 'Penicillin comes from a fungus, Penicillium.' }
+  ],
+  sprint: ['virus', 'phage', 'lymphocyte', 'macrophage']
 };

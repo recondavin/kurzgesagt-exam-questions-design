@@ -296,5 +296,46 @@ window.BioLearn[30] = {
         { a: 'Vitamin B12 (or iron, calcium or protein)', m: 3, k: [{ w: ['b12'], n: 1 }, { w: ['iron'], n: 1 }, { w: ['calcium'], n: 1 }, { w: ['protein'], n: 1 }] },
         { a: 'A plant source: fortified cereal, beans, lentils, nuts, tofu or green vegetables', m: 3, k: [{ w: ['bean'], n: 1 }, { w: ['lentil'], n: 1 }, { w: ['nut'], n: 1 }, { w: ['tofu'], n: 1 }, { w: ['fortifi'], n: 1 }, { w: ['spinach'], n: 1 }, { w: ['soya'], n: 1 }, { w: ['green'], n: 1 }, { w: ['cereal'], n: 1 }] }] }
     ] }
-  ]
+  ],
+  // Quick games: match pairs (term, what it means), spot the mistake (the wrong words are in *stars*; fix is the right
+  // words, opts are wrong ones to choose from), and which diagrams label sprint uses.
+  match: [
+    ['Salivary amylase', 'Breaks starch into maltose'],
+    ['Pepsin', 'Breaks protein into peptides in the stomach'],
+    ['Lipase', 'Breaks fat into fatty acids and glycerol'],
+    ['Bile', 'Emulsifies fat into small droplets'],
+    ['Gall bladder', 'Stores bile'],
+    ['Pancreas', 'Sends its enzymes into the duodenum'],
+    ['Villi', 'Give the ileum a huge surface area'],
+    ['Lacteal', 'Absorbs fatty acids and glycerol'],
+    ['Hepatic portal vein', 'Carries digested food to the liver'],
+    ['Large intestine', 'Absorbs water'],
+    ['Peristalsis', 'Waves of muscle that push food along'],
+    ['Molars', 'Grind and crush food']
+  ],
+  spot: [
+    { s: 'Salivary amylase breaks *protein* down into maltose.', fix: 'starch', opts: ['fat', 'glucose'],
+      why: 'Amylase digests starch into maltose.' },
+    { s: 'Bile is made in the *gall bladder*.', fix: 'liver', opts: ['pancreas', 'stomach'],
+      why: 'The liver makes bile. The gall bladder only stores it.' },
+    { s: 'Most digested food is absorbed in the *large intestine*.', fix: 'small intestine', opts: ['stomach', 'oesophagus'],
+      why: 'The ileum, with its villi, absorbs most digested food. The large intestine mainly absorbs water.' },
+    { s: 'Fatty acids and glycerol are absorbed into the *blood capillaries* of a villus.', fix: 'lacteal', opts: ['microvilli', 'muscle layers'],
+      why: 'Fatty acids and glycerol go into the lacteal. Glucose and amino acids go into the blood capillaries.' },
+    { s: 'The stomach is *alkaline*, at about pH 2.', fix: 'acidic', opts: ['neutral', 'basic'],
+      why: 'pH 2 is strongly acidic: the stomach wall makes hydrochloric acid.' },
+    { s: 'Digested food travels from the intestine to the liver in the *hepatic artery*.', fix: 'hepatic portal vein', opts: ['hepatic vein', 'vena cava'],
+      why: 'The hepatic portal vein carries food-rich blood from the intestine to the liver. The hepatic vein takes blood from the liver to the vena cava.' },
+    { s: 'Peristalsis is a wave of *enzymes* that pushes food along the gut.', fix: 'muscle contractions', opts: ['bile', 'saliva'],
+      why: 'Peristalsis is waves of muscle contraction in the wall of the gut.' },
+    { s: 'Bacteria in the large intestine make vitamin *C*.', fix: 'K', opts: ['A', 'D'],
+      why: 'Gut bacteria make vitamin K and some B vitamins.' },
+    { s: 'Molars are used to *cut* food.', fix: 'grind and crush', opts: ['tear', 'swallow'],
+      why: 'Incisors cut, canines tear, and premolars and molars grind and crush.' },
+    { s: 'Pepsin works in the *mouth*.', fix: 'stomach', opts: ['duodenum', 'large intestine'],
+      why: 'Pepsin is made by the stomach wall and works in the acid there.' },
+    { s: 'The pancreas sends its enzymes into the *stomach*.', fix: 'duodenum', opts: ['liver', 'large intestine'],
+      why: 'The pancreatic duct carries amylase, protease and lipase into the duodenum.' }
+  ],
+  sprint: ['digestive', 'duodenum', 'villus', 'liver', 'teeth']
 };

@@ -268,6 +268,9 @@
     if (L.games && L.games.chains) items.push(['chain', 'Chain reaction', 'Put each process in order, type it out, then write it from memory.']);
     if (L.games && L.games.level) items.push(['level', 'Level up', 'Build one answer point into full marks, then write it from memory.']);
     if (L.examiner && L.examiner.length) items.push(['examiner', 'Be the examiner', 'Mark a student\'s answer against the real marking scheme, then fix the lines that got nothing.']);
+    if (L.match && L.match.length) items.push(['match', 'Match pairs', 'Tap each word, then what it means. Three quick rounds against the clock.']);
+    if (L.spot && L.spot.length) items.push(['spot', 'Spot the mistake', 'Each sentence has one wrong word. Find it, then fix it.']);
+    if (L.sprint && L.sprint.length) items.push(['sprint', 'Label sprint', 'A part comes up: tap it on the diagram before the time runs out.']);
     if (!items.length) return '<p class="bio-empty">Games for this chapter are coming.</p>';
     return '<ul class="bio-glist">' + items.map(function (g) {
       return '<li><button type="button" class="bio-g bio-g--' + g[0] + '" data-bio-game="' + g[0] + '"><b>' + esc(g[1]) + '</b><span>' + esc(g[2]) + '</span><i class="bio-go" aria-hidden="true"></i></button></li>';
@@ -469,6 +472,7 @@
     var L = LEARN[n] || {};
     if (kind === 'action') { if (window.BioAction) window.BioAction.open(n); return; }
     if (kind === 'examiner') { if (window.BioExaminer) window.BioExaminer.open(n); return; }
+    if (/^(match|spot|sprint)$/.test(kind)) { if (window.BioQuick) window.BioQuick.open(kind, n); return; }
     AM.addGames('bio-' + n, L.games);
     AM.practice('bio-' + n, kind, refresh);
   }

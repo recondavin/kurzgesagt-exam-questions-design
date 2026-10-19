@@ -47,6 +47,23 @@
     var w = BA().words(text);
     return X.part.pts.map(function (pt, i) { return pt.k && BA().hasPoint(pt, w) ? i : -1; }).filter(function (i) { return i >= 0; });
   }
+  // The part's marking scheme, shown with the question: each point and what it's worth. got: points to show as earned.
+  function scheme(got) {
+    var part = X.part, each = part.pts.map(function (pt) { return BA().pointMarks(part, pt); });
+    var same = each.every(function (m) { return m === each[0]; }), all = part.pts.length, n = Math.min(part.n || all, all);
+    var worth = same ? each[0] + (each[0] === 1 ? ' mark' : ' marks') + (n === 1 ? '' : ' each') : '';
+    var head = (n >= all ? (n === 1 ? 'This point' : 'All ' + n + ' points') : 'Any ' + n + ' of these ' + all) + (worth ? ', ' + worth : '') + '.';
+    return '<div class="bx-scheme"><p class="bx-scheme__head"><b>Marking scheme</b> ' + head + '</p><ul class="bx-scheme__pts">' + part.pts.map(function (pt, i) {
+      return '<li data-bx-pt="' + i + '"' + (got && got[i] ? ' class="is-got"' : '') + '><span class="bx-scheme__dot" aria-hidden="true"></span>' +
+        (got && got[i] ? '<span class="am-sr">Earned: </span>' : '') + '<span>' + esc(pt.a.replace(/^\*/, '')) + '</span>' + (same ? '' : '<em>' + each[i] + '</em>') + '</li>';
+    }).join('') + '</ul>' + (part.unofficial ? '<p class="bx-scheme__note">No official scheme for this sample paper: these are the points an examiner would most likely accept.</p>' : '') + '</div>';
+  }
+  function gotPoint(i, cls) {
+    var li = X.card.querySelector('[data-bx-pt="' + i + '"]');
+    if (!li || li.classList.contains('is-got')) return;
+    li.classList.add('is-got', cls || 'is-got');
+    li.insertAdjacentHTML('afterbegin', '<span class="am-sr">Earned: </span>');
+  }
   function marksFor(hits) { return hits.reduce(function (s, i) { return s + BA().pointMarks(X.part, X.part.pts[i]); }, 0); }
   function verdict(l, k) {
     if (l.earns) return { tag: '+' + marksFor(l.hits) + ' marks', ok: true, why: l.hits.map(function (i) { return esc(X.part.pts[i].a); }).join('; ') };
@@ -79,8 +96,7 @@
     body(card, '<div class="am-mark bx">' +
       '<div class="am-run__top"><h3 class="am-run__kind">Be the examiner</h3><span class="am-games__step">' + esc(X.q.src.replace(/^LC Biology HL /, '')) + '</span></div>' +
       '<div data-bx-sum></div>' +
-      '<div class="bx-q"><p><b>' + esc(X.part.l) + '</b> ' + esc(X.part.q) + ' <span class="bx-q__m">(' + out + ' marks)</span></p>' +
-        (X.part.rule ? '<p class="bx-q__rule">Marking scheme: ' + esc(X.part.rule) + '</p>' : '') + '</div>' +
+      '<div class="bx-q"><p><b>' + esc(X.part.l) + '</b> ' + esc(X.part.q) + ' <span class="bx-q__m">(' + out + ' marks)</span></p>' + scheme() + '</div>' +
       '<p class="am-games__ask">Mark ' + esc(who) + '\'s answer. Tick each line that earns marks, cross the ones that don\'t.</p>' +
       '<button type="button" class="am-games__rules" data-bx-rules aria-expanded="false">What earns marks?</button>' +
       '<p class="am-games__rulebox" data-bx-rulebox hidden>A line earns marks when it makes one of the marking scheme\'s points: the right fact, said clearly enough. ' +
@@ -137,6 +153,7 @@
     card.querySelector('[data-bx-sum]').innerHTML = '<div class="am-mark__sum ' + (great ? 'is-good' : '') + '"><b>' + right + ' of ' + n + ' lines marked right.</b> ' +
       'You ticked ' + ticked + (ticked === 1 ? ' line' : ' lines') + '; ' + real + (real === 1 ? ' really earns' : ' really earn') + ' marks (' + Math.min(marks, out) + ' of the ' + out + ' marks).' + (newBest ? ' New best!' : '') + '</div>';
     card.querySelector('.am-mark').classList.add('is-marked');
+    Object.keys(X.have).forEach(function (i) { gotPoint(i); });
     var student = card.querySelector('.am-student');
     if (student) {
       student.setAttribute('data-mood', ticked < real ? 'upset' : ticked > real ? 'smug' : 'happy');
@@ -160,7 +177,7 @@
     body(X.card, '<div class="am-fix">' +
       '<div class="am-run__top"><h3 class="am-run__kind">Fix it</h3><span class="am-games__step">' + (X.fi + 1) + ' of ' + X.fixes.length + '</span></div>' +
       '<p class="am-games__ask">' + (replace ? 'This point is already in the answer. Replace the line with a new point that answers the question.' : 'Rewrite this line so it earns marks.') + '</p>' +
-      '<div class="bx-q bx-q--small"><p><b>' + esc(X.part.l) + '</b> ' + esc(X.part.q) + '</p></div>' +
+      '<div class="bx-q bx-q--small"><p><b>' + esc(X.part.l) + '</b> ' + esc(X.part.q) + '</p>' + scheme(X.have) + '</div>' +
       '<div class="am-fix__line"><p class="am-mark__text">' + esc(l.t) + '</p><p class="am-mark__why"><b class="am-mark__tag am-mark__tag--no">' + v.tag + '</b> ' + v.why + '</p></div>' +
       '<textarea class="am-type__box am-fix__box" rows="3" spellcheck="true" aria-label="Your better line" placeholder="Your better line…"></textarea>' +
       '<div data-bx-fixresult></div><p class="am-games__note" data-am-gnote role="status"></p></div>');
@@ -180,6 +197,7 @@
       box.readOnly = true;
       K.ding(3, true);
       K.mascot('happy', pick(['Correct.', 'Hmph. That earns it.', 'Yes. That\'s a mark.']));
+      gotPoint(fresh[0], 'is-new');
       X.card.querySelector('[data-bx-fixresult]').innerHTML = '<p class="am-fix__ok"><b>That earns ' + marksFor(fresh) + ' marks:</b> ' + esc(X.part.pts[fresh[0]].a) + '.</p>' + better;
       note.textContent = '';
     } else {

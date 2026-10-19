@@ -286,5 +286,48 @@ window.BioLearn[31] = {
       { t: 'The body cells make CO2 in respiration.', ok: true },
       { t: 'Venous blood picks up oxygen in the body.', why: 'Wrong: blood gives up oxygen to the body cells and picks up CO2.', fix: 'Arterial blood has been cleared of CO2 in the lungs.' }
     ] }
-  ]
+  ],
+  // Quick games: match pairs (term, what it means), spot the mistake (the wrong words are in *stars*; fix is the right
+  // words, opts are wrong ones to choose from), and which diagrams label sprint uses.
+  match: [
+    ['Right ventricle', 'Pumps blood to the lungs'],
+    ['Left ventricle', 'Pumps blood around the body'],
+    ['Tricuspid valve', 'Between the right atrium and right ventricle'],
+    ['Bicuspid valve', 'Between the left atrium and left ventricle'],
+    ['Semilunar valves', 'Stop blood flowing back into the ventricles'],
+    ['SA node', 'The pacemaker: starts each heartbeat'],
+    ['Septum', 'Keeps the two sides of the heart apart'],
+    ['Pulmonary artery', 'Takes deoxygenated blood to the lungs'],
+    ['Coronary artery', 'Supplies the heart muscle'],
+    ['Red blood cells', 'Carry oxygen'],
+    ['Platelets', 'Help the blood to clot'],
+    ['Veins', 'Have valves and carry blood to the heart']
+  ],
+  spot: [
+    { s: 'The *right ventricle* has the thickest wall because it pumps blood all around the body.', fix: 'left ventricle', opts: ['left atrium', 'right atrium'],
+      why: 'The left ventricle pumps blood around the whole body, so it has the thickest wall.' },
+    { s: 'The *pulmonary vein* carries deoxygenated blood to the lungs.', fix: 'pulmonary artery', opts: ['aorta', 'vena cava'],
+      why: 'The pulmonary artery takes deoxygenated blood to the lungs. The pulmonary vein brings oxygenated blood back.' },
+    { s: 'The *tricuspid* valve is between the left atrium and the left ventricle.', fix: 'bicuspid', opts: ['semilunar', 'pulmonary'],
+      why: 'Bicuspid on the left, tricuspid on the right.' },
+    { s: 'Each heartbeat starts at the *AV node*, the heart\'s pacemaker.', fix: 'SA node', opts: ['septum', 'aorta'],
+      why: 'The SA node is the pacemaker. The AV node passes the impulse on to the ventricles.' },
+    { s: '*Veins* carry blood away from the heart under high pressure.', fix: 'Arteries', opts: ['Capillaries', 'Lymph vessels'],
+      why: 'Arteries carry blood away from the heart under high pressure. Veins bring it back under low pressure.' },
+    { s: '*Arteries* have valves along them to stop blood flowing backwards.', fix: 'Veins', opts: ['Capillaries', 'Platelets'],
+      why: 'Veins have valves because the blood in them is under low pressure.' },
+    { s: '*White blood cells* carry oxygen using haemoglobin.', fix: 'Red blood cells', opts: ['Platelets', 'Lymphocytes'],
+      why: 'Red blood cells are full of haemoglobin, which carries oxygen.' },
+    { s: 'Platelets help the blood to *carry oxygen*.', fix: 'clot', opts: ['flow faster', 'digest fat'],
+      why: 'Platelets help the blood to clot. Red blood cells carry oxygen.' },
+    { s: 'The septum keeps oxygenated and deoxygenated blood *mixed*.', fix: 'apart', opts: ['warm', 'moving'],
+      why: 'The septum is the wall between the left and right sides of the heart.' },
+    { s: 'Red blood cells have *a large nucleus*, leaving room for more haemoglobin.', fix: 'no nucleus', opts: ['two nuclei', 'a cell wall'],
+      why: 'Red blood cells have no nucleus, so there is more room for haemoglobin.' },
+    { s: 'The coronary artery supplies blood to the *lungs*.', fix: 'heart muscle', opts: ['brain', 'liver'],
+      why: 'The coronary arteries supply the heart muscle itself with oxygen and food.' },
+    { s: 'During diastole, the heart muscle *contracts*.', fix: 'relaxes', opts: ['beats faster', 'pumps blood out'],
+      why: 'Diastole is when the heart muscle is relaxing and the heart fills. Systole is when it contracts.' }
+  ],
+  sprint: ['heart', 'vessels', 'capillaries', 'circulation', 'blood']
 };

@@ -219,5 +219,46 @@ window.BioLearn[28] = {
       { l: '(b)', q: 'Name the process in body cells that produces this carbon dioxide.', m: 3, n: 1, kind: 'text', pts: [
         { a: 'Respiration (aerobic respiration)', m: 3, k: [{ w: ['respir'], n: 1 }] }] }
     ] }
-  ]
+  ],
+  // Quick games: match pairs (term, what it means), spot the mistake (the wrong words are in *stars*; fix is the right
+  // words, opts are wrong ones to choose from), and which diagrams label sprint uses.
+  match: [
+    ['Nasal cavity', 'Warms, moistens and filters the air'],
+    ['Epiglottis', 'Covers the trachea when you swallow'],
+    ['Larynx', 'The voice box'],
+    ['Trachea', 'Held open by rings of cartilage'],
+    ['Cilia', 'Sweep mucus up, away from the lungs'],
+    ['Bronchi', 'Carry air into each lung'],
+    ['Alveoli', 'Where gas exchange happens'],
+    ['Diaphragm', 'Contracts and flattens when you breathe in'],
+    ['Intercostal muscles', 'Lift the ribs up and out'],
+    ['Medulla oblongata', 'Detects carbon dioxide and controls breathing'],
+    ['Haemoglobin', 'Carries oxygen in red blood cells'],
+    ['Diffusion', 'Gases moving from high to low concentration']
+  ],
+  spot: [
+    { s: 'When you breathe in, the diaphragm *relaxes* and moves down.', fix: 'contracts', opts: ['domes up', 'stops moving'],
+      why: 'The diaphragm contracts, flattens and moves down when you breathe in. It relaxes when you breathe out.' },
+    { s: 'Gas exchange happens across the walls of the *bronchioles*.', fix: 'alveoli', opts: ['trachea', 'ribs'],
+      why: 'Gas exchange happens in the alveoli: their walls are one cell thick, moist and wrapped in capillaries.' },
+    { s: 'Oxygen moves from the alveoli into the blood by *osmosis*.', fix: 'diffusion', opts: ['active transport', 'peristalsis'],
+      why: 'Gases move by diffusion, from high to low concentration. Osmosis is only for water.' },
+    { s: 'The *larynx* covers the trachea when you swallow.', fix: 'epiglottis', opts: ['diaphragm', 'bronchus'],
+      why: 'The epiglottis is the flap that covers the trachea. The larynx is the voice box.' },
+    { s: 'Rings of *muscle* keep the trachea open.', fix: 'cartilage', opts: ['bone', 'mucus'],
+      why: 'Rings of cartilage stop the trachea collapsing.' },
+    { s: 'When you breathe in, the chest gets bigger and the air pressure inside it *rises*.', fix: 'falls', opts: ['stays the same', 'doubles'],
+      why: 'More volume means lower pressure inside, so air is pushed in from outside.' },
+    { s: 'The wall of an alveolus is *two cells* thick, so gases cross it quickly.', fix: 'one cell', opts: ['ten cells', 'a millimetre'],
+      why: 'The wall is one cell thick, so gases only have a short distance to diffuse.' },
+    { s: 'A rise in *oxygen* in the blood makes you breathe faster and deeper.', fix: 'carbon dioxide', opts: ['glucose', 'red blood cells'],
+      why: 'The medulla oblongata detects more carbon dioxide (the blood\'s pH falls) and speeds up breathing.' },
+    { s: 'Cilia sweep mucus and trapped dust *down into the lungs*.', fix: 'up, away from the lungs', opts: ['into the alveoli', 'into the blood'],
+      why: 'Cilia beat to move mucus up and out of the airways, where it is swallowed or coughed up.' },
+    { s: 'Blood arrives at the alveoli in the *pulmonary vein*, low in oxygen.', fix: 'pulmonary artery', opts: ['aorta', 'vena cava'],
+      why: 'The pulmonary artery brings deoxygenated blood to the lungs. The pulmonary vein takes oxygenated blood back to the heart.' },
+    { s: 'When you breathe in, the intercostal muscles pull the ribs *down and in*.', fix: 'up and out', opts: ['backwards', 'towards the diaphragm'],
+      why: 'The intercostal muscles contract and lift the rib cage up and out. The ribs move down and in when you breathe out.' }
+  ],
+  sprint: ['breathing', 'alveolus']
 };

@@ -166,5 +166,46 @@ window.BioLearn[29] = {
         { a: 'Many mitochondria (energy for active transport)', m: 3, k: [{ w: ['mitochondri'], n: 1 }] }] },
       { l: '(c)', q: 'What is the role of the urinary bladder?', m: 3, n: 1, kind: 'text', pts: [{ a: 'Stores urine (until it is released through the urethra)', m: 3, k: [{ w: ['stor', 'urine'], n: 2 }] }] }
     ] }
-  ]
+  ],
+  // Quick games: match pairs (term, what it means), spot the mistake (the wrong words are in *stars*; fix is the right
+  // words, opts are wrong ones to choose from), and which diagrams label sprint uses.
+  match: [
+    ['Renal artery', 'Brings blood to the kidney'],
+    ['Renal vein', 'Takes filtered blood away from the kidney'],
+    ['Ureter', 'Carries urine from the kidney to the bladder'],
+    ['Bladder', 'Stores urine'],
+    ['Urethra', 'Carries urine out of the body'],
+    ['Glomerulus', 'Knot of capillaries where blood is filtered'],
+    ['Bowman\'s capsule', 'Collects the filtrate'],
+    ['PCT', 'Takes back all the glucose and amino acids'],
+    ['Loop of Henle', 'Makes the medulla salty'],
+    ['Collecting duct', 'The last place water is taken back'],
+    ['ADH', 'Makes the kidneys take back more water'],
+    ['Deamination', 'The liver turns spare amino acids into urea']
+  ],
+  spot: [
+    { s: 'Urine flows from the kidney to the bladder in the *urethra*.', fix: 'ureter', opts: ['renal vein', 'collecting duct'],
+      why: 'The ureter carries urine from the kidney to the bladder. The urethra carries it out of the body.' },
+    { s: 'Blood reaches the glomerulus in the *efferent* arteriole.', fix: 'afferent', opts: ['hepatic', 'coronary'],
+      why: 'Afferent arrives, efferent exits. The afferent arteriole brings blood in; the narrower efferent arteriole takes it away.' },
+    { s: 'All the glucose is reabsorbed in the *loop of Henle*.', fix: 'proximal convoluted tubule', opts: ['bladder', 'ureter'],
+      why: 'All the glucose and amino acids are taken back in the PCT. The loop of Henle takes back water and salts.' },
+    { s: '*Proteins* are small enough to be filtered into Bowman\'s capsule.', fix: 'Urea and glucose', opts: ['Red blood cells', 'Platelets'],
+      why: 'Proteins and blood cells are too big to be filtered. Water, glucose, salts and urea are filtered.' },
+    { s: 'When you are dehydrated, the pituitary gland releases *less* ADH.', fix: 'more', opts: ['no', 'half as much'],
+      why: 'When you are dehydrated the blood is too concentrated, so more ADH is released and more water is taken back.' },
+    { s: 'ADH is released by the *kidneys*.', fix: 'pituitary gland', opts: ['liver', 'bladder'],
+      why: 'The hypothalamus detects the change and the pituitary gland releases ADH. ADH then acts on the kidneys.' },
+    { s: 'Urea is made in the *kidneys* by deamination.', fix: 'liver', opts: ['bladder', 'pancreas'],
+      why: 'The liver deaminates spare amino acids, forming urea. The kidneys only remove it from the blood.' },
+    { s: 'The pyramids are found in the *cortex* of the kidney.', fix: 'medulla', opts: ['pelvis', 'ureter'],
+      why: 'The medulla is made of pyramids. The cortex is the outer layer.' },
+    { s: 'Filtration happens because the blood pressure in the glomerulus is *low*.', fix: 'high', opts: ['zero', 'the same as in a vein'],
+      why: 'The efferent arteriole is narrower than the afferent, so pressure builds up and forces small molecules out.' },
+    { s: 'Excretion is the removal of *undigested food* from the body.', fix: 'the waste products of metabolism', opts: ['all the water', 'blood cells'],
+      why: 'Removing undigested food is egestion. Excretion removes the waste products of metabolism, like urea and carbon dioxide.' },
+    { s: 'The renal *vein* brings blood to the kidney to be filtered.', fix: 'artery', opts: ['pelvis', 'capsule'],
+      why: 'The renal artery brings blood in. The renal vein takes the filtered blood away.' }
+  ],
+  sprint: ['urinary', 'kidney', 'nephron']
 };
