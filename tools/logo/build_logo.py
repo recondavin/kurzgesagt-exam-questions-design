@@ -1,11 +1,10 @@
-"""Builds the site logo from the examiner's face in answer-mode.js (EXAMINER_FACE), in his angry mood:
+"""Builds the site logo from the original examiner's face (tools/logo/examiner-face.svg), in his angry mood:
 assets/logo/examiner.svg, used for the browser tab icon and on the desk.
 Run: python3 tools/logo/build_logo.py  (then render apple-touch-icon.png: the face on the desk colour)."""
 import os, re
 
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
-src = open(os.path.join(ROOT, 'answer-mode.js')).read()
-face = re.search(r"var EXAMINER_FACE = '(.*?)';\n", src).group(1).replace("\\'", "'")
+face = open(os.path.join(os.path.dirname(__file__), 'examiner-face.svg')).read().strip()
 inner = re.search(r'<svg viewBox="0 0 100 100">(.*)</svg>', face).group(1)
 
 

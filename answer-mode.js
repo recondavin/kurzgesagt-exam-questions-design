@@ -1918,6 +1918,7 @@
     card.querySelectorAll('.am-exam__face').forEach(function (f) {
       f.setAttribute('data-mood', mood);
       if (!reduced()) { f.classList.remove('is-react'); void f.offsetWidth; f.classList.add('is-react'); }
+      talk(f, 1800);
     });
   }
   var GREEN_TICK = '<svg viewBox="0 0 60 40" aria-hidden="true"><path d="M8 34L22 6M26 34L40 6"/></svg>';
@@ -1965,7 +1966,7 @@
   function examIntro(card) {
     var bank = examBank(), slots = examSlots(), n = slots.filter(function (it) { return bank[it.id]; }).length;
     card.querySelector('[data-am-ebody]').innerHTML = '<div class="am-exam__intro">' +
-      '<div class="am-exam__face am-exam__face--big" aria-hidden="true">' + EXAMINER_FACE + '</div>' +
+      '<div class="am-exam__face am-exam__face--big" aria-hidden="true">' + examinerFace('head') + '</div>' +
       '<p class="am-exam__line">“' + EXAM_SAYS.hello + '”</p><h3 class="am-exam__title">Beat the Examiner</h3>' +
       '<p>He asks for one point at a time. Write it in one sentence. He only ticks it if it\'s <b>specific</b>, <b>correct</b> and <b>about the question</b>.</p>' +
       '<p>If he says no, fix it. Every point you get past him goes into your essay. All ' + slots.length + ' and you\'ve written a full-marks answer.</p>' +
@@ -1986,7 +1987,7 @@
     x.tries = 0;
     x.done = false;
     card.querySelector('[data-am-ebody]').innerHTML = '<div class="am-exam__desk">' +
-      '<div class="am-exam__who"><div class="am-exam__face" aria-hidden="true">' + EXAMINER_FACE + '</div>' +
+      '<div class="am-exam__who"><div class="am-exam__face" aria-hidden="true">' + examinerFace('head') + '</div>' +
         '<div class="am-exam__bubble"><span class="am-exam__k">Point ' + (x.i + 1) + ' of ' + x.round.length + ' &middot; ' + esc(it.title) + '</span>' +
         '<p class="am-exam__ask" id="am-exam-ask">' + esc(it.ask) + '</p></div></div>' +
       '<div class="am-exam__paper"><textarea class="am-exam__box" rows="3" spellcheck="true" aria-labelledby="am-exam-ask" placeholder="Write one sentence…"></textarea>' +
@@ -2108,7 +2109,7 @@
     var x = state.exam, bank = examBank(), slots = examSlots(), o = examMarks(bank);
     var n = slots.filter(function (it) { return bank[it.id]; }).length, done = n >= slots.length, pleased = done || x.beaten * 2 >= x.round.length;
     card.querySelector('[data-am-ebody]').innerHTML = '<div class="am-exam__end">' +
-      '<div class="am-exam__face am-exam__face--big" aria-hidden="true">' + EXAMINER_FACE + '</div>' +
+      '<div class="am-exam__face am-exam__face--big" aria-hidden="true">' + examinerFace('head') + '</div>' +
       '<p class="am-exam__line">“' + (done ? EXAM_SAYS.done : pleased ? EXAM_SAYS.good : EXAM_SAYS.bad) + '”</p>' +
       '<h3 class="am-exam__title">' + (done ? 'Full essay. He has nothing left to say.' : 'You beat him ' + x.beaten + ' of ' + x.round.length + ' times') + '</h3>' +
       '<p class="am-exam__sum">Your essay: <b>' + n + ' of ' + slots.length + '</b> points, <b>' + o.marks + '/30</b></p>' +
@@ -2139,10 +2140,17 @@
     updateTrainTile();
     examRound(card);
   }
-  // The examiner: a grumpy, slightly ugly cartoon whose face follows his mood (data-mood on .am-exam__face):
-  // m-ok, m-happy and m-angry parts swap in, the skin reddens when he's angry, and steam (x-steam) shows
-  // when he's furious.
-  var EXAMINER_FACE = '<svg viewBox="0 0 100 100"> <g class="x-steam"><circle cx="9" cy="40" r="4.5"/><circle cx="5" cy="30" r="3.5"/><circle cx="91" cy="40" r="4.5"/><circle cx="95" cy="30" r="3.5"/></g> <g stroke="#7A4A35" stroke-width="2.2"><ellipse cx="15" cy="54" rx="8" ry="11" fill="#E9B48C"/><ellipse cx="85" cy="54" rx="8" ry="11" fill="#E9B48C"/></g> <path d="M11 52q4-3 6 2M89 52q-4-3-6 2" fill="none" stroke="#7A4A35" stroke-width="1.6"/> <path d="M12 49l-5-3M12 52l-6 0M88 49l5-3M88 52l6 0" stroke="#5E6F8A" stroke-width="1.3" stroke-linecap="round"/> <path class="x-skin" d="M50 11C73 11 84 27 84 50C84 74 73 91 50 91C27 91 16 74 16 50C16 27 27 11 50 11Z" fill="#F2C9A0" stroke="#7A4A35" stroke-width="2.4"/> <path d="M35 87q15 8 30 0" fill="none" stroke="#7A4A35" stroke-width="1.8" stroke-linecap="round"/> <g fill="#B08A72"><circle cx="34" cy="80" r=".8"/><circle cx="38" cy="84" r=".8"/><circle cx="43" cy="86" r=".8"/><circle cx="57" cy="86" r=".8"/><circle cx="62" cy="84" r=".8"/><circle cx="66" cy="80" r=".8"/><circle cx="40" cy="80" r=".8"/><circle cx="60" cy="80" r=".8"/><circle cx="50" cy="87" r=".8"/></g> <path d="M18 46q-3-15 8-23q-2 9 3 13zM82 46q3-15-8-23q2 9-3 13z" fill="#9AA3B2"/> <path d="M23 31Q45 15 75 24M26 35Q48 21 77 30M31 27Q50 13 70 18" fill="none" stroke="#5E6F8A" stroke-width="1.9" stroke-linecap="round"/> <path class="x-lines" d="M40 30q10-3 20 0M42 34q8-2 16 0" fill="none" stroke="#C99778" stroke-width="1.3" stroke-linecap="round"/> <g class="m-ok" stroke="#2E2A2A" stroke-width="4.2" stroke-linecap="round" fill="none"><path d="M28 37q8-9 17-4"/><path d="M55 37h17"/></g> <g class="m-happy" stroke="#2E2A2A" stroke-width="4.2" stroke-linecap="round" fill="none"><path d="M28 36q8-7 17-2"/><path d="M55 34q9-5 17 2"/></g> <g class="m-angry" stroke="#2E2A2A" stroke-width="4.6" stroke-linecap="round" fill="none"><path d="M27 33L47 41"/><path d="M73 33L53 41"/></g> <g stroke="#1E1E24" stroke-width="3.4" fill="#FDFDF8"><circle cx="38" cy="48" r="10"/><circle cx="62" cy="48" r="10"/></g> <path d="M48 47q2-2.5 4 0M28 47L19 45M72 47L81 45" fill="none" stroke="#1E1E24" stroke-width="3"/> <g class="m-ok x-eyes" fill="#1E1E24"><circle cx="39" cy="49" r="2.4"/><circle cx="61" cy="48.5" r="3.2"/></g> <g class="m-happy" fill="none" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"><path d="M34 50q4-5 8 0M57 50q4-5 8 0"/></g> <g class="m-angry"><g fill="#1E1E24"><circle cx="40" cy="50" r="2"/><circle cx="60" cy="50" r="2"/></g><path d="M30 45L46 48M70 45L54 48" stroke="#1E1E24" stroke-width="2.4" stroke-linecap="round"/></g> <path d="M50 51q-10 12-6 19q6 5 12 0q4-7-6-19z" fill="#E8A07E" stroke="#7A4A35" stroke-width="2"/> <g fill="#7A4A35"><circle cx="46.5" cy="68" r="1.3"/><circle cx="53.5" cy="68" r="1.3"/></g> <circle cx="55.5" cy="62" r="2.1" fill="#8B5E46"/><path d="M55.5 60.5l1.5-4.5M55.5 60.5l-.8-3.8" stroke="#1E1E24" stroke-width=".8" stroke-linecap="round"/> <circle cx="30" cy="66" r="1.9" fill="#6B4436"/> <g class="m-ok"><path d="M37 78q12-2 25 1.5" fill="none" stroke="#5A2A24" stroke-width="3" stroke-linecap="round"/></g> <g class="m-happy"><path d="M33 72q17 16 34 0z" fill="#5A1E24" stroke="#5A2A24" stroke-width="2" stroke-linejoin="round"/><path d="M37 72.5h26l-1 3.5h-24z" fill="#FFF3C4"/><path d="M45 72.5v3.4M53 72.5v3.4" stroke="#5A1E24" stroke-width="1.6"/><rect x="48.4" y="72.5" width="2.2" height="3.5" fill="#E2B33C"/><ellipse cx="27" cy="63" rx="5" ry="3" fill="#F2948C"/><ellipse cx="73" cy="63" rx="5" ry="3" fill="#F2948C"/></g> <g class="m-angry"><path d="M32 85q18-20 36 0q-18-7-36 0z" fill="#5A1E24" stroke="#5A2A24" stroke-width="2" stroke-linejoin="round"/><path d="M38 78.5q12-6.5 24 0" fill="none" stroke="#FFF3C4" stroke-width="2.6"/><path d="M66 13v4h-4M71 13v4h4M66 23v-4h-4M71 23v-4h4" fill="none" stroke="#E5484D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g> <path d="M84 97l12-13" stroke="#2BC46F" stroke-width="5" stroke-linecap="round"/><path d="M96 84l2-2" stroke="#1E9A55" stroke-width="5" stroke-linecap="round"/> </svg>';
+  // The examiner: a strict teacher with a pointer stick (examiner-art.js), all of him ('body') or his head and
+  // shoulders ('head'). His mood comes from data-mood on .am-exam__face (ok, happy, angry, furious): brows up when
+  // he's happy, down and red in the face when he's angry, steam when he's furious. talk() works his jaw and his
+  // stick for a while.
+  function examinerFace(view) { return window.ExamTeacher ? window.ExamTeacher.svg(view) : ''; }
+  function talk(face, ms) {
+    if (!face) return;
+    face.classList.add('is-talking');
+    clearTimeout(face.talkTimer);
+    face.talkTimer = setTimeout(function () { face.classList.remove('is-talking'); }, ms);
+  }
 
   // ---------- The examiner, watching: his head rises from the bottom corner during every activity ----------
   // and reacts to what you do: happy when you get it right, angry when you don't, furious when you run out
@@ -2155,7 +2163,7 @@
   function mascotEl() {
     var m = state.root.querySelector('.am-mascot');
     if (!m) {
-      m = el('div', 'am-mascot', '<p class="am-mascot__say" data-am-msay></p><div class="am-exam__face am-mascot__face" data-mood="ok">' + EXAMINER_FACE + '</div>');
+      m = el('div', 'am-mascot', '<p class="am-mascot__say" data-am-msay></p><div class="am-exam__face am-mascot__face" data-mood="ok">' + examinerFace('body') + '</div>');
       m.setAttribute('aria-hidden', 'true');
       state.root.appendChild(m);
     }
@@ -2173,6 +2181,7 @@
     say.classList.remove('is-on');
     void say.offsetWidth;
     say.classList.add('is-on');
+    talk(face, Math.min(3000, 900 + 40 * line.length));
     m.sayTimer = setTimeout(function () { say.classList.remove('is-on'); }, 2800);
   }
   // He only comes up beside an open card, sized to the space left next to it.
@@ -4239,7 +4248,7 @@
     kit: {
       el: el, esc: esc, reduced: reduced, store: store, shuffle: shuffle, pick: pick, rollTo: rollTo,
       later: function (fn, ms) { return later(fn, ms); },
-      ding: ding, bonk: bonk, fanfare: fanfare, mascot: mascot, face: EXAMINER_FACE,
+      ding: ding, bonk: bonk, fanfare: fanfare, mascot: mascot, get face() { return examinerFace('head'); },
       fillButtons: fillButtons, showCard: showCard, closeCard: closeCard,
       gameCard: gameCard, gameBody: gameBody, gameHud: gameHud, gameSeg: gameSeg, saveBest: saveBest, gameBest: gameBest,
       typeIt: typeIt, typedScore: typedScore, recallStart: recallStart, recallKeys: recallKeys, plainWords: plainWords, sameWord: sameWord,
@@ -4561,8 +4570,8 @@
     '.am-exam__intro b{color:#FFE14D}',
     '.am-exam__intro .am-exam__note{margin-top:14px;font-size:14px;color:#8496B6}',
     '.am-exam__who{display:flex;align-items:flex-start;gap:14px;margin:0 0 14px}',
-    '.am-exam__bubble{position:relative;flex:1;padding:12px 16px;border-radius:16px;background:#FFFEF8;color:#13294A}',
-    '.am-exam__bubble::before{content:"";position:absolute;left:-9px;top:20px;border:9px solid transparent;border-left:0;border-right-color:#FFFEF8}',
+    '.am-exam__bubble{position:relative;flex:1;padding:12px 16px;border-radius:16px;background:#FFFFFF;color:#13294A}',
+    '.am-exam__bubble::before{content:"";position:absolute;left:-7px;top:24px;width:18px;height:18px;border-radius:0 0 0 5px;background:#FFFFFF;transform:rotate(45deg)}',
     '.am-exam__k{display:block;margin:0 0 2px;font:700 12px Fredoka,Nunito,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#5E6F8A}',
     '.am-exam__ask{margin:0;font:800 20px/1.35 Nunito,sans-serif;color:#13294A}',
     '.am-exam__paper{position:relative;border-radius:12px;background-color:#FFFEF8;background-image:repeating-linear-gradient(#FFFEF8 0 31px,#CDEFF9 31px 32px);background-position:0 8px;box-shadow:0 0 0 2px #2A3D5E;transition:box-shadow .2s ease}',
@@ -4595,11 +4604,7 @@
     '.am-root .am-exam__mark span{font-family:Caveat,"Segoe Print","Comic Sans MS",cursive !important}',
     '@media (max-width:600px){.am-exam__box{padding-right:14px;padding-bottom:44px}.am-exam__mark{top:auto;bottom:6px}.am-exam__face{width:56px;height:56px}.am-exam__ask{font-size:18px}.am-exam__title{font-size:24px}}',
     '.am-exam__face svg{overflow:visible}',
-    '.am-exam__face .m-happy,.am-exam__face .m-angry,.am-exam__face .x-steam{display:none}',
-    '.am-exam__face[data-mood="happy"] .m-ok,.am-exam__face[data-mood="angry"] .m-ok,.am-exam__face[data-mood="furious"] .m-ok{display:none}',
-    '.am-exam__face[data-mood="happy"] .m-happy{display:inline}',
-    '.am-exam__face[data-mood="angry"] .m-angry,.am-exam__face[data-mood="furious"] .m-angry{display:inline}',
-    '.am-exam__face[data-mood="happy"] .x-lines{display:none}',
+    '.am-exam__face .x-steam{display:none}',
     '.am-exam__face[data-mood="furious"] .x-steam{display:inline}',
     '.am-exam__face .x-steam circle{fill:#E8EEFA;transform-box:fill-box;transform-origin:center;animation:amSteam 1.1s ease-out infinite}',
     '.am-exam__face .x-steam circle:nth-child(2n){animation-delay:.45s}',
@@ -4607,8 +4612,6 @@
     '.am-exam__face .x-skin{transition:fill .3s ease}',
     '.am-exam__face[data-mood="angry"] .x-skin{fill:#F4AE90}',
     '.am-exam__face[data-mood="furious"] .x-skin{fill:#EE8366}',
-    '.am-exam__face[data-mood="ok"] .x-eyes{transform-box:fill-box;transform-origin:center;animation:amExamBlink 4.5s infinite}',
-    '@keyframes amExamBlink{0%,93%,100%{transform:none}95%{transform:scaleY(.1)}}',
     '.am-exam__face.is-react[data-mood="angry"] svg{animation:amShake .4s ease}',
     '.am-exam__face.is-react[data-mood="furious"] svg{animation:amShake .35s ease 3}',
     '.am-exam__face.is-react[data-mood="happy"] svg{animation:amHop .55s cubic-bezier(.3,1.6,.5,1)}',
@@ -4617,10 +4620,11 @@
     '.am-root .am-exam__line,.am-root .am-exam__intro .am-exam__line{margin:0 0 4px;font-family:Caveat,"Segoe Print","Comic Sans MS",cursive !important;font-size:26px;color:#7DF0B0}',
     '.am-mascot{--size:200px;position:absolute;left:14px;bottom:10px;z-index:6;width:var(--size);pointer-events:none;transform:translateY(calc(100% + 20px));transition:transform .55s cubic-bezier(.3,1.3,.5,1)}',
     '.am-mascot.is-on{transform:none}',
-    '.am-mascot__face.am-exam__face{width:var(--size);height:var(--size)}',
-    '.am-mascot__say{position:absolute;left:4px;bottom:calc(100% + 4px);width:max-content;max-width:calc(var(--size) + 60px);margin:0;padding:8px 14px;border-radius:16px 16px 16px 4px;background:#FFFEF8;color:#13294A;font:700 26px/1.1 Caveat,"Segoe Print","Comic Sans MS",cursive;opacity:0;transform:translateY(8px) scale(.9);transform-origin:0 100%;transition:opacity .2s ease,transform .3s cubic-bezier(.3,1.6,.5,1)}',
+    '.am-mascot__face.am-exam__face{width:var(--size);height:calc(var(--size) * 1.23)}',
+    '.am-mascot__say{position:absolute;left:0;bottom:calc(100% + 14px);width:max-content;max-width:calc(var(--size) + 60px);margin:0;padding:11px 16px;border-radius:16px;background:#FFFFFF;color:#3C4A5E;font:600 16px/1.4 Nunito,sans-serif;opacity:0;transform:translateY(8px) scale(.9);transform-origin:calc(var(--size) * .44) 100%;transition:opacity .2s ease,transform .3s cubic-bezier(.3,1.6,.5,1)}',
+    '.am-mascot__say::after{content:"";position:absolute;left:calc(var(--size) * .44 - 9px);bottom:-7px;width:18px;height:18px;border-radius:0 0 5px 0;background:#FFFFFF;transform:rotate(45deg)}',
     '.am-mascot__say.is-on{opacity:1;transform:none}',
-    '.am-root .am-mascot__say{font-family:Caveat,"Segoe Print","Comic Sans MS",cursive !important}',
+    '.am-root .am-mascot__say{font-family:Nunito,system-ui,sans-serif !important}',
     '.am-train-tile--games .am-train-tile__icon{background:#FF7B54;color:#FFFFFF;box-shadow:0 3px 0 #C9502E}',
     '.am-train-tile--games:hover{border-color:#FF7B54}',
     '.am-train-tile--games .am-train-tile__go{border-color:#FF7B54}',
