@@ -1966,7 +1966,7 @@
   function examIntro(card) {
     var bank = examBank(), slots = examSlots(), n = slots.filter(function (it) { return bank[it.id]; }).length;
     card.querySelector('[data-am-ebody]').innerHTML = '<div class="am-exam__intro">' +
-      '<div class="am-exam__face am-exam__face--big" aria-hidden="true">' + examinerFace('head') + '</div>' +
+      '<div class="am-exam__face am-exam__face--big" aria-hidden="true">' + examinerFace() + '</div>' +
       '<p class="am-exam__line">“' + EXAM_SAYS.hello + '”</p><h3 class="am-exam__title">Beat the Examiner</h3>' +
       '<p>He asks for one point at a time. Write it in one sentence. He only ticks it if it\'s <b>specific</b>, <b>correct</b> and <b>about the question</b>.</p>' +
       '<p>If he says no, fix it. Every point you get past him goes into your essay. All ' + slots.length + ' and you\'ve written a full-marks answer.</p>' +
@@ -1987,7 +1987,7 @@
     x.tries = 0;
     x.done = false;
     card.querySelector('[data-am-ebody]').innerHTML = '<div class="am-exam__desk">' +
-      '<div class="am-exam__who"><div class="am-exam__face" aria-hidden="true">' + examinerFace('head') + '</div>' +
+      '<div class="am-exam__who"><div class="am-exam__face" aria-hidden="true">' + examinerFace() + '</div>' +
         '<div class="am-exam__bubble"><span class="am-exam__k">Point ' + (x.i + 1) + ' of ' + x.round.length + ' &middot; ' + esc(it.title) + '</span>' +
         '<p class="am-exam__ask" id="am-exam-ask">' + esc(it.ask) + '</p></div></div>' +
       '<div class="am-exam__paper"><textarea class="am-exam__box" rows="3" spellcheck="true" aria-labelledby="am-exam-ask" placeholder="Write one sentence…"></textarea>' +
@@ -2109,7 +2109,7 @@
     var x = state.exam, bank = examBank(), slots = examSlots(), o = examMarks(bank);
     var n = slots.filter(function (it) { return bank[it.id]; }).length, done = n >= slots.length, pleased = done || x.beaten * 2 >= x.round.length;
     card.querySelector('[data-am-ebody]').innerHTML = '<div class="am-exam__end">' +
-      '<div class="am-exam__face am-exam__face--big" aria-hidden="true">' + examinerFace('head') + '</div>' +
+      '<div class="am-exam__face am-exam__face--big" aria-hidden="true">' + examinerFace() + '</div>' +
       '<p class="am-exam__line">“' + (done ? EXAM_SAYS.done : pleased ? EXAM_SAYS.good : EXAM_SAYS.bad) + '”</p>' +
       '<h3 class="am-exam__title">' + (done ? 'Full essay. He has nothing left to say.' : 'You beat him ' + x.beaten + ' of ' + x.round.length + ' times') + '</h3>' +
       '<p class="am-exam__sum">Your essay: <b>' + n + ' of ' + slots.length + '</b> points, <b>' + o.marks + '/30</b></p>' +
@@ -2140,11 +2140,10 @@
     updateTrainTile();
     examRound(card);
   }
-  // The examiner: a strict teacher with a pointer stick (examiner-art.js), all of him ('body') or his head and
-  // shoulders ('head'). His mood comes from data-mood on .am-exam__face (ok, happy, angry, furious): brows up when
-  // he's happy, down and red in the face when he's angry, steam when he's furious. talk() works his jaw and his
-  // stick for a while.
-  function examinerFace(view) { return window.ExamTeacher ? window.ExamTeacher.svg(view) : ''; }
+  // The examiner: a strict teacher with a pointer stick (examiner-art.js), always all of him, facing into the page.
+  // His mood comes from data-mood on .am-exam__face (ok, happy, angry, furious): brows up when he's happy, down and
+  // red in the face when he's angry, steam when he's furious. talk() works his jaw and his stick for a while.
+  function examinerFace() { return window.ExamTeacher ? window.ExamTeacher.svg() : ''; }
   function talk(face, ms) {
     if (!face) return;
     face.classList.add('is-talking');
@@ -2163,7 +2162,7 @@
   function mascotEl() {
     var m = state.root.querySelector('.am-mascot');
     if (!m) {
-      m = el('div', 'am-mascot', '<p class="am-mascot__say" data-am-msay></p><div class="am-exam__face am-mascot__face" data-mood="ok">' + examinerFace('body') + '</div>');
+      m = el('div', 'am-mascot', '<p class="am-mascot__say" data-am-msay></p><div class="am-exam__face am-mascot__face" data-mood="ok">' + examinerFace() + '</div>');
       m.setAttribute('aria-hidden', 'true');
       state.root.appendChild(m);
     }
@@ -4248,7 +4247,7 @@
     kit: {
       el: el, esc: esc, reduced: reduced, store: store, shuffle: shuffle, pick: pick, rollTo: rollTo,
       later: function (fn, ms) { return later(fn, ms); },
-      ding: ding, bonk: bonk, fanfare: fanfare, mascot: mascot, get face() { return examinerFace('head'); },
+      ding: ding, bonk: bonk, fanfare: fanfare, mascot: mascot, get face() { return examinerFace(); },
       fillButtons: fillButtons, showCard: showCard, closeCard: closeCard,
       gameCard: gameCard, gameBody: gameBody, gameHud: gameHud, gameSeg: gameSeg, saveBest: saveBest, gameBest: gameBest,
       typeIt: typeIt, typedScore: typedScore, recallStart: recallStart, recallKeys: recallKeys, plainWords: plainWords, sameWord: sameWord,
@@ -4562,9 +4561,9 @@
     '.am-exam__body{min-height:330px;margin:4px 0 0}',
     '.am-exam__btns{margin-top:16px}',
     '.am-exam__intro,.am-exam__end{text-align:center}',
-    '.am-exam__face{flex:none;width:76px;height:76px}',
+    '.am-exam__face{flex:none;width:84px;height:104px}',
     '.am-exam__face svg{display:block;width:100%;height:100%}',
-    '.am-exam__face--big{width:112px;height:112px;margin:4px auto 6px}',
+    '.am-exam__face--big{width:124px;height:153px;margin:4px auto 6px}',
     '.am-exam__title{margin:0 0 10px;font:700 30px/1.15 Fredoka,Nunito,sans-serif;color:#FFFFFF}',
     '.am-exam__intro p{max-width:540px;margin:0 auto 10px;font:800 17px/1.5 Nunito,sans-serif;color:#E8EEFA}',
     '.am-exam__intro b{color:#FFE14D}',
@@ -4602,7 +4601,7 @@
     '.am-root .am-exam__ask,.am-root .am-exam__intro p,.am-root .am-exam__intro b,.am-root .am-exam__says,.am-root .am-exam__says span,.am-root .am-exam__says em,.am-root .am-exam__model,.am-root .am-exam__model *,.am-root .am-exam__teach,.am-root .am-exam__teach b,.am-root .am-exam__sum,.am-root .am-exam__sum b,.am-root .am-exam__box{font-family:Nunito,system-ui,sans-serif !important}',
     '.am-root .am-exam__k,.am-root .am-exam__says > b,.am-root .am-exam__title{font-family:Fredoka,Nunito,sans-serif !important}',
     '.am-root .am-exam__mark span{font-family:Caveat,"Segoe Print","Comic Sans MS",cursive !important}',
-    '@media (max-width:600px){.am-exam__box{padding-right:14px;padding-bottom:44px}.am-exam__mark{top:auto;bottom:6px}.am-exam__face{width:56px;height:56px}.am-exam__ask{font-size:18px}.am-exam__title{font-size:24px}}',
+    '@media (max-width:600px){.am-exam__box{padding-right:14px;padding-bottom:44px}.am-exam__mark{top:auto;bottom:6px}.am-exam__face{width:60px;height:74px}.am-exam__ask{font-size:18px}.am-exam__title{font-size:24px}}',
     '.am-exam__face svg{overflow:visible}',
     '.am-exam__face .x-steam{display:none}',
     '.am-exam__face[data-mood="furious"] .x-steam{display:inline}',
