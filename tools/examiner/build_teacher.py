@@ -170,9 +170,21 @@ def centre(m):
 
 
 pl, pr = centre(pupilL), centre(pupilR)
-MOUTH_MID = int(round(centre(mouth)[1]))       # the smile is his mouth flipped about its middle line...
-SMILE_DROP = 14                                  # ...and moved down a little
-SMILE_TOP = 2 * MOUTH_MID + SMILE_DROP - np.where(mouth)[0].max()
+# His smile: his mouth (its tooth hole filled) turned half a turn, so the frown becomes a smile with the thick end on
+# the other side, moved down a little; then the same tooth hangs just under its top edge.
+SMILE_DROP = 14
+solid_m = ndi.binary_fill_holes(mouth)
+my_, mx_ = np.where(solid_m)
+mx0, mx1, my0, my1 = mx_.min(), mx_.max(), my_.min(), my_.max()
+smile = np.zeros_like(mouth)
+smile[my0 + SMILE_DROP:my1 + 1 + SMILE_DROP, mx0:mx1 + 1] = solid_m[my0:my1 + 1, mx0:mx1 + 1][::-1, ::-1]
+ty_, tx_ = np.where(tooth)
+t_cx = int(round(tx_.mean()))
+new_cx = mx0 + mx1 - t_cx                                         # the same place, measured from the other end
+new_top = np.where(smile[:, new_cx])[0].min() + 7                # just under his top lip
+smile_tooth = np.zeros_like(mouth)
+smile_tooth[ty_ - ty_.min() + new_top, tx_ - t_cx + new_cx] = True
+SMILE_TOP = my0 + SMILE_DROP
 my, mx = np.where(mouth)[0].min(), centre(mouth)[0]
 fig_d = trace(fig & ~stick & ~(handR & ~filler))
 hfig = trace(handD)
@@ -204,9 +216,9 @@ svg = (
     '<path class="tch-eye" d="' + trace(pupilR) + '" fill="' + INK + '" style="transform-origin:%.0fpx %.0fpx"/></g>' % pr +
     '<g class="tch-mouth" style="transform-origin:%.0fpx %dpx"><path d="' % (mx, my) + trace(tooth) + '" fill="#FFFFFF"/>'
     '<path d="' + trace(mouth) + '" fill="' + INK + '" fill-rule="evenodd"/></g>'
-    # his smile, shown instead of his mouth when he's pleased: the same mouth and tooth turned upside down, a little lower
-    '<g class="tch-smile" style="transform-origin:%.0fpx %dpx"><g transform="translate(0 %d) scale(1 -1)">' % (mx, SMILE_TOP, MOUTH_MID * 2 + SMILE_DROP) +
-    '<path d="' + trace(tooth) + '" fill="#FFFFFF"/><path d="' + trace(mouth) + '" fill="' + INK + '" fill-rule="evenodd"/></g></g>'
+    # his smile, shown instead of his mouth when he's pleased: his mouth turned round, a little lower, with its tooth on top
+    '<g class="tch-smile" style="transform-origin:%.0fpx %dpx">' % (mx, SMILE_TOP) +
+    '<path d="' + trace(smile) + '" fill="' + INK + '"/><path d="' + trace(smile_tooth) + '" fill="#FFFFFF"/></g>'
     '</g></svg>'
 )
 # The head on its own: the same face, brows, eyes and mouth, kept inside the head's outline, with its own white edge.
