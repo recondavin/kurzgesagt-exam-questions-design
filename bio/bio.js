@@ -116,6 +116,8 @@
     var line = '<path d="M' + lx.toFixed(1) + ' ' + ly.toFixed(1) + 'L' + at[0] + ' ' + at[1] + '" stroke="#18272D" stroke-width="1.8"/><circle cx="' + at[0] + '" cy="' + at[1] + '" r="2.6" fill="#18272D"/>';
     if (m.given) {
       var w = m.t.length * 6.8 + 16;
+      // A tag right on its spot (a zone like "Medulla") needs no line: its dot would only peep out from under the tag.
+      if (Math.abs(at[0] - lx) <= w / 2 - 10 && Math.abs(at[1] - ly) <= 8.5) line = '';
       return line + '<rect x="' + (lx - w / 2).toFixed(1) + '" y="' + (ly - 10) + '" width="' + w.toFixed(1) + '" height="20" rx="10" fill="#18272D"/>' +
         '<text x="' + lx.toFixed(1) + '" y="' + ly.toFixed(1) + '" text-anchor="middle" dominant-baseline="central" font-family="Lexend, Nunito, sans-serif" font-weight="600" font-size="11.5" fill="#FFFFFF">' + esc(m.t) + '</text>';
     }

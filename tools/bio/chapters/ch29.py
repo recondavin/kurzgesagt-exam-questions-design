@@ -116,9 +116,10 @@ def kidney():
 
 def nephron():
     body = f'<rect width="480" height="320" fill="#FBEFE3"/><rect y="168" width="480" height="152" fill="#F3DCCB"/>'
+    # The zone names are class bio-zone: hidden on exam-question diagrams, which give them as labels or ask where a part is.
     body += part(0, '<path d="M0 168H480" stroke="#C4683F" stroke-width="2" stroke-dasharray="8 6"/>'
-                    '<text x="8" y="160" font-family="Lexend, Nunito, sans-serif" font-weight="600" font-size="11" fill="#9C3F2C">CORTEX</text>'
-                    '<text x="8" y="184" font-family="Lexend, Nunito, sans-serif" font-weight="600" font-size="11" fill="#9C3F2C">MEDULLA</text>')
+                    '<text class="bio-zone" x="8" y="160" font-family="Lexend, Nunito, sans-serif" font-weight="600" font-size="11" fill="#9C3F2C">CORTEX</text>'
+                    '<text class="bio-zone" x="8" y="184" font-family="Lexend, Nunito, sans-serif" font-weight="600" font-size="11" fill="#9C3F2C">MEDULLA</text>')
     # The art is drawn in its own space and moved right and down, leaving room for labels at the top and left.
     def at(x):
         return f'<g transform="translate(40 18)">{x}</g>'
@@ -172,7 +173,7 @@ def nephron():
     body += label(7, 'COLLECTING DUCT', 'end', 410, 304, 426, 290)
     body += label(8, 'CAPILLARIES', 'start', 310, 252, 294, 246)
     anchors = {'afferent': [64, 55], 'glomerulus': [134, 88], 'capsule': [164, 60], 'efferent': [106, 122], 'pct': [214, 102],
-               'descending': [254, 248], 'loop': [268, 305], 'ascending': [282, 248], 'dct': [330, 100], 'duct': [426, 280],
+               'descending': [254, 248], 'loop': [268, 305], 'ascending': [282, 248], 'dct': [330, 100], 'duct': [426, 50],
                'capillaries': [294, 246], 'venule': [100, 228], 'cortex': [36, 150], 'medulla': [36, 200]}
     parts = ['Cortex and medulla', 'Afferent arteriole and glomerulus', "Bowman's capsule", 'Efferent arteriole', 'Proximal convoluted tubule',
              'Loop of Henle', 'Distal convoluted tubule', 'Collecting duct', 'Capillaries and renal venule']
@@ -189,8 +190,8 @@ MAKERS = [urinary, kidney, nephron]
 ANCHOR_WORDS = {
     'nephron': [('ascending', ['ascending']), ('descending', ['descending']), ('efferent', ['efferent', 'narrower arteriole']),
                 ('afferent', ['afferent', 'arteriole']), ('glomerulus', ['glomerul']), ('capsule', ['bowman', 'capsule']),
-                ('pct', ['proximal', 'pct']), ('dct', ['distal', 'dct']), ('loop', ['henle', 'loop']), ('duct', ['collecting']),
-                ('capillaries', ['capillar', 'blood vessel']), ('venule', ['venule', 'vein']), ('cortex', ['cortex']), ('medulla', ['medulla'])],
+                ('pct', ['proximal', 'pct']), ('dct', ['distal', 'dct']), ('capillaries', ['capillar', 'blood vessel']), ('loop', ['henle', 'loop']),
+                ('duct', ['collecting']), ('venule', ['venule', 'vein']), ('cortex', ['cortex']), ('medulla', ['medulla'])],
     'kidney': [('cortex', ['cortex']), ('medulla', ['medulla', 'pyramid']), ('pelvis', ['pelvis']), ('ureter', ['ureter']),
                ('renalArtery', ['artery']), ('renalVein', ['vein'])],
     'urinary': [('kidney', ['kidney']), ('ureter', ['ureter']), ('bladder', ['bladder']), ('urethra', ['urethra']), ('renalArtery', ['artery']),
