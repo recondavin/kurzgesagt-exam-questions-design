@@ -125,7 +125,7 @@
     var i = B.order[B.li], l = B.dg.labels[i], ns = 'http://www.w3.org/2000/svg';
     var pin = document.createElementNS(ns, 'g');
     pin.setAttribute('class', 'bb-pin');
-    pin.innerHTML = '<circle cx="' + l.at[0] + '" cy="' + l.at[1] + '" r="14" fill="none" stroke="#FFC42E" stroke-width="4"/><circle cx="' + l.at[0] + '" cy="' + l.at[1] + '" r="5" fill="#14243B" stroke="#FFFFFF" stroke-width="2"/>';
+    pin.innerHTML = '<circle cx="' + l.at[0] + '" cy="' + l.at[1] + '" r="14" fill="none" stroke="#FFC800" stroke-width="4"/><circle cx="' + l.at[0] + '" cy="' + l.at[1] + '" r="5" fill="#18272D" stroke="#FFFFFF" stroke-width="2"/>';
     svg.appendChild(pin);
     var others = shuffle(B.dg.labels.filter(function (x, j) { return j !== i; })).slice(0, 3);
     var opts = shuffle([l].concat(others));

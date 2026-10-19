@@ -12,7 +12,7 @@
   var K = window.ExamAnswerMode && window.ExamAnswerMode.kit, BK = window.BioKit;
   if (!K || !BK) return;
   var esc = BK.esc, shuffle = BK.shuffle, host = BK.host, body = BK.body, buttons = BK.buttons;
-  var INK = '#14243B', O2C = '#2E9E5B', CO2C = '#E8551F', H2OC = '#3E9BD8';
+  var INK = '#18272D', O2C = '#2E9E5B', CO2C = '#E8551F', H2OC = '#3E9BD8';
 
   // ---------- round 1: the airway, in order ----------
   var GATES = [
@@ -250,10 +250,10 @@
         ctx.fillStyle = '#A8876A'; ctx.beginPath(); ctx.arc(d.x - d.r * 0.3, d.y - d.r * 0.3, d.r * 0.35, 0, Math.PI * 2); ctx.fill();
       });
       molecule(ctx, g.px, g.py, 'o2', 15);
-      pill(ctx, 'You are in ' + g.where, W / 2, 22, 'rgba(20,36,59,.85)');
+      pill(ctx, 'You are in ' + g.where, W / 2, 22, 'rgba(24,39,45,.85)');
       var left = g.passed / GATES.length;
-      ctx.fillStyle = '#26395A'; ctx.fillRect(0, H - 6, W, 6);
-      ctx.fillStyle = '#2BC46F'; ctx.fillRect(0, H - 6, W * left, 6);
+      ctx.fillStyle = '#2B3B42'; ctx.fillRect(0, H - 6, W, 6);
+      ctx.fillStyle = '#58CC02'; ctx.fillRect(0, H - 6, W * left, 6);
     };
   }
 
@@ -313,7 +313,7 @@
       // Red blood cells drift along the capillary.
       for (var i = 0; i < 6; i++) {
         var x = ((g.still ? 0 : t / 22) + i * (W / 5)) % (W + 60) - 30, y = wy + (H - wy) * 0.62 + (i % 2) * 22;
-        ctx.fillStyle = '#E5484D'; ctx.beginPath(); ctx.ellipse(x, y, 20, 12, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#FF4B4B'; ctx.beginPath(); ctx.ellipse(x, y, 20, 12, 0, 0, Math.PI * 2); ctx.fill();
         ctx.fillStyle = '#C2364A'; ctx.beginPath(); ctx.ellipse(x, y, 9, 5, 0, 0, Math.PI * 2); ctx.fill();
       }
       text(ctx, 'ALVEOLUS (air)', 14, 20, 13, '#9C5A3C', 'left');
@@ -321,22 +321,22 @@
       text(ctx, '▲ up: into the alveolus', W - 14, 20, 13, INK, 'right');
       text(ctx, '▼ down: into the blood', W - 14, H - 18, 13, INK, 'right');
       // The line a molecule must be sent before.
-      ctx.strokeStyle = 'rgba(20,36,59,.35)'; ctx.setLineDash([5, 5]); ctx.lineWidth = 2;
+      ctx.strokeStyle = 'rgba(24,39,45,.35)'; ctx.setLineDash([5, 5]); ctx.lineWidth = 2;
       ctx.beginPath(); ctx.moveTo(g.lineX, wy - 40); ctx.lineTo(g.lineX, wy + 40); ctx.stroke(); ctx.setLineDash([]);
       var first = true;
       g.mols.forEach(function (m) {
         ctx.globalAlpha = m.fade ? Math.max(0, 1 - m.fade / 900) : 1;
         if (!m.way && first) {
-          ctx.strokeStyle = '#FFC42E'; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(m.x, m.y, 24, 0, Math.PI * 2); ctx.stroke();
+          ctx.strokeStyle = '#FFC800'; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(m.x, m.y, 24, 0, Math.PI * 2); ctx.stroke();
           first = false;
         }
         molecule(ctx, m.x, m.y, m.kind, 16);
-        if (m.way && m.way !== 'late') text(ctx, m.ok ? '✓' : '✗', m.x + 26, m.y, 18, m.ok ? '#2BA864' : '#E5484D');
+        if (m.way && m.way !== 'late') text(ctx, m.ok ? '✓' : '✗', m.x + 26, m.y, 18, m.ok ? '#2BA864' : '#FF4B4B');
         ctx.globalAlpha = 1;
       });
       var left = g.sent / g.total;
-      ctx.fillStyle = '#26395A'; ctx.fillRect(0, H - 6, W, 6);
-      ctx.fillStyle = '#2BC46F'; ctx.fillRect(0, H - 6, W * left, 6);
+      ctx.fillStyle = '#2B3B42'; ctx.fillRect(0, H - 6, W, 6);
+      ctx.fillStyle = '#58CC02'; ctx.fillRect(0, H - 6, W * left, 6);
     };
   }
 
@@ -399,14 +399,14 @@
       ctx.fillStyle = '#FFD1D3'; ctx.fillRect(mx, mt, 30, mh * 0.25);
       ctx.strokeStyle = INK; ctx.lineWidth = 2; ctx.strokeRect(mx, mt, 30, mh);
       var ly = mt + mh * (1 - g.co2 / 100);
-      ctx.fillStyle = g.co2 > 75 ? '#E5484D' : g.co2 >= 35 && g.co2 <= 65 ? '#2BA864' : '#E8A13C';
+      ctx.fillStyle = g.co2 > 75 ? '#FF4B4B' : g.co2 >= 35 && g.co2 <= 65 ? '#2BA864' : '#E8A13C';
       ctx.beginPath(); ctx.moveTo(mx - 12, ly - 8); ctx.lineTo(mx - 2, ly); ctx.lineTo(mx - 12, ly + 8); ctx.fill();
       ctx.fillRect(mx, ly - 2, 30, 4);
       text(ctx, 'CO2', mx + 15, mt - 14, 13, INK);
-      text(ctx, 'acid', mx + 15, mt + 12, 11, '#B3262B');
+      text(ctx, 'acid', mx + 15, mt + 12, 11, '#EA2B2B');
       var left = Math.max(0, 1 - (g.last - g.t0) / g.end);
-      ctx.fillStyle = '#26395A'; ctx.fillRect(0, H - 6, W, 6);
-      ctx.fillStyle = '#2BC46F'; ctx.fillRect(0, H - 6, W * left, 6);
+      ctx.fillStyle = '#2B3B42'; ctx.fillRect(0, H - 6, W, 6);
+      ctx.fillStyle = '#58CC02'; ctx.fillRect(0, H - 6, W * left, 6);
     };
   }
 

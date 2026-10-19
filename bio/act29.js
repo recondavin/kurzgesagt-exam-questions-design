@@ -11,12 +11,12 @@
   // 3: you're ADH at the collecting duct: reabsorb the right amount of water for the day.
   // A question between rounds. Three hearts.
   var ITEMS = {
-    glucose: { label: 'Glucose', color: '#FFC42E', r: 16 },
+    glucose: { label: 'Glucose', color: '#FFC800', r: 16 },
     water: { label: 'Water', color: '#45C4EE', r: 14 },
     urea: { label: 'Urea', color: '#B5A642', r: 15 },
     salt: { label: 'Salt', color: '#E3E9F4', r: 13 },
-    amino: { label: 'Amino acid', color: '#2BC46F', r: 16 },
-    rbc: { label: 'Red cell', color: '#E5484D', r: 22 },
+    amino: { label: 'Amino acid', color: '#58CC02', r: 16 },
+    rbc: { label: 'Red cell', color: '#FF4B4B', r: 22 },
     wbc: { label: 'White cell', color: '#F5F0FF', r: 22 },
     platelet: { label: 'Platelet', color: '#C9A0DC', r: 13 },
     protein: { label: 'Protein', color: '#7E5BA3', r: 20 }
@@ -141,7 +141,7 @@
     ctx.fillStyle = A.round === 0 ? '#FBEFE3' : A.round === 1 ? '#FFF6DB' : '#F3DCCB';
     ctx.fillRect(0, 0, W, H);
     if (A.round === 0) {
-      ctx.strokeStyle = '#E5484D'; ctx.lineWidth = 5;
+      ctx.strokeStyle = '#FF4B4B'; ctx.lineWidth = 5;
       for (var i = 0; i < 5; i++) { ctx.beginPath(); ctx.arc(W / 2 - 80 + i * 40, 18, 24, 0, Math.PI); ctx.stroke(); }
     } else {
       ctx.fillStyle = A.round === 1 ? '#F7D27A' : '#E9C46A';
@@ -154,9 +154,9 @@
       var it = ITEMS[o.kind];
       ctx.beginPath(); ctx.arc(o.x, o.y, it.r, 0, Math.PI * 2);
       ctx.fillStyle = it.color; ctx.fill();
-      ctx.lineWidth = 2; ctx.strokeStyle = '#14243B'; ctx.stroke();
+      ctx.lineWidth = 2; ctx.strokeStyle = '#18272D'; ctx.stroke();
       if (o.kind === 'rbc') { ctx.beginPath(); ctx.arc(o.x, o.y, it.r * 0.45, 0, Math.PI * 2); ctx.fillStyle = '#C2364A'; ctx.fill(); }
-      ctx.fillStyle = '#14243B'; ctx.font = '800 11px Nunito, sans-serif';
+      ctx.fillStyle = '#18272D'; ctx.font = '800 11px Nunito, sans-serif';
       ctx.fillText(it.label, o.x, o.y + it.r + 10);
     });
     // The catcher.
@@ -167,12 +167,12 @@
     if (r.catcher === 'capsule') { ctx.moveTo(g.x - 48, y - 10); ctx.quadraticCurveTo(g.x, y + 34, g.x + 48, y - 10); }
     else { ctx.moveTo(g.x - 46, y); ctx.lineTo(g.x + 46, y); }
     ctx.stroke();
-    ctx.fillStyle = '#14243B'; ctx.font = '700 12px Fredoka, Nunito, sans-serif';
+    ctx.fillStyle = '#18272D'; ctx.font = '700 12px Fredoka, Nunito, sans-serif';
     ctx.fillText(r.catcher === 'capsule' ? 'BOWMAN\'S CAPSULE' : r.catcher === 'capillary' ? 'CAPILLARY (back to the blood)' : 'COLLECTING DUCT WALL', g.x, y + 30);
     // Time left.
     var left = Math.max(0, 1 - (g.last - g.t0) / g.end);
-    ctx.fillStyle = '#26395A'; ctx.fillRect(0, H - 6, W, 6);
-    ctx.fillStyle = '#2BC46F'; ctx.fillRect(0, H - 6, W * left, 6);
+    ctx.fillStyle = '#2B3B42'; ctx.fillRect(0, H - 6, W, 6);
+    ctx.fillStyle = '#58CC02'; ctx.fillRect(0, H - 6, W * left, 6);
   }
   function roundEnd() {
     document.removeEventListener('keydown', A.onKey);

@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-6';
+  var V = 'bio-9';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -73,7 +73,7 @@
     if (!art) return '';
     var rings = (hi || []).map(function (a) {
       var p = art.anchors[a];
-      return p ? '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="22" fill="none" stroke="#FFC42E" stroke-width="5"/>' : '';
+      return p ? '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="22" fill="none" stroke="#FFC800" stroke-width="5"/>' : '';
     }).join('');
     return '<div class="hf-bio-pic" data-hf-still>' + art.plain.replace(/<\/svg>$/, rings + '</svg>') + '</div>';
   }

@@ -13,7 +13,7 @@
   if (!K || !BK) return;
   var esc = BK.esc, shuffle = BK.shuffle, pick = BK.pick, host = BK.host, body = BK.body, buttons = BK.buttons;
 
-  var INK = '#14243B';
+  var INK = '#18272D';
   var KINDS = {
     flu: { label: 'Flu virus', r: 14 },
     cold: { label: 'Cold virus', r: 14 },
@@ -75,7 +75,7 @@
     var art = window.BioArt && window.BioArt[pic[0]];
     if (!art) return '';
     var p = art.anchors[pic[1]];
-    return '<div class="ic-pic" aria-hidden="true">' + art.plain.replace(/<\/svg>$/, '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="17" fill="none" stroke="#FFC42E" stroke-width="5"/>' +
+    return '<div class="ic-pic" aria-hidden="true">' + art.plain.replace(/<\/svg>$/, '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="17" fill="none" stroke="#FFC800" stroke-width="5"/>' +
       '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="5" fill="' + INK + '" stroke="#FFFFFF" stroke-width="2"/></svg>') + '</div>';
   }
   function intro() {
@@ -246,7 +246,7 @@
     if (g.waves && g.waves.length && g.el >= g.waves[0]) {
       g.waves.shift();
       var healthy = shuffle(g.items.filter(function (o) { return o.kind === 'body'; })).slice(0, g.waves.length % 2 ? 2 : 1);
-      healthy.forEach(function (c) { infect(g, c); g.fx.push({ x: c.x, y: c.y, t: now, c: '#2BC46F' }); });
+      healthy.forEach(function (c) { infect(g, c); g.fx.push({ x: c.x, y: c.y, t: now, c: '#58CC02' }); });
       if (healthy.length) note('More viruses from the blood: ' + (healthy.length === 1 ? 'a new cell is' : healthy.length + ' new cells are') + ' infected.', false);
     }
     // Finished?
@@ -286,7 +286,7 @@
       o.gone = true; g.killed += 1; A.combo += 1;
       score(10 + Math.min(10, (A.combo - 1) * 2));
       K.ding(Math.min(10, A.combo), false);
-      g.fx.push({ x: o.x, y: o.y, t: now, c: '#E5484D', pop: true });
+      g.fx.push({ x: o.x, y: o.y, t: now, c: '#FF4B4B', pop: true });
       note('Perforin! The infected cell bursts before the virus can multiply in it.', true);
     } else if (o.kind === 'rbc' || o.kind === 'body') {
       // Just hurt: a moment to get clear before it counts again.
@@ -336,11 +336,11 @@
     var flu = o.kind === 'flu';
     for (var i = 0; i < 9; i++) {
       var a = o.ang + i * Math.PI * 2 / 9;
-      antigen(ctx, o.x + Math.cos(a) * o.r, o.y + Math.sin(a) * o.r, a, 6, flu ? 'club' : 'square', flu ? '#2BC46F' : '#B9A6D6', flu ? '#17824A' : '#5B3172');
+      antigen(ctx, o.x + Math.cos(a) * o.r, o.y + Math.sin(a) * o.r, a, 6, flu ? 'club' : 'square', flu ? '#58CC02' : '#B9A6D6', flu ? '#17824A' : '#5B3172');
     }
     circle(ctx, o.x, o.y, o.r, flu ? '#F5A03C' : '#E9C46A', flu ? '#B5652A' : '#A9822F', 2.4);
     circle(ctx, o.x, o.y, o.r * 0.6, '#FFF4E0');
-    ctx.beginPath(); ctx.lineWidth = 2; ctx.strokeStyle = '#E5484D';
+    ctx.beginPath(); ctx.lineWidth = 2; ctx.strokeStyle = '#FF4B4B';
     for (var t = 0; t <= 16; t++) { var aa = o.ang * 2 + t * 0.8, rr = o.r * (0.2 + 0.25 * Math.abs(Math.sin(t * 1.7))); ctx[t ? 'lineTo' : 'moveTo'](o.x + Math.cos(aa) * rr, o.y + Math.sin(aa) * rr); }
     ctx.stroke();
     if (o.marked) {
@@ -362,13 +362,13 @@
     ctx.restore();
   }
   function rbc(ctx, o) {
-    circle(ctx, o.x, o.y, o.r, '#E5484D', '#B3262B', 1.8);
+    circle(ctx, o.x, o.y, o.r, '#FF4B4B', '#EA2B2B', 1.8);
     ctx.beginPath(); ctx.ellipse(o.x, o.y, o.r * 0.45, o.r * 0.3, o.ang, 0, Math.PI * 2); ctx.fillStyle = '#C2364A'; ctx.fill();
   }
   function cell(ctx, o) {
     var inf = o.kind === 'inf';
     if (inf) {
-      for (var i = 0; i < 7; i++) { var a = o.ang + i * Math.PI * 2 / 7; antigen(ctx, o.x + Math.cos(a) * o.r, o.y + Math.sin(a) * o.r, a, 6, 'club', '#2BC46F', '#17824A'); }
+      for (var i = 0; i < 7; i++) { var a = o.ang + i * Math.PI * 2 / 7; antigen(ctx, o.x + Math.cos(a) * o.r, o.y + Math.sin(a) * o.r, a, 6, 'club', '#58CC02', '#17824A'); }
     }
     circle(ctx, o.x, o.y, o.r, inf ? '#FBE3C8' : '#FDF3E3', '#C9A27A', 2.4);
     circle(ctx, o.x - 4, o.y - 2, o.r * 0.42, '#B9A6D6', '#5B3172', 1.6);
@@ -378,7 +378,7 @@
       // How long until it bursts.
       var left = Math.max(0, o.burst) / (o.full || 9000);
       ctx.beginPath(); ctx.arc(o.x, o.y, o.r + 11, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.min(1, left));
-      ctx.lineWidth = 3; ctx.strokeStyle = left < 0.35 ? '#E5484D' : '#F5A03C'; ctx.stroke();
+      ctx.lineWidth = 3; ctx.strokeStyle = left < 0.35 ? '#FF4B4B' : '#F5A03C'; ctx.stroke();
     }
   }
   function mac(ctx, o) {
@@ -404,7 +404,7 @@
         ctx.beginPath(); ctx.moveTo(x + Math.cos(b) * R, y + Math.sin(b) * R); ctx.lineTo(fx, fy);
         ctx.lineTo(fx + Math.cos(b + 0.7) * 5, fy + Math.sin(b + 0.7) * 5); ctx.moveTo(fx, fy); ctx.lineTo(fx + Math.cos(b - 0.7) * 5, fy + Math.sin(b - 0.7) * 5); ctx.stroke();
       }
-      circle(ctx, x, y, R, '#EAF2FF', r.role === 'm' ? '#FFC42E' : '#3E6FD8', 3);
+      circle(ctx, x, y, R, '#EAF2FF', r.role === 'm' ? '#FFC800' : '#3E6FD8', 3);
       circle(ctx, x - 2, y + 1, R * 0.7, '#B9A6D6', '#5B3172', 1.4);
     }
     tag(ctx, r.role === 't' ? 'YOU: KILLER T' : r.role === 'm' ? 'YOU: MEMORY CELL' : 'YOU: B CELL', x, y + R + 18, true);
@@ -418,7 +418,7 @@
       ctx.fillStyle = INK; ctx.beginPath();
       if (ctx.roundRect) ctx.roundRect(x - w / 2, y - 8, w, 16, 8); else ctx.rect(x - w / 2, y - 8, w, 16);
       ctx.fill(); ctx.fillStyle = '#FFFFFF';
-    } else ctx.fillStyle = 'rgba(20, 36, 59, .78)';
+    } else ctx.fillStyle = 'rgba(24,39,45, .78)';
     ctx.fillText(text, x, y + 0.5);
   }
   function draw(r, g, ctx) {
@@ -456,8 +456,8 @@
     ctx.font = '700 13px Fredoka, Nunito, sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'top'; ctx.fillStyle = INK;
     ctx.fillText(r.role === 't' ? (left ? 'Infected cells: ' + left : 'All clear for now: watch for new infections') : left ? 'Flu viruses to mark: ' + left : 'All marked: the macrophages are engulfing them', 10, 10);
     var t = Math.max(0, 1 - g.el / g.end);
-    ctx.fillStyle = '#26395A'; ctx.fillRect(0, H - 6, W, 6);
-    ctx.fillStyle = t < 0.2 ? '#E5484D' : '#2BC46F'; ctx.fillRect(0, H - 6, W * t, 6);
+    ctx.fillStyle = '#2B3B42'; ctx.fillRect(0, H - 6, W, 6);
+    ctx.fillStyle = t < 0.2 ? '#FF4B4B' : '#58CC02'; ctx.fillRect(0, H - 6, W * t, 6);
   }
 
   // ---------- after each round

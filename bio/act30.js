@@ -37,7 +37,7 @@
         why: 'The stomach makes hydrochloric acid (pH about 2: it kills bacteria) and pepsin, a protease. The churning muscles break the food up too.' },
       mix: ['protein', 'protein', 'protein', 'starch', 'fat', 'bacteria'], good: { protein: 1 }, makes: 'peptides',
       badLine: 'Not protein! Pepsin is a protease.', fibreLine: 'Fibre! Nothing in us digests it.' },
-    { key: 'duodenum', place: 'the duodenum', title: 'Stop 3: The duodenum', enzyme: 'LIPASE', color: '#2BC46F', ph: 'pH 8', bg: '#FBE6CC', secs: 22, bile: true,
+    { key: 'duodenum', place: 'the duodenum', title: 'Stop 3: The duodenum', enzyme: 'LIPASE', color: '#58CC02', ph: 'pH 8', bg: '#FBE6CC', secs: 22, bile: true,
       ask: 'You are lipase, from the pancreas. Big fat globules are too big for you: let them fall through the green bile, which emulsifies them. Catch the small droplets.',
       gate: { q: 'In the duodenum, bile arrives from the gall bladder. What does it do to fat?', opts: ['Emulsifies it into tiny droplets', 'Digests it into fatty acids and glycerol', 'Turns it into glycogen', 'Makes it more acidic'], a: 0,
         why: 'Bile salts emulsify fat: big globules become tiny droplets, a much bigger surface area for lipase. Bile also neutralises the acid from the stomach.' },
@@ -219,7 +219,7 @@
       A.score += 5;
       A.made[A.stop] += 1;
       K.ding(Math.min(10, A.combo), false);
-      if (!K.reduced()) g.bits.push({ x: o.x, y: g.H - 70, text: '+ ' + s.makes, life: 650, color: '#14243B' });
+      if (!K.reduced()) g.bits.push({ x: o.x, y: g.H - 70, text: '+ ' + s.makes, life: 650, color: '#18272D' });
     } else if (o.kind === 'bacteria' && o.dead) {
       return;
     } else if (o.kind === 'fat' && s.bile) {
@@ -263,20 +263,20 @@
     for (var k = 0; k < 6; k++) { var a = Math.PI / 3 * k + Math.PI / 6; ctx[k ? 'lineTo' : 'moveTo'](x + r * Math.cos(a), y + r * Math.sin(a)); }
     ctx.closePath();
     ctx.fillStyle = fill; ctx.fill();
-    ctx.lineWidth = 1.8; ctx.strokeStyle = '#14243B'; ctx.stroke();
+    ctx.lineWidth = 1.8; ctx.strokeStyle = '#18272D'; ctx.stroke();
   }
   function bead(ctx, x, y, r, fill) {
     ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
     ctx.fillStyle = fill; ctx.fill();
-    ctx.lineWidth = 1.8; ctx.strokeStyle = '#14243B'; ctx.stroke();
+    ctx.lineWidth = 1.8; ctx.strokeStyle = '#18272D'; ctx.stroke();
   }
-  var BEADS = ['#2BC46F', '#7E5BA3', '#E5484D', '#3E6FD8', '#F5A03C'];
+  var BEADS = ['#58CC02', '#7E5BA3', '#FF4B4B', '#3E6FD8', '#F5A03C'];
   function molecule(ctx, o) {
     var x = o.x, y = o.y, k;
     ctx.save();
     if (o.dead) ctx.globalAlpha = 0.45;
     switch (o.kind) {
-      case 'starch': for (k = 0; k < 5; k++) hexagon(ctx, x - 22 + k * 11, y + (k % 2 ? 4 : -4), 6.5, '#FFC42E'); break;
+      case 'starch': for (k = 0; k < 5; k++) hexagon(ctx, x - 22 + k * 11, y + (k % 2 ? 4 : -4), 6.5, '#FFC800'); break;
       case 'protein': for (k = 0; k < 6; k++) bead(ctx, x - 20 + k * 8, y + (k % 2 ? 6 : -6), 5.5, BEADS[k % 5]); break;
       case 'fat':
         bead(ctx, x, y, 21, '#FFD166');
@@ -291,10 +291,10 @@
         break;
       case 'bacteria':
         ctx.beginPath(); ctx.moveTo(x - 9, y - 7); ctx.lineTo(x + 9, y - 7); ctx.arc(x + 9, y, 7, -Math.PI / 2, Math.PI / 2); ctx.lineTo(x - 9, y + 7); ctx.arc(x - 9, y, 7, Math.PI / 2, Math.PI * 1.5);
-        ctx.fillStyle = o.dead ? '#9C9484' : '#9B4A8C'; ctx.fill(); ctx.lineWidth = 1.8; ctx.strokeStyle = '#14243B'; ctx.stroke();
+        ctx.fillStyle = o.dead ? '#9C9484' : '#9B4A8C'; ctx.fill(); ctx.lineWidth = 1.8; ctx.strokeStyle = '#18272D'; ctx.stroke();
         break;
-      case 'glucose': hexagon(ctx, x, y, 12, '#FFC42E'); break;
-      case 'amino': bead(ctx, x, y, 11, '#2BC46F'); break;
+      case 'glucose': hexagon(ctx, x, y, 12, '#FFC800'); break;
+      case 'amino': bead(ctx, x, y, 11, '#58CC02'); break;
       case 'fatty':
         ctx.beginPath(); ctx.moveTo(x - 16, y);
         for (k = 1; k <= 4; k++) ctx.lineTo(x - 16 + k * 8, y + (k % 2 ? -5 : 5));
@@ -305,7 +305,7 @@
         ctx.lineWidth = 4; ctx.strokeStyle = '#A9822F'; ctx.lineCap = 'round'; ctx.stroke();
     }
     ctx.restore();
-    ctx.fillStyle = '#14243B'; ctx.font = '800 11px Nunito, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#18272D'; ctx.font = '800 11px Nunito, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText(o.dead ? 'Killed by acid' : FOOD[o.kind].label, x, y + FOOD[o.kind].r + 10);
   }
   function backdrop(g, ctx) {
@@ -335,16 +335,16 @@
       // The top of a villus: the blood capillary on the left, the lacteal on the right.
       var y = H - 64;
       ctx.fillStyle = '#F7C6A8'; ctx.fillRect(0, y, W, H - y);
-      ctx.fillStyle = '#E5484D'; ctx.fillRect(14, y + 8, W / 2 - 28, 26);
+      ctx.fillStyle = '#FF4B4B'; ctx.fillRect(14, y + 8, W / 2 - 28, 26);
       ctx.fillStyle = '#FFF9E6'; ctx.strokeStyle = '#C9B27A'; ctx.lineWidth = 2; ctx.fillRect(W / 2 + 14, y + 8, W / 2 - 28, 26); ctx.strokeRect(W / 2 + 14, y + 8, W / 2 - 28, 26);
       ctx.font = '800 12px Nunito, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.fillStyle = '#FFFFFF'; ctx.fillText('BLOOD CAPILLARY', W / 4, y + 21);
-      ctx.fillStyle = '#14243B'; ctx.fillText('LACTEAL', W * 0.75, y + 21);
-      ctx.strokeStyle = 'rgba(20,36,59,.18)'; ctx.setLineDash([6, 8]); ctx.beginPath(); ctx.moveTo(W / 2, 0); ctx.lineTo(W / 2, y); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = '#18272D'; ctx.fillText('LACTEAL', W * 0.75, y + 21);
+      ctx.strokeStyle = 'rgba(24,39,45,.18)'; ctx.setLineDash([6, 8]); ctx.beginPath(); ctx.moveTo(W / 2, 0); ctx.lineTo(W / 2, y); ctx.stroke(); ctx.setLineDash([]);
     }
     if (!s.sort) {
       // Which enzyme you are, and the pH here.
-      ctx.fillStyle = '#14243B';
+      ctx.fillStyle = '#18272D';
       ctx.beginPath(); ctx.roundRect ? ctx.roundRect(10, 10, 66, 26, 13) : ctx.rect(10, 10, 66, 26); ctx.fill();
       ctx.fillStyle = '#FFFFFF'; ctx.font = '700 14px Fredoka, Nunito, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.fillText(s.ph, 43, 24);
@@ -357,7 +357,7 @@
     ctx.moveTo(x - 46, y - 8);
     ctx.lineTo(x - 16, y - 8); ctx.lineTo(x - 10, y + 4); ctx.lineTo(x + 10, y + 4); ctx.lineTo(x + 16, y - 8);
     ctx.lineTo(x + 46, y - 8); ctx.quadraticCurveTo(x + 50, y + 20, x, y + 22); ctx.quadraticCurveTo(x - 50, y + 20, x - 46, y - 8);
-    ctx.fillStyle = s.color; ctx.fill(); ctx.lineWidth = 2.4; ctx.strokeStyle = '#14243B'; ctx.stroke();
+    ctx.fillStyle = s.color; ctx.fill(); ctx.lineWidth = 2.4; ctx.strokeStyle = '#18272D'; ctx.stroke();
     ctx.fillStyle = '#FFFFFF'; ctx.font = '700 12px Fredoka, Nunito, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText(s.enzyme, x, y + 12);
   }
@@ -372,8 +372,8 @@
       ctx.globalAlpha = 1;
     });
     var left = Math.max(0, 1 - (g.last - g.t0) / g.end);
-    ctx.fillStyle = '#26395A'; ctx.fillRect(0, g.H - 6, g.W, 6);
-    ctx.fillStyle = '#2BC46F'; ctx.fillRect(0, g.H - 6, g.W * left, 6);
+    ctx.fillStyle = '#2B3B42'; ctx.fillRect(0, g.H - 6, g.W, 6);
+    ctx.fillStyle = '#58CC02'; ctx.fillRect(0, g.H - 6, g.W * left, 6);
   }
 
   // ---------------------------------------------------------------- between stops and the end

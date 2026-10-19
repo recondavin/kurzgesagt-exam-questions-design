@@ -11,8 +11,8 @@
   // 2: the lungs (catch oxygen, dodge carbon monoxide), then back through the left side of the heart.
   // 3: up the aorta and out to the body: hold still beside the cells that need oxygen so it diffuses in.
   // A wrong exit costs a heart; a question between rounds.
-  var INK = '#14243B', VALVE = '#FDF3D6', MUSCLE = '#C4683F', MUSCLE_D = '#7A3A2A', BG = '#FBEFE3';
-  var BLOOD = { de: { fill: '#9DB6EE', edge: '#3E6FD8', cell: '#B3405A', label: 'deoxygenated' }, ox: { fill: '#F6B1B3', edge: '#E5484D', cell: '#E5484D', label: 'oxygenated' } };
+  var INK = '#18272D', VALVE = '#FDF3D6', MUSCLE = '#C4683F', MUSCLE_D = '#7A3A2A', BG = '#FBEFE3';
+  var BLOOD = { de: { fill: '#9DB6EE', edge: '#3E6FD8', cell: '#B3405A', label: 'deoxygenated' }, ox: { fill: '#F6B1B3', edge: '#FF4B4B', cell: '#FF4B4B', label: 'oxygenated' } };
 
   // The heartbeat: one beat every 2 seconds. The atria contract, then the ventricles, then the heart relaxes.
   // The tricuspid and bicuspid valves are open except while the ventricles contract; the semilunar valves open only then.
@@ -376,13 +376,13 @@
     ctx.fillText(name, 14, 22);
     // The beating heart: it swells while a part of it contracts.
     var beat = ph === 'relax' || K.reduced() ? 1 : 1.18, hx = g.W - 22, hy = 22, s = 8 * beat;
-    ctx.fillStyle = '#E5484D';
+    ctx.fillStyle = '#FF4B4B';
     ctx.beginPath();
     ctx.moveTo(hx, hy + s);
     ctx.bezierCurveTo(hx - s * 1.6, hy - s * 0.2, hx - s * 0.7, hy - s * 1.3, hx, hy - s * 0.4);
     ctx.bezierCurveTo(hx + s * 0.7, hy - s * 1.3, hx + s * 1.6, hy - s * 0.2, hx, hy + s);
     ctx.fill();
-    ctx.fillStyle = ph === 'relax' ? '#5B6B85' : '#B3262B'; ctx.font = '800 12px Nunito, sans-serif'; ctx.textAlign = 'right';
+    ctx.fillStyle = ph === 'relax' ? '#5B6B85' : '#EA2B2B'; ctx.font = '800 12px Nunito, sans-serif'; ctx.textAlign = 'right';
     ctx.fillText(PHASE_TEXT[ph], g.W - 38, 23);
   }
   function draw(g, now) {
@@ -396,7 +396,7 @@
     var since = now - g.banner;
     if (since < 1100) {
       ctx.globalAlpha = Math.min(1, (1100 - since) / 300);
-      pill(ctx, g.room.name.toUpperCase(), W / 2, H / 2 - 40, '#26395A');
+      pill(ctx, g.room.name.toUpperCase(), W / 2, H / 2 - 40, '#2B3B42');
       ctx.globalAlpha = 1;
     }
   }
@@ -417,7 +417,7 @@
     ctx.fill();
     // Where you came in.
     var en = g.entry, ex = en === 'left' ? b.x0 + 10 : en === 'right' ? b.x1 - 10 : (b.x0 + b.x1) / 2, ey = en === 'top' ? b.y0 + 10 : en === 'bottom' ? b.y1 - 10 : (b.y0 + b.y1) / 2;
-    ctx.fillStyle = 'rgba(20,36,59,.18)'; ctx.beginPath(); ctx.arc(ex, ey, 6, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = 'rgba(24,39,45,.18)'; ctx.beginPath(); ctx.arc(ex, ey, 6, 0, Math.PI * 2); ctx.fill();
     // Exits: a gap in the wall, a valve if it has one, and its name.
     g.exits.forEach(function (x) {
       var half = x.gw / 2, thick = wall + squeeze + 4;
@@ -474,8 +474,8 @@
     ctx.fillStyle = '#5B3172'; ctx.textAlign = 'right';
     ctx.fillText('CAPILLARY', W - 22, H - 68);
     // Haemoglobin meter.
-    ctx.fillStyle = '#26395A'; rrect(ctx, 22, H - 100, 110, 12, 6); ctx.fill();
-    ctx.fillStyle = '#E5484D'; rrect(ctx, 22, H - 100, Math.max(6, 110 * loaded), 12, 6); ctx.fill();
+    ctx.fillStyle = '#2B3B42'; rrect(ctx, 22, H - 100, 110, 12, 6); ctx.fill();
+    ctx.fillStyle = '#FF4B4B'; rrect(ctx, 22, H - 100, Math.max(6, 110 * loaded), 12, 6); ctx.fill();
     ctx.fillStyle = INK; ctx.textAlign = 'left'; ctx.font = '800 11px Nunito, sans-serif';
     ctx.fillText('Haemoglobin ' + A.o2 + '/' + LOAD, 138, H - 94);
     g.items.forEach(function (o) { molecule(ctx, o); });
@@ -496,8 +496,8 @@
     var ctx = g.ctx, W = g.W, H = g.H, c = g.cell;
     header(g, now, 'Body capillaries');
     ctx.fillStyle = '#F6B1B3'; rrect(ctx, 0, 50, W, 48, 22); ctx.fill();
-    ctx.strokeStyle = '#E5484D'; ctx.lineWidth = 3; ctx.stroke();
-    ctx.fillStyle = '#B3262B'; ctx.font = '800 11px Nunito, sans-serif'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.strokeStyle = '#FF4B4B'; ctx.lineWidth = 3; ctx.stroke();
+    ctx.fillStyle = '#EA2B2B'; ctx.font = '800 11px Nunito, sans-serif'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
     ctx.fillText('BLOOD FLOW →', W - 12, 108);
     ctx.fillStyle = INK; ctx.textAlign = 'left';
     ctx.fillText('Oxygen on board: ' + A.o2, 12, 108);
@@ -505,11 +505,11 @@
       var y0 = g.cellTop, h = g.cellH;
       ctx.fillStyle = s.need ? '#F3DCCB' : '#D8EFD9';
       rrect(ctx, s.x - s.w / 2, y0, s.w, h, 14); ctx.fill();
-      ctx.lineWidth = s.need ? 2.5 : 2; ctx.strokeStyle = s.need ? (Math.floor(now / 400) % 2 && !K.reduced() ? '#E8551F' : '#C9A58C') : '#2BC46F'; ctx.stroke();
+      ctx.lineWidth = s.need ? 2.5 : 2; ctx.strokeStyle = s.need ? (Math.floor(now / 400) % 2 && !K.reduced() ? '#E8551F' : '#C9A58C') : '#58CC02'; ctx.stroke();
       ctx.fillStyle = '#B5838F'; ctx.beginPath(); ctx.arc(s.x, y0 + 34, 8, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = INK; ctx.font = '800 ' + (s.w < 70 ? 9 : 11) + 'px Nunito, sans-serif'; ctx.textAlign = 'center';
       ctx.fillText(s.name.replace(' cell', ''), s.x, y0 + 58);
-      ctx.fillStyle = s.need ? '#B3262B' : '#1E8A50';
+      ctx.fillStyle = s.need ? '#EA2B2B' : '#1E8A50';
       ctx.fillText(s.need ? 'needs O₂' + (s.need > 1 ? ' ×' + s.need : '') : '✓', s.x, y0 + 74);
       if (s.hold > 0) { ctx.fillStyle = '#45C4EE'; ctx.fillRect(s.x - s.w / 2 + 6, y0 + 6, (s.w - 12) * Math.min(1, s.hold / 650), 5); }
     });
@@ -524,8 +524,8 @@
   }
   function timeBar(g, now) {
     var ctx = g.ctx, left = Math.max(0, 1 - (now - g.t0) / g.secs);
-    ctx.fillStyle = '#26395A'; ctx.fillRect(0, g.H - 6, g.W, 6);
-    ctx.fillStyle = left < 0.2 ? '#E5484D' : '#2BC46F'; ctx.fillRect(0, g.H - 6, g.W * left, 6);
+    ctx.fillStyle = '#2B3B42'; ctx.fillRect(0, g.H - 6, g.W, 6);
+    ctx.fillStyle = left < 0.2 ? '#FF4B4B' : '#58CC02'; ctx.fillRect(0, g.H - 6, g.W * left, 6);
   }
 
   // ---------------------------------------------------------------- between rounds, and the end

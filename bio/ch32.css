@@ -1,5 +1,5 @@
 /* Chapter 32: Immune chase (bio/act32.js). The stage, canvas, overlay and hearts are the shared .nr-* styles in bio.css. */
-.ic-pic { max-width: 300px; margin: 0 auto 12px; border-radius: 12px; overflow: hidden; line-height: 0; border: 2px solid #2A3D5E; }
+.ic-pic { max-width: 300px; margin: 0 auto 12px; border-radius: 12px; overflow: hidden; line-height: 0; border: 2px solid #37464F; }
 .ic-pic svg { display: block; width: 100%; height: auto; }
 .ic-stage { background: #FCE9D6; }
 @media (max-width: 520px) {

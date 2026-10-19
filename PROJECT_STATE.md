@@ -141,6 +141,7 @@ No session files need to be deleted. Project history and assets live in this pro
 Continue from the screenshot-based question block. Do not return to the rejected hand-built CSS version unless the user explicitly asks.
 
 ## Answer mode (answer-mode.js)
+- Colours (chosen by the user from three mock-ups): slate like Duolingo's dark mode, used by `answer-mode.js`, the Biology CSS and the Biology scripts (not by generated art: diagrams, mini-games art, Draw it). Page #131F24, panels #18272D, cards #202F36, raised #2B3B42, lines #37464F; text #F1F7FB / #DCE6EC / #B9C7CF / #93A5AE / #7C8F98 / #5D7079; yellow #FFC800 (edge #E0A000), green #58CC02 (edge #58A700, light #89E219 / #A5ED6E), red #FF4B4B (#EA2B2B), blue #1CB0F6 (#1899D6), orange #FF9600 (#E08500). The exam paper keeps its cream #FFFEF8 and navy ink #13294A, so it matches the diagrams. The desk scene is unchanged; only the guide's green Next button and step bars on the desk page follow the new green.
 
 - Finishing the 3B or 3C focus guide opens answer mode: the page clears, the real question crop (`assets/answer/q3b.png`, `q3c.png`) flies to the top of a ruled sheet, and the student types on the lines.
 - Nothing is marked while typing. "Check my answer" marks the whole answer against an SRP bank written in the SEC style (15 SRPs x 2 marks): scoring sentences turn green one by one with a tick and +2, non-scoring ones get an orange wavy underline. The coach then shows the result with Continue writing / Finish / Still don't get it; Finish opens a results card (points made, points to add).

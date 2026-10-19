@@ -113,14 +113,14 @@
     var half = m.given ? (m.t.length * 6.8 + 16) / 2 + 4 : 14;  // keep the whole tag inside the frame
     lx = Math.max(half, Math.min(480 - half, lx));
     ly = Math.max(14, Math.min(306, ly));
-    var line = '<path d="M' + lx.toFixed(1) + ' ' + ly.toFixed(1) + 'L' + at[0] + ' ' + at[1] + '" stroke="#14243B" stroke-width="1.8"/><circle cx="' + at[0] + '" cy="' + at[1] + '" r="2.6" fill="#14243B"/>';
+    var line = '<path d="M' + lx.toFixed(1) + ' ' + ly.toFixed(1) + 'L' + at[0] + ' ' + at[1] + '" stroke="#18272D" stroke-width="1.8"/><circle cx="' + at[0] + '" cy="' + at[1] + '" r="2.6" fill="#18272D"/>';
     if (m.given) {
       var w = m.t.length * 6.8 + 16;
-      return line + '<rect x="' + (lx - w / 2).toFixed(1) + '" y="' + (ly - 10) + '" width="' + w.toFixed(1) + '" height="20" rx="10" fill="#14243B"/>' +
+      return line + '<rect x="' + (lx - w / 2).toFixed(1) + '" y="' + (ly - 10) + '" width="' + w.toFixed(1) + '" height="20" rx="10" fill="#18272D"/>' +
         '<text x="' + lx.toFixed(1) + '" y="' + ly.toFixed(1) + '" text-anchor="middle" dominant-baseline="central" font-family="Lexend, Nunito, sans-serif" font-weight="600" font-size="11.5" fill="#FFFFFF">' + esc(m.t) + '</text>';
     }
-    return line + '<circle cx="' + lx.toFixed(1) + '" cy="' + ly.toFixed(1) + '" r="11" fill="#FFFFFF" stroke="#14243B" stroke-width="2"/>' +
-      '<text x="' + lx.toFixed(1) + '" y="' + (ly + 0.5).toFixed(1) + '" text-anchor="middle" dominant-baseline="central" font-family="Fredoka, Nunito, sans-serif" font-weight="700" font-size="13" fill="#14243B">' + esc(m.t) + '</text>';
+    return line + '<circle cx="' + lx.toFixed(1) + '" cy="' + ly.toFixed(1) + '" r="11" fill="#FFFFFF" stroke="#18272D" stroke-width="2"/>' +
+      '<text x="' + lx.toFixed(1) + '" y="' + (ly + 0.5).toFixed(1) + '" text-anchor="middle" dominant-baseline="central" font-family="Fredoka, Nunito, sans-serif" font-weight="700" font-size="13" fill="#18272D">' + esc(m.t) + '</text>';
   }
   function baseSvg(base, marks, tap) {
     var art = ART[base];
@@ -138,23 +138,23 @@
   // A graph from the paper. Simple: {title, trend: 'up' | 'down'} (one dashed line over time). Full:
   // {title, x, y (axis names), series: [{name, pts: [[x, y], ...]}], marks: [{t, at: [x, y]}], xt / yt (tick labels:
   // [[x, 'text'], ...]), key: 'left' to put the key top left}, x and y from 0 to 100. Series after the first are dashed.
-  var GRAPH_COLORS = ['#E5484D', '#3E6FD8', '#2BC46F', '#7E5BA3'];
+  var GRAPH_COLORS = ['#FF4B4B', '#3E6FD8', '#58CC02', '#7E5BA3'];
   function graphSvg(g) {
-    var T = function (x, y, txt, more, size) { return '<text x="' + x + '" y="' + y + '" font-family="Nunito, sans-serif" font-weight="800" font-size="' + (size || 11) + '" fill="#14243B"' + (more || '') + '>' + esc(txt) + '</text>'; };
+    var T = function (x, y, txt, more, size) { return '<text x="' + x + '" y="' + y + '" font-family="Nunito, sans-serif" font-weight="800" font-size="' + (size || 11) + '" fill="#18272D"' + (more || '') + '>' + esc(txt) + '</text>'; };
     if (!g.series) {
       var y1 = g.trend === 'down' ? 40 : 120, y2 = g.trend === 'down' ? 120 : 40;
       return '<svg viewBox="0 0 220 160" role="img"><title>' + esc(g.title) + '</title><rect width="220" height="160" fill="#FFFFFF"/>' +
-        '<path d="M30 14V140H210" fill="none" stroke="#14243B" stroke-width="2"/>' +
-        '<path d="M34 ' + y1 + 'C90 ' + y1 + ' 150 ' + y2 + ' 204 ' + y2 + '" fill="none" stroke="#E5484D" stroke-width="3" stroke-dasharray="7 5"/>' +
+        '<path d="M30 14V140H210" fill="none" stroke="#18272D" stroke-width="2"/>' +
+        '<path d="M34 ' + y1 + 'C90 ' + y1 + ' 150 ' + y2 + ' 204 ' + y2 + '" fill="none" stroke="#FF4B4B" stroke-width="3" stroke-dasharray="7 5"/>' +
         T(120, 156, 'Time', ' text-anchor="middle"') + T(36, 12, g.title) + '</svg>';
     }
     // Plot area: x 56..456, y 36..260 on a 480 x 320 card.
     var X = function (v) { return (56 + v * 4).toFixed(1); }, Y = function (v) { return (260 - v * 2.24).toFixed(1); };
     var out = '<svg viewBox="0 0 480 320" role="img"><title>' + esc(g.title || '') + '</title><rect width="480" height="320" fill="#FFFFFF"/>';
     if (g.title) out += T(240, 20, g.title, ' text-anchor="middle"', 13);
-    out += '<path d="M56 30V260H462" fill="none" stroke="#14243B" stroke-width="2"/>';
-    (g.xt || []).forEach(function (t) { out += '<path d="M' + X(t[0]) + ' 260v5" stroke="#14243B" stroke-width="1.5"/>' + T(X(t[0]), 278, t[1], ' text-anchor="middle"', 10); });
-    (g.yt || []).forEach(function (t) { out += '<path d="M51 ' + Y(t[0]) + 'h5" stroke="#14243B" stroke-width="1.5"/>' + T(47, +Y(t[0]) + 4, t[1], ' text-anchor="end"', 10); });
+    out += '<path d="M56 30V260H462" fill="none" stroke="#18272D" stroke-width="2"/>';
+    (g.xt || []).forEach(function (t) { out += '<path d="M' + X(t[0]) + ' 260v5" stroke="#18272D" stroke-width="1.5"/>' + T(X(t[0]), 278, t[1], ' text-anchor="middle"', 10); });
+    (g.yt || []).forEach(function (t) { out += '<path d="M51 ' + Y(t[0]) + 'h5" stroke="#18272D" stroke-width="1.5"/>' + T(47, +Y(t[0]) + 4, t[1], ' text-anchor="end"', 10); });
     if (g.x) out += T(259, 304, g.x, ' text-anchor="middle"');
     if (g.y) out += '<g transform="translate(18 145) rotate(-90)">' + T(0, 0, g.y, ' text-anchor="middle"') + '</g>';
     g.series.forEach(function (sr, k) {
@@ -169,8 +169,8 @@
       if (g.series.length > 1 && sr.name) out += '<path d="M' + kx + ' ' + (40 + k * 18) + 'h22" stroke="' + c + '" stroke-width="3"' + (k ? ' stroke-dasharray="6 4"' : '') + '/>' + T(kx + 28, 44 + k * 18, sr.name);
     });
     (g.marks || []).forEach(function (m) {
-      out += '<circle cx="' + X(m.at[0]) + '" cy="' + Y(m.at[1]) + '" r="11" fill="#FFFFFF" stroke="#14243B" stroke-width="2"/>' +
-        '<text x="' + X(m.at[0]) + '" y="' + (+Y(m.at[1]) + 0.5) + '" text-anchor="middle" dominant-baseline="central" font-family="Fredoka, Nunito, sans-serif" font-weight="700" font-size="13" fill="#14243B">' + esc(m.t) + '</text>';
+      out += '<circle cx="' + X(m.at[0]) + '" cy="' + Y(m.at[1]) + '" r="11" fill="#FFFFFF" stroke="#18272D" stroke-width="2"/>' +
+        '<text x="' + X(m.at[0]) + '" y="' + (+Y(m.at[1]) + 0.5) + '" text-anchor="middle" dominant-baseline="central" font-family="Fredoka, Nunito, sans-serif" font-weight="700" font-size="13" fill="#18272D">' + esc(m.t) + '</text>';
     });
     return out + '</svg>';
   }
@@ -350,7 +350,7 @@
     if ((t = e.target.closest('[data-bio-tap]'))) {
       var pk = +t.getAttribute('data-bio-tappart'), a = t.getAttribute('data-bio-tap'), mark = sheet.card.querySelector('[data-bio-tapmark]'), c = ART[sheet.q.dia.base].anchors[a];
       sheet.tap[pk] = a;
-      mark.innerHTML = '<circle cx="' + c[0] + '" cy="' + c[1] + '" r="13" fill="#FFE14D" stroke="#14243B" stroke-width="2"/><text x="' + c[0] + '" y="' + (c[1] + 0.5) + '" text-anchor="middle" dominant-baseline="central" font-family="Fredoka, Nunito, sans-serif" font-weight="700" font-size="13" fill="#14243B">✓</text>';
+      mark.innerHTML = '<circle cx="' + c[0] + '" cy="' + c[1] + '" r="13" fill="#FFE14D" stroke="#18272D" stroke-width="2"/><text x="' + c[0] + '" y="' + (c[1] + 0.5) + '" text-anchor="middle" dominant-baseline="central" font-family="Fredoka, Nunito, sans-serif" font-weight="700" font-size="13" fill="#18272D">✓</text>';
       return;
     }
     if ((t = e.target.closest('[data-bio-self]'))) { selfTick(t); return; }
