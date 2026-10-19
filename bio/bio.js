@@ -22,7 +22,17 @@
     return null;
   }
   function chapter(n) { return CHAPTERS.filter(function (c) { return c.n === n; })[0]; }
-  function scoreOf(qid) { try { return JSON.parse(store('bio-q-' + qid) || 'null'); } catch (err) { return null; } }
+  // A question's best score in chapter n. Some exam questions are split across chapters, each with its own parts, so
+  // scores are kept per chapter; a score saved before that (under the id alone) still counts where its marks match.
+  function scoreKey(n, q) { return 'bio-q-' + n + '-' + q.id; }
+  function scoreOf(n, q) {
+    try {
+      var s = JSON.parse(store(scoreKey(n, q)) || 'null');
+      if (s) return s;
+      s = JSON.parse(store('bio-q-' + q.id) || 'null');
+      return s && s.out === questionOutOf(q) ? s : null;
+    } catch (err) { return null; }
+  }
 
   // ---------- marking: the same word rules as tools/bio/build_bio_questions.py ----------
   var SYNONYMS = { big: 'large', huge: 'large', tiny: 'small', lots: 'many', quick: 'fast', quicker: 'faster', o2: 'oxygen', h2o: 'water' };
@@ -188,33 +198,70 @@
   // ---------- the page ----------
   function counts(n) {
     var d = QS[n], qn = d ? d.questions.length : 0, done = 0, art = 0;
-    if (d) d.questions.forEach(function (q) { if (scoreOf(q.id)) done += 1; });
+    if (d) d.questions.forEach(function (q) { if (scoreOf(n, q)) done += 1; });
     Object.keys(ART).forEach(function (id) { if (ART[id].chapter === n) art += 1; });
     return { questions: qn, done: done, diagrams: art };
   }
+  // ---------- the shell (biology.html): sidebar, top bar and canvas ----------
+  var side = null, bar = null;
+  function progressApi() {
+    return { chapters: CHAPTERS, questions: allQuestions, real: function (n) { return QS[n] ? QS[n].questions.length : 0; }, scoreOf: scoreOf, store: store, esc: esc, drills: drills };
+  }
+  // Each chapter's drills (games, Learn it, Build it) and how many have a saved best.
+  function drills(n) {
+    var L = LEARN[n] || {}, keys = [];
+    if (L.action) keys.push('bio-act-' + n);
+    if (L.games && L.games.chains) keys.push('am-chain-bio-' + n);
+    if (L.games && L.games.level) keys.push('am-level-bio-' + n);
+    if (L.examiner && L.examiner.length) keys.push('bio-exam-' + n);
+    ['match', 'spot', 'sprint'].forEach(function (k) { if (L[k] && L[k].length) keys.push('bio-' + k + '-' + n); });
+    (L.learn || []).forEach(function (x, k) { keys.push('bio-learn-' + n + '-' + k); });
+    Object.keys(ART).forEach(function (id) { if (ART[id].chapter === n) keys.push('bio-build-' + id); });
+    return [keys.filter(function (k) { return store(k); }).length, keys.length];
+  }
+  function chapterRows() { return window.BioProgress ? window.BioProgress.model(progressApi()).now.rows : []; }
+  function renderShell(active, crumb) {
+    if (!side) return;
+    var rows = chapterRows();
+    side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
+      '<nav class="sh-nav" aria-label="Biology"><a class="sh-link" href="#"' + (active === 'home' ? ' aria-current="page"' : '') + '><span class="sh-t">Progress</span></a>' +
+      '<p class="sh-group">Chapters</p>' + CHAPTERS.map(function (c, i) {
+        var r = rows[i], v = r && r.seen != null ? Math.round(r.seen * 100) + '%' : '<span class="dash">–</span>';
+        return '<a class="sh-link" href="#ch' + c.n + '"' + (active === c.n ? ' aria-current="page"' : '') + '><span class="sh-n num">' + c.n + '</span><span class="sh-t">' + esc(c.short) + '</span><span class="sh-v num">' + v + '</span></a>';
+      }).join('') + '</nav>' +
+      '<p class="sh-foot">Your answers and scores are saved in this browser.</p>';
+    bar.innerHTML = '<button type="button" class="sh-menu" data-sh-menu aria-expanded="false" aria-controls="bio-side"><span class="sh-burger" aria-hidden="true"></span><span class="sr">Menu</span></button>' +
+      '<p class="sh-crumb"><a href="#">Biology</a><span class="sh-sep" aria-hidden="true">/</span><span class="sh-here">' + esc(crumb) + '</span></p>' +
+      '<nav class="sh-switch" aria-label="Subject"><a href="Geography%20Questions.dc.html">Geography</a><a href="biology.html" aria-current="page">Biology</a></nav>';
+  }
+  function menu(open) {
+    document.body.classList.toggle('sh-open', open);
+    var b = bar && bar.querySelector('[data-sh-menu]');
+    if (b) b.setAttribute('aria-expanded', String(open));
+  }
   function renderHome() {
-    document.title = 'Biology | Leaving Cert revision';
-    app.innerHTML = '<header class="bio-top"><div class="bio-face" aria-hidden="true">' + (K ? K.face : '') + '</div>' +
-      '<div><p class="bio-kicker">Leaving Cert Biology · Higher Level · exam 2027</p><h1 class="bio-h1">The human body</h1>' +
-      '<p class="bio-lead">Every real exam question on these chapters since 2004, plus the 2027 sample papers, marked the way the SEC marks them. Then games to make it stick.</p></div></header>' +
-      '<ol class="bio-chapters">' + CHAPTERS.map(function (c) {
-        var k = counts(c.n), pct = k.questions ? Math.round(k.done / k.questions * 100) : 0;
-        return '<li><a class="bio-ch" href="#ch' + c.n + '"><span class="bio-ch__n">' + c.n + '</span>' +
-          '<span class="bio-ch__text"><span class="bio-ch__unit">' + esc(c.unit) + '</span><b>' + esc(c.title) + '</b>' +
-          '<span class="bio-ch__meta">' + k.questions + ' exam questions' + (k.diagrams ? ' · ' + k.diagrams + ' diagrams' : '') + '</span>' +
-          '<span class="bio-bar" aria-label="' + k.done + ' of ' + k.questions + ' questions done"><i style="width:' + pct + '%"></i></span></span>' +
-          '<i class="bio-go" aria-hidden="true"></i></a></li>';
-      }).join('') + '</ol>';
+    document.title = 'Progress | Leaving Cert Biology';
+    renderShell('home', 'Progress');
+    if (window.BioProgress) window.BioProgress.render(app, progressApi());
+  }
+  // The next question to answer in a chapter: the first real one you haven't tried, else your lowest score.
+  function openNext(n) {
+    var list = (QS[n] || {}).questions || [], q = list.filter(function (x) { return !scoreOf(n, x); })[0];
+    if (!q) q = list.slice().sort(function (a, b) { var A = scoreOf(n, a), B = scoreOf(n, b); return A.got / A.out - B.got / B.out; })[0];
+    if (q) openOnDesk(n, q.id);
   }
   var TABS = [['questions', 'Exam questions'], ['diagrams', 'Diagrams'], ['games', 'Games'], ['learn', 'Learn it']];
   function renderChapter(n, tab) {
-    var c = chapter(n), d = QS[n];
+    var c = chapter(n);
     if (!c) { renderHome(); return; }
     tab = tab || store('bio-tab') || 'questions';
     document.title = c.short + ' | Leaving Cert Biology';
-    app.innerHTML = '<a class="bio-back" href="#">All chapters</a>' +
-      '<header class="bio-chhead"><span class="bio-ch__n">' + n + '</span><div><p class="bio-kicker">' + esc(c.unit) + '</p><h1 class="bio-h1">' + esc(c.title) + '</h1></div></header>' +
-      '<nav class="bio-tabs" role="tablist">' + TABS.map(function (t) {
+    renderShell(n, c.title);
+    var k = counts(n), r = chapterRows()[CHAPTERS.indexOf(c)], seen = r && r.seen != null ? Math.round(r.seen * 100) : null;
+    app.innerHTML = '<div class="cv-title rise" style="--i:0"><div><h1 class="cv-h1">' + esc(c.title) + '</h1>' +
+      '<p class="cv-sub">Chapter ' + n + ' · ' + k.questions + ' exam questions' + (k.diagrams ? ' · ' + k.diagrams + ' diagrams' : '') +
+        (seen != null ? ' · you\'ve answered ' + r.count + (r.count === 1 ? ' question' : ' questions') + ' and got ' + seen + '% of their marks' : ' · none answered yet') + '</p></div></div>' +
+      '<nav class="bio-tabs rise" style="--i:1" role="tablist">' + TABS.map(function (t) {
         return '<button type="button" role="tab" class="bio-tab" data-bio-tab="' + t[0] + '" aria-selected="' + (t[0] === tab) + '">' + t[1] + '</button>';
       }).join('') + '</nav><section class="bio-panel" data-bio-panel></section>';
     showTab(n, tab);
@@ -227,6 +274,9 @@
     else if (tab === 'diagrams') panel.innerHTML = diagramList(n);
     else if (tab === 'games') panel.innerHTML = gameList(n);
     else panel.innerHTML = learnList(n);
+    panel.querySelectorAll(':scope > p, :scope > div, :scope > details, :scope > ul > li').forEach(function (x, i) {
+      if (i < 14) { x.classList.add('rise'); x.style.setProperty('--i', i + 2); }
+    });
   }
   var FILTERS = [['all', 'All'], ['A', 'Short (Section A)'], ['B', 'Experiments (B)'], ['C', 'Long (Section C)'], ['sample', '2027 samples'], ['practice', 'Practice']];
   function questionList(n, d) {
@@ -240,7 +290,7 @@
         return '<button type="button" class="bio-chip" data-bio-filter="' + x[0] + '" aria-pressed="' + (x[0] === f) + '">' + x[1] + '</button>';
       }).join('') + '</div>' +
       '<ul class="bio-qlist">' + list.map(function (q) {
-        var s = scoreOf(q.id), out = questionOutOf(q), first = q.parts[0] ? q.parts[0].q : '';
+        var s = scoreOf(n, q), out = questionOutOf(q), first = q.parts[0] ? q.parts[0].q : '';
         return '<li><button type="button" class="bio-q" data-bio-open="' + esc(q.id) + '">' +
           '<span class="bio-q__src">' + (q.sec === 'practice' ? 'Practice<em>Not a real paper</em>' : esc(q.year === 2027 ? '2027 sample ' + q.id.split('-')[0].slice(1) : String(q.year)) + '<em>' + esc(q.id.split('-').slice(1).join('-')) + '</em>') + '</span>' +
           '<span class="bio-q__text">' + esc((q.stem ? q.stem + ' ' : '') + first).slice(0, 150) + '</span>' +
@@ -432,27 +482,49 @@
     });
     K.rollTo(sheet.card.querySelector('[data-am-gscore]'), total);
     sheet.q.parts.forEach(function (p, k) { K.gameSeg(sheet.card, k, sheet.got[k] ? (partScore(p, sheet.got[k]) >= partOutOf(p) ? 'is-ok' : partScore(p, sheet.got[k]) ? 'is-half' : 'is-no') : ''); });
-    // Saved as you go: the best total so far, and how many parts were checked.
-    var out = questionOutOf(sheet.q), best = scoreOf(sheet.q.id), done = sheet.got.filter(Boolean).length;
-    if (!best || total > best.got || (total === best.got && done > (best.done || 0))) store('bio-q-' + sheet.q.id, JSON.stringify({ got: total, out: out, done: done }));
+    // Saved as you go: the best total so far, how many parts were checked and the marks they're worth. The day's
+    // score also goes in the log that Progress draws its trend from.
+    var out = questionOutOf(sheet.q), best = scoreOf(sheet.n, sheet.q), done = sheet.got.filter(Boolean).length, tried = 0;
+    sheet.q.parts.forEach(function (p, k) { if (sheet.got[k]) tried += partOutOf(p); });
+    if (!best || total > best.got || (total === best.got && done > (best.done || 0))) store(scoreKey(sheet.n, sheet.q), JSON.stringify({ got: total, out: out, done: done, tried: tried }));
+    logScore(sheet.n, sheet.q.id, total, tried);
     if (all && total >= out) K.later(K.fanfare, 300);
+  }
+
+  // The day's best for each question goes in the log (the saved score is the best ever, so the two agree).
+  function logScore(n, id, got, tried) {
+    var log = [], t = new Date(), d = t.getFullYear() + '-' + ('0' + (t.getMonth() + 1)).slice(-2) + '-' + ('0' + t.getDate()).slice(-2);
+    try { log = JSON.parse(store('bio-log') || '[]'); } catch (err) {}
+    if (!Array.isArray(log)) log = [];
+    for (var i = log.length - 1; i >= 0 && log[i].d === d; i--) {
+      if (log[i].n !== n || log[i].id !== id) continue;
+      if (log[i].got > got || (log[i].got === got && log[i].tried >= tried)) return;
+      log.splice(i, 1);
+      break;
+    }
+    log.push({ d: d, n: n, id: id, got: got, tried: tried });
+    store('bio-log', JSON.stringify(log.slice(-800)));
   }
 
   // ---------- routing ----------
   function route() {
     if (!app) return;
     var h = location.hash.replace(/^#/, ''), m = h.match(/^ch(\d+)$/);
+    menu(false);
+    app.classList.remove('is-settled');
     if (m) renderChapter(+m[1]); else renderHome();
     window.scrollTo(0, 0);
   }
-  // After a card closes: the same view with fresh scores, scrolled where it was.
+  // After a card closes: the same view with fresh scores, scrolled where it was, without animating in again.
   function refresh() {
     var y = window.scrollY, h = location.hash.replace(/^#/, ''), m = h.match(/^ch(\d+)$/);
+    app.classList.add('is-settled');
     if (m) renderChapter(+m[1], store('bio-tab')); else renderHome();
     window.scrollTo(0, y);
   }
   function onClick(e) {
     var t;
+    if ((t = e.target.closest('[data-pg-next]'))) { openNext(+t.getAttribute('data-pg-next')); return; }
     if ((t = e.target.closest('[data-bio-tab]'))) { var n = +location.hash.replace(/\D/g, ''); showTab(n, t.getAttribute('data-bio-tab')); return; }
     if ((t = e.target.closest('[data-bio-filter]'))) { store('bio-filter', t.getAttribute('data-bio-filter')); showTab(+location.hash.replace(/\D/g, ''), 'questions'); return; }
     if ((t = e.target.closest('[data-bio-open]'))) { openOnDesk(+location.hash.replace(/\D/g, ''), t.getAttribute('data-bio-open')); return; }
@@ -479,7 +551,29 @@
   function start() {
     app = document.getElementById('bio-app');
     if (!app) return;
+    side = document.getElementById('bio-side');
+    bar = document.getElementById('bio-top');
     app.addEventListener('click', onClick);
+    app.addEventListener('change', function (e) {
+      if (!e.target.matches('[data-pg-target]')) return;
+      store('bio-target', e.target.value);
+      refresh();
+      var sel = app.querySelector('[data-pg-target]');
+      if (sel) sel.focus();
+    });
+    if (bar) bar.addEventListener('click', function (e) { if (e.target.closest('[data-sh-menu]')) menu(!document.body.classList.contains('sh-open')); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('sh-open')) menu(false); });
+    // The charts are drawn to their box's width, so they're redrawn when it changes.
+    var wait = null, lastW = window.innerWidth;
+    window.addEventListener('resize', function () {
+      clearTimeout(wait);
+      wait = setTimeout(function () {
+        if (window.innerWidth === lastW) return;
+        lastW = window.innerWidth;
+        if (window.BioProgress && app.querySelector('[data-pg-ladder]')) window.BioProgress.redraw(app, progressApi());
+        if (window.innerWidth > 1100) menu(false);
+      }, 150);
+    });
     window.addEventListener('hashchange', route);
     route();
   }

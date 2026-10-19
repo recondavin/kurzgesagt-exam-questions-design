@@ -23,42 +23,12 @@ a { color: inherit; }
 button { font: inherit; }
 .bio-app { max-width: 880px; margin: 0 auto; padding: 24px 16px 64px; }
 
-/* Geography / Biology switch (the desk page has the same one). */
-.bio-subjects { display: flex; justify-content: flex-end; gap: 2px; max-width: 880px; margin: 0 auto; padding: 14px 16px 0; }
-.bio-subjects a { padding: 7px 14px; border-radius: 999px; color: var(--soft); text-decoration: none; font: 600 15px/1 Fredoka, Nunito, sans-serif; }
-.bio-subjects a[aria-current="page"] { background: var(--yellow); color: var(--panel); }
-.bio-subjects a:hover:not([aria-current]) { color: #fff; }
-.bio-subjects a:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
 
-/* Top of the home page: the examiner and the title. */
-.bio-top { display: flex; align-items: center; gap: 18px; margin: 4px 0 24px; }
-.bio-face { flex: 0 0 96px; height: 109px; }
-.bio-face svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.bio-face .m-happy, .bio-face .m-angry, .bio-face .x-steam { display: none; }
-.bio-kicker { margin: 0 0 2px; font: 700 13px Fredoka, Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; color: var(--yellow); }
-.bio-h1 { margin: 0; font: 700 34px/1.1 Fredoka, Nunito, sans-serif; color: var(--text); }
-.bio-lead { max-width: 620px; margin: 8px 0 0; color: var(--soft); }
 
-/* Chapter list. */
-.bio-chapters { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
-.bio-ch { display: flex; align-items: center; gap: 16px; padding: 16px 18px; border: 2px solid var(--line); border-bottom-width: 4px; border-radius: 18px; background: var(--card); text-decoration: none; transition: border-color .2s ease; }
-.bio-ch:hover { border-color: var(--yellow); }
-.bio-ch:active { transform: translateY(2px); }
-.bio-ch:focus-visible, .bio-q:focus-visible, .bio-g:focus-visible, .bio-tab:focus-visible, .bio-chip:focus-visible, .bio-btn:focus-visible, .bio-back:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
-.bio-ch__n { flex: 0 0 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; background: var(--yellow); color: var(--panel); box-shadow: 0 3px 0 var(--yellow-d); font: 700 26px Fredoka, Nunito, sans-serif; }
-.bio-ch__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.bio-ch__unit { font: 700 12px Fredoka, Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; color: var(--mute); }
-.bio-ch__text b { font: 700 21px/1.2 Fredoka, Nunito, sans-serif; color: var(--text); }
-.bio-ch__meta { color: var(--soft); font-size: 14.5px; }
-.bio-bar { display: block; height: 8px; margin-top: 6px; border-radius: 4px; background: #2B3B42; overflow: hidden; }
-.bio-bar i { display: block; height: 100%; border-radius: 4px; background: var(--green); }
+.bio-q:focus-visible, .bio-g:focus-visible, .bio-tab:focus-visible, .bio-chip:focus-visible, .bio-btn:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
 .bio-go { flex: none; width: 10px; height: 10px; margin-right: 4px; border: solid var(--yellow); border-width: 3px 3px 0 0; transform: rotate(45deg); }
 
-/* A chapter. */
-.bio-back { display: inline-block; margin: 0 0 14px; padding: 6px 2px; color: var(--soft); text-decoration: none; font: 700 15px Fredoka, Nunito, sans-serif; }
-.bio-back::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border: solid currentColor; border-width: 0 0 2.5px 2.5px; transform: rotate(45deg) translateY(-2px); }
-.bio-back:hover { color: #fff; }
-.bio-chhead { display: flex; align-items: center; gap: 16px; margin: 0 0 18px; }
+/* A chapter (its tabs and lists; bio-shell.css restyles them inside the shell). */
 .bio-tabs { display: flex; gap: 6px; margin: 0 0 16px; padding: 4px; border-radius: 16px; background: var(--panel); overflow-x: auto; }
 .bio-tab { flex: 1 0 auto; padding: 10px 14px; border: 0; border-radius: 12px; background: transparent; color: var(--soft); font: 700 16px Fredoka, Nunito, sans-serif; cursor: pointer; white-space: nowrap; }
 .bio-tab[aria-selected="true"] { background: var(--card); color: #fff; box-shadow: inset 0 0 0 2px var(--yellow); }
@@ -100,8 +70,6 @@ button { font: inherit; }
 
 
 @media (max-width: 600px) {
-  .bio-h1 { font-size: 27px; }
-  .bio-face { flex-basis: 70px; height: 80px; }
   .bio-q { grid-template-columns: 64px 1fr; }
   .bio-q__meta { grid-column: 2; flex-direction: row; align-items: center; }
   .bio-d { grid-template-columns: 1fr; }
