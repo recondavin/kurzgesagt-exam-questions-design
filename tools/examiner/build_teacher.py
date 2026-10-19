@@ -201,6 +201,11 @@ svg = (
     '<path class="tch-eye" d="' + trace(pupilR) + '" fill="' + INK + '" style="transform-origin:%.0fpx %.0fpx"/></g>' % pr +
     '<g class="tch-mouth" style="transform-origin:%.0fpx %dpx"><path d="' % (mx, my) + trace(tooth) + '" fill="#FFFFFF"/>'
     '<path d="' + trace(mouth) + '" fill="' + INK + '" fill-rule="evenodd"/></g>'
+    # his smile, shown instead of the open mouth when he's pleased: a grin with a row of teeth
+    '<g class="tch-smile" style="transform-origin:404px 390px">'
+    '<path d="M334 389C370 403 432 405 474 378C470 409 441 437 404 439C370 440 346 419 334 389Z" fill="' + INK + '"/>'
+    '<path d="M350 398C384 409 430 409 461 391L456 404C428 419 384 419 355 409Z" fill="#FFFFFF"/>'
+    '<path d="M324 381Q329 391 339 393M484 370Q481 380 471 383" fill="none" stroke="' + INK + '" stroke-width="7" stroke-linecap="round"/></g>'
     '</g></svg>'
 )
 # The head on its own: the same face, brows, eyes and mouth, kept inside the head's outline, with its own white edge.
@@ -223,7 +228,7 @@ head_svg = (
 
 # How he moves. Waiting: he breathes, blinks, glances round, lifts his brows now and then and sways the stick.
 # Talking (is-talking): his jaw works, the stick wags from the wrist and his brows lift on the beat.
-# Happy: brows up. Angry and furious: brows down (answer-mode.js reddens his face, shakes him and adds steam).
+# Happy: brows up and a grin. Angry and furious: brows down (answer-mode.js reddens his face, shakes him and adds steam).
 CSS = ''.join([
     'svg.tch{display:block;width:100%;height:100%;overflow:visible}',
     'svg.tch.tch--right{scale:-1 1}',
@@ -248,6 +253,11 @@ CSS = ''.join([
     '@keyframes tchWag{0%,100%{transform:rotate(3deg)}50%{transform:rotate(-7deg)}}',
     '@keyframes tchBrowTalk{0%,55%,100%{transform:translateY(0) rotate(0deg)}12%,35%{transform:translateY(-6px) rotate(calc(var(--tilt,0deg) * .8))}}',
     '[data-mood="happy"] .tch-brow{animation:none;transform:translateY(-8px) rotate(var(--tilt,0deg))}',
+    '.tch-smile{display:none;transform-box:view-box}',
+    '[data-mood="happy"] .tch-smile{display:inline}',
+    '[data-mood="happy"] .tch-mouth{display:none}',
+    '.is-talking[data-mood="happy"] .tch-smile,[data-mood="happy"] .is-talking .tch-smile{animation:tchGrin .44s ease-in-out infinite}',
+    '@keyframes tchGrin{0%,100%{transform:scaleY(1)}40%{transform:scaleY(.72)}}',
     '[data-mood="angry"] .tch-brow,[data-mood="furious"] .tch-brow{animation:none;transform:translateY(5px) rotate(calc(var(--tilt,0deg) * -.4))}',
     'svg.tch .x-steam circle{transform-box:fill-box;transform-origin:center;animation:tchSteam 1.1s ease-out infinite}',
     'svg.tch .x-steam circle:nth-child(2n){animation-delay:.45s}',
