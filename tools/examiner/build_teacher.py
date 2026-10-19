@@ -85,6 +85,7 @@ def pick(xa, xb, ya, yb):
 
 
 pupilL, pupilR, mouth = pick(263, 297, 248, 285), pick(423, 459, 253, 290), pick(322, 462, 362, 425)
+lip = pick(350, 401, 422, 446) | pick(463, 486, 431, 452)    # his lower lip line and chin mark, hidden while he smiles
 
 # ---------- the brows: the ink above and between the two round lenses, down to the bridge ----------
 LENS_L, LENS_R = (277.9, 271.8, 58.5), (456.3, 280.5, 69.7)  # centre and outer radius of each rim, plus a pixel
@@ -118,7 +119,7 @@ def solid(m, d=11):
 
 
 browL, browR = solid(browL), solid(browR)
-moving = pupilL | pupilR | mouth | brow
+moving = pupilL | pupilR | mouth | brow | lip
 
 
 def trace(bm):
@@ -214,6 +215,7 @@ svg = (
     '<path class="tch-brow" d="' + trace(browR) + '" fill="' + INK + '" style="transform-origin:515px 197px;--tilt:9deg"/></g>'
     '<g class="tch-look"><path class="tch-eye" d="' + trace(pupilL) + '" fill="' + INK + '" style="transform-origin:%.0fpx %.0fpx"/>' % pl +
     '<path class="tch-eye" d="' + trace(pupilR) + '" fill="' + INK + '" style="transform-origin:%.0fpx %.0fpx"/></g>' % pr +
+    '<path class="tch-lip" d="' + trace(lip) + '" fill="' + INK + '"/>'
     '<g class="tch-mouth" style="transform-origin:%.0fpx %dpx"><path d="' % (mx, my) + trace(tooth) + '" fill="#FFFFFF"/>'
     '<path d="' + trace(mouth) + '" fill="' + INK + '" fill-rule="evenodd"/></g>'
     # his smile, shown instead of his mouth when he's pleased: his mouth upside down, a little lower, with its tooth on top
@@ -268,7 +270,7 @@ CSS = ''.join([
     '[data-mood="happy"] .tch-brow{animation:none;transform:translateY(-8px) rotate(var(--tilt,0deg))}',
     '.tch-smile{display:none;transform-box:view-box}',
     '[data-mood="happy"] .tch-smile{display:inline}',
-    '[data-mood="happy"] .tch-mouth{display:none}',
+    '[data-mood="happy"] .tch-mouth,[data-mood="happy"] .tch-lip{display:none}',
     '.is-talking[data-mood="happy"] .tch-smile,[data-mood="happy"] .is-talking .tch-smile{animation:tchGrin .44s ease-in-out infinite}',
     '@keyframes tchGrin{0%,100%{transform:scaleY(1)}40%{transform:scaleY(.72)}}',
     '[data-mood="angry"] .tch-brow,[data-mood="furious"] .tch-brow{animation:none;transform:translateY(5px) rotate(calc(var(--tilt,0deg) * -.4))}',
