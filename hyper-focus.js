@@ -57,9 +57,10 @@
   var IMAGE_SEQUENCE_MS = 17500;
 
   function stepFor(id) { return steps.find(function (step) { return step.id === id; }); }
+  // A step's camera and spotlight go to its focus (one part of a question) when it has one, else to its target.
   function targetFor(id) {
     var step = stepFor(id);
-    var targetId = step && step.target ? step.target : id;
+    var targetId = step && (step.focus || step.target) ? step.focus || step.target : id;
     return document.querySelector('[data-hf-target="' + targetId + '"]');
   }
   function tourSteps(step) { return steps.filter(function (item) { return item.target === step.target; }); }
@@ -615,6 +616,8 @@
     var step = steps.find(function (item) { return item.id === id; });
     var target = targetFor(id);
     if (!step || !target) return;
+    // Another page's step can get the paper ready first (the Biology desk: the part's page, the other parts covered).
+    if (step.enter) step.enter();
     buildUI();
     var starting = !activeId;
     activeId = id;
@@ -681,9 +684,16 @@
     // Give focus back to whatever opened the guide, unless answer mode has taken over.
     if (returnFocus && returnFocus.isConnected && !document.querySelector('.am-root')) returnFocus.focus({ preventScroll: true });
     returnFocus = null;
+    document.dispatchEvent(new Event('hf-exit'));
   }
 
   function focus(id) {
+    // A target whose steps have their own ids (the Biology desk: question-bio-ask, question-bio-part-2, ...) starts at
+    // its first step.
+    if (!stepFor(id)) {
+      var first = steps.find(function (step) { return step.target === id; });
+      if (first) id = first.id;
+    }
     if (!targetFor(id) || activeId === id) return;
     if (!activeId) { enter(id); return; }
     if (activeId === 'image' && id !== 'image') stopFigureVideo();

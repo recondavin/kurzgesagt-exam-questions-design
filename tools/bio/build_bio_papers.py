@@ -59,12 +59,15 @@ def labels(lines):
 
 def headings(labs):
     """Question headings in order, skipping stray numbers: each one must follow the last (allowing one gap).
-    A Section C booklet starts at its own first question (11 from 2019)."""
+    A Section C booklet starts at its own first question (11 from 2019). When a number is printed twice, the later one
+    is the heading (2023's Section C misprints 15(b) as "16.", a page before the real Question 16)."""
     keep, last = [], None
     for i, l in enumerate(labs):
         if l[0] != 'q':
             continue
-        if last is None or last < l[1] <= last + 2:
+        if keep and l[1] == last:
+            keep[-1] = i
+        elif last is None or last < l[1] <= last + 2:
             keep.append(i)
             last = l[1]
     return keep

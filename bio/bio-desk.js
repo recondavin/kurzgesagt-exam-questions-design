@@ -1,6 +1,7 @@
 // The desk for Biology. Loaded by the desk page (Geography Questions.dc.html), it adds a Geography / Biology switch,
 // and for a link like "#bio/29/2016-Q12b" it puts that question's real exam paper page on the desk (same desk, hands
-// and pen), rings the question, and the narrated guide (hyper-focus.js) explains it in three steps (bio/guide.js).
+// and pen), rings the question, and the narrated guide (hyper-focus.js) explains it part by part (bio/guide.js): each
+// slide's camera and spotlight go to that part's own box on the paper, with the other parts' print covered.
 // "Start writing" then opens the Biology answer sheet (bio/bio.js), marked against the SEC marking scheme.
 (function () {
   'use strict';
@@ -77,13 +78,51 @@
     }).join('');
     return '<div class="hf-bio-pic" data-hf-still>' + art.plain.replace(/<\/svg>$/, rings + '</svg>') + '</div>';
   }
+  // One part on the desk: its page (a question can run onto the next page), and only its own covers showing.
+  function part(k) {
+    var v = current && current.P.parts && current.P.parts[k], img = document.querySelector('.geography-page-image');
+    if (!v || !img) return;
+    if (img.getAttribute('src') !== v.img + '?v=' + V) img.src = v.img + '?v=' + V;
+    document.querySelectorAll('.bio-dim').forEach(function (d) { d.classList.toggle('is-on', d.getAttribute('data-part') === String(k)); });
+  }
+  // The guide closed: back to the question's own page, nothing covered.
+  function rest() {
+    var img = document.querySelector('.geography-page-image');
+    if (current && img && img.getAttribute('src') !== current.P.img + '?v=' + V) img.src = current.P.img + '?v=' + V;
+    document.querySelectorAll('.bio-dim.is-on').forEach(function (d) { d.classList.remove('is-on'); });
+  }
+  function place(node, b) {
+    node.style.left = b[0] + '%';
+    node.style.top = b[1] + '%';
+    node.style.width = b[2] + '%';
+    node.style.height = b[3] + '%';
+  }
+  // Each part's box (bio/papers.js, traced by tools/bio/build_bio_part_boxes.py) and the covers over the other parts'
+  // rows and figures inside it.
+  function partBoxes(shell, P) {
+    shell.querySelectorAll('.bio-part-focus, .bio-dim').forEach(function (n) { n.remove(); });
+    (P.parts || []).forEach(function (v, k) {
+      var f = el('div', 'bio-part-focus');
+      f.setAttribute('data-hf-target', 'question-bio-p' + k);
+      f.setAttribute('aria-hidden', 'true');
+      place(f, v.box);
+      shell.appendChild(f);
+      v.dim.forEach(function (b) {
+        var d = el('div', 'bio-dim');
+        d.setAttribute('data-part', k);
+        d.setAttribute('aria-hidden', 'true');
+        place(d, b);
+        shell.appendChild(d);
+      });
+    });
+  }
   function guideSteps(ch, q) {
-    var G = window.BioGuide;
+    var G = window.BioGuide, parts = current.P.parts;
     if (!G || !G.steps) return [];
     var list = G.steps(ch, q);
     return list.map(function (s, k) {
       var step = {
-        id: s.id, target: 'question-bio', kicker: '', title: s.title, summary: s.summary, spotlight: true, voice: s.voice, prose: '', points: [],
+        id: s.id, target: 'question-bio', focus: parts && parts[k] ? 'question-bio-p' + k : null, enter: function () { part(k); }, kicker: '', title: s.title, summary: s.summary, spotlight: true, voice: s.voice, prose: '', points: [],
         visual: (s.pic ? ring(s.pic.base, s.pic.hi) : '') + '<ul class="hf-bullets hf-bullets--steps">' + s.bullets.map(function (b) {
           return '<li><span class="hf-bullet-dot"></span><span><b>' + esc(b.b) + ':</b> ' + esc(b.t) + '</span></li>';
         }).join('') + '</ul>'
@@ -105,7 +144,7 @@
     var P = (window.BioPapers || {})[ch + '/' + qid], Q = (window.BioQuestions || {})[ch];
     var q = Q && Q.questions.filter(function (x) { return x.id === qid; })[0];
     if (!P || !q) { location.href = BIO_PAGE + '#ch' + ch; return; }
-    current = { ch: ch, qid: qid, q: q };
+    current = { ch: ch, qid: qid, q: q, P: P };
     if (window.ExamHyperFocus) window.ExamHyperFocus.exit();
     document.body.classList.add('bio-desk');
     document.title = q.src.replace(/^LC Biology HL /, 'Biology ') + ' | Leaving Cert revision';
@@ -116,10 +155,8 @@
     var target = document.querySelector('.geography-focus-target:not(.geography-focus-target--3b)');
     target.setAttribute('data-hf-target', 'question-bio');
     target.setAttribute('aria-label', P.label + ': start the guided walkthrough');
-    target.style.left = P.box[0] + '%';
-    target.style.top = P.box[1] + '%';
-    target.style.width = P.box[2] + '%';
-    target.style.height = P.box[3] + '%';
+    place(target, P.box);
+    partBoxes(target.parentNode, P);
     // The camera fits what's printed on the page (and the question) to the screen, so the paper is as big as it can be.
     var fit = document.querySelector('[data-hf-fit]') || el('div', 'bio-fitbox'), c = P.content || [0, 0, 100, 100], b = P.box;
     var l = Math.min(c[0], b[0]), t = Math.min(c[1], b[1]), r = Math.max(c[0] + c[2], b[0] + b[2]), u = Math.max(c[1] + c[3], b[1] + b[3]);
@@ -169,6 +206,7 @@
     if (!r) { whenDeskReady().then(function () { addSwitch(false, null); }); }
     route();
     window.addEventListener('hashchange', route);
+    document.addEventListener('hf-exit', rest);
     document.addEventListener('click', function (e) {
       if (e.target.closest('[data-bio-write]')) { if (window.ExamHyperFocus) window.ExamHyperFocus.exit(); write(); }
     });
