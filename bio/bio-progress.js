@@ -169,17 +169,12 @@
     if (last && now.pct != null) { last.pct = now.pct; last.low = now.low; last.high = now.high; }
     return { chapters: chapters, scores: scores, log: log, now: now, hist: hist };
   }
-  // The finding under the title, and the one thing to do about it.
+  // The one thing to do next: a chapter you haven't tried, else your weakest.
   function finding(api, m) {
     var rows = m.now.rows, name = function (n) { return api.chapters.filter(function (c) { return c.n === n; })[0].short; };
-    if (m.now.pct == null) return { text: 'Answer an exam question and your predicted grade appears here. Each one is marked against the real marking scheme.', n: rows[0].n, action: 'Answer a question on ' + name(rows[0].n) };
-    var untried = rows.filter(function (r) { return !r.tried; }), share = Math.round(m.now.untried * 100);
-    if (untried.length) {
-      var list = untried.map(function (r) { return name(r.n); }), said = list.length === 1 ? list[0] : list.slice(0, -1).join(', ') + ' or ' + list[list.length - 1];
-      return { text: 'You haven\'t tried ' + said + ' yet. ' + (untried.length === 1 ? 'It has' : 'They have') + ' had ' + share + '% of the exam questions, so your range is wide until you do.', n: untried[0].n, action: 'Answer a question on ' + name(untried[0].n) };
-    }
-    var weak = rows.slice().sort(function (a, b) { return a.seen - b.seen; })[0];
-    return { text: name(weak.n) + ' is your weakest chapter: ' + Math.round(weak.seen * 100) + '% of the marks you\'ve answered there.', n: weak.n, action: 'Answer a question on ' + name(weak.n) };
+    var untried = rows.filter(function (r) { return !r.tried; });
+    var r = m.now.pct == null || untried.length ? (untried[0] || rows[0]) : rows.slice().sort(function (a, b) { return a.seen - b.seen; })[0];
+    return { n: r.n, action: 'Answer a question on ' + name(r.n) };
   }
   function render(el, api) {
     var esc = api.esc, m = model(api), now = m.now, target = gradeByName(api.store('bio-target') || ''), f = finding(api, m), weakest = null;
@@ -206,21 +201,16 @@
     }).join('');
     var opts = '<option value="">None</option>' + GRADES.map(function (g) { return '<option value="' + g[0] + '"' + (target && target.name === g[0] ? ' selected' : '') + '>' + g[0] + ' (' + g[1] + '%+)</option>'; }).join('');
     el.innerHTML = '<div class="pg">' +
-      '<div class="cv-title rise" style="--i:0"><div><h1 class="cv-h1">Progress</h1><p class="cv-sub">' + esc(f.text) + '</p></div>' +
+      '<div class="cv-title rise" style="--i:0"><h1 class="cv-h1">Progress</h1>' +
         '<button type="button" class="btn-primary" data-pg-next="' + f.n + '">' + esc(f.action) + '</button></div>' +
       '<div class="pg-grid">' +
-        '<section class="card pg-grade rise" style="--i:1" aria-labelledby="pg-h-grade"><h2 class="card-h" id="pg-h-grade">Predicted grade</h2>' +
-          (now.pct == null
-            ? '<p class="pg-line pg-none">No grade yet. Answer an exam question and it\'s marked against the real scheme; your grade starts from there.</p>' +
-              '<ul class="pg-scale" aria-label="Higher Level grades and their CAO points">' + GRADES.map(function (g, i) {
-                return '<li><b>' + g[0] + '</b><span>' + (i ? g[1] + '–' + (GRADES[i - 1][1] - 1) : '90–100') + '%</span><span class="num">' + g[2] + ' pts</span></li>';
-              }).join('') + '</ul>'
-            : '<p class="pg-big"><b>' + now.grade.name + '</b><span class="pg-pct"><span class="num" data-pg-count="' + now.pct + '">' + now.pct + '</span>%</span></p>' +
-              '<p class="pg-line">' + now.grade.points + ' CAO points · likely ' + (now.lowGrade.name === now.highGrade.name ? now.grade.name : now.lowGrade.name + ' to ' + now.highGrade.name) + '</p>' +
-              '<p class="pg-from">From the ' + now.questions + (now.questions === 1 ? ' question' : ' questions') + ' (' + now.marks + ' marks) you\'ve answered on chapters 28 to 32' +
-                (now.marks < 60 ? '. An early guess: it firms up as you answer more.' : '.') + '</p>') +
-          '<div class="pg-target"><label for="pg-target">Your target</label><select id="pg-target" class="control" data-pg-target>' + opts + '</select></div>' + gap + '</section>' +
-        '<section class="card pg-trend rise" style="--i:2" aria-labelledby="pg-h-trend"><header class="card-head"><h2 class="card-h" id="pg-h-trend">Prediction over time</h2>' +
+        (now.pct == null ? '' : '<section class="card pg-grade rise" style="--i:1" aria-labelledby="pg-h-grade"><h2 class="card-h" id="pg-h-grade">Predicted grade</h2>' +
+          '<p class="pg-big"><b>' + now.grade.name + '</b><span class="pg-pct"><span class="num" data-pg-count="' + now.pct + '">' + now.pct + '</span>%</span></p>' +
+          '<p class="pg-line">' + now.grade.points + ' CAO points · likely ' + (now.lowGrade.name === now.highGrade.name ? now.grade.name : now.lowGrade.name + ' to ' + now.highGrade.name) + '</p>' +
+          '<p class="pg-from">From the ' + now.questions + (now.questions === 1 ? ' question' : ' questions') + ' (' + now.marks + ' marks) you\'ve answered on chapters 28 to 32' +
+            (now.marks < 60 ? '. An early guess: it firms up as you answer more.' : '.') + '</p>' +
+          '<div class="pg-target"><label for="pg-target">Your target</label><select id="pg-target" class="control" data-pg-target>' + opts + '</select></div>' + gap + '</section>') +
+        '<section class="card pg-trend rise' + (now.pct == null ? ' pg-trend--wide' : '') + '" style="--i:2" aria-labelledby="pg-h-trend"><header class="card-head"><h2 class="card-h" id="pg-h-trend">Prediction over time</h2>' +
           (m.hist.length ? '<ul class="legend"><li><i class="lg-line"></i>Predicted</li>' + (m.hist.length > 1 ? '<li><i class="lg-range"></i>Likely range</li>' : '') +
             (target ? '<li><i class="lg-target"></i>Target ' + target.name + '</li>' : '') + '</ul>' : '') + '</header>' +
           '<div class="pg-ladder" data-pg-ladder></div>' +

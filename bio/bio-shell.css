@@ -58,7 +58,6 @@ body { background: var(--ground); }
 /* ---------- the canvas title row ---------- */
 .cv-title { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin: 0 0 24px; }
 .cv-h1 { margin: 0; color: #fff; font: 600 26px/1.2 Fredoka, Nunito, sans-serif; letter-spacing: -.01em; }
-.cv-sub { max-width: 72ch; margin: 6px 0 0; color: var(--muted); font: 700 15px/1.5 Nunito, system-ui, sans-serif; }
 .btn-primary { flex: none; height: 40px; padding: 0 20px; border: 0; border-radius: 999px; background: var(--ink); color: var(--ground); font: 600 15.5px/1 Fredoka, Nunito, sans-serif; cursor: pointer; transition: background .15s ease, transform .1s ease; }
 .btn-primary:hover { background: #fff; }
 .btn-primary:active { transform: translateY(1px); }
@@ -68,6 +67,7 @@ body { background: var(--ground); }
 .pg-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .card { min-width: 0; padding: 20px; border-radius: 16px; background: var(--surface); }
 .pg-trend, .pg-chapters { grid-column: span 2; }
+.pg-grid > .pg-trend--wide { grid-column: 1 / -1; }
 .card-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 12px; margin: 0 0 14px; }
 .card-h { margin: 0; color: #fff; font: 600 16.5px/1.25 Fredoka, Nunito, sans-serif; }
 .card-meta { color: var(--faint); font: 700 13px Nunito, system-ui, sans-serif; text-align: right; }
@@ -75,11 +75,6 @@ body { background: var(--ground); }
 .pg-grade { display: flex; flex-direction: column; }
 .pg-big { display: flex; align-items: baseline; gap: 12px; margin: 16px 0 0; }
 .pg-big b { color: var(--hue); font: 600 34px/1 Fredoka, Nunito, sans-serif; }
-.pg-none { color: var(--muted); }
-.pg-scale { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; margin: 14px 0 0; padding: 0; list-style: none; }
-.pg-scale li { display: flex; gap: 10px; padding: 5px 0; border-top: 1px solid var(--rule); color: var(--muted); font: 700 13.5px Nunito, system-ui, sans-serif; }
-.pg-scale b { width: 24px; color: #fff; font-weight: 800; }
-.pg-scale .num { margin-left: auto; color: var(--faint); }
 .pg-pct { color: #fff; font: 800 20px/1 Nunito, system-ui, sans-serif; }
 .pg-line { margin: 12px 0 0; color: #fff; font: 700 15px/1.4 Nunito, system-ui, sans-serif; }
 .pg-from { margin: 6px 0 0; color: var(--muted); font: 700 13.5px/1.5 Nunito, system-ui, sans-serif; }
@@ -240,7 +235,6 @@ tr .pg-track i { animation-delay: inherit; }
   .sh-canvas.bio-app { padding: 20px 16px 56px; }
   .cv-title { flex-direction: column; gap: 14px; margin-bottom: 20px; }
   .cv-h1 { font-size: 23px; }
-  .cv-sub { font-size: 14.5px; }
   .btn-primary { width: 100%; height: 46px; }
   .pg-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .pg-grid > .card { grid-column: 1 / -1; }
