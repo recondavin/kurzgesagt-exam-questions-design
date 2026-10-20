@@ -233,8 +233,7 @@
       '<p class="sh-group">Chapters</p>' + CHAPTERS.map(function (c, i) {
         var r = rows[i], v = r && r.seen != null ? Math.round(r.seen * 100) + '%' : '<span class="dash">–</span>';
         return '<a class="sh-link" href="#ch' + c.n + '"' + (active === c.n ? ' aria-current="page"' : '') + '><span class="sh-n num">' + c.n + '</span><span class="sh-t">' + esc(c.short) + '</span><span class="sh-v num">' + v + '</span></a>';
-      }).join('') + '</nav>' +
-      '<p class="sh-foot">Your answers and scores are saved in this browser.</p>';
+      }).join('') + '</nav>';
     bar.innerHTML = '<button type="button" class="sh-menu" data-sh-menu aria-expanded="false" aria-controls="bio-side"><span class="sh-burger" aria-hidden="true"></span><span class="sr">Menu</span></button>' +
       '<p class="sh-crumb"><a href="#">Biology</a><span class="sh-sep" aria-hidden="true">/</span><span class="sh-here">' + esc(crumb) + '</span></p>' +
       '<nav class="sh-switch" aria-label="Subject"><a href="Geography%20Questions.dc.html">Geography</a><a href="biology.html" aria-current="page">Biology</a></nav>';

@@ -41,7 +41,6 @@ body { background: var(--ground); }
 .sh-t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sh-v { flex: none; color: var(--faint); font-size: 13px; }
 .sh-group { margin: 20px 10px 6px; color: var(--faint); font: 700 12.5px Nunito, system-ui, sans-serif; }
-.sh-foot { margin: auto 10px 0; padding-top: 16px; color: var(--faint); font: 700 12.5px/1.45 Nunito, system-ui, sans-serif; }
 .sh-main { min-width: 0; }
 .sh-top { position: sticky; top: 0; z-index: 6; display: flex; align-items: center; gap: 12px; height: 64px; padding: 0 var(--gutter); border-bottom: 1px solid var(--rule); background: var(--ground); }
 .sh-menu { display: none; }
