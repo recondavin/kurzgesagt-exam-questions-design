@@ -195,13 +195,6 @@
     return '<p class="bio-dia__note"><b>Diagram on the paper:</b> ' + esc(dia.note || '') + '</p>';
   }
 
-  // ---------- the page ----------
-  function counts(n) {
-    var d = QS[n], qn = d ? d.questions.length : 0, done = 0, art = 0;
-    if (d) d.questions.forEach(function (q) { if (scoreOf(n, q)) done += 1; });
-    Object.keys(ART).forEach(function (id) { if (ART[id].chapter === n) art += 1; });
-    return { questions: qn, done: done, diagrams: art };
-  }
   // ---------- the shell (biology.html): sidebar, top bar and canvas ----------
   var side = null, bar = null;
   function progressApi() {
@@ -269,9 +262,7 @@
     tab = tab || store('bio-tab') || 'questions';
     document.title = c.short + ' | Leaving Cert Biology';
     renderShell(n, c.title);
-    var k = counts(n);
-    app.innerHTML = '<div class="cv-title rise" style="--i:0"><div><h1 class="cv-h1">' + esc(c.title) + '</h1>' +
-      '<p class="cv-sub">Chapter ' + n + ' · ' + esc(c.unit) + ' · ' + k.questions + ' exam questions' + (k.diagrams ? ' · ' + k.diagrams + ' diagrams' : '') + '</p></div></div>' +
+    app.innerHTML = '<div class="cv-title rise" style="--i:0"><h1 class="cv-h1">' + esc(c.title) + '</h1></div>' +
       '<div class="ch-layout"><div class="ch-main"><nav class="bio-tabs rise" style="--i:1" role="tablist">' + TABS.map(function (t) {
         return '<button type="button" role="tab" class="bio-tab" data-bio-tab="' + t[0] + '" aria-selected="' + (t[0] === tab) + '">' + t[1] + '</button>';
       }).join('') + '</nav><section class="bio-panel" data-bio-panel></section></div>' + chapterRail(n) + '</div>';
@@ -317,21 +308,20 @@
       if (i < 14) { x.classList.add('rise'); x.style.setProperty('--i', i + 2); }
     });
   }
-  var FILTERS = [['all', 'All'], ['A', 'Short (Section A)'], ['B', 'Experiments (B)'], ['C', 'Long (Section C)'], ['sample', '2027 samples'], ['practice', 'Practice']];
+  var FILTERS = [['all', 'All'], ['A', 'Short (Section A)'], ['B', 'Experiments (B)'], ['C', 'Long (Section C)'], ['sample', 'Samples'], ['practice', 'Practice']];
   function questionList(n, d) {
     if (!d) return '<p class="bio-empty">Questions for this chapter are coming.</p>';
     var f = store('bio-filter') || 'all';
     var list = allQuestions(n).filter(function (q) { return f === 'all' || q.sec === f || (f === 'sample' && q.year === 2027 && q.sec !== 'practice'); });
-    return '<p class="bio-note">Each question opens on the desk as the real paper. The narrator explains it, then every part you answer is marked against the official scheme' +
-      ' (the 2027 samples have none, so their answers are ours).</p>' +
-      '<div class="bio-filters">' + FILTERS.map(function (x) {
+    return '<div class="bio-filters">' + FILTERS.map(function (x) {
         return '<button type="button" class="bio-chip" data-bio-filter="' + x[0] + '" aria-pressed="' + (x[0] === f) + '">' + x[1] + '</button>';
       }).join('') + '</div>' +
       '<ul class="bio-qlist">' + list.map(function (q) {
         var s = scoreOf(n, q), out = questionOutOf(q), first = q.parts[0] ? q.parts[0].q : '';
         return '<li><button type="button" class="bio-q" data-bio-open="' + esc(q.id) + '">' +
-          '<span class="bio-q__src">' + (q.sec === 'practice' ? 'Practice<em>Not a real paper</em>' : esc(q.year === 2027 ? '2027 sample ' + q.id.split('-')[0].slice(1) : String(q.year)) + '<em>' + esc(q.id.split('-').slice(1).join('-')) + '</em>') + '</span>' +
-          '<span class="bio-q__text">' + esc((q.stem ? q.stem + ' ' : '') + first).slice(0, 150) + '</span>' +
+          '<span class="bio-q__src">' + (q.sec === 'practice' ? 'Practice<em>Not a real paper</em>' : q.year === 2027 ? 'Sample<em>P' + esc(q.id.split('-')[0].slice(1) + ' ' + q.id.split('-').slice(1).join('-')) + '</em>'
+            : esc(String(q.year)) + '<em>' + esc(q.id.split('-').slice(1).join('-')) + '</em>') + '</span>' +
+          '<span class="bio-q__text">' + esc(((q.stem ? q.stem + ' ' : '') + first).replace(/\s*\[[^\]]*\]/g, '')).slice(0, 150) + '</span>' +
           '<span class="bio-q__meta">' + (q.fresh === 'no' ? '<i class="bio-old">Old course</i>' : q.fresh === 'partly' ? '<i class="bio-old bio-old--part">Partly old course</i>' : '') +
             (s ? '<b class="bio-q__score">' + s.got + '/' + s.out + '</b>' : '<span>' + out + ' marks</span>') + '</span></button></li>';
       }).join('') + '</ul>' +
@@ -341,8 +331,7 @@
   function diagramList(n) {
     var ids = Object.keys(ART).filter(function (id) { return ART[id].chapter === n; });
     if (!ids.length) return '<p class="bio-empty">The diagrams for this chapter are coming.</p>';
-    return '<p class="bio-note">Every diagram you need to memorise for this chapter. Build it from its parts and label it, or draw it from memory.</p>' +
-      '<ul class="bio-dlist">' + ids.map(function (id) {
+    return '<ul class="bio-dlist">' + ids.map(function (id) {
         var a = ART[id], best = store('bio-build-' + id);
         return '<li class="bio-d"><div class="bio-d__pic" aria-hidden="true">' + a.plain + '</div><div class="bio-d__text"><b>' + esc(a.name) + '</b>' +
           '<span>' + a.labels.length + ' labels' + (best ? ' · Build it best: ' + esc(best) : '') + '</span>' +
