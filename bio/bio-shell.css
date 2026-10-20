@@ -163,8 +163,13 @@ tr .pg-track i { animation-delay: inherit; }
 .sh-canvas .bio-chip { height: 34px; padding: 0 14px; border: 1px solid var(--control); color: var(--muted); font: 600 14px Fredoka, Nunito, sans-serif; }
 .sh-canvas .bio-chip:hover { color: #fff; }
 .sh-canvas .bio-chip[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--ground); }
-.sh-canvas .bio-q { border: 0; border-radius: 14px; background: var(--surface); transition: background .15s ease; }
+/* Questions as tiles: the paper and part, then the marks (or your score) and any old-course tag. */
+.sh-canvas .bio-qlist { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.sh-canvas .bio-q { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; height: 100%; min-height: 104px; padding: 14px 14px 12px; border: 0; border-radius: 14px; background: var(--surface); transition: background .15s ease; }
 .sh-canvas .bio-q:hover { background: var(--raised); }
+.sh-canvas .bio-qlist li { display: flex; }
+.sh-canvas .bio-q__src { font-size: 19px; }
+.sh-canvas .bio-q__meta { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; margin-top: auto; }
 .sh-canvas .bio-q__src em, .sh-canvas .bio-q__meta { color: var(--faint); }
 .sh-canvas .bio-q__score { padding: 0; background: none; color: #fff; font: 800 16px Nunito, system-ui, sans-serif; font-variant-numeric: tabular-nums; }
 .sh-canvas .bio-gaps, .sh-canvas .bio-empty { background: var(--surface); }
@@ -255,6 +260,9 @@ tr .pg-track i { animation-delay: inherit; }
   .pg-track { flex: 1; width: auto; }
   .pg-table .pg-marks.is-empty { display: none; }
   .sh-canvas .bio-tabs { gap: 18px; overflow-x: auto; }
+  .sh-canvas .bio-qlist { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px; }
+  .sh-canvas .bio-q { min-height: 96px; padding: 12px; }
+  .sh-canvas .bio-q__src { font-size: 17px; }
   .sh-canvas .bio-g { grid-template-columns: minmax(0, 1fr); padding: 14px 44px 14px 16px; }
   .bio-best { grid-column: 1; grid-row: auto; margin-top: 6px; text-align: left; }
 }

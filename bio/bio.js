@@ -321,9 +321,10 @@
         return '<li><button type="button" class="bio-q" data-bio-open="' + esc(q.id) + '">' +
           '<span class="bio-q__src">' + (q.sec === 'practice' ? 'Practice<em>Not a real paper</em>' : q.year === 2027 ? 'Sample<em>P' + esc(q.id.split('-')[0].slice(1) + ' ' + q.id.split('-').slice(1).join('-')) + '</em>'
             : esc(String(q.year)) + '<em>' + esc(q.id.split('-').slice(1).join('-')) + '</em>') + '</span>' +
-          '<span class="bio-q__text">' + esc(((q.stem ? q.stem + ' ' : '') + first).replace(/\s*\[[^\]]*\]/g, '')).slice(0, 150) + '</span>' +
-          '<span class="bio-q__meta">' + (q.fresh === 'no' ? '<i class="bio-old">Old course</i>' : q.fresh === 'partly' ? '<i class="bio-old bio-old--part">Partly old course</i>' : '') +
-            (s ? '<b class="bio-q__score">' + s.got + '/' + s.out + '</b>' : '<span>' + out + ' marks</span>') + '</span></button></li>';
+          // The question's start is for screen readers only: the tile shows the paper, the part and the marks.
+          '<span class="sr">' + esc(((q.stem ? q.stem + ' ' : '') + first).replace(/\s*\[[^\]]*\]/g, '')).slice(0, 150) + '</span>' +
+          '<span class="bio-q__meta">' + (s ? '<b class="bio-q__score num">' + s.got + '<span class="of">/' + s.out + '</span></b>' : '<span>' + out + ' marks</span>') +
+            (q.fresh === 'no' ? '<i class="bio-old">Old course</i>' : q.fresh === 'partly' ? '<i class="bio-old bio-old--part">Partly old</i>' : '') + '</span></button></li>';
       }).join('') + '</ul>' +
       (d.notCovered && d.notCovered.length ? '<details class="bio-gaps"><summary>On the course but never asked yet (' + d.notCovered.length + ')</summary><ul>' +
         d.notCovered.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul><p>The Practice questions in this list cover them, with our own answer keys.</p></details>' : '');
