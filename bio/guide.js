@@ -157,15 +157,16 @@
     var cmd = G.command(p), d = G.CMD[cmd], marks = partMarks(p);
     var asked = String(p.q).replace(/\s*\[[^\]]*\]/g, '');
     var summary = p.l + ' ' + (asked.length > 110 ? asked.slice(0, 107).replace(/\s+\S*$/, '') + '…' : asked);
-    var sumSay = 'Part ' + spokenLabel(p.l) + '. ' + asked;
+    // Read out the way the old overview read a part, so the clips already voiced are reused.
+    var sumSay = 'For part ' + spokenLabel(p.l) + ', ' + CMD_SAY[cmd] + '. ' + (p.n === 1 ? 'That\'s one point' : 'That\'s ' + spokenNumber(p.n) + ' points') +
+      ', for ' + spokenNumber(marks) + ' marks.';
     var step = { id: k ? 'question-bio-part-' + (k + 1) : 'question-bio-ask', summary: summary, pic: null };
     if (c) {
-      var base = 'bio-' + ch + '-' + c.id, tip = { b: (p.n === 1 ? 'One point' : p.n + ' points') + ', ' + marks + ' marks', t: d.summary,
-        say: 'It\'s worth ' + spokenNumber(marks) + ' marks, so ' + (p.n === 1 ? 'one point' : spokenNumber(p.n) + ' points') + '. ' + d.say };
+      var base = 'bio-' + ch + '-' + c.id, tip = { b: (p.n === 1 ? 'One point' : p.n + ' points') + ', ' + marks + ' marks', t: d.summary, say: d.say };
       step.title = c.title;
       step.pic = c.pic || null;
       step.bullets = c.bullets.map(function (b) { return { b: b[0], t: b[1], say: b[2] }; }).concat([tip]);
-      step.voice = [base + '-title', G.lineId(sumSay)].concat(c.bullets.map(function (b, i) { return base + '-' + (i + 1); }), [G.lineId(tip.say)]);
+      step.voice = [base + '-title', G.lineId(sumSay)].concat(c.bullets.map(function (b, i) { return base + '-' + (i + 1); }), ['bio-cmd-' + cmd + '-summary']);
       step.says = [c.titleSay || c.title, sumSay].concat(c.bullets.map(function (b) { return b[2]; }), [tip.say]);
     } else {
       var cb = 'bio-cmd-' + cmd;
