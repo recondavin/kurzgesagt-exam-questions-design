@@ -522,16 +522,16 @@ def view(item, k, plan, page_lines=None):
     for ob in others:
         if not inter(ob, box):
             continue
-        d = pad(ob, 0.4, 0.3)
-        band = [left, d[1], right - left, d[3]]
-        dims.append(band if not any(inter(band, sb) for sb in shown) else d)
+        # Across the whole box when nothing shown is beside it (tight lines: trimmed back off the shown ones below).
+        band = [left, ob[1], right - left, ob[3]]
+        dims.append(pad(band, 0, 0.3) if not any(inter(band, rb) for rb in raw) else pad(ob, 0.4, 0.3))
     # Neighbouring bands with nothing shown between them become one.
     dims.sort(key=lambda d: d[1])
     out = []
     for d in dims:
         if out and out[-1][0] == left and d[0] == left and out[-1][2] == d[2]:
             gap = [left, out[-1][1] + out[-1][3], right - left, d[1] - out[-1][1] - out[-1][3]]
-            if gap[3] <= 0 or not any(inter(gap, sb) for sb in shown):
+            if gap[3] <= 0 or not any(inter(gap, rb) for rb in raw):
                 o = out[-1]
                 out[-1] = [o[0], o[1], o[2], max(o[1] + o[3], d[1] + d[3]) - o[1]]
                 continue
@@ -545,6 +545,9 @@ def view(item, k, plan, page_lines=None):
         r, b = min(d[0] + d[2], box[0] + box[2]), min(d[1] + d[3], box[1] + box[3])
         if r - l > 0.05 and b - t > 0.05:
             clip.append([round(l, 2), round(t, 2), round(r - l, 2), round(b - t, 2)])
+    # A cover inside another one adds nothing.
+    clip = [c for i, c in enumerate(clip) if not any(j != i and o[0] <= c[0] and o[1] <= c[1] and o[0] + o[2] >= c[0] + c[2]
+                                                       and o[1] + o[3] >= c[1] + c[3] and (o != c or j < i) for j, o in enumerate(clip))]
     note = ('part %d: %s on another page left out' % (k + 1, ', '.join(gone))) if gone else None
     return {'pg': pg, 'box': [round(v, 2) for v in box], 'dim': clip}, note
 
@@ -552,7 +555,8 @@ def view(item, k, plan, page_lines=None):
 def plan_of(item, checked, name, fixes=None):
     """The checked lists (or the first guess), with the context ids' defaults (a lead-in: the stem, shown by the first
     part; a drawing reaching below the question: whoever owns the row above it; the page's other drawings: nobody's)
-    and then the hand fixes: {"own": {id: owner}, "add": [[ids] per part], "drop": [[ids] per part]}."""
+    and then the hand fixes: {"own": {id: owner}, "add": [[ids] per part], "drop": [[ids] per part], "needs": all of
+    them, "extra": [items the cut missed: {id, pg, box, kind, text}]}."""
     plan = checked.get(name) or item['guess']
     own = {i: (o if o in ('stem', 'x') else int(o)) for i, o in plan['own'].items()}
     needs = [list(n) for n in plan['needs']]
@@ -587,6 +591,9 @@ def load_plans(work, ch):
 
 
 def part_views(item, name, checked, fixes, pages):
+    extra = (fixes or {}).get(name, {}).get('extra')
+    if extra:
+        item = dict(item, ctx=item.get('ctx', []) + extra)
     plan = plan_of(item, checked, name, fixes)
     got, notes = [], []
     for k in range(len(item['parts'])):
