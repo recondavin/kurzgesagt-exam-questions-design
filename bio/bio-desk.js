@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-17';
+  var V = 'bio-18';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -110,7 +110,7 @@
     document.body.classList.add('bio-desk');
     document.title = q.src.replace(/^LC Biology HL /, 'Biology ') + ' | Leaving Cert revision';
     var img = document.querySelector('.geography-page-image');
-    img.src = P.img;
+    img.src = P.img + '?v=' + V;
     img.alt = P.label;
     // The 3C target becomes this question's target; 3B's is hidden (bio-desk.css).
     var target = document.querySelector('.geography-focus-target:not(.geography-focus-target--3b)');
@@ -120,6 +120,14 @@
     target.style.top = P.box[1] + '%';
     target.style.width = P.box[2] + '%';
     target.style.height = P.box[3] + '%';
+    // The camera fits what's printed on the page (and the question) to the screen, so the paper is as big as it can be.
+    var fit = document.querySelector('[data-hf-fit]') || el('div', 'bio-fitbox'), c = P.content || [0, 0, 100, 100], b = P.box;
+    var l = Math.min(c[0], b[0]), t = Math.min(c[1], b[1]), r = Math.max(c[0] + c[2], b[0] + b[2]), u = Math.max(c[1] + c[3], b[1] + b[3]);
+    fit.setAttribute('data-hf-fit', '');
+    fit.setAttribute('aria-hidden', 'true');
+    fit.style.cssText = 'position:absolute;pointer-events:none;left:' + l + '%;top:' + t + '%;width:' + (r - l) + '%;height:' + (u - t) + '%';
+    if (!fit.parentNode) img.parentNode.appendChild(fit);
+    window.ExamHyperFocus.fit();
     var start = document.querySelector('.geography-focus-start');
     if (start) { start.setAttribute('data-hf-start', 'question-bio'); start.textContent = 'Focus on ' + P.label.replace(/^.*Question\s+/, 'Q'); }
     var acc = document.querySelector('.geography-page-accessible');

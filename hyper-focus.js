@@ -496,6 +496,21 @@
     var fitScale = Math.min(viewportWidth / sceneWidth, viewportHeight / sceneHeight);
     var tx = (viewportWidth - sceneWidth * fitScale) / 2;
     var ty = (viewportHeight - sceneHeight * fitScale) / 2;
+    // A page can name the part of the scene to fit instead (the Biology desk: what is printed on its paper). It fills
+    // the screen between the desk's bars and the desk around it runs off the edges, never above or below the scene.
+    var fitBox = scene.querySelector('[data-hf-fit]');
+    if (fitBox && fitBox.offsetWidth) {
+      var bx = 0, by = 0, node = fitBox;
+      while (node && node !== scene) { bx += node.offsetLeft; by += node.offsetTop; node = node.offsetParent; }
+      if (node === scene) {
+        var small = viewportWidth < 700, top = small ? 66 : 70, bottom = small ? 70 : 16, side = small ? 8 : 24;
+        var room = viewportHeight - top - bottom;
+        fitScale = Math.max(fitScale, Math.min((viewportWidth - 2 * side) / fitBox.offsetWidth, room / fitBox.offsetHeight));
+        tx = viewportWidth / 2 - (bx + fitBox.offsetWidth / 2) * fitScale;
+        ty = top + room / 2 - (by + fitBox.offsetHeight / 2) * fitScale;
+        if (sceneHeight * fitScale >= viewportHeight) ty = Math.min(0, Math.max(viewportHeight - sceneHeight * fitScale, ty));
+      }
+    }
     scene.style.transition = 'none';
     scene.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + fitScale + ')';
     scene.setAttribute('data-hf-fit-scale', fitScale.toFixed(6));
