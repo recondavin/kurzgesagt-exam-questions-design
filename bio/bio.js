@@ -37,7 +37,23 @@
   // ---------- marking: the same word rules as tools/bio/build_bio_questions.py ----------
   var SYNONYMS = { big: 'large', huge: 'large', tiny: 'small', lots: 'many', quick: 'fast', quicker: 'faster', o2: 'oxygen', h2o: 'water' };
   // Two-word names written as one (the same list in tools/bio/build_bio_questions.py).
-  var PHRASES = [[/carbon\s*dioxide/g, 'co2'], [/rib\s+cage/g, 'ribcage']];
+  var PHRASES = [[/carbon\s*dioxide/g, 'co2'], [/rib\s+cage/g, 'ribcage'], [/can\s+not\b/g, 'cannot'], [/get(?:s|ting)?\s+rid\s+of/g, 'remove']];
+  // Everyday words that mean the same thing in an answer, so a right answer in a student's own words still earns
+  // the mark ("cannot produce its own food" for the scheme's "cannot make their food"). Applied to word stems, on
+  // both the answer and the scheme's key words.
+  var SAME = {
+    make: ['produce', 'produc', 'made', 'manufacture', 'manufactur', 'create', 'creat'],
+    eat: ['ate', 'eating', 'consume', 'consum', 'ingest', 'feed', 'fed'],
+    cannot: ['cant', 'unable'],
+    amount: ['quantity', 'quantit', 'propor'],
+    type: ['kind', 'class'],
+    increase: ['increas', 'rise', 'rising', 'rais', 'raise'],
+    decrease: ['decreas', 'fall', 'falling', 'drop', 'dropp', 'reduce', 'reduc'],
+    remove: ['remov', 'eliminate', 'eliminat']
+  };
+  var CANON = {};
+  Object.keys(SAME).forEach(function (k) { CANON[k] = k; SAME[k].forEach(function (w) { CANON[w] = k; }); });
+  function canon(w) { return CANON[w] || w; }
   var SUFFIXES = ['ation', 'ition', 'tion', 'sion', 'ment', 'ing', 'ous', 'ive', 'ed', 'er', 'ly', 'al'];
   // Words that share a start but mean different things.
   var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog']];
@@ -55,7 +71,7 @@
   function bioWords(text) {
     var t = String(text).toLowerCase().replace(/[’']/g, '');
     PHRASES.forEach(function (p) { t = t.replace(p[0], p[1]); });
-    return (t.match(/[a-z0-9]+/g) || []).map(function (w) { return bioStem(SYNONYMS[w] || w); });
+    return (t.match(/[a-z0-9]+/g) || []).map(function (w) { return canon(bioStem(SYNONYMS[w] || w)); });
   }
   function lev(a, b) {
     if (Math.abs(a.length - b.length) > 1) return 2;
@@ -78,12 +94,15 @@
     var n = 0, min = Math.min(a.length, b.length);
     while (n < min && a[n] === b[n]) n += 1;
     if (n >= Math.max(4, Math.ceil(min * 0.75))) return true;
+    // The same short word with an ending: eat / eating, make / making.
+    var s = a.length < b.length ? a : b, l = s === a ? b : a;
+    if (s.length >= 3 && (/^(s|es|d|ed|ing)$/.test(l.slice(s.length)) && l.indexOf(s) === 0 || /e$/.test(s) && /^(ing|ed)$/.test(l.slice(s.length - 1)) && l.indexOf(s.slice(0, -1)) === 0)) return true;
     return min >= 5 && lev(a, b) <= 1;
   }
   // A marking point is in an answer if, for one of its alternatives, enough of its key words are there.
   function hasPoint(pt, words) {
     return (pt.k || []).some(function (alt) {
-      var got = alt.w.filter(function (k) { return words.some(function (w) { return sameStem(w, k); }); }).length;
+      var got = alt.w.filter(function (k) { k = canon(k); return words.some(function (w) { return sameStem(w, k); }); }).length;
       return got >= alt.n;
     });
   }

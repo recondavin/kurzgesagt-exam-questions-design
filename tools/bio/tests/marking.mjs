@@ -43,6 +43,9 @@ const RIGHT = [
   [29, '2006-Q13b', 1, 'Red blood cells are too large to fit through', [0]],
   [29, '2025-Q17c', 3, 'It lowers the volume of urine', [0]],
   [29, '2016-Q12a', 0, 'Excretion is the removal of metabolic waste from the body. Egestion is the removal of undigested food.', [0, 1]],
+  // Right in the student's own words (the user's answer, marked 0/6 before "produce" = "make" and "eating" = "eat").
+  [30, '2015-Q11a', 0, 'heterotrophic is when an organism cannot produce its own food, omnivorous is when an animal survives by eating both other animals and plants', [0, 1]],
+  [30, '2015-Q11a', 1, 'a diet with the right quantity of each kind of food', [0]],
 ];
 let rok = 0;
 for (const [ch, id, k, text, idx] of RIGHT) {

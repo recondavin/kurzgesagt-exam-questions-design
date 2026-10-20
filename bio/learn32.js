@@ -224,7 +224,7 @@ window.BioLearn[32] = {
     { q: '2020-Q15b', part: 3, student: 'Aoife', lines: [
       { t: 'First the virus attaches itself onto the outside of a host cell.', ok: true },
       { t: 'Then the virus does its thing inside the cell.', why: 'Vague: what does it do? Name the nucleic acid going in.', fix: 'The viral nucleic acid (DNA or RNA) makes its entry into the cell.' },
-      { t: 'The virus uses the host cell\'s structures, like its ribosomes, to make new viral parts.', ok: true },
+      { t: 'The virus uses the host cell\'s structures, like its ribosomes, to copy itself.', ok: true },
       { t: 'The virus divides in two by binary fission.', why: 'Wrong: bacteria divide by binary fission. Viruses are assembled from parts made by the host cell.', fix: 'The new virus parts assemble into new virus particles.' },
       { t: 'In the end the cell gets damaged.', why: 'Vague: what happens to the new viruses? Say they are made and released.', fix: 'Finally new virus particles are produced and released from the cell.' },
       { t: 'The virus attaches to the host cell first.', why: 'Repeat of line 1: no new marks.', fix: 'New protein coats and nucleic acid assemble into new virus particles.' }
