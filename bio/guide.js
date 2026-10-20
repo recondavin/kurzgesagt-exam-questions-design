@@ -1,8 +1,6 @@
 // The narrated guide for a Biology exam question on the desk (hyper-focus.js reads it out in the narrator's voice).
-// Three steps per question:
-//   1. What it's asking: built here from the question's parts, marks and command words.
-//   2. The science: the chapter's idea behind the question (BioGuide.chapters[N], in bio/guide<N>.js), with its diagram.
-//   3. Get the marks: how to answer the main part's command word (CMD below).
+// One step per part of the question: the part's question, the chapter's idea it needs (BioGuide.chapters[N], in
+// bio/guide<N>.js) with its diagram and what earns its marks, or, for an idea already taught, how to answer it (CMD).
 // Every line has text (on screen) and say (what the narrator says). Lines the same in many questions share one clip:
 // its id is made from the words (bio-<hash>), or named (bio-cmd-describe-1, bio-29-adh-title).
 // tools/bio/build_bio_narration.mjs lists every line in tools/narration/bio_lines.json for the voice generator.
@@ -126,42 +124,16 @@
   }
   function partMarks(part) { return part.m || part.n * 3; }
 
-  // Step 1: what the question is asking, part by part (parts with the same command word share a bullet).
-  function askStep(q) {
-    var total = q.parts.reduce(function (s, p) { return s + partMarks(p); }, 0), groups = [];
-    q.parts.forEach(function (p) {
-      var c = G.command(p), g = groups.filter(function (x) { return x.c === c; })[0];
-      if (!g) groups.push(g = { c: c, parts: [] });
-      g.parts.push(p);
-    });
-    var bullets = groups.slice(0, 4).map(function (g) {
-      var labels = g.parts.map(function (p) { return p.l; }), n = g.parts.reduce(function (s, p) { return s + p.n; }, 0);
-      var marks = g.parts.reduce(function (s, p) { return s + partMarks(p); }, 0);
-      var bold = (labels.length > 3 ? labels[0] + '–' + labels[labels.length - 1] : labels.join(', ')) + ' ' + CMD_VERB[g.c];
-      var text = (n === 1 ? 'one point' : n + ' points') + ', ' + marks + ' marks.';
-      var say = (labels.length === 1 ? 'For part ' : 'For parts ') + labels.map(spokenLabel).join(', ') + ', ' + CMD_SAY[g.c] + '. ' +
-        (n === 1 ? 'That\'s one point' : 'That\'s ' + spokenNumber(n) + ' points') + ', for ' + spokenNumber(marks) + ' marks.';
-      return { b: bold, t: text, say: say };
-    });
-    var summary = total + ' marks' + (q.parts.length > 1 ? ' in ' + q.parts.length + ' parts.' : '.');
-    var sumSay = 'This one is worth ' + spokenNumber(total) + ' marks' + (q.parts.length > 1 ? ', in ' + spokenNumber(q.parts.length) + ' parts' : '') + '. Here\'s what each part wants.';
-    return { id: 'question-bio-ask', title: 'What it\'s asking', summary: summary, bullets: bullets,
-      voice: ['bio-ask-title', G.lineId(sumSay)].concat(bullets.map(function (b) { return G.lineId(b.say); })),
-      says: ['So, what is this question really asking for?', sumSay].concat(bullets.map(function (b) { return b.say; })) };
-  }
-
-  // Step 2: the idea behind the question, the chapter's concept whose key words match it best.
+  // The concept the whole question is about: the chapter's concept whose key words match it best (or the one named
+  // for it in BioGuide.chapters[N].questions, when its words would pick the wrong one).
+  function hits(c, text) { return (c.keys || []).reduce(function (n, k) { return n + (text.indexOf(k) >= 0 ? 1 : 0); }, 0); }
   function conceptFor(ch, q) {
     var C = G.chapters[ch];
     if (!C || !C.concepts) return null;
     if (C.questions && C.questions[q.id]) return C.concepts.filter(function (c) { return c.id === C.questions[q.id]; })[0] || null;
     // Each part votes for the concept its words match best, weighted by its marks; the stem breaks ties.
-    var votes = {}, hits = function (c, text) { return (c.keys || []).reduce(function (n, k) { return n + (text.indexOf(k) >= 0 ? 1 : 0); }, 0); };
-    q.parts.forEach(function (p) {
-      var text = (p.q + ' ' + p.pts.map(function (pt) { return pt.a; }).join(' ')).toLowerCase(), top = null, most = 0;
-      C.concepts.forEach(function (c) { var h = hits(c, text); if (h > most) { top = c; most = h; } });
-      if (top) votes[top.id] = (votes[top.id] || 0) + partMarks(p);
-    });
+    var votes = {};
+    q.parts.forEach(function (p) { var top = partConcept(C, p); if (top) votes[top.id] = (votes[top.id] || 0) + partMarks(p); });
     var stem = String(q.stem || '').toLowerCase(), best = null, score = 0;
     C.concepts.forEach(function (c) {
       var s = (votes[c.id] || 0) + hits(c, stem) * 0.5;
@@ -169,30 +141,73 @@
     });
     return best;
   }
-  function scienceStep(ch, c) {
-    var base = 'bio-' + ch + '-' + c.id;
-    return { id: 'question-bio-science', title: c.title, summary: c.summary, pic: c.pic || null,
-      bullets: c.bullets.map(function (b) { return { b: b[0], t: b[1], say: b[2] }; }),
-      voice: [base + '-title', base + '-summary'].concat(c.bullets.map(function (b, k) { return base + '-' + (k + 1); })),
-      says: [c.titleSay || c.title, c.say || c.summary].concat(c.bullets.map(function (b) { return b[2]; })) };
+  // How strongly a part is about a concept: its question's words count twice its scheme answers' words.
+  function partScore(c, p) { return 2 * hits(c, String(p.q).toLowerCase()) + hits(c, p.pts.map(function (pt) { return pt.a; }).join(' ').toLowerCase()); }
+  // The concept one part is about: the one it matches best.
+  function partConcept(C, p) {
+    var top = null, most = 0;
+    C.concepts.forEach(function (c) { var h = partScore(c, p); if (h > most) { top = c; most = h; } });
+    return top;
   }
 
-  // Step 3: how to answer the question's main command word (the hardest kind in it).
-  function marksStep(q) {
-    var cmds = q.parts.map(G.command), c = CMD_ORDER.filter(function (k) { return cmds.indexOf(k) >= 0; })[0] || 'name', d = G.CMD[c];
-    var base = 'bio-cmd-' + c;
-    return { id: 'question-bio-marks', title: d.title, summary: d.summary,
-      bullets: d.bullets.map(function (b) { return { b: b[0], t: b[1], say: b[2] }; }),
-      voice: [base + '-title', base + '-summary'].concat(d.bullets.map(function (b, k) { return base + '-' + (k + 1); })),
-      says: [d.title, d.say].concat(d.bullets.map(function (b) { return b[2]; })) };
+  // One slide for each part of the question: the part's question, then the science it needs (the chapter's concept,
+  // with its diagram) and what earns its marks. A part about an idea an earlier slide already taught, or that no
+  // concept matches, gets the three tips for its command word instead.
+  function partStep(ch, p, c, k) {
+    var cmd = G.command(p), d = G.CMD[cmd], marks = partMarks(p);
+    var asked = String(p.q).replace(/\s*\[[^\]]*\]/g, '');
+    var summary = p.l + ' ' + (asked.length > 110 ? asked.slice(0, 107).replace(/\s+\S*$/, '') + '…' : asked);
+    var sumSay = 'Part ' + spokenLabel(p.l) + '. ' + asked;
+    var step = { id: k ? 'question-bio-part-' + (k + 1) : 'question-bio-ask', summary: summary, pic: null };
+    if (c) {
+      var base = 'bio-' + ch + '-' + c.id, tip = { b: (p.n === 1 ? 'One point' : p.n + ' points') + ', ' + marks + ' marks', t: d.summary,
+        say: 'It\'s worth ' + spokenNumber(marks) + ' marks, so ' + (p.n === 1 ? 'one point' : spokenNumber(p.n) + ' points') + '. ' + d.say };
+      step.title = c.title;
+      step.pic = c.pic || null;
+      step.bullets = c.bullets.map(function (b) { return { b: b[0], t: b[1], say: b[2] }; }).concat([tip]);
+      step.voice = [base + '-title', G.lineId(sumSay)].concat(c.bullets.map(function (b, i) { return base + '-' + (i + 1); }), [G.lineId(tip.say)]);
+      step.says = [c.titleSay || c.title, sumSay].concat(c.bullets.map(function (b) { return b[2]; }), [tip.say]);
+    } else {
+      var cb = 'bio-cmd-' + cmd;
+      step.title = d.title;
+      step.bullets = d.bullets.map(function (b) { return { b: b[0], t: b[1], say: b[2] }; });
+      step.voice = [cb + '-title', G.lineId(sumSay)].concat(d.bullets.map(function (b, i) { return cb + '-' + (i + 1); }));
+      step.says = [d.title, sumSay].concat(d.bullets.map(function (b) { return b[2]; }));
+    }
+    return step;
   }
 
   // The guide's steps for one question (plain data; bio/bio-desk.js turns them into the guide's cards).
+  // Each concept is taught once, on the part that matches it most strongly; the question's own concept covers a
+  // first part that matches none.
   G.steps = function (ch, q) {
-    var c = conceptFor(ch, q), list = [askStep(q)];
-    if (c) list.push(scienceStep(ch, c));
-    list.push(marksStep(q));
-    return list;
+    var C = G.chapters[ch], whole = conceptFor(ch, q), fixed = C && C.questions && C.questions[q.id];
+    // Chosen by hand for every part (BioGuide.chapters[N].parts): taught on the first part that needs it.
+    var chosen = C && C.parts && C.parts[q.id];
+    if (chosen) {
+      var taught = {};
+      return q.parts.map(function (p, k) {
+        var id = chosen[k], c = id && !taught[id] ? C.concepts.filter(function (x) { return x.id === id; })[0] || null : null;
+        if (c) taught[c.id] = true;
+        return partStep(ch, p, c, k);
+      });
+    }
+    var pick = q.parts.map(function (p) {
+      if (!C || !C.concepts) return null;
+      if (fixed) return whole;
+      return partConcept(C, p);
+    });
+    if (!fixed && whole && pick.every(function (c) { return !c; })) pick[0] = whole;
+    var best = {};
+    pick.forEach(function (c, k) {
+      if (!c) return;
+      var sc = fixed ? -k : partScore(c, q.parts[k]);
+      if (!best[c.id] || sc > best[c.id].sc) best[c.id] = { k: k, sc: sc };
+    });
+    return q.parts.map(function (p, k) {
+      var c = pick[k] && best[pick[k].id].k === k ? pick[k] : null;
+      return partStep(ch, p, c, k);
+    });
   };
   // Every narrated line of a step, for the voice generator: [{id, text, say}].
   G.lines = function (step) {
