@@ -277,16 +277,16 @@
     return '<section class="card ch-prog rise" style="--i:2" aria-labelledby="ch-h-prog"><h2 class="card-h" id="ch-h-prog">Your progress</h2>' +
         (seen == null ? '<p class="ch-none">No questions answered in this chapter yet.</p>'
           : '<p class="ch-big"><b class="num">' + seen + '%</b>' + (grade ? '<span class="ch-grade">' + grade + '</span>' : '') + '</p>' +
-            '<p class="ch-cap">of the marks you\'ve answered in this chapter</p><span class="pg-track ch-track"><i style="--w:' + seen + '%"></i></span>') +
+            '<span class="pg-track ch-track"><i style="--w:' + seen + '%"></i></span>') +
         '<dl class="ch-facts"><div><dt>Questions tried</dt><dd><span class="num">' + (r.count || 0) + '</span><span class="of"> of ' + allQuestions(n).length + '</span></dd></div>' +
           '<div><dt>Drills tried</dt><dd><span class="num">' + done + '</span><span class="of"> of ' + items.length + '</span></dd></div>' +
           '<div><dt>Last answered</dt><dd>' + (last ? esc(ago(last)) : '<span class="dash">–</span>') + '</dd></div></dl>' +
         '<button type="button" class="btn-primary ch-next" data-pg-next="' + n + '">' + (hasUntried(n) ? 'Answer the next question' : 'Retry your lowest score') + '</button></section>' +
       (todo.length ? '<section class="card ch-todo rise" style="--i:3" aria-labelledby="ch-h-todo"><header class="card-head"><h2 class="card-h" id="ch-h-todo">Not tried yet</h2>' +
-        '<span class="card-meta">' + todo.length + (todo.length === 1 ? ' drill' : ' drills') + '</span></header><ul class="ch-list">' +
+        '</header><ul class="ch-list">' +
         todo.slice(0, 6).map(function (x) { return '<li><button type="button" class="ch-item" ' + x.attr + '>' + esc(x.name) + '<i class="bio-go" aria-hidden="true"></i></button></li>'; }).join('') +
-        '</ul>' + (todo.length > 6 ? '<p class="card-foot">And ' + (todo.length - 6) + ' more in the Games, Learn it and Diagrams tabs.</p>' : '') + '</section>'
-        : '<section class="card ch-todo rise" style="--i:3"><h2 class="card-h">Every drill tried</h2><p class="card-foot">Play them again to beat your bests.</p></section>');
+        '</ul></section>'
+        : '<section class="card ch-todo rise" style="--i:3"><h2 class="card-h">Every drill tried</h2></section>');
   }
   // Whether a chapter still has a real exam question you haven't tried.
   function hasUntried(n) { return ((QS[n] || {}).questions || []).some(function (q) { return !scoreOf(n, q); }); }
@@ -318,7 +318,7 @@
       '<ul class="bio-qlist">' + list.map(function (q) {
         var s = scoreOf(n, q), out = questionOutOf(q), first = q.parts[0] ? q.parts[0].q : '';
         return '<li><button type="button" class="bio-q" data-bio-open="' + esc(q.id) + '">' +
-          '<span class="bio-q__src">' + (q.sec === 'practice' ? 'Practice<em>Not a real paper</em>' : q.year === 2027 ? 'Sample<em>P' + esc(q.id.split('-')[0].slice(1) + ' ' + q.id.split('-').slice(1).join('-')) + '</em>'
+          '<span class="bio-q__src">' + (q.sec === 'practice' ? 'Practice' : q.year === 2027 ? 'Sample<em>P' + esc(q.id.split('-')[0].slice(1) + ' ' + q.id.split('-').slice(1).join('-')) + '</em>'
             : esc(String(q.year)) + '<em>' + esc(q.id.split('-').slice(1).join('-')) + '</em>') + '</span>' +
           // The question's start is for screen readers only: the tile shows the paper, the part and the marks.
           '<span class="sr">' + esc(((q.stem ? q.stem + ' ' : '') + first).replace(/\s*\[[^\]]*\]/g, '')).slice(0, 150) + '</span>' +
@@ -326,7 +326,7 @@
             (q.fresh === 'no' ? '<i class="bio-old">Old course</i>' : q.fresh === 'partly' ? '<i class="bio-old bio-old--part">Partly old</i>' : '') + '</span></button></li>';
       }).join('') + '</ul>' +
       (d.notCovered && d.notCovered.length ? '<details class="bio-gaps"><summary>On the course but never asked yet (' + d.notCovered.length + ')</summary><ul>' +
-        d.notCovered.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul><p>The Practice questions in this list cover them, with our own answer keys.</p></details>' : '');
+        d.notCovered.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></details>' : '');
   }
   function diagramList(n) {
     var ids = Object.keys(ART).filter(function (id) { return ART[id].chapter === n; });
@@ -334,7 +334,7 @@
     return '<ul class="bio-dlist">' + ids.map(function (id) {
         var a = ART[id], best = store('bio-build-' + id);
         return '<li class="bio-d"><div class="bio-d__pic" aria-hidden="true">' + a.plain + '</div><div class="bio-d__text"><b>' + esc(a.name) + '</b>' +
-          '<span>' + a.labels.length + ' labels' + (best ? ' · Build it best: ' + esc(best) : '') + '</span>' +
+          (best ? '<span>Best ' + esc(best) + '</span>' : '') +
           '<div class="bio-d__btns"><button type="button" class="bio-btn" data-bio-build="' + id + '">Build it</button>' +
           '<button type="button" class="bio-btn bio-btn--ghost" data-bio-draw="' + n + '">Draw it</button></div></div></li>';
       }).join('') + '</ul>';
@@ -342,7 +342,7 @@
   function drillRows(items, empty) {
     if (!items.length) return '<p class="bio-empty">' + empty + '</p>';
     return '<ul class="bio-glist">' + items.map(function (g) {
-      return '<li><button type="button" class="bio-g" ' + g.attr + '><b>' + esc(g.name) + '</b><span>' + esc(g.what) + '</span>' + bestHtml(g.best) + '<i class="bio-go" aria-hidden="true"></i></button></li>';
+      return '<li><button type="button" class="bio-g" ' + g.attr + '><b>' + esc(g.name) + '</b>' + bestHtml(g.best) + '<i class="bio-go" aria-hidden="true"></i></button></li>';
     }).join('') + '</ul>';
   }
   function gameList(n) { return drillRows(drillItems(n).filter(function (g) { return g.kind === 'game'; }), 'Games for this chapter are coming.'); }

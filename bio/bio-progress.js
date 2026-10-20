@@ -180,11 +180,6 @@
     var esc = api.esc, m = model(api), now = m.now, target = gradeByName(api.store('bio-target') || ''), f = finding(api, m), weakest = null;
     var tried = now.rows.filter(function (r) { return r.tried; });
     if (tried.length >= 2) weakest = tried.slice().sort(function (a, b) { return a.seen - b.seen; })[0].n;
-    var gap = '';
-    if (target && now.pct != null) {
-      gap = now.pct >= target.from ? '<p class="pg-gap is-on">You\'re predicted ' + now.grade.name + ', at or above your target.</p>'
-        : '<p class="pg-gap">' + (target.from - now.pct) + ' more marks in every 100 for ' + target.name + '.</p>';
-    }
     var counts = [], log = m.log, streak = 0;
     for (var k = 13; k >= 0; k--) { var d = addDays(today(), -k); counts.push(log.filter(function (e) { return e.d === d; }).length); }
     for (var j = 0; ; j++) { var dd = addDays(today(), -j); if (log.some(function (e) { return e.d === dd; })) streak += 1; else if (j) break; }
@@ -207,17 +202,15 @@
         (now.pct == null ? '' : '<section class="card pg-grade rise" style="--i:1" aria-labelledby="pg-h-grade"><h2 class="card-h" id="pg-h-grade">Predicted grade</h2>' +
           '<p class="pg-big"><b>' + now.grade.name + '</b><span class="pg-pct"><span class="num" data-pg-count="' + now.pct + '">' + now.pct + '</span>%</span></p>' +
           '<p class="pg-line">' + now.grade.points + ' CAO points · likely ' + (now.lowGrade.name === now.highGrade.name ? now.grade.name : now.lowGrade.name + ' to ' + now.highGrade.name) + '</p>' +
-          '<p class="pg-from">From the ' + now.questions + (now.questions === 1 ? ' question' : ' questions') + ' (' + now.marks + ' marks) you\'ve answered on chapters 28 to 32' +
-            (now.marks < 60 ? '. An early guess: it firms up as you answer more.' : '.') + '</p>' +
-          '<div class="pg-target"><label for="pg-target">Your target</label><select id="pg-target" class="control" data-pg-target>' + opts + '</select></div>' + gap + '</section>') +
+          '<div class="pg-target"><label for="pg-target">Your target</label><select id="pg-target" class="control" data-pg-target>' + opts + '</select></div></section>') +
         '<section class="card pg-trend rise' + (now.pct == null ? ' pg-trend--wide' : '') + '" style="--i:2" aria-labelledby="pg-h-trend"><header class="card-head"><h2 class="card-h" id="pg-h-trend">Prediction over time</h2>' +
           (m.hist.length ? '<ul class="legend"><li><i class="lg-line"></i>Predicted</li>' + (m.hist.length > 1 ? '<li><i class="lg-range"></i>Likely range</li>' : '') +
             (target ? '<li><i class="lg-target"></i>Target ' + target.name + '</li>' : '') + '</ul>' : '') + '</header>' +
           '<div class="pg-ladder" data-pg-ladder></div>' +
-          (m.hist.length > 1 ? '' : '<p class="card-foot">' + (m.hist.length ? 'Answer questions on another day to see your trend.' : 'Your line starts with your first answer.') + '</p>') + '</section>' +
-        '<section class="card pg-chapters rise" style="--i:3" aria-labelledby="pg-h-ch"><header class="card-head"><h2 class="card-h" id="pg-h-ch">Chapters</h2><span class="card-meta">Exam questions and drills</span></header>' +
+          '</section>' +
+        '<section class="card pg-chapters rise" style="--i:3" aria-labelledby="pg-h-ch"><header class="card-head"><h2 class="card-h" id="pg-h-ch">Chapters</h2></header>' +
           '<table class="pg-table"><thead><tr><th scope="col">Chapter</th><th scope="col">Your marks</th><th scope="col" class="num">Questions</th><th scope="col" class="num">Drills</th><th scope="col" class="num">Grade</th></tr></thead><tbody>' + rowsHtml + '</tbody></table></section>' +
-        '<section class="card pg-days rise" style="--i:4" aria-labelledby="pg-h-days"><header class="card-head"><h2 class="card-h" id="pg-h-days">Last 14 days</h2><span class="card-meta">Questions answered</span></header>' +
+        '<section class="card pg-days rise" style="--i:4" aria-labelledby="pg-h-days"><header class="card-head"><h2 class="card-h" id="pg-h-days">Questions answered, last 14 days</h2></header>' +
           '<div class="pg-daychart" data-pg-days></div>' +
           '<dl class="pg-stats"><div><dt>Days practised</dt><dd><span class="num">' + practised + '</span><span class="of"> of 14</span></dd></div>' +
             '<div><dt>Streak</dt><dd><span class="num">' + streak + '</span><span class="of">' + (streak === 1 ? ' day' : ' days') + '</span></dd></div>' +

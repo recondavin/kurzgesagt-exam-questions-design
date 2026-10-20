@@ -70,14 +70,11 @@ body { background: var(--ground); }
 .pg-grid > .pg-trend--wide { grid-column: 1 / -1; }
 .card-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 12px; margin: 0 0 14px; }
 .card-h { margin: 0; color: #fff; font: 600 16.5px/1.25 Fredoka, Nunito, sans-serif; }
-.card-meta { color: var(--faint); font: 700 13px Nunito, system-ui, sans-serif; text-align: right; }
-.card-foot { margin: 10px 0 0; color: var(--faint); font: 700 13px/1.45 Nunito, system-ui, sans-serif; }
 .pg-grade { display: flex; flex-direction: column; }
 .pg-big { display: flex; align-items: baseline; gap: 12px; margin: 16px 0 0; }
 .pg-big b { color: var(--hue); font: 600 34px/1 Fredoka, Nunito, sans-serif; }
 .pg-pct { color: #fff; font: 800 20px/1 Nunito, system-ui, sans-serif; }
 .pg-line { margin: 12px 0 0; color: #fff; font: 700 15px/1.4 Nunito, system-ui, sans-serif; }
-.pg-from { margin: 6px 0 0; color: var(--muted); font: 700 13.5px/1.5 Nunito, system-ui, sans-serif; }
 .pg-target { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
 .pg-target label { color: var(--muted); font: 700 13.5px Nunito, system-ui, sans-serif; }
 .control { height: 34px; padding: 0 32px 0 14px; border: 1px solid var(--control); border-radius: 999px; background: var(--raised) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23B9C7CF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") right 12px center / 11px no-repeat;
@@ -85,8 +82,6 @@ body { background: var(--ground); }
 .control:hover { border-color: var(--faint); }
 .control:focus-visible { outline: 3px solid #FFE14D; outline-offset: 1px; }
 .control option { background: var(--surface); color: #fff; }
-.pg-gap { margin: 10px 0 0; color: var(--muted); font: 700 13.5px/1.45 Nunito, system-ui, sans-serif; }
-.pg-gap.is-on { color: var(--positive); }
 
 .pg-ladder, .pg-daychart { line-height: 0; }
 .pg-days { display: flex; flex-direction: column; }
@@ -172,10 +167,10 @@ tr .pg-track i { animation-delay: inherit; }
 .sh-canvas .bio-glist { grid-template-columns: minmax(0, 1fr); gap: 10px; }
 .sh-canvas .bio-g { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 20px; padding: 14px 48px 14px 18px; border: 0; background: var(--surface); transition: background .15s ease; }
 .sh-canvas .bio-g:hover { background: var(--raised); }
-.sh-canvas .bio-g > b, .sh-canvas .bio-g > span { grid-column: 1; }
+.sh-canvas .bio-g > b { grid-column: 1; }
 .sh-canvas .bio-g > b { font-size: 18px; }
 .sh-canvas .bio-go { border-color: var(--muted); }
-.bio-best { grid-column: 2; grid-row: 1 / span 2; color: var(--muted); font: 700 13.5px Nunito, system-ui, sans-serif; font-style: normal; text-align: right; white-space: nowrap; }
+.bio-best { grid-column: 2; grid-row: 1; color: var(--muted); font: 700 13.5px Nunito, system-ui, sans-serif; font-style: normal; text-align: right; white-space: nowrap; }
 .sh-canvas .bio-g .bio-best b { color: #fff; font: 800 15px Nunito, system-ui, sans-serif; }
 .bio-best.is-none { color: var(--faint); }
 
@@ -186,10 +181,9 @@ tr .pg-track i { animation-delay: inherit; }
 .ch-prog { grid-area: prog; }
 .ch-todo { grid-area: todo; }
 .ch-none { margin: 12px 0 0; color: var(--muted); font: 700 14px/1.45 Nunito, system-ui, sans-serif; }
-.ch-big { display: flex; align-items: baseline; gap: 12px; margin: 14px 0 0; }
+.ch-big { display: flex; align-items: baseline; gap: 12px; margin: 14px 0 12px; }
 .ch-big b { color: var(--hue); font: 600 30px/1 Fredoka, Nunito, sans-serif; }
 .ch-grade { color: #fff; font: 600 20px/1 Fredoka, Nunito, sans-serif; }
-.ch-cap { margin: 6px 0 10px; color: var(--muted); font: 700 13.5px/1.4 Nunito, system-ui, sans-serif; }
 .ch-track { display: block; width: 100%; }
 .ch-facts { margin: 16px 0 0; }
 .ch-facts div { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; min-height: 34px; padding: 6px 0; border-top: 1px solid var(--rule); }
