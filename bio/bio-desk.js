@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-25';
+  var V = 'bio-26';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -99,9 +99,9 @@
   }
   // Each part's box (bio/papers.js, traced by tools/bio/build_bio_part_boxes.py) and its shade, like a news explainer
   // zooming into a line of a document: inside the box (and a margin round it, under the dark around the spotlight) the
-  // page is greyed and blurred so the other parts can't be read, and the part's own print (and what it needs) stays
-  // sharp and white. The shade is the page itself, blurred by the browser (smooth, and drawn by the graphics card),
-  // masked out over the part's holes, which have clean, slightly rounded edges.
+  // page is greyed and blurred so far that no line of it is left, and the part's own print (and what it needs) stays
+  // sharp and white, glowing softly into the grey with no edge. The shade is the page itself, blurred by the browser
+  // (smooth, and drawn by the graphics card), cut out over the part's holes.
   function partBoxes(shell, P) {
     shell.querySelectorAll('.bio-part-focus, .bio-shade').forEach(function (n) { n.remove(); });
     (P.parts || []).forEach(function (v, k) {
@@ -111,25 +111,38 @@
       place(f, v.box);
       shell.appendChild(f);
       var m = 4, b = [v.box[0] - m, v.box[1] - m, v.box[2] + 2 * m, v.box[3] + 2 * m];
-      // The mask: white (shade shown) everywhere but the holes, drawn in page % so it lines up with the page.
-      var mask = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + b.join(' ') + '" preserveAspectRatio="none"><defs><mask id="m" maskUnits="userSpaceOnUse" x="' +
-        b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '"><rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" fill="#fff"/>' +
-        v.holes.map(function (h) {
-          return '<rect x="' + h[0] + '" y="' + h[1] + '" width="' + h[2] + '" height="' + h[3] + '" rx="0.45" ry="0.32" fill="#000"/>';
-        }).join('') + '</mask></defs><rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" fill="#fff" mask="url(#m)"/></svg>';
-      var url = 'url("data:image/svg+xml,' + encodeURIComponent(mask) + '")';
+      // Two masks, drawn in page % so they line up with the page. The shade is cut out exactly over the holes (whose
+      // edges lie on blank paper), so the part is the real page. Over the grey, a white glow starts at the holes and
+      // fades out: where the paper and the glow meet both are white, so there is no edge, and nothing sharp shows
+      // through the fade.
+      var svg = function (body, defs) {
+        return 'url("data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + b.join(' ') + '" preserveAspectRatio="none">' +
+          (defs || '') + body + '</svg>') + '")';
+      };
+      var rects = function (grow, grow2, fill) {
+        return v.holes.map(function (h) {
+          return '<rect x="' + (h[0] - grow) + '" y="' + (h[1] - grow2) + '" width="' + (h[2] + 2 * grow) + '" height="' + (h[3] + 2 * grow2) + '" fill="' + fill + '"/>';
+        }).join('');
+      };
+      var cut = svg('<rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" fill="#fff" mask="url(#m)"/>',
+        '<defs><mask id="m" maskUnits="userSpaceOnUse" x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '"><rect x="' + b[0] + '" y="' + b[1] +
+        '" width="' + b[2] + '" height="' + b[3] + '" fill="#fff"/>' + rects(0, 0, '#000') + '</mask></defs>');
+      var glow = svg('<g filter="url(#f)">' + rects(1.6, 1.12, '#fff') + '</g>',
+        '<defs><filter id="f" filterUnits="userSpaceOnUse" x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '"><feGaussianBlur stdDeviation="0.8 0.56"/></filter></defs>');
       var shade = el('div', 'bio-shade');
       shade.setAttribute('data-part', k);
       shade.setAttribute('aria-hidden', 'true');
       place(shade, b);
-      shade.style.webkitMaskImage = url;
-      shade.style.maskImage = url;
+      shade.style.webkitMaskImage = shade.style.maskImage = cut;
       // The page, placed so it lies exactly over the real one (the shade's box is b, in page %).
       var page = el('img', 'bio-shade__page');
       page.alt = '';
       page.src = v.img + '?v=' + V;
       page.style.cssText = 'left:' + (-b[0] / b[2] * 100) + '%;top:' + (-b[1] / b[3] * 100) + '%;width:' + (100 / b[2] * 100) + '%;height:' + (100 / b[3] * 100) + '%';
       shade.appendChild(page);
+      var light = el('div', 'bio-shade__glow');
+      light.style.webkitMaskImage = light.style.maskImage = glow;
+      shade.appendChild(light);
       shell.appendChild(shade);
     });
   }

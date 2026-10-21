@@ -43,7 +43,8 @@ body .am-root .bio-paper .am-type__box { font-family: Nunito, system-ui, sans-se
 .geography-page-shell .bio-part-focus[data-hf-target] { position: absolute; z-index: 44; pointer-events: none; box-shadow: none; outline: 0; transform: none; transition: none; }
 body .bio-shade { position: absolute; z-index: 46; pointer-events: none; opacity: 0; transition: opacity .45s ease; }
 body .bio-shade { overflow: hidden; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; background: #9C9C9C; }
-body .bio-shade__page { position: absolute; max-width: none; filter: grayscale(1) blur(10px) brightness(.62); }
+body .bio-shade__page { position: absolute; max-width: none; filter: grayscale(1) blur(26px) brightness(.62); }
+body .bio-shade__glow { position: absolute; inset: 0; background: #FFFFFF; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
 body.hf-active .bio-shade.is-on { opacity: 1; }
 /* During a whip between parts the dark round the spotlight lifts, so the blurred page is seen rushing past, and comes
    back as the camera lands. */
