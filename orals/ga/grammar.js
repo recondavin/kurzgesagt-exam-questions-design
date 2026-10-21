@@ -1,7 +1,7 @@
 // Irish for the marker (orals/engine/marker.js): how words are compared, shared patterns, and the rules for mistakes.
-// A rule here may only fire when the mistake is certain in every dialect (Connacht, Munster and Ulster), so a right
+// A rule here may only fire when the mistake is certain in every dialect, so a right
 // answer is never marked wrong. Each rule names the fix in plain English and rewrites the student's own words.
-// Dialect forms that differ from the textbook are right: "sa gcathair" (Connacht), "ar an chéad lá" (Ulster).
+// Dialect forms that differ from the standard model are right: "sa gcathair", "ar an chéad lá".
 
 const VOWELS = 'aeiouáéíóú';
 export function fold(w) { return w.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/-/g, ''); }
@@ -29,6 +29,7 @@ const notAfterAn = w => /^[dts]/i.test(fold(w));
 // ---------------------------------------------------------------- word lists
 // Nouns counted with numbers: singular and plural.
 const NOUNS = {
+  ábhar: 'ábhair',
   deartháir: 'deartháireacha', deirfiúr: 'deirfiúracha', duine: 'daoine', páiste: 'páistí', peata: 'peataí',
   madra: 'madraí', cat: 'cait', uncail: 'uncailí', aintín: 'aintíní', coinín: 'coiníní', iasc: 'éisc', capall: 'capaill',
 };
@@ -118,14 +119,14 @@ const RULES = [
     });
     return out;
   },
-  // sa + consonant: lenition (sa chathair), or eclipsis in Connacht (sa gcathair); sa + vowel is "san".
+  // sa + consonant: standard lenition (sa chathair), or dialect eclipsis (sa gcathair); sa + vowel is "san".
   function sa(s) {
     const out = [];
     s.forEach((t, i) => {
       const n = s[i + 1];
       if (!n || f(t) !== 'sa') return;
       const a = fold(low(n));
-      if (/^[bcfgp]/.test(a) && a[1] !== 'h' && !isEclipsed(n.raw)) out.push(hit(i, i + 2, [t.raw, lenite(n.raw)], 'After "sa", add a h after the first letter: sa chathair, sa bhaile (in Connacht also sa gcathair).', 'sa-lenition'));
+      if (/^[bcfgp]/.test(a) && a[1] !== 'h' && !isEclipsed(n.raw)) out.push(hit(i, i + 2, [t.raw, lenite(n.raw)], 'After "sa", add a h after the first letter: sa chathair, sa bhaile (dialect eclipsis, as in sa gcathair, is also accepted).', 'sa-lenition'));
       else if (VOWELS.includes(a[0]) && ['arasan', 'eastat', 'oifig', 'ospideal', 'ostan', 'ionad', 'iarthar', 'oirthear'].includes(a)) out.push(hit(i, i + 1, ['san'], 'Before a vowel, "sa" becomes "san": san árasán, san ospidéal.', 'sa-vowel'));
     });
     return out;

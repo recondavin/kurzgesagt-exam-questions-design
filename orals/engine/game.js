@@ -20,6 +20,8 @@ import { createWorld } from './world.js';
 import { createTalk } from './talk.js';
 import { createMarker } from './marker.js';
 import { createSound } from './sound.js';
+import { createLearn } from './learn.js';
+import { createVoice, VOICES } from './voice.js';
 
 const store = {
   get(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } },
@@ -31,8 +33,17 @@ export function startGame(pack) {
   const root = document.querySelector('.og');
   const world = createWorld(root.querySelector('.og-world'), pack);
   const sound = createSound({ key: pack.key, music: pack.music && pack.music.src });
+  let voiceActive = false, recordingActive = false;
+  const voice = createVoice(pack.voiceBase, on => { voiceActive = on; });
+  const learn = createLearn(localStorage, pack.key + '-learn');
+  const playedDay = learn.played();
   const talk = createTalk(root, {
-    key: pack.key, back: pack.back, voice: pack.voice || null,
+    key: pack.key, back: pack.back, voice: text => voice.play(text), hasVoice: (text, model) => voice.has(text, model ? VOICES[profile?.voice] || VOICES.female : VOICES.female),
+    stopVoice: () => voice.stop(), modelVoice: text => voice.play(text, VOICES[profile?.voice] || VOICES.female),
+    onPlayback: on => { recordingActive = on; },
+    onLevel: value => changeLevel(value),
+    onMistakes: items => learn.mistakes(items, pack.ruleGroup || (() => null)),
+    onKeep: (id, text) => { if (!profile) return; profile.answers = { ...profile.answers, [id]: text }; store.set(profileKey, profile); rebuild(); },
     onInsets: (t, b) => world.setInsets(t, b),
     onLeave: () => leave(),
     sfx: name => sound.play(name, { vol: 0.7 }),
@@ -40,11 +51,21 @@ export function startGame(pack) {
     // "Mine was right": kept on this device so the accepted answers can be widened later.
     onMine: (id, text) => { const l = store.get(pack.key + '-mine') || []; l.push({ id, text, at: Date.now() }); store.set(pack.key + '-mine', l.slice(-200)); },
   });
-  const marker = createMarker(pack.lang, pack.questions);
-  const qById = Object.fromEntries(pack.questions.map(q => [q.id, q]));
+  let marker, qById;
   const story = new window.inkjs.Story(pack.story);
   const saveKey = pack.key + '-save', profileKey = pack.key + '-profile';
   let profile = store.get(profileKey);
+  if (profile && pack.profileOf) { const version = profile.version; profile = pack.profileOf(profile); if (version !== 2) profile.version = 1; }
+  function rebuild() {
+    const questions = pack.prepare ? pack.prepare(pack.questions, profile || {}) : pack.questions;
+    marker = createMarker(pack.lang, questions); qById = Object.fromEntries(questions.map(q => [q.id, q]));
+  }
+  rebuild(); talk.setLevel(profile?.level || 'OL');
+  function changeLevel(value) {
+    profile = { ...(profile || { ...pack.defaults, version: 1 }), level: value }; store.set(profileKey, profile);
+    talk.setLevel(value); rebuild();
+    if (!roamId && !talk.settingUp) leave();
+  }
   let mode = 'tiles', round = null, roamId = null, lastLine = null, focusIds = [], total = pack.rounds || pack.questions.length;
   // gen changes whenever the conversation is left, so a story loop still waiting on the old one stops.
   let gen = 0, partner = null;
@@ -58,7 +79,7 @@ export function startGame(pack) {
   let lastFrame = performance.now();
   world.onFrame = () => {
     const now = performance.now(), w = world.where();
-    sound.scene({ indoors: !!w.room, talking: focusIds.length > 0, sea: w.sea });
+    sound.scene({ indoors: !!w.room, talking: focusIds.length > 0, voice: voiceActive || recordingActive, sea: w.sea });
     sound.update(Math.min(0.1, (now - lastFrame) / 1000));
     lastFrame = now;
     if (!roamId || chatting) return talk.marker(null);
@@ -94,11 +115,12 @@ export function startGame(pack) {
   }
   // atRoamLine: the story is saved just before a @roam line, so carrying on walks about by itself.
   function save(ink, atRoamLine) {
-    store.set(saveKey, { ink: ink || story.state.ToJson(), atRoamLine: !!atRoamLine, partner, people: snapshot(), mode, round, place: placeText, done: [...progress.done] });
+    store.set(saveKey, { version: pack.saveVersion || 2, ink: ink || story.state.ToJson(), atRoamLine: !!atRoamLine, partner, people: snapshot(), mode, round, place: placeText, done: [...progress.done] });
   }
   function load() {
     const s = store.get(saveKey);
     if (!s) return null;
+    if (s.version !== (pack.saveVersion || 2)) { store.del(saveKey); return null; }
     try { story.state.LoadJson(s.ink); } catch (e) { store.del(saveKey); return null; }
     for (const [id, v] of Object.entries(s.people || {})) world.place(id, v);
     world.standUp(world.player);
@@ -226,6 +248,7 @@ export function startGame(pack) {
 
   // A question ready to show: the model answers can name the student ({name}, {county}...), which the pack fills in.
   function prepared(q) {
+    if (q.personal) return q;
     const fill = pack.fill ? t => pack.fill(t, profile || {}) : t => t;
     const filled = m => m && { ga: fill(m.ga), en: fill(m.en) };
     return Object.assign({}, q, { tiles: tilesFor(q), model: filled(q.model), more: filled(q.more) });
@@ -280,17 +303,56 @@ export function startGame(pack) {
         roamId = null;
         showHint('');
         // The first time, ask for the name and county the answers use.
-        if (!profile) { profile = await talk.setup(setupText()); store.set(profileKey, profile); }
+        if (!profile || profile.version !== 2) {
+          profile = await talk.setup(setupText());
+          if (pack.profileOf) profile = pack.profileOf(profile);
+          store.set(profileKey, profile); rebuild(); talk.setLevel(profile.level || 'OL');
+        }
         world.approach(world.player, world.people[id], done);
       });
     });
   }
 
-  async function direction(text, before) {
+  async function session(before, g) {
+    await voice.ready;
+    const level = () => profile?.level || 'OL';
+    setPlace(`Lá ${learn.played()} · Conamara`);
+    if (!round?.session) round = { session: true, ids: learn.plan(Object.values(qById), level()).map(q => q.id), index: 0, items: [] };
+    round.size = round.ids.length;
+    let topic;
+    while (round.index < round.ids.length) {
+      if (g !== gen) return;
+      const q = qById[round.ids[round.index]];
+      if (!q || (q.higher && level() !== 'HL')) { round.index++; continue; }
+      partner = 'mairin'; save(before);
+      if (q.topic !== topic && pack.topics?.[q.topic]) {
+        topic = q.topic; const [ga, en] = pack.topics[topic];
+        await talk.say({ id: 'mairin', name: pack.people.mairin.name, ga, en });
+        if (g !== gen) return;
+      }
+      const step = learn.step(q.id, level());
+      const wording = step === 'wording' ? q.ask[q.ask.length - 1] : q.ask[0];
+      const result = await talk.ask({ id: 'mairin', name: pack.people.mairin.name, ga: wording, en: q.en }, prepared(q), step, marker);
+      if (g !== gen || !result) return;
+      learn.record(q.id, result.uncertain ? 'unsure' : result.firstTry ? 'first' : 'retry', level());
+      round.items.push({ id: q.id, first: result.firstTry }); round.index++;
+      talk.progress(round.index, round.size); save(before);
+      await talk.say({ id: 'mairin', name: pack.people.mairin.name, ga: result.firstTry ? 'Maith thú!' : 'Tá sé agat anois.', en: result.firstTry ? 'Well done!' : 'You have it now.' });
+      if (g !== gen) return;
+      for (const [group, count] of Object.entries(learn.data.rules)) if (count >= 3 && pack.drills?.[group]) {
+        if (await talk.drill(pack.drills[group])) learn.resetRule(group, pack.ruleGroup);
+        if (g !== gen) return;
+      }
+    }
+    round = null; save();
+  }
+
+  async function direction(text, before, g) {
     const sp = text.indexOf(' ');
     const cmd = sp < 0 ? text.slice(1) : text.slice(1, sp), arg = sp < 0 ? '' : text.slice(sp + 1).trim();
     const parts = arg.split('^').map(s => s.trim());
-    if (cmd === 'place') setPlace(arg);
+    if (cmd === 'session') await session(before, g);
+    else if (cmd === 'place') setPlace(`Lá ${playedDay} · ${arg}`);
     else if (cmd === 'mode') mode = arg === 'type' ? 'type' : 'tiles';
     else if (cmd === 'do') { talk.hideSheet(); await Promise.all(arg.split('&').map(act)); }
     else if (cmd === 'focus') setFocus(arg === 'room' ? [] : arg.split(/\s+/));
@@ -319,7 +381,7 @@ export function startGame(pack) {
         const before = story.state.ToJson();
         const text = story.Continue().trim();
         if (!text) continue;
-        if (text[0] === '@') { await direction(text, before); continue; }
+        if (text[0] === '@') { await direction(text, before, g); continue; }
         const line = parse(text, story.currentTags);
         lastLine = line;
         if (line.tags.sfx) sound.play(line.tags.sfx);
@@ -344,12 +406,13 @@ export function startGame(pack) {
   }
 
   talk.onMenu(() => [
+    { label: `Level: ${profile?.level || 'OL'} — switch to ${profile?.level === 'HL' ? 'Ordinary' : 'Higher'}`, run: () => changeLevel(profile?.level === 'HL' ? 'OL' : 'HL') },
     { toggle: 'Music', on: sound.prefs.music, set: on => sound.setMusic(on) },
     { toggle: 'Sounds', on: sound.prefs.sfx, set: on => sound.setSfx(on) },
-    { label: 'Change my name or county', run: async () => { profile = await talk.setup(setupText()); store.set(profileKey, profile); } },
-    { label: 'Start again', run: () => { store.del(saveKey); location.reload(); } },
+    { label: 'About you and your answers', run: async () => { profile = await talk.setup(setupText()); if (pack.profileOf) profile = pack.profileOf(profile); store.set(profileKey, profile); rebuild(); talk.setLevel(profile.level); if (!roamId) leave(); } },
+    { label: 'Start again', run: () => { [saveKey, profileKey, pack.key + '-learn', pack.key + '-side'].forEach(k => store.del(k)); location.reload(); } },
   ].concat((pack.credits || []).map(c => ({ small: c.text, href: c.href }))));
-  function setupText() { return Object.assign({ profile, counties: pack.counties }, pack.setup); }
+  function setupText() { return Object.assign({ profile, counties: pack.counties, defaults: pack.defaults }, pack.setup); }
 
   // Straight into the room: no forms first.
   const saved = load();
@@ -358,5 +421,5 @@ export function startGame(pack) {
   if (saved) resumeFrom(saved);
   else { story.ChoosePathString(pack.start || 'start'); run(gen); }
 
-  return { world, talk, marker, story, sound };
+  return { world, talk, get marker() { return marker; }, get profile() { return profile; }, story, sound, learn, voice };
 }

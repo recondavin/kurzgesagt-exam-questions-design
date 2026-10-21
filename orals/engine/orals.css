@@ -170,3 +170,16 @@ html.og-page, .og-page body { height: 100%; margin: 0; overflow: hidden; overscr
   .og-sheet, .og-result, .og-card, .og-tile { animation: none; }
   .og-mark span { animation: none; }
 }
+/* Personal profiles, listening and speaking at phone width. */
+.og-top { z-index: 7; }
+.og-menu { z-index: 8; }
+.og .og-level { border: 2px solid #37464F; border-radius: 12px; background: #18272D; color: #F1F7FB; font: inherit; font-size: 13px; padding: 6px 9px; cursor: pointer; }
+.og-card--setup { max-height: calc(100dvh - 90px - env(safe-area-inset-top)); overflow-y: auto; }
+.og-card--setup .og-field { margin: 12px 0; }
+.og-card--setup input, .og-card--setup select { max-width: 100%; box-sizing: border-box; }
+.og-profile-form .og-row { flex-wrap: wrap; gap: 8px; }
+.og-letter-hint { letter-spacing: .08em; overflow-wrap: anywhere; }
+.og-recording audio { width: 100%; margin: 12px 0; }
+.og-spoken-model { border-top: 2px solid #d9d3bd; margin-top: 14px; padding-top: 12px; }
+.og-spoken-model .og-row, .og-result .og-row { flex-wrap: wrap; gap: 8px; }
+.og-hear { vertical-align: middle; }

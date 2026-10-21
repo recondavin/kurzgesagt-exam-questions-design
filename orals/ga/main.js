@@ -1,4 +1,4 @@
-// The Irish content pack: a summer in the Gaeltacht (Conamara), for the Leaving Cert Higher Level oral.
+// Leaving Cert Irish, Ordinary and Higher: a summer in Conamara.
 // Puts the house, the people, the questions, the grammar rules and the Ink story together and starts the engine.
 // The same engine runs other packs (other subjects, French, Spanish, German) with their own files like these.
 import { startGame } from '../engine/game.js';
@@ -8,6 +8,19 @@ import { SHOP } from './shop.js';
 import { GA } from './grammar.js';
 import { QUESTIONS, SHOP_QUESTIONS, SLOTS, COUNTIES } from './questions.js';
 import story from './story.js';
+import { EXTRA_QUESTIONS, TOPICS, TENSE_SLOTS, tenseOf } from './topics.js';
+import { DEFAULTS, OPTIONS, prepareQuestions, profileOf } from './personal.js';
+import { DRILLS, ruleGroup } from './drills.js';
+
+const field = (key, label, options = OPTIONS[key]) => ({ key, label, ...(options ? { options } : {}) });
+const setupPages = [
+  [field('level', 'Leaving Cert level', [{ value: 'OL', label: 'Ordinary — English and more help' }, { value: 'HL', label: 'Higher — longer answers and less help' }]), field('name', 'Your first name'), field('county', 'Your county', COUNTIES.map(c => ({ value: c.id, label: c.en })))],
+  [field('age', 'Your age'), { key: 'birthday', label: 'Birthday (only the day and month are used)', type: 'date' }],
+  [field('people', 'People in your family'), field('brothers', 'Number of brothers'), field('sisters', 'Number of sisters'), field('position', 'Your place in the family')],
+  [field('fatherJob', 'Father’s job'), field('motherJob', 'Mother’s job')],
+  [field('hobby', 'A hobby'), field('subject', 'Favourite subject'), field('dreamJob', 'Dream job')],
+  [field('place', 'Where you live'), field('voice', 'Computer voice for your model answers', [{ value: 'female', label: 'Female — Orla' }, { value: 'male', label: 'Male — Colm' }])],
+];
 
 // English for lines that have no #en tag in the story (Máirín's reactions and your replies).
 const ENGLISH = {
@@ -32,6 +45,8 @@ function fill(text, profile) {
 // The running game is kept on window for testing in the browser console.
 window.oralGame = startGame({
   key: 'oral-ga',
+  saveVersion: 3,
+  defaults: DEFAULTS, profileOf, prepare: prepareQuestions, topics: TOPICS, drills: DRILLS, ruleGroup,
   back: 'index.html',
   start: 'start',
   // An open world: the village, with Máirín's house (the kitchen) and the shop standing in it.
@@ -39,9 +54,13 @@ window.oralGame = startGame({
   rooms: [ROOM, SHOP],
   people: PEOPLE,
   story,
-  lang: Object.assign({}, GA, { slots: Object.assign({}, GA.slots, SLOTS) }),
+  lang: Object.assign({}, GA, {
+    slots: Object.assign({}, GA.slots, SLOTS, TENSE_SLOTS),
+    tenseOf,
+  }),
   // Máirín's ten (they make a day's round) and the shop's.
-  questions: QUESTIONS.concat(SHOP_QUESTIONS),
+  questions: QUESTIONS.map(q => ({ ...q, topic: 'family', tense: q.id === 'breith' ? 'past' : 'present' })).concat(
+    EXTRA_QUESTIONS, SHOP_QUESTIONS.map(q => ({ ...q, topic: 'shop', side: true }))),
   rounds: QUESTIONS.length,
   counties: COUNTIES,
   english: ENGLISH,
@@ -58,6 +77,7 @@ window.oralGame = startGame({
     title: 'A summer in Conamara',
     text: 'You\'re spending three weeks at a Gaeltacht college. Máirín asks what the examiner will ask, so your name and county go into the answers.',
     button: 'Say hello',
+    pages: setupPages,
   },
   again: 'Talk to {name} again when you\'re ready.',
   // A tile may stand for several words: the student's name, or the county with a wrong form beside it.

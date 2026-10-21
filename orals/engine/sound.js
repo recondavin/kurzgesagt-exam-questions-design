@@ -9,7 +9,7 @@ const FILES = ['door-open', 'door-close', 'bell', 'coins', 'tap', 'untap', 'next
 for (const [k, n] of Object.entries(STEPS)) for (let i = 0; i < n; i++) FILES.push(`step-${k}-${i}`);
 
 // How loud each part is (0 to 1).
-const LEVEL = { sfx: 0.9, step: 0.5, musicOut: 0.34, musicIn: 0.24, musicTalk: 0.1, sea: 0.55 };
+const LEVEL = { sfx: 0.9, step: 0.5, musicOut: 0.34, musicIn: 0.24, musicTalk: 0.1, musicVoice: 0.035, sea: 0.55 };
 
 export function createSound(opts = {}) {
   const key = (opts.key || 'oral') + '-sound';
@@ -123,7 +123,7 @@ export function createSound(opts = {}) {
     if (!ctx) return;
     const k = Math.min(1, dt * 2.5);
     if (musicGain) {
-      const want = prefs.music ? (scene.talking ? LEVEL.musicTalk : scene.indoors ? LEVEL.musicIn : LEVEL.musicOut) : 0;
+      const want = prefs.music ? (scene.voice ? LEVEL.musicVoice : scene.talking ? LEVEL.musicTalk : scene.indoors ? LEVEL.musicIn : LEVEL.musicOut) : 0;
       musicGain.gain.value += (want - musicGain.gain.value) * k;
     }
     if (seaGain) {
@@ -136,6 +136,7 @@ export function createSound(opts = {}) {
 
   return {
     play, step, update, stats,
+    get levels() { return { music: musicGain?.gain.value || 0, voice: !!scene.voice }; },
     // { indoors, talking, sea (metres to the water) }: any of them.
     scene(s) { Object.assign(scene, s); },
     get prefs() { return Object.assign({}, prefs); },
