@@ -134,14 +134,16 @@ export function createTalk(root, opts = {}) {
       pending = done;
       let tries = 0, firstRight = null;
       const useTiles = mode === 'tiles' && q.tiles && q.tiles.length;
-      showSheet(`${who(line)}${lineHtml(line.ga, line.en || q.en)}
+      // A task for the student ("Ask how much it is.") shows as an instruction; otherwise the question as it was said.
+      const said = line.prompt ? `<p class="og-task">${esc(line.ga)}</p>` : who(line) + lineHtml(line.ga, line.en || q.en);
+      showSheet(`${said}
         <div class="og-answer">${useTiles ? `
           <div class="og-built" aria-label="Your answer"></div>
           <div class="og-bank" aria-label="Words"></div>` : `
           <textarea class="og-type" lang="ga" rows="2" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false" placeholder="Type your answer in Irish" aria-label="Your answer"></textarea>
           <div class="og-fadas" aria-label="Letters with a fada">${['á', 'é', 'í', 'ó', 'ú'].map(c => `<button type="button" data-c="${c}" tabindex="-1">${c}</button>`).join('')}</div>`}
         </div>
-        <div class="og-row">${enToggle(line.en || q.en)}<button class="og-btn og-btn--check" type="button" disabled>Check</button></div>
+        <div class="og-row">${line.prompt ? '' : enToggle(line.en || q.en)}<button class="og-btn og-btn--check" type="button" disabled>Check</button></div>
         <div class="og-result" hidden></div>`);
       wireEnglish(sheet);
       const check = $('.og-btn--check', sheet), result = $('.og-result', sheet), answer = $('.og-answer', sheet);
@@ -233,7 +235,7 @@ export function createTalk(root, opts = {}) {
           buttons = '<button class="og-btn og-btn--retry" type="button" data-act="retry">Try again</button>';
         } else if (r.verdict === 'other') {
           kind = 'other'; title = 'That answers another question';
-          body = `<p class="og-why">${esc(marker.questions[r.other].q.en)} Máirín asked: ${esc(q.en)}</p>` + (tries >= 2 ? model('An answer that works', q.model) : '');
+          body = `<p class="og-why">${esc(marker.questions[r.other].q.en)} ${line.prompt ? 'The task was' : esc(line.name || 'They') + ' asked'}: ${esc(q.en)}</p>` + (tries >= 2 ? model('An answer that works', q.model) : '');
           buttons = '<button class="og-btn og-btn--retry" type="button" data-act="retry">Try again</button>';
         } else if (r.verdict === 'english') {
           kind = 'other'; title = 'Answer in Irish';

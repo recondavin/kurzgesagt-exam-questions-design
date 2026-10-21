@@ -51,6 +51,8 @@ html.og-page, .og-page body { height: 100%; margin: 0; overflow: hidden; overscr
 .og-say { margin: 0 0 12px; }
 .og-ga { margin: 0; color: #F1F7FB; font-size: 21px; line-height: 1.3; font-weight: 800; }
 .og-say--me .og-ga { color: #8FD8FF; }
+.og-task { margin: 0 0 12px; padding: 10px 12px; border-radius: 12px; background: #202F36; color: #DCE6EC; font-size: 17px; }
+.og-task::before { content: 'Your turn: '; color: #FFC800; }
 .og-en { margin: 4px 0 0; color: #93A5AE; font-size: 15.5px; font-weight: 700; }
 .og-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
 .og-row > .og-btn { margin-left: auto; }

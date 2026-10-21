@@ -116,10 +116,18 @@ cormac: Ar mhaith leat dul ag snámh amárach? #en:Would you like to go swimming
     cormac: Ceart go leor. Tá an t-uisce an-fhuar ar aon nós! #en:Fair enough. The water's very cold anyway!
 - -> DONE
 
+// In the shop: buying something from Peadar. The three questions are marked (questions.js, siopa_*).
 === talk_peadar ===
-peadar: Dia dhuit! Is mise Peadar, fear an tsiopa. #en:Hello! I'm Peadar, the shopkeeper.
-peadar: Tá an siopa dúnta anois. Tar ar ais amárach! #en:The shop is closed now. Come back tomorrow!
--> DONE
+peadar: Dia dhuit! Fáilte isteach. #en:Hello! Welcome in.
+peadar: Cad ba mhaith leat? #ask:siopa_ceannach
+peadar: Cinnte. #en:Sure.
+peadar: Aon rud eile? #ask:siopa_eile
+player: Ask Peadar how much it is. #ask:siopa_praghas #prompt
+peadar: Trí euro caoga, le do thoil. #en:Three euro fifty, please.
+* [Seo duit.]
+- peadar: Go raibh maith agat. Slán leat! #en:Thank you. Goodbye! (Slán leat is said by the one staying.)
+* [Slán agat!]
+- -> DONE
 
 === talk_brid ===
 brid: Dia dhuit! Is mise Bríd, an múinteoir. #en:Hello! I'm Bríd, the teacher.

@@ -252,6 +252,60 @@ export const QUESTIONS = [
   },
 ];
 
+// ---------------------------------------------------------------- in the shop (Peadar, talk_peadar in story.ink)
+// Things you can buy (as you'd ask for them, with no article), and "please".
+const ITEM = '(buidéal uisce|buidéal bainne|buidéal cóc|buidéal sú oráiste|lítear bainne|cartán bainne|bainne|uisce|builín aráin|arán|arán donn|seacláid|barra seacláide|uachtar reoite|cóc|mála criospaí|paicéad criospaí|criospaí|pacáiste brioscaí|paicéad brioscaí|brioscaí|úll|úlla|oráiste|oráistí|banana|bananaí|ceapaire|nuachtán|irisleabhar|im|cáis|uibheacha|dosaen uibheacha|tae|caife|cupán tae|cupán caife|siúcra|sú oráiste|milseáin|mála milseán|stampa|cárta poist|peann|dhá bhuidéal uisce|dhá bharra seacláide|dhá úll|dhá cheapaire)';
+const SHOP_SLOTS = { item: ITEM, items: '{item} [agus {item}]', please: '(le do thoil|más é do thoil é)' };
+
+export const SHOP_QUESTIONS = [
+  {
+    id: 'siopa_ceannach',
+    ask: ['Cad ba mhaith leat?', 'Cad atá uait?'],
+    en: 'What would you like?',
+    slots: SHOP_SLOTS,
+    accept: [
+      'ba mhaith liom {items} [{please}] {tail}', '{items} [{please}]', 'an bhféadfainn {items} a fháil [{please}]',
+      'an bhfuil {items} agat', '(tá|teastaíonn) {items} uaim [{please}] {tail}',
+    ],
+    mistakes: [
+      { when: 'is maith liom {items} {tail}', why: '"Is maith liom" means "I like". To ask for something, say "Ba mhaith liom...": Ba mhaith liom buidéal uisce, le do thoil.' },
+    ],
+    model: { ga: 'Ba mhaith liom buidéal uisce, le do thoil.', en: 'I\'d like a bottle of water, please.' },
+    more: { ga: 'Ba mhaith liom buidéal uisce agus barra seacláide, le do thoil.', en: 'I\'d like a bottle of water and a bar of chocolate, please.' },
+    tiles: ['Ba', 'mhaith', 'liom', 'buidéal', 'uisce', 'le', 'do', 'thoil', 'mé', 'Is'],
+  },
+  {
+    id: 'siopa_praghas',
+    ask: ['Ask Peadar how much it is.'],
+    en: 'Ask how much it is.',
+    slots: SHOP_SLOTS,
+    accept: [
+      '[gabh mo leithscéal] (cé|cá) mhéad atá (air|uirthi|orthu|orm|air sin|ar sin) {tail}', '[gabh mo leithscéal] cé mhéad (é|é sin|sin|iad)',
+      '[gabh mo leithscéal] cén praghas atá (air|uirthi|orthu|air sin)', 'cad é an praghas [atá air]', 'cé mhéad a chosnaíonn (sé|sí|siad|sin)',
+    ],
+    mistakes: [
+      { when: '(conas|cad) mhéad {*4}', why: '"How much" is "Cé mhéad": Cé mhéad atá air?' },
+    ],
+    model: { ga: 'Cé mhéad atá air?', en: 'How much is it?' },
+    more: { ga: 'Gabh mo leithscéal, cé mhéad atá air sin?', en: 'Excuse me, how much is that?' },
+    tiles: ['Cé', 'mhéad', 'atá', 'air', 'orm', 'Conas', 'é'],
+  },
+  {
+    id: 'siopa_eile',
+    ask: ['Aon rud eile?', 'An bhfuil aon rud eile uait?'],
+    en: 'Anything else?',
+    slots: SHOP_SLOTS,
+    accept: [
+      'níl [(go raibh maith agat|sin é|sin an méid)] {tail}', '(sin é|sin an méid) [go raibh maith agat] {tail}',
+      'ba mhaith liom {items} [freisin] [{please}] {tail}', '{items} freisin [{please}]',
+    ],
+    mistakes: [],
+    model: { ga: 'Níl, go raibh maith agat.', en: 'No, thank you.' },
+    more: { ga: 'Níl, sin é, go raibh maith agat.', en: 'No, that\'s it, thank you.' },
+    tiles: ['Níl', 'go', 'raibh', 'maith', 'agat', 'Sin', 'é', 'Tá'],
+  },
+];
+
 // ---------------------------------------------------------------- counties
 // Where you live: the form after "Tá mé i mo chónaí" ("i" with an eclipsis, "in" before a vowel, "sa" for the
 // counties that take the article).

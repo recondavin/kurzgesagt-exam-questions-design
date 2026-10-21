@@ -126,7 +126,8 @@ export function animate(p, dt) {
   p.seat = lerp(p.seat, p.state === 'sit' ? 1 : 0, Math.min(1, dt * 8));
   // One hop per half turn of the phase. Keep hopping until the current hop lands, so it never stops in mid-air.
   const u0 = (p.phase % Math.PI) / Math.PI;
-  if (walking || (u0 > 0.04 && u0 < 0.96)) p.phase += dt * 9.5;
+  // Faster walkers hop a little quicker and a little further.
+  if (walking || (u0 > 0.04 && u0 < 0.96)) p.phase += dt * 9.5 * Math.sqrt(p.speed / 1.5);
   const u = (p.phase % Math.PI) / Math.PI, side = Math.floor(p.phase / Math.PI) % 2 ? 1 : -1;
   const wk = Math.max(p.walk, walking ? 0 : (u > 0.04 && u < 0.96 ? 0.6 : 0)) * (1 - p.seat), seat = p.seat, k = p.k;
 

@@ -33,8 +33,8 @@ export const ROOM = {
   ],
 };
 
-// You arrive on the bus at the west end of the village. The others are about the village; only Máirín has the
-// oral practice so far, the rest say hello (their lines are in story.ink, talk_<id>).
+// You arrive on the bus at the west end of the village. Máirín has the oral practice and Peadar runs the shop,
+// where you buy something in Irish; the rest say hello (their lines are in story.ink, talk_<id>).
 export const PEOPLE = {
   player: {
     name: 'Tusa',
@@ -59,10 +59,11 @@ export const PEOPLE = {
     at: [12, 19], face: 0,
     look: { skin: '#D9A07E', hair: '#2B2420', hairStyle: 'short', top: '#4E7A52', bottom: '#5B6878', shoes: '#3B3632', hood: true, height: 1.32 },
   },
+  // Behind the counter in the shop (orals/ga/shop.js); customers stand at talkAt, across the counter.
   peadar: {
     name: 'Peadar',
     role: 'fear an tsiopa',
-    at: [-15, 4.0], face: 0,
+    at: [-13.55, -1.05], face: 0, talkAt: [-13.7, 0.85],
     look: { skin: '#E4B08E', hair: '#8E8A84', hairStyle: 'short', top: '#6B4E3A', bottom: '#3B3632', shoes: '#2F2B28', apron: '#ECE5D5', height: 1.3 },
   },
   brid: {

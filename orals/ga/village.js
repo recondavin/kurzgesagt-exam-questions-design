@@ -1,7 +1,7 @@
 // The village in Conamara, for the engine's open world (orals/engine/land.js): an island of fields in the sea with
 // a boreen running east to west, dry-stone walls, the shop, the college, the céilí hall, a few cottages, a pier
 // with a currach, a bus stop where you arrive, sheep, and mountains across the bay. Máirín's house is at 0, 0
-// (orals/ga/house.js); +x is east, +z is south (towards the sea and the camera). All in metres.
+// (orals/ga/house.js) and the shop at -15, 0.5 (orals/ga/shop.js): both are rooms you can walk into; +x is east, +z is south (towards the sea and the camera). All in metres.
 export const VILLAGE = {
   sky: '#5A8F98',
   bounds: [-38, -33, 38, 23],
@@ -33,7 +33,6 @@ export const VILLAGE = {
     [17, -28, 33, -28], [17, -28, 17, -6], [17, -6, 24, -6], [27, -6, 33, -6], [33, -28, 33, -6],
   ],
   buildings: [
-    { x: -15, z: 0.5, w: 6, d: 5, h: 3, wall: '#E5C46A', roof: 'slate', windows: [-1.8, 1.8], chimneys: [2.2], sign: 'SIOPA' },
     { x: 15, z: -0.5, w: 10, d: 6, h: 3, wall: '#EDE8DC', roof: 'slate', doorColor: '#2F5D8A', windows: [-3.5, -1.8, 1.8, 3.5], chimneys: [-4, 4], sign: 'COLÁISTE', signW: 4 },
     { x: -8, z: -21, w: 9, d: 6, h: 3, wall: '#D8D0BC', roof: 'slate', doorColor: '#3E5A3A', windows: [-3, 3], sign: 'HALLA' },
     { x: 6, z: -11, w: 6, d: 4.5, roof: 'thatch', doorColor: '#2F5D8A', windows: [-1.6, 1.6], chimneys: [-2.3] },

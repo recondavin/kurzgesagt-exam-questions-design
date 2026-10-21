@@ -224,6 +224,18 @@ const RULES = [
     });
     return out;
   },
+  // "Ba mhaith mé" (I'd like) is "Ba mhaith liom"; so is "Is maith le mé" and "Is breá le mé".
+  function liom(s) {
+    const out = [];
+    s.forEach((t, i) => {
+      const n = s[i + 1], m = s[i + 2];
+      if (!n || !m || !/^(ba|is)$/.test(f(t)) || !/^(mhaith|maith|brea|bhrea)$/.test(f(n))) return;
+      const why = 'With "maith" and "breá" it\'s "liom" (with me), not "mé": Ba mhaith liom..., Is maith liom...';
+      if (f(t) === 'ba' && (f(m) === 'me' || f(m) === 'mise')) out.push(hit(i + 2, i + 3, ['liom'], why, 'liom'));
+      else if (f(m) === 'le' && s[i + 3] && (f(s[i + 3]) === 'me' || f(s[i + 3]) === 'mise')) out.push(hit(i + 2, i + 4, ['liom'], why, 'liom'));
+    });
+    return out;
+  },
   // "le an" is "leis an"; "le na" is "leis na".
   function leis(s) {
     return s.flatMap((t, i) => (f(t) === 'le' && s[i + 1] && /^(an|na)$/.test(f(s[i + 1])) ? [hit(i, i + 1, ['leis'], 'Before "an" or "na", "le" becomes "leis": leis an múinteoir.', 'leis')] : []));

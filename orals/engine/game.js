@@ -1,6 +1,7 @@
 // Runs a content pack: the world, the talk panel, the marker and the Ink story that drives them.
 // Story lines are written "who: text" (who is a person's id; no prefix is narration) with Ink tags:
 //   #en:...   the English meaning (else the pack's glossary has it)      #ask:id   a question to answer
+//   #prompt   the line is an instruction in English ("Ask how much it is."), shown as a task, not speech
 // Lines that start with @ are stage directions for the engine:
 //   @place text                 the place name under the top bar
 //   @roam id ^ hint             free walking (tap the floor, or W A S D) until the player taps that person or
@@ -39,7 +40,7 @@ export function startGame(pack) {
   const story = new window.inkjs.Story(pack.story);
   const saveKey = pack.key + '-save', profileKey = pack.key + '-profile';
   let profile = store.get(profileKey);
-  let mode = 'tiles', round = null, roamId = null, lastLine = null, focusIds = [], total = pack.questions.length;
+  let mode = 'tiles', round = null, roamId = null, lastLine = null, focusIds = [], total = pack.rounds || pack.questions.length;
   // gen changes whenever the conversation is left, so a story loop still waiting on the old one stops.
   let gen = 0, partner = null;
   // A quick hello with someone else (their talk_<id> knot), and its own generation for leaving it.
@@ -118,6 +119,7 @@ export function startGame(pack) {
         const text = side.Continue().trim();
         if (!text || text[0] === '@') continue;
         lastSide = parse(text, side.currentTags);
+        if (lastSide.tags.ask) { await askSide(lastSide, g); if (g !== chatGen) return; continue; }
         speaking(lastSide.id, true);
         await talk.say(lastSide);
         if (g !== chatGen) return;
@@ -129,6 +131,19 @@ export function startGame(pack) {
       } else break;
     }
     endChat();
+  }
+  // A question in a side conversation (the shop): marked like the main ones, but it doesn't count towards a day's
+  // round. Word tiles the first time each one comes up, then typing.
+  async function askSide(line, g) {
+    const q = qById[line.tags.ask];
+    if (!q) return;
+    const seen = store.get(pack.key + '-side') || [];
+    speaking(line.id, true);
+    setTimeout(() => speaking(line.id, false), 1600);
+    const r = await talk.ask(line, prepared(q), seen.includes(q.id) ? 'type' : 'tiles', marker);
+    if (g !== chatGen || !r) return;
+    speaking(null);
+    if (!seen.includes(q.id)) store.set(pack.key + '-side', seen.concat(q.id));
   }
   function endChat() {
     chatting = null;
@@ -172,7 +187,8 @@ export function startGame(pack) {
     }
     const person = id && pack.people[id];
     const en = t.en || (pack.english && pack.english[ga]) || '';
-    return { id, ga, en, tags: t, name: person ? (id === 'player' ? (profile && profile.name) || person.name : person.name) : '', role: person && person.role, player: id === 'player' };
+    // #prompt: the line is an instruction to the student (in English), not something said.
+    return { id, ga, en, tags: t, prompt: !!t.prompt, name: person ? (id === 'player' ? (profile && profile.name) || person.name : person.name) : '', role: person && person.role, player: id === 'player' };
   }
 
   function speaking(id, on) {
@@ -187,17 +203,20 @@ export function startGame(pack) {
     return [].concat(...q.tiles.map(w => fill(w, profile || {})));
   }
 
+  // A question ready to show: the model answers can name the student ({name}, {county}...), which the pack fills in.
+  function prepared(q) {
+    const fill = pack.fill ? t => pack.fill(t, profile || {}) : t => t;
+    const filled = m => m && { ga: fill(m.ga), en: fill(m.en) };
+    return Object.assign({}, q, { tiles: tilesFor(q), model: filled(q.model), more: filled(q.more) });
+  }
+
   async function askLine(line, before, g) {
     const q = qById[line.tags.ask];
     if (!q) { console.warn('No question', line.tags.ask); return; }
     save(before);
     speaking(line.id, true);
     setTimeout(() => speaking(line.id, false), 1600);
-    // The model answers can name the student ({name}, {county}...): the pack fills them in.
-    const fill = pack.fill ? t => pack.fill(t, profile || {}) : t => t;
-    const filled = m => m && { ga: fill(m.ga), en: fill(m.en) };
-    const qq = Object.assign({}, q, { tiles: tilesFor(q), model: filled(q.model), more: filled(q.more) });
-    const r = await talk.ask(line, qq, mode, marker);
+    const r = await talk.ask(line, prepared(q), mode, marker);
     if (g !== gen || !r) return;
     speaking(null);
     story.variablesState['first_try'] = r.firstTry;

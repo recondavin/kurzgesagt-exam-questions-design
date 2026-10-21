@@ -14,6 +14,8 @@ const PITCH = THREE.MathUtils.degToRad(40), FOV = 30;
 const DIR = new THREE.Vector3(0, Math.sin(PITCH), Math.cos(PITCH)); // from the target towards the camera
 // Outside, at least this much of the world is in view (metres across, metres up the screen).
 const FOLLOW_W = 10, FOLLOW_H = 11;
+// How fast the player walks (metres a second): brisker outside, where the distances are long.
+const SPEED_OUT = 3.4, SPEED_IN = 2.2;
 
 export function createWorld(canvas, pack) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
@@ -53,6 +55,8 @@ export function createWorld(canvas, pack) {
     p.root.position.set(at[0], 0, at[1]);
     p.yaw = p.yawTo = spec.face || 0;
     p.home = { x: at[0], z: at[1], yaw: p.yaw };
+    // Where someone talking to them stands (a shopkeeper is talked to across the counter).
+    if (spec.talkAt) p.talkAt = { x: spec.talkAt[0], z: spec.talkAt[1] };
     scene.add(p.root);
     people[id] = p;
   }
@@ -266,11 +270,12 @@ export function createWorld(canvas, pack) {
   function approach(p, other, done) {
     const a = p.root.position, b = other.root.position;
     const dx = a.x - b.x, dz = a.z - b.z, d = Math.hypot(dx, dz) || 1;
-    // Stand beside them (left or right, the nearer first) so the camera sees both faces, else anywhere round them.
-    let best = null;
+    // Stand where they are talked to from, or beside them (left or right, the nearer first) so the camera sees both
+    // faces, else anywhere round them.
+    let best = other.talkAt && nav.isFree(other.talkAt.x, other.talkAt.z) ? other.talkAt : null;
     const sides = [Math.PI / 2, -Math.PI / 2].sort((u, v) => Math.abs(Math.sin(u) - Math.sign(dx)) - Math.abs(Math.sin(v) - Math.sign(dx)));
     const tries = sides.concat(Array.from({ length: 16 }, (_, i) => Math.atan2(dx, dz) + (i % 2 ? 1 : -1) * Math.ceil(i / 2) * Math.PI / 8));
-    for (const ang of tries) {
+    for (const ang of best ? [] : tries) {
       const x = b.x + Math.sin(ang) * 1.05, z = b.z + Math.cos(ang) * 1.05 + (Math.abs(Math.sin(ang)) > 0.9 ? 0.2 : 0);
       if (nav.isFree(x, z, othersOf(p).filter(o => o.x !== b.x || o.z !== b.z))) { best = { x, z }; break; }
     }
@@ -312,6 +317,7 @@ export function createWorld(canvas, pack) {
   function later(secs, fn) { timers.push({ secs, fn }); }
 
   function update(dt) {
+    if (open) player.speed = roomAt(player.root.position.x, player.root.position.z) ? SPEED_IN : SPEED_OUT;
     steer(dt);
     for (const p of Object.values(people)) {
       // People standing about turn to look at the player when they come near.

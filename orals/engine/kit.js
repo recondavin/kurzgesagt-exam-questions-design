@@ -78,6 +78,28 @@ export function prism(points, length, color, at) {
   return place(paint(g, color), at);
 }
 
+// A sign board with painted letters (a small texture), on two posts or flat on a wall.
+export function signMesh(text, w = 1.6, h = 0.45, colors = {}) {
+  const cv = document.createElement('canvas'), W = 512, Hh = Math.round(512 * h / w);
+  cv.width = W; cv.height = Hh;
+  const ctx = cv.getContext('2d');
+  ctx.fillStyle = colors.bg || '#F4F1EA';
+  ctx.fillRect(0, 0, W, Hh);
+  ctx.strokeStyle = colors.ink || '#2A2622';
+  ctx.lineWidth = 10;
+  ctx.strokeRect(5, 5, W - 10, Hh - 10);
+  ctx.fillStyle = colors.ink || '#2A2622';
+  // Small enough that the fada on a capital (COLÁISTE) fits inside the border.
+  ctx.font = `bold ${Math.round(Hh * 0.44)}px "Arial Rounded MT Bold", Arial, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText(text, W / 2, Hh * 0.72);
+  const tex = new THREE.CanvasTexture(cv);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 4;
+  return new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex }));
+}
+
 // Joins painted geometries into one (one draw call).
 export function merge(list) {
   list = list.filter(Boolean);

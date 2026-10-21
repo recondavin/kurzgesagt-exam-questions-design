@@ -4,8 +4,9 @@
 import { startGame } from '../engine/game.js';
 import { ROOM, PEOPLE } from './house.js';
 import { VILLAGE } from './village.js';
+import { SHOP } from './shop.js';
 import { GA } from './grammar.js';
-import { QUESTIONS, SLOTS, COUNTIES } from './questions.js';
+import { QUESTIONS, SHOP_QUESTIONS, SLOTS, COUNTIES } from './questions.js';
 import story from './story.js';
 
 // English for lines that have no #en tag in the story (Máirín's reactions and your replies).
@@ -15,6 +16,7 @@ const ENGLISH = {
   'Dia is Muire dhuit.': 'Hello. (the reply to Dia dhuit)',
   'Ólfaidh, go raibh maith agat.': 'I will, thank you.', 'Ní ólfaidh, go raibh maith agat.': 'I won\'t, thank you.',
   'Chodail, go raibh maith agat.': 'I did, thank you.', 'Oíche mhaith.': 'Good night.',
+  'Seo duit.': 'Here you are.', 'Slán agat!': 'Goodbye! (said by the one leaving)',
   'Ba mhaith, go raibh maith agat.': 'I would, thank you.', 'Níor mhaith, go raibh maith agat.': 'I wouldn\'t, thank you.',
 };
 
@@ -32,13 +34,15 @@ window.oralGame = startGame({
   key: 'oral-ga',
   back: 'index.html',
   start: 'start',
-  // An open world: the village, with Máirín's house (the kitchen) standing in it.
+  // An open world: the village, with Máirín's house (the kitchen) and the shop standing in it.
   land: VILLAGE,
-  rooms: [ROOM],
+  rooms: [ROOM, SHOP],
   people: PEOPLE,
   story,
   lang: Object.assign({}, GA, { slots: Object.assign({}, GA.slots, SLOTS) }),
-  questions: QUESTIONS,
+  // Máirín's ten (they make a day's round) and the shop's.
+  questions: QUESTIONS.concat(SHOP_QUESTIONS),
+  rounds: QUESTIONS.length,
   counties: COUNTIES,
   english: ENGLISH,
   // Asked the first time you talk to Máirín.

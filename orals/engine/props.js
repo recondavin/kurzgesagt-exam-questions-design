@@ -197,6 +197,67 @@ export const MAKERS = {
       slab([[-(w - 0.08) / 2, 0], [-0.05, 0], [-0.12, -0.12]], 0.01, '#5E7F4E', { y: y + 0.04 + h * 0.28, z: 0.05, rx: Math.PI / 2 }),
     ], foot: [0, 0] };
   },
+  // ------------------------------------------------ the shop
+  // The counter: a long wooden counter with a till, a jar of sweets and a bell.
+  counter(o) {
+    const w = o.w || 2.4, p = [
+      box(w, 0.95, 0.7, '#6B4E3A', {}),
+      box(w + 0.08, 0.06, 0.78, '#C2A27A', { y: 0.95 }),
+      box(w - 0.2, 0.7, 0.03, '#5A3F2E', { y: 0.12, z: 0.36 }),
+      box(0.42, 0.22, 0.34, '#2F2B28', { x: w / 2 - 0.45, y: 1.01, z: -0.05 }),
+      box(0.3, 0.16, 0.04, '#7FB3AE', { x: w / 2 - 0.45, y: 1.24, z: -0.12, rx: -0.4 }),
+      cyl(0.11, 0.11, 0.26, 10, '#D8E8EA', { x: -w / 2 + 0.35, y: 1.01, z: 0.05 }),
+      cyl(0.08, 0.1, 0.05, 10, '#B8924F', { x: 0.1, y: 1.01, z: 0.15 }),
+    ];
+    // Sweets in the jar.
+    for (const [c, dx, dy] of [['#E25C5C', -0.04, 0.06], ['#F2C94C', 0.04, 0.09], ['#6FBF73', 0, 0.15], ['#5C8DE2', -0.03, 0.2]]) p.push(ball(0.035, c, { x: -w / 2 + 0.35 + dx, y: 1.01 + dy, z: 0.05 }, 0));
+    return { parts: p, foot: [w + 0.08, 0.78] };
+  },
+  // Shelves of goods against a wall: packets, tins and bottles in bright colours.
+  shopShelf(o) {
+    const w = o.w || 1.6, h = 2.0, c = o.color || '#7A4E33', p = [box(w, h, 0.06, c, { z: -0.17 })];
+    for (const sx of [-1, 1]) p.push(box(0.06, h, 0.4, c, { x: sx * (w / 2 - 0.03) }));
+    const goods = ['#D9534F', '#F0AD4E', '#5CB85C', '#428BCA', '#E8E2D0', '#8E44AD', '#E67E22', '#2C3E50'];
+    let k = o.seed || 1;
+    const next = () => (k = (k * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < 4; i++) {
+      const y = 0.08 + i * 0.5;
+      p.push(box(w - 0.12, 0.04, 0.38, c, { y }));
+      let x = -w / 2 + 0.12;
+      while (x < w / 2 - 0.2) {
+        const kind = next(), col = goods[Math.floor(next() * goods.length)];
+        if (kind < 0.45) { const bw = 0.14 + next() * 0.1; p.push(box(bw, 0.22 + next() * 0.12, 0.2, col, { x: x + bw / 2, y: y + 0.04 })); x += bw + 0.03; }
+        else if (kind < 0.75) { p.push(cyl(0.06, 0.06, 0.14, 8, col, { x: x + 0.06, y: y + 0.04 }), cyl(0.06, 0.06, 0.02, 8, '#B7B3AA', { x: x + 0.06, y: y + 0.18 })); x += 0.15; }
+        else { p.push(cyl(0.05, 0.05, 0.26, 8, col, { x: x + 0.05, y: y + 0.04 }), cyl(0.02, 0.03, 0.08, 6, col, { x: x + 0.05, y: y + 0.3 })); x += 0.13; }
+      }
+    }
+    return { parts: p, foot: [w, 0.42] };
+  },
+  // A drinks fridge with a glass door and bottles inside.
+  fridge(o) {
+    const p = [box(0.8, 1.9, 0.7, '#F1F1EE', {}), box(0.68, 1.5, 0.03, '#BFD9DE', { y: 0.3, z: 0.36 }), box(0.8, 0.22, 0.72, '#C8423A', { y: 1.68 }), box(0.04, 0.5, 0.05, '#9AA0A3', { x: 0.3, y: 0.8, z: 0.4 })];
+    const cols = ['#C8423A', '#2F7D4F', '#E8A33D', '#3C6E9C'];
+    for (let r = 0; r < 3; r++) for (let i = 0; i < 4; i++) p.push(cyl(0.05, 0.05, 0.28, 8, cols[(i + r) % 4], { x: -0.22 + i * 0.15, y: 0.4 + r * 0.45, z: 0.15 }));
+    return { parts: p, foot: [0.8, 0.72] };
+  },
+  // Crates of fruit and vegetables on a sloped stand.
+  crates(o) {
+    const w = o.w || 1.3, p = [box(w, 0.6, 0.6, '#7A4E33', {})];
+    const fruit = [['#C8423A', 0.07], ['#7FB33D', 0.07], ['#E8932F', 0.075], ['#E9D45A', 0.06]];
+    fruit.forEach(([c, r], i) => {
+      const x = -w / 2 + 0.17 + i * (w - 0.34) / 3;
+      p.push(box(0.28, 0.12, 0.5, '#A57B56', { x, y: 0.6, rx: -0.25 }));
+      for (let j = 0; j < 5; j++) p.push(ball(r, c, { x: x + ((j % 3) - 1) * 0.08, y: 0.66 + (j > 2 ? 0.07 : 0) + (j % 2) * 0.03, z: -0.12 + j * 0.06, sy: c === '#E9D45A' ? 0.6 : 1 }, 0));
+    });
+    return { parts: p, foot: [w, 0.6] };
+  },
+  // A stand of newspapers.
+  newsstand(o) {
+    const p = [box(0.6, 0.8, 0.4, '#3B4146', {}), box(0.6, 0.05, 0.42, '#2F3438', { y: 0.8 })];
+    for (let i = 0; i < 3; i++) p.push(box(0.5, 0.04, 0.32, '#EDEAE2', { y: 0.84 + i * 0.03, ry: (i - 1) * 0.08 }), box(0.3, 0.005, 0.05, '#4A4440', { y: 0.86 + i * 0.03, z: -0.06 }));
+    return { parts: p, foot: [0.6, 0.42] };
+  },
+
   // Coats on hooks by the door.
   coats(o) {
     const y = o.y || 1.55, p = [box(0.8, 0.08, 0.04, WOOD, { y, z: 0.02 })];

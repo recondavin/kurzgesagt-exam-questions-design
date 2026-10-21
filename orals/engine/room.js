@@ -1,13 +1,13 @@
 // Builds a room from a content pack's description: a flagstone floor, the walls and the furniture. Everything that
 // doesn't move is merged into one mesh. Also returns what blocks walking and the named seats.
 //   { w, d, wallH, wall, props: [{ type, id?, x?, z?, ry?, wall?: 'back' | 'left' | 'right', at?, ...options }],
-//     house?: { door: { at, w }, windows: [x...], roof, thatch, chimneys: [x...] } }
+//     floor?: 'boards', house?: { door: { at, w }, windows: [x...], roof: 'thatch' | 'slate', chimneys: [x...], sign } }
 // Without `house` it is a diorama: three walls cut off at the top on a slab of earth and grass, the front open.
 // With `house` it is a cottage standing in the open world: four walls (a door in the front one), a thatched roof
-// with its gables, windows and a red half-door outside. The roof and the front wall are separate objects so the
+// (or slate) with its gables, windows, a half-door outside and a sign over the door if it has one. The roof and the front wall are separate objects so the
 // world can lift the roof off and drop the front wall to a low stub while the player is inside.
 import * as THREE from '../../lib/three.module.min.js';
-import { box, cyl, mesh, place, prism } from './kit.js';
+import { box, cyl, mesh, place, prism, signMesh } from './kit.js';
 import { MAKERS } from './props.js';
 
 const T = 0.25; // wall thickness
@@ -27,6 +27,22 @@ function floorStones(w, d, colors) {
       first = 0;
       parts.push(box(sw - 0.035, 0.05, dz - 0.035, colors[Math.floor(rnd() * colors.length)], { x: x + sw / 2, y: -0.05, z: z + dz / 2 }));
       x += sw;
+    }
+  }
+  return parts;
+}
+
+// Wooden floorboards (a shop) instead of flagstones.
+function floorBoards(w, d) {
+  const rnd = seeded(5), parts = [box(w, 0.04, d, '#4E3A2A', { y: -0.05 })], colors = ['#9C7350', '#A57B56', '#946C4A', '#A88158'];
+  const bw = 0.32;
+  for (let x = -w / 2, i = 0; x < w / 2 - 0.01; x += bw, i++) {
+    const ww = Math.min(bw, w / 2 - x);
+    let z = -d / 2 + (i % 3) * -0.7;
+    while (z < d / 2 - 0.01) {
+      const len = 1.6 + rnd() * 0.8, z0 = Math.max(z, -d / 2), z1 = Math.min(z + len, d / 2);
+      if (z1 - z0 > 0.05) parts.push(box(ww - 0.025, 0.05, z1 - z0 - 0.02, colors[Math.floor(rnd() * 4)], { x: x + ww / 2, y: -0.05, z: (z0 + z1) / 2 }));
+      z += len;
     }
   }
   return parts;
@@ -79,6 +95,12 @@ function frontWall(r, H) {
     box(door.w + 0.3, 0.06, 0.45, '#9A9C95', { x: door.at, y: -0.02, z: z + T / 2 + 0.22 }),
     box(w + 2 * T + 0.02, 0.22, 0.02, '#6E6A63', { z: z + T / 2 + 0.01 }),
   ];
+  // A sign over the door, on its own (it is a picture, not part of the merged walls).
+  let sign = null;
+  if (H.sign) {
+    sign = signMesh(H.sign, H.signW || 2.6, 0.62, H.signColors || {});
+    sign.position.set(door.at, dh + 0.22 + 0.31, z + T / 2 + 0.03);
+  }
   for (const x of H.windows || []) p.push(
     box(1.0, 1.1, 0.05, '#F4F1EA', { x, y: 0.95, z: z + T / 2 + 0.02 }),
     box(0.84, 0.94, 0.03, '#9DBEC4', { x, y: 1.03, z: z + T / 2 + 0.04 }),
@@ -87,17 +109,23 @@ function frontWall(r, H) {
     box(1.12, 0.07, 0.16, '#E7E1D2', { x, y: 0.9, z: z + T / 2 + 0.07 }),
   );
   const blocks = [[x0, d / 2, d0, d / 2 + T], [d1, d / 2, x1, d / 2 + T]];
-  return { parts: p, blocks };
+  return { parts: p, blocks, sign };
 }
 
 // A thatched roof along the length of the cottage, with the gable ends and the chimneys.
 function roof(r, H) {
   const { w, d, wallH: h } = r, rise = H.rise || 2.0, over = 0.35, L = w + 2 * T + 2 * over, D2 = d / 2 + T + over;
   const thatch = H.thatch || '#B8924F', c = r.wall || '#ECE5D5', p = [];
-  // The thatch: a thick triangle with a rounded ridge and a darker trimmed edge at the eaves.
-  p.push(prism([[-D2, -0.12], [D2, -0.12], [0, rise + 0.2]], L, thatch, { y: h }));
-  p.push(prism([[-D2 + 0.02, -0.12], [D2 - 0.02, -0.12], [D2 - 0.02, 0.0], [-D2 + 0.02, 0.0]], L + 0.02, '#9C7A3E', { y: h }));
-  p.push(cyl(0.22, 0.22, L - 0.2, 8, '#A6823F', { y: h + rise + 0.08, rz: Math.PI / 2, x: L / 2 - 0.1 }));
+  if (H.roof === 'slate') {
+    // Slates: a thin dark roof with a ridge tile.
+    p.push(prism([[-D2, -0.1], [D2, -0.1], [0, rise]], L, '#4E555B', { y: h }));
+    p.push(cyl(0.09, 0.09, L, 6, '#3B4146', { y: h + rise - 0.06, rz: Math.PI / 2, x: L / 2 }));
+  } else {
+    // The thatch: a thick triangle with a rounded ridge and a darker trimmed edge at the eaves.
+    p.push(prism([[-D2, -0.12], [D2, -0.12], [0, rise + 0.2]], L, thatch, { y: h }));
+    p.push(prism([[-D2 + 0.02, -0.12], [D2 - 0.02, -0.12], [D2 - 0.02, 0.0], [-D2 + 0.02, 0.0]], L + 0.02, '#9C7A3E', { y: h }));
+    p.push(cyl(0.22, 0.22, L - 0.2, 8, '#A6823F', { y: h + rise + 0.08, rz: Math.PI / 2, x: L / 2 - 0.1 }));
+  }
   // Whitewashed gables under the thatch at both ends.
   for (const sx of [-1, 1]) p.push(prism([[-d / 2 - T, 0], [d / 2 + T, 0], [0, rise]], T, c, { y: h, x: sx * (w / 2 + T / 2) }));
   for (const x of H.chimneys || []) p.push(
@@ -129,7 +157,8 @@ export function footprint(f, foot, offset) {
 
 export function buildRoom(r) {
   const H = r.house;
-  const parts = [...floorStones(r.w, r.d, r.stones || ['#8E9290', '#858A88', '#979A95', '#8A8D86']), ...walls(r), ...(H ? [] : ground(r))];
+  const floor = r.floor === 'boards' ? floorBoards(r.w, r.d) : floorStones(r.w, r.d, r.stones || ['#8E9290', '#858A88', '#979A95', '#8A8D86']);
+  const parts = [...floor, ...walls(r), ...(H ? [] : ground(r))];
   const blocks = [], seats = {};
   for (const o of r.props) {
     const make = MAKERS[o.type];
@@ -159,6 +188,7 @@ export function buildRoom(r) {
     const fw = frontWall(r, H);
     blocks.push(...fw.blocks);
     out.front = mesh(fw.parts, { line: 0.016 });
+    if (fw.sign) out.front.add(fw.sign);
     out.roof = mesh(roof(r, H), { line: 0.02 });
     group.add(out.front, out.roof);
     out.outer = [-w / 2 - T, -d / 2 - T, w / 2 + T, d / 2 + T];

@@ -9,7 +9,8 @@
 import { readFileSync } from 'node:fs';
 import { createMarker } from '../../../orals/engine/marker.js';
 import { GA } from '../../../orals/ga/grammar.js';
-import { QUESTIONS, SLOTS, COUNTIES } from '../../../orals/ga/questions.js';
+import { QUESTIONS as MAIRIN, SHOP_QUESTIONS, SLOTS, COUNTIES } from '../../../orals/ga/questions.js';
+const QUESTIONS = MAIRIN.concat(SHOP_QUESTIONS);
 import { RIGHT, WRONG } from './answers.mjs';
 
 const verbose = process.argv.includes('-v');
