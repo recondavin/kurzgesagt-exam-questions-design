@@ -341,6 +341,8 @@
       item.style.setProperty('--d', '0s');
       void item.offsetWidth;
       item.classList.add('hf-reveal');
+      // A long card scrolls to keep the line being typed in view.
+      if (n > 1) follow(item);
       var quiet = !narration.on;
       var ms = quiet ? CHAR_MS_QUIET : CHAR_MS;
       var lead = item.querySelector && item.querySelector('.hf-bullet-art') ? (quiet ? 140 : 260) : 0;
@@ -376,6 +378,17 @@
     }
     // When the camera is still travelling the card is hidden (until 820 ms), so typing starts once it shows.
     typeTimers.push(setTimeout(function () { run(0); }, document.body.classList.contains('hf-camera-moving') ? 900 : 0));
+  }
+
+  // Scroll the card's content (only it, never the page) so an element is fully in view.
+  function follow(el) {
+    var box = ui && ui.guide.querySelector('.hf-guide__content');
+    if (!box || !el || !box.contains(el)) return;
+    var b = box.getBoundingClientRect(), r = el.getBoundingClientRect();
+    // Taller than the card can show: its start goes to the top, so it reads from the beginning.
+    if (r.height > b.height - 24) box.scrollTo({ top: box.scrollTop + r.top - b.top - 8, behavior: 'smooth' });
+    else if (r.bottom > b.bottom - 8) box.scrollTo({ top: box.scrollTop + r.bottom - b.bottom + 16, behavior: 'smooth' });
+    else if (r.top < b.top) box.scrollTo({ top: box.scrollTop + r.top - b.top - 8, behavior: 'smooth' });
   }
 
   // The typing cursor: on the letter just typed (it blinks while a line waits for the next); none once all is typed.
@@ -452,7 +465,10 @@
     var guideWidth = questionGuide ? questionGuideWidth() : Math.min(380, window.innerWidth - 24);
     ui.guide.style.width = guideWidth + 'px';
     ui.guide.style.setProperty('--hf-s', questionGuide ? Math.min(1.55, guideWidth / 440).toFixed(3) : '1');
-    ui.guide.style.maxHeight = Math.max(120, compact ? Math.min(Math.max(280, window.innerHeight * .64), window.innerHeight - 24) : window.innerHeight - 40) + 'px';
+    // On a phone the card sits under the spotlight and stops short of it (its content scrolls), between 40% and 64%
+    // of the screen, so it never covers what the camera is showing.
+    var below = window.innerHeight - bottom - 20;
+    ui.guide.style.maxHeight = Math.max(120, compact ? Math.min(Math.max(window.innerHeight * .4, Math.min(window.innerHeight * .64, below)), window.innerHeight - 24) : window.innerHeight - 40) + 'px';
     if (compact) {
       ui.guide.style.left = (window.innerWidth - guideWidth) / 2 + 'px';
       ui.guide.style.right = 'auto';
@@ -876,6 +892,6 @@
     installEvents();
     buildUI();
     fitSceneToViewport();
-    window.ExamHyperFocus = { start: startTour, focus: focus, next: function () { move(1); }, previous: function () { move(-1); }, exit: exit, pictures: pictures, use: use, fit: fitSceneToViewport };
+    window.ExamHyperFocus = { follow: follow, start: startTour, focus: focus, next: function () { move(1); }, previous: function () { move(-1); }, exit: exit, pictures: pictures, use: use, fit: fitSceneToViewport };
   };
 })();

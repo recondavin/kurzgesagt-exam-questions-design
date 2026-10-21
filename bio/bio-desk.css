@@ -49,3 +49,28 @@ body.hf-active .bio-shade.is-on { opacity: 1; }
 body.bio-desk .hf-eye-frame--spotlight { transition: opacity .3s ease; }
 body.bio-desk.hf-whipping .hf-eye-frame--spotlight { opacity: .45; }
 @media (prefers-reduced-motion: reduce) { body .bio-shade { transition-duration: .01s; } }
+
+/* The quick check at the end of each part's slide (bio-desk.js): four answers (or true / false), then right or not
+   and why. Duolingo-like buttons with a solid bottom edge; green and red from the site's colours, no glow. */
+body .hf-guide .hf-bio-check { margin-top: calc(22px * var(--hf-s, 1)); padding-top: calc(18px * var(--hf-s, 1)); border-top: 2px solid rgba(255, 255, 255, .12); }
+body .hf-guide .hf-bio-check__q { margin: 0 0 calc(12px * var(--hf-s, 1)); color: #FFFFFF; font-size: calc(18px * var(--hf-s, 1)); line-height: 1.4; }
+body .hf-guide .hf-bio-check__q b { color: #FFC800; }
+body .hf-guide .hf-bio-check__options { display: grid; grid-template-columns: 1fr 1fr; gap: calc(10px * var(--hf-s, 1)); }
+body .hf-guide .hf-bio-check__option { min-height: 48px; padding: calc(10px * var(--hf-s, 1)) calc(12px * var(--hf-s, 1)); border: 2px solid #37464F; border-radius: 14px;
+  background: #202F36; box-shadow: 0 4px 0 #37464F; color: #F1F7FB; font-size: calc(16px * var(--hf-s, 1)); line-height: 1.25; text-align: left; cursor: pointer;
+  transition: transform .08s ease, box-shadow .08s ease, background-color .15s ease, border-color .15s ease; }
+body .hf-guide .hf-bio-check__option:hover:not(:disabled) { background: #2B3B42; }
+body .hf-guide .hf-bio-check__option:active:not(:disabled) { transform: translateY(4px); box-shadow: 0 0 0 #37464F; }
+body .hf-guide .hf-bio-check__option:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
+body .hf-guide .hf-bio-check__option:disabled { cursor: default; opacity: .55; }
+body .hf-guide .hf-bio-check__option.is-right { opacity: 1; border-color: #58CC02; background: #1E3A12; box-shadow: 0 4px 0 #58A700; color: #A5ED6E; }
+body .hf-guide .hf-bio-check__option.is-wrong { opacity: 1; border-color: #FF4B4B; background: #3A1C1F; box-shadow: 0 4px 0 #EA2B2B; color: #FF9C9C; }
+body .hf-guide .hf-bio-check__why { margin: calc(14px * var(--hf-s, 1)) 0 0; color: #F1F7FB; font-size: calc(16px * var(--hf-s, 1)); line-height: 1.45; animation: hf-reveal-in .35s ease both; }
+body .hf-guide .hf-bio-check__why.is-right b { color: #A5ED6E; }
+body .hf-guide .hf-bio-check__why.is-wrong b { color: #FF9C9C; }
+@media (max-width: 520px) { body .hf-guide .hf-bio-check__options:not(.hf-bio-check__options--two) { grid-template-columns: 1fr; gap: 8px; } body .hf-guide .hf-bio-check__option { min-height: 44px; padding: 8px 12px; } }
+@media (prefers-reduced-motion: reduce) { body .hf-guide .hf-bio-check__option, body .hf-guide .hf-bio-check__why { transition: none; animation: none; } }
+/* On a phone the guide card is a solid sheet at the bottom, so its white text never sits over the lit paper. */
+@media (max-width: 819px) {
+  body.bio-desk .hf-guide { background: #050505; border-radius: 18px 18px 0 0; }
+}

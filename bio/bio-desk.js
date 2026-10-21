@@ -39,7 +39,7 @@
     css('bio/bio-sheet.css');
     css('bio/bio-desk.css');
     var files = ['bio/d28.js', 'bio/d29.js', 'bio/d30.js', 'bio/d31.js', 'bio/d32.js', 'bio/q' + ch + '.js', 'bio/learn' + ch + '.js',
-      'bio/papers.js', 'bio/guide.js', 'bio/guide' + ch + '.js', 'bio/bio.js'];
+      'bio/papers.js', 'bio/guide.js', 'bio/guide' + ch + '.js', 'bio/checks' + ch + '.js', 'bio/bio.js'];
     return files.reduce(function (p, f) { return p.then(function () { return script(f); }); }, Promise.resolve());
   }
   // The desk's paper is drawn by the page once its scripts run; wait for it and for the guide.
@@ -125,8 +125,37 @@
       shell.appendChild(shade);
     });
   }
+  // One quick check per part, at the end of its slide (bio/checksNN.js, from tools/bio/checks): pick one of four (or
+  // true / false), see straight away if it's right and why. The whole question is then answered from memory on the
+  // answer sheet ("Start writing").
+  function checkHtml(c, k) {
+    var options = [c.right].concat(c.wrong);
+    if (options.length > 2) for (var i = options.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = options[i]; options[i] = options[j]; options[j] = t; }
+    return '<div class="hf-bio-check" data-hf-still data-part="' + k + '"><p class="hf-bio-check__q"><b>Quick check:</b> ' + esc(c.q) + '</p>' +
+      '<div class="hf-bio-check__options' + (options.length === 2 ? ' hf-bio-check__options--two' : '') + '">' + options.map(function (o) {
+        return '<button type="button" class="hf-bio-check__option"' + (o === c.right ? ' data-right' : '') + '>' + esc(o) + '</button>';
+      }).join('') + '</div><p class="hf-bio-check__why" hidden></p><p class="hf-sr" role="status" data-check-status></p></div>';
+  }
+  function answerCheck(button) {
+    var box = button.closest('.hf-bio-check');
+    if (!box || box.classList.contains('is-done')) return;
+    var right = button.hasAttribute('data-right'), c = current && ((window.BioChecks || {})[current.ch] || {})[current.qid];
+    c = c && c[+box.getAttribute('data-part')];
+    box.classList.add('is-done');
+    box.querySelectorAll('.hf-bio-check__option').forEach(function (b) {
+      b.disabled = true;
+      if (b.hasAttribute('data-right')) b.classList.add('is-right');
+    });
+    if (!right) button.classList.add('is-wrong');
+    var why = box.querySelector('.hf-bio-check__why');
+    why.innerHTML = '<b>' + (right ? 'Right!' : 'Not quite.') + '</b> ' + esc(c ? c.why : '');
+    why.className = 'hf-bio-check__why ' + (right ? 'is-right' : 'is-wrong');
+    why.hidden = false;
+    if (window.ExamHyperFocus && window.ExamHyperFocus.follow) window.ExamHyperFocus.follow(why);
+    box.querySelector('[data-check-status]').textContent = (right ? 'Right. ' : 'Not quite. The answer is ' + (c ? c.right : '') + '. ') + (c ? c.why : '');
+  }
   function guideSteps(ch, q) {
-    var G = window.BioGuide, parts = current.P.parts;
+    var G = window.BioGuide, parts = current.P.parts, checks = ((window.BioChecks || {})[ch] || {})[q.id];
     if (!G || !G.steps) return [];
     var list = G.steps(ch, q);
     return list.map(function (s, k) {
@@ -135,7 +164,7 @@
         motion: '.geography-page-shell', kicker: '', title: s.title, summary: s.summary, spotlight: true, voice: s.voice, prose: '', points: [],
         visual: (s.pic ? ring(s.pic.base, s.pic.hi) : '') + '<ul class="hf-bullets hf-bullets--steps">' + s.bullets.map(function (b) {
           return '<li><span class="hf-bullet-dot"></span><span><b>' + esc(b.b) + ':</b> ' + esc(b.t) + '</span></li>';
-        }).join('') + '</ul>'
+        }).join('') + '</ul>' + (checks && checks[k] ? checkHtml(checks[k], k) : '')
       };
       if (k === list.length - 1) step.finish = function (rect, exit) { exit(); write(); };
       return step;
@@ -219,6 +248,8 @@
     document.addEventListener('hf-exit', rest);
     document.addEventListener('click', function (e) {
       if (e.target.closest('[data-bio-write]')) { if (window.ExamHyperFocus) window.ExamHyperFocus.exit(); write(); }
+      var option = e.target.closest('.hf-bio-check__option');
+      if (option) answerCheck(option);
     });
   }
   window.BioDesk = { show: show };
