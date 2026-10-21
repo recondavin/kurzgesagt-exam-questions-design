@@ -89,12 +89,36 @@ function bounds(m) {
   }
   return sizes.get(m);
 }
-export function model(m, h, at) {
-  const s = h / bounds(m).h, n = m.i.length, pos = new Float32Array(n * 3), col = new Float32Array(n * 3), c = new THREE.Color();
+// cells: when given, a simpler version for things seen small (hundreds on a supermarket's shelves): corners closer
+// than 1/cells of the model's size are joined, and faces that vanish are dropped.
+export function model(m, h, at, cells) {
+  const b = bounds(m), s = h / b.h;
+  let p = m.p, idx = m.i, faces = m.f;
+  if (cells) {
+    const step = Math.max(b.w, b.h, b.d) / cells, groups = new Map(), of = [];
+    for (let v = 0; v < m.p.length / 3; v++) {
+      const k = Math.round(m.p[v * 3] / step) + ',' + Math.round(m.p[v * 3 + 1] / step) + ',' + Math.round(m.p[v * 3 + 2] / step);
+      if (!groups.has(k)) groups.set(k, { n: 0, x: 0, y: 0, z: 0, id: groups.size });
+      const g = groups.get(k);
+      g.n++; g.x += m.p[v * 3]; g.y += m.p[v * 3 + 1]; g.z += m.p[v * 3 + 2];
+      of.push(g.id);
+    }
+    p = [];
+    for (const g of groups.values()) p.push(g.x / g.n, g.y / g.n, g.z / g.n);
+    idx = []; faces = [];
+    const seen = new Set();
+    for (let f = 0; f < m.f.length; f++) {
+      const a = of[m.i[f * 3]], bb = of[m.i[f * 3 + 1]], c = of[m.i[f * 3 + 2]], key = [a, bb, c].sort((x, y) => x - y).join();
+      if (a === bb || bb === c || a === c || seen.has(key)) continue;
+      seen.add(key);
+      idx.push(a, bb, c); faces.push(m.f[f]);
+    }
+  }
+  const n = idx.length, pos = new Float32Array(n * 3), col = new Float32Array(n * 3), c = new THREE.Color();
   for (let k = 0; k < n; k++) {
-    const v = m.i[k] * 3;
-    pos[k * 3] = m.p[v] * s; pos[k * 3 + 1] = m.p[v + 1] * s; pos[k * 3 + 2] = m.p[v + 2] * s;
-    c.set(m.c[m.f[Math.floor(k / 3)]]);
+    const v = idx[k] * 3;
+    pos[k * 3] = p[v] * s; pos[k * 3 + 1] = p[v + 1] * s; pos[k * 3 + 2] = p[v + 2] * s;
+    c.set(m.c[faces[Math.floor(k / 3)]]);
     col[k * 3] = c.r; col[k * 3 + 1] = c.g; col[k * 3 + 2] = c.b;
   }
   const g = new THREE.BufferGeometry();
@@ -116,8 +140,11 @@ export function signMesh(text, w = 1.6, h = 0.45, colors = {}) {
   ctx.lineWidth = 10;
   ctx.strokeRect(5, 5, W - 10, Hh - 10);
   ctx.fillStyle = colors.ink || '#2A2622';
-  // Small enough that the fada on a capital (COLÁISTE) fits inside the border.
-  ctx.font = `bold ${Math.round(Hh * 0.44)}px "Arial Rounded MT Bold", Arial, sans-serif`;
+  // Small enough that the fada on a capital (COLÁISTE) fits inside the border, and smaller still for long words.
+  const font = px => `bold ${px}px "Arial Rounded MT Bold", Arial, sans-serif`;
+  ctx.font = font(Math.round(Hh * 0.44));
+  const tw = ctx.measureText(text).width;
+  if (tw > W * 0.86) ctx.font = font(Math.floor(Hh * 0.44 * W * 0.86 / tw));
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
   ctx.fillText(text, W / 2, Hh * 0.72);
@@ -148,6 +175,34 @@ export function merge(list) {
   out.computeBoundingSphere();
   out.computeBoundingBox();
   return out;
+}
+
+// Many copies of a few small things (the goods on a supermarket's shelves): one draw for each kind, with its
+// outline. items: [{ key, geo (a painted shape, made once for its key), matrix }]. opts as for mesh; small things
+// cast no shadow unless opts.cast.
+export function instanced(items, opts = {}) {
+  const kinds = new Map(), group = new THREE.Group(), line = opts.line === undefined ? 0.006 : opts.line;
+  for (const it of items) {
+    if (!kinds.has(it.key)) kinds.set(it.key, { geo: it.geo, list: [] });
+    kinds.get(it.key).list.push(it.matrix);
+  }
+  for (const { geo, list } of kinds.values()) {
+    const m = new THREE.InstancedMesh(geo, toon(), list.length);
+    list.forEach((mx, i) => m.setMatrixAt(i, mx));
+    m.castShadow = !!opts.cast;
+    m.receiveShadow = opts.receive !== false;
+    m.computeBoundingSphere();
+    if (line > 0) {
+      if (!geo.attributes.onormal) outlineNormals(geo);
+      const o = new THREE.InstancedMesh(geo, outlineMaterial(line), list.length);
+      o.instanceMatrix = m.instanceMatrix;
+      o.boundingSphere = m.boundingSphere;
+      o.raycast = () => {};
+      m.add(o);
+    }
+    group.add(m);
+  }
+  return group;
 }
 
 // Merges a big set of shapes in square chunks (size metres), so the parts of a large world off screen aren't drawn.

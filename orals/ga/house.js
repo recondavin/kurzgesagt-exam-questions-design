@@ -59,11 +59,11 @@ export const PEOPLE = {
     at: [12, 19], face: 0,
     look: { skin: '#D9A07E', hair: '#2B2420', hairStyle: 'short', top: '#4E7A52', bottom: '#5B6878', shoes: '#3B3632', hood: true, height: 1.32 },
   },
-  // Behind the counter in the shop (orals/ga/shop.js); customers stand at talkAt, across the counter.
+  // At the till in the shop (orals/ga/shop.js, a room standing at 0, 70); customers stand at talkAt, across it.
   peadar: {
     name: 'Peadar',
     role: 'fear an tsiopa',
-    at: [-13.55, -1.05], face: 0, talkAt: [-13.7, 0.85],
+    at: [4.3, 72.85], face: 0, talkAt: [4.2, 74.7],
     look: { skin: '#E4B08E', hair: '#8E8A84', hairStyle: 'short', top: '#6B4E3A', bottom: '#3B3632', shoes: '#2F2B28', apron: '#ECE5D5', height: 1.3 },
   },
   brid: {

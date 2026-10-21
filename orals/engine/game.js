@@ -62,9 +62,13 @@ export function startGame(pack) {
     sound.update(Math.min(0.1, (now - lastFrame) / 1000));
     lastFrame = now;
     if (!roamId || chatting) return talk.marker(null);
-    const p = world.people[roamId], pos = world.screenOf(p, 1.5 * p.k), v = world.view, m = 30;
+    // Someone on the other side of a door (the player is in the shop): the marker leads to that door instead.
+    const p = world.people[roamId], door = world.guide(p), v = world.view, m = 30;
+    const pos = door ? world.screenAt(door) : world.screenOf(p, 1.5 * p.k);
     const left = m, right = v.w - m, top = v.top + 24, bottom = v.h - v.bottom - m - 40;
-    if (!pos.behind && pos.x > left && pos.x < right && pos.y > top && pos.y < bottom) return talk.marker(pos, world.usingKeys && world.nearest() === p);
+    if (!pos.behind && pos.x > left && pos.x < right && pos.y > top && pos.y < bottom) {
+      return door ? talk.marker(pos, false, Math.PI / 2) : talk.marker(pos, world.usingKeys && world.nearest() === p);
+    }
     const cx = v.w / 2, cy = (top + bottom) / 2;
     let dx = pos.x - cx, dy = pos.y - cy;
     if (pos.behind) { dx = -dx; dy = -dy; }

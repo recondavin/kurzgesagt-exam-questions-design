@@ -49,6 +49,13 @@ The food in the shop is from Kenney's [Food Kit](https://kenney.nl/assets/food-k
 | bread, sodabread, flour | `loaf`, `loaf-round`, `bag` | |
 | honey, jam, ketchup | `honey`, `peanut-butter`, `bottle-ketchup` | jam: filling to red |
 | chocolate | `chocolate` | |
-| apple, orange, banana, pear, lemon, carrot, cabbage, onion | the models of the same names | |
+| apple, orange, banana, pear, lemon, carrot, cabbage, onion, tomato, broccoli, mushroom | the models of the same names | |
+| pepper, oil | `paprika`, `bottle-oil` | |
+| croissant, muffin, donut, cake, pie | `croissant`, `muffin`, `donut-chocolate`, `cake`, `pie` | |
+| lolly, chocice | `popsicle`, `popsicle-chocolate` | |
 
-Everything else in the game (the people, the village, the houses, the furniture) is built in code for this game.
+On the supermarket's shelves the models are also simplified a little at load time (`kit.js` `model`, nearby
+corners joined), since there are over a thousand of them and each is only a few pixels high. The packets (cereal,
+tea, crisps and so on) and bottles of washing-up liquid are simple shapes made in code.
+
+Everything else in the game (the people, the village, the houses, the furniture, the supermarket) is built in code for this game.

@@ -4,6 +4,8 @@
 // rooms standing in it (pack.rooms, cottages you can walk into). Outside, the camera follows the player; inside a
 // room, the roof lifts off, the front wall drops to a stub and the camera frames the room. While two people talk
 // it moves in on them. It always frames inside the part of the screen the panels leave free.
+// A building outside can lead into a room that is bigger inside (a building with `enter: <room id>`, a room with
+// `follow`): the room stands far off, you're moved there going through the door, and the camera follows you round it.
 import * as THREE from '../../lib/three.module.min.js';
 import { buildRoom } from './room.js';
 import { buildLand } from './land.js';
@@ -44,7 +46,32 @@ export function createWorld(canvas, pack) {
   const seats = Object.assign({}, ...rooms.map(r => r.seats));
   const land = open ? buildLand(pack.land) : null;
   if (land) scene.add(land.group);
-  const nav = makeNav(land ? land.bounds : room.bounds, [...rooms.flatMap(r => r.blocks), ...(land ? land.blocks : [])], 0.3, land && land.walkable);
+  const sky = scene.background.clone();
+
+  // Rooms reached through a door in a building outside (land.portals): the inside can be far bigger than the
+  // outside, since it stands somewhere else (out of sight) with its own map for walking. Going through the door
+  // puts you just inside; going out of its door puts you back outside the building. Only the side you're on is
+  // drawn.
+  const portalRooms = [];
+  for (const g of (land && land.portals) || []) {
+    const r = rooms.find(r => r.spec.id === g.id);
+    if (!r || !r.door) continue;
+    const { w, d } = r.spec, [ox, oz] = r.spec.at || [0, 0], dw = ((r.spec.house && r.spec.house.door) || {}).w || 1.1;
+    r.portal = {
+      zone: g.zone, out: g.out,
+      in: { x: r.door.x, z: oz + d / 2 - 0.8 },
+      exit: [r.door.x - dw / 2, oz + d / 2 + 0.2, r.door.x + dw / 2, oz + d / 2 + 1.2],
+      area: [ox - w / 2 - 0.8, oz - d / 2 - 0.8, ox + w / 2 + 0.8, oz + d / 2 + 1.6],
+    };
+    const inside = (x, z) => x > ox - w / 2 && x < ox + w / 2 && z > oz - d / 2 && (z < oz + d / 2 || Math.abs(x - r.door.x) < dw / 2);
+    r.nav = makeNav(r.portal.area, r.blocks, 0.3, inside);
+    portalRooms.push(r);
+  }
+  const nav = makeNav(land ? land.bounds : room.bounds, [...rooms.filter(r => !r.portal).flatMap(r => r.blocks), ...(land ? land.blocks : [])], 0.3, land && land.walkable);
+  const within = (b, x, z) => x > b[0] && x < b[2] && z > b[1] && z < b[3];
+  // The room through a door that a point is in, or null (the world outside).
+  const areaOf = (x, z) => portalRooms.find(r => within(r.portal.area, x, z)) || null;
+  const navAt = (x, z) => { const a = areaOf(x, z); return a ? a.nav : nav; };
 
   const people = {};
   for (const [id, spec] of Object.entries(pack.people)) {
@@ -141,11 +168,20 @@ export function createWorld(canvas, pack) {
       goal.dist = Math.max(goal.dist, 6.5);
     } else if (!open) frameBox(boxOf(room), 0.02, goal);
     else {
-      const p = player.root.position, inRoom = roomAt(p.x, p.z);
-      if (inRoom) frameBox(boxOf(inRoom), 0.03, goal);
+      const p = player.root.position, inRoom = roomAt(p.x, p.z) || areaOf(p.x, p.z);
+      if (inRoom && !inRoom.spec.follow) frameBox(boxOf(inRoom), 0.03, goal);
       else {
+        // Outside, and in a room too big to show whole, the camera follows the player; in a room it keeps to
+        // the room rather than showing the dark round it.
+        const [vw, vh] = (inRoom && inRoom.spec.view) || [FOLLOW_W, FOLLOW_H];
         goal.target.set(p.x, 0.5, p.z);
-        goal.dist = Math.max(FOLLOW_W / (2 * T * freeAspect()), FOLLOW_H / (2 * T));
+        goal.dist = Math.max(vw / (2 * T * freeAspect()), vh / (2 * T));
+        if (inRoom) {
+          const b = inRoom.bounds, half = T * freeAspect() * goal.dist;
+          const keep = (v, lo, hi) => (lo > hi ? (lo + hi) / 2 : Math.min(hi, Math.max(lo, v)));
+          goal.target.x = keep(p.x, b[0] + half - 0.6, b[2] - half + 0.6);
+          goal.target.z = keep(p.z, b[1] + 2.6, b[3] - 1.2);
+        }
       }
     }
     if (now) { cam.target.copy(goal.target); cam.dist = goal.dist; }
@@ -190,7 +226,7 @@ export function createWorld(canvas, pack) {
     const r = canvas.getBoundingClientRect();
     ndc.set((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     ray.setFromCamera(ndc, camera);
-    const hits = ray.intersectObjects(Object.values(people).filter(p => p !== player).map(p => p.hit));
+    const hits = ray.intersectObjects(Object.values(people).filter(p => p !== player && p.root.visible).map(p => p.hit));
     if (hits.length) { handlers.talk && handlers.talk(hits[0].object.userData.person.id); return; }
     const pt = ground(e.clientX, e.clientY);
     if (pt) walkTo(player, pt.x, pt.z, null, true);
@@ -210,7 +246,7 @@ export function createWorld(canvas, pack) {
     const a = player.root.position;
     let best = null, bd = reach;
     for (const o of Object.values(people)) {
-      if (o === player) continue;
+      if (o === player || !o.root.visible) continue;
       const d = Math.hypot(o.root.position.x - a.x, o.root.position.z - a.z);
       if (d < bd) { bd = d; best = o; }
     }
@@ -249,9 +285,9 @@ export function createWorld(canvas, pack) {
     player.path = null;
     player.onArrive = null;
     x /= l; z /= l;
-    const pos = player.root.position, step = player.speed * dt, others = othersOf(player);
+    const pos = player.root.position, step = player.speed * dt, others = othersOf(player), n = navAt(pos.x, pos.z);
     // Someone standing in a blocked spot (just up from a chair) may always step out of it.
-    const ok = (nx, nz) => nav.isFree(nx, nz, others) || !nav.isFree(pos.x, pos.z, others);
+    const ok = (nx, nz) => n.isFree(nx, nz, others) || !n.isFree(pos.x, pos.z, others);
     const nx = pos.x + x * step, nz = pos.z + z * step;
     if (ok(nx, nz)) { pos.x = nx; pos.z = nz; }
     else if (Math.abs(x) > 0.2 && ok(nx, pos.z)) pos.x = nx;
@@ -261,7 +297,7 @@ export function createWorld(canvas, pack) {
 
   function walkTo(p, x, z, done, showMark) {
     if (p.state === 'sit') standUp(p);
-    const route = nav.path(p.root.position.x, p.root.position.z, x, z, othersOf(p));
+    const route = navAt(p.root.position.x, p.root.position.z).path(p.root.position.x, p.root.position.z, x, z, othersOf(p));
     if (showMark) {
       mark.position.set(x, 0.012, z);
       mark.visible = true; markT = 0;
@@ -277,7 +313,7 @@ export function createWorld(canvas, pack) {
 
   // Walks a person to the free spot nearest to another person, at talking distance, and turns them to each other.
   function approach(p, other, done) {
-    const a = p.root.position, b = other.root.position;
+    const a = p.root.position, b = other.root.position, nav = navAt(b.x, b.z);
     const dx = a.x - b.x, dz = a.z - b.z, d = Math.hypot(dx, dz) || 1;
     // Stand where they are talked to from, or beside them (left or right, the nearer first) so the camera sees both
     // faces, else anywhere round them.
@@ -295,7 +331,7 @@ export function createWorld(canvas, pack) {
   }
 
   function sit(p, seatId, done) {
-    const s = seats[seatId];
+    const s = seats[seatId], nav = s && navAt(s.x, s.z);
     if (!s) { done && done(); return; }
     // Step up to the chair from whichever side is free: its front, back or sides (a chair at a table has the table in front).
     const c = Math.cos(s.ry), sn = Math.sin(s.ry);
@@ -320,14 +356,32 @@ export function createWorld(canvas, pack) {
   const slides = [];
   function slide(p, x, z, secs, done) { slides.push({ p, fx: p.root.position.x, fz: p.root.position.z, x, z, t: 0, secs, done }); }
 
+  // Through a door into a room elsewhere, or out of it: the player is put on the other side (walking on in the
+  // same direction if a key is held), and the camera cuts there.
+  function through() {
+    const pp = player.root.position, area = areaOf(pp.x, pp.z);
+    let to = null;
+    if (!area) { const r = portalRooms.find(r => within(r.portal.zone, pp.x, pp.z)); if (r) to = { ...r.portal.in, yaw: Math.PI }; }
+    else if (within(area.portal.exit, pp.x, pp.z)) to = { ...area.portal.out, yaw: 0 };
+    if (!to) return;
+    player.path = null;
+    player.onArrive = null;
+    pp.x = to.x; pp.z = to.z;
+    player.yaw = player.yawTo = to.yaw;
+    reframe(true);
+    if (canvas.animate) canvas.animate([{ opacity: 0.2 }, { opacity: 1 }], { duration: 320, easing: 'ease-out' });
+    handlers.through && handlers.through(areaOf(pp.x, pp.z));
+  }
+
   // ---------------------------------------------------------------- loop
   // Waits are counted in game time, so the scene can also be stepped without drawing (advance, for tests).
   const timers = [];
   function later(secs, fn) { timers.push({ secs, fn }); }
 
   function update(dt) {
-    if (open) player.speed = roomAt(player.root.position.x, player.root.position.z) ? SPEED_IN : SPEED_OUT;
+    if (open) { const r = roomAt(player.root.position.x, player.root.position.z); player.speed = r && !r.spec.follow ? SPEED_IN : SPEED_OUT; }
     steer(dt);
+    through();
     for (const p of Object.values(people)) {
       // People standing about turn to look at the player when they come near.
       if (p !== player && !p.path && p.state !== 'sit' && !p.talking) {
@@ -354,17 +408,25 @@ export function createWorld(canvas, pack) {
       if (k <= 0) mark.visible = false;
     }
     if (land) land.update(dt);
+    // Only the side of a door the player is on is drawn: the world outside, or the room through the door.
+    const pp = player.root.position, area = areaOf(pp.x, pp.z);
+    if (land) land.group.visible = !area;
+    for (const r of rooms) r.group.visible = r.portal ? r === area : !area;
+    for (const p of Object.values(people)) p.root.visible = areaOf(p.root.position.x, p.root.position.z) === area;
+    scene.background.copy(area ? (area.sky || (area.sky = new THREE.Color(area.spec.sky || '#131F24'))) : sky);
     // A cottage opens up while the player (or a conversation) is inside it: the roof lifts away, the front wall drops.
-    const pp = player.root.position, inside = open ? roomAt(pp.x, pp.z) : room;
+    const inside = open ? roomAt(pp.x, pp.z) : room;
     const here = inside || (cam.focus && roomAt(cam.focus[0].root.position.x, cam.focus[0].root.position.z));
     // Going in or out of a door (not when a saved game first puts the player somewhere).
     if (wasIn !== undefined && inside !== wasIn) handlers.room && handlers.room(inside && inside.spec, wasIn && wasIn.spec);
     wasIn = inside;
     for (const r of rooms) {
-      if (!r.roof) continue;
-      r.lift += ((r === here ? 1 : 0) - r.lift) * Math.min(1, dt * 6);
-      r.roof.position.y = r.lift * 3.5;
-      r.roof.visible = r.lift < 0.97;
+      if (!r.front) continue;
+      r.lift += ((r === here || (r.portal && r === area) ? 1 : 0) - r.lift) * Math.min(1, dt * 6);
+      if (r.roof) {
+        r.roof.position.y = r.lift * 3.5;
+        r.roof.visible = r.lift < 0.97;
+      }
       r.front.scale.y = 1 - r.lift * 0.86;
     }
     reframe(false);
@@ -406,10 +468,23 @@ export function createWorld(canvas, pack) {
     setRoam(v) { roam = v; if (!v) { held.clear(); hold = null; player.steering = false; } },
     // The person close enough to talk to with E (or null), and whether the keyboard has been used.
     nearest, get usingKeys() { return usedKeys; },
+    // Where to point to lead the player to someone on the other side of a door: that door ({ x, y, z }), or null
+    // when they're on the same side.
+    guide(p) {
+      const q = player.root.position, a = areaOf(q.x, q.z), b = areaOf(p.root.position.x, p.root.position.z);
+      if (a === b) return null;
+      if (a) return { x: a.portal.in.x, y: 1.4, z: a.portal.exit[1] - 0.3 };
+      const z = b.portal.zone;
+      return { x: (z[0] + z[2]) / 2, y: 2.4, z: z[3] + 0.2 };
+    },
+    screenAt(pt) {
+      tmp.set(pt.x, pt.y, pt.z).project(camera);
+      return { x: (tmp.x + 1) / 2 * view.w, y: (1 - tmp.y) / 2 * view.h, behind: tmp.z > 1 };
+    },
     // Where the player is, for the sound: the room they're in (its spec, or null outside) and metres to the sea.
     where() {
       const q = player.root.position, r = open ? roomAt(q.x, q.z) : room;
-      return { room: r ? r.spec : null, sea: land ? land.shore(q.x, q.z) : 99, ground: groundAt(q.x, q.z) };
+      return { room: r ? r.spec : null, sea: land && !areaOf(q.x, q.z) ? land.shore(q.x, q.z) : 99, ground: groundAt(q.x, q.z) };
     },
     walkTo, approach, face, sit, standUp, screenOf, later,
     // Puts a person straight somewhere (when a saved game is loaded): { x, z, yaw, seat }.
@@ -425,7 +500,11 @@ export function createWorld(canvas, pack) {
         p.root.position.set(s.x, 0, s.z);
       } else {
         p.state = 'idle'; p.seat = 0;
-        p.root.position.set(v.x, 0, v.z);
+        // A saved spot that is now inside something (the world has changed since): home, or the nearest free spot.
+        let { x, z } = v;
+        const n = navAt(x, z);
+        if (!n.isFree(x, z)) ({ x, z } = id !== 'player' && p.home ? p.home : n.spot(x, z) || p.home);
+        p.root.position.set(x, 0, z);
       }
     },
     // Runs the scene forward without drawing it (for tests in slow headless browsers).
