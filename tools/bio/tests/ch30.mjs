@@ -54,7 +54,7 @@ console.log(`examiner lines read as intended: ${lok}/${lines}`);
 // 3. Wrong answers to real questions earn nothing; right ones in a student's own words are found.
 // [question, part index, typed answer, points that must (RIGHT) or must not (WRONG) be given]
 const WRONG = [
-  ['2019-Q15b', 4, 'the pancreas', [0]],
+  ['2019-Q15b', 4, 'the liver', [0]],  // the pancreas is right after trypsin in (iv): the marker can't see (iv), so it's accepted
   ['2006-Q3', 1, 'in the stomach', [0]],
   ['2008-Q12b', 2, 'the stomach', [0]],
   ['2012-Q15a', 1, 'digestion', [0]],

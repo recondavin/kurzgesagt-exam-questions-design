@@ -35,10 +35,9 @@
   }
 
   // ---------- marking: the same word rules as tools/bio/build_bio_questions.py ----------
-  var SYNONYMS = { big: 'large', bigger: 'larger', biggest: 'largest', huge: 'large', tiny: 'small', lots: 'many', quick: 'fast', quicker: 'faster', o2: 'oxygen', h2o: 'water',
-    axes: 'axis', min: 'minute', mins: 'minute' };
+  var SYNONYMS = { big: 'large', bigger: 'larger', biggest: 'largest', huge: 'large', tiny: 'small', lots: 'many', quick: 'fast', quicker: 'faster', o2: 'oxygen', h2o: 'water' };
   // Two-word names written as one (the same list in tools/bio/build_bio_questions.py).
-  var PHRASES = [[/carbon\s*dioxide/g, 'co2'], [/rib\s+cage/g, 'ribcage'], [/can\s+not\b/g, 'cannot'], [/get(?:s|ting)?\s+rid\s+of/g, 'remove']];
+  var PHRASES = [[/carbon\s*dioxide/g, 'co2'], [/rib\s+cage/g, 'ribcage'], [/can\s+not\b/g, 'cannot'], [/get(?:s|ting)?\s+rid\s+of/g, 'remove'], [/ready[\s-]*made/g, 'readymade']];
   // Which way the ribs and diaphragm move, said in a student's words ("the ribs fall", "the diaphragm rises"): read as
   // the scheme's up/down/out/in, only when it's said of them (not "pressure rises" elsewhere in the answer).
   var MOVES = /\b(ribcage|ribs?|diaphragm)\s+(?:(?:moves?|moved|moving|goes|go|going|went|is|are|gets?|pulled|pushed)\s+)?(rises?|rose|rising|raised|up|upwards?|falls?|fell|falling|drops?|dropped|lowers?|lowered|down|downwards?|flattens?|flattened|out|outwards?|in|inwards?)(?:\s+and\s+(out|outwards?|in|inwards?))?\b/g;
@@ -64,14 +63,21 @@
     close: ['clos', 'shut'],
     die: ['dying', 'dies', 'died'],
     lose: ['lost', 'losing', 'los', 'loss'],
-    keep: ['kept', 'maintain', 'maintenance', 'mainten']
+    keep: ['kept', 'maintain', 'maintenance', 'mainten'],
+    copy: ['copi'],
+    enter: ['entry', 'entri'],
+    mutate: ['mutation', 'mutat', 'muta', 'mutant'],
+    axis: ['axe'],
+    minute: ['min'],
+    few: ['fewer', 'fewest'],
+    virus: ['viral']
   };
   var CANON = {};
   Object.keys(SAME).forEach(function (k) { CANON[k] = k; SAME[k].forEach(function (w) { CANON[w] = k; }); });
   function canon(w) { return CANON[w] || w; }
   var SUFFIXES = ['ation', 'ition', 'tion', 'sion', 'ment', 'ing', 'ous', 'ive', 'ed', 'er', 'ly', 'al'];
   // Words that share a start but mean different things.
-  var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog'], ['bronch', 'bronchit'], ['bronch', 'bronchiol'], ['with', 'without']];
+  var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog'], ['bronch', 'bronchit'], ['bronch', 'bronchiol'], ['with', 'without'], ['gene', 'gener']];
   function bioStem(w) {
     if (/^\d+$/.test(w) || w.length <= 3) return w;
     if (w.length > 4 && /ies$/.test(w)) w = w.slice(0, -3) + 'y';

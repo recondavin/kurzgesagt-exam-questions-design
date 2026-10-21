@@ -21,14 +21,14 @@
    "why": "Two points: any two viral diseases, e.g. measles, colds, flu, polio, mumps, AIDS; TB, tetanus and cholera are bacterial, athlete's foot fungal."
   },
   {
-   "q": "What do B lymphocytes do when microbes get into the blood? (one of 4 points)",
-   "right": "Make antibodies against the antigen",
+   "q": "Name two lymphocytes and give a role of each against microbes. (4 points)",
+   "right": "B cells make antibodies; killer T cells destroy infected cells",
    "wrong": [
-    "Engulf microbes by phagocytosis",
-    "Burst infected cells with perforin",
-    "Switch off the immune response"
+    "B cells burst infected cells; T cells make antibodies",
+    "B cells engulf microbes; killer T cells make antibodies",
+    "Monocytes engulf microbes; red cells carry antibodies"
    ],
-   "why": "Four points: name two lymphocytes and a role for each, e.g. B cells make antibodies; T cells destroy infected cells."
+   "why": "Four points: two lymphocytes named, each with a matching role: B cells make antibodies; killer T cells destroy infected cells."
   },
   {
    "q": "Is vaccine immunity like immunity after an infection, and why?",
@@ -77,14 +77,14 @@
  ],
  "2006-Q15b": [
   {
-   "q": "What are antibiotics and what are they used for?",
+   "q": "What are antibiotics and what are they used for? (2 points)",
    "right": "Made by microbes; used to treat infections",
    "wrong": [
     "Made by lymphocytes; used to fight infections",
     "Weakened microbes; used to give immunity",
     "Made by the body; used to kill viruses"
    ],
-   "why": "Antibiotics are made by bacteria or fungi and used to treat infections; antibodies are what your own body makes."
+   "why": "Two points: antibiotics are made by bacteria or fungi, and used to treat infections; antibodies are what your own body makes."
   },
   {
    "q": "What is antibiotic resistance and how may it develop? (2 points)",
@@ -151,14 +151,14 @@
    "why": "Viruses can carry genes into cells, so they're used as vectors; penicillin comes from a fungus, not a virus."
   },
   {
-   "q": "What is an antibiotic?",
+   "q": "What is an antibiotic? (2 points)",
    "right": "A microbe-made chemical that kills bacteria",
    "wrong": [
     "A protein made by B cells against antigens",
     "A harmless dose of a pathogen",
     "A chemical the body makes to kill viruses"
    ],
-   "why": "Antibiotics are made by micro-organisms (bacteria or fungi) and kill or stop the growth of other micro-organisms."
+   "why": "Two points: antibiotics are made by micro-organisms (bacteria or fungi) and kill or stop the growth of other micro-organisms."
   },
   {
    "q": "Why not give antibiotics for a viral infection?",
@@ -268,11 +268,11 @@
   },
   {
    "q": "Why is myxomatosis less of a threat to Irish rabbits now?",
-   "right": "Resistant rabbits survived and bred",
+   "right": "Natural selection: resistant rabbits survived and bred",
    "wrong": [
-    "All wild rabbits are now vaccinated",
-    "Antibiotics now cure the disease",
-    "The virus has died out in Ireland"
+    "All wild rabbits are now vaccinated against it",
+    "Antibiotics now cure the disease in rabbits",
+    "The virus has died out completely in Ireland"
    ],
    "why": "Rabbits with natural immunity survived and passed it on (natural selection); antibiotics don't work on viruses."
   },
@@ -587,14 +587,14 @@
  ],
  "2015-Q14a": [
   {
-   "q": "Which pairs a general defence with how it works?",
+   "q": "Which pairs a general defence with how it works? (2 points)",
    "right": "Mucus traps microbes; cilia sweep it away",
    "wrong": [
     "Skin makes antibodies to stop microbes",
     "Phagocytes burst cells with perforin",
     "Clotting releases antibodies into wounds"
    ],
-   "why": "Mucus in the airways traps microbes and cilia sweep them out; antibodies belong to the specific system."
+   "why": "Two points: the feature and how it works: mucus in the airways traps microbes and cilia sweep them out. Antibodies are specific."
   },
   {
    "q": "Name two organs specific to the immune system. (2 points)",
@@ -777,14 +777,14 @@
    "why": "T cells come as helper, killer, suppressor and memory; B cells, monocytes and phagocytes are other white cells."
   },
   {
-   "q": "What is the role of helper T cells?",
+   "q": "What is the role of helper T cells? (one of 3 points)",
    "right": "Stimulate B cells to make antibodies",
    "wrong": [
     "Burst infected cells with perforin",
     "Switch off the immune response",
     "Make antibodies against antigens"
    ],
-   "why": "Helper T cells recognise antigens and stimulate B cells and killer T cells; they don't make antibodies themselves."
+   "why": "Three points: a role for each T cell, e.g. helper T cells stimulate B cells and killer T cells; they don't make antibodies themselves."
   }
  ],
  "2018-Q13a": [
@@ -1381,14 +1381,14 @@
    "why": "Lymphocytes are made in the bone marrow; the thymus is only where T cells go to mature."
   },
   {
-   "q": "Which matches a lymphocyte type to its role? (one of 4 points)",
-   "right": "Killer T cell: destroys infected cells",
+   "q": "Name two lymphocytes and describe the role of each. (4 points)",
+   "right": "B cells make antibodies; killer T cells destroy infected cells",
    "wrong": [
-    "B cell: engulfs microbes by phagocytosis",
-    "Killer T cell: makes antibodies",
-    "Helper T cell: switches off response"
+    "B cells engulf microbes; killer T cells make antibodies",
+    "Helper T cells make antibodies; B cells burst infected cells",
+    "Monocytes engulf microbes; platelets destroy infected cells"
    ],
-   "why": "Four points: name two lymphocytes and give each one's role, e.g. B cells make antibodies; killer T cells destroy infected cells."
+   "why": "Four points: two lymphocytes named, each with its role: B cells make antibodies; killer T cells destroy infected cells (helper T cells switch them on)."
   },
   {
    "q": "What is vaccination?",
@@ -1465,14 +1465,14 @@
  ],
  "S1-Q3b": [
   {
-   "q": "What is the main role of monocytes in innate immunity?",
+   "q": "What is the main role of monocytes in innate immunity? (2 points)",
    "right": "Engulf and digest pathogens (phagocytosis)",
    "wrong": [
     "Make antibodies against one antigen",
     "Burst infected cells using perforin",
     "Remember antigens for next time"
    ],
-   "why": "Monocytes (macrophages) engulf any pathogen or dust and digest it with lysosome enzymes: a non-specific defence."
+   "why": "Two points: monocytes (macrophages) engulf any pathogen or dust by phagocytosis and digest it with lysosome enzymes: a non-specific defence."
   },
   {
    "q": "Which is another innate (non-specific) response?",
@@ -1487,14 +1487,14 @@
  ],
  "S2-Q1b": [
   {
-   "q": "Why test the vaccine on people from all over the world? (3 points)",
+   "q": "Why test the vaccine on people from all over the world?",
    "right": "Genes and virus strains vary, so results apply worldwide",
    "wrong": [
     "So no placebo group was needed, saving time and money",
     "To make the trial double-blind and use fewer people",
     "Everyone reacts the same, so it just speeds up the trial"
    ],
-   "why": "Three points: people's genes differ, virus strains differ from place to place, so a worldwide sample gives results that apply to everyone."
+   "why": "People's genes differ and virus strains vary from place to place, so a worldwide sample gives results that apply to everyone."
   },
   {
    "q": "What does 'placebo-controlled' mean here? (2 points)",

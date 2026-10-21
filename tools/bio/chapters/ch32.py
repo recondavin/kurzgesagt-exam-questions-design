@@ -381,8 +381,70 @@ def base_of(what):
     return None
 
 
+# Hand-written marking keys (OVERRIDES['points']): each string is one alternative, every word of it needed; word
+# stems are matched as bio/bio.js does (so 'infec' is infect/infected/infection, 'make' is also produce/made).
+def _k(*alts):
+    return [{'w': a.split(), 'n': len(a.split())} for a in alts]
+
+
+def _x(firsts, seconds):
+    """Every pairing of a word from firsts with one from seconds ('mucus trap', 'mucus catch', ...)."""
+    return [f'{a} {b}' for a in firsts for b in seconds]
+
+
+# Answers several parts share.
+_VIRUS_NAMES = ['hiv', 'aid', 'flu', 'influenza', 'measle', 'mump', 'rubella', 'polio', 'raby', 'cold', 'ebola', 'hepatitis', 'herpe',
+                'zika', 'smallpox', 'chickenpox', 'chicken pox', 'hpv', 'papilloma', 'wart', 'shingle', 'norovirus', 'rotavirus', 'dengue',
+                'yellow fever', 'glandular fever', 'myxoma', 'mosaic', 'foot mouth', 'monkeypox', 'mpox', 'epstein']
+_CORONA = ['corona', 'covid', 'sar']   # SARS-CoV-2 and COVID-19 (left out where the question rules SARS-CoV-2 out)
+_BACTERIA_NAMES = ['salmonella', 'mrsa', 'staph', 'strep', 'coli', 'ecoli', 'listeria', 'clostrid', 'tetanus', 'tubercul', 'tb',
+                   'cholera', 'mycobact', 'anthrax', 'typhoid', 'syphilis', 'gonorrh', 'chlamydia', 'whooping cough', 'diphtheria',
+                   'lepros', 'botulism', 'legion', 'campylobact', 'pneumococc', 'meningococc', 'helicobact', 'pylori', 'lyme', 'impetigo',
+                   'scarlet fever', 'plague', 'shigella', 'vibrio', 'bacteri disease', 'bacteri meningit', 'bacteri pneumonia']
+# Beneficial uses of viruses (schemes that accept 'any other valid answer').
+_VIRUS_USES = ['genetic engineer', 'genetic modif', 'vector', 'gene therapy', 'carry gene', 'deliver gene', 'insert gene', 'vaccin',
+               'phage', 'bacteriophage', 'kill bacteria', 'treat bacteri infec', 'cancer', 'tumour', 'tumor', 'biological control',
+               'pest control', 'control rabbit', 'myxoma', 'research']
+# A vaccine: a harmless (weakened, dead, ...) form or dose of the pathogen or its antigen.
+_VACCINE = (_x(['harmless', 'weak', 'attenuat', 'dead', 'inactiv', 'mild', 'modif'],
+               ['pathogen', 'antigen', 'virus', 'microb', 'bacteri', 'germ', 'dose', 'form', 'strain', 'version', 'toxin', 'toxoid'])
+            + ['non harmful pathogen', 'non harmful antigen', 'non harmful dose', 'non disease caus', 'non disease dose', 'non disease pathogen',
+               'non living dose', 'non living pathogen', 'part pathogen', 'part virus', 'administr attenuat pathogen'])
+# The body making its own antibodies (not 'ready-made antibodies').
+_OWN_ANTIBODIES = ['stimulate antibody', 'trigger antibody', 'body make antibody', 'b make antibody', 'lymphocyte make antibody',
+                   'immune make antibody', 'own antibody']
+_NON_CELLULAR = ['non cellular', 'noncellular', 'acellular', 'not made cell', 'arent made cell', 'isnt made cell', 'not compos cell',
+                 'not consist cell']
+_HOST_ONLY = ['host reproduc', 'host replicat', 'host multipl', 'need host', 'only reproduc', 'only replicat', 'only multipl',
+              'cannot reproduc', 'cannot replicat', 'cannot multipl']
+_ONE_NUCLEIC = ['one nucleic', 'one type nucleic', 'either dna', 'either rna', 'not both']
+_NO_ORGANELLES = _x(['no', 'lack', 'without', 'not'], ['organelle', 'ribosome', 'mitochondri'])
+# The virus's nucleic acid going into the host cell.
+_NUCLEIC_IN = _x(['nucleic', 'dna', 'rna', 'genetic', 'genome'], ['inject', 'enter', 'entry', 'insert', 'introduc'])
+_USES_HOST = ['use host structure', 'host organelle', 'use organelle', 'host ribosome', 'host machinery', 'host enzyme', 'host resource']
+_ASSEMBLE = ['assembl', 'put together']
+_RELEASED = ['releas', 'lysis', 'lyse', 'burst', 'bud']
+_NOT_ON_VIRUSES = ['affect virus', 'work virus', 'useless virus', 'ineffect virus', 'only bacteri', 'not kill virus', 'dont kill virus',
+                   'cannot kill virus', 'no effect']
+_BY_MICROBES = ['make micro', 'make fung', 'make mould', 'make by bacteri']
+_ANTIGEN = ['caus antibody', 'trigger antibody', 'stimulate antibody', 'foreign molecul', 'foreign substance', 'foreign particle',
+            'foreign protein']
+_ANTIBODY = ['protein response', 'protein antigen', 'make response antigen', 'make against antigen', 'protein lymphocyte',
+             'protein inactivat', 'protein b']
+# T cells' jobs.
+_HELPER = ['recogn antigen', 'interferon', 'stimulate b', 'activat b', 'stimulate antibody', 'activat kill', 'stimulate kill']
+_KILLER = ['attack infect', 'kill infect', 'destroy infect', 'burst infect', 'recogn infect', 'perforin', 'kill cancer', 'destroy cancer']
+_SUPPRESSOR = ['stop response', 'stop immune', 'switch off', 'turn off', 'suppress response', 'suppress immune', 'inhibit b',
+               'inhibit t', 'end response', 'shut down']
+_MEMORY = ['rememb', 'long term', 'long last']
+_B_ROLE = ['make antibody', 'secrete antibody', 'release antibody']
+_LYMPHOCYTE_ROLES = _B_ROLE + _HELPER + _KILLER + _SUPPRESSOR + _MEMORY
+_LYMPHOCYTE_NAMES = ['b cell', 'b lymphocyte', 't cell', 't lymphocyte', 'suppressor']
+
+
 # Per-question corrections the general rules can't work out: diagrams with two panels or graphs, the right
-# answer areas for 'tap' parts, and answer types.
+# answer areas for 'tap' parts, answer types, how many points a part needs ('n') and hand-written keys ('points').
+# A part whose label has two words ('(iv) 1.') is named by its full label, so it doesn't share the short id.
 OVERRIDES = {
     'dia': {
         # A bacteriophage on its host cell: A the head's protein coat, B the coiled nucleic acid.
@@ -407,6 +469,291 @@ OVERRIDES = {
     },
     'tap': {  # part id -> anchors that are right
         '2022-Q7(b)': ['spike'],
+    },
+    'n': {
+        'S1-Q3b(ii)': 1,         # one response, named and described: each scheme line is a whole response
+        'S2-Q1b(i)': 1,          # 'likely one point': the three lines are three different reasons
+        '2005-Q15a(iii)': 4,     # two names + two roles
+        '2023-Q16c(v)': 4,       # two general + two specific
+        '2024-Q16d(ii) 3.': 4,   # two names + two matching functions
+        '2017-Q14b(iv)': 3,      # one role for each of three T cells (the rule's 'any one' reads as 1)
+    },
+    'points': {
+        'S1-Q3b(i)': {
+            0: _k('engulf', 'phagocyt', 'ingest'),
+            2: _k('non specific', 'nonspecific', 'not specific', 'any pathogen', 'any microb', 'any germ', 'any foreign', 'all pathogen'),
+            4: _k('present antigen', 'display antigen', 'show antigen', 'activat lymphocyte', 'activat t'),
+        },
+        # One innate response, named and described (each needs its name and a word of how it works).
+        'S1-Q3b(ii)': {
+            0: _k(*_x(['inflamm'], ['histamine', 'dilat', 'widen', 'leak', 'swell', 'swollen', 'red', 'redness', 'heat', 'warm', 'blood',
+                                    'phagocyt', 'white', 'mast']), 'histamine dilat', 'histamine leak', 'mast histamine'),
+            1: _k(*_x(['fever'], ['enzyme', 'denatur', 'slow', 'growth', 'kill', 'multipl', 'reproduc', 'stop']),
+                  'temperature denatur', 'temperature enzyme', 'temperature slow'),
+            2: _k(*_x(['skin'], ['barri', 'block', 'keratin', 'sebum', 'sweat', 'entry', 'enter', 'stop', 'tough', 'dead', 'waterproof', 'intact'])),
+            3: _k('mucus trap', 'mucus catch', 'mucus stick', 'mucus cilia', 'mucus sweep', 'cilia sweep', 'cilia trap', 'cilia mov',
+                  'cilia waft', 'cilia beat'),
+            4: _k('acid kill', 'acid destroy', 'acid denatur', 'hydrochlor kill'),
+            5: _k(*_x(['lysozyme'], ['tear', 'saliva', 'bacteri', 'destroy', 'kill', 'digest', 'break', 'wall']),
+                  'tear enzyme', 'saliva enzyme', 'tear kill', 'tear destroy'),
+            6: _k(*_x(['clot'], ['wound', 'seal', 'entry', 'enter', 'block', 'plug', 'scab', 'cut'])),
+            7: _k('natur kill infect', 'natur kill virus', 'natur kill cancer', 'natur kill tumour', 'nk infect', 'nk virus', 'nk cancer'),
+            8: _k(*_x(['interferon'], ['neighbour', 'protect', 'infect', 'virus', 'spread', 'release', 'nearby'])),
+        },
+        'S2-Q1b(i)': {
+            0: _k('genetic differ', 'genetic vary', 'genetic vari', 'genetic respond', 'gene differ', 'ethnic', 'differ respond'),
+            1: _k('represent', 'apply world', 'apply everyone', 'apply all people', 'valid world', 'global popul'),
+            2: _k('different strain', 'strain vary', 'variant pathogen', 'variant virus', 'different environ country', 'environ differ'),
+        },
+        'S2-Q1b(ii)': {
+            0: _k('control placebo', 'control dummy', 'control fake', 'control saline', 'placebo injec', 'placebo jab', 'dummy injec',
+                  'dummy jab', 'placebo without vaccine', 'placebo no vaccine'),
+            1: _k('compar group', 'compar control', 'compar placebo', 'compar unvaccin', 'due vaccine', 'placebo effect'),
+        },
+        'S2-Q1b(iii)': {
+            0: _k('large reliab', 'more reliab', 'increas reliab', 'high reliab'),
+            1: _k('effect chance', 'reduce chance', 'cut chance', 'anomal', 'outlier', 'individu vari', 'individu differ', 'odd result',
+                  'random error'),
+        },
+        'S2-Q1e(ii)': {0: _k('eating beef', 'beef product infect cattle', 'eat meat', 'eat infect', 'eat contaminat', 'eat beef')},
+        'S2-Q1e(iii)': {
+            0: _k('specific shape', '3d shape', '3d structure', 'three dimension', 'fold shape', 'tertiary', 'particular shape', 'unique shape'),
+            1: _k('shape func', 'structure func', 'shape work', 'shape determine', 'misfold func', 'misfold work', 'cause disease', 'active site'),
+        },
+        'S2-Q1e(iv)': {0: _k('virus', 'phage', 'bacteriophage', *_VIRUS_NAMES, *_CORONA)},
+        '2026-Q16b(ii)': {0: _k('rod', 'complex', 'helic', 'spiral', 'polyhedr', 'icosahedr')},
+        '2026-Q16b(iii)': {
+            0: _k(*_NUCLEIC_IN),
+            1: _k(*_USES_HOST, 'cell organelle', 'use host nucleic', 'use host dna', 'use host rna'),
+            2: _k('make nucleic', 'make viral dna', 'make viral rna', 'make dna', 'make rna', 'make protein', 'copy dna', 'copy rna', 'copy nucleic', 'replicat dna', 'replicat rna',
+                  'replicat nucleic', 'make coat', 'make capsid'),
+            3: _k(*_ASSEMBLE),
+            4: _k(*_RELEASED),
+        },
+        '2026-Q16b(iv)': {0: _k('contain nucleus', 'no nucleus', 'lack nucleus', 'without nucleus', 'doesnt nucleus', 'not nucleus',
+                                'nucleus absent', 'anucleate', *_NO_ORGANELLES)},
+        '2026-Q16b(v)': {0: _k(*_VIRUS_NAMES, *_CORONA)},
+        '2026-Q16b(vi)': {0: _k(*_VIRUS_USES)},
+        # Two lymphocytes, each named with its role: the two names have the same keys, as do the two roles, so one
+        # sentence earns one of each and a second sentence earns the other.
+        '2025-Q16d(iii)': {0: _k(*_LYMPHOCYTE_NAMES), 1: _k(*_LYMPHOCYTE_ROLES), 2: _k(*_LYMPHOCYTE_NAMES), 3: _k(*_LYMPHOCYTE_ROLES)},
+        '2025-Q16d(iv)': {0: _k(*_VACCINE)},
+        '2024-Q14c(i)': {0: _k(*_NON_CELLULAR, 'metabol', *_HOST_ONLY, *_NO_ORGANELLES, *_ONE_NUCLEIC)},
+        '2024-Q14c(iii)': {
+            0: _k('attach', *_NUCLEIC_IN),
+            2: _k('using host cell organelle', *_USES_HOST),
+            3: _k(*_ASSEMBLE),
+            4: _k(*_RELEASED),
+        },
+        '2024-Q14c(iv) 1.': {0: _k(*_VIRUS_NAMES, *_CORONA)},
+        '2024-Q14c(iv) 2.': {0: _k(*_VIRUS_USES)},
+        '2024-Q16d(i) 2.': {0: _k('spleen', 'thymus', 'lymph node', 'lymph gland', 'tonsil', 'adenoid', 'bone marrow')},
+        '2024-Q16d(ii) 1.': {0: _k(*_ANTIGEN), 1: _k(*_ANTIBODY)},
+        '2024-Q16d(ii) 3.': {4: _k(*_HELPER, *_KILLER, *_SUPPRESSOR, *_MEMORY)},
+        '2023-Q11b(ii)': {0: _k('gene bank', 'seed bank', 'resist tree', 'toleran tree', 'breed resist', 'breed toleran', 'thin',
+                                'divers species', 'remov infect', 'destroy infect', 'burn infect', 'ban import', 'stop import',
+                                'quarantin', 'biosecur', 'fungicid')},
+        '2023-Q16c(ii)': {0: _k(*_NON_CELLULAR, 'metabol')},
+        '2023-Q16c(iv)': {0: _k(*_VIRUS_USES)},
+        '2023-Q16c(v)': {
+            0: _k('skin barri', 'skin block', 'skin keratin', 'skin entry', 'skin enter', 'skin stop'),
+            1: _k('mucus trap', 'mucus catch', 'mucus cilia', 'mucus stick'),
+            2: _k('phagocyt', 'engulf', 'macrophage'),
+            3: _k('infect release chemic', 'interferon'),
+            4: _k('white release chemic', 'white cell chemic', 'white blood chemic', 'cytokine'),
+            5: _k('stomach acid', 'acid kill', 'acid destroy'),
+            6: _k('tear', 'lysozyme'),
+            7: _k('clot'),
+            8: _k('fever enzyme', 'fever denatur', 'fever temperature', 'fever kill', 'fever slow', 'fever stop', 'high temperature'),
+            11: _k('memory cell', 'memory recogn', 'memory rememb'),
+            12: _k('help t', 'coordinat response', 'coordinat immune', 'help stimulate'),
+            13: _k('kill cell infect', 'kill t infect', 'destroy infect', 'burst infect', 'perforin'),
+            14: _k('suppressor', 'regulatory', 'stop response', 'switch off'),
+        },
+        '2023-Q5e(e)': {0: _k(*_BACTERIA_NAMES)},
+        '2023-Q6e(e)': {0: _k(*_NOT_ON_VIRUSES)},
+        '2022-Q11b(iii) 1.': {0: _k(*_BACTERIA_NAMES)},
+        '2022-Q11b(iii) 2.': {0: _k('chemic kill bacteria', 'kill bacteria', 'inhibit bacteria', 'destroy bacteria', 'stop bacteri growth',
+                                    'slow bacteri growth')},
+        '2022-Q11b(iii) 3.': {0: _k('overuse', 'overus', 'misuse', 'overprescri', 'mutat', 'dont finish course', 'didnt finish course', 'unfinish course', 'stop course', 'complete course',
+                                    'incomplete course')},
+        '2022-Q17b(v)': {
+            0: _k('nutrient', 'balanc diet', 'balanc food'),
+            1: _k('antibody', 'pass immun'),
+            3: _k('bond', 'sterile', 'uterus', 'contracep', 'delay ovul', 'cancer', 'easi digest', 'cheap', 'convenient', 'allerg',
+                  'obes', 'less infec'),
+        },
+        '2022-Q7(c)': {0: _k(*_HOST_ONLY)},
+        '2022-Q7(d)': {0: _k(*_VACCINE), 1: _k('stimulate produc antibody', *_OWN_ANTIBODIES, 'active immun', 'memory cell')},
+        '2022-Q7(e)': {0: _k(*_VIRUS_NAMES)},   # other than SARS-CoV-2
+        '2022-Q7(f)': {0: _k(*_VIRUS_USES)},
+        '2021-Q16c(iv)': {0: _k('monocyte', 'macrophage', 'phagocyt', 'neutrophil', 'granulocyte', 'eosinophil', 'basophil')},
+        '2021-Q16c(v) 1.': {
+            0: _k('slow vaccine fast infec', 'slow fast', 'fast b', 'slow a', 'fast infec', 'slow vaccin', 'rapid b'),
+            1: _k('more antibody', 'high antibody', 'large antibody', 'great antibody', 'numb high', 'high infec', 'low vaccin', 'level high',
+                  'concentrat high', 'high b', 'large b', 'more b', 'low a', 'small a'),
+        },
+        '2021-Q16c(v) 2.': {0: _k('1st time infect', 'first time', 'memory')},
+        '2021-Q16c(vi)': {0: _k('protein', 'capsid', 'antigen')},
+        '2021-Q16c(vii)': {0: _k('antibiotic effect against virus', *_NOT_ON_VIRUSES)},
+        '2020-Q15b(ii)': {0: _k('nucleic acid', 'dna', 'rna')},
+        '2020-Q15b(iii)': {0: _k(*_HOST_ONLY)},
+        '2020-Q15b(iv)': {
+            1: _k(*_NUCLEIC_IN),
+            2: _k(*_USES_HOST),
+            3: _k(*_ASSEMBLE),
+            4: _k('virus produc', *_RELEASED),
+        },
+        '2020-Q15b(vii)': {0: _k('active long last', 'body make antibody', 'receiv antibody', 'given antibody')},
+        '2019-Q14b(i)': {0: _k(*_VACCINE)},
+        '2019-Q14b(ii)': {
+            0: _k('affect', 'not kill', 'arent kill', 'isnt kill', 'survive antibiotic'),
+            1: _k('overuse', 'overus', 'misuse', 'overprescri', 'failure complete course', 'dont finish course', 'didnt finish course', 'unfinish course', 'stop course', 'complete course',
+                  'incomplete course'),
+            2: _k('bacteria mutat', 'bacteria evolv', 'bacteria change'),
+        },
+        '2018-Q15a(iii) 2.': {0: _k('develop resistant bacteria', 'resist bacteria', 'resist strain', 'resist popul', 'superbug', 'mrsa')},
+        '2018-Q15b(iv)': {0: _k('antibiotic effect against virus', *_NOT_ON_VIRUSES)},
+        '2017-Q14a(i)': {0: _k('microcepha', 'small head', 'birth defect', 'pass baby', 'pass fetus', 'pass foetus', 'pass unborn',
+                               'placenta', 'transmi')},
+        '2017-Q14a(ii)': {
+            0: _k('mosquito net', 'repell', 'mosquito bite', 'long sleeve', 'cover skin', 'protect mosquito', 'avoid mosquito'),
+            1: _k('time day', 'indoor', 'daytime'),
+            2: _k('condom', 'delay pregnan', 'delay concep', 'abstain', 'avoid sex', 'no sex', 'safe sex'),
+        },
+        '2017-Q14a(iii)': {0: _k('bacteriophage', 'phage', 'kill bacteria', 'cancer', 'tumour', 'tumor', 'gene therapy', 'vector',
+                                 'genetic engineer', 'genetic modif', 'carry gene', 'biological control', 'pest control', 'control rabbit',
+                                 'myxoma', 'tulip')},
+        '2017-Q14a(iv)': {
+            0: _k('attach'),
+            1: _k('nucleic acid cell', *_NUCLEIC_IN),
+            2: _k('host structure used', 'virus replicat', *_USES_HOST),
+            3: _k(*_ASSEMBLE),
+            4: _k(*_RELEASED),
+        },
+        '2017-Q14a(v)': {
+            0: _k(*_HOST_ONLY, 'obligate'),
+            1: _k(*_NON_CELLULAR, 'metabol', *_NO_ORGANELLES, *_ONE_NUCLEIC),
+        },
+        '2017-Q14b(i)': {0: _k('non vaccin', 'unvaccin', 'not vaccin', 'never vaccin', 'weak immun', 'immunocompromis', 'baby', 'infant',
+                               'newborn', 'no immun')},
+        '2017-Q14b(ii)': {0: _k(*_VACCINE), 2: _k('stimulate antibody produc', *_OWN_ANTIBODIES)},
+        '2017-Q14b(iv)': {0: _k(*_HELPER), 1: _k(*_KILLER), 2: _k(*_SUPPRESSOR), 3: _k(*_MEMORY)},
+        '2017-Q4(d)': {0: _k(*[f'{m} {k}' for m in _BY_MICROBES for k in ('kill', 'inhibit', 'destroy', 'stop growth', 'slow growth')])},
+        '2016-Q15c(ii) 4.': {0: _k(*_x(['measle'], ['rash', 'spot', 'fever', 'temperature', 'koplik']),
+                                   *_x(['flu', 'influenza'], ['fever', 'temperature', 'ache', 'muscle', 'cough', 'tired', 'fatigue', 'chill', 'shiver']),
+                                   *_x(['cold'], ['runny', 'nose', 'sneez', 'sore throat', 'cough', 'congest', 'block']),
+                                   *_x(['chickenpox', 'pox'], ['spot', 'blister', 'itch', 'rash']),
+                                   *_x(['mump'], ['swell', 'swollen', 'gland', 'jaw', 'face', 'cheek']),
+                                   *_x(['polio'], ['paralys', 'paralyz', 'weak', 'muscle']),
+                                   *_x(['hiv', 'aid'], ['test', 'antibody', 'weight', 'infec', 'immun']),
+                                   *_x(['hepatitis'], ['jaundice', 'yellow']),
+                                   *_x(['covid', 'corona'], ['cough', 'fever', 'temperature', 'taste', 'smell', 'breath', 'test']),
+                                   *_x(['rubella'], ['rash', 'spot']),
+                                   *_x(['wart'], ['lump', 'growth']),
+                                   *_x(['herpe'], ['blister', 'sore']), 'cold sore blister',
+                                   *_x(['raby'], ['foam', 'water', 'aggress', 'bite']))},
+        '2016-Q15c(iii) 2.': {0: _k('stimulate antibody produc', *_OWN_ANTIBODIES, 'stimulate active immun')},
+        # One named general defence and how it works: the mechanism has to fit the feature.
+        '2015-Q14a(i)': {
+            0: _k('skin', 'mucus', 'cilia', 'acid', 'lysozyme', 'tear', 'saliva', 'sebum', 'sweat', 'clot', 'phagocyt', 'macrophage',
+                  'inflamm', 'fever', 'interferon', 'wax'),
+            1: _k(*_x(['mucus'], ['trap', 'stick', 'catch', 'cilia', 'sweep']),
+                  *_x(['cilia'], ['sweep', 'mov', 'beat', 'waft', 'push', 'trap']),
+                  *_x(['skin'], ['barri', 'block', 'entry', 'enter', 'keratin', 'tough', 'waterproof']),
+                  *_x(['acid'], ['kill', 'destroy', 'denatur']),
+                  *_x(['lysozyme'], ['kill', 'destroy', 'digest', 'break']),
+                  *_x(['tear', 'saliva'], ['lysozyme', 'wash', 'kill', 'enzyme']),
+                  *_x(['sebum', 'sweat'], ['kill', 'antimicrob', 'inhibit', 'acid']),
+                  *_x(['clot'], ['seal', 'wound', 'block', 'plug', 'scab', 'entry', 'enter']),
+                  *_x(['phagocyt', 'macrophage'], ['engulf', 'digest', 'ingest', 'lysosom']),
+                  *_x(['inflamm'], ['histamine', 'swell', 'dilat', 'phagocyt', 'white', 'blood']),
+                  *_x(['fever'], ['enzyme', 'denatur', 'slow']),
+                  *_x(['interferon'], ['neighbour', 'protect', 'spread'])),
+        },
+        '2015-Q14a(iii)': {0: _k(*_ANTIGEN, *_ANTIBODY)},
+        '2015-Q14a(iv) 1.': {0: _k(*_KILLER, 'perforat', 'kill cell'), 1: _k(*_HELPER)},
+        '2015-Q3(c)': {0: _k('rna', 'dna')},
+        '2015-Q3(e)': {0: _k('shape', 'size', 'structure', 'type nucleic', 'dna rna', 'host', 'antibody', 'antigen')},
+        '2015-Q3(f)': {0: _k(*_NON_CELLULAR, *_NO_ORGANELLES)},
+        '2015-Q3(g)': {0: _k('manufacture vaccine', *_VIRUS_USES, 'pathogen', 'caus disease', 'harm plant', 'harm anim', 'harm crop',
+                             'damag crop', 'livestock', 'crop disease', 'plant disease', 'anim disease', 'tulip')},
+        '2013-Q12a(i)': {0: _k('nucleic acid', 'dna', 'rna', 'genetic material')},
+        '2013-Q12a(iii)': {0: _k('genetic engineer', 'genetic modif', 'vector', 'gene therapy', 'carry gene', 'vaccin', 'cancer', 'tumour',
+                                 'tumor', 'pest control', 'biological control', 'control disease', 'disease control', 'kill bacteria',
+                                 'phage', 'bacteriophage')},
+        '2012-Q15b(ii)': {0: _k('phagocyt', 'monocyte', 'macrophage', 'neutrophil', 'granulocyte', 'eosinophil', 'basophil')},
+        '2012-Q15b(iii) 3.': {0: _k(*_HELPER), 1: _k(*_KILLER), 2: _k('stop immune respons', *_SUPPRESSOR), 3: _k('long term protec', *_MEMORY)},
+        '2011-Q10b(ii)': {0: _k('immunity develop', 'immun', 'natur selec', 'virulent', 'vaccin', 'resist host')},
+        '2010-Q6(a) (ii)': {0: _k('nucleic acid', 'dna', 'rna')},
+        '2010-Q6(b)': {1: _k('nucleic acid cell', *_NUCLEIC_IN), 4: _k(*_ASSEMBLE), 5: _k(*_RELEASED)},
+        '2010-Q6(c)': {
+            0: _k(*_x(['previ', 'earli', 'before', 'already', 'past', 'older'], ['expos', 'infect', 'caught', 'flu', 'strain']), 'similar virus',
+                  'similar flu', 'similar strain'),
+            1: _k('antibody', 'memory cell', 'active immun'),
+        },
+        '2009-Q15c(i)': {
+            0: _k('immun', 'defence', 'fight infec', 'fight disease', 'fight pathogen'),
+            1: _k('b cell', 'b lymphocyte'),
+            3: _k('t cell', 't lymphocyte'),
+            4: _k(*_HELPER, *_KILLER, *_SUPPRESSOR, 'rememb'),
+        },
+        '2008-Q15b(i)': {2: _k('rapid spread', 'high popul', 'dense popul', 'large popul')},
+        '2008-Q15b(ii)': {0: _k('natur immun', 'natur selec', 'virus mutat', 'immun')},
+        # Yes or no, with a plausible reason.
+        '2008-Q15b(iv)': {0: _k('resist surviv', 'immun surviv', 'natur selec', 'resist reproduc', 'immun reproduc', 'resist children',
+                                'immun children', 'mutat fast', 'mutat rapid', 'long generation', 'generation time', 'slow reproduc',
+                                'drug alive', 'treatment alive', 'antiretrovir')},
+        '2008-Q15b(v)': {
+            1: _k('introduce nucleic acid', *_NUCLEIC_IN),
+            3: _k('viral dna', 'rna replicat', 'dna replicat', 'nucleic replicat', 'dna copy', 'rna copy', 'dna copi', 'rna copi',
+                  'nucleic copy'),
+            4: _k('using resource host cell', *_USES_HOST),
+        },
+        '2007-Q14b(i)': {0: _k('obligate', *_HOST_ONLY), 1: _k(*_NON_CELLULAR), 4: _k(*_ONE_NUCLEIC)},
+        '2007-Q14b(iii)': {7: _k('hiv', 'aid', 'mump', 'rubella', 'raby', 'hepatitis', 'herpe', 'ebola', 'zika', 'covid', 'corona', 'sar',
+                                 'hpv', 'wart', 'dengue', 'yellow fever', 'glandular fever', 'shingle', 'norovirus', 'rotavirus',
+                                 'influenza', 'myxoma', 'foot mouth')},
+        '2007-Q14b(iv)': {0: _k('bacteriophage', 'phage', 'kill bacteria', 'genetic engineer', 'genetic modif', 'vector', 'gene therapy',
+                                'carry gene', 'deliver gene', 'vaccin')},
+        '2007-Q14b(v)': {0: _k('produc micro organism', *_BY_MICROBES)},
+        '2007-Q14b(vi)': {0: _k('effect', 'resist')},
+        '2007-Q14c(i)': {0: _k('resistance infec', 'antigen', 'resist disease', 'resist pathogen', 'resist microb', 'fight infec')},
+        '2007-Q14c(iii)': {1: _k('antibody introduc body', 'antibody introduc', 'antibody give', 'antibody put', 'antibody inject',
+                                 'antibody receiv', 'antibody donat', 'ready antibody', 'antibody mother', 'antibody milk')},
+        '2007-Q14c(iv)': {0: _k('antigen', *_VACCINE), 1: _k('caus antibody produc', *_OWN_ANTIBODIES)},
+        '2007-Q14c(v) 2.': {0: _k('infec already occurr', 'already infec', 'infec occurr', 'dangerous infec', 'no vaccin', 'vaccin expens',
+                                  'tetanus', 'raby', 'snake', 'venom')},
+        '2006-Q15b(iii)': {0: _k('produc bacteria', 'fungi', *_BY_MICROBES)},
+        '2006-Q15b(iv)': {
+            0: _k('not kill', 'arent kill', 'isnt kill', 'bacteria surviv', 'surviv antibiotic', 'not affect', 'unaffect', 'not inhibit',
+                  'bacteria immune'),
+            1: _k('natur selec', 'surviv multipl', 'surviv reproduc', 'overuse', 'misuse', 'plasmid'),
+        },
+        '2006-Q15c(ii)': {6: _k('temperature')},
+        '2006-Q6e(e)': {
+            0: _k('cell membrane', 'surface', *_ANTIGEN),
+            1: _k('produc response antigen', 'make against', 'make response', 'response antigen', 'destroy antigen', 'defence protein',
+                  'make lymphocyte', 'protein antigen'),
+        },
+        '2005-Q15a(i)': {0: _k(*_NON_CELLULAR), 1: _k(*_ONE_NUCLEIC), 2: _k('reproduce host cell only', 'obligate', *_HOST_ONLY),
+                         3: _k(*_NO_ORGANELLES, 'possess organelle', 'no nucleus')},
+        '2005-Q15a(ii)': {1: _k('flu', 'influenza'), 6: _k('aid', 'hiv')},
+        '2005-Q15a(iii)': {
+            0: _k('b cell', 'b lymphocyte'),
+            1: _k('t cell', 't lymphocyte', 'suppressor'),
+            2: _k('cell produce antibody', 'agglutin', 'lysis', 'memory', *_B_ROLE),
+            3: _k('cell recognise', 'destroy infect', 'damag cell', 'memory', 'suppress immune system', *_HELPER, *_KILLER, *_SUPPRESSOR),
+            4: _k('help stimulate cell', 'stimulate kill cell', 'recognise antigen', 'stimulate b', 'activat b', 'activat kill'),
+            5: _k('kill destroy infect', 'damag cell', 'kill infect', 'burst infect', 'perforin'),
+            6: _k('suppressor switch', 'switch off', 'turn off', 'suppress immune', 'suppress response', 'stop immune', 'stop response'),
+            7: _k('memory memorise antigen', 'rememb'),
+        },
+        '2005-Q15a(iv)': {1: _k('both antibody', *_OWN_ANTIBODIES)},
+        '2005-Q15b(v)': {
+            0: _k('produc micro organism', *_BY_MICROBES),
+            1: _k('inhibit bacteria', 'fungi', 'kill bacteria', 'destroy bacteria', 'stop growth', 'kill fung', 'kill micro'),
+        },
     },
 }
 

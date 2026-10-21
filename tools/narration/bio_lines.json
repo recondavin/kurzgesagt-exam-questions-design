@@ -335,14 +335,14 @@
   "say": "For part six, just name it: a word or a short phrase is enough. That's one point, for three marks."
  },
  {
-  "id": "bio-50864dc4",
+  "id": "bio-10fd83c0",
   "text": "(ii) In your answerbook, sketch the structure of an alveolus and its associated blood supply. On your diagram,…",
-  "say": "For part two, just name it: a word or a short phrase is enough. That's three points, for nine marks."
+  "say": "For part two, draw it large, and label it clearly. That's three points, for nine marks."
  },
  {
-  "id": "bio-035923c3",
+  "id": "bio-36c4900d",
   "text": "(iii) The diagrams (X and Y) show the two stages of breathing with the arrows representing the body movements…",
-  "say": "For part three, read the diagram and find the exact part. That's two points, for nine marks."
+  "say": "For part three, read the diagram and find the exact part. That's three points, for nine marks."
  },
  {
   "id": "bio-8f23e31b",
@@ -380,9 +380,9 @@
   "say": "For part b, just name it: a word or a short phrase is enough. That's three points, for nine marks."
  },
  {
-  "id": "bio-cca27b74",
+  "id": "bio-edd6d50b",
   "text": "(c) Name a disorder of the human breathing system and suggest how it is caused and treated. Name. Cause.…",
-  "say": "For part c, just name it: a word or a short phrase is enough. That's six points, for eighteen marks."
+  "say": "For part c, just name it: a word or a short phrase is enough. That's three points, for nine marks."
  },
  {
   "id": "bio-6870f56e",
@@ -390,9 +390,9 @@
   "say": "For part three, describe it: say what happens, step by step. That's five points, for fifteen marks."
  },
  {
-  "id": "bio-5bee2df3",
+  "id": "bio-eb5b7cf2",
   "text": "(v) State a cause and a treatment for the breathing disorder referred to in part (iv).",
-  "say": "For part five, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+  "say": "For part five, just name it: a word or a short phrase is enough. That's two points, for six marks."
  },
  {
   "id": "bio-8f6fd522",
@@ -413,11 +413,6 @@
   "id": "bio-328783ac",
   "text": "(iii) Carbon dioxide levels are usually higher in venous blood than in arterial blood. Why is this the case?",
   "say": "For part three, just name it: a word or a short phrase is enough. That's two points, for six marks."
- },
- {
-  "id": "bio-eb5b7cf2",
-  "text": "(v) Briefly outline the role of carbon dioxide in the control of the human breathing rate.",
-  "say": "For part five, just name it: a word or a short phrase is enough. That's two points, for six marks."
  },
  {
   "id": "bio-77667e28",
@@ -605,9 +600,29 @@
   "say": "For part six, just name it: a word or a short phrase is enough. That's two points, for six marks."
  },
  {
-  "id": "bio-61dbc31b",
+  "id": "bio-cmd-draw-title",
+  "text": "Draw it big, label it well",
+  "say": "Draw it big, label it well"
+ },
+ {
+  "id": "bio-6d8ae9e7",
   "text": "(ii) The nephron is the functional unit of the kidney. Draw a large labelled diagram of the human nephron and…",
-  "say": "For part two, just name it: a word or a short phrase is enough. That's six points, for twelve marks."
+  "say": "For part two, draw it large, and label it clearly. That's six points, for twelve marks."
+ },
+ {
+  "id": "bio-cmd-draw-1",
+  "text": "Large and clear: half a page, in pencil.",
+  "say": "Make your diagram large and clear, in pencil, so the examiner can see every part."
+ },
+ {
+  "id": "bio-cmd-draw-2",
+  "text": "Label lines: straight, touching the part.",
+  "say": "Each label needs a straight line that touches the exact part it names."
+ },
+ {
+  "id": "bio-cmd-draw-3",
+  "text": "Count the labels: as many as it asks for.",
+  "say": "Count how many labels the question asks for, and make sure every one is there."
  },
  {
   "id": "bio-29-reabsorb-title",
@@ -615,9 +630,9 @@
   "say": "Reabsorption: taking back the good stuff"
  },
  {
-  "id": "bio-370a316a",
+  "id": "bio-ab091396",
   "text": "(iv) Large amounts of water are reabsorbed into the blood during urine formation. 1. Name any two parts of the…",
-  "say": "For part four, read the diagram and find the exact part. That's two points, for twelve marks."
+  "say": "For part four, read the diagram and find the exact part. That's four points, for twelve marks."
  },
  {
   "id": "bio-29-reabsorb-1",
@@ -760,34 +775,9 @@
   "say": "There it's filtered out of the blood, and leaves the body in urine."
  },
  {
-  "id": "bio-36c4900d",
-  "text": "(iii) A diagram of a human kidney is shown on the right. 1. In which part of the kidney is the Bowman's capsule…",
-  "say": "For part three, read the diagram and find the exact part. That's three points, for nine marks."
- },
- {
-  "id": "bio-cmd-draw-title",
-  "text": "Draw it big, label it well",
-  "say": "Draw it big, label it well"
- },
- {
   "id": "bio-8c74b1f3",
   "text": "(iv) Draw a large diagram of a nephron and its associated blood supply from a human kidney. Label the following…",
   "say": "For part four, draw it large, and label it clearly. That's three points, for twelve marks."
- },
- {
-  "id": "bio-cmd-draw-1",
-  "text": "Large and clear: half a page, in pencil.",
-  "say": "Make your diagram large and clear, in pencil, so the examiner can see every part."
- },
- {
-  "id": "bio-cmd-draw-2",
-  "text": "Label lines: straight, touching the part.",
-  "say": "Each label needs a straight line that touches the exact part it names."
- },
- {
-  "id": "bio-cmd-draw-3",
-  "text": "Count the labels: as many as it asks for.",
-  "say": "Count how many labels the question asks for, and make sure every one is there."
  },
  {
   "id": "bio-b2d5732d",
@@ -800,9 +790,9 @@
   "say": "For part two, say what it means, in one clear sentence. That's two points, for six marks."
  },
  {
-  "id": "bio-ef3a7022",
+  "id": "bio-caab989c",
   "text": "(iii) Using your knowledge of homeostasis and excretion: 1. State the effect on the volume of urine produced by…",
-  "say": "For part three, read the diagram and find the exact part. That's three points, for twelve marks."
+  "say": "For part three, read the diagram and find the exact part. That's four points, for twelve marks."
  },
  {
   "id": "bio-3e925424",
@@ -910,14 +900,19 @@
   "say": "For part four, explain it: say what happens, and why. That's one point, for three marks."
  },
  {
+  "id": "bio-5bee2df3",
+  "text": "(v) Following a period of heavy exercise an athlete may produce only a small volume of concentrated urine.…",
+  "say": "For part five, just name it: a word or a short phrase is enough. That's four points, for twelve marks."
+ },
+ {
   "id": "bio-b0d7fc6a",
   "text": "(b) Ureter and urethra",
   "say": "For part b, just name it: a word or a short phrase is enough. That's two points, for four marks."
  },
  {
-  "id": "bio-84cf4d4c",
+  "id": "bio-1a1ade9b",
   "text": "(f) Removal from the body of the waste products of metabolism is called ……………",
-  "say": "For part f, just name it: a word or a short phrase is enough. That's five points, for four marks."
+  "say": "For part f, just name it: a word or a short phrase is enough. That's one point, for four marks."
  },
  {
   "id": "bio-8db89f1d",
@@ -930,9 +925,9 @@
   "say": "For part a, just name it: a word or a short phrase is enough. That's three points, for nine marks."
  },
  {
-  "id": "bio-91416d47",
+  "id": "bio-75b9038f",
   "text": "(ii) Filtration and reabsorption are vital processes that take place in the nephron. Describe how each of these…",
-  "say": "For part two, just name it: a word or a short phrase is enough. That's three points, for eighteen marks."
+  "say": "For part two, just name it: a word or a short phrase is enough. That's six points, for eighteen marks."
  },
  {
   "id": "bio-30-tube-title",
@@ -1145,14 +1140,14 @@
   "say": "Up the middle runs a lacteal, a lymph vessel, which takes in the fatty acids and glycerol."
  },
  {
-  "id": "bio-49daba09",
+  "id": "bio-3c125e82",
   "text": "(i) 1. What is the optimal pH of enzyme A?",
-  "say": "For part one 1., just name it: a word or a short phrase is enough. That's two points, for four marks."
+  "say": "For part one 1., just name it: a word or a short phrase is enough. That's one point, for four marks."
  },
  {
-  "id": "bio-326d1a7e",
+  "id": "bio-dbb148f3",
   "text": "(i) 2. What is the optimal pH of enzyme B?",
-  "say": "For part one 2., just name it: a word or a short phrase is enough. That's two points, for four marks."
+  "say": "For part one 2., just name it: a word or a short phrase is enough. That's one point, for four marks."
  },
  {
   "id": "bio-102ef3a1",
@@ -1725,9 +1720,9 @@
   "say": "For part one, read the diagram and find the exact part. That's two points, for four marks."
  },
  {
-  "id": "bio-737da6db",
+  "id": "bio-4cd7e7ad",
   "text": "(iv) Draw labelled diagrams of a vein and an artery and a capillary to clearly show the structural differences…",
-  "say": "For part four, draw it large, and label it clearly. That's two points, for eight marks."
+  "say": "For part four, draw it large, and label it clearly. That's five points, for eight marks."
  },
  {
   "id": "bio-31-lymph-title",
@@ -1940,9 +1935,9 @@
   "say": "For part b, decide if each statement is true or false. That's one point, for three marks."
  },
  {
-  "id": "bio-74e1dea9",
+  "id": "bio-65b3dcf8",
   "text": "(d) Give two functions of the lymphatic system.",
-  "say": "For part d, just name it: a word or a short phrase is enough. That's five points, for fifteen marks."
+  "say": "For part d, just name it: a word or a short phrase is enough. That's two points, for six marks."
  },
  {
   "id": "bio-2c6a33cc",
@@ -1965,9 +1960,9 @@
   "say": "For part b one, describe it: say what happens, step by step. That's four points, for twelve marks."
  },
  {
-  "id": "bio-78b48388",
+  "id": "bio-07392504",
   "text": "(b)(iii) In the space below draw and label sufficient of your dissection to show the tricuspid valve, the right…",
-  "say": "For part b three, just name it: a word or a short phrase is enough. That's four points, for nine marks."
+  "say": "For part b three, draw it large, and label it clearly. That's four points, for nine marks."
  },
  {
   "id": "bio-a4e7b5bd",
@@ -2030,19 +2025,14 @@
   "say": "These defences treat every invader the same way, and they're always ready. That's why this is called the general, or innate, system."
  },
  {
-  "id": "bio-8b7dd53a",
-  "text": "(ii) Describe one other innate immune response in the body.",
-  "say": "For part two, describe it: say what happens, step by step. That's nine points, for twenty-seven marks."
- },
- {
   "id": "bio-32-trials-title",
   "text": "Testing a new vaccine",
   "say": "Testing a new vaccine"
  },
  {
-  "id": "bio-166d14c7",
+  "id": "bio-035c5546",
   "text": "(i) Why was it important to test the vaccine on people from all over the world?",
-  "say": "For part one, explain it: say what happens, and why. That's three points, for nine marks."
+  "say": "For part one, explain it: say what happens, and why. That's one point, for three marks."
  },
  {
   "id": "bio-32-trials-1",
@@ -2290,14 +2280,9 @@
   "say": "When antibodies lock onto antigens, the pathogens clump together and are marked, so phagocytes can find them and destroy them."
  },
  {
-  "id": "bio-446b844a",
+  "id": "bio-4f0347f6",
   "text": "(ii) 3. There are four types of T cells in the human immune system. Name any two types and give one function for…",
-  "say": "For part two 3., just name it: a word or a short phrase is enough. That's two points, for twelve marks."
- },
- {
-  "id": "bio-9d18b1a1",
-  "text": "(v) The human body can defend itself against viruses using two defence systems: the general defence system and…",
-  "say": "For part five, just name it: a word or a short phrase is enough. That's two points, for twelve marks."
+  "say": "For part two 3., just name it: a word or a short phrase is enough. That's four points, for twelve marks."
  },
  {
   "id": "bio-1e9b056f",
@@ -2313,11 +2298,6 @@
   "id": "bio-a60e1699",
   "text": "(c) Explain why viruses are described as obligate parasites.",
   "say": "For part c, explain it: say what happens, and why. That's one point, for three marks."
- },
- {
-  "id": "bio-65b3dcf8",
-  "text": "(d) Vaccination has proved to be very effective in combatting COVID-19. Explain in detail the term vaccination.",
-  "say": "For part d, just name it: a word or a short phrase is enough. That's two points, for six marks."
  },
  {
   "id": "bio-f1eaf32d",
@@ -2383,11 +2363,6 @@
   "id": "bio-9ca88241",
   "text": "(ii) What is a vaccine and how does it result in immunity?",
   "say": "For part two, say what it means, in one clear sentence. That's three points, for nine marks."
- },
- {
-  "id": "bio-19971fa6",
-  "text": "(iv) Describe the role of each of the T cells referred to in part (iii) above.",
-  "say": "For part four, describe it: say what happens, step by step. That's one point, for three marks."
  },
  {
   "id": "bio-33e0cc51",
@@ -2473,11 +2448,6 @@
   "id": "bio-eb538f9d",
   "text": "(iv) Explain what is meant by antibiotic resistance and suggest how it may develop.",
   "say": "For part four, say what it means, in one clear sentence. That's two points, for six marks."
- },
- {
-  "id": "bio-ff7241a3",
-  "text": "(iii) Name two types of lymphocyte and state a role of each when viruses or other micro-organisms enter the blood.",
-  "say": "For part three, just name it: a word or a short phrase is enough. That's two points, for twelve marks."
  },
  {
   "id": "bio-6638e039",
