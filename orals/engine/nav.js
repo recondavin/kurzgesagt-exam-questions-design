@@ -99,5 +99,12 @@ export function makeNav(bounds, blocks, radius) {
     return out;
   }
 
-  return { path, isFree: (x, z) => free(...cell(x, z)) };
+  // Free of furniture and of the people given (as they stand now), not of where people were for an earlier path.
+  function isFree(x, z, others = []) {
+    const [c, r] = cell(x, z);
+    if (fixed[r * cols + c]) return false;
+    return others.every(o => Math.hypot(x - o.x, z - o.z) >= o.r + radius);
+  }
+
+  return { path, isFree };
 }

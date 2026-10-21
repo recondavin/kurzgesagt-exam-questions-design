@@ -24,25 +24,30 @@ const JOB_MAR = JOB_HIS;
 const FEMALE = "(mo mháthair|mo mham|mo mhamaí|mo dheirfiúr|m'aintín|mo mhamó|mo sheanmháthair)";
 const MALE = "(m'athair|mo dhaid|mo dhaidí|mo dheartháir|m'uncail|mo dhaideó|mo sheanathair)";
 const WHO = '(' + FEMALE.slice(1, -1) + '|' + MALE.slice(1, -1) + ')';
-const FAMILY = "(le (mo mhuintir|mo theaghlach|mo chlann|mo thuismitheoirí|mo dheartháir|mo dheirfiúr|mo dheartháireacha|mo dheirfiúracha|mo mháthair|m'athair|mo mham|mo dhaid|m'uncail|m'aintín|gach duine (sa teaghlach|sa chlann|sa gclann|i mo theaghlach|i mo chlann|sa bhaile|sa mbaile)|gach duine acu)|leo [(go léir|ar fad|uile)]|léi|leis)";
+const FAMILY = "(le ({name}|mo mhuintir|mo theaghlach|mo chlann|mo thuismitheoirí|mo dheartháir|mo dheirfiúr|mo dheartháireacha|mo dheirfiúracha|mo mháthair|m'athair|mo mham|mo dhaid|m'uncail|m'aintín|gach duine (sa teaghlach|sa chlann|sa gclann|i mo theaghlach|i mo chlann|sa bhaile|sa mbaile)|gach duine acu)|leo [(go léir|ar fad|uile)]|léi|leis)";
 const HOW_WELL = '(go maith|go han-mhaith|go breá|go réasúnta maith|go measartha maith|go hiontach|go dona)';
 const PERS = '(beirt|triúr|ceathrar|cúigear|seisear|seachtar|ochtar|naonúr|deichniúr)';
 const PEOPLE_N = '(dhá dhuine|trí dhuine|ceithre dhuine|cúig dhuine|sé dhuine|seacht nduine|ocht nduine|naoi nduine|deich nduine)';
 const IN_FAMILY = '(i mo theaghlach|i mo chlann|sa teaghlach|sa chlann|sa gclann|i mo mhuintir|sa bhaile|sa mbaile|ionainn)';
 const SIB_ONE = '(deartháir|deirfiúr|leasdeartháir|leasdeirfiúr)';
-const SIB_PL = '(deartháireacha|dheartháireacha|deirfiúracha|dheirfiúracha)';
+const SIB_PL = '(deartháireacha|deirfiúracha)';
 const SIBS = '(' + [
   SIB_ONE + ' [amháin] [(níos sine|níos óige|atá níos sine|atá níos óige|amháin)]',
   'aon ' + SIB_ONE + ' amháin',
   'dhá (dheartháir|dheirfiúr)', '(trí|ceithre|cúig) (dheartháir|dheirfiúr)', '(seacht|ocht) (ndeartháir|ndeirfiúr)',
-  'beirt ' + SIB_PL, PERS + ' ' + SIB_PL, '(cúpla|leathchúpla)',
+  // After beirt: the genitive plural, not lenited on d (An Caighdeán Oifigiúil 2017, 9.4.3); "beirt deartháir" is in a
+  // State Examiner's own notes, so it is right too.
+  'beirt ' + SIB_PL, 'beirt (deartháir|deirfiúr)', PERS + ' ' + SIB_PL, '(cúpla|leathchúpla)',
 ].join('|') + ')';
-const MONTH = "(d'eanáir|d'fheabhra|de mhárta|d'aibreán|de bhealtaine|de mheitheamh|d'iúil|de lúnasa|de mheán fómhair|de dheireadh fómhair|de shamhain|de nollaig|de mhí eanáir|de mhí feabhra|de mhí an mhárta|de mhí aibreáin|de mhí na bealtaine|de mhí an mheithimh|de mhí iúil|de mhí lúnasa|de mhí mheán fómhair|de mhí dheireadh fómhair|de mhí na samhna|de mhí na nollag)";
+// "de mhí Iúil" is the Caighdeán's own example; Márta, Bealtaine, Meitheamh, Samhain and Nollaig take the article
+// (mí an Mhárta), but "de mhí Márta" and "de Mhárta" are what most students say, so they are right too.
+const MONTH = "(d'eanáir|d'fheabhra|de mhárta|d'aibreán|de bhealtaine|de mheitheamh|d'iúil|de lúnasa|de mheán fómhair|de dheireadh fómhair|de shamhain|de nollaig|de mhí (eanáir|feabhra|márta|an mhárta|aibreáin|aibreán|bealtaine|na bealtaine|meitheamh|an mheithimh|iúil|lúnasa|mheán fómhair|dheireadh fómhair|samhain|na samhna|nollaig|na nollag))";
 const ORD = '(gcéad|chéad|dara|tríú|gceathrú|cheathrú|gcúigiú|chúigiú|séú|seachtú|ochtú|naoú)';
 // After "ar an": eclipsis (standard and Connacht) or lenition (Ulster); no t- before a vowel.
-const DAY = '(' + ORD + ' [lá]|deichiú [lá]|(bhfichiú|fhichiú) [lá]|tríochadú [lá]|(aonú|dóú|' + ORD.slice(1, -1) + ') lá déag|(aonú|dóú|' + ORD.slice(1, -1) + ') lá (is fiche|fichead)|aonú lá (is tríocha|tríochad))';
+const DAY = '(' + ORD + ' [lá]|deichiú [lá]|(bhfichiú|fhichiú|fichiú) [lá]|tríochadú [lá]|(aonú|dóú|' + ORD.slice(1, -1) + ') lá déag|(aonú|dóú|' + ORD.slice(1, -1) + ') lá (is fiche|fichead)|aonú lá (is tríocha|tríochad))';
 const YEAR = '[sa bhliain] dhá mhíle [(is|agus)] a (cúig|sé|seacht|hocht|naoi|deich)';
-const TAIL = '[(agus|ach|mar|is|nuair|cé go|freisin|chomh maith) {*15}]';
+// Anything may follow a right answer (another clause, more detail); the mistake rules still check all of it.
+const TAIL = '[[(agus|ach|mar|is|nuair|cé go|freisin|chomh maith|mar sin)] {*20}]';
 
 export const SLOTS = {
   name: { re: '(?:(?!(?:' + NOT_NAME + ') )[^ ]+ ){1,3}' },
@@ -50,7 +55,7 @@ export const SLOTS = {
   age: AGE, adjs: ADJS, job: JOB, job_his: JOB_HIS, job_her: JOB_HER, job_mar: JOB_MAR,
   female: FEMALE, male: MALE, who: WHO, family: FAMILY, how_well: HOW_WELL,
   pers: PERS, people_n: PEOPLE_N, in_family: IN_FAMILY, sibs: SIBS, month: MONTH, day: DAY, year: YEAR, tail: TAIL,
-  place: '{*6}',
+  place: '{*8}',
 };
 
 // ---------------------------------------------------------------- the questions
@@ -73,7 +78,7 @@ export const QUESTIONS = [
   },
   {
     id: 'aois',
-    ask: ['Cén aois thú?', 'Cén aois atá agat?'],
+    ask: ['Cén aois thú?', 'Cén aois atá agat?', 'Cén aois tú?'],
     en: 'How old are you?',
     accept: [
       "{ta_me} {age} [d'aois] {tail}",
@@ -89,17 +94,19 @@ export const QUESTIONS = [
   },
   {
     id: 'breith',
-    ask: ['Cén uair a rugadh thú?', 'Cathain a rugadh thú?'],
+    ask: ['Cén uair a rugadh thú?', 'Cathain a rugadh thú?', 'Cad é do dháta breithe?'],
     en: 'When were you born?',
     accept: [
       'rugadh mé ar an {day} {month} [{year}] {tail}',
       '(is é|tá) mo bhreithlá ar an {day} {month} {tail}',
       'rugadh mé [ar an {day} {month}] {year} {tail}',
     ],
-    mistakes: [],
-    model: { ga: 'Rugadh mé ar an gcúigiú lá de Mhárta.', en: 'I was born on the fifth of March.' },
-    more: { ga: 'Rugadh mé ar an gcúigiú lá de Mhárta, dhá mhíle is a hocht.', en: 'I was born on the fifth of March, two thousand and eight.' },
-    tiles: ['Rugadh', 'mé', 'ar', 'an', 'gcúigiú', 'cúigiú', 'lá', 'de', 'Mhárta', 'Márta', 'Tá'],
+    mistakes: [
+      { when: 'rugadh mé ar an (aon|haon|dó|trí|ceathair|cúig|sé|seacht|ocht|naoi|deich|fiche) {*12}', why: 'For the day of a date, use the ordinal: ar an tríú lá, ar an gcúigiú lá, ar an tríú lá déag.' },
+    ],
+    model: { ga: 'Rugadh mé ar an gcúigiú lá de mhí Iúil.', en: 'I was born on the fifth of July.' },
+    more: { ga: 'Rugadh mé ar an gcúigiú lá de mhí Iúil, dhá mhíle is a hocht.', en: 'I was born on the fifth of July, two thousand and eight.' },
+    tiles: ['Rugadh', 'mé', 'ar', 'an', 'gcúigiú', 'cúigiú', 'lá', 'de', 'mhí', 'mí', 'Iúil'],
   },
   {
     id: 'conai',
@@ -107,6 +114,7 @@ export const QUESTIONS = [
     en: 'Where do you live?',
     accept: [
       '{ta_me} (i mo|im) chónaí {where} {tail}',
+      'tá cónaí orm {where} {tail}',
       'cónaím {where} {tail}',
       { p: 'is as {place} mé {tail}', tip: 'That says where you\'re from. Where you live is: Tá mé i mo chónaí i...' },
     ],
@@ -122,14 +130,14 @@ export const QUESTIONS = [
   },
   {
     id: 'teaghlach',
-    ask: ['Cé mhéad duine atá i do theaghlach?', 'Cé mhéad duine atá sa chlann?'],
+    ask: ['Cé mhéad duine atá i do theaghlach?', 'Cé mhéad duine atá sa teaghlach?', 'Cé mhéad duine atá sa chlann?'],
     en: 'How many people are in your family?',
     accept: [
       'tá {pers} {in_family} [(mé féin|mise) san áireamh] {tail}',
       'tá {people_n} {in_family} [(mé féin|mise) san áireamh] {tail}',
       'tá {pers} againn [{in_family}] [(mé féin|mise) san áireamh] {tail}',
-      '{pers} atá {in_family} [(mé féin|mise) san áireamh] {tail}',
-      '{pers} atá againn [{in_family}] {tail}',
+      '{pers} [ar fad] atá {in_family} [(mé féin|mise) san áireamh] {tail}',
+      '{pers} [ar fad] atá againn [{in_family}] {tail}',
       { p: '{pers} {tail}', tip: 'Right, but answer in a full sentence in the exam: Tá cúigear i mo theaghlach.' },
     ],
     mistakes: [],
@@ -164,9 +172,9 @@ export const QUESTIONS = [
       'is mé an (duine|páiste) is (sine|óige) [{in_family}] {tail}',
       'is mise an (duine|páiste) (sa lár|láir) [{in_family}] {tail}',
       '{ta_me} (sa lár|i lár na clainne) {tail}',
-      '[ní mé] (is é|is í) {who} an (duine|páiste) is (sine|óige) [{in_family}] {tail}',
+      '[ní mé] (is é|is í) ({who}|{name}) an (duine|páiste) is (sine|óige) [{in_family}] {tail}',
       'is páiste aonair mé {tail}',
-      { p: '(is mé|ní mé|sea|ní hea) {tail}', tip: 'That answers it, but add a full sentence in the exam: Is mise an duine is sine sa chlann.' },
+      { p: '(is mé|ní mé|sea|ní hea)', tip: 'That answers it, but add a full sentence in the exam: Is mise an duine is sine sa chlann.' },
     ],
     mistakes: [],
     model: { ga: 'Is mise an duine is sine sa chlann.', en: 'I\'m the oldest in the family.' },
@@ -208,9 +216,11 @@ export const QUESTIONS = [
     accept: [
       'tá ({who}|sé|sí) {adjs} [[,] [agus] {adjs}] [[,] [agus] {adjs}] {tail}',
       'is duine {adjs} [agus {adjs}] (é [{male}]|í [{female}]) {tail}',
-      'tá gruaig {hair} (air|uirthi) [agus tá súile {eyes} (aige|aici)] {tail}',
+      'tá gruaig {hair} (air|uirthi|ar {who}) [agus tá súile {eyes} (aige|aici|ag {who})] {tail}',
       'tá súile {eyes} (aige|aici) {tail}',
       'tá ({who}|sé|sí) (níos sine|níos óige|níos airde) ná mé {tail}',
+      "tá ({who}|sé|sí) {age} [d'aois] {tail}", "tá ({who}|sé|sí) (aon|dhá) bhliain [déag] d'aois {tail}",
+      'tá ({who}|sé|sí) ag freastal ar {place}',
       'is breá le {who} {*8}', 'is maith le {who} {*8}',
     ],
     slots: {
@@ -228,6 +238,7 @@ export const QUESTIONS = [
     en: 'Do you get on well with your family?',
     accept: [
       '[ní] (réitím|réitíonn mé) {how_well} {family} [(den chuid is mó|formhór an ama|an chuid is mó den am)] {tail}',
+      'ní (réitím|réitíonn mé) {family} {tail}',
       '[ní] (réitímid|réitíonn muid) {how_well} le chéile {tail}',
       '(bíonn|bímid|bíonn muid) ag argóint {*8}', 'bíonn (argóint|argóintí) againn {*8}',
       { p: '[ní] (réitím|réitíonn mé) {tail}', tip: 'That answers it, but add more in the exam: Réitím go maith le mo thuismitheoirí.' },

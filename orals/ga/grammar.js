@@ -99,7 +99,7 @@ const RULES = [
         else if (b === 'bliana') out.push(hit(i, i + 2, [t.raw, 'mbliana'], 'After seacht, ocht, naoi and deich, put an m before bliana: seacht mbliana déag, ocht mbliana déag.', 'num-eclipsis'));
         else if (plur) out.push(hit(i, i + 2, [t.raw, eclipse(plur)], 'After seacht, ocht, naoi and deich the noun stays singular and is eclipsed: seacht ndeartháir.', 'num-plural'));
         else if (sing && !isEclipsed(n.raw) && canEclipse(n.raw)) out.push(hit(i, i + 2, [t.raw, eclipse(n.raw)], 'After seacht, ocht, naoi and deich the noun is eclipsed: seacht ndeartháir, ocht nduine.', 'num-eclipsis'));
-      } else if (['tri', 'ceithre', 'cuig', 'se'].includes(num) && f(n) === 'bliain') {
+      } else if (['tri', 'ceithre', 'cuig', 'se'].includes(num) && f(n) === 'bliain' && !(num === 'se' && pronounSe(s[i - 1]))) {
         out.push(hit(i, i + 2, [t.raw, 'bliana'], 'With trí to sé, years is "bliana": sé bliana déag.', 'num-bliain'));
       }
     });
@@ -137,9 +137,18 @@ const RULES = [
       const a = s[i + 1], n = s[i + 2];
       if (!n || f(t) !== 'ar' || f(a) !== 'an') return;
       const w = fold(low(n));
-      if (/^[bcfgp]/.test(w) && w[1] !== 'h' && !isEclipsed(n.raw)) out.push(hit(i, i + 3, [t.raw, a.raw, eclipse(n.raw)], 'After "ar an", the next word changes: ar an gcéad lá, ar an gcúigiú lá (or ar an chéad lá in Ulster).', 'ar-an'));
+      // "fichiú" is left alone: the Caighdeán keeps f unchanged after the article in ordinals (an fichiú).
+      if (/^[bcfgp]/.test(w) && w[1] !== 'h' && !isEclipsed(n.raw) && !/^fichiu/.test(w)) out.push(hit(i, i + 3, [t.raw, a.raw, eclipse(n.raw)], 'After "ar an", the next word changes: ar an gcéad lá, ar an gcúigiú lá (or ar an chéad lá in Ulster).', 'ar-an'));
     });
     return out;
+  },
+  // "de" (of) lenites: de mhí Iúil, de Mhárta (An Caighdeán Oifigiúil 2017, 10.2.5).
+  function de(s) {
+    return s.flatMap((t, i) => {
+      const n = s[i + 1];
+      if (!n || low(t) !== 'de' || !/^(mi|marta|bealtaine|meitheamh|samhain)$/.test(f(n))) return [];
+      return [hit(i, i + 2, [t.raw, lenite(n.raw)], '"De" adds a h after the first letter: de mhí Iúil, de Mhárta.', 'de-lenition')];
+    });
   },
   // an- (very) lenites: an-chairdiúil, an-mhaith (but an-deas, an-te, an-sásta).
   function anIntensifier(s) {
@@ -174,6 +183,7 @@ const RULES = [
       }
       // Is + a job (or "duine" and a few describing words) + é/í + who.
       let at = -1;
+      if (low(t) === 'mar' && s[i + 1] && JOB.has(f(s[i + 1])) && isLenitable(s[i + 1].raw)) out.push(hit(i + 1, i + 2, [lenite(s[i + 1].raw)], '"Mar" (as) adds a h after the first letter: ag obair mar mhúinteoir, mar fheirmeoir.', 'mar-lenition'));
       if (f(t) === 'is' && jobAt(s[i + 1])) at = i + 2;
       else if (f(t) === 'is' && f(s[i + 1]) === 'duine') for (let k = i + 2; k < Math.min(s.length, i + 7); k++) if (low(s[k]) === 'é' || low(s[k]) === 'í') { at = k; break; }
       if (at > 0) {
@@ -231,7 +241,7 @@ export const GA = {
   detectors: RULES,
   english: ENGLISH,
   aliases: ALIASES,
-  fillers: ['(bhuel|ó|á|em|um|eh|sea|is ea|ceart go leor|go raibh maith agat|a mháirín|a bhean an tí|maith go leor)'],
+  fillers: ['(bhuel|ó|á|em|um|eh|sea|is ea|ní hea|ceart go leor|go raibh maith agat|a mháirín|a bhean an tí|maith go leor|le fírinne|i ndáiríre|go deimhin)'],
   slots: {},
 };
 export const MUTATE = { lenite, eclipse, isLenitable, isEclipsed };

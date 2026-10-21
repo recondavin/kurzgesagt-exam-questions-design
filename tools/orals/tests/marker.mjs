@@ -5,6 +5,8 @@
 // 3. Known mistakes are caught by the rule that should catch them, and the fix it offers is itself right.
 // 4. Each question's model answer is right, can be built from its word tiles, and its "say more" line has no mistake.
 // 5. Every county's "Tá mé i mo chónaí ..." is right.
+// 6. Every question line in the story is one of the question's listed phrasings.
+import { readFileSync } from 'node:fs';
 import { createMarker } from '../../../orals/engine/marker.js';
 import { GA } from '../../../orals/ga/grammar.js';
 import { QUESTIONS, SLOTS, COUNTIES } from '../../../orals/ga/questions.js';
@@ -119,6 +121,18 @@ for (const c of COUNTIES) {
   const r = m.mark('conai', text);
   if (r.verdict !== 'right') fail('county', text, r.verdict, (r.mistakes || []).map(x => x.rule).join(','));
   else ok('county', text);
+}
+
+// ---------------------------------------------------------------- 6. the story's questions
+// Every "#ask:id" line in the story is one of that question's listed phrasings.
+const ink = readFileSync(new URL('../../../orals/ga/story.ink', import.meta.url), 'utf8');
+for (const line of ink.split('\n')) {
+  const mm = /^\s*\w+:\s*(.+?)\s*#ask:(\w+)/.exec(line);
+  if (!mm) continue;
+  const q = QUESTIONS.find(x => x.id === mm[2]);
+  if (!q) fail('story asks an unknown question', mm[2]);
+  else if (!q.ask.includes(mm[1])) fail('story phrasing not in the question\'s ask list', mm[2], mm[1]);
+  else ok('story', mm[2], mm[1]);
 }
 
 console.log(fails ? `${fails} failed of ${checks + fails}` : `all ${checks} checks passed`);

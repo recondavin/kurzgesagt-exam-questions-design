@@ -70,9 +70,9 @@ mairin: Cén aois atá agat? #ask:aois
 -> react ->
 mairin: Cén áit a bhfuil tú i do chónaí? #ask:conai
 -> react ->
-mairin: Cathain a rugadh thú? #ask:breith
+mairin: Cad é do dháta breithe? #ask:breith
 -> react ->
-mairin: Cé mhéad duine atá sa chlann? #ask:teaghlach
+mairin: Cé mhéad duine atá sa teaghlach? #ask:teaghlach
 -> react ->
 mairin: An bhfuil deartháir nó deirfiúr agat? #ask:siblini
 -> react ->

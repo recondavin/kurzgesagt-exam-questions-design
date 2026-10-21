@@ -166,7 +166,7 @@ export function createWorld(canvas, pack) {
     const tries = sides.concat(Array.from({ length: 16 }, (_, i) => Math.atan2(dx, dz) + (i % 2 ? 1 : -1) * Math.ceil(i / 2) * Math.PI / 8));
     for (const ang of tries) {
       const x = b.x + Math.sin(ang) * 1.05, z = b.z + Math.cos(ang) * 1.05 + (Math.abs(Math.sin(ang)) > 0.9 ? 0.2 : 0);
-      if (nav.isFree(x, z)) { best = { x, z }; break; }
+      if (nav.isFree(x, z, othersOf(p).filter(o => o.x !== b.x || o.z !== b.z))) { best = { x, z }; break; }
     }
     best = best || { x: b.x + dx / d, z: b.z + dz / d };
     // Already standing there: just turn to each other.
@@ -180,7 +180,7 @@ export function createWorld(canvas, pack) {
     // Step up to the chair from whichever side is free: its front, back or sides (a chair at a table has the table in front).
     const c = Math.cos(s.ry), sn = Math.sin(s.ry);
     const side = [[0, 1], [0, -1], [1, 0], [-1, 0]].map(([lx, lz]) => ({ x: s.x + (lx * c + lz * sn) * 0.78, z: s.z + (-lx * sn + lz * c) * 0.78 }))
-      .find(q => nav.isFree(q.x, q.z)) || s.front;
+      .find(q => nav.isFree(q.x, q.z, othersOf(p))) || s.front;
     walkTo(p, side.x, side.z, () => {
       p.yawTo = s.ry;
       later(0.25, () => {

@@ -51,11 +51,12 @@ export function person(spec) {
   if (s.hairStyle === 'bun') hp.push(orb(0.1, s.hair, { y: 0.2, z: -0.17 }));
   if (s.hairStyle === 'long') hp.push(orb(1, s.hair, { y: -0.12, z: -0.12, sx: 0.27, sy: 0.22, sz: 0.16 }));
   // The face has no outline of its own: small dark eyes, brows, a nose and any glasses.
-  const brow = s.glasses ? 0.085 : 0.07, fp = [
+  // Brows sit just proud of the head (buried ones show only their inner ends and look cross), arched kindly.
+  const brow = s.glasses ? 0.085 : 0.07, bz = Math.sqrt(R * R - 0.088 * 0.088 - brow * brow) - 0.012, fp = [
     orb(0.027, INK, { x: -0.085, y: 0.0, z: ez, sy: 1.45 }),
     orb(0.027, INK, { x: 0.085, y: 0.0, z: ez, sy: 1.45 }),
-    orb(1, shade(s.hair, 0.75), { x: -0.088, y: brow, z: ez - 0.02, sx: 0.04, sy: 0.011, sz: 0.02, rz: 0.03 }),
-    orb(1, shade(s.hair, 0.75), { x: 0.088, y: brow, z: ez - 0.02, sx: 0.04, sy: 0.011, sz: 0.02, rz: -0.03 }),
+    orb(1, shade(s.hair, 0.75), { x: -0.088, y: brow, z: bz, sx: 0.036, sy: 0.011, sz: 0.02, rz: 0.14 }),
+    orb(1, shade(s.hair, 0.75), { x: 0.088, y: brow, z: bz, sx: 0.036, sy: 0.011, sz: 0.02, rz: -0.14 }),
     orb(0.04, shade(s.skin, 0.93), { y: -0.06, z: R - 0.01 }),
   ];
   if (s.glasses) {
