@@ -1,7 +1,30 @@
 # Credits for the oral games (irish.html)
 
-Everything here is free to use in a paid product. Only the music needs a credit, and it's shown in the game's menu
+The bundled art and sounds below permit use in a paid product. Only the music needs a credit, and it's shown in the game's menu
 (the ••• button).
+
+## Computer voices and personal recordings
+
+The selected service is Microsoft Azure Speech: `ga-IE-OrlaNeural` and `ga-IE-ColmNeural`.
+The generated assets are subject to the user's Azure service agreement; they are not represented as CC0.
+See Microsoft's [Text to speech REST documentation](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-text-to-speech).
+No ABAIR voices, recordings or assets are used.
+
+`tools/orals/make_voice.mjs` synthesizes individual sentences, with the shared `voiceHash(voice, text)`
+in `orals/engine/voice.js`. It writes `ga/voice/<hash>.mp3` and a resumable `index.json` manifest.
+Names, birthday dates and arbitrary student-written answers may have no cached audio; their text remains visible.
+The shipped manifest is empty until Azure credentials are supplied and the voice build is run.
+
+Set `AZURE_SPEECH_KEY` and `AZURE_SPEECH_REGION` on the build machine, then run
+`node tools/orals/make_voice.mjs` (or `--dry-run` to count assets without making requests).
+Keys must never be committed or put in browser code. The voice build enumerates the independent fields
+of every generated answer; parents' jobs are separate sentences so every job combination is covered.
+Both voices are generated. The computer reads questions/dialogue and model answers; the model voice is
+selected in About you. Music ducks further while a voice is actually playing.
+
+Student microphone recordings stay on the device, use temporary object URLs, and are not uploaded.
+The microphone tracks are stopped on Stop, self assessment, walking away, and page navigation.
+There is no automatic speech scoring: students compare their recording with the model and assess themselves.
 
 ## Music
 

@@ -66,7 +66,7 @@ export function compiler(lang, extraSlots) {
     return src;
   }
   function node(n) {
-    if (n.word) return esc(lang.fold(n.word.toLowerCase())) + ' ';
+    if (n.word) return esc(lang.fold(n.word.toLowerCase().replace(/[’‘]/g, "'"))) + ' ';
     if (n.slot) return slotSrc(n.slot);
     if (n.alt) return '(?:' + n.alt.map(a => a.map(node).join('')).join('|') + ')';
     if (n.opt) return '(?:' + n.opt.map(a => a.map(node).join('')).join('|') + ')?';
@@ -218,8 +218,14 @@ export function createMarker(lang, questions) {
     const hit = matches(entry, sents);
     if (hit) return { verdict: 'right', match: hit, note: entry.notes[hit.index] || null, tips: tips.concat(fadaTips(toks)) };
 
+    // Guidance only: unfamiliar or dialect forms must never be called wrong for tense.
+    if (entry.q.tense && lang.tenseOf) {
+      const tense = lang.tenseOf(sents);
+      if (tense && tense !== entry.q.tense) return { verdict: 'tense', tense: entry.q.tense, tips };
+    }
     for (const [id, other] of Object.entries(qs)) {
       if (id === qid) continue;
+      if ((other.q.topic || 'family') !== (entry.q.topic || 'family')) continue;
       if (matches(other, sents)) return { verdict: 'other', other: id, tips };
     }
     return { verdict: 'unsure', tips };

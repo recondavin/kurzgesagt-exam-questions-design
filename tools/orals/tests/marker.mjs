@@ -12,6 +12,10 @@ import { GA } from '../../../orals/ga/grammar.js';
 import { QUESTIONS as MAIRIN, SHOP_QUESTIONS, SLOTS, COUNTIES } from '../../../orals/ga/questions.js';
 const QUESTIONS = MAIRIN.concat(SHOP_QUESTIONS);
 import { RIGHT, WRONG } from './answers.mjs';
+import { EXTRA_QUESTIONS, TENSE_SLOTS, tenseOf } from '../../../orals/ga/topics.js';
+import { DEFAULTS, OPTIONS, prepareQuestions } from '../../../orals/ga/personal.js';
+import { tokens } from '../../../orals/engine/marker.js';
+import { NEW_RIGHT } from './new-answers.mjs';
 
 const verbose = process.argv.includes('-v');
 const lang = Object.assign({}, GA, { slots: Object.assign({}, GA.slots, SLOTS) });
@@ -136,5 +140,38 @@ for (const line of ink.split('\n')) {
   else ok('story', mm[2], mm[1]);
 }
 
+// Every option of every independent generator field, at both levels. Each birthday in a leap year
+// is included. Parent-job sentences are independent; testing each job in each role covers all pairs.
+const profiles = [{ ...DEFAULTS }];
+for (const [key, values] of Object.entries(OPTIONS)) for (const value of values) profiles.push({ ...DEFAULTS, [key]: value });
+for (const c of COUNTIES) profiles.push({ ...DEFAULTS, county: c.id });
+for (let date = new Date('2000-01-01T12:00:00Z'); date.getUTCFullYear() === 2000; date.setUTCDate(date.getUTCDate() + 1)) profiles.push({ ...DEFAULTS, birthday: date.toISOString().slice(5, 10) });
+const all = MAIRIN.concat(EXTRA_QUESTIONS, SHOP_QUESTIONS);
+const personalLang = { ...lang, tenseOf, slots: { ...lang.slots, ...TENSE_SLOTS } };
+for (const p of profiles) for (const level of ['OL', 'HL']) {
+  const qs = prepareQuestions(all, { ...p, level });
+  const marker = createMarker(personalLang, qs);
+  for (const q of qs) {
+    const text = q.model.ga, result = marker.mark(q.id, text);
+    if (result.verdict !== 'right') fail('personal answer', q.id, JSON.stringify(p), text, result.verdict, result.mistakes?.map(m => m.rule));
+    else ok('personal', q.id);
+    // Check detectors directly as well: acceptance must never hide a rule defect.
+    const runs = text.split(/[.!?]/).map(s => tokens(s, personalLang).filter(t => !t.punct));
+    for (const detector of GA.detectors) for (const run of runs) {
+      const hits = detector(run) || [];
+      if (hits.length) fail('generator rule', q.id, text, hits.map(h => h.rule).join(','));
+    }
+    const left = q.tiles.slice();
+    for (const word of text.split(/\s+/)) { const index = left.indexOf(word); if (index < 0) fail('personal tile missing', q.id, word); else left.splice(index, 1); }
+  }
+}
+// Correct answers other than the models, including dialect forms and tense-specific details.
+const expanded = createMarker(personalLang, prepareQuestions(all, DEFAULTS));
+for (const [id, answer] of Object.entries(NEW_RIGHT)) {
+  if (expanded.mark(id, answer).verdict !== 'right') fail('new real answer', id, answer); else ok('new answer', id);
+}
+const isolated = createMarker(personalLang, prepareQuestions(all.filter(q => ['ainm', 'future_after'].includes(q.id)), DEFAULTS));
+if (isolated.mark('ainm', 'Rachaidh mé go dtí an ollscoil.').verdict === 'other') fail('cross-topic other verdict');
+if (expanded.mark('area_past', 'Beidh mé ag obair sa bhaile.').verdict !== 'tense') fail('soft tense verdict');
 console.log(fails ? `${fails} failed of ${checks + fails}` : `all ${checks} checks passed`);
 process.exit(fails ? 1 : 0);

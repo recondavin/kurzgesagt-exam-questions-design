@@ -110,13 +110,16 @@ function turn(a, b, max) {
 // keyboard: the world moves them and sets p.steering.)
 export function animate(p, dt) {
   p.t += dt;
-  const onPath = !!(p.path && p.path.length), walking = onPath || !!p.steering;
+  const onPath = !!(p.path && p.path.length);
+  let walking = onPath || !!p.steering;
   if (onPath) {
     const pos = p.root.position, next = p.path[0];
     const dx = next.x - pos.x, dz = next.z - pos.z, d = Math.hypot(dx, dz), step = p.speed * dt;
     p.yawTo = Math.atan2(dx, dz);
-    if (d <= step) { pos.x = next.x; pos.z = next.z; p.path.shift(); }
-    else { pos.x += dx / d * step; pos.z += dz / d * step; }
+    const travel = Math.min(d, step), nx = d ? pos.x + dx / d * travel : pos.x, nz = d ? pos.z + dz / d * travel : pos.z;
+    const moved = !p.canMove || p.canMove(nx, nz);
+    if (moved) { pos.x = nx; pos.z = nz; if (d <= step) p.path.shift(); p.blocked = 0; }
+    else { p.blocked = (p.blocked || 0) + dt; walking = !!p.steering; }
     if (!p.path.length) { p.path = null; const f = p.onArrive; p.onArrive = null; f && f(); }
   }
   p.yaw = turn(p.yaw, p.yawTo, dt * (walking ? 10 : 6));

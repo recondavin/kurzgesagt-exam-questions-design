@@ -1,9 +1,9 @@
-// The ten comhrá questions about you and your family, as the bean an tí asks them (Connacht Irish, the forms of
-// the other dialects accepted). For each: how it's asked, its English, the accepted answers (patterns, see
+// Family comhrá for the Leaving Cert: standard Irish models, with forms from every dialect accepted.
+// For each: how it's asked, its English, the accepted answers (patterns, see
 // orals/engine/marker.js), mistakes particular to it, a model answer and a "say more" line with hand-written
 // English, and the word tiles. {name}, {county} and {county_en} are filled from the student's details.
 // The rules for mistakes that can happen in any answer are in grammar.js.
-import { JOBS, MUTATE } from './grammar.js';
+import { JOBS, MUTATE } from './grammar.js?v=oral-9';
 
 const { lenite, isLenitable } = MUTATE;
 const VOWEL = /^[aeiouáéíóú]/i;
@@ -43,7 +43,7 @@ const SIBS = '(' + [
 // (mí an Mhárta), but "de mhí Márta" and "de Mhárta" are what most students say, so they are right too.
 const MONTH = "(d'eanáir|d'fheabhra|de mhárta|d'aibreán|de bhealtaine|de mheitheamh|d'iúil|de lúnasa|de mheán fómhair|de dheireadh fómhair|de shamhain|de nollaig|de mhí (eanáir|feabhra|márta|an mhárta|aibreáin|aibreán|bealtaine|na bealtaine|meitheamh|an mheithimh|iúil|lúnasa|mheán fómhair|dheireadh fómhair|samhain|na samhna|nollaig|na nollag))";
 const ORD = '(gcéad|chéad|dara|tríú|gceathrú|cheathrú|gcúigiú|chúigiú|séú|seachtú|ochtú|naoú)';
-// After "ar an": eclipsis (standard and Connacht) or lenition (Ulster); no t- before a vowel.
+// After "ar an": standard eclipsis or dialect lenition; no t- before a vowel.
 const DAY = '(' + ORD + ' [lá]|deichiú [lá]|(bhfichiú|fhichiú|fichiú) [lá]|tríochadú [lá]|(aonú|dóú|' + ORD.slice(1, -1) + ') lá déag|(aonú|dóú|' + ORD.slice(1, -1) + ') lá (is fiche|fichead)|aonú lá (is tríocha|tríochad))';
 const YEAR = '[sa bhliain] dhá mhíle [(is|agus)] a (cúig|sé|seacht|hocht|naoi|deich)';
 // Anything may follow a right answer (another clause, more detail); the mistake rules still check all of it.

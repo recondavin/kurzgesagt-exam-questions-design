@@ -24,12 +24,13 @@ export function makeNav(bounds, blocks, radius, walkable) {
       if (x > b[0] - radius && x < b[2] + radius && z > b[1] - radius && z < b[3] + radius) fixed[r * cols + c] = 1;
     }
   }
-  let grid = fixed;
+  let grid = fixed, activeOthers = [];
   const cell = (x, z) => [Math.max(0, Math.min(cols - 1, col(x))), Math.max(0, Math.min(rows - 1, row(z)))];
   const free = (c, r) => c >= 0 && r >= 0 && c < cols && r < rows && !grid[r * cols + c];
 
   // Other people block a circle round them while a path is planned.
   function withPeople(others) {
+    activeOthers = others;
     grid = fixed.slice();
     for (const o of others) {
       const [oc, or] = cell(o.x, o.z), n = Math.ceil((o.r + radius) / CELL);
@@ -55,10 +56,11 @@ export function makeNav(bounds, blocks, radius, walkable) {
   }
 
   function clear(ax, az, bx, bz) {
-    const n = Math.ceil(Math.hypot(bx - ax, bz - az) / (CELL / 3));
-    for (let i = 1; i < n; i++) {
-      const [c, r] = cell(ax + (bx - ax) * i / n, az + (bz - az) * i / n);
-      if (!free(c, r)) return false;
+    const n = Math.max(1, Math.ceil(Math.hypot(bx - ax, bz - az) / (CELL / 3)));
+    for (let i = 1; i <= n; i++) {
+      const x = ax + (bx - ax) * i / n, z = az + (bz - az) * i / n;
+      const [c, r] = cell(x, z);
+      if (!free(c, r) || !isFree(x, z, activeOthers)) return false;
     }
     return true;
   }
@@ -105,6 +107,7 @@ export function makeNav(bounds, blocks, radius, walkable) {
         if (!dr && !dc) continue;
         const nc = c + dc, nr = r + dr;
         if (!free(nc, nr) || (dc && dr && (!free(c + dc, r) || !free(c, r + dr)))) continue;
+        if (dc && dr && !canMove(cx(c), cz(r), cx(nc), cz(nr), others)) continue;
         const ni = nr * cols + nc;
         if (state[ni] === 2) continue;
         const ng = g[cur] + (dc && dr ? 1.414 : 1);
@@ -117,7 +120,7 @@ export function makeNav(bounds, blocks, radius, walkable) {
     const pts = cells.map(i => ({ x: cx(i % cols), z: cz(Math.floor(i / cols)) }));
     // End exactly on the tapped spot when it is free.
     const [bc, br] = cell(bx, bz);
-    if (pts.length && goal[0] === bc && goal[1] === br) pts[pts.length - 1] = { x: bx, z: bz };
+    if (pts.length && goal[0] === bc && goal[1] === br && isFree(bx, bz, others)) pts[pts.length - 1] = { x: bx, z: bz };
     // Cut corners.
     const out = [];
     let at = { x: ax, z: az }, i = 0;
@@ -135,7 +138,18 @@ export function makeNav(bounds, blocks, radius, walkable) {
   function isFree(x, z, others = []) {
     const c = col(x), r = row(z);
     if (c < 0 || r < 0 || c >= cols || r >= rows || fixed[r * cols + c]) return false;
+    // Test actual coordinates as well as cell centres: a free cell must not let a body clip an edge.
+    if (x < x0 + radius || x > x1 - radius || z < z0 + radius || z > z1 - radius) return false;
+    if (blocks.some(b => x > b[0] - radius && x < b[2] + radius && z > b[1] - radius && z < b[3] + radius)) return false;
+    if (walkable && ![[x - radius, z - radius], [x + radius, z - radius], [x - radius, z + radius], [x + radius, z + radius]].every(([px, pz]) => walkable(px, pz))) return false;
     return others.every(o => Math.hypot(x - o.x, z - o.z) >= o.r + radius);
+  }
+
+  // Sweep the whole movement segment, including the destination. Every moving actor uses this.
+  function canMove(ax, az, bx, bz, others = []) {
+    const steps = Math.max(1, Math.ceil(Math.hypot(bx - ax, bz - az) / (CELL / 4)));
+    for (let i = 1; i <= steps; i++) if (!isFree(ax + (bx - ax) * i / steps, az + (bz - az) * i / steps, others)) return false;
+    return true;
   }
 
   // The free spot nearest to a point (somewhere to put someone whose saved spot is now taken), or null.
@@ -145,5 +159,5 @@ export function makeNav(bounds, blocks, radius, walkable) {
     return c && { x: cx(c[0]), z: cz(c[1]) };
   }
 
-  return { path, isFree, spot };
+  return { path, isFree, canMove, spot };
 }
