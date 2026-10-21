@@ -158,6 +158,8 @@ html.og-page, .og-page body { height: 100%; margin: 0; overflow: hidden; overscr
 .og-menu-box button, .og-switch { display: flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 12px; border: 0; border-radius: 10px; background: none; text-align: left; font-size: 16px; }
 .og-menu-box button:hover, .og-switch:hover { background: #2B3B42; }
 .og-switch input { width: 20px; height: 20px; accent-color: #58CC02; }
+.og-menu-small { max-width: 260px; margin: 6px 12px 4px; color: #93A5AE; font-size: 12px; line-height: 1.4; }
+.og-menu-small a { color: inherit; }
 
 @media (min-width: 700px) {
   .og-sheet { bottom: calc(16px + var(--kb)); border-radius: 22px; border: 2px solid #2B3B42; }

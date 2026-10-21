@@ -14,6 +14,8 @@ export function createTalk(root, opts = {}) {
   const prefsKey = (opts.key || 'oral') + '-prefs';
   const prefs = Object.assign({ english: false }, JSON.parse(store.get(prefsKey) || '{}'));
   const savePrefs = () => store.set(prefsKey, JSON.stringify(prefs));
+  // A short sound for a tap (tap, untap, next), if the game has sound.
+  const sfx = name => opts.sfx && opts.sfx(name);
 
   root.insertAdjacentHTML('beforeend', `
     <header class="og-top">
@@ -99,7 +101,7 @@ export function createTalk(root, opts = {}) {
       showSheet(`${who(line)}${lineHtml(line.ga, line.en, line.player ? 'og-say--me' : '')}
         <div class="og-row">${enToggle(line.en)}<button class="og-btn og-btn--go" type="button">Continue</button></div>`);
       wireEnglish(sheet);
-      const go = () => { sheet.removeEventListener('click', tap); done(); };
+      const go = () => { sheet.removeEventListener('click', tap); sfx('next'); done(); };
       const tap = e => { if (!e.target.closest('.og-en-btn')) go(); };
       // Listen once the tap that brought this line up has finished: it would otherwise reach the sheet too and
       // skip the line straight away.
@@ -123,7 +125,7 @@ export function createTalk(root, opts = {}) {
         sheet.querySelectorAll('.og-en').forEach(p => { p.hidden = !on; });
         requestAnimationFrame(insets);
       });
-      sheet.querySelectorAll('.og-choice').forEach(c => c.addEventListener('click', e => { e.stopPropagation(); done(+c.dataset.i); }));
+      sheet.querySelectorAll('.og-choice').forEach(c => c.addEventListener('click', e => { e.stopPropagation(); sfx('tap'); done(+c.dataset.i); }));
     });
   }
 
@@ -163,8 +165,8 @@ export function createTalk(root, opts = {}) {
           t._slot = slot;
           t.addEventListener('click', () => {
             if (!result.hidden) return;
-            if (t.parentNode === built) { t._slot.appendChild(t); }
-            else built.appendChild(t);
+            if (t.parentNode === built) { t._slot.appendChild(t); sfx('untap'); }
+            else { built.appendChild(t); sfx('tap'); }
             check.disabled = !built.children.length;
             requestAnimationFrame(insets);
           });
@@ -262,6 +264,7 @@ export function createTalk(root, opts = {}) {
         result.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', e => {
           e.stopPropagation();
           const act = b.dataset.act;
+          sfx('next');
           if (act === 'next') finish(true);
           else if (act === 'mine') { if (firstRight === null) firstRight = false; opts.onMine && opts.onMine(q.id, said); finish(true); }
           else {
@@ -330,15 +333,18 @@ export function createTalk(root, opts = {}) {
   }
 
   // ---------------------------------------------------------------- menu
+  // Items: { label, run } a button, { toggle, on, set(on) } a switch, { small, href? } a line of small print.
   const menuBtn = $('.og-menu-btn', root);
   function openMenu(items) {
-    menu.innerHTML = `<div class="og-menu-box" role="menu">
-      <label class="og-switch"><input type="checkbox" ${prefs.english ? 'checked' : ''}><span>Always show English</span></label>
-      ${items.map((it, i) => `<button type="button" role="menuitem" data-i="${i}">${esc(it.label)}</button>`).join('')}
+    items = [{ toggle: 'Always show English', on: prefs.english, set: on => { prefs.english = on; savePrefs(); sheet.querySelectorAll('.og-en').forEach(p => { p.hidden = !on; }); } }].concat(items);
+    menu.innerHTML = `<div class="og-menu-box" role="menu">${items.map((it, i) =>
+      it.toggle ? `<label class="og-switch"><input type="checkbox" data-t="${i}" ${it.on ? 'checked' : ''}><span>${esc(it.toggle)}</span></label>` :
+      it.small ? `<p class="og-menu-small">${it.href ? `<a href="${esc(it.href)}" target="_blank" rel="noopener">${esc(it.small)}</a>` : esc(it.small)}</p>` :
+      `<button type="button" role="menuitem" data-i="${i}">${esc(it.label)}</button>`).join('')}
     </div>`;
     menu.hidden = false;
     menuBtn.setAttribute('aria-expanded', 'true');
-    $('input', menu).addEventListener('change', e => { prefs.english = e.target.checked; savePrefs(); sheet.querySelectorAll('.og-en').forEach(p => { p.hidden = !prefs.english; }); });
+    menu.querySelectorAll('[data-t]').forEach(b => b.addEventListener('change', e => items[+b.dataset.t].set(e.target.checked)));
     menu.querySelectorAll('[data-i]').forEach(b => b.addEventListener('click', () => { closeMenu(); items[+b.dataset.i].run(); }));
   }
   function closeMenu() { menu.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); }

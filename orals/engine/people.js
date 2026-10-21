@@ -92,7 +92,7 @@ export function person(spec) {
     root, rig, hit, head, hands, feet, k,
     radius: 0.3,
     speed: 1.5,
-    state: 'idle', talking: false, phase: 0, t: Math.random() * 10,
+    state: 'idle', talking: false, phase: 0, hop: 0, t: Math.random() * 10,
     seat: 0, yaw: 0, yawTo: 0, gesture: 0, walk: 0,
     path: null, onArrive: null,
   };
@@ -128,6 +128,9 @@ export function animate(p, dt) {
   const u0 = (p.phase % Math.PI) / Math.PI;
   // Faster walkers hop a little quicker and a little further.
   if (walking || (u0 > 0.04 && u0 < 0.96)) p.phase += dt * 9.5 * Math.sqrt(p.speed / 1.5);
+  // A hop has landed (for footsteps).
+  const hop = Math.floor(p.phase / Math.PI);
+  if (hop !== p.hop) { p.hop = hop; p.onLand && p.onLand(p); }
   const u = (p.phase % Math.PI) / Math.PI, side = Math.floor(p.phase / Math.PI) % 2 ? 1 : -1;
   const wk = Math.max(p.walk, walking ? 0 : (u > 0.04 && u < 0.96 ? 0.6 : 0)) * (1 - p.seat), seat = p.seat, k = p.k;
 

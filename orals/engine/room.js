@@ -159,18 +159,19 @@ export function buildRoom(r) {
   const H = r.house;
   const floor = r.floor === 'boards' ? floorBoards(r.w, r.d) : floorStones(r.w, r.d, r.stones || ['#8E9290', '#858A88', '#979A95', '#8A8D86']);
   const parts = [...floor, ...walls(r), ...(H ? [] : ground(r))];
-  const blocks = [], seats = {};
+  const blocks = [], seats = {}, fine = [];
   for (const o of r.props) {
     const make = MAKERS[o.type];
     if (!make) { console.warn('No maker for', o.type); continue; }
     const f = frame(r, o), built = make(o);
     // Things built against a wall are pushed out by half their depth so their back touches it.
     const back = o.wall && built.foot[1] ? built.foot[1] / 2 : 0;
-    for (const g of built.parts) {
+    for (const g of built.parts.concat(built.fine || [])) {
       if (back) g.translate(0, 0, back);
       place(g, { x: f.x, z: f.z, ry: f.ry });
     }
     parts.push(...built.parts);
+    fine.push(...(built.fine || []));
     const fp = footprint(f, built.foot, back ? built.foot[1] / 2 : 0);
     if (fp && o.solid !== false) blocks.push(fp);
     if (built.seat && o.id) {
@@ -180,6 +181,8 @@ export function buildRoom(r) {
   }
   const group = new THREE.Group();
   group.add(mesh(parts, { line: 0.016 }));
+  // Small things (the food in the shop) get a thinner outline, so they don't turn into blobs of ink.
+  if (fine.length) group.add(mesh(fine, { line: 0.006 }));
   const out = { group, blocks, seats, bounds: [-r.w / 2, -r.d / 2, r.w / 2, r.d / 2] };
   if (H) {
     const { w, d } = r;

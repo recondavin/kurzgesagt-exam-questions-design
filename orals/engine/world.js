@@ -61,6 +61,14 @@ export function createWorld(canvas, pack) {
     people[id] = p;
   }
   const player = people.player;
+  // What the player is walking on: the room's floor, or the ground outside.
+  function groundAt(x, z) {
+    const r = open ? roomAt(x, z) : room;
+    if (r) return r.spec.floor === 'boards' ? 'wood' : 'stone';
+    return land.surface(x, z);
+  }
+  player.onLand = p => handlers.step && handlers.step(groundAt(p.root.position.x, p.root.position.z));
+  let wasIn;
 
   // A ring where the floor was tapped.
   const mark = new THREE.Mesh(new THREE.RingGeometry(0.16, 0.22, 24), new THREE.MeshBasicMaterial({ color: '#F1F7FB', transparent: true, depthWrite: false }));
@@ -152,6 +160,7 @@ export function createWorld(canvas, pack) {
 
   // ---------------------------------------------------------------- input
   const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), floor = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+  // talk(id), walk(id), keys(), step(ground) when the player's foot lands, room(spec, was) when they go in or out.
   const handlers = { talk: null, walk: null };
   let roam = false;
 
@@ -346,7 +355,11 @@ export function createWorld(canvas, pack) {
     }
     if (land) land.update(dt);
     // A cottage opens up while the player (or a conversation) is inside it: the roof lifts away, the front wall drops.
-    const pp = player.root.position, here = roomAt(pp.x, pp.z) || (cam.focus && roomAt(cam.focus[0].root.position.x, cam.focus[0].root.position.z));
+    const pp = player.root.position, inside = open ? roomAt(pp.x, pp.z) : room;
+    const here = inside || (cam.focus && roomAt(cam.focus[0].root.position.x, cam.focus[0].root.position.z));
+    // Going in or out of a door (not when a saved game first puts the player somewhere).
+    if (wasIn !== undefined && inside !== wasIn) handlers.room && handlers.room(inside && inside.spec, wasIn && wasIn.spec);
+    wasIn = inside;
     for (const r of rooms) {
       if (!r.roof) continue;
       r.lift += ((r === here ? 1 : 0) - r.lift) * Math.min(1, dt * 6);
@@ -393,6 +406,11 @@ export function createWorld(canvas, pack) {
     setRoam(v) { roam = v; if (!v) { held.clear(); hold = null; player.steering = false; } },
     // The person close enough to talk to with E (or null), and whether the keyboard has been used.
     nearest, get usingKeys() { return usedKeys; },
+    // Where the player is, for the sound: the room they're in (its spec, or null outside) and metres to the sea.
+    where() {
+      const q = player.root.position, r = open ? roomAt(q.x, q.z) : room;
+      return { room: r ? r.spec : null, sea: land ? land.shore(q.x, q.z) : 99, ground: groundAt(q.x, q.z) };
+    },
     walkTo, approach, face, sit, standUp, screenOf, later,
     // Puts a person straight somewhere (when a saved game is loaded): { x, z, yaw, seat }.
     place(id, v) {
