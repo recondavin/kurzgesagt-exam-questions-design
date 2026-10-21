@@ -212,7 +212,11 @@ def build(ch):
         if dia:
             rec['dia'] = dia
         for p in q['parts']:
+            # A part's id in the chapter's OVERRIDES: the question id and its full label ('2008-Q12b(iii) 3.'), or the
+            # label's first word ('2008-Q12b(iii)'), which covers every numbered part under it.
             pid = q['id'] + p['label'].split()[0]
+            full = q['id'] + p['label']
+            pid = full if any(full in ov.get(t, {}) for t in ('kind', 'tap', 'n', 'points', 'arrows')) else pid
             kind = ov.get('kind', {}).get(pid) or kind_of(p)
             if pid in ov.get('tap', {}):
                 kind = 'tap'

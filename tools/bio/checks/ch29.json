@@ -23,14 +23,14 @@
    "why": "The afferent arteriole brings blood in (a for arrive); the efferent arteriole takes it out (e for exit)."
   },
   {
-   "q": "How do filtration and reabsorption occur in the nephron? (3 points)",
-   "right": "Pressure forces plasma into capsule; reabsorption by active transport",
+   "q": "How do filtration and reabsorption occur in the nephron? (6 points)",
+   "right": "Pressure: plasma into capsule; osmosis from tubule to blood",
    "wrong": [
-    "Pressure forces proteins into capsule; reabsorption by active transport",
-    "Pressure forces plasma into the ureter; reabsorption by diffusion",
-    "Active transport pumps cells into capsule; reabsorption into urine"
+    "Pressure: proteins into capsule; osmosis from tubule to blood",
+    "Pressure: plasma into ureter; osmosis from blood to tubule",
+    "Low pressure: cells into capsule; osmosis from tubule to urine"
    ],
-   "why": "Filtration: high pressure forces plasma from the glomerulus into Bowman's capsule. Reabsorption: tubules take substances back into blood by active transport."
+   "why": "Three points each: high pressure forces plasma (not cells or proteins) into Bowman's capsule; the tubule returns water to the blood by osmosis."
   }
  ],
  "2005-Q1f": [
@@ -248,13 +248,13 @@
   },
   {
    "q": "When blood water is low, what does ADH do at its target?",
-   "right": "More water is reabsorbed into the blood",
+   "right": "Walls more permeable, so more water is reabsorbed",
    "wrong": [
-    "More water is released into the urine",
-    "More glucose is reabsorbed into the blood",
-    "Less water is reabsorbed into the blood"
+    "Walls less permeable, so more water stays in urine",
+    "Walls more permeable, so more glucose is reabsorbed",
+    "Walls less permeable, so less water is reabsorbed"
    ],
-   "why": "ADH makes the duct walls more permeable to water, so more water moves back into the blood and less is lost."
+   "why": "ADH makes the duct walls more permeable to water, so more water moves back into the blood. The scheme wants both halves."
   }
  ],
  "2009-Q15c": [
@@ -811,14 +811,14 @@
    "why": "Homeostasis is the general term; osmoregulation is just the water and salt part of it."
   },
   {
-   "q": "On a nephron diagram, which structure cups the glomerulus? (one of 6 points)",
+   "q": "On a nephron diagram, which structure cups the glomerulus?",
    "right": "Bowman's capsule",
    "wrong": [
     "Loop of Henle",
     "Collecting duct",
     "Distal tubule"
    ],
-   "why": "6 points = six correct labels, e.g. Bowman's capsule (the cup round the glomerulus), glomerulus, PCT, loop of Henle, DCT, collecting duct."
+   "why": "Label it with the others: Bowman's capsule (the cup round the glomerulus), glomerulus, PCT, loop of Henle, DCT, collecting duct."
   },
   {
    "q": "Which is a way blood differs from glomerular filtrate?",

@@ -64,7 +64,7 @@
    "q": "What useful job do gut bacteria do?",
    "right": "Make vitamins such as vitamin K",
    "wrong": [
-    "Make bile to help digest fats",
+    "Make bile to emulsify fats",
     "Make insulin to control blood sugar",
     "Produce hydrochloric acid"
    ],
@@ -284,13 +284,13 @@
   },
   {
    "q": "What is the rough pH where lipase acts?",
-   "right": "pH 7 to 9",
+   "right": "pH 7 to 9 inclusive",
    "wrong": [
-    "pH 1 to 3",
-    "pH 4 to 5",
-    "pH 11 to 13"
+    "pH 1 to 3 inclusive",
+    "pH 4 to 5 inclusive",
+    "pH 11 to 13 inclusive"
    ],
-   "why": "In the duodenum, bile and pancreatic juice make the contents slightly alkaline, about pH 8."
+   "why": "The scheme wants 7 to 9 inclusive: bile and pancreatic juice make the duodenum slightly alkaline, about pH 8."
   }
  ],
  "2008-Q12c": [
@@ -441,7 +441,7 @@
  ],
  "2010-Q15c": [
   {
-   "q": "Why does wholegrain cereal help with constipation?",
+   "q": "Why does wholegrain cereal help with constipation? (2 points)",
    "right": "Its fibre adds bulk and speeds up peristalsis",
    "wrong": [
     "It is quickly digested to glucose",
@@ -675,14 +675,14 @@
    "why": "Lipase is the enzyme that breaks lipids into fatty acids and glycerol."
   },
   {
-   "q": "Which organ secretes lipase into the gut?",
-   "right": "Pancreas",
+   "q": "Which part of the alimentary canal secretes lipase?",
+   "right": "Duodenum",
    "wrong": [
     "Liver",
     "Gall bladder",
     "Colon"
    ],
-   "why": "The pancreas sends lipase into the duodenum; the liver makes bile, which isn't an enzyme."
+   "why": "The scheme gives the duodenum or the stomach. Most lipase is made by the pancreas and poured into the duodenum."
   },
   {
    "q": "If lipase acts in the duodenum, what is the rough pH there?",
@@ -851,7 +851,7 @@
    "why": "Two points: digestion makes food small and soluble, so it is easier to absorb and easier to transport in the blood."
   },
   {
-   "q": "How is food passed along the gut?",
+   "q": "Name and describe how food is passed along the gut. (2 points)",
    "right": "Peristalsis: waves of muscle contraction",
    "wrong": [
     "Ciliary action: cilia sweep food along",
@@ -1195,7 +1195,7 @@
    "why": "Curve B is highest at pH 7, so that is its optimum."
   },
   {
-   "q": "Which enzyme is likely from the stomach, and why?",
+   "q": "Which enzyme is likely from the stomach, and why? (2 points)",
    "right": "A: the stomach is strongly acidic",
    "wrong": [
     "B: the stomach is close to neutral",
@@ -1315,7 +1315,7 @@
    "why": "B is the pancreas: a yellowish gland lying in the C-shaped curve of the duodenum."
   },
   {
-   "q": "What role does organ A, the liver, play in digestion?",
+   "q": "What role does organ A, the liver, play in digestion? (2 points)",
    "right": "Makes bile, which emulsifies fats",
    "wrong": [
     "Makes lipase to digest fats",

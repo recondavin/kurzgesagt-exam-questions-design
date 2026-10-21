@@ -35,7 +35,8 @@
   }
 
   // ---------- marking: the same word rules as tools/bio/build_bio_questions.py ----------
-  var SYNONYMS = { big: 'large', huge: 'large', tiny: 'small', lots: 'many', quick: 'fast', quicker: 'faster', o2: 'oxygen', h2o: 'water' };
+  var SYNONYMS = { big: 'large', bigger: 'larger', biggest: 'largest', huge: 'large', tiny: 'small', lots: 'many', quick: 'fast', quicker: 'faster', o2: 'oxygen', h2o: 'water',
+    axes: 'axis', min: 'minute', mins: 'minute' };
   // Two-word names written as one (the same list in tools/bio/build_bio_questions.py).
   var PHRASES = [[/carbon\s*dioxide/g, 'co2'], [/rib\s+cage/g, 'ribcage'], [/can\s+not\b/g, 'cannot'], [/get(?:s|ting)?\s+rid\s+of/g, 'remove']];
   // Everyday words that mean the same thing in an answer, so a right answer in a student's own words still earns
@@ -47,7 +48,7 @@
     cannot: ['cant', 'unable'],
     amount: ['quantity', 'quantit', 'propor'],
     type: ['kind', 'class'],
-    increase: ['increas', 'rise', 'rising', 'rais', 'raise'],
+    increase: ['increas', 'rise', 'ris', 'rose', 'rising', 'rais', 'raise'],
     decrease: ['decreas', 'fall', 'falling', 'drop', 'dropp', 'reduce', 'reduc'],
     remove: ['remov', 'eliminate', 'eliminat'],
     muscle: ['muscular', 'muscl']
@@ -57,7 +58,7 @@
   function canon(w) { return CANON[w] || w; }
   var SUFFIXES = ['ation', 'ition', 'tion', 'sion', 'ment', 'ing', 'ous', 'ive', 'ed', 'er', 'ly', 'al'];
   // Words that share a start but mean different things.
-  var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog']];
+  var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog'], ['bronch', 'bronchit'], ['bronch', 'bronchiol']];
   function bioStem(w) {
     if (/^\d+$/.test(w) || w.length <= 3) return w;
     if (w.length > 4 && /ies$/.test(w)) w = w.slice(0, -3) + 'y';
@@ -70,7 +71,8 @@
     return w;
   }
   function bioWords(text) {
-    var t = String(text).toLowerCase().replace(/[’']/g, '');
+    // "a" as a word ("a large area") isn't the letter A, which a scheme can ask for; "B's" is B.
+    var t = String(text).replace(/(^|[^A-Za-z])a(?=\s+[A-Za-z]{2,})/g, '$1').toLowerCase().replace(/[’']s\b/g, '').replace(/[’']/g, '');
     PHRASES.forEach(function (p) { t = t.replace(p[0], p[1]); });
     return (t.match(/[a-z0-9]+/g) || []).map(function (w) { return canon(bioStem(SYNONYMS[w] || w)); });
   }

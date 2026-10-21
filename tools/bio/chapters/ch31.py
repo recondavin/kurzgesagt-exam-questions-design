@@ -699,12 +699,141 @@ OVERRIDES = {
     'tap': {  # part id -> anchors that are right
         'S2-Q5a(iii)': ['sa', 'rightAtrium'],
     },
-    'kind': {'2026-Q17a(iii)': 'text', '2016-Q8(b)(iii)': 'draw', '2006-Q5(b)': 'arrows'},
+    # 2010-Q7(b)(iii) is "draw and label sufficient of your dissection": a drawing (diagram 3 + labels 3(2)).
+    'kind': {'2026-Q17a(iii)': 'text', '2016-Q8(b)(iii)': 'draw', '2006-Q5(b)': 'arrows', '2010-Q7(b)(iii)': 'draw'},
+    # Points a part needs where the scheme's rule reads wrong: "Give two functions" (the scheme lists five to pick from);
+    # one circuit's pathway (the scheme gives the pulmonary OR the systemic path); three diagrams + any two labels.
+    'n': {'2014-Q3(d)': 2, 'S2-Q5b(ii)': 1, '2026-Q17a(iv)': 5},
     'arrows': {  # see ch28.py
         '2006-Q5(b)': {'max': 3, 'zones': {'liver': [[115, 58, 270, 92]], 'portal': [[210, 150, 40, 100]],
                                            'artery': [[308, 128, 45, 50], [340, 165, 135, 32]], 'vein': [[278, 0, 48, 72]]},
                        'rules': [{'on': 'portal', 'toward': 'liver', 'show': [234, 236, 226, 168]},
                                  {'on': 'artery', 'toward': 'liver', 'show': [452, 189, 352, 171]},
                                  {'on': 'vein', 'away': 'liver', 'show': [292, 64, 312, 16]}]},
+    },
+    # Keys written by hand (part id -> {point index: alternatives, or 'self'}): the few words that carry each point, where
+    # the ones made from the scheme's sentence needed 4+ exact words, a descriptor ("Named cutting instrument") no student
+    # writes, or a word that also turns up in wrong answers ("artery" alone, "oxygen" alone). Words: see bio/bio.js.
+    # Note '2004-Q9(b)' is the id of five parts (their labels all start "(b)"), so only points 1-6 are set there: they
+    # exist only in the dissection part (point 1 of the diagram part is a drawing tick, which stays one).
+    'points': {
+        'S1-Q3c(i)1': {0: [{'w': [w], 'n': 1} for w in ('hydrogencarbonate', 'bicarbonate', 'hco3')] +
+                          [{'w': ['hydrogen', 'carbonate'], 'n': 2}, {'w': ['dissolv', 'plasma'], 'n': 2}]},
+        'S1-Q3c(i)2': {0: [{'w': ['haemoglobin'], 'n': 1}, {'w': ['oxyhaemoglobin'], 'n': 1}]},
+        'S1-Q5d(ii)': {0: [{'w': [w], 'n': 1} for w in ('transfus', 'donor', 'donat', 'compatib', 'agglutin', 'clump')],
+                       1: [{'w': [a, b], 'n': 2} for a in ('rhesus', 'rh') for b in ('mother', 'baby', 'pregnan', 'fetus', 'foetus', 'unborn', 'newborn')] +
+                          [{'w': [a, 'antibod'], 'n': 2} for a in ('pregnan', 'mother', 'baby')] + [{'w': ['haemolytic'], 'n': 1}]},
+        'S2-Q5a(iv)': {0: [{'w': ['co2', w], 'n': 2} for w in ('high', 'increase', 'more', 'great', 'low', 'lower')],
+                       1: [{'w': [a, 'co2'], 'n': 2} for a in ('respir', 'tissue', 'lost', 'lose', 'remove', 'excret', 'exhal')] +
+                          [{'w': [a, 'co2', 'lung'], 'n': 3} for a in ('releas', 'diffus')]},
+        'S2-Q5a(v)': {0: [{'w': ['artery', w], 'n': 2} for w in ('thick', 'muscle', 'elastic')] + [{'w': ['vein', 'thin'], 'n': 2}],
+                      1: [{'w': ['artery', 'narrow'], 'n': 2}, {'w': ['vein', 'wide'], 'n': 2},
+                          {'w': ['artery', 'small', 'lumen'], 'n': 3}, {'w': ['vein', 'large', 'lumen'], 'n': 3}],
+                      2: [{'w': ['vein', 'valve'], 'n': 2}]},  # was also "artery" alone, which every answer to this part says
+        # One circuit, its structures in order (n is 1): the vessels or the chambers either side of the lungs or body.
+        'S2-Q5b(ii)': {0: [{'w': ['artery', 'lung', 'vein'], 'n': 3}, {'w': ['ventricle', 'lung', 'atrium'], 'n': 3}],
+                       1: [{'w': ['aorta', 'vena', w], 'n': 3} for w in ('capillar', 'body', 'tissue', 'organ', 'cell', 'arteriol', 'venul')] +
+                          [{'w': ['ventricle', 'aorta', 'atrium'], 'n': 3}, {'w': ['ventricle', 'body', 'atrium'], 'n': 3}]},
+        # "Oxygen" alone was enough for point 0, so "the heart muscle gets extra oxygen" earned it.
+        'S2-Q5b(iii)': {0: [{'w': [a, b], 'n': 2} for a in ('no', 'not', 'lack', 'less', 'low', 'lower', 'without', 'depriv', 'starv', 'cut',
+                                                             'insuffic', 'cannot', 'little', 'decrease')
+                            for b in ('oxygen', 'blood', 'nutrient', 'food', 'glucose')],
+                        1: [{'w': [a, b], 'n': 2} for a in ('die', 'dying', 'dead', 'death', 'damag') for b in ('muscle', 'cell', 'tissue', 'cardiac')] +
+                           [{'w': ['cannot', 'respir'], 'n': 2}, {'w': ['respir', 'stop'], 'n': 2}, {'w': ['necro'], 'n': 1}],
+                        2: [{'w': ['heart', 'attack'], 'n': 2}, {'w': ['infarct'], 'n': 1}, {'w': ['cardiac', 'arrest'], 'n': 2},
+                            {'w': ['heart', 'stop', 'pump'], 'n': 3}, {'w': ['heart', 'stop', 'beat'], 'n': 3}]},
+        'S2-Q5b(iv)': {0: [{'w': [a, b], 'n': 2} for a in ('force', 'push', 'exert') for b in ('wall', 'vessel', 'artery')] +
+                          [{'w': ['pressur', 'wall'], 'n': 2}]},
+        'S2-Q5c(iii)': {1: [{'w': [a, b], 'n': 2} for a in ('high', 'above', 'fast', 'great', 'exceed', 'increase') for b in ('rest', 'normal', 'exercis')]},
+        'S2-Q5d(i)': {0: [{'w': [a, b], 'n': 2} for a in ('lot', 'much', 'more', 'large', 'plenty', 'great', 'high', 'continu', 'constant', 'never') for b in ('energy', 'atp')] +
+                         [{'w': ['contract', w], 'n': 2} for w in ('continu', 'constant', 'nonstop', 'always')] + [{'w': ['never', 'rest'], 'n': 2}],
+                      # Not "respiration" + "ATP" alone: "ATP made by anaerobic respiration" says that too.
+                      1: [{'w': ['aerob', 'respir'], 'n': 2}] +
+                         [{'w': ['mitochondri', w], 'n': 2} for w in ('respir', 'releas', 'make', 'provid', 'suppl', 'generat')]},
+        '2026-Q16b(iv)': {0: [{'w': [w], 'n': 1} for w in ('nucleus', 'organelle', 'ribosom', 'dna')] + [{'w': ['genetic', 'material'], 'n': 2}]},
+        '2026-Q17a(ii)': {0: [{'w': [a, b], 'n': 2} for a in ('force', 'push', 'exert') for b in ('wall', 'vessel', 'artery')] +
+                             [{'w': ['pressur', 'wall'], 'n': 2}],
+                          1: [{'w': [a, 'artery'], 'n': 2} for a in ('stretch', 'expan', 'vibrat', 'throb', 'dilat')]},
+        # "Correct matching effect described": any valid effect, which words can't pin down.
+        '2026-Q17a(vi)': {0: 'self', 1: 'self'},
+        '2025-Q17a(iv)': {0: [{'w': ['artery', w], 'n': 2} for w in ('thick', 'muscle', 'elastic')] + [{'w': ['vein', 'thin'], 'n': 2}],
+                          1: [{'w': ['vein', 'valve'], 'n': 2}],
+                          2: [{'w': ['artery', 'narrow'], 'n': 2}, {'w': ['vein', 'wide'], 'n': 2},
+                              {'w': ['artery', 'small', 'lumen'], 'n': 3}, {'w': ['vein', 'large', 'lumen'], 'n': 3}]},
+        '2024-Q6(e)': {0: [{'w': ['contract'], 'n': 1}, {'w': ['squeez'], 'n': 1}], 1: [{'w': ['relax'], 'n': 1}]},
+        '2023-Q6(g)': {0: [{'w': [a, b], 'n': 2} for a in ('mix', 'apart', 'separ') for b in ('oxygen', 'deoxygen')]},
+        '2020-Q9(a)(i)': {0: [{'w': [a, b], 'n': 2} for a in ('mix', 'apart', 'separ') for b in ('oxygen', 'deoxygen')] +
+                             [{'w': ['oxygen', 'left'], 'n': 2}, {'w': ['deoxygen', 'right'], 'n': 2}, {'w': ['oxygen', 'lhs'], 'n': 2},
+                              {'w': ['deoxygen', 'rhs'], 'n': 2}, {'w': ['differ', 'pressur'], 'n': 2}]},
+        # Lub and dub, and which valves shut for each (a sound tied to the valves opening earns nothing).
+        '2019-Q14b(v)': {0: [{'w': ['lub', 'dub'], 'n': 2}],
+                         1: [{'w': ['valve', c], 'n': 2} for c in ('clos', 'shut', 'snap')],
+                         2: [{'w': [v, c], 'n': 2} for v in ('tricuspid', 'bicuspid', 'atrioventricular', 'mitral', 'av') for c in ('clos', 'shut', 'snap')],
+                         3: [{'w': [s, v, c], 'n': 3} for s in ('lub', 'first') for v in ('tricuspid', 'bicuspid', 'atrioventricular', 'mitral', 'av')
+                             for c in ('clos', 'shut', 'snap')],
+                         4: [{'w': ['semilunar', c], 'n': 2} for c in ('clos', 'shut', 'snap')],
+                         5: [{'w': [s, 'semilunar', c], 'n': 3} for s in ('dub', 'second') for c in ('clos', 'shut', 'snap')]},
+        '2018-Q11a(ii)': {0: [{'w': ['urea', 'liver'], 'n': 2}],
+                          1: [{'w': ['hormone', 'gland'], 'n': 2}, {'w': ['hormone', 'endocrine'], 'n': 2}, {'w': ['insulin', 'pancrea'], 'n': 2}],
+                          2: [{'w': ['antibod', w], 'n': 2} for w in ('lymphocyte', 'lymph', 'white')],
+                          3: [{'w': ['oxygen', 'lung'], 'n': 2}, {'w': ['oxygen', 'alveol'], 'n': 2}],
+                          4: [{'w': ['co2', 'cell'], 'n': 2}, {'w': ['co2', 'tissue'], 'n': 2}],
+                          5: [{'w': [w, 'liver'], 'n': 2} for w in ('enzyme', 'clott', 'protein', 'fibrinogen', 'prothrombin')]},
+        # Not "generates impulses" alone for the AV node: the SA node's line says that too.
+        '2018-Q11b(ii)': {3: [{'w': ['generat', 'impuls'], 'n': 2}, {'w': ['impuls', 'ventricle'], 'n': 2}, {'w': ['contract', 'ventricle'], 'n': 2},
+                              {'w': ['ventricle', 'systole'], 'n': 2}, {'w': ['control', 'heart', 'rate'], 'n': 3}]},
+        '2016-Q8(a)(i)': {0: [{'w': [a, 'artery'], 'n': 2} for a in ('stretch', 'expan', 'vibrat', 'throb', 'dilat')]},
+        '2016-Q8(a)(ii)': {0: [{'w': ['artery', w], 'n': 2} for w in ('surface', 'skin', 'superfic')]},
+        '2016-Q8(b)(iv)': {0: [{'w': ['immediate'], 'n': 1}] + [{'w': [a, 'after'], 'n': 2} for a in ('right', 'straight', 'just', 'direct', 'soon')],
+                           3: [{'w': [a, b], 'n': 2} for a in ('time', 'until', 'till', 'long') for b in ('rest', 'normal')]},
+        '2016-Q15a(iii)': {0: [{'w': ['muscle', w], 'n': 2} for w in ('contract', 'squeez', 'press', 'push')],
+                           1: [{'w': ['valve', 'back'], 'n': 2}, {'w': ['valve', 'direction'], 'n': 2}]},
+        '2014-Q12c(iv)': {0: [{'w': ['pulmonary', 'vein'], 'n': 2}, {'w': ['pulmonary', 'artery'], 'n': 2}],  # was all three words
+                          1: [{'w': ['lung', 'co2'], 'n': 2}, {'w': ['alveol', 'co2'], 'n': 2}]},
+        # "Valve" alone also gave the mark to "A has valves", the wrong way round.
+        '2014-Q3(c)': {0: [{'w': ['narrow', 'lumen'], 'n': 2}, {'w': ['small', 'lumen'], 'n': 2}, {'w': ['thick', 'wall'], 'n': 2}, {'w': ['more', 'muscle'], 'n': 2}] +
+                          [{'w': [a, 'valve'], 'n': 2} for a in ('no', 'not', 'without', 'lack', 'absent', 'dont', 'doesnt')]},
+        '2014-Q3(d)': {0: [{'w': ['maintain', 'constant', 'level', 'ecf'], 'n': 3}] +
+                          [{'w': [a, 'fluid'], 'n': 2} for a in ('return', 'drain', 'tissue', 'excess', 'collect')],
+                       2: [{'w': ['filt', w], 'n': 2} for w in ('bacteri', 'pathogen', 'germ', 'microb')],
+                       3: [{'w': ['fight', 'infec'], 'n': 2}, {'w': ['fight', 'disease'], 'n': 2}, {'w': ['defen'], 'n': 1}, {'w': ['immun'], 'n': 1}],
+                       # "Transport of named material", not "transport" alone ("transports oxygen" is wrong).
+                       4: [{'w': [a, b], 'n': 2} for a in ('transport', 'carr', 'move', 'absorb') for b in ('fat', 'lipid', 'hormone', 'lymphocyte', 'excret')]},
+        '2014-Q9b(i)2': {0: [{'w': [a, 'right'], 'n': 2} for a in ('cut', 'incis', 'open', 'slice')],
+                         1: [{'w': ['scalpel'], 'n': 1}, {'w': ['blade'], 'n': 1}]},
+        '2014-Q9b(ii)2': {0: [{'w': [a, 'pulse'], 'n': 2} for a in ('feel', 'locat', 'find')] +
+                             [{'w': ['finger', 'wrist'], 'n': 2}, {'w': ['finger', 'neck'], 'n': 2}, {'w': ['observ', 'breath'], 'n': 2}, {'w': ['watch', 'breath'], 'n': 2}],
+                          1: [{'w': [a, b], 'n': 2} for a in ('count', 'number', 'record') for b in ('minute', 'min', 'second', 'sec', 'time', 'bpm', 'period')]},
+        '2010-Q15b(ii)': {0: [{'w': [w], 'n': 1} for w in ('glucose', 'amino', 'sugar', 'vitamin', 'mineral', 'fructose', 'galactose', 'monosacchar',
+                                                           'nutrient', 'food', 'salt', 'co2')]},
+        '2010-Q7(a)(ii)': {0: [{'w': [a, b], 'n': 2} for a in ('never', 'not', 'doesnt', 'dont', 'no', 'cannot', 'without') for b in ('tire', 'fatigu')] +
+                              [{'w': ['involuntar'], 'n': 1}]},
+        # Dissection steps the scheme only describes ("Named cutting instrument"): the words a student would write.
+        '2010-Q7(b)(i)': {0: [{'w': [w], 'n': 1} for w in ('front', 'ventr', 'dorsal')] + [{'w': ['left', 'right'], 'n': 2}],
+                          1: [{'w': [w], 'n': 1} for w in ('coronary', 'thick', 'firm', 'diagonal')],
+                          2: [{'w': [w], 'n': 1} for w in ('scalpel', 'blade', 'scissors', 'knife')],
+                          3: [{'w': [a, b], 'n': 2} for a in ('cut', 'incis') for b in ('right', 'left', 'atri', 'ventricle', 'side', 'septum', 'apex')],
+                          4: [{'w': [a, b], 'n': 2} for a in ('second', 'another', 'then', 'next', 'again') for b in ('cut', 'incis')],
+                          5: [{'w': [w], 'n': 1} for w in ('valve', 'tricuspid', 'bicuspid', 'semilunar', 'chord', 'septum', 'tendin', 'papillar')],
+                          6: [{'w': [w], 'n': 1} for w in ('safe', 'glove', 'care', 'wash', 'disinfect', 'goggle', 'coat')]},
+        '2004-Q9(b)': {1: [{'w': [w], 'n': 1} for w in ('coronary', 'thick', 'firm', 'diagonal')],
+                       2: [{'w': [a, b], 'n': 2} for a in ('ventr', 'front') for b in ('upper', 'up', 'top')],
+                       4: [{'w': [w], 'n': 1} for w in ('scalpel', 'blade', 'scissors', 'knife')],
+                       5: [{'w': [w], 'n': 1} for w in ('cut', 'incis', 'slice')],
+                       6: [{'w': [w], 'n': 1} for w in ('safe', 'glove', 'care', 'wash', 'disinfect', 'goggle', 'coat')]},
+        '2009-Q13a(i)': {0: [{'w': ['pulmonary'], 'n': 1}], 1: [{'w': ['systemic'], 'n': 1}]},
+        '2009-Q13b(i)': {1: [{'w': [a, b], 'n': 2} for a in ('force', 'push', 'exert') for b in ('wall', 'vessel', 'artery', 'blood', 'heart')] +
+                            [{'w': ['pressur', 'wall'], 'n': 2}]},
+        '2009-Q13b(ii)': {0: 'self', 1: 'self'},  # "dietary factor + matching effect", "comment + matching effect"
+        '2009-Q13b(iii)': {0: [{'w': ['haemoglobin'], 'n': 1}],
+                           1: [{'w': ['nucleus'], 'n': 1}] + [{'w': [a, b], 'n': 2} for a in ('no', 'not', 'lack', 'without', 'absent') for b in ('mitochondri', 'organelle', 'ribosom')],
+                           2: [{'w': [w], 'n': 1} for w in ('biconcave', 'concave', 'disc', 'disk')]},
+        '2009-Q13b(iv)': {0: [{'w': [w], 'n': 1} for w in ('impuls', 'pacemak', 'signal')] +
+                             [{'w': ['contract', w], 'n': 2} for w in ('caus', 'make', 'start', 'trigger', 'stimul', 'initiat')] +
+                             [{'w': ['control', 'rate'], 'n': 2}, {'w': ['set', 'rate'], 'n': 2}, {'w': ['control', 'beat'], 'n': 2}]},
+        '2006-Q13a(ii)': {2: [{'w': [w], 'n': 1} for w in ('biconcave', 'concave', 'disc', 'disk')], 3: [{'w': ['small'], 'n': 1}]},
+        '2006-Q13b(i)': {0: [{'w': ['liquid', 'blood'], 'n': 2}, {'w': ['fluid', 'blood'], 'n': 2}],
+                         1: [{'w': ['bowman'], 'n': 1}, {'w': ['capsule'], 'n': 1}, {'w': ['left', 'glomerul'], 'n': 2}] +
+                            [{'w': [a, 'protein'], 'n': 2} for a in ('less', 'minus', 'without', 'no', 'except', 'lack', 'remove')]},
     },
 }
