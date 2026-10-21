@@ -40,9 +40,9 @@
   "say": "For part two, just name it: a word or a short phrase is enough. That's one point, for three marks."
  },
  {
-  "id": "bio-cmd-name-1",
-  "text": "Exact name: glomerulus, not \"the filter\".",
-  "say": "Examiners want the exact biological name. Glomerulus, not the filter. Collecting duct, not the tube."
+  "id": "bio-cmd-name-1-ch28",
+  "text": "Exact name: diaphragm, not \"the muscle under the lungs\".",
+  "say": "Examiners want the exact biological name. Diaphragm, not the muscle under the lungs. Alveoli, not the little air bags."
  },
  {
   "id": "bio-cmd-name-2",
@@ -135,9 +135,9 @@
   "say": "Compare the same feature on both. Wall thickness against wall thickness, not against colour."
  },
  {
-  "id": "bio-cmd-compare-3",
+  "id": "bio-cmd-compare-3-ch28",
   "text": "Use whereas: one sentence, both halves.",
-  "say": "The word whereas is your friend. Arteries have thick walls, whereas veins have thin walls."
+  "say": "The word whereas is your friend. Inhalation is active, whereas normal exhalation is passive."
  },
  {
   "id": "bio-8b266595",
@@ -528,6 +528,11 @@
   "id": "bio-29-filter-3",
   "text": "Too big: cells and proteins stay.",
   "say": "Blood cells and proteins are too big to fit through, so they stay in the blood. Protein in urine is a sign that something is wrong."
+ },
+ {
+  "id": "bio-cmd-name-1",
+  "text": "Exact name: glomerulus, not \"the filter\".",
+  "say": "Examiners want the exact biological name. Glomerulus, not the filter. Collecting duct, not the tube."
  },
  {
   "id": "bio-29-loop-title",
@@ -1045,6 +1050,11 @@
   "say": "Strong muscles in the stomach wall churn the food with the juice into a thick liquid, before it moves on to the duodenum."
  },
  {
+  "id": "bio-cmd-name-1-ch30",
+  "text": "Exact name: oesophagus, not \"the food pipe\".",
+  "say": "Examiners want the exact biological name. Oesophagus, not the food pipe. Duodenum, not the start of the gut."
+ },
+ {
   "id": "bio-f1ccac09",
   "text": "(c) Draw a labelled diagram of the human digestive system.",
   "say": "For part c, draw it large, and label it clearly. That's two points, for six marks."
@@ -1350,6 +1360,16 @@
   "say": "For part two, say what it means, in one clear sentence. That's one point, for three marks."
  },
  {
+  "id": "bio-cmd-meant-1-ch30",
+  "text": "Start with the word: \"Digestion is…\"",
+  "say": "Start with the word itself. Digestion is, and then finish the sentence. It keeps you on track."
+ },
+ {
+  "id": "bio-cmd-meant-2-ch30",
+  "text": "The key idea: the one thing it's about.",
+  "say": "Every definition has one key idea. For digestion, it's breaking food down into small, soluble molecules that can be absorbed. Make sure yours has it."
+ },
+ {
   "id": "bio-981c3ee1",
   "text": "(i) Draw a large diagram of the human alimentary canal and its associated glands. On your diagram label all of…",
   "say": "For part one, draw it large, and label it clearly. That's four points, for eighteen marks."
@@ -1388,6 +1408,11 @@
   "id": "bio-a2facf42",
   "text": "(i) 2. Give one difference between the dental formula referred to above and the tooth arrangement of the mammal…",
   "say": "For part one 2., say how they differ, with something about each one. That's one point, for three marks."
+ },
+ {
+  "id": "bio-cmd-compare-3-ch30",
+  "text": "Use whereas: one sentence, both halves.",
+  "say": "The word whereas is your friend. Mechanical digestion breaks food into smaller pieces, whereas chemical digestion uses enzymes."
  },
  {
   "id": "bio-8c5d0c35",
@@ -1735,6 +1760,11 @@
   "say": "For part one, read the diagram and find the exact part. That's one point, for three marks."
  },
  {
+  "id": "bio-cmd-name-1-ch31",
+  "text": "Exact name: aorta, not \"the big artery\".",
+  "say": "Examiners want the exact biological name. Aorta, not the big artery. Tricuspid valve, not the valve on the right."
+ },
+ {
   "id": "bio-1e738fbb",
   "text": "(i) Explain why there is a large number of mitochondria in cardiac muscle cells.",
   "say": "For part one, explain it: say what happens, and why. That's two points, for six marks."
@@ -1833,6 +1863,11 @@
   "id": "bio-90319628",
   "text": "(ii)2 Describe one difference between the walls of the right and left ventricles.",
   "say": "For part two 2, say how they differ, with something about each one. That's one point, for three marks."
+ },
+ {
+  "id": "bio-cmd-compare-3",
+  "text": "Use whereas: one sentence, both halves.",
+  "say": "The word whereas is your friend. Arteries have thick walls, whereas veins have thin walls."
  },
  {
   "id": "bio-a9ac1f6c",
@@ -2078,6 +2113,21 @@
   "id": "bio-32-trials-3",
   "text": "Only who was tested: no further than the data.",
   "say": "And the conclusion can only cover the people who were tested. If no children took part, we can't say it works for children."
+ },
+ {
+  "id": "bio-cmd-meant-1-ch32",
+  "text": "Start with the word: \"A pathogen is…\"",
+  "say": "Start with the word itself. A pathogen is, and then finish the sentence. It keeps you on track."
+ },
+ {
+  "id": "bio-cmd-meant-2-ch32",
+  "text": "The key idea: the one thing it's about.",
+  "say": "Every definition has one key idea. For a pathogen, it's that it causes disease. Make sure yours has it."
+ },
+ {
+  "id": "bio-cmd-name-1-ch32",
+  "text": "Exact name: antibody, not \"the defender\".",
+  "say": "Examiners want the exact biological name. Antibody, not the defender. Phagocyte, not the white cell that eats germs."
  },
  {
   "id": "bio-32-pathogens-title",
@@ -2348,6 +2398,11 @@
   "id": "bio-1a12fe39",
   "text": "(vii) Give one difference between the types of induced immunity that you have named at (v).",
   "say": "For part seven, say how they differ, with something about each one. That's one point, for three marks."
+ },
+ {
+  "id": "bio-cmd-compare-3-ch32",
+  "text": "Use whereas: one sentence, both halves.",
+  "say": "The word whereas is your friend. Active immunity makes its own antibodies, whereas passive immunity is given them."
  },
  {
   "id": "bio-6cd6327f",

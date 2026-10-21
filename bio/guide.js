@@ -72,6 +72,36 @@
         ['Picture it', 'think of the real thing.', 'Picture the real structure or process, and check the statement against it.'],
         ['Move on', 'don\'t overthink it.', 'Decide, and move on. Don\'t spend long on a single mark.']] }
   };
+  // The tips' examples from each chapter's own biology (a digestion question shouldn't say "glomerulus"): [chapter]
+  // [command][bullet index] = [bold, text, say]. A tip a chapter doesn't list here uses the one in G.CMD.
+  G.CMD_EX = {
+    28: {
+      name: { 0: ['Exact name', 'diaphragm, not "the muscle under the lungs".', 'Examiners want the exact biological name. Diaphragm, not the muscle under the lungs. Alveoli, not the little air bags.'] },
+      meant: { 0: ['Start with the word', '"Gas exchange is…"', 'Start with the word itself. Gas exchange is, and then finish the sentence. It keeps you on track.'],
+        1: ['The key idea', 'the one thing it\'s about.', 'Every definition has one key idea. For gas exchange, it\'s gases moving by diffusion between the alveoli and the blood. Make sure yours has it.'] },
+      compare: { 2: ['Use whereas', 'one sentence, both halves.', 'The word whereas is your friend. Inhalation is active, whereas normal exhalation is passive.'] }
+    },
+    29: {
+      compare: { 2: ['Use whereas', 'one sentence, both halves.', 'The word whereas is your friend. Excretion removes waste made by the body\'s cells, whereas egestion gets rid of undigested food.'] }
+    },
+    30: {
+      name: { 0: ['Exact name', 'oesophagus, not "the food pipe".', 'Examiners want the exact biological name. Oesophagus, not the food pipe. Duodenum, not the start of the gut.'] },
+      meant: { 0: ['Start with the word', '"Digestion is…"', 'Start with the word itself. Digestion is, and then finish the sentence. It keeps you on track.'],
+        1: ['The key idea', 'the one thing it\'s about.', 'Every definition has one key idea. For digestion, it\'s breaking food down into small, soluble molecules that can be absorbed. Make sure yours has it.'] },
+      compare: { 2: ['Use whereas', 'one sentence, both halves.', 'The word whereas is your friend. Mechanical digestion breaks food into smaller pieces, whereas chemical digestion uses enzymes.'] }
+    },
+    31: {
+      name: { 0: ['Exact name', 'aorta, not "the big artery".', 'Examiners want the exact biological name. Aorta, not the big artery. Tricuspid valve, not the valve on the right.'] },
+      meant: { 0: ['Start with the word', '"The pulse is…"', 'Start with the word itself. The pulse is, and then finish the sentence. It keeps you on track.'],
+        1: ['The key idea', 'the one thing it\'s about.', 'Every definition has one key idea. For the pulse, it\'s the artery wall stretching each time the heart pumps blood into it. Make sure yours has it.'] }
+    },
+    32: {
+      name: { 0: ['Exact name', 'antibody, not "the defender".', 'Examiners want the exact biological name. Antibody, not the defender. Phagocyte, not the white cell that eats germs.'] },
+      meant: { 0: ['Start with the word', '"A pathogen is…"', 'Start with the word itself. A pathogen is, and then finish the sentence. It keeps you on track.'],
+        1: ['The key idea', 'the one thing it\'s about.', 'Every definition has one key idea. For a pathogen, it\'s that it causes disease. Make sure yours has it.'] },
+      compare: { 2: ['Use whereas', 'one sentence, both halves.', 'The word whereas is your friend. Active immunity makes its own antibodies, whereas passive immunity is given them.'] }
+    }
+  };
   var CMD_ORDER = ['draw', 'compare', 'describe', 'explain', 'suggest', 'meant', 'calculate', 'label', 'tf', 'name'];
   var CMD_VERB = { name: 'Name', meant: 'Define', explain: 'Explain', describe: 'Describe', compare: 'Compare', suggest: 'Suggest', draw: 'Draw', label: 'Use the diagram', calculate: 'Calculate', tf: 'True or false' };
   var CMD_SAY = {
@@ -169,11 +199,13 @@
       step.voice = [base + '-title', G.lineId(sumSay)].concat(c.bullets.map(function (b, i) { return base + '-' + (i + 1); }), ['bio-cmd-' + cmd + '-summary']);
       step.says = [c.titleSay || c.title, sumSay].concat(c.bullets.map(function (b) { return b[2]; }), [tip.say]);
     } else {
-      var cb = 'bio-cmd-' + cmd;
+      var cb = 'bio-cmd-' + cmd, ex = (G.CMD_EX[ch] || {})[cmd] || {};
+      var list = d.bullets.map(function (b, i) { return ex[i] || b; });
       step.title = d.title;
-      step.bullets = d.bullets.map(function (b) { return { b: b[0], t: b[1], say: b[2] }; });
-      step.voice = [cb + '-title', G.lineId(sumSay)].concat(d.bullets.map(function (b, i) { return cb + '-' + (i + 1); }));
-      step.says = [d.title, sumSay].concat(d.bullets.map(function (b) { return b[2]; }));
+      step.bullets = list.map(function (b) { return { b: b[0], t: b[1], say: b[2] }; });
+      // A chapter's own example is its own clip.
+      step.voice = [cb + '-title', G.lineId(sumSay)].concat(list.map(function (b, i) { return cb + '-' + (i + 1) + (ex[i] ? '-ch' + ch : ''); }));
+      step.says = [d.title, sumSay].concat(list.map(function (b) { return b[2]; }));
     }
     return step;
   }
