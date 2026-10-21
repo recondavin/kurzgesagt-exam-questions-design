@@ -5,9 +5,9 @@
   "say": "The alveolus: built for diffusion"
  },
  {
-  "id": "bio-8992c0cc",
+  "id": "bio-4fb980c5",
   "text": "(i) On the diagram, draw labelled arrows to clearly indicate the overall direction in which each gas, oxygen…",
-  "say": "For part one, draw it large, and label it clearly. That's two points, for six marks."
+  "say": "For part one, read the diagram and find the exact part. That's two points, for six marks."
  },
  {
   "id": "bio-28-alveolus-1",
@@ -165,11 +165,6 @@
   "say": "Breathing in"
  },
  {
-  "id": "bio-4fb980c5",
-  "text": "(i) Name the two muscles responsible for inhalation and indicate whether these muscles are contracting or…",
-  "say": "For part one, read the diagram and find the exact part. That's two points, for six marks."
- },
- {
   "id": "bio-28-inhale-1",
   "text": "Muscles contract: the brain sends the signal.",
   "say": "Your brain sends impulses to two sets of muscles: the diaphragm under your lungs, and the intercostal muscles between your ribs. Both contract."
@@ -206,7 +201,7 @@
  },
  {
   "id": "bio-28-exercise-3",
-  "text": "After exercise: it rises, then recovers.",
+  "text": "After exercise: it rises: muscles need more energy and oxygen, and make more CO₂.",
   "say": "After exercise the rate rises, because the muscles need more oxygen and make more carbon dioxide. A fitter person rises less and gets back to resting sooner."
  },
  {
@@ -260,44 +255,14 @@
   "say": "For part d one, draw it large, and label it clearly. That's one point, for three marks."
  },
  {
-  "id": "bio-cmd-draw-title",
-  "text": "Draw it big, label it well",
-  "say": "Draw it big, label it well"
- },
- {
-  "id": "bio-0e406fa3",
-  "text": "(d)(ii) On the diagram above, draw an arrow to show the direction of movement of the diaphragm during inhalation.",
-  "say": "For part d two, draw it large, and label it clearly. That's one point, for two marks."
- },
- {
-  "id": "bio-cmd-draw-1",
-  "text": "Large and clear: half a page, in pencil.",
-  "say": "Make your diagram large and clear, in pencil, so the examiner can see every part."
- },
- {
-  "id": "bio-cmd-draw-2",
-  "text": "Label lines: straight, touching the part.",
-  "say": "Each label needs a straight line that touches the exact part it names."
- },
- {
-  "id": "bio-cmd-draw-3",
-  "text": "Count the labels: as many as it asks for.",
-  "say": "Count how many labels the question asks for, and make sure every one is there."
- },
- {
-  "id": "bio-cd6c2680",
-  "text": "(e) Name one other muscle involved in inhalation.",
-  "say": "For part e, just name it: a word or a short phrase is enough. That's one point, for three marks."
- },
- {
   "id": "bio-cmd-label-title",
   "text": "Find it on the diagram",
   "say": "Find it on the diagram"
  },
  {
-  "id": "bio-5941172a",
-  "text": "(f) The ribs are not shown on the diagram. Briefly describe what happens to the rib cage during inhalation.",
-  "say": "For part f, read the diagram and find the exact part. That's one point, for three marks."
+  "id": "bio-de71070c",
+  "text": "(d)(ii) On the diagram above, draw an arrow to show the direction of movement of the diaphragm during inhalation.",
+  "say": "For part d two, read the diagram and find the exact part. That's one point, for two marks."
  },
  {
   "id": "bio-cmd-label-1",
@@ -313,6 +278,16 @@
   "id": "bio-cmd-label-3",
   "text": "On the diagram: a clear letter or arrow.",
   "say": "If you have to mark the diagram, put a clear letter or arrow right on the part."
+ },
+ {
+  "id": "bio-cd6c2680",
+  "text": "(e) Name one other muscle involved in inhalation.",
+  "say": "For part e, just name it: a word or a short phrase is enough. That's one point, for three marks."
+ },
+ {
+  "id": "bio-5941172a",
+  "text": "(f) The ribs are not shown on the diagram. Briefly describe what happens to the rib cage during inhalation.",
+  "say": "For part f, read the diagram and find the exact part. That's one point, for three marks."
  },
  {
   "id": "bio-5da23457",
@@ -790,9 +765,29 @@
   "say": "For part three, read the diagram and find the exact part. That's three points, for nine marks."
  },
  {
+  "id": "bio-cmd-draw-title",
+  "text": "Draw it big, label it well",
+  "say": "Draw it big, label it well"
+ },
+ {
   "id": "bio-8c74b1f3",
   "text": "(iv) Draw a large diagram of a nephron and its associated blood supply from a human kidney. Label the following…",
   "say": "For part four, draw it large, and label it clearly. That's three points, for twelve marks."
+ },
+ {
+  "id": "bio-cmd-draw-1",
+  "text": "Large and clear: half a page, in pencil.",
+  "say": "Make your diagram large and clear, in pencil, so the examiner can see every part."
+ },
+ {
+  "id": "bio-cmd-draw-2",
+  "text": "Label lines: straight, touching the part.",
+  "say": "Each label needs a straight line that touches the exact part it names."
+ },
+ {
+  "id": "bio-cmd-draw-3",
+  "text": "Count the labels: as many as it asks for.",
+  "say": "Count how many labels the question asks for, and make sure every one is there."
  },
  {
   "id": "bio-b2d5732d",
@@ -1453,11 +1448,6 @@
   "id": "bio-8cc73150",
   "text": "(v) Explain how the structure that you have named in (iii) 1. is adapted for the absorption of the products of…",
   "say": "For part five, explain it: say what happens, and why. That's one point, for three marks."
- },
- {
-  "id": "bio-3c6d8620",
-  "text": "(b) Place arrows on Y, the hepatic artery and the hepatic vein to indicate the direction of blood flow.",
-  "say": "For part b, draw it large, and label it clearly. That's three points, for nine marks."
  },
  {
   "id": "bio-f96612fa",

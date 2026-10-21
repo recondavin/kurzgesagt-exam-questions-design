@@ -61,7 +61,7 @@ window.BioGuide.chapters[28] = {
       bullets: [
         ['Resting rate first', 'that\'s the control.', 'First, measure the breathing rate or pulse at rest. That\'s your control, to compare with.'],
         ['Count and repeat', 'breaths per minute, then average.', 'Count the breaths or beats for a set time, work out the rate per minute, and repeat it to get an average.'],
-        ['After exercise', 'it rises, then recovers.', 'After exercise the rate rises, because the muscles need more oxygen and make more carbon dioxide. A fitter person rises less and gets back to resting sooner.']] }
+        ['After exercise', 'it rises: muscles need more energy and oxygen, and make more CO₂.', 'After exercise the rate rises, because the muscles need more oxygen and make more carbon dioxide. A fitter person rises less and gets back to resting sooner.']] }
   ],
   // Questions whose key words point at the wrong idea.
   questions: {
