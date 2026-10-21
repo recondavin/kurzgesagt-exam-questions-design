@@ -1,7 +1,7 @@
 /* The Biology desk (bio/bio-desk.js) on the desk page: its buttons, the guide's diagram, and the answer sheet's type
    (the desk page sets Verdana on everything, so the sheet's own fonts are put back here). */
 
-/* Geography / Biology switch, top right of the screen. */
+/* Geography / Biology / Irish switch, top right of the screen. */
 .desk-subjects { position: fixed; z-index: 60; top: 14px; right: 14px; display: flex; gap: 2px; padding: 4px; border-radius: 999px; background: rgba(32, 47, 54, .92); }
 body .desk-subjects a { padding: 7px 14px; border-radius: 999px; color: #B9C7CF; text-decoration: none; font: 600 15px/1 Fredoka, Nunito, sans-serif !important; }
 body .desk-subjects a[aria-current="page"] { background: #FFC800; color: #13294A; }
