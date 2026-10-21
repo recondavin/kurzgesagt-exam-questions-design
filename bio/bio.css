@@ -176,6 +176,9 @@ button { font: inherit; }
 .ls-ask b { color: #FFC800; font: 700 24px/1.2 Fredoka, Nunito, sans-serif; }
 .ls-streak { margin-left: auto; padding: 3px 10px; border-radius: 99px; background: #FF9600; color: #fff; font: 700 14px Fredoka, Nunito, sans-serif; }
 .ls-streak[hidden] { display: none; }
+/* A diagram from the paper can be tall: it fits the screen, and says which paper it's from. */
+.ls-frame svg { max-height: 58vh; }
+.ls-src { margin: 6px 0 0; color: #93A5AE; font: 700 13px Nunito, sans-serif; text-align: center; }
 .ls-bar { height: 10px; margin: 0 0 12px; border-radius: 99px; background: #37464F; overflow: hidden; }
 .ls-bar i { display: block; height: 100%; border-radius: inherit; background: #58CC02; transform-origin: left center; }
 .ls-dot { cursor: pointer; outline: none; }
@@ -189,7 +192,7 @@ button { font: inherit; }
 .ls-dot.is-no .ls-dot__core { fill: #fff; }
 .ls-dot.is-show .ls-dot__ring { transform-box: fill-box; transform-origin: center; animation: lsPulse .7s ease-in-out 2; }
 @keyframes lsPulse { 50% { transform: scale(1.6); } }
-.am-root .mp-tile, .am-root .sp-text, .am-root .sp-w, .am-root .sp-why, .am-root .ls-ask__k { font-family: Nunito, system-ui, sans-serif !important; }
+.am-root .mp-tile, .am-root .sp-text, .am-root .sp-w, .am-root .sp-why, .am-root .ls-ask__k, .am-root .ls-src { font-family: Nunito, system-ui, sans-serif !important; }
 .am-root .mp-tile--word, .am-root .ls-ask b, .am-root .ls-streak { font-family: Fredoka, Nunito, sans-serif !important; }
 @media (max-width: 600px) {
   .mp-grid { gap: 8px; }

@@ -2,7 +2,8 @@
 //   Match pairs       Tap a word, then what it means. Three rounds of four pairs, against the clock.
 //   Spot the mistake  One sentence, one wrong word or phrase. Tap it, then pick what it should say.
 //   Label sprint      A part's name comes up: tap it on the diagram before the bar runs out. A streak makes it faster.
-// Their content is in bio/learn<N>.js (match, spot and sprint); the diagrams are bio/d<N>.js's.
+// Their content is in bio/learn<N>.js (match, spot and sprint). Label sprint's diagrams are the real ones from the exam
+// papers (bio/sprint.js); without those, it uses bio/d<N>.js's drawings.
 (function () {
   'use strict';
   var K = window.ExamAnswerMode && window.ExamAnswerMode.kit, BK = window.BioKit;
@@ -187,18 +188,36 @@
   var SPRINT_N = 12, SLOW = 8000, FAST = 3500, STEP = 450;
   // Labels that describe a process, not a part, can't be tapped.
   var NOT_A_PART = /^\d+\.|:|diffuses|entering|^Cut |^Blood (from|to) /;
+  // A diagram from an exam paper: the page cut to its box (x, y, width, height in % of the page), its printed names
+  // covered in white, and its spots, in the page's pixels. k scales the spots and the tap distance from the
+  // drawings' 480 units wide.
+  var PAGE = [2055, 2908];
+  function paperDiagram(r) {
+    var px = function (x, y) { return [x * PAGE[0] / 100, y * PAGE[1] / 100]; }, n = function (v) { return v.toFixed(1); };
+    var a = px(r.box[0], r.box[1]), b = px(r.box[2], r.box[3]);
+    var svg = '<svg viewBox="' + [a[0], a[1], b[0], b[1]].map(n).join(' ') + '" role="img"><title>' + esc(r.src) + '</title>' +
+      '<image href="' + esc(r.img) + '" width="' + PAGE[0] + '" height="' + PAGE[1] + '" preserveAspectRatio="none"/>' +
+      (r.cover || []).map(function (c) { var p = px(c[0], c[1]), q = px(c[2], c[3]); return '<rect x="' + n(p[0]) + '" y="' + n(p[1]) + '" width="' + n(q[0]) + '" height="' + n(q[1]) + '" fill="#FFFFFF"/>'; }).join('') + '</svg>';
+    return { d: { svg: svg, src: r.src }, k: b[0] / 480, parts: r.spots.map(function (s) { return { text: s.t, at: px(s.at[0], s.at[1]) }; }) };
+  }
   function sprintOpen(ch) {
-    var set = window.ExamDrawDiagrams && window.ExamDrawDiagrams['bio-' + ch], ids = learn(ch).sprint || [];
-    var pool = shuffle(ids.map(function (id) { return set && set.diagrams.filter(function (d) { return d.id === id; })[0]; }).filter(Boolean)).map(function (d) {
-      return { d: d, parts: d.labels.filter(function (l) { return !NOT_A_PART.test(l.text); }) };
-    }).filter(function (x) { return x.parts.length >= 3; });
+    var real = (window.BioSprint || {})[ch] || [], pool;
+    if (real.length) {
+      pool = shuffle(real.map(paperDiagram));
+    } else {
+      var set = window.ExamDrawDiagrams && window.ExamDrawDiagrams['bio-' + ch], ids = learn(ch).sprint || [];
+      pool = shuffle(ids.map(function (id) { return set && set.diagrams.filter(function (d) { return d.id === id; })[0]; }).filter(Boolean)).map(function (d) {
+        return { d: d, k: 1, parts: d.labels.filter(function (l) { return !NOT_A_PART.test(l.text); }) };
+      }).filter(function (x) { return x.parts.length >= 3; });
+    }
     if (!pool.length) return;
-    // A few parts from each diagram in turn, so the picture changes now and then.
-    // A part on two diagrams (the ureter, say) is asked once.
-    var per = Math.max(3, Math.ceil(SPRINT_N / pool.length)), qs = [], asked = {};
+    // A few parts from each diagram in turn, so the picture changes now and then. A part is asked once on each
+    // diagram, but can come up again on another (the nucleic acid of three different viruses).
+    var per = Math.max(2, Math.ceil(SPRINT_N / pool.length)), qs = [];
+    pool.forEach(function (x) { x.asked = {}; });
     function take(n) {
       pool.forEach(function (x) {
-        shuffle(x.parts).filter(function (l) { return !asked[l.text]; }).slice(0, n).forEach(function (l) { asked[l.text] = true; qs.push({ x: x, l: l }); });
+        shuffle(x.parts).filter(function (l) { return !x.asked[l.text]; }).slice(0, n).forEach(function (l) { x.asked[l.text] = true; qs.push({ x: x, l: l }); });
       });
     }
     take(per);
@@ -213,13 +232,14 @@
     body(G.card, '<div class="ls"><div class="am-run__top"><h3 class="am-run__kind">Label sprint</h3><span class="am-games__step" data-ls-step></span></div>' +
       '<div class="ls-ask"><span class="ls-ask__k">Tap the</span> <b data-ls-name></b><span class="ls-streak" data-ls-streak hidden></span></div>' +
       '<div class="ls-bar" aria-hidden="true"><i data-ls-bar></i></div>' +
-      '<div class="bb-frame ls-frame" data-ls-frame>' + x.d.svg + '</div><p class="am-games__note" data-am-gnote role="status"></p></div>', true);
+      '<div class="bb-frame ls-frame" data-ls-frame>' + x.d.svg + '</div>' + (x.d.src ? '<p class="ls-src">' + esc(x.d.src) + '</p>' : '') +
+      '<p class="am-games__note" data-am-gnote role="status"></p></div>', true);
     var svg = G.card.querySelector('[data-ls-frame] svg'), ns = 'http://www.w3.org/2000/svg', g = document.createElementNS(ns, 'g');
     svg.querySelectorAll('[data-label]').forEach(function (n) { n.style.display = 'none'; });
     svg.removeAttribute('aria-hidden');
     g.setAttribute('class', 'ls-dots');
     g.innerHTML = x.parts.map(function (l, j) {
-      return '<g class="ls-dot" data-ls-dot="' + j + '" transform="translate(' + l.at[0] + ' ' + l.at[1] + ')" tabindex="0" role="button" aria-label="Spot ' + (j + 1) + '">' +
+      return '<g class="ls-dot" data-ls-dot="' + j + '" transform="translate(' + l.at[0] + ' ' + l.at[1] + ') scale(' + x.k + ')" tabindex="0" role="button" aria-label="Spot ' + (j + 1) + '">' +
         '<circle class="ls-dot__ring" r="9"/><circle class="ls-dot__core" r="4"/></g>';
     }).join('');
     svg.appendChild(g);
@@ -282,7 +302,7 @@
   function sprintTap(e) {
     var svg = G.card.querySelector('[data-ls-frame] svg'), dots = G.shown.parts;
     if (!svg || G.answered) return;
-    var p = BK.svgPoint(svg, e), near = -1, dist = 40;
+    var p = BK.svgPoint(svg, e), near = -1, dist = 40 * G.shown.k;
     dots.forEach(function (l, j) {
       var d = Math.sqrt(Math.pow(l.at[0] - p.x, 2) + Math.pow(l.at[1] - p.y, 2));
       if (d < dist) { dist = d; near = j; }
