@@ -205,13 +205,23 @@
     });
     return out + '</svg>';
   }
+  // A picture cut from the exam paper's page (box: x, y, width, height in % of the page), in the page's pixels so
+  // arrows can be drawn on it.
+  var PAGE = [2055, 2908];
+  function figSvg(f) {
+    var b = f.box, box = [b[0] * PAGE[0], b[1] * PAGE[1], b[2] * PAGE[0], b[3] * PAGE[1]].map(function (v) { return (v / 100).toFixed(1); });
+    return '<svg viewBox="' + box.join(' ') + '" role="img" data-bio-page><title>The diagram from the paper</title>' +
+      '<image href="' + esc(f.img) + '" width="' + PAGE[0] + '" height="' + PAGE[1] + '" preserveAspectRatio="none"/></svg>';
+  }
   function diagramHtml(dia, tapPart) {
     if (!dia) return '';
+    // About the size it is on the paper, so a small picture isn't blown up to the card's width.
+    if (dia.fig) return dia.fig.map(function (f) { return '<div class="bio-dia bio-dia--paper" style="max-width:' + Math.round(f.box[2] * 11) + 'px">' + figSvg(f) + '</div>'; }).join('');
     if (dia.panels) return '<div class="bio-dia bio-dia--two">' + dia.panels.map(function (p) { return '<div>' + baseSvg(p.base, p.marks, null) + '</div>'; }).join('') + '</div>';
     if (dia.graphs) return dia.graphs.length === 1 ? '<div class="bio-dia">' + graphSvg(dia.graphs[0]) + '</div>' :
       '<div class="bio-dia bio-dia--two">' + dia.graphs.map(function (g) { return '<div>' + graphSvg(g) + '</div>'; }).join('') + '</div>';
     if (dia.base && ART[dia.base]) return '<div class="bio-dia">' + baseSvg(dia.base, dia.marks, tapPart) + '</div>';
-    return '<p class="bio-dia__note"><b>Diagram on the paper:</b> ' + esc(dia.note || '') + '</p>';
+    return '';
   }
 
   // ---------- the shell (biology.html): sidebar, top bar and canvas ----------
@@ -382,8 +392,13 @@
         '<button type="button" class="bio-btn bio-btn--ghost" data-bio-tf="false">False</button></div>';
     } else if (part.kind === 'tap' && part.tap && q.dia) {
       ui = '<p class="bio-hint">Tap the place on the diagram above.</p>';
+    } else if (part.kind === 'arrows') {
+      var A = part.arrows, hint = '<p class="bio-hint">' + (A.labels ? 'Pick one, then drag on the diagram to draw its arrow.' : 'Drag on the diagram to draw ' + ((A.max || 1) > 1 ? 'the arrows.' : 'the arrow.')) + '</p>';
+      ui = '<div class="bio-tf bio-arrows">' + (A.labels ? A.labels.map(function (t, i) {
+        return '<button type="button" class="bio-btn bio-btn--ghost" data-bio-alabel="' + i + '" aria-pressed="' + (i === 0) + '">' + esc(t) + '</button>';
+      }).join('') : hint) + '<button type="button" class="bio-btn bio-btn--ghost bio-arrows__clear" data-bio-aclear>Clear</button></div>' + (A.labels ? hint : '');
     } else if (part.kind === 'draw' || part.kind === 'tap') {
-      ui = '<p class="bio-hint">Do this on paper (or practise it under Diagrams), then check it against the marking scheme.</p>';
+      ui = '<p class="bio-hint">Draw it on paper, then check it against the scheme.</p>';
     } else {
       ui = '<textarea class="am-type__box bio-in" rows="3" spellcheck="true" aria-label="Your answer to ' + esc(part.l) + '"></textarea>';
     }
@@ -409,10 +424,12 @@
     sheet = { n: n, q: q, card: card, got: q.parts.map(function () { return null; }), tap: {}, tf: {}, onNext: onNext };
     K.gameHud(card, q.parts.length, '/' + questionOutOf(q));
     K.gameBody(card, '<div class="bio-paper">' +
-      '<p class="bio-src">' + esc(q.src) + (q.fresh !== 'yes' ? ' <i class="bio-old' + (q.fresh === 'partly' ? ' bio-old--part' : '') + '">' + (q.fresh === 'no' ? 'Old course' : 'Partly old course') + '</i>' : '') + '</p>' +
+      '<p class="bio-src">' + esc(q.src) + (q.fresh !== 'yes' ? ' <i class="bio-old' + (q.fresh === 'partly' ? ' bio-old--part' : '') + '">' + (q.fresh === 'no' ? 'Old course' : 'Partly old course') + '</i>' : '') +
+      (q.parts.some(function (p) { return p.unofficial; }) ? ' <i class="bio-old bio-old--info">Unofficial scheme</i>' : '') + '</p>' +
       (q.why ? '<p class="bio-why">' + esc(q.why) + '</p>' : '') +
       (q.stem ? '<p class="bio-stem">' + esc(q.stem) + '</p>' : '') + diagramHtml(q.dia, tapPart) +
       q.parts.map(function (p, k) { return partHtml(q, p, k); }).join('') + '</div>', Boolean(q.dia && (q.dia.base || q.dia.panels)));
+    q.parts.forEach(function (p, k) { if (p.kind === 'arrows' && p.arrows) drawOn(card.querySelector('.bio-dia svg'), k); });
     var at = list.indexOf(q);
     K.fillButtons(card.querySelector('[data-am-gbtns]'), [['more', 'data-am-keep', 'Close']].concat(at + 1 < list.length ? [['ok', 'data-bio-next="' + esc(list[at + 1].id) + '"', 'Next question']] : []), true);
     var root = K.root();
@@ -441,6 +458,12 @@
       mark.innerHTML = '<circle cx="' + c[0] + '" cy="' + c[1] + '" r="13" fill="#FFE14D" stroke="#18272D" stroke-width="2"/><text x="' + c[0] + '" y="' + (c[1] + 0.5) + '" text-anchor="middle" dominant-baseline="central" font-family="Fredoka, Nunito, sans-serif" font-weight="700" font-size="13" fill="#18272D">✓</text>';
       return;
     }
+    if ((t = e.target.closest('[data-bio-alabel]'))) { pickLabel(+t.getAttribute('data-bio-alabel')); return; }
+    if ((t = e.target.closest('[data-bio-aclear]'))) {
+      var D = sheet.draw;
+      if (D && !sheet.got[D.k]) { D.list.forEach(function (r) { r.el.remove(); }); D.list = []; pickLabel(0); }
+      return;
+    }
     if ((t = e.target.closest('[data-bio-self]'))) { selfTick(t); return; }
     if ((t = e.target.closest('[data-bio-next]'))) { if (sheet.onNext) sheet.onNext(t.getAttribute('data-bio-next')); else openQuestion(sheet.n, t.getAttribute('data-bio-next')); return; }
   }
@@ -461,12 +484,13 @@
     sec.querySelectorAll('.bio-in').forEach(function (i) { if (i.value.trim()) empty = false; });
     if (part.kind === 'tf') empty = !sheet.tf[k];
     if (part.kind === 'tap' && part.tap) empty = !sheet.tap[k];
+    if (part.kind === 'arrows') empty = !(sheet.draw && sheet.draw.list.length);
     if (empty && !selfOnly) {
-      sheet.card.querySelector('[data-bio-got="' + k + '"]').textContent = part.kind === 'tap' ? 'Tap the diagram first.' : 'Write your answer first.';
+      sheet.card.querySelector('[data-bio-got="' + k + '"]').textContent = part.kind === 'tap' ? 'Tap the diagram first.' : part.kind === 'arrows' ? 'Draw on the diagram first.' : 'Write your answer first.';
       return;
     }
     var words = answerWords(sec, part, k);
-    var got = part.pts.map(function (pt) {
+    var got = part.kind === 'arrows' ? judgeArrows(k) : part.pts.map(function (pt) {
       if (pt.self) return false;
       if (part.kind === 'tap') return part.tap ? part.tap.indexOf(sheet.tap[k]) >= 0 : false;
       if (part.kind === 'fields') return hasPoint(pt, words[pt.f] || []);
@@ -476,6 +500,7 @@
     if (part.kind === 'text') { var box = sec.querySelector('.bio-in'); got = onePerSentence(part, got, box ? box.value : ''); }
     sheet.got[k] = got;
     sec.querySelectorAll('.bio-in').forEach(function (i) { i.readOnly = true; });
+    sec.querySelectorAll('[data-bio-alabel], [data-bio-aclear]').forEach(function (b) { b.disabled = true; });
     renderResult(k);
     var s = partScore(part, got), out = partOutOf(part);
     if (!selfOnly) {
@@ -491,16 +516,148 @@
   function renderResult(k) {
     var part = sheet.q.parts[k], got = sheet.got[k], res = sheet.card.querySelector('[data-bio-res="' + k + '"]');
     var s = partScore(part, got), out = partOutOf(part);
-    var rule = part.rule ? '<p class="bio-rule">Marking: ' + esc(part.rule) + (part.m ? '' : '. The scheme marks this by how many points you get, so here each point counts as 3.') + '</p>' : '';
     res.innerHTML = '<ul class="bio-pts">' + part.pts.map(function (pt, i) {
       var ok = got[i];
       return '<li class="' + (ok ? 'is-got' : 'is-miss') + '"><span class="bio-pts__mark" aria-hidden="true">' + (ok ? '✓' : '·') + '</span><span>' + esc(pt.a.replace(/^\*/, '')) +
         ' <em>(' + pointMarks(part, pt) + ')</em></span>' +
         (!ok ? '<button type="button" class="bio-self" data-bio-self="' + k + ':' + i + '">' + (pt.self ? 'I had this' : 'I said this') + '</button>' : '') + '</li>';
-    }).join('') + '</ul>' + rule + (part.note ? '<p class="bio-rule">' + esc(part.note) + '</p>' : '') +
-      (part.unofficial ? '<p class="bio-rule">No official scheme exists for this sample paper: these are the points an examiner would most likely accept.</p>' : '');
+    }).join('') + '</ul>' + ruleHtml(part) + noteHtml(part);
     sheet.card.querySelector('[data-bio-got="' + k + '"]').innerHTML = '<b>' + s + '/' + out + '</b>';
     sheet.card.querySelector('[data-bio-check="' + k + '"]').disabled = true;
+  }
+  // Under the scheme's points, only what helps you answer: what the marks need ("both arrows, each labelled") and the
+  // scheme's notes on what it accepts. Not the mark arithmetic, the asterisks, or where the answers came from (the
+  // source line says when the scheme is unofficial).
+  var NOISE = /official|total|\bmark(s|ed|ing)?\b|asterisk|^\s*\*|\(\*\)|\* (in|=)|worth|encountered|correct (responses|answers)|first (two|five|correct)|typo|calls it|heading|specification|new course|included|question;|spells|ambiguous|inferred|best \d|\bNB\b|\d\(\d|= \d|\d points?\b|chapter|\brest of\b|scheme pdf|text version|print|scores \d|\d+m\b|added here|presumably|^\s*(compare|see) \d/i;
+  function ruleHtml(part) {
+    var r = (part.rule || '').replace(/\s*\((unofficial|no official scheme)\)/i, '').trim();
+    if (!r || /\d|official|^likely|\b(points?|responses?)\.?$|^any (one|two|three|four|five|six)\.?$/i.test(r)) return '';
+    return '<p class="bio-rule">Marking: ' + esc(r) + '</p>';
+  }
+  function noteHtml(part) {
+    var keep = (part.note || '').replace(/([.!?])\s+(?=[A-Z(\['"*])/g, '$1\n').split('\n').filter(function (x) { return x.trim() && !NOISE.test(x); }).join(' ');
+    return keep ? '<p class="bio-rule">' + esc(keep) + '</p>' : '';
+  }
+
+  // ---------- arrows dragged onto the diagram (kind 'arrows') ----------
+  // Press, drag and let go, as in a drawing app: a straight arrow follows the finger and stays where it's let go. With
+  // labels (O2, CO2) each label has one arrow, and the next label is picked once one is drawn; without, up to max
+  // arrows, the oldest going when there are too many. Zones and the right arrows are in % of the page on a picture
+  // from the paper (sc turns them into its pixels), in the drawing's own units otherwise.
+  var SVGNS = 'http://www.w3.org/2000/svg', INK = '#18272D', GOOD = '#58A700', BAD = '#EA2B2B';
+  function arrowSvg(a, b, t, color, size, dashed) {
+    var n = function (v) { return v.toFixed(1); };
+    var sw = size * 0.008, head = sw * 3.4, dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1, ux = dx / L, uy = dy / L;
+    var ex = b[0] - ux * head, ey = b[1] - uy * head, px = -uy * head * 0.62, py = ux * head * 0.62;
+    var line = 'M' + n(a[0]) + ' ' + n(a[1]) + 'L' + n(ex) + ' ' + n(ey);
+    var tip = 'M' + n(b[0]) + ' ' + n(b[1]) + 'L' + n(ex + px) + ' ' + n(ey + py) + 'L' + n(ex - px) + ' ' + n(ey - py) + 'Z';
+    // A white edge first, so the arrow reads on a busy picture.
+    var out = '<path d="' + line + '" fill="none" stroke="#FFFFFF" stroke-width="' + n(sw * 2.6) + '" stroke-linecap="round"/>' +
+      '<path d="' + tip + '" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="' + n(sw * 1.6) + '" stroke-linejoin="round"/>' +
+      '<path d="' + line + '" fill="none" stroke="' + color + '" stroke-width="' + n(sw) + '" stroke-linecap="round"' + (dashed ? ' stroke-dasharray="' + n(sw * 2.2) + ' ' + n(sw * 1.8) + '"' : '') + '/>' +
+      '<path d="' + tip + '" fill="' + color + '"/>';
+    if (t) {
+      var fs = size * 0.034, w = fs * (0.62 * t.length + 0.9), h = fs * 1.5, off = Math.abs(uy) * w / 2 + Math.abs(ux) * h / 2 + sw * 2.5;
+      var cx = (a[0] + b[0]) / 2 - uy * off, cy = (a[1] + b[1]) / 2 + ux * off;
+      out += '<rect x="' + n(cx - w / 2) + '" y="' + n(cy - h / 2) + '" width="' + n(w) + '" height="' + n(h) + '" rx="' + n(h / 2) + '" fill="#FFFFFF" stroke="' + color + '" stroke-width="' + n(sw * 0.6) + '"/>' +
+        '<text x="' + n(cx) + '" y="' + n(cy) + '" text-anchor="middle" dominant-baseline="central" font-family="Fredoka, Nunito, sans-serif" font-weight="700" font-size="' + n(fs) + '" fill="' + color + '">' + esc(t) + '</text>';
+    }
+    return out;
+  }
+  function drawOn(svg, k) {
+    if (!svg) return;
+    var A = sheet.q.parts[k].arrows, size = svg.viewBox.baseVal.width, layer = document.createElementNS(SVGNS, 'g'), live = null, from = null;
+    layer.setAttribute('class', 'bio-arrows-layer');
+    svg.appendChild(layer);
+    svg.classList.add('is-drawable');
+    var D = sheet.draw = { k: k, layer: layer, size: size, list: [], label: 0, sc: svg.hasAttribute('data-bio-page') ? [PAGE[0] / 100, PAGE[1] / 100] : [1, 1] };
+    function at(e) {
+      var m = svg.getScreenCTM(), p = svg.createSVGPoint();
+      p.x = e.clientX; p.y = e.clientY;
+      p = m ? p.matrixTransform(m.inverse()) : p;
+      return [p.x, p.y];
+    }
+    function label() { return A.labels ? A.labels[D.label] : ''; }
+    svg.addEventListener('pointerdown', function (e) {
+      if (sheet.draw !== D || sheet.got[k] || e.button) return;
+      e.preventDefault();
+      from = at(e);
+      live = layer.appendChild(document.createElementNS(SVGNS, 'g'));
+      try { svg.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    svg.addEventListener('pointermove', function (e) {
+      if (!live) return;
+      e.preventDefault();
+      live.innerHTML = arrowSvg(from, at(e), label(), INK, size);
+    });
+    svg.addEventListener('pointerup', function (e) {
+      if (!live) return;
+      var to = at(e), g = live;
+      live = null;
+      if (Math.hypot(to[0] - from[0], to[1] - from[1]) < size * 0.05) { g.remove(); return; }  // a tap, not a drag
+      var item = { a: from, b: to, t: label(), el: g };
+      g.innerHTML = arrowSvg(from, to, item.t, INK, size);
+      if (A.labels) D.list = D.list.filter(function (r) { if (r.t !== item.t) return true; r.el.remove(); return false; });
+      D.list.push(item);
+      if (!A.labels && D.list.length > (A.max || 1)) D.list.shift().el.remove();
+      if (A.labels) {
+        for (var i = 1; i < A.labels.length; i++) {
+          var j = (D.label + i) % A.labels.length;
+          if (!D.list.some(function (r) { return r.t === A.labels[j]; })) { pickLabel(j); break; }
+        }
+      }
+    });
+    svg.addEventListener('pointercancel', function () { if (live) live.remove(); live = null; });
+  }
+  function pickLabel(j) {
+    if (!sheet.draw) return;
+    sheet.draw.label = j;
+    sheet.card.querySelectorAll('[data-bio-alabel]').forEach(function (b) { b.setAttribute('aria-pressed', String(+b.getAttribute('data-bio-alabel') === j)); });
+  }
+  function zoneDist(p, rects, sc) {
+    return Math.min.apply(null, rects.map(function (r) {
+      var x = r[0] * sc[0], y = r[1] * sc[1], w = r[2] * sc[0], h = r[3] * sc[1];
+      return Math.hypot(Math.max(x - p[0], 0, p[0] - x - w), Math.max(y - p[1], 0, p[1] - y - h));
+    }));
+  }
+  // The zone a point is in, or the nearest one within a little of it (a point on a wall counts for the side it's on).
+  function zoneOf(p, A, D) {
+    var best = null, bd = D.size * 0.06 + 0.01;
+    Object.keys(A.zones || {}).forEach(function (z) { var d = zoneDist(p, A.zones[z], D.sc); if (d < bd) { best = z; bd = d; } });
+    return best;
+  }
+  function arrowFits(r, rule, A, D) {
+    var dx = r.b[0] - r.a[0], dy = r.b[1] - r.a[1], L = Math.hypot(dx, dy), z = rule.toward || rule.away;
+    if (rule.label && r.t !== rule.label) return false;
+    if (rule.on && zoneOf([(r.a[0] + r.b[0]) / 2, (r.a[1] + r.b[1]) / 2], A, D) !== rule.on) return false;
+    if (rule.from && zoneOf(r.a, A, D) !== rule.from) return false;
+    if (rule.to && zoneOf(r.b, A, D) !== rule.to) return false;
+    if (rule.dir) {
+      var d = { down: [0, 1], up: [0, -1], left: [-1, 0], right: [1, 0] }[rule.dir];
+      if ((dx * d[0] + dy * d[1]) / L < 0.75) return false;
+    }
+    if (z) {
+      var gain = zoneDist(r.a, A.zones[z], D.sc) - zoneDist(r.b, A.zones[z], D.sc);
+      if ((rule.toward ? gain : -gain) < 0.35 * L) return false;
+    }
+    return true;
+  }
+  // Each scheme point takes the first arrow that fits it (an arrow counts once). The arrows turn green or red, and a
+  // missed one is drawn dashed where it should be.
+  function judgeArrows(k) {
+    var A = sheet.q.parts[k].arrows, D = sheet.draw, used = [];
+    var got = A.rules.map(function (rule) {
+      var r = D.list.filter(function (x) { return used.indexOf(x) < 0 && arrowFits(x, rule, A, D); })[0];
+      if (r) used.push(r);
+      return Boolean(r);
+    });
+    D.list.forEach(function (r) { r.el.innerHTML = arrowSvg(r.a, r.b, r.t, used.indexOf(r) >= 0 ? GOOD : BAD, D.size); });
+    A.rules.forEach(function (rule, i) {
+      if (got[i] || !rule.show) return;
+      var s = rule.show, g = D.layer.appendChild(document.createElementNS(SVGNS, 'g'));
+      g.innerHTML = arrowSvg([s[0] * D.sc[0], s[1] * D.sc[1]], [s[2] * D.sc[0], s[3] * D.sc[1]], rule.label || '', GOOD, D.size, true);
+    });
+    return got;
   }
   function selfTick(btn) {
     var p = btn.getAttribute('data-bio-self').split(':'), k = +p[0], i = +p[1];

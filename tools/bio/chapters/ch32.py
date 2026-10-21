@@ -393,6 +393,7 @@ OVERRIDES = {
         # Diagram 1: the virus (X coat, Y nucleic acid). Diagram 2: a virus at a host cell, its nucleic acid going in.
         '2026-Q16b': {'panels': [{'base': 'virus', 'marks': [{'t': 'X', 'a': 'coat'}, {'t': 'Y', 'a': 'nucleic'}]},
                                  {'base': 'phage', 'marks': []}]},
+        'S2-Q1e': {'fig': [{'img': 'assets/bio/papers/s2-p07.webp', 'box': [64.2, 10.2, 24.0, 18.0]}]},  # the normal protein and the prion
         '2025-Q16d': {'base': 'lymphocyte', 'marks': [{'t': 'Lymphocyte', 'a': 'lymphocyte', 'given': True}]},
         'S1-Q3b': {'base': 'macrophage', 'marks': [{'t': 'Alveolus (air space)', 'a': 'alveolus', 'given': True},
                                                    {'t': 'Alveolar macrophage', 'a': 'macrophage', 'given': True},

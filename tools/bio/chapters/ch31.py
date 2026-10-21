@@ -686,6 +686,9 @@ OVERRIDES = {
         '2026-Q17a': {'base': 'capillaries', 'marks': [{'t': 'X', 'a': 'arteriole'}, {'t': 'Y', 'a': 'venule'}]},
         '2019-Q5': {'base': 'blood', 'marks': [{'t': 'Red blood cells', 'a': 'rbc', 'given': True}]},
         '2025-Q17a': {'base': 'circulation', 'marks': []},
+        'S1-Q5d': {'fig': [{'img': 'assets/bio/papers/s1-p23.webp', 'box': [55.7, 7.8, 35.3, 14.6]}]},  # the photo of red blood cells
+        '2022-Q17d': {'fig': [{'img': 'assets/bio/papers/2022c-p10.webp', 'box': [19.0, 43.2, 69.5, 16.6]}]},  # hearts X, Y and Z
+        '2016-Q8': {},  # blank axes to draw on: nothing to show
         'S2-Q5a': {'base': 'heart', 'marks': [{'t': 'A', 'a': 'aorta'}, {'t': 'B', 'a': 'pulmonaryArtery'}, {'t': 'Valve', 'a': 'semilunar', 'given': True}]},
         # Relative arterial pressure over one second: two beats, a steep rise as the left ventricle contracts, then a slow fall.
         'S2-Q5c': {'graphs': [{'title': 'Arterial pressure', 'x': 'Time (s)', 'y': 'Relative arterial pressure',
@@ -696,5 +699,12 @@ OVERRIDES = {
     'tap': {  # part id -> anchors that are right
         'S2-Q5a(iii)': ['sa', 'rightAtrium'],
     },
-    'kind': {'2026-Q17a(iii)': 'text', '2016-Q8(b)(iii)': 'draw'},
+    'kind': {'2026-Q17a(iii)': 'text', '2016-Q8(b)(iii)': 'draw', '2006-Q5(b)': 'arrows'},
+    'arrows': {  # see ch28.py
+        '2006-Q5(b)': {'max': 3, 'zones': {'liver': [[115, 58, 270, 92]], 'portal': [[210, 150, 40, 100]],
+                                           'artery': [[308, 128, 45, 50], [340, 165, 135, 32]], 'vein': [[278, 0, 48, 72]]},
+                       'rules': [{'on': 'portal', 'toward': 'liver', 'show': [234, 236, 226, 168]},
+                                 {'on': 'artery', 'toward': 'liver', 'show': [452, 189, 352, 171]},
+                                 {'on': 'vein', 'away': 'liver', 'show': [292, 64, 312, 16]}]},
+    },
 }

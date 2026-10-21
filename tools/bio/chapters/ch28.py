@@ -390,10 +390,11 @@ OVERRIDES = {
         '2026-Q3': {'base': 'breathing', 'marks': [{'t': 'Epiglottis', 'a': 'epiglottis', 'given': True}, {'t': 'Trachea', 'a': 'trachea', 'given': True}]},
         '2019-Q6': {'base': 'alveolus', 'marks': [{'t': 'Capillary', 'a': 'capillary', 'given': True}, {'t': 'Alveolus', 'a': 'alveolus', 'given': True},
                                                   {'t': 'Blood flow', 'a': 'bloodFlow', 'given': True}]},
-        # The paper's own picture has no gas arrows: part (i) asks you to draw them, so ours (which has them) isn't shown.
-        'S1-Q3a': {'note': 'A section through an alveolus: a large air space surrounded by a thin wall, an alveolar macrophage on the wall, '
-                           'and a capillary below separated from the air space by a very thin barrier. A dashed arrow labelled H2O runs from '
-                           'the capillary into the alveolus: water vapour moves out of the blood.'},
+        # The paper's own pictures, cut from the page (box: x, y, width, height in % of the page). The alveolus has no
+        # gas arrows: part (i) asks you to place them.
+        'S1-Q3a': {'fig': [{'img': 'assets/bio/papers/s1-p12.webp', 'box': [23.0, 15.0, 53.8, 34.8]}]},
+        'S1-Q3c': {'fig': [{'img': 'assets/bio/papers/s1-p14.webp', 'box': [62.5, 6.2, 28.0, 10.5]}, {'img': 'assets/bio/papers/s1-p14.webp', 'box': [13.6, 21.3, 77.4, 9.3]}]},
+        '2016-Q8b': {},  # blank axes to draw on: nothing to show
         'S1-Q3d': {'graphs': [{'title': 'Volume of air in the lungs of an athlete', 'x': 'Time (s)', 'y': 'Volume (L)',
                                'xt': [[0, '0'], [25, '10'], [50, '20'], [75, '30'], [100, '40']],
                                'yt': [[0, '0'], [20, '1'], [40, '2'], [60, '3'], [80, '4'], [100, '5']],
@@ -401,7 +402,19 @@ OVERRIDES = {
     },
     'tap': {},
     # Parts that say "on the diagram" but are drawn on the paper, or are a written answer.
-    'kind': {'S1-Q3a(i)': 'draw', 'S1-Q3d(iii)': 'draw', '2026-Q3(d)(i)': 'draw', '2026-Q3(d)(ii)': 'draw', '2026-Q3(f)': 'text'},
+    'kind': {'S1-Q3a(i)': 'arrows', 'S1-Q3d(iii)': 'draw', '2026-Q3(d)(i)': 'draw', '2026-Q3(d)(ii)': 'arrows', '2026-Q3(f)': 'text'},
+    # Arrows dragged onto the diagram, one rule per scheme point. Zones are [x, y, width, height] rectangles (in % of the
+    # page for a picture from the paper, in the drawing's own units otherwise). A rule can need: the arrow's label, the
+    # zones it starts (from) and ends (to) in, the zone it lies on, that it points towards or away from a zone, or a
+    # direction. show: the right arrow [x1, y1, x2, y2], drawn when it's missed.
+    'arrows': {
+        'S1-Q3a(i)': {'labels': ['O\u2082', 'CO\u2082'],
+                      'zones': {'air': [[31, 21, 37, 17], [30, 30, 6, 14], [33, 38, 20, 6.5], [52, 18, 14, 4], [34, 19, 8, 3]],
+                                'blood': [[50, 41.5, 17.5, 6], [54, 41, 10, 1]]},
+                      'rules': [{'label': 'O\u2082', 'from': 'air', 'to': 'blood', 'show': [54, 33, 55, 45]},
+                                {'label': 'CO\u2082', 'from': 'blood', 'to': 'air', 'show': [61.5, 45.5, 60.5, 34]}]},
+        '2026-Q3(d)(ii)': {'max': 1, 'rules': [{'dir': 'down', 'show': [150, 254, 150, 304]}]},
+    },
     # Points whose scheme wording can't be keyed: the disorder is named by the student, and its cause, prevention
     # and treatment depend on which one, so those are ticked by the student.
     'points': {'2009-Q13c(iii)': {
