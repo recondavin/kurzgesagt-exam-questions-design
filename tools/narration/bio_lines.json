@@ -25,11 +25,6 @@
   "say": "Together the alveoli have a huge surface area, and each one is wrapped in a dense net of capillaries that keeps carrying the oxygen away."
  },
  {
-  "id": "bio-cmd-draw-summary",
-  "text": "2 points, 6 marks: The labels earn most of the marks.",
-  "say": "In a drawing question, most of the marks are in the labels."
- },
- {
   "id": "bio-cmd-name-title",
   "text": "Name it: short and exact",
   "say": "Name it: short and exact"
@@ -105,11 +100,6 @@
   "say": "Usually arteries carry oxygen-rich blood. But the pulmonary artery carries blood low in oxygen to the lungs, and the pulmonary vein brings oxygen-rich blood back."
  },
  {
-  "id": "bio-cmd-describe-summary",
-  "text": "One point, 3 marks: Walk through it step by step.",
-  "say": "Describing is a bit like telling a story, one step after another."
- },
- {
   "id": "bio-b879766e",
   "text": "(i) 2. Describe the main way oxygen is transported in the blood.",
   "say": "For part one 2., describe it: say what happens, step by step. That's one point, for three marks."
@@ -170,11 +160,6 @@
   "say": "It sends impulses to your diaphragm and intercostal muscles, so you breathe faster and deeper, until the carbon dioxide is back to normal."
  },
  {
-  "id": "bio-cmd-name-summary",
-  "text": "3 points, 9 marks: A word or a short phrase is enough.",
-  "say": "Name, state, give. These just want the fact, and nothing more."
- },
- {
   "id": "bio-28-inhale-title",
   "text": "Breathing in",
   "say": "Breathing in"
@@ -198,11 +183,6 @@
   "id": "bio-28-inhale-3",
   "text": "Air rushes in: volume up, pressure down.",
   "say": "More volume means lower pressure inside the lungs than in the air outside, so air rushes in to fill them."
- },
- {
-  "id": "bio-cmd-label-summary",
-  "text": "2 points, 6 marks: Point to the exact spot.",
-  "say": "This one is about reading the diagram carefully."
  },
  {
   "id": "bio-28-exercise-title",
@@ -590,11 +570,6 @@
   "say": "For part one, say what it means, in one clear sentence. That's one point, for three marks."
  },
  {
-  "id": "bio-cmd-meant-summary",
-  "text": "One point, 3 marks: One clear sentence.",
-  "say": "When a question asks what a word means, it wants one clear, complete sentence."
- },
- {
   "id": "bio-29-organs-title",
   "text": "The urinary system",
   "say": "The urinary system"
@@ -825,11 +800,6 @@
   "say": "For part one, say how they differ, with something about each one. That's two points, for six marks."
  },
  {
-  "id": "bio-cmd-compare-summary",
-  "text": "2 points, 6 marks: Say something about each one.",
-  "say": "A difference always has two sides, and you need both of them."
- },
- {
   "id": "bio-ccf184e9",
   "text": "(ii) Using the data from the table above, in relation to glucose, explain the findings in the composition of…",
   "say": "For part two, say what it means, in one clear sentence. That's two points, for six marks."
@@ -873,11 +843,6 @@
   "id": "bio-29-failure-3",
   "text": "Why it matters: waste and water build up.",
   "say": "Either way, the goal is the same: remove urea and keep the water and salt balance right."
- },
- {
-  "id": "bio-cmd-suggest-summary",
-  "text": "One point, 3 marks: A sensible, specific answer.",
-  "say": "Suggest means the answer won't be in your notes word for word. You have to think it through."
  },
  {
   "id": "bio-308cac7c",
@@ -950,11 +915,6 @@
   "say": "For part four, explain it: say what happens, and why. That's one point, for three marks."
  },
  {
-  "id": "bio-cmd-explain-summary",
-  "text": "One point, 3 marks: Each point is a fact and its reason.",
-  "say": "Explain means the examiner wants to see the reason, not just the fact."
- },
- {
   "id": "bio-b0d7fc6a",
   "text": "(b) Ureter and urethra",
   "say": "For part b, just name it: a word or a short phrase is enough. That's two points, for four marks."
@@ -968,11 +928,6 @@
   "id": "bio-8db89f1d",
   "text": "(a) Urea is formed in the kidneys.   T   F",
   "say": "For part a, decide if each statement is true or false. That's one point, for three marks."
- },
- {
-  "id": "bio-cmd-tf-summary",
-  "text": "One point, 3 marks: Read every word.",
-  "say": "True or false questions are quick, but they hide their traps in single words."
  },
  {
   "id": "bio-0fafbea9",
