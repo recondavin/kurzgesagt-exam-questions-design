@@ -51,7 +51,10 @@
     increase: ['increas', 'rise', 'ris', 'rose', 'rising', 'rais', 'raise'],
     decrease: ['decreas', 'fall', 'falling', 'drop', 'dropp', 'reduce', 'reduc'],
     remove: ['remov', 'eliminate', 'eliminat'],
-    muscle: ['muscular', 'muscl']
+    muscle: ['muscular', 'muscl'],
+    close: ['clos', 'shut'],
+    die: ['dying', 'dies', 'died'],
+    lose: ['lost', 'losing', 'los', 'loss']
   };
   var CANON = {};
   Object.keys(SAME).forEach(function (k) { CANON[k] = k; SAME[k].forEach(function (w) { CANON[w] = k; }); });

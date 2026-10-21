@@ -237,6 +237,10 @@ def _one(*words):
     return [{'w': [w], 'n': 1} for w in words]
 
 
+# "Maintenance (of ...)": keeping something steady, not just "keeping the body healthy".
+_MAINTAIN = _one('maint') + _keys(['keep', 'regul'], _STEADY + ['intern', 'inside', 'environ', 'condi', 'level'])
+
+
 # Per-question corrections the general rules can't work out: diagrams with two panels or graphs, the right
 # answer areas for 'tap' parts, and answer types.
 OVERRIDES = {
@@ -305,7 +309,7 @@ OVERRIDES = {
             3: _keys('collect', 'duct') + _keys('dist', 'tubul') + _one('dct') + _keys('kidney', ['reabsorb', 'adh'])},
         # "example how": how a factor is kept steady; "example why": why it matters (the note lists pH, solutes, temperature, water).
         '2009-Q15c(iii)': {
-            0: _one(*_KEEP),
+            0: _MAINTAIN,
             1: _keys(['intern', 'inside'], ['environ', 'condi'], _STEADY),
             2: _one('sweat', 'vasodil', 'vasoconstric', 'adh', 'insulin', 'glucagon', 'feedback', 'kidney', 'osmoregul', 'thermoregul') +
                _keys('shiver', ['warm', 'heat', 'cold']),
@@ -324,7 +328,7 @@ OVERRIDES = {
         '2008-Q13c(iv)': {0: _keys('permeab', ['reabsor', 'absor'], 'water')},
         # "or example" (of the reason): a named factor the body keeps steady.
         '2007-Q15c(i)': {
-            0: _one(*_KEEP),
+            0: _MAINTAIN,
             1: _keys(['intern', 'inside'], ['environ', 'condi'], _STEADY) + [{'w': _FACTORS + [s], 'n': 3} for s in _STEADY + _KEEP],
             2: _one('enzyme', 'metabol', 'denatur', 'optimum') + _keys('cell', ['function', 'work']) + _keys('example', _FACTORS)},
         '2006-Q13b(i)': {

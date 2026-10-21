@@ -714,8 +714,7 @@ OVERRIDES = {
     # Keys written by hand (part id -> {point index: alternatives, or 'self'}): the few words that carry each point, where
     # the ones made from the scheme's sentence needed 4+ exact words, a descriptor ("Named cutting instrument") no student
     # writes, or a word that also turns up in wrong answers ("artery" alone, "oxygen" alone). Words: see bio/bio.js.
-    # Note '2004-Q9(b)' is the id of five parts (their labels all start "(b)"), so only points 1-6 are set there: they
-    # exist only in the dissection part (point 1 of the diagram part is a drawing tick, which stays one).
+    # Five parts of 2004-Q9 have labels starting "(b)", so the dissection part goes by its full label.
     'points': {
         'S1-Q3c(i)1': {0: [{'w': [w], 'n': 1} for w in ('hydrogencarbonate', 'bicarbonate', 'hco3')] +
                           [{'w': ['hydrogen', 'carbonate'], 'n': 2}, {'w': ['dissolv', 'plasma'], 'n': 2}]},
@@ -816,7 +815,8 @@ OVERRIDES = {
                           4: [{'w': [a, b], 'n': 2} for a in ('second', 'another', 'then', 'next', 'again') for b in ('cut', 'incis')],
                           5: [{'w': [w], 'n': 1} for w in ('valve', 'tricuspid', 'bicuspid', 'semilunar', 'chord', 'septum', 'tendin', 'papillar')],
                           6: [{'w': [w], 'n': 1} for w in ('safe', 'glove', 'care', 'wash', 'disinfect', 'goggle', 'coat')]},
-        '2004-Q9(b)': {1: [{'w': [w], 'n': 1} for w in ('coronary', 'thick', 'firm', 'diagonal')],
+        '2004-Q9(b) dissection': {0: [{'w': [w], 'n': 1} for w in ('front', 'ventr', 'dorsal')] + [{'w': ['left', 'right'], 'n': 2}, {'w': ['identif', 'side'], 'n': 2}],
+                       1: [{'w': [w], 'n': 1} for w in ('coronary', 'thick', 'firm', 'diagonal')],
                        2: [{'w': [a, b], 'n': 2} for a in ('ventr', 'front') for b in ('upper', 'up', 'top')],
                        4: [{'w': [w], 'n': 1} for w in ('scalpel', 'blade', 'scissors', 'knife')],
                        5: [{'w': [w], 'n': 1} for w in ('cut', 'incis', 'slice')],
