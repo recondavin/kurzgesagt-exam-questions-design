@@ -456,9 +456,7 @@ OVERRIDES = {
     # Keys written by hand where the scheme's wording made keys too strict ("Transport food to the stomach", 3 words),
     # missed what the scheme accepts ([accept ...] lists, named examples) or let wrong answers in ("rais" alone for
     # neutralising bile, "living" alone for symbiosis). Each keeps the 1-3 words that carry the point.
-    # Not keyable here: parts whose labels share a first word ("(ii) 1.", "(ii) 2.") share a part id, so their points
-    # can't be told apart (2008-Q12b(iii), 2008-Q12c(iii), 2012-Q15a(v) point 0, 2015-Q11b(ii), 2015-Q11c(i) point 0,
-    # 2018-Q12b(ii)).
+    # Parts whose labels share a first word ("(ii) 1.", "(ii) 2.") use their full label as the id ('2015-Q11b(ii) 2.').
     'points': {
         # The liver's role: making bile, and what bile does (unofficial scheme).
         'S1-Q1a(ii)': {0: [{'w': ['make', 'bile'], 'n': 2}, {'w': ['secret', 'bile'], 'n': 2}],
@@ -580,8 +578,16 @@ OVERRIDES = {
         '2015-Q11a(ii)': {0: [{'w': [r, 'amount', x], 'n': 3}
                               for r in ('correct', 'right', 'proper', 'appropriate', 'suitab', 'enough', 'sufficient', 'adequate', 'need', 'requir')
                               for x in ('type', 'nutrient', 'group', 'all', 'each', 'every', 'variety', 'different')]},
-        '2015-Q11c(i)': {1: [{'w': ['fang'], 'n': 1}] +  # (i) 3.'s explanation (point 0 is shared with (i) 1. and (i) 2.)
-                            [{'w': [a, t], 'n': 2} for a in ('long', 'sharp', 'point', 'large', 'bigg', 'extra') for t in ('canine', 'incisor')]},
+        # Lipase: what it is; where it's secreted ([accept small intestine, ileum, salivary glands, pancreas]); the pH
+        # there (below 7 matched to the stomach, 7-9 for the small intestine: "duodenum" alone is not a pH).
+        '2015-Q11b(ii) 1.': {0: [{'w': [v, x], 'n': 2} for v in ('enzyme', 'digest', 'break') for x in ('lipid', 'fat', 'oil')]},
+        '2015-Q11b(ii) 2.': {0: [{'w': [x], 'n': 1} for x in ('stomach', 'duodenum', 'ileum', 'pancrea', 'salivar')] + [{'w': ['small', 'intestine'], 'n': 2}]},
+        '2015-Q11b(ii) 3.': {0: [{'w': [x], 'n': 1} for x in ('7', '8', '9')] + [{'w': ['stomach', x], 'n': 2} for x in ('1', '2', '3', '4', '5', '6')]},
+        # The dental formula: words can't check the order, but all three numbers must be there (no 4s-only or 2s-only).
+        '2015-Q11c(i) 1.': {0: [{'w': ['1', '2', '3'], 'n': 3}]},
+        '2015-Q11c(i) 2.': {0: [{'w': [f, t], 'n': 2} for f in ('fewer', 'less') for t in ('incisor', 'canine')]},
+        '2015-Q11c(i) 3.': {1: [{'w': ['fang'], 'n': 1}] +
+                               [{'w': [a, t], 'n': 2} for a in ('long', 'sharp', 'point', 'large', 'bigg', 'extra') for t in ('canine', 'incisor')]},
         '2015-Q11c(ii)': {2: [{'w': ['eges'], 'n': 1}, {'w': ['remove', 'faec'], 'n': 2}, {'w': ['remove', 'undigest'], 'n': 2}]},
         '2015-Q11c(iii)': {1: [{'w': [c, x], 'n': 2} for c in ('compet', 'outcompet') for x in ('pathogen', 'harm', 'micro', 'bacteri', 'germ')] +
                               [{'w': [i, x], 'n': 2} for i in ('inhibit', 'prevent', 'stop', 'block') for x in ('pathogen', 'harm', 'germ')],
