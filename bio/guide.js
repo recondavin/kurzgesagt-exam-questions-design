@@ -192,12 +192,13 @@
       ', for ' + spokenNumber(marks) + ' marks.';
     var step = { id: k ? 'question-bio-part-' + (k + 1) : 'question-bio-ask', summary: summary, pic: null };
     if (c) {
-      var base = 'bio-' + ch + '-' + c.id, tip = { b: (p.n === 1 ? 'One point' : p.n + ' points') + ', ' + marks + ' marks', t: d.summary, say: d.say };
+      // (No "N points, M marks" line: the marks are printed on the paper beside it.)
+      var base = 'bio-' + ch + '-' + c.id;
       step.title = c.title;
       step.pic = c.pic || null;
-      step.bullets = c.bullets.map(function (b) { return { b: b[0], t: b[1], say: b[2] }; }).concat([tip]);
-      step.voice = [base + '-title', G.lineId(sumSay)].concat(c.bullets.map(function (b, i) { return base + '-' + (i + 1); }), ['bio-cmd-' + cmd + '-summary']);
-      step.says = [c.titleSay || c.title, sumSay].concat(c.bullets.map(function (b) { return b[2]; }), [tip.say]);
+      step.bullets = c.bullets.map(function (b) { return { b: b[0], t: b[1], say: b[2] }; });
+      step.voice = [base + '-title', G.lineId(sumSay)].concat(c.bullets.map(function (b, i) { return base + '-' + (i + 1); }));
+      step.says = [c.titleSay || c.title, sumSay].concat(c.bullets.map(function (b) { return b[2]; }));
     } else {
       var cb = 'bio-cmd-' + cmd, ex = (G.CMD_EX[ch] || {})[cmd] || {};
       var list = d.bullets.map(function (b, i) { return ex[i] || b; });
