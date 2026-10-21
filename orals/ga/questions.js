@@ -3,7 +3,7 @@
 // orals/engine/marker.js), mistakes particular to it, a model answer and a "say more" line with hand-written
 // English, and the word tiles. {name}, {county} and {county_en} are filled from the student's details.
 // The rules for mistakes that can happen in any answer are in grammar.js.
-import { JOBS, MUTATE } from './grammar.js';
+import { JOBS, MUTATE } from './grammar.js?v=oral-9';
 
 const { lenite, isLenitable } = MUTATE;
 const VOWEL = /^[aeiouáéíóú]/i;

@@ -1,5 +1,5 @@
-import { JOBS, MUTATE } from './grammar.js';
-import { COUNTIES } from './questions.js';
+import { JOBS, MUTATE } from './grammar.js?v=oral-9';
+import { COUNTIES } from './questions.js?v=oral-9';
 export const JOB_EN = Object.fromEntries(JOBS.map((job, i) => [job, ['teacher', 'nurse', 'doctor', 'farmer', 'engineer', 'accountant', 'police officer', 'shopkeeper', 'electrician', 'carpenter', 'builder', 'secretary', 'manager', 'dentist', 'pharmacist', 'driver', 'cook', 'hairdresser', 'mechanic', 'plumber', 'lawyer', 'journalist', 'architect', 'waiter', 'cleaner', 'worker', 'nurse', 'man', 'woman', 'principal', 'lecturer', 'scientist', 'programmer', 'soldier', 'fisher', 'butcher', 'baker'][i]]));
 
 const PROFILE_JOBS = JOBS.filter(job => !['fear', 'bean', 'banaltra'].includes(job));

@@ -17,9 +17,9 @@
 // ✕ or Esc); talking to the same person again carries on from the question that was left. Opening the game
 // again also starts with walking about. The student's name and county are asked the first time they talk.
 import { createWorld } from './world.js';
-import { createTalk } from './talk.js';
-import { createMarker } from './marker.js';
-import { createSound } from './sound.js';
+import { createTalk } from './talk.js?v=oral-9';
+import { createMarker } from './marker.js?v=oral-9';
+import { createSound } from './sound.js?v=oral-9';
 import { createLearn } from './learn.js';
 import { createVoice, VOICES } from './voice.js';
 
