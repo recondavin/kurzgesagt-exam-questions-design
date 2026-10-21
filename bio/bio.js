@@ -395,7 +395,7 @@
     } else if (part.kind === 'arrows') {
       var A = part.arrows, hint = '<p class="bio-hint">' + (A.labels ? 'Pick one, then drag on the diagram to draw its arrow.' : 'Drag on the diagram to draw ' + ((A.max || 1) > 1 ? 'the arrows.' : 'the arrow.')) + '</p>';
       ui = '<div class="bio-tf bio-arrows">' + (A.labels ? A.labels.map(function (t, i) {
-        return '<button type="button" class="bio-btn bio-btn--ghost" data-bio-alabel="' + i + '" aria-pressed="' + (i === 0) + '">' + esc(t) + '</button>';
+        return '<button type="button" class="bio-btn bio-btn--ghost" data-bio-alabel="' + i + '" aria-pressed="' + (i === 0) + '" style="--c:' + inkOf(A, t) + '">' + esc(t) + '</button>';
       }).join('') : hint) + '<button type="button" class="bio-btn bio-btn--ghost bio-arrows__clear" data-bio-aclear>Clear</button></div>' + (A.labels ? hint : '');
     } else if (part.kind === 'draw' || part.kind === 'tap') {
       ui = '<p class="bio-hint">Draw it on paper, then check it against the scheme.</p>';
@@ -545,7 +545,16 @@
   // arrows, the oldest going when there are too many. Zones and the right arrows are in % of the page on a picture
   // from the paper (sc turns them into its pixels), in the drawing's own units otherwise.
   var SVGNS = 'http://www.w3.org/2000/svg', INK = '#18272D', GOOD = '#58A700', BAD = '#EA2B2B';
-  function arrowSvg(a, b, t, color, size, dashed) {
+  // Each label has its own colour (O2 blue, CO2 orange), on its button and its arrow; not green or red, which say right
+  // and wrong. Once checked, a labelled arrow keeps its colour and its label turns green or red.
+  var LABEL_INKS = ['#1478B8', '#C25E00', '#7B3FB0'];
+  function inkOf(A, t) {
+    var i = A.labels ? A.labels.indexOf(t) : -1;
+    return i < 0 ? INK : LABEL_INKS[i % LABEL_INKS.length];
+  }
+  // mark: true or false once checked (the label turns green or red; it stays the same size, so it doesn't spread onto
+  // a neighbouring arrow).
+  function arrowSvg(a, b, t, color, size, dashed, mark) {
     var n = function (v) { return v.toFixed(1); };
     var sw = size * 0.008, head = sw * 3.4, dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1, ux = dx / L, uy = dy / L;
     var ex = b[0] - ux * head, ey = b[1] - uy * head, px = -uy * head * 0.62, py = ux * head * 0.62;
@@ -557,10 +566,11 @@
       '<path d="' + line + '" fill="none" stroke="' + color + '" stroke-width="' + n(sw) + '" stroke-linecap="round"' + (dashed ? ' stroke-dasharray="' + n(sw * 2.2) + ' ' + n(sw * 1.8) + '"' : '') + '/>' +
       '<path d="' + tip + '" fill="' + color + '"/>';
     if (t) {
+      var judged = mark === true || mark === false, pill = judged ? (mark ? GOOD : BAD) : '#FFFFFF';
       var fs = size * 0.034, w = fs * (0.62 * t.length + 0.9), h = fs * 1.5, off = Math.abs(uy) * w / 2 + Math.abs(ux) * h / 2 + sw * 2.5;
       var cx = (a[0] + b[0]) / 2 - uy * off, cy = (a[1] + b[1]) / 2 + ux * off;
-      out += '<rect x="' + n(cx - w / 2) + '" y="' + n(cy - h / 2) + '" width="' + n(w) + '" height="' + n(h) + '" rx="' + n(h / 2) + '" fill="#FFFFFF" stroke="' + color + '" stroke-width="' + n(sw * 0.6) + '"/>' +
-        '<text x="' + n(cx) + '" y="' + n(cy) + '" text-anchor="middle" dominant-baseline="central" font-family="Fredoka, Nunito, sans-serif" font-weight="700" font-size="' + n(fs) + '" fill="' + color + '">' + esc(t) + '</text>';
+      out += '<rect x="' + n(cx - w / 2) + '" y="' + n(cy - h / 2) + '" width="' + n(w) + '" height="' + n(h) + '" rx="' + n(h / 2) + '" fill="' + pill + '" stroke="' + (judged ? pill : color) + '" stroke-width="' + n(sw * 0.6) + '"/>' +
+        '<text x="' + n(cx) + '" y="' + n(cy) + '" text-anchor="middle" dominant-baseline="central" font-family="Fredoka, Nunito, sans-serif" font-weight="700" font-size="' + n(fs) + '" fill="' + (judged ? '#FFFFFF' : color) + '">' + esc(t) + '</text>';
     }
     return out;
   }
@@ -588,7 +598,7 @@
     svg.addEventListener('pointermove', function (e) {
       if (!live) return;
       e.preventDefault();
-      live.innerHTML = arrowSvg(from, at(e), label(), INK, size);
+      live.innerHTML = arrowSvg(from, at(e), label(), inkOf(A, label()), size);
     });
     svg.addEventListener('pointerup', function (e) {
       if (!live) return;
@@ -596,7 +606,7 @@
       live = null;
       if (Math.hypot(to[0] - from[0], to[1] - from[1]) < size * 0.05) { g.remove(); return; }  // a tap, not a drag
       var item = { a: from, b: to, t: label(), el: g };
-      g.innerHTML = arrowSvg(from, to, item.t, INK, size);
+      g.innerHTML = arrowSvg(from, to, item.t, inkOf(A, item.t), size);
       if (A.labels) D.list = D.list.filter(function (r) { if (r.t !== item.t) return true; r.el.remove(); return false; });
       D.list.push(item);
       if (!A.labels && D.list.length > (A.max || 1)) D.list.shift().el.remove();
@@ -651,11 +661,14 @@
       if (r) used.push(r);
       return Boolean(r);
     });
-    D.list.forEach(function (r) { r.el.innerHTML = arrowSvg(r.a, r.b, r.t, used.indexOf(r) >= 0 ? GOOD : BAD, D.size); });
+    D.list.forEach(function (r) {
+      var ok = used.indexOf(r) >= 0;
+      r.el.innerHTML = r.t ? arrowSvg(r.a, r.b, r.t, inkOf(A, r.t), D.size, false, ok) : arrowSvg(r.a, r.b, '', ok ? GOOD : BAD, D.size);
+    });
     A.rules.forEach(function (rule, i) {
       if (got[i] || !rule.show) return;
       var s = rule.show, g = D.layer.appendChild(document.createElementNS(SVGNS, 'g'));
-      g.innerHTML = arrowSvg([s[0] * D.sc[0], s[1] * D.sc[1]], [s[2] * D.sc[0], s[3] * D.sc[1]], rule.label || '', GOOD, D.size, true);
+      g.innerHTML = arrowSvg([s[0] * D.sc[0], s[1] * D.sc[1]], [s[2] * D.sc[0], s[3] * D.sc[1]], rule.label || '', rule.label ? inkOf(A, rule.label) : GOOD, D.size, true);
     });
     return got;
   }
