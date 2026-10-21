@@ -440,9 +440,17 @@ OVERRIDES = {
                                   'series': [{'pts': [[8, 2], [14, 40], [20, 94], [26, 40], [32, 2]]}, {'pts': [[58, 2], [64, 40], [70, 94], [76, 40], [82, 2]]}],
                                   'marks': [{'t': 'A', 'at': [28, 72]}, {'t': 'B', 'at': [78, 72]}]}]},
         '2025-Q17a': {'base': 'circulation', 'marks': []},  # chapter 31's double circulation (no letters on the paper)
+        '2015-Q11c': {'fig': [{'img': 'assets/bio/papers/2015-p10.webp', 'box': [32.6, 58.5, 45.3, 17.6]}]},  # the photo of the teeth
     },
-    # Drawing on paper (arrows on the diagram, a villus to draw): the student ticks the scheme's points.
-    'kind': {'2006-Q5(b)': 'draw', '2025-Q6(e)': 'draw'},
+    # A villus to draw on paper: the student ticks the scheme's points. The arrows go on the diagram (see ch28.py).
+    'kind': {'2006-Q5(b)': 'arrows', '2025-Q6(e)': 'draw'},
+    'arrows': {
+        '2006-Q5(b)': {'max': 3, 'zones': {'liver': [[140, 32, 220, 92]], 'portal': [[225, 118, 30, 82]], 'artery': [[352, 68, 90, 30]],
+                                           'vein': [[50, 52, 92, 24]]},
+                       'rules': [{'on': 'portal', 'toward': 'liver', 'show': [240, 192, 240, 135]},
+                                 {'on': 'artery', 'toward': 'liver', 'show': [432, 86, 372, 84]},
+                                 {'on': 'vein', 'away': 'liver', 'show': [128, 64, 66, 64]}]},
+    },
 }
 
 

@@ -31,7 +31,17 @@
 .bio-dia .bio-zone { display: none; } /* nor name the zones (cortex, medulla): the question gives them as labels or asks them */
 .bio-dia--two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; border: 0; }
 .bio-dia--two > div { border: 1px solid #D5DCE8; border-radius: 10px; overflow: hidden; }
-.bio-dia__note { margin: 0 0 12px; padding: 8px 12px; border-radius: 10px; background: #EEF2F8; font-size: 14.5px; }
+.bio-dia--paper { margin-left: auto; margin-right: auto; background: #FFFFFF; }
+/* Arrows are drawn on the diagram by dragging (bio.js drawOn): no scrolling or text selection while drawing. */
+.bio-dia svg.is-drawable { touch-action: none; cursor: crosshair; -webkit-user-select: none; user-select: none; }
+.bio-arrows { flex-wrap: wrap; align-items: center; margin: 0 0 8px; }
+.bio-arrows .bio-btn--ghost { min-width: 64px; }
+.bio-arrows .bio-arrows__clear { margin-left: auto; min-width: 0; }
+.bio-arrows .bio-hint { flex: 1 1 160px; }
+/* The source line's tags (the desk page doesn't load bio.css, where the hub's are). */
+.bio-paper .bio-old { padding: 1px 8px; border-radius: 6px; background: #3A1E26; color: #FFB3B5; font: 700 12px Fredoka, Nunito, sans-serif; font-style: normal; }
+.bio-paper .bio-old--part { background: #3A3220; color: #FFE14D; }
+.bio-paper .bio-old--info { background: #E5E5E5; color: #4B4B4B; }
 .bio-taps .bio-tap { fill: transparent; stroke: #1F3FA8; stroke-width: 2; stroke-dasharray: 4 4; cursor: pointer; }
 .bio-taps .bio-tap:hover, .bio-taps .bio-tap:focus { fill: rgba(31, 63, 168, .12); outline: none; }
 .bio-part { margin: 0; padding: 14px 0; border-top: 1px solid #E3E9F4; }

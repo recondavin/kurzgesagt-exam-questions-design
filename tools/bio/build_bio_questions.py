@@ -231,7 +231,7 @@ def build(ch):
                 elif fix:
                     alts = fix
                     item['own'] = True  # keys written for the chapter, not from the scheme's wording
-                if alts and kind != 'draw':
+                if alts and kind not in ('draw', 'arrows'):
                     item['k'] = alts
                 else:
                     item['self'] = True  # the student ticks it (drawings, or answers the words can't pin down)
@@ -239,6 +239,8 @@ def build(ch):
             part = {'l': p['label'], 'q': p['text'], 'm': p.get('marks'), 'n': max_n, 'kind': kind, 'pts': pts}
             if pid in ov.get('tap', {}):
                 part['tap'] = ov['tap'][pid]
+            if pid in ov.get('arrows', {}):
+                part['arrows'] = ov['arrows'][pid]  # arrows the student drags onto the diagram, and how each is judged
             if p.get('rule'):
                 part['rule'] = p['rule']
             if p.get('scheme_note'):
