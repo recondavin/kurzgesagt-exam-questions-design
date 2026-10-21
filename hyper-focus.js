@@ -366,18 +366,23 @@
       var typed = false;
       var spoken = false;
       function next() { if (typed && spoken) run(n + 1); }
-      typeTimers.push(setTimeout(function () { typed = true; next(); }, plan.chars.length ? at + ms + (quiet ? 80 : 160) : 0));
+      typeTimers.push(setTimeout(function () {
+        typed = true;
+        // The card is fully typed: no cursor left at the end.
+        if (n === items.length - 1) caret(null);
+        next();
+      }, plan.chars.length ? at + ms + (quiet ? 80 : 160) : 0));
       playLine(ids[n], function () { if (token !== narration.token) return; spoken = true; next(); });
     }
     // When the camera is still travelling the card is hidden (until 820 ms), so typing starts once it shows.
     typeTimers.push(setTimeout(function () { run(0); }, document.body.classList.contains('hf-camera-moving') ? 900 : 0));
   }
 
-  // The typing cursor: on the letter just typed (it blinks once typing stops there).
+  // The typing cursor: on the letter just typed (it blinks while a line waits for the next); none once all is typed.
   function caret(ch) {
     var old = ui && ui.guide.querySelector('.hf-ch.hf-at');
     if (old) old.classList.remove('hf-at');
-    ch.classList.add('hf-at');
+    if (ch) ch.classList.add('hf-at');
   }
 
   function clearTyping() {
