@@ -1,0 +1,47 @@
+// Answers for tools/orals/tests/marker.mjs.
+// RIGHT: correct answers, written the way students and Leaving Cert oral notes write them, in all three dialects.
+// None may ever be marked as a mistake. WRONG: [question, answer, the rule that must catch it].
+export const RIGHT = [
+  ['ainm', 'Is mise Davin.'], ['ainm', 'Davin is ainm dom.'], ['ainm', 'Davin an t-ainm atá orm.'], ['ainm', 'Davin atá orm.'],
+  ['ainm', "Is é Davin m'ainm."], ['ainm', "Is é m'ainm ná Davin."], ['ainm', 'Glaotear Davin orm.'], ['ainm', 'Bhuel, is mise Aoife Ní Bhriain.'],
+  ['aois', "Tá mé seacht mbliana déag d'aois."], ['aois', 'Táim ocht mbliana déag.'], ['aois', "Tá mé sé bliana déag d'aois."],
+  ['aois', "Tá mé ocht mbliana déag d'aois, ach beidh mé naoi mbliana déag i mí Lúnasa."], ['aois', 'Ta me seacht mbliana deag daois'],
+  ['breith', 'Rugadh mé ar an gcúigiú lá de Mhárta.'], ['breith', 'Rugadh mé ar an chéad lá de Bhealtaine.'],
+  ['breith', "Rugadh mé ar an dara lá d'Aibreán, dhá mhíle is a hocht."], ['breith', 'Rugadh mé ar an bhfichiú lá de Lúnasa.'],
+  ['conai', 'Tá mé i mo chónaí i nGaillimh.'], ['conai', 'Táim im chónaí i gCorcaigh.'], ['conai', 'Tá mé i mo chónaí faoin tuath.'],
+  ['conai', 'Tá mé i mo chónaí i mbaile beag i gContae Mhaigh Eo.'], ['conai', 'Tá mé i mo chónaí in eastát tithíochta.'],
+  ['conai', 'Cónaím i mBaile Átha Cliath.'], ['conai', 'Tá mé i mo chónaí sa gcathair.'], ['conai', 'Tá mé i mo chónaí sa chathair.'],
+  ['conai', 'Tá mé i mo chónaí ar fheirm.'],
+  ['teaghlach', 'Tá cúigear i mo theaghlach.'], ['teaghlach', 'Tá ceathrar sa chlann.'], ['teaghlach', 'Cúigear atá sa gclann.'],
+  ['teaghlach', 'Tá seisear againn sa teaghlach, mé féin san áireamh.'], ['teaghlach', 'Tá cúig dhuine i mo theaghlach.'],
+  ['siblini', 'Tá deartháir amháin agam agus deirfiúr amháin.'], ['siblini', 'Tá dhá dheartháir agam.'], ['siblini', 'Tá beirt deirfiúracha agam.'],
+  ['siblini', 'Tá beirt dheartháireacha agam.'], ['siblini', 'Is páiste aonair mé.'], ['siblini', 'Níl aon deartháir agam.'],
+  ['siblini', 'Tá triúr deartháireacha agam.'], ['siblini', 'Tá deirfiúr níos óige agam.'],
+  ['sine', 'Is mise an duine is sine sa chlann.'], ['sine', 'Is mise an duine is óige.'], ['sine', 'Is mise an páiste is sine i mo theaghlach.'],
+  ['sine', 'Is é mo dheartháir an duine is sine.'], ['sine', 'Is í mo dheirfiúr an duine is óige.'], ['sine', 'Tá mé sa lár.'],
+  ['post', "Is múinteoir í mo mháthair agus is feirmeoir é m'athair."], ['post', "Tá m'athair ina fheirmeoir."], ['post', 'Tá mo mháthair ina múinteoir.'],
+  ['post', 'Tá mo mháthair ina haltra.'], ['post', 'Oibríonn mo mháthair mar mhúinteoir.'], ['post', "Is garda é m'athair."],
+  ['post', 'Tá mo mháthair ag obair san ospidéal.'], ['post', "Tá m'athair dífhostaithe."], ['post', 'Is altra í mo mháthair.'],
+  ['cursios', 'Tá mo mháthair cineálta agus an-ghreannmhar.'], ['cursios', 'Is duine cabhrach í mo mháthair.'], ['cursios', 'Tá gruaig dhonn uirthi.'],
+  ['cursios', 'Tá súile gorma aici.'], ['cursios', "Tá m'athair ard agus an-deas."], ['cursios', 'Tá sí an-sásta.'], ['cursios', 'Is duine an-chairdiúil é mo dheartháir.'],
+  ['reiteach', 'Réitím go han-mhaith le mo mhuintir.'], ['reiteach', 'Réitím go maith le mo thuismitheoirí.'], ['reiteach', 'Réitíonn mé go maith leo.'],
+  ['reiteach', 'Ní réitím go maith le mo dheartháir.'], ['reiteach', "Réitím go maith le m'athair."], ['reiteach', 'Réitímid go maith le chéile.'],
+];
+
+export const WRONG = [
+  ['ainm', 'Tá mé Davin.', 'question'], ['ainm', 'Mo ainm is Davin.', 'question'],
+  ['aois', 'Tá mé ocht bliana déag.', 'num-eclipsis'], ['aois', 'Tá mé seacht bliain déag.', 'num-bliain'], ['aois', 'Tá ocht mbliana déag agam.', 'question'],
+  ['breith', 'Rugadh mé ar an cúigiú lá de Mhárta.', 'ar-an'],
+  ['conai', 'Tá mé i mo chónaí i Gaillimh.', 'i-eclipsis'], ['conai', 'Tá mé i mo chónaí in Gaillimh.', 'in-consonant'], ['conai', 'Tá mé i mo chónaí i contae Chorcaí.', 'i-eclipsis'],
+  ['conai', 'Tá mé i mo chónaí sa cathair.', 'sa-lenition'], ['conai', 'Tá mé i mo chónaí i árasán.', 'i-vowel'],
+  ['teaghlach', 'Tá cúig duine i mo theaghlach.', 'num-lenition'], ['teaghlach', 'Tá cúigear i mo teaghlach.', 'mo-lenition'], ['teaghlach', 'Tá cúig daoine i mo theaghlach.', 'num-plural'],
+  ['siblini', 'Tá dhá deartháir agam.', 'dha-lenition'], ['siblini', 'Tá dó deartháir agam.', 'do-noun'], ['siblini', 'Tá dhá dheartháireacha agam.', 'dha-plural'],
+  ['siblini', 'Tá trí deirfiúr agam.', 'num-lenition'], ['siblini', 'Tá seacht deartháir agam.', 'num-eclipsis'],
+  ['sine', 'Is mise an duine is sean.', 'superlative'], ['sine', 'Is mise an duine is óg.', 'superlative'], ['sine', 'Tá mé an duine is sine.', 'ta-the'],
+  ['post', 'Is múinteoir é mo mháthair.', 'is-gender'], ['post', "Is feirmeoir í m'athair.", 'is-gender'], ["post", "Tá m'athair feirmeoir.", 'ta-job'],
+  ['post', 'Tá mo mháthair múinteoir.', 'ta-job'], ['post', "Tá m'athair ina feirmeoir.", 'question'], ['post', 'Tá mo mháthair ina mhúinteoir.', 'question'],
+  ['cursios', 'Tá sí an-cineálta.', 'an-lenition'], ['cursios', 'Tá gruaig donn uirthi.', 'gruaig'], ['cursios', 'Tá súile gorm aici.', 'suile'],
+  ['cursios', 'Is duine cineálta é mo mháthair.', 'is-gender'], ['cursios', 'Tá mo máthair cineálta.', 'mo-lenition'],
+  ['reiteach', 'Réitím maith le mo thuismitheoirí.', 'go-maith'], ['reiteach', 'Réitím go maith le mo athair.', 'mo-vowel'], ['reiteach', 'Réitím go maith le an teaghlach.', 'leis'],
+  ['reiteach', 'Réitím go an-mhaith le mo mhuintir.', 'question'],
+];

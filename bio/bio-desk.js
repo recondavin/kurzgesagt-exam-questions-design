@@ -60,7 +60,8 @@
     var nav = el('nav', 'desk-subjects');
     nav.setAttribute('aria-label', 'Subject');
     nav.innerHTML = '<a href="Geography%20Questions.dc.html"' + (bio ? '' : ' aria-current="page"') + '>Geography</a>' +
-      '<a href="' + BIO_PAGE + (ch ? '#ch' + ch : '') + '"' + (bio ? ' aria-current="page"' : '') + '>Biology</a>';
+      '<a href="' + BIO_PAGE + (ch ? '#ch' + ch : '') + '"' + (bio ? ' aria-current="page"' : '') + '>Biology</a>' +
+      '<a href="irish.html">Irish</a>';
     document.body.appendChild(nav);
   }
 
