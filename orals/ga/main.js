@@ -37,12 +37,14 @@ window.oralGame = startGame({
   questions: QUESTIONS,
   counties: COUNTIES,
   english: ENGLISH,
+  // Asked the first time you talk to Máirín.
   setup: {
-    kicker: 'Gaeilge · The oral',
+    kicker: 'Before you say hello',
     title: 'A summer in Conamara',
-    text: 'You\'re off to a Gaeltacht college. The people there ask what the examiner will ask.',
-    button: 'Start',
+    text: 'You\'re spending three weeks at a Gaeltacht college. Máirín asks what the examiner will ask, so your name and county go into the answers.',
+    button: 'Say hello',
   },
+  again: 'Talk to {name} again when you\'re ready.',
   // A tile may stand for several words: the student's name, or the county with a wrong form beside it.
   fillTiles(word, profile) {
     if (word === '{name}') return (profile.name || 'Seán').split(' ');

@@ -26,7 +26,7 @@ export function createTalk(root, opts = {}) {
       </button>
     </header>
     <div class="og-place" aria-live="polite"></div>
-    <div class="og-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="og-mark" aria-hidden="true"><span></span><span></span><span></span><b>E</b></div>
     <p class="og-hint" role="status"></p>
     <section class="og-sheet" aria-live="polite" hidden></section>
     <div class="og-card-wrap" hidden><section class="og-card" role="dialog" aria-modal="true"></section></div>
@@ -53,10 +53,15 @@ export function createTalk(root, opts = {}) {
     vv.addEventListener('scroll', lift);
   }
 
+  // A conversation can be left at any time (the ✕ or Esc): whatever is waiting for an answer is let go.
+  let pending = null;
+  const LEAVE = '<button class="og-leave" type="button" aria-label="Walk away"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></button>';
   function showSheet(html) {
     sheet.hidden = false;
     root.classList.add('has-sheet');
-    sheet.innerHTML = html;
+    sheet.innerHTML = (opts.onLeave ? LEAVE : '') + html;
+    const leave = sheet.querySelector('.og-leave');
+    leave && leave.addEventListener('click', e => { e.stopPropagation(); opts.onLeave(); });
     sheet.scrollTop = 0;
     requestAnimationFrame(insets);
   }
@@ -90,6 +95,7 @@ export function createTalk(root, opts = {}) {
   // ---------------------------------------------------------------- a line of dialogue
   function say(line) {
     return new Promise(done => {
+      pending = done;
       showSheet(`${who(line)}${lineHtml(line.ga, line.en, line.player ? 'og-say--me' : '')}
         <div class="og-row">${enToggle(line.en)}<button class="og-btn og-btn--go" type="button">Continue</button></div>`);
       wireEnglish(sheet);
@@ -103,6 +109,7 @@ export function createTalk(root, opts = {}) {
   // ---------------------------------------------------------------- replies to choose from
   function choose(line, options) {
     return new Promise(done => {
+      pending = done;
       showSheet(`${line && line.ga ? who(line) + lineHtml(line.ga, line.en) : ''}
         <p class="og-ask-label">Your reply</p>
         <div class="og-choices">${options.map((o, i) => `<button class="og-choice" type="button" data-i="${i}"><span lang="ga">${esc(o.ga)}</span>${o.en ? `<small class="og-en"${prefs.english ? '' : ' hidden'}>${esc(o.en)}</small>` : ''}</button>`).join('')}</div>
@@ -122,6 +129,7 @@ export function createTalk(root, opts = {}) {
   // q: { id, en, model: {ga, en}, more?: {ga, en}, tiles? }. mode: 'tiles' | 'type'. marker.mark(id, text).
   function ask(line, q, mode, marker) {
     return new Promise(done => {
+      pending = done;
       let tries = 0, firstRight = null;
       const useTiles = mode === 'tiles' && q.tiles && q.tiles.length;
       showSheet(`${who(line)}${lineHtml(line.ga, line.en || q.en)}
@@ -331,15 +339,25 @@ export function createTalk(root, opts = {}) {
   function closeMenu() { menu.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); }
   menu.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
 
+  window.addEventListener('keydown', e => { if (e.key === 'Escape' && !sheet.hidden && opts.onLeave) opts.onLeave(); });
+
   return {
     say, choose, ask, note, setup, summary, hideSheet,
-    hint(text) { hint.textContent = text || ''; hint.hidden = !text; insets(); },
+    // Lets go of the line, reply or question on screen (its promise resolves with null) and hides the sheet.
+    cancel() { const p = pending; pending = null; hideSheet(); p && p(null); },
+    // A hint, with an optional second line for the keyboard.
+    hint(text, keys) {
+      hint.innerHTML = text ? esc(text) + (keys ? `<small>${esc(keys)}</small>` : '') : '';
+      hint.hidden = !text;
+      insets();
+    },
     place(text) { place.textContent = text || ''; place.hidden = !text; },
     progress(done, total) { bar.style.width = (total ? Math.round(done / total * 100) : 0) + '%'; bar.parentNode.setAttribute('aria-valuenow', done); bar.parentNode.setAttribute('aria-valuemax', total); },
     // The bouncing dots over the person you can talk to (x, y in CSS pixels, or null to hide).
-    marker(pos) {
+    marker(pos, key) {
       if (!pos) { mark.hidden = true; return; }
       mark.hidden = false;
+      mark.classList.toggle('og-mark--key', !!key);
       mark.style.transform = `translate(${Math.round(pos.x)}px, ${Math.round(pos.y)}px)`;
     },
     onMenu(items) { menuBtn.addEventListener('click', () => (menu.hidden ? openMenu(items()) : closeMenu())); },

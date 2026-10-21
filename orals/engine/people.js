@@ -106,11 +106,12 @@ function turn(a, b, max) {
   return a + Math.max(-max, Math.min(max, d));
 }
 
-// Moves one person along their path and poses them for this frame.
+// Moves one person along their path and poses them for this frame. (The player can also be steered with the
+// keyboard: the world moves them and sets p.steering.)
 export function animate(p, dt) {
   p.t += dt;
-  const walking = !!(p.path && p.path.length);
-  if (walking) {
+  const onPath = !!(p.path && p.path.length), walking = onPath || !!p.steering;
+  if (onPath) {
     const pos = p.root.position, next = p.path[0];
     const dx = next.x - pos.x, dz = next.z - pos.z, d = Math.hypot(dx, dz), step = p.speed * dt;
     p.yawTo = Math.atan2(dx, dz);
@@ -123,34 +124,41 @@ export function animate(p, dt) {
 
   p.walk = lerp(p.walk, walking ? 1 : 0, Math.min(1, dt * 12));
   p.seat = lerp(p.seat, p.state === 'sit' ? 1 : 0, Math.min(1, dt * 8));
-  // Keep stepping until the current hop lands, so the bounce never stops in mid-air.
-  if (walking || Math.abs(Math.sin(p.phase)) > 0.08) p.phase += dt * 11;
-  const wk = p.walk * (1 - p.seat), ph = p.phase, hop = Math.abs(Math.sin(ph)), seat = p.seat, k = p.k;
+  // One hop per half turn of the phase. Keep hopping until the current hop lands, so it never stops in mid-air.
+  const u0 = (p.phase % Math.PI) / Math.PI;
+  if (walking || (u0 > 0.04 && u0 < 0.96)) p.phase += dt * 9.5;
+  const u = (p.phase % Math.PI) / Math.PI, side = Math.floor(p.phase / Math.PI) % 2 ? 1 : -1;
+  const wk = Math.max(p.walk, walking ? 0 : (u > 0.04 && u < 0.96 ? 0.6 : 0)) * (1 - p.seat), seat = p.seat, k = p.k;
 
-  // The bounce: up on each step, squashed on landing, tilted from foot to foot, leaning into the walk.
+  // The bounce: each step is a little jump. The body rises on an arc, stretches at the top, squashes as it
+  // lands and takes off, rocks a little to one side then the other, and leans into the walk.
+  const air = 4 * u * (1 - u);
+  const contact = Math.max(0, 1 - Math.min(u, 1 - u) / 0.18);
   const breathe = Math.sin(p.t * 2.2) * 0.012 * (1 - wk);
-  const sq = 1 + (hop - 0.45) * 0.1 * wk + breathe;
+  const sq = 1 - 0.16 * contact * wk + 0.07 * air * wk + breathe;
   p.rig.scale.set(k / Math.sqrt(sq), k * sq, k / Math.sqrt(sq));
-  p.rig.position.y = hop * 0.1 * wk + seat * 0.36 * k;
-  p.rig.rotation.z = Math.sin(ph) * 0.08 * wk;
-  p.rig.rotation.x = 0.1 * wk;
+  p.rig.position.y = air * 0.17 * wk + seat * 0.36 * k;
+  p.rig.rotation.z = side * Math.sin(Math.PI * u) * 0.07 * wk;
+  p.rig.rotation.x = 0.12 * wk;
 
+  // The feet tuck up with each hop, one a little ahead of the other.
   p.feet.forEach((f, i) => {
     const sg = i ? -1 : 1;
-    f.position.z = 0.03 + Math.sin(ph) * 0.12 * sg * wk + seat * 0.26;
-    f.position.y = 0.05 + Math.max(0, Math.sin(ph) * sg) * 0.06 * wk + seat * 0.3;
+    f.position.z = 0.03 + sg * side * 0.06 * wk + seat * 0.26;
+    f.position.y = 0.05 + air * 0.09 * wk + seat * 0.3;
   });
 
-  // Talking: the head bobs and turns, and one hand comes up now and then.
+  // Talking: the head bobs and turns, and one hand comes up now and then. Hopping, the hands lift and spread.
   const want = p.talking && Math.sin(p.t * 1.9) > 0.1 ? 1 : 0;
   p.gesture = lerp(p.gesture, want, Math.min(1, dt * 5));
   p.hands.forEach((h, i) => {
-    const sg = i ? -1 : 1, g = i ? p.gesture : 0;
-    h.position.y = 0.42 + hop * 0.04 * wk + Math.sin(p.t * 2.2 + i) * 0.012 + g * 0.2 + seat * 0.08;
-    h.position.z = 0.04 - Math.sin(ph) * 0.12 * sg * wk + g * 0.1 + seat * 0.12;
+    const sg = i ? 1 : -1, g = i ? p.gesture : 0;
+    h.position.x = sg * (0.34 + air * 0.05 * wk);
+    h.position.y = 0.42 + air * 0.1 * wk - contact * 0.03 * wk + Math.sin(p.t * 2.2 + i) * 0.012 + g * 0.2 + seat * 0.08;
+    h.position.z = 0.04 + sg * side * 0.05 * wk + g * 0.1 + seat * 0.12;
   });
   const nod = p.talking ? Math.sin(p.t * 8) * 0.05 : 0;
-  p.head.rotation.x = lerp(p.head.rotation.x, nod + (p.lookDown || 0), Math.min(1, dt * 10));
+  p.head.rotation.x = lerp(p.head.rotation.x, nod + (p.lookDown || 0) - contact * 0.08 * wk, Math.min(1, dt * 10));
   p.head.rotation.z = lerp(p.head.rotation.z, p.talking ? Math.sin(p.t * 1.6) * 0.08 : Math.sin(p.t * 0.7) * 0.04, Math.min(1, dt * 3));
-  p.head.position.y = HEAD_Y - (hop - 0.5) * 0.02 * wk;
+  p.head.position.y = HEAD_Y - contact * 0.03 * wk;
 }

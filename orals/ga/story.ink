@@ -1,4 +1,5 @@
 // The Gaeltacht story, first slice: arriving at the house in Conamara and getting to know the bean an tí, Máirín.
+// You start free to walk about; talking to Máirín starts the conversation, and you can walk away from it.
 // Day 1 she asks the ten questions and you answer with word tiles; day 2 she asks again and you type.
 // Lines are "who: text"; English meanings are in #en tags or in orals/ga/main.js (ENGLISH).
 // @ lines are stage directions for the engine (see orals/engine/game.js). Questions are in orals/ga/questions.js.
@@ -8,8 +9,7 @@ VAR first_try = false
 
 === start ===
 @place Lá 1 · An teach
-@note Lá 1 ^ Coláiste samhraidh i gConamara ^ You're spending three weeks in the Gaeltacht. This is the house you'll stay in. Everything here happens in Irish. ^ Go in
-@roam mairin ^ Tap Máirín to talk to her
+@roam mairin ^ Have a look around. Talk to Máirín when you're ready.
 @focus mairin player
 mairin: Dia dhuit! Fáilte romhat go Conamara. #en:Hello! Welcome to Connemara.
 * [Dia is Muire dhuit.]
@@ -57,7 +57,7 @@ mairin: Oíche mhaith, a stór. Feicfidh mé ar maidin thú. #en:Good night, lov
 @place Lá 2 · An teach
 @do player stand & mairin stand
 @do player walk -2.3 1.6 & mairin walk -0.9 -1.7
-@roam mairin ^ Tap Máirín to say good morning
+@roam mairin ^ Say good morning to Máirín when you're ready.
 @focus mairin player
 mairin: Dia dhuit ar maidin! Ar chodail tú go maith? #en:Good morning! Did you sleep well?
 * [Chodail, go raibh maith agat.]

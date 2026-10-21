@@ -140,6 +140,57 @@ export function createWorld(canvas, pack) {
 
   function othersOf(p) { return Object.values(people).filter(o => o !== p).map(o => ({ x: o.root.position.x, z: o.root.position.z, r: o.radius })); }
 
+  // Keyboard: W A S D or the arrow keys walk the player (up the screen is into the room); E, Space or Enter
+  // talks to the nearest person within reach.
+  const KEYS = { KeyW: [0, -1], ArrowUp: [0, -1], KeyS: [0, 1], ArrowDown: [0, 1], KeyA: [-1, 0], ArrowLeft: [-1, 0], KeyD: [1, 0], ArrowRight: [1, 0] };
+  const held = new Set();
+  const typing = e => e.target && e.target.closest && e.target.closest('input, textarea, select, [contenteditable]');
+  let usedKeys = false;
+  function nearest(reach = 1.8) {
+    const a = player.root.position;
+    let best = null, bd = reach;
+    for (const o of Object.values(people)) {
+      if (o === player) continue;
+      const d = Math.hypot(o.root.position.x - a.x, o.root.position.z - a.z);
+      if (d < bd) { bd = d; best = o; }
+    }
+    return best;
+  }
+  window.addEventListener('keydown', e => {
+    if (typing(e) || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (KEYS[e.code]) {
+      held.add(e.code);
+      if (!usedKeys) { usedKeys = true; handlers.keys && handlers.keys(); }
+      if (roam) e.preventDefault();
+    } else if (roam && (e.code === 'KeyE' || e.code === 'Space' || e.code === 'Enter')) {
+      const o = nearest();
+      if (o) { e.preventDefault(); held.clear(); handlers.talk && handlers.talk(o.id); }
+    }
+  });
+  window.addEventListener('keyup', e => held.delete(e.code));
+  window.addEventListener('blur', () => held.clear());
+
+  // Moves the player by the keys held, sliding along furniture and people instead of stopping dead.
+  function steer(dt) {
+    let x = 0, z = 0;
+    if (roam) for (const c of held) { x += KEYS[c][0]; z += KEYS[c][1]; }
+    const l = Math.hypot(x, z);
+    player.steering = l > 0;
+    if (!l) return;
+    if (player.state === 'sit') standUp(player);
+    player.path = null;
+    player.onArrive = null;
+    x /= l; z /= l;
+    const pos = player.root.position, step = player.speed * dt, others = othersOf(player);
+    // Someone standing in a blocked spot (just up from a chair) may always step out of it.
+    const ok = (nx, nz) => nav.isFree(nx, nz, others) || !nav.isFree(pos.x, pos.z, others);
+    const nx = pos.x + x * step, nz = pos.z + z * step;
+    if (ok(nx, nz)) { pos.x = nx; pos.z = nz; }
+    else if (x && ok(nx, pos.z)) pos.x = nx;
+    else if (z && ok(pos.x, nz)) pos.z = nz;
+    player.yawTo = Math.atan2(x, z);
+  }
+
   function walkTo(p, x, z, done, showMark) {
     if (p.state === 'sit') standUp(p);
     const route = nav.path(p.root.position.x, p.root.position.z, x, z, othersOf(p));
@@ -206,6 +257,7 @@ export function createWorld(canvas, pack) {
   function later(secs, fn) { timers.push({ secs, fn }); }
 
   function update(dt) {
+    steer(dt);
     for (const p of Object.values(people)) animate(p, dt);
     for (let i = slides.length - 1; i >= 0; i--) {
       const s = slides[i];
@@ -255,7 +307,9 @@ export function createWorld(canvas, pack) {
     people, player, room, camera, renderer,
     on(name, fn) { handlers[name] = fn; },
     set onFrame(fn) { onFrame = fn; },
-    setRoam(v) { roam = v; },
+    setRoam(v) { roam = v; if (!v) { held.clear(); player.steering = false; } },
+    // The person close enough to talk to with E (or null), and whether the keyboard has been used.
+    nearest, get usingKeys() { return usedKeys; },
     walkTo, approach, face, sit, standUp, screenOf, later,
     // Puts a person straight somewhere (when a saved game is loaded): { x, z, yaw, seat }.
     place(id, v) {

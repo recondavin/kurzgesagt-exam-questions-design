@@ -25,15 +25,22 @@ html.og-page, .og-page body { height: 100%; margin: 0; overflow: hidden; overscr
 .og-mark { position: absolute; z-index: 2; left: 0; top: 0; display: flex; gap: 4px; margin: -34px 0 0 -26px; padding: 9px 10px; border-radius: 14px; background: #F1F7FB; pointer-events: none; will-change: transform; }
 .og-mark::after { content: ''; position: absolute; left: 50%; bottom: -6px; margin-left: -6px; border: 6px solid transparent; border-bottom: 0; border-top-color: #F1F7FB; }
 .og-mark span { width: 7px; height: 7px; border-radius: 50%; background: #18272D; animation: og-dot 1.2s ease-in-out infinite; }
+.og-mark b { display: none; min-width: 22px; height: 22px; margin: -2px 0; border: 2px solid #18272D; border-radius: 6px; color: #18272D; font: 800 14px/18px Nunito, sans-serif; text-align: center; }
+.og-mark--key span { display: none; }
+.og-mark--key b { display: block; }
 .og-mark span:nth-child(2) { animation-delay: .15s; }
 .og-mark span:nth-child(3) { animation-delay: .3s; }
 @keyframes og-dot { 0%, 60%, 100% { transform: none; } 30% { transform: translateY(-4px); } }
 
+.og-hint small { display: block; margin-top: 3px; color: #93A5AE; font-size: 14px; }
 .og-hint { position: absolute; z-index: 2; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateX(-50%); width: max-content; max-width: calc(100% - 32px); margin: 0; padding: 12px 18px; border-radius: 16px; background: #18272D; color: #F1F7FB; font-size: 16px; text-align: center; }
 
 /* ---------- the sheet ---------- */
 .og-sheet { position: absolute; z-index: 4; left: 0; right: 0; bottom: var(--kb); max-height: calc(100% - 64px - env(safe-area-inset-top) - var(--kb)); overflow-y: auto; overscroll-behavior: contain; margin: 0 auto; max-width: 620px; padding: 16px 16px calc(16px + env(safe-area-inset-bottom)); border-radius: 22px 22px 0 0; background: #18272D; border-top: 2px solid #2B3B42; animation: og-up .28s cubic-bezier(.2, .9, .3, 1); }
 @keyframes og-up { from { transform: translateY(24px); opacity: 0; } }
+.og-leave { float: right; display: grid; place-items: center; width: 36px; height: 36px; margin: -4px -4px 0 8px; border: 0; border-radius: 10px; background: #202F36; color: #93A5AE; }
+.og-leave svg { width: 16px; height: 16px; }
+.og-leave:hover { color: #fff; }
 .og-who { display: flex; align-items: baseline; gap: 8px; margin: 0 0 6px; color: #DCE6EC; font-size: 15px; }
 .og-who b { color: #FFC800; font: 600 17px/1 Fredoka, Nunito, sans-serif; }
 .og-who span { color: #93A5AE; font-size: 14px; }
