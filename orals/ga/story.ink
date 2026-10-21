@@ -1,5 +1,7 @@
 // The Gaeltacht story, first slice: arriving at the house in Conamara and getting to know the bean an tí, Máirín.
-// You start free to walk about; talking to Máirín starts the conversation, and you can walk away from it.
+// You arrive on the bus and are free to walk about the village; talking to Máirín (in the kitchen of the thatched
+// cottage) starts the conversation, and you can walk away from it. The others in the village say hello
+// (talk_<id> knots at the end: the engine runs them on their own copy of the story).
 // Day 1 she asks the ten questions and you answer with word tiles; day 2 she asks again and you type.
 // Lines are "who: text"; English meanings are in #en tags or in orals/ga/main.js (ENGLISH).
 // @ lines are stage directions for the engine (see orals/engine/game.js). Questions are in orals/ga/questions.js.
@@ -8,8 +10,8 @@
 VAR first_try = false
 
 === start ===
-@place Lá 1 · An teach
-@roam mairin ^ Have a look around. Talk to Máirín when you're ready.
+@place Lá 1 · Conamara
+@roam mairin ^ Have a look around. Máirín's house is the thatched cottage with the red door.
 @focus mairin player
 mairin: Dia dhuit! Fáilte romhat go Conamara. #en:Hello! Welcome to Connemara.
 * [Dia is Muire dhuit.]
@@ -97,3 +99,37 @@ mairin: Maith thú! Beidh tú thar barr sa scrúdú. #en:Well done! You'll be ex
     mairin: {~Sin é anois.|Tá sé agat anois.}
 }
 ->->
+
+// ---------------------------------------------------------------- the others in the village say hello
+=== talk_aoife ===
+aoife: Haigh! Is mise Aoife. #en:Hi! I'm Aoife.
+aoife: Is as Corcaigh mé. Tá mé ag fanacht sa teach thall ansin. #en:I'm from Cork. I'm staying in the house over there.
+aoife: Feicfidh mé ag an gcéilí thú! #en:I'll see you at the céilí!
+-> DONE
+
+=== talk_cormac ===
+cormac: Dia dhuit! Is breá liom an fharraige anseo. #en:Hello! I love the sea here.
+cormac: Ar mhaith leat dul ag snámh amárach? #en:Would you like to go swimming tomorrow?
+* [Ba mhaith, go raibh maith agat.]
+    cormac: Togha! Buailfimid le chéile ag an gcéibh. #en:Great! We'll meet at the pier.
+* [Níor mhaith, go raibh maith agat.]
+    cormac: Ceart go leor. Tá an t-uisce an-fhuar ar aon nós! #en:Fair enough. The water's very cold anyway!
+- -> DONE
+
+// In the shop: buying something from Peadar. The three questions are marked (questions.js, siopa_*).
+=== talk_peadar ===
+peadar: Dia dhuit! Fáilte isteach. #en:Hello! Welcome in.
+peadar: Cad ba mhaith leat? #ask:siopa_ceannach
+peadar: Cinnte. #en:Sure.
+peadar: Aon rud eile? #ask:siopa_eile
+player: Ask Peadar how much it is. #ask:siopa_praghas #prompt
+peadar: Trí euro caoga, le do thoil. #en:Three euro fifty, please.
+* [Seo duit.]
+- peadar: Go raibh maith agat. Slán leat! #en:Thank you. Goodbye! (Slán leat is said by the one staying.)
+* [Slán agat!]
+- -> DONE
+
+=== talk_brid ===
+brid: Dia dhuit! Is mise Bríd, an múinteoir. #en:Hello! I'm Bríd, the teacher.
+brid: Beidh ranganna againn sa choláiste amárach. Ná bí déanach! #en:We'll have classes in the college tomorrow. Don't be late!
+-> DONE

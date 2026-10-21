@@ -69,6 +69,37 @@ export function slab(points, h, color, at) {
   return place(paint(g, color), at);
 }
 
+// A shape drawn side-on (points [[z, y], ...]) and stretched along x for `length`, centred (a roof, a gable).
+export function prism(points, length, color, at) {
+  const shape = new THREE.Shape(points.map(([u, v]) => new THREE.Vector2(-u, v)));
+  const g = new THREE.ExtrudeGeometry(shape, { depth: length, bevelEnabled: false });
+  g.translate(0, 0, -length / 2);
+  g.rotateY(Math.PI / 2);
+  return place(paint(g, color), at);
+}
+
+// A sign board with painted letters (a small texture), on two posts or flat on a wall.
+export function signMesh(text, w = 1.6, h = 0.45, colors = {}) {
+  const cv = document.createElement('canvas'), W = 512, Hh = Math.round(512 * h / w);
+  cv.width = W; cv.height = Hh;
+  const ctx = cv.getContext('2d');
+  ctx.fillStyle = colors.bg || '#F4F1EA';
+  ctx.fillRect(0, 0, W, Hh);
+  ctx.strokeStyle = colors.ink || '#2A2622';
+  ctx.lineWidth = 10;
+  ctx.strokeRect(5, 5, W - 10, Hh - 10);
+  ctx.fillStyle = colors.ink || '#2A2622';
+  // Small enough that the fada on a capital (COLÁISTE) fits inside the border.
+  ctx.font = `bold ${Math.round(Hh * 0.44)}px "Arial Rounded MT Bold", Arial, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText(text, W / 2, Hh * 0.72);
+  const tex = new THREE.CanvasTexture(cv);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 4;
+  return new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex }));
+}
+
 // Joins painted geometries into one (one draw call).
 export function merge(list) {
   list = list.filter(Boolean);
@@ -90,6 +121,21 @@ export function merge(list) {
   out.computeBoundingSphere();
   out.computeBoundingBox();
   return out;
+}
+
+// Merges a big set of shapes in square chunks (size metres), so the parts of a large world off screen aren't drawn.
+export function chunked(list, size = 16, opts) {
+  const bins = new Map(), c = new THREE.Vector3();
+  for (const g of list) {
+    g.computeBoundingBox();
+    g.boundingBox.getCenter(c);
+    const k = Math.floor(c.x / size) + ',' + Math.floor(c.z / size);
+    if (!bins.has(k)) bins.set(k, []);
+    bins.get(k).push(g);
+  }
+  const group = new THREE.Group();
+  for (const parts of bins.values()) group.add(mesh(parts, opts));
+  return group;
 }
 
 // Smooth normals shared by every corner at the same spot, so the outline shell has no gaps at the edges.

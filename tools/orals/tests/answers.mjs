@@ -33,7 +33,13 @@ export const RIGHT = [
   ['teaghlach', 'Tá seisear againn sa bhaile.'], ['teaghlach', 'Seachtar ar fad atá sa bhaile.'], ['sine', 'Is í Niamh an duine is sine.'], ['sine', 'Is é Pól an duine is óige.'],
   ['cursios', "Tá sí naoi mbliana déag d'aois."], ['cursios', "Tá sé dhá bhliain déag d'aois."], ['reiteach', 'Réitím go maith le Niamh, is maith linn spórt.'],
   ['reiteach', 'Ní réitím le Pól, cuireann sé isteach orm agus mé ag staidéar.'], ['siblini', 'Tá beirt deartháir agus deirfiúr amháin agam.'], ['siblini', 'Níl deartháir ná deirfiúr agam.'],
-  ['post', 'Oibríonn mo mháthair mar fheirmeoir.'], ['breith', 'Rugadh mé ar an bhfichiú lá de Lúnasa.'], ['breith', 'Rugadh mé ar an aonú lá déag de mhí na Samhna.'], ['reiteach', "Réitím go maith le m'athair."], ['reiteach', 'Réitímid go maith le chéile.'],
+  ['post', 'Oibríonn mo mháthair mar fheirmeoir.'],
+  // In the shop.
+  ['siopa_ceannach', 'Ba mhaith liom buidéal uisce, le do thoil.'], ['siopa_ceannach', 'Buidéal bainne, le do thoil.'], ['siopa_ceannach', 'An bhfuil uachtar reoite agat?'],
+  ['siopa_ceannach', 'Tá builín aráin uaim, más é do thoil é.'], ['siopa_ceannach', 'Ba mhaith liom dhá bharra seacláide agus mála criospaí, le do thoil.'],
+  ['siopa_ceannach', 'An bhféadfainn nuachtán a fháil, le do thoil?'], ['siopa_praghas', 'Cé mhéad atá air?'], ['siopa_praghas', 'Gabh mo leithscéal, cé mhéad atá air sin?'],
+  ['siopa_praghas', 'Cá mhéad atá orthu?'], ['siopa_praghas', 'Cé mhéad atá orm?'], ['siopa_praghas', 'Cén praghas atá air?'], ['siopa_eile', 'Níl, go raibh maith agat.'],
+  ['siopa_eile', 'Sin é, go raibh maith agat.'], ['siopa_eile', 'Ba mhaith liom barra seacláide freisin, le do thoil.'], ['breith', 'Rugadh mé ar an bhfichiú lá de Lúnasa.'], ['breith', 'Rugadh mé ar an aonú lá déag de mhí na Samhna.'], ['reiteach', "Réitím go maith le m'athair."], ['reiteach', 'Réitímid go maith le chéile.'],
 ];
 
 export const WRONG = [
@@ -56,4 +62,6 @@ export const WRONG = [
   ['cursios', 'Is duine cineálta é mo mháthair.', 'is-gender'], ['cursios', 'Tá mo máthair cineálta.', 'mo-lenition'],
   ['reiteach', 'Réitím maith le mo thuismitheoirí.', 'go-maith'], ['reiteach', 'Réitím go maith le mo athair.', 'mo-vowel'], ['reiteach', 'Réitím go maith le an teaghlach.', 'leis'],
   ['reiteach', 'Réitím go an-mhaith le mo mhuintir.', 'question'],
+  ['siopa_ceannach', 'Ba mhaith mé buidéal uisce, le do thoil.', 'liom'], ['siopa_ceannach', 'Is maith liom buidéal uisce.', 'question'],
+  ['siopa_ceannach', 'Ba mhaith liom dhá buidéal uisce.', 'dha-lenition'], ['siopa_praghas', 'Conas mhéad atá air?', 'question'],
 ];

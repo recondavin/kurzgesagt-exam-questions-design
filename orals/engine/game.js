@@ -1,6 +1,7 @@
 // Runs a content pack: the world, the talk panel, the marker and the Ink story that drives them.
 // Story lines are written "who: text" (who is a person's id; no prefix is narration) with Ink tags:
 //   #en:...   the English meaning (else the pack's glossary has it)      #ask:id   a question to answer
+//   #prompt   the line is an instruction in English ("Ask how much it is."), shown as a task, not speech
 // Lines that start with @ are stage directions for the engine:
 //   @place text                 the place name under the top bar
 //   @roam id ^ hint             free walking (tap the floor, or W A S D) until the player taps that person or
@@ -39,17 +40,26 @@ export function startGame(pack) {
   const story = new window.inkjs.Story(pack.story);
   const saveKey = pack.key + '-save', profileKey = pack.key + '-profile';
   let profile = store.get(profileKey);
-  let mode = 'tiles', round = null, roamId = null, lastLine = null, focusIds = [], total = pack.questions.length;
+  let mode = 'tiles', round = null, roamId = null, lastLine = null, focusIds = [], total = pack.rounds || pack.questions.length;
   // gen changes whenever the conversation is left, so a story loop still waiting on the old one stops.
   let gen = 0, partner = null;
+  // A quick hello with someone else (their talk_<id> knot), and its own generation for leaving it.
+  let chatting = null, chatGen = 0, roamHint = '';
   const progress = { done: new Set() };
 
   // The dots over the person to talk to follow them on screen.
   // With the keyboard, the dots become an E key once the player is close enough to talk.
+  // Off screen, the marker waits at the edge of the free area with an arrow pointing the way.
   world.onFrame = () => {
-    if (!roamId) return talk.marker(null);
-    const p = world.people[roamId];
-    talk.marker(world.screenOf(p, 1.5 * p.k), world.usingKeys && world.nearest() === p);
+    if (!roamId || chatting) return talk.marker(null);
+    const p = world.people[roamId], pos = world.screenOf(p, 1.5 * p.k), v = world.view, m = 30;
+    const left = m, right = v.w - m, top = v.top + 24, bottom = v.h - v.bottom - m - 40;
+    if (!pos.behind && pos.x > left && pos.x < right && pos.y > top && pos.y < bottom) return talk.marker(pos, world.usingKeys && world.nearest() === p);
+    const cx = v.w / 2, cy = (top + bottom) / 2;
+    let dx = pos.x - cx, dy = pos.y - cy;
+    if (pos.behind) { dx = -dx; dy = -dy; }
+    const k = Math.min((right - cx) / Math.max(1e-6, Math.abs(dx)), (bottom - cy) / Math.max(1e-6, Math.abs(dy)));
+    talk.marker({ x: cx + dx * k, y: cy + dy * k }, false, Math.atan2(dy, dx));
   };
   // Computers get the keys in the hint (and so does anyone who presses one).
   const fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -91,8 +101,62 @@ export function startGame(pack) {
       run(g);
     });
   }
+  // Hello from anyone else you meet: their talk_<id> knot, run on a copy of the story so it doesn't touch the
+  // main one. Then back to walking about.
+  async function sideChat(id) {
+    const side = new window.inkjs.Story(pack.story);
+    try { side.ChoosePathString('talk_' + id); } catch (e) { return; }
+    const g = ++chatGen;
+    chatting = id;
+    world.setRoam(false);
+    showHint('');
+    await new Promise(done => world.approach(world.player, world.people[id], done));
+    if (g !== chatGen) return;
+    setFocus([id, 'player']);
+    let lastSide = null;
+    for (;;) {
+      if (side.canContinue) {
+        const text = side.Continue().trim();
+        if (!text || text[0] === '@') continue;
+        lastSide = parse(text, side.currentTags);
+        if (lastSide.tags.ask) { await askSide(lastSide, g); if (g !== chatGen) return; continue; }
+        speaking(lastSide.id, true);
+        await talk.say(lastSide);
+        if (g !== chatGen) return;
+        speaking(null);
+      } else if (side.currentChoices.length) {
+        const i = await talk.choose(lastSide, side.currentChoices.map(c => ({ ga: c.text, en: (pack.english && pack.english[c.text]) || '' })));
+        if (g !== chatGen) return;
+        side.ChooseChoiceIndex(i);
+      } else break;
+    }
+    endChat();
+  }
+  // A question in a side conversation (the shop): marked like the main ones, but it doesn't count towards a day's
+  // round. Word tiles the first time each one comes up, then typing.
+  async function askSide(line, g) {
+    const q = qById[line.tags.ask];
+    if (!q) return;
+    const seen = store.get(pack.key + '-side') || [];
+    speaking(line.id, true);
+    setTimeout(() => speaking(line.id, false), 1600);
+    const r = await talk.ask(line, prepared(q), seen.includes(q.id) ? 'type' : 'tiles', marker);
+    if (g !== chatGen || !r) return;
+    speaking(null);
+    if (!seen.includes(q.id)) store.set(pack.key + '-side', seen.concat(q.id));
+  }
+  function endChat() {
+    chatting = null;
+    speaking(null);
+    talk.hideSheet();
+    setFocus([]);
+    world.setRoam(true);
+    showHint(roamHint);
+  }
+
   // Leaving a conversation: back to the last save (before the question on screen), and walk about.
   function leave() {
+    if (chatting) { chatGen++; talk.cancel(); endChat(); return; }
     const s = store.get(saveKey);
     if (!s || roamId) return;
     talk.cancel();
@@ -123,7 +187,8 @@ export function startGame(pack) {
     }
     const person = id && pack.people[id];
     const en = t.en || (pack.english && pack.english[ga]) || '';
-    return { id, ga, en, tags: t, name: person ? (id === 'player' ? (profile && profile.name) || person.name : person.name) : '', role: person && person.role, player: id === 'player' };
+    // #prompt: the line is an instruction to the student (in English), not something said.
+    return { id, ga, en, tags: t, prompt: !!t.prompt, name: person ? (id === 'player' ? (profile && profile.name) || person.name : person.name) : '', role: person && person.role, player: id === 'player' };
   }
 
   function speaking(id, on) {
@@ -138,17 +203,20 @@ export function startGame(pack) {
     return [].concat(...q.tiles.map(w => fill(w, profile || {})));
   }
 
+  // A question ready to show: the model answers can name the student ({name}, {county}...), which the pack fills in.
+  function prepared(q) {
+    const fill = pack.fill ? t => pack.fill(t, profile || {}) : t => t;
+    const filled = m => m && { ga: fill(m.ga), en: fill(m.en) };
+    return Object.assign({}, q, { tiles: tilesFor(q), model: filled(q.model), more: filled(q.more) });
+  }
+
   async function askLine(line, before, g) {
     const q = qById[line.tags.ask];
     if (!q) { console.warn('No question', line.tags.ask); return; }
     save(before);
     speaking(line.id, true);
     setTimeout(() => speaking(line.id, false), 1600);
-    // The model answers can name the student ({name}, {county}...): the pack fills them in.
-    const fill = pack.fill ? t => pack.fill(t, profile || {}) : t => t;
-    const filled = m => m && { ga: fill(m.ga), en: fill(m.en) };
-    const qq = Object.assign({}, q, { tiles: tilesFor(q), model: filled(q.model), more: filled(q.more) });
-    const r = await talk.ask(line, qq, mode, marker);
+    const r = await talk.ask(line, prepared(q), mode, marker);
     if (g !== gen || !r) return;
     speaking(null);
     story.variablesState['first_try'] = r.firstTry;
@@ -180,10 +248,11 @@ export function startGame(pack) {
       world.setRoam(true);
       setFocus([]);
       talk.hideSheet();
+      roamHint = hint || '';
       showHint(hint);
       save(before, !!before);
       world.on('talk', async who => {
-        if (who !== id) return;
+        if (who !== id) { sideChat(who); return; }
         world.setRoam(false);
         world.on('talk', null);
         roamId = null;
@@ -258,6 +327,7 @@ export function startGame(pack) {
 
   // Straight into the room: no forms first.
   const saved = load();
+  world.snap();
   talk.progress(round ? round.items.length : 0, total);
   if (saved) resumeFrom(saved);
   else { story.ChoosePathString(pack.start || 'start'); run(gen); }

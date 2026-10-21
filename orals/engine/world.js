@@ -1,13 +1,21 @@
-// The 3D world: one diorama room seen from a fixed camera, high and tilted down like Overcooked, the people in it,
-// tap to walk and tap a person to talk. The camera never turns; it only frames the whole room, or moves in on two
-// people while they talk, always inside the part of the screen the panels leave free.
+// The 3D world, seen from a camera high and tilted down like Overcooked that never turns: the people, tap (or
+// press and hold) to walk, W A S D on a keyboard, tap a person to talk.
+// A pack gives either one diorama room (pack.room), framed whole, or an open world (pack.land, see land.js) with
+// rooms standing in it (pack.rooms, cottages you can walk into). Outside, the camera follows the player; inside a
+// room, the roof lifts off, the front wall drops to a stub and the camera frames the room. While two people talk
+// it moves in on them. It always frames inside the part of the screen the panels leave free.
 import * as THREE from '../../lib/three.module.min.js';
 import { buildRoom } from './room.js';
+import { buildLand } from './land.js';
 import { person, animate } from './people.js';
 import { makeNav } from './nav.js';
 
 const PITCH = THREE.MathUtils.degToRad(40), FOV = 30;
 const DIR = new THREE.Vector3(0, Math.sin(PITCH), Math.cos(PITCH)); // from the target towards the camera
+// Outside, at least this much of the world is in view (metres across, metres up the screen).
+const FOLLOW_W = 10, FOLLOW_H = 11;
+// How fast the player walks (metres a second): brisker outside, where the distances are long.
+const SPEED_OUT = 3.4, SPEED_IN = 2.2;
 
 export function createWorld(canvas, pack) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
@@ -15,22 +23,28 @@ export function createWorld(canvas, pack) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(pack.room.sky || '#1B2A30');
+  const open = !!pack.land;
+  scene.background = new THREE.Color((pack.land && pack.land.sky) || (pack.room && pack.room.sky) || '#1B2A30');
 
   const hemi = new THREE.HemisphereLight('#FFF1DC', '#5E544B', 1.25);
   scene.add(hemi);
-  const sun = new THREE.DirectionalLight('#FFF4E2', 2.1);
-  sun.position.set(-3.5, 8, 5.5);
+  // The sun's shadows cover the area round the camera's target and move with it.
+  const sun = new THREE.DirectionalLight('#FFF4E2', 2.1), SUN = new THREE.Vector3(-3.5, 8, 5.5), SHADOW = open ? 13 : 6.5;
+  sun.position.copy(SUN);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(1024, 1024);
-  Object.assign(sun.shadow.camera, { left: -6.5, right: 6.5, top: 6.5, bottom: -6.5, near: 1, far: 22 });
+  sun.shadow.mapSize.set(open ? 2048 : 1024, open ? 2048 : 1024);
+  Object.assign(sun.shadow.camera, { left: -SHADOW, right: SHADOW, top: SHADOW, bottom: -SHADOW, near: 1, far: 40 });
   sun.shadow.bias = -0.0006;
   sun.shadow.normalBias = 0.025;
   scene.add(sun, sun.target);
 
-  const room = buildRoom(pack.room);
-  scene.add(room.group);
-  const nav = makeNav(room.bounds, room.blocks, 0.3);
+  const rooms = (pack.rooms || [pack.room]).map(r => Object.assign(buildRoom(r), { spec: r, lift: 0 }));
+  for (const r of rooms) scene.add(r.group);
+  const room = rooms[0];
+  const seats = Object.assign({}, ...rooms.map(r => r.seats));
+  const land = open ? buildLand(pack.land) : null;
+  if (land) scene.add(land.group);
+  const nav = makeNav(land ? land.bounds : room.bounds, [...rooms.flatMap(r => r.blocks), ...(land ? land.blocks : [])], 0.3, land && land.walkable);
 
   const people = {};
   for (const [id, spec] of Object.entries(pack.people)) {
@@ -40,6 +54,9 @@ export function createWorld(canvas, pack) {
     const at = spec.at || [0, 0];
     p.root.position.set(at[0], 0, at[1]);
     p.yaw = p.yawTo = spec.face || 0;
+    p.home = { x: at[0], z: at[1], yaw: p.yaw };
+    // Where someone talking to them stands (a shopkeeper is talked to across the counter).
+    if (spec.talkAt) p.talkAt = { x: spec.talkAt[0], z: spec.talkAt[1] };
     scene.add(p.root);
     people[id] = p;
   }
@@ -53,11 +70,13 @@ export function createWorld(canvas, pack) {
   let markT = 0;
 
   // ---------------------------------------------------------------- camera
-  const camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 80);
+  const camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 220);
   const view = { w: 1, h: 1, top: 0, bottom: 0 };
   const cam = { target: new THREE.Vector3(0, 0.6, 0.2), dist: 14, focus: null };
   const goal = { target: cam.target.clone(), dist: cam.dist };
-  const roomBox = new THREE.Box3(new THREE.Vector3(room.bounds[0] - 0.4, -0.6, room.bounds[1] - 0.3), new THREE.Vector3(room.bounds[2] + 0.4, pack.room.wallH, room.bounds[3] + 0.9));
+  const boxOf = r => new THREE.Box3(new THREE.Vector3(r.bounds[0] - 0.4, open ? 0 : -0.6, r.bounds[1] - 0.3), new THREE.Vector3(r.bounds[2] + 0.4, r.spec.wallH, r.bounds[3] + (open ? 0.6 : 0.9)));
+  const freeAspect = () => view.w / Math.max(80, view.h - view.top - view.bottom);
+  const T = Math.tan(THREE.MathUtils.degToRad(FOV / 2));
 
   // Points the camera so that the box fills the free part of the screen (between the top bar and the panel).
   function frameBox(b, pad, out) {
@@ -65,19 +84,18 @@ export function createWorld(canvas, pack) {
     for (let i = 0; i < 8; i++) corners.push(new THREE.Vector3(i & 1 ? b.max.x : b.min.x, i & 2 ? b.max.y : b.min.y, i & 4 ? b.max.z : b.min.z));
     const target = b.getCenter(new THREE.Vector3());
     let dist = 12;
-    const freeH = Math.max(80, view.h - view.top - view.bottom), aspect = view.w / freeH;
-    const t = Math.tan(THREE.MathUtils.degToRad(FOV / 2));
+    const aspect = freeAspect();
     const fwd = DIR.clone().negate(), right = new THREE.Vector3().crossVectors(fwd, new THREE.Vector3(0, 1, 0)).normalize(), up = new THREE.Vector3().crossVectors(right, fwd);
     for (let it = 0; it < 6; it++) {
       const eye = target.clone().addScaledVector(DIR, dist);
       let minX = 1e9, maxX = -1e9, minY = 1e9, maxY = -1e9;
       for (const c of corners) {
         const v = c.clone().sub(eye), z = v.dot(fwd);
-        const x = v.dot(right) / (z * t * aspect), y = v.dot(up) / (z * t);
+        const x = v.dot(right) / (z * T * aspect), y = v.dot(up) / (z * T);
         minX = Math.min(minX, x); maxX = Math.max(maxX, x); minY = Math.min(minY, y); maxY = Math.max(maxY, y);
       }
       const sx = (maxX - minX) / 2, sy = (maxY - minY) / 2, need = Math.max(sx, sy) / (1 - pad);
-      target.addScaledVector(right, (maxX + minX) / 2 * dist * t * aspect).addScaledVector(up, (maxY + minY) / 2 * dist * t);
+      target.addScaledVector(right, (maxX + minX) / 2 * dist * T * aspect).addScaledVector(up, (maxY + minY) / 2 * dist * T);
       dist *= need;
     }
     out.target.copy(target);
@@ -87,7 +105,7 @@ export function createWorld(canvas, pack) {
   function applyCamera() {
     const freeH = Math.max(80, view.h - view.top - view.bottom), centre = view.top + freeH / 2, dy = view.h / 2 - centre;
     const fullH = view.h + 2 * Math.abs(dy), scale = fullH / freeH;
-    camera.fov = THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(FOV / 2)) * scale));
+    camera.fov = THREE.MathUtils.radToDeg(2 * Math.atan(T * scale));
     camera.aspect = view.w / fullH;
     camera.setViewOffset(view.w, fullH, 0, dy > 0 ? 2 * dy : 0, view.w, view.h);
     camera.position.copy(cam.target).addScaledVector(DIR, cam.dist);
@@ -96,6 +114,12 @@ export function createWorld(canvas, pack) {
   }
   // The view offset makes the free area's centre the image centre, so framing uses the free area's height.
   // fov is widened by the same factor, which keeps the free area at the base FOV.
+
+  // The room someone is standing in (in an open world), or null when outside.
+  function roomAt(x, z) {
+    for (const r of rooms) if (r.outer && x > r.outer[0] && x < r.outer[2] && z > r.outer[1] && z < r.outer[3]) return r;
+    return null;
+  }
 
   function reframe(now) {
     if (cam.focus) {
@@ -107,7 +131,15 @@ export function createWorld(canvas, pack) {
       }
       frameBox(b, 0.12, goal);
       goal.dist = Math.max(goal.dist, 6.5);
-    } else frameBox(roomBox, 0.02, goal);
+    } else if (!open) frameBox(boxOf(room), 0.02, goal);
+    else {
+      const p = player.root.position, inRoom = roomAt(p.x, p.z);
+      if (inRoom) frameBox(boxOf(inRoom), 0.03, goal);
+      else {
+        goal.target.set(p.x, 0.5, p.z);
+        goal.dist = Math.max(FOLLOW_W / (2 * T * freeAspect()), FOLLOW_H / (2 * T));
+      }
+    }
     if (now) { cam.target.copy(goal.target); cam.dist = goal.dist; }
   }
 
@@ -120,27 +152,46 @@ export function createWorld(canvas, pack) {
 
   // ---------------------------------------------------------------- input
   const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), floor = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
-  let down = null;
   const handlers = { talk: null, walk: null };
   let roam = false;
 
-  canvas.addEventListener('pointerdown', e => { down = { x: e.clientX, y: e.clientY, t: performance.now() }; });
-  canvas.addEventListener('pointerup', e => {
-    if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 12 || performance.now() - down.t > 600) return;
-    down = null;
-    if (!roam) return;
+  function ground(clientX, clientY) {
+    const r = canvas.getBoundingClientRect();
+    ndc.set((clientX - r.left) / r.width * 2 - 1, -((clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const pt = new THREE.Vector3();
+    return ray.ray.intersectPlane(floor, pt) ? pt : null;
+  }
+
+  // A quick tap walks there (or talks to the person tapped); pressing and holding keeps walking towards the finger.
+  const HOLD_MS = 260;
+  let down = null, hold = null;
+  canvas.addEventListener('pointerdown', e => {
+    down = { id: e.pointerId, x: e.clientX, y: e.clientY, t: performance.now() };
+    try { canvas.setPointerCapture(e.pointerId); } catch (err) { /* not capturable */ }
+  });
+  canvas.addEventListener('pointermove', e => { if (down && e.pointerId === down.id) { down.cx = e.clientX; down.cy = e.clientY; } });
+  const release = e => {
+    if (!down || e.pointerId !== down.id) return;
+    const d = down, wasHold = !!hold;
+    down = null; hold = null;
+    player.steering = false;
+    if (wasHold || !roam || e.type === 'pointercancel') return;
+    if (Math.hypot(e.clientX - d.x, e.clientY - d.y) > 12) return;
     const r = canvas.getBoundingClientRect();
     ndc.set((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     ray.setFromCamera(ndc, camera);
     const hits = ray.intersectObjects(Object.values(people).filter(p => p !== player).map(p => p.hit));
     if (hits.length) { handlers.talk && handlers.talk(hits[0].object.userData.person.id); return; }
-    const pt = new THREE.Vector3();
-    if (ray.ray.intersectPlane(floor, pt)) walkTo(player, pt.x, pt.z, null, true);
-  });
+    const pt = ground(e.clientX, e.clientY);
+    if (pt) walkTo(player, pt.x, pt.z, null, true);
+  };
+  canvas.addEventListener('pointerup', release);
+  canvas.addEventListener('pointercancel', release);
 
   function othersOf(p) { return Object.values(people).filter(o => o !== p).map(o => ({ x: o.root.position.x, z: o.root.position.z, r: o.radius })); }
 
-  // Keyboard: W A S D or the arrow keys walk the player (up the screen is into the room); E, Space or Enter
+  // Keyboard: W A S D or the arrow keys walk the player (up the screen is away from the camera); E, Space or Enter
   // talks to the nearest person within reach.
   const KEYS = { KeyW: [0, -1], ArrowUp: [0, -1], KeyS: [0, 1], ArrowDown: [0, 1], KeyA: [-1, 0], ArrowLeft: [-1, 0], KeyD: [1, 0], ArrowRight: [1, 0] };
   const held = new Set();
@@ -170,10 +221,18 @@ export function createWorld(canvas, pack) {
   window.addEventListener('keyup', e => held.delete(e.code));
   window.addEventListener('blur', () => held.clear());
 
-  // Moves the player by the keys held, sliding along furniture and people instead of stopping dead.
+  // Moves the player by the keys held or towards a held finger, sliding along things instead of stopping dead.
   function steer(dt) {
     let x = 0, z = 0;
     if (roam) for (const c of held) { x += KEYS[c][0]; z += KEYS[c][1]; }
+    if (roam && down && !held.size && performance.now() - down.t > HOLD_MS && Math.hypot((down.cx || down.x) - down.x, (down.cy || down.y) - down.y) < 400) {
+      const pt = ground(down.cx || down.x, down.cy || down.y);
+      if (pt) {
+        hold = pt;
+        const dx = pt.x - player.root.position.x, dz = pt.z - player.root.position.z;
+        if (Math.hypot(dx, dz) > 0.35) { x = dx; z = dz; }
+      }
+    }
     const l = Math.hypot(x, z);
     player.steering = l > 0;
     if (!l) return;
@@ -186,8 +245,8 @@ export function createWorld(canvas, pack) {
     const ok = (nx, nz) => nav.isFree(nx, nz, others) || !nav.isFree(pos.x, pos.z, others);
     const nx = pos.x + x * step, nz = pos.z + z * step;
     if (ok(nx, nz)) { pos.x = nx; pos.z = nz; }
-    else if (x && ok(nx, pos.z)) pos.x = nx;
-    else if (z && ok(pos.x, nz)) pos.z = nz;
+    else if (Math.abs(x) > 0.2 && ok(nx, pos.z)) pos.x = nx;
+    else if (Math.abs(z) > 0.2 && ok(pos.x, nz)) pos.z = nz;
     player.yawTo = Math.atan2(x, z);
   }
 
@@ -211,11 +270,12 @@ export function createWorld(canvas, pack) {
   function approach(p, other, done) {
     const a = p.root.position, b = other.root.position;
     const dx = a.x - b.x, dz = a.z - b.z, d = Math.hypot(dx, dz) || 1;
-    // Stand beside them (left or right, the nearer first) so the camera sees both faces, else anywhere round them.
-    let best = null;
+    // Stand where they are talked to from, or beside them (left or right, the nearer first) so the camera sees both
+    // faces, else anywhere round them.
+    let best = other.talkAt && nav.isFree(other.talkAt.x, other.talkAt.z) ? other.talkAt : null;
     const sides = [Math.PI / 2, -Math.PI / 2].sort((u, v) => Math.abs(Math.sin(u) - Math.sign(dx)) - Math.abs(Math.sin(v) - Math.sign(dx)));
     const tries = sides.concat(Array.from({ length: 16 }, (_, i) => Math.atan2(dx, dz) + (i % 2 ? 1 : -1) * Math.ceil(i / 2) * Math.PI / 8));
-    for (const ang of tries) {
+    for (const ang of best ? [] : tries) {
       const x = b.x + Math.sin(ang) * 1.05, z = b.z + Math.cos(ang) * 1.05 + (Math.abs(Math.sin(ang)) > 0.9 ? 0.2 : 0);
       if (nav.isFree(x, z, othersOf(p).filter(o => o.x !== b.x || o.z !== b.z))) { best = { x, z }; break; }
     }
@@ -226,7 +286,7 @@ export function createWorld(canvas, pack) {
   }
 
   function sit(p, seatId, done) {
-    const s = room.seats[seatId];
+    const s = seats[seatId];
     if (!s) { done && done(); return; }
     // Step up to the chair from whichever side is free: its front, back or sides (a chair at a table has the table in front).
     const c = Math.cos(s.ry), sn = Math.sin(s.ry);
@@ -257,8 +317,17 @@ export function createWorld(canvas, pack) {
   function later(secs, fn) { timers.push({ secs, fn }); }
 
   function update(dt) {
+    if (open) player.speed = roomAt(player.root.position.x, player.root.position.z) ? SPEED_IN : SPEED_OUT;
     steer(dt);
-    for (const p of Object.values(people)) animate(p, dt);
+    for (const p of Object.values(people)) {
+      // People standing about turn to look at the player when they come near.
+      if (p !== player && !p.path && p.state !== 'sit' && !p.talking) {
+        const dx = player.root.position.x - p.root.position.x, dz = player.root.position.z - p.root.position.z, d = Math.hypot(dx, dz);
+        if (d < 2.6 && d > 0.1) p.yawTo = Math.atan2(dx, dz);
+        else if (p.home && d > 4 && Math.hypot(p.root.position.x - p.home.x, p.root.position.z - p.home.z) < 0.5) p.yawTo = p.home.yaw;
+      }
+      animate(p, dt);
+    }
     for (let i = slides.length - 1; i >= 0; i--) {
       const s = slides[i];
       s.t = Math.min(1, s.t + dt / s.secs);
@@ -275,10 +344,24 @@ export function createWorld(canvas, pack) {
       mark.scale.setScalar(1 + markT * 0.8);
       if (k <= 0) mark.visible = false;
     }
-    if (cam.focus) reframe(false);
-    const k = 1 - Math.exp(-dt * 3.2);
+    if (land) land.update(dt);
+    // A cottage opens up while the player (or a conversation) is inside it: the roof lifts away, the front wall drops.
+    const pp = player.root.position, here = roomAt(pp.x, pp.z) || (cam.focus && roomAt(cam.focus[0].root.position.x, cam.focus[0].root.position.z));
+    for (const r of rooms) {
+      if (!r.roof) continue;
+      r.lift += ((r === here ? 1 : 0) - r.lift) * Math.min(1, dt * 6);
+      r.roof.position.y = r.lift * 3.5;
+      r.roof.visible = r.lift < 0.97;
+      r.front.scale.y = 1 - r.lift * 0.86;
+    }
+    reframe(false);
+    const k = 1 - Math.exp(-dt * (open && !cam.focus ? 5 : 3.2));
     cam.target.lerp(goal.target, k);
     cam.dist += (goal.dist - cam.dist) * k;
+    // Shadows follow the camera, snapped to whole shadow-map texels so they don't shimmer as it moves.
+    const texel = (2 * SHADOW) / sun.shadow.mapSize.x, sx = Math.round(cam.target.x / texel) * texel, sz = Math.round(cam.target.z / texel) * texel;
+    sun.target.position.set(sx, 0, sz);
+    sun.position.set(sx + SUN.x, SUN.y, sz + SUN.z);
   }
 
   let last = performance.now(), started = false, onFrame = null;
@@ -291,7 +374,7 @@ export function createWorld(canvas, pack) {
     requestAnimationFrame(frame);
   }
 
-  // Where a person's head is on screen (for the speech marker), in CSS pixels.
+  // Where a point above a person is on screen (for the speech marker), in CSS pixels.
   const tmp = new THREE.Vector3();
   function screenOf(p, y = 1.95) {
     tmp.set(p.root.position.x, y, p.root.position.z).project(camera);
@@ -304,10 +387,10 @@ export function createWorld(canvas, pack) {
   requestAnimationFrame(t => { last = t; frame(t); });
 
   return {
-    people, player, room, camera, renderer,
+    people, player, room, rooms, seats, camera, renderer, view,
     on(name, fn) { handlers[name] = fn; },
     set onFrame(fn) { onFrame = fn; },
-    setRoam(v) { roam = v; if (!v) { held.clear(); player.steering = false; } },
+    setRoam(v) { roam = v; if (!v) { held.clear(); hold = null; player.steering = false; } },
     // The person close enough to talk to with E (or null), and whether the keyboard has been used.
     nearest, get usingKeys() { return usedKeys; },
     walkTo, approach, face, sit, standUp, screenOf, later,
@@ -317,7 +400,7 @@ export function createWorld(canvas, pack) {
       if (!p) return;
       p.path = null;
       p.yaw = p.yawTo = v.yaw || 0;
-      const s = v.seat && room.seats[v.seat];
+      const s = v.seat && seats[v.seat];
       if (s) {
         p.state = 'sit'; p.seat = 1; p.seatId = v.seat;
         p.seatAt = Object.assign({}, s, { front: { x: s.x + Math.sin(s.ry + Math.PI) * 0.78, z: s.z + Math.cos(s.ry + Math.PI) * 0.78 } });
@@ -332,6 +415,8 @@ export function createWorld(canvas, pack) {
     // The panels tell the world how much of the screen they cover.
     setInsets(top, bottom) { view.top = top; view.bottom = bottom; reframe(false); },
     focus(list) { cam.focus = list && list.length ? list : null; reframe(false); },
+    // Jumps the camera to where it should be (after a saved game puts the player somewhere else).
+    snap() { reframe(true); },
     resize,
   };
 }
