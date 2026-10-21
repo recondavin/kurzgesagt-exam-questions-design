@@ -1,14 +1,14 @@
 {
  "2004-Q12a": [
   {
-   "q": "What is the kidneys' main job in homeostasis?",
-   "right": "Balancing the body's water and salt levels",
+   "q": "What is homeostasis, and what is the role of the kidneys in it? (3 points)",
+   "right": "Keeping internal environment constant; kidneys balance water and salt",
    "wrong": [
-    "Making urea from excess amino acids",
-    "Storing excess glucose as glycogen",
-    "Removing carbon dioxide from blood"
+    "Keeping internal environment constant; kidneys make urea from protein",
+    "Keeping internal environment constant; kidneys release insulin",
+    "Removing undigested food; kidneys balance water and salt"
    ],
-   "why": "The kidneys keep water and salt levels steady (osmoregulation); urea is made in the liver, not the kidneys."
+   "why": "Three points: homeostasis is keeping a constant internal environment; the kidneys keep the body's water balance and salt balance steady."
   }
  ],
  "2004-Q12b": [
@@ -23,14 +23,14 @@
    "why": "The afferent arteriole brings blood in (a for arrive); the efferent arteriole takes it out (e for exit)."
   },
   {
-   "q": "Which best describes filtration in the nephron?",
-   "right": "Pressure forces plasma into Bowman's capsule",
+   "q": "How do filtration and reabsorption occur in the nephron? (3 points)",
+   "right": "Pressure forces plasma into capsule; reabsorption by active transport",
    "wrong": [
-    "Active transport pumps cells into the capsule",
-    "Osmosis draws proteins into Bowman's capsule",
-    "Pressure forces plasma into the loop of Henle"
+    "Pressure forces proteins into capsule; reabsorption by active transport",
+    "Pressure forces plasma into the ureter; reabsorption by diffusion",
+    "Active transport pumps cells into capsule; reabsorption into urine"
    ],
-   "why": "Blood in the glomerulus is under high pressure, so plasma and small molecules are squeezed into Bowman's capsule."
+   "why": "Filtration: high pressure forces plasma from the glomerulus into Bowman's capsule. Reabsorption: tubules take substances back into blood by active transport."
   }
  ],
  "2005-Q1f": [
@@ -57,26 +57,26 @@
  ],
  "2006-Q6b": [
   {
-   "q": "Which tube carries urine from the kidney to the bladder?",
-   "right": "Ureter",
+   "q": "Distinguish between the ureter and the urethra. (2 points)",
+   "right": "Ureter: kidney to bladder; urethra: bladder to outside",
    "wrong": [
-    "Urethra",
-    "Renal pelvis",
-    "Collecting duct"
+    "Ureter: bladder to outside; urethra: kidney to bladder",
+    "Ureter: kidney to bladder; urethra: bladder to kidney",
+    "Ureter: blood to kidney; urethra: bladder to outside"
    ],
-   "why": "The ureter runs from kidney to bladder; the urethra carries urine from the bladder out of the body."
+   "why": "Two points: the ureter carries urine from the kidney to the bladder; the urethra carries it from the bladder out of the body."
   }
  ],
  "2006-Q13b": [
   {
-   "q": "What is glomerular filtrate?",
-   "right": "Plasma without proteins, in Bowman's capsule",
+   "q": "Explain the terms plasma and glomerular filtrate. (2 points)",
+   "right": "Plasma: liquid part of blood; filtrate: plasma minus its proteins",
    "wrong": [
-    "Plasma with its proteins, in Bowman's capsule",
-    "Blood cells left behind in the glomerulus",
-    "Concentrated urine in the collecting duct"
+    "Plasma: liquid part of blood; filtrate: plasma with all its proteins",
+    "Plasma: red cells of the blood; filtrate: plasma minus its proteins",
+    "Plasma: liquid part of blood; filtrate: urine stored in the bladder"
    ],
-   "why": "Filtrate is plasma squeezed into Bowman's capsule; proteins and blood cells are too big to get through."
+   "why": "Two points: plasma is the liquid part of blood; glomerular filtrate is plasma, minus its proteins, that has passed into Bowman's capsule."
   },
   {
    "q": "Why are red blood cells missing from glomerular filtrate?",
@@ -109,26 +109,26 @@
    "why": "Glucose is filtered, but the proximal tubule reabsorbs all of it back into the blood, so none reaches the urine."
   },
   {
-   "q": "After heavy exercise, why is a small volume of concentrated urine made?",
+   "q": "After heavy exercise, why is a small volume of concentrated urine made? (one of 4 points)",
    "right": "More ADH, so more water is reabsorbed",
    "wrong": [
     "More ADH, so less water is reabsorbed",
     "Less ADH, so less water is reabsorbed",
     "More insulin, so more water is reabsorbed"
    ],
-   "why": "Sweating dehydrates you, so the pituitary releases more ADH and the tubules reabsorb more water into the blood."
+   "why": "Four of: sweating dehydrates you; the brain detects it; the pituitary secretes ADH; more water is reabsorbed in the collecting duct."
   }
  ],
  "2007-Q15c": [
   {
-   "q": "Why is homeostasis important in the body?",
-   "right": "Keeps conditions right for enzymes to work",
+   "q": "What is homeostasis, and why is it important in the body? (3 points)",
+   "right": "Maintaining a constant internal environment, so enzymes work well",
    "wrong": [
-    "Lets body temperature follow the surroundings",
-    "Stops the body needing to excrete wastes",
-    "Removes undigested food from the body"
+    "Maintaining a constant internal environment, so no excretion is needed",
+    "Letting conditions inside match the outside, so enzymes work well",
+    "Removing undigested food from the gut, so enzymes work well"
    ],
-   "why": "A steady internal environment keeps temperature and pH right, so enzymes and metabolism work properly."
+   "why": "Three points: homeostasis is the maintenance of a constant internal environment, which keeps conditions right for enzymes to work."
   }
  ],
  "2008-Q13a": [
@@ -143,14 +143,14 @@
    "why": "Excretion gets rid of waste made by cells, like urea and CO2; removing undigested food is egestion."
   },
   {
-   "q": "Urea is made from which substance?",
-   "right": "Amino acids (from proteins)",
+   "q": "Name a substance urea is made from, and one carbon dioxide is made from. (2 points)",
+   "right": "Urea from amino acids; carbon dioxide from glucose",
    "wrong": [
-    "Fatty acids (from fats)",
-    "Glucose (from carbohydrates)",
-    "Glycerol (from fats)"
+    "Urea from fatty acids; carbon dioxide from glucose",
+    "Urea from amino acids; carbon dioxide from water",
+    "Urea from glycerol; carbon dioxide from water"
    ],
-   "why": "Excess amino acids are deaminated in the liver and their nitrogen becomes urea; fats and sugars contain no nitrogen."
+   "why": "Two points: urea comes from amino acids (protein) broken down in the liver; CO2 comes from respiring glucose (carbohydrate) or fat."
   }
  ],
  "2008-Q13b": [
@@ -195,14 +195,14 @@
    "why": "The proximal tubule reabsorbs all the glucose and amino acids; later parts mainly handle water and salts."
   },
   {
-   "q": "Which feature of the nephron helps filtration?",
-   "right": "Efferent arteriole narrower than afferent",
+   "q": "Give two features of the nephron that aid filtration. (2 points)",
+   "right": "Efferent arteriole narrower than afferent; walls one cell thick",
    "wrong": [
-    "Afferent arteriole narrower than efferent",
-    "Thick, muscular glomerulus capillary walls",
-    "Few, wide capillaries in the glomerulus"
+    "Afferent arteriole narrower than efferent; walls one cell thick",
+    "Efferent arteriole narrower than afferent; thick muscular walls",
+    "Small surface area; few, wide capillaries in the glomerulus"
    ],
-   "why": "A narrow exit vessel backs blood up in the glomerulus, raising the pressure that forces filtrate out."
+   "why": "Two of: efferent arteriole narrower than afferent (raises pressure), capillary walls one cell thick or porous, a large surface area."
   },
   {
    "q": "Which group of biomolecules is too big to be filtered?",
@@ -217,34 +217,34 @@
  ],
  "2008-Q13c": [
   {
-   "q": "Which could lower the water content of the blood?",
-   "right": "Heavy sweating during exercise",
+   "q": "Suggest two situations that may cause a drop in the water content of the blood. (2 points)",
+   "right": "Heavy sweating in hot weather, and not drinking enough water",
    "wrong": [
-    "Drinking plenty of extra fluids",
-    "Eating very little salt in food",
-    "The pituitary releasing more ADH"
+    "Heavy sweating in hot weather, and drinking lots of extra water",
+    "More ADH from the pituitary, and not drinking enough water",
+    "Drinking lots of extra water, and releasing more ADH"
    ],
-   "why": "Sweat takes water out of the body, so the blood loses water; drinking and ADH both help keep water in."
+   "why": "Two of: sweating in heat or exercise, low water intake, high salt intake, an infection, or taking diuretics."
   },
   {
-   "q": "Which gland secretes ADH when blood water drops?",
-   "right": "Pituitary gland",
+   "q": "Name the hormone released when blood water drops, and the gland that secretes it. (2 points)",
+   "right": "ADH, from the pituitary gland",
    "wrong": [
-    "Adrenal gland",
-    "Thyroid gland",
-    "Pancreas"
+    "ADH, from the adrenal gland",
+    "Insulin, from the pituitary gland",
+    "Adrenaline, from the thyroid gland"
    ],
-   "why": "ADH is released by the pituitary gland at the base of the brain; the adrenal glands on the kidneys make adrenaline."
+   "why": "Two points: the hormone is ADH (anti-diuretic hormone), and it is secreted by the pituitary gland at the base of the brain."
   },
   {
-   "q": "Where in the nephron does ADH act?",
-   "right": "Collecting duct",
+   "q": "Give a precise target area for ADH, and say how it reaches it. (2 points)",
+   "right": "The collecting duct; it travels there in the blood",
    "wrong": [
-    "Bowman's capsule",
-    "Glomerulus",
-    "Proximal tubule"
+    "Bowman's capsule; it travels there in the blood",
+    "The collecting duct; it travels there along a nerve",
+    "The glomerulus; it travels there down the ureter"
    ],
-   "why": "ADH travels in the blood to the collecting duct (and distal tubule) and makes their walls let water back out."
+   "why": "Two points: ADH acts on the collecting duct (or distal tubule), and it reaches it in the bloodstream, like all hormones."
   },
   {
    "q": "When blood water is low, what does ADH do at its target?",
@@ -259,14 +259,14 @@
  ],
  "2009-Q15c": [
   {
-   "q": "Which is an example of homeostasis?",
-   "right": "Sweating to cool down when hot",
+   "q": "Write a short note on homeostasis. (3 points)",
+   "right": "Maintaining a constant internal environment, e.g. sweating to cool",
    "wrong": [
-    "Shivering to cool down when hot",
-    "Making more urine when dehydrated",
-    "Widening skin vessels when cold"
+    "Maintaining a constant internal environment, e.g. shivering to cool",
+    "Letting conditions inside match the outside, e.g. sweating to cool",
+    "Removing undigested food from the gut, e.g. egesting faeces"
    ],
-   "why": "Sweat evaporates and carries heat away, keeping body temperature steady; shivering warms you up."
+   "why": "Three points: maintenance of a constant internal environment, plus an example of how, like sweating to lose heat when hot."
   }
  ],
  "2010-Q15c": [
@@ -357,14 +357,14 @@
  ],
  "2011-Q12c": [
   {
-   "q": "On the diagram, what is part 4?",
+   "q": "On the diagram, what is part 4? (one of 8 points)",
    "right": "Efferent arteriole",
    "wrong": [
     "Afferent arteriole",
     "Renal venule",
     "Renal artery"
    ],
-   "why": "Part 4 carries blood out of the glomerulus: the efferent arteriole (e for exit); the afferent one brings blood in."
+   "why": "Part 4 takes blood out (e for exit). 8 points: parts 1-6 (capsule, glomerulus, afferent, efferent, PCT, DCT), filtration at 1 or 2, and ADH."
   },
   {
    "q": "Is protein in urine normal, and why?",
@@ -411,46 +411,46 @@
  ],
  "2016-Q12a": [
   {
-   "q": "What is egestion?",
-   "right": "Removing undigested material from the gut",
+   "q": "Distinguish between excretion and egestion. (2 points)",
+   "right": "Excretion removes metabolic waste; egestion removes undigested food",
    "wrong": [
-    "Removing waste made by cell metabolism",
-    "Removing urea from the blood in urine",
-    "Releasing digestive enzymes into the gut"
+    "Excretion removes undigested food; egestion removes metabolic waste",
+    "Excretion removes metabolic waste; egestion releases gut enzymes",
+    "Excretion releases hormones; egestion removes undigested food"
    ],
-   "why": "Egestion gets rid of food that was never absorbed into cells; excretion removes waste that cells have made."
+   "why": "Two points: excretion removes waste made by metabolism (like urea); egestion removes undigested food that was never absorbed."
   }
  ],
  "2016-Q12b": [
   {
-   "q": "Which is an excretory product of mammals, other than water?",
-   "right": "Carbon dioxide",
+   "q": "Name two excretory products of mammals, other than water. (2 points)",
+   "right": "Carbon dioxide and urea",
    "wrong": [
-    "Oxygen",
-    "Fibre",
-    "Glucose"
+    "Oxygen and urea",
+    "Carbon dioxide and fibre",
+    "Glucose and amino acids"
    ],
-   "why": "CO2 is a waste made by respiration in cells, so removing it is excretion; fibre is undigested food (egestion)."
+   "why": "Two of: carbon dioxide (from respiration), urea (from extra amino acids) and salts. Fibre is egested, not excreted."
   },
   {
-   "q": "Where in the body is carbon dioxide produced?",
-   "right": "In all body cells, by respiration",
+   "q": "Where in the body are carbon dioxide and urea produced? (2 points)",
+   "right": "CO2 in all body cells (respiration); urea in the liver",
    "wrong": [
-    "Only in the lungs, by breathing",
-    "In the liver, by deamination",
-    "In the kidneys, by filtration"
+    "CO2 only in the lungs (breathing); urea in the liver",
+    "CO2 in all body cells (respiration); urea in the kidneys",
+    "CO2 in the liver (deamination); urea in the bladder"
    ],
-   "why": "Every cell makes CO2 in respiration; the lungs only remove it from the body. (Urea is the one made in the liver.)"
+   "why": "Two points: CO2 is made in all body cells by respiration; urea is made in the liver by deamination. Lungs and kidneys only remove them."
   },
   {
-   "q": "Which best describes what ADH does?",
-   "right": "Ducts reabsorb more water, so less urine forms",
+   "q": "Describe the role of ADH in excretion. (3 points)",
+   "right": "Collecting ducts more permeable, more water reabsorbed, less urine",
    "wrong": [
-    "Ducts reabsorb less water, so more urine forms",
-    "Ducts reabsorb more salt, so more urine forms",
-    "Glomerulus filters more, so more urine forms"
+    "Collecting ducts less permeable, less water reabsorbed, more urine",
+    "Collecting ducts more permeable, more salt reabsorbed, more urine",
+    "Glomerulus more permeable, more water filtered, more urine"
    ],
-   "why": "ADH makes collecting duct walls more permeable, so more water goes back to the blood and urine is concentrated."
+   "why": "Three of: released when dehydrated, acts on collecting ducts, makes their walls more permeable, more water reabsorbed, less urine made."
   }
  ],
  "2016-Q12c": [
@@ -479,14 +479,14 @@
  ],
  "2017-Q14c": [
   {
-   "q": "Which feature helps the glomerulus filter blood?",
-   "right": "Capillary walls only one cell thick",
+   "q": "How is the glomerulus suited to filtering blood? (2 points)",
+   "right": "High blood pressure, and capillary walls only one cell thick",
    "wrong": [
-    "Thick muscular walls to resist pressure",
-    "Low blood pressure in its capillaries",
-    "A small surface area to limit loss"
+    "High blood pressure, and thick muscular walls to resist it",
+    "Low blood pressure, and capillary walls only one cell thick",
+    "A small surface area, and thick walls that stop leaks"
    ],
-   "why": "Thin capillary walls let small molecules pass out easily; high pressure and a large surface area also help."
+   "why": "Two of: high blood pressure, capillary walls one cell thick, a large surface area, and being a knot of capillaries."
   }
  ],
  "2017-Q15a": [
@@ -649,14 +649,14 @@
  ],
  "2020-Q13c": [
   {
-   "q": "From the table, how does plasma differ from filtrate?",
-   "right": "Plasma has proteins; filtrate has none",
+   "q": "From the table, what is the main difference between plasma and filtrate, and why? (2 points)",
+   "right": "Plasma has protein, filtrate has none; protein is too big to pass",
    "wrong": [
-    "Plasma has glucose; filtrate has none",
-    "Filtrate has proteins; plasma has none",
-    "Plasma has more urea than filtrate"
+    "Filtrate has protein, plasma has none; protein is made in the capsule",
+    "Plasma has protein, filtrate has none; ADH stops protein passing",
+    "Plasma has glucose, filtrate has none; glucose is too big to pass"
    ],
-   "why": "Plasma has 7 g of protein per 100 cm3 and filtrate has none, as proteins are too big to pass into the capsule."
+   "why": "Two points: plasma has protein (7 g/100 cm3) but filtrate has none, because protein molecules are too big to pass out of the glomerulus."
   },
   {
    "q": "From the table, why is there glucose in filtrate but none in urine?",
@@ -693,14 +693,14 @@
  ],
  "2022-Q15a": [
   {
-   "q": "Which of these is the meaning of excretion?",
-   "right": "Removing metabolic waste from a cell",
+   "q": "What do the terms excretion and homeostasis mean? (2 points)",
+   "right": "Removing metabolic waste; keeping a constant internal environment",
    "wrong": [
-    "Keeping a constant internal environment",
-    "Removing undigested food from the gut",
-    "Releasing hormones into the bloodstream"
+    "Removing undigested food; keeping a constant internal environment",
+    "Removing metabolic waste; letting conditions match the outside",
+    "Releasing hormones into blood; removing undigested food"
    ],
-   "why": "Excretion removes waste made by metabolism; keeping a constant internal environment is homeostasis."
+   "why": "Two points: excretion is removing waste made by metabolism; homeostasis is keeping a constant internal environment."
   }
  ],
  "2022-Q15b": [
@@ -745,14 +745,14 @@
    "why": "High pressure squeezes water and small molecules out of the blood into Bowman's capsule: that is filtration."
   },
   {
-   "q": "Why are the tubules wrapped in so many capillaries?",
-   "right": "To take back reabsorbed substances",
+   "q": "Why are the PCT, loop of Henle and DCT surrounded by so many capillaries? (2 points)",
+   "right": "Reabsorption into the blood, and secretion of wastes into tubules",
    "wrong": [
-    "To make ADH for the tubule walls",
-    "To carry urine down to the bladder",
-    "To push proteins into the filtrate"
+    "Reabsorption into the blood, and making ADH for the tubules",
+    "Pushing proteins into tubules, and secretion of wastes into them",
+    "Carrying urine to the bladder, and making urea from amino acids"
    ],
-   "why": "Water, glucose and salts reabsorbed from the tubules pass straight into these capillaries and go back to the blood."
+   "why": "Two points: reabsorption (water, glucose and salts go back into the blood) and secretion (extra wastes pass from the blood into the tubules)."
   },
   {
    "q": "How does more ADH change urine volume?",
@@ -811,14 +811,14 @@
    "why": "Homeostasis is the general term; osmoregulation is just the water and salt part of it."
   },
   {
-   "q": "On a nephron diagram, which structure cups the glomerulus?",
+   "q": "On a nephron diagram, which structure cups the glomerulus? (one of 6 points)",
    "right": "Bowman's capsule",
    "wrong": [
     "Loop of Henle",
     "Collecting duct",
     "Distal tubule"
    ],
-   "why": "Bowman's capsule is the cup that wraps around the glomerulus and collects the filtrate."
+   "why": "6 points = six correct labels, e.g. Bowman's capsule (the cup round the glomerulus), glomerulus, PCT, loop of Henle, DCT, collecting duct."
   },
   {
    "q": "Which is a way blood differs from glomerular filtrate?",
@@ -893,14 +893,14 @@
    "why": "Sweating cuts blood volume, so more ADH is released to save water: volume goes down while ADH goes up."
   },
   {
-   "q": "Which is a way the skin helps the athlete's homeostasis?",
-   "right": "Sweating, so evaporation removes heat",
+   "q": "How can the skin help the athlete's homeostasis during exercise? (2 points)",
+   "right": "Sweating, and widening of skin blood vessels (vasodilation)",
    "wrong": [
-    "Shivering, so muscles make extra heat",
-    "Absorbing water to replace what's lost",
-    "Releasing ADH to reduce water loss"
+    "Shivering, and absorbing water back in through the skin",
+    "Releasing ADH, and making extra urea in the skin cells",
+    "Releasing insulin, and storing extra glucose as glycogen"
    ],
-   "why": "Sweat on the skin evaporates and carries heat away; shivering is done by muscles and warms you up."
+   "why": "Two points: sweating (evaporation carries heat away) and vasodilation (wider skin vessels lose more heat). Shivering is done by muscles."
   }
  ],
  "2026-Q17b": [

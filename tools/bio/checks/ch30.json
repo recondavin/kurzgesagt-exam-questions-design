@@ -221,14 +221,14 @@
  ],
  "2008-Q12a": [
   {
-   "q": "Which best describes chemical digestion?",
-   "right": "Enzymes break food into smaller molecules",
+   "q": "Distinguish between mechanical and chemical digestion. (2 points)",
+   "right": "Mechanical: physically broken up; chemical: broken down by enzymes",
    "wrong": [
-    "Teeth grind food into smaller pieces",
-    "Stomach muscles churn the food",
-    "Bile breaks fat into small droplets"
+    "Mechanical: broken down by enzymes; chemical: physically broken up",
+    "Mechanical: physically broken up; chemical: absorbed into blood",
+    "Mechanical: food is egested; chemical: broken down by enzymes"
    ],
-   "why": "Chemical digestion uses enzymes (or acid) to break bonds; chewing, churning and emulsifying are all mechanical."
+   "why": "Two points: mechanical digestion breaks food up physically (chewing, churning); chemical digestion breaks molecules down with enzymes."
   },
   {
    "q": "Apart from teeth, which structure digests food mechanically?",
@@ -253,14 +253,14 @@
    "why": "E is the appendix: the small dead-end tube hanging off the start of the large intestine."
   },
   {
-   "q": "Besides emulsifying fat, what else does bile do?",
-   "right": "Neutralises acid from the stomach",
+   "q": "Describe two functions of bile in digestion. (2 points)",
+   "right": "Emulsifies fats into droplets; neutralises stomach acid",
    "wrong": [
-    "Lowers the pH in the duodenum",
-    "Digests fat into fatty acids",
-    "Breaks protein into amino acids"
+    "Digests fats into fatty acids; neutralises stomach acid",
+    "Emulsifies fats into droplets; makes the duodenum acidic",
+    "Breaks proteins into amino acids; emulsifies fats"
    ],
-   "why": "Bile is alkaline, so it neutralises acidic chyme; it has no enzymes, so it doesn't digest anything itself."
+   "why": "Two points: bile salts emulsify fats into small droplets, and bile is alkaline, so it neutralises acid chyme from the stomach."
   },
   {
    "q": "Where is lipase secreted?",
@@ -305,14 +305,14 @@
    "why": "Symbiotic bacteria live closely with a host to their benefit; ones that cause disease are parasites."
   },
   {
-   "q": "What useful job do symbiotic gut bacteria do?",
-   "right": "Compete with harmful microbes",
+   "q": "Give two activities of symbiotic bacteria in the human digestive system. (2 points)",
+   "right": "Make vitamins B and K; help digest food",
    "wrong": [
-    "Produce hydrochloric acid",
-    "Produce insulin and glucagon",
-    "Absorb amino acids into the blood"
+    "Make hydrochloric acid; help digest food",
+    "Make insulin and glucagon; make vitamins",
+    "Absorb amino acids into the blood; make vitamins"
    ],
-   "why": "Gut bacteria crowd out harmful microbes and make vitamins; acid and hormones are made by our own cells."
+   "why": "Two points: gut bacteria make vitamins (B and K) and help digest food; outcompeting harmful microbes also counts."
   },
   {
    "q": "Where are the products of digestion absorbed into the blood?",
@@ -429,14 +429,14 @@
    "why": "Bile salts emulsify fat into tiny droplets for lipase; it's lipase that makes fatty acids and glycerol."
   },
   {
-   "q": "Which is another job of the liver, besides making bile?",
-   "right": "Deamination of excess amino acids",
+   "q": "Give two functions of the liver, other than making bile. (2 points)",
+   "right": "Detoxifies poisons; deaminates spare amino acids",
    "wrong": [
-    "Making insulin to lower blood sugar",
-    "Filtering urea out of the blood",
-    "Storing bile until it is needed"
+    "Makes insulin; detoxifies poisons",
+    "Stores bile; deaminates spare amino acids",
+    "Filters urea into urine; detoxifies poisons"
    ],
-   "why": "The liver deaminates spare amino acids, making urea; the kidneys filter the urea out and the gall bladder stores bile."
+   "why": "Two points, e.g. detoxification and deamination; storing vitamins or glycogen, making heat and making plasma proteins also count."
   }
  ],
  "2010-Q15c": [
@@ -473,14 +473,14 @@
    "why": "Big food molecules can't pass into the blood; digestion makes them small and soluble so they can be absorbed."
   },
   {
-   "q": "Which is an example of mechanical digestion?",
-   "right": "Stomach muscles churning food",
+   "q": "Distinguish between mechanical and chemical digestion, with a sentence on each. (2 points)",
+   "right": "Mechanical: chewing breaks food up; chemical: enzymes digest it",
    "wrong": [
-    "Pepsin breaking down protein",
-    "Amylase turning starch to maltose",
-    "Acid breaking down protein"
+    "Mechanical: enzymes digest food; chemical: chewing breaks it up",
+    "Mechanical: chewing breaks food up; chemical: bile digests it",
+    "Mechanical: villi absorb food; chemical: enzymes digest it"
    ],
-   "why": "Mechanical digestion breaks food up physically, like churning or chewing; enzymes and acid digest chemically."
+   "why": "Two points: mechanical digestion breaks food up physically (chewing, churning); chemical digestion uses enzymes or acid."
   },
   {
    "q": "On the diagram, what is the C-shaped tube W?",
@@ -525,14 +525,14 @@
  ],
  "2012-Q15a": [
   {
-   "q": "On the diagram, what is the central vessel Y?",
-   "right": "Lacteal",
+   "q": "Name structures X and Y on the diagram. (2 points)",
+   "right": "X: villus; Y: lacteal",
    "wrong": [
-    "Capillary",
-    "Arteriole",
-    "Microvillus"
+    "X: microvillus; Y: lacteal",
+    "X: villus; Y: capillary",
+    "X: lacteal; Y: villus"
    ],
-   "why": "Y is the lacteal, the lymph vessel at the centre of each villus that takes in fats."
+   "why": "Two points: X is a villus, a finger-like fold of the gut lining, and Y is the lacteal, the lymph vessel at its centre."
   },
   {
    "q": "What process do the muscle layers Z cause when they contract?",
@@ -555,14 +555,14 @@
    "why": "Bile and pancreatic juice contain hydrogencarbonate, which makes the small intestine slightly alkaline."
   },
   {
-   "q": "Which gland sends its secretion into the small intestine?",
-   "right": "Pancreas",
+   "q": "Name two glands that pass their secretions into the small intestine. (2 points)",
+   "right": "Pancreas and liver",
    "wrong": [
-    "Salivary gland",
-    "Gastric gland",
-    "Thyroid gland"
+    "Pancreas and salivary glands",
+    "Liver and gastric glands",
+    "Liver and thyroid gland"
    ],
-   "why": "The pancreas (pancreatic juice) and liver (bile) empty into the duodenum; salivary glands empty into the mouth."
+   "why": "Two points: the pancreas (pancreatic juice) and the liver (bile) both empty into the duodenum; salivary glands empty into the mouth."
   },
   {
    "q": "What are symbiotic bacteria?",
@@ -575,14 +575,14 @@
    "why": "Symbiosis means living closely with another organism where at least one benefits; disease-causers are parasites."
   },
   {
-   "q": "What useful job do bacteria in the gut do?",
-   "right": "Help digest food we can't digest ourselves",
+   "q": "Give two functions of symbiotic bacteria in the alimentary canal. (2 points)",
+   "right": "Make vitamins B and K; help digest food",
    "wrong": [
-    "Make bile to emulsify fats",
-    "Make insulin to lower blood sugar",
-    "Make hydrochloric acid"
+    "Make bile to emulsify fats; help digest food",
+    "Make vitamins B and K; make insulin",
+    "Make hydrochloric acid; absorb glucose"
    ],
-   "why": "Gut bacteria help digest food such as some fibre, and make vitamins; bile, insulin and acid are made by us."
+   "why": "Two points: gut bacteria make vitamins (B and K) and help digest food such as some fibre; bile, insulin and acid are made by us."
   },
   {
    "q": "What answer does this marking scheme want for where most water is absorbed?",
@@ -633,14 +633,14 @@
  ],
  "2015-Q11a": [
   {
-   "q": "What does heterotrophic mean?",
-   "right": "Must take in food made by other organisms",
+   "q": "Humans are heterotrophic and omnivorous. Explain each term. (2 points)",
+   "right": "Can't make its own food; eats both plants and animals",
    "wrong": [
-    "Makes its own food by photosynthesis",
-    "Eats both plants and animals",
-    "Eats only plant material"
+    "Makes its own food; eats both plants and animals",
+    "Can't make its own food; eats only plants",
+    "Makes food by photosynthesis; eats only meat"
    ],
-   "why": "Heterotrophs can't make their own food, so they eat other organisms; eating plants and animals is omnivorous."
+   "why": "Two points: heterotrophs can't make their own food, so they eat other organisms; omnivores eat both plants and animals."
   },
   {
    "q": "What is a balanced diet?",
@@ -717,46 +717,46 @@
    "why": "Humans have 2 incisors in each half jaw; the animal in the photo has more, and much longer canines."
   },
   {
-   "q": "Which feature in the photo shows the mammal eats meat?",
-   "right": "Long, pointed canines",
+   "q": "What food does the mammal in the photo mainly eat? Explain your answer. (2 points)",
+   "right": "Meat: it has long, pointed canines",
    "wrong": [
-    "Broad, flat molars",
-    "A gap where canines should be",
-    "Short, blunt canines"
+    "Plants: it has long, pointed canines",
+    "Meat: it has short, blunt canines",
+    "Plants: it has broad, flat molars"
    ],
-   "why": "It's a meat-eater: long, pointed canines grip and tear flesh, while flat teeth are for grinding plants."
+   "why": "Two points: it mainly eats meat, and its long, pointed canines show this, as they grip and tear flesh."
   },
   {
-   "q": "What is one job of the large intestine?",
-   "right": "Absorbing water from waste",
+   "q": "Give two functions of the large intestine. (2 points)",
+   "right": "Absorbs water; egests waste (faeces)",
    "wrong": [
-    "Absorbing glucose and amino acids",
-    "Making digestive enzymes",
-    "Storing bile until needed"
+    "Absorbs glucose; egests waste (faeces)",
+    "Absorbs water; makes digestive enzymes",
+    "Absorbs amino acids; stores bile"
    ],
-   "why": "The large intestine takes back water and moves waste out; food molecules are absorbed earlier, in the small intestine."
+   "why": "Two points: the large intestine absorbs water and egests faeces; absorbing vitamins made by gut bacteria also counts."
   },
   {
-   "q": "What useful job do the bacteria in the gut do?",
-   "right": "Make vitamins such as B and K",
+   "q": "Outline two beneficial functions of the bacteria in the digestive tract. (2 points)",
+   "right": "Make vitamins B and K; help digest food",
    "wrong": [
-    "Cause stomach ulcers",
-    "Make insulin for blood sugar",
-    "Produce hydrochloric acid"
+    "Make vitamins B and K; cause stomach ulcers",
+    "Make insulin; help digest food",
+    "Make stomach acid; kill all microbes in food"
    ],
-   "why": "Helpful gut bacteria make vitamins B and K for us; ulcer-causing bacteria are harmful, not beneficial."
+   "why": "Two points: helpful gut bacteria make vitamins (B and K) and help digest food; outcompeting harmful microbes also counts."
   }
  ],
  "2016-Q12a": [
   {
-   "q": "Which best describes egestion?",
-   "right": "Removing undigested waste (faeces)",
+   "q": "Distinguish between excretion and egestion by writing a sentence about each. (2 points)",
+   "right": "Excretion removes metabolic waste; egestion removes undigested food",
    "wrong": [
-    "Removing waste made by metabolism",
-    "Taking food into the mouth",
-    "Taking digested food into the blood"
+    "Excretion removes undigested food; egestion removes metabolic waste",
+    "Excretion removes metabolic waste; egestion is taking in food",
+    "Excretion releases energy from food; egestion removes undigested food"
    ],
-   "why": "Egestion gets rid of food never digested or absorbed; excretion removes waste made by the body's cells."
+   "why": "Two points: excretion gets rid of waste made by metabolism (like urea and CO2); egestion gets rid of food never digested (faeces)."
   }
  ],
  "2016-Q15a": [
@@ -785,14 +785,14 @@
  ],
  "2017-Q14c": [
   {
-   "q": "Which feature helps a villus absorb soluble food?",
-   "right": "Wall only one cell thick",
+   "q": "State two ways a villus is adapted for absorbing soluble food. (2 points)",
+   "right": "Wall one cell thick; large surface area (microvilli)",
    "wrong": [
-    "Wall many cells thick",
-    "Cilia to sweep food along",
-    "Few capillaries inside it"
+    "Wall many cells thick; large surface area (microvilli)",
+    "Wall one cell thick; cilia that sweep food inside",
+    "Small surface area; very few blood capillaries"
    ],
-   "why": "A wall one cell thick gives food a short path into the capillaries and lacteal."
+   "why": "Two points, e.g. a wall only one cell thick and a large surface area (microvilli); a rich blood supply or a lacteal also count."
   }
  ],
  "2018-Q12b": [
@@ -819,14 +819,14 @@
  ],
  "2018-Q15b": [
   {
-   "q": "Why does bile contain sodium hydrogencarbonate?",
-   "right": "To neutralise acid coming from the stomach",
+   "q": "Why does bile contain bile salts and sodium hydrogencarbonate? (2 points)",
+   "right": "Emulsify fats; neutralise acid from the stomach",
    "wrong": [
-    "To make the duodenum more acidic",
-    "To digest fat into fatty acids",
-    "To kill germs swallowed with food"
+    "Digest fats into fatty acids; neutralise stomach acid",
+    "Emulsify fats; make the duodenum more acidic",
+    "Emulsify proteins; neutralise acid from the stomach"
    ],
-   "why": "Hydrogencarbonate is alkaline: it neutralises acid chyme, giving enzymes in the duodenum their best pH."
+   "why": "Two points: bile salts emulsify fats, and alkaline hydrogencarbonate neutralises stomach acid, giving enzymes a suitable pH."
   }
  ],
  "2019-Q15b": [
@@ -841,14 +841,14 @@
    "why": "Digestion is the breakdown of food; releasing energy from it is respiration, which happens later in cells."
   },
   {
-   "q": "Which is a reason why digestion is needed?",
-   "right": "So food can be absorbed into the blood",
+   "q": "Give two reasons why digestion is necessary. (2 points)",
+   "right": "To make food soluble; so it is easier to absorb",
    "wrong": [
-    "So food can be stored in the stomach",
-    "So food can be egested more easily",
-    "So food molecules become larger"
+    "To make food insoluble; so it is easier to store",
+    "To make molecules larger; so they are easier to absorb",
+    "To release energy from food; so it is easier to absorb"
    ],
-   "why": "Only small, soluble molecules can be absorbed and carried in the blood, so food must be broken down first."
+   "why": "Two points: digestion makes food small and soluble, so it is easier to absorb and easier to transport in the blood."
   },
   {
    "q": "How is food passed along the gut?",
@@ -1027,14 +1027,14 @@
    "why": "The liver detoxifies harmful substances; insulin and lipase come from the pancreas and urine from the kidneys."
   },
   {
-   "q": "In peristalsis, what pushes food along the gut?",
-   "right": "Waves of contraction in the gut wall muscles",
+   "q": "Name and explain how food is moved along the digestive system. (2 points)",
+   "right": "Peristalsis: muscular contractions of the gut wall push food along",
    "wrong": [
-    "Cilia lining the gut beating in waves",
-    "Villi waving back and forth",
-    "Gravity pulling food down"
+    "Peristalsis: cilia lining the gut beat to push food along",
+    "Egestion: muscular contractions of the gut wall push food along",
+    "Gravity: food falls through the gut under its own weight"
    ],
-   "why": "Muscles in the gut wall contract behind the food and relax in front, squeezing it along."
+   "why": "Two points: the process is peristalsis, and muscles in the gut wall contract in waves behind the food, squeezing it along."
   }
  ],
  "2022-Q6": [
@@ -1113,14 +1113,14 @@
  ],
  "2024-Q3": [
   {
-   "q": "Which organ is gland C?",
-   "right": "Pancreas",
+   "q": "Name tube A, organ B and gland C on the diagram. (3 points)",
+   "right": "A: oesophagus; B: liver; C: pancreas",
    "wrong": [
-    "Gall bladder",
-    "Spleen",
-    "Stomach"
+    "A: trachea; B: liver; C: pancreas",
+    "A: oesophagus; B: pancreas; C: liver",
+    "A: oesophagus; B: liver; C: gall bladder"
    ],
-   "why": "Gland C sits behind and below the stomach: it's the pancreas."
+   "why": "Three points: tube A is the oesophagus, organ B is the liver, and gland C, behind and below the stomach, is the pancreas."
   },
   {
    "q": "What does tube A, the oesophagus, do?",
@@ -1163,14 +1163,14 @@
    "why": "Villi give a huge surface area for absorption; the wall is thin, not thick, and it has no cilia."
   },
   {
-   "q": "What useful job do the symbiotic gut bacteria do?",
-   "right": "Make vitamins B and K",
+   "q": "Give two functions of the symbiotic bacteria in the gut. (2 points)",
+   "right": "Make vitamins B and K; help digest food",
    "wrong": [
-    "Make bile to emulsify fat",
-    "Make insulin for blood sugar",
-    "Absorb water into the blood"
+    "Make vitamins B and K; make bile to emulsify fats",
+    "Make insulin; absorb amino acids into the blood",
+    "Make stomach acid; help digest food"
    ],
-   "why": "Gut bacteria make vitamins B and K, help digest food and crowd out harmful microbes."
+   "why": "Two points: gut bacteria make vitamins (B and K) and help digest food; crowding out harmful microbes also counts."
   }
  ],
  "2024-Q17a": [
@@ -1205,14 +1205,14 @@
    "why": "Stomach acid keeps the pH near 2, matching enzyme A's peak; B works near neutral."
   },
   {
-   "q": "What does amylase produce from starch?",
-   "right": "Maltose",
+   "q": "Give the product(s) of amylase, lipase and protease, in that order. (3 points)",
+   "right": "Maltose; fatty acids and glycerol; amino acids",
    "wrong": [
-    "Glucose",
-    "Starch",
-    "Glycerol"
+    "Glucose; fatty acids and glycerol; amino acids",
+    "Maltose; amino acids; fatty acids and glycerol",
+    "Maltose; fatty acids and glycerol; glucose"
    ],
-   "why": "Amylase breaks starch into maltose, a double sugar; maltase then splits maltose into glucose."
+   "why": "Three points: amylase makes maltose, lipase makes fatty acids and glycerol, and protease makes amino acids (or peptides)."
   }
  ],
  "2025-Q6": [
@@ -1227,14 +1227,14 @@
    "why": "A runs from the mouth down to the stomach: the oesophagus. The trachea leads to the lungs."
   },
   {
-   "q": "How does food travel down tube A?",
-   "right": "Peristalsis: muscle waves push it down",
+   "q": "Name and briefly describe how food travels through tube A. (2 points)",
+   "right": "Peristalsis: muscular contractions of its wall push food down",
    "wrong": [
-    "Gravity: food just falls to the stomach",
-    "Ciliary action: cilia sweep it down",
-    "Diffusion: food spreads to the stomach"
+    "Peristalsis: cilia lining its wall beat to sweep food down",
+    "Gravity: food simply falls down into the stomach by its weight",
+    "Diffusion: food spreads down from high to low concentration"
    ],
-   "why": "Muscles in the oesophagus wall contract in waves behind the food, pushing it to the stomach."
+   "why": "Two points: name it peristalsis, and say muscles in the oesophagus wall contract in waves behind the food, pushing it down."
   },
   {
    "q": "How does the pH of food change from A to B?",
@@ -1281,14 +1281,14 @@
  ],
  "2026-Q7c": [
   {
-   "q": "What is the main job of the gall bladder?",
-   "right": "Stores bile from the liver",
+   "q": "Gall bladder: give its precise location and its main function. (2 points)",
+   "right": "Just under the liver; stores bile until it is needed",
    "wrong": [
-    "Makes bile to emulsify fats",
-    "Stores urine until it is passed",
-    "Makes lipase for the duodenum"
+    "Just under the liver; makes bile to emulsify fats",
+    "Behind the stomach; stores bile until it is needed",
+    "Just under the liver; makes lipase for the duodenum"
    ],
-   "why": "The gall bladder sits under the liver and stores bile; the liver itself makes the bile."
+   "why": "Two points: the gall bladder sits just underneath the liver, and it stores bile (made by the liver) until fatty food arrives."
   }
  ],
  "2026-Q17a": [
