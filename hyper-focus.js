@@ -344,23 +344,40 @@
       var quiet = !narration.on;
       var ms = quiet ? CHAR_MS_QUIET : CHAR_MS;
       var lead = item.querySelector && item.querySelector('.hf-bullet-art') ? (quiet ? 140 : 260) : 0;
+      // Typed like a person: each letter appears at once, at an uneven pace, with a beat after a space and a longer
+      // one after punctuation, and the cursor sitting after the last letter typed.
+      var times = [], at = lead;
       plan.chars.forEach(function (ch, k) {
-        typeTimers.push(setTimeout(function () { ch.classList.add('on'); }, lead + k * ms));
+        if (k) {
+          var prev = plan.chars[k - 1];
+          at += ms * (0.6 + Math.random() * 0.8);
+          if (prev.parentNode !== ch.parentNode) at += ms * 1.2;
+          if (/[.,:;!?]/.test(prev.textContent)) at += ms * 4;
+        }
+        times.push(at);
+        typeTimers.push(setTimeout(function () { ch.classList.add('on'); caret(ch); }, at));
       });
       // Sweep each key word's underline in just after that word finishes typing.
       Array.prototype.forEach.call(plan.host.querySelectorAll('b'), function (b) {
         var own = b.querySelectorAll('.hf-ch');
         var last = own.length ? plan.chars.indexOf(own[own.length - 1]) : 0;
-        b.style.animationDelay = ((lead + last * ms + 60) / 1000) + 's';
+        b.style.animationDelay = (((times[last] || lead) + 60) / 1000) + 's';
       });
       var typed = false;
       var spoken = false;
       function next() { if (typed && spoken) run(n + 1); }
-      typeTimers.push(setTimeout(function () { typed = true; next(); }, plan.chars.length ? lead + plan.chars.length * ms + (quiet ? 80 : 160) : 0));
+      typeTimers.push(setTimeout(function () { typed = true; next(); }, plan.chars.length ? at + ms + (quiet ? 80 : 160) : 0));
       playLine(ids[n], function () { if (token !== narration.token) return; spoken = true; next(); });
     }
-    // When the camera is still travelling, wait for it so typing starts once the guide is visible.
-    typeTimers.push(setTimeout(function () { run(0); }, document.body.classList.contains('hf-camera-moving') ? 500 : 0));
+    // When the camera is still travelling the card is hidden (until 820 ms), so typing starts once it shows.
+    typeTimers.push(setTimeout(function () { run(0); }, document.body.classList.contains('hf-camera-moving') ? 900 : 0));
+  }
+
+  // The typing cursor: on the letter just typed (it blinks once typing stops there).
+  function caret(ch) {
+    var old = ui && ui.guide.querySelector('.hf-ch.hf-at');
+    if (old) old.classList.remove('hf-at');
+    ch.classList.add('hf-at');
   }
 
   function clearTyping() {
