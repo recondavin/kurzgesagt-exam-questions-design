@@ -45,6 +45,13 @@ window.oralGame = startGame({
   rounds: QUESTIONS.length,
   counties: COUNTIES,
   english: ENGLISH,
+  // Music outside (quieter indoors and while you talk). Its licence asks for the credit below, shown in the menu.
+  music: { src: 'orals/audio/music-thatched-villagers.mp3' },
+  credits: [
+    { text: 'Music: "Thatched Villagers" by Kevin MacLeod (incompetech.com), CC BY 4.0, made quieter and smaller.', href: 'https://creativecommons.org/licenses/by/4.0/' },
+    { text: 'Sounds and the food in the shop: Kenney (kenney.nl), CC0, trimmed and recoloured.' },
+    { text: 'All credits and licences', href: 'orals/CREDITS.md' },
+  ],
   // Asked the first time you talk to Máirín.
   setup: {
     kicker: 'Before you say hello',

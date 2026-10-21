@@ -78,6 +78,33 @@ export function prism(points, length, color, at) {
   return place(paint(g, color), at);
 }
 
+// A shape from a converted model (orals/models, made by tools/orals/convert_food.py): { p, i, f, c }. Scaled to
+// stand h high on its base; ry etc. as for place. Its size is { w, d } once scaled (model.size).
+const sizes = new WeakMap();
+function bounds(m) {
+  if (!sizes.has(m)) {
+    const lo = [1e9, 1e9, 1e9], hi = [-1e9, -1e9, -1e9];
+    for (let k = 0; k < m.p.length; k++) { lo[k % 3] = Math.min(lo[k % 3], m.p[k]); hi[k % 3] = Math.max(hi[k % 3], m.p[k]); }
+    sizes.set(m, { w: hi[0] - lo[0], h: hi[1], d: hi[2] - lo[2] });
+  }
+  return sizes.get(m);
+}
+export function model(m, h, at) {
+  const s = h / bounds(m).h, n = m.i.length, pos = new Float32Array(n * 3), col = new Float32Array(n * 3), c = new THREE.Color();
+  for (let k = 0; k < n; k++) {
+    const v = m.i[k] * 3;
+    pos[k * 3] = m.p[v] * s; pos[k * 3 + 1] = m.p[v + 1] * s; pos[k * 3 + 2] = m.p[v + 2] * s;
+    c.set(m.c[m.f[Math.floor(k / 3)]]);
+    col[k * 3] = c.r; col[k * 3 + 1] = c.g; col[k * 3 + 2] = c.b;
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  g.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  g.computeVertexNormals();
+  return place(g, at);
+}
+model.size = (m, h) => { const b = bounds(m), s = h / b.h; return { w: b.w * s, d: b.d * s }; };
+
 // A sign board with painted letters (a small texture), on two posts or flat on a wall.
 export function signMesh(text, w = 1.6, h = 0.45, colors = {}) {
   const cv = document.createElement('canvas'), W = 512, Hh = Math.round(512 * h / w);

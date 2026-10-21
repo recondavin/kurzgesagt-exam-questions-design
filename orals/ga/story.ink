@@ -125,7 +125,7 @@ peadar: Aon rud eile? #ask:siopa_eile
 player: Ask Peadar how much it is. #ask:siopa_praghas #prompt
 peadar: Trí euro caoga, le do thoil. #en:Three euro fifty, please.
 * [Seo duit.]
-- peadar: Go raibh maith agat. Slán leat! #en:Thank you. Goodbye! (Slán leat is said by the one staying.)
+- peadar: Go raibh maith agat. Slán leat! #en:Thank you. Goodbye! (Slán leat is said by the one staying.) #sfx:coins
 * [Slán agat!]
 - -> DONE
 

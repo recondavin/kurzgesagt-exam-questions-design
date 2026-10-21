@@ -1,7 +1,9 @@
 // Furniture and things for the rooms. Each maker builds its shapes around its own origin (front facing +z) and
-// returns { parts, foot: [w, d] (the floor it blocks, 0 for wall things), seat?: the spot to sit, facing +z }.
+// returns { parts, fine?: small things drawn with a thinner outline, foot: [w, d] (the floor it blocks, 0 for wall
+// things), seat?: the spot to sit, facing +z }.
 // A room places it with { x, z, ry } (see room.js). New rooms (the shop, the classroom, the céilí hall) add makers here.
-import { box, cyl, ball, ring, slab } from './kit.js';
+import { box, cyl, ball, ring, slab, model } from './kit.js';
+import { FOOD } from '../models/food.js';
 
 const WOOD = '#7A4E33', WOOD_D = '#5E3B27', WHITE = '#EDE7DA', IRON = '#34302D';
 
@@ -213,43 +215,50 @@ export const MAKERS = {
     for (const [c, dx, dy] of [['#E25C5C', -0.04, 0.06], ['#F2C94C', 0.04, 0.09], ['#6FBF73', 0, 0.15], ['#5C8DE2', -0.03, 0.2]]) p.push(ball(0.035, c, { x: -w / 2 + 0.35 + dx, y: 1.01 + dy, z: 0.05 }, 0));
     return { parts: p, foot: [w + 0.08, 0.78] };
   },
-  // Shelves of goods against a wall: packets, tins and bottles in bright colours.
+  // Shelves of groceries against a wall. o.rows: what is on each shelf from the bottom up, e.g.
+  // [['flour'], ['beans', 'tomatoes'], ...] (names in FOOD), each laid out side by side till the shelf is full.
+  // The goods are small, so they come back as `fine` parts with a thinner outline.
   shopShelf(o) {
-    const w = o.w || 1.6, h = 2.0, c = o.color || '#7A4E33', p = [box(w, h, 0.06, c, { z: -0.17 })];
+    const w = o.w || 1.6, h = 2.0, c = o.color || '#7A4E33', p = [box(w, h, 0.06, c, { z: -0.17 })], fine = [];
     for (const sx of [-1, 1]) p.push(box(0.06, h, 0.4, c, { x: sx * (w / 2 - 0.03) }));
-    const goods = ['#D9534F', '#F0AD4E', '#5CB85C', '#428BCA', '#E8E2D0', '#8E44AD', '#E67E22', '#2C3E50'];
-    let k = o.seed || 1;
-    const next = () => (k = (k * 16807) % 2147483647) / 2147483647;
+    const rows = o.rows || [['flour'], ['beans', 'tomatoes'], ['jam', 'honey'], ['bread']];
     for (let i = 0; i < 4; i++) {
       const y = 0.08 + i * 0.5;
       p.push(box(w - 0.12, 0.04, 0.38, c, { y }));
-      let x = -w / 2 + 0.12;
-      while (x < w / 2 - 0.2) {
-        const kind = next(), col = goods[Math.floor(next() * goods.length)];
-        if (kind < 0.45) { const bw = 0.14 + next() * 0.1; p.push(box(bw, 0.22 + next() * 0.12, 0.2, col, { x: x + bw / 2, y: y + 0.04 })); x += bw + 0.03; }
-        else if (kind < 0.75) { p.push(cyl(0.06, 0.06, 0.14, 8, col, { x: x + 0.06, y: y + 0.04 }), cyl(0.06, 0.06, 0.02, 8, '#B7B3AA', { x: x + 0.06, y: y + 0.18 })); x += 0.15; }
-        else { p.push(cyl(0.05, 0.05, 0.26, 8, col, { x: x + 0.05, y: y + 0.04 }), cyl(0.02, 0.03, 0.08, 6, col, { x: x + 0.05, y: y + 0.3 })); x += 0.13; }
-      }
+      fine.push(...row(rows[i] || [], -w / 2 + 0.1, w / 2 - 0.1, y + 0.04, 0.02, (o.seed || 1) + i));
     }
-    return { parts: p, foot: [w, 0.42] };
+    return { parts: p, fine, foot: [w, 0.42] };
   },
-  // A drinks fridge with a glass door and bottles inside.
+  // An open-fronted chiller: milk, juice, water and cans of drink on its shelves.
   fridge(o) {
-    const p = [box(0.8, 1.9, 0.7, '#F1F1EE', {}), box(0.68, 1.5, 0.03, '#BFD9DE', { y: 0.3, z: 0.36 }), box(0.8, 0.22, 0.72, '#C8423A', { y: 1.68 }), box(0.04, 0.5, 0.05, '#9AA0A3', { x: 0.3, y: 0.8, z: 0.4 })];
-    const cols = ['#C8423A', '#2F7D4F', '#E8A33D', '#3C6E9C'];
-    for (let r = 0; r < 3; r++) for (let i = 0; i < 4; i++) p.push(cyl(0.05, 0.05, 0.28, 8, cols[(i + r) % 4], { x: -0.22 + i * 0.15, y: 0.4 + r * 0.45, z: 0.15 }));
-    return { parts: p, foot: [0.8, 0.72] };
-  },
-  // Crates of fruit and vegetables on a sloped stand.
-  crates(o) {
-    const w = o.w || 1.3, p = [box(w, 0.6, 0.6, '#7A4E33', {})];
-    const fruit = [['#C8423A', 0.07], ['#7FB33D', 0.07], ['#E8932F', 0.075], ['#E9D45A', 0.06]];
-    fruit.forEach(([c, r], i) => {
-      const x = -w / 2 + 0.17 + i * (w - 0.34) / 3;
-      p.push(box(0.28, 0.12, 0.5, '#A57B56', { x, y: 0.6, rx: -0.25 }));
-      for (let j = 0; j < 5; j++) p.push(ball(r, c, { x: x + ((j % 3) - 1) * 0.08, y: 0.66 + (j > 2 ? 0.07 : 0) + (j % 2) * 0.03, z: -0.12 + j * 0.06, sy: c === '#E9D45A' ? 0.6 : 1 }, 0));
+    const w = 0.9, p = [box(w, 0.3, 0.7, '#F1F1EE', {}), box(w, 0.06, 0.06, '#9AA0A3', { y: 0.3, z: 0.32 }), box(w, 0.06, 0.66, '#3A3532', { y: 0.3 })], fine = [];
+    // Corner posts, not side panels, so the drinks can be seen from the side too.
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) p.push(box(0.06, 1.95, 0.06, '#F1F1EE', { x: sx * (w / 2 - 0.03), z: sz * 0.32 }));
+    p.push(box(w, 1.65, 0.05, '#DCE3E4', { y: 0.3, z: -0.32 }), box(w, 0.26, 0.72, '#C8423A', { y: 1.9 }), box(w - 0.1, 0.06, 0.08, '#F4F1EA', { y: 1.84, z: 0.3 }));
+    const rows = o.rows || [['milk'], ['juice', 'water'], ['fizzy', 'lemonade']];
+    rows.forEach((r, i) => {
+      const y = 0.36 + i * 0.5;
+      if (i) p.push(box(w - 0.12, 0.03, 0.6, '#B9C0C2', { y: y - 0.03 }), box(w - 0.12, 0.04, 0.02, '#9AA0A3', { y: y - 0.03, z: 0.3 }));
+      fine.push(...row(r, -w / 2 + 0.08, w / 2 - 0.08, y, 0.015, i + 5, 0.06));
     });
-    return { parts: p, foot: [w, 0.6] };
+    return { parts: p, fine, foot: [w, 0.72] };
+  },
+  // Crates of fruit and vegetables on a sloped stand. o.produce: one kind for each crate (names in FOOD).
+  crates(o) {
+    const w = o.w || 1.3, p = [box(w, 0.6, 0.6, '#7A4E33', {})], fine = [];
+    const kinds = o.produce || ['apple', 'orange', 'banana', 'cabbage'], n = kinds.length, cw = (w - 0.08) / n;
+    kinds.forEach((kind, i) => {
+      const x = -w / 2 + 0.04 + cw * (i + 0.5);
+      // Each crate tips forward to show what's in it.
+      p.push(box(cw - 0.03, 0.1, 0.5, '#A57B56', { x, y: 0.6, rx: 0.25 }));
+      const m = FOOD[kind], h = PRODUCE[kind] || 0.08, s = model.size(m, h), cols = Math.max(1, Math.floor((cw - 0.05) / (s.w + 0.01)));
+      // Three rows, a little jumbled, lying on the slope of the crate.
+      for (let j = 0; j < cols * 3; j++) {
+        const cx = x + ((j % cols) - (cols - 1) / 2) * (s.w + 0.01), z = -0.15 + Math.floor(j / cols) * 0.15;
+        fine.push(model(m, h, { x: cx + jitter(i, j) * 0.015, z, y: 0.69 - z * 0.25, ry: jitter(j, i) * 3, rx: 0.25 }));
+      }
+    });
+    return { parts: p, fine, foot: [w, 0.6] };
   },
   // A stand of newspapers.
   newsstand(o) {
@@ -265,6 +274,26 @@ export const MAKERS = {
     return { parts: p, foot: [0, 0] };
   },
 };
+
+// How tall each kind of food stands (metres), on a shelf and in a crate.
+const GOODS = { milk: 0.24, juice: 0.16, cola: 0.28, water: 0.28, tomatoes: 0.11, beans: 0.11, tuna: 0.05, fizzy: 0.12, lemonade: 0.12, bread: 0.13, sodabread: 0.09, flour: 0.2, honey: 0.1, jam: 0.1, ketchup: 0.19, chocolate: 0.02 };
+const PRODUCE = { apple: 0.08, orange: 0.08, banana: 0.06, pear: 0.1, lemon: 0.07, cabbage: 0.14, onion: 0.07 };
+
+// A steady random number from -1 to 1 for a pair of numbers (so the shop looks the same every time).
+function jitter(a, b) { const v = Math.sin(a * 12.9898 + b * 78.233) * 43758.5453; return (v - Math.floor(v)) * 2 - 1; }
+
+// A shelf's worth of goods between x0 and x1: each kind gets an equal share and fills it side by side.
+function row(names, x0, x1, y, gap, seed, z = 0.02) {
+  const out = [], share = (x1 - x0) / Math.max(1, names.length);
+  names.forEach((name, k) => {
+    const m = FOOD[name];
+    if (!m) return;
+    const h = GOODS[name] || 0.12, s = model.size(m, h), step = s.w + gap, n = Math.max(1, Math.floor((share + gap) / step));
+    const start = x0 + share * k + (share - (n * step - gap)) / 2 + s.w / 2;
+    for (let i = 0; i < n; i++) out.push(model(m, h, { x: start + i * step, y, z, ry: jitter(seed + k, i) * 0.12 }));
+  });
+  return out;
+}
 
 function shadeHex(hex) {
   const n = parseInt(hex.slice(1), 16), f = v => Math.round(v * 0.8);

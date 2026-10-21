@@ -2,7 +2,7 @@
 // shore, boreens, dry-stone walls, buildings with signs, rocks, gorse, wind-bent trees, sheep, a pier with a
 // currach and mountains behind. Built from a content pack's description (see orals/ga/village.js). Static things
 // are merged in chunks (only the chunks on screen are drawn); the sheep move.
-// Returns { group, blocks, walkable(x, z), bounds, update(dt) }.
+// Returns { group, blocks, walkable(x, z), surface(x, z), shore(x, z), bounds, update(dt) }.
 import * as THREE from '../../lib/three.module.min.js';
 import { box, cyl, ball, slab, prism, paint, place, mesh, chunked, signMesh } from './kit.js';
 import { seeded } from './room.js';
@@ -186,9 +186,30 @@ export function buildLand(L) {
   }
 
   const walk = L.walk || [];
+  const onPier = (x, z) => walk.some(b => x > b[0] && x < b[2] && z > b[1] && z < b[3]);
+  const onStrip = (x, z, list, w0) => list.some(r => r.pts.some((b, i) => i && segDist(x, z, r.pts[i - 1], b) < (r.w || w0) / 2));
   return {
     group, blocks, update, bounds: L.bounds,
     // Walkable: on the island or its sand, or out on the pier.
-    walkable: (x, z) => inside(L.beach, x, z) || walk.some(b => x > b[0] && x < b[2] && z > b[1] && z < b[3]),
+    walkable: (x, z) => inside(L.beach, x, z) || onPier(x, z),
+    // What is underfoot (for footsteps): wood, stone (a road or path), grass or sand.
+    surface(x, z) {
+      if (onPier(x, z) && !inside(L.beach, x, z)) return 'wood';
+      if (onStrip(x, z, L.roads || [], 3) || onStrip(x, z, L.paths || [], 1.2)) return 'stone';
+      return inside(L.coast, x, z) ? 'grass' : 'sand';
+    },
+    // How far it is to the water's edge, in metres (0 out on the pier).
+    shore(x, z) {
+      if (!inside(L.beach, x, z)) return 0;
+      let d = 1e9;
+      L.beach.forEach((b, i) => { d = Math.min(d, segDist(x, z, L.beach[(i || L.beach.length) - 1], b)); });
+      return d;
+    },
   };
+}
+
+function segDist(x, z, a, b) {
+  const dx = b[0] - a[0], dz = b[1] - a[1], l2 = dx * dx + dz * dz || 1;
+  const t = Math.max(0, Math.min(1, ((x - a[0]) * dx + (z - a[1]) * dz) / l2));
+  return Math.hypot(x - a[0] - t * dx, z - a[1] - t * dz);
 }

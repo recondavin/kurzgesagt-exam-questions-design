@@ -2,6 +2,7 @@
 // Story lines are written "who: text" (who is a person's id; no prefix is narration) with Ink tags:
 //   #en:...   the English meaning (else the pack's glossary has it)      #ask:id   a question to answer
 //   #prompt   the line is an instruction in English ("Ask how much it is."), shown as a task, not speech
+//   #sfx:name a sound to play with the line (a file in orals/audio, e.g. #sfx:coins)
 // Lines that start with @ are stage directions for the engine:
 //   @place text                 the place name under the top bar
 //   @roam id ^ hint             free walking (tap the floor, or W A S D) until the player taps that person or
@@ -18,6 +19,7 @@
 import { createWorld } from './world.js';
 import { createTalk } from './talk.js';
 import { createMarker } from './marker.js';
+import { createSound } from './sound.js';
 
 const store = {
   get(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } },
@@ -28,10 +30,13 @@ const store = {
 export function startGame(pack) {
   const root = document.querySelector('.og');
   const world = createWorld(root.querySelector('.og-world'), pack);
+  const sound = createSound({ key: pack.key, music: pack.music && pack.music.src });
   const talk = createTalk(root, {
     key: pack.key, back: pack.back, voice: pack.voice || null,
     onInsets: (t, b) => world.setInsets(t, b),
     onLeave: () => leave(),
+    sfx: name => sound.play(name, { vol: 0.7 }),
+    onMarked: kind => sound.play({ right: 'right', wrong: 'nearly' }[kind] || 'other', { vol: 0.8 }),
     // "Mine was right": kept on this device so the accepted answers can be widened later.
     onMine: (id, text) => { const l = store.get(pack.key + '-mine') || []; l.push({ id, text, at: Date.now() }); store.set(pack.key + '-mine', l.slice(-200)); },
   });
@@ -50,7 +55,12 @@ export function startGame(pack) {
   // The dots over the person to talk to follow them on screen.
   // With the keyboard, the dots become an E key once the player is close enough to talk.
   // Off screen, the marker waits at the edge of the free area with an arrow pointing the way.
+  let lastFrame = performance.now();
   world.onFrame = () => {
+    const now = performance.now(), w = world.where();
+    sound.scene({ indoors: !!w.room, talking: focusIds.length > 0, sea: w.sea });
+    sound.update(Math.min(0.1, (now - lastFrame) / 1000));
+    lastFrame = now;
     if (!roamId || chatting) return talk.marker(null);
     const p = world.people[roamId], pos = world.screenOf(p, 1.5 * p.k), v = world.view, m = 30;
     const left = m, right = v.w - m, top = v.top + 24, bottom = v.h - v.bottom - m - 40;
@@ -67,6 +77,12 @@ export function startGame(pack) {
   const KEY_HINT = 'W A S D or the arrow keys to walk · E to talk';
   const showHint = text => { hintText = text || ''; talk.hint(hintText, hintText && (fine || world.usingKeys) ? KEY_HINT : ''); };
   world.on('keys', () => { if (hintText) showHint(hintText); });
+  // Footsteps, and the door (with the shop's bell) going in and out.
+  world.on('step', ground => sound.step(ground));
+  world.on('room', (now, was) => {
+    sound.play(now ? 'door-open' : 'door-close', { vol: 0.55 });
+    if ((now || was).bell) sound.play('bell', { vol: 0.5, delay: 0.1 });
+  });
 
   // ---------------------------------------------------------------- save and load
   function snapshot() {
@@ -119,6 +135,7 @@ export function startGame(pack) {
         const text = side.Continue().trim();
         if (!text || text[0] === '@') continue;
         lastSide = parse(text, side.currentTags);
+        if (lastSide.tags.sfx) sound.play(lastSide.tags.sfx);
         if (lastSide.tags.ask) { await askSide(lastSide, g); if (g !== chatGen) return; continue; }
         speaking(lastSide.id, true);
         await talk.say(lastSide);
@@ -252,6 +269,7 @@ export function startGame(pack) {
       showHint(hint);
       save(before, !!before);
       world.on('talk', async who => {
+        sound.play('talk', { vol: 0.6 });
         if (who !== id) { sideChat(who); return; }
         world.setRoam(false);
         world.on('talk', null);
@@ -278,6 +296,7 @@ export function startGame(pack) {
     else if (cmd === 'summary' && round) {
       talk.hideSheet();
       const items = round.items.map(i => ({ first: i.first, ga: qById[i.id].ask[0], en: qById[i.id].en }));
+      sound.play('harp', { vol: 0.8 });
       await talk.summary({ kicker: parts[0], title: parts[1], first: items.filter(i => i.first).length, total: items.length, items });
       round = null;
     } else if (cmd === 'end') {
@@ -299,6 +318,7 @@ export function startGame(pack) {
         if (text[0] === '@') { await direction(text, before); continue; }
         const line = parse(text, story.currentTags);
         lastLine = line;
+        if (line.tags.sfx) sound.play(line.tags.sfx);
         if (line.id && line.id !== 'player') partner = line.id;
         if (line.tags.ask) { await askLine(line, before, g); continue; }
         speaking(line.id, true);
@@ -320,9 +340,11 @@ export function startGame(pack) {
   }
 
   talk.onMenu(() => [
+    { toggle: 'Music', on: sound.prefs.music, set: on => sound.setMusic(on) },
+    { toggle: 'Sounds', on: sound.prefs.sfx, set: on => sound.setSfx(on) },
     { label: 'Change my name or county', run: async () => { profile = await talk.setup(setupText()); store.set(profileKey, profile); } },
     { label: 'Start again', run: () => { store.del(saveKey); location.reload(); } },
-  ]);
+  ].concat((pack.credits || []).map(c => ({ small: c.text, href: c.href }))));
   function setupText() { return Object.assign({ profile, counties: pack.counties }, pack.setup); }
 
   // Straight into the room: no forms first.
@@ -332,5 +354,5 @@ export function startGame(pack) {
   if (saved) resumeFrom(saved);
   else { story.ChoosePathString(pack.start || 'start'); run(gen); }
 
-  return { world, talk, marker, story };
+  return { world, talk, marker, story, sound };
 }
