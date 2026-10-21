@@ -49,7 +49,8 @@
     type: ['kind', 'class'],
     increase: ['increas', 'rise', 'rising', 'rais', 'raise'],
     decrease: ['decreas', 'fall', 'falling', 'drop', 'dropp', 'reduce', 'reduc'],
-    remove: ['remov', 'eliminate', 'eliminat']
+    remove: ['remov', 'eliminate', 'eliminat'],
+    muscle: ['muscular', 'muscl']
   };
   var CANON = {};
   Object.keys(SAME).forEach(function (k) { CANON[k] = k; SAME[k].forEach(function (w) { CANON[w] = k; }); });

@@ -216,7 +216,7 @@ def build(ch):
             kind = ov.get('kind', {}).get(pid) or kind_of(p)
             if pid in ov.get('tap', {}):
                 kind = 'tap'
-            max_n = rule_count(p.get('rule'), p)
+            max_n = ov.get('n', {}).get(pid) or rule_count(p.get('rule'), p)  # the chapter's count where the rule reads wrong
             per = None if p.get('marks') is None else None
             pts = []
             for j, pt in enumerate(p['points']):
