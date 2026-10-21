@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-27';
+  var V = 'bio-28';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -129,8 +129,10 @@
   // true / false), see straight away if it's right and why. The whole question is then answered from memory on the
   // answer sheet ("Start writing").
   function checkHtml(c, k) {
+    // Shuffled, so the right one isn't always in the same place; true or false always reads True, then False.
     var options = [c.right].concat(c.wrong);
-    if (options.length > 2) for (var i = options.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = options[i]; options[i] = options[j]; options[j] = t; }
+    if (options.length === 2) options = ['True', 'False'];
+    else for (var i = options.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = options[i]; options[i] = options[j]; options[j] = t; }
     return '<div class="hf-bio-check" data-hf-still data-part="' + k + '"><p class="hf-bio-check__q"><b>Quick check:</b> ' + esc(c.q) + '</p>' +
       '<div class="hf-bio-check__options' + (options.length === 2 ? ' hf-bio-check__options--two' : '') + '">' + options.map(function (o) {
         return '<button type="button" class="hf-bio-check__option"' + (o === c.right ? ' data-right' : '') + '>' + esc(o) + '</button>';

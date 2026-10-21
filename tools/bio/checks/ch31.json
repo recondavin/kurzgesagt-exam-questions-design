@@ -1,0 +1,491 @@
+{
+  "2004-Q9": [
+    { "q": "What does 'contractile' mean for cardiac muscle?", "right": "It can shorten (contract)",
+      "wrong": ["It can conduct electrical impulses", "It can stretch and spring back", "It works without ever tiring"],
+      "why": "Contractile means able to contract: the muscle fibres shorten to squeeze blood out of the heart." },
+    { "q": "Which heart chamber has the most muscle in its wall?", "right": "Left ventricle",
+      "wrong": ["Right ventricle", "Left atrium", "Right atrium"],
+      "why": "The left ventricle pumps blood all round the body, so it needs the thickest, strongest wall." },
+    { "q": "How can you tell the left side of the heart from the right?", "right": "Left side feels firmer when squeezed",
+      "wrong": ["Left side feels softer when squeezed", "Left side is darker in colour", "Vena cava enters on the left side"],
+      "why": "The left ventricle has a much thicker muscle wall, so the left side feels firmer." },
+    { "q": "On your diagram, where should the bicuspid valve go?", "right": "Between left atrium and left ventricle",
+      "wrong": ["Between right atrium and right ventricle", "At the base of the aorta", "At the base of the pulmonary artery"],
+      "why": "The bicuspid valve is on the left side; the tricuspid is between the right atrium and right ventricle." },
+    { "q": "How do you expose a semilunar valve?", "right": "Cut open the aorta (or pulmonary artery)",
+      "wrong": ["Cut down through the septum", "Cut open the left atrium", "Cut open the vena cava"],
+      "why": "Semilunar valves sit at the base of the aorta and pulmonary artery, so you cut into those vessels." },
+    { "q": "What does a semilunar valve do?", "right": "Stops blood flowing back into the ventricle",
+      "wrong": ["Stops blood flowing back into the atrium", "Lets blood pass from atrium to ventricle", "Starts off each heartbeat"],
+      "why": "When the ventricle relaxes, the semilunar valve snaps shut so blood in the artery can't fall back in." },
+    { "q": "Where does the coronary artery begin?", "right": "At the base of the aorta",
+      "wrong": ["At the base of the pulmonary artery", "In the wall of the right atrium", "Where the vena cava enters"],
+      "why": "The coronary arteries branch off the aorta just above the semilunar valve, bringing oxygen-rich blood." }
+  ],
+  "2005-Q3": [
+    { "q": "True or false: the SA node (pacemaker) is on the right side of the heart.", "right": "True",
+      "wrong": ["False"],
+      "why": "The pacemaker sits in the wall of the right atrium, near where the vena cava enters." },
+    { "q": "True or false: human red blood cells have no nucleus.", "right": "True",
+      "wrong": ["False"],
+      "why": "Red blood cells lose their nucleus as they mature, which leaves more room for haemoglobin." }
+  ],
+  "2006-Q5": [
+    { "q": "On the diagram, which blood vessel is Y?", "right": "Hepatic portal vein",
+      "wrong": ["Hepatic vein", "Hepatic artery", "Inferior vena cava"],
+      "why": "Y links the intestine to the liver: that is the hepatic portal vein, carrying absorbed food." },
+    { "q": "Which way does blood flow in Y, the hepatic portal vein?", "right": "From the intestine into the liver",
+      "wrong": ["From the liver into the intestine", "From the liver towards the heart", "From the heart into the liver"],
+      "why": "It carries food absorbed in the gut to the liver, so its arrow points towards the liver." }
+  ],
+  "2006-Q13a": [
+    { "q": "Where in the body are red blood cells made?", "right": "Bone marrow",
+      "wrong": ["Liver", "Spleen", "Lymph nodes"],
+      "why": "Red cells are made in the marrow of bones like the ribs, sternum and skull; liver and spleen break them down." },
+    { "q": "Which is a way red blood cells differ from cheek cells?", "right": "They have no nucleus",
+      "wrong": ["They have a larger nucleus", "They have no cell membrane", "They have many more mitochondria"],
+      "why": "Mature red cells lose their nucleus (and mitochondria) to make room for haemoglobin." }
+  ],
+  "2006-Q13b": [
+    { "q": "What is plasma?", "right": "The liquid part of the blood",
+      "wrong": ["Fluid filtered into Bowman's capsule", "The fluid that bathes the body cells", "The cells and platelets in blood"],
+      "why": "Plasma is the watery liquid that blood cells float in; glomerular filtrate is plasma minus its proteins." }
+  ],
+  "2006-Q13c": [
+    { "q": "Which two parts make up the lymphatic system?", "right": "Lymph vessels and lymph nodes",
+      "wrong": ["Arteries and veins", "Lymph vessels and venules", "Lymph nodes and arterioles"],
+      "why": "Lymph flows in lymph vessels, which pass through lymph nodes that filter it." },
+    { "q": "Which is a function of the lymphatic system?", "right": "Absorbs fats at the lacteals in villi",
+      "wrong": ["Absorbs glucose at the lacteals in villi", "Carries oxygen to the body cells", "Makes new red blood cells"],
+      "why": "Fats enter the lacteals and travel in lymph; glucose and amino acids go into blood capillaries." }
+  ],
+  "2007-Q13a": [
+    { "q": "Which vessel brings blood back to the heart from the lungs?", "right": "Pulmonary vein",
+      "wrong": ["Pulmonary artery", "Vena cava", "Aorta"],
+      "why": "Veins carry blood to the heart: the pulmonary vein brings oxygen-rich blood from the lungs." },
+    { "q": "How is oxygen carried in the pulmonary vein's blood?", "right": "Joined to haemoglobin in red blood cells",
+      "wrong": ["As hydrogencarbonate in the plasma", "Carried inside white blood cells", "Bound to plasma proteins"],
+      "why": "Oxygen combines with haemoglobin (which contains iron) to form oxyhaemoglobin in red cells." }
+  ],
+  "2009-Q13a": [
+    { "q": "What are the two circuits of the circulatory system?", "right": "Pulmonary and systemic",
+      "wrong": ["Pulmonary and hepatic portal", "Systemic and coronary", "Arterial and venous"],
+      "why": "The pulmonary circuit goes to the lungs and back; the systemic circuit goes to the rest of the body." },
+    { "q": "Which circuit does the left ventricle pump blood into?", "right": "Systemic circuit",
+      "wrong": ["Pulmonary circuit", "Both circuits equally", "Lymphatic circuit"],
+      "why": "The left ventricle pumps blood into the aorta, which carries it round the body: the systemic circuit." }
+  ],
+  "2009-Q13b": [
+    { "q": "Which best describes blood pressure?", "right": "Force of blood pushing on artery walls",
+      "wrong": ["Number of heartbeats in a minute", "Stretching of an artery at each beat", "How fast blood flows in the veins"],
+      "why": "Blood pressure is the force blood exerts on vessel walls; the stretching of an artery is the pulse." },
+    { "q": "Which is an effect of a diet high in saturated fat?", "right": "Fatty deposits narrow the arteries",
+      "wrong": ["Arteries widen and get more elastic", "Blood pressure goes down", "Heart muscle gets stronger"],
+      "why": "Saturated fat and cholesterol build up as plaque in artery walls, narrowing them and raising blood pressure." },
+    { "q": "Besides colour, how do red blood cells differ from cheek cells?", "right": "They are packed with haemoglobin",
+      "wrong": ["They are packed with mitochondria", "They have two nuclei", "They have a cell wall"],
+      "why": "Red cells are full of haemoglobin to carry oxygen, and have no nucleus or mitochondria." },
+    { "q": "What do the SA and AV nodes do?", "right": "Send impulses that make the heart contract",
+      "wrong": ["Stop blood flowing backwards", "Supply the heart muscle with blood", "Keep the two sides' blood apart"],
+      "why": "The nodes make and pass on electrical impulses: the SA node is the pacemaker that sets the heartbeat." },
+    { "q": "Where precisely is the AV node?", "right": "In the septum, near the tricuspid valve",
+      "wrong": ["High up in the right atrium wall", "In the wall of the left atrium", "At the base of the aorta"],
+      "why": "The AV node sits low in the septum between atria and ventricles; the SA node is high in the right atrium." }
+  ],
+  "2010-Q7": [
+    { "q": "Which body cavity holds the heart and lungs?", "right": "Thoracic (chest) cavity",
+      "wrong": ["Abdominal cavity", "Pelvic cavity", "Cranial cavity"],
+      "why": "The heart and lungs sit in the thorax, above the diaphragm; the abdomen is below it." },
+    { "q": "How does heart muscle differ from other muscles?", "right": "It never tires (no fatigue)",
+      "wrong": ["It tires very quickly", "It is under voluntary control", "It is attached to bones by tendons"],
+      "why": "Cardiac muscle contracts all your life without fatigue, and it is involuntary." },
+    { "q": "How can you tell the front (ventral) side of the heart?", "right": "Coronary artery runs diagonally across it",
+      "wrong": ["Pulmonary veins enter on that side", "It feels firmer when squeezed", "No large vessels can be seen on it"],
+      "why": "The coronary artery runs diagonally across the front; firmness tells left from right, not front from back." },
+    { "q": "How do you expose a semilunar valve?", "right": "Cut open the pulmonary artery (or aorta)",
+      "wrong": ["Cut open the right atrium", "Cut open the pulmonary vein", "Cut along the septum"],
+      "why": "Semilunar valves sit where the aorta and pulmonary artery leave the ventricles, so you cut into those." },
+    { "q": "In your drawing, which chamber sits above the tricuspid valve?", "right": "Right atrium",
+      "wrong": ["Right ventricle", "Left atrium", "Left ventricle"],
+      "why": "The tricuspid valve lets blood pass down from the right atrium into the right ventricle." }
+  ],
+  "2010-Q15b": [
+    { "q": "In your diagram, the hepatic portal vein links which organs?", "right": "Small intestine to liver",
+      "wrong": ["Liver to heart", "Heart to liver", "Liver to kidneys"],
+      "why": "The hepatic portal vein runs from the capillaries of the small intestine to the liver." },
+    { "q": "Which substance does the hepatic portal vein carry to the liver?", "right": "Glucose",
+      "wrong": ["Bile", "Glycogen", "Starch"],
+      "why": "Glucose absorbed in the villi goes straight to the liver; starch must be digested first, and bile leaves the liver." },
+    { "q": "Which vessel brings oxygenated blood to the liver?", "right": "Hepatic artery",
+      "wrong": ["Hepatic portal vein", "Hepatic vein", "Pulmonary vein"],
+      "why": "Arteries bring oxygen-rich blood to organs: the hepatic artery, a branch of the aorta, supplies the liver." }
+  ],
+  "2011-Q8b": [
+    { "q": "Why do heart and breathing rates rise during exercise?", "right": "Muscles need more oxygen for respiration",
+      "wrong": ["Muscles make extra oxygen when working", "Less carbon dioxide is made in exercise", "Blood must carry more urea away"],
+      "why": "Working muscles respire faster: they need more oxygen and energy, and make more CO2 to get rid of." }
+  ],
+  "2011-Q12b": [
+    { "q": "Which vessel supplies blood to a kidney?", "right": "Renal artery",
+      "wrong": ["Renal vein", "Hepatic artery", "Vena cava"],
+      "why": "Arteries bring blood to organs: the renal artery, a branch of the aorta, supplies each kidney." }
+  ],
+  "2012-Q7b": [
+    { "q": "How did you expose the semilunar valves?", "right": "Cut open the aorta or pulmonary artery",
+      "wrong": ["Cut open the vena cava", "Cut open the pulmonary veins", "Cut across both atria"],
+      "why": "The semilunar valves guard the openings of the aorta and pulmonary artery, so you cut into those." }
+  ],
+  "2012-Q15b": [
+    { "q": "Apart from colour, how do red cells differ from white cells?", "right": "Red cells are far more numerous",
+      "wrong": ["Red cells are larger", "Red cells have a bigger nucleus", "Red cells make antibodies"],
+      "why": "There are hundreds of red cells for every white cell; red cells are also smaller and have no nucleus." },
+    { "q": "Which is a group of white blood cells other than lymphocytes?", "right": "Phagocytes (e.g. monocytes)",
+      "wrong": ["Platelets", "Erythrocytes", "B lymphocytes"],
+      "why": "Phagocytes such as monocytes engulf germs; B cells are lymphocytes, and platelets aren't white cells." }
+  ],
+  "2014-Q3": [
+    { "q": "On the diagram, what is part C?", "right": "Lymph vessel",
+      "wrong": ["Venule", "Capillary", "Arteriole"],
+      "why": "C collects excess tissue fluid from around the body cells, so it is a lymph vessel." },
+    { "q": "What type of blood vessel is A?", "right": "Arteriole",
+      "wrong": ["Venule", "Capillary", "Lymph vessel"],
+      "why": "A carries blood towards the capillaries, so it is an arteriole (a small artery); B drains them." },
+    { "q": "How would a section through A differ from one through B?", "right": "A has a thicker wall",
+      "wrong": ["A has a wider lumen", "A has valves", "A's wall is one cell thick"],
+      "why": "A carries blood under higher pressure, so it has a thicker wall and narrower lumen than B." },
+    { "q": "Which is a function of the lymphatic system?", "right": "Returns excess tissue fluid to the blood",
+      "wrong": ["Carries oxygen to the body cells", "Makes new red blood cells", "Removes urea from the blood"],
+      "why": "Fluid leaks out of capillaries; lymph vessels collect it and return it to the blood near the heart." },
+    { "q": "How does lymph differ from blood?", "right": "Lymph has no red blood cells",
+      "wrong": ["Lymph has no white blood cells", "Lymph has less fat than blood", "Lymph has more haemoglobin"],
+      "why": "Red cells are too big to leave capillaries, so lymph has none; it does carry white cells (lymphocytes)." },
+    { "q": "Which major vessel returns the blood in B to the heart?", "right": "Vena cava",
+      "wrong": ["Aorta", "Pulmonary vein", "Pulmonary artery"],
+      "why": "Blood from body tissues returns to the right atrium in the vena cava; pulmonary veins only drain the lungs." }
+  ],
+  "2014-Q9b": [
+    { "q": "Where is the tricuspid valve?", "right": "Between right atrium and right ventricle",
+      "wrong": ["Between left atrium and left ventricle", "At the base of the pulmonary artery", "At the base of the aorta"],
+      "why": "Tricuspid is on the right, between right atrium and right ventricle; the bicuspid is on the left." },
+    { "q": "How do you cut to expose the tricuspid valve?", "right": "Cut open the right side with a scalpel",
+      "wrong": ["Cut open the left side with a scalpel", "Cut open the aorta with a scalpel", "Cut across the septum with a scalpel"],
+      "why": "The tricuspid valve is on the right side, so you open the right atrium and ventricle with a scalpel." },
+    { "q": "Where are the semilunar valves found?", "right": "At the base of the aorta and pulmonary artery",
+      "wrong": ["Between the atria and the ventricles", "Where the venae cavae enter the atrium", "Inside the pulmonary veins"],
+      "why": "Semilunar valves sit where the aorta and pulmonary artery leave the ventricles." },
+    { "q": "What did you measure first, before any exercise?", "right": "The resting pulse (or breathing) rate",
+      "wrong": ["The highest rate during exercise", "The recovery time after exercise", "The person's blood pressure"],
+      "why": "You need the resting rate first so you can compare the rates after exercise with it." },
+    { "q": "How do you measure pulse rate?", "right": "Count beats at the wrist for 1 minute",
+      "wrong": ["Feel a vein in the hand and count", "Read the blood pressure from a cuff", "Time one beat and multiply by 60"],
+      "why": "Press two fingers on the artery at the wrist and count the beats for a set time, then repeat and average." }
+  ],
+  "2014-Q12c": [
+    { "q": "Which capillary feature allows rapid uptake of CO2?", "right": "Wall only one cell thick",
+      "wrong": ["Thick muscular wall", "Valves along its length", "Very wide lumen"],
+      "why": "A wall one cell thick gives a very short distance for gases to diffuse across." },
+    { "q": "Why is there more CO2 in venous blood than arterial blood?", "right": "Body cells add CO2 made in respiration",
+      "wrong": ["Blood picks up CO2 in the lungs", "Thin vein walls let CO2 in from the air", "Venous blood moves more slowly"],
+      "why": "Respiring cells release CO2 into blood in the capillaries; the lungs remove it before it goes out in arteries." },
+    { "q": "Which vessel is an exception to this, and why?", "right": "Pulmonary vein: CO2 removed in the lungs",
+      "wrong": ["Renal vein: kidneys remove the CO2", "Hepatic vein: liver removes the CO2", "Vena cava: blood has been to the lungs"],
+      "why": "Pulmonary veins carry blood just cleared of CO2 in the lungs (the pulmonary artery is the reverse case)." }
+  ],
+  "2015-Q4": [
+    { "q": "True or false: mitosis happens in mature human red blood cells.", "right": "False",
+      "wrong": ["True"],
+      "why": "Mature red blood cells have no nucleus, so they cannot divide by mitosis." }
+  ],
+  "2016-Q6": [
+    { "q": "Why can't mature red blood cells divide?", "right": "They have no nucleus",
+      "wrong": ["They have no cell membrane", "Their nucleus is too small", "They have no cytoplasm"],
+      "why": "Cell division needs a nucleus with DNA to copy; mature red cells have lost theirs." }
+  ],
+  "2016-Q8": [
+    { "q": "What is the pulse?", "right": "Rhythmic stretching of an artery wall",
+      "wrong": ["Rhythmic stretching of a vein wall", "Force of blood on the vessel walls", "Sound of the heart valves closing"],
+      "why": "Each heartbeat pushes a surge of blood into the arteries, stretching their walls: that is the pulse." },
+    { "q": "Why is the wrist a good place to feel the pulse?", "right": "An artery lies close to the skin there",
+      "wrong": ["A vein lies close to the skin there", "The artery there has valves", "Blood pressure is highest at the wrist"],
+      "why": "At the wrist an artery runs near the surface, so you can feel it stretch with each beat." },
+    { "q": "What was the control in this investigation?", "right": "The rate measured at rest",
+      "wrong": ["The rate at the peak of exercise", "The time taken to recover", "The rate of a very fit athlete"],
+      "why": "The resting rate is the baseline with no exercise, so it acts as the control." },
+    { "q": "What is the control for?", "right": "To compare the exercise results with",
+      "wrong": ["To make the results more reliable", "To measure the recovery time", "To warm the person up first"],
+      "why": "A control gives a baseline to compare with; repeating the test is what makes results reliable." },
+    { "q": "On your graph, how should B's curve compare with A's?", "right": "B's rate rises more than A's",
+      "wrong": ["A's rate rises more than B's", "Both rise by exactly the same amount", "B's rate falls during exercise"],
+      "why": "An unfit heart pumps less blood per beat, so B's rate has to rise more to supply her muscles." },
+    { "q": "How would you measure recovery time?", "right": "Time until the rate is back to resting",
+      "wrong": ["Time how long the exercise lasts", "Count the rate at the peak of exercise", "Time until the rate reaches its peak"],
+      "why": "Start counting right after exercise and time how long the rate takes to fall back to the resting rate." }
+  ],
+  "2016-Q15a": [
+    { "q": "What should your drawings of a vein clearly show?", "right": "Thin wall, wide lumen and valves",
+      "wrong": ["Thick wall, narrow lumen, no valves", "Wall one cell thick, no valves", "Thick wall, wide lumen, no valves"],
+      "why": "Veins carry blood at low pressure, so they have thin walls, wide lumens and valves (seen in the L.S.)." },
+    { "q": "Which vein has capillaries at both ends?", "right": "Hepatic portal vein",
+      "wrong": ["Hepatic vein", "Pulmonary vein", "Renal vein"],
+      "why": "It starts in capillaries in the intestine and ends in capillaries in the liver." },
+    { "q": "How is blood moved along the veins?", "right": "Squeezed by muscles; valves stop backflow",
+      "wrong": ["Valves contract to pump it along", "Strong pulses from the heart push it", "Vein walls squeeze it by peristalsis"],
+      "why": "Skeletal muscles squeeze veins as they contract, and valves make sure blood only goes towards the heart." }
+  ],
+  "2017-Q1": [
+    { "q": "Which metal is in haemoglobin?", "right": "Iron",
+      "wrong": ["Magnesium", "Calcium", "Copper"],
+      "why": "Haemoglobin has iron at its centre, which binds oxygen; magnesium is the metal in chlorophyll." }
+  ],
+  "2018-Q11a": [
+    { "q": "Besides food and water, which is carried in the blood?", "right": "Urea",
+      "wrong": ["Glycogen", "Starch", "Glucose"],
+      "why": "Urea is a waste carried in plasma from the liver to the kidneys; glucose counts as food, glycogen stays in cells." },
+    { "q": "Where does urea enter the blood?", "right": "Liver",
+      "wrong": ["Kidneys", "Bladder", "Small intestine"],
+      "why": "The liver makes urea from excess amino acids; the kidneys only remove it from the blood." }
+  ],
+  "2018-Q11b": [
+    { "q": "In your heart drawing, which vessel leaves the right ventricle?", "right": "Pulmonary artery",
+      "wrong": ["Aorta", "Vena cava", "Pulmonary vein"],
+      "why": "The right ventricle pumps blood to the lungs in the pulmonary artery; the aorta leaves the left ventricle." },
+    { "q": "What is the role of the AV node?", "right": "Passes the impulse on so ventricles contract",
+      "wrong": ["Starts each heartbeat in the atria", "Stops blood flowing back into the atria", "Separates the left and right ventricles"],
+      "why": "The AV node picks up the SA node's impulse and sends it on to make the ventricles contract." },
+    { "q": "What is measured when blood pressure is taken?", "right": "Force of blood against the artery wall",
+      "wrong": ["Number of heartbeats per minute", "Amount of oxygen in the blood", "Volume of blood pumped in each beat"],
+      "why": "Blood pressure is the force blood exerts on artery walls, read as systolic over diastolic." }
+  ],
+  "2019-Q5": [
+    { "q": "What word describes the shape of the two faces?", "right": "Biconcave",
+      "wrong": ["Biconvex", "Convex", "Spherical"],
+      "why": "Both faces dip inwards (concave), giving a big surface area for taking up oxygen." },
+    { "q": "What lets red blood cells squeeze through narrow capillaries?", "right": "They are flexible and can bend",
+      "wrong": ["They have no cell membrane", "They are rigid and pointed", "They split into smaller cells"],
+      "why": "Red cells are flexible, so they can fold and bend to squeeze through capillaries narrower than themselves." },
+    { "q": "Which molecule in red blood cells carries oxygen?", "right": "Haemoglobin",
+      "wrong": ["Myoglobin", "Fibrinogen", "Albumin"],
+      "why": "Haemoglobin, with iron at its centre, picks up oxygen in the lungs and releases it in the tissues." },
+    { "q": "Why do red blood cells only live about 120 days?", "right": "They have no nucleus",
+      "wrong": ["They have a large nucleus", "Their cell wall breaks down", "They are full of mitochondria"],
+      "why": "With no nucleus (or organelles) they can't make new proteins to repair themselves or divide." },
+    { "q": "Where are red blood cells made, and where are they broken down?", "right": "Made in marrow; broken down in liver",
+      "wrong": ["Made in spleen; broken down in kidney", "Made in marrow; broken down in kidney", "Made in kidney; broken down in liver"],
+      "why": "Bone marrow makes red cells; old ones are broken down in the liver and spleen." },
+    { "q": "Which transport fluid has no red blood cells?", "right": "Lymph",
+      "wrong": ["Arterial blood", "Venous blood", "Bile"],
+      "why": "Lymph forms from fluid that leaks out of capillaries; red cells are too big to get out, so lymph has none." }
+  ],
+  "2019-Q6": [
+    { "q": "Which vessel does the lung capillary branch from?", "right": "Pulmonary artery",
+      "wrong": ["Pulmonary vein", "Aorta", "Vena cava"],
+      "why": "The pulmonary artery brings deoxygenated blood from the right ventricle and branches into lung capillaries." }
+  ],
+  "2019-Q14b": [
+    { "q": "What causes the second heart sound, 'dub'?", "right": "Semilunar valves closing",
+      "wrong": ["Bicuspid and tricuspid valves closing", "Semilunar valves opening", "Atria contracting"],
+      "why": "'Lub' is the bicuspid and tricuspid valves shutting; 'dub' is the semilunar valves shutting." }
+  ],
+  "2019-Q15b": [
+    { "q": "Which vessel carries amino acids to the liver?", "right": "Hepatic portal vein",
+      "wrong": ["Hepatic vein", "Hepatic artery", "Lacteal"],
+      "why": "Amino acids enter blood capillaries in the villi, then the hepatic portal vein takes them to the liver." }
+  ],
+  "2020-Q9": [
+    { "q": "Why is blood in the right side kept apart from the left?", "right": "Stops oxygenated and deoxygenated blood mixing",
+      "wrong": ["Stops blood flowing back into the atria", "Lets blood pass from right side to left", "Makes both sides pump at the same pressure"],
+      "why": "Keeping them apart sends fully oxygenated blood to the body and lets each side pump at its own pressure." },
+    { "q": "What does diastole mean?", "right": "Heart muscle relaxing",
+      "wrong": ["Heart muscle contracting", "Ventricles pumping blood out", "Atria and ventricles contracting"],
+      "why": "Diastole is the relaxing phase when the chambers fill; systole is when the muscle contracts." },
+    { "q": "How did you tell the left side from the right?", "right": "Left side is thicker and firmer",
+      "wrong": ["Right side is thicker and firmer", "Left side has the pulmonary artery", "Left side has the vena cava"],
+      "why": "The left ventricle's wall is much thicker, so that side feels firmer when you press it." },
+    { "q": "Where did you see the coronary artery (groove)?", "right": "On the front (ventral) surface",
+      "wrong": ["Inside the left ventricle", "Inside the right atrium", "Around the pulmonary veins"],
+      "why": "The coronary artery runs diagonally across the front of the heart, on its outer surface." },
+    { "q": "Where do you cut to find the bicuspid valve?", "right": "Into the left side, atrium to ventricle",
+      "wrong": ["Into the right side, atrium to ventricle", "Into the aorta, just above the heart", "Across the septum between ventricles"],
+      "why": "The bicuspid valve sits between the left atrium and left ventricle, so you cut open the left side." },
+    { "q": "Where precisely is a semilunar valve?", "right": "At the base of the aorta",
+      "wrong": ["Between left atrium and left ventricle", "Where pulmonary veins enter the atrium", "In the septum between the ventricles"],
+      "why": "Semilunar valves sit where the aorta and pulmonary artery leave the ventricles; cut into the vessel to see one." }
+  ],
+  "2021-Q14b": [
+    { "q": "Which blood vessel carries digested nutrients from the gut?", "right": "Hepatic portal vein",
+      "wrong": ["Hepatic vein", "Lacteal", "Vena cava"],
+      "why": "Nutrients pass into blood capillaries in the villi, which join to form the hepatic portal vein." },
+    { "q": "Which organ do digested nutrients go to first?", "right": "Liver",
+      "wrong": ["Heart", "Kidneys", "Pancreas"],
+      "why": "The hepatic portal vein takes nutrients straight to the liver, which processes them before the heart." }
+  ],
+  "2022-Q17d": [
+    { "q": "What is the period when the heart muscle is not contracting?", "right": "Diastole",
+      "wrong": ["Systole", "Atrial systole", "Ventricular systole"],
+      "why": "Diastole is when heart muscle relaxes and the chambers fill; systole is the contracting phase." },
+    { "q": "How can you tell from a diagram that the ventricles are contracting?", "right": "Semilunar valves are open",
+      "wrong": ["Semilunar valves are closed", "Bicuspid and tricuspid valves are open", "Ventricles are large and full of blood"],
+      "why": "When ventricles contract, the AV valves shut and the semilunar valves open as blood is forced into arteries." },
+    { "q": "Where is the SA node?", "right": "Wall of the right atrium",
+      "wrong": ["Wall of the left atrium", "Septum near the tricuspid valve", "Wall of the right ventricle"],
+      "why": "The SA node (pacemaker) is in the wall of the right atrium; the AV node is lower, in the septum." },
+    { "q": "Into which circuit does the right ventricle pump blood?", "right": "Pulmonary circuit",
+      "wrong": ["Systemic circuit", "Coronary circuit", "Hepatic portal circuit"],
+      "why": "The right ventricle pumps blood through the pulmonary artery to the lungs: the pulmonary circuit." },
+    { "q": "What causes the two sounds of each heartbeat?", "right": "Heart valves closing",
+      "wrong": ["Heart valves opening", "Blood rushing through the veins", "The SA node firing"],
+      "why": "'Lub' is the AV valves snapping shut and 'dub' is the semilunar valves snapping shut." },
+    { "q": "What does the coronary artery do?", "right": "Supplies the heart muscle with blood",
+      "wrong": ["Carries blood from the heart to lungs", "Drains blood away from the heart muscle", "Carries blood from the body to the heart"],
+      "why": "Heart muscle needs its own oxygen and food; coronary arteries bring it in, coronary veins drain it." },
+    { "q": "Which is an effect of smoking on the circulatory system?", "right": "Raises blood pressure",
+      "wrong": ["Lowers the heart rate", "Makes arteries more elastic", "Strengthens the heart muscle"],
+      "why": "Nicotine narrows blood vessels and speeds up the heart, raising blood pressure." }
+  ],
+  "2023-Q6": [
+    { "q": "Why is the septum needed in the heart?", "right": "Stops oxygen-rich and oxygen-poor blood mixing",
+      "wrong": ["Stops blood flowing back into the atria", "Lets blood pass from the right side to left", "Supplies the heart wall with blood"],
+      "why": "The septum is a wall keeping deoxygenated blood (right side) apart from oxygenated blood (left side)." }
+  ],
+  "2023-Q10b": [
+    { "q": "Which instrument did you use to make the incisions?", "right": "Scalpel",
+      "wrong": ["Forceps", "Blunt probe", "Mounted needle"],
+      "why": "A scalpel has a sharp blade for cutting; forceps hold tissue and a probe is for exploring." },
+    { "q": "How do the walls of the left and right ventricles differ?", "right": "Left ventricle wall is thicker",
+      "wrong": ["Right ventricle wall is thicker", "Both are the same thickness", "Only the left wall contains muscle"],
+      "why": "The left ventricle pumps blood all round the body, so its muscular wall is much thicker than the right's." }
+  ],
+  "2023-Q17c": [
+    { "q": "Which vein carries blood lowest in metabolic wastes?", "right": "Renal vein",
+      "wrong": ["Hepatic vein", "Hepatic portal vein", "Vena cava"],
+      "why": "The kidneys filter urea and other wastes out, so blood leaving them in the renal vein has the least." }
+  ],
+  "2024-Q6": [
+    { "q": "Which pairing of systole and diastole is right?", "right": "Systole: contracting; diastole: relaxing",
+      "wrong": ["Systole: relaxing; diastole: contracting", "Systole: filling; diastole: emptying", "Systole: atria only; diastole: ventricles"],
+      "why": "In systole heart muscle contracts and pumps blood out; in diastole it relaxes and the heart fills." }
+  ],
+  "2025-Q16b": [
+    { "q": "On the diagram, what is structure A?", "right": "Capillary",
+      "wrong": ["Alveolus", "Bronchiole", "Arteriole"],
+      "why": "A is the capillary carrying blood past the alveolus (B); its wall is one cell thick for fast diffusion." }
+  ],
+  "2025-Q16d": [
+    { "q": "Which is an organ of the lymphatic system?", "right": "Thymus",
+      "wrong": ["Thyroid", "Pancreas", "Liver"],
+      "why": "The thymus is where T lymphocytes mature; the thyroid is a hormone gland in the neck." },
+    { "q": "Which is another function of the lymphatic system?", "right": "Filters germs and fights infection",
+      "wrong": ["Carries oxygen to the body cells", "Removes urea from the blood", "Makes new red blood cells"],
+      "why": "Lymph nodes filter out germs, and the lymphocytes in them attack the germs to fight infection." }
+  ],
+  "2025-Q17a": [
+    { "q": "Which vessel carries blood highest in oxygen?", "right": "Pulmonary vein",
+      "wrong": ["Pulmonary artery", "Vena cava", "Hepatic portal vein"],
+      "why": "Blood in the pulmonary vein has just picked up oxygen in the lungs, so it is the richest in oxygen." },
+    { "q": "What does the septum do?", "right": "Keeps left and right sides' blood apart",
+      "wrong": ["Stops blood flowing back into the atria", "Sets the pace of the heartbeat", "Supplies blood to the heart muscle"],
+      "why": "The septum is a wall keeping oxygenated blood (left) apart from deoxygenated blood (right)." },
+    { "q": "What is the period when heart muscle is contracting called?", "right": "Systole",
+      "wrong": ["Diastole", "Peristalsis", "Pulse"],
+      "why": "Systole is the contracting phase; diastole is the relaxing phase when the chambers fill." },
+    { "q": "Which is a structural difference between arteries and veins?", "right": "Arteries: thick walls; veins: thin walls",
+      "wrong": ["Arteries: valves; veins: no valves", "Arteries: wide lumen; veins: narrow lumen", "Arteries: one-cell wall; veins: thick wall"],
+      "why": "Arteries carry blood at high pressure, so they have thick muscular walls; veins have thin walls and valves." }
+  ],
+  "2026-Q7": [
+    { "q": "What is the main job of the SA node?", "right": "Acts as pacemaker: sets the heartbeat",
+      "wrong": ["Stops blood flowing back from ventricles", "Separates the two sides of the heart", "Supplies the heart muscle with oxygen"],
+      "why": "The SA node, in the right atrium wall, sends impulses that make the atria contract and set the heart rate." }
+  ],
+  "2026-Q16b": [
+    { "q": "Why is a red blood cell a poor host for viruses?", "right": "No nucleus or organelles to copy the virus",
+      "wrong": ["It has a tough cell wall", "It is too small for a virus to enter", "Haemoglobin destroys viruses inside it"],
+      "why": "Viruses need the host's nucleus and organelles (like ribosomes) to make copies; mature red cells have none." }
+  ],
+  "2026-Q17a": [
+    { "q": "What type of vessel are X and Y?", "right": "X: arteriole; Y: venule",
+      "wrong": ["X: venule; Y: arteriole", "X: artery; Y: vein", "X: capillary; Y: lymph vessel"],
+      "why": "X, the arteriole, brings blood from an artery into the capillaries; Y, the venule, drains them to a vein." },
+    { "q": "Which best describes the pulse?", "right": "Rhythmic expansion of the arteries",
+      "wrong": ["Rhythmic expansion of the veins", "Force of blood on the vessel walls", "Number of breaths per minute"],
+      "why": "Each heartbeat sends a surge of blood that stretches artery walls; the force on the walls is blood pressure." },
+    { "q": "How does blood pressure change in the direction shown?", "right": "It decreases",
+      "wrong": ["It increases", "It stays the same", "It rises, then falls"],
+      "why": "Pressure falls steadily as blood moves from the arteriole through the capillaries to the venule." },
+    { "q": "In your drawings, what should the artery show?", "right": "Thick muscular wall and small lumen",
+      "wrong": ["Thin wall and large lumen", "Thick wall with valves inside", "Wall only one cell thick"],
+      "why": "Arteries need thick, muscular, elastic walls to withstand high pressure; veins are thin with valves." },
+    { "q": "Which vessel in the capillary network soaks up excess tissue fluid?", "right": "Lymph vessel",
+      "wrong": ["Venule", "Arteriole", "Vein"],
+      "why": "Lymph vessels pick up the extra tissue fluid around the cells and return it to the blood as lymph." },
+    { "q": "Which is an effect of regular exercise?", "right": "Stronger heart muscle",
+      "wrong": ["Higher resting heart rate", "Narrower, stiffer arteries", "Higher resting blood pressure"],
+      "why": "Exercise strengthens the heart, so it pumps more per beat and the resting heart rate falls." }
+  ],
+  "S1-Q3c": [
+    { "q": "What is the main way CO2 is carried in the blood?", "right": "As hydrogencarbonate ions in plasma",
+      "wrong": ["As oxyhaemoglobin in red cells", "Inside white blood cells", "As gas bubbles in the plasma"],
+      "why": "Most CO2 reacts with water to form hydrogencarbonate (HCO3-) ions, which travel in the plasma." },
+    { "q": "What is the main way oxygen is carried in the blood?", "right": "As oxyhaemoglobin in red blood cells",
+      "wrong": ["As hydrogencarbonate ions in plasma", "Mostly dissolved in the plasma", "Inside white blood cells"],
+      "why": "Oxygen binds to haemoglobin in red cells to form oxyhaemoglobin; very little dissolves in plasma." },
+    { "q": "In the table, what goes in for arterial pulmonary blood?", "right": "CO2 high, oxygen low",
+      "wrong": ["CO2 low, oxygen high", "CO2 high, oxygen high", "CO2 low, oxygen low"],
+      "why": "Pulmonary artery blood comes from the body on its way to the lungs, so it is high in CO2 and low in oxygen." }
+  ],
+  "S1-Q5d": [
+    { "q": "What are the two common blood grouping systems?", "right": "ABO and Rhesus",
+      "wrong": ["Type A and type B", "Antigen and antibody", "Positive and negative"],
+      "why": "The ABO system (A, B, AB, O) and the Rhesus system (positive or negative) are the two main ones." },
+    { "q": "Why is it important to know a person's blood group?", "right": "So transfused blood is compatible",
+      "wrong": ["To work out their heart rate", "To choose which antibiotic to give", "To find out if they are anaemic"],
+      "why": "Wrong-group blood makes the recipient's antibodies clump the donor red cells, which can be fatal." }
+  ],
+  "S2-Q5a": [
+    { "q": "On the diagram, which vessel is B?", "right": "Pulmonary artery",
+      "wrong": ["Aorta", "Pulmonary vein", "Vena cava"],
+      "why": "B is the pulmonary artery, taking blood to the lungs; A is the aorta, taking blood to the body." },
+    { "q": "What happens to the labelled valve when the ventricles contract?", "right": "It is pushed open",
+      "wrong": ["It snaps shut", "It stays closed", "It opens into the ventricle"],
+      "why": "Blood forced out of the ventricle pushes the semilunar valve open; it shuts when the ventricle relaxes." },
+    { "q": "Where should X (the pacemaker) go on the diagram?", "right": "In the wall of the right atrium",
+      "wrong": ["In the wall of the left atrium", "In the septum between the ventricles", "At the base of the aorta"],
+      "why": "The pacemaker (SA node) is in the upper wall of the right atrium, near where the vena cava enters." },
+    { "q": "How does CO2 in the plasma compare between A and B?", "right": "Higher in B than in A",
+      "wrong": ["Higher in A than in B", "The same in A and B", "None in A, high in B"],
+      "why": "B (pulmonary artery) carries blood from the body, rich in CO2; A (aorta) carries blood cleared in the lungs." },
+    { "q": "Which is a structural difference between an artery and a vein?", "right": "Veins have valves; arteries do not",
+      "wrong": ["Arteries have valves; veins do not", "Veins have thicker walls than arteries", "Arteries have the wider lumen"],
+      "why": "Blood in veins is at low pressure, so valves stop it flowing backwards; arteries have thick walls instead." }
+  ],
+  "S2-Q5b": [
+    { "q": "What are the two circuits called?", "right": "Pulmonary and systemic",
+      "wrong": ["Pulmonary and coronary", "Systemic and hepatic portal", "Arterial and venous"],
+      "why": "The pulmonary circuit takes blood to the lungs; the systemic circuit takes it round the rest of the body." },
+    { "q": "In the pulmonary circuit, where does blood go after the lungs?", "right": "Pulmonary vein, then left atrium",
+      "wrong": ["Pulmonary artery, then left atrium", "Pulmonary vein, then right atrium", "Vena cava, then right atrium"],
+      "why": "Right ventricle, pulmonary artery, lungs, pulmonary vein, left atrium: oxygen-rich blood returns to the left." },
+    { "q": "What is the main effect of a fully blocked coronary artery?", "right": "Heart muscle gets no oxygen and dies",
+      "wrong": ["Heart muscle gets extra oxygen", "The heart beats more strongly", "Blood bypasses the lungs"],
+      "why": "The blocked artery can't bring blood, so that part of the heart muscle can't respire and dies: a heart attack." },
+    { "q": "What is blood pressure?", "right": "Force of blood on the vessel walls",
+      "wrong": ["Number of heartbeats per minute", "Speed of blood through the veins", "Amount of blood in the body"],
+      "why": "Blood pressure is the push of blood on artery walls; beats per minute is the heart (or pulse) rate." }
+  ],
+  "S2-Q5c": [
+    { "q": "On the graph, what causes each steep rise in pressure?", "right": "Left ventricle contracting",
+      "wrong": ["Left ventricle relaxing", "Semilunar valves closing", "Left atrium contracting"],
+      "why": "Each steep rise is the left ventricle contracting and forcing blood into the arteries: put X there." },
+    { "q": "From the graph, what is the athlete's heart rate?", "right": "120 beats per minute",
+      "wrong": ["60 beats per minute", "30 beats per minute", "240 beats per minute"],
+      "why": "One beat (peak to peak) takes 0.5 s, so 60 / 0.5 = 120 beats per minute." },
+    { "q": "Is the athlete at rest?", "right": "No: 120 bpm is too high for rest",
+      "wrong": ["Yes: 120 bpm is a normal resting rate", "Yes: athletes always have fast hearts", "No: athletes rest at over 150 bpm"],
+      "why": "A resting rate is about 60-80 bpm (lower in a fit athlete), so 120 bpm means the athlete is exercising." }
+  ],
+  "S2-Q5d": [
+    { "q": "Why do cardiac muscle cells have so many mitochondria?", "right": "Heart never rests, so needs lots of ATP",
+      "wrong": ["Mitochondria store oxygen for later", "Mitochondria send the heartbeat impulses", "So the heart can respire without oxygen"],
+      "why": "Mitochondria carry out aerobic respiration, giving the steady energy the heart needs to beat without tiring." }
+  ]
+}
