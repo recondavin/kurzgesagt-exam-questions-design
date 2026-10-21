@@ -3,7 +3,8 @@
 //   #en:...   the English meaning (else the pack's glossary has it)      #ask:id   a question to answer
 // Lines that start with @ are stage directions for the engine:
 //   @place text                 the place name under the top bar
-//   @roam id ^ hint             free walking until the player taps that person, who is then walked up to
+//   @roam id ^ hint             free walking (tap the floor, or W A S D) until the player taps that person or
+//                               presses E beside them; the player then walks up beside them
 //   @do id walk x z, id sit seat, id stand or id face other     (join several with & to do them together)
 //   @focus id id, @focus room   what the camera frames
 //   @mode tiles, @mode type     how questions are answered
@@ -38,11 +39,18 @@ export function startGame(pack) {
   const progress = { done: new Set() };
 
   // The dots over the person to talk to follow them on screen.
+  // With the keyboard, the dots become an E key once the player is close enough to talk.
   world.onFrame = () => {
     if (!roamId) return talk.marker(null);
     const p = world.people[roamId];
-    talk.marker(world.screenOf(p, 1.5 * p.k));
+    talk.marker(world.screenOf(p, 1.5 * p.k), world.usingKeys && world.nearest() === p);
   };
+  // Computers get the keys in the hint (and so does anyone who presses one).
+  const fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  let hintText = '';
+  const KEY_HINT = 'W A S D or the arrow keys to walk · E to talk';
+  const showHint = text => { hintText = text || ''; talk.hint(hintText, hintText && (fine || world.usingKeys) ? KEY_HINT : ''); };
+  world.on('keys', () => { if (hintText) showHint(hintText); });
 
   // ---------------------------------------------------------------- save and load
   function snapshot() {
@@ -134,14 +142,14 @@ export function startGame(pack) {
       world.setRoam(true);
       setFocus([]);
       talk.hideSheet();
-      talk.hint(hint || '');
+      showHint(hint);
       save(before);
       world.on('talk', who => {
         if (who !== id) return;
         world.setRoam(false);
         world.on('talk', null);
         roamId = null;
-        talk.hint('');
+        showHint('');
         world.approach(world.player, world.people[id], done);
       });
     });
