@@ -39,6 +39,15 @@
     axes: 'axis', min: 'minute', mins: 'minute' };
   // Two-word names written as one (the same list in tools/bio/build_bio_questions.py).
   var PHRASES = [[/carbon\s*dioxide/g, 'co2'], [/rib\s+cage/g, 'ribcage'], [/can\s+not\b/g, 'cannot'], [/get(?:s|ting)?\s+rid\s+of/g, 'remove']];
+  // Which way the ribs and diaphragm move, said in a student's words ("the ribs fall", "the diaphragm rises"): read as
+  // the scheme's up/down/out/in, only when it's said of them (not "pressure rises" elsewhere in the answer).
+  var MOVES = /\b(ribcage|ribs?|diaphragm)\s+(?:(?:moves?|moved|moving|goes|go|going|went|is|are|gets?|pulled|pushed)\s+)?(rises?|rose|rising|raised|up|upwards?|falls?|fell|falling|drops?|dropped|lowers?|lowered|down|downwards?|flattens?|flattened|out|outwards?|in|inwards?)(?:\s+and\s+(out|outwards?|in|inwards?))?\b/g;
+  var WAY = { rise: 'up', rises: 'up', rose: 'up', rising: 'up', raised: 'up', up: 'up', upward: 'up', upwards: 'up', fall: 'down', falls: 'down', fell: 'down',
+    falling: 'down', drop: 'down', drops: 'down', dropped: 'down', lower: 'down', lowers: 'down', lowered: 'down', down: 'down', downward: 'down', downwards: 'down',
+    flatten: 'down', flattens: 'down', flattened: 'down', out: 'out', outward: 'out', outwards: 'out', 'in': 'in', inward: 'in', inwards: 'in' };
+  PHRASES.push([MOVES, function (m, part, way, also) {
+    return part + ' moving ' + [way, also].filter(Boolean).map(function (x) { return WAY[x] + ' ' + WAY[x] + 'ward'; }).join(' ');
+  }]);
   // Everyday words that mean the same thing in an answer, so a right answer in a student's own words still earns
   // the mark ("cannot produce its own food" for the scheme's "cannot make their food"). Applied to word stems, on
   // both the answer and the scheme's key words.
