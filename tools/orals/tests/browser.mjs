@@ -52,6 +52,10 @@ try {
   console.log('booting phone game');
   await boot();
   await talkTo('mairin');
+  await page.locator('.og-sheet .og-btn--go').waitFor();
+  assert.equal(await page.locator('.og-profile-form').count(), 0, 'First conversation must start without setup');
+  await page.getByRole('button', { name: 'Menu', exact: true }).click();
+  await page.getByRole('menuitem', { name: 'About you and your answers', exact: true }).click();
   await page.locator('.og-profile-form').waitFor();
   await page.locator('.og-level').click();
   assert.equal(await page.locator('select[name=level]').inputValue(), 'HL');
@@ -61,6 +65,7 @@ try {
   for (let i = 0; i < 5; i++) await page.locator('.og-profile-form button[type=submit]').click();
   await page.locator('select[name=voice]').selectOption('male');
   await page.locator('.og-profile-form button[type=submit]').click();
+  await talkTo('mairin');
   await page.locator('.og-sheet .og-btn--go').waitFor();
   assert.equal(await page.evaluate(() => oralGame.profile.name), 'Aoife');
   await next(); await page.locator('.og-choice').first().click(); await next(); await next();
@@ -69,8 +74,9 @@ try {
   await page.locator('.og-choice').first().click(); await next();
   await next(); // topic introduction
   await page.locator('.og-bank').waitFor();
-  console.log('setup and first Ink session passed');
+  console.log('No startup form; optional menu setup and first Ink session passed');
 
+  if (!process.argv.includes('--startup-only')) {
   await practiceSave('tiles');
   for (const word of ['Is', 'mise', 'Seán.']) await page.locator('.og-bank .og-tile').filter({ hasText: new RegExp('^' + word.replace('.', '\\.') + '$') }).first().click();
   await page.getByRole('button', { name: 'Check', exact: true }).click();
@@ -177,8 +183,9 @@ try {
   await page.evaluate(() => { const { world } = oralGame, door = world.guide(world.people.mairin); world.place('player', { x: door.x, z: door.z + 0.7 }); world.advance(1); });
   assert.equal(await page.evaluate(() => oralGame.world.where().room?.id || null), null);
   console.log('small shop doorway enters the supermarket and returns outside');
+  }
   assert.deepEqual(errors, []);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth); assert.equal(overflow, false);
-  console.log('All phone flows passed at 390×844.');
+  console.log(process.argv.includes('--startup-only') ? 'Startup and optional settings passed at 390×844.' : 'All phone flows passed at 390×844.');
 } catch (error) { console.log('Browser failure:', errors, await page.locator('body').innerText()); await page.screenshot({ path: resolve(root, '../irish-browser-failure.png') }); throw error; }
 finally { await browser.close(); server.closeAllConnections(); await new Promise(done => server.close(done)); }

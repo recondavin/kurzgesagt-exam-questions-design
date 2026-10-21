@@ -54,8 +54,9 @@ export function startGame(pack) {
   let marker, qById;
   const story = new window.inkjs.Story(pack.story);
   const saveKey = pack.key + '-save', profileKey = pack.key + '-profile';
-  let profile = store.get(profileKey);
-  if (profile && pack.profileOf) { const version = profile.version; profile = pack.profileOf(profile); if (version !== 2) profile.version = 1; }
+  let profile = store.get(profileKey) || { ...pack.defaults };
+  if (pack.profileOf) profile = pack.profileOf(profile);
+  store.set(profileKey, profile);
   function rebuild() {
     const questions = pack.prepare ? pack.prepare(pack.questions, profile || {}) : pack.questions;
     marker = createMarker(pack.lang, questions); qById = Object.fromEntries(questions.map(q => [q.id, q]));
@@ -302,12 +303,7 @@ export function startGame(pack) {
         world.on('talk', null);
         roamId = null;
         showHint('');
-        // The first time, ask for the name and county the answers use.
-        if (!profile || profile.version !== 2) {
-          profile = await talk.setup(setupText());
-          if (pack.profileOf) profile = pack.profileOf(profile);
-          store.set(profileKey, profile); rebuild(); talk.setLevel(profile.level || 'OL');
-        }
+        // Start talking immediately. Personal details are optional, through the menu.
         world.approach(world.player, world.people[id], done);
       });
     });
