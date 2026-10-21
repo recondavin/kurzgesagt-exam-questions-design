@@ -13,8 +13,8 @@ Two steps:
            needs: [[ids part 1 needs besides its own], ...]}} and the hand fixes in tools/bio/parts/fix.json (a part is
            shown on the page of its own first row),
            draws each part's view as the desk will show it to <work>/views/ (to check again), and adds to each
-           bio/papers.js entry  parts: [{img, box, dim: [[left, top, width, height], ...]}]  (% of the page):
-           box is what the camera and spotlight go to, dim covers everything else printed inside it.
+           bio/papers.js entry  parts: [{img, box, holes: [[left, top, width, height], ...]}]  (% of the page):
+           box is what the camera and spotlight go to, holes the only places lit in it (the rest is dark).
   views    only draws one chapter's part views to <work>/views/ (to check the lists while making them).
 Run: python3 tools/bio/build_bio_part_boxes.py extract <papers dir> <sample dir> <work dir>
      python3 tools/bio/build_bio_part_boxes.py views <work dir> <chapter>
@@ -487,12 +487,18 @@ def trim(d, shown):
     return [l, t, r - l, b - t]
 
 
+def union(a, b):
+    l, t = min(a[0], b[0]), min(a[1], b[1])
+    return [l, t, max(a[0] + a[2], b[0] + b[2]) - l, max(a[1] + a[3], b[1] + b[3]) - t]
+
+
 def view(item, k, plan, page_lines=None):
-    """One part's view on its page: box (the camera and spotlight) and dim (everything else inside the box). The box
-    is as wide as the whole question's print, so the camera only moves up and down between parts; it runs from the
-    first to the last thing the part shows. Everything else printed inside it (the other parts, the questions next to
-    it: every line on the page, from page_lines) is covered, in bands across the box where nothing shown sits beside
-    them, and never over anything shown."""
+    """One part's view on its page: box (where the camera and spotlight go) and holes (the only places lit inside it:
+    everything else is as dark as the screen around it). The box is as wide as the whole question's print, so the
+    camera only moves up and down between parts, and runs from the first to the last thing the part shows. Each thing
+    shown gets a hole; holes join up wherever the rectangle around them holds no other print (so a part's lines and its
+    table are one lit block, and a diagram beside other parts is its own), and are trimmed back off any other print
+    (the other parts, the questions next to it: every line on the page, from page_lines)."""
     own, needs = plan['own'], plan['needs']
     items = {r['id']: r for r in item['rows']}
     items.update({f['id']: f for f in item['figs']})
@@ -505,51 +511,39 @@ def view(item, k, plan, page_lines=None):
     pg = items[(texts or ids)[0]]['pg']
     gone = [i for i in ids if items[i]['pg'] != pg]
     raw = [items[i]['box'] for i in ids if items[i]['pg'] == pg]
-    shown = [pad(b, 0.35, 0.25) for b in raw]
-    every = list(item['rows']) + list(item['figs']) + [items[i] for i in ids if i.startswith('c')]
-    left = min(it['box'][0] for it in every) - 1.2
-    right = max(it['box'][0] + it['box'][2] for it in every) + 1.2
-    top = min(b[1] for b in shown) - 0.6
-    bottom = max(b[1] + b[3] for b in shown) + 0.6
-    box = [left, top, right - left, bottom - top]
-    others = [it['box'] for i, it in items.items() if i not in ids and it['pg'] == pg and it.get('kind') != 'box']
+    # (A page-sized frame is not a drawing.)
+    others = [it['box'] for i, it in items.items() if i not in ids and it['pg'] == pg and it.get('kind') != 'box'
+              and not (it['box'][2] > 80 and it['box'][3] > 50)]
     near = [pad(b, 0.3, 0.3) for b in raw]
     for l in page_lines or []:
         cx, cy = l[0] + l[2] / 2, l[1] + l[3] / 2
         if not any(n[0] <= cx <= n[0] + n[2] and n[1] <= cy <= n[1] + n[3] for n in near):
             others.append(l)
-    dims = []
-    for ob in others:
-        if not inter(ob, box):
-            continue
-        # Across the whole box when nothing shown is beside it (tight lines: trimmed back off the shown ones below).
-        band = [left, ob[1], right - left, ob[3]]
-        dims.append(pad(band, 0, 0.3) if not any(inter(band, rb) for rb in raw) else pad(ob, 0.4, 0.3))
-    # Neighbouring bands with nothing shown between them become one.
-    dims.sort(key=lambda d: d[1])
-    out = []
-    for d in dims:
-        if out and out[-1][0] == left and d[0] == left and out[-1][2] == d[2]:
-            gap = [left, out[-1][1] + out[-1][3], right - left, d[1] - out[-1][1] - out[-1][3]]
-            if gap[3] <= 0 or not any(inter(gap, rb) for rb in raw):
-                o = out[-1]
-                out[-1] = [o[0], o[1], o[2], max(o[1] + o[3], d[1] + d[3]) - o[1]]
-                continue
-        out.append(d)
-    clip = []
-    for d in out:
-        d = trim(d, raw)
-        if not d:
-            continue
-        l, t = max(d[0], box[0]), max(d[1], box[1])
-        r, b = min(d[0] + d[2], box[0] + box[2]), min(d[1] + d[3], box[1] + box[3])
-        if r - l > 0.05 and b - t > 0.05:
-            clip.append([round(l, 2), round(t, 2), round(r - l, 2), round(b - t, 2)])
-    # A cover inside another one adds nothing.
-    clip = [c for i, c in enumerate(clip) if not any(j != i and o[0] <= c[0] and o[1] <= c[1] and o[0] + o[2] >= c[0] + c[2]
-                                                       and o[1] + o[3] >= c[1] + c[3] and (o != c or j < i) for j, o in enumerate(clip))]
+    # Others shrunk a hair, so print that only touches a hole's edge doesn't count as inside it.
+    solid = [[o[0] + 0.05, o[1] + 0.05, o[2] - 0.1, o[3] - 0.1] for o in others if o[2] > 0.1 and o[3] > 0.1]
+    holes = [h for h in (trim(pad(b, 0.6, 0.35), solid) for b in raw) if h]
+    merged = True
+    while merged:
+        merged = False
+        holes.sort(key=lambda h: (h[1], h[0]))
+        for i in range(len(holes)):
+            for j in range(i + 1, len(holes)):
+                u = union(holes[i], holes[j])
+                if not any(inter(u, o) for o in solid):
+                    holes[i] = u
+                    del holes[j]
+                    merged = True
+                    break
+            if merged:
+                break
+    every = list(item['rows']) + list(item['figs']) + [items[i] for i in ids if i.startswith('c')]
+    left = min(it['box'][0] for it in every) - 1.2
+    right = max(it['box'][0] + it['box'][2] for it in every) + 1.2
+    top = min(h[1] for h in holes) - 0.4
+    bottom = max(h[1] + h[3] for h in holes) + 0.4
+    box = [round(left, 2), round(top, 2), round(right - left, 2), round(bottom - top, 2)]
     note = ('part %d: %s on another page left out' % (k + 1, ', '.join(gone))) if gone else None
-    return {'pg': pg, 'box': [round(v, 2) for v in box], 'dim': clip}, note
+    return {'pg': pg, 'box': box, 'holes': [[round(v, 2) for v in h] for h in holes]}, note
 
 
 def plan_of(item, checked, name, fixes=None):
@@ -565,6 +559,8 @@ def plan_of(item, checked, name, fixes=None):
             continue
         if c['kind'] == 'lead' and c.get('after'):
             own[c['id']] = own.get(c['after'], 'x')
+            if own[c['id']] == 'stem' and needs:
+                needs[0].append(c['id'])
         elif c['kind'] == 'lead':
             own[c['id']] = 'stem'
             if needs:
@@ -646,7 +642,7 @@ def apply(pdirs, work):
                         Image.open(render(pdf, v['pg'], work)).convert('RGB').save(os.path.join(ROOT, img), 'WEBP', quality=80, method=6)
                     v['img'] = img
             if name in papers and all(views):
-                papers[name]['parts'] = [{'img': v['img'], 'box': v['box'], 'dim': v['dim']} for v in views]
+                papers[name]['parts'] = [{'img': v['img'], 'box': v['box'], 'holes': v['holes']} for v in views]
             sheet(item, views, pdf, work, os.path.join(work, 'views', name.replace('/', '-') + '.png'))
     with open(papers_js, 'w') as f:
         f.write(src[:src.index('window.BioPapers')])
@@ -658,20 +654,22 @@ def apply(pdirs, work):
 
 
 def sheet(item, views, pdf, work, path):
-    """Every part's view of one question as the desk shows it (cropped to the box, others covered), one under another."""
+    """Every part's view of one question as the desk shows it (cropped to the box, dark but for its holes), one under
+    another."""
     font = ImageFont.truetype(FONT, 22)
     tiles = []
     for k, v in enumerate(views):
         if not v:
             continue
-        img = Image.open(render(pdf, v['pg'], work)).convert('RGB')
-        W, H = img.size
-        d = ImageDraw.Draw(img, 'RGBA')
-        for b in v['dim']:
-            d.rectangle([b[0] * W / 100, b[1] * H / 100, (b[0] + b[2]) * W / 100, (b[1] + b[3]) * H / 100], fill=(0, 0, 0, 249))
+        page = Image.open(render(pdf, v['pg'], work)).convert('RGB')
+        W, H = page.size
+        dark = Image.new('RGB', (W, H), (6, 6, 6))
+        for h in v['holes']:
+            c = (int(h[0] * W / 100), int(h[1] * H / 100), int((h[0] + h[2]) * W / 100), int((h[1] + h[3]) * H / 100))
+            dark.paste(page.crop(c), c[:2])
         b = v['box']
-        crop = img.crop((int(max(0, b[0]) * W / 100), int(max(0, b[1]) * H / 100), int(min(100, b[0] + b[2]) * W / 100), int(min(100, b[1] + b[3]) * H / 100)))
-        head = Image.new('RGB', (crop.size[0], 34), (30, 30, 30))
+        crop = dark.crop((int(max(0, b[0]) * W / 100), int(max(0, b[1]) * H / 100), int(min(100, b[0] + b[2]) * W / 100), int(min(100, b[1] + b[3]) * H / 100)))
+        head = Image.new('RGB', (crop.size[0], 34), (60, 60, 60))
         ImageDraw.Draw(head).text((8, 5), 'Slide %d: part %s  %s' % (k + 1, item['parts'][k]['label'], item['parts'][k]['text'][:90]), fill=(255, 200, 0), font=font)
         tiles += [head, crop]
     if not tiles:

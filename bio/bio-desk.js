@@ -1,12 +1,12 @@
 // The desk for Biology. Loaded by the desk page (Geography Questions.dc.html), it adds a Geography / Biology switch,
 // and for a link like "#bio/29/2016-Q12b" it puts that question's real exam paper page on the desk (same desk, hands
 // and pen), rings the question, and the narrated guide (hyper-focus.js) explains it part by part (bio/guide.js): each
-// slide's camera and spotlight go to that part's own box on the paper, with the other parts' print covered.
+// slide's camera and spotlight go to that part's own box on the paper, lit only where that part's print is.
 // "Start writing" then opens the Biology answer sheet (bio/bio.js), marked against the SEC marking scheme.
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-21';
+  var V = 'bio-22';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -78,18 +78,18 @@
     }).join('');
     return '<div class="hf-bio-pic" data-hf-still>' + art.plain.replace(/<\/svg>$/, rings + '</svg>') + '</div>';
   }
-  // One part on the desk: its page (a question can run onto the next page), and only its own covers showing.
+  // One part on the desk: its page (a question can run onto the next page), and only its own shade showing.
   function part(k) {
     var v = current && current.P.parts && current.P.parts[k], img = document.querySelector('.geography-page-image');
     if (!v || !img) return;
     if (img.getAttribute('src') !== v.img + '?v=' + V) img.src = v.img + '?v=' + V;
-    document.querySelectorAll('.bio-dim').forEach(function (d) { d.classList.toggle('is-on', d.getAttribute('data-part') === String(k)); });
+    document.querySelectorAll('.bio-shade').forEach(function (d) { d.classList.toggle('is-on', d.getAttribute('data-part') === String(k)); });
   }
-  // The guide closed: back to the question's own page, nothing covered.
+  // The guide closed: back to the question's own page, nothing shaded.
   function rest() {
     var img = document.querySelector('.geography-page-image');
     if (current && img && img.getAttribute('src') !== current.P.img + '?v=' + V) img.src = current.P.img + '?v=' + V;
-    document.querySelectorAll('.bio-dim.is-on').forEach(function (d) { d.classList.remove('is-on'); });
+    document.querySelectorAll('.bio-shade.is-on').forEach(function (d) { d.classList.remove('is-on'); });
   }
   function place(node, b) {
     node.style.left = b[0] + '%';
@@ -97,23 +97,29 @@
     node.style.width = b[2] + '%';
     node.style.height = b[3] + '%';
   }
-  // Each part's box (bio/papers.js, traced by tools/bio/build_bio_part_boxes.py) and the covers over the other parts'
-  // rows and figures inside it.
+  // Each part's box (bio/papers.js, traced by tools/bio/build_bio_part_boxes.py) and its shade: the box (and a margin
+  // round it, so it runs on into the dark around the spotlight) dark except for holes over the part's own print and
+  // what it needs. The holes join the spotlight, so the other parts sink into the same dark as the rest of the screen.
   function partBoxes(shell, P) {
-    shell.querySelectorAll('.bio-part-focus, .bio-dim').forEach(function (n) { n.remove(); });
+    shell.querySelectorAll('.bio-part-focus, .bio-shade').forEach(function (n) { n.remove(); });
     (P.parts || []).forEach(function (v, k) {
       var f = el('div', 'bio-part-focus');
       f.setAttribute('data-hf-target', 'question-bio-p' + k);
       f.setAttribute('aria-hidden', 'true');
       place(f, v.box);
       shell.appendChild(f);
-      v.dim.forEach(function (b) {
-        var d = el('div', 'bio-dim');
-        d.setAttribute('data-part', k);
-        d.setAttribute('aria-hidden', 'true');
-        place(d, b);
-        shell.appendChild(d);
-      });
+      var m = 4, b = [v.box[0] - m, v.box[1] - m, v.box[2] + 2 * m, v.box[3] + 2 * m], id = 'bio-shade-' + k;
+      var holes = v.holes.map(function (h) {
+        return '<rect x="' + h[0] + '" y="' + h[1] + '" width="' + h[2] + '" height="' + h[3] + '" rx="0.5" ry="0.35" fill="#000"/>';
+      }).join('');
+      var shade = el('div', 'bio-shade');
+      shade.setAttribute('data-part', k);
+      shade.setAttribute('aria-hidden', 'true');
+      place(shade, b);
+      shade.innerHTML = '<svg viewBox="' + b.join(' ') + '" preserveAspectRatio="none"><defs><mask id="' + id + '" maskUnits="userSpaceOnUse" x="' + b[0] + '" y="' + b[1] +
+        '" width="' + b[2] + '" height="' + b[3] + '"><rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" fill="#fff"/>' + holes +
+        '</mask></defs><rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" fill="#000" mask="url(#' + id + ')"/></svg>';
+      shell.appendChild(shade);
     });
   }
   function guideSteps(ch, q) {

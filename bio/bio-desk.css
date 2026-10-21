@@ -37,10 +37,12 @@ body .am-root .bio-paper :is(p, span, button, input, textarea, label, li, em, i,
 body .am-root .bio-paper :is(.bio-src, .bio-part__q b, .bio-field b, .bio-part__got, .bio-part__got b, .bio-pts__mark, .bio-old, .bio-btn, .bio-self) { font-family: Fredoka, Nunito, sans-serif !important; }
 body .am-root .bio-paper .am-type__box { font-family: Nunito, system-ui, sans-serif !important; }
 
-/* The guide goes part by part: each part's box is where the camera and spotlight go (bio-desk.js), and the other
-   parts' print inside it is covered in the spotlight's own black, so only the part being explained can be read. */
+/* The guide goes part by part: each part's box is where the camera and spotlight go (bio-desk.js), and its shade
+   darkens the rest of the box like the dark around the spotlight, so only the part being explained (and what it needs)
+   is lit. */
 /* (The desk page's [data-hf-target]:not(...) sets position: relative and .hf-current adds a ring: both beaten here.) */
 .geography-page-shell .bio-part-focus[data-hf-target] { position: absolute; z-index: 44; pointer-events: none; box-shadow: none; outline: 0; transform: none; transition: none; }
-body .bio-dim { position: absolute; z-index: 46; pointer-events: none; border-radius: 10px; background: #000000; filter: blur(4px); opacity: 0; transition: opacity .35s ease; }
-body.hf-active .bio-dim.is-on { opacity: .975; }
-@media (prefers-reduced-motion: reduce) { body .bio-dim { transition-duration: .01s; } }
+body .bio-shade { position: absolute; z-index: 46; pointer-events: none; opacity: 0; filter: blur(3px); transition: opacity .35s ease; }
+body .bio-shade svg { display: block; width: 100%; height: 100%; }
+body.hf-active .bio-shade.is-on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { body .bio-shade { transition-duration: .01s; } }

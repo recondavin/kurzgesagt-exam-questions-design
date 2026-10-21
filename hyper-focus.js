@@ -791,6 +791,11 @@
       scheduleLayout();
     });
     window.addEventListener('scroll', scheduleLayout, true);
+    // The spotlight follows the camera for a set time; when a camera move runs longer, put it on the target once the
+    // move has ended (otherwise it stays where the target was part way through).
+    document.addEventListener('transitionend', function (event) {
+      if (event.propertyName === 'transform' && event.target.matches && event.target.matches('[data-hf-scene]')) scheduleLayout();
+    }, true);
     new MutationObserver(sync).observe(document.querySelector('x-dc') || document.body, { childList: true, subtree: true });
   }
 
