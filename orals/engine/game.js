@@ -16,7 +16,7 @@
 // Nothing is forced: the game opens in the room to walk about, and a conversation can be left at any time (the
 // ✕ or Esc); talking to the same person again carries on from the question that was left. Opening the game
 // again also starts with walking about. The student's name and county are asked the first time they talk.
-import { createWorld } from './world.js';
+import { createWorld } from './world.js?v=walk-1';
 import { createTalk } from './talk.js?v=oral-9';
 import { createMarker } from './marker.js?v=oral-9';
 import { createSound } from './sound.js?v=oral-9';

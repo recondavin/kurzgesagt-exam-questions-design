@@ -6,6 +6,7 @@
 import * as THREE from '../../lib/three.module.min.js';
 import { box, cyl, ball, slab, prism, paint, place, mesh, chunked, signMesh } from './kit.js';
 import { seeded } from './room.js';
+import { makeNav } from './nav.js?v=walk-1';
 
 const GRASS = '#7D9A5B', EARTH = '#6B5545', SAND = '#D8C79C', SEA = '#5A8F98', STONES = ['#9A9C95', '#8A8C86', '#A7A9A2', '#7F817B'];
 
@@ -76,14 +77,18 @@ function building(b, signs) {
 
 // A sheep: a woolly body, a dark face and legs. It wanders slowly round its field.
 function sheep(rnd) {
-  const g = new THREE.Group();
-  g.add(mesh([
+  const g = new THREE.Group(), body = new THREE.Group(), head = new THREE.Group(), legs = [];
+  body.add(mesh([
     place(paint(new THREE.IcosahedronGeometry(0.34, 1), '#EEEAE0', true), { y: 0.5, sx: 1.25, sy: 0.85, sz: 0.95 }),
-    box(0.22, 0.24, 0.26, '#2F2B28', { x: 0.42, y: 0.5 }),
-    box(0.06, 0.1, 0.12, '#2F2B28', { x: 0.42, y: 0.66, z: 0.14 }), box(0.06, 0.1, 0.12, '#2F2B28', { x: 0.42, y: 0.66, z: -0.14 }),
-    ...[[-0.22, -0.14], [-0.22, 0.14], [0.22, -0.14], [0.22, 0.14]].map(([lx, lz]) => box(0.07, 0.3, 0.07, '#2F2B28', { x: lx, z: lz })),
   ], { line: 0.014 }));
-  return { g, t: rnd() * 5, goal: null, wait: rnd() * 3 };
+  head.add(mesh([box(0.22, 0.24, 0.26, '#2F2B28'), box(0.06, 0.1, 0.12, '#2F2B28', { y: 0.16, z: 0.14 }), box(0.06, 0.1, 0.12, '#2F2B28', { y: 0.16, z: -0.14 })], { line: 0.014 }));
+  head.position.set(0.42, 0.5, 0); body.add(head); g.add(body);
+  for (const [x, z] of [[-0.22, -0.14], [-0.22, 0.14], [0.22, -0.14], [0.22, 0.14]]) {
+    const leg = new THREE.Group(); leg.position.set(x, 0.3, z);
+    leg.add(mesh([box(0.07, 0.3, 0.07, '#2F2B28', { y: -0.15 })], { line: 0.008 }));
+    g.add(leg); legs.push(leg);
+  }
+  return { g, body, head, legs, radius: 0.58, speed: 0, phase: rnd() * Math.PI * 2, t: rnd() * 5, path: null, wait: rnd() * 3 };
 }
 
 export function buildLand(L) {
@@ -120,13 +125,13 @@ export function buildLand(L) {
 
   for (const [x, z, s] of L.rocks || []) {
     parts.push(place(paint(new THREE.IcosahedronGeometry(s, 0), STONES[Math.floor(rnd() * 4)]), { x, z, y: s * 0.3, sy: 0.65, ry: rnd() * 6, rx: rnd() * 0.4 }));
-    if (s > 0.35) blocks.push([x - s * 0.8, z - s * 0.8, x + s * 0.8, z + s * 0.8]);
+    blocks.push([x - s, z - s, x + s, z + s]);
   }
   // Gorse: dark green clumps with yellow flowers.
   for (const [x, z, s] of L.bushes || []) {
     parts.push(ball(s, '#5B7A42', { x, z, y: -0.15, sy: 0.8 }, 1));
     for (let i = 0; i < 4; i++) parts.push(ball(0.06, '#E3B83A', { x: x + (rnd() - 0.5) * s * 1.3, z: z + (rnd() - 0.2) * s, y: s * 0.95 + rnd() * 0.15 }, 0));
-    blocks.push([x - s * 0.7, z - s * 0.7, x + s * 0.7, z + s * 0.7]);
+    blocks.push([x - s, z - s, x + s, z + s]);
   }
   // Trees bent by the wind off the sea.
   for (const [x, z, s, lean] of L.trees || []) {
@@ -182,22 +187,73 @@ export function buildLand(L) {
     group.add(s.g);
     flock.push(s);
   }
+  const colliders = () => flock.filter(s => s.g.visible).map(s => ({ x: s.g.position.x, z: s.g.position.z, r: s.radius }));
+  let peopleNear = () => [];
+  const othersFor = sheep => flock.filter(s => s !== sheep && s.g.visible).map(s => ({ x: s.g.position.x, z: s.g.position.z, r: s.radius })).concat(peopleNear());
+  function setNavigation(allBlocks = blocks, getPeople = () => []) {
+    peopleNear = getPeople;
+    const fields = new Map();
+    for (const s of flock) {
+      const key = s.field.join(',');
+      if (!fields.has(key)) fields.set(key, makeNav(s.field, allBlocks, s.radius, (x, z) => inside(L.coast, x, z)));
+      s.nav = fields.get(key);
+      const at = s.g.position, others = othersFor(s);
+      if (!s.nav.isFree(at.x, at.z, others)) {
+        let free = null;
+        for (let i = 0; i < 120 && !free; i++) {
+          const f = s.field, x = f[0] + rnd() * (f[2] - f[0]), z = f[1] + rnd() * (f[3] - f[1]);
+          if (s.nav.isFree(x, z, others)) free = { x, z };
+        }
+        if (!free) free = s.nav.spot(at.x, at.z);
+        if (free && s.nav.isFree(free.x, free.z, others)) at.set(free.x, 0, free.z);
+        else { s.g.visible = false; continue; }
+      }
+      s.g.visible = true; s.path = null;
+    }
+  }
+  setNavigation();
   function update(dt) {
     for (const s of flock) {
+      if (!s.g.visible) continue;
       s.t += dt;
-      const p = s.g.position;
-      if (!s.goal) {
-        s.wait -= dt;
-        s.g.children[0].position.y = Math.abs(Math.sin(s.t * 1.3)) * 0.01;
-        if (s.wait <= 0) { const f = s.field; s.goal = [f[0] + Math.random() * (f[2] - f[0]), f[1] + Math.random() * (f[3] - f[1])]; }
-        continue;
+      const p = s.g.position, others = othersFor(s);
+      if (!s.path?.length && (s.wait -= dt) <= 0) {
+        const f = s.field;
+        for (let i = 0; i < 12 && !s.path?.length; i++) {
+          const x = f[0] + rnd() * (f[2] - f[0]), z = f[1] + rnd() * (f[3] - f[1]);
+          if (Math.hypot(x - p.x, z - p.z) < 1 || !s.nav.isFree(x, z, others)) continue;
+          s.path = s.nav.path(p.x, p.z, x, z, others);
+        }
+        if (!s.path?.length) s.wait = 1 + rnd() * 2;
       }
-      const dx = s.goal[0] - p.x, dz = s.goal[1] - p.z, d = Math.hypot(dx, dz);
-      if (d < 0.1) { s.goal = null; s.wait = 2 + Math.random() * 6; continue; }
-      const step = Math.min(d, dt * 0.5);
-      p.x += dx / d * step; p.z += dz / d * step;
-      s.g.rotation.y = Math.atan2(-dz, dx);
-      s.g.children[0].position.y = Math.abs(Math.sin(s.t * 9)) * 0.06;
+      let moved = 0;
+      if (s.path?.length) {
+        const next = s.path[0], dx = next.x - p.x, dz = next.z - p.z, d = Math.hypot(dx, dz);
+        const yaw = Math.atan2(-dz, dx), angle = Math.atan2(Math.sin(yaw - s.g.rotation.y), Math.cos(yaw - s.g.rotation.y));
+        s.g.rotation.y += Math.max(-dt * 2, Math.min(dt * 2, angle));
+        const want = Math.abs(angle) < 0.6 ? Math.min(0.55, Math.sqrt(d * 1.5)) : 0;
+        s.speed += (want - s.speed) * (1 - Math.exp(-dt * 4));
+        const distance = Math.min(d, s.speed * dt);
+        const nx = d ? p.x + dx / d * distance : p.x, nz = d ? p.z + dz / d * distance : p.z;
+        if (s.nav.canMove(p.x, p.z, nx, nz, others)) {
+          p.x = nx; p.z = nz; moved = distance;
+          if (d < 0.025 || d <= distance) s.path.shift();
+          if (!s.path.length) { s.path = null; s.wait = 2 + rnd() * 6; }
+        } else { s.path = null; s.wait = 0.5 + rnd(); s.speed = 0; }
+      } else s.speed *= Math.exp(-dt * 6);
+      // Diagonal pairs of legs alternate. Phase follows distance, so stopped sheep do not moonwalk.
+      s.phase += moved * Math.PI * 2 / 0.42;
+      const gait = Math.min(1, moved / Math.max(dt * 0.4, 0.0001));
+      s.legs.forEach((leg, i) => {
+        const swing = Math.sin(s.phase + (i === 0 || i === 3 ? 0 : Math.PI));
+        leg.rotation.z = swing * 0.32 * gait;
+        leg.position.y = 0.3 + Math.max(0, swing) * 0.025 * gait;
+      });
+      s.body.position.y = Math.abs(Math.sin(s.phase * 2)) * 0.014 * gait;
+      s.body.rotation.x = Math.sin(s.phase) * 0.018 * gait;
+      const graze = !s.path && s.wait > 1 ? 0.5 + Math.sin(s.t * 0.8) * 0.5 : 0;
+      s.head.position.y += (0.5 - graze * 0.13 - s.head.position.y) * Math.min(1, dt * 3);
+      s.head.rotation.z += (-graze * 0.35 - s.head.rotation.z) * Math.min(1, dt * 3);
     }
   }
 
@@ -205,7 +261,7 @@ export function buildLand(L) {
   const onPier = (x, z) => walk.some(b => x > b[0] && x < b[2] && z > b[1] && z < b[3]);
   const onStrip = (x, z, list, w0) => list.some(r => r.pts.some((b, i) => i && segDist(x, z, r.pts[i - 1], b) < (r.w || w0) / 2));
   return {
-    group, blocks, update, bounds: L.bounds,
+    group, blocks, update, setNavigation, colliders, flock, bounds: L.bounds,
     // Doors into rooms elsewhere: { id (the room's), zone (step in here), out (where you come back out) }.
     portals,
     // Walkable: on the island or its sand, or out on the pier.

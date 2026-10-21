@@ -51,6 +51,51 @@ async function practiceSave(step = 'tiles', level = 'OL', id = 'ainm', one = fal
 try {
   console.log('booting phone game');
   await boot();
+  if (process.argv.includes('--movement-only')) {
+    const report = await page.evaluate(() => {
+      const world = oralGame.world, sheep = world.animals;
+      if (sheep.length !== 8 || sheep.some(s => !s.g.visible)) throw new Error('Every sheep must spawn on free ground');
+      const distance = sheep.map(() => 0); let legMotion = false;
+      for (let frame = 0; frame < 2700; frame++) {
+        const before = sheep.map(s => ({ x: s.g.position.x, z: s.g.position.z, yaw: s.g.rotation.y }));
+        world.advance(1 / 30);
+        sheep.forEach((s, i) => {
+          const p = s.g.position, other = sheep.filter(o => o !== s).map(o => ({ x: o.g.position.x, z: o.g.position.z, r: o.radius }));
+          if (!s.nav.isFree(p.x, p.z, other)) throw new Error(`Sheep ${i} crossed an object, another sheep, or its field boundary at ${p.x},${p.z}`);
+          const moved = Math.hypot(p.x - before[i].x, p.z - before[i].z);
+          if (moved > 0.55 / 30 + 1e-5) throw new Error('Sheep teleported or exceeded walking speed');
+          if (Math.abs(s.g.rotation.y - before[i].yaw) > 2 / 30 + 1e-5) throw new Error('Sheep snapped around');
+          distance[i] += moved; if (s.legs.some(leg => Math.abs(leg.rotation.z) > 0.05)) legMotion = true;
+        });
+      }
+      if (!legMotion || distance.some(d => d < 1)) throw new Error('Every sheep should actually walk with moving legs');
+
+      // Even a forced stale NPC path is stopped and replanned around a rock.
+      const npc = world.people.brid;
+      world.place('brid', { x: -22.5, z: -15 });
+      npc.path = [{ x: -17.5, z: -15 }]; let arrived = false; npc.onArrive = () => { arrived = true; };
+      for (let i = 0; i < 1200 && !arrived; i++) {
+        world.advance(1 / 30); const p = npc.root.position;
+        if (Math.abs(p.x + 20) < 0.9 - 1e-5 && Math.abs(p.z + 15) < 0.9 - 1e-5) throw new Error('NPC walked through the rock');
+      }
+      if (!arrived) throw new Error('NPC did not find a way around the rock');
+
+      // Place a person into a route AFTER the route has been planned.
+      world.place('player', { x: 0, z: 9 }); world.place('cormac', { x: 9, z: 6 }); world.place('aoife', { x: 20, z: 6 });
+      let rerouted = false;
+      if (!world.walkTo(world.people.cormac, 15, 6, () => { rerouted = true; })) throw new Error('No initial NPC path');
+      world.place('aoife', { x: 12, z: 6 });
+      for (let i = 0; i < 600 && !rerouted; i++) {
+        world.advance(1 / 30); const a = world.people.cormac.root.position, b = world.people.aoife.root.position;
+        if (Math.hypot(a.x - b.x, a.z - b.z) < 0.6 - 1e-5) throw new Error('NPC walked through another person');
+      }
+      if (!rerouted) throw new Error('NPC failed to reroute around a newly placed person');
+      world.focus([{ root: sheep[0].g }]); world.snap();
+      return { sheep: sheep.length, metresWalked: distance.map(d => Math.round(d * 10) / 10), simulatedSeconds: 90, npcRockRoute: arrived, npcDynamicRoute: rerouted };
+    });
+    console.log('Movement checks:', report);
+    await page.screenshot({ path: resolve(root, '../irish-sheep-checked.png') });
+  } else {
   await talkTo('mairin');
   await page.locator('.og-sheet .og-btn--go').waitFor();
   assert.equal(await page.locator('.og-profile-form').count(), 0, 'First conversation must start without setup');
@@ -184,8 +229,9 @@ try {
   assert.equal(await page.evaluate(() => oralGame.world.where().room?.id || null), null);
   console.log('small shop doorway enters the supermarket and returns outside');
   }
+  }
   assert.deepEqual(errors, []);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth); assert.equal(overflow, false);
-  console.log(process.argv.includes('--startup-only') ? 'Startup and optional settings passed at 390×844.' : 'All phone flows passed at 390×844.');
+  console.log(process.argv.includes('--movement-only') ? 'Sheep gait and NPC collisions passed at 390×844.' : process.argv.includes('--startup-only') ? 'Startup and optional settings passed at 390×844.' : 'All phone flows passed at 390×844.');
 } catch (error) { console.log('Browser failure:', errors, await page.locator('body').innerText()); await page.screenshot({ path: resolve(root, '../irish-browser-failure.png') }); throw error; }
 finally { await browser.close(); server.closeAllConnections(); await new Promise(done => server.close(done)); }

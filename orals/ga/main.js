@@ -1,7 +1,7 @@
 // Leaving Cert Irish, Ordinary and Higher: a summer in Conamara.
 // Puts the house, the people, the questions, the grammar rules and the Ink story together and starts the engine.
 // The same engine runs other packs (other subjects, French, Spanish, German) with their own files like these.
-import { startGame } from '../engine/game.js?v=oral-10';
+import { startGame } from '../engine/game.js?v=oral-11';
 import { ROOM, PEOPLE } from './house.js';
 import { VILLAGE } from './village.js';
 import { SHOP } from './shop.js';
