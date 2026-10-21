@@ -14,7 +14,8 @@ Two steps:
            shown on the page of its own first row),
            draws each part's view as the desk will show it to <work>/views/ (to check again), and adds to each
            bio/papers.js entry  parts: [{img, box, holes: [[left, top, width, height], ...]}]  (% of the page):
-           box is what the camera and spotlight go to, holes the only places lit in it (the rest is dark).
+           box is what the camera and spotlight go to, holes the only places lit in it (the rest is greyed and
+           blurred: each page's softened copy is assets/bio/papers/soft/<page>.webp).
   views    only draws one chapter's part views to <work>/views/ (to check the lists while making them).
 Run: python3 tools/bio/build_bio_part_boxes.py extract <papers dir> <sample dir> <work dir>
      python3 tools/bio/build_bio_part_boxes.py views <work dir> <chapter>
@@ -617,6 +618,21 @@ def views(work, ch, only=None):
     print('drew', len(data), 'questions to', os.path.join(work, 'views'), '(%d checked)' % len([n for n in data if n in checked]))
 
 
+def soften(img):
+    """The page as the guide shows it around the part being explained: greyed and blurred so it can't be read (half
+    size: it's blurred anyway). assets/bio/papers/soft/<page>.webp; bio-desk.js lays it over the page outside the
+    part's holes."""
+    from PIL import ImageFilter
+    src = os.path.join(ROOT, img)
+    out = os.path.join(os.path.dirname(src), 'soft', os.path.basename(src))
+    if os.path.exists(out) and os.path.getmtime(out) >= os.path.getmtime(src):
+        return
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    page = Image.open(src).convert('L')
+    page = page.resize((page.size[0] // 2, page.size[1] // 2), Image.LANCZOS).filter(ImageFilter.GaussianBlur(4.4))
+    page.point(lambda v: int(v * 0.6 + 3)).save(out, 'WEBP', quality=70, method=6)
+
+
 def apply(pdirs, work):
     papers_js = os.path.join(ROOT, 'bio', 'papers.js')
     src = open(papers_js).read()
@@ -641,6 +657,7 @@ def apply(pdirs, work):
                     if not os.path.exists(os.path.join(ROOT, img)):
                         Image.open(render(pdf, v['pg'], work)).convert('RGB').save(os.path.join(ROOT, img), 'WEBP', quality=80, method=6)
                     v['img'] = img
+                    soften(img)
             if name in papers and all(views):
                 papers[name]['parts'] = [{'img': v['img'], 'box': v['box'], 'holes': v['holes']} for v in views]
             sheet(item, views, pdf, work, os.path.join(work, 'views', name.replace('/', '-') + '.png'))

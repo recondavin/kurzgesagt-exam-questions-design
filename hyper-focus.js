@@ -561,10 +561,38 @@
     var focusY = window.innerHeight * (compact && !isImageOnly ? .25 : .50);
     var tx = focusX - localX * nextScale;
     var ty = focusY - localY * nextScale;
+    var step = stepFor(activeId);
+    if (step && step.motion) whip(step.motion, focusX - (targetRect.left + targetRect.width / 2), focusY - (targetRect.top + targetRect.height / 2), nextScale);
+    else scene.style.transition = '';
     scene.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + nextScale + ')';
     document.body.classList.add('hf-camera-active');
     trackLayoutFor(950);
   }
+
+  // A step can ask for a whip into its target (the Biology desk: like a news explainer zooming into a line of a
+  // document): a quicker move that starts slow, rushes and lands softly, with the paper (step.motion, a selector)
+  // blurred and stretched along the way it travels, most in the middle of the move. Plain CSS blur and scale, which
+  // the graphics card draws, so phones keep up; it starts in the same frame as the camera.
+  function whip(selector, dx, dy, scale) {
+    var scene = document.querySelector('[data-hf-scene]'), paper = document.querySelector(selector);
+    if (!scene || !paper) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    scene.style.transition = reduce ? '' : 'transform .62s cubic-bezier(.7,0,.16,1)';
+    var travel = Math.hypot(dx, dy);
+    if (reduce || travel < 40 || !paper.animate) return;
+    // The blur is drawn before the camera's scale, so it is given in the paper's own pixels.
+    var across = Math.abs(dx) >= Math.abs(dy), blur = Math.min(14, travel * 0.03) / Math.max(0.2, scale), stretch = 1 + Math.min(0.06, travel / 9000);
+    paper.animate([
+      { filter: 'blur(0px)', scale: '1 1' },
+      { filter: 'blur(' + blur.toFixed(1) + 'px)', scale: across ? stretch + ' 1' : '1 ' + stretch, offset: 0.5 },
+      { filter: 'blur(0px)', scale: '1 1' }
+    ], { duration: 620, easing: 'linear' });
+    // While it travels the page can be seen rushing past (the page's own CSS lifts the dark for body.hf-whipping).
+    document.body.classList.add('hf-whipping');
+    clearTimeout(whipTimer);
+    whipTimer = setTimeout(function () { document.body.classList.remove('hf-whipping'); }, 380);
+  }
+  var whipTimer = 0;
 
   function resetCamera() {
     document.body.classList.remove('hf-camera-active');

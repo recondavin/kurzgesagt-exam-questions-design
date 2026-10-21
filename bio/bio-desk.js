@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-22';
+  var V = 'bio-23';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -97,9 +97,10 @@
     node.style.width = b[2] + '%';
     node.style.height = b[3] + '%';
   }
-  // Each part's box (bio/papers.js, traced by tools/bio/build_bio_part_boxes.py) and its shade: the box (and a margin
-  // round it, so it runs on into the dark around the spotlight) dark except for holes over the part's own print and
-  // what it needs. The holes join the spotlight, so the other parts sink into the same dark as the rest of the screen.
+  // Each part's box (bio/papers.js, traced by tools/bio/build_bio_part_boxes.py) and its shade, like a news explainer
+  // zooming into a line of a document: inside the box (and a margin round it, under the dark around the spotlight) the
+  // page is greyed and softened so the other parts can't be read, and the part's own print (and what it needs) stays
+  // sharp and white in feathered holes, so it glows.
   function partBoxes(shell, P) {
     shell.querySelectorAll('.bio-part-focus, .bio-shade').forEach(function (n) { n.remove(); });
     (P.parts || []).forEach(function (v, k) {
@@ -110,15 +111,20 @@
       shell.appendChild(f);
       var m = 4, b = [v.box[0] - m, v.box[1] - m, v.box[2] + 2 * m, v.box[3] + 2 * m], id = 'bio-shade-' + k;
       var holes = v.holes.map(function (h) {
-        return '<rect x="' + h[0] + '" y="' + h[1] + '" width="' + h[2] + '" height="' + h[3] + '" rx="0.5" ry="0.35" fill="#000"/>';
+        return '<rect x="' + h[0] + '" y="' + h[1] + '" width="' + h[2] + '" height="' + h[3] + '" fill="#000"/>';
       }).join('');
       var shade = el('div', 'bio-shade');
       shade.setAttribute('data-part', k);
       shade.setAttribute('aria-hidden', 'true');
       place(shade, b);
-      shade.innerHTML = '<svg viewBox="' + b.join(' ') + '" preserveAspectRatio="none"><defs><mask id="' + id + '" maskUnits="userSpaceOnUse" x="' + b[0] + '" y="' + b[1] +
-        '" width="' + b[2] + '" height="' + b[3] + '"><rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" fill="#fff"/>' + holes +
-        '</mask></defs><rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" fill="#000" mask="url(#' + id + ')"/></svg>';
+      // The page's greyed, blurred copy (assets/bio/papers/soft, made by build_bio_part_boxes.py) is drawn in page %
+      // (0-100 both ways), so it lies exactly over the real one.
+      shade.innerHTML = '<svg viewBox="' + b.join(' ') + '" preserveAspectRatio="none"><defs>' +
+        '<filter id="' + id + '-feather" x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="0.7 0.5"/></filter>' +
+        '<mask id="' + id + '" maskUnits="userSpaceOnUse" x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '">' +
+        '<rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" fill="#fff"/><g filter="url(#' + id + '-feather)">' + holes + '</g></mask></defs>' +
+        '<g mask="url(#' + id + ')"><rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" fill="#8C8C8C"/>' +
+        '<image href="' + v.img.replace(/[^/]+$/, 'soft/$&') + '?v=' + V + '" x="0" y="0" width="100" height="100" preserveAspectRatio="none"/></g></svg>';
       shell.appendChild(shade);
     });
   }
@@ -128,7 +134,8 @@
     var list = G.steps(ch, q);
     return list.map(function (s, k) {
       var step = {
-        id: s.id, target: 'question-bio', focus: parts && parts[k] ? 'question-bio-p' + k : null, enter: function () { part(k); }, kicker: '', title: s.title, summary: s.summary, spotlight: true, voice: s.voice, prose: '', points: [],
+        id: s.id, target: 'question-bio', focus: parts && parts[k] ? 'question-bio-p' + k : null, enter: function () { part(k); },
+        motion: '.geography-page-shell', kicker: '', title: s.title, summary: s.summary, spotlight: true, voice: s.voice, prose: '', points: [],
         visual: (s.pic ? ring(s.pic.base, s.pic.hi) : '') + '<ul class="hf-bullets hf-bullets--steps">' + s.bullets.map(function (b) {
           return '<li><span class="hf-bullet-dot"></span><span><b>' + esc(b.b) + ':</b> ' + esc(b.t) + '</span></li>';
         }).join('') + '</ul>'
