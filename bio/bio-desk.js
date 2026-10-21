@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-24';
+  var V = 'bio-25';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -99,8 +99,9 @@
   }
   // Each part's box (bio/papers.js, traced by tools/bio/build_bio_part_boxes.py) and its shade, like a news explainer
   // zooming into a line of a document: inside the box (and a margin round it, under the dark around the spotlight) the
-  // page is greyed and softened so the other parts can't be read, and the part's own print (and what it needs) stays
-  // sharp and white in feathered holes, so it glows.
+  // page is greyed and blurred so the other parts can't be read, and the part's own print (and what it needs) stays
+  // sharp and white. The shade is the page itself, blurred by the browser (smooth, and drawn by the graphics card),
+  // masked out over the part's holes, which have clean, slightly rounded edges.
   function partBoxes(shell, P) {
     shell.querySelectorAll('.bio-part-focus, .bio-shade').forEach(function (n) { n.remove(); });
     (P.parts || []).forEach(function (v, k) {
@@ -109,22 +110,26 @@
       f.setAttribute('aria-hidden', 'true');
       place(f, v.box);
       shell.appendChild(f);
-      var m = 4, b = [v.box[0] - m, v.box[1] - m, v.box[2] + 2 * m, v.box[3] + 2 * m], id = 'bio-shade-' + k;
-      var holes = v.holes.map(function (h) {
-        return '<rect x="' + h[0] + '" y="' + h[1] + '" width="' + h[2] + '" height="' + h[3] + '" fill="#000"/>';
-      }).join('');
+      var m = 4, b = [v.box[0] - m, v.box[1] - m, v.box[2] + 2 * m, v.box[3] + 2 * m];
+      // The mask: white (shade shown) everywhere but the holes, drawn in page % so it lines up with the page.
+      var mask = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + b.join(' ') + '" preserveAspectRatio="none"><defs><mask id="m" maskUnits="userSpaceOnUse" x="' +
+        b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '"><rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" fill="#fff"/>' +
+        v.holes.map(function (h) {
+          return '<rect x="' + h[0] + '" y="' + h[1] + '" width="' + h[2] + '" height="' + h[3] + '" rx="0.45" ry="0.32" fill="#000"/>';
+        }).join('') + '</mask></defs><rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" fill="#fff" mask="url(#m)"/></svg>';
+      var url = 'url("data:image/svg+xml,' + encodeURIComponent(mask) + '")';
       var shade = el('div', 'bio-shade');
       shade.setAttribute('data-part', k);
       shade.setAttribute('aria-hidden', 'true');
       place(shade, b);
-      // The page's greyed, blurred copy (assets/bio/papers/soft, made by build_bio_part_boxes.py) is drawn in page %
-      // (0-100 both ways), so it lies exactly over the real one.
-      shade.innerHTML = '<svg viewBox="' + b.join(' ') + '" preserveAspectRatio="none"><defs>' +
-        '<filter id="' + id + '-feather" x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="0.7 0.5"/></filter>' +
-        '<mask id="' + id + '" maskUnits="userSpaceOnUse" x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '">' +
-        '<rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" fill="#fff"/><g filter="url(#' + id + '-feather)">' + holes + '</g></mask></defs>' +
-        '<g mask="url(#' + id + ')"><rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" fill="#8C8C8C"/>' +
-        '<image href="' + v.img.replace(/[^/]+$/, 'soft/$&') + '?v=' + V + '" x="0" y="0" width="100" height="100" preserveAspectRatio="none"/></g></svg>';
+      shade.style.webkitMaskImage = url;
+      shade.style.maskImage = url;
+      // The page, placed so it lies exactly over the real one (the shade's box is b, in page %).
+      var page = el('img', 'bio-shade__page');
+      page.alt = '';
+      page.src = v.img + '?v=' + V;
+      page.style.cssText = 'left:' + (-b[0] / b[2] * 100) + '%;top:' + (-b[1] / b[3] * 100) + '%;width:' + (100 / b[2] * 100) + '%;height:' + (100 / b[3] * 100) + '%';
+      shade.appendChild(page);
       shell.appendChild(shade);
     });
   }

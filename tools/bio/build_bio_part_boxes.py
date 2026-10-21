@@ -14,8 +14,8 @@ Two steps:
            shown on the page of its own first row),
            draws each part's view as the desk will show it to <work>/views/ (to check again), and adds to each
            bio/papers.js entry  parts: [{img, box, holes: [[left, top, width, height], ...]}]  (% of the page):
-           box is what the camera and spotlight go to, holes the only places lit in it (the rest is greyed and
-           blurred: each page's softened copy is assets/bio/papers/soft/<page>.webp).
+           box is what the camera and spotlight go to, holes the only places lit in it (the desk greys and blurs
+           the rest).
   views    only draws one chapter's part views to <work>/views/ (to check the lists while making them).
 Run: python3 tools/bio/build_bio_part_boxes.py extract <papers dir> <sample dir> <work dir>
      python3 tools/bio/build_bio_part_boxes.py views <work dir> <chapter>
@@ -493,6 +493,33 @@ def union(a, b):
     return [l, t, max(a[0] + a[2], b[0] + b[2]) - l, max(a[1] + a[3], b[1] + b[3]) - t]
 
 
+def bridge(holes, solid, across=4.0, down=2.5):
+    """Lit holes side by side (a part's text and the diagram beside it) or one above the other, with only blank paper
+    between them, are stretched to meet, so no grey sliver is left between two lit areas."""
+    holes = [list(h) for h in holes]
+    for _ in range(4):
+        changed = False
+        for a in holes:
+            for b in holes:
+                if a is b:
+                    continue
+                gap = b[0] - (a[0] + a[2])
+                if 0 < gap <= across and min(a[1] + a[3], b[1] + b[3]) - max(a[1], b[1]) > 0.5:
+                    strip = [a[0] + a[2], a[1], gap, a[3]]
+                    if not any(inter(strip, o) for o in solid):
+                        a[2] = b[0] - a[0]
+                        changed = True
+                gap = b[1] - (a[1] + a[3])
+                if 0 < gap <= down and min(a[0] + a[2], b[0] + b[2]) - max(a[0], b[0]) > 0.5:
+                    strip = [a[0], a[1] + a[3], a[2], gap]
+                    if not any(inter(strip, o) for o in solid):
+                        a[3] = b[1] - a[1]
+                        changed = True
+        if not changed:
+            break
+    return holes
+
+
 def view(item, k, plan, page_lines=None):
     """One part's view on its page: box (where the camera and spotlight go) and holes (the only places lit inside it:
     everything else is as dark as the screen around it). The box is as wide as the whole question's print, so the
@@ -537,6 +564,7 @@ def view(item, k, plan, page_lines=None):
                     break
             if merged:
                 break
+    holes = bridge(holes, solid)
     every = list(item['rows']) + list(item['figs']) + [items[i] for i in ids if i.startswith('c')]
     left = min(it['box'][0] for it in every) - 1.2
     right = max(it['box'][0] + it['box'][2] for it in every) + 1.2
@@ -618,21 +646,6 @@ def views(work, ch, only=None):
     print('drew', len(data), 'questions to', os.path.join(work, 'views'), '(%d checked)' % len([n for n in data if n in checked]))
 
 
-def soften(img):
-    """The page as the guide shows it around the part being explained: greyed and blurred so it can't be read (half
-    size: it's blurred anyway). assets/bio/papers/soft/<page>.webp; bio-desk.js lays it over the page outside the
-    part's holes."""
-    from PIL import ImageFilter
-    src = os.path.join(ROOT, img)
-    out = os.path.join(os.path.dirname(src), 'soft', os.path.basename(src))
-    if os.path.exists(out) and os.path.getmtime(out) >= os.path.getmtime(src):
-        return
-    os.makedirs(os.path.dirname(out), exist_ok=True)
-    page = Image.open(src).convert('L')
-    page = page.resize((page.size[0] // 2, page.size[1] // 2), Image.LANCZOS).filter(ImageFilter.GaussianBlur(4.4))
-    page.point(lambda v: int(v * 0.6 + 3)).save(out, 'WEBP', quality=70, method=6)
-
-
 def apply(pdirs, work):
     papers_js = os.path.join(ROOT, 'bio', 'papers.js')
     src = open(papers_js).read()
@@ -657,7 +670,6 @@ def apply(pdirs, work):
                     if not os.path.exists(os.path.join(ROOT, img)):
                         Image.open(render(pdf, v['pg'], work)).convert('RGB').save(os.path.join(ROOT, img), 'WEBP', quality=80, method=6)
                     v['img'] = img
-                    soften(img)
             if name in papers and all(views):
                 papers[name]['parts'] = [{'img': v['img'], 'box': v['box'], 'holes': v['holes']} for v in views]
             sheet(item, views, pdf, work, os.path.join(work, 'views', name.replace('/', '-') + '.png'))
