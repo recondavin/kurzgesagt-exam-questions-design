@@ -3,6 +3,7 @@
 // The same engine runs other packs (other subjects, French, Spanish, German) with their own files like these.
 import { startGame } from '../engine/game.js';
 import { ROOM, PEOPLE } from './house.js';
+import { VILLAGE } from './village.js';
 import { GA } from './grammar.js';
 import { QUESTIONS, SLOTS, COUNTIES } from './questions.js';
 import story from './story.js';
@@ -14,6 +15,7 @@ const ENGLISH = {
   'Dia is Muire dhuit.': 'Hello. (the reply to Dia dhuit)',
   'Ólfaidh, go raibh maith agat.': 'I will, thank you.', 'Ní ólfaidh, go raibh maith agat.': 'I won\'t, thank you.',
   'Chodail, go raibh maith agat.': 'I did, thank you.', 'Oíche mhaith.': 'Good night.',
+  'Ba mhaith, go raibh maith agat.': 'I would, thank you.', 'Níor mhaith, go raibh maith agat.': 'I wouldn\'t, thank you.',
 };
 
 const countyOf = id => COUNTIES.find(c => c.id === id) || COUNTIES.find(c => c.id === 'galway');
@@ -30,7 +32,9 @@ window.oralGame = startGame({
   key: 'oral-ga',
   back: 'index.html',
   start: 'start',
-  room: ROOM,
+  // An open world: the village, with Máirín's house (the kitchen) standing in it.
+  land: VILLAGE,
+  rooms: [ROOM],
   people: PEOPLE,
   story,
   lang: Object.assign({}, GA, { slots: Object.assign({}, GA.slots, SLOTS) }),

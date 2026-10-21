@@ -26,7 +26,7 @@ export function createTalk(root, opts = {}) {
       </button>
     </header>
     <div class="og-place" aria-live="polite"></div>
-    <div class="og-mark" aria-hidden="true"><span></span><span></span><span></span><b>E</b></div>
+    <div class="og-mark" aria-hidden="true"><span></span><span></span><span></span><b>E</b><i></i></div>
     <p class="og-hint" role="status"></p>
     <section class="og-sheet" aria-live="polite" hidden></section>
     <div class="og-card-wrap" hidden><section class="og-card" role="dialog" aria-modal="true"></section></div>
@@ -101,7 +101,9 @@ export function createTalk(root, opts = {}) {
       wireEnglish(sheet);
       const go = () => { sheet.removeEventListener('click', tap); done(); };
       const tap = e => { if (!e.target.closest('.og-en-btn')) go(); };
-      sheet.addEventListener('click', tap);
+      // Listen once the tap that brought this line up has finished: it would otherwise reach the sheet too and
+      // skip the line straight away.
+      setTimeout(() => sheet.addEventListener('click', tap), 0);
       $('.og-btn--go', sheet).focus({ preventScroll: true });
     });
   }
@@ -121,7 +123,7 @@ export function createTalk(root, opts = {}) {
         sheet.querySelectorAll('.og-en').forEach(p => { p.hidden = !on; });
         requestAnimationFrame(insets);
       });
-      sheet.querySelectorAll('.og-choice').forEach(c => c.addEventListener('click', () => done(+c.dataset.i)));
+      sheet.querySelectorAll('.og-choice').forEach(c => c.addEventListener('click', e => { e.stopPropagation(); done(+c.dataset.i); }));
     });
   }
 
@@ -255,7 +257,8 @@ export function createTalk(root, opts = {}) {
         wireVoice(result);
         requestAnimationFrame(() => { insets(); result.scrollIntoView({ block: 'end', behavior: 'smooth' }); });
         opts.onMarked && opts.onMarked(kind);
-        result.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', () => {
+        result.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', e => {
+          e.stopPropagation();
           const act = b.dataset.act;
           if (act === 'next') finish(true);
           else if (act === 'mine') { if (firstRight === null) firstRight = false; opts.onMine && opts.onMine(q.id, said); finish(true); }
@@ -354,10 +357,13 @@ export function createTalk(root, opts = {}) {
     place(text) { place.textContent = text || ''; place.hidden = !text; },
     progress(done, total) { bar.style.width = (total ? Math.round(done / total * 100) : 0) + '%'; bar.parentNode.setAttribute('aria-valuenow', done); bar.parentNode.setAttribute('aria-valuemax', total); },
     // The bouncing dots over the person you can talk to (x, y in CSS pixels, or null to hide).
-    marker(pos, key) {
+    // edge: an angle, when the person is off screen and the marker waits at the edge pointing their way.
+    marker(pos, key, edge) {
       if (!pos) { mark.hidden = true; return; }
       mark.hidden = false;
       mark.classList.toggle('og-mark--key', !!key);
+      mark.classList.toggle('og-mark--edge', edge !== undefined);
+      if (edge !== undefined) mark.style.setProperty('--a', edge + 'rad');
       mark.style.transform = `translate(${Math.round(pos.x)}px, ${Math.round(pos.y)}px)`;
     },
     onMenu(items) { menuBtn.addEventListener('click', () => (menu.hidden ? openMenu(items()) : closeMenu())); },

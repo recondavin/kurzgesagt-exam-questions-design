@@ -69,6 +69,15 @@ export function slab(points, h, color, at) {
   return place(paint(g, color), at);
 }
 
+// A shape drawn side-on (points [[z, y], ...]) and stretched along x for `length`, centred (a roof, a gable).
+export function prism(points, length, color, at) {
+  const shape = new THREE.Shape(points.map(([u, v]) => new THREE.Vector2(-u, v)));
+  const g = new THREE.ExtrudeGeometry(shape, { depth: length, bevelEnabled: false });
+  g.translate(0, 0, -length / 2);
+  g.rotateY(Math.PI / 2);
+  return place(paint(g, color), at);
+}
+
 // Joins painted geometries into one (one draw call).
 export function merge(list) {
   list = list.filter(Boolean);
@@ -90,6 +99,21 @@ export function merge(list) {
   out.computeBoundingSphere();
   out.computeBoundingBox();
   return out;
+}
+
+// Merges a big set of shapes in square chunks (size metres), so the parts of a large world off screen aren't drawn.
+export function chunked(list, size = 16, opts) {
+  const bins = new Map(), c = new THREE.Vector3();
+  for (const g of list) {
+    g.computeBoundingBox();
+    g.boundingBox.getCenter(c);
+    const k = Math.floor(c.x / size) + ',' + Math.floor(c.z / size);
+    if (!bins.has(k)) bins.set(k, []);
+    bins.get(k).push(g);
+  }
+  const group = new THREE.Group();
+  for (const parts of bins.values()) group.add(mesh(parts, opts));
+  return group;
 }
 
 // Smooth normals shared by every corner at the same spot, so the outline shell has no gaps at the edges.

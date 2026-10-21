@@ -27,6 +27,10 @@ html.og-page, .og-page body { height: 100%; margin: 0; overflow: hidden; overscr
 .og-mark span { width: 7px; height: 7px; border-radius: 50%; background: #18272D; animation: og-dot 1.2s ease-in-out infinite; }
 .og-mark b { display: none; min-width: 22px; height: 22px; margin: -2px 0; border: 2px solid #18272D; border-radius: 6px; color: #18272D; font: 800 14px/18px Nunito, sans-serif; text-align: center; }
 .og-mark--key span { display: none; }
+.og-mark i { display: none; position: absolute; left: 50%; top: 50%; width: 0; height: 0; border: 9px solid transparent; border-left: 13px solid #F1F7FB; border-right: 0; transform: translate(-50%, -50%) rotate(var(--a)) translateX(38px); }
+.og-mark--edge { margin: -13px 0 0 -26px; }
+.og-mark--edge::after { display: none; }
+.og-mark--edge i { display: block; }
 .og-mark--key b { display: block; }
 .og-mark span:nth-child(2) { animation-delay: .15s; }
 .og-mark span:nth-child(3) { animation-delay: .3s; }

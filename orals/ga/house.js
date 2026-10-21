@@ -1,11 +1,13 @@
-// The house in Conamara where the student stays: the kitchen, with the bean an tí, Máirín.
-// Room layout and the people's looks for the engine (orals/engine/room.js, people.js). The room is nearly square
-// so it fills a phone held upright.
+// Máirín's house in Conamara: a whitewashed, thatched cottage with a red half-door, standing in the village
+// (orals/ga/village.js). Inside is the kitchen, with Máirín. Room layout and the people's looks for the engine
+// (orals/engine/room.js, people.js). The kitchen is nearly square so it fills a phone held upright.
 export const ROOM = {
   id: 'teach',
   w: 6.2, d: 6.0, wallH: 2.5,
   wall: '#ECE5D5', band: '#5E7F6E',
   sky: '#1B2A30',
+  // The outside of the cottage: the door and windows in the front wall, the thatch and the chimneys.
+  house: { door: { at: -2.2, w: 1.1 }, windows: [0.4, 2.2], chimneys: [-1.85, 2.75], doorColor: '#8E3A2C' },
   props: [
     { type: 'chimney', wall: 'back', at: -1.85, w: 1.6 },
     { type: 'range', x: -1.85, z: -2.56 },
@@ -15,8 +17,8 @@ export const ROOM = {
     { type: 'sink', wall: 'back', at: 0.45, w: 1.2 },
     { type: 'cross', wall: 'back', at: 1.35, y: 1.75 },
     { type: 'dresser', wall: 'back', at: 2.3 },
-    { type: 'door', wall: 'left', at: 1.7 },
-    { type: 'coats', wall: 'left', at: 0.45 },
+    { type: 'window', wall: 'left', at: 1.4, curtain: '#B85C45', plant: false },
+    { type: 'coats', wall: 'left', at: -0.2 },
     { type: 'armchair', x: -2.4, z: -1.15, ry: 1.0 },
     { type: 'rug', x: -1.5, z: -1.45, w: 1.6, d: 1.0 },
     { type: 'window', wall: 'right', at: -0.9, curtain: '#B85C45', plant: false },
@@ -31,10 +33,12 @@ export const ROOM = {
   ],
 };
 
+// You arrive on the bus at the west end of the village. The others are about the village; only Máirín has the
+// oral practice so far, the rest say hello (their lines are in story.ink, talk_<id>).
 export const PEOPLE = {
   player: {
     name: 'Tusa',
-    at: [-2.45, 1.7], face: Math.PI / 2,
+    at: [-20.8, 6.4], face: Math.PI / 2,
     look: { skin: '#E7B896', hair: '#4A3527', hairStyle: 'short', top: '#2F4A6B', bottom: '#5B6878', shoes: '#ECE8DF', bag: '#C9952F', hood: true, height: 1.3 },
   },
   mairin: {
@@ -42,5 +46,29 @@ export const PEOPLE = {
     role: 'bean an tí',
     at: [-0.85, -1.75], face: 0.3,
     look: { skin: '#EBC0A0', hair: '#BDB8B1', hairStyle: 'bun', top: '#3F5E4B', collar: '#E9E2D2', bottom: '#4A4440', shoes: '#5A3F2E', apron: '#DCD3BE', glasses: '#3A3532', height: 1.24 },
+  },
+  aoife: {
+    name: 'Aoife',
+    role: 'dalta',
+    at: [-12, 8.0], face: -Math.PI / 2,
+    look: { skin: '#F0C7A8', hair: '#7A3B22', hairStyle: 'long', top: '#B85C45', bottom: '#3C4F6B', shoes: '#ECE8DF', bag: '#4E6E64', height: 1.27 },
+  },
+  cormac: {
+    name: 'Cormac',
+    role: 'dalta',
+    at: [12, 19], face: 0,
+    look: { skin: '#D9A07E', hair: '#2B2420', hairStyle: 'short', top: '#4E7A52', bottom: '#5B6878', shoes: '#3B3632', hood: true, height: 1.32 },
+  },
+  peadar: {
+    name: 'Peadar',
+    role: 'fear an tsiopa',
+    at: [-15, 4.0], face: 0,
+    look: { skin: '#E4B08E', hair: '#8E8A84', hairStyle: 'short', top: '#6B4E3A', bottom: '#3B3632', shoes: '#2F2B28', apron: '#ECE5D5', height: 1.3 },
+  },
+  brid: {
+    name: 'Bríd',
+    role: 'an múinteoir',
+    at: [16.6, 3.6], face: 0,
+    look: { skin: '#EDC3A2', hair: '#3A2A20', hairStyle: 'bun', top: '#7C4A6B', collar: '#E9E2D2', bottom: '#3B3632', shoes: '#2F2B28', glasses: '#3A3532', height: 1.27 },
   },
 };

@@ -1,15 +1,19 @@
-// Builds a diorama room from a content pack's description: a flagstone floor on a thick slab of earth and grass,
-// three walls cut off at the top (the front is open to the camera), and the furniture. Everything that doesn't move
-// is merged into one mesh. Also returns the walkable grid and the named seats.
-//   { w, d, wallH, wall, floor, props: [{ type, id?, x?, z?, ry?, wall?: 'back' | 'left' | 'right', at?, ...options }] }
+// Builds a room from a content pack's description: a flagstone floor, the walls and the furniture. Everything that
+// doesn't move is merged into one mesh. Also returns what blocks walking and the named seats.
+//   { w, d, wallH, wall, props: [{ type, id?, x?, z?, ry?, wall?: 'back' | 'left' | 'right', at?, ...options }],
+//     house?: { door: { at, w }, windows: [x...], roof, thatch, chimneys: [x...] } }
+// Without `house` it is a diorama: three walls cut off at the top on a slab of earth and grass, the front open.
+// With `house` it is a cottage standing in the open world: four walls (a door in the front one), a thatched roof
+// with its gables, windows and a red half-door outside. The roof and the front wall are separate objects so the
+// world can lift the roof off and drop the front wall to a low stub while the player is inside.
 import * as THREE from '../../lib/three.module.min.js';
-import { box, mesh, place } from './kit.js';
+import { box, cyl, mesh, place, prism } from './kit.js';
 import { MAKERS } from './props.js';
 
 const T = 0.25; // wall thickness
 
 // A random generator with a fixed seed, so the flagstones come out the same every time.
-function seeded(n) { return () => (n = (n * 16807) % 2147483647) / 2147483647; }
+export function seeded(n) { return () => (n = (n * 16807) % 2147483647) / 2147483647; }
 
 function floorStones(w, d, colors) {
   const rnd = seeded(7), parts = [box(w, 0.04, d, '#56524C', { y: -0.05 })];
@@ -45,7 +49,7 @@ function walls(r) {
   return p;
 }
 
-// The slab the room stands on: earth sides and a rim of grass, with stepping stones at the front.
+// The slab a diorama room stands on: earth sides and a rim of grass, with stepping stones at the front.
 function ground(r) {
   const { w, d } = r, m = 0.55, W = w + 2 * T + 2 * m, D = d + T + 2 * m, zc = -T / 2;
   const p = [
@@ -54,6 +58,54 @@ function ground(r) {
   ];
   const rnd = seeded(3);
   for (let i = 0; i < 4; i++) p.push(box(0.36 + rnd() * 0.1, 0.03, 0.26, '#9A9C95', { x: -0.4 + i * 0.32 + rnd() * 0.05, y: -0.02, z: d / 2 + 0.2 + (i % 2) * 0.08 }));
+  return p;
+}
+
+// The front wall of a cottage, with its door gap, and what is on its outside: the door, windows, a step.
+function frontWall(r, H) {
+  const { w, d, wallH: h } = r, c = r.wall || '#ECE5D5', z = d / 2 + T / 2, door = H.door || { at: 0, w: 1.1 };
+  const x0 = -w / 2 - T, x1 = w / 2 + T, d0 = door.at - door.w / 2, d1 = door.at + door.w / 2, dh = 2.1;
+  const p = [
+    box(d0 - x0, h, T, c, { x: (x0 + d0) / 2, z }),
+    box(x1 - d1, h, T, c, { x: (d1 + x1) / 2, z }),
+    box(door.w, h - dh, T, c, { x: door.at, y: dh, z }),
+    box(w + 2 * T, 0.03, T, r.wallTop || '#3A3532', { y: h, z }),
+    // Outside: the red half-door open flat against the wall beside the doorway, its frame, a step and a dark plinth.
+    box(door.w + 0.16, 0.08, 0.06, '#E9E3D6', { x: door.at, y: dh, z: z + T / 2 + 0.02 }),
+    box(0.08, dh, 0.06, '#E9E3D6', { x: d0 - 0.04, z: z + T / 2 + 0.02 }),
+    box(0.08, dh, 0.06, '#E9E3D6', { x: d1 + 0.04, z: z + T / 2 + 0.02 }),
+    box(door.w - 0.1, dh - 0.05, 0.06, H.doorColor || '#8E3A2C', { x: d1 + 0.12 + (door.w - 0.1) / 2, z: z + T / 2 + 0.05 }),
+    box(door.w - 0.1, 0.06, 0.08, '#6E2C22', { x: d1 + 0.12 + (door.w - 0.1) / 2, y: 1.0, z: z + T / 2 + 0.07 }),
+    box(door.w + 0.3, 0.06, 0.45, '#9A9C95', { x: door.at, y: -0.02, z: z + T / 2 + 0.22 }),
+    box(w + 2 * T + 0.02, 0.22, 0.02, '#6E6A63', { z: z + T / 2 + 0.01 }),
+  ];
+  for (const x of H.windows || []) p.push(
+    box(1.0, 1.1, 0.05, '#F4F1EA', { x, y: 0.95, z: z + T / 2 + 0.02 }),
+    box(0.84, 0.94, 0.03, '#9DBEC4', { x, y: 1.03, z: z + T / 2 + 0.04 }),
+    box(0.05, 0.94, 0.04, '#F4F1EA', { x, y: 1.03, z: z + T / 2 + 0.06 }),
+    box(0.84, 0.05, 0.04, '#F4F1EA', { x, y: 1.47, z: z + T / 2 + 0.06 }),
+    box(1.12, 0.07, 0.16, '#E7E1D2', { x, y: 0.9, z: z + T / 2 + 0.07 }),
+  );
+  const blocks = [[x0, d / 2, d0, d / 2 + T], [d1, d / 2, x1, d / 2 + T]];
+  return { parts: p, blocks };
+}
+
+// A thatched roof along the length of the cottage, with the gable ends and the chimneys.
+function roof(r, H) {
+  const { w, d, wallH: h } = r, rise = H.rise || 2.0, over = 0.35, L = w + 2 * T + 2 * over, D2 = d / 2 + T + over;
+  const thatch = H.thatch || '#B8924F', c = r.wall || '#ECE5D5', p = [];
+  // The thatch: a thick triangle with a rounded ridge and a darker trimmed edge at the eaves.
+  p.push(prism([[-D2, -0.12], [D2, -0.12], [0, rise + 0.2]], L, thatch, { y: h }));
+  p.push(prism([[-D2 + 0.02, -0.12], [D2 - 0.02, -0.12], [D2 - 0.02, 0.0], [-D2 + 0.02, 0.0]], L + 0.02, '#9C7A3E', { y: h }));
+  p.push(cyl(0.22, 0.22, L - 0.2, 8, '#A6823F', { y: h + rise + 0.08, rz: Math.PI / 2, x: L / 2 - 0.1 }));
+  // Whitewashed gables under the thatch at both ends.
+  for (const sx of [-1, 1]) p.push(prism([[-d / 2 - T, 0], [d / 2 + T, 0], [0, rise]], T, c, { y: h, x: sx * (w / 2 + T / 2) }));
+  for (const x of H.chimneys || []) p.push(
+    box(0.7, 1.1, 0.6, c, { x, y: h + rise - 0.3 }),
+    box(0.8, 0.12, 0.7, '#B9AE98', { x, y: h + rise + 0.8 }),
+    cyl(0.1, 0.1, 0.25, 8, '#6B4E3A', { x: x - 0.15, y: h + rise + 0.9 }),
+    cyl(0.1, 0.1, 0.25, 8, '#6B4E3A', { x: x + 0.15, y: h + rise + 0.9 }),
+  );
   return p;
 }
 
@@ -66,7 +118,7 @@ function frame(r, o) {
 }
 
 // The floor area a prop blocks, as an axis-aligned box.
-function footprint(f, foot, offset) {
+export function footprint(f, foot, offset) {
   const [w, d] = foot;
   if (!w || !d) return null;
   const c = Math.cos(f.ry), s = Math.sin(f.ry), oz = offset || 0;
@@ -76,7 +128,8 @@ function footprint(f, foot, offset) {
 }
 
 export function buildRoom(r) {
-  const parts = [...floorStones(r.w, r.d, r.stones || ['#8E9290', '#858A88', '#979A95', '#8A8D86']), ...walls(r), ...ground(r)];
+  const H = r.house;
+  const parts = [...floorStones(r.w, r.d, r.stones || ['#8E9290', '#858A88', '#979A95', '#8A8D86']), ...walls(r), ...(H ? [] : ground(r))];
   const blocks = [], seats = {};
   for (const o of r.props) {
     const make = MAKERS[o.type];
@@ -98,5 +151,30 @@ export function buildRoom(r) {
   }
   const group = new THREE.Group();
   group.add(mesh(parts, { line: 0.016 }));
-  return { group, blocks, seats, bounds: [-r.w / 2, -r.d / 2, r.w / 2, r.d / 2] };
+  const out = { group, blocks, seats, bounds: [-r.w / 2, -r.d / 2, r.w / 2, r.d / 2] };
+  if (H) {
+    const { w, d } = r;
+    // The walls block walking too (a diorama room's walls are its edges instead).
+    blocks.push([-w / 2 - T, -d / 2 - T, w / 2 + T, -d / 2], [-w / 2 - T, -d / 2, -w / 2, d / 2 + T], [w / 2, -d / 2, w / 2 + T, d / 2 + T]);
+    const fw = frontWall(r, H);
+    blocks.push(...fw.blocks);
+    out.front = mesh(fw.parts, { line: 0.016 });
+    out.roof = mesh(roof(r, H), { line: 0.02 });
+    group.add(out.front, out.roof);
+    out.outer = [-w / 2 - T, -d / 2 - T, w / 2 + T, d / 2 + T];
+    const door = H.door || { at: 0 };
+    out.door = { x: door.at, z: d / 2 + T + 0.6 };
+  }
+  // A room can stand anywhere in the world: everything moves with it.
+  const [ox, oz] = r.at || [0, 0];
+  if (ox || oz) {
+    group.position.set(ox, 0, oz);
+    const shift = b => [b[0] + ox, b[1] + oz, b[2] + ox, b[3] + oz];
+    out.blocks = blocks.map(shift);
+    out.bounds = shift(out.bounds);
+    if (out.outer) out.outer = shift(out.outer);
+    if (out.door) out.door = { x: out.door.x + ox, z: out.door.z + oz };
+    for (const s of Object.values(seats)) { s.x += ox; s.z += oz; s.front.x += ox; s.front.z += oz; }
+  }
+  return out;
 }
