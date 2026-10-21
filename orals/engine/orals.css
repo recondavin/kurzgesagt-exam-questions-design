@@ -38,6 +38,9 @@ html.og-page, .og-page body { height: 100%; margin: 0; overflow: hidden; overscr
 /* ---------- the sheet ---------- */
 .og-sheet { position: absolute; z-index: 4; left: 0; right: 0; bottom: var(--kb); max-height: calc(100% - 64px - env(safe-area-inset-top) - var(--kb)); overflow-y: auto; overscroll-behavior: contain; margin: 0 auto; max-width: 620px; padding: 16px 16px calc(16px + env(safe-area-inset-bottom)); border-radius: 22px 22px 0 0; background: #18272D; border-top: 2px solid #2B3B42; animation: og-up .28s cubic-bezier(.2, .9, .3, 1); }
 @keyframes og-up { from { transform: translateY(24px); opacity: 0; } }
+.og-leave { float: right; display: grid; place-items: center; width: 36px; height: 36px; margin: -4px -4px 0 8px; border: 0; border-radius: 10px; background: #202F36; color: #93A5AE; }
+.og-leave svg { width: 16px; height: 16px; }
+.og-leave:hover { color: #fff; }
 .og-who { display: flex; align-items: baseline; gap: 8px; margin: 0 0 6px; color: #DCE6EC; font-size: 15px; }
 .og-who b { color: #FFC800; font: 600 17px/1 Fredoka, Nunito, sans-serif; }
 .og-who span { color: #93A5AE; font-size: 14px; }
