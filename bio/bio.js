@@ -237,7 +237,7 @@
     ['examiner', 'Be the examiner', 'Mark a student\'s answer against the real marking scheme, then fix the lines that got nothing.', 'bio-exam-', function (L) { return L.examiner && L.examiner.length; }],
     ['match', 'Match pairs', 'Tap each word, then what it means. Three quick rounds against the clock.', 'bio-match-', function (L) { return L.match && L.match.length; }],
     ['spot', 'Spot the mistake', 'Each sentence has one wrong word. Find it, then fix it.', 'bio-spot-', function (L) { return L.spot && L.spot.length; }],
-    ['sprint', 'Label sprint', 'A part comes up: tap it on the diagram before the time runs out.', 'bio-sprint-', function (L) { return L.sprint && L.sprint.length; }]
+    ['sprint', 'Label sprint', 'A part comes up: tap it on a real exam diagram before the time runs out.', 'bio-sprint-', function (L) { return L.sprint && L.sprint.length; }]
   ];
   function drillItems(n) {
     var L = LEARN[n] || {}, out = [];

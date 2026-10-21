@@ -189,7 +189,7 @@
   // Labels that describe a process, not a part, can't be tapped.
   var NOT_A_PART = /^\d+\.|:|diffuses|entering|^Cut |^Blood (from|to) /;
   // A diagram from an exam paper: the page cut to its box (x, y, width, height in % of the page), its printed names
-  // covered in white, and its spots, in the page's pixels. k scales the spots and the tap distance from the
+  // covered (in white, or the grey they're printed on), and its spots, in the page's pixels. k scales the spots and the tap distance from the
   // drawings' 480 units wide.
   var PAGE = [2055, 2908];
   function paperDiagram(r) {
@@ -197,7 +197,7 @@
     var a = px(r.box[0], r.box[1]), b = px(r.box[2], r.box[3]);
     var svg = '<svg viewBox="' + [a[0], a[1], b[0], b[1]].map(n).join(' ') + '" role="img"><title>' + esc(r.src) + '</title>' +
       '<image href="' + esc(r.img) + '" width="' + PAGE[0] + '" height="' + PAGE[1] + '" preserveAspectRatio="none"/>' +
-      (r.cover || []).map(function (c) { var p = px(c[0], c[1]), q = px(c[2], c[3]); return '<rect x="' + n(p[0]) + '" y="' + n(p[1]) + '" width="' + n(q[0]) + '" height="' + n(q[1]) + '" fill="#FFFFFF"/>'; }).join('') + '</svg>';
+      (r.cover || []).map(function (c) { var p = px(c[0], c[1]), q = px(c[2], c[3]); return '<rect x="' + n(p[0]) + '" y="' + n(p[1]) + '" width="' + n(q[0]) + '" height="' + n(q[1]) + '" fill="' + (c[4] || '#FFFFFF') + '"/>'; }).join('') + '</svg>';
     return { d: { svg: svg, src: r.src }, k: b[0] / 480, parts: r.spots.map(function (s) { return { text: s.t, at: px(s.at[0], s.at[1]) }; }) };
   }
   function sprintOpen(ch) {
