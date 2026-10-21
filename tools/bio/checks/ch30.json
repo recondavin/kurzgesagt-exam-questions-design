@@ -284,13 +284,13 @@
   },
   {
    "q": "What is the rough pH where lipase acts?",
-   "right": "pH 7 to 9 inclusive",
+   "right": "pH 7 to 9",
    "wrong": [
-    "pH 1 to 3 inclusive",
-    "pH 4 to 5 inclusive",
-    "pH 11 to 13 inclusive"
+    "pH 1 to 3",
+    "pH 4 to 5",
+    "pH 11 to 13"
    ],
-   "why": "The scheme wants 7 to 9 inclusive: bile and pancreatic juice make the duodenum slightly alkaline, about pH 8."
+   "why": "In the duodenum, bile and pancreatic juice make the contents slightly alkaline, about pH 8."
   }
  ],
  "2008-Q12c": [
@@ -675,14 +675,14 @@
    "why": "Lipase is the enzyme that breaks lipids into fatty acids and glycerol."
   },
   {
-   "q": "Which part of the alimentary canal secretes lipase?",
-   "right": "Duodenum",
+   "q": "Which organ secretes lipase into the gut?",
+   "right": "Pancreas",
    "wrong": [
     "Liver",
     "Gall bladder",
     "Colon"
    ],
-   "why": "The scheme gives the duodenum or the stomach. Most lipase is made by the pancreas and poured into the duodenum."
+   "why": "The pancreas sends lipase into the duodenum; the liver makes bile, which isn't an enzyme."
   },
   {
    "q": "If lipase acts in the duodenum, what is the rough pH there?",

@@ -395,10 +395,10 @@ THIN = every('wall thin', 'membrane thin', 'thin lining', 'one cell thick', '1 c
 MOIST = every('moist', 'wet surfac', 'wet lining', 'wet wall')
 CAPS = every('capillar network', 'rich capillar', 'capillar supp', 'dense capillar', 'many capillar', 'capillar surround', 'rich blood supp', 'good blood supp')
 CLOSE = every('proximity', 'close capillar', 'close alveol', 'near capillar', 'near alveol', 'contact capillar', 'contact alveol')
-FASTER = every('fast', 'rapid', 'frequen', 'rate increas', 'rate ris', 'rate high', 'rate up')  # "ris": "rises" stems to it
+FASTER = every('fast', 'rapid', 'frequen', 'rate increas', 'rate high', 'rate up')
 RIBS_UP = every(*[r + ' ' + d for r in ('ribcage', 'rib') for d in ('up', 'out', 'upward', 'outward', 'lift')])
 DIA_DOWN = every('diaphragm down', 'diaphragm downward', 'diaphragm flat', 'diaphragm lower')
-VOL_UP = every('volume increas', 'volume ris', 'volume larg', 'chest expand', 'thora expand', 'chest larg', 'thora larg', 'chest bigg', 'thora bigg')
+VOL_UP = every('volume increas', 'volume larg', 'chest expand', 'thora expand', 'chest larg', 'thora larg')
 P_DOWN = every('pressure decreas', 'pressure lower', 'pressure low', 'pressure less')
 AIR_IN = every('air in', 'air into', 'air enter', 'air rush', 'air drawn', 'air suck')
 
@@ -440,7 +440,7 @@ OVERRIDES = {
     # student answers for one disorder; 2023 (iii) is "X" plus any two reasons, three points.
     'n': {'2019-Q6(c)': 3, '2017-Q15a(v)': 2, '2023-Q17c(iii)': 3},
     # Hand-written keys (see every() above), or 'self' where the words can't pin the answer down.
-    # Note: parts labelled "(i) 1." and "(i) 2." share an id ("S1-Q3c(i)"), so their point 0 can't be keyed apart here.
+    # A part's full label keys it alone ('S1-Q3c(i) 1.'); the label's first word ('S1-Q3c(i)') covers all its numbered parts.
     'points': {
         # The disorder is named by the student, and its cause, prevention and treatment depend on which one, so those
         # are ticked by the student.
@@ -453,27 +453,30 @@ OVERRIDES = {
                         3: CAPS + CLOSE},
         # High/Low in a table: the words of a right answer and of its mirror image are the same, so the student ticks.
         'S1-Q3c(ii)': {0: 'self', 1: 'self'},
-        'S1-Q3c(iii)': {0: every('axis time', 'axis blood', 'axis ph', 'axe time', 'axe ph', 'x time', 'y ph'),
+        'S1-Q3c(i) 1.': {0: every('hydrogencarbonate', 'bicarbonate', 'hydrogen carbonate', 'hco3')},
+        'S1-Q3c(i) 2.': {0: every('haemoglobin', 'oxyhaemoglobin', 'red cell', 'erythrocyt')},  # the scheme also accepts 'by red blood cells'
+        'S1-Q3c(iii)': {0: every('axis time', 'axis blood', 'axis ph', 'x time', 'y ph'),
                         1: every('even scale', 'suitabl scale', 'equal scale', 'equal interval', 'even interval', 'regular interval', 'scale 7'),
                         2: 'self',  # every point plotted right: only the graph shows it
                         3: every('two line', 'two curve', '2 line', '2 curve', 'line each', 'curve each', 'line label', 'curve label', 'line key', 'curve key')},
         'S1-Q3c(iv)': {1: every('ph norm', 'ph stay', 'ph stabl', 'ph constant', 'ph steady', 'ph 7 35', 'ph 7 17', 'acid'),
                        2: every('co2 build', 'co2 accumul', 'less co2 blood', 'co2 remov fast', 'co2 remov more', 'co2 exhal', 'breath fast', 'breath deep')},
         'S1-Q3d(iv)': {0: FASTER + every('13 50', 'every 1 2'),
-                       1: every('deep', 'volume increas', 'volume ris', 'volume rose', 'volume larg', 'volume high', 'more air', 'larg breath', 'bigg breath', '2 4 l')},
+                       1: every('deep', 'volume increas', 'volume larg', 'volume high', 'more air', 'larg breath', '2 4 l')},
         'S2-Q5a(iv)': {0: every('low lung', 'aorta low', 'lung remov', 'lung lost', 'lung diffu'),
                        1: every('high respir', 'high cell', 'high body', 'high tissue', 'high pulmonary', 'respir add', 'cell add', 'body add', 'tissue add'),
-                       2: every(*[w + ' ' + u for w in ('co2', 'concentr', 'level') for u in ('increas', 'ris', 'up')], 'more co2')},
+                       2: every(*[w + ' ' + u for w in ('co2', 'concentr', 'level') for u in ('increas', 'up')], 'more co2')},
         '2026-Q3(b)': {0: every('food trachea', 'food windpipe', 'food airway', 'food lung', 'close trachea', 'cover trachea', 'block trachea',
                                 'seal trachea', 'close windpipe', 'cover windpipe', 'block windpipe', 'cover glottis', 'close glottis',
                                 'cover larynx', 'close larynx')},
         '2026-Q3(c)': {0: every('keep open', 'hold open', 'stay open', 'collaps')},
         '2026-Q3(f)': {0: every('up out', 'up outward', 'upward out', 'upward outward')},  # "moves" alone let "down and out" in
         '2025-Q16b(v)': {0: every('muscle relax', 'intercost relax', 'diaphragm relax'),
-                         1: every('ribcage down', 'ribcage inward', 'ribcage decreas', 'ribcage lower', 'rib down', 'rib inward', 'rib decreas', 'rib lower'),
-                         2: every('diaphragm up', 'diaphragm upward', 'diaphragm ris', 'diaphragm dome'),
+                         # Not "ribs fall" / "diaphragm rises": those read as decrease / increase, which every answer has (volume, pressure).
+                         1: every('ribcage down', 'ribcage inward', 'ribcage lower', 'rib down', 'rib inward', 'rib lower'),
+                         2: every('diaphragm up', 'diaphragm upward', 'diaphragm dome'),
                          3: every('volume decreas', 'volume small', 'chest small', 'thora small'),
-                         4: every('pressure increas', 'pressure ris', 'pressure high'),
+                         4: every('pressure increas', 'pressure high'),
                          5: every('air out', 'air leav', 'air expel', 'air exhal')},
         # "Correct matching treatment": the disorder and a treatment for it (2017 and 2019 lists, plus steroids for asthma).
         '2025-Q16b(vi)': {0: every(*['asthma ' + t for t in ('inhal', 'bronchodilat', 'steroid', 'avoid allergen')],
@@ -487,7 +490,7 @@ OVERRIDES = {
                        2: every('asthma inhal', 'asthma bronchodilat', 'asthma avoid allergen'),
                        4: every(*['bronchitis ' + c for c in ('virus', 'viral', 'bacteri', 'infect', 'smok', 'particle', 'pollut', 'irritant', 'dust')]),
                        5: every(*['bronchitis ' + t for t in ('antibiotic', 'inhal', 'bronchodilat', 'mucolytic', 'inflammat', 'cough medic', 'cough syrup')])},
-        '2017-Q15a(iii)': {0: every('increas co2', 'more co2', 'high co2', 'co2 ris'),
+        '2017-Q15a(iii)': {0: every('increas co2', 'more co2', 'high co2'),
                            1: every('message brain', 'impulse brain', 'signal brain', 'medulla impulse', 'medulla signal', 'medulla message'),
                            2: every('diaphragm contract', 'contract flat') + DIA_DOWN,
                            3: every('intercost contract', 'muscle rib contract') + RIBS_UP,
@@ -498,11 +501,11 @@ OVERRIDES = {
                          2: every('infect', 'virus', 'viral', 'bacteri', 'smok', 'irritant', 'pollut', 'particle'),
                          3: every('antibiotic', 'cough medic', 'mucolytic', 'inflammat')},
         '2016-Q8b(ii)': {0: every('compar', 'baseline')},
-        '2016-Q8b(iii)': {0: every('axis dura', 'axe dura', 'x dura', 'axis time', 'axe time', 'x time', 'x minute', 'x min'),
-                          1: every('axis rate', 'axe rate', 'y rate', 'y pulse', 'y breath'),
-                          2: every(*[w + ' ' + m for w in ('b', 'bs', 'overweight', 'unfit') for m in ('more', 'high', 'great', 'steep', 'larg')])},
+        '2016-Q8b(iii)': {0: every('axis dura', 'x dura', 'axis time', 'x time', 'x minute'),
+                          1: every('axis rate', 'y rate', 'y pulse', 'y breath'),
+                          2: every(*[w + ' ' + m for w in ('b', 'overweight', 'unfit') for m in ('more', 'high', 'great', 'steep', 'larg')])},
         '2016-Q8b(iv)': {0: every('immediate', 'right after', 'straight after', 'directly after', 'just after', 'soon after', 'as soon'),
-                         2: every('rate', 'minute', 'min', 'bpm', '60 second', '60 sec'),
+                         2: every('rate', 'minute', 'bpm', '60 second', '60 sec'),
                          3: every(*[' '.join((t, u, r)) for t in ('time', 'long', 'stopwatch') for u in ('until', 'till', 'return', 'back')
                                     for r in ('rest', 'normal')])},
         # The reason is keyed with its vessel's own words: "removed in the lungs" for the vein, "CO2-rich" for the artery.
@@ -510,12 +513,13 @@ OVERRIDES = {
                           1: every('clear co2', 'co2 remov lung', 'co2 lost lung', 'co2 low lung', 'co2 diffu lung', 'co2 exhal',
                                    'arter co2 rich', 'arter co2 high', 'arter more co2')},
         '2014-Q12c(v)': {0: every('medulla co2', 'oblongata co2', 'medulla ph', 'medulla acid'),
-                         1: every(*[m + ' co2 ' + f for m in ('more', 'increas', 'high', 'ris') for f in ('fast', 'speed', 'rapid', 'frequen')],
-                                  'co2 rate increas', 'co2 rate ris', 'co2 breath increas')},
-        # (ii) 1. shares this id, so only (ii) 2.'s points 1 and 2 are set here.
-        '2014-Q9b(ii)': {1: every(*['count ' + t for t in ('time', 'minute', 'min', 'second', 'sec', '60', '30', '15', '20', '10')],
-                                  'beat per minute', 'breath per minute', 'bpm'),
-                         2: every('averag', 'mean result', 'mean value', 'repeat mean', 'calculat mean')},
+                         1: every(*[m + ' co2 ' + f for m in ('more', 'increas', 'high') for f in ('fast', 'speed', 'rapid', 'frequen')],
+                                  'co2 rate increas', 'co2 breath increas')},
+        '2014-Q9b(ii) 2.': {0: every('feel pulse', 'locat pulse', 'find pulse', 'pulse wrist', 'pulse neck', 'finger wrist', 'finger neck',
+                                     'observ breath', 'watch breath', 'watch chest'),
+                            1: every(*['count ' + t for t in ('time', 'minute', 'second', 'sec', '60', '30', '15', '20', '10')],
+                                     'beat per minute', 'breath per minute', 'bpm'),
+                            2: every('averag', 'mean result', 'mean value', 'repeat mean', 'calculat mean')},
         '2009-Q13c(ii)': {0: THIN, 1: MOIST, 2: CLOSE},
         '2007-Q13a(ii)': {1: every('haemoglobin', 'oxyhaemoglobin', 'iron')},  # the scheme: "by (oxy)haemoglobin or by iron"
     },
