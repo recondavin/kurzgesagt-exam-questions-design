@@ -2,7 +2,7 @@
 // shore, boreens, dry-stone walls, buildings with signs, rocks, gorse, wind-bent trees, sheep, a pier with a
 // currach and mountains behind. Built from a content pack's description (see orals/ga/village.js). Static things
 // are merged in chunks (only the chunks on screen are drawn); the sheep move.
-// Returns { group, blocks, walkable(x, z), surface(x, z), shore(x, z), bounds, update(dt) }.
+// Returns { group, blocks, portals, walkable(x, z), surface(x, z), shore(x, z), bounds, update(dt) }.
 import * as THREE from '../../lib/three.module.min.js';
 import { box, cyl, ball, slab, prism, paint, place, mesh, chunked, signMesh } from './kit.js';
 import { seeded } from './room.js';
@@ -48,7 +48,10 @@ function building(b, signs) {
   else p.push(cyl(0.2, 0.2, w + 0.4, 8, '#A6823F', { x: x + w / 2 + 0.2, z, y: h + rise + 0.05, rz: Math.PI / 2 }));
   for (const sx of [-1, 1]) p.push(prism([[-d / 2, 0], [d / 2, 0], [0, rise]], 0.2, c, { x: x + sx * (w / 2 - 0.1), z, y: h }));
   const fz = z + d / 2, door = b.door || 0;
-  p.push(box(1.0, 2.05, 0.08, b.doorColor || '#8E3A2C', { x: x + door, z: fz + 0.03 }), box(1.16, 0.08, 0.1, '#E9E3D6', { x: x + door, z: fz + 0.04, y: 2.05 }));
+  // A door you can go through (into a room somewhere else, see world.js) stands open: a dark doorway.
+  if (b.enter) p.push(box(1.0, 2.05, 0.04, '#1E1A17', { x: x + door, z: fz + 0.005 }));
+  else p.push(box(1.0, 2.05, 0.08, b.doorColor || '#8E3A2C', { x: x + door, z: fz + 0.03 }));
+  p.push(box(1.16, 0.08, 0.1, '#E9E3D6', { x: x + door, z: fz + 0.04, y: 2.05 }));
   p.push(box(1.3, 0.06, 0.5, '#9A9C95', { x: x + door, z: fz + 0.25, y: -0.02 }));
   for (const wx of b.windows || []) p.push(
     box(1.0, 1.0, 0.05, '#F4F1EA', { x: x + wx, y: 0.95, z: fz + 0.03 }),
@@ -61,7 +64,14 @@ function building(b, signs) {
     s.position.set(x + (b.signAt || door), h - 0.42, fz + 0.07);
     signs.push(s);
   }
-  return { parts: p, block: [x - w / 2, z - d / 2, x + w / 2, z + d / 2] };
+  if (!b.enter) return { parts: p, blocks: [[x - w / 2, z - d / 2, x + w / 2, z + d / 2]] };
+  // Round an open door, a short recess you can step into: stepping in takes you through.
+  const d0 = x + door - 0.6, d1 = x + door + 0.6, back = fz - 0.9;
+  return {
+    parts: p,
+    blocks: [[x - w / 2, z - d / 2, d0, fz], [d1, z - d / 2, x + w / 2, fz], [d0, z - d / 2, d1, back]],
+    portal: { id: b.enter, zone: [d0, back, d1, fz - 0.2], out: { x: x + door, z: fz + 0.7 } },
+  };
 }
 
 // A sheep: a woolly body, a dark face and legs. It wanders slowly round its field.
@@ -100,7 +110,13 @@ export function buildLand(L) {
   for (const r of L.paths || []) for (let i = 1; i < r.pts.length; i++) parts.push(strip(r.pts[i - 1], r.pts[i], r.w || 1.2, '#A59D8C', -0.018));
 
   for (const w of L.walls || []) { const s = stoneWall(...w, rnd); parts.push(...s.parts); blocks.push(s.block); }
-  for (const b of L.buildings || []) { const s = building(b, signs); parts.push(...s.parts); blocks.push(s.block); }
+  const portals = [];
+  for (const b of L.buildings || []) {
+    const s = building(b, signs);
+    parts.push(...s.parts);
+    blocks.push(...s.blocks);
+    if (s.portal) portals.push(s.portal);
+  }
 
   for (const [x, z, s] of L.rocks || []) {
     parts.push(place(paint(new THREE.IcosahedronGeometry(s, 0), STONES[Math.floor(rnd() * 4)]), { x, z, y: s * 0.3, sy: 0.65, ry: rnd() * 6, rx: rnd() * 0.4 }));
@@ -190,6 +206,8 @@ export function buildLand(L) {
   const onStrip = (x, z, list, w0) => list.some(r => r.pts.some((b, i) => i && segDist(x, z, r.pts[i - 1], b) < (r.w || w0) / 2));
   return {
     group, blocks, update, bounds: L.bounds,
+    // Doors into rooms elsewhere: { id (the room's), zone (step in here), out (where you come back out) }.
+    portals,
     // Walkable: on the island or its sand, or out on the pier.
     walkable: (x, z) => inside(L.beach, x, z) || onPier(x, z),
     // What is underfoot (for footsteps): wood, stone (a road or path), grass or sand.

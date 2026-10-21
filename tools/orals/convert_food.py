@@ -38,6 +38,18 @@ MODELS = {
     'carrot': ('carrot', {}),
     'cabbage': ('cabbage', {}),
     'onion': ('onion', {}),
+    'tomato': ('tomato', {}),
+    'broccoli': ('broccoli', {}),
+    'mushroom': ('mushroom', {}),
+    'pepper': ('paprika', {}),
+    'oil': ('bottle-oil', {}),
+    'croissant': ('croissant', {}),
+    'muffin': ('muffin', {}),
+    'donut': ('donut-chocolate', {}),
+    'cake': ('cake', {}),
+    'pie': ('pie', {}),
+    'lolly': ('popsicle', {}),
+    'chocice': ('popsicle-chocolate', {}),
 }
 
 

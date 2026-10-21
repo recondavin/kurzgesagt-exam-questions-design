@@ -1,14 +1,17 @@
 // Builds a room from a content pack's description: a flagstone floor, the walls and the furniture. Everything that
 // doesn't move is merged into one mesh. Also returns what blocks walking and the named seats.
 //   { w, d, wallH, wall, props: [{ type, id?, x?, z?, ry?, wall?: 'back' | 'left' | 'right', at?, ...options }],
-//     floor?: 'boards', house?: { door: { at, w }, windows: [x...], roof: 'thatch' | 'slate', chimneys: [x...], sign } }
+//     floor?: 'boards' | 'tiles', house?: { door: { at, w }, windows: [x...], roof: 'thatch' | 'slate' | 'none', chimneys: [x...], sign },
+//     follow?, view?: [w, h] (a room too big to frame whole: the camera follows the player, see world.js) }
 // Without `house` it is a diorama: three walls cut off at the top on a slab of earth and grass, the front open.
 // With `house` it is a cottage standing in the open world: four walls (a door in the front one), a thatched roof
 // (or slate) with its gables, windows, a half-door outside and a sign over the door if it has one. The roof and the front wall are separate objects so the
-// world can lift the roof off and drop the front wall to a low stub while the player is inside.
+// world can lift the roof off and drop the front wall to a low stub while the player is inside. A room reached
+// through a door in another building (a supermarket inside a small shop) has roof 'none'.
+// The goods on shelves are drawn as instanced meshes, one for each kind, and signs on props as pictures.
 import * as THREE from '../../lib/three.module.min.js';
-import { box, cyl, mesh, place, prism, signMesh } from './kit.js';
-import { MAKERS } from './props.js';
+import { box, cyl, mesh, place, prism, signMesh, instanced } from './kit.js';
+import { MAKERS, goodsShape } from './props.js';
 
 const T = 0.25; // wall thickness
 
@@ -28,6 +31,16 @@ function floorStones(w, d, colors) {
       parts.push(box(sw - 0.035, 0.05, dz - 0.035, colors[Math.floor(rnd() * colors.length)], { x: x + sw / 2, y: -0.05, z: z + dz / 2 }));
       x += sw;
     }
+  }
+  return parts;
+}
+
+// Big square tiles in two pale colours (a supermarket).
+function floorTiles(w, d) {
+  const parts = [box(w, 0.04, d, '#8E8A82', { y: -0.05 })], S = 0.75;
+  for (let x = -w / 2, i = 0; x < w / 2 - 0.01; x += S, i++) for (let z = -d / 2, j = 0; z < d / 2 - 0.01; z += S, j++) {
+    const sw = Math.min(S, w / 2 - x), sd = Math.min(S, d / 2 - z);
+    parts.push(box(sw - 0.02, 0.05, sd - 0.02, (i + j) % 2 ? '#D9D5CB' : '#E8E4DA', { x: x + sw / 2, y: -0.05, z: z + sd / 2 }));
   }
   return parts;
 }
@@ -157,21 +170,33 @@ export function footprint(f, foot, offset) {
 
 export function buildRoom(r) {
   const H = r.house;
-  const floor = r.floor === 'boards' ? floorBoards(r.w, r.d) : floorStones(r.w, r.d, r.stones || ['#8E9290', '#858A88', '#979A95', '#8A8D86']);
+  const floor = r.floor === 'boards' ? floorBoards(r.w, r.d) : r.floor === 'tiles' ? floorTiles(r.w, r.d) : floorStones(r.w, r.d, r.stones || ['#8E9290', '#858A88', '#979A95', '#8A8D86']);
   const parts = [...floor, ...walls(r), ...(H ? [] : ground(r))];
-  const blocks = [], seats = {}, fine = [];
+  const blocks = [], seats = {}, goods = [], signs = [];
+  const M = new THREE.Matrix4(), F = new THREE.Matrix4(), B = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), one = new THREE.Vector3(1, 1, 1);
+  const matrixOf = at => new THREE.Matrix4().compose(new THREE.Vector3(at.x || 0, at.y || 0, at.z || 0), q.setFromEuler(e.set(at.rx || 0, at.ry || 0, at.rz || 0)), one);
   for (const o of r.props) {
     const make = MAKERS[o.type];
     if (!make) { console.warn('No maker for', o.type); continue; }
-    const f = frame(r, o), built = make(o);
+    const f = frame(r, o), built = make(Object.assign({ ceiling: r.wallH }, o));
     // Things built against a wall are pushed out by half their depth so their back touches it.
     const back = o.wall && built.foot[1] ? built.foot[1] / 2 : 0;
-    for (const g of built.parts.concat(built.fine || [])) {
+    for (const g of built.parts) {
       if (back) g.translate(0, 0, back);
       place(g, { x: f.x, z: f.z, ry: f.ry });
     }
     parts.push(...built.parts);
-    fine.push(...(built.fine || []));
+    // Goods and signs: placed by the same turn and push, as matrices.
+    F.copy(matrixOf({ x: f.x, z: f.z, ry: f.ry })).multiply(B.makeTranslation(0, 0, back));
+    for (const g of built.goods || []) {
+      const s = goodsShape(g.name);
+      goods.push({ key: g.name, geo: s.geo, matrix: M.copy(F).multiply(matrixOf(g.at)).clone() });
+    }
+    for (const sg of built.signs || []) {
+      const m = signMesh(sg.text, sg.w, sg.h, sg.colors || {});
+      m.applyMatrix4(M.copy(F).multiply(matrixOf(sg.at)));
+      signs.push(m);
+    }
     const fp = footprint(f, built.foot, back ? built.foot[1] / 2 : 0);
     if (fp && o.solid !== false) blocks.push(fp);
     if (built.seat && o.id) {
@@ -181,8 +206,10 @@ export function buildRoom(r) {
   }
   const group = new THREE.Group();
   group.add(mesh(parts, { line: 0.016 }));
-  // Small things (the food in the shop) get a thinner outline, so they don't turn into blobs of ink.
-  if (fine.length) group.add(mesh(fine, { line: 0.006 }));
+  // The goods on the shelves: over a thousand small things, one draw for each kind. No outline: at their size it
+  // would be under a pixel wide and only cost time.
+  if (goods.length) group.add(instanced(goods, { line: 0 }));
+  for (const sg of signs) group.add(sg);
   const out = { group, blocks, seats, bounds: [-r.w / 2, -r.d / 2, r.w / 2, r.d / 2] };
   if (H) {
     const { w, d } = r;
@@ -192,8 +219,9 @@ export function buildRoom(r) {
     blocks.push(...fw.blocks);
     out.front = mesh(fw.parts, { line: 0.016 });
     if (fw.sign) out.front.add(fw.sign);
-    out.roof = mesh(roof(r, H), { line: 0.02 });
-    group.add(out.front, out.roof);
+    out.roof = H.roof === 'none' ? null : mesh(roof(r, H), { line: 0.02 });
+    group.add(out.front);
+    if (out.roof) group.add(out.roof);
     out.outer = [-w / 2 - T, -d / 2 - T, w / 2 + T, d / 2 + T];
     const door = H.door || { at: 0 };
     out.door = { x: door.at, z: d / 2 + T + 0.6 };

@@ -138,5 +138,12 @@ export function makeNav(bounds, blocks, radius, walkable) {
     return others.every(o => Math.hypot(x - o.x, z - o.z) >= o.r + radius);
   }
 
-  return { path, isFree };
+  // The free spot nearest to a point (somewhere to put someone whose saved spot is now taken), or null.
+  function spot(x, z) {
+    grid = fixed;
+    const c = nearestFree(...cell(x, z));
+    return c && { x: cx(c[0]), z: cz(c[1]) };
+  }
+
+  return { path, isFree, spot };
 }
