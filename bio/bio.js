@@ -50,18 +50,19 @@
     type: ['kind', 'class'],
     increase: ['increas', 'rise', 'ris', 'rose', 'rising', 'rais', 'raise'],
     decrease: ['decreas', 'fall', 'falling', 'drop', 'dropp', 'reduce', 'reduc'],
-    remove: ['remov', 'eliminate', 'eliminat'],
+    remove: ['remov', 'eliminate', 'eliminat', 'elimin'],
     muscle: ['muscular', 'muscl'],
     close: ['clos', 'shut'],
     die: ['dying', 'dies', 'died'],
-    lose: ['lost', 'losing', 'los', 'loss']
+    lose: ['lost', 'losing', 'los', 'loss'],
+    keep: ['kept', 'maintain', 'maintenance', 'mainten']
   };
   var CANON = {};
   Object.keys(SAME).forEach(function (k) { CANON[k] = k; SAME[k].forEach(function (w) { CANON[w] = k; }); });
   function canon(w) { return CANON[w] || w; }
   var SUFFIXES = ['ation', 'ition', 'tion', 'sion', 'ment', 'ing', 'ous', 'ive', 'ed', 'er', 'ly', 'al'];
   // Words that share a start but mean different things.
-  var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog'], ['bronch', 'bronchit'], ['bronch', 'bronchiol']];
+  var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog'], ['bronch', 'bronchit'], ['bronch', 'bronchiol'], ['with', 'without']];
   function bioStem(w) {
     if (/^\d+$/.test(w) || w.length <= 3) return w;
     if (w.length > 4 && /ies$/.test(w)) w = w.slice(0, -3) + 'y';

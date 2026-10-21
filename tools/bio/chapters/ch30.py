@@ -595,9 +595,12 @@ OVERRIDES = {
         # Pancreas, dual function: a hormone (or endocrine) AND an enzyme (or exocrine) secretion.
         '2013-Q10a(iii)': {0: [{'w': [h, e], 'n': 2} for h in ('hormone', 'insulin', 'glucagon', 'endocrine')
                                for e in ('enzyme', 'exocrine', 'lipase', 'amylase', 'trypsin', 'protease', 'juice')]},
-        '2012-Q15a(v)': {1: [{'w': [c, x], 'n': 2} for c in ('compet', 'outcompet') for x in ('pathogen', 'harm', 'micro', 'bacteri', 'germ')] +
-                            [{'w': [i, x], 'n': 2} for i in ('inhibit', 'prevent', 'stop', 'block') for x in ('pathogen', 'harm', 'germ')],
-                         3: [{'w': ['canc', x], 'n': 2} for x in ('inhibit', 'prevent', 'decrease', 'lower', 'stop', 'fight', 'protect', 'against')]},
+        '2012-Q15a(v) 1.': {0: [{'w': ['mutual'], 'n': 1}] +
+                               [{'w': ['benefi', x], 'n': 2} for x in ('live', 'host', 'organism', 'both', 'each', 'other')]},
+        '2012-Q15a(v) 2.': {0: [{'w': ['vitamin', x], 'n': 2} for x in ('make', 'synthes', 'provid', 'source', 'secret', 'releas')],
+                            1: [{'w': [c, x], 'n': 2} for c in ('compet', 'outcompet') for x in ('pathogen', 'harm', 'micro', 'bacteri', 'germ')] +
+                               [{'w': [i, x], 'n': 2} for i in ('inhibit', 'prevent', 'stop', 'block') for x in ('pathogen', 'harm', 'germ')],
+                            3: [{'w': ['canc', x], 'n': 2} for x in ('inhibit', 'prevent', 'decrease', 'lower', 'stop', 'fight', 'protect', 'against')]},
         '2012-Q15a(vi)': {0: [{'w': ['colon'], 'n': 1}, {'w': ['large', 'intestine'], 'n': 2}]},
         # The liver in homeostasis: taking up or releasing glucose ([accept heat generation]).
         '2012-Q15c(iii)': {0: [{'w': [g, x], 'n': 2} for g in ('glucose', 'sugar') for x in ('absorb', 'take', 'releas', 'stor', 'remove', 'convert')] +
@@ -637,6 +640,17 @@ OVERRIDES = {
                              [{'w': [a, b], 'n': 2} for a in ('small', 'break', 'split') for b in ('droplet', 'globule')],
                           1: [{'w': ['neutralis'], 'n': 1}, {'w': ['increase', 'ph'], 'n': 2}, {'w': ['alkalin'], 'n': 1}]},
         # Symbiotic bacteria: living in or on another organism, with benefit.
+        # Lipase: secreted by the pancreas ([allow duodenum]), acting in the duodenum ([accept small intestine, ileum]),
+        # at pH 7-9.
+        '2008-Q12b(iii) 1.': {0: [{'w': ['pancrea'], 'n': 1}, {'w': ['duodenum'], 'n': 1}]},
+        '2008-Q12b(iii) 2.': {0: [{'w': [x], 'n': 1} for x in ('duodenum', 'ileum', 'jejunum')] + [{'w': ['small', 'intestine'], 'n': 2}]},
+        '2008-Q12b(iii) 3.': {0: [{'w': [x], 'n': 1} for x in ('7', '8', '9')]},
+        # Absorbed into the blood: digestion products in the ileum or villi ([allow duodenum, small intestine]); water in
+        # the colon ([allow any named part from the stomach on]).
+        '2008-Q12c(iii) 1.': {0: [{'w': [x], 'n': 1} for x in ('ileum', 'villi', 'duodenum', 'jejunum')] + [{'w': ['small', 'intestine'], 'n': 2}]},
+        '2008-Q12c(iii) 2.': {0: [{'w': [x], 'n': 1} for x in ('colon', 'stomach', 'duodenum', 'ileum', 'jejunum', 'caecum', 'rectum')] +
+                                 [{'w': [s, 'intestine'], 'n': 2} for s in ('small', 'large')]},
+        '2018-Q12b(ii) 2.': {0: [{'w': ['liver'], 'n': 1}, {'w': ['muscle'], 'n': 1}]},  # [accept muscle]
         '2008-Q12c(i)': {0: [{'w': ['mutual'], 'n': 1}] +
                             [{'w': ['benefi', x], 'n': 2} for x in ('live', 'host', 'organism', 'both', 'each', 'other')]},
         '2008-Q12c(ii)': {2: [{'w': ['immun'], 'n': 1}],
