@@ -36,6 +36,9 @@
 .bio-dia svg.is-drawable { touch-action: none; cursor: crosshair; -webkit-user-select: none; user-select: none; }
 .bio-arrows { flex-wrap: wrap; align-items: center; margin: 0 0 8px; }
 .bio-arrows .bio-btn--ghost { min-width: 64px; }
+/* Each label's button in its arrow's colour (--c, set in bio.js); filled when it's the one being drawn. */
+.bio-arrows .bio-btn--ghost[data-bio-alabel] { color: var(--c); border-color: var(--c); }
+.bio-arrows .bio-btn--ghost[data-bio-alabel][aria-pressed="true"] { background: var(--c); color: #FFFFFF; border-color: var(--c); }
 .bio-arrows .bio-arrows__clear { margin-left: auto; min-width: 0; }
 .bio-arrows .bio-hint { flex: 1 1 160px; }
 /* The source line's tags (the desk page doesn't load bio.css, where the hub's are). */
