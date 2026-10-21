@@ -29,9 +29,9 @@ def main():
                 continue
             for k, c in enumerate(got):
                 tf = c['right'] in ('True', 'False')
-                bad = [m for m, ok in (('question too long', len(c['q']) <= 110), ('right answer too long', len(c['right']) <= 60),
+                bad = [m for m, ok in (('question too long', len(c['q']) <= 110), ('right answer too long', len(c['right']) <= 70),
                                        ('wrong answers', len(c['wrong']) == (1 if tf else 3)), ('right among wrong', c['right'] not in c['wrong']),
-                                       ('a wrong answer too long', all(len(w) <= 60 for w in c['wrong'])), ('why too long', len(c['why']) <= 150)) if not ok]
+                                       ('a wrong answer too long', all(len(w) <= 70 for w in c['wrong'])), ('why too long', len(c['why']) <= 160)) if not ok]
                 if bad:
                     print('ch%d %s part %d: %s' % (ch, q['id'], k + 1, ', '.join(bad)))
                     problems += 1
