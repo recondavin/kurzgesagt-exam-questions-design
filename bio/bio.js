@@ -291,6 +291,7 @@
     var rows = chapterRows();
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
       '<nav class="sh-nav" aria-label="Biology"><a class="sh-link" href="#"' + (active === 'home' ? ' aria-current="page"' : '') + '><span class="sh-t">Progress</span></a>' +
+      (window.BioBoard ? '<a class="sh-link" href="#board"><span class="sh-t">Trivia board</span></a>' : '') +
       '<p class="sh-group">Chapters</p>' + CHAPTERS.map(function (c, i) {
         var r = rows[i], v = r && r.seen != null ? Math.round(r.seen * 100) + '%' : '<span class="dash">–</span>';
         return '<a class="sh-link" href="#ch' + c.n + '"' + (active === c.n ? ' aria-current="page"' : '') + '><span class="sh-n num">' + c.n + '</span><span class="sh-t">' + esc(c.short) + '</span><span class="sh-v num">' + v + '</span></a>';
@@ -775,6 +776,8 @@
     var h = location.hash.replace(/^#/, ''), m = h.match(/^ch(\d+)$/);
     menu(false);
     app.classList.remove('is-settled');
+    // #board opens the trivia board game over the progress page (the link drops the hash so it can be followed again).
+    if (h === 'board' && window.BioBoard) { history.replaceState(null, '', location.pathname + location.search); renderHome(); window.BioBoard.open(); return; }
     if (m) renderChapter(+m[1]); else renderHome();
     window.scrollTo(0, 0);
   }
