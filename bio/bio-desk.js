@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-41';
+  var V = 'bio-42';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -209,12 +209,16 @@
     var P = (window.BioPapers || {})[ch + '/' + qid], Q = (window.BioQuestions || {})[ch];
     var q = Q && Q.questions.filter(function (x) { return x.id === qid; })[0];
     if (!P || !q) { location.href = BIO_PAGE + '#ch' + ch; return; }
+    var before = current, img = document.querySelector('.geography-page-image'), was = img.getAttribute('src');
     current = { ch: ch, qid: qid, q: q, P: P };
     if (window.ExamHyperFocus) window.ExamHyperFocus.exit();
     document.body.classList.add('bio-desk');
     document.title = q.src.replace(/^LC Biology HL /, 'Biology ') + ' | Leaving Cert revision';
-    var img = document.querySelector('.geography-page-image');
     img.src = P.img + '?v=' + V;
+    if (before && before.qid !== qid) {
+      var ids = chapterList(ch).map(function (x) { return x.id; });
+      slide(was, img, before.ch === ch && ids.indexOf(qid) < ids.indexOf(before.qid) ? -1 : 1);
+    }
     img.alt = P.label;
     // The 3C target becomes this question's target; 3B's is hidden (bio-desk.css).
     var target = document.querySelector('.geography-focus-target:not(.geography-focus-target--3b)');
@@ -242,11 +246,50 @@
     var go = function () { setTimeout(function () { if (current && current.qid === qid) window.ExamHyperFocus.start('question-bio-ask'); }, 1400); };
     if (img.complete && img.naturalWidth) go(); else img.addEventListener('load', go, { once: true });
   }
+  // Going to the next question slides the sheets across the desk: the old one out to the left and the new one in from
+  // the right (back: the other way), under the hands, once the new page is ready to show. A copy of the old sheet does
+  // the leaving, so the real one (with its boxes and buttons) only ever comes in.
+  function slide(was, img, dir) {
+    var paper = document.querySelector('.exam-paper:not(.bio-ghost)');
+    document.querySelectorAll('.bio-ghost').forEach(function (g) { g.remove(); });
+    if (!paper || !paper.animate || !was || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    paper.getAnimations().forEach(function (a) { a.cancel(); });
+    var ghost = paper.cloneNode(false), page = el('div', 'bio-ghost__page'), pic = el('img');
+    ghost.classList.add('bio-ghost');
+    ghost.setAttribute('aria-hidden', 'true');
+    pic.alt = '';
+    pic.src = was;
+    page.appendChild(pic);
+    ghost.appendChild(page);
+    paper.parentNode.insertBefore(ghost, paper.nextSibling);
+    paper.style.visibility = 'hidden';
+    var done = false;
+    var go = function () {
+      if (done || !ghost.isConnected) return;
+      done = true;
+      var r = paperRect(paper), k = r.width / paper.offsetWidth, vw = window.innerWidth;
+      var left = -(r.left + r.width + 60) / k, right = (vw - r.left + 60) / k;
+      paper.style.visibility = '';
+      paper.style.zIndex = ghost.style.zIndex = '0';
+      ghost.animate([{ transform: 'none' }, { transform: 'translateX(' + (dir > 0 ? left : right) + 'px) rotate(' + (-2 * dir) + 'deg)' }],
+        { duration: 380, easing: 'cubic-bezier(.55,0,.8,.3)', fill: 'forwards' }).onfinish = function () { ghost.remove(); };
+      var come = paper.animate([{ transform: 'translateX(' + (dir > 0 ? right : left) + 'px) rotate(' + (2 * dir) + 'deg)' }, { transform: 'none' }],
+        { duration: 460, delay: 110, easing: 'cubic-bezier(.2,.75,.25,1)', fill: 'backwards' });
+      come.onfinish = come.oncancel = function () { paper.style.zIndex = '2'; };
+    };
+    (img.decode ? img.decode() : Promise.resolve()).then(go, go);
+    setTimeout(go, 900);
+  }
+  // Where the paper lies on the screen, leaving out a slide in progress (offsets don't count transforms).
+  function paperRect(paper) {
+    var scene = document.querySelector('[data-hf-scene]'), s = scene.getBoundingClientRect(), k = s.width / (scene.offsetWidth || 1);
+    return { left: s.left + paper.offsetLeft * k, top: s.top + paper.offsetTop * k, width: paper.offsetWidth * k };
+  }
   // The examiner's head beside the paper: the same size and the same gap to the page on every question. (The desk's own
   // logo is part of the desk, which zooms to fit each page, so it grew, moved and got cut off from question to question.)
   var logo = null;
   function placeLogo() {
-    var paper = document.querySelector('.exam-paper');
+    var paper = document.querySelector('.exam-paper:not(.bio-ghost)');
     if (!logo) {
       logo = el('img', 'bio-logo');
       logo.src = 'assets/examiner/teacher-head.svg?v=1';
@@ -255,7 +298,7 @@
       document.body.appendChild(logo);
     }
     if (!paper) return;
-    var r = paper.getBoundingClientRect(), gap = 40, room = r.left - gap - 16, w = Math.min(170, room);
+    var r = paperRect(paper), gap = 40, room = r.left - gap - 16, w = Math.min(170, room);
     logo.hidden = w < 96;
     if (logo.hidden) return;
     logo.style.width = w + 'px';

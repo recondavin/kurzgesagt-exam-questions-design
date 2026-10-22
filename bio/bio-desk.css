@@ -113,3 +113,8 @@ body.bio-desk .hf-guide .hf-bio-check__why b:not(#hf-weight), body.bio-desk .hf-
 body.bio-desk .site-logo { display: none; }
 .bio-logo { position: fixed; z-index: 3; height: auto; transform: rotate(-8deg); filter: drop-shadow(0 8px 0 rgba(92, 52, 24, .28)); pointer-events: none; }
 body:not(.bio-desk) .bio-logo, body.hf-active .bio-logo, body:has(.am-root) .bio-logo { display: none; }
+
+/* The old sheet leaving when you go to another question (bio-desk.js slide). */
+.bio-ghost { pointer-events: none; }
+.bio-ghost__page { position: absolute; inset: 0; overflow: hidden; border-radius: 5px; background: #FFFFFF; }
+.bio-ghost__page img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
