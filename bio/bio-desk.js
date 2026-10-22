@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-43';
+  var V = 'bio-44';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -284,11 +284,14 @@
   // count transforms).
   function paperRect(node) {
     var scene = document.querySelector('[data-hf-scene]'), s = scene.getBoundingClientRect(), k = s.width / (scene.offsetWidth || 1);
-    return { left: s.left + node.offsetLeft * k, top: s.top + node.offsetTop * k, width: node.offsetWidth * k };
+    return { left: s.left + node.offsetLeft * k, top: s.top + node.offsetTop * k, width: node.offsetWidth * k, height: node.offsetHeight * k };
   }
   // The examiner beside the paper, all of him (the user: "make this ... whole body"; it was his head), breathing and
-  // blinking: the same size and the same gap to the page on every question, standing between the bar at the top and the
-  // left hand. (The desk's own logo is part of the desk, which zooms to fit each page, so it grew and moved.)
+  // blinking: the same size and place on every question. He stands left of the left hand's fingers with his feet a
+  // little below their tips (the user: "more to the left and down a bit"): there, the hand starts 37% of the way across
+  // its picture, and below 70% of his height he is at most 70% of his width. Where that leaves him too small (a narrow
+  // screen) he stands above the hand, beside the paper. (The desk's own logo is part of the desk, which zooms to fit
+  // each page, so it grew and moved.)
   var logo = null, WIDE = 908 / 1116;
   function placeLogo() {
     var paper = document.querySelector('.exam-paper:not(.bio-ghost)'), hand = document.querySelector('.exam-hand-motion--left');
@@ -299,15 +302,20 @@
       logo.innerHTML = window.ExamTeacher ? window.ExamTeacher.svg() : '';
       document.body.appendChild(logo);
     }
-    if (!paper) return;
-    var r = paperRect(paper), gap = 32, floor = (hand ? paperRect(hand).top : window.innerHeight) - 16;
-    var w = Math.min(Math.min(320, floor - 72) * WIDE, r.left - gap - 16), h = w / WIDE;
+    if (!paper || !hand) return;
+    var r = paperRect(paper), f = paperRect(hand), feet = f.top + 0.12 * f.height, fingers = f.left + 0.37 * f.width - 6;
+    var h = Math.min(320, feet - 72, (fingers - 16) / 0.7 / WIDE), left = fingers - 0.7 * h * WIDE, top = feet - h;
+    if (h < Math.max(200, 0.43 * f.height)) {
+      h = Math.min(320, f.top - 16 - 72, (r.left - 32 - 16) / WIDE);
+      left = r.left - 32 - h * WIDE;
+      top = f.top - 16 - h;
+    }
     logo.hidden = h < 150;
     if (logo.hidden) return;
-    logo.style.width = w + 'px';
+    logo.style.width = h * WIDE + 'px';
     logo.style.height = h + 'px';
-    logo.style.left = (r.left - gap - w) + 'px';
-    logo.style.top = (floor - h) + 'px';
+    logo.style.left = left + 'px';
+    logo.style.top = top + 'px';
   }
   // The camera eases to each page: follow it for a second, and on every resize.
   function trackLogo() {
