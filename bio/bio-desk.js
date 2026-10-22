@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-51';
+  var V = 'bio-52';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -198,12 +198,15 @@
   }
   function write() {
     if (!current || !window.BioApp) return;
+    // Writing now: the walkthrough mustn't start by itself behind the sheet.
+    current.asked = true;
     window.BioApp.openQuestion(current.ch, current.qid, function () {}, function (next) {
       // "Next question" on the sheet moves the desk to the next paper.
       var root = document.querySelector('.am-root [data-am-keep]');
       if (root) root.click();
       location.hash = '#bio/' + current.ch + '/' + encodeURIComponent(next);
     });
+    wireSheet(30);
   }
   function show(ch, qid) {
     var P = (window.BioPapers || {})[ch + '/' + qid], Q = (window.BioQuestions || {})[ch];
@@ -293,23 +296,59 @@
   // the answer (helpParts). He talks while a line types out; tapping him again shows the answer, then the next part;
   // the last part's button opens the answer sheet. He slides down out of sight while the walkthrough or an answer sheet
   // is open, and back up after (bio-desk.css).
-  var helper = null, parts = [], at = 0, shown = false, typer = 0, typing = null;
+  // Where he's helping (a "host"): the desk's corner (deskHost) or the answer sheet's own examiner (sheetHost). Each has
+  // the element that gets is-helping (box), his speech bubble (say), what talks (talker), and whether it's the sheet.
+  var helper = null, deskHost = null, sheetHost = null, host = null, parts = [], at = 0, shown = false, typer = 0, typing = null, lastPart = -1;
   function addHelper() {
     if (!helper) {
-      helper = el('div', 'bio-logo', '<div class="bio-logo__say" data-bio-say></div><button type="button" class="bio-logo__fig" data-mood="ok" ' +
+      helper = el('div', 'bio-logo bio-helps', '<div class="bio-logo__say" data-bio-say></div><button type="button" class="bio-logo__fig" data-mood="ok" ' +
         'aria-label="Ask the examiner about this question">' + (window.ExamTeacher ? window.ExamTeacher.svg() : '') + '</button>');
-      helper.addEventListener('click', function (e) {
-        var b = e.target.closest('[data-bio-help]'), open = helper.classList.contains('is-helping');
-        if (b) help(b.getAttribute('data-bio-help'));
-        else if (e.target.closest('.bio-logo__fig') || (!open && e.target.closest('.bio-logo__say'))) help(open ? 'tap' : 'open');
-      });
+      deskHost = { box: helper, say: helper.querySelector('[data-bio-say]'), talker: helper, sheet: false };
+      listen(deskHost, '.bio-logo__fig');
       var fig = helper.querySelector('.bio-logo__fig');
       ['mouseenter', 'focus'].forEach(function (t) { fig.addEventListener(t, function () { helper.classList.add('is-talking'); }); });
       ['mouseleave', 'blur'].forEach(function (t) { fig.addEventListener(t, function () { if (!typing) helper.classList.remove('is-talking'); }); });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && helper.classList.contains('is-helping')) help('close'); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && host && host.box.classList.contains('is-helping')) help('close', host); });
+      // The part you're working on, for the sheet's examiner: the last one you typed or tapped in.
+      ['focusin', 'click'].forEach(function (t) {
+        document.addEventListener(t, function (e) { var sec = e.target.closest && e.target.closest('.am-root [data-bio-part]'); if (sec) lastPart = +sec.getAttribute('data-bio-part'); });
+      });
       document.body.appendChild(helper);
     }
-    help('idle');
+    help('idle', deskHost);
+  }
+  function listen(h, figure) {
+    h.box.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-bio-help]'), open = h.box.classList.contains('is-helping');
+      if (b) help(b.getAttribute('data-bio-help'), h);
+      else if (e.target.closest(figure) || (!open && e.target.closest('.bio-logo__say'))) help(open ? 'tap' : 'open', h);
+    });
+  }
+  // On the answer sheet its own examiner (answer-mode.js .am-mascot, bottom left beside the card) helps the same way (the
+  // user, of the sheet: "make him have the stuck?"): a "Stuck? Click on me." bubble of his own; tapped, the hint for the
+  // part you're working on (the last one you typed or tapped in, else the first in view), then "Still don't know?";
+  // moving to another part scrolls the sheet to it. His reactions to Check keep their own bubble (hidden while he helps).
+  // He only comes up where there's room beside the card, so not on phones.
+  function wireSheet(tries) {
+    var m = document.querySelector('.am-root .am-mascot');
+    if (!m) { if (tries > 0) setTimeout(function () { wireSheet(tries - 1); }, 100); return; }
+    if (m.hasAttribute('data-bio-helps')) return;
+    m.setAttribute('data-bio-helps', '');
+    m.removeAttribute('aria-hidden');
+    m.classList.add('bio-helps');
+    var say = el('div', 'bio-logo__say'), face = m.querySelector('.am-mascot__face');
+    if (face) face.setAttribute('aria-hidden', 'true');
+    m.insertBefore(say, m.firstChild);
+    sheetHost = { box: m, say: say, talker: face || m, sheet: true };
+    lastPart = -1;
+    listen(sheetHost, '.am-mascot__face');
+    help('idle', sheetHost);
+  }
+  function sheetPart() {
+    if (lastPart >= 0) return lastPart;
+    var secs = document.querySelectorAll('.am-root [data-bio-part]');
+    for (var i = 0; i < secs.length; i++) if (secs[i].getBoundingClientRect().bottom > 120) return +secs[i].getAttribute('data-bio-part');
+    return 0;
   }
   // For each part, a hint first, then, if you still don't know, the answer (the user: "it should be like a hint first and
   // then 'still don't know?'"): the hint is the part's quick check's "hint" (tools/bio/checks/ch<N>.json, written to point
@@ -321,23 +360,27 @@
     return !current ? [] : current.q.parts.map(function (p, k) {
       var c = C[k] || {}, tf = c.right === 'True' || c.right === 'False';
       var scheme = p.kind !== 'text' && p.pts.length ? p.pts.map(function (t) { return t.a.replace(/\*/g, '').trim(); }).join('; ') : '';
-      return { label: p.l, hint: c.hint || '', answer: scheme || (tf ? c.why : c.right) || '', why: (scheme || !tf) && c.why || '' };
+      return { k: k, label: p.l, hint: c.hint || '', answer: scheme || (tf ? c.why : c.right) || '', why: (scheme || !tf) && c.why || '' };
     }).filter(function (x) { return x.answer; });
   }
-  function help(what) {
-    var say = helper.querySelector('[data-bio-say]');
+  function help(what, h) {
+    if (h !== host && typing) typing();
+    host = h;
+    var say = h.say, before = at;
     if (typing && (what === 'next' || what === 'tap')) { typing(); return; }
     clearInterval(typer);
     typing = null;
     if (what === 'idle' || what === 'close' || what === 'answer') {
-      helper.classList.remove('is-helping', 'is-talking');
+      h.box.classList.remove('is-helping');
+      h.talker.classList.remove('is-talking');
       say.textContent = 'Stuck? Click on me.';
-      if (what === 'answer') write();
+      if (what === 'answer' && !h.sheet) write();
       return;
     }
     if (what === 'open') {
       parts = helpParts();
-      at = 0;
+      var k = h.sheet ? sheetPart() : 0;
+      at = Math.max(0, parts.map(function (x) { return x.k; }).indexOf(k));
       shown = false;
       if (current) current.asked = true;
     } else if (what === 'reveal') shown = true;
@@ -350,12 +393,17 @@
       else if (at < parts.length - 1) { at++; shown = false; }
       else return;
     }
-    helper.classList.add('is-helping');
+    h.box.classList.add('is-helping');
+    // The last part's button: on the desk it opens the answer sheet; on the sheet you're already there.
     var P = parts[at], last = at >= parts.length - 1, x = '<button type="button" class="bio-help__x" data-bio-help="close" aria-label="Close">×</button>';
+    var end = h.sheet ? '<button type="button" class="bio-help__next" data-bio-help="close">Done</button>' : '<button type="button" class="bio-help__next" data-bio-help="answer">Answer it</button>';
     if (!P) {
-      say.innerHTML = x + '<p class="bio-help__line">Nothing from me on this one. Have a go at it.</p><div class="bio-help__foot"><span class="bio-help__count"></span>' +
-        '<button type="button" class="bio-help__next" data-bio-help="answer">Answer it</button></div>';
+      say.innerHTML = x + '<p class="bio-help__line">Nothing from me on this one. Have a go at it.</p><div class="bio-help__foot"><span class="bio-help__count"></span>' + end + '</div>';
       return;
+    }
+    if (h.sheet && at !== before && what !== 'open') {
+      var sec = document.querySelector('.am-root [data-bio-part="' + P.k + '"]');
+      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     // Just the part's label: its question is on the paper beside him.
     say.innerHTML = x + '<p class="bio-help__about"><b>' + esc(P.label) + '</b></p>' +
@@ -364,7 +412,7 @@
         '<button type="button" class="bio-help__still" data-bio-help="reveal">Still don\'t know?</button>') +
       '<div class="bio-help__foot"><span class="bio-help__count">' + (parts.length > 1 ? 'Part ' + (at + 1) + ' of ' + parts.length : '') + '</span>' +
       (at ? '<button type="button" class="bio-help__back" data-bio-help="back">Back</button>' : '') +
-      '<button type="button" class="bio-help__next" data-bio-help="' + (last ? 'answer' : 'next') + '">' + (last ? 'Answer it' : 'Next part') + '</button></div>';
+      (last ? end : '<button type="button" class="bio-help__next" data-bio-help="next">Next part</button>') + '</div>';
     var lines = say.querySelectorAll('.bio-help__typed'), why = say.querySelector('.bio-help__why');
     if (shown) {
       lines[0].innerHTML = said('Hint: ', P.hint || 'Have a go first.', Infinity);
@@ -382,11 +430,11 @@
       clearInterval(typer);
       node.innerHTML = said(lead, text, n);
       typing = null;
-      helper.classList.remove('is-talking');
+      host.talker.classList.remove('is-talking');
       if (done) done();
     };
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { typing(); return; }
-    helper.classList.add('is-talking');
+    host.talker.classList.add('is-talking');
     typer = setInterval(function () { node.innerHTML = said(lead, text, ++i); if (i >= n) typing(); }, 26);
   }
   // The first n letters of a line, its lead ("Hint:", "Answer:") in bold.
