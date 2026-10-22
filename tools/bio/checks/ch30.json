@@ -9,7 +9,8 @@
     "Teeth grinding food into smaller pieces"
    ],
    "why": "Peristalsis is waves of muscle contraction in the gut wall that squeeze food along.",
-   "hint": "Think how food still reaches your stomach if you swallow while standing on your head."
+   "hint": "Think how food still reaches your stomach if you swallow while standing on your head.",
+   "board": true
   },
   {
    "q": "Why is a low pH useful in the stomach?",
@@ -20,7 +21,8 @@
     "It speeds up absorption of glucose"
    ],
    "why": "Stomach acid kills most bacteria in food and suits pepsin; it actually stops salivary amylase working.",
-   "hint": "Think of what might be living on the food you swallow, and how strong acid affects it."
+   "hint": "Think of what might be living on the food you swallow, and how strong acid affects it.",
+   "board": true
   },
   {
    "q": "Why is fibre important in the diet?",
@@ -31,7 +33,8 @@
     "It is stored in the liver as glycogen"
    ],
    "why": "We can't digest fibre; it adds bulk for the gut muscles to push on, which keeps food moving and stops constipation.",
-   "hint": "We can't digest it. Think what it gives the gut wall muscles to grip and push on."
+   "hint": "We can't digest it. Think what it gives the gut wall muscles to grip and push on.",
+   "board": true
   },
   {
    "q": "Which enzyme digests fat?",
@@ -42,7 +45,8 @@
     "Bile"
    ],
    "why": "Lipase breaks down fats (lipids); bile only emulsifies fat and is not an enzyme.",
-   "hint": "Enzyme names often end in '-ase' and start with part of the food's name. What's a word for fats?"
+   "hint": "Enzyme names often end in '-ase' and start with part of the food's name. What's a word for fats?",
+   "board": true
   },
   {
    "q": "What are the products of fat digestion?",
@@ -53,7 +57,8 @@
     "Small droplets of fat"
    ],
    "why": "Lipase splits fat into fatty acids and glycerol; small droplets come from bile, which doesn't digest anything.",
-   "hint": "Picture a fat molecule as an 'E' shape: a backbone with three long tails. Split them apart."
+   "hint": "Picture a fat molecule as an 'E' shape: a backbone with three long tails. Split them apart.",
+   "board": true
   },
   {
    "q": "What does bile do in fat digestion?",
@@ -64,7 +69,8 @@
     "Carries fat into the lacteals"
    ],
    "why": "Bile emulsifies fat into tiny droplets, giving lipase more surface to work on; it is not an enzyme itself.",
-   "hint": "Think of washing-up liquid on a greasy pan: what does it do to big blobs of fat?"
+   "hint": "Think of washing-up liquid on a greasy pan: what does it do to big blobs of fat?",
+   "board": true
   },
   {
    "q": "What useful job do gut bacteria do?",
@@ -75,7 +81,8 @@
     "Produce hydrochloric acid"
    ],
    "why": "Gut bacteria make vitamins (like K and some B) that we absorb; bile, insulin and acid come from our own organs.",
-   "hint": "Think of nutrients your gut microbes make for you, like the one needed for blood clotting."
+   "hint": "Think of nutrients your gut microbes make for you, like the one needed for blood clotting.",
+   "board": true
   }
  ],
  "2005-Q6": [
@@ -88,7 +95,8 @@
     "Arteriole"
    ],
    "why": "B is the lacteal, the lymph vessel in the middle of the villus; the capillaries form a network around it.",
-   "hint": "A is a finger-like fold; B is the lymph vessel in its core; C is the layer that contracts."
+   "hint": "A is a finger-like fold; B is the lymph vessel in its core; C is the layer that contracts.",
+   "board": "What is the vessel in the centre of a villus called?"
   },
   {
    "q": "Which feature helps villus A absorb soluble food?",
@@ -99,7 +107,8 @@
     "Glands that make bile"
    ],
    "why": "Villi and their microvilli give a huge surface area; the wall is only one cell thick, not thick.",
-   "hint": "Think about its shape and folds, the thickness of its wall, and what runs through its middle."
+   "hint": "Think about its shape and folds, the thickness of its wall, and what runs through its middle.",
+   "board": "Which feature helps a villus absorb soluble food?"
   },
   {
    "q": "By which process are soluble foods absorbed into the blood?",
@@ -110,7 +119,8 @@
     "Emulsification"
    ],
    "why": "Digested food diffuses from the gut into the blood; osmosis is only the movement of water.",
-   "hint": "Food molecules are more crowded in the gut than in the blood. What is this spreading out called?"
+   "hint": "Food molecules are more crowded in the gut than in the blood. What is this spreading out called?",
+   "board": true
   },
   {
    "q": "What type of food is mainly absorbed into lacteal B?",
@@ -121,7 +131,8 @@
     "Water"
    ],
    "why": "Products of fat digestion go into the lacteal; glucose and amino acids go into the blood capillaries.",
-   "hint": "Sugars and amino acids go into the capillaries. Which other main food type is left?"
+   "hint": "Sugars and amino acids go into the capillaries. Which other main food type is left?",
+   "board": "What type of food is mainly absorbed into the lacteal of a villus?"
   }
  ],
  "2006-Q1f": [
@@ -134,7 +145,8 @@
     "Glycerol"
    ],
    "why": "Proteases break proteins down into amino acids; fatty acids and glycerol come from fats.",
-   "hint": "Proteins are long chains of small building blocks. What are those units called?"
+   "hint": "Proteins are long chains of small building blocks. What are those units called?",
+   "board": true
   }
  ],
  "2006-Q3": [
@@ -147,7 +159,8 @@
     "Trypsin"
    ],
    "why": "Amylase digests starch, a carbohydrate; pepsin and trypsin digest protein and lipase digests fat.",
-   "hint": "Think of the enzyme in your saliva that starts breaking down starch."
+   "hint": "Think of the enzyme in your saliva that starts breaking down starch.",
+   "board": true
   },
   {
    "q": "Where in the gut does amylase act?",
@@ -158,7 +171,8 @@
     "Liver"
    ],
    "why": "Amylase works in the mouth (from saliva) and in the small intestine (from the pancreas); stomach acid stops it.",
-   "hint": "Think about which juice contains this enzyme, and where that juice first meets food."
+   "hint": "Think about which juice contains this enzyme, and where that juice first meets food.",
+   "board": true
   },
   {
    "q": "If the enzyme is amylase, what is its product?",
@@ -169,7 +183,8 @@
     "Amino acids"
    ],
    "why": "Amylase breaks starch (its substrate) down into maltose, a double sugar.",
-   "hint": "Starch is a chain of glucose. Saliva's enzyme cuts it into two-glucose pieces: what are they?"
+   "hint": "Starch is a chain of glucose. Saliva's enzyme cuts it into two-glucose pieces: what are they?",
+   "board": "What product does amylase make when it digests starch?"
   },
   {
    "q": "For this carbohydrate enzyme, what is the pH at peak A?",
@@ -180,7 +195,8 @@
     "pH 11 to 12"
    ],
    "why": "Carbohydrate enzymes like amylase work best in the near-neutral to slightly alkaline mouth and small intestine.",
-   "hint": "Read the pH directly below the highest point of the curve."
+   "hint": "Read the pH directly below the highest point of the curve.",
+   "board": "Roughly what is the optimum pH of amylase, a carbohydrate-digesting enzyme in the gut?"
   },
   {
    "q": "What word describes the pH at A?",
@@ -191,7 +207,8 @@
     "Critical"
    ],
    "why": "The optimum pH is the pH at which an enzyme works fastest: the top of the curve.",
-   "hint": "What word means the best or most favourable conditions for something to work?"
+   "hint": "What word means the best or most favourable conditions for something to work?",
+   "board": "What word describes the pH at which an enzyme works fastest?"
   }
  ],
  "2006-Q5": [
@@ -204,7 +221,8 @@
     "Inferior vena cava"
    ],
    "why": "Y carries blood from the intestine to the liver: that's the hepatic portal vein.",
-   "hint": "X is the body's biggest internal organ. Y brings food-rich blood from the intestine into X."
+   "hint": "X is the body's biggest internal organ. Y brings food-rich blood from the intestine into X.",
+   "board": "Which vessel brings food-rich blood from the intestine into the liver?"
   },
   {
    "q": "Which way does blood flow in vessel Y?",
@@ -215,7 +233,8 @@
     "From the intestine to the heart"
    ],
    "why": "The portal vein brings blood rich in digested food from the intestine into the liver.",
-   "hint": "Arteries bring blood into an organ and veins drain it out. Y collects food-rich blood from the gut."
+   "hint": "Arteries bring blood into an organ and veins drain it out. Y collects food-rich blood from the gut.",
+   "board": "Which way does blood flow in the hepatic portal vein?"
   },
   {
    "q": "Where exactly is the liver in the body?",
@@ -226,7 +245,8 @@
     "Lower left abdomen, below the stomach"
    ],
    "why": "The liver sits at the top of the abdomen, right under the diaphragm and mostly on the right side.",
-   "hint": "Feel just under your right lower ribs. Which body cavity is that, and which part of it?"
+   "hint": "Feel just under your right lower ribs. Which body cavity is that, and which part of it?",
+   "board": true
   },
   {
    "q": "What does the liver do in digestion?",
@@ -237,7 +257,8 @@
     "Absorbs digested food"
    ],
    "why": "The liver makes bile; the gall bladder only stores it, and lipase comes from the pancreas.",
-   "hint": "Think of the greenish juice it makes that is stored in a small sac and helps with fat."
+   "hint": "Think of the greenish juice it makes that is stored in a small sac and helps with fat.",
+   "board": true
   }
  ],
  "2008-Q12a": [
@@ -250,7 +271,8 @@
     "Mechanical: food is egested; chemical: broken down by enzymes"
    ],
    "why": "Two points: mechanical digestion breaks food up physically (chewing, churning); chemical digestion breaks molecules down with enzymes.",
-   "hint": "Compare what your teeth do to a biscuit with what saliva does to it if you hold it in your mouth."
+   "hint": "Compare what your teeth do to a biscuit with what saliva does to it if you hold it in your mouth.",
+   "board": true
   },
   {
    "q": "Apart from teeth, which structure digests food mechanically?",
@@ -261,7 +283,8 @@
     "Appendix"
    ],
    "why": "The stomach's muscular wall churns food, breaking it up physically; glands like the pancreas digest chemically.",
-   "hint": "Think of a muscular part that rolls or churns food around."
+   "hint": "Think of a muscular part that rolls or churns food around.",
+   "board": true
   }
  ],
  "2008-Q12b": [
@@ -274,7 +297,8 @@
     "Gall bladder"
    ],
    "why": "E is the appendix: the small dead-end tube hanging off the start of the large intestine.",
-   "hint": "Follow food's path from mouth to anus in order. E is a small dead-end tube near the start of F."
+   "hint": "Follow food's path from mouth to anus in order. E is a small dead-end tube near the start of F.",
+   "board": "What is the narrow, finger-like dead-end tube that hangs off the caecum?"
   },
   {
    "q": "Describe two functions of bile in digestion. (2 points)",
@@ -285,7 +309,8 @@
     "Breaks proteins into amino acids; emulsifies fats"
    ],
    "why": "Two points: bile salts emulsify fats into small droplets, and bile is alkaline, so it neutralises acid chyme from the stomach.",
-   "hint": "One job is about fat, the other is about the pH of food arriving from the stomach."
+   "hint": "One job is about fat, the other is about the pH of food arriving from the stomach.",
+   "board": true
   },
   {
    "q": "Where is lipase secreted?",
@@ -296,7 +321,8 @@
     "Large intestine"
    ],
    "why": "Lipase is made by the pancreas; the liver makes bile, which helps but isn't an enzyme.",
-   "hint": "Which gland, lying behind the stomach, makes both insulin and lots of digestive juice?"
+   "hint": "Which gland, lying behind the stomach, makes both insulin and lots of digestive juice?",
+   "board": true
   },
   {
    "q": "Where does pancreatic lipase act?",
@@ -307,7 +333,8 @@
     "Gall bladder"
    ],
    "why": "Pancreatic lipase is released into the duodenum and digests fat there, helped by bile.",
-   "hint": "Its juice drains into the C-shaped first section of the small intestine. What's it called?"
+   "hint": "Its juice drains into the C-shaped first section of the small intestine. What's it called?",
+   "board": true
   },
   {
    "q": "What is the rough pH where lipase acts?",
@@ -318,7 +345,8 @@
     "pH 11 to 13"
    ],
    "why": "In the duodenum, bile and pancreatic juice make the contents slightly alkaline, about pH 8.",
-   "hint": "Bile and pancreatic juice cancel out the stomach acid and then some. Is pH below 7 or above?"
+   "hint": "Bile and pancreatic juice cancel out the stomach acid and then some. Is pH below 7 or above?",
+   "board": "What is the rough pH in the duodenum, where pancreatic lipase acts?"
   }
  ],
  "2008-Q12c": [
@@ -331,7 +359,8 @@
     "Make their own food using light energy"
    ],
    "why": "Symbiotic bacteria live closely with a host to their benefit; ones that cause disease are parasites.",
-   "hint": "'Sym' means together and 'bio' means life. How do the bacteria and their host get on?"
+   "hint": "'Sym' means together and 'bio' means life. How do the bacteria and their host get on?",
+   "board": true
   },
   {
    "q": "Give two activities of symbiotic bacteria in the human digestive system. (2 points)",
@@ -342,7 +371,8 @@
     "Absorb amino acids into the blood; make vitamins"
    ],
    "why": "Two points: gut bacteria make vitamins (B and K) and help digest food; outcompeting harmful microbes also counts.",
-   "hint": "Think of nutrients they make for us, and what they do to food we can't fully break down."
+   "hint": "Think of nutrients they make for us, and what they do to food we can't fully break down.",
+   "board": true
   },
   {
    "q": "Where are the products of digestion absorbed into the blood?",
@@ -353,7 +383,8 @@
     "Rectum"
    ],
    "why": "Most digested food is absorbed through the villi of the ileum, part of the small intestine.",
-   "hint": "Think of the long, last section of the small intestine, lined with finger-like folds."
+   "hint": "Think of the long, last section of the small intestine, lined with finger-like folds.",
+   "board": true
   },
   {
    "q": "Which part of the gut absorbs water into the blood?",
@@ -364,7 +395,8 @@
     "Liver"
    ],
    "why": "Water is absorbed from the stomach onwards, with the colon finishing the job; the oesophagus just carries food.",
-   "hint": "Where do faeces become drier and firmer before leaving the body?"
+   "hint": "Where do faeces become drier and firmer before leaving the body?",
+   "board": true
   },
   {
    "q": "Which process moves digested food into the blood?",
@@ -375,7 +407,8 @@
     "Egestion"
    ],
    "why": "Small soluble food molecules diffuse into the blood; osmosis only describes water moving.",
-   "hint": "There's more digested food in the gut than in the blood. What movement down that gradient follows?"
+   "hint": "There's more digested food in the gut than in the blood. What movement down that gradient follows?",
+   "board": true
   },
   {
    "q": "How is the ileum adapted to absorb digested food?",
@@ -386,7 +419,8 @@
     "A smooth, flat inner surface"
    ],
    "why": "Folds, villi and microvilli give a huge surface area, and the lining is one cell thick, so absorption is fast.",
-   "hint": "Its lining is folded into millions of tiny fingers. What does that do for absorption?"
+   "hint": "Its lining is folded into millions of tiny fingers. What does that do for absorption?",
+   "board": true
   }
  ],
  "2009-Q13b": [
@@ -399,7 +433,8 @@
     "Eating fibre raises blood cholesterol"
    ],
    "why": "Saturated fat and cholesterol build up as fatty deposits in arteries, narrowing them and raising blood pressure.",
-   "hint": "Think of something people eat too much of, and what it does to the arteries or blood pressure."
+   "hint": "Think of something people eat too much of, and what it does to the arteries or blood pressure.",
+   "board": true
   }
  ],
  "2010-Q15b": [
@@ -412,7 +447,8 @@
     "From the liver to the small intestine"
    ],
    "why": "The hepatic portal vein links capillaries in the small intestine to the liver, carrying absorbed food there.",
-   "hint": "Draw the two organs and the vessel joining them; show which way food-rich blood flows."
+   "hint": "Draw the two organs and the vessel joining them; show which way food-rich blood flows.",
+   "board": "The hepatic portal vein carries blood from where to where?"
   },
   {
    "q": "What does the hepatic portal vein carry to the liver?",
@@ -423,7 +459,8 @@
     "Starch"
    ],
    "why": "Absorbed products of digestion like glucose and amino acids travel to the liver in the portal vein.",
-   "hint": "Think of a small, soluble molecule made by digesting carbohydrate or protein."
+   "hint": "Think of a small, soluble molecule made by digesting carbohydrate or protein.",
+   "board": true
   },
   {
    "q": "Which vessel brings oxygen-rich blood to the liver?",
@@ -434,7 +471,8 @@
     "Pulmonary vein"
    ],
    "why": "The hepatic artery, a branch of the aorta, brings oxygen-rich blood; the portal vein brings food-rich blood.",
-   "hint": "Which type of vessel carries oxygen-rich blood to organs? Then add the Greek-based word for liver."
+   "hint": "Which type of vessel carries oxygen-rich blood to organs? Then add the Greek-based word for liver.",
+   "board": true
   },
   {
    "q": "Where is the liver compared with the stomach?",
@@ -445,7 +483,8 @@
     "Below it and to the right"
    ],
    "why": "The liver sits just under the diaphragm, above and to the right of the stomach.",
-   "hint": "Picture the liver tucked up under the diaphragm. Is the stomach higher or lower than it?"
+   "hint": "Picture the liver tucked up under the diaphragm. Is the stomach higher or lower than it?",
+   "board": true
   },
   {
    "q": "Where is bile stored after the liver makes it?",
@@ -456,7 +495,8 @@
     "Duodenum"
    ],
    "why": "Bile is made in the liver but stored in the gall bladder until fatty food reaches the duodenum.",
-   "hint": "Think of the small sac tucked under the liver that squeezes bile out after a fatty meal."
+   "hint": "Think of the small sac tucked under the liver that squeezes bile out after a fatty meal.",
+   "board": true
   },
   {
    "q": "What do bile salts do in digestion?",
@@ -467,7 +507,8 @@
     "Turn starch into maltose"
    ],
    "why": "Bile salts emulsify fat into tiny droplets for lipase; it's lipase that makes fatty acids and glycerol.",
-   "hint": "Like washing-up liquid on greasy plates: what do they do to large fat globules?"
+   "hint": "Like washing-up liquid on greasy plates: what do they do to large fat globules?",
+   "board": true
   },
   {
    "q": "Give two functions of the liver, other than making bile. (2 points)",
@@ -478,7 +519,8 @@
     "Filters urea into urine; detoxifies poisons"
    ],
    "why": "Two points, e.g. detoxification and deamination; storing vitamins or glycogen, making heat and making plasma proteins also count.",
-   "hint": "Think of what it stores, how it deals with alcohol and drugs, or what it does with spare protein."
+   "hint": "Think of what it stores, how it deals with alcohol and drugs, or what it does with spare protein.",
+   "board": true
   }
  ],
  "2010-Q15c": [
@@ -491,7 +533,8 @@
     "It slows food down so more is absorbed"
    ],
    "why": "Wholegrains are rich in fibre, which holds water and adds bulk, so peristalsis moves faeces along faster.",
-   "hint": "Wholegrains keep their outer husk, which we can't digest. What does it do to the gut's contents?"
+   "hint": "Wholegrains keep their outer husk, which we can't digest. What does it do to the gut's contents?",
+   "board": true
   }
  ],
  "2011-Q5": [
@@ -504,7 +547,8 @@
     "Moving digested food into the blood"
    ],
    "why": "Digestion is breaking food down; taking it in is ingestion, and getting rid of waste is egestion.",
-   "hint": "Think about what happens to big food molecules between your mouth and your bloodstream."
+   "hint": "Think about what happens to big food molecules between your mouth and your bloodstream.",
+   "board": true
   },
   {
    "q": "Why is digestion needed?",
@@ -515,7 +559,8 @@
     "To remove poisons before absorption"
    ],
    "why": "Big food molecules can't pass into the blood; digestion makes them small and soluble so they can be absorbed.",
-   "hint": "Could a big starch molecule cross the gut wall into the blood? What must change first?"
+   "hint": "Could a big starch molecule cross the gut wall into the blood? What must change first?",
+   "board": true
   },
   {
    "q": "Distinguish between mechanical and chemical digestion, with a sentence on each. (2 points)",
@@ -526,7 +571,8 @@
     "Mechanical: villi absorb food; chemical: enzymes digest it"
    ],
    "why": "Two points: mechanical digestion breaks food up physically (chewing, churning); chemical digestion uses enzymes or acid.",
-   "hint": "Think of your teeth for one, and for the other, what saliva does to bread held in your mouth."
+   "hint": "Think of your teeth for one, and for the other, what saliva does to bread held in your mouth.",
+   "board": true
   },
   {
    "q": "On the diagram, what is the C-shaped tube W?",
@@ -537,7 +583,8 @@
     "Colon"
    ],
    "why": "W is the duodenum, the C-shaped first part of the small intestine where bile and pancreatic juice enter.",
-   "hint": "W curves like a C just after the stomach. Its name comes from the Latin for 'twelve'."
+   "hint": "W curves like a C just after the stomach. Its name comes from the Latin for 'twelve'.",
+   "board": "What is the C-shaped first part of the small intestine called?"
   },
   {
    "q": "On the diagram, what is organ X on the bile duct?",
@@ -548,7 +595,8 @@
     "Spleen"
    ],
    "why": "The bile duct comes from the gall bladder, which stores bile made by the liver.",
-   "hint": "Think of the small pouch that holds bile until fatty food arrives."
+   "hint": "Think of the small pouch that holds bile until fatty food arrives.",
+   "board": "Which organ on the bile duct stores bile until it is needed?"
   },
   {
    "q": "Where does food come from as it enters W?",
@@ -559,7 +607,8 @@
     "Gall bladder"
    ],
    "why": "Chyme leaves the stomach through the pyloric sphincter straight into the duodenum.",
-   "hint": "Work through the order: mouth, oesophagus, then the organ that churns food in acid."
+   "hint": "Work through the order: mouth, oesophagus, then the organ that churns food in acid.",
+   "board": "Where does food come from as it enters the duodenum?"
   },
   {
    "q": "What does the pancreas do in digestion?",
@@ -570,7 +619,8 @@
     "Stores glycogen for energy"
    ],
    "why": "The pancreas makes pancreatic juice with enzymes like lipase, amylase and trypsin; bile comes from the liver.",
-   "hint": "Think of what its juice contains to break down fat, starch and protein."
+   "hint": "Think of what its juice contains to break down fat, starch and protein.",
+   "board": true
   }
  ],
  "2012-Q15a": [
@@ -583,7 +633,8 @@
     "X: lacteal; Y: villus"
    ],
    "why": "Two points: X is a villus, a finger-like fold of the gut lining, and Y is the lacteal, the lymph vessel at its centre.",
-   "hint": "X is a finger-like fold of the lining; Y is the lymph vessel inside it that takes in fat."
+   "hint": "X is a finger-like fold of the lining; Y is the lymph vessel inside it that takes in fat.",
+   "board": false
   },
   {
    "q": "What process do the muscle layers Z cause when they contract?",
@@ -594,7 +645,8 @@
     "Egestion"
    ],
    "why": "The circular and longitudinal muscles contract in waves (peristalsis), pushing food along the intestine.",
-   "hint": "Circular and long muscles squeeze in waves behind the food. What is this pushing called?"
+   "hint": "Circular and long muscles squeeze in waves behind the food. What is this pushing called?",
+   "board": "What process do the muscle layers in the small intestine wall cause when they contract?"
   },
   {
    "q": "What is the pH of the small intestine contents like?",
@@ -605,7 +657,8 @@
     "Neutral, exactly pH 7"
    ],
    "why": "Bile and pancreatic juice contain hydrogencarbonate, which makes the small intestine slightly alkaline.",
-   "hint": "Bile and pancreatic juice contain hydrogencarbonate, like baking soda. What does that do to pH?"
+   "hint": "Bile and pancreatic juice contain hydrogencarbonate, like baking soda. What does that do to pH?",
+   "board": true
   },
   {
    "q": "Name two glands that pass their secretions into the small intestine. (2 points)",
@@ -616,7 +669,8 @@
     "Liver and thyroid gland"
    ],
    "why": "Two points: the pancreas (pancreatic juice) and the liver (bile) both empty into the duodenum; salivary glands empty into the mouth.",
-   "hint": "Think of the gland that makes bile and the gland that makes a juice full of enzymes."
+   "hint": "Think of the gland that makes bile and the gland that makes a juice full of enzymes.",
+   "board": true
   },
   {
    "q": "What are symbiotic bacteria?",
@@ -627,7 +681,8 @@
     "Bacteria making food by photosynthesis"
    ],
    "why": "Symbiosis means living closely with another organism where at least one benefits; disease-causers are parasites.",
-   "hint": "Symbiosis means 'living together'. Who gains when bacteria live in your gut?"
+   "hint": "Symbiosis means 'living together'. Who gains when bacteria live in your gut?",
+   "board": true
   },
   {
    "q": "Give two functions of symbiotic bacteria in the alimentary canal. (2 points)",
@@ -638,7 +693,8 @@
     "Make hydrochloric acid; absorb glucose"
    ],
    "why": "Two points: gut bacteria make vitamins (B and K) and help digest food such as some fibre; bile, insulin and acid are made by us.",
-   "hint": "Think of what they make for you, and how they stop harmful microbes from settling in."
+   "hint": "Think of what they make for you, and how they stop harmful microbes from settling in.",
+   "board": true
   },
   {
    "q": "What answer does this marking scheme want for where most water is absorbed?",
@@ -649,7 +705,8 @@
     "Mouth"
    ],
    "why": "The scheme gives colon or large intestine. (In fact the small intestine absorbs more, but write colon here.)",
-   "hint": "For this exam, think where runny leftovers are dried out into firm faeces."
+   "hint": "For this exam, think where runny leftovers are dried out into firm faeces.",
+   "board": false
   }
  ],
  "2012-Q15c": [
@@ -662,7 +719,8 @@
     "Removes carbon dioxide from the blood"
    ],
    "why": "The liver takes in glucose (storing it as glycogen) or releases it; insulin comes from the pancreas.",
-   "hint": "Think about what it does with sugar arriving after a meal, and when you haven't eaten."
+   "hint": "Think about what it does with sugar arriving after a meal, and when you haven't eaten.",
+   "board": true
   }
  ],
  "2013-Q10a": [
@@ -675,7 +733,8 @@
     "Digests both fats and proteins"
    ],
    "why": "It is endocrine (insulin into the blood) and exocrine (enzymes down a duct to the gut), so it has two jobs.",
-   "hint": "Think of what it sends into the blood and what it sends down a duct into the gut."
+   "hint": "Think of what it sends into the blood and what it sends down a duct into the gut.",
+   "board": true
   }
  ],
  "2014-Q2a": [
@@ -688,7 +747,8 @@
     "Amino acids"
    ],
    "why": "Lipase (X) splits a fat into fatty acids and glycerol; glucose and glycogen are carbohydrates.",
-   "hint": "X is the enzyme that acts on fat. Y is the 3-carbon 'backbone' that the acid tails hang off."
+   "hint": "X is the enzyme that acts on fat. Y is the 3-carbon 'backbone' that the acid tails hang off.",
+   "board": "Fat is broken down into fatty acids and which other product?"
   }
  ],
  "2015-Q11a": [
@@ -701,7 +761,8 @@
     "Makes food by photosynthesis; eats only meat"
    ],
    "why": "Two points: heterotrophs can't make their own food, so they eat other organisms; omnivores eat both plants and animals.",
-   "hint": "'Hetero' means other and 'troph' means feeding. 'Omni' means all and 'vore' means eating."
+   "hint": "'Hetero' means other and 'troph' means feeding. 'Omni' means all and 'vore' means eating.",
+   "board": true
   },
   {
    "q": "What is a balanced diet?",
@@ -712,7 +773,8 @@
     "Only fruit, vegetables and fibre"
    ],
    "why": "A balanced diet has each food type in the right amount for your needs, not equal amounts of everything.",
-   "hint": "It's not about eating everything in equal shares. Think about what your body needs, and how much."
+   "hint": "It's not about eating everything in equal shares. Think about what your body needs, and how much.",
+   "board": true
   }
  ],
  "2015-Q11b": [
@@ -725,7 +787,8 @@
     "Liver and pancreas"
    ],
    "why": "The small intestine is the duodenum then the ileum; colon, caecum and rectum are large intestine.",
-   "hint": "Draw one tube from mouth to anus. Glands add juices; split each intestine into its named parts."
+   "hint": "Draw one tube from mouth to anus. Glands add juices; split each intestine into its named parts.",
+   "board": "What are the two parts of the small intestine?"
   },
   {
    "q": "What is lipase?",
@@ -736,7 +799,8 @@
     "A bile salt that emulsifies fats"
    ],
    "why": "Lipase is the enzyme that breaks lipids into fatty acids and glycerol.",
-   "hint": "The '-ase' ending tells you what kind of molecule it is; 'lip-' tells you what it acts on."
+   "hint": "The '-ase' ending tells you what kind of molecule it is; 'lip-' tells you what it acts on.",
+   "board": true
   },
   {
    "q": "Which part of the alimentary canal itself secretes lipase?",
@@ -747,7 +811,8 @@
     "Liver"
    ],
    "why": "The stomach lining makes some lipase (so does the duodenum). Most comes from the pancreas, a gland beside the canal.",
-   "hint": "Not the glands beside the canal: which part of the canal itself makes its own digestive juice?"
+   "hint": "Not the glands beside the canal: which part of the canal itself makes its own digestive juice?",
+   "board": true
   },
   {
    "q": "If lipase acts in the duodenum, what is the rough pH there?",
@@ -758,7 +823,8 @@
     "pH 10 to 12"
    ],
    "why": "Pancreatic juice and bile make the duodenum slightly alkaline, so lipase works at about pH 8.",
-   "hint": "In the duodenum, bile and pancreatic juice cancel the stomach acid. Is it then below or above 7?"
+   "hint": "In the duodenum, bile and pancreatic juice cancel the stomach acid. Is it then below or above 7?",
+   "board": true
   }
  ],
  "2015-Q11c": [
@@ -771,7 +837,8 @@
     "I 2/2, C 2/2, PM 2/2, M 3/3"
    ],
    "why": "Each half jaw has 2 incisors, 1 canine, 2 premolars and 3 molars: 32 teeth in all.",
-   "hint": "Count one half of each jaw: front cutting teeth, pointed ones, then two kinds of back grinders."
+   "hint": "Count one half of each jaw: front cutting teeth, pointed ones, then two kinds of back grinders.",
+   "board": true
   },
   {
    "q": "How do human teeth differ from the mammal in the photo?",
@@ -782,7 +849,8 @@
     "Humans have no canines"
    ],
    "why": "Humans have 2 incisors in each half jaw; the animal in the photo has more, and much longer canines.",
-   "hint": "Look at the front teeth in the photo and count them against your own."
+   "hint": "Look at the front teeth in the photo and count them against your own.",
+   "board": false
   },
   {
    "q": "What food does the mammal in the photo mainly eat? Explain your answer. (2 points)",
@@ -793,7 +861,8 @@
     "Plants: it has broad, flat molars"
    ],
    "why": "Two points: it mainly eats meat, and its long, pointed canines show this, as they grip and tear flesh.",
-   "hint": "Look closely at the teeth in the photo: which ones stand out, and what food would they suit?"
+   "hint": "Look closely at the teeth in the photo: which ones stand out, and what food would they suit?",
+   "board": "A mammal has long, pointed canine teeth. What food does it mainly eat? Explain your answer. (2 points)"
   },
   {
    "q": "Give two functions of the large intestine. (2 points)",
@@ -804,7 +873,8 @@
     "Absorbs amino acids; stores bile"
    ],
    "why": "Two points: the large intestine absorbs water and egests faeces; absorbing vitamins made by gut bacteria also counts.",
-   "hint": "Think about what it takes back from the leftovers, and what it finally does with them."
+   "hint": "Think about what it takes back from the leftovers, and what it finally does with them.",
+   "board": true
   },
   {
    "q": "Outline two beneficial functions of the bacteria in the digestive tract. (2 points)",
@@ -815,7 +885,8 @@
     "Make stomach acid; kill all microbes in food"
    ],
    "why": "Two points: helpful gut bacteria make vitamins (B and K) and help digest food; outcompeting harmful microbes also counts.",
-   "hint": "Think of what they make for you, what they help break down, and the germs they crowd out."
+   "hint": "Think of what they make for you, what they help break down, and the germs they crowd out.",
+   "board": true
   }
  ],
  "2016-Q12a": [
@@ -828,7 +899,8 @@
     "Excretion releases energy from food; egestion removes undigested food"
    ],
    "why": "Two points: excretion gets rid of waste made by metabolism (like urea and CO2); egestion gets rid of food never digested (faeces).",
-   "hint": "Compare urea leaving in urine with faeces leaving the gut. Which was made by your cells?"
+   "hint": "Compare urea leaving in urine with faeces leaving the gut. Which was made by your cells?",
+   "board": true
   }
  ],
  "2016-Q15a": [
@@ -841,7 +913,8 @@
     "Pulmonary vein"
    ],
    "why": "The portal vein starts in capillaries in the intestine and ends in capillaries in the liver.",
-   "hint": "Most veins end at the heart. Which one goes from the gut's capillaries into another organ's?"
+   "hint": "Most veins end at the heart. Which one goes from the gut's capillaries into another organ's?",
+   "board": true
   }
  ],
  "2016-Q15c": [
@@ -854,7 +927,8 @@
     "Their fibre is absorbed into blood"
    ],
    "why": "Wholegrains are high in fibre, which adds bulk and stimulates peristalsis, moving food through the gut.",
-   "hint": "Wholegrains are rich in a part we can't digest. How does that help food move through the gut?"
+   "hint": "Wholegrains are rich in a part we can't digest. How does that help food move through the gut?",
+   "board": true
   }
  ],
  "2017-Q14c": [
@@ -867,7 +941,8 @@
     "Small surface area; very few blood capillaries"
    ],
    "why": "Two points, e.g. a wall only one cell thick and a large surface area (microvilli); a rich blood supply or a lacteal also count.",
-   "hint": "Think about the thickness of its wall, the folds on its cells, and what runs through it."
+   "hint": "Think about the thickness of its wall, the folds on its cells, and what runs through it.",
+   "board": true
   }
  ],
  "2018-Q12b": [
@@ -880,7 +955,8 @@
     "Cellulose"
    ],
    "why": "Animals store glucose as glycogen; starch is the plant store and glucagon is a hormone.",
-   "hint": "Plants store glucose as starch. What is the animal version, sometimes called animal starch?"
+   "hint": "Plants store glucose as starch. What is the animal version, sometimes called animal starch?",
+   "board": true
   },
   {
    "q": "Where is glycogen mainly stored?",
@@ -891,7 +967,8 @@
     "Small intestine"
    ],
    "why": "Glycogen is stored mainly in the liver and muscles; the pancreas only makes the hormones that control it.",
-   "hint": "Think of the big organ that steadies blood sugar, taking in glucose after meals."
+   "hint": "Think of the big organ that steadies blood sugar, taking in glucose after meals.",
+   "board": true
   }
  ],
  "2018-Q15b": [
@@ -904,7 +981,8 @@
     "Emulsify proteins; neutralise acid from the stomach"
    ],
    "why": "Two points: bile salts emulsify fats, and alkaline hydrogencarbonate neutralises stomach acid, giving enzymes a suitable pH.",
-   "hint": "One part acts on fat globules; the other is alkaline. What does each do in the duodenum?"
+   "hint": "One part acts on fat globules; the other is alkaline. What does each do in the duodenum?",
+   "board": true
   }
  ],
  "2019-Q15b": [
@@ -917,7 +995,8 @@
     "Getting rid of undigested food"
    ],
    "why": "Digestion is the breakdown of food; releasing energy from it is respiration, which happens later in cells.",
-   "hint": "What happens to a big starch molecule as it meets saliva and the other gut juices?"
+   "hint": "What happens to a big starch molecule as it meets saliva and the other gut juices?",
+   "board": true
   },
   {
    "q": "Give two reasons why digestion is necessary. (2 points)",
@@ -928,7 +1007,8 @@
     "To release energy from food; so it is easier to absorb"
    ],
    "why": "Two points: digestion makes food small and soluble, so it is easier to absorb and easier to transport in the blood.",
-   "hint": "Think what big molecules can't do: cross the gut wall, or be carried round in the blood."
+   "hint": "Think what big molecules can't do: cross the gut wall, or be carried round in the blood.",
+   "board": true
   },
   {
    "q": "Name and describe how food is passed along the gut. (2 points)",
@@ -939,7 +1019,8 @@
     "Emulsification: bile pushes food on"
    ],
    "why": "Peristalsis is waves of contraction in the gut's muscle layers that squeeze food along, even upside down.",
-   "hint": "Think of squeezing toothpaste along a tube. What do the gut walls do, and what's it called?"
+   "hint": "Think of squeezing toothpaste along a tube. What do the gut walls do, and what's it called?",
+   "board": true
   },
   {
    "q": "Which enzyme digests protein?",
@@ -950,7 +1031,8 @@
     "Maltase"
    ],
    "why": "Pepsin is a protease, so it digests protein; amylase and maltase digest carbohydrate, and lipase fat.",
-   "hint": "Name one made in the stomach that works in acid, or use the general name for protein enzymes."
+   "hint": "Name one made in the stomach that works in acid, or use the general name for protein enzymes.",
+   "board": true
   },
   {
    "q": "Where is pepsin produced?",
@@ -961,7 +1043,8 @@
     "Gall bladder"
    ],
    "why": "Pepsin is made by glands in the stomach wall, released as pepsinogen and switched on by acid.",
-   "hint": "Where is the gut most acidic? The protein enzyme that likes acid is made there."
+   "hint": "Where is the gut most acidic? The protein enzyme that likes acid is made there.",
+   "board": true
   },
   {
    "q": "Where is pepsin active?",
@@ -972,7 +1055,8 @@
     "Liver"
    ],
    "why": "Pepsin works in the stomach, where acid gives it the low pH (about 2) it needs.",
-   "hint": "Enzymes work where the pH suits them. This one likes strong acid."
+   "hint": "Enzymes work where the pH suits them. This one likes strong acid.",
+   "board": true
   },
   {
    "q": "What does complete protein digestion produce?",
@@ -983,7 +1067,8 @@
     "Glycerol"
    ],
    "why": "Proteins are chains of amino acids, so fully digesting them releases amino acids.",
-   "hint": "Proteins are chains of building blocks. What are the units joined by peptide bonds?"
+   "hint": "Proteins are chains of building blocks. What are the units joined by peptide bonds?",
+   "board": true
   },
   {
    "q": "Which vessel takes digested food to the liver?",
@@ -994,7 +1079,8 @@
     "Vena cava"
    ],
    "why": "The hepatic portal vein runs from the intestine to the liver, carrying absorbed food.",
-   "hint": "Unlike most veins, it doesn't go to the heart: it links the gut's capillaries to the liver's."
+   "hint": "Unlike most veins, it doesn't go to the heart: it links the gut's capillaries to the liver's.",
+   "board": true
   }
  ],
  "2020-Q13b": [
@@ -1007,7 +1093,8 @@
     "Pancreas"
    ],
    "why": "The liver makes urea when it breaks down spare amino acids; the kidneys only filter it out.",
-   "hint": "Urea is made when spare amino acids are broken down. Which organ handles this?"
+   "hint": "Urea is made when spare amino acids are broken down. Which organ handles this?",
+   "board": true
   },
   {
    "q": "Which food biomolecule does urea come from?",
@@ -1018,7 +1105,8 @@
     "Fibre"
    ],
    "why": "Urea comes from amino acids: when spare protein is broken down, its nitrogen part becomes urea.",
-   "hint": "Urea contains nitrogen. Which food type has nitrogen in its building blocks?"
+   "hint": "Urea contains nitrogen. Which food type has nitrogen in its building blocks?",
+   "board": true
   }
  ],
  "2021-Q14a": [
@@ -1031,7 +1119,8 @@
     "Absorption of food into the blood"
    ],
    "why": "Digestion breaks food down; absorption comes after it, and releasing energy is respiration.",
-   "hint": "Think about what chewing and enzymes do to the size of food pieces and molecules."
+   "hint": "Think about what chewing and enzymes do to the size of food pieces and molecules.",
+   "board": true
   },
   {
    "q": "Why do humans need to digest food?",
@@ -1042,7 +1131,8 @@
     "Kills germs found in food"
    ],
    "why": "Small, soluble molecules can be absorbed and carried in the blood; large ones can't.",
-   "hint": "Can big molecules like starch get through the gut wall? Think what digestion changes about them."
+   "hint": "Can big molecules like starch get through the gut wall? Think what digestion changes about them.",
+   "board": true
   },
   {
    "q": "What is the removal of undigested waste called?",
@@ -1053,7 +1143,8 @@
     "Secretion"
    ],
    "why": "Egestion removes undigested food as faeces; excretion removes waste made by metabolism, like urea.",
-   "hint": "Ingestion is taking food in. Swap the start of that word for getting undigested food out."
+   "hint": "Ingestion is taking food in. Swap the start of that word for getting undigested food out.",
+   "board": true
   }
  ],
  "2021-Q14b": [
@@ -1066,7 +1157,8 @@
     "Oesophagus"
    ],
    "why": "Villi line the small intestine, where most digested food is absorbed.",
-   "hint": "Villi absorb digested food. Which part of the gut does most of the absorbing?"
+   "hint": "Villi absorb digested food. Which part of the gut does most of the absorbing?",
+   "board": true
   },
   {
    "q": "What is the main job of villi?",
@@ -1077,7 +1169,8 @@
     "Churn food into chyme"
    ],
    "why": "Villi are tiny folds that hugely increase the surface area, so digested food is absorbed quickly.",
-   "hint": "Think of why a towel with lots of tiny loops dries you better than a flat sheet."
+   "hint": "Think of why a towel with lots of tiny loops dries you better than a flat sheet.",
+   "board": true
   },
   {
    "q": "On the diagram, what is X and what does it do?",
@@ -1088,7 +1181,8 @@
     "Microvillus: adds surface area"
    ],
    "why": "X is the lacteal, a lymph vessel that takes in fatty acids and glycerol; capillaries take in sugars.",
-   "hint": "X is the lymph vessel in the core of the villus. Which digested food goes into it?"
+   "hint": "X is the lymph vessel in the core of the villus. Which digested food goes into it?",
+   "board": "What is the lymph vessel at the centre of a villus called, and what does it do?"
   },
   {
    "q": "Which vessel carries digested food away from the gut?",
@@ -1099,7 +1193,8 @@
     "Inferior vena cava"
    ],
    "why": "Blood from the gut's capillaries drains into the hepatic portal vein, which leads to the liver.",
-   "hint": "It's an unusual vein that goes from the gut to the liver, not straight to the heart."
+   "hint": "It's an unusual vein that goes from the gut to the liver, not straight to the heart.",
+   "board": true
   },
   {
    "q": "Which organ do digested nutrients go to first?",
@@ -1110,7 +1205,8 @@
     "Gall bladder"
    ],
    "why": "The hepatic portal vein takes absorbed food straight to the liver, which processes it first.",
-   "hint": "Follow the vein from the gut: which large organ checks the food before it goes round the body?"
+   "hint": "Follow the vein from the gut: which large organ checks the food before it goes round the body?",
+   "board": true
   },
   {
    "q": "Which is a job of the liver, other than storing nutrients?",
@@ -1121,7 +1217,8 @@
     "Filtering urea into urine"
    ],
    "why": "The liver detoxifies harmful substances; insulin and lipase come from the pancreas and urine from the kidneys.",
-   "hint": "Think about what happens to alcohol or drugs once they reach this organ."
+   "hint": "Think about what happens to alcohol or drugs once they reach this organ.",
+   "board": true
   },
   {
    "q": "Name and explain how food is moved along the digestive system. (2 points)",
@@ -1132,7 +1229,8 @@
     "Gravity: food falls through the gut under its own weight"
    ],
    "why": "Two points: the process is peristalsis, and muscles in the gut wall contract in waves behind the food, squeezing it along.",
-   "hint": "Picture pushing a ball along a sock by squeezing behind it. What squeezes in the gut wall?"
+   "hint": "Picture pushing a ball along a sock by squeezing behind it. What squeezes in the gut wall?",
+   "board": true
   }
  ],
  "2022-Q6": [
@@ -1145,7 +1243,8 @@
     "Bile salts double the total lipid digested"
    ],
    "why": "The solid line (lipase and bile salts) rises more steeply, so digestion is faster; both end at the same level.",
-   "hint": "Compare the two lines: which one rises more steeply at the start?"
+   "hint": "Compare the two lines: which one rises more steeply at the start?",
+   "board": false
   },
   {
    "q": "What are the two products of lipid digestion?",
@@ -1156,7 +1255,8 @@
     "Cholesterol and bile salts"
    ],
    "why": "Lipase splits each lipid into fatty acids and glycerol.",
-   "hint": "Think of a lipid as a backbone with three long tails. What are the backbone and tails?"
+   "hint": "Think of a lipid as a backbone with three long tails. What are the backbone and tails?",
+   "board": true
   },
   {
    "q": "Where in the gut does lipase digest lipids?",
@@ -1167,7 +1267,8 @@
     "Gall bladder"
    ],
    "why": "Lipase from the pancreas acts in the duodenum; the pancreas only makes it and the gall bladder stores bile.",
-   "hint": "Lipase arrives in pancreatic juice. Which part of the gut does that juice drain into?"
+   "hint": "Lipase arrives in pancreatic juice. Which part of the gut does that juice drain into?",
+   "board": true
   },
   {
    "q": "If lipase acts in the duodenum, what is its optimum pH?",
@@ -1178,7 +1279,8 @@
     "About pH 12"
    ],
    "why": "Bile and pancreatic juice make the duodenum slightly alkaline, about pH 7 to 9.",
-   "hint": "Bile and pancreatic juice have cancelled out the stomach acid. Is the pH a bit under or over 7?"
+   "hint": "Bile and pancreatic juice have cancelled out the stomach acid. Is the pH a bit under or over 7?",
+   "board": true
   },
   {
    "q": "What do bile salts do to lipids?",
@@ -1189,7 +1291,8 @@
     "Carry them into the lacteals"
    ],
    "why": "Bile salts break lipid into tiny droplets, giving lipase more surface area, which is why digestion speeds up.",
-   "hint": "Think of shaking oil with soapy water: what happens to the big oil blobs?"
+   "hint": "Think of shaking oil with soapy water: what happens to the big oil blobs?",
+   "board": true
   },
   {
    "q": "Which structure in a villus absorbs lipid products?",
@@ -1200,7 +1303,8 @@
     "Hepatic portal vein"
    ],
    "why": "Fatty acids and glycerol pass into the lacteal, the lymph vessel at the centre of the villus.",
-   "hint": "It's a lymph vessel in the middle of the villus, not a blood vessel. Its name means 'milky'."
+   "hint": "It's a lymph vessel in the middle of the villus, not a blood vessel. Its name means 'milky'.",
+   "board": true
   }
  ],
  "2023-Q17c": [
@@ -1213,7 +1317,8 @@
     "Vena cava"
    ],
    "why": "The hepatic portal vein links the intestine to the liver; the hepatic vein drains the liver.",
-   "hint": "It starts in the gut's capillaries. Its name pairs a word for 'liver' with one for 'gateway'."
+   "hint": "It starts in the gut's capillaries. Its name pairs a word for 'liver' with one for 'gateway'.",
+   "board": true
   }
  ],
  "2024-Q3": [
@@ -1226,7 +1331,8 @@
     "A: oesophagus; B: liver; C: gall bladder"
    ],
    "why": "Three points: tube A is the oesophagus, organ B is the liver, and gland C, behind and below the stomach, is the pancreas.",
-   "hint": "A takes food down to the stomach; B is the biggest abdominal organ; C lies behind the stomach."
+   "hint": "A takes food down to the stomach; B is the biggest abdominal organ; C lies behind the stomach.",
+   "board": false
   },
   {
    "q": "What does tube A, the oesophagus, do?",
@@ -1237,7 +1343,8 @@
     "Absorbs water from food"
    ],
    "why": "The oesophagus moves swallowed food from the mouth to the stomach by peristalsis; the trachea carries air.",
-   "hint": "Think about where swallowed food goes after it leaves the throat."
+   "hint": "Think about where swallowed food goes after it leaves the throat.",
+   "board": "What does the oesophagus do?"
   },
   {
    "q": "What is one job of organ B, the liver?",
@@ -1248,7 +1355,8 @@
     "Makes lipase"
    ],
    "why": "The liver stores glycogen (and makes bile); the gall bladder stores bile and the pancreas makes insulin and lipase.",
-   "hint": "Think of the juice it makes that helps with fat, or what it does with spare glucose."
+   "hint": "Think of the juice it makes that helps with fat, or what it does with spare glucose.",
+   "board": "What is one job of the liver?"
   },
   {
    "q": "What does gland C do for digestion?",
@@ -1259,7 +1367,8 @@
     "Makes acid to kill germs"
    ],
    "why": "The pancreas makes pancreatic juice full of enzymes and sends it into the duodenum.",
-   "hint": "What does its juice carry into the duodenum to break down food?"
+   "hint": "What does its juice carry into the duodenum to break down food?",
+   "board": "What does the pancreas do for digestion?"
   },
   {
    "q": "Which feature helps the small intestine do its job?",
@@ -1270,7 +1379,8 @@
     "Has thick walls to stop leaks"
    ],
    "why": "Villi give a huge surface area for absorption; the wall is thin, not thick, and it has no cilia.",
-   "hint": "Think about anything that gives food more time or more surface to be absorbed."
+   "hint": "Think about anything that gives food more time or more surface to be absorbed.",
+   "board": true
   },
   {
    "q": "Give two functions of the symbiotic bacteria in the gut. (2 points)",
@@ -1281,7 +1391,8 @@
     "Make stomach acid; help digest food"
    ],
    "why": "Two points: gut bacteria make vitamins (B and K) and help digest food; crowding out harmful microbes also counts.",
-   "hint": "Think of a nutrient they make for blood clotting, and what they do to food we can't break down."
+   "hint": "Think of a nutrient they make for blood clotting, and what they do to food we can't break down.",
+   "board": true
   }
  ],
  "2024-Q17a": [
@@ -1294,7 +1405,8 @@
     "pH 7"
    ],
    "why": "Optimum pH is where the curve peaks; curve A peaks at pH 2.",
-   "hint": "Find the highest point of curve A, then read straight down to the pH axis."
+   "hint": "Find the highest point of curve A, then read straight down to the pH axis.",
+   "board": false
   },
   {
    "q": "From the graph, what is the optimum pH of enzyme B?",
@@ -1305,7 +1417,8 @@
     "pH 2"
    ],
    "why": "Curve B is highest at pH 7, so that is its optimum.",
-   "hint": "Find the top of curve B and read down to the pH axis below it."
+   "hint": "Find the top of curve B and read down to the pH axis below it.",
+   "board": false
   },
   {
    "q": "Which enzyme is likely from the stomach, and why? (2 points)",
@@ -1316,7 +1429,8 @@
     "B: its optimum is nearer body pH"
    ],
    "why": "Stomach acid keeps the pH near 2, matching enzyme A's peak; B works near neutral.",
-   "hint": "Think about what the stomach lining releases, and which curve peaks at that kind of pH."
+   "hint": "Think about what the stomach lining releases, and which curve peaks at that kind of pH.",
+   "board": "Enzyme A works best at pH 2 and enzyme B at pH 7. Which is likely from the stomach, and why? (2 points)"
   },
   {
    "q": "Give the product(s) of amylase, lipase and protease, in that order. (3 points)",
@@ -1327,7 +1441,8 @@
     "Maltose; fatty acids and glycerol; glucose"
    ],
    "why": "Three points: amylase makes maltose, lipase makes fatty acids and glycerol, and protease makes amino acids (or peptides).",
-   "hint": "Starch gives a double sugar, a fat gives two kinds of part, and a protein gives its building blocks."
+   "hint": "Starch gives a double sugar, a fat gives two kinds of part, and a protein gives its building blocks.",
+   "board": true
   }
  ],
  "2025-Q6": [
@@ -1340,7 +1455,8 @@
     "Duodenum"
    ],
    "why": "A runs from the mouth down to the stomach: the oesophagus. The trachea leads to the lungs.",
-   "hint": "A is the tube from the mouth down; B is the acidic, muscular bag it leads into."
+   "hint": "A is the tube from the mouth down; B is the acidic, muscular bag it leads into.",
+   "board": "Which tube carries food from the mouth to the stomach?"
   },
   {
    "q": "Name and briefly describe how food travels through tube A. (2 points)",
@@ -1351,7 +1467,8 @@
     "Diffusion: food spreads down from high to low concentration"
    ],
    "why": "Two points: name it peristalsis, and say muscles in the oesophagus wall contract in waves behind the food, pushing it down.",
-   "hint": "Food still reaches your stomach when you're upside down, so it isn't gravity. What pushes it?"
+   "hint": "Food still reaches your stomach when you're upside down, so it isn't gravity. What pushes it?",
+   "board": "Name and briefly describe how food travels down the oesophagus. (2 points)"
   },
   {
    "q": "How does the pH of food change from A to B?",
@@ -1362,7 +1479,8 @@
     "It becomes neutral (pH 7)"
    ],
    "why": "Food leaves the near-neutral oesophagus and meets hydrochloric acid in the stomach, so the pH drops to about 2.",
-   "hint": "What does the stomach wall add to food, and does that make pH go up or down?"
+   "hint": "What does the stomach wall add to food, and does that make pH go up or down?",
+   "board": "How does the pH of food change as it passes from the oesophagus into the stomach?"
   },
   {
    "q": "Which pancreatic enzyme digests lipids?",
@@ -1373,7 +1491,8 @@
     "Bile salts"
    ],
    "why": "Lipase digests lipids; amylase digests starch, trypsin digests protein, and bile salts aren't enzymes.",
-   "hint": "Enzyme names often end in '-ase' and start with part of the name of the food they digest."
+   "hint": "Enzyme names often end in '-ase' and start with part of the name of the food they digest.",
+   "board": true
   },
   {
    "q": "In your villus drawing, what sits in the centre?",
@@ -1384,7 +1503,8 @@
     "A layer of muscle for peristalsis"
    ],
    "why": "A villus has a central lacteal (for fats) wrapped in a network of blood capillaries (for sugars and amino acids).",
-   "hint": "Draw a finger-shaped fold with a thin wall. Show the vessel in its core and the mesh around it."
+   "hint": "Draw a finger-shaped fold with a thin wall. Show the vessel in its core and the mesh around it.",
+   "board": "What sits in the centre of a villus?"
   }
  ],
  "2025-Q17a": [
@@ -1397,7 +1517,8 @@
     "Aorta"
    ],
    "why": "Blood leaving the gut in the portal vein is packed with absorbed food, before the liver takes some out.",
-   "hint": "Find the vessel leaving the intestine, before the liver has taken anything out."
+   "hint": "Find the vessel leaving the intestine, before the liver has taken anything out.",
+   "board": "After a meal, which blood vessel carries the blood richest in nutrients?"
   }
  ],
  "2026-Q7c": [
@@ -1410,7 +1531,8 @@
     "Just under the liver; makes lipase for the duodenum"
    ],
    "why": "Two points: the gall bladder sits just underneath the liver, and it stores bile (made by the liver) until fatty food arrives.",
-   "hint": "Think of the organ it's tucked beneath, and what it does with bile between meals."
+   "hint": "Think of the organ it's tucked beneath, and what it does with bile between meals.",
+   "board": true
   }
  ],
  "2026-Q17a": [
@@ -1423,7 +1545,8 @@
     "Fibre raises blood cholesterol"
    ],
    "why": "Salt raises blood pressure, and saturated fat and cholesterol clog arteries, raising the risk of heart disease.",
-   "hint": "Pick one thing people eat too much of and say what it does to the heart, arteries or blood pressure."
+   "hint": "Pick one thing people eat too much of and say what it does to the heart, arteries or blood pressure.",
+   "board": true
   }
  ],
  "S1-Q1a": [
@@ -1436,7 +1559,8 @@
     "Stomach"
    ],
    "why": "B is the pancreas: a yellowish gland lying in the C-shaped curve of the duodenum.",
-   "hint": "A is the big, dark red-brown organ; B is the long, pale gland that makes insulin and enzymes."
+   "hint": "A is the big, dark red-brown organ; B is the long, pale gland that makes insulin and enzymes.",
+   "board": "Which organ lies in the C-shaped curve of the duodenum?"
   },
   {
    "q": "What role does organ A, the liver, play in digestion? (2 points)",
@@ -1447,7 +1571,8 @@
     "Makes acid to digest protein"
    ],
    "why": "The liver makes bile, which breaks fat into small droplets; the gall bladder stores it and the pancreas makes lipase.",
-   "hint": "Think of the greenish juice it makes, and what that juice does to big blobs of fat."
+   "hint": "Think of the greenish juice it makes, and what that juice does to big blobs of fat.",
+   "board": "What role does the liver play in digestion? (2 points)"
   }
  ],
  "S1-Q6c": [
@@ -1460,7 +1585,8 @@
     "About pH 10"
    ],
    "why": "Hydrochloric acid makes the stomach strongly acidic, around pH 2.",
-   "hint": "The stomach makes strong hydrochloric acid. How low on the 0 to 14 scale does that go?"
+   "hint": "The stomach makes strong hydrochloric acid. How low on the 0 to 14 scale does that go?",
+   "board": true
   },
   {
    "q": "What is one job of stomach acid?",
@@ -1471,7 +1597,8 @@
     "Activates salivary amylase"
    ],
    "why": "Acid kills most microbes in food and gives pepsin its low pH; it actually stops salivary amylase.",
-   "hint": "Food isn't sterile. How might a bath of strong acid protect you from what's on it?"
+   "hint": "Food isn't sterile. How might a bath of strong acid protect you from what's on it?",
+   "board": true
   }
  ],
  "S2-Q7c": [
@@ -1484,7 +1611,8 @@
     "Mouth, stomach, oesophagus, small intestine"
    ],
    "why": "Food goes mouth, oesophagus, stomach, small intestine, then large intestine; the trachea leads to the lungs.",
-   "hint": "Trace food's path as one continuous tube, in order, and add at least one gland that pours juice in."
+   "hint": "Trace food's path as one continuous tube, in order, and add at least one gland that pours juice in.",
+   "board": "In what order does food pass through the gut?"
   }
  ]
 }
