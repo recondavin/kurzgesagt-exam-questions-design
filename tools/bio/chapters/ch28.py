@@ -469,6 +469,8 @@ OVERRIDES = {
         '2026-Q3(b)': {0: every('food trachea', 'food windpipe', 'food airway', 'food lung', 'close trachea', 'cover trachea', 'block trachea',
                                 'seal trachea', 'close windpipe', 'cover windpipe', 'block windpipe', 'cover glottis', 'close glottis',
                                 'cover larynx', 'close larynx')},
+        '2026-Q3(a)': {0: every('thoracic', 'chest')},  # the chest cavity: the 2010 scheme accepts "chest" too
+        '2010-Q7a(i)': {0: every('thoracic', 'chest')},  # the 2010 scheme: "Thoracic or chest"
         '2026-Q3(c)': {0: every('keep open', 'hold open', 'stay open', 'collaps')},
         '2026-Q3(f)': {0: every('up out', 'up outward', 'upward out', 'upward outward')},  # "moves" alone let "down and out" in
         '2025-Q16b(v)': {0: every('muscle relax', 'intercost relax', 'diaphragm relax'),

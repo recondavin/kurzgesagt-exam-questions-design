@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-35';
+  var V = 'bio-36';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }

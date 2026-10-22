@@ -77,7 +77,7 @@
   function canon(w) { return CANON[w] || w; }
   var SUFFIXES = ['ation', 'ition', 'tion', 'sion', 'ment', 'ing', 'ous', 'ive', 'ed', 'er', 'ly', 'al'];
   // Words that share a start but mean different things.
-  var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog'], ['bronch', 'bronchit'], ['bronch', 'bronchiol'], ['with', 'without'], ['gene', 'gener']];
+  var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog'], ['bronch', 'bronchit'], ['bronch', 'bronchiol'], ['with', 'without'], ['gene', 'gener'], ['syst', 'systol']];
   function bioStem(w) {
     if (/^\d+$/.test(w) || w.length <= 3) return w;
     if (w.length > 4 && /ies$/.test(w)) w = w.slice(0, -3) + 'y';
@@ -95,13 +95,19 @@
     PHRASES.forEach(function (p) { t = t.replace(p[0], p[1]); });
     return (t.match(/[a-z0-9]+/g) || []).map(function (w) { return canon(bioStem(SYNONYMS[w] || w)); });
   }
-  function lev(a, b) {
-    if (Math.abs(a.length - b.length) > 1) return 2;
-    var prev = [], cur, i, j;
+  // Edit distance, up to max (anything further away is max + 1); two letters swapped count as one slip.
+  function lev(a, b, max) {
+    max = max || 1;
+    if (Math.abs(a.length - b.length) > max) return max + 1;
+    var before = null, prev = [], cur, i, j;
     for (j = 0; j <= b.length; j++) prev[j] = j;
     for (i = 1; i <= a.length; i++) {
       cur = [i];
-      for (j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      for (j = 1; j <= b.length; j++) {
+        cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+        if (before && i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) cur[j] = Math.min(cur[j], before[j - 2] + 1);
+      }
+      before = prev;
       prev = cur;
     }
     return prev[b.length];
@@ -109,6 +115,8 @@
   function sameStem(a, b) {
     if (a === b) return true;
     if (a.length === 1 || b.length === 1 || /\d/.test(a + b)) return false;
+    // An enzyme isn't its substrate: maltase / maltose, lactase / lactose, sucrase / sucrose.
+    if (/ase$/.test(a) && /ose$/.test(b) || /ose$/.test(a) && /ase$/.test(b)) return false;
     for (var i = 0; i < CONFUSE.length; i++) {
       var c = CONFUSE[i];
       if (a.indexOf(c[0]) === 0 && b.indexOf(c[0]) === 0 && (a.indexOf(c[1]) === 0) !== (b.indexOf(c[1]) === 0)) return false;
@@ -119,7 +127,9 @@
     // The same short word with an ending: eat / eating, make / making.
     var s = a.length < b.length ? a : b, l = s === a ? b : a;
     if (s.length >= 3 && (/^(s|es|d|ed|ing)$/.test(l.slice(s.length)) && l.indexOf(s) === 0 || /e$/.test(s) && /^(ing|ed)$/.test(l.slice(s.length - 1)) && l.indexOf(s.slice(0, -1)) === 0)) return true;
-    return min >= 5 && lev(a, b) <= 1;
+    // A slip in the spelling: one letter wrong in a word of 5 or more, two in a long word that starts the same
+    // ("thoriac" for thoracic).
+    return min >= 5 && lev(a, b, 1) <= 1 || min >= 7 && a.slice(0, 3) === b.slice(0, 3) && lev(a, b, 2) <= 2;
   }
   // A marking point is in an answer if, for one of its alternatives, enough of its key words are there.
   function hasPoint(pt, words) {
@@ -483,7 +493,19 @@
     if ((t = e.target.closest('[data-bio-alabel]'))) { pickLabel(+t.getAttribute('data-bio-alabel')); return; }
     if ((t = e.target.closest('[data-bio-aclear]'))) {
       var D = sheet.draw;
-      if (D && !sheet.got[D.k]) { D.list.forEach(function (r) { r.el.remove(); }); D.list = []; pickLabel(0); }
+      if (!D) return;
+      // After a check, Clear also takes away the marking, so the arrows can be drawn again.
+      if (sheet.got[D.k]) {
+        sheet.got[D.k] = null;
+        D.layer.innerHTML = '';
+        sheet.card.querySelector('[data-bio-res="' + D.k + '"]').innerHTML = '';
+        sheet.card.querySelector('[data-bio-got="' + D.k + '"]').textContent = '';
+        sheet.card.querySelectorAll('[data-bio-alabel]').forEach(function (b) { b.disabled = false; });
+        updateTotal();
+      }
+      D.list.forEach(function (r) { r.el.remove(); });
+      D.list = [];
+      pickLabel(0);
       return;
     }
     if ((t = e.target.closest('[data-bio-self]'))) { selfTick(t); return; }
@@ -521,8 +543,9 @@
     if (part.kind === 'tap' && part.tap) got = got.map(function (g, i) { return i === 0 ? g : false; });
     if (part.kind === 'text') { var box = sec.querySelector('.bio-in'); got = onePerSentence(part, got, box ? box.value : ''); }
     sheet.got[k] = got;
-    sec.querySelectorAll('.bio-in').forEach(function (i) { i.readOnly = true; });
-    sec.querySelectorAll('[data-bio-alabel], [data-bio-aclear]').forEach(function (b) { b.disabled = true; });
+    // The answer stays open: change it and check again (the best total is what's saved). Arrows stay as marked until
+    // Clear starts them again.
+    sec.querySelectorAll('[data-bio-alabel]').forEach(function (b) { b.disabled = true; });
     renderResult(k);
     var s = partScore(part, got), out = partOutOf(part);
     if (!selfOnly) {
@@ -545,7 +568,10 @@
         (!ok ? '<button type="button" class="bio-self" data-bio-self="' + k + ':' + i + '">' + (pt.self ? 'I had this' : 'I said this') + '</button>' : '') + '</li>';
     }).join('') + '</ul>' + ruleHtml(part) + noteHtml(part);
     sheet.card.querySelector('[data-bio-got="' + k + '"]').innerHTML = '<b>' + s + '/' + out + '</b>';
-    sheet.card.querySelector('[data-bio-check="' + k + '"]').disabled = true;
+    var btn = sheet.card.querySelector('[data-bio-check="' + k + '"]');
+    // A drawing's scheme is shown once (its points are ticked by hand); a written or tapped answer can be checked again.
+    if (part.kind === 'draw' || (part.kind === 'tap' && !part.tap)) btn.disabled = true;
+    else btn.textContent = part.kind === 'arrows' ? 'Check' : 'Check again';
   }
   // Under the scheme's points, only what helps you answer: what the marks need ("both arrows, each labelled") and the
   // scheme's notes on what it accepts. Not the mark arithmetic, the asterisks, or where the answers came from (the

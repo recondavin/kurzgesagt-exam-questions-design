@@ -53,6 +53,14 @@ for (const [ch, id, k, text, idx] of RIGHT) {
   if (!miss.length) rok++; else console.log('   RIGHT ANSWER MISSED:', id, k, text, miss);
 }
 console.log(`right answers found: ${rok}/${RIGHT.length}`);
+// Spelling slips earn (one letter in a word of 5+, two in a long word that starts the same); look-alike words don't.
+const SLIPS = [['thoracic', 'thorasic', true], ['peristalsis', 'peristalis', true], ['haemoglobin', 'heamoglobin', true], ['oesophagus', 'esophagus', true],
+  ['maltase', 'maltose', false], ['lactase', 'lactose', false], ['sucrose', 'sucrase', false], ['systemic', 'systolic', false], ['bronchus', 'bronchitis', false]];
+let sok = 0;
+for (const [key, typed, want] of SLIPS) {
+  if (B.hasPoint({ k: [{ w: [key], n: 1 }] }, B.words(typed)) === want) sok++; else console.log('   SLIP:', key, typed, want ? 'should earn' : 'should not earn');
+}
+console.log(`spelling slips and look-alikes: ${sok}/${SLIPS.length}`);
 // Be the examiner: lines written to earn (ok) must earn, the rest must earn nothing, and each fix must earn a new point.
 let eok = 0, en = 0;
 for (const ch of [28, 29, 30, 31, 32]) for (const it of (window.BioLearn[ch] || {}).examiner || []) {
