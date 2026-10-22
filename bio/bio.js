@@ -561,12 +561,24 @@
   function renderResult(k) {
     var part = sheet.q.parts[k], got = sheet.got[k], res = sheet.card.querySelector('[data-bio-res="' + k + '"]');
     var s = partScore(part, got), out = partOutOf(part);
-    res.innerHTML = '<ul class="bio-pts">' + part.pts.map(function (pt, i) {
-      var ok = got[i];
-      return '<li class="' + (ok ? 'is-got' : 'is-miss') + '"><span class="bio-pts__mark" aria-hidden="true">' + (ok ? '✓' : '·') + '</span><span>' + esc(pt.a.replace(/^\*/, '')) +
+    // What you got (green); then the rest, which reads differently by what it means: with full marks it's what you
+    // could also have said (quiet, nothing to tick); short of full marks it's what's missing (red, with "I said
+    // this"), or "any N of these" when only some of them are needed. A drawing's points are all to tick.
+    var selfOnly = part.kind === 'draw' || (part.kind === 'tap' && !part.tap);
+    var gotN = got.filter(Boolean).length, need = Math.max(0, Math.min(part.n || 1, part.pts.length) - gotN), rest = part.pts.length - gotN;
+    var mode = selfOnly && !gotN ? 'tick' : s >= out ? 'alt' : 'need';
+    function item(pt, i) {
+      var ok = got[i], cls = ok ? 'is-got' : mode === 'alt' ? 'is-alt' : mode === 'need' ? 'is-need' : 'is-miss';
+      return '<li class="' + cls + '"><span class="bio-pts__mark" aria-hidden="true">' + (ok ? '✓' : mode === 'need' ? '✗' : '·') + '</span><span>' + esc(pt.a.replace(/\*/g, '')) +
         ' <em>(' + pointMarks(part, pt) + ')</em></span>' +
-        (!ok ? '<button type="button" class="bio-self" data-bio-self="' + k + ':' + i + '">' + (pt.self ? 'I had this' : 'I said this') + '</button>' : '') + '</li>';
-    }).join('') + '</ul>' + ruleHtml(part) + noteHtml(part);
+        (!ok && mode !== 'alt' ? '<button type="button" class="bio-self" data-bio-self="' + k + ':' + i + '">' + (pt.self ? 'I had this' : 'I said this') + '</button>' : '') + '</li>';
+    }
+    var mine = part.pts.map(function (pt, i) { return got[i] ? item(pt, i) : ''; }).join('');
+    var others = part.pts.map(function (pt, i) { return got[i] ? '' : item(pt, i); }).join('');
+    var head = !rest ? '' : mode === 'alt' ? 'You could also have said' : mode === 'tick' ? 'What the scheme gives marks for: tick what you had' :
+      need >= rest ? 'Missing' : 'Still needed: any ' + need + ' of these';
+    res.innerHTML = (mine ? '<ul class="bio-pts">' + mine + '</ul>' : '') + (others ? '<p class="bio-pts__head bio-pts__head--' + mode + '">' + head + '</p><ul class="bio-pts">' + others + '</ul>' : '') +
+      ruleHtml(part) + noteHtml(part);
     sheet.card.querySelector('[data-bio-got="' + k + '"]').innerHTML = '<b>' + s + '/' + out + '</b>';
     var btn = sheet.card.querySelector('[data-bio-check="' + k + '"]');
     // A drawing's scheme is shown once (its points are ticked by hand); a written or tapped answer can be checked again.

@@ -58,7 +58,7 @@ body.bio-desk .hf-guide .bio-facts li > span:last-child b:not(#hf-weight), body.
 
 /* The answer sheet's type (the desk page forces Verdana with !important). */
 body .am-root .bio-paper :is(p, span, button, input, textarea, label, li, em, i, b, a, h3, div) { font-family: Nunito, system-ui, sans-serif !important; }
-body .am-root .bio-paper :is(.bio-src, .bio-part__q b, .bio-field b, .bio-part__got, .bio-part__got b, .bio-pts__mark, .bio-old, .bio-btn, .bio-self) { font-family: Fredoka, Nunito, sans-serif !important; }
+body .am-root .bio-paper :is(.bio-src, .bio-part__q b, .bio-field b, .bio-part__got, .bio-part__got b, .bio-pts__mark, .bio-pts__head, .bio-old, .bio-btn, .bio-self) { font-family: Fredoka, Nunito, sans-serif !important; }
 body .am-root .bio-paper .am-type__box { font-family: Nunito, system-ui, sans-serif !important; }
 
 /* The guide goes part by part: each part's box is where the camera and spotlight go (bio-desk.js), and its cover

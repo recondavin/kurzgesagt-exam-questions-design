@@ -68,6 +68,12 @@
 .bio-pts li { display: flex; align-items: flex-start; gap: 8px; margin: 0 0 6px; padding: 7px 10px; border-radius: 10px; font-size: 15px; line-height: 1.4; }
 .bio-pts li.is-got { background: #D4F7E2; color: #0B4F2C; }
 .bio-pts li.is-miss { background: #F1F4F9; color: #46565E; }
+/* Missed and needed: red. Could also have said (full marks already): quiet grey, smaller. */
+.bio-pts li.is-need { background: #FFE9EA; color: #7A1F23; }
+.bio-pts li.is-need .bio-pts__mark { color: #EA2B2B; }
+.bio-pts li.is-alt { padding: 4px 10px; background: transparent; color: #6B7B83; font-size: 14px; }
+.bio-pts__head { margin: 10px 0 4px; font: 700 13px Fredoka, Nunito, sans-serif; letter-spacing: .02em; color: #5D7079; }
+.bio-pts__head--need { color: #C62828; }
 .bio-pts__mark { flex: none; width: 18px; font: 700 16px Fredoka, Nunito, sans-serif; text-align: center; }
 .bio-pts em { font-style: normal; color: #5D7079; }
 .bio-self { flex: none; margin-left: auto; padding: 2px 8px; border: 1.5px solid #93A5AE; border-radius: 8px; background: transparent; color: #46565E; font: 700 12.5px Fredoka, Nunito, sans-serif; cursor: pointer; }
