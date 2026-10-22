@@ -313,13 +313,15 @@
   }
   // For each part, a hint first, then, if you still don't know, the answer (the user: "it should be like a hint first and
   // then 'still don't know?'"): the hint is the part's quick check's "hint" (tools/bio/checks/ch<N>.json, written to point
-  // at the answer without giving it), the answer its right answer (which the marker gives the part's marks for) and why.
-  // (A true-or-false check's why is the answer.)
+  // at the answer without giving it). The answer for a written part is the check's right answer (which the marker gives
+  // the part's marks for; a true-or-false check's why is the answer) and why; for labels, drawings, arrows, taps and
+  // true-or-false parts it's the scheme's own points, which cover the whole part (a label check asks about one label).
   function helpParts() {
     var C = current && ((window.BioChecks || {})[current.ch] || {})[current.qid] || [];
     return !current ? [] : current.q.parts.map(function (p, k) {
       var c = C[k] || {}, tf = c.right === 'True' || c.right === 'False';
-      return { label: p.l, hint: c.hint || '', answer: (tf ? c.why : c.right) || '', why: tf ? '' : c.why || '' };
+      var scheme = p.kind !== 'text' && p.pts.length ? p.pts.map(function (t) { return t.a.replace(/\*/g, '').trim(); }).join('; ') : '';
+      return { label: p.l, hint: c.hint || '', answer: scheme || (tf ? c.why : c.right) || '', why: (scheme || !tf) && c.why || '' };
     }).filter(function (x) { return x.answer; });
   }
   function help(what) {
