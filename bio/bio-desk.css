@@ -112,7 +112,7 @@ body.bio-desk .hf-guide .hf-bio-check__why b:not(#hf-weight), body.bio-desk .hf-
    me." He slides down out of sight while the guide or a sheet is open (the sheet's examiner comes up in the same
    corner) and back up after. */
 body.bio-desk .site-logo { display: none; }
-.bio-logo { --w: min(150px, 17vh); position: fixed; z-index: 55; left: 14px; bottom: 10px; width: var(--w); padding: 0; border: 0; background: none; cursor: pointer; transition: transform .55s cubic-bezier(.3, 1.3, .5, 1); }
+.bio-logo { --w: min(200px, 22vh); position: fixed; z-index: 55; left: 14px; bottom: 10px; width: var(--w); padding: 0; border: 0; background: none; cursor: pointer; transition: transform .55s cubic-bezier(.3, 1.3, .5, 1); }
 .bio-logo__fig { display: block; aspect-ratio: 908 / 1116; filter: drop-shadow(0 6px 0 rgba(92, 52, 24, .28)); transition: transform .2s ease; }
 .bio-logo:hover .bio-logo__fig, .bio-logo:focus-visible .bio-logo__fig { transform: translateY(-6px); }
 .bio-logo:focus-visible { outline: 3px solid #FFE14D; outline-offset: 4px; border-radius: 12px; }
@@ -121,7 +121,7 @@ body .bio-logo__say { position: absolute; left: 0; bottom: calc(100% + 12px); wi
 body.hf-active .bio-logo, body:has(.am-root) .bio-logo { transform: translateY(calc(100% + 90px)); pointer-events: none; }
 body:not(.bio-desk) .bio-logo { display: none; }
 @media (max-width: 700px) {
-  .bio-logo { --w: 84px; left: 8px; bottom: 8px; }
+  .bio-logo { --w: 104px; left: 8px; bottom: 8px; }
   body .bio-logo__say { padding: 8px 12px; font-size: 14px !important; }
 }
 
