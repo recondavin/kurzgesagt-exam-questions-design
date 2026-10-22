@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-36';
+  var V = 'bio-37';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -164,8 +164,9 @@
     return list.map(function (s, k) {
       // Read in pages, one idea at a time, then the quick check, all in the same small card: the question stays at the
       // top, a bar shows how far through the part you are, and Next turns the page ("Quick check" before the check).
+      // A part with nothing new to teach is just its quick check: one page, no bar, nothing to wait for.
       var check = checks && checks[k], n = s.bullets.length;
-      var bar = '<div class="bio-pace" data-hf-still>' + s.bullets.map(function (b, i) {
+      var bar = !n ? '' : '<div class="bio-pace" data-hf-still>' + s.bullets.map(function (b, i) {
         return '<button type="button" class="bio-pace__seg' + (i ? '' : ' is-now') + '" data-bio-seg="' + i + '" aria-label="' + esc(b.b) + '"></button>';
       }).join('') + (check ? '<button type="button" class="bio-pace__check" data-bio-seg="' + n + '" aria-label="Quick check">?</button>' : '') + '</div>';
       var step = {
@@ -174,7 +175,8 @@
         visual: bar + (s.pic ? ring(s.pic.base, s.pic.hi) : '') + '<ul class="hf-bullets hf-bullets--steps bio-facts">' + s.bullets.map(function (b, i) {
           return '<li data-bio-page="' + i + '"' + (i ? ' data-hf-gate="Next"' : ' class="is-now"') + '><span class="hf-bullet-dot"></span><span><b>' + esc(b.b) + ':</b> ' +
             esc(b.t) + '</span></li>';
-        }).join('') + '</ul>' + (check ? '<div class="bio-check-page" data-hf-still data-bio-page="' + n + '" data-hf-gate="Quick check">' + checkHtml(check, k) + '</div>' : '')
+        }).join('') + '</ul>' + (check ? '<div class="bio-check-page' + (n ? '"' : ' is-now"') + ' data-hf-still data-bio-page="' + n + '"' + (n ? ' data-hf-gate="Quick check"' : '') + '>' +
+          checkHtml(check, k) + '</div>' : '')
       };
       if (k === list.length - 1) step.finish = function (rect, exit) { exit(); write(); };
       return step;

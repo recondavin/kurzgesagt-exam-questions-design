@@ -25,54 +25,14 @@
   "say": "Together the alveoli have a huge surface area, and each one is wrapped in a dense net of capillaries that keeps carrying the oxygen away."
  },
  {
-  "id": "bio-cmd-name-title",
-  "text": "Name it: short and exact",
-  "say": "Name it: short and exact"
- },
- {
   "id": "bio-5aa6cd01",
   "text": "(ii) Name the process by which this gas exchange occurs.",
   "say": "For part two, just name it: a word or a short phrase is enough. That's one point, for three marks."
  },
  {
-  "id": "bio-cmd-name-1-ch28",
-  "text": "Exact name: diaphragm, not \"the muscle under the lungs\".",
-  "say": "Examiners want the exact biological name. Diaphragm, not the muscle under the lungs. Alveoli, not the little air bags."
- },
- {
-  "id": "bio-cmd-name-2",
-  "text": "No essay: the fact earns the marks.",
-  "say": "There is no need for a long answer here. The right name earns the marks, so save your time for the longer parts."
- },
- {
-  "id": "bio-cmd-name-3",
-  "text": "Count them: two asked, give two.",
-  "say": "If it asks for two, give two. Extra answers don't earn extra marks."
- },
- {
-  "id": "bio-cmd-describe-title",
-  "text": "Describe: what happens, in order",
-  "say": "Describe: what happens, in order"
- },
- {
   "id": "bio-4bee9620",
   "text": "(iii) Outline one way that alveoli are adapted to carry out efficient gas exchange.",
   "say": "For part three, describe it: say what happens, step by step. That's one point, for three marks."
- },
- {
-  "id": "bio-cmd-describe-1",
-  "text": "In order: start to finish.",
-  "say": "Start at the beginning and go step by step to the end, so nothing gets left out."
- },
- {
-  "id": "bio-cmd-describe-2",
-  "text": "Name the parts: where each step happens.",
-  "say": "Name the exact structure where each step happens. Those names are what the examiner is looking for."
- },
- {
-  "id": "bio-cmd-describe-3",
-  "text": "Count the marks: nine marks, three points.",
-  "say": "Count the marks. Nine marks usually means three separate points, so make sure you have at least three."
  },
  {
   "id": "bio-28-transport-title",
@@ -105,29 +65,9 @@
   "say": "For part one 2., describe it: say what happens, step by step. That's one point, for three marks."
  },
  {
-  "id": "bio-cmd-compare-title",
-  "text": "Tell them apart",
-  "say": "Tell them apart"
- },
- {
   "id": "bio-d02a6753",
   "text": "(ii) Compare the relative concentration of each gas (carbon dioxide and oxygen) in arterial pulmonary blood and venous pulmonary blood by writing the words 'High' or 'Low' into the correct boxes.",
   "say": "For part two, say how they differ, with something about each one. That's two points, for six marks."
- },
- {
-  "id": "bio-cmd-compare-1",
-  "text": "Both sides: A does this, B does that.",
-  "say": "Say what the first one is like, and then what the second one is like."
- },
- {
-  "id": "bio-cmd-compare-2",
-  "text": "Same feature: compare like with like.",
-  "say": "Compare the same feature on both. Wall thickness against wall thickness, not against colour."
- },
- {
-  "id": "bio-cmd-compare-3-ch28",
-  "text": "Use whereas: one sentence, both halves.",
-  "say": "The word whereas is your friend. Inhalation is active, whereas normal exhalation is passive."
  },
  {
   "id": "bio-8b266595",
@@ -255,29 +195,9 @@
   "say": "For part d one, draw it large, and label it clearly. That's one point, for three marks."
  },
  {
-  "id": "bio-cmd-label-title",
-  "text": "Find it on the diagram",
-  "say": "Find it on the diagram"
- },
- {
   "id": "bio-de71070c",
   "text": "(d)(ii) On the diagram above, draw an arrow to show the direction of movement of the diaphragm during inhalation.",
   "say": "For part d two, read the diagram and find the exact part. That's one point, for two marks."
- },
- {
-  "id": "bio-cmd-label-1",
-  "text": "Look first: trace the structure.",
-  "say": "Before you write anything, follow the structure on the diagram and work out what each part does."
- },
- {
-  "id": "bio-cmd-label-2",
-  "text": "Exact name: spelled right.",
-  "say": "Give the exact name, spelled correctly. Close isn't enough when two parts have similar names."
- },
- {
-  "id": "bio-cmd-label-3",
-  "text": "On the diagram: a clear letter or arrow.",
-  "say": "If you have to mark the diagram, put a clear letter or arrow right on the part."
  },
  {
   "id": "bio-cd6c2680",
@@ -455,6 +375,11 @@
   "say": "For part four, read the diagram and find the exact part. That's three points, for nine marks."
  },
  {
+  "id": "bio-29-loop-title",
+  "text": "The loop of Henle: saving water",
+  "say": "The loop of Henle: saving water"
+ },
+ {
   "id": "bio-29-filter-title",
   "text": "Filtration: squeezing the blood",
   "say": "Filtration: squeezing the blood"
@@ -478,16 +403,6 @@
   "id": "bio-29-filter-3",
   "text": "Too big: cells and proteins stay.",
   "say": "Blood cells and proteins are too big to fit through, so they stay in the blood. Protein in urine is a sign that something is wrong."
- },
- {
-  "id": "bio-cmd-name-1",
-  "text": "Exact name: glomerulus, not \"the filter\".",
-  "say": "Examiners want the exact biological name. Glomerulus, not the filter. Collecting duct, not the tube."
- },
- {
-  "id": "bio-29-loop-title",
-  "text": "The loop of Henle: saving water",
-  "say": "The loop of Henle: saving water"
  },
  {
   "id": "bio-dddc008a",
@@ -600,29 +515,9 @@
   "say": "For part six, just name it: a word or a short phrase is enough. That's two points, for six marks."
  },
  {
-  "id": "bio-cmd-draw-title",
-  "text": "Draw it big, label it well",
-  "say": "Draw it big, label it well"
- },
- {
   "id": "bio-6d8ae9e7",
   "text": "(ii) The nephron is the functional unit of the kidney. Draw a large labelled diagram of the human nephron and its associated blood supply.",
   "say": "For part two, draw it large, and label it clearly. That's six points, for twelve marks."
- },
- {
-  "id": "bio-cmd-draw-1",
-  "text": "Large and clear: half a page, in pencil.",
-  "say": "Make your diagram large and clear, in pencil, so the examiner can see every part."
- },
- {
-  "id": "bio-cmd-draw-2",
-  "text": "Label lines: straight, touching the part.",
-  "say": "Each label needs a straight line that touches the exact part it names."
- },
- {
-  "id": "bio-cmd-draw-3",
-  "text": "Count the labels: as many as it asks for.",
-  "say": "Count how many labels the question asks for, and make sure every one is there."
  },
  {
   "id": "bio-29-reabsorb-title",
@@ -705,54 +600,14 @@
   "say": "For part seven, read the diagram and find the exact part. That's one point, for three marks."
  },
  {
-  "id": "bio-cmd-explain-title",
-  "text": "Explain: say why",
-  "say": "Explain: say why"
- },
- {
   "id": "bio-e714b3a8",
   "text": "(ii) Give one reason why homeostasis is important in organisms.",
   "say": "For part two, explain it: say what happens, and why. That's one point, for three marks."
  },
  {
-  "id": "bio-cmd-explain-1",
-  "text": "Fact: what happens.",
-  "say": "First, the fact: what actually happens."
- },
- {
-  "id": "bio-cmd-explain-2",
-  "text": "Because: why it happens.",
-  "say": "Then the reason. Use the word because, or so, and the examiner can follow your thinking."
- },
- {
-  "id": "bio-cmd-explain-3",
-  "text": "One idea a sentence: each can earn marks.",
-  "say": "Keep one idea to each sentence. Every separate, correct idea is another chance at marks."
- },
- {
-  "id": "bio-cmd-meant-title",
-  "text": "Say what it means",
-  "say": "Say what it means"
- },
- {
   "id": "bio-7b2f8582",
   "text": "(iii) Explain what is meant by the term excretion.",
   "say": "For part three, say what it means, in one clear sentence. That's one point, for three marks."
- },
- {
-  "id": "bio-cmd-meant-1",
-  "text": "Start with the word: \"Excretion is…\"",
-  "say": "Start with the word itself. Excretion is, and then finish the sentence. It keeps you on track."
- },
- {
-  "id": "bio-cmd-meant-2",
-  "text": "The key idea: the one thing it's about.",
-  "say": "Every definition has one key idea. For homeostasis, it's keeping the inside of the body constant. Make sure yours has it."
- },
- {
-  "id": "bio-cmd-meant-3",
-  "text": "Learn it word for word: the Learn it drills help.",
-  "say": "Definitions come up again and again, so they're worth learning word for word. The Learn it drills are made for exactly that."
  },
  {
   "id": "bio-29-urea-title",
@@ -995,11 +850,6 @@
   "say": "Strong muscles in the stomach wall churn the food with the juice into a thick liquid, before it moves on to the duodenum."
  },
  {
-  "id": "bio-cmd-name-1-ch30",
-  "text": "Exact name: oesophagus, not \"the food pipe\".",
-  "say": "Examiners want the exact biological name. Oesophagus, not the food pipe. Duodenum, not the start of the gut."
- },
- {
   "id": "bio-f1ccac09",
   "text": "(c) Draw a labelled diagram of the human digestive system.",
   "say": "For part c, draw it large, and label it clearly. That's two points, for six marks."
@@ -1215,29 +1065,9 @@
   "say": "For part one 2., just name it: a word or a short phrase is enough. That's one point, for three marks."
  },
  {
-  "id": "bio-cmd-suggest-title",
-  "text": "Suggest: use what you know",
-  "say": "Suggest: use what you know"
- },
- {
   "id": "bio-befe7c13",
   "text": "(d) Suggest an optimum pH for digestion of lipids in the location you named at part (c) above.",
   "say": "For part d, suggest a sensible reason, using what you know. That's one point, for three marks."
- },
- {
-  "id": "bio-cmd-suggest-1",
-  "text": "Apply it: use the biology you know.",
-  "say": "Take the biology you know and apply it to the situation in the question."
- },
- {
-  "id": "bio-cmd-suggest-2",
-  "text": "Be specific: say exactly what and why.",
-  "say": "A vague guess gets nothing. A specific, sensible reason gets the marks."
- },
- {
-  "id": "bio-cmd-suggest-3",
-  "text": "Link it back: to the question.",
-  "say": "Finish by linking your answer back to what the question described."
  },
  {
   "id": "bio-39e04545",
@@ -1305,16 +1135,6 @@
   "say": "For part two, say what it means, in one clear sentence. That's one point, for three marks."
  },
  {
-  "id": "bio-cmd-meant-1-ch30",
-  "text": "Start with the word: \"Digestion is…\"",
-  "say": "Start with the word itself. Digestion is, and then finish the sentence. It keeps you on track."
- },
- {
-  "id": "bio-cmd-meant-2-ch30",
-  "text": "The key idea: the one thing it's about.",
-  "say": "Every definition has one key idea. For digestion, it's breaking food down into small, soluble molecules that can be absorbed. Make sure yours has it."
- },
- {
   "id": "bio-981c3ee1",
   "text": "(i) Draw a large diagram of the human alimentary canal and its associated glands. On your diagram label all of the following: 1. Two associated glands. Name each gland labelled and put the letter G in brackets after each name to indicate it is a gland. 2. Two parts of the small intestine. Name each part labelled and put the letter S in brackets after each name to indicate it is part of the small intestine. 3. Two parts of the large intestine. Name each part labelled and put the letter L in brackets after each name to indicate it is part of the large intestine.",
   "say": "For part one, draw it large, and label it clearly. That's four points, for eighteen marks."
@@ -1353,11 +1173,6 @@
   "id": "bio-a2facf42",
   "text": "(i) 2. Give one difference between the dental formula referred to above and the tooth arrangement of the mammal in the photograph below.",
   "say": "For part one 2., say how they differ, with something about each one. That's one point, for three marks."
- },
- {
-  "id": "bio-cmd-compare-3-ch30",
-  "text": "Use whereas: one sentence, both halves.",
-  "say": "The word whereas is your friend. Mechanical digestion breaks food into smaller pieces, whereas chemical digestion uses enzymes."
  },
  {
   "id": "bio-8c5d0c35",
@@ -1700,11 +1515,6 @@
   "say": "For part one, read the diagram and find the exact part. That's one point, for three marks."
  },
  {
-  "id": "bio-cmd-name-1-ch31",
-  "text": "Exact name: aorta, not \"the big artery\".",
-  "say": "Examiners want the exact biological name. Aorta, not the big artery. Tricuspid valve, not the valve on the right."
- },
- {
   "id": "bio-1e738fbb",
   "text": "(i) Explain why there is a large number of mitochondria in cardiac muscle cells.",
   "say": "For part one, explain it: say what happens, and why. That's two points, for six marks."
@@ -1803,11 +1613,6 @@
   "id": "bio-90319628",
   "text": "(ii)2 Describe one difference between the walls of the right and left ventricles.",
   "say": "For part two 2, say how they differ, with something about each one. That's one point, for three marks."
- },
- {
-  "id": "bio-cmd-compare-3",
-  "text": "Use whereas: one sentence, both halves.",
-  "say": "The word whereas is your friend. Arteries have thick walls, whereas veins have thin walls."
  },
  {
   "id": "bio-a9ac1f6c",
@@ -2050,21 +1855,6 @@
   "say": "And the conclusion can only cover the people who were tested. If no children took part, we can't say it works for children."
  },
  {
-  "id": "bio-cmd-meant-1-ch32",
-  "text": "Start with the word: \"A pathogen is…\"",
-  "say": "Start with the word itself. A pathogen is, and then finish the sentence. It keeps you on track."
- },
- {
-  "id": "bio-cmd-meant-2-ch32",
-  "text": "The key idea: the one thing it's about.",
-  "say": "Every definition has one key idea. For a pathogen, it's that it causes disease. Make sure yours has it."
- },
- {
-  "id": "bio-cmd-name-1-ch32",
-  "text": "Exact name: antibody, not \"the defender\".",
-  "say": "Examiners want the exact biological name. Antibody, not the defender. Phagocyte, not the white cell that eats germs."
- },
- {
   "id": "bio-32-pathogens-title",
   "text": "Pathogens: what makes us ill",
   "say": "Pathogens: what makes us ill"
@@ -2175,6 +1965,11 @@
   "say": "Some viruses, called bacteriophages, attack only bacteria. They could be used to treat infections that antibiotics can no longer cure."
  },
  {
+  "id": "bio-32-lymph-title",
+  "text": "B and T lymphocytes",
+  "say": "B and T lymphocytes"
+ },
+ {
   "id": "bio-c5f7bfbf",
   "text": "(i) 1. Lymphocytes, such as the one shown in the diagram, mature in the lymphatic system, which is part of the human defence system. 1. Name two organs of the lymphatic system.",
   "say": "For part one 1., just name it: a word or a short phrase is enough. That's two points, for six marks."
@@ -2183,11 +1978,6 @@
   "id": "bio-8fdc446e",
   "text": "(i) 2. Other than maturation of lymphocytes, give two functions of the lymphatic system.",
   "say": "For part one 2., just name it: a word or a short phrase is enough. That's two points, for six marks."
- },
- {
-  "id": "bio-32-lymph-title",
-  "text": "B and T lymphocytes",
-  "say": "B and T lymphocytes"
  },
  {
   "id": "bio-32-lymph-1",
@@ -2323,11 +2113,6 @@
   "id": "bio-1a12fe39",
   "text": "(vii) Give one difference between the types of induced immunity that you have named at (v).",
   "say": "For part seven, say how they differ, with something about each one. That's one point, for three marks."
- },
- {
-  "id": "bio-cmd-compare-3-ch32",
-  "text": "Use whereas: one sentence, both halves.",
-  "say": "The word whereas is your friend. Active immunity makes its own antibodies, whereas passive immunity is given them."
  },
  {
   "id": "bio-6cd6327f",

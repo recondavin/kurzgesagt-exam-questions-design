@@ -182,9 +182,10 @@
 
   // One slide for each part of the question: the part's question, then the science it needs (the chapter's concept,
   // with its diagram) and what earns its marks. A part about an idea an earlier slide already taught, or that no
-  // concept matches, gets the three tips for its command word instead.
-  function partStep(ch, p, c, k) {
-    var cmd = G.command(p), d = G.CMD[cmd], marks = partMarks(p);
+  // concept matches, goes straight to its quick check, under its topic (ctx): no general exam tips (the user: "this is
+  // obvious, dont do if you dont need").
+  function partStep(ch, p, c, k, ctx) {
+    var cmd = G.command(p), marks = partMarks(p);
     var asked = String(p.q).replace(/\s*\[[^\]]*\]/g, '');
     var summary = p.l + ' ' + asked;  // the whole question: it stays on the card while the part is taught
     // Read out the way the old overview read a part, so the clips already voiced are reused.
@@ -200,13 +201,10 @@
       step.voice = [base + '-title', G.lineId(sumSay)].concat(c.bullets.map(function (b, i) { return base + '-' + (i + 1); }));
       step.says = [c.titleSay || c.title, sumSay].concat(c.bullets.map(function (b) { return b[2]; }));
     } else {
-      var cb = 'bio-cmd-' + cmd, ex = (G.CMD_EX[ch] || {})[cmd] || {};
-      var list = d.bullets.map(function (b, i) { return ex[i] || b; });
-      step.title = d.title;
-      step.bullets = list.map(function (b) { return { b: b[0], t: b[1], say: b[2] }; });
-      // A chapter's own example is its own clip.
-      step.voice = [cb + '-title', G.lineId(sumSay)].concat(list.map(function (b, i) { return cb + '-' + (i + 1) + (ex[i] ? '-ch' + ch : ''); }));
-      step.says = [d.title, sumSay].concat(list.map(function (b) { return b[2]; }));
+      step.title = ctx ? ctx.title : 'Quick check';
+      step.bullets = [];
+      step.voice = [ctx ? 'bio-' + ch + '-' + ctx.id + '-title' : null, G.lineId(sumSay)];
+      step.says = [ctx ? ctx.titleSay || ctx.title : 'Quick check', sumSay];
     }
     return step;
   }
@@ -218,12 +216,15 @@
     var C = G.chapters[ch], whole = conceptFor(ch, q), fixed = C && C.questions && C.questions[q.id];
     // Chosen by hand for every part (BioGuide.chapters[N].parts): taught on the first part that needs it.
     var chosen = C && C.parts && C.parts[q.id];
+    // A part's topic: its own concept, else the last one before it, else the question's.
+    var last = whole;
+    function topic(c) { if (c) last = c; return last; }
     if (chosen) {
       var taught = {};
       return q.parts.map(function (p, k) {
-        var id = chosen[k], c = id && !taught[id] ? C.concepts.filter(function (x) { return x.id === id; })[0] || null : null;
+        var id = chosen[k], own = id ? C.concepts.filter(function (x) { return x.id === id; })[0] || null : null, c = own && !taught[id] ? own : null;
         if (c) taught[c.id] = true;
-        return partStep(ch, p, c, k);
+        return partStep(ch, p, c, k, topic(own));
       });
     }
     var pick = q.parts.map(function (p) {
@@ -240,12 +241,12 @@
     });
     return q.parts.map(function (p, k) {
       var c = pick[k] && best[pick[k].id].k === k ? pick[k] : null;
-      return partStep(ch, p, c, k);
+      return partStep(ch, p, c, k, topic(pick[k]));
     });
   };
   // Every narrated line of a step, for the voice generator: [{id, text, say}].
   G.lines = function (step) {
     var texts = [step.title, step.summary].concat(step.bullets.map(function (b) { return b.b + ': ' + b.t; }));
-    return step.voice.map(function (id, k) { return { id: id, text: texts[k], say: step.says[k] }; });
+    return step.voice.map(function (id, k) { return { id: id, text: texts[k], say: step.says[k] }; }).filter(function (l) { return l.id; });
   };
 })();
