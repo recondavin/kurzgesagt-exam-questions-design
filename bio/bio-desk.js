@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-40';
+  var V = 'bio-41';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -222,12 +222,12 @@
     target.setAttribute('aria-label', P.label + ': start the guided walkthrough');
     place(target, P.box);
     partBoxes(target.parentNode, P);
-    // The camera fits what's printed on the page (and the question) to the screen, so the paper is as big as it can be.
-    var fit = document.querySelector('[data-hf-fit]') || el('div', 'bio-fitbox'), c = P.content || [0, 0, 100, 100], b = P.box;
-    var l = Math.min(c[0], b[0]), t = Math.min(c[1], b[1]), r = Math.max(c[0] + c[2], b[0] + b[2]), u = Math.max(c[1] + c[3], b[1] + b[3]);
+    // The camera fits the whole page to the screen, so the paper is the same size and in the same place on every
+    // question. (It used to fit only what was printed, so a half-empty page was zoomed in far more than a full one.)
+    var fit = document.querySelector('[data-hf-fit]') || el('div', 'bio-fitbox');
     fit.setAttribute('data-hf-fit', '');
     fit.setAttribute('aria-hidden', 'true');
-    fit.style.cssText = 'position:absolute;pointer-events:none;left:' + l + '%;top:' + t + '%;width:' + (r - l) + '%;height:' + (u - t) + '%';
+    fit.style.cssText = 'position:absolute;pointer-events:none;left:0;top:0;width:100%;height:100%';
     if (!fit.parentNode) img.parentNode.appendChild(fit);
     window.ExamHyperFocus.fit();
     trackLogo();

@@ -6,7 +6,7 @@ sub-parts "(iii)"), renders that page 1.5 times the desk's paper size (2055 px w
 desk zooms in) and records:
   window.BioPapers['<chapter>/<question id>'] = {img, page, box: [left, top, width, height] as % of the page,
                                                  content: the same for everything printed on the page, label}
-(the desk fits the content box to the screen, so the paper is as big as the screen allows)
+(the desk no longer uses the content box: it fits the whole page, so the paper is the same size on every question)
 (the same question can be in two chapters, each about different parts of it)
 The desk (bio/bio-desk.js) puts the page on the desk and the question's box becomes its focus target.
 
