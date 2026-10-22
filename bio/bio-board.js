@@ -28,6 +28,27 @@
     var clean = function (t) { return t.replace(/\b[BT](?= ?(cells?|lymph))/g, '').replace(/vitamins? [A-Z]\b/gi, '').replace(/\bT\.S\./g, ''); };
     return PIC.test([c.q, c.right].concat(c.wrong).map(clean).join(' '));
   }
+  // Each question goes on the board under what it's about, not just the chapter its exam question is filed in (the
+  // user, of "Which blood vessel brings blood back to the heart from the lungs?" on a Breathing square: "are you sure
+  // this is breathing?"; exam questions on one system often ask about another). The distinct topic words of each
+  // chapter in the question and its answer are counted, and it moves only when another chapter has two more.
+  function topicOf(c, ch) {
+    var TOPIC = {
+      28: /\b(lungs?|breath\w*|alveol\w*|trachea|bronch\w*|diaphragm|intercostal|inhal\w*|exhal\w*|asthma|respiratory|ventilat\w*|rib cage|ribs|thorax|thoracic|larynx|pleura\w*|gas exchange|lung capacity|tidal)\b/gi,
+      29: /\b(kidneys?|nephron|urine|urin\w*|urea|adh|glomerul\w*|bowman\w*|tubules?|bladder|ureters?|urethra|excret\w*|homeostasis|renal|loop of henle|collecting duct|dialysis|filtration|reabsorb\w*|osmoregulat\w*)\b/gi,
+      30: /\b(digest\w*|amylase|lipase|pepsin|protease|stomach|intestin\w*|vill\w*|bile|teeth|tooth|saliva\w*|oesophag\w*|peristal\w*|pancrea\w*|duoden\w*|ileum|colon|fibre|diet\w*|food|enzymes?|chyme|gall bladder|appendix|rectum|egest\w*|absorb\w*|lacteal|nutrition|vitamins?|faeces|mouth|chew\w*|emulsif\w*)\b/gi,
+      31: /\b(heart|arter\w*|veins?|venous|capillar\w*|ventricl\w*|atri\w*|valves?|pulse|pulse rate|heart ?beats?|blood pressure|plasma|red blood cells?|platelets?|haemoglobin|sa node|av node|sino\w*|pacemaker|pulmonary|aorta|vena cava|circulat\w*|blood groups?|transfusion|clot\w*|systol\w*|diastol\w*|coronary|portal|cardiac|lymph\w*|heart rate|blood vessels?)\b/gi,
+      32: /\b(immun\w*|antibod\w*|antigens?|lymphocytes?|b cells?|t cells?|vaccin\w*|pathogens?|phagocyt\w*|virus\w*|viral|bacteri\w*|infect\w*|inflammat\w*|macrophage\w*|monocyte\w*|white blood cells?|disease|antibiotic\w*|interferon|complement|memory cells?|helper|killer|suppressor|allerg\w*|hiv|aids)\b/gi
+    };
+    var text = c.q + ' ' + c.right, n = {}, best = ch;
+    Object.keys(TOPIC).forEach(function (t) {
+      var seen = {};
+      (text.match(TOPIC[t]) || []).forEach(function (w) { seen[w.toLowerCase()] = 1; });
+      n[t] = Object.keys(seen).length;
+      if (n[t] > n[best]) best = +t;
+    });
+    return n[best] - n[ch] >= 2 ? best : ch;
+  }
   var SAY = {
     start: ['Five wedges. One final question. Try to keep up.', 'My board. My rules. Roll.'],
     right: ['Hmph. Correct.', 'Fine. Go again.', 'Lucky.'],
@@ -50,24 +71,26 @@
     }
     return out;
   }
+  // Each question: where it's filed (src, for marking against its part) and the board chapter it's about (ch).
   function pools() {
     var P = {};
-    CH.forEach(function (ch) {
-      var Q = ((window.BioQuestions || {})[ch] || {}).questions || [], C = (window.BioChecks || {})[ch] || {}, mc = [], typed = [];
+    CH.forEach(function (ch) { P[ch] = { mc: [], typed: [], at: 0, tat: 0 }; });
+    CH.forEach(function (src) {
+      var Q = ((window.BioQuestions || {})[src] || {}).questions || [], C = (window.BioChecks || {})[src] || {};
       Q.forEach(function (q) {
         (C[q.id] || []).forEach(function (c, k) {
           if (needsPaper(c)) return;
-          var item = { ch: ch, qid: q.id, k: k, c: c };
-          mc.push(item);
+          var ch = topicOf(c, src), item = { ch: ch, src: src, qid: q.id, k: k, c: c };
+          P[ch].mc.push(item);
           var p = q.parts[k], keyed = p && p.kind === 'text' ? p.pts.filter(function (t) { return t.k && !t.self; }).length : 0;
           if (keyed && !/^(True|False)$/.test(c.right)) {
             var m = c.q.match(/\((\d) points\)$/);
-            typed.push({ ch: ch, qid: q.id, k: k, c: c, want: Math.min(m ? +m[1] : 1, keyed, p.n || 1) });
+            P[ch].typed.push({ ch: ch, src: src, qid: q.id, k: k, c: c, want: Math.min(m ? +m[1] : 1, keyed, p.n || 1) });
           }
         });
       });
-      P[ch] = { mc: shuffle(mc), typed: shuffle(typed), at: 0, tat: 0 };
     });
+    CH.forEach(function (ch) { P[ch].mc = shuffle(P[ch].mc); P[ch].typed = shuffle(P[ch].typed); });
     return P;
   }
   function nextQ(ch, typed) {
@@ -247,7 +270,7 @@
     if (!dunno && !text) { G.card.querySelector('[data-tb-text]').focus(); return; }
     G.phase = 'shown';
     G.asked += 1;
-    var got = text && window.BioApp ? window.BioApp.check(item.ch, item.qid, item.k, text).filter(Boolean).length : 0, ok = got >= item.want;
+    var got = text && window.BioApp ? window.BioApp.check(item.src, item.qid, item.k, text).filter(Boolean).length : 0, ok = got >= item.want;
     G.card.querySelector('[data-tb-text]').disabled = true;
     G.card.querySelectorAll('[data-tb-check], [data-tb-dunno]').forEach(function (b) { b.hidden = true; });
     var res = G.card.querySelector('[data-tb-result]');
