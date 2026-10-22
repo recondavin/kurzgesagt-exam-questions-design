@@ -47,6 +47,8 @@
   var layoutFrame = 0;
   var trackingFrame = 0;
   var typeTimers = [];
+  // A card read in pages (items marked data-hf-gate wait for Next): how to move to the next page, or null.
+  var pace = null;
   var ui = null;
   var installed = false;
   var cameraScale = 1.88;
@@ -113,6 +115,7 @@
     var index = group.findIndex(function (item) { return item.id === step.id; });
     var guide = buildUI().guide;
     clearTyping();
+    pace = null;
     guide.querySelector('.hf-guide__content').scrollTop = 0;
     guide.querySelector('[data-hf-status]').textContent = 'Step ' + (index + 1) + ' of ' + group.length + ': ' + step.title;
     var title = guide.querySelector('[data-hf-title]');
@@ -150,6 +153,8 @@
     if (step.visual) {
       title.textContent = step.title;
       summary.textContent = step.summary;
+      // A lead line that's quoted (an exam question) appears whole rather than typed.
+      summary.toggleAttribute('data-hf-still', Boolean(step.summaryStill));
       prose.hidden = true;
       points.hidden = true;
       visual.innerHTML = step.visual;
@@ -322,6 +327,38 @@
     }
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var token = narration.token;
+    // Pages: an item marked data-hf-gate waits for Next before it types (Next is labelled with the gate's text), and
+    // gets an 'hf-page' event when it opens, so the page can show it in place of what came before. Next pressed
+    // while the page is still typing opens the next page at once.
+    var gates = [], passed = {}, waiting = -1, nextButton = ui.guide.querySelector('[data-hf-next]'), baseLabel = nextButton.textContent;
+    items.forEach(function (item, k) { if (k > 1 && item.hasAttribute('data-hf-gate')) gates.push(k); });
+    function label() {
+      var g = gates.filter(function (k) { return !passed[k]; })[0];
+      nextButton.textContent = g === undefined ? baseLabel : items[g].getAttribute('data-hf-gate') || 'Next';
+    }
+    if (gates.length) {
+      pace = { forward: function () {
+        var g = gates.filter(function (k) { return !passed[k]; })[0];
+        if (g === undefined) return false;
+        passed[g] = true;
+        if (waiting !== g) {
+          clearTyping();
+          token = narration.token;
+          items.slice(0, g).forEach(function (item, k) {
+            item.classList.remove('hf-pending');
+            item.classList.add('hf-reveal');
+            plans[k].chars.forEach(function (ch) { ch.classList.add('on'); });
+          });
+        }
+        waiting = -1;
+        caret(null);
+        label();
+        items[g].dispatchEvent(new CustomEvent('hf-page', { bubbles: true }));
+        run(g);
+        return true;
+      } };
+      label();
+    }
     var plans = items.map(function (item) {
       item.classList.remove('hf-reveal');
       if (reduce) return { chars: [], host: item };
@@ -335,6 +372,8 @@
 
     function run(n) {
       if (token !== narration.token || n >= items.length) return;
+      // A page waits for Next; the line typed last loses its cursor.
+      if (gates.indexOf(n) >= 0 && !passed[n]) { waiting = n; caret(null); return; }
       var item = items[n];
       var plan = plans[n];
       item.classList.remove('hf-pending');
@@ -370,7 +409,7 @@
       function next() { if (typed && spoken) run(n + 1); }
       typeTimers.push(setTimeout(function () {
         typed = true;
-        // The card is fully typed: no cursor left at the end.
+        // The card (or its page) is fully typed: no cursor left at the end.
         if (n === items.length - 1) caret(null);
         next();
       }, plan.chars.length ? at + ms + (quiet ? 80 : 160) : 0));
@@ -734,6 +773,7 @@
     clearTimeout(diagramTimer);
     clearTimeout(cameraTimer);
     clearTyping();
+    pace = null;
     cancelAnimationFrame(trackingFrame);
     trackingFrame = 0;
     stopFigureVideo();
@@ -782,6 +822,8 @@
   }
 
   function move(delta) {
+    // A card read in pages turns its page before the tour moves on.
+    if (delta > 0 && pace && pace.forward()) return;
     var current = stepFor(activeId);
     var group = current ? tourSteps(current) : [];
     var index = group.findIndex(function (item) { return item.id === activeId; });

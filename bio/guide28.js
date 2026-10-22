@@ -57,7 +57,7 @@ window.BioGuide.chapters[28] = {
     { id: 'exercise', title: 'Exercise and breathing rate', summary: 'The investigation: measure, exercise, measure again.',
       say: 'You can see all of this happen in your own body, with a simple experiment.',
       keys: ['exercise', 'pulse', 'at rest', 'resting', 'recovery', 'per minute', 'heart rate', 'spirometer', 'athlete', 'fit', 'investigation', 'average'],
-      pic: { base: 'breathingMoves', hi: ['inhale', 'exhale'] },
+      pic: { base: 'circulation', hi: ['lungs', 'heart'] },  // the lungs and heart both speed up to feed working muscles
       bullets: [
         ['Resting rate first', 'that\'s the control.', 'First, measure the breathing rate or pulse at rest. That\'s your control, to compare with.'],
         ['Count and repeat', 'breaths per minute, then average.', 'Count the breaths or beats for a set time, work out the rate per minute, and repeat it to get an average.'],

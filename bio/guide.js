@@ -186,7 +186,7 @@
   function partStep(ch, p, c, k) {
     var cmd = G.command(p), d = G.CMD[cmd], marks = partMarks(p);
     var asked = String(p.q).replace(/\s*\[[^\]]*\]/g, '');
-    var summary = p.l + ' ' + (asked.length > 110 ? asked.slice(0, 107).replace(/\s+\S*$/, '') + '…' : asked);
+    var summary = p.l + ' ' + asked;  // the whole question: it stays on the card while the part is taught
     // Read out the way the old overview read a part, so the clips already voiced are reused.
     var sumSay = 'For part ' + spokenLabel(p.l) + ', ' + CMD_SAY[cmd] + '. ' + (p.n === 1 ? 'That\'s one point' : 'That\'s ' + spokenNumber(p.n) + ' points') +
       ', for ' + spokenNumber(marks) + ' marks.';

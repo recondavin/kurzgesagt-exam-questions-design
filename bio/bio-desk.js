@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-34';
+  var V = 'bio-35';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -162,16 +162,37 @@
     if (!G || !G.steps) return [];
     var list = G.steps(ch, q);
     return list.map(function (s, k) {
+      // Read in pages, one idea at a time, then the quick check, all in the same small card: the question stays at the
+      // top, a bar shows how far through the part you are, and Next turns the page ("Quick check" before the check).
+      var check = checks && checks[k], n = s.bullets.length;
+      var bar = '<div class="bio-pace" data-hf-still>' + s.bullets.map(function (b, i) {
+        return '<button type="button" class="bio-pace__seg' + (i ? '' : ' is-now') + '" data-bio-seg="' + i + '" aria-label="' + esc(b.b) + '"></button>';
+      }).join('') + (check ? '<button type="button" class="bio-pace__check" data-bio-seg="' + n + '" aria-label="Quick check">?</button>' : '') + '</div>';
       var step = {
         id: s.id, target: 'question-bio', focus: parts && parts[k] ? 'question-bio-p' + k : null, enter: function () { part(k); },
-        motion: '.geography-page-shell', kicker: '', title: s.title, summary: s.summary, spotlight: true, voice: s.voice, prose: '', points: [],
-        visual: (s.pic ? ring(s.pic.base, s.pic.hi) : '') + '<ul class="hf-bullets hf-bullets--steps">' + s.bullets.map(function (b) {
-          return '<li><span class="hf-bullet-dot"></span><span><b>' + esc(b.b) + ':</b> ' + esc(b.t) + '</span></li>';
-        }).join('') + '</ul>' + (checks && checks[k] ? checkHtml(checks[k], k) : '')
+        motion: '.geography-page-shell', kicker: '', title: s.title, summary: s.summary, summaryStill: true, spotlight: true, voice: s.voice, prose: '', points: [],
+        visual: bar + (s.pic ? ring(s.pic.base, s.pic.hi) : '') + '<ul class="hf-bullets hf-bullets--steps bio-facts">' + s.bullets.map(function (b, i) {
+          return '<li data-bio-page="' + i + '"' + (i ? ' data-hf-gate="Next"' : ' class="is-now"') + '><span class="hf-bullet-dot"></span><span><b>' + esc(b.b) + ':</b> ' +
+            esc(b.t) + '</span></li>';
+        }).join('') + '</ul>' + (check ? '<div class="bio-check-page" data-hf-still data-bio-page="' + n + '" data-hf-gate="Quick check">' + checkHtml(check, k) + '</div>' : '')
       };
       if (k === list.length - 1) step.finish = function (rect, exit) { exit(); write(); };
       return step;
     });
+  }
+  // A page of the card opens (hyper-focus.js 'hf-page'), or a seen one is picked on the bar: only it shows.
+  function showPage(card, i) {
+    var pages = card.querySelectorAll('[data-bio-page]'), at = -1;
+    pages.forEach(function (p) { if (p.classList.contains('is-now')) at = +p.getAttribute('data-bio-page'); });
+    card.seen = Math.max(card.seen || 0, i, at);
+    pages.forEach(function (p) { p.classList.toggle('is-now', +p.getAttribute('data-bio-page') === i); });
+    card.querySelectorAll('[data-bio-seg]').forEach(function (b) {
+      var j = +b.getAttribute('data-bio-seg');
+      b.classList.toggle('is-now', j === i);
+      b.classList.toggle('is-done', j !== i && j <= card.seen);
+    });
+    var box = card.closest('.hf-guide__content');
+    if (box) box.scrollTop = 0;
   }
   function write() {
     if (!current || !window.BioApp) return;
@@ -249,10 +270,21 @@
     route();
     window.addEventListener('hashchange', route);
     document.addEventListener('hf-exit', rest);
+    document.addEventListener('hf-page', function (e) {
+      var card = e.target.closest && e.target.closest('.hf-guide__visual');
+      if (card && e.target.hasAttribute('data-bio-page')) showPage(card, +e.target.getAttribute('data-bio-page'));
+    });
     document.addEventListener('click', function (e) {
       if (e.target.closest('[data-bio-write]')) { if (window.ExamHyperFocus) window.ExamHyperFocus.exit(); write(); }
       var option = e.target.closest('.hf-bio-check__option');
       if (option) answerCheck(option);
+      // A page already seen can be looked at again from the bar; the picture grows when tapped.
+      var seg = e.target.closest('[data-bio-seg]'), card = seg && seg.closest('.hf-guide__visual');
+      if (seg && card && +seg.getAttribute('data-bio-seg') <= (card.seen || 0)) showPage(card, +seg.getAttribute('data-bio-seg'));
+      var pic = e.target.closest('.hf-guide .hf-bio-pic');
+      if (pic) pic.classList.toggle('is-big');
+      var asked = document.body.classList.contains('bio-desk') && e.target.closest('.hf-guide [data-hf-summary]');
+      if (asked) asked.classList.toggle('is-open');
     });
   }
   window.BioDesk = { show: show };

@@ -27,10 +27,34 @@ body.hf-active .desk-subjects, body.hf-active .bio-deskbar { display: none; }
   .bio-deskbar__where { display: none; }
 }
 
-/* The guide's diagram for "The science" step, with its key parts ringed. */
-.hf-bio-pic { margin: 0 0 14px; border-radius: 12px; overflow: hidden; line-height: 0; background: #FFFFFF; }
-.hf-bio-pic svg { display: block; width: 100%; height: auto; max-height: 34vh; }
-@media (max-width: 820px) { .hf-bio-pic svg { max-height: 20vh; } }
+/* The guide's card for each part (bio-desk.js guideSteps), read in pages: the question quoted at the top, a bar for how
+   far through the part you are, one idea at a time with its picture, then the quick check in the same place. The
+   explanations are lighter than the headings, so the title and the idea being taught stand out. */
+body.bio-desk .hf-guide .hf-guide__summary:not(#hf-weight) { margin: 0 0 calc(12px * var(--hf-s, 1)); padding: 0 0 0 12px; border-left: 3px solid #37464F;
+  color: #B7C5CD; font-size: calc(15px * var(--hf-s, 1)); line-height: 1.45; font-weight: 500 !important; }
+body.bio-desk .hf-guide .hf-guide__summary::before { display: none; }
+body.bio-desk .hf-guide .bio-pace { display: flex; align-items: center; gap: 6px; margin: 0 0 calc(14px * var(--hf-s, 1)); }
+body.bio-desk .hf-guide .bio-pace__seg { flex: 1; height: 6px; padding: 0; border: 0; border-radius: 3px; background: #37464F; cursor: default; }
+body.bio-desk .hf-guide .bio-pace__seg.is-done { background: #58CC02; cursor: pointer; }
+body.bio-desk .hf-guide .bio-pace__seg.is-now { background: #FFC800; }
+body.bio-desk .hf-guide .bio-pace__check { display: grid; place-items: center; flex: none; width: 22px; height: 22px; padding: 0; border: 2px solid #37464F; border-radius: 50%;
+  background: transparent; color: #93A5AE; font: 700 12px/1 Fredoka, Nunito, sans-serif !important; cursor: default; }
+body.bio-desk .hf-guide .bio-pace__check.is-done { border-color: #58CC02; color: #58CC02; cursor: pointer; }
+body.bio-desk .hf-guide .bio-pace__check.is-now { border-color: #FFC800; color: #FFC800; }
+body.bio-desk .hf-guide .bio-pace button:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
+/* One page at a time: the idea being taught, or the quick check (the picture goes, so the check fits without a scroll). */
+body.bio-desk .hf-guide .bio-facts > li:not(.is-now), body.bio-desk .hf-guide .bio-check-page:not(.is-now) { display: none !important; }
+body.bio-desk .hf-guide .hf-guide__visual:has(.bio-check-page.is-now) .hf-bio-pic { display: none; }
+body.bio-desk .hf-guide .bio-check-page .hf-bio-check { margin-top: 0; padding-top: 0; border-top: 0; }
+body.bio-desk .hf-guide .bio-facts > li { font-size: calc(20px * var(--hf-s, 1)); line-height: 1.45; }
+body.bio-desk .hf-guide .bio-facts li > span:last-child:not(#hf-weight), body.bio-desk .hf-guide .bio-facts li > span:last-child *:not(#hf-weight) { font-weight: 400 !important; }
+body.bio-desk .hf-guide .bio-facts li > span:last-child b:not(#hf-weight), body.bio-desk .hf-guide .bio-facts li > span:last-child b *:not(#hf-weight) { font-weight: 800 !important; }
+/* The picture, small enough to leave the idea in view; tap it to see it bigger. */
+.hf-bio-pic { display: flex; justify-content: center; margin: 0 0 14px; line-height: 0; cursor: zoom-in; }
+.hf-bio-pic svg { display: block; width: auto; max-width: 100%; height: 22vh; border-radius: 12px; }
+.hf-bio-pic.is-big { cursor: zoom-out; }
+.hf-bio-pic.is-big svg { height: 50vh; }
+@media (max-width: 820px) { .hf-bio-pic svg { height: 15vh; } .hf-bio-pic.is-big svg { height: 34vh; } }
 
 /* The answer sheet's type (the desk page forces Verdana with !important). */
 body .am-root .bio-paper :is(p, span, button, input, textarea, label, li, em, i, b, a, h3, div) { font-family: Nunito, system-ui, sans-serif !important; }
@@ -73,4 +97,14 @@ body .hf-guide .hf-bio-check__why.is-wrong b { color: #FF9C9C; }
 /* On a phone the guide card is a solid sheet at the bottom, so its white text never sits over the lit paper. */
 @media (max-width: 819px) {
   body.bio-desk .hf-guide { background: #050505; border-radius: 18px 18px 0 0; }
+}
+/* The quick check's explanation reads like the ideas above it: lighter, with its "Right!" / "Not quite" in bold. */
+body.bio-desk .hf-guide .hf-bio-check__why:not(#hf-weight), body.bio-desk .hf-guide .hf-bio-check__why *:not(#hf-weight) { font-weight: 400 !important; }
+body.bio-desk .hf-guide .hf-bio-check__why b:not(#hf-weight), body.bio-desk .hf-guide .hf-bio-check__why b *:not(#hf-weight) { font-weight: 800 !important; }
+/* On a phone the question is lit on the paper just above the card: the card quotes two lines of it (tap for all of it)
+   and leaves it out on the quick check, so each page fits without a scroll. */
+@media (max-width: 819px) {
+  body.bio-desk .hf-guide .hf-guide__summary { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; cursor: pointer; }
+  body.bio-desk .hf-guide .hf-guide__summary.is-open { display: block; -webkit-line-clamp: unset; }
+  body.bio-desk .hf-guide:has(.bio-check-page.is-now) .hf-guide__summary { display: none; }
 }
