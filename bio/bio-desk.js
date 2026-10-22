@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-47';
+  var V = 'bio-48';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -287,15 +287,15 @@
   }
   // The examiner as the help button, in the bottom-left corner (the user: "where could you position him so ... it's like
   // you're asking for help", then "it feels like he should go to the left"; the answer sheet's examiner stands in the
-  // same corner). "Stuck? Ask me.": tapping him starts the walkthrough of the question; hovered or focused, he talks. He
+  // same corner). "Stuck? Click on me.": tapping him starts the walkthrough of the question; hovered or focused, he talks. He
   // slides down out of sight while the walkthrough or an answer sheet is open, and back up after (bio-desk.css).
   var helper = null;
   function addHelper() {
     if (helper) return;
-    helper = el('button', 'bio-logo', '<span class="bio-logo__say">Stuck? Ask me.</span><span class="bio-logo__fig" data-mood="ok">' +
+    helper = el('button', 'bio-logo', '<span class="bio-logo__say">Stuck? Click on me.</span><span class="bio-logo__fig" data-mood="ok">' +
       (window.ExamTeacher ? window.ExamTeacher.svg() : '') + '</span>');
     helper.type = 'button';
-    helper.setAttribute('aria-label', 'Stuck? Ask the examiner to walk you through this question');
+    helper.setAttribute('aria-label', 'Stuck? Click on the examiner to walk you through this question');
     helper.addEventListener('click', function () { if (current && window.ExamHyperFocus) window.ExamHyperFocus.start('question-bio-ask'); });
     ['mouseenter', 'focus'].forEach(function (t) { helper.addEventListener(t, function () { helper.classList.add('is-talking'); }); });
     ['mouseleave', 'blur'].forEach(function (t) { helper.addEventListener(t, function () { helper.classList.remove('is-talking'); }); });
