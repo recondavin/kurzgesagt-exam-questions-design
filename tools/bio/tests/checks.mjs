@@ -1,6 +1,7 @@
 // Checks the quick checks on the desk guide's slides (bio/checksNN.js, built by tools/bio/build_bio_checks.py): every
 // part of every question has one, with a short question, a right answer that isn't also among the wrong ones, three
-// wrong answers (one for true or false), none repeated, and a why. Run: node tools/bio/tests/checks.mjs
+// wrong answers (one for true or false), none repeated, a why, and a hint (at most 100 letters, not the answer itself)
+// for the examiner's help on the desk. Run: node tools/bio/tests/checks.mjs
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 global.window = {};
@@ -20,6 +21,8 @@ for (const n of [28, 29, 30, 31, 32]) {
       const tf = c.right === 'True' || c.right === 'False';
       if (!c.q || c.q.length > 110) fail(`${where}: question missing or too long`);
       if (!c.why) fail(`${where}: no why`);
+      if (!c.hint || c.hint.length > 100) fail(`${where}: hint missing or too long`);
+      if (c.hint && c.right.length < 30 && !/^(True|False)$/.test(c.right) && c.hint.toLowerCase().includes(c.right.toLowerCase())) fail(`${where}: the hint gives the answer`);
       if (c.wrong.length !== (tf ? 1 : 3)) fail(`${where}: ${c.wrong.length} wrong answers`);
       const all = [c.right, ...c.wrong].map(s => s.trim().toLowerCase());
       if (new Set(all).size !== all.length) fail(`${where}: an answer is repeated (or the right one is among the wrong)`);
