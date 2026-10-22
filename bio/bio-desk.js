@@ -287,14 +287,13 @@
   }
   // The examiner as the help, in the bottom-left corner (the user: "where could you position him so ... it's like you're
   // asking for help", "it feels like he should go to the left"; the answer sheet's examiner stands in the same corner).
-  // "Stuck? Click on me.": tapped, he explains the question himself in his speech bubble, one line at a time, without
-  // taking you anywhere (the user: "the text is supposed to come out of him not take you into what you're supposed to be
-  // shown"; tapping him used to start the walkthrough). His lines are the walkthrough's ideas in short (bio/guide.js
-  // steps: "Diffusion: high to low concentration."; the user: "make him say less stuff", so not the spoken sentences),
-  // each under its part and topic; he talks while a line types out, Next (or tapping him again)
-  // goes on, and the last line's button opens the answer sheet. He slides down out of sight while the walkthrough or an
-  // answer sheet is open, and back up after (bio-desk.css).
-  var helper = null, lines = [], at = 0, typer = 0, typing = null;
+  // "Stuck? Click on me.": tapped, he helps with the question himself in his speech bubble, part by part, without taking
+  // you anywhere (the user: "the text is supposed to come out of him not take you into what you're supposed to be
+  // shown"; tapping him used to start the walkthrough; "make him say less stuff"): a hint, then "Still don't know?" for
+  // the answer (helpParts). He talks while a line types out; tapping him again shows the answer, then the next part;
+  // the last part's button opens the answer sheet. He slides down out of sight while the walkthrough or an answer sheet
+  // is open, and back up after (bio-desk.css).
+  var helper = null, parts = [], at = 0, shown = false, typer = 0, typing = null;
   function addHelper() {
     if (!helper) {
       helper = el('div', 'bio-logo', '<div class="bio-logo__say" data-bio-say></div><button type="button" class="bio-logo__fig" data-mood="ok" ' +
@@ -302,7 +301,7 @@
       helper.addEventListener('click', function (e) {
         var b = e.target.closest('[data-bio-help]'), open = helper.classList.contains('is-helping');
         if (b) help(b.getAttribute('data-bio-help'));
-        else if (e.target.closest('.bio-logo__fig') || (!open && e.target.closest('.bio-logo__say'))) help(open ? 'next' : 'open');
+        else if (e.target.closest('.bio-logo__fig') || (!open && e.target.closest('.bio-logo__say'))) help(open ? 'tap' : 'open');
       });
       var fig = helper.querySelector('.bio-logo__fig');
       ['mouseenter', 'focus'].forEach(function (t) { fig.addEventListener(t, function () { helper.classList.add('is-talking'); }); });
@@ -312,18 +311,20 @@
     }
     help('idle');
   }
-  function helpLines() {
-    var G = window.BioGuide, out = [];
-    if (!G || !G.steps || !current) return out;
-    G.steps(current.ch, current.q).forEach(function (s, k) {
-      var p = current.q.parts[k];
-      s.bullets.forEach(function (b) { out.push({ part: p ? p.l : '', title: s.title, lab: b.b + ':', say: b.b + ': ' + b.t }); });
-    });
-    return out;
+  // For each part, a hint first, then, if you still don't know, the answer (the user: "it should be like a hint first and
+  // then 'still don't know?'"): the hint is the part's quick check's "hint" (tools/bio/checks/ch<N>.json, written to point
+  // at the answer without giving it), the answer its right answer (which the marker gives the part's marks for) and why.
+  // (A true-or-false check's why is the answer.)
+  function helpParts() {
+    var C = current && ((window.BioChecks || {})[current.ch] || {})[current.qid] || [];
+    return !current ? [] : current.q.parts.map(function (p, k) {
+      var c = C[k] || {}, tf = c.right === 'True' || c.right === 'False';
+      return { label: p.l, hint: c.hint || '', answer: (tf ? c.why : c.right) || '', why: tf ? '' : c.why || '' };
+    }).filter(function (x) { return x.answer; });
   }
   function help(what) {
     var say = helper.querySelector('[data-bio-say]');
-    if (what === 'next' && typing) { typing(); return; }
+    if (typing && (what === 'next' || what === 'tap')) { typing(); return; }
     clearInterval(typer);
     typing = null;
     if (what === 'idle' || what === 'close' || what === 'answer') {
@@ -333,29 +334,63 @@
       return;
     }
     if (what === 'open') {
-      lines = helpLines();
+      parts = helpParts();
       at = 0;
+      shown = false;
       if (current) current.asked = true;
-    } else at = Math.max(0, Math.min(lines.length - 1, at + (what === 'back' ? -1 : 1)));
+    } else if (what === 'reveal') shown = true;
+    else if (what === 'next' || what === 'back') {
+      at = Math.max(0, Math.min(parts.length - 1, at + (what === 'back' ? -1 : 1)));
+      shown = false;
+    } else if (what === 'tap') {
+      // Tapping him again: first the answer, then the next part.
+      if (!shown) shown = true;
+      else if (at < parts.length - 1) { at++; shown = false; }
+      else return;
+    }
     helper.classList.add('is-helping');
-    var L = lines[at] || { part: '', title: '', lab: '', say: 'Nothing extra from me on this one. Have a go at it.' }, last = at >= lines.length - 1;
-    say.innerHTML = '<button type="button" class="bio-help__x" data-bio-help="close" aria-label="Close">\u00d7</button>' +
-      '<p class="bio-help__about">' + esc((L.part ? L.part + '  ' : '') + L.title) + '</p><p class="bio-help__line"><span class="bio-help__full">' + said(L, L.say.length) +
-      '</span><span class="bio-help__typed" aria-live="polite"></span></p>' +
-      '<div class="bio-help__foot">' + (lines.length > 1 ? '<span class="bio-help__count">' + (at + 1) + ' of ' + lines.length + '</span>' : '<span class="bio-help__count"></span>') +
+    var P = parts[at], last = at >= parts.length - 1, x = '<button type="button" class="bio-help__x" data-bio-help="close" aria-label="Close">×</button>';
+    if (!P) {
+      say.innerHTML = x + '<p class="bio-help__line">Nothing from me on this one. Have a go at it.</p><div class="bio-help__foot"><span class="bio-help__count"></span>' +
+        '<button type="button" class="bio-help__next" data-bio-help="answer">Answer it</button></div>';
+      return;
+    }
+    // Just the part's label: its question is on the paper beside him.
+    say.innerHTML = x + '<p class="bio-help__about"><b>' + esc(P.label) + '</b></p>' +
+      typedLine('bio-help__line', 'Hint: ', P.hint || 'Have a go first.') +
+      (shown ? typedLine('bio-help__line bio-help__answer', 'Answer: ', P.answer) + (P.why ? '<p class="bio-help__why" hidden>' + esc(P.why) + '</p>' : '') :
+        '<button type="button" class="bio-help__still" data-bio-help="reveal">Still don\'t know?</button>') +
+      '<div class="bio-help__foot"><span class="bio-help__count">' + (parts.length > 1 ? 'Part ' + (at + 1) + ' of ' + parts.length : '') + '</span>' +
       (at ? '<button type="button" class="bio-help__back" data-bio-help="back">Back</button>' : '') +
-      '<button type="button" class="bio-help__next" data-bio-help="' + (last ? 'answer' : 'next') + '">' + (last ? 'Answer it' : 'Next') + '</button></div>';
-    // The whole line sits unseen underneath, so the bubble is its full size from the first letter.
-    var line = say.querySelector('.bio-help__typed'), text = L.say, i = 0;
-    typing = function () { clearInterval(typer); line.innerHTML = said(L, text.length); typing = null; helper.classList.remove('is-talking'); };
+      '<button type="button" class="bio-help__next" data-bio-help="' + (last ? 'answer' : 'next') + '">' + (last ? 'Answer it' : 'Next part') + '</button></div>';
+    var lines = say.querySelectorAll('.bio-help__typed'), why = say.querySelector('.bio-help__why');
+    if (shown) {
+      lines[0].innerHTML = said('Hint: ', P.hint || 'Have a go first.', Infinity);
+      type(lines[1], 'Answer: ', P.answer, function () { if (why) why.hidden = false; });
+    } else type(lines[0], 'Hint: ', P.hint || 'Have a go first.');
+  }
+  // A line typed out while he talks. The whole line sits unseen underneath, so the bubble is its full size from the
+  // first letter.
+  function typedLine(cls, lead, text) {
+    return '<p class="' + cls + '"><span class="bio-help__full">' + said(lead, text, Infinity) + '</span><span class="bio-help__typed" aria-live="polite"></span></p>';
+  }
+  function type(node, lead, text, done) {
+    var n = lead.length + text.length, i = 0;
+    typing = function () {
+      clearInterval(typer);
+      node.innerHTML = said(lead, text, n);
+      typing = null;
+      helper.classList.remove('is-talking');
+      if (done) done();
+    };
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { typing(); return; }
     helper.classList.add('is-talking');
-    typer = setInterval(function () { line.innerHTML = said(L, ++i); if (i >= text.length) typing(); }, 26);
+    typer = setInterval(function () { node.innerHTML = said(lead, text, ++i); if (i >= n) typing(); }, 26);
   }
-  // A line's first n letters, its idea's name in bold.
-  function said(L, n) {
-    var k = Math.min(n, L.lab.length);
-    return (k ? '<b>' + esc(L.say.slice(0, k)) + '</b>' : '') + esc(L.say.slice(k, n));
+  // The first n letters of a line, its lead ("Hint:", "Answer:") in bold.
+  function said(lead, text, n) {
+    var k = Math.min(n, lead.length);
+    return (k ? '<b>' + esc(lead.slice(0, k)) + '</b>' : '') + esc(text.slice(0, Math.max(0, n - lead.length)));
   }
   // In the walkthrough he stands in its card beside the title, as the one explaining (the user: "he should be there for
   // when I zoom in"; the corner one slides away then), and talks while the card's text types out (hyper-focus.js gives
