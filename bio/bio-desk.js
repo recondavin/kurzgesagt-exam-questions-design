@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-49';
+  var V = 'bio-50';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -289,8 +289,9 @@
   // asking for help", "it feels like he should go to the left"; the answer sheet's examiner stands in the same corner).
   // "Stuck? Click on me.": tapped, he explains the question himself in his speech bubble, one line at a time, without
   // taking you anywhere (the user: "the text is supposed to come out of him not take you into what you're supposed to be
-  // shown"; tapping him used to start the walkthrough). His lines are the walkthrough's spoken ones (bio/guide.js steps:
-  // each idea's 'say'), each under its part and topic; he talks while a line types out, Next (or tapping him again)
+  // shown"; tapping him used to start the walkthrough). His lines are the walkthrough's ideas in short (bio/guide.js
+  // steps: "Diffusion: high to low concentration."; the user: "make him say less stuff", so not the spoken sentences),
+  // each under its part and topic; he talks while a line types out, Next (or tapping him again)
   // goes on, and the last line's button opens the answer sheet. He slides down out of sight while the walkthrough or an
   // answer sheet is open, and back up after (bio-desk.css).
   var helper = null, lines = [], at = 0, typer = 0, typing = null;
@@ -316,7 +317,7 @@
     if (!G || !G.steps || !current) return out;
     G.steps(current.ch, current.q).forEach(function (s, k) {
       var p = current.q.parts[k];
-      s.bullets.forEach(function (b) { out.push({ part: p ? p.l : '', title: s.title, say: b.say || b.b + ': ' + b.t }); });
+      s.bullets.forEach(function (b) { out.push({ part: p ? p.l : '', title: s.title, lab: b.b + ':', say: b.b + ': ' + b.t }); });
     });
     return out;
   }
@@ -337,19 +338,42 @@
       if (current) current.asked = true;
     } else at = Math.max(0, Math.min(lines.length - 1, at + (what === 'back' ? -1 : 1)));
     helper.classList.add('is-helping');
-    var L = lines[at] || { part: '', title: '', say: 'Nothing extra from me on this one. Have a go at it.' }, last = at >= lines.length - 1;
+    var L = lines[at] || { part: '', title: '', lab: '', say: 'Nothing extra from me on this one. Have a go at it.' }, last = at >= lines.length - 1;
     say.innerHTML = '<button type="button" class="bio-help__x" data-bio-help="close" aria-label="Close">\u00d7</button>' +
-      '<p class="bio-help__about">' + esc((L.part ? L.part + '  ' : '') + L.title) + '</p><p class="bio-help__line"><span class="bio-help__full">' + esc(L.say) +
+      '<p class="bio-help__about">' + esc((L.part ? L.part + '  ' : '') + L.title) + '</p><p class="bio-help__line"><span class="bio-help__full">' + said(L, L.say.length) +
       '</span><span class="bio-help__typed" aria-live="polite"></span></p>' +
       '<div class="bio-help__foot">' + (lines.length > 1 ? '<span class="bio-help__count">' + (at + 1) + ' of ' + lines.length + '</span>' : '<span class="bio-help__count"></span>') +
       (at ? '<button type="button" class="bio-help__back" data-bio-help="back">Back</button>' : '') +
       '<button type="button" class="bio-help__next" data-bio-help="' + (last ? 'answer' : 'next') + '">' + (last ? 'Answer it' : 'Next') + '</button></div>';
     // The whole line sits unseen underneath, so the bubble is its full size from the first letter.
     var line = say.querySelector('.bio-help__typed'), text = L.say, i = 0;
-    typing = function () { clearInterval(typer); line.textContent = text; typing = null; helper.classList.remove('is-talking'); };
+    typing = function () { clearInterval(typer); line.innerHTML = said(L, text.length); typing = null; helper.classList.remove('is-talking'); };
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { typing(); return; }
     helper.classList.add('is-talking');
-    typer = setInterval(function () { line.textContent = text.slice(0, ++i); if (i >= text.length) typing(); }, 22);
+    typer = setInterval(function () { line.innerHTML = said(L, ++i); if (i >= text.length) typing(); }, 26);
+  }
+  // A line's first n letters, its idea's name in bold.
+  function said(L, n) {
+    var k = Math.min(n, L.lab.length);
+    return (k ? '<b>' + esc(L.say.slice(0, k)) + '</b>' : '') + esc(L.say.slice(k, n));
+  }
+  // In the walkthrough he stands in its card beside the title, as the one explaining (the user: "he should be there for
+  // when I zoom in"; the corner one slides away then), and talks while the card's text types out (hyper-focus.js gives
+  // each letter, a .hf-ch, the class 'on' as it appears).
+  function seatInGuide() {
+    var top = document.querySelector('.hf-guide .hf-guide__top');
+    if (!top || top.querySelector('.bio-guide-fig')) return;
+    var fig = el('span', 'bio-guide-fig', window.ExamTeacher ? window.ExamTeacher.svg() : ''), quiet = 0;
+    fig.setAttribute('data-mood', 'ok');
+    fig.setAttribute('aria-hidden', 'true');
+    top.insertBefore(fig, top.firstChild);
+    new MutationObserver(function (list) {
+      var typed = list.some(function (m) { return m.target.classList && m.target.classList.contains('hf-ch') && m.target.classList.contains('on'); });
+      if (!typed) return;
+      fig.classList.add('is-talking');
+      clearTimeout(quiet);
+      quiet = setTimeout(function () { fig.classList.remove('is-talking'); }, 300);
+    }).observe(top.parentNode, { subtree: true, attributes: true, attributeFilter: ['class'] });
   }
   // Buttons on the desk: back to the chapter, the question before and after, and straight to writing.
   function bar(ch, qid) {
@@ -381,6 +405,7 @@
     if (!r) { whenDeskReady().then(function () { addSwitch(false, null); }); }
     route();
     window.addEventListener('hashchange', route);
+    new MutationObserver(function () { if (document.body.classList.contains('hf-active')) seatInGuide(); }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
     document.addEventListener('hf-exit', rest);
     document.addEventListener('hf-page', function (e) {
       var card = e.target.closest && e.target.closest('.hf-guide__visual');

@@ -119,9 +119,11 @@ body.bio-desk .site-logo { display: none; }
 body .bio-logo__say, body .bio-logo__say * { font-family: Nunito, sans-serif !important; }
 body .bio-logo__say { position: absolute; left: 0; bottom: calc(100% + 14px); width: max-content; max-width: 300px; margin: 0; padding: 12px 18px; border-radius: 18px; background: #FFFFFF; color: #3C4A5E; font-size: 22px; font-weight: 800 !important; line-height: 1.25; box-shadow: 0 4px 0 rgba(92, 52, 24, .22); cursor: pointer; }
 .bio-logo__say::after { content: ""; position: absolute; left: calc(var(--w) * .5 - 8px); bottom: -7px; width: 16px; height: 16px; border-radius: 0 0 4px 0; background: #FFFFFF; transform: rotate(45deg); }
-body .bio-logo.is-helping .bio-logo__say { width: min(380px, max(28vw, 300px)); max-width: none; padding: 16px 20px 14px; cursor: default; }
+body .bio-logo.is-helping .bio-logo__say { width: max-content; min-width: 290px; max-width: min(380px, max(28vw, 300px)); padding: 16px 20px 14px; cursor: default; }
 body .bio-help__about { margin: 0 36px 6px 0; color: #7A8699; font-size: 14px; font-weight: 700 !important; line-height: 1.3; }
-body .bio-help__line { position: relative; margin: 0; color: #3C4A5E; font-size: 20px; font-weight: 700 !important; line-height: 1.4; }
+body .bio-help__line { position: relative; margin: 0; color: #3C4A5E; font-size: 22px; font-weight: 600 !important; line-height: 1.35; }
+body .bio-help__line span { font-weight: 600 !important; }
+body .bio-help__line b { font-weight: 800 !important; }
 .bio-help__full { visibility: hidden; }
 .bio-help__typed { position: absolute; inset: 0; }
 .bio-help__foot { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
@@ -135,11 +137,16 @@ body .bio-help__x { position: absolute; top: 8px; right: 8px; width: 32px; heigh
 body.hf-active .bio-logo, body:has(.am-root) .bio-logo { transform: translateY(calc(100% + 90px)); pointer-events: none; }
 body.hf-active .bio-logo.is-helping, body:has(.am-root) .bio-logo.is-helping { transform: translateY(calc(100% + 400px)); }
 body:not(.bio-desk) .bio-logo { display: none; }
+/* In the walkthrough he stands in its card beside the title (bio-desk.js seatInGuide), talking while it types. */
+body.bio-desk .hf-guide__top { --f: clamp(56px, 6vw, 96px); position: relative; box-sizing: border-box; min-height: calc(var(--f) * 1.23 + 32px); padding-left: calc(var(--f) + 30px); }
+.bio-guide-fig { position: absolute; left: 16px; top: 16px; width: var(--f); aspect-ratio: 908 / 1116; }
+body:not(.bio-desk) .bio-guide-fig { display: none; }
 @media (max-width: 700px) {
   .bio-logo { --w: 104px; left: 8px; bottom: 8px; }
   body .bio-logo__say { padding: 9px 13px; font-size: 17px; }
-  body .bio-logo.is-helping .bio-logo__say { width: calc(100vw - 16px); padding: 14px 16px 12px; }
-  body .bio-help__line { font-size: 17px; }
+  body .bio-logo.is-helping .bio-logo__say { width: calc(100vw - 16px); min-width: 0; max-width: none; padding: 14px 16px 12px; }
+  body .bio-help__line { font-size: 19px; }
+  body.bio-desk .hf-guide__top { --f: 46px; padding-left: calc(var(--f) + 26px); }
 }
 
 /* The old sheet leaving when you go to another question (bio-desk.js slide). */
