@@ -108,3 +108,8 @@ body.bio-desk .hf-guide .hf-bio-check__why b:not(#hf-weight), body.bio-desk .hf-
   body.bio-desk .hf-guide .hf-guide__summary.is-open { display: block; -webkit-line-clamp: unset; }
   body.bio-desk .hf-guide:has(.bio-check-page.is-now) .hf-guide__summary { display: none; }
 }
+/* The examiner's head on the Biology desk sits beside the paper (bio-desk.js placeLogo), not on the zooming desk, so it's
+   the same size and distance from the page on every question; it goes while the guide or a sheet is open. */
+body.bio-desk .site-logo { display: none; }
+.bio-logo { position: fixed; z-index: 3; height: auto; transform: rotate(-8deg); filter: drop-shadow(0 8px 0 rgba(92, 52, 24, .28)); pointer-events: none; }
+body:not(.bio-desk) .bio-logo, body.hf-active .bio-logo, body:has(.am-root) .bio-logo { display: none; }

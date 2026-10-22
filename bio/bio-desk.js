@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-39';
+  var V = 'bio-40';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -230,6 +230,7 @@
     fit.style.cssText = 'position:absolute;pointer-events:none;left:' + l + '%;top:' + t + '%;width:' + (r - l) + '%;height:' + (u - t) + '%';
     if (!fit.parentNode) img.parentNode.appendChild(fit);
     window.ExamHyperFocus.fit();
+    trackLogo();
     var start = document.querySelector('.geography-focus-start');
     if (start) { start.setAttribute('data-hf-start', 'question-bio'); start.textContent = 'Focus on ' + P.label.replace(/^.*Question\s+/, 'Q'); }
     var acc = document.querySelector('.geography-page-accessible');
@@ -240,6 +241,31 @@
     // Start the guide once the new page has loaded, so the camera moves over the real paper.
     var go = function () { setTimeout(function () { if (current && current.qid === qid) window.ExamHyperFocus.start('question-bio-ask'); }, 1400); };
     if (img.complete && img.naturalWidth) go(); else img.addEventListener('load', go, { once: true });
+  }
+  // The examiner's head beside the paper: the same size and the same gap to the page on every question. (The desk's own
+  // logo is part of the desk, which zooms to fit each page, so it grew, moved and got cut off from question to question.)
+  var logo = null;
+  function placeLogo() {
+    var paper = document.querySelector('.exam-paper');
+    if (!logo) {
+      logo = el('img', 'bio-logo');
+      logo.src = 'assets/examiner/teacher-head.svg?v=1';
+      logo.alt = '';
+      logo.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(logo);
+    }
+    if (!paper) return;
+    var r = paper.getBoundingClientRect(), gap = 40, room = r.left - gap - 16, w = Math.min(170, room);
+    logo.hidden = w < 96;
+    if (logo.hidden) return;
+    logo.style.width = w + 'px';
+    logo.style.left = (r.left - gap - w) + 'px';
+    logo.style.top = Math.max(72, r.top + 24) + 'px';
+  }
+  // The camera eases to each page: follow it for a second, and on every resize.
+  function trackLogo() {
+    var frames = 75;
+    (function step() { placeLogo(); if (--frames > 0) requestAnimationFrame(step); })();
   }
   // Buttons on the desk: back to the chapter, the question before and after, and straight to writing.
   function bar(ch, qid) {
@@ -271,7 +297,9 @@
     if (!r) { whenDeskReady().then(function () { addSwitch(false, null); }); }
     route();
     window.addEventListener('hashchange', route);
+    window.addEventListener('resize', function () { if (current) trackLogo(); });
     document.addEventListener('hf-exit', rest);
+    document.addEventListener('hf-exit', function () { if (current) trackLogo(); });
     document.addEventListener('hf-page', function (e) {
       var card = e.target.closest && e.target.closest('.hf-guide__visual');
       if (card && e.target.hasAttribute('data-bio-page')) showPage(card, +e.target.getAttribute('data-bio-page'));
