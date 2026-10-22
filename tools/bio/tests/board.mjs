@@ -30,7 +30,8 @@ for (const ch of [28, 29, 30, 31, 32]) {
     const home = topicOf({ q: text, right: c.right }, ch);
     board[home][0]++;
     if (/brings blood back to the heart from the lungs/.test(text) && home !== 31) fail(`${ch}/${q.id}: "${c.q}" is on a ${home} square, not Circulation`);
-    if (/\(([A-Z])\)|\b(on|in) the diagram\b/.test(text)) fail(`${ch}/${q.id} part ${k + 1} kept but points at the paper: ${text}`);
+    // A rewritten question can name its own letters ("vaccinated (A) and later infected (B)").
+    if (typeof c.board !== 'string' && /\(([A-Z])\)|\b(on|in) the diagram\b/.test(text)) fail(`${ch}/${q.id} part ${k + 1} kept but points at the paper: ${text}`);
     const p = q.parts[k], keyed = p && p.kind === 'text' ? p.pts.filter(t => t.k && !t.self).length : 0;
     if (!keyed || /^(True|False)$/.test(c.right)) return;
     typed++;
