@@ -1013,6 +1013,8 @@
   /* The logo: the examiner's head, sitting on the desk (assets/examiner/teacher-head.svg, 489 x 555). */
   .site-logo { position: absolute; left: 150px; top: 40px; width: 360px; height: 409px; z-index: 1; transform: rotate(-8deg); filter: drop-shadow(0 10px 0 rgba(92, 52, 24, .28)); transition: transform .3s cubic-bezier(.3, 1.6, .5, 1); }
   .site-logo:hover { transform: rotate(-2deg) scale(1.05); }
+  /* One teacher at a time: while an answer sheet or game is open, his full figure (answer-mode.js) is the one there. */
+  body:has(.am-root) .site-logo { opacity: 0; transition: opacity .2s ease; }
   /* Heavier, tighter type in the guide: same fonts, more solid letters. */
   body .hf-guide:not(#hf-weight), body .hf-guide *:not(#hf-weight) { font-weight: 800 !important; }
   body .hf-guide .hf-bullets:not(#hf-weight), body .hf-guide .hf-bullets *:not(#hf-weight),
