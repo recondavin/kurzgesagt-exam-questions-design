@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-44';
+  var V = 'bio-45';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -287,7 +287,8 @@
     return { left: s.left + node.offsetLeft * k, top: s.top + node.offsetTop * k, width: node.offsetWidth * k, height: node.offsetHeight * k };
   }
   // The examiner beside the paper, all of him (the user: "make this ... whole body"; it was his head), breathing and
-  // blinking: the same size and place on every question. He stands left of the left hand's fingers with his feet a
+  // blinking: the same size and place on every question, at most 240px (and 24% of the screen) tall (the user: "make
+  // him smaller"). He stands left of the left hand's fingers with his feet a
   // little below their tips (the user: "more to the left and down a bit"): there, the hand starts 37% of the way across
   // its picture, and below 70% of his height he is at most 70% of his width. Where that leaves him too small (a narrow
   // screen) he stands above the hand, beside the paper. (The desk's own logo is part of the desk, which zooms to fit
@@ -303,14 +304,17 @@
       document.body.appendChild(logo);
     }
     if (!paper || !hand) return;
-    var r = paperRect(paper), f = paperRect(hand), feet = f.top + 0.12 * f.height, fingers = f.left + 0.37 * f.width - 6;
-    var h = Math.min(320, feet - 72, (fingers - 16) / 0.7 / WIDE), left = fingers - 0.7 * h * WIDE, top = feet - h;
-    if (h < Math.max(200, 0.43 * f.height)) {
-      h = Math.min(320, f.top - 16 - 72, (r.left - 32 - 16) / WIDE);
+    // His feet go no lower than lets his stick (from 30% of his height up) clear the fingertips.
+    var r = paperRect(paper), f = paperRect(hand), fingers = f.left + 0.37 * f.width - 6, most = Math.min(240, 0.24 * window.innerHeight);
+    var h = Math.min(most, (fingers - 16) / 0.7 / WIDE), feet = f.top + Math.min(0.12 * f.height, 0.28 * h);
+    if (feet - h < 72) h = feet - 72;
+    var left = fingers - 0.7 * h * WIDE, top = feet - h;
+    if (h < 150) {
+      h = Math.min(most, f.top - 16 - 72, (r.left - 32 - 16) / WIDE);
       left = r.left - 32 - h * WIDE;
       top = f.top - 16 - h;
     }
-    logo.hidden = h < 150;
+    logo.hidden = h < 120;
     if (logo.hidden) return;
     logo.style.width = h * WIDE + 'px';
     logo.style.height = h + 'px';
