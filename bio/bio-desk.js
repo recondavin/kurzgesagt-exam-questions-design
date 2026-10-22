@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-42';
+  var V = 'bio-43';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -280,30 +280,34 @@
     (img.decode ? img.decode() : Promise.resolve()).then(go, go);
     setTimeout(go, 900);
   }
-  // Where the paper lies on the screen, leaving out a slide in progress (offsets don't count transforms).
-  function paperRect(paper) {
+  // Where a piece of the desk (the paper, a hand) lies on the screen, leaving out a slide in progress (offsets don't
+  // count transforms).
+  function paperRect(node) {
     var scene = document.querySelector('[data-hf-scene]'), s = scene.getBoundingClientRect(), k = s.width / (scene.offsetWidth || 1);
-    return { left: s.left + paper.offsetLeft * k, top: s.top + paper.offsetTop * k, width: paper.offsetWidth * k };
+    return { left: s.left + node.offsetLeft * k, top: s.top + node.offsetTop * k, width: node.offsetWidth * k };
   }
-  // The examiner's head beside the paper: the same size and the same gap to the page on every question. (The desk's own
-  // logo is part of the desk, which zooms to fit each page, so it grew, moved and got cut off from question to question.)
-  var logo = null;
+  // The examiner beside the paper, all of him (the user: "make this ... whole body"; it was his head), breathing and
+  // blinking: the same size and the same gap to the page on every question, standing between the bar at the top and the
+  // left hand. (The desk's own logo is part of the desk, which zooms to fit each page, so it grew and moved.)
+  var logo = null, WIDE = 908 / 1116;
   function placeLogo() {
-    var paper = document.querySelector('.exam-paper:not(.bio-ghost)');
+    var paper = document.querySelector('.exam-paper:not(.bio-ghost)'), hand = document.querySelector('.exam-hand-motion--left');
     if (!logo) {
-      logo = el('img', 'bio-logo');
-      logo.src = 'assets/examiner/teacher-head.svg?v=1';
-      logo.alt = '';
+      logo = el('div', 'bio-logo');
+      logo.setAttribute('data-mood', 'ok');
       logo.setAttribute('aria-hidden', 'true');
+      logo.innerHTML = window.ExamTeacher ? window.ExamTeacher.svg() : '';
       document.body.appendChild(logo);
     }
     if (!paper) return;
-    var r = paperRect(paper), gap = 40, room = r.left - gap - 16, w = Math.min(170, room);
-    logo.hidden = w < 96;
+    var r = paperRect(paper), gap = 32, floor = (hand ? paperRect(hand).top : window.innerHeight) - 16;
+    var w = Math.min(Math.min(320, floor - 72) * WIDE, r.left - gap - 16), h = w / WIDE;
+    logo.hidden = h < 150;
     if (logo.hidden) return;
     logo.style.width = w + 'px';
+    logo.style.height = h + 'px';
     logo.style.left = (r.left - gap - w) + 'px';
-    logo.style.top = Math.max(72, r.top + 24) + 'px';
+    logo.style.top = (floor - h) + 'px';
   }
   // The camera eases to each page: follow it for a second, and on every resize.
   function trackLogo() {
