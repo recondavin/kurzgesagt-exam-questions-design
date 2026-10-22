@@ -30,6 +30,7 @@ const WRONG = [
   [29, '2025-Q17c', 1, 'the hypothalamus', [0]],
   [29, '2025-Q17c', 3, 'it increases the volume of urine', [0]],
   [29, '2006-Q13b', 1, 'they are too small', [0]],
+  [28, '2009-Q13c', 2, 'asthma, treated with antibiotics', [3]],  // a bronchitis treatment, not asthma's
 ];
 let wok = 0;
 for (const [ch, id, k, text, idx] of WRONG) {
@@ -46,6 +47,8 @@ const RIGHT = [
   // Right in the student's own words (the user's answer, marked 0/6 before "produce" = "make" and "eating" = "eat").
   [30, '2015-Q11a', 0, 'heterotrophic is when an organism cannot produce its own food, omnivorous is when an animal survives by eating both other animals and plants', [0, 1]],
   [30, '2015-Q11a', 1, 'a diet with the right quantity of each kind of food', [0]],
+  // The user's answer: the disorder's prevention and treatment, marked with the disorder it belongs to.
+  [28, '2009-Q13c', 2, 'asthma, can be prevented by not breathing in dust or animal hair, can be treated with an inhaler', [0, 2, 3]],
 ];
 let rok = 0;
 for (const [ch, id, k, text, idx] of RIGHT) {

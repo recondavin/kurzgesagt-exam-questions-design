@@ -390,6 +390,52 @@ def every(*alts):
     return [{'w': a.split(), 'n': len(a.split())} for a in alts]
 
 
+# The breathing disorders a student may name, with what causes, prevents and treats each (from the schemes' answers
+# and accept lists, 2007-2019). A cause, prevention or treatment earns only with the disorder it belongs to
+# ("asthma ... inhaler"), so "asthma ... antibiotics" doesn't; where the disorder was named in another part, any of them.
+DISORDERS = {
+    'asthma': {'names': ('asthma',),
+               'cause': ('allerg', 'dust', 'pollen', 'pet', 'animal hair', 'dander', 'mite', 'smok', 'cold air', 'pollut', 'inherit', 'genet', 'constrict', 'narrow'),
+               'prevent': ('avoid', 'not breath', 'away from', 'keep clean', 'no pet', 'not smok', 'dont smok', 'no smok', 'reduc dust', 'clean dust'),
+               'treat': ('inhal', 'bronchodilat', 'steroid', 'ventolin', 'pump', 'avoid allerg')},
+    'bronchitis': {'names': ('bronchit',),
+                   'cause': ('smok', 'virus', 'viral', 'bacteri', 'infect', 'pollut', 'dust', 'particle', 'irritant', 'fume'),
+                   'prevent': ('not smok', 'dont smok', 'stop smok', 'quit smok', 'no smok', 'avoid smok', 'avoid pollut', 'avoid dust', 'mask', 'vaccin', 'wash hand'),
+                   'treat': ('antibiotic', 'inhal', 'bronchodilat', 'mucolytic', 'inflammat', 'cough medic', 'cough syrup', 'steroid', 'rest', 'fluid')},
+    'emphysema': {'names': ('emphysema', 'copd'),
+                  'cause': ('smok', 'pollut', 'dust', 'fume', 'genet', 'inherit'),
+                  'prevent': ('not smok', 'dont smok', 'stop smok', 'quit smok', 'no smok', 'avoid smok', 'avoid pollut', 'mask'),
+                  'treat': ('inhal', 'bronchodilat', 'oxygen', 'steroid', 'stop smok', 'quit smok', 'surgery', 'transplant')},
+    'pneumonia': {'names': ('pneumonia',),
+                  'cause': ('bacteri', 'virus', 'viral', 'infect', 'fung'),
+                  'prevent': ('vaccin', 'wash hand', 'hygien', 'not smok', 'dont smok'),
+                  'treat': ('antibiotic', 'antivir', 'rest', 'fluid', 'oxygen')},
+    'tuberculosis': {'names': ('tubercul', 'tb'),
+                     'cause': ('bacteri', 'mycobacter', 'infect'),
+                     'prevent': ('vaccin', 'bcg', 'pasteur'),
+                     'treat': ('antibiotic',)},
+    'lung cancer': {'names': ('lung cancer',),
+                    'cause': ('smok', 'radon', 'asbestos', 'pollut', 'carcinogen', 'tar'),
+                    'prevent': ('not smok', 'dont smok', 'stop smok', 'quit smok', 'no smok', 'avoid smok', 'avoid asbestos', 'avoid radon'),
+                    'treat': ('chemo', 'radiotherap', 'radiation', 'surgery', 'remov')},
+    'cystic fibrosis': {'names': ('cystic fibrosis',),
+                        'cause': ('gene', 'genet', 'inherit', 'mutat'),
+                        'prevent': ('genetic screen', 'genetic test', 'genetic counsel'),
+                        'treat': ('physio', 'enzyme', 'antibiotic', 'transplant', 'mucolytic')},
+}
+
+
+def disorder_named():
+    return every(*[n for d in DISORDERS.values() for n in d['names']])
+
+
+def disorder_keys(what, paired=True):
+    """Keys for a disorder's cause, prevention or treatment: with its name (paired), or any disorder's (not paired)."""
+    if not paired:
+        return every(*sorted({w for d in DISORDERS.values() for w in d[what]}))
+    return every(*[n + ' ' + w for d in DISORDERS.values() for n in d['names'] for w in d[what]])
+
+
 # Keys used by several parts: the same fact in the student's own words.
 THIN = every('wall thin', 'membrane thin', 'thin lining', 'one cell thick', '1 cell thick', 'single cell')
 MOIST = every('moist', 'wet surfac', 'wet lining', 'wet wall')
@@ -442,13 +488,10 @@ OVERRIDES = {
     # Hand-written keys (see every() above), or 'self' where the words can't pin the answer down.
     # A part's full label keys it alone ('S1-Q3c(i) 1.'); the label's first word ('S1-Q3c(i)') covers all its numbered parts.
     'points': {
-        # The disorder is named by the student, and its cause, prevention and treatment depend on which one, so those
-        # are ticked by the student.
-        '2009-Q13c(iii)': {
-            0: [{'w': [w], 'n': 1} for w in ('asthma', 'bronchit', 'emphysema', 'pneumonia', 'tubercul', 'copd')] +
-               [{'w': ['lung', 'cancer'], 'n': 2}, {'w': ['cystic', 'fibrosis'], 'n': 2}],
-            1: 'self', 2: 'self', 3: 'self'},
-        '2007-Q13c(iv)': {0: 'self', 1: 'self', 2: 'self'},  # same: the scheme's keys were just "cause" and "treat"
+        # The disorder is named by the student; its cause, prevention and treatment earn with that disorder (DISORDERS).
+        '2009-Q13c(iii)': {0: disorder_named(), 1: disorder_keys('cause'), 2: disorder_keys('prevent'), 3: disorder_keys('treat')},
+        # Here the disorder was named in (iii), so any disorder's cause, prevention or treatment earns.
+        '2007-Q13c(iv)': {0: disorder_keys('cause', False), 1: disorder_keys('prevent', False), 2: disorder_keys('treat', False)},
         'S1-Q3a(iii)': {0: THIN + every('short distanc', 'short diffu'), 2: MOIST + every('gas dissolv', 'oxygen dissolv', 'dissolv lining'),
                         3: CAPS + CLOSE},
         # High/Low in a table: the words of a right answer and of its mirror image are the same, so the student ticks.
