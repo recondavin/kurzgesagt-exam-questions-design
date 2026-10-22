@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-48';
+  var V = 'bio-49';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -243,7 +243,7 @@
     bar(ch, qid);
     addSwitch(true, ch);
     // Start the guide once the new page has loaded, so the camera moves over the real paper.
-    var go = function () { setTimeout(function () { if (current && current.qid === qid) window.ExamHyperFocus.start('question-bio-ask'); }, 1400); };
+    var go = function () { setTimeout(function () { if (current && current.qid === qid && !current.asked) window.ExamHyperFocus.start('question-bio-ask'); }, 1400); };
     if (img.complete && img.naturalWidth) go(); else img.addEventListener('load', go, { once: true });
   }
   // Going to the next question slides the sheets across the desk: the old one out to the left and the new one in from
@@ -285,21 +285,71 @@
     var scene = document.querySelector('[data-hf-scene]'), s = scene.getBoundingClientRect(), k = s.width / (scene.offsetWidth || 1);
     return { left: s.left + node.offsetLeft * k, top: s.top + node.offsetTop * k, width: node.offsetWidth * k };
   }
-  // The examiner as the help button, in the bottom-left corner (the user: "where could you position him so ... it's like
-  // you're asking for help", then "it feels like he should go to the left"; the answer sheet's examiner stands in the
-  // same corner). "Stuck? Click on me.": tapping him starts the walkthrough of the question; hovered or focused, he talks. He
-  // slides down out of sight while the walkthrough or an answer sheet is open, and back up after (bio-desk.css).
-  var helper = null;
+  // The examiner as the help, in the bottom-left corner (the user: "where could you position him so ... it's like you're
+  // asking for help", "it feels like he should go to the left"; the answer sheet's examiner stands in the same corner).
+  // "Stuck? Click on me.": tapped, he explains the question himself in his speech bubble, one line at a time, without
+  // taking you anywhere (the user: "the text is supposed to come out of him not take you into what you're supposed to be
+  // shown"; tapping him used to start the walkthrough). His lines are the walkthrough's spoken ones (bio/guide.js steps:
+  // each idea's 'say'), each under its part and topic; he talks while a line types out, Next (or tapping him again)
+  // goes on, and the last line's button opens the answer sheet. He slides down out of sight while the walkthrough or an
+  // answer sheet is open, and back up after (bio-desk.css).
+  var helper = null, lines = [], at = 0, typer = 0, typing = null;
   function addHelper() {
-    if (helper) return;
-    helper = el('button', 'bio-logo', '<span class="bio-logo__say">Stuck? Click on me.</span><span class="bio-logo__fig" data-mood="ok">' +
-      (window.ExamTeacher ? window.ExamTeacher.svg() : '') + '</span>');
-    helper.type = 'button';
-    helper.setAttribute('aria-label', 'Stuck? Click on the examiner to walk you through this question');
-    helper.addEventListener('click', function () { if (current && window.ExamHyperFocus) window.ExamHyperFocus.start('question-bio-ask'); });
-    ['mouseenter', 'focus'].forEach(function (t) { helper.addEventListener(t, function () { helper.classList.add('is-talking'); }); });
-    ['mouseleave', 'blur'].forEach(function (t) { helper.addEventListener(t, function () { helper.classList.remove('is-talking'); }); });
-    document.body.appendChild(helper);
+    if (!helper) {
+      helper = el('div', 'bio-logo', '<div class="bio-logo__say" data-bio-say></div><button type="button" class="bio-logo__fig" data-mood="ok" ' +
+        'aria-label="Ask the examiner about this question">' + (window.ExamTeacher ? window.ExamTeacher.svg() : '') + '</button>');
+      helper.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-bio-help]'), open = helper.classList.contains('is-helping');
+        if (b) help(b.getAttribute('data-bio-help'));
+        else if (e.target.closest('.bio-logo__fig') || (!open && e.target.closest('.bio-logo__say'))) help(open ? 'next' : 'open');
+      });
+      var fig = helper.querySelector('.bio-logo__fig');
+      ['mouseenter', 'focus'].forEach(function (t) { fig.addEventListener(t, function () { helper.classList.add('is-talking'); }); });
+      ['mouseleave', 'blur'].forEach(function (t) { fig.addEventListener(t, function () { if (!typing) helper.classList.remove('is-talking'); }); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && helper.classList.contains('is-helping')) help('close'); });
+      document.body.appendChild(helper);
+    }
+    help('idle');
+  }
+  function helpLines() {
+    var G = window.BioGuide, out = [];
+    if (!G || !G.steps || !current) return out;
+    G.steps(current.ch, current.q).forEach(function (s, k) {
+      var p = current.q.parts[k];
+      s.bullets.forEach(function (b) { out.push({ part: p ? p.l : '', title: s.title, say: b.say || b.b + ': ' + b.t }); });
+    });
+    return out;
+  }
+  function help(what) {
+    var say = helper.querySelector('[data-bio-say]');
+    if (what === 'next' && typing) { typing(); return; }
+    clearInterval(typer);
+    typing = null;
+    if (what === 'idle' || what === 'close' || what === 'answer') {
+      helper.classList.remove('is-helping', 'is-talking');
+      say.textContent = 'Stuck? Click on me.';
+      if (what === 'answer') write();
+      return;
+    }
+    if (what === 'open') {
+      lines = helpLines();
+      at = 0;
+      if (current) current.asked = true;
+    } else at = Math.max(0, Math.min(lines.length - 1, at + (what === 'back' ? -1 : 1)));
+    helper.classList.add('is-helping');
+    var L = lines[at] || { part: '', title: '', say: 'Nothing extra from me on this one. Have a go at it.' }, last = at >= lines.length - 1;
+    say.innerHTML = '<button type="button" class="bio-help__x" data-bio-help="close" aria-label="Close">\u00d7</button>' +
+      '<p class="bio-help__about">' + esc((L.part ? L.part + '  ' : '') + L.title) + '</p><p class="bio-help__line"><span class="bio-help__full">' + esc(L.say) +
+      '</span><span class="bio-help__typed" aria-live="polite"></span></p>' +
+      '<div class="bio-help__foot">' + (lines.length > 1 ? '<span class="bio-help__count">' + (at + 1) + ' of ' + lines.length + '</span>' : '<span class="bio-help__count"></span>') +
+      (at ? '<button type="button" class="bio-help__back" data-bio-help="back">Back</button>' : '') +
+      '<button type="button" class="bio-help__next" data-bio-help="' + (last ? 'answer' : 'next') + '">' + (last ? 'Answer it' : 'Next') + '</button></div>';
+    // The whole line sits unseen underneath, so the bubble is its full size from the first letter.
+    var line = say.querySelector('.bio-help__typed'), text = L.say, i = 0;
+    typing = function () { clearInterval(typer); line.textContent = text; typing = null; helper.classList.remove('is-talking'); };
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { typing(); return; }
+    helper.classList.add('is-talking');
+    typer = setInterval(function () { line.textContent = text.slice(0, ++i); if (i >= text.length) typing(); }, 22);
   }
   // Buttons on the desk: back to the chapter, the question before and after, and straight to writing.
   function bar(ch, qid) {
