@@ -1,6 +1,6 @@
-// Checks the trivia board's questions (bio/bio-board.js): it leaves out quick checks that need the exam paper (its
-// diagram, a table, an earlier part, a letter on a diagram) by the same rule the game uses, still has plenty in every
-// chapter, and every typed (wedge) question's own right answer earns the points it asks for, marked like the sheet.
+// Checks the trivia board's questions (bio/bio-board.js): every quick check says whether it makes sense alone
+// ("board": true, false, or the question rewritten with the context it needs; the user: "make them all make sense"),
+// what's left still has plenty in every chapter, and every typed (wedge) question's own right answer earns the points it asks for, marked like the sheet.
 // Questions sit on the board under what they're about (topicOf): a question on the pulmonary vein filed under
 // Breathing is a Circulation question.
 // Run: node tools/bio/tests/board.mjs
@@ -22,12 +22,15 @@ const fail = msg => { fails++; console.log('   FAIL', msg); };
 for (const ch of [28, 29, 30, 31, 32]) {
   let mc = 0, typed = 0;
   for (const q of window.BioQuestions[ch].questions) (window.BioChecks[ch][q.id] || []).forEach((c, k) => {
-    if (needsPaper(c)) return;
+    if (!('board' in c)) fail(`${ch}/${q.id} part ${k + 1}: no "board" (does it make sense alone?)`);
+    if (c.board === false || (c.board == null && needsPaper(c))) return;
+    const text = typeof c.board === 'string' ? c.board : c.q;
+    if (typeof c.board === 'string' && (c.board.length < 10 || c.board.length > 160)) fail(`${ch}/${q.id} part ${k + 1}: board question length ${c.board.length}`);
     mc++;
-    const home = topicOf(c, ch);
+    const home = topicOf({ q: text, right: c.right }, ch);
     board[home][0]++;
-    if (/brings blood back to the heart from the lungs/.test(c.q) && home !== 31) fail(`${ch}/${q.id}: "${c.q}" is on a ${home} square, not Circulation`);
-    if (/\(([A-Z])\)|\b(on|in) the diagram\b/.test(c.q)) fail(`${ch}/${q.id} part ${k + 1} kept but points at the paper: ${c.q}`);
+    if (/brings blood back to the heart from the lungs/.test(text) && home !== 31) fail(`${ch}/${q.id}: "${c.q}" is on a ${home} square, not Circulation`);
+    if (/\(([A-Z])\)|\b(on|in) the diagram\b/.test(text)) fail(`${ch}/${q.id} part ${k + 1} kept but points at the paper: ${text}`);
     const p = q.parts[k], keyed = p && p.kind === 'text' ? p.pts.filter(t => t.k && !t.self).length : 0;
     if (!keyed || /^(True|False)$/.test(c.right)) return;
     typed++;

@@ -8,7 +8,7 @@
 //              question and its answer. Right, he goes again (three at most).
 //   Winning    All five wedges, then a final typed question from any chapter on your next turn.
 // The questions are the quick checks (tools/bio/checks/ch<N>.json, bio/checks<N>.js), only ones that make sense
-// without the exam paper's diagram. A typed answer is marked like the answer sheet (BioApp.check against the part's
+// without the exam paper (each check's "board": true, false, or the question rewritten with the context it needs). A typed answer is marked like the answer sheet (BioApp.check against the part's
 // scheme keys) and needs as many points as the check promises ("(2 points)"); checkmark.mjs proves each check's own
 // answer earns them.
 (function () {
@@ -79,13 +79,16 @@
       var Q = ((window.BioQuestions || {})[src] || {}).questions || [], C = (window.BioChecks || {})[src] || {};
       Q.forEach(function (q) {
         (C[q.id] || []).forEach(function (c, k) {
-          if (needsPaper(c)) return;
-          var ch = topicOf(c, src), item = { ch: ch, src: src, qid: q.id, k: k, c: c };
+          // Each check says whether it makes sense alone ("board": true, false, or the question rewritten with the bit of
+          // the exam question it needs; checked by hand for every check). Without that, the filter decides.
+          if (c.board === false || (c.board == null && needsPaper(c))) return;
+          var text = typeof c.board === 'string' ? c.board : c.q;
+          var ch = topicOf({ q: text, right: c.right }, src), item = { ch: ch, src: src, qid: q.id, k: k, c: c, text: text };
           P[ch].mc.push(item);
           var p = q.parts[k], keyed = p && p.kind === 'text' ? p.pts.filter(function (t) { return t.k && !t.self; }).length : 0;
           if (keyed && !/^(True|False)$/.test(c.right)) {
             var m = c.q.match(/\((\d) points\)$/);
-            P[ch].typed.push({ ch: ch, src: src, qid: q.id, k: k, c: c, want: Math.min(m ? +m[1] : 1, keyed, p.n || 1) });
+            P[ch].typed.push({ ch: ch, src: src, qid: q.id, k: k, c: c, text: text, want: Math.min(m ? +m[1] : 1, keyed, p.n || 1) });
           }
         });
       });
@@ -232,7 +235,7 @@
     G.phase = 'ask';
     G.item = item;
     var opts = shuffle([item.c.right].concat(item.c.wrong));
-    panel(chip(ch) + '<p class="tb-q">' + esc(item.c.q) + '</p><div class="tb-opts">' + opts.map(function (o) {
+    panel(chip(ch) + '<p class="tb-q">' + esc(item.text) + '</p><div class="tb-opts">' + opts.map(function (o) {
       return '<button type="button" class="tb-opt" data-tb-opt="' + esc(o) + '">' + esc(o) + '</button>';
     }).join('') + '</div><p class="tb-why" data-tb-why hidden></p>');
   }
@@ -257,7 +260,7 @@
     G.phase = 'ask';
     G.item = item;
     G.kind = why;
-    panel(chip(ch, why === 'final' ? 'Final question' : 'Wedge question') + '<p class="tb-q">' + esc(item.c.q) + '</p>' +
+    panel(chip(ch, why === 'final' ? 'Final question' : 'Wedge question') + '<p class="tb-q">' + esc(item.text) + '</p>' +
       '<textarea class="tb-text" data-tb-text rows="3" placeholder="Type your answer" aria-label="Your answer"></textarea>' +
       '<div class="tb-row"><button type="button" class="tb-btn tb-btn--go" data-tb-check>Check</button><button type="button" class="tb-btn tb-btn--ghost" data-tb-dunno>I don\'t know</button></div>' +
       '<div class="tb-result" data-tb-result hidden></div>');
@@ -325,7 +328,7 @@
   function hisAnswer(ch, kind) {
     var typed = kind === 'final' || kind === true, item = nextQ(ch, typed) || nextQ(ch, false);
     var odds = kind === 'final' ? 0.4 : typed ? 0.5 : 0.65, ok = Math.random() < odds;
-    panel(chip(ch, kind === 'final' ? 'His final question' : typed ? 'His wedge question' : 'His question') + '<p class="tb-q">' + esc(item ? item.c.q : '') + '</p>' +
+    panel(chip(ch, kind === 'final' ? 'His final question' : typed ? 'His wedge question' : 'His question') + '<p class="tb-q">' + esc(item ? item.text : '') + '</p>' +
       '<p class="tb-say tb-think">He thinks…</p>');
     wait(function () {
       var p = G.card.querySelector('[data-tb-panel]');
