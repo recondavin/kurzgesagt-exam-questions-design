@@ -35,6 +35,8 @@ export const ROOM = {
 
 // You arrive on the bus at the west end of the village. Máirín has the oral practice and Peadar runs the shop,
 // where you buy something in Irish; the rest say hello (their lines are in story.ink, talk_<id>).
+// wander: places a person strolls between (spots) or an area they stroll round (orals/engine/world.js); they stop
+// when you come close, so you can talk to them.
 export const PEOPLE = {
   player: {
     name: 'Tusa',
@@ -51,12 +53,16 @@ export const PEOPLE = {
     name: 'Aoife',
     role: 'dalta',
     at: [-12, 8.0], face: -Math.PI / 2,
+    // Up and down the street between the bus stop, the shop and Máirín's.
+    wander: { spots: [[-12, 8.0], [-17.5, 7.6], [-22.5, 7.8], [-6, 8.2], [-1.5, 7.8]] },
     look: { skin: '#F0C7A8', hair: '#7A3B22', hairStyle: 'long', top: '#B85C45', bottom: '#3C4F6B', shoes: '#ECE8DF', bag: '#4E6E64', height: 1.27 },
   },
   cormac: {
     name: 'Cormac',
     role: 'dalta',
     at: [12, 19], face: 0,
+    // On the pier and the beach either side of it.
+    wander: { spots: [[12, 19], [12, 14.5], [7, 13.4], [17, 13.0], [20, 13.4]] },
     look: { skin: '#D9A07E', hair: '#2B2420', hairStyle: 'short', top: '#4E7A52', bottom: '#5B6878', shoes: '#3B3632', hood: true, height: 1.32 },
   },
   // At the till in the shop (orals/ga/shop.js, a room standing at 0, 70); customers stand at talkAt, across it.
@@ -70,6 +76,40 @@ export const PEOPLE = {
     name: 'Bríd',
     role: 'an múinteoir',
     at: [16.6, 3.6], face: 0,
+    // In front of the college.
+    wander: { spots: [[16.6, 3.6], [12, 3.6], [19.5, 3.8], [15, 4.2]], speed: 0.9 },
     look: { skin: '#EDC3A2', hair: '#3A2A20', hairStyle: 'bun', top: '#7C4A6B', collar: '#E9E2D2', bottom: '#3B3632', shoes: '#2F2B28', glasses: '#3A3532', height: 1.27 },
+  },
+  // The GAA coach, out on the pitch.
+  tomas: {
+    name: 'Tomás',
+    role: 'traenálaí',
+    at: [50, -16], face: 0,
+    wander: { area: [45, -24, 65, -13], speed: 1.3 },
+    look: { skin: '#E0AA86', hair: '#5A3F2E', hairStyle: 'short', top: '#2F7D4F', bottom: '#2B2420', shoes: '#ECE8DF', height: 1.34 },
+  },
+  // Nóra runs the café, between its door and the tables outside.
+  nora: {
+    name: 'Nóra',
+    role: 'bean an chaifé',
+    at: [54.5, 3.5], face: 0,
+    wander: { spots: [[54.5, 3.4], [53.5, 3.3], [55.6, 3.3]], speed: 0.8 },
+    look: { skin: '#EDC3A2', hair: '#8A4B2E', hairStyle: 'bun', top: '#B85C45', bottom: '#3B3632', shoes: '#2F2B28', apron: '#F4F1EA', height: 1.25 },
+  },
+  // A fisherman on the way out to the lighthouse.
+  seosamh: {
+    name: 'Seosamh',
+    role: 'iascaire',
+    at: [62, 12.5], face: 0,
+    wander: { spots: [[62, 12.5], [61.2, 15.2], [64.5, 15.2], [60.5, 11.8], [64.5, 12.6]], speed: 0.8 },
+    look: { skin: '#D9A07E', hair: '#D9D5CB', hairStyle: 'short', top: '#E3B83A', bottom: '#2F3438', shoes: '#2A2622', height: 1.3 },
+  },
+  // Máirín's granddaughter, in the playground.
+  ciara: {
+    name: 'Ciara',
+    role: 'páiste',
+    at: [37.5, -5], face: 0,
+    wander: { area: [34.4, -8.6, 39.2, -4.4], speed: 1.2 },
+    look: { skin: '#F0C7A8', hair: '#C9852F', hairStyle: 'long', top: '#B07CC6', bottom: '#3C4F6B', shoes: '#E25C5C', height: 0.98 },
   },
 };
