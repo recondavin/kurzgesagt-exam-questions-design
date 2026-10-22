@@ -108,11 +108,22 @@ body.bio-desk .hf-guide .hf-bio-check__why b:not(#hf-weight), body.bio-desk .hf-
   body.bio-desk .hf-guide .hf-guide__summary.is-open { display: block; -webkit-line-clamp: unset; }
   body.bio-desk .hf-guide:has(.bio-check-page.is-now) .hf-guide__summary { display: none; }
 }
-/* The examiner's head on the Biology desk sits beside the paper (bio-desk.js placeLogo), not on the zooming desk, so it's
-   the same size and distance from the page on every question; it goes while the guide or a sheet is open. */
+/* The examiner as the help button, bottom left (bio-desk.js addHelper), in place of the desk's own logo: "Stuck? Ask
+   me." He slides down out of sight while the guide or a sheet is open (the sheet's examiner comes up in the same
+   corner) and back up after. */
 body.bio-desk .site-logo { display: none; }
-.bio-logo { position: fixed; z-index: 3; filter: drop-shadow(0 8px 0 rgba(92, 52, 24, .28)); pointer-events: none; }
-body:not(.bio-desk) .bio-logo, body.hf-active .bio-logo, body:has(.am-root) .bio-logo { display: none; }
+.bio-logo { --w: min(150px, 17vh); position: fixed; z-index: 55; left: 14px; bottom: 10px; width: var(--w); padding: 0; border: 0; background: none; cursor: pointer; transition: transform .55s cubic-bezier(.3, 1.3, .5, 1); }
+.bio-logo__fig { display: block; aspect-ratio: 908 / 1116; filter: drop-shadow(0 6px 0 rgba(92, 52, 24, .28)); transition: transform .2s ease; }
+.bio-logo:hover .bio-logo__fig, .bio-logo:focus-visible .bio-logo__fig { transform: translateY(-6px); }
+.bio-logo:focus-visible { outline: 3px solid #FFE14D; outline-offset: 4px; border-radius: 12px; }
+body .bio-logo__say { position: absolute; left: 0; bottom: calc(100% + 12px); width: max-content; max-width: 220px; padding: 10px 15px; border-radius: 16px; background: #FFFFFF; color: #3C4A5E; font: 700 16px/1.3 Nunito, sans-serif !important; box-shadow: 0 4px 0 rgba(92, 52, 24, .22); }
+.bio-logo__say::after { content: ""; position: absolute; left: calc(var(--w) * .5 - 8px); bottom: -7px; width: 16px; height: 16px; border-radius: 0 0 4px 0; background: #FFFFFF; transform: rotate(45deg); }
+body.hf-active .bio-logo, body:has(.am-root) .bio-logo { transform: translateY(calc(100% + 90px)); pointer-events: none; }
+body:not(.bio-desk) .bio-logo { display: none; }
+@media (max-width: 700px) {
+  .bio-logo { --w: 84px; left: 8px; bottom: 8px; }
+  body .bio-logo__say { padding: 8px 12px; font-size: 14px !important; }
+}
 
 /* The old sheet leaving when you go to another question (bio-desk.js slide). */
 .bio-ghost { pointer-events: none; }

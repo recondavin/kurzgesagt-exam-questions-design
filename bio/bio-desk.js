@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-45';
+  var V = 'bio-46';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -234,7 +234,7 @@
     fit.style.cssText = 'position:absolute;pointer-events:none;left:0;top:0;width:100%;height:100%';
     if (!fit.parentNode) img.parentNode.appendChild(fit);
     window.ExamHyperFocus.fit();
-    trackLogo();
+    addHelper();
     var start = document.querySelector('.geography-focus-start');
     if (start) { start.setAttribute('data-hf-start', 'question-bio'); start.textContent = 'Focus on ' + P.label.replace(/^.*Question\s+/, 'Q'); }
     var acc = document.querySelector('.geography-page-accessible');
@@ -280,51 +280,26 @@
     (img.decode ? img.decode() : Promise.resolve()).then(go, go);
     setTimeout(go, 900);
   }
-  // Where a piece of the desk (the paper, a hand) lies on the screen, leaving out a slide in progress (offsets don't
-  // count transforms).
+  // Where the paper lies on the screen, leaving out a slide in progress (offsets don't count transforms).
   function paperRect(node) {
     var scene = document.querySelector('[data-hf-scene]'), s = scene.getBoundingClientRect(), k = s.width / (scene.offsetWidth || 1);
-    return { left: s.left + node.offsetLeft * k, top: s.top + node.offsetTop * k, width: node.offsetWidth * k, height: node.offsetHeight * k };
+    return { left: s.left + node.offsetLeft * k, top: s.top + node.offsetTop * k, width: node.offsetWidth * k };
   }
-  // The examiner beside the paper, all of him (the user: "make this ... whole body"; it was his head), breathing and
-  // blinking: the same size and place on every question, at most 240px (and 24% of the screen) tall (the user: "make
-  // him smaller"). He stands left of the left hand's fingers with his feet a
-  // little below their tips (the user: "more to the left and down a bit"): there, the hand starts 37% of the way across
-  // its picture, and below 70% of his height he is at most 70% of his width. Where that leaves him too small (a narrow
-  // screen) he stands above the hand, beside the paper. (The desk's own logo is part of the desk, which zooms to fit
-  // each page, so it grew and moved.)
-  var logo = null, WIDE = 908 / 1116;
-  function placeLogo() {
-    var paper = document.querySelector('.exam-paper:not(.bio-ghost)'), hand = document.querySelector('.exam-hand-motion--left');
-    if (!logo) {
-      logo = el('div', 'bio-logo');
-      logo.setAttribute('data-mood', 'ok');
-      logo.setAttribute('aria-hidden', 'true');
-      logo.innerHTML = window.ExamTeacher ? window.ExamTeacher.svg() : '';
-      document.body.appendChild(logo);
-    }
-    if (!paper || !hand) return;
-    // His feet go no lower than lets his stick (from 30% of his height up) clear the fingertips.
-    var r = paperRect(paper), f = paperRect(hand), fingers = f.left + 0.37 * f.width - 6, most = Math.min(240, 0.24 * window.innerHeight);
-    var h = Math.min(most, (fingers - 16) / 0.7 / WIDE), feet = f.top + Math.min(0.12 * f.height, 0.28 * h);
-    if (feet - h < 72) h = feet - 72;
-    var left = fingers - 0.7 * h * WIDE, top = feet - h;
-    if (h < 150) {
-      h = Math.min(most, f.top - 16 - 72, (r.left - 32 - 16) / WIDE);
-      left = r.left - 32 - h * WIDE;
-      top = f.top - 16 - h;
-    }
-    logo.hidden = h < 120;
-    if (logo.hidden) return;
-    logo.style.width = h * WIDE + 'px';
-    logo.style.height = h + 'px';
-    logo.style.left = left + 'px';
-    logo.style.top = top + 'px';
-  }
-  // The camera eases to each page: follow it for a second, and on every resize.
-  function trackLogo() {
-    var frames = 75;
-    (function step() { placeLogo(); if (--frames > 0) requestAnimationFrame(step); })();
+  // The examiner as the help button, in the bottom-left corner (the user: "where could you position him so ... it's like
+  // you're asking for help", then "it feels like he should go to the left"; the answer sheet's examiner stands in the
+  // same corner). "Stuck? Ask me.": tapping him starts the walkthrough of the question; hovered or focused, he talks. He
+  // slides down out of sight while the walkthrough or an answer sheet is open, and back up after (bio-desk.css).
+  var helper = null;
+  function addHelper() {
+    if (helper) return;
+    helper = el('button', 'bio-logo', '<span class="bio-logo__say">Stuck? Ask me.</span><span class="bio-logo__fig" data-mood="ok">' +
+      (window.ExamTeacher ? window.ExamTeacher.svg() : '') + '</span>');
+    helper.type = 'button';
+    helper.setAttribute('aria-label', 'Stuck? Ask the examiner to walk you through this question');
+    helper.addEventListener('click', function () { if (current && window.ExamHyperFocus) window.ExamHyperFocus.start('question-bio-ask'); });
+    ['mouseenter', 'focus'].forEach(function (t) { helper.addEventListener(t, function () { helper.classList.add('is-talking'); }); });
+    ['mouseleave', 'blur'].forEach(function (t) { helper.addEventListener(t, function () { helper.classList.remove('is-talking'); }); });
+    document.body.appendChild(helper);
   }
   // Buttons on the desk: back to the chapter, the question before and after, and straight to writing.
   function bar(ch, qid) {
@@ -356,9 +331,7 @@
     if (!r) { whenDeskReady().then(function () { addSwitch(false, null); }); }
     route();
     window.addEventListener('hashchange', route);
-    window.addEventListener('resize', function () { if (current) trackLogo(); });
     document.addEventListener('hf-exit', rest);
-    document.addEventListener('hf-exit', function () { if (current) trackLogo(); });
     document.addEventListener('hf-page', function (e) {
       var card = e.target.closest && e.target.closest('.hf-guide__visual');
       if (card && e.target.hasAttribute('data-bio-page')) showPage(card, +e.target.getAttribute('data-bio-page'));
