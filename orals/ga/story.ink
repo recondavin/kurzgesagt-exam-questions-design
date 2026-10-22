@@ -61,3 +61,39 @@ peadar: Trí euro caoga, le do thoil. #en:Three euro fifty, please.
 brid: Dia duit! Is mise Bríd, an múinteoir. #en:Hello! I'm Bríd, the teacher.
 brid: Beidh ranganna againn sa choláiste amárach. Ná bí déanach! #en:We'll have classes in the college tomorrow. Don't be late!
 -> DONE
+
+// ---------------------------------------------------------------- the east of the village
+=== talk_tomas ===
+tomas: Dia duit! Is mise Tomás, an traenálaí. #en:Hello! I'm Tomás, the coach.
+tomas: An imríonn tú peil? #en:Do you play football?
+* [Imrím.] #en:I do.
+    tomas: Togha! Bíonn traenáil againn anseo gach Céadaoin. #en:Great! We have training here every Wednesday.
+* [Ní imrím.] #en:I don't.
+    tomas: Ná bí buartha. Tar chuig an bpáirc am ar bith! #en:Don't worry. Come down to the pitch any time!
+- -> DONE
+
+=== talk_nora ===
+nora: Dia duit, a stór! Fáilte go dtí an caifé. #en:Hello, love! Welcome to the café.
+nora: Ar mhaith leat cupán tae? #en:Would you like a cup of tea?
+* [Ba mhaith, go raibh maith agat.] #en:Yes, thank you.
+    nora: Seo duit. Bí cúramach, tá sé te! #en:Here you are. Careful, it's hot!
+* [Níor mhaith, go raibh maith agat.] #en:No, thank you.
+    nora: Ceart go leor. Feicfidh mé ar ball thú. #en:All right. I'll see you later.
+- -> DONE
+
+=== talk_seosamh ===
+seosamh: Dia duit! Is iascaire mé. #en:Hello! I'm a fisherman.
+seosamh: Bhí mé amuigh ar an bhfarraige ó mhaidin. #en:I've been out on the sea since this morning.
+seosamh: Tá an teach solais sin ann le céad bliain. #en:That lighthouse has been there for a hundred years.
+seosamh: Bí cúramach ar na carraigeacha! #en:Be careful on the rocks!
+-> DONE
+
+=== talk_ciara ===
+ciara: Haigh! Is mise Ciara. Tá mé ocht mbliana d'aois. #en:Hi! I'm Ciara. I'm eight years old.
+ciara: An bhfuil tú ag fanacht le Máirín? #en:Are you staying with Máirín?
+* [Tá.] #en:I am.
+    ciara: Is í mo mhamó í! #en:She's my granny!
+* [Níl.] #en:I'm not.
+    ciara: Ó! Is í Máirín mo mhamó. #en:Oh! Máirín is my granny.
+- ciara: Slán! #en:Bye!
+-> DONE

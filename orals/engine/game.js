@@ -16,7 +16,7 @@
 // Nothing is forced: the game opens in the room to walk about, and a conversation can be left at any time (the
 // ✕ or Esc); talking to the same person again carries on from the question that was left. Opening the game
 // again also starts with walking about. The student's name and county are asked the first time they talk.
-import { createWorld } from './world.js?v=walk-1';
+import { createWorld } from './world.js?v=walk-2';
 import { createTalk } from './talk.js?v=oral-9';
 import { createMarker } from './marker.js?v=oral-9';
 import { createSound } from './sound.js?v=oral-9';
@@ -151,6 +151,8 @@ export function startGame(pack) {
     try { side.ChoosePathString('talk_' + id); } catch (e) { return; }
     const g = ++chatGen;
     chatting = id;
+    // Someone out walking stops for the chat.
+    world.hold(id, true);
     world.setRoam(false);
     showHint('');
     await new Promise(done => world.approach(world.player, world.people[id], done));
@@ -169,7 +171,10 @@ export function startGame(pack) {
         if (g !== chatGen) return;
         speaking(null);
       } else if (side.currentChoices.length) {
-        const i = await talk.choose(lastSide, side.currentChoices.map(c => ({ ga: c.text, en: (pack.english && pack.english[c.text]) || '' })));
+        const i = await talk.choose(lastSide, side.currentChoices.map(c => {
+          const tag = (c.tags || []).find(t => t.startsWith('en:'));
+          return { ga: c.text, en: tag ? tag.slice(3).trim() : (pack.english && pack.english[c.text]) || '' };
+        }));
         if (g !== chatGen) return;
         side.ChooseChoiceIndex(i);
       } else break;
@@ -190,6 +195,7 @@ export function startGame(pack) {
     if (!seen.includes(q.id)) store.set(pack.key + '-side', seen.concat(q.id));
   }
   function endChat() {
+    if (chatting) world.hold(chatting, false);
     chatting = null;
     speaking(null);
     talk.hideSheet();

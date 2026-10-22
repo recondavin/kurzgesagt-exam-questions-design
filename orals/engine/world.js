@@ -8,7 +8,7 @@
 // `follow`): the room stands far off, you're moved there going through the door, and the camera follows you round it.
 import * as THREE from '../../lib/three.module.min.js';
 import { buildRoom } from './room.js';
-import { buildLand } from './land.js?v=walk-1';
+import { buildLand } from './land.js?v=walk-2';
 import { person, animate } from './people.js?v=walk-1';
 import { makeNav } from './nav.js?v=walk-1';
 
@@ -89,6 +89,14 @@ export function createWorld(canvas, pack) {
     people[id] = p;
   }
   const player = people.player;
+  // People who stroll about (spec.wander: { spots: [[x, z], ...] } or { area: [x0, z0, x1, z1] }, and speed),
+  // pausing a few seconds at each place.
+  for (const [id, spec] of Object.entries(pack.people)) if (spec.wander && id !== 'player') {
+    const p = people[id];
+    p.wander = spec.wander;
+    p.wanderWait = 1 + Math.random() * 4;
+    p.speed = spec.wander.speed || 1.1;
+  }
   if (land) land.setNavigation(outdoorBlocks, () => Object.values(people).map(p => ({ x: p.root.position.x, z: p.root.position.z, r: p.radius })));
   // Paths are a plan, not permission to pass through something that moves into the way later.
   for (const p of Object.values(people)) p.canMove = (x, z) => {
@@ -385,6 +393,29 @@ export function createWorld(canvas, pack) {
     handlers.through && handlers.through(areaOf(pp.x, pp.z));
   }
 
+  // A stroller picks somewhere new to walk to after a pause. They stop where they are while the player is close
+  // (so they can be tapped), while the game holds them (a conversation), or while the camera is on them.
+  function stroll(p, dt) {
+    const at = p.root.position, pp = player.root.position;
+    const near = Math.hypot(pp.x - at.x, pp.z - at.z) < 2.4;
+    const busy = p.hold || p.talking || p.state === 'sit' || (cam.focus && cam.focus.includes(p));
+    if (busy || near) {
+      if (p.strolling) { p.path = null; p.onArrive = null; p.strolling = false; }
+      p.wanderWait = Math.max(p.wanderWait, 1.5 + Math.random() * 2);
+      return;
+    }
+    if (p.path || (p.wanderWait -= dt) > 0) return;
+    const w = p.wander, n = navAt(at.x, at.z), others = othersOf(p);
+    for (let i = 0; i < 10; i++) {
+      let x, z;
+      if (w.spots) [x, z] = w.spots[Math.floor(Math.random() * w.spots.length)];
+      else { x = w.area[0] + Math.random() * (w.area[2] - w.area[0]); z = w.area[1] + Math.random() * (w.area[3] - w.area[1]); }
+      if (Math.hypot(x - at.x, z - at.z) < 0.8 || navAt(x, z) !== n || !n.isFree(x, z, others)) continue;
+      if (walkTo(p, x, z, () => { p.strolling = false; p.wanderWait = 2.5 + Math.random() * 5; p.yawTo = Math.random() * Math.PI * 2; })) { p.strolling = true; return; }
+    }
+    p.wanderWait = 2;
+  }
+
   // ---------------------------------------------------------------- loop
   // Waits are counted in game time, so the scene can also be stepped without drawing (advance, for tests).
   const timers = [];
@@ -401,6 +432,7 @@ export function createWorld(canvas, pack) {
         if (route?.length) p.path = route;
         p.blocked = 0;
       }
+      if (p.wander) stroll(p, dt);
       // People standing about turn to look at the player when they come near.
       if (p !== player && !p.path && p.state !== 'sit' && !p.talking) {
         const dx = player.root.position.x - p.root.position.x, dz = player.root.position.z - p.root.position.z, d = Math.hypot(dx, dz);
@@ -425,7 +457,10 @@ export function createWorld(canvas, pack) {
       mark.scale.setScalar(1 + markT * 0.8);
       if (k <= 0) mark.visible = false;
     }
-    if (land) land.update(dt);
+    if (land) {
+      land.update(dt);
+      land.reveal(player.root.position.x, player.root.position.z, dt);
+    }
     // Only the side of a door the player is on is drawn: the world outside, or the room through the door.
     const pp = player.root.position, area = areaOf(pp.x, pp.z);
     if (land) land.group.visible = !area;
@@ -480,10 +515,12 @@ export function createWorld(canvas, pack) {
   requestAnimationFrame(t => { last = t; frame(t); });
 
   return {
-    people, player, room, rooms, seats, camera, renderer, view,
+    people, player, room, rooms, seats, camera, renderer, view, land,
     animals: land ? land.flock : [],
     on(name, fn) { handlers[name] = fn; },
     set onFrame(fn) { onFrame = fn; },
+    // Stops someone strolling about (a conversation with them), or lets them go on.
+    hold(id, on) { const p = people[id]; if (!p) return; p.hold = !!on; if (on && p.strolling) { p.path = null; p.onArrive = null; p.strolling = false; } },
     setRoam(v) { roam = v; if (!v) { held.clear(); hold = null; player.steering = false; } },
     // The person close enough to talk to with E (or null), and whether the keyboard has been used.
     nearest, get usingKeys() { return usedKeys; },

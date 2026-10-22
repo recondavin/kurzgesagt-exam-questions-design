@@ -1,6 +1,7 @@
 // The open world outside: an island of fields standing in the sea, like a diorama with earth sides, with a sandy
-// shore, boreens, dry-stone walls, buildings with signs, rocks, gorse, wind-bent trees, sheep, a pier with a
-// currach and mountains behind. Built from a content pack's description (see orals/ga/village.js). Static things
+// shore, boreens, dry-stone walls, buildings with signs (a church with its tower), rocks, gorse, wind-bent trees,
+// sheep, a pier with a currach, a GAA pitch with its fences, a lighthouse, a playground, benches, lamps, café
+// tables, fingerposts, signboards, flower beds and mountains behind. Built from a content pack's description (see orals/ga/village.js). Static things
 // are merged in chunks (only the chunks on screen are drawn); the sheep move.
 // Returns { group, blocks, portals, walkable(x, z), surface(x, z), shore(x, z), bounds, update(dt) }.
 import * as THREE from '../../lib/three.module.min.js';
@@ -60,6 +61,14 @@ function building(b, signs) {
     box(0.05, 0.84, 0.04, '#F4F1EA', { x: x + wx, y: 1.03, z: fz + 0.07 }),
   );
   for (const cx of b.chimneys || []) p.push(box(0.6, 1.0, 0.5, c, { x: x + cx, z, y: h + rise - 0.4 }), box(0.7, 0.1, 0.6, '#B9AE98', { x: x + cx, z, y: h + rise + 0.6 }));
+  // A church's bell tower, at the front corner (b.tower: { at: x offset, h: height above the walls }).
+  if (b.tower) {
+    const tx = x + (b.tower.at || 0), tz = fz - 1.1, th = h + (b.tower.h || 3.6);
+    p.push(box(2.0, th, 2.0, c, { x: tx, z: tz }), box(2.1, 0.12, 2.1, '#B9AE98', { x: tx, z: tz, y: th }));
+    p.push(box(0.5, 0.8, 0.06, '#2A2622', { x: tx, z: tz + 1.0, y: th - 1.3 }));
+    p.push(cyl(0, 1.5, 2.4, 4, roofC, { x: tx, z: tz, y: th + 0.12, ry: Math.PI / 4 }));
+    p.push(box(0.08, 0.6, 0.08, '#C9B27A', { x: tx, z: tz, y: th + 2.4 }), box(0.36, 0.08, 0.08, '#C9B27A', { x: tx, z: tz, y: th + 2.75 }));
+  }
   if (b.sign) {
     const s = signMesh(b.sign, b.signW || 2.8, 0.72, b.signColors || {});
     s.position.set(x + (b.signAt || door), h - 0.42, fz + 0.07);
@@ -116,11 +125,30 @@ export function buildLand(L) {
 
   for (const w of L.walls || []) { const s = stoneWall(...w, rnd); parts.push(...s.parts); blocks.push(s.block); }
   const portals = [];
+  // Tall things (buildings, the lighthouse) are each their own mesh, so they can turn see-through while the player
+  // is behind them (see reveal).
+  const occluders = [];
+  function occluder(list, own, box) {
+    const m = mesh(list, { line: 0.018 });
+    m.material = m.material.clone();
+    // Faded, only its nearest surface should show: a copy drawn first into the depth buffer only, so the faces
+    // behind don't stack up into something solid again.
+    const depth = new THREE.Mesh(m.geometry, new THREE.MeshBasicMaterial({ colorWrite: false, transparent: true }));
+    depth.visible = false;
+    depth.renderOrder = 1;
+    m.renderOrder = 2;
+    const g = new THREE.Group();
+    g.add(depth, m, ...own);
+    group.add(g);
+    occluders.push({ g, box, mats: [m.material, ...own.map(o => o.material)], line: m.children[0], depth, op: 1 });
+  }
   for (const b of L.buildings || []) {
-    const s = building(b, signs);
-    parts.push(...s.parts);
+    const own = [], s = building(b, own);
     blocks.push(...s.blocks);
     if (s.portal) portals.push(s.portal);
+    // Hidden behind it: anywhere in its width, from its front back as far as its height reaches up the screen.
+    const tall = (b.h || 2.6) + (b.rise || (b.roof === 'thatch' ? 2.0 : 1.5)) + (b.tower ? b.tower.h || 3.6 : 0);
+    occluder(s.parts, own, [b.x - b.w / 2 - 0.4, b.z - b.d / 2 - tall * 1.1, b.x + b.w / 2 + 0.4, b.z + b.d / 2 - 0.3]);
   }
 
   for (const [x, z, s] of L.rocks || []) {
@@ -168,6 +196,106 @@ export function buildLand(L) {
     signs.push(s);
     blocks.push([x - 1.2, z - 0.65, x + 1.2, z + 0.35]);
   }
+  // A GAA pitch: brighter grass, white lines and an H-shaped goal with its net at each end (the ends along x).
+  for (const pt of L.pitches || []) {
+    const { x, z, w, d } = pt, white = '#F2F0E8';
+    parts.push(box(w + 1, 0.02, d + 1, '#6E9A4E', { x, z, y: -0.035 }));
+    const line = (lx, lz, lw, ld) => parts.push(box(lw, 0.025, ld, white, { x: x + lx, z: z + lz, y: -0.03 }));
+    line(0, -d / 2, w, 0.1); line(0, d / 2, w, 0.1); line(-w / 2, 0, 0.1, d); line(w / 2, 0, 0.1, d); line(0, 0, 0.1, d);
+    for (const f of [-1, 1]) {
+      line(f * (w / 2 - 3), 0, 0.1, d); line(f * (w / 2 - 1.2), 0, 0.1, 3.4);
+      line(f * (w / 2 - 0.6), -1.7, 1.2, 0.1); line(f * (w / 2 - 0.6), 1.7, 1.2, 0.1);
+      const gx = x + f * w / 2;
+      for (const s of [-1, 1]) {
+        parts.push(cyl(0.07, 0.07, 3.6, 6, white, { x: gx, z: z + s * 1.2 }), cyl(0.04, 0.04, 1.1, 5, '#D9D5CB', { x: gx + f * 0.9, z: z + s * 1.2 }));
+        blocks.push([gx - 0.15, z + s * 1.2 - 0.15, gx + 0.15, z + s * 1.2 + 0.15]);
+      }
+      parts.push(box(0.12, 0.12, 2.5, white, { x: gx, y: 1.1, z }), box(0.9, 0.03, 2.4, '#E4E1D8', { x: gx + f * 0.45, y: 1.1, z }), box(0.03, 1.1, 2.4, '#E4E1D8', { x: gx + f * 0.9, z }));
+      blocks.push([Math.min(gx, gx + f * 0.95), z - 1.25, Math.max(gx, gx + f * 0.95), z + 1.25]);
+    }
+  }
+  // White post-and-rail fences (round the pitch), like the stone walls but lighter.
+  for (const [x0, z0, x1, z1] of L.fences || []) {
+    const len = Math.hypot(x1 - x0, z1 - z0), n = Math.max(1, Math.round(len / 2)), ang = Math.atan2(z1 - z0, x1 - x0);
+    for (let i = 0; i <= n; i++) parts.push(box(0.12, 0.9, 0.12, '#EDEAE2', { x: x0 + (x1 - x0) * i / n, z: z0 + (z1 - z0) * i / n }));
+    for (const y of [0.35, 0.7]) parts.push(box(len, 0.08, 0.06, '#EDEAE2', { x: (x0 + x1) / 2, z: (z0 + z1) / 2, y, ry: -ang }));
+    blocks.push([Math.min(x0, x1) - 0.15, Math.min(z0, z1) - 0.15, Math.max(x0, x1) + 0.15, Math.max(z0, z1) + 0.15]);
+  }
+  // A lighthouse on the headland: a white tower with red bands, its gallery, the lamp and a red dome.
+  for (const lh of L.lighthouses || []) {
+    const { x, z } = lh, lp = [];
+    lp.push(cyl(1.5, 1.6, 0.5, 10, '#9A9C95', { x, z, y: -0.1 }), cyl(0.85, 1.15, 6, 12, '#F4F1EA', { x, z, y: 0.4 }));
+    for (const y of [2.0, 4.2]) lp.push(cyl(1.02 - (y - 0.4) * 0.05 + 0.03, 1.07 - (y - 0.4) * 0.05 + 0.03, 0.7, 12, '#C8423A', { x, z, y }));
+    lp.push(box(0.5, 1.0, 0.1, '#2A2622', { x, z: z + 1.1, y: 0.4 }));
+    lp.push(cyl(1.25, 1.25, 0.12, 12, '#2F3438', { x, z, y: 6.4 }), cyl(0.6, 0.6, 0.9, 8, '#F2D37A', { x, z, y: 6.52 }));
+    for (let i = 0; i < 8; i++) lp.push(box(0.05, 0.9, 0.05, '#2F3438', { x: x + Math.sin(i * Math.PI / 4) * 0.62, z: z + Math.cos(i * Math.PI / 4) * 0.62, y: 6.52 }));
+    lp.push(cyl(0, 0.75, 0.6, 8, '#C8423A', { x, z, y: 7.42 }), cyl(0.05, 0.05, 0.4, 5, '#2F3438', { x, z, y: 7.95 }));
+    blocks.push([x - 1.6, z - 1.6, x + 1.6, z + 1.6]);
+    occluder(lp, [], [x - 1.8, z - 9.5, x + 1.8, z - 0.5]);
+  }
+  // A playground: soft red ground, swings, a slide and a roundabout.
+  for (const pg of L.playgrounds || []) {
+    const { x, z } = pg;
+    parts.push(box(6, 0.02, 5, '#B8664F', { x, z, y: -0.03 }));
+    const sx = x - 1.4, sz = z - 1.2;
+    for (const e of [-1, 1]) for (const f of [-1, 1]) parts.push(cyl(0.05, 0.05, 2.2, 6, '#3C6E9C', { x: sx + e * 1.1 + f * 0.25, z: sz, rz: f * 0.2 }));
+    parts.push(cyl(0.05, 0.05, 2.4, 6, '#3C6E9C', { x: sx + 1.2, z: sz, y: 2.08, rz: Math.PI / 2 }));
+    for (const e of [-0.45, 0.45]) {
+      for (const c of [-0.15, 0.15]) parts.push(cyl(0.01, 0.01, 1.55, 4, '#2F3438', { x: sx + e + c, z: sz, y: 0.5 }));
+      parts.push(box(0.4, 0.05, 0.22, '#2A2622', { x: sx + e, z: sz, y: 0.48 }));
+    }
+    blocks.push([sx - 1.5, sz - 0.5, sx + 1.5, sz + 0.5]);
+    const lx = x + 1.6, lz = z - 1.0;
+    parts.push(box(0.8, 1.5, 0.8, '#E3B83A', { x: lx, z: lz }), box(0.9, 0.08, 0.9, '#C8423A', { x: lx, z: lz, y: 1.5 }));
+    parts.push(box(0.7, 0.06, 2.3, '#C8423A', { x: lx, z: lz + 1.35, y: 0.62, rx: 0.58 }));
+    blocks.push([lx - 0.45, lz - 0.45, lx + 0.45, lz + 2.4]);
+    const rx = x - 1.2, rz = z + 1.3;
+    parts.push(cyl(0.9, 0.9, 0.12, 12, '#4C9A5B', { x: rx, z: rz, y: 0.25 }), cyl(0.12, 0.12, 0.25, 6, '#3A3532', { x: rx, z: rz }), cyl(0.03, 0.03, 0.5, 5, '#E3B83A', { x: rx, z: rz, y: 0.37 }));
+    blocks.push([rx - 0.95, rz - 0.95, rx + 0.95, rz + 0.95]);
+  }
+  // Benches [x, z, turn], lamp posts [x, z] and café tables with two stools [x, z].
+  for (const [x, z, ry = 0] of L.benches || []) {
+    const b = [box(1.4, 0.08, 0.42, '#7A4E33', { y: 0.42 }), box(1.4, 0.36, 0.06, '#7A4E33', { y: 0.55, z: -0.2 }), box(0.08, 0.42, 0.38, '#3A3532', { x: -0.6 }), box(0.08, 0.42, 0.38, '#3A3532', { x: 0.6 })];
+    for (const g of b) place(g, { x, z, ry });
+    parts.push(...b);
+    blocks.push([x - 0.75, z - 0.75, x + 0.75, z + 0.75]);
+  }
+  for (const [x, z] of L.lamps || []) {
+    parts.push(cyl(0.06, 0.08, 3.0, 6, '#2F3438', { x, z }), box(0.5, 0.06, 0.08, '#2F3438', { x: x + 0.22, z, y: 2.95 }), box(0.22, 0.18, 0.22, '#F2E6B0', { x: x + 0.42, z, y: 2.78 }));
+    blocks.push([x - 0.15, z - 0.15, x + 0.15, z + 0.15]);
+  }
+  for (const [x, z] of L.tables || []) {
+    parts.push(cyl(0.38, 0.38, 0.05, 10, '#F4F1EA', { x, z, y: 0.72 }), cyl(0.04, 0.05, 0.72, 6, '#2F3438', { x, z }));
+    for (const s of [-1, 1]) parts.push(cyl(0.17, 0.17, 0.45, 8, '#3C6E9C', { x: x + s * 0.6, z }));
+    blocks.push([x - 0.8, z - 0.4, x + 0.8, z + 0.4]);
+  }
+  // Fingerposts at a junction, each board pointing left, right or on up the lane: { x, z, signs: [{ text, dir: -1 | 0 | 1 }] }.
+  for (const fp of L.fingerposts || []) {
+    parts.push(cyl(0.06, 0.06, 2.6, 6, '#EDEAE2', { x: fp.x, z: fp.z }));
+    fp.signs.forEach((sg, i) => {
+      const s = signMesh(sg.dir < 0 ? '← ' + sg.text : sg.dir > 0 ? sg.text + ' →' : '↑ ' + sg.text, 1.7, 0.32, { bg: '#F4F1EA', ink: '#2A2622' });
+      s.position.set(fp.x + sg.dir * 0.86, 2.35 - i * 0.4, fp.z + 0.08);
+      signs.push(s);
+    });
+    blocks.push([fp.x - 0.15, fp.z - 0.15, fp.x + 0.15, fp.z + 0.15]);
+  }
+  // Signboards on two posts: { x, z, text, w }.
+  for (const bd of L.boards || []) {
+    const w = bd.w || 1.8;
+    for (const s of [-1, 1]) parts.push(cyl(0.05, 0.05, 1.7, 6, '#3A3532', { x: bd.x + s * (w / 2 - 0.1), z: bd.z }));
+    const s = signMesh(bd.text, w, 0.5, bd.colors || {});
+    s.position.set(bd.x, 1.45, bd.z + 0.06);
+    signs.push(s);
+    blocks.push([bd.x - w / 2, bd.z - 0.15, bd.x + w / 2, bd.z + 0.15]);
+  }
+  // Flower beds: small clumps of colour [x, z, how many].
+  const FLOWERS = ['#E25C5C', '#F2C94C', '#F4F1EA', '#B07CC6', '#E8932F'];
+  for (const [x, z, n = 8] of L.flowers || []) {
+    parts.push(ball(0.4, '#5B7A42', { x, z, y: -0.25, sx: 1.6, sy: 0.6 }, 1));
+    for (let i = 0; i < n; i++) parts.push(ball(0.07, FLOWERS[Math.floor(rnd() * FLOWERS.length)], { x: x + (rnd() - 0.5) * 1.1, z: z + (rnd() - 0.5) * 0.7, y: 0.02 + rnd() * 0.08 }, 0));
+    blocks.push([x - 0.6, z - 0.4, x + 0.6, z + 0.4]);
+  }
+
   // Mountains across the bay behind the island.
   const far = [];
   for (const [x, z, r, h, c] of L.mountains || []) far.push(cyl(0, r, h, 6, c || '#6E7F86', { x, z, y: -0.4, ry: rnd() }), cyl(0, r * 0.35, h * 0.35, 6, '#B9C4C7', { x, z, y: -0.4 + h * 0.65 + 0.01, ry: rnd() }));
@@ -261,7 +389,22 @@ export function buildLand(L) {
   const onPier = (x, z) => walk.some(b => x > b[0] && x < b[2] && z > b[1] && z < b[3]);
   const onStrip = (x, z, list, w0) => list.some(r => r.pts.some((b, i) => i && segDist(x, z, r.pts[i - 1], b) < (r.w || w0) / 2));
   return {
-    group, blocks, update, setNavigation, colliders, flock, bounds: L.bounds,
+    group, blocks, update, setNavigation, colliders, flock, occluders, bounds: L.bounds,
+    // Fades a building (or the lighthouse) to see-through while the point (the player) is behind it.
+    reveal(x, z, dt) {
+      for (const o of occluders) {
+        const b = o.box, behind = x > b[0] && x < b[2] && z > b[1] && z < b[3];
+        const want = behind ? 0.35 : 1;
+        if (Math.abs(o.op - want) < 0.005) continue;
+        o.op += (want - o.op) * Math.min(1, dt * 8);
+        if (Math.abs(o.op - want) < 0.01) o.op = want;
+        const see = o.op < 0.99;
+        // Switching between solid and see-through needs the shader rebuilt (a solid one forces full alpha).
+        for (const m of o.mats) { if (m.transparent !== see) m.needsUpdate = true; m.transparent = see; m.opacity = o.op; m.depthWrite = !see; }
+        o.line.visible = !see;
+        o.depth.visible = see;
+      }
+    },
     // Doors into rooms elsewhere: { id (the room's), zone (step in here), out (where you come back out) }.
     portals,
     // Walkable: on the island or its sand, or out on the pier.
