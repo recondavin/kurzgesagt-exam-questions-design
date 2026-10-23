@@ -485,17 +485,16 @@
     }, 1500); });
   }
 
-  // ---------------------------------------------------------------- long questions type in
-  // A long question (over 90 letters, like "In exercise, A's blood pH fell from 7.43 to 7.35 and B's from 7.42 to 7.17
-  // ...") types in at reading pace, pausing at commas and full stops, and then its answers pop in one by one (the user:
-  // "if the question is long ... make the question get typed in and the answers appear like pop on the screen; make the
-  // typing not super fast but you read it as it goes"). The whole question is laid out hidden underneath first, so
-  // nothing moves; a click on the card skips to the end. Short questions show at once. done() runs once the answers are
-  // showing. The other question games (bio-quizgames.js, bio-arcade.js) use it too.
-  var LONG = 90, CHAR_MS = 38;
+  // ---------------------------------------------------------------- questions type in
+  // Every question types in at reading pace, pausing at commas and full stops, and then its answers pop in one by one
+  // (the user, of a long one: "make the question get typed in and the answers appear like pop on the screen; make the
+  // typing not super fast but you read it as it goes", then "just make it for all of them"). The whole question is laid
+  // out hidden underneath first, so nothing moves; a click on the card skips to the end. done() runs once the answers
+  // are showing. The other question games (bio-quizgames.js, bio-arcade.js) use it too.
+  var CHAR_MS = 38;
   function reveal(root, done) {
     var qn = root && root.querySelector('.tb-q'), text = qn ? qn.textContent : '', rest = [], over = false, i = 0;
-    if (!qn || text.length <= LONG || K.reduced()) { if (done) done(); return; }
+    if (!qn || K.reduced()) { if (done) done(); return; }
     for (var n = qn.nextElementSibling; n; n = n.nextElementSibling) {
       if (n.classList.contains('tb-opts')) rest = rest.concat([].slice.call(n.children));
       else if (n.children.length || n.textContent || n.tagName === 'TEXTAREA') rest.push(n);
