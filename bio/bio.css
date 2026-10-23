@@ -207,8 +207,11 @@ button { font: inherit; }
 /* Trivia board (bio/bio-board.js), made to look like the real game: a printed wheel on the table, pie pieces, a deck of
    question cards; a drawn card slides in and flips over to its answer. The board on the left, the turn on the right;
    stacked on a narrow card. */
-.tb { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; align-items: start; }
-.tb-board svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 6px 0 rgba(0, 0, 0, .35)); }
+.tb { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 26px; align-items: start; }
+/* On a wide screen the card is up to 1200px (bio-board.js nearMascot sets --tbw); the board fills its column but never
+   more than the screen's height allows. */
+.am-finish__card.am-games__card.am-games__card--wide.tb-wide { width: min(var(--tbw, 900px), 100%); }
+.tb-board svg { display: block; width: 100%; max-width: calc(100vh - 240px); height: auto; margin: 0 auto; filter: drop-shadow(0 6px 0 rgba(0, 0, 0, .35)); }
 .tb-sq.is-target { cursor: pointer; }
 .tb-sq.is-target path:first-child { stroke: #FFFFFF; stroke-width: 4; animation: tbPulse 1s ease-in-out infinite; }
 @keyframes tbPulse { 50% { stroke-opacity: .3; } }
@@ -264,10 +267,10 @@ button { font: inherit; }
 .tb-card__band b { font: 700 18px Fredoka, Nunito, sans-serif; }
 .tb-card__band span { font: 800 12px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
 .tb-card__body { display: grid; gap: 10px; align-content: start; padding: 16px; }
-.tb-q { margin: 0; color: #13294A; font: 800 19px/1.35 Nunito, sans-serif; }
+.tb-q { margin: 0; color: #13294A; font: 800 21px/1.35 Nunito, sans-serif; }
 .tb-card .tb-say { color: #5B6B80; }
 .tb-opts { display: grid; gap: 8px; }
-.tb-opt { padding: 11px 14px; border: 2px solid #D5DCE5; border-bottom-width: 4px; border-radius: 12px; background: #FFFFFF; color: #13294A; font: 800 16px/1.3 Nunito, sans-serif; text-align: left; cursor: pointer; }
+.tb-opt { padding: 12px 15px; border: 2px solid #D5DCE5; border-bottom-width: 4px; border-radius: 12px; background: #FFFFFF; color: #13294A; font: 800 17px/1.3 Nunito, sans-serif; text-align: left; cursor: pointer; }
 .tb-opt:hover:not(:disabled) { background: #F2F5F8; }
 .tb-opt:disabled { cursor: default; }
 .tb-opt.is-ok { border-color: #58CC02; background: #D7FFB8; color: #2B6A00; }
@@ -284,6 +287,7 @@ button { font: inherit; }
 @media (max-width: 760px) {
   .tb { grid-template-columns: 1fr; gap: 14px; }
   .tb-board { width: 100%; max-width: 280px; margin: 0 auto; }
+  .tb-board svg { max-width: 100%; }
   .tb-key { font-size: 13px; }
   .tb-q { font-size: 17px; }
 }

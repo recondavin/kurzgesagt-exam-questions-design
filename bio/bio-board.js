@@ -239,19 +239,30 @@
       return '<li style="--c:' + COL[ch] + '">' + esc(NAME[ch]) + '</li>';
     }).join('') + '<li class="tb-key__wedge">Wedge</li><li class="tb-key__again">Roll again</li></ul></div><div class="tb-panel" data-tb-panel aria-live="polite"></div></div>', true);
     buttons(G.card, [['more', 'data-am-keep', 'Close']], true);
+    G.card.querySelector('.am-finish__card').classList.add('tb-wide');
     placeTokens();
     K.mascot('ok', pick(SAY.start));
     nearMascot();
     yourTurn();
   }
   // The examiner stands right beside the board (the user: "make him closer to the trivia board", then "higher up"), not
-  // out in the screen's corner: answer-mode.js sizes him to the room beside the card; this moves him up to the card's
-  // left edge, his feet level with the card's bottom (after the card has popped in).
+  // out in the screen's corner: this moves him up to the card's left edge, his feet level with the card's bottom (after
+  // the card has popped in). On a wide screen both are bigger (the user: "make the whole board bigger and make him
+  // bigger as well"): he is up to 320px wide (answer-mode.js makes him at most 220) and the card up to 1200px (900),
+  // sharing the width so he still fits beside it. Under 1100px wide, answer-mode.js's sizes stay.
   function nearMascot() {
     [0, 120, 700].forEach(function (ms) {
       wait(function () {
         var m = document.querySelector('.am-root .am-mascot'), box = G.card.querySelector('.am-finish__card');
         if (!m || !box || !m.offsetParent) return;
+        var W = m.offsetParent.clientWidth;
+        if (W >= 1100) {
+          // At least his old 220px, unless that would squeeze the card under 860px.
+          var t = Math.round(Math.min(320, Math.max(220, (W - 1200) / 2 - 30)));
+          if (W - 2 * (t + 30) < 860) t = Math.max(180, Math.round((W - 860) / 2 - 30));
+          box.style.setProperty('--tbw', Math.min(1200, W - 2 * (t + 30)) + 'px');
+          m.style.setProperty('--size', t + 'px');
+        } else box.style.removeProperty('--tbw');
         var root = m.offsetParent.getBoundingClientRect(), r = box.getBoundingClientRect();
         m.style.left = Math.max(14, (m.offsetParent.clientWidth - box.offsetWidth) / 2 - m.offsetWidth - 10) + 'px';
         m.style.bottom = Math.max(10, Math.round(root.bottom - r.bottom)) + 'px';
