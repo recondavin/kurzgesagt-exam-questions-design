@@ -291,7 +291,10 @@
     ['board', 'Trivia board', function () { return window.BioBoard; }],
     ['chase', 'Outrun the Examiner', function () { return window.BioQuizGames; }],
     ['grid', 'Points Grid', function () { return window.BioQuizGames; }],
-    ['taboo', 'Don\'t Say It', function () { return window.BioQuizGames && window.BioTaboo; }]
+    ['taboo', 'Don\'t Say It', function () { return window.BioQuizGames && window.BioTaboo; }],
+    ['sea', 'Sea Battle', function () { return window.BioArcade; }],
+    ['cannon', 'Cannon Duel', function () { return window.BioArcade; }],
+    ['tower', 'Topple the Examiner', function () { return window.BioArcade && window.Matter; }]
   ];
   function renderShell(active, crumb) {
     if (!side) return;
@@ -790,7 +793,9 @@
     if (game) {
       history.replaceState(null, '', location.pathname + location.search);
       renderHome();
-      if (h === 'board') window.BioBoard.open(); else window.BioQuizGames.open(h);
+      if (h === 'board') window.BioBoard.open();
+      else if (/^(sea|cannon|tower)$/.test(h)) window.BioArcade.open(h);
+      else window.BioQuizGames.open(h);
       return;
     }
     if (m) renderChapter(+m[1]); else renderHome();
