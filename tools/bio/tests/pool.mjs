@@ -6,8 +6,7 @@
 //   pots      a straight shot along the ghost-ball line pots the ball, and the guide shows it going into that pocket;
 //   rules     potting yours goes again, a miss passes, the cue ball in is a foul, the black wins only after all yours;
 //   search    when a straight pot is on, his search finds one that drops, and with his wobble it still mostly drops;
-//   misses    after a wrong answer his shot never pots a ball (his or yours, the black or the cue ball);
-//   wobble    a wrong answer's wobble always moves your shot off your aim.
+//   quiet     his shot for when nothing else is safe never pots a ball (his or yours, the black or the cue ball).
 // Run: node tools/bio/tests/pool.mjs
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
@@ -157,7 +156,7 @@ for (let g = 0; g < 2000 && tables < 80; g++) {
     const v = T.judge(st, T.shoot(st, s.angle, s.power, false), 1);
     if (v === 'again' || v === 'win') sunk++;
   }
-  const h = T.hisAim(st, 1, true, rand), v2 = T.judge(st, T.shoot(st, h.angle, h.power, false), 1);
+  const h = T.hisAim(st, 1, rand), v2 = T.judge(st, T.shoot(st, h.angle, h.power, false), 1);
   if (v2 === 'again' || v2 === 'win') wobbled++;
 }
 if (found < tables * 0.9 || sunk < found) fail(`with an easy pot on, his search found a shot that drops on ${sunk} of ${tables} tables`);
@@ -169,18 +168,10 @@ for (let g = 0; g < 260; g++) {
     [1, 5, 6, BLACK].forEach((b, i) => { const p = T.POCKETS[(g + i) % 6]; st.p[b] = [p[0] * 0.93, p[1] * 0.88]; });
     if ([1, 5, 6, BLACK].some((a, i, l) => l.some(b => b !== a && Math.hypot(st.p[a][0] - st.p[b][0], st.p[a][1] - st.p[b][1]) < 2 * R + 0.02)) || st.p.some((q, b) => b && Math.hypot(q[0] - st.p[0][0], q[1] - st.p[0][1]) < 2 * R + 0.02)) continue;
   }
-  const s = T.hisAim(st, 1, false, rand), r = T.shoot(st, s.angle, s.power, false);
+  const s = T.quiet(st, 1, rand), r = T.shoot(st, s.angle, s.power, false);
   misses++;
-  if (r.potted.length) fail(`table ${g}: his wrong-answer shot potted ${r.potted.join(', ')}`);
+  if (r.potted.length) fail(`table ${g}: his quiet shot potted ${r.potted.join(', ')}`);
 }
 
-// ---------------------------------------------------------------- wobble
-{
-  const rand = seeded(77);
-  for (let k = 0; k < 500; k++) {
-    const w = T.wobble({ angle: 1, power: 0.5 }, rand), da = Math.abs(w.angle - 1), dp = Math.abs(w.power / 0.5 - 1);
-    if (da < 0.0099 || da > 0.0351 || dp < 0.029 || dp > 0.121) { fail(`a wobble of ${da.toFixed(4)} rad, ${dp.toFixed(3)} power`); break; }
-  }
-}
-console.log(fails ? `${fails} failures` : `ok: racks, ${shots} shots on the table and deterministic, straight pots and the guide, the rules, his search potted on ${sunk}/${tables} easy tables (${wobbled} with his wobble), ${misses} wrong-answer shots all missed (${((Date.now() - t0) / 1000).toFixed(1)}s)`);
+console.log(fails ? `${fails} failures` : `ok: racks, ${shots} shots on the table and deterministic, straight pots and the guide, the rules, his search potted on ${sunk}/${tables} easy tables (${wobbled} with his wobble), ${misses} quiet shots potted nothing (${((Date.now() - t0) / 1000).toFixed(1)}s)`);
 process.exit(fails ? 1 : 0);

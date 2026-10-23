@@ -8,14 +8,16 @@
 //   4 The heart (Circulation)          atrium, ventricle and artery, with valves between them that only open forwards.
 //   5 The white cells (Immunity)       white cells slide across the green while a ball rolls, and knock it about; one
 //                                      rests in front of the cup.
-// You play each hole, then he does (quickly); fewest strokes over the five wins. Before each of your putts you answer a
-// question from the hole's chapter (the trivia board's cards; every third one typed and marked like the answer sheet),
-// and the answer decides the putt (the user, of Cannon Duel: the reward has to really help):
-//   right        the aim line shows where the putt goes, its first bounce included, and the stroke is steady;
-//   wrong        no line, and the putt wobbles off your aim (2 to 6 degrees, 3 to 12% power);
+// You take turns on each hole (the user: "make you take turns"), a question from the hole's chapter before every go (the
+// trivia board's cards; every third of yours typed and marked like the answer sheet). The rule for turns (the user: "if
+// you get them wrong then u dont rlly get to continue and u can get 2 right then its capped"):
+//   right        you putt, with the aim line showing where it goes (its first bounce included), and the stroke is
+//                steady; a second right answer gives a second putt, then it's his turn;
+//   wrong        you lose that stroke (it counts, the ball stays put) and it's his turn;
 //   typed right  a mulligan as well: take one putt again, kept until you use it.
-// He answers his own question before each putt (right 65 in 100). Right, he plays the best putt a search finds, with a
-// small wobble; wrong, a putt that clearly misses (it never comes within a ball's width of the cup).
+// He plays by the same rule (right 65 in 100): right, the best putt a search finds with a small wobble; wrong, he loses
+// the stroke. His ball is his head (the site's drawing of it on a ball, rolling as it goes and turning back to face you
+// when it stops), and both of you putt with a 3D putter that swings and strikes. Fewest strokes over the five wins.
 // The ball's physics is done here, in 2.5D, and is deterministic (tools/bio/tests/golf.mjs): the ball rolls on the
 // course plane, bumps are heights, walls are segments, a valve is a wall from one side only and the cup catches a slow
 // ball. three.js (bio/vendor/three.min.js, r159, MIT) only draws it.
@@ -380,30 +382,21 @@
     });
     return best;
   }
-  // His putt when he got his question wrong: one that clearly misses (it stops 1.6 or more from the cup and never comes
-  // within a ball's width of it), among the ones that get nearest; never one that goes in.
-  function missShot(h, from, clock, rand, all) {
-    all = all || survey(h, from, clock);
-    var cup = h.cup;
-    function wide(s, d, g) { return !s.sunk && Math.hypot(s.end[0] - cup[0], s.end[1] - cup[1]) >= d && s.minCup > g; }
-    var list = all.filter(function (s) { return wide(s, 1.6, CUP + R + 0.2); });
-    if (!list.length) list = all.filter(function (s) { return wide(s, 1.2, CUP); });
-    if (!list.length) list = all.filter(function (s) { return !s.sunk; });
-    list.sort(byScore);
-    return list[Math.floor(rand() * Math.min(6, list.length))];
-  }
-  // His putt: right, the best one with a small wobble (up to 2 degrees and 7% power); wrong, a clear miss (played
-  // exactly, no wobble).
-  function hisAim(h, from, clock, good, rand) {
-    var all = survey(h, from, clock);
-    if (!good) return missShot(h, from, clock, rand, all);
-    var s = solve(h, from, clock, all), g = function () { return (rand() + rand() + rand() - 1.5) / 1.5; };
+  // His putt (only after a right answer): the best one with a small wobble (up to 2 degrees and 7% power).
+  function hisAim(h, from, clock, rand) {
+    var s = solve(h, from, clock), g = function () { return (rand() + rand() + rand() - 1.5) / 1.5; };
     return { angle: s.angle + g() * 0.035, power: Math.max(0.02, Math.min(1, s.power * (1 + g() * 0.07))) };
   }
-  // Your putt after a wrong answer: off your aim by 2 to 6 degrees and 3 to 12% power, either way.
-  function wobble(aim, rand) {
-    var side = function () { return rand() < 0.5 ? -1 : 1; };
-    return { angle: aim.angle + side() * (0.035 + rand() * 0.07), power: Math.max(0.02, Math.min(1, aim.power * (1 + side() * (0.03 + rand() * 0.09)))) };
+  // Whose go is next: a wrong answer ends a turn, and so do two right ones in a row; a player who's holed out (or picked
+  // up) is skipped. Null once both are in.
+  var TURN = 2;
+  function nextGo(turn, right, holed) {
+    var who = turn.who, other = 1 - who;
+    if (holed[0] && holed[1]) return null;
+    if (holed[who]) return { who: other, shots: 0 };
+    var shots = right ? turn.shots + 1 : TURN;
+    if (shots < TURN) return { who: who, shots: shots };
+    return holed[other] ? { who: who, shots: 0 } : { who: other, shots: 0 };
   }
 
   // ======================================================================== the questions
@@ -529,7 +522,7 @@
   var TH = null;
   function at(x, y, z) { return new TH.Vector3(x, z, -y); }
   function keep(o) { A.trash.push(o); return o; }
-  function toon(c) { return keep(new TH.MeshToonMaterial({ color: c, gradientMap: A.tones })); }
+  function toon(c, map) { return keep(new TH.MeshToonMaterial({ color: map ? '#FFFFFF' : c, map: map || null, gradientMap: A.tones })); }
   function flat(c, more) {
     var m = new TH.MeshBasicMaterial({ color: c });
     Object.keys(more || {}).forEach(function (k) { m[k] = more[k]; });
@@ -655,19 +648,77 @@
       shadow(r * 0.95, g);
       return g;
     });
-    // The balls: yours white, his grey.
-    A.balls = ['#FFFFFF', HIS].map(function (c) {
-      var g = new TH.Group();
+    // The balls: yours white; his is his head (drawn a little bigger than the ball it rolls as).
+    A.balls = [R, HEADR].map(function (r, i) {
+      var g = new TH.Group(), spin = new TH.Group();
+      g.add(spin);
       w.add(g);
-      add(new TH.SphereGeometry(R, 24, 16), toon(c), g);
-      rim(new TH.SphereGeometry(R * 1.14, 24, 16), g);
+      add(new TH.SphereGeometry(r, 32, 20), i ? toon(null, headTexture()) : toon('#FFFFFF'), spin);
+      rim(new TH.SphereGeometry(r * 1.12, 24, 16), g);
       g.visible = false;
-      return g;
+      return { g: g, spin: spin, r: r, shadow: shadow(r * 0.95, w), last: null };
     });
-    A.ballShadow = shadow(R * 0.95, w);
+    A.clubs = [BLUE, HIS].map(function (c) { return putter(w, c); });
     aimPieces(w);
     A.fx = { puffs: [], bits: [] };
     clouds(h, w);
+  }
+  // His head: the site's drawing of it (ExamTeacher.head) painted on the front of a ball of his skin colour, at its own
+  // proportions round the middle (the front of a three.js sphere, facing +z, is a quarter of the way across its map).
+  var HEADR = 0.42, SKIN = '#F2C9A0';
+  function headTexture() {
+    var c = document.createElement('canvas'), g = c.getContext('2d'), img = new Image(), t;
+    c.width = 1024;
+    c.height = 512;
+    g.fillStyle = SKIN;
+    g.fillRect(0, 0, 1024, 512);
+    t = keep(new TH.CanvasTexture(c));
+    t.colorSpace = TH.SRGBColorSpace;
+    var svg = window.ExamTeacher ? window.ExamTeacher.head('left') : '';
+    if (!svg) return t;
+    // His plain face (the smile and the steam are for other moods, shown by the page's styles, which an image hasn't got).
+    svg = svg.replace(/<svg([^>]*)>/, '<svg$1 width="489" height="555"><style>.x-steam,.tch-smile{display:none}</style>');
+    img.onload = function () {
+      var hh = 420, ww = hh * 489 / 555;
+      g.drawImage(img, 256 - ww / 2, 256 - hh / 2 - 16, ww, hh);
+      // A browser that won't let a drawing be read back can't use it on a ball: then he's a plain head.
+      try { g.getImageData(0, 0, 1, 1); } catch (err) { g.fillStyle = SKIN; g.fillRect(0, 0, 1024, 512); }
+      t.needsUpdate = true;
+      kick();
+    };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    return t;
+  }
+  // A putter (the user: "use a 3d model of a golf club to hit it"): a steel blade with a white sight line on top, the
+  // shaft, and a grip in the player's colour (yours blue, his grey), hanging from the hands above the ball; it swings
+  // like a pendulum along the aim (swing.rotation.z: back is negative).
+  var HANDS = 3.1, BLUE = '#1CB0F6';
+  function putter(w, col) {
+    var g = new TH.Group(), swing = new TH.Group(), steel = toon('#C5D0D8');
+    g.add(swing);
+    w.add(g);
+    swing.position.y = HANDS;
+    function part(geo, m, y, outline) {
+      var p = add(geo, m, swing);
+      p.position.y = y;
+      if (outline) rim(outline, swing).position.y = y;
+      return p;
+    }
+    part(new TH.CylinderGeometry(0.035, 0.035, HANDS - 0.2, 10), steel, -(HANDS - 0.2) / 2 - 0.02, new TH.CylinderGeometry(0.065, 0.065, HANDS - 0.15, 10));
+    part(new TH.CylinderGeometry(0.075, 0.065, 0.9, 12), toon(col), -0.47, new TH.CylinderGeometry(0.105, 0.095, 0.96, 12));
+    part(new TH.BoxGeometry(0.15, 0.2, 0.82), steel, -(HANDS - 0.1), new TH.BoxGeometry(0.21, 0.26, 0.88));
+    part(new TH.BoxGeometry(0.03, 0.012, 0.3), flat('#FFFFFF'), -(HANDS - 0.206));
+    g.visible = false;
+    return { g: g, swing: swing };
+  }
+  // A player's putter at their ball, along an angle, drawn back as far as the power.
+  function clubAt(who, angle, power) {
+    var c = A.clubs[who], p = A.pos[who];
+    c.g.visible = true;
+    c.g.position.copy(at(p[0], p[1], height(A.h, p[0], p[1])));
+    c.g.rotation.y = angle;
+    c.swing.position.x = -(A.balls[who].r + 0.12);
+    c.swing.rotation.z = -(0.05 + power * 0.3);
   }
   function shadow(r, to) {
     var s = add(lying(new TH.CircleGeometry(r, 24)), A.shade || (A.shade = flat(INK, { transparent: true, opacity: 0.2, depthWrite: false })), to);
@@ -774,10 +825,11 @@
     A.markIn.position.y = 0.01;
     A.mark.visible = false;
   }
-  // The aim's pieces for the aim now: the arrow always, the line only after a right answer.
+  // The aim's pieces for the aim now: your putter, the arrow and the line (you only aim after a right answer).
   function drawAim() {
-    var h = A.h, p = A.ball, z = height(h, p[0], p[1]);
+    var h = A.h, p = A.pos[0], z = height(h, p[0], p[1]);
     var on = A.phase === 'aim', L = 0.3 + A.aim.power * 3.2, pw = q('[data-mg-power]');
+    if (on) clubAt(0, A.aim.angle, A.aim.power);
     A.arrow.g.visible = on;
     // On a phone the picture is smaller, so the aim's pieces are bigger.
     var big = A.phone ? 1.6 : 1, sc = new TH.Vector3(big, 1, big), turn = new TH.Quaternion();
@@ -796,7 +848,7 @@
       pw.querySelector('i').style.height = Math.round(A.aim.power * 100) + '%';
       pw.querySelector('b').textContent = Math.round(A.aim.power * 100) + '%';
     }
-    var line = on && A.guide ? aimLine(roll(h, p, A.aim.angle, A.aim.power, A.clock, true)) : null, mtx = new TH.Matrix4();
+    var line = on ? aimLine(roll(h, p, A.aim.angle, A.aim.power, A.clock, true)) : null, mtx = new TH.Matrix4();
     A.dots.forEach(function (d, k) {
       d.count = line ? line.pts.length : 0;
       if (line) line.pts.forEach(function (pt, i) { d.setMatrixAt(i, mtx.compose(at(pt[0], pt[1], height(h, pt[0], pt[1]) + 0.02 + k * 0.004), turn, sc)); });
@@ -845,7 +897,7 @@
     }
   }
   function confetti(x, y) {
-    var g = new TH.BoxGeometry(0.16, 0.04, 0.11), mats = [COL[A.h.ch], '#FFFFFF', '#FFC800', COL[CH[(CH.indexOf(A.h.ch) + 2) % 5]]].map(toon);
+    var g = new TH.BoxGeometry(0.16, 0.04, 0.11), mats = [COL[A.h.ch], '#FFFFFF', '#FFC800', COL[CH[(CH.indexOf(A.h.ch) + 2) % 5]]].map(function (c) { return toon(c); });
     for (var i = 0; i < 36; i++) {
       var m = new TH.Mesh(i ? g : keep(g), mats[i % 4]), a = Math.random() * Math.PI * 2, s = 1.5 + Math.random() * 2.5;
       m.position.copy(at(x, y, 0.3));
@@ -912,21 +964,18 @@
   }
   function update(dt) {
     var busy = false, h = A.h, k;
+    if (A.swing) { busy = true; stepSwing(dt); }
     if (A.shot) { busy = true; stepShot(dt); }
     if (A.sink) { busy = true; stepSink(dt); }
     k = 1 - Math.exp(-dt * A.camSpeed);
     A.camPos.lerp(A.goalPos, k);
     A.camLook.lerp(A.goalLook, k);
     if (A.camPos.distanceTo(A.goalPos) > 0.01 || A.camLook.distanceTo(A.goalLook) > 0.01) busy = true;
-    // The ball, with its shadow.
-    var p = A.ball, bz = height(h, p[0], p[1]);
-    A.balls.forEach(function (b, i) { b.visible = i === A.who && A.ballOn; });
-    A.balls[A.who].position.copy(at(p[0], p[1], bz + R + (A.drop || 0)));
-    A.ballShadow.visible = A.ballOn && !A.drop;
-    A.ballShadow.position.copy(at(p[0], p[1], bz + 0.012));
+    if (placeBalls(dt)) busy = true;
     // White cells where the clock says.
     h.cells.forEach(function (c, i) { cellAt(c, A.clock, C4); A.cells[i].position.copy(at(C4[0], C4[1], 0)); });
     // Valves open as the ball comes through forwards and shut behind it.
+    var p = A.pos[A.who];
     A.valves.forEach(function (v) {
       var g = v.g, side = (p[0] - g.a[0]) * g.n[0] + (p[1] - g.a[1]) * g.n[1], mx = (g.a[0] + g.b[0]) / 2, my = (g.a[1] + g.b[1]) / 2;
       var vn = A.shot ? A.shot.vx * g.n[0] + A.shot.vy * g.n[1] : 0, by = Math.hypot(p[0] - mx, p[1] - my) < v.len / 2 + 0.8;
@@ -940,6 +989,33 @@
     if (A.shake > 0) { A.shake -= 1; busy = true; }
     return busy;
   }
+  // Both balls where they are, with their shadows, rolling as they go (turned about the axis across their way by how far
+  // they went); his head, once it's still, turns back upright to face the camera.
+  var QT = null, AXIS = null;
+  function placeBalls(dt) {
+    var h = A.h, busy = false;
+    QT = QT || new TH.Quaternion();
+    AXIS = AXIS || new TH.Vector3();
+    A.balls.forEach(function (b, i) {
+      var vis = A.on[i] || Boolean(A.sink && A.sink.who === i);
+      b.g.visible = vis;
+      b.shadow.visible = vis && !A.drop[i];
+      if (!vis) { b.last = null; return; }
+      var p = A.pos[i], z = height(h, p[0], p[1]), m = b.last ? Math.hypot(p[0] - b.last[0], p[1] - b.last[1]) : 0;
+      b.g.position.copy(at(p[0], p[1], z + b.r + A.drop[i]));
+      b.shadow.position.copy(at(p[0], p[1], z + 0.012));
+      if (m > 1e-4) {
+        AXIS.set(-(p[1] - b.last[1]) / m, 0, -(p[0] - b.last[0]) / m);
+        QT.setFromAxisAngle(AXIS, m / b.r);
+        b.spin.quaternion.premultiply(QT);
+      } else if (i === 1) {
+        QT.setFromAxisAngle(AXIS.set(0, 1, 0), Math.atan2(A.camPos.x - b.g.position.x, A.camPos.z - b.g.position.z));
+        if (b.spin.quaternion.angleTo(QT) > 0.01) { b.spin.quaternion.slerp(QT, Math.min(1, dt * 6)); busy = true; }
+      }
+      b.last = p.slice();
+    });
+    return busy;
+  }
   function render() {
     var c = A.cam;
     c.position.copy(A.camPos);
@@ -947,34 +1023,41 @@
     c.lookAt(A.camLook);
     if (A.flag) A.flag.rotation.y = Math.atan2(c.position.x - A.flag.position.x, c.position.z - A.flag.position.z);
     A.r.render(A.scene, c);
-    // Your tag over your ball, and his face: in the corner, or over his ball on his turn.
-    var p = A.ball, z = height(A.h, p[0], p[1]), s = place(p[0], p[1], z + R * 2 + 0.25), b = place(p[0], p[1], z + R), you = q('[data-mg-you]'), him = q('[data-mg-him]');
+    // Your tag beside your ball (his ball is his head, and his face with his moods is in the corner).
+    var p = A.pos[0], b = place(p[0], p[1], height(A.h, p[0], p[1]) + R), you = q('[data-mg-you]');
     if (you) {
-      you.hidden = !(A.who === 0 && A.ballOn && b.on && /aim|rolling|after/.test(A.phase));
+      you.hidden = !(A.on[0] && b.on && !A.drop[0]);
       you.style.left = b.x + '%';
       you.style.top = b.y + '%';
     }
-    if (him) {
-      var follow = A.who === 1 && A.ballOn && s.on;
-      him.classList.toggle('is-follow', follow);
-      him.style.left = follow ? s.x + '%' : '';
-      him.style.top = follow ? s.y + '%' : '';
-    }
   }
-  // A putt playing out from its recorded path (yours as it happens, his at 1.6x), the camera following.
+  // A putt: the putter swings through from its backswing, the ball leaves as it's struck and plays out from its recorded
+  // path (his at 1.6x), the camera following; the putter follows through and is put away.
   function play(r, speed, done) {
-    A.shot = { r: r, i: 0, speed: speed, done: done, hit: 0, clock0: A.clock, vx: 0, vy: 0 };
-    A.phase = 'rolling';
+    A.swing = { t: 0, from: A.clubs[A.who].swing.rotation.z, r: r, speed: speed, done: done, who: A.who, hit: false };
+    A.phase = 'swing';
     A.camSpeed = 3.2;
     drawAim();
-    puff3(A.ball[0], A.ball[1], 2);
     kick();
   }
+  function stepSwing(dt) {
+    var s = A.swing, c = A.clubs[s.who], t1 = 0.14;
+    s.t += dt;
+    if (s.t < t1) { c.swing.rotation.z = s.from * (1 - Math.pow(s.t / t1, 2)); return; }
+    if (!s.hit) {
+      s.hit = true;
+      A.phase = 'rolling';
+      A.shot = { r: s.r, i: 0, speed: s.speed, done: s.done, hit: 0, clock0: A.clock, vx: 0, vy: 0, who: s.who };
+      puff3(A.pos[s.who][0], A.pos[s.who][1], 2);
+    }
+    c.swing.rotation.z = 0.28 * Math.min(1, (s.t - t1) / 0.12);
+    if (s.t > 0.9) { c.g.visible = false; A.swing = null; }
+  }
   function stepShot(dt) {
-    var s = A.shot, r = s.r, P = r.path, last = r.steps;
+    var s = A.shot, r = s.r, P = r.path, last = r.steps, who = s.who;
     s.i = Math.min(last, s.i + dt * 120 * s.speed);
     var k = Math.min(Math.max(0, last - 1), Math.floor(s.i)), f = last ? s.i - k : 0, n = last ? k + 1 : 0;
-    A.ball = [P[2 * k] + (P[2 * n] - P[2 * k]) * f, P[2 * k + 1] + (P[2 * n + 1] - P[2 * k + 1]) * f];
+    A.pos[who] = [P[2 * k] + (P[2 * n] - P[2 * k]) * f, P[2 * k + 1] + (P[2 * n + 1] - P[2 * k + 1]) * f];
     s.vx = (P[2 * n] - P[2 * k]) * 120;
     s.vy = (P[2 * n + 1] - P[2 * k + 1]) * 120;
     A.clock = s.clock0 + s.i * DT;
@@ -983,24 +1066,24 @@
       if (e.v > 2.5) puff3(e.x, e.y, e.v > 6 ? 3 : 1);
       if (e.v > 7) A.shake = 9;
     }
-    if (!A.over) behind(A.ball, A.yaw);
+    if (!A.over) behind(A.pos[who], A.yaw);
     if (s.i < last) return;
     A.shot = null;
     A.clock = r.clock;
-    A.ball = r.end.slice();
-    if (r.sunk) A.sink = { t: 0, from: A.ball.slice(), done: s.done, r: r };
+    A.pos[who] = r.end.slice();
+    if (r.sunk) A.sink = { t: 0, who: who, from: r.end.slice(), done: s.done, r: r };
     else s.done(r);
   }
   // A ball that drops: it runs to the middle of the cup and down out of sight, and the confetti flies.
   function stepSink(dt) {
     var s = A.sink, c = A.h.cup;
     s.t = Math.min(1, s.t + dt / 0.35);
-    A.ball = [s.from[0] + (c[0] - s.from[0]) * s.t, s.from[1] + (c[1] - s.from[1]) * s.t];
-    A.drop = -s.t * s.t * 0.75;
+    A.pos[s.who] = [s.from[0] + (c[0] - s.from[0]) * s.t, s.from[1] + (c[1] - s.from[1]) * s.t];
+    A.drop[s.who] = -s.t * s.t * (A.balls[s.who].r * 2 + 0.2);
     if (s.t < 1) return;
     A.sink = null;
-    A.ballOn = false;
-    A.drop = 0;
+    A.on[s.who] = false;
+    A.drop[s.who] = 0;
     confetti(c[0], c[1]);
     s.done(s.r);
   }
@@ -1009,11 +1092,10 @@
   var SAY = {
     start: ['Mini golf? I was club champion.', 'Five holes. I\'ve never missed a putt.'],
     right: ['Hmph. Line it up, then.', 'Fine. You get the line.'],
-    wrong: ['Wrong. Good luck with that putt.', 'No line for you.'],
+    wrong: ['Wrong. That\'s a stroke gone.', 'No putt for you.'],
     in: ['Hmph. Lucky bounce.', 'In. Don\'t celebrate.'],
     out: ['Ha. Not even close.', 'The cup is over there.'],
-    hisIn: ['In. Obviously.', 'And that is how it\'s done.'],
-    hisOut: ['The green is bumpy.', 'That cup moved.']
+    hisIn: ['In. Obviously.', 'And that is how it\'s done.']
   };
   function host() {
     AM.practice('bio-' + CH[0], 'none', function () {
@@ -1028,11 +1110,11 @@
   function openGolf() {
     if (A) dispose3d();
     var c = host();
-    A = { card: c, pools: BB.pools(), right: 0, asked: 0, qn: 0, mulligans: 0, strokes: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], holed: [[], []], hole: 0, trash: [] };
+    A = { card: c, pools: BB.pools(), right: 0, asked: 0, qn: 0, mulligans: 0, strokes: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], holed: [[], []], hole: 0, trash: [], pos: [[0, 0], [0, 0]], on: [false, false], drop: [0, 0], who: 0 };
     K.gameHud(A.card, 0, '');
     var best = K.store('bio-golf-best');
     show('<div class="am-games__end mg-start"><div class="ar-face" aria-hidden="true">' + K.face + '</div><h3 class="am-games__title">Mini Golf</h3>' +
-      '<p class="am-games__sub">Five holes against the examiner, one for each chapter. Before every putt you answer a question. Right: a line shows where your putt will go, first bounce included, and your stroke is steady. Wrong: no line, and your putt wobbles. Every third question is typed: get it right and you win a mulligan, a putt you can take again. Fewest strokes wins.</p>' +
+      '<p class="am-games__sub">Five holes against the examiner, one for each chapter. You take turns, with a question before every putt. Right: you putt, and a line shows where it will go, first bounce included. Two right in a row and it\'s his turn. Wrong: you lose that stroke and it\'s his turn. He plays by the same rules. Every third question is typed: get it right and you win a mulligan, a putt you can take again. Fewest strokes wins.</p>' +
       '<ol class="mg-holes">' + HOLES.map(function (h, i) {
         var b = K.store('bio-golf-hole-' + (i + 1));
         return '<li style="--c:' + COL[h.ch] + '"><b>' + (i + 1) + '. ' + esc(h.name) + '</b><span>' + esc(NAME[h.ch]) + ' · Par ' + h.par + (b ? ' · Best ' + b : '') + '</span></li>';
@@ -1050,33 +1132,39 @@
     setup3d(q('[data-mg-canvas]'));
     holeStart(0);
   }
+  // A hole: both of you from the tee (his ball beside yours), taking turns; you tee off on holes 1, 3 and 5, he does on
+  // 2 and 4.
   function holeStart(i) {
     A.hole = i;
     A.h = prep(HOLES[i]);
     A.clock = 0;
-    A.who = 0;
-    A.ball = A.h.tee.slice();
-    A.ballOn = true;
-    A.drop = 0;
+    A.on = [false, false];
+    A.drop = [0, 0];
+    A.turn = { who: i % 2, shots: 0 };
+    A.who = A.turn.who;
     A.aim = { angle: Math.PI / 2, power: 0.35 };
     A.over = false;
+    var t = A.h.tee, y = yawFrom(t), side = [t[0] + y[1] * 0.75, t[1] - y[0] * 0.75], other = [t[0] - y[1] * 0.75, t[1] + y[0] * 0.75];
+    function ok(p) { return inPoly(A.h.outline, p[0], p[1]) && gap(A.h, p[0], p[1]) > R + 0.15; }
+    A.tees = [t.slice(), ok(side) ? side : ok(other) ? other : t.slice()];
+    A.pos = [A.tees[0].slice(), A.tees[1].slice()];
     build(A.h);
     size();
-    // The camera starts over the whole hole and comes down behind the ball.
+    // The camera starts over the whole hole and comes down behind the tee.
     overview(A.h);
     A.camPos.copy(A.goalPos);
     A.camLook.copy(A.goalLook);
-    A.yaw = yawFrom(A.ball);
-    behind(A.ball, A.yaw);
+    A.yaw = y;
+    behind(t, A.yaw);
     A.camSpeed = 1.4;
     A.phase = 'intro';
     top();
     board();
-    say('<b>Hole ' + (i + 1) + ': ' + esc(A.h.name) + '.</b> Par ' + A.h.par + '.');
+    say('<b>Hole ' + (i + 1) + ': ' + esc(A.h.name) + '.</b> Par ' + A.h.par + '. ' + (A.who ? 'He tees off.' : 'You tee off.'));
     row('');
     mood('happy');
     kick();
-    wait(yourShot, 1700);
+    wait(goNow, 1700);
   }
   function yawFrom(p) {
     var t = ahead(A.h, p, 5), dx = t[0] - p[0], dy = t[1] - p[1], l = Math.hypot(dx, dy);
@@ -1085,7 +1173,7 @@
   function top() {
     var t = q('[data-mg-top]');
     if (t) t.innerHTML = '<b>Hole ' + (A.hole + 1) + ' of 5: ' + esc(A.h.name) + '</b><span>' + esc(NAME[A.h.ch]) + ' · Par ' + A.h.par +
-      (A.who ? ' · His stroke ' + (A.strokes[1][A.hole] + 1) : ' · Stroke ' + (A.strokes[0][A.hole] + 1)) + (A.mulligans ? ' · Mulligans: ' + A.mulligans : '') + '</span>';
+      ' · ' + (A.who ? 'His go' : 'Your go') + (A.turn.shots ? ' (2nd)' : '') + (A.mulligans ? ' · Mulligans: ' + A.mulligans : '') + '</span>';
   }
   // The scorecard: par, your strokes and his for each hole, and the totals.
   function scoreTable() {
@@ -1102,29 +1190,41 @@
       '</tbody></table>';
   }
   function board() { var b = q('[data-mg-score]'); if (b) b.innerHTML = scoreTable(); }
-  function yourShot() {
-    A.who = 0;
-    A.qn += 1;
-    var typed = A.qn % 3 === 0, n = A.strokes[0][A.hole] + 1;
+  // A go: the ball comes out onto the tee the first time, the camera goes behind it, and the question comes up.
+  function goNow() {
+    var who = A.who = A.turn.who;
+    if (!A.on[who]) { A.on[who] = true; A.pos[who] = A.tees[who].slice(); }
+    A.yaw = yawFrom(A.pos[who]);
+    A.over = false;
+    A.camSpeed = 2.4;
+    behind(A.pos[who], A.yaw);
     top();
-    say('<b>Your putt.</b> Answer first.');
+    board();
     row('');
-    ask(typed ? 'Mulligan question' : 'Stroke ' + n, typed, A.h.ch, function (ok) {
-      A.guide = ok;
-      if (ok && A.typed) { A.mulligans += 1; top(); }
+    kick();
+    if (who) hisGo(); else yourGo();
+  }
+  function yourGo() {
+    A.qn += 1;
+    var typed = A.qn % 3 === 0;
+    mood('happy');
+    say('<b>Your go' + (A.turn.shots ? ' again' : '') + '.</b> Answer to putt.');
+    ask(typed ? 'Mulligan question' : 'Stroke ' + (A.strokes[0][A.hole] + 1), typed, A.h.ch, function (ok) {
       K.mascot(ok ? 'angry' : 'happy', pick(ok ? SAY.right : SAY.wrong));
-      go(ok ? (A.typed ? 'Aim (and a mulligan won)' : 'Aim with the line') : 'Aim', function () { hideAsk(); aim(); });
+      if (!ok) { go('Go on', function () { hideAsk(); penalty(0); }); return; }
+      if (A.typed) { A.mulligans += 1; top(); }
+      go(A.typed ? 'Aim (and a mulligan won)' : 'Aim', function () { hideAsk(); aim(); });
     });
   }
   function aim() {
     A.phase = 'aim';
     A.who = 0;
     A.over = false;
-    A.yaw = yawFrom(A.ball);
+    A.yaw = yawFrom(A.pos[0]);
     A.aim = { angle: Math.atan2(A.yaw[1], A.yaw[0]), power: A.aim ? A.aim.power : 0.35 };
     A.camSpeed = 3;
-    behind(A.ball, A.yaw);
-    say(A.guide ? '<b>Right:</b> the dots show your putt, first bounce included. Drag back from the ball and let go.' : '<b>Wrong:</b> no line, and your putt will wobble. Drag back from the ball and let go.');
+    behind(A.pos[0], A.yaw);
+    say('<b>Right:</b> the dots show your putt, first bounce included. Drag back from the ball and let go.');
     row('<button type="button" class="tb-btn tb-btn--go" data-mg-putt>Putt</button><button type="button" class="tb-btn mg-btn2" data-mg-look>See the hole</button>');
     drawAim();
     q('[data-mg-canvas]').focus({ preventScroll: true });
@@ -1133,59 +1233,49 @@
     if (A.phase !== 'aim') return;
     A.over = !A.over;
     A.camSpeed = 2.6;
-    if (A.over) overview(A.h); else behind(A.ball, A.yaw);
+    if (A.over) overview(A.h); else behind(A.pos[0], A.yaw);
     var b = q('[data-mg-look]');
     if (b) b.textContent = A.over ? 'Back to the ball' : 'See the hole';
     kick();
   }
   function putt() {
     if (A.phase !== 'aim' || A.aim.power < 0.02) return;
-    var shot = A.guide ? A.aim : wobble(A.aim, Math.random);
-    A.prev = { from: A.ball.slice(), clock: A.clock, guide: A.guide };
+    A.prev = { from: A.pos[0].slice(), clock: A.clock };
     A.strokes[0][A.hole] += 1;
     board();
     row('');
-    say(A.guide ? '<b>Your putt.</b>' : '<b>Your putt.</b> It wobbles…');
-    play(roll(A.h, A.ball, shot.angle, shot.power, A.clock, true), 1, yourStop);
+    say('<b>Your putt.</b>');
+    play(roll(A.h, A.pos[0], A.aim.angle, A.aim.power, A.clock, true), 1, yourStop);
   }
   function yourStop(r) {
     var n = A.strokes[0][A.hole];
     A.phase = 'after';
     if (r.sunk) {
       A.holed[0][A.hole] = true;
-      board();
       popText(A.h.cup[0], A.h.cup[1], scoreName(n, A.h.par));
       K.ding(4, true);
       mood(n < A.h.par ? 'furious' : 'angry');
       K.mascot('angry', pick(SAY.in));
-      say('<b>In, in ' + n + '.</b> ' + scoreName(n, A.h.par) + '. His turn.');
-      wait(hisHole, 2000);
-      return;
-    }
-    if (n >= MAX) {
-      A.holed[0][A.hole] = true;
-      board();
-      say('That\'s ' + MAX + ' strokes: you pick up. His turn.');
-      wait(hisHole, 1600);
+      say('<b>In, in ' + n + '.</b> ' + scoreName(n, A.h.par) + '.');
+      after(true, 1800);
       return;
     }
     mood('happy');
-    if (A.mulligans) {
+    if (A.mulligans && n < MAX) {
       say('Not in. Use a mulligan and take that putt again?');
       row('<button type="button" class="tb-btn tb-btn--go" data-mg-retake>Take it again</button><button type="button" class="tb-btn mg-btn2" data-mg-keep>Play on</button>');
       return;
     }
     if (Math.hypot(r.end[0] - A.h.cup[0], r.end[1] - A.h.cup[1]) > 4) K.mascot('happy', pick(SAY.out));
     say('Not in.');
-    wait(yourShot, 900);
+    after(true, 800);
   }
   function retake() {
     if (A.phase !== 'after' || !A.mulligans) return;
     A.mulligans -= 1;
     A.strokes[0][A.hole] -= 1;
-    A.ball = A.prev.from.slice();
+    A.pos[0] = A.prev.from.slice();
     A.clock = A.prev.clock;
-    A.guide = A.prev.guide;
     board();
     top();
     aim();
@@ -1194,38 +1284,31 @@
     if (n === 1) return 'Hole in one!';
     return { '-2': 'Eagle!', '-1': 'Birdie!', 0: 'Par', 1: 'Bogey', 2: 'Double bogey' }[n - par] || '+' + (n - par);
   }
-  // His go at the hole: his ball from the tee, his own question before each putt, and his putts played quickly.
-  function hisHole() {
-    A.who = 1;
-    A.ball = A.h.tee.slice();
-    A.ballOn = true;
-    A.drop = 0;
-    A.yaw = yawFrom(A.ball);
-    A.camSpeed = 2.4;
-    behind(A.ball, A.yaw);
-    mood('happy');
-    top();
-    say('<b>His turn.</b>');
-    row('');
-    kick();
-    wait(hisShot, 900);
-  }
-  function hisShot() {
-    top();
+  // His go: his own question; right, he lines up the best putt, shows his putter and putts (quickly); wrong, he loses the
+  // stroke.
+  function hisGo() {
+    A.phase = 'him';
+    say('<b>His go' + (A.turn.shots ? ' again' : '') + '.</b>');
     hisAsk('His stroke ' + (A.strokes[1][A.hole] + 1), 0.65, A.h.ch, function (ok) {
-      go('Watch his putt', function () { hideAsk(); hisPutt(ok); }, 2600);
+      if (!ok) { go('Go on', function () { hideAsk(); penalty(1); }, 2400); return; }
+      go('Watch his putt', function () { hideAsk(); hisPutt(); }, 2600);
     });
   }
-  function hisPutt(ok) {
+  function hisPutt() {
     A.phase = 'him';
-    say(ok ? '<b>He got it right.</b> He lines it up…' : '<b>He got it wrong.</b> He lines it up anyway…');
+    say('<b>He got it right.</b> He lines it up…');
     kick();
     wait(function () {
-      var s = hisAim(A.h, A.ball, A.clock, ok, Math.random);
-      A.strokes[1][A.hole] += 1;
+      var s = hisAim(A.h, A.pos[1], A.clock, Math.random);
       A.yaw = [Math.cos(s.angle), Math.sin(s.angle)];
-      board();
-      play(roll(A.h, A.ball, s.angle, s.power, A.clock, true), 1.6, hisStop);
+      behind(A.pos[1], A.yaw);
+      clubAt(1, s.angle, s.power);
+      kick();
+      wait(function () {
+        A.strokes[1][A.hole] += 1;
+        board();
+        play(roll(A.h, A.pos[1], s.angle, s.power, A.clock, true), 1.6, hisStop);
+      }, 700);
     }, 120);
   }
   function hisStop(r) {
@@ -1238,13 +1321,35 @@
       mood('happy');
       K.mascot('happy', pick(SAY.hisIn));
       say('<b>He\'s in, in ' + n + '.</b>');
-      wait(holeDone, 1700);
+      after(true, 1700);
       return;
     }
-    if (n >= MAX) { A.holed[1][A.hole] = true; say('He picks up after ' + MAX + '.'); wait(holeDone, 1400); return; }
     mood('angry');
     say('He\'s not in.');
-    wait(hisShot, 700);
+    after(true, 700);
+  }
+  // A wrong answer: the go is lost, and it counts as a stroke where the ball lies.
+  function penalty(who) {
+    var p = A.pos[who];
+    A.strokes[who][A.hole] += 1;
+    if (A.on[who]) popText(p[0], p[1], '+1');
+    say(who ? '<b>He got it wrong:</b> he loses that stroke.' : '<b>Wrong:</b> you lose that stroke.');
+    board();
+    after(false, 1300);
+  }
+  // After a go: picked up at MAX strokes; then whose go is next (or the hole's done).
+  function after(right, ms) {
+    var who = A.who, h = A.hole;
+    if (!A.holed[who][h] && A.strokes[who][h] >= MAX) {
+      A.holed[who][h] = true;
+      A.on[who] = false;
+      say((who ? 'He picks' : 'You pick') + ' up after ' + MAX + '.');
+    }
+    board();
+    var next = nextGo(A.turn, right, [Boolean(A.holed[0][h]), Boolean(A.holed[1][h])]);
+    if (!next) { wait(holeDone, ms + 300); return; }
+    A.turn = next;
+    wait(goNow, ms);
   }
   function holeDone() {
     var i = A.hole, you = A.strokes[0][i], him = A.strokes[1][i], best = +(K.store('bio-golf-hole-' + (i + 1)) || 0);
@@ -1275,7 +1380,7 @@
   // Drag back from the ball and let go: the putt goes the other way from your finger (where it is on the green), harder
   // the further you pull. A tap only turns the aim; pulling back to the ball cancels.
   function pullTo(e) {
-    var c = q('[data-mg-canvas]'), r = c.getBoundingClientRect(), p = A.ball, z = height(A.h, p[0], p[1]) + R;
+    var c = q('[data-mg-canvas]'), r = c.getBoundingClientRect(), p = A.pos[0], z = height(A.h, p[0], p[1]) + R;
     var b = place(p[0], p[1], z), bx = b.x / 100 * r.width, by = b.y / 100 * r.height, px = e.clientX - r.left, py = e.clientY - r.top;
     var dx = px - bx, dy = py - by, len = Math.hypot(dx, dy);
     if (len < 6) { A.aim.power = 0; drawAim(); return; }
@@ -1307,7 +1412,7 @@
     if (e.target.closest('[data-mg-putt]')) { putt(); return; }
     if (e.target.closest('[data-mg-look]')) { look(); return; }
     if (e.target.closest('[data-mg-retake]')) { retake(); return; }
-    if (e.target.closest('[data-mg-keep]') && A.phase === 'after') { row(''); yourShot(); }
+    if (e.target.closest('[data-mg-keep]') && A.phase === 'after') { row(''); say('Not in.'); after(true, 600); }
   });
   var drag = null;
   document.addEventListener('pointerdown', function (e) {
@@ -1345,7 +1450,7 @@
     open: openGolf,
     state: function () { return A; },
     // For tools/bio/tests/golf.mjs.
-    test: { HOLES: HOLES, prep: prep, roll: roll, aimLine: aimLine, survey: survey, solve: solve, missShot: missShot, hisAim: hisAim, wobble: wobble, costAt: costAt, ahead: ahead,
+    test: { HOLES: HOLES, prep: prep, roll: roll, aimLine: aimLine, survey: survey, solve: solve, hisAim: hisAim, nextGo: nextGo, costAt: costAt, ahead: ahead,
       height: height, inPoly: inPoly, gap: gap, cellAt: cellAt, speedOf: speedOf, R: R, CUP: CUP, MAX: MAX }
   };
 })();

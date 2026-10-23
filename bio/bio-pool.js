@@ -1,18 +1,17 @@
 // Pool against the examiner, in 3D (the user: "now 3d pool against him"; they had asked for pool to wait until it could
 // be 3D). Nine balls racked in a diamond: your four (blue), his four (orange, striped) and the black in the middle. You
-// break. Pot one of yours and you shoot again; miss, or pot the cue ball, and it's his turn (the cue ball goes back on
-// its spot). Clear your four, then pot the black to win; pot the black any earlier and you lose.
-// Before each of your shots you answer a question (from the chapter picked at the start, or all of them; the trivia
-// board's cards; every third one typed and marked like the answer sheet), and the answer decides the shot (the user, of
-// Cannon Duel: the reward has to really help):
-//   right        the guide shows the cue ball's path to what it hits first (a ghost ball where it meets a ball), where
-//                that ball goes (to its first cushion, or into a pocket, which is ringed), and a little of the cue
-//                ball after; and the stroke is steady;
-//   wrong        no guide, only the cue, and the shot wobbles off your aim (0.6 to 2 degrees, 3 to 12% power);
+// break. Pot one of yours and you can shoot again (two shots a turn at most); miss, or pot the cue ball, and it's his
+// turn (the cue ball goes back on its spot). Clear your four, then pot the black to win; pot it any earlier and you lose.
+// You take turns, a question before every shot (from the chapter picked at the start, or all of them; the trivia
+// board's cards; every third of yours typed and marked like the answer sheet). The rule for turns (the user: "if you get
+// them wrong then u dont rlly get to continue and u can get 2 right then its capped"):
+//   right        you shoot, with the guide: the cue ball's path to what it hits first (a ghost ball where it meets a
+//                ball), where that ball goes (to its first cushion, or into a pocket, which is ringed), and a little of
+//                the cue ball after. Pot one of yours and you answer again for a second shot; then it's his turn;
+//   wrong        no shot, and it's his turn;
 //   typed right  a mulligan as well: take one shot again (the table goes back as it was), kept until you use it.
-// He answers his own question before each shot (right 65 in 100). Right: the best pot a search finds (ghost-ball lines
-// to every pocket, tried in the physics, the one that still drops when aimed a little off), with a small wobble. Wrong:
-// a shot that pots nothing and doesn't foul.
+// He plays by the same rule (right 65 in 100): right, the best pot a search finds (ghost-ball lines to every pocket,
+// tried in the physics, the one that still drops when aimed a little off) with a small wobble; wrong, no shot.
 // The physics is done here in 2D on the cloth and is deterministic (tools/bio/tests/pool.mjs): balls slow on the cloth,
 // bounce off each other and the cushions, and drop when they cross a pocket's mouth. three.js (bio/vendor/three.min.js)
 // only draws it.
@@ -319,8 +318,8 @@
     });
     return best || quiet(st, who, rand);
   }
-  // His shot when he got his question wrong: one that pots nothing and doesn't foul. Off a pot line by 1.7 to 4.6
-  // degrees (a clear miss of the pocket), else anything that pots nothing, else barely a touch.
+  // A shot that pots nothing (so doesn't foul either), for when nothing else is safe: off a pot line by 1.7 to 4.6
+  // degrees, else anything that pots nothing, else barely a touch.
   function quiet(st, who, rand) {
     var tries = [];
     potLines(st, who).forEach(function (c) { [1, -1].forEach(function (s) { [0.03, 0.05, 0.08].forEach(function (o) { tries.push({ angle: c.angle + s * o, power: powerFor(c) }); }); }); });
@@ -337,20 +336,13 @@
     for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(rand() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; }
     return a;
   }
-  // His shot: right, the best pot (or an opening shot) with a small wobble (up to 0.45 degrees and 6% power); wrong, a
-  // quiet miss, played exactly.
-  function hisAim(st, who, right, rand) {
-    if (!right) return quiet(st, who, rand);
+  // His shot (only after a right answer): the best pot, or an opening shot, with a small wobble (up to 0.45 degrees and
+  // 6% power).
+  function hisAim(st, who, rand) {
     var s = plan(st, who), g = function () { return (rand() + rand() + rand() - 1.5) / 1.5; };
     if (!s) return safety(st, who, rand);
     return { angle: s.angle + g() * 0.008, power: Math.max(0.05, Math.min(1, s.power * (1 + g() * 0.06))) };
   }
-  // Your shot after a wrong answer: off your aim by 0.6 to 2 degrees and 3 to 12% power, either way.
-  function wobble(aim, rand) {
-    var side = function () { return rand() < 0.5 ? -1 : 1; };
-    return { angle: aim.angle + side() * (0.01 + rand() * 0.025), power: Math.max(0.02, Math.min(1, aim.power * (1 + side() * (0.03 + rand() * 0.09)))) };
-  }
-
   // ======================================================================== the questions
   // As in bio-arcade.js: the table with the question layer over it, and the turn's line and buttons below.
   function show(html, close) {
@@ -662,7 +654,8 @@
     A.ring = add(lying(new TH.RingGeometry(0.82, 1.02, 32)), flat('#FF9600', { polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 }));
     A.ring.visible = false;
   }
-  // The aim now: the cue behind the cue ball (drawn back with the power) and, after a right answer, the guide.
+  // The aim now: the cue behind the cue ball (drawn back with the power) and the guide (you only aim after a right
+  // answer).
   function drawAim() {
     var on = A.phase === 'aim', c = A.st.p[0], pw = q('[data-pl-power]');
     A.cue.g.visible = on || A.phase === 'strike';
@@ -674,7 +667,7 @@
       pw.querySelector('i').style.height = Math.round(A.aim.power * 100) + '%';
       pw.querySelector('b').textContent = Math.round(A.aim.power * 100) + '%';
     }
-    var G = on && A.guide ? guide(shoot(A.st, A.aim.angle, A.aim.power, true)) : null, mtx = new TH.Matrix4(), turn = new TH.Quaternion(), big = A.phone ? 1.5 : 1, sc = new TH.Vector3(big, 1, big);
+    var G = on ? guide(shoot(A.st, A.aim.angle, A.aim.power, true)) : null, mtx = new TH.Matrix4(), turn = new TH.Quaternion(), big = A.phone ? 1.5 : 1, sc = new TH.Vector3(big, 1, big);
     [G ? G.cue : [], G ? G.obj : []].forEach(function (pts, k) {
       A.dots[k].forEach(function (d, j) {
         d.count = Math.min(120, pts.length);
@@ -911,7 +904,7 @@
     A = { card: c, pools: BB.pools(), right: 0, asked: 0, qn: 0, mulligans: 0, shots: 0, trash: [] };
     K.gameHud(A.card, 0, '');
     show('<div class="am-games__end pl-start"><div class="ar-face" aria-hidden="true">' + K.face + '</div><h3 class="am-games__title">Pool</h3>' +
-      '<p class="am-games__sub">You\'re the blue balls, he\'s the orange stripes. Before every shot you answer a question. Right: a guide shows where the cue ball and the ball it hits will go, and your shot is steady. Wrong: no guide, and your shot wobbles. Pot one of yours and you go again. Clear your four, then pot the black to win; pot the black too early and you lose. Every third question is typed: get it right and you win a mulligan, a shot you can take again.</p>' +
+      '<p class="am-games__sub">You\'re the blue balls, he\'s the orange stripes. You take turns, with a question before every shot. Right: you shoot, and a guide shows where the cue ball and the ball it hits will go. Pot one of yours and you answer again for one more shot, then it\'s his turn. Wrong: no shot, and it\'s his turn. He plays by the same rules. Clear your four, then pot the black to win; pot the black too early and you lose. Every third question is typed: get it right and you win a mulligan, a shot you can take again.</p>' +
       (wins ? '<p class="mg-best">Games won: <b class="num">' + wins + '</b>' + (best ? ' · Fastest win: <b class="num">' + best + '</b> shots' : '') + '</p>' : '') +
       '<p class="pl-pick">Questions from:</p><div class="dsi-chs pl-chs">' + CH.map(function (ch) {
         return '<button type="button" class="tb-pick" data-pl-ch="' + ch + '" style="--c:' + COL[ch] + '"><span class="tb-pick__ch">' + esc(NAME[ch]) + '</span></button>';
@@ -938,7 +931,7 @@
     placeBalls(A.st.p, A.st.on, null);
     board();
     kick();
-    wait(yourShot, 900);
+    wait(yourTurn, 900);
   }
   function chapterName() { return A.ch ? NAME[A.ch] : 'All chapters'; }
   function top() {
@@ -959,20 +952,22 @@
     }
     b.innerHTML = side(0, 'You') + side(1, 'Him');
   }
+  // Your turn: up to two shots, each after a right answer (a second only after potting one of yours).
+  function yourTurn() { A.turnShots = 0; yourShot(); }
   function yourShot() {
     A.who = 0;
     A.qn += 1;
     var typed = A.qn % 3 === 0;
     top();
     board();
-    say('<b>Your shot.</b> Answer first.');
+    say('<b>Your ' + (A.turnShots ? 'second shot' : 'turn') + '.</b> Answer to shoot.');
     row('');
     mood('happy');
     ask(typed ? 'Mulligan question' : A.shots ? 'Shot ' + (A.shots + 1) : 'The break', typed, A.ch, function (ok) {
-      A.guide = ok;
-      if (ok && A.typed) { A.mulligans += 1; top(); }
       K.mascot(ok ? 'angry' : 'happy', pick(ok ? SAY.right : SAY.wrong));
-      go(ok ? (A.typed ? 'Aim (and a mulligan won)' : 'Aim with the guide') : 'Aim', function () { hideAsk(); aim(); });
+      if (!ok) { go('His turn', function () { hideAsk(); say('<b>Wrong:</b> no shot.'); hisTurn(); }); return; }
+      if (A.typed) { A.mulligans += 1; top(); }
+      go(A.typed ? 'Aim (and a mulligan won)' : 'Aim', function () { hideAsk(); aim(); });
     });
   }
   function aim() {
@@ -984,7 +979,7 @@
     if (!A.shots) A.aim.power = 0.8;
     A.camSpeed = 3;
     view();
-    say(A.guide ? '<b>Right:</b> the guide shows where the cue ball and the ball it hits will go. Drag back from the cue ball and let go.' : '<b>Wrong:</b> no guide, and your shot will wobble. Drag back from the cue ball and let go.');
+    say('<b>Right:</b> the guide shows where the cue ball and the ball it hits will go. Drag back from the cue ball and let go.');
     row('<button type="button" class="tb-btn tb-btn--go" data-pl-shoot>Shoot</button>' +
       '<button type="button" class="tb-btn mg-btn2 pl-nudge" data-pl-turn="1" aria-label="Turn the aim left">◀</button><button type="button" class="tb-btn mg-btn2 pl-nudge" data-pl-turn="-1" aria-label="Turn the aim right">▶</button>' +
       '<button type="button" class="tb-btn mg-btn2" data-pl-view>' + (A.close ? 'Whole table' : 'Line it up') + '</button>');
@@ -1001,13 +996,12 @@
   }
   function fire() {
     if (A.phase !== 'aim' || A.aim.power < 0.02) return;
-    var shot = A.guide ? A.aim : wobble(A.aim, Math.random);
-    A.prev = { st: copy(A.st), guide: A.guide };
+    A.prev = { st: copy(A.st) };
     A.before = copy(A.st);
     A.shots += 1;
     row('');
-    say(A.guide ? '<b>Your shot.</b>' : '<b>Your shot.</b> It wobbles…');
-    play(shoot(A.st, shot.angle, shot.power, true), 1, yourResult);
+    say('<b>Your shot.</b>');
+    play(shoot(A.st, A.aim.angle, A.aim.power, true), 1, yourResult);
   }
   function yourResult(r) {
     var v = judge(A.before, r, 0), mine = r.potted.filter(function (b) { return owner(b) === 0; }).length;
@@ -1018,8 +1012,9 @@
     if (v === 'again') {
       mood('angry');
       K.mascot('angry', pick(SAY.potYou));
-      say('<b>You potted ' + (mine === 1 ? 'one' : mine) + '.</b> Go again.');
-      wait(yourShot, 1200);
+      A.turnShots += 1;
+      if (A.turnShots < 2) { say('<b>You potted ' + (mine === 1 ? 'one' : mine) + '.</b> Answer again for one more shot.'); wait(yourShot, 1200); }
+      else { say('<b>You potted ' + (mine === 1 ? 'one' : mine) + '.</b> That\'s your two shots: his turn.'); wait(hisTurn, 1500); }
       return;
     }
     var why = A.why = v === 'lose' ? (r.scratch ? 'The black went in with the cue ball.' : 'The black went in too early.') : v === 'foul' ? '<b>Foul:</b> the cue ball went in.' : '<b>Nothing of yours went in.</b>';
@@ -1045,32 +1040,36 @@
     A.mulligans -= 1;
     A.shots -= 1;
     A.st = copy(A.prev.st);
-    A.guide = A.prev.guide;
     placeBalls(A.st.p, A.st.on, null);
     A.balls.forEach(function (b) { b.last = null; });
     board();
     top();
     aim();
   }
-  // His turn: his own question, then his shot from where the cue ball lies; he goes again after potting one of his.
-  function hisTurn() {
+  // His turn: up to two shots by the same rule. His own question; right, his shot from where the cue ball lies (a second
+  // only after potting one of his); wrong, no shot and it's your turn.
+  function hisTurn() { A.turnShots = 0; hisGo(); }
+  function hisGo() {
     A.who = 1;
     A.close = false;
     tableView();
     A.camSpeed = 2.4;
     top();
     board();
-    say('<b>His turn.</b>');
+    say('<b>His ' + (A.turnShots ? 'second shot' : 'turn') + '.</b>');
     row('');
     kick();
-    hisAsk('His shot', 0.65, A.ch, function (ok) { go('Watch his shot', function () { hideAsk(); hisShot(ok); }, 2600); });
+    hisAsk('His shot', 0.65, A.ch, function (ok) {
+      if (!ok) { go('Your turn', function () { hideAsk(); say('<b>He got it wrong:</b> no shot.'); mood('angry'); wait(yourTurn, 900); }, 2400); return; }
+      go('Watch his shot', function () { hideAsk(); hisShot(); }, 2600);
+    });
   }
-  function hisShot(ok) {
+  function hisShot() {
     A.phase = 'him';
-    say(ok ? '<b>He got it right.</b> He lines it up…' : '<b>He got it wrong.</b> He lines it up anyway…');
+    say('<b>He got it right.</b> He lines it up…');
     kick();
     wait(function () {
-      var s = hisAim(A.st, 1, ok, Math.random);
+      var s = hisAim(A.st, 1, Math.random);
       A.before = copy(A.st);
       A.aim = { angle: s.angle, power: s.power };
       A.cue.tilt.position.x = -(R + 0.15 + s.power * 1.6);
@@ -1086,11 +1085,18 @@
     board();
     if (v === 'win') { finish(false, 'He potted the black.'); return; }
     if (v === 'lose') { finish(true, r.scratch ? 'He potted the black with the cue ball.' : 'He potted the black too early.'); return; }
-    if (v === 'again') { mood('happy'); K.mascot('happy', pick(SAY.potHim)); say('<b>He potted one.</b> He goes again.'); wait(hisTurn, 1300); return; }
+    if (v === 'again') {
+      mood('happy');
+      K.mascot('happy', pick(SAY.potHim));
+      A.turnShots += 1;
+      if (A.turnShots < 2) { say('<b>He potted one.</b> He answers again for one more shot.'); wait(hisGo, 1300); }
+      else { say('<b>He potted one.</b> That\'s his two shots: your turn.'); wait(yourTurn, 1500); }
+      return;
+    }
     if (v === 'foul') { A.st = respot(A.st); say('<b>Foul:</b> his cue ball went in. Your turn.'); } else say('<b>He missed.</b> Your turn.');
     mood('angry');
     K.mascot('angry', pick(SAY.missHim));
-    wait(yourShot, 1300);
+    wait(yourTurn, 1300);
   }
   function finish(won, why) {
     var wins = +(K.store('bio-pool-wins') || 0) + (won ? 1 : 0), best = +(K.store('bio-pool-best') || 0);
@@ -1178,7 +1184,7 @@
     open: openPool,
     state: function () { return A; },
     // For tools/bio/tests/pool.mjs.
-    test: { rack: rack, shoot: shoot, judge: judge, respot: respot, targets: targets, guide: guide, potLines: potLines, plan: plan, quiet: quiet, safety: safety, hisAim: hisAim, wobble: wobble,
+    test: { rack: rack, shoot: shoot, judge: judge, respot: respot, targets: targets, guide: guide, potLines: potLines, plan: plan, quiet: quiet, safety: safety, hisAim: hisAim,
       owner: owner, copy: copy, mouth: mouth, POCKETS: POCKETS, L: L, W: W, R: R, N: N, BLACK: BLACK }
   };
 })();

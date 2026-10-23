@@ -3,8 +3,8 @@
 //   course    the ball never leaves the course (or sinks into a wall) in a spread of putts from all over each hole;
 //   same      the physics is deterministic: the same putt rolls the same way every time, and nothing in it is random;
 //   valves    the heart's valves let the ball through forwards and bounce it back the other way;
-//   misses    after a wrong answer his putt never goes in (and stops at least 1.2 from the cup), from all over each hole;
-//   wobble    a wrong answer's wobble always moves your putt off your aim.
+//   turns     a wrong answer ends a turn and two right ones in a row do too; a player who's in is skipped;
+//   his putt  after a right answer, the search's putt with no more than his wobble.
 // Run: node tools/bio/tests/golf.mjs
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
@@ -90,30 +90,30 @@ holes.forEach((h, n) => {
   if (!(back.end[1] > 8)) fail(`a putt back down the second valve got through to y ${back.end[1].toFixed(2)}`);
 }
 
-// ---------------------------------------------------------------- misses: his wrong answers never go in
-let misses = 0;
+// ---------------------------------------------------------------- turns: wrong ends a turn, two right and it's capped
+const G = (who, shots) => ({ who, shots });
+[
+  [G(0, 0), true, [false, false], G(0, 1), 'a right answer gives another go'],
+  [G(0, 1), true, [false, false], G(1, 0), 'two right and it is his turn'],
+  [G(0, 0), false, [false, false], G(1, 0), 'a wrong answer ends your turn'],
+  [G(0, 1), false, [false, false], G(1, 0), 'a wrong second answer ends your turn'],
+  [G(1, 0), true, [false, false], G(1, 1), 'his right answer gives him another go'],
+  [G(1, 1), true, [false, false], G(0, 0), 'his two right and it is your turn'],
+  [G(1, 0), false, [false, false], G(0, 0), 'his wrong answer ends his turn'],
+  [G(0, 0), true, [true, false], G(1, 0), 'once you are in it is his turn'],
+  [G(1, 1), true, [true, false], G(1, 0), 'with you in, he carries on'],
+  [G(1, 0), false, [true, false], G(1, 0), 'with you in, a wrong answer still leaves it his go'],
+  [G(0, 1), true, [false, true], G(0, 0), 'with him in, you carry on'],
+  [G(0, 0), true, [true, true], null, 'both in: the hole is done']
+].forEach(([turn, right, holed, want, what]) => {
+  const got = T.nextGo(turn, right, holed);
+  if (JSON.stringify(got) !== JSON.stringify(want)) fail(`turns: ${what} (got ${JSON.stringify(got)})`);
+});
+// His putt after a right answer is the search's, off by no more than his wobble (2 degrees, 7% power).
 holes.forEach((h, n) => {
-  const rand = seeded(900 + n), from = starts[n].slice(0, 6);
-  // And right by the cup, where missing is hardest.
-  for (let k = 0; k < 4; k++) {
-    const a = rand() * Math.PI * 2, d = 0.9 + rand() * 1.4, p = [h.cup[0] + Math.cos(a) * d, h.cup[1] + Math.sin(a) * d];
-    if (T.inPoly(h.outline, p[0], p[1]) && T.gap(h, p[0], p[1]) > T.R + 0.05) from.push(p);
-  }
-  from.forEach(at => {
-    const clock = rand() * 10, s = T.hisAim(h, at, clock, false, rand), r = T.roll(h, at, s.angle, s.power, clock, false);
-    misses++;
-    if (r.sunk) fail(`hole ${n + 1}: his wrong-answer putt from (${at.map(v => v.toFixed(1))}) went in`);
-    else if (Math.hypot(r.end[0] - h.cup[0], r.end[1] - h.cup[1]) < 1.2) fail(`hole ${n + 1}: his wrong-answer putt stopped only ${Math.hypot(r.end[0] - h.cup[0], r.end[1] - h.cup[1]).toFixed(2)} from the cup`);
-  });
+  const rand = seeded(400 + n), s = T.solve(h, h.tee, 0), a = T.hisAim(h, h.tee, 0, rand);
+  if (Math.abs(a.angle - s.angle) > 0.0351 || Math.abs(a.power / s.power - 1) > 0.0701) fail(`hole ${n + 1}: his putt is further off the search's than his wobble`);
 });
 
-// ---------------------------------------------------------------- wobble
-{
-  const rand = seeded(77);
-  for (let k = 0; k < 500; k++) {
-    const w = T.wobble({ angle: 1, power: 0.5 }, rand);
-    if (Math.abs(w.angle - 1) < 0.034 || Math.abs(w.angle - 1) > 0.106 || Math.abs(w.power / 0.5 - 1) < 0.029 || Math.abs(w.power / 0.5 - 1) > 0.121) { fail(`a wobble of ${(w.angle - 1).toFixed(3)} rad, ${(w.power / 0.5 - 1).toFixed(3)} power`); break; }
-  }
-}
-console.log(fails ? `${fails} failures` : `ok: 5 holes sunk within par + 2, the ball stays on the course, the same putt rolls the same way, valves are one way, ${misses} wrong-answer putts all missed (${((Date.now() - t0) / 1000).toFixed(1)}s)`);
+console.log(fails ? `${fails} failures` : `ok: 5 holes sunk within par + 2, the ball stays on the course, the same putt rolls the same way, valves are one way, turns (wrong ends a turn, two right and it's capped), his putts (${((Date.now() - t0) / 1000).toFixed(1)}s)`);
 process.exit(fails ? 1 : 0);

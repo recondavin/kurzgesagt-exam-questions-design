@@ -2,11 +2,14 @@
 // battleships, an artillery duel and an Angry Birds-like game; pool and mini golf wait until they can be 3D). Each under
 // its own name:
 //   Sea Battle           Two fleets on 8x8 seas, a ship for each chapter. Answer your question right and you fire at
-//                        his sea (a hit, and you answer again for another shot); wrong, it's his turn. He answers his
-//                        own question out loud and fires when he gets it right, hunting round his hits.
-//   Cannon Duel          Two cannons on the hills, the wind blowing. Answer right and you aim with the start of your
-//                        shot's path drawn and the wind read out; wrong and you aim blind. Every third question is
-//                        typed: right, a big shell. Shells dig craters; knock his health to nothing first.
+//                        his sea, and answer again for a second shot; wrong, it's his turn. He answers his own question
+//                        out loud and fires when he gets it right, hunting round his hits.
+//   Cannon Duel          Two cannons on the hills, the wind blowing. Answer right and you aim with your shot's whole path
+//                        drawn and the wind read out, and answer again for a second shot; wrong, no shot and it's his
+//                        turn. Every third question is typed: right, a big shell. Shells dig craters; knock his health
+//                        to nothing first.
+// Turns in both (the user: "if you get them wrong then u dont rlly get to continue and u can get 2 right then its
+// capped"): each right answer is a shot, two at most a turn; a wrong answer ends the turn. He plays by the same rule.
 //   Topple the Examiner  He sits on a tower of exam papers and desks. A right answer loads the slingshot (a typed one, a
 //                        heavy textbook); knock him off within eight questions. A level for each chapter, its questions
 //                        from that chapter, the towers growing. matter.js (bio/vendor/matter.min.js) does the physics.
@@ -266,52 +269,60 @@
     A.run = 0;
     show(stage('', '<div class="sea">' + seaGrid('his') + seaGrid('mine') + '</div>'));
     K.mascot('happy', 'My fleet. Your guesses. Go on.');
-    seaYours();
+    seaYourTurn();
   }
+  // Two shots a turn at most, each after a right answer, hit or miss.
+  var SHOTS = 2;
+  function seaYourTurn() { A.shots = 0; seaYours(); }
   function seaYours() {
     A.turn = 0;
-    say('<b>Your turn.</b> Answer to fire.');
+    say(A.shots ? '<b>Your second shot.</b> Answer to fire again.' : '<b>Your turn.</b> Answer to fire.');
     row('');
     ask('Your shot', false, null, function (ok) {
       if (ok) go('Fire', function () { hideAsk(); A.phase = 'aim'; q('.sea-side--his').classList.add('is-aiming'); say('<b>Pick a square</b> on his sea.'); });
-      else { K.mascot('happy', 'No shot for you.'); go('His turn', function () { hideAsk(); seaHis(); }); }
+      else { K.mascot('happy', 'No shot for you.'); go('His turn', function () { hideAsk(); seaHisTurn(); }); }
     });
   }
   function seaShoot(x) {
     if (A.phase !== 'aim' || A.his.shot[x]) return;
     A.phase = 'boom';
-    var r = fire(A.his, x), ship = A.his.ships[(A.his.at[x] || 1) - 1];
+    var r = fire(A.his, x), ship = A.his.ships[(A.his.at[x] || 1) - 1], more;
+    A.shots += 1;
+    more = A.shots < SHOTS;
     seaDraw('his', x);
     if (r === 'miss') {
-      say('<b>' + cellName(x) + ': miss.</b> His turn.');
+      say('<b>' + cellName(x) + ': miss.</b> ' + (more ? 'Answer again for a second shot.' : 'His turn.'));
       K.mascot('happy', 'Splash. Nothing.');
-      wait(seaHis, 1300);
+      wait(more ? seaYours : seaHisTurn, 1300);
       return;
     }
     K.ding(3, true);
     if (!afloat(A.his)) { wait(function () { seaEnd(true); }, 1200); return; }
-    say(r === 'sunk' ? '<b>You sank his ' + esc(NAME[ship.ch]) + ' ship!</b> Answer again to fire again.' : '<b>' + cellName(x) + ': hit!</b> Answer again to fire again.');
+    say((r === 'sunk' ? '<b>You sank his ' + esc(NAME[ship.ch]) + ' ship!</b> ' : '<b>' + cellName(x) + ': hit!</b> ') + (more ? 'Answer again for a second shot.' : 'That\'s your two shots: his turn.'));
     K.mascot('angry', r === 'sunk' ? 'Hmph. One ship.' : 'A scratch.');
-    wait(seaYours, 1300);
+    wait(more ? seaYours : seaHisTurn, 1300);
   }
-  // His turn: his question first; right, he fires (and goes again after a hit, three shots at most).
+  // His turn: his question first; right, he fires (along a ship he's hit, round a hit, or every other square), and
+  // answers again for a second shot.
+  function seaHisTurn() { A.run = 0; seaHis(); }
   function seaHis() {
     A.turn = 1;
-    say('<b>His turn.</b>');
+    say(A.run ? '<b>His second shot.</b>' : '<b>His turn.</b>');
     row('');
     hisAsk('His shot', 0.6, null, function (ok) {
-      if (!ok) { A.run = 0; go('Your turn', function () { hideAsk(); seaYours(); }); return; }
+      if (!ok) { go('Your turn', function () { hideAsk(); seaYourTurn(); }); return; }
       go('Watch him fire', function () {
         hideAsk();
-        var x = aim(A.mine, Math.random), r = fire(A.mine, x), ship = A.mine.ships[(A.mine.at[x] || 1) - 1];
+        var x = aim(A.mine, Math.random), r = fire(A.mine, x), ship = A.mine.ships[(A.mine.at[x] || 1) - 1], more;
+        A.run += 1;
+        more = A.run < SHOTS;
         seaDraw('mine', x);
         into(q('.sea-side--mine'));
-        if (r === 'miss') { A.run = 0; say('He fired at <b>' + cellName(x) + '</b>: miss.'); wait(seaYours, 1500); return; }
+        if (r === 'miss') { say('He fired at <b>' + cellName(x) + '</b>: miss.' + (more ? ' He answers again.' : ' Your turn.')); wait(more ? seaHis : seaYourTurn, 1500); return; }
         K.bonk();
         if (!afloat(A.mine)) { wait(function () { seaEnd(false); }, 1200); return; }
-        say(r === 'sunk' ? 'He sank your <b>' + esc(NAME[ship.ch]) + '</b> ship.' : 'He fired at <b>' + cellName(x) + '</b>: hit.');
-        A.run += 1;
-        if (A.run < 3) { say(q('[data-ar-say]').innerHTML + ' He goes again.'); wait(seaHis, 1600); } else { A.run = 0; wait(seaYours, 1600); }
+        say((r === 'sunk' ? 'He sank your <b>' + esc(NAME[ship.ch]) + '</b> ship.' : 'He fired at <b>' + cellName(x) + '</b>: hit.') + (more ? ' He answers again.' : ' Your turn.'));
+        wait(more ? seaHis : seaYourTurn, 1600);
       });
     });
   }
@@ -514,12 +525,10 @@
     }
     return best;
   }
-  // Where he aims (the user: "that guy always gets me every time even when he gets the question wrong"): wrong, his
-  // shot goes clearly wide (110 to 240px off, no damage); right, half the time it's on you, three times in ten close (a
-  // little damage) and twice in ten it misses anyway.
-  function hisOffset(good, rand) {
+  // Where he aims (he only fires after a right answer): half the time it's on you, three times in ten close (a little
+  // damage) and twice in ten it misses anyway.
+  function hisOffset(rand) {
     var side = rand() < 0.5 ? -1 : 1, r = rand();
-    if (!good) return side * (110 + rand() * 130);
     return side * (r < 0.5 ? rand() * 12 : r < 0.8 ? 35 + rand() * 30 : 110 + rand() * 90);
   }
   function cdOpen() {
@@ -538,7 +547,7 @@
       '<span class="cd-you" data-cd-tag="0">You</span><span class="cd-him" data-cd-tag="1" data-mood="ok" aria-hidden="true">' + K.face + '</span></div>'));
     size();
     K.mascot('happy', 'Two cannons. One winner. Me.');
-    cdYours();
+    cdTurn();
   }
   function hp() {
     A.tanks.forEach(function (t, p) {
@@ -552,24 +561,26 @@
   }
   // His face on his cannon: pleased when he hits you, cross when you hit him, furious when he's nearly out.
   function cdMood(m) { var t = q('[data-cd-tag="1"]'); if (t) t.setAttribute('data-mood', m); }
+  // Two shots a turn at most, each after a right answer; the wind changes each turn.
+  function cdTurn() { A.shotsTurn = 0; A.wind = (Math.random() * 2 - 1) * 70; cdYours(); }
   function cdYours() {
     A.turn = 0;
     A.turns += 1;
-    A.wind = (Math.random() * 2 - 1) * 70;
     A.guide = false;
     A.big = false;
     windText(false);
-    say('<b>Your turn.</b> Answer for a good shot.');
+    say(A.shotsTurn ? '<b>Your second shot.</b> Answer to fire again.' : '<b>Your turn.</b> Answer to fire.');
     var typed = A.turns % 3 === 0;
     ask(typed ? 'Big shell question' : 'Your shot', typed, null, function (ok) {
-      A.guide = ok;
-      A.big = ok && A.typed;
-      K.mascot(ok ? 'angry' : 'happy', ok ? 'Hmph. Aim, then.' : 'Wrong. Fire blind.');
-      go(ok ? (A.big ? 'Load the big shell' : 'Aim') : 'Aim blind', function () {
+      if (!ok) { K.mascot('happy', 'Wrong. No shot for you.'); go('His turn', function () { hideAsk(); say('<b>Wrong:</b> no shot.'); cdHisTurn(); }); return; }
+      A.guide = true;
+      A.big = A.typed;
+      K.mascot('angry', 'Hmph. Aim, then.');
+      go(A.big ? 'Load the big shell' : 'Aim', function () {
         hideAsk();
         A.phase = 'aim';
-        windText(A.guide);
-        say(A.guide ? '<b>Right:</b> your shot\'s whole path is drawn. Drag to aim; the marker turns orange when it\'ll hit him. Let go to fire.' : '<b>Wrong:</b> no path, no wind, and your shot will wobble. Drag to aim, let go to fire.');
+        windText(true);
+        say('<b>Right:</b> your shot\'s whole path is drawn. Drag to aim; the marker turns orange when it\'ll hit him. Let go to fire.');
         row('<button type="button" class="tb-btn tb-btn--go" data-cd-fire>Fire</button>');
         draw();
         q('[data-cd-canvas]').focus({ preventScroll: true });
@@ -580,26 +591,26 @@
     if (A.phase !== 'aim') return;
     A.phase = 'flying';
     row('');
-    // Without a right answer the shot wobbles off where you aimed, so a remembered aim isn't enough.
-    var angle = A.aim.angle, power = A.aim.power;
-    if (!A.guide) { angle += (Math.random() * 2 - 1) * 0.07; power = Math.max(0.15, Math.min(1, power * (1 + (Math.random() * 2 - 1) * 0.08))); }
-    var m = muzzle(A.tanks[0], angle);
-    shoot(0, flight(A.h, A.tanks, m.x, m.y, angle, power, A.wind), A.big, cdHis);
+    A.shotsTurn += 1;
+    var m = muzzle(A.tanks[0], A.aim.angle);
+    shoot(0, flight(A.h, A.tanks, m.x, m.y, A.aim.angle, A.aim.power, A.wind), A.big, A.shotsTurn < 2 ? cdYours : cdHisTurn);
   }
+  function cdHisTurn() { A.shotsTurn = 0; A.wind = (Math.random() * 2 - 1) * 70; cdHis(); }
   function cdHis() {
     A.turn = 1;
-    A.wind = (Math.random() * 2 - 1) * 70;
     windText(true);
-    say('<b>His turn.</b>');
+    say(A.shotsTurn ? '<b>His second shot.</b>' : '<b>His turn.</b>');
     hisAsk('His shot', 0.65, null, function (ok) {
+      if (!ok) { go('Your turn', function () { hideAsk(); say('<b>He got it wrong:</b> no shot.'); cdMood('angry'); wait(cdTurn, 900); }, 2400); return; }
       go('Watch him fire', function () {
         hideAsk();
         A.phase = 'flying';
-        var me = A.tanks[1], s = solve(A.h, A.tanks, A.wind, hisOffset(ok, Math.random)), m = muzzle(me, s.angle);
+        A.shotsTurn += 1;
+        var me = A.tanks[1], s = solve(A.h, A.tanks, A.wind, hisOffset(Math.random)), m = muzzle(me, s.angle);
         A.hisAngle = s.angle;
-        say(ok ? '<b>He got it right.</b> He takes careful aim.' : '<b>He got it wrong.</b> His shot goes wide.');
+        say('<b>He got it right.</b> He takes careful aim.');
         draw();
-        wait(function () { shoot(1, flight(A.h, A.tanks, m.x, m.y, s.angle, s.power, A.wind), false, cdYours); }, 500);
+        wait(function () { shoot(1, flight(A.h, A.tanks, m.x, m.y, s.angle, s.power, A.wind), false, A.shotsTurn < 2 ? cdHis : cdTurn); }, 500);
       });
     });
   }
