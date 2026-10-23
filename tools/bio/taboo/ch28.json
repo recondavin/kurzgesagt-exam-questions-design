@@ -1,0 +1,151 @@
+[
+  { "term": "Nasal cavity",
+    "ban": ["nose", "nostril", "filter", "warm"],
+    "ideas": [
+      { "a": "Hairs and mucus trap dust and germs from the air", "k": [{ "w": ["hair", "trap"], "n": 2 }, { "w": ["mucus", "trap"], "n": 2 }, { "w": ["hair", "dust"], "n": 2 }, { "w": ["mucus", "dust"], "n": 2 }, { "w": ["trap", "dust"], "n": 2 }, { "w": ["trap", "germ"], "n": 2 }] },
+      { "a": "It moistens the air and heats it to body temperature", "k": [{ "w": ["moist"], "n": 1 }, { "w": ["damp"], "n": 1 }, { "w": ["wet"], "n": 1 }, { "w": ["humid"], "n": 1 }, { "w": ["heat"], "n": 1 }, { "w": ["body", "temperatur"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "The space behind your face where air first comes in: hairs and mucus trap dust, and the air is heated and moistened before it goes on." },
+
+  { "term": "Epiglottis",
+    "ban": ["flap", "swallow", "food", "lid"],
+    "ideas": [
+      { "a": "It closes over the entrance to the trachea (the larynx)", "k": [{ "w": ["clos", "trachea"], "n": 2 }, { "w": ["cover", "trachea"], "n": 2 }, { "w": ["block", "trachea"], "n": 2 }, { "w": ["seal", "trachea"], "n": 2 }, { "w": ["clos", "windpipe"], "n": 2 }, { "w": ["cover", "windpipe"], "n": 2 }, { "w": ["block", "windpipe"], "n": 2 }, { "w": ["clos", "larynx"], "n": 2 }, { "w": ["cover", "larynx"], "n": 2 }, { "w": ["block", "larynx"], "n": 2 }, { "w": ["clos", "airway"], "n": 2 }, { "w": ["cover", "airway"], "n": 2 }, { "w": ["block", "airway"], "n": 2 }] },
+      { "a": "This happens when you eat or drink, so nothing goes down the wrong way and you don't choke", "k": [{ "w": ["eat"], "n": 1 }, { "w": ["drink"], "n": 1 }, { "w": ["chok"], "n": 1 }, { "w": ["wrong", "way"], "n": 2 }, { "w": ["bolus"], "n": 1 }, { "w": ["meal"], "n": 1 }, { "w": ["chew"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "A small piece of cartilage that closes over the top of the trachea when you eat or drink, so nothing goes down the wrong way." },
+
+  { "term": "Larynx",
+    "ban": ["voice", "box", "vocal", "speak"],
+    "ideas": [
+      { "a": "It makes the sounds we talk and sing with", "k": [{ "w": ["sound"], "n": 1 }, { "w": ["noise"], "n": 1 }, { "w": ["talk"], "n": 1 }, { "w": ["sing"], "n": 1 }, { "w": ["speech"], "n": 1 }] },
+      { "a": "Cords (folds) inside it vibrate as air passes over them", "k": [{ "w": ["vibrat"], "n": 1 }, { "w": ["cord", "air"], "n": 2 }, { "w": ["fold", "air"], "n": 2 }] },
+      { "a": "It sits at the top of the trachea, below the pharynx", "k": [{ "w": ["top", "trachea"], "n": 2 }, { "w": ["top", "windpipe"], "n": 2 }, { "w": ["pharynx"], "n": 1 }, { "w": ["adam", "apple"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "It sits at the top of the trachea; cords inside it vibrate as air passes over them, making the sounds we talk and sing with." },
+
+  { "term": "Trachea",
+    "ban": ["windpipe", "cartilage", "ring", "neck"],
+    "ideas": [
+      { "a": "Stiff C-shaped hoops in its wall keep it open, so it does not collapse", "k": [{ "w": ["collaps"], "n": 1 }, { "w": ["hoop"], "n": 1 }, { "w": ["held", "open"], "n": 2 }, { "w": ["keep", "open"], "n": 2 }, { "w": ["stay", "open"], "n": 2 }, { "w": ["stiff"], "n": 1 }] },
+      { "a": "It is lined with mucus and cilia, which trap dust and sweep it up", "k": [{ "w": ["cilia"], "n": 1 }, { "w": ["mucus"], "n": 1 }] },
+      { "a": "It carries air from the larynx down to the two bronchi", "k": [{ "w": ["bronch"], "n": 1 }, { "w": ["larynx"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "The main airway, from the larynx down to the bronchi: stiff C-shaped hoops stop it collapsing, and it is lined with mucus and cilia." },
+
+  { "term": "Bronchi",
+    "ban": ["branch", "tube", "trachea", "windpipe"],
+    "ideas": [
+      { "a": "There are two of them, one going into each lung", "k": [{ "w": ["each", "lung"], "n": 2 }, { "w": ["left", "right"], "n": 2 }, { "w": ["two", "lung"], "n": 2 }, { "w": ["both", "lung"], "n": 2 }, { "w": ["pair"], "n": 1 }] },
+      { "a": "Each one divides into smaller airways, the bronchioles", "k": [{ "w": ["bronchiol"], "n": 1 }] },
+      { "a": "Like the trachea, they are held open by cartilage", "k": [{ "w": ["cartilag"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "The pair of airways, one going into each lung; cartilage holds them open, and inside the lung each one divides into bronchioles." },
+
+  { "term": "Bronchioles",
+    "ban": ["branch", "small", "tiny", "tube"],
+    "ideas": [
+      { "a": "They carry air to the alveoli, where they end", "k": [{ "w": ["alveol"], "n": 1 }, { "w": ["air", "sac"], "n": 2 }] },
+      { "a": "They come off the bronchi, inside the lungs", "k": [{ "w": ["bronch"], "n": 1 }] },
+      { "a": "Their walls have smooth muscle (but no cartilage)", "k": [{ "w": ["smooth", "muscle"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "Narrow airways inside the lungs that come off the bronchi and carry air to the alveoli; their walls have smooth muscle." },
+
+  { "term": "Alveoli",
+    "ban": ["sac", "gas", "exchange", "lung"],
+    "ideas": [
+      { "a": "Oxygen diffuses from them into the blood, and carbon dioxide diffuses the other way", "k": [{ "w": ["oxygen", "co2"], "n": 2 }, { "w": ["diffus"], "n": 1 }] },
+      { "a": "Their walls are very thin: only one cell thick", "k": [{ "w": ["thin"], "n": 1 }, { "w": ["one", "cell"], "n": 2 }, { "w": ["single", "cell"], "n": 2 }] },
+      { "a": "Each one is wrapped in a dense network of capillaries", "k": [{ "w": ["capillar"], "n": 1 }] },
+      { "a": "There are millions of them, giving a huge surface area, and the inside is moist", "k": [{ "w": ["surface", "area"], "n": 2 }, { "w": ["moist"], "n": 1 }, { "w": ["million"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "Millions of tiny air pockets with walls one cell thick, wrapped in capillaries: oxygen diffuses into the blood and carbon dioxide diffuses out." },
+
+  { "term": "Diaphragm",
+    "ban": ["muscle", "sheet", "dome", "flat"],
+    "ideas": [
+      { "a": "It separates the chest (thorax) from the abdomen, below the lungs", "k": [{ "w": ["abdom"], "n": 1 }, { "w": ["thorac"], "n": 1 }, { "w": ["below", "lung"], "n": 2 }, { "w": ["under", "lung"], "n": 2 }, { "w": ["separat"], "n": 1 }, { "w": ["floor", "chest"], "n": 2 }, { "w": ["bottom", "chest"], "n": 2 }] },
+      { "a": "When you breathe in it contracts and moves down", "k": [{ "w": ["contract", "down"], "n": 2 }, { "w": ["contract", "lower"], "n": 2 }, { "w": ["pull", "down"], "n": 2 }, { "w": ["mov", "down"], "n": 2 }] },
+      { "a": "When you breathe out it relaxes and rises back up", "k": [{ "w": ["relax", "up"], "n": 2 }, { "w": ["relax", "upward"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "The wall between the chest and the abdomen: when you breathe in it contracts and moves down, and when you breathe out it relaxes and rises back up." },
+
+  { "term": "Intercostal muscles",
+    "ban": ["rib", "ribcage", "between", "lift"],
+    "ideas": [
+      { "a": "They lie in the gaps of the bony cage around the lungs", "k": [{ "w": ["cage"], "n": 1 }, { "w": ["bone"], "n": 1 }, { "w": ["bony"], "n": 1 }] },
+      { "a": "When you breathe in they contract and pull the chest up and out", "k": [{ "w": ["up", "out"], "n": 2 }, { "w": ["upward", "outward"], "n": 2 }, { "w": ["outward"], "n": 1 }] },
+      { "a": "They work with the diaphragm in breathing", "k": [{ "w": ["diaphragm"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "Found in the gaps of the bony cage that protects the lungs; with the diaphragm they contract to pull that cage up and out when you breathe in." },
+
+  { "term": "Medulla oblongata",
+    "ban": ["brain", "brainstem", "stem", "control"],
+    "ideas": [
+      { "a": "It detects a rise in carbon dioxide in the blood (the blood becomes more acidic, its pH falls)", "k": [{ "w": ["co2"], "n": 1 }, { "w": ["acid"], "n": 1 }, { "w": ["ph"], "n": 1 }] },
+      { "a": "It sends nerve impulses to the diaphragm and intercostal muscles", "k": [{ "w": ["impuls"], "n": 1 }, { "w": ["nerve"], "n": 1 }, { "w": ["signal", "muscle"], "n": 2 }, { "w": ["message", "muscle"], "n": 2 }, { "w": ["signal", "diaphragm"], "n": 2 }, { "w": ["message", "diaphragm"], "n": 2 }] },
+      { "a": "So breathing becomes faster and deeper", "k": [{ "w": ["fast"], "n": 1 }, { "w": ["deep"], "n": 1 }, { "w": ["rate", "increas"], "n": 2 }, { "w": ["speed"], "n": 1 }] },
+      { "a": "It is at the base of the skull, at the top of the spinal cord", "k": [{ "w": ["spinal"], "n": 1 }, { "w": ["base", "skull"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "At the top of the spinal cord: it detects a rise in carbon dioxide in the blood and sends impulses to the breathing muscles, so you breathe faster and deeper." },
+
+  { "term": "Haemoglobin",
+    "ban": ["red", "blood", "iron", "carry"],
+    "ideas": [
+      { "a": "It picks up oxygen in the lungs (forming oxyhaemoglobin)", "k": [{ "w": ["oxygen", "pick"], "n": 2 }, { "w": ["oxygen", "join"], "n": 2 }, { "w": ["oxygen", "bind"], "n": 2 }, { "w": ["oxygen", "bond"], "n": 2 }, { "w": ["oxygen", "attach"], "n": 2 }, { "w": ["oxygen", "combin"], "n": 2 }, { "w": ["oxygen", "transport"], "n": 2 }] },
+      { "a": "It is a protein pigment inside the erythrocytes", "k": [{ "w": ["pigment"], "n": 1 }, { "w": ["protein"], "n": 1 }, { "w": ["erythrocyt"], "n": 1 }] },
+      { "a": "It lets go of the oxygen in the tissues, where oxygen is low", "k": [{ "w": ["releas", "oxygen"], "n": 2 }, { "w": ["let", "go"], "n": 2 }, { "w": ["unload"], "n": 1 }, { "w": ["tissue", "oxygen"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "A protein pigment inside erythrocytes: it picks up oxygen in the lungs, where there is plenty, and releases it in the tissues, where oxygen is low." },
+
+  { "term": "Diffusion",
+    "ban": ["high", "low", "concentration", "gradient"],
+    "ideas": [
+      { "a": "Particles spread out from where there are many of them to where there are few", "k": [{ "w": ["spread"], "n": 1 }, { "w": ["many", "few"], "n": 2 }, { "w": ["more", "less"], "n": 2 }, { "w": ["more", "few"], "n": 2 }, { "w": ["crowd"], "n": 1 }] },
+      { "a": "It is passive: it needs no energy", "k": [{ "w": ["passiv"], "n": 1 }, { "w": ["no", "energy"], "n": 2 }, { "w": ["without", "energy"], "n": 2 }, { "w": ["not", "energy"], "n": 2 }] },
+      { "a": "It is how oxygen passes from the alveoli into the blood (and carbon dioxide the other way)", "k": [{ "w": ["alveol"], "n": 1 }, { "w": ["oxygen", "blood"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "Particles spreading out from where there are many to where there are few, with no energy needed; it is how oxygen gets from the alveoli into the blood." },
+
+  { "term": "Inhalation",
+    "ban": ["breath", "air", "lung", "inspiration"],
+    "ideas": [
+      { "a": "The diaphragm contracts and flattens (moves down)", "k": [{ "w": ["diaphragm", "contract"], "n": 2 }, { "w": ["diaphragm", "flat"], "n": 2 }, { "w": ["diaphragm", "down"], "n": 2 }] },
+      { "a": "The intercostal muscles contract and the rib cage moves up and out", "k": [{ "w": ["rib", "up"], "n": 2 }, { "w": ["rib", "out"], "n": 2 }, { "w": ["ribcage", "up"], "n": 2 }, { "w": ["ribcage", "out"], "n": 2 }, { "w": ["intercostal", "contract"], "n": 2 }] },
+      { "a": "The chest (thoracic cavity) gets bigger, so the pressure inside falls and air is drawn in", "k": [{ "w": ["chest", "larg"], "n": 2 }, { "w": ["volume", "increas"], "n": 2 }, { "w": ["pressure", "decreas"], "n": 2 }, { "w": ["pressure", "lower"], "n": 2 }, { "w": ["expand"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "The diaphragm contracts and flattens and the rib cage moves up and out, so the chest gets bigger and the pressure inside it drops." },
+
+  { "term": "Exhalation",
+    "ban": ["breath", "air", "lung", "expiration", "out"],
+    "ideas": [
+      { "a": "The diaphragm and intercostal muscles relax, and the diaphragm domes back up", "k": [{ "w": ["relax"], "n": 1 }, { "w": ["dome"], "n": 1 }] },
+      { "a": "The rib cage moves down and in", "k": [{ "w": ["rib", "down"], "n": 2 }, { "w": ["ribcage", "down"], "n": 2 }, { "w": ["rib", "inward"], "n": 2 }, { "w": ["ribcage", "inward"], "n": 2 }, { "w": ["rib", "sink"], "n": 2 }, { "w": ["ribcage", "sink"], "n": 2 }] },
+      { "a": "The chest gets smaller, so the pressure inside rises and air is pushed out", "k": [{ "w": ["chest", "small"], "n": 2 }, { "w": ["volume", "decreas"], "n": 2 }, { "w": ["pressure", "increas"], "n": 2 }, { "w": ["pressure", "higher"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "The diaphragm and the muscles between the ribs relax: the diaphragm domes again, the rib cage sinks back in, the chest gets smaller and the pressure inside rises." },
+
+  { "term": "Cilia",
+    "ban": ["hair", "sweep", "mucus", "beat"],
+    "ideas": [
+      { "a": "Tiny threads on the cells lining the trachea and bronchi", "k": [{ "w": ["trachea"], "n": 1 }, { "w": ["windpipe"], "n": 1 }, { "w": ["bronch"], "n": 1 }, { "w": ["lining", "cell"], "n": 2 }] },
+      { "a": "They move the sticky layer up to the throat, away from the lungs", "k": [{ "w": ["throat"], "n": 1 }, { "w": ["away", "lung"], "n": 2 }, { "w": ["upward"], "n": 1 }] },
+      { "a": "This clears trapped dust and germs out of the airways", "k": [{ "w": ["dust"], "n": 1 }, { "w": ["dirt"], "n": 1 }, { "w": ["germ"], "n": 1 }, { "w": ["bacteri"], "n": 1 }, { "w": ["pathogen"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "Tiny threads on the cells lining the trachea that wave to move sticky slime, with trapped dust and germs, up to the throat, away from the lungs." }
+]

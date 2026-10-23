@@ -1,0 +1,168 @@
+[
+  { "term": "Left ventricle",
+    "ban": ["chamber", "aorta", "thickest"],
+    "ideas": [
+      { "a": "It pumps blood out round the whole body (the systemic circuit)", "k": [{ "w": ["systemic"], "n": 1 }, { "w": ["round", "body"], "n": 2 }, { "w": ["whole", "body"], "n": 2 }, { "w": ["rest", "body"], "n": 2 }, { "w": ["entire", "body"], "n": 2 }] },
+      { "a": "It has the most muscular wall of the four, as it pumps blood the furthest", "k": [{ "w": ["most", "muscle"], "n": 2 }, { "w": ["muscle", "wall"], "n": 2 }, { "w": ["strongest"], "n": 1 }] },
+      { "a": "Blood comes into it from the atrium above through the bicuspid valve", "k": [{ "w": ["bicuspid"], "n": 1 }, { "w": ["mitral"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "The lower heart pump with the most muscular wall; it gets blood through the bicuspid valve and pumps it round the whole body." },
+
+  { "term": "Tricuspid valve",
+    "ban": ["three", "right", "flaps"],
+    "ideas": [
+      { "a": "It sits between the atrium and the ventricle (on the right side)", "k": [{ "w": ["atrium", "ventricle"], "n": 2 }, { "w": ["upper", "lower", "chamber"], "n": 3 }, { "w": ["top", "bottom", "chamber"], "n": 3 }] },
+      { "a": "It shuts when the ventricle contracts, so blood can't flow back into the atrium", "k": [{ "w": ["back", "atrium"], "n": 2 }, { "w": ["back", "top"], "n": 2 }, { "w": ["back", "upper"], "n": 2 }, { "w": ["back", "up"], "n": 2 }, { "w": ["revers", "atrium"], "n": 2 }] },
+      { "a": "It is on the side carrying deoxygenated blood from the body", "k": [{ "w": ["deoxygenat"], "n": 1 }, { "w": ["vena", "cava"], "n": 2 }, { "w": ["oxygen", "poor"], "n": 2 }] },
+      { "a": "Its cusps are held in place by tendons (heart strings)", "k": [{ "w": ["tendon"], "n": 1 }, { "w": ["chordae"], "n": 1 }, { "w": ["string"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "A one-way door between the atrium and ventricle on the deoxygenated side; it shuts when the ventricle contracts so blood can't flow back into the atrium." },
+
+  { "term": "Semilunar valve",
+    "ban": ["moon", "aorta", "pulmonary"],
+    "ideas": [
+      { "a": "Found at the base of the arteries leaving the ventricles (aorta and pulmonary artery)", "k": [{ "w": ["artery", "ventricle"], "n": 2 }, { "w": ["artery", "base"], "n": 2 }, { "w": ["artery", "start"], "n": 2 }, { "w": ["artery", "entrance"], "n": 2 }] },
+      { "a": "It shuts when the ventricles relax, so blood can't flow back into them", "k": [{ "w": ["back", "ventricle"], "n": 2 }, { "w": ["revers", "ventricle"], "n": 2 }] },
+      { "a": "Its cusps are shaped like half-moon pockets, with no tendons", "k": [{ "w": ["pocket"], "n": 1 }, { "w": ["crescent"], "n": 1 }, { "w": ["half"], "n": 1 }, { "w": ["cup"], "n": 1 }] },
+      { "a": "Its closing makes the second heart sound ('dub')", "k": [{ "w": ["dub"], "n": 1 }, { "w": ["second", "sound"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "Pocket-like flaps at the base of each artery leaving the ventricles; they shut when the ventricles relax, stopping blood flowing back into them." },
+
+  { "term": "SA node",
+    "ban": ["pacemaker", "sinoatrial", "impulse"],
+    "ideas": [
+      { "a": "It is in the wall of the right atrium", "k": [{ "w": ["right", "atrium"], "n": 2 }, { "w": ["right", "upper"], "n": 2 }, { "w": ["right", "top"], "n": 2 }] },
+      { "a": "It starts each heartbeat and sets the heart rate", "k": [{ "w": ["start", "beat"], "n": 2 }, { "w": ["start", "heartbeat"], "n": 2 }, { "w": ["set", "rate"], "n": 2 }, { "w": ["control", "rate"], "n": 2 }, { "w": ["start", "contract"], "n": 2 }, { "w": ["trigger", "contract"], "n": 2 }, { "w": ["rhythm"], "n": 1 }] },
+      { "a": "It sends out electrical signals that spread across the atria and make them contract", "k": [{ "w": ["electric"], "n": 1 }, { "w": ["signal", "contract"], "n": 2 }, { "w": ["signal", "spread"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "A patch of special tissue in the wall of the right atrium that sends electrical signals to start each beat and set the heart rate." },
+
+  { "term": "Pulmonary artery",
+    "ban": ["lungs", "deoxygenated", "ventricle"],
+    "ideas": [
+      { "a": "It carries blood away from the heart, out of the right ventricle", "k": [{ "w": ["away", "heart"], "n": 2 }, { "w": ["leav", "heart"], "n": 2 }, { "w": ["right", "lower"], "n": 2 }, { "w": ["right", "bottom"], "n": 2 }] },
+      { "a": "It goes to the lungs, where the blood picks up oxygen", "k": [{ "w": ["breath"], "n": 1 }, { "w": ["alveol"], "n": 1 }, { "w": ["air", "sac"], "n": 2 }, { "w": ["gas", "exchange"], "n": 2 }, { "w": ["pick", "oxygen"], "n": 2 }, { "w": ["collect", "oxygen"], "n": 2 }, { "w": ["load", "oxygen"], "n": 2 }] },
+      { "a": "Its blood is deoxygenated: the only artery like this", "k": [{ "w": ["oxygen", "poor"], "n": 2 }, { "w": ["low", "oxygen"], "n": 2 }, { "w": ["little", "oxygen"], "n": 2 }, { "w": ["lack", "oxygen"], "n": 2 }, { "w": ["co2", "rich"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "Takes oxygen-poor blood away from the heart's lower right chamber to the air sacs, where it can pick up oxygen." },
+
+  { "term": "Pulmonary vein",
+    "ban": ["lungs", "atrium", "left"],
+    "ideas": [
+      { "a": "It comes from the lungs", "k": [{ "w": ["breath"], "n": 1 }, { "w": ["alveol"], "n": 1 }, { "w": ["air", "sac"], "n": 2 }, { "w": ["gas", "exchange"], "n": 2 }] },
+      { "a": "It brings blood back to the heart, into the left atrium", "k": [{ "w": ["back", "heart"], "n": 2 }, { "w": ["return", "heart"], "n": 2 }, { "w": ["toward", "heart"], "n": 2 }] },
+      { "a": "Its blood is oxygenated: the only vein with blood this rich in oxygen", "k": [{ "w": ["oxygen", "rich"], "n": 2 }, { "w": ["full", "oxygen"], "n": 2 }, { "w": ["high", "oxygen"], "n": 2 }, { "w": ["most", "oxygen"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "Brings oxygen-rich blood from the air sacs back to the heart; the only one of its kind carrying blood this rich in oxygen." },
+
+  { "term": "Coronary artery",
+    "ban": ["heart", "muscle", "attack"],
+    "ideas": [
+      { "a": "It supplies the heart muscle itself with oxygen and food", "k": [{ "w": ["cardiac"], "n": 1 }, { "w": ["wall", "feed"], "n": 2 }, { "w": ["wall", "suppl"], "n": 2 }, { "w": ["wall", "nourish"], "n": 2 }] },
+      { "a": "It branches off the aorta and runs over the surface of the heart", "k": [{ "w": ["aorta"], "n": 1 }, { "w": ["surface"], "n": 1 }, { "w": ["groove"], "n": 1 }] },
+      { "a": "If it is blocked (fatty deposits or a clot), part of the heart dies: a heart attack", "k": [{ "w": ["block"], "n": 1 }, { "w": ["clog"], "n": 1 }, { "w": ["cholesterol"], "n": 1 }, { "w": ["fatty", "deposit"], "n": 2 }, { "w": ["thrombosis"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "Branches off the aorta and runs over the surface of the pumping organ, feeding its cardiac wall with oxygen; if it gets blocked, that tissue dies." },
+
+  { "term": "Hepatic portal vein",
+    "ban": ["liver", "intestine", "digested"],
+    "ideas": [
+      { "a": "It starts at the small intestine (the villi)", "k": [{ "w": ["villi"], "n": 1 }, { "w": ["gut"], "n": 1 }, { "w": ["bowel"], "n": 1 }, { "w": ["stomach"], "n": 1 }] },
+      { "a": "It goes to the liver", "k": [{ "w": ["glycogen"], "n": 1 }, { "w": ["bile"], "n": 1 }, { "w": ["detox"], "n": 1 }] },
+      { "a": "Its blood is rich in absorbed food, like glucose and amino acids", "k": [{ "w": ["absorb", "food"], "n": 2 }, { "w": ["absorb", "glucose"], "n": 2 }, { "w": ["glucose", "amino"], "n": 2 }, { "w": ["food", "rich"], "n": 2 }, { "w": ["nutrient"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "Carries blood rich in absorbed food, like glucose, from the villi of the gut straight to the organ that stores glycogen and makes bile." },
+
+  { "term": "Red blood cell",
+    "ban": ["red", "haemoglobin", "biconcave"],
+    "ideas": [
+      { "a": "It carries oxygen, using haemoglobin (which contains iron)", "k": [{ "w": ["carr", "oxygen"], "n": 2 }, { "w": ["transport", "oxygen"], "n": 2 }, { "w": ["iron"], "n": 1 }] },
+      { "a": "It has no nucleus, leaving more room for haemoglobin", "k": [{ "w": ["no", "nucleus"], "n": 2 }, { "w": ["without", "nucleus"], "n": 2 }, { "w": ["lack", "nucleus"], "n": 2 }] },
+      { "a": "It is a biconcave disc, flexible enough to squeeze through capillaries", "k": [{ "w": ["disc"], "n": 1 }, { "w": ["disk"], "n": 1 }, { "w": ["dimpl"], "n": 1 }, { "w": ["concave"], "n": 1 }, { "w": ["squeez"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "A disc dented on both sides with no nucleus, packed with an iron-rich pigment that carries oxygen round the body." },
+
+  { "term": "Platelets",
+    "ban": ["clot", "fragments", "scab"],
+    "ideas": [
+      { "a": "They help the blood to clot, sealing a cut to stop bleeding", "k": [{ "w": ["bleed"], "n": 1 }, { "w": ["plug"], "n": 1 }, { "w": ["fibrin"], "n": 1 }, { "w": ["seal", "wound"], "n": 2 }, { "w": ["seal", "cut"], "n": 2 }] },
+      { "a": "They are fragments of bigger cells", "k": [{ "w": ["bit", "cell"], "n": 2 }, { "w": ["piece", "cell"], "n": 2 }, { "w": ["broken", "cell"], "n": 2 }, { "w": ["chunk"], "n": 1 }] },
+      { "a": "They are made in the bone marrow", "k": [{ "w": ["marrow"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "Tiny bits broken off bigger cells in the bone marrow; at a cut they stick together and form a plug to stop bleeding." },
+
+  { "term": "Vein",
+    "ban": ["artery", "valves", "deoxygenated"],
+    "ideas": [
+      { "a": "It carries blood back to the heart", "k": [{ "w": ["back", "heart"], "n": 2 }, { "w": ["toward", "heart"], "n": 2 }, { "w": ["return", "heart"], "n": 2 }] },
+      { "a": "Blood in it is under low pressure, so it has a thin wall and a wide lumen", "k": [{ "w": ["low", "pressure"], "n": 2 }, { "w": ["thin", "wall"], "n": 2 }, { "w": ["wide", "lumen"], "n": 2 }, { "w": ["large", "lumen"], "n": 2 }] },
+      { "a": "It has valves (flaps) that stop blood flowing backwards", "k": [{ "w": ["flap"], "n": 1 }, { "w": ["one", "way"], "n": 2 }] },
+      { "a": "Blood is pushed along it by the squeezing of the muscles around it", "k": [{ "w": ["muscle", "squeez"], "n": 2 }, { "w": ["skeletal"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "A vessel bringing blood back to the heart at low pressure; it has a thin wall, a wide lumen and flaps inside that stop blood flowing the wrong way." },
+
+  { "term": "Capillary",
+    "ban": ["small", "thin", "exchange"],
+    "ideas": [
+      { "a": "Its wall is only one cell thick", "k": [{ "w": ["one", "cell", "thick"], "n": 3 }, { "w": ["one", "cell", "wall"], "n": 3 }, { "w": ["single", "cell"], "n": 2 }, { "w": ["one", "layer"], "n": 2 }, { "w": ["single", "layer"], "n": 2 }] },
+      { "a": "It links arterioles to venules (between arteries and veins)", "k": [{ "w": ["arteriol"], "n": 1 }, { "w": ["venul"], "n": 1 }, { "w": ["artery", "vein"], "n": 2 }] },
+      { "a": "Substances diffuse between the blood and the cells through tissue fluid", "k": [{ "w": ["diffus"], "n": 1 }, { "w": ["tissue", "fluid"], "n": 2 }] },
+      { "a": "It is the narrowest vessel: red cells pass through in single file", "k": [{ "w": ["narrowest"], "n": 1 }, { "w": ["single", "file"], "n": 2 }, { "w": ["microscop"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "The narrowest vessel, with a wall one cell thick, linking arterioles to venules; food and oxygen diffuse out of it into tissue fluid." },
+
+  { "term": "Systole",
+    "ban": ["contract", "diastole", "squeeze"],
+    "ideas": [
+      { "a": "It is a phase of each heartbeat (the cardiac cycle)", "k": [{ "w": ["cycle"], "n": 1 }, { "w": ["phase", "beat"], "n": 2 }, { "w": ["phase", "heartbeat"], "n": 2 }, { "w": ["stage", "beat"], "n": 2 }, { "w": ["stage", "heartbeat"], "n": 2 }, { "w": ["period", "beat"], "n": 2 }, { "w": ["period", "heartbeat"], "n": 2 }] },
+      { "a": "The heart muscle contracts, pushing blood out of the chambers", "k": [{ "w": ["tighten"], "n": 1 }, { "w": ["shorten"], "n": 1 }, { "w": ["push", "out"], "n": 2 }, { "w": ["force", "out"], "n": 2 }, { "w": ["pump", "out"], "n": 2 }, { "w": ["ventricle", "empty"], "n": 2 }] },
+      { "a": "It gives the higher blood pressure reading (e.g. the 120 in 120/80)", "k": [{ "w": ["120"], "n": 1 }, { "w": ["top", "number"], "n": 2 }, { "w": ["higher", "number"], "n": 2 }, { "w": ["first", "number"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "The phase of each beat when the heart muscle tightens, pushing blood out of the chambers into the arteries; pressure is at its peak then." },
+
+  { "term": "Pulse",
+    "ban": ["wrist", "beat", "throb", "neck"],
+    "ideas": [
+      { "a": "A wave of pressure that stretches the wall of an artery", "k": [{ "w": ["surge"], "n": 1 }, { "w": ["wave", "pressure"], "n": 2 }, { "w": ["wave", "blood"], "n": 2 }, { "w": ["artery", "stretch"], "n": 2 }, { "w": ["artery", "expand"], "n": 2 }, { "w": ["wall", "stretch"], "n": 2 }, { "w": ["wall", "expand"], "n": 2 }] },
+      { "a": "There is one each time the left ventricle contracts (each heartbeat)", "k": [{ "w": ["ventricle", "contract"], "n": 2 }, { "w": ["heart", "contract"], "n": 2 }, { "w": ["each", "heartbeat"], "n": 2 }, { "w": ["every", "heartbeat"], "n": 2 }] },
+      { "a": "It is felt where an artery runs near the skin over a bone", "k": [{ "w": ["near", "skin"], "n": 2 }, { "w": ["close", "skin"], "n": 2 }, { "w": ["under", "skin"], "n": 2 }, { "w": ["over", "bone"], "n": 2 }, { "w": ["temple"], "n": 1 }, { "w": ["finger"], "n": 1 }] },
+      { "a": "It is counted per minute: about 72 at rest", "k": [{ "w": ["per", "minute"], "n": 2 }, { "w": ["72"], "n": 1 }, { "w": ["70"], "n": 1 }, { "w": ["bpm"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "The surge you feel where an artery runs near the skin, as its wall stretches each time the heart's ventricles contract; about 72 a minute at rest." },
+
+  { "term": "Blood pressure",
+    "ban": ["force", "artery", "high"],
+    "ideas": [
+      { "a": "The force the blood puts on the walls of the vessels (arteries)", "k": [{ "w": ["push", "wall"], "n": 2 }, { "w": ["against", "wall"], "n": 2 }, { "w": ["exert", "wall"], "n": 2 }, { "w": ["push", "vessel"], "n": 2 }, { "w": ["strain", "wall"], "n": 2 }] },
+      { "a": "It is given as two numbers: systolic over diastolic, e.g. 120/80", "k": [{ "w": ["two", "number"], "n": 2 }, { "w": ["two", "reading"], "n": 2 }, { "w": ["120", "80"], "n": 2 }, { "w": ["systolic"], "n": 1 }, { "w": ["diastolic"], "n": 1 }] },
+      { "a": "It is measured with an arm cuff (a sphygmomanometer), in mmHg", "k": [{ "w": ["cuff"], "n": 1 }, { "w": ["sphygmomanometer"], "n": 1 }, { "w": ["mmhg"], "n": 1 }, { "w": ["mercury"], "n": 1 }] },
+      { "a": "It falls as the blood moves on through the capillaries to the veins", "k": [{ "w": ["decreas", "vein"], "n": 2 }, { "w": ["lowest", "vein"], "n": 2 }, { "w": ["decreas", "capillar"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "How hard the flowing liquid pushes against the walls of the vessels; read with an arm cuff as two numbers, like 120 over 80." },
+
+  { "term": "Lymphatic system",
+    "ban": ["nodes", "immune", "drain"],
+    "ideas": [
+      { "a": "It collects the extra tissue fluid and returns it to the blood", "k": [{ "w": ["tissue", "fluid"], "n": 2 }, { "w": ["excess", "fluid"], "n": 2 }, { "w": ["extra", "fluid"], "n": 2 }, { "w": ["fluid", "return"], "n": 2 }, { "w": ["leak", "capillar"], "n": 2 }] },
+      { "a": "It fights infection: its nodes filter out germs and hold lymphocytes", "k": [{ "w": ["lymphocyt"], "n": 1 }, { "w": ["infect"], "n": 1 }, { "w": ["germ"], "n": 1 }, { "w": ["pathogen"], "n": 1 }, { "w": ["bacteria"], "n": 1 }, { "w": ["white", "cell"], "n": 2 }] },
+      { "a": "It absorbs fats from the small intestine (the lacteals in the villi)", "k": [{ "w": ["lacteal"], "n": 1 }, { "w": ["fat", "absorb"], "n": 2 }, { "w": ["fatty", "absorb"], "n": 2 }, { "w": ["fat", "villi"], "n": 2 }] },
+      { "a": "It includes organs such as the spleen, tonsils and thymus", "k": [{ "w": ["spleen"], "n": 1 }, { "w": ["tonsil"], "n": 1 }, { "w": ["thymus"], "n": 1 }, { "w": ["adenoid"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "Vessels that collect excess tissue fluid and return it to the blood; on the way it passes through glands full of lymphocytes that trap germs." }
+]

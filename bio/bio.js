@@ -286,12 +286,21 @@
     return '<em class="bio-best">Best <b class="num">' + esc(/\//.test(v) ? v : v + ' points') + '</b></em>';
   }
   function chapterRows() { return window.BioProgress ? window.BioProgress.model(progressApi()).now.rows : []; }
+  // The question games, each opened by its link over the progress page: [hash, name, there?].
+  var HUB_GAMES = [
+    ['board', 'Trivia board', function () { return window.BioBoard; }],
+    ['chase', 'Outrun the Examiner', function () { return window.BioQuizGames; }],
+    ['grid', 'Points Grid', function () { return window.BioQuizGames; }],
+    ['taboo', 'Don\'t Say It', function () { return window.BioQuizGames && window.BioTaboo; }]
+  ];
   function renderShell(active, crumb) {
     if (!side) return;
     var rows = chapterRows();
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
       '<nav class="sh-nav" aria-label="Biology"><a class="sh-link" href="#"' + (active === 'home' ? ' aria-current="page"' : '') + '><span class="sh-t">Progress</span></a>' +
-      (window.BioBoard ? '<a class="sh-link" href="#board"><span class="sh-t">Trivia board</span></a>' : '') +
+      (window.BioBoard ? '<p class="sh-group">Games</p>' + HUB_GAMES.filter(function (g) { return g[2](); }).map(function (g) {
+        return '<a class="sh-link" href="#' + g[0] + '"><span class="sh-t">' + g[1] + '</span></a>';
+      }).join('') : '') +
       '<p class="sh-group">Chapters</p>' + CHAPTERS.map(function (c, i) {
         var r = rows[i], v = r && r.seen != null ? Math.round(r.seen * 100) + '%' : '<span class="dash">–</span>';
         return '<a class="sh-link" href="#ch' + c.n + '"' + (active === c.n ? ' aria-current="page"' : '') + '><span class="sh-n num">' + c.n + '</span><span class="sh-t">' + esc(c.short) + '</span><span class="sh-v num">' + v + '</span></a>';
@@ -776,8 +785,14 @@
     var h = location.hash.replace(/^#/, ''), m = h.match(/^ch(\d+)$/);
     menu(false);
     app.classList.remove('is-settled');
-    // #board opens the trivia board game over the progress page (the link drops the hash so it can be followed again).
-    if (h === 'board' && window.BioBoard) { history.replaceState(null, '', location.pathname + location.search); renderHome(); window.BioBoard.open(); return; }
+    // #board and the other games open over the progress page (the link drops the hash so it can be followed again).
+    var game = HUB_GAMES.filter(function (g) { return g[0] === h && g[2](); })[0];
+    if (game) {
+      history.replaceState(null, '', location.pathname + location.search);
+      renderHome();
+      if (h === 'board') window.BioBoard.open(); else window.BioQuizGames.open(h);
+      return;
+    }
     if (m) renderChapter(+m[1]); else renderHome();
     window.scrollTo(0, 0);
   }

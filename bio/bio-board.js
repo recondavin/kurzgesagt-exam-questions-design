@@ -243,7 +243,7 @@
     G.card.querySelector('.am-finish__card').classList.add('tb-wide');
     placeTokens();
     K.mascot('ok', pick(SAY.start));
-    nearMascot();
+    nearMascot(G.card);
     yourTurn();
   }
   // The examiner stands right beside the board (the user: "make him closer to the trivia board", then "higher up"), not
@@ -251,10 +251,12 @@
   // the card has popped in). On a wide screen both are bigger (the user: "make the whole board bigger and make him
   // bigger as well"): he is up to 320px wide (answer-mode.js makes him at most 220) and the card up to 1200px (900),
   // sharing the width so he still fits beside it. Under 1100px wide, answer-mode.js's sizes stay.
-  function nearMascot() {
+  // The other question games (bio-quizgames.js) place him the same way, so it takes the game's card.
+  function nearMascot(card) {
     [0, 120, 700].forEach(function (ms) {
-      wait(function () {
-        var m = document.querySelector('.am-root .am-mascot'), box = G.card.querySelector('.am-finish__card');
+      K.later(function () {
+        if (!card.isConnected) return;
+        var m = document.querySelector('.am-root .am-mascot'), box = card.querySelector('.am-finish__card');
         if (!m || !box || !m.offsetParent) return;
         var W = m.offsetParent.clientWidth;
         if (W >= 1100) {
@@ -273,7 +275,7 @@
       }, ms);
     });
   }
-  window.addEventListener('resize', function () { if (live()) nearMascot(); });
+  window.addEventListener('resize', function () { if (live()) nearMascot(G.card); });
   function hasAll(p) { return CH.every(function (ch) { return G.wedges[p][ch]; }); }
   function yourTurn() {
     G.turn = 0;
@@ -490,7 +492,7 @@
       '<h3 class="am-games__title">' + (winner ? 'The teacher wins.' : 'You win!') + '</h3>' +
       '<p class="am-games__sub">You got ' + G.right + ' of ' + G.asked + ' questions right' + (wins ? '. Games won: ' + wins : '') + '.</p></div>');
     buttons(G.card, [['more', 'data-am-keep', 'Close'], ['ok', 'data-tb-again', 'Play again']]);
-    nearMascot();
+    nearMascot(G.card);
     K.mascot(winner ? 'happy' : 'angry', winner ? 'As expected. Again?' : 'Hmph. Fine. You win. This time.');
     if (!winner) K.later(K.fanfare, 300);
   }
@@ -528,5 +530,6 @@
     e.preventDefault();
     check(false);
   });
-  window.BioBoard = { open: open, state: function () { return G; } };
+  // The other question games (bio-quizgames.js) use the same questions, chapters and colours.
+  window.BioBoard = { open: open, state: function () { return G; }, pools: pools, nearMascot: nearMascot, chapters: CH, names: NAME, colours: COL };
 })();

@@ -1,0 +1,165 @@
+[
+  { "term": "Excretion",
+    "ban": ["waste", "metabolism", "urine"],
+    "ideas": [
+      { "a": "It gets rid of by-products of the body's own chemical reactions (not undigested food)", "k": [{ "w": ["by", "product"], "n": 2 }, { "w": ["byproduct"], "n": 1 }, { "w": ["chemical", "reaction"], "n": 2 }, { "w": ["cell", "reaction"], "n": 2 }, { "w": ["not", "undigest"], "n": 2 }, { "w": ["not", "faec"], "n": 2 }] },
+      { "a": "Examples are urea, carbon dioxide and excess salts and water", "k": [{ "w": ["urea"], "n": 1 }, { "w": ["co2"], "n": 1 }, { "w": ["excess", "salt"], "n": 2 }] },
+      { "a": "The kidneys, lungs and skin do it", "k": [{ "w": ["lung", "kidney"], "n": 2 }, { "w": ["lung", "skin"], "n": 2 }, { "w": ["kidney", "skin"], "n": 2 }, { "w": ["sweat", "lung"], "n": 2 }, { "w": ["breath", "kidney"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "When the body gets harmful by-products of its own chemical reactions, such as urea and carbon dioxide, out through the kidneys, lungs and skin." },
+
+  { "term": "Osmoregulation",
+    "ban": ["water", "salt", "balance"],
+    "ideas": [
+      { "a": "Keeping the concentration of the body fluids steady (not too dilute, not too concentrated)", "k": [{ "w": ["concentr", "keep"], "n": 2 }, { "w": ["concentr", "steady"], "n": 2 }, { "w": ["concentr", "constant"], "n": 2 }, { "w": ["concentr", "control"], "n": 2 }, { "w": ["concentr", "regul"], "n": 2 }, { "w": ["concentr", "right"], "n": 2 }, { "w": ["concentr", "dilut"], "n": 2 }, { "w": ["solute", "control"], "n": 2 }, { "w": ["solute", "keep"], "n": 2 }] },
+      { "a": "The kidneys do most of it, under the control of ADH; it is part of homeostasis", "k": [{ "w": ["kidney"], "n": 1 }, { "w": ["adh"], "n": 1 }, { "w": ["homeostas"], "n": 1 }] },
+      { "a": "It matches what is taken in (drinking, food) with what is lost (urine, sweat, breath)", "k": [{ "w": ["drink", "urine"], "n": 2 }, { "w": ["drink", "lose"], "n": 2 }, { "w": ["drink", "sweat"], "n": 2 }, { "w": ["gain", "lose"], "n": 2 }, { "w": ["intak", "lose"], "n": 2 }, { "w": ["urine", "volum"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "Keeping the concentration of the body fluids steady, so they are not too dilute or too concentrated. The kidneys do most of it." },
+
+  { "term": "Nephron",
+    "ban": ["kidney", "functional", "unit"],
+    "ideas": [
+      { "a": "One of about a million tiny tubes in each kidney: its basic working part", "k": [{ "w": ["million"], "n": 1 }, { "w": ["small", "tube"], "n": 2 }, { "w": ["basic", "structur"], "n": 2 }, { "w": ["basic", "work"], "n": 2 }] },
+      { "a": "It is made of Bowman's capsule (with the glomerulus), the coiled tubules and the loop of Henle", "k": [{ "w": ["capsule", "loop"], "n": 2 }, { "w": ["bowman", "loop"], "n": 2 }, { "w": ["capsule", "henle"], "n": 2 }, { "w": ["bowman", "henle"], "n": 2 }, { "w": ["glomerul", "loop"], "n": 2 }, { "w": ["glomerul", "henle"], "n": 2 }] },
+      { "a": "Urine is made in it, by filtration and then reabsorption", "k": [{ "w": ["urine", "made"], "n": 2 }, { "w": ["filter", "reabsorb"], "n": 2 }, { "w": ["filtrat", "reabsorb"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "One of about a million tiny tubes in each filtering organ. Starting at Bowman's capsule and running through the loop of Henle, it is where urine is made." },
+
+  { "term": "Glomerulus",
+    "ban": ["kidney", "filter", "blood", "capillary"],
+    "ideas": [
+      { "a": "A knot or ball of tiny vessels", "k": [{ "w": ["knot", "vessel"], "n": 2 }, { "w": ["ball", "vessel"], "n": 2 }, { "w": ["network", "vessel"], "n": 2 }, { "w": ["tangl", "vessel"], "n": 2 }, { "w": ["cluster", "vessel"], "n": 2 }, { "w": ["bundle", "vessel"], "n": 2 }] },
+      { "a": "Sits inside Bowman's capsule, at the start of a nephron", "k": [{ "w": ["bowman"], "n": 1 }, { "w": ["capsule"], "n": 1 }, { "w": ["nephron"], "n": 1 }] },
+      { "a": "Small substances are forced out of it under high pressure (its outgoing arteriole is narrower)", "k": [{ "w": ["pressure"], "n": 1 }, { "w": ["forced", "out"], "n": 2 }, { "w": ["squeez"], "n": 1 }, { "w": ["efferent"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "A tiny knot of vessels sitting in Bowman's capsule, where high pressure forces water and small molecules out." },
+
+  { "term": "Bowman's capsule",
+    "ban": ["glomerulus", "cup", "filtrate"],
+    "ideas": [
+      { "a": "A hollow, double-walled cup that wraps around the glomerulus (the knot of vessels)", "k": [{ "w": ["around", "knot"], "n": 2 }, { "w": ["around", "vessel"], "n": 2 }, { "w": ["surround", "knot"], "n": 2 }, { "w": ["surround", "vessel"], "n": 2 }, { "w": ["wrap", "knot"], "n": 2 }, { "w": ["wrap", "vessel"], "n": 2 }, { "w": ["enclos", "vessel"], "n": 2 }, { "w": ["double", "wall"], "n": 2 }] },
+      { "a": "It collects the fluid forced out of the blood (water, glucose, urea and salts)", "k": [{ "w": ["collect", "fluid"], "n": 2 }, { "w": ["receiv", "fluid"], "n": 2 }, { "w": ["catch", "fluid"], "n": 2 }, { "w": ["collect", "liquid"], "n": 2 }, { "w": ["catch", "liquid"], "n": 2 }, { "w": ["fluid", "forced"], "n": 2 }, { "w": ["fluid", "squeez"], "n": 2 }, { "w": ["collect", "water"], "n": 2 }, { "w": ["collect", "small", "molecul"], "n": 3 }] },
+      { "a": "It is the first part of the nephron, in the cortex", "k": [{ "w": ["start", "nephron"], "n": 2 }, { "w": ["first", "nephron"], "n": 2 }, { "w": ["begin", "nephron"], "n": 2 }, { "w": ["start", "tube"], "n": 2 }, { "w": ["start", "tubul"], "n": 2 }, { "w": ["first", "tubul"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "The hollow, double-walled start of each nephron. It wraps around the knot of vessels and collects the fluid forced out of the blood." },
+
+  { "term": "Proximal convoluted tubule",
+    "ban": ["pct", "glucose", "amino", "first"],
+    "ideas": [
+      { "a": "All the glucose and amino acids (the useful molecules) are taken back into the blood here", "k": [{ "w": ["sugar", "back"], "n": 2 }, { "w": ["sugar", "reabsorb"], "n": 2 }, { "w": ["useful", "back"], "n": 2 }, { "w": ["useful", "reabsorb"], "n": 2 }, { "w": ["nutrient", "back"], "n": 2 }, { "w": ["nutrient", "reabsorb"], "n": 2 }, { "w": ["vitamin", "reabsorb"], "n": 2 }] },
+      { "a": "By active transport, which uses energy", "k": [{ "w": ["activ", "transport"], "n": 2 }, { "w": ["atp"], "n": 1 }] },
+      { "a": "Its cells have microvilli (large surface area) and many mitochondria", "k": [{ "w": ["microvill"], "n": 1 }, { "w": ["mitochondri"], "n": 1 }, { "w": ["surfac", "area"], "n": 2 }] },
+      { "a": "The coiled tube straight after Bowman's capsule", "k": [{ "w": ["after", "bowman"], "n": 2 }, { "w": ["after", "capsule"], "n": 2 }, { "w": ["follow", "capsule"], "n": 2 }, { "w": ["next", "capsule"], "n": 2 }, { "w": ["from", "capsule"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "Coiled tube just after Bowman's capsule. Its cells, with microvilli and many mitochondria, take back all the sugar and useful molecules by active transport." },
+
+  { "term": "Loop of Henle",
+    "ban": ["medulla", "desert", "camel", "hairpin"],
+    "ideas": [
+      { "a": "A U-shaped bend in the nephron that dips down and comes back up (two limbs)", "k": [{ "w": ["u", "shap"], "n": 2 }, { "w": ["u", "bend"], "n": 2 }, { "w": ["u", "tube"], "n": 2 }, { "w": ["bend", "tube"], "n": 2 }, { "w": ["descend", "ascend"], "n": 2 }, { "w": ["down", "up"], "n": 2 }, { "w": ["limb"], "n": 1 }] },
+      { "a": "It pumps out salts, making the tissue around it (the medulla) very salty", "k": [{ "w": ["salt", "pump"], "n": 2 }, { "w": ["salt", "out"], "n": 2 }, { "w": ["salt", "surround"], "n": 2 }, { "w": ["salt", "tissu"], "n": 2 }, { "w": ["salt", "inner"], "n": 2 }, { "w": ["sodium", "out"], "n": 2 }, { "w": ["salt", "gradient"], "n": 2 }, { "w": ["concentr", "gradient"], "n": 2 }] },
+      { "a": "So water leaves the tubule by osmosis and is reabsorbed (longer loops in desert animals save more)", "k": [{ "w": ["water", "osmos"], "n": 2 }, { "w": ["water", "osmot"], "n": 2 }, { "w": ["longer", "dry"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "A U-shaped bend of the tube dipping deep into the kidney. It pumps out salt so the tissue around it is very salty and water leaves the tube by osmosis." },
+
+  { "term": "Distal convoluted tubule",
+    "ban": ["dct", "second", "adh"],
+    "ideas": [
+      { "a": "The tubule after the loop of Henle, just before the collecting duct", "k": [{ "w": ["after", "loop"], "n": 2 }, { "w": ["after", "henle"], "n": 2 }, { "w": ["before", "collect"], "n": 2 }, { "w": ["before", "duct"], "n": 2 }, { "w": ["between", "loop"], "n": 2 }, { "w": ["between", "henle"], "n": 2 }] },
+      { "a": "It is coiled and lies in the cortex", "k": [{ "w": ["coil", "cortex"], "n": 2 }, { "w": ["twist", "cortex"], "n": 2 }] },
+      { "a": "Water (and some salts) are reabsorbed here, controlled by ADH from the pituitary", "k": [{ "w": ["hormon", "water"], "n": 2 }, { "w": ["pituitar", "water"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "Coiled tube in the cortex after the loop of Henle and before the collecting duct, where the pituitary hormone controls how much water is taken back." },
+
+  { "term": "Collecting duct",
+    "ban": ["urine", "adh", "pelvis", "last"],
+    "ideas": [
+      { "a": "Many nephrons (their DCTs) drain into it", "k": [{ "w": ["many", "nephron"], "n": 2 }, { "w": ["several", "nephron"], "n": 2 }, { "w": ["drain", "nephron"], "n": 2 }, { "w": ["after", "distal"], "n": 2 }, { "w": ["after", "dct"], "n": 2 }] },
+      { "a": "It runs down through the medulla (a pyramid) to the pelvis", "k": [{ "w": ["through", "medulla"], "n": 2 }, { "w": ["down", "medulla"], "n": 2 }, { "w": ["pyramid"], "n": 1 }, { "w": ["centre", "kidney"], "n": 2 }] },
+      { "a": "ADH controls how much water it takes back: the last place water is reabsorbed", "k": [{ "w": ["hormon", "water"], "n": 2 }, { "w": ["pituitar", "water"], "n": 2 }, { "w": ["final", "water"], "n": 2 }, { "w": ["permeab", "water"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "The final tube that many nephrons drain into. It runs down through the medulla, and the pituitary hormone sets how much water it takes back." },
+
+  { "term": "ADH",
+    "ban": ["adh", "antidiuretic", "hormone", "pituitary"],
+    "ideas": [
+      { "a": "A hormone made by the hypothalamus and released by the pituitary gland (in the brain)", "k": [{ "w": ["hypothalam"], "n": 1 }, { "w": ["gland", "brain"], "n": 2 }, { "w": ["messenger", "brain"], "n": 2 }, { "w": ["brain", "releas"], "n": 2 }] },
+      { "a": "More is released when the blood is too concentrated (you're short of water)", "k": [{ "w": ["dehydrat"], "n": 1 }, { "w": ["blood", "concentr"], "n": 2 }, { "w": ["short", "water"], "n": 2 }, { "w": ["lack", "water"], "n": 2 }, { "w": ["sweat"], "n": 1 }] },
+      { "a": "It makes the collecting ducts more permeable, so more water is reabsorbed", "k": [{ "w": ["permeab"], "n": 1 }, { "w": ["more", "water", "back"], "n": 3 }, { "w": ["more", "water", "reabsorb"], "n": 3 }] },
+      { "a": "So a small volume of concentrated urine is made", "k": [{ "w": ["less", "urine"], "n": 2 }, { "w": ["concentr", "urine"], "n": 2 }, { "w": ["small", "volum"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "Released by a gland under the brain when the blood is too concentrated. It makes the kidney tubes let more water back into the blood, so less urine is made." },
+
+  { "term": "Deamination",
+    "ban": ["liver", "urea", "amino"],
+    "ideas": [
+      { "a": "Breaking down spare amino acids (from protein we don't need)", "k": [{ "w": ["spare", "protein"], "n": 2 }, { "w": ["excess", "protein"], "n": 2 }, { "w": ["extra", "protein"], "n": 2 }, { "w": ["break", "protein"], "n": 2 }, { "w": ["too", "much", "protein"], "n": 3 }] },
+      { "a": "The nitrogen-containing (amine) group is taken off", "k": [{ "w": ["nitrogen"], "n": 1 }, { "w": ["ammonia"], "n": 1 }] },
+      { "a": "It makes urea, which the kidneys excrete in urine", "k": [{ "w": ["waste", "urine"], "n": 2 }, { "w": ["waste", "kidney"], "n": 2 }, { "w": ["excret", "kidney"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "Breaking down spare protein building blocks by removing their nitrogen part, which makes a waste that the kidneys pass out in urine." },
+
+  { "term": "Renal artery",
+    "ban": ["kidney", "blood", "aorta"],
+    "ideas": [
+      { "a": "It branches off the aorta, the main artery from the heart", "k": [{ "w": ["branch", "off"], "n": 2 }, { "w": ["branch", "main"], "n": 2 }, { "w": ["off", "main"], "n": 2 }, { "w": ["from", "heart"], "n": 2 }] },
+      { "a": "Its blood is rich in oxygen and still full of urea", "k": [{ "w": ["oxygen", "rich"], "n": 2 }, { "w": ["oxygen", "high"], "n": 2 }, { "w": ["oxygen", "full"], "n": 2 }, { "w": ["oxygenat"], "n": 1 }, { "w": ["full", "urea"], "n": 2 }, { "w": ["most", "urea"], "n": 2 }, { "w": ["urea", "still"], "n": 2 }] },
+      { "a": "It brings the blood into the kidney to be filtered", "k": [{ "w": ["into", "filter"], "n": 2 }, { "w": ["bring", "filter"], "n": 2 }, { "w": ["toward", "filter"], "n": 2 }, { "w": ["to", "be", "filter"], "n": 3 }, { "w": ["bring", "clean"], "n": 2 }, { "w": ["to", "be", "clean"], "n": 3 }] }
+    ],
+    "need": 2,
+    "model": "It branches off the main vessel from the heart and brings an oxygen-rich supply, still full of urea, into the organ to be filtered." },
+
+  { "term": "Renal vein",
+    "ban": ["kidney", "blood", "filtered", "away"],
+    "ideas": [
+      { "a": "It takes the blood out of the kidney, back towards the heart (to the vena cava)", "k": [{ "w": ["back", "heart"], "n": 2 }, { "w": ["toward", "heart"], "n": 2 }, { "w": ["return", "heart"], "n": 2 }, { "w": ["vena"], "n": 1 }, { "w": ["cava"], "n": 1 }, { "w": ["out", "organ"], "n": 2 }, { "w": ["leav", "organ"], "n": 2 }] },
+      { "a": "Its blood has the least urea in the body: it has just been cleaned", "k": [{ "w": ["least", "urea"], "n": 2 }, { "w": ["low", "urea"], "n": 2 }, { "w": ["less", "urea"], "n": 2 }, { "w": ["little", "urea"], "n": 2 }, { "w": ["no", "urea"], "n": 2 }, { "w": ["clean"], "n": 1 }] },
+      { "a": "Its blood is deoxygenated (low in oxygen)", "k": [{ "w": ["deoxygen"], "n": 1 }, { "w": ["low", "oxygen"], "n": 2 }, { "w": ["less", "oxygen"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "Carries the cleaned, deoxygenated supply, now with the least urea, out of the organ and back to the heart via the vena cava." },
+
+  { "term": "Ureter",
+    "ban": ["kidney", "bladder", "tube"],
+    "ideas": [
+      { "a": "It carries urine away from the kidney (from its pelvis)", "k": [{ "w": ["urine", "pelvis"], "n": 2 }, { "w": ["urine", "from", "organ"], "n": 3 }, { "w": ["urine", "from", "filter"], "n": 3 }, { "w": ["urine", "leav"], "n": 2 }] },
+      { "a": "Down to the bladder, where urine is stored", "k": [{ "w": ["down", "stor"], "n": 2 }, { "w": ["into", "stor"], "n": 2 }, { "w": ["toward", "stor"], "n": 2 }, { "w": ["down", "bag"], "n": 2 }, { "w": ["down", "sac"], "n": 2 }] },
+      { "a": "There are two, one from each kidney", "k": [{ "w": ["two"], "n": 1 }, { "w": ["pair"], "n": 1 }, { "w": ["each", "side"], "n": 2 }, { "w": ["both", "side"], "n": 2 }] },
+      { "a": "Muscle in its wall pushes the urine along (peristalsis)", "k": [{ "w": ["peristal"], "n": 1 }, { "w": ["muscl", "push"], "n": 2 }, { "w": ["muscl", "squeez"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "One of two muscular ducts that carry urine from the pelvis of each filtering organ down to the stretchy bag where it is stored." },
+
+  { "term": "Bladder",
+    "ban": ["urine", "store", "bag"],
+    "ideas": [
+      { "a": "A stretchy, muscular sac", "k": [{ "w": ["stretch"], "n": 1 }, { "w": ["elastic"], "n": 1 }, { "w": ["expand"], "n": 1 }, { "w": ["muscl", "sac"], "n": 2 }] },
+      { "a": "It holds urine until it is let out", "k": [{ "w": ["hold", "until"], "n": 2 }, { "w": ["keep", "until"], "n": 2 }, { "w": ["until", "releas"], "n": 2 }, { "w": ["hold", "wee"], "n": 2 }, { "w": ["hold", "liquid"], "n": 2 }, { "w": ["hold", "waste"], "n": 2 }] },
+      { "a": "The ureters fill it and the urethra empties it", "k": [{ "w": ["ureter"], "n": 1 }, { "w": ["urethra"], "n": 1 }, { "w": ["sphincter"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "A stretchy, muscular sac low in the abdomen that holds the waste liquid from the ureters until you let it out." },
+
+  { "term": "Urethra",
+    "ban": ["bladder", "tube", "body"],
+    "ideas": [
+      { "a": "It carries urine out of the body", "k": [{ "w": ["urine", "out"], "n": 2 }, { "w": ["urine", "outsid"], "n": 2 }, { "w": ["urine", "exit"], "n": 2 }] },
+      { "a": "From the bladder, where urine is stored", "k": [{ "w": ["from", "stor"], "n": 2 }, { "w": ["from", "bag"], "n": 2 }, { "w": ["from", "sac"], "n": 2 }] },
+      { "a": "A ring of muscle (sphincter) controls when it opens", "k": [{ "w": ["sphincter"], "n": 1 }, { "w": ["ring", "muscl"], "n": 2 }] },
+      { "a": "In males it also carries sperm, through the penis", "k": [{ "w": ["sperm"], "n": 1 }, { "w": ["semen"], "n": 1 }, { "w": ["penis"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "Carries urine from the storage bag out to the outside world, through a ring of muscle; in males it also carries sperm through the penis." }
+]

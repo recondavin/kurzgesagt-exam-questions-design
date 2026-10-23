@@ -1,0 +1,165 @@
+[
+  { "term": "Pathogen",
+    "ban": ["disease", "germ", "infection"],
+    "ideas": [
+      { "a": "It makes you ill: it causes harm in its host", "k": [{ "w": ["ill"], "n": 1 }, { "w": ["illness"], "n": 1 }, { "w": ["sick"], "n": 1 }, { "w": ["unwell"], "n": 1 }, { "w": ["harmful"], "n": 1 }, { "w": ["symptom"], "n": 1 }] },
+      { "a": "It can be a virus, bacterium, fungus, protist, prion or parasitic animal", "k": [{ "w": ["virus"], "n": 1 }, { "w": ["bacteri"], "n": 1 }, { "w": ["fung"], "n": 1 }, { "w": ["protist"], "n": 1 }, { "w": ["prion"], "n": 1 }, { "w": ["parasit"], "n": 1 }, { "w": ["worm"], "n": 1 }] },
+      { "a": "It gets into the body and can be caught from, or passed to, others", "k": [{ "w": ["catch"], "n": 1 }, { "w": ["caught"], "n": 1 }, { "w": ["contagious"], "n": 1 }, { "w": ["spread", "person"], "n": 2 }, { "w": ["spread", "people"], "n": 2 }, { "w": ["invad"], "n": 1 }, { "w": ["get", "into", "body"], "n": 3 }] }
+    ],
+    "need": 2,
+    "model": "Any organism or agent, such as a bacterium, virus or fungus, that gets into your body and makes you ill." },
+
+  { "term": "Virus",
+    "ban": ["dna", "rna", "host", "parasite"],
+    "ideas": [
+      { "a": "Just nucleic acid (DNA or RNA) inside a protein coat", "k": [{ "w": ["nucleic"], "n": 1 }, { "w": ["protein", "coat"], "n": 2 }, { "w": ["capsid"], "n": 1 }, { "w": ["genetic", "coat"], "n": 2 }, { "w": ["gene", "coat"], "n": 2 }] },
+      { "a": "It can only reproduce inside a living cell (an obligate parasite)", "k": [{ "w": ["only", "reproduc"], "n": 2 }, { "w": ["only", "multipl"], "n": 2 }, { "w": ["only", "replicat"], "n": 2 }, { "w": ["cannot", "reproduc", "own"], "n": 3 }, { "w": ["inside", "living", "cell"], "n": 3 }, { "w": ["obligat"], "n": 1 }] },
+      { "a": "It is not made of cells, so it is hard to call it living", "k": [{ "w": ["not", "cell"], "n": 2 }, { "w": ["no", "cell"], "n": 2 }, { "w": ["non", "cellular"], "n": 2 }, { "w": ["not", "living"], "n": 2 }, { "w": ["non", "living"], "n": 2 }, { "w": ["nonliving"], "n": 1 }, { "w": ["no", "cytoplasm"], "n": 2 }] },
+      { "a": "Examples: flu, HIV, measles, the common cold, COVID-19", "k": [{ "w": ["flu"], "n": 1 }, { "w": ["influenza"], "n": 1 }, { "w": ["hiv"], "n": 1 }, { "w": ["measl"], "n": 1 }, { "w": ["covid"], "n": 1 }, { "w": ["common", "cold"], "n": 2 }, { "w": ["herpes"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "Not a cell at all, just genes (nucleic acid) in a protein coat. It can only multiply inside a living cell. Flu and HIV are examples." },
+
+  { "term": "Antigen",
+    "ban": ["antibody", "foreign", "protein", "molecule"],
+    "ideas": [
+      { "a": "It doesn't belong to your body (non-self): it is on an invader", "k": [{ "w": ["not", "self"], "n": 2 }, { "w": ["non", "self"], "n": 2 }, { "w": ["nonself"], "n": 1 }, { "w": ["not", "belong"], "n": 2 }, { "w": ["dont", "belong"], "n": 2 }, { "w": ["invad"], "n": 1 }, { "w": ["intruder"], "n": 1 }, { "w": ["alien"], "n": 1 }] },
+      { "a": "It triggers the body to make the matching antibodies", "k": [{ "w": ["trigger"], "n": 1 }, { "w": ["stimulat"], "n": 1 }, { "w": ["provok"], "n": 1 }, { "w": ["set", "off"], "n": 2 }, { "w": ["caus", "make"], "n": 2 }, { "w": ["make", "against"], "n": 2 }] },
+      { "a": "It is a marker that white blood cells recognise", "k": [{ "w": ["recognis"], "n": 1 }, { "w": ["identif"], "n": 1 }, { "w": ["detect"], "n": 1 }, { "w": ["marker"], "n": 1 }, { "w": ["tag"], "n": 1 }, { "w": ["label"], "n": 1 }, { "w": ["flag"], "n": 1 }, { "w": ["spike"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "A chemical marker on an invading organism that your body sees as not self, so it triggers lymphocytes to make Y-shaped defenders that fit it." },
+
+  { "term": "Antibody",
+    "ban": ["antigen", "protein", "lymphocyte"],
+    "ideas": [
+      { "a": "Made by B lymphocytes (white blood cells)", "k": [{ "w": ["b", "cell"], "n": 2 }, { "w": ["b", "make"], "n": 2 }, { "w": ["white", "blood"], "n": 2 }, { "w": ["white", "cell"], "n": 2 }, { "w": ["plasma"], "n": 1 }] },
+      { "a": "Each one locks onto one particular antigen only", "k": [{ "w": ["lock"], "n": 1 }, { "w": ["bind"], "n": 1 }, { "w": ["latch"], "n": 1 }, { "w": ["grab"], "n": 1 }, { "w": ["attach", "specific"], "n": 2 }, { "w": ["fit", "exact"], "n": 2 }, { "w": ["stick", "onto"], "n": 2 }] },
+      { "a": "Y-shaped: it marks pathogens so they clump together and are destroyed", "k": [{ "w": ["y", "shape"], "n": 2 }, { "w": ["clump"], "n": 1 }, { "w": ["neutralis"], "n": 1 }, { "w": ["stick", "together"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "A Y-shaped molecule made by B cells. Each kind locks onto one exact target on a germ, so the germs clump together and get engulfed." },
+
+  { "term": "B lymphocyte",
+    "ban": ["antibody", "immune", "plasma"],
+    "ideas": [
+      { "a": "It makes antibodies: Y-shaped proteins that fit one antigen", "k": [{ "w": ["y", "shape"], "n": 2 }, { "w": ["protein", "antigen"], "n": 2 }, { "w": ["make", "protein"], "n": 2 }] },
+      { "a": "Helper T cells switch it on, and then it multiplies", "k": [{ "w": ["helper", "t"], "n": 2 }, { "w": ["multipl"], "n": 1 }, { "w": ["divid"], "n": 1 }, { "w": ["clone"], "n": 1 }] },
+      { "a": "Some of them stay on as memory cells", "k": [{ "w": ["memory"], "n": 1 }] },
+      { "a": "Made in the bone marrow; part of the specific (adaptive) response", "k": [{ "w": ["bone", "marrow"], "n": 2 }, { "w": ["adaptive"], "n": 1 }, { "w": ["acquired"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "A defence cell from the bone marrow that, once a helper T cell switches it on, makes Y-shaped proteins to fit one antigen. Some become memory cells." },
+
+  { "term": "Helper T cell",
+    "ban": ["activate", "stimulate", "recognise"],
+    "ideas": [
+      { "a": "It identifies the antigen, often shown to it by a macrophage", "k": [{ "w": ["identif", "antigen"], "n": 2 }, { "w": ["detect", "antigen"], "n": 2 }, { "w": ["spot", "antigen"], "n": 2 }, { "w": ["show", "macrophage"], "n": 2 }, { "w": ["present", "macrophage"], "n": 2 }, { "w": ["macrophage", "antigen"], "n": 2 }] },
+      { "a": "It switches on the B lymphocytes, so they make antibodies", "k": [{ "w": ["switch", "b"], "n": 2 }, { "w": ["turn", "b"], "n": 2 }, { "w": ["tell", "b"], "n": 2 }, { "w": ["signal", "b"], "n": 2 }, { "w": ["trigger", "b"], "n": 2 }, { "w": ["switch", "antibody"], "n": 2 }, { "w": ["turn", "antibody"], "n": 2 }, { "w": ["tell", "antibody"], "n": 2 }, { "w": ["signal", "antibody"], "n": 2 }, { "w": ["trigger", "antibody"], "n": 2 }] },
+      { "a": "It switches on the killer T cells too", "k": [{ "w": ["switch", "killer"], "n": 2 }, { "w": ["turn", "killer"], "n": 2 }, { "w": ["tell", "killer"], "n": 2 }, { "w": ["signal", "killer"], "n": 2 }, { "w": ["trigger", "killer"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "A T lymphocyte that identifies the antigen a macrophage shows it, then switches on the B lymphocytes and the killer T lymphocytes." },
+
+  { "term": "Killer T cell",
+    "ban": ["destroy", "attack", "perforin"],
+    "ideas": [
+      { "a": "It targets the body's own cells that a virus has infected (and cancer cells)", "k": [{ "w": ["infect", "own"], "n": 2 }, { "w": ["infect", "body"], "n": 2 }, { "w": ["infect", "burst"], "n": 2 }, { "w": ["infect", "recognis"], "n": 2 }, { "w": ["infect", "target"], "n": 2 }, { "w": ["infect", "hunt"], "n": 2 }, { "w": ["cancer"], "n": 1 }, { "w": ["tumour"], "n": 1 }] },
+      { "a": "It releases perforin, which punches holes in their membranes so they burst", "k": [{ "w": ["hole"], "n": 1 }, { "w": ["punch"], "n": 1 }, { "w": ["puncture"], "n": 1 }, { "w": ["pierc"], "n": 1 }, { "w": ["burst", "membrane"], "n": 2 }] },
+      { "a": "Helper T cells switch it on; it is the cell-mediated part of the specific response", "k": [{ "w": ["helper", "t"], "n": 2 }, { "w": ["mediat"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "A T lymphocyte that targets parts of your own body infected by a virus, or cancerous, and punches holes in their membranes so they burst open." },
+
+  { "term": "Suppressor T cell",
+    "ban": ["stop", "switch", "off"],
+    "ideas": [
+      { "a": "It shuts down the immune response", "k": [{ "w": ["shut", "down"], "n": 2 }, { "w": ["wind", "down"], "n": 2 }, { "w": ["turn", "down"], "n": 2 }, { "w": ["calm"], "n": 1 }, { "w": ["halt"], "n": 1 }, { "w": ["inhibit"], "n": 1 }, { "w": ["dampen"], "n": 1 }, { "w": ["end", "response"], "n": 2 }, { "w": ["end", "attack"], "n": 2 }] },
+      { "a": "It does this once the infection is over", "k": [{ "w": ["infect", "over"], "n": 2 }, { "w": ["infect", "gone"], "n": 2 }, { "w": ["infect", "finish"], "n": 2 }, { "w": ["infect", "clear"], "n": 2 }, { "w": ["infect", "beaten"], "n": 2 }, { "w": ["pathogen", "gone"], "n": 2 }, { "w": ["germ", "gone"], "n": 2 }] },
+      { "a": "So it doesn't go too far and harm the body's own cells", "k": [{ "w": ["too", "far"], "n": 2 }, { "w": ["overreact"], "n": 1 }, { "w": ["autoimmun"], "n": 1 }, { "w": ["harm", "own"], "n": 2 }, { "w": ["damag", "own"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "A T lymphocyte that calms down and ends the immune response once the infection is over, so it doesn't go too far and damage your own tissues." },
+
+  { "term": "Memory cell",
+    "ban": ["remember", "second", "immune"],
+    "ideas": [
+      { "a": "It stays in the body for years after an infection", "k": [{ "w": ["year"], "n": 1 }, { "w": ["decade"], "n": 1 }, { "w": ["long", "time"], "n": 2 }, { "w": ["long", "term"], "n": 2 }, { "w": ["long", "last"], "n": 2 }, { "w": ["lifelong"], "n": 1 }, { "w": ["remain"], "n": 1 }] },
+      { "a": "If the same pathogen comes back, it recognises it at once", "k": [{ "w": ["same", "back"], "n": 2 }, { "w": ["come", "back"], "n": 2 }, { "w": ["next", "time"], "n": 2 }, { "w": ["return"], "n": 1 }, { "w": ["reinfect"], "n": 1 }, { "w": ["recognis", "same"], "n": 2 }] },
+      { "a": "So the response is much faster and bigger, and you don't get ill", "k": [{ "w": ["fast"], "n": 1 }, { "w": ["quick"], "n": 1 }, { "w": ["rapid"], "n": 1 }, { "w": ["immediat"], "n": 1 }, { "w": ["larg", "response"], "n": 2 }] },
+      { "a": "Made from B and T lymphocytes during the first infection", "k": [{ "w": ["lymphocyte"], "n": 1 }, { "w": ["first", "infect"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "A lymphocyte that stays in your body for years after an infection, so if the same pathogen comes back the response is far faster." },
+
+  { "term": "Macrophage",
+    "ban": ["engulf", "phagocyte", "eat", "monocyte"],
+    "ideas": [
+      { "a": "It takes in pathogens by flowing around and surrounding them", "k": [{ "w": ["surround"], "n": 1 }, { "w": ["wrap"], "n": 1 }, { "w": ["swallow"], "n": 1 }, { "w": ["envelop"], "n": 1 }, { "w": ["gobbl"], "n": 1 }, { "w": ["devour"], "n": 1 }, { "w": ["pseudopod"], "n": 1 }] },
+      { "a": "It digests them inside, with enzymes from lysosomes", "k": [{ "w": ["digest"], "n": 1 }, { "w": ["lysosome"], "n": 1 }, { "w": ["enzyme", "inside"], "n": 2 }] },
+      { "a": "It is non-specific: it acts on any pathogen (innate, general defence)", "k": [{ "w": ["non", "specific"], "n": 2 }, { "w": ["nonspecific"], "n": 1 }, { "w": ["not", "specific"], "n": 2 }, { "w": ["any", "pathogen"], "n": 2 }, { "w": ["any", "germ"], "n": 2 }, { "w": ["any", "microb"], "n": 2 }, { "w": ["any", "bacteri"], "n": 2 }, { "w": ["any", "invad"], "n": 2 }, { "w": ["innate"], "n": 1 }, { "w": ["general", "defence"], "n": 2 }] },
+      { "a": "It shows the pathogen's antigens to lymphocytes (helper T cells)", "k": [{ "w": ["show", "antigen"], "n": 2 }, { "w": ["present", "antigen"], "n": 2 }, { "w": ["display", "antigen"], "n": 2 }, { "w": ["show", "lymphocyte"], "n": 2 }, { "w": ["show", "helper"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "A large white blood cell that surrounds any germ it finds, digests it with enzymes, and shows the germ's antigens to lymphocytes." },
+
+  { "term": "Lysozyme",
+    "ban": ["tears", "saliva", "enzyme"],
+    "ideas": [
+      { "a": "It is in tears, saliva and mucus", "k": [{ "w": ["eye"], "n": 1 }, { "w": ["spit"], "n": 1 }, { "w": ["mouth"], "n": 1 }, { "w": ["nose"], "n": 1 }, { "w": ["mucus"], "n": 1 }, { "w": ["cry"], "n": 1 }, { "w": ["sweat"], "n": 1 }] },
+      { "a": "It breaks down the cell walls of bacteria, so they burst", "k": [{ "w": ["wall"], "n": 1 }, { "w": ["burst", "bacteri"], "n": 2 }, { "w": ["break", "down", "bacteri"], "n": 3 }] },
+      { "a": "It is part of the general (innate) defence: it acts on any bacteria", "k": [{ "w": ["general", "defence"], "n": 2 }, { "w": ["innate"], "n": 1 }, { "w": ["non", "specific"], "n": 2 }, { "w": ["first", "line"], "n": 2 }, { "w": ["any", "bacteri"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "A chemical in the fluid from your eyes, in spit and in mucus, that breaks down the walls of bacteria so they burst. Part of the general defence." },
+
+  { "term": "Vaccination",
+    "ban": ["immune", "jab", "antibody"],
+    "ideas": [
+      { "a": "A harmless (dead or weakened) form of the pathogen, or just its antigens, is put into the body", "k": [{ "w": ["harmless"], "n": 1 }, { "w": ["dead"], "n": 1 }, { "w": ["weak"], "n": 1 }, { "w": ["inactiv"], "n": 1 }, { "w": ["not", "harmful"], "n": 2 }, { "w": ["antigen", "put"], "n": 2 }, { "w": ["antigen", "give"], "n": 2 }] },
+      { "a": "The body makes its own antibodies and memory cells against it", "k": [{ "w": ["memory"], "n": 1 }, { "w": ["lymphocyte", "make"], "n": 2 }, { "w": ["white", "blood"], "n": 2 }, { "w": ["y", "shape"], "n": 2 }, { "w": ["own", "defence"], "n": 2 }, { "w": ["make", "defence"], "n": 2 }, { "w": ["learn", "fight"], "n": 2 }, { "w": ["learn", "recognis"], "n": 2 }] },
+      { "a": "So you are protected before you ever meet the real pathogen, and it can't spread", "k": [{ "w": ["real", "pathogen"], "n": 2 }, { "w": ["real", "germ"], "n": 2 }, { "w": ["real", "virus"], "n": 2 }, { "w": ["real", "thing"], "n": 2 }, { "w": ["real", "one"], "n": 2 }, { "w": ["before", "catch"], "n": 2 }, { "w": ["never", "catch"], "n": 2 }, { "w": ["herd"], "n": 1 }, { "w": ["prevent", "spread"], "n": 2 }, { "w": ["protect", "before"], "n": 2 }, { "w": ["future"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "A harmless, dead or weakened form of a germ is put into you, so your white blood cells make defences and memory cells before you ever meet the real thing." },
+
+  { "term": "Active immunity",
+    "ban": ["own", "vaccine", "memory"],
+    "ideas": [
+      { "a": "Your own body (your own lymphocytes) makes the antibodies", "k": [{ "w": ["body", "make", "antibody"], "n": 3 }, { "w": ["itself"], "n": 1 }, { "w": ["lymphocyte", "make", "antibody"], "n": 3 }, { "w": ["b", "make", "antibody"], "n": 3 }] },
+      { "a": "It lasts a long time, because memory cells are made", "k": [{ "w": ["long", "last"], "n": 2 }, { "w": ["long", "time"], "n": 2 }, { "w": ["long", "term"], "n": 2 }, { "w": ["year"], "n": 1 }, { "w": ["lifelong"], "n": 1 }, { "w": ["permanent"], "n": 1 }] },
+      { "a": "You get it by catching the disease, or from a vaccine", "k": [{ "w": ["catch"], "n": 1 }, { "w": ["caught"], "n": 1 }, { "w": ["recover"], "n": 1 }, { "w": ["jab"], "n": 1 }, { "w": ["had", "disease"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "After you have had the disease, or a jab, your body makes the antibodies itself, so the protection lasts for years." },
+
+  { "term": "Passive immunity",
+    "ban": ["ready", "mother", "milk"],
+    "ideas": [
+      { "a": "You are given antibodies (e.g. an injection) made by another person or animal: your body doesn't make them", "k": [{ "w": ["give", "antibody"], "n": 2 }, { "w": ["receiv", "antibody"], "n": 2 }, { "w": ["antibody", "another"], "n": 2 }, { "w": ["antibody", "someone"], "n": 2 }, { "w": ["antibody", "inject"], "n": 2 }, { "w": ["antibody", "donat"], "n": 2 }, { "w": ["doesnt", "make"], "n": 2 }] },
+      { "a": "e.g. a baby gets them through breastfeeding or the placenta, or you get antiserum", "k": [{ "w": ["breast"], "n": 1 }, { "w": ["placenta"], "n": 1 }, { "w": ["baby"], "n": 1 }, { "w": ["newborn"], "n": 1 }, { "w": ["serum"], "n": 1 }, { "w": ["antiserum"], "n": 1 }, { "w": ["antivenom"], "n": 1 }] },
+      { "a": "It works at once but is short-lived: it fades within weeks (no memory cells)", "k": [{ "w": ["short"], "n": 1 }, { "w": ["fade"], "n": 1 }, { "w": ["week"], "n": 1 }, { "w": ["temporar"], "n": 1 }, { "w": ["wear", "off"], "n": 2 }, { "w": ["no", "memory"], "n": 2 }, { "w": ["immediat"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "You are given antibodies made by another body, e.g. by breastfeeding or an injection. It works at once but fades in weeks, as no memory cells form." },
+
+  { "term": "Antibiotic",
+    "ban": ["bacteria", "penicillin", "medicine"],
+    "ideas": [
+      { "a": "Made by a micro-organism, such as a fungus", "k": [{ "w": ["fung"], "n": 1 }, { "w": ["mould"], "n": 1 }, { "w": ["make", "microb"], "n": 2 }, { "w": ["make", "micro", "organism"], "n": 3 }] },
+      { "a": "It kills bacteria or stops them growing", "k": [{ "w": ["stop", "grow"], "n": 2 }, { "w": ["kill", "microb"], "n": 2 }, { "w": ["destroy", "microb"], "n": 2 }, { "w": ["kill", "germ"], "n": 2 }, { "w": ["destroy", "germ"], "n": 2 }, { "w": ["kill", "micro", "organism"], "n": 3 }, { "w": ["destroy", "micro", "organism"], "n": 3 }] },
+      { "a": "It has no effect on viruses", "k": [{ "w": ["no", "virus"], "n": 2 }, { "w": ["not", "virus"], "n": 2 }, { "w": ["doesnt", "virus"], "n": 2 }, { "w": ["cannot", "virus"], "n": 2 }, { "w": ["useless", "virus"], "n": 2 }, { "w": ["except", "virus"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "A substance made by a fungus or other microbe that destroys other microbes or stops them growing, but it has no effect on viruses." },
+
+  { "term": "Antibiotic resistance",
+    "ban": ["mutation", "natural", "immune"],
+    "ideas": [
+      { "a": "Bacteria are no longer killed by a drug that used to kill them", "k": [{ "w": ["no", "longer"], "n": 2 }, { "w": ["not", "kill"], "n": 2 }, { "w": ["arent", "kill"], "n": 2 }, { "w": ["isnt", "kill"], "n": 2 }, { "w": ["unaffect"], "n": 1 }, { "w": ["stop", "work"], "n": 2 }, { "w": ["doesnt", "work"], "n": 2 }] },
+      { "a": "It starts with a random mutation in a gene (which can also pass to other bacteria on a plasmid)", "k": [{ "w": ["random"], "n": 1 }, { "w": ["gene", "chang"], "n": 2 }, { "w": ["plasmid"], "n": 1 }] },
+      { "a": "Overuse or misuse kills the others, so the resistant ones survive and multiply (natural selection)", "k": [{ "w": ["misuse"], "n": 1 }, { "w": ["overuse", "drug"], "n": 2 }, { "w": ["overprescrib"], "n": 1 }, { "w": ["too", "often"], "n": 2 }, { "w": ["surviv", "multipl"], "n": 2 }, { "w": ["surviv", "reproduc"], "n": 2 }, { "w": ["surviv", "breed"], "n": 2 }, { "w": ["finish", "course"], "n": 2 }, { "w": ["select"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "Bacteria that a drug can no longer kill. A random gene change lets a few survive; misuse of the drug kills the rest, so the survivors multiply." }
+]

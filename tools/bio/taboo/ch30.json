@@ -1,0 +1,1818 @@
+[
+  {
+    "term": "Peristalsis",
+    "ban": [
+      "wave",
+      "muscle",
+      "push"
+    ],
+    "ideas": [
+      {
+        "a": "The gut wall contracts (squeezes) behind the food",
+        "k": [
+          {
+            "w": [
+              "contract",
+              "wall"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "contract",
+              "gut"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "contract",
+              "ring"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "squeez"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "circular"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "tighten"
+            ],
+            "n": 1
+          }
+        ]
+      },
+      {
+        "a": "and relaxes in front of it",
+        "k": [
+          {
+            "w": [
+              "relax"
+            ],
+            "n": 1
+          }
+        ]
+      },
+      {
+        "a": "This moves food along the gut, e.g. down the oesophagus (it is not gravity)",
+        "k": [
+          {
+            "w": [
+              "oesophag"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "esophag"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "along",
+              "gut"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "along",
+              "intestin"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "through",
+              "gut"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "down",
+              "gut"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "move",
+              "food"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "gravity"
+            ],
+            "n": 1
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "Rings of the gut wall contract behind the food and relax in front of it, squeezing it along the oesophagus and intestines."
+  },
+  {
+    "term": "Bile",
+    "ban": [
+      "fat",
+      "emulsify",
+      "liver"
+    ],
+    "ideas": [
+      {
+        "a": "Kept in the gall bladder until it is needed",
+        "k": [
+          {
+            "w": [
+              "gall"
+            ],
+            "n": 1
+          }
+        ]
+      },
+      {
+        "a": "Breaks lipids into tiny droplets, giving lipase a larger surface area (it is not an enzyme)",
+        "k": [
+          {
+            "w": [
+              "droplet"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "globul"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "surfac",
+              "area"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "It is alkaline and neutralises the acid from the stomach",
+        "k": [
+          {
+            "w": [
+              "neutralis"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "alkalin"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "hydrogencarbonat"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "bicarbonat"
+            ],
+            "n": 1
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "A green alkaline liquid kept in the gall bladder that breaks lipids into tiny droplets for lipase and neutralises stomach acid."
+  },
+  {
+    "term": "Gall bladder",
+    "ban": [
+      "bile",
+      "store",
+      "liver"
+    ],
+    "ideas": [
+      {
+        "a": "A small sac (under the liver)",
+        "k": [
+          {
+            "w": [
+              "sac"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "bag"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "pouch"
+            ],
+            "n": 1
+          }
+        ]
+      },
+      {
+        "a": "Holds the green juice that breaks up fats until it is needed",
+        "k": [
+          {
+            "w": [
+              "hold",
+              "juice"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "keep",
+              "juice"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "hold",
+              "liquid"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "keep",
+              "liquid"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "hold",
+              "green"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "keep",
+              "green"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "concentrat"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "reservoir"
+            ],
+            "n": 1
+          }
+        ]
+      },
+      {
+        "a": "Squeezes it down a duct into the duodenum after a meal",
+        "k": [
+          {
+            "w": [
+              "duct",
+              "duoden"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "releas",
+              "duoden"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "squeez",
+              "duoden"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "duct",
+              "intestin"
+            ],
+            "n": 2
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "A small sac that holds the green juice which breaks up lipids, and squeezes it down a duct into the duodenum after a meal."
+  },
+  {
+    "term": "Pancreas",
+    "ban": [
+      "insulin",
+      "gland",
+      "enzyme"
+    ],
+    "ideas": [
+      {
+        "a": "Makes amylase, lipase and protease (pancreatic juice)",
+        "k": [
+          {
+            "w": [
+              "amylase",
+              "lipase",
+              "proteas",
+              "trypsin"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "Its juice flows down a duct into the duodenum",
+        "k": [
+          {
+            "w": [
+              "duct",
+              "duoden"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "juice",
+              "duoden"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "duct",
+              "small",
+              "intestin"
+            ],
+            "n": 3
+          }
+        ]
+      },
+      {
+        "a": "It also makes hormones (insulin) that control blood sugar",
+        "k": [
+          {
+            "w": [
+              "hormon"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "blood",
+              "sugar"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "blood",
+              "glucos"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "endocrin"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "glucagon"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "diabet"
+            ],
+            "n": 1
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "Makes amylase, lipase and protease, which flow down a duct into the duodenum, and also makes hormones that control blood sugar."
+  },
+  {
+    "term": "Duodenum",
+    "ban": [
+      "small",
+      "intestine",
+      "first"
+    ],
+    "ideas": [
+      {
+        "a": "The part of the gut straight after the stomach",
+        "k": [
+          {
+            "w": [
+              "after",
+              "stomach"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "follow",
+              "stomach"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "leav",
+              "stomach"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "next",
+              "stomach"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "from",
+              "stomach"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "pylor"
+            ],
+            "n": 1
+          }
+        ]
+      },
+      {
+        "a": "Bile and pancreatic juice are added here",
+        "k": [
+          {
+            "w": [
+              "bile",
+              "pancrea"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "bile",
+              "lipase"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "bile",
+              "amylase"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "bile",
+              "duct"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "bile",
+              "juice"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "gall",
+              "pancrea"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "It is slightly alkaline, about pH 8",
+        "k": [
+          {
+            "w": [
+              "ph",
+              "8"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "alkalin"
+            ],
+            "n": 1
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "The short tube just after the stomach, where bile and pancreatic juice are added, making it slightly alkaline, about pH 8."
+  },
+  {
+    "term": "Villi",
+    "ban": [
+      "finger",
+      "absorb",
+      "microvilli"
+    ],
+    "ideas": [
+      {
+        "a": "Tiny projections lining the ileum (small intestine)",
+        "k": [
+          {
+            "w": [
+              "ileum"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "small",
+              "intestin"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "projection"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "protrusion"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "outgrowth"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "bump"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "lining",
+              "gut"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "They give a huge surface area for taking in digested food",
+        "k": [
+          {
+            "w": [
+              "surfac",
+              "area"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "Each has a wall one cell thick, blood capillaries and a lacteal",
+        "k": [
+          {
+            "w": [
+              "lacteal"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "one",
+              "cell"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "thin",
+              "wall"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "capillar"
+            ],
+            "n": 1
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "Tiny projections lining the ileum that give a huge surface area for taking in digested food; each has a wall one cell thick, capillaries and a lacteal."
+  },
+  {
+    "term": "Lacteal",
+    "ban": [
+      "lymph",
+      "fat",
+      "villus"
+    ],
+    "ideas": [
+      {
+        "a": "Takes in fatty acids and glycerol, the products of lipid digestion",
+        "k": [
+          {
+            "w": [
+              "glycerol"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "lipid"
+            ],
+            "n": 1
+          }
+        ]
+      },
+      {
+        "a": "A blind-ended tube in the centre of each villus",
+        "k": [
+          {
+            "w": [
+              "centr"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "middl"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "blind"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "core"
+            ],
+            "n": 1
+          }
+        ]
+      },
+      {
+        "a": "Its fluid (lymph) looks milky",
+        "k": [
+          {
+            "w": [
+              "milk"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "thoracic"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "chyle"
+            ],
+            "n": 1
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "A tiny blind-ended tube in the centre of each finger-like projection of the ileum that takes in glycerol and the other products of lipid digestion, in a milky liquid."
+  },
+  {
+    "term": "Hepatic portal vein",
+    "ban": [
+      "liver",
+      "blood",
+      "vessel"
+    ],
+    "ideas": [
+      {
+        "a": "Carries digested food: glucose and amino acids",
+        "k": [
+          {
+            "w": [
+              "glucos"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "amino"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "nutrient"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "digest",
+              "food"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "From the intestine (villi) to the liver, the organ that makes bile and stores glycogen",
+        "k": [
+          {
+            "w": [
+              "intestin",
+              "bile"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "gut",
+              "bile"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "ileum",
+              "bile"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "villi",
+              "bile"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "intestin",
+              "glycogen"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "gut",
+              "glycogen"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "ileum",
+              "glycogen"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "villi",
+              "glycogen"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "It has capillaries at both ends",
+        "k": [
+          {
+            "w": [
+              "both",
+              "end"
+            ],
+            "n": 2
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "Carries glucose and amino acids from the gut to the organ that makes bile, and has capillaries at both ends."
+  },
+  {
+    "term": "Large intestine",
+    "ban": [
+      "water",
+      "colon",
+      "faeces"
+    ],
+    "ideas": [
+      {
+        "a": "Absorbs most of the water left in the gut",
+        "k": [
+          {
+            "w": [
+              "fluid",
+              "absorb"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "liquid",
+              "absorb"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "fluid",
+              "reabsorb"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "moistur"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "dry"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "dehydrat"
+            ],
+            "n": 1
+          }
+        ]
+      },
+      {
+        "a": "Its bacteria make vitamin K and some B vitamins",
+        "k": [
+          {
+            "w": [
+              "bacteri"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "microb"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "vitamin",
+              "k"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "Comes after the ileum (with the appendix) and ends in the rectum",
+        "k": [
+          {
+            "w": [
+              "rectum"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "appendix"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "caecum"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "after",
+              "ileum"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "after",
+              "small"
+            ],
+            "n": 2
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "The wide tube after the ileum, with the appendix, where fluid is absorbed back into the body and bacteria make vitamin K; it ends in the rectum."
+  },
+  {
+    "term": "Molars",
+    "ban": [
+      "grind",
+      "crush",
+      "back"
+    ],
+    "ideas": [
+      {
+        "a": "The largest teeth, at the rear of the jaw (behind the premolars)",
+        "k": [
+          {
+            "w": [
+              "rear"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "end",
+              "jaw"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "furthest"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "last",
+              "teeth"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "behind",
+              "premolar"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "large",
+              "teeth"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "large",
+              "tooth"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "They mash food into small pieces, a larger surface area for enzymes",
+        "k": [
+          {
+            "w": [
+              "mash"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "chew"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "pulp"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "small",
+              "piec"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "surfac",
+              "area"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "Three on each side of each jaw (12 in all, with the wisdom teeth)",
+        "k": [
+          {
+            "w": [
+              "three"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "3"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "twelve"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "12"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "wisdom"
+            ],
+            "n": 1
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "The biggest flat teeth, with several cusps, at the rear of each jaw, three on each side; they mash food into small pieces."
+  },
+  {
+    "term": "Pepsin",
+    "ban": [
+      "protein",
+      "stomach",
+      "protease"
+    ],
+    "ideas": [
+      {
+        "a": "Breaks proteins (chains of amino acids) into peptides",
+        "k": [
+          {
+            "w": [
+              "peptid"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "polypeptid"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "amino",
+              "chain"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "Works best in acid, about pH 2 (hydrochloric acid)",
+        "k": [
+          {
+            "w": [
+              "ph",
+              "2"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "ph",
+              "1"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "low",
+              "ph"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "hydrochloric"
+            ],
+            "n": 1
+          }
+        ]
+      },
+      {
+        "a": "Made by the stomach wall, in gastric juice",
+        "k": [
+          {
+            "w": [
+              "gastric"
+            ],
+            "n": 1
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "An enzyme in gastric juice that breaks long chains of amino acids into peptides, working best at about pH 2 in hydrochloric acid."
+  },
+  {
+    "term": "Salivary amylase",
+    "ban": [
+      "starch",
+      "maltose",
+      "mouth"
+    ],
+    "ideas": [
+      {
+        "a": "Breaks starch (a polysaccharide) into maltose (a sugar)",
+        "k": [
+          {
+            "w": [
+              "polysacchar"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "disacchar"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "carbohydrat"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "sugar"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "glucos",
+              "chain"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "Works at about pH 7; the stomach acid stops it",
+        "k": [
+          {
+            "w": [
+              "ph",
+              "7"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "neutral"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "denatur"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "stop",
+              "acid"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "stomach",
+              "acid"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "It is in saliva (spit), added as you chew",
+        "k": [
+          {
+            "w": [
+              "spit"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "chew"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "tongue"
+            ],
+            "n": 1
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "An enzyme in spit that breaks long glucose chains into a sugar of two glucose units, working at about pH 7 until stomach acid stops it."
+  },
+  {
+    "term": "Lipase",
+    "ban": [
+      "fat",
+      "lipid",
+      "pancreas"
+    ],
+    "ideas": [
+      {
+        "a": "Breaks fats (oils) into fatty acids and glycerol",
+        "k": [
+          {
+            "w": [
+              "glycerol"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "oil"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "triglycerid"
+            ],
+            "n": 1
+          }
+        ]
+      },
+      {
+        "a": "Works in the duodenum (small intestine), at about pH 8",
+        "k": [
+          {
+            "w": [
+              "duoden"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "small",
+              "intestin"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "ph",
+              "8"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "alkalin"
+            ],
+            "n": 1
+          }
+        ]
+      },
+      {
+        "a": "Works on the tiny droplets made when bile emulsifies the fat",
+        "k": [
+          {
+            "w": [
+              "droplet"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "emulsif"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "globul"
+            ],
+            "n": 1
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "An enzyme that breaks oils down into glycerol and acids in the duodenum at about pH 8, working on the tiny droplets made by bile."
+  },
+  {
+    "term": "Egestion",
+    "ban": [
+      "faeces",
+      "anus",
+      "undigested"
+    ],
+    "ideas": [
+      {
+        "a": "Removing waste from the body",
+        "k": [
+          {
+            "w": [
+              "remov"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "expel"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "out",
+              "body"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "leav",
+              "body"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "pass",
+              "out"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "The waste is food that was never digested (not waste made by cells, which is excretion)",
+        "k": [
+          {
+            "w": [
+              "not",
+              "digest"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "never",
+              "digest"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "cannot",
+              "digest"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "leftover"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "indigest"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "fibre"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "not",
+              "absorb"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "never",
+              "absorb"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "It leaves from the rectum through the anus",
+        "k": [
+          {
+            "w": [
+              "rectum"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "bottom"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "back",
+              "passage"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "bowel"
+            ],
+            "n": 1
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "Getting rid of leftover food that was never digested, passing it out of the body from the rectum."
+  },
+  {
+    "term": "Fibre",
+    "ban": [
+      "roughage",
+      "cellulose",
+      "bulk",
+      "constipation"
+    ],
+    "ideas": [
+      {
+        "a": "Plant material (cellulose, from plant cell walls) that we cannot digest",
+        "k": [
+          {
+            "w": [
+              "undigest"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "indigest"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "cannot",
+              "digest"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "not",
+              "digest"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "never",
+              "digest"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "plant",
+              "wall"
+            ],
+            "n": 2
+          }
+        ]
+      },
+      {
+        "a": "Gives the gut muscles something to push against, helping peristalsis",
+        "k": [
+          {
+            "w": [
+              "peristal"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "push",
+              "against"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "squeez",
+              "against"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "work",
+              "against"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "move",
+              "along"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "fast"
+            ],
+            "n": 1
+          }
+        ]
+      },
+      {
+        "a": "Holds water so the waste stays soft (and lowers the risk of bowel cancer)",
+        "k": [
+          {
+            "w": [
+              "soft"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "hold",
+              "water"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "absorb",
+              "water"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "bowel",
+              "cancer"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "colon",
+              "cancer"
+            ],
+            "n": 2
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "Plant material that we cannot digest; it gives the gut wall something to work against, helping peristalsis, and keeps waste soft."
+  },
+  {
+    "term": "Balanced diet",
+    "ban": [
+      "healthy",
+      "right",
+      "correct"
+    ],
+    "ideas": [
+      {
+        "a": "Has every type of nutrient: carbohydrate, protein, fat, vitamins, minerals, fibre and water",
+        "k": [
+          {
+            "w": [
+              "all",
+              "nutrient"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "every",
+              "nutrient"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "each",
+              "nutrient"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "all",
+              "food",
+              "group"
+            ],
+            "n": 3
+          },
+          {
+            "w": [
+              "each",
+              "food",
+              "group"
+            ],
+            "n": 3
+          },
+          {
+            "w": [
+              "all",
+              "food",
+              "type"
+            ],
+            "n": 3
+          },
+          {
+            "w": [
+              "each",
+              "food",
+              "type"
+            ],
+            "n": 3
+          },
+          {
+            "w": [
+              "carbohydrat",
+              "protein",
+              "fat",
+              "vitamin",
+              "mineral",
+              "fibre"
+            ],
+            "n": 3
+          }
+        ]
+      },
+      {
+        "a": "In the amounts the body needs: not too much or too little",
+        "k": [
+          {
+            "w": [
+              "amount"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "enough"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "too",
+              "much"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "too",
+              "little"
+            ],
+            "n": 2
+          },
+          {
+            "w": [
+              "requir"
+            ],
+            "n": 1
+          }
+        ]
+      },
+      {
+        "a": "What you need depends on your age, sex and how active you are",
+        "k": [
+          {
+            "w": [
+              "age"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "activ"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "pregnan"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "gender"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "sex"
+            ],
+            "n": 1
+          },
+          {
+            "w": [
+              "athlet"
+            ],
+            "n": 1
+          }
+        ]
+      }
+    ],
+    "need": 2,
+    "model": "Eating all the nutrient groups, carbohydrate, protein, fat, vitamins, minerals, fibre and water, in the amounts your body needs for its age and activity."
+  }
+]
