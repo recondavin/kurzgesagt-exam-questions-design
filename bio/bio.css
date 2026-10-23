@@ -504,6 +504,76 @@ button.sea-c { cursor: default; }
 }
 @media (prefers-reduced-motion: reduce) { .sea-c.is-new i, .sea-c.is-new::after { animation: none; } .sea-c.is-new::after { display: none; } }
 
+/* Mini Golf (bio/bio-golf.js): the hole and stroke over the scorecard, the 3D hole on a canvas (your tag, his face and
+   the power meter are HTML over it), and the turn's line and buttons below (.ar-, like the arcade). */
+.mg-head { display: grid; gap: 10px; }
+.mg-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 14px; margin: 0; color: #F1F7FB; font: 700 20px Fredoka, Nunito, sans-serif; }
+.mg-top span { color: #FFE14D; font: 800 16px Nunito, sans-serif; }
+.mg-board { overflow-x: auto; }
+.mg-score { width: 100%; border-collapse: collapse; color: #DCE6EC; font: 800 15px Nunito, sans-serif; font-variant-numeric: tabular-nums; }
+.mg-score th, .mg-score td { padding: 5px 4px; border-bottom: 1px solid #37464F; text-align: center; }
+.mg-score thead th { border-top: 4px solid var(--c, transparent); color: #F1F7FB; font: 700 15px Fredoka, Nunito, sans-serif; }
+.mg-score th[scope="row"], .mg-score thead th:first-child { width: 4.5em; color: #93A5AE; font: 800 14px Nunito, sans-serif; text-align: left; }
+.mg-score .is-now { background: #2B3B42; }
+.mg-score .is-under { color: #FFC800; }
+.mg-score .is-over { color: #93A5AE; }
+.mg-score .is-live { color: #93A5AE; font-style: italic; }
+.mg-score tr > :last-child { width: 4.5em; border-left: 1px solid #37464F; }
+.mg-sky { position: relative; overflow: hidden; border: 3px solid #0E2747; border-radius: 16px; background: #CDEBFA; }
+.mg-canvas { display: block; width: 100%; height: auto; max-height: max(240px, calc(100vh - 500px)); aspect-ratio: 2 / 1; touch-action: none; cursor: crosshair; }
+.mg-canvas:focus-visible { outline: 3px solid #FFE14D; outline-offset: -3px; }
+.mg-you { position: absolute; transform: translate(calc(-100% - 24px), -50%); padding: 2px 10px; border: 2px solid #13294A; border-radius: 999px; background: #1CB0F6; color: #FFFFFF; font: 800 14px Nunito, sans-serif; pointer-events: none; }
+.mg-him { position: absolute; top: 4%; right: 2%; width: 8%; aspect-ratio: 489 / 555; pointer-events: none; }
+.mg-him.is-follow { right: auto; width: 6%; transform: translate(-50%, -100%); }
+.mg-him svg { display: block; width: 100%; height: 100%; }
+.mg-power { position: absolute; left: 12px; bottom: 14px; display: grid; grid-template-rows: auto 1fr; justify-items: center; gap: 4px; width: 52px; height: 48%; pointer-events: none; }
+.mg-power[hidden] { display: none; }
+.mg-power b { padding: 1px 6px; border: 2px solid #13294A; border-radius: 999px; background: #FFFFFF; color: #13294A; font: 800 14px Nunito, sans-serif; }
+.mg-power span { position: relative; width: 22px; overflow: hidden; border: 3px solid #13294A; border-radius: 11px; background: #FFFFFF; }
+.mg-power i { position: absolute; left: 0; right: 0; bottom: 0; background: #FFC800; }
+.mg-pop { position: absolute; transform: translate(-50%, -100%); color: #13294A; font: 800 30px Nunito, sans-serif; white-space: nowrap; -webkit-text-stroke: 7px #FFFFFF; paint-order: stroke fill; pointer-events: none; animation: mgPop 1.8s ease-out forwards; }
+@keyframes mgPop { 0% { opacity: 0; transform: translate(-50%, -60%) scale(.7); } 14% { opacity: 1; transform: translate(-50%, -100%) scale(1); } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -190%); } }
+.mg-btn2 { background: #37464F; box-shadow: 0 4px 0 #22343C; color: #F1F7FB; }
+.mg-btn2:hover { background: #435560; }
+.mg-res { margin: 10px 0 0; color: #13294A; font: 800 19px Nunito, sans-serif; }
+.mg-start .am-games__sub { max-width: 640px; margin-left: auto; margin-right: auto; }
+.mg-holes { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; max-width: 900px; margin: 18px auto 0; padding: 0; list-style: none; text-align: left; }
+.mg-holes li { display: grid; gap: 2px; padding: 12px 14px; border: 3px solid var(--c); border-bottom-width: 6px; border-radius: 16px; background: #202F36; }
+.mg-holes b { color: var(--c); font: 700 19px/1.2 Fredoka, Nunito, sans-serif; }
+.mg-holes span { color: #DCE6EC; font: 700 14px Nunito, sans-serif; }
+.mg-best { margin: 14px 0 0; color: #DCE6EC; font: 800 17px Nunito, sans-serif; }
+.mg-best b { color: #FFC800; }
+.am-games__end .mg-board { max-width: 640px; margin: 18px auto 0; }
+@media (max-width: 760px) {
+  .mg-top { font-size: 17px; }
+  .mg-top span { font-size: 14px; }
+  .mg-score { font-size: 13px; }
+  .mg-score th, .mg-score td { padding: 4px 2px; }
+  .mg-score thead th { font-size: 13px; }
+  .mg-score th[scope="row"], .mg-score thead th:first-child { width: 3.4em; font-size: 12px; }
+  .mg-canvas { aspect-ratio: 1 / 1.05; }
+  .mg-him { width: 13%; }
+  .mg-him.is-follow { width: 10%; }
+  .mg-you { padding: 1px 6px; font-size: 11px; transform: translate(calc(-100% - 14px), -50%); }
+  .mg-power { left: 6px; bottom: 10px; width: 44px; }
+  .mg-power b { font-size: 12px; padding: 0 4px; }
+  .mg-power span { width: 18px; }
+  .mg-pop { font-size: 24px; }
+  .mg-res { font-size: 16px; }
+  .mg-holes { grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+  .mg-holes li { padding: 8px 10px; border-width: 2px; border-bottom-width: 4px; }
+  .mg-holes b { font-size: 16px; }
+  .mg-holes span { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .mg-pop { animation: none; } }
+/* The page Mini Golf has on its own (mini-golf.html) until it joins the Biology hub's games. */
+.mg-page { min-height: 100vh; margin: 0; background: #131F24; color: #F1F7FB; font-family: Nunito, sans-serif; }
+.mg-land { display: grid; place-items: center; align-content: center; gap: 12px; min-height: 100vh; padding: 24px 16px; box-sizing: border-box; text-align: center; }
+.mg-land h1 { margin: 0; font: 700 40px Fredoka, Nunito, sans-serif; }
+.mg-land p { margin: 0; color: #B9C7CF; font: 700 17px Nunito, sans-serif; }
+.mg-land a { color: #FFC800; }
+.mg-land .tb-btn { padding: 16px 40px; font-size: 22px; }
+
 /* A long question typing in (bio-board.js reveal): the whole question laid out hidden underneath so nothing moves, a
    caret at the end; its answers wait, then pop in one by one. */
 .tb-q.is-typing { display: grid; }

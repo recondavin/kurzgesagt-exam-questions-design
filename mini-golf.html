@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mini Golf | Leaving Cert Biology</title>
+<meta name="description" content="Mini golf against the examiner: five holes, one for each Leaving Cert Biology human body chapter, a question before every putt.">
+<link rel="icon" href="assets/examiner/teacher-head.svg?v=1" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Nunito:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="bio/bio.css?v=golf-1">
+<link rel="stylesheet" href="bio/bio-shell.css?v=golf-1">
+</head>
+<body class="mg-page">
+<!-- Mini Golf on its own for now (the user: "make it on its own and add it to the site later"). To add it to the hub:
+     load bio/vendor/three.min.js and bio/bio-golf.js after bio-arcade.js in biology.html, and add
+     ['golf', 'Mini Golf', ...] to bio.js HUB_GAMES, opening window.BioGolf.open(). -->
+<main class="mg-land">
+<h1>Mini Golf</h1>
+<p>Biology: five holes against the examiner, a question before every putt.</p>
+<button type="button" class="tb-btn tb-btn--go" data-mg-play>Play</button>
+<p><a href="biology.html">Back to Biology</a></p>
+</main>
+<script src="./examiner-art.js?v=teacher-13"></script>
+<script src="./answer-mode.js?v=answer-mode-46"></script>
+<script src="./bio/q28.js?v=golf-1"></script>
+<script src="./bio/q29.js?v=golf-1"></script>
+<script src="./bio/q30.js?v=golf-1"></script>
+<script src="./bio/q31.js?v=golf-1"></script>
+<script src="./bio/q32.js?v=golf-1"></script>
+<script src="./bio/bio-games.js?v=golf-1"></script>
+<script src="./bio/bio.js?v=golf-1"></script>
+<script src="./bio/checks28.js?v=golf-1"></script>
+<script src="./bio/checks29.js?v=golf-1"></script>
+<script src="./bio/checks30.js?v=golf-1"></script>
+<script src="./bio/checks31.js?v=golf-1"></script>
+<script src="./bio/checks32.js?v=golf-1"></script>
+<script src="./bio/bio-board.js?v=golf-1"></script>
+<script src="./bio/vendor/three.min.js?v=golf-1"></script>
+<script src="./bio/bio-golf.js?v=golf-1"></script>
+<script>
+(function () {
+  function play() { if (window.BioGolf) window.BioGolf.open(); }
+  document.querySelector('[data-mg-play]').addEventListener('click', play);
+  play();
+})();
+</script>
+</body>
+</html>
