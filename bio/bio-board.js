@@ -396,7 +396,7 @@
   function back(ok, mine, item, who) {
     return '<p class="tb-stamp ' + (ok ? 'is-ok">' + (who ? who + ' got it' : 'Correct') : 'is-no">' + (who ? who + ' got it wrong' : 'Not quite')) + '</p>' +
       (mine ? '<p class="tb-mine">' + esc(mine) + '</p>' : '') +
-      '<p class="tb-ans"><span>Answer</span>' + esc(item.c.right) + '</p><p class="tb-why">' + esc(item.c.why) + '</p>';
+      '<p class="tb-ans"><span>Answer</span>' + esc(item.c.right) + '</p><p class="tb-why"><span>Why</span>' + esc(item.c.why) + '</p>';
   }
   function typedQuestion(ch, why) {
     var item = nextQ(ch, true);

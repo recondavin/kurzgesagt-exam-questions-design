@@ -261,6 +261,7 @@ button { font: inherit; }
 .tb-pick__what { font: 700 18px Nunito, sans-serif; }
 .tb-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .tb-row--next { margin-top: 2px; }
+.tb-row--next .tb-btn { padding: 15px 34px; border-radius: 16px; font-size: 21px; }
 /* The question card: the chapter's band, then the question; its back has the answer. */
 .tb-card { perspective: 1400px; animation: tbDraw .45s cubic-bezier(.2, .9, .3, 1.1) both; }
 @keyframes tbDraw { from { opacity: 0; transform: translate(-48px, -24px) rotate(-7deg) scale(.9); } to { opacity: 1; transform: none; } }
@@ -289,6 +290,10 @@ button { font: inherit; }
 .tb-ans { margin: 0; color: #13294A; font: 800 26px/1.3 Nunito, sans-serif; }
 .tb-ans span { display: block; color: #5B6B80; font: 800 15px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
 .tb-why { margin: 0; color: #5B6B80; font: 700 19px/1.4 Nunito, sans-serif; }
+/* On the card's back the why is what you learn from (the user: "people should read that but it's too small and not
+   clear enough"): its own label, bigger dark text, in a box with the chapter's colour down its side. */
+.tb-card .tb-why { padding: 14px 18px; border-left: 6px solid var(--c); border-radius: 12px; background: #EEF2F6; color: #13294A; font: 700 22px/1.45 Nunito, sans-serif; }
+.tb-why span { display: block; margin-bottom: 4px; color: #5B6B80; font: 800 15px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
 .tb-endpie { display: block; width: 120px; height: 120px; margin: 0 auto 8px; }
 @media (max-width: 760px) {
   .tb { grid-template-columns: 1fr; gap: 14px; }
@@ -303,6 +308,7 @@ button { font: inherit; }
   .tb-card .tb-btn { padding: 12px 22px; font-size: 18px; }
   .tb-ans { font-size: 20px; }
   .tb-why, .tb-mine { font-size: 16px; }
+  .tb-card .tb-why { padding: 12px 14px; font-size: 18px; }
   .tb-turn { font-size: 20px; }
   .tb-deck { width: 64px; height: 88px; }
   .tb-deck svg { width: 38px; height: 38px; }
