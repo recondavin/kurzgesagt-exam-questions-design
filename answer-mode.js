@@ -2209,13 +2209,13 @@
       student: 'Ciarán',
       chains: [
         { title: 'How sandstone forms', steps: ['Rain and frost break up older rock', 'Rivers carry the sand grains away', 'The river slows and drops the sand', 'Layers (strata) build up on the sea bed', 'The weight of new layers squeezes them (compaction)', 'Minerals glue the grains together (cementation)'],
-          why: 'Older rock is <b>weathered</b>, so rivers can <b>carry</b> the grains away. When a river slows it <b>deposits</b> them in <b>layers</b>; the weight of new layers <b>compacts</b> them and minerals <b>cement</b> them into sandstone.' },
+          why: '<b>Rain</b> and <b>frost</b> break up older rock, and <b>rivers</b> carry the sand grains away. The river slows and <b>drops</b> the sand, and <b>layers</b> (<b>strata</b>) build up on the sea bed. The weight of new layers squeezes them (<b>compaction</b>), and minerals glue the grains together (<b>cementation</b>).' },
         { title: 'How limestone forms', steps: ['Sea creatures live in warm, shallow seas', 'They die and their shells sink', 'Shells pile up on the sea floor', 'New layers bury and squeeze them', 'Calcium carbonate cements them together', 'Limestone forms, often with fossils'],
-          why: 'Sea creatures in <b>warm, shallow seas</b> die and their shells <b>sink</b> and <b>pile up</b>. Buried under new layers, they are <b>compacted</b> and cemented by <b>calcium carbonate</b> into limestone, often keeping <b>fossils</b>.' },
+          why: '<b>Sea creatures</b> live in <b>warm, shallow seas</b>. They die and their <b>shells</b> sink, and the shells pile up on the <b>sea floor</b>. New layers <b>bury</b> and <b>squeeze</b> them, <b>calcium carbonate</b> cements them together, and <b>limestone</b> forms, often with <b>fossils</b>.' },
         { title: 'Old Red Sandstone', steps: ['Ireland lay in a hot desert', 'Rivers dropped sand in desert basins', 'Iron in the sand rusted red', 'The sand was compacted and cemented', 'Old Red Sandstone formed about 400 million years ago'],
-          why: 'About 400 million years ago Ireland was a <b>hot desert</b>. Rivers dropped sand in basins, <b>iron</b> in it <b>rusted</b> and stained it red, and the sand was <b>compacted and cemented</b> into Old Red Sandstone.' },
+          why: 'Ireland lay in a <b>hot desert</b>. Rivers dropped sand in desert <b>basins</b>, <b>iron</b> in the sand <b>rusted</b> red, and the sand was <b>compacted and cemented</b>. <b>Old Red Sandstone</b> formed about <b>400 million years</b> ago.' },
         { title: 'From sea bed to mountain', steps: ['Sediment settles on the sea bed', 'Layers are compacted and cemented into rock', 'Plates collide and fold the rock layers', 'The rock is uplifted above sea level', 'Weathering and erosion expose it at the surface'],
-          why: 'Sediment <b>settles</b> under the sea and becomes rock. Later, <b>plate collisions fold</b> the layers and <b>uplift</b> them, and <b>weathering and erosion</b> expose them, which is why we see sedimentary rock in mountains.' }
+          why: '<b>Sediment</b> settles on the sea bed, and the layers are <b>compacted</b> and <b>cemented</b> into rock. Plates <b>collide</b> and <b>fold</b> the rock layers, the rock is <b>uplifted</b> above sea level, and <b>weathering</b> and <b>erosion</b> expose it at the surface.' }
       ],
       level: [
         { id: 'weather', cue: 'Where sandstone\'s grains come from', pic: 'Sandstone', statement: 'Sandstone is made from grains of sand.',
@@ -2258,13 +2258,13 @@
       student: 'Aoife',
       chains: [
         { title: 'Why an earthquake happens', steps: ['Plates push against each other', 'Friction locks them together at the fault', 'Stress builds up over many years', 'The rocks suddenly snap and slip', 'Energy travels out as seismic waves'],
-          why: 'Plates <b>push</b> against each other, but <b>friction</b> locks them, so <b>stress builds</b>. When the rocks finally <b>snap</b>, the stored energy travels out as <b>seismic waves</b>. That build-up is what prediction tries to spot.' },
+          why: 'Plates <b>push</b> against each other, and <b>friction</b> locks them together at the <b>fault</b>. <b>Stress</b> builds up over many years, until the rocks suddenly <b>snap</b> and <b>slip</b>, and the energy travels out as <b>seismic waves</b>.' },
         { title: 'Radon as a warning sign', steps: ['Stress builds up along a fault', 'Rocks begin to crack under the strain', 'Radon gas escapes through the cracks', 'Radon levels rise in well water', 'Scientists measure the rise and warn people'],
-          why: '<b>Stress</b> makes the rocks <b>crack</b>, so <b>radon gas</b> escapes into groundwater. A rise in radon in <b>wells</b> can be measured, which may <b>warn</b> that an earthquake is coming.' },
+          why: '<b>Stress</b> builds up along a fault, and the rocks begin to <b>crack</b> under the strain. <b>Radon gas</b> escapes through the cracks, radon levels rise in <b>well water</b>, and scientists <b>measure</b> the rise and <b>warn</b> people.' },
         { title: 'An early warning system', steps: ['The earthquake starts deep underground', 'Sensors detect the first, faster waves', 'Alerts are sent to phones and trains', 'Trains brake and people take cover', 'The strong shaking arrives seconds later'],
-          why: 'The <b>first waves</b> travel faster than the damaging ones, so <b>sensors</b> pick them up and send <b>alerts</b>. That buys a few <b>seconds</b> for trains to brake and people to take cover <b>before</b> the strong shaking.' },
+          why: 'The earthquake starts deep underground. <b>Sensors</b> detect the <b>first, faster waves</b>, and <b>alerts</b> are sent to phones and trains. Trains <b>brake</b> and people <b>take cover</b>, and the strong shaking arrives <b>seconds later</b>.' },
         { title: 'A base-isolated building', steps: ['The ground starts to shake', 'Rubber pads under the building flex', 'They absorb most of the movement', 'The building above sways gently', 'It stays standing and people are safe'],
-          why: 'When the ground <b>shakes</b>, <b>rubber pads</b> (base isolators) flex and <b>absorb</b> the movement, so the building above only <b>sways gently</b> and <b>stays standing</b>.' }
+          why: 'The ground starts to <b>shake</b>. <b>Rubber pads</b> under the building <b>flex</b> and <b>absorb</b> most of the movement, so the building above <b>sways gently</b>: it <b>stays standing</b> and people are safe.' }
       ],
       level: [
         { id: 'seismo', cue: 'Seismographs', statement: 'Seismographs record vibrations in the ground.',
