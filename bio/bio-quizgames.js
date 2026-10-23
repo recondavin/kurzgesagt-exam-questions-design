@@ -154,6 +154,7 @@
     S.phase = 'ask';
     q('[data-qg-panel]').innerHTML = status() + card(item.ch, 'Question ' + (S.asked + 1), '<p class="tb-q">' + asked(item) + '</p>' + options(item) + '<div class="qg-after" data-oe-after></div>');
     into(q('.tb-card'));
+    BB.reveal(q('.tb-card'));
   }
   function chaseChoose(btn) {
     if (S.phase !== 'ask') return;
@@ -250,8 +251,10 @@
     show('<div class="pts-q"><div class="tb-panel" data-qg-panel aria-live="polite">' +
       card(item.ch, v + ' points', '<p class="tb-q">' + asked(item, S.typed) + '</p>' + (S.typed ? typedBox() : options(item) + '<div class="tb-row"><button type="button" class="tb-btn tb-btn--ghost" data-qg-pass>Pass</button></div>') + '<div class="qg-after" data-pts-after></div>') +
       '</div></div>', [['more', 'data-am-keep', 'Close']]);
-    var t = q('[data-qg-text]');
-    if (t) t.focus({ preventScroll: true });
+    BB.reveal(q('.tb-card'), function () {
+      var t = q('[data-qg-text]');
+      if (t) t.focus({ preventScroll: true });
+    });
   }
   // Right adds the points, wrong takes them off, passing costs nothing; you see the answer either way.
   function gridAnswered(how, mine) {

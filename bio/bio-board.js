@@ -381,6 +381,7 @@
     panel(card(ch, '', '<p class="tb-q">' + esc(item.text) + '</p><div class="tb-opts">' + opts.map(function (o) {
       return '<button type="button" class="tb-opt" data-tb-opt="' + esc(o) + '">' + esc(o) + '</button>';
     }).join('') + '</div>'));
+    reveal(G.card.querySelector('.tb-card__front'));
   }
   function choose(btn) {
     if (G.phase !== 'ask') return;
@@ -409,8 +410,10 @@
     panel(card(ch, why === 'final' ? 'Final question' : 'Wedge question', '<p class="tb-q">' + esc(item.text) + '</p>' +
       '<textarea class="tb-text" data-tb-text rows="3" placeholder="Type your answer" aria-label="Your answer"></textarea>' +
       '<div class="tb-row"><button type="button" class="tb-btn tb-btn--go" data-tb-check>Check</button><button type="button" class="tb-btn tb-btn--ghost" data-tb-dunno>I don\'t know</button></div>'));
-    var t = G.card.querySelector('[data-tb-text]');
-    if (t) t.focus({ preventScroll: true });
+    reveal(G.card.querySelector('.tb-card__front'), function () {
+      var t = G.card.querySelector('[data-tb-text]');
+      if (t) t.focus({ preventScroll: true });
+    });
   }
   function check(dunno) {
     if (G.phase !== 'ask') return;
@@ -469,7 +472,7 @@
     if (!item) { nextButton('Your turn', yourTurn); return; }
     panel(card(ch, kind === 'final' ? 'His final question' : typed ? 'His wedge question' : 'His question',
       '<p class="tb-q">' + esc(item.text) + '</p><p class="tb-say tb-think">He thinks…</p>'));
-    wait(function () {
+    reveal(G.card.querySelector('.tb-card__front'), function () { wait(function () {
       flip(back(ok, '', item, 'He'));
       if (ok) {
         K.mascot('happy', pick(SAY.hisRight));
@@ -479,7 +482,46 @@
       G.run += 1;
       var go = ok && G.run < MAX_RUN;
       wait(function () { nextButton(go ? 'He goes again' : 'Your turn', go ? hisGo : yourTurn); }, 700);
-    }, 1500);
+    }, 1500); });
+  }
+
+  // ---------------------------------------------------------------- long questions type in
+  // A long question (over 90 letters, like "In exercise, A's blood pH fell from 7.43 to 7.35 and B's from 7.42 to 7.17
+  // ...") types in at reading pace, pausing at commas and full stops, and then its answers pop in one by one (the user:
+  // "if the question is long ... make the question get typed in and the answers appear like pop on the screen; make the
+  // typing not super fast but you read it as it goes"). The whole question is laid out hidden underneath first, so
+  // nothing moves; a click on the card skips to the end. Short questions show at once. done() runs once the answers are
+  // showing. The other question games (bio-quizgames.js, bio-arcade.js) use it too.
+  var LONG = 90, CHAR_MS = 38;
+  function reveal(root, done) {
+    var qn = root && root.querySelector('.tb-q'), text = qn ? qn.textContent : '', rest = [], over = false, i = 0;
+    if (!qn || text.length <= LONG || K.reduced()) { if (done) done(); return; }
+    for (var n = qn.nextElementSibling; n; n = n.nextElementSibling) {
+      if (n.classList.contains('tb-opts')) rest = rest.concat([].slice.call(n.children));
+      else if (n.children.length || n.textContent || n.tagName === 'TEXTAREA') rest.push(n);
+    }
+    rest.forEach(function (r) { r.classList.add('ty-wait'); });
+    qn.classList.add('is-typing');
+    qn.innerHTML = '<span class="sr">' + esc(text) + '</span><span class="ty-full" aria-hidden="true">' + esc(text) + '</span><span class="ty-on" aria-hidden="true"></span>';
+    var on = qn.querySelector('.ty-on');
+    function finish() {
+      if (over) return;
+      over = true;
+      root.removeEventListener('click', finish);
+      qn.classList.remove('is-typing');
+      qn.textContent = text;
+      rest.forEach(function (r, k) { r.style.animationDelay = (k * 0.09) + 's'; r.classList.remove('ty-wait'); r.classList.add('ty-pop'); });
+      if (done) done();
+    }
+    root.addEventListener('click', finish);
+    (function next() {
+      if (over || !qn.isConnected) return;
+      i += 1;
+      on.textContent = text.slice(0, i);
+      if (i >= text.length) { finish(); return; }
+      var c = text[i - 1];
+      K.later(next, CHAR_MS + (/[.?!]/.test(c) && text[i] === ' ' ? 260 : /[,;:]/.test(c) ? 130 : 0));
+    })();
   }
 
   // ---------------------------------------------------------------- the end
@@ -531,5 +573,5 @@
     check(false);
   });
   // The other question games (bio-quizgames.js) use the same questions, chapters and colours.
-  window.BioBoard = { open: open, state: function () { return G; }, pools: pools, nearMascot: nearMascot, chapters: CH, names: NAME, colours: COL };
+  window.BioBoard = { open: open, state: function () { return G; }, pools: pools, nearMascot: nearMascot, reveal: reveal, chapters: CH, names: NAME, colours: COL };
 })();

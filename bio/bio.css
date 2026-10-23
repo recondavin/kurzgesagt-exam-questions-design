@@ -503,3 +503,14 @@ button.sea-c { cursor: default; }
   .ar-turn .tb-row .tb-btn { padding: 12px 24px; font-size: 18px; }
 }
 @media (prefers-reduced-motion: reduce) { .sea-c.is-new i, .sea-c.is-new::after { animation: none; } .sea-c.is-new::after { display: none; } }
+
+/* A long question typing in (bio-board.js reveal): the whole question laid out hidden underneath so nothing moves, a
+   caret at the end; its answers wait, then pop in one by one. */
+.tb-q.is-typing { display: grid; }
+.tb-q.is-typing > .ty-full, .tb-q.is-typing > .ty-on { grid-area: 1 / 1; }
+.ty-full { visibility: hidden; }
+.ty-on::after { content: ""; display: inline-block; width: 3px; height: .95em; margin-left: 3px; background: currentColor; vertical-align: -.12em; animation: tyBlink .9s steps(1) infinite; }
+@keyframes tyBlink { 50% { opacity: 0; } }
+.ty-wait { visibility: hidden; }
+.ty-pop { animation: tyPop .38s cubic-bezier(.3, 1.5, .5, 1) both; }
+@keyframes tyPop { from { opacity: 0; transform: scale(.85) translateY(8px); } to { opacity: 1; transform: none; } }

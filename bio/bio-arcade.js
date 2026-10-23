@@ -96,8 +96,10 @@
       : '<div class="tb-opts">' + shuffle([item.c.right].concat(item.c.wrong)).map(function (o) {
         return '<button type="button" class="tb-opt" data-ar-opt="' + esc(o) + '">' + esc(o) + '</button>';
       }).join('') + '</div>') + '<div class="qg-after" data-ar-after></div>'));
-    var t = q('[data-ar-text]');
-    if (t) t.focus({ preventScroll: true });
+    BB.reveal(q('[data-ar-ask] .tb-card'), function () {
+      var t = q('[data-ar-text]');
+      if (t) t.focus({ preventScroll: true });
+    });
   }
   function choose(btn) {
     var item = A.item, mine = btn.getAttribute('data-ar-opt'), ok = mine === item.c.right;
@@ -131,13 +133,13 @@
     var item = nextItem(ch, false), ok = Math.random() < odds;
     A.phase = 'him';
     layer(card(item.ch, label, '<p class="tb-q">' + esc(item.text.replace(/\s*\((\d+ of )?\d+ points?\)$/, '')) + '</p><p class="tb-say tb-think">He thinks…</p><div class="qg-after" data-ar-after></div>'));
-    wait(function () {
+    BB.reveal(q('[data-ar-ask] .tb-card'), function () { wait(function () {
       var t = q('.tb-think');
       if (t) t.remove();
       q('[data-ar-after]').innerHTML = stamp(ok, ok ? 'He got it' : 'He got it wrong') + answerHtml(item, '');
       K.mascot(ok ? 'happy' : 'angry', ok ? pick(['Obviously.', 'Too easy.']) : pick(['Hmph. A slip.', 'Badly worded.']));
       done(ok);
-    }, 1300);
+    }, 1300); });
   }
   // The button under the answer to go on (to fire, or to the next turn).
   function go(label, then) {
