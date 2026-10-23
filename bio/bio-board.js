@@ -241,8 +241,21 @@
     buttons(G.card, [['more', 'data-am-keep', 'Close']], true);
     placeTokens();
     K.mascot('ok', pick(SAY.start));
+    nearMascot();
     yourTurn();
   }
+  // The examiner stands right beside the board (the user: "make him closer to the trivia board"), not out in the
+  // screen's corner: answer-mode.js sizes him to the room beside the card; this moves him up to the card's left edge.
+  function nearMascot() {
+    [0, 120, 700].forEach(function (ms) {
+      wait(function () {
+        var m = document.querySelector('.am-root .am-mascot'), box = G.card.querySelector('.am-finish__card');
+        if (!m || !box || !m.offsetParent) return;
+        m.style.left = Math.max(14, (m.offsetParent.clientWidth - box.offsetWidth) / 2 - m.offsetWidth - 10) + 'px';
+      }, ms);
+    });
+  }
+  window.addEventListener('resize', function () { if (live()) nearMascot(); });
   function hasAll(p) { return CH.every(function (ch) { return G.wedges[p][ch]; }); }
   function yourTurn() {
     G.turn = 0;
@@ -459,6 +472,7 @@
       '<h3 class="am-games__title">' + (winner ? 'The teacher wins.' : 'You win!') + '</h3>' +
       '<p class="am-games__sub">You got ' + G.right + ' of ' + G.asked + ' questions right' + (wins ? '. Games won: ' + wins : '') + '.</p></div>');
     buttons(G.card, [['more', 'data-am-keep', 'Close'], ['ok', 'data-tb-again', 'Play again']]);
+    nearMascot();
     K.mascot(winner ? 'happy' : 'angry', winner ? 'As expected. Again?' : 'Hmph. Fine. You win. This time.');
     if (!winner) K.later(K.fanfare, 300);
   }
