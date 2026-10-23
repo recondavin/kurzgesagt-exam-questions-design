@@ -501,18 +501,26 @@
     });
     return hurt;
   }
-  // His aim: the angle and power that land nearest you (tried across the sky, through the wind and over the hill), then
-  // off a little if he got his question right and a lot if he got it wrong.
-  function solve(h, tanks, wind, good, rand) {
-    var me = tanks[1], you = tanks[0], best = null;
-    for (var a = 100; a <= 170; a += 3) {
-      for (var pw = 0.2; pw <= 1.001; pw += 0.02) {
-        var m = muzzle(me, a * Math.PI / 180), f = flight(h, tanks, m.x, m.y, a * Math.PI / 180, pw, wind), miss = f.direct === 0 ? 0 : f.out ? 9999 : Math.abs(f.x - you.x);
-        if (!best || miss < best.miss) best = { a: a, pw: pw, miss: miss };
+  // His aim: the angle and power that land his shell nearest a spot (on you, or a set distance short of or past you),
+  // tried across the sky, through the wind and over the hill.
+  function solve(h, tanks, wind, offset) {
+    var me = tanks[1], at = tanks[0].x + offset, best = null;
+    for (var a = 100; a <= 170; a += 2) {
+      for (var pw = 0.2; pw <= 1.001; pw += 0.01) {
+        var rad = a * Math.PI / 180, m = muzzle(me, rad), f = flight(h, tanks, m.x, m.y, rad, pw, wind);
+        var miss = f.direct === 0 ? (offset ? 9999 : 0) : f.direct === 1 || f.out ? 9999 : Math.abs(f.x - at);
+        if (!best || miss < best.miss) best = { angle: rad, power: pw, miss: miss };
       }
     }
-    var n = function () { return (rand() + rand() + rand() - 1.5) / 1.5; };
-    return { angle: (best.a + n() * (good ? 1.2 : 5)) * Math.PI / 180, power: Math.max(0.15, Math.min(1, best.pw * (1 + n() * (good ? 0.025 : 0.1)))) };
+    return best;
+  }
+  // Where he aims (the user: "that guy always gets me every time even when he gets the question wrong"): wrong, his
+  // shot goes clearly wide (110 to 240px off, no damage); right, half the time it's on you, three times in ten close (a
+  // little damage) and twice in ten it misses anyway.
+  function hisOffset(good, rand) {
+    var side = rand() < 0.5 ? -1 : 1, r = rand();
+    if (!good) return side * (110 + rand() * 130);
+    return side * (r < 0.5 ? rand() * 12 : r < 0.8 ? 35 + rand() * 30 : 110 + rand() * 90);
   }
   function cdOpen() {
     start('cannon', 'Cannon Duel');
@@ -561,7 +569,7 @@
         hideAsk();
         A.phase = 'aim';
         windText(A.guide);
-        say(A.guide ? '<b>Drag to aim</b>, let go to fire. The dots show the start of your shot.' : '<b>Drag to aim</b>, let go to fire. No help this time.');
+        say(A.guide ? '<b>Right:</b> your shot\'s whole path is drawn. Drag to aim; the marker turns orange when it\'ll hit him. Let go to fire.' : '<b>Wrong:</b> no path, no wind, and your shot will wobble. Drag to aim, let go to fire.');
         row('<button type="button" class="tb-btn tb-btn--go" data-cd-fire>Fire</button>');
         draw();
         q('[data-cd-canvas]').focus({ preventScroll: true });
@@ -572,8 +580,11 @@
     if (A.phase !== 'aim') return;
     A.phase = 'flying';
     row('');
-    var m = muzzle(A.tanks[0], A.aim.angle);
-    shoot(0, flight(A.h, A.tanks, m.x, m.y, A.aim.angle, A.aim.power, A.wind), A.big, cdHis);
+    // Without a right answer the shot wobbles off where you aimed, so a remembered aim isn't enough.
+    var angle = A.aim.angle, power = A.aim.power;
+    if (!A.guide) { angle += (Math.random() * 2 - 1) * 0.07; power = Math.max(0.15, Math.min(1, power * (1 + (Math.random() * 2 - 1) * 0.08))); }
+    var m = muzzle(A.tanks[0], angle);
+    shoot(0, flight(A.h, A.tanks, m.x, m.y, angle, power, A.wind), A.big, cdHis);
   }
   function cdHis() {
     A.turn = 1;
@@ -584,8 +595,9 @@
       go('Watch him fire', function () {
         hideAsk();
         A.phase = 'flying';
-        var me = A.tanks[1], s = solve(A.h, A.tanks, A.wind, ok, Math.random), m = muzzle(me, s.angle);
+        var me = A.tanks[1], s = solve(A.h, A.tanks, A.wind, hisOffset(ok, Math.random)), m = muzzle(me, s.angle);
         A.hisAngle = s.angle;
+        say(ok ? '<b>He got it right.</b> He takes careful aim.' : '<b>He got it wrong.</b> His shot goes wide.');
         draw();
         wait(function () { shoot(1, flight(A.h, A.tanks, m.x, m.y, s.angle, s.power, A.wind), false, cdYours); }, 500);
       });
@@ -737,12 +749,27 @@
     // Your aim: a dashed arrow out of your barrel as long as the power; with a right answer, the start of the shell's path.
     if (A.phase === 'aim') {
       var a = A.aim.angle, m = muzzle(A.tanks[0], a), len = 24 + A.aim.power * 90, ex = m.x + Math.cos(a) * len, ey = m.y - Math.sin(a) * len;
+      // With a right answer: the whole path, and a marker where it lands, orange when it'll hit him.
       if (A.guide) {
-        var f = flight(A.h, A.tanks, m.x, m.y, a, A.aim.power, A.wind), n = Math.floor(f.path.length * 0.4);
-        g.fillStyle = '#FF9600';
+        var f = flight(A.h, A.tanks, m.x, m.y, a, A.aim.power, A.wind), him = A.tanks[1], hits = f.direct === 1 || !f.out && Math.abs(f.x - him.x) < 30;
+        g.fillStyle = '#FFFFFF';
         g.strokeStyle = INK;
         g.lineWidth = 1.5;
-        for (var i = 3; i < n; i += 2) { g.beginPath(); g.arc(f.path[i][0], f.path[i][1], 4.5, 0, 6.3); g.fill(); g.stroke(); }
+        for (var i = 3; i < f.path.length - 1; i += 2) { g.beginPath(); g.arc(f.path[i][0], f.path[i][1], 4, 0, 6.3); g.fill(); g.stroke(); }
+        if (!f.out) {
+          g.fillStyle = hits ? '#FF9600' : '#FFFFFF';
+          g.lineWidth = 3;
+          g.beginPath();
+          g.arc(f.x, f.y, 11, 0, 6.3);
+          g.fill();
+          g.stroke();
+          g.beginPath();
+          g.moveTo(f.x - 5, f.y - 5);
+          g.lineTo(f.x + 5, f.y + 5);
+          g.moveTo(f.x + 5, f.y - 5);
+          g.lineTo(f.x - 5, f.y + 5);
+          g.stroke();
+        }
       }
       g.strokeStyle = INK;
       g.lineWidth = 4;
@@ -1247,6 +1274,6 @@
     open: function (kind) { if (OPEN[kind]) OPEN[kind](); },
     state: function () { return A; },
     // For tools/bio/tests/arcade.mjs.
-    test: { place: place, fire: fire, aim: aim, afloat: afloat, hills: hills, flight: flight, burst: burst, solve: solve, tower: tower, world: world, tick: tick, off: off, still: still, POS: POS, LAUNCH: LAUNCH, SLING: SLING, muzzle: muzzle }
+    test: { place: place, fire: fire, aim: aim, afloat: afloat, hills: hills, flight: flight, burst: burst, solve: solve, tower: tower, world: world, tick: tick, off: off, still: still, POS: POS, LAUNCH: LAUNCH, SLING: SLING, muzzle: muzzle, hisOffset: hisOffset }
   };
 })();

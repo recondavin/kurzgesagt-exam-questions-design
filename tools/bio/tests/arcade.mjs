@@ -1,7 +1,8 @@
 // Checks the logic of Sea Battle, Cannon Duel and Topple the Examiner (bio/bio-arcade.js):
 //   Sea Battle  every fleet has its five ships (4, 3, 3, 2, 2), in the sea and not touching; his aim never fires at the
 //               same square twice, sinks a whole fleet, and follows up a hit next to it.
-//   Cannon      his aim with no wobble lands near you, through any wind and over any hills; shells dig craters.
+//   Cannon      aimed at you, he lands near you through any wind and over any hills; after a wrong answer his shot
+//               goes wide and never hurts you; shells dig craters.
 //   Tower       every level's tower stands on its own (he doesn't move in six seconds), and some shot knocks him off.
 // Run: node tools/bio/tests/arcade.mjs
 import { createRequire } from 'module';
@@ -54,15 +55,21 @@ for (let g = 0; g < 300; g++) {
 }
 
 // ---------------------------------------------------------------- Cannon Duel
-let near = 0, tried = 0;
+// Aimed at you he lands within 30px at least 9 times in 10; after a wrong answer his shot never hurts you.
+let near = 0, tried = 0, wideHurt = 0;
 for (let g = 0; g < 24; g++) {
   const rand = seeded(1000 + g), h = T.hills(rand), tanks = T.POS.map(x => ({ x, y: h[x], hp: 100 })), wind = (rand() * 2 - 1) * 70;
-  const s = T.solve(h, tanks, wind, true, () => 0.5), m = T.muzzle(tanks[1], s.angle);
+  const s = T.solve(h, tanks, wind, 0), m = T.muzzle(tanks[1], s.angle);
   const f = T.flight(h, tanks, m.x, m.y, s.angle, s.power, wind);
   tried++;
   if (f.direct === 0 || !f.out && Math.abs(f.x - tanks[0].x) < 30) near++;
+  const off = T.hisOffset(false, rand);
+  if (Math.abs(off) < 110) fail(`a wrong answer's aim is only ${Math.round(off)}px off`);
+  const w = T.solve(h, tanks, wind, off), wm = T.muzzle(tanks[1], w.angle), wf = T.flight(h, tanks, wm.x, wm.y, w.angle, w.power, wind);
+  if (T.burst(h.slice(), tanks.map(t => ({ ...t })), wf, false)[0]) wideHurt++;
 }
-if (near < tried * 0.9) fail(`his steady aim landed near you ${near} of ${tried} times`);
+if (near < tried * 0.9) fail(`his aim landed near you ${near} of ${tried} times`);
+if (wideHurt) fail(`after a wrong answer his shot hurt you ${wideHurt} of ${tried} times`);
 {
   const h = T.hills(seeded(7)), tanks = T.POS.map(x => ({ x, y: h[x], hp: 100 })), before = h[500];
   const hurt = T.burst(h, tanks, { x: 500, y: before }, false);
@@ -95,5 +102,5 @@ for (let lv = 0; lv < 5; lv++) {
   }
   if (!off) fail(`level ${lv + 1}: no shot knocks him off`);
 }
-console.log(fails ? `${fails} failures` : 'ok: 300 fleets and games, his cannon aim, 5 towers');
+console.log(fails ? `${fails} failures` : 'ok: 300 fleets and games, his cannon aim (on you, and wide when wrong), 5 towers');
 process.exit(fails ? 1 : 0);
