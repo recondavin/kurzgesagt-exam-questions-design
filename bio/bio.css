@@ -252,12 +252,13 @@ button { font: inherit; }
 .tb-btn--ghost { background: none; color: #5B6B80; }
 .tb-btn--ghost:hover { color: #13294A; }
 .tb-btn:focus-visible, .tb-opt:focus-visible, .tb-pick:focus-visible, .tb-text:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
-.tb-picks { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.tb-pick { display: grid; gap: 2px; padding: 12px; border: 2px solid var(--c); border-bottom-width: 4px; border-radius: 14px; background: #202F36; color: #F1F7FB; text-align: left; cursor: pointer; }
+.tb-picks { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+/* Which way to go, and the question cards: big, like the roll (the user: "these should be bigger too", "and this"). */
+.tb-pick { display: grid; gap: 4px; padding: 20px 22px; border: 3px solid var(--c); border-bottom-width: 6px; border-radius: 18px; background: #202F36; color: #F1F7FB; text-align: left; cursor: pointer; }
 .tb-pick:hover { background: #2B3B42; }
-.tb-pick__dir { color: #93A5AE; font: 800 13px Nunito, sans-serif; }
-.tb-pick__ch { color: var(--c); font: 700 18px Fredoka, Nunito, sans-serif; }
-.tb-pick__what { font: 700 14px Nunito, sans-serif; }
+.tb-pick__dir { color: #93A5AE; font: 800 16px Nunito, sans-serif; }
+.tb-pick__ch { color: var(--c); font: 700 28px/1.15 Fredoka, Nunito, sans-serif; }
+.tb-pick__what { font: 700 18px Nunito, sans-serif; }
 .tb-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .tb-row--next { margin-top: 2px; }
 /* The question card: the chapter's band, then the question; its back has the answer. */
@@ -267,38 +268,49 @@ button { font: inherit; }
 .tb-card.is-flipped .tb-card__in { transform: rotateY(180deg); }
 .tb-card__face { grid-area: 1 / 1; overflow: hidden; border: 2px solid #13294A; border-radius: 14px; background: #FFFDF6; box-shadow: 0 5px 0 rgba(0, 0, 0, .35); color: #13294A; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
 .tb-card__back { transform: rotateY(180deg); }
-.tb-card__band { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 16px; border-bottom: 2px solid #13294A; background: var(--c); color: #13294A; }
-.tb-card__band b { font: 700 18px Fredoka, Nunito, sans-serif; }
-.tb-card__band span { font: 800 12px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
-.tb-card__body { display: grid; gap: 10px; align-content: start; padding: 16px; }
-.tb-q { margin: 0; color: #13294A; font: 800 21px/1.35 Nunito, sans-serif; }
+.tb-card__band { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 14px 22px; border-bottom: 3px solid #13294A; background: var(--c); color: #13294A; }
+.tb-card__band b { font: 700 25px Fredoka, Nunito, sans-serif; }
+.tb-card__band span { font: 800 15px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.tb-card__body { display: grid; gap: 14px; align-content: start; padding: 22px; }
+.tb-q { margin: 0; color: #13294A; font: 800 28px/1.3 Nunito, sans-serif; }
 .tb-card .tb-say { color: #5B6B80; }
-.tb-opts { display: grid; gap: 8px; }
-.tb-opt { padding: 12px 15px; border: 2px solid #D5DCE5; border-bottom-width: 4px; border-radius: 12px; background: #FFFFFF; color: #13294A; font: 800 17px/1.3 Nunito, sans-serif; text-align: left; cursor: pointer; }
+.tb-opts { display: grid; gap: 12px; }
+.tb-opt { padding: 17px 20px; border: 3px solid #D5DCE5; border-bottom-width: 5px; border-radius: 14px; background: #FFFFFF; color: #13294A; font: 800 22px/1.3 Nunito, sans-serif; text-align: left; cursor: pointer; }
 .tb-opt:hover:not(:disabled) { background: #F2F5F8; }
 .tb-opt:disabled { cursor: default; }
 .tb-opt.is-ok { border-color: #58CC02; background: #D7FFB8; color: #2B6A00; }
 .tb-opt.is-no { border-color: #FF4B4B; background: #FFDFE0; color: #B3261E; animation: amShake .4s; }
-.tb-text { width: 100%; box-sizing: border-box; padding: 12px 14px; border: 2px solid #D5DCE5; border-radius: 12px; background: #FFFFFF; color: #13294A; font: 700 17px/1.4 Nunito, sans-serif; resize: vertical; }
-.tb-stamp { justify-self: start; margin: 0; padding: 4px 12px; border: 2px solid; border-radius: 8px; font: 800 16px Nunito, sans-serif; transform: rotate(-3deg); }
+.tb-text { width: 100%; box-sizing: border-box; padding: 16px 18px; border: 3px solid #D5DCE5; border-radius: 14px; background: #FFFFFF; color: #13294A; font: 700 22px/1.4 Nunito, sans-serif; resize: vertical; }
+.tb-card .tb-btn { padding: 15px 30px; font-size: 21px; }
+.tb-stamp { justify-self: start; margin: 0; padding: 6px 16px; border: 3px solid; border-radius: 10px; font: 800 22px Nunito, sans-serif; transform: rotate(-3deg); }
 .tb-stamp.is-ok { border-color: #58CC02; background: #D7FFB8; color: #2B6A00; }
 .tb-stamp.is-no { border-color: #FF4B4B; background: #FFDFE0; color: #B3261E; }
-.tb-mine { margin: 0; color: #5B6B80; font: 700 15px/1.4 Nunito, sans-serif; }
-.tb-ans { margin: 0; color: #13294A; font: 800 19px/1.35 Nunito, sans-serif; }
-.tb-ans span { display: block; color: #5B6B80; font: 800 12px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
-.tb-why { margin: 0; color: #5B6B80; font: 700 15px/1.4 Nunito, sans-serif; }
+.tb-mine { margin: 0; color: #5B6B80; font: 700 19px/1.4 Nunito, sans-serif; }
+.tb-ans { margin: 0; color: #13294A; font: 800 26px/1.3 Nunito, sans-serif; }
+.tb-ans span { display: block; color: #5B6B80; font: 800 15px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.tb-why { margin: 0; color: #5B6B80; font: 700 19px/1.4 Nunito, sans-serif; }
 .tb-endpie { display: block; width: 120px; height: 120px; margin: 0 auto 8px; }
 @media (max-width: 760px) {
   .tb { grid-template-columns: 1fr; gap: 14px; }
   .tb-board { width: 100%; max-width: 280px; margin: 0 auto; }
   .tb-board svg { max-width: 100%; }
   .tb-key { font-size: 13px; }
-  .tb-q { font-size: 17px; }
+  .tb-q { font-size: 20px; }
+  .tb-card__band b { font-size: 20px; }
+  .tb-card__body { padding: 16px; gap: 10px; }
+  .tb-opt { padding: 13px 15px; font-size: 17px; }
+  .tb-text { font-size: 18px; }
+  .tb-card .tb-btn { padding: 12px 22px; font-size: 18px; }
+  .tb-ans { font-size: 20px; }
+  .tb-why, .tb-mine { font-size: 16px; }
   .tb-turn { font-size: 20px; }
   .tb-deck { width: 64px; height: 88px; }
   .tb-deck svg { width: 38px; height: 38px; }
   .tb-die { width: 68px; height: 68px; }
   .tb-btn--roll { padding: 14px 32px; font-size: 20px; }
+  .tb-pick { padding: 14px 16px; }
+  .tb-pick__ch { font-size: 21px; }
+  .tb-pick__what { font-size: 15px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .tb-sq.is-target path:first-child, .tb-die.is-rolling, .tb-card { animation: none; }

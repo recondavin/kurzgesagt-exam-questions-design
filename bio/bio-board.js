@@ -219,8 +219,9 @@
     show(p);
     return p;
   }
-  // On a phone the turn is under the board: bring it (or the button to go on) into view.
-  function show(node) { if (window.innerWidth <= 760 && node.scrollIntoView) node.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+  // Bring the turn (or the button to go on) into view when it's below the card's fold: on a phone the turn is under the
+  // board, and on a laptop a big question card can run past the bottom.
+  function show(node) { if (node.scrollIntoView) node.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
   function nextButton(label, then) {
     var p = G.card.querySelector('[data-tb-panel]'), row = el('div', 'tb-row tb-row--next', '<button type="button" class="tb-btn tb-btn--go" data-tb-next>' + label + '</button>');
     p.querySelector('.tb-players').innerHTML = pies();
