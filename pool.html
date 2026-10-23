@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pool | Leaving Cert Biology</title>
+<meta name="description" content="Pool against the examiner: a Leaving Cert Biology question before every shot.">
+<link rel="icon" href="assets/examiner/teacher-head.svg?v=1" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Nunito:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="bio/bio.css?v=pool-1">
+<link rel="stylesheet" href="bio/bio-shell.css?v=pool-1">
+</head>
+<body class="mg-page">
+<!-- Pool on its own for now, like Mini Golf (mini-golf.html). To add it to the hub: load bio/vendor/three.min.js and
+     bio/bio-pool.js after bio-arcade.js in biology.html, and add ['pool', 'Pool', ...] to bio.js HUB_GAMES, opening
+     window.BioPool.open(). -->
+<main class="mg-land">
+<h1>Pool</h1>
+<p>Biology: pool against the examiner, a question before every shot.</p>
+<button type="button" class="tb-btn tb-btn--go" data-pl-play>Play</button>
+<p><a href="biology.html">Back to Biology</a></p>
+</main>
+<script src="./examiner-art.js?v=teacher-13"></script>
+<script src="./answer-mode.js?v=answer-mode-46"></script>
+<script src="./bio/q28.js?v=pool-1"></script>
+<script src="./bio/q29.js?v=pool-1"></script>
+<script src="./bio/q30.js?v=pool-1"></script>
+<script src="./bio/q31.js?v=pool-1"></script>
+<script src="./bio/q32.js?v=pool-1"></script>
+<script src="./bio/bio-games.js?v=pool-1"></script>
+<script src="./bio/bio.js?v=pool-1"></script>
+<script src="./bio/checks28.js?v=pool-1"></script>
+<script src="./bio/checks29.js?v=pool-1"></script>
+<script src="./bio/checks30.js?v=pool-1"></script>
+<script src="./bio/checks31.js?v=pool-1"></script>
+<script src="./bio/checks32.js?v=pool-1"></script>
+<script src="./bio/bio-board.js?v=pool-1"></script>
+<script src="./bio/vendor/three.min.js?v=pool-1"></script>
+<script src="./bio/bio-pool.js?v=pool-1"></script>
+<script>
+(function () {
+  function play() { if (window.BioPool) window.BioPool.open(); }
+  document.querySelector('[data-pl-play]').addEventListener('click', play);
+  play();
+})();
+</script>
+</body>
+</html>

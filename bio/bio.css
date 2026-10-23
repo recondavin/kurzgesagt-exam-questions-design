@@ -574,6 +574,37 @@ button.sea-c { cursor: default; }
 .mg-land a { color: #FFC800; }
 .mg-land .tb-btn { padding: 16px 40px; font-size: 22px; }
 
+/* Pool (bio/bio-pool.js): whose turn over the balls each of you has left, the 3D table on a canvas (your tag, his face
+   and the power meter are .mg- HTML over it, as in Mini Golf), and the turn's line and buttons below. */
+.pl-head { display: grid; gap: 8px; }
+.pl-score { display: flex; flex-wrap: wrap; gap: 8px 14px; }
+.pl-side { display: flex; align-items: center; gap: 10px; margin: 0; padding: 6px 14px; border-radius: 12px; background: #202F36; color: #F1F7FB; font: 700 17px Fredoka, Nunito, sans-serif; }
+.pl-side.is-turn { box-shadow: inset 0 0 0 2px #FFC800; }
+.pl-balls { display: flex; gap: 6px; }
+.pl-ball { width: 20px; height: 20px; box-sizing: border-box; border: 2px solid #13294A; border-radius: 50%; }
+.pl-ball--0 { background: #1CB0F6; }
+.pl-ball--1 { background: #FFFFFF; box-shadow: inset 0 4px 0 #FF9600, inset 0 -4px 0 #FF9600; }
+.pl-ball.is-in { opacity: .25; }
+.pl-on8 { color: #FFC800; font: 800 14px Nunito, sans-serif; }
+.pl-sky { position: relative; overflow: hidden; border: 3px solid #0E2747; border-radius: 16px; background: #CDEBFA; }
+.pl-canvas { display: block; width: 100%; height: auto; max-height: max(240px, calc(100vh - 470px)); aspect-ratio: 2 / 1; touch-action: none; cursor: crosshair; }
+.pl-canvas:focus-visible { outline: 3px solid #FFE14D; outline-offset: -3px; }
+.pl-nudge { padding-left: 18px; padding-right: 18px; }
+.pl-pick { margin: 18px 0 8px; color: #DCE6EC; font: 800 17px Nunito, sans-serif; }
+.pl-chs { max-width: 900px; }
+.pl-chs .tb-pick { padding: 12px 16px; text-align: center; }
+.pl-chs .tb-pick__ch { font-size: 20px; }
+@media (max-width: 760px) {
+  .pl-canvas { aspect-ratio: 1 / 1.15; }
+  .pl-side { gap: 8px; padding: 5px 10px; font-size: 15px; }
+  .pl-ball { width: 16px; height: 16px; }
+  .pl-ball--1 { box-shadow: inset 0 3px 0 #FF9600, inset 0 -3px 0 #FF9600; }
+  .pl-chs { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pl-chs .tb-pick { padding: 10px; }
+  .pl-chs .tb-pick__ch { font-size: 16px; }
+  .pl-nudge { padding-left: 14px; padding-right: 14px; }
+}
+
 /* A long question typing in (bio-board.js reveal): the whole question laid out hidden underneath so nothing moves, a
    caret at the end; its answers wait, then pop in one by one. */
 .tb-q.is-typing { display: grid; }
