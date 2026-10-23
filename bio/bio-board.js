@@ -244,14 +244,17 @@
     nearMascot();
     yourTurn();
   }
-  // The examiner stands right beside the board (the user: "make him closer to the trivia board"), not out in the
-  // screen's corner: answer-mode.js sizes him to the room beside the card; this moves him up to the card's left edge.
+  // The examiner stands right beside the board (the user: "make him closer to the trivia board", then "higher up"), not
+  // out in the screen's corner: answer-mode.js sizes him to the room beside the card; this moves him up to the card's
+  // left edge, his feet level with the card's bottom (after the card has popped in).
   function nearMascot() {
     [0, 120, 700].forEach(function (ms) {
       wait(function () {
         var m = document.querySelector('.am-root .am-mascot'), box = G.card.querySelector('.am-finish__card');
         if (!m || !box || !m.offsetParent) return;
+        var root = m.offsetParent.getBoundingClientRect(), r = box.getBoundingClientRect();
         m.style.left = Math.max(14, (m.offsetParent.clientWidth - box.offsetWidth) / 2 - m.offsetWidth - 10) + 'px';
+        m.style.bottom = Math.max(10, Math.round(root.bottom - r.bottom)) + 'px';
       }, ms);
     });
   }
