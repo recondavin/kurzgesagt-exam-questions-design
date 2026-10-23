@@ -43,7 +43,7 @@
       '<div class="tb-card__body">' + inner + '</div></div></div></div>';
   }
   // A pick-the-answer question doesn't need the typed answer's "(2 points)".
-  function asked(item, typed) { return esc(typed ? item.text : item.text.replace(/\s*\(\d points?\)$/, '')); }
+  function asked(item, typed) { return esc(typed ? item.text : item.text.replace(/\s*\((\d+ of )?\d+ points?\)$/, '')); }
   function options(item) {
     return '<div class="tb-opts">' + shuffle([item.c.right].concat(item.c.wrong)).map(function (o) {
       return '<button type="button" class="tb-opt" data-qg-opt="' + esc(o) + '">' + esc(o) + '</button>';

@@ -448,22 +448,25 @@ button.pts-cell:hover { background: #24498D; }
 .sea-cols { grid-template-columns: repeat(8, minmax(0, 1fr)); text-align: center; }
 .sea-rows { grid-template-rows: repeat(8, minmax(0, 1fr)); padding: 3px 0; align-items: center; }
 .sea-cols i, .sea-rows i { font-style: normal; }
-.sea-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 3px; padding: 3px; border-radius: 12px; background: #163C6E; }
-.sea-c { position: relative; display: grid; place-items: center; aspect-ratio: 1; padding: 0; border: 0; border-radius: 5px; background: #1F4E8C; }
+.sea-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 3px; padding: 3px; border: 3px solid #0E2747; border-radius: 14px; background: #163C6E; }
+/* The water squares; the ships (.sea-ship) lie over them and the marks (the squares' <i>) over the ships. */
+.sea-c { position: relative; display: grid; place-items: center; aspect-ratio: 1; padding: 0; border: 0; border-radius: 5px; background: #2563A6; }
+.sea-c.is-wave::before { content: ""; position: absolute; left: 30%; top: 46%; width: 36%; height: 16%; border-top: 2.5px solid rgba(255, 255, 255, .3); border-radius: 50% 50% 0 0; }
 button.sea-c { cursor: default; }
 .sea-side--his.is-aiming button.sea-c { cursor: crosshair; }
-.sea-side--his.is-aiming button.sea-c:hover { background: #2A64AD; box-shadow: inset 0 0 0 3px #FFE14D; }
+.sea-side--his.is-aiming button.sea-c:hover { background: #3277C2; box-shadow: inset 0 0 0 3px #FFE14D; }
 .sea-c:focus-visible { outline: 3px solid #FFE14D; outline-offset: 1px; }
-.sea-c.is-ship { background: var(--c); box-shadow: inset 0 0 0 2px #13294A; }
-.sea-c.is-hit:not(.is-ship) { background: #FF9600; }
-.sea-c.is-sunk { opacity: .7; }
-.sea-c i { display: block; }
-.sea-c.is-miss i { width: 34%; height: 34%; border: 3px solid #FFFFFF; border-radius: 50%; box-sizing: border-box; }
-.sea-c.is-hit i { position: relative; width: 56%; height: 56%; }
-.sea-c.is-hit i::before, .sea-c.is-hit i::after { content: ""; position: absolute; left: 50%; top: 50%; width: 100%; height: 4px; border-radius: 2px; background: #13294A; transform: translate(-50%, -50%) rotate(45deg); }
-.sea-c.is-hit i::after { transform: translate(-50%, -50%) rotate(-45deg); }
-.sea-c.is-new { animation: seaPop .5s cubic-bezier(.3, 1.6, .5, 1); }
-@keyframes seaPop { 0% { transform: scale(.4); } 100% { transform: none; } }
+.sea-c.is-wreck { background: #2E3F5C; }
+.sea-c i { position: relative; z-index: 2; display: block; width: 84%; height: 84%; }
+.sea-c i svg { display: block; width: 100%; height: 100%; }
+.sea-ship { position: relative; z-index: 1; pointer-events: none; }
+.sea-ship svg { display: block; width: 100%; height: 100%; }
+.sea-ship.is-sunk { opacity: .55; }
+/* A new shot: its mark pops in and a ring spreads across the water. */
+.sea-c.is-new i { animation: seaPop .5s cubic-bezier(.3, 1.6, .5, 1); }
+.sea-c.is-new::after { content: ""; position: absolute; z-index: 2; inset: 12%; border: 3px solid #FFFFFF; border-radius: 50%; animation: seaRing .8s ease-out forwards; pointer-events: none; }
+@keyframes seaPop { 0% { transform: scale(.3); } 100% { transform: none; } }
+@keyframes seaRing { 0% { transform: scale(.4); opacity: 1; } 100% { transform: scale(1.9); opacity: 0; } }
 .sea-key { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 10px 0 0; padding: 0; list-style: none; color: #DCE6EC; font: 700 14px Nunito, sans-serif; }
 .sea-key li { display: flex; align-items: center; gap: 6px; }
 .sea-key li::before { content: ""; width: 12px; height: 12px; border: 1.5px solid #13294A; border-radius: 4px; background: var(--c); }
@@ -474,15 +477,15 @@ button.sea-c { cursor: default; }
 .cd-hp__one b { font: 700 18px Fredoka, Nunito, sans-serif; }
 .cd-hp__bar { flex: 1; height: 14px; overflow: hidden; border-radius: 7px; background: #2B3B42; }
 .cd-hp__bar i { display: block; height: 100%; border-radius: 7px; background: #1CB0F6; transition: width .5s ease; }
-.cd-hp__one--1 .cd-hp__bar i { background: #F1F7FB; }
+.cd-hp__one--1 .cd-hp__bar i { background: #8FA3BD; }
 .cd-wind { margin: 0; color: #DCE6EC; font: 800 16px Nunito, sans-serif; }
 .cd-wind b { color: #FFE14D; }
-.cd-sky, .tw-sky { position: relative; overflow: hidden; border-radius: 16px; }
+.cd-sky, .tw-sky { position: relative; overflow: hidden; border: 3px solid #0E2747; border-radius: 16px; }
 .cd-canvas, .tw-canvas { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; touch-action: none; cursor: crosshair; }
 .cd-canvas:focus-visible, .tw-canvas:focus-visible { outline: 3px solid #FFE14D; outline-offset: -3px; }
 .cd-you, .cd-him { position: absolute; transform: translate(-50%, -100%); pointer-events: none; }
-.cd-you { padding: 2px 10px; border-radius: 999px; background: #1CB0F6; color: #FFFFFF; font: 800 14px Nunito, sans-serif; }
-.cd-him { width: 6.5%; aspect-ratio: 489 / 555; transform: translate(-50%, -82%); }
+.cd-you { padding: 2px 10px; border: 2px solid #13294A; border-radius: 999px; background: #1CB0F6; color: #FFFFFF; font: 800 14px Nunito, sans-serif; }
+.cd-him { width: 7%; aspect-ratio: 489 / 555; }
 .cd-him svg, .tw-him svg { display: block; width: 100%; height: 100%; }
 /* Topple the Examiner: the level and questions left; his face rides on his body in the physics. */
 .tw-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin: 0; color: #F1F7FB; font: 700 20px Fredoka, Nunito, sans-serif; }
@@ -499,4 +502,4 @@ button.sea-c { cursor: default; }
   .cd-you { font-size: 11px; padding: 1px 6px; }
   .ar-turn .tb-row .tb-btn { padding: 12px 24px; font-size: 18px; }
 }
-@media (prefers-reduced-motion: reduce) { .sea-c.is-new { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .sea-c.is-new i, .sea-c.is-new::after { animation: none; } .sea-c.is-new::after { display: none; } }

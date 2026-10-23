@@ -57,8 +57,8 @@ for (let g = 0; g < 300; g++) {
 let near = 0, tried = 0;
 for (let g = 0; g < 24; g++) {
   const rand = seeded(1000 + g), h = T.hills(rand), tanks = T.POS.map(x => ({ x, y: h[x], hp: 100 })), wind = (rand() * 2 - 1) * 70;
-  const s = T.solve(h, tanks, wind, true, () => 0.5), me = tanks[1];
-  const f = T.flight(h, tanks, me.x, me.y - 14, s.angle, s.power, wind);
+  const s = T.solve(h, tanks, wind, true, () => 0.5), m = T.muzzle(tanks[1], s.angle);
+  const f = T.flight(h, tanks, m.x, m.y, s.angle, s.power, wind);
   tried++;
   if (f.direct === 0 || !f.out && Math.abs(f.x - tanks[0].x) < 30) near++;
 }
