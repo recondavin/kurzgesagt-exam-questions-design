@@ -263,8 +263,11 @@
           box.style.setProperty('--tbw', Math.min(1200, W - 2 * (t + 30)) + 'px');
           m.style.setProperty('--size', t + 'px');
         } else box.style.removeProperty('--tbw');
+        // Hidden (no room beside the card, as on a phone): leave him where answer-mode.js keeps him, out of sight.
+        if (!m.classList.contains('is-on')) { m.style.left = m.style.bottom = ''; return; }
         var root = m.offsetParent.getBoundingClientRect(), r = box.getBoundingClientRect();
-        m.style.left = Math.max(14, (m.offsetParent.clientWidth - box.offsetWidth) / 2 - m.offsetWidth - 10) + 'px';
+        // A clear gap between him and the board, so his bubble doesn't cover it (the user: "put him to the left").
+        m.style.left = Math.max(14, (m.offsetParent.clientWidth - box.offsetWidth) / 2 - m.offsetWidth - 60) + 'px';
         m.style.bottom = Math.max(10, Math.round(root.bottom - r.bottom)) + 'px';
       }, ms);
     });
@@ -280,7 +283,7 @@
         '<div class="tb-row"><button type="button" class="tb-btn tb-btn--go" data-tb-final>' + (G.pos[0] === 'hub' ? 'Final question' : 'Go to the centre') + '</button></div>');
       return;
     }
-    panel('<p class="tb-say"><b>Your turn.</b> Roll the die.</p><div class="tb-tray">' + deck() + die(0) + '<button type="button" class="tb-btn tb-btn--go" data-tb-roll>Roll</button></div>');
+    panel('<p class="tb-say tb-turn"><b>Your turn.</b> Roll the die.</p><div class="tb-tray">' + deck() + die(0) + '<button type="button" class="tb-btn tb-btn--go tb-btn--roll" data-tb-roll>Roll</button></div>');
     var b = G.card.querySelector('[data-tb-roll]');
     if (b) b.focus({ preventScroll: true });
   }
@@ -309,7 +312,7 @@
     G.roll = n;
     var t = targets(0, n);
     t.forEach(function (i) { G.card.querySelector('[data-tb-sq="' + i + '"]').classList.add('is-target'); });
-    panel('<div class="tb-tray">' + deck() + die(n) + '<p class="tb-say">You rolled <b>' + n + '</b>. Which way?</p></div><div class="tb-picks">' + t.map(function (i, k) {
+    panel('<div class="tb-tray">' + deck() + die(n) + '<p class="tb-say tb-turn">You rolled <b>' + n + '</b>. Which way?</p></div><div class="tb-picks">' + t.map(function (i, k) {
       var s = G.sq[i];
       return '<button type="button" class="tb-pick" data-tb-go="' + i + '" style="--c:' + (s.type === 'again' ? '#DCE6EC' : COL[s.ch]) + '"><span class="tb-pick__dir">' + (k ? 'Back' : 'On') + '</span>' +
         '<span class="tb-pick__ch">' + (s.type === 'again' ? 'Roll again' : esc(NAME[s.ch])) + '</span><span class="tb-pick__what">' + what(0, i) + '</span></button>';
@@ -446,12 +449,12 @@
       wait(function () { toHub(1, function () { hisAnswer(CH[Math.floor(Math.random() * CH.length)], 'final'); }); }, 600);
       return;
     }
-    panel('<p class="tb-say"><b>His turn.</b> He rolls.</p><div class="tb-tray">' + deck() + die(0) + '</div>');
+    panel('<p class="tb-say tb-turn"><b>His turn.</b> He rolls.</p><div class="tb-tray">' + deck() + die(0) + '</div>');
     roll(function (n) {
       G.roll = n;
       var t = targets(1, n), want = t.filter(function (i) { return G.sq[i].type === 'hq' && !G.wedges[1][G.sq[i].ch]; });
       var to = want.length ? want[0] : t[Math.floor(Math.random() * 2)];
-      panel('<div class="tb-tray">' + deck() + die(n) + '<p class="tb-say">He rolled <b>' + n + '</b>.</p></div>');
+      panel('<div class="tb-tray">' + deck() + die(n) + '<p class="tb-say tb-turn">He rolled <b>' + n + '</b>.</p></div>');
       wait(function () { walk(1, to, function () { wait(function () { land(1); }, 250); }); }, 450);
     });
   }
