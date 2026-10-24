@@ -458,6 +458,7 @@ _ASSEMBLE = ['assembl', 'put together']
 _RELEASED = ['releas', 'lysis', 'lyse', 'burst', 'bud']
 # Antibiotics have no effect on viruses (not "antibiotics work on viruses"). 'affect' also reads "effective".
 _NEG = ['not', 'dont', 'doesnt', 'cannot', 'wont']
+_NOT_AFFECT = [f'{n} affect virus' for n in _NEG] + ['unaffect virus']     # the schemes' "do not affect viruses"
 _NOT_ON_VIRUSES = ([f'{n} {v} virus' for n in _NEG for v in ('affect', 'work', 'kill')]
                    + ['unaffect virus', 'useless virus', 'ineffect virus', 'only bacteri', 'no effect'])
 # Not finishing the course of antibiotics (not "complete the course").
@@ -488,8 +489,6 @@ _LYMPHOCYTE_NAMES = ['b cell', 'b lymphocyte', 't cell', 't lymphocyte', 'suppre
 # The antibody graph (2021): A, after the vaccine, is slow and low; B, after the infection, is fast and high.
 _GRAPH = {'a': (['a', 'vaccin'], ['slow', 'delay'], ['low', 'small', 'few'], 'less'),
           'b': (['b', 'infec'], ['fast', 'quick', 'rapid'], ['high', 'large', 'great', 'many'], 'more')}
-
-
 _ALL_SPEEDS = [w for side in _GRAPH.values() for w in side[1]]
 _ALL_AMOUNTS = [w for side in _GRAPH.values() for w in side[2]]
 
@@ -694,6 +693,7 @@ OVERRIDES = {
                   'survive antibiotic'),
             1: _k('overuse', 'overus', 'misuse', 'overprescri', *_COURSE),
             2: _k('bacteria mutat', 'bacteria evolv', 'bacteria change'),
+            5: _k(*[f'{m} {k}' for m in _BY_MICROBES for k in ('kill', 'slow growth')]),
         },
         '2018-Q15a(iii) 2.': {0: _k('develop resistant bacteria', 'resist bacteria', 'resist strain', 'resist popul', 'superbug', 'mrsa')},
         # "Not effective against viruses (or influenza)".
@@ -774,6 +774,15 @@ OVERRIDES = {
                              'harm anim', 'harm crop', 'damag crop', 'livestock', 'crop disease', 'plant disease', 'anim disease', 'tulip')},
         # "Genetic material" is the question's own wording.
         '2013-Q12a(i)': {0: _k('nucleic acid', 'dna', 'rna')},
+        # Scheme points whose own words, read without their 'not', 'by', 'more' or 'given', let the wrong answer through
+        # ("antibiotics affect viruses", "made to kill micro-organisms", "passive: the body makes antibodies").
+        '2013-Q12c(i)': {3: _k(*[f'antibiotic {m}' for m in _BY_MICROBES]), 5: _k(*[f'antibiotic {m}' for m in _NOT_AFFECT])},  # vs antibodies
+        '2013-Q12c(ii)': {1: _k('pass antibody give', 'pass antibody receiv', 'pass antibody inject', 'pass antibody introduc',
+                                'pass ready antibody')},
+        '2013-Q12c(iii)': {1: _k('more pathogen', 'many pathogen'), 2: _k('more people', 'many people', 'crowd', 'poor hygiene')},
+        '2012-Q15b(i)': {4: _k(*_x(['no', 'not', 'lack', 'without', 'dont', 'doesnt'], ['nucleus'])),
+                         5: _k(*_x(['no', 'not', 'lack', 'without', 'dont', 'doesnt'], ['mitochondri']))},
+        '2010-Q15c(ii)': {1: _k(*_NOT_AFFECT)},
         '2013-Q12a(iii)': {0: _k('genetic engineer', 'genetic modif', 'vector', 'gene therapy', 'carry gene', 'vaccin', *_TREAT_CANCER,
                                  'pest control', 'biological control', 'control disease', 'disease control', 'kill bacteria')},
         # "Phagocytic (white cells) or monocytes".
@@ -785,6 +794,7 @@ OVERRIDES = {
         # "Uses host structures (or described)".
         '2010-Q6(b)': {1: _NUCLEIC_INTO + _k(*_NUCLEIC_IN),
                        2: _k('use host structure', 'host ribosom', 'host organell', 'host enzym', 'host machin'),
+                       3: _k('part replicat', 'dna replicat', 'rna replicat', 'nucleic replicat', 'dna copy', 'rna copy', 'nucleic copy'),
                        4: _k(*_ASSEMBLE), 5: _k(*_RELEASED)},
         # "To inactivate antigens (or described)".
         '2012-Q15b(iii) 1.': {0: _k('inactivate antigen', 'bind antigen', 'attach antigen', 'lock antigen', 'stick antigen', 'combin antigen',
@@ -802,7 +812,7 @@ OVERRIDES = {
             3: _k('t cell', 't lymphocyte'),
             4: _HELPER + _KILLER + _SUPPRESSOR + _k('rememb'),
         },
-        '2008-Q15b(i)': {2: _k('rapid spread', 'fast spread', 'quick spread', 'high popul', 'dense popul', 'large popul')},
+        '2008-Q15b(i)': {0: _k(*_x(['no', 'not', 'lack', 'without'], ['immun'])), 2: _k('rapid spread', 'fast spread', 'quick spread', 'high popul', 'dense popul', 'large popul')},
         '2008-Q15b(ii)': {0: _k('natur immun', 'natur selec', 'virus mutat', 'develop immun', 'become immun', 'build immun', 'gain immun',
                                 'acquir immun', 'now immun')},
         # Yes or no, with a plausible reason.
@@ -814,7 +824,7 @@ OVERRIDES = {
             3: _k('rna replicat', 'dna replicat', 'nucleic replicat', 'dna copy', 'rna copy', 'dna copi', 'rna copi', 'nucleic copy'),
             4: _k('using resource host cell', *_USES_HOST, *_HOST_WORKINGS, 'host resource', 'host materi'),
         },
-        '2007-Q14b(i)': {0: _k('obligate') + _HOST_ONLY, 1: _NON_CELLULAR, 4: _ONE_NUCLEIC},
+        '2007-Q14b(i)': {0: _k('obligate') + _HOST_ONLY, 1: _NON_CELLULAR, 3: _NO_METABOLISM, 4: _ONE_NUCLEIC},
         '2007-Q14b(iii)': {7: _k('hiv', 'aid', 'mump', 'rubella', 'raby', 'hepatitis', 'herpe', 'ebola', 'zika', 'covid', 'corona', 'sar',
                                  'hpv', 'wart', 'dengue', 'yellow fever', 'glandular fever', 'shingle', 'norovirus', 'rotavirus',
                                  'influenza', 'myxoma', 'foot mouth')},

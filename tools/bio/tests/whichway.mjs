@@ -43,6 +43,12 @@ const SHEET = [
   [31, '2019-Q5', 1, 'they can bend and change shape', [true]],
   [31, '2009-Q13a', 1, 'the one that goes around the body', [true]],
   [32, '2012-Q15b', 2, 'they bind to antigens on pathogens', [true]],
+  // Words that carry the meaning are kept in keys made from the scheme ("no", "one", "more", "under"), and a decimal is
+  // one number (the marking-key audit against the schemes).
+  [30, '2006-Q5', 2, 'above the diaphragm', [false]],
+  [30, '2006-Q5', 2, 'under the diaphragm', [true]],
+  [31, '2014-Q12c', 0, 'its wall is many cells thick', [false]],
+  [31, '2014-Q12c', 0, 'its wall is one cell thick', [true]],
 ];
 SHEET.forEach(([ch, qid, k, text, want]) => {
   n++;

@@ -13,22 +13,23 @@ import importlib, json, math, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 STOP = set('the a an of to and or in on at is are was were be been by for with as that this these those it its their there they them from into '
-           'than then so such which who what when where can could will would may might has have had not no also very more most much some any '
-           'each other over under about after before during while because between both but if until e.g eg i.e ie etc accept allow named name '
-           'explained explain described describe correct answer answers mark marks reference ref given one two three four five six '
+           'than then so such which who what when where can could will would may might has have had also very much some any '
+           'each other most over after before between about during while because both but if until e.g eg i.e ie etc accept allow named name '
+           'explained explain described describe correct answer answers mark marks reference ref given '
            # Filler nouns a student can swap for another word ("undigested material" / "undigested food").
            'material materials substance substances thing things stuff matter part parts item items way ways'.split())
 SYNONYMS = {'big': 'large', 'huge': 'large', 'tiny': 'small', 'lots': 'many', 'quick': 'fast', 'quicker': 'faster', 'o2': 'oxygen', 'h2o': 'water'}
 # Two-word names written as one (the same list in bio/bio.js).
 PHRASES = [(re.compile(r'carbon\s*dioxide'), 'co2'), (re.compile(r'rib\s+cage'), 'ribcage')]
-WORDS = re.compile(r"[a-z0-9]+")
+# A decimal is one word ("0.5 litres" isn't "5 litres"); "8.0" is "8".
+WORDS = re.compile(r"[a-z0-9]+(?:\.[0-9]+)?")
 
 
 def words(text):
     text = text.lower().replace("'", '').replace('’', '')
     for pat, one in PHRASES:
         text = pat.sub(one, text)
-    return [SYNONYMS.get(w, w) for w in WORDS.findall(text)]
+    return [SYNONYMS.get(w, w) for w in (re.sub(r'\.0+$', '', t) for t in WORDS.findall(text))]
 
 
 # Word endings: the same rules run in bio/bio.js (bioStem) on what students type, so a key word and a typed
@@ -75,7 +76,11 @@ def alternatives(answer):
     a = re.sub(r'\([^)]*\)', ' ', a)
     alts = []
     for part in re.split(r'\s+or\s+|\s*/\s*|\s*;\s*', a):
-        ws = [w for w in words(part) if w not in STOP and (len(w) > 2 or w.isdigit())]
+        part = re.sub(r'\bunder\s+(high\s+)?pressure\b', 'pressure', part)  # "under" is a place ("under the diaphragm"), not here
+        # Words that carry the meaning stay in the key even when short: "no nucleus", "one cell thick", "more water",
+        # "does not produce", "under the diaphragm" (they were dropped once, so "a nucleus", "many cells thick", "less
+        # water" and "above the diaphragm" earned the point).
+        ws = [w for w in words(part) if w not in STOP and (len(w) > 2 or w.isdigit() or w == 'no' or re.match(r'^\d', w))]
         if not ws:
             single = words(part)
             if len(single) == 1 and len(single[0]) == 1:
@@ -90,6 +95,10 @@ def alternatives(answer):
         # Short points need every key word ("porous capillary walls" without "porous" is a different point);
         # longer ones all but one, and long explanations 70% of them.
         need = len(seen) if len(seen) <= 3 else len(seen) - 1 if len(seen) <= 5 else math.ceil(len(seen) * 0.7)
+        # A key with a word that carries the meaning needs all its words, or "wall (one) cell thick" lets "many cells
+        # thick" through by leaving that word out.
+        if any(w in ('no', 'not', 'one', 'more', 'under') for w in seen) and len(seen) <= 5:
+            need = len(seen)
         alts.append({'w': seen, 'n': need})
     return alts
 

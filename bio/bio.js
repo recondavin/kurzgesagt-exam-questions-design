@@ -77,7 +77,8 @@
   function canon(w) { return CANON[w] || w; }
   var SUFFIXES = ['ation', 'ition', 'tion', 'sion', 'ment', 'ing', 'ous', 'ive', 'ed', 'er', 'ly', 'al'];
   // Words that share a start but mean different things.
-  var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog'], ['bronch', 'bronchit'], ['bronch', 'bronchiol'], ['with', 'without'], ['gene', 'gener'], ['syst', 'systol'], ['anti', 'antigen']];
+  var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog'], ['bronch', 'bronchit'], ['bronch', 'bronchiol'], ['with', 'without'], ['gene', 'gener'], ['syst', 'systol'], ['anti', 'antigen'],
+    ['bronch', 'bronchod'], ['uret', 'ureth'], ['filtr', 'filtrat'], ['viru', 'virul'], ['thin', 'think'], ['thin', 'thing']];
   function bioStem(w) {
     if (/^\d+$/.test(w) || w.length <= 3) return w;
     if (w.length > 4 && /ies$/.test(w)) w = w.slice(0, -3) + 'y';
@@ -95,17 +96,18 @@
     PHRASES.forEach(function (p) { t = t.replace(p[0], p[1]); });
     // Each word also gets the number of the part of the sentence it's in (words.cl), for keys that need their words
     // said together: a new part starts at punctuation or a joining word ("B cells make antibodies; T cells kill").
-    var out = [], cl = [], n = 0, end = 0, m, re = /[a-z0-9]+/g;
+    var out = [], cl = [], n = 0, end = 0, m, re = /[a-z0-9]+(?:\.[0-9]+)?/g;
     while ((m = re.exec(t))) {
       if (/[.,;:!?\/\n]/.test(t.slice(end, m.index)) || JOIN.test(m[0])) n += 1;
       end = re.lastIndex;
-      out.push(canon(bioStem(SYNONYMS[m[0]] || m[0])));
+      var w = m[0].replace(/\.0+$/, '');  // "0.5" is one word, not "0" and "5"; "8.0" is "8"
+      out.push(canon(bioStem(SYNONYMS[w] || w)));
       cl.push(n);
     }
     out.cl = cl;
     return out;
   }
-  var JOIN = /^(and|or|but|while|whilst|whereas|so|because|which|that|who|where|then|however)$/;
+  var JOIN = /^(and|or|but|while|whilst|whereas|so|because|which|that|who|where|when|if|then|however)$/;
   // Edit distance, up to max (anything further away is max + 1); two letters swapped count as one slip.
   function lev(a, b, max) {
     max = max || 1;

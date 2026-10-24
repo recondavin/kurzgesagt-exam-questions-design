@@ -228,7 +228,7 @@ window.BioLearn[31] = {
       { l: '(a)', q: 'What is the job of the coronary arteries?', m: 3, n: 1, kind: 'text', pts: [
         { a: 'They supply the heart muscle with blood (oxygen and food)', m: 3, k: [{ w: ['heart', 'muscl'], n: 2 }, { w: ['cardiac'], n: 1 }, { w: ['heart', 'blood', 'suppl'], n: 3 }] }] },
       { l: '(b)', q: 'A pressure trace shows one heartbeat every 0.8 seconds. Calculate the heart rate in beats per minute.', m: 6, n: 2, kind: 'text', pts: [
-        { a: 'Heart rate = 60 / 0.8', m: 3, k: [{ w: ['60', '8'], n: 2 }] },
+        { a: 'Heart rate = 60 / 0.8', m: 3, k: [{ w: ['60', '0.8'], n: 2 }] },
         { a: '= 75 beats per minute', m: 3, k: [{ w: ['75'], n: 1 }] }] },
       { l: '(c)', q: 'Give two things about a person\'s lifestyle that make a blocked coronary artery more likely.', m: 6, n: 2, kind: 'text', pts: [
         { a: 'Smoking', m: 3, k: [{ w: ['smok'], n: 1 }, { w: ['cigarett'], n: 1 }] },

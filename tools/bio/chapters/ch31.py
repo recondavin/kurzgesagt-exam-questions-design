@@ -826,7 +826,7 @@ OVERRIDES = {
                             {'w': ['heart', 'stop', 'pump'], 'n': 3}, {'w': ['heart', 'stop', 'beat'], 'n': 3}]},
         'S2-Q5b(iv)': {0: _BP},
         # One beat in 0.5 s, so 120 bpm (the scheme's "heart rate 60" alone earned the second, "takes 0.6 s" the first).
-        'S2-Q5c(ii)': {0: _inorder('0 5') + _said('half second'), 1: _said('120')},
+        'S2-Q5c(ii)': {0: _said('0.5', 'half second'), 1: _said('120')},
         'S2-Q5c(iii)': {1: [{'w': [a, b], 'n': 2} for a in ('high', 'above', 'fast', 'great', 'exceed', 'increase') for b in ('rest', 'normal', 'exercis')]},
         # "Large" with energy only as "a large amount of energy": "a large number of mitochondria" is the question.
         'S2-Q5d(i)': {0: [{'w': [a, b], 'n': 2} for a in ('lot', 'much', 'more', 'plenty', 'great', 'high', 'continu', 'constant', 'never') for b in ('energy', 'atp')] +
