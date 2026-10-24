@@ -224,7 +224,7 @@
                       { "w": ["mer"], "n": 1 }, { "w": ["zika"], "n": 1 }, { "w": ["h5n1"], "n": 1 }, { "w": ["h1n1"], "n": 1 }, { "w": ["hiv"], "n": 1 }, { "w": ["nipah"], "n": 1 }, { "w": ["mpox"], "n": 1 } ] } ],
     "right": "SARS-CoV-2, the coronavirus that causes COVID-19",
     "wrong": ["The common cold virus", "Measles", "Tuberculosis (TB)"],
-    "why": "SARS-CoV-2 is thought to have spilled over from bats into humans in 2019. Measles and the cold have been in people for centuries, and TB is a bacterium, not a virus." },
+    "why": "SARS-CoV-2 is closely related to bat coronaviruses and first spread in humans in 2019. Measles and colds have been in people for centuries, and TB is a bacterium, not a virus." },
 
   { "id": "D32-23", "topic": 9,
     "q": "Explain why it is important for society to know about emerging diseases.",
@@ -283,7 +283,7 @@
                "k": [ { "w": ["travel"], "n": 1 }, { "w": ["border"], "n": 1 }, { "w": ["lockdown"], "n": 1 } ] } ],
     "right": "Isolating infected people and tracing their contacts",
     "wrong": ["Isolating infected people and giving everyone antibiotics", "Eating a healthy diet and getting plenty of sleep", "Keeping warm and drinking plenty of fluids"],
-    "why": "Isolation stops infected people passing it on, and contact tracing finds the people they met before they spread it. Antibiotics don't work on viruses, and a good diet won't stop spread." },
+    "why": "Isolation stops infected people passing it on, and contact tracing finds the people they met before they spread it. Antibiotics are a medicine, and a good diet won't stop the spread." },
 
   { "id": "D32-28", "topic": 11,
     "q": "What is meant by contact tracing?",
