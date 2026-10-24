@@ -1,7 +1,8 @@
 /* biology.html's shell (bio.js renderShell): a sidebar and a top bar on the page's ground, divided by 1px rules, around
    the canvas; the Progress screen (bio/bio-progress.js); and the chapter page inside it. Surfaces step up in lightness
    with no borders or shadows; the one hue (yellow) is on the main data: the predicted grade and its line.
-   Grid at 1440: 232 sidebar + 1 rule + 29 + 1149 + 29 = 1440; the Progress grid is 3 x 372.3 + 2 x 16 = 1149. */
+   Grid at 1440: 272 sidebar + 1 rule + 29 + 1109 + 29 = 1440. The sidebar, brand and top bar are sized up (the user: "make the
+   side options bigger make the logo and leaving cert bigger and make geography biology irish bigger also"). */
 :root {
   --ground: #131F24;
   --surface: #1A2B32;
@@ -16,7 +17,7 @@
   --positive: #58CC02;
   --neg-bg: #3A1E26;
   --neg-ink: #FFB3B5;
-  --side: 232px;
+  --side: 272px;
   --gutter: 29px;
 }
 body { background: var(--ground); }
@@ -28,29 +29,29 @@ body { background: var(--ground); }
 /* ---------- shell ---------- */
 .sh { display: grid; grid-template-columns: var(--side) minmax(0, 1fr); min-height: 100vh; }
 .sh-side { position: sticky; top: 0; display: flex; flex-direction: column; height: 100vh; padding: 0 12px 18px; border-right: 1px solid var(--rule); overflow-y: auto; }
-.sh-brand { display: flex; align-items: center; gap: 10px; flex: none; height: 64px; margin: 0 -12px; padding: 0 20px; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; }
-.sh-mark { flex: none; width: 34px; height: 36px; }
+.sh-brand { display: flex; align-items: center; gap: 12px; flex: none; height: 76px; margin: 0 -12px; padding: 0 20px; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; }
+.sh-mark { flex: none; width: 46px; height: 48px; }
 .sh-mark svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.sh-name { font: 600 18px/1 Fredoka, Nunito, sans-serif; }
-.sh-nav { display: flex; flex-direction: column; gap: 2px; padding: 16px 0 0; }
-.sh-link { display: flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 10px; border-radius: 8px; color: var(--muted); font: 700 14.5px Nunito, system-ui, sans-serif; text-decoration: none; transition: color .15s ease; }
+.sh-name { font: 600 23px/1 Fredoka, Nunito, sans-serif; }
+.sh-nav { display: flex; flex-direction: column; gap: 4px; padding: 20px 0 0; }
+.sh-link { display: flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 12px; border-radius: 10px; color: var(--muted); font: 700 17.5px Nunito, system-ui, sans-serif; text-decoration: none; transition: color .15s ease; }
 .sh-link:hover { color: #fff; }
 .sh-link[aria-current="page"] { color: #fff; font-weight: 800; }
 .sh-link:focus-visible, .sh-crumb a:focus-visible, .sh-switch a:focus-visible, .sh-menu:focus-visible, .sh-brand:focus-visible { outline: 3px solid #FFE14D; outline-offset: 1px; }
-.sh-n { flex: none; width: 22px; color: var(--faint); font-size: 13px; }
+.sh-n { flex: none; width: 28px; color: var(--faint); font-size: 15.5px; }
 .sh-t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.sh-v { flex: none; color: var(--faint); font-size: 13px; }
-.sh-group { margin: 20px 10px 6px; color: var(--faint); font: 700 12.5px Nunito, system-ui, sans-serif; }
+.sh-v { flex: none; color: var(--faint); font-size: 15.5px; }
+.sh-group { margin: 24px 12px 8px; color: var(--faint); font: 700 15px Nunito, system-ui, sans-serif; }
 .sh-main { min-width: 0; }
-.sh-top { position: sticky; top: 0; z-index: 6; display: flex; align-items: center; gap: 12px; height: 64px; padding: 0 var(--gutter); border-bottom: 1px solid var(--rule); background: var(--ground); }
+.sh-top { position: sticky; top: 0; z-index: 6; display: flex; align-items: center; gap: 12px; height: 76px; padding: 0 var(--gutter); border-bottom: 1px solid var(--rule); background: var(--ground); }
 .sh-menu { display: none; }
-.sh-crumb { display: flex; align-items: center; gap: 8px; min-width: 0; margin: 0; color: var(--muted); font: 700 14.5px Nunito, system-ui, sans-serif; }
+.sh-crumb { display: flex; align-items: center; gap: 8px; min-width: 0; margin: 0; color: var(--muted); font: 700 17px Nunito, system-ui, sans-serif; }
 .sh-crumb a { color: var(--muted); text-decoration: none; }
 .sh-crumb a:hover { color: #fff; }
 .sh-sep { color: var(--control); }
 .sh-here { overflow: hidden; color: #fff; text-overflow: ellipsis; white-space: nowrap; }
 .sh-switch { display: flex; align-items: center; gap: 4px; align-self: stretch; margin-left: auto; padding-left: 16px; border-left: 1px solid var(--rule); }
-.sh-switch a { padding: 8px 14px; border-radius: 999px; color: var(--muted); font: 600 14.5px/1 Fredoka, Nunito, sans-serif; text-decoration: none; }
+.sh-switch a { padding: 11px 20px; border-radius: 999px; color: var(--muted); font: 600 19px/1 Fredoka, Nunito, sans-serif; text-decoration: none; }
 .sh-switch a:hover { color: #fff; }
 .sh-switch a[aria-current="page"] { background: var(--raised); color: #fff; }
 .sh-canvas.bio-app { max-width: 1240px; margin: 0 auto; padding: 28px var(--gutter) 72px; }
@@ -248,7 +249,7 @@ tr .pg-track i { animation-delay: inherit; }
   body.sh-open { overflow: hidden; }
   body.sh-open .sh-side { position: fixed; inset: 56px 0 0; z-index: 20; display: flex; width: auto; height: auto; padding: 0 16px 24px; border: 0; background: var(--ground); }
   body.sh-open .sh-brand { display: none; }
-  body.sh-open .sh-link { min-height: 48px; font-size: 16px; }
+  body.sh-open .sh-link { min-height: 52px; font-size: 18px; }
   .sh-top { height: 56px; padding: 0 16px 0 8px; gap: 6px; }
   .sh-menu { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border: 0; border-radius: 10px; background: none; color: #fff; cursor: pointer; }
   .sh-burger, .sh-burger::before, .sh-burger::after { display: block; width: 20px; height: 2px; border-radius: 2px; background: currentColor; transition: transform .2s ease, opacity .2s ease; }
@@ -270,6 +271,7 @@ tr .pg-track i { animation-delay: inherit; }
 @media (max-width: 700px) {
   .sh-crumb a, .sh-sep { display: none; }
   .sh-switch a { font-size: 14px; }
+  .sh-crumb { font-size: 15px; }
   .sh-canvas.bio-app { padding: 20px 16px 56px; }
   .cv-title { flex-direction: column; gap: 14px; margin-bottom: 20px; }
   .cv-h1 { font-size: 23px; }
