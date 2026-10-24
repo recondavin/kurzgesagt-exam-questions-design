@@ -144,13 +144,13 @@
  "2007-Q15c": [
   {
    "q": "What is homeostasis, and why is it important in the body? (3 points)",
-   "right": "Maintaining a constant internal environment, so enzymes work well",
+   "right": "Maintaining a constant internal environment, so the temperature suits enzymes",
    "wrong": [
     "Maintaining a constant internal environment, so no excretion is needed",
-    "Letting conditions inside match the outside, so enzymes work well",
-    "Removing undigested food from the gut, so enzymes work well"
+    "Letting conditions inside match the outside, so the temperature suits enzymes",
+    "Removing undigested food from the gut, so the temperature suits enzymes"
    ],
-   "why": "Three points: homeostasis is the maintenance of a constant internal environment, which keeps conditions right for enzymes to work.",
+   "why": "Three points: homeostasis is the maintenance of a constant internal environment, which keeps the temperature suitable for enzyme reactions.",
    "hint": "Homeo means 'same'. For why: which proteins run your cell reactions and need the right heat and pH?",
    "board": true
   }

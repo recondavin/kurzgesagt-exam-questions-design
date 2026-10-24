@@ -390,26 +390,46 @@ def every(*alts):
     return [{'w': a.split(), 'n': len(a.split())} for a in alts]
 
 
+def together(*alts):
+    """Like every(), but all the words in one part of a sentence (the marker's 'c': a new part starts at a comma or a
+    joining word), so "air moves in" earns and "as the ribs move up, the air pressure in the chest falls" doesn't."""
+    return [dict(k, c=1) for k in every(*alts)]
+
+
+def in_order(*alts):
+    """Like every(), but the words in this order with only small words between (the marker's 'o'): "air is exhaled",
+    not "during exhalation the air pressure rises"."""
+    return [dict(k, o=1) for k in every(*alts)]
+
+
 # The breathing disorders a student may name, with what causes, prevents and treats each (from the schemes' answers
 # and accept lists, 2007-2019). A cause, prevention or treatment earns only with the disorder it belongs to
 # ("asthma ... inhaler"), so "asthma ... antibiotics" doesn't; where the disorder was named in another part, any of them.
+# Each needs the words that make it a cause, prevention or treatment: not "avoid" alone, "rest" (restricted airways),
+# "oxygen" or "enzymes" (said in describing the disorder), or "inflammation" for anti-inflammatories.
 DISORDERS = {
     'asthma': {'names': ('asthma',),
-               'cause': ('allerg', 'dust', 'pollen', 'pet', 'animal hair', 'dander', 'mite', 'smok', 'cold air', 'pollut', 'inherit', 'genet', 'constrict', 'narrow'),
-               'prevent': ('avoid', 'not breath', 'away from', 'keep clean', 'no pet', 'not smok', 'dont smok', 'no smok', 'reduc dust', 'clean dust'),
+               'cause': ('allerg', 'dust', 'pollen', 'pet', 'animal hair', 'dander', 'mite', 'smok', 'cold air', 'pollut', 'inherit', 'genet',
+                         'constrict bronchiol', 'narrow bronchiol', 'constrict airway', 'narrow airway'),
+               'prevent': ('avoid allerg', 'avoid dust', 'avoid pollen', 'avoid pet', 'avoid mite', 'avoid smok', 'avoid trigger', 'avoid pollut', 'avoid cold air',
+                           'not breath dust', 'not breath allerg', 'not breath pollen', 'not breath hair', 'not breath smok',
+                           'away from allerg', 'away from dust', 'away from pollen', 'away from pet', 'away from smok',
+                           'keep house clean', 'no pet', 'not smok', 'dont smok', 'no smok', 'reduc dust', 'clean dust'),
                'treat': ('inhal', 'bronchodilat', 'steroid', 'ventolin', 'pump', 'avoid allerg')},
     'bronchitis': {'names': ('bronchit',),
                    'cause': ('smok', 'virus', 'viral', 'bacteri', 'infect', 'pollut', 'dust', 'particle', 'irritant', 'fume'),
                    'prevent': ('not smok', 'dont smok', 'stop smok', 'quit smok', 'no smok', 'avoid smok', 'avoid pollut', 'avoid dust', 'mask', 'vaccin', 'wash hand'),
-                   'treat': ('antibiotic', 'inhal', 'bronchodilat', 'mucolytic', 'inflammat', 'cough medic', 'cough syrup', 'steroid', 'rest', 'fluid')},
+                   'treat': ('antibiotic', 'inhal', 'bronchodilat', 'mucolytic', 'anti inflammat', 'antiinflammat', 'cough medic', 'cough syrup', 'steroid',
+                             'bed rest', 'rest fluid', 'drink fluid')},
     'emphysema': {'names': ('emphysema', 'copd'),
                   'cause': ('smok', 'pollut', 'dust', 'fume', 'genet', 'inherit'),
                   'prevent': ('not smok', 'dont smok', 'stop smok', 'quit smok', 'no smok', 'avoid smok', 'avoid pollut', 'mask'),
-                  'treat': ('inhal', 'bronchodilat', 'oxygen', 'steroid', 'stop smok', 'quit smok', 'surgery', 'transplant')},
+                  'treat': ('inhal', 'bronchodilat', 'oxygen therap', 'oxygen tank', 'oxygen mask', 'give oxygen', 'steroid', 'stop smok', 'quit smok', 'surgery',
+                            'transplant')},
     'pneumonia': {'names': ('pneumonia',),
                   'cause': ('bacteri', 'virus', 'viral', 'infect', 'fung'),
                   'prevent': ('vaccin', 'wash hand', 'hygien', 'not smok', 'dont smok'),
-                  'treat': ('antibiotic', 'antivir', 'rest', 'fluid', 'oxygen')},
+                  'treat': ('antibiotic', 'antivir', 'bed rest', 'rest fluid', 'drink fluid', 'oxygen therap', 'oxygen mask', 'give oxygen')},
     'tuberculosis': {'names': ('tubercul', 'tb'),
                      'cause': ('bacteri', 'mycobacter', 'infect'),
                      'prevent': ('vaccin', 'bcg', 'pasteur'),
@@ -417,11 +437,11 @@ DISORDERS = {
     'lung cancer': {'names': ('lung cancer',),
                     'cause': ('smok', 'radon', 'asbestos', 'pollut', 'carcinogen', 'tar'),
                     'prevent': ('not smok', 'dont smok', 'stop smok', 'quit smok', 'no smok', 'avoid smok', 'avoid asbestos', 'avoid radon'),
-                    'treat': ('chemo', 'radiotherap', 'radiation', 'surgery', 'remov')},
+                    'treat': ('chemo', 'radiotherap', 'radiation therap', 'surgery', 'remov tumour', 'remov lung')},
     'cystic fibrosis': {'names': ('cystic fibrosis',),
                         'cause': ('gene', 'genet', 'inherit', 'mutat'),
                         'prevent': ('genetic screen', 'genetic test', 'genetic counsel'),
-                        'treat': ('physio', 'enzyme', 'antibiotic', 'transplant', 'mucolytic')},
+                        'treat': ('physio', 'enzyme suppl', 'enzyme tablet', 'enzyme capsul', 'take enzyme', 'antibiotic', 'transplant', 'mucolytic')},
 }
 
 
@@ -429,24 +449,42 @@ def disorder_named():
     return every(*[n for d in DISORDERS.values() for n in d['names']])
 
 
-def disorder_keys(what, paired=True):
-    """Keys for a disorder's cause, prevention or treatment: with its name (paired), or any disorder's (not paired)."""
+AVOID = ('avoid', 'away', 'not', 'no', 'dont', 'stop', 'quit', 'reduc', 'clean', 'keep', 'wash')  # keys that say what to keep away from
+
+
+def disorder_keys(what, paired=True, only=None):
+    """Keys for a disorder's cause, prevention or treatment: with its name (paired), or any disorder's (not paired);
+    only: just these disorders. Not paired, "avoid ...", "not smoking" and the like are said together, so "cause:
+    smoking; prevention: avoid exercise" doesn't earn "avoid smoking"."""
+    ds = [d for name, d in DISORDERS.items() if not only or name in only]
     if not paired:
-        return every(*sorted({w for d in DISORDERS.values() for w in d[what]}))
-    return every(*[n + ' ' + w for d in DISORDERS.values() for n in d['names'] for w in d[what]])
+        return [dict(k, c=1) if len(k['w']) > 1 and k['w'][0] in AVOID else k for k in every(*sorted({w for d in ds for w in d[what]}))]
+    return every(*[n + ' ' + w for d in ds for n in d['names'] for w in d[what]])
 
 
 # Keys used by several parts: the same fact in the student's own words.
-THIN = every('wall thin', 'membrane thin', 'thin lining', 'one cell thick', '1 cell thick', 'single cell')
+THIN = every('wall thin', 'membrane thin', 'thin lining', 'one cell thick', '1 cell thick', 'single cell thick', 'single layer cell')
 MOIST = every('moist', 'wet surfac', 'wet lining', 'wet wall')
-CAPS = every('capillar network', 'rich capillar', 'capillar supp', 'dense capillar', 'many capillar', 'capillar surround', 'rich blood supp', 'good blood supp')
-CLOSE = every('proximity', 'close capillar', 'close alveol', 'near capillar', 'near alveol', 'contact capillar', 'contact alveol')
+CAPS = every('capillar network', 'rich capillar', 'capillar supply', 'dense capillar', 'many capillar', 'capillar surround', 'rich blood supply', 'good blood supply')
+# Close to the capillaries (or blood): not "the alveoli are close together".
+CLOSE = every('proximity', 'close capillar', 'near capillar', 'contact capillar',
+              *[b + ' ' + c + ' alveol' for b in ('blood', 'vessel') for c in ('close', 'near', 'contact')])
 FASTER = every('fast', 'rapid', 'frequen', 'rate increas', 'rate high', 'rate up')
-RIBS_UP = every(*[r + ' ' + d for r in ('ribcage', 'rib') for d in ('up', 'out', 'upward', 'outward', 'lift')])
+# The ribs' way: up (2007), up or out (2017), up AND out (2014, 2021), so "down and out" doesn't earn "up and out".
+RIBS_UP = every(*[r + ' ' + d for r in ('ribcage', 'rib') for d in ('up', 'upward', 'lift')])
+RIBS_OUT = every(*[r + ' ' + d for r in ('ribcage', 'rib') for d in ('out', 'outward')])
+RIBS_UP_OUT = every(*[r + ' ' + u + ' ' + o for r in ('ribcage', 'rib') for u in ('up', 'upward', 'lift') for o in ('out', 'outward')])
 DIA_DOWN = every('diaphragm down', 'diaphragm downward', 'diaphragm flat', 'diaphragm lower')
 VOL_UP = every('volume increas', 'volume larg', 'chest expand', 'thora expand', 'chest larg', 'thora larg')
 P_DOWN = every('pressure decreas', 'pressure lower', 'pressure low', 'pressure less')
-AIR_IN = every('air in', 'air into', 'air enter', 'air rush', 'air drawn', 'air suck')
+# Air moving in (or out), said of the air: not "the air pressure in the chest falls" or "during exhalation the air ...".
+AIR_IN = together('air into', 'air enter', *['air ' + v + ' in' for v in ('move', 'rush', 'flow', 'draw', 'suck', 'pull', 'push', 'forc', 'come', 'goe',
+                                                                         'breath', 'take', 'let')]) + in_order('air in')
+AIR_OUT = together('air out', 'air leav', 'air expel') + in_order('air exhal')
+# The asthma and bronchitis treatments the schemes list (2017, 2019), "anti-inflammatories" with its "anti", and a named
+# inhaler (2019: "allow named ones"; "pump" is the everyday word for one).
+ASTHMA_TREAT = ('inhal', 'bronchodilat', 'ventolin', 'salbutamol', 'pump')
+BRONCHITIS_TREAT = ('antibiotic', 'inhal', 'bronchodilat', 'mucolytic', 'anti inflammat', 'antiinflammat', 'cough medic', 'cough syrup')
 
 
 # Per-question corrections the general rules can't work out: given labels, graphs, and answer types.
@@ -490,76 +528,97 @@ OVERRIDES = {
     'points': {
         # The disorder is named by the student; its cause, prevention and treatment earn with that disorder (DISORDERS).
         '2009-Q13c(iii)': {0: disorder_named(), 1: disorder_keys('cause'), 2: disorder_keys('prevent'), 3: disorder_keys('treat')},
-        # Here the disorder was named in (iii), so any disorder's cause, prevention or treatment earns.
-        '2007-Q13c(iv)': {0: disorder_keys('cause', False), 1: disorder_keys('prevent', False), 2: disorder_keys('treat', False)},
+        # Here the disorder was named in (iii), where the 2007 scheme takes asthma or bronchitis, so either one's cause,
+        # prevention or treatment earns. Not "bronchodilat" on its own: the marker reads "bronchi" as it (same stem), and
+        # "bronchi" is in most causes ("inflammation of the bronchi"); "bronchodilator inhaler" earns by "inhaler".
+        '2007-Q13c(iv)': {i: [k for k in disorder_keys(w, False, ('asthma', 'bronchitis')) if k['w'] != ['bronchodilat']]
+                          for i, w in enumerate(('cause', 'prevent', 'treat'))},
         'S1-Q3a(iii)': {0: THIN + every('short distanc', 'short diffu'), 2: MOIST + every('gas dissolv', 'oxygen dissolv', 'dissolv lining'),
                         3: CAPS + CLOSE},
         # High/Low in a table: the words of a right answer and of its mirror image are the same, so the student ticks.
         'S1-Q3c(ii)': {0: 'self', 1: 'self'},
         'S1-Q3c(i) 1.': {0: every('hydrogencarbonate', 'bicarbonate', 'hydrogen carbonate', 'hco3')},
         'S1-Q3c(i) 2.': {0: every('haemoglobin', 'oxyhaemoglobin', 'red cell', 'erythrocyt')},  # the scheme also accepts 'by red blood cells'
-        'S1-Q3c(iii)': {0: every('axis time', 'axis blood', 'axis ph', 'x time', 'y ph'),
-                        1: every('even scale', 'suitabl scale', 'equal scale', 'equal interval', 'even interval', 'regular interval', 'scale 7'),
+        # Both axes (time and pH), even scales, and the two lines told apart: not one axis, a "suitable scale" or "two lines".
+        'S1-Q3c(iii)': {0: every('axis time ph', 'x time y ph'),
+                        1: every('even scale', 'equal scale', 'equal interval', 'even interval', 'regular interval', 'scale 7'),
                         2: 'self',  # every point plotted right: only the graph shows it
-                        3: every('two line', 'two curve', '2 line', '2 curve', 'line each', 'curve each', 'line label', 'curve label', 'line key', 'curve key')},
-        'S1-Q3c(iv)': {1: every('ph norm', 'ph stay', 'ph stabl', 'ph constant', 'ph steady', 'ph 7 35', 'ph 7 17', 'acid'),
-                       2: every('co2 build', 'co2 accumul', 'less co2 blood', 'co2 remov fast', 'co2 remov more', 'co2 exhal', 'breath fast', 'breath deep')},
+                        3: every('line each', 'curve each', 'line label', 'curve label', 'line key', 'curve key', 'line person', 'curve person')},
+        # "Acid" alone is in the question; CO2 building up needs "less" (in A) or B; breathing faster needs the CO2 it removes.
+        'S1-Q3c(iv)': {1: every('ph norm', 'ph stay', 'ph stabl', 'ph constant', 'ph steady', 'ph 7 35', 'ph 7 17'),
+                       2: every('less co2 build', 'less co2 accumul', 'co2 build b', 'co2 accumul b', 'less co2 blood', 'co2 remov fast', 'co2 remov more',
+                                'co2 exhal more', 'co2 exhal fast', 'breath fast co2', 'breath deep co2')},
+        # Deeper: more air in each breath (not "more air", which faster breathing gives too).
         'S1-Q3d(iv)': {0: FASTER + every('13 50', 'every 1 2'),
-                       1: every('deep', 'volume increas', 'volume larg', 'volume high', 'more air', 'larg breath', '2 4 l')},
-        'S2-Q5a(iv)': {0: every('low lung', 'aorta low', 'lung remov', 'lung lost', 'lung diffu'),
+                       1: every('deep', 'volume increas', 'volume larg', 'volume high', 'more air each breath', 'more air per breath', 'larg breath', '2 4 l')},
+        # A is low having come FROM the lungs, where CO2 diffused OUT (not "low as it goes to the lungs").
+        'S2-Q5a(iv)': {0: every('aorta low', *['low ' + w + ' lung' for w in ('from', 'left', 'leav', 'after')], 'lung remov', 'lung lost',
+                                'lung diffu out', 'alveol diffu out'),
                        1: every('high respir', 'high cell', 'high body', 'high tissue', 'high pulmonary', 'respir add', 'cell add', 'body add', 'tissue add'),
                        2: every(*[w + ' ' + u for w in ('co2', 'concentr', 'level') for u in ('increas', 'up')], 'more co2')},
-        '2026-Q3(b)': {0: every('food trachea', 'food windpipe', 'food airway', 'food lung', 'close trachea', 'cover trachea', 'block trachea',
-                                'seal trachea', 'close windpipe', 'cover windpipe', 'block windpipe', 'cover glottis', 'close glottis',
-                                'cover larynx', 'close larynx')},
+        # Food kept out of the trachea (windpipe): not the airway, lungs, larynx or glottis, which the scheme doesn't say.
+        '2026-Q3(b)': {0: every(*[v + ' ' + t for t in ('trachea', 'windpipe') for v in ('food', 'close', 'cover', 'block', 'seal')])},
         '2026-Q3(a)': {0: every('thoracic', 'chest')},  # the chest cavity: the 2010 scheme accepts "chest" too
         '2010-Q7a(i)': {0: every('thoracic', 'chest')},  # the 2010 scheme: "Thoracic or chest"
-        '2026-Q3(c)': {0: every('keep open', 'hold open', 'stay open', 'collaps')},
+        # Kept open, or kept from collapsing ("collapse" alone would let "so it can collapse" in).
+        '2026-Q3(c)': {0: every('keep open', 'hold open', 'stay open', *[n + ' collaps' for n in ('prevent', 'stop', 'keep', 'not', 'dont', 'doesnt', 'wont', 'cannot')])},
         '2026-Q3(f)': {0: every('up out', 'up outward', 'upward out', 'upward outward')},  # "moves" alone let "down and out" in
         '2025-Q16b(v)': {0: every('muscle relax', 'intercost relax', 'diaphragm relax'),
-                         # Not "ribs fall" / "diaphragm rises": those read as decrease / increase, which every answer has (volume, pressure).
-                         1: every('ribcage down', 'ribcage inward', 'ribcage lower', 'rib down', 'rib inward', 'rib lower'),
-                         2: every('diaphragm up', 'diaphragm upward', 'diaphragm dome'),
+                         # Down AND in, so "up and in" or "down and out" doesn't earn it. ("The ribs fall" reads as down.)
+                         1: every(*[r + ' ' + d + ' inward' for r in ('ribcage', 'rib') for d in ('down', 'downward', 'lower')]),
+                         # Back to its dome, not "flattens from a dome".
+                         2: every('diaphragm up', 'diaphragm upward', 'diaphragm becom dome', 'diaphragm return dome'),
                          3: every('volume decreas', 'volume small', 'chest small', 'thora small'),
                          4: every('pressure increas', 'pressure high'),
-                         5: every('air out', 'air leav', 'air expel', 'air exhal')},
+                         5: AIR_OUT},
         # "Correct matching treatment": the disorder and a treatment for it (2017 and 2019 lists, plus steroids for asthma).
-        '2025-Q16b(vi)': {0: every(*['asthma ' + t for t in ('inhal', 'bronchodilat', 'steroid', 'avoid allergen')],
-                                   *['bronchitis ' + t for t in ('antibiotic', 'inhal', 'bronchodilat', 'mucolytic', 'inflammat', 'cough medic', 'cough syrup')])},
+        '2025-Q16b(vi)': {0: every(*['asthma ' + t for t in ASTHMA_TREAT + ('steroid', 'avoid allergen')], *['bronchitis ' + t for t in BRONCHITIS_TREAT])},
         '2021-Q16d(ii)': {1: CAPS, 2: MOIST, 3: THIN},
         '2021-Q16d(v)': {0: FASTER},
-        '2021-Q16d(vi)': {2: RIBS_UP, 3: DIA_DOWN, 4: VOL_UP, 5: P_DOWN, 6: AIR_IN},
+        '2021-Q16d(vi)': {2: RIBS_UP_OUT, 3: DIA_DOWN, 4: VOL_UP, 5: P_DOWN, 6: AIR_IN},
         # Name, cause and treatment of ONE disorder: each cause and treatment is keyed with its disorder's name, so
-        # asthma with a bronchitis treatment doesn't earn it.
-        '2019-Q6(c)': {1: every(*['asthma ' + c for c in ('allergen', 'dust', 'pollen', 'pet', 'dander', 'smok', 'constrict', 'narrow')]),
-                       2: every('asthma inhal', 'asthma bronchodilat', 'asthma avoid allergen'),
+        # asthma with a bronchitis treatment doesn't earn it. Only the 2019 lists (asthma's cause there is a trigger).
+        '2019-Q6(c)': {1: every(*['asthma ' + c for c in ('allergen', 'dust', 'pollen', 'pet', 'dander', 'smok')]),
+                       2: every(*['asthma ' + t for t in ASTHMA_TREAT]),
                        4: every(*['bronchitis ' + c for c in ('virus', 'viral', 'bacteri', 'infect', 'smok', 'particle', 'pollut', 'irritant', 'dust')]),
-                       5: every(*['bronchitis ' + t for t in ('antibiotic', 'inhal', 'bronchodilat', 'mucolytic', 'inflammat', 'cough medic', 'cough syrup')])},
-        '2017-Q15a(iii)': {0: every('increas co2', 'more co2', 'high co2'),
+                       5: every(*['bronchitis ' + t for t in BRONCHITIS_TREAT])},
+        # "Increased CO2" said of the CO2 (not "breathing increases to lower CO2"); the ribs: up or out, as the 2017 scheme says.
+        '2017-Q15a(iii)': {0: together('increas co2') + every('more co2', 'high co2'),
                            1: every('message brain', 'impulse brain', 'signal brain', 'medulla impulse', 'medulla signal', 'medulla message'),
                            2: every('diaphragm contract', 'contract flat') + DIA_DOWN,
-                           3: every('intercost contract', 'muscle rib contract') + RIBS_UP,
-                           4: VOL_UP, 5: P_DOWN},
-        # The disorder is named in (iv), so these can't be tied to it.
+                           3: every('intercost contract', 'muscle rib contract') + RIBS_UP + RIBS_OUT,
+                           4: VOL_UP, 5: P_DOWN, 6: AIR_IN},
+        # The scheme's "Ribcage moves up and out" and "Air in" (its own keys were "ribcage moves out" and "air").
+        '2014-Q12b(ii)': {3: RIBS_UP_OUT, 7: AIR_IN},
+        # The scheme's "(Diaphragm) lowers", "Rib cage up" and "Air in" (its own keys were "lower", "ribcage" and "air").
+        '2007-Q13b(iii)': {3: DIA_DOWN, 5: RIBS_UP, 6: AIR_IN},
+        # The disorder is named in (iv), so these can't be tied to it (and, as in 2007, no "bronchodilat" alone: "bronchi").
         '2017-Q15a(v)': {0: every('allergen', 'dust', 'pollen', 'pet', 'dander', 'constrict bronchiol', 'narrow bronchiol', 'constrict airway', 'narrow airway'),
-                         1: every('inhal', 'bronchodilat', 'steroid', 'avoid allergen', 'avoid dust', 'avoid pollen'),
+                         1: every(*[t for t in ASTHMA_TREAT if t != 'bronchodilat'], 'steroid') + together('avoid allergen', 'avoid dust', 'avoid pollen'),
                          2: every('infect', 'virus', 'viral', 'bacteri', 'smok', 'irritant', 'pollut', 'particle'),
-                         3: every('antibiotic', 'cough medic', 'mucolytic', 'inflammat')},
-        '2016-Q8b(ii)': {0: every('compar', 'baseline')},
+                         3: every('antibiotic', 'cough medic', 'mucolytic', 'anti inflammat', 'antiinflammat')},
+        '2016-Q8b(ii)': {0: every('compar')},
         '2016-Q8b(iii)': {0: every('axis dura', 'x dura', 'axis time', 'x time', 'x minute'),
-                          1: every('axis rate', 'y rate', 'y pulse', 'y breath'),
+                          1: every('y rate', 'y pulse', 'y breath', 'vertical rate'),  # the y-axis, not just "an axis"
                           2: every(*[w + ' ' + m for w in ('b', 'overweight', 'unfit') for m in ('more', 'high', 'great', 'steep', 'larg')])},
+        # "Rate" alone, and "recovery time ... returns to normal", are in the question.
         '2016-Q8b(iv)': {0: every('immediate', 'right after', 'straight after', 'directly after', 'just after', 'soon after', 'as soon'),
-                         2: every('rate', 'minute', 'bpm', '60 second', '60 sec'),
+                         1: every('count pulse', 'count breath', 'count beat'),  # the scheme's own key was "breathing" alone
+                         2: every(*[w + ' minute' for w in ('per', 'each', 'every', 'one', '1', 'count', 'beat')], 'bpm', '60 second', '60 sec',
+                                  'count rate', 'record rate', 'take rate'),
                          3: every(*[' '.join((t, u, r)) for t in ('time', 'long', 'stopwatch') for u in ('until', 'till', 'return', 'back')
-                                    for r in ('rest', 'normal')])},
+                                    for r in ('rest', 'normal') if (t, u, r) != ('time', 'return', 'normal')])},
         # The reason is keyed with its vessel's own words: "removed in the lungs" for the vein, "CO2-rich" for the artery.
+        # Low in CO2 FROM the lungs, CO2 diffusing OUT there: not "low as it goes to the lungs", "diffuses from the lungs".
         '2014-Q12c(iv)': {0: every('pulmonary vein', 'pulmonary arter'),
-                          1: every('clear co2', 'co2 remov lung', 'co2 lost lung', 'co2 low lung', 'co2 diffu lung', 'co2 exhal',
-                                   'arter co2 rich', 'arter co2 high', 'arter more co2')},
-        '2014-Q12c(v)': {0: every('medulla co2', 'oblongata co2', 'medulla ph', 'medulla acid'),
+                          1: every('clear co2', 'co2 remov lung', 'co2 lost lung', *['co2 low ' + w + ' lung' for w in ('from', 'left', 'leav', 'after')],
+                                   'co2 diffu out lung', 'co2 exhal', 'arter co2 rich', 'arter co2 high', 'arter more co2')},
+        # The scheme's medulla registers CO2 (not pH). More CO2 -> faster: "increases" said of the CO2 in the same part of
+        # the sentence, so "if CO2 decreases, the breathing rate increases" doesn't earn it.
+        '2014-Q12c(v)': {0: every('medulla co2', 'oblongata co2'),
                          1: every(*[m + ' co2 ' + f for m in ('more', 'increas', 'high') for f in ('fast', 'speed', 'rapid', 'frequen')],
-                                  'co2 rate increas', 'co2 breath increas')},
+                                  *[m + ' co2 ' + r + ' increas' for m in ('more', 'high') for r in ('rate', 'breath')])
+                         + together('co2 rate increas', 'co2 breath increas')},
         '2014-Q9b(ii) 2.': {0: every('feel pulse', 'locat pulse', 'find pulse', 'pulse wrist', 'pulse neck', 'finger wrist', 'finger neck',
                                      'observ breath', 'watch breath', 'watch chest'),
                             1: every(*['count ' + t for t in ('time', 'minute', 'second', 'sec', '60', '30', '15', '20', '10')],

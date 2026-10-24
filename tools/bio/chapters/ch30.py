@@ -425,6 +425,36 @@ def base_of(what):
     return None
 
 
+# Key lists shared by several hand-written points below (each used only where it fits every one of their schemes).
+_SURFACE = [{'w': [x, 'surface'], 'n': 2} for x in ('large', 'bigg', 'increase', 'great', 'maxim', 'more', 'vast')]  # a LARGE surface area
+# A rich blood supply: "large blood vessels" is not one, so "large" needs "supply" ("a large network" has "network").
+_BLOOD = ([{'w': [x, y], 'n': 2} for x in ('rich', 'good', 'many', 'network', 'plenty', 'extensive', 'dense') for y in ('blood', 'capillar')] +
+          [{'w': ['large', 'blood', 'supply'], 'n': 3}])
+_ONE_CELL = [{'w': ['one', 'cell', 'thick'], 'n': 3}, {'w': ['single', 'cell'], 'n': 2}, {'w': ['single', 'layer'], 'n': 2}]
+_THIN = [{'w': ['thin', x], 'n': 2} for x in ('wall', 'lining', 'membrane', 'epitheli', 'layer')]  # only where the scheme says thin
+_DROPLETS = [{'w': [a, b], 'n': 2} for a in ('small', 'break', 'split') for b in ('droplet', 'globule')]  # emulsifying described
+_CONTRACTIONS = ([{'w': ['muscle', x], 'n': 2} for x in ('contrac', 'squeez')] +
+                 [{'w': ['contrac', x], 'n': 2} for x in ('wave', 'relax', 'wall')])  # muscular contractions
+_VITAMINS = [{'w': ['vitamin', x], 'n': 2} for x in ('make', 'synthes', 'provid', 'source', 'secret', 'releas')]
+_COMPETE = [{'w': [c, x], 'n': 2} for c in ('compet', 'outcompet') for x in ('pathogen', 'harm', 'micro', 'bacteri', 'germ')]
+# Inhibiting pathogens (where the scheme has it): "prevents harm" alone is too vague, so "harm" needs what is harmful.
+_INHIBIT = ([{'w': [i, x], 'n': 2} for i in ('inhibit', 'prevent', 'stop', 'block') for x in ('pathogen', 'germ')] +
+            [{'w': [i, 'harm', x], 'n': 3} for i in ('inhibit', 'prevent', 'stop', 'block') for x in ('bacteri', 'micro', 'organism')])
+# Symbiotic: living in (or on) another organism, with benefit ("bacteria that benefit each other" leaves out living in).
+_SYMBIOTIC = [{'w': [b, x], 'n': 2} for b in ('benefi', 'mutual') for x in ('live', 'host')]
+_HPV = [{'w': ['hepatic', 'port'], 'n': 2}]  # the scheme's "Hepatic portal vein": "hepatic" is not optional
+_HEAT = [{'w': ['heat', x], 'n': 2} for x in ('gener', 'make', 'releas')]
+# Diet and the circulatory system: a dietary factor with ITS effect. Fats clog arteries and lead to heart disease; salt
+# raises blood pressure (it doesn't clog arteries); sugar only with heart disease.
+_FATTY, _SALTY = ('fat', 'fatty', 'saturat', 'cholesterol', 'junk', 'fried'), ('salt', 'sodium')
+_DIET = ([{'w': [f, e], 'n': 2} for f in _FATTY for e in ('clog', 'block', 'plaque', 'deposit', 'atheroma', 'atheroscl', 'narrow', 'harden',
+                                                           'hypertens', 'stroke', 'coronary', 'thromb')] +
+         [{'w': [s, e], 'n': 2} for s in _SALTY for e in ('hypertens', 'stroke')] +
+         [{'w': [f, a, b], 'n': 3} for f in _FATTY + _SALTY
+          for a, b in (('increase', 'pressure'), ('high', 'pressure'), ('heart', 'disease'), ('heart', 'attack'))] +
+         [{'w': ['sugar', 'heart', x], 'n': 3} for x in ('disease', 'attack')])
+
+
 # Per-question corrections the general rules can't work out: the graphs (x and y from 0 to 100), and a circulation
 # diagram that mentions the gut and kidneys but is not one of this chapter's diagrams.
 OVERRIDES = {
@@ -460,69 +490,63 @@ OVERRIDES = {
     'points': {
         # The liver's role: making bile, and what bile does (unofficial scheme).
         'S1-Q1a(ii)': {0: [{'w': ['make', 'bile'], 'n': 2}, {'w': ['secret', 'bile'], 'n': 2}],
-                       1: [{'w': ['emulsif'], 'n': 1}, {'w': ['surface', 'area'], 'n': 2}, {'w': ['neutralis'], 'n': 1}] +
-                          [{'w': [a, b], 'n': 2} for a in ('small', 'break', 'split') for b in ('droplet', 'globule')]},
+                       1: [{'w': ['emulsif'], 'n': 1}, {'w': ['neutralis'], 'n': 1}] + _SURFACE + _DROPLETS},
+        # Acid in the stomach: kills bacteria, or the accepts written there (optimum pH for pepsin, activates pepsinogen,
+        # denatures proteins); "pepsin" or "denatures" alone says neither.
         'S1-Q6c(ii)': {0: [{'w': ['kill', x], 'n': 2} for x in ('bacteri', 'germ', 'pathogen', 'micro')] +
-                          [{'w': ['pepsin'], 'n': 1}, {'w': ['denatur'], 'n': 1}, {'w': ['break', 'protein'], 'n': 2}]},
-        # Diet and the circulatory system: a dietary factor with its effect (raised pressure, clogged arteries, heart
-        # disease), so "salt lowers blood pressure" or "fat keeps arteries clear" earn nothing.
-        '2026-Q17a(vi)': {0: [{'w': [f, e], 'n': 2} for f in ('salt', 'sodium', 'fat', 'fatty', 'saturat', 'cholesterol', 'sugar', 'junk', 'fried')
-                              for e in ('clog', 'block', 'plaque', 'deposit', 'atheroma', 'atheroscl', 'narrow', 'harden', 'hypertens', 'stroke', 'coronary', 'thromb')] +
-                             [{'w': [f, a, b], 'n': 3} for f in ('salt', 'sodium', 'fat', 'fatty', 'saturat', 'cholesterol', 'sugar', 'junk', 'fried')
-                              for a, b in (('increase', 'pressure'), ('high', 'pressure'), ('heart', 'disease'), ('heart', 'attack'))]},
-        '2009-Q13b(ii)': {0: [{'w': [f, e], 'n': 2} for f in ('salt', 'sodium', 'fat', 'fatty', 'saturat', 'cholesterol', 'sugar', 'junk', 'fried')
-                              for e in ('clog', 'block', 'plaque', 'deposit', 'atheroma', 'atheroscl', 'narrow', 'harden', 'hypertens', 'stroke', 'coronary', 'thromb')] +
-                             [{'w': [f, a, b], 'n': 3} for f in ('salt', 'sodium', 'fat', 'fatty', 'saturat', 'cholesterol', 'sugar', 'junk', 'fried')
-                              for a, b in (('increase', 'pressure'), ('high', 'pressure'), ('heart', 'disease'), ('heart', 'attack'))]},
-        # Hepatic portal vein: "portal vein" names it too (the 2006 scheme writes "(hepatic) portal vein").
-        '2025-Q17a(i)': {0: [{'w': ['hepatic', 'port'], 'n': 2}, {'w': ['port', 'vein'], 'n': 2}]},
-        '2023-Q17c(i)': {0: [{'w': ['hepatic', 'port'], 'n': 2}, {'w': ['port', 'vein'], 'n': 2}]},
-        '2021-Q14b(iv)': {0: [{'w': ['hepatic', 'port'], 'n': 2}, {'w': ['port', 'vein'], 'n': 2}]},
-        '2019-Q15b(viii)': {0: [{'w': ['hepatic', 'port'], 'n': 2}, {'w': ['port', 'vein'], 'n': 2}]},
-        '2016-Q15a(ii)': {0: [{'w': ['hepatic', 'port'], 'n': 2}, {'w': ['port', 'vein'], 'n': 2}]},
-        '2026-Q7c(c)': {0: [{'w': [x, 'liver'], 'n': 2} for x in ('under', 'below', 'beneath', 'behind')]},
-        # Peristalsis described: muscle contractions (muscular = muscle in bio.js), or contractions of the wall.
-        '2025-Q6(b)': {1: [{'w': ['muscle', x], 'n': 2} for x in ('contrac', 'squeez', 'push')] +
-                          [{'w': ['contrac', x], 'n': 2} for x in ('wave', 'relax', 'wall')]},
-        '2021-Q14b(vii)': {1: [{'w': ['muscle', x], 'n': 2} for x in ('contrac', 'squeez', 'push')] +
-                              [{'w': ['contrac', x], 'n': 2} for x in ('wave', 'relax', 'wall')]},
-        '2019-Q15b(iii)': {1: [{'w': ['muscle', x], 'n': 2} for x in ('contrac', 'squeez', 'push')] +
-                              [{'w': ['contrac', x], 'n': 2} for x in ('wave', 'relax', 'wall')]},
+                          [{'w': [x, 'pepsin'], 'n': 2} for x in ('optim', 'best', 'activ')] + [{'w': ['activ', 'pepsinog'], 'n': 2},
+                           {'w': ['denatur', 'protein'], 'n': 2}, {'w': ['break', 'protein'], 'n': 2}]},
+        # Diet and the circulatory system: a dietary factor with its matching effect, so "salt lowers blood pressure",
+        # "fat keeps arteries clear" or "salt clogs the arteries" earn nothing.
+        '2026-Q17a(vi)': {0: _DIET},
+        '2009-Q13b(ii)': {0: _DIET},
+        # Hepatic portal vein: the scheme's term (starred in 2019-2025), so "portal vein" without "hepatic" is not it.
+        '2025-Q17a(i)': {0: _HPV},
+        '2023-Q17c(i)': {0: _HPV},
+        '2021-Q14b(iv)': {0: _HPV},
+        '2019-Q15b(viii)': {0: _HPV},
+        '2016-Q15a(ii)': {0: _HPV},
+        '2026-Q7c(c)': {0: [{'w': [x, 'liver'], 'n': 2} for x in ('under', 'below', 'beneath')]},  # underneath, not behind
+        # Peristalsis described: muscular contractions (muscular = muscle in bio.js, squeeze = contract), or contractions
+        # of the wall; "muscles push food" leaves out the contractions.
+        '2025-Q6(b)': {1: _CONTRACTIONS},
+        '2021-Q14b(vii)': {1: _CONTRACTIONS},
+        '2019-Q15b(iii)': {1: _CONTRACTIONS},
         '2004-Q61': {0: [{'w': ['muscle', x], 'n': 2} for x in ('contrac', 'squeez', 'push', 'activit')] +
                         [{'w': ['contrac', x], 'n': 2} for x in ('wave', 'relax', 'wall', 'food')] +
                         [{'w': ['move', 'food'], 'n': 2}, {'w': ['push', 'food'], 'n': 2}]},  # [allow 'movement of food']
-        '2025-Q6(c)': {0: [{'w': ['lower'], 'n': 1}, {'w': ['low'], 'n': 1}, {'w': ['decrease'], 'n': 1}, {'w': ['acid'], 'n': 1}]},
+        # The pH lowers: "low" or "acidic" alone can't tell "from low to high" or "less acidic" from it.
+        '2025-Q6(c)': {0: [{'w': ['lower'], 'n': 1}, {'w': ['decrease'], 'n': 1}] +
+                          [{'w': [x, 'acid'], 'n': 2, 'c': True} for x in ('more', 'increase')]},
         '2024-Q17a(ii)': {1: [{'w': ['stomach', x], 'n': 2} for x in ('acid', 'low', 'lower', '2')] +
                              [{'w': ['acid', 'environ'], 'n': 2}, {'w': ['gastric', 'acid'], 'n': 2}]},
+        # Transport food to the stomach ("takes in food" is the mouth's job, so "take" needs the bolus or the stomach).
         '2024-Q3(b)': {0: [{'w': [v, x], 'n': 2} for v in ('transport', 'carry', 'move', 'push', 'pass', 'take', 'bring', 'convey', 'deliver')
-                           for x in ('food', 'bolus', 'stomach')]},
+                           for x in ('food', 'bolus', 'stomach') if (v, x) != ('take', 'food')]},
         # The liver: any correct function ([accept stores vitamins / minerals / glycogen, plasma proteins, detoxifies]).
         '2024-Q3(c)': {0: [{'w': ['make', 'bile'], 'n': 2}, {'w': ['secret', 'bile'], 'n': 2}, {'w': ['glucose', 'glycogen'], 'n': 2},
                            {'w': ['detox'], 'n': 1}, {'w': ['toxin'], 'n': 1}, {'w': ['poison'], 'n': 1}, {'w': ['break', 'alcohol'], 'n': 2},
                            {'w': ['deamin'], 'n': 1}, {'w': ['amino', 'urea'], 'n': 2}, {'w': ['make', 'urea'], 'n': 2}, {'w': ['form', 'urea'], 'n': 2},
                            {'w': ['break', 'red'], 'n': 2}, {'w': ['destroy', 'red'], 'n': 2}, {'w': ['plasma', 'protein'], 'n': 2},
                            {'w': ['make', 'fibrinogen'], 'n': 2}, {'w': ['cholesterol', 'make'], 'n': 2}] +
-                          [{'w': ['stor', x], 'n': 2} for x in ('vitamin', 'glycogen', 'mineral', 'iron', 'copper')] +
-                          [{'w': ['heat', x], 'n': 2} for x in ('gener', 'make', 'releas')]},
-        '2024-Q3(d)': {0: [{'w': ['pancreatic', 'juice'], 'n': 2}, {'w': ['enzyme'], 'n': 1}] +  # [accept named substance, named enzyme]
+                          [{'w': ['stor', x], 'n': 2} for x in ('vitamin', 'glycogen', 'mineral', 'iron', 'copper')] + _HEAT},
+        # The pancreas: pancreatic juice, a correctly named substance or a NAMED enzyme ("enzymes" alone is not named;
+        # sodium carbonate is not the hydrogencarbonate).
+        '2024-Q3(d)': {0: [{'w': ['pancreatic', 'juice'], 'n': 2}, {'w': ['hydrogen', 'carbonat'], 'n': 2}] +
                           [{'w': [x], 'n': 1} for x in ('lipase', 'amylase', 'trypsin', 'trypsinog', 'protease', 'peptidase', 'nuclease',
-                                                        'carbonat', 'bicarbonat', 'hydrogencarbonat', 'nahco3')]},
+                                                        'bicarbonat', 'hydrogencarbonat', 'nahco3')]},
         # A structural feature of the small intestine ([accept villi, capillary network, thin walls, other correct]).
         '2024-Q3(e)': {0: [{'w': [x], 'n': 1} for x in ('long', 'length', 'villi', 'microvill', 'lacte', 'fold')] +
-                          [{'w': [x, 'surface'], 'n': 2} for x in ('large', 'bigg', 'increase', 'great', 'maxim', 'more', 'vast')] +
-                          [{'w': [x, y], 'n': 2} for x in ('rich', 'good', 'many', 'network', 'plenty', 'extensive', 'dense', 'large') for y in ('blood', 'capillar')] +
-                          [{'w': ['one', 'cell', 'thick'], 'n': 3}, {'w': ['single', 'cell'], 'n': 2}, {'w': ['single', 'layer'], 'n': 2}] +
-                          [{'w': ['thin', x], 'n': 2} for x in ('wall', 'lining', 'membrane', 'epitheli', 'layer')]},
-        # Gut bacteria: making vitamins, and competing with (or inhibiting) pathogens.
-        '2024-Q3(f)': {0: [{'w': ['vitamin', x], 'n': 2} for x in ('make', 'synthes', 'provid', 'source', 'secret', 'releas')],
-                       1: [{'w': [c, x], 'n': 2} for c in ('compet', 'outcompet') for x in ('pathogen', 'harm', 'micro', 'bacteri', 'germ')] +
-                          [{'w': [i, x], 'n': 2} for i in ('inhibit', 'prevent', 'stop', 'block') for x in ('pathogen', 'harm', 'germ')]},
-        '2022-Q6(a)': {0: [{'w': ['bile', x], 'n': 2} for x in ('fast', 'speed', 'rate')] + [{'w': ['slow', 'alone'], 'n': 2}]},
+                          _SURFACE + _BLOOD + _ONE_CELL + _THIN},
+        # Gut bacteria: making vitamins, and competing with pathogens ([other correct]: inhibiting them).
+        '2024-Q3(f)': {0: _VITAMINS, 1: _COMPETE + _INHIBIT},
+        # Faster WITH bile: "rate" alone says nothing about which way.
+        '2022-Q6(a)': {0: [{'w': ['bile', x], 'n': 2} for x in ('fast', 'speed')] + [{'w': ['slow', 'alone'], 'n': 2}] +
+                          [{'w': ['bile', x, 'rate'], 'n': 3} for x in ('high', 'increase', 'great', 'more')]},
         '2022-Q6(c)': {0: [{'w': [x], 'n': 1} for x in ('duodenum', 'jejunum', 'ileum', 'stomach')] + [{'w': ['small', 'intestine'], 'n': 2}]},
         # The pH for the site in (c): 7-9 for the small intestine, or 1-5 matched to the stomach.
         '2022-Q6(d)': {0: [{'w': [x], 'n': 1} for x in ('7', '8', '9')] + [{'w': ['stomach', x], 'n': 2} for x in ('1', '2', '3', '4', '5')]},
-        '2022-Q6(e)': {0: [{'w': ['emulsif'], 'n': 1}, {'w': ['surface', 'area'], 'n': 2}] +
-                          [{'w': [a, b], 'n': 2} for a in ('small', 'break', 'split') for b in ('droplet', 'globule')]},
+        '2022-Q6(e)': {0: [{'w': ['emulsif'], 'n': 1}] + _SURFACE + _DROPLETS},  # increases (not "decreases") surface area
         # Digestion: breaking food (or its molecules) down.
         '2021-Q14a(i)': {0: [{'w': ['break', x], 'n': 2} for x in ('food', 'molecul', 'nutrient')]},
         '2019-Q15b(i)': {0: [{'w': ['break', x], 'n': 2} for x in ('food', 'molecul', 'nutrient')]},
@@ -536,91 +560,86 @@ OVERRIDES = {
         '2019-Q15b(ii)': {0: [{'w': ['solub'], 'n': 1}, {'w': ['dissolv'], 'n': 1}], 1: [{'w': ['absorb'], 'n': 1}],
                           2: [{'w': ['transport'], 'n': 1}, {'w': ['carry', 'blood'], 'n': 2}]},
         '2021-Q14b(i)': {0: [{'w': ['small', 'intestine'], 'n': 2}] + [{'w': [x], 'n': 1} for x in ('ileum', 'duodenum', 'jejunum')]},
-        '2021-Q14b(ii)': {0: [{'w': ['surface', 'area'], 'n': 2}, {'w': ['absorb'], 'n': 1}]},  # [accept for absorption]
-        '2021-Q14b(iii)': {1: [{'w': [v, x], 'n': 2} for v in ('absorb', 'take', 'carry', 'transport') for x in ('fat', 'fatty', 'lipid', 'glycerol')]},
+        '2021-Q14b(ii)': {0: _SURFACE + [{'w': ['absorb'], 'n': 1}]},  # to INCREASE surface area [accept for absorption]
+        # The lacteal: to absorb (take in) fats or fatty acids, not "carries fats" or "absorbs glycerol".
+        '2021-Q14b(iii)': {1: [{'w': [v, x], 'n': 2} for v in ('absorb', 'take') for x in ('fat', 'fatty', 'lipid')]},
         # The liver, other than storing nutrients ([accept bile, breaking down red blood cells, deamination, any valid]).
         '2021-Q14b(vi)': {0: [{'w': ['make', 'bile'], 'n': 2}, {'w': ['secret', 'bile'], 'n': 2},
                               {'w': ['detox'], 'n': 1}, {'w': ['toxin'], 'n': 1}, {'w': ['poison'], 'n': 1}, {'w': ['break', 'alcohol'], 'n': 2},
                               {'w': ['deamin'], 'n': 1}, {'w': ['amino', 'urea'], 'n': 2}, {'w': ['make', 'urea'], 'n': 2}, {'w': ['form', 'urea'], 'n': 2},
                               {'w': ['break', 'red'], 'n': 2}, {'w': ['destroy', 'red'], 'n': 2}, {'w': ['plasma', 'protein'], 'n': 2},
-                              {'w': ['make', 'fibrinogen'], 'n': 2}, {'w': ['cholesterol', 'make'], 'n': 2}] +
-                             [{'w': ['heat', x], 'n': 2} for x in ('gener', 'make', 'releas')]},
+                              {'w': ['make', 'fibrinogen'], 'n': 2}, {'w': ['cholesterol', 'make'], 'n': 2}] + _HEAT},
         '2020-Q13b(ii)': {0: [{'w': ['protein'], 'n': 1}, {'w': ['amino'], 'n': 1}]},
         '2019-Q15b(iv)': {0: [{'w': [x], 'n': 1} for x in ('protease', 'pepsin', 'trypsin', 'peptidase', 'rennin')]},
         # Must match (iv): the stomach for pepsin, the pancreas or small intestine for the others.
         '2019-Q15b(v)': {0: [{'w': [x], 'n': 1} for x in ('stomach', 'pancrea', 'duodenum', 'ileum')] + [{'w': ['small', 'intestine'], 'n': 2}]},
         '2019-Q15b(vi)': {0: [{'w': [x], 'n': 1} for x in ('stomach', 'duodenum', 'ileum')] + [{'w': ['small', 'intestine'], 'n': 2}]},
-        # Bile: emulsifying fats (not "emulsify proteins"), neutralising acid, and the right pH for enzymes.
-        '2018-Q15b(i)': {0: [{'w': ['emulsif', x], 'n': 2} for x in ('fat', 'fatty', 'lipid', 'oil')] +
-                            [{'w': [a, b], 'n': 2} for a in ('small', 'break', 'split') for b in ('droplet', 'globule')],
+        # Bile: emulsifying fats (not "emulsify proteins"; the scheme says fats, not oils), neutralising acid, and the
+        # optimum pH for enzymes ("the right enzymes" is not a pH).
+        '2018-Q15b(i)': {0: [{'w': ['emulsif', x], 'n': 2} for x in ('fat', 'fatty', 'lipid')] + _DROPLETS,
                          1: [{'w': ['neutralis'], 'n': 1}, {'w': ['increase', 'ph'], 'n': 2}, {'w': ['alkalin'], 'n': 1}],
-                         2: [{'w': [a, b], 'n': 2} for a in ('optim', 'suitab', 'right', 'correct', 'best', 'ideal') for b in ('ph', 'enzyme')]},
-        # Villi: one cell thick ("many cells thick" earns nothing), a LARGE surface area, a RICH blood supply.
-        '2017-Q14c(iii)': {0: [{'w': ['one', 'cell', 'thick'], 'n': 3}, {'w': ['single', 'cell'], 'n': 2}, {'w': ['single', 'layer'], 'n': 2}] +
-                              [{'w': ['thin', x], 'n': 2} for x in ('wall', 'lining', 'membrane', 'epitheli', 'layer')],
-                           1: [{'w': ['microvill'], 'n': 1}] + [{'w': [x, 'surface'], 'n': 2} for x in ('large', 'bigg', 'increase', 'great', 'maxim', 'more', 'vast')],
-                           3: [{'w': [x, y], 'n': 2} for x in ('rich', 'good', 'many', 'network', 'plenty', 'extensive', 'dense', 'large') for y in ('blood', 'capillar')]},
-        '2005-Q6(b)': {0: [{'w': [x, 'surface'], 'n': 2} for x in ('large', 'bigg', 'increase', 'great', 'maxim', 'more', 'vast')],
-                       1: [{'w': [x, y], 'n': 2} for x in ('rich', 'good', 'many', 'network', 'plenty', 'extensive', 'dense', 'large') for y in ('blood', 'capillar')],
-                       3: [{'w': ['one', 'cell', 'thick'], 'n': 3}, {'w': ['single', 'cell'], 'n': 2}, {'w': ['single', 'layer'], 'n': 2}] +
-                          [{'w': ['thin', x], 'n': 2} for x in ('wall', 'lining', 'membrane', 'epitheli', 'layer')]},
+                         2: [{'w': [a, 'ph'], 'n': 2} for a in ('optim', 'suitab', 'right', 'correct', 'best', 'ideal')]},
+        # Villi: one cell thick ("many cells thick" or just "thin" earns nothing), a LARGE surface area, a RICH blood supply.
+        '2017-Q14c(iii)': {0: _ONE_CELL, 1: [{'w': ['microvill'], 'n': 1}] + _SURFACE, 3: _BLOOD},
+        '2005-Q6(b)': {0: _SURFACE, 1: _BLOOD, 3: _ONE_CELL + _THIN},  # [thin-walled]
+        # The 2008 scheme lists "(lining) one cell thick", not thin walls.
         '2008-Q12c(v)': {0: [{'w': [x], 'n': 1} for x in ('long', 'length', 'villi', 'microvill', 'lacte', 'lymph', 'fold')] +
-                            [{'w': [x, 'surface'], 'n': 2} for x in ('large', 'bigg', 'increase', 'great', 'maxim', 'more', 'vast')] +
-                            [{'w': [x, y], 'n': 2} for x in ('rich', 'good', 'many', 'network', 'plenty', 'extensive', 'dense', 'large') for y in ('blood', 'capillar')] +
-                            [{'w': ['one', 'cell', 'thick'], 'n': 3}, {'w': ['single', 'cell'], 'n': 2}, {'w': ['single', 'layer'], 'n': 2}] +
-                            [{'w': ['thin', x], 'n': 2} for x in ('wall', 'lining', 'membrane', 'epitheli', 'layer')]},
+                            _SURFACE + _BLOOD + _ONE_CELL},
         # Wholegrain food: its fibre stimulates peristalsis ([accept moves food through the alimentary canal]).
         '2016-Q15c(iii)': {0: [{'w': ['peristalsis', x], 'n': 2} for x in ('stimulat', 'encourag', 'increase', 'speed', 'fast', 'promot', 'aid', 'help',
                                                                          'boost', 'more', 'trigger', 'improv')] +
                               [{'w': ['move', 'food'], 'n': 2}]},
         '2015-Q11a(i)': {1: [{'w': [p, a], 'n': 2} for p in ('plant', 'vegeta') for a in ('anim', 'meat', 'flesh')]},
-        # A balanced diet: the RIGHT amounts of each food type ("equal amounts" earns nothing).
+        # A balanced diet: the RIGHT amounts of each food TYPE ("equal amounts" earns nothing; "enough" is not the right
+        # amount, and "the right amount of food each day" says nothing about the types).
         '2015-Q11a(ii)': {0: [{'w': [r, 'amount', x], 'n': 3}
-                              for r in ('correct', 'right', 'proper', 'appropriate', 'suitab', 'enough', 'sufficient', 'adequate', 'need', 'requir')
-                              for x in ('type', 'nutrient', 'group', 'all', 'each', 'every', 'variety', 'different')]},
-        # Lipase: what it is; where it's secreted ([accept small intestine, ileum, salivary glands, pancreas]); the pH
-        # there (below 7 matched to the stomach, 7-9 for the small intestine: "duodenum" alone is not a pH).
-        '2015-Q11b(ii) 1.': {0: [{'w': [v, x], 'n': 2} for v in ('enzyme', 'digest', 'break') for x in ('lipid', 'fat', 'oil')]},
+                              for r in ('correct', 'right', 'proper', 'appropriate', 'suitab', 'need', 'requir')
+                              for x in ('type', 'nutrient', 'group')]},
+        # Lipase: what it is ("breaks down" is not "digests"); where it's secreted ([accept small intestine, ileum,
+        # salivary glands, pancreas]); the pH there (below 7 matched to the stomach, 7-9 for the small intestine:
+        # "duodenum" alone is not a pH).
+        '2015-Q11b(ii) 1.': {0: [{'w': [v, x], 'n': 2} for v in ('enzyme', 'digest') for x in ('lipid', 'fat', 'oil')]},
         '2015-Q11b(ii) 2.': {0: [{'w': [x], 'n': 1} for x in ('stomach', 'duodenum', 'ileum', 'pancrea', 'salivar')] + [{'w': ['small', 'intestine'], 'n': 2}]},
         '2015-Q11b(ii) 3.': {0: [{'w': [x], 'n': 1} for x in ('7', '8', '9')] + [{'w': ['stomach', x], 'n': 2} for x in ('1', '2', '3', '4', '5', '6')]},
         # The dental formula: words can't check the order, but all three numbers must be there (no 4s-only or 2s-only).
         '2015-Q11c(i) 1.': {0: [{'w': ['1', '2', '3'], 'n': 3}]},
         '2015-Q11c(i) 2.': {0: [{'w': [f, t], 'n': 2} for f in ('fewer', 'less') for t in ('incisor', 'canine')]},
-        '2015-Q11c(i) 3.': {1: [{'w': ['fang'], 'n': 1}] +
+        # The mammal's food: meat or flesh or OTHER animals (the scheme's words; "animals" alone let the omnivore's
+        # "plants and animals" in), or "eats animals" said in that order.
+        '2015-Q11c(i) 3.': {0: [{'w': ['meat'], 'n': 1}, {'w': ['flesh'], 'n': 1}, {'w': ['other', 'anim'], 'n': 2},
+                                {'w': ['eat', 'anim'], 'n': 2, 'o': True}],
+                            1: [{'w': ['fang'], 'n': 1}] +
                                [{'w': [a, t], 'n': 2} for a in ('long', 'sharp', 'point', 'large', 'bigg', 'extra') for t in ('canine', 'incisor')]},
         '2015-Q11c(ii)': {2: [{'w': ['eges'], 'n': 1}, {'w': ['remove', 'faec'], 'n': 2}, {'w': ['remove', 'undigest'], 'n': 2}]},
-        '2015-Q11c(iii)': {1: [{'w': [c, x], 'n': 2} for c in ('compet', 'outcompet') for x in ('pathogen', 'harm', 'micro', 'bacteri', 'germ')] +
-                              [{'w': [i, x], 'n': 2} for i in ('inhibit', 'prevent', 'stop', 'block') for x in ('pathogen', 'harm', 'germ')],
-                           3: [{'w': ['immun'], 'n': 1}]},
+        # Gut bacteria: the scheme's "compete with other micro-organisms" (not "prevents pathogens"), "benefit immune system".
+        '2015-Q11c(iii)': {1: _COMPETE, 3: [{'w': ['immun'], 'n': 1}]},
         # Pancreas, dual function: a hormone (or endocrine) AND an enzyme (or exocrine) secretion.
         '2013-Q10a(iii)': {0: [{'w': [h, e], 'n': 2} for h in ('hormone', 'insulin', 'glucagon', 'endocrine')
                                for e in ('enzyme', 'exocrine', 'lipase', 'amylase', 'trypsin', 'protease', 'juice')]},
-        '2012-Q15a(v) 1.': {0: [{'w': ['mutual'], 'n': 1}] +
-                               [{'w': ['benefi', x], 'n': 2} for x in ('live', 'host', 'organism', 'both', 'each', 'other')]},
-        '2012-Q15a(v) 2.': {0: [{'w': ['vitamin', x], 'n': 2} for x in ('make', 'synthes', 'provid', 'source', 'secret', 'releas')],
-                            1: [{'w': [c, x], 'n': 2} for c in ('compet', 'outcompet') for x in ('pathogen', 'harm', 'micro', 'bacteri', 'germ')] +
-                               [{'w': [i, x], 'n': 2} for i in ('inhibit', 'prevent', 'stop', 'block') for x in ('pathogen', 'harm', 'germ')],
+        '2012-Q15a(v) 1.': {0: _SYMBIOTIC},
+        '2012-Q15a(v) 2.': {0: _VITAMINS, 1: _COMPETE,  # compete with pathogens
                             3: [{'w': ['canc', x], 'n': 2} for x in ('inhibit', 'prevent', 'decrease', 'lower', 'stop', 'fight', 'protect', 'against')]},
         '2012-Q15a(vi)': {0: [{'w': ['colon'], 'n': 1}, {'w': ['large', 'intestine'], 'n': 2}]},
-        # The liver in homeostasis: taking up or releasing glucose ([accept heat generation]).
+        # The liver in homeostasis: taking up or releasing glucose ([accept heat generation]); "glycogen" alone says neither.
         '2012-Q15c(iii)': {0: [{'w': [g, x], 'n': 2} for g in ('glucose', 'sugar') for x in ('absorb', 'take', 'releas', 'stor', 'remove', 'convert')] +
-                              [{'w': ['glycogen'], 'n': 1}] + [{'w': ['heat', x], 'n': 2} for x in ('gener', 'make', 'releas')]},
+                              [{'w': ['glycogen', x], 'n': 2} for x in ('stor', 'make', 'break')] + _HEAT},
         '2011-Q5(b)(i)': {0: [{'w': ['duodenum'], 'n': 1}, {'w': ['small', 'intestine'], 'n': 2}]},
         '2011-Q5(b)(ii)': {0: [{'w': ['gall', 'bladd'], 'n': 2}, {'w': ['liver'], 'n': 1}]},
-        '2011-Q5(b)(iv)': {0: [{'w': ['pancreatic', 'juice'], 'n': 2}, {'w': ['enzyme'], 'n': 1}, {'w': ['neutralis'], 'n': 1}] +
+        # The pancreas: (produces) enzymes or a named enzyme or neutralises (chyme).
+        '2011-Q5(b)(iv)': {0: [{'w': ['enzyme'], 'n': 1}, {'w': ['neutralis'], 'n': 1}] +
                               [{'w': [x], 'n': 1} for x in ('lipase', 'amylase', 'trypsin', 'trypsinog', 'protease', 'peptidase', 'nuclease')]},
         # A named food (or CO2) in the hepatic portal vein: the products of digestion, not "food".
         '2010-Q15b(ii)': {0: [{'w': [x], 'n': 1} for x in ('glucose', 'amino', 'vitamin', 'mineral', 'water', 'co2', 'fructose', 'galactose',
                                                            'monosaccharide', 'sugar', 'salt', 'iron', 'calcium', 'sodium')]},
         '2010-Q15b(iv)': {0: [{'w': ['above'], 'n': 1}, {'w': ['behind'], 'n': 1}]},
-        '2010-Q15b(vi)': {0: [{'w': ['emulsif'], 'n': 1}, {'w': ['surface', 'area'], 'n': 2}, {'w': ['neutralis'], 'n': 1},
-                              {'w': ['increase', 'ph'], 'n': 2}, {'w': ['alkalin'], 'n': 1}] +
-                             [{'w': [a, b], 'n': 2} for a in ('small', 'break', 'split') for b in ('droplet', 'globule')]},
-        # Two liver functions: storing vitamins, glycogen or minerals; deamination; heat; detox; plasma proteins; cholesterol.
-        '2010-Q15b(vii)': {0: [{'w': ['stor', x], 'n': 2} for x in ('vitamin', 'glycogen', 'mineral', 'iron', 'copper')] + [{'w': ['glucose', 'glycogen'], 'n': 2}],
+        '2010-Q15b(vi)': {0: [{'w': ['emulsif'], 'n': 1}, {'w': ['neutralis'], 'n': 1}, {'w': ['increase', 'ph'], 'n': 2}, {'w': ['alkalin'], 'n': 1}] +
+                             _SURFACE + _DROPLETS},
+        # Two liver functions: storing vitamins, glycogen or a NAMED mineral; deamination; heat; detox; plasma proteins;
+        # cholesterol.
+        '2010-Q15b(vii)': {0: [{'w': ['stor', x], 'n': 2} for x in ('vitamin', 'glycogen', 'iron', 'copper')],
                            1: [{'w': ['deamin'], 'n': 1}, {'w': ['amino', 'urea'], 'n': 2}, {'w': ['make', 'urea'], 'n': 2}, {'w': ['form', 'urea'], 'n': 2},
                                {'w': ['break', 'amino'], 'n': 2}],
-                           2: [{'w': ['heat', x], 'n': 2} for x in ('gener', 'make', 'releas')],
+                           2: _HEAT,
                            3: [{'w': ['detox'], 'n': 1}, {'w': ['toxin'], 'n': 1}, {'w': ['poison'], 'n': 1}, {'w': ['break', 'alcohol'], 'n': 2},
                                {'w': ['break', 'drug'], 'n': 2}],
                            4: [{'w': ['plasma', 'protein'], 'n': 2}] + [{'w': ['make', x], 'n': 2} for x in ('fibrinogen', 'albumin', 'prothrombin')],
@@ -636,48 +655,48 @@ OVERRIDES = {
         # Mechanical digestion other than teeth: tongue ([accept oesophagus, stomach, small intestine or a named part]).
         '2008-Q12a(ii)': {0: [{'w': [x], 'n': 1} for x in ('tongue', 'oesophag', 'esophag', 'stomach', 'duodenum', 'ileum', 'jejunum')] +
                              [{'w': ['small', 'intestine'], 'n': 2}]},
-        '2008-Q12b(ii)': {0: [{'w': ['emulsif'], 'n': 1}, {'w': ['surface', 'area'], 'n': 2}] +
-                             [{'w': [a, b], 'n': 2} for a in ('small', 'break', 'split') for b in ('droplet', 'globule')],
+        '2008-Q12b(ii)': {0: [{'w': ['emulsif'], 'n': 1}] + _SURFACE + _DROPLETS,
                           1: [{'w': ['neutralis'], 'n': 1}, {'w': ['increase', 'ph'], 'n': 2}, {'w': ['alkalin'], 'n': 1}]},
-        # Symbiotic bacteria: living in or on another organism, with benefit.
-        # Lipase: secreted by the pancreas ([allow duodenum]), acting in the duodenum ([accept small intestine, ileum]),
-        # at pH 7-9.
+        # Lipase: secreted by the pancreas ([allow duodenum]), acting in the duodenum ([accept small intestine, ileum]: the
+        # scheme names no other part), at pH 7-9.
         '2008-Q12b(iii) 1.': {0: [{'w': ['pancrea'], 'n': 1}, {'w': ['duodenum'], 'n': 1}]},
-        '2008-Q12b(iii) 2.': {0: [{'w': [x], 'n': 1} for x in ('duodenum', 'ileum', 'jejunum')] + [{'w': ['small', 'intestine'], 'n': 2}]},
+        '2008-Q12b(iii) 2.': {0: [{'w': [x], 'n': 1} for x in ('duodenum', 'ileum')] + [{'w': ['small', 'intestine'], 'n': 2}]},
         '2008-Q12b(iii) 3.': {0: [{'w': [x], 'n': 1} for x in ('7', '8', '9')]},
         # Absorbed into the blood: digestion products in the ileum or villi ([allow duodenum, small intestine]); water in
         # the colon ([allow any named part from the stomach on]).
-        '2008-Q12c(iii) 1.': {0: [{'w': [x], 'n': 1} for x in ('ileum', 'villi', 'duodenum', 'jejunum')] + [{'w': ['small', 'intestine'], 'n': 2}]},
+        '2008-Q12c(iii) 1.': {0: [{'w': [x], 'n': 1} for x in ('ileum', 'villi', 'duodenum')] + [{'w': ['small', 'intestine'], 'n': 2}]},
         '2008-Q12c(iii) 2.': {0: [{'w': [x], 'n': 1} for x in ('colon', 'stomach', 'duodenum', 'ileum', 'jejunum', 'caecum', 'rectum')] +
                                  [{'w': [s, 'intestine'], 'n': 2} for s in ('small', 'large')]},
         '2018-Q12b(ii) 2.': {0: [{'w': ['liver'], 'n': 1}, {'w': ['muscle'], 'n': 1}]},  # [accept muscle]
-        '2008-Q12c(i)': {0: [{'w': ['mutual'], 'n': 1}] +
-                            [{'w': ['benefi', x], 'n': 2} for x in ('live', 'host', 'organism', 'both', 'each', 'other')]},
-        '2008-Q12c(ii)': {2: [{'w': ['immun'], 'n': 1}],
-                          3: [{'w': [c, x], 'n': 2} for c in ('compet', 'outcompet') for x in ('pathogen', 'harm', 'micro', 'bacteri', 'germ')] +
-                             [{'w': [i, x], 'n': 2} for i in ('inhibit', 'prevent', 'stop', 'block') for x in ('pathogen', 'harm', 'germ')]},
+        # Symbiotic bacteria: living in or on another organism, with benefit.
+        '2008-Q12c(i)': {0: _SYMBIOTIC},
+        # The scheme's "compete with other micro-organisms" (not "prevents pathogens").
+        '2008-Q12c(ii)': {2: [{'w': ['immun'], 'n': 1}], 3: _COMPETE},
         '2008-Q12c(iv)': {0: [{'w': ['diffu'], 'n': 1}, {'w': ['passive'], 'n': 1}]},
         '2005-Q6(c)': {0: [{'w': ['diffu'], 'n': 1}, {'w': ['passive'], 'n': 1}]},
-        '2006-Q3(a)': {0: [{'w': [x], 'n': 1} for x in ('amylase', 'maltase', 'sucrase', 'lactase', 'carbohydrase')]},
+        # Any correct carbohydrate-digesting enzyme, named ("carbohydrase" is the question's own words).
+        '2006-Q3(a)': {0: [{'w': [x], 'n': 1} for x in ('amylase', 'maltase', 'sucrase', 'lactase')]},
         '2006-Q3(b)': {0: [{'w': [x], 'n': 1} for x in ('mouth', 'duodenum', 'ileum', 'jejunum')] + [{'w': ['small', 'intestine'], 'n': 2}]},
         # The product matching the enzyme named in (a).
         '2006-Q3(c)': {0: [{'w': [x], 'n': 1} for x in ('maltose', 'glucose', 'fructose', 'galactose', 'disaccharide', 'monosaccharide', 'dextrin')]},
         '2006-Q3(d)': {0: [{'w': [x], 'n': 1} for x in ('7', '8', '9')]},
         '2006-Q5(c)': {0: [{'w': ['upper', 'abdomen'], 'n': 2}, {'w': ['above', 'stomach'], 'n': 2}] +
                           [{'w': ['diaphragm', x], 'n': 2} for x in ('under', 'below', 'beneath')]},
-        '2006-Q5(f)': {0: [{'w': [x], 'n': 1} for x in ('bile', 'emulsif', 'neutralis', 'carbonat', 'bicarbonat', 'hydrogencarbonat', 'nahco3')]},
-        '2005-Q6(d)': {0: [{'w': [x], 'n': 1} for x in ('fat', 'fatty', 'glycerol', 'lipid', 'oil')]},
+        # The liver: (produces) bile, emulsification, (produces) NaHCO3 (sodium carbonate is not it), neutralises acid.
+        '2006-Q5(f)': {0: [{'w': [x], 'n': 1} for x in ('bile', 'emulsif', 'neutralis', 'bicarbonat', 'hydrogencarbonat', 'nahco3')] +
+                          [{'w': ['hydrogen', 'carbonat'], 'n': 2}]},
+        '2005-Q6(d)': {0: [{'w': [x], 'n': 1} for x in ('fat', 'fatty', 'glycerol', 'lipid')]},  # fats / fatty acids / glycerol / lipids
+        # Low pH in the stomach: kills germs, optimal pH for enzymes, hydrolysis of starch, or another correct reason, said
+        # as a reason ("pepsin" or "denatures" alone is not one).
         '2004-Q62': {0: [{'w': ['kill', x], 'n': 2} for x in ('bacteri', 'germ', 'pathogen', 'micro')] +
-                        [{'w': ['optim', x], 'n': 2} for x in ('enzyme', 'pepsin')] +
-                        [{'w': ['pepsin'], 'n': 1}, {'w': ['denatur'], 'n': 1}, {'w': ['hydrolys', 'starch'], 'n': 2}]},
+                        [{'w': ['optim', x], 'n': 2} for x in ('enzyme', 'pepsin')] + [{'w': [x, 'pepsin'], 'n': 2} for x in ('best', 'activ')] +
+                        [{'w': ['activ', 'pepsinog'], 'n': 2}, {'w': ['denatur', 'protein'], 'n': 2}, {'w': ['hydrolys', 'starch'], 'n': 2}]},
         '2004-Q63': {0: [{'w': [x], 'n': 1} for x in ('peristalsis', 'bulk', 'constipat')] + [{'w': ['bowel', 'canc'], 'n': 2}]},
         '2004-Q65': {0: [{'w': ['fatty', 'acid'], 'n': 2}, {'w': ['glycerol'], 'n': 1}]},
         '2004-Q66': {0: [{'w': ['emulsific'], 'n': 1}, {'w': ['neutralis'], 'n': 1}, {'w': ['increase', 'ph'], 'n': 2}, {'w': ['alkalin'], 'n': 1}] +
-                        [{'w': [a, b], 'n': 2} for a in ('small', 'break', 'split') for b in ('droplet', 'globule')]},
-        '2004-Q67': {0: [{'w': ['vitamin', x], 'n': 2} for x in ('make', 'synthes', 'provid', 'source', 'secret', 'releas')] +
-                        [{'w': ['diges'], 'n': 1}] +
-                        [{'w': [c, x], 'n': 2} for c in ('compet', 'outcompet') for x in ('pathogen', 'harm', 'micro', 'bacteri', 'germ')] +
-                        [{'w': [i, x], 'n': 2} for i in ('inhibit', 'prevent', 'stop', 'block') for x in ('pathogen', 'harm', 'germ')]},
+                        _DROPLETS},
+        # Beneficial bacteria: production of vitamins, inhibition of pathogens, (aids) digestion, or an example.
+        '2004-Q67': {0: _VITAMINS + [{'w': ['diges'], 'n': 1}] + _COMPETE + _INHIBIT},
     },
 }
 

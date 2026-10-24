@@ -8,6 +8,7 @@ Exam questions (tools/bio/build_bio_questions.py reads these):
   OVERRIDES     per-question corrections: two-panel diagrams and graphs, tap answers, answer types.
 """
 import os, sys
+from itertools import combinations
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 from bio_art import label, part, tube, vessel, flow, finish, RED, BLUE, TUBE_D, BG  # noqa: E402
@@ -223,17 +224,37 @@ def _said(*alts):
     return [{'w': a.split(), 'n': len(a.split())} for a in alts]
 
 
+def _together(*groups):
+    """Like _keys, but said in one part of a sentence (no full stop, comma or joining word between): "ADH levels fall",
+    not "ADH rises as ..., and blood volume falls"."""
+    return [dict(k, c=True) for k in _keys(*groups)]
+
+
+def _in_order(*words):
+    """The words in this order, with only small words between them: "more ADH", not "ADH makes ... more permeable"."""
+    return [{'w': list(words), 'n': len(words), 'o': True}]
+
+
 # Words the hand-written keys share. Stems, as the marker compares them (bio/bio.js).
 _STEADY = ['constant', 'stable', 'steady', 'same', 'balanc']       # the internal environment kept the same
 _KEEP = ['maint', 'keep', 'regul']                                 # maintain / maintenance, keep, regulate / regulation
-# Homeostasis: keeping a constant internal environment ("conditions inside the body steady"); "external" never earns it.
-_HOMEO = _keys(['intern', 'inside'], ['environ', 'condi'], _STEADY + _KEEP)
+# Homeostasis: keeping a constant (or stable) internal environment ("conditions inside the body steady"). The schemes'
+# "constant" is needed ("maintaining the internal environment" leaves it out); "external" never earns it.
+_HOMEO = _keys(['intern', 'inside'], ['environ', 'condi'], _STEADY)
 # Excretion: removing (eliminating, getting rid of) waste made by metabolism (or made by the body / its cells).
 _REMOVE = ['remov', 'elimin']
-_EXCRETION = _keys(_REMOVE, 'waste', ['metabol', 'make']) + _keys(_REMOVE, 'product', 'metabol')
-# Less urine: the volume is lowered.
-_LESS_URINE = _keys(['low', 'lower', 'less', 'decreas', 'small'], ['volume', 'urine', 'amount'])
+_EXCRETION = _keys(_REMOVE, 'waste', ['metabol', 'make'])
+# Less urine: said of the urine ("low blood volume" or "less water in the blood" is what sets ADH off, not its effect).
+_LESS_URINE = _keys(['low', 'lower', 'less', 'decreas', 'small'], 'urine')
 _FACTORS = ['temperature', 'ph', 'water', 'glucose', 'sugar', 'salt', 'co2']
+# Enzymes (or metabolism) working: "so enzymes can work efficiently", "so enzymes are not denatured".
+_WORKS = ['work', 'function', 'efficien', 'optim', 'denatur', 'activ', 'normal']
+# "Allows normal metabolic activity" in other words ("metabolism works properly"), and "keeps the temperature (or pH)
+# suitable for enzyme reactions".
+_NORMAL_METABOLISM = _keys('metabol', ['normal', 'efficien', 'work', 'function', 'proper'])
+_ENZYME_CONDITIONS = _keys('enzyme', ['temperature', 'ph', 'optim', 'suitabl'])
+# Saying one fluid has none of something: "filtrate has none", "the filtrate does not".
+_NONE = ['none', 'no', 'not', 'doesnt', 'without', 'absent', 'lack']
 
 
 def _one(*words):
@@ -241,8 +262,10 @@ def _one(*words):
     return [{'w': [w], 'n': 1} for w in words]
 
 
-# "Maintenance (of ...)": keeping something steady, not just "keeping the body healthy".
-_MAINTAIN = _one('maint') + _keys(['keep', 'regul'], _STEADY + ['intern', 'inside', 'environ', 'condi', 'level'])
+# "Maintenance (of ...)": keeping something steady, not just "keeping the body healthy" (or "regulating" it).
+_MAINTAIN = _one('maint') + _keys('keep', _STEADY + ['intern', 'inside', 'environ', 'condi', 'level'])
+# Which way ADH's line goes after the athlete drinks: down.
+_DOWN = ['reduc', 'down', 'lower']
 
 
 # Per-question corrections the general rules can't work out: diagrams with two panels or graphs, the right
@@ -276,85 +299,114 @@ OVERRIDES = {
                      'water return blood', 'absorb water back')},
         '2022-Q15b(v)': {
             0: _said('reabsorp', 'back blood', 'taken back', 'return blood', 'absorb back', 'reclaim'),
+            # Not "ions ... tubule ... blood": ions reabsorbed from the tubule into the blood have those words too.
             1: _said('secre', 'waste blood tubul', 'waste add tubul', 'waste put tubul', 'waste mov tubul', 'waste pass tubul', 'urea blood tubul',
-                     'ion blood tubul', 'toxin blood tubul', 'drug blood tubul', 'hydrogen ion tubul')},
+                     'toxin blood tubul', 'drug blood tubul', 'hydrogen ion tubul')},
         '2006-Q13b(iv)': {0: _said('reabsorb', 'back blood', 'taken back', 'return blood', 'absorb back', 'reclaim')},
         'S1-Q1e(iv)': {
             1: _keys('concentr', 'urine') + _keys(['conserv', 'save'], 'water'),
             2: _keys(['surv', 'live'], ['desert', 'dry', 'arid']) + _keys('surv', ['little', 'less', 'without', 'lack'], ['water', 'drink'])},
-        '2026-Q17b(vii)': {0: _one('enzyme', 'metabol')},
+        # "or described": enzymes (or metabolism) working well, said; the word "enzymes" alone isn't a reason.
+        '2026-Q17b(vii)': {0: _keys(['enzyme', 'metabol'], _WORKS)},
         '2026-Q17c(i)': {0: _EXCRETION},
         '2026-Q17c(iv)': {0: _keys('too', 'large') + _keys('large', ['molecul', 'pass', 'fit', 'through'])},
         '2025-Q17c(i)': {0: _HOMEO},
         '2025-Q17c(iii)': {0: _keys('dist', ['tubul', 'convolut']) + _one('dct') + _keys('collect', 'duct')},
-        '2025-Q17c(iv)': {0: _one('lower', 'decreas') + _LESS_URINE},
+        # The question is only about the volume of urine, so "it lowers it" or "less volume" is the scheme's answer.
+        '2025-Q17c(iv)': {0: _one('lower', 'decreas') + _keys(['low', 'lower', 'less', 'decreas', 'small'], ['volume', 'urine', 'amount'])},
         '2025-Q17c(v)': {
             0: _keys('decreas', 'increas') + _keys('up', 'down') + _one('invers', 'opposit') + _keys('negat', ['correl', 'relation']),
-            2: _keys('line', 'reduc') + _one('decreas', 'down', 'lower'),
-            3: _keys('level', 'off') + _keys('same', 'start') + _keys('back', ['normal', 'start']) + _one('original', 'plateau', 'flat', 'steady', 'constant')},
-        '2024-Q17c(iii)': {0: _keys(['cell', 'protein'], ['filtrate', 'blood']) + _one('platelet') + _keys('large', 'molecul')},
-        '2023-Q6d(d)': {0: _keys('water', ['reabsorb', 'absorb']) + _keys('adh', 'permeab')},
-        '2022-Q15a(i)': {0: _EXCRETION + _keys(_REMOVE, 'waste', 'cell'), 1: _HOMEO},
+            # The line (ADH) going down: not any "decreases", which 1.'s "blood volume decreases" has too.
+            2: _keys('line', _DOWN) + _together('adh', _DOWN) + _together(_DOWN, ['back', 'start', 'original', 'before']),
+            # Where it levels off: at the level it started from ("levels off" alone doesn't say where).
+            3: _keys('same', ['start', 'before']) + _keys(['back', 'return'], ['start', 'original', 'before']) + _keys('original', 'level') +
+               _together(['adh', 'line'], ['back', 'return'], 'normal') + _keys('level', 'off', 'start') + _keys('plateau', 'start')},
+        # The difference said both ways: blood has them, the filtrate has none ("filtrate has cells" has the same words).
+        '2024-Q17c(iii)': {0: _keys(['cell', 'protein', 'platelet'], _NONE + ['cannot']) + _keys('large', 'molecul', _NONE + ['cannot'])},
+        '2023-Q6d(d)': {0: _keys(['more', 'increas'], 'water', ['reabsorb', 'absorb']) + _keys('adh', 'permeab')},
+        '2022-Q15a(i)': {0: _EXCRETION, 1: _HOMEO},
         '2022-Q15b(iv)': {0: _keys('forc', 'filter') + _one('ultrafiltr') + _keys('small', ['molecul', 'substanc'], ['forc', 'push', 'squeez'])},
-        '2022-Q15b(vi)': {0: _keys('collect', 'duct') + _keys('dist', 'tubul') + _one('dct') + _keys(['more', 'increas'], 'permeab') + _keys('water', ['reabsorb', 'absorb']),
-                          1: _LESS_URINE + _one('lower')},
+        '2022-Q15b(vi)': {0: _keys('collect', 'duct') + _keys('dist', 'tubul') + _one('dct') + _keys(['more', 'increas'], 'permeab') +
+                             _keys(['more', 'increas'], 'water', ['reabsorb', 'absorb']),
+                          1: _LESS_URINE},
         '2021-Q15a(i)': {0: _HOMEO},
         '2020-Q13a(i)': {0: _HOMEO},
         '2020-Q13a(iii)': {0: _EXCRETION + _keys(_REMOVE, 'waste', ['cell', 'body'])},
-        '2020-Q13c(i)': {0: _keys('protein', ['none', 'no', 'not', 'doesnt', 'without', 'absent', 'lack']),
+        '2020-Q13c(i)': {0: _keys('protein', _NONE),
                          1: _keys('protein', 'large', ['too', 'molecul', 'cannot', 'pass', 'fit', 'through'])},
-        '2020-Q13c(ii)': {0: _one('small', 'freely') + _keys('all', 'glucose', ['pass', 'filter'])},
-        '2018-Q6(c)': {0: _keys(['more', 'increas'], 'permeab') + _keys('water', ['reabsorb', 'absorb'])},
+        # Small enough to pass (not "a small amount"), passes freely, or all of it is filtered.
+        '2020-Q13c(ii)': {0: _keys('small', ['enough', 'pass', 'through', 'filter', 'molecul']) + _keys(['pass', 'filter'], 'freely') +
+                             _keys('all', 'glucose', ['pass', 'filter'])},
+        '2018-Q6(c)': {0: _keys(['more', 'increas'], 'permeab') + _keys(['more', 'increas'], 'water', ['reabsorb', 'absorb'])},
         '2018-Q6(d)': {0: _keys(['high', 'increas'], ['salt', 'concentr', 'solute']) + _keys(['less', 'low', 'decreas', 'lack'], 'water') + _one('dehydr')},
         '2017-Q15a(i)': {0: _HOMEO},
-        '2017-Q15a(ii)': {0: _one('enzyme', 'metabol')},
+        '2017-Q15a(ii)': {0: _NORMAL_METABOLISM + _ENZYME_CONDITIONS},
         '2016-Q12a(i)': {0: _EXCRETION},
-        # The scheme lists no locations: urea is made in the liver, carbon dioxide in all cells (by respiration).
-        '2016-Q12b(ii)': {0: _one('liver'), 1: _keys('co2', ['cell', 'mitochondri', 'respir', 'tissue'])},
+        # The scheme lists no locations: urea is made in the liver, carbon dioxide in all cells (respiration is how, not where).
+        '2016-Q12b(ii)': {0: _one('liver'), 1: _keys('co2', ['cell', 'mitochondri', 'tissue'])},
         '2016-Q12b(iii)': {
-            0: _keys(['high', 'increas'], ['salt', 'concentr', 'solute']) + _keys(['less', 'low', 'decreas', 'lack'], 'water') + _one('dehydr'),
+            # High salt (not "a high concentration", which more concentrated urine has too) or low water in the blood (not
+            # "less water lost in urine").
+            0: _keys(['high', 'increas'], ['salt', 'solute']) + _together(['less', 'low', 'decreas', 'lack'], 'water', ['blood', 'level', 'body']) +
+               _one('dehydr'),
             4: _LESS_URINE + [{'w': ['more', 'concentr', 'urine'], 'n': 3}]},
         '2016-Q12c(i)': {0: _HOMEO},
         '2012-Q15c(i)': {0: _HOMEO},
         '2011-Q12a(i)': {0: _keys(_REMOVE, 'waste'), 1: _keys('make', ['body', 'cell']) + _one('metabol')},
         '2010-Q15c(iv)': {
-            0: _one('sweat', 'exhal', 'perspir') + _keys('water', ['lost', 'loss', 'lose']),
-            1: _keys(['less', 'low', 'decreas', 'lack'], 'water') + _one('dehydr'),
-            2: _keys('adh', ['secret', 'releas', 'make', 'more']),
-            3: _keys('collect', 'duct') + _keys('dist', 'tubul') + _one('dct') + _keys('kidney', ['reabsorb', 'adh'])},
+            0: _one('sweat', 'exhal', 'perspir'),  # how the water is lost ("less water lost in urine" isn't it)
+            1: _together(['less', 'low', 'decreas', 'lack'], 'water', 'blood') + _one('dehydr'),
+            2: _keys('adh', ['secret', 'releas']) + _in_order('more', 'adh') + _in_order('make', 'adh'),
+            3: _keys('collect', 'duct') + _keys('dist', 'tubul') + _one('dct') + _together('kidney', ['reabsorb', 'adh'])},
         # "example how": how a factor is kept steady; "example why": why it matters (the note lists pH, solutes, temperature, water).
         '2009-Q15c(iii)': {
             0: _MAINTAIN,
-            1: _keys(['intern', 'inside'], ['environ', 'condi'], _STEADY),
-            2: _one('sweat', 'vasodil', 'vasoconstric', 'adh', 'insulin', 'glucagon', 'feedback', 'kidney', 'osmoregul', 'thermoregul') +
-               _keys('shiver', ['warm', 'heat', 'cold']),
-            3: _one('enzyme', 'metabol', 'denatur', 'optimum')},
+            1: _HOMEO,
+            2: _one('sweat', 'vasodil', 'vasoconstric', 'adh', 'insulin', 'glucagon') + _keys('shiver', ['warm', 'heat', 'cold']) +
+               _keys('kidney', ['water', 'salt', 'urine', 'ion', 'ph', 'solute']),
+            3: _keys('enzyme', _WORKS + ['temperature', 'ph', 'suitabl']) + _keys('metabol', ['normal', 'efficien', 'work', 'function', 'proper', 'activ']) +
+               _one('denatur')},
         '2008-Q13a(i)': {0: _EXCRETION},
         '2008-Q13a(ii)': {1: _one('carbohydrate', 'glucose', 'sugar', 'starch', 'glycogen', 'sucrose', 'fructose', 'maltose', 'lactose', 'fat', 'lipid', 'oil') +
                           _keys('fatty', 'acid')},
         '2008-Q13b(v)': {1: _one('porous', 'pore')},
         '2008-Q13c(i)': {
             1: _one('hot', 'heat', 'sweat', 'perspir', 'exercis'),
-            2: _keys('salt', ['high', 'eat', 'food', 'diet', 'intake', 'much', 'lot', 'more', 'increas']),
-            3: _keys('not', 'drink') + _keys('not', 'enough', 'water') + _keys('lack', ['water', 'drink', 'fluid']) + _keys('without', ['water', 'drink']) +
-               _keys(['little', 'less', 'low'], ['drink', 'intake']) + _keys('little', 'water'),
-            4: _one('diuretic', 'alcohol', 'caffein', 'coffee')},
+            # High salt intake: a lot of it, or salty food ("salt intake" alone could be low).
+            2: _keys('salt', ['high', 'much', 'lot', 'more', 'increas', 'excess', 'eat', 'food', 'diet']),
+            # Low water intake: not drinking ("less water" or "lack of water" is the question's drop in the blood's water).
+            3: _keys('not', 'drink') + _keys(['lack', 'without', 'little', 'less', 'low', 'insufficient'], ['drink', 'fluid']) +
+               _keys(['lack', 'little', 'less', 'low', 'insufficient', 'not'], 'water', 'intake') + _keys('without', 'water') + _keys('not', 'enough', 'fluid'),
+            4: _one('diuretic')},
         # One point (6 marks): the walls become more permeable AND more water is reabsorbed.
-        '2008-Q13c(iv)': {0: _keys('permeab', ['reabsor', 'absor'], 'water')},
-        # "or example" (of the reason): a named factor the body keeps steady.
+        '2008-Q13c(iv)': {0: _keys(['more', 'increas'], 'permeab', ['reabsor', 'absor'], 'water')},
+        # "or two named factors constant": two of them and the word that keeps them steady. "or example" (of the reason):
+        # read here as a named factor the body keeps steady, given as an example.
         '2007-Q15c(i)': {
             0: _MAINTAIN,
-            1: _keys(['intern', 'inside'], ['environ', 'condi'], _STEADY) + [{'w': _FACTORS + [s], 'n': 3} for s in _STEADY + _KEEP],
-            2: _one('enzyme', 'metabol', 'denatur', 'optimum') + _keys('cell', ['function', 'work']) + _keys('example', _FACTORS)},
+            1: _HOMEO + [{'w': [f, g, s], 'n': 3} for f, g in combinations(_FACTORS, 2) if {f, g} != {'glucose', 'sugar'} for s in _STEADY + ['keep']],
+            2: _NORMAL_METABOLISM + _keys('enzyme', ['temperature', 'ph', 'optim', 'suitabl', 'denatur']) + _one('denatur') +
+               _keys('example', _FACTORS, _STEADY + ['keep'])},
         '2006-Q13b(i)': {
-            0: _keys(['liquid', 'fluid'], ['blood', 'part']),
+            # The liquid part of (or the liquid in) blood: not "fluid ... blood", which the filtrate's "fluid filtered out of
+            # the blood" has too.
+            0: _keys(['liquid', 'fluid'], 'part') + [k for a in ['liquid', 'fluid'] for b in ['in', 'of'] for k in _in_order(a, b, 'blood')],
             1: _keys('plasma', ['minus', 'without', 'no', 'less'], 'protein') + _keys('bowman', 'capsule') + _keys(['enter', 'into'], 'capsule') +
                _keys(['left', 'leave'], 'glomerul')},
+        # "or explained": maintaining salt (or water) balance, or how the kidneys do it ("kidneys reabsorb salt"); not "salt
+        # levels" with nothing done to them. "maintaining (a constant) internal environment or described": "constant" optional.
         '2004-Q12a(a)': {
-            0: _HOMEO,
-            1: _keys(['salt', 'ion', 'mineral', 'sodium'], ['balanc', 'regul', 'control', 'level', 'concentr', 'reabsor', 'excret'] + _KEEP) + _one('osmoregul'),
-            2: _keys('water', ['balanc', 'regul', 'control', 'level', 'content', 'reabsor', 'excret', 'conserv'] + _KEEP) + _one('osmoregul')},
-        '2004-Q12b(ii)': {10: _one('hormon', 'adh')},
+            0: _keys(['intern', 'inside'], ['environ', 'condi'], _STEADY + _KEEP),
+            1: _keys(['salt', 'ion', 'mineral', 'sodium'], ['balanc', 'regul', 'control', 'reabsor', 'excret', 'maint', 'keep']) + _one('osmoregul'),
+            2: _keys('water', ['balanc', 'regul', 'control', 'reabsor', 'excret', 'conserv', 'maint', 'keep']) + _one('osmoregul')},
+        # Scheme points whose own words were too loose: "cell" alone (cells pass into the capsule?) and "blood" alone
+        # (every filtration answer has it) for "cells cannot pass" and "into blood".
+        '2004-Q12b(ii)': {
+            4: _together(['large', 'protein', 'cell', 'platelet'], ['cannot', 'not', 'too', 'stay', 'remain']),
+            6: _in_order('into', 'blood') + _in_order('to', 'blood') + _together(['reabsor', 'back', 'return'], 'blood'),
+            10: _one('hormon', 'adh')},
+        # "Bladder" alone earned both: the ureter goes to it, the urethra from it.
+        '2006-Q6b(b)': {0: _one('kidney') + _together('ureter', 'bladd'), 1: _one('outside') + _together('urethra', 'bladd')},
     },
 }
 
