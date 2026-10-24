@@ -561,7 +561,8 @@ OVERRIDES = {
         '2026-Q3(a)': {0: every('thoracic', 'chest')},  # the chest cavity: the 2010 scheme accepts "chest" too
         '2010-Q7a(i)': {0: every('thoracic', 'chest')},  # the 2010 scheme: "Thoracic or chest"
         # Kept open, or kept from collapsing ("collapse" alone would let "so it can collapse" in).
-        '2026-Q3(c)': {0: every('keep open', 'hold open', 'stay open', *[n + ' collaps' for n in ('prevent', 'stop', 'keep', 'not', 'dont', 'doesnt', 'wont', 'cannot')])},
+        '2026-Q3(c)': {0: every('keep open', 'hold open', 'stay open',
+                                *[n + ' collaps' for n in ('prevent', 'stop', 'keep', 'not', 'dont', 'doesnt', 'wont', 'cannot')])},
         '2026-Q3(f)': {0: every('up out', 'up outward', 'upward out', 'upward outward')},  # "moves" alone let "down and out" in
         '2025-Q16b(v)': {0: every('muscle relax', 'intercost relax', 'diaphragm relax'),
                          # Down AND in, so "up and in" or "down and out" doesn't earn it. ("The ribs fall" reads as down.)
@@ -571,6 +572,8 @@ OVERRIDES = {
                          3: every('volume decreas', 'volume small', 'chest small', 'thora small'),
                          4: every('pressure increas', 'pressure high'),
                          5: AIR_OUT},
+        # X is CO2 (and Y oxygen), each letter with its own gas: the scheme's own key ("co2 oxygen") gave the swapped answer too.
+        '2025-Q16b(iii) 1.': {0: in_order('x co2', 'y oxygen', 'co2 x oxygen y', 'oxygen y co2 x')},
         # "Correct matching treatment": the disorder and a treatment for it (2017 and 2019 lists, plus steroids for asthma).
         '2025-Q16b(vi)': {0: every(*['asthma ' + t for t in ASTHMA_TREAT + ('steroid', 'avoid allergen')], *['bronchitis ' + t for t in BRONCHITIS_TREAT])},
         '2021-Q16d(ii)': {1: CAPS, 2: MOIST, 3: THIN},
@@ -583,7 +586,8 @@ OVERRIDES = {
                        4: every(*['bronchitis ' + c for c in ('virus', 'viral', 'bacteri', 'infect', 'smok', 'particle', 'pollut', 'irritant', 'dust')]),
                        5: every(*['bronchitis ' + t for t in BRONCHITIS_TREAT])},
         # "Increased CO2" said of the CO2 (not "breathing increases to lower CO2"); the ribs: up or out, as the 2017 scheme says.
-        '2017-Q15a(iii)': {0: together('increas co2') + every('more co2', 'high co2'),
+        '2017-Q15a(iii)': {0: in_order('increas co2', 'co2 increas', 'increas level co2', 'co2 level increas', 'increas concentr co2', 'co2 concentr increas')
+                              + every('more co2', 'high co2'),
                            1: every('message brain', 'impulse brain', 'signal brain', 'medulla impulse', 'medulla signal', 'medulla message'),
                            2: every('diaphragm contract', 'contract flat') + DIA_DOWN,
                            3: every('intercost contract', 'muscle rib contract') + RIBS_UP + RIBS_OUT,
@@ -608,6 +612,8 @@ OVERRIDES = {
                                   'count rate', 'record rate', 'take rate'),
                          3: every(*[' '.join((t, u, r)) for t in ('time', 'long', 'stopwatch') for u in ('until', 'till', 'return', 'back')
                                     for r in ('rest', 'normal') if (t, u, r) != ('time', 'return', 'normal')])},
+        # The scheme's "Wall one cell thick" (its own key dropped "one", so "many cells thick" earned it); "thin wall" is its accept.
+        '2014-Q12c(ii)': {0: every('one cell thick', '1 cell thick', 'single cell thick', 'single layer cell')},
         # The reason is keyed with its vessel's own words: "removed in the lungs" for the vein, "CO2-rich" for the artery.
         # Low in CO2 FROM the lungs, CO2 diffusing OUT there: not "low as it goes to the lungs", "diffuses from the lungs".
         '2014-Q12c(iv)': {0: every('pulmonary vein', 'pulmonary arter'),

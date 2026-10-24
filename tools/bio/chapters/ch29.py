@@ -405,8 +405,10 @@ OVERRIDES = {
             4: _together(['large', 'protein', 'cell', 'platelet'], ['cannot', 'not', 'too', 'stay', 'remain']),
             6: _in_order('into', 'blood') + _in_order('to', 'blood') + _together(['reabsor', 'back', 'return'], 'blood'),
             10: _one('hormon', 'adh')},
-        # "Bladder" alone earned both: the ureter goes to it, the urethra from it.
-        '2006-Q6b(b)': {0: _one('kidney') + _together('ureter', 'bladd'), 1: _one('outside') + _together('urethra', 'bladd')},
+        # "Bladder" alone earned both: the ureter goes to it, the urethra from it. (The marker reads "ureter" as the
+        # start of "urethra", so the way the urine goes decides it.)
+        '2006-Q6b(b)': {0: _one('kidney') + _in_order('to', 'bladd') + _in_order('into', 'bladd'),
+                        1: _one('outside') + _in_order('from', 'bladd') + _in_order('out', 'bladd')},
     },
 }
 

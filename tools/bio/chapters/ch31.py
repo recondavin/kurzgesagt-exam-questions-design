@@ -682,6 +682,71 @@ def _said(*alts):
     return [{'w': a.split(), 'n': len(a.split())} for a in alts]
 
 
+def _together(*alts):
+    """Like _said, but all of a string's words in one part of the sentence ('c'), so the roles can't be swapped:
+    "veins have valves", not "arteries have valves and veins don't"."""
+    return [{'w': a.split(), 'n': len(a.split()), 'c': 1} for a in alts]
+
+
+def _inorder(*alts):
+    """Like _said, but the words in that order with only small words between ('o'): "arteries have thicker walls",
+    not "veins have thicker walls than arteries"."""
+    return [{'w': a.split(), 'n': len(a.split()), 'o': 1} for a in alts]
+
+
+# Something a red blood cell (or lymph) hasn't got, said with the "no" the scheme's answer turns on ("has a nucleus"
+# isn't "no nucleus"), in the same part of the sentence as the thing, so the question's own "do not divide" can't lend it.
+_NO = ('no', 'not', 'lack', 'without', 'absent', 'dont', 'doesnt', 'isnt', 'lose', 'miss')
+
+
+def _no(*things):
+    return [{'w': [n] + t.split(), 'n': 1 + len(t.split()), 'c': 1} for t in things for n in _NO]
+
+
+# Artery and vein the right way round. Thick and thin walls, narrow and wide lumens: in order ("veins have thicker
+# walls than arteries" has every word of "arteries have thicker walls"). Valves: in one part of the sentence.
+_WALL = _inorder('artery thick', 'artery wall thick', 'artery much thick', 'artery wall much thick',
+                 'vein thin', 'vein wall thin', 'vein much thin', 'vein wall much thin')
+_LUMEN = _inorder('artery narrow', 'artery lumen narrow', 'narrow lumen artery', 'artery small lumen', 'artery lumen small',
+                  'vein wide', 'vein lumen wide', 'wide lumen vein', 'vein large lumen', 'vein lumen large')
+_VALVES = _together('vein valve', *(f'artery {n} valve' for n in ('no', 'not', 'without', 'lack', 'dont', 'doesnt')))
+# Blood pressure: the force the blood exerts on the walls. Not "pushes" with a vessel: "the heart pushes blood into
+# the arteries" is pumping.
+_BP = [{'w': [a, b], 'n': 2} for a in ('force', 'exert') for b in ('wall', 'vessel', 'artery')] + _said('push wall', 'pressur wall')
+# Oxygenated and deoxygenated blood kept from mixing: both kinds named ("separate" is the question's own word).
+_MIX = ([{'w': [a, 'oxygen', 'deoxygen'], 'n': 3} for a in ('mix', 'apart', 'separ')] +
+        [{'w': [a, 'oxygen', 'rich', 'poor'], 'n': 4} for a in ('mix', 'apart', 'separ')])
+# Dissecting the heart. How the sides are told apart: the coronary artery's diagonal groove, the left side's thick,
+# firm wall (not "hold it firmly", "a diagonal cut").
+_HOW = (_said('coronary', 'thick') + [{'w': ['firm', w], 'n': 2} for w in ('left', 'ventricle', 'side', 'feel', 'touch')] +
+        [{'w': ['soft', w], 'n': 2} for w in ('right', 'ventricle', 'side', 'feel', 'touch')] +
+        [{'w': ['diagonal', w], 'n': 2} for w in ('artery', 'vessel', 'groove', 'fat', 'line')])
+# A safety precaution, not "carefully" on its own (which every step says).
+_SAFE = _said('safe', 'glove', 'wash', 'disinfect', 'goggle', 'coat') + [{'w': ['care', w], 'n': 2} for w in ('scalpel', 'blade', 'knife', 'sharp')]
+_SPOT = ('right', 'left', 'side', 'septum', 'apex', 'aorta', 'artery', 'vein', 'top', 'base', 'middle', 'half',
+         'longitudinal', 'vertical', 'lengthwise', 'horizontal', 'transverse', 'across')  # where a cut goes
+# The lub and dub, and which valves close for each.
+_LUB, _DUB, _SHUT = ('lub', 'lubb'), ('dub', 'dup', 'dupp'), ('clos', 'shut', 'snap')
+_AVV, _SLV = ('tricuspid bicuspid', 'tricuspid mitral', 'av valve', 'atrioventricular'), ('semilunar', 'semi lunar')
+# CO2 higher in B (the pulmonary artery) than in A (the aorta), in order, so "higher in A than in B" and "A has more
+# CO2 than B" don't earn it.
+_UP, _DOWN = ('high', 'more', 'great', 'large'), ('low', 'lower', 'less', 'small')
+_FILL = ('', 'co2 ', 'concentrat ', 'level ', 'amount ', 'concentrat co2 ', 'level co2 ', 'amount co2 ', 'co2 concentrat ', 'co2 level ')
+_CO2_AB = _inorder(*([f'{u} {f}in {v}' for u in _UP for f in _FILL for v in ('b', 'pulmonary')] +
+                     [f'{d} {f}in {v}' for d in _DOWN for f in _FILL for v in ('a', 'aorta')] +
+                     [f'{v} {u}' for u in _UP for v in ('b', 'pulmonary artery')] + [f'{v} {d}' for d in _DOWN for v in ('a', 'aorta')] +
+                     [f'increase {f}{x}' for f in _FILL for x in ('a b', 'between a b')] +
+                     [f'decrease {f}{x}' for f in _FILL for x in ('b a', 'between b a')]))
+
+
+def _column(tags, co2, o2):
+    """One column of the High/Low table: its blood ("arterial pulmonary blood") then both gases, either one first and
+    the word before or after; or the whole table written row by row."""
+    gases = (f'co2 {co2} oxygen {o2}', f'oxygen {o2} co2 {co2}', f'{co2} co2 {o2} oxygen', f'{o2} oxygen {co2} co2')
+    rows = ('co2 arteri high venous low oxygen arteri low venous high', 'oxygen arteri low venous high co2 arteri high venous low')
+    return _inorder(*([f'{t} {g}' for t in tags for g in gases] + list(rows)))
+
+
 OVERRIDES = {
     'dia': {
         '2006-Q5': {'base': 'portal-system', 'marks': [{'t': 'X', 'a': 'liver'}, {'t': 'Y', 'a': 'portal'}, {'t': 'Hepatic artery', 'a': 'hepaticArtery', 'given': True},
