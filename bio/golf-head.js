@@ -1,19 +1,17 @@
 // His head as a golf ball, for Mini Golf (the user: "make a head and show me the model before hand", "the head for the
-// golf ball"). A 3D model in three.js shapes after the site's drawing of him (ExamTeacher.head): a round, bald head,
-// dimpled like a golf ball everywhere but his face and ears; spiky dark tufts of hair above his ears and three wild
-// strands on top; a heavy frowning brow under thick eyebrows; round glasses with white lenses, his eyes looking in; a big
-// round nose; ears that stick out; an open, grumpy mouth with one tooth over a pouting lower lip. Navy outlines (inverted
-// hulls) and flat toon colours, as in the game.
+// golf ball"). A 3D model in three.js shapes after the site's drawing of him (ExamTeacher.head): a round, bald head with
+// three dots on top (the user: "he has 3 dots on his head not that many", so no golf-ball dimples); spiky dark tufts of
+// hair above his ears and three wild strands on top; a heavy frowning brow under thick eyebrows; round glasses with white
+// lenses, his eyes looking in; a big round nose; ears that stick out; a wide, open, grumpy mouth with one tooth, and a
+// line under it for his lower lip, well clear of it (the user: "make the mouth ... better and more spaced"). Navy
+// outlines (inverted hulls) and flat toon colours, as in the game.
 // Built at radius 1, facing +z, up +y. It still rolls as a ball: only the nose, ears and hair stand off it.
 //   GolfHead.build(THREE, { tones, keep }) -> THREE.Group
 //     tones: the toon gradient texture (MeshToonMaterial.gradientMap);
 //     keep(o): every geometry and material made is passed to it, so the caller can dispose of them.
 (function () {
   'use strict';
-  var SKIN = '#F2C9A0', DIMPLE = '#DBA97E', INK = '#13294A', HAIR = '#13233A', WHITE = '#FFFFFF';
-  // Outline thickness; golf-ball dimples: how many over the whole ball (before his face and ears are left clear), their
-  // angular radius and depth.
-  var LINE = 0.05, DIMPLES = 400, PIT = 0.075, DEEP = 0.022;
+  var SKIN = '#F2C9A0', INK = '#13294A', HAIR = '#13233A', WHITE = '#FFFFFF', LINE = 0.05;
 
   function build(TH, opt) {
     opt = opt || {};
@@ -23,6 +21,7 @@
     var ink = keep(new TH.MeshBasicMaterial({ color: INK, side: TH.BackSide }));
     var hair = keep(new TH.MeshBasicMaterial({ color: HAIR }));
     var white = keep(new TH.MeshBasicMaterial({ color: WHITE }));
+    var drawn = keep(new TH.MeshBasicMaterial({ color: HAIR, side: TH.DoubleSide })), drawnWhite = keep(new TH.MeshBasicMaterial({ color: WHITE, side: TH.DoubleSide }));
     function mesh(geo, mat, to) { var m = new TH.Mesh(keep(geo), mat); (to || root).add(m); return m; }
 
     // The head's shape: a ball with a heavy brow, cheeks, a muzzle under the nose and a chin.
@@ -64,47 +63,51 @@
       mesh(geo, mat, to);
       [[pts[0], r0], [pts[pts.length - 1], r1]].forEach(function (e) { if (e[1] > 0.01) mesh(new TH.SphereGeometry(e[1], 12, 8), mat, to).position.copy(e[0]); });
     }
-
-    // Golf-ball dimples, spread evenly (a Fibonacci spiral) over the ball, leaving his face, ears and hair clear.
-    var HAIRAT = [V(0.84, 0.36, -0.4).normalize(), V(-0.84, 0.36, -0.4).normalize()];
-    function bare(x, y, z) {
-      if (z > 0.3 && y < 0.62) return false;
-      if (Math.abs(x) > 0.72 && y > -0.42 && y < 0.4 && z > -0.5 && z < 0.6) return false;
-      return HAIRAT.every(function (h) { return x * h.x + y * h.y + z * h.z < 0.9; });
+    // A closed outline smoothed through key points [x, y].
+    function smooth(keys, n) {
+      return new TH.CatmullRomCurve3(keys.map(function (q) { return V(q[0], q[1], 0); }), true).getSpacedPoints(n).slice(0, n).map(function (q) { return [q.x, q.y]; });
     }
-    var pits = [];
-    for (i = 0; i < DIMPLES; i++) {
-      var py = 1 - (i + 0.5) / DIMPLES * 2, pr = Math.sqrt(1 - py * py), pa = i * 2.399963, px = Math.cos(pa) * pr, pz = Math.sin(pa) * pr;
-      if (bare(px, py, pz)) pits.push(px, py, pz);
+    function round(x, y, r) {
+      var o = [], j;
+      for (j = 0; j < 20; j++) o.push([x + Math.cos(j / 20 * Math.PI * 2) * r, y + Math.sin(j / 20 * Math.PI * 2) * r]);
+      return o;
+    }
+    // A flat shape drawn on him, as in the drawing: an outline [x, y] in a plane square to the head at dir (x across, y up),
+    // filled in rings from its middle and laid onto the head's surface (lifted by off), so it follows the curve.
+    function decal(pts, dir, off, mat) {
+      var c = dir.clone().normalize(), u = Y.clone().cross(c).normalize(), w = c.clone().cross(u), RINGS = 5, n = pts.length;
+      var mx = 0, my = 0, xyz = [], idx = [], j, a, b, q = V(0, 0, 0);
+      pts.forEach(function (p) { mx += p[0] / n; my += p[1] / n; });
+      function put(x, y) {
+        q.copy(c).addScaledVector(u, x).addScaledVector(w, y).normalize();
+        q.multiplyScalar(1 + sculpt(q) + off);
+        xyz.push(q.x, q.y, q.z);
+      }
+      put(mx, my);
+      for (j = 1; j <= RINGS; j++) pts.forEach(function (p) { put(mx + (p[0] - mx) * j / RINGS, my + (p[1] - my) * j / RINGS); });
+      for (a = 0; a < n; a++) {
+        b = (a + 1) % n;
+        idx.push(0, 1 + a, 1 + b);
+        for (j = 1; j < RINGS; j++) idx.push(1 + a + (j - 1) * n, 1 + a + j * n, 1 + b + j * n, 1 + a + (j - 1) * n, 1 + b + j * n, 1 + b + (j - 1) * n);
+      }
+      var geo = new TH.BufferGeometry();
+      geo.setAttribute('position', new TH.Float32BufferAttribute(xyz, 3));
+      geo.setIndex(idx);
+      return mesh(geo, mat);
     }
 
-    // The head: a fine ball (its seam turned to the back), shaped, dimpled, and coloured skin with darker dimples.
-    var geo = new TH.SphereGeometry(1, 200, 150).rotateY(-Math.PI / 2), pos = geo.attributes.position, col = new Float32Array(pos.count * 3);
-    var cs = new TH.Color(SKIN), cd = new TH.Color(DIMPLE), n = V(0, 0, 0), cosPit = Math.cos(PIT);
+    // The head: a ball (its seam turned to the back), shaped.
+    var HAIRAT = V(0.84, 0.36, -0.4).normalize();
+    var geo = new TH.SphereGeometry(1, 96, 72).rotateY(-Math.PI / 2), pos = geo.attributes.position, n = V(0, 0, 0);
     for (i = 0; i < pos.count; i++) {
       n.fromBufferAttribute(pos, i).normalize();
-      var best = -1;
-      for (k = 0; k < pits.length; k += 3) {
-        var d = n.x * pits[k] + n.y * pits[k + 1] + n.z * pits[k + 2];
-        if (d > best) best = d;
-      }
-      var dip = 0, m = 0;
-      if (best > cosPit) {
-        var t = Math.acos(Math.min(1, best)) / PIT;
-        dip = DEEP * (1 - t * t);
-        m = t < 0.8 ? 1 : (1 - t) / 0.2;
-      }
-      var rad = 1 + sculpt(n) - dip;
-      pos.setXYZ(i, n.x * rad, n.y * rad, n.z * rad);
-      col[i * 3] = cs.r + (cd.r - cs.r) * m;
-      col[i * 3 + 1] = cs.g + (cd.g - cs.g) * m;
-      col[i * 3 + 2] = cs.b + (cd.b - cs.b) * m;
+      n.multiplyScalar(1 + sculpt(n));
+      pos.setXYZ(i, n.x, n.y, n.z);
     }
-    geo.setAttribute('color', new TH.BufferAttribute(col, 3));
     geo.computeVertexNormals();
     weld(geo);
-    mesh(geo, keep(new TH.MeshToonMaterial({ color: WHITE, vertexColors: true, gradientMap: opt.tones || null })));
-    // Its outline: the same shape without the dimples, a little bigger, drawn inside out in navy.
+    mesh(geo, skin);
+    // Its outline: the same shape a little bigger, drawn inside out in navy.
     var hull = new TH.SphereGeometry(1, 96, 72).rotateY(-Math.PI / 2), hp = hull.attributes.position;
     for (i = 0; i < hp.count; i++) {
       n.fromBufferAttribute(hp, i).normalize();
@@ -128,7 +131,7 @@
       var ex = function (y, z) { return V(EW * Math.sqrt(Math.max(0, 1 - Math.pow(y / EH, 2) - Math.pow(z / ED, 2))) + 0.006, y, z); };
       tube([ex(0.17, -0.07), ex(0.18, 0.07), ex(0.05, 0.13), ex(-0.12, 0.07)], 0.022, 0.016, hair, ear);
       // The tuft: a dark patch above and behind the ear, spiky round its top and back.
-      var P = HAIRAT[0], patch = mesh(new TH.SphereGeometry(0.34, 24, 16), hair, h);
+      var P = HAIRAT, patch = mesh(new TH.SphereGeometry(0.34, 24, 16), hair, h);
       patch.scale.set(1, 1, 0.72);
       patch.quaternion.copy(facing(P));
       patch.position.copy(P).multiplyScalar(0.78);
@@ -157,25 +160,25 @@
       eye.position.copy(C).addScaledVector(X, -0.06).addScaledVector(Y, -0.02).addScaledVector(N, 0.045);
       // The arm, back to the top of his ear.
       tube([C.clone().addScaledVector(X, 0.24), on(0.8, 0.2, 0.62, 0.04), on(0.96, 0.2, 0.2, 0.035), on(0.98, 0.2, -0.1, 0.02)], 0.026, 0.024, hair, h);
-      // The crease from beside his nose down past his mouth.
-      tube([on(0.21, -0.2, 0.96, 0.012), on(0.29, -0.36, 0.92, 0.012), on(0.27, -0.54, 0.82, 0.012)], 0.022, 0.014, hair, h);
+      // A short crease beside his nose.
+      tube([on(0.21, -0.2, 0.96, 0.012), on(0.27, -0.27, 0.94, 0.012), on(0.3, -0.34, 0.91, 0.012)], 0.02, 0.013, hair, h);
     });
 
     // The bridge of the glasses.
     tube([V(0.07, 0.22, 1.07), V(0, 0.25, 1.09), V(-0.07, 0.22, 1.07)], 0.032, 0.032, hair);
     // A big round nose: its bridge and its bulb.
     blob(0.13, [1, 1.5, 1], on(0, 0.06, 1, -0.02), skin);
-    blob(0.235, [1, 0.95, 0.95], on(0, -0.1, 1, 0.1), skin);
-    // The open, grumpy mouth (a thin navy shape just proud of his face, tilted), one tooth, and the pouting lower lip.
-    var MOUTH = V(0.05, -0.5, 0.86).normalize(), mq = facing(MOUTH).multiply(new TH.Quaternion().setFromAxisAngle(Z, 0.12));
-    var mouth = mesh(new TH.SphereGeometry(1, 28, 14), hair);
-    mouth.scale.set(0.33, 0.2, 0.06);
-    mouth.quaternion.copy(mq);
-    mouth.position.copy(on(0.05, -0.5, 0.86, -0.048));
-    var tooth = mesh(new TH.BoxGeometry(0.085, 0.1, 0.05), white);
-    tooth.quaternion.copy(mq);
-    tooth.position.copy(on(0.12, -0.45, 0.88, 0.012));
-    blob(0.1, [2.2, 0.55, 0.8], on(0.05, -0.63, 0.77, -0.02), skin, root, facing(V(0.05, -0.63, 0.77)).multiply(new TH.Quaternion().setFromAxisAngle(Z, 0.12)));
+    blob(0.215, [1, 0.95, 0.95], on(0, -0.07, 1, 0.1), skin);
+    // The mouth, drawn on as in the drawing: wide open and grumpy (its top arched, a sharp corner on his right, a round
+    // one on his left), one tooth hanging from the top, and a short line for his lower lip well below it, with a tick
+    // at his chin.
+    var MOUTH = V(0, -0.52, 0.85);
+    decal(smooth([[-0.4, -0.06], [-0.26, 0.08], [0, 0.18], [0.24, 0.14], [0.37, 0.03], [0.39, -0.09], [0.3, -0.19], [0.1, -0.23], [-0.12, -0.19], [-0.3, -0.12]], 80), MOUTH, 0.008, drawn);
+    decal(smooth([[0.05, 0.15], [0.17, 0.14], [0.175, 0.04], [0.15, 0.01], [0.075, 0.015], [0.05, 0.04]], 32), MOUTH, 0.014, drawnWhite);
+    tube([on(-0.24, -0.79, 0.58, 0.01), on(-0.09, -0.81, 0.58, 0.014), on(0.06, -0.79, 0.6, 0.01)], 0.036, 0.03, hair);
+    tube([on(0.21, -0.78, 0.6, 0.01), on(0.29, -0.71, 0.65, 0.01)], 0.02, 0.016, hair);
+    // His three dots, on top towards his left.
+    [[0.25, 0.86, 0.4], [0.38, 0.8, 0.42], [0.31, 0.75, 0.56]].forEach(function (d) { decal(round(0, 0, 0.04), V(d[0], d[1], d[2]), 0.004, drawn); });
     // A line on his forehead.
     tube([on(-0.22, 0.63, 0.75, 0.01), on(-0.08, 0.6, 0.79, 0.012), on(0.06, 0.62, 0.78, 0.01)], 0.018, 0.018, hair);
     // Three wild strands on top, curling.
