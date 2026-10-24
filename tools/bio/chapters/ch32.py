@@ -395,8 +395,9 @@ def _o(*alts):
 
 
 def _c(*alts):
-    """Keys whose words must all be in one part of a sentence: 'slow a' is "slow after A", not "fast after A but slow
-    after B"; 'not organelle' is "they have no organelles", not "they do not reproduce alone, they use organelles"."""
+    """Keys whose words must all be in one part of a sentence: 'dna into' is "it injects its DNA into the cell", not "it
+    gets into the cell and makes DNA"; 'not organelle' is "they have no organelles", not "they do not reproduce alone,
+    they use organelles"."""
     return [{'w': a.split(), 'n': len(a.split()), 'c': True} for a in alts]
 
 
@@ -432,20 +433,21 @@ _VACCINE = (_x(['harmless', 'weak', 'attenuat', 'dead', 'inactiv'],
 _OWN_ANTIBODIES = ['stimulate antibody', 'trigger antibody', 'body make antibody', 'b make antibody', 'lymphocyte make antibody',
                    'immune make antibody', 'own antibody']
 # Not made of cells: said in order, so "they are not living as they need a host cell to make copies" isn't it.
-_NON_CELLULAR = _k('noncellular', 'acellular') + _o(
-    'non cellular', 'not cellular', 'not cell', 'arent cell', 'isnt cell', 'dont cell', 'no cell structur', 'not make cell', 'arent make cell',
-    'isnt make cell', 'not make up cell', 'arent make up cell', 'not compos cell', 'not consist cell', 'dont consist cell')
+_NON_CELLULAR = _k('noncellular', 'acellular') + _o('non cellular', 'no cell structur', *_x(
+    ['not', 'arent', 'isnt', 'dont', 'doesnt'], ['cell', 'make cell', 'make up cell', 'compos cell', 'consist cell', 'contain cell']))
 # No metabolism (not "they have a metabolism").
 _NO_METABOLISM = _c(*_x(['no', 'not', 'dont', 'doesnt', 'cannot', 'lack', 'without'], ['metabol']))
 _REPRODUCE = ['reproduc', 'replicat', 'multipl']
-# Reproduce only in a host cell. "They cannot reproduce" alone isn't it: they do, inside a host.
-_HOST_ONLY = ([f'host {r}' for r in _REPRODUCE] + ['need host'] + [f'only {r} cell' for r in _REPRODUCE]
-              + [f'{neg} {r} {how}' for neg in ('cannot', 'not', 'dont') for r in _REPRODUCE
-                 for how in ('own', 'independ', 'themselve', 'alone', 'outside', 'without')])
-_ONE_NUCLEIC = _o('one nucleic', 'one type nucleic', 'either dna', 'either rna', 'not both')
+# Reproduce only in a host cell. "They cannot reproduce" alone isn't it: they do, inside a host. The 'not' goes with
+# the reproducing ("they cannot reproduce on their own", not "reproduce alone ...; not made of cells").
+_HOST_ONLY = (_k(*[f'host {r}' for r in _REPRODUCE], 'need host', *[f'only {r} cell' for r in _REPRODUCE])
+              + _c(*[f'{neg} {r} {how}' for neg in ('cannot', 'not', 'dont') for r in _REPRODUCE
+                     for how in ('own', 'independ', 'themselve', 'alone', 'outside', 'without')]))
+_ONE_NUCLEIC = _o('one nucleic', 'one type nucleic', 'one type genetic', 'either dna', 'either rna', 'only dna rna', 'only rna dna', 'not both')
 # No organelles (or a named one), the 'no' in the same part of the sentence as the organelle.
 _NO_ORGANELLES = (_k(*_x(['lack'], ['organelle', 'ribosome', 'mitochondri']))
-                  + _c(*_x(['no', 'not', 'without', 'dont', 'doesnt'], ['organelle', 'ribosome', 'mitochondri'])))
+                  + _c(*_x(['no', 'not', 'without', 'dont', 'doesnt'], ['organelle', 'ribosome', 'mitochondri']))
+                  + _o(*_x(['no', 'not', 'without', 'dont', 'doesnt'], ['nucleus organelle'])))   # "no nucleus or organelles"
 # The virus's nucleic acid going into the host cell.
 _NUCLEIC_IN = _x(['nucleic', 'dna', 'rna', 'genetic', 'genome'], ['inject', 'enter', 'entry', 'insert', 'introduc'])
 _NUCLEIC_INTO = _c(*_x(['nucleic', 'dna', 'rna', 'genetic', 'genome'], ['into']))     # "(viral) nucleic acid into (host) cell"
@@ -473,7 +475,7 @@ _ANTIBODY = ['protein make response', 'make response antigen', 'make against ant
 # ("kill infected cells", "suppress the immune response"), or naming the cell would earn it.
 _HELPER = _k('recogn antigen', 'interferon', 'stimulate b', 'activat b', 'stimulate antibody', 'activat kill', 'stimulate kill')
 _KILLER = _k('attack infect', 'destroy infect', 'burst infect', 'recogn infect', 'perforin', 'destroy cancer') + _o(
-    'kill infect', 'kill virus infect', 'kill cancer')
+    'kill infect', 'kill virus infect', 'kill cell infect', 'kill cancer')
 _SUPPRESSOR = _k('stop response', 'stop immune', 'switch off', 'turn off', 'inhibit b', 'inhibit t', 'end response', 'shut down') + _o(
     'suppress response', 'suppress immune')
 _MEMORY = _k('rememb', 'long term', 'long last')
@@ -481,6 +483,33 @@ _B_ROLE = ['make antibody', 'secrete antibody', 'release antibody']
 _T_ROLES = _HELPER + _KILLER + _SUPPRESSOR + _MEMORY
 _LYMPHOCYTE_ROLES = _k(*_B_ROLE) + _T_ROLES
 _LYMPHOCYTE_NAMES = ['b cell', 'b lymphocyte', 't cell', 't lymphocyte', 'suppressor']
+
+
+# The antibody graph (2021): A, after the vaccine, is slow and low; B, after the infection, is fast and high.
+_GRAPH = {'a': (['a', 'vaccin'], ['slow', 'delay'], ['low', 'small', 'few'], 'less'),
+          'b': (['b', 'infec'], ['fast', 'quick', 'rapid'], ['high', 'large', 'great', 'many'], 'more')}
+
+
+_ALL_SPEEDS = [w for side in _GRAPH.values() for w in side[1]]
+_ALL_AMOUNTS = [w for side in _GRAPH.values() for w in side[2]]
+
+
+def _graph_keys(point):
+    """Keys for one side of the comparison ('speed' or 'amount'), each tied to A or B. "More" and "less" also go with
+    speed ("more rapid"), so for the amount they need antibodies or made with them."""
+    c, o = [], []
+    for subjects, speeds, amounts, more in _GRAPH.values():
+        for s in subjects:
+            if point == 'speed':
+                c += [f'{w} {s}' for w in speeds]
+                o += [f'{s} {w}' for w in speeds] + [f'{w} after {s}' for w in speeds] + [f'{s} {a} {w}' for a in _ALL_AMOUNTS for w in speeds]
+            else:
+                c += [f'{a} {s}' for a in amounts] + [f'{more} antibody {s}']
+                for pre in [''] + [f'{w} ' for w in _ALL_SPEEDS]:
+                    o += [f'{s} {pre}{a}' for a in amounts] + [f'{s} {pre}make {a}' for a in amounts + [more]]
+                    o += [f'{s} {pre}{more} antibody']
+                o += [f'{a} after {s}' for a in amounts] + [f'{more} antibody after {s}']
+    return _c(*c) + _o(*o)
 
 
 # Per-question corrections the general rules can't work out: diagrams with two panels or graphs, the right
@@ -531,7 +560,8 @@ OVERRIDES = {
             0: _k(*_x(['inflamm'], ['histamine', 'dilat', 'widen', 'leak', 'phagocyt', 'white', 'mast'])),
             1: _k(*_x(['fever'], ['enzyme', 'denatur', 'slow', 'growth', 'multipl', 'reproduc', 'stop']),
                   'temperature denatur', 'temperature enzyme', 'temperature slow'),
-            2: _k(*_x(['skin'], ['barri', 'block', 'keratin', 'sebum', 'sweat', 'stop']), 'skin prevent entry', 'skin prevent enter'),
+            2: _k(*_x(['skin'], ['barri', 'block', 'keratin', 'sebum', 'sweat']), 'skin prevent entry', 'skin prevent enter', 'skin stop entry',
+                  'skin stop enter', 'skin keep out'),
             3: _k('mucus trap', 'mucus catch', 'mucus stick', 'mucus sweep', 'cilia sweep', 'cilia mov', 'cilia waft', 'cilia beat'),
             4: _k('acid kill', 'acid destroy', 'hydrochlor kill'),
             5: _k(*_x(['lysozyme'], ['destroy', 'kill', 'digest', 'break']), 'tear kill', 'tear destroy', 'saliva kill', 'saliva destroy'),
@@ -587,9 +617,9 @@ OVERRIDES = {
         # killed, the rest left to multiply; the antibiotic stops working), or killing the good bacteria.
         '2024-Q14b(v)': {0: _k('resist', 'superbug', 'mrsa', 'sensitiv kill multipl', 'sensitiv kill surviv', 'sensitiv kill reproduc',
                                'sensitiv kill left', 'antibiot stop work', 'antibiot no longer work', 'antibiot no longer effect',
-                               'antibiot becom ineffect', 'antibiot less effect', 'kill good bacteri', 'kill benefic', 'kill friendly',
+                               'antibiot become ineffect', 'antibiot less effect', 'kill good bacteri', 'kill benefic', 'kill friendly',
                                'kill useful bacteri', 'kill harmless bacteri', 'kill normal flora', 'kill gut bacteri')},
-        '2024-Q14c(i)': {0: _NON_CELLULAR + _NO_METABOLISM + _k(*_HOST_ONLY) + _NO_ORGANELLES + _ONE_NUCLEIC},
+        '2024-Q14c(i)': {0: _NON_CELLULAR + _NO_METABOLISM + _HOST_ONLY + _NO_ORGANELLES + _ONE_NUCLEIC},
         '2024-Q14c(iii)': {
             0: _k('attach', *_NUCLEIC_IN),
             2: _k('using host cell organelle', *_USES_HOST),
@@ -607,7 +637,8 @@ OVERRIDES = {
         '2023-Q16c(ii)': {0: _NON_CELLULAR + _NO_METABOLISM},
         '2023-Q16c(iv)': {0: _k(*_VIRUS_USES)},
         '2023-Q16c(v)': {
-            0: _k('skin barri', 'skin block', 'skin keratin', 'skin stop', 'skin prevent entry', 'skin prevent enter'),
+            0: _k('skin barri', 'skin block', 'skin keratin', 'skin prevent entry', 'skin prevent enter', 'skin stop entry', 'skin stop enter',
+                  'skin keep out'),
             1: _k('mucus trap', 'mucus catch', 'mucus stick'),
             2: _k('phagocyt', 'engulf'),
             3: _k('infect release chemic', 'interferon'),
@@ -618,7 +649,7 @@ OVERRIDES = {
             8: _k('fever enzyme', 'fever denatur', 'fever temperature', 'fever kill', 'fever slow', 'fever stop', 'high temperature'),
             11: _k('memory cell', 'memory recogn', 'memory rememb'),
             12: _k('coordinat response', 'coordinat immune', 'help stimulate', 'help activat'),
-            13: _k('destroy infect', 'burst infect', 'perforin') + _o('kill infect', 'kill virus infect'),
+            13: _k('destroy infect', 'burst infect', 'perforin') + _o('kill infect', 'kill virus infect', 'kill cell infect'),
             14: _k('stop response', 'stop immune', 'switch off', 'turn off', 'suppress control', 'regulat control') + _o(
                 'suppress response', 'suppress immune'),
         },
@@ -634,23 +665,20 @@ OVERRIDES = {
             3: _k('bond', 'sterile', 'uterus', 'contracep', 'delay ovul', 'cancer', 'easi digest', 'cheap', 'convenient', 'allerg',
                   'obes', 'less infec'),
         },
-        '2022-Q7(c)': {0: _k(*_HOST_ONLY)},
+        '2022-Q7(c)': {0: _HOST_ONLY},
         '2022-Q7(d)': {0: _k(*_VACCINE), 1: _k('stimulate produc antibody', *_OWN_ANTIBODIES, 'active immun', 'memory cell')},
         '2022-Q7(e)': {0: _k(*_VIRUS_NAMES)},   # other than SARS-CoV-2
         '2022-Q7(f)': {0: _k(*_VIRUS_USES)},
         '2021-Q16c(iv)': {0: _k('monocyte', 'macrophage', 'phagocyt', 'neutrophil', 'granulocyte', 'eosinophil', 'basophil')},
-        # Which way round matters: slow and low after A (the vaccine), fast and high after B (the infection), said of the
-        # same one in the same part of the sentence.
-        '2021-Q16c(v) 1.': {
-            0: _c(*_x(['slow', 'delay'], ['a', 'vaccin']), *_x(['fast', 'quick', 'rapid'], ['b', 'infec'])),
-            1: _c(*_x(['low', 'small', 'few'], ['a', 'vaccin']), *_x(['high', 'large', 'great', 'many'], ['b', 'infec']),
-                  'less antibody a', 'less antibody vaccin', 'more antibody b', 'more antibody infec'),
-        },
+        # Which way round matters: slow and low after A (the vaccine), fast and high after B (the infection), so each key
+        # says it of the right one: in one part of a sentence ("slow after A but fast after B") or right next to it
+        # ("B is faster and makes more antibodies", "A: slow and small").
+        '2021-Q16c(v) 1.': {0: _graph_keys('speed'), 1: _graph_keys('amount')},
         '2021-Q16c(v) 2.': {0: _k('1st time infect', 'first time', 'memory')},
         '2021-Q16c(vi)': {0: _k('protein', 'capsid', 'antigen')},
         '2021-Q16c(vii)': {0: _k(*_NOT_ON_VIRUSES)},
         '2020-Q15b(ii)': {0: _k('nucleic acid', 'dna', 'rna')},
-        '2020-Q15b(iii)': {0: _k(*_HOST_ONLY)},
+        '2020-Q15b(iii)': {0: _HOST_ONLY},
         '2020-Q15b(iv)': {
             1: _k(*_NUCLEIC_IN),
             2: _k(*_USES_HOST),
@@ -676,7 +704,7 @@ OVERRIDES = {
                                'reduce transmi', 'stop transmi', 'avoid transmi')},
         '2017-Q14a(ii)': {
             0: _k('net', 'repell', 'long sleeve', 'cover skin', 'cloth', 'protect mosquito', 'avoid mosquito', 'prevent mosquito'),
-            1: _k('time day', 'daytime', 'during day', 'dawn', 'dusk'),
+            1: _k('time day', 'daytime'),
             2: _k('condom', 'delay pregnan', 'delay concep', 'abstain', 'abstin', 'avoid sex', 'no sex', 'dont sex', 'safe sex'),
         },
         '2017-Q14a(iii)': {0: _k('bacteriophage', 'phage', 'kill bacteria', *_TREAT_CANCER, 'gene therapy', 'vector', 'genetic engineer',
@@ -691,7 +719,7 @@ OVERRIDES = {
             4: _k(*_RELEASED),
         },
         '2017-Q14a(v)': {
-            0: _k(*_HOST_ONLY, 'obligate'),
+            0: _HOST_ONLY + _k('obligate'),
             1: _NON_CELLULAR + _NO_METABOLISM + _NO_ORGANELLES + _ONE_NUCLEIC,
         },
         '2017-Q14b(i)': {0: _k('non vaccin', 'unvaccin', 'not vaccin', 'never vaccin', 'weak immun', 'immunocompromis', 'baby', 'infant',
@@ -721,7 +749,8 @@ OVERRIDES = {
                   'inflamm', 'fever', 'interferon', 'wax'),
             1: _k(*_x(['mucus'], ['trap', 'stick', 'catch', 'sweep']),
                   *_x(['cilia'], ['sweep', 'mov', 'beat', 'waft', 'push']),
-                  *_x(['skin'], ['barri', 'block', 'stop', 'keratin', 'tough', 'waterproof']), 'skin prevent entry', 'skin prevent enter',
+                  *_x(['skin'], ['barri', 'block', 'keratin', 'tough', 'waterproof']), 'skin prevent entry', 'skin prevent enter',
+                  'skin stop entry', 'skin stop enter', 'skin keep out',
                   *_x(['acid'], ['kill', 'destroy', 'denatur']),
                   *_x(['lysozyme'], ['kill', 'destroy', 'digest', 'break']),
                   *_x(['tear', 'saliva'], ['lysozyme', 'wash', 'kill', 'enzyme']),
@@ -750,9 +779,8 @@ OVERRIDES = {
         # "Phagocytic (white cells) or monocytes".
         '2012-Q15b(ii)': {0: _k('phagocyt', 'monocyte', 'macrophage', 'neutrophil')},
         '2012-Q15b(iii) 3.': {0: _HELPER, 1: _KILLER, 2: _k('stop immune respons') + _SUPPRESSOR, 3: _k('long term protec') + _MEMORY},
-        '2011-Q10b(ii)': {0: _k('immunity develop', 'develop immun', 'becom immun', 'build immun', 'gain immun', 'acquir immun', 'now immun',
-                                'immun surviv', 'resist surviv', 'natur selec', 'virulent die', 'less virulent', 'decrease virulen', 'vaccin',
-                                'resist host')},
+        '2011-Q10b(ii)': {0: _k('immunity develop', 'develop immun', 'become immun', 'build immun', 'gain immun', 'acquir immun', 'now immun',
+                                'immun surviv', 'resist surviv', 'natur selec', 'strain die', 'less virulent strain', 'vaccin', 'resist host')},
         '2010-Q6(a) (ii)': {0: _k('nucleic acid', 'dna', 'rna')},
         # "Uses host structures (or described)".
         '2010-Q6(b)': {1: _NUCLEIC_INTO + _k(*_NUCLEIC_IN),
@@ -775,7 +803,7 @@ OVERRIDES = {
             4: _HELPER + _KILLER + _SUPPRESSOR + _k('rememb'),
         },
         '2008-Q15b(i)': {2: _k('rapid spread', 'fast spread', 'quick spread', 'high popul', 'dense popul', 'large popul')},
-        '2008-Q15b(ii)': {0: _k('natur immun', 'natur selec', 'virus mutat', 'develop immun', 'becom immun', 'build immun', 'gain immun',
+        '2008-Q15b(ii)': {0: _k('natur immun', 'natur selec', 'virus mutat', 'develop immun', 'become immun', 'build immun', 'gain immun',
                                 'acquir immun', 'now immun')},
         # Yes or no, with a plausible reason.
         '2008-Q15b(iv)': {0: _k('resist surviv', 'immun surviv', 'natur selec', 'resist reproduc', 'immun reproduc', 'resist children',
@@ -786,7 +814,7 @@ OVERRIDES = {
             3: _k('rna replicat', 'dna replicat', 'nucleic replicat', 'dna copy', 'rna copy', 'dna copi', 'rna copi', 'nucleic copy'),
             4: _k('using resource host cell', *_USES_HOST, *_HOST_WORKINGS, 'host resource', 'host materi'),
         },
-        '2007-Q14b(i)': {0: _k('obligate', *_HOST_ONLY), 1: _NON_CELLULAR, 4: _ONE_NUCLEIC},
+        '2007-Q14b(i)': {0: _k('obligate') + _HOST_ONLY, 1: _NON_CELLULAR, 4: _ONE_NUCLEIC},
         '2007-Q14b(iii)': {7: _k('hiv', 'aid', 'mump', 'rubella', 'raby', 'hepatitis', 'herpe', 'ebola', 'zika', 'covid', 'corona', 'sar',
                                  'hpv', 'wart', 'dengue', 'yellow fever', 'glandular fever', 'shingle', 'norovirus', 'rotavirus',
                                  'influenza', 'myxoma', 'foot mouth')},
@@ -815,7 +843,7 @@ OVERRIDES = {
             0: _k('cell membrane', 'surface', *_ANTIGEN, *_FOREIGN),
             1: _k('produc response antigen', 'make against', 'destroy antigen', 'defence protein', 'make lymphocyte'),
         },
-        '2005-Q15a(i)': {0: _NON_CELLULAR, 1: _ONE_NUCLEIC, 2: _k('reproduce host cell only', 'obligate', *_HOST_ONLY),
+        '2005-Q15a(i)': {0: _NON_CELLULAR, 1: _ONE_NUCLEIC, 2: _k('reproduce host cell only', 'obligate') + _HOST_ONLY,
                          3: _NO_ORGANELLES + _k('no nucleus')},
         '2005-Q15a(ii)': {1: _k('flu', 'influenza'), 6: _k('aid', 'hiv')},
         '2005-Q15a(iii)': {
@@ -825,7 +853,7 @@ OVERRIDES = {
             3: _k('cell recognise', 'destroy damag', 'memory') + _o('kill damag') + _HELPER + _KILLER + _SUPPRESSOR,
             4: _k('help stimulate cell', 'stimulate kill cell', 'recognise antigen', 'stimulate b', 'activat b', 'activat kill'),
             5: _k('kill destroy infect', 'destroy infect', 'destroy damag', 'burst infect', 'perforin') + _o('kill infect', 'kill virus infect',
-                                                                                                          'kill damag'),
+                                                                                                          'kill cell infect', 'kill damag'),
             6: _k('suppressor switch', 'switch off', 'turn off', 'stop immune', 'stop response') + _o('suppress immune', 'suppress response'),
             7: _k('memory memorise antigen', 'rememb'),
         },
