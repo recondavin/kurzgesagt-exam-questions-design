@@ -42,6 +42,10 @@
   // ======================================================================== the questions
   function B() { return window.BioApp; }
   // The points an answer earns on a question's scheme points (the marker's rule, as bio.js checks a typed answer).
+  function cancelled(it, text) {
+    var right = [it.q, it.right].concat(it.pts.map(function (p) { return p.a + ' ' + (p.accept || []).join(' '); })).join(' ');
+    return B().addedWrong(B().words(text), it.wrong, right);
+  }
   function earner(pts) {
     return function (text) { var w = B().words(text || ''); return pts.filter(function (p) { return p.k && B().hasPoint(p, w); }).length; };
   }
@@ -217,11 +221,13 @@
     if (D.phase !== 'ask') return;
     var it = D.cur.it, box = q('[data-ed-text]'), text = pass ? '' : (box.value || '').trim();
     if (!pass && !text) { box.focus(); return; }
-    var got = text ? it.earned(text) : 0, ok = got >= it.need;
+    // A wrong box's answer added to a right one cancels it, as the scheme does for its starred terms.
+    var bad = text ? cancelled(it, text) : '', got = text && !bad ? it.earned(text) : 0, ok = got >= it.need;
     box.disabled = true;
     var row = q('.ed-row');
     if (row) row.remove();
-    answered(ok, ok ? 'done' : 'box', text ? 'You wrote: ' + text + (ok ? '' : ' (' + Math.round(got * it.marks / it.need) + ' of ' + it.marks + ' marks)') : '');
+    answered(ok, ok ? 'done' : 'box', text ? 'You wrote: ' + text + (bad ? ' (cancelled: "' + bad + '" is wrong, and a wrong answer added cancels the right one)' :
+      ok ? '' : ' (' + Math.round(got * it.marks / it.need) + ' of ' + it.marks + ' marks)') : '');
   }
   function answered(ok, stage, mine) {
     D.phase = 'shown';
@@ -281,5 +287,5 @@
     check(false);
   });
   window.addEventListener('resize', function () { if (live()) BB.nearMascot(D.card); });
-  window.BioDrill = { open: open, items: items, counts: counts, state: function () { return D; } };
+  window.BioDrill = { open: open, items: items, counts: counts, cancelled: cancelled, state: function () { return D; } };
 })();

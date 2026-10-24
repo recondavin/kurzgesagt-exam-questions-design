@@ -77,7 +77,7 @@
   function canon(w) { return CANON[w] || w; }
   var SUFFIXES = ['ation', 'ition', 'tion', 'sion', 'ment', 'ing', 'ous', 'ive', 'ed', 'er', 'ly', 'al'];
   // Words that share a start but mean different things.
-  var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog'], ['bronch', 'bronchit'], ['bronch', 'bronchiol'], ['with', 'without'], ['gene', 'gener'], ['syst', 'systol']];
+  var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog'], ['bronch', 'bronchit'], ['bronch', 'bronchiol'], ['with', 'without'], ['gene', 'gener'], ['syst', 'systol'], ['anti', 'antigen']];
   function bioStem(w) {
     if (/^\d+$/.test(w) || w.length <= 3) return w;
     if (w.length > 4 && /ies$/.test(w)) w = w.slice(0, -3) + 'y';
@@ -93,8 +93,19 @@
     // "a" as a word ("a large area") isn't the letter A, which a scheme can ask for; "B's" is B.
     var t = String(text).replace(/(^|[^A-Za-z])a(?=\s+[A-Za-z]{2,})/g, '$1').toLowerCase().replace(/[’']s\b/g, '').replace(/[’']/g, '');
     PHRASES.forEach(function (p) { t = t.replace(p[0], p[1]); });
-    return (t.match(/[a-z0-9]+/g) || []).map(function (w) { return canon(bioStem(SYNONYMS[w] || w)); });
+    // Each word also gets the number of the part of the sentence it's in (words.cl), for keys that need their words
+    // said together: a new part starts at punctuation or a joining word ("B cells make antibodies; T cells kill").
+    var out = [], cl = [], n = 0, end = 0, m, re = /[a-z0-9]+/g;
+    while ((m = re.exec(t))) {
+      if (/[.,;:!?\/\n]/.test(t.slice(end, m.index)) || JOIN.test(m[0])) n += 1;
+      end = re.lastIndex;
+      out.push(canon(bioStem(SYNONYMS[m[0]] || m[0])));
+      cl.push(n);
+    }
+    out.cl = cl;
+    return out;
   }
+  var JOIN = /^(and|or|but|while|whilst|whereas|so|because|which|that|who|where|then|however)$/;
   // Edit distance, up to max (anything further away is max + 1); two letters swapped count as one slip.
   function lev(a, b, max) {
     max = max || 1;
@@ -131,12 +142,94 @@
     // ("thoriac" for thoracic).
     return min >= 5 && lev(a, b, 1) <= 1 || min >= 7 && a.slice(0, 3) === b.slice(0, 3) && lev(a, b, 2) <= 2;
   }
+  function said(words, k) { k = canon(k); return words.some(function (w) { return sameStem(w, k); }); }
+  // Enough of an alternative's key words are in the answer: anywhere (most keys); all in one part of the sentence (c);
+  // or in their order with only small words between them (o: "no A or B antigens", not "no antibodies for antigens").
+  function altIn(alt, words) {
+    if (alt.o && words.cl) {
+      var big = words.filter(function (w) { return alt.w.some(function (k) { return sameStem(w, canon(k)); }) || w.length > 1 && !STOP.test(w) && w !== 'nor'; });
+      return big.some(function (w, i) {
+        return alt.w.every(function (k, j) { return big[i + j] && sameStem(big[i + j], canon(k)); });
+      });
+    }
+    if (alt.c && words.cl) {
+      var parts = {};
+      words.forEach(function (w, i) { (parts[words.cl[i]] = parts[words.cl[i]] || []).push(w); });
+      return Object.keys(parts).some(function (c) { return alt.w.filter(function (k) { return said(parts[c], k); }).length >= alt.n; });
+    }
+    return alt.w.filter(function (k) { return said(words, k); }).length >= alt.n;
+  }
+  // Opposites: a word of the scheme's answer (or of the key) that the answer leaves out can't be said the opposite way
+  // next to the key's words instead ("hepatic portal artery" isn't the hepatic portal vein, "a small surface area"
+  // isn't a large one), unless the point accepts that word too. Next to: within two words, so "the small intestine"
+  // further on in the sentence doesn't count against "a large surface area". The scheme answer's words count only for a
+  // key made of its words (not "more water stays in the tubule" for "less water is reabsorbed"), and not when it says
+  // both ("more CO2 is breathed out, so the blood is less acidic"). Not acid/alkaline: "neutralises acid" is right.
+  var OPPOSITE = [['vein', 'artery'], ['more', 'less'], ['increase', 'decrease'], ['high', 'low'], ['higher', 'lower'], ['large', 'small'],
+    ['larger', 'smaller'], ['thick', 'thin'], ['thicker', 'thinner'], ['inhale', 'exhale'],
+    ['inhalation', 'exhalation'], ['inspiration', 'expiration'], ['contract', 'relax'], ['active', 'passive'], ['oxygenated', 'deoxygenated'],
+    ['atrium', 'ventricle'], ['atria', 'ventricles'], ['antigen', 'antibody'], ['bicuspid', 'tricuspid'], ['left', 'right'], ['before', 'after'],
+    ['positive', 'negative'], ['dilute', 'concentrated'], ['b', 't'], ['aerobic', 'anaerobic'], ['innate', 'acquired']];
+  var OPP = null;
+  function opposite(k) {
+    if (!OPP) OPP = OPPOSITE.map(function (p) { return [bioWords(p[0])[0], bioWords(p[1])[0]]; });
+    k = canon(k);
+    for (var i = 0; i < OPP.length; i++) {
+      if (sameStem(k, OPP[i][0])) return OPP[i][1];
+      if (sameStem(k, OPP[i][1])) return OPP[i][0];
+    }
+    return null;
+  }
+  var SAID_AS = {};
+  function schemeWords(pt) { return pt.a ? SAID_AS[pt.a] || (SAID_AS[pt.a] = bioWords(pt.a)) : []; }
   // A marking point is in an answer if, for one of its alternatives, enough of its key words are there.
   function hasPoint(pt, words) {
-    return (pt.k || []).some(function (alt) {
-      var got = alt.w.filter(function (k) { k = canon(k); return words.some(function (w) { return sameStem(w, k); }); }).length;
-      return got >= alt.n;
+    var alts = pt.k || [];
+    return alts.some(function (alt) {
+      if (!altIn(alt, words)) return false;
+      var at = [], sw = schemeWords(pt), own = alt.w.every(function (k) { return said(sw, k); });
+      words.forEach(function (w, i) { if (alt.w.some(function (k) { return sameStem(w, canon(k)); })) at.push(i); });
+      return !(own ? sw : []).concat(alt.w).some(function (k) {
+        var o = opposite(k);
+        if (!o || said(words, k) || said(sw, o) || alts.some(function (a) { return a.w.some(function (x) { return sameStem(canon(x), o); }); })) return false;
+        return words.some(function (w, j) { return sameStem(w, o) && at.some(function (i) { return Math.abs(i - j) <= 2; }); });
+      });
     });
+  }
+  // The scheme's starred terms: "only this specific term is accepted; an incorrect additional answer cancels it". A
+  // short answer (up to eight words) adds a wrong term when one part of it ("pulmonary vein or pulmonary artery") has all
+  // of a wrong term's own words (up to three, none in the question or a right answer) and doesn't say "not". Returns
+  // the wrong answer it added, or ''.
+  var STOP = /^(the|of|in|on|at|to|from|by|with|for|into|is|are|it|its|they|them|their|this|that|be|an|or|and|as|so|can|has|have|not|no|which|than|then|one|two|both|only|very)$/;
+  var NEG = /^(not|no|nor|never|neither|unlike|instead|isnt|arent|doesnt|dont|wasnt|without)$/;
+  function addedWrong(words, wrongs, right) {
+    if (!words.length || words.length > 8) return '';
+    var ok = bioWords(right), parts = {};
+    words.forEach(function (w, i) { var c = words.cl ? words.cl[i] : 0; (parts[c] = parts[c] || []).push(w); });
+    for (var i = 0; i < wrongs.length; i++) {
+      var own = bioWords(wrongs[i]).filter(function (w) { return !STOP.test(w) && !said(ok, w); });
+      if (!own.length || own.length > 3) continue;
+      var hit = Object.keys(parts).some(function (c) {
+        return own.every(function (w) { return said(parts[c], w); }) && !parts[c].some(function (w) { return NEG.test(w); });
+      });
+      if (hit) return wrongs[i];
+    }
+    return '';
+  }
+  // A part's wrong answers: its quick check's wrong options that earn nothing on the part.
+  function partWrongs(n, q, k) {
+    var c = (((window.BioChecks || {})[n] || {})[q.id] || [])[k], part = q.parts[k];
+    if (!c) return { wrong: [], right: '' };
+    var wrong = c.wrong.filter(function (w) { var ws = bioWords(w); return !part.pts.some(function (pt) { return pt.k && hasPoint(pt, ws); }); });
+    return { wrong: wrong, right: [part.q, c.q, c.right].concat(part.pts.map(function (pt) { return pt.a + ' ' + (pt.acc || []).join(' '); })).join(' ') };
+  }
+  // Cancels the starred points an answer also gives a wrong answer for; returns the wrong answer, or ''.
+  function cancelStars(n, q, k, words, got) {
+    var part = q.parts[k];
+    if (!part.pts.some(function (pt, i) { return got[i] && /\*/.test(pt.a); })) return '';
+    var pw = partWrongs(n, q, k), bad = addedWrong(words, pw.wrong, pw.right);
+    if (bad) part.pts.forEach(function (pt, i) { if (/\*/.test(pt.a)) got[i] = false; });
+    return bad;
   }
   // Some schemes list the same fact twice ("Alveoli: large surface area", "Capillaries: large surface area"), so the
   // points have the same keys. Saying it once earns one of them; each further sentence that says it earns another.
@@ -470,7 +563,7 @@
     card.classList.add('bio-sheet');
     var tapPart = null;
     q.parts.forEach(function (p, k) { if (p.kind === 'tap' && p.tap) tapPart = String(k); });
-    sheet = { n: n, q: q, card: card, got: q.parts.map(function () { return null; }), tap: {}, tf: {}, onNext: onNext };
+    sheet = { n: n, q: q, card: card, got: q.parts.map(function () { return null; }), tap: {}, tf: {}, cancel: {}, onNext: onNext };
     K.gameHud(card, q.parts.length, '/' + questionOutOf(q));
     K.gameBody(card, '<div class="bio-paper">' +
       '<p class="bio-src">' + esc(q.src) + (q.fresh !== 'yes' ? ' <i class="bio-old' + (q.fresh === 'partly' ? ' bio-old--part' : '') + '">' + (q.fresh === 'no' ? 'Old course' : 'Partly old course') + '</i>' : '') +
@@ -559,6 +652,7 @@
     });
     if (part.kind === 'tap' && part.tap) got = got.map(function (g, i) { return i === 0 ? g : false; });
     if (part.kind === 'text') { var box = sec.querySelector('.bio-in'); got = onePerSentence(part, got, box ? box.value : ''); }
+    sheet.cancel[k] = part.kind === 'text' ? cancelStars(sheet.n, sheet.q, k, words, got) : '';
     sheet.got[k] = got;
     // The answer stays open: change it and check again (the best total is what's saved). Arrows stay as marked until
     // Clear starts them again.
@@ -594,7 +688,8 @@
     var others = part.pts.map(function (pt, i) { return got[i] ? '' : item(pt, i); }).join('');
     var head = !rest ? '' : mode === 'alt' ? 'You could also have said' : mode === 'tick' ? 'What the scheme gives marks for: tick what you had' :
       need >= rest ? 'Missing' : 'Still needed: any ' + need + ' of these';
-    res.innerHTML = (mine ? '<ul class="bio-pts">' + mine + '</ul>' : '') + (others ? '<p class="bio-pts__head bio-pts__head--' + mode + '">' + head + '</p><ul class="bio-pts">' + others + '</ul>' : '') +
+    var bad = sheet.cancel[k] ? '<p class="bio-cancel">Cancelled: you also wrote "' + esc(sheet.cancel[k]) + '". In the scheme, a wrong answer added cancels a starred term.</p>' : '';
+    res.innerHTML = bad + (mine ? '<ul class="bio-pts">' + mine + '</ul>' : '') + (others ? '<p class="bio-pts__head bio-pts__head--' + mode + '">' + head + '</p><ul class="bio-pts">' + others + '</ul>' : '') +
       ruleHtml(part) + noteHtml(part);
     sheet.card.querySelector('[data-bio-got="' + k + '"]').innerHTML = '<b>' + s + '/' + out + '</b>';
     var btn = sheet.card.querySelector('[data-bio-check="' + k + '"]');
@@ -876,12 +971,14 @@
     route();
   }
   window.BioApp = {
-    refresh: refresh, words: bioWords, hasPoint: hasPoint, partScore: partScore, pointMarks: pointMarks, partOutOf: partOutOf, chapter: chapter, onePerSentence: onePerSentence,
+    refresh: refresh, words: bioWords, hasPoint: hasPoint, addedWrong: addedWrong, partScore: partScore, pointMarks: pointMarks, partOutOf: partOutOf, chapter: chapter, onePerSentence: onePerSentence,
     graphSvg: graphSvg, diagramHtml: diagramHtml, questions: allQuestions, openQuestion: openQuestion, outOf: questionOutOf,
     // For tests: does a typed answer get each point of a part?
     check: function (n, qid, partIndex, text) {
       var q = QS[n].questions.filter(function (x) { return x.id === qid; })[0], part = q.parts[partIndex], w = bioWords(text);
-      return part.pts.map(function (pt) { return hasPoint(pt, w); });
+      var got = part.pts.map(function (pt) { return hasPoint(pt, w); });
+      cancelStars(n, q, partIndex, w, got);
+      return got;
     }
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
