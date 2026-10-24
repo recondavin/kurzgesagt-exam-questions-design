@@ -133,6 +133,50 @@ tr .pg-track i { animation-delay: inherit; }
 .pg-stats dt { color: var(--faint); font: 700 12.5px Nunito, system-ui, sans-serif; }
 .pg-stats dd { margin: 4px 0 0; color: #fff; font: 800 20px/1.2 Nunito, system-ui, sans-serif; }
 .pg-stats .of { font-size: 13px; }
+/* Bigger on a computer (the user, of the Progress page: "make this bigger"): it fills the width beside the sidebar,
+   with larger type, numbers, rows and charts. Phones keep the sizes above. */
+@media (min-width: 701px) {
+  .sh-canvas.bio-app:has(> .pg) { max-width: 1680px; }
+  .pg .cv-title { margin-bottom: 28px; }
+  .pg .cv-h1 { font-size: 36px; }
+  .pg .btn-primary { height: 52px; padding: 0 28px; font-size: 18.5px; }
+  .pg-grid { gap: 22px; }
+  .pg .card { padding: 28px; border-radius: 20px; }
+  .pg .card-head { margin-bottom: 18px; }
+  .pg .card-h { font-size: 22px; }
+  .pg-big { margin-top: 20px; }
+  .pg-big b { font-size: 60px; }
+  .pg-pct { font-size: 32px; }
+  .pg-line { margin-top: 16px; font-size: 19.5px; }
+  .pg-target { margin-top: 24px; gap: 12px; }
+  .pg-target label { font-size: 17px; }
+  .pg .control { height: 44px; padding: 0 40px 0 18px; background-position: right 15px center; font-size: 17px; }
+  .pg .legend { gap: 6px 18px; font-size: 16px; }
+  .pg .lg-line { width: 18px; height: 3px; }
+  .pg .lg-range, .pg .lg-target { width: 15px; height: 12px; }
+  .pg .ld-band { font-size: 15.5px; }
+  .pg .ld-end { font-size: 17px; }
+  .pg .ld-x, .pg .dy-y, .pg .dy-x { font-size: 15px; }
+  .pg .ld-line { stroke-width: 3.5; }
+  .pg-daychart { min-height: 200px; }
+  .pg-table th, .pg-table td { height: 66px; padding-left: 20px; font-size: 18.5px; }
+  .pg-table thead th { height: 40px; font-size: 15px; }
+  .pg-ch { gap: 10px; }
+  .pg-ch__n { width: 30px; }
+  .pg-marks .num { width: 58px; }
+  .pg-track { width: 180px; height: 10px; }
+  .pg .pill { padding: 3px 11px; font-size: 14.5px; }
+  .pg-stats { gap: 16px; margin-top: 22px; padding-top: 18px; }
+  .pg-stats dt { font-size: 15.5px; }
+  .pg-stats dd { margin-top: 6px; font-size: 28px; }
+  .pg-stats .of { font-size: 16px; }
+}
+/* Up to 1560px wide the bigger table doesn't fit beside the day chart: two across, then each on its own row. */
+@media (min-width: 701px) and (max-width: 1560px) {
+  .pg-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pg-trend { grid-column: span 1; }
+  .pg-chapters, .pg-days { grid-column: 1 / -1; }
+}
 
 /* Information animates in: each block rises into place in turn. A refresh after a card closes stays still. */
 .rise { animation: riseIn .55s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 70ms); }

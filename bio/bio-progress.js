@@ -98,7 +98,7 @@
   // The grade ladder: H1-H8 bands up the side, your predicted percentage across the days, its likely range as a
   // faint band, and your target's band picked out.
   function ladderSvg(points, target, w, h) {
-    var L = 34, R = 46, T = 10, B = 24, pw = w - L - R, ph = h - T - B;
+    var L = 44, R = 62, T = 10, B = 32, pw = w - L - R, ph = h - T - B;
     var lows = points.map(function (p) { return p.low; }), floor = Math.min(30, target ? target.from : 30, lows.length ? Math.min.apply(null, lows) : 30);
     var y0 = Math.max(0, Math.floor((floor - 5) / 10) * 10), Y = function (v) { return f1(T + ph * (1 - (v - y0) / (100 - y0))); };
     var first = points.length ? points[0].d : null, span = points.length > 1 ? Math.max(1, daysBetween(first, points[points.length - 1].d)) : 0;
@@ -124,20 +124,20 @@
         s += '<line class="ld-range-one" x1="' + X(last.d) + '" x2="' + X(last.d) + '" y1="' + Y(last.high) + '" y2="' + Y(last.low) + '"/>' +
           '<circle class="ld-dot" cx="' + X(last.d) + '" cy="' + Y(last.pct) + '" r="5"/>';
       }
-      s += '<text class="ld-end" x="' + (+X(last.d) + 8) + '" y="' + (+Y(last.pct) + 5) + '">' + last.pct + '%</text>';
+      s += '<text class="ld-end" x="' + (+X(last.d) + 10) + '" y="' + (+Y(last.pct) + 6) + '">' + last.pct + '%</text>';
       // Dates on one step: the first day, the middle of the span (when it's even) and the last day.
       var picks = span ? [first, points[points.length - 1].d] : [first];
       if (span >= 6 && span % 2 === 0) picks.splice(1, 0, addDays(first, span / 2));
       picks.forEach(function (d, k) {
         var anchor = picks.length > 1 && k === 0 ? 'start' : picks.length > 1 && k === picks.length - 1 ? 'end' : 'middle';
-        s += '<text class="ld-x" x="' + X(d) + '" y="' + (h - 6) + '" text-anchor="' + anchor + '">' + short(d) + '</text>';
+        s += '<text class="ld-x" x="' + X(d) + '" y="' + (h - 8) + '" text-anchor="' + anchor + '">' + short(d) + '</text>';
       });
     }
     return s + '</svg>';
   }
   // Questions answered on each of the last 14 days: square columns, today in ink.
   function daysSvg(counts, w, h) {
-    var L = 22, R = 4, T = 8, B = 22, pw = w - L - R, ph = h - T - B, max = Math.max.apply(null, counts), top = max <= 4 ? 4 : Math.ceil(max / 5) * 5;
+    var L = 30, R = 4, T = 10, B = 30, pw = w - L - R, ph = h - T - B, max = Math.max.apply(null, counts), top = max <= 4 ? 4 : Math.ceil(max / 5) * 5;
     var gap = 4, bw = (pw - gap * (counts.length - 1)) / counts.length;
     var s = '<svg xmlns="' + NS + '" viewBox="0 0 ' + w + ' ' + h + '" width="' + w + '" height="' + h + '" role="img" aria-label="Questions answered on each of the last 14 days: ' + counts.join(', ') + '">';
     [0, top / 2, top].forEach(function (v) {
@@ -151,7 +151,7 @@
     });
     [[1, 'start'], [7, 'middle'], [13, 'end']].forEach(function (p) {
       var x = p[1] === 'end' ? L + pw : p[1] === 'start' ? L + p[0] * (bw + gap) : L + p[0] * (bw + gap) + bw / 2;
-      s += '<text class="dy-x" x="' + f1(x) + '" y="' + (h - 5) + '" text-anchor="' + p[1] + '">' + (p[0] === 13 ? 'Today' : short(addDays(today(), p[0] - 13))) + '</text>';
+      s += '<text class="dy-x" x="' + f1(x) + '" y="' + (h - 7) + '" text-anchor="' + p[1] + '">' + (p[0] === 13 ? 'Today' : short(addDays(today(), p[0] - 13))) + '</text>';
     });
     return s + '</svg>';
   }
@@ -221,10 +221,11 @@
   }
   function drawCharts(el, m, target, counts) {
     var lad = el.querySelector('[data-pg-ladder]'), days = el.querySelector('[data-pg-days]');
-    if (lad) lad.innerHTML = ladderSvg(m.hist, target, Math.max(260, lad.clientWidth), lad.clientWidth < 420 ? 190 : 210);
+    // Taller on a computer, where the page is bigger (bio-shell.css).
+    if (lad) lad.innerHTML = ladderSvg(m.hist, target, Math.max(260, lad.clientWidth), lad.clientWidth < 420 ? 200 : window.innerWidth > 700 ? 330 : 220);
     if (days) {
       days.innerHTML = '';
-      days.innerHTML = daysSvg(counts, Math.max(200, days.clientWidth), Math.max(132, Math.min(240, days.clientHeight)));
+      days.innerHTML = daysSvg(counts, Math.max(200, days.clientWidth), Math.max(140, Math.min(360, days.clientHeight)));
     }
   }
   // Numbers count up, bars grow and the line draws itself; with reduced motion they're simply there.
