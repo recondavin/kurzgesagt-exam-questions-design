@@ -155,7 +155,16 @@ body.bio-desk .am-mascot.bio-helps.is-on { pointer-events: auto; }
 .am-mascot.bio-helps > .bio-logo__say { transition: opacity .2s ease; }
 /* In the walkthrough he stands in its card beside the title (bio-desk.js seatInGuide), talking while it types. */
 body.bio-desk .hf-guide__top { --f: clamp(56px, 6vw, 96px); position: relative; box-sizing: border-box; min-height: calc(var(--f) * 1.23 + 32px); padding-left: calc(var(--f) + 30px); }
-.bio-guide-fig { position: absolute; left: 16px; top: 16px; width: var(--f); aspect-ratio: 908 / 1116; }
+.bio-guide-fig { position: absolute; left: 16px; top: 16px; width: var(--f); aspect-ratio: 908 / 1116; padding: 0; border: 0; background: none; cursor: pointer; transition: transform .2s ease; }
+.bio-guide-fig:hover { transform: translateY(-4px); }
+.bio-guide-fig:focus-visible { outline: 3px solid #FFE14D; outline-offset: 3px; border-radius: 10px; }
+/* His help in the walkthrough: "Stuck? Click on me." under the title, then the hint and "Still don't know?" in the card. */
+body.bio-desk .hf-guide .bio-guide-say { position: relative; bottom: auto; left: auto; width: auto; min-width: 0; max-width: none; margin: 0 16px 12px; padding: 10px 16px;
+  border: 2px solid #E3E8EF; border-radius: 16px; background: #FFFFFF; box-shadow: 0 3px 0 #E3E8EF; color: #3C4A5E; font-size: 18px; cursor: pointer; }
+body.bio-desk .hf-guide .bio-guide-say::after { display: none; }
+body.bio-desk .hf-guide .is-helping > .bio-guide-say, body.bio-desk .hf-guide.is-helping > .bio-guide-say { padding: 14px 18px 12px; cursor: default; }
+body.bio-desk .hf-guide :not(.is-helping) > .bio-guide-say, body.bio-desk .hf-guide:not(.is-helping) > .bio-guide-say { align-self: flex-start; width: max-content; max-width: calc(100% - 32px); }
+body.bio-desk .hf-guide .bio-guide-say .bio-help__line { font-size: 18px; }
 body:not(.bio-desk) .bio-guide-fig { display: none; }
 @media (max-width: 700px) {
   .bio-logo { --w: 104px; left: 8px; bottom: 8px; }

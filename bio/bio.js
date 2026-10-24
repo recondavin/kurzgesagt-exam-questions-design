@@ -589,7 +589,7 @@
     card.classList.add('bio-sheet');
     var tapPart = null;
     q.parts.forEach(function (p, k) { if (p.kind === 'tap' && p.tap) tapPart = String(k); });
-    sheet = { n: n, q: q, card: card, got: q.parts.map(function () { return null; }), tap: {}, tf: {}, cancel: {}, onNext: onNext };
+    sheet = { n: n, q: q, card: card, got: q.parts.map(function () { return null; }), tap: {}, tf: {}, cancel: {}, helped: {}, onNext: onNext };
     K.gameHud(card, q.parts.length, '/' + questionOutOf(q));
     K.gameBody(card, '<div class="bio-paper">' +
       '<p class="bio-src">' + esc(q.src) + (q.fresh !== 'yes' ? ' <i class="bio-old' + (q.fresh === 'partly' ? ' bio-old--part' : '') + '">' + (q.fresh === 'no' ? 'Old course' : 'Partly old course') + '</i>' : '') +
@@ -685,7 +685,8 @@
     sec.querySelectorAll('[data-bio-alabel]').forEach(function (b) { b.disabled = true; });
     renderResult(k);
     var s = partScore(part, got), out = partOutOf(part);
-    if (!selfOnly) {
+    if (!selfOnly && sheet.helped[k] && s > 0) { K.ding(2); K.mascot('ok', pick(['With my help. That doesn\'t count.', 'I told you that one. It doesn\'t count.'])); }
+    else if (!selfOnly) {
       if (s >= out) { K.ding(4, true); K.mascot('happy', pick(['Full marks. Hmph.', 'Correct. All of it.', 'That\'s what the scheme wants.'])); }
       else if (s > 0) { K.ding(2); K.mascot('ok', 'Some marks. Not all.'); }
       else { K.bonk(); K.mascot('angry', pick(['No marks.', 'Read the scheme. Learn it.', 'Wrong.'])); }
@@ -715,9 +716,11 @@
     var head = !rest ? '' : mode === 'alt' ? 'You could also have said' : mode === 'tick' ? 'What the scheme gives marks for: tick what you had' :
       need >= rest ? 'Missing' : 'Still needed: any ' + need + ' of these';
     var bad = sheet.cancel[k] ? '<p class="bio-cancel">Cancelled: you also wrote "' + esc(sheet.cancel[k]) + '". In the scheme, a wrong answer added cancels a starred term.</p>' : '';
+    // He helped with this part (bio-desk.js), so its marks don't go towards your progress.
+    if (sheet.helped[k]) bad += '<p class="bio-cancel bio-helped">You used his help on this part, so it doesn\'t count towards your progress.</p>';
     res.innerHTML = bad + (mine ? '<ul class="bio-pts">' + mine + '</ul>' : '') + (others ? '<p class="bio-pts__head bio-pts__head--' + mode + '">' + head + '</p><ul class="bio-pts">' + others + '</ul>' : '') +
       ruleHtml(part) + noteHtml(part);
-    sheet.card.querySelector('[data-bio-got="' + k + '"]').innerHTML = '<b>' + s + '/' + out + '</b>';
+    sheet.card.querySelector('[data-bio-got="' + k + '"]').innerHTML = '<b>' + s + '/' + out + '</b>' + (sheet.helped[k] ? ' <i class="bio-got-help">with help</i>' : '');
     var btn = sheet.card.querySelector('[data-bio-check="' + k + '"]');
     // A drawing's scheme is shown once (its points are ticked by hand); a written or tapped answer can be checked again.
     if (part.kind === 'draw' || (part.kind === 'tap' && !part.tap)) btn.disabled = true;
@@ -877,19 +880,25 @@
     updateTotal();
   }
   function updateTotal() {
-    var total = 0, all = true;
+    // What's saved leaves out a part he helped with (the user: "if you need to use him then that doesn't count as you
+    // getting the question right and your progress shouldn't be as if you got it right").
+    var all = true, saved = 0;
     sheet.q.parts.forEach(function (p, k) {
-      if (sheet.got[k]) total += partScore(p, sheet.got[k]); else all = false;
+      if (!sheet.got[k]) all = false;
+      else if (!sheet.helped[k]) saved += partScore(p, sheet.got[k]);
     });
-    K.rollTo(sheet.card.querySelector('[data-am-gscore]'), total);
-    sheet.q.parts.forEach(function (p, k) { K.gameSeg(sheet.card, k, sheet.got[k] ? (partScore(p, sheet.got[k]) >= partOutOf(p) ? 'is-ok' : partScore(p, sheet.got[k]) ? 'is-half' : 'is-no') : ''); });
+    K.rollTo(sheet.card.querySelector('[data-am-gscore]'), saved);
+    sheet.q.parts.forEach(function (p, k) {
+      var sc = sheet.got[k] ? partScore(p, sheet.got[k]) : 0;
+      K.gameSeg(sheet.card, k, !sheet.got[k] ? '' : sheet.helped[k] ? 'is-half' : sc >= partOutOf(p) ? 'is-ok' : sc ? 'is-half' : 'is-no');
+    });
     // Saved as you go: the best total so far, how many parts were checked and the marks they're worth. The day's
     // score also goes in the log that Progress draws its trend from.
     var out = questionOutOf(sheet.q), best = scoreOf(sheet.n, sheet.q), done = sheet.got.filter(Boolean).length, tried = 0;
     sheet.q.parts.forEach(function (p, k) { if (sheet.got[k]) tried += partOutOf(p); });
-    if (!best || total > best.got || (total === best.got && done > (best.done || 0))) store(scoreKey(sheet.n, sheet.q), JSON.stringify({ got: total, out: out, done: done, tried: tried }));
-    logScore(sheet.n, sheet.q.id, total, tried);
-    if (all && total >= out) K.later(K.fanfare, 300);
+    if (!best || saved > best.got || (saved === best.got && done > (best.done || 0))) store(scoreKey(sheet.n, sheet.q), JSON.stringify({ got: saved, out: out, done: done, tried: tried }));
+    logScore(sheet.n, sheet.q.id, saved, tried);
+    if (all && saved >= out) K.later(K.fanfare, 300);
   }
 
   // The day's best for each question goes in the log (the saved score is the best ever, so the two agree).
@@ -997,6 +1006,12 @@
     route();
   }
   window.BioApp = {
+    // He helped with part k of the open sheet (bio-desk.js): it stops counting, and if it's checked, the note shows.
+    helped: function (k) {
+      if (!sheet || !sheet.q.parts[k] || sheet.helped[k]) return;
+      sheet.helped[k] = true;
+      if (sheet.got[k]) { renderResult(k); updateTotal(); }
+    },
     refresh: refresh, words: bioWords, hasPoint: hasPoint, addedWrong: addedWrong, partScore: partScore, pointMarks: pointMarks, partOutOf: partOutOf, chapter: chapter, onePerSentence: onePerSentence,
     graphSvg: graphSvg, diagramHtml: diagramHtml, questions: allQuestions, openQuestion: openQuestion, outOf: questionOutOf,
     // For tests: does a typed answer get each point of a part?

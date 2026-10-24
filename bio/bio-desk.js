@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-82';
+  var V = 'bio-83';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -81,6 +81,7 @@
   }
   // One part on the desk: its page (a question can run onto the next page), and only its own shade showing.
   function part(k) {
+    if (guidePart !== k) { guidePart = k; if (guideHost && guideHost.box.classList.contains('is-helping')) help('idle', guideHost); }
     var v = current && current.P.parts && current.P.parts[k], img = document.querySelector('.geography-page-image');
     if (!v || !img) return;
     if (img.getAttribute('src') !== v.img + '?v=' + V) img.src = v.img + '?v=' + V;
@@ -151,7 +152,8 @@
     });
     if (!right) button.classList.add('is-wrong');
     var why = box.querySelector('.hf-bio-check__why');
-    why.innerHTML = '<b>' + (right ? 'Right!' : 'Not quite.') + '</b> ' + esc(c ? c.why : '');
+    var helped = current && current.guideHelped && current.guideHelped[+box.getAttribute('data-part')];
+    why.innerHTML = '<b>' + (right ? (helped ? 'Right, with his help.' : 'Right!') : 'Not quite.') + '</b> ' + esc(c ? c.why : '');
     why.className = 'hf-bio-check__why ' + (right ? 'is-right' : 'is-wrong');
     why.hidden = false;
     if (window.ExamHyperFocus && window.ExamHyperFocus.follow) window.ExamHyperFocus.follow(why);
@@ -206,6 +208,8 @@
       if (root) root.click();
       location.hash = '#bio/' + current.ch + '/' + encodeURIComponent(next);
     });
+    // Parts he helped with on the desk before you wrote don't count on the sheet either.
+    if (window.BioApp.helped) Object.keys(current.helped || {}).forEach(function (k) { window.BioApp.helped(+k); });
     wireSheet(30);
   }
   function show(ch, qid) {
@@ -298,7 +302,8 @@
   // is open, and back up after (bio-desk.css).
   // Where he's helping (a "host"): the desk's corner (deskHost) or the answer sheet's own examiner (sheetHost). Each has
   // the element that gets is-helping (box), his speech bubble (say), what talks (talker), and whether it's the sheet.
-  var helper = null, deskHost = null, sheetHost = null, host = null, parts = [], at = 0, shown = false, typer = 0, typing = null, lastPart = -1;
+  // In the walkthrough (guideHost) he helps with the part it's on (guidePart), for its quick check.
+  var helper = null, deskHost = null, sheetHost = null, guideHost = null, guidePart = 0, host = null, parts = [], at = 0, shown = false, typer = 0, typing = null, lastPart = -1;
   function addHelper() {
     if (!helper) {
       helper = el('div', 'bio-logo bio-helps', '<div class="bio-logo__say" data-bio-say></div><button type="button" class="bio-logo__fig" data-mood="ok" ' +
@@ -374,12 +379,12 @@
       h.box.classList.remove('is-helping');
       h.talker.classList.remove('is-talking');
       say.textContent = 'Stuck? Click on me.';
-      if (what === 'answer' && !h.sheet) write();
+      if (what === 'answer' && !h.sheet && !h.guide) write();
       return;
     }
     if (what === 'open') {
       parts = helpParts();
-      var k = h.sheet ? sheetPart() : 0;
+      var k = h.sheet ? sheetPart() : h.guide ? guidePart : 0;
       at = Math.max(0, parts.map(function (x) { return x.k; }).indexOf(k));
       shown = false;
       if (current) current.asked = true;
@@ -396,7 +401,7 @@
     h.box.classList.add('is-helping');
     // The last part's button: on the desk it opens the answer sheet; on the sheet you're already there.
     var P = parts[at], last = at >= parts.length - 1, x = '<button type="button" class="bio-help__x" data-bio-help="close" aria-label="Close">×</button>';
-    var end = h.sheet ? '<button type="button" class="bio-help__next" data-bio-help="close">Done</button>' : '<button type="button" class="bio-help__next" data-bio-help="answer">Answer it</button>';
+    var end = h.sheet || h.guide ? '<button type="button" class="bio-help__next" data-bio-help="close">Done</button>' : '<button type="button" class="bio-help__next" data-bio-help="answer">Answer it</button>';
     if (!P) {
       say.innerHTML = x + '<p class="bio-help__line">Nothing from me on this one. Have a go at it.</p><div class="bio-help__foot"><span class="bio-help__count"></span>' + end + '</div>';
       return;
@@ -404,6 +409,15 @@
     if (h.sheet && at !== before && what !== 'open') {
       var sec = document.querySelector('.am-root [data-bio-part="' + P.k + '"]');
       if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    // Using him counts: a part he helped with (its hint at least) doesn't count towards your progress when you answer it
+    // (the user: "if you use him when answering the question"). In the walkthrough it's only noted on its quick check.
+    if (current) {
+      if (h.guide) (current.guideHelped = current.guideHelped || {})[P.k] = true;
+      else {
+        (current.helped = current.helped || {})[P.k] = true;
+        if (h.sheet && window.BioApp && window.BioApp.helped) window.BioApp.helped(P.k);
+      }
     }
     // Just the part's label: its question is on the paper beside him.
     say.innerHTML = x + '<p class="bio-help__about"><b>' + esc(P.label) + '</b></p>' +
@@ -445,13 +459,21 @@
   // In the walkthrough he stands in its card beside the title, as the one explaining (the user: "he should be there for
   // when I zoom in"; the corner one slides away then), and talks while the card's text types out (hyper-focus.js gives
   // each letter, a .hf-ch, the class 'on' as it appears).
+  // He helps there too (the user: "i want him to be in the explanations of the exam questions and in the answers"): "Stuck?
+  // Click on me." under the title; tapped, the hint for the part the walkthrough is on, then "Still don't know?".
   function seatInGuide() {
     var top = document.querySelector('.hf-guide .hf-guide__top');
     if (!top || top.querySelector('.bio-guide-fig')) return;
-    var fig = el('span', 'bio-guide-fig', window.ExamTeacher ? window.ExamTeacher.svg() : ''), quiet = 0;
+    var fig = el('button', 'bio-guide-fig', window.ExamTeacher ? window.ExamTeacher.svg() : ''), quiet = 0;
+    fig.type = 'button';
     fig.setAttribute('data-mood', 'ok');
-    fig.setAttribute('aria-hidden', 'true');
+    fig.setAttribute('aria-label', 'Ask the examiner about this part');
     top.insertBefore(fig, top.firstChild);
+    var box = top.parentNode, say = el('div', 'bio-logo__say bio-guide-say');
+    box.insertBefore(say, top.nextSibling);
+    guideHost = { box: box, say: say, talker: fig, sheet: false, guide: true };
+    listen(guideHost, '.bio-guide-fig');
+    help('idle', guideHost);
     new MutationObserver(function (list) {
       var typed = list.some(function (m) { return m.target.classList && m.target.classList.contains('hf-ch') && m.target.classList.contains('on'); });
       if (!typed) return;

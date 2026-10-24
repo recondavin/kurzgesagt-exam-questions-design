@@ -78,6 +78,8 @@
 .bio-pts em { font-style: normal; color: #5D7079; }
 .bio-self { flex: none; margin-left: auto; padding: 2px 8px; border: 1.5px solid #93A5AE; border-radius: 8px; background: transparent; color: #46565E; font: 700 12.5px Fredoka, Nunito, sans-serif; cursor: pointer; }
 .bio-rule { margin: 4px 0 0; color: #5D7079; font-size: 13.5px; }
+/* A part he helped with: it doesn't count (bio-desk.js, bio.js helped). */
+.bio-got-help { margin-left: 6px; color: #C62828; font: 700 13px Nunito, sans-serif; font-style: normal; }
 /* A starred term cancelled by a wrong answer added to it. */
 .bio-cancel { margin: 0 0 6px; padding: 6px 10px; border-radius: 8px; background: #FFE9EA; color: #7A1F23; font-size: 14px; }
 .bio-taps .bio-tap.is-right { fill: rgba(43, 196, 111, .35); stroke: #58A700; stroke-dasharray: none; }
