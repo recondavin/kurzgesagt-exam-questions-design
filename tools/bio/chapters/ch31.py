@@ -788,125 +788,180 @@ OVERRIDES = {
     'points': {
         # "or described": the scheme's term, or what it means.
         '2019-Q5(b)': {0: _said('flexible', 'bend', 'chang shape', 'fold', 'deform', 'squash', 'pliable', 'elastic')},
-        '2009-Q13a(ii)': {0: _said('systemic', 'body circuit', 'rest body', 'around body', 'whole body', 'all body', 'to body', 'body organ', 'body tissu')},
+        # "To the body" in that order: "from the body to the lungs" is the pulmonary circuit.
+        '2009-Q13a(ii)': {0: _said('systemic', 'body circuit', 'rest body', 'around body', 'whole body', 'body organ', 'body tissu') +
+                             _inorder('to body', 'all body')},
         'S1-Q3c(i)1': {0: [{'w': [w], 'n': 1} for w in ('hydrogencarbonate', 'bicarbonate', 'hco3')] +
                           [{'w': ['hydrogen', 'carbonate'], 'n': 2}, {'w': ['dissolv', 'plasma'], 'n': 2}]},
         'S1-Q3c(i)2': {0: [{'w': ['haemoglobin'], 'n': 1}, {'w': ['oxyhaemoglobin'], 'n': 1}]},
+        # Both points had the same four words (CO2, oxygen, high, low), so the table filled in back to front earned both.
+        'S1-Q3c(ii)': {0: _column(('arteri', 'arteri blood', 'arteri pulmonary', 'arteri pulmonary blood', 'pulmonary artery'), 'high', 'low'),
+                       1: _column(('venous', 'venous blood', 'venous pulmonary', 'venous pulmonary blood', 'pulmonary vein'), 'low', 'high')},
         'S1-Q5d(ii)': {0: [{'w': [w], 'n': 1} for w in ('transfus', 'donor', 'donat', 'compatib', 'agglutin', 'clump')],
                        1: [{'w': [a, b], 'n': 2} for a in ('rhesus', 'rh') for b in ('mother', 'baby', 'pregnan', 'fetus', 'foetus', 'unborn', 'newborn')] +
                           [{'w': [a, 'antibod'], 'n': 2} for a in ('pregnan', 'mother', 'baby')] + [{'w': ['haemolytic'], 'n': 1}]},
-        'S2-Q5a(iv)': {0: [{'w': ['co2', w], 'n': 2} for w in ('high', 'increase', 'more', 'great', 'low', 'lower')],
+        # Point 0 was "CO2" with any of higher / lower, so "higher in A" earned it too.
+        'S2-Q5a(iv)': {0: _CO2_AB,
                        1: [{'w': [a, 'co2'], 'n': 2} for a in ('respir', 'tissue', 'lost', 'lose', 'remove', 'excret', 'exhal')] +
                           [{'w': [a, 'co2', 'lung'], 'n': 3} for a in ('releas', 'diffus')]},
-        'S2-Q5a(v)': {0: [{'w': ['artery', w], 'n': 2} for w in ('thick', 'muscle', 'elastic')] + [{'w': ['vein', 'thin'], 'n': 2}],
-                      1: [{'w': ['artery', 'narrow'], 'n': 2}, {'w': ['vein', 'wide'], 'n': 2},
-                          {'w': ['artery', 'small', 'lumen'], 'n': 3}, {'w': ['vein', 'large', 'lumen'], 'n': 3}],
-                      2: [{'w': ['vein', 'valve'], 'n': 2}]},  # was also "artery" alone, which every answer to this part says
+        # Not "artery" + "muscle" or "elastic": veins have muscle too, and neither is the thick wall.
+        'S2-Q5a(v)': {0: _WALL, 1: _LUMEN, 2: _VALVES},
         # One circuit, its structures in order (n is 1): the vessels or the chambers either side of the lungs or body.
         'S2-Q5b(ii)': {0: [{'w': ['artery', 'lung', 'vein'], 'n': 3}, {'w': ['ventricle', 'lung', 'atrium'], 'n': 3}],
                        1: [{'w': ['aorta', 'vena', w], 'n': 3} for w in ('capillar', 'body', 'tissue', 'organ', 'cell', 'arteriol', 'venul')] +
                           [{'w': ['ventricle', 'aorta', 'atrium'], 'n': 3}, {'w': ['ventricle', 'body', 'atrium'], 'n': 3}]},
-        # "Oxygen" alone was enough for point 0, so "the heart muscle gets extra oxygen" earned it.
+        # "Oxygen" alone was enough for point 0, so "the heart muscle gets extra oxygen" earned it. Low or less blood
+        # only as a supply or flow ("low blood pressure" is something else).
         'S2-Q5b(iii)': {0: [{'w': [a, b], 'n': 2} for a in ('no', 'not', 'lack', 'less', 'low', 'lower', 'without', 'depriv', 'starv', 'cut',
                                                              'insuffic', 'cannot', 'little', 'decrease')
-                            for b in ('oxygen', 'blood', 'nutrient', 'food', 'glucose')],
+                            for b in ('oxygen', 'nutrient', 'food', 'glucose')] +
+                           [{'w': [a, 'blood'], 'n': 2} for a in ('no', 'not', 'lack', 'less', 'without', 'depriv', 'starv', 'cut', 'insuffic',
+                                                                  'cannot', 'little')] +
+                           [{'w': [a, 'blood', s], 'n': 3} for a in ('low', 'lower', 'decrease') for s in ('supply', 'flow')],
                         1: [{'w': [a, b], 'n': 2} for a in ('die', 'dying', 'dead', 'death', 'damag') for b in ('muscle', 'cell', 'tissue', 'cardiac')] +
                            [{'w': ['cannot', 'respir'], 'n': 2}, {'w': ['respir', 'stop'], 'n': 2}, {'w': ['necro'], 'n': 1}],
                         2: [{'w': ['heart', 'attack'], 'n': 2}, {'w': ['infarct'], 'n': 1}, {'w': ['cardiac', 'arrest'], 'n': 2},
                             {'w': ['heart', 'stop', 'pump'], 'n': 3}, {'w': ['heart', 'stop', 'beat'], 'n': 3}]},
-        'S2-Q5b(iv)': {0: [{'w': [a, b], 'n': 2} for a in ('force', 'push', 'exert') for b in ('wall', 'vessel', 'artery')] +
-                          [{'w': ['pressur', 'wall'], 'n': 2}]},
+        'S2-Q5b(iv)': {0: _BP},
+        # One beat in 0.5 s, so 120 bpm (the scheme's "heart rate 60" alone earned the second, "takes 0.6 s" the first).
+        'S2-Q5c(ii)': {0: _inorder('0 5') + _said('half second'), 1: _said('120')},
         'S2-Q5c(iii)': {1: [{'w': [a, b], 'n': 2} for a in ('high', 'above', 'fast', 'great', 'exceed', 'increase') for b in ('rest', 'normal', 'exercis')]},
-        'S2-Q5d(i)': {0: [{'w': [a, b], 'n': 2} for a in ('lot', 'much', 'more', 'large', 'plenty', 'great', 'high', 'continu', 'constant', 'never') for b in ('energy', 'atp')] +
+        # "Large" with energy only as "a large amount of energy": "a large number of mitochondria" is the question.
+        'S2-Q5d(i)': {0: [{'w': [a, b], 'n': 2} for a in ('lot', 'much', 'more', 'plenty', 'great', 'high', 'continu', 'constant', 'never') for b in ('energy', 'atp')] +
+                         _inorder('large energy', 'large amount energy', 'large supply energy', 'large atp', 'large amount atp', 'large supply atp') +
                          [{'w': ['contract', w], 'n': 2} for w in ('continu', 'constant', 'nonstop', 'always')] + [{'w': ['never', 'rest'], 'n': 2}],
-                      # Not "respiration" + "ATP" alone: "ATP made by anaerobic respiration" says that too.
-                      1: [{'w': ['aerob', 'respir'], 'n': 2}] +
-                         [{'w': ['mitochondri', w], 'n': 2} for w in ('respir', 'releas', 'make', 'provid', 'suppl', 'generat')]},
-        '2026-Q16b(iv)': {0: [{'w': [w], 'n': 1} for w in ('nucleus', 'organelle', 'ribosom', 'dna')] + [{'w': ['genetic', 'material'], 'n': 2}]},
-        '2026-Q17a(ii)': {0: [{'w': [a, b], 'n': 2} for a in ('force', 'push', 'exert') for b in ('wall', 'vessel', 'artery')] +
-                             [{'w': ['pressur', 'wall'], 'n': 2}],
-                          1: [{'w': [a, 'artery'], 'n': 2} for a in ('stretch', 'expan', 'vibrat', 'throb', 'dilat')]},
+                      # Not "respiration" + "ATP" alone: "ATP made by anaerobic respiration" says that too. Nor
+                      # "mitochondria" + "make" alone ("mitochondria" is the question's word): what they release.
+                      1: [{'w': ['aerob', 'respir'], 'n': 2}, {'w': ['mitochondri', 'respir'], 'n': 2}] +
+                         [{'w': ['mitochondri', w, e], 'n': 3} for w in ('releas', 'make', 'provid', 'suppl', 'generat') for e in ('energy', 'atp')]},
+        # "Do not contain a nucleus": "nucleus" alone also gave it to "the virus uses its nucleus".
+        '2026-Q16b(iv)': {0: _no('nucleus', 'organelle', 'ribosom', 'dna', 'genetic material')},
+        # Pulse: "expansion (and contraction)" only (2016's scheme also had vibrating; neither had throbbing).
+        '2026-Q17a(ii)': {0: _BP, 1: [{'w': [a, 'artery'], 'n': 2} for a in ('stretch', 'expan', 'dilat')]},
         # "Correct matching effect described": any valid effect, which words can't pin down.
         '2026-Q17a(vi)': {0: 'self', 1: 'self'},
-        '2025-Q17a(iv)': {0: [{'w': ['artery', w], 'n': 2} for w in ('thick', 'muscle', 'elastic')] + [{'w': ['vein', 'thin'], 'n': 2}],
-                          1: [{'w': ['vein', 'valve'], 'n': 2}],
-                          2: [{'w': ['artery', 'narrow'], 'n': 2}, {'w': ['vein', 'wide'], 'n': 2},
-                              {'w': ['artery', 'small', 'lumen'], 'n': 3}, {'w': ['vein', 'large', 'lumen'], 'n': 3}]},
-        '2024-Q6(e)': {0: [{'w': ['contract'], 'n': 1}, {'w': ['squeez'], 'n': 1}], 1: [{'w': ['relax'], 'n': 1}]},
-        '2023-Q6(g)': {0: [{'w': [a, b], 'n': 2} for a in ('mix', 'apart', 'separ') for b in ('oxygen', 'deoxygen')]},
-        '2020-Q9(a)(i)': {0: [{'w': [a, b], 'n': 2} for a in ('mix', 'apart', 'separ') for b in ('oxygen', 'deoxygen')] +
-                             [{'w': ['oxygen', 'left'], 'n': 2}, {'w': ['deoxygen', 'right'], 'n': 2}, {'w': ['oxygen', 'lhs'], 'n': 2},
-                              {'w': ['deoxygen', 'rhs'], 'n': 2}, {'w': ['differ', 'pressur'], 'n': 2}]},
-        # Lub and dub, and which valves shut for each (a sound tied to the valves opening earns nothing).
-        '2019-Q14b(v)': {0: [{'w': ['lub', 'dub'], 'n': 2}],
-                         1: [{'w': ['valve', c], 'n': 2} for c in ('clos', 'shut', 'snap')],
-                         2: [{'w': [v, c], 'n': 2} for v in ('tricuspid', 'bicuspid', 'atrioventricular', 'mitral', 'av') for c in ('clos', 'shut', 'snap')],
-                         3: [{'w': [s, v, c], 'n': 3} for s in ('lub', 'first') for v in ('tricuspid', 'bicuspid', 'atrioventricular', 'mitral', 'av')
-                             for c in ('clos', 'shut', 'snap')],
-                         4: [{'w': ['semilunar', c], 'n': 2} for c in ('clos', 'shut', 'snap')],
-                         5: [{'w': [s, 'semilunar', c], 'n': 3} for s in ('dub', 'second') for c in ('clos', 'shut', 'snap')]},
+        '2025-Q17a(iv)': {0: _WALL, 1: _VALVES, 2: _LUMEN},
+        # Systole with contracting, diastole with relaxing, not either word anywhere ("systole is relaxing and diastole
+        # is contracting" had both).
+        '2024-Q6(e)': {0: _together('systol contract', 'systol squeez') +
+                          _inorder(*(f'systol {m}contract' for m in ('', 'heart ', 'muscle ', 'heart muscle ', 'when heart ', 'when muscle ', 'when heart muscle '))),
+                       1: _together('diastol relax') +
+                          _inorder(*(f'diastol {m}relax' for m in ('', 'heart ', 'muscle ', 'heart muscle ', 'when heart ', 'when muscle ', 'when heart muscle ')))},
+        '2023-Q6(g)': {0: _MIX},
+        # The left/right half needs both sides: "oxygen" + "left" alone was "the left side pumps oxygen to the body".
+        '2020-Q9(a)(i)': {0: _MIX + _said('oxygen left deoxygen right', 'oxygen lhs deoxygen rhs', 'differ pressur')},
+        # Lub and dub, and which valves shut for each (a sound tied to the valves opening earns nothing). The
+        # atrioventricular valves are "tricuspid and bicuspid": both, or their shared name.
+        '2019-Q14b(v)': {0: _said(*(f'{a} {b}' for a in _LUB for b in _DUB)),
+                         1: _said(*(f'valve {c}' for c in _SHUT)),
+                         2: _said(*(f'{v} {c}' for v in _AVV for c in _SHUT)),
+                         3: _said(*(f'{s} {v} {c}' for s in _LUB + ('first sound',) for v in _AVV for c in _SHUT)),
+                         4: _said(*(f'{v} {c}' for v in _SLV for c in _SHUT)),
+                         5: _said(*(f'{s} {v} {c}' for s in _DUB + ('second sound',) for v in _SLV for c in _SHUT))},
+        # Antibodies from (B) lymphocytes: not "lymph" (nodes) or "white blood cells", which the scheme doesn't give.
         '2018-Q11a(ii)': {0: [{'w': ['urea', 'liver'], 'n': 2}],
-                          1: [{'w': ['hormone', 'gland'], 'n': 2}, {'w': ['hormone', 'endocrine'], 'n': 2}, {'w': ['insulin', 'pancrea'], 'n': 2}],
-                          2: [{'w': ['antibod', w], 'n': 2} for w in ('lymphocyte', 'lymph', 'white')],
+                          1: _said('hormone gland', 'hormone endocrine', 'insulin pancrea', 'glucagon pancrea', 'adrenaline gland', 'thyroxine thyroid'),
+                          2: _said('antibod lymphocyte', 'antibod b cell'),
                           3: [{'w': ['oxygen', 'lung'], 'n': 2}, {'w': ['oxygen', 'alveol'], 'n': 2}],
                           4: [{'w': ['co2', 'cell'], 'n': 2}, {'w': ['co2', 'tissue'], 'n': 2}],
                           5: [{'w': [w, 'liver'], 'n': 2} for w in ('enzyme', 'clott', 'protein', 'fibrinogen', 'prothrombin')]},
-        # Not "generates impulses" alone for the AV node: the SA node's line says that too.
-        '2018-Q11b(ii)': {3: [{'w': ['generat', 'impuls'], 'n': 2}, {'w': ['impuls', 'ventricle'], 'n': 2}, {'w': ['contract', 'ventricle'], 'n': 2},
-                              {'w': ['ventricle', 'systole'], 'n': 2}, {'w': ['control', 'heart', 'rate'], 'n': 3}]},
-        '2016-Q8(a)(i)': {0: [{'w': [a, 'artery'], 'n': 2} for a in ('stretch', 'expan', 'vibrat', 'throb', 'dilat')]},
+        # The AV node's role: what it does to the ventricles, or "generates impulses" / "controls the heart rate" said
+        # of the AV node itself. Either alone was earned by the SA node's line ("the SA node generates impulses").
+        '2018-Q11b(ii)': {3: _said('impuls ventricle', 'contract ventricle', 'ventricle systole') +
+                             _together(*(f'{a} {v} impuls' for a in ('av', 'atrioventricular') for v in ('generat', 'send', 'make')),
+                                       'av control heart rate', 'atrioventricular control heart rate') +
+                             _inorder(*(f'{a} node {v} impuls' for a in ('av', 'atrioventricular') for v in ('generat', 'send', 'make')),
+                                      'av node control heart rate', 'atrioventricular node control heart rate')},
+        # Stretching, expanding or vibrating, as the scheme has it ("throbbing" isn't one of them).
+        '2016-Q8(a)(i)': {0: [{'w': [a, 'artery'], 'n': 2} for a in ('stretch', 'expan', 'vibrat', 'dilat')]},
         '2016-Q8(a)(ii)': {0: [{'w': ['artery', w], 'n': 2} for w in ('surface', 'skin', 'superfic')]},
-        '2016-Q8(b)(iv)': {0: [{'w': ['immediate'], 'n': 1}] + [{'w': [a, 'after'], 'n': 2} for a in ('right', 'straight', 'just', 'direct', 'soon')],
-                           3: [{'w': [a, b], 'n': 2} for a in ('time', 'until', 'till', 'long') for b in ('rest', 'normal')]},
+        # Immediately: "as soon as you stop", not "soon after". Count the pulse or the breathing (the scheme's "count
+        # pulse or breathing" gave the point for "breathing" alone, the question's word). Time until back to resting:
+        # not "rest for some time".
+        '2016-Q8(b)(iv)': {0: _said('immediate', 'right after', 'straight after', 'just after', 'direct after', 'straight away', 'right away') + _inorder('as soon'),
+                           1: _said('count pulse', 'count breath', 'count beat'),
+                           3: _said('until rest', 'until normal', 'till rest', 'till normal', 'time normal', 'long normal') +
+                              [{'w': [a, 'rest', b], 'n': 3} for a in ('time', 'long') for b in ('reach', 'return', 'back', 'take')]},
         '2016-Q15a(iii)': {0: [{'w': ['muscle', w], 'n': 2} for w in ('contract', 'squeez', 'press', 'push')],
                            1: [{'w': ['valve', 'back'], 'n': 2}, {'w': ['valve', 'direction'], 'n': 2}]},
+        # The reason matching the vessel, the right way round: "lungs" + "CO2" was also "the pulmonary vein brings CO2
+        # to the lungs".
         '2014-Q12c(iv)': {0: [{'w': ['pulmonary', 'vein'], 'n': 2}, {'w': ['pulmonary', 'artery'], 'n': 2}],  # was all three words
-                          1: [{'w': ['lung', 'co2'], 'n': 2}, {'w': ['alveol', 'co2'], 'n': 2}]},
-        # "Valve" alone also gave the mark to "A has valves", the wrong way round.
-        '2014-Q3(c)': {0: [{'w': ['narrow', 'lumen'], 'n': 2}, {'w': ['small', 'lumen'], 'n': 2}, {'w': ['thick', 'wall'], 'n': 2}, {'w': ['more', 'muscle'], 'n': 2}] +
+                          1: [{'w': ['vein', a, 'co2'], 'n': 3} for a in ('clear', 'lose', 'remove', 'releas', 'exhal', 'excret')] +
+                             [{'w': ['vein', a, 'co2', b], 'n': 4} for a in ('low', 'lower', 'less', 'little') for b in ('lung', 'alveol')] +
+                             [{'w': ['artery', a, 'co2', b], 'n': 4} for a in ('rich', 'high', 'lot', 'more', 'much', 'full', 'great') for b in ('lung', 'alveol')]},
+        # "Valve" alone also gave the mark to "A has valves", the wrong way round. Not "more muscle": the scheme has the
+        # thick wall.
+        '2014-Q3(c)': {0: [{'w': ['narrow', 'lumen'], 'n': 2}, {'w': ['small', 'lumen'], 'n': 2}, {'w': ['thick', 'wall'], 'n': 2}] +
                           [{'w': [a, 'valve'], 'n': 2} for a in ('no', 'not', 'without', 'lack', 'absent', 'dont', 'doesnt')]},
-        '2014-Q3(d)': {0: [{'w': ['maintain', 'constant', 'level', 'ecf'], 'n': 3}] +
-                          [{'w': [a, 'fluid'], 'n': 2} for a in ('return', 'drain', 'tissue', 'excess', 'collect')],
+        # No red blood cells, haemoglobin, platelets or clotting proteins: the scheme's "no" ("lymph has platelets" earned it).
+        '2014-Q3(e)': {0: _no('red', 'haemoglobin', 'platelet', 'clott') + _said('high fat', 'more fat')},
+        # A function: "tissue fluid" or "excess fluid" alone names the fluid. Transport of a named material (2006's
+        # scheme names fats, hormones and excretory matter), not "transport" alone ("transports oxygen" is wrong).
+        '2014-Q3(d)': {0: [{'w': [a, b, f], 'n': 3} for a, b in (('maintain', 'constant'), ('maintain', 'level'), ('constant', 'level')) for f in ('ecf', 'fluid')] +
+                          [{'w': [a, 'fluid'], 'n': 2} for a in ('return', 'drain', 'collect')],
                        2: [{'w': ['filt', w], 'n': 2} for w in ('bacteri', 'pathogen', 'germ', 'microb')],
                        3: [{'w': ['fight', 'infec'], 'n': 2}, {'w': ['fight', 'disease'], 'n': 2}, {'w': ['defen'], 'n': 1}, {'w': ['immun'], 'n': 1}],
-                       # "Transport of named material", not "transport" alone ("transports oxygen" is wrong).
-                       4: [{'w': [a, b], 'n': 2} for a in ('transport', 'carr', 'move', 'absorb') for b in ('fat', 'lipid', 'hormone', 'lymphocyte', 'excret')]},
+                       4: [{'w': [a, b], 'n': 2} for a in ('transport', 'carr', 'move')
+                           for b in ('fat', 'fatty', 'lipid', 'glycerol', 'hormone', 'lymphocyte', 'white', 'protein', 'excret')] +
+                          [{'w': ['absorb', b], 'n': 2} for b in ('fat', 'fatty', 'lipid', 'glycerol')]},
+        # "Using a scalpel" (not any blade).
         '2014-Q9b(i)2': {0: [{'w': [a, 'right'], 'n': 2} for a in ('cut', 'incis', 'open', 'slice')],
-                         1: [{'w': ['scalpel'], 'n': 1}, {'w': ['blade'], 'n': 1}]},
+                         1: [{'w': ['scalpel'], 'n': 1}]},
+        # "For stated time": a minute, 30 seconds; not "for a period of time".
         '2014-Q9b(ii)2': {0: [{'w': [a, 'pulse'], 'n': 2} for a in ('feel', 'locat', 'find')] +
                              [{'w': ['finger', 'wrist'], 'n': 2}, {'w': ['finger', 'neck'], 'n': 2}, {'w': ['observ', 'breath'], 'n': 2}, {'w': ['watch', 'breath'], 'n': 2}],
-                          1: [{'w': [a, b], 'n': 2} for a in ('count', 'number', 'record') for b in ('minute', 'min', 'second', 'sec', 'time', 'bpm', 'period')]},
-        '2010-Q15b(ii)': {0: [{'w': [w], 'n': 1} for w in ('glucose', 'amino', 'sugar', 'vitamin', 'mineral', 'fructose', 'galactose', 'monosacchar',
-                                                           'nutrient', 'food', 'salt', 'co2')]},
+                          1: [{'w': [a, b], 'n': 2} for a in ('count', 'number', 'record') for b in ('minute', 'min', 'second', 'sec', 'bpm')]},
+        # A named food ("food" or "nutrients" isn't one) or CO2.
+        '2010-Q15b(ii)': {0: [{'w': [w], 'n': 1} for w in ('glucose', 'amino', 'sugar', 'vitamin', 'mineral', 'fructose', 'galactose', 'monosacchar', 'salt', 'co2')]},
         '2010-Q7(a)(ii)': {0: [{'w': [a, b], 'n': 2} for a in ('never', 'not', 'doesnt', 'dont', 'no', 'cannot', 'without') for b in ('tire', 'fatigu')] +
                               [{'w': ['involuntar'], 'n': 1}]},
-        # Dissection steps the scheme only describes ("Named cutting instrument"): the words a student would write.
+        # Dissection steps the scheme only describes ("Named cutting instrument"): the words a student would write. A
+        # second cut: another cut and where it goes ("then cut" was any cut).
         '2010-Q7(b)(i)': {0: [{'w': [w], 'n': 1} for w in ('front', 'ventr', 'dorsal')] + [{'w': ['left', 'right'], 'n': 2}],
-                          1: [{'w': [w], 'n': 1} for w in ('coronary', 'thick', 'firm', 'diagonal')],
+                          1: _HOW,
                           2: [{'w': [w], 'n': 1} for w in ('scalpel', 'blade', 'scissors', 'knife')],
                           3: [{'w': [a, b], 'n': 2} for a in ('cut', 'incis') for b in ('right', 'left', 'atri', 'ventricle', 'side', 'septum', 'apex')],
-                          4: [{'w': [a, b], 'n': 2} for a in ('second', 'another', 'then', 'next', 'again') for b in ('cut', 'incis')],
+                          4: [{'w': [s, c, w], 'n': 3} for s in ('second', 'another', 'again', '2nd') for c in ('cut', 'incis')
+                              for w in _SPOT + ('atri', 'ventricle', 'valve', 'bicuspid', 'tricuspid', 'semilunar')],
                           5: [{'w': [w], 'n': 1} for w in ('valve', 'tricuspid', 'bicuspid', 'semilunar', 'chord', 'septum', 'tendin', 'papillar')],
-                          6: [{'w': [w], 'n': 1} for w in ('safe', 'glove', 'care', 'wash', 'disinfect', 'goggle', 'coat')]},
+                          6: _SAFE},
+        # "Described (location of) cut": a cut and where ("cut" alone is every answer; "atria and ventricles" is the question).
         '2004-Q9(b) dissection': {0: [{'w': [w], 'n': 1} for w in ('front', 'ventr', 'dorsal')] + [{'w': ['left', 'right'], 'n': 2}, {'w': ['identif', 'side'], 'n': 2}],
-                       1: [{'w': [w], 'n': 1} for w in ('coronary', 'thick', 'firm', 'diagonal')],
-                       2: [{'w': [a, b], 'n': 2} for a in ('ventr', 'front') for b in ('upper', 'up', 'top')],
+                       1: _HOW,
+                       2: [{'w': [a, b], 'n': 2} for a in ('ventr', 'front') for b in ('upper', 'up', 'upward', 'top')],
                        4: [{'w': [w], 'n': 1} for w in ('scalpel', 'blade', 'scissors', 'knife')],
-                       5: [{'w': [w], 'n': 1} for w in ('cut', 'incis', 'slice')],
-                       6: [{'w': [w], 'n': 1} for w in ('safe', 'glove', 'care', 'wash', 'disinfect', 'goggle', 'coat')]},
+                       5: [{'w': [a, b], 'n': 2} for a in ('cut', 'incis', 'slice') for b in _SPOT],
+                       6: _SAFE},
         '2009-Q13a(i)': {0: [{'w': ['pulmonary'], 'n': 1}], 1: [{'w': ['systemic'], 'n': 1}]},
-        '2009-Q13b(i)': {1: [{'w': [a, b], 'n': 2} for a in ('force', 'push', 'exert') for b in ('wall', 'vessel', 'artery', 'blood', 'heart')] +
-                            [{'w': ['pressur', 'wall'], 'n': 2}]},
+        # Force exerted by the blood or the heart. Not "pushes blood" ("the heart pushes blood round the body" is pumping).
+        '2009-Q13b(i)': {1: [{'w': [a, b], 'n': 2} for a in ('force', 'exert') for b in ('wall', 'vessel', 'artery', 'blood', 'heart')] +
+                            _said('push wall', 'pressur wall')},
         '2009-Q13b(ii)': {0: 'self', 1: 'self'},  # "dietary factor + matching effect", "comment + matching effect"
         '2009-Q13b(iii)': {0: [{'w': ['haemoglobin'], 'n': 1}],
-                           1: [{'w': ['nucleus'], 'n': 1}] + [{'w': [a, b], 'n': 2} for a in ('no', 'not', 'lack', 'without', 'absent') for b in ('mitochondri', 'organelle', 'ribosom')],
+                           1: _no('nucleus', 'mitochondri', 'organelle', 'ribosom', 'golgi', 'endoplasm'),
                            2: [{'w': [w], 'n': 1} for w in ('biconcave', 'concave', 'disc', 'disk')]},
-        '2009-Q13b(iv)': {0: [{'w': [w], 'n': 1} for w in ('impuls', 'pacemak', 'signal')] +
+        # Impulse generation, not any mention of impulses ("the AV node receives the impulse"); the pacemaker described.
+        '2009-Q13b(iv)': {0: [{'w': ['pacemak'], 'n': 1}, {'w': ['set', 'pace'], 'n': 2}] +
+                             [{'w': [a, b], 'n': 2} for a in ('impuls', 'signal')
+                              for b in ('generat', 'make', 'start', 'initiat', 'send', 'fire', 'emit', 'origin', 'caus', 'trigger')] +
                              [{'w': ['contract', w], 'n': 2} for w in ('caus', 'make', 'start', 'trigger', 'stimul', 'initiat')] +
-                             [{'w': ['control', 'rate'], 'n': 2}, {'w': ['set', 'rate'], 'n': 2}, {'w': ['control', 'beat'], 'n': 2}]},
-        '2006-Q13a(ii)': {2: [{'w': [w], 'n': 1} for w in ('biconcave', 'concave', 'disc', 'disk')], 3: [{'w': ['small'], 'n': 1}]},
+                             [{'w': [a, b], 'n': 2} for a in ('control', 'set', 'regulat') for b in ('rate', 'beat', 'heartbeat', 'rhythm')]},
+        # "No nucleus", "no mitochondria" (the scheme's "no" was dropped, so "has a nucleus" earned it); carries oxygen or
+        # CO2 (CO2 alone earned it).
+        '2006-Q13a(ii)': {0: _no('nucleus'), 2: [{'w': [w], 'n': 1} for w in ('biconcave', 'concave', 'disc', 'disk')], 3: [{'w': ['small'], 'n': 1}],
+                          4: _no('mitochondri'), 5: _said('carr oxygen', 'carr co2', 'transport oxygen', 'transport co2')},
         '2006-Q13b(i)': {0: [{'w': ['liquid', 'blood'], 'n': 2}, {'w': ['fluid', 'blood'], 'n': 2}],
                          1: [{'w': ['bowman'], 'n': 1}, {'w': ['capsule'], 'n': 1}, {'w': ['left', 'glomerul'], 'n': 2}] +
                             [{'w': [a, 'protein'], 'n': 2} for a in ('less', 'minus', 'without', 'no', 'except', 'lack', 'remove')]},
+        # The scheme's "no" again ("no nucleus or no mitochondria or no organelles").
+        '2012-Q15b(i)': {4: _no('nucleus'), 5: _no('mitochondri')},
+        '2016-Q6(e)': {0: _no('nucleus')},
+        '2019-Q5(d)': {0: _no('nucleus', 'mitochondri', 'organelle') + _said('cannot reproduce')},
+        # The AV valves closed (the scheme's "valves closed" also earned "the semilunar valves are closed"), the
+        # semilunar ones open: each in its own part of the sentence, so the two can't be swapped.
+        '2022-Q17d(ii)': {1: _said('volume reduc', 'blood flow artery', 'blood out heart') +
+                             _together('semilunar open', 'semi lunar open', 'av valve clos', 'atrioventricular clos', 'tricuspid clos',
+                                       'bicuspid clos', 'mitral clos')},
     },
 }
