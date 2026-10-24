@@ -21,6 +21,7 @@ const fail = msg => { fails++; console.log('   FAIL', msg); };
 // Points an answer earns on a list of scheme points (the marker's rule: a point is earned when one of its key
 // alternatives has enough of its word stems).
 const earned = (text, pts) => { const w = B.words(text); return pts.filter(p => p.k && B.hasPoint(p, w)).length; };
+const off = JSON.parse(readFileSync(new URL('../drill/off_spec.json', import.meta.url)));
 for (const ch of [28, 29, 30, 31, 32].filter(c => !only || c === only)) {
   const src = new URL(`../drill/ch${ch}.json`, import.meta.url);
   if (!existsSync(src)) { fail(`chapter ${ch}: no new questions yet`); continue; }
@@ -58,10 +59,23 @@ if (existsSync(new URL('../../../bio/bio-drill.js', import.meta.url))) {
   require('../../../bio/sprint.js');
   window.BioKit = { esc: String, shuffle: a => a, pick: a => a[0], buttons() {}, host() {} };
   window.BioBoard = { pools() {}, nearMascot() {}, reveal() {}, chapters: [28, 29, 30, 31, 32], names: {}, colours: {} };
+  require('../../../bio/drill.js');
   require('../../../bio/bio-drill.js');
+  // Every part off_spec.json leaves out is a real part, so the list can't go stale unnoticed.
+  for (const [ch, ids] of Object.entries(off.parts)) for (const id of Object.keys(ids)) {
+    const [qid, k] = id.split(':'), q = (window.BioQuestions[ch].questions || []).find(x => x.id === qid);
+    if (!q || !q.parts[+k]) fail(`off_spec.json: chapter ${ch} has no part ${id}`);
+  }
   for (const ch of [28, 29, 30, 31, 32].filter(c => !only || c === only)) {
     window.BioDrill.items(ch).filter(it => it.kind !== 'new').forEach(it => {
       real++;
+      // Only what the 2025 specification covers: an exam part that tests a learning outcome, a diagram part it names.
+      if (it.kind === 'exam') {
+        const [, qid, k] = it.id.split(':'), part = window.BioQuestions[ch].questions.find(x => x.id === qid).parts[k];
+        if (!part.out) fail(`${ch} ${it.id}: an old-course part (no learning outcome)`);
+      }
+      if (off.parts[ch] && off.parts[ch][it.id.replace(/^e\d\d:/, '')]) fail(`${ch} ${it.id}: off the specification (off_spec.json)`);
+      if (it.kind === 'diagram' && off.labels[it.right]) fail(`${ch} ${it.id}: "${it.right}" isn't on the specification`);
       if (it.earned(it.right) < it.need) fail(`${ch} ${it.id}: the right box "${it.right}" doesn't get full marks`);
       it.wrong.forEach(w => { if (it.earned(w) >= it.need) fail(`${ch} ${it.id}: the wrong box "${w}" would get full marks`); });
     });

@@ -29,6 +29,11 @@
   var NEW_PER = 8, CARDS = 15, LATER = { type: 5, again: 3 };
   // Labels that describe a process, not a part, can't be asked as "the part labelled X" (as in bio-quick.js).
   var NOT_A_PART = /^\d+\.|:|diffuses|entering|^Cut |^Blood (from|to) /;
+  // Only what the 2025 specification covers: exam parts that test a learning outcome, less the parts and diagram labels
+  // tools/bio/drill/off_spec.json lists (they ask for something the specification doesn't name).
+  var OFF = window.BioDrillOff || { labels: [], parts: {} };
+  function offPart(ch, id) { return (OFF.parts[ch] || []).indexOf(id) >= 0; }
+  function offLabel(t) { return OFF.labels.indexOf(t) >= 0; }
   var D = null;
   function live() { return D && D.card.isConnected; }
   function wait(fn, ms) { return K.later(function () { if (live()) fn(); }, ms); }
@@ -52,7 +57,7 @@
     Q.forEach(function (q) {
       q.parts.forEach(function (p, k) {
         var c = (C[q.id] || [])[k];
-        if (!c || p.kind !== 'text' || c.board === false || /^(True|False)$/.test(c.right) || c.right.length > 70) return;
+        if (!c || !p.out || offPart(ch, q.id + ':' + k) || p.kind !== 'text' || c.board === false || /^(True|False)$/.test(c.right) || c.right.length > 70) return;
         var keyed = p.pts.filter(function (t) { return t.k && !t.self; });
         if (!keyed.length) return;
         var asked = c.q.match(/\((\d) points\)$/), full = Math.min(p.n || 1, keyed.length), need = Math.min(asked ? +asked[1] : 1, full);
@@ -72,7 +77,7 @@
   var OWN = ['P', 'Q', 'R', 'S', 'T', 'Z', 'W'];
   function diagramItems(ch) {
     var S = (window.BioSprint || {})[ch] || [], Q = ((window.BioQuestions || {})[ch] || {}).questions || [], names = [], out = [];
-    S.forEach(function (r) { r.spots.forEach(function (s) { if (!NOT_A_PART.test(s.t) && names.indexOf(s.t) < 0) names.push(s.t); }); });
+    S.forEach(function (r) { r.spots.forEach(function (s) { if (!NOT_A_PART.test(s.t) && !offLabel(s.t) && names.indexOf(s.t) < 0) names.push(s.t); }); });
     S.forEach(function (r) {
       var q = Q.filter(function (x) { return x.id === r.q; })[0], printed = {};
       if (q) q.parts.forEach(function (p) { p.pts.forEach(function (t) { if (t.f && /^[A-Z]$/.test(t.f) && t.k) printed[t.f] = t; }); });
@@ -90,11 +95,11 @@
         if (best) own[best.i] = f;
       });
       r.spots.forEach(function (s, si) {
-        if (NOT_A_PART.test(s.t)) return;
+        if (NOT_A_PART.test(s.t) || offLabel(s.t)) return;
         // A printed letter's part is marked by its own scheme point; ours by the part's name, every word of it.
         var letter = own[si], w = B().words(s.t), pts = letter ? [printed[letter]] : [{ a: s.t, k: [{ w: w, n: w.length }] }], earned = earner(pts);
         // Wrong boxes: the diagram's other parts first, then the chapter's.
-        var same = r.spots.map(function (o) { return o.t; }).filter(function (t) { return t !== s.t && !NOT_A_PART.test(t); });
+        var same = r.spots.map(function (o) { return o.t; }).filter(function (t) { return t !== s.t && !NOT_A_PART.test(t) && !offLabel(t); });
         var wrong = [];
         shuffle(same).concat(shuffle(names)).forEach(function (t) { if (wrong.length < 3 && t !== s.t && wrong.indexOf(t) < 0 && !earned(t)) wrong.push(t); });
         if (wrong.length < 3) return;

@@ -60,17 +60,6 @@
     "wrong": ["They sweep dust down into the lungs", "They trap dust in a sticky layer", "They carry out gas exchange with the capillaries"],
     "why": "Cilia are tiny hairs on the lining cells. They beat to move mucus, with the dust and germs stuck in it, up to the throat, where it is swallowed or coughed up." },
 
-  { "id": "D28-6", "topic": 1,
-    "q": "Smoke damages the cilia in the airways. Suggest why smokers often cough.",
-    "marks": 3, "need": 1,
-    "pts": [
-      { "a": "Mucus is not swept away, so it builds up in the airways and has to be coughed up", "accept": ["mucus builds up in the lungs", "mucus collects in the airways", "the mucus stays in the bronchi", "the mucus is not removed", "to get rid of the mucus"],
-        "k": [ { "w": ["mucus", "build"], "n": 2 }, { "w": ["mucus", "collect"], "n": 2 }, { "w": ["mucus", "stay"], "n": 2 }, { "w": ["mucus", "remov"], "n": 2 }, { "w": ["mucus", "swept"], "n": 2 }, { "w": ["mucus", "accumul"], "n": 2 }, { "w": ["mucus", "clear"], "n": 2 } ] }
-    ],
-    "right": "Mucus is not swept away, so it builds up and must be coughed up",
-    "wrong": ["The cilia beat faster and push the smoke into the lungs", "Smoke makes the diaphragm contract more strongly", "The smoke dissolves in the moist lining of the alveoli"],
-    "why": "With damaged cilia, the mucus and the dirt and germs trapped in it are no longer swept up out of the airways. The mucus builds up, and coughing is the only way to clear it." },
-
   { "id": "D28-7", "topic": 1,
     "q": "Explain how the mucus and the cilia in the trachea together protect the lungs.",
     "marks": 6, "need": 2,
@@ -208,7 +197,7 @@
     "why": "Carbon dioxide forms an acid when it dissolves in the water of the blood, so more carbon dioxide makes the blood more acidic: its pH falls." },
 
   { "id": "D28-19", "topic": 4,
-    "q": "State what the medulla oblongata does when it detects a rise in carbon dioxide in the blood.",
+    "q": "State what the brain does when it detects a rise in carbon dioxide in the blood.",
     "marks": 3, "need": 1,
     "pts": [
       { "a": "Sends nerve impulses to the diaphragm and intercostal muscles", "accept": ["sends impulses to the breathing muscles", "sends messages along nerves to the diaphragm", "signals the intercostal muscles to contract faster"],
@@ -218,7 +207,7 @@
     ],
     "right": "It sends nerve impulses to the diaphragm and intercostal muscles",
     "wrong": ["It releases a hormone into the blood to open the airways", "It makes the heart pump more oxygen to the lungs", "It slows breathing down to save energy"],
-    "why": "The medulla oblongata is the brain's breathing centre. It sends impulses along nerves to the diaphragm and intercostal muscles, so they contract faster and more strongly." },
+    "why": "The brain's breathing centre sends impulses along nerves to the diaphragm and intercostal muscles, so they contract faster and more strongly." },
 
   { "id": "D28-20", "topic": 4,
     "q": "Explain how the extra carbon dioxide made during exercise leads to faster breathing.",
@@ -226,14 +215,14 @@
     "pts": [
       { "a": "It makes the blood more acidic (its pH falls)", "accept": ["the pH of the blood decreases", "the blood is more acidic", "it lowers the pH of the blood"],
         "k": [ { "w": ["ph", "decreas"], "n": 2 }, { "w": ["ph", "lower"], "n": 2 }, { "w": ["ph", "low"], "n": 2 }, { "w": ["ph", "down"], "n": 2 }, { "w": ["more", "acid"], "n": 2 }, { "w": ["acid", "increas"], "n": 2 }, { "w": ["acidos"], "n": 1 } ] },
-      { "a": "This is detected by the medulla oblongata in the brain", "accept": ["the brain detects it", "the medulla notices the change"],
+      { "a": "This is detected by the brain", "accept": ["the brain detects it"],
         "k": [ { "w": ["medulla"], "n": 1 }, { "w": ["oblongata"], "n": 1 }, { "w": ["brain", "detect"], "n": 2 } ] },
       { "a": "Nerve impulses are sent to the diaphragm and intercostal muscles, which contract faster", "accept": ["impulses go to the breathing muscles", "the brain sends messages to the diaphragm", "nerves carry signals to the intercostal muscles"],
         "k": [ { "w": ["impuls"], "n": 1 }, { "w": ["nerve"], "n": 1 }, { "w": ["brain", "message"], "n": 2 }, { "w": ["brain", "signal"], "n": 2 }, { "w": ["message", "muscle"], "n": 2 }, { "w": ["signal", "muscle"], "n": 2 } ] }
     ],
-    "right": "Blood pH falls; the medulla oblongata detects this and signals the diaphragm",
-    "wrong": ["It lowers the oxygen level, which the heart detects", "The medulla detects a rise in blood pH and slows the heart", "Carbon dioxide makes the blood more acidic, so the lungs work harder"],
-    "why": "Carbon dioxide makes the blood more acidic. The medulla oblongata detects the fall in pH and sends nerve impulses to the diaphragm and intercostal muscles, which contract faster and harder." },
+    "right": "Blood pH falls; the brain detects this and signals the diaphragm",
+    "wrong": ["It lowers the oxygen level, which the heart detects", "The brain detects a rise in blood pH and slows the heart", "Carbon dioxide makes the blood more acidic, so the lungs work harder"],
+    "why": "Carbon dioxide makes the blood more acidic. The brain detects the fall in pH and sends nerve impulses to the diaphragm and intercostal muscles, which contract faster and harder." },
 
   { "id": "D28-21", "topic": 4,
     "q": "Explain how faster, deeper breathing helps to bring the pH of the blood back to normal during exercise.",
@@ -250,11 +239,11 @@
     "q": "Suggest why a person who has held their breath for a long time then breathes quickly and deeply.",
     "marks": 3, "need": 1,
     "pts": [
-      { "a": "Carbon dioxide has built up in the blood, making it more acidic, and the medulla oblongata detects this", "accept": ["CO2 levels in the blood rise", "the blood becomes more acidic", "the pH of the blood falls", "carbon dioxide builds up and must be removed", "the brain detects high carbon dioxide"],
+      { "a": "Carbon dioxide has built up in the blood, making it more acidic, and the brain detects this", "accept": ["CO2 levels in the blood rise", "the blood becomes more acidic", "the pH of the blood falls", "carbon dioxide builds up and must be removed", "the brain detects high carbon dioxide"],
         "k": [ { "w": ["co2", "build"], "n": 2 }, { "w": ["co2", "increas"], "n": 2 }, { "w": ["co2", "high"], "n": 2 }, { "w": ["more", "co2"], "n": 2 }, { "w": ["co2", "accumul"], "n": 2 },
                { "w": ["more", "acid"], "n": 2 }, { "w": ["acid", "increas"], "n": 2 }, { "w": ["ph", "decreas"], "n": 2 }, { "w": ["ph", "low"], "n": 2 }, { "w": ["ph", "lower"], "n": 2 }, { "w": ["ph", "down"], "n": 2 } ] }
     ],
     "right": "Carbon dioxide has built up in the blood, making it more acidic",
     "wrong": ["The level of oxygen in the blood has fallen, and the brain detects this", "The lungs have shrunk and need to be refilled", "The heart has slowed down and needs to catch up"],
-    "why": "While the breath is held, carbon dioxide from respiration builds up and the blood's pH falls. The medulla oblongata detects this and drives fast, deep breaths to remove it." }
+    "why": "While the breath is held, carbon dioxide from respiration builds up and the blood's pH falls. The brain detects this and drives fast, deep breaths to remove it." }
 ]

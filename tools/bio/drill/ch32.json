@@ -53,7 +53,7 @@
     "pts": [ { "a": "They are non-specific: they attack any infected cell without needing to recognise a particular antigen", "accept": ["they are non-specific", "they attack any infected cell", "they do not target one specific antigen"],
                "k": [ { "w": ["non", "specific"], "n": 2 }, { "w": ["nonspecific"], "n": 1 }, { "w": ["not", "specific"], "n": 2 }, { "w": ["any", "infect"], "n": 2 }, { "w": ["any", "pathogen"], "n": 2 }, { "w": ["all", "infect"], "n": 2 }, { "w": ["dont", "specific"], "n": 2 }, { "w": ["without", "specific"], "n": 2 }, { "w": ["no", "specific"], "n": 2 } ] } ],
     "right": "They attack any infected cell: they are not specific to one antigen",
-    "wrong": ["They make antibodies that fit one particular antigen", "They are made in the bone marrow", "They form memory cells after an infection"],
+    "wrong": ["They make antibodies that fit one particular antigen", "They only attack a pathogen they have met before", "They form memory cells after an infection"],
     "why": "The innate system is always ready and is not specific: NK cells act on any virus-infected or cancer cell at once, without needing to learn one antigen or making memory cells." },
 
   { "id": "D32-7", "topic": 3,
@@ -94,15 +94,6 @@
     "right": "Influenza (the flu)",
     "wrong": ["Chickenpox", "Cold sores (herpes)", "Tuberculosis (TB)"],
     "why": "Flu viruses carry their genes as RNA. Chickenpox and cold sores are caused by DNA viruses (herpes viruses), and TB is caused by a bacterium." },
-
-  { "id": "D32-11", "topic": 4,
-    "q": "HIV is an RNA virus called a retrovirus. Name the enzyme it uses to make DNA from its RNA.",
-    "marks": 3, "need": 1,
-    "pts": [ { "a": "Reverse transcriptase", "accept": ["reverse transcriptase enzyme"],
-               "k": [ { "w": ["reverse", "transcriptase"], "n": 2 } ] } ],
-    "right": "Reverse transcriptase",
-    "wrong": ["RNA polymerase", "DNA ligase", "Restriction enzyme"],
-    "why": "A retrovirus works backwards: reverse transcriptase copies its RNA into DNA, which is then inserted into the host cell's DNA. Antiviral drugs for HIV block this enzyme." },
 
   { "id": "D32-12", "topic": 4,
     "q": "The flu virus is an RNA virus. Explain why a new flu vaccine is needed every year.",
@@ -219,9 +210,9 @@
   { "id": "D32-22", "topic": 9,
     "q": "Name one novel virus that has spread from animals into humans.",
     "marks": 3, "need": 1,
-    "pts": [ { "a": "SARS-CoV-2 (COVID-19), bird flu, swine flu, Ebola, MERS, Zika or HIV", "accept": ["SARS-CoV-2", "COVID-19", "bird flu", "swine flu", "Ebola", "MERS", "Zika virus", "H5N1"],
-               "k": [ { "w": ["sar"], "n": 1 }, { "w": ["covid"], "n": 1 }, { "w": ["coronavirus"], "n": 1 }, { "w": ["bird", "flu"], "n": 2 }, { "w": ["avian", "flu"], "n": 2 }, { "w": ["swine", "flu"], "n": 2 }, { "w": ["ebola"], "n": 1 },
-                      { "w": ["mer"], "n": 1 }, { "w": ["zika"], "n": 1 }, { "w": ["h5n1"], "n": 1 }, { "w": ["h1n1"], "n": 1 }, { "w": ["hiv"], "n": 1 }, { "w": ["nipah"], "n": 1 }, { "w": ["mpox"], "n": 1 } ] } ],
+    "pts": [ { "a": "SARS-CoV-2 (COVID-19), bird flu, swine flu or MERS", "accept": ["SARS-CoV-2", "COVID-19", "bird flu", "swine flu", "MERS", "H5N1"],
+               "k": [ { "w": ["sar"], "n": 1 }, { "w": ["covid"], "n": 1 }, { "w": ["coronavirus"], "n": 1 }, { "w": ["bird", "flu"], "n": 2 }, { "w": ["avian", "flu"], "n": 2 }, { "w": ["swine", "flu"], "n": 2 },
+                      { "w": ["mer"], "n": 1 }, { "w": ["h5n1"], "n": 1 }, { "w": ["h1n1"], "n": 1 } ] } ],
     "right": "SARS-CoV-2, the coronavirus that causes COVID-19",
     "wrong": ["The common cold virus", "Measles", "Tuberculosis (TB)"],
     "why": "SARS-CoV-2 is closely related to bat coronaviruses and first spread in humans in 2019. Measles and colds have been in people for centuries, and TB is a bacterium, not a virus." },
@@ -306,11 +297,11 @@
   { "id": "D32-30", "topic": 12,
     "q": "Antiviral drugs are used to treat some viral infections. State one way an antiviral drug can work.",
     "marks": 3, "need": 1,
-    "pts": [ { "a": "It stops the virus copying itself (replicating) inside the host cell, or stops it entering or leaving cells", "accept": ["it stops the virus from replicating", "it blocks the virus entering host cells", "it prevents new viruses being released", "it blocks reverse transcriptase in HIV"],
+    "pts": [ { "a": "It stops the virus copying itself (replicating) inside the host cell, or stops it entering or leaving cells", "accept": ["it stops the virus from replicating", "it blocks the virus entering host cells", "it prevents new viruses being released"],
                "k": [ { "w": ["stop", "copy"], "n": 2 }, { "w": ["stop", "replicat"], "n": 2 }, { "w": ["stop", "reproduc"], "n": 2 }, { "w": ["stop", "multipl"], "n": 2 }, { "w": ["stop", "enter"], "n": 2 }, { "w": ["stop", "release"], "n": 2 },
                       { "w": ["prevent", "copy"], "n": 2 }, { "w": ["prevent", "replicat"], "n": 2 }, { "w": ["prevent", "reproduc"], "n": 2 }, { "w": ["prevent", "multipl"], "n": 2 }, { "w": ["prevent", "enter"], "n": 2 }, { "w": ["prevent", "release"], "n": 2 },
                       { "w": ["block", "copy"], "n": 2 }, { "w": ["block", "replicat"], "n": 2 }, { "w": ["block", "enter"], "n": 2 }, { "w": ["block", "release"], "n": 2 }, { "w": ["block", "reverse", "transcriptase"], "n": 3 } ] } ],
     "right": "It stops the virus from copying itself inside the host cell",
     "wrong": ["It kills the virus by breaking down its cell wall", "It makes the body produce antibodies against the virus", "It stops bacteria from making their cell walls"],
-    "why": "Viruses multiply inside our own cells, so antivirals target virus-only steps: getting into cells, copying viral genes (e.g. reverse transcriptase in HIV) or releasing new viruses." }
+    "why": "Viruses multiply inside our own cells, so antivirals target virus-only steps: getting into cells, copying viral genes or releasing new viruses." }
 ]

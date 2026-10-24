@@ -23,18 +23,6 @@
     "wrong": ["It is pumped there by the blood pressure from the heart", "By cilia that sweep the urine along the tube", "By osmosis through the wall of the ureter"],
     "why": "Smooth muscle in the ureter wall contracts in waves (peristalsis), pushing urine down to the bladder, even when you are lying down." },
 
-  { "id": "D29-3", "topic": 0,
-    "q": "Name the ring of muscle that controls the release of urine from the bladder.",
-    "marks": 3, "need": 1,
-    "pts": [
-      { "a": "Sphincter (muscle)",
-        "accept": ["sphincter muscle", "the urethral sphincter"],
-        "k": [ { "w": ["sphincter"], "n": 1 } ] }
-    ],
-    "right": "The sphincter muscle at the base of the bladder.",
-    "wrong": ["The diaphragm", "The muscle in the wall of the ureter", "The muscles of the abdominal wall"],
-    "why": "A sphincter is a ring of muscle. While it stays contracted it holds urine in the bladder; when it relaxes, urine flows out through the urethra." },
-
   { "id": "D29-4", "topic": 0,
     "q": "Give one feature of the wall of the urinary bladder that suits it to its function.",
     "marks": 3, "need": 1,
@@ -209,18 +197,6 @@
     "wrong": ["Glucose and insulin", "Oxygen and carbon dioxide", "Urea and amino acids"],
     "why": "Osmo- means water pressure: osmoregulation balances water against dissolved salts. Glucose is controlled by insulin, and gases by breathing." },
 
-  { "id": "D29-16", "topic": 3,
-    "q": "Name the part of the brain that detects that the blood has become too dilute.",
-    "marks": 3, "need": 1,
-    "pts": [
-      { "a": "Hypothalamus",
-        "accept": ["receptors in the hypothalamus", "osmoreceptors in the hypothalamus"],
-        "k": [ { "w": ["hypothalamus"], "n": 1 } ] }
-    ],
-    "right": "The hypothalamus, using its osmoreceptors.",
-    "wrong": ["The pituitary gland", "The cerebellum", "The medulla oblongata"],
-    "why": "Osmoreceptors in the hypothalamus sense the water concentration of the blood. The hypothalamus then has the pituitary gland release less ADH." },
-
   { "id": "D29-17", "topic": 3,
     "q": "State the effect of drinking a large volume of water on the amount of ADH released.",
     "marks": 3, "need": 1,
@@ -232,7 +208,7 @@
     ],
     "right": "Less ADH is released by the pituitary gland.",
     "wrong": ["More ADH is released to remove the extra water", "The kidneys release ADH instead of the pituitary", "The amount of ADH stays the same"],
-    "why": "Extra water makes the blood too dilute. The hypothalamus detects this, so the pituitary releases less ADH and the kidneys keep back less water." },
+    "why": "Extra water makes the blood too dilute. So the pituitary gland releases less ADH and the kidneys keep back less water." },
 
   { "id": "D29-18", "topic": 3,
     "q": "Explain how a low level of ADH affects the reabsorption of water in the collecting ducts.",

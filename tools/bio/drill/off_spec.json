@@ -1,0 +1,52 @@
+{
+  "about": "Real exam parts and diagram labels Exam drill leaves out because the 2025 specification (Leaving Certificate Biology, first exam 2027) doesn't cover them. Exam parts that test no learning outcome at all are left out already; these test one but ask for, or need for full marks, something the specification doesn't name. Keys are the drill's item ids without the chapter: '<question id>:<part index>'.",
+  "labels": {
+    "Lymph vessel": "The lymphatic system isn't on the specification.",
+    "Lacteal": "The lymphatic system isn't on the specification (absorption is 'into the blood: villi').",
+    "Body cells": "From the lymphatic system diagram (2014 Q3).",
+    "Appendix": "Not one of the specification's organs of the digestive system.",
+    "Macrophage": "The specification's white blood cells are monocytes, natural killer cells, B and T lymphocytes.",
+    "Arteriole": "The specification has arteries, veins and capillaries.",
+    "Venule": "The specification has arteries, veins and capillaries."
+  },
+  "parts": {
+    "28": {
+      "2026-Q3:0": "Body cavities aren't on the specification.",
+      "2010-Q7a:0": "Body cavities aren't on the specification.",
+      "2021-Q16d:3": "The specification says the brain, not the medulla oblongata.",
+      "2014-Q12c:4": "Full marks needs the medulla oblongata; the specification says the brain."
+    },
+    "29": {
+      "2018-Q6:4": "The specification has ADH from the pituitary; the hypothalamus isn't on it.",
+      "2011-Q12b:3": "Body cavities aren't on the specification."
+    },
+    "30": {
+      "2024-Q3:5": "Gut bacteria aren't on the specification.",
+      "2015-Q11c:4": "Gut bacteria aren't on the specification.",
+      "2012-Q15a:5": "Gut bacteria aren't on the specification.",
+      "2008-Q12c:1": "Gut bacteria aren't on the specification.",
+      "2004-Q6:6": "Gut bacteria aren't on the specification.",
+      "2022-Q6:5": "Lacteals: the lymphatic system isn't on the specification.",
+      "2021-Q14b:2": "Lacteals: the lymphatic system isn't on the specification.",
+      "2005-Q6:3": "Lacteals: the lymphatic system isn't on the specification.",
+      "2021-Q14b:5": "The specification's liver roles are bile, glycogen storage and deamination, not breaking down toxins.",
+      "2010-Q15b:6": "Full marks needs breaking down poisons, which isn't one of the specification's liver roles.",
+      "2015-Q11a:0": "'Omnivorous' isn't on the specification."
+    },
+    "31": {
+      "2018-Q11b:1": "The specification has the pacemaker; the AV node isn't on it.",
+      "2009-Q13b:3": "The specification has the pacemaker; the AV node isn't on it.",
+      "2010-Q7:0": "Body cavities aren't on the specification.",
+      "2006-Q13a:0": "Where blood cells are made (bone marrow) isn't on the specification."
+    },
+    "32": {
+      "2025-Q16d:2": "Where lymphocytes are made (bone marrow) isn't on the specification.",
+      "2021-Q16c:1": "Where lymphocytes are made (bone marrow) isn't on the specification.",
+      "2024-Q16d:1": "Immune organs (spleen, thymus) aren't on the specification.",
+      "2015-Q14a:1": "Immune organs (spleen, thymus) aren't on the specification.",
+      "2021-Q16c:3": "The specification's white blood cells are monocytes, natural killer cells, B and T lymphocytes.",
+      "2015-Q14a:3": "Full marks needs helper T cells making interferon, which isn't on the specification.",
+      "2008-Q6d:0": "Breastfeeding is on the specification only as passive immunity."
+    }
+  }
+}
