@@ -6,16 +6,17 @@
 // line under it for his lower lip, well clear of it (the user: "make the mouth ... better and more spaced"). Navy
 // outlines (inverted hulls) and flat toon colours, as in the game.
 // Built at radius 1, facing +z, up +y. It still rolls as a ball: only the nose, ears and hair stand off it.
-//   GolfHead.build(THREE, { tones, keep }) -> THREE.Group
+//   GolfHead.build(THREE, { tones, keep, line }) -> THREE.Group
 //     tones: the toon gradient texture (MeshToonMaterial.gradientMap);
-//     keep(o): every geometry and material made is passed to it, so the caller can dispose of them.
+//     keep(o): every geometry and material made is passed to it, so the caller can dispose of them;
+//     line: how thick its navy outlines are (0.05 by default; the game, drawing it small, uses 0.1).
 (function () {
   'use strict';
-  var SKIN = '#F2C9A0', INK = '#13294A', HAIR = '#13233A', WHITE = '#FFFFFF', LINE = 0.05;
+  var SKIN = '#F2C9A0', INK = '#13294A', HAIR = '#13233A', WHITE = '#FFFFFF';
 
   function build(TH, opt) {
     opt = opt || {};
-    var keep = opt.keep || function (o) { return o; }, root = new TH.Group(), i, k;
+    var keep = opt.keep || function (o) { return o; }, root = new TH.Group(), LINE = opt.line || 0.05, i, k;
     var V = function (x, y, z) { return new TH.Vector3(x, y, z); }, Y = V(0, 1, 0), Z = V(0, 0, 1);
     var skin = keep(new TH.MeshToonMaterial({ color: SKIN, gradientMap: opt.tones || null }));
     var ink = keep(new TH.MeshBasicMaterial({ color: INK, side: TH.BackSide }));

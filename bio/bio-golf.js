@@ -648,13 +648,20 @@
       shadow(r * 0.95, g);
       return g;
     });
-    // The balls: yours white; his is a model of his head (a little bigger than the ball it rolls as).
-    A.balls = [R, HEADR].map(function (r, i) {
+    // The balls: yours white; his is the 3D model of his head (golf-head.js), the same size as yours (the user: "make him
+    // the same size as the other ball"), with its own outlines as thick as your ball's.
+    A.balls = [R, R].map(function (r, i) {
       var g = new TH.Group(), spin = new TH.Group();
       g.add(spin);
       w.add(g);
-      if (i) head3d(spin); else add(new TH.SphereGeometry(r, 32, 20), toon('#FFFFFF'), spin);
-      rim(new TH.SphereGeometry(r * 1.1, 24, 16), g);
+      if (i) {
+        var head = window.GolfHead.build(TH, { tones: A.tones, keep: keep, line: 0.1 });
+        head.scale.setScalar(r);
+        spin.add(head);
+      } else {
+        add(new TH.SphereGeometry(r, 32, 20), toon('#FFFFFF'), spin);
+        rim(new TH.SphereGeometry(r * 1.1, 24, 16), g);
+      }
       g.visible = false;
       return { g: g, spin: spin, r: r, shadow: shadow(r * 0.95, w), last: null };
     });
@@ -663,12 +670,7 @@
     A.fx = { puffs: [], bits: [] };
     clouds(h, w);
   }
-  // His ball is a 3D model of his head (the user: "like a 3d model of his head made into a golf ball"), after the site's
-  // drawing of him: bald and round, dimpled like a golf ball over the top and back, dark tufts of hair over his ears and
-  // a few wild strands on top, thick cross eyebrows, round white glasses with his eyes in them, a big nose, ears, and an
-  // open grumpy mouth with one tooth. The face looks along +z; it rolls as a ball and turns back to you when it stops.
-  var HEADR = 0.42, SKIN = '#F2C9A0', DIMPLE = '#DDAE84', HAIR = '#13233A';
-  var UP = null, OUT = null;
+  var UP = null;
   // A rod from a to b (tapering from ra to rb), with its navy rim.
   function rod(a, b, ra, rb, m, to) {
     UP = UP || new TH.Vector3(0, 1, 0);
@@ -678,68 +680,6 @@
     o.position.copy(mesh.position);
     o.quaternion.copy(mesh.quaternion);
     return mesh;
-  }
-  function head3d(spin) {
-    var r = HEADR, skin = toon(SKIN), ink = flat(HAIR), white = flat('#FFFFFF'), i, s;
-    UP = UP || new TH.Vector3(0, 1, 0);
-    OUT = OUT || new TH.Vector3(0, 0, 1);
-    // A point on (or just off) the head in a direction, and a flat thing set there facing out.
-    function on(x, y, z, off) { return new TH.Vector3(x, y, z).normalize().multiplyScalar(r + (off || 0)); }
-    function stick(mesh, at, turn) {
-      mesh.position.copy(at);
-      mesh.quaternion.setFromUnitVectors(OUT, at.clone().normalize());
-      if (turn) mesh.quaternion.multiply(new TH.Quaternion().setFromAxisAngle(OUT, turn));
-      spin.add(mesh);
-      return mesh;
-    }
-    function blob(rad, sx, sy, sz, at, m, turn) {
-      var b = add(new TH.SphereGeometry(rad, 18, 12), m, spin), o = rim(new TH.SphereGeometry(rad + 0.022, 18, 12), spin);
-      b.scale.set(sx, sy, sz);
-      o.scale.copy(b.scale);
-      b.position.copy(at);
-      o.position.copy(at);
-      b.rotation.y = o.rotation.y = turn || 0;
-      return b;
-    }
-    add(new TH.SphereGeometry(r, 40, 28), skin, spin);
-    // Golf-ball dimples, spread evenly (a Fibonacci spiral) over the dome and the back, clear of his face and ears.
-    var dg = keep(new TH.CircleGeometry(0.033, 12)), dm = flat(DIMPLE);
-    for (i = 0; i < 170; i++) {
-      var y = 1 - (i + 0.5) / 170 * 2, rr = Math.sqrt(1 - y * y), a = i * 2.39996, x = Math.cos(a) * rr, z = Math.sin(a) * rr;
-      if (y < -0.2 || (z > 0.1 && y < 0.62) || (Math.abs(x) > 0.7 && y < 0.5 && z > -0.6)) continue;
-      stick(new TH.Mesh(dg, dm), on(x, y, z, 0.002));
-    }
-    // Ears (turned a little forward so they show from the front), and the dark tufts of hair above them; three wild strands on top.
-    for (s = -1; s <= 1; s += 2) {
-      blob(0.12, 0.5, 1, 0.75, new TH.Vector3(s * (r + 0.02), -0.03, -0.02), skin, -s * 0.6);
-      for (i = 0; i < 4; i++) {
-        var tuft = add(new TH.ConeGeometry(0.055, 0.17, 6), ink, spin), dir = new TH.Vector3(s * 0.85, 0.45 + i * 0.12, -0.25 + i * 0.12).normalize();
-        tuft.position.copy(on(s * 0.82, 0.32 + i * 0.07, -0.3 + i * 0.12, 0.02));
-        tuft.quaternion.setFromUnitVectors(UP, dir);
-      }
-    }
-    [[-0.12, 0.98, -0.1, -0.5], [0.04, 1, 0.05, 0.25], [0.16, 0.97, -0.05, 0.7]].forEach(function (h) {
-      var strand = add(new TH.ConeGeometry(0.02, 0.2, 5), ink, spin);
-      strand.position.copy(on(h[0], h[1], h[2], 0.06));
-      strand.quaternion.setFromUnitVectors(UP, new TH.Vector3(h[3], 1, 0.2).normalize());
-    });
-    // Thick eyebrows, cross: their inner ends low.
-    for (s = -1; s <= 1; s += 2) stick(add(new TH.BoxGeometry(0.2, 0.055, 0.05), ink, spin), on(s * 0.29, 0.5, 0.82, 0.015), s * 0.38);
-    // Round white glasses with navy rims, his eyes looking a little in, the bridge and the arms back to his ears.
-    for (s = -1; s <= 1; s += 2) {
-      var c = on(s * 0.29, 0.17, 0.94);
-      stick(new TH.Mesh(keep(new TH.CircleGeometry(0.098, 24)), white), c.clone().multiplyScalar((r + 0.03) / r));
-      stick(new TH.Mesh(keep(new TH.TorusGeometry(0.1, 0.025, 8, 28)), ink), c.clone().multiplyScalar((r + 0.035) / r));
-      stick(new TH.Mesh(keep(new TH.CircleGeometry(0.038, 14)), ink), on(s * 0.23, 0.17, 0.96, 0.034));
-      rod(on(s * 0.52, 0.17, 0.83, 0.03), on(s * 0.97, 0.14, 0.05, 0.012), 0.016, 0.016, ink, spin);
-    }
-    rod(on(-0.07, 0.19, 1, 0.03), on(0.07, 0.19, 1, 0.03), 0.02, 0.02, ink, spin);
-    // A big round nose.
-    blob(0.105, 1, 0.95, 0.9, on(0, -0.06, 1, 0.03), skin);
-    // His open, grumpy mouth with one tooth.
-    var mouth = stick(add(new TH.SphereGeometry(0.08, 16, 10), ink, spin), on(0.04, -0.46, 0.89, -0.01));
-    mouth.scale.set(1.35, 0.62, 0.35);
-    stick(add(new TH.BoxGeometry(0.04, 0.045, 0.02), white, spin), on(0.07, -0.4, 0.92, 0.012));
   }
   // A putter (the user: "make the golf club look more like a golf club and less like a sledgehammer"): a slim steel
   // blade with a sight line on top, a short bent neck into its heel, a thin shaft leaning up towards where the golfer
@@ -1054,12 +994,13 @@
     return busy;
   }
   // Both balls where they are, with their shadows, rolling as they go (turned about the axis across their way by how far
-  // they went); his head, once it's still, turns back upright to face the camera.
-  var QT = null, AXIS = null;
+  // they went); his head, once it's still, turns back upright to face the camera, tipped back a little to look up at it.
+  var QT = null, AXIS = null, EU = null;
   function placeBalls(dt) {
     var h = A.h, busy = false;
     QT = QT || new TH.Quaternion();
     AXIS = AXIS || new TH.Vector3();
+    EU = EU || new TH.Euler();
     A.balls.forEach(function (b, i) {
       var vis = A.on[i] || Boolean(A.sink && A.sink.who === i);
       b.g.visible = vis;
@@ -1073,7 +1014,8 @@
         QT.setFromAxisAngle(AXIS, m / b.r);
         b.spin.quaternion.premultiply(QT);
       } else if (i === 1) {
-        QT.setFromAxisAngle(AXIS.set(0, 1, 0), Math.atan2(A.camPos.x - b.g.position.x, A.camPos.z - b.g.position.z));
+        var dx = A.camPos.x - b.g.position.x, dz = A.camPos.z - b.g.position.z;
+        QT.setFromEuler(EU.set(-Math.min(0.5, 0.6 * Math.atan2(A.camPos.y - b.g.position.y, Math.hypot(dx, dz))), Math.atan2(dx, dz), 0, 'YXZ'));
         if (b.spin.quaternion.angleTo(QT) > 0.01) { b.spin.quaternion.slerp(QT, Math.min(1, dt * 6)); busy = true; }
       }
       b.last = p.slice();
