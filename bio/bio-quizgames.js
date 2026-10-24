@@ -110,14 +110,10 @@
     K.mascot('happy', pick(CHASE_SAY.start));
   }
   function chaseGo(head) {
-    var all = [];
-    var P = BB.pools();
-    CH.forEach(function (ch) { all = all.concat(P[ch].mc.filter(function (i) { return i.c.wrong.length >= 2; })); });
+    S.pools = BB.pools();
     S.head = head;
     S.you = head;
     S.him = 0;
-    S.qs = shuffle(all);
-    S.at = 0;
     S.right = 0;
     S.asked = 0;
     show('<div class="oe"><div class="oe-track" data-oe-track style="--rows:' + (STEPS + 1) + '" aria-label="The track">' + track() + '</div><div class="tb-panel" data-qg-panel aria-live="polite"></div></div>');
@@ -148,23 +144,44 @@
     var left = STEPS - S.you;
     return '<p class="tb-say tb-turn"><b>' + left + (left === 1 ? ' step' : ' steps') + '</b> to home. He\'s <b>' + (S.you - S.him) + '</b> behind.</p>';
   }
+  // Your questions come from the memory you share with Exam drill (bio-board.js): one due to type first, then one
+  // you got wrong, then a new one. He answers the same question from its boxes either way.
   function chaseAsk() {
-    var item = S.qs[S.at++ % S.qs.length];
+    var m = BB.memNext(S, S.pools, null, false, function (i) { return i.c.wrong.length >= 2; }), item = m.item;
     S.item = item;
+    S.typed = Boolean(m.typed && item.want);
     S.phase = 'ask';
-    q('[data-qg-panel]').innerHTML = status() + card(item.ch, 'Question ' + (S.asked + 1), '<p class="tb-q">' + asked(item) + '</p>' + options(item) + '<div class="qg-after" data-oe-after></div>');
+    q('[data-qg-panel]').innerHTML = status() + card(item.ch, S.typed ? 'Type it' : 'Question ' + (S.asked + 1), '<p class="tb-q">' + asked(item, S.typed) + '</p>' +
+      (S.typed ? typedBox() : options(item)) + '<div class="qg-after" data-oe-after></div>');
     into(q('.tb-card'));
-    BB.reveal(q('.tb-card'));
+    BB.reveal(q('.tb-card'), function () {
+      var t = q('[data-qg-text]');
+      if (t) t.focus({ preventScroll: true });
+    });
   }
   function chaseChoose(btn) {
     if (S.phase !== 'ask') return;
+    var mine = btn.getAttribute('data-qg-opt');
+    markOptions(S.item, mine);
+    chaseResult(mine === S.item.c.right, '');
+  }
+  function chaseCheck(pass) {
+    if (S.phase !== 'ask') return;
+    var box = q('[data-qg-text]'), text = pass ? '' : (box.value || '').trim();
+    if (!pass && !text) { box.focus(); return; }
+    var m = text ? marked(S.item, text) : { got: 0, ok: false };
+    box.disabled = true;
+    var row = q('[data-qg-check]');
+    if (row) row.closest('.tb-row').remove();
+    chaseResult(m.ok, text ? said(text, m.got, S.item.want) : '');
+  }
+  function chaseResult(ok, mine) {
     S.phase = 'shown';
-    var item = S.item, mine = btn.getAttribute('data-qg-opt'), ok = mine === item.c.right;
-    var hisOk = Math.random() < HIS_ODDS, his = hisOk ? item.c.right : pick(item.c.wrong);
+    var item = S.item, hisOk = Math.random() < HIS_ODDS, his = hisOk ? item.c.right : pick(item.c.wrong);
     S.asked += 1;
     if (ok) S.right += 1;
-    markOptions(item, mine);
-    if (ok) K.ding(2, true); else K.bonk();
+    var later = BB.memLine(BB.memRecord(S.pools, item, S.typed, ok));
+    if (ok) K.ding(S.typed ? 4 : 2, true); else K.bonk();
     var after = q('[data-oe-after]');
     after.innerHTML = '<p class="tb-say tb-think">He answers…</p>';
     // His pick comes a moment after yours, tagged on its option.
@@ -172,7 +189,7 @@
       S.card.querySelectorAll('[data-qg-opt]').forEach(function (b) {
         if (b.getAttribute('data-qg-opt') === his) b.insertAdjacentHTML('beforeend', '<span class="oe-his">Examiner</span>');
       });
-      after.innerHTML = '<div class="oe-result">' + stamp(ok, ok ? 'You: right' : 'You: wrong') + stamp(hisOk, hisOk ? 'Him: right' : 'Him: wrong') + '</div>' + answer(item, '');
+      after.innerHTML = '<div class="oe-result">' + stamp(ok, ok ? 'You: right' : 'You: wrong') + stamp(hisOk, hisOk ? 'Him: right' : 'Him: wrong') + '</div>' + answer(item, mine) + later;
       into(after);
       // You move first: home is safe even if he moves after.
       if (ok) S.you += 1;
@@ -207,6 +224,7 @@
   function gridOpen() {
     start('grid', 'Points Grid', 25, 'points');
     var P = BB.pools();
+    S.pools = P;
     S.score = 0;
     S.cells = {};
     // Each chapter's column: a true-or-false for 100 where there is one, pick-the-answer for 200 and 300, typed for
@@ -218,9 +236,12 @@
         if (got) used[key(got)] = 1;
         return got || null;
       };
-      var five = take(P[ch].typed, function (i) { return i.want >= 2; }), four = take(P[ch].typed, function (i) { return i.want === 1; });
+      // Dealt in the order of the memory you share with Exam drill: the typed 400 and 500 from questions due to type,
+      // the boxes from ones you got wrong, then new ones.
+      var typedList = BB.memOrder(P, P[ch].typed, true), boxList = BB.memOrder(P, P[ch].mc, false);
+      var five = take(typedList, function (i) { return i.want >= 2; }), four = take(typedList, function (i) { return i.want === 1; });
       var tf = function (i) { return /^(True|False)$/.test(i.c.right); }, mc = function (i) { return !tf(i); };
-      return { ch: ch, items: [take(P[ch].mc, tf), take(P[ch].mc, mc), take(P[ch].mc, mc), four, five] };
+      return { ch: ch, items: [take(boxList, tf), take(boxList, mc), take(boxList, mc), four, five] };
     });
     gridShow();
     K.mascot('ok', 'Pick a chapter and a value. Wrong answers cost you.');
@@ -272,7 +293,8 @@
     if (how === 'ok') { K.ding(S.typed ? 4 : 2, true); K.mascot('angry', 'Hmph. ' + v + ' points.'); }
     else if (how === 'no') { K.bonk(); K.mascot('happy', 'Wrong. That\'s ' + v + ' off.'); }
     else K.mascot('ok', 'Wise, maybe.');
-    q('[data-pts-after]').innerHTML = stamp(how === 'ok', how === 'ok' ? '+' + v : how === 'no' ? '−' + v : 'Passed: 0') + answer(item, mine);
+    q('[data-pts-after]').innerHTML = stamp(how === 'ok', how === 'ok' ? '+' + v : how === 'no' ? '−' + v : 'Passed: 0') + answer(item, mine) +
+      BB.memLine(BB.memRecord(S.pools, item, S.typed, how === 'ok'));
     next('Back to the grid', 'data-pts-back');
   }
   function gridChoose(btn) {
@@ -344,7 +366,7 @@
     var T = window.BioTaboo || {}, list = [];
     (which === 'all' ? CH : [+which]).forEach(function (ch) { (T[ch] || []).forEach(function (t) { list.push({ ch: ch, t: t }); }); });
     S.which = which;
-    S.terms = shuffle(list).slice(0, ROUND);
+    S.terms = BB.missFirst('taboo', shuffle(list), function (x) { return x.t.term; }).slice(0, ROUND);
     S.at = 0;
     S.got = 0;
     K.gameHud(S.card, S.terms.length, 'guessed');
@@ -388,6 +410,7 @@
     var row = q('[data-dsi-go]').closest('.tb-row');
     if (row) row.remove();
     var got = gotIdeas(text, t), n = got.filter(Boolean).length, ok = !skip && n >= t.need;
+    BB.missMark('taboo', t.term, ok);
     var guess = '';
     if (!ok && !skip) {
       var best = null;
@@ -425,6 +448,8 @@
     if (S.kind === 'chase') {
       if ((t = e.target.closest('[data-oe-head]'))) { chaseGo(+t.getAttribute('data-oe-head')); return; }
       if ((t = e.target.closest('[data-qg-opt]'))) { chaseChoose(t); return; }
+      if (e.target.closest('[data-qg-check]')) { chaseCheck(false); return; }
+      if (e.target.closest('[data-qg-pass]')) { chaseCheck(true); return; }
       if (e.target.closest('[data-oe-next]') && S.phase === 'shown') { chaseAsk(); return; }
       if (e.target.closest('[data-oe-again]')) { chaseOpen(); return; }
     } else if (S.kind === 'grid') {
@@ -447,7 +472,7 @@
   // Enter checks a typed answer or lets him guess (Shift+Enter for a new line).
   document.addEventListener('keydown', function (e) {
     if (!live() || e.key !== 'Enter' || e.shiftKey || !e.target.closest) return;
-    if (e.target.closest('[data-qg-text]')) { e.preventDefault(); if (S.kind === 'grid') gridCheck(); }
+    if (e.target.closest('[data-qg-text]')) { e.preventDefault(); if (S.kind === 'grid') gridCheck(); else if (S.kind === 'chase') chaseCheck(false); }
     else if (e.target.closest('[data-dsi-text]')) { e.preventDefault(); tabooGuess(false); }
   });
   window.addEventListener('resize', function () { if (live()) BB.nearMascot(S.card); });

@@ -376,9 +376,12 @@
   }
   function bare(text) { return text.replace(/\s*\((\d+ of )?\d+ points?\)$/, ''); }
   function ask(label, typed, ch, done) {
-    var item = nextItem(ch, typed);
+    // Your question comes from the memory you share with Exam drill: one due to type first (it's typed even when the
+    // game wanted boxes), then one you got wrong, then a new one.
+    var m = BB.memNext(A, A.pools, ch, typed), item = m.item;
+    if (m.typed && !typed) label = 'Type it';
     A.item = item;
-    A.typed = Boolean(typed && item.want);
+    A.typed = Boolean(m.typed && item.want);
     A.done = done;
     A.phase = 'ask';
     layer(card(item.ch, label, '<p class="tb-q">' + esc(A.typed ? item.text : bare(item.text)) + '</p>' + (A.typed
@@ -415,7 +418,7 @@
     if (ok) A.right += 1;
     var btns = q('[data-ar-check]');
     if (btns) btns.closest('.tb-row').remove();
-    q('[data-ar-after]').innerHTML = stamp(ok, ok ? 'Correct' : 'Not quite') + answerHtml(A.item, mine);
+    q('[data-ar-after]').innerHTML = stamp(ok, ok ? 'Correct' : 'Not quite') + answerHtml(A.item, mine) + BB.memLine(BB.memRecord(A.pools, A.item, A.typed, ok));
     if (ok) K.ding(A.typed ? 4 : 2, true); else K.bonk();
     A.done(ok);
   }

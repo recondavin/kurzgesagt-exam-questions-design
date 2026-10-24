@@ -290,6 +290,8 @@ button { font: inherit; }
 .tb-ans { margin: 0; color: #13294A; font: 800 26px/1.3 Nunito, sans-serif; }
 .tb-ans span { display: block; color: #5B6B80; font: 800 15px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
 .tb-why { margin: 0; color: #5B6B80; font: 700 19px/1.4 Nunito, sans-serif; }
+/* When the question comes back (the memory the games share with Exam drill). */
+.tb-later { margin: 0; color: #5B6B80; font: 800 15px Nunito, sans-serif; }
 /* On the card's back the why is what you learn from (the user: "people should read that but it's too small and not
    clear enough"): its own label, bigger dark text, in a box with the chapter's colour down its side. */
 .tb-card .tb-why { padding: 14px 18px; border-left: 6px solid var(--c); border-radius: 12px; background: #EEF2F6; color: #13294A; font: 700 22px/1.45 Nunito, sans-serif; }

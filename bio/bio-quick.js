@@ -28,12 +28,16 @@
     if (perfect) K.later(K.fanfare, 300);
   }
 
+  // What you missed comes first next time (bio-board.js keeps the list).
+  function missFirst(game, list, key) { return window.BioBoard ? window.BioBoard.missFirst(game, list, key) : list; }
+  function missMark(game, key, ok) { if (window.BioBoard) window.BioBoard.missMark(game, key, ok); }
+
   // ======================================================================== Match pairs
   var ROUND = 4;
   function matchOpen(ch) {
     var pairs = learn(ch).match || [];
     if (pairs.length < ROUND) return;
-    G = { kind: 'match', ch: ch, card: BK.host(ch, 'Match pairs'), list: shuffle(pairs), round: 0, first: 0, t0: Date.now() };
+    G = { kind: 'match', ch: ch, card: BK.host(ch, 'Match pairs'), list: missFirst('match-' + ch, shuffle(pairs), function (p) { return p[0]; }), round: 0, first: 0, t0: Date.now() };
     G.rounds = Math.min(3, Math.floor(G.list.length / ROUND));
     G.out = G.rounds * ROUND;
     K.gameHud(G.card, G.rounds, '/' + G.out);
@@ -71,6 +75,7 @@
     var note = G.card.querySelector('[data-am-gnote]');
     if (i === j) {
       if (!G.missed[i]) G.first += 1;
+      missMark('match-' + G.ch, G.set[i][0], !G.missed[i]);
       pair.forEach(function (b) { b.classList.add('is-ok'); b.setAttribute('aria-disabled', 'true'); });
       K.ding(Math.min(G.first, 8), false);
       K.rollTo(G.card.querySelector('[data-am-gscore]'), G.first);
@@ -110,7 +115,7 @@
   function spotOpen(ch) {
     var items = learn(ch).spot || [];
     if (!items.length) return;
-    G = { kind: 'spot', ch: ch, card: BK.host(ch, 'Spot the mistake'), list: shuffle(items).slice(0, SPOT_N), i: 0, found: 0, fixed: 0 };
+    G = { kind: 'spot', ch: ch, card: BK.host(ch, 'Spot the mistake'), list: missFirst('spot-' + ch, shuffle(items), function (it) { return it.s; }).slice(0, SPOT_N), i: 0, found: 0, fixed: 0 };
     K.gameHud(G.card, G.list.length, '/' + G.list.length * 2);
     K.mascot('ok', 'One word is wrong. Find it.');
     spotShow();
@@ -174,6 +179,7 @@
       K.mascot('angry', pick(['No!', 'Wrong fix.', 'Learn it.']));
     }
     K.gameSeg(G.card, G.i, G.got === 2 ? 'is-ok' : G.got ? 'is-half' : 'is-no');
+    missMark('spot-' + G.ch, it.s, G.got === 2);
     G.card.querySelector('[data-am-gnote]').innerHTML = '<span class="sp-why">' + esc(it.why) + '</span>';
     var last = G.i + 1 >= G.list.length;
     buttons(G.card, [['ok', 'data-sp-next', last ? 'See my score' : 'Next sentence']]);
@@ -198,12 +204,12 @@
     var svg = '<svg viewBox="' + [a[0], a[1], b[0], b[1]].map(n).join(' ') + '" role="img"><title>' + esc(r.src) + '</title>' +
       '<image href="' + esc(r.img) + '" width="' + PAGE[0] + '" height="' + PAGE[1] + '" preserveAspectRatio="none"/>' +
       (r.cover || []).map(function (c) { var p = px(c[0], c[1]), q = px(c[2], c[3]); return '<rect x="' + n(p[0]) + '" y="' + n(p[1]) + '" width="' + n(q[0]) + '" height="' + n(q[1]) + '" fill="' + (c[4] || '#FFFFFF') + '"/>'; }).join('') + '</svg>';
-    return { d: { svg: svg, src: r.src }, k: b[0] / 480, parts: r.spots.map(function (s) { return { text: s.t, at: px(s.at[0], s.at[1]) }; }) };
+    return { d: { svg: svg, src: r.src }, k: b[0] / 480, q: r.q, parts: r.spots.map(function (s, i) { return { text: s.t, at: px(s.at[0], s.at[1]), i: i }; }) };
   }
   function sprintOpen(ch) {
     var real = (window.BioSprint || {})[ch] || [], pool;
     if (real.length) {
-      pool = shuffle(real.map(paperDiagram));
+      pool = missFirst('sprint-' + ch, shuffle(real.map(paperDiagram)), function (x) { return x.parts.map(function (l) { return l.text; }); });
     } else {
       var set = window.ExamDrawDiagrams && window.ExamDrawDiagrams['bio-' + ch], ids = learn(ch).sprint || [];
       pool = shuffle(ids.map(function (id) { return set && set.diagrams.filter(function (d) { return d.id === id; })[0]; }).filter(Boolean)).map(function (d) {
@@ -217,7 +223,7 @@
     pool.forEach(function (x) { x.asked = {}; });
     function take(n) {
       pool.forEach(function (x) {
-        shuffle(x.parts).filter(function (l) { return !x.asked[l.text]; }).slice(0, n).forEach(function (l) { x.asked[l.text] = true; qs.push({ x: x, l: l }); });
+        missFirst('sprint-' + ch, shuffle(x.parts), function (l) { return l.text; }).filter(function (l) { return !x.asked[l.text]; }).slice(0, n).forEach(function (l) { x.asked[l.text] = true; qs.push({ x: x, l: l }); });
       });
     }
     take(per);
@@ -272,6 +278,10 @@
     bar.style.transition = 'none';
     // Two labels can share a name; either spot is right.
     var ok = j >= 0 && q.x.parts[j].text === q.l.text, dot = function (k) { return G.card.querySelector('[data-ls-dot="' + k + '"]'); };
+    // Missed: it comes first next time. On a paper's diagram it's also Exam drill's question on that part: right, the
+    // drill asks you to type it; wrong, it asks it as boxes again.
+    missMark('sprint-' + G.ch, q.l.text, ok);
+    if (q.x.q && q.l.i != null && window.BioBoard) window.BioBoard.memSet('d' + G.ch + ':' + q.x.q + ':' + q.l.i, false, ok, true);
     if (ok) {
       G.right += 1;
       G.streak += 1;
