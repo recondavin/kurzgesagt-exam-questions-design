@@ -379,7 +379,7 @@
     return '<em class="bio-best">Best <b class="num">' + esc(/\//.test(v) ? v : v + ' points') + '</b></em>';
   }
   function chapterRows() { return window.BioProgress ? window.BioProgress.model(progressApi()).now.rows : []; }
-  // The question games, each opened by its link over the progress page: [hash, name, there?].
+  // The question games, each opened by its link over Biology's home: [hash, name, there?].
   var HUB_GAMES = [
     ['board', 'Trivia board', function () { return window.BioBoard; }],
     ['chase', 'Outrun the Examiner', function () { return window.BioQuizGames; }],
@@ -393,7 +393,8 @@
     if (!side) return;
     var rows = chapterRows();
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
-      '<nav class="sh-nav" aria-label="Biology"><a class="sh-link" href="#"' + (active === 'home' ? ' aria-current="page"' : '') + '><span class="sh-t">Progress</span></a>' +
+      '<nav class="sh-nav" aria-label="Biology"><a class="sh-link" href="#"' + (active === 'home' ? ' aria-current="page"' : '') + '><span class="sh-t">Home</span></a>' +
+      '<a class="sh-link" href="#progress"' + (active === 'progress' ? ' aria-current="page"' : '') + '><span class="sh-t">Progress</span></a>' +
       (window.BioDrill ? '<a class="sh-link" href="#drill"><span class="sh-t">Exam drill</span></a>' : '') +
       (window.BioBoard ? '<p class="sh-group">Games</p>' + HUB_GAMES.filter(function (g) { return g[2](); }).map(function (g) {
         return '<a class="sh-link" href="#' + g[0] + '"><span class="sh-t">' + g[1] + '</span></a>';
@@ -403,7 +404,7 @@
         return '<a class="sh-link" href="#ch' + c.n + '"' + (active === c.n ? ' aria-current="page"' : '') + '><span class="sh-n num">' + c.n + '</span><span class="sh-t">' + esc(c.short) + '</span><span class="sh-v num">' + v + '</span></a>';
       }).join('') + '</nav>';
     bar.innerHTML = '<button type="button" class="sh-menu" data-sh-menu aria-expanded="false" aria-controls="bio-side"><span class="sh-burger" aria-hidden="true"></span><span class="sr">Menu</span></button>' +
-      '<p class="sh-crumb"><a href="#">Biology</a><span class="sh-sep" aria-hidden="true">/</span><span class="sh-here">' + esc(crumb) + '</span></p>' +
+      '<p class="sh-crumb">' + (crumb ? '<a href="#">Biology</a><span class="sh-sep" aria-hidden="true">/</span><span class="sh-here">' + esc(crumb) + '</span>' : '<span class="sh-here">Biology</span>') + '</p>' +
       '<nav class="sh-switch" aria-label="Subject"><a href="Geography%20Questions.dc.html">Geography</a><a href="biology.html" aria-current="page">Biology</a><a href="irish.html">Irish</a></nav>';
   }
   function menu(open) {
@@ -411,9 +412,32 @@
     var b = bar && bar.querySelector('[data-sh-menu]');
     if (b) b.setAttribute('aria-expanded', String(open));
   }
+  // Biology's home (the user: "when you click on progress and biology it gives you the same thing"): the five chapters
+  // with your marks, then Exam drill and the games. Progress (#progress) has the predicted grade and the charts.
   function renderHome() {
+    document.title = 'Biology | Leaving Cert';
+    renderShell('home', '');
+    var rows = chapterRows(), col = window.BioBoard ? window.BioBoard.colours : {};
+    var games = (window.BioDrill ? [['drill', 'Exam drill']] : []).concat(window.BioBoard ? HUB_GAMES.filter(function (g) { return g[2](); }) : []);
+    app.innerHTML = '<div class="bh">' +
+      '<div class="cv-title rise" style="--i:0"><h1 class="cv-h1">Biology</h1>' + (window.BioDrill ? '<a class="btn-primary bh-go" href="#drill">Start Exam drill</a>' : '') + '</div>' +
+      '<section class="bh-chs rise" style="--i:1" aria-label="Chapters">' + CHAPTERS.map(function (c, i) {
+        var r = rows[i] || {}, seen = r.seen != null ? Math.round(r.seen * 100) : null, items = drillItems(c.n), tried = items.filter(function (x) { return x.best; }).length;
+        var grade = seen != null && window.BioProgress ? window.BioProgress.gradeOf(seen).name : '', dc = window.BioDrill ? window.BioDrill.counts(c.n) : null;
+        return '<a class="card bh-ch" href="#ch' + c.n + '" style="--c:' + (col[c.n] || 'var(--muted)') + '"><span class="bh-n num">' + c.n + '</span><span class="bh-name">' + esc(c.short) + '</span>' +
+          '<span class="bh-big">' + (seen == null ? '<span class="dash">–</span>' : '<b class="num">' + seen + '%</b><i>' + grade + '</i>') + '</span>' +
+          '<span class="pg-track bh-track"><i style="--w:' + (seen || 0) + '%"></i></span>' +
+          '<span class="bh-facts"><span><b class="num">' + (r.count || 0) + '</b><span class="of"> of ' + allQuestions(c.n).length + '</span> questions</span>' +
+            '<span><b class="num">' + tried + '</b><span class="of"> of ' + items.length + '</span> drills</span>' +
+            (dc ? '<span><b class="num">' + dc.done + '</b><span class="of"> of ' + dc.all + '</span> learnt</span>' : '') + '</span></a>';
+      }).join('') + '</section>' +
+      (games.length ? '<h2 class="bh-h rise" style="--i:2">Games</h2><section class="bh-games rise" style="--i:3" aria-label="Games">' + games.map(function (g) {
+        return '<a class="card bh-game" href="#' + g[0] + '">' + esc(g[1]) + '<i class="bio-go" aria-hidden="true"></i></a>';
+      }).join('') + '</section>' : '') + '</div>';
+  }
+  function renderProgress() {
     document.title = 'Progress | Leaving Cert Biology';
-    renderShell('home', 'Progress');
+    renderShell('progress', 'Progress');
     if (window.BioProgress) window.BioProgress.render(app, progressApi());
   }
   // The next question to answer in a chapter: the first real one you haven't tried, else your lowest score.
@@ -887,7 +911,7 @@
     var h = location.hash.replace(/^#/, ''), m = h.match(/^ch(\d+)$/);
     menu(false);
     app.classList.remove('is-settled');
-    // #drill (or #drill28 from a chapter's page) opens Exam drill over the progress page or that chapter.
+    // #drill (or #drill28 from a chapter's page) opens Exam drill over Biology's home or that chapter.
     var drill = h.match(/^drill(\d\d)?$/);
     if (drill && window.BioDrill) {
       history.replaceState(null, '', location.pathname + location.search + (drill[1] ? '#ch' + drill[1] : ''));
@@ -895,7 +919,7 @@
       window.BioDrill.open(drill[1] ? +drill[1] : 0);
       return;
     }
-    // #board and the other games open over the progress page (the link drops the hash so it can be followed again).
+    // #board and the other games open over Biology's home (the link drops the hash so it can be followed again).
     var game = HUB_GAMES.filter(function (g) { return g[0] === h && g[2](); })[0];
     if (game) {
       history.replaceState(null, '', location.pathname + location.search);
@@ -905,14 +929,14 @@
       else window.BioQuizGames.open(h);
       return;
     }
-    if (m) renderChapter(+m[1]); else renderHome();
+    if (m) renderChapter(+m[1]); else if (h === 'progress') renderProgress(); else renderHome();
     window.scrollTo(0, 0);
   }
   // After a card closes: the same view with fresh scores, scrolled where it was, without animating in again.
   function refresh() {
     var y = window.scrollY, h = location.hash.replace(/^#/, ''), m = h.match(/^ch(\d+)$/);
     app.classList.add('is-settled');
-    if (m) renderChapter(+m[1], store('bio-tab')); else renderHome();
+    if (m) renderChapter(+m[1], store('bio-tab')); else if (h === 'progress') renderProgress(); else renderHome();
     window.scrollTo(0, y);
   }
   function onClick(e) {

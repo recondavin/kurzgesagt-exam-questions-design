@@ -179,6 +179,46 @@ tr .pg-track i { animation-delay: inherit; }
   .pg-chapters, .pg-days { grid-column: 1 / -1; }
 }
 
+/* ---------- Biology's home: the five chapters (your marks, questions, drills, Exam drill learnt), then the games ---------- */
+.sh-canvas.bio-app:has(> .bh) { max-width: 1680px; }
+.bh-chs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.bh-ch { display: flex; flex-direction: column; gap: 10px; border-top: 5px solid var(--c); color: #fff; text-decoration: none; transition: background .15s ease, transform .15s ease; }
+.bh-ch:hover, .bh-game:hover { background: var(--raised); }
+.bh-ch:focus-visible, .bh-game:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
+.bh-n { color: var(--c); font: 800 15px Nunito, system-ui, sans-serif; }
+.bh-name { font: 600 22px/1.2 Fredoka, Nunito, sans-serif; }
+.bh-big { display: flex; align-items: baseline; gap: 10px; margin-top: 4px; min-height: 40px; font: 800 34px/1 Nunito, system-ui, sans-serif; }
+.bh-big i { color: var(--muted); font: 700 18px Nunito, system-ui, sans-serif; font-style: normal; }
+.bh-track { width: 100%; }
+.bh-facts { display: flex; flex-direction: column; gap: 4px; margin-top: 4px; color: var(--muted); font: 700 15px Nunito, system-ui, sans-serif; }
+.bh-facts b { color: #fff; }
+.bh-h { margin: 32px 0 14px; color: #fff; font: 600 22px/1.2 Fredoka, Nunito, sans-serif; }
+.bh-games { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.bh-game { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 72px; color: #fff; font: 700 19px Nunito, system-ui, sans-serif; text-decoration: none; transition: background .15s ease; }
+.bh-go { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+@media (min-width: 701px) {
+  .bh .cv-title { margin-bottom: 28px; }
+  .bh .cv-h1 { font-size: 36px; }
+  .bh .btn-primary { height: 52px; padding: 0 28px; font-size: 18.5px; }
+  .bh .card { padding: 26px; border-radius: 20px; }
+}
+@media (max-width: 1500px) {
+  .bh-chs { grid-template-columns: minmax(0, 1fr); }
+  .bh-ch { display: grid; grid-template-columns: 44px minmax(0, 1fr) 150px 160px; grid-template-areas: "n name big track" "n facts big track"; align-items: center; gap: 8px 16px; border-top: 0; border-left: 5px solid var(--c); }
+  .bh-n { grid-area: n; }
+  .bh-name { grid-area: name; }
+  .bh-big { grid-area: big; margin: 0; min-height: 0; font-size: 28px; }
+  .bh-track { grid-area: track; }
+  .bh-facts { grid-area: facts; flex-direction: row; flex-wrap: wrap; gap: 4px 20px; margin: 0; }
+}
+@media (max-width: 700px) {
+  .bh-ch { grid-template-columns: 34px minmax(0, 1fr) auto; grid-template-areas: "n name big" "n track track" "n facts facts"; }
+  .bh-name { font-size: 19px; }
+  .bh-big { font-size: 22px; }
+  .bh-games { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .bh-game { min-height: 64px; font-size: 16.5px; }
+}
+
 /* Information animates in: each block rises into place in turn. A refresh after a card closes stays still. */
 .rise { animation: riseIn .55s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 70ms); }
 @keyframes riseIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
