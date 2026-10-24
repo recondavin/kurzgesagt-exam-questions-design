@@ -64,11 +64,11 @@
   },
   {
    "q": "What are antibiotics, and why is misusing them dangerous? (3 points)",
-   "right": "Made by microbes to kill bacteria; resistant strains survive",
+   "right": "Made by microbes to stop bacteria growing; resistant strains survive",
    "wrong": [
     "Made by B cells to kill bacteria; you become immune to them",
-    "Made by microbes to kill viruses; bacteria learn to resist",
-    "Made by microbes to kill bacteria; resistant ones die first"
+    "Made by microbes to stop viruses growing; bacteria learn to resist",
+    "Made by microbes to stop bacteria growing; resistant ones die first"
    ],
    "why": "Three points: antibiotics are made by micro-organisms and stop bacteria or fungi growing; misuse lets resistant strains survive and build up.",
    "hint": "Where did penicillin come from, and what does it attack? Then, which bacteria survive a dose?",
@@ -180,7 +180,7 @@
   },
   {
    "q": "What is an antibiotic? (2 points)",
-   "right": "A microbe-made chemical that kills bacteria",
+   "right": "A chemical made by microbes that kills bacteria",
    "wrong": [
     "A protein made by B cells against antigens",
     "A harmless dose of a pathogen",
@@ -812,7 +812,7 @@
   },
   {
    "q": "What is an antibiotic?",
-   "right": "Microbe-made chemical that kills other microbes",
+   "right": "Chemical made by microbes that kills other microbes",
    "wrong": [
     "Body-made protein that targets antigens",
     "Weakened microbe that gives immunity",

@@ -695,21 +695,21 @@ def _inorder(*alts):
 
 
 # Something a red blood cell (or lymph) hasn't got, said with the "no" the scheme's answer turns on ("has a nucleus"
-# isn't "no nucleus"), in the same part of the sentence as the thing, so the question's own "do not divide" can't lend it.
-_NO = ('no', 'not', 'lack', 'without', 'absent', 'dont', 'doesnt', 'isnt', 'lose', 'miss')
+# isn't "no nucleus"). together=True when the question itself says "not" ("why do red blood cells not divide"): then the
+# "no" has to be in the same part of the sentence as the thing.
+_NO = ('no', 'not', 'none', 'lack', 'without', 'absent', 'dont', 'doesnt', 'isnt', 'lose', 'miss')
 
 
-def _no(*things):
-    return [{'w': [n] + t.split(), 'n': 1 + len(t.split()), 'c': 1} for t in things for n in _NO]
+def _no(*things, together=False):
+    return [dict({'w': [n] + t.split(), 'n': 1 + len(t.split())}, **({'c': 1} if together else {})) for t in things for n in _NO]
 
 
-# Artery and vein the right way round. Thick and thin walls, narrow and wide lumens: in order ("veins have thicker
-# walls than arteries" has every word of "arteries have thicker walls"). Valves: in one part of the sentence.
-_WALL = _inorder('artery thick', 'artery wall thick', 'artery much thick', 'artery wall much thick',
-                 'vein thin', 'vein wall thin', 'vein much thin', 'vein wall much thin')
-_LUMEN = _inorder('artery narrow', 'artery lumen narrow', 'narrow lumen artery', 'artery small lumen', 'artery lumen small',
-                  'vein wide', 'vein lumen wide', 'wide lumen vein', 'vein large lumen', 'vein lumen large')
-_VALVES = _together('vein valve', *(f'artery {n} valve' for n in ('no', 'not', 'without', 'lack', 'dont', 'doesnt')))
+# Artery and vein. Not "artery" + "muscle" or "elastic": veins have muscle too, and neither is the scheme's thick wall.
+# (Which way round can't be read from the words: "veins have thin walls and valves" has to earn, so keys that need
+# "vein" and "valve" together miss it.)
+_WALL = _said('artery thick', 'vein thin')
+_LUMEN = _said('artery narrow', 'vein wide', 'artery small lumen', 'vein large lumen')
+_VALVES = _said('vein valve')
 # Blood pressure: the force the blood exerts on the walls. Not "pushes" with a vessel: "the heart pushes blood into
 # the arteries" is pumping.
 _BP = [{'w': [a, b], 'n': 2} for a in ('force', 'exert') for b in ('wall', 'vessel', 'artery')] + _said('push wall', 'pressur wall')
@@ -725,6 +725,10 @@ _HOW = (_said('coronary', 'thick') + [{'w': ['firm', w], 'n': 2} for w in ('left
 _SAFE = _said('safe', 'glove', 'wash', 'disinfect', 'goggle', 'coat') + [{'w': ['care', w], 'n': 2} for w in ('scalpel', 'blade', 'knife', 'sharp')]
 _SPOT = ('right', 'left', 'side', 'septum', 'apex', 'aorta', 'artery', 'vein', 'top', 'base', 'middle', 'half',
          'longitudinal', 'vertical', 'lengthwise', 'horizontal', 'transverse', 'across')  # where a cut goes
+# "Systole: (the time when) the heart muscle (is) contracting": the words between the term and what it does, for
+# answers set out "term: meaning" (the colon starts a new part of the sentence).
+_BEAT = ('', 'heart ', 'muscle ', 'heart muscle ', 'ventricle ', 'atri ventricle ', 'when ', 'when heart ', 'when muscle ', 'when heart muscle ',
+         'when ventricle ', 'period when heart ', 'time when heart ', 'phase when heart ', 'stage when heart ', 'period heart ', 'phase heart ')
 # The lub and dub, and which valves close for each.
 _LUB, _DUB, _SHUT = ('lub', 'lubb'), ('dub', 'dup', 'dupp'), ('clos', 'shut', 'snap')
 _AVV, _SLV = ('tricuspid bicuspid', 'tricuspid mitral', 'av valve', 'atrioventricular'), ('semilunar', 'semi lunar')
@@ -734,7 +738,8 @@ _UP, _DOWN = ('high', 'more', 'great', 'large'), ('low', 'lower', 'less', 'small
 _FILL = ('', 'co2 ', 'concentrat ', 'level ', 'amount ', 'concentrat co2 ', 'level co2 ', 'amount co2 ', 'co2 concentrat ', 'co2 level ')
 _CO2_AB = _inorder(*([f'{u} {f}in {v}' for u in _UP for f in _FILL for v in ('b', 'pulmonary')] +
                      [f'{d} {f}in {v}' for d in _DOWN for f in _FILL for v in ('a', 'aorta')] +
-                     [f'{v} {u}' for u in _UP for v in ('b', 'pulmonary artery')] + [f'{v} {d}' for d in _DOWN for v in ('a', 'aorta')] +
+                     [f'{v} {w}{u}' for u in _UP for v in ('b', 'pulmonary artery') for w in ('', 'contain ', 'carr ')] +
+                     [f'{v} {w}{d}' for d in _DOWN for v in ('a', 'aorta') for w in ('', 'contain ', 'carr ')] +
                      [f'increase {f}{x}' for f in _FILL for x in ('a b', 'between a b')] +
                      [f'decrease {f}{x}' for f in _FILL for x in ('b a', 'between b a')]))
 
@@ -788,9 +793,7 @@ OVERRIDES = {
     'points': {
         # "or described": the scheme's term, or what it means.
         '2019-Q5(b)': {0: _said('flexible', 'bend', 'chang shape', 'fold', 'deform', 'squash', 'pliable', 'elastic')},
-        # "To the body" in that order: "from the body to the lungs" is the pulmonary circuit.
-        '2009-Q13a(ii)': {0: _said('systemic', 'body circuit', 'rest body', 'around body', 'whole body', 'body organ', 'body tissu') +
-                             _inorder('to body', 'all body')},
+        '2009-Q13a(ii)': {0: _said('systemic', 'body circuit', 'rest body', 'around body', 'whole body', 'all body', 'to body', 'body organ', 'body tissu')},
         'S1-Q3c(i)1': {0: [{'w': [w], 'n': 1} for w in ('hydrogencarbonate', 'bicarbonate', 'hco3')] +
                           [{'w': ['hydrogen', 'carbonate'], 'n': 2}, {'w': ['dissolv', 'plasma'], 'n': 2}]},
         'S1-Q3c(i)2': {0: [{'w': ['haemoglobin'], 'n': 1}, {'w': ['oxyhaemoglobin'], 'n': 1}]},
@@ -804,7 +807,6 @@ OVERRIDES = {
         'S2-Q5a(iv)': {0: _CO2_AB,
                        1: [{'w': [a, 'co2'], 'n': 2} for a in ('respir', 'tissue', 'lost', 'lose', 'remove', 'excret', 'exhal')] +
                           [{'w': [a, 'co2', 'lung'], 'n': 3} for a in ('releas', 'diffus')]},
-        # Not "artery" + "muscle" or "elastic": veins have muscle too, and neither is the thick wall.
         'S2-Q5a(v)': {0: _WALL, 1: _LUMEN, 2: _VALVES},
         # One circuit, its structures in order (n is 1): the vessels or the chambers either side of the lungs or body.
         'S2-Q5b(ii)': {0: [{'w': ['artery', 'lung', 'vein'], 'n': 3}, {'w': ['ventricle', 'lung', 'atrium'], 'n': 3}],
@@ -835,7 +837,7 @@ OVERRIDES = {
                       1: [{'w': ['aerob', 'respir'], 'n': 2}, {'w': ['mitochondri', 'respir'], 'n': 2}] +
                          [{'w': ['mitochondri', w, e], 'n': 3} for w in ('releas', 'make', 'provid', 'suppl', 'generat') for e in ('energy', 'atp')]},
         # "Do not contain a nucleus": "nucleus" alone also gave it to "the virus uses its nucleus".
-        '2026-Q16b(iv)': {0: _no('nucleus', 'organelle', 'ribosom', 'dna', 'genetic material')},
+        '2026-Q16b(iv)': {0: _no('nucleus', 'organelle', 'ribosom', 'dna', 'genetic material', together=True)},
         # Pulse: "expansion (and contraction)" only (2016's scheme also had vibrating; neither had throbbing).
         '2026-Q17a(ii)': {0: _BP, 1: [{'w': [a, 'artery'], 'n': 2} for a in ('stretch', 'expan', 'dilat')]},
         # "Correct matching effect described": any valid effect, which words can't pin down.
@@ -843,10 +845,8 @@ OVERRIDES = {
         '2025-Q17a(iv)': {0: _WALL, 1: _VALVES, 2: _LUMEN},
         # Systole with contracting, diastole with relaxing, not either word anywhere ("systole is relaxing and diastole
         # is contracting" had both).
-        '2024-Q6(e)': {0: _together('systol contract', 'systol squeez') +
-                          _inorder(*(f'systol {m}contract' for m in ('', 'heart ', 'muscle ', 'heart muscle ', 'when heart ', 'when muscle ', 'when heart muscle '))),
-                       1: _together('diastol relax') +
-                          _inorder(*(f'diastol {m}relax' for m in ('', 'heart ', 'muscle ', 'heart muscle ', 'when heart ', 'when muscle ', 'when heart muscle ')))},
+        '2024-Q6(e)': {0: _together('systol contract', 'systol squeez') + _inorder(*(f'systol {m}contract' for m in _BEAT)),
+                       1: _together('diastol relax') + _inorder(*(f'diastol {m}relax' for m in _BEAT))},
         '2023-Q6(g)': {0: _MIX},
         # The left/right half needs both sides: "oxygen" + "left" alone was "the left side pumps oxygen to the body".
         '2020-Q9(a)(i)': {0: _MIX + _said('oxygen left deoxygen right', 'oxygen lhs deoxygen rhs', 'differ pressur')},
@@ -885,9 +885,10 @@ OVERRIDES = {
         '2016-Q15a(iii)': {0: [{'w': ['muscle', w], 'n': 2} for w in ('contract', 'squeez', 'press', 'push')],
                            1: [{'w': ['valve', 'back'], 'n': 2}, {'w': ['valve', 'direction'], 'n': 2}]},
         # The reason matching the vessel, the right way round: "lungs" + "CO2" was also "the pulmonary vein brings CO2
-        # to the lungs".
+        # to the lungs". Cleared of CO2 in the lungs (not "the renal vein: the kidneys remove the CO2").
         '2014-Q12c(iv)': {0: [{'w': ['pulmonary', 'vein'], 'n': 2}, {'w': ['pulmonary', 'artery'], 'n': 2}],  # was all three words
-                          1: [{'w': ['vein', a, 'co2'], 'n': 3} for a in ('clear', 'lose', 'remove', 'releas', 'exhal', 'excret')] +
+                          1: [{'w': ['vein', a, 'co2', b], 'n': 4} for a in ('clear', 'lose', 'remove', 'releas', 'excret') for b in ('lung', 'alveol')] +
+                             [{'w': ['vein', 'exhal', 'co2'], 'n': 3}] +
                              [{'w': ['vein', a, 'co2', b], 'n': 4} for a in ('low', 'lower', 'less', 'little') for b in ('lung', 'alveol')] +
                              [{'w': ['artery', a, 'co2', b], 'n': 4} for a in ('rich', 'high', 'lot', 'more', 'much', 'full', 'great') for b in ('lung', 'alveol')]},
         # "Valve" alone also gave the mark to "A has valves", the wrong way round. Not "more muscle": the scheme has the
@@ -956,7 +957,7 @@ OVERRIDES = {
                             [{'w': [a, 'protein'], 'n': 2} for a in ('less', 'minus', 'without', 'no', 'except', 'lack', 'remove')]},
         # The scheme's "no" again ("no nucleus or no mitochondria or no organelles").
         '2012-Q15b(i)': {4: _no('nucleus'), 5: _no('mitochondri')},
-        '2016-Q6(e)': {0: _no('nucleus')},
+        '2016-Q6(e)': {0: _no('nucleus', together=True)},
         '2019-Q5(d)': {0: _no('nucleus', 'mitochondri', 'organelle') + _said('cannot reproduce')},
         # The AV valves closed (the scheme's "valves closed" also earned "the semilunar valves are closed"), the
         # semilunar ones open: each in its own part of the sentence, so the two can't be swapped.
