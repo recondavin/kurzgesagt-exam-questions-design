@@ -3,7 +3,7 @@
 //   same      the physics is deterministic: the same shot plays the same way every time, and nothing in it is random;
 //   table     no ball ever leaves the table except into a pocket, balls never end up inside each other, and every shot
 //             (breaks included) comes to rest;
-//   pots      a straight shot along the ghost-ball line pots the ball, and the guide shows it going into that pocket;
+//   pots      a straight shot along the ghost-ball line pots the ball, and the guide is only a short trail of the cue ball;
 //   rules     potting yours goes again, a miss passes, the cue ball in is a foul, the black wins only after all yours;
 //   search    when a straight pot is on, his search finds one that drops, and with his wobble it still mostly drops;
 //   quiet     his shot for when nothing else is safe never pots a ball (his or yours, the black or the cue ball).
@@ -124,10 +124,12 @@ T.POCKETS.forEach((pk, k) => {
   st.p[0] = [bx - ux / d * 4, by - uy / d * 4];
   const c = T.potLines(st, 1).filter(l => l.k === k)[0];
   if (!c) { fail(`pocket ${k}: no straight line found`); return; }
-  const r = T.shoot(st, c.angle, 0.5, true), g = T.guide(r);
+  const from = st.p[0].slice(), r = T.shoot(st, c.angle, 0.5, true), g = T.guide(r);
   if (r.potted.indexOf(5) < 0) fail(`pocket ${k}: the straight shot didn't pot the ball`);
-  if (g.pocket !== k) fail(`pocket ${k}: the guide shows pocket ${g.pocket}`);
-  if (!g.ghost || Math.hypot(g.ghost[0] - (bx - ux / d * 2 * R), g.ghost[1] - (by - uy / d * 2 * R)) > 0.15) fail(`pocket ${k}: the ghost ball isn't where the cue ball meets the ball`);
+  // The guide is only a short trail of the cue ball (no ghost ball, no pocket), ending before the ball it hits.
+  const last = g.cue[g.cue.length - 1], meet = Math.hypot(bx - from[0], by - from[1]) - 2 * R;
+  if (!last || Math.hypot(last[0] - from[0], last[1] - from[1]) > Math.min(T.TRAIL, meet) + 0.01) fail(`pocket ${k}: the guide isn't a short trail`);
+  if (Object.keys(g).join() !== 'cue') fail(`pocket ${k}: the guide shows more than the trail (${Object.keys(g)})`);
 });
 
 // ---------------------------------------------------------------- rules

@@ -4,14 +4,16 @@
 //   Sea Battle           Two fleets on 8x8 seas, a ship for each chapter. Answer your question right and you fire at
 //                        his sea, and answer again for a second shot; wrong, it's his turn. He answers his own question
 //                        out loud and fires when he gets it right, hunting round his hits.
-//   Cannon Duel          Two cannons on the hills, the wind blowing. Answer right and you aim with your shot's whole path
-//                        drawn and the wind read out, and answer again for a second shot; wrong, no shot and it's his
+//   Cannon Duel          Two cannons on the hills, the wind blowing. Answer right and you aim with the first third of
+//                        your shot's path drawn as dots (no mark where it lands) and the wind read out, and answer again
+//                        for a second shot; wrong, no shot and it's his
 //                        turn. Every third question is typed: right, a big shell. Shells dig craters; knock his health
 //                        to nothing first.
 // Turns in both (the user: "if you get them wrong then u dont rlly get to continue and u can get 2 right then its
 // capped"): each right answer is a shot, two at most a turn; a wrong answer ends the turn. He plays by the same rule.
 //   Topple the Examiner  He sits on a tower of exam papers and desks. A right answer loads the slingshot (a typed one, a
-//                        heavy textbook); knock him off within eight questions. A level for each chapter, its questions
+//                        heavy textbook), and dots show the first moment of its flight as you pull back; knock him off
+//                        within eight questions. A level for each chapter, its questions
 //                        from that chapter, the towers growing. matter.js (bio/vendor/matter.min.js) does the physics.
 // The questions are the trivia board's (BioBoard.pools), on its cards, which pop up over the field.
 (function () {
@@ -580,7 +582,7 @@
         hideAsk();
         A.phase = 'aim';
         windText(true);
-        say('<b>Right:</b> your shot\'s whole path is drawn. Drag to aim; the marker turns orange when it\'ll hit him. Let go to fire.');
+        say('<b>Right:</b> the dots show the start of your shot, and the wind is showing. Drag to aim, let go to fire.');
         row('<button type="button" class="tb-btn tb-btn--go" data-cd-fire>Fire</button>');
         draw();
         q('[data-cd-canvas]').focus({ preventScroll: true });
@@ -760,27 +762,14 @@
     // Your aim: a dashed arrow out of your barrel as long as the power; with a right answer, the start of the shell's path.
     if (A.phase === 'aim') {
       var a = A.aim.angle, m = muzzle(A.tanks[0], a), len = 24 + A.aim.power * 90, ex = m.x + Math.cos(a) * len, ey = m.y - Math.sin(a) * len;
-      // With a right answer: the whole path, and a marker where it lands, orange when it'll hit him.
+      // With a right answer: a bit of where the shell goes, the first third of its flight as dots, and no mark where it
+      // lands (the user: "it shows a bit of where you're going, but it doesn't mark a dot on the target that shows you will hit it; just a small trail is fine").
       if (A.guide) {
-        var f = flight(A.h, A.tanks, m.x, m.y, a, A.aim.power, A.wind), him = A.tanks[1], hits = f.direct === 1 || !f.out && Math.abs(f.x - him.x) < 30;
+        var f = flight(A.h, A.tanks, m.x, m.y, a, A.aim.power, A.wind), n = Math.min(f.path.length - 1, Math.max(6, Math.floor(f.path.length * 0.3)));
         g.fillStyle = '#FFFFFF';
         g.strokeStyle = INK;
         g.lineWidth = 1.5;
-        for (var i = 3; i < f.path.length - 1; i += 2) { g.beginPath(); g.arc(f.path[i][0], f.path[i][1], 4, 0, 6.3); g.fill(); g.stroke(); }
-        if (!f.out) {
-          g.fillStyle = hits ? '#FF9600' : '#FFFFFF';
-          g.lineWidth = 3;
-          g.beginPath();
-          g.arc(f.x, f.y, 11, 0, 6.3);
-          g.fill();
-          g.stroke();
-          g.beginPath();
-          g.moveTo(f.x - 5, f.y - 5);
-          g.lineTo(f.x + 5, f.y + 5);
-          g.moveTo(f.x + 5, f.y - 5);
-          g.lineTo(f.x - 5, f.y + 5);
-          g.stroke();
-        }
+        for (var i = 3; i < n; i += 2) { g.beginPath(); g.arc(f.path[i][0], f.path[i][1], 4, 0, 6.3); g.fill(); g.stroke(); }
       }
       g.strokeStyle = INK;
       g.lineWidth = 4;
@@ -960,7 +949,7 @@
         hideAsk();
         A.phase = 'aim';
         A.pull = { x: 0, y: 0 };
-        say('<b>Drag the shot back</b> and let go.');
+        say('<b>Drag the shot back</b> and let go. The dots show the start of its flight.');
         twDraw();
         q('[data-tw-canvas]').focus({ preventScroll: true });
       });
@@ -1123,6 +1112,13 @@
       if (b.label === 'ball' || b.label === 'book') { shotShape(g, b.position.x, b.position.y, b.angle, b.label === 'book'); return; }
       block(g, b);
     });
+    // While you pull back: a bit of where the shot will go (the user: "it shows a bit of where you're going, but it doesn't mark a dot on the target that shows you will hit it; just a small trail is fine").
+    if (A.phase === 'aim' && A.pull && Math.hypot(A.pull.x, A.pull.y) >= 15) {
+      g.fillStyle = '#FFFFFF';
+      g.strokeStyle = INK;
+      g.lineWidth = 1.5;
+      twTrail().forEach(function (p) { g.beginPath(); g.arc(p[0], p[1], 4.5, 0, 6.3); g.fill(); g.stroke(); });
+    }
     sling(g, true);
     drawFx(g);
     var h = q('[data-tw-him]'), p = A.w.him.position;
@@ -1176,6 +1172,18 @@
       g.strokeRect(-w / 2, -h / 2, w, h);
     }
     g.restore();
+  }
+  // The shot's first 0.4 seconds of flight, worked out in an empty world with the same body and launch as twLaunch.
+  function twTrail() {
+    var M = window.Matter, p = A.pull, eng = M.Engine.create(), x = SLING.x + p.x, y = SLING.y + p.y, out = [];
+    var b = A.heavy ? M.Bodies.rectangle(x, y, 44, 32, { density: 0.009 }) : M.Bodies.circle(x, y, 14, { density: 0.004 });
+    M.Composite.add(eng.world, b);
+    M.Body.setVelocity(b, { x: -p.x * LAUNCH, y: -p.y * LAUNCH });
+    for (var i = 1; i <= 72; i++) {
+      M.Engine.update(eng, 1000 / 180);
+      if (i % 8 === 0) out.push([b.position.x, b.position.y]);
+    }
+    return out;
   }
   // A crumpled paper ball, or a textbook: its cover in the chapter's colour, its pages showing at the edge.
   function shotShape(g, x, y, a, book) {
@@ -1285,6 +1293,6 @@
     open: function (kind) { if (OPEN[kind]) OPEN[kind](); },
     state: function () { return A; },
     // For tools/bio/tests/arcade.mjs.
-    test: { place: place, fire: fire, aim: aim, afloat: afloat, hills: hills, flight: flight, burst: burst, solve: solve, tower: tower, world: world, tick: tick, off: off, still: still, POS: POS, LAUNCH: LAUNCH, SLING: SLING, muzzle: muzzle, hisOffset: hisOffset }
+    test: { place: place, fire: fire, aim: aim, afloat: afloat, hills: hills, flight: flight, burst: burst, solve: solve, tower: tower, world: world, tick: tick, off: off, still: still, POS: POS, LAUNCH: LAUNCH, SLING: SLING, muzzle: muzzle, hisOffset: hisOffset, twTrail: twTrail }
   };
 })();

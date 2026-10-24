@@ -5,9 +5,8 @@
 // You take turns, a question before every shot (from the chapter picked at the start, or all of them; the trivia
 // board's cards; every third of yours typed and marked like the answer sheet). The rule for turns (the user: "if you get
 // them wrong then u dont rlly get to continue and u can get 2 right then its capped"):
-//   right        you shoot, with the guide: the cue ball's path to what it hits first (a ghost ball where it meets a
-//                ball), where that ball goes (to its first cushion, or into a pocket, which is ringed), and a little of
-//                the cue ball after. Pot one of yours and you answer again for a second shot; then it's his turn;
+//   right        you shoot, with a short trail of dots showing which way the cue ball starts (no ghost ball, no
+//                pocket shown). Pot one of yours and you answer again for a second shot; then it's his turn;
 //   wrong        no shot, and it's his turn;
 //   typed right  a mulligan as well: take one shot again (the table goes back as it was), kept until you use it.
 // He plays by the same rule (right 65 in 100): right, the best pot a search finds (ghost-ball lines to every pocket,
@@ -201,34 +200,20 @@
   }
 
   // ======================================================================== the guide (after a right answer)
-  // The cue ball's path to what it hits first and on for up to AFTER (or its next knock), the ghost ball where it meets
-  // a ball, and that ball's path to its first cushion or knock, or into a pocket.
-  var AFTER = 2.5;
+  // A bit of where the cue ball goes (the user: "make it so that in golf and in pool and in angry birds and cannon it shows a bit of where you're going, but it doesn't mark a dot on the target that shows you will hit it; just a small trail is fine"): its first TRAIL of travel, as dots, stopping before
+  // anything it hits. No ghost ball, no path for the ball it hits and no ring on a pocket.
+  var TRAIL = 3;
   function guide(r) {
-    var F = r.frames, hit = r.hits.filter(function (h) { return h.a === 0 || h.b === 0; }), cue = [], obj = [], ghost = null, into = -1, k;
-    function pos(b, s) { return [F[s * N * 2 + b * 2], F[s * N * 2 + b * 2 + 1]]; }
-    function dots(b, from, to, out, cap) {
-      var run = -0.25, past = 0, prev = pos(b, from);
-      for (var s = from + 1; s <= to; s++) {
-        var p = pos(b, s), d = Math.hypot(p[0] - prev[0], p[1] - prev[1]);
-        if (cap != null && s > cap && (past += d) > AFTER) break;
-        run += d;
-        if (run >= 0.35) { out.push(p); run = 0; }
-        prev = p;
-      }
+    var F = r.frames, hit = r.hits.filter(function (h) { return h.a === 0 || h.b === 0; }), cuePot = r.pots.filter(function (p) { return p.b === 0; })[0];
+    var to = Math.min(hit.length ? hit[0].i - 1 : r.steps, cuePot ? cuePot.i - 1 : r.steps), cue = [], run = -0.25, gone = 0, prev = [F[0], F[1]];
+    for (var s = 1; s <= to; s++) {
+      var p = [F[s * N * 2], F[s * N * 2 + 1]], d = Math.hypot(p[0] - prev[0], p[1] - prev[1]);
+      if ((gone += d) > TRAIL) break;
+      run += d;
+      if (run >= 0.35) { cue.push(p); run = 0; }
+      prev = p;
     }
-    var firstAt = hit.length ? hit[0].i : r.steps, nextAt = hit.length > 1 ? hit[1].i : r.steps;
-    var cuePot = r.pots.filter(function (p) { return p.b === 0; })[0];
-    dots(0, 0, Math.min(nextAt, cuePot ? cuePot.i - 1 : r.steps), cue, firstAt);
-    if (hit.length && hit[0].b !== -1) {
-      var b = hit[0].a === 0 ? hit[0].b : hit[0].a, again = r.hits.filter(function (h) { return h.i > hit[0].i && (h.a === b || h.b === b); })[0];
-      var pot = r.pots.filter(function (p) { return p.b === b; })[0], stop = again ? again.i : pot ? pot.i - 1 : r.steps;
-      ghost = pos(0, hit[0].i);
-      dots(b, hit[0].i, stop, obj, null);
-      if (pot && (!again || pot.i <= again.i)) { into = pot.k; obj.push([pot.x, pot.y]); }
-      k = b;
-    }
-    return { cue: cue, obj: obj, ghost: ghost, ball: k, pocket: into };
+    return { cue: cue };
   }
 
   // ======================================================================== his shots
@@ -633,8 +618,7 @@
       });
     });
   }
-  // The guide's pieces: the cue ball's dots (white) and the struck ball's (yellow), each with navy rims, the ghost ball
-  // (a white ring) and an orange ring on the pocket it's going into.
+  // The guide's pieces: the cue ball's dots, white with navy rims.
   function aimPieces(w) {
     var n = flat(INK), mk = function (c, r, count, order) {
       var x = new TH.InstancedMesh(keep(lying(new TH.CircleGeometry(r, 12))), c, count);
@@ -645,14 +629,7 @@
       return x;
     };
     var lift = { polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 };
-    A.dots = [[mk(flat(INK, lift), 0.12, 120, 2), mk(flat('#FFFFFF', lift), 0.075, 120, 3)], [mk(flat(INK, lift), 0.13, 120, 2), mk(flat('#FFC800', lift), 0.085, 120, 3)]];
-    A.ghost = new TH.Group();
-    add(lying(new TH.RingGeometry(R - 0.06, R + 0.03, 32)), flat(INK, lift), A.ghost);
-    add(lying(new TH.RingGeometry(R - 0.035, R, 32)), flat('#FFFFFF', lift), A.ghost).position.y = 0.004;
-    A.ghost.visible = false;
-    w.add(A.ghost);
-    A.ring = add(lying(new TH.RingGeometry(0.82, 1.02, 32)), flat('#FF9600', { polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 }));
-    A.ring.visible = false;
+    A.dots = [mk(flat(INK, lift), 0.12, 120, 2), mk(flat('#FFFFFF', lift), 0.075, 120, 3)];
   }
   // The aim now: the cue behind the cue ball (drawn back with the power) and the guide (you only aim after a right
   // answer).
@@ -668,17 +645,12 @@
       pw.querySelector('b').textContent = Math.round(A.aim.power * 100) + '%';
     }
     var G = on ? guide(shoot(A.st, A.aim.angle, A.aim.power, true)) : null, mtx = new TH.Matrix4(), turn = new TH.Quaternion(), big = A.phone ? 1.5 : 1, sc = new TH.Vector3(big, 1, big);
-    [G ? G.cue : [], G ? G.obj : []].forEach(function (pts, k) {
-      A.dots[k].forEach(function (d, j) {
-        d.count = Math.min(120, pts.length);
-        pts.slice(0, 120).forEach(function (p, i) { d.setMatrixAt(i, mtx.compose(at(p[0], p[1], CLOTH + 0.03 + j * 0.004), turn, sc)); });
-        d.instanceMatrix.needsUpdate = true;
-      });
+    var pts = G ? G.cue : [];
+    A.dots.forEach(function (d, j) {
+      d.count = Math.min(120, pts.length);
+      pts.slice(0, 120).forEach(function (p, i) { d.setMatrixAt(i, mtx.compose(at(p[0], p[1], CLOTH + 0.03 + j * 0.004), turn, sc)); });
+      d.instanceMatrix.needsUpdate = true;
     });
-    A.ghost.visible = Boolean(G && G.ghost);
-    if (A.ghost.visible) A.ghost.position.copy(at(G.ghost[0], G.ghost[1], CLOTH + 0.035));
-    A.ring.visible = Boolean(G && G.pocket >= 0);
-    if (A.ring.visible) A.ring.position.copy(at(A.pocketAt[G.pocket][0], A.pocketAt[G.pocket][1], CLOTH + RH + 0.01));
     kick();
   }
   // The camera: over the whole table from your side (from the end on a phone, so the table runs up the screen), or
@@ -904,7 +876,7 @@
     A = { card: c, pools: BB.pools(), right: 0, asked: 0, qn: 0, mulligans: 0, shots: 0, trash: [] };
     K.gameHud(A.card, 0, '');
     show('<div class="am-games__end pl-start"><div class="ar-face" aria-hidden="true">' + K.face + '</div><h3 class="am-games__title">Pool</h3>' +
-      '<p class="am-games__sub">You\'re the blue balls, he\'s the orange stripes. You take turns, with a question before every shot. Right: you shoot, and a guide shows where the cue ball and the ball it hits will go. Pot one of yours and you answer again for one more shot, then it\'s his turn. Wrong: no shot, and it\'s his turn. He plays by the same rules. Clear your four, then pot the black to win; pot the black too early and you lose. Every third question is typed: get it right and you win a mulligan, a shot you can take again.</p>' +
+      '<p class="am-games__sub">You\'re the blue balls, he\'s the orange stripes. You take turns, with a question before every shot. Right: you shoot, and a short trail of dots shows which way the cue ball starts. Pot one of yours and you answer again for one more shot, then it\'s his turn. Wrong: no shot, and it\'s his turn. He plays by the same rules. Clear your four, then pot the black to win; pot the black too early and you lose. Every third question is typed: get it right and you win a mulligan, a shot you can take again.</p>' +
       (wins ? '<p class="mg-best">Games won: <b class="num">' + wins + '</b>' + (best ? ' · Fastest win: <b class="num">' + best + '</b> shots' : '') + '</p>' : '') +
       '<p class="pl-pick">Questions from:</p><div class="dsi-chs pl-chs">' + CH.map(function (ch) {
         return '<button type="button" class="tb-pick" data-pl-ch="' + ch + '" style="--c:' + COL[ch] + '"><span class="tb-pick__ch">' + esc(NAME[ch]) + '</span></button>';
@@ -979,7 +951,7 @@
     if (!A.shots) A.aim.power = 0.8;
     A.camSpeed = 3;
     view();
-    say('<b>Right:</b> the guide shows where the cue ball and the ball it hits will go. Drag back from the cue ball and let go.');
+    say('<b>Right:</b> the dots show which way the cue ball starts. Drag back from the cue ball and let go.');
     row('<button type="button" class="tb-btn tb-btn--go" data-pl-shoot>Shoot</button>' +
       '<button type="button" class="tb-btn mg-btn2 pl-nudge" data-pl-turn="1" aria-label="Turn the aim left">◀</button><button type="button" class="tb-btn mg-btn2 pl-nudge" data-pl-turn="-1" aria-label="Turn the aim right">▶</button>' +
       '<button type="button" class="tb-btn mg-btn2" data-pl-view>' + (A.close ? 'Whole table' : 'Line it up') + '</button>');
@@ -1184,7 +1156,7 @@
     open: openPool,
     state: function () { return A; },
     // For tools/bio/tests/pool.mjs.
-    test: { rack: rack, shoot: shoot, judge: judge, respot: respot, targets: targets, guide: guide, potLines: potLines, plan: plan, quiet: quiet, safety: safety, hisAim: hisAim,
+    test: { rack: rack, shoot: shoot, judge: judge, respot: respot, targets: targets, guide: guide, TRAIL: TRAIL, potLines: potLines, plan: plan, quiet: quiet, safety: safety, hisAim: hisAim,
       owner: owner, copy: copy, mouth: mouth, POCKETS: POCKETS, L: L, W: W, R: R, N: N, BLACK: BLACK }
   };
 })();
