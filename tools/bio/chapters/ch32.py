@@ -538,6 +538,12 @@ OVERRIDES = {
         # sentence earns one of each and a second sentence earns the other.
         '2025-Q16d(iii)': {0: _k(*_LYMPHOCYTE_NAMES), 1: _k(*_LYMPHOCYTE_ROLES), 2: _k(*_LYMPHOCYTE_NAMES), 3: _k(*_LYMPHOCYTE_ROLES)},
         '2025-Q16d(iv)': {0: _k(*_VACCINE)},
+        # "(Antibiotic) resistance or described" plus "other correct": the word, resistance described (sensitive ones
+        # killed, the rest left to multiply; the antibiotic stops working), or killing the good bacteria.
+        '2024-Q14b(v)': {0: _k('resist', 'superbug', 'mrsa', 'sensitiv kill multipl', 'sensitiv kill surviv', 'sensitiv kill reproduc',
+                               'sensitiv kill left', 'antibiot stop work', 'antibiot no longer work', 'antibiot not work', 'antibiot ineffect',
+                               'antibiot less effect', 'kill good bacteri', 'kill benefic', 'kill friendly', 'kill useful bacteri',
+                               'kill harmless bacteri', 'kill normal flora', 'kill gut bacteri')},
         '2024-Q14c(i)': {0: _k(*_NON_CELLULAR, 'metabol', *_HOST_ONLY, *_NO_ORGANELLES, *_ONE_NUCLEIC)},
         '2024-Q14c(iii)': {
             0: _k('attach', *_NUCLEIC_IN),
@@ -686,7 +692,13 @@ OVERRIDES = {
         '2012-Q15b(iii) 3.': {0: _k(*_HELPER), 1: _k(*_KILLER), 2: _k('stop immune respons', *_SUPPRESSOR), 3: _k('long term protec', *_MEMORY)},
         '2011-Q10b(ii)': {0: _k('immunity develop', 'immun', 'natur selec', 'virulent', 'vaccin', 'resist host')},
         '2010-Q6(a) (ii)': {0: _k('nucleic acid', 'dna', 'rna')},
-        '2010-Q6(b)': {1: _k('nucleic acid cell', *_NUCLEIC_IN), 4: _k(*_ASSEMBLE), 5: _k(*_RELEASED)},
+        '2010-Q6(b)': {1: _k('nucleic acid cell', *_NUCLEIC_IN), 2: _k('use host structure', 'host ribosom', 'host organell', 'host enzym', 'host machin',
+                                                                     'host materi', 'take over host', 'control host', 'use host cell'),
+                       4: _k(*_ASSEMBLE), 5: _k(*_RELEASED)},
+        # "To inactivate antigens (or described)".
+        '2012-Q15b(iii) 1.': {0: _k('inactivate antigen', 'bind antigen', 'attach antigen', 'lock antigen', 'stick antigen', 'combin antigen',
+                                    'neutralis antigen', 'neutralis pathogen', 'neutralis toxin', 'clump antigen', 'agglutin', 'destroy antigen',
+                                    'mark antigen')},
         '2010-Q6(c)': {
             0: _k(*_x(['previ', 'earli', 'before', 'already', 'past', 'older'], ['expos', 'infect', 'caught', 'flu', 'strain']), 'similar virus',
                   'similar flu', 'similar strain'),

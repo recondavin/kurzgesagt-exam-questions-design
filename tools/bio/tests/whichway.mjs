@@ -36,6 +36,13 @@ const SHEET = [
   [29, 'S1-Q1e', 3, 'less water is reabsorbed into the blood', [false, false, false]],
   [30, '2005-Q6', 1, 'a small surface area', [false, false, false, false, false]],
   [30, '2005-Q6', 1, 'microvilli increase the surface area of the small intestine', [true, false, true, false, false]],
+  // "Or described": the scheme's description earns the point too (the user's answer, marked 0 before).
+  [32, '2024-Q14b', 1, 'killing sensitive bacterias that are made to help you, and leaving the pathogenic ones to multiply', [true]],
+  [32, '2024-Q14b', 1, 'antibiotics help kill bacteria', [false]],
+  [29, '2006-Q13b', 3, 'it is all taken back into the blood', [true]],
+  [31, '2019-Q5', 1, 'they can bend and change shape', [true]],
+  [31, '2009-Q13a', 1, 'the one that goes around the body', [true]],
+  [32, '2012-Q15b', 2, 'they bind to antigens on pathogens', [true]],
 ];
 SHEET.forEach(([ch, qid, k, text, want]) => {
   n++;

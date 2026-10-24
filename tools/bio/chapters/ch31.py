@@ -677,6 +677,11 @@ def base_of(what):
 
 # Per-question corrections the general rules can't work out: diagrams with given labels, graphs, the right answer
 # areas for 'tap' parts, and answer types.
+def _said(*alts):
+    """Hand-written keys: each string is one way of saying the point, every word of it needed."""
+    return [{'w': a.split(), 'n': len(a.split())} for a in alts]
+
+
 OVERRIDES = {
     'dia': {
         '2006-Q5': {'base': 'portal-system', 'marks': [{'t': 'X', 'a': 'liver'}, {'t': 'Y', 'a': 'portal'}, {'t': 'Hepatic artery', 'a': 'hepaticArtery', 'given': True},
@@ -716,6 +721,9 @@ OVERRIDES = {
     # writes, or a word that also turns up in wrong answers ("artery" alone, "oxygen" alone). Words: see bio/bio.js.
     # Five parts of 2004-Q9 have labels starting "(b)", so the dissection part goes by its full label.
     'points': {
+        # "or described": the scheme's term, or what it means.
+        '2019-Q5(b)': {0: _said('flexible', 'bend', 'chang shape', 'fold', 'deform', 'squash', 'pliable', 'elastic')},
+        '2009-Q13a(ii)': {0: _said('systemic', 'body circuit', 'rest body', 'around body', 'whole body', 'all body', 'to body', 'body organ', 'body tissu')},
         'S1-Q3c(i)1': {0: [{'w': [w], 'n': 1} for w in ('hydrogencarbonate', 'bicarbonate', 'hco3')] +
                           [{'w': ['hydrogen', 'carbonate'], 'n': 2}, {'w': ['dissolv', 'plasma'], 'n': 2}]},
         'S1-Q3c(i)2': {0: [{'w': ['haemoglobin'], 'n': 1}, {'w': ['oxyhaemoglobin'], 'n': 1}]},

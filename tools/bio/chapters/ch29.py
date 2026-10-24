@@ -218,6 +218,10 @@ def _keys(*groups):
     groups = [g if isinstance(g, (list, tuple)) else [g] for g in groups]
     return [{'w': list(c), 'n': len(c)} for c in product(*groups)]
 
+def _said(*alts):
+    """Hand-written keys: each string is one way of saying the point, every word of it needed."""
+    return [{'w': a.split(), 'n': len(a.split())} for a in alts]
+
 
 # Words the hand-written keys share. Stems, as the marker compares them (bio/bio.js).
 _STEADY = ['constant', 'stable', 'steady', 'same', 'balanc']       # the internal environment kept the same
@@ -264,6 +268,17 @@ OVERRIDES = {
     'n': {'2005-Q1f(f)': 1, '2004-Q12b(ii)': 6, '2024-Q17c(iv)': 4, '2020-Q13c(iii)': 4},
     # Keys written by hand where the scheme's sentence made keys too strict for an answer in the student's own words.
     'points': {
+        # "or described" / "or explained": the scheme's term, or what it means (the user's "thin cell wall" and
+        # "resistance or described" cases: the scheme accepts the description, so the keys must too).
+        '2026-Q17c(iii)': {
+            3: _said('filtr', 'pressur forc', 'forc out blood', 'small molecul forc', 'small molecul pass capsul', 'squeez out blood'),
+            4: _said('reabsorp water', 'reabsorp ion', 'reabsorp salt', 'water back blood', 'salt back blood', 'ion back blood', 'water taken back',
+                     'water return blood', 'absorb water back')},
+        '2022-Q15b(v)': {
+            0: _said('reabsorp', 'back blood', 'taken back', 'return blood', 'absorb back', 'reclaim'),
+            1: _said('secre', 'waste blood tubul', 'waste add tubul', 'waste put tubul', 'waste mov tubul', 'waste pass tubul', 'urea blood tubul',
+                     'ion blood tubul', 'toxin blood tubul', 'drug blood tubul', 'hydrogen ion tubul')},
+        '2006-Q13b(iv)': {0: _said('reabsorb', 'back blood', 'taken back', 'return blood', 'absorb back', 'reclaim')},
         'S1-Q1e(iv)': {
             1: _keys('concentr', 'urine') + _keys(['conserv', 'save'], 'water'),
             2: _keys(['surv', 'live'], ['desert', 'dry', 'arid']) + _keys('surv', ['little', 'less', 'without', 'lack'], ['water', 'drink'])},
