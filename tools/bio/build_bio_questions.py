@@ -94,6 +94,24 @@ def alternatives(answer):
     return alts
 
 
+# The scheme's "accept" list: other answers that earn the same point ("Wall one cell thick", accept "thin wall"). They
+# were left out at first, so an answer the SEC accepts was marked wrong (the user: "thin cell wall" for a capillary;
+# then "it has to be by the marking scheme, nothing else", so these are the scheme's own words, added to the chapter's
+# keys too, and nothing more). An "accept" that is a note to the examiner rather than an answer ("any valid disorder",
+# "other correct reason", "example", "pH effect or explained", "No + plausible answer") is skipped: its words would
+# let anything through.
+META = re.compile(r'\b(any|other|valid|correct|correctly|example|examples|named|explained|described|description|plausible|'
+                  r'suitable|appropriate|reasonable|relevant|similar|equivalent|e\.g)\b', re.I)
+
+
+def accepted(point):
+    out = []
+    for a in point.get('accept') or []:
+        if not META.search(a):
+            out.extend(alt for alt in alternatives(a) if alt not in out)
+    return out
+
+
 def rule_count(rule, part):
     """How many points count towards the part's marks."""
     r = (rule or '').lower()
@@ -229,12 +247,13 @@ def build(ch):
                 if kind == 'fields' and f:
                     item['f'] = f
                 alts = alternatives(pt['answer'])
+                alts += [alt for alt in accepted(pt) if alt not in alts]
                 fix = ov.get('points', {}).get(pid, {}).get(j)  # the chapter's own keys, or 'self'
                 if fix == 'self':
                     alts = None
                 elif fix:
-                    alts = fix
-                    item['own'] = True  # keys written for the chapter, not from the scheme's wording
+                    alts = fix + [alt for alt in accepted(pt) if alt not in fix]
+                    item['own'] = True  # keys written for the chapter, not from the scheme's wording (plus its accepts)
                 if alts and kind not in ('draw', 'arrows'):
                     item['k'] = alts
                 else:

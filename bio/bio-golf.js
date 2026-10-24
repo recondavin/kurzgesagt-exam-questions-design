@@ -11,7 +11,7 @@
 // You take turns on each hole (the user: "make you take turns"), a question from the hole's chapter before every go (the
 // trivia board's cards; every third of yours typed and marked like the answer sheet). The rule for turns (the user: "if
 // you get them wrong then u dont rlly get to continue and u can get 2 right then its capped"):
-//   right        you putt, with the aim line showing where it goes (its first bounce included), and the stroke is
+//   right        you putt, with a short trail of dots showing which way it starts (no mark where it ends), and the stroke is
 //                steady; a second right answer gives a second putt, then it's his turn;
 //   wrong        you lose that stroke (it counts, the ball stays put) and it's his turn;
 //   typed right  a mulligan as well: take one putt again, kept until you use it.
@@ -229,22 +229,22 @@
     }
     return { path: path, steps: step, end: [S[0], S[1]], sunk: sunk, hits: hits, minCup: minCup, clock: (clock || 0) + step * DT, angle: angle, power: power };
   }
-  // What a right answer shows: the putt's path through its first bounce and on for up to AFTER (or to the second bounce,
-  // or where it stops), a dot every 0.42, and where it stops if that's in the part shown. So a long putt that only goes
-  // in off a bank still has to be judged.
-  var AFTER = 3.5;
-  function aimLine(r) {
-    var P = r.path, first = r.hits.length ? r.hits[0].i : Infinity, upto = r.hits.length > 1 ? r.hits[1].i : r.steps, pts = [], run = -0.3, past = 0, px = P[0], py = P[1], k;
-    for (k = 1; k <= upto && pts.length < 220; k++) {
+  // What a right answer shows: a bit of where the putt goes (the user: "make it so that in golf and in pool and in angry birds and cannon it shows a bit of where you're going, but it doesn't mark a dot on the target that shows you will hit it; just a small trail is fine"): its first TRAIL of roll, or up to its
+  // first bounce if that comes sooner, a dot every 0.42. No mark where it stops or whether it drops. The dots start
+  // after skip (past the aim arrow, which would hide them).
+  var TRAIL = 3;
+  function aimLine(r, skip) {
+    var P = r.path, first = r.hits.length ? r.hits[0].i : r.steps, pts = [], run = 0, gone = 0, px = P[0], py = P[1];
+    skip = skip || 0;
+    for (var k = 1; k <= first && pts.length < 220; k++) {
       var x = P[2 * k], y = P[2 * k + 1], d = Math.hypot(x - px, y - py);
-      if (k > first && (past += d) > AFTER) break;
-      run += d;
+      if ((gone += d) > skip + TRAIL) break;
+      if (gone >= skip) run += d;
       if (run >= 0.42) { pts.push([x, y]); run = 0; }
       px = x;
       py = y;
     }
-    var all = k > r.steps;
-    return { pts: pts, end: all ? r.end : null, sunk: r.sunk && all };
+    return { pts: pts };
   }
 
   // ======================================================================== the search (his putts)
@@ -803,8 +803,8 @@
       });
     });
   }
-  // The aim: a yellow arrow out of the ball as long as the power, with a navy rim; the line's dots (white with navy
-  // rims, like Cannon Duel's); and where the putt stops (orange if it goes in).
+  // The aim: a yellow arrow out of the ball as long as the power, with a navy rim, and the trail's dots (white with navy
+  // rims, like Cannon Duel's).
   function aimPieces(w) {
     var y = flat('#FFC800'), n = flat(INK), d = flat('#FFFFFF');
     var g = new TH.Group();
@@ -822,12 +822,6 @@
       w.add(x);
       return x;
     });
-    A.mark = new TH.Group();
-    w.add(A.mark);
-    add(lying(new TH.CircleGeometry(0.34, 24)), n, A.mark);
-    A.markIn = add(lying(new TH.CircleGeometry(0.24, 24)), flat('#FFFFFF'), A.mark);
-    A.markIn.position.y = 0.01;
-    A.mark.visible = false;
   }
   // The aim's pieces for the aim now: your putter, the arrow and the line (you only aim after a right answer).
   function drawAim() {
@@ -852,18 +846,12 @@
       pw.querySelector('i').style.height = Math.round(A.aim.power * 100) + '%';
       pw.querySelector('b').textContent = Math.round(A.aim.power * 100) + '%';
     }
-    var line = on ? aimLine(roll(h, p, A.aim.angle, A.aim.power, A.clock, true)) : null, mtx = new TH.Matrix4();
+    var line = on ? aimLine(roll(h, p, A.aim.angle, A.aim.power, A.clock, true), 1.2 + L) : null, mtx = new TH.Matrix4();
     A.dots.forEach(function (d, k) {
       d.count = line ? line.pts.length : 0;
       if (line) line.pts.forEach(function (pt, i) { d.setMatrixAt(i, mtx.compose(at(pt[0], pt[1], height(h, pt[0], pt[1]) + 0.02 + k * 0.004), turn, sc)); });
       d.instanceMatrix.needsUpdate = true;
     });
-    A.mark.visible = Boolean(line && line.end);
-    if (A.mark.visible) {
-      A.mark.position.copy(at(line.end[0], line.end[1], height(h, line.end[0], line.end[1]) + 0.028));
-      A.mark.scale.copy(sc);
-      A.markIn.material.color.set(line.sunk ? '#FF9600' : '#FFFFFF');
-    }
     kick();
   }
   // The camera: behind the ball looking along yaw (3/4 down), or over the whole hole; it eases to where it's going. On a
@@ -1120,7 +1108,7 @@
     K.gameHud(A.card, 0, '');
     var best = K.store('bio-golf-best');
     show('<div class="am-games__end mg-start"><div class="ar-face" aria-hidden="true">' + K.face + '</div><h3 class="am-games__title">Mini Golf</h3>' +
-      '<p class="am-games__sub">Five holes against the examiner, one for each chapter. You take turns, with a question before every putt. Right: you putt, and a line shows where it will go, first bounce included. Two right in a row and it\'s his turn. Wrong: you lose that stroke and it\'s his turn. He plays by the same rules. Every third question is typed: get it right and you win a mulligan, a putt you can take again. Fewest strokes wins.</p>' +
+      '<p class="am-games__sub">Five holes against the examiner, one for each chapter. You take turns, with a question before every putt. Right: you putt, and a short trail of dots shows which way it starts. Two right in a row and it\'s his turn. Wrong: you lose that stroke and it\'s his turn. He plays by the same rules. Every third question is typed: get it right and you win a mulligan, a putt you can take again. Fewest strokes wins.</p>' +
       '<ol class="mg-holes">' + HOLES.map(function (h, i) {
         var b = K.store('bio-golf-hole-' + (i + 1));
         return '<li style="--c:' + COL[h.ch] + '"><b>' + (i + 1) + '. ' + esc(h.name) + '</b><span>' + esc(NAME[h.ch]) + ' · Par ' + h.par + (b ? ' · Best ' + b : '') + '</span></li>';
@@ -1230,7 +1218,7 @@
     A.aim = { angle: Math.atan2(A.yaw[1], A.yaw[0]), power: A.aim ? A.aim.power : 0.35 };
     A.camSpeed = 3;
     behind(A.pos[0], A.yaw);
-    say('<b>Right:</b> the dots show your putt, first bounce included. Drag back from the ball and let go.');
+    say('<b>Right:</b> the dots show which way your putt starts. Drag back from the ball and let go.');
     row('<button type="button" class="tb-btn tb-btn--go" data-mg-putt>Putt</button><button type="button" class="tb-btn mg-btn2" data-mg-look>See the hole</button>');
     drawAim();
     q('[data-mg-canvas]').focus({ preventScroll: true });
