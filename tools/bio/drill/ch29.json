@@ -1,0 +1,282 @@
+[
+  { "id": "D29-1", "topic": 0,
+    "q": "State the function of the urinary bladder.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Stores urine (until it is released through the urethra)",
+        "accept": ["holds urine until it is released", "keeps urine until you urinate", "storage of urine"],
+        "k": [ { "w": ["stor", "urine"], "n": 2 }, { "w": ["hold", "urine"], "n": 2 }, { "w": ["keep", "urine"], "n": 2 } ] }
+    ],
+    "right": "It stores urine until it is released through the urethra.",
+    "wrong": ["It makes urine by filtering the blood", "It carries urine out of the body", "It reabsorbs water from the urine"],
+    "why": "The kidneys make urine all the time. The bladder holds it, so it can be released at a suitable time instead of trickling out constantly." },
+
+  { "id": "D29-2", "topic": 0,
+    "q": "Explain how urine is moved along the ureter to the bladder.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Peristalsis: waves of contraction of the muscle in the ureter wall",
+        "accept": ["peristalsis", "muscles in the ureter wall contract in waves", "the muscle squeezes the urine along"],
+        "k": [ { "w": ["peristal"], "n": 1 }, { "w": ["muscl", "contract"], "n": 2 }, { "w": ["muscl", "squeez"], "n": 2 } ] }
+    ],
+    "right": "By peristalsis: waves of contraction of the muscle in the ureter wall.",
+    "wrong": ["It is pumped there by the blood pressure from the heart", "By cilia that sweep the urine along the tube", "By osmosis through the wall of the ureter"],
+    "why": "Smooth muscle in the ureter wall contracts in waves (peristalsis), pushing urine down to the bladder, even when you are lying down." },
+
+  { "id": "D29-3", "topic": 0,
+    "q": "Name the ring of muscle that controls the release of urine from the bladder.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Sphincter (muscle)",
+        "accept": ["sphincter muscle", "the urethral sphincter"],
+        "k": [ { "w": ["sphincter"], "n": 1 } ] }
+    ],
+    "right": "The sphincter muscle at the base of the bladder.",
+    "wrong": ["The diaphragm", "The muscle in the wall of the ureter", "The muscles of the abdominal wall"],
+    "why": "A sphincter is a ring of muscle. While it stays contracted it holds urine in the bladder; when it relaxes, urine flows out through the urethra." },
+
+  { "id": "D29-4", "topic": 0,
+    "q": "Give one feature of the wall of the urinary bladder that suits it to its function.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Elastic (stretchy) wall, so it expands as urine collects",
+        "accept": ["it can stretch", "the wall is elastic", "it expands as it fills"],
+        "k": [ { "w": ["elast"], "n": 1 }, { "w": ["stretch"], "n": 1 }, { "w": ["expand"], "n": 1 } ] },
+      { "a": "Muscular wall that contracts to push urine out",
+        "accept": ["it has a muscular wall", "muscle in the wall squeezes the urine out"],
+        "k": [ { "w": ["muscl"], "n": 1 }, { "w": ["contract", "urine"], "n": 2 } ] }
+    ],
+    "right": "Its wall is elastic, so it can stretch as it fills with urine.",
+    "wrong": ["It has microvilli to give a large surface area", "Its wall is one cell thick for fast diffusion", "It is surrounded by capillaries to reabsorb water"],
+    "why": "The bladder wall stretches as urine collects, so it can hold a lot, and its muscle contracts to push the urine out through the urethra." },
+
+  { "id": "D29-5", "topic": 1,
+    "q": "Name the part of the nephron where all the glucose is reabsorbed into the blood.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Proximal convoluted tubule (PCT)",
+        "accept": ["proximal tubule", "PCT"],
+        "k": [ { "w": ["proxim"], "n": 1 }, { "w": ["pct"], "n": 1 } ] }
+    ],
+    "right": "The proximal convoluted tubule (PCT).",
+    "wrong": ["The loop of Henle", "The collecting duct", "The distal convoluted tubule"],
+    "why": "Everything useful comes back in the PCT, the first stretch after Bowman's capsule. The loop of Henle and DCT take back water and salts." },
+
+  { "id": "D29-6", "topic": 1,
+    "q": "State how glucose is reabsorbed in the proximal convoluted tubule.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Active transport",
+        "accept": ["it is actively transported", "active uptake"],
+        "k": [ { "w": ["activ", "transport"], "n": 2 }, { "w": ["activ", "uptak"], "n": 2 } ] }
+    ],
+    "right": "By active transport, which uses energy from ATP.",
+    "wrong": ["By osmosis, along with the water", "By diffusion, with no energy used", "By filtration under high pressure"],
+    "why": "Glucose is pumped back into the blood against its concentration gradient so that none is lost in urine. This needs energy: active transport." },
+
+  { "id": "D29-7", "topic": 1,
+    "q": "Give two ways the cells lining the proximal convoluted tubule are adapted for reabsorption.",
+    "marks": 6, "need": 2,
+    "pts": [
+      { "a": "Microvilli (for a large surface area)",
+        "accept": ["brush border", "folded membrane for a large surface area"],
+        "k": [ { "w": ["microvill"], "n": 1 }, { "w": ["large", "surfac", "area"], "n": 3 }, { "w": ["brush", "border"], "n": 2 } ] },
+      { "a": "Many mitochondria (energy for active transport)",
+        "accept": ["lots of mitochondria for energy", "mitochondria to make ATP"],
+        "k": [ { "w": ["mitochondri"], "n": 1 } ] },
+      { "a": "Close to many capillaries or lining one cell thick (short distance)",
+        "accept": ["surrounded by capillaries", "the lining is one cell thick"],
+        "k": [ { "w": ["capillar"], "n": 1 }, { "w": ["one", "cell", "thick"], "n": 3 } ] }
+    ],
+    "right": "Microvilli give a large surface area; many mitochondria supply energy.",
+    "wrong": ["They have cilia to sweep the filtrate along", "They have thick walls and store glycogen", "They are impermeable to water and have no nucleus"],
+    "why": "Microvilli give a large surface area to take substances back, and many mitochondria make the ATP needed for active transport." },
+
+  { "id": "D29-8", "topic": 1,
+    "q": "Explain how water is reabsorbed from the loop of Henle.",
+    "marks": 6, "need": 2,
+    "pts": [
+      { "a": "By osmosis",
+        "accept": ["osmosis", "water moves out by osmosis"],
+        "k": [ { "w": ["osmos"], "n": 1 } ] },
+      { "a": "The surrounding medulla is very salty (high salt concentration)",
+        "accept": ["the medulla has a high salt concentration", "salts are pumped out into the medulla", "the tissue fluid around it is very salty"],
+        "k": [ { "w": ["salt", "medulla"], "n": 2 }, { "w": ["salt", "high"], "n": 2 }, { "w": ["salt", "surround"], "n": 2 },
+               { "w": ["salt", "tissu", "fluid"], "n": 3 }, { "w": ["concentr", "medulla"], "n": 2 }, { "w": ["solute", "high"], "n": 2 } ] }
+    ],
+    "right": "By osmosis, because the medulla around the loop is very salty.",
+    "wrong": ["By active transport, using energy from ATP", "By filtration, as the blood pressure is high", "By diffusion of salts into the blood"],
+    "why": "Salts pumped out of the ascending limb make the medulla very salty, so water leaves the descending limb by osmosis and returns to the blood." },
+
+  { "id": "D29-9", "topic": 1,
+    "q": "Explain why the cells lining the proximal convoluted tubule have many mitochondria.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "To release energy (ATP) for active transport (of glucose and amino acids)",
+        "accept": ["to make ATP for active transport", "respiration supplies energy for reabsorption"],
+        "k": [ { "w": ["energ", "activ"], "n": 2 }, { "w": ["atp", "activ"], "n": 2 }, { "w": ["energ", "reabsorb"], "n": 2 },
+               { "w": ["atp", "reabsorb"], "n": 2 }, { "w": ["energ", "transport"], "n": 2 }, { "w": ["atp", "transport"], "n": 2 },
+               { "w": ["respir", "activ"], "n": 2 } ] }
+    ],
+    "right": "To release energy (ATP) for the active transport of glucose.",
+    "wrong": ["To make urea from spare amino acids", "To give a large surface area for diffusion", "To store the glucose that is reabsorbed"],
+    "why": "Mitochondria carry out aerobic respiration, making ATP. Taking glucose and amino acids back by active transport uses a lot of ATP." },
+
+  { "id": "D29-10", "topic": 1,
+    "q": "Explain why glucose must be reabsorbed by active transport rather than by diffusion.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Glucose moves against its concentration gradient (from low to high concentration)",
+        "accept": ["it moves against the concentration gradient", "against a gradient", "up its concentration gradient"],
+        "k": [ { "w": ["against", "gradient"], "n": 2 }, { "w": ["against", "concentr"], "n": 2 }, { "w": ["up", "gradient"], "n": 2 } ] },
+      { "a": "So that all the glucose is reabsorbed and none is lost in urine",
+        "accept": ["so none of the glucose is lost in the urine", "so that all the glucose is taken back"],
+        "k": [ { "w": ["all", "glucose", "reabsorb"], "n": 3 }, { "w": ["all", "glucose", "back"], "n": 3 },
+               { "w": ["none", "urine"], "n": 2 }, { "w": ["no", "glucose", "urine"], "n": 3 } ] }
+    ],
+    "right": "It moves against its concentration gradient, so all of it is taken back.",
+    "wrong": ["Glucose molecules are too large to diffuse through a membrane", "Diffusion only works for gases like oxygen", "Active transport needs no energy, so it is cheaper"],
+    "why": "Diffusion would stop once the filtrate and blood had equal glucose levels, so some would be lost. Active transport pumps it all back, against the gradient." },
+
+  { "id": "D29-11", "topic": 1,
+    "q": "Other than water, name a substance reabsorbed from the loop of Henle.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Salts (or named, e.g. sodium chloride, sodium ions) or minerals",
+        "accept": ["sodium ions", "chloride", "minerals", "ions"],
+        "k": [ { "w": ["salt"], "n": 1 }, { "w": ["sodium"], "n": 1 }, { "w": ["chlorid"], "n": 1 }, { "w": ["ion"], "n": 1 }, { "w": ["miner"], "n": 1 } ] }
+    ],
+    "right": "Salts, such as sodium chloride.",
+    "wrong": ["Glucose, by active transport", "Amino acids", "Plasma proteins"],
+    "why": "Salts are pumped out of the ascending limb into the medulla. Glucose and amino acids were all taken back earlier, in the PCT." },
+
+  { "id": "D29-12", "topic": 2,
+    "q": "What is meant by osmoregulation?",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "The control of the water and salt balance (concentration) of the body",
+        "accept": ["regulating the water and salt content of the blood", "keeping the water and salt concentration of body fluids constant", "maintaining the water balance and salt balance"],
+        "k": [ { "w": ["control", "water", "salt"], "n": 3 }, { "w": ["regul", "water", "salt"], "n": 3 }, { "w": ["keep", "water", "salt"], "n": 3 },
+               { "w": ["balanc", "water", "salt"], "n": 3 }, { "w": ["control", "water", "concentr"], "n": 3 }, { "w": ["regul", "water", "concentr"], "n": 3 },
+               { "w": ["keep", "water", "concentr"], "n": 3 }, { "w": ["control", "water", "balanc"], "n": 3 }, { "w": ["regul", "water", "balanc"], "n": 3 },
+               { "w": ["keep", "water", "balanc"], "n": 3 }, { "w": ["control", "osmot", "pressur"], "n": 3 }, { "w": ["regul", "osmot", "pressur"], "n": 3 } ] }
+    ],
+    "right": "The control of the water and salt balance of the body.",
+    "wrong": ["The control of body temperature by sweating", "The movement of water across a membrane by osmosis", "The removal of the waste products of metabolism"],
+    "why": "Osmoregulation is part of homeostasis: the kidneys, guided by ADH, keep the water and salt concentration of the blood steady." },
+
+  { "id": "D29-13", "topic": 2,
+    "q": "Name the organ that carries out osmoregulation in humans and the hormone that controls it.",
+    "marks": 6, "need": 2,
+    "pts": [
+      { "a": "Kidney",
+        "accept": ["the kidneys", "nephrons of the kidney"],
+        "k": [ { "w": ["kidney"], "n": 1 }, { "w": ["nephron"], "n": 1 } ] },
+      { "a": "ADH (anti-diuretic hormone, vasopressin)",
+        "accept": ["anti-diuretic hormone", "antidiuretic hormone", "vasopressin"],
+        "k": [ { "w": ["adh"], "n": 1 }, { "w": ["anti", "diuretic"], "n": 2 }, { "w": ["antidiuretic"], "n": 1 }, { "w": ["vasopressin"], "n": 1 } ] }
+    ],
+    "right": "The kidney, controlled by the hormone ADH.",
+    "wrong": ["The liver, controlled by the hormone insulin", "The skin, controlled by the hormone adrenaline", "The kidney, controlled by the hormone thyroxine"],
+    "why": "The kidneys control how much water and salt leave in urine. ADH, released by the pituitary gland, sets how much water they take back." },
+
+  { "id": "D29-14", "topic": 2,
+    "q": "Explain why osmoregulation is important for the cells of the body.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Stops cells gaining or losing too much water by osmosis (so they do not burst or shrink)",
+        "accept": ["so cells do not burst or shrivel", "so the cells do not lose or gain too much water by osmosis", "so that cells don't swell up"],
+        "k": [ { "w": ["cell", "water", "osmos"], "n": 3 }, { "w": ["cell", "burst"], "n": 2 }, { "w": ["cell", "shrink"], "n": 2 },
+               { "w": ["cell", "swell"], "n": 2 }, { "w": ["cell", "shrivel"], "n": 2 }, { "w": ["cell", "lose", "water"], "n": 3 },
+               { "w": ["cell", "gain", "water"], "n": 3 } ] }
+    ],
+    "right": "So cells do not gain or lose too much water by osmosis and burst or shrink.",
+    "wrong": ["So that cells can make urea for excretion", "So enzymes in the cells are not denatured by heat", "So that cells get enough glucose for respiration"],
+    "why": "If body fluids are too dilute, cells take in water by osmosis and swell; if too concentrated, they lose water and shrink. Either way they stop working well." },
+
+  { "id": "D29-15", "topic": 2,
+    "q": "Name two substances in the blood whose levels are controlled by osmoregulation.",
+    "marks": 6, "need": 2,
+    "pts": [
+      { "a": "Water",
+        "accept": ["H2O"],
+        "k": [ { "w": ["water"], "n": 1 } ] },
+      { "a": "Salts (or named, e.g. sodium chloride) or ions",
+        "accept": ["sodium", "ions", "minerals", "solutes"],
+        "k": [ { "w": ["salt"], "n": 1 }, { "w": ["sodium"], "n": 1 }, { "w": ["ion"], "n": 1 }, { "w": ["miner"], "n": 1 }, { "w": ["solute"], "n": 1 } ] }
+    ],
+    "right": "Water and salts, such as sodium chloride.",
+    "wrong": ["Glucose and insulin", "Oxygen and carbon dioxide", "Urea and amino acids"],
+    "why": "Osmo- means water pressure: osmoregulation balances water against dissolved salts. Glucose is controlled by insulin, and gases by breathing." },
+
+  { "id": "D29-16", "topic": 3,
+    "q": "Name the part of the brain that detects that the blood has become too dilute.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Hypothalamus",
+        "accept": ["receptors in the hypothalamus", "osmoreceptors in the hypothalamus"],
+        "k": [ { "w": ["hypothalamus"], "n": 1 } ] }
+    ],
+    "right": "The hypothalamus, using its osmoreceptors.",
+    "wrong": ["The pituitary gland", "The cerebellum", "The medulla oblongata"],
+    "why": "Osmoreceptors in the hypothalamus sense the water concentration of the blood. The hypothalamus then has the pituitary gland release less ADH." },
+
+  { "id": "D29-17", "topic": 3,
+    "q": "State the effect of drinking a large volume of water on the amount of ADH released.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Less ADH is released (by the pituitary gland)",
+        "accept": ["ADH decreases", "the level of ADH falls", "less is secreted", "a lower amount of ADH", "it decreases"],
+        "k": [ { "w": ["less", "adh"], "n": 2 }, { "w": ["decreas", "adh"], "n": 2 }, { "w": ["lower", "adh"], "n": 2 }, { "w": ["low", "adh"], "n": 2 },
+               { "w": ["less", "releas"], "n": 2 }, { "w": ["less", "secret"], "n": 2 }, { "w": ["decreas", "releas"], "n": 2 }, { "w": ["decreas", "secret"], "n": 2 }, { "w": ["decreas"], "n": 1 } ] }
+    ],
+    "right": "Less ADH is released by the pituitary gland.",
+    "wrong": ["More ADH is released to remove the extra water", "The kidneys release ADH instead of the pituitary", "The amount of ADH stays the same"],
+    "why": "Extra water makes the blood too dilute. The hypothalamus detects this, so the pituitary releases less ADH and the kidneys keep back less water." },
+
+  { "id": "D29-18", "topic": 3,
+    "q": "Explain how a low level of ADH affects the reabsorption of water in the collecting ducts.",
+    "marks": 6, "need": 2,
+    "pts": [
+      { "a": "The walls (of the collecting duct and DCT) become less permeable to water",
+        "accept": ["the collecting duct becomes impermeable to water", "permeability decreases"],
+        "k": [ { "w": ["less", "permeab"], "n": 2 }, { "w": ["impermeab"], "n": 1 }, { "w": ["decreas", "permeab"], "n": 2 }, { "w": ["lower", "permeab"], "n": 2 } ] },
+      { "a": "Less water is reabsorbed (into the blood)",
+        "accept": ["more water stays in the tubule", "less water goes back into the blood", "less water is absorbed"],
+        "k": [ { "w": ["less", "water", "reabsorb"], "n": 3 }, { "w": ["less", "water", "absorb"], "n": 3 }, { "w": ["decreas", "water", "reabsorb"], "n": 3 },
+               { "w": ["less", "water", "back"], "n": 3 }, { "w": ["water", "stay", "tubul"], "n": 3 }, { "w": ["water", "stay", "duct"], "n": 3 } ] }
+    ],
+    "right": "The walls become less permeable to water, so less water is reabsorbed.",
+    "wrong": ["The walls become more permeable, so more water is reabsorbed", "The walls actively pump glucose back into the blood", "The walls become thicker, so more salt is filtered"],
+    "why": "ADH opens the collecting duct walls to water. With little ADH they stay closed to it, so less water is taken back and more stays in the urine." },
+
+  { "id": "D29-19", "topic": 3,
+    "q": "State the effect on the urine of drinking a lot of water.",
+    "marks": 6, "need": 2,
+    "pts": [
+      { "a": "A large volume of urine",
+        "accept": ["more urine is produced", "lots of urine", "an increased volume of urine"],
+        "k": [ { "w": ["large", "volum"], "n": 2 }, { "w": ["increas", "volum"], "n": 2 }, { "w": ["high", "volum"], "n": 2 }, { "w": ["more", "urine", "make"], "n": 3 },
+               { "w": ["lot", "urine"], "n": 2 }, { "w": ["many", "urine"], "n": 2 }, { "w": ["large", "amount"], "n": 2 }, { "w": ["increas", "amount"], "n": 2 } ] },
+      { "a": "Dilute urine",
+        "accept": ["weak urine", "less concentrated urine", "pale urine"],
+        "k": [ { "w": ["dilut"], "n": 1 }, { "w": ["weak"], "n": 1 }, { "w": ["pale"], "n": 1 }, { "w": ["less", "concentr"], "n": 2 }, { "w": ["low", "concentr"], "n": 2 },
+               { "w": ["lower", "concentr"], "n": 2 } ] }
+    ],
+    "right": "A large volume of dilute urine is produced.",
+    "wrong": ["A small volume of concentrated urine is produced", "The urine contains glucose and protein", "No change, as the extra water is stored in the bladder"],
+    "why": "With less ADH, less water is taken back in the collecting ducts, so the extra water leaves as lots of dilute urine and the blood returns to normal." },
+
+  { "id": "D29-20", "topic": 3,
+    "q": "Explain why the control of ADH release is an example of negative feedback.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "The response reverses (cancels) the change, bringing the blood back to normal",
+        "accept": ["it brings the water concentration back to normal", "the effect is opposite to the change", "it corrects the change", "it counteracts the change"],
+        "k": [ { "w": ["revers"], "n": 1 }, { "w": ["opposit"], "n": 1 }, { "w": ["back", "normal"], "n": 2 }, { "w": ["return", "normal"], "n": 2 },
+               { "w": ["counteract"], "n": 1 }, { "w": ["cancel"], "n": 1 }, { "w": ["correct", "change"], "n": 2 } ] }
+    ],
+    "right": "The response reverses the change, so the blood's water level returns to normal.",
+    "wrong": ["The response makes the change bigger and bigger", "ADH is released by a gland, not by a nerve", "Less ADH is made when there is less glucose in the blood"],
+    "why": "In negative feedback the response cancels the change: dilute blood means less ADH, so more water leaves in urine until the blood is back to normal." }
+]

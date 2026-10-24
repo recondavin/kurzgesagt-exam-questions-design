@@ -615,3 +615,46 @@ button.sea-c { cursor: default; }
 .ty-wait { visibility: hidden; }
 .ty-pop { animation: tyPop .38s cubic-bezier(.3, 1.5, .5, 1) both; }
 @keyframes tyPop { from { opacity: 0; transform: scale(.85) translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* Exam drill (bio/bio-drill.js): each question printed like a part on an exam paper (where it's from, the question,
+   its marks), then tick boxes to choose from or ruled lines to write on; the chapter's colour across the top. */
+.ed { display: grid; gap: 12px; max-width: 860px; margin: 0 auto; }
+.ed-stage { justify-self: start; margin: 0; padding: 6px 14px; border-radius: 999px; background: #2B3B42; color: #F1F7FB; font: 800 15px Nunito, sans-serif; }
+.ed-stage.is-type { background: #FFC800; color: #13294A; }
+.ed-paper { display: grid; gap: 14px; padding: 20px 26px 24px; border: 2px solid #13294A; border-top: 8px solid var(--c); border-radius: 14px; background: #FFFDF6; box-shadow: 0 5px 0 rgba(0, 0, 0, .35); color: #13294A; }
+.ed-from { margin: 0; padding-bottom: 10px; border-bottom: 1.5px solid #D5DCE5; color: #5B6B80; font: 800 13.5px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.tb-q.ed-q { font-size: 25px; }
+.ed-marks { justify-self: end; margin: -8px 0 0; color: #5B6B80; font: 800 16px Nunito, sans-serif; }
+.ed-fig { max-width: 560px; }
+.ed-fig svg { display: block; width: 100%; height: auto; border: 1.5px solid #D5DCE5; border-radius: 10px; background: #FFFFFF; }
+.ed-boxes { display: grid; gap: 10px; }
+.ed-box { display: flex; align-items: center; gap: 14px; padding: 13px 16px; border: 2px solid #D5DCE5; border-bottom-width: 4px; border-radius: 12px; background: #FFFFFF; color: #13294A; font: 700 20px/1.35 Nunito, sans-serif; text-align: left; cursor: pointer; }
+.ed-box:hover:not(:disabled) { background: #F2F5F8; }
+.ed-box:disabled { cursor: default; }
+.ed-box:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
+.ed-box i { position: relative; display: grid; place-items: center; flex: none; width: 26px; height: 26px; box-sizing: border-box; border: 3px solid #13294A; border-radius: 6px; background: #FFFFFF; color: #FFFFFF; font: 900 16px/1 Nunito, sans-serif; font-style: normal; }
+.ed-box.is-ok { border-color: #58CC02; background: #D7FFB8; }
+.ed-box.is-ok i { border-color: #2B6A00; background: #58CC02; }
+.ed-box.is-ok i::after { content: "\2713"; }
+.ed-box.is-no { border-color: #FF4B4B; background: #FFDFE0; animation: amShake .4s; }
+.ed-box.is-no i { border-color: #B3261E; background: #FF4B4B; }
+.ed-box.is-no i::after { content: "\2715"; }
+/* Lines to write on, like the answer space on a paper. */
+.ed-lines { display: block; width: 100%; box-sizing: border-box; min-height: 124px; padding: 0 6px; border: 0; border-top: 1.5px solid #C5D0D8; background: repeating-linear-gradient(to bottom, transparent 0 39px, #C5D0D8 39px 40px); color: #13294A; font: 700 22px/40px Nunito, sans-serif; resize: vertical; }
+.ed-lines:focus { outline: none; background-color: #FFFBEA; }
+.ed-scheme { margin: 0; padding: 12px 16px; border: 1.5px dashed #C5D0D8; border-radius: 10px; color: #13294A; font: 700 18px/1.45 Nunito, sans-serif; }
+.ed-scheme span { display: block; margin-bottom: 4px; color: #5B6B80; font: 800 14px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.ed-scheme em { color: #5B6B80; font-style: normal; }
+.ed-later { margin: 0; color: #5B6B80; font: 800 15px Nunito, sans-serif; }
+/* On a chapter's page, under the next question. */
+.ch-drill { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-top: 10px; padding: 11px 18px; border: 2px solid var(--rule); border-radius: 999px; color: var(--ink); font: 600 15.5px Fredoka, Nunito, sans-serif; text-decoration: none; }
+.ch-drill:hover { border-color: var(--ink); }
+.ch-drill span { color: var(--muted); font: 700 13px Nunito, sans-serif; }
+@media (max-width: 760px) {
+  .ed-paper { padding: 16px 16px 18px; }
+  .tb-q.ed-q { font-size: 20px; }
+  .ed-box { padding: 11px 12px; font-size: 17px; }
+  .ed-lines { font-size: 18px; }
+  .ed-scheme { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .ed-box.is-no { animation: none; } }

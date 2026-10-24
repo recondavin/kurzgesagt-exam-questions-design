@@ -301,6 +301,7 @@
     var rows = chapterRows();
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
       '<nav class="sh-nav" aria-label="Biology"><a class="sh-link" href="#"' + (active === 'home' ? ' aria-current="page"' : '') + '><span class="sh-t">Progress</span></a>' +
+      (window.BioDrill ? '<a class="sh-link" href="#drill"><span class="sh-t">Exam drill</span></a>' : '') +
       (window.BioBoard ? '<p class="sh-group">Games</p>' + HUB_GAMES.filter(function (g) { return g[2](); }).map(function (g) {
         return '<a class="sh-link" href="#' + g[0] + '"><span class="sh-t">' + g[1] + '</span></a>';
       }).join('') : '') +
@@ -355,13 +356,16 @@
         '<dl class="ch-facts"><div><dt>Questions tried</dt><dd><span class="num">' + (r.count || 0) + '</span><span class="of"> of ' + allQuestions(n).length + '</span></dd></div>' +
           '<div><dt>Drills tried</dt><dd><span class="num">' + done + '</span><span class="of"> of ' + items.length + '</span></dd></div>' +
           '<div><dt>Last answered</dt><dd>' + (last ? esc(ago(last)) : '<span class="dash">–</span>') + '</dd></div></dl>' +
-        '<button type="button" class="btn-primary ch-next" data-pg-next="' + n + '">' + (hasUntried(n) ? 'Answer the next question' : 'Retry your lowest score') + '</button></section>' +
+        '<button type="button" class="btn-primary ch-next" data-pg-next="' + n + '">' + (hasUntried(n) ? 'Answer the next question' : 'Retry your lowest score') + '</button>' +
+        // Exam drill for this chapter: its short questions, ticked then typed (bio-drill.js).
+        (window.BioDrill ? '<a class="ch-drill" href="#drill' + n + '">Exam drill<span>' + drillLine(n) + '</span></a>' : '') + '</section>' +
       (todo.length ? '<section class="card ch-todo rise" style="--i:3" aria-labelledby="ch-h-todo"><header class="card-head"><h2 class="card-h" id="ch-h-todo">Not tried yet</h2>' +
         '</header><ul class="ch-list">' +
         todo.slice(0, 6).map(function (x) { return '<li><button type="button" class="ch-item" ' + x.attr + '>' + esc(x.name) + '<i class="bio-go" aria-hidden="true"></i></button></li>'; }).join('') +
         '</ul></section>'
         : '<section class="card ch-todo rise" style="--i:3"><h2 class="card-h">Every drill tried</h2></section>');
   }
+  function drillLine(n) { var c = window.BioDrill.counts(n); return c.done + ' of ' + c.all + ' learnt' + (c.type ? ' \u00b7 ' + c.type + ' to type' : ''); }
   // Whether a chapter still has a real exam question you haven't tried.
   function hasUntried(n) { return ((QS[n] || {}).questions || []).some(function (q) { return !scoreOf(n, q); }); }
   function ago(d) {
@@ -788,6 +792,14 @@
     var h = location.hash.replace(/^#/, ''), m = h.match(/^ch(\d+)$/);
     menu(false);
     app.classList.remove('is-settled');
+    // #drill (or #drill28 from a chapter's page) opens Exam drill over the progress page or that chapter.
+    var drill = h.match(/^drill(\d\d)?$/);
+    if (drill && window.BioDrill) {
+      history.replaceState(null, '', location.pathname + location.search + (drill[1] ? '#ch' + drill[1] : ''));
+      if (drill[1]) renderChapter(+drill[1]); else renderHome();
+      window.BioDrill.open(drill[1] ? +drill[1] : 0);
+      return;
+    }
     // #board and the other games open over the progress page (the link drops the hash so it can be followed again).
     var game = HUB_GAMES.filter(function (g) { return g[0] === h && g[2](); })[0];
     if (game) {

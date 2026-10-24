@@ -1,0 +1,260 @@
+[
+  { "id": "D28-1", "topic": 0,
+    "q": "Give two ways the nasal cavity prepares the air before it reaches the lungs.",
+    "marks": 6, "need": 2,
+    "pts": [
+      { "a": "Filters it: hairs and mucus trap dust and microbes", "accept": ["cleans the air", "hairs trap dust", "mucus catches germs", "removes dust from the air"],
+        "k": [ { "w": ["filter"], "n": 1 }, { "w": ["clean"], "n": 1 }, { "w": ["trap"], "n": 1 }, { "w": ["catch"], "n": 1 }, { "w": ["remov", "dust"], "n": 2 }, { "w": ["remov", "germ"], "n": 2 }, { "w": ["remov", "microb"], "n": 2 } ] },
+      { "a": "Warms it", "accept": ["heats the air", "brings it to body temperature"],
+        "k": [ { "w": ["warm"], "n": 1 }, { "w": ["heat"], "n": 1 }, { "w": ["body", "temperatur"], "n": 2 } ] },
+      { "a": "Moistens it", "accept": ["makes it damp", "adds water vapour", "humidifies the air", "makes the air wet"],
+        "k": [ { "w": ["moist"], "n": 1 }, { "w": ["damp"], "n": 1 }, { "w": ["wet"], "n": 1 }, { "w": ["humid"], "n": 1 }, { "w": ["water", "vapour"], "n": 2 }, { "w": ["add", "water"], "n": 2 } ] }
+    ],
+    "right": "It filters, warms and moistens the air",
+    "wrong": ["It cools the air and dries it out", "It adds oxygen and removes carbon dioxide", "It warms the air and pumps it into the lungs"],
+    "why": "Hairs and mucus in the nasal cavity trap dust and germs, and its warm, moist lining warms and moistens the air, so clean, warm, moist air reaches the lungs." },
+
+  { "id": "D28-2", "topic": 0,
+    "q": "State the function of the hairs inside the nose.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Filter the air: they trap dust and microbes", "accept": ["trap dust", "stop dust getting into the lungs", "catch germs", "filter out large particles", "clean the air"],
+        "k": [ { "w": ["filter"], "n": 1 }, { "w": ["trap"], "n": 1 }, { "w": ["catch"], "n": 1 }, { "w": ["clean"], "n": 1 }, { "w": ["stop", "dust"], "n": 2 }, { "w": ["stop", "germ"], "n": 2 }, { "w": ["stop", "microb"], "n": 2 }, { "w": ["remov", "dust"], "n": 2 } ] }
+    ],
+    "right": "They trap dust and germs, filtering the air",
+    "wrong": ["They warm the air before it reaches the lungs", "They sweep mucus up to the throat", "They detect smells in the air"],
+    "why": "The hairs inside the nostrils act like a filter: they trap dust and microbes in the air breathed in, so less of it reaches the lungs." },
+
+  { "id": "D28-3", "topic": 0,
+    "q": "Suggest why breathing through the nose is better for the lungs than breathing through the mouth.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "The air is filtered, warmed and moistened in the nose, but not in the mouth", "accept": ["the nose cleans the air", "the air is warmed", "the nose traps dust and germs", "the air is moistened", "the air is made damp"],
+        "k": [ { "w": ["filter"], "n": 1 }, { "w": ["warm"], "n": 1 }, { "w": ["moist"], "n": 1 }, { "w": ["clean"], "n": 1 }, { "w": ["trap"], "n": 1 }, { "w": ["heat"], "n": 1 }, { "w": ["damp"], "n": 1 }, { "w": ["humid"], "n": 1 } ] }
+    ],
+    "right": "The nose filters, warms and moistens the air but the mouth does not",
+    "wrong": ["More oxygen can pass through the nose than the mouth", "The nose has alveoli that start gas exchange", "The epiglottis only works when you breathe through the nose"],
+    "why": "Only the nasal cavity has hairs, mucus and a warm, moist lining, so air breathed in through the nose reaches the lungs cleaner, warmer and moister." },
+
+  { "id": "D28-4", "topic": 1,
+    "q": "State the function of the mucus that lines the trachea.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "It traps dust and microbes (germs)", "accept": ["catches dirt and bacteria", "traps particles", "stops germs reaching the lungs", "dust sticks to it"],
+        "k": [ { "w": ["trap"], "n": 1 }, { "w": ["catch"], "n": 1 }, { "w": ["filter"], "n": 1 }, { "w": ["stop", "dust"], "n": 2 }, { "w": ["stop", "germ"], "n": 2 }, { "w": ["stop", "microb"], "n": 2 }, { "w": ["stop", "bacteri"], "n": 2 }, { "w": ["stick", "dust"], "n": 2 }, { "w": ["stick", "germ"], "n": 2 }, { "w": ["stick", "dirt"], "n": 2 } ] }
+    ],
+    "right": "It traps dust and germs in the air breathed in",
+    "wrong": ["It keeps the trachea open so it does not collapse", "It sweeps dust up to the throat", "It lubricates food on its way to the stomach"],
+    "why": "Mucus is sticky: dust and microbes in the air breathed in get caught in it before they can reach the alveoli. The cilia then move it away." },
+
+  { "id": "D28-5", "topic": 1,
+    "q": "State the function of the cilia that line the trachea and bronchi.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "They sweep (beat) the mucus and trapped dust up to the throat, away from the lungs", "accept": ["sweep mucus up to the throat", "move mucus away from the lungs", "beat to push mucus upwards", "carry dirt up out of the airways", "waft the mucus towards the mouth"],
+        "k": [ { "w": ["mucus", "up"], "n": 2 }, { "w": ["mucus", "upward"], "n": 2 }, { "w": ["mucus", "away"], "n": 2 }, { "w": ["mucus", "throat"], "n": 2 }, { "w": ["mucus", "mouth"], "n": 2 }, { "w": ["mucus", "pharynx"], "n": 2 },
+               { "w": ["dust", "up"], "n": 2 }, { "w": ["dirt", "up"], "n": 2 }, { "w": ["dust", "away"], "n": 2 }, { "w": ["dirt", "away"], "n": 2 }, { "w": ["dust", "throat"], "n": 2 },
+               { "w": ["sweep", "up"], "n": 2 }, { "w": ["swept", "up"], "n": 2 }, { "w": ["sweep", "away"], "n": 2 }, { "w": ["sweep", "throat"], "n": 2 }, { "w": ["beat", "up"], "n": 2 }, { "w": ["push", "up"], "n": 2 } ] }
+    ],
+    "right": "They sweep the mucus and trapped dust up, away from the lungs, to the throat",
+    "wrong": ["They sweep dust down into the lungs", "They trap dust in a sticky layer", "They carry out gas exchange with the capillaries"],
+    "why": "Cilia are tiny hairs on the lining cells. They beat to move mucus, with the dust and germs stuck in it, up to the throat, where it is swallowed or coughed up." },
+
+  { "id": "D28-6", "topic": 1,
+    "q": "Smoke damages the cilia in the airways. Suggest why smokers often cough.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Mucus is not swept away, so it builds up in the airways and has to be coughed up", "accept": ["mucus builds up in the lungs", "mucus collects in the airways", "the mucus stays in the bronchi", "the mucus is not removed", "to get rid of the mucus"],
+        "k": [ { "w": ["mucus", "build"], "n": 2 }, { "w": ["mucus", "collect"], "n": 2 }, { "w": ["mucus", "stay"], "n": 2 }, { "w": ["mucus", "remov"], "n": 2 }, { "w": ["mucus", "swept"], "n": 2 }, { "w": ["mucus", "accumul"], "n": 2 }, { "w": ["mucus", "clear"], "n": 2 } ] }
+    ],
+    "right": "Mucus is not swept away, so it builds up and must be coughed up",
+    "wrong": ["The cilia beat faster and push the smoke into the lungs", "Smoke makes the diaphragm contract more strongly", "The smoke dissolves in the moist lining of the alveoli"],
+    "why": "With damaged cilia, the mucus and the dirt and germs trapped in it are no longer swept up out of the airways. The mucus builds up, and coughing is the only way to clear it." },
+
+  { "id": "D28-7", "topic": 1,
+    "q": "Explain how the mucus and the cilia in the trachea together protect the lungs.",
+    "marks": 6, "need": 2,
+    "pts": [
+      { "a": "Mucus traps dust and microbes", "accept": ["the mucus catches germs", "mucus traps bacteria and dirt", "sticky mucus traps particles"],
+        "k": [ { "w": ["mucus", "trap"], "n": 2 }, { "w": ["mucus", "catch"], "n": 2 }, { "w": ["mucus", "dust"], "n": 2 }, { "w": ["mucus", "microb"], "n": 2 }, { "w": ["mucus", "germ"], "n": 2 }, { "w": ["mucus", "bacteri"], "n": 2 }, { "w": ["mucus", "dirt"], "n": 2 } ] },
+      { "a": "Cilia sweep the mucus up, away from the lungs, to the throat", "accept": ["the cilia beat to move mucus upwards", "cilia carry the mucus to the throat to be swallowed", "cilia push it away from the lungs"],
+        "k": [ { "w": ["cilia", "up"], "n": 2 }, { "w": ["cilia", "upward"], "n": 2 }, { "w": ["cilia", "away"], "n": 2 }, { "w": ["cilia", "throat"], "n": 2 }, { "w": ["cilia", "mouth"], "n": 2 }, { "w": ["cilia", "pharynx"], "n": 2 }, { "w": ["cilia", "swallow"], "n": 2 } ] }
+    ],
+    "right": "Mucus traps dust and germs, and cilia sweep the mucus up to the throat",
+    "wrong": ["Cilia trap dust and mucus sweeps it down into the lungs", "Mucus kills all the germs and cilia pump air into the lungs", "Mucus moistens the air and cilia warm it"],
+    "why": "Sticky mucus traps dust and microbes from the air. The cilia beat to carry this mucus up and away from the lungs to the throat, where it is swallowed." },
+
+  { "id": "D28-8", "topic": 2,
+    "q": "State the function of the bronchioles.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Carry air to (and from) the alveoli", "accept": ["take air into the air sacs", "carry air from the bronchi to the alveoli", "bring air to the alveoli for gas exchange"],
+        "k": [ { "w": ["air", "alveol"], "n": 2 }, { "w": ["air", "sac"], "n": 2 } ] }
+    ],
+    "right": "They carry air from the bronchi to the alveoli",
+    "wrong": ["They are where gas exchange takes place", "They carry air from the larynx into the trachea", "They make sounds as air passes over them"],
+    "why": "The bronchioles are the many fine branches of each bronchus. They carry air deep into the lung, right to the alveoli, where gas exchange takes place." },
+
+  { "id": "D28-9", "topic": 2,
+    "q": "The pharynx is part of both the breathing system and the digestive system. Explain why.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Both air and food pass through it", "accept": ["air goes through it to the larynx and food goes through it to the oesophagus", "food and air both travel through the throat", "it carries air and food"],
+        "k": [ { "w": ["air", "food"], "n": 2 }, { "w": ["air", "swallow"], "n": 2 } ] }
+    ],
+    "right": "Both air and food pass through the pharynx",
+    "wrong": ["It makes sounds when air passes over it", "It closes over the trachea when you swallow", "It digests food and absorbs oxygen"],
+    "why": "The pharynx (throat) is a shared passage: air goes through it on its way to the larynx, and food goes through it on its way to the oesophagus." },
+
+  { "id": "D28-10", "topic": 2,
+    "q": "Name the two structures that air passes through between the pharynx and the bronchi.",
+    "marks": 6, "need": 2,
+    "pts": [
+      { "a": "Larynx", "accept": ["voice box"], "k": [ { "w": ["larynx"], "n": 1 }, { "w": ["voice", "box"], "n": 2 } ] },
+      { "a": "Trachea", "accept": ["windpipe"], "k": [ { "w": ["trachea"], "n": 1 }, { "w": ["windpipe"], "n": 1 } ] }
+    ],
+    "right": "The larynx and then the trachea",
+    "wrong": ["The trachea and then the bronchioles", "The epiglottis and then the oesophagus", "The nasal cavity and then the larynx"],
+    "why": "Air passes through the nasal cavity, pharynx, larynx (the voice box), trachea, bronchus and bronchioles, and finally reaches the alveoli." },
+
+  { "id": "D28-11", "topic": 2,
+    "q": "State the function of a bronchus.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Carries air from the trachea into a lung", "accept": ["takes air into the lung", "carries air to the bronchioles", "brings air from the windpipe into each lung", "air passes through it into the lungs"],
+        "k": [ { "w": ["carry", "air", "lung"], "n": 3 }, { "w": ["take", "air", "lung"], "n": 3 }, { "w": ["bring", "air", "lung"], "n": 3 }, { "w": ["transport", "air", "lung"], "n": 3 }, { "w": ["air", "pass", "lung"], "n": 3 }, { "w": ["air", "into", "lung"], "n": 3 }, { "w": ["air", "bronchiol"], "n": 2 }, { "w": ["trachea", "lung"], "n": 2 } ] }
+    ],
+    "right": "It carries air from the trachea into one lung",
+    "wrong": ["It is where gas exchange takes place", "It makes sounds as air passes over it", "It stops food going into the trachea"],
+    "why": "The trachea splits into two bronchi, one for each lung. Each bronchus carries air into its lung, where it branches into the bronchioles." },
+
+  { "id": "D28-12", "topic": 2,
+    "q": "Name the structures that air passes through just before it reaches the alveoli.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Bronchioles", "accept": ["the bronchioles"], "k": [ { "w": ["bronchiol"], "n": 1 } ] }
+    ],
+    "right": "The bronchioles",
+    "wrong": ["The bronchi", "The trachea", "The capillaries"],
+    "why": "Each bronchus branches again and again into tiny bronchioles, and each bronchiole ends in a bunch of alveoli, where gas exchange happens." },
+
+  { "id": "D28-13", "topic": 3,
+    "q": "What is meant by a concentration gradient?",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "A difference in the concentration of a substance between two regions", "accept": ["the difference in concentration between two areas", "a concentration difference between two places"],
+        "k": [ { "w": ["differ", "concentr"], "n": 2 } ] }
+    ],
+    "right": "A difference in concentration between two regions",
+    "wrong": ["The movement of molecules from high to low concentration", "The total amount of a substance dissolved in a solution", "The speed at which a gas diffuses across a membrane"],
+    "why": "A concentration gradient is a difference in concentration between two places. Diffusion is movement down that gradient, so the steeper the gradient, the faster the diffusion." },
+
+  { "id": "D28-14", "topic": 3,
+    "q": "Explain how breathing helps to keep the concentration gradient of oxygen steep at the alveolus.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Each breath brings fresh air, high in oxygen, into the alveoli, replacing the used air", "accept": ["it keeps bringing in fresh air", "new air keeps arriving", "it replaces the air in the alveoli", "it keeps the oxygen concentration in the alveoli high", "it renews the air"],
+        "k": [ { "w": ["fresh", "air"], "n": 2 }, { "w": ["new", "air"], "n": 2 }, { "w": ["renew", "air"], "n": 2 }, { "w": ["replac", "air"], "n": 2 }, { "w": ["oxygen", "high", "alveol"], "n": 3 }, { "w": ["more", "oxygen", "alveol"], "n": 3 } ] }
+    ],
+    "right": "It keeps bringing fresh air, high in oxygen, into the alveoli",
+    "wrong": ["Breathing pumps oxygen across the alveolus wall into the blood", "It keeps the oxygen level in the blood high", "It makes the walls of the alveoli thinner"],
+    "why": "Each breath replaces used air in the alveoli with fresh air, so the oxygen concentration there stays higher than in the blood, and oxygen keeps diffusing in." },
+
+  { "id": "D28-15", "topic": 3,
+    "q": "Explain how the flow of blood past the alveolus helps to keep the concentration gradient of oxygen steep.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Moving blood carries the oxygen away, so the blood arriving at the alveolus is always low in oxygen", "accept": ["the blood carries the oxygen away", "oxygen is taken away to the body", "new blood low in oxygen keeps arriving", "deoxygenated blood keeps arriving from the pulmonary artery", "the oxygen is removed by the blood"],
+        "k": [ { "w": ["oxygen", "away"], "n": 2 }, { "w": ["blood", "low", "oxygen"], "n": 3 }, { "w": ["deoxygen"], "n": 1 }, { "w": ["oxygen", "remov"], "n": 2 } ] }
+    ],
+    "right": "It carries the oxygen away, so arriving blood is always low in oxygen",
+    "wrong": ["Blood flows slowly so oxygen has more time to diffuse", "Haemoglobin releases oxygen into the alveolus", "Blood flows out of the capillaries into the alveolus"],
+    "why": "Blood keeps carrying newly absorbed oxygen away to the body, so the blood in the capillary always has less oxygen than the air in the alveolus." },
+
+  { "id": "D28-16", "topic": 3,
+    "q": "Give two ways the concentration gradient of carbon dioxide is kept steep at the alveolus.",
+    "marks": 6, "need": 2,
+    "pts": [
+      { "a": "Blood keeps bringing carbon dioxide from the respiring body cells", "accept": ["the blood keeps bringing more CO2", "blood from the pulmonary artery is high in carbon dioxide", "the blood arriving is rich in CO2"],
+        "k": [ { "w": ["bring", "co2"], "n": 2 }, { "w": ["blood", "high", "co2"], "n": 3 }, { "w": ["blood", "rich", "co2"], "n": 3 }, { "w": ["blood", "more", "co2"], "n": 3 }, { "w": ["arriv", "co2"], "n": 2 }, { "w": ["deliver", "co2"], "n": 2 } ] },
+      { "a": "Breathing out removes the carbon dioxide from the alveolus", "accept": ["exhaling removes CO2 from the alveoli", "CO2 is breathed out", "the air in the alveoli is kept low in CO2"],
+        "k": [ { "w": ["breath", "out", "co2"], "n": 3 }, { "w": ["exhal", "co2"], "n": 2 }, { "w": ["remov", "co2", "alveol"], "n": 3 }, { "w": ["air", "low", "co2"], "n": 3 }, { "w": ["alveol", "low", "co2"], "n": 3 } ] }
+    ],
+    "right": "Blood keeps bringing CO2 to the lungs, and breathing out removes it",
+    "wrong": ["Haemoglobin carries carbon dioxide into the alveolus", "The alveoli make carbon dioxide and pass it to the blood", "Breathing in fresh oxygen pushes carbon dioxide into the blood"],
+    "why": "Respiring cells keep adding carbon dioxide to the blood that comes to the lungs, while breathing out keeps the level in the alveolus low, so it keeps diffusing out of the blood." },
+
+  { "id": "D28-17", "topic": 3,
+    "q": "Suggest why gas exchange in the lungs slows down if breathing stops.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "The air in the alveoli is not renewed, so the concentration gradients become less steep (oxygen is used up and carbon dioxide builds up in the alveoli)", "accept": ["the concentration gradient gets smaller", "no fresh air reaches the alveoli", "carbon dioxide builds up in the alveoli", "the oxygen in the alveoli gets used up", "the difference in concentration falls"],
+        "k": [ { "w": ["gradient", "less"], "n": 2 }, { "w": ["gradient", "small"], "n": 2 }, { "w": ["gradient", "decreas"], "n": 2 }, { "w": ["gradient", "shallow"], "n": 2 }, { "w": ["no", "fresh", "air"], "n": 3 }, { "w": ["air", "not", "renew"], "n": 3 }, { "w": ["air", "not", "replac"], "n": 3 },
+               { "w": ["co2", "build", "alveol"], "n": 3 }, { "w": ["oxygen", "used", "alveol"], "n": 3 }, { "w": ["differ", "concentr", "decreas"], "n": 3 }, { "w": ["differ", "concentr", "small"], "n": 3 } ] }
+    ],
+    "right": "No fresh air arrives, so the concentration gradients become less steep",
+    "wrong": ["The alveoli collapse and lose their large surface area", "The walls of the alveoli become thicker", "Oxygen can only diffuse while the diaphragm is moving"],
+    "why": "Without breathing, the oxygen in the alveoli is used up and carbon dioxide builds up, so the difference in concentration between air and blood shrinks and diffusion slows." },
+
+  { "id": "D28-18", "topic": 4,
+    "q": "State the effect of a rise in carbon dioxide on the pH of the blood.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "The pH falls (decreases): the blood becomes more acidic", "accept": ["the pH decreases", "it lowers the pH", "the blood gets more acidic", "pH drops", "the pH goes down", "it causes acidosis"],
+        "k": [ { "w": ["ph", "decreas"], "n": 2 }, { "w": ["ph", "lower"], "n": 2 }, { "w": ["ph", "low"], "n": 2 }, { "w": ["ph", "down"], "n": 2 }, { "w": ["more", "acid"], "n": 2 }, { "w": ["acid", "increas"], "n": 2 }, { "w": ["acidos"], "n": 1 } ] }
+    ],
+    "right": "The pH of the blood falls: it becomes more acidic",
+    "wrong": ["The pH rises, making the blood more alkaline", "It has no effect: the pH stays at 7.4", "Carbon dioxide is carried as hydrogencarbonate, so the pH rises"],
+    "why": "Carbon dioxide forms an acid when it dissolves in the water of the blood, so more carbon dioxide makes the blood more acidic: its pH falls." },
+
+  { "id": "D28-19", "topic": 4,
+    "q": "State what the medulla oblongata does when it detects a rise in carbon dioxide in the blood.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Sends nerve impulses to the diaphragm and intercostal muscles", "accept": ["sends impulses to the breathing muscles", "sends messages along nerves to the diaphragm", "signals the intercostal muscles to contract faster"],
+        "k": [ { "w": ["impuls"], "n": 1 }, { "w": ["nerve"], "n": 1 }, { "w": ["message", "muscle"], "n": 2 }, { "w": ["signal", "muscle"], "n": 2 }, { "w": ["message", "diaphragm"], "n": 2 }, { "w": ["signal", "diaphragm"], "n": 2 }, { "w": ["message", "intercost"], "n": 2 }, { "w": ["signal", "intercost"], "n": 2 } ] },
+      { "a": "Makes breathing faster and deeper", "accept": ["it increases the breathing rate", "it makes us breathe more deeply", "makes you breathe quicker"],
+        "k": [ { "w": ["breath", "fast"], "n": 2 }, { "w": ["breath", "deep"], "n": 2 }, { "w": ["breath", "rate", "increas"], "n": 3 }, { "w": ["breath", "rapid"], "n": 2 } ] }
+    ],
+    "right": "It sends nerve impulses to the diaphragm and intercostal muscles",
+    "wrong": ["It releases a hormone into the blood to open the airways", "It makes the heart pump more oxygen to the lungs", "It slows breathing down to save energy"],
+    "why": "The medulla oblongata is the brain's breathing centre. It sends impulses along nerves to the diaphragm and intercostal muscles, so they contract faster and more strongly." },
+
+  { "id": "D28-20", "topic": 4,
+    "q": "Explain how the extra carbon dioxide made during exercise leads to faster breathing.",
+    "marks": 6, "need": 2,
+    "pts": [
+      { "a": "It makes the blood more acidic (its pH falls)", "accept": ["the pH of the blood decreases", "the blood is more acidic", "it lowers the pH of the blood"],
+        "k": [ { "w": ["ph", "decreas"], "n": 2 }, { "w": ["ph", "lower"], "n": 2 }, { "w": ["ph", "low"], "n": 2 }, { "w": ["ph", "down"], "n": 2 }, { "w": ["more", "acid"], "n": 2 }, { "w": ["acid", "increas"], "n": 2 }, { "w": ["acidos"], "n": 1 } ] },
+      { "a": "This is detected by the medulla oblongata in the brain", "accept": ["the brain detects it", "the medulla notices the change"],
+        "k": [ { "w": ["medulla"], "n": 1 }, { "w": ["oblongata"], "n": 1 }, { "w": ["brain", "detect"], "n": 2 } ] },
+      { "a": "Nerve impulses are sent to the diaphragm and intercostal muscles, which contract faster", "accept": ["impulses go to the breathing muscles", "the brain sends messages to the diaphragm", "nerves carry signals to the intercostal muscles"],
+        "k": [ { "w": ["impuls"], "n": 1 }, { "w": ["nerve"], "n": 1 }, { "w": ["brain", "message"], "n": 2 }, { "w": ["brain", "signal"], "n": 2 }, { "w": ["message", "muscle"], "n": 2 }, { "w": ["signal", "muscle"], "n": 2 } ] }
+    ],
+    "right": "Blood pH falls; the medulla oblongata detects this and signals the diaphragm",
+    "wrong": ["It lowers the oxygen level, which the heart detects", "The medulla detects a rise in blood pH and slows the heart", "Carbon dioxide makes the blood more acidic, so the lungs work harder"],
+    "why": "Carbon dioxide makes the blood more acidic. The medulla oblongata detects the fall in pH and sends nerve impulses to the diaphragm and intercostal muscles, which contract faster and harder." },
+
+  { "id": "D28-21", "topic": 4,
+    "q": "Explain how faster, deeper breathing helps to bring the pH of the blood back to normal during exercise.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "More carbon dioxide is breathed out (removed from the blood), so the blood becomes less acidic", "accept": ["it removes more CO2 from the blood", "more carbon dioxide is exhaled", "CO2 diffuses out of the blood faster and is breathed out", "it gets rid of the extra carbon dioxide"],
+        "k": [ { "w": ["remov", "co2"], "n": 2 }, { "w": ["exhal", "co2"], "n": 2 }, { "w": ["breath", "out", "co2"], "n": 3 }, { "w": ["co2", "diffu", "out"], "n": 3 }, { "w": ["less", "co2"], "n": 2 }, { "w": ["lose", "co2"], "n": 2 } ] }
+    ],
+    "right": "It removes carbon dioxide from the blood faster, by breathing it out",
+    "wrong": ["It takes in more oxygen, which neutralises the acid", "It makes the heart pump the acid to the kidneys", "It cools the blood down so it is less acidic"],
+    "why": "Breathing faster and deeper exhales the extra carbon dioxide, so less acid forms in the blood and its pH rises back towards normal." },
+
+  { "id": "D28-22", "topic": 4,
+    "q": "Suggest why a person who has held their breath for a long time then breathes quickly and deeply.",
+    "marks": 3, "need": 1,
+    "pts": [
+      { "a": "Carbon dioxide has built up in the blood, making it more acidic, and the medulla oblongata detects this", "accept": ["CO2 levels in the blood rise", "the blood becomes more acidic", "the pH of the blood falls", "carbon dioxide builds up and must be removed", "the brain detects high carbon dioxide"],
+        "k": [ { "w": ["co2", "build"], "n": 2 }, { "w": ["co2", "increas"], "n": 2 }, { "w": ["co2", "high"], "n": 2 }, { "w": ["more", "co2"], "n": 2 }, { "w": ["co2", "accumul"], "n": 2 },
+               { "w": ["more", "acid"], "n": 2 }, { "w": ["acid", "increas"], "n": 2 }, { "w": ["ph", "decreas"], "n": 2 }, { "w": ["ph", "low"], "n": 2 }, { "w": ["ph", "lower"], "n": 2 }, { "w": ["ph", "down"], "n": 2 } ] }
+    ],
+    "right": "Carbon dioxide has built up in the blood, making it more acidic",
+    "wrong": ["The level of oxygen in the blood has fallen, and the brain detects this", "The lungs have shrunk and need to be refilled", "The heart has slowed down and needs to catch up"],
+    "why": "While the breath is held, carbon dioxide from respiration builds up and the blood's pH falls. The medulla oblongata detects this and drives fast, deep breaths to remove it." }
+]
