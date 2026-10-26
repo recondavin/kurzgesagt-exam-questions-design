@@ -200,10 +200,31 @@
       return '<ellipse cx="0" cy="4" rx="22" ry="27" fill="' + c + '"' + s() + '/><ellipse cx="0" cy="10" rx="14" ry="19" fill="' + W + '"' + s(2) + '/>' +
         eye(-7, -8, 4.5, 2.1) + eye(7, -8, 4.5, 2.1) + '<path d="M-5 -1L0 5L5 -1Z" fill="#FF9600"' + s(2) + '/>' + '<path d="M-10 30L-16 33H-4ZM10 30L16 33H4Z" fill="#FF9600"' + s(2) + '/>' +
         '<path d="M-22 0Q-30 10 -24 18M22 0Q30 10 24 18" fill="none"' + s(2.6) + '/>';
+    }],
+    ['tooth', 'Tooth', function (c) {
+      return '<path d="M-22 -14C-22 -26 -10 -28 0 -22C10 -28 22 -26 22 -14C22 0 18 8 16 18C14 28 8 32 6 22C4 14 -4 14 -6 22C-8 32 -14 28 -16 18C-18 8 -22 0 -22 -14Z" fill="' + tone(c, 0.82) + '"' + s() + '/>' +
+        '<path d="M-14 -18Q-10 -22 -6 -20" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>' + face('dots', 'grin', -8);
+    }],
+    ['stomach', 'Stomach', function (c) {
+      return line('M-14 -34V-20', 6) + '<path d="M-14 -34V-20" stroke="' + tone(c, -0.15) + '" stroke-width="2" stroke-linecap="round"/>' +
+        '<path d="M-20 -22C-20 -10 -26 4 -18 18C-8 32 18 32 26 14C30 4 26 -10 14 -10C6 -10 4 -4 0 -6C-6 -8 -6 -18 -8 -22Z" fill="' + c + '"' + s() + '/>' +
+        line('M20 22Q26 28 32 26', 4) + eye(-3, 6, 5, 2.3) + eye(13, 6, 5, 2.3) + line('M0 17Q5 21 10 17');
+    }],
+    ['bee', 'Bee', function (c) {
+      return '<ellipse cx="-10" cy="-20" rx="10" ry="7" fill="#FFFFFF"' + s(2.4) + ' transform="rotate(-25 -10 -20)"/><ellipse cx="10" cy="-20" rx="10" ry="7" fill="#FFFFFF"' + s(2.4) + ' transform="rotate(25 10 -20)"/>' +
+        '<ellipse cx="0" cy="6" rx="24" ry="22" fill="' + c + '"' + s() + '/><path d="M-21 14Q0 22 21 14M-14 24Q0 29 14 24" fill="none" stroke="' + INK + '" stroke-width="5"/>' +
+        line('M-6 -14L-10 -26M6 -14L10 -26', 2.4) + '<circle cx="-10" cy="-27" r="2.6" fill="' + INK + '"/><circle cx="10" cy="-27" r="2.6" fill="' + INK + '"/>' + face('dots', 'smile', -2);
+    }],
+    ['sheep', 'Sheep', function (c) {
+      var wool = '';
+      for (var i = 0; i < 12; i++) { var a = i / 12 * Math.PI * 2; wool += '<circle cx="' + n(20 * Math.cos(a)) + '" cy="' + n(6 + 18 * Math.sin(a)) + '" r="9" fill="#FFFFFF"' + s(2.6) + '/>'; }
+      return wool + '<ellipse cx="0" cy="6" rx="21" ry="17" fill="#FFFFFF"/><path d="M-8 34V26M8 34V26" stroke="' + INK + '" stroke-width="4" stroke-linecap="round"/>' +
+        '<ellipse cx="0" cy="2" rx="12" ry="14" fill="' + c + '"' + s(2.6) + '/><ellipse cx="-14" cy="-6" rx="6" ry="3.4" fill="' + c + '"' + s(2.2) + '/><ellipse cx="14" cy="-6" rx="6" ry="3.4" fill="' + c + '"' + s(2.2) + '/>' +
+        eye(-5, -2, 4, 1.9) + eye(5, -2, 4, 1.9) + line('M-3 9Q0 11 3 9', 2);
     }]
   ];
   // The ready-made characters' colours as they come (you can change it).
-  var PLAYER_COLOUR = { blob: 0, robot: 9, cat: 3, star: 6, rbc: 2, neuron: 4, heart: 2, lungs: 5, kidney: 8, germ: 7, frog: 1, owl: 8, fox: 3, ghost: 4, alien: 1, astronaut: 0, dino: 1, penguin: 9 };
+  var PLAYER_COLOUR = { blob: 0, robot: 9, cat: 3, star: 6, rbc: 2, neuron: 4, heart: 2, lungs: 5, kidney: 8, germ: 7, frog: 1, owl: 8, fox: 3, ghost: 4, alien: 1, astronaut: 0, dino: 1, penguin: 9, tooth: 0, stomach: 5, bee: 6, sheep: 9 };
   function playerSvg(spec, size, cls) {
     var c = COLOURS[spec.c] || COLOURS[0], inner;
     if (spec.p === 'make') inner = built(spec.d || [0, 0, 0, 0, 0], c);
@@ -359,9 +380,54 @@
         '<path d="M160 420V180M260 420V180M160 330H260" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round"/>' + floor('#5DAE38', '#3D7F22');
     }]
   ];
-  function placeSvg(id) {
-    var p = PLACES.filter(function (x) { return x[0] === id; })[0] || PLACES[0];
-    return '<svg class="mk-place" viewBox="0 0 1600 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">' + p[3]() + '</svg>';
+  // Design your own place: the sky, the ground, what's behind, what's in the sky.
+  var SKIES = [['#CDEBFA', 'Day'], ['#FFD8A8', 'Sunset'], ['#1B2A4A', 'Night'], ['#14213D', 'Space'], ['#E3F5E1', 'Mint'], ['#FFE3E8', 'Pink']];
+  var GROUNDS = [['#7CC36A', 'Grass', '#4E8F3E'], ['#F6D58E', 'Sand', '#C9AC66'], ['#FFFFFF', 'Snow', '#9FB8CC'], ['#C7A27C', 'Wood', INK], ['#9AA8B5', 'Stone', '#5B6B8C'], ['#4B5563', 'Road', INK]];
+  var BEHIND = [
+    ['none', 'Nothing', function () { return ''; }],
+    ['hills', 'Hills', function () { return '<path d="M0 420Q200 280 420 360T880 330T1300 350T1600 300V420Z" fill="#9ED96C"' + s(4) + '/><path d="M0 420Q300 340 600 400T1200 380T1600 400V420Z" fill="#7CC36A"' + s(4) + '/>'; }],
+    ['mountains', 'Mountains', function () {
+      return '<path d="M0 420L300 170L560 420Z" fill="#B9CFE0"' + s(4) + '/><path d="M300 170L360 220L330 240L290 210L250 245L232 227Z" fill="#FFFFFF"' + s(3) + '/>' +
+        '<path d="M520 420L800 200L1080 420Z" fill="#A7BED1"' + s(4) + '/><path d="M1000 420L1300 120L1600 420Z" fill="#9FB8CC"' + s(4) + '/><path d="M1300 120L1370 190L1330 205L1300 180L1260 210L1232 188Z" fill="#FFFFFF"' + s(3) + '/>';
+    }],
+    ['city', 'City', function () {
+      var out = '';
+      [[60, 170, 160, '#5B6B8C'], [240, 110, 120, '#36486B'], [380, 210, 150, '#5B6B8C'], [560, 140, 110, '#36486B'], [700, 230, 120, '#5B6B8C'], [1000, 160, 140, '#36486B'], [1160, 100, 120, '#5B6B8C'], [1300, 200, 130, '#36486B'], [1450, 150, 140, '#5B6B8C']].forEach(function (x) {
+        out += rect(x[0], x[1], x[2], 420 - x[1], x[3], s(4));
+        for (var yy = x[1] + 24; yy < 390; yy += 46) for (var xx = x[0] + 20; xx < x[0] + x[2] - 30; xx += 40) out += rect(xx, yy, 18, 22, (xx + yy) % 3 ? '#FFC800' : '#24344F');
+      });
+      return out;
+    }],
+    ['trees', 'Trees', function () { return tree(110, 420, 1.1, '#3E9B4F') + tree(330, 420, 0.8, '#4CB944') + tree(600, 420, 0.6, '#3E9B4F') + tree(1000, 420, 0.7, '#4CB944') + tree(1250, 420, 1, '#3E9B4F') + tree(1460, 420, 1.2, '#4CB944'); }],
+    ['sea', 'Sea', function () { return rect(0, 300, 1600, 120, '#59B8E6') + line('M100 340q30 -16 60 0t60 0M600 370q30 -16 60 0t60 0M1100 335q30 -16 60 0t60 0', 4).replace(INK, '#FFFFFF'); }],
+    ['volcano', 'Volcano', function () {
+      return circles([[700, 70, 40], [760, 40, 34], [820, 76, 30]], '#B7B0AA', s(4)) + '<path d="M380 420L700 150H900L1220 420Z" fill="#6B4A3A"' + s(5) + '/><path d="M700 150H900L860 200L820 180L790 230L760 185L730 205Z" fill="#FF6B2C"' + s(4) + '/>';
+    }]
+  ];
+  var ABOVE = [
+    ['none', 'Nothing', function () { return ''; }],
+    ['sun', 'Sun', function () { return '<circle cx="1300" cy="100" r="58" fill="#FFC800"' + s(5) + '/>'; }],
+    ['moon', 'Moon', function () { return '<circle cx="1180" cy="110" r="56" fill="#F6F0C8"' + s(5) + '/><circle cx="1160" cy="96" r="10" fill="#E6DCA8"/><circle cx="1200" cy="128" r="7" fill="#E6DCA8"/>'; }],
+    ['clouds', 'Clouds', function () {
+      return [[200, 90, 1], [760, 60, 0.8], [1250, 110, 1.1]].map(function (c) {
+        return '<path transform="translate(' + c[0] + ' ' + c[1] + ') scale(' + c[2] + ')" d="M-60 30A28 28 0 0 1 -44 -14A36 36 0 0 1 10 -30A32 32 0 0 1 56 -2A26 26 0 0 1 52 40H-46A22 22 0 0 1 -60 30Z" fill="#FFFFFF"' + s(5) + '/>';
+      }).join('');
+    }],
+    ['stars', 'Stars', function () { var out = ''; for (var i = 0; i < 46; i++) out += '<circle cx="' + ((i * 349) % 1600) + '" cy="' + (20 + (i * 137) % 260) + '" r="' + (2 + i % 3) + '" fill="#FFFFFF"/>'; return out; }],
+    ['rainbow', 'Rainbow', function () {
+      return ['#FF4B4B', '#FF9600', '#FFC800', '#58CC02', '#1CB0F6', '#CE82FF'].map(function (c, i) { var r = 330 - i * 18; return '<path d="M' + (1150 - r) + ' 420A' + r + ' ' + r + ' 0 0 1 ' + (1150 + r) + ' 420" fill="none" stroke="' + c + '" stroke-width="18"/>'; }).join('');
+    }]
+  ];
+  var PLACE_PARTS = { sky: SKIES.map(function (x) { return x[1]; }), ground: GROUNDS.map(function (x) { return x[1]; }), behind: BEHIND.map(function (x) { return x[1]; }), above: ABOVE.map(function (x) { return x[1]; }),
+    skyColours: SKIES.map(function (x) { return x[0]; }), groundColours: GROUNDS.map(function (x) { return x[0]; }) };
+  function placeDark(pd) { return pd[0] === 2 || pd[0] === 3; }
+  function builtPlace(pd) {
+    var g = GROUNDS[pd[1]] || GROUNDS[0];
+    return rect(0, 0, 1600, 500, (SKIES[pd[0]] || SKIES[0])[0]) + (ABOVE[pd[3]] || ABOVE[0])[2]() + (BEHIND[pd[2]] || BEHIND[0])[2]() + floor(g[0], g[2]);
+  }
+  function placeSvg(id, pd) {
+    var p = id === 'make' ? null : PLACES.filter(function (x) { return x[0] === id; })[0] || PLACES[0];
+    return '<svg class="mk-place" viewBox="0 0 1600 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">' + (p ? p[3]() : builtPlace(pd || [0, 0, 1, 1])) + '</svg>';
   }
 
   // ======================================================================== things (stickers)
@@ -404,7 +470,7 @@
     players: list(PLAYERS), playerColour: PLAYER_COLOUR, playerSvg: playerSvg,
     parts: PARTS, partName: partName, partSvg: partSvg,
     rivals: list(RIVALS), rivalSvg: rivalSvg,
-    places: PLACES.map(function (p) { return { id: p[0], name: p[1], dark: p[2] }; }), placeSvg: placeSvg,
+    places: PLACES.map(function (p) { return { id: p[0], name: p[1], dark: p[2] }; }), placeSvg: placeSvg, placeParts: PLACE_PARTS, placeDark: placeDark,
     things: THINGS.map(function (t) { return { id: t[0], name: t[1], floats: Boolean(FLOATS[t[0]]) }; }), thingSvg: thingSvg
   };
 })();

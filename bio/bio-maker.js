@@ -101,7 +101,7 @@
   function idsOf(list) { return list.map(function (x) { return x.id; }); }
   function defaults() {
     return { v: 2, n: 'My game', src: 'short', ans: 'box', t: 1, f: 1, o: 4, ch: CH.slice(), w: 'race', r: 'step1', x: 'him1', s: 8,
-      p: 'blob', d: [0, 0, 0, 0, 0], c: 0, op: 'examiner', od: [7, 3, 5, 4, 0], oc: 4, pl: 'class', th: [], e: 1 };
+      p: 'blob', d: [0, 0, 0, 0, 0], c: 0, op: 'examiner', od: [7, 3, 5, 4, 0], oc: 4, pl: 'class', pd: [0, 0, 1, 1], th: [], e: 1 };
   }
   function oneOf(v, list, d) { return list.indexOf(String(v)) >= 0 ? v : d; }
   function num(v, lo, hi, d) { v = Math.round(+v); return v >= lo && v <= hi ? v : d; }
@@ -133,7 +133,9 @@
     o.op = g.op === 'make' ? 'make' : oneOf(g.op, idsOf(A.rivals), d.op);
     o.od = partsOf(g.od, d.od);
     o.oc = num(g.oc, 0, A.colours.length - 1, d.oc);
-    o.pl = oneOf(g.pl, idsOf(A.places), old ? OLD_PLACES[num(g.b, 0, 3, 0)] : d.pl);
+    o.pl = g.pl === 'make' ? 'make' : oneOf(g.pl, idsOf(A.places), old ? OLD_PLACES[num(g.b, 0, 3, 0)] : d.pl);
+    var pd = Array.isArray(g.pd) ? g.pd : d.pd, PP = A.placeParts;
+    o.pd = [num(pd[0], 0, PP.sky.length - 1, 0), num(pd[1], 0, PP.ground.length - 1, 0), num(pd[2], 0, PP.behind.length - 1, 1), num(pd[3], 0, PP.above.length - 1, 1)];
     o.th = (Array.isArray(g.th) ? g.th : []).filter(function (t) { return Array.isArray(t) && idsOf(A.things).indexOf(String(t[0])) >= 0; })
       .slice(0, THINGS_MAX).map(function (t) { return [String(t[0]), clamp(t[1], 3, 97, 50), clamp(t[2], 8, 84, 84)]; });
     o.e = num(g.e, 0, MOODS.length - 1, d.e);
@@ -335,7 +337,7 @@
       '<path d="M8 89V6H112V89" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round"/></svg>';
   })();
   function heart(on) { return '<svg class="mk-heart' + (on ? '' : ' is-gone') + '" viewBox="0 0 20 18" aria-hidden="true"><path d="M10 17S1 11 1 5.5A4.5 4.5 0 0 1 10 3.5A4.5 4.5 0 0 1 19 5.5C19 11 10 17 10 17Z"/></svg>'; }
-  function placeOf(g) { return A.places.filter(function (p) { return p.id === g.pl; })[0] || A.places[0]; }
+  function placeOf(g) { return g.pl === 'make' ? { id: 'make', name: 'Your own place', dark: A.placeDark(g.pd) } : A.places.filter(function (p) { return p.id === g.pl; })[0] || A.places[0]; }
   function nameOf(list, id) { var x = list.filter(function (o) { return o.id === id; })[0]; return x ? x.name : ''; }
   function playerName(g) { return g.p === 'make' ? 'your own character' : nameOf(A.players, g.p); }
   // The world as the game stands: the place, your things, the pieces where they are, and the counters. edit: the things
@@ -376,7 +378,7 @@
     }).join('');
     return '<div class="mk-world mk-world--' + g.w + (placeOf(g).dark ? ' is-dark' : '') + (edit ? ' is-edit' : '') + '" role="img" aria-label="' +
       esc(W.name + ': ' + playerName(g) + ' against ' + rivalName(g) + ', ' + placeOf(g).name) + '"' + (edit ? ' data-mk-stage' : '') + '>' +
-      A.placeSvg(g.pl) + '<div class="mk-things">' + things + '</div>' + x + lives + '</div>';
+      A.placeSvg(g.pl, g.pd) + '<div class="mk-things">' + things + '</div>' + x + lives + '</div>';
   }
   // Small pictures for the question cards.
   var ICON = {
@@ -440,7 +442,7 @@
   function saved() { try { var l = JSON.parse(K.store('bio-made') || '[]'); return Array.isArray(l) ? l.map(clean) : []; } catch (e) { return []; } }
   function keep(list) { K.store('bio-made', JSON.stringify(list.slice(0, 20))); }
   function host(label) {
-    M = { card: BK.host(28, label), g: defaults(), st: null, step: 0, more: false, tab: 'ready', otab: 'ready', sel: -1, lib: 'players', libSel: null, phase: '' };
+    M = { card: BK.host(28, label), g: defaults(), st: null, step: 0, more: false, tab: 'ready', otab: 'ready', ptab: 'ready', sel: -1, lib: 'players', libSel: null, phase: '' };
     K.gameHud(M.card, 0, '');
     return M;
   }
@@ -476,6 +478,19 @@
     return '<div class="mk-tabs" role="tablist">' + [['ready', ready], ['make', 'Design your own']].map(function (t) {
       return '<button type="button" role="tab" class="mk-tab' + (now === t[0] ? ' is-on' : '') + '" aria-selected="' + (now === t[0]) + '" data-mk-' + key + '="' + t[0] + '">' + t[1] + '</button>';
     }).join('') + '</div>';
+  }
+  // Design your own place: the sky and the ground (colours), what's behind and what's in the sky (small pictures).
+  function placeBuilder() {
+    var g = M.g, PP = A.placeParts;
+    var row = function (label, i, names, art) {
+      return '<fieldset class="mk-row"><legend>' + label + '</legend><div class="mk-chips">' + names.map(function (name, k) {
+        var on = g.pd[i] === k;
+        return '<button type="button" class="mk-chip mk-chip--' + (art ? 'place' : 'sw') + (on ? ' is-on' : '') + '" aria-pressed="' + on + '" aria-label="' + esc(name) + '" title="' + esc(name) + '" data-mk-ppart="' + i + '" data-mk-val="' + k + '">' +
+          (art ? art(k) : '<i class="mk-swatch" style="background:' + (i ? PP.groundColours[k] : PP.skyColours[k]) + '"></i>') + '</button>';
+      }).join('') + '</div></fieldset>';
+    };
+    var thumb = function (i) { return function (k) { var pd = g.pd.slice(); pd[i] = k; return A.placeSvg('make', pd); }; };
+    return '<div class="mk-build__rows">' + row('Sky', 0, PP.sky) + row('Ground', 1, PP.ground) + row('Behind', 2, PP.behind, thumb(2)) + row('In the sky', 3, PP.above, thumb(3)) + '</div>';
   }
   // Design your own character (who: 'p' you, 'o' him): a big picture, then a row of each part, zoomed on that part.
   var ROWS = [['body', 'Body'], ['eyes', 'Eyes'], ['mouth', 'Mouth'], ['top', 'On top'], ['extra', 'Extra']];
@@ -525,7 +540,7 @@
     tabsFor();
     wizard();
   }
-  function tabsFor() { M.tab = M.g.p === 'make' ? 'make' : 'ready'; M.otab = M.g.op === 'make' ? 'make' : 'ready'; }
+  function tabsFor() { M.tab = M.g.p === 'make' ? 'make' : 'ready'; M.otab = M.g.op === 'make' ? 'make' : 'ready'; M.ptab = M.g.pl === 'make' ? 'make' : 'ready'; }
 
   // ---------------------------------------------------------------- the steps
   function wizard() {
@@ -576,9 +591,12 @@
           (r.id === 'examiner' ? '<span class="mk-face">' + (K.face || '') + '</span>' : A.rivalSvg(r.id, 64)) + '<span>' + esc(r.name) + '</span></button>';
       }).join('') + '</div>';
     }
-    if (id === 'pl') return '<div class="mk-tiles mk-tiles--wide">' + A.places.map(function (p) {
-      return '<button type="button" class="mk-tile mk-tile--place' + (g.pl === p.id ? ' is-on' : '') + '" aria-pressed="' + (g.pl === p.id) + '" data-mk-pick="pl" data-mk-val="' + p.id + '">' + A.placeSvg(p.id) + '<span>' + esc(p.name) + '</span></button>';
-    }).join('') + '</div>';
+    if (id === 'pl') {
+      if (M.ptab === 'make') return tabs('ptab', M.ptab, 'Places') + placeBuilder();
+      return tabs('ptab', M.ptab, 'Places') + '<div class="mk-tiles mk-tiles--wide">' + A.places.map(function (p) {
+        return '<button type="button" class="mk-tile mk-tile--place' + (g.pl === p.id ? ' is-on' : '') + '" aria-pressed="' + (g.pl === p.id) + '" data-mk-pick="pl" data-mk-val="' + p.id + '">' + A.placeSvg(p.id) + '<span>' + esc(p.name) + '</span></button>';
+      }).join('') + '</div>';
+    }
     if (id === 'th') {
       var full = g.th.length >= THINGS_MAX;
       return '<p class="mk-hint">' + (g.th.length ? 'Tap a thing in the picture, then tap where it goes.' : 'Tap a thing to put it in your world. Or skip this.') + '</p>' +
@@ -657,7 +675,7 @@
     var w = r(ORDER), W = WORLDS[w], p = Math.random() < 0.3 ? 'make' : r(A.players).id;
     var g = clean({ src: r(['short', 'short', 'long', 'all']), ans: r(['box', 'box', 'type', 'fig', 'own']), t: 1, f: r([1, 2]), o: 4, ch: CH.slice(), w: w, r: r(W.right)[0], x: r(W.wrong)[0], s: W.size[1],
       p: p, d: parts(), c: p === 'make' ? Math.floor(Math.random() * A.colours.length) : A.playerColour[p], op: Math.random() < 0.2 ? 'make' : r(A.rivals).id, od: parts(), oc: Math.floor(Math.random() * A.colours.length),
-      pl: r(A.places).id, th: [], e: r([0, 1, 2]) });
+      pl: Math.random() < 0.2 ? 'make' : r(A.places).id, pd: [r([0, 1, 2, 3, 4, 5]), r([0, 1, 2, 3, 4, 5]), r([1, 2, 3, 4, 5, 6]), r([1, 2, 3, 4, 5])], th: [], e: r([0, 1, 2]) });
     g.n = nameIdeas(g)[0];
     return g;
   }
@@ -871,6 +889,8 @@
     if ((t = e.target.closest('[data-mk-ch]'))) { chapter(+t.getAttribute('data-mk-ch')); return; }
     if (e.target.closest('[data-mk-chall]')) { M.g.ch = CH.slice(); keepScroll(wizard); return; }
     if ((t = e.target.closest('[data-mk-tab]'))) { M.tab = t.getAttribute('data-mk-tab'); if (M.tab === 'make') M.g.p = 'make'; keepScroll(wizard); return; }
+    if ((t = e.target.closest('[data-mk-ptab]'))) { M.ptab = t.getAttribute('data-mk-ptab'); if (M.ptab === 'make') M.g.pl = 'make'; keepScroll(wizard); return; }
+    if ((t = e.target.closest('[data-mk-ppart]'))) { M.g.pd[+t.getAttribute('data-mk-ppart')] = +t.getAttribute('data-mk-val'); M.g.pl = 'make'; M.g = clean(M.g); keepScroll(wizard); return; }
     if ((t = e.target.closest('[data-mk-otab]'))) { M.otab = t.getAttribute('data-mk-otab'); if (M.otab === 'make') M.g.op = 'make'; keepScroll(wizard); return; }
     if ((t = e.target.closest('[data-mk-part]'))) {
       var part = t.getAttribute('data-mk-part'), who = part.charAt(0);

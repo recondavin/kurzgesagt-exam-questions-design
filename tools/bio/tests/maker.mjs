@@ -47,7 +47,7 @@ for (const w of Object.keys(T.WORLDS)) {
     const g = T.clean({ n: 'Héllo game ' + k, src: T.SOURCES[k % 6][0], ans: T.ANSWERS[k % 4][0], t: k % 3, f: (k + 1) % 3, o: 2 + k % 3, ch: [29, 31],
       w, r: r[0], x: x[0], s, p: k % 5 ? A.players[k % A.players.length].id : 'make', d: [k % 8, k % 8, k % 7, k % 12, k % 6], c: k % 10,
       op: k % 4 ? A.rivals[k % A.rivals.length].id : 'make', od: [(k + 3) % 8, k % 8, (k + 1) % 7, (k + 2) % 12, k % 6], oc: (k + 5) % 10,
-      pl: A.places[k % A.places.length].id, th: [['star', 20, 30], ['tree', 80, 84]], e: k % 3 });
+      pl: k % 5 ? A.places[k % A.places.length].id : 'make', pd: [k % 6, (k + 1) % 6, k % 7, (k + 2) % 6], th: [['star', 20, 30], ['tree', 80, 84]], e: k % 3 });
     const back = T.decode(T.encode(g));
     n++;
     if (JSON.stringify(back) !== JSON.stringify(g)) fail(`${w}/${r[0]}/${x[0]}/${s}: the link gives back ${JSON.stringify(back)}`);
@@ -129,6 +129,9 @@ A.players.forEach(p => A.colours.forEach((c, i) => whole(A.playerSvg({ p: p.id, 
 }));
 A.rivals.forEach(r => { if (r.id !== 'examiner') whole(A.rivalSvg(r.id, 64), `opponent ${r.id}`); });
 A.places.forEach(p => whole(A.placeSvg(p.id), `place ${p.id}`));
+A.placeParts.behind.forEach((b, i) => A.placeParts.above.forEach((a, j) => whole(A.placeSvg('make', [(i + j) % 6, (i * 2 + j) % 6, i, j]), `designed place: ${b} with ${a}`)));
+n++;
+if (A.placeDark([2, 0, 0, 0]) !== true || A.placeDark([0, 0, 0, 0]) !== false) fail('a night sky should be dark and a day sky not');
 A.things.forEach(t => whole(A.thingSvg(t.id), `thing ${t.id}`));
 n++;
 if (A.players.length < 16 || A.rivals.length < 6 || A.places.length < 12 || A.things.length < 18) fail('the library is smaller than it should be');

@@ -723,6 +723,8 @@ button.sea-c { cursor: default; }
 .mk-chip:hover { background: #26363E; }
 .mk-chip.is-on { border-color: #1CB0F6; background: #17384A; }
 .mk-chip--sw { padding: 6px 9px; }
+.mk-chip--place { padding: 3px; }
+.mk-chip--place svg { display: block; width: 128px; height: 40px; border-radius: 9px; }
 .mk-chip--part { padding: 2px 4px; min-height: 0; }
 .mk-chip--part svg { display: block; overflow: hidden; border-radius: 9px; }
 .mk-swatch { display: block; width: 28px; height: 28px; border: 2px solid #13294A; border-radius: 50%; }
@@ -890,6 +892,7 @@ button.sea-c { cursor: default; }
   .mk-tiles--wide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mk-tile:not(.mk-tile--place) > svg, .mk-tile > .mk-face { width: 60px; height: 60px; }
   .mk-chip--part svg { width: 48px; height: auto; }
+  .mk-chip--place svg { width: 96px; height: 30px; }
   .mk-build { grid-template-columns: minmax(0, 1fr); }
   .mk-build__me { position: static; grid-template-columns: auto auto; justify-content: center; align-items: center; }
   .mk-build__me > svg { width: 96px; height: 96px; }
