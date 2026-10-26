@@ -13,6 +13,7 @@
 //              scheme points, no wrong answer does, and its own right answer isn't cancelled; a diagram can be tapped
 //              on its own diagram; "What I got wrong" asks exactly the ones you got wrong, and with none it says so
 //              and asks them all.
+//   Random     "Or make one for me" makes games of real cards, with questions.
 //   Memory     the shared memory (Exam drill's 'bio-drill'): a wrong one comes back as options three questions on; a
 //              right one comes back typed five on (typing sometimes); typing never or always is kept to.
 // Run: node tools/bio/tests/maker.mjs
@@ -228,6 +229,13 @@ for (const ch of [[28], [29], [30], [31], [32], [28, 29, 30, 31, 32]]) {
     n++;
     if (odd) fail(`typing ${t ? 'always' : 'never'}: ${odd} of 20 questions came ${want ? 'as options' : 'typed'}`);
   }
+}
+// "Or make one for me": every random game is made of real cards and comes back from its link the same.
+for (let i = 0; i < 200; i++) {
+  const g = T.randomGame();
+  n++;
+  if (JSON.stringify(T.clean(g)) !== JSON.stringify(g) || JSON.stringify(T.decode(T.encode(g))) !== JSON.stringify(g)) { fail(`a random game isn't made of real cards: ${JSON.stringify(g)}`); break; }
+  if (!T.questionsFor(g).main.length) { fail(`a random game has no questions: ${JSON.stringify(g)}`); break; }
 }
 // Names it suggests fit the box.
 Object.keys(T.WORLDS).forEach(w => A.rivals.forEach(r => {

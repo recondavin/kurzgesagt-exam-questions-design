@@ -437,7 +437,11 @@
             (dc ? '<span><b class="num">' + dc.done + '</b><span class="of"> of ' + dc.all + '</span> learnt</span>' : '') + '</span></a>';
       }).join('') + '</section>' +
       (games.length ? '<h2 class="bh-h rise" style="--i:2">Games</h2><section class="bh-games rise" style="--i:3" aria-label="Games">' + games.map(function (g) {
-        return '<a class="card bh-game' + (g[0] === 'make' ? ' bh-game--make' : '') + '" href="#' + g[0] + '">' + esc(g[1]) + '<i class="bio-go" aria-hidden="true"></i></a>';
+        // Make your own games shows some of its characters (bio/maker-assets.js).
+        var A = window.BioMakerArt, art = g[0] === 'make' && A ? '<span class="bh-make-art" aria-hidden="true">' + ['frog', 'rbc', 'astronaut', 'robot', 'heart'].map(function (id) {
+          return A.playerSvg({ p: id, c: A.playerColour[id] }, 44);
+        }).join('') + A.rivalSvg('virus', 44) + '</span>' : '';
+        return '<a class="card bh-game' + (g[0] === 'make' ? ' bh-game--make' : '') + '" href="#' + g[0] + '">' + esc(g[1]) + art + '<i class="bio-go" aria-hidden="true"></i></a>';
       }).join('') + '</section>' : '') + '</div>';
   }
   function renderProgress() {

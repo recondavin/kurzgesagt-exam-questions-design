@@ -87,6 +87,14 @@
     ['n', 'Name', 'What\'s it called?']
   ];
   var PARTS = ['Questions', 'Game', 'Look', 'Name'];
+  // What he says to some picks.
+  var REACT = {
+    src: { short: 'Quick ones. Fine.', long: 'Longer ones. Brave.', all: 'A bit of everything. Sensible.', wrong: 'Good. Face them.', fresh: 'Something new, then.', new: 'Questions no exam has asked. Yet.' },
+    ans: { box: 'Four options. One is right.', type: 'Typed. Marked properly.', fig: 'Real exam diagrams. Good.', own: 'Your own mix. Go on.' },
+    w: { race: 'A race. I\'m fast.', battle: 'A battle. Bring it.', tower: 'Build away.', points: 'Points. I like points.', shoot: 'I\'m a great goalkeeper.', grow: 'A plant. How calming.' },
+    op: { examiner: 'Me. Obviously.', virus: 'A virus. Bold.', bacterium: 'A bacterium. Hmph.', mould: 'Mould. Lovely.', paper: 'An exam paper. Fitting.', clock: 'The clock. Always running.', king: 'The germ king.', robo: 'A robot me? Flattering.' },
+    e: { 0: 'Calm. I can do calm.', 1: 'Strict. As usual.', 2: 'You asked for it.' }
+  };
   var OLD_PLAYERS = ['blob', 'robot', 'cat', 'star'], OLD_PLACES = ['class', 'lab', 'night', 'beach'];
 
   function ids(list) { return list.map(function (x) { return String(x[0]); }); }
@@ -417,6 +425,18 @@
   var M = null;
   function live() { return M && M.card.isConnected; }
   function q(sel) { return M.card.querySelector(sel); }
+  // Your best at each game (by its link): how many times you've won, and the fewest answers you won in.
+  function bests() { try { return JSON.parse(K.store('bio-made-best') || '{}') || {}; } catch (e) { return {}; } }
+  function bestOf(g) { return bests()[encode(g)] || null; }
+  function record(g, won, asked) {
+    var all = bests(), k = encode(g), b = all[k] || { won: 0, best: 0 }, out = {};
+    if (won) { b.won += 1; if (!b.best || asked < b.best) b.best = asked; }
+    b.t = Date.now();
+    all[k] = b;
+    Object.keys(all).sort(function (x, y) { return all[y].t - all[x].t; }).slice(0, 50).forEach(function (x) { out[x] = all[x]; });
+    K.store('bio-made-best', JSON.stringify(out));
+    return b;
+  }
   function saved() { try { var l = JSON.parse(K.store('bio-made') || '[]'); return Array.isArray(l) ? l.map(clean) : []; } catch (e) { return []; } }
   function keep(list) { K.store('bio-made', JSON.stringify(list.slice(0, 20))); }
   function host(label) {
@@ -426,7 +446,10 @@
   }
   function show(html, btns) {
     BK.body(M.card, html, true);
-    M.card.querySelector('.am-finish__card').classList.add('tb-wide');
+    var card = M.card.querySelector('.am-finish__card');
+    card.classList.add('tb-wide');
+    // Making it (not playing): Back and Continue stay at the bottom of the card while you scroll.
+    card.classList.toggle('mk-host', ['wizard', 'summary', 'library', 'home', 'link'].indexOf(M.phase) >= 0);
     BK.buttons(M.card, btns || [['more', 'data-am-keep', 'Close']], true);
     BB.nearMascot(M.card);
   }
@@ -487,7 +510,9 @@
       '<button type="button" class="mk-opt mk-opt--new" data-mk-new><span class="mk-opt__art">' + A.playerSvg({ p: 'blob', c: 1 }, 56) + '</span><span class="mk-opt__t">Make a new game</span></button>' +
       '<button type="button" class="mk-opt" data-mk-lib><span class="mk-opt__art">' + A.thingSvg('books') + '</span><span class="mk-opt__t">Asset library</span></button></div>' +
       (mine.length ? '<section class="mk-mine" aria-label="Your games"><h3 class="mk-h">Your games</h3><ul>' + mine.map(function (x, i) {
-        return '<li><span class="mk-mine__av">' + A.playerSvg({ p: x.p, d: x.d, c: x.c }, 40) + '</span><b>' + esc(x.n) + '</b><span class="mk-mine__w">' + WORLDS[x.w].name + '</span>' +
+        var best = bestOf(x);
+        return '<li><span class="mk-mine__av">' + A.playerSvg({ p: x.p, d: x.d, c: x.c }, 40) + '</span><b>' + esc(x.n) + '</b><span class="mk-mine__w">' + WORLDS[x.w].name +
+          (best && best.best ? ' · best ' + best.best : '') + '</span>' +
           '<button type="button" class="mk-mini mk-mini--go" data-mk-play="' + i + '">Play</button><button type="button" class="mk-mini" data-mk-edit="' + i + '">Edit</button>' +
           '<button type="button" class="mk-mini" data-mk-del="' + i + '" aria-label="Delete ' + esc(x.n) + '">Delete</button></li>';
       }).join('') + '</ul></section>' : '') + '</div>');
@@ -521,7 +546,8 @@
       var first = SOURCES.slice(0, 2), rest = SOURCES.slice(2), open = M.more || ids(rest).indexOf(g.src) >= 0;
       var card = function (s) { var n = count(clean(Object.assign({}, g, { src: s[0], ans: g.ans === 'fig' ? 'box' : g.ans }))); return opt('src', s[0], s[1], s[2] + ' · ' + plural(n, 'question'), icon(s[0]), g.src === s[0]); };
       return '<div class="mk-opts">' + first.map(card).join('') +
-        (open ? rest.map(card).join('') : '<button type="button" class="mk-opt mk-opt--more" data-mk-more><span class="mk-opt__art">' + icon('more') + '</span><span class="mk-opt__t">More options</span><span class="mk-opt__d">Everything, what you got wrong, what you haven\'t done, new-course questions</span></button>') + '</div>';
+        (open ? rest.map(card).join('') : '<button type="button" class="mk-opt mk-opt--more" data-mk-more><span class="mk-opt__art">' + icon('more') + '</span><span class="mk-opt__t">More options</span><span class="mk-opt__d">Everything, what you got wrong, what you haven\'t done, new-course questions</span></button>') + '</div>' +
+        '<button type="button" class="mk-mini mk-lucky" data-mk-lucky>Or make one for me</button>';
     }
     if (id === 'ans') {
       return '<div class="mk-opts">' + ANSWERS.map(function (a) { return opt('ans', a[0], a[1], a[2], icon(a[0]), g.ans === a[0]); }).join('') + '</div>' +
@@ -586,6 +612,8 @@
     else g[key] = +val;
     M.g = clean(g);
     keepScroll(wizard);
+    var line = REACT[key] && REACT[key][val];
+    if (line) K.mascot(key === 'e' && +val === 2 ? 'angry' : 'ok', line);
   }
   function go(at) {
     readName();
@@ -623,6 +651,16 @@
     M.g.th[M.sel][2] = Math.round(Math.max(8, Math.min(84, y + 6)));
     keepScroll(wizard);
   }
+  // A whole game at random (every card from the library), for "Or make one for me".
+  function randomGame() {
+    var r = function (list) { return list[Math.floor(Math.random() * list.length)]; }, parts = function () { return ['body', 'eyes', 'mouth', 'top', 'extra'].map(function (k) { return Math.floor(Math.random() * A.parts[k].length); }); };
+    var w = r(ORDER), W = WORLDS[w], p = Math.random() < 0.3 ? 'make' : r(A.players).id;
+    var g = clean({ src: r(['short', 'short', 'long', 'all']), ans: r(['box', 'box', 'type', 'fig', 'own']), t: 1, f: r([1, 2]), o: 4, ch: CH.slice(), w: w, r: r(W.right)[0], x: r(W.wrong)[0], s: W.size[1],
+      p: p, d: parts(), c: p === 'make' ? Math.floor(Math.random() * A.colours.length) : A.playerColour[p], op: Math.random() < 0.2 ? 'make' : r(A.rivals).id, od: parts(), oc: Math.floor(Math.random() * A.colours.length),
+      pl: r(A.places).id, th: [], e: r([0, 1, 2]) });
+    g.n = nameIdeas(g)[0];
+    return g;
+  }
   function surprise(who) {
     var d = ['body', 'eyes', 'mouth', 'top', 'extra'].map(function (k) { return Math.floor(Math.random() * A.parts[k].length); }), c = Math.floor(Math.random() * A.colours.length);
     if (who === 'o') { M.g.od = d; M.g.oc = c; M.g.op = 'make'; } else { M.g.d = d; M.g.c = c; M.g.p = 'make'; }
@@ -635,7 +673,7 @@
     var asks = g.ans === 'own' ? ['typing ' + TYPE_HOW[g.t][1].toLowerCase(), FIG_HOW[g.f][1].toLowerCase() === 'none' ? 'no diagrams' : FIG_HOW[g.f][1].toLowerCase() + ' diagrams', g.o + ' options'].join(', ') : name(ANSWERS, g.ans);
     var chs = g.ch.length === CH.length ? 'all chapters' : g.ch.map(function (c) { return NAME[c]; }).join(', ');
     return [
-      ['Questions', (g.ans === 'fig' ? 'Diagrams' : name(SOURCES, g.src)) + ' · ' + asks + ' · ' + chs, 0],
+      ['Questions', (g.ans === 'fig' ? 'Real exam diagrams: name the part, or tap it' : name(SOURCES, g.src) + ' · ' + asks) + ' · ' + chs, 0],
       ['Game', W.name + ' · Right: ' + name(W.right, g.r) + ' · Wrong: ' + name(W.wrong, g.x) + ' · ' + (g.w === 'battle' ? g.s + ' hearts each' : g.s + ' ' + W.unit + ' to win'), 3],
       ['Look', playerName(g).charAt(0).toUpperCase() + playerName(g).slice(1) + ' vs ' + rivalName(g).replace(/^The /, 'the ') + ' · ' + placeOf(g).name + (g.th.length ? ' · ' + plural(g.th.length, 'thing') : '') + ' · ' + MOODS[g.e][1], 7]
     ].map(function (r) { return '<li><b>' + r[0] + '</b><span>' + esc(r[1]) + '</span><button type="button" class="mk-mini" data-mk-jump="' + r[2] + '">Change</button></li>'; }).join('');
@@ -663,6 +701,8 @@
     var done = function (ok) { note.textContent = ok ? 'Copied. Send it to a friend.' : 'Copy the link and send it to a friend.'; };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function () { done(true); }, function () { done(false); });
     else done(false);
+    // On a phone, its own share sheet too.
+    if (navigator.share && window.matchMedia && window.matchMedia('(pointer: coarse)').matches) navigator.share({ title: g.n, text: 'Try my Biology game: ' + g.n, url: url }).catch(function () {});
   }
 
   // ---------------------------------------------------------------- the library
@@ -809,10 +849,12 @@
     rowEl.querySelector('button').focus({ preventScroll: true });
   }
   function finish(how) {
-    var g = M.g, won = how === 'win', mood = MOODS[g.e][0];
+    var g = M.g, won = how === 'win', mood = MOODS[g.e][0], was = bestOf(g), b = record(g, won, M.st.asked);
+    var best = won && (!was || !was.best || M.st.asked < was.best) && b.won > 1 ? 'A new best: won in ' + M.st.asked + ' answers.' :
+      b.best ? 'Your best: won in ' + b.best + ' answers' + (b.won > 1 ? ' (won ' + b.won + ' times)' : '') + '.' : '';
     M.phase = 'over';
     show('<div class="am-games__end mk-end"><div class="mk-preview">' + worldHtml(g, M.st) + '</div><h3 class="am-games__title">' + (won ? 'You won!' : 'He won.') + '</h3>' +
-      '<p class="am-games__sub">' + esc(g.n) + ': ' + M.st.right + ' right of ' + M.st.asked + '.</p></div>',
+      '<p class="am-games__sub">' + esc(g.n) + ': ' + M.st.right + ' right of ' + M.st.asked + '.</p>' + (best ? '<p class="mk-best">' + best + '</p>' : '') + '</div>',
       [['more', 'data-mk-remix', 'Change it'], ['more', 'data-mk-link-end', 'Share link'], ['ok', 'data-mk-go', 'Play again']]);
     K.mascot(won ? 'angry' : 'happy', SAY[mood][won ? 'win' : 'lose']);
     if (won) K.later(K.fanfare, 300);
@@ -825,6 +867,7 @@
     // Making it.
     if ((t = e.target.closest('[data-mk-pick]'))) { set(t.getAttribute('data-mk-pick'), t.getAttribute('data-mk-val')); return; }
     if (e.target.closest('[data-mk-more]')) { M.more = true; keepScroll(wizard); return; }
+    if (e.target.closest('[data-mk-lucky]')) { M.g = randomGame(); summary(); K.mascot('ok', 'There. One game. You\'re welcome.'); return; }
     if ((t = e.target.closest('[data-mk-ch]'))) { chapter(+t.getAttribute('data-mk-ch')); return; }
     if (e.target.closest('[data-mk-chall]')) { M.g.ch = CH.slice(); keepScroll(wizard); return; }
     if ((t = e.target.closest('[data-mk-tab]'))) { M.tab = t.getAttribute('data-mk-tab'); if (M.tab === 'make') M.g.p = 'make'; keepScroll(wizard); return; }
@@ -888,5 +931,5 @@
   window.BioMaker = { open: function () { M = null; open(); }, fromLink: fromLink, state: function () { return M; },
     // For tools/bio/tests/maker.mjs.
     test: { WORLDS: WORLDS, SOURCES: SOURCES, ANSWERS: ANSWERS, STEPS: STEPS, clean: clean, encode: encode, decode: decode, fresh: fresh, step: step, over: over, defaults: defaults,
-      bank: bank, questionsFor: questionsFor, nextQuestion: nextQuestion, typing: typing, tapSpots: tapSpots, worldHtml: worldHtml, nameIdeas: nameIdeas } };
+      bank: bank, questionsFor: questionsFor, nextQuestion: nextQuestion, typing: typing, tapSpots: tapSpots, worldHtml: worldHtml, nameIdeas: nameIdeas, randomGame: randomGame } };
 })();

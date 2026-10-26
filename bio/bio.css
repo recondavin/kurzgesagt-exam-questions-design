@@ -768,6 +768,9 @@ button.sea-c { cursor: default; }
 .mk-share { display: grid; gap: 6px; color: #B9C7CF; font: 700 15px Nunito, sans-serif; }
 .mk-share[hidden] { display: none; }
 .mk-said { margin: 0 auto 0 0; color: #F1F7FB; font: 800 18px Nunito, sans-serif; }
+.mk-lucky { justify-self: start; }
+.mk-best { margin: 6px 0 0; color: #FFC800; font: 800 17px Nunito, sans-serif; }
+.am-finish__card.mk-host > [data-am-gbtns] { position: sticky; bottom: -28px; z-index: 5; margin: 16px -28px -28px; padding: 14px 28px 28px; border-top: 2px solid #26363E; background: #18272D; }
 .mk-end .mk-preview { width: 100%; margin-bottom: 14px; }
 /* Playing: where a question is from, how many points, the parts to tap. */
 .mk-from { margin: -4px 0 0; color: #5B6B80; font: 800 13.5px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }

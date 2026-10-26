@@ -196,6 +196,8 @@ tr .pg-track i { animation-delay: inherit; }
 .bh-games { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .bh-game { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 72px; color: #fff; font: 700 19px Nunito, system-ui, sans-serif; text-decoration: none; transition: background .15s ease; }
 .bh-game--make { grid-column: 1 / -1; border: 3px solid var(--hue); }
+.bh-make-art { display: flex; gap: 4px; margin-left: auto; }
+.bh-make-art svg { display: block; width: 46px; height: 46px; }
 .bh-go { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
 @media (min-width: 701px) {
   .bh .cv-title { margin-bottom: 28px; }
@@ -218,6 +220,8 @@ tr .pg-track i { animation-delay: inherit; }
   .bh-big { font-size: 22px; }
   .bh-games { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .bh-game { min-height: 64px; font-size: 16.5px; }
+  .bh-make-art svg { width: 38px; height: 38px; }
+  .bh-make-art svg:nth-child(n+4) { display: none; }
 }
 
 /* Information animates in: each block rises into place in turn. A refresh after a card closes stays still. */
