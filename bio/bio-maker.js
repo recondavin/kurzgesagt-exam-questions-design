@@ -21,7 +21,7 @@
 // Saved here: 'bio-made' (your games). bio.js routes #make and #play=.
 (function () {
   'use strict';
-  var K = window.ExamAnswerMode && window.ExamAnswerMode.kit, BK = window.BioKit, BB = window.BioBoard, A = window.BioMakerArt;
+  var K = window.ExamAnswerMode && window.ExamAnswerMode.kit, BK = window.BioKit, BB = window.BioBoard, A = window.BioMakerArt, DR = window.BioMakerDraw;
   if (!K || !BK || !BB || !BB.memSet || !A) return;
   var esc = BK.esc, pick = BK.pick, shuffle = BK.shuffle;
   var CH = BB.chapters, NAME = BB.names, COL = BB.colours;
@@ -101,7 +101,7 @@
   function idsOf(list) { return list.map(function (x) { return x.id; }); }
   function defaults() {
     return { v: 2, n: 'My game', src: 'short', ans: 'box', t: 1, f: 1, o: 4, ch: CH.slice(), w: 'race', r: 'step1', x: 'him1', s: 8,
-      p: 'blob', d: [0, 0, 0, 0, 0], c: 0, op: 'examiner', od: [7, 3, 5, 4, 0], oc: 4, pl: 'class', pd: [0, 0, 1, 1], th: [], e: 1 };
+      p: 'blob', d: [0, 0, 0, 0, 0], c: 0, op: 'examiner', od: [7, 3, 5, 4, 0], oc: 4, pl: 'class', pd: [0, 0, 1, 1], dy: '', dr: '', dp: '', th: [], e: 1 };
   }
   function oneOf(v, list, d) { return list.indexOf(String(v)) >= 0 ? v : d; }
   function num(v, lo, hi, d) { v = Math.round(+v); return v >= lo && v <= hi ? v : d; }
@@ -127,13 +127,19 @@
     o.r = oneOf(g.r, ids(W.right), W.right[0][0]);
     o.x = oneOf(g.x, ids(W.wrong), W.wrong[0][0]);
     o.s = W.size.indexOf(+g.s) >= 0 ? +g.s : W.size[1];
-    o.p = g.p === 'make' ? 'make' : oneOf(g.p, idsOf(A.players), old ? OLD_PLAYERS[num(g.a, 0, 3, 0)] : d.p);
+    // Drawings (bio/maker-draw.js): a code that isn't a drawing is none, and what was drawn falls back to the default.
+    var drawn = function (v, kind) { return DR && typeof v === 'string' && v && DR.decode(v, kind) ? v : ''; };
+    var colour = function (v, def) { return typeof v === 'string' && /^#[0-9a-f]{6}$/i.test(v) ? v.toUpperCase() : num(v, 0, A.colours.length - 1, def); };
+    o.dy = drawn(g.dy, 'char');
+    o.dr = drawn(g.dr, 'char');
+    o.dp = drawn(g.dp, 'place');
+    o.p = g.p === 'draw' ? (o.dy ? 'draw' : d.p) : g.p === 'make' ? 'make' : oneOf(g.p, idsOf(A.players), old ? OLD_PLAYERS[num(g.a, 0, 3, 0)] : d.p);
     o.d = partsOf(g.d, d.d);
-    o.c = num(g.c, 0, A.colours.length - 1, 0);
-    o.op = g.op === 'make' ? 'make' : oneOf(g.op, idsOf(A.rivals), d.op);
+    o.c = colour(g.c, 0);
+    o.op = g.op === 'draw' ? (o.dr ? 'draw' : d.op) : g.op === 'make' ? 'make' : oneOf(g.op, idsOf(A.rivals), d.op);
     o.od = partsOf(g.od, d.od);
-    o.oc = num(g.oc, 0, A.colours.length - 1, d.oc);
-    o.pl = g.pl === 'make' ? 'make' : oneOf(g.pl, idsOf(A.places), old ? OLD_PLACES[num(g.b, 0, 3, 0)] : d.pl);
+    o.oc = colour(g.oc, d.oc);
+    o.pl = g.pl === 'draw' ? (o.dp ? 'draw' : d.pl) : g.pl === 'make' ? 'make' : oneOf(g.pl, idsOf(A.places), old ? OLD_PLACES[num(g.b, 0, 3, 0)] : d.pl);
     var pd = Array.isArray(g.pd) ? g.pd : d.pd, PP = A.placeParts;
     o.pd = [num(pd[0], 0, PP.sky.length - 1, 0), num(pd[1], 0, PP.ground.length - 1, 0), num(pd[2], 0, PP.behind.length - 1, 1), num(pd[3], 0, PP.above.length - 1, 1)];
     o.th = (Array.isArray(g.th) ? g.th : []).filter(function (t) { return Array.isArray(t) && idsOf(A.things).indexOf(String(t[0])) >= 0; })
@@ -307,11 +313,14 @@
   }
 
   // ======================================================================== drawing
-  function you(g, size) { return '<span class="mk-me">' + A.playerSvg({ p: g.p, d: g.d, c: g.c }, size || 64) + '</span>'; }
+  function drawnImg(code, kind, cls) { return '<img class="' + cls + '" src="' + (DR ? DR.image(code, kind) : '') + '" alt="">'; }
+  function meIcon(g, size) { return g.p === 'draw' ? drawnImg(g.dy, 'char', 'mk-drawn-icon') : A.playerSvg({ p: g.p, d: g.d, c: g.c }, size); }
+  function you(g, size) { return '<span class="mk-me' + (g.p === 'draw' ? ' mk-me--drawn' : '') + '">' + meIcon(g, size || 64) + '</span>'; }
   function rival(g) {
+    if (g.op === 'draw') return '<span class="mk-him mk-him--drawn" aria-hidden="true">' + drawnImg(g.dr, 'char', '') + '</span>';
     return '<span class="mk-him" aria-hidden="true">' + (g.op === 'make' ? A.playerSvg({ p: 'make', d: g.od, c: g.oc }, 80) : g.op === 'examiner' ? K.face || '' : A.rivalSvg(g.op, 80)) + '</span>';
   }
-  function rivalName(g) { return g.op === 'make' ? 'your own opponent' : nameOf(A.rivals, g.op); }
+  function rivalName(g) { return g.op === 'draw' ? 'your drawn opponent' : g.op === 'make' ? 'your own opponent' : nameOf(A.rivals, g.op); }
   // Grow: a plant in a pot, a leaf for each right answer, a flower when it's grown.
   function plant(g, st) {
     var base = 188, gap = 150 / g.s, done = st.you >= g.s, top = base - Math.max(14, st.you * gap) - (done ? 12 : 0), out = '';
@@ -322,7 +331,7 @@
         'Q' + x(22) + ' ' + (y + 8).toFixed(1) + ' 50 ' + y.toFixed(1) + 'Z" fill="#4CB944" stroke="' + A.INK + '" stroke-width="2.6" stroke-linejoin="round"/>';
     }
     if (done) {
-      var c = A.colours[g.c] === '#58CC02' ? '#FF86D0' : A.colours[g.c];
+      var c = A.colourOf(g.c) === '#58CC02' ? '#FF86D0' : A.colourOf(g.c);
       for (var p = 0; p < 6; p++) { var a = p * Math.PI / 3; out += '<circle cx="' + (50 + 11 * Math.cos(a)).toFixed(1) + '" cy="' + (top + 11 * Math.sin(a)).toFixed(1) + '" r="8" fill="' + c + '" stroke="' + A.INK + '" stroke-width="2.4"/>'; }
       out += '<circle cx="50" cy="' + top.toFixed(1) + '" r="7" fill="#FFC800" stroke="' + A.INK + '" stroke-width="2.4"/>';
     }
@@ -337,9 +346,12 @@
       '<path d="M8 89V6H112V89" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round"/></svg>';
   })();
   function heart(on) { return '<svg class="mk-heart' + (on ? '' : ' is-gone') + '" viewBox="0 0 20 18" aria-hidden="true"><path d="M10 17S1 11 1 5.5A4.5 4.5 0 0 1 10 3.5A4.5 4.5 0 0 1 19 5.5C19 11 10 17 10 17Z"/></svg>'; }
-  function placeOf(g) { return g.pl === 'make' ? { id: 'make', name: 'Your own place', dark: A.placeDark(g.pd) } : A.places.filter(function (p) { return p.id === g.pl; })[0] || A.places[0]; }
+  function placeOf(g) {
+    if (g.pl === 'draw') return { id: 'draw', name: 'Your drawn place', dark: DR ? DR.isDark(g.dp) : false };
+    return g.pl === 'make' ? { id: 'make', name: 'Your own place', dark: A.placeDark(g.pd) } : A.places.filter(function (p) { return p.id === g.pl; })[0] || A.places[0];
+  }
   function nameOf(list, id) { var x = list.filter(function (o) { return o.id === id; })[0]; return x ? x.name : ''; }
-  function playerName(g) { return g.p === 'make' ? 'your own character' : nameOf(A.players, g.p); }
+  function playerName(g) { return g.p === 'draw' ? 'your drawing' : g.p === 'make' ? 'your own character' : nameOf(A.players, g.p); }
   // The world as the game stands: the place, your things, the pieces where they are, and the counters. edit: the things
   // can be tapped (to pick one) and the picture tapped (to move it).
   function worldHtml(g, st, edit) {
@@ -357,7 +369,7 @@
         '<span class="mk-side mk-side--him">' + hearts(st.him) + rival(g) + '</span>';
     } else if (g.w === 'tower') {
       var b = '';
-      for (var i = 0; i < st.you; i++) b += '<i style="background:' + A.colours[g.c] + '"></i>';
+      for (var i = 0; i < st.you; i++) b += '<i style="background:' + A.colourOf(g.c) + '"></i>';
       x += '<span class="mk-goal"></span><span class="mk-stack" style="--n:' + g.s + '">' + b + '</span>' +
         '<span class="mk-tok mk-tok--builder">' + you(g) + '</span><span class="mk-watch">' + rival(g) + '</span>';
     } else if (g.w === 'shoot') {
@@ -368,7 +380,7 @@
         '<span class="mk-tok mk-tok--builder">' + you(g) + '</span><span class="mk-watch">' + rival(g) + '</span>';
     } else {
       x += '<span class="mk-points"><b class="num">' + st.you + '</b><span>of ' + g.s + '</span></span>' +
-        '<span class="mk-bar"><i style="width:' + Math.min(100, st.you / g.s * 100) + '%;background:' + A.colours[g.c] + '"></i></span>' +
+        '<span class="mk-bar"><i style="width:' + Math.min(100, st.you / g.s * 100) + '%;background:' + A.colourOf(g.c) + '"></i></span>' +
         '<span class="mk-tok mk-tok--score">' + you(g) + '</span><span class="mk-watch">' + rival(g) + '</span>';
     }
     var lives = '';
@@ -378,7 +390,7 @@
     }).join('');
     return '<div class="mk-world mk-world--' + g.w + (placeOf(g).dark ? ' is-dark' : '') + (edit ? ' is-edit' : '') + '" role="img" aria-label="' +
       esc(W.name + ': ' + playerName(g) + ' against ' + rivalName(g) + ', ' + placeOf(g).name) + '"' + (edit ? ' data-mk-stage' : '') + '>' +
-      A.placeSvg(g.pl, g.pd) + '<div class="mk-things">' + things + '</div>' + x + lives + '</div>';
+      (g.pl === 'draw' ? drawnImg(g.dp, 'place', 'mk-place mk-place--drawn') : A.placeSvg(g.pl, g.pd)) + '<div class="mk-things">' + things + '</div>' + x + lives + '</div>';
   }
   // Small pictures for the question cards.
   var ICON = {
@@ -451,7 +463,7 @@
     var card = M.card.querySelector('.am-finish__card');
     card.classList.add('tb-wide');
     // Making it (not playing): Back and Continue stay at the bottom of the card while you scroll.
-    card.classList.toggle('mk-host', ['wizard', 'summary', 'library', 'home', 'link'].indexOf(M.phase) >= 0);
+    card.classList.toggle('mk-host', ['wizard', 'summary', 'library', 'home', 'link', 'draw'].indexOf(M.phase) >= 0);
     BK.buttons(M.card, btns || [['more', 'data-am-keep', 'Close']], true);
     BB.nearMascot(M.card);
   }
@@ -468,16 +480,76 @@
       return '<button type="button" class="mk-chip' + (on ? ' is-on' : '') + '" aria-pressed="' + on + '" data-mk-pick="' + key + '" data-mk-val="' + esc(String(o[0])) + '">' + o[1] + '</button>';
     }).join('') + '</div></fieldset>';
   }
+  // The site's colours, then More colours: the colour wheel (any colour at all).
+  var WHEEL_ICON = '<svg viewBox="-14 -14 28 28" aria-hidden="true">' + ['#FF4B4B', '#FF9600', '#FFC800', '#58CC02', '#1CB0F6', '#CE82FF'].map(function (c, i) {
+    var a = i * Math.PI / 3, b = a + Math.PI / 3;
+    return '<path d="M0 0L' + (12 * Math.cos(a)).toFixed(1) + ' ' + (12 * Math.sin(a)).toFixed(1) + 'A12 12 0 0 1 ' + (12 * Math.cos(b)).toFixed(1) + ' ' + (12 * Math.sin(b)).toFixed(1) + 'Z" fill="' + c + '"/>';
+  }).join('') + '<circle r="12" fill="none" stroke="#13294A" stroke-width="2"/></svg>';
   function swatches(now, key) {
+    var any = typeof now === 'string';
     return '<fieldset class="mk-row"><legend>Colour</legend><div class="mk-chips">' + A.colours.map(function (c, i) {
       return '<button type="button" class="mk-chip mk-chip--sw' + (i === now ? ' is-on' : '') + '" aria-pressed="' + (i === now) + '" aria-label="' + A.colourNames[i] + '" data-mk-pick="' + key + '" data-mk-val="' + i + '"><i class="mk-swatch" style="background:' + c + '"></i></button>';
-    }).join('') + '</div></fieldset>';
+    }).join('') + (DR ? '<button type="button" class="mk-chip mk-chip--wheel' + (any ? ' is-on' : '') + '" aria-expanded="' + (M.wheel === key) + '" data-mk-wheel="' + key + '">' +
+      (any ? '<i class="mk-swatch" style="background:' + now + '"></i>' : WHEEL_ICON) + 'More colours</button>' : '') + '</div>' +
+      (DR && M.wheel === key ? '<div class="mk-wheelbox" data-mk-wheelbox="' + key + '"></div>' : '') + '</fieldset>';
   }
-  // Ready-made, or design your own (for you: key 'tab'; for him: 'otab').
+  // Ready-made, design your own, or draw your own (for you: key 'tab'; for him: 'otab'; the place: 'ptab').
   function tabs(key, now, ready) {
-    return '<div class="mk-tabs" role="tablist">' + [['ready', ready], ['make', 'Design your own']].map(function (t) {
+    return '<div class="mk-tabs" role="tablist">' + [['ready', ready], ['make', 'Design your own']].concat(DR ? [['draw', 'Draw your own']] : []).map(function (t) {
       return '<button type="button" role="tab" class="mk-tab' + (now === t[0] ? ' is-on' : '') + '" aria-selected="' + (now === t[0]) + '" data-mk-' + key + '="' + t[0] + '">' + t[1] + '</button>';
     }).join('') + '</div>';
+  }
+  // Draw your own (bio/maker-draw.js): which is 'y' (you), 'r' (him) or 'p' (the place).
+  var DRAW = {
+    y: { field: 'dy', pick: 'p', kind: 'char', title: 'Draw yourself', hint: 'Draw yourself, big: it\'s shrunk to fit the game. Tidy up can neaten your lines into shapes.', say: 'Draw yourself. Go on.' },
+    r: { field: 'dr', pick: 'op', kind: 'char', title: 'Draw who you\'re up against', hint: 'Draw who you\'re up against. Make them scary.', say: 'Draw me. Flatteringly.' },
+    p: { field: 'dp', pick: 'pl', kind: 'place', title: 'Draw your place', hint: 'Draw your own place. The dashed line is the ground the players stand on.', say: 'Draw me a world.' }
+  };
+  var PENCIL = '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 32L10 24L26 8L32 14L16 30Z" fill="#FFC800" stroke="#13294A" stroke-width="2.6" stroke-linejoin="round"/><path d="M8 32L10 24L16 30Z" fill="#13294A"/></svg>';
+  function drawPanel(which) {
+    var g = M.g, W = DRAW[which], code = g[W.field];
+    return '<div class="mk-drawn">' + (code ? drawnImg(code, W.kind, 'mk-drawn__img mk-drawn__img--' + W.kind) : '') + '<p class="mk-hint">' + (code ? 'Your drawing.' + (g[W.pick] === 'draw' ? '' : ' Tap it to use it.') : W.hint) + '</p>' +
+      (which === 'p' && !code ? '<div class="mk-chips mk-starts">' + Object.keys(DR.STARTS).map(function (k) {
+        var S = DR.STARTS[k];
+        return '<button type="button" class="mk-chip" data-mk-draw="p" data-mk-start="' + k + '"><i class="mk-start"><b style="background:' + S[1] + '"></b><b style="background:' + S[2] + '"></b></i>' + S[0] + '</button>';
+      }).join('') + '</div>' : '') +
+      '<div class="mk-chips">' + (code && g[W.pick] !== 'draw' ? '<button type="button" class="mk-opt mk-opt--new" data-mk-usedraw="' + which + '"><span class="mk-opt__t">Use my drawing</span></button>' : '') +
+      '<button type="button" class="mk-opt mk-opt--draw' + (code ? '' : ' mk-opt--new') + '" data-mk-draw="' + which + '"><span class="mk-opt__art">' + PENCIL + '</span><span class="mk-opt__t">' + (code ? 'Change my drawing' : which === 'p' ? 'Start drawing (sky and grass)' : 'Start drawing') + '</span></button>' +
+      (code ? '<button type="button" class="mk-mini" data-mk-undraw="' + which + '">Rub it out</button>' : '') + '</div></div>';
+  }
+  // The tab picks what's on it: Design your own uses the designed one; Draw your own uses your drawing, if there is one.
+  function pickTab(key, tab) {
+    var field = { p: 'dy', op: 'dr', pl: 'dp' }[key];
+    if (tab === 'make') M.g[key] = 'make';
+    else if (tab === 'draw' && M.g[field]) M.g[key] = 'draw';
+    keepScroll(wizard);
+  }
+  function studio(which, start) {
+    var W = DRAW[which];
+    if (!DR || !W) return;
+    M.phase = 'draw';
+    show('<div class="mk mk-draw"><h3 class="mk-ask">' + W.title + '</h3><div data-mk-studio></div></div>', [['more', 'data-mk-dcancel', 'Cancel'], ['ok', 'data-mk-ddone', 'Done']]);
+    M.studio = { which: which, it: DR.mount(q('[data-mk-studio]'), { kind: W.kind, code: start ? '' : M.g[W.field], start: start || 'g', say: function (line) { K.mascot('ok', line); } }) };
+    K.mascot('ok', W.say);
+  }
+  function drawn() {
+    if (!M.studio) return;
+    var W = DRAW[M.studio.which], r = M.studio.it.code();
+    if (r.error) { K.mascot('ok', r.error); return; }
+    M.g[W.field] = r.code;
+    M.g[W.pick] = 'draw';
+    M.g = clean(M.g);
+    M.studio = null;
+    tabsFor();
+    wizard();
+    K.mascot('ok', pick(['Hmph. Not bad.', 'A masterpiece. Nearly.', 'I\'ve seen worse.']));
+  }
+  function undraw(which) {
+    var W = DRAW[which];
+    M.g[W.field] = '';
+    if (M.g[W.pick] === 'draw') M.g[W.pick] = defaults()[W.pick];
+    M.g = clean(M.g);
+    keepScroll(wizard);
   }
   // Design your own place: the sky and the ground (colours), what's behind and what's in the sky (small pictures).
   function placeBuilder() {
@@ -526,7 +598,7 @@
       '<button type="button" class="mk-opt" data-mk-lib><span class="mk-opt__art">' + A.thingSvg('books') + '</span><span class="mk-opt__t">Asset library</span></button></div>' +
       (mine.length ? '<section class="mk-mine" aria-label="Your games"><h3 class="mk-h">Your games</h3><ul>' + mine.map(function (x, i) {
         var best = bestOf(x);
-        return '<li><span class="mk-mine__av">' + A.playerSvg({ p: x.p, d: x.d, c: x.c }, 40) + '</span><b>' + esc(x.n) + '</b><span class="mk-mine__w">' + WORLDS[x.w].name +
+        return '<li><span class="mk-mine__av">' + meIcon(x, 40) + '</span><b>' + esc(x.n) + '</b><span class="mk-mine__w">' + WORLDS[x.w].name +
           (best && best.best ? ' · best ' + best.best : '') + '</span>' +
           '<button type="button" class="mk-mini mk-mini--go" data-mk-play="' + i + '">Play</button><button type="button" class="mk-mini" data-mk-edit="' + i + '">Edit</button>' +
           '<button type="button" class="mk-mini" data-mk-del="' + i + '" aria-label="Delete ' + esc(x.n) + '">Delete</button></li>';
@@ -540,7 +612,10 @@
     tabsFor();
     wizard();
   }
-  function tabsFor() { M.tab = M.g.p === 'make' ? 'make' : 'ready'; M.otab = M.g.op === 'make' ? 'make' : 'ready'; M.ptab = M.g.pl === 'make' ? 'make' : 'ready'; }
+  function tabsFor() {
+    var t = function (v) { return v === 'make' || v === 'draw' ? v : 'ready'; };
+    M.tab = t(M.g.p); M.otab = t(M.g.op); M.ptab = t(M.g.pl); M.wheel = '';
+  }
 
   // ---------------------------------------------------------------- the steps
   function wizard() {
@@ -554,6 +629,9 @@
     show('<div class="mk mk-wiz">' + bar + preview + '<h3 class="mk-ask">' + STEPS[at][2] + '</h3>' + body(id) + '</div>',
       [at ? ['more', 'data-mk-back', 'Back'] : saved().length ? ['more', 'data-mk-home', 'Your games'] : ['more', 'data-am-keep', 'Close'], ['ok', 'data-mk-next', at === STEPS.length - 1 ? 'Done' : 'Continue']]);
     K.mascot('ok', STEPS[at][2]);
+    // The colour wheel, when it's open under a colour row: picking a colour (letting go) sets it.
+    var box = q('[data-mk-wheelbox]');
+    if (box && DR) DR.wheel(box, A.colourOf(M.g[M.wheel]), function (h, done) { if (done) set(M.wheel, h); });
   }
   function body(id) {
     var g = M.g, W = WORLDS[g.w];
@@ -579,12 +657,14 @@
     if (id === 'x') return '<div class="mk-opts">' + W.wrong.map(function (o) { return opt('x', o[0], o[1], o[2], '', g.x === o[0]); }).join('') + '</div>';
     if (id === 's') return '<div class="mk-opts mk-opts--3">' + W.size.map(function (v, i) { return opt('s', v, SIZE_NAMES[i], v + ' ' + W.unit, '', g.s === v); }).join('') + '</div>';
     if (id === 'you') {
+      if (M.tab === 'draw') return tabs('tab', M.tab, 'Characters') + drawPanel('y');
       if (M.tab === 'make') return tabs('tab', M.tab, 'Characters') + builder('p');
       return tabs('tab', M.tab, 'Characters') + '<div class="mk-tiles">' + A.players.map(function (p) {
         return '<button type="button" class="mk-tile' + (g.p === p.id ? ' is-on' : '') + '" aria-pressed="' + (g.p === p.id) + '" data-mk-pick="p" data-mk-val="' + p.id + '">' + A.playerSvg({ p: p.id, c: g.p === p.id ? g.c : A.playerColour[p.id] }, 64) + '<span>' + esc(p.name) + '</span></button>';
       }).join('') + '</div>' + swatches(g.c, 'c');
     }
     if (id === 'op') {
+      if (M.otab === 'draw') return tabs('otab', M.otab, 'Opponents') + drawPanel('r');
       if (M.otab === 'make') return tabs('otab', M.otab, 'Opponents') + builder('o');
       return tabs('otab', M.otab, 'Opponents') + '<div class="mk-tiles">' + A.rivals.map(function (r) {
         return '<button type="button" class="mk-tile' + (g.op === r.id ? ' is-on' : '') + '" aria-pressed="' + (g.op === r.id) + '" data-mk-pick="op" data-mk-val="' + r.id + '">' +
@@ -592,6 +672,7 @@
       }).join('') + '</div>';
     }
     if (id === 'pl') {
+      if (M.ptab === 'draw') return tabs('ptab', M.ptab, 'Places') + drawPanel('p');
       if (M.ptab === 'make') return tabs('ptab', M.ptab, 'Places') + placeBuilder();
       return tabs('ptab', M.ptab, 'Places') + '<div class="mk-tiles mk-tiles--wide">' + A.places.map(function (p) {
         return '<button type="button" class="mk-tile mk-tile--place' + (g.pl === p.id ? ' is-on' : '') + '" aria-pressed="' + (g.pl === p.id) + '" data-mk-pick="pl" data-mk-val="' + p.id + '">' + A.placeSvg(p.id) + '<span>' + esc(p.name) + '</span></button>';
@@ -616,7 +697,7 @@
       '<div class="mk-chips">' + ideas.map(function (n) { return '<button type="button" class="mk-chip" data-mk-idea="' + esc(n) + '">' + esc(n) + '</button>'; }).join('') + '</div>';
   }
   function nameIdeas(g) {
-    var rv = g.op === 'make' ? 'the monster' : 'the ' + nameOf(A.rivals, g.op).replace(/^The /, '').toLowerCase(), me = g.p === 'make' ? 'Me' : nameOf(A.players, g.p);
+    var rv = g.op === 'make' || g.op === 'draw' ? 'the monster' : 'the ' + nameOf(A.rivals, g.op).replace(/^The /, '').toLowerCase(), me = g.p === 'make' || g.p === 'draw' ? 'Me' : nameOf(A.players, g.p);
     var by = { race: ['Race to the flag', 'Outrun ' + rv], battle: ['Boss battle', 'Beat ' + rv], tower: ['Tower of power', 'Sky high'], points: ['Score rush', 'High score'],
       shoot: ['Penalty shootout', 'Score past ' + rv], grow: ['Green fingers', 'Grow it'] };
     var out = [(g.ch.length === 1 ? NAME[g.ch[0]] : 'Biology') + ' ' + WORLDS[g.w].name.toLowerCase(), me + ' vs ' + rv].concat(by[g.w]);
@@ -627,6 +708,7 @@
     if (key === 'w') { g.w = val; g.r = ''; g.x = ''; g.s = 0; }
     else if (key === 'src' || key === 'ans' || key === 'r' || key === 'x' || key === 'op' || key === 'pl') g[key] = val;
     else if (key === 'p') { if (g.p !== val) g.c = A.playerColour[val] || 0; g.p = val; }
+    else if ((key === 'c' || key === 'oc') && /^#/.test(val)) g[key] = val;
     else g[key] = +val;
     M.g = clean(g);
     keepScroll(wizard);
@@ -888,10 +970,17 @@
     if (e.target.closest('[data-mk-lucky]')) { M.g = randomGame(); summary(); K.mascot('ok', 'There. One game. You\'re welcome.'); return; }
     if ((t = e.target.closest('[data-mk-ch]'))) { chapter(+t.getAttribute('data-mk-ch')); return; }
     if (e.target.closest('[data-mk-chall]')) { M.g.ch = CH.slice(); keepScroll(wizard); return; }
-    if ((t = e.target.closest('[data-mk-tab]'))) { M.tab = t.getAttribute('data-mk-tab'); if (M.tab === 'make') M.g.p = 'make'; keepScroll(wizard); return; }
-    if ((t = e.target.closest('[data-mk-ptab]'))) { M.ptab = t.getAttribute('data-mk-ptab'); if (M.ptab === 'make') M.g.pl = 'make'; keepScroll(wizard); return; }
+    if ((t = e.target.closest('[data-mk-tab]'))) { M.tab = t.getAttribute('data-mk-tab'); pickTab('p', M.tab); return; }
+    if ((t = e.target.closest('[data-mk-ptab]'))) { M.ptab = t.getAttribute('data-mk-ptab'); pickTab('pl', M.ptab); return; }
     if ((t = e.target.closest('[data-mk-ppart]'))) { M.g.pd[+t.getAttribute('data-mk-ppart')] = +t.getAttribute('data-mk-val'); M.g.pl = 'make'; M.g = clean(M.g); keepScroll(wizard); return; }
-    if ((t = e.target.closest('[data-mk-otab]'))) { M.otab = t.getAttribute('data-mk-otab'); if (M.otab === 'make') M.g.op = 'make'; keepScroll(wizard); return; }
+    if ((t = e.target.closest('[data-mk-otab]'))) { M.otab = t.getAttribute('data-mk-otab'); pickTab('op', M.otab); return; }
+    // Drawing.
+    if ((t = e.target.closest('[data-mk-draw]'))) { studio(t.getAttribute('data-mk-draw'), t.getAttribute('data-mk-start')); return; }
+    if ((t = e.target.closest('[data-mk-undraw]'))) { undraw(t.getAttribute('data-mk-undraw')); return; }
+    if ((t = e.target.closest('[data-mk-usedraw]'))) { var U = DRAW[t.getAttribute('data-mk-usedraw')]; M.g[U.pick] = 'draw'; M.g = clean(M.g); keepScroll(wizard); return; }
+    if (e.target.closest('[data-mk-ddone]')) { drawn(); return; }
+    if (e.target.closest('[data-mk-dcancel]')) { M.studio = null; wizard(); return; }
+    if ((t = e.target.closest('[data-mk-wheel]'))) { M.wheel = M.wheel === t.getAttribute('data-mk-wheel') ? '' : t.getAttribute('data-mk-wheel'); keepScroll(wizard); return; }
     if ((t = e.target.closest('[data-mk-part]'))) {
       var part = t.getAttribute('data-mk-part'), who = part.charAt(0);
       M.g[who === 'o' ? 'od' : 'd'][+part.slice(1)] = +t.getAttribute('data-mk-val');

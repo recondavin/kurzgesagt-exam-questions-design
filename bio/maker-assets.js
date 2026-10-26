@@ -121,7 +121,7 @@
   // top), for the buttons that pick it.
   function partSvg(row, d, c, size) {
     var b = BODIES[PARTS.body[d[0]]], box = row === 'eyes' || row === 'mouth' || row === 'extra' ? [-27, b.face - 15, 54, 40] : row === 'top' ? [-32, b.top - 34, 64, 50] : [-42, -52, 84, 88];
-    return '<svg class="mk-part" viewBox="' + box.join(' ') + '" width="' + size + '" height="' + Math.round(size * box[3] / box[2]) + '" aria-hidden="true">' + built(d, COLOURS[c] || COLOURS[0]) + '</svg>';
+    return '<svg class="mk-part" viewBox="' + box.join(' ') + '" width="' + size + '" height="' + Math.round(size * box[3] / box[2]) + '" aria-hidden="true">' + built(d, colourOf(c)) + '</svg>';
   }
 
   // ======================================================================== ready-made characters
@@ -225,8 +225,10 @@
   ];
   // The ready-made characters' colours as they come (you can change it).
   var PLAYER_COLOUR = { blob: 0, robot: 9, cat: 3, star: 6, rbc: 2, neuron: 4, heart: 2, lungs: 5, kidney: 8, germ: 7, frog: 1, owl: 8, fox: 3, ghost: 4, alien: 1, astronaut: 0, dino: 1, penguin: 9, tooth: 0, stomach: 5, bee: 6, sheep: 9 };
+  // A colour: one of the site's by number, or any '#RRGGBB' (from the colour wheel).
+  function colourOf(c) { return typeof c === 'string' && /^#[0-9A-F]{6}$/i.test(c) ? c.toUpperCase() : COLOURS[c] || COLOURS[0]; }
   function playerSvg(spec, size, cls) {
-    var c = COLOURS[spec.c] || COLOURS[0], inner;
+    var c = colourOf(spec.c), inner;
     if (spec.p === 'make') inner = built(spec.d || [0, 0, 0, 0, 0], c);
     else inner = (PLAYERS.filter(function (p) { return p[0] === spec.p; })[0] || PLAYERS[0])[2](c);
     return '<svg class="' + (cls || 'mk-av') + '" viewBox="-42 -52 84 88" width="' + size + '" height="' + size + '" aria-hidden="true">' + inner + '</svg>';
@@ -466,7 +468,7 @@
 
   function list(rows) { return rows.map(function (r) { return { id: r[0], name: r[1] }; }); }
   window.BioMakerArt = {
-    INK: INK, colours: COLOURS, colourNames: COLOUR_NAMES, tone: tone,
+    INK: INK, colours: COLOURS, colourNames: COLOUR_NAMES, tone: tone, colourOf: colourOf,
     players: list(PLAYERS), playerColour: PLAYER_COLOUR, playerSvg: playerSvg,
     parts: PARTS, partName: partName, partSvg: partSvg,
     rivals: list(RIVALS), rivalSvg: rivalSvg,

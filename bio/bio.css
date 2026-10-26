@@ -790,6 +790,65 @@ button.sea-c { cursor: default; }
 .mk-scheme span { display: block; color: #5B6B80; font: 800 14px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
 .mk-scheme em { color: #5B6B80; font-style: normal; }
 
+/* Draw your own (maker-draw.js): the studio, the colour wheel, drawings in the world. */
+.mk-drawn { display: grid; gap: 12px; justify-items: start; }
+.mk-drawn__img { display: block; border: 2px solid #37464F; border-radius: 14px; background: #F4F7FA; }
+.mk-drawn__img--char { width: 150px; height: 150px; object-fit: contain; }
+.mk-drawn__img--place { width: 100%; max-width: 620px; aspect-ratio: 16 / 5; object-fit: cover; }
+.mk-opt--draw { min-height: 64px; }
+.mk-starts .mk-chip, .mk-st__starts .mk-mini { gap: 8px; }
+.mk-start, .mk-st__starts i { display: inline-grid; grid-template-rows: 3fr 2fr; width: 24px; height: 20px; overflow: hidden; border: 2px solid #13294A; border-radius: 5px; vertical-align: middle; }
+.mk-start b, .mk-st__starts i b { display: block; }
+.mk-chip--wheel svg { display: block; width: 26px; height: 26px; }
+.mk-wheelbox { margin-top: 12px; }
+.mk-st { display: grid; gap: 14px; }
+.mk-st__stage { position: relative; justify-self: center; width: 100%; overflow: hidden; border: 3px solid #37464F; border-radius: 14px; background: #FFFFFF; touch-action: none; }
+.mk-st__stage--char { max-width: 440px; background: #F4F7FA; }
+.mk-st__canvas { display: block; width: 100%; height: auto; touch-action: none; }
+.mk-st__ground { position: absolute; left: 0; right: 0; top: 84%; border-top: 3px dashed #13294A; opacity: .55; pointer-events: none; }
+.mk-st__ground b { position: absolute; right: 8px; top: 3px; padding: 0 6px; border-radius: 6px; background: #FFFFFF; color: #13294A; font: 800 12px Nunito, sans-serif; }
+.mk-st__feet { position: absolute; left: 22%; right: 22%; top: 94%; border-top: 3px dashed #13294A; opacity: .3; pointer-events: none; }
+.mk-st__tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.mk-st__group { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.mk-st__btn, .mk-st__colour, .mk-st__size { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 50px; padding: 4px 12px 4px 6px; border: 2px solid #37464F; border-bottom-width: 4px; border-radius: 12px;
+  background: #202F36; color: #F1F7FB; font: 800 15px Nunito, sans-serif; cursor: pointer; }
+.mk-st__btn svg { width: 34px; height: 34px; }
+.mk-st__btn--dark { padding: 4px 8px; }
+.mk-st__btn--text { padding: 4px 14px; }
+.mk-st__btn[aria-pressed="true"], .mk-st__size[aria-pressed="true"], .mk-st__colour[aria-expanded="true"] { border-color: #1CB0F6; background: #17384A; }
+.mk-st__btn:disabled { opacity: .4; cursor: default; }
+.mk-st__size { width: 50px; padding: 0; }
+.mk-st__size i { display: block; border-radius: 50%; background: #F1F7FB; }
+.mk-st__colour { padding: 4px 14px 4px 8px; }
+.mk-st__colour i { display: block; width: 30px; height: 30px; border: 3px solid #F1F7FB; border-radius: 50%; }
+.mk-st__btn:hover:not(:disabled), .mk-st__colour:hover, .mk-st__size:hover { background: #26363E; }
+.mk-st__btn:focus-visible, .mk-st__colour:focus-visible, .mk-st__size:focus-visible, .mk-st__magic:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
+.mk-st__tidy { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.mk-st__magic { display: inline-flex; align-items: center; gap: 8px; min-height: 54px; padding: 6px 18px 6px 10px; border: 2px solid #CE82FF; border-bottom-width: 5px; border-radius: 14px; background: #2A2340;
+  color: #F1F7FB; font: 800 17px Nunito, sans-serif; cursor: pointer; }
+.mk-st__magic:hover { background: #342B50; }
+.mk-st__magic svg { width: 36px; height: 36px; }
+.mk-st__live { display: inline-flex; align-items: center; gap: 8px; color: #D5E0E6; font: 700 16px Nunito, sans-serif; cursor: pointer; }
+.mk-st__live input { width: 22px; height: 22px; accent-color: #58CC02; }
+.mk-st__starts { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: #93A5AE; font: 800 14px Nunito, sans-serif; }
+.mk-st__starts .mk-mini { display: inline-flex; align-items: center; }
+.mk-wheel { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding: 14px; border: 2px solid #37464F; border-radius: 16px; background: #182429; }
+.mk-wheel__disc { width: 200px; height: 200px; border-radius: 50%; cursor: crosshair; touch-action: none; }
+.mk-wheel__side { display: grid; flex: 1 1 200px; gap: 10px; min-width: 0; }
+.mk-wheel__now { display: flex; align-items: center; gap: 10px; color: #F1F7FB; font: 800 16px Nunito, sans-serif; }
+.mk-wheel__now i { display: block; width: 40px; height: 40px; border: 3px solid #F1F7FB; border-radius: 50%; }
+.mk-wheel__light { display: grid; gap: 4px; color: #93A5AE; font: 800 14px Nunito, sans-serif; }
+.mk-wheel__light input { width: 100%; accent-color: #1CB0F6; }
+.mk-wheel__sw { display: flex; flex-wrap: wrap; gap: 6px; }
+.mk-wheel__sw button { width: 32px; height: 32px; border: 2px solid #F1F7FB; border-radius: 50%; cursor: pointer; }
+.mk-wheel__sw button:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
+.mk-world > img.mk-place { object-fit: cover; object-position: 50% 100%; }
+.mk-me--drawn, .mk-side .mk-me--drawn { display: block; }
+.mk-me--drawn img, .mk-him--drawn img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; }
+.mk-me--drawn { width: 66px; height: 66px; }
+.mk-side .mk-me--drawn { width: 88px; height: 88px; }
+.mk-drawn-icon { display: block; width: 40px; height: 40px; object-fit: contain; }
+
 /* The world: the place (maker-assets.js), your things, then the pieces and the counters. */
 .mk-world { position: relative; overflow: hidden; aspect-ratio: 16 / 5; min-height: 190px; border: 3px solid #37464F; border-radius: 18px; background: #DDEFFB; }
 .mk-world > * { position: absolute; z-index: 2; }
@@ -902,7 +961,12 @@ button.sea-c { cursor: default; }
   .mk-wiz .mk-world { aspect-ratio: 16 / 7; min-height: 0; }
   .mk-me svg { width: 46px; height: 46px; }
   .mk-him { width: 46px; height: 46px; }
-  .mk-side .mk-me svg, .mk-side--him .mk-him, .mk-watch .mk-him { width: 58px; height: 58px; }
+  .mk-side .mk-me svg, .mk-side--him .mk-him, .mk-watch .mk-him, .mk-side .mk-me--drawn { width: 58px; height: 58px; }
+  .mk-me--drawn { width: 48px; height: 48px; }
+  .mk-st__btn span { display: none; }
+  .mk-st__btn { padding: 4px 6px; }
+  .mk-st__size, .mk-st__btn { min-height: 46px; }
+  .mk-wheel { justify-content: center; }
   .mk-heart { width: 13px; height: 12px; }
   .mk-hearts { max-width: 96px; gap: 2px; padding: 2px 5px; border-radius: 9px; }
   .mk-side--you { left: 6%; }

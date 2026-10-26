@@ -6,6 +6,8 @@
 //   Rules      in every world, with every card: right answers alone always win, in no more answers than the size; a
 //              wrong answer does what its card says; "Lose a life" loses after three; in a Race where he moves, enough
 //              wrong answers mean he catches you; scores and hearts never go below zero.
+//   Drawn      drawings (bio/maker-draw.js) and colours from the wheel come back from the link; a broken drawing or
+//              colour falls back to the default.
 //   Assets     every character (in every colour), every part of a designed one, every opponent, place and thing
 //              draws as whole SVG (every tag closed, no "undefined" or "NaN").
 //   Questions  every source in every chapter has questions of its kind: shorter (one point, real papers), longer (two
@@ -33,8 +35,9 @@ window.BioKit = { esc: String, shuffle: a => a.slice(), pick: a => a[0], buttons
 require('../../../bio/bio-board.js');
 require('../../../bio/bio-drill.js');
 require('../../../bio/maker-assets.js');
+require('../../../bio/maker-draw.js');
 require('../../../bio/bio-maker.js');
-const T = window.BioMaker.test, A = window.BioMakerArt, D = window.BioDrill;
+const T = window.BioMaker.test, A = window.BioMakerArt, D = window.BioDrill, DR = window.BioMakerDraw;
 let fails = 0, n = 0;
 const fail = msg => { fails++; if (fails < 40) console.log('   FAIL', msg); };
 
@@ -69,6 +72,21 @@ for (const w of Object.keys(T.WORLDS)) {
   if (!old || old.p !== 'cat' || old.pl !== 'night' || old.ans !== 'type' || old.w !== 'battle' || old.c !== 2 || old.ch.join() !== '30') fail(`a first-version link doesn't open as it was: ${JSON.stringify(old)}`);
   const mix = T.clean({ v: 1, q: 'mix' });
   if (mix.ans !== 'own' || mix.t !== 1 || mix.f !== 0) fail(`a first-version "boxes and typed" game isn't typing sometimes with no diagrams: ${JSON.stringify(mix)}`);
+}
+
+// Drawings and colours from the wheel: kept when they're real, dropped (back to the default) when they're not.
+{
+  const dy = DR.encode({ start: 'b', ops: [{ t: 's', c: '#13294A', w: 6, z: 1, p: [160, 60, 260, 160, 160, 260, 60, 160] }, { t: 'f', c: '#FF86D0', k: '', x: 160, y: 160 }] });
+  const dp = DR.encode({ start: 'n', ops: [{ t: 's', c: '#FFFFFF', w: 9, z: 2, p: [0, 200, 480, 120, 960, 200] }] });
+  const g = T.clean({ n: 'Drawn', p: 'draw', dy, op: 'draw', dr: dy, pl: 'draw', dp, c: '#12ab56', oc: '#FFC800', w: 'shoot' });
+  const back = T.decode(T.encode(g));
+  n += 3;
+  if (g.p !== 'draw' || g.op !== 'draw' || g.pl !== 'draw' || g.c !== '#12AB56' || g.oc !== '#FFC800') fail(`drawings and wheel colours aren't kept: ${JSON.stringify(g).slice(0, 200)}`);
+  if (JSON.stringify(back) !== JSON.stringify(g)) fail('a game with drawings doesn\'t come back from its link the same');
+  const bad = T.clean({ p: 'draw', dy: dy.replace('13294A', 'zzzzzz'), op: 'draw', dr: '', pl: 'draw', dp: '1x;nonsense', c: '#12ab5', oc: 'red' });
+  const d0 = T.defaults();
+  if (bad.p !== d0.p || bad.dy || bad.op !== d0.op || bad.pl !== d0.pl || bad.dp || bad.c !== 0 || bad.oc !== d0.oc) fail(`broken drawings or colours should fall back: ${JSON.stringify(bad).slice(0, 220)}`);
+  Object.keys(T.WORLDS).forEach(w => whole(T.worldHtml(T.clean(Object.assign({}, g, { w })), T.fresh(T.clean(Object.assign({}, g, { w })))), `world ${w} drawn`));
 }
 
 // ---------------------------------------------------------------- rules
@@ -112,6 +130,7 @@ function whole(svg, what) {
   const stack = [];
   for (const m of svg.matchAll(/<(\/?)([a-zA-Z]+)[^>]*?(\/?)>/g)) {
     if (m[3]) continue;
+    if (/^(img|input|br)$/i.test(m[2])) continue;
     if (!m[1]) stack.push(m[2]);
     else if (stack.pop() !== m[2]) return fail(`${what}: </${m[2]}> doesn't close what's open`);
   }
