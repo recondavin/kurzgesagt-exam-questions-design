@@ -822,12 +822,12 @@ button.sea-c { cursor: default; }
 .mk-st__colour { padding: 4px 14px 4px 8px; }
 .mk-st__colour i { display: block; width: 30px; height: 30px; border: 3px solid #F1F7FB; border-radius: 50%; }
 .mk-st__btn:hover:not(:disabled), .mk-st__colour:hover, .mk-st__size:hover { background: #26363E; }
-.mk-st__btn:focus-visible, .mk-st__colour:focus-visible, .mk-st__size:focus-visible, .mk-st__magic:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
+.mk-st__btn:focus-visible, .mk-st__colour:focus-visible, .mk-st__size:focus-visible, .mk-st__tidybtn:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
 .mk-st__tidy { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
-.mk-st__magic { display: inline-flex; align-items: center; gap: 8px; min-height: 54px; padding: 6px 18px 6px 10px; border: 2px solid #CE82FF; border-bottom-width: 5px; border-radius: 14px; background: #2A2340;
-  color: #F1F7FB; font: 800 17px Nunito, sans-serif; cursor: pointer; }
-.mk-st__magic:hover { background: #342B50; }
-.mk-st__magic svg { width: 36px; height: 36px; }
+.mk-st__tidybtn { display: inline-flex; align-items: center; gap: 8px; min-height: 52px; padding: 6px 18px 6px 10px; border: 2px solid #37464F; border-bottom-width: 4px; border-radius: 12px; background: #202F36;
+  color: #F1F7FB; font: 800 16px Nunito, sans-serif; cursor: pointer; }
+.mk-st__tidybtn:hover { background: #26363E; }
+.mk-st__tidybtn svg { width: 34px; height: 34px; }
 .mk-st__live { display: inline-flex; align-items: center; gap: 8px; color: #D5E0E6; font: 700 16px Nunito, sans-serif; cursor: pointer; }
 .mk-st__live input { width: 22px; height: 22px; accent-color: #58CC02; }
 .mk-st__starts { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: #93A5AE; font: 800 14px Nunito, sans-serif; }

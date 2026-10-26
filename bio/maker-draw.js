@@ -489,7 +489,7 @@
     eraser: '<path d="M6 26L20 12L32 24L22 34H12Z" fill="#FF86D0" stroke="#13294A" stroke-width="2.6" stroke-linejoin="round"/><path d="M12 34H34" stroke="#13294A" stroke-width="2.6" stroke-linecap="round"/>',
     undo: '<path d="M14 10L7 17L14 24" fill="none" stroke="#F1F7FB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 17H24A8 8 0 0 1 24 33H16" fill="none" stroke="#F1F7FB" stroke-width="3" stroke-linecap="round"/>',
     redo: '<path d="M26 10L33 17L26 24" fill="none" stroke="#F1F7FB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 17H16A8 8 0 0 0 16 33H24" fill="none" stroke="#F1F7FB" stroke-width="3" stroke-linecap="round"/>',
-    tidy: '<path d="M8 32L26 14" stroke="#F1F7FB" stroke-width="4" stroke-linecap="round"/><path d="M29 4L31 9L36 11L31 13L29 18L27 13L22 11L27 9Z" fill="#FFC800"/><path d="M12 6L13 9L16 10L13 11L12 14L11 11L8 10L11 9Z" fill="#FFC800"/>'
+    tidy: '<g transform="rotate(-40 20 20)"><rect x="3" y="13" width="34" height="13" rx="2" fill="#FFC800" stroke="#13294A" stroke-width="2.4"/><path d="M8 13V18M13 13V20M18 13V18M23 13V20M28 13V18M33 13V20" stroke="#13294A" stroke-width="2"/></g>'
   };
   function icon(k) { return '<svg viewBox="0 0 40 40" aria-hidden="true">' + ICONS[k] + '</svg>'; }
   var KIND_NAMES = { line: ['straight line', 'straight lines'], circle: ['circle', 'circles'], ellipse: ['oval', 'ovals'], rect: ['rectangle', 'rectangles'],
@@ -517,7 +517,7 @@
           '<button type="button" class="mk-st__btn mk-st__btn--dark mk-st__btn--text" data-st-clear>Clear</button></span>' +
       '</div>' +
       '<div class="mk-st__wheel" data-st-wheel hidden></div>' +
-      '<div class="mk-st__tidy"><button type="button" class="mk-st__magic" data-st-tidy>' + icon('tidy') + '<span>Tidy up my drawing</span></button>' +
+      '<div class="mk-st__tidy"><button type="button" class="mk-st__tidybtn" data-st-tidy>' + icon('tidy') + '<span>Tidy up my drawing</span></button>' +
         '<label class="mk-st__live"><input type="checkbox" data-st-live> Tidy as I draw</label></div>' +
       (kind === 'place' ? '<div class="mk-st__starts"><span>Start again with</span>' + Object.keys(STARTS).map(function (k) {
         return '<button type="button" class="mk-mini" data-st-start="' + k + '"><i><b style="background:' + STARTS[k][1] + '"></b><b style="background:' + STARTS[k][2] + '"></b></i>' + STARTS[k][0] + '</button>';
