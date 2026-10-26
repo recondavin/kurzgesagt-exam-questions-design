@@ -195,6 +195,7 @@ tr .pg-track i { animation-delay: inherit; }
 .bh-h { margin: 32px 0 14px; color: #fff; font: 600 22px/1.2 Fredoka, Nunito, sans-serif; }
 .bh-games { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .bh-game { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 72px; color: #fff; font: 700 19px Nunito, system-ui, sans-serif; text-decoration: none; transition: background .15s ease; }
+.bh-game--make { grid-column: 1 / -1; border: 3px solid var(--hue); }
 .bh-go { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
 @media (min-width: 701px) {
   .bh .cv-title { margin-bottom: 28px; }

@@ -398,7 +398,8 @@
       '<nav class="sh-nav" aria-label="Biology"><a class="sh-link" href="#"' + (active === 'home' ? ' aria-current="page"' : '') + '><span class="sh-t">Home</span></a>' +
       '<a class="sh-link" href="#progress"' + (active === 'progress' ? ' aria-current="page"' : '') + '><span class="sh-t">Progress</span></a>' +
       (window.BioDrill ? '<a class="sh-link" href="#drill"><span class="sh-t">Exam drill</span></a>' : '') +
-      (window.BioBoard ? '<p class="sh-group">Games</p>' + HUB_GAMES.filter(function (g) { return g[2](); }).map(function (g) {
+      (window.BioBoard ? '<p class="sh-group">Games</p>' + (window.BioMaker ? '<a class="sh-link" href="#make"><span class="sh-t">Make your own games</span></a>' : '') +
+        HUB_GAMES.filter(function (g) { return g[2](); }).map(function (g) {
         return '<a class="sh-link" href="#' + g[0] + '"><span class="sh-t">' + g[1] + '</span></a>';
       }).join('') : '') +
       '<p class="sh-group">Chapters</p>' + CHAPTERS.map(function (c, i) {
@@ -420,7 +421,9 @@
     document.title = 'Biology | Leaving Cert';
     renderShell('home', '');
     var rows = chapterRows(), col = window.BioBoard ? window.BioBoard.colours : {};
-    var games = (window.BioDrill ? [['drill', 'Exam drill']] : []).concat(window.BioBoard ? HUB_GAMES.filter(function (g) { return g[2](); }) : []);
+    // Make your own games across the top (a full row), then Exam drill and the seven games, four by two.
+    var games = (window.BioMaker ? [['make', 'Make your own games']] : []).concat(window.BioDrill ? [['drill', 'Exam drill']] : [])
+      .concat(window.BioBoard ? HUB_GAMES.filter(function (g) { return g[2](); }) : []);
     app.innerHTML = '<div class="bh">' +
       '<div class="cv-title rise" style="--i:0"><h1 class="cv-h1">Biology</h1>' + (window.BioDrill ? '<a class="btn-primary bh-go" href="#drill">Start Exam drill</a>' : '') + '</div>' +
       '<section class="bh-chs rise" style="--i:1" aria-label="Chapters">' + CHAPTERS.map(function (c, i) {
@@ -434,7 +437,7 @@
             (dc ? '<span><b class="num">' + dc.done + '</b><span class="of"> of ' + dc.all + '</span> learnt</span>' : '') + '</span></a>';
       }).join('') + '</section>' +
       (games.length ? '<h2 class="bh-h rise" style="--i:2">Games</h2><section class="bh-games rise" style="--i:3" aria-label="Games">' + games.map(function (g) {
-        return '<a class="card bh-game" href="#' + g[0] + '">' + esc(g[1]) + '<i class="bio-go" aria-hidden="true"></i></a>';
+        return '<a class="card bh-game' + (g[0] === 'make' ? ' bh-game--make' : '') + '" href="#' + g[0] + '">' + esc(g[1]) + '<i class="bio-go" aria-hidden="true"></i></a>';
       }).join('') + '</section>' : '') + '</div>';
   }
   function renderProgress() {
@@ -928,6 +931,14 @@
       history.replaceState(null, '', location.pathname + location.search + (drill[1] ? '#ch' + drill[1] : ''));
       if (drill[1]) renderChapter(+drill[1]); else renderHome();
       window.BioDrill.open(drill[1] ? +drill[1] : 0);
+      return;
+    }
+    // Make your own games (#make), or a game someone made and shared (#play=...), over Biology's home.
+    var made = h.match(/^play=([A-Za-z0-9_-]+)$/);
+    if ((h === 'make' || made) && window.BioMaker) {
+      history.replaceState(null, '', location.pathname + location.search);
+      renderHome();
+      if (!made || !window.BioMaker.fromLink(made[1])) window.BioMaker.open();
       return;
     }
     // #board and the other games open over Biology's home (the link drops the hash so it can be followed again).
