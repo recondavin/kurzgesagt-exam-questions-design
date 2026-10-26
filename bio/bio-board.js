@@ -267,11 +267,16 @@
           m.style.setProperty('--size', t + 'px');
         } else box.style.removeProperty('--tbw');
         // Hidden (no room beside the card, as on a phone): leave him where answer-mode.js keeps him, out of sight.
-        if (!m.classList.contains('is-on')) { m.style.left = m.style.bottom = ''; return; }
+        var say = m.querySelector('.am-mascot__say');
+        if (!m.classList.contains('is-on')) { m.style.left = m.style.bottom = ''; if (say) say.style.maxWidth = ''; return; }
         var root = m.offsetParent.getBoundingClientRect(), r = box.getBoundingClientRect();
         // A clear gap between him and the board, so his bubble doesn't cover it (the user: "put him to the left").
-        m.style.left = Math.max(14, (m.offsetParent.clientWidth - box.offsetWidth) / 2 - m.offsetWidth - 60) + 'px';
+        var left = Math.max(14, (m.offsetParent.clientWidth - box.offsetWidth) / 2 - m.offsetWidth - 60);
+        m.style.left = left + 'px';
         m.style.bottom = Math.max(10, Math.round(root.bottom - r.bottom)) + 'px';
+        // Where the gap is narrow his bubble (up to 60px wider than him) wraps instead of covering the card's edge.
+        var room = Math.round(r.left - root.left - left - 14);
+        if (say) say.style.maxWidth = room >= 150 && room < m.offsetWidth + 60 ? room + 'px' : '';
       }, ms);
     });
   }

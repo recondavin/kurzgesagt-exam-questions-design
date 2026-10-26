@@ -661,9 +661,49 @@ button.sea-c { cursor: default; }
 }
 @media (prefers-reduced-motion: reduce) { .ed-box.is-no { animation: none; } }
 
-/* ---------- Make your own games (bio-maker.js): pick cards, play it, share it ---------- */
+/* ---------- Make your own games (bio-maker.js, art in maker-assets.js): one question at a time, play it, share it ---------- */
 .mk, .mk-play { display: grid; gap: 18px; }
+.mk > *, .mk-play > *, .mk-preview > * { min-width: 0; }
+.mk-title { margin: 0; color: #F1F7FB; font: 600 30px/1.15 Fredoka, Nunito, sans-serif; }
 .mk-h { margin: 0; color: #F1F7FB; font: 600 22px/1.2 Fredoka, Nunito, sans-serif; }
+.mk-h4 { margin: 4px 0 0; color: #93A5AE; font: 800 15px Nunito, sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+.mk-ask { margin: 2px 0 0; color: #F1F7FB; font: 600 30px/1.2 Fredoka, Nunito, sans-serif; }
+.mk-hint { margin: 0; color: #B9C7CF; font: 700 17px/1.4 Nunito, sans-serif; }
+/* Where you are: the four parts of making a game. */
+.mk-progress { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.mk-progress__part { display: grid; gap: 6px; color: #6F8590; font: 800 14px Nunito, sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+.mk-progress__part.is-now { color: #F1F7FB; }
+.mk-progress__part i { display: block; height: 10px; overflow: hidden; border-radius: 999px; background: #2B3B42; }
+.mk-progress__part em { display: block; height: 100%; border-radius: 999px; background: #58CC02; transition: width .35s ease; }
+/* Cards to tap. */
+.mk-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.mk-opts--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.mk-opts--ch { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.mk-opt { position: relative; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 14px; row-gap: 2px; align-items: center; min-height: 76px; padding: 14px 18px;
+  border: 2px solid #37464F; border-bottom-width: 5px; border-radius: 16px; background: #202F36; color: #F1F7FB; text-align: left; cursor: pointer; }
+.mk-opt:hover { background: #26363E; }
+.mk-opt:active { border-bottom-width: 2px; transform: translateY(3px); }
+.mk-opt.is-on { border-color: #1CB0F6; background: #17384A; }
+.mk-opt__art { grid-row: 1 / 3; display: grid; place-items: center; width: 52px; height: 52px; }
+.mk-opt__art svg { display: block; width: 100%; height: 100%; }
+.mk-opt__t { grid-column: 2; font: 800 20px/1.25 Nunito, sans-serif; }
+.mk-opt__d { grid-column: 2; color: #93A5AE; font: 700 15px/1.35 Nunito, sans-serif; }
+.mk-opt:not(:has(.mk-opt__art)) { grid-template-columns: 1fr; }
+.mk-opt:not(:has(.mk-opt__art)) .mk-opt__t, .mk-opt:not(:has(.mk-opt__art)) .mk-opt__d { grid-column: 1; }
+.mk-opt.is-on .mk-opt__d { color: #B9D7E6; }
+.mk-opt__t:last-child { grid-row: 1 / 3; }
+.mk-opt--more { border-style: dashed; border-bottom-style: solid; }
+.mk-opt--ch { padding-right: 46px; border-left: 8px solid var(--c, #37464F); }
+.mk-opt--ch.is-on { border-color: var(--c); background: #1E3640; }
+.mk-opt--all { --c: #F1F7FB; }
+.mk-tick { position: absolute; top: 50%; right: 14px; width: 24px; height: 24px; box-sizing: border-box; border: 3px solid #4A5B63; border-radius: 7px; transform: translateY(-50%); }
+.is-on > .mk-tick { border-color: #58CC02; background: #58CC02; }
+.is-on > .mk-tick::after { content: "\2713"; position: absolute; inset: 0; display: grid; place-items: center; color: #FFFFFF; font: 900 15px/1 Nunito, sans-serif; }
+.mk-big { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.mk-opt--new { border-color: #58A700; background: #1F3A1A; }
+.mk-opt--new:hover { background: #26461F; }
+.mk-own { display: grid; gap: 14px; padding: 16px 18px; border: 2px solid #37464F; border-radius: 16px; background: #182429; }
+/* Your games. */
 .mk-mine { display: grid; gap: 10px; }
 .mk-mine ul { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .mk-mine li { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 14px; background: #202F36; color: #F1F7FB; font: 800 17px Nunito, sans-serif; }
@@ -671,11 +711,10 @@ button.sea-c { cursor: default; }
 .mk-mine__av { display: inline-flex; flex: none; }
 .mk-mine__w { color: #93A5AE; font-size: 14px; }
 .mk-mini { flex: none; padding: 7px 12px; border: 2px solid #37464F; border-radius: 12px; background: transparent; color: #F1F7FB; font: 800 14px Nunito, sans-serif; cursor: pointer; }
+.mk-mini:hover { background: #26363E; }
 .mk-mini--go { border-color: #58A700; background: #58CC02; }
-.mk-mini:focus-visible, .mk-chip:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
-.mk-name { display: grid; gap: 6px; color: #93A5AE; font: 800 15px Nunito, sans-serif; }
-.mk-name input, .mk-share input { box-sizing: border-box; width: 100%; padding: 10px 14px; border: 2px solid #37464F; border-radius: 12px; background: #202F36; color: #F1F7FB; font: 800 18px Nunito, sans-serif; }
-.mk-name input:focus, .mk-share input:focus { border-color: #1CB0F6; outline: none; }
+.mk-mini:focus-visible, .mk-chip:focus-visible, .mk-opt:focus-visible, .mk-tile:focus-visible, .mk-tab:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
+/* Small choices, tabs, tiles. */
 .mk-row { min-width: 0; margin: 0; padding: 0; border: 0; }
 .mk-row legend { margin: 0 0 8px; padding: 0; color: #93A5AE; font: 800 15px Nunito, sans-serif; }
 .mk-chips { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -683,36 +722,90 @@ button.sea-c { cursor: default; }
   color: #F1F7FB; font: 800 16px Nunito, sans-serif; cursor: pointer; }
 .mk-chip:hover { background: #26363E; }
 .mk-chip.is-on { border-color: #1CB0F6; background: #17384A; }
-.mk-chip--ch.is-on { border-color: var(--c); }
-.mk-swatch { display: block; width: 26px; height: 26px; border: 2px solid #13294A; border-radius: 50%; }
+.mk-chip--sw { padding: 6px 9px; }
+.mk-chip--part { padding: 2px 4px; min-height: 0; }
+.mk-chip--part svg { display: block; overflow: hidden; border-radius: 9px; }
+.mk-swatch { display: block; width: 28px; height: 28px; border: 2px solid #13294A; border-radius: 50%; }
+.mk-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.mk-tab { padding: 9px 18px; border: 2px solid #37464F; border-radius: 999px; background: transparent; color: #B9C7CF; font: 800 16px Nunito, sans-serif; cursor: pointer; }
+.mk-tab.is-on { border-color: #F1F7FB; background: #F1F7FB; color: #13294A; }
+.mk-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px; }
+.mk-tiles--wide { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.mk-tiles--things { grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); }
+.mk-tiles--parts { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+.mk-tile { display: grid; justify-items: center; align-content: start; gap: 6px; padding: 10px 6px 9px; border: 2px solid #37464F; border-bottom-width: 4px; border-radius: 14px; background: #202F36;
+  color: #F1F7FB; font: 800 14px/1.2 Nunito, sans-serif; text-align: center; cursor: pointer; }
+.mk-tile:hover:not(:disabled) { background: #26363E; }
+.mk-tile:disabled { opacity: .45; cursor: default; }
+.mk-tile.is-on { border-color: #1CB0F6; background: #17384A; }
+.mk-tile > svg { display: block; width: 76px; height: 76px; }
+.mk-tile > svg, .mk-tile > .mk-face { border-radius: 12px; background: #E9F3F8; }
+.mk-tile > .mk-face { width: 76px; height: 76px; }
+.mk-tile--thing > svg { width: 48px; height: 48px; }
+.mk-tile--place { padding: 6px 6px 9px; }
+.mk-tile--place > svg { width: 100%; height: auto; aspect-ratio: 16 / 5; border-radius: 9px; }
+.mk-face { display: block; width: 64px; height: 64px; }
+.mk-face svg { display: block; width: 100%; height: 100%; }
+/* Design your own character. */
+.mk-build { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 18px; align-items: start; }
+.mk-build__me { position: sticky; top: 0; display: grid; justify-items: center; gap: 10px; padding: 14px; border: 2px solid #37464F; border-radius: 16px; background: #E9F3F8; }
+.mk-build__me .mk-mini { border-color: #13294A; color: #13294A; }
+.mk-build__me .mk-mini:hover { background: #D6E6EE; }
+.mk-build__rows { display: grid; gap: 14px; }
+/* Things you put in your world. */
+.mk-placed { gap: 6px; }
+.mk-chip--placed { gap: 0; padding: 0; overflow: hidden; }
+.mk-placed__pick { display: inline-flex; align-items: center; gap: 6px; padding: 6px 6px 6px 10px; border: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.mk-placed__pick svg { width: 28px; height: 28px; }
+.mk-placed__rm { align-self: stretch; padding: 0 12px; border: 0; border-left: 2px solid #37464F; background: transparent; color: #FF8A8A; font: 900 20px Nunito, sans-serif; cursor: pointer; }
+.mk-name { display: grid; gap: 6px; color: #93A5AE; font: 800 15px Nunito, sans-serif; }
+.mk-name input, .mk-share input { box-sizing: border-box; width: 100%; padding: 12px 16px; border: 2px solid #37464F; border-radius: 12px; background: #202F36; color: #F1F7FB; font: 800 20px Nunito, sans-serif; }
+.mk-name input:focus, .mk-share input:focus { border-color: #1CB0F6; outline: none; }
+/* Your game, done. */
+.mk-sum { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.mk-sum li { display: grid; grid-template-columns: 110px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 14px; background: #202F36; color: #D5E0E6; font: 700 17px/1.35 Nunito, sans-serif; }
+.mk-sum li b { color: #F1F7FB; font: 800 15px Nunito, sans-serif; letter-spacing: .04em; text-transform: uppercase; }
 .mk-share { display: grid; gap: 6px; color: #B9C7CF; font: 700 15px Nunito, sans-serif; }
 .mk-share[hidden] { display: none; }
-.mk-rules { display: flex; flex-direction: column; gap: 4px; margin: 6px 0 0; color: #B9C7CF; font: 700 17px Nunito, sans-serif; }
-.mk-rules b { color: #F1F7FB; }
 .mk-said { margin: 0 auto 0 0; color: #F1F7FB; font: 800 18px Nunito, sans-serif; }
-.mk-start .mk-preview, .mk-end .mk-preview { width: 100%; margin-bottom: 14px; }
+.mk-end .mk-preview { width: 100%; margin-bottom: 14px; }
+/* Playing: where a question is from, how many points, the parts to tap. */
+.mk-from { margin: -4px 0 0; color: #5B6B80; font: 800 13.5px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.mk-need { color: #5B6B80; font-size: .7em; white-space: nowrap; }
+.mk-fig { justify-self: center; width: 100%; }
+.mk-fig svg { max-height: 320px; }
+.mk-play > .mk-world { aspect-ratio: 16 / 4; min-height: 170px; }
+.mk-spot { cursor: pointer; }
+.mk-spot:hover circle:first-child, .mk-spot:focus-visible circle:first-child { fill: #FFC800; fill-opacity: .45; }
+.mk-spot:focus { outline: none; }
+.mk-spot.is-ok circle:first-child { fill: #58CC02; fill-opacity: .7; stroke: #2B6A00; }
+.mk-spot.is-no circle:first-child { fill: #FF4B4B; fill-opacity: .7; stroke: #B3261E; }
+.mk-spot.is-off { opacity: .35; cursor: default; }
+.mk-scheme { margin: 0; padding: 12px 16px; border-radius: 12px; background: #EEF2F6; color: #13294A; font: 700 18px/1.45 Nunito, sans-serif; }
+.mk-scheme span { display: block; color: #5B6B80; font: 800 14px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.mk-scheme em { color: #5B6B80; font-style: normal; }
 
-/* The world: a flat background with a floor, the pieces on it, and the counters. */
-.mk-world { position: relative; overflow: hidden; aspect-ratio: 16 / 5; min-height: 190px; border: 3px solid #37464F; border-radius: 18px; background: var(--wall); }
-.mk-world::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 16%; background: var(--floor); }
-.mk-back--class { --wall: #DDEFFB; --floor: #C7A27C; }
-.mk-back--class::after { content: ""; position: absolute; left: 6%; top: 12%; width: 22%; height: 30%; border: 5px solid #8B5E3C; border-radius: 6px; background: #2E5E4E; }
-.mk-back--lab { --wall: #E3F5E1; --floor: #9AA8B5; }
-.mk-back--lab::after { content: ""; position: absolute; right: 30%; top: 14%; width: 26px; height: 40px; border: 4px solid #13294A; border-radius: 4px 4px 14px 14px; background: #9BE3F9; }
-.mk-back--night { --wall: #1B2A4A; --floor: #2C3E5C; }
-.mk-back--night::after { content: ""; position: absolute; left: 12%; top: 16%; width: 4px; height: 4px; border-radius: 50%; background: #FFFFFF;
-  box-shadow: 90px 20px #FFFFFF, 210px -6px #FFFFFF, 320px 30px #FFFFFF, 460px 4px #FFFFFF, 580px 26px #FFFFFF, 150px 60px #FFFFFF, 400px 70px #FFFFFF; }
-.mk-back--beach { --wall: #BFE8FF; --floor: #F6D58E; }
-.mk-back--beach::after { content: ""; position: absolute; left: 0; right: 0; bottom: 16%; height: 10%; background: #59B8E6; }
-.mk-world > * { position: absolute; z-index: 1; }
-.mk-him { display: block; width: 58px; height: 58px; }
-.mk-him svg { display: block; width: 100%; height: 100%; }
-.mk-av { display: block; overflow: visible; }
-.mk-tok { bottom: calc(16% + 10px); transform: translateX(-50%); transition: left .6s cubic-bezier(.3, 1.3, .5, 1); }
-.mk-tok--him { z-index: 0; }
+/* The world: the place (maker-assets.js), your things, then the pieces and the counters. */
+.mk-world { position: relative; overflow: hidden; aspect-ratio: 16 / 5; min-height: 190px; border: 3px solid #37464F; border-radius: 18px; background: #DDEFFB; }
+.mk-world > * { position: absolute; z-index: 2; }
+.mk-world > .mk-place { inset: 0; z-index: 0; width: 100%; height: 100%; }
+.mk-world > .mk-things { inset: 0; z-index: 1; pointer-events: none; }
+.mk-wiz .mk-world { aspect-ratio: 16 / 4.4; min-height: 150px; }
+.mk-thing { position: absolute; height: 24%; aspect-ratio: 1; transform: translate(-50%, -100%); }
+.mk-thing svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.mk-world.is-edit { cursor: crosshair; }
+.mk-world.is-edit .mk-thing { pointer-events: auto; cursor: pointer; }
+.mk-thing.is-sel { outline: 3px dashed #FFC800; outline-offset: 3px; border-radius: 8px; }
+.mk-me { display: block; }
+.mk-me svg { display: block; width: 64px; height: 64px; overflow: visible; }
+.mk-him { display: block; width: 62px; height: 62px; }
+.mk-him svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.mk-tok { bottom: calc(16% - 2px); transform: translateX(-50%); transition: left .6s cubic-bezier(.3, 1.3, .5, 1); }
+.mk-tok--him { z-index: 2; }
+.mk-tok--you { z-index: 3; }
 .mk-heart { width: 22px; height: 20px; fill: #FF4B4B; stroke: #13294A; stroke-width: 1.6; }
 .mk-heart.is-gone { fill: #C9D2DA; }
-.mk-lives { top: 10px; left: 12px; display: flex; gap: 4px; }
+.mk-lives { top: 10px; left: 12px; display: flex; gap: 4px; padding: 4px 9px; border: 2px solid #13294A; border-radius: 999px; background: #FFFFFF; }
 /* Race: a track of squares to the flag. */
 .mk-track { left: 30px; right: 30px; bottom: calc(16% - 8px); display: flex; gap: 4px; }
 .mk-track i { flex: 1; height: 14px; border: 2px solid #13294A; border-radius: 5px; background: #FFFFFF; }
@@ -721,40 +814,104 @@ button.sea-c { cursor: default; }
 .mk-flag { right: 34px; bottom: calc(16% + 6px); width: 5px; height: 60px; border-radius: 2px; background: #13294A; }
 .mk-flag::after { content: ""; position: absolute; left: 5px; top: 0; width: 30px; height: 20px; border-radius: 0 4px 4px 0; background: #FF4B4B; }
 /* Battle: you and him, each with hearts. */
-.mk-side { bottom: calc(16% + 6px); display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.mk-side { bottom: calc(16% - 4px); display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .mk-side--you { left: 14%; }
 .mk-side--him { right: 14%; }
-.mk-side--him .mk-him { width: 84px; height: 84px; }
-.mk-hearts { display: flex; flex-wrap: wrap; justify-content: center; gap: 3px; max-width: 150px; }
-.mk-vs { left: 50%; top: 42%; transform: translate(-50%, -50%); color: #13294A; font: 700 34px Fredoka, Nunito, sans-serif; }
+.mk-side .mk-me svg, .mk-side--him .mk-him { width: 86px; height: 86px; }
+.mk-hearts { display: flex; flex-wrap: wrap; justify-content: center; gap: 3px; max-width: 150px; padding: 3px 7px; border: 2px solid #13294A; border-radius: 12px; background: #FFFFFF; }
+.mk-vs { left: 50%; bottom: calc(16% + 26px); padding: 2px 14px; border: 3px solid #13294A; border-radius: 12px; background: #FFFFFF; transform: translateX(-50%); color: #13294A; font: 700 30px Fredoka, Nunito, sans-serif; }
 .mk-world.is-good .mk-side--him, .mk-world.is-bad .mk-side--you { animation: mkHit .45s ease; }
 @keyframes mkHit { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
 /* Tower: blocks up to the dashed line. */
 .mk-stack { left: 50%; bottom: 16%; display: flex; flex-direction: column-reverse; width: 96px; height: 68%; transform: translateX(-50%); }
 .mk-stack i { flex: 0 0 calc(100% / var(--n)); box-sizing: border-box; border: 3px solid #13294A; border-radius: 6px; animation: mkDrop .4s cubic-bezier(.3, 1.3, .5, 1) both; }
 @keyframes mkDrop { from { transform: translateY(-30px); opacity: 0; } }
-.mk-goal { left: calc(50% - 70px); width: 140px; bottom: 84%; border-top: 3px dashed #13294A; }
-.mk-tok--builder { left: 28%; transform: translateX(-50%); }
-.mk-watch { right: 7%; bottom: calc(16% + 6px); }
-.mk-watch .mk-him { width: 72px; height: 72px; }
+.mk-goal { left: calc(50% - 70px); width: 140px; bottom: 84%; border-top: 4px dashed #13294A; }
+.mk-world.is-dark .mk-goal { border-color: #FFFFFF; }
+.mk-tok--builder { left: 28%; }
+.mk-watch { right: 7%; bottom: calc(16% - 2px); }
+.mk-watch .mk-him { width: 74px; height: 74px; }
 /* Points: the score, a bar to the target. */
-.mk-points { left: 50%; top: 14%; display: flex; align-items: baseline; gap: 8px; transform: translateX(-50%); color: #13294A; font: 700 46px Fredoka, Nunito, sans-serif; }
-.mk-points span { font: 800 18px Nunito, sans-serif; }
-.mk-bar { left: 18%; right: 18%; bottom: calc(16% + 30px); height: 18px; overflow: hidden; border: 3px solid #13294A; border-radius: 999px; background: #FFFFFF; }
+.mk-points { left: 50%; top: 12%; display: flex; align-items: baseline; gap: 8px; padding: 0 16px; border: 3px solid #13294A; border-radius: 14px; background: #FFFFFF; transform: translateX(-50%); color: #13294A; font: 700 42px Fredoka, Nunito, sans-serif; }
+.mk-points span { font: 800 17px Nunito, sans-serif; }
+.mk-bar { left: 20%; right: 20%; bottom: calc(16% + 30px); height: 18px; overflow: hidden; border: 3px solid #13294A; border-radius: 999px; background: #FFFFFF; }
 .mk-bar i { display: block; height: 100%; transition: width .6s ease; }
-.mk-tok--score { left: 9%; transform: translateX(-50%); }
-.mk-back--night .mk-vs, .mk-back--night .mk-points, .mk-back--night .mk-goal { color: #F1F7FB; border-color: #F1F7FB; }
+.mk-tok--score { left: 9%; }
+/* Shootout: his goal with him in it, your ball, the score. */
+.mk-goalbox { right: 4%; bottom: calc(16% - 3px); height: 58%; aspect-ratio: 4 / 3; }
+.mk-goalbox > .mk-net { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mk-goalbox > .mk-keeper { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); }
+.mk-keeper .mk-him { width: 70px; height: 70px; }
+.mk-tok--kicker { left: 14%; }
+.mk-ball { left: 27%; bottom: calc(16% - 2px); width: 28px; height: 28px; transform: translateX(-50%); }
+.mk-ball svg { display: block; width: 100%; height: 100%; }
+.mk-world--shoot.is-good .mk-ball { animation: mkShoot .7s cubic-bezier(.2, .7, .3, 1) forwards; }
+@keyframes mkShoot { 60% { left: 80%; bottom: 44%; } 100% { left: 83%; bottom: 30%; } }
+.mk-world--shoot.is-bad .mk-ball { animation: mkSaved .8s ease-out forwards; }
+@keyframes mkSaved { 45% { left: 74%; bottom: 36%; } 100% { left: 50%; bottom: calc(16% - 2px); } }
+.mk-score { left: 50%; top: 9%; display: flex; align-items: baseline; gap: 8px; padding: 0 14px; border: 3px solid #13294A; border-radius: 14px; background: #FFFFFF; transform: translateX(-50%); color: #13294A; font: 700 34px Fredoka, Nunito, sans-serif; }
+.mk-score i { color: #5B6B80; font-style: normal; }
+.mk-score span { color: #5B6B80; font: 800 14px Nunito, sans-serif; }
+/* Grow: a plant in a pot, a leaf a right answer. */
+.mk-plant { left: 50%; bottom: calc(16% - 2px); height: 78%; aspect-ratio: 100 / 220; transform: translateX(-50%); }
+.mk-plant svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.mk-leaf.is-new { animation: mkLeaf .5s cubic-bezier(.3, 1.4, .5, 1) both; }
+@keyframes mkLeaf { from { transform: scale(0); } }
+.mk-count { top: 10px; right: 12px; padding: 2px 12px; border: 3px solid #13294A; border-radius: 12px; background: #FFFFFF; color: #13294A; font: 800 15px Nunito, sans-serif; }
+.mk-count b { font: 700 22px Fredoka, Nunito, sans-serif; }
+/* Alive: the characters bob; a right answer makes you hop, a wrong one makes him hop. */
+.mk-me, .mk-him { animation: mkBob 2.6s ease-in-out infinite; }
+.mk-him { animation-delay: -1.3s; }
+@keyframes mkBob { 50% { transform: translateY(-4px); } }
+.mk-world.is-good .mk-me, .mk-world.is-bad .mk-him { animation: mkHop .55s cubic-bezier(.3, 1.4, .5, 1); }
+@keyframes mkHop { 40% { transform: translateY(-16px); } }
 @media (max-width: 700px) {
+  .mk-ask { font-size: 24px; }
+  .mk-keeper .mk-him { width: 46px; height: 46px; }
+  .mk-ball { width: 20px; height: 20px; }
+  .mk-score { font-size: 24px; padding: 0 10px; }
+  .mk-count { font-size: 13px; padding: 1px 8px; }
+  .mk-count b { font-size: 17px; }
+  .mk-title { font-size: 25px; }
+  .mk-opts, .mk-big { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .mk-opts--3, .mk-opts--ch { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mk-opts--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .mk-opt { min-height: 0; padding: 12px 14px; }
+  .mk-opts--3 .mk-opt { padding: 10px; }
+  .mk-opt__art { width: 42px; height: 42px; }
+  .mk-opt__t { font-size: 17px; }
+  .mk-opt__d { font-size: 14px; }
+  .mk-progress { gap: 6px; }
+  .mk-progress__part { font-size: 11px; }
+  .mk-tiles { grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+  .mk-tiles--wide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mk-tile:not(.mk-tile--place) > svg, .mk-tile > .mk-face { width: 60px; height: 60px; }
+  .mk-chip--part svg { width: 48px; height: auto; }
+  .mk-build { grid-template-columns: minmax(0, 1fr); }
+  .mk-build__me { position: static; grid-template-columns: auto auto; justify-content: center; align-items: center; }
+  .mk-build__me > svg { width: 96px; height: 96px; }
+  .mk-sum li { grid-template-columns: minmax(0, 1fr) auto; }
+  .mk-sum li b { grid-column: 1 / -1; }
   .mk-world { aspect-ratio: 16 / 9; min-height: 0; }
-  .mk-tok .mk-av { width: 40px; height: 40px; }
-  .mk-him { width: 44px; height: 44px; }
-  .mk-side--him .mk-him, .mk-watch .mk-him { width: 56px; height: 56px; }
-  .mk-side .mk-av { width: 56px; height: 56px; }
-  .mk-heart { width: 16px; height: 15px; }
+  .mk-wiz .mk-world { aspect-ratio: 16 / 7; min-height: 0; }
+  .mk-me svg { width: 46px; height: 46px; }
+  .mk-him { width: 46px; height: 46px; }
+  .mk-side .mk-me svg, .mk-side--him .mk-him, .mk-watch .mk-him { width: 58px; height: 58px; }
+  .mk-heart { width: 13px; height: 12px; }
+  .mk-hearts { max-width: 96px; gap: 2px; padding: 2px 5px; border-radius: 9px; }
+  .mk-side--you { left: 6%; }
+  .mk-side--him { right: 6%; }
+  .mk-play > .mk-world { aspect-ratio: 16 / 9; min-height: 0; }
+  .mk-fig svg { max-height: 230px; }
+  .mk-vs { bottom: calc(16% + 16px); font-size: 20px; padding: 0 8px; }
+  .mk-points { font-size: 30px; }
   .mk-chip { min-height: 42px; padding: 5px 12px; font-size: 15px; }
+  .mk-chip--part, .mk-chip--sw { padding: 2px 5px; }
   .mk-mine li { flex-wrap: wrap; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .mk-tok, .mk-bar i { transition: none; }
+  .mk-tok, .mk-bar i, .mk-progress__part em { transition: none; }
+  .mk-me, .mk-him, .mk-leaf.is-new, .mk-world--shoot.is-good .mk-ball, .mk-world--shoot.is-bad .mk-ball, .mk-world.is-good .mk-me, .mk-world.is-bad .mk-him { animation: none; }
   .mk-stack i, .mk-world.is-good .mk-side--him, .mk-world.is-bad .mk-side--you { animation: none; }
+  .mk-opt:active { transform: none; }
 }
