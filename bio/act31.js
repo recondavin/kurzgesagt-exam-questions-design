@@ -2,15 +2,17 @@
 // Uses window.BioKit from bio/bio-games.js; registers itself in window.BioActions[31].
 (function () {
   'use strict';
-  var K = window.ExamAnswerMode && window.ExamAnswerMode.kit, BK = window.BioKit;
-  if (!K || !BK) return;
+  var K = window.ExamAnswerMode && window.ExamAnswerMode.kit, BK = window.BioKit, S = window.BioStage;
+  if (!K || !BK || !S) return;
   var esc = BK.esc, shuffle = BK.shuffle, pick = BK.pick, host = BK.host, body = BK.body, buttons = BK.buttons;
 
   // You are a red blood cell doing the double circulation. Three rounds:
   // 1: the right side of the heart: steer into the right exit of each chamber; valves only open at the right moment.
   // 2: the lungs (catch oxygen, dodge carbon monoxide), then back through the left side of the heart.
   // 3: up the aorta and out to the body: hold still beside the cells that need oxygen so it diffuses in.
-  // A wrong exit costs a heart; a question between rounds.
+  // A wrong exit costs a heart; a question between rounds. Each chamber is drawn as the inside of the heart: the cavity
+  // full of blood in thick muscle, its valves as big flaps that swing open and shut with the beat, the whole stage
+  // pulsing as the chamber squeezes, and a small heart in the corner showing where you are in it.
   var INK = '#18272D', VALVE = '#FDF3D6', MUSCLE = '#C4683F', MUSCLE_D = '#7A3A2A', BG = '#FBEFE3';
   var BLOOD = { de: { fill: '#9DB6EE', edge: '#3E6FD8', cell: '#B3405A', label: 'deoxygenated' }, ox: { fill: '#F6B1B3', edge: '#FF4B4B', cell: '#FF4B4B', label: 'oxygenated' } };
 
@@ -53,13 +55,13 @@
     body: { name: 'Body capillaries', kind: 'body', blood: 'ox', hint: 'Oxygen leaves the blood by diffusion into the cells that need it for respiration. Working muscle needs the most.' }
   };
   var ROUNDS = [
-    { title: 'Round 1: The right side of the heart', ask: 'You are a red blood cell, low on oxygen, arriving back at the heart. Read the exits and steer into the right one. Valves only let you through at the right moment in the heartbeat.',
+    { title: 'Round 1: The right side of the heart', name: 'Right side', rule: 'Steer into the <b>right exit</b>. Valves only open at the right moment in the beat.', ask: 'You are a red blood cell, low on oxygen, arriving back at the heart. Read the exits and steer into the right one. Valves only let you through at the right moment in the heartbeat.',
       stages: ['vc', 'ra', 'rv', 'pa'],
       quiz: { q: 'Which valve stops blood flowing back from the right ventricle into the right atrium?', opts: ['The tricuspid valve', 'The bicuspid valve', 'The semilunar valve', 'The pacemaker'], a: 0 } },
-    { title: 'Round 2: The lungs, then the left side', ask: 'In the lung capillary, catch oxygen (O₂) to fill your haemoglobin and dodge carbon monoxide (CO) from cigarette smoke. Then back through the left side of the heart.',
+    { title: 'Round 2: The lungs, then the left side', name: 'Lungs and left side', rule: 'Catch <b>oxygen</b>, dodge carbon monoxide, then through the left side.', ask: 'In the lung capillary, catch oxygen (O₂) to fill your haemoglobin and dodge carbon monoxide (CO) from cigarette smoke. Then back through the left side of the heart.',
       stages: ['lungs', 'pv', 'la', 'lv'],
       quiz: { q: 'Why does the left ventricle have a thicker wall than the right ventricle?', opts: ['It pumps blood all round the body', 'It pumps blood to the lungs', 'It has to hold more blood', 'It makes the blood oxygenated'], a: 0 } },
-    { title: 'Round 3: Out to the body', ask: 'Up the aorta and into a capillary bed. Stay above each cell that needs oxygen until it diffuses in. The blood flow keeps pushing you along.',
+    { title: 'Round 3: Out to the body', name: 'Out to the body', rule: 'Stay over each cell that <b>needs oxygen</b> until it diffuses in.', ask: 'Up the aorta and into a capillary bed. Stay above each cell that needs oxygen until it diffuses in. The blood flow keeps pushing you along.',
       stages: ['ao', 'body'],
       quiz: { q: 'In which form does a red blood cell carry oxygen?', opts: ['Joined to haemoglobin', 'Dissolved in its nucleus', 'Stored as glycogen', 'Attached to platelets'], a: 0 } }
   ];
@@ -69,30 +71,30 @@
   var A = null;
   function actionOpen(ch) {
     if (ch !== 31) return;
+    if (A) cancelAnimationFrame(A.raf);
     var card = host(ch, 'Red cell run');
-    A = { card: card, round: 0, score: 0, hearts: 3, raf: 0, o2: 0 };
+    card.querySelector('.am-finish__card').classList.add('act-card');
+    S.watch(K.root());
+    A = { card: card, round: 0, score: 0, hearts: 3, raf: 0, o2: 0, res: [] };
     K.root().addEventListener('click', actionClick);
     K.gameHud(card, ROUNDS.length, 'pts');
     actionIntro();
   }
+  // A round opens on its first frame (the first chamber, beating), under a card that says how to move.
   function actionIntro() {
     var r = ROUNDS[A.round];
     K.gameSeg(A.card, A.round, 'is-current');
-    body(A.card, '<div class="nr rc"><div class="am-run__top"><h3 class="am-run__kind">' + esc(r.title) + '</h3><span class="am-games__step nr-hearts" data-nr-hearts></span></div>' +
-      '<p class="am-games__ask">' + esc(r.ask) + '</p><div class="nr-stage rc-stage"><canvas class="nr-canvas" data-nr-canvas aria-label="' + esc(r.title) + '"></canvas>' +
-      '<div class="nr-overlay" data-nr-overlay><p>Move with your finger, the mouse or the arrow keys.</p></div></div>' +
-      '<p class="am-games__note" data-am-gnote role="status"></p></div>', true);
-    hearts();
+    body(A.card, '<div class="nr rc">' + S.head({ title: r.title, hearts: A.hearts, rule: r.rule }) +
+      S.stage({ cls: 'rc-stage', canvas: 'data-nr-canvas', overlay: 'data-nr-overlay', title: r.title, more: esc(r.ask), how: 'Drag, tap where to go, or use the arrow keys' }) + '</div>', true);
     buttons(A.card, [['more', 'data-am-keep', 'Close'], ['ok', 'data-rc-play', A.round ? 'Go' : 'Start']]);
     if (!A.round) K.mascot('ok', 'You\'re a red blood cell. Try not to get lost.');
+    S.place(A.card);
+    prepare();
   }
-  function hearts() {
-    var h = A.card.querySelector('[data-nr-hearts]');
-    if (h) h.textContent = '♥'.repeat(Math.max(0, A.hearts)) + '♡'.repeat(Math.max(0, 3 - A.hearts));
-  }
+  function hearts(lost) { S.hearts(A.card, A.hearts, lost); }
   function note(text, good) {
     var n = A.card.querySelector('[data-am-gnote]');
-    if (n) { n.textContent = text; n.className = 'am-games__note ' + (good === true ? 'nr-good' : good === false ? 'nr-bad' : ''); }
+    if (n) { n.textContent = text; n.className = 'am-games__note act-note ' + (good === true ? 'nr-good' : good === false ? 'nr-bad' : ''); }
   }
   function addScore(n) {
     A.score = Math.max(0, A.score + n);
@@ -100,38 +102,52 @@
   }
   function loseHeart(line) {
     A.hearts -= 1;
-    hearts();
+    A.res[A.round] = false;
+    hearts(true);
     K.bonk();
     K.mascot(A.hearts > 0 ? 'angry' : 'furious', line);
   }
 
   // ---------------------------------------------------------------- the play loop
-  function actionPlay() {
-    var canvas = A.card.querySelector('[data-nr-canvas]'), ctx = canvas.getContext('2d');
-    A.card.querySelector('[data-nr-overlay]').hidden = true;
-    var rect = canvas.parentNode.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
-    var W = Math.min(640, Math.round(rect.width)), H = Math.round(Math.min(420, Math.max(320, W * 0.66)));
-    canvas.width = W * dpr; canvas.height = H * dpr; canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var g = A.g = { W: W, H: H, ctx: ctx, canvas: canvas, keys: {}, target: null, stage: -1, last: performance.now(), t0: performance.now(), done: false };
-    var setTarget = function (e) {
-      var b = canvas.getBoundingClientRect();
-      g.target = { x: e.clientX - b.left, y: e.clientY - b.top };
+  // The canvas is sized and the first room set up and drawn once, beating, under the "how to move" card.
+  function prepare() {
+    var canvas = A.card.querySelector('[data-nr-canvas]'), f = S.fit(canvas), ctx = f.ctx;
+    var g = A.g = { W: f.W, H: f.H, ctx: ctx, canvas: canvas, keys: {}, target: null, stage: -1, last: S.now(), t0: S.now(), done: false, pops: [] };
+    nextStage(g);
+    g.banner = -1e9;
+    draw(g, S.now());
+    // The heart keeps beating behind the card until you start.
+    var idle = function () {
+      if (!A || A.g !== g || g.started || !canvas.isConnected) return;
+      draw(g, S.now());
+      A.raf = requestAnimationFrame(idle);
     };
+    if (!K.reduced()) A.raf = requestAnimationFrame(idle);
+  }
+  function actionPlay() {
+    var g = A.g, canvas = g.canvas;
+    if (!g || g.started) return;
+    g.started = true;
+    cancelAnimationFrame(A.raf);
+    K.playing(true);
+    if (A.res[A.round] == null) A.res[A.round] = true;
+    A.card.querySelector('[data-nr-overlay]').hidden = true;
+    g.t0 = g.last = g.banner = S.now();
+    var setTarget = function (e) { g.target = S.point(canvas, e); };
     canvas.onpointermove = function (e) { if (e.pointerType === 'mouse' || e.buttons) setTarget(e); };
     canvas.onpointerdown = function (e) { setTarget(e); canvas.focus({ preventScroll: true }); };
     A.onKey = function (e) {
       if (!canvas.isConnected) { document.removeEventListener('keydown', A.onKey); document.removeEventListener('keyup', A.onKey); return; }
-      if (/^Arrow/.test(e.key)) { g.keys[e.key] = e.type === 'keydown'; g.target = null; e.preventDefault(); }
+      if (/^Arrow/.test(e.key) && !document.querySelector('.am-leave')) { g.keys[e.key] = e.type === 'keydown'; g.target = null; e.preventDefault(); }
     };
     document.addEventListener('keydown', A.onKey);
     document.addEventListener('keyup', A.onKey);
     buttons(A.card, [['more', 'data-am-keep', 'Stop'], ['more', 'data-rc-hint', 'Hint']], true);
     canvas.setAttribute('tabindex', '0');
     canvas.focus({ preventScroll: true });
-    nextStage(g);
-    var loop = function (now) {
+    var loop = function () {
       if (!A || A.g !== g || !canvas.isConnected) return;
+      var now = S.now();
       step(g, now);
       if (g.done) return;
       draw(g, now);
@@ -143,7 +159,7 @@
     var r = ROUNDS[A.round];
     g.stage += 1;
     if (g.stage >= r.stages.length) { g.done = true; roundEnd(); return; }
-    var id = r.stages[g.stage], room = ROOMS[id], now = performance.now();
+    var id = r.stages[g.stage], room = ROOMS[id], now = S.now();
     g.room = room; g.id = id; g.t0 = now; g.banner = now; g.items = []; g.fx = []; g.slip = 0;
     g.mistake = false; g.leaving = null; g.target = null;
     if (room.kind === 'lungs') setupLungs(g);
@@ -156,8 +172,9 @@
   var SIDES = ['top', 'right', 'bottom', 'left'];
   function setupRoom(g) {
     var room = g.room, W = g.W, H = g.H;
-    // The chamber, with room outside its walls to steer through a gap.
-    g.box = { x0: 30, y0: 54, x1: W - 30, y1: H - 26 };
+    // The chamber, with muscle outside its walls to steer through a gap, and room for the heart map: at the right on a
+    // wide stage, above the chamber on a narrow one.
+    g.box = W >= 560 ? { x0: 34, y0: 62, x1: W - 140, y1: H - 30 } : { x0: 30, y0: 138, x1: W - 30, y1: H - 30 };
     var entry = pick(SIDES), sides = shuffle(SIDES.filter(function (s) { return s !== entry; }));
     g.exits = shuffle(room.exits.slice()).map(function (e, k) { return { e: e, side: sides[k], open: 0, sealed: false }; });
     g.exits.forEach(function (x) { gapOf(g, x); });
@@ -217,6 +234,8 @@
     if (e.ok && e.valve && !valveOpen(e.valve, now)) {
       bounce(g, x);
       K.bonk();
+      K.sfx('clack', 0.7);
+      S.pop(g, g.cell.x, g.cell.y - 34, 'Shut!', '#EA2B2B');
       g.mistake = true;
       note('Shut! The ' + e.t.toLowerCase() + ' only opens when the ' + (e.valve === 'sl' ? 'ventricles contract' : 'ventricles relax') + '. Watch the heartbeat.', false);
       K.mascot('angry', 'It\'s shut. Timing!');
@@ -226,6 +245,8 @@
       var gain = g.mistake ? 6 : 12;
       addScore(gain);
       K.ding(4 + g.stage, false);
+      K.sfx('whoosh', 0.6);
+      S.pop(g, g.cell.x, g.cell.y - 34, '+' + gain, '#1E8A50');
       note(e.valve ? 'Through the ' + e.t.toLowerCase() + '! +' + gain : 'Into the ' + (e.t.replace(/^To the /, '')).toLowerCase() + '. +' + gain, true);
       K.mascot('happy', pick(['Correct.', 'Right way.', 'Hmph. Yes.']));
       g.leaving = [x.n[0], x.n[1], now];
@@ -236,6 +257,7 @@
     g.mistake = true;
     bounce(g, x);
     note(e.why, false);
+    S.pop(g, g.cell.x, g.cell.y - 34, e.back ? 'Backwards!' : 'Wrong way!', '#EA2B2B', true);
     loseHeart(e.back ? 'Backwards? Valves exist for a reason.' : 'Wrong way!');
     g.fx.push({ kind: 'shake', t: now });
     if (A.hearts <= 0) { g.done = true; roundEnd(); }
@@ -252,7 +274,7 @@
     g.spawn -= dt;
     if (g.spawn <= 0 && el < g.secs - 1200 && A.o2 < LOAD) {
       var co = Math.random() < 0.32;
-      g.items.push({ kind: co ? 'co' : 'o2', x: 26 + Math.random() * (g.W - 52), y: 96, vy: 0.07 + Math.random() * 0.05 + el / g.secs * 0.06, r: 13 });
+      g.items.push({ kind: co ? 'co' : 'o2', x: 26 + Math.random() * (g.W - 52), y: 96, vy: 0.07 + Math.random() * 0.05 + el / g.secs * 0.06, r: 17 });
       g.spawn = Math.max(380, 760 - el / g.secs * 300);
     }
     g.co2 -= dt;
@@ -265,6 +287,7 @@
         o.gone = true;
         if (o.kind === 'o2') {
           A.o2 += 1; addScore(3); K.ding(Math.min(10, A.o2 + 1), false);
+          S.pop(g, o.x, o.y - 26, '+3 O\u2082', '#1E8A50');
           if (A.o2 >= LOAD) {
             addScore(15);
             note('Fully loaded: your haemoglobin is carrying all the oxygen it can. +15', true);
@@ -273,6 +296,7 @@
           }
         } else {
           note('Carbon monoxide from cigarette smoke! It sticks to haemoglobin and stops it carrying oxygen.', false);
+          S.pop(g, o.x, o.y - 26, 'Smoke!', '#EA2B2B', true);
           loseHeart('Smoke! Disgusting.');
           if (A.hearts <= 0) { g.done = true; roundEnd(); }
         }
@@ -313,6 +337,7 @@
           s.hold = 0; s.need -= 1; s.glow = 1; A.o2 -= 1;
           g.fx.push({ kind: 'o2', x: c.x, y: c.y + 12, to: g.cellTop + 34, t: now });
           addScore(6); K.ding(5, false);
+          S.pop(g, s.x, g.cellTop - 10, '+6', '#1E8A50');
           note(s.need ? s.name + ': it needs more for respiration. Stay there.' : s.name + ' has its oxygen. +6', true);
         }
       } else s.hold = 0;
@@ -349,17 +374,16 @@
   function step(g, now) {
     var dt = Math.min(50, now - g.last);
     g.last = now;
-    if (g.done) return;
+    if (g.done || dt <= 0) return;
     if (g.room.kind === 'lungs') lungStep(g, now, dt);
     else if (g.room.kind === 'body') bodyStep(g, now, dt);
     else roomStep(g, now, dt);
   }
   function pill(ctx, text, x, y, fill, align) {
-    ctx.font = '600 12px Lexend, Nunito, sans-serif';
-    var w = ctx.measureText(text).width + 18, h = 22, x0 = align === 'left' ? x : align === 'right' ? x - w : x - w / 2;
+    ctx.font = '800 15px Nunito, sans-serif';
+    var w = ctx.measureText(text).width + 20, h = 28, x0 = align === 'left' ? x : align === 'right' ? x - w : x - w / 2;
     ctx.fillStyle = fill || INK;
-    ctx.beginPath();
-    if (ctx.roundRect) ctx.roundRect(x0, y - h / 2, w, h, 11); else ctx.rect(x0, y - h / 2, w, h);
+    rrect(ctx, x0, y - h / 2, w, h, h / 2);
     ctx.fill();
     ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText(text, x0 + w / 2, y + 0.5);
@@ -367,97 +391,166 @@
   }
   function redCell(ctx, x, y, r, color) {
     ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fillStyle = color; ctx.fill();
-    ctx.lineWidth = 2; ctx.strokeStyle = INK; ctx.stroke();
-    ctx.beginPath(); ctx.arc(x, y, r * 0.45, 0, Math.PI * 2); ctx.fillStyle = 'rgba(255,255,255,.28)'; ctx.fill();
-  }
-  function header(g, now, name) {
-    var ctx = g.ctx, ph = phase(now);
-    ctx.fillStyle = INK; ctx.font = '700 14px Fredoka, Nunito, sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-    ctx.fillText(name, 14, 22);
-    // The beating heart: it swells while a part of it contracts.
-    var beat = ph === 'relax' || K.reduced() ? 1 : 1.18, hx = g.W - 22, hy = 22, s = 8 * beat;
-    ctx.fillStyle = '#FF4B4B';
-    ctx.beginPath();
-    ctx.moveTo(hx, hy + s);
-    ctx.bezierCurveTo(hx - s * 1.6, hy - s * 0.2, hx - s * 0.7, hy - s * 1.3, hx, hy - s * 0.4);
-    ctx.bezierCurveTo(hx + s * 0.7, hy - s * 1.3, hx + s * 1.6, hy - s * 0.2, hx, hy + s);
-    ctx.fill();
-    ctx.fillStyle = ph === 'relax' ? '#5B6B85' : '#EA2B2B'; ctx.font = '800 12px Nunito, sans-serif'; ctx.textAlign = 'right';
-    ctx.fillText(PHASE_TEXT[ph], g.W - 38, 23);
-  }
-  function draw(g, now) {
-    var ctx = g.ctx, W = g.W, H = g.H;
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
-    if (g.room.kind === 'lungs') drawLungs(g, now);
-    else if (g.room.kind === 'body') drawBody(g, now);
-    else drawRoom(g, now);
-    // The room's name pops up as you arrive.
-    var since = now - g.banner;
-    if (since < 1100) {
-      ctx.globalAlpha = Math.min(1, (1100 - since) / 300);
-      pill(ctx, g.room.name.toUpperCase(), W / 2, H / 2 - 40, '#2B3B42');
-      ctx.globalAlpha = 1;
-    }
-  }
-  function drawRoom(g, now) {
-    var ctx = g.ctx, b = g.box, room = g.room, blood = BLOOD[room.blood], ph = phase(now);
-    var squeeze = !K.reduced() && ((room.kind === 'atrium' && ph === 'atria') || (room.kind === 'ventricle' && ph === 'ventricles')) ? 5 : 0;
-    var shake = g.fx.filter(function (f) { return f.kind === 'shake' && now - f.t < 300; }).length && !K.reduced() ? Math.sin(now / 20) * 3 : 0;
-    ctx.save(); ctx.translate(shake, 0);
-    header(g, now, 'In the ' + room.name.toLowerCase());
-    // Walls: thick heart muscle for a chamber, a thinner wall for a vessel.
-    var wall = room.kind === 'vessel' ? 7 : room.kind === 'ventricle' ? (room.blood === 'ox' ? 16 : 10) : 9;
-    var wallColor = room.kind === 'vessel' ? blood.edge : MUSCLE;
-    ctx.fillStyle = wallColor;
-    rrect(ctx, b.x0 - wall + squeeze, b.y0 - wall + squeeze, b.x1 - b.x0 + wall * 2 - squeeze * 2, b.y1 - b.y0 + wall * 2 - squeeze * 2, 22);
-    ctx.fill();
-    ctx.fillStyle = blood.fill;
-    rrect(ctx, b.x0 + squeeze, b.y0 + squeeze, b.x1 - b.x0 - squeeze * 2, b.y1 - b.y0 - squeeze * 2, 16);
-    ctx.fill();
-    // Where you came in.
-    var en = g.entry, ex = en === 'left' ? b.x0 + 10 : en === 'right' ? b.x1 - 10 : (b.x0 + b.x1) / 2, ey = en === 'top' ? b.y0 + 10 : en === 'bottom' ? b.y1 - 10 : (b.y0 + b.y1) / 2;
-    ctx.fillStyle = 'rgba(24,39,45,.18)'; ctx.beginPath(); ctx.arc(ex, ey, 6, 0, Math.PI * 2); ctx.fill();
-    // Exits: a gap in the wall, a valve if it has one, and its name.
-    g.exits.forEach(function (x) {
-      var half = x.gw / 2, thick = wall + squeeze + 4;
-      ctx.fillStyle = x.sealed ? '#8B93A3' : BG;
-      if (x.side === 'top') ctx.fillRect(x.cx - half, b.y0 - wall - 2, x.gw, thick);
-      else if (x.side === 'bottom') ctx.fillRect(x.cx - half, b.y1 - squeeze - 2, x.gw, thick);
-      else if (x.side === 'left') ctx.fillRect(b.x0 - wall - 2, x.cy - half, thick, x.gw);
-      else ctx.fillRect(b.x1 - squeeze - 2, x.cy - half, thick, x.gw);
-      if (x.sealed) return;
-      if (x.e.valve || x.e.back) valve(ctx, x, x.e.back ? 0 : x.open);
-    });
-    g.exits.forEach(function (x) {
-      var off = 24, lx = x.cx - x.n[0] * off, ly = x.cy - x.n[1] * off;
-      var align = x.side === 'left' ? 'left' : x.side === 'right' ? 'right' : 'center';
-      if (x.side === 'left') lx = b.x0 + 8; if (x.side === 'right') lx = b.x1 - 8;
-      pill(ctx, (x.sealed ? '✕ ' : '') + x.e.t, lx, ly, x.sealed ? '#8B93A3' : INK, align);
-    });
-    redCell(ctx, g.cell.x, g.cell.y, g.cell.r, blood.cell);
-    ctx.restore();
-  }
-  function valve(ctx, x, open) {
-    var L = (x.gw / 2 - 3) * (1 - open) + Math.min(x.gw / 2 - 3, 24) * open, hinges = [[x.cx - x.tan[0] * x.gw / 2, x.cy - x.tan[1] * x.gw / 2, 1], [x.cx + x.tan[0] * x.gw / 2, x.cy + x.tan[1] * x.gw / 2, -1]];
-    hinges.forEach(function (h) {
-      var cx = x.tan[0] * h[2], cy = x.tan[1] * h[2], dx = cx + (x.n[0] - cx) * open, dy = cy + (x.n[1] - cy) * open, d = Math.sqrt(dx * dx + dy * dy) || 1;
-      ctx.lineCap = 'round';
-      ctx.strokeStyle = INK; ctx.lineWidth = 8;
-      ctx.beginPath(); ctx.moveTo(h[0], h[1]); ctx.lineTo(h[0] + dx / d * L, h[1] + dy / d * L); ctx.stroke();
-      ctx.strokeStyle = VALVE; ctx.lineWidth = 5;
-      ctx.beginPath(); ctx.moveTo(h[0], h[1]); ctx.lineTo(h[0] + dx / d * L, h[1] + dy / d * L); ctx.stroke();
-    });
+    ctx.lineWidth = 2.6; ctx.strokeStyle = INK; ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(x, y, r * 0.5, r * 0.36, 0, 0, Math.PI * 2); ctx.fillStyle = 'rgba(0,0,0,.16)'; ctx.fill();
   }
   function rrect(ctx, x, y, w, h, r) {
     ctx.beginPath();
     if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else ctx.rect(x, y, w, h);
   }
+  // How hard each part is squeezing right now, 0 to 1: the atria early in the beat, then the ventricles.
+  function squeeze(t, part) {
+    if (K.reduced()) return 0;
+    var p = t % BEAT;
+    if (part === 'atria') return p < 500 ? Math.sin(Math.PI * p / 500) : 0;
+    return p >= 650 && p < 1250 ? Math.sin(Math.PI * (p - 650) / 600) : 0;
+  }
+  // The beat at the top: the room's name, a heart that thumps, and what the heart is doing, in words.
+  function header(g, now, name) {
+    var ctx = g.ctx, ph = phase(now), env = Math.max(squeeze(now, 'atria') * 0.6, squeeze(now, 'ventricles'));
+    pill(ctx, name, 12, 24, 'rgba(24,39,45,.88)', 'left');
+    var text = PHASE_TEXT[ph], col = ph === 'relax' ? '#5B6B85' : ph === 'atria' ? '#C2364A' : '#EA2B2B';
+    var w = pill(ctx, text, g.W - 12, 24, col, 'right'), hx = g.W - 12 - w - 20, hy = 24, s = 10 * (1 + 0.35 * env);
+    ctx.fillStyle = '#FF4B4B'; ctx.strokeStyle = INK; ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(hx, hy + s);
+    ctx.bezierCurveTo(hx - s * 1.6, hy - s * 0.2, hx - s * 0.7, hy - s * 1.3, hx, hy - s * 0.4);
+    ctx.bezierCurveTo(hx + s * 0.7, hy - s * 1.3, hx + s * 1.6, hy - s * 0.2, hx, hy + s);
+    ctx.fill(); ctx.stroke();
+  }
+  // Where you are, in one heart (front view, so its right side is on the left): the four chambers, the septum, the
+  // vessels, the valves opening and shutting with the beat, and the part you're in ringed in white.
+  var MAP = { vc: 'vc', ra: 'ra', rv: 'rv', pa: 'pa', pv: 'pv', la: 'la', lv: 'lv', ao: 'ao' };
+  function heartMap(g, now, x, y, k) {
+    var ctx = g.ctx, at = MAP[g.id], a = squeeze(now, 'atria'), v = squeeze(now, 'ventricles');
+    ctx.save(); ctx.translate(x, y); ctx.scale(k, k);
+    var de = '#8FA8E0', ox = '#F28B8B';
+    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    // Vessels behind: the vena cava, the pulmonary artery, the aorta, the pulmonary veins.
+    var tube = function (d, c, part) { ctx.lineWidth = 9; ctx.strokeStyle = INK; ctx.stroke(d); ctx.lineWidth = 6; ctx.strokeStyle = c; ctx.stroke(d); if (at === part) { ctx.lineWidth = 13; ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.stroke(d); ctx.lineWidth = 6; ctx.strokeStyle = c; ctx.stroke(d); } };
+    tube(new Path2D('M22 -6V26'), de, 'vc');
+    tube(new Path2D('M42 30Q38 8 24 2'), de, 'pa');
+    tube(new Path2D('M58 26Q58 0 74 2Q84 3 84 14'), ox, 'ao');
+    tube(new Path2D('M98 32H80'), ox, 'pv');
+    var heart = new Path2D('M50 92C18 74 4 54 6 36C8 20 22 12 34 14C42 15 47 20 50 24C53 20 58 15 66 14C78 12 92 20 94 36C96 54 82 74 50 92Z');
+    ctx.fillStyle = MUSCLE; ctx.fill(heart); ctx.lineWidth = 2.4; ctx.strokeStyle = INK; ctx.stroke(heart);
+    var cham = function (part, cx, cy, rx, ry, c, sq) {
+      ctx.beginPath(); ctx.ellipse(cx, cy, rx * (1 - 0.18 * sq), ry * (1 - 0.18 * sq), 0, 0, Math.PI * 2); ctx.fillStyle = c; ctx.fill();
+      ctx.lineWidth = at === part ? 3 : 1.4; ctx.strokeStyle = at === part ? '#FFFFFF' : MUSCLE_D; ctx.stroke();
+    };
+    cham('ra', 29, 37, 14, 11, de, a); cham('la', 71, 37, 14, 11, ox, a);
+    cham('rv', 33, 63, 13, 15, de, v); cham('lv', 66, 64, 13, 17, ox, v);
+    ctx.lineWidth = 3; ctx.strokeStyle = MUSCLE_D; ctx.beginPath(); ctx.moveTo(50, 26); ctx.lineTo(51, 86); ctx.stroke();
+    // The valves between atria and ventricles: open (a gap) unless the ventricles squeeze.
+    var shut = v > 0.05;
+    ctx.lineWidth = 2.6; ctx.strokeStyle = VALVE;
+    [[29, 49], [69, 50]].forEach(function (p) { ctx.beginPath(); if (shut) { ctx.moveTo(p[0] - 8, p[1]); ctx.lineTo(p[0] + 8, p[1]); } else { ctx.moveTo(p[0] - 8, p[1]); ctx.lineTo(p[0] - 5, p[1] + 5); ctx.moveTo(p[0] + 8, p[1]); ctx.lineTo(p[0] + 5, p[1] + 5); } ctx.stroke(); });
+    // You: a red dot where you are.
+    var dot = { vc: [22, 8], pa: [32, 6], ao: [72, 3], pv: [90, 32], ra: [29, 37], la: [71, 37], rv: [33, 63], lv: [66, 64] }[at];
+    if (dot) { ctx.beginPath(); ctx.arc(dot[0], dot[1], 4.5, 0, Math.PI * 2); ctx.fillStyle = '#FF4B4B'; ctx.fill(); ctx.lineWidth = 1.6; ctx.strokeStyle = '#FFFFFF'; ctx.stroke(); }
+    ctx.restore();
+  }
+  function draw(g, now) {
+    var ctx = g.ctx, W = g.W, H = g.H;
+    ctx.clearRect(0, 0, W, H);
+    // The whole stage pulses as the heart squeezes (the ventricles harder than the atria).
+    var env = g.room && g.room.kind !== 'lungs' && g.room.kind !== 'body' ? Math.max(squeeze(now, 'atria') * 0.5, squeeze(now, 'ventricles')) : 0;
+    ctx.save();
+    if (env) { ctx.translate(W / 2, H / 2); ctx.scale(1 + 0.022 * env, 1 + 0.022 * env); ctx.translate(-W / 2, -H / 2); }
+    ctx.fillStyle = BG; ctx.fillRect(-20, -20, W + 40, H + 40);
+    if (g.room.kind === 'lungs') drawLungs(g, now);
+    else if (g.room.kind === 'body') drawBody(g, now);
+    else drawRoom(g, now);
+    ctx.restore();
+    // The room's name pops up as you arrive.
+    var since = now - g.banner;
+    if (since < 1100) {
+      ctx.globalAlpha = Math.min(1, (1100 - since) / 300);
+      ctx.font = '800 15px Nunito, sans-serif';
+      pill(ctx, g.room.name, W / 2, H / 2 - 50, '#2B3B42');
+      ctx.globalAlpha = 1;
+    }
+    S.drawPops(ctx, g);
+  }
+  // A heart's chamber from inside: thick muscle all round (with its fibres), the cavity full of blood, cells drifting
+  // to the way out, the openings, and the valves' flaps. The chamber squeezes in as it contracts.
+  function drawRoom(g, now) {
+    var ctx = g.ctx, b = g.box, room = g.room, blood = BLOOD[room.blood], W = g.W, H = g.H, vessel = room.kind === 'vessel';
+    var sq = vessel ? 0 : squeeze(now, room.kind === 'atrium' ? 'atria' : 'ventricles') * (room.kind === 'ventricle' ? 16 : 11);
+    var shake = g.fx.filter(function (f) { return f.kind === 'shake' && now - f.t < 300; }).length && !K.reduced() ? Math.sin(now / 20) * 4 : 0;
+    ctx.save(); ctx.translate(shake, 0);
+    // Muscle (or, round a vessel, the tissue it runs through), with fibres.
+    ctx.fillStyle = vessel ? '#F3D9C8' : MUSCLE; ctx.fillRect(-20, -20, W + 40, H + 40);
+    ctx.strokeStyle = vessel ? 'rgba(201,148,120,.35)' : 'rgba(122,58,42,.35)'; ctx.lineWidth = 2;
+    for (var f = -2; f < (W + H) / 34; f++) { ctx.beginPath(); ctx.moveTo(f * 34, -10); ctx.quadraticCurveTo(f * 34 - H * 0.3, H * 0.5, f * 34 - H * 0.2, H + 10); ctx.stroke(); }
+    // The openings: a channel of blood out through the wall to the stage's edge.
+    g.exits.forEach(function (x) {
+      var half = x.gw / 2;
+      ctx.fillStyle = x.sealed ? '#8B93A3' : blood.fill;
+      if (x.side === 'top') ctx.fillRect(x.cx - half, -20, x.gw, b.y0 + 40);
+      else if (x.side === 'bottom') ctx.fillRect(x.cx - half, b.y1 - 20, x.gw, H - b.y1 + 40);
+      else if (x.side === 'left') ctx.fillRect(-20, x.cy - half, b.x0 + 40, x.gw);
+      else ctx.fillRect(b.x1 - 20, x.cy - half, W - b.x1 + 40, x.gw);
+    });
+    // The cavity: rounder for an atrium, narrowing to the apex for a ventricle, a tube for a vessel.
+    var w = b.x1 - b.x0 - sq * 2, h = b.y1 - b.y0 - sq * 2, m = Math.min(w, h);
+    var rad = vessel ? m * 0.5 : room.kind === 'atrium' ? m * 0.34 : [m * 0.2, m * 0.2, m * 0.46, m * 0.46];
+    ctx.fillStyle = blood.fill; rrect(ctx, b.x0 + sq, b.y0 + sq, w, h, rad); ctx.fill();
+    ctx.lineWidth = vessel ? 6 : 4; ctx.strokeStyle = vessel ? blood.edge : MUSCLE_D; ctx.stroke();
+    // Blood cells drifting towards the way out.
+    var right = g.exits.filter(function (x) { return x.e.ok; })[0];
+    if (right && !K.reduced()) {
+      ctx.globalAlpha = 0.45;
+      for (var i = 0; i < 7; i++) {
+        var k = ((now / 2600) + i / 7) % 1, sx = b.x0 + 30 + ((i * 97) % Math.max(1, w - 60)), sy = b.y0 + 30 + ((i * 61) % Math.max(1, h - 60));
+        var px = sx + (right.cx - sx) * k, py = sy + (right.cy - sy) * k;
+        ctx.beginPath(); ctx.ellipse(px, py, 9, 6, i, 0, Math.PI * 2); ctx.fillStyle = blood.cell; ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+    // Valves: big flaps hinged on the opening's edges.
+    g.exits.forEach(function (x) {
+      if (x.sealed) { ctx.fillStyle = '#8B93A3'; return; }
+      if (x.e.valve || x.e.back) valve(ctx, x, x.e.back ? 0 : x.open, x.e.valve === 'av');
+    });
+    // The exits' names, inside the cavity by each opening.
+    g.exits.forEach(function (x) {
+      var lx = x.cx - x.n[0] * 46, ly = x.cy - x.n[1] * 40;
+      if (x.side === 'top' || x.side === 'bottom') lx = x.cx;
+      S.label(ctx, (x.sealed ? '✕ ' : '') + x.e.t, lx, ly, { W: W, size: 15, bg: x.sealed ? '#8B93A3' : '#FFFFFF', fg: x.sealed ? '#FFFFFF' : INK, edge: INK });
+    });
+    redCell(ctx, g.cell.x, g.cell.y, g.cell.r, blood.cell);
+    ctx.restore();
+    header(g, now, 'In the ' + room.name.toLowerCase());
+    var wide = W >= 560;
+    heartMap(g, now, wide ? W - 112 : 16, wide ? 50 : 50, wide ? 1 : 0.8);
+  }
+  // A valve: two thick flaps hinged on the opening's edges. Shut, they meet across it; open, they swing out the way
+  // the blood goes. An atrioventricular valve's flaps are tied down by tendons (they can't turn inside out).
+  function valve(ctx, x, open, av) {
+    var half = x.gw / 2, L = half - 2, ang = open * 1.25;
+    [[-1], [1]].forEach(function (s) {
+      var hx = x.cx + x.tan[0] * half * s[0], hy = x.cy + x.tan[1] * half * s[0];
+      // Shut: pointing along the opening to its middle; open: turned towards the outward normal.
+      var dx = -x.tan[0] * s[0], dy = -x.tan[1] * s[0];
+      var ex = dx * Math.cos(ang) + x.n[0] * Math.sin(ang), ey = dy * Math.cos(ang) + x.n[1] * Math.sin(ang);
+      var tx = hx + ex * L, ty = hy + ey * L;
+      if (av) {
+        ctx.strokeStyle = '#FFF4D6'; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(hx + x.n[0] * 44, hy + x.n[1] * 44); ctx.moveTo((hx + tx) / 2, (hy + ty) / 2); ctx.lineTo(hx + x.n[0] * 44, hy + x.n[1] * 44); ctx.stroke();
+      }
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = INK; ctx.lineWidth = 15;
+      ctx.beginPath(); ctx.moveTo(hx, hy); ctx.quadraticCurveTo((hx + tx) / 2 + x.n[0] * 6, (hy + ty) / 2 + x.n[1] * 6, tx, ty); ctx.stroke();
+      ctx.strokeStyle = VALVE; ctx.lineWidth = 10;
+      ctx.beginPath(); ctx.moveTo(hx, hy); ctx.quadraticCurveTo((hx + tx) / 2 + x.n[0] * 6, (hy + ty) / 2 + x.n[1] * 6, tx, ty); ctx.stroke();
+    });
+  }
   function molecule(ctx, o) {
     ctx.beginPath(); ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
     ctx.fillStyle = o.kind === 'o2' ? '#45C4EE' : '#8A8F98'; ctx.fill();
     ctx.lineWidth = 2; ctx.strokeStyle = INK; ctx.stroke();
-    ctx.fillStyle = o.kind === 'o2' ? INK : '#FFFFFF'; ctx.font = '800 11px Nunito, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = o.kind === 'o2' ? INK : '#FFFFFF'; ctx.font = '800 ' + (o.r >= 15 ? 14 : 11) + 'px Nunito, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText(o.kind === 'o2' ? 'O₂' : 'CO', o.x, o.y + 0.5);
   }
   function drawLungs(g, now) {
@@ -466,18 +559,18 @@
     // The alveolus (air) above, its thin wall, and the capillary you move along below.
     ctx.fillStyle = '#FBE3E4'; rrect(ctx, 8, 40, W - 16, H - 132, 26); ctx.fill();
     ctx.strokeStyle = '#C25E6A'; ctx.lineWidth = 3; ctx.stroke();
-    ctx.fillStyle = '#C25E6A'; ctx.font = '800 12px Nunito, sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-    ctx.fillText('ALVEOLUS (air)', 22, 60);
+    ctx.fillStyle = '#C25E6A'; ctx.font = '800 15px Nunito, sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.fillText('Alveolus (air)', 22, 62);
     var loaded = Math.min(1, A.o2 / LOAD);
     ctx.fillStyle = loaded >= 1 ? '#F6B1B3' : '#C9B5E0'; rrect(ctx, 8, H - 80, W - 16, 56, 26); ctx.fill();
     ctx.strokeStyle = '#9B4A8C'; ctx.lineWidth = 3; ctx.stroke();
     ctx.fillStyle = '#5B3172'; ctx.textAlign = 'right';
-    ctx.fillText('CAPILLARY', W - 22, H - 68);
+    ctx.fillText('Capillary', W - 22, H - 66);
     // Haemoglobin meter.
     ctx.fillStyle = '#2B3B42'; rrect(ctx, 22, H - 100, 110, 12, 6); ctx.fill();
     ctx.fillStyle = '#FF4B4B'; rrect(ctx, 22, H - 100, Math.max(6, 110 * loaded), 12, 6); ctx.fill();
-    ctx.fillStyle = INK; ctx.textAlign = 'left'; ctx.font = '800 11px Nunito, sans-serif';
-    ctx.fillText('Haemoglobin ' + A.o2 + '/' + LOAD, 138, H - 94);
+    ctx.fillStyle = INK; ctx.textAlign = 'left'; ctx.font = '800 14px Nunito, sans-serif';
+    ctx.fillText('Haemoglobin ' + A.o2 + '/' + LOAD, 140, H - 94);
     g.items.forEach(function (o) { molecule(ctx, o); });
     g.fx = g.fx.filter(function (f) { return now - f.t < 1400 || f.kind === 'shake'; });
     g.fx.forEach(function (f) {
@@ -486,7 +579,7 @@
       ctx.globalAlpha = 1 - k;
       ctx.fillStyle = '#B9C2D0'; ctx.beginPath(); ctx.arc(f.x, f.y - k * 90, 9, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = INK; ctx.font = '800 9px Nunito, sans-serif'; ctx.textAlign = 'center';
-      ctx.fillText('CO₂', f.x, f.y - k * 90 + 0.5);
+      if (k < 0.15) ctx.fillText('CO\u2082', f.x, f.y - k * 90 + 0.5);
       ctx.globalAlpha = 1;
     });
     redCell(ctx, c.x, c.y, c.r, A.o2 >= LOAD ? BLOOD.ox.cell : BLOOD.de.cell);
@@ -497,20 +590,20 @@
     header(g, now, 'Body capillaries');
     ctx.fillStyle = '#F6B1B3'; rrect(ctx, 0, 50, W, 48, 22); ctx.fill();
     ctx.strokeStyle = '#FF4B4B'; ctx.lineWidth = 3; ctx.stroke();
-    ctx.fillStyle = '#EA2B2B'; ctx.font = '800 11px Nunito, sans-serif'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-    ctx.fillText('BLOOD FLOW →', W - 12, 108);
+    ctx.fillStyle = '#EA2B2B'; ctx.font = '800 14px Nunito, sans-serif'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText('Blood flow \u2192', W - 12, 112);
     ctx.fillStyle = INK; ctx.textAlign = 'left';
-    ctx.fillText('Oxygen on board: ' + A.o2, 12, 108);
+    ctx.fillText('Oxygen on board: ' + A.o2, 12, 112);
     g.cells.forEach(function (s) {
       var y0 = g.cellTop, h = g.cellH;
       ctx.fillStyle = s.need ? '#F3DCCB' : '#D8EFD9';
       rrect(ctx, s.x - s.w / 2, y0, s.w, h, 14); ctx.fill();
       ctx.lineWidth = s.need ? 2.5 : 2; ctx.strokeStyle = s.need ? (Math.floor(now / 400) % 2 && !K.reduced() ? '#E8551F' : '#C9A58C') : '#58CC02'; ctx.stroke();
       ctx.fillStyle = '#B5838F'; ctx.beginPath(); ctx.arc(s.x, y0 + 34, 8, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = INK; ctx.font = '800 ' + (s.w < 70 ? 9 : 11) + 'px Nunito, sans-serif'; ctx.textAlign = 'center';
-      ctx.fillText(s.name.replace(' cell', ''), s.x, y0 + 58);
+      ctx.fillStyle = INK; ctx.font = '800 14px Nunito, sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(s.name.replace(' cell', ''), s.x, y0 + 60, s.w - 6);
       ctx.fillStyle = s.need ? '#EA2B2B' : '#1E8A50';
-      ctx.fillText(s.need ? 'needs O₂' + (s.need > 1 ? ' ×' + s.need : '') : '✓', s.x, y0 + 74);
+      ctx.fillText(s.need ? 'O\u2082 \u00d7' + s.need : '\u2713', s.x, y0 + 80, s.w - 6);
       if (s.hold > 0) { ctx.fillStyle = '#45C4EE'; ctx.fillRect(s.x - s.w / 2 + 6, y0 + 6, (s.w - 12) * Math.min(1, s.hold / 650), 5); }
     });
     g.fx = g.fx.filter(function (f) { return now - f.t < 900 || f.kind === 'shake'; });
@@ -533,14 +626,14 @@
     document.removeEventListener('keydown', A.onKey);
     document.removeEventListener('keyup', A.onKey);
     cancelAnimationFrame(A.raf);
+    if (A.hearts <= 0 || A.round + 1 >= ROUNDS.length) { if (A.g.room) draw(A.g, S.now()); A.snap = S.snap(A.g.canvas); }
     K.gameSeg(A.card, A.round, A.hearts > 0 ? 'is-ok' : 'is-no');
     if (A.hearts <= 0) { actionEnd(); return; }
     var q = ROUNDS[A.round].quiz;
-    A.card.querySelector('.nr').innerHTML = '<div class="am-run__top"><h3 class="am-run__kind">Quick question</h3><span class="am-games__step nr-hearts" data-nr-hearts></span></div>' +
+    A.card.querySelector('.nr').innerHTML = S.head({ title: 'Quick question', hearts: A.hearts }) +
       '<p class="am-games__ask">' + esc(q.q) + '</p><div class="am-run__opts">' + shuffle(q.opts.map(function (o, k) { return [o, k]; })).map(function (o) {
         return '<button type="button" class="am-run__opt" data-rc-opt="' + o[1] + '"><span>' + esc(o[0]) + '</span></button>';
       }).join('') + '</div><p class="am-games__note" data-am-gnote role="status"></p>';
-    hearts();
     buttons(A.card, [['more', 'data-am-keep', 'Close']], true);
     A.answered = false;
   }
@@ -556,28 +649,38 @@
   }
   function actionEnd() {
     cancelAnimationFrame(A.raf);
-    var best = +K.store('bio-act-31') || 0, newBest = A.score > best;
-    if (newBest) K.store('bio-act-31', String(A.score));
+    K.playing(false);
     var out = A.hearts <= 0;
-    body(A.card, '<div class="am-games__end"><p class="am-games__big">' + A.score + '<span> pts</span></p>' +
-      '<h3 class="am-games__title">' + (out ? 'Lost in the circulation!' : A.hearts === 3 ? 'A perfect circuit' : 'Round the body and back') + '</h3>' +
-      '<p class="am-games__sub">' + (out ? 'Out of hearts. Remember the route: vena cava, right atrium, tricuspid valve, right ventricle, pulmonary artery, lungs, pulmonary vein, left atrium, bicuspid valve, left ventricle, aorta.' :
-        'Twice through the heart on one trip round the body: that\'s a double circulation. Pulmonary circuit to the lungs, systemic circuit to the body.') +
-      (newBest && best ? ' <b>New best!</b>' : best ? ' Your best: ' + best + '.' : '') + '</p></div>');
+    body(A.card, S.end({ snap: A.snap, out: out, score: A.score, best: S.best('bio-act-31', A.score),
+      title: out ? 'Lost in the circulation!' : A.hearts === 3 ? 'A perfect circuit' : 'Round the body and back',
+      line: out ? 'Vena cava, right atrium, tricuspid, right ventricle, pulmonary artery, lungs, pulmonary vein, left atrium, bicuspid, left ventricle, aorta.' :
+        'Twice through the heart on one trip round the body: a double circulation.',
+      rounds: ROUNDS.map(function (r, i) { return { name: r.name, ok: A.res[i] }; }) }));
     buttons(A.card, [['more', 'data-am-keep', 'Close'], ['ok', 'data-rc-again', 'Play again']]);
+    S.place(A.card);
     K.mascot(out ? 'furious' : 'happy', out ? 'A red cell with no sense of direction.' : 'Hmph. You found your way.');
     if (!out && A.hearts === 3) K.later(K.fanfare, 300);
   }
   function actionClick(e) {
-    if (!A) return;
+    if (!A || !A.card.isConnected) return;
     var t;
-    if (e.target.closest('[data-rc-play]')) { actionPlay(); return; }
+    if (e.target.closest('[data-rc-play]') || e.target.closest('[data-nr-overlay]')) { actionPlay(); return; }
     if (e.target.closest('[data-rc-hint]')) { if (A.g && A.g.room) note(A.g.room.hint); return; }
     if ((t = e.target.closest('[data-rc-opt]'))) { actionQuiz(+t.getAttribute('data-rc-opt'), t); return; }
     if (e.target.closest('[data-rc-next]')) { A.round += 1; actionIntro(); return; }
     if (e.target.closest('[data-rc-end]')) { actionEnd(); return; }
     if (e.target.closest('[data-rc-again]')) { actionOpen(31); }
   }
+
+  // The Games tab's picture: inside the right ventricle, the semilunar valve's flaps open above, the heart map.
+  S.thumb(31, 'Ride the heartbeat round', function (ctx, W, H) {
+    var g = { W: W, H: H, ctx: ctx, keys: {}, fx: [], room: ROOMS.rv, id: 'rv' };
+    g.box = { x0: 30, y0: 54, x1: W - 30, y1: H - 18 };
+    g.exits = [{ e: ROOMS.rv.exits[0], side: 'top', open: 1 }, { e: ROOMS.rv.exits[1], side: 'left', open: 0 }];
+    g.exits.forEach(function (x) { gapOf(g, x); });
+    g.cell = { x: W * 0.5, y: H * 0.62, r: 14 };
+    drawRoom(g, 900);
+  });
 
   window.BioActions = window.BioActions || {};
   // state() is for the browser tests: where the cell is and which exit is right.
