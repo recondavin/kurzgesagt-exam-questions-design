@@ -2,12 +2,14 @@
 // instead it's like" the course). One move at a time, nothing against the clock.
 //   The board  Like the real game's: a ring of 30 squares in the chapters' colours, each chapter's headquarters (its
 //              wedge square) and white roll-again squares, with spokes into a five-sided hub for the final.
+//   The start  A full game (five wedges) or a quick one (three); a game in progress is saved and can be carried on.
 //   Your turn  Roll, then pick which way to go (both squares light up). A chapter's square asks one of its quick checks
 //              (pick the answer); a wedge square you haven't won asks you to type the answer, marked against the
 //              marking scheme. Right: roll again (and win the wedge). Wrong: you see the answer and his turn starts.
-//   His turn   He rolls, moves (towards a wedge he needs) and answers out loud, right or wrong, so you see one more
-//              question and its answer. Right, he goes again (three at most).
-//   Winning    All five wedges, then down a spoke to the hub for a final typed question from any chapter.
+//   His turn   Plays itself: he rolls, moves (towards a wedge he needs) and answers out loud, his pick shown among the
+//              options, right or wrong, so you see one more question and its answer. Right, he goes again (three at most).
+//   Winning    All the wedges, then down a spoke to the hub for a final typed question from any chapter. The end shows
+//              the board, both pies and each chapter's questions and wedges.
 // The questions are the quick checks (tools/bio/checks/ch<N>.json, bio/checks<N>.js), only ones that make sense
 // without the exam paper (each check's "board": true, false, or the question rewritten with the context it needs). A typed answer is marked like the answer sheet (BioApp.check against the part's
 // scheme keys) and needs as many points as the check promises ("(2 points)"); checkmark.mjs proves each check's own
@@ -50,17 +52,32 @@
     });
     return n[best] - n[ch] >= 2 ? best : ch;
   }
+  // A typed question has to make sense without its options: "Which of these is a harmful virus?" or "Which pairs a
+  // general defence with how it works?" can't be answered in a box, so those are only ever pick-the-answer.
+  var OPTS = /\b(which|what) (of these|of the following|one|pairs?|pairing|list|statement|phrase|sentence|chain|description|best|order)\b|\bthe following\b|\bthese\b|\b(is|are) (right|true|correct|false)\b|\bright order\b/i;
+  function needsOptions(text) { return OPTS.test(text); }
+  // A pick-the-answer question doesn't need the typed answer's "(2 points)" or "(one of 4 points)".
+  function plain(text) { return String(text).replace(/\s*\(((\d+|one) of )?\d+ points?\)$/, ''); }
   var SAY = {
-    start: ['Five wedges. One final question. Try to keep up.', 'My board. My rules. Roll.'],
+    start: ['Wedges first. Then my final question. Try to keep up.', 'My board. My rules. Roll.'],
+    carry: ['Back for more? Where were we.', 'You came back. Brave.'],
     right: ['Hmph. Correct.', 'Fine. Go again.', 'Lucky.'],
     wrong: ['Wrong. My turn.', 'No. Watch and learn.', 'Did you even read it?'],
     wedge: ['A wedge. Don\'t get comfortable.', 'Hmph. You earned that one.'],
     hisRight: ['Too easy.', 'Obviously.', 'Correct. As always.'],
+    hisWedge: ['Mine. Obviously.', 'Another wedge for me.'],
     hisWrong: ['Hmph. A slip.', 'That didn\'t happen.', 'The question was badly worded.']
   };
   var G = null;
-  function live() { return G && G.card.isConnected; }
-  function wait(fn, ms) { return K.later(function () { if (live()) fn(); }, ms); }
+  function live() { return G && G.card && G.card.isConnected; }
+  // While "Leave the game?" is up, his turn waits: what was due runs when you choose Keep playing.
+  function wait(fn, ms) {
+    return K.later(function () {
+      if (!live()) return;
+      if (G.paused) { G.held.push(fn); return; }
+      fn();
+    }, ms);
+  }
 
   // ---------------------------------------------------------------- the board and the questions
   // The ring: every sixth square is a chapter's headquarters (its wedge); between two, one square of each other chapter
@@ -88,7 +105,7 @@
           var ch = topicOf({ q: text, right: c.right }, src), item = { ch: ch, src: src, qid: q.id, k: k, c: c, text: text };
           P[ch].mc.push(item);
           var p = q.parts[k], keyed = p && p.kind === 'text' ? p.pts.filter(function (t) { return t.k && !t.self; }).length : 0;
-          if (keyed && !/^(True|False)$/.test(c.right)) {
+          if (keyed && !/^(True|False)$/.test(c.right) && !needsOptions(text)) {
             var m = c.q.match(/\((\d) points\)$/);
             P[ch].typed.push({ ch: ch, src: src, qid: q.id, k: k, c: c, text: text, want: Math.min(m ? +m[1] : 1, keyed, p.n || 1) });
           }
@@ -180,11 +197,12 @@
       tok.setAttribute('transform', 'translate(' + f(c[0] + dx) + ' ' + f(c[1]) + ')');
     });
   }
+  function won(p) { return CH.filter(function (ch) { return G.wedges[p][ch]; }).length; }
   function pies() {
-    return [['You', 0], ['Teacher', 1]].map(function (x) {
-      var won = G.wedges[x[1]], n = CH.filter(function (ch) { return won[ch]; }).length;
-      return '<div class="tb-player' + (G.turn === x[1] ? ' is-turn' : '') + '"><svg viewBox="0 0 40 40" aria-hidden="true">' + piece(x[1], 20, 20, 18) + '</svg>' +
-        '<span class="tb-player__n">' + x[0] + '</span><span class="tb-player__w num">' + n + '/5</span></div>';
+    return [['You', 0], ['Examiner', 1]].map(function (x) {
+      var on = G.phase === 'over' ? G.winner === x[1] : G.phase !== 'intro' && G.turn === x[1];
+      return '<div class="tb-player' + (on ? ' is-turn' : '') + '" data-tb-player="' + x[1] + '"><svg viewBox="0 0 40 40" aria-hidden="true">' + piece(x[1], 20, 20, 18) + '</svg>' +
+        '<span class="tb-player__n">' + x[0] + '</span><span class="tb-player__w num">' + won(x[1]) + '/' + G.need + '</span></div>';
     }).join('');
   }
   function die(n, rolling) {
@@ -199,6 +217,7 @@
   // A question card: the chapter's band, the question on the front; the answer on the back, shown by flipping it.
   function card(ch, label, front) {
     var band = '<div class="tb-card__band"><b>' + esc(NAME[ch]) + '</b>' + (label ? '<span>' + esc(label) + '</span>' : '') + '</div>';
+    if (live()) K.sfx('whoosh', 0.35);
     return '<div class="tb-card" style="--c:' + COL[ch] + '" data-tb-card><div class="tb-card__in">' +
       '<div class="tb-card__face tb-card__front">' + band + '<div class="tb-card__body">' + front + '</div></div>' +
       '<div class="tb-card__face tb-card__back" aria-hidden="true">' + band + '<div class="tb-card__body" data-tb-back></div></div></div></div>';
@@ -213,38 +232,174 @@
     c.querySelector('.tb-card__front').setAttribute('aria-hidden', 'true');
     c.classList.add('is-flipped');
   }
-  function panel(html) {
+  // The right or wrong stamp slams onto the card (bio.css .tb-stamp), with a burst of ink lines; a won wedge is drawn in
+  // it. Shared with the other question games (BioBoard.stamp).
+  function wedgeSvg(ch) {
+    return '<svg class="tb-wedge" viewBox="-20 -22 40 40" aria-hidden="true"><path d="M0 -18L-15 8Q0 20 15 8Z" fill="' + COL[ch] + '" stroke="' + INK + '" stroke-width="3" stroke-linejoin="round"/></svg>';
+  }
+  function burst() {
+    var lines = '';
+    for (var a = 0; a < 360; a += 45) {
+      var r = a * Math.PI / 180;
+      lines += '<line x1="' + f(Math.cos(r) * 34) + '" y1="' + f(Math.sin(r) * 34) + '" x2="' + f(Math.cos(r) * 46) + '" y2="' + f(Math.sin(r) * 46) + '"/>';
+    }
+    return '<svg class="tb-burst" viewBox="-50 -50 100 100" aria-hidden="true">' + lines + '</svg>';
+  }
+  function stamp(ok, text, ch, cls) {
+    return '<p class="tb-stamp ' + (ok ? 'is-ok' : 'is-no') + (ch ? ' is-wedge' : '') + (cls ? ' ' + cls : '') + '">' + (ch ? wedgeSvg(ch) : '') + '<span>' + esc(text) + '</span>' + burst() + '</p>';
+  }
+  // The thud when it lands (and a shake when it's wrong). On the board the stamp lands after the card has turned over.
+  var FLIP_MS = 450, SLAM_MS = 170;
+  function slam(cardEl, ok, delay) {
+    K.later(function () {
+      if (!cardEl.isConnected) return;
+      K.sfx('stamp', ok ? 0.8 : 1);
+      if (!ok && !K.reduced()) { cardEl.classList.remove('is-shake'); void cardEl.offsetWidth; cardEl.classList.add('is-shake'); }
+    }, K.reduced() ? 0 : delay + SLAM_MS);
+  }
+  function panel(html, bare) {
     var p = G.card.querySelector('[data-tb-panel]');
-    p.innerHTML = '<div class="tb-players">' + pies() + '</div>' + html;
+    p.innerHTML = (bare ? '' : '<div class="tb-players">' + pies() + '</div>') + html;
     show(p);
     return p;
+  }
+  function refreshPies() {
+    var row = G.card.querySelector('.tb-players');
+    if (row) row.innerHTML = pies();
   }
   // Bring the turn (or the button to go on) into view when it's below the card's fold: on a phone the turn is under the
   // board, and on a laptop a big question card can run past the bottom.
   function show(node) { if (node.scrollIntoView) node.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
   function nextButton(label, then) {
     var p = G.card.querySelector('[data-tb-panel]'), row = el('div', 'tb-row tb-row--next', '<button type="button" class="tb-btn tb-btn--go" data-tb-next>' + label + '</button>');
-    p.querySelector('.tb-players').innerHTML = pies();
+    refreshPies();
     p.appendChild(row);
     G.after = then;
     row.querySelector('button').focus({ preventScroll: true });
     show(row);
   }
+  // His turn goes on by itself (no clicks): a bar fills while you read his card, then it moves on. The bar is a button
+  // too, for going on straight away.
+  function autoNext(label, ms, then) {
+    var p = G.card.querySelector('[data-tb-panel]'), go = function () { then(); };
+    var row = el('div', 'tb-row tb-row--next', '<button type="button" class="tb-auto" data-tb-next><span>' + label + '</span><i style="animation-duration:' + ms + 'ms" aria-hidden="true"></i></button>');
+    refreshPies();
+    p.appendChild(row);
+    G.after = go;
+    wait(function () { if (G.after === go) { G.after = null; go(); } }, ms);
+    show(row);
+  }
   function el(tag, cls, html) { var e = document.createElement(tag); e.className = cls; e.innerHTML = html; return e; }
+
+  // ---------------------------------------------------------------- saving
+  // A game is long, so it's kept as it goes ('bio-board-save': the pieces, the wedges, whose turn and the tallies) and
+  // opening the board again offers to carry on. It's saved whenever a turn starts or a question is settled, and wiped at
+  // the end.
+  var SAVE = 'bio-board-save';
+  function fresh(need) {
+    var stats = {};
+    CH.forEach(function (ch) { stats[ch] = { r: 0, n: 0 }; });
+    return { sq: squares(), pools: pools(), pos: [0, 0], xy: [null, null], wedges: [{}, {}], turn: 0, run: 0, right: 0, asked: 0, need: need, stats: stats, his: { r: 0, n: 0 }, held: [], phase: 'intro' };
+  }
+  function save(turn, step) {
+    if (!G || G.phase === 'over' || G.phase === 'intro') return;
+    K.store(SAVE, JSON.stringify({ v: 1, need: G.need, pos: G.pos, turn: turn, step: step, run: turn ? G.run : 0, right: G.right, asked: G.asked, stats: G.stats, his: G.his, t: Date.now(),
+      wedges: G.wedges.map(function (w) { return CH.filter(function (ch) { return w[ch]; }); }) }));
+  }
+  function loadSave() {
+    var s;
+    try { s = JSON.parse(K.store(SAVE) || 'null'); } catch (e) { return null; }
+    var spot = function (p) { return p === 'hub' || (typeof p === 'number' && p % 1 === 0 && p >= 0 && p < N); };
+    if (!s || s.v !== 1 || (s.need !== 3 && s.need !== 5) || !Array.isArray(s.pos) || s.pos.length !== 2 || !s.pos.every(spot) || !Array.isArray(s.wedges) || s.wedges.length !== 2) return null;
+    return s;
+  }
+  function restore(s) {
+    G.need = s.need;
+    G.pos = s.pos.slice();
+    G.wedges = s.wedges.map(function (list) { var w = {}; [].concat(list).forEach(function (ch) { if (CH.indexOf(+ch) >= 0) w[+ch] = true; }); return w; });
+    G.turn = s.turn === 1 ? 1 : 0;
+    G.run = Math.max(0, Math.min(MAX_RUN - 1, s.run | 0));
+    G.step = s.step;
+    G.right = s.right | 0;
+    G.asked = s.asked | 0;
+    CH.forEach(function (ch) { var x = s.stats && s.stats[ch]; if (x) G.stats[ch] = { r: x.r | 0, n: x.n | 0 }; });
+    if (s.his) G.his = { r: s.his.r | 0, n: s.his.n | 0 };
+  }
 
   // ---------------------------------------------------------------- the game
   function open() {
-    G = { card: BK.host(28, 'Trivia board'), sq: squares(), pools: pools(), pos: [0, 0], xy: [null, null], wedges: [{}, {}], turn: 0, run: 0, right: 0, asked: 0 };
+    var saved = loadSave();
+    G = fresh(saved ? saved.need : 5);
+    if (saved) restore(saved);
+    G.card = BK.host(28, 'Trivia board');
     K.gameHud(G.card, 0, '');
+    layout();
+    buttons(G.card, [['more', 'data-am-keep', 'Close']], true);
+    G.card.querySelector('.am-finish__card').classList.add('tb-wide');
+    listenLeave();
+    intro(saved);
+    nearMascot(G.card);
+  }
+  function layout() {
     body(G.card, '<div class="tb"><div class="tb-board">' + boardSvg() + '<ul class="tb-key">' + CH.map(function (ch) {
       return '<li style="--c:' + COL[ch] + '">' + esc(NAME[ch]) + '</li>';
     }).join('') + '<li class="tb-key__wedge">Wedge</li><li class="tb-key__again">Roll again</li></ul></div><div class="tb-panel" data-tb-panel aria-live="polite"></div></div>', true);
-    buttons(G.card, [['more', 'data-am-keep', 'Close']], true);
-    G.card.querySelector('.am-finish__card').classList.add('tb-wide');
     placeTokens();
+  }
+  // Leaving mid-game keeps it, so the leave box says so; his turn waits while the box is up.
+  function listenLeave() {
+    var root = K.root && K.root();
+    if (!root || root.tbLeave) return;
+    root.tbLeave = true;
+    root.addEventListener('am:leave', function (e) {
+      if (!live()) return;
+      G.paused = Boolean(e.detail && e.detail.open);
+      G.card.classList.toggle('tb-paused', G.paused);
+      if (G.paused) {
+        var t = root.querySelector('.am-leave__text');
+        if (t && G.phase !== 'intro' && G.phase !== 'over') t.textContent = 'Your game is saved. Open the board again to carry on.';
+        return;
+      }
+      var due = G.held;
+      G.held = [];
+      due.forEach(function (fn) { if (live()) fn(); });
+    });
+  }
+  // The start: a full game (five wedges) or a quick one (three), or carry on with the saved one, drawn on the board.
+  function intro(saved) {
+    G.phase = 'intro';
+    K.playing(false);
+    var wins = +(K.store('bio-board-wins') || 0);
+    // Each choice shows its pie: all five wedges, or three.
+    var modes = [[5, 'Full game', '5 wedges · about 20 min'], [3, 'Quick game', '3 wedges · about 8 min']].map(function (m) {
+      var w = {};
+      CH.slice(0, m[0]).forEach(function (ch) { w[ch] = 1; });
+      return '<button type="button" class="tb-mode" data-tb-mode="' + m[0] + '"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#FFFFFF" stroke="' + INK + '" stroke-width="2"/>' + pie(w, 20, 20, 13) + '</svg>' +
+        '<span class="tb-mode__n">' + m[1] + '</span><span class="tb-mode__what">' + m[2] + '</span></button>';
+    }).join('');
+    panel('<h3 class="tb-title">Trivia board</h3><p class="tb-say">Win wedges on the big squares, then answer the final question in the centre.</p>' +
+      (saved ? '<button type="button" class="tb-mode tb-mode--carry" data-tb-carry><svg viewBox="0 0 40 40" aria-hidden="true">' + piece(0, 20, 20, 18) + '</svg><span class="tb-mode__n">Carry on</span><span class="tb-mode__what">You ' + won(0) + '/' + G.need + ' · Examiner ' + won(1) + '/' + G.need + ' · ' + (G.turn ? 'his turn' : 'your turn') + '</span></button><p class="tb-ask">Or start a new game</p>' : '') +
+      '<div class="tb-modes">' + modes + '</div>' + (wins ? '<p class="tb-wins">Games won: <b class="num">' + wins + '</b></p>' : ''), !saved);
+    var b = G.card.querySelector('[data-tb-carry], [data-tb-mode]');
+    if (b) b.focus({ preventScroll: true });
+    K.mascot('ok', pick(saved ? SAY.carry : SAY.start));
+  }
+  function begin(need) {
+    var c = G.card;
+    G = fresh(need);
+    G.card = c;
+    G.phase = 'roll';
+    placeTokens();
+    K.playing(true);
     K.mascot('ok', pick(SAY.start));
-    nearMascot(G.card);
     yourTurn();
+  }
+  function carryOn() {
+    G.phase = 'roll';
+    K.playing(true);
+    if (G.turn === 1) hisTurn(G.run);
+    else if (G.step === 'land') land(0);
+    else yourTurn();
   }
   // The examiner stands right beside the board (the user: "make him closer to the trivia board", then "higher up"), not
   // out in the screen's corner: this moves him up to the card's left edge, his feet level with the card's bottom (after
@@ -281,21 +436,23 @@
     });
   }
   window.addEventListener('resize', function () { if (live()) nearMascot(G.card); });
-  function hasAll(p) { return CH.every(function (ch) { return G.wedges[p][ch]; }); }
+  function hasAll(p) { return won(p) >= G.need; }
   function yourTurn() {
     G.turn = 0;
     G.phase = 'roll';
+    save(0, 'roll');
     if (hasAll(0)) {
       G.phase = 'centre';
-      panel('<p class="tb-say"><b>All five wedges!</b> ' + (G.pos[0] === 'hub' ? 'Answer the final question to win.' : 'Head to the centre for the final question.') + '</p>' +
-        '<div class="tb-row"><button type="button" class="tb-btn tb-btn--go" data-tb-final>' + (G.pos[0] === 'hub' ? 'Final question' : 'Go to the centre') + '</button></div>');
+      panel('<p class="tb-say tb-turn"><b>All ' + G.need + ' wedges!</b> ' + (G.pos[0] === 'hub' ? 'Answer the final question to win.' : 'Head to the centre for the final question.') + '</p>' +
+        '<div class="tb-row"><button type="button" class="tb-btn tb-btn--go tb-btn--roll" data-tb-final>' + (G.pos[0] === 'hub' ? 'Final question' : 'Go to the centre') + '</button></div>');
+      G.card.querySelector('[data-tb-final]').focus({ preventScroll: true });
       return;
     }
     panel('<p class="tb-say tb-turn"><b>Your turn.</b> Roll the die.</p><div class="tb-tray">' + deck() + die(0) + '<button type="button" class="tb-btn tb-btn--go tb-btn--roll" data-tb-roll>Roll</button></div>');
     var b = G.card.querySelector('[data-tb-roll]');
     if (b) b.focus({ preventScroll: true });
   }
-  // The die tumbles for a moment, then shows the roll.
+  // The die tumbles for a moment, rattling, then shows the roll.
   function roll(done) {
     var n = 1 + Math.floor(Math.random() * 6), spins = 7;
     (function spin() {
@@ -303,10 +460,12 @@
       var d = G.card.querySelector('.tb-die');
       if (spins-- > 0) {
         if (d) d.outerHTML = die(1 + Math.floor(Math.random() * 6), true);
+        if (spins % 2) K.sfx('clack', 0.25);
         wait(spin, 80);
         return;
       }
       if (d) d.outerHTML = die(n);
+      K.sfx('clack', 0.6);
       done(n);
     })();
   }
@@ -326,7 +485,7 @@
         '<span class="tb-pick__ch">' + (s.type === 'again' ? 'Roll again' : esc(NAME[s.ch])) + '</span><span class="tb-pick__what">' + what(0, i) + '</span></button>';
     }).join('') + '</div>');
   }
-  // The piece walks there a square at a time.
+  // The piece hops there a square at a time.
   function walk(p, to, done) {
     var dir = (G.pos[p] + G.roll) % N === to ? 1 : -1, left = G.roll;
     G.card.querySelectorAll('.is-target').forEach(function (x) { x.classList.remove('is-target'); });
@@ -334,6 +493,7 @@
       if (left-- <= 0) { done(); return; }
       G.pos[p] = (G.pos[p] + dir + N) % N;
       placeTokens();
+      K.sfx('tick', 0.5);
       wait(step, STEP);
     })();
   }
@@ -355,25 +515,28 @@
       var s = path.shift();
       if (typeof s === 'number') { G.pos[p] = s; G.xy[p] = null; } else if (s === 'hub') { G.pos[p] = 'hub'; G.xy[p] = null; } else G.xy[p] = s;
       placeTokens();
+      K.sfx('tick', 0.5);
       wait(step, STEP);
     })();
   }
   function land(p) {
     var s = G.sq[G.pos[p]];
+    if (G.pos[p] === 'hub' || !s) { if (p) hisGo(); else yourTurn(); return; }
     if (s.type === 'again') { again(p); return; }
     var wedge = s.type === 'hq' && !G.wedges[p][s.ch];
     if (p === 1) { hisAnswer(s.ch, wedge); return; }
+    save(0, 'land');
     if (wedge) typedQuestion(s.ch, 'wedge');
     else choiceQuestion(s.ch);
   }
   // A roll-again square: no question, just another go.
   function again(p) {
     if (p === 0) {
-      panel('<p class="tb-say"><b>Roll again!</b> No question on this square.</p>');
+      panel('<p class="tb-say tb-turn"><b>Roll again!</b> No question on this square.</p>');
       nextButton('Roll', yourTurn);
     } else {
-      panel('<p class="tb-say">He landed on <b>Roll again</b>.</p>');
-      wait(hisGo, 900);
+      panel('<p class="tb-say tb-turn">He landed on <b>Roll again</b>.</p>');
+      wait(hisGo, 800);
     }
   }
   // Your questions come from the memory you share with Exam drill (below): one due to type first (typed even on a
@@ -386,7 +549,7 @@
     G.item = item;
     G.kind = false;
     var opts = shuffle([item.c.right].concat(item.c.wrong));
-    panel(card(ch, '', '<p class="tb-q">' + esc(item.text) + '</p><div class="tb-opts">' + opts.map(function (o) {
+    panel(card(ch, '', '<p class="tb-q">' + esc(plain(item.text)) + '</p><div class="tb-opts">' + opts.map(function (o) {
       return '<button type="button" class="tb-opt" data-tb-opt="' + esc(o) + '">' + esc(o) + '</button>';
     }).join('') + '</div>'));
     reveal(G.card.querySelector('.tb-card__front'));
@@ -395,17 +558,16 @@
     if (G.phase !== 'ask') return;
     G.phase = 'shown';
     var item = G.item, said = btn.getAttribute('data-tb-opt'), ok = said === item.c.right;
-    G.asked += 1;
     G.card.querySelectorAll('[data-tb-opt]').forEach(function (b) {
       b.disabled = true;
       if (b.getAttribute('data-tb-opt') === item.c.right) b.classList.add('is-ok');
     });
     if (!ok) btn.classList.add('is-no');
-    answered(ok, false, item.ch, back(ok, ok ? '' : 'You said: ' + said, item) + memLine(memRecord(G.pools, item, false, ok)));
+    answered(ok, false, item, ok ? '' : 'You said: ' + said, memLine(memRecord(G.pools, item, false, ok)));
   }
-  // The card's back: right or wrong, the answer and why.
-  function back(ok, mine, item, who) {
-    return '<p class="tb-stamp ' + (ok ? 'is-ok">' + (who ? who + ' got it' : 'Correct') : 'is-no">' + (who ? who + ' got it wrong' : 'Not quite')) + '</p>' +
+  // The card's back: the question again (so the why makes sense), the stamp, what you said, the answer and why.
+  function back(ok, mine, item, stampText, wedgeCh) {
+    return '<p class="tb-backq">' + esc(plain(item.text)) + '</p>' + stamp(ok, stampText, wedgeCh) +
       (mine ? '<p class="tb-mine">' + esc(mine) + '</p>' : '') +
       '<p class="tb-ans"><span>Answer</span>' + esc(item.c.right) + '</p><p class="tb-why"><span>Why</span>' + esc(item.c.why) + '</p>';
   }
@@ -428,39 +590,86 @@
     var item = G.item, text = dunno ? '' : (G.card.querySelector('[data-tb-text]').value || '').trim();
     if (!dunno && !text) { G.card.querySelector('[data-tb-text]').focus(); return; }
     G.phase = 'shown';
-    G.asked += 1;
     var got = text && window.BioApp ? window.BioApp.check(item.src, item.qid, item.k, text).filter(Boolean).length : 0, ok = got >= item.want;
     var mine = dunno ? '' : 'You wrote: ' + (text.length > 120 ? text.slice(0, 117) + '...' : text) + (!ok && got ? ' (' + got + ' of ' + item.want + ' points)' : '');
-    answered(ok, G.kind, item.ch, back(ok, mine, item) + memLine(memRecord(G.pools, item, true, ok)));
+    answered(ok, G.kind, item, mine, memLine(memRecord(G.pools, item, true, ok)));
   }
-  // After your answer the card flips to the answer. Right, you go again (winning the wedge or the game); wrong, he goes.
-  function answered(ok, kind, ch, backHtml) {
-    wait(function () { flip(backHtml); }, kind ? 150 : 450);
+  // After your answer the card flips to the answer and the stamp slams on. Right, you go again (winning the wedge, which
+  // flies off the card into your pie, or the game); wrong, he goes.
+  function answered(ok, kind, item, mine, later) {
+    var ch = G.sq[G.pos[0]] ? G.sq[G.pos[0]].ch : item.ch, wedge = kind === 'wedge' && ok, flipAt = kind ? 150 : FLIP_MS;
+    G.asked += 1;
+    G.stats[item.ch].n += 1;
+    if (ok) { G.right += 1; G.stats[item.ch].r += 1; }
+    if (wedge) G.wedges[0][ch] = true;
+    // Saved as settled: right, your turn again; wrong, his.
+    G.run = 0;
+    save(ok ? 0 : 1, 'roll');
+    wait(function () {
+      flip(back(ok, mine, item, wedge ? 'Wedge won!' : ok ? (kind === 'final' ? 'Correct: you win!' : 'Correct') : 'Not quite', wedge ? ch : 0) + later);
+      slam(G.card.querySelector('[data-tb-card]'), ok, K.reduced() ? 0 : FLIP_MS);
+    }, flipAt);
     if (ok) {
-      G.right += 1;
       K.ding(kind ? 4 : 2, true);
-      if (kind === 'final') { wait(function () { end(0); }, 1600); return; }
-      if (kind === 'wedge') { G.wedges[0][ch] = true; placeTokens(); K.mascot('angry', pick(SAY.wedge)); }
-      else K.mascot('ok', pick(SAY.right));
+      // The last why can be read before the end.
+      if (kind === 'final') { wait(function () { nextButton('See how it ended', function () { end(0); }); }, flipAt + 500); return; }
+      if (wedge) {
+        K.mascot('angry', pick(SAY.wedge));
+        wait(function () { flyWedge(ch, function () { nextButton(hasAll(0) ? 'Go for the final' : 'Roll again', yourTurn); }); }, flipAt + FLIP_MS + 420);
+        return;
+      }
+      K.mascot('ok', pick(SAY.right));
     } else {
       K.bonk();
       K.mascot('happy', pick(SAY.wrong));
     }
-    wait(function () { nextButton(ok ? (hasAll(0) ? 'Go for the final' : 'Roll again') : 'His turn', ok ? yourTurn : hisTurn); }, 700);
+    wait(function () { nextButton(ok ? 'Roll again' : 'His turn', ok ? yourTurn : hisTurn); }, flipAt + 500);
+  }
+  // A won wedge flies off the card, grows, and drops into your pie beside your name; the pieces on the board fill too.
+  function flyWedge(ch, done) {
+    var from = G.card.querySelector('[data-tb-card] .tb-stamp .tb-wedge'), to = G.card.querySelector('[data-tb-player="0"] svg');
+    var land = function () {
+      placeTokens();
+      refreshPies();
+      var pl = G.card.querySelector('[data-tb-player="0"]');
+      if (pl && !K.reduced()) pl.classList.add('is-won');
+      K.sfx('pop', 0.9);
+      K.fanfare();
+      done();
+    };
+    if (!from || !to || K.reduced() || !from.animate) { land(); return; }
+    var host = G.card.getBoundingClientRect(), a = from.getBoundingClientRect(), b = to.getBoundingClientRect();
+    var w = el('div', 'tb-fly', wedgeSvg(ch));
+    w.style.left = (a.left + a.width / 2 - host.left) + 'px';
+    w.style.top = (a.top + a.height / 2 - host.top) + 'px';
+    G.card.appendChild(w);
+    var dx = b.left + b.width / 2 - a.left - a.width / 2, dy = b.top + b.height / 2 - a.top - a.height / 2;
+    w.animate([
+      { transform: 'translate(-50%, -50%) scale(.5) rotate(-30deg)' },
+      { transform: 'translate(-50%, -50%) scale(2.4) rotate(0deg)', offset: 0.35 },
+      { transform: 'translate(-50%, -50%) scale(2.4) rotate(0deg)', offset: 0.5 },
+      { transform: 'translate(calc(-50% + ' + Math.round(dx) + 'px), calc(-50% + ' + Math.round(dy) + 'px)) scale(.7) rotate(360deg)' }
+    ], { duration: 1100, easing: 'cubic-bezier(.45, 0, .25, 1)' }).onfinish = function () { w.remove(); if (live()) land(); };
+    K.sfx('whoosh', 0.6);
   }
   function finalQuestion() { typedQuestion(CH[Math.floor(Math.random() * CH.length)], 'final'); }
 
   // ---------------------------------------------------------------- his turn
-  function hisTurn() {
+  // His turn plays itself: he rolls, hops, draws a card and answers it out loud. You see his options as the question
+  // types in, then his pick, then whether it was right and why; a bar fills while you read and the game goes on.
+  function hisTurn(run) {
     G.turn = 1;
     G.phase = 'him';
-    G.run = 0;
+    G.run = run || 0;
     hisGo();
   }
   function hisGo() {
+    G.turn = 1;
+    G.phase = 'him';
+    save(1, 'roll');
     if (hasAll(1)) {
-      panel('<p class="tb-say"><b>He has all five wedges.</b> He heads for the centre.</p>');
-      wait(function () { toHub(1, function () { hisAnswer(CH[Math.floor(Math.random() * CH.length)], 'final'); }); }, 600);
+      panel('<p class="tb-say tb-turn"><b>He has all ' + G.need + ' wedges.</b> He heads for the centre.</p>');
+      wait(function () { toHub(1, function () { hisAnswer(CH[Math.floor(Math.random() * CH.length)], 'final'); }); }, 500);
       return;
     }
     panel('<p class="tb-say tb-turn"><b>His turn.</b> He rolls.</p><div class="tb-tray">' + deck() + die(0) + '</div>');
@@ -468,29 +677,57 @@
       G.roll = n;
       var t = targets(1, n), want = t.filter(function (i) { return G.sq[i].type === 'hq' && !G.wedges[1][G.sq[i].ch]; });
       var to = want.length ? want[0] : t[Math.floor(Math.random() * 2)];
-      panel('<div class="tb-tray">' + deck() + die(n) + '<p class="tb-say tb-turn">He rolled <b>' + n + '</b>.</p></div>');
-      wait(function () { walk(1, to, function () { wait(function () { land(1); }, 250); }); }, 450);
+      G.card.querySelector('.tb-turn').innerHTML = 'He rolled <b>' + n + '</b>.';
+      wait(function () { walk(1, to, function () { wait(function () { land(1); }, 200); }); }, 300);
     });
   }
-  // He draws a card and answers out loud: you see the question, then the card turns over to whether he got it and the
-  // answer either way.
+  // How long his card stays up to be read: longer for a longer why.
+  function readMs(item) { return Math.round(Math.min(5200, Math.max(2600, 1500 + 26 * String(item.c.why).length))); }
   function hisAnswer(ch, kind) {
     var typed = kind === 'final' || kind === true, item = nextQ(ch, typed) || nextQ(ch, false);
     var odds = kind === 'final' ? 0.4 : typed ? 0.5 : 0.65, ok = Math.random() < odds;
-    if (!item) { nextButton('Your turn', yourTurn); return; }
+    if (!item) { yourTurn(); return; }
+    var said = ok ? item.c.right : pick(item.c.wrong);
+    G.phase = 'his';
     panel(card(ch, kind === 'final' ? 'His final question' : typed ? 'His wedge question' : 'His question',
-      '<p class="tb-q">' + esc(item.text) + '</p><p class="tb-say tb-think">He thinks…</p>'));
-    reveal(G.card.querySelector('.tb-card__front'), function () { wait(function () {
-      flip(back(ok, '', item, 'He'));
-      if (ok) {
-        K.mascot('happy', pick(SAY.hisRight));
-        if (kind === 'final') { wait(function () { end(1); }, 1600); return; }
-        if (typed) { G.wedges[1][ch] = true; placeTokens(); }
-      } else K.mascot('angry', pick(SAY.hisWrong));
-      G.run += 1;
-      var go = ok && G.run < MAX_RUN;
-      wait(function () { nextButton(go ? 'He goes again' : 'Your turn', go ? hisGo : yourTurn); }, 700);
-    }, 1500); });
+      '<p class="tb-q">' + esc(plain(item.text)) + '</p><div class="tb-opts">' + shuffle([item.c.right].concat(item.c.wrong)).map(function (o) {
+        return '<p class="tb-opt is-his-q" data-tb-hisopt="' + esc(o) + '">' + esc(o) + '</p>';
+      }).join('') + '</div><p class="tb-say tb-think" data-tb-think>He thinks…</p>'));
+    var front = G.card.querySelector('.tb-card__front');
+    reveal(front, function () { wait(function () {
+      // His pick first...
+      var mine = null;
+      front.querySelectorAll('[data-tb-hisopt]').forEach(function (o) { if (o.getAttribute('data-tb-hisopt') === said) mine = o; });
+      if (mine) { mine.classList.add('is-his'); mine.insertAdjacentHTML('beforeend', '<span class="tb-his">Examiner</span>'); }
+      K.sfx('tick', 0.8);
+      var think = front.querySelector('[data-tb-think]');
+      if (think) think.textContent = 'His answer…';
+      wait(function () { hisVerdict(item, ch, kind, typed, ok, mine); }, 850);
+    }, 650); });
+  }
+  // ...then the right one lights up, the stamp lands and the why shows.
+  function hisVerdict(item, ch, kind, typed, ok, mine) {
+    var front = G.card.querySelector('.tb-card__front'), cardEl = G.card.querySelector('[data-tb-card]');
+    front.querySelectorAll('[data-tb-hisopt]').forEach(function (o) { if (o.getAttribute('data-tb-hisopt') === item.c.right) o.classList.add('is-ok'); });
+    if (!ok && mine) mine.classList.add('is-no');
+    var think = front.querySelector('[data-tb-think]');
+    if (think) think.remove();
+    var wedge = ok && typed && kind !== 'final';
+    G.his.n += 1;
+    if (ok) G.his.r += 1;
+    if (wedge) G.wedges[1][ch] = true;
+    front.querySelector('.tb-card__body').insertAdjacentHTML('beforeend', stamp(ok, wedge ? 'His wedge' : ok ? 'He got it' : 'He got it wrong', wedge ? ch : 0) +
+      '<p class="tb-why"><span>Why</span>' + esc(item.c.why) + '</p>');
+    K.later(function () { if (cardEl.isConnected) K.sfx('stamp', 0.7); }, K.reduced() ? 0 : SLAM_MS);
+    if (wedge) { placeTokens(); refreshPies(); }
+    if (ok) {
+      K.mascot('happy', pick(wedge ? SAY.hisWedge : SAY.hisRight));
+      if (kind === 'final') { autoNext('See how it ended', readMs(item), function () { end(1); }); return; }
+    } else K.mascot('angry', pick(SAY.hisWrong));
+    G.run += 1;
+    var go = ok && G.run < MAX_RUN;
+    save(go ? 1 : 0, 'roll');
+    autoNext(go ? 'He goes again' : 'Your turn', readMs(item), go ? hisGo : yourTurn);
   }
 
   // ---------------------------------------------------------------- questions type in
@@ -532,14 +769,29 @@
   }
 
   // ---------------------------------------------------------------- the end
+  // The board as it finished, both pies, and a short recap: each chapter's questions you got right and whose wedge it
+  // was, so you can see where to work.
   function end(winner) {
     G.phase = 'over';
+    G.winner = winner;
+    K.playing(false);
+    K.store(SAVE, '');
     var wins = +(K.store('bio-board-wins') || 0) + (winner ? 0 : 1);
     if (!winner) K.store('bio-board-wins', String(wins));
     K.store('bio-board-played', String(+(K.store('bio-board-played') || 0) + 1));
-    body(G.card, '<div class="am-games__end"><svg class="tb-endpie" viewBox="0 0 40 40" aria-hidden="true">' + piece(winner, 20, 20, 19) + '</svg>' +
-      '<h3 class="am-games__title">' + (winner ? 'The teacher wins.' : 'You win!') + '</h3>' +
-      '<p class="am-games__sub">You got ' + G.right + ' of ' + G.asked + ' questions right' + (wins ? '. Games won: ' + wins : '') + '.</p></div>');
+    layout();
+    G.card.querySelector('.tb').classList.add('tb--end');
+    var weak = CH.filter(function (ch) { var s = G.stats[ch]; return s.n && s.r / s.n < 0.6; });
+    var rows = CH.map(function (ch) {
+      var s = G.stats[ch], w = function (p) { return G.wedges[p][ch] ? wedgeSvg(ch) : '<span class="tb-recap__no">–</span>'; };
+      return '<tr class="' + (weak.indexOf(ch) >= 0 ? 'is-weak' : '') + '" style="--c:' + COL[ch] + '"><th scope="row"><i aria-hidden="true"></i>' + esc(NAME[ch]) + '</th>' +
+        '<td class="num">' + (s.n ? s.r + ' of ' + s.n : '–') + '</td><td>' + w(0) + '</td><td>' + w(1) + '</td></tr>';
+    }).join('');
+    panel('<div class="tb-end"><h3 class="tb-title">' + (winner ? 'The examiner wins.' : 'You win!') + '</h3>' +
+      '<p class="tb-say">You got <b>' + G.right + ' of ' + G.asked + '</b> right. He got <b>' + G.his.r + ' of ' + G.his.n + '</b>.' + (wins ? ' Games won: <b>' + wins + '</b>.' : '') + '</p>' +
+      '<table class="tb-recap"><thead><tr><th scope="col">Chapter</th><th scope="col">You got</th><th scope="col">Your wedge</th><th scope="col">His</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+      (weak.length ? '<p class="tb-say tb-end__work">Work on: <b>' + weak.map(function (ch) { return esc(NAME[ch]); }).join(', ') + '</b></p>' : '') + '</div>');
+    G.card.querySelector('[data-tb-panel]').classList.add('tb-panel--end');
     buttons(G.card, [['more', 'data-am-keep', 'Close'], ['ok', 'data-tb-again', 'Play again']]);
     nearMascot(G.card);
     K.mascot(winner ? 'happy' : 'angry', winner ? 'As expected. Again?' : 'Hmph. Fine. You win. This time.');
@@ -550,6 +802,11 @@
     if (!live() || !G.card.contains(e.target)) return;
     var t;
     if (e.target.closest('[data-tb-again]')) { open(); return; }
+    if (G.phase === 'intro') {
+      if ((t = e.target.closest('[data-tb-mode]'))) { begin(+t.getAttribute('data-tb-mode')); return; }
+      if (e.target.closest('[data-tb-carry]')) { carryOn(); return; }
+      return;
+    }
     if (G.phase === 'roll' && e.target.closest('[data-tb-roll]')) {
       G.phase = 'rolling';
       e.target.closest('[data-tb-roll]').disabled = true;
@@ -656,5 +913,5 @@
   function memLine(line) { return '<p class="tb-later">' + esc(line) + '</p>'; }
 
   window.BioBoard = { open: open, state: function () { return G; }, pools: pools, nearMascot: nearMascot, reveal: reveal, chapters: CH, names: NAME, colours: COL,
-    memNext: memNext, memRecord: memRecord, memSet: memSet, memOrder: memOrder, memLine: memLine, memKey: memKey, missFirst: missFirst, missMark: missMark };
+    stamp: stamp, plain: plain, needsOptions: needsOptions, memNext: memNext, memRecord: memRecord, memSet: memSet, memOrder: memOrder, memLine: memLine, memKey: memKey, missFirst: missFirst, missMark: missMark };
 })();

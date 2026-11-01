@@ -212,6 +212,8 @@ button { font: inherit; }
    more than the screen's height allows. */
 .am-finish__card.am-games__card.am-games__card--wide.tb-wide { width: min(var(--tbw, 900px), 100%); }
 .tb-board svg { display: block; width: 100%; max-width: calc(100vh - 240px); height: auto; margin: 0 auto; filter: drop-shadow(0 6px 0 rgba(0, 0, 0, .35)); }
+/* Beside the turn, the board stays in view while a long card scrolls the turn. */
+@media (min-width: 761px) { .tb-board { position: sticky; top: 0; } }
 .tb-sq.is-target { cursor: pointer; }
 .tb-sq.is-target path:first-child { stroke: #FFFFFF; stroke-width: 4; animation: tbPulse 1s ease-in-out infinite; }
 @keyframes tbPulse { 50% { stroke-opacity: .3; } }
@@ -283,7 +285,32 @@ button { font: inherit; }
 .tb-opt.is-no { border-color: #FF4B4B; background: #FFDFE0; color: #B3261E; animation: amShake .4s; }
 .tb-text { width: 100%; box-sizing: border-box; padding: 16px 18px; border: 3px solid #D5DCE5; border-radius: 14px; background: #FFFFFF; color: #13294A; font: 700 22px/1.4 Nunito, sans-serif; resize: vertical; }
 .tb-card .tb-btn { padding: 15px 30px; font-size: 21px; }
-.tb-stamp { justify-self: start; margin: 0; padding: 6px 16px; border: 3px solid; border-radius: 10px; font: 800 22px Nunito, sans-serif; transform: rotate(-3deg); }
+.tb-stamp { position: relative; display: inline-flex; align-items: center; gap: 10px; justify-self: start; margin: 0; padding: 6px 16px; border: 3px solid; border-radius: 10px; font: 800 22px Nunito, sans-serif; transform: rotate(-3deg); animation: tbSlam .36s both; }
+/* The stamp slams down (big and tilted, then a small bounce) with a burst of ink lines; on the trivia board it waits
+   until the card has turned over. A wrong answer shakes the card. */
+@keyframes tbSlam {
+  0% { opacity: 0; transform: scale(2.6) rotate(-14deg); animation-timing-function: cubic-bezier(.6, 0, 1, .6); }
+  50% { opacity: 1; transform: scale(.9) rotate(-2deg); animation-timing-function: ease-out; }
+  75% { transform: scale(1.05) rotate(-3deg); }
+  100% { opacity: 1; transform: scale(1) rotate(-3deg); }
+}
+.tb-burst { position: absolute; left: 50%; top: 50%; width: 130%; height: 260%; overflow: visible; fill: none; stroke: currentColor; stroke-width: 4; stroke-linecap: round; opacity: 0; pointer-events: none; animation: tbBurst .5s ease-out .17s both; }
+.tb-burst line { vector-effect: non-scaling-stroke; }
+@keyframes tbBurst { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.6); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.12); } }
+.tb-card.is-flipped .tb-stamp { animation-delay: .45s; }
+.tb-card.is-flipped .tb-burst { animation-delay: .62s; }
+.tb-card.is-shake { animation: tbShake .42s ease-out; }
+@keyframes tbShake { 20% { transform: translateX(-9px) rotate(-.6deg); } 40% { transform: translateX(8px) rotate(.5deg); } 60% { transform: translateX(-5px); } 80% { transform: translateX(3px); } }
+.tb-stamp.is-wedge { padding: 6px 18px 6px 10px; font-size: 26px; }
+.tb-wedge { display: block; width: 34px; height: 34px; flex: none; }
+/* A won wedge flies off the card into your pie. */
+/* Placed by its left and top (the game's backdrop is a grid that would otherwise centre it). */
+.tb-fly { position: absolute; z-index: 20; justify-self: start; align-self: start; width: 40px; height: 40px; pointer-events: none; }
+.tb-fly svg { display: block; width: 100%; height: 100%; }
+.tb-player.is-won { animation: tbWon .7s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes tbWon { 40% { transform: scale(1.08); border-color: #FFC800; } }
+/* On the card's back, the question again so the why has its context. */
+.tb-backq { margin: 0; padding-bottom: 12px; border-bottom: 2px dashed #DCE3EA; color: #5B6B80; font: 800 18px/1.35 Nunito, sans-serif; }
 .tb-stamp.is-ok { border-color: #58CC02; background: #D7FFB8; color: #2B6A00; }
 .tb-stamp.is-no { border-color: #FF4B4B; background: #FFDFE0; color: #B3261E; }
 .tb-mine { margin: 0; color: #5B6B80; font: 700 19px/1.4 Nunito, sans-serif; }
@@ -296,7 +323,46 @@ button { font: inherit; }
    clear enough"): its own label, bigger dark text, in a box with the chapter's colour down its side. */
 .tb-card .tb-why { padding: 14px 18px; border-left: 6px solid var(--c); border-radius: 12px; background: #EEF2F6; color: #13294A; font: 700 22px/1.45 Nunito, sans-serif; }
 .tb-why span { display: block; margin-bottom: 4px; color: #5B6B80; font: 800 15px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
-.tb-endpie { display: block; width: 120px; height: 120px; margin: 0 auto 8px; }
+.tb-title { margin: 0; color: #FFFFFF; font: 700 34px/1.1 Fredoka, Nunito, sans-serif; }
+/* The start: a full or a quick game, or carry on with the saved one. */
+.tb-ask { margin: 4px 0 0; color: #93A5AE; font: 800 15px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.tb-modes { display: grid; gap: 12px; }
+.tb-mode { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 2px 16px; padding: 16px 20px; border: 3px solid #37464F; border-bottom-width: 6px; border-radius: 18px; background: #202F36; color: #F1F7FB; text-align: left; cursor: pointer; }
+.tb-mode svg { grid-row: span 2; width: 54px; height: 54px; }
+.tb-mode:hover { border-color: #1CB0F6; background: #2B3B42; }
+.tb-mode:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
+.tb-mode__n { font: 700 28px/1.1 Fredoka, Nunito, sans-serif; }
+.tb-mode__what { color: #93A5AE; font: 700 17px Nunito, sans-serif; }
+.tb-mode--carry { border-color: #58A700; background: #58CC02; color: #FFFFFF; }
+.tb-mode--carry:hover { border-color: #58A700; background: #61D80A; }
+.tb-mode--carry .tb-mode__what { color: #F1FFE6; }
+.tb-wins { margin: 0; color: #93A5AE; font: 800 16px Nunito, sans-serif; }
+.tb-wins b { color: #FFC800; }
+/* His turn: his options show as the question types in, then his pick (tagged), then the right one. */
+.tb-opt.is-his-q { margin: 0; cursor: default; }
+.tb-opt.is-his { border-color: #13294A; box-shadow: inset 0 0 0 2px #13294A; }
+.tb-his { display: inline-block; margin-left: 10px; padding: 2px 10px; border-radius: 999px; background: #13294A; color: #FFFFFF; font: 800 14px Nunito, sans-serif; vertical-align: middle; white-space: nowrap; }
+/* ...and it goes on by itself: the bar fills while you read (a click goes on now). */
+.tb-auto { position: relative; display: inline-flex; align-items: center; gap: 10px; overflow: hidden; padding: 14px 26px 17px; border: 2px solid #37464F; border-radius: 16px; background: #202F36; color: #F1F7FB; font: 800 19px Nunito, sans-serif; cursor: pointer; }
+.tb-auto:hover { border-color: #93A5AE; }
+.tb-auto::after { content: "\203A"; font-size: 26px; line-height: .8; }
+.tb-auto i { position: absolute; left: 0; bottom: 0; width: 100%; height: 5px; background: #FFC800; transform: scaleX(0); transform-origin: left; animation: tbFill linear both; }
+@keyframes tbFill { to { transform: scaleX(1); } }
+.tb-paused .tb-auto i { animation-play-state: paused; }
+/* The end: the board as it finished, both pies and each chapter's questions and wedges. */
+.tb-panel--end .tb-player svg { width: 52px; height: 52px; }
+.tb-panel--end .tb-player.is-turn { border-color: #FFC800; }
+.tb-end { display: grid; gap: 14px; }
+.tb-recap { width: 100%; border-collapse: collapse; color: #F1F7FB; font: 800 17px Nunito, sans-serif; }
+.tb-recap th, .tb-recap td { padding: 8px 6px; border-bottom: 2px solid #26363E; text-align: center; }
+.tb-recap thead th { color: #93A5AE; font: 800 13px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.tb-recap thead th:first-child, .tb-recap tbody th { text-align: left; }
+.tb-recap tbody th { font: 700 18px Fredoka, Nunito, sans-serif; white-space: nowrap; }
+.tb-recap tbody th i { display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 1.5px solid #13294A; border-radius: 4px; background: var(--c); }
+.tb-recap .tb-wedge { display: inline-block; width: 28px; height: 28px; vertical-align: middle; }
+.tb-recap tr.is-weak .num { color: #FFC800; }
+.tb-recap__no { color: #4F6069; }
+.tb-end__work b { color: #FFC800; }
 @media (max-width: 760px) {
   .tb { grid-template-columns: 1fr; gap: 14px; }
   .tb-board { width: 100%; max-width: 280px; margin: 0 auto; }
@@ -319,29 +385,81 @@ button { font: inherit; }
   .tb-pick { padding: 14px 16px; }
   .tb-pick__ch { font-size: 21px; }
   .tb-pick__what { font-size: 15px; }
+  .tb-title { font-size: 26px; }
+  .tb-mode { padding: 12px 16px; }
+  .tb-mode svg { width: 44px; height: 44px; }
+  .tb-mode__n { font-size: 22px; }
+  .tb-mode__what { font-size: 15px; }
+  .tb-stamp { font-size: 19px; }
+  .tb-stamp.is-wedge { font-size: 21px; }
+  .tb-backq { font-size: 16px; padding-bottom: 10px; }
+  .tb-auto { padding: 12px 20px 15px; font-size: 17px; }
+  .tb-recap { font-size: 15px; }
+  .tb-recap tbody th { font-size: 15px; }
+  .tb-recap th, .tb-recap td { padding: 7px 3px; }
+  .tb-recap thead th { font-size: 11px; }
+  .tb-panel--end .tb-player svg { width: 40px; height: 40px; }
+  /* At the end on a phone the board is smaller, so the recap is in view. */
+  .tb--end .tb-board { max-width: 210px; }
+  .tb--end .tb-key { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .tb-sq.is-target path:first-child, .tb-die.is-rolling, .tb-card { animation: none; }
+  .tb-sq.is-target path:first-child, .tb-die.is-rolling, .tb-card, .tb-stamp, .tb-burst, .tb-card.is-shake, .tb-player.is-won, .tb-auto i { animation: none; }
+  .tb-burst { display: none; }
   .tb-tok, .tb-card__in { transition: none; }
 }
 
 /* Outrun the Examiner, Points Grid and Don't Say It (bio/bio-quizgames.js) use the trivia board's question cards
    (.tb-card, .tb-opt, .tb-text, .tb-stamp, .tb-why). */
-/* Outrun the Examiner: the track on the left, top to bottom (his start, the steps, home); the question on the right. */
-.oe { display: grid; grid-template-columns: minmax(220px, .62fr) minmax(0, 1.38fr); gap: 26px; align-items: start; }
-.oe-track { position: relative; }
-.oe-steps { display: grid; grid-template-rows: repeat(var(--rows), 54px); gap: 6px; margin: 0; padding: 0; list-style: none; }
-.oe-step { border: 2px solid #37464F; border-radius: 14px; background: #202F36; transition: background .3s ease, border-color .3s ease; }
-.oe-step.is-passed { border-color: #202F36; background: #172328; }
-.oe-step.is-gap { border-style: dashed; border-color: #1CB0F6; }
-.oe-step--home { display: flex; align-items: center; justify-content: center; gap: 8px; border-color: #E5A500; border-bottom-width: 5px; background: #FFC800; color: #13294A; font: 700 22px Fredoka, Nunito, sans-serif; }
-.oe-step--home svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
-.oe-tok { position: absolute; left: 0; right: 0; top: calc(var(--at) * 60px); display: flex; align-items: center; gap: 10px; height: 54px; box-sizing: border-box; padding: 0 14px; border-radius: 14px; font: 700 19px Fredoka, Nunito, sans-serif; transition: top .45s cubic-bezier(.3, .9, .3, 1.15); }
-.oe-tok--him { border: 2px solid #13294A; background: #F1F7FB; color: #13294A; }
-.oe-tok--you { justify-content: space-between; border: 2px solid #1899D6; border-bottom-width: 4px; background: #1CB0F6; color: #FFFFFF; }
-.oe-tok__face { display: block; width: 40px; height: 40px; flex: none; }
+/* Outrun the Examiner: a corridor across the top (cream floor tiles like the board, his start at the far end, home's
+   house at the other), stuck to the top of the card so it stays in view while the question below scrolls. */
+.oe { display: grid; gap: 16px; }
+.oe-q { width: 100%; max-width: 860px; margin: 0 auto; }
+.oe-run { position: sticky; top: 0; z-index: 3; margin: 0 -28px; padding: 8px 28px 14px; border-bottom: 2px solid #26363E; background: #18272D; }
+.oe-line { margin: 0 0 6px; color: #DCE6EC; font: 700 20px Nunito, sans-serif; }
+.oe-line b { color: #FFFFFF; font: 700 26px Fredoka, Nunito, sans-serif; }
+.oe-lane { position: relative; height: 118px; }
+.oe-floor { position: absolute; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); height: 30px; margin: 0; padding: 0; list-style: none; }
+.oe-tile { border: 3px solid #13294A; border-left-width: 0; background: #F6EBD3; transition: background .3s ease; }
+.oe-tile:first-child { border-left-width: 3px; border-radius: 10px 0 0 10px; }
+.oe-tile.is-passed { background: #D9C7A0; }
+/* The steps you're ahead by. */
+.oe-tile.is-gap { background: #BDE8FC; }
+.oe-home { position: relative; display: grid; place-items: center; border: 3px solid #13294A; border-left-width: 0; border-radius: 0 10px 10px 0; background: #FFC800; color: #13294A; font: 800 12px Nunito, sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+.oe-home svg { position: absolute; left: 50%; bottom: calc(100% - 3px); width: 78px; height: 78px; transform: translateX(-50%); }
+.oe-door { transform-box: fill-box; transform-origin: left center; transition: transform .35s cubic-bezier(.3, .9, .3, 1); }
+.oe-home.is-open .oe-door { transform: scaleX(.12); }
+/* The pieces stand on the floor and hop from step to step. */
+.oe-tok { position: absolute; bottom: 16px; left: calc((var(--at) + .5) * 100% / var(--n)); z-index: 2; width: 64px; margin-left: -32px; transition: left .42s cubic-bezier(.3, .9, .35, 1.1); }
+.oe-tok--you { z-index: 3; }
+.oe-tok::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: -9px; height: 8px; border-radius: 50%; background: rgba(19, 41, 74, .35); }
+.oe-tok__body { position: relative; z-index: 1; display: grid; place-items: center; width: 64px; height: 64px; box-sizing: border-box; border: 3px solid #13294A; border-radius: 50%; }
+.oe-tok--him .oe-tok__body { overflow: hidden; background: #F1F7FB; }
+.oe-tok--you .oe-tok__body { background: #1CB0F6; box-shadow: inset 0 -5px 0 #1899D6; color: #FFFFFF; font: 700 19px Fredoka, Nunito, sans-serif; }
+.oe-tok__face { display: block; width: 58px; height: 58px; margin-top: 6px; }
 .oe-tok__face svg, .oe-face svg { display: block; width: 100%; height: 100%; }
-.oe-tok__gap { font: 800 15px Nunito, sans-serif; }
+.oe-tok__body.is-hop { animation: oeHop .42s ease-out; }
+@keyframes oeHop { 40% { transform: translateY(-24px); } 78% { transform: translateY(0) scale(1.08, .9); } }
+/* His second right answer in a row is a leap of two: after one, he's "on a roll". */
+.oe-tok__hot { position: absolute; left: 50%; bottom: 100%; z-index: 2; padding: 2px 9px; border: 2px solid #13294A; border-radius: 999px; background: #FF9600; color: #13294A; font: 800 13px Nunito, sans-serif; font-style: normal; white-space: nowrap; opacity: 0; transform: translate(-50%, 4px); transition: opacity .2s ease, transform .2s ease; }
+.oe-tok--him.is-hot .oe-tok__hot { opacity: 1; transform: translate(-50%, -6px); }
+.oe-pop { position: absolute; left: 50%; bottom: 100%; z-index: 3; padding: 1px 10px; border: 2px solid #13294A; border-radius: 999px; background: #FFFFFF; color: #13294A; font: 700 20px Fredoka, Nunito, sans-serif; white-space: nowrap; pointer-events: none; animation: oePop 1.05s ease-out both; }
+.oe-tok--him .oe-pop { background: #FF9600; }
+@keyframes oePop { 0% { opacity: 0; transform: translate(-50%, 6px) scale(.7); } 22% { opacity: 1; transform: translate(-50%, -14px) scale(1.1); } 70% { opacity: 1; transform: translate(-50%, -22px); } 100% { opacity: 0; transform: translate(-50%, -30px); } }
+/* Caught: he lunges onto you and the corridor shakes. Home: you go in through the door. */
+.oe-run.is-caught .oe-tok--him { z-index: 4; }
+.oe-run.is-caught .oe-tok__hot { opacity: 0; }
+.oe-run.is-caught .oe-tok--him .oe-tok__body { animation: oeLunge .6s cubic-bezier(.3, 1.4, .5, 1) both; }
+@keyframes oeLunge { 45% { transform: translate(-4px, -38px) scale(1.3) rotate(-14deg); } 100% { transform: translate(10px, -6px) scale(1.15) rotate(8deg); } }
+.oe-run.is-caught .oe-tok--you .oe-tok__body { animation: oeSquash .4s .28s ease-out both; }
+@keyframes oeSquash { to { transform: translateY(16px) scale(1.2, .5); } }
+.oe-run.is-caught .oe-lane { animation: tbShake .45s .3s; }
+.oe-run.is-home .oe-tok--you .oe-tok__body { animation: oeIn .45s ease-in both; }
+.oe-run.is-home .oe-tok--you::after { opacity: 0; }
+@keyframes oeIn { to { opacity: 0; transform: translateY(-14px) scale(.3); } }
+.oe-run--end { position: static; margin: 0 0 8px; padding: 0; border: 0; }
+.oe-run--end .oe-line { visibility: hidden; }
+.oe-end .am-games__end { margin-top: 8px; }
 .oe-face { width: 110px; height: 110px; margin: 0 auto 6px; }
 .oe-ask { margin: 0 0 12px; color: #F1F7FB; font: 700 22px Fredoka, Nunito, sans-serif; }
 .oe-heads { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; max-width: 620px; margin: 0 auto; }
@@ -353,26 +471,40 @@ button { font: inherit; }
 .oe-head i { color: #93A5AE; font: 800 15px Nunito, sans-serif; font-style: normal; }
 .oe-best { margin: 16px 0 0; color: #FFC800; font: 800 16px Nunito, sans-serif; }
 .oe-result { display: flex; flex-wrap: wrap; gap: 12px; }
+.oe-result .tb-stamp + .tb-stamp { animation-delay: .16s; }
+.oe-result .tb-stamp + .tb-stamp .tb-burst { animation-delay: .33s; }
 .qg-after { display: grid; gap: 14px; }
 .qg-after:empty { display: none; }
-.oe-his { display: inline-block; margin-left: 10px; padding: 2px 10px; border-radius: 999px; background: #13294A; color: #FFFFFF; font: 800 14px Nunito, sans-serif; vertical-align: middle; white-space: nowrap; }
 /* Points Grid: five chapter columns of 100 to 500; a question opens on its own. */
 .pts-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
 .pts-col { display: grid; gap: 10px; align-content: start; }
 .pts-head { display: grid; place-items: center; min-height: 58px; margin: 0; padding: 6px 8px; border: 2px solid #13294A; border-radius: 12px; background: var(--c); color: #13294A; font: 700 19px/1.15 Fredoka, Nunito, sans-serif; text-align: center; }
 .pts-cell { display: grid; place-items: center; height: 74px; padding: 0; border: 2px solid #0B1A33; border-bottom-width: 6px; border-radius: 12px; background: #1B3A75; color: #FFC800; font: 700 32px Fredoka, Nunito, sans-serif; cursor: pointer; }
 button.pts-cell:hover { background: #24498D; }
+button.pts-cell:active { transform: translateY(2px); }
 .pts-cell:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
 .pts-cell b { font: inherit; }
 .pts-head__short { display: none; }
-.pts-cell.is-ok, .pts-cell.is-no, .pts-cell.is-pass { border-bottom-width: 2px; font-size: 24px; cursor: default; }
+.pts-cell.is-ok, .pts-cell.is-no, .pts-cell.is-pass, .pts-cell.is-part { border-bottom-width: 2px; font-size: 24px; cursor: default; }
 .pts-cell.is-ok { border-color: #58CC02; background: #D7FFB8; color: #2B6A00; }
 .pts-cell.is-no { border-color: #FF4B4B; background: #FFDFE0; color: #B3261E; }
+/* Part marks on a typed answer: part of the value. */
+.pts-cell.is-part { border-color: #E5A500; background: #FFF1BF; color: #8A5A00; }
 .pts-cell.is-pass { border-color: #37464F; background: #202F36; color: #93A5AE; }
 .pts-cell.is-none { visibility: hidden; }
+.pts-cell.is-new { animation: ptsNew .5s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes ptsNew { 0% { transform: scale(.5) rotate(-6deg); } 100% { transform: none; } }
+/* The cell zooming open into its question, and the points flying up into the score. */
+.pts-zoom { position: absolute; z-index: 20; justify-self: start; align-self: start; display: grid; place-items: center; box-sizing: border-box; border: 2px solid #0B1A33; border-bottom-width: 6px; border-radius: 14px; background: #1B3A75; color: #FFC800; font: 700 32px Fredoka, Nunito, sans-serif; pointer-events: none; }
+.pts-zoom b { font: inherit; }
+.pts-fly { position: absolute; z-index: 21; justify-self: start; align-self: start; padding: 4px 14px; border: 2px solid #13294A; border-radius: 999px; background: #FFC800; color: #13294A; font: 700 26px Fredoka, Nunito, sans-serif; white-space: nowrap; pointer-events: none; }
+.pts-fly.is-down { background: #FF4B4B; color: #FFFFFF; }
 .pts > .tb-panel { margin-top: 16px; }
+.pts-total { font-size: 18px; }
 .pts-total b { color: #FFC800; }
 .pts-q, .dsi { max-width: 860px; margin: 0 auto; }
+.pts-big { margin: 6px 0 4px; color: #FFE14D; font: 700 72px/1 Fredoka, Nunito, sans-serif; }
+.pts-big span { margin-left: 10px; color: #7C8F98; font-size: 24px; letter-spacing: .04em; text-transform: uppercase; }
 .pts-rows { display: grid; gap: 8px; max-width: 580px; margin: 0 auto; padding: 0; list-style: none; text-align: left; }
 .pts-row { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 12px 16px; border: 2px solid #37464F; border-left: 8px solid var(--c); border-radius: 14px; background: #202F36; color: #F1F7FB; }
 .pts-row__n { font: 700 20px Fredoka, Nunito, sans-serif; }
@@ -380,6 +512,10 @@ button.pts-cell:hover { background: #24498D; }
 .pts-row__note { color: #93A5AE; font: 700 15px Nunito, sans-serif; }
 .pts-row.is-weak { border-color: #FFC800; border-left-color: var(--c); }
 .pts-row.is-weak .pts-row__note { color: #FFC800; }
+.pts-row.is-untried b { color: #93A5AE; }
+/* The stamp for part marks and for passing. */
+.tb-stamp.is-part { border-color: #E5A500; background: #FFF1BF; color: #8A5A00; }
+.tb-stamp.is-pass { border-color: #93A5AE; background: #EEF2F6; color: #5B6B80; }
 /* Don't Say It: the term, its banned words, and a box where a banned word turns red as you type it (a copy of the text
    behind the see-through box, with the banned words marked). */
 .dsi-chs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; max-width: 760px; margin: 0 auto; }
@@ -393,24 +529,64 @@ button.pts-cell:hover { background: #24498D; }
 .dsi-hl { position: absolute; inset: 0; overflow: hidden; background: #FFFFFF; color: transparent; pointer-events: none; }
 .dsi-hl mark { border-radius: 4px; background: #FFB8BB; color: transparent; }
 .tb-text.dsi-text { position: relative; display: block; min-height: 124px; overflow: hidden; border-color: #D5DCE5; background: transparent; resize: none; }
+.tb-text.dsi-text:disabled { color: #5B6B80; }
 .dsi-warn { margin: 0; color: #B3261E; font: 800 18px Nunito, sans-serif; }
 .dsi-warn:empty { display: none; }
+/* He thinks ("Hmm..."), then says his guess in his bubble. */
+.dsi-think { display: flex; align-items: center; gap: 14px; }
+.dsi-think__face { width: 60px; height: 60px; flex: none; }
+.dsi-think__face svg { display: block; width: 100%; height: 100%; }
+.dsi-think__say { position: relative; margin: 0; padding: 12px 20px; border: 3px solid #13294A; border-radius: 18px; background: #FFFFFF; color: #13294A; font: 800 24px/1.3 Nunito, sans-serif; }
+.dsi-think__say::before { content: ""; position: absolute; left: -10px; top: 50%; width: 14px; height: 14px; margin-top: -8px; border-left: 3px solid #13294A; border-bottom: 3px solid #13294A; background: #FFFFFF; transform: rotate(45deg); }
+.dsi-think__say b { color: #1A7FB5; }
+.dsi-think__say.is-said { animation: tyPop .38s cubic-bezier(.3, 1.5, .5, 1) both; }
+.dsi-dots i { display: inline-block; font-style: normal; animation: dsiDot 1s ease-in-out infinite; }
+.dsi-dots i:nth-child(2) { animation-delay: .15s; }
+.dsi-dots i:nth-child(3) { animation-delay: .3s; }
+@keyframes dsiDot { 0%, 60%, 100% { opacity: .35; transform: none; } 30% { opacity: 1; transform: translateY(-5px); } }
+/* Not enough the first time: one more go. */
+.dsi-more { margin: 0; padding: 12px 16px; border-left: 6px solid #FF9600; border-radius: 12px; background: #FFF1DE; color: #13294A; font: 700 19px/1.4 Nunito, sans-serif; }
+.dsi-more b { display: block; font-size: 21px; }
+.dsi-label { margin: 0; color: #5B6B80; font: 800 15px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+/* The ideas: the ones you gave ticked, the ones you missed in dark text on an orange marker (to learn). A banned word
+   in an idea is crossed out: say it another way. */
 .dsi-ideas { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
-.dsi-ideas li { position: relative; padding-left: 36px; color: #13294A; font: 700 20px/1.4 Nunito, sans-serif; }
+.dsi-ideas li { position: relative; padding-left: 36px; color: #13294A; font: 700 20px/1.45 Nunito, sans-serif; }
 .dsi-ideas li::before { position: absolute; left: 0; top: 2px; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; color: #FFFFFF; font: 900 15px Nunito, sans-serif; }
+.dsi-ideas li.is-ok { color: #3D4F63; }
 .dsi-ideas li.is-ok::before { content: "\2713"; background: #58CC02; }
-.dsi-ideas li.is-no::before { content: "\2715"; background: #FF4B4B; }
-.dsi-ideas li.is-no { color: #5B6B80; }
+.dsi-ideas li.is-no::before { content: "!"; background: #FF9600; color: #13294A; }
+.dsi-ideas mark { padding: 1px 4px; border-radius: 5px; background: #FFD59E; color: #13294A; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.dsi-ideas s { color: #B3261E; text-decoration-thickness: 2px; }
+/* The end: the ideas he didn't hear, term by term. */
+.dsi-recap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 10px; align-items: start; max-width: 900px; margin: 0 auto; padding: 0; list-style: none; text-align: left; }
+.dsi-recap > li { padding: 14px 18px; border: 2px solid #13294A; border-left: 10px solid var(--c); border-radius: 14px; background: #FFFDF6; }
+.dsi-recap__term { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; margin: 0 0 8px; }
+.dsi-recap__term b { color: #13294A; font: 700 22px Fredoka, Nunito, sans-serif; }
+.dsi-recap__term span { color: #5B6B80; font: 800 13px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.dsi-recap .is-ok .dsi-recap__term span { color: #2B6A00; }
+.dsi-recap .dsi-ideas { gap: 6px; }
+.dsi-recap .dsi-ideas li { padding-left: 32px; font-size: 17px; }
+.dsi-recap .dsi-ideas li::before { width: 23px; height: 23px; font-size: 13px; }
+.dsi-guessed { max-width: 900px; margin: 14px auto 0; color: #B9C7CF; font: 700 16px/1.5 Nunito, sans-serif; text-align: left; }
+.dsi-guessed b { color: #A5ED6E; }
 @media (max-width: 760px) {
-  .oe { grid-template-columns: 1fr; gap: 14px; }
-  .oe-steps { grid-template-rows: 46px; grid-template-columns: repeat(var(--rows), minmax(0, 1fr)); gap: 4px; }
-  .oe-step--home span { display: none; }
-  .oe-step--home svg { width: 20px; height: 20px; }
+  .oe-line { font-size: 16px; }
+  .oe-line b { font-size: 20px; }
+  .oe-lane { height: 76px; }
+  .oe-floor { height: 22px; }
+  .oe-tile, .oe-home { border-width: 2px; border-left-width: 0; }
+  .oe-tile:first-child { border-left-width: 2px; border-radius: 8px 0 0 8px; }
+  .oe-home { border-radius: 0 8px 8px 0; font-size: 0; }
+  .oe-home svg { width: 46px; height: 46px; }
+  .oe-tok { bottom: 12px; width: 38px; margin-left: -19px; }
+  .oe-tok::after { left: 6px; right: 6px; bottom: -6px; height: 6px; }
+  .oe-tok__body { width: 38px; height: 38px; border-width: 2px; }
+  .oe-tok--you .oe-tok__body { box-shadow: inset 0 -3px 0 #1899D6; font-size: 12px; }
+  .oe-tok__face { width: 34px; height: 34px; margin-top: 4px; }
+  .oe-tok__hot { padding: 1px 6px; font-size: 10px; }
+  .oe-pop { padding: 0 7px; font-size: 14px; }
   .oe-result .tb-stamp { padding: 4px 10px; font-size: 17px; }
-  .oe-tok { top: 0; right: auto; left: calc(var(--at) * ((100% - (var(--rows) - 1) * 4px) / var(--rows) + 4px)); width: calc((100% - (var(--rows) - 1) * 4px) / var(--rows)); height: 46px; justify-content: center; padding: 0; transition-property: left; }
-  .oe-tok b, .oe-tok__gap { display: none; }
-  .oe-tok--you::after { content: "You"; font: 800 12px Nunito, sans-serif; }
-  .oe-tok__face { width: 32px; height: 32px; }
   .oe-heads { gap: 8px; }
   .oe-head { padding: 12px 6px; }
   .oe-head b { font-size: 36px; }
@@ -420,11 +596,30 @@ button.pts-cell:hover { background: #24498D; }
   .pts-head__long { display: none; }
   .pts-head__short { display: inline; }
   .pts-cell { height: 54px; border-radius: 9px; border-bottom-width: 4px; font-size: 20px; }
-  .pts-cell.is-ok, .pts-cell.is-no, .pts-cell.is-pass { font-size: 14px; }
+  .pts-cell.is-ok, .pts-cell.is-no, .pts-cell.is-pass, .pts-cell.is-part { font-size: 14px; }
+  .pts-big { font-size: 56px; }
+  .pts-big span { font-size: 18px; }
+  .pts-fly { font-size: 20px; }
   .dsi-term { font-size: 30px; }
   .dsi-ban i { font-size: 15px; padding: 4px 10px; }
   .dsi-hl, .tb-text.dsi-text { padding: 12px 14px; font-size: 18px; }
+  .dsi-think__face { width: 46px; height: 46px; }
+  .dsi-think__say { padding: 10px 16px; font-size: 19px; }
+  .dsi-more { font-size: 16px; }
+  .dsi-more b { font-size: 18px; }
   .dsi-ideas li { font-size: 16px; }
+  .dsi-recap > li { padding: 12px 14px; }
+  .dsi-recap__term b { font-size: 19px; }
+  .dsi-recap .dsi-ideas li { font-size: 15px; }
+}
+/* The card's padding is smaller on a phone: the corridor's background still reaches its edges. */
+@media (max-width: 600px) {
+  .oe-run { margin: 0 -12px; padding: 4px 12px 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oe-tok, .oe-door, .oe-tile { transition: none; }
+  .oe-tok__body, .oe-pop, .oe-run.is-caught .oe-lane, .pts-cell.is-new, .dsi-dots i, .dsi-think__say.is-said { animation: none !important; }
+  .oe-run.is-home .oe-tok--you { visibility: hidden; }
 }
 
 /* Sea Battle, Cannon Duel and Topple the Examiner (bio/bio-arcade.js): the field, with the question card popping up over
