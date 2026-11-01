@@ -427,8 +427,10 @@ button.pts-cell:hover { background: #24498D; }
   .dsi-ideas li { font-size: 16px; }
 }
 
-/* Sea Battle, Cannon Duel and Topple the Examiner (bio/bio-arcade.js): the field, with the question card popping up over
-   it (the field dims behind), and the turn's line and buttons below. */
+/* Sea Battle, Cannon Duel and Topple the Examiner (bio/bio-arcade.js), and the question flow Mini Golf and Pool borrow:
+   the field, the question card (.ar-ask), and the turn's line and buttons below (.ar-turn). Golf and Pool keep the card
+   popping up over a dimmed field; the arcade's own games (.ar--sea, .ar--cd, .ar--tw) put it where it hides nothing
+   that matters, and their turn line sits in a box of fixed height so the field never moves. */
 .ar { display: grid; gap: 14px; }
 .ar-stage { display: grid; }
 .ar-field, .ar-ask { grid-area: 1 / 1; min-width: 0; }
@@ -440,71 +442,190 @@ button.pts-cell:hover { background: #24498D; }
 .ar-turn .tb-row .tb-btn { padding: 14px 32px; border-radius: 16px; font-size: 21px; }
 .ar-face { width: 110px; height: 110px; margin: 0 auto 6px; }
 .ar-face svg { display: block; width: 100%; height: 100%; }
-/* Sea Battle: his sea (big, the one you fire at) and your fleet (smaller), 8x8 squares of water. */
-.sea { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 24px; align-items: start; }
-.sea-name { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 0 0 8px; color: #F1F7FB; font: 700 20px Fredoka, Nunito, sans-serif; }
-.sea-name span { color: #93A5AE; font: 800 14px Nunito, sans-serif; }
-/* The squares' names: 1 to 8 across the top, A to H down the side (lined up with the water's padding and gaps). */
-.sea-wrap { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 2px; }
-.sea-cols, .sea-rows { display: grid; gap: 3px; padding: 0 3px; color: #93A5AE; font: 800 12px Nunito, sans-serif; }
-.sea-cols { grid-template-columns: repeat(8, minmax(0, 1fr)); text-align: center; }
-.sea-rows { grid-template-rows: repeat(8, minmax(0, 1fr)); padding: 3px 0; align-items: center; }
-.sea-cols i, .sea-rows i { font-style: normal; }
-.sea-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 3px; padding: 3px; border: 3px solid #0E2747; border-radius: 14px; background: #163C6E; }
+/* The arcade's games: the field stays put; the card lies over it (absolute), the turn line is one fixed-height box. */
+.ar--sea, .ar--cd, .ar--tw { gap: 12px; }
+.ar--sea .ar-stage, .ar--cd .ar-stage, .ar--tw .ar-stage { position: relative; }
+.ar--sea .ar-stage.is-asking .ar-field, .ar--cd .ar-stage.is-asking .ar-field, .ar--tw .ar-stage.is-asking .ar-field { opacity: 1; pointer-events: auto; }
+.ar--cd .ar-ask, .ar--tw .ar-ask { position: absolute; z-index: 5; top: 12px; left: 50%; width: min(480px, 56%); padding: 0; transform: translateX(-50%); }
+.ar--tw .ar-ask { left: 14px; width: min(480px, 52%); transform: none; }
+.ar--sea .ar-turn, .ar--cd .ar-turn, .ar--tw .ar-turn { flex-wrap: nowrap; height: 64px; min-height: 0; overflow: hidden; }
+/* On a computer the card over the hills or the tower reaches down over the turn line, which it says anyway. */
+.ar--cd .ar-stage.is-asking + .ar-turn > *, .ar--tw .ar-stage.is-asking + .ar-turn > * { visibility: hidden; }
+.ar-say { flex: 1; min-width: 0; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-height: 1.3; }
+.ar-row { flex: none; }
+/* After you pick, only your pick and the right one stay on the card, so the answer and why fit beside the field. */
+.tb-opt.ar-gone { display: none; }
+.ar-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 0 0 8px; padding: 0; list-style: none; }
+.ar-stats li { display: grid; gap: 2px; min-width: 96px; padding: 10px 14px; border-radius: 14px; background: #202F36; color: #B9C7CF; font: 800 14px Nunito, sans-serif; }
+.ar-stats b { color: #FFE14D; font: 700 28px Fredoka, Nunito, sans-serif; }
+/* A big word slammed over the field: "Sunk", "Toppled!", "Knockout!". */
+.ar-banner { position: absolute; z-index: 8; left: 50%; top: 46%; display: grid; justify-items: center; gap: 2px; min-width: min(62%, 360px); box-sizing: border-box; padding: 10px 26px 14px; border: 4px solid #13294A; border-radius: 18px; background: var(--c, #FFE14D); box-shadow: 0 6px 0 rgba(0, 0, 0, .35); color: #13294A; text-align: center; pointer-events: none; transform: translate(-50%, -50%) rotate(-4deg); animation: arSlam .5s cubic-bezier(.3, 1.5, .5, 1) both; }
+.ar-banner span { font: 800 15px Nunito, sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+.ar-banner b { font: 700 42px/1.05 Fredoka, Nunito, sans-serif; }
+.ar-banner.is-out { animation: arOut .35s ease both; }
+@keyframes arSlam { 0% { opacity: 0; transform: translate(-50%, -50%) rotate(-4deg) scale(2.2); } 50% { opacity: 1; } 100% { transform: translate(-50%, -50%) rotate(-4deg) scale(1); } }
+@keyframes arOut { to { opacity: 0; transform: translate(-50%, -50%) rotate(-4deg) scale(.85); } }
+
+/* Sea Battle: a bar with both fleets' ships (dark and crossed once sunk), his sea big on the left and your fleet on the
+   right, the question card lying over your fleet; the turn line under his sea. */
+.sea-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.sea-fleet { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.sea-who { display: flex; flex: none; align-items: center; gap: 6px; padding: 4px 14px; border: 2px solid #13294A; border-radius: 999px; background: #1CB0F6; color: #FFFFFF; font: 800 16px Nunito, sans-serif; }
+.sea-who--him { padding-left: 4px; background: #F1F7FB; color: #13294A; }
+.sea-head { display: block; width: 26px; height: 26px; overflow: hidden; border-radius: 50%; background: #DCE6EC; }
+.sea-head svg { display: block; width: 100%; height: 100%; }
+.sea-pips { display: flex; align-items: center; gap: 7px; }
+.sea-pip { position: relative; display: block; width: calc(var(--n) * 26px); height: 24px; }
+.sea-pip svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.sea-pip.is-sunk svg { opacity: .3; }
+.sea-pip.is-sunk::after { content: ""; position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4 4l12 12M16 4L4 16' stroke='%2313294A' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M4 4l12 12M16 4L4 16' stroke='%23FF4B4B' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat; transform: translate(-50%, -50%); }
+.sea-pip.is-new { animation: seaPipSink .8s ease both; }
+@keyframes seaPipSink { 0%, 30% { transform: none; } 15% { transform: translateX(-3px) rotate(-6deg); } 45% { transform: translateX(3px) rotate(5deg); } 100% { transform: none; } }
+.sea-left { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.sea-stage { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); grid-template-rows: auto 1fr; grid-template-areas: "his mine" "turn mine"; gap: 12px 26px; align-items: start; }
+.sea-side--his { grid-area: his; }
+.sea-side--mine { grid-area: mine; }
+.sea-stage > .ar-turn { grid-area: turn; }
+.sea-stage > .ar-ask { position: relative; z-index: 5; grid-area: mine; width: auto; padding: 0; justify-self: stretch; }
+.sea-name { margin: 0 0 8px; color: #F1F7FB; font: 700 22px Fredoka, Nunito, sans-serif; }
+.sea-side.is-target .sea-name { color: #FFE14D; }
+/* A sea in a cream frame like a board game's, the squares' names printed on it in navy. */
+.sea-board { position: relative; display: grid; grid-template-columns: 26px minmax(0, 1fr); grid-template-rows: 26px auto; padding: 6px 14px 14px 8px; border: 3px solid #13294A; border-radius: 20px; background: #F6EBD3; box-shadow: 0 6px 0 rgba(0, 0, 0, .35); }
+.sea-cols, .sea-rows { display: grid; color: #13294A; font: 700 18px Fredoka, Nunito, sans-serif; }
+.sea-cols { grid-column: 2; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 3px; padding: 0 6px; }
+.sea-rows { grid-row: 2; grid-template-rows: repeat(7, minmax(0, 1fr)); gap: 3px; padding: 6px 0; }
+.sea-cols i, .sea-rows i { display: grid; place-items: center; font-style: normal; }
+.sea-grid { position: relative; isolation: isolate; grid-column: 2; grid-row: 2; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 3px; padding: 3px; border: 3px solid #13294A; border-radius: 12px; background: #1B4F8A; }
 /* The water squares; the ships (.sea-ship) lie over them and the marks (the squares' <i>) over the ships. */
-.sea-c { position: relative; display: grid; place-items: center; aspect-ratio: 1; padding: 0; border: 0; border-radius: 5px; background: #2563A6; }
-.sea-c.is-wave::before { content: ""; position: absolute; left: 30%; top: 46%; width: 36%; height: 16%; border-top: 2.5px solid rgba(255, 255, 255, .3); border-radius: 50% 50% 0 0; }
+.sea-c { position: relative; display: grid; place-items: center; aspect-ratio: 1; padding: 0; border: 0; border-radius: 6px; background: #2E74BF; }
+.sea-c.is-wave::before { content: ""; position: absolute; left: 28%; top: 44%; width: 40%; height: 16%; border-top: 3px solid rgba(255, 255, 255, .35); border-radius: 50% 50% 0 0; }
 button.sea-c { cursor: default; }
-.sea-side--his.is-aiming button.sea-c { cursor: crosshair; }
-.sea-side--his.is-aiming button.sea-c:hover { background: #3277C2; box-shadow: inset 0 0 0 3px #FFE14D; }
+.sea-side--his.is-aiming .sea-grid { border-color: #FFE14D; }
+.sea-side--his.is-aiming button.sea-c:not(:disabled) { cursor: crosshair; }
+.sea-side--his.is-aiming button.sea-c:not(:disabled):hover, .sea-side--his.is-aiming button.sea-c:not(:disabled):focus-visible { background: #4A92DF; }
+.sea-side--his.is-aiming button.sea-c:not(:disabled):hover::after, .sea-side--his.is-aiming button.sea-c:not(:disabled):focus-visible::after { content: ""; position: absolute; z-index: 3; inset: 8%; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cg stroke='%2313294A' stroke-width='7'%3E%3Ccircle cx='20' cy='20' r='12'/%3E%3Cpath d='M20 2v8M20 30v8M2 20h8M30 20h8'/%3E%3C/g%3E%3Cg stroke='%23FFE14D' stroke-width='3.5'%3E%3Ccircle cx='20' cy='20' r='12'/%3E%3Cpath d='M20 2v8M20 30v8M2 20h8M30 20h8'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat; }
 .sea-c:focus-visible { outline: 3px solid #FFE14D; outline-offset: 1px; }
 .sea-c.is-wreck { background: #2E3F5C; }
-.sea-c i { position: relative; z-index: 2; display: block; width: 84%; height: 84%; }
+.sea-c.is-clear { background: #2766AA; }
+.sea-c.is-clear::before { display: none; }
+.sea-c i { position: relative; z-index: 2; display: grid; place-items: center; width: 84%; height: 84%; }
 .sea-c i svg { display: block; width: 100%; height: 100%; }
+/* On a sunk ship the bursts shrink to scorch marks, so the ship shows. */
+.sea-c.is-sunk i { width: 46%; height: 46%; }
+.sea-c.is-clear i::before { content: ""; width: 20%; height: 20%; border-radius: 50%; background: rgba(255, 255, 255, .6); }
 .sea-ship { position: relative; z-index: 1; pointer-events: none; }
 .sea-ship svg { display: block; width: 100%; height: 100%; }
-.sea-ship.is-sunk { opacity: .55; }
-/* A new shot: its mark pops in and a ring spreads across the water. */
-.sea-c.is-new i { animation: seaPop .5s cubic-bezier(.3, 1.6, .5, 1); }
-.sea-c.is-new::after { content: ""; position: absolute; z-index: 2; inset: 12%; border: 3px solid #FFFFFF; border-radius: 50%; animation: seaRing .8s ease-out forwards; pointer-events: none; }
+.sea-ship.is-sunk { opacity: .6; }
+.sea-ship.is-new { animation: seaSail .5s cubic-bezier(.3, 1.5, .5, 1) both; }
+.sea-ship.is-new.is-sunk { animation: seaSurface .7s ease-out both; }
+.sea-ship.is-down { animation: seaDown .9s ease-in both; }
+@keyframes seaSail { 0% { opacity: 0; transform: translateY(-30%) scale(.7); } 100% { opacity: 1; transform: none; } }
+@keyframes seaSurface { 0% { opacity: 0; transform: scale(1.15); } 40% { opacity: 1; transform: rotate(-3deg); } 100% { opacity: .6; transform: none; } }
+@keyframes seaDown { 0% { opacity: 1; transform: none; } 40% { transform: rotate(4deg) translateY(4%); } 100% { opacity: .6; transform: none; } }
+/* A new mark pops in and a ring spreads across the water; the clear water round a sunk ship fills in one by one. */
+.sea-c.is-new i { animation: seaPop .5s cubic-bezier(.3, 1.6, .5, 1) both; animation-delay: var(--d, 0s); }
+.sea-c.is-new::after { content: ""; position: absolute; z-index: 2; inset: 12%; border: 3px solid #FFFFFF; border-radius: 50%; animation: seaRing .8s ease-out both; animation-delay: var(--d, 0s); pointer-events: none; }
+.sea-c.is-clear.is-new::after { display: none; }
 @keyframes seaPop { 0% { transform: scale(.3); } 100% { transform: none; } }
 @keyframes seaRing { 0% { transform: scale(.4); opacity: 1; } 100% { transform: scale(1.9); opacity: 0; } }
-.sea-key { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 10px 0 0; padding: 0; list-style: none; color: #DCE6EC; font: 700 14px Nunito, sans-serif; }
-.sea-key li { display: flex; align-items: center; gap: 6px; }
-.sea-key li::before { content: ""; width: 12px; height: 12px; border: 1.5px solid #13294A; border-radius: 4px; background: var(--c); }
-.sea-key li.is-sunk { color: #93A5AE; text-decoration: line-through; }
-/* Cannon Duel: both health bars and the wind; the hills on a canvas, your label and his face riding on the cannons. */
-.cd-hp { display: grid; grid-template-columns: 1fr 1fr auto; align-items: center; gap: 12px 18px; }
-.cd-hp__one { display: flex; align-items: center; gap: 10px; color: #F1F7FB; font: 800 16px Nunito, sans-serif; }
-.cd-hp__one b { font: 700 18px Fredoka, Nunito, sans-serif; }
-.cd-hp__bar { flex: 1; height: 14px; overflow: hidden; border-radius: 7px; background: #2B3B42; }
-.cd-hp__bar i { display: block; height: 100%; border-radius: 7px; background: #1CB0F6; transition: width .5s ease; }
+/* Shells, splashes and blasts, over the sea. */
+.sea-fx { position: absolute; z-index: 4; inset: 0; pointer-events: none; }
+.sea-shell, .sea-shadow { position: absolute; left: 0; top: 0; border-radius: 50%; }
+.sea-shell { z-index: 2; box-sizing: border-box; border: 2px solid #FFFFFF; background: #13294A; }
+.sea-shell::after { content: ""; position: absolute; left: 20%; top: 20%; width: 28%; height: 28%; border-radius: 50%; background: #FFFFFF; }
+.sea-shadow { background: rgba(8, 20, 40, .55); }
+.sea-boom { position: absolute; z-index: 3; }
+.sea-boom svg { display: block; width: 100%; height: 100%; }
+.sea-boom--miss { animation: seaSpout .75s cubic-bezier(.2, .8, .3, 1) both; }
+.sea-boom--hit { animation: seaBlast .6s ease-out both; }
+@keyframes seaSpout { 0% { opacity: 1; transform: translate(-50%, -62%) scale(.2, .05); } 35% { transform: translate(-50%, -62%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -62%) scale(.85, 1.1); } }
+@keyframes seaBlast { 0% { transform: translate(-50%, -50%) scale(.2) rotate(-25deg); } 30% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.25) rotate(12deg); } }
+.sea-board.is-shake { animation: seaShake .4s linear; }
+.sea-board.is-quake { animation: seaShake .3s linear 3; }
+@keyframes seaShake { 20% { transform: translate(-5px, 2px); } 40% { transform: translate(4px, -3px); } 60% { transform: translate(-3px, -2px); } 80% { transform: translate(3px, 2px); } 100% { transform: none; } }
+/* The shells left this salvo, in the turn line. */
+.sea-ammo { display: inline-flex; gap: 6px; margin-left: 4px; vertical-align: -2px; }
+.sea-ammo i { width: 16px; height: 16px; box-sizing: border-box; border: 3px solid #F1F7FB; border-radius: 50%; background: #F1F7FB; }
+.sea-ammo i.is-spent { border-color: #5B6B80; background: none; }
+
+/* Cannon Duel: both health bars (his runs from the right) and the wind; the hills on a canvas with the effects on a
+   second one over your tag and his face, which ride on the cannons. */
+.cd-hp { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 12px 22px; }
+.cd-hp__one { display: flex; align-items: center; gap: 10px; color: #F1F7FB; font: 800 18px Nunito, sans-serif; }
+.cd-hp__one--1 { grid-column: 3; grid-row: 1; flex-direction: row-reverse; }
+.cd-hp__one b { font: 700 21px Fredoka, Nunito, sans-serif; }
+.cd-hp__bar { display: flex; flex: 1; height: 18px; overflow: hidden; border-radius: 9px; background: #2B3B42; }
+.cd-hp__one--1 .cd-hp__bar { justify-content: flex-end; }
+.cd-hp__bar i { display: block; height: 100%; border-radius: 9px; background: #1CB0F6; transition: width .5s ease; }
 .cd-hp__one--1 .cd-hp__bar i { background: #8FA3BD; }
-.cd-wind { margin: 0; color: #DCE6EC; font: 800 16px Nunito, sans-serif; }
-.cd-wind b { color: #FFE14D; }
-.cd-sky, .tw-sky { position: relative; overflow: hidden; border: 3px solid #0E2747; border-radius: 16px; }
-.cd-canvas, .tw-canvas { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; touch-action: none; cursor: crosshair; }
+.cd-wind { grid-column: 2; grid-row: 1; display: grid; justify-items: center; margin: 0; color: #93A5AE; font: 800 13px Nunito, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.cd-wind b { color: #FFE14D; font: 700 22px Fredoka, Nunito, sans-serif; letter-spacing: 0; text-transform: none; }
+.cd-sky, .tw-sky { position: relative; overflow: hidden; aspect-ratio: 2 / 1; border: 3px solid #0E2747; border-radius: 16px; background: #CDEBFA; touch-action: none; user-select: none; -webkit-user-select: none; }
+.cd-canvas, .cd-fx, .tw-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; touch-action: none; }
+.cd-canvas, .tw-canvas { cursor: crosshair; }
+.cd-fx { z-index: 3; pointer-events: none; }
 .cd-canvas:focus-visible, .tw-canvas:focus-visible { outline: 3px solid #FFE14D; outline-offset: -3px; }
-.cd-you, .cd-him { position: absolute; transform: translate(-50%, -100%); pointer-events: none; }
-.cd-you { padding: 2px 10px; border: 2px solid #13294A; border-radius: 999px; background: #1CB0F6; color: #FFFFFF; font: 800 14px Nunito, sans-serif; }
-.cd-him { width: 7%; aspect-ratio: 489 / 555; }
+.cd-you { position: absolute; z-index: 2; padding: 2px 10px; border: 2px solid #13294A; border-radius: 999px; background: #1CB0F6; color: #FFFFFF; font: 800 15px Nunito, sans-serif; pointer-events: none; transform: translate(-50%, -100%); }
+.cd-sky .cd-him.am-exam__face, .tw-sky .tw-him.am-exam__face { position: absolute; z-index: 2; width: 62px; height: auto; aspect-ratio: 489 / 555; pointer-events: none; }
+.cd-sky .cd-him.am-exam__face { transform: translate(-50%, -100%); }
 .cd-him svg, .tw-him svg { display: block; width: 100%; height: 100%; }
-/* Topple the Examiner: the level and questions left; his face rides on his body in the physics. */
-.tw-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin: 0; color: #F1F7FB; font: 700 20px Fredoka, Nunito, sans-serif; }
-.tw-top span { color: #FFE14D; font: 800 16px Nunito, sans-serif; }
-.tw-him { position: absolute; width: 5.6%; aspect-ratio: 489 / 555; pointer-events: none; }
+/* Topple the Examiner: the level and question; his face rides on his body in the physics. */
+.tw-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin: 0; color: #F1F7FB; font: 700 22px Fredoka, Nunito, sans-serif; }
+.tw-top span { color: #FFE14D; font: 800 18px Nunito, sans-serif; }
 .tw-start .tb-pick:disabled { opacity: .45; cursor: default; }
 @media (max-width: 760px) {
-  .sea { grid-template-columns: 1fr; gap: 16px; }
-  .sea-side--mine { width: 72%; }
-  .sea-name { font-size: 17px; }
-  .sea-c.is-hit i::before, .sea-c.is-hit i::after { height: 3px; }
   .cd-hp { grid-template-columns: 1fr; gap: 6px; }
-  .cd-hp__one, .cd-wind { font-size: 14px; }
-  .cd-you { font-size: 11px; padding: 1px 6px; }
   .ar-turn .tb-row .tb-btn { padding: 12px 24px; font-size: 18px; }
+  /* A phone: the card fills the screen and the field fills the card (bio-arcade.js sets the height); the question is a
+     sheet along the bottom with the field (Sea Battle) or the camera's view (the hills, the tower) above it. */
+  .ar--sea .ar-turn, .ar--cd .ar-turn, .ar--tw .ar-turn { height: 58px; }
+  .ar--sea .tb-turn, .ar--cd .tb-turn, .ar--tw .tb-turn { font-size: 18px; }
+  .ar--cd .ar-ask, .ar--tw .ar-ask, .sea-stage > .ar-ask { position: absolute; top: auto; right: 0; bottom: 0; left: 0; width: auto; max-height: 72%; overflow: auto; overscroll-behavior: contain; border-radius: 14px; transform: none; animation: arSheet .35s cubic-bezier(.2, .9, .3, 1) both; }
+  @keyframes arSheet { from { transform: translateY(40%); opacity: 0; } to { transform: none; opacity: 1; } }
+  .ar--cd .cd-sky, .ar--tw .tw-sky { aspect-ratio: auto; height: 62vh; border-radius: 14px; }
+  .ar-banner b { font-size: 32px; }
+  .ar-banner span { font-size: 13px; }
+  .cd-hp { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 10px; }
+  .cd-hp__one { gap: 6px; font-size: 15px; }
+  .cd-hp__one b { font-size: 17px; }
+  .cd-hp__bar { height: 14px; }
+  .cd-wind { font-size: 11px; }
+  .cd-wind b { font-size: 18px; }
+  .cd-you { font-size: 13px; padding: 1px 8px; }
+  .tw-top { font-size: 18px; }
+  .tw-top span { font-size: 15px; }
+  /* Sea Battle on a phone: the sea being fired at fills the width; the other sits small beside the turn's line. */
+  .sea-top { gap: 6px; }
+  .sea-fleet { gap: 6px; }
+  .sea-who { padding: 2px 10px; font-size: 14px; }
+  .sea-who--him { padding-left: 3px; }
+  .sea-head { width: 20px; height: 20px; }
+  .sea-pips { gap: 4px; }
+  .sea-pip { width: calc(var(--n) * 11px); height: 12px; }
+  .sea-pip.is-sunk::after { width: 14px; height: 14px; }
+  .sea-stage { grid-template-columns: minmax(0, 44%) minmax(0, 1fr); grid-template-rows: auto auto; grid-template-areas: "big big" "inset turn"; gap: 12px; align-content: start; }
+  .sea-stage[data-view="his"] .sea-side--his, .sea-stage[data-view="mine"] .sea-side--mine { grid-area: big; transform-origin: 50% 0; transition: transform .35s ease; }
+  .sea-stage[data-view="his"] .sea-side--mine, .sea-stage[data-view="mine"] .sea-side--his { grid-area: inset; }
+  .sea-stage > .ar-turn { height: auto; align-self: center; }
+  .sea-stage > .ar-turn .ar-say { -webkit-line-clamp: 5; }
+  .sea-name { margin-bottom: 4px; font-size: 18px; }
+  .sea-board { grid-template-columns: 20px minmax(0, 1fr); grid-template-rows: 20px auto; padding: 4px 8px 8px 4px; border-radius: 16px; }
+  .sea-cols, .sea-rows { font-size: 14px; }
+  .sea-cols { padding: 0 5px; }
+  .sea-rows { padding: 5px 0; }
+  .sea-grid { gap: 2px; padding: 2px; border-radius: 10px; }
+  .sea-c { border-radius: 4px; }
+  .sea-stage[data-view="his"] .sea-side--mine .sea-name, .sea-stage[data-view="mine"] .sea-side--his .sea-name { font-size: 14px; }
+  .sea-stage[data-view="his"] .sea-side--mine .sea-board, .sea-stage[data-view="mine"] .sea-side--his .sea-board { grid-template-columns: 0 minmax(0, 1fr); grid-template-rows: 0 auto; padding: 4px; border-width: 2px; border-radius: 10px; box-shadow: 0 3px 0 rgba(0, 0, 0, .35); }
+  .sea-stage[data-view="his"] .sea-side--mine .sea-cols, .sea-stage[data-view="his"] .sea-side--mine .sea-rows, .sea-stage[data-view="mine"] .sea-side--his .sea-cols, .sea-stage[data-view="mine"] .sea-side--his .sea-rows { visibility: hidden; }
+  .sea-stage[data-view="his"] .sea-side--mine .sea-grid, .sea-stage[data-view="mine"] .sea-side--his .sea-grid { gap: 1px; padding: 1px; border-width: 2px; border-radius: 6px; }
+  .sea-stage[data-view="his"] .sea-side--mine .sea-c, .sea-stage[data-view="mine"] .sea-side--his .sea-c { border-radius: 2px; }
+  .sea-stage[data-view="his"] .sea-side--mine .sea-c::before, .sea-stage[data-view="mine"] .sea-side--his .sea-c::before { display: none; }
 }
-@media (prefers-reduced-motion: reduce) { .sea-c.is-new i, .sea-c.is-new::after { animation: none; } .sea-c.is-new::after { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .sea-c.is-new i, .sea-c.is-new::after, .sea-ship.is-new, .sea-ship.is-down, .sea-boom, .sea-board.is-shake, .sea-board.is-quake, .sea-pip.is-new, .ar-banner { animation: none; }
+  .sea-c.is-new::after, .sea-boom { display: none; }
+}
 
 /* Mini Golf (bio/bio-golf.js): the hole and stroke over the scorecard, the 3D hole on a canvas (your tag, his face and
    the power meter are HTML over it), and the turn's line and buttons below (.ar-, like the arcade). */
