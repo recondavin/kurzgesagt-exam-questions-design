@@ -2,7 +2,7 @@
 // ("board": true, false, or the question rewritten with the context it needs; the user: "make them all make sense"),
 // what's left still has plenty in every chapter, and every typed (wedge) question's own right answer earns the points it asks for, marked like the sheet.
 // Questions sit on the board under what they're about (topicOf): a question on the pulmonary vein filed under
-// Breathing is a Circulation question.
+// Breathing is a Circulation question. A typed question never needs its options to make sense.
 // Run: node tools/bio/tests/board.mjs
 import { readFileSync } from 'fs';
 import { createRequire } from 'module';
@@ -40,6 +40,23 @@ for (const ch of [28, 29, 30, 31, 32]) {
     const got = B.check(ch, q.id, k, c.right).filter(Boolean).length;
     if (got < want) fail(`${ch}/${q.id} part ${k + 1}: its own answer earns ${got} of ${want}`);
   });
+}
+// The game's own pools (bio-board.js): a typed question (a wedge, a grid's 400 or 500, a "Type it") never needs its
+// options to make sense ("Which of these is a harmful virus?" stays pick-the-answer), there are still plenty, and a
+// pick-the-answer question shows without "(2 points)".
+window.ExamAnswerMode.kit = { store() { return null; }, later() {} };
+window.BioKit = { esc: String, shuffle: a => a.slice(), pick: a => a[0], body() {}, buttons() {}, host() {} };
+window.addEventListener = () => {};
+require('../../../bio/bio-board.js');
+const BB = window.BioBoard, P = BB.pools();
+['Which of these is a harmful virus?', 'Which pairs a general defence with how it works? (2 points)', 'Which list has three types of T cell?', 'Which statement about antibodies and antibiotics is right? (one of 4 points)', 'Which best describes excretion?']
+  .forEach(t => { if (!BB.needsOptions(t)) fail(`"${t}" would be asked typed`); });
+['Which enzyme digests fat?', 'Which gas dissolved in plasma controls the rate of breathing?', 'Explain the importance of folding in proteins. (2 points)']
+  .forEach(t => { if (BB.needsOptions(t)) fail(`"${t}" is kept out of the typed questions`); });
+for (const ch of [28, 29, 30, 31, 32]) {
+  P[ch].typed.filter(t => BB.needsOptions(t.text)).forEach(t => fail(`${ch}: typed question needs its options: ${t.text}`));
+  if (P[ch].typed.length < 20) fail(`chapter ${ch}: only ${P[ch].typed.length} typed questions in the game`);
+  P[ch].mc.filter(i => /\bpoints?\)$/.test(BB.plain(i.text))).forEach(i => fail(`${ch}: "${i.text}" keeps its points as a pick-the-answer question`));
 }
 for (const ch of [28, 29, 30, 31, 32]) {
   if (board[ch][0] < 30) fail(`chapter ${ch}: only ${board[ch][0]} questions on its squares`);
