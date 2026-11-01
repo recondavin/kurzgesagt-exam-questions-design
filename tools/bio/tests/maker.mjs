@@ -107,17 +107,23 @@ for (const w of Object.keys(T.WORLDS)) {
     n++;
     if (st.you < 0 || st.him < -2 || st.lives < 0) fail(`${w}/${x[0]}: a count went below zero ${JSON.stringify(st)}`);
     if (x[0] === 'life' && (T.over(g, st) !== 'lose' || k !== 3)) fail(`${w}/life: lost after ${k} wrong answers (${T.over(g, st)}), not 3`);
-    if (w === 'race' && x[0] === 'him1' && T.over(g, st) !== 'lose') fail('race/him1: wrong answers never let him catch you');
+    if (w === 'race' && x[0] === 'him1' && (T.over(g, st) !== 'lose' || k !== s + 2)) fail(`race/him1: lost after ${k} wrong answers, not when they reached the flag (${s + 2})`);
     if (w === 'battle' && x[0] === 'hurt1' && (T.over(g, st) !== 'lose' || k !== s)) fail(`battle/hurt1: lost after ${k}, not ${s}`);
     if (['back1', 'fall1', 'm50', 'save', 'wilt'].indexOf(x[0]) >= 0 && T.over(g, st)) fail(`${w}/${x[0]}: wrong answers alone ended the game`);
     if (x[0] === 'hgoal' && (T.over(g, st) !== 'lose' || k !== s)) fail(`shoot/hgoal: lost after ${k} of his goals, not ${s}`);
   }
 }
 {
-  const say = (w, x) => T.step(T.clean({ w, x }), T.fresh(T.clean({ w, x })), false, false).said;
+  const say = (w, x, op) => T.step(T.clean({ w, x, op }), T.fresh(T.clean({ w, x, op })), false, false).said;
   n++;
-  if (say('race', 'him1') !== 'He moves a step closer.' || say('battle', 'hurt1') !== 'He hits you.' || say('tower', 'life') !== 'You lose a life.' ||
-    say('shoot', 'save') !== 'He saves it.' || say('shoot', 'hgoal') !== 'He scores.' || say('grow', 'wilt') !== 'Nothing to fall off yet.') fail('wrong-answer cards say the wrong thing');
+  if (say('race', 'him1') !== 'The examiner moves a step closer.' || say('battle', 'hurt1', 'virus') !== 'The virus hits you.' || say('tower', 'life') !== 'You lose a life.' ||
+    say('shoot', 'save', 'clock') !== 'The clock saves it.' || say('shoot', 'hgoal', 'make') !== 'Your opponent scores.' || say('grow', 'wilt') !== 'Nothing to fall off yet.') fail('wrong-answer cards say the wrong thing');
+  // Never "he": the one you're up against is named on every card (it may be a virus or a drawing).
+  n++;
+  for (const w of Object.keys(T.WORLDS)) for (const c of T.WORLDS[w].right.concat(T.WORLDS[w].wrong)) if (/\b(he|him|his)\b/i.test(c[1] + ' ' + c[2])) fail(`${w}/${c[0]} says he or him: ${c[1]} / ${c[2]}`);
+  // A race isn't over after two wrong answers: they start two behind and must reach the flag.
+  n++;
+  { const g = T.clean({ w: 'race', x: 'him1', s: 6 }); let st = T.fresh(g); st = T.step(g, st, false, false).st; st = T.step(g, st, false, false).st; if (T.over(g, st)) fail('race/him1: over after two wrong answers'); }
   n++;
   if (Object.keys(T.WORLDS).length < 6) fail('fewer than six kinds of game');
 }

@@ -763,23 +763,72 @@ button.sea-c { cursor: default; }
 .mk-name { display: grid; gap: 6px; color: #93A5AE; font: 800 15px Nunito, sans-serif; }
 .mk-name input, .mk-share input { box-sizing: border-box; width: 100%; padding: 12px 16px; border: 2px solid #37464F; border-radius: 12px; background: #202F36; color: #F1F7FB; font: 800 20px Nunito, sans-serif; }
 .mk-name input:focus, .mk-share input:focus { border-color: #1CB0F6; outline: none; }
-/* Your game, done. */
+/* Your game, done: a row each for the questions, the game and the look, with its picture. */
 .mk-sum { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
-.mk-sum li { display: grid; grid-template-columns: 110px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 14px; background: #202F36; color: #D5E0E6; font: 700 17px/1.35 Nunito, sans-serif; }
-.mk-sum li b { color: #F1F7FB; font: 800 15px Nunito, sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+.mk-sum li { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 10px 14px; border-radius: 14px; background: #202F36; color: #B9C7CF; font: 700 15px/1.4 Nunito, sans-serif; }
+.mk-sum__art { display: grid; place-items: center; width: 52px; height: 52px; }
+.mk-sum__art > svg { width: 44px; height: 44px; }
+.mk-sum__t { display: grid; gap: 2px; min-width: 0; }
+.mk-sum__t b { color: #F1F7FB; font: 800 18px/1.25 Nunito, sans-serif; }
+.mk-sum__vs { position: relative; display: block; width: 100%; height: 100%; }
+.mk-sum__vs > svg, .mk-sum__vs > .mk-face, .mk-sum__vs > img { position: absolute; width: 64%; height: 64%; }
+.mk-sum__vs > :first-child { left: 0; bottom: 0; z-index: 1; }
+.mk-sum__vs > :last-child { right: 0; top: 0; }
+.mk-sum__vs i { display: none; }
+.mk-sum--plain .mk-mini { display: none; }
 .mk-share { display: grid; gap: 6px; color: #B9C7CF; font: 700 15px Nunito, sans-serif; }
 .mk-share[hidden] { display: none; }
 .mk-said { margin: 0 auto 0 0; color: #F1F7FB; font: 800 18px Nunito, sans-serif; }
 .mk-lucky { justify-self: start; }
 .mk-best { margin: 6px 0 0; color: #FFC800; font: 800 17px Nunito, sans-serif; }
+/* The card keeps one height through every step (Continue used to jump between 760 and 832px), Back and Continue at
+   its bottom; while playing, the picture is pinned at the top and only the question scrolls. */
+.am-finish__card.mk-host { display: flex; flex-direction: column; height: min(100%, 880px); }
+.am-finish__card.mk-host > [data-am-gbody] { flex: 1 0 auto; min-height: 0; display: flex; flex-direction: column; }
 .am-finish__card.mk-host > [data-am-gbtns] { position: sticky; bottom: -28px; z-index: 5; margin: 16px -28px -28px; padding: 14px 28px 28px; border-top: 2px solid #26363E; background: #18272D; }
+.am-finish__card.mk-host.mk-live { overflow: hidden; }
+.am-finish__card.mk-live > [data-am-gbody] { flex: 1 1 0; display: flex; flex-direction: column; }
+.am-finish__card.mk-live > [data-am-gbtns] { position: static; margin-top: 12px; }
+.am-btn.mk-btn-play { background: #18272D; box-shadow: inset 0 0 0 2px #58A700, 0 4px 0 #58A700; color: #A5ED6E; }
+.mk-end { flex: 1; display: flex; flex-direction: column; justify-content: center; }
 .mk-end .mk-preview { width: 100%; margin-bottom: 14px; }
-/* Playing: where a question is from, how many points, the parts to tap. */
-.mk-from { margin: -4px 0 0; color: #5B6B80; font: 800 13.5px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.mk-end .mk-world { --sz: 44cqh; aspect-ratio: 16 / 7; max-height: 52vh; }
+.mk-end .am-games__title { font-size: 34px; }
+.mk-endline { margin: 0; color: #B9C7CF; font: 800 17px/1.5 Nunito, sans-serif; }
+.mk-endline b { color: #FFE14D; font: 700 26px Fredoka, Nunito, sans-serif; }
+/* Playing: the picture pinned on top, the question card under it (compact), options two by two with their keys. */
+.mk-live .mk-play { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 12px; }
+.mk-play > .mk-world { --sz: 46cqh; flex: none; height: clamp(170px, 31vh, 290px); aspect-ratio: auto; min-height: 0; }
+.mk-panel { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; border-radius: 14px; }
+.mk-play .tb-card__band { padding: 8px 18px; }
+.mk-play .tb-card__band b { font-size: 20px; }
+.mk-play .tb-card__band span { font-size: 13.5px; }
+.mk-play .tb-card__body { gap: 10px; padding: 12px 18px 16px; }
+.mk-play .tb-q { font-size: 23px; }
+.mk-qopts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.mk-qopts .tb-opt { display: flex; align-items: center; gap: 12px; padding: 11px 14px; font-size: 19px; }
+.mk-qopts kbd { flex: none; display: grid; place-items: center; width: 26px; height: 26px; border: 2px solid #D5DCE5; border-radius: 8px; color: #5B6B80; font: 800 14px Nunito, sans-serif; }
+.mk-qopts .is-ok kbd { border-color: #58CC02; color: #2B6A00; }
+.mk-qopts .is-no kbd { border-color: #FF4B4B; color: #B3261E; }
+.mk-play .tb-text { padding: 12px 14px; font-size: 20px; }
+.mk-after { display: grid; gap: 8px; }
+.mk-after:empty { display: none; }
+.mk-verdict { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.mk-play .tb-stamp { padding: 3px 12px; font-size: 18px; }
+.mk-after .mk-said { margin: 0; color: #13294A; font: 800 18px Nunito, sans-serif; }
+.mk-play .tb-mine { font-size: 16px; }
+.mk-ans { margin: 0; color: #13294A; font: 800 19px/1.35 Nunito, sans-serif; }
+.mk-ans span { margin-right: 8px; color: #5B6B80; font: 800 13px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.mk-why { border-radius: 12px; background: #EEF2F6; }
+.mk-why summary { padding: 9px 14px; color: #13294A; font: 800 16px Nunito, sans-serif; cursor: pointer; }
+.mk-why summary:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; border-radius: 12px; }
+.mk-why[open] summary { padding-bottom: 4px; }
+.mk-why .tb-why, .mk-play .mk-why .tb-why { padding: 4px 14px 12px; border: 0; background: none; font-size: 17px; }
+.mk-why .mk-scheme { margin: 0 14px 12px; background: #FFFFFF; font-size: 16px; }
+.mk-from { margin: -4px 0 0; color: #5B6B80; font: 800 12.5px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
 .mk-need { color: #5B6B80; font-size: .7em; white-space: nowrap; }
 .mk-fig { justify-self: center; width: 100%; }
-.mk-fig svg { max-height: 320px; }
-.mk-play > .mk-world { aspect-ratio: 16 / 4; min-height: 170px; }
+.mk-fig svg { max-height: min(320px, 34vh); }
 .mk-spot { cursor: pointer; }
 .mk-spot:hover circle:first-child, .mk-spot:focus-visible circle:first-child { fill: #FFC800; fill-opacity: .45; }
 .mk-spot:focus { outline: none; }
@@ -789,6 +838,7 @@ button.sea-c { cursor: default; }
 .mk-scheme { margin: 0; padding: 12px 16px; border-radius: 12px; background: #EEF2F6; color: #13294A; font: 700 18px/1.45 Nunito, sans-serif; }
 .mk-scheme span { display: block; color: #5B6B80; font: 800 14px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
 .mk-scheme em { color: #5B6B80; font-style: normal; }
+@media (hover: none) { .mk-qopts kbd { display: none; } }
 
 /* Draw your own (maker-draw.js): the studio, the colour wheel, drawings in the world. */
 .mk-drawn { display: grid; gap: 12px; justify-items: start; }
@@ -845,12 +895,13 @@ button.sea-c { cursor: default; }
 .mk-world > img.mk-place { object-fit: cover; object-position: 50% 100%; }
 .mk-me--drawn, .mk-side .mk-me--drawn { display: block; }
 .mk-me--drawn img, .mk-him--drawn img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; }
-.mk-me--drawn { width: 66px; height: 66px; }
-.mk-side .mk-me--drawn { width: 88px; height: 88px; }
 .mk-drawn-icon { display: block; width: 40px; height: 40px; object-fit: contain; }
 
-/* The world: the place (maker-assets.js), your things, then the pieces and the counters. */
-.mk-world { position: relative; overflow: hidden; aspect-ratio: 16 / 5; min-height: 190px; border: 3px solid #37464F; border-radius: 18px; background: #DDEFFB; }
+/* The world: the place (maker-assets.js), your things, then the pieces and the counters. Everything is sized from the
+   world itself (container units), so the pieces are big in the game and in proportion in the small previews: a
+   character is 40% of the world's height. The floor is the bottom 80 of the place's 500 (the place is cut to fit, so
+   that's 16% of the height or 5% of the width, whichever is more). */
+.mk-world { --floor: max(5cqw, 16cqh); --sz: 40cqh; position: relative; overflow: hidden; container-type: size; aspect-ratio: 16 / 5; min-height: 190px; border: 3px solid #37464F; border-radius: 18px; background: #DDEFFB; }
 .mk-world > * { position: absolute; z-index: 2; }
 .mk-world > .mk-place { inset: 0; z-index: 0; width: 100%; height: 100%; }
 .mk-world > .mk-things { inset: 0; z-index: 1; pointer-events: none; }
@@ -860,79 +911,163 @@ button.sea-c { cursor: default; }
 .mk-world.is-edit { cursor: crosshair; }
 .mk-world.is-edit .mk-thing { pointer-events: auto; cursor: pointer; }
 .mk-thing.is-sel { outline: 3px dashed #FFC800; outline-offset: 3px; border-radius: 8px; }
-.mk-me { display: block; }
-.mk-me svg { display: block; width: 64px; height: 64px; overflow: visible; }
-.mk-him { display: block; width: 62px; height: 62px; }
-.mk-him svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.mk-tok { bottom: calc(16% - 2px); transform: translateX(-50%); transition: left .6s cubic-bezier(.3, 1.3, .5, 1); }
-.mk-tok--him { z-index: 2; }
+.mk-me, .mk-him { position: relative; display: block; width: var(--sz); height: var(--sz); transform-origin: 50% 100%; }
+.mk-me svg, .mk-him svg, .mk-me .mk-drawn-icon { display: block; width: 100%; height: 100%; overflow: visible; }
+.mk-him > .mk-face { width: 100%; height: 100%; }
+.mk-tok { bottom: calc(var(--floor) - 2px); transform: translateX(-50%); transition: left .6s cubic-bezier(.3, 1.3, .5, 1); }
+/* In a Race they run in the lane behind yours (a step up the floor, a little smaller), so the two of you never sit
+   on top of each other. */
+.mk-tok--him { z-index: 2; bottom: calc(var(--floor) + 7cqh); }
+.mk-tok--him .mk-him { --sz: 32cqh; }
 .mk-tok--you { z-index: 3; }
-.mk-heart { width: 22px; height: 20px; fill: #FF4B4B; stroke: #13294A; stroke-width: 1.6; }
+.mk-heart { width: 22px; height: 20px; fill: #FF4B4B; stroke: #13294A; stroke-width: 1.6; overflow: visible; }
 .mk-heart.is-gone { fill: #C9D2DA; }
+.mk-crack { fill: none; stroke: #13294A; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .mk-lives { top: 10px; left: 12px; display: flex; gap: 4px; padding: 4px 9px; border: 2px solid #13294A; border-radius: 999px; background: #FFFFFF; }
 /* Race: a track of squares to the flag. */
-.mk-track { left: 30px; right: 30px; bottom: calc(16% - 8px); display: flex; gap: 4px; }
-.mk-track i { flex: 1; height: 14px; border: 2px solid #13294A; border-radius: 5px; background: #FFFFFF; }
+.mk-track { left: 30px; right: 30px; bottom: calc(var(--floor) - 8px); display: flex; gap: 4px; }
+.mk-track i { flex: 1; height: max(10px, 4.5cqh); border: 2px solid #13294A; border-radius: 5px; background: #FFFFFF; }
 .mk-track i.is-back { background: #C9D2DA; }
+.mk-track--him { bottom: calc(var(--floor) + 5cqh); left: 44px; right: 44px; z-index: 1; }
+.mk-track--him i { height: max(7px, 3cqh); border-width: 1.5px; background: #E9EEF2; }
+.mk-track--him i:last-child { background: #FFE58A; }
 .mk-track i:last-child { background: #FFC800; }
-.mk-flag { right: 34px; bottom: calc(16% + 6px); width: 5px; height: 60px; border-radius: 2px; background: #13294A; }
-.mk-flag::after { content: ""; position: absolute; left: 5px; top: 0; width: 30px; height: 20px; border-radius: 0 4px 4px 0; background: #FF4B4B; }
-/* Battle: you and him, each with hearts. */
-.mk-side { bottom: calc(16% - 4px); display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.mk-flag { right: 34px; bottom: calc(var(--floor) + 4px); width: 5px; height: 40cqh; border-radius: 2px; background: #13294A; }
+.mk-flag::after { content: ""; position: absolute; left: 5px; top: 0; width: 13cqh; height: 9cqh; min-width: 24px; min-height: 16px; border-radius: 0 4px 4px 0; background: #FF4B4B; }
+.mk-at { bottom: calc(var(--floor) - 4px); width: 0; height: 0; }
+/* Battle: you and them, each with hearts. */
+.mk-side { bottom: calc(var(--floor) - 4px); display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .mk-side--you { left: 14%; }
 .mk-side--him { right: 14%; }
-.mk-side .mk-me svg, .mk-side--him .mk-him { width: 86px; height: 86px; }
+.mk-side .mk-me, .mk-side .mk-him { --sz: 46cqh; }
 .mk-hearts { display: flex; flex-wrap: wrap; justify-content: center; gap: 3px; max-width: 150px; padding: 3px 7px; border: 2px solid #13294A; border-radius: 12px; background: #FFFFFF; }
-.mk-vs { left: 50%; bottom: calc(16% + 26px); padding: 2px 14px; border: 3px solid #13294A; border-radius: 12px; background: #FFFFFF; transform: translateX(-50%); color: #13294A; font: 700 30px Fredoka, Nunito, sans-serif; }
-.mk-world.is-good .mk-side--him, .mk-world.is-bad .mk-side--you { animation: mkHit .45s ease; }
-@keyframes mkHit { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
+.mk-vs { left: 50%; bottom: calc(var(--floor) + 18cqh); padding: 2px 14px; border: 3px solid #13294A; border-radius: 12px; background: #FFFFFF; transform: translateX(-50%); color: #13294A; font: 700 30px Fredoka, Nunito, sans-serif; }
+.mk-shot { bottom: calc(var(--floor) + 22cqh); left: 22%; width: 13cqh; height: 13cqh; min-width: 18px; min-height: 18px; z-index: 4; opacity: 0; }
+.mk-shot svg { display: block; width: 100%; height: 100%; }
 /* Tower: blocks up to the dashed line. */
-.mk-stack { left: 50%; bottom: 16%; display: flex; flex-direction: column-reverse; width: 96px; height: 68%; transform: translateX(-50%); }
-.mk-stack i { flex: 0 0 calc(100% / var(--n)); box-sizing: border-box; border: 3px solid #13294A; border-radius: 6px; animation: mkDrop .4s cubic-bezier(.3, 1.3, .5, 1) both; }
-@keyframes mkDrop { from { transform: translateY(-30px); opacity: 0; } }
-.mk-goal { left: calc(50% - 70px); width: 140px; bottom: 84%; border-top: 4px dashed #13294A; }
+.mk-stack { left: 50%; bottom: var(--floor); display: flex; flex-direction: column-reverse; width: 30cqh; min-width: 54px; height: 68%; transform: translateX(-50%); }
+.mk-stack i { flex: 0 0 calc(100% / var(--n)); box-sizing: border-box; border: 3px solid #13294A; border-radius: 6px; transform-origin: 50% 100%; }
+.mk-goal { left: calc(50% - 26cqh); width: 52cqh; bottom: 84%; border-top: 4px dashed #13294A; }
 .mk-world.is-dark .mk-goal { border-color: #FFFFFF; }
-.mk-tok--builder { left: 28%; }
-.mk-watch { right: 7%; bottom: calc(16% - 2px); }
-.mk-watch .mk-him { width: 74px; height: 74px; }
+.mk-tok--builder { left: 26%; }
+.mk-watch { right: 7%; bottom: calc(var(--floor) - 2px); }
+.mk-watch .mk-him { --sz: 38cqh; }
 /* Points: the score, a bar to the target. */
-.mk-points { left: 50%; top: 12%; display: flex; align-items: baseline; gap: 8px; padding: 0 16px; border: 3px solid #13294A; border-radius: 14px; background: #FFFFFF; transform: translateX(-50%); color: #13294A; font: 700 42px Fredoka, Nunito, sans-serif; }
+.mk-points { left: 50%; top: 10%; display: flex; align-items: baseline; gap: 8px; padding: 0 16px; border: 3px solid #13294A; border-radius: 14px; background: #FFFFFF; transform: translateX(-50%); color: #13294A; font: 700 42px Fredoka, Nunito, sans-serif; }
 .mk-points span { font: 800 17px Nunito, sans-serif; }
-.mk-bar { left: 20%; right: 20%; bottom: calc(16% + 30px); height: 18px; overflow: hidden; border: 3px solid #13294A; border-radius: 999px; background: #FFFFFF; }
-.mk-bar i { display: block; height: 100%; transition: width .6s ease; }
-.mk-tok--score { left: 9%; }
-/* Shootout: his goal with him in it, your ball, the score. */
-.mk-goalbox { right: 4%; bottom: calc(16% - 3px); height: 58%; aspect-ratio: 4 / 3; }
-.mk-goalbox > .mk-net { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mk-bar { left: 24%; right: 20%; bottom: calc(var(--floor) + 14cqh); height: 18px; overflow: hidden; border: 3px solid #13294A; border-radius: 999px; background: #FFFFFF; }
+.mk-bar i { display: block; height: 100%; }
+.mk-tok--score { left: 11%; }
+.mk-float { position: absolute; left: 50%; bottom: 100%; color: #13294A; font: 700 max(22px, 13cqh) Fredoka, Nunito, sans-serif; white-space: nowrap; -webkit-text-stroke: 0; paint-order: stroke; transform: translateX(-50%); opacity: 0; }
+.mk-float.is-minus { color: #EA2B2B; }
+/* Shootout: their goal with them in it, your ball, the score. */
+.mk-goalbox { right: 4%; bottom: calc(var(--floor) - 3px); height: 62%; aspect-ratio: 4 / 3; }
+.mk-goalbox > .mk-net { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: 50% 100%; }
 .mk-goalbox > .mk-keeper { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); }
-.mk-keeper .mk-him { width: 70px; height: 70px; }
+.mk-keeper .mk-him { --sz: 40cqh; }
 .mk-tok--kicker { left: 14%; }
-.mk-ball { left: 27%; bottom: calc(16% - 2px); width: 28px; height: 28px; transform: translateX(-50%); }
+.mk-ball { left: 28%; bottom: calc(var(--floor) - 2px); width: 11cqh; height: 11cqh; min-width: 18px; min-height: 18px; transform: translateX(-50%); }
 .mk-ball svg { display: block; width: 100%; height: 100%; }
-.mk-world--shoot.is-good .mk-ball { animation: mkShoot .7s cubic-bezier(.2, .7, .3, 1) forwards; }
-@keyframes mkShoot { 60% { left: 80%; bottom: 44%; } 100% { left: 83%; bottom: 30%; } }
-.mk-world--shoot.is-bad .mk-ball { animation: mkSaved .8s ease-out forwards; }
-@keyframes mkSaved { 45% { left: 74%; bottom: 36%; } 100% { left: 50%; bottom: calc(16% - 2px); } }
-.mk-score { left: 50%; top: 9%; display: flex; align-items: baseline; gap: 8px; padding: 0 14px; border: 3px solid #13294A; border-radius: 14px; background: #FFFFFF; transform: translateX(-50%); color: #13294A; font: 700 34px Fredoka, Nunito, sans-serif; }
+.mk-score { left: 50%; top: 8%; display: flex; align-items: baseline; gap: 8px; padding: 0 14px; border: 3px solid #13294A; border-radius: 14px; background: #FFFFFF; transform: translateX(-50%); color: #13294A; font: 700 34px Fredoka, Nunito, sans-serif; }
 .mk-score i { color: #5B6B80; font-style: normal; }
 .mk-score span { color: #5B6B80; font: 800 14px Nunito, sans-serif; }
+.mk-score b, .mk-points b { display: inline-block; }
 /* Grow: a plant in a pot, a leaf a right answer. */
-.mk-plant { left: 50%; bottom: calc(16% - 2px); height: 78%; aspect-ratio: 100 / 220; transform: translateX(-50%); }
+.mk-plant { left: 50%; bottom: calc(var(--floor) - 2px); height: 80%; aspect-ratio: 100 / 220; transform: translateX(-50%); transform-origin: 50% 100%; }
 .mk-plant svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.mk-leaf.is-new { animation: mkLeaf .5s cubic-bezier(.3, 1.4, .5, 1) both; }
-@keyframes mkLeaf { from { transform: scale(0); } }
 .mk-count { top: 10px; right: 12px; padding: 2px 12px; border: 3px solid #13294A; border-radius: 12px; background: #FFFFFF; color: #13294A; font: 800 15px Nunito, sans-serif; }
 .mk-count b { font: 700 22px Fredoka, Nunito, sans-serif; }
-/* Alive: the characters bob; a right answer makes you hop, a wrong one makes him hop. */
-.mk-me, .mk-him { animation: mkBob 2.6s ease-in-out infinite; }
-.mk-him { animation-delay: -1.3s; }
+.mk-water { left: 50%; top: 6%; width: 18cqh; height: 30cqh; transform: translateX(-50%); }
+.mk-water i { position: absolute; top: 0; width: 5cqh; height: 7.5cqh; min-width: 8px; min-height: 12px; border: 2px solid #13294A; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: #45C4EE; opacity: 0; }
+.mk-water i:nth-child(1) { left: 10%; }
+.mk-water i:nth-child(2) { left: 45%; }
+.mk-water i:nth-child(3) { left: 80%; }
+/* Win and lose: the winner jumps under confetti, the loser slumps, seeing stars. */
+.mk-dizzy { position: absolute; left: 50%; bottom: calc(var(--sz) * .95); width: calc(var(--sz) * .7); height: calc(var(--sz) * .22); transform: translateX(-50%); }
+.mk-dizzy svg { position: absolute; top: 0; left: 35%; width: 30%; height: 100%; transform: translateX(-100%); }
+.mk-dizzy svg:nth-child(2) { transform: translate(0, 30%); }
+.mk-dizzy svg:nth-child(3) { transform: translateX(100%); }
+.mk-side .mk-dizzy { --sz: 46cqh; position: relative; left: auto; bottom: auto; transform: none; margin-bottom: -8px; }
+.mk-world .is-lose .mk-me, .mk-world .is-lose .mk-him, .mk-world .is-lose.mk-keeper .mk-him { animation: none; transform: rotate(-10deg) scale(1.04, .82); filter: saturate(.55); }
+.mk-confetti { inset: 0; z-index: 5; pointer-events: none; }
+.mk-confetti i { position: absolute; top: -8%; left: var(--x); width: 2.2cqh; height: 4.4cqh; min-width: 5px; min-height: 9px; border-radius: 2px; }
+/* Alive: the characters bob; each answer's move is one of the animations below (none with reduced motion). */
+@media (prefers-reduced-motion: no-preference) {
+  .mk-me, .mk-him { animation: mkBob 2.6s ease-in-out infinite; }
+  .mk-him { animation-delay: -1.3s; }
+  .mk-tok[style*="--from"] { animation: mkSlide .62s cubic-bezier(.3, .9, .4, 1) both; }
+  .mk-tok.is-hop > .mk-me, .mk-tok.is-hop > .mk-him { animation: mkHop .62s ease-out; }
+  .mk-tok.is-slip > .mk-me, .mk-tok.is-slip > .mk-him { animation: mkSlip .62s ease-out; }
+  .is-hurt > .mk-me { animation: mkShake .5s ease; }
+  .is-cheer > .mk-me, .is-cheer > .mk-him { animation: mkHop .55s ease-out .25s; }
+  .mk-dust i { position: absolute; left: -6px; bottom: 0; width: 12px; height: 12px; border: 2px solid #13294A; border-radius: 50%; background: #F1EBDD; animation: mkPuff .6s ease-out both; }
+  .mk-dust i:nth-child(1) { --dx: -26px; --dy: -8px; }
+  .mk-dust i:nth-child(2) { --dx: -12px; --dy: -18px; animation-delay: .04s; }
+  .mk-dust i:nth-child(3) { --dx: 12px; --dy: -16px; animation-delay: .07s; }
+  .mk-dust i:nth-child(4) { --dx: 24px; --dy: -6px; animation-delay: .03s; }
+  .mk-heart.is-pop { animation: mkHeart .7s cubic-bezier(.3, 1.5, .5, 1) .32s both; transform-origin: 50% 60%; }
+  .mk-heart.is-pop .mk-crack { stroke-dasharray: 16; animation: mkCrack .25s ease-out .5s both; }
+  .mk-shot--you { animation: mkShotR .45s cubic-bezier(.4, 0, .7, 1) calc(var(--k) * .2s) both; }
+  .mk-shot--him { left: 74%; animation: mkShotL .45s cubic-bezier(.4, 0, .7, 1) both; }
+  .mk-side.is-knock { animation: mkKnockR .5s cubic-bezier(.2, .9, .3, 1) .38s; }
+  .mk-side--you.is-knock { animation-name: mkKnockL; }
+  .mk-stack i.is-new { animation: mkDrop .6s cubic-bezier(.5, 0, .7, 1) calc(var(--k) * .22s) both; }
+  .mk-stack i.is-fall { animation: mkTumble .8s cubic-bezier(.4, 0, .9, .6) forwards; }
+  .mk-bar i.is-move { animation: mkBar .7s cubic-bezier(.3, .9, .4, 1) .15s both; }
+  .mk-float { animation: mkFloat 1.1s ease-out both; }
+  .mk-score b.is-pop, .mk-points b.is-pop { animation: mkBump .5s cubic-bezier(.3, 1.6, .5, 1) .4s; }
+  .mk-world--shoot.is-good .mk-ball.is-goal { animation: mkShoot .7s cubic-bezier(.2, .7, .3, 1) forwards; }
+  .mk-world--shoot .mk-ball.is-saved { animation: mkSaved .8s ease-out forwards; }
+  .mk-keeper.is-dive-miss { animation: mkDiveMiss .8s cubic-bezier(.3, .8, .4, 1) .1s both; }
+  .mk-keeper.is-dive-save { animation: mkDiveSave .8s cubic-bezier(.3, .8, .4, 1) .1s both; }
+  .mk-goalbox.is-net > .mk-net { animation: mkNet .5s ease-out .45s; }
+  .mk-tok--kicker.is-kick > .mk-me { animation: mkKick .4s ease-out; }
+  .mk-leaf.is-new { animation: mkLeaf .5s cubic-bezier(.3, 1.4, .5, 1) .35s both; }
+  .mk-leaf.is-fall { animation: mkLeafFall 1s ease-in forwards; }
+  .mk-plant.is-droop { animation: mkDroop .8s ease-in-out; }
+  .mk-flower { animation: mkLeaf .6s cubic-bezier(.3, 1.4, .5, 1) .5s both; }
+  .mk-water i { animation: mkRain .5s ease-in both; }
+  .mk-water i:nth-child(2) { animation-delay: .1s; }
+  .mk-water i:nth-child(3) { animation-delay: .2s; }
+  .mk-world .is-win > .mk-me, .mk-world .is-win > .mk-him, .mk-world .is-win.mk-keeper > .mk-him { animation: mkCheer .7s ease-in-out infinite; }
+  .mk-world .is-win > .mk-him, .mk-world .is-win.mk-keeper > .mk-him { animation-delay: -.2s; }
+  .mk-dizzy svg { animation: mkOrbit 1.5s linear infinite; }
+  .mk-dizzy svg:nth-child(2) { animation-delay: -.5s; }
+  .mk-dizzy svg:nth-child(3) { animation-delay: -1s; }
+  .mk-confetti i { animation: mkConfetti 2.2s cubic-bezier(.3, .3, .6, 1) var(--d) infinite; }
+}
 @keyframes mkBob { 50% { transform: translateY(-4px); } }
-.mk-world.is-good .mk-me, .mk-world.is-bad .mk-him { animation: mkHop .55s cubic-bezier(.3, 1.4, .5, 1); }
-@keyframes mkHop { 40% { transform: translateY(-16px); } }
+@keyframes mkSlide { from { left: var(--from); } }
+@keyframes mkHop { 0% { transform: scale(1.08, .9); } 18% { transform: translateY(0) scale(.92, 1.1); } 50% { transform: translateY(-38%) scale(1); } 82% { transform: translateY(0) scale(1.12, .86); } 100% { transform: none; } }
+@keyframes mkSlip { 30% { transform: rotate(-14deg) translateY(4%); } 70% { transform: rotate(8deg); } }
+@keyframes mkShake { 15%, 55% { transform: translateX(-9%) rotate(-5deg); } 35%, 75% { transform: translateX(9%) rotate(5deg); } }
+@keyframes mkPuff { from { opacity: 1; transform: scale(.6); } to { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.5); } }
+@keyframes mkHeart { 0% { fill: #FF4B4B; transform: scale(1); } 35% { fill: #FF4B4B; transform: scale(1.8) rotate(-8deg); } 70% { fill: #FF4B4B; transform: scale(1.5) rotate(6deg); } 100% { fill: #C9D2DA; transform: none; } }
+@keyframes mkCrack { from { stroke-dashoffset: 16; } to { stroke-dashoffset: 0; } }
+@keyframes mkShotR { 0% { opacity: 1; left: 22%; transform: translateY(0) rotate(0); } 50% { transform: translateY(-60%) rotate(180deg); } 92% { opacity: 1; } 100% { opacity: 0; left: 74%; transform: translateY(0) rotate(360deg); } }
+@keyframes mkShotL { 0% { opacity: 1; left: 74%; transform: translateY(0) rotate(0); } 50% { transform: translateY(-60%) rotate(-180deg); } 92% { opacity: 1; } 100% { opacity: 0; left: 22%; transform: translateY(0) rotate(-360deg); } }
+@keyframes mkKnockR { 25% { transform: translateX(14%) rotate(14deg); } 60% { transform: translateX(6%) rotate(-4deg); } }
+@keyframes mkKnockL { 25% { transform: translateX(-14%) rotate(-14deg); } 60% { transform: translateX(-6%) rotate(4deg); } }
+@keyframes mkDrop { 0% { transform: translateY(-420%); } 62% { transform: translateY(0); } 76% { transform: scale(1.14, .7); } 90% { transform: scale(.96, 1.06); } 100% { transform: none; } }
+@keyframes mkTumble { 0% { transform: none; } 30% { transform: translate(20%, -20%) rotate(18deg); } 100% { opacity: 0; transform: translate(160%, 520%) rotate(110deg); } }
+@keyframes mkBar { from { width: var(--from); } }
+@keyframes mkFloat { 0% { opacity: 0; transform: translate(-50%, 30%) scale(.6); } 20% { opacity: 1; transform: translate(-50%, 0) scale(1.15); } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -90%) scale(1); } }
+@keyframes mkBump { 40% { transform: scale(1.5); } }
+@keyframes mkShoot { 60% { left: 80%; bottom: 44%; } 100% { left: 83%; bottom: 30%; } }
+@keyframes mkSaved { 45% { left: 74%; bottom: 36%; } 100% { left: 28%; bottom: calc(var(--floor) - 2px); } }
+@keyframes mkDiveMiss { 30%, 75% { transform: translateX(-10%) translateY(-18%) rotate(58deg); } 100% { transform: translateX(-50%); } }
+@keyframes mkDiveSave { 30%, 70% { transform: translateX(-95%) translateY(-22%) rotate(-62deg); } 100% { transform: translateX(-50%); } }
+@keyframes mkNet { 40% { transform: scale(1.06, 1.1); } }
+@keyframes mkKick { 40% { transform: rotate(-12deg) translateX(-6%); } 70% { transform: rotate(8deg) translateX(8%); } }
+@keyframes mkLeaf { from { transform: scale(0); } }
+@keyframes mkLeafFall { 0% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translate(calc(var(--k) * 30px), 120px) rotate(calc(var(--k) * 140deg)); } }
+@keyframes mkDroop { 35% { transform: translateX(-50%) rotate(-7deg); } 70% { transform: translateX(-50%) rotate(4deg); } }
+@keyframes mkRain { 0% { opacity: 0; transform: translateY(-40%); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(260%); } }
+@keyframes mkCheer { 0%, 100% { transform: none; } 20% { transform: scale(1.08, .9); } 50% { transform: translateY(-30%) rotate(-6deg); } 80% { transform: scale(1.06, .92); } }
+@keyframes mkOrbit { 0%, 100% { transform: translate(-110%, 0) scale(.85); } 25% { transform: translate(0, 35%) scale(1.1); } 50% { transform: translate(110%, 0) scale(.85); } 75% { transform: translate(0, -35%) scale(.6); } }
+@keyframes mkConfetti { 0% { transform: translateY(0) rotate(0); } 100% { transform: translateY(125cqh) rotate(var(--r)); } }
 @media (max-width: 700px) {
   .mk-ask { font-size: 24px; }
-  .mk-keeper .mk-him { width: 46px; height: 46px; }
-  .mk-ball { width: 20px; height: 20px; }
   .mk-score { font-size: 24px; padding: 0 10px; }
   .mk-count { font-size: 13px; padding: 1px 8px; }
   .mk-count b { font-size: 17px; }
@@ -955,14 +1090,27 @@ button.sea-c { cursor: default; }
   .mk-build { grid-template-columns: minmax(0, 1fr); }
   .mk-build__me { position: static; grid-template-columns: auto auto; justify-content: center; align-items: center; }
   .mk-build__me > svg { width: 96px; height: 96px; }
-  .mk-sum li { grid-template-columns: minmax(0, 1fr) auto; }
-  .mk-sum li b { grid-column: 1 / -1; }
+  .mk-sum li { grid-template-columns: 40px minmax(0, 1fr) auto; gap: 10px; padding: 9px 10px; font-size: 14px; }
+  .mk-sum__art { width: 40px; height: 40px; }
+  .mk-sum__art > svg { width: 36px; height: 36px; }
+  .mk-sum__t b { font-size: 16px; }
+  .mk-wide { display: none; }
   .mk-world { aspect-ratio: 16 / 9; min-height: 0; }
   .mk-wiz .mk-world { aspect-ratio: 16 / 7; min-height: 0; }
-  .mk-me svg { width: 46px; height: 46px; }
-  .mk-him { width: 46px; height: 46px; }
-  .mk-side .mk-me svg, .mk-side--him .mk-him, .mk-watch .mk-him, .mk-side .mk-me--drawn { width: 58px; height: 58px; }
-  .mk-me--drawn { width: 48px; height: 48px; }
+  .mk-play > .mk-world { height: clamp(140px, 23vh, 196px); }
+  .mk-world { --sz: 38cqh; }
+  .mk-play > .mk-world { --sz: 42cqh; }
+  .mk-end .mk-world { aspect-ratio: 4 / 3; }
+  .mk-play .tb-card__band { padding: 7px 14px; }
+  .mk-play .tb-card__band b { font-size: 18px; }
+  .mk-play .tb-card__body { padding: 10px 14px 14px; gap: 9px; }
+  .mk-play .tb-q { font-size: 19px; }
+  .mk-qopts { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .mk-qopts .tb-opt { padding: 10px 13px; font-size: 16.5px; }
+  .mk-play .tb-text { font-size: 17px; }
+  .mk-ans { font-size: 17px; }
+  .mk-why .tb-why, .mk-play .mk-why .tb-why { font-size: 16px; }
+  .mk-after .mk-said { font-size: 16px; }
   .mk-st__btn span { display: none; }
   .mk-st__btn { padding: 4px 6px; }
   .mk-st__size, .mk-st__btn { min-height: 46px; }
@@ -971,17 +1119,18 @@ button.sea-c { cursor: default; }
   .mk-hearts { max-width: 96px; gap: 2px; padding: 2px 5px; border-radius: 9px; }
   .mk-side--you { left: 6%; }
   .mk-side--him { right: 6%; }
-  .mk-play > .mk-world { aspect-ratio: 16 / 9; min-height: 0; }
-  .mk-fig svg { max-height: 230px; }
-  .mk-vs { bottom: calc(16% + 16px); font-size: 20px; padding: 0 8px; }
+  .mk-fig svg { max-height: 200px; }
+  .mk-vs { font-size: 20px; padding: 0 8px; }
   .mk-points { font-size: 30px; }
   .mk-chip { min-height: 42px; padding: 5px 12px; font-size: 15px; }
   .mk-chip--part, .mk-chip--sw { padding: 2px 5px; }
   .mk-mine li { flex-wrap: wrap; }
+  .am-finish__card.mk-host > [data-am-gbtns] { bottom: -16px; margin: 12px -12px -16px; padding: 12px 12px 16px; }
+  .am-finish__card.mk-live > [data-am-gbtns] { margin-top: 10px; }
+  .mk-end .am-games__title { font-size: 28px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .mk-tok, .mk-bar i, .mk-progress__part em { transition: none; }
-  .mk-me, .mk-him, .mk-leaf.is-new, .mk-world--shoot.is-good .mk-ball, .mk-world--shoot.is-bad .mk-ball, .mk-world.is-good .mk-me, .mk-world.is-bad .mk-him { animation: none; }
-  .mk-stack i, .mk-world.is-good .mk-side--him, .mk-world.is-bad .mk-side--you { animation: none; }
+  .mk-tok, .mk-progress__part em { transition: none; }
   .mk-opt:active { transform: none; }
+  .mk-shot, .mk-dust, .mk-water, .mk-confetti, .mk-stack i.is-fall, .mk-leaf.is-fall { display: none; }
 }
