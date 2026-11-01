@@ -619,6 +619,71 @@
       try { tone(f, audio.currentTime + 0.05 + k * 0.11, k === 3 ? 0.9 : 0.4, 0.13); } catch (err) {}
     });
   }
+  // Game sounds, made on the spot (no files): kit.sfx(name, power 0-1). Noise through a filter for
+  // bangs, splashes and knocks; a falling tone for thuds and drops.
+  var noiseBuf = null;
+  function noise() {
+    if (!noiseBuf) {
+      var len = Math.round(audio.sampleRate * 1.2), d;
+      noiseBuf = audio.createBuffer(1, len, audio.sampleRate);
+      d = noiseBuf.getChannelData(0);
+      for (var i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    }
+    return noiseBuf;
+  }
+  function env(at, length, level) {
+    var g = audio.createGain();
+    g.gain.setValueAtTime(0.0001, at);
+    g.gain.exponentialRampToValueAtTime(Math.max(0.0002, level), at + 0.006);
+    g.gain.exponentialRampToValueAtTime(0.0001, at + length);
+    g.connect(audio.destination);
+    return g;
+  }
+  function hiss(at, length, level, type, freq, q, toFreq) {
+    var src = audio.createBufferSource(), f = audio.createBiquadFilter();
+    src.buffer = noise();
+    f.type = type;
+    f.Q.value = q || 0.8;
+    f.frequency.setValueAtTime(freq, at);
+    if (toFreq) f.frequency.exponentialRampToValueAtTime(toFreq, at + length);
+    src.connect(f).connect(env(at, length, level));
+    src.start(at, Math.random() * 0.4);
+    src.stop(at + length + 0.05);
+  }
+  function drop(at, length, level, type, from, to) {
+    var o = audio.createOscillator();
+    o.type = type;
+    o.frequency.setValueAtTime(from, at);
+    o.frequency.exponentialRampToValueAtTime(to, at + length);
+    o.connect(env(at, length, level));
+    o.start(at);
+    o.stop(at + length + 0.05);
+  }
+  var SFX = {
+    boom: function (t, p) { hiss(t, 0.9, 0.5 * p, 'lowpass', 1100, 0.7, 90); drop(t, 0.45, 0.45 * p, 'sine', 110, 38); },
+    blast: function (t, p) { hiss(t, 1.1, 0.55 * p, 'lowpass', 2400, 0.6, 120); drop(t, 0.6, 0.4 * p, 'sine', 90, 30); hiss(t + 0.05, 0.4, 0.2 * p, 'highpass', 2500, 0.5); },
+    splash: function (t, p) { hiss(t, 0.55, 0.3 * p, 'bandpass', 2200, 0.5, 500); hiss(t + 0.06, 0.35, 0.14 * p, 'highpass', 3500, 0.5); },
+    crash: function (t, p) { hiss(t, 0.3, 0.38 * p, 'bandpass', 1100, 1.1, 350); drop(t, 0.14, 0.25 * p, 'triangle', 240, 90); },
+    thud: function (t, p) { drop(t, 0.2, 0.45 * p, 'sine', 150, 52); hiss(t, 0.07, 0.15 * p, 'lowpass', 600); },
+    twang: function (t, p) { drop(t, 0.32, 0.22 * p, 'triangle', 340 + 120 * p, 170); hiss(t, 0.18, 0.1 * p, 'bandpass', 900, 0.6, 2400); },
+    whoosh: function (t, p) { hiss(t, 0.35, 0.14 * p, 'bandpass', 500, 0.9, 2600); },
+    clack: function (t, p) { hiss(t, 0.035, 0.4 * p, 'bandpass', 2800, 3.5); drop(t, 0.05, 0.18 * p, 'sine', 2100, 1600); },
+    cushion: function (t, p) { drop(t, 0.1, 0.28 * p, 'sine', 190, 85); },
+    pocket: function (t, p) { hiss(t, 0.05, 0.2 * p, 'bandpass', 1600, 2); drop(t + 0.03, 0.28, 0.32 * p, 'sine', 300, 85); },
+    putt: function (t, p) { hiss(t, 0.03, 0.45 * p, 'bandpass', 1500, 3); drop(t, 0.07, 0.2 * p, 'triangle', 950, 520); },
+    cup: function (t, p) { [0, 0.08, 0.14].forEach(function (d, k) { hiss(t + d, 0.03, (0.3 - k * 0.07) * p, 'bandpass', 2600 - k * 300, 3.5); }); drop(t + 0.18, 0.3, 0.32 * p, 'sine', 260, 80); },
+    stamp: function (t, p) { drop(t, 0.16, 0.4 * p, 'sine', 170, 60); hiss(t, 0.05, 0.25 * p, 'lowpass', 1400); },
+    pop: function (t, p) { drop(t, 0.09, 0.22 * p, 'sine', 480, 1150); },
+    tick: function (t, p) { hiss(t, 0.02, 0.14 * p, 'highpass', 4200, 1); }
+  };
+  function sfx(name, power) {
+    if (!soundOn() || !SFX[name]) return;
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      if (audio.state === 'suspended') audio.resume();
+      SFX[name](audio.currentTime + 0.005, power == null ? 1 : Math.max(0.05, Math.min(1, power)));
+    } catch (err) {}
+  }
   function updateSoundButton() {
     var b = state.root.querySelector('[data-am-sound]');
     if (b) b.setAttribute('aria-pressed', String(soundOn()));
@@ -2174,14 +2239,32 @@
     face.setAttribute('data-mood', mood);
     if (!reduced()) { face.classList.remove('is-react'); void face.offsetWidth; face.classList.add('is-react'); }
     clearTimeout(m.sayTimer);
-    // No bubble while he's hidden (on phones there's no room beside the card).
-    if (!line || !m.classList.contains('is-on')) return;
+    if (!line) return;
+    // Long enough to read: about 2.6s for "Lucky.", up to 6s for a long line.
+    var stay = Math.min(6000, Math.max(2600, 1200 + 55 * line.length));
+    // Hidden (a phone: no room beside the card): his face and the line drop in at the top instead.
+    if (!m.classList.contains('is-on')) { mascotToast(line, stay); return; }
     say.textContent = line;
     say.classList.remove('is-on');
     void say.offsetWidth;
     say.classList.add('is-on');
     talk(face, Math.min(3000, 900 + 40 * line.length));
-    m.sayTimer = setTimeout(function () { say.classList.remove('is-on'); }, 2800);
+    m.sayTimer = setTimeout(function () { say.classList.remove('is-on'); }, stay);
+  }
+  function mascotToast(line, stay) {
+    if (!state.root.querySelector('.am-finish')) return;
+    var t = state.root.querySelector('.am-mtoast');
+    if (!t) {
+      t = el('div', 'am-mtoast', '<span class="am-mtoast__face">' + (window.ExamTeacher ? window.ExamTeacher.head() : '') + '</span><span data-am-mtext></span>');
+      t.setAttribute('aria-hidden', 'true');
+      state.root.appendChild(t);
+    }
+    t.querySelector('[data-am-mtext]').textContent = line;
+    t.classList.remove('is-on');
+    void t.offsetWidth;
+    t.classList.add('is-on');
+    clearTimeout(t.timer);
+    t.timer = setTimeout(function () { t.classList.remove('is-on'); }, stay);
   }
   // He only comes up beside an open card, sized to the space left next to it.
   function placeMascot() {
@@ -4129,7 +4212,9 @@
       var use = e.target.closest('[data-am-use]');
       if (use) { useSentence(use.getAttribute('data-am-use')); return; }
       if (e.target.closest('[data-am-finish]')) { showResults(); return; }
-      if (e.target.closest('[data-am-keep]')) { closeCard(); return; }
+      if (e.target.closest('[data-am-leave-no]')) { hideLeave(); return; }
+      if (e.target.closest('[data-am-leave-yes]')) { state.playing = false; closeCard(); return; }
+      if (e.target.closest('[data-am-keep]')) { if (state.host && state.playing) askLeave(); else closeCard(); return; }
       if (e.target.closest('[data-am-addpage]')) {
         var page = addPage();
         state.root.classList.add('am-lines-in');
@@ -4199,7 +4284,12 @@
     root.addEventListener('click', onRootClick);
     // Escape closes it wherever focus is (tapping a diagram can leave focus on the page).
     document.addEventListener('keydown', state.onKey = function (e) {
-      if (e.key === 'Escape' && state && state.host) { e.stopPropagation(); close(); }
+      if (e.key !== 'Escape' || !state || !state.host) return;
+      e.stopPropagation();
+      // Mid-game, Esc asks first (and a second Esc means "keep playing").
+      if (state.root.querySelector('.am-leave')) hideLeave();
+      else if (state.playing) askLeave();
+      else close();
     });
     window.addEventListener('resize', state.onResize = function () {
       if (!state) return;
@@ -4214,6 +4304,36 @@
   }
   // Mini-game content from another page: { chains, level, levelText, student... } (see GAMES).
   function addGames(id, data) { GAMES[id] = data; }
+  // A page's game says when a game is under way (kit.playing(true)) and when it has ended (false). While
+  // it is, ✕, Esc and Close ask "Leave the game?" first, and the Close bar under the game is hidden.
+  function playing(on) {
+    if (!state) return false;
+    if (on !== undefined) {
+      state.playing = Boolean(on);
+      state.root.classList.toggle('am-playing', state.playing);
+      if (!state.playing) hideLeave();
+    }
+    return Boolean(state.playing);
+  }
+  function askLeave() {
+    if (state.root.querySelector('.am-leave')) return;
+    var box = el('div', 'am-leave', '<div class="am-leave__box" role="alertdialog" aria-modal="true" aria-labelledby="am-leave-t">' +
+      '<h2 class="am-leave__title" id="am-leave-t">Leave the game?</h2>' +
+      '<p class="am-leave__text">This game won\'t be kept.</p>' +
+      '<div class="am-leave__btns"><button type="button" class="am-btn am-btn--more" data-am-leave-yes>Leave</button>' +
+      '<button type="button" class="am-btn am-btn--ok" data-am-leave-no>Keep playing</button></div></div>');
+    state.root.appendChild(box);
+    state.root.dispatchEvent(new CustomEvent('am:leave', { detail: { open: true } }));
+    box.querySelector('[data-am-leave-no]').focus({ preventScroll: true });
+  }
+  function hideLeave() {
+    var box = state && state.root.querySelector('.am-leave');
+    if (!box) return;
+    box.remove();
+    state.root.dispatchEvent(new CustomEvent('am:leave', { detail: { open: false } }));
+    var dialog = state.root.querySelector('.am-finish [role="dialog"]');
+    if (dialog) dialog.focus({ preventScroll: true });
+  }
 
   function close(instant) {
     if (!state) return;
@@ -4247,7 +4367,7 @@
     kit: {
       el: el, esc: esc, reduced: reduced, store: store, shuffle: shuffle, pick: pick, rollTo: rollTo,
       later: function (fn, ms) { return later(fn, ms); },
-      ding: ding, bonk: bonk, fanfare: fanfare, mascot: mascot, get face() { return window.ExamTeacher ? window.ExamTeacher.head() : ''; },
+      ding: ding, bonk: bonk, fanfare: fanfare, sfx: sfx, playing: playing, mascot: mascot, get face() { return window.ExamTeacher ? window.ExamTeacher.head() : ''; },
       fillButtons: fillButtons, showCard: showCard, closeCard: closeCard,
       gameCard: gameCard, gameBody: gameBody, gameHud: gameHud, gameSeg: gameSeg, saveBest: saveBest, gameBest: gameBest,
       typeIt: typeIt, typedScore: typedScore, recallStart: recallStart, recallKeys: recallKeys, plainWords: plainWords, sameWord: sameWord,
@@ -4620,7 +4740,8 @@
     '.am-mascot{--size:200px;position:absolute;left:14px;bottom:10px;z-index:6;width:var(--size);pointer-events:none;transform:translateY(calc(100% + 20px));transition:transform .55s cubic-bezier(.3,1.3,.5,1)}',
     '.am-mascot.is-on{transform:none}',
     '.am-mascot__face.am-exam__face{width:var(--size);height:calc(var(--size) * 1.23)}',
-    '.am-mascot__say{position:absolute;left:0;bottom:calc(100% + 14px);width:max-content;max-width:calc(var(--size) + 60px);margin:0;padding:11px 16px;border-radius:16px;background:#FFFFFF;color:#3C4A5E;font:600 16px/1.4 Nunito,sans-serif;opacity:0;transform:translateY(8px) scale(.9);transform-origin:calc(var(--size) * .5) 100%;transition:opacity .2s ease,transform .3s cubic-bezier(.3,1.6,.5,1)}',
+    // min-width keeps the tail (under his mouth) under the bubble, even for "Lucky."
+    '.am-mascot__say{position:absolute;left:0;bottom:calc(100% + 14px);width:max-content;min-width:calc(var(--size) * .5 + 34px);max-width:calc(var(--size) + 80px);box-sizing:border-box;margin:0;padding:12px 18px;border-radius:16px;background:#FFFFFF;color:#2A3A4E;font:700 18px/1.35 Nunito,sans-serif;opacity:0;transform:translateY(8px) scale(.9);transform-origin:calc(var(--size) * .5) 100%;transition:opacity .2s ease,transform .3s cubic-bezier(.3,1.6,.5,1)}',
     '.am-mascot__say::after{content:"";position:absolute;left:calc(var(--size) * .5 - 9px);bottom:-7px;width:18px;height:18px;border-radius:0 0 5px 0;background:#FFFFFF;transform:rotate(45deg)}',
     '.am-mascot__say.is-on{opacity:1;transform:none}',
     '.am-root .am-mascot__say{font-family:Nunito,system-ui,sans-serif !important}',
@@ -5041,6 +5162,25 @@
     '.am-miss{background:transparent;color:inherit;text-decoration:underline wavy #F5A03C;text-decoration-thickness:2px;text-underline-offset:7px}',
     '.am-finish{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:rgba(8,14,24,.72);animation:amIn .3s ease both;padding:16px;box-sizing:border-box}',
     '.am-finish__card{width:min(640px,100%);max-height:100%;overflow:auto;box-sizing:border-box;background:#18272D;border-radius:22px;padding:28px;color:#F1F7FB;animation:amPop .5s cubic-bezier(.3,1.4,.5,1) both}',
+    // A game card sits at the top and stays there: it grows downwards as its text changes, instead of
+    // re-centring (which made the board or field jump between turns). The page behind is darker.
+    '.am-finish.am-games{place-items:start center;padding-top:clamp(12px,3.5vh,36px)}',
+    '.am-root--host .am-finish{background:rgba(8,14,24,.88)}',
+    // On a phone a game takes the whole screen.
+    '@media (max-width:600px){.am-finish.am-games{padding:0}.am-finish.am-games>.am-finish__card.am-games__card{width:100%;max-width:none;min-height:100%;max-height:100%;border-radius:0;padding:12px 12px 16px}}',
+    // While a game is being played, ✕ (and Esc) asks first, and the Close bar under the game goes.
+    '.am-playing .am-games__btns .am-btn[data-am-keep]{display:none}',
+    '.am-leave{position:absolute;inset:0;z-index:9;display:grid;place-items:center;padding:16px;background:rgba(8,14,24,.6);animation:amIn .2s ease both}',
+    '.am-leave__box{width:min(380px,100%);box-sizing:border-box;padding:24px 22px 20px;border-radius:20px;background:#FFFFFF;color:#10243B;text-align:center;animation:amPop .35s cubic-bezier(.3,1.4,.5,1) both}',
+    '.am-leave__title{margin:0 0 6px;font:700 24px/1.2 Fredoka,Nunito,sans-serif}',
+    '.am-leave__text{margin:0 0 18px;font:600 16px/1.4 Nunito,sans-serif;color:#4A5A6E}',
+    '.am-leave__btns{display:flex;gap:10px}',
+    '.am-leave__btns .am-btn{flex:1}',
+    // On a phone (no room for him beside the card) the examiner still talks: his face and his line drop in at the top.
+    '.am-mtoast{position:absolute;z-index:8;top:8px;left:50%;display:flex;align-items:center;gap:10px;max-width:calc(100% - 24px);box-sizing:border-box;padding:6px 16px 6px 6px;border-radius:999px;background:#FFFFFF;color:#2A3A4E;font:700 16px/1.3 Nunito,system-ui,sans-serif;box-shadow:0 3px 0 rgba(0,0,0,.28);pointer-events:none;transform:translate(-50%,calc(-100% - 16px));transition:transform .35s cubic-bezier(.3,1.4,.5,1)}',
+    '.am-mtoast.is-on{transform:translate(-50%,0)}',
+    '.am-mtoast__face{flex:none;width:38px;height:38px;border-radius:50%;overflow:hidden;background:#E3EBF2}',
+    '.am-mtoast__face svg{width:100%;height:100%;display:block}',
     '.am-finish__kicker{font:700 16px Fredoka,Nunito,sans-serif;color:#93A5AE;letter-spacing:.04em}',
     '.am-finish__score{font:700 64px/1.1 Fredoka,Nunito,sans-serif;color:#fff;margin:6px 0 8px}',
     '.am-finish__score b{color:#89E219}',
