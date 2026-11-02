@@ -915,12 +915,113 @@ button.sea-c { cursor: default; }
   .sea-c.is-new::after, .sea-boom { display: none; }
 }
 
-/* Mini Golf (bio/bio-golf.js): the hole and stroke over the scorecard, the 3D hole on a canvas (your tag, his face and
-   the power meter are HTML over it), and the turn's line and buttons below (.ar-, like the arcade). */
-.mg-head { display: grid; gap: 10px; }
-.mg-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 14px; margin: 0; color: #F1F7FB; font: 700 20px Fredoka, Nunito, sans-serif; }
-.mg-top span { color: #FFE14D; font: 800 16px Nunito, sans-serif; }
+/* Mini Golf (bio/bio-golf.js) and Pool (bio/bio-pool.js) fill the screen while a game is on (.mg-full on their card):
+   the 3D canvas underneath; chips along the top (the card's ✕, then the hole or the balls, the scores, whose go); the
+   question in a panel that leaves the field in sight (down the right on a computer, a sheet along the bottom on a
+   phone); big banners in the middle for the big moments; and a bar along the bottom that's always the same height, so
+   nothing jumps. Flat colours, navy outlines, no gradients or glows. */
+.am-root .am-finish.am-games.mg-full { padding: 0; place-items: stretch; }
+.am-root .am-finish.am-games.mg-full > .am-finish__card.am-games__card { position: relative; width: 100%; max-width: none; height: 100%; min-height: 0; max-height: none; padding: 0; overflow: hidden; border-radius: 0; background: #131F24; animation: none; }
+.am-root .mg-full .am-games__body { position: absolute; inset: 0; }
+.am-root .mg-full .am-games__btns { display: none; }
+.am-root .mg-full .am-run__hud { position: absolute; z-index: 7; top: 12px; left: 12px; margin: 0; }
+.am-root .mg-full .am-run__segs, .am-root .mg-full .am-run__score { display: none; }
+.am-root .mg-full .am-run__quit { width: 46px; height: 46px; margin: 0; border: 2px solid #0E2747; border-radius: 14px; background: #18272D; color: #F1F7FB; box-shadow: 0 3px 0 rgba(0, 0, 0, .3); }
+.am-root .mg-full .am-run__quit:hover { background: #2B3B42; }
+.mg-game { position: absolute; inset: 0; overflow: hidden; }
+.mg-sky { position: absolute; inset: 0; background: #CDEBFA; }
+.mg-sky--room { background: #1A262D; }
+.mg-canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
+.mg-canvas:focus-visible { outline: 3px solid #FFE14D; outline-offset: -3px; }
+.mg-hud { position: absolute; z-index: 4; top: 12px; left: 70px; right: 12px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px; pointer-events: none; }
+.mg-chip { box-sizing: border-box; margin: 0; padding: 8px 14px; border: 2px solid #0E2747; border-radius: 14px; background: #18272D; box-shadow: 0 3px 0 rgba(0, 0, 0, .3); color: #F1F7FB; font: 700 16px Nunito, sans-serif; }
+.mg-chip[hidden] { display: none; }
+.mg-chip--hole { display: grid; gap: 2px; min-height: 46px; border-left: 8px solid var(--c, #37464F); }
+.mg-chip--hole b { font: 700 21px/1.05 Fredoka, Nunito, sans-serif; }
+.mg-chip--hole small { color: #93A5AE; font-size: .75em; }
+.mg-chip--hole span { color: #DCE6EC; font: 700 14px/1.2 Nunito, sans-serif; }
+.mg-chip--mull { order: 1; align-self: center; padding: 6px 12px; border-color: #A87F00; background: #FFC800; color: #13294A; font: 800 14px Nunito, sans-serif; }
+.mg-chip--tally { order: 2; margin-left: auto; padding: 4px 6px; }
+.mg-tally { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.mg-tally thead th { padding: 0 8px; color: #93A5AE; font: 800 11px Nunito, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.mg-tally tbody th { display: flex; align-items: center; gap: 7px; padding: 3px 12px 3px 6px; border-radius: 9px 0 0 9px; color: #DCE6EC; font: 700 17px Fredoka, Nunito, sans-serif; text-align: left; }
+.mg-tally td { padding: 3px 9px; color: #DCE6EC; font: 800 19px Nunito, sans-serif; text-align: center; }
+.mg-tally td:last-child { border-radius: 0 9px 9px 0; color: #93A5AE; font-size: 16px; }
+.mg-tally tr.is-turn > * { background: #2B3B42; color: #FFE14D; }
+.mg-tally td.is-in { color: #89E219; }
+.mg-ball { flex: none; box-sizing: border-box; width: 20px; height: 20px; border: 2px solid #13294A; border-radius: 50%; background: #FFFFFF; }
+.mg-face { flex: none; display: block; width: 24px; aspect-ratio: 489 / 555; }
+.mg-face svg { display: block; width: 100%; height: 100%; }
+.mg-you { position: absolute; z-index: 1; transform: translate(calc(-100% - 22px), -50%); padding: 2px 10px; border: 2px solid #13294A; border-radius: 999px; background: #1CB0F6; color: #FFFFFF; font: 800 14px Nunito, sans-serif; pointer-events: none; }
+.mg-pop { position: absolute; z-index: 1; transform: translate(-50%, -100%); color: #13294A; font: 800 30px Nunito, sans-serif; white-space: nowrap; -webkit-text-stroke: 7px #FFFFFF; paint-order: stroke fill; pointer-events: none; animation: mgPop 1.8s ease-out forwards; }
+@keyframes mgPop { 0% { opacity: 0; transform: translate(-50%, -60%) scale(.7); } 14% { opacity: 1; transform: translate(-50%, -100%) scale(1); } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -190%); } }
+/* A big moment (In!, Birdie!, Hole in one!, Potted!, Foul): a word as big as the screen allows, and a line under it. */
+.mg-banner { position: absolute; z-index: 6; left: 50%; top: 36%; display: grid; justify-items: center; gap: 12px; width: max-content; max-width: calc(100% - 24px); text-align: center; pointer-events: none; opacity: 0; transform: translate(-50%, -50%); }
+.mg-banner b { color: #FFFFFF; font: 700 clamp(46px, 7.5vw, 104px)/1 Fredoka, Nunito, sans-serif; letter-spacing: .02em; -webkit-text-stroke: 11px #13294A; paint-order: stroke fill; }
+.mg-banner span { padding: 6px 18px; border: 2px solid #0E2747; border-radius: 999px; background: #18272D; color: #F1F7FB; font: 800 19px Nunito, sans-serif; }
+.mg-banner.is-gold b { color: #FFC800; }
+.mg-banner.is-him b { color: #FF9600; font-size: clamp(36px, 5.5vw, 76px); }
+.mg-banner.is-bad b { color: #FF6B6B; }
+.mg-banner.is-on { animation: mgBanner 2.2s cubic-bezier(.2, .9, .3, 1.15) both; }
+@keyframes mgBanner { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.55) rotate(-6deg); } 12% { opacity: 1; transform: translate(-50%, -50%) scale(1.06) rotate(-2deg); } 22% { transform: translate(-50%, -50%) scale(1) rotate(-2deg); } 82% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-2deg); } 100% { opacity: 0; transform: translate(-50%, -64%) scale(.96) rotate(-2deg); } }
+/* The bar: the turn's line, the power while you aim, and the buttons. */
+.mg-bar { position: absolute; z-index: 4; left: 50%; bottom: 14px; display: flex; align-items: center; gap: 16px; box-sizing: border-box; width: min(960px, calc(100% - 28px)); height: 76px; padding: 0 12px 0 20px; transform: translateX(-50%); border: 2px solid #0E2747; border-radius: 20px; background: #18272D; box-shadow: 0 4px 0 rgba(0, 0, 0, .3); }
+.mg-say { display: -webkit-box; flex: 1; min-width: 0; margin: 0; overflow: hidden; color: #B9C7CF; font: 700 18px/1.3 Nunito, sans-serif; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.mg-say b { color: #FFFFFF; }
+.mg-acts { display: flex; flex: none; gap: 10px; }
+.mg-acts:empty { display: none; }
+.mg-game.is-over .mg-bar { display: none; }
+.mg-acts .tb-btn { padding: 12px 24px; border-radius: 14px; font-size: 19px; }
+.mg-btn2 { background: #37464F; box-shadow: 0 4px 0 #22343C; color: #F1F7FB; }
+.mg-btn2:hover { background: #435560; }
+.mg-power { display: flex; flex: none; align-items: center; gap: 10px; }
+.mg-power[hidden] { display: none; }
+.mg-power span { position: relative; width: 150px; height: 20px; overflow: hidden; box-sizing: border-box; border: 3px solid #0E2747; border-radius: 999px; background: #37464F; }
+.mg-power i { position: absolute; top: 0; bottom: 0; left: 0; background: #FFC800; }
+.mg-power b { min-width: 3em; color: #FFE14D; font: 800 17px Nunito, sans-serif; }
+/* The question panel: your card down the right (the trivia board's, smaller), his in a few lines, and the cards between
+   holes and at the end in the middle. */
+.mg-ask { position: absolute; z-index: 5; top: 108px; right: 14px; box-sizing: border-box; width: min(460px, 40%); max-height: calc(100% - 218px); padding-bottom: 8px; overflow: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.mg-ask[hidden] { display: none; }
+.mg-ask .tb-card__band { padding: 10px 16px; }
+.mg-ask .tb-card__band b { font-size: 20px; }
+.mg-ask .tb-card__band span { font-size: 13px; }
+.mg-ask .tb-card__body { gap: 10px; padding: 16px; }
+.mg-ask .tb-q { font-size: 21px; }
+.mg-ask .tb-opts { gap: 8px; }
+.mg-ask .tb-opt { padding: 11px 15px; border-bottom-width: 4px; font-size: 18px; }
+.mg-ask .tb-text { padding: 12px 14px; font-size: 18px; }
+.mg-ask .tb-card .tb-btn { padding: 12px 22px; font-size: 18px; }
+.mg-ask .tb-stamp { padding: 4px 12px; font-size: 18px; }
+.mg-ask .tb-ans { font-size: 20px; }
+.mg-ask .tb-mine { font-size: 16px; }
+.mg-ask .tb-card .tb-why { padding: 10px 14px; font-size: 17px; }
+.mg-ask.is-done .tb-opts, .mg-ask.is-done .tb-text { display: none; }
+.mg-ask.is-done .tb-q { color: #5B6B80; font-size: 16px; }
+.mg-ask.is-his { width: min(400px, 36%); }
+.mg-ask.is-mid { top: 108px; bottom: 104px; left: 0; right: 0; width: min(680px, calc(100% - 28px)); height: fit-content; max-height: calc(100% - 212px); margin: auto; }
+.mg-his { overflow: hidden; border: 2px solid #13294A; border-radius: 14px; background: #FFFDF6; box-shadow: 0 5px 0 rgba(0, 0, 0, .35); color: #13294A; animation: mgIn .3s cubic-bezier(.3, 1.3, .5, 1) both; }
+@keyframes mgIn { from { opacity: 0; transform: translateY(14px) scale(.96); } }
+.mg-his__band { display: flex; align-items: center; gap: 10px; margin: 0; padding: 8px 14px; border-bottom: 3px solid #13294A; background: var(--c); }
+.mg-his__band .mg-face { width: 30px; }
+.mg-his__band b { flex: 1; font: 700 18px Fredoka, Nunito, sans-serif; }
+.mg-his__band span { font: 800 12px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.mg-his__q { margin: 0; padding: 12px 16px 4px; font: 800 17px/1.35 Nunito, sans-serif; }
+.mg-his__res { margin: 0; padding: 4px 16px 14px; color: #13294A; font: 700 17px/1.35 Nunito, sans-serif; }
+.mg-his__res b { margin-right: 4px; }
+.mg-his__res .is-ok { color: #2B6A00; }
+.mg-his__res .is-no { color: #B3261E; }
+.mg-dots { color: #5B6B80; }
+.mg-dots i { font-style: normal; animation: mgDot 1s infinite; }
+.mg-dots i:nth-child(2) { animation-delay: .15s; }
+.mg-dots i:nth-child(3) { animation-delay: .3s; }
+@keyframes mgDot { 50% { opacity: .2; } }
+.mg-end { padding: 24px 26px 22px; border: 2px solid #0E2747; border-radius: 22px; background: #18272D; box-shadow: 0 5px 0 rgba(0, 0, 0, .35); animation: mgIn .4s cubic-bezier(.3, 1.3, .5, 1) both; }
+.mg-end .ar-face { width: 96px; height: 96px; }
+.mg-end__btns { display: flex; gap: 10px; margin-top: 18px; }
+.mg-end__btns .am-btn { flex: 1; }
 .mg-board { overflow-x: auto; }
+.mg-end .mg-board, .mg-ask .tb-card .mg-board { margin: 6px 0 0; }
 .mg-score { width: 100%; border-collapse: collapse; color: #DCE6EC; font: 800 15px Nunito, sans-serif; font-variant-numeric: tabular-nums; }
 .mg-score th, .mg-score td { padding: 5px 4px; border-bottom: 1px solid #37464F; text-align: center; }
 .mg-score thead th { border-top: 4px solid var(--c, transparent); color: #F1F7FB; font: 700 15px Fredoka, Nunito, sans-serif; }
@@ -930,53 +1031,80 @@ button.sea-c { cursor: default; }
 .mg-score .is-over { color: #93A5AE; }
 .mg-score .is-live { color: #93A5AE; font-style: italic; }
 .mg-score tr > :last-child { width: 4.5em; border-left: 1px solid #37464F; }
-.mg-sky { position: relative; overflow: hidden; border: 3px solid #0E2747; border-radius: 16px; background: #CDEBFA; }
-.mg-canvas { display: block; width: 100%; height: auto; max-height: max(240px, calc(100vh - 500px)); aspect-ratio: 2 / 1; touch-action: none; cursor: crosshair; }
-.mg-canvas:focus-visible { outline: 3px solid #FFE14D; outline-offset: -3px; }
-.mg-you { position: absolute; transform: translate(calc(-100% - 24px), -50%); padding: 2px 10px; border: 2px solid #13294A; border-radius: 999px; background: #1CB0F6; color: #FFFFFF; font: 800 14px Nunito, sans-serif; pointer-events: none; }
-.mg-him { position: absolute; top: 4%; right: 2%; width: 8%; aspect-ratio: 489 / 555; pointer-events: none; }
-.mg-him.is-follow { right: auto; width: 6%; transform: translate(-50%, -100%); }
-.mg-him svg { display: block; width: 100%; height: 100%; }
-.mg-power { position: absolute; left: 12px; bottom: 14px; display: grid; grid-template-rows: auto 1fr; justify-items: center; gap: 4px; width: 52px; height: 48%; pointer-events: none; }
-.mg-power[hidden] { display: none; }
-.mg-power b { padding: 1px 6px; border: 2px solid #13294A; border-radius: 999px; background: #FFFFFF; color: #13294A; font: 800 14px Nunito, sans-serif; }
-.mg-power span { position: relative; width: 22px; overflow: hidden; border: 3px solid #13294A; border-radius: 11px; background: #FFFFFF; }
-.mg-power i { position: absolute; left: 0; right: 0; bottom: 0; background: #FFC800; }
-.mg-pop { position: absolute; transform: translate(-50%, -100%); color: #13294A; font: 800 30px Nunito, sans-serif; white-space: nowrap; -webkit-text-stroke: 7px #FFFFFF; paint-order: stroke fill; pointer-events: none; animation: mgPop 1.8s ease-out forwards; }
-@keyframes mgPop { 0% { opacity: 0; transform: translate(-50%, -60%) scale(.7); } 14% { opacity: 1; transform: translate(-50%, -100%) scale(1); } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -190%); } }
-.mg-btn2 { background: #37464F; box-shadow: 0 4px 0 #22343C; color: #F1F7FB; }
-.mg-btn2:hover { background: #435560; }
-.mg-res { margin: 10px 0 0; color: #13294A; font: 800 19px Nunito, sans-serif; }
-.mg-start .am-games__sub { max-width: 640px; margin-left: auto; margin-right: auto; }
+/* On the cream card between holes, the scorecard in navy. */
+.tb-card .mg-score { color: #13294A; }
+.tb-card .mg-score th, .tb-card .mg-score td { border-color: #D5DCE5; }
+.tb-card .mg-score thead th { color: #13294A; }
+.tb-card .mg-score th[scope="row"], .tb-card .mg-score thead th:first-child, .tb-card .mg-score .is-over, .tb-card .mg-score .is-live { color: #5B6B80; }
+.tb-card .mg-score .is-now { background: #EEF2F6; }
+.tb-card .mg-score .is-under { color: #B07D00; }
+.tb-card .mg-score tr > :last-child { border-left-color: #D5DCE5; }
+.mg-start .am-games__sub { max-width: 560px; margin-left: auto; margin-right: auto; }
 .mg-holes { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; max-width: 900px; margin: 18px auto 0; padding: 0; list-style: none; text-align: left; }
 .mg-holes li { display: grid; gap: 2px; padding: 12px 14px; border: 3px solid var(--c); border-bottom-width: 6px; border-radius: 16px; background: #202F36; }
 .mg-holes b { color: var(--c); font: 700 19px/1.2 Fredoka, Nunito, sans-serif; }
 .mg-holes span { color: #DCE6EC; font: 700 14px Nunito, sans-serif; }
 .mg-best { margin: 14px 0 0; color: #DCE6EC; font: 800 17px Nunito, sans-serif; }
 .mg-best b { color: #FFC800; }
-.am-games__end .mg-board { max-width: 640px; margin: 18px auto 0; }
 @media (max-width: 760px) {
-  .mg-top { font-size: 17px; }
-  .mg-top span { font-size: 14px; }
+  .am-root .mg-full .am-run__hud { top: 8px; left: 8px; }
+  .am-root .mg-full .am-run__quit { width: 40px; height: 40px; border-radius: 12px; }
+  .mg-hud { top: 8px; left: 56px; right: 8px; gap: 6px; }
+  .mg-chip { padding: 5px 10px; border-radius: 12px; font-size: 14px; }
+  .mg-chip--hole { min-height: 40px; border-left-width: 6px; }
+  .mg-chip--hole b { font-size: 17px; }
+  .mg-chip--hole span { font-size: 12px; }
+  .mg-chip--mull { order: 3; padding: 3px 9px; font-size: 12px; }
+  .mg-chip--tally { padding: 3px 4px; }
+  .mg-tally thead th { padding: 0 5px; font-size: 9px; }
+  .mg-tally tbody th { gap: 5px; padding: 2px 7px 2px 4px; font-size: 14px; }
+  .mg-tally td { padding: 2px 6px; font-size: 16px; }
+  .mg-tally td:last-child { font-size: 14px; }
+  .mg-ball { width: 16px; height: 16px; }
+  .mg-face { width: 20px; }
+  .mg-you { padding: 1px 6px; font-size: 11px; transform: translate(calc(-100% - 16px), -50%); }
+  .mg-pop { font-size: 24px; }
+  .mg-banner { top: 32%; gap: 8px; }
+  .mg-banner b { -webkit-text-stroke-width: 10px; }
+  .mg-banner span { padding: 4px 12px; font-size: 15px; }
+  .mg-bar { left: 8px; bottom: 8px; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: minmax(0, 1fr) auto; gap: 4px 10px; width: calc(100% - 16px); height: 108px; padding: 8px 10px 10px 14px; transform: none; border-radius: 16px; }
+  .mg-say { grid-column: 1 / -1; align-self: start; font-size: 15px; }
+  .mg-power { grid-column: 1; grid-row: 2; gap: 6px; }
+  .mg-power { min-width: 0; }
+  .mg-power span { flex: 1; width: auto; min-width: 36px; max-width: 130px; height: 16px; }
+  .mg-power b { font-size: 14px; }
+  .mg-acts { grid-column: 2; grid-row: 2; gap: 8px; }
+  .mg-acts .tb-btn { padding: 10px 15px; border-radius: 12px; font-size: 16px; }
+  .mg-ask { top: auto; right: 0; bottom: 0; left: 0; width: auto; max-height: 74%; padding: 0 6px; }
+  .mg-ask .tb-card { animation-name: mgIn; }
+  .mg-ask .tb-card__face { border-bottom: 0; border-radius: 16px 16px 0 0; box-shadow: none; }
+  .mg-ask .tb-card__band { padding: 8px 14px; }
+  .mg-ask .tb-card__band b { font-size: 17px; }
+  .mg-ask .tb-card__body { gap: 8px; padding: 12px 14px 16px; }
+  .mg-ask .tb-q { font-size: 18px; }
+  .mg-ask .tb-opt { padding: 10px 12px; font-size: 16px; }
+  .mg-ask .tb-ans { font-size: 18px; }
+  .mg-ask .tb-card .tb-why { padding: 8px 12px; font-size: 15px; }
+  .mg-ask.is-done { bottom: 124px; max-height: 32%; padding: 0 8px; }
+  .mg-ask.is-done .tb-card__face { border-bottom: 2px solid #13294A; border-radius: 14px; }
+  .mg-ask.is-done .tb-q { display: none; }
+  .mg-ask.is-his { right: 8px; bottom: 124px; left: 8px; width: auto; padding: 0; }
+  .mg-his__q { padding: 10px 14px 2px; font-size: 15px; }
+  .mg-his__res { padding: 4px 14px 12px; font-size: 15px; }
+  .mg-ask.is-mid { top: 56px; bottom: 124px; width: calc(100% - 16px); max-height: calc(100% - 180px); padding: 0; }
+  .mg-ask.is-mid .tb-card__face { border-bottom: 2px solid #13294A; border-radius: 14px; }
+  .mg-end { padding: 18px 16px 16px; }
+  .mg-end .ar-face { width: 72px; height: 72px; }
   .mg-score { font-size: 13px; }
   .mg-score th, .mg-score td { padding: 4px 2px; }
   .mg-score thead th { font-size: 13px; }
   .mg-score th[scope="row"], .mg-score thead th:first-child { width: 3.4em; font-size: 12px; }
-  .mg-canvas { aspect-ratio: 1 / 1.05; }
-  .mg-him { width: 13%; }
-  .mg-him.is-follow { width: 10%; }
-  .mg-you { padding: 1px 6px; font-size: 11px; transform: translate(calc(-100% - 14px), -50%); }
-  .mg-power { left: 6px; bottom: 10px; width: 44px; }
-  .mg-power b { font-size: 12px; padding: 0 4px; }
-  .mg-power span { width: 18px; }
-  .mg-pop { font-size: 24px; }
-  .mg-res { font-size: 16px; }
   .mg-holes { grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
   .mg-holes li { padding: 8px 10px; border-width: 2px; border-bottom-width: 4px; }
   .mg-holes b { font-size: 16px; }
   .mg-holes span { font-size: 12px; }
 }
-@media (prefers-reduced-motion: reduce) { .mg-pop { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .mg-pop, .mg-banner.is-on, .mg-his, .mg-end, .mg-dots i { animation: none; } .mg-banner.is-on { opacity: 1; } }
 /* The page Mini Golf has on its own (mini-golf.html) until it joins the Biology hub's games. */
 .mg-page { min-height: 100vh; margin: 0; background: #131F24; color: #F1F7FB; font-family: Nunito, sans-serif; }
 .mg-land { display: grid; place-items: center; align-content: center; gap: 12px; min-height: 100vh; padding: 24px 16px; box-sizing: border-box; text-align: center; }
@@ -985,35 +1113,37 @@ button.sea-c { cursor: default; }
 .mg-land a { color: #FFC800; }
 .mg-land .tb-btn { padding: 16px 40px; font-size: 22px; }
 
-/* Pool (bio/bio-pool.js): whose turn over the balls each of you has left, the 3D table on a canvas (your tag, his face
-   and the power meter are .mg- HTML over it, as in Mini Golf), and the turn's line and buttons below. */
-.pl-head { display: grid; gap: 8px; }
-.pl-score { display: flex; flex-wrap: wrap; gap: 8px 14px; }
-.pl-side { display: flex; align-items: center; gap: 10px; margin: 0; padding: 6px 14px; border-radius: 12px; background: #202F36; color: #F1F7FB; font: 700 17px Fredoka, Nunito, sans-serif; }
-.pl-side.is-turn { box-shadow: inset 0 0 0 2px #FFC800; }
+/* Pool (bio/bio-pool.js): the screen is Mini Golf's (.mg-full, .mg-hud, .mg-ask, .mg-bar above), in a dark room. The
+   chips are each side's balls (potted ones faded, then "On the black"), the one whose turn it is outlined in yellow. */
+.pl-side { display: flex; align-items: center; gap: 10px; min-height: 46px; font: 700 18px Fredoka, Nunito, sans-serif; }
+.pl-side.is-turn { border-color: #FFC800; box-shadow: 0 3px 0 rgba(0, 0, 0, .3), inset 0 0 0 2px #FFC800; }
+.pl-side--him { order: 2; margin-left: auto; }
+.pl-side .mg-face { width: 26px; }
+.pl-me { background: #1CB0F6; }
 .pl-balls { display: flex; gap: 6px; }
 .pl-ball { width: 20px; height: 20px; box-sizing: border-box; border: 2px solid #13294A; border-radius: 50%; }
 .pl-ball--0 { background: #1CB0F6; }
 .pl-ball--1 { background: #FFFFFF; box-shadow: inset 0 4px 0 #FF9600, inset 0 -4px 0 #FF9600; }
-.pl-ball.is-in { opacity: .25; }
+.pl-ball.is-in { opacity: .22; }
 .pl-on8 { color: #FFC800; font: 800 14px Nunito, sans-serif; }
-.pl-sky { position: relative; overflow: hidden; border: 3px solid #0E2747; border-radius: 16px; background: #CDEBFA; }
-.pl-canvas { display: block; width: 100%; height: auto; max-height: max(240px, calc(100vh - 470px)); aspect-ratio: 2 / 1; touch-action: none; cursor: crosshair; }
-.pl-canvas:focus-visible { outline: 3px solid #FFE14D; outline-offset: -3px; }
-.pl-nudge { padding-left: 18px; padding-right: 18px; }
+.pl-nudge { padding-left: 16px; padding-right: 16px; }
 .pl-pick { margin: 18px 0 8px; color: #DCE6EC; font: 800 17px Nunito, sans-serif; }
 .pl-chs { max-width: 900px; }
 .pl-chs .tb-pick { padding: 12px 16px; text-align: center; }
 .pl-chs .tb-pick__ch { font-size: 20px; }
 @media (max-width: 760px) {
-  .pl-canvas { aspect-ratio: 1 / 1.15; }
-  .pl-side { gap: 8px; padding: 5px 10px; font-size: 15px; }
-  .pl-ball { width: 16px; height: 16px; }
+  .pl-side { gap: 6px; min-height: 40px; padding: 5px 9px; font-size: 15px; }
+  .pl-side .mg-face { width: 20px; }
+  .pl-side .mg-ball { display: none; }
+  .pl-balls { gap: 4px; }
+  .pl-ball { width: 15px; height: 15px; }
   .pl-ball--1 { box-shadow: inset 0 3px 0 #FF9600, inset 0 -3px 0 #FF9600; }
+  .pl-on8 { font-size: 12px; }
   .pl-chs { grid-template-columns: 1fr 1fr; gap: 8px; }
   .pl-chs .tb-pick { padding: 10px; }
   .pl-chs .tb-pick__ch { font-size: 16px; }
-  .pl-nudge { padding-left: 14px; padding-right: 14px; }
+  .pl-nudge { padding-left: 13px !important; padding-right: 13px !important; }
+  .pl-view { padding-left: 12px !important; padding-right: 12px !important; }
 }
 
 /* A long question typing in (bio-board.js reveal): the whole question laid out hidden underneath so nothing moves, a

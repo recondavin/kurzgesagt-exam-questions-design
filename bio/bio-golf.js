@@ -15,12 +15,14 @@
 //                steady; a second right answer gives a second putt, then it's his turn;
 //   wrong        you lose that stroke (it counts, the ball stays put) and it's his turn;
 //   typed right  a mulligan as well: take one putt again, kept until you use it.
-// He plays by the same rule (right 65 in 100): right, the best putt a search finds with a small wobble; wrong, he loses
-// the stroke. His ball is his head (the site's drawing of it on a ball, rolling as it goes and turning back to face you
+// He plays by the same rule (right 65 in 100): right, the best putt a search finds with a small wobble (from far away a
+// lag to near the cup, so a hole in one is rare); wrong, he loses the stroke. His question is shown small and his turn
+// is quick (a tap hurries it on). His ball is his head (the site's drawing of it on a ball, rolling as it goes and turning back to face you
 // when it stops), and both of you putt with a 3D putter that swings and strikes. Fewest strokes over the five wins.
 // The ball's physics is done here, in 2.5D, and is deterministic (tools/bio/tests/golf.mjs): the ball rolls on the
 // course plane, bumps are heights, walls are segments, a valve is a wall from one side only and the cup catches a slow
-// ball. three.js (bio/vendor/three.min.js, r159, MIT) only draws it.
+// ball. three.js (bio/vendor/three.min.js, r159, MIT) only draws it, on a canvas that fills the screen (the owner: it
+// was a small window in a dark box), with the chips, the question panel, the banners and the bar over it in HTML.
 (function () {
   'use strict';
   var AM = window.ExamAnswerMode, K = AM && AM.kit, BK = window.BioKit, BB = window.BioBoard;
@@ -30,7 +32,8 @@
   var SKY = '#CDEBFA', GRASS = '#74C043', GRASS_DK = '#4E9A2E', SOIL = '#D9A066', SOIL2 = '#BF844D', HIS = '#8FA3BD';
   var A = null;
   function live() { return A && A.card.isConnected; }
-  function wait(fn, ms) { return K.later(function () { if (live()) fn(); }, ms); }
+  // Later, unless the game's gone; while "Leave the game?" is up it waits for the answer (pause() runs what's held).
+  function wait(fn, ms) { return K.later(function () { if (!live()) return; if (A.paused) A.held.push(fn); else fn(); }, ms); }
   function q(sel) { return A.card.querySelector(sel); }
 
   // ======================================================================== the holes
@@ -229,18 +232,20 @@
     }
     return { path: path, steps: step, end: [S[0], S[1]], sunk: sunk, hits: hits, minCup: minCup, clock: (clock || 0) + step * DT, angle: angle, power: power };
   }
-  // What a right answer shows: a bit of where the putt goes (the user: "make it so that in golf and in pool and in angry birds and cannon it shows a bit of where you're going, but it doesn't mark a dot on the target that shows you will hit it; just a small trail is fine"): its first TRAIL of roll, or up to its
-  // first bounce if that comes sooner, a dot every 0.42. No mark where it stops or whether it drops. The dots start
-  // after skip (past the aim arrow, which would hide them).
-  var TRAIL = 3;
-  function aimLine(r, skip) {
-    var P = r.path, first = r.hits.length ? r.hits[0].i : r.steps, pts = [], run = 0, gone = 0, px = P[0], py = P[1];
-    skip = skip || 0;
-    for (var k = 1; k <= first && pts.length < 220; k++) {
+  // What a right answer shows: a bit of where the putt goes (the user: "make it so that in golf and in pool and in angry birds and cannon it shows a bit of where you're going, but it doesn't mark a dot on the target that shows you will hit it; just a small trail is fine"): a dot every
+  // 0.36 from the ball's edge for TRAIL of roll. It stops at the first bounce once it's MIN_TRAIL long (before that it
+  // carries on round the bounce, so a putt aimed at a near wall still shows something: it used to start past the aim
+  // arrow and stop at the first wall, and a third of the aims from a tee showed no dots at all). It never goes within
+  // reach of the cup, so it can't show the putt dropping; no mark where it stops.
+  var TRAIL = 3.2, MIN_TRAIL = 2.4, EDGE = R + 0.1, NOCUP = CUP + 0.7;
+  function aimLine(h, r) {
+    var P = r.path, first = r.hits.length ? r.hits[0].i : Infinity, pts = [], run = 0.22, gone = 0, px = P[0], py = P[1];
+    for (var k = 1; k <= r.steps && pts.length < 40; k++) {
       var x = P[2 * k], y = P[2 * k + 1], d = Math.hypot(x - px, y - py);
-      if ((gone += d) > skip + TRAIL) break;
-      if (gone >= skip) run += d;
-      if (run >= 0.42) { pts.push([x, y]); run = 0; }
+      gone += d;
+      if (gone > EDGE + TRAIL || (k >= first && gone > EDGE + MIN_TRAIL) || Math.hypot(x - h.cup[0], y - h.cup[1]) < NOCUP) break;
+      if (gone >= EDGE) run += d;
+      if (run >= 0.36) { pts.push([x, y]); run = 0; }
       px = x;
       py = y;
     }
@@ -344,49 +349,76 @@
     }
     return [x, y];
   }
-  // Every putt on a coarse grid (every 4 degrees, 14 powers), scored by how far it leaves the ball from the cup.
-  var POWERS = [0.03, 0.05, 0.08, 0.11, 0.15, 0.2, 0.26, 0.33, 0.41, 0.5, 0.6, 0.71, 0.84, 1];
-  function survey(h, from, clock) {
-    var out = [];
-    for (var a = 0; a < 90; a++) {
-      for (var p = 0; p < POWERS.length; p++) {
-        var r = roll(h, from, a * Math.PI / 45, POWERS[p], clock, false);
-        out.push({ angle: a * Math.PI / 45, power: POWERS[p], sunk: r.sunk, end: r.end, minCup: r.minCup, score: r.sunk ? -1 : costAt(h, r.end[0], r.end[1]) });
-      }
-    }
-    return out;
-  }
-  function byScore(a, b) { return a.score - b.score; }
+  // Every putt on a coarse grid (every 4 degrees, 14 powers), scored by how far it leaves the ball from the cup; then
+  // the four best each looked at closely (7 angles by 7 powers round it). Two ways to play:
+  //   'cup'  go for the cup: a putt that sinks counts for more the more of its neighbours sink too, so a small wobble
+  //          still sinks it;
+  //   'lag'  from far away (he used to hole out from his tee on the kidney about half the time he was right): get it
+  //          close, LAG short of the cup's middle, and never a putt whose neighbours drop, so an ace is a fluke.
+  // It's a job done in slices (step(ms) does up to that many milliseconds and says if it's finished), so his search
+  // can run while his question is up instead of freezing the page for up to half a second.
+  var POWERS = [0.03, 0.05, 0.08, 0.11, 0.15, 0.2, 0.26, 0.33, 0.41, 0.5, 0.6, 0.71, 0.84, 1], LAG = 1.25;
   function turnOf(a) { a %= 2 * Math.PI; return a > Math.PI ? a - 2 * Math.PI : a < -Math.PI ? a + 2 * Math.PI : a; }
-  // The best putt: the four best of the survey, each looked at closely (7 angles by 7 powers round it); a putt that sinks
-  // counts for more the more of its neighbours sink too, so a small wobble still sinks it.
-  function solve(h, from, clock, all) {
-    all = all || survey(h, from, clock);
-    var top = all.slice().sort(byScore), seeds = [], best = null;
-    for (var i = 0; i < top.length && seeds.length < 4; i++) {
-      var s = top[i];
-      if (seeds.every(function (o) { return Math.abs(turnOf(o.angle - s.angle)) > 0.09 || Math.abs(Math.log(o.power / s.power)) > 0.2; })) seeds.push(s);
-    }
-    seeds.forEach(function (s) {
-      var grid = [];
-      for (var da = -3; da <= 3; da++) {
-        for (var dp = -3; dp <= 3; dp++) {
-          var ang = s.angle + da * 0.012, pw = Math.max(0.02, Math.min(1, s.power * (1 + dp * 0.05))), r = roll(h, from, ang, pw, clock, false);
-          grid.push({ angle: ang, power: pw, sunk: r.sunk, end: r.end, minCup: r.minCup, score: r.sunk ? -1 : costAt(h, r.end[0], r.end[1]), da: da, dp: dp });
-        }
+  function search(h, from, clock, mode) {
+    var lag = mode === 'lag', all = [], seeds = null, grid = [], i = 0, best = null, job = { best: null, done: false };
+    function score(r) { var c = r.sunk ? 0 : costAt(h, r.end[0], r.end[1]); return lag ? (r.sunk ? 50 : Math.abs(c - LAG)) : r.sunk ? -1 : c; }
+    function seed() {
+      var top = all.slice().sort(function (a, b) { return a.score - b.score; });
+      seeds = [];
+      for (var k = 0; k < top.length && seeds.length < 4; k++) {
+        var s = top[k];
+        if (seeds.every(function (o) { return Math.abs(turnOf(o.angle - s.angle)) > 0.09 || Math.abs(Math.log(o.power / s.power)) > 0.2; })) seeds.push(s);
       }
-      grid.forEach(function (g) {
-        g.safe = g.sunk ? grid.filter(function (o) { return o.sunk && Math.abs(o.da - g.da) <= 1 && Math.abs(o.dp - g.dp) <= 1; }).length : 0;
-        if (!best || (g.sunk !== best.sunk ? g.sunk : g.sunk ? g.safe > best.safe : g.score < best.score)) best = g;
-      });
-    });
-    return best;
+    }
+    function judge(g) {
+      var near = grid.filter(function (o) { return o.sunk && Math.abs(o.da - g.da) <= 1 && Math.abs(o.dp - g.dp) <= 1; }).length;
+      if (lag) {
+        g.risk = g.score + near * 0.6;
+        if (!g.sunk && (!best || g.risk < best.risk)) best = g;
+        return;
+      }
+      g.safe = g.sunk ? near : 0;
+      if (!best || (g.sunk !== best.sunk ? g.sunk : g.sunk ? g.safe > best.safe : g.score < best.score)) best = g;
+    }
+    job.step = function (ms) {
+      var until = ms === Infinity ? Infinity : Date.now() + ms, r;
+      while (!job.done) {
+        if (Date.now() > until) return false;
+        if (i < 90 * POWERS.length) {
+          var a = Math.floor(i / POWERS.length) * Math.PI / 45, p = POWERS[i % POWERS.length];
+          r = roll(h, from, a, p, clock, false);
+          all.push({ angle: a, power: p, sunk: r.sunk, end: r.end, score: score(r) });
+          i += 1;
+          continue;
+        }
+        if (!seeds) seed();
+        var n = i - 90 * POWERS.length, s = seeds[Math.floor(n / 49)];
+        if (!s) { job.best = best || all[0]; job.done = true; break; }
+        var da = Math.floor(n % 49 / 7) - 3, dp = n % 7 - 3, ang = s.angle + da * 0.012, pw = Math.max(0.02, Math.min(1, s.power * (1 + dp * 0.05)));
+        r = roll(h, from, ang, pw, clock, false);
+        grid.push({ angle: ang, power: pw, sunk: r.sunk, end: r.end, score: score(r), da: da, dp: dp });
+        i += 1;
+        // Each seed's 7 x 7 is judged once it's all in (a putt is safer the more of its neighbours sink).
+        if (grid.length === 49) { grid.forEach(judge); grid = []; }
+      }
+      return true;
+    };
+    return job;
   }
-  // His putt (only after a right answer): the best one with a small wobble (up to 2 degrees and 7% power).
-  function hisAim(h, from, clock, rand) {
-    var s = solve(h, from, clock), g = function () { return (rand() + rand() + rand() - 1.5) / 1.5; };
+  function solve(h, from, clock, mode) { var j = search(h, from, clock, mode); j.step(Infinity); return j.best; }
+  // How he plays from where his ball is: for the cup when he's within NEAR of it (by the way round the walls), else a
+  // lag; now and then (ACE_TRY) he has a go at it from further out on a par 3.
+  var NEAR = 8, ACE_TRY = 0.06;
+  function hisMode(h, from, rand) {
+    var far = costAt(h, from[0], from[1]) > NEAR, a = rand();
+    return !far || (h.par === 3 && a < ACE_TRY) ? 'cup' : 'lag';
+  }
+  // His putt (only after a right answer): the search's with a small wobble (up to 2 degrees and 7% power).
+  function wobble(s, rand) {
+    var g = function () { return (rand() + rand() + rand() - 1.5) / 1.5; };
     return { angle: s.angle + g() * 0.035, power: Math.max(0.02, Math.min(1, s.power * (1 + g() * 0.07))) };
   }
+  function hisAim(h, from, clock, rand) { var mode = hisMode(h, from, rand); return wobble(solve(h, from, clock, mode), rand); }
   // Whose go is next: a wrong answer ends a turn, and so do two right ones in a row; a player who's holed out (or picked
   // up) is skipped. Null once both are in.
   var TURN = 2;
@@ -399,18 +431,24 @@
     return holed[other] ? { who: who, shots: 0 } : { who: other, shots: 0 };
   }
 
-  // ======================================================================== the questions
-  // As in bio-arcade.js: the field (here the hole) with the question layer over it, and the turn's line and buttons below.
-  function show(html, close) {
+  // ======================================================================== the screen and the questions
+  // The game fills the screen: the hole on a canvas under everything, chips along the top (the hole and par, your
+  // strokes and his, whose go), the question in a panel that leaves the hole in sight (down the right on a computer, a
+  // sheet along the bottom on a phone; the camera's picture slides over to the part that's left), and a bar along the
+  // bottom, always the same height, with the turn's line, the power and the buttons, so nothing jumps when they change.
+  // The full scorecard only comes up between holes and at the end. The question flow is as in bio-arcade.js.
+  function show(html, btns) {
     BK.body(A.card, html, true);
     A.card.querySelector('.am-finish__card').classList.add('tb-wide');
-    BK.buttons(A.card, close || [['more', 'data-am-keep', 'Close']], true);
+    BK.buttons(A.card, btns || [], true);
     BB.nearMascot(A.card);
   }
-  function into(node) { if (node && node.scrollIntoView) node.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
-  function stage(top, field) {
-    return '<div class="ar">' + top + '<div class="ar-stage" data-ar-stage><div class="ar-field">' + field + '</div><div class="ar-ask" data-ar-ask hidden></div></div>' +
-      '<div class="ar-turn"><p class="tb-say tb-turn" data-ar-say aria-live="polite"></p><div class="tb-row" data-ar-row></div></div></div>';
+  function full(on) { A.card.classList.toggle('mg-full', Boolean(on)); }
+  function stage(sky, hud) {
+    return '<div class="mg-game" data-ar-stage><div class="mg-sky">' + sky + '</div><div class="mg-hud">' + hud + '</div>' +
+      '<div class="mg-banner" data-mg-banner aria-live="polite"></div><div class="mg-ask" data-ar-ask hidden></div>' +
+      '<div class="mg-bar"><p class="mg-say" data-ar-say aria-live="polite"></p>' +
+      '<div class="mg-power" data-mg-power hidden><span><i></i></span><b class="num">0%</b></div><div class="mg-acts" data-ar-row></div></div></div>';
   }
   function say(html) { var s = q('[data-ar-say]'); if (s) s.innerHTML = html; }
   function row(html) { var r = q('[data-ar-row]'); if (r) r.innerHTML = html || ''; }
@@ -431,21 +469,26 @@
       '<p class="tb-ans"><span>Answer</span>' + esc(item.c.right) + '</p><p class="tb-why"><span>Why</span>' + esc(item.c.why) + '</p>';
   }
   function stamp(ok, text) { return '<p class="tb-stamp ' + (ok ? 'is-ok' : 'is-no') + '">' + esc(text) + '</p>'; }
-  function layer(html) {
+  // The panel: kind is '' (your question), 'his' (his, small), or 'mid' (between holes and the end, in the middle).
+  function layer(html, kind) {
     var l = q('[data-ar-ask]');
+    l.className = 'mg-ask' + (kind ? ' is-' + kind : '');
     l.innerHTML = html;
     l.hidden = false;
-    q('[data-ar-stage]').classList.add('is-asking');
-    into(l.querySelector('.tb-card'));
+    l.scrollTop = 0;
+    inset();
     return l;
   }
   function hideAsk() {
     var l = q('[data-ar-ask]');
+    if (!l) return;
     l.hidden = true;
     l.innerHTML = '';
-    q('[data-ar-stage]').classList.remove('is-asking');
+    l.className = 'mg-ask';
+    inset();
   }
-  function bare(text) { return text.replace(/\s*\((\d+ of )?\d+ points?\)$/, ''); }
+  // The question without its "(2 points)" or "(one of 5 points)" at the end.
+  function bare(text) { return text.replace(/\s*\(((\d+|one|two|three|four|five) of )?\d+ points?\)$/i, ''); }
   function ask(label, typed, ch, done) {
     // Your question comes from the memory you share with Exam drill: one due to type first (it's typed even when the
     // game wanted boxes), then one you got wrong, then a new one.
@@ -461,9 +504,11 @@
       : '<div class="tb-opts">' + shuffle([item.c.right].concat(item.c.wrong)).map(function (o) {
         return '<button type="button" class="tb-opt" data-ar-opt="' + esc(o) + '">' + esc(o) + '</button>';
       }).join('') + '</div>') + '<div class="qg-after" data-ar-after></div>'));
+    // The question types in (the user asked for it; a click on the card skips to the end).
     BB.reveal(q('[data-ar-ask] .tb-card'), function () {
       var t = q('[data-ar-text]');
       if (t) t.focus({ preventScroll: true });
+      inset();
     });
   }
   function choose(btn) {
@@ -491,32 +536,67 @@
     if (btns) btns.closest('.tb-row').remove();
     q('[data-ar-after]').innerHTML = stamp(ok, ok ? 'Correct' : 'Not quite') + answerHtml(A.item, mine) + BB.memLine(BB.memRecord(A.pools, A.item, A.typed, ok));
     if (ok) K.ding(A.typed ? 4 : 2, true); else K.bonk();
+    inset();
     A.done(ok);
   }
-  // His question: you see it, he thinks, then whether he got it (right odds of the time) and the answer either way.
+  // A right answer goes straight on to the aim: the card stays beside the hole with the answer and why (on a phone, only
+  // those, in a short sheet that goes when you start to pull back).
+  function keepAnswer() {
+    var l = q('[data-ar-ask]');
+    if (!l || l.hidden) return;
+    l.classList.add('is-done');
+    l.scrollTop = 0;
+    inset();
+  }
+  // His question, small (the user's turns were up to 20 seconds of watching): the question in his colours, "He thinks…"
+  // for a moment, then one line, whether he got it and the answer. A tap goes on at once.
   function hisAsk(label, odds, ch, done) {
     var item = nextItem(ch, false), ok = Math.random() < odds;
     A.phase = 'him';
-    layer(card(item.ch, label, '<p class="tb-q">' + esc(bare(item.text)) + '</p><p class="tb-say tb-think">He thinks…</p><div class="qg-after" data-ar-after></div>'));
-    BB.reveal(q('[data-ar-ask] .tb-card'), function () { wait(function () {
-      var t = q('.tb-think');
-      if (t) t.remove();
-      q('[data-ar-after]').innerHTML = stamp(ok, ok ? 'He got it' : 'He got it wrong') + answerHtml(item, '');
-      K.mascot(ok ? 'happy' : 'angry', ok ? pick(['Obviously.', 'Too easy.']) : pick(['Hmph. A slip.', 'Badly worded.']));
-      done(ok);
-    }, 900); });
+    layer('<div class="mg-his" style="--c:' + COL[item.ch] + '"><p class="mg-his__band"><span class="mg-face" data-mood="ok" aria-hidden="true">' + K.face + '</span><b>' + esc(label) + '</b><span>' + esc(NAME[item.ch]) + '</span></p>' +
+      '<p class="mg-his__q">' + esc(bare(item.text)) + '</p><p class="mg-his__res" data-mg-res><span class="mg-dots" aria-label="He thinks">He thinks<i>.</i><i>.</i><i>.</i></span></p></div>', 'his');
+    A.hisOk = ok;
+    A.then = function () {
+      A.then = null;
+      var res = q('[data-mg-res]');
+      if (res) res.innerHTML = ok ? '<b class="is-ok">He got it.</b> ' + esc(item.c.right) : '<b class="is-no">He got it wrong.</b> Answer: ' + esc(item.c.right);
+      var face = q('.mg-his .mg-face');
+      if (face) face.setAttribute('data-mood', ok ? 'happy' : 'angry');
+      K.sfx(ok ? 'pop' : 'thud', 0.6);
+      K.mascot(ok ? 'happy' : 'angry', ok ? pick(['Obviously.', 'Too easy.', 'Child\'s play.']) : pick(['Hmph. A slip.', 'Badly worded.', 'That question is wrong.']));
+      A.then = function () { A.then = null; hideAsk(); done(ok); };
+      var then = A.then;
+      wait(function () { if (A.then === then) then(); }, 1300);
+    };
+    var first = A.then;
+    wait(function () { if (A.then === first) first(); }, 850);
   }
-  // The button under the card to go on; with auto, it goes on by itself after that long (his turns, so they're quick).
-  function go(label, then, auto) {
+  // The button under your card to go on (after a wrong answer, so you can read why).
+  function go(label, then) {
     var r = document.createElement('div');
     r.className = 'tb-row tb-row--next';
     r.innerHTML = '<button type="button" class="tb-btn tb-btn--go" data-ar-go>' + label + '</button>';
-    q('[data-ar-ask] .tb-card__body').appendChild(r);
+    var body = q('[data-ar-ask] .tb-card__body');
+    body.appendChild(r);
     A.then = then;
     r.querySelector('button').focus({ preventScroll: true });
-    into(r);
-    if (auto) wait(function () { if (A.then === then) { A.then = null; then(); } }, auto);
+    var l = q('[data-ar-ask]');
+    l.scrollTop = l.scrollHeight;
+    inset();
   }
+  // The big moments, in the middle of the screen: In!, Birdie!, Hole in one! (and his), with a line under it.
+  function banner(text, sub, kind) {
+    var b = q('[data-mg-banner]');
+    if (!b) return;
+    b.className = 'mg-banner';
+    b.innerHTML = '<b>' + esc(text) + '</b>' + (sub ? '<span>' + esc(sub) + '</span>' : '');
+    void b.offsetWidth;
+    b.className = 'mg-banner is-on' + (kind ? ' is-' + kind : '');
+    clearTimeout(A.bannerT);
+    A.bannerT = K.later(function () { b.className = 'mg-banner'; }, 2300);
+  }
+  // A full stop unless the line already ends in one (it said "In, in 2. Birdie!.").
+  function stop(s) { return /[.!?]$/.test(s) ? s : s + '.'; }
 
   // ======================================================================== the 3D scene (three.js only draws)
   // Flat cartoon colours like the other games: a pale sky, the course on a floating island of lawn and soil, walls in the
@@ -575,6 +655,8 @@
     A.goalLook = new TH.Vector3();
     A.camSpeed = 3;
     A.ray = new TH.Raycaster();
+    A.ins = [0, 0];
+    A.insGoal = [0, 0];
     size();
   }
   function dispose3d() {
@@ -814,7 +896,10 @@
     w.add(g);
     var shaftIn = add(lying(new TH.PlaneGeometry(1, 0.2)), y, g), shaftOut = add(lying(new TH.PlaneGeometry(1, 0.36)), n, g);
     var head = add(lying(new TH.ShapeGeometry(shape([[0, -0.32], [0.55, 0], [0, 0.32]]))), y, g), headOut = add(lying(new TH.ShapeGeometry(shape([[-0.08, -0.46], [0.75, 0], [-0.08, 0.46]]))), n, g);
-    shaftIn.position.y = head.position.y = 0.02;
+    // The arrow lies over the trail's first dots (the trail starts at the ball's edge).
+    shaftOut.position.y = headOut.position.y = 0.03;
+    shaftIn.position.y = head.position.y = 0.045;
+    [shaftOut, headOut, shaftIn, head].forEach(function (m, k) { m.renderOrder = 6 + k; });
     g.visible = false;
     A.arrow = { g: g, parts: [shaftIn, shaftOut, head, headOut] };
     A.dots = [n, d].map(function (m, k) {
@@ -829,7 +914,8 @@
   // The aim's pieces for the aim now: your putter, the arrow and the line (you only aim after a right answer).
   function drawAim() {
     var h = A.h, p = A.pos[0], z = height(h, p[0], p[1]);
-    var on = A.phase === 'aim', L = 0.3 + A.aim.power * 3.2, pw = q('[data-mg-power]');
+    // A short arrow (the power is the putter's backswing and the meter), so the dots show past it.
+    var on = A.phase === 'aim', L = 0.25 + A.aim.power * 0.65, pw = q('[data-mg-power]');
     if (on) clubAt(0, A.aim.angle, A.aim.power);
     A.arrow.g.visible = on;
     // On a phone the picture is smaller, so the aim's pieces are bigger.
@@ -840,16 +926,16 @@
       A.arrow.g.scale.set(1, 1, A.phone ? 1.4 : 1);
       var P = A.arrow.parts;
       P[0].scale.x = P[1].scale.x = L;
-      P[0].position.x = P[1].position.x = 0.45 + L / 2;
-      P[2].position.x = 0.45 + L;
-      P[3].position.x = 0.45 + L;
+      P[0].position.x = P[1].position.x = 0.42 + L / 2;
+      P[2].position.x = 0.42 + L;
+      P[3].position.x = 0.42 + L;
     }
     if (pw) {
       pw.hidden = !on;
-      pw.querySelector('i').style.height = Math.round(A.aim.power * 100) + '%';
+      pw.querySelector('i').style.width = Math.round(A.aim.power * 100) + '%';
       pw.querySelector('b').textContent = Math.round(A.aim.power * 100) + '%';
     }
-    var line = on ? aimLine(roll(h, p, A.aim.angle, A.aim.power, A.clock, true), 1.2 + L) : null, mtx = new TH.Matrix4();
+    var line = on && A.aim.power >= 0.02 ? aimLine(h, roll(h, p, A.aim.angle, A.aim.power, A.clock, true)) : null, mtx = new TH.Matrix4();
     A.dots.forEach(function (d, k) {
       d.count = line ? line.pts.length : 0;
       if (line) line.pts.forEach(function (pt, i) { d.setMatrixAt(i, mtx.compose(at(pt[0], pt[1], height(h, pt[0], pt[1]) + 0.02 + k * 0.004), turn, sc)); });
@@ -860,7 +946,7 @@
   // The camera: behind the ball looking along yaw (3/4 down), or over the whole hole; it eases to where it's going. On a
   // phone it comes closer and looks down more (its picture is taller and narrower).
   function behind(p, yaw) {
-    var z = height(A.h, p[0], p[1]) + R, back = A.phone ? 6.2 : 8.4, up = A.phone ? 5.9 : 5.6, on = A.phone ? 3 : 4.4;
+    var z = height(A.h, p[0], p[1]) + R, back = A.phone ? 7 : 9.6, up = A.phone ? 6.6 : 6.4, on = A.phone ? 3.4 : 4.4;
     A.goalPos.copy(at(p[0] - yaw[0] * back, p[1] - yaw[1] * back, z + up));
     A.goalLook.copy(at(p[0] + yaw[0] * on, p[1] + yaw[1] * on, z));
   }
@@ -875,11 +961,38 @@
     if (!w || !h) return;
     A.r.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
     A.r.setSize(w, h, false);
-    A.cam.aspect = w / h;
-    A.phone = A.cam.aspect < 1.2;
+    A.vw = w;
+    A.vh = h;
+    A.phone = w / h < 1.2;
+    lens();
+    inset();
+    kick();
+  }
+  // The picture's middle is the middle of what's left in sight (A.ins: how much more is covered on the right than the
+  // left, and at the bottom than the top: the panel, the bar, the chips), by drawing a bigger picture and showing a
+  // corner of it, so what's on screen keeps its size and only slides over.
+  function lens() {
+    var w = A.vw, h = A.vh, dx = A.ins[0], dy = A.ins[1], fw = w + Math.abs(dx), fh = h + Math.abs(dy);
     // The same width of view on a phone as on a computer: a taller picture sees more above and below.
-    A.cam.fov = Math.max(34, Math.min(72, 2 * Math.atan(Math.tan(31 * Math.PI / 180) / A.cam.aspect) * 180 / Math.PI));
+    var fov = Math.max(34, Math.min(72, 2 * Math.atan(Math.tan(31 * Math.PI / 180) / (w / h)) * 180 / Math.PI));
+    A.cam.aspect = fw / fh;
+    A.cam.fov = 2 * Math.atan(Math.tan(fov * Math.PI / 360) * fh / h) * 180 / Math.PI;
+    if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) A.cam.setViewOffset(fw, fh, Math.max(0, dx), Math.max(0, dy), w, h); else A.cam.clearViewOffset();
     A.cam.updateProjectionMatrix();
+  }
+  // What covers the canvas: the chips along the top, the bar (or a phone's sheet) along the bottom, a computer's side
+  // panel on the right. Eased to in update().
+  function inset() {
+    if (!A || !A.r) return;
+    var c = A.r.domElement.getBoundingClientRect(), l = q('[data-ar-ask]'), bar = q('.mg-bar'), hud = q('.mg-hud'), top = 0, bottom = 0, right = 0;
+    if (hud) top = Math.max(0, hud.getBoundingClientRect().bottom - c.top);
+    if (bar && bar.offsetParent) bottom = Math.max(0, c.bottom - bar.getBoundingClientRect().top);
+    if (l && !l.hidden && !l.classList.contains('is-mid')) {
+      var b = l.getBoundingClientRect();
+      if (b.width && b.left > c.left + c.width * 0.4) right = Math.max(0, c.right - b.left);
+      else if (b.height) bottom = Math.max(bottom, c.bottom - b.top);
+    }
+    A.insGoal = [right, bottom - top];
     kick();
   }
   // Effects, all flat: white dust puffs where the ball hits a wall hard (and a shake for a very hard one), and confetti
@@ -925,7 +1038,7 @@
     });
     return F.puffs.length || F.bits.length;
   }
-  // Floating words over the field (Birdie!, Par), HTML like the other games' numbers.
+  // A small word floating up from a ball (the +1 for a stroke lost); the big moments are banners.
   function popText(x, y, text) {
     var s = place(x, y, height(A.h, x, y) + 1.2), el = document.createElement('span'), sky = q('.mg-sky');
     if (!sky) return;
@@ -953,7 +1066,8 @@
     if (!A.r || !A.world) return;
     var dt = A.last ? Math.min(0.05, (now - A.last) / 1000) : 1 / 60;
     A.last = now;
-    var busy = update(dt);
+    // While "Leave the game?" is up, everything holds still.
+    var busy = A.paused ? false : update(dt);
     render();
     if (busy) { A.raf = requestAnimationFrame(frame); A.last = now; }
   }
@@ -962,6 +1076,14 @@
     if (A.swing) { busy = true; stepSwing(dt); }
     if (A.shot) { busy = true; stepShot(dt); }
     if (A.sink) { busy = true; stepSink(dt); }
+    // The picture slides over to what the panel leaves.
+    k = 1 - Math.exp(-dt * 7);
+    if (Math.abs(A.ins[0] - A.insGoal[0]) > 0.5 || Math.abs(A.ins[1] - A.insGoal[1]) > 0.5) {
+      A.ins[0] += (A.insGoal[0] - A.ins[0]) * k;
+      A.ins[1] += (A.insGoal[1] - A.ins[1]) * k;
+      busy = true;
+    } else { A.ins[0] = A.insGoal[0]; A.ins[1] = A.insGoal[1]; }
+    lens();
     k = 1 - Math.exp(-dt * A.camSpeed);
     A.camPos.lerp(A.goalPos, k);
     A.camLook.lerp(A.goalLook, k);
@@ -1028,9 +1150,11 @@
       you.style.top = b.y + '%';
     }
   }
-  // A putt: the putter swings through from its backswing, the ball leaves as it's struck and plays out from its recorded
-  // path (his at 1.6x), the camera following; the putter follows through and is put away.
+  // A putt: the putter swings through from its backswing, the ball leaves as it's struck (with the click of the putter)
+  // and plays out from its recorded path (his at 1.6x), the camera following; the putter follows through and is put
+  // away. The slow end of a roll plays up to twice as fast, and a tap plays the rest of it at 3x (A.ff).
   function play(r, speed, done) {
+    A.ff = 1;
     A.swing = { t: 0, from: A.clubs[A.who].swing.rotation.z, r: r, speed: speed, done: done, who: A.who, hit: false };
     A.phase = 'swing';
     A.camSpeed = 3.2;
@@ -1046,13 +1170,14 @@
       A.phase = 'rolling';
       A.shot = { r: s.r, i: 0, speed: s.speed, done: s.done, hit: 0, clock0: A.clock, vx: 0, vy: 0, who: s.who };
       puff3(A.pos[s.who][0], A.pos[s.who][1], 2);
+      K.sfx('putt', 0.35 + 0.65 * Math.min(1, s.r.power * 1.6));
     }
     c.swing.rotation.z = 0.28 * Math.min(1, (s.t - t1) / 0.12);
     if (s.t > 0.9) { c.g.visible = false; A.swing = null; }
   }
   function stepShot(dt) {
-    var s = A.shot, r = s.r, P = r.path, last = r.steps, who = s.who;
-    s.i = Math.min(last, s.i + dt * 120 * s.speed);
+    var s = A.shot, r = s.r, P = r.path, last = r.steps, who = s.who, v = Math.hypot(s.vx, s.vy);
+    s.i = Math.min(last, s.i + dt * 120 * s.speed * (A.ff || 1) * (s.i > 30 && v < 1.6 ? 2 - v / 1.6 : 1));
     var k = Math.min(Math.max(0, last - 1), Math.floor(s.i)), f = last ? s.i - k : 0, n = last ? k + 1 : 0;
     A.pos[who] = [P[2 * k] + (P[2 * n] - P[2 * k]) * f, P[2 * k + 1] + (P[2 * n + 1] - P[2 * k + 1]) * f];
     s.vx = (P[2 * n] - P[2 * k]) * 120;
@@ -1062,13 +1187,15 @@
       var e = r.hits[s.hit++];
       if (e.v > 2.5) puff3(e.x, e.y, e.v > 6 ? 3 : 1);
       if (e.v > 7) A.shake = 9;
+      // A knock off a wall or a valve; a white cell is a soft bump. Not more than one every 70ms.
+      if (!A.lastKnock || performance.now() - A.lastKnock > 70) { A.lastKnock = performance.now(); K.sfx(e.kind === 'cell' ? 'thud' : 'cushion', Math.min(1, e.v / 7)); }
     }
     if (!A.over) behind(A.pos[who], A.yaw);
     if (s.i < last) return;
     A.shot = null;
     A.clock = r.clock;
     A.pos[who] = r.end.slice();
-    if (r.sunk) A.sink = { t: 0, who: who, from: r.end.slice(), done: s.done, r: r };
+    if (r.sunk) { A.sink = { t: 0, who: who, from: r.end.slice(), done: s.done, r: r }; K.sfx('cup'); }
     else s.done(r);
   }
   // A ball that drops: it runs to the middle of the cup and down out of sight, and the confetti flies.
@@ -1091,27 +1218,46 @@
     right: ['Hmph. Line it up, then.', 'Fine. You get the line.'],
     wrong: ['Wrong. That\'s a stroke gone.', 'No putt for you.'],
     in: ['Hmph. Lucky bounce.', 'In. Don\'t celebrate.'],
+    ace: ['A hole in one? Impossible.', 'That was a fluke. A FLUKE.'],
     out: ['Ha. Not even close.', 'The cup is over there.'],
-    hisIn: ['In. Obviously.', 'And that is how it\'s done.']
+    hisIn: ['In. Obviously.', 'And that is how it\'s done.'],
+    hisAce: ['Hole in one. Naturally.', 'Watch and learn.'],
+    hisOut: ['The green is bumpy.', 'Someone moved the cup.']
   };
   function host() {
     AM.practice('bio-' + CH[0], 'none', function () {
       dispose3d();
       if (window.BioApp && document.getElementById('bio-app')) window.BioApp.refresh();
     });
-    return K.gameCard('Mini Golf');
+    var c = K.gameCard('Mini Golf'), root = K.root && K.root();
+    // While "Leave the game?" is up, everything holds still.
+    if (root) root.addEventListener('am:leave', function (e) { if (A && A.card === c) pause(e.detail && e.detail.open); });
+    return c;
   }
-  function mood(m) { var f = q('[data-mg-him]'); if (f) f.setAttribute('data-mood', m); }
+  function pause(on) {
+    A.paused = Boolean(on);
+    if (on) return;
+    var held = A.held || [];
+    A.held = [];
+    held.forEach(function (fn) { if (live()) fn(); });
+    A.last = 0;
+    kick();
+  }
+  function mood(m) {
+    A.mood = m;
+    var f = q('[data-mg-him]');
+    if (f) f.setAttribute('data-mood', m);
+  }
   function total(p) { return A.strokes[p].reduce(function (a, b) { return a + b; }, 0); }
   function parAll() { return HOLES.reduce(function (a, h) { return a + h.par; }, 0); }
   function openGolf() {
     if (A) dispose3d();
     var c = host();
-    A = { card: c, pools: BB.pools(), right: 0, asked: 0, qn: 0, mulligans: 0, strokes: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], holed: [[], []], hole: 0, trash: [], pos: [[0, 0], [0, 0]], on: [false, false], drop: [0, 0], who: 0 };
+    A = { card: c, pools: BB.pools(), right: 0, asked: 0, qn: 0, mulligans: 0, strokes: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], holed: [[], []], hole: 0, trash: [], pos: [[0, 0], [0, 0]], on: [false, false], drop: [0, 0], who: 0, mood: 'happy', held: [] };
     K.gameHud(A.card, 0, '');
     var best = K.store('bio-golf-best');
     show('<div class="am-games__end mg-start"><div class="ar-face" aria-hidden="true">' + K.face + '</div><h3 class="am-games__title">Mini Golf</h3>' +
-      '<p class="am-games__sub">Five holes against the examiner, one for each chapter. You take turns, with a question before every putt. Right: you putt, and a short trail of dots shows which way it starts. Two right in a row and it\'s his turn. Wrong: you lose that stroke and it\'s his turn. He plays by the same rules. Every third question is typed: get it right and you win a mulligan, a putt you can take again. Fewest strokes wins.</p>' +
+      '<p class="am-games__sub">Five holes against the examiner. Answer right to putt; get it wrong and the stroke\'s gone. Fewest strokes wins.</p>' +
       '<ol class="mg-holes">' + HOLES.map(function (h, i) {
         var b = K.store('bio-golf-hole-' + (i + 1));
         return '<li style="--c:' + COL[h.ch] + '"><b>' + (i + 1) + '. ' + esc(h.name) + '</b><span>' + esc(NAME[h.ch]) + ' · Par ' + h.par + (b ? ' · Best ' + b : '') + '</span></li>';
@@ -1121,11 +1267,13 @@
   }
   function teeOff() {
     if (!window.THREE) return;
-    show(stage('<div class="mg-head"><p class="mg-top" data-mg-top></p><div class="mg-board" data-mg-score></div></div>',
-      '<div class="mg-sky"><canvas class="mg-canvas" data-mg-canvas tabindex="0" aria-label="The hole. Drag back from the ball and let go to putt, or turn with the arrow keys, set the power with up and down, and press Enter."></canvas>' +
-      '<div class="mg-power" data-mg-power hidden><b class="num">0%</b><span><i></i></span></div>' +
-      '<span class="mg-you" data-mg-you hidden>You</span>' +
-      '<span class="mg-him" data-mg-him data-mood="happy" aria-hidden="true">' + K.face + '</span></div>'));
+    full(true);
+    show(stage('<canvas class="mg-canvas" data-mg-canvas tabindex="0" aria-label="The hole. Drag back from the ball and let go to putt, or turn with the arrow keys, set the power with up and down, and press Enter."></canvas>' +
+      '<span class="mg-you" data-mg-you hidden>You</span>',
+      '<p class="mg-chip mg-chip--hole" data-mg-hole></p><div class="mg-chip mg-chip--tally" data-mg-tally></div><p class="mg-chip mg-chip--mull" data-mg-mull hidden></p>'));
+    // The card is the whole screen now: answer-mode.js moves the examiner from beside it to the top (it looks on resize).
+    window.dispatchEvent(new Event('resize'));
+    K.playing(true);
     setup3d(q('[data-mg-canvas]'));
     holeStart(0);
   }
@@ -1155,24 +1303,36 @@
     behind(t, A.yaw);
     A.camSpeed = 1.4;
     A.phase = 'intro';
-    top();
-    board();
-    say('<b>Hole ' + (i + 1) + ': ' + esc(A.h.name) + '.</b> Par ' + A.h.par + '. ' + (A.who ? 'He tees off.' : 'You tee off.'));
+    hud();
+    banner('Hole ' + (i + 1), A.h.name + ' · Par ' + A.h.par);
+    say('<b>Hole ' + (i + 1) + ': ' + esc(A.h.name) + '.</b> ' + (A.who ? 'He tees off.' : 'You tee off.'));
     row('');
     mood('happy');
     kick();
-    wait(goNow, 1700);
+    wait(goNow, 1500);
   }
   function yawFrom(p) {
     var t = ahead(A.h, p, 5), dx = t[0] - p[0], dy = t[1] - p[1], l = Math.hypot(dx, dy);
     return l > 0.01 ? [dx / l, dy / l] : [0, 1];
   }
-  function top() {
-    var t = q('[data-mg-top]');
-    if (t) t.innerHTML = '<b>Hole ' + (A.hole + 1) + ' of 5: ' + esc(A.h.name) + '</b><span>' + esc(NAME[A.h.ch]) + ' · Par ' + A.h.par +
-      ' · ' + (A.who ? 'His go' : 'Your go') + (A.turn.shots ? ' (2nd)' : '') + (A.mulligans ? ' · Mulligans: ' + A.mulligans : '') + '</span>';
+  // The chips along the top: the hole and par; your strokes and his on this hole and in all (whose go it is marked);
+  // mulligans when you have one.
+  function hud() {
+    var hole = q('[data-mg-hole]'), t = q('[data-mg-tally]'), m = q('[data-mg-mull]'), h = A.h, i = A.hole, playing = A.phase !== 'between' && A.phase !== 'over';
+    if (hole) {
+      hole.style.setProperty('--c', COL[h.ch]);
+      hole.innerHTML = '<b>Hole ' + (i + 1) + '<small> of 5</small></b><span>' + esc(h.name) + ' · Par ' + h.par + '</span>';
+    }
+    if (t) t.innerHTML = '<table class="mg-tally"><thead><tr><td></td><th scope="col">Hole</th><th scope="col">Total</th></tr></thead><tbody>' + [0, 1].map(function (p) {
+      return '<tr class="' + (playing && A.who === p ? 'is-turn' : '') + '"><th scope="row">' + (p ? '<span class="mg-face" data-mg-him data-mood="' + A.mood + '" aria-hidden="true">' + K.face + '</span>Him' : '<i class="mg-ball" aria-hidden="true"></i>You') +
+        '</th><td class="num' + (A.holed[p][i] ? ' is-in' : '') + '">' + A.strokes[p][i] + '</td><td class="num">' + total(p) + '</td></tr>';
+    }).join('') + '</tbody></table>';
+    if (m) {
+      m.hidden = !A.mulligans;
+      m.textContent = A.mulligans === 1 ? '1 mulligan' : A.mulligans + ' mulligans';
+    }
   }
-  // The scorecard: par, your strokes and his for each hole, and the totals.
+  // The scorecard: par, your strokes and his for each hole, and the totals (between holes and at the end).
   function scoreTable() {
     function cell(p, i) {
       var n = A.strokes[p][i], done = A.holed[p][i];
@@ -1186,7 +1346,6 @@
       ['You', 'Him'].map(function (who, p) { return '<tr class="mg-row--' + p + '"><th scope="row">' + who + '</th>' + HOLES.map(function (h, i) { return cell(p, i); }).join('') + '<td><b>' + total(p) + '</b></td></tr>'; }).join('') +
       '</tbody></table>';
   }
-  function board() { var b = q('[data-mg-score]'); if (b) b.innerHTML = scoreTable(); }
   // A go: the ball comes out onto the tee the first time, the camera goes behind it, and the question comes up.
   function goNow() {
     var who = A.who = A.turn.who;
@@ -1195,11 +1354,10 @@
     A.over = false;
     A.camSpeed = 2.4;
     behind(A.pos[who], A.yaw);
-    top();
-    board();
     row('');
     kick();
     if (who) hisGo(); else yourGo();
+    hud();
   }
   function yourGo() {
     A.qn += 1;
@@ -1208,21 +1366,24 @@
     say('<b>Your go' + (A.turn.shots ? ' again' : '') + '.</b> Answer to putt.');
     ask(typed ? 'Mulligan question' : 'Stroke ' + (A.strokes[0][A.hole] + 1), typed, A.h.ch, function (ok) {
       K.mascot(ok ? 'angry' : 'happy', pick(ok ? SAY.right : SAY.wrong));
-      if (!ok) { go('Go on', function () { hideAsk(); penalty(0); }); return; }
-      if (A.typed) { A.mulligans += 1; top(); }
-      go(A.typed ? 'Aim (and a mulligan won)' : 'Aim', function () { hideAsk(); aim(); });
+      if (!ok) { say('<b>Not quite.</b> That stroke\'s gone.'); go('Go on', function () { hideAsk(); penalty(0); }); return; }
+      if (A.typed) { A.mulligans += 1; hud(); }
+      // Straight on to the aim (no extra click): the answer stays beside the hole.
+      var typedRight = A.typed;
+      wait(function () { keepAnswer(); aim(typedRight ? '<b>Right, and a mulligan won.</b> Drag back from the ball and let go.' : '<b>Right.</b> Drag back from the ball and let go.'); }, 450);
     });
   }
-  function aim() {
+  function aim(line) {
     A.phase = 'aim';
     A.who = 0;
     A.over = false;
     A.yaw = yawFrom(A.pos[0]);
-    A.aim = { angle: Math.atan2(A.yaw[1], A.yaw[0]), power: A.aim ? A.aim.power : 0.35 };
+    A.aim = { angle: Math.atan2(A.yaw[1], A.yaw[0]), power: A.aim ? Math.max(0.12, A.aim.power) : 0.35 };
     A.camSpeed = 3;
     behind(A.pos[0], A.yaw);
-    say('<b>Right:</b> the dots show which way your putt starts. Drag back from the ball and let go.');
-    row('<button type="button" class="tb-btn tb-btn--go" data-mg-putt>Putt</button><button type="button" class="tb-btn mg-btn2" data-mg-look>See the hole</button>');
+    say(line || '<b>Your putt.</b> Drag back from the ball and let go.');
+    row('<button type="button" class="tb-btn mg-btn2" data-mg-look>See the hole</button><button type="button" class="tb-btn tb-btn--go" data-mg-putt>Putt</button>');
+    hud();
     drawAim();
     q('[data-mg-canvas]').focus({ preventScroll: true });
   }
@@ -1239,33 +1400,51 @@
     if (A.phase !== 'aim' || A.aim.power < 0.02) return;
     A.prev = { from: A.pos[0].slice(), clock: A.clock };
     A.strokes[0][A.hole] += 1;
-    board();
+    hideAsk();
+    hud();
     row('');
     say('<b>Your putt.</b>');
     play(roll(A.h, A.pos[0], A.aim.angle, A.aim.power, A.clock, true), 1, yourStop);
   }
+  // How a score on a hole reads: "Birdie!" and "one under par".
+  function scoreName(n, par) {
+    if (n === 1) return 'Hole in one!';
+    return { '-2': 'Eagle!', '-1': 'Birdie!', 0: 'Par', 1: 'Bogey', 2: 'Double bogey' }[n - par] || '+' + (n - par);
+  }
+  function parWords(who, n, par) {
+    var d = n - par, w = ['', 'one', 'two', 'three', 'four'][Math.abs(d)] || String(Math.abs(d));
+    return (who ? 'He took ' : 'You took ') + n + ': ' + (d ? w + (d < 0 ? ' under par' : ' over par') : 'par');
+  }
+  // In: a banner (Hole in one!, Eagle!, Birdie!, or In!), the confetti, and what he makes of it.
+  function holedBanner(who, n, par) {
+    var name = scoreName(n, par), big = n === 1 ? 'Hole in one!' : n < par ? name : who ? 'He\'s in' : 'In!';
+    banner(big, parWords(who, n, par), who ? 'him' : n < par ? 'gold' : 'you');
+  }
   function yourStop(r) {
     var n = A.strokes[0][A.hole];
     A.phase = 'after';
+    hud();
     if (r.sunk) {
       A.holed[0][A.hole] = true;
-      popText(A.h.cup[0], A.h.cup[1], scoreName(n, A.h.par));
+      holedBanner(0, n, A.h.par);
       K.ding(4, true);
+      if (n < A.h.par) K.later(K.fanfare, 250);
       mood(n < A.h.par ? 'furious' : 'angry');
-      K.mascot('angry', pick(SAY.in));
-      say('<b>In, in ' + n + '.</b> ' + scoreName(n, A.h.par) + '.');
-      after(true, 1800);
+      K.mascot(n < A.h.par ? 'furious' : 'angry', pick(n === 1 ? SAY.ace : SAY.in));
+      say('<b>You\'re in, in ' + n + '.</b> ' + stop(scoreName(n, A.h.par)));
+      hud();
+      after(true, 1900);
       return;
     }
     mood('happy');
     if (A.mulligans && n < MAX) {
-      say('Not in. Use a mulligan and take that putt again?');
-      row('<button type="button" class="tb-btn tb-btn--go" data-mg-retake>Take it again</button><button type="button" class="tb-btn mg-btn2" data-mg-keep>Play on</button>');
+      say('<b>Not in.</b> Use a mulligan and take that putt again?');
+      row('<button type="button" class="tb-btn mg-btn2" data-mg-keep>Play on</button><button type="button" class="tb-btn tb-btn--go" data-mg-retake>Take it again</button>');
       return;
     }
     if (Math.hypot(r.end[0] - A.h.cup[0], r.end[1] - A.h.cup[1]) > 4) K.mascot('happy', pick(SAY.out));
-    say('Not in.');
-    after(true, 800);
+    say('<b>Not in.</b>');
+    after(true, 700);
   }
   function retake() {
     if (A.phase !== 'after' || !A.mulligans) return;
@@ -1273,66 +1452,71 @@
     A.strokes[0][A.hole] -= 1;
     A.pos[0] = A.prev.from.slice();
     A.clock = A.prev.clock;
-    board();
-    top();
-    aim();
+    K.sfx('whoosh', 0.6);
+    aim('<b>Mulligan.</b> Take that putt again.');
   }
-  function scoreName(n, par) {
-    if (n === 1) return 'Hole in one!';
-    return { '-2': 'Eagle!', '-1': 'Birdie!', 0: 'Par', 1: 'Bogey', 2: 'Double bogey' }[n - par] || '+' + (n - par);
-  }
-  // His go: his own question; right, he lines up the best putt, shows his putter and putts (quickly); wrong, he loses the
-  // stroke.
+  // His go: his own question, small; right, he lines up the search's putt (it starts working while the question is up,
+  // a slice at a time) and putts quickly; wrong, he loses the stroke.
   function hisGo() {
     A.phase = 'him';
-    say('<b>His go' + (A.turn.shots ? ' again' : '') + '.</b>');
+    say('<b>His go' + (A.turn.shots ? ' again' : '') + '.</b> Tap to hurry him up.');
+    var job = A.think = search(A.h, A.pos[1].slice(), A.clock, hisMode(A.h, A.pos[1], Math.random));
+    (function slice() {
+      if (!live() || A.think !== job || job.done) return;
+      if (!A.paused) job.step(8);
+      if (!job.done) K.later(slice, 10);
+    })();
     hisAsk('His stroke ' + (A.strokes[1][A.hole] + 1), 0.65, A.h.ch, function (ok) {
-      if (!ok) { go('Go on', function () { hideAsk(); penalty(1); }, 2400); return; }
-      go('Watch his putt', function () { hideAsk(); hisPutt(); }, 2600);
+      if (ok) hisPutt(job); else { A.think = null; penalty(1); }
     });
   }
-  function hisPutt() {
+  function hisPutt(job) {
     A.phase = 'him';
     say('<b>He got it right.</b> He lines it up…');
     kick();
-    wait(function () {
-      var s = hisAim(A.h, A.pos[1], A.clock, Math.random);
+    (function ready() {
+      if (!job.done) { wait(ready, 40); return; }
+      var s = wobble(job.best, Math.random);
       A.yaw = [Math.cos(s.angle), Math.sin(s.angle)];
       behind(A.pos[1], A.yaw);
       clubAt(1, s.angle, s.power);
       kick();
       wait(function () {
         A.strokes[1][A.hole] += 1;
-        board();
+        hud();
+        say('<b>His putt.</b> Tap to speed it up.');
         play(roll(A.h, A.pos[1], s.angle, s.power, A.clock, true), 1.6, hisStop);
-      }, 700);
-    }, 120);
+      }, 550);
+    })();
   }
   function hisStop(r) {
     var n = A.strokes[1][A.hole];
     A.phase = 'him';
     if (r.sunk) {
       A.holed[1][A.hole] = true;
-      popText(A.h.cup[0], A.h.cup[1], scoreName(n, A.h.par));
+      holedBanner(1, n, A.h.par);
       K.bonk();
       mood('happy');
-      K.mascot('happy', pick(SAY.hisIn));
-      say('<b>He\'s in, in ' + n + '.</b>');
+      K.mascot('happy', pick(n === 1 ? SAY.hisAce : SAY.hisIn));
+      say('<b>He\'s in, in ' + n + '.</b> ' + stop(scoreName(n, A.h.par)));
+      hud();
       after(true, 1700);
       return;
     }
     mood('angry');
-    say('He\'s not in.');
-    after(true, 700);
+    if (Math.hypot(r.end[0] - A.h.cup[0], r.end[1] - A.h.cup[1]) > 3) K.mascot('angry', pick(SAY.hisOut));
+    say('<b>He\'s not in.</b>');
+    after(true, 600);
   }
   // A wrong answer: the go is lost, and it counts as a stroke where the ball lies.
   function penalty(who) {
     var p = A.pos[who];
     A.strokes[who][A.hole] += 1;
     if (A.on[who]) popText(p[0], p[1], '+1');
+    K.sfx('thud', 0.5);
     say(who ? '<b>He got it wrong:</b> he loses that stroke.' : '<b>Wrong:</b> you lose that stroke.');
-    board();
-    after(false, 1300);
+    hud();
+    after(false, 1100);
   }
   // After a go: picked up at MAX strokes; then whose go is next (or the hole's done).
   function after(right, ms) {
@@ -1342,38 +1526,51 @@
       A.on[who] = false;
       say((who ? 'He picks' : 'You pick') + ' up after ' + MAX + '.');
     }
-    board();
+    hud();
     var next = nextGo(A.turn, right, [Boolean(A.holed[0][h]), Boolean(A.holed[1][h])]);
     if (!next) { wait(holeDone, ms + 300); return; }
     A.turn = next;
     wait(goNow, ms);
   }
+  // Between holes: the whole scorecard, in the middle, over the hole seen from above.
   function holeDone() {
     var i = A.hole, you = A.strokes[0][i], him = A.strokes[1][i], best = +(K.store('bio-golf-hole-' + (i + 1)) || 0);
     A.phase = 'between';
     if (!best || you < best) K.store('bio-golf-hole-' + (i + 1), String(you));
-    board();
+    hud();
+    A.camSpeed = 1.6;
+    overview(A.h);
+    kick();
     var msg = you < him ? 'You win the hole.' : you > him ? 'He wins the hole.' : 'A half: you both took ' + you + '.';
-    layer(card(A.h.ch, 'Hole ' + (i + 1) + ' done', '<p class="tb-q">' + esc(msg) + '</p><p class="mg-res">You <b class="num">' + you + '</b> · Him <b class="num">' + him +
-      '</b> · Par ' + A.h.par + '</p><p class="mg-res">After ' + (i + 1) + (i ? ' holes' : ' hole') + ': you <b class="num">' + total(0) + '</b>, him <b class="num">' + total(1) + '</b>.</p>'));
+    layer(card(A.h.ch, 'Hole ' + (i + 1) + ' done', '<p class="tb-q">' + esc(msg) + '</p><div class="mg-board">' + scoreTable() + '</div>'), 'mid');
     if (you < him) mood('angry');
+    say('<b>Hole ' + (i + 1) + ' done.</b> You ' + total(0) + ', him ' + total(1) + '.');
     go(i + 1 < HOLES.length ? 'Next hole: ' + esc(HOLES[i + 1].name) : 'See who won', function () { hideAsk(); if (i + 1 < HOLES.length) holeStart(i + 1); else finish(); });
   }
+  // The end: the card over the last hole, him reacting.
   function finish() {
     var you = total(0), him = total(1), won = you < him, best = +(K.store('bio-golf-best') || 0), wins = +(K.store('bio-golf-wins') || 0) + (won ? 1 : 0);
     A.phase = 'over';
     if (!best || you < best) K.store('bio-golf-best', String(you));
     if (won) K.store('bio-golf-wins', String(wins));
-    dispose3d();
-    K.mascot(won ? 'angry' : 'happy', won ? 'Hmph. The greens were too fast.' : you === him ? 'A draw. Hmph.' : 'As expected. Again?');
-    show('<div class="am-games__end"><div class="ar-face" aria-hidden="true">' + K.face + '</div><h3 class="am-games__title">' + (won ? 'You win!' : you === him ? 'A draw.' : 'He wins.') + '</h3>' +
+    K.playing(false);
+    q('[data-ar-stage]').classList.add('is-over');
+    mood(won ? 'furious' : you === him ? 'angry' : 'happy');
+    hud();
+    say('');
+    row('');
+    layer('<div class="am-games__end mg-end"><div class="ar-face" data-mood="' + A.mood + '" aria-hidden="true">' + K.face + '</div><h3 class="am-games__title">' + (won ? 'You win!' : you === him ? 'A draw.' : 'He wins.') + '</h3>' +
       '<p class="am-games__sub">You took ' + you + ', he took ' + him + ' (par ' + parAll() + ').' + (!best || you < best ? ' Your best round yet.' : ' Your best: ' + best + '.') +
-      (won ? ' Rounds won: ' + wins + '.' : '') + ' You got ' + A.right + ' of ' + A.asked + ' questions right.</p><div class="mg-board">' + scoreTable() + '</div></div>',
-    [['more', 'data-am-keep', 'Close'], ['ok', 'data-mg-again', 'Play again']]);
-    if (won) K.later(K.fanfare, 300);
+      (won ? ' Rounds won: ' + wins + '.' : '') + ' You got ' + A.right + ' of ' + A.asked + ' questions right.</p><div class="mg-board">' + scoreTable() + '</div>' +
+      '<div class="mg-end__btns"><button type="button" class="am-btn am-btn--more" data-am-keep>Close</button><button type="button" class="am-btn am-btn--ok" data-mg-again>Play again</button></div></div>', 'mid');
+    K.mascot(won ? 'furious' : 'happy', won ? 'Hmph. The greens were too fast.' : you === him ? 'A draw. Hmph.' : 'As expected. Again?');
+    if (won) { confetti(A.h.cup[0], A.h.cup[1]); K.later(K.fanfare, 300); }
+    kick();
+    var again = q('[data-mg-again]');
+    if (again) again.focus({ preventScroll: true });
   }
 
-  // ======================================================================== aiming: drag, keys
+  // ======================================================================== aiming: drag, keys, taps
   // Drag back from the ball and let go: the putt goes the other way from your finger (where it is on the green), harder
   // the further you pull. A tap only turns the aim; pulling back to the ball cancels.
   function pullTo(e) {
@@ -1409,13 +1606,22 @@
     if (e.target.closest('[data-mg-putt]')) { putt(); return; }
     if (e.target.closest('[data-mg-look]')) { look(); return; }
     if (e.target.closest('[data-mg-retake]')) { retake(); return; }
-    if (e.target.closest('[data-mg-keep]') && A.phase === 'after') { row(''); say('Not in.'); after(true, 600); }
+    if (e.target.closest('[data-mg-keep]') && A.phase === 'after') { row(''); say('<b>Not in.</b>'); after(true, 500); return; }
+    // On a phone a tap on the answer's sheet puts it away.
+    if (A.phone && e.target.closest('.mg-ask.is-done')) { hideAsk(); return; }
+    // A tap on the game: on with his question, or the rest of a roll at 3x.
+    if (!e.target.closest('[data-ar-stage]') || e.target.closest('button')) return;
+    if (A.phase === 'him' && A.then) { var go2 = A.then; A.then = null; go2(); return; }
+    if ((A.phase === 'rolling' || A.phase === 'swing') && A.shot) A.ff = 3;
   });
   var drag = null;
   document.addEventListener('pointerdown', function (e) {
     if (!live() || A.phase !== 'aim' || !e.target.closest || !e.target.closest('[data-mg-canvas]')) return;
     drag = { x: e.clientX, y: e.clientY, moved: false };
     try { e.target.setPointerCapture(e.pointerId); } catch (err) { /* not capturable */ }
+    // On a phone the answer's sheet goes once you start to aim, so the whole hole is in sight.
+    var l = q('[data-ar-ask]');
+    if (A.phone && l && l.classList.contains('is-done')) hideAsk();
     pullTo(e);
     e.preventDefault();
   });
@@ -1447,7 +1653,7 @@
     open: openGolf,
     state: function () { return A; },
     // For tools/bio/tests/golf.mjs.
-    test: { HOLES: HOLES, prep: prep, roll: roll, aimLine: aimLine, survey: survey, solve: solve, hisAim: hisAim, nextGo: nextGo, costAt: costAt, ahead: ahead,
-      height: height, inPoly: inPoly, gap: gap, cellAt: cellAt, speedOf: speedOf, R: R, CUP: CUP, MAX: MAX }
+    test: { HOLES: HOLES, prep: prep, roll: roll, aimLine: aimLine, search: search, solve: solve, hisMode: hisMode, hisAim: hisAim, nextGo: nextGo, costAt: costAt, ahead: ahead,
+      height: height, inPoly: inPoly, gap: gap, cellAt: cellAt, speedOf: speedOf, R: R, CUP: CUP, MAX: MAX, TRAIL: TRAIL, MIN_TRAIL: MIN_TRAIL, EDGE: EDGE, NOCUP: NOCUP, NEAR: NEAR }
   };
 })();

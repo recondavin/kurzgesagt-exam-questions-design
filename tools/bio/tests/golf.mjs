@@ -4,7 +4,8 @@
 //   same      the physics is deterministic: the same putt rolls the same way every time, and nothing in it is random;
 //   valves    the heart's valves let the ball through forwards and bounce it back the other way;
 //   turns     a wrong answer ends a turn and two right ones in a row do too; a player who's in is skipped;
-//   his putt  after a right answer, the search's putt with no more than his wobble.
+//   his putt  after a right answer, the search's putt with no more than his wobble; from far away a lag (aces are rare);
+//   trail     your aim's dots start at the ball's edge, are at least MIN_TRAIL long, at most TRAIL, and stay off the cup.
 // Run: node tools/bio/tests/golf.mjs
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
@@ -109,11 +110,54 @@ const G = (who, shots) => ({ who, shots });
   const got = T.nextGo(turn, right, holed);
   if (JSON.stringify(got) !== JSON.stringify(want)) fail(`turns: ${what} (got ${JSON.stringify(got)})`);
 });
-// His putt after a right answer is the search's, off by no more than his wobble (2 degrees, 7% power).
+// His putt after a right answer is the search's (going for the cup, or a lag from far away), off by no more than his
+// wobble (2 degrees, 7% power).
 holes.forEach((h, n) => {
-  const rand = seeded(400 + n), s = T.solve(h, h.tee, 0), a = T.hisAim(h, h.tee, 0, rand);
-  if (Math.abs(a.angle - s.angle) > 0.0351 || Math.abs(a.power / s.power - 1) > 0.0701) fail(`hole ${n + 1}: his putt is further off the search's than his wobble`);
+  [400, 900].forEach(seed => {
+    const mode = T.hisMode(h, h.tee, seeded(seed + n)), s = T.solve(h, h.tee, 0, mode), a = T.hisAim(h, h.tee, 0, seeded(seed + n));
+    if (Math.abs(a.angle - s.angle) > 0.0351 || Math.abs(a.power / s.power - 1) > 0.0701) fail(`hole ${n + 1}: his putt is further off the search's (${mode}) than his wobble`);
+  });
 });
+// From far away he lags (he used to hole out from his tee on the kidney about half the time he was right): from each
+// tee, 16 of his putts after right answers, and a hole in one is rare. Near the cup he goes for it.
+let aces = 0, tries = 0;
+holes.forEach((h, n) => {
+  if (T.hisMode(h, h.tee, () => 0.9) !== 'lag') fail(`hole ${n + 1}: from the tee he should lag`);
+  for (let k = 0; k < 16; k++) {
+    const rand = seeded(3000 + 97 * k + n);
+    rand(); rand();
+    const a = T.hisAim(h, h.tee, 0, rand);
+    tries++;
+    if (T.roll(h, h.tee, a.angle, a.power, 0, false).sunk) aces++;
+  }
+  const near = [h.cup[0] + 1.2, h.cup[1]];
+  if (T.inPoly(h.outline, near[0], near[1]) && T.gap(h, near[0], near[1]) > T.R && T.costAt(h, near[0], near[1]) < T.NEAR && T.hisMode(h, near, () => 0.9) !== 'cup') fail(`hole ${n + 1}: near the cup he should go for it`);
+});
+if (aces > tries * 0.12) fail(`he holed in one from the tee ${aces} times in ${tries}`);
+// The aim's trail (after your right answer): from the ball's edge, at least MIN_TRAIL long even when the first wall is
+// close (unless the putt stops sooner or it would reach the cup), never more than TRAIL, and never near the cup.
+let short = 0, aims = 0;
+holes.forEach((h, n) => {
+  [h.tee, T.ahead(h, h.tee, 6)].forEach(from => {
+    for (let a = 0; a < 72; a++) {
+      for (const p of [0.2, 0.45, 0.8]) {
+        const r = T.roll(h, from, a * Math.PI / 36, p, 0, true), line = T.aimLine(h, r).pts;
+        aims++;
+        if (!line.length) { fail(`hole ${n + 1}: no trail at all (angle ${a * 5}, power ${p})`); continue; }
+        if (Math.hypot(line[0][0] - from[0], line[0][1] - from[1]) > T.EDGE + 0.5) fail(`hole ${n + 1}: the trail doesn't start at the ball's edge`);
+        let run = 0;
+        for (let i = 1; i < line.length; i++) run += Math.hypot(line[i][0] - line[i - 1][0], line[i][1] - line[i - 1][1]);
+        if (run > T.TRAIL + 0.01) fail(`hole ${n + 1}: the trail is longer than ${T.TRAIL}`);
+        if (line.some(q => Math.hypot(q[0] - h.cup[0], q[1] - h.cup[1]) < T.NOCUP)) fail(`hole ${n + 1}: the trail goes up to the cup`);
+        // (Measured dot to dot, which cuts the corner at a bounce back, so a little short of the roll it shows.)
+        let roll = 0;
+        for (let i = 2; i < r.path.length; i += 2) roll += Math.hypot(r.path[i] - r.path[i - 2], r.path[i + 1] - r.path[i - 1]);
+        if (run < T.MIN_TRAIL - 1 && roll > T.EDGE + T.MIN_TRAIL + 0.5 && !r.sunk) short++;
+      }
+    }
+  });
+});
+if (short) fail(`${short} of ${aims} trails were shorter than ${T.MIN_TRAIL} when the putt went further`);
 
-console.log(fails ? `${fails} failures` : `ok: 5 holes sunk within par + 2, the ball stays on the course, the same putt rolls the same way, valves are one way, turns (wrong ends a turn, two right and it's capped), his putts (${((Date.now() - t0) / 1000).toFixed(1)}s)`);
+console.log(fails ? `${fails} failures` : `ok: 5 holes sunk within par + 2, the ball stays on the course, the same putt rolls the same way, valves are one way, turns (wrong ends a turn, two right and it's capped), his putts (aces from the tee ${aces}/${tries}), trails (${aims} aims) (${((Date.now() - t0) / 1000).toFixed(1)}s)`);
 process.exit(fails ? 1 : 0);
