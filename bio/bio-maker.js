@@ -1036,6 +1036,12 @@
       (mine ? '<p class="tb-mine">' + esc(mine) + '</p>' : '') +
       (showAns ? '<p class="mk-ans"><span>' + (M.typed ? 'A full-marks answer' : 'Answer') + '</span>' + esc(it.right) + '</p>' : '') + line +
       '<details class="mk-why"><summary>Why?' + (scheme ? ' And the marking scheme' : '') + '</summary><p class="tb-why"><span>Why</span>' + esc(it.why) + '</p>' + scheme + '</details>';
+    // On a short screen (or with a diagram) the verdict can fall below the panel's fold: bring it into view.
+    var panel = q('[data-mk-panel]'), after = q('[data-mk-after]');
+    if (panel && after) {
+      var below = after.getBoundingClientRect().bottom - panel.getBoundingClientRect().bottom;
+      if (below > 0) panel.scrollTo({ top: panel.scrollTop + below + 8, behavior: K.reduced() ? 'auto' : 'smooth' });
+    }
     var world = q('.mk-world');
     if (world) world.outerHTML = worldHtml(g, M.st, false, { was: was, ok: ok });
     var end = over(g, M.st);

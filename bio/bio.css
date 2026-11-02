@@ -902,6 +902,7 @@ button.sea-c { cursor: default; }
 .mk-need { color: #5B6B80; font-size: .7em; white-space: nowrap; }
 .mk-fig { --fig-h: min(320px, 34vh); display: flex; justify-content: center; justify-self: center; width: 100%; }
 .mk-fig svg { display: block; height: auto; max-height: var(--fig-h); }
+.mk-play .mk-fig { --fig-h: min(260px, 27vh); }
 .mk-spot { cursor: pointer; }
 .mk-spot:hover circle:first-child, .mk-spot:focus-visible circle:first-child { fill: #FFC800; fill-opacity: .45; }
 .mk-spot:focus { outline: none; }
@@ -1192,7 +1193,7 @@ button.sea-c { cursor: default; }
   .mk-hearts { max-width: 96px; gap: 2px; padding: 2px 5px; border-radius: 9px; }
   .mk-side--you { left: 6%; }
   .mk-side--him { right: 6%; }
-  .mk-fig { --fig-h: 200px; }
+  .mk-fig, .mk-play .mk-fig { --fig-h: 165px; }
   .mk-vs { font-size: 20px; padding: 0 8px; }
   .mk-points { font-size: 30px; }
   .mk-chip { min-height: 42px; padding: 5px 12px; font-size: 15px; }

@@ -336,7 +336,8 @@
     }
   }
   function lose(text, x, y, word) {
-    A.hearts -= 1; A.combo = 0; A.res[A.round] = false;
+    // (A round's chip at the end says whether it was cleared; a heart lost on the way doesn't undo that.)
+    A.hearts -= 1; A.combo = 0;
     hearts(true); K.bonk(); note(text, false);
     if (A.g && x != null) S.pop(A.g, x, y, word || 'Ouch!', '#EA2B2B', true);
     K.mascot('angry', pick(['That\'s one of YOUR cells!', 'Self! Not foreign!', 'Careful!']));
