@@ -10,7 +10,12 @@
    ],
    "why": "Two points: viruses are non-cellular and can reproduce only in a host cell; they also have just one nucleic acid and no organelles.",
    "hint": "Think about what all living things are built from, and whether a virus can copy itself alone.",
-   "board": true
+   "board": true,
+   "hook": "A virus is a USB stick of genes: useless until it's plugged into a host cell",
+   "keys": [
+    "non-cellular",
+    "only in a host cell"
+   ]
   },
   {
    "q": "Name two diseases of humans caused by viruses. (2 points)",
@@ -22,7 +27,12 @@
    ],
    "why": "Two points: any two viral diseases, e.g. measles, colds, flu, polio, mumps, AIDS; TB, tetanus and cholera are bacterial, athlete's foot fungal.",
    "hint": "Think of illnesses antibiotics can't treat, like winter sniffles, or ones childhood jabs prevent.",
-   "board": true
+   "board": true,
+   "hook": "Think of the MMR jab and winter sniffles: measles, mumps, rubella, colds and flu are viral",
+   "keys": [
+    "measles",
+    "TB, tetanus and cholera are bacterial"
+   ]
   },
   {
    "q": "Name two lymphocytes and give a role of each against microbes. (4 points)",
@@ -34,7 +44,12 @@
    ],
    "why": "Four points: two lymphocytes named, each with a matching role: B cells make antibodies; killer T cells destroy infected cells.",
    "hint": "There are two letter-named kinds: which one makes the Y-shaped proteins, and what does the other do?",
-   "board": true
+   "board": true,
+   "hook": "B cells fire antibody Bullets; killer T cells kill infected cells up close",
+   "keys": [
+    "B cells make antibodies",
+    "killer T cells destroy infected cells"
+   ]
   },
   {
    "q": "Is vaccine immunity like immunity after an infection, and why?",
@@ -46,7 +61,13 @@
    ],
    "why": "Both expose you to the antigen, so your own lymphocytes make antibodies and memory cells: active immunity.",
    "hint": "In both cases the body meets the antigen. What do your own lymphocytes then make?",
-   "board": true
+   "board": true,
+   "hook": "A vaccine is a fire drill: your body practises on a harmless antigen, then remembers",
+   "keys": [
+    "own lymphocytes make antibodies",
+    "memory cells",
+    "active immunity"
+   ]
   }
  ],
  "2005-Q15b": [
@@ -60,7 +81,12 @@
    ],
    "why": "Pathogenic means disease-causing; a bacterium that feeds on dead matter is a saprophyte.",
    "hint": "'Patho-' means suffering and '-genic' means producing. What does such a bacterium do to its host?",
-   "board": true
+   "board": true,
+   "hook": "Patho = disease, gen = making: pathogenic means disease-making",
+   "keys": [
+    "disease-causing",
+    "saprophyte"
+   ]
   },
   {
    "q": "What are antibiotics, and why is misusing them dangerous? (3 points)",
@@ -72,7 +98,13 @@
    ],
    "why": "Three points: antibiotics are made by micro-organisms and stop bacteria or fungi growing; misuse lets resistant strains survive and build up.",
    "hint": "Where did penicillin come from, and what does it attack? Then, which bacteria survive a dose?",
-   "board": true
+   "board": true,
+   "hook": "Antibiotics act as a filter: weak bacteria die, resistant ones survive and take over",
+   "keys": [
+    "made by micro-organisms",
+    "stop bacteria or fungi growing",
+    "resistant strains survive"
+   ]
   }
  ],
  "2006-Q6e": [
@@ -86,7 +118,12 @@
    ],
    "why": "Two points: an antigen is a substance on the surface of a cell, virus or bacterium; an antibody is a protein made in response to it.",
    "hint": "Antigen is short for 'antibody generator'. Which one sits on the invader, and which is the reply?",
-   "board": true
+   "board": true,
+   "hook": "Antigen = ANTIbody GENerator: the foreign marker that sets the body making antibodies",
+   "keys": [
+    "antigen is a substance on the surface",
+    "antibody is a protein"
+   ]
   }
  ],
  "2006-Q15b": [
@@ -100,7 +137,12 @@
    ],
    "why": "Two points: antibiotics are made by bacteria or fungi, and used to treat infections; antibodies are what your own body makes.",
    "hint": "Penicillin came from a mould. Where do these drugs come from, and when does a doctor prescribe them?",
-   "board": true
+   "board": true,
+   "hook": "AntiBIOtic = against life, made by microbes; antiBODY = made by your body",
+   "keys": [
+    "made by bacteria or fungi",
+    "treat infections"
+   ]
   },
   {
    "q": "What is antibiotic resistance and how may it develop? (2 points)",
@@ -112,7 +154,12 @@
    ],
    "why": "Two points: resistant bacteria aren't killed or inhibited by the antibiotic; it develops by natural selection as resistant ones survive.",
    "hint": "If a drug kills most bacteria but a few live on and breed, which of Darwin's ideas is at work?",
-   "board": true
+   "board": true,
+   "hook": "Bacteria don't 'learn': the resistant few survive the drug and multiply",
+   "keys": [
+    "aren't killed or inhibited",
+    "natural selection"
+   ]
   }
  ],
  "2006-Q15c": [
@@ -126,7 +173,13 @@
    ],
    "why": "Three points: milk passes on antibodies (passive immunity), has the right nutrients and is at the right temperature; it also delays ovulation.",
    "hint": "Think of protection passed on from mum, the food value of the milk, and how it's served.",
-   "board": true
+   "board": true,
+   "hook": "Breast milk: ready-made antibodies, the perfect recipe, served at body temperature",
+   "keys": [
+    "antibodies (passive immunity)",
+    "right nutrients",
+    "right temperature"
+   ]
   }
  ],
  "2007-Q14b": [
@@ -140,7 +193,12 @@
    ],
    "why": "Two points: viruses are obligate parasites (only reproduce in a host cell) and non-cellular; they also have no metabolism of their own.",
    "hint": "Compare a virus with the signs of life: can it reproduce alone, and what is it built from?",
-   "board": true
+   "board": true,
+   "hook": "A virus is a USB stick of genes: useless until it's plugged into a host cell",
+   "keys": [
+    "obligate parasites",
+    "non-cellular"
+   ]
   },
   {
    "q": "What two substances make up a virus particle?",
@@ -152,7 +210,12 @@
    ],
    "why": "A virus is just a protein coat around a core of nucleic acid, either DNA or RNA.",
    "hint": "Think of a virus as genes wrapped in a coat. What is each of those two parts made of?",
-   "board": true
+   "board": true,
+   "hook": "A virus is a sweet in a wrapper: a protein coat round a DNA or RNA centre",
+   "keys": [
+    "protein coat",
+    "nucleic acid"
+   ]
   },
   {
    "q": "Name two diseases caused by viruses. (2 points)",
@@ -164,7 +227,12 @@
    ],
    "why": "Two points: any two viral diseases, e.g. polio, measles, flu, colds; cholera, tetanus and TB are bacterial, and ringworm is fungal.",
    "hint": "Think of illnesses antibiotics can't help with, or ones babies get routine jabs against.",
-   "board": true
+   "board": true,
+   "hook": "Think of the childhood jabs and winter sniffles: polio, measles, flu and colds are viral",
+   "keys": [
+    "polio, measles, flu, colds",
+    "bacterial"
+   ]
   },
   {
    "q": "Which is a beneficial use of viruses?",
@@ -176,7 +244,12 @@
    ],
    "why": "Viruses can carry genes into cells, so they're used as vectors; penicillin comes from a fungus, not a virus.",
    "hint": "Viruses naturally inject genetic material into cells. How could scientists make use of that?",
-   "board": true
+   "board": true,
+   "hook": "Viruses are natural delivery vans for genes, so engineers use them as vectors",
+   "keys": [
+    "carry genes into cells",
+    "vectors"
+   ]
   },
   {
    "q": "What is an antibiotic? (2 points)",
@@ -188,7 +261,12 @@
    ],
    "why": "Two points: antibiotics are made by micro-organisms (bacteria or fungi) and kill or stop the growth of other micro-organisms.",
    "hint": "Think of penicillin: what kind of living thing first made it, and what does it do to germs?",
-   "board": true
+   "board": true,
+   "hook": "AntiBIOtic = against life, made by microbes; antiBODY = made by your body",
+   "keys": [
+    "made by micro-organisms",
+    "kill or stop the growth"
+   ]
   },
   {
    "q": "Why not give antibiotics for a viral infection?",
@@ -200,7 +278,12 @@
    ],
    "why": "Antibiotics act on bacteria (and fungi), not viruses; giving them anyway just helps resistant bacteria build up.",
    "hint": "Antibiotics target parts that bacteria have. Does a virus have any of those parts?",
-   "board": true
+   "board": true,
+   "hook": "Antibiotics target bacterial parts like cell walls; a virus has none, so nothing to hit",
+   "keys": [
+    "not viruses",
+    "resistant bacteria build up"
+   ]
   }
  ],
  "2007-Q14c": [
@@ -214,7 +297,11 @@
    ],
    "why": "Immunity is the ability to resist infection, usually because antibodies and memory cells are ready for the antigen.",
    "hint": "If you're immune to chickenpox, what happens when you meet it again?",
-   "board": true
+   "board": true,
+   "hook": "Immune comes from the Latin for 'exempt': you're let off the illness",
+   "keys": [
+    "ability to resist infection"
+   ]
   },
   {
    "q": "What is the main job of B lymphocytes?",
@@ -226,7 +313,12 @@
    ],
    "why": "B cells recognise a specific antigen and make antibodies (and memory cells); bursting infected cells is a killer T job.",
    "hint": "What Y-shaped proteins do B cells release when they meet an antigen that matches them?",
-   "board": true
+   "board": true,
+   "hook": "B cells fire antibody Bullets; killer T cells kill infected cells up close",
+   "keys": [
+    "specific antigen",
+    "make antibodies"
+   ]
   },
   {
    "q": "Distinguish between active and passive immunity. (2 points)",
@@ -238,7 +330,12 @@
    ],
    "why": "Two points: in active immunity the body makes its own antibodies; in passive immunity ready-made antibodies are put into the body.",
    "hint": "Compare a vaccinated person with a breastfed baby: where do the antibodies come from in each?",
-   "board": true
+   "board": true,
+   "hook": "Active = you make them (DIY); passive = handed to you ready-made (takeaway)",
+   "keys": [
+    "body makes its own antibodies",
+    "ready-made antibodies"
+   ]
   },
   {
    "q": "Why does a vaccine give active immunity?",
@@ -250,7 +347,13 @@
    ],
    "why": "A vaccine brings in a harmless antigen, and your own lymphocytes respond by making antibodies: that's active.",
    "hint": "What does a vaccine carry into the body, and how do your own lymphocytes respond to it?",
-   "board": true
+   "board": true,
+   "hook": "A vaccine is a fire drill: your body practises on a harmless antigen, then remembers",
+   "keys": [
+    "harmless antigen",
+    "own lymphocytes",
+    "making antibodies"
+   ]
   },
   {
    "q": "Being given a specific antibody is which type of immunity?",
@@ -262,7 +365,12 @@
    ],
    "why": "The antibodies are made outside your body and given ready-made, so it's passive; active means your body makes them.",
    "hint": "Did your own body make that antibody, or did it arrive ready-made?",
-   "board": true
+   "board": true,
+   "hook": "Active = you make them (DIY); passive = handed to you ready-made (takeaway)",
+   "keys": [
+    "given ready-made",
+    "passive"
+   ]
   },
   {
    "q": "When might an antibody be given instead of a vaccine?",
@@ -274,7 +382,12 @@
    ],
    "why": "Antibodies work at once, which helps if someone may already be infected and there's no time for a vaccine to work.",
    "hint": "A vaccine takes a week or more to work. When would there be no time to wait?",
-   "board": true
+   "board": true,
+   "hook": "Antibodies are a fire extinguisher (instant); a vaccine is fire training (slow, lasting)",
+   "keys": [
+    "work at once",
+    "already be infected"
+   ]
   },
   {
    "q": "How long does immunity from a given antibody last?",
@@ -286,7 +399,12 @@
    ],
    "why": "The given antibodies are broken down and no memory cells are made, so the protection soon fades.",
    "hint": "Donated antibodies are broken down and no memory cells are made. So how long can it last?",
-   "board": "How long does immunity last when a person is given a ready-made antibody instead of a vaccine?"
+   "board": "How long does immunity last when a person is given a ready-made antibody instead of a vaccine?",
+   "hook": "Passive immunity is a loan, not savings: no memory cells, so it soon runs out",
+   "keys": [
+    "broken down",
+    "no memory cells"
+   ]
   }
  ],
  "2008-Q6d": [
@@ -300,7 +418,13 @@
    ],
    "why": "Breast milk is sterile, at body temperature and full of antibodies; those give passive, not active, immunity.",
    "hint": "Think about protection from germs, nutrition, and why milk straight from mum needs no preparing.",
-   "board": true
+   "board": true,
+   "hook": "Breast milk: ready-made antibodies, perfect recipe, served germ-free at body temperature",
+   "keys": [
+    "sterile",
+    "body temperature",
+    "antibodies"
+   ]
   }
  ],
  "2008-Q15b": [
@@ -314,7 +438,12 @@
    ],
    "why": "Two points: the virus was new, so the population had no immunity, and suitable vectors (fleas) spread it rapidly.",
    "hint": "The virus was brand new to Ireland. What did the rabbits lack, and how did it travel between them?",
-   "board": "When the myxoma virus was first brought to Ireland, myxomatosis killed most wild rabbits. Why? (2 points)"
+   "board": "When the myxoma virus was first brought to Ireland, myxomatosis killed most wild rabbits. Why? (2 points)",
+   "hook": "New virus + no immunity + flea taxis = wildfire through the warren",
+   "keys": [
+    "no immunity",
+    "fleas"
+   ]
   },
   {
    "q": "Why is myxomatosis less of a threat to Irish rabbits now?",
@@ -326,7 +455,12 @@
    ],
    "why": "Rabbits with natural immunity survived and passed it on (natural selection); antibiotics don't work on viruses.",
    "hint": "A few rabbits survived the first outbreak. What did they pass on to their young?",
-   "board": "Myxomatosis once wiped out most of Ireland's wild rabbits but now kills far fewer. Why is it less of a threat now?"
+   "board": "Myxomatosis once wiped out most of Ireland's wild rabbits but now kills far fewer. Why is it less of a threat now?",
+   "hook": "Survivors breed survivors: rabbits that lived through it passed on their resistance",
+   "keys": [
+    "natural immunity survived",
+    "natural selection"
+   ]
   },
   {
    "q": "Which is a sound reason for your answer on the HIV trend?",
@@ -338,7 +472,12 @@
    ],
    "why": "Natural selection works on humans too, just slowly; HIV is a virus that mutates, and antibiotics don't touch it.",
    "hint": "Could this happen in humans? Recall how the rabbits recovered, then think about the timescale.",
-   "board": "Irish rabbits became resistant to myxomatosis over time. Would you expect a similar trend with HIV in humans, and why?"
+   "board": "Irish rabbits became resistant to myxomatosis over time. Would you expect a similar trend with HIV in humans, and why?",
+   "hook": "Same rule as the rabbits, just slower: people who resist survive and have children",
+   "keys": [
+    "natural selection works on humans too",
+    "HIV is a virus"
+   ]
   },
   {
    "q": "Outline briefly how a virus replicates. (3 points)",
@@ -350,7 +489,13 @@
    ],
    "why": "Three points: the virus attaches to a host cell, introduces its DNA or RNA, and uses the host's resources to copy it and assemble new viruses.",
    "hint": "Step by step: how does it latch on, what goes inside, and whose machinery does the copying?",
-   "board": true
+   "board": true,
+   "hook": "A virus hijacks the cell: lands, injects its genes, and the cell's factory builds copies",
+   "keys": [
+    "attaches to a host cell",
+    "introduces its DNA or RNA",
+    "assemble new viruses"
+   ]
   }
  ],
  "2009-Q15c": [
@@ -364,7 +509,12 @@
    ],
    "why": "Three points: lymphocytes are part of the immune system; B cells make antibodies; T cells do jobs like killing infected cells.",
    "hint": "Which kind of lymphocyte releases Y-shaped proteins, and what jobs do the other kinds do?",
-   "board": true
+   "board": true,
+   "hook": "B cells fire antibody Bullets; killer T cells kill infected cells up close",
+   "keys": [
+    "B cells make antibodies",
+    "killing infected cells"
+   ]
   },
   {
    "q": "Write about the economic and medical importance of viruses. (3 points)",
@@ -376,7 +526,13 @@
    ],
    "why": "Three points, at least one of each: economic, e.g. crop or livestock damage; medical, e.g. diseases like flu, or use in genetic engineering.",
    "hint": "Think of costs to farming, illnesses they cause in people, and how scientists can put them to work.",
-   "board": true
+   "board": true,
+   "hook": "Viruses: bad for farms and health (crops, flu), good for gene engineers (vectors)",
+   "keys": [
+    "crop or livestock damage",
+    "flu",
+    "genetic engineering"
+   ]
   }
  ],
  "2010-Q6": [
@@ -390,7 +546,11 @@
    ],
    "why": "The coat and other outer parts of a virus are protein; the nucleic acid (part B) is the genetic material inside.",
    "hint": "A is the virus's outer coat. Which biomolecule, the same type as enzymes, builds it?",
-   "board": false
+   "board": false,
+   "hook": "A virus is a sweet in a wrapper: a protein coat round a DNA or RNA centre",
+   "keys": [
+    "outer parts of a virus are protein"
+   ]
   },
   {
    "q": "What is part B on the diagram made of?",
@@ -402,7 +562,12 @@
    ],
    "why": "B is the virus's genetic material: a nucleic acid, either DNA or RNA, wrapped in the protein coat.",
    "hint": "B is the genetic material at the core. What type of biomolecule carries genes?",
-   "board": false
+   "board": false,
+   "hook": "A virus is a sweet in a wrapper: a protein coat round a DNA or RNA centre",
+   "keys": [
+    "genetic material",
+    "DNA or RNA"
+   ]
   },
   {
    "q": "Briefly describe how viruses reproduce. (3 points)",
@@ -414,7 +579,13 @@
    ],
    "why": "Three points: the virus attaches, injects its nucleic acid, and uses the host's structures to copy its parts, which assemble and are released.",
    "hint": "Start with the virus landing on the cell, then what it sends inside, then who builds the copies.",
-   "board": true
+   "board": true,
+   "hook": "A virus hijacks the cell: lands, injects its genes, and the cell's factory builds copies",
+   "keys": [
+    "attaches",
+    "injects its nucleic acid",
+    "host's structures"
+   ]
   },
   {
    "q": "Why were younger people more at risk from swine flu? (2 points)",
@@ -426,7 +597,12 @@
    ],
    "why": "Two points: older people had probably been exposed to a similar flu before, so they already had antibodies and memory cells for it.",
    "hint": "Older people have lived through more flu seasons. What might their immune systems already have?",
-   "board": "In the 2009 swine flu outbreak, younger people were more at risk of becoming ill than older people. Why? (2 points)"
+   "board": "In the 2009 swine flu outbreak, younger people were more at risk of becoming ill than older people. Why? (2 points)",
+   "hook": "Memory cells are a 'wanted' poster: older people already had one for a similar flu",
+   "keys": [
+    "exposed to a similar flu before",
+    "antibodies and memory cells"
+   ]
   }
  ],
  "2010-Q15c": [
@@ -440,7 +616,12 @@
    ],
    "why": "Colds are caused by viruses, which antibiotics can't touch; overusing them also breeds resistant bacteria.",
    "hint": "What kind of microbe causes a cold, and what kind do antibiotics act on?",
-   "board": true
+   "board": true,
+   "hook": "Wrong key, wrong lock: antibiotics fit bacteria, and a cold is a virus",
+   "keys": [
+    "caused by viruses",
+    "breeds resistant bacteria"
+   ]
   }
  ],
  "2011-Q10b": [
@@ -454,7 +635,12 @@
    ],
    "why": "Over time the population builds immunity (natural selection favours resistant hosts), so fewer die.",
    "hint": "Think about the survivors of each outbreak, and what they and their offspring may now have.",
-   "board": true
+   "board": true,
+   "hook": "Survivors breed survivors: each generation the hosts are a bit tougher",
+   "keys": [
+    "builds immunity",
+    "favours resistant hosts"
+   ]
   }
  ],
  "2012-Q15b": [
@@ -468,7 +654,12 @@
    ],
    "why": "Two points: red cells have no nucleus and contain haemoglobin to carry oxygen; they're also smaller, biconcave and far more numerous.",
    "hint": "Compare what's inside each cell, their size and shape, and how many there are in blood.",
-   "board": true
+   "board": true,
+   "hook": "Red cells: many, small, no nucleus. White cells: few, big, with a nucleus",
+   "keys": [
+    "no nucleus",
+    "haemoglobin to carry oxygen"
+   ]
   },
   {
    "q": "Which group of white blood cells is NOT a type of lymphocyte?",
@@ -480,7 +671,12 @@
    ],
    "why": "Monocytes are phagocytes that engulf microbes; B and T cells are lymphocytes, and platelets aren't white cells.",
    "hint": "Think of the white cells that engulf and eat germs rather than making antibodies.",
-   "board": true
+   "board": true,
+   "hook": "Phago = eat, cyte = cell: phagocytes like monocytes are the eating cells",
+   "keys": [
+    "monocytes are phagocytes",
+    "engulf microbes"
+   ]
   },
   {
    "q": "What do antibodies do in the body?",
@@ -492,7 +688,12 @@
    ],
    "why": "Antibodies lock onto a specific antigen and inactivate it, for example by clumping or bursting the microbe.",
    "hint": "Antibodies match one antigen like a key in a lock. What do they do to it once attached?",
-   "board": true
+   "board": true,
+   "hook": "Antibody and antigen fit like a key in a lock: each antibody fits one antigen",
+   "keys": [
+    "lock onto a specific antigen",
+    "inactivate it"
+   ]
   },
   {
    "q": "Which list has three types of T cell?",
@@ -504,7 +705,11 @@
    ],
    "why": "The four T cell types are helper, killer, suppressor and memory; B cells and phagocytes are different white cells.",
    "hint": "T cells are named after their jobs: think of support, attack, switching off and recall.",
-   "board": true
+   "board": true,
+   "hook": "T cell team, 'Happy Kids Sing More': Helper, Killer, Suppressor, Memory",
+   "keys": [
+    "helper, killer, suppressor and memory"
+   ]
   },
   {
    "q": "Give a role for helper, killer and suppressor T cells, in that order. (3 points)",
@@ -516,7 +721,13 @@
    ],
    "why": "Three points: helper T cells recognise antigens, killer T cells attack infected cells, suppressor T cells stop the immune response.",
    "hint": "Each T cell's name tells you its job. Think about the start, the middle and the end of an attack.",
-   "board": true
+   "board": true,
+   "hook": "Helper spots it, killer kills it, suppressor stands everyone down",
+   "keys": [
+    "helper T cells recognise antigens",
+    "killer T cells attack infected cells",
+    "suppressor T cells stop"
+   ]
   }
  ],
  "2013-Q12a": [
@@ -530,7 +741,11 @@
    ],
    "why": "A virus is basically DNA or RNA in a protein coat, like a stray bit of a cell's genes.",
    "hint": "Look under the virus's coat. What's in there, and where else would you find that in a cell?",
-   "board": "A virus has been described as genetic material that escaped from a cell. What evidence supports this?"
+   "board": "A virus has been described as genetic material that escaped from a cell. What evidence supports this?",
+   "hook": "A virus looks like a stray page torn from a cell's instruction book, wrapped in protein",
+   "keys": [
+    "DNA or RNA in a protein coat"
+   ]
   },
   {
    "q": "Why are viruses called obligate parasites?",
@@ -542,7 +757,12 @@
    ],
    "why": "'Obligate' means they have no choice: viruses can only reproduce using a living host cell's machinery.",
    "hint": "'Obligate' means it has no choice. Where must a virus be in order to make copies of itself?",
-   "board": true
+   "board": true,
+   "hook": "Obligate = obliged: a virus has no choice but to use a host cell",
+   "keys": [
+    "no choice",
+    "living host cell"
+   ]
   },
   {
    "q": "How can a virus be useful to people?",
@@ -554,7 +774,12 @@
    ],
    "why": "Viruses are used in cancer treatment and genetic engineering; penicillin, yoghurt and bread need fungi or bacteria.",
    "hint": "Viruses are experts at getting genes into cells. How could scientists or doctors use that?",
-   "board": true
+   "board": true,
+   "hook": "Viruses can be put to work: some attack cancer cells, others carry genes as vectors",
+   "keys": [
+    "cancer treatment",
+    "genetic engineering"
+   ]
   }
  ],
  "2013-Q12c": [
@@ -568,7 +793,12 @@
    ],
    "why": "Four points: antibodies are proteins made by the body against antigens; antibiotics are made by microbes, kill other microbes, not viruses.",
    "hint": "For each one ask: who makes it, what is it made of or what does it do, and does it work on viruses?",
-   "board": true
+   "board": true,
+   "hook": "AntiBIOtic = against life, made by microbes; antiBODY = made by your body",
+   "keys": [
+    "antibodies are proteins made by the body",
+    "antibiotics are made by microbes"
+   ]
   },
   {
    "q": "Distinguish active and passive immunity in terms of antibodies. (2 points)",
@@ -580,7 +810,12 @@
    ],
    "why": "Two points: in active immunity your body makes its own antibodies; in passive immunity ready-made antibodies are given (e.g. in breast milk).",
    "hint": "For each type, ask: did your own cells make the antibodies, or were they handed over ready-made?",
-   "board": true
+   "board": true,
+   "hook": "Active = you make them (DIY); passive = handed to you ready-made (takeaway)",
+   "keys": [
+    "your body makes its own antibodies",
+    "ready-made antibodies are given"
+   ]
   },
   {
    "q": "Why is an infection more likely in hospital than at home? (2 points)",
@@ -592,7 +827,12 @@
    ],
    "why": "Two points: heavy antibiotic use selects resistant strains (like MRSA), and patients are weaker; there are also more pathogens and people.",
    "hint": "Think about how much antibiotic is used in a hospital, and how healthy the people there are.",
-   "board": true
+   "board": true,
+   "hook": "Hospitals use the most antibiotics, so superbugs like MRSA thrive among weaker patients",
+   "keys": [
+    "resistant strains (like MRSA)",
+    "patients are weaker"
+   ]
   }
  ],
  "2014-Q15b": [
@@ -606,7 +846,12 @@
    ],
    "why": "The few rabbits with resistance survived and bred, so natural selection built up an immune population.",
    "hint": "Some rabbits survived the virus. What did they have that the others lacked, and pass on?",
-   "board": "Myxoma virus was released in Australia and cut rabbit numbers to 5%, but numbers later recovered. Why?"
+   "board": "Myxoma virus was released in Australia and cut rabbit numbers to 5%, but numbers later recovered. Why?",
+   "hook": "Survivors breed survivors: rabbits that lived through it passed on their resistance",
+   "keys": [
+    "resistance survived and bred",
+    "natural selection"
+   ]
   }
  ],
  "2015-Q3": [
@@ -620,7 +865,12 @@
    ],
    "why": "Part A is made mainly of protein, like every virus coat; the nucleic acid (B) is the genetic material.",
    "hint": "A is the coat around the virus. It's the same kind of biomolecule as enzymes and keratin.",
-   "board": false
+   "board": false,
+   "hook": "A virus is a sweet in a wrapper: a protein coat round a DNA or RNA centre",
+   "keys": [
+    "mainly of protein",
+    "virus coat"
+   ]
   },
   {
    "q": "What does 'obligate parasite' mean for a virus?",
@@ -632,7 +882,12 @@
    ],
    "why": "A virus has no machinery of its own, so it can only make copies of itself inside a host cell.",
    "hint": "'Obligate' means 'no choice'. What can't a virus do without getting inside something living?",
-   "board": true
+   "board": true,
+   "hook": "Obligate = obliged: a virus has no choice but to use a host cell",
+   "keys": [
+    "no machinery of its own",
+    "inside a host cell"
+   ]
   },
   {
    "q": "Part B is one of two possible molecules. Which one?",
@@ -644,7 +899,11 @@
    ],
    "why": "Part B is the genetic material: either DNA or RNA, never both, inside the protein coat.",
    "hint": "B is the virus's genetic material. Which two molecules can carry genes? Name either one.",
-   "board": false
+   "board": false,
+   "hook": "A virus picks one recipe book: DNA or RNA, never both",
+   "keys": [
+    "either DNA or RNA, never both"
+   ]
   },
   {
    "q": "Which virus causes disease in plants?",
@@ -656,7 +915,12 @@
    ],
    "why": "Tobacco mosaic virus blotches the leaves of plants; flu, measles and myxoma viruses infect animals.",
    "hint": "Think of the virus named after the patchy, tiled pattern it makes on a plant's leaves.",
-   "board": true
+   "board": true,
+   "hook": "Mosaic = patchwork tiles: tobacco mosaic virus makes leaves mottled like a mosaic",
+   "keys": [
+    "tobacco mosaic virus",
+    "blotches the leaves"
+   ]
   },
   {
    "q": "How do scientists tell different viruses apart?",
@@ -668,7 +932,12 @@
    ],
    "why": "Viruses differ in coat shape, size and type of nucleic acid; they have no nucleus, cell wall or respiration.",
    "hint": "Under an electron microscope, what's the first thing you'd notice about a virus's outside?",
-   "board": true
+   "board": true,
+   "hook": "No cells to compare, so judge by the wrapper: coat shape is a virus's ID card",
+   "keys": [
+    "coat shape",
+    "type of nucleic acid"
+   ]
   },
   {
    "q": "Why don't viruses fit into any kingdom?",
@@ -680,7 +949,12 @@
    ],
    "why": "Kingdoms group cellular organisms; viruses have no cells or organelles, so they don't fit.",
    "hint": "Every kingdom is made of living things built from the same basic unit. Does a virus have it?",
-   "board": true
+   "board": true,
+   "hook": "Kingdoms are clubs for cells only: a virus has no cells, so it can't join",
+   "keys": [
+    "kingdoms group cellular organisms",
+    "no cells"
+   ]
   },
   {
    "q": "Which is one economic importance of viruses?",
@@ -692,7 +966,12 @@
    ],
    "why": "Viruses are used to make vaccines and can harm crops and livestock; penicillin, beer and biogas use fungi or bacteria.",
    "hint": "Think of what drug companies grow viruses to make, or of harm done to crops and farm animals.",
-   "board": true
+   "board": true,
+   "hook": "Viruses: bad for farms (crop and animal disease), good for factories (making vaccines)",
+   "keys": [
+    "make vaccines",
+    "harm crops and livestock"
+   ]
   }
  ],
  "2015-Q14a": [
@@ -706,7 +985,12 @@
    ],
    "why": "Two points: the feature and how it works: mucus in the airways traps microbes and cilia sweep them out. Antibodies are specific.",
    "hint": "Pick a barrier germs meet first, like skin or the airway lining. How does it keep them out?",
-   "board": true
+   "board": true,
+   "hook": "Mucus is flypaper, cilia are the brooms: trap the germs, then sweep them up and out",
+   "keys": [
+    "mucus in the airways traps microbes",
+    "cilia sweep them out"
+   ]
   },
   {
    "q": "Name two organs specific to the immune system. (2 points)",
@@ -718,7 +1002,13 @@
    ],
    "why": "Two points: any two of thymus, spleen, lymph nodes and tonsils; the thyroid, pancreas and kidneys are not immune organs.",
    "hint": "Think of where lymphocytes mature or gather: a gland in the chest, an organ beside the stomach.",
-   "board": true
+   "board": true,
+   "hook": "Lymph team, 'Some Teens Take Naps': Spleen, Thymus, Tonsils, Nodes",
+   "keys": [
+    "thymus",
+    "spleen",
+    "lymph nodes"
+   ]
   },
   {
    "q": "What is an antibody?",
@@ -730,7 +1020,12 @@
    ],
    "why": "Antibodies are proteins made by B cells against a specific antigen; the antigen is the foreign molecule itself.",
    "hint": "One is the foreign marker that sets off a response; the other is your body's reply. Which is which?",
-   "board": true
+   "board": true,
+   "hook": "Antigen = ANTIbody GENerator: the foreign marker that sets the body making antibodies",
+   "keys": [
+    "proteins made by B cells",
+    "specific antigen"
+   ]
   },
   {
    "q": "Describe the roles of killer T cells and helper T cells. (2 points)",
@@ -742,7 +1037,12 @@
    ],
    "why": "Two points: killer T cells recognise infected (or cancer) cells and burst them; helper T cells produce interferon and stimulate B cells.",
    "hint": "Which of your own cells do killer T cells hunt? And which other cells do helpers switch on?",
-   "board": true
+   "board": true,
+   "hook": "Killer T = the assassin that bursts infected cells; helper T = the coach rallying the team",
+   "keys": [
+    "killer T cells recognise infected",
+    "helper T cells produce interferon"
+   ]
   },
   {
    "q": "Which T cells stop the immune response?",
@@ -754,7 +1054,12 @@
    ],
    "why": "Suppressor (regulatory) T cells switch the immune response off once the infection has been cleared.",
    "hint": "Which T cell's name means to hold something down or keep it under control?",
-   "board": true
+   "board": true,
+   "hook": "Suppressor = suppress: the T cell that blows the final whistle once the germs are gone",
+   "keys": [
+    "suppressor (regulatory) T cells",
+    "switch the immune response off"
+   ]
   }
  ],
  "2015-Q15c": [
@@ -768,7 +1073,11 @@
    ],
    "why": "A pathogen is anything that causes disease, like a disease-causing bacterium, virus, fungus or prion.",
    "hint": "Break the word up: '-gen' means 'to produce', as in generate. What does a pathogen produce?",
-   "board": true
+   "board": true,
+   "hook": "Patho = disease, gen = making: a pathogen is a disease-maker",
+   "keys": [
+    "anything that causes disease"
+   ]
   }
  ],
  "2016-Q15c": [
@@ -782,7 +1091,12 @@
    ],
    "why": "Measles is viral and shows as a red rash with fever; TB is bacterial, and yellow skin is a sign of hepatitis.",
    "hint": "Pick an illness caused by a virus, then think of the signs a doctor would spot first.",
-   "board": true
+   "board": true,
+   "hook": "Measles comes from an old word for 'spots': a red rash with a high fever",
+   "keys": [
+    "measles is viral",
+    "red rash with fever"
+   ]
   },
   {
    "q": "What is the biological basis of vaccination?",
@@ -794,7 +1108,13 @@
    ],
    "why": "A vaccine's antigen stimulates your lymphocytes to make antibodies and memory cells: active immunity.",
    "hint": "A vaccine carries a harmless antigen. How do your lymphocytes react when they meet it?",
-   "board": true
+   "board": true,
+   "hook": "A vaccine is a fire drill: your body practises on a harmless antigen, then remembers",
+   "keys": [
+    "stimulates your lymphocytes",
+    "memory cells",
+    "active immunity"
+   ]
   }
  ],
  "2017-Q4": [
@@ -808,7 +1128,12 @@
    ],
    "why": "Pathogen means disease-causing; an organism that feeds on dead matter is a saprophyte, not a pathogen.",
    "hint": "The Greek 'pathos' means suffering. What does a pathogen do to whatever it infects?",
-   "board": true
+   "board": true,
+   "hook": "Patho = disease, sapro = rotten: pathogens cause disease, saprophytes feed on the dead",
+   "keys": [
+    "disease-causing",
+    "saprophyte"
+   ]
   },
   {
    "q": "What is an antibiotic?",
@@ -820,7 +1145,12 @@
    ],
    "why": "Antibiotics like penicillin are made by microbes (fungi or bacteria) and kill or stop the growth of other microbes.",
    "hint": "Penicillin was found growing from a mould. What makes antibiotics, and what do they do to bacteria?",
-   "board": true
+   "board": true,
+   "hook": "AntiBIOtic = against life, made by microbes; antiBODY = made by your body",
+   "keys": [
+    "made by microbes (fungi or bacteria)",
+    "kill or stop the growth"
+   ]
   }
  ],
  "2017-Q14a": [
@@ -834,7 +1164,12 @@
    ],
    "why": "The passage links Zika to microcephaly, where babies have small heads, so pregnant women were warned off.",
    "hint": "Reread the passage: what condition in newborn babies is being linked to Zika?",
-   "board": "Zika virus is spread by mosquitoes and linked to microcephaly (small heads) in babies. Why were pregnant women told to avoid Zika areas?"
+   "board": "Zika virus is spread by mosquitoes and linked to microcephaly (small heads) in babies. Why were pregnant women told to avoid Zika areas?",
+   "hook": "Micro = small, cephal = head: microcephaly literally means 'small head'",
+   "keys": [
+    "microcephaly",
+    "small heads"
+   ]
   },
   {
    "q": "Give two precautions against Zika if travelling to affected areas. (2 points)",
@@ -846,7 +1181,12 @@
    ],
    "why": "Two points: avoid mosquito bites (nets, repellent, long sleeves) and use condoms or delay pregnancy, as Zika also spreads by sex.",
    "hint": "The passage says what carries Zika and when it bites. How do you avoid bites, and protect a baby?",
-   "board": "Zika virus is spread by mosquito bites. Give two precautions against Zika when travelling to affected areas. (2 points)"
+   "board": "Zika virus is spread by mosquito bites. Give two precautions against Zika when travelling to affected areas. (2 points)",
+   "hook": "Zika has two ways in, so block both: stop the bite, and stop sexual spread",
+   "keys": [
+    "avoid mosquito bites",
+    "use condoms"
+   ]
   },
   {
    "q": "Which is an example of a beneficial virus?",
@@ -858,7 +1198,12 @@
    ],
    "why": "Bacteriophages are viruses that infect and kill bacteria; Penicillium and yeast are fungi and Rhizobium is a bacterium.",
    "hint": "Some viruses attack bacteria rather than us. How could that help, and what are they called?",
-   "board": true
+   "board": true,
+   "hook": "Bacterio-phage = bacteria-eater: a virus that hunts bacteria for us",
+   "keys": [
+    "bacteriophages",
+    "infect and kill bacteria"
+   ]
   },
   {
    "q": "After new virus parts are made in the host cell, what happens? (one of 4 points)",
@@ -870,7 +1215,12 @@
    ],
    "why": "Any four: virus attaches; injects nucleic acid; uses host structures to copy its parts; parts assemble; new viruses are released.",
    "hint": "Follow a virus from landing on a cell to new viruses leaving it. What happens at each step?",
-   "board": true
+   "board": true,
+   "hook": "Flat-pack factory: the parts are made separately, put together, then burst out",
+   "keys": [
+    "parts assemble",
+    "new viruses are released"
+   ]
   },
   {
    "q": "Why are viruses not considered living organisms? (2 points)",
@@ -882,7 +1232,12 @@
    ],
    "why": "Two points: viruses can't reproduce independently (only inside a host cell), and they are non-cellular.",
    "hint": "Run a virus through the features all living things share. Which ones does it fail?",
-   "board": true
+   "board": true,
+   "hook": "A virus is a USB stick of genes: useless until it's plugged into a host cell",
+   "keys": [
+    "can't reproduce independently",
+    "non-cellular"
+   ]
   }
  ],
  "2017-Q14b": [
@@ -896,7 +1251,12 @@
    ],
    "why": "Unvaccinated people (and babies too young for the jab) have no antibodies or memory cells for measles.",
    "hint": "Who would have no antibodies or memory cells for measles at all?",
-   "board": true
+   "board": true,
+   "hook": "No jab, no memory cells: the unvaccinated (and young babies) are measles' easy targets",
+   "keys": [
+    "unvaccinated people",
+    "no antibodies or memory cells"
+   ]
   },
   {
    "q": "What is a vaccine and how does it give immunity? (3 points)",
@@ -908,7 +1268,12 @@
    ],
    "why": "Three points: a vaccine is a harmless dose of a pathogen; it brings in the antigen, which stimulates the body to produce antibodies.",
    "hint": "First, what's in the jab (is the germ harmful?), then what your lymphocytes do when they meet it.",
-   "board": true
+   "board": true,
+   "hook": "A vaccine is a fire drill: your body practises on a harmless antigen, then remembers",
+   "keys": [
+    "harmless dose of a pathogen",
+    "produce antibodies"
+   ]
   },
   {
    "q": "Which list has three types of T lymphocyte?",
@@ -920,7 +1285,11 @@
    ],
    "why": "T cells come as helper, killer, suppressor and memory; B cells, monocytes and phagocytes are other white cells.",
    "hint": "T cells are named for their jobs, like a team: a supporter, a fighter, a referee, a record keeper.",
-   "board": true
+   "board": true,
+   "hook": "T cell team, 'Happy Kids Sing More': Helper, Killer, Suppressor, Memory",
+   "keys": [
+    "helper, killer, suppressor and memory"
+   ]
   },
   {
    "q": "What is the role of helper T cells? (one of 3 points)",
@@ -932,7 +1301,11 @@
    ],
    "why": "Three points: a role for each T cell, e.g. helper T cells stimulate B cells and killer T cells; they don't make antibodies themselves.",
    "hint": "Let each name guide you, then think of the start, the fight and the end of an immune response.",
-   "board": true
+   "board": true,
+   "hook": "Helper T = the coach: it doesn't score (make antibodies) but fires up the B cells who do",
+   "keys": [
+    "helper T cells stimulate B cells"
+   ]
   }
  ],
  "2018-Q13a": [
@@ -946,7 +1319,11 @@
    ],
    "why": "A virus has either DNA or RNA, never both; bacteria and yeasts have both, and prions have none.",
    "hint": "Which tiny non-cellular agents are just genes wrapped in a coat of protein?",
-   "board": true
+   "board": true,
+   "hook": "A virus picks one recipe book: DNA or RNA, never both",
+   "keys": [
+    "either DNA or RNA, never both"
+   ]
   }
  ],
  "2018-Q15a": [
@@ -960,7 +1337,11 @@
    ],
    "why": "Each course kills sensitive bacteria and leaves resistant ones to multiply, so the antibiotic stops working.",
    "hint": "Each course kills most bacteria, but not always all of them. What happens with the survivors?",
-   "board": true
+   "board": true,
+   "hook": "Antibiotics act as a filter: weak bacteria die, resistant ones survive and take over",
+   "keys": [
+    "leaves resistant ones to multiply"
+   ]
   }
  ],
  "2018-Q15b": [
@@ -974,7 +1355,12 @@
    ],
    "why": "Your own lymphocytes make antibodies and memory cells, which stay for years and respond fast to the same antigen.",
    "hint": "In active immunity your own cells respond. What do they leave behind for next time?",
-   "board": true
+   "board": true,
+   "hook": "Memory cells keep the germ's mugshot on file for years, ready for a fast response",
+   "keys": [
+    "memory cells",
+    "respond fast"
+   ]
   },
   {
    "q": "Why aren't antibiotics given to treat flu directly?",
@@ -986,7 +1372,12 @@
    ],
    "why": "Influenza is a virus and antibiotics only act on bacteria (and fungi); they could also kill useful bacteria.",
    "hint": "Is flu caused by a bacterium or something else? Then ask what antibiotics actually attack.",
-   "board": true
+   "board": true,
+   "hook": "Wrong key, wrong lock: antibiotics fit bacteria, and flu is a virus",
+   "keys": [
+    "influenza is a virus",
+    "only act on bacteria"
+   ]
   }
  ],
  "2019-Q14b": [
@@ -1000,7 +1391,13 @@
    ],
    "why": "Three points: a harmless (weakened or dead) pathogen is given, and it stimulates antibodies and memory cells, giving active immunity.",
    "hint": "Cover what is injected, what your lymphocytes make in reply, and why the protection lasts.",
-   "board": true
+   "board": true,
+   "hook": "A vaccine is a fire drill: your body practises on a harmless antigen, then remembers",
+   "keys": [
+    "harmless (weakened or dead) pathogen",
+    "memory cells",
+    "active immunity"
+   ]
   },
   {
    "q": "Write about antibiotic resistance in bacteria. (3 points)",
@@ -1012,7 +1409,13 @@
    ],
    "why": "Three points: resistant bacteria aren't affected by antibiotics; they arise by mutation; overuse or not finishing a course lets them spread.",
    "hint": "Think what antibiotics fail to do to them, how they first arise, and which habits help them spread.",
-   "board": true
+   "board": true,
+   "hook": "Mutation makes the odd tough one; overuse kills its rivals, so the tough one takes over",
+   "keys": [
+    "aren't affected by antibiotics",
+    "mutation",
+    "overuse"
+   ]
   }
  ],
  "2020-Q15b": [
@@ -1026,7 +1429,11 @@
    ],
    "why": "Viral coats (capsids) are protein, which is why HPV coat particles can act as antigens in the vaccine.",
    "hint": "Think of which biomolecule makes enzymes and antibodies: viral coats are made of it too.",
-   "board": true
+   "board": true,
+   "hook": "A virus is a sweet in a wrapper: a protein coat round a DNA or RNA centre",
+   "keys": [
+    "viral coats (capsids) are protein"
+   ]
   },
   {
    "q": "Besides protein, what is the other main part of a virus?",
@@ -1038,7 +1445,12 @@
    ],
    "why": "A virus is protein plus nucleic acid, either DNA or RNA, which carries its genes; amino acids just build protein.",
    "hint": "Inside the coat are the virus's genes. What kind of molecule carries genes?",
-   "board": true
+   "board": true,
+   "hook": "A virus is a sweet in a wrapper: a protein coat round a DNA or RNA centre",
+   "keys": [
+    "nucleic acid",
+    "DNA or RNA"
+   ]
   },
   {
    "q": "Why are viruses obligate parasites?",
@@ -1050,7 +1462,12 @@
    ],
    "why": "'Obligate' means they must have a host: a virus can only make copies of itself inside a living cell.",
    "hint": "A virus has no machinery of its own. So where must it be to make more of itself?",
-   "board": true
+   "board": true,
+   "hook": "Obligate = obliged: a virus has no choice but to use a host cell",
+   "keys": [
+    "must have a host",
+    "inside a living cell"
+   ]
   },
   {
    "q": "Describe how a virus infects and replicates in a host cell. (3 points)",
@@ -1062,7 +1479,13 @@
    ],
    "why": "Three points: the virus attaches to the cell, injects its nucleic acid, and uses the host's structures to make and assemble new viruses.",
    "hint": "Start with the virus landing on the cell; then what it sends inside, and who does the copying.",
-   "board": true
+   "board": true,
+   "hook": "A virus hijacks the cell: lands, injects its genes, and the cell's factory builds copies",
+   "keys": [
+    "attaches to the cell",
+    "injects its nucleic acid",
+    "make and assemble new viruses"
+   ]
   },
   {
    "q": "What are the two types of induced immunity?",
@@ -1074,7 +1497,12 @@
    ],
    "why": "Induced immunity is active (you make antibodies) or passive (you get them); general and specific are defence systems.",
    "hint": "Do you make the antibodies yourself, or are they given to you? Each way has a name.",
-   "board": true
+   "board": true,
+   "hook": "Active = you make them (DIY); passive = handed to you ready-made (takeaway)",
+   "keys": [
+    "active (you make antibodies)",
+    "passive (you get them)"
+   ]
   },
   {
    "q": "Which type of immunity follows the HPV vaccine?",
@@ -1086,7 +1514,12 @@
    ],
    "why": "The vaccine's coat proteins are antigens, so your own body makes antibodies and memory cells: active immunity.",
    "hint": "The vaccine has coat particles only. Does your body then make its own antibodies?",
-   "board": true
+   "board": true,
+   "hook": "Active = you make them (DIY); passive = handed to you ready-made (takeaway)",
+   "keys": [
+    "coat proteins are antigens",
+    "active immunity"
+   ]
   },
   {
    "q": "How does active immunity differ from passive?",
@@ -1098,7 +1531,13 @@
    ],
    "why": "Active immunity makes memory cells, so it lasts years; passive works at once but fades within weeks or months.",
    "hint": "Think about memory cells: which type makes them, and what does that mean over time?",
-   "board": true
+   "board": true,
+   "hook": "Active is savings (memory cells, lasts years); passive is a loan that soon runs out",
+   "keys": [
+    "memory cells",
+    "lasts years",
+    "fades within weeks or months"
+   ]
   }
  ],
  "2021-Q16c": [
@@ -1112,7 +1551,13 @@
    ],
    "why": "Two points: any two of the respiratory, digestive and reproductive tracts (tubes open to the outside), not the skin or blood vessels.",
    "hint": "Think of tubes that open to the outside world: where air goes in, and where food goes.",
-   "board": true
+   "board": true,
+   "hook": "Mucus lines every tube open to the outside: airways, gut and reproductive tract",
+   "keys": [
+    "respiratory",
+    "digestive",
+    "tubes open to the outside"
+   ]
   },
   {
    "q": "Where exactly are lymphocytes produced?",
@@ -1124,7 +1569,12 @@
    ],
    "why": "All lymphocytes are made in the bone marrow; T cells then move to the thymus to mature.",
    "hint": "All blood cells, red and white, start out in the same soft tissue. Where is it?",
-   "board": true
+   "board": true,
+   "hook": "B and T both start in Bone marrow; T cells finish their Training in the Thymus",
+   "keys": [
+    "bone marrow",
+    "thymus to mature"
+   ]
   },
   {
    "q": "Which type of lymphocyte produces antibodies?",
@@ -1136,7 +1586,11 @@
    ],
    "why": "B lymphocytes make antibodies; helper T cells only stimulate them, and killer T cells attack infected cells.",
    "hint": "Memory hook: its letter matches where it matures, the soft tissue deep inside your bones.",
-   "board": true
+   "board": true,
+   "hook": "B cells fire antibody Bullets; killer T cells kill infected cells up close",
+   "keys": [
+    "B lymphocytes make antibodies"
+   ]
   },
   {
    "q": "Which white blood cell, other than a lymphocyte, fights infection?",
@@ -1148,7 +1602,12 @@
    ],
    "why": "Macrophages (from monocytes) are phagocytes that engulf microbes; B and T cells are lymphocytes.",
    "hint": "Think of the large white cells that swallow microbes whole by phagocytosis.",
-   "board": true
+   "board": true,
+   "hook": "Macro = big, phage = eater: a macrophage is a big eater that swallows germs whole",
+   "keys": [
+    "macrophages (from monocytes)",
+    "engulf microbes"
+   ]
   },
   {
    "q": "From the graph, how does the response at B compare with A?",
@@ -1160,7 +1619,12 @@
    ],
    "why": "After the vaccine (A) antibodies rose slowly and only a little; after infection (B) they rose fast and much higher.",
    "hint": "Compare the two curves: how quickly does each one rise, and how high does each one peak?",
-   "board": "A person is vaccinated (A) and later infected by the same virus (B). How does their antibody response at B compare with A?"
+   "board": "A person is vaccinated (A) and later infected by the same virus (B). How does their antibody response at B compare with A?",
+   "hook": "Second time round is faster and bigger: that's the memory cells' 'I know you' response",
+   "keys": [
+    "rose slowly and only a little",
+    "rose fast and much higher"
+   ]
   },
   {
    "q": "Why was the antibody response at B faster and bigger?",
@@ -1172,7 +1636,12 @@
    ],
    "why": "The vaccine left memory cells, so the second meeting with the antigen got a fast, strong response.",
    "hint": "What did the vaccine at A leave behind that was ready and waiting by B?",
-   "board": "A person is vaccinated (A) and later infected by the same virus (B). Why is the antibody response at B faster and bigger?"
+   "board": "A person is vaccinated (A) and later infected by the same virus (B). Why is the antibody response at B faster and bigger?",
+   "hook": "Memory cells keep the germ's mugshot on file: second meeting, fast and strong response",
+   "keys": [
+    "memory cells",
+    "fast, strong response"
+   ]
   },
   {
    "q": "Which part of the virus do antibodies recognise?",
@@ -1184,7 +1653,12 @@
    ],
    "why": "Antibodies bind antigens on the surface, which are coat proteins (like the spike); the RNA is hidden inside.",
    "hint": "Antibodies can only reach what is on the outside. What is the outside of a virus made of?",
-   "board": "Which part of a virus such as SARS-CoV-2 do antibodies recognise?"
+   "board": "Which part of a virus such as SARS-CoV-2 do antibodies recognise?",
+   "hook": "Antibodies can only grab what sticks out: the spike proteins on the coat, not the RNA",
+   "keys": [
+    "antigens on the surface",
+    "coat proteins (like the spike)"
+   ]
   },
   {
    "q": "Why can't antibiotics cure COVID-19?",
@@ -1196,7 +1670,12 @@
    ],
    "why": "COVID-19 is caused by a virus, and antibiotics act only on bacteria (and fungi), not viruses.",
    "hint": "What kind of microbe causes COVID-19, and which kinds of microbe do antibiotics act on?",
-   "board": true
+   "board": true,
+   "hook": "Wrong key, wrong lock: antibiotics fit bacteria, and COVID-19 is a virus",
+   "keys": [
+    "caused by a virus",
+    "only on bacteria"
+   ]
   }
  ],
  "2022-Q5d": [
@@ -1208,7 +1687,12 @@
    ],
    "why": "Macrophages engulf microbes by phagocytosis; perforin is released by killer T cells.",
    "hint": "Think about how macrophages kill: do they eat microbes, or punch holes in infected cells?",
-   "board": true
+   "board": true,
+   "hook": "Macrophages eat, killer T cells stab: perforin punches holes, and it's the killer's weapon",
+   "keys": [
+    "engulf microbes by phagocytosis",
+    "perforin is released by killer T cells"
+   ]
   }
  ],
  "2022-Q7": [
@@ -1222,7 +1706,13 @@
    ],
    "why": "A is the genetic material inside the virus: a nucleic acid, which in SARS-CoV-2 is RNA.",
    "hint": "A sits in the core and carries the virus's genes. What type of molecule does that job?",
-   "board": false
+   "board": false,
+   "hook": "A virus is a sweet in a wrapper: a protein coat round a DNA or RNA centre",
+   "keys": [
+    "genetic material",
+    "nucleic acid",
+    "RNA"
+   ]
   },
   {
    "q": "Where should the arrow from X point to show an antigen?",
@@ -1234,7 +1724,12 @@
    ],
    "why": "Antigens are the surface proteins (spikes) that antibodies recognise, so they're on the outside of the virus.",
    "hint": "Antibodies grab antigens, so they must be reachable. Look at what sticks out of the virus.",
-   "board": "Where on a virus such as SARS-CoV-2 is an antigen found?"
+   "board": "Where on a virus such as SARS-CoV-2 is an antigen found?",
+   "hook": "Antigens are name badges worn on the outside: the spikes that antibodies read",
+   "keys": [
+    "surface proteins (spikes)",
+    "on the outside"
+   ]
   },
   {
    "q": "What makes a virus an obligate parasite?",
@@ -1246,7 +1741,12 @@
    ],
    "why": "Viruses have no machinery of their own, so they cannot replicate outside a living host cell.",
    "hint": "Think of what a virus can't do on its own, and what it needs to borrow to do it.",
-   "board": true
+   "board": true,
+   "hook": "Obligate = obliged: a virus has no choice but to use a host cell",
+   "keys": [
+    "no machinery of their own",
+    "outside a living host cell"
+   ]
   },
   {
    "q": "Explain in detail the term vaccination. (2 points)",
@@ -1258,7 +1758,12 @@
    ],
    "why": "Two points: a harmless (dead, weakened or part) dose of the pathogen is given, and it stimulates the body to produce antibodies.",
    "hint": "Think of what's in the jab and whether it can make you ill, then what your body makes in reply.",
-   "board": true
+   "board": true,
+   "hook": "A vaccine is a fire drill: your body practises on a harmless antigen, then remembers",
+   "keys": [
+    "harmless (dead, weakened or part)",
+    "produce antibodies"
+   ]
   },
   {
    "q": "Which of these is a harmful virus?",
@@ -1270,7 +1775,12 @@
    ],
    "why": "HIV is a virus that attacks the immune system; MRSA, Salmonella and harmful E. coli are all bacteria.",
    "hint": "Think of a virus behind an illness you've been vaccinated for, or one that attacks immune cells.",
-   "board": true
+   "board": true,
+   "hook": "HIV = Human Immunodeficiency Virus: the V tells you it's a virus",
+   "keys": [
+    "HIV is a virus",
+    "attacks the immune system"
+   ]
   },
   {
    "q": "Which is a beneficial use of a virus?",
@@ -1282,7 +1792,11 @@
    ],
    "why": "Phages are viruses that kill bacteria; penicillin, brewing and sewage treatment use fungi or bacteria instead.",
    "hint": "Some viruses only infect bacteria, and all viruses can carry genes. How might that help us?",
-   "board": true
+   "board": true,
+   "hook": "Bacterio-phage = bacteria-eater: a virus that hunts bacteria for us",
+   "keys": [
+    "phages are viruses that kill bacteria"
+   ]
   }
  ],
  "2022-Q11b": [
@@ -1296,7 +1810,11 @@
    ],
    "why": "Two points: any two harmful bacteria, e.g. Salmonella and MRSA; flu is a virus, Penicillium a fungus, and Rhizobium is helpful.",
    "hint": "Think of bugs behind food poisoning, or a hospital 'superbug' that shrugs off antibiotics.",
-   "board": true
+   "board": true,
+   "hook": "MRSA = Methicillin-Resistant Staphylococcus Aureus: a superbug bacterium, like Salmonella",
+   "keys": [
+    "Salmonella and MRSA"
+   ]
   },
   {
    "q": "What is an antibiotic?",
@@ -1308,7 +1826,12 @@
    ],
    "why": "Antibiotics kill or stop the growth of bacteria; they don't work on viruses, and antibodies are your own proteins.",
    "hint": "Think of penicillin from a doctor: what does it do to the bacteria causing an infection?",
-   "board": true
+   "board": true,
+   "hook": "AntiBIOtic = against life, made by microbes; antiBODY = made by your body",
+   "keys": [
+    "kill or stop the growth of bacteria",
+    "don't work on viruses"
+   ]
   },
   {
    "q": "What is one reason antibiotic resistance has arisen?",
@@ -1320,7 +1843,12 @@
    ],
    "why": "Overuse lets resistant mutants survive while the others die, so they multiply and take over.",
    "hint": "Think about human habits with antibiotics: how often, and how carefully, are they taken?",
-   "board": true
+   "board": true,
+   "hook": "Antibiotics act as a filter: weak bacteria die, resistant ones survive and take over",
+   "keys": [
+    "overuse",
+    "resistant mutants survive"
+   ]
   }
  ],
  "2022-Q17b": [
@@ -1334,7 +1862,12 @@
    ],
    "why": "Two points: breast milk gives a balanced supply of nutrients and passes on antibodies (passive immunity); it's also at the right temperature.",
    "hint": "Think of the milk as both a meal and a medicine: what does each side give the baby?",
-   "board": true
+   "board": true,
+   "hook": "Breast milk: ready-made antibodies, perfect recipe, served germ-free at body temperature",
+   "keys": [
+    "balanced supply of nutrients",
+    "antibodies (passive immunity)"
+   ]
   }
  ],
  "2023-Q5e": [
@@ -1348,7 +1881,12 @@
    ],
    "why": "Staphylococcus causes skin and wound infections (e.g. MRSA); Rhizobium is helpful, and the others aren't bacteria.",
    "hint": "Think of a bacterium that causes food poisoning, wound infections or a sore throat.",
-   "board": true
+   "board": true,
+   "hook": "Staphylo = bunch of grapes, coccus = berry: the grape-cluster bacteria behind MRSA",
+   "keys": [
+    "Staphylococcus",
+    "MRSA"
+   ]
   }
  ],
  "2023-Q6e": [
@@ -1362,7 +1900,12 @@
    ],
    "why": "Antibiotics target bacteria (and fungi); viruses have none of the parts antibiotics attack, so they're unaffected.",
    "hint": "Antibiotics attack parts like bacterial cell walls and ribosomes. Does a virus have those?",
-   "board": true
+   "board": true,
+   "hook": "Antibiotics target bacterial parts like cell walls; a virus has none, so nothing to hit",
+   "keys": [
+    "target bacteria (and fungi)",
+    "unaffected"
+   ]
   }
  ],
  "2023-Q11b": [
@@ -1376,7 +1919,12 @@
    ],
    "why": "The fungus lives on the ash tree and harms it, which is parasitism; in mutualism both partners benefit.",
    "hint": "One partner lives on the other and gains, while the other is harmed. What's that relationship?",
-   "board": "Ash dieback is a disease that kills ash trees, caused by a fungal pathogen. What relationship is there between ash trees and the pathogen?"
+   "board": "Ash dieback is a disease that kills ash trees, caused by a fungal pathogen. What relationship is there between ash trees and the pathogen?",
+   "hook": "Parasitism: one gains, the host loses. The ash dieback fungus gains, the ash tree loses",
+   "keys": [
+    "harms it",
+    "parasitism"
+   ]
   },
   {
    "q": "How could ecologists help ash trees survive in Ireland?",
@@ -1388,7 +1936,12 @@
    ],
    "why": "Tolerant trees can be stored in a gene bank and bred for planting; imported plants brought the disease in.",
    "hint": "Some ash trees cope with the disease. How could ecologists save and spread those trees?",
-   "board": "Ash dieback disease is killing most of Ireland's ash trees, but a few are resistant. How could ecologists help ash trees survive?"
+   "board": "Ash dieback disease is killing most of Ireland's ash trees, but a few are resistant. How could ecologists help ash trees survive?",
+   "hook": "A gene bank is a savings account of seeds: keep the tough trees' genes to breed from",
+   "keys": [
+    "tolerant trees",
+    "gene bank"
+   ]
   }
  ],
  "2023-Q16c": [
@@ -1402,7 +1955,11 @@
    ],
    "why": "X is the outer protein coat (capsid); the nucleic acid, Y, is the genetic material inside it.",
    "hint": "X is the outer shell and Y the genetic core. What is each one made of?",
-   "board": false
+   "board": false,
+   "hook": "Capsid comes from the Latin 'capsa', a box: the protein box holding the virus's genes",
+   "keys": [
+    "outer protein coat (capsid)"
+   ]
   },
   {
    "q": "Why is it hard to describe viruses as living?",
@@ -1414,7 +1971,12 @@
    ],
    "why": "Viruses are non-cellular with no metabolism; they only show signs of life inside a host cell.",
    "hint": "Think of the basic unit every living thing is built from. Is a virus built from it?",
-   "board": true
+   "board": true,
+   "hook": "A virus is a USB stick of genes: useless until it's plugged into a host cell",
+   "keys": [
+    "no metabolism",
+    "inside a host cell"
+   ]
   },
   {
    "q": "Name two harmful viruses. (2 points)",
@@ -1426,7 +1988,11 @@
    ],
    "why": "Two points: any two harmful viruses, e.g. HIV, hepatitis, flu or cold viruses; Salmonella, tetanus and TB are bacteria, Penicillium a fungus.",
    "hint": "Think of virus illnesses you've had or heard of: winter ones, pandemics, ones that hit the liver.",
-   "board": true
+   "board": true,
+   "hook": "HIV = Human Immunodeficiency Virus: the V tells you it's a virus; hepatitis B is one too",
+   "keys": [
+    "HIV, hepatitis, flu or cold viruses"
+   ]
   },
   {
    "q": "How can viruses be useful to humans?",
@@ -1438,7 +2004,12 @@
    ],
    "why": "Viruses are used to make vaccines and as gene vectors; antibiotics, alcohol and nitrogen fixing use fungi or bacteria.",
    "hint": "Think of how a virus delivers genes into cells, and how scientists might borrow that skill.",
-   "board": true
+   "board": true,
+   "hook": "Viruses can be put to work: in vaccines to train the body, as vans to carry genes",
+   "keys": [
+    "make vaccines",
+    "gene vectors"
+   ]
   },
   {
    "q": "Which of these is a SPECIFIC defence against viruses? (one of 4 points)",
@@ -1450,7 +2021,12 @@
    ],
    "why": "Four points: two general (e.g. skin is a barrier, mucus traps them) and two specific (e.g. antibodies, killer T cells kill infected cells).",
    "hint": "General defences block or eat any germ. Specific ones use lymphocytes and what they make.",
-   "board": true
+   "board": true,
+   "hook": "General = walls and guards for any germ; specific = trained snipers for one antigen",
+   "keys": [
+    "two specific",
+    "killer T cells kill infected cells"
+   ]
   }
  ],
  "2024-Q14b": [
@@ -1464,7 +2040,11 @@
    ],
    "why": "A pathogenic bacterium causes disease; forming endospores or making antibiotics doesn't make it a pathogen.",
    "hint": "Think of the opposite of a harmless gut bacterium. What do pathogenic ones do to their host?",
-   "board": true
+   "board": true,
+   "hook": "Patho = disease, gen = making: pathogenic means disease-making",
+   "keys": [
+    "causes disease"
+   ]
   },
   {
    "q": "What can misusing antibiotics lead to?",
@@ -1476,7 +2056,12 @@
    ],
    "why": "Misuse kills sensitive bacteria and leaves resistant ones to multiply, so infections get harder to treat.",
    "hint": "If antibiotics are overused, which bacteria are left alive to multiply?",
-   "board": true
+   "board": true,
+   "hook": "Antibiotics act as a filter: weak bacteria die, resistant ones survive and take over",
+   "keys": [
+    "leaves resistant ones to multiply",
+    "harder to treat"
+   ]
   }
  ],
  "2024-Q14c": [
@@ -1490,7 +2075,12 @@
    ],
    "why": "Viruses aren't cells and have no metabolism, so they break the rule that living things are made of cells.",
    "hint": "Living things are built from tiny units with a membrane and cytoplasm. Does a virus have them?",
-   "board": true
+   "board": true,
+   "hook": "A virus is a box of instructions with no factory: no cells, no metabolism of its own",
+   "keys": [
+    "aren't cells",
+    "no metabolism"
+   ]
   },
   {
    "q": "Which two biochemicals make up all viruses?",
@@ -1502,7 +2092,11 @@
    ],
    "why": "Every virus is a protein coat around nucleic acid (DNA or RNA); some also have a fatty envelope, but not all.",
    "hint": "Every virus has an outer shell and a genetic core. Which biomolecule makes up each?",
-   "board": true
+   "board": true,
+   "hook": "A virus is a sweet in a wrapper: a protein coat round a DNA or RNA centre",
+   "keys": [
+    "protein coat around nucleic acid"
+   ]
   },
   {
    "q": "Which is the right order for viral replication?",
@@ -1514,7 +2108,13 @@
    ],
    "why": "A virus attaches, injects its nucleic acid, uses the host to copy its parts, assembles new viruses and releases them.",
    "hint": "Think of the virus as a hijacker: how does it get in, use the cell, and then leave?",
-   "board": true
+   "board": true,
+   "hook": "Viral order, 'All Ice Cream Always Rocks': Attach, Inject, Copy, Assemble, Release",
+   "keys": [
+    "attaches",
+    "copy its parts",
+    "releases them"
+   ]
   },
   {
    "q": "Which of these is a harmful virus?",
@@ -1526,7 +2126,11 @@
    ],
    "why": "Coronaviruses cause colds and COVID-19; Streptococcus and Listeria are bacteria and Penicillium is a fungus.",
    "hint": "Think of a virus that has made the news, or one that gives you sniffles every winter.",
-   "board": true
+   "board": true,
+   "hook": "Corona = crown: coronaviruses are named after the crown of spikes on their coat",
+   "keys": [
+    "coronaviruses cause colds and COVID-19"
+   ]
   },
   {
    "q": "Which is a way viruses can be beneficial?",
@@ -1538,7 +2142,12 @@
    ],
    "why": "Viruses naturally carry genes into cells, so they're used as vectors in genetic engineering and gene therapy.",
    "hint": "Some viruses kill bacteria, and all are good at getting into cells. How might scientists use that?",
-   "board": true
+   "board": true,
+   "hook": "Viruses are natural delivery vans for genes, so engineers use them as vectors",
+   "keys": [
+    "carry genes into cells",
+    "vectors"
+   ]
   }
  ],
  "2024-Q16d": [
@@ -1552,7 +2161,12 @@
    ],
    "why": "Two points: any two general defences, e.g. skin barrier, phagocytosis, stomach acid, fever or clotting; antibodies and T cells are specific.",
    "hint": "Think of what stops germs getting in at all, and what happens to germs that do get in.",
-   "board": true
+   "board": true,
+   "hook": "General defences stop anything: skin walls, an acid moat and phagocyte guards",
+   "keys": [
+    "skin barrier",
+    "phagocytosis"
+   ]
   },
   {
    "q": "Which organ is specific to the immune system?",
@@ -1564,7 +2178,12 @@
    ],
    "why": "The spleen filters blood and holds lymphocytes; the liver, pancreas and thyroid have other jobs.",
    "hint": "Think of the organ beside the stomach, on the left, that filters old red cells from the blood.",
-   "board": true
+   "board": true,
+   "hook": "The spleen is the blood's filter and a barracks full of lymphocytes",
+   "keys": [
+    "spleen",
+    "filters blood"
+   ]
   },
   {
    "q": "Distinguish between an antigen and an antibody. (2 points)",
@@ -1576,7 +2195,12 @@
    ],
    "why": "Two points: an antigen is a molecule (e.g. on a microbe) that stimulates antibody production; an antibody is a protein made in response.",
    "hint": "Think lock and key: one is the marker on the invader, the other is made to fit it. What is each?",
-   "board": true
+   "board": true,
+   "hook": "Antigen = ANTIbody GENerator: the foreign marker that sets the body making antibodies",
+   "keys": [
+    "stimulates antibody production",
+    "protein made in response"
+   ]
   },
   {
    "q": "Besides T cells, what is the other type of lymphocyte?",
@@ -1588,7 +2212,11 @@
    ],
    "why": "Lymphocytes are B cells and T cells; monocytes and macrophages are phagocytes, and platelets help clotting.",
    "hint": "T cells mature in the thymus. The other kind matures in the bone marrow: which letter is it?",
-   "board": true
+   "board": true,
+   "hook": "B and T both start in Bone marrow; T cells finish their Training in the Thymus",
+   "keys": [
+    "B cells and T cells"
+   ]
   },
   {
    "q": "What is the role of memory T cells? (one of 4 points)",
@@ -1600,7 +2228,11 @@
    ],
    "why": "Four points: name two T cells and a job for each, e.g. killer T cells burst infected cells; memory T cells remember the antigen.",
    "hint": "Each of the four is named after its job: think of rallying, attacking, calling a halt and recall.",
-   "board": true
+   "board": true,
+   "hook": "Memory cells keep the germ's mugshot on file: second meeting, fast and strong response",
+   "keys": [
+    "memory T cells remember the antigen"
+   ]
   }
  ],
  "2025-Q16d": [
@@ -1614,7 +2246,13 @@
    ],
    "why": "Two points: any two of lymph nodes, spleen, thymus, tonsils, adenoids and lymph vessels; the thyroid, pancreas and kidneys aren't lymphatic.",
    "hint": "Think of the lumps that swell in your neck when you're sick, and an organ that filters blood.",
-   "board": true
+   "board": true,
+   "hook": "Lymph team, 'Some Teens Take Naps': Spleen, Thymus, Tonsils, Nodes",
+   "keys": [
+    "lymph nodes",
+    "spleen",
+    "thymus"
+   ]
   },
   {
    "q": "Other than maturing lymphocytes, give two functions of the lymphatic system. (2 points)",
@@ -1626,7 +2264,12 @@
    ],
    "why": "Two points: it returns tissue fluid to the blood and transports fats from the gut; it also helps fight infection.",
    "hint": "Think of fluid that leaks out of capillaries, and what lacteals in the villi absorb.",
-   "board": true
+   "board": true,
+   "hook": "Lymph's 3 Fs: Fluid back to the blood, Fats from the gut, Fights infection",
+   "keys": [
+    "returns tissue fluid to the blood",
+    "transports fats"
+   ]
   },
   {
    "q": "Where exactly in the body are lymphocytes made?",
@@ -1638,7 +2281,12 @@
    ],
    "why": "Lymphocytes are made in the bone marrow; the thymus is only where T cells go to mature.",
    "hint": "It's the same soft tissue that makes your red blood cells. Where is that found?",
-   "board": true
+   "board": true,
+   "hook": "B and T both start in Bone marrow; T cells finish their Training in the Thymus",
+   "keys": [
+    "bone marrow",
+    "thymus"
+   ]
   },
   {
    "q": "Name two lymphocytes and describe the role of each. (4 points)",
@@ -1650,7 +2298,12 @@
    ],
    "why": "Four points: two lymphocytes named, each with its role: B cells make antibodies; killer T cells destroy infected cells (helper T cells switch them on).",
    "hint": "Think of the two lettered kinds: which releases Y-shaped proteins, and which attacks directly?",
-   "board": true
+   "board": true,
+   "hook": "B cells fire antibody Bullets; killer T cells kill infected cells up close",
+   "keys": [
+    "B cells make antibodies",
+    "killer T cells destroy infected cells"
+   ]
   },
   {
    "q": "What is vaccination?",
@@ -1662,7 +2315,12 @@
    ],
    "why": "Vaccination brings in a weakened or harmless pathogen or antigen so your body builds active immunity.",
    "hint": "Think of what goes into the body in the jab, whether it can make you sick, and what it sets off.",
-   "board": true
+   "board": true,
+   "hook": "A vaccine is a fire drill: your body practises on a harmless antigen, then remembers",
+   "keys": [
+    "weakened or harmless pathogen",
+    "active immunity"
+   ]
   }
  ],
  "2026-Q16b": [
@@ -1676,7 +2334,12 @@
    ],
    "why": "X is the protein coat and Y is the genetic material inside it, DNA or RNA; every virus has both.",
    "hint": "X wraps around the outside and Y carries the genes. Which biomolecule makes up each?",
-   "board": false
+   "board": false,
+   "hook": "A virus is a sweet in a wrapper: a protein coat round a DNA or RNA centre",
+   "keys": [
+    "protein coat",
+    "DNA or RNA"
+   ]
   },
   {
    "q": "Apart from round, what other shape can a virus be?",
@@ -1688,7 +2351,12 @@
    ],
    "why": "Viruses can be round, rod-shaped or complex (like phages); comma, chain and cluster shapes describe bacteria.",
    "hint": "Picture tobacco mosaic virus under an electron microscope: long, thin and straight.",
-   "board": true
+   "board": true,
+   "hook": "Virus shapes: ball, rod or lunar lander (the phage); commas and chains are bacteria",
+   "keys": [
+    "rod-shaped",
+    "complex (like phages)"
+   ]
   },
   {
    "q": "In diagram 2, how does the virus use the host cell? (one of 4 points)",
@@ -1700,7 +2368,12 @@
    ],
    "why": "Any four: its DNA or RNA enters; it uses host organelles; makes viral nucleic acid and protein; parts assemble; new viruses are released.",
    "hint": "The virus brings only its genes. Whose ribosomes and materials build the new parts, and then what?",
-   "board": "After a virus attaches to a host cell, how does it use the cell to make many new viruses? (one of 4 points)"
+   "board": "After a virus attaches to a host cell, how does it use the cell to make many new viruses? (one of 4 points)",
+   "hook": "A virus hijacks the cell: lands, injects its genes, and the cell's factory builds copies",
+   "keys": [
+    "uses host organelles",
+    "parts assemble"
+   ]
   },
   {
    "q": "Why is a red blood cell a poor host for viruses?",
@@ -1712,7 +2385,12 @@
    ],
    "why": "A mature red cell has no nucleus or organelles, so a virus has no machinery to hijack for copying itself.",
    "hint": "A virus needs the cell's machinery to copy itself. What does a mature red cell lack?",
-   "board": true
+   "board": true,
+   "hook": "A virus is a hijacker that needs a factory; a red cell has no machinery to hijack",
+   "keys": [
+    "no nucleus or organelles",
+    "no machinery to hijack"
+   ]
   },
   {
    "q": "State two examples of harmful viruses. (2 points)",
@@ -1724,7 +2402,11 @@
    ],
    "why": "Two points: any two harmful viruses, e.g. HIV and flu; Salmonella, cholera and tetanus are bacteria, and Penicillium is a fungus.",
    "hint": "Think of a virus that attacks immune cells, or ones behind the illnesses you're vaccinated against.",
-   "board": true
+   "board": true,
+   "hook": "HIV = Human Immunodeficiency Virus: the V tells you it's a virus; flu is one too",
+   "keys": [
+    "HIV and flu"
+   ]
   },
   {
    "q": "Which is a beneficial use of viruses?",
@@ -1736,7 +2418,12 @@
    ],
    "why": "Viruses can deliver genes into cells for gene therapy; penicillin, cheese and decay rely on fungi or bacteria.",
    "hint": "Viruses are good at getting into cells. What could doctors or scientists send in with them?",
-   "board": true
+   "board": true,
+   "hook": "Viruses are natural delivery vans for genes, so engineers use them as vectors",
+   "keys": [
+    "deliver genes into cells",
+    "gene therapy"
+   ]
   }
  ],
  "S1-Q3b": [
@@ -1750,7 +2437,13 @@
    ],
    "why": "Two points: monocytes (macrophages) engulf any pathogen or dust by phagocytosis and digest it with lysosome enzymes: a non-specific defence.",
    "hint": "Think of what this cell does when it meets dust or a bacterium in the air sac.",
-   "board": true
+   "board": true,
+   "hook": "Phago = eat, cyte = cell: monocytes swallow any germ whole, then digest it with lysosomes",
+   "keys": [
+    "engulf",
+    "phagocytosis",
+    "lysosome enzymes"
+   ]
   },
   {
    "q": "Which is another innate (non-specific) response?",
@@ -1762,7 +2455,12 @@
    ],
    "why": "In inflammation, histamine widens blood vessels so more phagocytes arrive; antibodies and T cells are specific.",
    "hint": "Think of any defence that works the same on every germ: barriers, chemicals, or the body's heat.",
-   "board": "Besides phagocytosis by monocytes, which is another innate (non-specific) immune response?"
+   "board": "Besides phagocytosis by monocytes, which is another innate (non-specific) immune response?",
+   "hook": "Inflammation is calling in reinforcements: red, hot, swollen, and full of phagocytes",
+   "keys": [
+    "histamine widens blood vessels",
+    "more phagocytes arrive"
+   ]
   }
  ],
  "S2-Q1b": [
@@ -1776,7 +2474,13 @@
    ],
    "why": "People's genes differ and virus strains vary from place to place, so a worldwide sample gives results that apply to everyone.",
    "hint": "Think about how people, and the virus itself, might differ from one country to another.",
-   "board": "Why test a new vaccine in a trial with people from all over the world?"
+   "board": "Why test a new vaccine in a trial with people from all over the world?",
+   "hook": "Test it on the whole world if it's for the whole world: genes and strains vary",
+   "keys": [
+    "genes differ",
+    "virus strains vary",
+    "apply to everyone"
+   ]
   },
   {
    "q": "What does 'placebo-controlled' mean here? (2 points)",
@@ -1788,7 +2492,12 @@
    ],
    "why": "Two points: a control group got an identical injection with no vaccine, to compare with the vaccine group; any difference is due to the vaccine.",
    "hint": "What did the 21 728 people who didn't get the vaccine receive, and why compare them?",
-   "board": "In a vaccine trial, what does 'placebo-controlled' mean? (2 points)"
+   "board": "In a vaccine trial, what does 'placebo-controlled' mean? (2 points)",
+   "hook": "Placebo is Latin for 'I shall please': a dummy jab that looks real but does nothing",
+   "keys": [
+    "identical injection with no vaccine",
+    "compare with the vaccine group"
+   ]
   },
   {
    "q": "Comment on the sample of 43 448 people in terms of reliability. (2 points)",
@@ -1800,7 +2509,13 @@
    ],
    "why": "Two points: a large sample makes the data more reliable, because it cuts out the effect of chance and odd individual results.",
    "hint": "Is 43 448 big or small? Think what a few odd results would do to a tiny sample.",
-   "board": "A vaccine trial used 43 448 people. Comment on this sample size in terms of the reliability of the data. (2 points)"
+   "board": "A vaccine trial used 43 448 people. Comment on this sample size in terms of the reliability of the data. (2 points)",
+   "hook": "Toss a coin 4 times, you might get 4 heads; toss it 40,000 times and luck evens out",
+   "keys": [
+    "large sample",
+    "more reliable",
+    "effect of chance"
+   ]
   },
   {
    "q": "Can we conclude the vaccine works for under-16s?",
@@ -1812,7 +2527,12 @@
    ],
    "why": "The trial only included people aged 16 or over, so you can't extend the result to children without testing them.",
    "hint": "Look at the ages of the people who took part in the trial. Who was left out?",
-   "board": "In a trial of people aged 16 and over, the vaccine gave 95% protection. Can we conclude it works for under-16s?"
+   "board": "In a trial of people aged 16 and over, the vaccine gave 95% protection. Can we conclude it works for under-16s?",
+   "hook": "Only claim what you tested: no under-16s in the trial, no conclusion about them",
+   "keys": [
+    "16 or over",
+    "can't extend the result"
+   ]
   }
  ],
  "S2-Q1e": [
@@ -1826,7 +2546,13 @@
    ],
    "why": "Two points: prions cause disease (like BSE and CJD), and they are infectious, making normal proteins misfold into more prions.",
    "hint": "Recall what 'pathogen' means, then check the passage for what prions do and how they spread.",
-   "board": "Prions are misfolded proteins linked to BSE in cattle and CJD in humans. Why can prions be classed as pathogens? (2 points)"
+   "board": "Prions are misfolded proteins linked to BSE in cattle and CJD in humans. Why can prions be classed as pathogens? (2 points)",
+   "hook": "Prions are bad apples: one misfolded protein makes the normal ones around it misfold too",
+   "keys": [
+    "cause disease",
+    "infectious",
+    "misfold"
+   ]
   },
   {
    "q": "How could BSE prions pass from cattle to humans?",
@@ -1838,7 +2564,12 @@
    ],
    "why": "vCJD came from eating infected beef products, especially brain or spinal cord tissue where prions build up.",
    "hint": "How do most people come into contact with cattle? Think about what ends up on the dinner plate.",
-   "board": true
+   "board": true,
+   "hook": "Mad cow to human via the dinner plate: prions survive cooking in infected beef",
+   "keys": [
+    "eating infected beef",
+    "brain or spinal cord"
+   ]
   },
   {
    "q": "Explain the importance of folding in proteins. (2 points)",
@@ -1850,7 +2581,12 @@
    ],
    "why": "Two points: folding gives a protein its specific 3D shape (like an active site), and that shape decides its function; misfolded ones fail.",
    "hint": "Think of an enzyme's active site: what does folding give a protein, and why does that matter?",
-   "board": true
+   "board": true,
+   "hook": "A protein is like a key: fold it wrong and it no longer fits the lock",
+   "keys": [
+    "specific 3D shape",
+    "decides its function"
+   ]
   },
   {
    "q": "Which other pathogen is non-cellular?",
@@ -1862,7 +2598,11 @@
    ],
    "why": "Viruses, like prions, aren't made of cells; bacteria, fungi and protists are all cellular.",
    "hint": "Which disease agent is just genes in a protein coat, with no cell at all?",
-   "board": "Prions are non-cellular pathogens. Which other type of pathogen is non-cellular?"
+   "board": "Prions are non-cellular pathogens. Which other type of pathogen is non-cellular?",
+   "hook": "Viruses and prions are the non-cellular odd ones out: genes in a box, or a bent protein",
+   "keys": [
+    "aren't made of cells"
+   ]
   }
  ]
 }

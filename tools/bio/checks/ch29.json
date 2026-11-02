@@ -204,11 +204,11 @@
  "2007-Q15c": [
   {
    "q": "What is homeostasis, and why is it important in the body? (3 points)",
-   "right": "Maintaining a constant internal environment, so the temperature suits enzymes",
+   "right": "Maintaining a constant internal environment; temperature suits enzymes",
    "wrong": [
-    "Maintaining a constant internal environment, so no excretion is needed",
-    "Letting conditions inside match the outside, so the temperature suits enzymes",
-    "Removing undigested food from the gut, so the temperature suits enzymes"
+    "Maintaining a constant internal environment; no excretion is needed",
+    "Inside matches the outside, so the temperature suits enzymes",
+    "Removing undigested food, so the temperature suits enzymes"
    ],
    "why": "Three points: homeostasis is the maintenance of a constant internal environment, which keeps the temperature suitable for enzyme reactions.",
    "hint": "Homeo means 'same'. For why: which proteins run your cell reactions and need the right heat and pH?",
@@ -1389,7 +1389,7 @@
    "why": "Water is reabsorbed along the tubules (PCT, loop, DCT, collecting duct); the glomerulus is where filtering happens.",
    "hint": "1: name tubes the filtrate passes after the cup. 2: think of useful food molecules and minerals.",
    "board": true,
-   "hook": "Glomerulus filters, tubules take back: water is won back all along the tubule",
+   "hook": "Glomerulus filters, tubules take back: the loop of Henle is one of the water-savers",
    "keys": [
     "reabsorbed along the tubules",
     "glomerulus is where filtering happens"
@@ -1511,7 +1511,7 @@
    "why": "Homeostasis covers all internal conditions; thermoregulation only covers temperature.",
    "hint": "Think of the word that links sweating, shivering and ADH: they all keep the inside steady.",
    "board": true,
-   "hook": "Homeo = same, stasis = standing still: the inside stays the same",
+   "hook": "Homeostasis is the umbrella; thermoregulation (temperature) is just one spoke of it",
    "keys": [
     "Homeostasis",
     "all internal conditions"
