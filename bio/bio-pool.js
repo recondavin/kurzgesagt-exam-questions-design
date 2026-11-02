@@ -10,10 +10,11 @@
 //   wrong        no shot, and it's his turn;
 //   typed right  a mulligan as well: take one shot again (the table goes back as it was), kept until you use it.
 // He plays by the same rule (right 65 in 100): right, the best pot a search finds (ghost-ball lines to every pocket,
-// tried in the physics, the one that still drops when aimed a little off) with a small wobble; wrong, no shot.
+// tried in the physics, the one that still drops when aimed a little off) with a small wobble, his cue and the line of
+// what he's going for shown first; wrong, no shot. You aim by dragging anywhere (or tapping where to aim).
 // The physics is done here in 2D on the cloth and is deterministic (tools/bio/tests/pool.mjs): balls slow on the cloth,
 // bounce off each other and the cushions, and drop when they cross a pocket's mouth. three.js (bio/vendor/three.min.js)
-// only draws it.
+// only draws it, indoors, on a canvas that fills the screen, with Mini Golf's chips, panel, banners and bar over it.
 (function () {
   'use strict';
   var AM = window.ExamAnswerMode, K = AM && AM.kit, BK = window.BioKit, BB = window.BioBoard;
@@ -455,7 +456,7 @@
     A.then = function () {
       A.then = null;
       var res = q('[data-mg-res]');
-      if (res) res.innerHTML = ok ? '<b class="is-ok">He got it.</b> ' + esc(item.c.right) : '<b class="is-no">He got it wrong.</b> It\'s ' + esc(item.c.right);
+      if (res) res.innerHTML = ok ? '<b class="is-ok">He got it.</b> ' + esc(item.c.right) : '<b class="is-no">He got it wrong.</b> Answer: ' + esc(item.c.right);
       var face = q('.mg-his .mg-face');
       if (face) face.setAttribute('data-mood', ok ? 'happy' : 'angry');
       K.sfx(ok ? 'pop' : 'thud', 0.6);
@@ -686,8 +687,8 @@
     // The lamp: a long shade on two rods over the table, its underside lit (hidden when the camera is above it).
     var lamp = A.lamp = new TH.Group(), shade = toon('#2E6B4F');
     w.add(lamp);
-    box(-6.6, -0.7, 6.6, 0.7, 10.4, 11, shade, lamp);
-    add(lying(new TH.PlaneGeometry(12.8, 1.1)).rotateX(Math.PI), flat('#FFE9A8'), lamp).position.y = 10.38;
+    box(-6.6, -0.7, 6.6, 0.7, 10.55, 11.1, shade, lamp);
+    box(-6.45, -0.55, 6.45, 0.55, 10.3, 10.55, flat('#FFE9A8'), lamp);
     [-4.5, 4.5].forEach(function (x) { add(new TH.CylinderGeometry(0.05, 0.05, 30, 8), flat(INK), lamp).position.copy(at(x, 0, 26)); });
     // The balls: the cue ball white, yours blue, his orange with a white stripe, the black navy with its 8.
     var stripe = ballTex(function (g) { g.fillStyle = ORANGE; g.fillRect(0, 0, 128, 64); g.fillStyle = '#FFFFFF'; g.fillRect(0, 20, 128, 24); });
@@ -853,7 +854,7 @@
   function inset() {
     var c = A.r.domElement.getBoundingClientRect(), bar = q('.mg-bar'), hud = q('.mg-hud'), top = 10, bottom = 10, right = 10;
     if (hud) top = Math.max(top, hud.getBoundingClientRect().bottom - c.top + 8);
-    if (bar) bottom = Math.max(bottom, c.bottom - bar.getBoundingClientRect().top + 8);
+    if (bar && bar.offsetParent) bottom = Math.max(bottom, c.bottom - bar.getBoundingClientRect().top + 8);
     if (!A.phone) right = Math.min(500, c.width * 0.4) + 24;
     A.free = [10, top, c.width - right, c.height - bottom];
     A.ins = [right - 10, bottom - top];
@@ -1304,6 +1305,7 @@
     if (won) { confetti(0, 0); kick(); }
     K.mascot(won ? 'furious' : 'happy', won ? 'Hmph. The cue was warped.' : 'As expected. Again?');
     wait(function () {
+      q('[data-ar-stage]').classList.add('is-over');
       A.close = false;
       tableView();
       kick();

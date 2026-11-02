@@ -561,6 +561,7 @@ button.sea-c { cursor: default; }
 .mg-say b { color: #FFFFFF; }
 .mg-acts { display: flex; flex: none; gap: 10px; }
 .mg-acts:empty { display: none; }
+.mg-game.is-over .mg-bar { display: none; }
 .mg-acts .tb-btn { padding: 12px 24px; border-radius: 14px; font-size: 19px; }
 .mg-btn2 { background: #37464F; box-shadow: 0 4px 0 #22343C; color: #F1F7FB; }
 .mg-btn2:hover { background: #435560; }

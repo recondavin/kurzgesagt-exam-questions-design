@@ -15,12 +15,14 @@
 //                steady; a second right answer gives a second putt, then it's his turn;
 //   wrong        you lose that stroke (it counts, the ball stays put) and it's his turn;
 //   typed right  a mulligan as well: take one putt again, kept until you use it.
-// He plays by the same rule (right 65 in 100): right, the best putt a search finds with a small wobble; wrong, he loses
-// the stroke. His ball is his head (the site's drawing of it on a ball, rolling as it goes and turning back to face you
+// He plays by the same rule (right 65 in 100): right, the best putt a search finds with a small wobble (from far away a
+// lag to near the cup, so a hole in one is rare); wrong, he loses the stroke. His question is shown small and his turn
+// is quick (a tap hurries it on). His ball is his head (the site's drawing of it on a ball, rolling as it goes and turning back to face you
 // when it stops), and both of you putt with a 3D putter that swings and strikes. Fewest strokes over the five wins.
 // The ball's physics is done here, in 2.5D, and is deterministic (tools/bio/tests/golf.mjs): the ball rolls on the
 // course plane, bumps are heights, walls are segments, a valve is a wall from one side only and the cup catches a slow
-// ball. three.js (bio/vendor/three.min.js, r159, MIT) only draws it.
+// ball. three.js (bio/vendor/three.min.js, r159, MIT) only draws it, on a canvas that fills the screen (the owner: it
+// was a small window in a dark box), with the chips, the question panel, the banners and the bar over it in HTML.
 (function () {
   'use strict';
   var AM = window.ExamAnswerMode, K = AM && AM.kit, BK = window.BioKit, BB = window.BioBoard;
@@ -557,7 +559,7 @@
     A.then = function () {
       A.then = null;
       var res = q('[data-mg-res]');
-      if (res) res.innerHTML = ok ? '<b class="is-ok">He got it.</b> ' + esc(item.c.right) : '<b class="is-no">He got it wrong.</b> It\'s ' + esc(item.c.right);
+      if (res) res.innerHTML = ok ? '<b class="is-ok">He got it.</b> ' + esc(item.c.right) : '<b class="is-no">He got it wrong.</b> Answer: ' + esc(item.c.right);
       var face = q('.mg-his .mg-face');
       if (face) face.setAttribute('data-mood', ok ? 'happy' : 'angry');
       K.sfx(ok ? 'pop' : 'thud', 0.6);
@@ -984,7 +986,7 @@
     if (!A || !A.r) return;
     var c = A.r.domElement.getBoundingClientRect(), l = q('[data-ar-ask]'), bar = q('.mg-bar'), hud = q('.mg-hud'), top = 0, bottom = 0, right = 0;
     if (hud) top = Math.max(0, hud.getBoundingClientRect().bottom - c.top);
-    if (bar) bottom = Math.max(0, c.bottom - bar.getBoundingClientRect().top);
+    if (bar && bar.offsetParent) bottom = Math.max(0, c.bottom - bar.getBoundingClientRect().top);
     if (l && !l.hidden && !l.classList.contains('is-mid')) {
       var b = l.getBoundingClientRect();
       if (b.width && b.left > c.left + c.width * 0.4) right = Math.max(0, c.right - b.left);
@@ -1409,14 +1411,14 @@
     if (n === 1) return 'Hole in one!';
     return { '-2': 'Eagle!', '-1': 'Birdie!', 0: 'Par', 1: 'Bogey', 2: 'Double bogey' }[n - par] || '+' + (n - par);
   }
-  function parWords(n, par) {
+  function parWords(who, n, par) {
     var d = n - par, w = ['', 'one', 'two', 'three', 'four'][Math.abs(d)] || String(Math.abs(d));
-    return 'In ' + n + ': ' + (d ? w + (d < 0 ? ' under par' : ' over par') : 'par');
+    return (who ? 'He took ' : 'You took ') + n + ': ' + (d ? w + (d < 0 ? ' under par' : ' over par') : 'par');
   }
   // In: a banner (Hole in one!, Eagle!, Birdie!, or In!), the confetti, and what he makes of it.
   function holedBanner(who, n, par) {
     var name = scoreName(n, par), big = n === 1 ? 'Hole in one!' : n < par ? name : who ? 'He\'s in' : 'In!';
-    banner(big, parWords(n, par), who ? 'him' : n < par ? 'gold' : 'you');
+    banner(big, parWords(who, n, par), who ? 'him' : n < par ? 'gold' : 'you');
   }
   function yourStop(r) {
     var n = A.strokes[0][A.hole];
@@ -1465,7 +1467,7 @@
       if (!job.done) K.later(slice, 10);
     })();
     hisAsk('His stroke ' + (A.strokes[1][A.hole] + 1), 0.65, A.h.ch, function (ok) {
-      if (ok) hisPutt(job); else penalty(1);
+      if (ok) hisPutt(job); else { A.think = null; penalty(1); }
     });
   }
   function hisPutt(job) {
@@ -1552,6 +1554,7 @@
     if (!best || you < best) K.store('bio-golf-best', String(you));
     if (won) K.store('bio-golf-wins', String(wins));
     K.playing(false);
+    q('[data-ar-stage]').classList.add('is-over');
     mood(won ? 'furious' : you === him ? 'angry' : 'happy');
     hud();
     say('');
