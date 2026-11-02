@@ -20,11 +20,12 @@
   if (!K || !BK || !BB || !BB.pools) return;
   var esc = BK.esc, shuffle = BK.shuffle, pick = BK.pick;
   var CH = BB.chapters, NAME = BB.names, COL = BB.colours, INK = '#13294A';
-  var SKY = '#CDEBFA', GRASS = '#74C043', GRASS_DK = '#4E9A2E', SOIL = '#D9A066', SOIL2 = '#BF844D';
+  var GRASS = '#74C043', GRASS_DK = '#4E9A2E', SOIL = '#D9A066', SOIL2 = '#BF844D';
   var BLUE = '#1CB0F6', ORANGE = '#FF9600';
   var A = null;
   function live() { return A && A.card.isConnected; }
-  function wait(fn, ms) { return K.later(function () { if (live()) fn(); }, ms); }
+  // Later, unless the game's gone; while "Leave the game?" is up it waits for the answer (pause() runs what's held).
+  function wait(fn, ms) { return K.later(function () { if (!live()) return; if (A.paused) A.held.push(fn); else fn(); }, ms); }
   function q(sel) { return A.card.querySelector(sel); }
 
   // ======================================================================== the table and its physics
@@ -323,23 +324,28 @@
   }
   // His shot (only after a right answer): the best pot, or an opening shot, with a small wobble (up to 0.45 degrees and
   // 6% power).
-  function hisAim(st, who, rand) {
-    var s = plan(st, who), g = function () { return (rand() + rand() + rand() - 1.5) / 1.5; };
-    if (!s) return safety(st, who, rand);
+  function wobble(s, rand) {
+    var g = function () { return (rand() + rand() + rand() - 1.5) / 1.5; };
     return { angle: s.angle + g() * 0.008, power: Math.max(0.05, Math.min(1, s.power * (1 + g() * 0.06))) };
   }
-  // ======================================================================== the questions
-  // As in bio-arcade.js: the table with the question layer over it, and the turn's line and buttons below.
-  function show(html, close) {
+  function hisAim(st, who, rand) { var s = plan(st, who); return s ? wobble(s, rand) : safety(st, who, rand); }
+  // ======================================================================== the screen and the questions
+  // As Mini Golf (bio-golf.js): the game fills the screen, the table on a canvas under everything, chips along the top
+  // (your balls and his, whose turn), the question in a panel that leaves the table in sight (down the right on a
+  // computer, a sheet along the bottom on a phone), and a bar along the bottom that's always the same height, with the
+  // turn's line, the power and the buttons. The question flow is as in bio-arcade.js.
+  function show(html, btns) {
     BK.body(A.card, html, true);
     A.card.querySelector('.am-finish__card').classList.add('tb-wide');
-    BK.buttons(A.card, close || [['more', 'data-am-keep', 'Close']], true);
+    BK.buttons(A.card, btns || [], true);
     BB.nearMascot(A.card);
   }
-  function into(node) { if (node && node.scrollIntoView) node.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
-  function stage(top, field) {
-    return '<div class="ar">' + top + '<div class="ar-stage" data-ar-stage><div class="ar-field">' + field + '</div><div class="ar-ask" data-ar-ask hidden></div></div>' +
-      '<div class="ar-turn"><p class="tb-say tb-turn" data-ar-say aria-live="polite"></p><div class="tb-row" data-ar-row></div></div></div>';
+  function full(on) { A.card.classList.toggle('mg-full', Boolean(on)); }
+  function stage(sky, hud) {
+    return '<div class="mg-game" data-ar-stage><div class="mg-sky mg-sky--room">' + sky + '</div><div class="mg-hud">' + hud + '</div>' +
+      '<div class="mg-banner" data-mg-banner aria-live="polite"></div><div class="mg-ask" data-ar-ask hidden></div>' +
+      '<div class="mg-bar"><p class="mg-say" data-ar-say aria-live="polite"></p>' +
+      '<div class="mg-power" data-pl-power hidden><span><i></i></span><b class="num">0%</b></div><div class="mg-acts" data-ar-row></div></div></div>';
   }
   function say(html) { var s = q('[data-ar-say]'); if (s) s.innerHTML = html; }
   function row(html) { var r = q('[data-ar-row]'); if (r) r.innerHTML = html || ''; }
@@ -360,21 +366,26 @@
       '<p class="tb-ans"><span>Answer</span>' + esc(item.c.right) + '</p><p class="tb-why"><span>Why</span>' + esc(item.c.why) + '</p>';
   }
   function stamp(ok, text) { return '<p class="tb-stamp ' + (ok ? 'is-ok' : 'is-no') + '">' + esc(text) + '</p>'; }
-  function layer(html) {
+  // The panel: kind is '' (your question), 'his' (his, small), or 'mid' (the end, in the middle).
+  function layer(html, kind) {
     var l = q('[data-ar-ask]');
+    l.className = 'mg-ask' + (kind ? ' is-' + kind : '');
     l.innerHTML = html;
     l.hidden = false;
-    q('[data-ar-stage]').classList.add('is-asking');
-    into(l.querySelector('.tb-card'));
+    l.scrollTop = 0;
+    inset();
     return l;
   }
   function hideAsk() {
     var l = q('[data-ar-ask]');
+    if (!l) return;
     l.hidden = true;
     l.innerHTML = '';
-    q('[data-ar-stage]').classList.remove('is-asking');
+    l.className = 'mg-ask';
+    inset();
   }
-  function bare(text) { return text.replace(/\s*\((\d+ of )?\d+ points?\)$/, ''); }
+  // The question without its "(2 points)" or "(one of 5 points)" at the end.
+  function bare(text) { return text.replace(/\s*\(((\d+|one|two|three|four|five) of )?\d+ points?\)$/i, ''); }
   function ask(label, typed, ch, done) {
     // Your question comes from the memory you share with Exam drill: one due to type first (it's typed even when the
     // game wanted boxes), then one you got wrong, then a new one.
@@ -390,9 +401,11 @@
       : '<div class="tb-opts">' + shuffle([item.c.right].concat(item.c.wrong)).map(function (o) {
         return '<button type="button" class="tb-opt" data-ar-opt="' + esc(o) + '">' + esc(o) + '</button>';
       }).join('') + '</div>') + '<div class="qg-after" data-ar-after></div>'));
+    // The question types in (the user asked for it; a click on the card skips to the end).
     BB.reveal(q('[data-ar-ask] .tb-card'), function () {
       var t = q('[data-ar-text]');
       if (t) t.focus({ preventScroll: true });
+      inset();
     });
   }
   function choose(btn) {
@@ -420,36 +433,74 @@
     if (btns) btns.closest('.tb-row').remove();
     q('[data-ar-after]').innerHTML = stamp(ok, ok ? 'Correct' : 'Not quite') + answerHtml(A.item, mine) + BB.memLine(BB.memRecord(A.pools, A.item, A.typed, ok));
     if (ok) K.ding(A.typed ? 4 : 2, true); else K.bonk();
+    inset();
     A.done(ok);
   }
+  // A right answer goes straight on to the aim: the card stays beside the table with the answer and why (on a phone,
+  // only those, in a short sheet that goes when you start to aim).
+  function keepAnswer() {
+    var l = q('[data-ar-ask]');
+    if (!l || l.hidden) return;
+    l.classList.add('is-done');
+    l.scrollTop = 0;
+    inset();
+  }
+  // His question, small: the question in his colours, "He thinks…" for a moment, then one line, whether he got it and
+  // the answer. A tap goes on at once.
   function hisAsk(label, odds, ch, done) {
     var item = nextItem(ch, false), ok = Math.random() < odds;
     A.phase = 'him';
-    layer(card(item.ch, label, '<p class="tb-q">' + esc(bare(item.text)) + '</p><p class="tb-say tb-think">He thinks…</p><div class="qg-after" data-ar-after></div>'));
-    BB.reveal(q('[data-ar-ask] .tb-card'), function () { wait(function () {
-      var t = q('.tb-think');
-      if (t) t.remove();
-      q('[data-ar-after]').innerHTML = stamp(ok, ok ? 'He got it' : 'He got it wrong') + answerHtml(item, '');
-      K.mascot(ok ? 'happy' : 'angry', ok ? pick(['Obviously.', 'Too easy.']) : pick(['Hmph. A slip.', 'Badly worded.']));
-      done(ok);
-    }, 900); });
+    layer('<div class="mg-his" style="--c:' + COL[item.ch] + '"><p class="mg-his__band"><span class="mg-face" data-mood="ok" aria-hidden="true">' + K.face + '</span><b>' + esc(label) + '</b><span>' + esc(NAME[item.ch]) + '</span></p>' +
+      '<p class="mg-his__q">' + esc(bare(item.text)) + '</p><p class="mg-his__res" data-mg-res><span class="mg-dots" aria-label="He thinks">He thinks<i>.</i><i>.</i><i>.</i></span></p></div>', 'his');
+    A.then = function () {
+      A.then = null;
+      var res = q('[data-mg-res]');
+      if (res) res.innerHTML = ok ? '<b class="is-ok">He got it.</b> ' + esc(item.c.right) : '<b class="is-no">He got it wrong.</b> It\'s ' + esc(item.c.right);
+      var face = q('.mg-his .mg-face');
+      if (face) face.setAttribute('data-mood', ok ? 'happy' : 'angry');
+      K.sfx(ok ? 'pop' : 'thud', 0.6);
+      K.mascot(ok ? 'happy' : 'angry', ok ? pick(['Obviously.', 'Too easy.', 'Child\'s play.']) : pick(['Hmph. A slip.', 'Badly worded.', 'That question is wrong.']));
+      A.then = function () { A.then = null; hideAsk(); done(ok); };
+      var then = A.then;
+      wait(function () { if (A.then === then) then(); }, 1300);
+    };
+    var first = A.then;
+    wait(function () { if (A.then === first) first(); }, 850);
   }
-  function go(label, then, auto) {
+  // The button under your card to go on (after a wrong answer, so you can read why).
+  function go(label, then) {
     var r = document.createElement('div');
     r.className = 'tb-row tb-row--next';
     r.innerHTML = '<button type="button" class="tb-btn tb-btn--go" data-ar-go>' + label + '</button>';
     q('[data-ar-ask] .tb-card__body').appendChild(r);
     A.then = then;
     r.querySelector('button').focus({ preventScroll: true });
-    into(r);
-    if (auto) wait(function () { if (A.then === then) { A.then = null; then(); } }, auto);
+    var l = q('[data-ar-ask]');
+    l.scrollTop = l.scrollHeight;
+    inset();
+  }
+  // The big moments, in the middle of the screen: Potted!, Foul, The black!, with a line under it.
+  function banner(text, sub, kind) {
+    var b = q('[data-mg-banner]');
+    if (!b) return;
+    b.className = 'mg-banner';
+    b.innerHTML = '<b>' + esc(text) + '</b>' + (sub ? '<span>' + esc(sub) + '</span>' : '');
+    // Over the middle of the table (on a computer the question's column is kept on the right).
+    if (A.free) { b.style.left = (A.free[0] + A.free[2]) / 2 + 'px'; b.style.top = (A.free[1] + (A.free[3] - A.free[1]) * 0.36) + 'px'; }
+    void b.offsetWidth;
+    b.className = 'mg-banner is-on' + (kind ? ' is-' + kind : '');
+    clearTimeout(A.bannerT);
+    A.bannerT = K.later(function () { b.className = 'mg-banner'; }, 2300);
   }
 
   // ======================================================================== the 3D table (three.js only draws)
-  // Flat cartoon colours like the other games: the table out on a lawn under the sky, green cloth and cushions, a wooden
-  // rail with white sights, navy pockets and outlines (each shape drawn again a little bigger from inside, so only its
-  // rim shows). Toon shading in three flat tones, the top of everything its exact colour; no gradients or glows.
-  var TH = null, CLOTH = 0, LAWN = -3.4;
+  // Flat cartoon colours like the other games, indoors (it used to stand on Mini Golf's lawn under the clouds): a dark
+  // floor, lighter in a pool round the table under the long lamp that hangs over it; green cloth, cushions with angled
+  // jaws, a wooden rail with white sights. The pockets are holes cut through the cloth and the rail, with a leather lip
+  // and a dark cup inside (they were two navy discs floating at the rail's and the cloth's heights). Navy outlines (each
+  // shape drawn again a little bigger from inside, so only its rim shows); toon shading in three flat tones, the top of
+  // everything its exact colour; no gradients or glows.
+  var TH = null, CLOTH = 0, FLOOR = -3.4, ROOM = '#1A262D', BODY = -1.15, CUP = -0.95;
   function at(x, y, z) { return new TH.Vector3(x, z, -y); }
   function keep(o) { A.trash.push(o); return o; }
   function toon(c, map) { return keep(new TH.MeshToonMaterial({ color: map ? '#FFFFFF' : c, map: map || null, gradientMap: A.tones })); }
@@ -474,7 +525,13 @@
     s.absarc(x0 + r, y0 + r, r, Math.PI, Math.PI * 1.5);
     return s;
   }
-  function slab(s, top, depth) { return lying(new TH.ExtrudeGeometry(s, { depth: depth, bevelEnabled: false, curveSegments: 8 })).translate(0, top - depth, 0); }
+  function poly(pts, Kind) {
+    var s = new (Kind || TH.Shape)();
+    pts.forEach(function (p, i) { if (i) s.lineTo(p[0], p[1]); else s.moveTo(p[0], p[1]); });
+    return s;
+  }
+  // A shape lying on the table from height z0 up to z1 (its top and bottom in one material, its sides in another).
+  function prism(s, z0, z1) { return lying(new TH.ExtrudeGeometry(s, { depth: z1 - z0, bevelEnabled: false, curveSegments: 24 })).translate(0, z0, 0); }
   // A box from (x0, y0) to (x1, y1) on the table, from height z0 to z1, outlined.
   function box(x0, y0, x1, y1, z0, z1, m, to) {
     var b = add(new TH.BoxGeometry(x1 - x0, z1 - z0, y1 - y0), m, to), o = rim(new TH.BoxGeometry(x1 - x0 + 0.08, z1 - z0 + 0.08, y1 - y0 + 0.08), to);
@@ -482,10 +539,74 @@
     o.position.copy(b.position);
     return b;
   }
+  // Where each pocket's hole is drawn: set back from the cushion line, so a ball runs over the mouth and drops where
+  // the physics says it does.
+  var HOLES = POCKETS.map(function (p, k) {
+    var sx = Math.sign(p[0]), sy = Math.sign(p[1]);
+    return k === 1 || k === 4 ? { x: 0, y: sy * (W + 0.5), r: 0.62 } : { x: sx * (L + 0.12), y: sy * (W + 0.12), r: 0.8 };
+  });
+  function holeAt(x, y) {
+    for (var h = 0; h < HOLES.length; h++) if (Math.hypot(x - HOLES[h].x, y - HOLES[h].y) < HOLES[h].r) return h;
+    return -1;
+  }
+  // The edge of the rectangle to the cushions' backs with the pockets cut into it, anticlockwise from the middle of the
+  // head end: out, the rectangle and the holes together (the rail's inside edge); in, the rectangle less the holes (the
+  // cloth). Where the walk goes into a hole it follows the hole's edge round instead (the outside way, or the inside way).
+  function cutEdge(out) {
+    var X = L + CW, Y = W + CW, C = [[-X, 0], [-X, -Y], [X, -Y], [X, Y], [-X, Y], [-X, 0]], pts = [], hole = -1, from = 0, i, k;
+    function ang(h, x, y) { return Math.atan2(y - HOLES[h].y, x - HOLES[h].x); }
+    function arc(h, a0, a1) {
+      var H = HOLES[h], d = a1 - a0;
+      if (out) while (d < 0) d += 2 * Math.PI; else while (d > 0) d -= 2 * Math.PI;
+      var n = Math.max(2, Math.ceil(Math.abs(d) * H.r / 0.04));
+      for (var j = 0; j <= n; j++) pts.push([H.x + Math.cos(a0 + d * j / n) * H.r, H.y + Math.sin(a0 + d * j / n) * H.r]);
+    }
+    for (k = 1; k < C.length; k++) {
+      var a = C[k - 1], b = C[k], n = Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 0.02);
+      for (i = 0; i < n; i++) {
+        var x = a[0] + (b[0] - a[0]) * i / n, y = a[1] + (b[1] - a[1]) * i / n, h = holeAt(x, y);
+        if (h !== hole) {
+          if (hole >= 0) arc(hole, from, ang(hole, x, y));
+          if (h >= 0) from = ang(h, x, y);
+          hole = h;
+        }
+        if (h < 0 && (!pts.length || i % 10 === 0 || holeAt(a[0] + (b[0] - a[0]) * (i + 1) / n, a[1] + (b[1] - a[1]) * (i + 1) / n) >= 0)) pts.push([x, y]);
+      }
+    }
+    return pts;
+  }
+  // A cushion's jaw: from its knuckle on the cushion line back to the edge of the pocket's hole, at the cushions' back.
+  function jaw(kx, ky, along) {
+    var best = null;
+    HOLES.forEach(function (H) {
+      var back = along ? Math.sign(ky) * (W + CW) : Math.sign(kx) * (L + CW), d = back - (along ? H.y : H.x);
+      if (Math.abs(d) > H.r) return;
+      var e = Math.sqrt(H.r * H.r - d * d);
+      [-e, e].forEach(function (s) {
+        var p = along ? [H.x + s, back] : [back, H.y + s];
+        if (!best || Math.hypot(p[0] - kx, p[1] - ky) < Math.hypot(best[0] - kx, best[1] - ky)) best = p;
+      });
+    });
+    return best;
+  }
+  // A convex outline pushed out by d (for the navy rims of the cushions).
+  function grow(pts, d) {
+    var n = pts.length, area = 0, out = [];
+    for (var i = 0; i < n; i++) area += pts[i][0] * pts[(i + 1) % n][1] - pts[(i + 1) % n][0] * pts[i][1];
+    var s = area > 0 ? 1 : -1;
+    for (i = 0; i < n; i++) {
+      var p0 = pts[(i + n - 1) % n], p1 = pts[i], p2 = pts[(i + 1) % n];
+      var e1 = [p1[0] - p0[0], p1[1] - p0[1]], e2 = [p2[0] - p1[0], p2[1] - p1[1]], l1 = Math.hypot(e1[0], e1[1]), l2 = Math.hypot(e2[0], e2[1]);
+      var n1 = [s * e1[1] / l1, -s * e1[0] / l1], n2 = [s * e2[1] / l2, -s * e2[0] / l2], bx = n1[0] + n2[0], by = n1[1] + n2[1], bl = Math.hypot(bx, by) || 1;
+      var k = d / Math.max(0.3, (bx * n1[0] + by * n1[1]) / bl);
+      out.push([p1[0] + bx / bl * k, p1[1] + by / bl * k]);
+    }
+    return out;
+  }
   function setup3d(canvas) {
     TH = window.THREE;
     var r = new TH.WebGLRenderer({ canvas: canvas, antialias: true });
-    r.setClearColor(SKY);
+    r.setClearColor(ROOM);
     A.r = r;
     A.trash = [];
     A.scene = new TH.Scene();
@@ -493,19 +614,22 @@
     A.tones.minFilter = A.tones.magFilter = TH.NearestFilter;
     A.tones.needsUpdate = true;
     A.ink = new TH.MeshBasicMaterial({ color: INK, side: TH.BackSide });
+    // The lamp's light from straight above: the tops are their exact colour, the sides a shade darker.
     A.scene.add(new TH.AmbientLight(0xffffff, 0.45 * Math.PI));
-    var sun = new TH.DirectionalLight(0xffffff, 0.55 * Math.PI);
-    sun.position.set(-4, 10, 6);
-    A.scene.add(sun);
+    var lamp = new TH.DirectionalLight(0xffffff, 0.55 * Math.PI);
+    lamp.position.set(-1.5, 10, 2.5);
+    A.scene.add(lamp);
     A.cam = new TH.PerspectiveCamera(45, 2, 0.1, 400);
+    A.fitCam = new TH.PerspectiveCamera(45, 2, 0.1, 400);
     A.camPos = new TH.Vector3();
     A.camLook = new TH.Vector3();
     A.goalPos = new TH.Vector3();
     A.goalLook = new TH.Vector3();
     A.camSpeed = 3;
     A.ray = new TH.Raycaster();
-    size();
+    A.ins = [0, 0];
     build();
+    size();
   }
   function dispose3d() {
     if (!A || !A.r) return;
@@ -523,38 +647,48 @@
   function build() {
     var w = A.world = new TH.Group(), wood = toon(SOIL), wood2 = toon(SOIL2), cush = toon(GRASS_DK), i;
     A.scene.add(w);
-    // The lawn, and the table's legs standing on it.
-    var lawn = toon(GRASS_DK), soil = toon(SOIL), x0 = -L - RW - 5, y0 = -W - RW - 5;
-    add(slab(rrect(x0, y0, -x0, -y0, 2), LAWN, 0.4), [lawn, lawn]);
-    add(slab(rrect(x0, y0, -x0, -y0, 2), LAWN - 0.4, 1.4), [soil, soil]);
-    rim(slab(rrect(x0 - 0.1, y0 - 0.1, -x0 + 0.1, -y0 + 0.1, 2.1), LAWN + 0.03, 1.86));
-    [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(function (s) { box(s[0] * (L - 0.4) - 0.55, s[1] * (W - 0.2) - 0.55, s[0] * (L - 0.4) + 0.55, s[1] * (W - 0.2) + 0.55, LAWN, -1.1, wood2); });
-    // The body under the cloth, the cloth, and the cushions along each stretch between the pockets.
-    box(-L - RW, -W - RW, L + RW, W + RW, -1.15, CLOTH - 0.02, wood2);
+    // The floor, lighter where the lamp lights it, and the table's legs standing on it.
+    add(lying(new TH.PlaneGeometry(400, 400)), flat('#1F2C34')).position.y = FLOOR;
+    add(lying(new TH.ShapeGeometry(rrect(-L - 7, -W - 6, L + 7, W + 6, 5), 8)), flat('#2A3A44')).position.y = FLOOR + 0.01;
+    [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(function (s) { box(s[0] * (L - 0.4) - 0.55, s[1] * (W - 0.2) - 0.55, s[0] * (L - 0.4) + 0.55, s[1] * (W - 0.2) + 0.55, FLOOR, BODY, wood2); });
+    // The table: the frame (the rail on top, the apron down the sides) round the cloth and the pockets' holes, its
+    // floor underneath, and its navy rim.
+    var edge = cutEdge(true), frame = rrect(-L - RW, -W - RW, L + RW, W + RW, 0.5);
+    frame.holes.push(poly(edge, TH.Path));
+    add(prism(frame, BODY, CLOTH + RH), [wood, wood2]);
+    box(-L - RW + 0.2, -W - RW + 0.2, L + RW - 0.2, W + RW - 0.2, BODY, BODY + 0.15, wood2);
+    rim(prism(rrect(-L - RW - 0.05, -W - RW - 0.05, L + RW + 0.05, W + RW + 0.05, 0.55), BODY - 0.04, CLOTH + RH + 0.03));
+    // The cloth, with the holes cut out of it.
     var felt = toon(GRASS);
-    felt.polygonOffset = true;
-    felt.polygonOffsetFactor = felt.polygonOffsetUnits = -1;
-    add(lying(new TH.PlaneGeometry(2 * L + 2 * CW, 2 * W + 2 * CW)), felt).position.y = CLOTH;
+    add(lying(new TH.ShapeGeometry(poly(cutEdge(false)), 24)), felt).position.y = CLOTH;
+    // The cushions along each stretch between the pockets, their ends angled into the jaws.
     for (i = 0; i < RAILS.length; i += 4) {
-      var ax = RAILS[i], ay = RAILS[i + 1], bx = RAILS[i + 2], by = RAILS[i + 3];
-      if (ay === by) box(Math.min(ax, bx), ay > 0 ? ay : ay - CW, Math.max(ax, bx), ay > 0 ? ay + CW : ay, CLOTH, CLOTH + CH_, cush);
-      else box(ax > 0 ? ax : ax - CW, Math.min(ay, by), ax > 0 ? ax + CW : ax, Math.max(ay, by), CLOTH, CLOTH + CH_, cush);
+      var ax = RAILS[i], ay = RAILS[i + 1], bx = RAILS[i + 2], by = RAILS[i + 3], along = ay === by, q1 = [ax, ay], q2 = [bx, by];
+      var cush4 = [q1, q2, jaw(bx, by, along), jaw(ax, ay, along)];
+      add(prism(poly(cush4), CLOTH, CLOTH + CH_), cush);
+      rim(prism(poly(grow(cush4, 0.04)), CLOTH - 0.02, CLOTH + CH_ + 0.04));
     }
-    // The wooden rail round the outside, with white sights.
-    box(-L - RW, W + CW, L + RW, W + RW, CLOTH, CLOTH + RH, wood);
-    box(-L - RW, -W - RW, L + RW, -W - CW, CLOTH, CLOTH + RH, wood);
-    box(-L - RW, -W - CW, -L - CW, W + CW, CLOTH, CLOTH + RH, wood);
-    box(L + CW, -W - CW, L + RW, W + CW, CLOTH, CLOTH + RH, wood);
+    // White sights on the rail.
     var sight = flat('#FFFFFF'), sg = keep(lying(new TH.CircleGeometry(0.09, 10)));
     [-7.5, -5, -2.5, 2.5, 5, 7.5].forEach(function (x) { [1, -1].forEach(function (s) { var m = new TH.Mesh(sg, sight); m.position.copy(at(x, s * (W + (CW + RW) / 2), CLOTH + RH + 0.005)); w.add(m); }); });
     [-2.5, 0, 2.5].forEach(function (y) { [1, -1].forEach(function (s) { var m = new TH.Mesh(sg, sight); m.position.copy(at(s * (L + (CW + RW) / 2), y, CLOTH + RH + 0.005)); w.add(m); }); });
-    // The pockets: navy holes through the cloth, the cushion and the rail.
-    var hole = flat(INK, { polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3 });
-    A.pocketAt = POCKETS.map(function (p, k) {
-      var mid = k === 1 || k === 4, c = [p[0] * (mid ? 1 : 1.012), p[1] + Math.sign(p[1]) * (mid ? 0.28 : 0.1)], r = mid ? 0.66 : 0.78;
-      [CLOTH + 0.004, CLOTH + CH_ + 0.004, CLOTH + RH + 0.004].forEach(function (z) { add(lying(new TH.CircleGeometry(r, 28)), hole).position.copy(at(c[0], c[1], z)); });
-      return c;
+    // The pockets: a leather lip round each hole on the rail, a dark leather wall going down and the cup at the bottom.
+    var lip = toon('#4A3226'), inner = flat('#21160F', { side: TH.BackSide }), bottom = flat('#0B0806'), ring = flat(INK, { polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+    A.pocketAt = HOLES.map(function (H) {
+      add(new TH.CylinderGeometry(H.r - 0.02, H.r - 0.02, CLOTH + RH - CUP, 28, 1, true), inner).position.copy(at(H.x, H.y, (CLOTH + RH + CUP) / 2));
+      add(lying(new TH.CircleGeometry(H.r, 28)), bottom).position.copy(at(H.x, H.y, CUP));
+      add(lying(new TH.RingGeometry(H.r, H.r + 0.16, 32)), lip).position.copy(at(H.x, H.y, CLOTH + RH + 0.006));
+      add(lying(new TH.RingGeometry(H.r - 0.01, H.r + 0.05, 32)), ring).position.copy(at(H.x, H.y, CLOTH + RH + 0.01));
+      add(lying(new TH.RingGeometry(H.r + 0.14, H.r + 0.2, 32)), ring).position.copy(at(H.x, H.y, CLOTH + RH + 0.01));
+      add(lying(new TH.RingGeometry(H.r - 0.01, H.r + 0.05, 32)), ring).position.copy(at(H.x, H.y, CLOTH + 0.004));
+      return [H.x, H.y];
     });
+    // The lamp: a long shade on two rods over the table, its underside lit (hidden when the camera is above it).
+    var lamp = A.lamp = new TH.Group(), shade = toon('#2E6B4F');
+    w.add(lamp);
+    box(-6.6, -0.7, 6.6, 0.7, 10.4, 11, shade, lamp);
+    add(lying(new TH.PlaneGeometry(12.8, 1.1)).rotateX(Math.PI), flat('#FFE9A8'), lamp).position.y = 10.38;
+    [-4.5, 4.5].forEach(function (x) { add(new TH.CylinderGeometry(0.05, 0.05, 30, 8), flat(INK), lamp).position.copy(at(x, 0, 26)); });
     // The balls: the cue ball white, yours blue, his orange with a white stripe, the black navy with its 8.
     var stripe = ballTex(function (g) { g.fillStyle = ORANGE; g.fillRect(0, 0, 128, 64); g.fillStyle = '#FFFFFF'; g.fillRect(0, 20, 128, 24); });
     var eight = ballTex(function (g) {
@@ -579,7 +713,6 @@
     cueStick(w);
     aimPieces(w);
     A.fx = { puffs: [], bits: [] };
-    clouds(w);
   }
   function ballTex(paint) {
     var c = document.createElement('canvas');
@@ -610,20 +743,9 @@
     g.visible = false;
     A.cue = { g: g, tilt: tilt };
   }
-  function clouds(w) {
-    var m = flat('#FFFFFF'), g = keep(new TH.SphereGeometry(1, 16, 10));
-    [[-28, 18, 1], [24, 22, -2], [0, 34, 3], [34, -6, -4], [-34, -10, -5], [-14, -30, -9], [18, -32, -8]].forEach(function (p) {
-      [[0, 0, 2.2], [2.4, 0.4, 1.7], [-2.3, 0.3, 1.6], [0.9, 1.2, 1.5]].forEach(function (s) {
-        var x = new TH.Mesh(g, m);
-        x.scale.set(s[2] * 1.6, s[2], s[2] * 1.2);
-        x.position.copy(at(p[0] + s[0] * 1.6, p[1], p[2] + s[1]));
-        w.add(x);
-      });
-    });
-  }
-  // The guide's pieces: the cue ball's dots, white with navy rims.
+  // The guide's dots (white with navy rims) and his line (orange), with a ring for the ball he's going for.
   function aimPieces(w) {
-    var n = flat(INK), mk = function (c, r, count, order) {
+    var mk = function (c, r, count, order) {
       var x = new TH.InstancedMesh(keep(lying(new TH.CircleGeometry(r, 12))), c, count);
       x.count = 0;
       x.frustumCulled = false;
@@ -633,6 +755,18 @@
     };
     var lift = { polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 };
     A.dots = [mk(flat(INK, lift), 0.12, 120, 2), mk(flat('#FFFFFF', lift), 0.075, 120, 3)];
+    A.hisDots = [mk(flat(INK, lift), 0.13, 120, 2), mk(flat(ORANGE, lift), 0.085, 120, 3)];
+    A.hisRing = add(lying(new TH.RingGeometry(R + 0.1, R + 0.22, 32)), flat(ORANGE, lift));
+    A.hisRing.renderOrder = 3;
+    A.hisRing.visible = false;
+  }
+  function dotsAt(set, pts) {
+    var mtx = new TH.Matrix4(), turn = new TH.Quaternion(), big = A.phone ? 1.5 : 1, sc = new TH.Vector3(big, 1, big);
+    set.forEach(function (d, j) {
+      d.count = Math.min(120, pts.length);
+      pts.slice(0, 120).forEach(function (p, i) { d.setMatrixAt(i, mtx.compose(at(p[0], p[1], CLOTH + 0.03 + j * 0.004), turn, sc)); });
+      d.instanceMatrix.needsUpdate = true;
+    });
   }
   // The aim now: the cue behind the cue ball (drawn back with the power) and the guide (you only aim after a right
   // answer).
@@ -644,22 +778,53 @@
     A.cue.tilt.position.x = on ? -(R + 0.15 + A.aim.power * 1.6) : A.cue.tilt.position.x;
     if (pw) {
       pw.hidden = !on;
-      pw.querySelector('i').style.height = Math.round(A.aim.power * 100) + '%';
+      pw.querySelector('i').style.width = Math.round(A.aim.power * 100) + '%';
       pw.querySelector('b').textContent = Math.round(A.aim.power * 100) + '%';
     }
-    var G = on ? guide(shoot(A.st, A.aim.angle, A.aim.power, true)) : null, mtx = new TH.Matrix4(), turn = new TH.Quaternion(), big = A.phone ? 1.5 : 1, sc = new TH.Vector3(big, 1, big);
-    var pts = G ? G.cue : [];
-    A.dots.forEach(function (d, j) {
-      d.count = Math.min(120, pts.length);
-      pts.slice(0, 120).forEach(function (p, i) { d.setMatrixAt(i, mtx.compose(at(p[0], p[1], CLOTH + 0.03 + j * 0.004), turn, sc)); });
-      d.instanceMatrix.needsUpdate = true;
-    });
+    dotsAt(A.dots, on && A.aim.power >= 0.02 ? guide(shoot(A.st, A.aim.angle, A.aim.power, true)).cue : []);
     kick();
   }
-  // The camera: over the whole table from your side (from the end on a phone, so the table runs up the screen), or
-  // down behind the cue ball along the aim; it eases to where it's going.
+  // His line before he shoots: dots from the cue ball to where it meets the ball he's going for, a ring on that ball,
+  // and dots from it towards the pocket (or, with no pot on, just the way the cue ball starts).
+  function hisLine(s, shot) {
+    var c = A.st.p[0], pts = [], k;
+    if (s) {
+      var b = A.st.p[s.b], m = mouth(s.k), ux = m[0] - b[0], uy = m[1] - b[1], d = Math.hypot(ux, uy), gx = b[0] - ux / d * 2 * R, gy = b[1] - uy / d * 2 * R, dc = Math.hypot(gx - c[0], gy - c[1]);
+      for (k = 0.7; k < dc - 0.3; k += 0.42) pts.push([c[0] + (gx - c[0]) * k / dc, c[1] + (gy - c[1]) * k / dc]);
+      for (k = 0.6; k < d; k += 0.42) pts.push([b[0] + ux * k / d, b[1] + uy * k / d]);
+      A.hisRing.position.copy(at(b[0], b[1], CLOTH + 0.03));
+      A.hisRing.visible = true;
+    } else {
+      for (k = 0.7; k < 3; k += 0.42) pts.push([c[0] + Math.cos(shot.angle) * k, c[1] + Math.sin(shot.angle) * k]);
+    }
+    dotsAt(A.hisDots, pts);
+  }
+  function hideHisLine() { dotsAt(A.hisDots, []); A.hisRing.visible = false; }
+  // The camera: the whole table fitted into what the chips, the bar and (on a computer) the question's column leave,
+  // from your side looking down on a computer; from above on a phone, the table running up the screen so the balls are
+  // big enough to aim. "Line it up" puts it down behind the cue ball along the aim.
   function tableView() {
-    if (A.phone) { A.goalPos.copy(at(-14.4, 0, 15.4)); A.goalLook.copy(at(1.9, 0, -1.6)); } else { A.goalPos.copy(at(0, -16.5, 16)); A.goalLook.copy(at(0, -0.3, -1)); }
+    var c = new TH.Vector3(0, CLOTH, 0), d = A.phone ? new TH.Vector3(-Math.sin(0.1), Math.cos(0.1), 0) : new TH.Vector3(0, Math.sin(0.9), Math.cos(0.9));
+    A.goalLook.copy(c);
+    A.goalPos.copy(c).addScaledVector(d, fitDist(c, d));
+  }
+  // How far back the camera goes for the table (rail and all) to fit: a search, projecting the table's corners.
+  function fitDist(c, d) {
+    var cam = A.fitCam, v = new TH.Vector3(), lo = 4, hi = 160, w = A.vw, h = A.vh, F = A.free, k;
+    lens(cam);
+    var X0 = F[0] / w * 2 - 1, X1 = F[2] / w * 2 - 1, Y0 = 1 - F[3] / h * 2, Y1 = 1 - F[1] / h * 2;
+    for (k = 0; k < 24; k++) {
+      var D = (lo + hi) / 2, ok = true;
+      cam.position.copy(c).addScaledVector(d, D);
+      cam.lookAt(c);
+      cam.updateMatrixWorld();
+      for (var j = 0; j < 8 && ok; j++) {
+        v.copy(at((j & 1 ? 1 : -1) * (L + RW), (j & 2 ? 1 : -1) * (W + RW), j & 4 ? CLOTH + RH : BODY)).project(cam);
+        if (v.x < X0 || v.x > X1 || v.y < Y0 || v.y > Y1) ok = false;
+      }
+      if (ok) hi = D; else lo = D;
+    }
+    return hi;
   }
   function lineView() {
     var c = A.st.p[0], ux = Math.cos(A.aim.angle), uy = Math.sin(A.aim.angle);
@@ -673,12 +838,36 @@
     if (!w || !h) return;
     A.r.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
     A.r.setSize(w, h, false);
-    A.cam.aspect = w / h;
-    A.phone = A.cam.aspect < 1.2;
-    A.cam.fov = Math.max(34, Math.min(72, 2 * Math.atan(Math.tan(31 * Math.PI / 180) / A.cam.aspect) * 180 / Math.PI));
-    A.cam.updateProjectionMatrix();
+    A.vw = w;
+    A.vh = h;
+    A.phone = w / h < 1.2;
+    inset();
+    lens(A.cam);
+    if (A.lamp) A.lamp.visible = !A.phone;
     if (A.st) view();
     kick();
+  }
+  // What's always over the canvas: the chips along the top, the bar along the bottom, and on a computer the column the
+  // question comes up in (kept for it, so the table doesn't move when it comes and goes; a phone's sheet goes over the
+  // table for a moment instead). A.free is the rest; A.ins how much more is covered right than left and bottom than top.
+  function inset() {
+    var c = A.r.domElement.getBoundingClientRect(), bar = q('.mg-bar'), hud = q('.mg-hud'), top = 10, bottom = 10, right = 10;
+    if (hud) top = Math.max(top, hud.getBoundingClientRect().bottom - c.top + 8);
+    if (bar) bottom = Math.max(bottom, c.bottom - bar.getBoundingClientRect().top + 8);
+    if (!A.phone) right = Math.min(500, c.width * 0.4) + 24;
+    A.free = [10, top, c.width - right, c.height - bottom];
+    A.ins = [right - 10, bottom - top];
+  }
+  // The picture's middle is the middle of A.free, by drawing a bigger picture and showing a corner of it (what's on
+  // screen keeps its size and only slides over). A phone's top-down view has a narrower lens, so the near end of the
+  // table isn't much bigger than the far end.
+  function lens(cam) {
+    var w = A.vw, h = A.vh, dx = A.ins[0], dy = A.ins[1], fw = w + Math.abs(dx), fh = h + Math.abs(dy);
+    var fov = A.phone ? 40 : Math.max(34, Math.min(72, 2 * Math.atan(Math.tan(31 * Math.PI / 180) / (w / h)) * 180 / Math.PI));
+    cam.aspect = fw / fh;
+    cam.fov = 2 * Math.atan(Math.tan(fov * Math.PI / 360) * fh / h) * 180 / Math.PI;
+    if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) cam.setViewOffset(fw, fh, Math.max(0, dx), Math.max(0, dy), w, h); else cam.clearViewOffset();
+    cam.updateProjectionMatrix();
   }
   // Effects, all flat: a puff of chalk off the cue, a white puff where balls knock hard, confetti when the game's won.
   function puff3(x, y, n, s) {
@@ -716,25 +905,11 @@
       b.m.rotation.x += b.spin.x * dt;
       b.m.rotation.y += b.spin.y * dt;
       b.m.rotation.z += b.spin.z * dt;
-      if (b.t < 2 && b.m.position.y > LAWN) return true;
+      if (b.t < 2 && b.m.position.y > FLOOR) return true;
       A.world.remove(b.m);
       return false;
     });
     return F.puffs.length || F.bits.length;
-  }
-  function place(x, y, z) {
-    var v = at(x, y, z).project(A.cam);
-    return { x: (v.x + 1) * 50, y: (1 - v.y) * 50, on: v.z < 1 && Math.abs(v.x) < 1.2 && Math.abs(v.y) < 1.2 };
-  }
-  function popText(x, y, text) {
-    var s = place(x, y, CLOTH + 1.2), el = document.createElement('span'), sky = q('.pl-sky');
-    if (!sky) return;
-    el.className = 'mg-pop';
-    el.textContent = text;
-    el.style.left = s.x + '%';
-    el.style.top = s.y + '%';
-    sky.appendChild(el);
-    wait(function () { el.remove(); }, 1900);
   }
   // The loop runs only while something moves (the camera, a shot, the effects) and stops when the card closes.
   function kick() {
@@ -748,7 +923,8 @@
     if (!A.r || !A.world) return;
     var dt = A.last ? Math.min(0.05, (now - A.last) / 1000) : 1 / 60;
     A.last = now;
-    var busy = update(dt);
+    // While "Leave the game?" is up, everything holds still.
+    var busy = A.paused ? false : update(dt);
     render();
     if (busy) { A.raf = requestAnimationFrame(frame); A.last = now; }
   }
@@ -774,7 +950,7 @@
     A.balls.forEach(function (b, i) {
       var d = drop && drop[i], x = P[i][0], y = P[i][1], z = CLOTH + R;
       if (d) { x = d[0]; y = d[1]; z += d[2]; }
-      var vis = on[i] || Boolean(d && d[2] > -1.2);
+      var vis = on[i] || Boolean(d);
       b.g.visible = vis;
       b.shadow.visible = vis && !d;
       if (!vis) { b.last = null; return; }
@@ -793,23 +969,13 @@
     if (A.shake > 0) c.position.add(new TH.Vector3((Math.random() - 0.5) * 0.03 * A.shake, (Math.random() - 0.5) * 0.03 * A.shake, 0));
     c.lookAt(A.camLook);
     A.r.render(A.scene, c);
-    // Your tag beside the cue ball, and his face: in the corner, or over the cue ball on his turn.
-    var p = A.st.p[0], s = place(p[0], p[1], CLOTH + R), you = q('[data-pl-you]'), him = q('[data-pl-him]'), mine = A.who === 0;
-    if (you) {
-      you.hidden = !(mine && A.st.on[0] && s.on && /aim|strike/.test(A.phase));
-      you.style.left = s.x + '%';
-      you.style.top = s.y + '%';
-    }
-    if (him) {
-      var follow = !mine && /him|strike|rolling/.test(A.phase) && A.st.on[0] && s.on;
-      him.classList.toggle('is-follow', follow);
-      him.style.left = follow ? s.x + '%' : '';
-      him.style.top = follow ? place(p[0], p[1], CLOTH + R * 2 + 0.4).y + '%' : '';
-    }
   }
-  // A shot: the cue strikes (it slides into the ball), then the shot plays out from its recorded frames (his at 1.4x).
+  // A shot: the cue strikes (it slides into the ball, with the knock of the tip), then the shot plays out from its
+  // recorded frames (his at 1.4x), with the clacks, cushions and pockets as they happen. When everything's slow it plays
+  // up to twice as fast, and a tap plays the rest at 3x (A.ff).
   function play(r, speed, done) {
     A.phase = 'strike';
+    A.ff = 1;
     A.strike = { t: 0, r: r, speed: speed, done: done, from: A.cue.tilt.position.x };
     drawAim();
     kick();
@@ -821,26 +987,44 @@
     if (s.t < 1) return;
     A.strike = null;
     A.cue.g.visible = false;
+    hideHisLine();
     var c = A.st.p[0];
     puff3(c[0] - Math.cos(s.r.angle) * R, c[1] - Math.sin(s.r.angle) * R, 2, 0.06);
+    K.sfx('putt', 0.3 + 0.7 * Math.min(1, s.r.power * 1.3));
     A.phase = 'rolling';
     // A ball potted near the end still gets to drop out of sight before the shot's over.
-    A.shot = { r: s.r, i: 0, speed: s.speed, done: s.done, hit: 0, pot: 0, end: s.r.steps + (s.r.pots.some(function (p) { return p.i > s.r.steps - 24; }) ? 26 : 0) };
+    A.shot = { r: s.r, i: 0, speed: s.speed, done: s.done, hit: 0, pot: 0, mine: 0, end: s.r.steps + (s.r.pots.some(function (p) { return p.i > s.r.steps - 24; }) ? 26 : 0) };
+  }
+  // How fast the fastest ball is going at step k of a shot.
+  function topSpeed(F, k) {
+    var top = 0;
+    for (var b = 0; b < N; b++) top = Math.max(top, Math.hypot(F[(k + 1) * N * 2 + b * 2] - F[k * N * 2 + b * 2], F[(k + 1) * N * 2 + b * 2 + 1] - F[k * N * 2 + b * 2 + 1]) * 120);
+    return top;
   }
   function stepShot(dt) {
-    var s = A.shot, r = s.r, F = r.frames, last = r.steps, P = [], drop = [];
-    s.i = Math.min(s.end, s.i + dt * 120 * s.speed);
+    var s = A.shot, r = s.r, F = r.frames, last = r.steps, P = [], drop = [], now = performance.now();
+    var v = s.i > 20 && s.i < last - 1 ? topSpeed(F, Math.floor(s.i)) : 9;
+    s.i = Math.min(s.end, s.i + dt * 120 * s.speed * (A.ff || 1) * (v < 1.6 ? 2 - v / 1.6 : 1));
     var at2 = Math.min(last, s.i), k = Math.min(Math.max(0, last - 1), Math.floor(at2)), f = last ? at2 - k : 0, n = last ? k + 1 : 0, on = A.st.on.slice();
     for (var b = 0; b < N; b++) P.push([F[k * N * 2 + b * 2] + (F[n * N * 2 + b * 2] - F[k * N * 2 + b * 2]) * f, F[k * N * 2 + b * 2 + 1] + (F[n * N * 2 + b * 2 + 1] - F[k * N * 2 + b * 2 + 1]) * f]);
-    // A potted ball runs on into its pocket's middle and drops out of sight.
+    // A potted ball runs on into its pocket's middle and drops into the cup.
     r.pots.forEach(function (p) {
       if (s.i < p.i - 1) return;
       on[p.b] = false;
       var t = Math.min(1, (s.i - p.i + 1) / 24), c = A.pocketAt[p.k];
-      drop[p.b] = [p.x + (c[0] - p.x) * t, p.y + (c[1] - p.y) * t, -t * t * 1.4];
+      drop[p.b] = [p.x + (c[0] - p.x) * Math.min(1, t * 1.6), p.y + (c[1] - p.y) * Math.min(1, t * 1.6), -t * t * (CLOTH + R - CUP - R)];
     });
-    while (s.pot < r.pots.length && r.pots[s.pot].i <= s.i) potted(r.pots[s.pot++]);
-    while (s.hit < r.hits.length && r.hits[s.hit].i <= s.i) { var e = r.hits[s.hit++]; if (e.v > 6) { puff3(e.x, e.y, 2, 0.07); A.shake = Math.max(A.shake || 0, 4); } }
+    while (s.pot < r.pots.length && r.pots[s.pot].i <= s.i) potted(r.pots[s.pot++], s);
+    // The knocks: a clack as loud as the balls hit each other, a duller one off a cushion; not more than one of each
+    // every 45ms (a break would be a rattle).
+    while (s.hit < r.hits.length && r.hits[s.hit].i <= s.i) {
+      var e = r.hits[s.hit++], ball = e.b >= 0;
+      if (e.v > 6) { puff3(e.x, e.y, 2, 0.07); A.shake = Math.max(A.shake || 0, 4); }
+      if (now - (ball ? A.lastClack || 0 : A.lastCush || 0) > 45 && e.v > 0.4) {
+        if (ball) A.lastClack = now; else A.lastCush = now;
+        K.sfx(ball ? 'clack' : 'cushion', Math.min(1, e.v / (ball ? 12 : 9)));
+      }
+    }
     placeBalls(P, on, drop);
     if (s.i < s.end) return;
     A.shot = null;
@@ -848,18 +1032,23 @@
     placeBalls(A.st.p, A.st.on, null);
     s.done(r);
   }
-  function potted(p) {
-    var c = A.pocketAt[p.k], o = owner(p.b);
-    popText(c[0], c[1], p.b === 0 ? 'Foul' : p.b === BLACK ? 'The black!' : 'In!');
-    if (o === A.who || (o === 2 && targets(A.before, A.who)[0] === BLACK)) K.ding(2, true); else K.bonk();
-    board();
+  // A ball in: the pocket's thud and a banner (Potted!, Foul, The black!).
+  function potted(p, s) {
+    var o = owner(p.b), who = A.who;
+    K.sfx('pocket', 0.8);
+    if (p.b === 0) banner('Foul', 'The cue ball went in', 'bad');
+    else if (p.b === BLACK) banner('The black!', '', 'gold');
+    else if (o === who) { s.mine += 1; banner(who ? 'He pots one' : s.mine > 1 ? 'Potted ' + s.mine + '!' : 'Potted!', who ? '' : 'Shoot again after a right answer', who ? 'him' : 'gold'); }
+    else banner('In!', o ? 'One of his' : 'One of yours', o ? 'him' : '');
+    if (o === who || (o === 2 && targets(A.before, who)[0] === BLACK)) { if (!who) K.ding(2, true); } else if (!who) K.bonk();
+    hud();
   }
 
   // ======================================================================== the game
   var SAY = {
     start: ['Pool? I could clear this table blindfolded.', 'Rack them up. I\'ll break your heart.'],
     right: ['Hmph. There\'s your guide.', 'Fine. Line it up.'],
-    wrong: ['Wrong. No guide for you.', 'Shoot blind, then.'],
+    wrong: ['Wrong. No shot for you.', 'Wrong. My turn, then.'],
     potYou: ['Hmph. Lucky.', 'The pocket was huge.'],
     missYou: ['Not even close.', 'My turn. Watch and learn.'],
     potHim: ['In. Obviously.', 'Textbook.'],
@@ -870,20 +1059,38 @@
       dispose3d();
       if (window.BioApp && document.getElementById('bio-app')) window.BioApp.refresh();
     });
-    return K.gameCard('Pool');
+    var c = K.gameCard('Pool'), root = K.root && K.root();
+    // While "Leave the game?" is up, everything holds still.
+    if (root) root.addEventListener('am:leave', function (e) { if (A && A.card === c) pause(e.detail && e.detail.open); });
+    return c;
   }
-  function mood(m) { var f = q('[data-pl-him]'); if (f) f.setAttribute('data-mood', m); }
+  function pause(on) {
+    A.paused = Boolean(on);
+    if (on) return;
+    var held = A.held || [];
+    A.held = [];
+    held.forEach(function (fn) { if (live()) fn(); });
+    A.last = 0;
+    kick();
+  }
+  function mood(m) {
+    A.mood = m;
+    var f = q('[data-pl-him]');
+    if (f) f.setAttribute('data-mood', m);
+  }
   function openPool() {
     if (A) dispose3d();
     var c = host(), wins = +(K.store('bio-pool-wins') || 0), best = K.store('bio-pool-best');
-    A = { card: c, pools: BB.pools(), right: 0, asked: 0, qn: 0, mulligans: 0, shots: 0, trash: [] };
+    A = { card: c, pools: BB.pools(), right: 0, asked: 0, qn: 0, mulligans: 0, shots: 0, trash: [], mood: 'happy', held: [] };
     K.gameHud(A.card, 0, '');
+    // One line of rules (it was 98 words); the rest you find out as you play.
     show('<div class="am-games__end pl-start"><div class="ar-face" aria-hidden="true">' + K.face + '</div><h3 class="am-games__title">Pool</h3>' +
-      '<p class="am-games__sub">You\'re the blue balls, he\'s the orange stripes. You take turns, with a question before every shot. Right: you shoot, and a short trail of dots shows which way the cue ball starts. Pot one of yours and you answer again for one more shot, then it\'s his turn. Wrong: no shot, and it\'s his turn. He plays by the same rules. Clear your four, then pot the black to win; pot the black too early and you lose. Every third question is typed: get it right and you win a mulligan, a shot you can take again.</p>' +
+      '<p class="am-games__sub">You\'re blue, he\'s orange. Answer right to shoot; pot your four, then the black.</p>' +
       (wins ? '<p class="mg-best">Games won: <b class="num">' + wins + '</b>' + (best ? ' · Fastest win: <b class="num">' + best + '</b> shots' : '') + '</p>' : '') +
       '<p class="pl-pick">Questions from:</p><div class="dsi-chs pl-chs">' + CH.map(function (ch) {
         return '<button type="button" class="tb-pick" data-pl-ch="' + ch + '" style="--c:' + COL[ch] + '"><span class="tb-pick__ch">' + esc(NAME[ch]) + '</span></button>';
-      }).join('') + '<button type="button" class="tb-pick" data-pl-ch="all" style="--c:#F1F7FB"><span class="tb-pick__ch">All chapters</span></button></div></div>');
+      }).join('') + '<button type="button" class="tb-pick" data-pl-ch="all" style="--c:#F1F7FB"><span class="tb-pick__ch">All chapters</span></button></div></div>',
+    [['more', 'data-am-keep', 'Close']]);
     K.mascot('happy', pick(SAY.start));
   }
   function start(ch) {
@@ -893,39 +1100,42 @@
     A.who = 0;
     A.aim = { angle: 0, power: 0.75 };
     A.close = false;
-    show(stage('<div class="pl-head"><p class="mg-top" data-pl-top></p><div class="pl-score" data-pl-score></div></div>',
-      '<div class="pl-sky"><canvas class="pl-canvas" data-pl-canvas tabindex="0" aria-label="The table. Drag back from the cue ball and let go to shoot, or turn with the arrow keys, set the power with up and down, and press Enter."></canvas>' +
-      '<div class="mg-power pl-power" data-pl-power hidden><b class="num">0%</b><span><i></i></span></div>' +
-      '<span class="mg-you" data-pl-you hidden>You</span>' +
-      '<span class="mg-him pl-him" data-pl-him data-mood="happy" aria-hidden="true">' + K.face + '</span></div>'));
+    A.phase = 'intro';
+    full(true);
+    show(stage('<canvas class="mg-canvas pl-canvas" data-pl-canvas tabindex="0" aria-label="The table. Drag anywhere and let go to shoot (the cue ball goes the other way from your drag), tap the table to aim at a spot, or turn with the arrow keys, set the power with up and down, and press Enter."></canvas>',
+      '<p class="mg-chip pl-side" data-pl-side="0"><i class="mg-ball pl-me" aria-hidden="true"></i><b>You</b><span class="pl-balls"></span></p>' +
+      '<p class="mg-chip mg-chip--mull" data-pl-mull hidden></p>' +
+      '<p class="mg-chip pl-side pl-side--him" data-pl-side="1"><span class="mg-face" data-pl-him data-mood="happy" aria-hidden="true">' + K.face + '</span><b>Him</b><span class="pl-balls"></span></p>'));
+    // The card is the whole screen now: answer-mode.js moves the examiner from beside it to the top (it looks on resize).
+    window.dispatchEvent(new Event('resize'));
+    K.playing(true);
     setup3d(q('[data-pl-canvas]'));
     tableView();
-    A.camPos.copy(A.goalPos).add(new TH.Vector3(0, 6, 6));
+    A.camPos.copy(A.goalPos).add(new TH.Vector3(0, 8, 6));
     A.camLook.copy(A.goalLook);
-    A.camSpeed = 1.6;
+    A.camSpeed = 1.8;
     placeBalls(A.st.p, A.st.on, null);
-    board();
+    hud();
+    say('<b>Rack them up.</b> You break.');
     kick();
     wait(yourTurn, 900);
   }
-  function chapterName() { return A.ch ? NAME[A.ch] : 'All chapters'; }
-  function top() {
-    var t = q('[data-pl-top]');
-    if (t) t.innerHTML = '<b>' + (A.who ? 'His turn' : 'Your turn') + '</b><span>' + esc(chapterName()) + (A.mulligans ? ' · Mulligans: ' + A.mulligans : '') + '</span>';
-  }
-  // Who has what left: your four, his four and the black.
-  function board() {
-    var b = q('[data-pl-score]'), st = A.st, before = A.shot ? A.shot.r : null;
-    if (!b) return;
-    function left(i) { return before ? before.pots.filter(function (p) { return p.b === i && p.i <= A.shot.i; }).length === 0 && st.on[i] : st.on[i]; }
-    function side(who, name) {
-      var balls = [], k;
-      for (k = 1; k < N; k++) if (owner(k) === who) balls.push('<i class="pl-ball pl-ball--' + who + (left(k) ? '' : ' is-in') + '"></i>');
-      var n = balls.filter(function (h) { return h.indexOf('is-in') < 0; }).length;
-      return '<p class="pl-side pl-side--' + who + (A.who === who ? ' is-turn' : '') + '"><b>' + name + '</b><span class="pl-balls" aria-label="' + n + ' left">' + balls.join('') + '</span>' +
-        (n ? '' : '<span class="pl-on8">On the black</span>') + '</p>';
+  // The chips: each side's balls (potted ones faded, then "On the black"), whose turn it is, and your mulligans.
+  function hud() {
+    var st = A.st, shot = A.shot, m = q('[data-pl-mull]');
+    function left(i) { return shot ? st.on[i] && !shot.r.pots.some(function (p) { return p.b === i && p.i <= shot.i; }) : st.on[i]; }
+    [0, 1].forEach(function (who) {
+      var el = q('[data-pl-side="' + who + '"]'), balls = [], n = 0, k;
+      if (!el) return;
+      for (k = 1; k < N; k++) if (owner(k) === who) { var on = left(k); n += on ? 1 : 0; balls.push('<i class="pl-ball pl-ball--' + who + (on ? '' : ' is-in') + '"></i>'); }
+      el.classList.toggle('is-turn', A.who === who && A.phase !== 'over');
+      el.querySelector('.pl-balls').innerHTML = n ? balls.join('') : '<b class="pl-on8">On the black</b>';
+      el.setAttribute('aria-label', (who ? 'Him: ' : 'You: ') + (n ? n + ' left' : 'on the black'));
+    });
+    if (m) {
+      m.hidden = !A.mulligans;
+      m.textContent = A.mulligans === 1 ? '1 mulligan' : A.mulligans + ' mulligans';
     }
-    b.innerHTML = side(0, 'You') + side(1, 'Him');
   }
   // Your turn: up to two shots, each after a right answer (a second only after potting one of yours).
   function yourTurn() { A.turnShots = 0; yourShot(); }
@@ -933,19 +1143,20 @@
     A.who = 0;
     A.qn += 1;
     var typed = A.qn % 3 === 0;
-    top();
-    board();
+    hud();
     say('<b>Your ' + (A.turnShots ? 'second shot' : 'turn') + '.</b> Answer to shoot.');
     row('');
     mood('happy');
     ask(typed ? 'Mulligan question' : A.shots ? 'Shot ' + (A.shots + 1) : 'The break', typed, A.ch, function (ok) {
       K.mascot(ok ? 'angry' : 'happy', pick(ok ? SAY.right : SAY.wrong));
-      if (!ok) { go('His turn', function () { hideAsk(); say('<b>Wrong:</b> no shot.'); hisTurn(); }); return; }
-      if (A.typed) { A.mulligans += 1; top(); }
-      go(A.typed ? 'Aim (and a mulligan won)' : 'Aim', function () { hideAsk(); aim(); });
+      if (!ok) { say('<b>Not quite.</b> No shot: his turn.'); go('His turn', function () { hideAsk(); hisTurn(); }); return; }
+      if (A.typed) { A.mulligans += 1; hud(); }
+      // Straight on to the aim (no extra click): the answer stays beside the table.
+      var typedRight = A.typed;
+      wait(function () { keepAnswer(); aim(typedRight ? '<b>Right, and a mulligan won.</b> Drag anywhere and let go.' : '<b>Right.</b> Drag anywhere and let go: the cue ball goes the other way.'); }, 450);
     });
   }
-  function aim() {
+  function aim(line) {
     A.phase = 'aim';
     A.who = 0;
     // Start pointing at the nearest of the balls you're on.
@@ -954,10 +1165,10 @@
     if (!A.shots) A.aim.power = 0.8;
     A.camSpeed = 3;
     view();
-    say('<b>Right:</b> the dots show which way the cue ball starts. Drag back from the cue ball and let go.');
-    row('<button type="button" class="tb-btn tb-btn--go" data-pl-shoot>Shoot</button>' +
-      '<button type="button" class="tb-btn mg-btn2 pl-nudge" data-pl-turn="1" aria-label="Turn the aim left">◀</button><button type="button" class="tb-btn mg-btn2 pl-nudge" data-pl-turn="-1" aria-label="Turn the aim right">▶</button>' +
-      '<button type="button" class="tb-btn mg-btn2" data-pl-view>' + (A.close ? 'Whole table' : 'Line it up') + '</button>');
+    say(line || '<b>Your shot.</b> Drag anywhere and let go.');
+    row('<button type="button" class="tb-btn mg-btn2 pl-nudge" data-pl-turn="1" aria-label="Turn the aim left">◀</button><button type="button" class="tb-btn mg-btn2 pl-nudge" data-pl-turn="-1" aria-label="Turn the aim right">▶</button>' +
+      '<button type="button" class="tb-btn mg-btn2 pl-view" data-pl-view>' + viewLabel() + '</button><button type="button" class="tb-btn tb-btn--go" data-pl-shoot>Shoot</button>');
+    hud();
     drawAim();
     q('[data-pl-canvas]').focus({ preventScroll: true });
   }
@@ -967,13 +1178,15 @@
     A.camSpeed = 2.6;
     view();
     var b = q('[data-pl-view]');
-    if (b) b.textContent = A.close ? 'Whole table' : 'Line it up';
+    if (b) b.textContent = viewLabel();
   }
+  function viewLabel() { return A.close ? (A.phone ? 'Table' : 'Whole table') : A.phone ? 'Line up' : 'Line it up'; }
   function fire() {
     if (A.phase !== 'aim' || A.aim.power < 0.02) return;
     A.prev = { st: copy(A.st) };
     A.before = copy(A.st);
     A.shots += 1;
+    hideAsk();
     row('');
     say('<b>Your shot.</b>');
     play(shoot(A.st, A.aim.angle, A.aim.power, true), 1, yourResult);
@@ -982,21 +1195,21 @@
     var v = judge(A.before, r, 0), mine = r.potted.filter(function (b) { return owner(b) === 0; }).length;
     A.phase = 'after';
     A.verdict = v;
-    board();
+    hud();
     if (v === 'win') { finish(true, 'You potted the black.'); return; }
     if (v === 'again') {
       mood('angry');
       K.mascot('angry', pick(SAY.potYou));
       A.turnShots += 1;
-      if (A.turnShots < 2) { say('<b>You potted ' + (mine === 1 ? 'one' : mine) + '.</b> Answer again for one more shot.'); wait(yourShot, 1200); }
-      else { say('<b>You potted ' + (mine === 1 ? 'one' : mine) + '.</b> That\'s your two shots: his turn.'); wait(hisTurn, 1500); }
+      if (A.turnShots < 2) { say('<b>You potted ' + (mine === 1 ? 'one' : mine) + '.</b> Answer again for one more shot.'); wait(yourShot, 1100); }
+      else { say('<b>You potted ' + (mine === 1 ? 'one' : mine) + '.</b> That\'s your two shots: his turn.'); wait(hisTurn, 1300); }
       return;
     }
     var why = A.why = v === 'lose' ? (r.scratch ? 'The black went in with the cue ball.' : 'The black went in too early.') : v === 'foul' ? '<b>Foul:</b> the cue ball went in.' : '<b>Nothing of yours went in.</b>';
     mood('happy');
     if (A.mulligans) {
       say(why + ' Use a mulligan and take that shot again?');
-      row('<button type="button" class="tb-btn tb-btn--go" data-pl-retake>Take it again</button><button type="button" class="tb-btn mg-btn2" data-pl-keep>' + (v === 'lose' ? 'Lose the game' : 'His turn') + '</button>');
+      row('<button type="button" class="tb-btn mg-btn2" data-pl-keep>' + (v === 'lose' ? 'Lose the game' : 'His turn') + '</button><button type="button" class="tb-btn tb-btn--go" data-pl-retake>Take it again</button>');
       return;
     }
     keepShot(v, why);
@@ -1008,7 +1221,7 @@
     K.mascot('happy', pick(SAY.missYou));
     say(why + ' His turn.');
     row('');
-    wait(hisTurn, 1100);
+    wait(hisTurn, 900);
   }
   function retake() {
     if (A.phase !== 'after' || !A.mulligans) return;
@@ -1017,94 +1230,115 @@
     A.st = copy(A.prev.st);
     placeBalls(A.st.p, A.st.on, null);
     A.balls.forEach(function (b) { b.last = null; });
-    board();
-    top();
-    aim();
+    K.sfx('whoosh', 0.6);
+    aim('<b>Mulligan.</b> The table\'s back as it was: take that shot again.');
   }
-  // His turn: up to two shots by the same rule. His own question; right, his shot from where the cue ball lies (a second
-  // only after potting one of his); wrong, no shot and it's your turn.
+  // His turn: up to two shots by the same rule. His own question, small; right, his shot from where the cue ball lies
+  // (a second only after potting one of his); wrong, no shot and it's your turn.
   function hisTurn() { A.turnShots = 0; hisGo(); }
   function hisGo() {
     A.who = 1;
     A.close = false;
     tableView();
     A.camSpeed = 2.4;
-    top();
-    board();
-    say('<b>His ' + (A.turnShots ? 'second shot' : 'turn') + '.</b>');
+    A.phase = 'him';
+    hud();
+    say('<b>His ' + (A.turnShots ? 'second shot' : 'turn') + '.</b> Tap to hurry him up.');
     row('');
     kick();
     hisAsk('His shot', 0.65, A.ch, function (ok) {
-      if (!ok) { go('Your turn', function () { hideAsk(); say('<b>He got it wrong:</b> no shot.'); mood('angry'); wait(yourTurn, 900); }, 2400); return; }
-      go('Watch his shot', function () { hideAsk(); hisShot(); }, 2600);
+      if (!ok) { say('<b>He got it wrong:</b> no shot. Your turn.'); mood('angry'); wait(yourTurn, 700); return; }
+      hisShot();
     });
   }
+  // His shot: his cue behind the cue ball and, for a moment, the line of what he's going for (the ball, the pocket),
+  // then he strikes it. His face is in the chips, not over the table.
   function hisShot() {
     A.phase = 'him';
     say('<b>He got it right.</b> He lines it up…');
+    var s = plan(A.st, 1), shot = s ? wobble(s, Math.random) : safety(A.st, 1, Math.random);
+    A.before = copy(A.st);
+    A.aim = { angle: shot.angle, power: shot.power };
+    A.cue.tilt.position.x = -(R + 0.15 + shot.power * 1.6);
+    A.cue.g.visible = true;
+    A.cue.g.position.copy(at(A.st.p[0][0], A.st.p[0][1], CLOTH + R));
+    A.cue.g.rotation.y = shot.angle;
+    hisLine(s, shot);
+    if (s) say('<b>He\'s going for ' + (s.b === BLACK ? 'the black' : 'one of his') + '</b> in the ' + ['bottom left', 'bottom middle', 'bottom right', 'top right', 'top middle', 'top left'][s.k] + ' pocket.');
     kick();
-    wait(function () {
-      var s = hisAim(A.st, 1, Math.random);
-      A.before = copy(A.st);
-      A.aim = { angle: s.angle, power: s.power };
-      A.cue.tilt.position.x = -(R + 0.15 + s.power * 1.6);
-      A.cue.g.visible = true;
-      A.cue.g.position.copy(at(A.st.p[0][0], A.st.p[0][1], CLOTH + R));
-      A.cue.g.rotation.y = s.angle;
-      kick();
-      wait(function () { play(shoot(A.st, s.angle, s.power, true), 1.4, hisResult); }, 650);
-    }, 150);
+    wait(function () { say('<b>His shot.</b> Tap to speed it up.'); play(shoot(A.st, shot.angle, shot.power, true), 1.4, hisResult); }, 1100);
   }
   function hisResult(r) {
     var v = judge(A.before, r, 1);
-    board();
+    hud();
     if (v === 'win') { finish(false, 'He potted the black.'); return; }
     if (v === 'lose') { finish(true, r.scratch ? 'He potted the black with the cue ball.' : 'He potted the black too early.'); return; }
     if (v === 'again') {
       mood('happy');
       K.mascot('happy', pick(SAY.potHim));
       A.turnShots += 1;
-      if (A.turnShots < 2) { say('<b>He potted one.</b> He answers again for one more shot.'); wait(hisGo, 1300); }
-      else { say('<b>He potted one.</b> That\'s his two shots: your turn.'); wait(yourTurn, 1500); }
+      if (A.turnShots < 2) { say('<b>He potted one.</b> He answers again for one more shot.'); wait(hisGo, 1000); }
+      else { say('<b>He potted one.</b> That\'s his two shots: your turn.'); wait(yourTurn, 1200); }
       return;
     }
     if (v === 'foul') { A.st = respot(A.st); say('<b>Foul:</b> his cue ball went in. Your turn.'); } else say('<b>He missed.</b> Your turn.');
     mood('angry');
     K.mascot('angry', pick(SAY.missHim));
-    wait(yourTurn, 1300);
+    wait(yourTurn, 900);
   }
+  // The end: a banner, then the card over the final table, with him reacting.
   function finish(won, why) {
     var wins = +(K.store('bio-pool-wins') || 0) + (won ? 1 : 0), best = +(K.store('bio-pool-best') || 0);
     A.phase = 'over';
     K.store('bio-pool-played', String(+(K.store('bio-pool-played') || 0) + 1));
     if (won) K.store('bio-pool-wins', String(wins));
     if (won && (!best || A.shots < best)) K.store('bio-pool-best', String(A.shots));
+    K.playing(false);
     mood(won ? 'furious' : 'happy');
-    if (won) { confetti(0, 0); kick(); }
+    hud();
+    hideAsk();
+    row('');
     say(why);
+    banner(won ? 'You win!' : 'He wins', '', won ? 'gold' : 'him');
+    if (won) { confetti(0, 0); kick(); }
+    K.mascot(won ? 'furious' : 'happy', won ? 'Hmph. The cue was warped.' : 'As expected. Again?');
     wait(function () {
-      dispose3d();
-      K.mascot(won ? 'angry' : 'happy', won ? 'Hmph. The cue was warped.' : 'As expected. Again?');
-      show('<div class="am-games__end"><div class="ar-face" aria-hidden="true">' + K.face + '</div><h3 class="am-games__title">' + (won ? 'You win!' : 'He wins.') + '</h3>' +
-        '<p class="am-games__sub">' + why + ' You took ' + A.shots + ' shot' + (A.shots === 1 ? '' : 's') + (won ? '. Games won: ' + wins + '.' : '.') + ' You got ' + A.right + ' of ' + A.asked + ' questions right.</p></div>',
-      [['more', 'data-am-keep', 'Close'], ['ok', 'data-pl-again', 'Play again']]);
+      A.close = false;
+      tableView();
+      kick();
+      layer('<div class="am-games__end mg-end"><div class="ar-face" data-mood="' + A.mood + '" aria-hidden="true">' + K.face + '</div><h3 class="am-games__title">' + (won ? 'You win!' : 'He wins.') + '</h3>' +
+        '<p class="am-games__sub">' + why + ' You took ' + A.shots + ' shot' + (A.shots === 1 ? '' : 's') + (won ? '. Games won: ' + wins + '.' : '.') + ' You got ' + A.right + ' of ' + A.asked + ' questions right.</p>' +
+        '<div class="mg-end__btns"><button type="button" class="am-btn am-btn--more" data-am-keep>Close</button><button type="button" class="am-btn am-btn--ok" data-pl-again>Play again</button></div></div>', 'mid');
+      var again = q('[data-pl-again]');
+      if (again) again.focus({ preventScroll: true });
       if (won) K.later(K.fanfare, 300);
-    }, won ? 1900 : 1400);
+    }, 1700);
   }
 
-  // ======================================================================== aiming: drag, keys, buttons
-  // Drag back from the cue ball and let go: the shot goes the other way from your finger (where it is on the cloth),
-  // harder the further you pull. A tap only turns the aim; pulling back to the ball cancels.
-  function pullTo(e) {
-    var c = q('[data-pl-canvas]'), r = c.getBoundingClientRect(), p = A.st.p[0];
-    var b = place(p[0], p[1], CLOTH + R), bx = b.x / 100 * r.width, by = b.y / 100 * r.height, px = e.clientX - r.left, py = e.clientY - r.top;
-    var len = Math.hypot(px - bx, py - by);
-    if (len < 6) { A.aim.power = 0; drawAim(); return; }
-    A.ray.setFromCamera(new TH.Vector2(px / r.width * 2 - 1, 1 - py / r.height * 2), A.cam);
+  // ======================================================================== aiming: drag, taps, keys, buttons
+  // Drag anywhere and let go (the user's finger was over the cue ball on a phone): the cue ball goes the other way from
+  // the drag, as if pulling back the cue, harder the further you drag; drag back to where you started to call it off.
+  // A tap on the table aims at that spot.
+  function cloth(e) {
+    var c = q('[data-pl-canvas]'), r = c.getBoundingClientRect();
+    A.ray.setFromCamera(new TH.Vector2((e.clientX - r.left) / r.width * 2 - 1, 1 - (e.clientY - r.top) / r.height * 2), A.cam);
     var o = A.ray.ray.origin, d = A.ray.ray.direction, t = d.y < -1e-4 ? (CLOTH + R - o.y) / d.y : -1;
-    if (t > 0) A.aim.angle = Math.atan2(p[1] + (o.z + d.z * t), p[0] - (o.x + d.x * t));
-    A.aim.power = Math.max(0, Math.min(1, len / (0.42 * Math.min(r.width, r.height))));
+    return t > 0 ? [o.x + d.x * t, -(o.z + d.z * t)] : null;
+  }
+  function pullTo(e) {
+    var c = q('[data-pl-canvas]').getBoundingClientRect(), len = Math.hypot(e.clientX - drag.x, e.clientY - drag.y), p = cloth(e);
+    if (len < 8 || !p || !drag.from) { A.aim.power = 0; drawAim(); return; }
+    A.aim.angle = Math.atan2(drag.from[1] - p[1], drag.from[0] - p[0]);
+    A.aim.power = Math.max(0, Math.min(1, (len - 8) / (0.32 * Math.min(c.width, c.height))));
     drawAim();
+  }
+  function aimAt(e) {
+    var p = cloth(e), c = A.st.p[0];
+    if (!p || Math.hypot(p[0] - c[0], p[1] - c[1]) < R) return;
+    A.aim.angle = Math.atan2(p[1] - c[1], p[0] - c[0]);
+    if (A.aim.power < 0.05) A.aim.power = 0.5;
+    drawAim();
+    if (A.close) view();
   }
   function nudge(dir, fine) { A.aim.angle += dir * (fine ? 0.0015 : 0.006); drawAim(); if (A.close) view(); }
   document.addEventListener('click', function (e) {
@@ -1120,27 +1354,33 @@
     if ((t = e.target.closest('[data-pl-turn]')) && A.phase === 'aim') { nudge(+t.getAttribute('data-pl-turn'), e.shiftKey); return; }
     if (e.target.closest('[data-pl-view]')) { toggleView(); return; }
     if (e.target.closest('[data-pl-retake]')) { retake(); return; }
-    if (e.target.closest('[data-pl-keep]') && A.phase === 'after') keepShot(A.verdict, A.why);
+    if (e.target.closest('[data-pl-keep]') && A.phase === 'after') { row(''); keepShot(A.verdict, A.why); return; }
+    // A tap on the game: on with his question, or the rest of a shot at 3x.
+    if (!e.target.closest('[data-ar-stage]') || e.target.closest('button')) return;
+    if (A.phase === 'him' && A.then) { var go2 = A.then; A.then = null; go2(); return; }
+    if (A.phase === 'rolling' && A.shot) A.ff = 3;
   });
   var drag = null;
   document.addEventListener('pointerdown', function (e) {
     if (!live() || A.phase !== 'aim' || !e.target.closest || !e.target.closest('[data-pl-canvas]')) return;
-    drag = { x: e.clientX, y: e.clientY, moved: false };
+    drag = { x: e.clientX, y: e.clientY, moved: false, from: cloth(e) };
     try { e.target.setPointerCapture(e.pointerId); } catch (err) { /* not capturable */ }
-    pullTo(e);
+    // On a phone the answer's sheet goes once you start to aim, so the whole table is in sight.
+    var l = q('[data-ar-ask]');
+    if (A.phone && l && l.classList.contains('is-done')) hideAsk();
     e.preventDefault();
   });
   document.addEventListener('pointermove', function (e) {
     if (!drag || !live() || A.phase !== 'aim') return;
-    if (Math.hypot(e.clientX - drag.x, e.clientY - drag.y) > 8) drag.moved = true;
-    pullTo(e);
+    if (!drag.moved && Math.hypot(e.clientX - drag.x, e.clientY - drag.y) > 10) drag.moved = true;
+    if (drag.moved) pullTo(e);
   });
-  document.addEventListener('pointerup', function () {
+  document.addEventListener('pointerup', function (e) {
     if (!drag) return;
     var d = drag;
     drag = null;
     if (!live() || A.phase !== 'aim') return;
-    if (d.moved && A.aim.power >= 0.02) fire(); else if (A.close) view();
+    if (d.moved) { if (A.aim.power >= 0.02) fire(); else { A.aim.power = 0.5; drawAim(); } } else aimAt(e);
   });
   document.addEventListener('pointercancel', function () { drag = null; });
   document.addEventListener('keydown', function (e) {
