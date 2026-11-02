@@ -91,7 +91,8 @@
     a.ticking = true;
     requestAnimationFrame(function frame(now) {
       if (a !== A || !live() || A.paused || !A.step) { a.ticking = false; return; }
-      var dt = last === null ? 1 / 60 : Math.min(0.05, Math.max(0, (now - last) / 1000));
+      // A slow phone (down to 10 frames a second) still plays in real time; slower than that, in slow motion.
+      var dt = last === null ? 1 / 60 : Math.min(0.1, Math.max(0, (now - last) / 1000));
       last = now;
       if (A.step(dt)) requestAnimationFrame(frame); else a.ticking = false;
     });
@@ -472,7 +473,7 @@
   function lob(who, x, then) {
     var grid = q('[data-sea="' + who + '"]'), cell = grid.querySelector('[data-x="' + x + '"]'), lay = grid.querySelector('.sea-fx');
     var W = grid.clientWidth, H = grid.clientHeight, tx = cell.offsetLeft + cell.offsetWidth / 2, ty = cell.offsetTop + cell.offsetHeight / 2;
-    var sx = W / 2 + (tx - W / 2) * 0.35, sy = who === 'his' ? H + 24 : -24, size = Math.max(12, cell.offsetWidth * 0.34);
+    var sx = W / 2 + (tx - W / 2) * 0.35, sy = who === 'his' ? H + 24 : -10, size = Math.max(12, cell.offsetWidth * 0.34);
     var shell = document.createElement('i'), shadow = document.createElement('i'), path = [], shade = [], ms = K.reduced() ? 60 : 640;
     shell.className = 'sea-shell';
     shadow.className = 'sea-shadow';
@@ -480,7 +481,8 @@
     shadow.style.height = (size * 0.5) + 'px';
     for (var k = 0; k <= 12; k++) {
       var p = k / 12, px = sx + (tx - sx) * p, py = sy + (ty - sy) * p, lift = Math.sin(Math.PI * p);
-      path.push({ transform: 'translate(' + px.toFixed(1) + 'px,' + (py - lift * H * 0.3).toFixed(1) + 'px) translate(-50%,-50%) scale(' + (1 + lift * 0.8).toFixed(3) + ')' });
+      // His shells come in over the top edge, so they arc less (and stay off the bar above the sea).
+      path.push({ transform: 'translate(' + px.toFixed(1) + 'px,' + (py - lift * H * (who === 'his' ? 0.3 : 0.12)).toFixed(1) + 'px) translate(-50%,-50%) scale(' + (1 + lift * 0.8).toFixed(3) + ')' });
       shade.push({ transform: 'translate(' + px.toFixed(1) + 'px,' + py.toFixed(1) + 'px) translate(-50%,-50%) scale(' + (1 - lift * 0.45).toFixed(3) + ')', opacity: (0.15 + 0.3 * p).toFixed(2) });
     }
     lay.appendChild(shadow);
@@ -720,6 +722,11 @@
     A.dpr = dpr;
     // With a question up on a phone, only the part above its sheet is seen.
     A.viewH = narrow() && ask && !ask.hidden ? Math.max(120, Math.min(h, ask.offsetTop - sky.offsetTop - 6)) : h;
+    // On a computer the card lies over the field and reaches below it: the game grows down to hold it (the dialog is
+    // pinned at the top, so the field doesn't move and nothing scrolls).
+    var ar = q('.ar');
+    ar.style.minHeight = '';
+    if (!narrow() && ask && !ask.hidden) ar.style.minHeight = Math.ceil(ask.getBoundingClientRect().bottom - ar.getBoundingClientRect().top + 4) + 'px';
     if (A.frame) { A.camTo = A.frame(A.camKind || 'wide', A.camArg); if (!A.cam || !narrow()) A.cam = { x: A.camTo.x, y: A.camTo.y, s: A.camTo.s }; }
     if (A.draw) A.draw();
     kick();
@@ -818,12 +825,13 @@
     var side = rand() < 0.5 ? -1 : 1, r = rand();
     return side * (r < 0.5 ? rand() * 12 : r < 0.8 ? 35 + rand() * 30 : 110 + rand() * 90);
   }
-  // The phone camera's views: 'wide' (the whole field above a question), 'mine' or 'his' (a cannon, close, with the sky
-  // it shoots into), 'shell' (following a shell in flight).
+  // The phone camera's views: 'wide' (the whole field above a question), 'aim' (both cannons, the sky above for the
+  // shot), 'his' (close on his cannon as it swings round), 'shell' (closer, following a shell in flight).
   function cdFrame(kind, at) {
     var W = A.vw || 1000, H = A.viewH || A.vh || 500, s, x, y;
     if (!narrow()) return { x: 0, y: 0, s: W / CW };
     if (kind === 'wide') { s = W / CW; return { x: 0, y: CHH + 6 - H / s, s: s }; }
+    if (kind === 'aim') { s = W / 930; return { x: 35, y: Math.max(A.tanks[0].y, A.tanks[1].y) - 0.8 * H / s, s: s }; }
     s = W / (kind === 'shell' ? 640 : 560);
     if (kind === 'shell') { x = at.x - W / s / 2; y = Math.min(A.tanks[0].y - 0.76 * H / s, at.y - 0.22 * H / s); } else {
       var t = A.tanks[kind === 'his' ? 1 : 0];
@@ -908,8 +916,8 @@
         A.phase = 'aim';
         A.drag = null;
         windText(true);
-        look('mine');
-        say('<b>Drag to aim</b> (point where to shoot; further is harder), let go to fire. The dots show the start.');
+        look('aim');
+        say('<b>Drag to aim</b> and let go to fire. The dots show the start of your shot.');
         row('<button type="button" class="tb-btn tb-btn--go" data-cd-fire>Fire</button>');
         draw();
         q('[data-cd-canvas]').focus({ preventScroll: true });
@@ -1188,7 +1196,10 @@
     screenCtx(g, sh);
     drawPops(g);
     // Your tag and his face ride on the cannons (HTML, so his face is the site's drawing, with his moods).
-    ride(q('[data-cd-tag="0"]'), me.x - 30, me.y - 36);
+    var tag = q('[data-cd-tag="0"]');
+    ride(tag, me.x - 30, me.y - 36);
+    // Kept inside the field when the phone's camera has your cannon near the edge.
+    if (tag) tag.style.left = Math.max(tag.offsetWidth / 2 + 4, parseFloat(tag.style.left)).toFixed(1) + 'px';
     ride(q('[data-cd-tag="1"]'), A.tanks[1].x + 16, A.tanks[1].y - 26, 70, 40);
   }
   // Aiming is a drag (the user found a single tap fired a wasted shot): press anywhere, move over 20px and the barrel
@@ -1340,7 +1351,7 @@
     var M = window.Matter;
     K.playing(true);
     A.gen += 1;
-    A.right = A.asked = 0;
+    A.right = A.asked = A.fired = 0;
     A.level = level;
     A.ch = CH[level];
     A.qs = 0;
@@ -1429,6 +1440,7 @@
     M.Body.setVelocity(shot, { x: -p.x * LAUNCH, y: -p.y * LAUNCH });
     A.w.shots.push(shot);
     A.shot = shot;
+    A.fired = (A.fired || 0) + 1;
     A.pull = null;
     A.trail = [];
     A.simT = 0;
@@ -1447,7 +1459,7 @@
     if (A.phase === 'flying' || A.phase === 'over' && A.toppled && !A.rested) {
       busy = true;
       A.acc += dt;
-      for (var n = 0; A.acc >= STEP && n < 16; n++) { tick(A.w, 1); A.acc -= STEP; A.simT += STEP; }
+      for (var n = 0; A.acc >= STEP && n < 20; n++) { tick(A.w, 1); A.acc -= STEP; A.simT += STEP; }
       if (A.acc > STEP) A.acc = 0;
       if (A.trail && A.simT < 2.5 && A.simT - (A.trail.t || 0) >= 0.05) { A.trail.push([A.shot.position.x, A.shot.position.y]); A.trail.t = A.simT; }
       if (A.w.him.speed > 2.5 && A.w.him.position.y > A.w.startY + 15) twMood('furious');
@@ -1458,20 +1470,21 @@
       if (off(A.w) && !A.toppled) twToppled();
       A.calm = still(A.w) ? A.calm + dt : 0;
       if (A.phase === 'over' && (A.calm > 0.33 || A.simT > 12)) A.rested = true;
-      // Once he's off the scene holds about a second and a half (still moving) before the end card.
-      if (A.phase === 'flying' && (A.calm > 0.33 || A.simT > 9 || A.toppled && A.simT - A.toppleAt > 1.1)) { A.phase = 'settled'; wait(twAfter, 10); }
+      if (A.phase === 'flying' && (A.calm > 0.33 || A.simT > 9)) { A.phase = 'settled'; wait(twAfter, 10); }
     }
     busy = stepFx(dt) || busy;
     twDraw();
     return busy || A.dragging;
   }
   // He's off: "Toppled!" over the scene, held there a moment before the end card.
+  // Once he's off, the scene plays on for about a second and a half (by the clock, however fast the physics runs) with
+  // the banner up, then the end card.
   function twToppled() {
     A.toppled = true;
-    A.toppleAt = A.simT;
     K.mascot('furious', pick(['Whoa!', 'Nooo!']));
     twMood('furious');
-    wait(function () { banner(q('.tw-sky'), 'Level ' + (A.level + 1), 'Toppled!', '#FFE14D', 1700); sfx('stamp', 1); }, 350);
+    wait(function () { banner(q('.tw-sky'), 'Level ' + (A.level + 1), 'Toppled!', '#FFE14D', 4000); sfx('stamp', 1); }, 350);
+    wait(function () { if (A.phase === 'flying') { A.phase = 'settled'; twAfter(); } }, 1300);
   }
   function twAfter() {
     var M = window.Matter;
@@ -1481,7 +1494,7 @@
       A.phase = 'over';
       A.rested = false;
       kick();
-      wait(function () { twEnd(true); }, 1500);
+      wait(function () { twEnd(true); }, 1300);
       return;
     }
     // The shot's done: it's cleared away for the next one.
@@ -1493,15 +1506,15 @@
     wait(twNext, 900);
   }
   function twEnd(won) {
-    var lv = A.level;
+    var lv = A.level, best = +(K.store('bio-tower-best-' + lv) || 0);
     A.toppled = false;
     if (won) {
-      var best = +(K.store('bio-tower-best-' + lv) || 0);
-      if (!best || A.qs < best) K.store('bio-tower-best-' + lv, String(A.qs));
+      if (!best || A.qs < best) K.store('bio-tower-best-' + lv, String(best = A.qs));
       if (+(K.store('bio-tower-level') || 1) < lv + 2) K.store('bio-tower-level', String(Math.min(CH.length, lv + 2)));
     }
     K.mascot(won ? 'angry' : 'happy', won ? 'Hmph. I was getting down anyway.' : 'Still up here. Try again.');
-    end(won, won ? 'He\'s off the tower!' : 'He\'s still up there.', won ? 'Level ' + (lv + 1) + ' done in ' + plural(A.qs, 'question') + '.' : 'Out of questions for level ' + (lv + 1) + '.', won && lv + 1 < CH.length ? 'data-tw-next' : 'data-tw-again');
+    end(won, won ? 'He\'s off the tower!' : 'He\'s still up there.', won ? 'Level ' + (lv + 1) + ' done in ' + plural(A.qs, 'question') + '.' : 'Out of questions for level ' + (lv + 1) + '.', won && lv + 1 < CH.length ? 'data-tw-next' : 'data-tw-again',
+      won ? [[A.qs, A.qs === 1 ? 'question' : 'questions'], [A.fired, A.fired === 1 ? 'shot' : 'shots'], [best, 'your fewest']] : null);
     if (won && lv + 1 < CH.length) q('[data-tw-next]').textContent = 'Next level';
     else if (!won) q('[data-tw-again]').textContent = 'Try again';
   }

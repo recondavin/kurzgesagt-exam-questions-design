@@ -443,7 +443,7 @@ button.pts-cell:hover { background: #24498D; }
 .ar-face { width: 110px; height: 110px; margin: 0 auto 6px; }
 .ar-face svg { display: block; width: 100%; height: 100%; }
 /* The arcade's games: the field stays put; the card lies over it (absolute), the turn line is one fixed-height box. */
-.ar--sea, .ar--cd, .ar--tw { gap: 12px; }
+.ar--sea, .ar--cd, .ar--tw { gap: 12px; align-content: start; }
 .ar--sea .ar-stage, .ar--cd .ar-stage, .ar--tw .ar-stage { position: relative; }
 .ar--sea .ar-stage.is-asking .ar-field, .ar--cd .ar-stage.is-asking .ar-field, .ar--tw .ar-stage.is-asking .ar-field { opacity: 1; pointer-events: auto; }
 .ar--cd .ar-ask, .ar--tw .ar-ask { position: absolute; z-index: 5; top: 12px; left: 50%; width: min(480px, 56%); padding: 0; transform: translateX(-50%); }
@@ -597,12 +597,13 @@ button.sea-c { cursor: default; }
   /* Sea Battle on a phone: the sea being fired at fills the width; the other sits small beside the turn's line. */
   .sea-top { gap: 6px; }
   .sea-fleet { gap: 6px; }
-  .sea-who { padding: 2px 10px; font-size: 14px; }
-  .sea-who--him { padding-left: 3px; }
-  .sea-head { width: 20px; height: 20px; }
+  .sea-top, .sea-fleet { min-width: 0; }
+  .sea-who { padding: 2px 9px; font-size: 14px; }
+  .sea-who--him { padding: 2px; font-size: 0; }
+  .sea-head { width: 24px; height: 24px; }
   .sea-pips { gap: 4px; }
-  .sea-pip { width: calc(var(--n) * 11px); height: 12px; }
-  .sea-pip.is-sunk::after { width: 14px; height: 14px; }
+  .sea-pip { width: calc(var(--n) * 9px); height: 11px; }
+  .sea-pip.is-sunk::after { width: 13px; height: 13px; }
   .sea-stage { grid-template-columns: minmax(0, 44%) minmax(0, 1fr); grid-template-rows: auto auto; grid-template-areas: "big big" "inset turn"; gap: 12px; align-content: start; }
   .sea-stage[data-view="his"] .sea-side--his, .sea-stage[data-view="mine"] .sea-side--mine { grid-area: big; transform-origin: 50% 0; transition: transform .35s ease; }
   .sea-stage[data-view="his"] .sea-side--mine, .sea-stage[data-view="mine"] .sea-side--his { grid-area: inset; }
