@@ -132,7 +132,7 @@
   }
   function answerHtml(item, mine) {
     return (mine ? '<p class="tb-mine">' + esc(mine) + '</p>' : '') +
-      '<p class="tb-ans"><span>Answer</span>' + esc(item.c.right) + '</p><p class="tb-why"><span>Why</span>' + esc(item.c.why) + '</p>';
+      '<p class="tb-ans"><span>Right answer</span>' + esc(item.c.right) + '</p>' + window.BioBoard.why(item.c);
   }
   function stamp(ok, text) { return '<p class="tb-stamp ' + (ok ? 'is-ok' : 'is-no') + '">' + esc(text) + '</p>'; }
   function layer(html) {
