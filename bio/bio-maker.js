@@ -242,7 +242,7 @@
         if (c.right.length <= 70 && need <= 2) return;
         var per = p.m && p.n ? p.m / p.n : keyed[0].m || 3;
         var it = { id: id, kind: 'long', ch: ch, from: (need < full ? 'Based on ' : '') + where(q, p.l), q: plain(typeof c.board === 'string' ? c.board : c.q),
-          marks: Math.round(per * need), need: need, pts: keyed, right: c.right, wrong: c.wrong.slice(), why: c.why };
+          marks: Math.round(per * need), need: need, pts: keyed, right: c.right, wrong: c.wrong.slice(), why: c.why, keys: c.keys, hook: c.hook };
         it.earned = earner(keyed);
         if (it.earned(it.right) < need || it.wrong.some(function (w) { return it.earned(w) >= need; })) return;
         out.push(it);
@@ -1035,7 +1035,7 @@
     q('[data-mk-after]').innerHTML = '<div class="mk-verdict"><p class="tb-stamp ' + (ok ? 'is-ok' : 'is-no') + '">' + (ok ? 'Correct' : 'Not quite') + '</p><p class="mk-said">' + esc(out.said) + '</p></div>' +
       (mine ? '<p class="tb-mine">' + esc(mine) + '</p>' : '') +
       (showAns ? '<p class="mk-ans"><span>' + (M.typed ? 'A full-marks answer' : 'Answer') + '</span>' + esc(it.right) + '</p>' : '') + line +
-      '<details class="mk-why"><summary>Why?' + (scheme ? ' And the marking scheme' : '') + '</summary><p class="tb-why"><span>Why</span>' + esc(it.why) + '</p>' + scheme + '</details>';
+      '<details class="mk-why"><summary>Why?' + (scheme ? ' And the marking scheme' : '') + '</summary>' + window.BioBoard.why(it) + scheme + '</details>';
     // On a short screen (or with a diagram) the verdict can fall below the panel's fold: bring it into view.
     var panel = q('[data-mk-panel]'), after = q('[data-mk-after]');
     if (panel && after) {
