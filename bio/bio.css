@@ -254,6 +254,7 @@ button { font: inherit; }
 .ls-bar { height: 10px; margin: 0 0 12px; border-radius: 99px; background: #37464F; overflow: hidden; }
 .ls-bar i { display: block; height: 100%; border-radius: inherit; background: #58CC02; transform-origin: left center; }
 .ls-dot { cursor: pointer; outline: none; }
+.ls-dot__hit { fill: transparent; }
 .ls-dot__ring { fill: rgba(28, 176, 246, .2); stroke: #1899D6; stroke-width: 2.5; transition: fill .15s, stroke .15s; }
 .ls-dot__core { fill: #1899D6; }
 .ls-dot:hover .ls-dot__ring { fill: rgba(28, 176, 246, .45); }
@@ -899,8 +900,8 @@ button.sea-c { cursor: default; }
 .mk-why .mk-scheme { margin: 0 14px 12px; background: #FFFFFF; font-size: 16px; }
 .mk-from { margin: -4px 0 0; color: #5B6B80; font: 800 12.5px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
 .mk-need { color: #5B6B80; font-size: .7em; white-space: nowrap; }
-.mk-fig { justify-self: center; width: 100%; }
-.mk-fig svg { max-height: min(320px, 34vh); }
+.mk-fig { --fig-h: min(320px, 34vh); display: flex; justify-content: center; justify-self: center; width: 100%; }
+.mk-fig svg { display: block; height: auto; max-height: var(--fig-h); }
 .mk-spot { cursor: pointer; }
 .mk-spot:hover circle:first-child, .mk-spot:focus-visible circle:first-child { fill: #FFC800; fill-opacity: .45; }
 .mk-spot:focus { outline: none; }
@@ -1191,7 +1192,7 @@ button.sea-c { cursor: default; }
   .mk-hearts { max-width: 96px; gap: 2px; padding: 2px 5px; border-radius: 9px; }
   .mk-side--you { left: 6%; }
   .mk-side--him { right: 6%; }
-  .mk-fig svg { max-height: 200px; }
+  .mk-fig { --fig-h: 200px; }
   .mk-vs { font-size: 20px; padding: 0 8px; }
   .mk-points { font-size: 30px; }
   .mk-chip { min-height: 42px; padding: 5px 12px; font-size: 15px; }

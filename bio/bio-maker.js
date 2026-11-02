@@ -488,10 +488,13 @@
       marks = '<circle cx="' + n(s[0]) + '" cy="' + n(s[1]) + '" r="' + n(15 * k) + '" fill="#13294A" stroke="#FFFFFF" stroke-width="' + n(3 * k) + '"/>' +
         '<text x="' + n(s[0]) + '" y="' + n(s[1]) + '" font-size="' + n(18 * k) + '" font-family="Nunito, sans-serif" font-weight="800" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">' + it.letter + '</text>';
     }
-    return '<div class="ed-fig mk-fig"><svg viewBox="' + [a[0], a[1], b[0], b[1]].map(n).join(' ') + '" role="img"><title>' + esc(r.src) + '</title>' +
+    // Sized to the box's shape and clipped to it, so none of the page's question text shows either side.
+    var clip = 'mk-clip-' + it.id.replace(/\W/g, '');
+    return '<div class="ed-fig mk-fig"><svg viewBox="' + [a[0], a[1], b[0], b[1]].map(n).join(' ') + '" style="width:min(100%, calc(var(--fig-h, 320px) * ' + (b[0] / b[1]).toFixed(4) + '))" role="img"><title>' + esc(r.src) + '</title>' +
+      '<clipPath id="' + clip + '"><rect x="' + n(a[0]) + '" y="' + n(a[1]) + '" width="' + n(b[0]) + '" height="' + n(b[1]) + '"/></clipPath><g clip-path="url(#' + clip + ')">' +
       '<image href="' + esc(r.img) + '" width="' + P[0] + '" height="' + P[1] + '" preserveAspectRatio="none"/>' +
       (r.cover || []).map(function (c) { var p = px(c[0], c[1]), q2 = px(c[2], c[3]); return '<rect x="' + n(p[0]) + '" y="' + n(p[1]) + '" width="' + n(q2[0]) + '" height="' + n(q2[1]) + '" fill="' + (c[4] || '#FFFFFF') + '"/>'; }).join('') +
-      marks + '</svg></div>';
+      '</g>' + marks + '</svg></div>';
   }
 
   // ======================================================================== the maker
