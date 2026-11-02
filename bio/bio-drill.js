@@ -68,7 +68,7 @@
         if (need > 2) return;
         var per = p.m && p.n ? p.m / p.n : keyed[0].m || 3;
         var it = { id: 'e' + ch + ':' + q.id + ':' + k, kind: 'exam', ch: ch, from: (need < full ? 'Based on ' : '') + where(q, p.l),
-          q: plain(typeof c.board === 'string' ? c.board : c.q), marks: Math.round(per * need), need: need, pts: keyed, right: c.right, wrong: c.wrong.slice(), why: c.why };
+          q: plain(typeof c.board === 'string' ? c.board : c.q), marks: Math.round(per * need), need: need, pts: keyed, right: c.right, wrong: c.wrong.slice(), why: c.why, keys: c.keys, hook: c.hook };
         it.earned = earner(keyed);
         if (it.earned(it.right) < need || it.wrong.some(function (w) { return it.earned(w) >= need; })) return;
         out.push(it);
@@ -251,7 +251,7 @@
     q('[data-ed-after]').innerHTML = '<p class="tb-stamp ' + (ok ? 'is-ok' : 'is-no') + '">' + (typed ? (ok ? 'Full marks: ' + it.marks + '/' + it.marks : 'Not full marks') : ok ? 'Right' : 'Not quite') + '</p>' +
       (mine ? '<p class="tb-mine">' + esc(mine) + '</p>' : '') +
       '<p class="tb-ans"><span>' + (typed || !ok ? 'A full-marks answer' : 'Answer') + '</span>' + esc(it.right) + '</p>' + scheme +
-      '<p class="tb-why"><span>Why</span>' + esc(it.why) + '</p>' +
+      window.BioBoard.why(it) +
       '<p class="ed-later">' + (stage === 'done' ? 'Learnt.' : stage === 'type' ? 'It\'ll come back for you to type.' : 'It\'ll come back as boxes.') + '</p>';
     var r = document.createElement('div');
     r.className = 'tb-row tb-row--next';

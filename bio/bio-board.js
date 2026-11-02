@@ -569,7 +569,24 @@
   function back(ok, mine, item, stampText, wedgeCh) {
     return '<p class="tb-backq">' + esc(plain(item.text)) + '</p>' + stamp(ok, stampText, wedgeCh) +
       (mine ? '<p class="tb-mine">' + esc(mine) + '</p>' : '') +
-      '<p class="tb-ans"><span>Answer</span>' + esc(item.c.right) + '</p><p class="tb-why"><span>Why</span>' + esc(item.c.why) + '</p>';
+      '<p class="tb-ans"><span>Answer</span>' + esc(item.c.right) + '</p>' + whyHtml(item.c);
+  }
+  // The memory card every game shows after an answer: the why with its key words highlighted, like a
+  // highlighter in a textbook, then a sticky note with a short way to remember it ("keys" and "hook" in
+  // tools/bio/checks). Checks without them show the plain why.
+  function whyHtml(c) {
+    var why = String(c.why || ''), low = why.toLowerCase(), marks = [], html = '', from = 0;
+    (c.keys || []).forEach(function (k) {
+      var at = low.indexOf(String(k).toLowerCase()), end = at + String(k).length;
+      if (at >= 0 && !marks.some(function (m) { return at < m[1] && end > m[0]; })) marks.push([at, end]);
+    });
+    marks.sort(function (a, b) { return a[0] - b[0]; }).forEach(function (m) {
+      html += esc(why.slice(from, m[0])) + '<mark class="tb-hl">' + esc(why.slice(m[0], m[1])) + '</mark>';
+      from = m[1];
+    });
+    html += esc(why.slice(from));
+    return '<p class="tb-why"><span>Why</span>' + html + '</p>' +
+      (c.hook ? '<p class="tb-hook"><span>Remember it</span>' + esc(c.hook) + '</p>' : '');
   }
   function typedQuestion(ch, why, given) {
     var m = given ? null : memNext(G, G.pools, ch, true), item = given || (m && m.typed ? m.item : null);
@@ -682,7 +699,7 @@
     });
   }
   // How long his card stays up to be read: longer for a longer why.
-  function readMs(item) { return Math.round(Math.min(5200, Math.max(2600, 1500 + 26 * String(item.c.why).length))); }
+  function readMs(item) { return Math.round(Math.min(6500, Math.max(2600, 1500 + 26 * (String(item.c.why).length + String(item.c.hook || '').length)))); }
   function hisAnswer(ch, kind) {
     var typed = kind === 'final' || kind === true, item = nextQ(ch, typed) || nextQ(ch, false);
     var odds = kind === 'final' ? 0.4 : typed ? 0.5 : 0.65, ok = Math.random() < odds;
@@ -717,7 +734,7 @@
     if (ok) G.his.r += 1;
     if (wedge) G.wedges[1][ch] = true;
     front.querySelector('.tb-card__body').insertAdjacentHTML('beforeend', stamp(ok, wedge ? 'His wedge' : ok ? 'He got it' : 'He got it wrong', wedge ? ch : 0) +
-      '<p class="tb-why"><span>Why</span>' + esc(item.c.why) + '</p>');
+      whyHtml(item.c));
     K.later(function () { if (cardEl.isConnected) K.sfx('stamp', 0.7); }, K.reduced() ? 0 : SLAM_MS);
     if (wedge) { placeTokens(); refreshPies(); }
     if (ok) {
@@ -913,5 +930,5 @@
   function memLine(line) { return '<p class="tb-later">' + esc(line) + '</p>'; }
 
   window.BioBoard = { open: open, state: function () { return G; }, pools: pools, nearMascot: nearMascot, reveal: reveal, chapters: CH, names: NAME, colours: COL,
-    stamp: stamp, plain: plain, needsOptions: needsOptions, memNext: memNext, memRecord: memRecord, memSet: memSet, memOrder: memOrder, memLine: memLine, memKey: memKey, missFirst: missFirst, missMark: missMark };
+    stamp: stamp, plain: plain, why: whyHtml, needsOptions: needsOptions, memNext: memNext, memRecord: memRecord, memSet: memSet, memOrder: memOrder, memLine: memLine, memKey: memKey, missFirst: missFirst, missMark: missMark };
 })();

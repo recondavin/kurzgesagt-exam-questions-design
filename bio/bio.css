@@ -323,6 +323,14 @@ button { font: inherit; }
    clear enough"): its own label, bigger dark text, in a box with the chapter's colour down its side. */
 .tb-card .tb-why { padding: 14px 18px; border-left: 6px solid var(--c); border-radius: 12px; background: #EEF2F6; color: #13294A; font: 700 22px/1.45 Nunito, sans-serif; }
 .tb-why span { display: block; margin-bottom: 4px; color: #5B6B80; font: 800 15px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+/* The memory card (BioBoard.why): the why's key words under a highlighter, then the hook on a sticky note
+   with a strip of tape, slapped on just after the answer shows. Flat colours, no shine. */
+.tb-hl { padding: 0 .12em; margin: 0 -.04em; border-radius: 4px; background: #FFE45C; color: #13294A; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.tb-hook { position: relative; margin: 18px 6px 6px; padding: 18px 20px 16px; border-radius: 3px 3px 16px 3px; background: #FFE45C; color: #2E2608; font: 800 21px/1.35 Nunito, sans-serif; transform: rotate(-1.3deg); box-shadow: 0 3px 0 rgba(19, 41, 74, .18); animation: tbNote .5s cubic-bezier(.3, 1.5, .5, 1) .35s both; }
+.tb-hook::before { content: ""; position: absolute; top: -10px; left: 50%; width: 70px; height: 20px; margin-left: -35px; background: rgba(255, 255, 255, .6); transform: rotate(2.5deg); }
+.tb-hook span { display: block; margin-bottom: 4px; color: #7A6512; font: 800 13px Nunito, sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+@keyframes tbNote { from { opacity: 0; transform: rotate(-7deg) scale(.86); } to { opacity: 1; transform: rotate(-1.3deg) scale(1); } }
+@media (prefers-reduced-motion: reduce) { .tb-hook { animation: none; } }
 .tb-title { margin: 0; color: #FFFFFF; font: 700 34px/1.1 Fredoka, Nunito, sans-serif; }
 /* The start: a full or a quick game, or carry on with the saved one. */
 .tb-ask { margin: 4px 0 0; color: #93A5AE; font: 800 15px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
@@ -377,6 +385,7 @@ button { font: inherit; }
   .tb-ans { font-size: 20px; }
   .tb-why, .tb-mine { font-size: 16px; }
   .tb-card .tb-why { padding: 12px 14px; font-size: 18px; }
+  .tb-hook { margin: 16px 4px 4px; padding: 15px 15px 13px; font-size: 17px; }
   .tb-turn { font-size: 20px; }
   .tb-deck { width: 64px; height: 88px; }
   .tb-deck svg { width: 38px; height: 38px; }
