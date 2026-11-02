@@ -10,7 +10,13 @@
    ],
    "why": "Three points: homeostasis is keeping a constant internal environment; the kidneys keep the body's water balance and salt balance steady.",
    "hint": "Homeo means 'same'. For the kidneys: what two things in urine change after lots of drink or crisps?",
-   "board": true
+   "board": true,
+   "hook": "Homeo = same, stasis = standing: keep the inside the same. Kidneys mind water and salt",
+   "keys": [
+    "constant internal environment",
+    "water balance",
+    "salt balance"
+   ]
   }
  ],
  "2004-Q12b": [
@@ -24,7 +30,12 @@
    ],
    "why": "The afferent arteriole brings blood in (a for arrive); the efferent arteriole takes it out (e for exit).",
    "hint": "Show the cup, the twisty tube with its hairpin, the duct, and the blood vessels in, out and around.",
-   "board": "Which blood vessel carries blood into the glomerulus of a nephron?"
+   "board": "Which blood vessel carries blood into the glomerulus of a nephron?",
+   "hook": "A comes before E in the alphabet, and blood meets Afferent before Efferent",
+   "keys": [
+    "afferent arteriole brings blood in",
+    "efferent arteriole takes it out"
+   ]
   },
   {
    "q": "How do filtration and reabsorption occur in the nephron? (6 points)",
@@ -36,7 +47,13 @@
    ],
    "why": "Three points each: high pressure forces plasma (not cells or proteins) into Bowman's capsule; the tubule returns water to the blood by osmosis.",
    "hint": "Filtration: what pushes, and what's too big? Reabsorption: from where to where, and by what methods?",
-   "board": true
+   "board": true,
+   "hook": "Kidney = sieve then sorter: pressure pushes plasma through, osmosis reclaims the water",
+   "keys": [
+    "high pressure forces plasma",
+    "Bowman's capsule",
+    "by osmosis"
+   ]
   }
  ],
  "2005-Q1f": [
@@ -50,7 +67,12 @@
    ],
    "why": "Excretion removes waste cells make, like urea and CO2; egestion removes undigested food that cells never made.",
    "hint": "Getting rid of faeces is egestion. What's the word for removing waste your cells made themselves?",
-   "board": true
+   "board": true,
+   "hook": "Excrete what cells make; egest what you ate but never digested",
+   "keys": [
+    "excretion",
+    "waste cells make"
+   ]
   }
  ],
  "2005-Q3a": [
@@ -62,7 +84,13 @@
    ],
    "why": "Urea is made in the liver by deamination; the kidneys only filter it out of the blood.",
    "hint": "Urea comes from breaking down extra amino acids. Which organ does that job?",
-   "board": true
+   "board": true,
+   "hook": "Liver makes urea, kidneys take urea: the liver is the factory, the kidney the bin",
+   "keys": [
+    "made in the liver",
+    "deamination",
+    "only filter it"
+   ]
   }
  ],
  "2006-Q6b": [
@@ -76,7 +104,12 @@
    ],
    "why": "Two points: the ureter carries urine from the kidney to the bladder; the urethra carries it from the bladder out of the body.",
    "hint": "There are two of one tube but only one of the other. Where does each one start and end?",
-   "board": true
+   "board": true,
+   "hook": "Ureter has two e's and you have two ureters; urethra has one e: the single exit",
+   "keys": [
+    "from the kidney to the bladder",
+    "from the bladder out of the body"
+   ]
   }
  ],
  "2006-Q13b": [
@@ -90,7 +123,13 @@
    ],
    "why": "Two points: plasma is the liquid part of blood; glomerular filtrate is plasma, minus its proteins, that has passed into Bowman's capsule.",
    "hint": "Plasma: what is blood without its cells? Filtrate: what gets into the capsule, and what can't?",
-   "board": true
+   "board": true,
+   "hook": "Filtrate = plasma with the big stuff sieved out: no proteins, no cells",
+   "keys": [
+    "liquid part of blood",
+    "minus its proteins",
+    "Bowman's capsule"
+   ]
   },
   {
    "q": "Why are red blood cells missing from glomerular filtrate?",
@@ -102,7 +141,12 @@
    ],
    "why": "Red cells are far too big to squeeze through the glomerulus wall into Bowman's capsule, so they stay in the blood.",
    "hint": "Compare the size of a red blood cell with the tiny gaps in the glomerulus and capsule walls.",
-   "board": true
+   "board": true,
+   "hook": "A football won't fit through a tennis net: cells and proteins are too big for the filter",
+   "keys": [
+    "far too big",
+    "stay in the blood"
+   ]
   },
   {
    "q": "Why does filtrate have the same glucose level as plasma?",
@@ -114,7 +158,12 @@
    ],
    "why": "Glucose molecules are small enough to be filtered freely, so filtrate gets the same glucose level as plasma.",
    "hint": "Think about the size of a glucose molecule next to the filter's pores, then compare with proteins.",
-   "board": "Why does glomerular filtrate have the same glucose level as blood plasma?"
+   "board": "Why does glomerular filtrate have the same glucose level as blood plasma?",
+   "hook": "Small things slip through the sieve: glucose, salts, urea and amino acids all pass",
+   "keys": [
+    "small enough to be filtered freely",
+    "same glucose level"
+   ]
   },
   {
    "q": "Why is there normally no glucose in urine?",
@@ -126,7 +175,12 @@
    ],
    "why": "Glucose is filtered, but the proximal tubule reabsorbs all of it back into the blood, so none reaches the urine.",
    "hint": "Glucose is filtered out, yet urine has none. Where does it go as filtrate flows along the tubule?",
-   "board": true
+   "board": true,
+   "hook": "Proximal = first: the first tubule grabs back all the good stuff, glucose included",
+   "keys": [
+    "proximal tubule reabsorbs all of it",
+    "back into the blood"
+   ]
   },
   {
    "q": "After heavy exercise, why is a small volume of concentrated urine made? (one of 4 points)",
@@ -138,7 +192,13 @@
    ],
    "why": "Four of: sweating dehydrates you; the brain detects it; the pituitary secretes ADH; more water is reabsorbed in the collecting duct.",
    "hint": "Start with how the athlete lost water, then follow the hormone message from the brain to the kidney.",
-   "board": true
+   "board": true,
+   "hook": "ADH = Anti-Diuretic Hormone: anti-wee. More ADH, less wee, darker urine",
+   "keys": [
+    "pituitary secretes ADH",
+    "more water is reabsorbed",
+    "collecting duct"
+   ]
   }
  ],
  "2007-Q15c": [
@@ -152,7 +212,12 @@
    ],
    "why": "Three points: homeostasis is the maintenance of a constant internal environment, which keeps the temperature suitable for enzyme reactions.",
    "hint": "Homeo means 'same'. For why: which proteins run your cell reactions and need the right heat and pH?",
-   "board": true
+   "board": true,
+   "hook": "Homeostasis is a thermostat for your insides: steady conditions keep enzymes working",
+   "keys": [
+    "constant internal environment",
+    "suitable for enzyme reactions"
+   ]
   }
  ],
  "2008-Q13a": [
@@ -166,7 +231,12 @@
    ],
    "why": "Excretion gets rid of waste made by cells, like urea and CO2; removing undigested food is egestion.",
    "hint": "Compare it with egestion, which removes undigested food. Where does this other waste come from?",
-   "board": true
+   "board": true,
+   "hook": "Excrete what cells make; egest what you ate but never digested",
+   "keys": [
+    "waste made by cells",
+    "egestion"
+   ]
   },
   {
    "q": "Name a substance urea is made from, and one carbon dioxide is made from. (2 points)",
@@ -178,7 +248,12 @@
    ],
    "why": "Two points: urea comes from amino acids (protein) broken down in the liver; CO2 comes from respiring glucose (carbohydrate) or fat.",
    "hint": "Urea contains nitrogen: which food has it? CO2 comes from breaking down a fuel in respiration.",
-   "board": true
+   "board": true,
+   "hook": "Urea holds nitrogen, so it must come from protein; CO2 is left over from respiring glucose",
+   "keys": [
+    "urea comes from amino acids",
+    "respiring glucose"
+   ]
   }
  ],
  "2008-Q13b": [
@@ -192,7 +267,12 @@
    ],
    "why": "C comes straight after Bowman's capsule, so it is the proximal (first) tubule; the distal one comes after the loop.",
    "hint": "A brings blood in. Then follow the filtrate: cup, first twisty tube, hairpin, second twist, duct.",
-   "board": false
+   "board": false,
+   "hook": "Proximal = close (near the capsule), distal = distant (after the loop)",
+   "keys": [
+    "proximal (first) tubule",
+    "distal one comes after the loop"
+   ]
   },
   {
    "q": "Arteriole A branches from which blood vessel?",
@@ -204,7 +284,12 @@
    ],
    "why": "The renal artery brings blood into the kidney and branches into the arterioles that feed each glomerulus.",
    "hint": "A brings blood to the filter. Which big vessel carries blood into the whole kidney?",
-   "board": "The arteriole that brings blood into a glomerulus branches from which blood vessel?"
+   "board": "The arteriole that brings blood into a glomerulus branches from which blood vessel?",
+   "hook": "Renal means kidney: renal artery in, renal vein out",
+   "keys": [
+    "renal artery",
+    "branches into the arterioles"
+   ]
   },
   {
    "q": "In which region of the kidney is Bowman's capsule (B)?",
@@ -216,7 +301,12 @@
    ],
    "why": "Bowman's capsules and glomeruli sit in the outer cortex; the loops of Henle dip down into the medulla.",
    "hint": "The kidney has an outer layer, striped pyramids and a funnel. Which one holds the filtering cups?",
-   "board": "In which region of the kidney is Bowman's capsule found?"
+   "board": "In which region of the kidney is Bowman's capsule found?",
+   "hook": "Cortex means bark, the outer layer: the filtering cups sit out there, the loops dive in",
+   "keys": [
+    "outer cortex",
+    "medulla"
+   ]
   },
   {
    "q": "In which part of the nephron are amino acids reabsorbed?",
@@ -228,7 +318,12 @@
    ],
    "why": "The proximal tubule reabsorbs all the glucose and amino acids; later parts mainly handle water and salts.",
    "hint": "Filtration is where blood meets the nephron. Useful food molecules are taken back soon after.",
-   "board": true
+   "board": true,
+   "hook": "Proximal = first: the first tubule grabs back the good stuff, glucose and amino acids",
+   "keys": [
+    "proximal tubule",
+    "glucose and amino acids"
+   ]
   },
   {
    "q": "Give two features of the nephron that aid filtration. (2 points)",
@@ -240,7 +335,13 @@
    ],
    "why": "Two of: efferent arteriole narrower than afferent (raises pressure), capillary walls one cell thick or porous, a large surface area.",
    "hint": "Think of what raises the pressure in the knot of capillaries, and how thin and large the filter is.",
-   "board": true
+   "board": true,
+   "hook": "Wide pipe in, narrow pipe out: like a thumb on a hose, it builds the pressure",
+   "keys": [
+    "efferent arteriole narrower",
+    "one cell thick",
+    "large surface area"
+   ]
   },
   {
    "q": "Which group of biomolecules is too big to be filtered?",
@@ -252,7 +353,12 @@
    ],
    "why": "Proteins are big molecules that can't pass through the glomerulus wall; glucose and amino acids are small.",
    "hint": "Think of the big molecules in plasma, such as antibodies, clotting factors and albumin.",
-   "board": "Which group of biomolecules in blood is too big to pass through the nephron's filter?"
+   "board": "Which group of biomolecules in blood is too big to pass through the nephron's filter?",
+   "hook": "A football won't fit through a tennis net: proteins are too big for the filter",
+   "keys": [
+    "proteins are big molecules",
+    "can't pass"
+   ]
   }
  ],
  "2008-Q13c": [
@@ -266,7 +372,13 @@
    ],
    "why": "Two of: sweating in heat or exercise, low water intake, high salt intake, an infection, or taking diuretics.",
    "hint": "Think of one way you lose more water than usual, and one linked to what you eat or drink.",
-   "board": true
+   "board": true,
+   "hook": "Water out (sweat) or not enough in (no drinks, salty crisps): the blood gets drier",
+   "keys": [
+    "sweating",
+    "low water intake",
+    "high salt intake"
+   ]
   },
   {
    "q": "Name the hormone released when blood water drops, and the gland that secretes it. (2 points)",
@@ -278,7 +390,12 @@
    ],
    "why": "Two points: the hormone is ADH (anti-diuretic hormone), and it is secreted by the pituitary gland at the base of the brain.",
    "hint": "The hormone's name means 'against making urine'. Its gland is pea-sized and hangs under the brain.",
-   "board": true
+   "board": true,
+   "hook": "ADH = Anti-Diuretic Hormone: anti-wee. The pituitary, under the brain, sends it out",
+   "keys": [
+    "ADH (anti-diuretic hormone)",
+    "pituitary gland"
+   ]
   },
   {
    "q": "Give a precise target area for ADH, and say how it reaches it. (2 points)",
@@ -290,7 +407,12 @@
    ],
    "why": "Two points: ADH acts on the collecting duct (or distal tubule), and it reaches it in the bloodstream, like all hormones.",
    "hint": "Think of the last tubes filtrate passes through before the pelvis. How do all hormones travel?",
-   "board": true
+   "board": true,
+   "hook": "Hormones always travel by blood; ADH's stop is the collecting duct",
+   "keys": [
+    "collecting duct",
+    "bloodstream"
+   ]
   },
   {
    "q": "When blood water is low, what does ADH do at its target?",
@@ -302,7 +424,12 @@
    ],
    "why": "ADH makes the duct walls more permeable to water, so more water moves back into the blood. The scheme wants both halves.",
    "hint": "Think what ADH changes about the duct walls, and which way water then moves by osmosis.",
-   "board": true
+   "board": true,
+   "hook": "ADH opens the doors in the duct walls so water floods back into the blood",
+   "keys": [
+    "more permeable to water",
+    "more water moves back into the blood"
+   ]
   }
  ],
  "2009-Q15c": [
@@ -316,7 +443,12 @@
    ],
    "why": "Three points: maintenance of a constant internal environment, plus an example of how, like sweating to lose heat when hot.",
    "hint": "Homeo means 'same'. Add one thing the body keeps steady, how it does it, and why cells need that.",
-   "board": true
+   "board": true,
+   "hook": "Homeostasis is a thermostat for your insides: too hot, sweat; too cold, shiver",
+   "keys": [
+    "constant internal environment",
+    "sweating to lose heat"
+   ]
   }
  ],
  "2010-Q15c": [
@@ -330,7 +462,12 @@
    ],
    "why": "Losing water in sweat leaves less water in the blood, so more ADH is released and the ducts reabsorb more water.",
    "hint": "Where did the athlete's water go during exercise? Then which hormone tells the kidneys to save it?",
-   "board": "After heavy exercise, an athlete's urine is concentrated and low in volume. Which chain explains this?"
+   "board": "After heavy exercise, an athlete's urine is concentrated and low in volume. Which chain explains this?",
+   "hook": "Domino chain: sweat out, blood drier, ADH up, water back, urine small and dark",
+   "keys": [
+    "more ADH is released",
+    "reabsorb more water"
+   ]
   }
  ],
  "2011-Q12a": [
@@ -344,7 +481,12 @@
    ],
    "why": "Excretion removes wastes your own cells make, like urea; getting rid of undigested food is egestion.",
    "hint": "Contrast it with egestion of undigested food. Where do waste products like urea and CO2 come from?",
-   "board": true
+   "board": true,
+   "hook": "Excrete what cells make; egest what you ate but never digested",
+   "keys": [
+    "wastes your own cells make",
+    "egestion"
+   ]
   }
  ],
  "2011-Q12b": [
@@ -358,7 +500,12 @@
    ],
    "why": "The pelvis is the hollow space in the middle where urine collects before draining into the ureter.",
    "hint": "Draw a bean: a dark outer band, striped pyramids inside, and a funnel space leading to the ureter.",
-   "board": "Which region of the kidney collects urine before it enters the ureter?"
+   "board": "Which region of the kidney collects urine before it enters the ureter?",
+   "hook": "The pelvis is the kidney's funnel: urine pools there, then drains down the ureter",
+   "keys": [
+    "pelvis",
+    "urine collects"
+   ]
   },
   {
    "q": "On a kidney section, where does reabsorption happen?",
@@ -370,7 +517,12 @@
    ],
    "why": "Reabsorption happens in the nephron tubules, found in the cortex and medulla; the pelvis and ureter only carry urine.",
    "hint": "Where do the nephron's twisty tubes and loops lie in your drawing? Point there, not the funnel.",
-   "board": "Where in the kidney does reabsorption happen?"
+   "board": "Where in the kidney does reabsorption happen?",
+   "hook": "Pelvis and ureter are just pipes; the real work happens in the nephrons",
+   "keys": [
+    "nephron tubules",
+    "cortex and medulla"
+   ]
   },
   {
    "q": "The renal artery branches off which blood vessel?",
@@ -382,7 +534,11 @@
    ],
    "why": "The renal arteries branch straight off the aorta, the main artery from the heart; the vena cava is a vein.",
    "hint": "1: it's named from the Latin word for kidney. 2: it branches off the body's biggest artery.",
-   "board": true
+   "board": true,
+   "hook": "The aorta is the motorway; the renal arteries are slip roads off it to each kidney",
+   "keys": [
+    "aorta"
+   ]
   },
   {
    "q": "In which body cavity are the kidneys?",
@@ -394,7 +550,12 @@
    ],
    "why": "The kidneys sit at the back of the abdomen, below the diaphragm; the thoracic cavity holds the heart and lungs.",
    "hint": "Below the diaphragm, near the back: the same body cavity as the stomach and intestines.",
-   "board": true
+   "board": true,
+   "hook": "Hands on hips, thumbs to the back: kidneys sit just above, tucked under the lowest ribs",
+   "keys": [
+    "back of the abdomen",
+    "below the diaphragm"
+   ]
   },
   {
    "q": "Which substance, other than water, is excreted in urine?",
@@ -406,7 +567,12 @@
    ],
    "why": "Urea, made from excess amino acids in the liver, leaves in urine; glucose and amino acids are normally reabsorbed.",
    "hint": "Think of the nitrogen waste the liver makes from extra amino acids, or a mineral found in crisps.",
-   "board": true
+   "board": true,
+   "hook": "Urea is named after urine: it's the nitrogen waste that urine carries out",
+   "keys": [
+    "urea",
+    "excess amino acids"
+   ]
   },
   {
    "q": "What shows the kidney works like an exocrine gland?",
@@ -418,7 +584,12 @@
    ],
    "why": "Exocrine glands release their products through ducts; urine leaves the kidney through a duct, the ureter.",
    "hint": "Compare exocrine and endocrine glands: how does each send its product away from the gland?",
-   "board": true
+   "board": true,
+   "hook": "Exo = out through a duct; endo = into the blood. Urine leaves by a duct, so exocrine",
+   "keys": [
+    "exocrine glands",
+    "through ducts"
+   ]
   }
  ],
  "2011-Q12c": [
@@ -432,7 +603,12 @@
    ],
    "why": "Part 4 takes blood out (e for exit). 8 points: parts 1-6 (capsule, glomerulus, afferent, efferent, PCT, DCT), filtration at 1 or 2, and ADH.",
    "hint": "Vessels: 'a' arrives, 'e' exits. Filtration: where is blood squeezed? 7: the water-saving hormone.",
-   "board": false
+   "board": false,
+   "hook": "A comes before E in the alphabet, and blood meets Afferent before Efferent",
+   "keys": [
+    "takes blood out",
+    "e for exit"
+   ]
   },
   {
    "q": "Is protein in urine normal, and why?",
@@ -444,7 +620,12 @@
    ],
    "why": "Protein molecules are too big to pass through the glomerulus wall, so protein in urine suggests kidney damage.",
    "hint": "Is protein meant to be filtered at all? Compare protein size with the gaps in the glomerulus wall.",
-   "board": true
+   "board": true,
+   "hook": "A football won't fit through a tennis net: protein in urine means the net is torn",
+   "keys": [
+    "too big",
+    "kidney damage"
+   ]
   },
   {
    "q": "Is glucose in urine normal, and why?",
@@ -456,7 +637,12 @@
    ],
    "why": "Glucose is filtered, but the proximal tubule should reabsorb all of it; glucose in urine can be a sign of diabetes.",
    "hint": "Glucose is filtered out, but the body doesn't want to lose it. What should the tubules do with it?",
-   "board": true
+   "board": true,
+   "hook": "Sweet urine is a warning: 'mellitus' in diabetes mellitus means 'honey-sweet'",
+   "keys": [
+    "reabsorb all of it",
+    "diabetes"
+   ]
   }
  ],
  "2012-Q15c": [
@@ -470,7 +656,12 @@
    ],
    "why": "Homeostasis keeps conditions inside the body, like temperature, pH and water, steady; removing waste is excretion.",
    "hint": "Homeo means 'same' and stasis means 'standing'. Apply that to conditions inside the body.",
-   "board": true
+   "board": true,
+   "hook": "Homeo = same, stasis = standing still: the inside stays the same",
+   "keys": [
+    "conditions inside the body",
+    "temperature, pH and water"
+   ]
   },
   {
    "q": "How does the liver help homeostasis?",
@@ -482,7 +673,12 @@
    ],
    "why": "The liver stores glucose as glycogen and releases it when needed; insulin comes from the pancreas, not the liver.",
    "hint": "Liver: what happens to blood sugar after a meal? Lungs: a waste you breathe out. Nephrons: urine.",
-   "board": true
+   "board": true,
+   "hook": "The liver is the glucose bank: deposits glycogen after meals, withdraws it when low",
+   "keys": [
+    "glycogen",
+    "releases it when needed"
+   ]
   }
  ],
  "2016-Q12a": [
@@ -496,7 +692,12 @@
    ],
    "why": "Two points: excretion removes waste made by metabolism (like urea); egestion removes undigested food that was never absorbed.",
    "hint": "Think of urea and CO2 for one, and faeces for the other. Where does each waste come from?",
-   "board": true
+   "board": true,
+   "hook": "Excrete what cells make; egest what you ate but never digested",
+   "keys": [
+    "waste made by metabolism",
+    "undigested food"
+   ]
   }
  ],
  "2016-Q12b": [
@@ -510,7 +711,13 @@
    ],
    "why": "Two of: carbon dioxide (from respiration), urea (from extra amino acids) and salts. Fibre is egested, not excreted.",
    "hint": "Think of a gas you breathe out and a nitrogen waste made from extra amino acids.",
-   "board": true
+   "board": true,
+   "hook": "Excretion's big three: CO2 out the lungs, urea in urine, salts in sweat and urine",
+   "keys": [
+    "carbon dioxide",
+    "urea",
+    "salts"
+   ]
   },
   {
    "q": "Where in the body are carbon dioxide and urea produced? (2 points)",
@@ -522,7 +729,12 @@
    ],
    "why": "Two points: CO2 is made in all body cells by respiration; urea is made in the liver by deamination. Lungs and kidneys only remove them.",
    "hint": "Which process in every cell releases the gas? Which organ breaks down extra amino acids?",
-   "board": true
+   "board": true,
+   "hook": "Factories vs bins: cells and liver make CO2 and urea; lungs and kidneys bin them",
+   "keys": [
+    "all body cells by respiration",
+    "liver by deamination"
+   ]
   },
   {
    "q": "Describe the role of ADH in excretion. (3 points)",
@@ -534,7 +746,13 @@
    ],
    "why": "Three of: released when dehydrated, acts on collecting ducts, makes their walls more permeable, more water reabsorbed, less urine made.",
    "hint": "Start with what triggers ADH, then where it acts, what it does to the walls, and the urine.",
-   "board": true
+   "board": true,
+   "hook": "ADH opens the doors in the duct walls: more water back to the blood, less urine",
+   "keys": [
+    "acts on collecting ducts",
+    "more permeable",
+    "more water reabsorbed"
+   ]
   }
  ],
  "2016-Q12c": [
@@ -548,7 +766,12 @@
    ],
    "why": "Homeostasis keeps the inside of the body steady (temperature, pH, water) even when the outside changes.",
    "hint": "Think of a thermostat keeping a room at one temperature. What does the body keep that way inside?",
-   "board": true
+   "board": true,
+   "hook": "Homeostasis is cruise control: the road outside changes, your inside speed stays put",
+   "keys": [
+    "inside of the body steady",
+    "even when the outside changes"
+   ]
   }
  ],
  "2016-Q15a": [
@@ -562,7 +785,12 @@
    ],
    "why": "The renal vein drains blood from each kidney to the vena cava; the renal artery brings blood in.",
    "hint": "It shares its first name with the artery that brings blood into the kidney.",
-   "board": true
+   "board": true,
+   "hook": "Renal means kidney: renal artery in, renal vein out",
+   "keys": [
+    "renal vein",
+    "to the vena cava"
+   ]
   }
  ],
  "2017-Q14c": [
@@ -576,7 +804,13 @@
    ],
    "why": "Two of: high blood pressure, capillary walls one cell thick, a large surface area, and being a knot of capillaries.",
    "hint": "Think of the push that forces fluid out of the blood, and how thin and big the filter surface is.",
-   "board": true
+   "board": true,
+   "hook": "Glomerulus: Latin for 'little ball of yarn', a knot of capillaries under high pressure",
+   "keys": [
+    "high blood pressure",
+    "one cell thick",
+    "knot of capillaries"
+   ]
   }
  ],
  "2017-Q15a": [
@@ -590,7 +824,11 @@
    ],
    "why": "Homeostasis is about the internal environment staying constant; getting rid of cell waste is excretion.",
    "hint": "Your body stays near 37 degrees whatever the weather. Put that idea in general terms.",
-   "board": true
+   "board": true,
+   "hook": "Homeo = same, stasis = standing still: the inside stays the same",
+   "keys": [
+    "internal environment staying constant"
+   ]
   },
   {
    "q": "Why does the body need homeostasis?",
@@ -602,7 +840,12 @@
    ],
    "why": "Enzymes only work well in a narrow range of temperature and pH, so keeping these steady keeps metabolism going.",
    "hint": "What molecules control every reaction in cells, and stop working at the wrong heat or pH?",
-   "board": true
+   "board": true,
+   "hook": "Enzymes are fussy: wrong temperature or pH and they slow down or denature",
+   "keys": [
+    "narrow range of temperature and pH",
+    "enzymes"
+   ]
   }
  ],
  "2018-Q6": [
@@ -616,7 +859,12 @@
    ],
    "why": "Y comes after the loop of Henle, so it is the distal (far) tubule; the proximal one is right after Bowman's capsule.",
    "hint": "X is the cup round the knot of capillaries. Y is the twisty tube after the loop, far from the cup.",
-   "board": false
+   "board": false,
+   "hook": "Proximal = close (near the capsule), distal = distant (after the loop)",
+   "keys": [
+    "after the loop of Henle",
+    "distal (far) tubule"
+   ]
   },
   {
    "q": "Where on the diagram does ADH act?",
@@ -628,7 +876,12 @@
    ],
    "why": "ADH targets the collecting duct (and distal tubule), the last parts of the nephron, where water can be saved.",
    "hint": "ADH acts late, on the tubes that carry filtrate down towards the pelvis just before it is urine.",
-   "board": "Which part of the nephron does the hormone ADH act on?"
+   "board": "Which part of the nephron does the hormone ADH act on?",
+   "hook": "ADH works at the end of the line: the last chance to save water before it becomes urine",
+   "keys": [
+    "collecting duct",
+    "where water can be saved"
+   ]
   },
   {
    "q": "What does ADH do to its target area?",
@@ -640,7 +893,12 @@
    ],
    "why": "With ADH the duct walls let more water through, so more water is reabsorbed into the blood.",
    "hint": "Does ADH help the body keep water or lose it? How must the tube walls change to do that?",
-   "board": true
+   "board": true,
+   "hook": "ADH opens the doors in the duct walls so water floods back into the blood",
+   "keys": [
+    "let more water through",
+    "more water is reabsorbed"
+   ]
   },
   {
    "q": "What change in the blood triggers ADH release?",
@@ -652,7 +910,12 @@
    ],
    "why": "When blood gets too salty (too little water), the brain detects it and ADH is released to save water.",
    "hint": "Think about why you feel thirsty after a bag of crisps. What has changed in the blood's make-up?",
-   "board": true
+   "board": true,
+   "hook": "Salty crisps make you thirsty for the same reason: salty blood means water is short",
+   "keys": [
+    "too salty (too little water)",
+    "ADH is released"
+   ]
   },
   {
    "q": "In which gland is ADH made?",
@@ -664,7 +927,12 @@
    ],
    "why": "ADH is made in the hypothalamus and released from the pituitary; the scheme accepts either.",
    "hint": "It's made in a part of the brain just above the pituitary, which only stores and releases it.",
-   "board": true
+   "board": true,
+   "hook": "The hypothalamus cooks ADH, the pituitary serves it: made in one, released by the other",
+   "keys": [
+    "hypothalamus",
+    "released from the pituitary"
+   ]
   },
   {
    "q": "Which is a treatment for kidney failure?",
@@ -676,7 +944,13 @@
    ],
    "why": "A dialysis machine filters urea and extra salt from the blood when the kidneys fail; a transplant also works.",
    "hint": "Think of a machine that cleans the blood, or replacing the organ with one from a donor.",
-   "board": true
+   "board": true,
+   "hook": "Dialysis = an artificial kidney outside the body, washing urea out of the blood",
+   "keys": [
+    "dialysis machine",
+    "filters urea and extra salt",
+    "transplant"
+   ]
   }
  ],
  "2020-Q13a": [
@@ -690,7 +964,11 @@
    ],
    "why": "Homeostasis keeps the body's internal conditions steady; removing metabolic waste is excretion.",
    "hint": "Think of how blood sugar, temperature and water levels are all kept within narrow limits.",
-   "board": true
+   "board": true,
+   "hook": "Homeostasis is cruise control: the outside changes, your inside stays steady",
+   "keys": [
+    "internal conditions steady"
+   ]
   },
   {
    "q": "Why is homeostasis important in organisms?",
@@ -702,7 +980,12 @@
    ],
    "why": "Enzymes need a steady temperature and pH, so a constant internal environment keeps metabolism running well.",
    "hint": "What would happen to the proteins that speed up cell reactions if you overheated?",
-   "board": true
+   "board": true,
+   "hook": "Enzymes are fussy: wrong temperature or pH and they slow down or denature",
+   "keys": [
+    "steady temperature and pH",
+    "keeps metabolism running"
+   ]
   },
   {
    "q": "What is meant by excretion?",
@@ -714,7 +997,12 @@
    ],
    "why": "Excretion removes waste made by metabolism, like urea and CO2; removing undigested food is egestion.",
    "hint": "Think about urea, CO2 and salts: where are they made, and what must the body do with them?",
-   "board": true
+   "board": true,
+   "hook": "Excrete what cells make; egest what you ate but never digested",
+   "keys": [
+    "waste made by metabolism",
+    "egestion"
+   ]
   }
  ],
  "2020-Q13b": [
@@ -728,7 +1016,12 @@
    ],
    "why": "The liver breaks down excess amino acids (deamination) to make urea; the kidneys only remove it.",
    "hint": "Which large organ breaks down extra amino acids, in a process called deamination?",
-   "board": true
+   "board": true,
+   "hook": "Liver makes urea, kidneys take urea: the liver is the factory, the kidney the bin",
+   "keys": [
+    "liver",
+    "deamination"
+   ]
   },
   {
    "q": "Which food biomolecule is urea made from?",
@@ -740,7 +1033,12 @@
    ],
    "why": "Proteins contain nitrogen; extra amino acids are deaminated and the nitrogen ends up in urea. Carbs and fats have none.",
    "hint": "Urea has nitrogen in it. Which main food biomolecule contains nitrogen, unlike fats and sugars?",
-   "board": true
+   "board": true,
+   "hook": "Nitrogen links them: protein has N, urea has N. Carbs and fats are just C, H and O",
+   "keys": [
+    "proteins contain nitrogen",
+    "urea"
+   ]
   },
   {
    "q": "In which part of the kidney is the loop of Henle found?",
@@ -752,7 +1050,11 @@
    ],
    "why": "The loops of Henle dip down into the medulla; Bowman's capsules and the convoluted tubules are in the cortex.",
    "hint": "The cups sit in the outer layer, the loops dip into the pyramids, and A leads to the bladder.",
-   "board": true
+   "board": true,
+   "hook": "Medulla is Latin for 'marrow', the inner part: the long loops dive down into it",
+   "keys": [
+    "dip down into the medulla"
+   ]
   },
   {
    "q": "In order, which parts follow Bowman's capsule in a nephron?",
@@ -764,7 +1066,13 @@
    ],
    "why": "Filtrate flows from the capsule to the proximal tubule (PCT), down the loop of Henle, to the distal tubule (DCT).",
    "hint": "Show the cup and knot, two twisty tubes joined by a hairpin, a duct, and capillaries round them.",
-   "board": true
+   "board": true,
+   "hook": "Capsule, PCT, Loop, DCT, Duct: 'Cats Prefer Lying Down Daily'",
+   "keys": [
+    "proximal tubule (PCT)",
+    "loop of Henle",
+    "distal tubule (DCT)"
+   ]
   }
  ],
  "2020-Q13c": [
@@ -778,7 +1086,12 @@
    ],
    "why": "Two points: plasma has protein (7 g/100 cm3) but filtrate has none, because protein molecules are too big to pass out of the glomerulus.",
    "hint": "Find the substance with a value in plasma but zero in the filtrate. Think about molecule size.",
-   "board": "What is the main difference between blood plasma and glomerular filtrate, and why? (2 points)"
+   "board": "What is the main difference between blood plasma and glomerular filtrate, and why? (2 points)",
+   "hook": "A football won't fit through a tennis net: proteins stay in the blood",
+   "keys": [
+    "filtrate has none",
+    "too big to pass"
+   ]
   },
   {
    "q": "From the table, why is there glucose in filtrate but none in urine?",
@@ -790,7 +1103,11 @@
    ],
    "why": "Glucose is filtered (0.1 in both plasma and filtrate), then all of it is reabsorbed in the tubule, so urine has 0.",
    "hint": "Glucose: same in plasma and filtrate, then zero in urine. Think molecule size, then the tubules.",
-   "board": "Why is there glucose in glomerular filtrate but normally none in urine?"
+   "board": "Why is there glucose in glomerular filtrate but normally none in urine?",
+   "hook": "Glucose gets a return ticket: filtered out, then all brought straight back",
+   "keys": [
+    "all of it is reabsorbed"
+   ]
   },
   {
    "q": "What does a high salt intake do to urine volume, and why?",
@@ -802,7 +1119,12 @@
    ],
    "why": "Salty blood triggers more ADH, so the collecting ducts reabsorb more water and less urine is made.",
    "hint": "Salty blood means too little water. Which hormone is released, and how does it change water loss?",
-   "board": true
+   "board": true,
+   "hook": "Salty chips, small wee: more salt means more ADH, so the body holds on to water",
+   "keys": [
+    "more ADH",
+    "less urine is made"
+   ]
   }
  ],
  "2021-Q15a": [
@@ -816,7 +1138,12 @@
    ],
    "why": "Homeostasis means the body keeps its inside conditions, like temperature and water level, stable.",
    "hint": "Homeo means 'similar'. Think of conditions like temperature and water level inside your body.",
-   "board": true
+   "board": true,
+   "hook": "Homeo = same, stasis = standing still: the inside stays the same",
+   "keys": [
+    "inside conditions",
+    "stable"
+   ]
   }
  ],
  "2022-Q15a": [
@@ -830,7 +1157,12 @@
    ],
    "why": "Two points: excretion is removing waste made by metabolism; homeostasis is keeping a constant internal environment.",
    "hint": "Excretion: waste made by what? Homeostasis: 'homeo' means 'same', so what stays the same?",
-   "board": true
+   "board": true,
+   "hook": "Excretion takes the rubbish out; homeostasis keeps the house at the right temperature",
+   "keys": [
+    "waste made by metabolism",
+    "constant internal environment"
+   ]
   }
  ],
  "2022-Q15b": [
@@ -844,7 +1176,12 @@
    ],
    "why": "The fat cushions the kidneys against knocks (and insulates them); urine is stored in the bladder, not the fat.",
    "hint": "Think of why bubble wrap goes round fragile things in a parcel.",
-   "board": true
+   "board": true,
+   "hook": "Kidney fat is bubble wrap: it cushions and insulates them",
+   "keys": [
+    "cushions the kidneys against knocks",
+    "insulates"
+   ]
   },
   {
    "q": "On the kidney diagram, which region is B?",
@@ -856,7 +1193,12 @@
    ],
    "why": "B is the middle layer with the pyramids: the medulla. The cortex (A) is outside it and the pelvis (C) inside.",
    "hint": "Outer layer, then the striped pyramids in the middle, then the funnel leading to the ureter.",
-   "board": false
+   "board": false,
+   "hook": "Outside in: cortex, medulla, pelvis. B is the striped middle layer with the pyramids",
+   "keys": [
+    "medulla",
+    "pyramids"
+   ]
   },
   {
    "q": "In which kidney region does filtration happen?",
@@ -868,7 +1210,12 @@
    ],
    "why": "Filtration happens at the glomerulus and Bowman's capsule, which are found in the outer cortex.",
    "hint": "Where in the kidney do the glomeruli and their cups sit: outer layer, pyramids or funnel?",
-   "board": false
+   "board": false,
+   "hook": "Cortex means bark, the outer layer: the filtering cups sit out there",
+   "keys": [
+    "glomerulus and Bowman's capsule",
+    "outer cortex"
+   ]
   },
   {
    "q": "Why does blood enter the glomerulus under high pressure?",
@@ -880,7 +1227,13 @@
    ],
    "why": "High pressure squeezes water and small molecules out of the blood into Bowman's capsule: that is filtration.",
    "hint": "Think of pushing water through a coffee filter. What would happen with no push at all?",
-   "board": true
+   "board": true,
+   "hook": "Wide pipe in, narrow pipe out: like a thumb on a hose, it builds the pressure",
+   "keys": [
+    "high pressure",
+    "small molecules",
+    "filtration"
+   ]
   },
   {
    "q": "Why are the PCT, loop of Henle and DCT surrounded by so many capillaries? (2 points)",
@@ -892,7 +1245,12 @@
    ],
    "why": "Two points: reabsorption (water, glucose and salts go back into the blood) and secretion (extra wastes pass from the blood into the tubules).",
    "hint": "Things move both ways between tubule and blood. Name the process for each direction.",
-   "board": true
+   "board": true,
+   "hook": "Two-way traffic: reabsorption brings the good stuff back, secretion dumps extra waste in",
+   "keys": [
+    "reabsorption",
+    "secretion"
+   ]
   },
   {
    "q": "How does more ADH change urine volume?",
@@ -904,7 +1262,13 @@
    ],
    "why": "ADH makes the collecting duct more permeable, so more water returns to the blood and a small volume of urine forms.",
    "hint": "'Diuresis' means making lots of urine, and ADH is anti-diuretic. So what does 'anti' do?",
-   "board": true
+   "board": true,
+   "hook": "ADH = Anti-Diuretic Hormone: anti-wee. More ADH, less wee, darker urine",
+   "keys": [
+    "more permeable",
+    "more water returns to the blood",
+    "small volume of urine"
+   ]
   },
   {
    "q": "Urine leaves C and travels to the bladder through which tube?",
@@ -916,7 +1280,12 @@
    ],
    "why": "The ureter carries urine from the kidney's pelvis to the bladder; the urethra takes it from the bladder out.",
    "hint": "There are two of these tubes, one from each kidney's funnel down to the bladder.",
-   "board": "Urine leaves the renal pelvis and travels to the bladder through which tube?"
+   "board": "Urine leaves the renal pelvis and travels to the bladder through which tube?",
+   "hook": "Ureter has two e's and you have two ureters; urethra has one e: the single exit",
+   "keys": [
+    "ureter",
+    "kidney's pelvis to the bladder"
+   ]
   }
  ],
  "2023-Q6d": [
@@ -930,7 +1299,12 @@
    ],
    "why": "Low water in the blood triggers more ADH, so the collecting ducts reabsorb more water and less urine is made.",
    "hint": "With less water in the blood, which hormone rises, and what does it make the kidneys do with water?",
-   "board": true
+   "board": true,
+   "hook": "Little in, little out: when you drink less, ADH makes the kidneys save water",
+   "keys": [
+    "more ADH",
+    "reabsorb more water"
+   ]
   }
  ],
  "2023-Q17c": [
@@ -944,7 +1318,12 @@
    ],
    "why": "Blood leaving the kidneys has just had urea and other wastes filtered out, so the renal vein has the least.",
    "hint": "Which organ cleans waste such as urea out of the blood? Name the vein leaving it.",
-   "board": true
+   "board": true,
+   "hook": "The kidney is the body's car wash: blood leaves by the renal vein with the least waste",
+   "keys": [
+    "urea and other wastes filtered out",
+    "renal vein"
+   ]
   }
  ],
  "2024-Q17c": [
@@ -958,7 +1337,12 @@
    ],
    "why": "Homeostasis is the general term; osmoregulation is just the water and salt part of it.",
    "hint": "It comes from Greek words for 'same' and 'standing still'.",
-   "board": true
+   "board": true,
+   "hook": "Homeostasis is the umbrella; osmoregulation (water and salt) is one spoke of it",
+   "keys": [
+    "general term",
+    "osmoregulation"
+   ]
   },
   {
    "q": "On a nephron diagram, which structure cups the glomerulus?",
@@ -970,7 +1354,12 @@
    ],
    "why": "Label it with the others: Bowman's capsule (the cup round the glomerulus), glomerulus, PCT, loop of Henle, DCT, collecting duct.",
    "hint": "Show the cup, the twists and loop, the duct, and the blood vessels in, out and around the tubes.",
-   "board": "In a nephron, which structure cups the glomerulus?"
+   "board": "In a nephron, which structure cups the glomerulus?",
+   "hook": "Picture a fist (glomerulus) pushed into a balloon (Bowman's capsule)",
+   "keys": [
+    "Bowman's capsule",
+    "the cup round the glomerulus"
+   ]
   },
   {
    "q": "Which is a way blood differs from glomerular filtrate?",
@@ -982,7 +1371,12 @@
    ],
    "why": "Blood cells (and plasma proteins) are too big to be filtered; glucose and urea pass into the filtrate.",
    "hint": "What parts of blood are too big to be squeezed through the glomerulus wall?",
-   "board": true
+   "board": true,
+   "hook": "A football won't fit through a tennis net: cells and proteins are too big for the filter",
+   "keys": [
+    "too big to be filtered",
+    "glucose and urea pass"
+   ]
   },
   {
    "q": "Which part of the nephron reabsorbs water?",
@@ -994,7 +1388,12 @@
    ],
    "why": "Water is reabsorbed along the tubules (PCT, loop, DCT, collecting duct); the glomerulus is where filtering happens.",
    "hint": "1: name tubes the filtrate passes after the cup. 2: think of useful food molecules and minerals.",
-   "board": true
+   "board": true,
+   "hook": "Glomerulus filters, tubules take back: water is won back all along the tubule",
+   "keys": [
+    "reabsorbed along the tubules",
+    "glomerulus is where filtering happens"
+   ]
   }
  ],
  "2025-Q17c": [
@@ -1008,7 +1407,12 @@
    ],
    "why": "Homeostasis keeps internal conditions like temperature, pH and water constant; removing waste is excretion.",
    "hint": "Think about what stays the same inside you even when it's freezing or boiling outside.",
-   "board": true
+   "board": true,
+   "hook": "Homeostasis is a thermostat for your insides: temperature, pH and water held steady",
+   "keys": [
+    "temperature, pH and water",
+    "constant"
+   ]
   },
   {
    "q": "Which endocrine gland secretes ADH?",
@@ -1020,7 +1424,12 @@
    ],
    "why": "ADH is released from the pituitary at the base of the brain; the adrenal glands make adrenaline.",
    "hint": "The 'master gland': pea-sized and hanging just under the brain.",
-   "board": true
+   "board": true,
+   "hook": "The pituitary is the 'master gland' hanging under the brain: ADH comes from there",
+   "keys": [
+    "pituitary",
+    "base of the brain"
+   ]
   },
   {
    "q": "Which part of the nephron does ADH affect?",
@@ -1032,7 +1441,11 @@
    ],
    "why": "ADH acts on the distal tubule and collecting duct, making their walls let more water back into the blood.",
    "hint": "ADH acts near the end of the nephron, after the loop. Name one part there.",
-   "board": true
+   "board": true,
+   "hook": "ADH works at the end of the line: the last chance to save water before it becomes urine",
+   "keys": [
+    "distal tubule and collecting duct"
+   ]
   },
   {
    "q": "What does more ADH do to the volume of urine?",
@@ -1044,7 +1457,12 @@
    ],
    "why": "More ADH means more water is reabsorbed, so a smaller volume of more concentrated urine is made.",
    "hint": "ADH helps the body hold on to water. So what happens to the amount of urine?",
-   "board": true
+   "board": true,
+   "hook": "ADH = Anti-Diuretic Hormone: anti-wee. More ADH, less wee, darker urine",
+   "keys": [
+    "more water is reabsorbed",
+    "smaller volume"
+   ]
   },
   {
    "q": "From the graphs, how do blood volume and ADH change during exercise?",
@@ -1056,7 +1474,12 @@
    ],
    "why": "Sweating cuts blood volume, so more ADH is released to save water: volume goes down while ADH goes up.",
    "hint": "Compare the trends of X and Y. Then how do you replace lost water, and where would ADH settle?",
-   "board": "During vigorous exercise, how do an athlete's blood volume and ADH level change?"
+   "board": "During vigorous exercise, how do an athlete's blood volume and ADH level change?",
+   "hook": "A see-saw: as sweat drains blood volume down, ADH goes up to save water",
+   "keys": [
+    "sweating cuts blood volume",
+    "more ADH is released"
+   ]
   },
   {
    "q": "How can the skin help the athlete's homeostasis during exercise? (2 points)",
@@ -1068,7 +1491,12 @@
    ],
    "why": "Two points: sweating (evaporation carries heat away) and vasodilation (wider skin vessels lose more heat). Shivering is done by muscles.",
    "hint": "Think of what forms on a hot athlete's skin, and how its blood vessels change to lose heat.",
-   "board": "How can the skin help an athlete's homeostasis during vigorous exercise? (2 points)"
+   "board": "How can the skin help an athlete's homeostasis during vigorous exercise? (2 points)",
+   "hook": "Sweat and flush: evaporation cools you, and wider skin vessels let heat escape",
+   "keys": [
+    "sweating",
+    "vasodilation"
+   ]
   }
  ],
  "2026-Q17b": [
@@ -1082,7 +1510,12 @@
    ],
    "why": "Homeostasis covers all internal conditions; thermoregulation only covers temperature.",
    "hint": "Think of the word that links sweating, shivering and ADH: they all keep the inside steady.",
-   "board": true
+   "board": true,
+   "hook": "Homeo = same, stasis = standing still: the inside stays the same",
+   "keys": [
+    "Homeostasis",
+    "all internal conditions"
+   ]
   },
   {
    "q": "Why must organisms keep a constant internal environment?",
@@ -1094,7 +1527,12 @@
    ],
    "why": "Enzymes need the right temperature and pH; keeping these constant lets metabolism run efficiently.",
    "hint": "Think of what happens to the catalysts in your cells if the body gets too hot or too acidic.",
-   "board": true
+   "board": true,
+   "hook": "Enzymes are fussy: wrong temperature or pH and they slow down or denature",
+   "keys": [
+    "right temperature and pH",
+    "metabolism run efficiently"
+   ]
   }
  ],
  "2026-Q17c": [
@@ -1108,7 +1546,12 @@
    ],
    "why": "Excretion removes waste made by the body's chemical reactions, like urea; removing fibre is egestion.",
    "hint": "Waste from cell reactions, like urea and CO2, not undigested food. What does the body do with it?",
-   "board": true
+   "board": true,
+   "hook": "Excrete what cells make; egest what you ate but never digested",
+   "keys": [
+    "removes waste",
+    "body's chemical reactions"
+   ]
   },
   {
    "q": "Which way should the urine arrow on the ureter point?",
@@ -1120,7 +1563,11 @@
    ],
    "why": "Urine is made in the kidney and flows down the ureter into the bladder; the urethra then carries it out.",
    "hint": "Draw the organ pair, a tube from each to the storage bag, and the exit tube. Where is urine made?",
-   "board": "In which direction does urine flow through the ureter?"
+   "board": "In which direction does urine flow through the ureter?",
+   "hook": "Urine runs downhill: kidney, ureter, bladder, urethra, out",
+   "keys": [
+    "flows down the ureter into the bladder"
+   ]
   },
   {
    "q": "In part B (loop of Henle), what happens?",
@@ -1132,7 +1579,11 @@
    ],
    "why": "The loop of Henle reabsorbs water and salts; filtering under pressure happens at A, Bowman's capsule.",
    "hint": "A is the cup round the capillary knot; B is the hairpin in the medulla. Think filter vs take back.",
-   "board": "What happens in the loop of Henle during urine production?"
+   "board": "What happens in the loop of Henle during urine production?",
+   "hook": "The loop of Henle is the water-saver: the longer the loop, the more water won back",
+   "keys": [
+    "reabsorbs water and salts"
+   ]
   },
   {
    "q": "Why is there normally no protein in urine?",
@@ -1144,7 +1595,12 @@
    ],
    "why": "Protein molecules are too big to pass through the glomerulus wall into Bowman's capsule, so they stay in the blood.",
    "hint": "Think of the glomerulus as a sieve. How do protein molecules compare to its holes?",
-   "board": true
+   "board": true,
+   "hook": "A football won't fit through a tennis net: protein stays in the blood",
+   "keys": [
+    "too big",
+    "stay in the blood"
+   ]
   }
  ],
  "S1-Q1e": [
@@ -1158,7 +1614,12 @@
    ],
    "why": "A comes straight after Bowman's capsule, before the loop of Henle, so it is the proximal (first) tubule.",
    "hint": "A is the first twisty tube after the cup; B is the hairpin that dips into the medulla.",
-   "board": false
+   "board": false,
+   "hook": "Proximal = close (near the capsule), distal = distant (after the loop)",
+   "keys": [
+    "straight after Bowman's capsule",
+    "proximal (first) tubule"
+   ]
   },
   {
    "q": "Where on the diagram should you write F for ultrafiltration?",
@@ -1170,7 +1631,12 @@
    ],
    "why": "Ultrafiltration happens where blood under pressure in the glomerulus is squeezed into Bowman's capsule.",
    "hint": "Ultrafiltration happens where the blood vessel forms a tight knot inside a cup.",
-   "board": "On a nephron diagram, where would you mark the site of ultrafiltration?"
+   "board": "On a nephron diagram, where would you mark the site of ultrafiltration?",
+   "hook": "Glomerulus = the filter knot: mark F on the ball of capillaries inside the cup",
+   "keys": [
+    "glomerulus",
+    "squeezed into Bowman's capsule"
+   ]
   },
   {
    "q": "Which part of the blood is not normally found in urine?",
@@ -1182,7 +1648,11 @@
    ],
    "why": "Plasma proteins are too big to be filtered; urea, water and salts all end up in urine.",
    "hint": "Which large molecules in plasma, like antibodies, are too big to pass the filter?",
-   "board": true
+   "board": true,
+   "hook": "A football won't fit through a tennis net: proteins stay in the blood, small stuff passes",
+   "keys": [
+    "plasma proteins are too big"
+   ]
   },
   {
    "q": "How does a longer loop of Henle help a desert animal?",
@@ -1194,7 +1664,13 @@
    ],
    "why": "A longer loop lets more water be reabsorbed, so the animal makes concentrated urine and saves water.",
    "hint": "Camels rarely get to drink. What job does the loop do, and what would a longer one do more of?",
-   "board": true
+   "board": true,
+   "hook": "Desert rats have extra-long loops: a longer loop of Henle means more water saved",
+   "keys": [
+    "longer loop",
+    "more water be reabsorbed",
+    "concentrated urine"
+   ]
   }
  ]
 }
