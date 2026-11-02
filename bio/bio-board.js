@@ -585,7 +585,7 @@
       from = m[1];
     });
     html += esc(why.slice(from));
-    return '<p class="tb-why"><span>In more detail</span>' + html + '</p>' +
+    return '<p class="tb-why">' + html + '</p>' +
       (c.hook ? '<p class="tb-hook"><span>Remember it</span>' + esc(c.hook) + '</p>' : '');
   }
   function typedQuestion(ch, why, given) {
