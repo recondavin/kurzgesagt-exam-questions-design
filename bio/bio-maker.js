@@ -27,19 +27,20 @@
   var CH = BB.chapters, NAME = BB.names, COL = BB.colours;
 
   // ======================================================================== the cards
-  // Each world's cards: what a right answer does, what a wrong one does (name, what it means), and its sizes.
+  // Each world's cards: what a right answer does, what a wrong one does (name, what it means), and its sizes. {F} and {f}
+  // are who you're up against, by name ("The virus", "the examiner"): never "he", since it may be a virus or a drawing.
   var WORLDS = {
     race: { name: 'Race', what: 'Get to the flag first', right: [['step1', 'Move 1 step', 'Every right answer'], ['step2', 'Move 2 steps', 'A quicker race']],
-      wrong: [['him1', 'He moves 1 step', 'He starts two behind. If he catches you, you lose'], ['back1', 'You go back 1 step', 'You can\'t lose, only slow down'], ['life', 'Lose a life', 'Three wrong and it\'s over']],
+      wrong: [['him1', '{F} moves 1 step', '{F} starts two behind. First to the flag wins'], ['back1', 'You go back 1 step', 'You can\'t lose, only slow down'], ['life', 'Lose a life', 'Three wrong and it\'s over']],
       size: [6, 8, 10], unit: 'steps' },
-    battle: { name: 'Battle', what: 'Take all his hearts', right: [['hit1', 'Hit him', 'He loses a heart'], ['hit2t', 'Hit him (twice if typed)', 'Typed answers do double']],
-      wrong: [['hurt1', 'He hits you', 'You lose a heart'], ['life', 'Lose a life', 'Three wrong and it\'s over']], size: [3, 5, 8], unit: 'hearts' },
+    battle: { name: 'Battle', what: 'Knock out all {f}\'s hearts', right: [['hit1', 'Hit {f}', '{F} loses a heart'], ['hit2t', 'Hit {f} (twice if typed)', 'Typed answers do double']],
+      wrong: [['hurt1', '{F} hits you', 'You lose a heart'], ['life', 'Lose a life', 'Three wrong and it\'s over']], size: [3, 5, 8], unit: 'hearts' },
     tower: { name: 'Tower', what: 'Build up to the line', right: [['add1', 'Add a block', 'One block a right answer'], ['add2t', 'Add a block (two if typed)', 'Typed answers build double']],
       wrong: [['fall1', 'A block falls off', 'You can\'t lose, only slow down'], ['life', 'Lose a life', 'Three wrong and it\'s over']], size: [6, 8, 10], unit: 'blocks' },
     points: { name: 'Points', what: 'Score to the target', right: [['p100', '+100', 'A hundred a right answer'], ['p100t', '+100 (+200 if typed)', 'Typed answers score double']],
-      wrong: [['m50', '−50', 'You can\'t lose, only slow down'], ['life', 'Lose a life', 'Three wrong and it\'s over']], size: [500, 1000, 1500], unit: 'points' },
-    shoot: { name: 'Shootout', what: 'Score past him in goal', right: [['goal1', 'You score', 'A goal a right answer'], ['goal2t', 'You score (twice if typed)', 'Typed answers count double']],
-      wrong: [['save', 'He saves it', 'You can\'t lose, only slow down'], ['hgoal', 'He scores', 'First to the goals wins'], ['life', 'Lose a life', 'Three wrong and it\'s over']], size: [3, 5, 7], unit: 'goals' },
+      wrong: [['m50', '\u221250', 'You can\'t lose, only slow down'], ['life', 'Lose a life', 'Three wrong and it\'s over']], size: [500, 1000, 1500], unit: 'points' },
+    shoot: { name: 'Shootout', what: 'Score past {f} in goal', right: [['goal1', 'You score', 'A goal a right answer'], ['goal2t', 'You score (twice if typed)', 'Typed answers count double']],
+      wrong: [['save', '{F} saves it', 'You can\'t lose, only slow down'], ['hgoal', '{F} scores', 'First to the goals wins'], ['life', 'Lose a life', 'Three wrong and it\'s over']], size: [3, 5, 7], unit: 'goals' },
     grow: { name: 'Grow', what: 'Grow your plant till it flowers', right: [['leaf1', 'A new leaf', 'A leaf a right answer'], ['leaf2t', 'A new leaf (two if typed)', 'Typed answers grow double']],
       wrong: [['wilt', 'A leaf falls off', 'You can\'t lose, only slow down'], ['life', 'Lose a life', 'Three wrong and it\'s over']], size: [5, 7, 9], unit: 'leaves' }
   };
@@ -63,12 +64,15 @@
   var TYPE_HOW = [[0, 'Never'], [1, 'Sometimes'], [2, 'Always']], FIG_HOW = [[0, 'None'], [1, 'Some'], [2, 'Lots']], CHOICES = [[2, '2'], [3, '3'], [4, '4']];
   var MOODS = [['calm', 'Calm'], ['strict', 'Strict'], ['furious', 'Furious']];
   var LIVES = 3, NAME_MAX = 24, THINGS_MAX = 6, LATER = { box: 3, type: 5 };
-  // What he says, by his mood: when you're right, when you're wrong, when you win and when you lose.
+  // What he says, by his mood: when you're right, when you're wrong, when you win and when you lose. Against him he's
+  // your rival (sore when you win); against anyone else he's the referee, and the win and lose lines name them.
   var SAY = {
-    calm: { right: ['Good.', 'That\'s right.', 'Well done.'], wrong: ['Not quite.', 'Have another look at that one.'], win: 'Well played.', lose: 'Better luck next time.' },
-    strict: { right: ['Hmph. Correct.', 'Fine.', 'Acceptable.'], wrong: ['Wrong.', 'Learn it.', 'No marks.'], win: 'Hmph. You won.', lose: 'As expected.' },
+    calm: { right: ['Good.', 'That\'s right.', 'Well done.'], wrong: ['Not quite.', 'Have another look at that one.'], win: 'Well played.', lose: 'Better luck next time.',
+      refWin: 'Well played. {F} is beaten.', refLose: '{F} wins this time.' },
+    strict: { right: ['Hmph. Correct.', 'Fine.', 'Acceptable.'], wrong: ['Wrong.', 'Learn it.', 'No marks.'], win: 'Hmph. You won.', lose: 'As expected.',
+      refWin: 'Hmph. {F} is beaten.', refLose: '{F} wins. As expected.' },
     furious: { right: ['WHAT? Correct?!', 'Lucky. Very lucky.', 'I don\'t believe it.'], wrong: ['WRONG!', 'Did you even study?!', 'Unbelievable.'],
-      win: 'IMPOSSIBLE!', lose: 'HA! Again!' }
+      win: 'IMPOSSIBLE!', lose: 'HA! Again!', refWin: 'FINE! {F} is beaten!', refLose: '{F} WINS! Study!' }
   };
   // The steps, in order: the part of the game each belongs to, and what he asks.
   var STEPS = [
@@ -86,7 +90,7 @@
     ['e', 'Look', 'How cross am I?'],
     ['n', 'Name', 'What\'s it called?']
   ];
-  var PARTS = ['Questions', 'Game', 'Look', 'Name'];
+  var PARTS = ['Questions', 'Game', 'Look', 'Name'], STEP_W = 3;
   // What he says to some picks.
   var REACT = {
     src: { short: 'Quick ones. Fine.', long: 'Longer ones. Brave.', all: 'A bit of everything. Sensible.', wrong: 'Good. Face them.', fresh: 'Something new, then.', new: 'Questions no exam has asked. Yet.' },
@@ -167,39 +171,47 @@
   function linkOf(g) { return location.origin + location.pathname + '#play=' + encode(g); }
 
   // ======================================================================== the rules
-  // A game's state: you (steps, blocks or points; your hearts in Battle), him (his steps in Race, his hearts in
-  // Battle), lives (when a wrong answer costs one).
+  // A game's state: you (steps, blocks or points; your hearts in Battle), him (their steps in Race, their hearts in
+  // Battle, their goals), lives (when a wrong answer costs one).
   function fresh(g) {
     return { you: g.w === 'battle' ? g.s : 0, him: g.w === 'race' ? -2 : g.w === 'battle' ? g.s : 0, lives: g.x === 'life' ? LIVES : 0, asked: 0, right: 0 };
   }
+  // Who you're up against, by name: "The virus", "The examiner", "Your opponent" (designed or drawn).
+  function foe(g, low) {
+    var n = g.op === 'make' || g.op === 'draw' ? 'Your opponent' : nameOf(A.rivals, g.op) || 'The examiner';
+    if (!/^(The|Your) /.test(n)) n = 'The ' + n.toLowerCase();
+    return low ? n.charAt(0).toLowerCase() + n.slice(1) : n;
+  }
+  function named(g, text) { return String(text).replace(/\{F\}/g, foe(g)).replace(/\{f\}/g, foe(g, true)); }
   // One answer: the new state and what happened, in a few words.
   function step(g, st, ok, typed) {
     var s = { you: st.you, him: st.him, lives: st.lives, asked: st.asked + 1, right: st.right + (ok ? 1 : 0) }, said;
     if (ok) {
       var two = g.r === 'step2' || (/t$/.test(g.r) && typed);
       if (g.w === 'race') { s.you = Math.min(g.s, s.you + (two ? 2 : 1)); said = two ? 'You move 2 steps.' : 'You move a step.'; }
-      else if (g.w === 'battle') { s.him = Math.max(0, s.him - (two ? 2 : 1)); said = two ? 'A double hit!' : 'You hit him!'; }
+      else if (g.w === 'battle') { s.him = Math.max(0, s.him - (two ? 2 : 1)); said = two ? 'A double hit!' : 'A hit! {F} loses a heart.'; }
       else if (g.w === 'tower') { s.you = Math.min(g.s, s.you + (two ? 2 : 1)); said = two ? 'Two blocks on.' : 'A block on.'; }
       else if (g.w === 'shoot') { s.you = Math.min(g.s, s.you + (two ? 2 : 1)); said = two ? 'Two goals!' : 'GOAL!'; }
       else if (g.w === 'grow') { s.you = Math.min(g.s, s.you + (two ? 2 : 1)); said = two ? 'Two new leaves.' : 'A new leaf.'; }
       else { s.you += two ? 200 : 100; said = two ? '+200' : '+100'; }
     } else if (g.x === 'life') { s.lives = Math.max(0, s.lives - 1); said = 'You lose a life.'; }
-    else if (g.x === 'him1') { s.him += 1; said = 'He moves a step closer.'; }
+    else if (g.x === 'him1') { s.him += 1; said = '{F} moves a step closer.'; }
     else if (g.x === 'back1') { s.you = Math.max(0, s.you - 1); said = 'You go back a step.'; }
-    else if (g.x === 'hurt1') { s.you = Math.max(0, s.you - 1); said = 'He hits you.'; }
+    else if (g.x === 'hurt1') { s.you = Math.max(0, s.you - 1); said = '{F} hits you.'; }
     else if (g.x === 'fall1') { s.you = Math.max(0, s.you - 1); said = s.you === st.you ? 'Nothing to fall off yet.' : 'A block falls off.'; }
     else if (g.x === 'wilt') { s.you = Math.max(0, s.you - 1); said = s.you === st.you ? 'Nothing to fall off yet.' : 'A leaf falls off.'; }
-    else if (g.x === 'save') said = 'He saves it.';
-    else if (g.x === 'hgoal') { s.him += 1; said = 'He scores.'; }
-    else { s.you = Math.max(0, s.you - 50); said = '−50'; }
-    return { st: s, said: said };
+    else if (g.x === 'save') said = '{F} saves it.';
+    else if (g.x === 'hgoal') { s.him += 1; said = '{F} scores.'; }
+    else { s.you = Math.max(0, s.you - 50); said = '\u221250'; }
+    return { st: s, said: named(g, said) };
   }
-  // 'win', 'lose' or '' (go on).
+  // 'win', 'lose' or '' (go on). In a Race they start two behind you, and it's first to the flag: the race can't be
+  // lost in two answers (it used to end when they caught you).
   function over(g, st) {
     if (g.w === 'battle') { if (st.him <= 0) return 'win'; if (st.you <= 0) return 'lose'; }
     else if (st.you >= g.s) return 'win';
     if (g.x === 'life' && st.lives <= 0) return 'lose';
-    if (g.w === 'race' && g.x === 'him1' && st.him >= st.you) return 'lose';
+    if (g.w === 'race' && g.x === 'him1' && st.him >= g.s) return 'lose';
     if (g.x === 'hgoal' && st.him >= g.s) return 'lose';
     return '';
   }
@@ -302,7 +314,10 @@
       if (r === rank) best.push(it);
     });
     if (!best.length) return null;
-    var it = pick(best);
+    // Not the same diagram twice running, when there's another as good.
+    var other = S.lastFig ? best.filter(function (x) { return x.fig !== S.lastFig; }) : [];
+    var it = pick(other.length ? other : best);
+    S.lastFig = it.fig || null;
     S.recent[it.id] = k + 1;
     return { it: it, typed: mode === 2 || (mode === 1 && (slot || rank === 0)) };
   }
@@ -320,20 +335,23 @@
     if (g.op === 'draw') return '<span class="mk-him mk-him--drawn" aria-hidden="true">' + drawnImg(g.dr, 'char', '') + '</span>';
     return '<span class="mk-him" aria-hidden="true">' + (g.op === 'make' ? A.playerSvg({ p: 'make', d: g.od, c: g.oc }, 80) : g.op === 'examiner' ? K.face || '' : A.rivalSvg(g.op, 80)) + '</span>';
   }
-  function rivalName(g) { return g.op === 'draw' ? 'your drawn opponent' : g.op === 'make' ? 'your own opponent' : nameOf(A.rivals, g.op); }
   // Grow: a plant in a pot, a leaf for each right answer, a flower when it's grown.
-  function plant(g, st) {
+  function plant(g, st, was) {
     var base = 188, gap = 150 / g.s, done = st.you >= g.s, top = base - Math.max(14, st.you * gap) - (done ? 12 : 0), out = '';
-    out += '<path d="M50 ' + base + 'V' + top.toFixed(1) + '" stroke="' + A.INK + '" stroke-width="10" stroke-linecap="round"/><path d="M50 ' + base + 'V' + top.toFixed(1) + '" stroke="#3E9B4F" stroke-width="5" stroke-linecap="round"/>';
-    for (var i = 0; i < st.you; i++) {
+    var leaf = function (i, cls) {
       var y = base - (i + 0.75) * gap, k = i % 2 ? 1 : -1, x = function (v) { return (50 + k * v).toFixed(1); };
-      out += '<path class="mk-leaf' + (i === st.you - 1 ? ' is-new' : '') + '" style="transform-origin:50px ' + y.toFixed(1) + 'px" d="M50 ' + y.toFixed(1) + 'Q' + x(18) + ' ' + (y - 20).toFixed(1) + ' ' + x(40) + ' ' + (y - 8).toFixed(1) +
+      return '<path class="mk-leaf' + cls + '" style="transform-origin:50px ' + y.toFixed(1) + 'px;--k:' + k + '" d="M50 ' + y.toFixed(1) + 'Q' + x(18) + ' ' + (y - 20).toFixed(1) + ' ' + x(40) + ' ' + (y - 8).toFixed(1) +
         'Q' + x(22) + ' ' + (y + 8).toFixed(1) + ' 50 ' + y.toFixed(1) + 'Z" fill="#4CB944" stroke="' + A.INK + '" stroke-width="2.6" stroke-linejoin="round"/>';
-    }
+    };
+    out += '<path d="M50 ' + base + 'V' + top.toFixed(1) + '" stroke="' + A.INK + '" stroke-width="10" stroke-linecap="round"/><path d="M50 ' + base + 'V' + top.toFixed(1) + '" stroke="#3E9B4F" stroke-width="5" stroke-linecap="round"/>';
+    // New leaves unfold (one after the other); one that's just fallen tumbles to the ground.
+    for (var i = 0; i < st.you; i++) out += leaf(i, was ? (i >= was.you ? ' is-new' : '') : i === st.you - 1 ? ' is-new' : '');
+    if (was) for (var f = st.you; f < was.you; f++) out += leaf(f, ' is-fall');
     if (done) {
       var c = A.colourOf(g.c) === '#58CC02' ? '#FF86D0' : A.colourOf(g.c);
+      out += '<g class="mk-flower" style="transform-origin:50px ' + top.toFixed(1) + 'px">';
       for (var p = 0; p < 6; p++) { var a = p * Math.PI / 3; out += '<circle cx="' + (50 + 11 * Math.cos(a)).toFixed(1) + '" cy="' + (top + 11 * Math.sin(a)).toFixed(1) + '" r="8" fill="' + c + '" stroke="' + A.INK + '" stroke-width="2.4"/>'; }
-      out += '<circle cx="50" cy="' + top.toFixed(1) + '" r="7" fill="#FFC800" stroke="' + A.INK + '" stroke-width="2.4"/>';
+      out += '<circle cx="50" cy="' + top.toFixed(1) + '" r="7" fill="#FFC800" stroke="' + A.INK + '" stroke-width="2.4"/></g>';
     }
     return '<svg viewBox="0 0 100 220" aria-hidden="true">' + out + '<path d="M26 184H74V194H26Z" fill="#FF9600" stroke="' + A.INK + '" stroke-width="3" stroke-linejoin="round"/><path d="M30 194H70L65 219H35Z" fill="#FF9600" stroke="' + A.INK + '" stroke-width="3" stroke-linejoin="round"/></svg>';
   }
@@ -345,51 +363,92 @@
     return '<svg class="mk-net" viewBox="0 0 120 90" aria-hidden="true"><path d="' + lines + '" stroke="#C9D2DA" stroke-width="1.6"/><path d="M8 89V6H112V89" fill="none" stroke="#13294A" stroke-width="10" stroke-linejoin="round"/>' +
       '<path d="M8 89V6H112V89" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round"/></svg>';
   })();
-  function heart(on) { return '<svg class="mk-heart' + (on ? '' : ' is-gone') + '" viewBox="0 0 20 18" aria-hidden="true"><path d="M10 17S1 11 1 5.5A4.5 4.5 0 0 1 10 3.5A4.5 4.5 0 0 1 19 5.5C19 11 10 17 10 17Z"/></svg>'; }
+  // A heart: full, empty, or just lost (it pops and cracks, then shows empty).
+  function heart(on, lost) { return '<svg class="mk-heart' + (on ? '' : ' is-gone') + (lost ? ' is-pop' : '') + '" viewBox="0 0 20 18" aria-hidden="true"><path d="M10 17S1 11 1 5.5A4.5 4.5 0 0 1 10 3.5A4.5 4.5 0 0 1 19 5.5C19 11 10 17 10 17Z"/>' + (lost ? '<path class="mk-crack" d="M10 4L8 8L11 10L9 15"/>' : '') + '</svg>'; }
   function placeOf(g) {
     if (g.pl === 'draw') return { id: 'draw', name: 'Your drawn place', dark: DR ? DR.isDark(g.dp) : false };
     return g.pl === 'make' ? { id: 'make', name: 'Your own place', dark: A.placeDark(g.pd) } : A.places.filter(function (p) { return p.id === g.pl; })[0] || A.places[0];
   }
   function nameOf(list, id) { var x = list.filter(function (o) { return o.id === id; })[0]; return x ? x.name : ''; }
   function playerName(g) { return g.p === 'draw' ? 'your drawing' : g.p === 'make' ? 'your own character' : nameOf(A.players, g.p); }
+  // A puff of dust where a piece took off, a number floating up, a shot flying across.
+  var DUST = '<span class="mk-dust" aria-hidden="true"><i></i><i></i><i></i><i></i></span>';
+  var DIZZY = '<span class="mk-dizzy" aria-hidden="true">' + [0, 1, 2].map(function () { return '<svg viewBox="-6 -6 12 12"><path d="M0 -5L1.5 -1.5L5 0L1.5 1.5L0 5L-1.5 1.5L-5 0L-1.5 -1.5Z" fill="#FFC800" stroke="#13294A" stroke-width="1.2" stroke-linejoin="round"/></svg>'; }).join('') + '</span>';
+  var CONFETTI = '<span class="mk-confetti" aria-hidden="true">' + ['#FF4B4B', '#FFC800', '#1CB0F6', '#58CC02', '#CE82FF', '#FF9600', '#FF86D0', '#2BD4BD', '#FFC800', '#1CB0F6', '#FF4B4B', '#58CC02'].map(function (c, i) {
+    return '<i style="--x:' + (6 + i * 8) + '%;--d:' + (i % 4 * 0.18).toFixed(2) + 's;--r:' + (i % 2 ? 1 : -1) * (120 + i * 25) + 'deg;background:' + c + '"></i>';
+  }).join('') + '</span>';
+  function shot(g, mine, k) {
+    var c = mine ? A.colourOf(g.c) : '#FF4B4B';
+    return '<span class="mk-shot mk-shot--' + (mine ? 'you' : 'him') + '" style="--k:' + (k || 0) + '" aria-hidden="true"><svg viewBox="-12 -12 24 24">' +
+      (mine ? '<circle r="9" fill="' + c + '" stroke="#13294A" stroke-width="2.6"/><circle cx="-3" cy="-3" r="2.6" fill="#FFFFFF"/>'
+        : '<path d="M0 -11L3 -4L10 -6L5 0L10 6L3 4L0 11L-3 4L-10 6L-5 0L-10 -6L-3 -4Z" fill="' + c + '" stroke="#13294A" stroke-width="2.2" stroke-linejoin="round"/>') + '</svg></span>';
+  }
   // The world as the game stands: the place, your things, the pieces where they are, and the counters. edit: the things
-  // can be tapped (to pick one) and the picture tapped (to move it).
-  function worldHtml(g, st, edit) {
-    var W = WORLDS[g.w], x = '';
+  // can be tapped (to pick one) and the picture tapped (to move it). fx (playing): what just happened, so the world
+  // shows it, one move per answer: { was: the state before, ok, end: 'win' or 'lose' }. A Race piece hops from its old
+  // square with a puff of dust; Battle throws a shot that knocks the other back and pops a heart; Tower drops a block
+  // that squashes as it lands (or one tumbles off); Points floats the score up; Shootout puts the ball past the keeper
+  // (or the keeper dives and saves it); Grow waters the plant and a leaf unfolds (or one drops). At the end the winner
+  // jumps under confetti and the loser slumps, seeing stars.
+  function worldHtml(g, st, edit, fx) {
+    var W = WORLDS[g.w], x = '', was = fx && fx.was, ok = fx && fx.ok, end = fx && fx.end, hit = was && !ok && g.x === 'life';
+    var meWin = end === 'win', meLose = end === 'lose';
+    var pose = function (mine) { return (mine ? meWin : meLose) ? ' is-win' : (mine ? meLose : meWin) ? ' is-lose' : ''; };
+    var poseArt = function (mine) { return (mine ? meWin : meLose) ? '' : (mine ? meLose : meWin) ? DIZZY : ''; };
     if (g.w === 'race') {
-      // He starts two squares behind you, so those two squares are drawn before yours (greyed).
+      // They start two squares behind you, so those two squares are drawn before yours (greyed).
       var back = g.x === 'him1' ? 2 : 0, n = g.s + 1 + back,
         at = function (v) { return 'calc(30px + (100% - 60px) * ' + ((Math.max(-back, v) + back + 0.5) / n).toFixed(4) + ')'; };
-      x += '<div class="mk-track">' + new Array(back + 1).join('<i class="is-back"></i>') + new Array(g.s + 2).join('<i></i>') + '</div><span class="mk-flag" aria-hidden="true"></span>' +
-        (g.x === 'him1' ? '<span class="mk-tok mk-tok--him" style="left:' + at(st.him) + '">' + rival(g) + '</span>' : '') +
-        '<span class="mk-tok mk-tok--you" style="left:' + at(st.you) + '">' + you(g) + '</span>';
+      var piece = function (mine, v, old, art) {
+        var moved = old != null && old !== v, fwd = moved && v > old;
+        return (moved ? '<span class="mk-at" style="left:' + at(old) + '">' + DUST + '</span>' : '') +
+          '<span class="mk-tok mk-tok--' + (mine ? 'you' : 'him') + (fwd ? ' is-hop' : moved ? ' is-slip' : '') + (mine && hit ? ' is-hurt' : '') + pose(mine) + '" style="left:' + at(v) + (moved ? ';--from:' + at(old) : '') + '">' + poseArt(mine) + art + '</span>';
+      };
+      var squares = new Array(back + 1).join('<i class="is-back"></i>') + new Array(g.s + 2).join('<i></i>');
+      x += (g.x === 'him1' ? '<div class="mk-track mk-track--him">' + squares + '</div>' : '') + '<div class="mk-track">' + squares + '</div><span class="mk-flag" aria-hidden="true"></span>' +
+        (g.x === 'him1' ? piece(false, st.him, was && was.him, rival(g)) : '') + piece(true, st.you, was && was.you, you(g));
+      if (end === 'win' && !edit) x += CONFETTI;
     } else if (g.w === 'battle') {
-      var hearts = function (v) { var h = ''; for (var i = 0; i < g.s; i++) h += heart(i < v); return '<span class="mk-hearts">' + h + '</span>'; };
-      x += '<span class="mk-side mk-side--you">' + hearts(st.you) + you(g) + '</span><span class="mk-vs">VS</span>' +
-        '<span class="mk-side mk-side--him">' + hearts(st.him) + rival(g) + '</span>';
+      var hearts = function (v, old) { var h = ''; for (var i = 0; i < g.s; i++) h += heart(i < v, old != null && i >= v && i < old); return '<span class="mk-hearts">' + h + '</span>'; };
+      var meHit = was && was.you > st.you, himHit = was && was.him > st.him, two = was && was.him - st.him > 1;
+      x += '<span class="mk-side mk-side--you' + (meHit || hit ? ' is-knock' : '') + pose(true) + '">' + hearts(st.you, was && was.you) + poseArt(true) + you(g) + '</span><span class="mk-vs">VS</span>' +
+        '<span class="mk-side mk-side--him' + (himHit ? ' is-knock' : '') + pose(false) + '">' + hearts(st.him, was && was.him) + poseArt(false) + rival(g) + '</span>' +
+        (himHit ? shot(g, true, 0) + (two ? shot(g, true, 1) : '') : '') + (meHit || hit ? shot(g, false, 0) : '');
+      if (meWin) x += CONFETTI;
     } else if (g.w === 'tower') {
-      var b = '';
-      for (var i = 0; i < st.you; i++) b += '<i style="background:' + A.colourOf(g.c) + '"></i>';
+      var b = '', from = was ? was.you : st.you;
+      for (var i = 0; i < st.you; i++) b += '<i class="' + (i >= from ? 'is-new' : '') + '" style="background:' + A.colourOf(g.c) + ';--k:' + Math.max(0, i - from) + '"></i>';
+      for (var f = st.you; f < from; f++) b += '<i class="is-fall" style="background:' + A.colourOf(g.c) + '"></i>';
       x += '<span class="mk-goal"></span><span class="mk-stack" style="--n:' + g.s + '">' + b + '</span>' +
-        '<span class="mk-tok mk-tok--builder">' + you(g) + '</span><span class="mk-watch">' + rival(g) + '</span>';
+        '<span class="mk-tok mk-tok--builder' + (was && st.you > was.you ? ' is-cheer' : '') + (hit ? ' is-hurt' : '') + pose(true) + '">' + poseArt(true) + you(g) + '</span><span class="mk-watch' + pose(false) + (was && st.you < was.you ? ' is-cheer' : '') + '">' + poseArt(false) + rival(g) + '</span>';
+      if (meWin) x += CONFETTI;
     } else if (g.w === 'shoot') {
-      x += '<span class="mk-score" aria-label="You ' + st.you + ', him ' + st.him + '"><b class="num">' + st.you + '</b><i>\u2013</i><b class="num">' + st.him + '</b><span>first to ' + g.s + '</span></span>' +
-        '<span class="mk-goalbox">' + NET + '<span class="mk-keeper">' + rival(g) + '</span></span><span class="mk-tok mk-tok--kicker">' + you(g) + '</span><span class="mk-ball">' + BALL + '</span>';
+      var scored = was && st.you > was.you, saved = was && !ok, theirs = was && st.him > was.him;
+      x += '<span class="mk-score" aria-label="You ' + st.you + ', ' + esc(foe(g, true)) + ' ' + st.him + '"><b class="num' + (scored ? ' is-pop' : '') + '">' + st.you + '</b><i>–</i><b class="num' + (theirs ? ' is-pop' : '') + '">' + st.him + '</b><span>first to ' + g.s + '</span></span>' +
+        '<span class="mk-goalbox' + (scored ? ' is-net' : '') + '">' + NET + '<span class="mk-keeper' + (scored ? ' is-dive-miss' : saved ? ' is-dive-save' : '') + pose(false) + '">' + poseArt(false) + rival(g) + '</span></span>' +
+        '<span class="mk-tok mk-tok--kicker' + (scored ? ' is-kick' : '') + pose(true) + '">' + poseArt(true) + you(g) + '</span><span class="mk-ball' + (scored ? ' is-goal' : saved ? ' is-saved' : '') + '">' + BALL + '</span>';
+      if (meWin) x += CONFETTI;
     } else if (g.w === 'grow') {
-      x += '<span class="mk-count"><b class="num">' + st.you + '</b> of ' + g.s + ' leaves</span><span class="mk-plant">' + plant(g, st) + '</span>' +
-        '<span class="mk-tok mk-tok--builder">' + you(g) + '</span><span class="mk-watch">' + rival(g) + '</span>';
+      var grew = was && st.you > was.you, lost = was && st.you < was.you;
+      x += '<span class="mk-count"><b class="num">' + st.you + '</b> of ' + g.s + ' leaves</span><span class="mk-plant' + (lost ? ' is-droop' : '') + '">' + plant(g, st, was) + '</span>' +
+        (grew ? '<span class="mk-water" aria-hidden="true"><i></i><i></i><i></i></span>' : '') +
+        '<span class="mk-tok mk-tok--builder' + (grew ? ' is-cheer' : '') + (hit ? ' is-hurt' : '') + pose(true) + '">' + poseArt(true) + you(g) + '</span><span class="mk-watch' + pose(false) + (lost ? ' is-cheer' : '') + '">' + poseArt(false) + rival(g) + '</span>';
+      if (meWin) x += CONFETTI;
     } else {
-      x += '<span class="mk-points"><b class="num">' + st.you + '</b><span>of ' + g.s + '</span></span>' +
-        '<span class="mk-bar"><i style="width:' + Math.min(100, st.you / g.s * 100) + '%;background:' + A.colourOf(g.c) + '"></i></span>' +
-        '<span class="mk-tok mk-tok--score">' + you(g) + '</span><span class="mk-watch">' + rival(g) + '</span>';
+      var diff = was ? st.you - was.you : 0;
+      x += '<span class="mk-points"><b class="num' + (diff ? ' is-pop' : '') + '">' + st.you + '</b><span>of ' + g.s + '</span></span>' +
+        '<span class="mk-bar"><i style="width:' + Math.min(100, st.you / g.s * 100) + '%;background:' + A.colourOf(g.c) + (was ? ';--from:' + Math.min(100, was.you / g.s * 100) + '%' : '') + '"' + (was ? ' class="is-move"' : '') + '></i></span>' +
+        '<span class="mk-tok mk-tok--score' + (diff > 0 ? ' is-cheer' : '') + (hit ? ' is-hurt' : '') + pose(true) + '">' + poseArt(true) + you(g) + (diff ? '<b class="mk-float' + (diff < 0 ? ' is-minus' : '') + '">' + (diff > 0 ? '+' : '−') + Math.abs(diff) + '</b>' : '') + '</span>' +
+        '<span class="mk-watch' + pose(false) + (diff < 0 ? ' is-cheer' : '') + '">' + poseArt(false) + rival(g) + '</span>';
+      if (meWin) x += CONFETTI;
     }
     var lives = '';
-    if (g.x === 'life') { for (var l = 0; l < LIVES; l++) lives += heart(l < st.lives); lives = '<span class="mk-lives" aria-label="' + st.lives + ' lives">' + lives + '</span>'; }
+    if (g.x === 'life') { for (var l = 0; l < LIVES; l++) lives += heart(l < st.lives, hit && l === st.lives); lives = '<span class="mk-lives" aria-label="' + st.lives + ' lives">' + lives + '</span>'; }
     var things = g.th.map(function (t, i) {
       return '<span class="mk-thing' + (edit && M && M.sel === i ? ' is-sel' : '') + '" style="left:' + t[1] + '%;top:' + t[2] + '%"' + (edit ? ' data-mk-thing="' + i + '"' : '') + '>' + A.thingSvg(t[0]) + '</span>';
     }).join('');
-    return '<div class="mk-world mk-world--' + g.w + (placeOf(g).dark ? ' is-dark' : '') + (edit ? ' is-edit' : '') + '" role="img" aria-label="' +
-      esc(W.name + ': ' + playerName(g) + ' against ' + rivalName(g) + ', ' + placeOf(g).name) + '"' + (edit ? ' data-mk-stage' : '') + '>' +
+    return '<div class="mk-world mk-world--' + g.w + (placeOf(g).dark ? ' is-dark' : '') + (edit ? ' is-edit' : '') + (was ? (ok ? ' is-good' : ' is-bad') : '') + (end ? ' is-end' : '') + '" role="img" aria-label="' +
+      esc(W.name + ': ' + playerName(g) + ' against ' + foe(g, true) + ', ' + placeOf(g).name) + '"' + (edit ? ' data-mk-stage' : '') + '>' +
       (g.pl === 'draw' ? drawnImg(g.dp, 'place', 'mk-place mk-place--drawn') : A.placeSvg(g.pl, g.pd)) + '<div class="mk-things">' + things + '</div>' + x + lives + '</div>';
   }
   // Small pictures for the question cards.
@@ -429,10 +488,13 @@
       marks = '<circle cx="' + n(s[0]) + '" cy="' + n(s[1]) + '" r="' + n(15 * k) + '" fill="#13294A" stroke="#FFFFFF" stroke-width="' + n(3 * k) + '"/>' +
         '<text x="' + n(s[0]) + '" y="' + n(s[1]) + '" font-size="' + n(18 * k) + '" font-family="Nunito, sans-serif" font-weight="800" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">' + it.letter + '</text>';
     }
-    return '<div class="ed-fig mk-fig"><svg viewBox="' + [a[0], a[1], b[0], b[1]].map(n).join(' ') + '" role="img"><title>' + esc(r.src) + '</title>' +
+    // Sized to the box's shape and clipped to it, so none of the page's question text shows either side.
+    var clip = 'mk-clip-' + it.id.replace(/\W/g, '');
+    return '<div class="ed-fig mk-fig"><svg viewBox="' + [a[0], a[1], b[0], b[1]].map(n).join(' ') + '" style="width:min(100%, calc(var(--fig-h, 320px) * ' + (b[0] / b[1]).toFixed(4) + '))" role="img"><title>' + esc(r.src) + '</title>' +
+      '<clipPath id="' + clip + '"><rect x="' + n(a[0]) + '" y="' + n(a[1]) + '" width="' + n(b[0]) + '" height="' + n(b[1]) + '"/></clipPath><g clip-path="url(#' + clip + ')">' +
       '<image href="' + esc(r.img) + '" width="' + P[0] + '" height="' + P[1] + '" preserveAspectRatio="none"/>' +
       (r.cover || []).map(function (c) { var p = px(c[0], c[1]), q2 = px(c[2], c[3]); return '<rect x="' + n(p[0]) + '" y="' + n(p[1]) + '" width="' + n(q2[0]) + '" height="' + n(q2[1]) + '" fill="' + (c[4] || '#FFFFFF') + '"/>'; }).join('') +
-      marks + '</svg></div>';
+      '</g>' + marks + '</svg></div>';
   }
 
   // ======================================================================== the maker
@@ -462,8 +524,10 @@
     BK.body(M.card, html, true);
     var card = M.card.querySelector('.am-finish__card');
     card.classList.add('tb-wide');
-    // Making it (not playing): Back and Continue stay at the bottom of the card while you scroll.
-    card.classList.toggle('mk-host', ['wizard', 'summary', 'library', 'home', 'link', 'draw'].indexOf(M.phase) >= 0);
+    // The card keeps one height whatever the step (so Continue doesn't jump), and Back and Continue stay at its
+    // bottom while you scroll. Playing, the game's picture is pinned at the top and only the question scrolls.
+    card.classList.add('mk-host');
+    card.classList.toggle('mk-live', M.phase === 'ask' || M.phase === 'shown');
     BK.buttons(M.card, btns || [['more', 'data-am-keep', 'Close']], true);
     BB.nearMascot(M.card);
   }
@@ -626,9 +690,12 @@
       return '<span class="mk-progress__part' + (part === p ? ' is-now' : '') + '"><b>' + p + '</b><i><em style="width:' + Math.round(done / mine.length * 100) + '%"></em></i></span>';
     }).join('') + '</div>';
     var preview = id === 'th' ? '' : '<div class="mk-preview">' + worldHtml(g, fresh(g)) + '</div>';
+    // Once the kind of game is picked the rest have defaults, so "Play now" can skip them. His bubble is kept for his
+    // reactions to what you pick (it used to repeat the heading on every step).
+    var quick = at >= STEP_W && at < STEPS.length - 1;
     show('<div class="mk mk-wiz">' + bar + preview + '<h3 class="mk-ask">' + STEPS[at][2] + '</h3>' + body(id) + '</div>',
-      [at ? ['more', 'data-mk-back', 'Back'] : saved().length ? ['more', 'data-mk-home', 'Your games'] : ['more', 'data-am-keep', 'Close'], ['ok', 'data-mk-next', at === STEPS.length - 1 ? 'Done' : 'Continue']]);
-    K.mascot('ok', STEPS[at][2]);
+      [at ? ['more', 'data-mk-back', 'Back'] : saved().length ? ['more', 'data-mk-home', 'Your games'] : ['more', 'data-am-keep', 'Close']]
+        .concat(quick ? [['more mk-btn-play', 'data-mk-now', 'Play now']] : [], [['ok', 'data-mk-next', at === STEPS.length - 1 ? 'Done' : 'Continue']]));
     // The colour wheel, when it's open under a colour row: picking a colour (letting go) sets it.
     var box = q('[data-mk-wheelbox]');
     if (box && DR) DR.wheel(box, A.colourOf(M.g[M.wheel]), function (h, done) { if (done) set(M.wheel, h); });
@@ -652,9 +719,9 @@
         return '<button type="button" class="mk-opt mk-opt--ch' + (on ? ' is-on' : '') + '" style="--c:' + COL[c] + '" aria-pressed="' + on + '" data-mk-ch="' + c + '"><span class="mk-opt__t">' + esc(NAME[c]) + '</span><span class="mk-opt__d">' + plural(n, 'question') + '</span><i class="mk-tick" aria-hidden="true"></i></button>';
       }).join('') + '<button type="button" class="mk-opt mk-opt--ch mk-opt--all' + (g.ch.length === CH.length ? ' is-on' : '') + '" aria-pressed="' + (g.ch.length === CH.length) + '" data-mk-chall><span class="mk-opt__t">All of them</span><i class="mk-tick" aria-hidden="true"></i></button></div>';
     }
-    if (id === 'w') return '<div class="mk-opts">' + ORDER.map(function (k) { return opt('w', k, WORLDS[k].name, WORLDS[k].what, icon(k), g.w === k); }).join('') + '</div>';
-    if (id === 'r') return '<div class="mk-opts">' + W.right.map(function (o) { return opt('r', o[0], o[1], o[2], '', g.r === o[0]); }).join('') + '</div>';
-    if (id === 'x') return '<div class="mk-opts">' + W.wrong.map(function (o) { return opt('x', o[0], o[1], o[2], '', g.x === o[0]); }).join('') + '</div>';
+    if (id === 'w') return '<div class="mk-opts">' + ORDER.map(function (k) { return opt('w', k, WORLDS[k].name, esc(named(g, WORLDS[k].what)), icon(k), g.w === k); }).join('') + '</div>';
+    if (id === 'r') return '<div class="mk-opts">' + W.right.map(function (o) { return opt('r', o[0], esc(named(g, o[1])), esc(named(g, o[2])), '', g.r === o[0]); }).join('') + '</div>';
+    if (id === 'x') return '<div class="mk-opts">' + W.wrong.map(function (o) { return opt('x', o[0], esc(named(g, o[1])), esc(named(g, o[2])), '', g.x === o[0]); }).join('') + '</div>';
     if (id === 's') return '<div class="mk-opts mk-opts--3">' + W.size.map(function (v, i) { return opt('s', v, SIZE_NAMES[i], v + ' ' + W.unit, '', g.s === v); }).join('') + '</div>';
     if (id === 'you') {
       if (M.tab === 'draw') return tabs('tab', M.tab, 'Characters') + drawPanel('y');
@@ -768,22 +835,32 @@
   }
 
   // ---------------------------------------------------------------- your game, done
+  // The summary: one row each for the questions, the game and the look, each with its picture, what it is in a few
+  // words, the details under it, and Change.
   function rulesHtml(g) {
     var W = WORLDS[g.w], name = function (list, id) { return list.filter(function (x) { return x[0] === id; })[0][1]; };
-    var asks = g.ans === 'own' ? ['typing ' + TYPE_HOW[g.t][1].toLowerCase(), FIG_HOW[g.f][1].toLowerCase() === 'none' ? 'no diagrams' : FIG_HOW[g.f][1].toLowerCase() + ' diagrams', g.o + ' options'].join(', ') : name(ANSWERS, g.ans);
-    var chs = g.ch.length === CH.length ? 'all chapters' : g.ch.map(function (c) { return NAME[c]; }).join(', ');
+    var Q = questionsFor(g), n = Q.note ? 0 : Q.main.length + Q.figs.length;
+    var asks = g.ans === 'own' ? ['typing ' + TYPE_HOW[g.t][1].toLowerCase(), FIG_HOW[g.f][1].toLowerCase() === 'none' ? 'no diagrams' : FIG_HOW[g.f][1].toLowerCase() + ' diagrams', g.o + ' options'].join(', ') : name(ANSWERS, g.ans).toLowerCase();
+    var chs = g.ch.length === CH.length ? 'all five chapters' : g.ch.map(function (c) { return NAME[c]; }).join(', ');
+    var goal = g.w === 'battle' ? g.s + ' hearts each' : g.w === 'race' ? g.s + ' steps to the flag' : g.w === 'points' ? g.s + ' points to win' : g.w === 'shoot' ? 'first to ' + g.s + ' goals' : g.s + ' ' + W.unit + ' to win';
+    var look = '<span class="mk-sum__vs">' + meIcon(g, 40) + '<i>vs</i>' + (g.op === 'draw' ? drawnImg(g.dr, 'char', 'mk-drawn-icon') : g.op === 'make' ? A.playerSvg({ p: 'make', d: g.od, c: g.oc }, 40) : g.op === 'examiner' ? '<span class="mk-face">' + (K.face || '') + '</span>' : A.rivalSvg(g.op, 40)) + '</span>';
+    var me = playerName(g);
     return [
-      ['Questions', (g.ans === 'fig' ? 'Real exam diagrams: name the part, or tap it' : name(SOURCES, g.src) + ' · ' + asks) + ' · ' + chs, 0],
-      ['Game', W.name + ' · Right: ' + name(W.right, g.r) + ' · Wrong: ' + name(W.wrong, g.x) + ' · ' + (g.w === 'battle' ? g.s + ' hearts each' : g.s + ' ' + W.unit + ' to win'), 3],
-      ['Look', playerName(g).charAt(0).toUpperCase() + playerName(g).slice(1) + ' vs ' + rivalName(g).replace(/^The /, 'the ') + ' · ' + placeOf(g).name + (g.th.length ? ' · ' + plural(g.th.length, 'thing') : '') + ' · ' + MOODS[g.e][1], 7]
-    ].map(function (r) { return '<li><b>' + r[0] + '</b><span>' + esc(r[1]) + '</span><button type="button" class="mk-mini" data-mk-jump="' + r[2] + '">Change</button></li>'; }).join('');
+      ['Questions', icon(g.ans === 'fig' ? 'fig' : g.src), g.ans === 'fig' ? 'Real exam diagrams' : name(SOURCES, g.src), plural(n, 'question') + ' · ' + (g.ans === 'fig' ? 'name the part, or tap it' : asks) + ' · ' + chs, 0],
+      ['Game', icon(g.w), W.name + ': ' + goal, 'Right: ' + named(g, name(W.right, g.r)).toLowerCase() + ' · Wrong: ' + named(g, name(W.wrong, g.x)).replace(/^(The|Your|You|A|Lose) /, function (m) { return m.toLowerCase(); }), STEP_W],
+      ['Look', look, me.charAt(0).toUpperCase() + me.slice(1) + ' vs ' + foe(g, true), placeOf(g).name + (g.th.length ? ' · ' + plural(g.th.length, 'thing') : '') + ' · the examiner is ' + MOODS[g.e][1].toLowerCase(), 7]
+    ].map(function (r) {
+      return '<li><span class="mk-sum__art">' + r[1] + '</span><span class="mk-sum__t"><b>' + esc(r[2]) + '</b><span>' + esc(r[3]) + '</span></span><button type="button" class="mk-mini" data-mk-jump="' + r[4] + '" aria-label="Change the ' + r[0].toLowerCase() + '">Change</button></li>';
+    }).join('');
   }
+  // Share link, said as "Share" on a phone (it wrapped onto two lines there).
+  var SHARE = 'Share<span class="mk-wide"> link</span>';
   function summary() {
     M.phase = 'summary';
     var g = M.g;
     show('<div class="mk mk-done"><div class="mk-preview">' + worldHtml(g, fresh(g)) + '</div><h3 class="mk-title">' + esc(g.n) + '</h3><ul class="mk-sum">' + rulesHtml(g) + '</ul>' +
       '<div class="mk-share" data-mk-share hidden><input type="text" readonly data-mk-link aria-label="Link to your game"><span data-mk-copied></span></div></div>',
-      [['more', 'data-mk-save', 'Save'], ['more', 'data-mk-link-btn', 'Share link'], ['ok', 'data-mk-go', 'Play']]);
+      [['more', 'data-mk-save', 'Save'], ['more', 'data-mk-link-btn', SHARE], ['ok', 'data-mk-go', 'Play']]);
     K.mascot('ok', pick(['Ready when you are.', 'Hmph. Not bad. Now play it.']));
   }
   function save(g) {
@@ -856,20 +933,26 @@
     K.mascot('ok', 'Someone made this for you. Let\'s see.');
     return true;
   }
+  // Playing: the game's picture is pinned at the top of the card, the question under it (only that part scrolls, on a
+  // small screen), and Next sits in the card's footer, so every answer's move happens in view and nothing has to be
+  // scrolled to. Keys 1-4 pick an option; Enter goes on.
   function play(g) {
     M.g = clean(g);
     M.st = fresh(M.g);
     M.qs = questionsFor(M.g);
-    M.play = { asked: 0, recent: {}, qs: M.qs };
+    M.play = { asked: 0, recent: {}, qs: M.qs, figs: [] };
     M.n = 0;
     K.gameHud(M.card, 0, 'right');
-    if (!M.qs.main.length) { M.phase = 'over'; frame('<p class="tb-say">No questions in those chapters.</p>', [['more', 'data-mk-remix', 'Change it']]); return; }
+    if (!M.qs.main.length) { M.phase = 'over'; K.playing(false); frame('<p class="tb-say">No questions in those chapters.</p>', [['more', 'data-mk-remix', 'Change it']]); return; }
+    K.playing(true);
     turn();
     if (M.qs.note) K.mascot('ok', M.qs.note);
   }
   function frame(panel, btns) {
-    show('<div class="mk-play">' + worldHtml(M.g, M.st) + '<div class="tb-panel" data-mk-panel aria-live="polite">' + panel + '</div></div>', btns || [['more', 'data-am-keep', 'Close']]);
+    show('<div class="mk-play">' + worldHtml(M.g, M.st) + '<div class="mk-panel" data-mk-panel aria-live="polite">' + panel + '</div></div>', btns || [['more', 'data-am-keep', 'Close']]);
   }
+  // A diagram question reads the same every time ("Name the part labelled P."), so it's asked a few ways.
+  var NAME_IT = ['Name the part labelled {L}.', 'What is part {L}?', 'Which part is labelled {L}?', 'Name part {L} on this diagram.'];
   function turn() {
     var g = M.g, m = nextQuestion(M.play, g);
     if (!m) { frame('<p class="tb-say">No questions in those chapters.</p>'); return; }
@@ -880,15 +963,15 @@
     M.typed = m.typed;
     M.tap = fig && !m.typed && spots.length >= 3 && Math.random() < 0.5 ? shuffle(spots) : null;
     M.phase = 'ask';
-    var text = M.tap ? 'Tap the ' + lower(it.right) + '.' : it.q, label = M.typed ? 'Type it' : M.tap ? 'Tap it' : 'Question ' + M.n;
+    var text = M.tap ? 'Tap the ' + lower(it.right) + '.' : fig && it.letter ? NAME_IT[M.n % NAME_IT.length].replace('{L}', it.letter) : it.q, label = M.typed ? 'Type it' : M.tap ? 'Tap it' : 'Question ' + M.n;
     var opts = shuffle([it.right].concat(shuffle(it.wrong).slice(0, choices(g) - 1)));
     frame('<div class="tb-card mk-card" style="--c:' + COL[it.ch] + '"><div class="tb-card__in"><div class="tb-card__face"><div class="tb-card__band"><b>' + esc(NAME[it.ch]) + '</b><span>' + label + '</span></div><div class="tb-card__body">' +
       '<p class="mk-from">' + esc(it.from) + '</p>' + (fig ? figure(it, M.tap) : '') +
       '<p class="tb-q">' + esc(text) + (M.typed && it.need > 1 ? ' <span class="mk-need">(' + it.need + ' points)</span>' : '') + '</p>' +
-      (M.typed ? '<textarea class="tb-text" data-mk-text rows="' + (it.need > 1 ? 4 : 2) + '" placeholder="Type your answer" aria-label="Your answer"></textarea>' +
-        '<div class="tb-row"><button type="button" class="tb-btn tb-btn--go" data-mk-check>Check</button><button type="button" class="tb-btn tb-btn--ghost" data-mk-pass>I don\'t know</button></div>'
-        : M.tap ? '' : '<div class="tb-opts">' + opts.map(function (o) { return '<button type="button" class="tb-opt" data-mk-opt="' + esc(o) + '">' + esc(o) + '</button>'; }).join('') + '</div>') +
-      '<div class="qg-after" data-mk-after></div></div></div></div></div>');
+      (M.typed ? '<textarea class="tb-text" data-mk-text rows="' + (it.need > 1 ? 3 : 2) + '" placeholder="Type your answer" aria-label="Your answer"></textarea>'
+        : M.tap ? '' : '<div class="tb-opts mk-qopts">' + opts.map(function (o, k) { return '<button type="button" class="tb-opt" data-mk-opt="' + esc(o) + '"><kbd>' + (k + 1) + '</kbd><span>' + esc(o) + '</span></button>'; }).join('') + '</div>') +
+      '<div class="mk-after" data-mk-after></div></div></div></div></div>',
+      M.typed ? [['more', 'data-mk-pass', 'I don\'t know'], ['ok', 'data-mk-check', 'Check']] : [['ok mk-next', 'data-mk-nextq disabled', 'Next question']]);
     BB.reveal(q('.tb-card'), function () { var t = q('[data-mk-text]'); if (t) t.focus({ preventScroll: true }); });
   }
   function lower(t) { return /^[A-Z][a-z]/.test(t) ? t.charAt(0).toLowerCase() + t.slice(1) : t; }
@@ -900,7 +983,7 @@
       b.disabled = true;
       if (o === M.item.right) b.classList.add('is-ok'); else if (o === mine) b.classList.add('is-no');
     });
-    answered(ok, ok ? '' : 'You said: ' + mine);
+    answered(ok, '');
   }
   function tapped(spot) {
     if (M.phase !== 'ask' || !M.tap) return;
@@ -914,50 +997,74 @@
     answered(ok, ok ? '' : 'You tapped: ' + (name ? name.right : 'another part'));
   }
   function check(pass) {
-    if (M.phase !== 'ask') return;
+    if (M.phase !== 'ask' || !M.typed) return;
     var it = M.item, box = q('[data-mk-text]'), text = pass ? '' : (box.value || '').trim();
     if (!pass && !text) { box.focus(); return; }
     // A wrong answer added to a right one cancels it, as the scheme does for its starred terms (as in Exam drill).
     var bad = text && window.BioDrill ? window.BioDrill.cancelled(it, text) : '', got = text && !bad ? it.earned(text) : 0, ok = got >= it.need;
     box.disabled = true;
-    var r = q('[data-mk-check]');
-    if (r) r.closest('.tb-row').remove();
-    answered(ok, text ? 'You wrote: ' + (text.length > 160 ? text.slice(0, 157) + '...' : text) +
-      (bad ? ' (cancelled: "' + bad + '" is wrong, and a wrong answer added cancels the right one)' : got && !ok ? ' (' + got + ' of ' + it.need + ' points)' : '') : '');
+    answered(ok, text ? (bad ? 'Cancelled: "' + bad + '" is wrong, and a wrong answer added cancels the right one.' : got && !ok ? 'You got ' + got + ' of ' + it.need + ' points.' : '') : '');
   }
-  // After an answer: the answer, the scheme's points (typed), why, when it comes back, then your rule happens.
+  // What each world sounds like when its move happens (the move is drawn by worldHtml, with fx).
+  function sounds(g, ok, st, was) {
+    var later = function (name, power, ms) { K.later(function () { if (live()) K.sfx(name, power); }, ms); };
+    if (!ok && g.x === 'life') { K.sfx('thud', 0.8); later('pop', 0.7, 180); return; }
+    if (g.w === 'race') { K.sfx('whoosh', 0.6); later('thud', 0.55, 420); }
+    else if (g.w === 'battle') { K.sfx('whoosh', 0.7); later('blast', 0.6, 380); later('pop', 0.6, 520); }
+    else if (g.w === 'tower') { if (st.you > was.you) later('thud', 0.8, 300); else if (st.you < was.you) later('crash', 0.7, 150); else K.sfx('tick', 0.5); }
+    else if (g.w === 'shoot') { K.sfx('putt', 0.9); later(ok ? 'cushion' : 'clack', 0.9, 420); }
+    else if (g.w === 'grow') { if (ok) { K.sfx('splash', 0.5); later('pop', 0.6, 420); } else later('twang', 0.5, 100); }
+    else { K.sfx(ok ? 'pop' : 'thud', 0.7); later('tick', 0.5, 200); }
+  }
+  // After an answer: the world makes its move, the verdict in a line, the answer (when the options don't already show
+  // it), when it comes back, and a "Why?" that opens the why and the marking scheme; Next is in the footer.
   function answered(ok, mine) {
     M.phase = 'shown';
-    var g = M.g, it = M.item, out = step(g, M.st, ok, M.typed), mood = MOODS[g.e][0], line = BB.memLine(BB.memSet(it.id, M.typed, ok, true));
+    var g = M.g, it = M.item, was = M.st, out = step(g, M.st, ok, M.typed), mood = MOODS[g.e][0], line = BB.memLine(BB.memSet(it.id, M.typed, ok, true));
     M.st = out.st;
     K.rollTo(q('[data-am-gscore]'), M.st.right);
     if (ok) K.ding(M.typed ? 4 : 2, true); else K.bonk();
-    K.mascot(ok ? 'angry' : 'happy', pick(SAY[mood][ok ? 'right' : 'wrong']));
+    sounds(g, ok, M.st, was);
+    // Against him, he's sore when you're right; as the referee he's pleased.
+    var rival = g.op === 'examiner';
+    K.mascot(ok ? (rival ? 'angry' : 'happy') : (rival ? 'happy' : 'angry'), pick(SAY[mood][ok ? 'right' : 'wrong']));
     var scheme = M.typed && !isFig(it) ? '<p class="ed-scheme mk-scheme"><span>Marking scheme</span>' + it.pts.slice(0, Math.max(it.need, 3)).map(function (p) {
       return esc(p.a.replace(/\*/g, '')) + (/\*/.test(p.a) ? ' <em>(only this term)</em>' : '') + (p.accept && p.accept.length ? ' <em>(accept: ' + esc(p.accept.join('; ')) + ')</em>' : '');
     }).join('<br>') + (it.need < it.pts.length ? '<br><em>Any ' + it.need + ' for full marks.</em>' : '') + '</p>' : '';
-    q('[data-mk-after]').innerHTML = '<p class="tb-stamp ' + (ok ? 'is-ok' : 'is-no') + '">' + (ok ? 'Correct' : 'Not quite') + '</p>' + (mine ? '<p class="tb-mine">' + esc(mine) + '</p>' : '') +
-      '<p class="tb-ans"><span>' + (M.typed ? 'A full-marks answer' : 'Answer') + '</span>' + esc(it.right) + '</p>' + scheme + '<p class="tb-why"><span>Why</span>' + esc(it.why) + '</p>' + line;
+    var showAns = M.typed || M.tap || !q('[data-mk-opt]');
+    q('[data-mk-after]').innerHTML = '<div class="mk-verdict"><p class="tb-stamp ' + (ok ? 'is-ok' : 'is-no') + '">' + (ok ? 'Correct' : 'Not quite') + '</p><p class="mk-said">' + esc(out.said) + '</p></div>' +
+      (mine ? '<p class="tb-mine">' + esc(mine) + '</p>' : '') +
+      (showAns ? '<p class="mk-ans"><span>' + (M.typed ? 'A full-marks answer' : 'Answer') + '</span>' + esc(it.right) + '</p>' : '') + line +
+      '<details class="mk-why"><summary>Why?' + (scheme ? ' And the marking scheme' : '') + '</summary><p class="tb-why"><span>Why</span>' + esc(it.why) + '</p>' + scheme + '</details>';
+    // On a short screen (or with a diagram) the verdict can fall below the panel's fold: bring it into view.
+    var panel = q('[data-mk-panel]'), after = q('[data-mk-after]');
+    if (panel && after) {
+      var below = after.getBoundingClientRect().bottom - panel.getBoundingClientRect().bottom;
+      if (below > 0) panel.scrollTo({ top: panel.scrollTop + below + 8, behavior: K.reduced() ? 'auto' : 'smooth' });
+    }
     var world = q('.mk-world');
-    if (world) world.outerHTML = worldHtml(g, M.st);
-    var w = q('.mk-world');
-    if (w) w.classList.add(ok ? 'is-good' : 'is-bad');
-    var end = over(g, M.st), rowEl = document.createElement('div');
-    rowEl.className = 'tb-row tb-row--next';
-    rowEl.innerHTML = '<p class="mk-said">' + esc(out.said) + '</p><button type="button" class="tb-btn tb-btn--go" ' + (end ? 'data-mk-end="' + end + '"' : 'data-mk-nextq') + '>' + (end ? 'See how you did' : 'Next question') + '</button>';
-    q('[data-mk-panel]').appendChild(rowEl);
-    rowEl.querySelector('button').focus({ preventScroll: true });
+    if (world) world.outerHTML = worldHtml(g, M.st, false, { was: was, ok: ok });
+    var end = over(g, M.st);
+    BK.buttons(M.card, [['ok mk-next', end ? 'data-mk-end="' + end + '"' : 'data-mk-nextq', end ? 'See how you did' : 'Next question']]);
   }
   function finish(how) {
-    var g = M.g, won = how === 'win', mood = MOODS[g.e][0], was = bestOf(g), b = record(g, won, M.st.asked);
+    var g = M.g, won = how === 'win', mood = MOODS[g.e][0], was = bestOf(g), b = record(g, won, M.st.asked), rival = g.op === 'examiner';
     var best = won && (!was || !was.best || M.st.asked < was.best) && b.won > 1 ? 'A new best: won in ' + M.st.asked + ' answers.' :
       b.best ? 'Your best: won in ' + b.best + ' answers' + (b.won > 1 ? ' (won ' + b.won + ' times)' : '') + '.' : '';
     M.phase = 'over';
-    show('<div class="am-games__end mk-end"><div class="mk-preview">' + worldHtml(g, M.st) + '</div><h3 class="am-games__title">' + (won ? 'You won!' : 'He won.') + '</h3>' +
-      '<p class="am-games__sub">' + esc(g.n) + ': ' + M.st.right + ' right of ' + M.st.asked + '.</p>' + (best ? '<p class="mk-best">' + best + '</p>' : '') + '</div>',
-      [['more', 'data-mk-remix', 'Change it'], ['more', 'data-mk-link-end', 'Share link'], ['ok', 'data-mk-go', 'Play again']]);
-    K.mascot(won ? 'angry' : 'happy', SAY[mood][won ? 'win' : 'lose']);
-    if (won) K.later(K.fanfare, 300);
+    K.playing(false);
+    var acc = M.st.asked ? Math.round(M.st.right / M.st.asked * 100) : 0;
+    show('<div class="am-games__end mk-end"><div class="mk-preview">' + worldHtml(g, M.st, false, { end: how }) + '</div><h3 class="am-games__title">' + (won ? 'You won!' : esc(foe(g)) + ' wins.') + '</h3>' +
+      '<p class="mk-endline"><b class="num">' + M.st.right + '</b> right of <b class="num">' + M.st.asked + '</b> · ' + acc + '%' + (best ? ' · ' + best : '') + '</p></div>',
+      [['more', 'data-mk-remix', 'Change it'], ['more', 'data-mk-link-end', SHARE], ['ok', 'data-mk-go', 'Play again']]);
+    K.mascot(won ? (rival ? 'angry' : 'happy') : (rival ? 'happy' : 'angry'), named(g, rival ? SAY[mood][won ? 'win' : 'lose'] : SAY[mood][won ? 'refWin' : 'refLose']));
+    if (won) K.later(K.fanfare, 300); else K.sfx('thud', 0.8);
+  }
+  // Play now: the game as it is so far (the rest stay as they are), with a name if it hasn't one.
+  function playNow() {
+    readName();
+    if (M.g.n === defaults().n) M.g.n = nameIdeas(M.g)[0];
+    play(M.g);
   }
 
   // ======================================================================== clicks and keys
@@ -996,6 +1103,7 @@
     if ((t = e.target.closest('[data-mk-stage]'))) { moveThing(e, t); return; }
     if ((t = e.target.closest('[data-mk-idea]'))) { M.g.n = clean({ n: t.getAttribute('data-mk-idea') }).n; q('[data-mk-name]').value = M.g.n; return; }
     if (e.target.closest('[data-mk-next]')) { go(M.step + 1); return; }
+    if (e.target.closest('[data-mk-now]')) { playNow(); return; }
     if (e.target.closest('[data-mk-back]')) { go(Math.max(0, M.step - 1)); return; }
     if ((t = e.target.closest('[data-mk-jump]'))) { M.step = +t.getAttribute('data-mk-jump'); M.more = false; M.sel = -1; tabsFor(); wizard(); return; }
     if (e.target.closest('[data-mk-new]')) { start(); return; }
@@ -1028,7 +1136,14 @@
     M.g.n = clean({ n: e.target.value }).n;
   });
   document.addEventListener('keydown', function (e) {
-    if (!live() || e.key !== 'Enter' || !e.target.closest) return;
+    if (!live() || !e.target.closest || e.altKey || e.ctrlKey || e.metaKey) return;
+    // 1-4 pick an option (not while typing a name or an answer).
+    if (M.phase === 'ask' && /^[1-9]$/.test(e.key) && !/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) {
+      var b = M.card.querySelectorAll('[data-mk-opt]')[+e.key - 1];
+      if (b && !document.querySelector('.am-leave')) { e.preventDefault(); b.click(); }
+      return;
+    }
+    if (e.key !== 'Enter') return;
     if (e.target.closest('[data-mk-spot]')) { e.preventDefault(); tapped(e.target.closest('[data-mk-spot]')); return; }
     if (e.target.closest('[data-mk-name]')) { e.preventDefault(); go(M.step + 1); return; }
     if (e.shiftKey || !e.target.closest('[data-mk-text]')) return;

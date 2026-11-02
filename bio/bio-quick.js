@@ -197,13 +197,17 @@
   // A diagram from an exam paper: the page cut to its box (x, y, width, height in % of the page), its printed names
   // covered (in white, or the grey they're printed on), and its spots, in the page's pixels. k scales the spots and the tap distance from the
   // drawings' 480 units wide.
-  var PAGE = [2055, 2908];
+  // The picture is cut to its box twice over: the svg is sized to the box's shape (a tall diagram used to be drawn
+  // as wide as the card, showing the page's question text either side of it, cut mid-word: "ere villi are"), and
+  // what's drawn is clipped to the box.
+  var PAGE = [2055, 2908], CLIPS = 0;
   function paperDiagram(r) {
     var px = function (x, y) { return [x * PAGE[0] / 100, y * PAGE[1] / 100]; }, n = function (v) { return v.toFixed(1); };
-    var a = px(r.box[0], r.box[1]), b = px(r.box[2], r.box[3]);
-    var svg = '<svg viewBox="' + [a[0], a[1], b[0], b[1]].map(n).join(' ') + '" role="img"><title>' + esc(r.src) + '</title>' +
+    var a = px(r.box[0], r.box[1]), b = px(r.box[2], r.box[3]), clip = 'ls-clip-' + (++CLIPS);
+    var svg = '<svg viewBox="' + [a[0], a[1], b[0], b[1]].map(n).join(' ') + '" style="width:min(100%, calc(58vh * ' + (b[0] / b[1]).toFixed(4) + '))" role="img"><title>' + esc(r.src) + '</title>' +
+      '<clipPath id="' + clip + '"><rect x="' + n(a[0]) + '" y="' + n(a[1]) + '" width="' + n(b[0]) + '" height="' + n(b[1]) + '"/></clipPath><g clip-path="url(#' + clip + ')">' +
       '<image href="' + esc(r.img) + '" width="' + PAGE[0] + '" height="' + PAGE[1] + '" preserveAspectRatio="none"/>' +
-      (r.cover || []).map(function (c) { var p = px(c[0], c[1]), q = px(c[2], c[3]); return '<rect x="' + n(p[0]) + '" y="' + n(p[1]) + '" width="' + n(q[0]) + '" height="' + n(q[1]) + '" fill="' + (c[4] || '#FFFFFF') + '"/>'; }).join('') + '</svg>';
+      (r.cover || []).map(function (c) { var p = px(c[0], c[1]), q = px(c[2], c[3]); return '<rect x="' + n(p[0]) + '" y="' + n(p[1]) + '" width="' + n(q[0]) + '" height="' + n(q[1]) + '" fill="' + (c[4] || '#FFFFFF') + '"/>'; }).join('') + '</g></svg>';
     return { d: { svg: svg, src: r.src }, k: b[0] / 480, q: r.q, parts: r.spots.map(function (s, i) { return { text: s.t, at: px(s.at[0], s.at[1]), i: i }; }) };
   }
   function sprintOpen(ch) {
@@ -244,9 +248,13 @@
     svg.querySelectorAll('[data-label]').forEach(function (n) { n.style.display = 'none'; });
     svg.removeAttribute('aria-hidden');
     g.setAttribute('class', 'ls-dots');
+    // The dots are at least 24px across on the screen, with a 40px target round each (they were about 10px on a big
+    // diagram shrunk to fit). The svg's own width, not its on-screen one: the card pops in from a small scale.
+    var vb = svg.viewBox && svg.viewBox.baseVal, shown = svg.clientWidth || svg.getBoundingClientRect().width;
+    var k = vb && vb.width && shown ? Math.max(x.k, 12 / 9 / (shown / vb.width)) : x.k;
     g.innerHTML = x.parts.map(function (l, j) {
-      return '<g class="ls-dot" data-ls-dot="' + j + '" transform="translate(' + l.at[0] + ' ' + l.at[1] + ') scale(' + x.k + ')" tabindex="0" role="button" aria-label="Spot ' + (j + 1) + '">' +
-        '<circle class="ls-dot__ring" r="9"/><circle class="ls-dot__core" r="4"/></g>';
+      return '<g class="ls-dot" data-ls-dot="' + j + '" transform="translate(' + l.at[0] + ' ' + l.at[1] + ') scale(' + k.toFixed(3) + ')" tabindex="0" role="button" aria-label="Spot ' + (j + 1) + '">' +
+        '<circle class="ls-dot__hit" r="15"/><circle class="ls-dot__ring" r="9"/><circle class="ls-dot__core" r="4"/></g>';
     }).join('');
     svg.appendChild(g);
     buttons(G.card, [['more', 'data-am-keep', 'Close']], true);
