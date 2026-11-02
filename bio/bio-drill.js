@@ -250,7 +250,7 @@
     }).join('<br>') + (it.need < it.pts.length ? '<br><em>Any ' + it.need + ' for full marks.</em>' : '') + '</p>';
     q('[data-ed-after]').innerHTML = '<p class="tb-stamp ' + (ok ? 'is-ok' : 'is-no') + '">' + (typed ? (ok ? 'Full marks: ' + it.marks + '/' + it.marks : 'Not full marks') : ok ? 'Right' : 'Not quite') + '</p>' +
       (mine ? '<p class="tb-mine">' + esc(mine) + '</p>' : '') +
-      '<p class="tb-ans"><span>' + (typed || !ok ? 'A full-marks answer' : 'Answer') + '</span>' + esc(it.right) + '</p>' + scheme +
+      '<p class="tb-ans"><span>' + (typed || !ok ? 'A full-marks answer' : 'Right answer') + '</span>' + esc(it.right) + '</p>' + scheme +
       window.BioBoard.why(it) +
       '<p class="ed-later">' + (stage === 'done' ? 'Learnt.' : stage === 'type' ? 'It\'ll come back for you to type.' : 'It\'ll come back as boxes.') + '</p>';
     var r = document.createElement('div');

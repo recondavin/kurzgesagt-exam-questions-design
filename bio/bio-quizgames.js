@@ -67,7 +67,7 @@
   // What you said, the answer (not when the options show it already, marked green) and why.
   function answer(item, mine, shown) {
     return (mine ? '<p class="tb-mine">' + esc(mine) + '</p>' : '') +
-      (shown ? '' : '<p class="tb-ans"><span>Answer</span>' + esc(item.c.right) + '</p>') + window.BioBoard.why(item.c);
+      (shown ? '' : '<p class="tb-ans"><span>Right answer</span>' + esc(item.c.right) + '</p>') + window.BioBoard.why(item.c);
   }
   // The board's stamp slams on; it thuds as it lands, and a wrong one shakes the card.
   function stamp(ok, text, cls) { return BB.stamp(ok, text, 0, cls); }

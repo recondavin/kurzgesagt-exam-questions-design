@@ -569,7 +569,7 @@
   function back(ok, mine, item, stampText, wedgeCh) {
     return '<p class="tb-backq">' + esc(plain(item.text)) + '</p>' + stamp(ok, stampText, wedgeCh) +
       (mine ? '<p class="tb-mine">' + esc(mine) + '</p>' : '') +
-      '<p class="tb-ans"><span>Answer</span>' + esc(item.c.right) + '</p>' + whyHtml(item.c);
+      '<p class="tb-ans"><span>Right answer</span>' + esc(item.c.right) + '</p>' + whyHtml(item.c);
   }
   // The memory card every game shows after an answer: the why with its key words highlighted, like a
   // highlighter in a textbook, then a sticky note with a short way to remember it ("keys" and "hook" in
@@ -585,7 +585,7 @@
       from = m[1];
     });
     html += esc(why.slice(from));
-    return '<p class="tb-why"><span>Why</span>' + html + '</p>' +
+    return '<p class="tb-why"><span>In more detail</span>' + html + '</p>' +
       (c.hook ? '<p class="tb-hook"><span>Remember it</span>' + esc(c.hook) + '</p>' : '');
   }
   function typedQuestion(ch, why, given) {

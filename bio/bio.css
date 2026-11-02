@@ -314,8 +314,17 @@ button { font: inherit; }
 .tb-stamp.is-ok { border-color: #58CC02; background: #D7FFB8; color: #2B6A00; }
 .tb-stamp.is-no { border-color: #FF4B4B; background: #FFDFE0; color: #B3261E; }
 .tb-mine { margin: 0; color: #5B6B80; font: 700 19px/1.4 Nunito, sans-serif; }
-.tb-ans { margin: 0; color: #13294A; font: 800 26px/1.3 Nunito, sans-serif; }
-.tb-ans span { display: block; color: #5B6B80; font: 800 15px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+/* The right answer gets the attention: a green box with a tick that pops in after the stamp, then the more detailed
+   answer (the why) rises in under it, then the sticky note. A wrong answer you gave is crossed out above it. */
+.tb-ans { position: relative; margin: 4px 0 0; padding: 14px 18px 14px 66px; border: 3px solid #58CC02; border-radius: 16px; background: #E9F9DC; color: #18420A; font: 900 28px/1.25 Nunito, sans-serif; animation: tbAns .55s cubic-bezier(.3, 1.6, .5, 1) .3s both; }
+.tb-ans::before { content: ""; position: absolute; left: 16px; top: 50%; width: 36px; height: 36px; margin-top: -18px; border-radius: 50%; background: #58CC02 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 22px no-repeat; }
+.tb-ans span { display: block; margin-bottom: 2px; color: #3C7A0E; font: 800 14px Nunito, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.tb-ans ~ .tb-why { animation: tbUp .45s ease .85s both; }
+.tb-ans ~ .tb-hook { animation-delay: 1.3s; }
+.tb-stamp.is-no ~ .tb-mine { justify-self: start; align-self: flex-start; width: fit-content; padding: 5px 12px; border-radius: 10px; background: #FDECEC; color: #B3261E; text-decoration: line-through; text-decoration-thickness: 2px; }
+@keyframes tbAns { 0% { opacity: 0; transform: scale(.82); } 60% { opacity: 1; transform: scale(1.05); } 100% { opacity: 1; transform: none; } }
+@keyframes tbUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .tb-ans, .tb-ans ~ .tb-why { animation: none; } }
 .tb-why { margin: 0; color: #5B6B80; font: 700 19px/1.4 Nunito, sans-serif; }
 /* When the question comes back (the memory the games share with Exam drill). */
 .tb-later { margin: 0; color: #5B6B80; font: 800 15px Nunito, sans-serif; }
@@ -382,7 +391,8 @@ button { font: inherit; }
   .tb-opt { padding: 13px 15px; font-size: 17px; }
   .tb-text { font-size: 18px; }
   .tb-card .tb-btn { padding: 12px 22px; font-size: 18px; }
-  .tb-ans { font-size: 20px; }
+  .tb-ans { padding: 12px 14px 12px 56px; font-size: 22px; }
+  .tb-ans::before { left: 13px; width: 30px; height: 30px; margin-top: -15px; background-size: 18px; }
   .tb-why, .tb-mine { font-size: 16px; }
   .tb-card .tb-why { padding: 12px 14px; font-size: 18px; }
   .tb-hook { margin: 16px 4px 4px; padding: 15px 15px 13px; font-size: 17px; }
