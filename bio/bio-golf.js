@@ -1604,6 +1604,8 @@
     if (e.target.closest('[data-mg-look]')) { look(); return; }
     if (e.target.closest('[data-mg-retake]')) { retake(); return; }
     if (e.target.closest('[data-mg-keep]') && A.phase === 'after') { row(''); say('<b>Not in.</b>'); after(true, 500); return; }
+    // On a phone a tap on the answer's sheet puts it away.
+    if (A.phone && e.target.closest('.mg-ask.is-done')) { hideAsk(); return; }
     // A tap on the game: on with his question, or the rest of a roll at 3x.
     if (!e.target.closest('[data-ar-stage]') || e.target.closest('button')) return;
     if (A.phase === 'him' && A.then) { var go2 = A.then; A.then = null; go2(); return; }

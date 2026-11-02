@@ -1110,8 +1110,9 @@
     window.dispatchEvent(new Event('resize'));
     K.playing(true);
     setup3d(q('[data-pl-canvas]'));
+    // The camera comes down onto the table along its own line (no swing round).
     tableView();
-    A.camPos.copy(A.goalPos).add(new TH.Vector3(0, 8, 6));
+    A.camPos.copy(A.goalPos).sub(A.goalLook).multiplyScalar(1.45).add(A.goalLook);
     A.camLook.copy(A.goalLook);
     A.camSpeed = 1.8;
     placeBalls(A.st.p, A.st.on, null);
@@ -1355,6 +1356,8 @@
     if (e.target.closest('[data-pl-view]')) { toggleView(); return; }
     if (e.target.closest('[data-pl-retake]')) { retake(); return; }
     if (e.target.closest('[data-pl-keep]') && A.phase === 'after') { row(''); keepShot(A.verdict, A.why); return; }
+    // On a phone a tap on the answer's sheet puts it away.
+    if (A.phone && e.target.closest('.mg-ask.is-done')) { hideAsk(); return; }
     // A tap on the game: on with his question, or the rest of a shot at 3x.
     if (!e.target.closest('[data-ar-stage]') || e.target.closest('button')) return;
     if (A.phase === 'him' && A.then) { var go2 = A.then; A.then = null; go2(); return; }
