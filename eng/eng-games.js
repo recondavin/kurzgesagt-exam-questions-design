@@ -252,6 +252,9 @@
   var LIST = [['which', 'Whose moment?', 'A key moment: which text is it from?', function () { return true; }, whichOpen],
     // Penalty shootout: off for now (the user: "scrap penalty shootout for now please"); english.html doesn't load
     // eng/eng-penalty.js, so this stays hidden. Load it again to bring it back.
+    // Biology's Mini Golf and Pool with English questions (eng-golf.html, eng-pool.html, eng/eng-deck.js).
+    ['golf', 'Mini Golf', 'Five holes against the examiner, a question before every putt.', function () { return true; }, function () { location.href = 'eng-golf.html'; }],
+    ['pool', 'Pool', 'Pot your four, then the black: a question before every shot.', function () { return true; }, function () { location.href = 'eng-pool.html'; }],
     ['penalty', 'Penalty shootout', 'Five kicks each against the examiner.', function () { return !!window.PenaltyShootout; }, penaltyOpen],
     ['upgrade', 'Upgrade it', 'Plain words in, exam words out.', function () { return (D.comparative.upgrades || []).length >= 8; }, upOpen],
     ['pic', 'Picture it', 'A real picture: which key moment?', function () { return (D.images || []).filter(function (p) { return p.moment; }).length >= 4; }, picOpen],

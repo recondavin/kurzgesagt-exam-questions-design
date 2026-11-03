@@ -19,10 +19,15 @@
   var K = window.ExamAnswerMode && window.ExamAnswerMode.kit, BK = window.BioKit;
   if (!K || !BK) return;
   var esc = BK.esc, shuffle = BK.shuffle, pick = BK.pick, body = BK.body, buttons = BK.buttons;
-  var CH = [28, 29, 30, 31, 32];
-  var NAME = { 28: 'Breathing', 29: 'Urinary system', 30: 'Digestion', 31: 'Circulation', 32: 'Immunity' };
+  // Another subject can give the games its own questions (the user, of English: "do it in golf and pool that we ALREADY
+  // BUILT"): window.BoardDeck, set before this file loads, with five slots under the same keys (28-32, so the golf
+  // holes and the pool picker keep working), their names and colours, its items, and where its memory is kept.
+  var DECK = window.BoardDeck || null;
+  var CH = DECK ? DECK.chapters : [28, 29, 30, 31, 32];
+  var NAME = DECK ? DECK.names : { 28: 'Breathing', 29: 'Urinary system', 30: 'Digestion', 31: 'Circulation', 32: 'Immunity' };
   // The chapters' colours: never green or red, which mean right and wrong.
-  var COL = { 28: '#1CB0F6', 29: '#FFC800', 30: '#FF9600', 31: '#CE82FF', 32: '#2BD4BD' };
+  var COL = DECK ? DECK.colours : { 28: '#1CB0F6', 29: '#FFC800', 30: '#FF9600', 31: '#CE82FF', 32: '#2BD4BD' };
+  var MEMORY = DECK ? DECK.memory : 'bio-drill';
   var N = 30, STEP = 120, MAX_RUN = 3;
   // A question that needs the paper (its diagram, graph, table, an earlier part, or a letter on a diagram: "(B)", "X",
   // "organ A") can't be asked on its own. B and T cells and vitamin letters aren't diagram letters.
@@ -94,6 +99,11 @@
   function pools() {
     var P = {};
     CH.forEach(function (ch) { P[ch] = { mc: [], typed: [], at: 0, tat: 0 }; });
+    if (DECK) {
+      DECK.items().forEach(function (it) { if (P[it.ch]) P[it.ch].mc.push(it); });
+      CH.forEach(function (ch) { P[ch].mc = shuffle(P[ch].mc); });
+      return P;
+    }
     CH.forEach(function (src) {
       var Q = ((window.BioQuestions || {})[src] || {}).questions || [], C = (window.BioChecks || {})[src] || {};
       Q.forEach(function (q) {
@@ -863,7 +873,7 @@
   // Typed with full marks: learnt, and it comes last. A question that can't be typed is learnt once it's right.
   var LATER = { box: 3, type: 5 };
   function memKey(item) { return 'e' + item.src + ':' + item.qid + ':' + item.k; }
-  function memLoad() { try { return JSON.parse(K.store('bio-drill') || '{}') || {}; } catch (e) { return {}; } }
+  function memLoad() { try { return JSON.parse(K.store(MEMORY) || '{}') || {}; } catch (e) { return {}; } }
   function typeable(P, item) {
     var key = memKey(item);
     return (P[item.ch] ? P[item.ch].typed : []).filter(function (t) { return memKey(t) === key; })[0] || null;
@@ -912,7 +922,7 @@
     var st = memLoad(), was = st[id] && st[id].s;
     var s = !ok ? 'box' : typed || was === 'done' || !canType ? 'done' : 'type';
     st[id] = { s: s, t: Date.now() };
-    K.store('bio-drill', JSON.stringify(st));
+    K.store(MEMORY, JSON.stringify(st));
     return s === 'done' ? 'Learnt.' : s === 'type' ? 'It\'ll come back for you to type.' : 'It\'ll come back.';
   }
   // The other games (Match pairs, Spot the mistake, Label sprint, Don't Say It) can't be typed later, but what you miss

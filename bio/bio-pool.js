@@ -21,6 +21,8 @@
   if (!K || !BK || !BB || !BB.pools) return;
   var esc = BK.esc, shuffle = BK.shuffle, pick = BK.pick;
   var CH = BB.chapters, NAME = BB.names, COL = BB.colours, INK = '#13294A';
+  // Wins and bests are kept per subject (bio-golf-best, eng-golf-best...).
+  var PRE = (window.BoardDeck && window.BoardDeck.prefix) || 'bio-';
   var GRASS = '#74C043', GRASS_DK = '#4E9A2E', SOIL = '#D9A066', SOIL2 = '#BF844D';
   var BLUE = '#1CB0F6', ORANGE = '#FF9600';
   var A = null;
@@ -1081,7 +1083,7 @@
   }
   function openPool() {
     if (A) dispose3d();
-    var c = host(), wins = +(K.store('bio-pool-wins') || 0), best = K.store('bio-pool-best');
+    var c = host(), wins = +(K.store(PRE + 'pool-wins') || 0), best = K.store(PRE + 'pool-best');
     A = { card: c, pools: BB.pools(), right: 0, asked: 0, qn: 0, mulligans: 0, shots: 0, trash: [], mood: 'happy', held: [] };
     K.gameHud(A.card, 0, '');
     // One line of rules (it was 98 words); the rest you find out as you play.
@@ -1090,7 +1092,7 @@
       (wins ? '<p class="mg-best">Games won: <b class="num">' + wins + '</b>' + (best ? ' · Fastest win: <b class="num">' + best + '</b> shots' : '') + '</p>' : '') +
       '<p class="pl-pick">Questions from:</p><div class="dsi-chs pl-chs">' + CH.map(function (ch) {
         return '<button type="button" class="tb-pick" data-pl-ch="' + ch + '" style="--c:' + COL[ch] + '"><span class="tb-pick__ch">' + esc(NAME[ch]) + '</span></button>';
-      }).join('') + '<button type="button" class="tb-pick" data-pl-ch="all" style="--c:#F1F7FB"><span class="tb-pick__ch">All chapters</span></button></div></div>',
+      }).join('') + '<button type="button" class="tb-pick" data-pl-ch="all" style="--c:#F1F7FB"><span class="tb-pick__ch">' + esc((window.BoardDeck && window.BoardDeck.all) || 'All chapters') + '</span></button></div></div>',
     [['more', 'data-am-keep', 'Close']]);
     K.mascot('happy', pick(SAY.start));
   }
@@ -1290,11 +1292,11 @@
   }
   // The end: a banner, then the card over the final table, with him reacting.
   function finish(won, why) {
-    var wins = +(K.store('bio-pool-wins') || 0) + (won ? 1 : 0), best = +(K.store('bio-pool-best') || 0);
+    var wins = +(K.store(PRE + 'pool-wins') || 0) + (won ? 1 : 0), best = +(K.store(PRE + 'pool-best') || 0);
     A.phase = 'over';
-    K.store('bio-pool-played', String(+(K.store('bio-pool-played') || 0) + 1));
-    if (won) K.store('bio-pool-wins', String(wins));
-    if (won && (!best || A.shots < best)) K.store('bio-pool-best', String(A.shots));
+    K.store(PRE + 'pool-played', String(+(K.store(PRE + 'pool-played') || 0) + 1));
+    if (won) K.store(PRE + 'pool-wins', String(wins));
+    if (won && (!best || A.shots < best)) K.store(PRE + 'pool-best', String(A.shots));
     K.playing(false);
     mood(won ? 'furious' : 'happy');
     hud();

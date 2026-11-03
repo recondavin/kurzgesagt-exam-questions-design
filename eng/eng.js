@@ -135,7 +135,7 @@
     var t = text(LT), learnt = learnStore();
     var list = t.moments.filter(function (m) { return LM === 'all' || (m.modes || []).indexOf(LM) >= 0; });
     var got = t.moments.filter(function (m) { return learnt[m.id]; }).length;
-    app.innerHTML = title('Learn the parts', '<button type="button" class="eng-btn eng-btn--quiet" data-eng-ltest aria-pressed="' + LTEST + '">' + (LTEST ? 'Show me everything' : 'Test me') + '</button>') +
+    app.innerHTML = title('Learn the parts', '<span class="eng-btns"><a class="eng-btn" href="eng-golf.html?story=' + LT + '">Mini Golf: ' + esc(text(LT).title) + '</a><a class="eng-btn" href="eng-pool.html?story=' + LT + '">Pool</a><button type="button" class="eng-btn eng-btn--quiet" data-eng-ltest aria-pressed="' + LTEST + '">' + (LTEST ? 'Show me everything' : 'Test me') + '</button></span>') +
       '<p class="eng-p">Every key moment is a chain: <b>what happens</b>, <b>what it shows</b>, and <b>what it leads to</b>. Learn the chains and you have your paragraphs.</p>' +
       '<div class="eb-choices">' + mine.map(function (x) { return '<button type="button" class="eng-chip" style="--c:' + COL[x] + '" data-eng-lt="' + x + '" aria-pressed="' + (x === LT) + '">' + esc(text(x).title) + '</button>'; }).join('') + '</div>' +
       '<div class="eb-choices">' + [['all', 'All moments']].concat(MODES.map(function (m) { return [m.id, m.short || m.name]; })).map(function (x) { return '<button type="button" class="eng-chip" ' + (MODE[x[0]] ? 'style="--c:' + COL[x[0]] + '" ' : '') + 'data-eng-lm="' + x[0] + '" aria-pressed="' + (LM === x[0]) + '">' + esc(x[1]) + '</button>'; }).join('') + '</div>' +
@@ -291,7 +291,8 @@
     var p = pics(id), hero = p.filter(function (x) { return x.hero; })[0], face = p.filter(function (x) { return x.kind === 'author'; })[0];
     app.innerHTML = '<div class="eng-hero" style="--c:' + COL[id] + '"><div><h1 class="eng-hero__t">' + esc(t.title) + '</h1>' +
         '<p class="eng-hero__a">' + (face ? '<img class="eng-hero__face" src="assets/eng/img/' + esc(face.file) + '" alt="' + esc(face.title) + '" title="' + esc(face.caption) + '">' : '') + esc(byline(t)) + (t.made ? ' · ' + esc(t.made) : '') + '</p>' +
-        '<p class="eng-p">' + esc(t.gist) + '</p><p class="eng-p"><b>Setting:</b> ' + esc(t.setting) + '</p></div>' +
+        '<p class="eng-p">' + esc(t.gist) + '</p><p class="eng-p"><b>Setting:</b> ' + esc(t.setting) + '</p>' +
+        '<p class="eng-btns"><a class="eng-btn" href="eng-golf.html?story=' + id + '">Play the story: Mini Golf</a><a class="eng-btn eng-btn--quiet" href="eng-pool.html?story=' + id + '">Pool</a></p></div>' +
         (hero ? '<figure><img src="assets/eng/img/' + esc(hero.file) + '" alt="' + esc(hero.title) + '"><figcaption>' + credit(hero) + '</figcaption></figure>' : '') + '</div>' +
       '<h2 class="eng-h2">Characters</h2><ul class="eng-people">' + t.people.map(function (c) { return '<li><b>' + esc(c.name) + '</b> ' + esc(c.who) + '</li>'; }).join('') + '</ul>' +
       '<h2 class="eng-h2">The story in ' + t.moments.length + ' key moments</h2>' +

@@ -29,6 +29,8 @@
   if (!K || !BK || !BB || !BB.pools) return;
   var esc = BK.esc, shuffle = BK.shuffle, pick = BK.pick;
   var CH = BB.chapters, NAME = BB.names, COL = BB.colours, INK = '#13294A';
+  // Wins and bests are kept per subject (bio-golf-best, eng-golf-best...).
+  var PRE = (window.BoardDeck && window.BoardDeck.prefix) || 'bio-';
   var SKY = '#CDEBFA', GRASS = '#74C043', GRASS_DK = '#4E9A2E', SOIL = '#D9A066', SOIL2 = '#BF844D', HIS = '#8FA3BD';
   var A = null;
   function live() { return A && A.card.isConnected; }
@@ -67,6 +69,8 @@
       outline: [[-3.5, 0], [3.5, 0], [5, 1.5], [5, 20.5], [3.5, 22], [-3.5, 22], [-5, 20.5], [-5, 1.5]],
       cells: [[-3.4, 6.5, 3.4, 6.5, 1, 4.2, 0], [3.4, 11.5, -3.4, 11.5, 1.1, 5, 0.3], [-3.4, 15.6, 3.4, 15.6, 1, 3.6, 0.6], [0, 18.2, 0, 18.2, 0.8, 1, 0]] }
   ];
+  // Another subject names the holes its own way (the shapes stay).
+  if (window.BoardDeck && window.BoardDeck.holes) HOLES.forEach(function (h, k) { if (window.BoardDeck.holes[k]) h.name = window.BoardDeck.holes[k]; });
   // The walls (flat: ax, ay, bx, by for each), anticlockwise round the outline so the green is on their left, and the
   // hole's box.
   function prep(h) {
@@ -1255,11 +1259,11 @@
     var c = host();
     A = { card: c, pools: BB.pools(), right: 0, asked: 0, qn: 0, mulligans: 0, strokes: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], holed: [[], []], hole: 0, trash: [], pos: [[0, 0], [0, 0]], on: [false, false], drop: [0, 0], who: 0, mood: 'happy', held: [] };
     K.gameHud(A.card, 0, '');
-    var best = K.store('bio-golf-best');
+    var best = K.store(PRE + 'golf-best');
     show('<div class="am-games__end mg-start"><div class="ar-face" aria-hidden="true">' + K.face + '</div><h3 class="am-games__title">Mini Golf</h3>' +
       '<p class="am-games__sub">Five holes against the examiner. Answer right to putt; get it wrong and the stroke\'s gone. Fewest strokes wins.</p>' +
       '<ol class="mg-holes">' + HOLES.map(function (h, i) {
-        var b = K.store('bio-golf-hole-' + (i + 1));
+        var b = K.store(PRE + 'golf-hole-' + (i + 1));
         return '<li style="--c:' + COL[h.ch] + '"><b>' + (i + 1) + '. ' + esc(h.name) + '</b><span>' + esc(NAME[h.ch]) + ' · Par ' + h.par + (b ? ' · Best ' + b : '') + '</span></li>';
       }).join('') + '</ol>' + (best ? '<p class="mg-best">Your best round: <b class="num">' + best + '</b> (par ' + parAll() + ')</p>' : '') + '</div>',
     [['more', 'data-am-keep', 'Close'], ['ok', 'data-mg-go', 'Tee off']]);
@@ -1534,9 +1538,9 @@
   }
   // Between holes: the whole scorecard, in the middle, over the hole seen from above.
   function holeDone() {
-    var i = A.hole, you = A.strokes[0][i], him = A.strokes[1][i], best = +(K.store('bio-golf-hole-' + (i + 1)) || 0);
+    var i = A.hole, you = A.strokes[0][i], him = A.strokes[1][i], best = +(K.store(PRE + 'golf-hole-' + (i + 1)) || 0);
     A.phase = 'between';
-    if (!best || you < best) K.store('bio-golf-hole-' + (i + 1), String(you));
+    if (!best || you < best) K.store(PRE + 'golf-hole-' + (i + 1), String(you));
     hud();
     A.camSpeed = 1.6;
     overview(A.h);
@@ -1549,10 +1553,10 @@
   }
   // The end: the card over the last hole, him reacting.
   function finish() {
-    var you = total(0), him = total(1), won = you < him, best = +(K.store('bio-golf-best') || 0), wins = +(K.store('bio-golf-wins') || 0) + (won ? 1 : 0);
+    var you = total(0), him = total(1), won = you < him, best = +(K.store(PRE + 'golf-best') || 0), wins = +(K.store(PRE + 'golf-wins') || 0) + (won ? 1 : 0);
     A.phase = 'over';
-    if (!best || you < best) K.store('bio-golf-best', String(you));
-    if (won) K.store('bio-golf-wins', String(wins));
+    if (!best || you < best) K.store(PRE + 'golf-best', String(you));
+    if (won) K.store(PRE + 'golf-wins', String(wins));
     K.playing(false);
     q('[data-ar-stage]').classList.add('is-over');
     mood(won ? 'furious' : you === him ? 'angry' : 'happy');
