@@ -119,34 +119,11 @@ a.eng-card:focus-visible, .eng-btn:focus-visible, .eng-chip:focus-visible, .eng-
 @media (max-width: 700px) { .eng-q { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- the essay builder ---------- */
-.eb { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; align-items: start; }
-@media (max-width: 1100px) { .eb { grid-template-columns: minmax(0, 1fr); } }
-.eb-steps { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; padding: 0; list-style: none; }
-.eb-steps button { height: 34px; padding: 0 14px; border: 0; border-radius: 999px; background: var(--surface); color: var(--muted); font: 800 14px Nunito, sans-serif; cursor: pointer; }
-.eb-steps button[aria-current="step"] { background: #fff; color: #13212A; }
-.eb-steps button.is-done { color: #B9F28F; }
-.eb-panel { padding: 20px; border-radius: 18px; background: var(--surface); }
-.eb-panel h2 { margin: 0 0 6px; color: #fff; font: 600 22px/1.2 Fredoka, Nunito, sans-serif; }
-.eb-panel > p { margin: 0 0 14px; color: var(--muted); font: 700 15.5px/1.5 Nunito, sans-serif; }
-.eb-field { margin: 0 0 16px; }
-.eb-field label { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; color: #fff; font: 800 15.5px Nunito, sans-serif; }
-.eb-field label .eb-k { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; color: #1E2A3A; font: 700 17px/1 Fredoka, Nunito, sans-serif; }
-.eb-field textarea, .eb-field input { width: 100%; box-sizing: border-box; padding: 12px 14px; border: 2px solid var(--control); border-radius: 12px; background: #0F1A1F; color: #fff; font: 600 16.5px/1.5 Lexend, Nunito, sans-serif; resize: vertical; }
-.eb-field textarea:focus, .eb-field input:focus { outline: 0; border-color: #6BC5F8; }
 .eb-starters { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; }
 .eb-starters .eng-chip { min-height: 30px; padding: 0 11px; font-size: 13.5px; }
-.eb-help { margin: 8px 0 0; padding: 10px 12px; border-radius: 12px; background: var(--raised); color: var(--muted); font: 700 14px/1.5 Nunito, sans-serif; }
-.eb-help b { color: #fff; }
-.eb-help ul { margin: 6px 0 0; padding-left: 18px; }
-.eb-help li { margin: 0 0 4px; }
 .eb-choices { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
 .eb-choices .eng-chip[aria-pressed="true"] { background: var(--c, #fff); color: #13212A; }
 .eb-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 18px; }
-.eb-preview { position: sticky; top: 96px; max-height: calc(100vh - 120px); overflow: auto; }
-.eb-preview .eng-paper p { margin: 0 0 34px; }
-.eb-preview .eng-paper p:empty { display: none; }
-.eb-preview .eng-paper .eb-ghost { color: #A49B83; }
-.eb-count { display: flex; justify-content: space-between; margin: 8px 2px 0; color: var(--faint); font: 800 13.5px Nunito, sans-serif; }
 .eb-checks { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .eb-checks li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 10px; align-items: start; padding: 10px 12px; border-radius: 12px; background: var(--raised); color: var(--muted); font: 700 15px/1.45 Nunito, sans-serif; }
 .eb-checks li b { color: #fff; }
@@ -187,12 +164,6 @@ a.eng-card:focus-visible, .eng-btn:focus-visible, .eng-chip:focus-visible, .eng-
 @media (prefers-reduced-motion: reduce) { .eg-stamp, .eg-ans, .eg-why, .eg-fix { animation: none; } }
 /* Level up counts "marks" for Geography's SRPs; the comparative is marked as a whole, so the meter and "+2 marks" go. */
 body.eng .am-level__meter, body.eng .am-level .am-games__note > b:first-child { display: none; }
-.eb-qs { display: grid; gap: 6px; max-height: 300px; margin: 0 0 16px; overflow: auto; }
-.eb-q { padding: 10px 12px; border: 2px solid transparent; border-radius: 12px; background: var(--raised); color: var(--muted); font: 700 14.5px/1.45 Nunito, sans-serif; text-align: left; cursor: pointer; }
-.eb-q b { color: #fff; }
-.eb-q:hover { border-color: var(--faint); }
-.eb-q.is-on { border-color: #6BC5F8; color: #fff; }
-.eb-preview .eng-paper .eb-qtext { margin: 0 0 18px; padding-bottom: 12px; border-bottom: 2px solid var(--paper-rule); color: #5A6475; font: 700 14.5px/1.5 Nunito, sans-serif; }
 .eng-note--warn { background: #FFD3D3; color: #4A1212; transform: rotate(.8deg); }
 .eng-note--warn span { color: #9B2C2C; }
 .eng-crit__c { grid-column: 2; margin-top: 6px !important; color: #fff !important; }
@@ -209,11 +180,6 @@ body.eng .am-level__meter, body.eng .am-level .am-games__note > b:first-child { 
   .eng-pick__a { font-size: 13px; }
   .eng-pick__init { font-size: 40px; }
 }
-/* In the builder the question sits above the rules; the answer is written on them (.eb-lines). */
-.eb-preview .eng-paper { background-image: none; }
-.eb-lines { margin: 0 -26px; padding: 0 26px; background-image: linear-gradient(transparent 33px, var(--paper-rule) 33px); background-size: 100% 34px; background-position: 0 -9px; }
-.eb-lines p:last-child { margin-bottom: 0 !important; }
-.eb-preview .eng-paper .eb-part { position: relative; top: 2px; margin: 0; color: #7A6512; font: 800 13px/34px Nunito, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
 
 /* Paper 2 at a glance (official 2027 arrangements) and a mode's official wording. */
 .eng-sec { position: relative; padding-top: 18px; }
@@ -291,8 +257,125 @@ body.eng .am-level__meter, body.eng .am-level .am-games__note > b:first-child { 
 .eng-go__pace b { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1; border-radius: 14px; color: #13212A; font: 700 calc(var(--pw) * .085)/1 Fredoka, Nunito, sans-serif; box-shadow: 0 4px 0 rgba(0, 0, 0, .2); }
 .eng-go__pace small { margin-top: 4px; font: 800 calc(var(--pw) * .021)/1 Nunito, sans-serif; letter-spacing: .03em; text-transform: uppercase; }
 /* The builder coming in under it. */
-.eb-enter .eb-steps { animation: ebUp .45s .04s both cubic-bezier(.2, .8, .3, 1); }
-.eb-enter .eb-panel { animation: ebUp .5s .12s both cubic-bezier(.2, .8, .3, 1); }
-.eb-enter .eb-preview { animation: ebIn .6s .2s both cubic-bezier(.2, .8, .3, 1); }
 @keyframes ebUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @keyframes ebIn { from { opacity: 0; transform: translateX(26px) rotate(1.2deg); } to { opacity: 1; transform: none; } }
+
+/* ---------- the essay builder: a writing desk (eng.js sheetHtml, coachHtml) ---------- */
+.ebd-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; margin: 0 0 14px; }
+.ebd-top .cv-h1 { margin: 0; }
+.ebd-stamps { display: flex; align-items: center; gap: 6px; }
+.ebd-stamps i { display: grid; place-items: center; width: 30px; height: 30px; border: 2px dashed rgba(255, 255, 255, .25); border-radius: 50%; color: var(--faint); font: 700 13px/1 Fredoka, Nunito, sans-serif; font-style: normal; }
+.ebd-stamps i.is-ok { border: 2px solid #58CC02; background: #58CC02; color: #fff; }
+.ebd-stamps i.is-new { animation: ebdStamp .45s cubic-bezier(.3, 1.5, .5, 1) both; }
+.ebd-stamps span { margin-left: 6px; color: var(--muted); font: 800 14px Nunito, sans-serif; white-space: nowrap; }
+.ebd-stamps span b { color: #fff; font: 600 20px Fredoka, Nunito, sans-serif; }
+@keyframes ebdStamp { from { transform: scale(1.9) rotate(-18deg); opacity: 0; } to { transform: none; opacity: 1; } }
+/* The steps as a track: done ones ticked, yours big. */
+.ebd-track { display: flex; gap: 0; margin: 0 0 18px; padding: 4px 2px 8px; list-style: none; overflow-x: auto; scrollbar-width: thin; }
+.ebd-track li { position: relative; flex: 1 0 auto; min-width: 74px; }
+.ebd-track li::before { content: ""; position: absolute; top: 17px; left: 0; right: 0; height: 3px; background: rgba(255, 255, 255, .12); }
+.ebd-track li:first-child::before { left: 50%; } .ebd-track li:last-child::before { right: 50%; }
+.ebd-track li.is-done::before { background: #58CC02; }
+.ebd-track button { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; width: 100%; padding: 0 4px; border: 0; background: none; color: var(--faint); font: 800 12.5px/1.2 Nunito, sans-serif; cursor: pointer; }
+.ebd-track i { display: grid; place-items: center; width: 34px; height: 34px; border: 3px solid var(--ground); border-radius: 50%; background: var(--surface); color: var(--muted); font: 700 14px/1 Fredoka, Nunito, sans-serif; font-style: normal; transition: transform .2s; }
+.ebd-track .is-done i { background: #58CC02; color: #fff; }
+.ebd-track .is-on i { width: 40px; height: 40px; margin-top: -3px; background: #fff; color: #13212A; }
+.ebd-track .is-on button { color: #fff; }
+.ebd-track button:hover i { transform: scale(1.1); }
+.ebd { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(300px, 1fr); gap: 22px; align-items: start; }
+/* The desk, and the sheet on it. */
+.ebd-desk { padding: 26px 26px 18px; border-radius: 22px; background: #8A5530 url(../assets/cartoon-desk.svg) center / cover; box-shadow: inset 0 0 0 3px rgba(0, 0, 0, .12); }
+.ebd-sheet { position: relative; padding: 20px 26px 14px 72px; border-radius: 6px 6px 18px 6px; background: var(--paper); color: var(--paper-ink); box-shadow: 0 8px 0 rgba(0, 0, 0, .22); }
+.ebd-sheet::before { content: ""; position: absolute; top: 0; bottom: 0; left: 56px; width: 2px; background: #EFA9A9; }
+.ebd-q { position: relative; margin: 0 0 18px -40px; padding: 14px 16px 12px; border-radius: 4px; background: #fff; box-shadow: 0 2px 0 rgba(0, 0, 0, .12), 0 0 0 1px #E8E1CF; transform: rotate(-.5deg); cursor: pointer; }
+.ebd-q::before { content: ""; position: absolute; top: -9px; left: 50%; width: 80px; height: 18px; margin-left: -40px; background: rgba(255, 232, 150, .75); transform: rotate(1.5deg); }
+.ebd-q.is-on { cursor: default; box-shadow: 0 2px 0 rgba(0, 0, 0, .12), 0 0 0 3px var(--c, #6BC5F8); }
+.ebd-q__tab { display: inline-block; margin-bottom: 6px; padding: 2px 10px; border-radius: 999px; background: var(--c); color: #13212A; font: 800 12px/1.6 Nunito, sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+.ebd-q p { margin: 0; color: #2A3342; font: 700 15.5px/1.5 Nunito, sans-serif; }
+.ebd-note { position: relative; width: min(100%, 440px); margin: 0 0 18px auto; padding: 10px 14px 12px; border-radius: 2px 2px 14px 2px; background: var(--note); color: var(--note-ink); box-shadow: 0 3px 0 rgba(0, 0, 0, .18); transform: rotate(1.2deg); }
+.ebd-note span { display: block; color: #7A6512; font: 800 11.5px Nunito, sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+.ebd-note p { margin: 2px 0 0; font: 700 21px/1.25 Caveat, cursive; cursor: pointer; }
+.ebd-note p i { color: #9A8742; }
+.ebd-note textarea { width: 100%; margin-top: 2px; padding: 0; border: 0; background: transparent; color: var(--note-ink); font: 700 22px/1.25 Caveat, cursive; resize: none; outline: 0; }
+.ebd-note textarea::placeholder { color: #9A8742; }
+/* The answer, on the rules (34px lines; each rule just under the writing, as on .eng-paper). */
+.ebd-lines { margin: 0 -26px 0 -72px; padding: 0 26px 0 72px; background-image: linear-gradient(transparent 33px, var(--paper-rule) 33px); background-size: 100% 34px; background-position: 0 -9px; font: 600 18px/34px Lexend, Nunito, sans-serif; }
+.ebd-lines p { margin: 0; }
+.ebd-ghost { color: #A49B83; }
+.ebd-part { position: relative; top: 2px; color: #7A6512; font: 800 13px/34px Nunito, sans-serif !important; letter-spacing: .06em; text-transform: uppercase; }
+.ebd-block { position: relative; margin: 0 -10px 34px; padding: 0 10px; border-radius: 6px; }
+.ebd-block[role="button"] { cursor: pointer; }
+.ebd-block[role="button"]:hover, .ebd-block[role="button"]:focus-visible { background: rgba(255, 228, 92, .18); outline: 0; }
+.ebd-block.is-on { background: rgba(107, 197, 248, .1); box-shadow: inset 3px 0 0 #6BC5F8; }
+.ebd-label { display: block; color: #8C8166; font: 800 12px/34px Nunito, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.ebd-line { position: relative; display: block; }
+.ebd-line textarea { display: block; width: 100%; height: 34px; margin: 0; padding: 0; border: 0; background: transparent; color: var(--paper-ink); font: 600 18px/34px Lexend, Nunito, sans-serif; resize: none; overflow: hidden; outline: 0; caret-color: #2457C5; }
+.ebd-line textarea::placeholder { color: #B3A98F; }
+.ebd-line textarea:focus::placeholder { color: #C9C0A8; }
+.ebd-k { position: absolute; top: 5px; left: -48px; display: grid; place-items: center; width: 26px; height: 24px; border-radius: 6px; color: #13212A; font: 700 14px/1 Fredoka, Nunito, sans-serif; box-shadow: 0 2px 0 rgba(0, 0, 0, .15); }
+.ebd-line:focus-within .ebd-k { transform: scale(1.15); }
+.ebd-count { display: flex; justify-content: space-between; gap: 10px; margin: 6px 0 0; color: #8C8166; font: 800 13px Nunito, sans-serif; }
+/* Check: the examiner's red pen. */
+.ebd-red { display: block; color: #D6312B; font: 700 22px/34px Caveat, cursive; transform: rotate(-1deg); transform-origin: left; animation: ebdPen .5s both; }
+.ebd-red.is-ok { color: #C0392B; }
+.ebd-stamp { position: absolute; top: 16px; right: 18px; z-index: 1; display: grid; place-items: center; width: 92px; height: 92px; border: 3px solid #D6312B; border-radius: 50%; color: #D6312B; font: 700 22px/1 Caveat, cursive; text-align: center; transform: rotate(-12deg); animation: ebdStamp .5s .2s cubic-bezier(.3, 1.5, .5, 1) both; }
+.ebd-stamp b { font: 700 40px/.9 Caveat, cursive; }
+.ebd-stamp small { display: block; font: 700 16px/1 Caveat, cursive; }
+.ebd-sheet.is-marked .ebd-q { margin-right: 96px; }
+@keyframes ebdPen { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.ebd-desk .eb-nav { margin-top: 16px; }
+/* The coach. */
+.ebd-coach { position: sticky; top: 96px; max-height: calc(100vh - 112px); overflow: auto; padding: 16px; border-radius: 18px; background: var(--surface); scrollbar-width: thin; }
+.ebd-face { display: flex; align-items: flex-end; gap: 10px; margin: 0 0 14px; }
+.ebd-face > span { flex: 0 0 64px; width: 64px; height: 64px; }
+.ebd-face p { position: relative; flex: 1; margin: 0 0 6px; padding: 10px 13px; border-radius: 14px 14px 14px 4px; background: #fff; color: #13212A; font: 800 14.5px/1.4 Nunito, sans-serif; animation: ebUp .35s both; }
+.ebd-face p::before { content: ""; position: absolute; left: -7px; bottom: 8px; border: 7px solid transparent; border-right-color: #fff; border-left: 0; }
+.ebd-tile { display: flex; gap: 12px; align-items: flex-start; margin: 0 0 14px; }
+.ebd-tile > b { flex: 0 0 52px; display: grid; place-items: center; height: 52px; border-radius: 14px; color: #13212A; font: 700 28px/1 Fredoka, Nunito, sans-serif; box-shadow: 0 3px 0 rgba(0, 0, 0, .25); }
+.ebd-tile h3 { margin: 2px 0 4px; color: #fff; font: 600 19px/1.2 Fredoka, Nunito, sans-serif; }
+.ebd-tile p { margin: 0; color: var(--muted); font: 700 14.5px/1.45 Nunito, sans-serif; }
+.ebd-chips { margin: 0 0 14px; }
+.ebd-chips h4, .ebd-h, .ebd-notes h4 { margin: 0 0 8px; color: var(--faint); font: 800 12px Nunito, sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+.ebd-small { margin: -4px 0 12px; color: var(--muted); font: 700 14px/1.4 Nunito, sans-serif; }
+.ebd-count2 { margin: 4px 0 0; color: var(--faint); font: 800 14px Nunito, sans-serif; }
+.ebd-count2.is-ok { color: #8BE07A; }
+.ebd-slips { display: grid; gap: 10px; margin: 4px 0 14px; }
+.ebd-slip { position: relative; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; padding: 10px 12px 10px 16px; border: 0; border-left: 6px solid var(--c); border-radius: 4px 10px 10px 4px; background: var(--paper); color: #2A3342; text-align: left; cursor: pointer; transform: rotate(-.4deg); box-shadow: 0 3px 0 rgba(0, 0, 0, .25); transition: transform .15s; }
+.ebd-slip:nth-child(2n) { transform: rotate(.4deg); }
+.ebd-slip:hover { transform: translateY(-2px) rotate(0); }
+.ebd-slip.is-on { box-shadow: 0 3px 0 rgba(0, 0, 0, .25), 0 0 0 3px #fff; }
+.ebd-slip__y { color: #13212A; font: 600 18px/1 Fredoka, Nunito, sans-serif; }
+.ebd-slip__m { justify-self: end; color: #7A6512; font: 800 12px Nunito, sans-serif; }
+.ebd-slip__t { grid-column: 1 / -1; font: 700 13.5px/1.4 Nunito, sans-serif; }
+.ebd-own span { display: block; margin: 0 0 6px; color: var(--faint); font: 800 12px Nunito, sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+.ebd-own textarea { width: 100%; box-sizing: border-box; padding: 10px 12px; border: 2px solid var(--control); border-radius: 12px; background: #0F1A1F; color: #fff; font: 600 15px/1.45 Lexend, Nunito, sans-serif; resize: vertical; }
+.ebd-notes { margin: 0 0 12px; padding: 12px; border-radius: 14px; background: var(--raised); }
+.ebd-notes h4 { padding-bottom: 6px; border-bottom: 3px solid var(--c, rgba(255, 255, 255, .2)); color: #fff; }
+.ebd-notes ul { margin: 0 0 8px; padding-left: 18px; color: var(--muted); font: 700 14px/1.45 Nunito, sans-serif; }
+.ebd-notes li { margin: 0 0 4px; }
+.ebd-mo { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; align-items: start; margin-top: 10px; }
+.ebd-mo img { width: 76px; height: 50px; border-radius: 8px; object-fit: cover; }
+.ebd-mo__n { display: grid; place-items: center; width: 76px; height: 50px; border-radius: 8px; color: #13212A; font: 700 20px/1 Fredoka, Nunito, sans-serif; }
+.ebd-mo b { display: block; color: #fff; font: 800 14px/1.3 Nunito, sans-serif; }
+.ebd-mo small { display: block; color: var(--faint); font: 800 12px Nunito, sans-serif; }
+.ebd-mo p { margin: 2px 0 0; color: var(--muted); font: 700 13px/1.4 Nunito, sans-serif; }
+@media (max-width: 1000px) {
+  .ebd { grid-template-columns: minmax(0, 1fr); }
+  .ebd-coach { position: static; max-height: none; }
+}
+@media (max-width: 560px) {
+  .ebd-desk { padding: 12px 8px 12px; border-radius: 16px; }
+  .ebd-sheet { padding: 16px 14px 12px 44px; }
+  .ebd-sheet::before { left: 34px; }
+  .ebd-lines { margin: 0 -14px 0 -44px; padding: 0 14px 0 44px; font-size: 16.5px; }
+  .ebd-line textarea { font-size: 16.5px; }
+  .ebd-k { left: -30px; width: 22px; height: 22px; font-size: 12.5px; top: 6px; }
+  .ebd-q { margin-left: -24px; }
+  .ebd-stamps i { width: 26px; height: 26px; font-size: 12px; }
+  .ebd-stamp { width: 72px; height: 72px; top: 8px; right: 8px; } .ebd-stamp b { font-size: 30px; }
+  .ebd-sheet.is-marked .ebd-q { margin-right: 70px; }
+}
+/* The builder coming in under the opening animation. */
+.eb-enter .ebd-track { animation: ebUp .45s .04s both cubic-bezier(.2, .8, .3, 1); }
+.eb-enter .ebd-desk { animation: ebIn .6s .1s both cubic-bezier(.2, .8, .3, 1); }
+.eb-enter .ebd-coach { animation: ebUp .5s .22s both cubic-bezier(.2, .8, .3, 1); }
