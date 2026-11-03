@@ -377,7 +377,7 @@
     var na = words(essayParts('a').join(' ')), nb = words(essayParts('b').join(' '));
     var count = split() ? '(a) ' + na + ' words · (b) ' + nb + ' words' : nb + ' words';
     var aim = split() ? 'Aim for about 450 in (a) and 650 in (b)' : nb < 900 ? 'Aim for 1,000 to 1,300' : nb > 1500 ? 'Long: about 65 minutes in the exam' : 'A good length';
-    return '<div class="eng-paper">' + (e.q ? '<p class="eb-qtext">' + esc(e.q) + '</p>' : '') + out + '</div><div class="eb-count"><span>' + count + '</span><span>' + aim + '</span></div>';
+    return '<div class="eng-paper">' + (e.q ? '<p class="eb-qtext">' + esc(e.q) + '</p>' : '') + '<div class="eb-lines">' + out + '</div></div><div class="eb-count"><span>' + count + '</span><span>' + aim + '</span></div>';
   }
   // The checks: what a reader can see in the text, mapped to P, C, L and M. Not a grade: a list of things to fix.
   function checkHtml() {
