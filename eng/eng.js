@@ -27,16 +27,23 @@
   }
 
   // ---------- your three texts ----------
+  // You study three of the four, so it's always three: what's stored first, topped up in the texts' order (the home page
+  // showed one ticked text while every other page used the first three). Changing it is leaving one out (leaveOut).
   function chosen() {
-    var v = [];
-    try { v = JSON.parse(store('eng-texts') || '[]'); } catch (e) {}
-    v = v.filter(function (id) { return D.texts[id]; });
-    return v.length === 3 ? v : D.order.slice(0, 3);
+    var v = picks().slice(0, 3);
+    D.order.forEach(function (id) { if (v.length < 3 && v.indexOf(id) < 0) v.push(id); });
+    return v;
   }
-  // The texts picked so far (0 to 3), as stored.
   function picks() { var v = []; try { v = JSON.parse(store('eng-texts') || '[]'); } catch (e) {} return (Array.isArray(v) ? v : []).filter(function (id) { return D.texts[id]; }); }
-  function pickedExactly() { return picks().length === 3; }
   function setChosen(ids) { store('eng-texts', JSON.stringify(ids)); }
+  function leftOut() { var c = chosen(); return D.order.filter(function (id) { return c.indexOf(id) < 0; })[0]; }
+  // Leave this text out: the one left out until now comes in, in its place.
+  function leaveOut(id) {
+    var c = chosen(), back = leftOut();
+    if (c.indexOf(id) < 0) return;
+    c[c.indexOf(id)] = back;
+    setChosen(c);
+  }
 
   // ---------- the shell (bio-shell.css): sidebar, top bar ----------
   function link(href, label, active, extra) {
@@ -67,16 +74,18 @@
   function note(label, body) { return '<p class="eng-note"><span>' + esc(label) + '</span>' + esc(body) + '</p>'; }
 
   // ---------- home ----------
+  // A text: tap it to open its page; the button in its corner leaves it out (or, on the one left out, says so).
   function pickCard(id, on) {
     var t = text(id), p = pics(id).filter(function (x) { return x.hero; })[0] || pics(id)[0];
-    return '<button type="button" class="eng-pick' + (on ? ' is-on' : '') + '" style="--c:' + COL[id] + '" data-eng-pick="' + id + '" aria-pressed="' + on + '">' +
-      '<span class="eng-pick__img">' + (p ? '<img src="assets/eng/img/' + esc(p.file) + '" alt="" loading="lazy">' : '<span class="eng-pick__init">' + esc(t.title.charAt(0)) + '</span>') + '</span>' +
-      '<span class="eng-pick__body"><span class="eng-pick__t">' + esc(t.title) + '</span><span class="eng-pick__a">' + esc(t.author) + ' · ' + esc(t.kind) + '</span></span>' +
-      '<span class="eng-pick__tick" aria-hidden="true">✓</span></button>';
+    return '<div class="eng-pick' + (on ? ' is-on' : ' is-out') + '" style="--c:' + COL[id] + '">' +
+      '<a class="eng-pick__link" href="#text/' + id + '"><span class="eng-pick__img">' + (p ? '<img src="assets/eng/img/' + esc(p.file) + '" alt="" loading="lazy">' : '<span class="eng-pick__init">' + esc(t.title.charAt(0)) + '</span>') + '</span>' +
+      '<span class="eng-pick__body"><span class="eng-pick__t">' + esc(t.title) + '</span><span class="eng-pick__a">' + esc(t.author) + ' · ' + esc(t.kind) + '</span></span></a>' +
+      (on ? '<button type="button" class="eng-pick__tick" data-eng-out="' + id + '" title="Leave ' + esc(t.title) + ' out" aria-label="Studying ' + esc(t.title) + ': tap to leave it out instead">✓</button>'
+        : '<span class="eng-pick__off">Left out</span>') + '</div>';
   }
   function renderHome() {
     renderShell('home');
-    var mine = picks();
+    var mine = chosen();
     var pc = C.marks.criteria;
     app.innerHTML = title('Comparative Study') +
       '<h2 class="eng-h2">Your three texts</h2>' +
@@ -148,8 +157,7 @@
   }
 
   function pickedLine(mine) {
-    if (mine.length !== 3) return 'Pick <b>three</b>: ' + (3 - mine.length) + ' more to choose.';
-    return '<b>' + mine.map(function (id) { return esc(text(id).title); }).join(', ') + '</b>' +
+    return 'Tap a text to open it. Not studying one? Tap its ✓ to leave it out. Comparing <b>' + mine.map(function (id) { return esc(text(id).title); }).join(', ') + '</b>' +
       (mine.indexOf('othello') >= 0 ? '. Othello is your Shakespeare, so your single text must be another one.' : '. Your single text must be Othello, since a Shakespeare play is required at Higher Level.');
   }
   function pclmSeg(c) {
@@ -1039,13 +1047,13 @@
     if (document.body.classList.contains('sh-open') && (t.closest('.sh-link') || !t.closest('.sh-side'))) menu(false);
     var gb = t.closest('a[href^="#build"]');
     if (gb && ev.button === 0 && !ev.metaKey && !ev.ctrlKey && !ev.shiftKey && !ev.altKey && !/^#build/.test(location.hash)) { ev.preventDefault(); goBuild(gb); return; }
-    var pick = t.closest('[data-eng-pick]');
-    if (pick) {
-      var id = pick.getAttribute('data-eng-pick'), cur = picks();
-      if (cur.indexOf(id) >= 0) cur = cur.filter(function (x) { return x !== id; }); else if (cur.length < 3) cur.push(id); else { cur.shift(); cur.push(id); }
-      setChosen(cur);
-      if (K) K.sfx(cur.indexOf(id) >= 0 ? 'pop' : 'tick', 0.6);
+    var out = t.closest('[data-eng-out]');
+    if (out) {
+      var oid = out.getAttribute('data-eng-out'), back = leftOut();
+      leaveOut(oid);
+      if (K) K.sfx('pop', 0.5);
       renderHome();
+      toast(text(oid).title + ' left out: ' + text(back).title + ' is back in.');
       return;
     }
     var pin = t.closest('[data-eng-pin]'), scn = pin && pin.closest('[data-scene]');

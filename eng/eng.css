@@ -31,8 +31,12 @@ a.eng-card:focus-visible, .eng-btn:focus-visible, .eng-chip:focus-visible, .eng-
 .eng-btn[disabled] { opacity: .45; cursor: default; }
 
 /* ---------- the texts ---------- */
-.eng-pick { position: relative; display: flex; flex-direction: column; min-width: 0; padding: 0; border: 3px solid transparent; border-radius: 18px; background: var(--surface); color: #fff; text-align: left; cursor: pointer; overflow: hidden; }
+.eng-pick { position: relative; min-width: 0; border: 3px solid transparent; border-radius: 18px; background: var(--surface); color: #fff; overflow: hidden; transition: opacity .2s; }
+.eng-pick__link { display: flex; flex-direction: column; color: inherit; text-decoration: none; }
+.eng-pick__link:focus-visible { outline: 3px solid #FFE14D; outline-offset: -3px; }
 .eng-pick:hover { background: var(--raised); }
+.eng-pick.is-out { opacity: .55; }
+.eng-pick.is-out:hover { opacity: .85; }
 .eng-pick.is-on { border-color: #fff; }
 .eng-pick__img { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--c); }
 .eng-pick__img img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -40,7 +44,10 @@ a.eng-card:focus-visible, .eng-btn:focus-visible, .eng-chip:focus-visible, .eng-
 .eng-pick__body { padding: 12px 14px 14px; }
 .eng-pick__t { display: block; font: 600 19px/1.2 Fredoka, Nunito, sans-serif; }
 .eng-pick__a { display: block; margin-top: 3px; color: var(--muted); font: 700 14.5px Nunito, system-ui, sans-serif; }
-.eng-pick__tick { position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: rgba(19, 31, 36, .75); color: transparent; font: 800 19px/1 Nunito, sans-serif; }
+.eng-pick__tick { position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 0; border-radius: 50%; background: rgba(19, 31, 36, .75); color: transparent; font: 800 19px/1 Nunito, sans-serif; cursor: pointer; }
+.eng-pick__tick:hover { background: #FF6B6B !important; color: #fff !important; }
+.eng-pick__tick:hover::after { content: "Leave out"; position: absolute; top: 44px; right: 0; padding: 3px 8px; border-radius: 8px; background: #13212A; color: #fff; font: 800 12px Nunito, sans-serif; white-space: nowrap; }
+.eng-pick__off { position: absolute; top: 12px; right: 12px; padding: 4px 10px; border-radius: 999px; background: rgba(19, 31, 36, .85); color: #fff; font: 800 12.5px Nunito, sans-serif; }
 .eng-pick.is-on .eng-pick__tick { background: #fff; color: #13212A; box-shadow: 0 2px 0 rgba(0, 0, 0, .25); }
 .eng-picked { margin: 12px 0 0; color: var(--muted); font: 700 15.5px Nunito, system-ui, sans-serif; }
 .eng-picked b { color: #fff; }
