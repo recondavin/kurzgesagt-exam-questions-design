@@ -79,6 +79,7 @@
       '<div class="eng-grid eng-grid--4">' + D.order.map(function (id) { return pickCard(id, mine.indexOf(id) >= 0); }).join('') + '</div>' +
       '<p class="eng-picked" data-eng-picked>' + pickedLine(mine) + '</p>' +
       '<h2 class="eng-h2">The modes for ' + C.year + '</h2>' +
+      '<p class="eng-p">All three modes are on the ' + C.year + ' paper. You answer on one.</p>' +
       '<div class="eng-grid eng-grid--3">' + MODES.map(function (m) {
         return '<a class="eng-card" href="#mode/' + m.id + '" style="--c:' + COL[m.id] + '"><span class="eng-bar"></span><h3>' + esc(m.name) + '</h3><p>' + esc(m.hook) + '</p></a>';
       }).join('') + '</div>' +
@@ -106,7 +107,17 @@
   function renderMarking() {
     renderShell('marking', 'How it\'s marked');
     var M = C.marks, cr = M.criteria, col = { P: '#FFE45C', C: '#BFE3FF', L: '#C6F0B4', M: '#FFD3E6' };
-    app.innerHTML = title('How it\'s marked') +
+    var P = C.paper;
+    var glance = P ? '<h2 class="eng-h2">Paper 2 in ' + C.year + '</h2><p class="eng-p">' + esc(P.time) + '</p>' +
+      '<div class="eng-grid eng-grid--3 eng-secs">' + P.sections.map(function (x) {
+        var me = /Comparative/.test(x.name);
+        return '<div class="eng-card eng-sec' + (me ? ' is-me' : '') + '"><span class="eng-sec__m">' + x.marks + '</span><h3>' + esc(x.name) + '</h3><p>' + esc(x.what) + '</p></div>';
+      }).join('') + '</div>' +
+      '<div class="eng-grid eng-grid--2" style="margin-top:12px"><div class="eng-card"><h3>A 70-mark question</h3><p>' + esc(P.seventy) + '</p></div>' +
+      '<div class="eng-card"><h3>A 30 + 40 question</h3><p>' + esc(P.split) + '</p></div></div>' +
+      '<p class="eng-credit">From the official <a href="' + esc(P.source.url) + '" target="_blank" rel="noopener">' + esc(P.source.name) + '</a>. ' + esc(C.current || '') + '</p>' : '';
+    app.innerHTML = title('How it\'s marked') + glance +
+      '<h2 class="eng-h2">The marks</h2>' +
       '<p class="eng-p">The comparative question is worth <b>' + M.total + ' marks</b>. ' + esc(M.note) + ' ' + esc(M.single) + '</p>' +
       '<div class="eng-pclm">' + cr.map(pclmSeg).join('') + '</div>' +
       '<p class="eng-note eng-note--warn"><span>The most important rule</span>' + esc(M.primacy) + '</p>' +
@@ -176,7 +187,10 @@
         }).join('');
       }).join('') + '</div>';
     app.innerHTML = title(m.name, '<a class="eng-btn" href="#build/' + id + '">Build an essay</a>') +
-      '<p class="eng-p">' + esc(m.what) + '</p>' + note('Remember it', m.hook) +
+      '<p class="eng-p">' + esc(m.what) + '</p>' +
+      (m.official ? '<figure class="eng-official" style="--c:' + COL[id] + '"><blockquote>' + esc(m.official.quote) + '</blockquote><figcaption>' + esc(m.official.src) + '</figcaption>' +
+        (m.official.also ? '<p>' + esc(m.official.also) + '</p>' : '') + '</figure>' : '') +
+      note('Remember it', m.hook) +
       '<div class="eng-grid eng-grid--2" style="margin-top:18px"><div class="eng-card"><h3>Ask these of each text</h3><ul class="eng-ask">' + m.ask.map(function (q) { return '<li>' + esc(q) + '</li>'; }).join('') + '</ul></div>' +
       '<div class="eng-card"><h3>Words for this mode</h3><ul class="eng-words">' + m.words.map(chip).join('') + '</ul></div></div>' +
       '<h2 class="eng-h2">Your three texts, side by side</h2>' + (mine.length ? grid : '<p class="eng-p">The notes for your texts are on their way.</p>');
@@ -233,19 +247,30 @@
   }
 
   // ---------- the essay builder ----------
-  // One draft, saved as you type (eng-essay): the question and its mode, your one-line answer, three or four aspects,
-  // then an introduction, a PACE paragraph per aspect and a conclusion. The paper on the right is the essay so far.
+  // One draft, saved as you type (eng-essay). Two kinds of question, as on the 2027 paper:
+  //   '70'    one essay comparing your texts (at least two; three are marked the same): an introduction, a PACE
+  //           paragraph per aspect, a conclusion.
+  //   'split' part (a), 30 marks, on one text (a Point, Anchor, Evaluate paragraph per aspect) and part (b),
+  //           40 marks, comparing the two other texts (an introduction, a PACE paragraph per aspect, a conclusion).
+  // The paper on the right is the answer so far.
   var E = null;
   function essay() {
     if (E) return E;
     try { E = JSON.parse(store('eng-essay') || 'null'); } catch (e) {}
-    if (!E) E = { mode: 'gvv', q: '', thesis: '', aspects: [], intro: '', paras: {}, end: '', step: 0 };
+    if (!E) E = { mode: 'gvv', type: '70', q: '', thesis: '', aspects: [], intro: '', paras: {}, end: '', step: 0 };
+    E.type = E.type || '70';
+    E.parasA = E.parasA || {};
     return E;
   }
   function saveEssay() { store('eng-essay', JSON.stringify(E)); }
+  function split() { return essay().type === 'split'; }
+  // Part (a)'s text, and the texts compared (all three for a 70-mark answer; the other two for part (b)).
+  function textA() { var e = essay(), m = chosen(); return m.indexOf(e.textA) >= 0 ? e.textA : m[0]; }
+  function compared() { var m = chosen(); return split() ? m.filter(function (t) { return t !== textA(); }) : m; }
   function stepsList() {
-    var e = essay();
-    return [['q', 'Question'], ['plan', 'Plan'], ['intro', 'Introduction']].concat(e.aspects.map(function (a, k) { return ['p' + k, 'Point ' + (k + 1)]; })).concat([['end', 'Conclusion'], ['check', 'Check']]);
+    var e = essay(), pts = function (pre, name) { return e.aspects.map(function (a, k) { return [pre + k, name + (k + 1)]; }); };
+    if (split()) return [['q', 'Question'], ['plan', 'Plan']].concat(pts('a', '(a) Point ')).concat([['intro', '(b) Introduction']]).concat(pts('p', '(b) Point ')).concat([['end', '(b) Conclusion'], ['check', 'Check']]);
+    return [['q', 'Question'], ['plan', 'Plan'], ['intro', 'Introduction']].concat(pts('p', 'Point ')).concat([['end', 'Conclusion'], ['check', 'Check']]);
   }
   function aspectOptions(mode) {
     var names = [], seen = {};
@@ -268,106 +293,130 @@
   }
   function helpList(head, items) { return items.length ? '<div class="eb-help"><b>' + esc(head) + '</b><ul>' + items.map(function (i) { return '<li>' + i + '</li>'; }).join('') + '</ul></div>' : ''; }
   function plain(p) { return esc(p).replace(/\s*\[[a-z]+-\d+\]/g, ''); }
+  function notesFor(mode, aspect, tid) {
+    var pts = pointsFor(mode, aspect, tid).slice(0, 3).map(plain), mo = momentsFor(mode, tid).slice(0, 3).map(function (x) { return '<b>' + esc(x.title) + '</b> (' + esc(x.where) + '): ' + esc(x.what); });
+    return helpList('From your notes on ' + text(tid).title, pts.concat(mo));
+  }
+  function titles(ids) { return ids.map(function (t) { return text(t).title; }); }
   function stepHtml() {
-    var e = essay(), st = stepsList(), cur = st[Math.min(e.step, st.length - 1)][0], mine = chosen(), m = MODE[e.mode];
+    var e = essay(), st = stepsList(), cur = st[Math.min(e.step, st.length - 1)][0], mine = chosen(), m = MODE[e.mode], cmp = compared();
     if (cur === 'q') {
       var qs = D.questions.filter(function (q) { return q.mode === e.mode; });
-      return '<h2>The question</h2><p>Pick the mode, then a past question or write your own.</p>' +
+      return '<h2>The question</h2><p>Pick the mode, then a past question or write your own. In 2027 all three modes are on the paper, with two questions on each: a question is either 70 marks or in two parts (30 + 40).</p>' +
         '<div class="eb-choices">' + MODES.map(function (x) { return '<button type="button" class="eng-chip" style="--c:' + COL[x.id] + '" data-eb-mode="' + x.id + '" aria-pressed="' + (e.mode === x.id) + '">' + esc(x.name) + '</button>'; }).join('') + '</div>' +
-        (qs.length ? '<div class="eb-qs">' + qs.sort(function (a, b) { return b.year - a.year; }).slice(0, 10).map(function (q) {
+        '<div class="eb-choices">' + [['70', 'One question, 70 marks'], ['split', 'Two parts, 30 + 40']].map(function (x) { return '<button type="button" class="eng-chip" data-eb-type="' + x[0] + '" aria-pressed="' + (e.type === x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>' +
+        (qs.length ? '<div class="eb-qs">' + qs.sort(function (a, b) { return b.year - a.year; }).slice(0, 12).map(function (q) {
           return '<button type="button" class="eb-q' + (e.q === q.text ? ' is-on' : '') + '" data-eb-q="' + D.questions.indexOf(q) + '"><b>' + q.year + (q.paper === 'deferred' ? ' deferred' : '') +
-            (q.option && q.option !== '70' ? ' ' + esc(q.option) : '') + '</b> ' + esc(q.text.length > 110 ? q.text.slice(0, 108) + '…' : q.text) + '</button>';
+            ' · ' + (Array.isArray(q.marks) ? '30 + 40' : '70') + '</b> ' + esc(q.text.length > 110 ? q.text.slice(0, 108) + '…' : q.text) + '</button>';
         }).join('') + '</div>' : '') +
         field('q', 'The question', '', e.q, 'Paste or type the question here') +
-        field('thesis', 'Your answer to it, in one sentence', 'P', e.thesis, 'e.g. All three texts present a world where the powerful crush the vulnerable, but only Shawshank lets hope win.',
-          '<div class="eb-help"><b>This is your line of argument.</b> Every paragraph will prove a part of it.</div>');
+        field('thesis', 'Your answer to it, in one sentence', 'P', e.thesis, split() ? 'For part (b): e.g. Both texts …, but …' : 'e.g. All three texts present a world where the powerful crush the vulnerable, but only Shawshank lets hope win.',
+          '<div class="eb-help"><b>This is your line of argument.</b> Every paragraph will prove a part of it. ' +
+          (split() ? 'Part (a) is on one text; part (b) compares the two others.' : 'A 70-mark answer needs at least two texts; using three is marked the same.') + '</div>');
     }
     if (cur === 'plan') {
       var opts = aspectOptions(e.mode);
-      return '<h2>Plan: one aspect per paragraph</h2><p>Pick 3 or 4 aspects of ' + esc(m.name.toLowerCase()) + ' that answer the question. Each becomes a PACE paragraph comparing ' + mine.map(function (t) { return esc(text(t).title); }).join(', ') + '.</p>' +
+      return '<h2>Plan: one aspect per paragraph</h2>' +
+        (split() ? '<p>Part (a) is on one text, part (b) compares the other two. Pick the text for part (a):</p><div class="eb-choices">' + mine.map(function (t) {
+          return '<button type="button" class="eng-chip" style="--c:' + COL[t] + '" data-eb-atext="' + t + '" aria-pressed="' + (textA() === t) + '">' + esc(text(t).title) + '</button>'; }).join('') + '</div>' +
+          '<p>Part (b) will compare <b>' + titles(cmp).map(esc).join('</b> and <b>') + '</b>. Now pick 3 or 4 aspects of ' + esc(m.name.toLowerCase()) + ' that answer the question; each becomes a paragraph in both parts.</p>'
+          : '<p>Pick 3 or 4 aspects of ' + esc(m.name.toLowerCase()) + ' that answer the question. Each becomes a PACE paragraph comparing ' + titles(cmp).map(esc).join(', ') + '.</p>') +
         '<div class="eb-choices">' + opts.map(function (a) { return '<button type="button" class="eng-chip" style="--c:' + COL[e.mode] + '" data-eb-aspect="' + esc(a) + '" aria-pressed="' + (e.aspects.indexOf(a) >= 0) + '">' + esc(a) + '</button>'; }).join('') + '</div>' +
-        '<div class="eb-help"><b>' + e.aspects.length + ' chosen.</b> ' + (e.aspects.length < 3 ? 'Pick at least 3.' : e.aspects.length > 5 ? 'Five at most: depth beats a list.' : 'Good. You can reorder later by picking them again.') + '</div>';
+        '<div class="eb-help"><b>' + e.aspects.length + ' chosen.</b> ' + (e.aspects.length < 3 ? 'Pick at least 3.' : e.aspects.length > 5 ? 'Five at most: depth beats a list.' : 'Good.') + '</div>';
     }
     if (cur === 'intro') {
-      return '<h2>Introduction</h2><p>Answer the question straight away, name the three texts with their authors or director, and the mode.</p>' +
+      return '<h2>' + (split() ? 'Part (b): introduction' : 'Introduction') + '</h2><p>Answer the question straight away, name the texts with their authors or director, and the mode.</p>' +
         field('intro', 'Introduction', '', e.intro || (e.thesis ? e.thesis + ' ' : ''), 'Start with your answer, then name the texts.',
-          helpList('Your texts, written correctly', mine.map(function (t) { return nameLine(text(t)); })), ['judge']);
+          helpList('Your texts, written correctly', cmp.map(function (t) { return nameLine(text(t)); })), ['judge']);
     }
     if (cur === 'end') {
-      return '<h2>Conclusion</h2><p>Answer the question again, name the biggest similarity or difference, and say which text affected you most and why.</p>' +
+      return '<h2>' + (split() ? 'Part (b): conclusion' : 'Conclusion') + '</h2><p>Answer the question again, name the biggest similarity or difference, and say which text affected you most and why.</p>' +
         field('end', 'Conclusion', 'E', e.end, 'Ultimately, …', '', ['judge', 'degree']);
     }
     if (cur === 'check') return checkHtml();
-    var k = +cur.slice(1), a = e.aspects[k], pr = e.paras[a] || {};
-    var t1 = mine[0], t2 = mine[1], t3 = mine[2];
-    function notesFor(tid) {
-      var pts = pointsFor(e.mode, a, tid).slice(0, 3).map(plain), mo = momentsFor(e.mode, tid).slice(0, 3).map(function (x) { return '<b>' + esc(x.title) + '</b> (' + esc(x.where) + '): ' + esc(x.what); });
-      return helpList('From your notes on ' + text(tid).title, pts.concat(mo));
+    var k = +cur.slice(1), a = e.aspects[k];
+    if (cur.charAt(0) === 'a') {
+      var pa = e.parasA[a] || {}, ta = textA();
+      return '<h2>Part (a), point ' + (k + 1) + ': ' + esc(a) + '</h2><p>Part (a) is on one text, ' + esc(text(ta).title) + ', so there\'s nothing to compare yet: Point, Anchor, Evaluate.</p>' +
+        field('aP' + k, 'Point: answer the question for ' + a.toLowerCase(), 'P', pa.P, 'In ' + text(ta).title + ', …', '', []) +
+        field('aA' + k, 'Anchor it in a key moment', 'A', pa.A, 'This is crystallised in the moment when …', notesFor(e.mode, a, ta), ['moment']) +
+        field('aE' + k, 'Evaluate: what does it show? Back to the question', 'E', pa.E, 'This leaves the reader with …', '', ['judge']);
     }
-    return '<h2>Point ' + (k + 1) + ': ' + esc(a) + '</h2><p>Build it with PACE. The notes under each box are from your texts: use them in your own words.</p>' +
-      field('P' + k, 'Point: answer the question for ' + a.toLowerCase(), 'P', pr.P, 'In all three texts, …', '', ['same', 'degree']) +
-      field('A' + k, 'Anchor it in ' + text(t1).title, 'A', pr.A, 'This is crystallised in the moment when …', notesFor(t1), ['moment']) +
-      field('C' + k, 'Compare with ' + text(t2).title + ' and ' + text(t3).title, 'C', pr.C, 'Similarly, … In contrast, …', notesFor(t2) + notesFor(t3), ['same', 'differ', 'degree']) +
-      field('E' + k, 'Evaluate: what does it show? Back to the question', 'E', pr.E, 'Of the three texts, …', '', ['judge']);
+    var pr = e.paras[a] || {}, t1 = cmp[0], rest = cmp.slice(1);
+    return '<h2>' + (split() ? 'Part (b), point ' : 'Point ') + (k + 1) + ': ' + esc(a) + '</h2><p>Build it with PACE. The notes under each box are from your texts: use them in your own words.</p>' +
+      field('P' + k, 'Point: answer the question for ' + a.toLowerCase(), 'P', pr.P, cmp.length > 2 ? 'In all three texts, …' : 'In both texts, …', '', ['same', 'degree']) +
+      field('A' + k, 'Anchor it in ' + text(t1).title, 'A', pr.A, 'This is crystallised in the moment when …', notesFor(e.mode, a, t1), ['moment']) +
+      field('C' + k, 'Compare with ' + titles(rest).join(' and '), 'C', pr.C, 'Similarly, … In contrast, …', rest.map(function (t) { return notesFor(e.mode, a, t); }).join(''), ['same', 'differ', 'degree']) +
+      field('E' + k, 'Evaluate: what does it show? Back to the question', 'E', pr.E, cmp.length > 2 ? 'Of the three texts, …' : 'Of the two texts, …', '', ['judge']);
   }
-  function essayParts() {
-    var e = essay(), out = [];
-    if (e.intro) out.push(e.intro);
-    e.aspects.forEach(function (a) {
-      var p = e.paras[a] || {};
-      var s = ['P', 'A', 'C', 'E'].map(function (x) { return (p[x] || '').trim(); }).filter(Boolean).join(' ');
-      if (s) out.push(s);
-    });
-    if (e.end) out.push(e.end);
-    return out;
+  function paraText(p, keys) { return keys.map(function (x) { return (p[x] || '').trim(); }).filter(Boolean).join(' '); }
+  // The answer as paragraphs: part (a)'s first when the question is in two parts.
+  function essayParts(which) {
+    var e = essay(), a = [], b = [];
+    if (split()) e.aspects.forEach(function (x) { var s = paraText(e.parasA[x] || {}, ['P', 'A', 'E']); if (s) a.push(s); });
+    if (e.intro) b.push(e.intro);
+    e.aspects.forEach(function (x) { var s = paraText(e.paras[x] || {}, ['P', 'A', 'C', 'E']); if (s) b.push(s); });
+    if (e.end) b.push(e.end);
+    return which === 'a' ? a : which === 'b' ? b : a.concat(b);
   }
   function words(s) { return (String(s).match(/[A-Za-z’'-]+/g) || []).length; }
+  function marked(p, keys) {
+    var any = false, s = keys.map(function (x) { if (p[x]) any = true; return p[x] ? '<mark class="pace-' + x.toLowerCase() + '">' + esc(p[x].trim()) + '</mark>' : ''; }).join(' ');
+    return any ? s : '';
+  }
   function previewHtml() {
-    var e = essay(), parts = [];
-    parts.push(e.intro ? esc(e.intro) : '<span class="eb-ghost">Introduction…</span>');
-    e.aspects.forEach(function (a) {
-      var p = e.paras[a] || {}, any = false;
-      var s = ['P', 'A', 'C', 'E'].map(function (x) { if (p[x]) any = true; return p[x] ? '<mark class="pace-' + x.toLowerCase() + '">' + esc(p[x].trim()) + '</mark>' : ''; }).join(' ');
-      parts.push(any ? s : '<span class="eb-ghost">' + esc(a) + ': Point, Anchor, Compare, Evaluate…</span>');
-    });
-    parts.push(e.end ? esc(e.end) : '<span class="eb-ghost">Conclusion…</span>');
-    var n = words(essayParts().join(' '));
-    return '<div class="eng-paper">' + (e.q ? '<p class="eb-qtext">' + esc(e.q) + '</p>' : '') + parts.map(function (p) { return '<p>' + p + '</p>'; }).join('') + '</div>' +
-      '<div class="eb-count"><span>' + n + ' words</span><span>' + (n < 900 ? 'Aim for 1,000 to 1,300' : n > 1500 ? 'Long: about 65 minutes in the exam' : 'A good length') + '</span></div>';
+    var e = essay(), out = '';
+    if (split()) {
+      out += '<p class="eb-part">(a) · 30 marks · ' + esc(text(textA()).title) + '</p>' + e.aspects.map(function (x) {
+        return '<p>' + (marked(e.parasA[x] || {}, ['P', 'A', 'E']) || '<span class="eb-ghost">' + esc(x) + ': Point, Anchor, Evaluate…</span>') + '</p>';
+      }).join('') + '<p class="eb-part">(b) · 40 marks · ' + titles(compared()).map(esc).join(' and ') + '</p>';
+    }
+    out += '<p>' + (e.intro ? esc(e.intro) : '<span class="eb-ghost">Introduction…</span>') + '</p>' + e.aspects.map(function (x) {
+      return '<p>' + (marked(e.paras[x] || {}, ['P', 'A', 'C', 'E']) || '<span class="eb-ghost">' + esc(x) + ': Point, Anchor, Compare, Evaluate…</span>') + '</p>';
+    }).join('') + '<p>' + (e.end ? esc(e.end) : '<span class="eb-ghost">Conclusion…</span>') + '</p>';
+    var na = words(essayParts('a').join(' ')), nb = words(essayParts('b').join(' '));
+    var count = split() ? '(a) ' + na + ' words · (b) ' + nb + ' words' : nb + ' words';
+    var aim = split() ? 'Aim for about 450 in (a) and 650 in (b)' : nb < 900 ? 'Aim for 1,000 to 1,300' : nb > 1500 ? 'Long: about 65 minutes in the exam' : 'A good length';
+    return '<div class="eng-paper">' + (e.q ? '<p class="eb-qtext">' + esc(e.q) + '</p>' : '') + out + '</div><div class="eb-count"><span>' + count + '</span><span>' + aim + '</span></div>';
   }
   // The checks: what a reader can see in the text, mapped to P, C, L and M. Not a grade: a list of things to fix.
   function checkHtml() {
-    var e = essay(), mine = chosen(), all = essayParts().join('\n'), low = all.toLowerCase();
-    var stop = /^(the|and|that|this|with|which|what|from|your|their|they|them|have|been|does|text|texts|three|least|comparative|course|studied|study|discuss|extent|reference|making|make|answer|support)$/;
-    var qWords = (e.q.toLowerCase().match(/[a-z]{5,}/g) || []).filter(function (w) { return !stop.test(w); });
+    var e = essay(), cmp = compared(), all = essayParts().join('\n'), low = all.toLowerCase(), bTxt = essayParts('b').join('\n').toLowerCase();
+    var stop = /^(the|and|that|this|with|which|what|from|your|their|they|them|have|been|does|text|texts|three|least|comparative|course|studied|study|discuss|extent|reference|making|make|answer|support|other|chosen|response|develop)$/;
+    var qWords = (e.q.toLowerCase().match(/[a-z]{5,}/g) || []).filter(function (w) { return !stop.test(w); }).filter(function (w, i, arr) { return arr.indexOf(w) === i; });
     var qHit = qWords.filter(function (w) { return low.indexOf(w.slice(0, 6)) >= 0; });
-    var names = mine.map(function (t) { var x = text(t); return [x.title.toLowerCase(), x.author.split(' ').pop().toLowerCase()].concat((x.people || []).map(function (p) { return p.name.split(' ')[0].toLowerCase(); })); });
-    var paras = e.aspects.map(function (a) { var p = e.paras[a] || {}; return ['P', 'A', 'C', 'E'].map(function (x) { return p[x] || ''; }).join(' ').toLowerCase(); }).filter(function (p) { return p.trim(); });
+    var nameOf = function (t) { var x = text(t); return [x.title.toLowerCase(), x.author.split(' ').pop().toLowerCase()].concat((x.people || []).map(function (p) { return p.name.split(' ')[0].toLowerCase(); })); };
+    var named = function (t, where) { return nameOf(t).slice(0, 2).some(function (n) { return n && where.indexOf(n) >= 0; }); };
+    var paras = e.aspects.map(function (x) { return paraText(e.paras[x] || {}, ['P', 'A', 'C', 'E']).toLowerCase(); }).filter(function (p) { return p; });
     var cmpWords = [].concat.apply([], C.language.filter(function (g) { return g.id !== 'moment'; }).map(function (g) { return g.items; })).map(function (s) { return s.replace(/[,.…]/g, '').replace(/ ….*$/, '').trim().toLowerCase(); }).filter(function (s) { return s.length > 3; });
-    var usedCmp = cmpWords.filter(function (s) { return low.indexOf(s) >= 0; });
+    var usedCmp = cmpWords.filter(function (s) { return bTxt.indexOf(s) >= 0; });
     var modeWords = MODE[e.mode].words.filter(function (w) { return low.indexOf(w.toLowerCase()) >= 0; });
-    var titlesRight = mine.every(function (t) { var tt = text(t).title; return all.indexOf(tt) >= 0 || all.toLowerCase().indexOf(tt.toLowerCase()) < 0; });
+    var used = split() ? chosen() : cmp;
+    var titlesRight = used.every(function (t) { var tt = text(t).title; return all.indexOf(tt) >= 0 || low.indexOf(tt.toLowerCase()) < 0; });
     var checks = [
       ['P', qWords.length ? qHit.length >= Math.min(3, qWords.length) : false, 'The question\'s own words', qWords.length ? 'You use ' + qHit.length + ' of its key words (' + qWords.slice(0, 6).join(', ') + '). Keep the question in view in every paragraph.' : 'Put the question in at the first step.'],
-      ['P', mine.every(function (t, k) { return names[k].slice(0, 2).some(function (n) { return n && (e.intro || '').toLowerCase().indexOf(n) >= 0; }); }), 'All three texts in the introduction', 'Name each text (and its author or director) in your introduction.'],
-      ['C', paras.length >= 3 && paras.every(function (p) { return names.filter(function (n) { return n.some(function (x) { return x && p.indexOf(x) >= 0; }); }).length >= 2; }), 'Every paragraph compares', 'Each paragraph should bring in at least two of your texts. One text per paragraph isn\'t a comparison.'],
-      ['C', e.aspects.every(function (a) { var p = e.paras[a] || {}; return p.P && p.A && p.C && p.E; }), 'Every paragraph is full PACE', 'Point, Anchor, Compare and Evaluate in each one.'],
-      ['L', usedCmp.length >= 6, 'The language of comparison', usedCmp.length + ' comparative phrases so far' + (usedCmp.length ? ' (' + usedCmp.slice(0, 5).join(', ') + ')' : '') + '. Aim for 6 or more, and vary them.'],
+      ['P', cmp.every(function (t) { return named(t, (e.intro || '').toLowerCase()); }), (split() ? 'Part (b)\'s texts' : 'Your texts') + ' in the introduction', 'Name each text (and its author or director) in your introduction.'],
+      ['C', paras.length >= 3 && paras.every(function (p) { return cmp.filter(function (t) { return nameOf(t).some(function (x) { return x && p.indexOf(x) >= 0; }); }).length >= 2; }), 'Every paragraph compares', 'Each comparative paragraph should bring in at least two texts. One text per paragraph isn\'t a comparison.'],
+      ['C', e.aspects.every(function (x) { var p = e.paras[x] || {}; return p.P && p.A && p.C && p.E; }), 'Every paragraph is full PACE', 'Point, Anchor, Compare and Evaluate in each one.'],
+      ['L', usedCmp.length >= (split() ? 4 : 6), 'The language of comparison', usedCmp.length + ' comparative phrases so far' + (usedCmp.length ? ' (' + usedCmp.slice(0, 5).join(', ') + ')' : '') + '. Aim for ' + (split() ? 4 : 6) + ' or more in the comparison, and vary them.'],
       ['L', modeWords.length >= 3, 'The words of the mode', modeWords.length + ' ' + MODE[e.mode].name + ' words' + (modeWords.length ? ' (' + modeWords.join(', ') + ')' : '') + '. Aim for 3 or more.'],
-      ['M', titlesRight && !/\bi\b/.test(all), 'Titles and spelling', 'Write the titles exactly: ' + mine.map(function (t) { return text(t).title; }).join(', ') + '. Capital I for yourself.'],
-      ['E', !!e.end && /ultimately|for me|most|leaves|overall|of the three/i.test(e.end), 'A conclusion that answers', 'End by answering the question again and saying which text affected you most.']
+      ['M', titlesRight && !/\bi\b/.test(all), 'Titles and spelling', 'Write the titles exactly: ' + titles(used).join(', ') + '. Capital I for yourself.'],
+      ['E', !!e.end && /ultimately|for me|most|leaves|overall|of the (three|two)/i.test(e.end), 'A conclusion that answers', 'End by answering the question again and saying which text affected you most.']
     ];
-    return '<h2>Check your essay</h2><p>These are things an examiner notices. It\'s a checklist, not a grade.</p>' +
+    if (split()) checks.splice(2, 0, ['P', e.aspects.every(function (x) { var p = e.parasA[x] || {}; return p.P && p.A && p.E; }) && named(textA(), essayParts('a').join(' ').toLowerCase()), 'Part (a) on ' + text(textA()).title,
+      'Part (a) is on one text: Point, Anchor and Evaluate for each aspect, naming the text.']);
+    return '<h2>Check your answer</h2><p>These are things an examiner notices. It\'s a checklist, not a grade.</p>' +
       '<ul class="eb-checks">' + checks.map(function (c) {
         return '<li class="' + (c[1] ? 'is-ok' : 'is-no') + '"><i>' + (c[1] ? '✓' : '!') + '</i><span><b>' + c[0] + ' · ' + esc(c[2]) + '.</b> ' + (c[1] ? '' : esc(c[3])) + '</span></li>';
       }).join('') + '</ul>' +
-      '<div class="eb-nav"><button type="button" class="eng-btn eng-btn--quiet" data-eb-copyall>Copy the essay</button><button type="button" class="eng-btn eng-btn--quiet" data-eb-new>Start a new one</button></div>';
+      '<div class="eb-nav"><button type="button" class="eng-btn eng-btn--quiet" data-eb-copyall>Copy the answer</button><button type="button" class="eng-btn eng-btn--quiet" data-eb-new>Start a new one</button></div>';
   }
+  function useQuestion(q) { var e = essay(); e.mode = q.mode; e.q = q.text; e.type = Array.isArray(q.marks) ? 'split' : '70'; }
   function renderBuild(arg) {
     renderShell('build', 'Build an essay');
     var e = essay();
     if (arg && MODE[arg] && e.mode !== arg) { e.mode = arg; e.aspects = []; e.step = 0; saveEssay(); }
-    if (arg && /^q\d+$/.test(arg) && D.questions[+arg.slice(1)]) { var q = D.questions[+arg.slice(1)]; e.mode = q.mode; e.q = q.text; e.step = 0; saveEssay(); }
+    if (arg && /^q\d+$/.test(arg) && D.questions[+arg.slice(1)]) { useQuestion(D.questions[+arg.slice(1)]); e.step = 0; saveEssay(); }
     drawBuild();
   }
   function drawBuild() {
@@ -381,8 +430,9 @@
       '<div class="eb-preview" data-eb-preview>' + previewHtml() + '</div></div>';
   }
   function setField(key, v) {
-    var e = essay();
+    var e = essay(), m;
     if (key === 'q' || key === 'thesis' || key === 'intro' || key === 'end') e[key] = v;
+    else if ((m = /^a([PAE])(\d+)$/.exec(key))) { var aa = e.aspects[+m[2]]; if (!aa) return; (e.parasA[aa] = e.parasA[aa] || {})[m[1]] = v; }
     else { var part = key.charAt(0), k = +key.slice(1), a = e.aspects[k]; if (!a) return; (e.paras[a] = e.paras[a] || {})[part] = v; }
     saveEssay();
     var pv = app.querySelector('[data-eb-preview]');
@@ -429,7 +479,11 @@
     var md = t.closest('[data-eb-mode]');
     if (md) { e = essay(); if (e.mode !== md.getAttribute('data-eb-mode')) { e.mode = md.getAttribute('data-eb-mode'); e.aspects = []; } saveEssay(); drawBuild(); return; }
     var qq = t.closest('[data-eb-q]');
-    if (qq) { e = essay(); e.q = D.questions[+qq.getAttribute('data-eb-q')].text; saveEssay(); drawBuild(); return; }
+    if (qq) { useQuestion(D.questions[+qq.getAttribute('data-eb-q')]); saveEssay(); drawBuild(); return; }
+    var ty = t.closest('[data-eb-type]');
+    if (ty) { essay().type = ty.getAttribute('data-eb-type'); saveEssay(); drawBuild(); return; }
+    var at = t.closest('[data-eb-atext]');
+    if (at) { essay().textA = at.getAttribute('data-eb-atext'); saveEssay(); drawBuild(); return; }
     var as = t.closest('[data-eb-aspect]');
     if (as) {
       e = essay(); var a = as.getAttribute('data-eb-aspect'), i = e.aspects.indexOf(a);
@@ -446,7 +500,7 @@
       return;
     }
     if (t.closest('[data-eb-copyall]')) { copy(essayParts().join('\n\n')); return; }
-    if (t.closest('[data-eb-new]')) { if (window.confirm('Start a new essay? This one will be cleared.')) { E = null; store('eng-essay', 'null'); drawBuild(); } return; }
+    if (t.closest('[data-eb-new]')) { if (window.confirm('Start a new answer? This one will be cleared.')) { E = null; store('eng-essay', 'null'); drawBuild(); } return; }
   });
   document.addEventListener('input', function (ev) {
     var key = ev.target.getAttribute && ev.target.getAttribute('data-eb');

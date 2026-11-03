@@ -2,10 +2,11 @@
   "year": 2027,
   "source": "Prescribed Material for the Leaving Certificate English Examination in 2027 (Department of Education circular, 27 February 2025): https://www.curriculumonline.ie/getmedia/ee4aa8b9-06c6-4091-974b-ea444dbae0af/Prescribed-Material-for-the-Leaving-Certificate-English-Examination-2027.pdf",
   "rules": [
-    "At Higher Level you compare three texts from the prescribed list, in the modes set for your year.",
-    "For 2027 the Higher Level modes are Theme or Issue, Cultural Context, and General Vision and Viewpoint. Two of the three come up on the paper: you answer on one.",
-    "A Shakespeare play must be one of your Higher Level texts: as your single text or as one of your three comparative texts. If Othello is in your comparative, your single text has to be another text.",
-    "A film can be one of the three, and it should be discussed as a film: what we see and hear, not just what happens. You may refer to only one film in all your Paper 2 answers.",
+    "At Higher Level you study three texts for the comparative, from the prescribed list, in the modes set for your year.",
+    "For 2027 the Higher Level modes are Theme or Issue, Cultural Context, and General Vision and Viewpoint. All three are on the 2027 paper: you answer on one.",
+    "A single 70-mark question needs at least two of your texts; a 30 + 40 question needs one text in part (a) and the two others in part (b).",
+    "A Shakespeare play must be one of your Higher Level texts: as your single text or as one of your comparative texts. If Othello is in your comparative, your single text has to be another text.",
+    "A film can be one of your texts, and it should be discussed as a film: what we see and hear, not just what happens. You may refer to only one film in all your Paper 2 answers.",
     "You can't reuse your single text in the comparative. Using a text that isn't prescribed, or the wrong combination, costs a third of a 70-mark answer."
   ],
   "marks": {
@@ -49,13 +50,13 @@
         "of70": 7,
         "what": "Spelling and grammar: appropriate levels of accuracy in spelling and grammatical patterns appropriate to the register.",
         "do": "Spell the titles, authors and characters right, every time.",
-        "comp": "Accuracy of mechanics."
+        "comp": "For the comparative: accuracy of mechanics, the same as in any answer: spelling, grammar and punctuation, and the titles and names spelt right."
       }
     ],
     "note": "These are the SEC's criteria for assessment, used for every answer on both English papers.",
     "primacy": "Your marks for Coherence (C) and Language (L) can never be higher than your mark for Purpose (P). If you don't answer the question asked, in the mode asked, nothing else can make up for it.",
     "single": "A single 70-mark question is marked on each criterion separately: P out of 21, C out of 21, L out of 21, M out of 7.",
-    "splitText": "A question split into (a) 30 marks and (b) 40 marks gets one mark for each part, judged against all four criteria together. Part (a) is on one text; part (b) compares two others, and doesn't have to link back to part (a).",
+    "splitText": "A two-part question gets one mark for each part, judged against all four criteria together: part (a) out of 30, on one text; part (b) out of 40, comparing two other texts.",
     "grades": [
       [
         "H1",
@@ -138,7 +139,11 @@
         "Power and control",
         "Freedom and entrapment",
         "Courage and silence"
-      ]
+      ],
+      "official": {
+        "quote": "Comparing texts on a prescribed theme(s). These would have to be themes which were pervasive and central to the texts chosen for study.",
+        "src": "Department of Education, Guidelines for Teachers of English (Leaving Certificate), Approaches to the Comparative Study of Texts"
+      }
     },
     {
       "id": "cc",
@@ -180,7 +185,11 @@
         "Family and community",
         "Law, institutions and justice",
         "Race and the outsider"
-      ]
+      ],
+      "official": {
+        "quote": "Compare texts focusing on social rituals, values, and attitudes. This is not to be seen as a sociological study of the texts. It means taking some perspectives which enable the students to understand the kind of values and structures with which people contend.",
+        "src": "Department of Education, Guidelines for Teachers of English (Leaving Certificate), Approaches to the Comparative Study of Texts"
+      }
     },
     {
       "id": "gvv",
@@ -219,7 +228,12 @@
         "Light and dark moments",
         "The ending",
         "View of human nature"
-      ]
+      ],
+      "official": {
+        "quote": "The broad outlook of the authors of the texts and/or of the texts themselves as interpreted and understood by the reader.",
+        "src": "SEC marking schemes (2012, 2017, 2019)",
+        "also": "Compare texts from the standpoint of the view they offer on life. Is it optimistic or pessimistic? What aspects of life do they concentrate on and why? (Guidelines for Teachers of English)"
+      }
     }
   ],
   "structure": {
@@ -346,12 +360,51 @@
   ],
   "sources": [
     {
+      "name": "Assessment Arrangements 2027 (Department of Education and Youth, September 2026)",
+      "url": "https://assets.gov.ie/static/documents/54a1450c/FINAL_v2_English_Assessment_Arrangements_2027.pdf"
+    },
+    {
       "name": "The 2027 prescribed material circular",
       "url": "https://www.curriculumonline.ie/getmedia/ee4aa8b9-06c6-4091-974b-ea444dbae0af/Prescribed-Material-for-the-Leaving-Certificate-English-Examination-2027.pdf"
     },
     {
-      "name": "SEC marking scheme, English Higher Level 2025 (copy)",
-      "url": "https://exam-papers.stikleaf.com/markingschemes/2025/lc/2/LC002ALP000EV.pdf"
+      "name": "SEC marking scheme, English Higher Level 2026 (copy)",
+      "url": "https://exam-papers.stikleaf.com/markingschemes/2026/lc/2/LC002ALP000EV.pdf"
+    },
+    {
+      "name": "Leaving Certificate English syllabus",
+      "url": "https://www.curriculumonline.ie/getmedia/3bb84cb3-59af-4ab3-8965-61656bddc5d7/SCSEC14_English_Syllabus.pdf"
+    },
+    {
+      "name": "Guidelines for Teachers of English",
+      "url": "https://www.curriculumonline.ie/getmedia/75b6e39e-876e-4ea8-9d2f-8b9108853787/SCSEC14_English_guidelines.pdf"
     }
-  ]
+  ],
+  "paper": {
+    "source": {
+      "name": "Assessment Arrangements for Junior Cycle and Leaving Certificate Examinations 2027 (Department of Education and Youth, September 2026)",
+      "url": "https://assets.gov.ie/static/documents/54a1450c/FINAL_v2_English_Assessment_Arrangements_2027.pdf"
+    },
+    "time": "Paper 2, Higher Level: 3 hours 20 minutes, 200 marks.",
+    "sections": [
+      {
+        "name": "Single Text",
+        "marks": 60,
+        "what": "Othello (or your other single text): answer one of two questions. No change for 2027."
+      },
+      {
+        "name": "Comparative Study",
+        "marks": 70,
+        "what": "For 2027, questions on all three modes are on the paper: you answer on one mode. You pick one of the two questions on that mode; each is either a single 70-mark question or a question in two parts (30 + 40)."
+      },
+      {
+        "name": "Poetry",
+        "marks": 70,
+        "what": "Unseen poem (20): one of two questions. Prescribed poetry (50): for 2027, one of five questions (one extra)."
+      }
+    ],
+    "seventy": "A single 70-mark question: refer to at least two texts. It is marked by the same criteria whether you use two texts or three.",
+    "split": "A two-part question: part (a) (30 marks) on one text, part (b) (40 marks) on two other texts. Part (b) doesn't have to link back to part (a)."
+  },
+  "current": "For 2027 you sit the current Leaving Certificate English syllabus: the revised Senior Cycle English specification hasn't started yet."
 }

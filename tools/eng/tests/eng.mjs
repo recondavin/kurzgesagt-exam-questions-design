@@ -18,6 +18,13 @@ ok(C.marks.criteria.reduce((s, c) => s + c.of70, 0) === 70, 'P, C, L and M add u
 ok(C.structure.pace.map(p => p.k).join('') === 'PACE', 'PACE is Point, Anchor, Compare, Evaluate');
 const phrases = new Set(C.language.flatMap(g => g.items));
 
+// The official 2027 arrangements: Paper 2 adds up to 200 (60 + 70 + 70), every mode quotes its official definition,
+// and the sources are links.
+ok(C.year === 2027 && C.paper && C.paper.sections.reduce((s, x) => s + x.marks, 0) === 200, 'Paper 2 sections add up to 200 marks');
+ok(/assets\.gov\.ie/.test(C.paper.source.url) && C.paper.seventy && C.paper.split, 'the 2027 arrangements are cited, with the 70-mark and 30 + 40 rules');
+ok(C.modes.every(m => m.official && m.official.quote.length > 40 && m.official.src), 'every mode quotes its official definition and source');
+ok(C.sources.length >= 4 && C.sources.every(x => /^https:\/\//.test(x.url)), 'sources are links');
+
 // The texts.
 ok(D.order.join() === 'sive,othello,shawshank,stlt', 'all four texts have notes');
 for (const id of D.order) {
