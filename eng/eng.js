@@ -1,0 +1,467 @@
+// english.html: the Leaving Cert English comparative study (Higher Level, 2027). Content comes from eng/eng-data.js
+// (tools/eng/build_eng.py). Pages, by hash: home (#), how it's marked (#marking), the essay and PACE (#structure),
+// a mode with its comparison grid (#mode/theme|cc|gvv), a text with its key moments (#text/<id>), the language bank
+// (#language), past questions (#questions) and the essay builder (#build). The student picks their three texts once
+// (eng-texts); every page compares those three.
+(function () {
+  'use strict';
+  var D = window.EngData, K = window.ExamAnswerMode && window.ExamAnswerMode.kit;
+  var app = document.getElementById('eng-app'), side = document.getElementById('eng-side'), bar = document.getElementById('eng-top');
+  if (!D || !app) return;
+  var C = D.comparative, MODES = C.modes, MODE = {};
+  MODES.forEach(function (m) { MODE[m.id] = m; });
+  var COL = { sive: 'var(--t-sive)', othello: 'var(--t-othello)', shawshank: 'var(--t-shawshank)', stlt: 'var(--t-stlt)', theme: 'var(--m-theme)', cc: 'var(--m-cc)', gvv: 'var(--m-gvv)' };
+  var PACE_COL = { P: 'var(--pace-p)', A: 'var(--pace-a)', C: 'var(--pace-c)', E: 'var(--pace-e)' };
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function store(k, v) { try { if (v === undefined) return window.localStorage.getItem(k); window.localStorage.setItem(k, v); } catch (e) {} return null; }
+  function text(id) { return D.texts[id]; }
+  function byline(t) { return (t.kind === 'film' ? 'Directed by ' : t.kind === 'drama' ? 'A play by ' : 'By ') + t.author; }
+  // How to name it in an essay: "Sive by John B. Keane", "The Shawshank Redemption, directed by Frank Darabont".
+  function nameLine(t) { return '<i>' + esc(t.title) + '</i>' + (t.kind === 'film' ? ', directed by ' : ' by ') + esc(t.author); }
+  function pics(id) { return (D.images || []).filter(function (p) { return p.text === id; }); }
+  function credit(p) {
+    return 'Picture: ' + (p.source ? '<a href="' + esc(p.source) + '" target="_blank" rel="noopener">' + esc(p.title || p.file) + '</a>' : esc(p.title || p.file)) +
+      (p.author ? ', ' + esc(p.author) : '') + (p.licence ? ' (' + esc(p.licence) + ')' : '');
+  }
+
+  // ---------- your three texts ----------
+  function chosen() {
+    var v = [];
+    try { v = JSON.parse(store('eng-texts') || '[]'); } catch (e) {}
+    v = v.filter(function (id) { return D.texts[id]; });
+    return v.length === 3 ? v : D.order.slice(0, 3);
+  }
+  function pickedExactly() { try { return JSON.parse(store('eng-texts') || '[]').length === 3; } catch (e) { return false; } }
+  function setChosen(ids) { store('eng-texts', JSON.stringify(ids)); }
+
+  // ---------- the shell (bio-shell.css): sidebar, top bar ----------
+  function link(href, label, active, extra) {
+    return '<a class="sh-link" href="' + href + '"' + (active ? ' aria-current="page"' : '') + '>' + (extra || '') + '<span class="sh-t">' + esc(label) + '</span></a>';
+  }
+  function renderShell(active, crumb) {
+    var mine = chosen();
+    side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
+      '<nav class="sh-nav" aria-label="English">' + link('#', 'Comparative', active === 'home') + link('#build', 'Build an essay', active === 'build') +
+      link('#marking', 'How it\'s marked', active === 'marking') + link('#structure', 'Essay and PACE', active === 'structure') +
+      link('#language', 'Language bank', active === 'language') + link('#questions', 'Past questions', active === 'questions') +
+      (window.EngGames ? '<p class="sh-group">Games</p>' + window.EngGames.list.map(function (g) { return link('#play/' + g[0], g[1], false); }).join('') : '') +
+      '<p class="sh-group">Modes</p>' + MODES.map(function (m) { return link('#mode/' + m.id, m.name, active === 'mode/' + m.id, '<span class="sh-n" aria-hidden="true"><span class="eng-tag" style="--c:' + COL[m.id] + '">&nbsp;</span></span>'); }).join('') +
+      '<p class="sh-group">Your texts</p>' + mine.map(function (id) { return link('#text/' + id, text(id).title, active === 'text/' + id, '<span class="sh-n" aria-hidden="true"><span class="eng-tag" style="--c:' + COL[id] + '">&nbsp;</span></span>'); }).join('') + '</nav>';
+    bar.innerHTML = '<button type="button" class="sh-menu" data-sh-menu aria-expanded="false" aria-controls="eng-side"><span class="sh-burger" aria-hidden="true"></span><span class="sr">Menu</span></button>' +
+      '<p class="sh-crumb">' + (crumb ? '<a href="#">English</a><span class="sh-sep" aria-hidden="true">/</span><span class="sh-here">' + esc(crumb) + '</span>' : '<span class="sh-here">English</span>') + '</p>' +
+      '<nav class="sh-switch" aria-label="Subject"><a href="Geography%20Questions.dc.html">Geography</a><a href="biology.html">Biology</a><a href="english.html" aria-current="page">English</a><a href="irish.html">Irish</a></nav>';
+  }
+  function menu(open) {
+    document.body.classList.toggle('sh-open', open);
+    var b = bar.querySelector('[data-sh-menu]');
+    if (b) b.setAttribute('aria-expanded', String(open));
+  }
+  function title(h, btn) {
+    return '<div class="cv-title"><h1 class="cv-h1">' + esc(h) + '</h1>' + (btn || '') + '</div>';
+  }
+  function note(label, body) { return '<p class="eng-note"><span>' + esc(label) + '</span>' + esc(body) + '</p>'; }
+
+  // ---------- home ----------
+  function pickCard(id, on) {
+    var t = text(id), p = pics(id)[0];
+    return '<button type="button" class="eng-pick' + (on ? ' is-on' : '') + '" style="--c:' + COL[id] + '" data-eng-pick="' + id + '" aria-pressed="' + on + '">' +
+      '<span class="eng-pick__img">' + (p ? '<img src="assets/eng/img/' + esc(p.file) + '" alt="" loading="lazy">' : '<span class="eng-pick__init">' + esc(t.title.charAt(0)) + '</span>') + '</span>' +
+      '<span class="eng-pick__body"><span class="eng-pick__t">' + esc(t.title) + '</span><span class="eng-pick__a">' + esc(t.author) + ' · ' + esc(t.kind) + '</span></span>' +
+      '<span class="eng-pick__tick" aria-hidden="true">✓</span></button>';
+  }
+  function renderHome() {
+    renderShell('home');
+    var mine = pickedExactly() ? chosen() : [];
+    var pc = C.marks.criteria;
+    app.innerHTML = title('Comparative Study', '<a class="eng-btn" href="#build">Build an essay</a>') +
+      '<h2 class="eng-h2">Your three texts</h2>' +
+      '<div class="eng-grid eng-grid--4">' + D.order.map(function (id) { return pickCard(id, mine.indexOf(id) >= 0); }).join('') + '</div>' +
+      '<p class="eng-picked" data-eng-picked>' + pickedLine(mine) + '</p>' +
+      '<h2 class="eng-h2">The modes for ' + C.year + '</h2>' +
+      '<div class="eng-grid eng-grid--3">' + MODES.map(function (m) {
+        return '<a class="eng-card" href="#mode/' + m.id + '" style="--c:' + COL[m.id] + '"><span class="eng-bar"></span><h3>' + esc(m.name) + '</h3><p>' + esc(m.hook) + '</p></a>';
+      }).join('') + '</div>' +
+      '<h2 class="eng-h2">How it\'s marked</h2>' +
+      '<a class="eng-card" href="#marking" style="display:block"><div class="eng-pclm" style="margin:0">' + pc.map(pclmSeg).join('') + '</div></a>' +
+      '<h2 class="eng-h2">Every paragraph: PACE</h2>' +
+      '<a href="#structure" style="text-decoration:none"><div class="eng-pace">' + C.structure.pace.map(function (p) {
+        return '<div class="eng-pace__t" style="background:' + PACE_COL[p.k] + '"><b>' + p.k + '</b><strong>' + esc(p.name) + '</strong></div>';
+      }).join('') + '</div></a>' +
+      (window.EngGames ? '<h2 class="eng-h2">Games</h2><div class="eng-grid eng-grid--4">' + window.EngGames.list.map(function (g) {
+        return '<a class="eng-card" href="#play/' + g[0] + '"><h3>' + esc(g[1]) + '</h3><p>' + esc(g[2]) + '</p></a>';
+      }).join('') + '</div>' : '');
+  }
+  function pickedLine(mine) {
+    if (mine.length !== 3) return 'Pick <b>three</b>: ' + (3 - mine.length) + ' more to choose.';
+    return '<b>' + mine.map(function (id) { return esc(text(id).title); }).join(', ') + '</b>' +
+      (mine.indexOf('othello') >= 0 ? '. Othello is your Shakespeare, so your single text must be another one.' : '. Your single text must be Othello, since a Shakespeare play is required at Higher Level.');
+  }
+  function pclmSeg(c) {
+    var col = { P: '#FFE45C', C: '#BFE3FF', L: '#C6F0B4', M: '#FFD3E6' }[c.code];
+    return '<i style="flex:' + c.pct + ';background:' + col + '"><b>' + c.code + ' ' + c.of70 + '</b>' + esc(c.name) + '</i>';
+  }
+
+  // ---------- how it's marked ----------
+  function renderMarking() {
+    renderShell('marking', 'How it\'s marked');
+    var cr = C.marks.criteria, col = { P: '#FFE45C', C: '#BFE3FF', L: '#C6F0B4', M: '#FFD3E6' };
+    app.innerHTML = title('How it\'s marked') +
+      '<p class="eng-p">The comparative question is worth <b>' + C.marks.total + ' marks</b>. ' + esc(C.marks.note) + '</p>' +
+      '<div class="eng-pclm">' + cr.map(pclmSeg).join('') + '</div>' +
+      '<div class="eng-grid eng-grid--2">' + cr.map(function (c) {
+        return '<div class="eng-card eng-crit"><span class="eng-crit__k" style="--c:' + col[c.code] + '">' + c.code + '</span>' +
+          '<h3>' + esc(c.name) + '</h3><span class="eng-crit__m">' + c.pct + '% · ' + c.of70 + ' of 70 · ' + c.of30 + ' of 30 · ' + c.of40 + ' of 40</span>' +
+          '<p>' + esc(c.what) + '</p></div>';
+      }).join('') + '</div>' +
+      '<h2 class="eng-h2">What gets the marks</h2>' +
+      cr.map(function (c) { return note(c.name, c.do); }).join('') +
+      '<h2 class="eng-h2">The rules for ' + C.year + '</h2>' +
+      '<ul class="eng-ask">' + C.rules.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ul>' +
+      '<p class="eng-credit">Source: <a href="' + esc(C.source.split(': ').pop()) + '" target="_blank" rel="noopener">the ' + C.year + ' prescribed material circular</a> and the SEC\'s criteria for assessment.</p>';
+  }
+
+  // ---------- the essay and PACE ----------
+  function renderStructure() {
+    renderShell('structure', 'Essay and PACE');
+    var S = C.structure, parts = S.parts;
+    var flow = '<div class="eng-flow">' + parts.map(function (p, k) {
+      return (k ? '<span class="eng-flow__arrow" aria-hidden="true">→</span>' : '') +
+        '<div class="eng-card"><h3>' + esc(p.name) + '</h3><p>' + esc(p.what) + '</p><p class="eng-avoid">' + esc(p.avoid.replace(/^Don't /, 'Don\'t ')) + '</p></div>';
+    }).join('') + '</div>';
+    var eg = S.pace.map(function (p) { return '<mark class="pace-' + p.k.toLowerCase() + '">' + esc(p.eg) + '</mark>'; }).join(' ');
+    app.innerHTML = title('Essay and PACE', '<a class="eng-btn" href="#build">Build an essay</a>') +
+      '<p class="eng-p">' + esc(S.length) + ' ' + esc(S.time) + '</p>' + flow +
+      '<h2 class="eng-h2">Every paragraph: PACE</h2>' +
+      '<div class="eng-pace">' + S.pace.map(function (p) {
+        return '<div class="eng-pace__t" style="background:' + PACE_COL[p.k] + '"><b>' + p.k + '</b><strong>' + esc(p.name) + '</strong><p>' + esc(p.what) + '</p></div>';
+      }).join('') + '</div>' +
+      '<h2 class="eng-h2">A PACE paragraph</h2><div class="eng-paper">' + eg + '</div>' + note('Remember it', S.hook);
+  }
+
+  // ---------- a mode: the three texts side by side ----------
+  function modeRows(id, tid) {
+    var m = text(tid).modes[id] || {};
+    if (id === 'theme') return (m.themes || []).map(function (g) { return [g.name, g.points]; });
+    if (id === 'cc') return (m.aspects || []).map(function (g) { return [g.name, g.points]; });
+    return [['The opening', [m.opening].filter(Boolean)], ['Light and dark', (m.points || []).slice(0, 3)], ['The ending', [m.ending].filter(Boolean)],
+      ['Outlook', m.outlook ? ['<' + m.outlook + '>'] : []], ['More', (m.points || []).slice(3)]];
+  }
+  function pointHtml(p, tid) {
+    var o = /^<(bleak|hopeful|mixed)>$/.exec(p);
+    if (o) return '<p><span class="eng-outlook eng-outlook--' + o[1] + '">' + o[1].charAt(0).toUpperCase() + o[1].slice(1) + '</span></p>';
+    return '<p>' + esc(p).replace(/\[([a-z]+-(\d+))\]/g, function (all, ref, n) {
+      return '<a class="eng-ref" href="#text/' + tid + '/' + ref + '" title="Key moment ' + n + '">' + n + '</a>';
+    }) + '</p>';
+  }
+  function renderMode(id) {
+    var m = MODE[id];
+    if (!m) { location.hash = ''; return; }
+    renderShell('mode/' + id, m.name);
+    var mine = chosen().filter(function (t) { return text(t).modes && text(t).modes[id]; });
+    var names = [], seen = {};
+    mine.forEach(function (t) { modeRows(id, t).forEach(function (r) { if (!seen[r[0]]) { seen[r[0]] = 1; names.push(r[0]); } }); });
+    var grid = '<div class="eng-cmp" style="--n:' + mine.length + '"><span class="eng-cmp__corner"></span>' +
+      mine.map(function (t) { return '<span class="eng-cmp__h" style="--c:' + COL[t] + '">' + esc(text(t).title) + '</span>'; }).join('') +
+      names.map(function (name) {
+        var pts = mine.map(function (t) { var row = modeRows(id, t).filter(function (r) { return r[0] === name; })[0]; return row ? row[1] : []; });
+        // A row nobody has notes for (say, "More" when the vision points run short) is left out.
+        if (!pts.some(function (p) { return p.length; })) return '';
+        return '<span class="eng-cmp__row">' + esc(name) + '</span>' + mine.map(function (t, k) {
+          return '<div class="eng-cmp__cell" style="--c:' + COL[t] + '" data-t="' + esc(text(t).title) + '">' + (pts[k].length ? pts[k].map(function (p) { return pointHtml(p, t); }).join('') : '<p>–</p>') + '</div>';
+        }).join('');
+      }).join('') + '</div>';
+    app.innerHTML = title(m.name, '<a class="eng-btn" href="#build/' + id + '">Build an essay</a>') +
+      '<p class="eng-p">' + esc(m.what) + '</p>' + note('Remember it', m.hook) +
+      '<div class="eng-grid eng-grid--2" style="margin-top:18px"><div class="eng-card"><h3>Ask these of each text</h3><ul class="eng-ask">' + m.ask.map(function (q) { return '<li>' + esc(q) + '</li>'; }).join('') + '</ul></div>' +
+      '<div class="eng-card"><h3>Words for this mode</h3><ul class="eng-words">' + m.words.map(chip).join('') + '</ul></div></div>' +
+      '<h2 class="eng-h2">Your three texts, side by side</h2>' + (mine.length ? grid : '<p class="eng-p">The notes for your texts are on their way.</p>');
+  }
+  function chip(w) { return '<li><button type="button" class="eng-chip" data-eng-copy="' + esc(w) + '">' + esc(w) + '</button></li>'; }
+
+  // ---------- a text ----------
+  function renderText(id, moment) {
+    var t = text(id);
+    if (!t) { location.hash = ''; return; }
+    renderShell('text/' + id, t.title);
+    var p = pics(id), when = { opening: 'Opening', middle: 'Middle', climax: 'Climax', ending: 'Ending' };
+    app.innerHTML = '<div class="eng-hero" style="--c:' + COL[id] + '"><div><h1 class="eng-hero__t">' + esc(t.title) + '</h1><p class="eng-hero__a">' + esc(byline(t)) + (t.made ? ' · ' + esc(t.made) : '') + '</p>' +
+        '<p class="eng-p">' + esc(t.gist) + '</p><p class="eng-p"><b>Setting:</b> ' + esc(t.setting) + '</p></div>' +
+        (p[0] ? '<figure><img src="assets/eng/img/' + esc(p[0].file) + '" alt="' + esc(p[0].title || '') + '"><figcaption>' + credit(p[0]) + '</figcaption></figure>' : '') + '</div>' +
+      '<h2 class="eng-h2">Characters</h2><ul class="eng-people">' + t.people.map(function (c) { return '<li><b>' + esc(c.name) + '</b> ' + esc(c.who) + '</li>'; }).join('') + '</ul>' +
+      '<h2 class="eng-h2">Key moments</h2><ol class="eng-moments">' + t.moments.map(function (m, k) {
+        return '<li class="eng-moment" id="' + esc(m.id) + '" style="--c:' + COL[id] + '"><span class="eng-moment__n">' + (k + 1) + '</span>' +
+          '<h3>' + esc(m.title) + '</h3><span class="eng-moment__w">' + esc(m.where) + (m.when ? ' · ' + esc(when[m.when] || m.when) : '') + ' · ' +
+          (m.modes || []).map(function (x) { return '<span class="eng-tag" style="--c:' + COL[x] + '">' + esc(MODE[x] ? MODE[x].short : x) + '</span>'; }).join(' ') + '</span>' +
+          '<p>' + esc(m.what) + '</p><p class="eng-moment__why">' + esc(m.why) + '</p>' + (m.quote ? '<p class="eng-quote">“' + esc(m.quote) + '”</p>' : '') + '</li>';
+      }).join('') + '</ol>' +
+      (p.length > 1 ? '<h2 class="eng-h2">Pictures</h2><div class="eng-grid eng-grid--3">' + p.slice(1).map(function (q) {
+        return '<figure style="margin:0"><img src="assets/eng/img/' + esc(q.file) + '" alt="' + esc(q.title || '') + '" loading="lazy" style="width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:14px"><figcaption class="eng-credit">' + credit(q) + '</figcaption></figure>';
+      }).join('') + '</div>' : '');
+    if (moment) { var el = document.getElementById(moment); if (el) el.scrollIntoView({ block: 'center' }); }
+  }
+
+  // ---------- language bank ----------
+  function renderLanguage() {
+    renderShell('language', 'Language bank');
+    app.innerHTML = title('Language bank') + '<p class="eng-p">Tap a phrase to copy it.</p>' +
+      '<div class="eng-grid eng-grid--2">' + C.language.map(function (g) {
+        return '<div class="eng-card"><h3>' + esc(g.name) + '</h3><ul class="eng-words">' + g.items.map(chip).join('') + '</ul></div>';
+      }).join('') + MODES.map(function (m) {
+        return '<div class="eng-card" style="--c:' + COL[m.id] + '"><span class="eng-bar"></span><h3>' + esc(m.name) + '</h3><ul class="eng-words">' + m.words.map(chip).join('') + '</ul></div>';
+      }).join('') + '</div>';
+  }
+
+  // ---------- past questions ----------
+  var qFilter = 'all';
+  function renderQuestions() {
+    renderShell('questions', 'Past questions');
+    var list = D.questions.filter(function (q) { return qFilter === 'all' || q.mode === qFilter; }).sort(function (a, b) { return b.year - a.year; });
+    app.innerHTML = title('Past questions') +
+      '<div class="eng-filter">' + [['all', 'All']].concat(MODES.map(function (m) { return [m.id, m.name]; })).map(function (f) {
+        return '<button type="button" class="eng-chip" data-eng-qf="' + f[0] + '" aria-pressed="' + (qFilter === f[0]) + '">' + esc(f[1]) + '</button>';
+      }).join('') + '</div>' +
+      (list.length ? '<div class="eng-grid">' + list.map(function (q) {
+        var k = D.questions.indexOf(q);
+        return '<div class="eng-q"><span class="eng-q__y">' + q.year + (q.paper === 'deferred' ? '<small>Deferred</small>' : '') + '<small>' + esc(MODE[q.mode].short) + ' · ' + (Array.isArray(q.marks) ? q.marks.join(' + ') : q.marks) + ' marks</small></span>' +
+          '<p>' + esc(q.text) + '</p><a class="eng-btn eng-btn--quiet" href="#build/q' + k + '">Build it</a></div>';
+      }).join('') + '</div>' : '<p class="eng-p">The past questions are being collected.</p>');
+  }
+
+  // ---------- the essay builder ----------
+  // One draft, saved as you type (eng-essay): the question and its mode, your one-line answer, three or four aspects,
+  // then an introduction, a PACE paragraph per aspect and a conclusion. The paper on the right is the essay so far.
+  var E = null;
+  function essay() {
+    if (E) return E;
+    try { E = JSON.parse(store('eng-essay') || 'null'); } catch (e) {}
+    if (!E) E = { mode: 'gvv', q: '', thesis: '', aspects: [], intro: '', paras: {}, end: '', step: 0 };
+    return E;
+  }
+  function saveEssay() { store('eng-essay', JSON.stringify(E)); }
+  function stepsList() {
+    var e = essay();
+    return [['q', 'Question'], ['plan', 'Plan'], ['intro', 'Introduction']].concat(e.aspects.map(function (a, k) { return ['p' + k, 'Point ' + (k + 1)]; })).concat([['end', 'Conclusion'], ['check', 'Check']]);
+  }
+  function aspectOptions(mode) {
+    var names = [], seen = {};
+    chosen().forEach(function (t) { modeRows(mode, t).forEach(function (r) { if (!seen[r[0]] && r[0] !== 'Outlook' && r[0] !== 'More' && r[1].length) { seen[r[0]] = 1; names.push(r[0]); } }); });
+    return names.length ? names : MODE[mode].topics;
+  }
+  function pointsFor(mode, aspect, tid) {
+    var row = modeRows(mode, tid).filter(function (r) { return r[0] === aspect; })[0];
+    return row ? row[1].filter(function (p) { return !/^</.test(p); }) : [];
+  }
+  function momentsFor(mode, tid) { return (text(tid).moments || []).filter(function (m) { return (m.modes || []).indexOf(mode) >= 0; }); }
+  function starters(ids) {
+    var all = {};
+    C.language.forEach(function (g) { all[g.id] = g.items; });
+    return '<div class="eb-starters">' + ids.map(function (g) { return (all[g] || []).slice(0, 5).map(function (s) { return '<button type="button" class="eng-chip" data-eb-insert="' + esc(s) + '">' + esc(s) + '</button>'; }).join(''); }).join('') + '</div>';
+  }
+  function field(key, label, k, value, ph, help, startersFor) {
+    return '<div class="eb-field"><label for="eb-' + key + '">' + (k ? '<span class="eb-k" style="background:' + PACE_COL[k] + '">' + k + '</span>' : '') + esc(label) + '</label>' +
+      '<textarea id="eb-' + key + '" rows="3" data-eb="' + key + '" placeholder="' + esc(ph || '') + '">' + esc(value || '') + '</textarea>' + (startersFor ? starters(startersFor) : '') + (help || '') + '</div>';
+  }
+  function helpList(head, items) { return items.length ? '<div class="eb-help"><b>' + esc(head) + '</b><ul>' + items.map(function (i) { return '<li>' + i + '</li>'; }).join('') + '</ul></div>' : ''; }
+  function plain(p) { return esc(p).replace(/\s*\[[a-z]+-\d+\]/g, ''); }
+  function stepHtml() {
+    var e = essay(), st = stepsList(), cur = st[Math.min(e.step, st.length - 1)][0], mine = chosen(), m = MODE[e.mode];
+    if (cur === 'q') {
+      var qs = D.questions.filter(function (q) { return q.mode === e.mode; });
+      return '<h2>The question</h2><p>Pick the mode, then a past question or write your own.</p>' +
+        '<div class="eb-choices">' + MODES.map(function (x) { return '<button type="button" class="eng-chip" style="--c:' + COL[x.id] + '" data-eb-mode="' + x.id + '" aria-pressed="' + (e.mode === x.id) + '">' + esc(x.name) + '</button>'; }).join('') + '</div>' +
+        (qs.length ? '<div class="eb-choices">' + qs.slice(0, 8).map(function (q) { return '<button type="button" class="eng-chip" data-eb-q="' + D.questions.indexOf(q) + '">' + q.year + (q.paper === 'deferred' ? ' (deferred)' : '') + '</button>'; }).join('') + '</div>' : '') +
+        field('q', 'The question', '', e.q, 'Paste or type the question here') +
+        field('thesis', 'Your answer to it, in one sentence', 'P', e.thesis, 'e.g. All three texts present a world where the powerful crush the vulnerable, but only Shawshank lets hope win.',
+          '<div class="eb-help"><b>This is your line of argument.</b> Every paragraph will prove a part of it.</div>');
+    }
+    if (cur === 'plan') {
+      var opts = aspectOptions(e.mode);
+      return '<h2>Plan: one aspect per paragraph</h2><p>Pick 3 or 4 aspects of ' + esc(m.name.toLowerCase()) + ' that answer the question. Each becomes a PACE paragraph comparing ' + mine.map(function (t) { return esc(text(t).title); }).join(', ') + '.</p>' +
+        '<div class="eb-choices">' + opts.map(function (a) { return '<button type="button" class="eng-chip" style="--c:' + COL[e.mode] + '" data-eb-aspect="' + esc(a) + '" aria-pressed="' + (e.aspects.indexOf(a) >= 0) + '">' + esc(a) + '</button>'; }).join('') + '</div>' +
+        '<div class="eb-help"><b>' + e.aspects.length + ' chosen.</b> ' + (e.aspects.length < 3 ? 'Pick at least 3.' : e.aspects.length > 5 ? 'Five at most: depth beats a list.' : 'Good. You can reorder later by picking them again.') + '</div>';
+    }
+    if (cur === 'intro') {
+      return '<h2>Introduction</h2><p>Answer the question straight away, name the three texts with their authors or director, and the mode.</p>' +
+        field('intro', 'Introduction', '', e.intro || (e.thesis ? e.thesis + ' ' : ''), 'Start with your answer, then name the texts.',
+          helpList('Your texts, written correctly', mine.map(function (t) { return nameLine(text(t)); })), ['judge']);
+    }
+    if (cur === 'end') {
+      return '<h2>Conclusion</h2><p>Answer the question again, name the biggest similarity or difference, and say which text affected you most and why.</p>' +
+        field('end', 'Conclusion', 'E', e.end, 'Ultimately, …', '', ['judge', 'degree']);
+    }
+    if (cur === 'check') return checkHtml();
+    var k = +cur.slice(1), a = e.aspects[k], pr = e.paras[a] || {};
+    var t1 = mine[0], t2 = mine[1], t3 = mine[2];
+    function notesFor(tid) {
+      var pts = pointsFor(e.mode, a, tid).map(plain), mo = momentsFor(e.mode, tid).slice(0, 4).map(function (x) { return '<b>' + esc(x.title) + '</b> (' + esc(x.where) + '): ' + esc(x.what); });
+      return helpList('From your notes on ' + text(tid).title, pts.concat(mo));
+    }
+    return '<h2>Point ' + (k + 1) + ': ' + esc(a) + '</h2><p>Build it with PACE. The notes under each box are from your texts: use them in your own words.</p>' +
+      field('P' + k, 'Point: answer the question for ' + a.toLowerCase(), 'P', pr.P, 'In all three texts, …', '', ['same', 'degree']) +
+      field('A' + k, 'Anchor it in ' + text(t1).title, 'A', pr.A, 'This is crystallised in the moment when …', notesFor(t1), ['moment']) +
+      field('C' + k, 'Compare with ' + text(t2).title + ' and ' + text(t3).title, 'C', pr.C, 'Similarly, … In contrast, …', notesFor(t2) + notesFor(t3), ['same', 'differ', 'degree']) +
+      field('E' + k, 'Evaluate: what does it show? Back to the question', 'E', pr.E, 'Of the three texts, …', '', ['judge']);
+  }
+  function essayParts() {
+    var e = essay(), out = [];
+    if (e.intro) out.push(e.intro);
+    e.aspects.forEach(function (a) {
+      var p = e.paras[a] || {};
+      var s = ['P', 'A', 'C', 'E'].map(function (x) { return (p[x] || '').trim(); }).filter(Boolean).join(' ');
+      if (s) out.push(s);
+    });
+    if (e.end) out.push(e.end);
+    return out;
+  }
+  function words(s) { return (String(s).match(/[A-Za-z’'-]+/g) || []).length; }
+  function previewHtml() {
+    var e = essay(), parts = [];
+    parts.push(e.intro ? esc(e.intro) : '<span class="eb-ghost">Introduction…</span>');
+    e.aspects.forEach(function (a) {
+      var p = e.paras[a] || {}, any = false;
+      var s = ['P', 'A', 'C', 'E'].map(function (x) { if (p[x]) any = true; return p[x] ? '<mark class="pace-' + x.toLowerCase() + '">' + esc(p[x].trim()) + '</mark>' : ''; }).join(' ');
+      parts.push(any ? s : '<span class="eb-ghost">' + esc(a) + ': Point, Anchor, Compare, Evaluate…</span>');
+    });
+    parts.push(e.end ? esc(e.end) : '<span class="eb-ghost">Conclusion…</span>');
+    var n = words(essayParts().join(' '));
+    return '<div class="eng-paper">' + (e.q ? '<p><b>' + esc(e.q) + '</b></p>' : '') + parts.map(function (p) { return '<p>' + p + '</p>'; }).join('') + '</div>' +
+      '<div class="eb-count"><span>' + n + ' words</span><span>' + (n < 900 ? 'Aim for 1,000 to 1,300' : n > 1500 ? 'Long: about 65 minutes in the exam' : 'A good length') + '</span></div>';
+  }
+  // The checks: what a reader can see in the text, mapped to P, C, L and M. Not a grade: a list of things to fix.
+  function checkHtml() {
+    var e = essay(), mine = chosen(), all = essayParts().join('\n'), low = all.toLowerCase();
+    var stop = /^(the|and|that|this|with|which|what|from|your|their|they|them|have|been|does|text|texts|three|least|comparative|course|studied|study|discuss|extent|reference|making|make|answer|support)$/;
+    var qWords = (e.q.toLowerCase().match(/[a-z]{5,}/g) || []).filter(function (w) { return !stop.test(w); });
+    var qHit = qWords.filter(function (w) { return low.indexOf(w.slice(0, 6)) >= 0; });
+    var names = mine.map(function (t) { var x = text(t); return [x.title.toLowerCase(), x.author.split(' ').pop().toLowerCase()].concat((x.people || []).map(function (p) { return p.name.split(' ')[0].toLowerCase(); })); });
+    var paras = e.aspects.map(function (a) { var p = e.paras[a] || {}; return ['P', 'A', 'C', 'E'].map(function (x) { return p[x] || ''; }).join(' ').toLowerCase(); }).filter(function (p) { return p.trim(); });
+    var cmpWords = [].concat.apply([], C.language.filter(function (g) { return g.id !== 'moment'; }).map(function (g) { return g.items; })).map(function (s) { return s.replace(/[,.…]/g, '').replace(/ ….*$/, '').trim().toLowerCase(); }).filter(function (s) { return s.length > 3; });
+    var usedCmp = cmpWords.filter(function (s) { return low.indexOf(s) >= 0; });
+    var modeWords = MODE[e.mode].words.filter(function (w) { return low.indexOf(w.toLowerCase()) >= 0; });
+    var titlesRight = mine.every(function (t) { var tt = text(t).title; return all.indexOf(tt) >= 0 || all.toLowerCase().indexOf(tt.toLowerCase()) < 0; });
+    var checks = [
+      ['P', qWords.length ? qHit.length >= Math.min(3, qWords.length) : false, 'The question\'s own words', qWords.length ? 'You use ' + qHit.length + ' of its key words (' + qWords.slice(0, 6).join(', ') + '). Keep the question in view in every paragraph.' : 'Put the question in at the first step.'],
+      ['P', mine.every(function (t, k) { return names[k].slice(0, 2).some(function (n) { return n && (e.intro || '').toLowerCase().indexOf(n) >= 0; }); }), 'All three texts in the introduction', 'Name each text (and its author or director) in your introduction.'],
+      ['C', paras.length >= 3 && paras.every(function (p) { return names.filter(function (n) { return n.some(function (x) { return x && p.indexOf(x) >= 0; }); }).length >= 2; }), 'Every paragraph compares', 'Each paragraph should bring in at least two of your texts. One text per paragraph isn\'t a comparison.'],
+      ['C', e.aspects.every(function (a) { var p = e.paras[a] || {}; return p.P && p.A && p.C && p.E; }), 'Every paragraph is full PACE', 'Point, Anchor, Compare and Evaluate in each one.'],
+      ['L', usedCmp.length >= 6, 'The language of comparison', usedCmp.length + ' comparative phrases so far' + (usedCmp.length ? ' (' + usedCmp.slice(0, 5).join(', ') + ')' : '') + '. Aim for 6 or more, and vary them.'],
+      ['L', modeWords.length >= 3, 'The words of the mode', modeWords.length + ' ' + MODE[e.mode].name + ' words' + (modeWords.length ? ' (' + modeWords.join(', ') + ')' : '') + '. Aim for 3 or more.'],
+      ['M', titlesRight && !/\bi\b/.test(all), 'Titles and spelling', 'Write the titles exactly: ' + mine.map(function (t) { return text(t).title; }).join(', ') + '. Capital I for yourself.'],
+      ['E', !!e.end && /ultimately|for me|most|leaves|overall|of the three/i.test(e.end), 'A conclusion that answers', 'End by answering the question again and saying which text affected you most.']
+    ];
+    return '<h2>Check your essay</h2><p>These are things an examiner notices. It\'s a checklist, not a grade.</p>' +
+      '<ul class="eb-checks">' + checks.map(function (c) {
+        return '<li class="' + (c[1] ? 'is-ok' : 'is-no') + '"><i>' + (c[1] ? '✓' : '!') + '</i><span><b>' + c[0] + ' · ' + esc(c[2]) + '.</b> ' + (c[1] ? '' : esc(c[3])) + '</span></li>';
+      }).join('') + '</ul>' +
+      '<div class="eb-nav"><button type="button" class="eng-btn eng-btn--quiet" data-eb-copyall>Copy the essay</button><button type="button" class="eng-btn eng-btn--quiet" data-eb-new>Start a new one</button></div>';
+  }
+  function renderBuild(arg) {
+    renderShell('build', 'Build an essay');
+    var e = essay();
+    if (arg && MODE[arg] && e.mode !== arg) { e.mode = arg; e.aspects = []; e.step = 0; saveEssay(); }
+    if (arg && /^q\d+$/.test(arg) && D.questions[+arg.slice(1)]) { var q = D.questions[+arg.slice(1)]; e.mode = q.mode; e.q = q.text; e.step = 0; saveEssay(); }
+    drawBuild();
+  }
+  function drawBuild() {
+    var e = essay(), st = stepsList();
+    if (e.step >= st.length) e.step = st.length - 1;
+    app.innerHTML = title('Build an essay') +
+      '<ol class="eb-steps">' + st.map(function (s, k) { return '<li><button type="button" data-eb-step="' + k + '"' + (k === e.step ? ' aria-current="step"' : '') + '>' + esc(s[1]) + '</button></li>'; }).join('') + '</ol>' +
+      '<div class="eb"><div class="eb-panel" data-eb-panel>' + stepHtml() +
+        '<div class="eb-nav">' + (e.step > 0 ? '<button type="button" class="eng-btn eng-btn--quiet" data-eb-go="-1">Back</button>' : '<span></span>') +
+        (e.step < st.length - 1 ? '<button type="button" class="eng-btn" data-eb-go="1"' + (st[e.step][0] === 'plan' && e.aspects.length < 3 ? ' disabled' : '') + '>Next</button>' : '') + '</div></div>' +
+      '<div class="eb-preview" data-eb-preview>' + previewHtml() + '</div></div>';
+  }
+  function setField(key, v) {
+    var e = essay();
+    if (key === 'q' || key === 'thesis' || key === 'intro' || key === 'end') e[key] = v;
+    else { var part = key.charAt(0), k = +key.slice(1), a = e.aspects[k]; if (!a) return; (e.paras[a] = e.paras[a] || {})[part] = v; }
+    saveEssay();
+    var pv = app.querySelector('[data-eb-preview]');
+    if (pv) pv.innerHTML = previewHtml();
+  }
+
+  // ---------- events ----------
+  var toastT = 0;
+  function toast(msg) {
+    var t = document.querySelector('.eng-toast');
+    if (!t) { t = document.createElement('div'); t.className = 'eng-toast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }
+    t.textContent = msg;
+    t.classList.add('is-on');
+    clearTimeout(toastT);
+    toastT = setTimeout(function () { t.classList.remove('is-on'); }, 1600);
+  }
+  function copy(s, el) {
+    var done = function () { toast('Copied: ' + (s.length > 40 ? s.slice(0, 40) + '…' : s)); if (el) { el.classList.add('is-copied'); setTimeout(function () { el.classList.remove('is-copied'); }, 900); } };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(s).then(done, done); else done();
+  }
+  document.addEventListener('click', function (ev) {
+    var t = ev.target;
+    if (t.closest('[data-sh-menu]')) { menu(!document.body.classList.contains('sh-open')); return; }
+    if (document.body.classList.contains('sh-open') && t.closest('.sh-link')) menu(false);
+    var pick = t.closest('[data-eng-pick]');
+    if (pick) {
+      var id = pick.getAttribute('data-eng-pick'), cur = pickedExactly() ? chosen() : JSON.parse(store('eng-texts') || '[]').filter(function (x) { return D.texts[x]; });
+      if (cur.indexOf(id) >= 0) cur = cur.filter(function (x) { return x !== id; }); else if (cur.length < 3) cur.push(id); else { cur.shift(); cur.push(id); }
+      setChosen(cur);
+      if (K) K.sfx(cur.indexOf(id) >= 0 ? 'pop' : 'tick', 0.6);
+      renderHome();
+      return;
+    }
+    var cp = t.closest('[data-eng-copy]');
+    if (cp) { copy(cp.getAttribute('data-eng-copy'), cp); return; }
+    var qf = t.closest('[data-eng-qf]');
+    if (qf) { qFilter = qf.getAttribute('data-eng-qf'); renderQuestions(); return; }
+    // The builder.
+    var e = E;
+    var go = t.closest('[data-eb-go]');
+    if (go && !go.disabled) { essay().step += +go.getAttribute('data-eb-go'); saveEssay(); drawBuild(); window.scrollTo(0, 0); return; }
+    var sp = t.closest('[data-eb-step]');
+    if (sp) { essay().step = +sp.getAttribute('data-eb-step'); saveEssay(); drawBuild(); return; }
+    var md = t.closest('[data-eb-mode]');
+    if (md) { e = essay(); if (e.mode !== md.getAttribute('data-eb-mode')) { e.mode = md.getAttribute('data-eb-mode'); e.aspects = []; } saveEssay(); drawBuild(); return; }
+    var qq = t.closest('[data-eb-q]');
+    if (qq) { e = essay(); e.q = D.questions[+qq.getAttribute('data-eb-q')].text; saveEssay(); drawBuild(); return; }
+    var as = t.closest('[data-eb-aspect]');
+    if (as) {
+      e = essay(); var a = as.getAttribute('data-eb-aspect'), i = e.aspects.indexOf(a);
+      if (i >= 0) e.aspects.splice(i, 1); else if (e.aspects.length < 5) e.aspects.push(a);
+      saveEssay(); drawBuild(); return;
+    }
+    var ins = t.closest('[data-eb-insert]');
+    if (ins) {
+      var box = ins.closest('.eb-field').querySelector('textarea'), s = ins.getAttribute('data-eb-insert').replace(/ …$/, ' ');
+      var at = box.selectionStart || box.value.length;
+      box.value = box.value.slice(0, at) + (at && !/\s$/.test(box.value.slice(0, at)) ? ' ' : '') + s + (/[,]$/.test(s) ? ' ' : '') + box.value.slice(at);
+      box.focus();
+      setField(box.getAttribute('data-eb'), box.value);
+      return;
+    }
+    if (t.closest('[data-eb-copyall]')) { copy(essayParts().join('\n\n')); return; }
+    if (t.closest('[data-eb-new]')) { if (window.confirm('Start a new essay? This one will be cleared.')) { E = null; store('eng-essay', 'null'); drawBuild(); } return; }
+  });
+  document.addEventListener('input', function (ev) {
+    var key = ev.target.getAttribute && ev.target.getAttribute('data-eb');
+    if (key) setField(key, ev.target.value);
+  });
+
+  // ---------- routes ----------
+  function route() {
+    var h = decodeURIComponent(location.hash.replace(/^#/, '')), p = h.split('/');
+    menu(false);
+    if (p[0] === 'play' && window.EngGames) { window.EngGames.open(p[1]); history.replaceState(null, '', '#'); renderHome(); return; }
+    if (p[0] === 'marking') renderMarking();
+    else if (p[0] === 'structure') renderStructure();
+    else if (p[0] === 'mode') renderMode(p[1]);
+    else if (p[0] === 'text') renderText(p[1], p[2]);
+    else if (p[0] === 'language') renderLanguage();
+    else if (p[0] === 'questions') renderQuestions();
+    else if (p[0] === 'build') renderBuild(p[1]);
+    else renderHome();
+    if (!p[2]) window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+  window.EngApp = { chosen: chosen, text: text, data: D, colour: COL };
+  route();
+})();

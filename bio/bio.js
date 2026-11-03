@@ -408,7 +408,7 @@
       }).join('') + '</nav>';
     bar.innerHTML = '<button type="button" class="sh-menu" data-sh-menu aria-expanded="false" aria-controls="bio-side"><span class="sh-burger" aria-hidden="true"></span><span class="sr">Menu</span></button>' +
       '<p class="sh-crumb">' + (crumb ? '<a href="#">Biology</a><span class="sh-sep" aria-hidden="true">/</span><span class="sh-here">' + esc(crumb) + '</span>' : '<span class="sh-here">Biology</span>') + '</p>' +
-      '<nav class="sh-switch" aria-label="Subject"><a href="Geography%20Questions.dc.html">Geography</a><a href="biology.html" aria-current="page">Biology</a><a href="irish.html">Irish</a></nav>';
+      '<nav class="sh-switch" aria-label="Subject"><a href="Geography%20Questions.dc.html">Geography</a><a href="biology.html" aria-current="page">Biology</a><a href="english.html">English</a><a href="irish.html">Irish</a></nav>';
   }
   function menu(open) {
     document.body.classList.toggle('sh-open', open);
