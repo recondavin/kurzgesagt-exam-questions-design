@@ -406,12 +406,39 @@ body.eng.sh-open .sh-brand { display: none; }
 .ebd-qp--quote { font-style: italic; color: #4A5466; }
 .ebd-qp__l { display: inline-grid; place-items: center; min-width: 30px; height: 24px; margin-right: 8px; padding: 0 6px; border-radius: 7px; background: #13212A; color: #fff; font: 700 13px/1 Fredoka, Nunito, sans-serif; vertical-align: 1px; }
 .ebd-qp__m { margin-left: 8px; color: #8C8166; font: 800 12px Nunito, sans-serif; white-space: nowrap; }
-.ebd-qp mark { color: inherit; }
-.ebd-qp mark.q-topic { padding: 0 2px; border-radius: 3px; background: #FFEFA0; }
-.ebd-qp mark.q-task { background: none; color: #2457C5; text-decoration: underline 2px; text-underline-offset: 3px; }
 .ebd-caret { display: inline-block; width: 2px; height: 1.1em; margin-left: 1px; background: #2A3342; vertical-align: -3px; animation: ebdBlink .8s steps(1) infinite; }
 @keyframes ebdBlink { 50% { opacity: 0; } }
 .ebd-q.is-typing { cursor: pointer; }
 .ebd-q.is-typing::after { content: "Click to show it all"; position: absolute; top: 14px; right: 14px; color: #8C8166; font: 800 12px Nunito, sans-serif; }
 .ebd-wait { display: none !important; }
 @media (max-width: 560px) { .ebd-stamps { gap: 4px; } .ebd-stamps i { width: 23px; height: 23px; font-size: 11px; border-width: 2px; } .ebd-stamps span { margin-left: 2px; font-size: 12.5px; } .ebd-stamps span b { font-size: 17px; } }
+
+/* Words of a question you can tap for their meaning (eng.js qMark, openDef). */
+.q-def { display: inline; margin: 0; padding: 0 2px; border: 0; border-radius: 3px; background: none; color: inherit; font: inherit; cursor: help; text-align: inherit; }
+.q-def.q-topic { background: #FFEFA0; box-shadow: inset 0 -2px 0 #E8C93E; }
+.q-def.q-task { color: #2457C5; text-decoration: underline 2px; text-underline-offset: 3px; }
+.q-def:hover, .q-def.is-open { background: #FFE14D; color: #13212A; text-decoration: none; }
+.q-def.q-task:hover, .q-def.q-task.is-open { background: #CFE3FF; color: #1D3F86; }
+.q-def:focus-visible { outline: 2px solid #2457C5; outline-offset: 1px; }
+/* On the dark past-questions cards. */
+.eng-q .q-def.q-topic { background: rgba(255, 228, 92, .2); box-shadow: inset 0 -2px 0 rgba(255, 228, 92, .55); }
+.eng-q .q-def.q-task { color: #8EC5FF; }
+.eng-q .q-def:hover, .eng-q .q-def.is-open { background: #FFE14D; color: #13212A; }
+.q-pop { position: absolute; z-index: 70; width: min(360px, calc(100vw - 24px)); box-sizing: border-box; padding: 14px 16px 12px; border-radius: 14px; background: #fff; color: #13212A; box-shadow: 0 6px 0 rgba(0, 0, 0, .25), 0 0 0 1px rgba(0, 0, 0, .06); animation: qPop .18s cubic-bezier(.2, .9, .3, 1.2); }
+.q-pop::before { content: ""; position: absolute; left: calc(var(--ax, 50%) - 8px); border: 8px solid transparent; }
+.q-pop.is-below::before { top: -16px; border-bottom-color: #fff; }
+.q-pop.is-above::before { bottom: -16px; border-top-color: #fff; }
+@keyframes qPop { from { opacity: 0; transform: translateY(6px) scale(.97); } to { opacity: 1; transform: none; } }
+.q-pop__x { position: absolute; top: 6px; right: 8px; width: 30px; height: 30px; border: 0; border-radius: 8px; background: none; color: #8C8166; font: 700 22px/1 Nunito, sans-serif; cursor: pointer; }
+.q-pop__x:hover { background: #F2EEE2; color: #13212A; }
+.q-pop__k { display: block; color: #8C8166; font: 800 11.5px Nunito, sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+.q-pop__t { display: inline-block; margin: 4px 0 6px; padding: 0 4px; border-radius: 4px; background: #FFEFA0; font: 600 20px/1.3 Fredoka, Nunito, sans-serif; }
+.q-pop--task .q-pop__t { background: #CFE3FF; }
+.q-pop p { margin: 0; font: 700 15px/1.5 Nunito, sans-serif; }
+.q-pop__do { margin-top: 10px !important; padding: 8px 10px; border-radius: 10px; background: #EEF5FF; }
+.q-pop__do span, .q-pop__eg > span { display: block; margin-bottom: 2px; color: #2457C5; font: 800 11.5px Nunito, sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+.q-pop__eg { margin-top: 10px; }
+.q-pop__eg > span { color: #8C8166; }
+.q-pop__eg p { margin: 6px 0 0; padding-left: 10px; border-left: 4px solid var(--c); font-size: 14px; }
+.q-pop__eg p b { display: block; font: 800 13px Nunito, sans-serif; }
+@media (prefers-reduced-motion: reduce) { .q-pop { animation: none; } }

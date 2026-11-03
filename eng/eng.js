@@ -44,6 +44,7 @@
   }
   function renderShell(active, crumb) {
     var mine = chosen();
+    closeDef();
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
       '<nav class="sh-nav" aria-label="English">' + link('#', 'Comparative', active === 'home') + link('#build', 'Build an essay', active === 'build') +
       link('#marking', 'How it\'s marked', active === 'marking') + link('#structure', 'Essay and PACE', active === 'structure') +
@@ -306,7 +307,7 @@
       (list.length ? '<div class="eng-grid">' + list.map(function (q) {
         var k = D.questions.indexOf(q);
         return '<div class="eng-q"><span class="eng-q__y">' + q.year + (q.paper === 'deferred' ? '<small>Deferred</small>' : '') + '<small>' + esc(MODE[q.mode].short) + ' · ' + (Array.isArray(q.marks) ? q.marks.join(' + ') : q.marks) + ' marks</small></span>' +
-          '<p>' + esc(q.text) + '</p><a class="eng-btn eng-btn--quiet" href="#build/q' + k + '">Build it</a></div>';
+          '<p>' + qMark(q.text) + '</p><a class="eng-btn eng-btn--quiet" href="#build/q' + k + '">Build it</a></div>';
       }).join('') + '</div>' : '<p class="eng-p">The past questions are being collected.</p>');
   }
 
@@ -410,16 +411,61 @@
   // (a) and (b) on their own lines (a quotation before them on its own, in italics); the topic words highlighted and
   // the task words (discuss, compare, the extent...) underlined. The first time a question is shown it types itself
   // onto the sheet; a click shows it all at once.
-  var TASK = /^(discuss|compare|contrast|extent|explain|consider|evaluate|examine|identify|describe|show|outline|argue|explore)$/i;
-  var QSTOP = /^(the|and|that|this|with|which|what|from|your|their|they|them|have|been|does|text|texts|three|least|comparative|course|studied|study|reference|making|make|answer|support|other|chosen|response|develop|between|these|those|where|there|whose|about|would|could|should|being|might|within|through|case|both|more|less|than|such|into|some|also|each|while)$/i;
+  // The words of the question with a meaning (tools/eng/glossary.json) become buttons: tap one for what it means,
+  // what it asks you to do, and an example from each of your texts. Longest match first; task words underlined,
+  // topic words highlighted.
+  var GL = null, DEF = null;
+  function glossary() {
+    if (GL) return GL;
+    var list = [], by = {};
+    (D.glossary || []).forEach(function (g) { by[g.id] = g; g.match.forEach(function (m) { list.push({ m: m.toLowerCase(), g: g }); }); });
+    list.sort(function (a, b) { return b.m.length - a.m.length; });
+    GL = { list: list, by: by };
+    return GL;
+  }
   function qMark(s) {
-    var h = esc(s).replace(/[A-Za-z’'-]+/g, function (w) {
-      var bare = w.replace(/[’'-]+$/, '');
-      if (TASK.test(bare)) return '<mark class="q-task">' + w + '</mark>';
-      if (bare.length >= 5 && !QSTOP.test(bare)) return '<mark class="q-topic">' + w + '</mark>';
-      return w;
+    var low = String(s).toLowerCase(), taken = [], hits = [];
+    glossary().list.forEach(function (x) {
+      var re = new RegExp('(^|[^a-z’\'-])(' + x.m.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')(?=$|[^a-z’\'-])', 'g'), r;
+      while ((r = re.exec(low))) {
+        var st = r.index + r[1].length, en = st + r[2].length, free = true, k;
+        for (k = st; k < en; k++) if (taken[k]) { free = false; break; }
+        if (free) { for (k = st; k < en; k++) taken[k] = 1; hits.push([st, en, x.g]); }
+        re.lastIndex = en;
+      }
     });
-    return h.replace(/<\/mark>(\s+)<mark class="q-topic">/g, '$1').replace(/<\/mark>(\s+)<mark class="q-task">/g, '$1');
+    hits.sort(function (a, b) { return a[0] - b[0]; });
+    var out = '', at = 0;
+    hits.forEach(function (h) { out += esc(s.slice(at, h[0])) + '<button type="button" class="q-def q-' + h[2].kind + '" data-def="' + h[2].id + '" aria-haspopup="dialog">' + esc(s.slice(h[0], h[1])) + '</button>'; at = h[1]; });
+    return out + esc(s.slice(at));
+  }
+  function closeDef() {
+    if (!DEF) return;
+    if (DEF.pop.parentNode) DEF.pop.parentNode.removeChild(DEF.pop);
+    DEF.btn.classList.remove('is-open'); DEF.btn.setAttribute('aria-expanded', 'false');
+    DEF = null;
+  }
+  function openDef(btn) {
+    closeDef();
+    var g = glossary().by[btn.getAttribute('data-def')];
+    if (!g) return;
+    var egs = g.eg ? chosen().filter(function (t) { return g.eg[t]; }) : [];
+    var pop = document.createElement('div');
+    pop.className = 'q-pop q-pop--' + g.kind; pop.setAttribute('role', 'dialog'); pop.setAttribute('aria-label', g.term);
+    pop.innerHTML = '<button type="button" class="q-pop__x" data-def-close aria-label="Close">×</button>' +
+      '<span class="q-pop__k">' + (g.kind === 'task' ? 'What it tells you to do' : 'What it means') + '</span><b class="q-pop__t">' + esc(g.term) + '</b><p>' + esc(g.def) + '</p>' +
+      (g.do ? '<p class="q-pop__do"><span>In your answer</span>' + esc(g.do) + '</p>' : '') +
+      (egs.length ? '<div class="q-pop__eg"><span>In your texts</span>' + egs.map(function (t) { return '<p style="--c:' + COL[t] + '"><b>' + esc(text(t).title) + '</b>' + esc(g.eg[t]) + '</p>'; }).join('') + '</div>' : '');
+    document.body.appendChild(pop);
+    var r = btn.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight, vw = document.documentElement.clientWidth;
+    var left = Math.max(12, Math.min(vw - w - 12, r.left + r.width / 2 - w / 2)), below = r.bottom + 12 + h < window.innerHeight || r.top < h + 24;
+    pop.style.left = (left + window.scrollX) + 'px';
+    pop.style.top = ((below ? r.bottom + 10 : r.top - h - 10) + window.scrollY) + 'px';
+    pop.style.setProperty('--ax', Math.round(r.left + r.width / 2 - left) + 'px');
+    pop.classList.add(below ? 'is-below' : 'is-above');
+    btn.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true');
+    DEF = { pop: pop, btn: btn };
+    if (K) K.sfx('pop', 0.3);
   }
   function qHtml(q) {
     // Only the first (a) and the first (b) after it start parts: "(as discussed in (a) above)" stays in the text.
@@ -736,6 +782,9 @@
 
   document.addEventListener('click', function (ev) {
     var t = ev.target;
+    var dq = t.closest('[data-def]');
+    if (dq) { ev.preventDefault(); if (DEF && DEF.btn === dq) closeDef(); else openDef(dq); return; }
+    if (DEF && (t.closest('[data-def-close]') || !t.closest('.q-pop'))) { closeDef(); if (t.closest('[data-def-close]')) return; }
     if (t.closest('[data-sh-menu]')) { menu(!document.body.classList.contains('sh-open')); return; }
     // The menu closes when you pick something in it or click anywhere outside it.
     if (document.body.classList.contains('sh-open') && (t.closest('.sh-link') || !t.closest('.sh-side'))) menu(false);
@@ -811,7 +860,11 @@
     var body = app.querySelector('[data-eb-coachbody]');
     if (body && /^a?[PACE]\d+$/.test(key)) body.innerHTML = coachHtml(true);
   });
-  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && document.body.classList.contains('sh-open')) menu(false); });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Escape') return;
+    if (DEF) { var b = DEF.btn; closeDef(); b.focus(); return; }
+    if (document.body.classList.contains('sh-open')) menu(false);
+  });
   // The parts of the sheet you can tap to go to also go with Enter or Space.
   document.addEventListener('keydown', function (ev) {
     var b = ev.target.closest && ev.target.closest('[data-eb-step][role="button"]');

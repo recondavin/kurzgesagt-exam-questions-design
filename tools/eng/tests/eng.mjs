@@ -63,6 +63,16 @@ ok(G.chains.every(it => it.steps.every(s => it.why.replace(/<\/?b>/g, '').includ
 ok(G.spot.every(it => it.weak >= 0 && it.weak < it.lines.length && it.fix && it.why), 'Spot the weak line: a weak line, why, and a better one');
 for (const m of ['theme', 'cc', 'gvv']) ok(['link', 'level', 'chains', 'spot'].every(k => G[k].some(it => it.mode === m)), `every game has ${m} items`);
 
+// The glossary: every entry explained, its examples for real texts, and the hard words of every past question covered.
+const GL = D.glossary || [];
+ok(GL.length >= 50 && GL.every(g => g.def && g.term && g.match.length && ['task', 'topic'].includes(g.kind)), 'glossary: 50+ words, each with its meaning');
+ok(GL.every(g => !g.eg || Object.keys(g.eg).every(t => D.order.includes(t))), 'glossary: examples only for the four texts');
+const glIds = new Set(GL.map(g => g.id));
+for (const id of ['mobility', 'position', 'extent', 'discuss', 'compare', 'cc', 'gvv', 'patriarchal', 'catalyst', 'intervention']) ok(glIds.has(id), `glossary has ${id}`);
+const matchesIn = q => GL.filter(g => g.match.some(m => new RegExp('(^|[^a-z’\'-])' + m.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?=$|[^a-z’\'-])').test(q.toLowerCase())));
+ok(D.questions.every(q => matchesIn(q.text).length >= 2), 'every past question has at least two words you can tap');
+ok(matchesIn(D.questions.find(q => /social mobility/.test(q.text)).text).some(g => g.id === 'mobility'), 'social mobility is explained');
+
 // Pictures: each one on disk with a free licence, its author and source; every text has some; the key moments they
 // link to exist; their spots sit on the picture; enough of your texts' pictures for Picture it.
 for (const p of D.images) {
