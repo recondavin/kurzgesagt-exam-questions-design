@@ -250,6 +250,8 @@
   }
 
   var LIST = [['which', 'Whose moment?', 'A key moment: which text is it from?', function () { return true; }, whichOpen],
+    // Penalty shootout: off for now (the user: "scrap penalty shootout for now please"); english.html doesn't load
+    // eng/eng-penalty.js, so this stays hidden. Load it again to bring it back.
     ['penalty', 'Penalty shootout', 'Five kicks each against the examiner.', function () { return !!window.PenaltyShootout; }, penaltyOpen],
     ['upgrade', 'Upgrade it', 'Plain words in, exam words out.', function () { return (D.comparative.upgrades || []).length >= 8; }, upOpen],
     ['pic', 'Picture it', 'A real picture: which key moment?', function () { return (D.images || []).filter(function (p) { return p.moment; }).length >= 4; }, picOpen],
