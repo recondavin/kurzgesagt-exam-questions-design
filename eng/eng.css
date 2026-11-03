@@ -560,3 +560,9 @@ body.eng.sh-open .sh-brand { display: none; }
 @media (prefers-reduced-motion: reduce) { .eng-up__in { transition: none; } }
 .ebd-skip { display: block; margin: 4px auto 0; }
 .eng-up__b small { color: #8C8166; font: 800 11.5px Nunito, sans-serif; letter-spacing: .04em; text-transform: uppercase; } .eng-up__b { gap: 4px; }
+/* Your paragraphs, picked for the question (eng.js planBox). */
+.ebd-plan { margin: 0 0 16px; padding: 12px 14px; border-radius: 14px; background: var(--raised); }
+.ebd-plan__top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.ebd-plan__top span { color: var(--faint); font: 800 12px Nunito, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.ebd-plan ol { margin: 8px 0 4px; padding-left: 22px; color: #fff; font: 800 15px/1.6 Nunito, sans-serif; }
+.ebd-plan .ebd-h { margin-top: 10px; }
