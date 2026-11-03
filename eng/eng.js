@@ -325,6 +325,8 @@
     if (!E) E = { mode: 'gvv', type: '70', q: '', thesis: '', aspects: [], intro: '', paras: {}, end: '', step: 0 };
     E.type = E.type || '70';
     E.parasA = E.parasA || {};
+    E.crack = E.crack || {};
+    E.stance = E.stance || {};
     return E;
   }
   function saveEssay() { store('eng-essay', JSON.stringify(E)); }
@@ -376,7 +378,10 @@
     E: ['Evaluate', 'What does it show? Which text does it more powerfully? Back to the question.', ['judge']]
   };
   var FOCUS = null, TIPS = {
-    q: 'Read the question twice. The mark is for answering it, not for what you know.',
+    q: 'Pick one. Any one. The hardest part is starting.',
+    crack: 'Crack it first. Tap each card: what it\'s about, what to do, which texts.',
+    stance: 'Now take a stand. How far is it true in each text? No sitting on the fence.',
+    ready: 'That\'s your line of argument. Every paragraph proves a piece of it. Next: plan.',
     plan: 'Three or four aspects. Depth beats a list.',
     intro: 'Answer the question in your first sentence. Then name the texts.',
     a: 'Part (a) is one text. No comparing yet.',
@@ -436,7 +441,11 @@
     });
     hits.sort(function (a, b) { return a[0] - b[0]; });
     var out = '', at = 0;
-    hits.forEach(function (h) { out += esc(s.slice(at, h[0])) + '<button type="button" class="q-def q-' + h[2].kind + '" data-def="' + h[2].id + '" aria-haspopup="dialog">' + esc(s.slice(h[0], h[1])) + '</button>'; at = h[1]; });
+    hits.forEach(function (h) {
+      var p = /^[.,;:?!’”)]+/.exec(s.slice(h[1])), tail = p ? p[0] : '';
+      out += esc(s.slice(at, h[0])) + '<span class="q-nw"><button type="button" class="q-def q-' + h[2].kind + '" data-def="' + h[2].id + '" aria-haspopup="dialog">' + esc(s.slice(h[0], h[1])) + '</button>' + esc(tail) + '</span>';
+      at = h[1] + tail.length;
+    });
     return out + esc(s.slice(at));
   }
   function closeDef() {
@@ -581,18 +590,25 @@
   function coachHtml(bodyOnly) {
     var e = essay(), cur = curStep(), m = MODE[e.mode], cmp = compared(), mine = chosen(), out = '';
     var tipKey = /^a\d/.test(cur) ? 'a' : /^p\d/.test(cur) ? 'p' : cur;
+    if (cur === 'q') tipKey = !e.q || SLIPS ? 'q' : !crackedAll() ? 'crack' : !e.thesis ? 'stance' : 'ready';
     var face = window.ExamTeacher ? '<div class="ebd-face" data-mood="' + (cur === 'check' ? (checksList().every(function (c) { return c[1]; }) ? 'happy' : 'angry') : 'ok') + '"><span>' + window.ExamTeacher.head() + '</span><p>' + esc(TIPS[tipKey]) + '</p></div>' : '';
     if (cur === 'q') {
       var qs = D.questions.filter(function (q) { return q.mode === e.mode; }).sort(function (a, b) { return b.year - a.year; });
-      out = tile('', 'The question', 'Pick the mode, then a question from the real papers, or write your own.') +
-        '<div class="eb-choices">' + MODES.map(function (x) { return '<button type="button" class="eng-chip" style="--c:' + COL[x.id] + '" data-eb-mode="' + x.id + '" aria-pressed="' + (e.mode === x.id) + '">' + esc(x.name) + '</button>'; }).join('') + '</div>' +
+      var picker = '<div class="eb-choices">' + MODES.map(function (x) { return '<button type="button" class="eng-chip" style="--c:' + COL[x.id] + '" data-eb-mode="' + x.id + '" aria-pressed="' + (e.mode === x.id) + '">' + esc(x.name) + '</button>'; }).join('') + '</div>' +
         '<div class="eb-choices">' + [['70', 'One question, 70 marks'], ['split', 'Two parts, 30 + 40']].map(function (x) { return '<button type="button" class="eng-chip" data-eb-type="' + x[0] + '" aria-pressed="' + (e.type === x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>' +
         '<div class="ebd-slips">' + qs.slice(0, 10).map(function (q) {
           return '<button type="button" class="ebd-slip' + (e.q === q.text ? ' is-on' : '') + '" style="--c:' + COL[q.mode] + '" data-eb-q="' + D.questions.indexOf(q) + '"><span class="ebd-slip__y">' + q.year + (q.paper === 'deferred' ? ' def.' : '') + '</span><span class="ebd-slip__m">' + (Array.isArray(q.marks) ? '30 + 40' : '70') + '</span>' +
             '<span class="ebd-slip__t">' + esc(q.text.length > 120 ? q.text.slice(0, 118) + '…' : q.text) + '</span></button>';
         }).join('') + '</div>' +
         '<label class="ebd-own"><span>Or your own question</span><textarea data-eb="q" rows="3" placeholder="Paste or type it here">' + esc(e.q) + '</textarea></label>';
-    } else if (cur === 'plan') {
+      if (!e.q || SLIPS) {
+        out = tile('', 'Pick your question', 'A real exam question, by mode. Tap one and it lands on your sheet.') +
+          '<button type="button" class="eng-btn ebd-wide ebd-surprise" data-eb-surprise>Surprise me</button>' + picker +
+          (e.q ? '<button type="button" class="eng-btn eng-btn--quiet ebd-wide" data-eb-slips>Keep this question</button>' : '');
+      } else {
+        out = '<div class="ebd-qhead"><span>' + esc(MODE[e.mode].name) + ' · ' + (split() ? '30 + 40' : '70') + ' marks</span><button type="button" class="ebd-link" data-eb-slips>Change question</button></div>' + crackHtml() + stanceHtml();
+      }
+        } else if (cur === 'plan') {
       var opts = aspectOptions(e.mode);
       out = tile('', 'Plan', 'One aspect of ' + m.name.toLowerCase() + ' per paragraph. Tap to add it to your sheet.') +
         (split() ? '<h4 class="ebd-h">Part (a) is on</h4><div class="eb-choices">' + mine.map(function (t) { return '<button type="button" class="eng-chip" style="--c:' + COL[t] + '" data-eb-atext="' + t + '" aria-pressed="' + (textA() === t) + '">' + esc(text(t).title) + '</button>'; }).join('') + '</div>' +
@@ -615,6 +631,72 @@
         (isA ? momentCards(e.mode, a, textA()) : cmp.map(function (t) { return momentCards(e.mode, a, t); }).join(''));
     }
     return bodyOnly ? out : face + '<div class="ebd-coach__body" data-eb-coachbody>' + out + '</div>';
+  }
+
+  // ----- the question step: crack it, then take a stand -----
+  // Crack it: three cards to flip (what it's about: the question's topic words from the glossary; what to do: its task
+  // words; which texts: the parts and their marks). Take a stand: how far it's true in each text, on a five-step scale,
+  // which writes the line of argument ("Social mobility: to a great extent in ..., but hardly at all in ...") for the
+  // sticky note.
+  var SLIPS = false, DEGREE = ['hardly at all', 'to a limited extent', 'to some extent', 'to a great extent', 'completely'];
+  function qTerms(kind) {
+    // In the order the question says them.
+    var seen = {}, out = [], q = essay().q.toLowerCase();
+    glossary().list.forEach(function (x) {
+      if (x.g.kind !== kind || seen[x.g.id]) return;
+      var r = new RegExp('(^|[^a-z’\'-])' + x.m.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?=$|[^a-z’\'-])').exec(q);
+      if (r) { seen[x.g.id] = 1; out.push([r.index, x.g]); }
+    });
+    return out.sort(function (a, b) { return a[0] - b[0]; }).map(function (x) { return x[1]; });
+  }
+  function crackedAll() { var c = essay().crack; return c.topic && c.task && c.texts; }
+  function crackHtml() {
+    var e = essay(), c = e.crack, cmp = compared();
+    var topics = qTerms('topic').filter(function (g) { return ['cc', 'gvv', 'theme'].indexOf(g.id) < 0; }).slice(0, 3);
+    var tasks = qTerms('task').filter(function (g) { return ['extent', 'discuss', 'compare', 'contrast', 'explain', 'identify', 'statement'].indexOf(g.id) >= 0; });
+    var card = function (id, n, front, back) {
+      return '<button type="button" class="ebd-card' + (c[id] ? ' is-flipped' : '') + '" data-eb-crack="' + id + '" aria-pressed="' + !!c[id] + '">' +
+        '<span class="ebd-card__in"><span class="ebd-card__f"><b>' + n + '</b>' + esc(front) + '<small>Tap to crack</small></span><span class="ebd-card__b">' + back + '</span></span></button>';
+    };
+    var extent = tasks.some(function (g) { return g.id === 'extent'; });
+    var tBack = topics.length ? topics.slice(0, 2).map(function (g) { return '<b>' + esc(g.term) + '</b>'; }).join('<span>and</span>') : '<b>' + esc(MODE[e.mode].name) + '</b>';
+    var kBack = extent ? '<b>How far?</b><span>Judge it: a lot, a little, not at all</span>' : tasks.length ? '<b>' + esc(tasks[0].term) + '</b>' : '<b>Answer it</b>';
+    var xBack = split() ? '<b>(a) ' + esc(text(textA()).title) + '</b><span>then</span><b>(b) ' + titles(cmp).map(esc).join(' + ') + '</b>' : '<b>' + titles(cmp).map(esc).join(' + ') + '</b><span>compared all the way</span>';
+    var lines = [];
+    if (c.topic) (topics.length ? topics : []).forEach(function (g) { lines.push('<li><b>' + esc(g.term) + '</b> ' + esc(g.def) + '</li>'); });
+    if (c.task) tasks.slice(0, 3).forEach(function (g) { lines.push('<li class="is-task"><b>' + esc(g.term) + '</b> ' + esc(g.do || g.def) + '</li>'); });
+    if (c.texts) lines.push('<li class="is-texts">' + (split() ? '<b>(a) 30 marks:</b> one text, ' + esc(text(textA()).title) + '. <b>(b) 40 marks:</b> compare the other two, ' + titles(cmp).map(esc).join(' and ') + '.' : '<b>70 marks:</b> compare ' + titles(cmp).map(esc).join(', ') + ' in every paragraph.') + '</li>');
+    return '<div class="ebd-task"><h4 class="ebd-h"><i>1</i> Crack the question</h4><div class="ebd-cards">' +
+      card('topic', '?', 'What is it about?', tBack) + card('task', '!', 'What must you do?', kBack) + card('texts', '3', 'Which texts?', xBack) + '</div>' +
+      (lines.length ? '<ul class="ebd-cracked">' + lines.join('') + '</ul>' : '') + '</div>';
+  }
+  function stanceTexts() { return split() ? [textA()].concat(compared()) : compared(); }
+  function stanceLine() {
+    var e = essay(), ts = stanceTexts();
+    if (!ts.every(function (t) { return e.stance[t] != null; })) return '';
+    // "the extent to which social mobility, between ..., is possible" gives "Social mobility is possible ...".
+    var cap = function (x) { return x.charAt(0).toUpperCase() + x.slice(1); };
+    var m = /the extent to which (?:the )?(.+?)(?:,[^,]*,)?\s+(is|was|are|were|can be|has been|have been) ([a-z]+)/i.exec(e.q);
+    var topic = (/the extent to which (?:the )?([^,.;]+?)(?:,|\.|;| in | between )/i.exec(e.q) || [])[1];
+    var lead = m && m[1].length < 60 ? cap(m[1]) + ' ' + m[2] + ' ' + m[3] + ' ' : topic && topic.length < 60 ? cap(topic) + ': ' : '';
+    var order = ts.slice().sort(function (a, b) { return e.stance[b] - e.stance[a]; });
+    var bits = order.map(function (t) { return DEGREE[e.stance[t]] + ' in ' + text(t).title; });
+    var lastV = e.stance[order[order.length - 1]], low = lastV < e.stance[order[0]] - 1;
+    var body = bits.length > 1 ? bits.slice(0, -1).join(', ') + (low ? ', but ' + (lastV === 1 ? 'only ' : '') : ' and ') + bits[bits.length - 1] : bits[0];
+    return lead ? lead + body + '.' : cap(body) + '.';
+  }
+  function stanceHtml() {
+    var e = essay(), ts = stanceTexts(), line = stanceLine(), on = crackedAll();
+    return '<div class="ebd-task' + (on ? '' : ' is-locked') + '"><h4 class="ebd-h"><i>2</i> Take a stand: how far is it true?</h4>' +
+      (on ? '' : '<p class="ebd-small">Crack the question first.</p>') +
+      ts.map(function (t, i) {
+        var v = e.stance[t];
+        return '<div class="ebd-meter" style="--c:' + COL[t] + '"><span class="ebd-meter__t">' + (split() ? (i ? '(b) ' : '(a) ') : '') + esc(text(t).title) + '</span>' +
+          '<div class="ebd-meter__row">' + DEGREE.map(function (d, k) { return '<button type="button" class="ebd-meter__b' + (v != null && k <= v ? ' is-fill' : '') + (k === v ? ' is-on' : '') + '" data-eb-stance="' + t + ':' + k + '" title="' + d + '"' + (on ? '' : ' disabled') + '><i></i></button>'; }).join('') + '</div>' +
+          '<span class="ebd-meter__v">' + (v != null ? esc(DEGREE[v]) : 'hardly … completely') + '</span></div>';
+      }).join('') +
+      (line ? '<div class="ebd-line2' + (e.thesis === line ? ' is-used' : '') + '"><span>Your line of argument</span><p>' + esc(line) + '</p>' +
+        (e.thesis === line ? '<b class="ebd-used">✓ On your sticky note. Change a meter to rewrite it.</b>' : '<button type="button" class="eng-btn" data-eb-useline>Put it on my sticky note</button>') + '</div>' : '') + '</div>';
   }
 
   // ----- the track and the checklist stamps -----
@@ -668,7 +750,18 @@
       'Part (a) is on one text: Point, Anchor and Evaluate for each aspect, naming the text.']);
     return checks;
   }
-  function useQuestion(q) { var e = essay(); e.mode = q.mode; e.q = q.text; e.type = Array.isArray(q.marks) ? 'split' : '70'; }
+  function useQuestion(q) { var e = essay(); if (e.q !== q.text) { e.crack = {}; e.stance = {}; } e.mode = q.mode; e.q = q.text; e.type = Array.isArray(q.marks) ? 'split' : '70'; }
+  // The line goes onto the sticky note, typed in.
+  function useLine() {
+    var line = stanceLine(), box = app.querySelector('.ebd-note textarea');
+    if (!line) return;
+    essay().thesis = line; saveEssay();
+    if (!box || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) { drawBuild(true); return; }
+    var i = 0;
+    box.value = ''; box.closest('.ebd-note').classList.add('is-writing');
+    (function step() { i = Math.min(line.length, i + 2); box.value = line.slice(0, i); noteGrow(box); if (i < line.length) setTimeout(step, 22); else { if (K) K.sfx('stamp', 0.35); setTimeout(function () { drawBuild(true); }, 350); } })();
+  }
+  function noteGrow(t) { t.style.height = '0px'; t.style.height = Math.min(t.scrollHeight, 140) + 'px'; }
   function renderBuild(arg) {
     renderShell('build', 'Build an essay');
     var e = essay();
@@ -690,7 +783,8 @@
           (e.step < st.length - 1 ? '<button type="button" class="eng-btn" data-eb-go="1"' + (cur === 'plan' && e.aspects.length < 3 ? ' disabled' : '') + '>Next: ' + esc(st[e.step + 1][1]) + '</button>' : '') + '</div></div>' +
         '<aside class="ebd-coach" data-eb-coach>' + coachHtml() + '</aside></div>';
     LAST_OK = checksList().map(function (c) { return c[1]; });
-    app.querySelectorAll('.ebd-sheet textarea').forEach(grow);
+    app.querySelectorAll('.ebd-sheet .ebd-line textarea').forEach(grow);
+    app.querySelectorAll('.ebd-note textarea').forEach(noteGrow);
     var qt = app.querySelector('[data-eb-qtext]');
     if (qt && e.q && e.q !== TYPED) { TYPED = e.q; typeIn(qt); }
     var first = app.querySelector('.ebd-block.is-on textarea');
@@ -815,10 +909,20 @@
     if (go && !go.disabled) { essay().step += +go.getAttribute('data-eb-go'); saveEssay(); drawBuild(); window.scrollTo(0, 0); return; }
     var sp = t.closest('[data-eb-step]');
     if (sp) { essay().step = +sp.getAttribute('data-eb-step'); saveEssay(); drawBuild(); return; }
+    var ck = t.closest('[data-eb-crack]');
+    if (ck) { e = essay(); e.crack[ck.getAttribute('data-eb-crack')] = true; saveEssay(); if (K) K.sfx(crackedAll() ? 'stamp' : 'pop', 0.4); ck.classList.add('is-flipped'); setTimeout(function () { drawBuild(true); }, 420); return; }
+    var sn = t.closest('[data-eb-stance]');
+    if (sn && !sn.disabled) { var sv = sn.getAttribute('data-eb-stance').split(':'); essay().stance[sv[0]] = +sv[1]; saveEssay(); if (K) K.sfx('tick', 0.35); drawBuild(true); return; }
+    if (t.closest('[data-eb-useline]')) { useLine(); return; }
+    if (t.closest('[data-eb-slips]')) { SLIPS = !SLIPS; drawBuild(true); return; }
+    if (t.closest('[data-eb-surprise]')) {
+      var pool = D.questions.filter(function (q) { return q.text !== essay().q; });
+      useQuestion(pool[Math.floor(Math.random() * pool.length)]); SLIPS = false; saveEssay(); if (K) K.sfx('whoosh', 0.3); drawBuild(); window.scrollTo({ top: 0, behavior: 'smooth' }); return;
+    }
     var md = t.closest('[data-eb-mode]');
     if (md) { e = essay(); if (e.mode !== md.getAttribute('data-eb-mode')) { e.mode = md.getAttribute('data-eb-mode'); e.aspects = []; } saveEssay(); drawBuild(); return; }
     var qq = t.closest('[data-eb-q]');
-    if (qq) { useQuestion(D.questions[+qq.getAttribute('data-eb-q')]); saveEssay(); drawBuild(); return; }
+    if (qq) { useQuestion(D.questions[+qq.getAttribute('data-eb-q')]); SLIPS = false; saveEssay(); drawBuild(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     var ty = t.closest('[data-eb-type]');
     if (ty) { essay().type = ty.getAttribute('data-eb-type'); saveEssay(); drawBuild(); return; }
     var at = t.closest('[data-eb-atext]');
@@ -849,7 +953,8 @@
   document.addEventListener('input', function (ev) {
     var key = ev.target.getAttribute && ev.target.getAttribute('data-eb');
     if (!key) return;
-    if (ev.target.closest('.ebd-sheet')) grow(ev.target);
+    if (key === 'thesis' && /\n/.test(ev.target.value)) ev.target.value = ev.target.value.replace(/\s*\n+\s*/g, ' ');
+    if (ev.target.closest('.ebd-note')) noteGrow(ev.target); else if (ev.target.closest('.ebd-sheet')) grow(ev.target);
     setField(key, ev.target.value);
   });
   // Writing in a P, A, C or E box: the coach shows what goes in it and its phrases.
@@ -865,6 +970,8 @@
     if (DEF) { var b = DEF.btn; closeDef(); b.focus(); return; }
     if (document.body.classList.contains('sh-open')) menu(false);
   });
+  // The line of argument is one sentence: Enter doesn't start a new line.
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' && ev.target.getAttribute && ev.target.getAttribute('data-eb') === 'thesis') ev.preventDefault(); });
   // The parts of the sheet you can tap to go to also go with Enter or Space.
   document.addEventListener('keydown', function (ev) {
     var b = ev.target.closest && ev.target.closest('[data-eb-step][role="button"]');
