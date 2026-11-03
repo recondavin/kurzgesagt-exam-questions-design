@@ -379,3 +379,24 @@ body.eng .am-level__meter, body.eng .am-level .am-games__note > b:first-child { 
 .eb-enter .ebd-track { animation: ebUp .45s .04s both cubic-bezier(.2, .8, .3, 1); }
 .eb-enter .ebd-desk { animation: ebIn .6s .1s both cubic-bezier(.2, .8, .3, 1); }
 .eb-enter .ebd-coach { animation: ebUp .5s .22s both cubic-bezier(.2, .8, .3, 1); }
+
+/* ---------- no sidebar on the English pages (the user: "get rid of the leaving cert side bar") ----------
+   The page uses the full width; the navigation opens from the menu button in the top bar, at every width
+   (bio-shell.css does this only below 1100px). */
+body.eng .sh { grid-template-columns: minmax(0, 1fr); }
+body.eng .sh-side { display: none; }
+body.eng .sh-menu { display: grid; place-items: center; flex: none; width: 44px; height: 44px; margin-left: -10px; border: 0; border-radius: 10px; background: none; color: #fff; cursor: pointer; }
+body.eng .sh-menu:hover { background: var(--surface); }
+body.eng .sh-burger, body.eng .sh-burger::before, body.eng .sh-burger::after { display: block; width: 20px; height: 2px; border-radius: 2px; background: currentColor; transition: transform .2s ease, opacity .2s ease; }
+body.eng .sh-burger { position: relative; }
+body.eng .sh-burger::before, body.eng .sh-burger::after { content: ""; position: absolute; left: 0; }
+body.eng .sh-burger::before { top: -6px; }
+body.eng .sh-burger::after { top: 6px; }
+body.eng.sh-open .sh-burger { background: transparent; }
+body.eng.sh-open .sh-burger::before { transform: translateY(6px) rotate(45deg); }
+body.eng.sh-open .sh-burger::after { transform: translateY(-6px) rotate(-45deg); }
+body.eng.sh-open .sh-side { position: fixed; top: 76px; bottom: 0; left: 0; z-index: 20; display: flex; width: 320px; height: auto; padding: 0 16px 24px; border-right: 1px solid var(--rule); background: var(--ground); box-shadow: 10px 0 0 rgba(0, 0, 0, .25); animation: engDrawer .22s cubic-bezier(.2, .8, .3, 1); }
+body.eng.sh-open .sh-brand { display: none; }
+@keyframes engDrawer { from { transform: translateX(-24px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (max-width: 1100px) { body.eng.sh-open .sh-side { top: 56px; right: 0; width: auto; border: 0; box-shadow: none; } }
+@media (prefers-reduced-motion: reduce) { body.eng.sh-open .sh-side { animation: none; } }

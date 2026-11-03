@@ -676,7 +676,8 @@
   document.addEventListener('click', function (ev) {
     var t = ev.target;
     if (t.closest('[data-sh-menu]')) { menu(!document.body.classList.contains('sh-open')); return; }
-    if (document.body.classList.contains('sh-open') && t.closest('.sh-link')) menu(false);
+    // The menu closes when you pick something in it or click anywhere outside it.
+    if (document.body.classList.contains('sh-open') && (t.closest('.sh-link') || !t.closest('.sh-side'))) menu(false);
     var gb = t.closest('a[href^="#build"]');
     if (gb && ev.button === 0 && !ev.metaKey && !ev.ctrlKey && !ev.shiftKey && !ev.altKey && !/^#build/.test(location.hash)) { ev.preventDefault(); goBuild(gb); return; }
     var pick = t.closest('[data-eng-pick]');
@@ -749,6 +750,7 @@
     var body = app.querySelector('[data-eb-coachbody]');
     if (body && /^a?[PACE]\d+$/.test(key)) body.innerHTML = coachHtml(true);
   });
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && document.body.classList.contains('sh-open')) menu(false); });
   // The parts of the sheet you can tap to go to also go with Enter or Space.
   document.addEventListener('keydown', function (ev) {
     var b = ev.target.closest && ev.target.closest('[data-eb-step][role="button"]');
