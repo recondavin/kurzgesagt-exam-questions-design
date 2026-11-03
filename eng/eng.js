@@ -482,6 +482,7 @@
     if (arg && MODE[arg] && e.mode !== arg) { e.mode = arg; e.aspects = []; e.step = 0; saveEssay(); }
     if (arg && /^q\d+$/.test(arg) && D.questions[+arg.slice(1)]) { useQuestion(D.questions[+arg.slice(1)]); e.step = 0; saveEssay(); }
     drawBuild();
+    if (ENTER) { ENTER = false; app.classList.add('eb-enter'); setTimeout(function () { app.classList.remove('eb-enter'); }, 1100); }
   }
   function drawBuild() {
     var e = essay(), st = stepsList();
@@ -517,10 +518,68 @@
     var done = function () { toast('Copied: ' + (s.length > 40 ? s.slice(0, 40) + '…' : s)); if (el) { el.classList.add('is-copied'); setTimeout(function () { el.classList.remove('is-copied'); }, 900); } };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(s).then(done, done); else done();
   }
+  // ---------- going into the builder ----------
+  // A sheet of essay paper opens out of the button you pressed, its rules draw across and the red margin down,
+  // "Build an essay" is written on it and P, A, C and E stamp down; then the sheet grows past the screen and lifts away,
+  // and the builder comes in under it. A click, a tap or Esc skips it; with reduced motion it just goes.
+  var GOING = null, ENTER = false;
+  function goBuild(link) {
+    var href = link.getAttribute('href');
+    var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (GOING || still || !document.body.animate) { location.hash = href; return; }
+    var r = link.getBoundingClientRect(), W = window.innerWidth, H = window.innerHeight;
+    var pw = Math.min(660, W - 32), ph = Math.min(Math.round(pw * 0.74), H - 96), fx = (W - pw) / 2, fy = (H - ph) / 2;
+    var ov = document.createElement('div');
+    ov.className = 'eng-go'; ov.setAttribute('aria-hidden', 'true');
+    ov.innerHTML = '<div class="eng-go__sheet" style="left:' + fx + 'px;top:' + fy + 'px;width:' + pw + 'px;height:' + ph + 'px;--pw:' + pw + 'px">' +
+      '<div class="eng-go__lines">' + [0, 1, 2, 3, 4, 5, 6, 7, 8].map(function (k) { return '<i style="top:' + (24 + k * 8.4) + '%"></i>'; }).join('') + '</div>' +
+      '<span class="eng-go__margin"></span><p class="eng-go__t">Build an essay</p>' +
+      '<div class="eng-go__pace">' + C.structure.pace.map(function (x) { return '<b style="background:' + PACE_COL[x.k] + '">' + x.k + '<small>' + esc(x.name) + '</small></b>'; }).join('') + '</div></div>';
+    document.body.appendChild(ov);
+    var sheet = ov.querySelector('.eng-go__sheet'), timers = [], anims = [];
+    var at = function (ms, fn) { timers.push(setTimeout(fn, ms)); };
+    var run = function (el, frames, opts) { var a = el.animate(frames, Object.assign({ fill: 'both' }, opts)); anims.push(a); return a; };
+    var done = function () {
+      if (!GOING) return;
+      GOING = null; timers.forEach(clearTimeout); anims.forEach(function (a) { a.cancel(); });
+      if (location.hash !== href) { ENTER = true; location.hash = href; }
+      if (ov.parentNode) ov.parentNode.removeChild(ov);
+      document.removeEventListener('keydown', key, true);
+    };
+    var key = function (e) { if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); done(); } };
+    GOING = done;
+    ov.addEventListener('click', done);
+    document.addEventListener('keydown', key, true);
+    if (K) K.sfx('whoosh', 0.35);
+    run(ov, [{ backgroundColor: 'rgba(19, 31, 36, 0)' }, { backgroundColor: 'rgba(19, 31, 36, .9)' }], { duration: 320 });
+    // Out of the button (the sheet's corner and size start as the button's).
+    run(sheet, [{ transform: 'translate(' + (r.left - fx) + 'px,' + (r.top - fy) + 'px) scale(' + (r.width / pw) + ',' + (r.height / ph) + ')', borderRadius: '60px', opacity: 0.7 },
+      { transform: 'none', borderRadius: '6px 6px 18px 6px', opacity: 1 }], { duration: 520, easing: 'cubic-bezier(.2, .9, .25, 1.12)' });
+    ov.querySelectorAll('.eng-go__lines i').forEach(function (l, k) { run(l, [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 260, delay: 300 + k * 40, easing: 'cubic-bezier(.4, 0, .2, 1)' }); });
+    run(ov.querySelector('.eng-go__margin'), [{ transform: 'scaleY(0)' }, { transform: 'scaleY(1)' }], { duration: 360, delay: 340, easing: 'cubic-bezier(.4, 0, .2, 1)' });
+    // Written left to right, like a pen.
+    run(ov.querySelector('.eng-go__t'), [{ clipPath: 'inset(-20% 100% -30% 0)' }, { clipPath: 'inset(-20% 0 -30% 0)' }], { duration: 560, delay: 560, easing: 'cubic-bezier(.45, .05, .55, .95)' });
+    ov.querySelectorAll('.eng-go__pace b').forEach(function (b, k) {
+      run(b, [{ transform: 'scale(1.7) rotate(' + (k % 2 ? 9 : -9) + 'deg)', opacity: 0 }, { transform: 'scale(.94) rotate(0)', opacity: 1, offset: 0.7 }, { transform: 'none', opacity: 1 }],
+        { duration: 300, delay: 900 + k * 120, easing: 'cubic-bezier(.3, .7, .4, 1)' });
+      at(900 + k * 120 + 200, function () { if (K) K.sfx(k === 3 ? 'stamp' : 'tick', k === 3 ? 0.3 : 0.25); });
+    });
+    // Then the builder goes in under it, and the sheet grows past the edges and lifts away.
+    at(1520, function () { ENTER = true; location.hash = href; });
+    at(1560, function () {
+      sheet.style.transformOrigin = '50% 50%';
+      run(sheet, [{ transform: 'none', opacity: 1 }, { transform: 'scale(' + (W / pw * 1.3) + ',' + (H / ph * 1.3) + ')', opacity: 0 }], { duration: 460, easing: 'cubic-bezier(.5, 0, .75, 0)' });
+      run(ov, [{ backgroundColor: 'rgba(19, 31, 36, .9)' }, { backgroundColor: 'rgba(19, 31, 36, 0)' }], { duration: 460, easing: 'ease-in' });
+    });
+    at(2040, done);
+  }
+
   document.addEventListener('click', function (ev) {
     var t = ev.target;
     if (t.closest('[data-sh-menu]')) { menu(!document.body.classList.contains('sh-open')); return; }
     if (document.body.classList.contains('sh-open') && t.closest('.sh-link')) menu(false);
+    var gb = t.closest('a[href^="#build"]');
+    if (gb && ev.button === 0 && !ev.metaKey && !ev.ctrlKey && !ev.shiftKey && !ev.altKey && !/^#build/.test(location.hash)) { ev.preventDefault(); goBuild(gb); return; }
     var pick = t.closest('[data-eng-pick]');
     if (pick) {
       var id = pick.getAttribute('data-eng-pick'), cur = picks();

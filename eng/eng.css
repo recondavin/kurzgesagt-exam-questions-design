@@ -281,3 +281,18 @@ body.eng .am-level__meter, body.eng .am-level .am-games__note > b:first-child { 
 .eg-pic img { display: inline-block; max-width: 100%; max-height: 300px; border-radius: 12px; }
 .eg-pic figcaption { position: absolute; left: 10px; top: 10px; }
 @media (max-width: 560px) { .eg-pic img { max-height: 200px; } }
+/* ---------- going into the builder (eng.js goBuild): the essay sheet that opens out of the button ---------- */
+.eng-go { position: fixed; inset: 0; z-index: 80; cursor: pointer; }
+.eng-go__sheet { position: absolute; overflow: hidden; border-radius: 6px 6px 18px 6px; background: var(--paper); box-shadow: 0 10px 0 rgba(0, 0, 0, .28); transform-origin: 0 0; will-change: transform; }
+.eng-go__lines i { position: absolute; left: 0; right: 0; height: 2px; background: var(--paper-rule); transform-origin: 0 50%; }
+.eng-go__margin { position: absolute; top: 0; bottom: 0; left: 12%; width: 2px; background: #EFA9A9; transform-origin: 50% 0; }
+.eng-go__t { position: absolute; left: 16%; top: 5%; margin: 0; color: var(--paper-ink); font: 700 calc(var(--pw) * .1)/1.1 Caveat, cursive; white-space: nowrap; }
+.eng-go__pace { position: absolute; left: 16%; right: 6%; bottom: 9%; display: flex; gap: 3%; }
+.eng-go__pace b { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1; border-radius: 14px; color: #13212A; font: 700 calc(var(--pw) * .085)/1 Fredoka, Nunito, sans-serif; box-shadow: 0 4px 0 rgba(0, 0, 0, .2); }
+.eng-go__pace small { margin-top: 4px; font: 800 calc(var(--pw) * .021)/1 Nunito, sans-serif; letter-spacing: .03em; text-transform: uppercase; }
+/* The builder coming in under it. */
+.eb-enter .eb-steps { animation: ebUp .45s .04s both cubic-bezier(.2, .8, .3, 1); }
+.eb-enter .eb-panel { animation: ebUp .5s .12s both cubic-bezier(.2, .8, .3, 1); }
+.eb-enter .eb-preview { animation: ebIn .6s .2s both cubic-bezier(.2, .8, .3, 1); }
+@keyframes ebUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes ebIn { from { opacity: 0; transform: translateX(26px) rotate(1.2deg); } to { opacity: 1; transform: none; } }
