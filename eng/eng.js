@@ -406,6 +406,65 @@
       }).join('') + '</div>';
   }
 
+  // ----- the question, set out to read, and typed in -----
+  // (a) and (b) on their own lines (a quotation before them on its own, in italics); the topic words highlighted and
+  // the task words (discuss, compare, the extent...) underlined. The first time a question is shown it types itself
+  // onto the sheet; a click shows it all at once.
+  var TASK = /^(discuss|compare|contrast|extent|explain|consider|evaluate|examine|identify|describe|show|outline|argue|explore)$/i;
+  var QSTOP = /^(the|and|that|this|with|which|what|from|your|their|they|them|have|been|does|text|texts|three|least|comparative|course|studied|study|reference|making|make|answer|support|other|chosen|response|develop|between|these|those|where|there|whose|about|would|could|should|being|might|within|through|case|both|more|less|than|such|into|some|also|each|while)$/i;
+  function qMark(s) {
+    var h = esc(s).replace(/[A-Za-z’'-]+/g, function (w) {
+      var bare = w.replace(/[’'-]+$/, '');
+      if (TASK.test(bare)) return '<mark class="q-task">' + w + '</mark>';
+      if (bare.length >= 5 && !QSTOP.test(bare)) return '<mark class="q-topic">' + w + '</mark>';
+      return w;
+    });
+    return h.replace(/<\/mark>(\s+)<mark class="q-topic">/g, '$1').replace(/<\/mark>(\s+)<mark class="q-task">/g, '$1');
+  }
+  function qHtml(q) {
+    // Only the first (a) and the first (b) after it start parts: "(as discussed in (a) above)" stays in the text.
+    q = String(q);
+    var ia = q.indexOf('(a)'), ib = ia < 0 ? -1 : q.indexOf('(b)', ia + 3);
+    if (ia < 0 || ib < 0) return '<p class="ebd-qp">' + qMark(q.trim()) + '</p>';
+    var part = function (l, t) { return '<p class="ebd-qp"><b class="ebd-qp__l">(' + l + ')</b><span>' + qMark(t.trim()) + '</span><span class="ebd-qp__m">' + (l === 'a' ? '30' : '40') + ' marks</span></p>'; };
+    return (q.slice(0, ia).trim() ? '<p class="ebd-qp ebd-qp--quote">' + qMark(q.slice(0, ia).trim()) + '</p>' : '') + part('a', q.slice(ia + 3, ib)) + part('b', q.slice(ib + 3));
+  }
+  var TYPED = null;
+  function typeIn(el) {
+    var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (still) return;
+    var nodes = [], w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), caret = document.createElement('i');
+    while (w.nextNode()) nodes.push(w.currentNode);
+    var full = nodes.map(function (n) { return n.nodeValue; }), i = 0, j = 0, timer = 0;
+    nodes.forEach(function (n) { n.nodeValue = ''; });
+    // Parts, labels and highlights stay hidden until their first letter is typed.
+    var waiting = [].slice.call(el.querySelectorAll('*'));
+    waiting.forEach(function (x) { x.classList.add('ebd-wait'); });
+    var show = function (n) { for (var x = n.parentNode; x && x !== el; x = x.parentNode) if (x.classList) x.classList.remove('ebd-wait'); };
+    caret.className = 'ebd-caret';
+    var box = el.closest('.ebd-q');
+    box.classList.add('is-typing');
+    var done = function (ev) {
+      if (ev) { ev.stopPropagation(); ev.preventDefault(); }
+      clearTimeout(timer);
+      nodes.forEach(function (n, k) { n.nodeValue = full[k]; });
+      waiting.forEach(function (x) { x.classList.remove('ebd-wait'); });
+      if (caret.parentNode) caret.parentNode.removeChild(caret);
+      box.classList.remove('is-typing'); box.classList.add('is-typed');
+      box.removeEventListener('click', done, true);
+    };
+    var tick = function () {
+      if (!el.isConnected) return;
+      for (var n = 0; n < 3 && i < nodes.length;) { if (j < full[i].length) { if (!j) show(nodes[i]); j++; n++; nodes[i].nodeValue = full[i].slice(0, j); } else { i++; j = 0; } }
+      if (i >= nodes.length) { done(); return; }
+      if (nodes[i].parentNode) nodes[i].parentNode.insertBefore(caret, nodes[i].nextSibling);
+      var ch = full[i].charAt(j - 1);
+      timer = setTimeout(tick, /[.?!]/.test(ch) ? 260 : /[,;:]/.test(ch) ? 110 : 18);
+    };
+    box.addEventListener('click', done, true);
+    tick();
+  }
+
   // ----- the sheet -----
   function line(key, value, ph, k) {
     return '<label class="ebd-line' + (k ? ' ebd-line--k' : '') + '">' + (k ? '<span class="ebd-k" style="background:' + PACE_COL[k] + '" title="' + FIELD[k][0] + '">' + k + '</span>' : '') +
@@ -424,7 +483,7 @@
     var mentions = function (s, ids) { s = (s || '').toLowerCase(); return ids.filter(function (t) { return nameOf(t).some(function (n) { return n && s.indexOf(n) >= 0; }); }).length; };
     out += '<div class="ebd-q' + (cur === 'q' ? ' is-on' : '') + '"' + (cur === 'q' ? '' : ' data-eb-step="0" role="button" tabindex="0"') + '>' +
       '<span class="ebd-q__tab" style="--c:' + COL[e.mode] + '">' + esc(MODE[e.mode].name) + ' · ' + (split() ? '30 + 40' : '70') + ' marks</span>' +
-      (e.q ? '<p>' + esc(e.q) + '</p>' : '<p class="ebd-ghost">Pick a question in the coach: one from the real papers, or your own.</p>') + '</div>';
+      '<div class="ebd-qtext" data-eb-qtext>' + (e.q ? qHtml(e.q) : '<p class="ebd-ghost">Pick a question from the real papers, or write your own.</p>') + '</div></div>';
     out += '<div class="ebd-note' + (cur === 'q' ? ' is-on' : '') + '"><span>Your line of argument</span>' +
       (cur === 'q' ? '<textarea data-eb="thesis" rows="2" placeholder="One sentence that answers the question.">' + esc(e.thesis) + '</textarea>'
         : '<p data-eb-step="0" role="button" tabindex="0">' + (e.thesis ? esc(e.thesis) : '<i>Not written yet: tap to write it.</i>') + '</p>') + '</div>';
@@ -586,6 +645,8 @@
         '<aside class="ebd-coach" data-eb-coach>' + coachHtml() + '</aside></div>';
     LAST_OK = checksList().map(function (c) { return c[1]; });
     app.querySelectorAll('.ebd-sheet textarea').forEach(grow);
+    var qt = app.querySelector('[data-eb-qtext]');
+    if (qt && e.q && e.q !== TYPED) { TYPED = e.q; typeIn(qt); }
     var first = app.querySelector('.ebd-block.is-on textarea');
     if (first && !keepFocus && cur !== 'q') first.focus({ preventScroll: true });
   }
@@ -597,7 +658,7 @@
     else if ((m = /^a([PAE])(\d+)$/.exec(key))) { var aa = e.aspects[+m[2]]; if (!aa) return; (e.parasA[aa] = e.parasA[aa] || {})[m[1]] = v; }
     else { var part = key.charAt(0), k = +key.slice(1), a = e.aspects[k]; if (!a) return; (e.paras[a] = e.paras[a] || {})[part] = v; }
     saveEssay();
-    if (key === 'q') { var qp = app.querySelector('.ebd-q p'); if (qp) { qp.className = ''; qp.textContent = v || ''; } }
+    if (key === 'q') { var qt = app.querySelector('[data-eb-qtext]'); if (qt) qt.innerHTML = v ? qHtml(v) : ''; TYPED = v; }
     var cnt = app.querySelector('.ebd-count');
     if (cnt) { var na = words(essayParts('a').join(' ')), nb = words(essayParts('b').join(' ')); cnt.firstChild.textContent = split() ? '(a) ' + na + ' words · (b) ' + nb + ' words' : nb + ' words'; }
     updateStamps();

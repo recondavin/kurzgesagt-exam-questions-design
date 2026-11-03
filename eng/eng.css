@@ -400,3 +400,18 @@ body.eng.sh-open .sh-brand { display: none; }
 @keyframes engDrawer { from { transform: translateX(-24px); opacity: 0; } to { transform: none; opacity: 1; } }
 @media (max-width: 1100px) { body.eng.sh-open .sh-side { top: 56px; right: 0; width: auto; border: 0; box-shadow: none; } }
 @media (prefers-reduced-motion: reduce) { body.eng.sh-open .sh-side { animation: none; } }
+/* The question on the sheet: its parts on their own lines, topic words highlighted, task words underlined; typed in. */
+.ebd-qtext { margin-top: 2px; }
+.ebd-qp { margin: 8px 0 0; color: #2A3342; font: 700 16px/1.6 Nunito, sans-serif; }
+.ebd-qp--quote { font-style: italic; color: #4A5466; }
+.ebd-qp__l { display: inline-grid; place-items: center; min-width: 30px; height: 24px; margin-right: 8px; padding: 0 6px; border-radius: 7px; background: #13212A; color: #fff; font: 700 13px/1 Fredoka, Nunito, sans-serif; vertical-align: 1px; }
+.ebd-qp__m { margin-left: 8px; color: #8C8166; font: 800 12px Nunito, sans-serif; white-space: nowrap; }
+.ebd-qp mark { color: inherit; }
+.ebd-qp mark.q-topic { padding: 0 2px; border-radius: 3px; background: #FFEFA0; }
+.ebd-qp mark.q-task { background: none; color: #2457C5; text-decoration: underline 2px; text-underline-offset: 3px; }
+.ebd-caret { display: inline-block; width: 2px; height: 1.1em; margin-left: 1px; background: #2A3342; vertical-align: -3px; animation: ebdBlink .8s steps(1) infinite; }
+@keyframes ebdBlink { 50% { opacity: 0; } }
+.ebd-q.is-typing { cursor: pointer; }
+.ebd-q.is-typing::after { content: "Click to show it all"; position: absolute; top: 14px; right: 14px; color: #8C8166; font: 800 12px Nunito, sans-serif; }
+.ebd-wait { display: none !important; }
+@media (max-width: 560px) { .ebd-stamps { gap: 4px; } .ebd-stamps i { width: 23px; height: 23px; font-size: 11px; border-width: 2px; } .ebd-stamps span { margin-left: 2px; font-size: 12.5px; } .ebd-stamps span b { font-size: 17px; } }
