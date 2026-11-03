@@ -5,7 +5,7 @@
   "kind": "film",
   "made": "1994",
   "setting": "Shawshank, a fictional state prison in Maine, USA, from 1947 to 1966, with a final journey to the Pacific coast of Mexico in 1967.",
-  "gist": "Andy Dufresne, a banker wrongly convicted of murdering his wife and her lover, is sent to Shawshank prison, where he becomes friends with Red, a long-serving prisoner who narrates the film. Over nearly twenty years Andy survives brutality and a corrupt, Bible-quoting warden, keeps hope alive, and finally escapes and exposes the warden, and Red, released on parole, follows him to Mexico. Frank Darabont wrote and directed the film from Stephen King's novella 'Rita Hayworth and Shawshank Redemption'.",
+  "gist": "Andy Dufresne, a banker wrongly convicted of murdering his wife and her lover, is sent to Shawshank prison, where he becomes friends with Red, a long-serving prisoner who narrates the film. Over nearly twenty years Andy survives brutality and a corrupt, Bible-quoting warden, keeps hope alive, and finally escapes and exposes the warden; Red, released on parole, follows him to Mexico. Frank Darabont wrote and directed the film from Stephen King's novella 'Rita Hayworth and Shawshank Redemption'.",
   "people": [
     {"name": "Andy Dufresne", "who": "A quiet, educated banker sentenced to two life sentences for murdering his wife and her lover, a crime he did not commit."},
     {"name": "Ellis 'Red' Redding", "who": "A long-serving prisoner who can smuggle in almost anything; Andy's closest friend and the film's narrator."},
@@ -66,7 +66,7 @@
       "title": "Brooks is released",
       "where": "Around the middle of the film",
       "when": "middle",
-      "what": "When the elderly librarian Brooks Hatlen learns he is to be paroled after fifty years, he holds a knife to Heywood's throat in the hope of being kept inside, and Red explains that Brooks is 'institutionalized'. Outside, Brooks cannot cope with the changed world, and he hangs himself in his rented room after carving 'Brooks was here' into a wooden beam.",
+      "what": "When the elderly librarian Brooks Hatlen learns he is to be paroled after fifty years, he holds a knife to Heywood's throat in the hope of being kept inside, and Red explains that Brooks is 'institutionalized'. Outside, Brooks cannot cope with the changed world, and he hangs himself in his halfway-house room after carving 'Brooks was here' into a wooden beam.",
       "why": "It shows that prison can destroy a man's ability to live in freedom, a fate Red himself later fears.",
       "modes": ["theme", "cc", "gvv"],
       "quote": "Brooks was here",
@@ -110,7 +110,7 @@
       "title": "The empty cell",
       "where": "Final third of the film (1966)",
       "when": "climax",
-      "what": "At the morning count Andy's cell is empty; in a rage the warden throws a stone at the poster on the wall, and it tears straight through, revealing a tunnel. Red's voiceover and a flashback show that Andy dug through the wall over less than twenty years with his small rock hammer and, during a thunderstorm, crawled through five hundred yards of sewer pipe to freedom, raising his arms in the rain.",
+      "what": "At the morning count Andy's cell is empty; in a rage the warden throws a stone at the poster on the wall, and it tears straight through, revealing a tunnel. Red's voiceover and a flashback show that Andy dug through the wall in less than twenty years with his small rock hammer and, during a thunderstorm, crawled through five hundred yards of sewer pipe to freedom, raising his arms in the rain.",
       "why": "The film's great reversal turns Andy's years of patience into an act of hidden defiance, and gives the film its central image of freedom.",
       "modes": ["theme", "cc", "gvv"],
       "quote": "",
@@ -157,7 +157,7 @@
           "name": "Power and control",
           "points": [
             "Official power at Shawshank is brutal: Warden Norton greets new prisoners with talk of discipline and the Bible, and that night Captain Hadley beats a frightened prisoner to death, with no one held to account [shawshank-3].",
-            "Andy finds a quieter power in knowledge: by offering tax advice, he turns Hadley, who nearly threw him off the roof, into the man who hands his fellow prisoners cold beer [shawshank-4].",
+            "Andy finds a quieter power in knowledge: by offering tax advice, he turns Hadley, who nearly threw him off the roof, into the man who supplies his fellow prisoners with beer [shawshank-4].",
             "The warden will kill to keep control: when Tommy's evidence could free Andy, the man who hides his illegal profits, Norton has Hadley shoot Tommy dead [shawshank-7].",
             "Andy finally turns the warden's own system against him, using the false identity he created to hide Norton's money to take that money himself, and Norton's power collapses [shawshank-10]."
           ]
@@ -240,7 +240,7 @@
         {
           "name": "Race and the outsider",
           "points": [
-            "The film says almost nothing directly about race: Red is a Black man and Andy a white former banker, yet their friendship becomes the heart of the film without colour ever being raised [shawshank-12].",
+            "The film says almost nothing directly about race: Red is a Black man and Andy a white former banker, yet their friendship becomes the heart of the film without the film ever making race an issue [shawshank-12].",
             "Andy is an outsider by class and temperament: educated and reserved, he sits apart on the roof, not drinking, while the others enjoy the beer he won for them [shawshank-4].",
             "Long imprisonment turns men into outsiders in the free world: Brooks finds that the world has changed too fast for him [shawshank-5], and Red, given Brooks's old room, fears the same fate [shawshank-11]."
           ]
@@ -254,8 +254,8 @@
       "points": [
         "Darabont contrasts dark and light visually: the grey, enclosed prison and night scenes such as Tommy's killing [shawshank-7] give way to the open, sunlit blue of the Pacific in the final shot [shawshank-12].",
         "The film admits that hope can be crushed: Brooks hangs himself after his release [shawshank-5], and Tommy is killed for being willing to tell the truth [shawshank-7].",
-        "Moments of grace inside the walls, such as the Mozart broadcast, suggest that the human spirit cannot be fully imprisoned [shawshank-6].",
-        "Red's voiceover guides our feelings: we share his slow journey from warning that hope is dangerous [shawshank-6] to ending the film with the words 'I hope' [shawshank-12].",
+        "Moments of grace inside the walls, such as the beer on the roof [shawshank-4] and the Mozart broadcast [shawshank-6], suggest that the human spirit cannot be fully imprisoned.",
+        "Red's voiceover guides our feelings: we share his slow journey from warning that hope is dangerous [shawshank-6], to repeating Andy's choice to 'get busy living' [shawshank-8], to ending the film with the words 'I hope' [shawshank-12].",
         "The ending suggests that institutions are corrupt but individuals can be good: justice comes not from the courts or the parole board but from Andy's patience and the truth he sends to a newspaper [shawshank-10].",
         "The escape is hidden from the viewer as well as from Red, so its sudden reveal gives us the same shock and delight [shawshank-9]."
       ]
