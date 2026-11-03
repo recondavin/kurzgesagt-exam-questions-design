@@ -1,5 +1,6 @@
 // The English comparative games, in answer-mode.js's practice host (its cards, the examiner, sounds, "Leave the game?").
 //   Whose moment?        A key moment: which of your texts is it from? (from the texts' key moments)
+//   Penalty shootout     Five kicks each against the examiner; the chains of your key moments are the questions.
 //   Upgrade it           A plain phrase: pick its exam version.
 //   Picture it           A real picture (a painting, the place, the stage): which key moment does it go with?
 //   Link it              Two sentences about two texts: pick the linking phrase that fits (similar, different, degree).
@@ -119,6 +120,25 @@
     K.later(function () { if (after.isConnected) after.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }, 60);
   }
 
+  // ======================================================================== Penalty shootout
+  // eng/eng-penalty.js, asking about the key moments' chains of your texts: what a moment shows, or what it leads to,
+  // with the other moments of the same text as the wrong answers.
+  function penaltyOpen() {
+    if (!window.PenaltyShootout) return;
+    var pool = [];
+    mine().forEach(function (t) { (D.texts[t].moments || []).forEach(function (m) { if (m.chain) pool.push({ t: t, m: m }); }); });
+    pool = shuffle(pool);
+    var k = 0;
+    window.PenaltyShootout.open({ title: 'Penalty shootout', store: 'eng-penalty', next: function () {
+      var x = pool[k % pool.length], kind = k % 3 === 2 ? 'leads' : 'shows';
+      k++;
+      var others = shuffle((D.texts[x.t].moments || []).filter(function (m) { return m.id !== x.m.id && m.chain && m.chain[kind] !== x.m.chain[kind]; })).slice(0, 3);
+      return { head: title(x.t) + ': ' + x.m.title, text: x.m.chain.happens, ask: kind === 'shows' ? 'What does this show?' : 'What does this lead to?', colour: col(x.t),
+        opts: shuffle([{ t: x.m.chain[kind], ok: true }].concat(others.map(function (m) { return { t: m.chain[kind], ok: false }; }))),
+        why: x.m.chain.happens + ' → ' + x.m.chain.shows + ' → ' + x.m.chain.leads };
+    } });
+  }
+
   // ======================================================================== Upgrade it
   // A plain phrase: pick its exam version (the right one, and three exam phrases that mean something else).
   function upOpen() {
@@ -230,6 +250,7 @@
   }
 
   var LIST = [['which', 'Whose moment?', 'A key moment: which text is it from?', function () { return true; }, whichOpen],
+    ['penalty', 'Penalty shootout', 'Five kicks each against the examiner.', function () { return !!window.PenaltyShootout; }, penaltyOpen],
     ['upgrade', 'Upgrade it', 'Plain words in, exam words out.', function () { return (D.comparative.upgrades || []).length >= 8; }, upOpen],
     ['pic', 'Picture it', 'A real picture: which key moment?', function () { return (D.images || []).filter(function (p) { return p.moment; }).length >= 4; }, picOpen],
     ['link', 'Link it', 'Pick the link that fits two texts.', function () { return (GD.link || []).length >= 4; }, linkOpen],
