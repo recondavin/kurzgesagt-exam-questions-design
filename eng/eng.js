@@ -270,7 +270,10 @@
       var qs = D.questions.filter(function (q) { return q.mode === e.mode; });
       return '<h2>The question</h2><p>Pick the mode, then a past question or write your own.</p>' +
         '<div class="eb-choices">' + MODES.map(function (x) { return '<button type="button" class="eng-chip" style="--c:' + COL[x.id] + '" data-eb-mode="' + x.id + '" aria-pressed="' + (e.mode === x.id) + '">' + esc(x.name) + '</button>'; }).join('') + '</div>' +
-        (qs.length ? '<div class="eb-choices">' + qs.slice(0, 8).map(function (q) { return '<button type="button" class="eng-chip" data-eb-q="' + D.questions.indexOf(q) + '">' + q.year + (q.paper === 'deferred' ? ' (deferred)' : '') + '</button>'; }).join('') + '</div>' : '') +
+        (qs.length ? '<div class="eb-qs">' + qs.sort(function (a, b) { return b.year - a.year; }).slice(0, 10).map(function (q) {
+          return '<button type="button" class="eb-q' + (e.q === q.text ? ' is-on' : '') + '" data-eb-q="' + D.questions.indexOf(q) + '"><b>' + q.year + (q.paper === 'deferred' ? ' deferred' : '') +
+            (q.option && q.option !== '70' ? ' ' + esc(q.option) : '') + '</b> ' + esc(q.text.length > 110 ? q.text.slice(0, 108) + '…' : q.text) + '</button>';
+        }).join('') + '</div>' : '') +
         field('q', 'The question', '', e.q, 'Paste or type the question here') +
         field('thesis', 'Your answer to it, in one sentence', 'P', e.thesis, 'e.g. All three texts present a world where the powerful crush the vulnerable, but only Shawshank lets hope win.',
           '<div class="eb-help"><b>This is your line of argument.</b> Every paragraph will prove a part of it.</div>');
@@ -294,7 +297,7 @@
     var k = +cur.slice(1), a = e.aspects[k], pr = e.paras[a] || {};
     var t1 = mine[0], t2 = mine[1], t3 = mine[2];
     function notesFor(tid) {
-      var pts = pointsFor(e.mode, a, tid).map(plain), mo = momentsFor(e.mode, tid).slice(0, 4).map(function (x) { return '<b>' + esc(x.title) + '</b> (' + esc(x.where) + '): ' + esc(x.what); });
+      var pts = pointsFor(e.mode, a, tid).slice(0, 3).map(plain), mo = momentsFor(e.mode, tid).slice(0, 3).map(function (x) { return '<b>' + esc(x.title) + '</b> (' + esc(x.where) + '): ' + esc(x.what); });
       return helpList('From your notes on ' + text(tid).title, pts.concat(mo));
     }
     return '<h2>Point ' + (k + 1) + ': ' + esc(a) + '</h2><p>Build it with PACE. The notes under each box are from your texts: use them in your own words.</p>' +
@@ -325,7 +328,7 @@
     });
     parts.push(e.end ? esc(e.end) : '<span class="eb-ghost">Conclusion…</span>');
     var n = words(essayParts().join(' '));
-    return '<div class="eng-paper">' + (e.q ? '<p><b>' + esc(e.q) + '</b></p>' : '') + parts.map(function (p) { return '<p>' + p + '</p>'; }).join('') + '</div>' +
+    return '<div class="eng-paper">' + (e.q ? '<p class="eb-qtext">' + esc(e.q) + '</p>' : '') + parts.map(function (p) { return '<p>' + p + '</p>'; }).join('') + '</div>' +
       '<div class="eb-count"><span>' + n + ' words</span><span>' + (n < 900 ? 'Aim for 1,000 to 1,300' : n > 1500 ? 'Long: about 65 minutes in the exam' : 'A good length') + '</span></div>';
   }
   // The checks: what a reader can see in the text, mapped to P, C, L and M. Not a grade: a list of things to fix.

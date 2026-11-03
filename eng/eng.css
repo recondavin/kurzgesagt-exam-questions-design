@@ -193,3 +193,9 @@ a.eng-card:focus-visible, .eng-btn:focus-visible, .eng-chip:focus-visible, .eng-
 @media (prefers-reduced-motion: reduce) { .eg-stamp, .eg-ans, .eg-why, .eg-fix { animation: none; } }
 /* Level up counts "marks" for Geography's SRPs; the comparative is marked as a whole, so the meter and "+2 marks" go. */
 body.eng .am-level__meter, body.eng .am-level .am-games__note > b:first-child { display: none; }
+.eb-qs { display: grid; gap: 6px; max-height: 300px; margin: 0 0 16px; overflow: auto; }
+.eb-q { padding: 10px 12px; border: 2px solid transparent; border-radius: 12px; background: var(--raised); color: var(--muted); font: 700 14.5px/1.45 Nunito, sans-serif; text-align: left; cursor: pointer; }
+.eb-q b { color: #fff; }
+.eb-q:hover { border-color: var(--faint); }
+.eb-q.is-on { border-color: #6BC5F8; color: #fff; }
+.eb-preview .eng-paper .eb-qtext { margin: 0 0 18px; padding-bottom: 12px; border-bottom: 2px solid var(--paper-rule); color: #5A6475; font: 700 14.5px/1.5 Nunito, sans-serif; }
