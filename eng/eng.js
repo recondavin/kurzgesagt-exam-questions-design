@@ -32,7 +32,9 @@
     v = v.filter(function (id) { return D.texts[id]; });
     return v.length === 3 ? v : D.order.slice(0, 3);
   }
-  function pickedExactly() { try { return JSON.parse(store('eng-texts') || '[]').length === 3; } catch (e) { return false; } }
+  // The texts picked so far (0 to 3), as stored.
+  function picks() { var v = []; try { v = JSON.parse(store('eng-texts') || '[]'); } catch (e) {} return (Array.isArray(v) ? v : []).filter(function (id) { return D.texts[id]; }); }
+  function pickedExactly() { return picks().length === 3; }
   function setChosen(ids) { store('eng-texts', JSON.stringify(ids)); }
 
   // ---------- the shell (bio-shell.css): sidebar, top bar ----------
@@ -72,7 +74,7 @@
   }
   function renderHome() {
     renderShell('home');
-    var mine = pickedExactly() ? chosen() : [];
+    var mine = picks();
     var pc = C.marks.criteria;
     app.innerHTML = title('Comparative Study', '<a class="eng-btn" href="#build">Build an essay</a>') +
       '<h2 class="eng-h2">Your three texts</h2>' +
@@ -459,7 +461,7 @@
     if (document.body.classList.contains('sh-open') && t.closest('.sh-link')) menu(false);
     var pick = t.closest('[data-eng-pick]');
     if (pick) {
-      var id = pick.getAttribute('data-eng-pick'), cur = pickedExactly() ? chosen() : JSON.parse(store('eng-texts') || '[]').filter(function (x) { return D.texts[x]; });
+      var id = pick.getAttribute('data-eng-pick'), cur = picks();
       if (cur.indexOf(id) >= 0) cur = cur.filter(function (x) { return x !== id; }); else if (cur.length < 3) cur.push(id); else { cur.shift(); cur.push(id); }
       setChosen(cur);
       if (K) K.sfx(cur.indexOf(id) >= 0 ? 'pop' : 'tick', 0.6);
