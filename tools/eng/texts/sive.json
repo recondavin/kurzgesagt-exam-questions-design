@@ -7,15 +7,42 @@
   "setting": "The Glavins' poor farmhouse kitchen in remote rural Co. Kerry, in the 1950s.",
   "gist": "Sive, a schoolgirl born outside marriage whose mother is dead, lives with her uncle Mike, his bitter wife Mena and her grandmother Nanna. When the matchmaker Thomasheen Seán Rua offers Mike and Mena £200 to marry her to Seán Dóta, an elderly farmer, they force the match on her and cut her off from Liam Scuab, the young man she loves, while Thomasheen burns Liam's letter offering her escape. On the eve of the wedding Sive runs out across the bog and drowns herself.",
   "people": [
-    {"name": "Sive", "who": "A gentle schoolgirl born outside marriage; her mother, Mike's sister, is dead, and she loves Liam Scuab."},
-    {"name": "Mena Glavin", "who": "Mike's hard, bitter and childless wife, shaped by a poor upbringing; she drives the match for the money."},
-    {"name": "Mike Glavin", "who": "Sive's uncle, a small farmer who knows the match is wrong but is too weak to stop it."},
-    {"name": "Nanna Glavin", "who": "Mike's mother and Sive's grandmother; sharp-tongued and pipe-smoking, she is Sive's only defender in the house."},
-    {"name": "Thomasheen Seán Rua", "who": "The local matchmaker: cunning, persuasive and driven by his own payment."},
-    {"name": "Seán Dóta", "who": "An elderly, well-off bachelor farmer who will pay to marry Sive."},
-    {"name": "Liam Scuab", "who": "The young man who loves Sive; a cousin of her father, so Mike hates him."},
-    {"name": "Pats Bocock", "who": "A travelling man whose blunt sayings expose the greed behind the match; he carries Liam's escape plan to Nanna."},
-    {"name": "Carthalawn", "who": "Pats's son, whose mocking and cursing songs comment on the action like a chorus."}
+    {
+      "name": "Sive",
+      "who": "A gentle schoolgirl born outside marriage; her mother, Mike's sister, is dead, and she loves Liam Scuab."
+    },
+    {
+      "name": "Mena Glavin",
+      "who": "Mike's hard, bitter and childless wife, shaped by a poor upbringing; she drives the match for the money."
+    },
+    {
+      "name": "Mike Glavin",
+      "who": "Sive's uncle, a small farmer who knows the match is wrong but is too weak to stop it."
+    },
+    {
+      "name": "Nanna Glavin",
+      "who": "Mike's mother and Sive's grandmother; sharp-tongued and pipe-smoking, she is Sive's only defender in the house."
+    },
+    {
+      "name": "Thomasheen Seán Rua",
+      "who": "The local matchmaker: cunning, persuasive and driven by his own payment."
+    },
+    {
+      "name": "Seán Dóta",
+      "who": "An elderly, well-off bachelor farmer who will pay to marry Sive."
+    },
+    {
+      "name": "Liam Scuab",
+      "who": "The young man who loves Sive; a cousin of her father, so Mike hates him."
+    },
+    {
+      "name": "Pats Bocock",
+      "who": "A travelling man whose blunt sayings expose the greed behind the match; he carries Liam's escape plan to Nanna."
+    },
+    {
+      "name": "Carthalawn",
+      "who": "Pats's son, whose mocking and cursing songs comment on the action like a chorus."
+    }
   ],
   "moments": [
     {
@@ -25,9 +52,17 @@
       "when": "opening",
       "what": "The play opens in a poorly furnished kitchen where Nanna, hiding her pipe, and her daughter-in-law Mena trade insults, with Nanna mocking Mena's poor background and her childlessness. When Sive comes in from school, Mena resents that she is still being educated instead of contributing to the house.",
       "why": "It sets up a poor, bitter household where the women fight over status and space, and where Sive has no protector with real power.",
-      "modes": ["cc", "gvv"],
+      "modes": [
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "A kitchen in rural Kerry, in the 1950s. Not much furniture. Not much money. And two women who can't stand each other.",
+        "Nanna, the old grandmother, hides her pipe and mocks Mena for being poor and childless. Mena gives it straight back.",
+        "Then Sive walks in from school, and Mena's resentment finds a new target: why is this girl still at her books when she could be earning?"
+      ]
     },
     {
       "id": "sive-2",
@@ -36,9 +71,17 @@
       "when": "opening",
       "what": "The matchmaker Thomasheen Seán Rua tells Mena in secret that Seán Dóta, an elderly farmer, wants to marry Sive and will pay Mike and Mena £200, and will take Nanna into his house as well. Mena, tempted by the money and the chance to be rid of both Sive and Nanna, agrees to work on Mike.",
       "why": "Marriage is shown as a cash bargain in which Sive is effectively sold by the adults around her.",
-      "modes": ["theme", "cc"],
+      "modes": [
+        "theme",
+        "cc"
+      ],
       "quote": "the grass of twenty cows",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Enter the matchmaker. Thomasheen Seán Rua has a deal, and he tells it to Mena in secret.",
+        "Seán Dóta, an old farmer with land, wants to marry Sive. He'll pay £200. He'll even take Nanna off their hands.",
+        "For Mena that means money, and a house with neither Sive nor Nanna in it. She agrees to work on Mike."
+      ]
     },
     {
       "id": "sive-3",
@@ -47,9 +90,18 @@
       "when": "opening",
       "what": "Mike at first refuses the match angrily, horrified at giving a schoolgirl to an old man. Later he catches Liam Scuab on a secret visit to Sive and orders him away, blaming Liam's cousin, Sive's father, for leaving her mother pregnant and unmarried; the scene ends with Mike calling for Mena.",
       "why": "Mike's hatred of Liam's family and his fear that Sive will repeat her mother's 'shame' begin to push him towards the match.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "At first Mike says no. Angrily. A schoolgirl and an old man? He knows it's wrong.",
+        "But then he catches Liam Scuab, the young man who loves Sive, visiting her in secret, and he orders him away.",
+        "Old wounds: Mike blames Liam's cousin, Sive's father, for what happened to her mother. And the scene ends with Mike calling for Mena."
+      ]
     },
     {
       "id": "sive-4",
@@ -58,9 +110,18 @@
       "when": "middle",
       "what": "Thomasheen brings Seán Dóta to the house; Seán acts bashful and sings a foolish song, but when he is sent to walk Sive to a neighbour's house he makes a grab at her. In the same scene Thomasheen brushes aside Mike's doubts, dismissing love as something people like them cannot afford and telling how poverty after his father's suicide cost him his own chance of marriage.",
       "why": "Love is dismissed as a luxury of the better-off, and Sive is left exposed to a predatory old man by the adults meant to protect her.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Seán Dóta comes courting. He's bashful, he sings a foolish song, and when he's sent to walk Sive to a neighbour's house, he grabs at her.",
+        "Meanwhile Thomasheen sweeps away Mike's doubts. Love? People like them can't afford it.",
+        "And he says why: after his father's suicide, poverty cost him his own chance to marry. In this world, money decides who gets to love."
+      ]
     },
     {
       "id": "sive-5",
@@ -69,9 +130,18 @@
       "when": "middle",
       "what": "Nanna welcomes the travelling men Pats Bocock and his son Carthalawn, but Mena and Thomasheen refuse them food and money and resent Carthalawn's mocking songs. When the travellers tell Nanna about the match and she challenges Mena and Thomasheen, they bully her and threaten her with the county home.",
       "why": "It shows who holds power in the house, how the old and the poor are treated, and introduces the travellers as the play's truth-telling chorus.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Two travelling men come to the door: Pats Bocock and his son Carthalawn, who sings.",
+        "Nanna welcomes them. Mena and Thomasheen give them nothing, and squirm at Carthalawn's mocking songs.",
+        "When the travellers tell Nanna about the match and she challenges them, Mena and Thomasheen turn on her: keep quiet, or it's the county home."
+      ]
     },
     {
       "id": "sive-6",
@@ -80,9 +150,18 @@
       "when": "middle",
       "what": "Putting on a motherly air, Mena tries to tempt Sive with all that Seán Dóta can offer; when Sive refuses, Mena cruelly tells her the truth about her birth and says she will leave school and no longer sleep beside Nanna. Mena also reveals the poverty and desperation that drove her into her own marriage.",
       "why": "Sive's birth is used as a weapon: in this society a girl born outside marriage is told her only way to respectability is a husband.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "You will have no name till you take a husband.",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Now Mena works on Sive herself, all motherly sweetness: think of everything Seán Dóta can give you.",
+        "Sive refuses. So Mena tells her the truth about her birth, cruelly, and that she'll leave school and no longer sleep beside Nanna.",
+        "But we also see where Mena's hardness comes from: the poverty and desperation that pushed her into her own marriage."
+      ]
     },
     {
       "id": "sive-7",
@@ -91,9 +170,17 @@
       "when": "middle",
       "what": "Having heard about the match, Liam comes to the house and begs Mike and Mena not to give Sive to Seán Dóta, even offering to keep away from her; they send him off. Mena then lies to Sive that Liam came only to wish her joy and has left her for good.",
       "why": "The one person who speaks up openly is driven away, and Mena's lie cuts Sive off from her only hope.",
-      "modes": ["theme", "cc"],
+      "modes": [
+        "theme",
+        "cc"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Liam hears about the match and comes to beg: don't give her to Seán Dóta. He'll even keep away from her himself.",
+        "Mike and Mena send him off.",
+        "Then Mena lies to Sive. Liam only came to wish her joy, she says. He's gone for good."
+      ]
     },
     {
       "id": "sive-8",
@@ -102,9 +189,18 @@
       "when": "middle",
       "what": "As Mike gets ready to see the priest about the wedding, Nanna begs him to stop the match, warning that Sive's dead mother will curse it. Mike insists it is for the best but cannot look his mother in the face, and justifies himself by blaming Liam's family for what happened to his sister.",
       "why": "Mike knows the match is wrong but chooses money, his wife and respectability over his conscience.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Mike is getting ready to see the priest about the wedding, and Nanna begs him to stop it.",
+        "Sive's dead mother, she warns, will curse this match.",
+        "Mike says it's for the best, but he can't look his mother in the face. So he blames Liam's family instead."
+      ]
     },
     {
       "id": "sive-9",
@@ -113,9 +209,18 @@
       "when": "climax",
       "what": "On the day before the wedding, Pats brings Nanna a letter from Liam telling Sive to slip out that night so they can be married in secret; Mike finds out about it and, told it is only Liam's farewell, promises to pass it to Sive unopened. Thomasheen spots it, insists that Mike open it and, once the plan is exposed, burns it, while Mike, uneasy, does nothing to let Sive know.",
       "why": "Sive's last chance of escape is destroyed by the matchmaker, while the uncle who could save her stays silent.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "The day before the wedding. Pats brings Nanna a letter from Liam: Sive should slip out tonight, and they'll marry in secret.",
+        "Mike finds out. Told it's only Liam's farewell, he promises to pass it to Sive unopened.",
+        "Thomasheen makes him open it, then burns it. And Mike, uneasy, does nothing. One small silence, and the last way out is gone."
+      ]
     },
     {
       "id": "sive-10",
@@ -124,9 +229,17 @@
       "when": "climax",
       "what": "Mena and Sive come home from buying wedding clothes with Seán Dóta's money, and a miserable Sive goes to her room while the men drink with Seán. Pats and Carthalawn arrive on a traditional wedding visit and provoke Seán and Thomasheen: Pats says that men of money like Seán will be the new lords of the land, and Carthalawn sings that Seán will soon be travelling by hearse.",
       "why": "The celebration is hollow, and the travellers' songs tell the truth about greed and foreshadow a death, though the hearse will be for Sive.",
-      "modes": ["cc", "gvv"],
+      "modes": [
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "The eve of the wedding. Sive comes home with clothes bought with Seán Dóta's money and goes to her room, miserable. The men drink.",
+        "Then Pats and Carthalawn arrive on a wedding visit, and they haven't come to celebrate.",
+        "Pats says men of money like Seán will be the new lords of the land. Carthalawn sings that Seán will soon be travelling by hearse."
+      ]
     },
     {
       "id": "sive-11",
@@ -135,9 +248,18 @@
       "when": "climax",
       "what": "Mena discovers that Sive has stolen out of the house, and Pats admits he glimpsed a girl crossing the bog. Liam carries in Sive's body: she has drowned in a bog hole, a death the household takes to be suicide, and as Thomasheen and Seán Dóta slip away, Liam turns furiously on Mena.",
       "why": "Sive's only escape from the match is death, and those who profited from it run from the consequences.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Mena finds that Sive is gone. Pats admits he saw a girl crossing the bog in the dark.",
+        "Then Liam carries her in. Sive has drowned in a bog hole, and the house takes it to be suicide.",
+        "Thomasheen and Seán Dóta slip away. Liam turns on Mena."
+      ]
     },
     {
       "id": "sive-12",
@@ -146,9 +268,17 @@
       "when": "ending",
       "what": "Mike, dazed, thinks first of fetching the priest and of whether Sive can be buried in holy ground. The play closes with Carthalawn's song mourning Sive and Nanna grieving beside her body.",
       "why": "The ending condemns a society that cares more for respectability than for a girl's life, and leaves grief rather than justice.",
-      "modes": ["cc", "gvv"],
+      "modes": [
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Mike, dazed, thinks first of the priest, and of whether Sive can be buried in holy ground.",
+        "The play ends with a song: Carthalawn mourns Sive, and Nanna grieves beside her body.",
+        "No one is punished. No one is saved. That's what makes it so bleak."
+      ]
     }
   ],
   "modes": {

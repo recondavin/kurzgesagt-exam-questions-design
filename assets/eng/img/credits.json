@@ -1,5 +1,176 @@
 [
  {
+  "file": "sive-kitchen.jpg",
+  "text": "sive",
+  "title": "A farmhouse kitchen, Bunratty Folk Park",
+  "author": "Joseph Mischyshyn, geograph.org.uk",
+  "licence": "CC BY-SA 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Bunratty_Park_-_Site_%5E5-Mountain_Farmhouse_Kitchen_-_geograph.org.uk_-_3045722.jpg",
+  "kind": "place",
+  "caption": "The kitchen of the Mountain Farmhouse at Bunratty Folk Park, rebuilt as a poor farmer's house from the Limerick–Kerry border: the kind of kitchen where the whole of Sive is played.",
+  "moment": "sive-1",
+  "spots": [
+   {
+    "x": 45,
+    "y": 38,
+    "label": "The hearth",
+    "note": "The fire is the centre of the house. Every row, bargain and plea in the play happens in this one room.",
+    "quote": "",
+    "moment": "sive-1"
+   },
+   {
+    "x": 20,
+    "y": 78,
+    "label": "Pots and chairs",
+    "note": "A bare, poor house. Money is short, which is why Seán Dóta's money can buy Mena's agreement.",
+    "quote": "",
+    "moment": "sive-2"
+   },
+   {
+    "x": 76,
+    "y": 45,
+    "label": "The door",
+    "note": "Who comes through the door brings the outside world in: the matchmaker, the old suitor, the travelling men with their songs.",
+    "quote": "",
+    "moment": "sive-5"
+   }
+  ],
+  "scene": "sive-1"
+ },
+ {
+  "file": "sive-s-body.jpg",
+  "text": "sive",
+  "title": "Sive is brought home",
+  "author": "Sive, Druid's 2003 Irish tour: Ruth Bradley as Sive, with Barry Ward, Noel O'Donovan and Eamon Morrissey. Photo: Valerie O'Sullivan",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.druid.ie/productions/sive-2003-irish-tour",
+  "kind": "production",
+  "caption": "Liam carries in Sive's body: she has drowned in a bog hole.",
+  "moment": "sive-11",
+  "spots": [
+   {
+    "x": 50,
+    "y": 66,
+    "label": "Sive",
+    "note": "Laid on the kitchen table, in the room where her life was bargained away.",
+    "quote": "",
+    "moment": "sive-11"
+   },
+   {
+    "x": 44,
+    "y": 40,
+    "label": "Liam",
+    "note": "The young man who loved her. He turns furiously on Mena.",
+    "quote": "",
+    "moment": "sive-11"
+   }
+  ]
+ },
+ {
+  "file": "sive-bog.jpg",
+  "text": "sive",
+  "title": "A Kerry bog",
+  "author": "Graham Horn, geograph.org.uk, 2008",
+  "licence": "CC BY-SA 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Kerry_peat_bog_-_geograph.org.uk_-_775099.jpg",
+  "kind": "place",
+  "caption": "Turf cut by hand and stacked to dry, with dark water in the cut-away holes. The play's world is bog and mountain.",
+  "moment": "sive-11",
+  "spots": [
+   {
+    "x": 74,
+    "y": 33,
+    "label": "Stacked turf",
+    "note": "Turf, cut each spring, was the fuel of every farmhouse: the hard, physical life of a small farm.",
+    "quote": "",
+    "moment": "sive-1"
+   },
+   {
+    "x": 40,
+    "y": 78,
+    "label": "A bog hole",
+    "note": "Water fills the holes in the bog. Sive runs out across the bog at night and drowns in a bog hole.",
+    "quote": "",
+    "moment": "sive-11"
+   }
+  ],
+  "scene": "sive-11"
+ },
+ {
+  "file": "sive-s-kitchen.jpg",
+  "text": "sive",
+  "title": "The Glavins' kitchen on stage",
+  "author": "Sive at the Gaiety Theatre, Dublin, 2024, directed by Andrew Flynn; photo via No More Workhorse",
+  "licence": "Copyright: used here for study",
+  "source": "https://nomoreworkhorse.com/2024/01/31/sive-gaiety-theatre-review-2/",
+  "kind": "production",
+  "caption": "The whole play happens in this one kitchen. Behind its walls, a red sky over the bog.",
+  "moment": "",
+  "spots": [
+   {
+    "x": 24,
+    "y": 66,
+    "label": "The table",
+    "note": "Where the match is made and where, at the end, Sive's body is laid.",
+    "quote": "",
+    "moment": "sive-2"
+   },
+   {
+    "x": 40,
+    "y": 18,
+    "label": "The sky",
+    "note": "The set puts the bog and the mountain right behind the house: the dark, open country Sive runs into.",
+    "quote": "",
+    "moment": "sive-11"
+   }
+  ],
+  "scene": "sive-1"
+ },
+ {
+  "file": "sive-s-nanna.jpg",
+  "text": "sive",
+  "title": "Sive and Nanna",
+  "author": "Sive at the Gaiety Theatre, Dublin, 2024, directed by Andrew Flynn; photo via No More Workhorse",
+  "licence": "Copyright: used here for study",
+  "source": "https://nomoreworkhorse.com/2024/01/31/sive-gaiety-theatre-review-2/",
+  "kind": "production",
+  "caption": "Nanna, Sive's grandmother, holds on to her: the one person in the house who takes her side.",
+  "moment": "",
+  "spots": [
+   {
+    "x": 52,
+    "y": 52,
+    "label": "Sive",
+    "note": "Gentle, still a schoolgirl, with no say over her own life. Mena tells her:",
+    "quote": "You will have no name till you take a husband.",
+    "moment": "sive-6"
+   },
+   {
+    "x": 70,
+    "y": 22,
+    "label": "Nanna",
+    "note": "Sharp-tongued with Mena, but she begs Mike to stop the match.",
+    "quote": "",
+    "moment": "sive-8"
+   }
+  ],
+  "hero": true,
+  "scene": "sive-8"
+ },
+ {
+  "file": "sive-keane.jpg",
+  "text": "sive",
+  "title": "John B. Keane, 1983",
+  "author": "Bernard Gotfryd, Library of Congress",
+  "licence": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:John_B._Keane%2C_Irish_playwright.jpg",
+  "kind": "author",
+  "caption": "John B. Keane (1928–2002) ran a pub in Listowel, Co. Kerry. Sive, his first play, was put on by the Listowel Drama Group in 1959.",
+  "moment": "",
+  "spots": [],
+  "scene": ""
+ },
+ {
   "file": "othello-fradelle.jpg",
   "text": "othello",
   "title": "Othello Relating His Life Story to Desdemona",
@@ -42,6 +213,35 @@
     "quote": "",
     "moment": ""
    }
+  ]
+ },
+ {
+  "file": "othello-f-watch.jpg",
+  "text": "othello",
+  "title": "Iago watches",
+  "author": "Othello (1995 film), directed by Oliver Parker, with Laurence Fishburne, Kenneth Branagh and Irène Jacob; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/16420-othello/images/backdrops",
+  "kind": "film",
+  "caption": "Othello and Desdemona together, while Iago leans on a pillar and watches.",
+  "moment": "othello-3",
+  "spots": [
+   {
+    "x": 22,
+    "y": 40,
+    "label": "Othello and Desdemona",
+    "note": "Their love at its height.",
+    "quote": "If it were now to die, / 'Twere now to be most happy",
+    "moment": "othello-3"
+   },
+   {
+    "x": 78,
+    "y": 45,
+    "label": "Iago",
+    "note": "He vows to ruin their happiness.",
+    "quote": "O, you are well tuned now! But I'll set down the pegs that make this music",
+    "moment": "othello-3"
+   }
   ],
   "hero": true
  },
@@ -79,6 +279,64 @@
     "note": "Cyprus is a military outpost: soldiers, weapons and men far from home. Gossip, drink and rank matter here (cultural context).",
     "quote": "",
     "moment": "othello-4"
+   }
+  ]
+ },
+ {
+  "file": "othello-tower.jpg",
+  "text": "othello",
+  "title": "Othello's Tower, Famagusta, Cyprus",
+  "author": "A.Savin (Wikimedia Commons), 2017",
+  "licence": "Free Art Licence",
+  "source": "https://commons.wikimedia.org/wiki/File:Famagusta_01-2017_img26_city_walls_Othello_Tower.jpg",
+  "kind": "place",
+  "caption": "A citadel in the walls of Famagusta, rebuilt by the Venetians, who ruled Cyprus from 1489 to 1571. Its nickname comes from the play, set in a Venetian fortress on Cyprus.",
+  "moment": "othello-3",
+  "spots": [
+   {
+    "x": 46,
+    "y": 39,
+    "label": "The Lion of Saint Mark",
+    "note": "The winged lion carved over the tower is the symbol of Venice: the island belongs to Venice, and Othello governs it for Venice.",
+    "quote": "",
+    "moment": "othello-3"
+   },
+   {
+    "x": 82,
+    "y": 46,
+    "label": "The walls",
+    "note": "A fortress on the edge of the Venetian world, facing the Ottoman Turks. Once the Turks are drowned there is no enemy outside, so the war moves inside.",
+    "quote": "",
+    "moment": "othello-4"
+   }
+  ]
+ },
+ {
+  "file": "othello-f-iago.jpg",
+  "text": "othello",
+  "title": "Othello and Iago",
+  "author": "Othello (1995 film), directed by Oliver Parker, with Laurence Fishburne, Kenneth Branagh and Irène Jacob; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/16420-othello/images/backdrops",
+  "kind": "film",
+  "caption": "Iago at Othello's ear: the temptation scene, Act 3, Scene 3.",
+  "moment": "othello-5",
+  "spots": [
+   {
+    "x": 28,
+    "y": 45,
+    "label": "Othello",
+    "note": "He wants certainty and gets hints, pauses and pretended reluctance.",
+    "quote": "Give me the ocular proof",
+    "moment": "othello-5"
+   },
+   {
+    "x": 75,
+    "y": 45,
+    "label": "Iago",
+    "note": "He warns against jealousy while planting it.",
+    "quote": "It is the green-eyed monster",
+    "moment": "othello-5"
    }
   ]
  },
@@ -202,33 +460,26 @@
   ]
  },
  {
-  "file": "othello-tower.jpg",
+  "file": "othello-f-desdemona.jpg",
   "text": "othello",
-  "title": "Othello's Tower, Famagusta, Cyprus",
-  "author": "A.Savin (Wikimedia Commons), 2017",
-  "licence": "Free Art Licence",
-  "source": "https://commons.wikimedia.org/wiki/File:Famagusta_01-2017_img26_city_walls_Othello_Tower.jpg",
-  "kind": "place",
-  "caption": "A citadel in the walls of Famagusta, rebuilt by the Venetians, who ruled Cyprus from 1489 to 1571. Its nickname comes from the play, set in a Venetian fortress on Cyprus.",
-  "moment": "othello-3",
+  "title": "Desdemona",
+  "author": "Othello (1995 film), directed by Oliver Parker, with Laurence Fishburne, Kenneth Branagh and Irène Jacob; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/16420-othello/images/backdrops",
+  "kind": "film",
+  "caption": "Irène Jacob as Desdemona: brave enough to defy her father, loyal to Othello to the end.",
+  "moment": "",
   "spots": [
    {
-    "x": 46,
-    "y": 39,
-    "label": "The Lion of Saint Mark",
-    "note": "The winged lion carved over the tower is the symbol of Venice: the island belongs to Venice, and Othello governs it for Venice.",
-    "quote": "",
-    "moment": "othello-3"
-   },
-   {
-    "x": 82,
-    "y": 46,
-    "label": "The walls",
-    "note": "A fortress on the edge of the Venetian world, facing the Ottoman Turks. Once the Turks are drowned there is no enemy outside, so the war moves inside.",
-    "quote": "",
-    "moment": "othello-4"
+    "x": 40,
+    "y": 38,
+    "label": "Desdemona",
+    "note": "Her last words protect the husband who killed her.",
+    "quote": "Nobody; I myself. Farewell.",
+    "moment": "othello-10"
    }
-  ]
+  ],
+  "scene": "othello-9"
  },
  {
   "file": "othello-aldridge.jpg",
@@ -249,64 +500,407 @@
     "quote": "",
     "moment": ""
    }
+  ],
+  "scene": "othello-2"
+ },
+ {
+  "file": "shawshank-f-crime.jpg",
+  "text": "shawshank",
+  "title": "The night of the murders",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "The opening: Andy, drunk, sits in his car outside the house where his wife is with her lover, loading a revolver.",
+  "moment": "shawshank-1",
+  "spots": [
+   {
+    "x": 50,
+    "y": 55,
+    "label": "The revolver",
+    "note": "The film cuts between this night and his trial. Andy says he threw the gun in the river. The jury doesn't believe him: two life sentences.",
+    "quote": "",
+    "moment": "shawshank-1"
+   }
   ]
  },
  {
-  "file": "shawshank-prison.jpg",
+  "file": "shawshank-f-bus.jpg",
   "text": "shawshank",
-  "title": "The Ohio State Reformatory, Mansfield, Ohio",
-  "author": "Niagara66 (Wikimedia Commons), 2013",
-  "licence": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Ohio_State_Reformatory_Mansfield_08.jpg",
-  "kind": "place",
-  "caption": "The real prison that plays Shawshank in the film. It closed as a prison in 1990, and the film was shot here in 1993.",
+  "title": "The bus to Shawshank",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "Andy arrives at Shawshank with the other new prisoners. (The prison is the real Ohio State Reformatory.)",
   "moment": "shawshank-3",
   "spots": [
    {
-    "x": 47,
-    "y": 25,
-    "label": "The towers",
-    "note": "It looks like a castle or a cathedral: a building made to show power. Warden Norton runs it with the Bible in one hand.",
-    "quote": "I believe in two things: discipline and the Bible. Here you'll receive both.",
+    "x": 67,
+    "y": 70,
+    "label": "The bus",
+    "note": "New men arrive. Inside, the prisoners bet on which 'fresh fish' will crack first: Red bets on Andy.",
+    "quote": "",
     "moment": "shawshank-3"
    },
    {
-    "x": 75,
-    "y": 55,
-    "label": "The front",
-    "note": "In the film, the bus of new prisoners drives up to this building as the men in the yard bet on who will crack first.",
+    "x": 50,
+    "y": 14,
+    "label": "Shawshank",
+    "note": "Built like a fortress or a cathedral: a place made to show power.",
+    "quote": "I believe in two things: discipline and the Bible. Here you'll receive both.",
+    "moment": "shawshank-3"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-f-arrivals.jpg",
+  "text": "shawshank",
+  "title": "The new arrivals",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "Andy, still in his banker's suit, lined up with the other new men.",
+  "moment": "shawshank-3",
+  "spots": [
+   {
+    "x": 44,
+    "y": 26,
+    "label": "Andy",
+    "note": "Calm and silent. That night one new man breaks down and is beaten to death by Hadley; next morning Andy asks his name.",
     "quote": "",
     "moment": "shawshank-3"
+   },
+   {
+    "x": 12,
+    "y": 35,
+    "label": "The new men",
+    "note": "Stripped of their clothes and names: from now on they are numbers.",
+    "quote": "",
+    "moment": "shawshank-3"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-f-roof.jpg",
+  "text": "shawshank",
+  "title": "Beer on the roof",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "Andy's tax advice to Captain Hadley wins three beers each for the men tarring the roof.",
+  "moment": "shawshank-4",
+  "spots": [
+   {
+    "x": 7,
+    "y": 16,
+    "label": "The beer",
+    "note": "A small reward, but for a moment they aren't prisoners. Andy sits apart and doesn't drink: he did it for them.",
+    "quote": "We sat and drank with the sun on our shoulders and felt like free men.",
+    "moment": "shawshank-4"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-f-brooks.jpg",
+  "text": "shawshank",
+  "title": "Brooks was here",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "Brooks carves his name into the beam of his halfway-house room before he hangs himself.",
+  "moment": "shawshank-5",
+  "spots": [
+   {
+    "x": 48,
+    "y": 24,
+    "label": "The carving",
+    "note": "After fifty years inside, Brooks can't live in the outside world: 'institutionalized'.",
+    "quote": "Brooks Hatlen was here",
+    "moment": "shawshank-5"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-f-mozart.jpg",
+  "text": "shawshank",
+  "title": "Mozart over the loudspeakers",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "Andy locks himself in the office and plays Mozart to the whole prison. The men in the yard stand still.",
+  "moment": "shawshank-6",
+  "spots": [
+   {
+    "x": 40,
+    "y": 25,
+    "label": "The loudspeaker",
+    "note": "Music fills the yard: the walls can't keep out beauty.",
+    "quote": "",
+    "moment": "shawshank-6"
+   },
+   {
+    "x": 65,
+    "y": 60,
+    "label": "The men",
+    "note": "Red says that for the briefest of moments every last man in Shawshank felt free.",
+    "quote": "",
+    "moment": "shawshank-6"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-f-office.jpg",
+  "text": "shawshank",
+  "title": "Andy in the office",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "Andy leans back as the record plays. He knows it will cost him two weeks in solitary.",
+  "moment": "shawshank-6",
+  "spots": [
+   {
+    "x": 65,
+    "y": 32,
+    "label": "Andy",
+    "note": "Afterwards he says music is something inside you that they can't touch. Red warns him that hope is dangerous.",
+    "quote": "",
+    "moment": "shawshank-6"
+   },
+   {
+    "x": 86,
+    "y": 74,
+    "label": "The record player",
+    "note": "Mozart's The Marriage of Figaro: donated records for the library he built.",
+    "quote": "",
+    "moment": "shawshank-6"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-f-wall.jpg",
+  "text": "shawshank",
+  "title": "'Get busy living'",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "Andy and Red sit against the wall after Tommy's death. Andy tells Red about Zihuatanejo and the rock near Buxton.",
+  "moment": "shawshank-8",
+  "spots": [
+   {
+    "x": 40,
+    "y": 32,
+    "label": "Andy",
+    "note": "He has chosen hope.",
+    "quote": "Get busy living, or get busy dying.",
+    "moment": "shawshank-8"
+   },
+   {
+    "x": 72,
+    "y": 32,
+    "label": "Red",
+    "note": "Red fears the worst: Andy has asked for a length of rope.",
+    "quote": "",
+    "moment": "shawshank-8"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-f-poster.jpg",
+  "text": "shawshank",
+  "title": "The poster",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "Andy's poster of Rita Hayworth, later replaced by others, hides what he's doing behind it for almost twenty years.",
+  "moment": "shawshank-9",
+  "spots": [
+   {
+    "x": 62,
+    "y": 60,
+    "label": "The poster",
+    "note": "When the warden throws a stone at the last poster, it goes straight through: a tunnel.",
+    "quote": "",
+    "moment": "shawshank-9"
+   },
+   {
+    "x": 16,
+    "y": 30,
+    "label": "Andy",
+    "note": "Patience and time: he digs with a tiny rock hammer, a little every night.",
+    "quote": "",
+    "moment": "shawshank-9"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-f-hole.jpg",
+  "text": "shawshank",
+  "title": "The empty cell",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "Norton looks into the tunnel behind the poster. Andy is gone.",
+  "moment": "shawshank-9",
+  "spots": [
+   {
+    "x": 56,
+    "y": 50,
+    "label": "Norton",
+    "note": "The man who controlled everything is beaten by the prisoner he exploited.",
+    "quote": "",
+    "moment": "shawshank-9"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-f-rain.jpg",
+  "text": "shawshank",
+  "title": "Freedom in the rain",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "Andy crawls through five hundred yards of sewer pipe and comes out into a creek in a thunderstorm.",
+  "moment": "shawshank-9",
+  "spots": [
+   {
+    "x": 55,
+    "y": 42,
+    "label": "Andy",
+    "note": "Arms raised to the rain, as if washed clean. The film's most famous image of hope.",
+    "quote": "",
+    "moment": "shawshank-9"
    }
   ],
   "hero": true
  },
  {
-  "file": "shawshank-cells.jpg",
+  "file": "shawshank-f-bible.jpg",
   "text": "shawshank",
-  "title": "Inside the Ohio State Reformatory",
-  "author": "Niagara66 (Wikimedia Commons), 2013",
-  "licence": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Ohio_State_Reformatory_Mansfield_04.jpg",
-  "kind": "place",
-  "caption": "Tiers of barred cells in the reformatory's own cell block. (The film's cell block was built as a set in a warehouse nearby.)",
-  "moment": "shawshank-5",
+  "title": "The warden's Bible",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "In Norton's safe: Andy's Bible, with the rock hammer's hiding place cut into its pages.",
+  "moment": "shawshank-10",
   "spots": [
    {
-    "x": 15,
-    "y": 70,
-    "label": "The cells",
-    "note": "Men live here for decades. Red explains what that does to them when Brooks is paroled.",
-    "quote": "These walls are funny. First you hate 'em, then you get used to 'em.",
-    "moment": "shawshank-5"
+    "x": 52,
+    "y": 45,
+    "label": "The hollow",
+    "note": "Andy's note says it all.",
+    "quote": "Dear Warden, You were right. Salvation lay within.",
+    "moment": "shawshank-10"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-f-approved.jpg",
+  "text": "shawshank",
+  "title": "Approved",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "After forty years, Red's parole is approved, once he stops telling the board what it wants to hear.",
+  "moment": "shawshank-11",
+  "spots": [
+   {
+    "x": 66,
+    "y": 50,
+    "label": "The stamp",
+    "note": "Red says 'rehabilitated' is just a made-up word, and this time he's released.",
+    "quote": "",
+    "moment": "shawshank-11"
    },
    {
-    "x": 75,
-    "y": 25,
-    "label": "The windows",
-    "note": "Light and the outside world, in view but out of reach: hope is the film's key theme.",
+    "x": 18,
+    "y": 28,
+    "label": "Red's photo",
+    "note": "Ellis Boyd Redding, prisoner 30265.",
+    "quote": "",
+    "moment": "shawshank-2"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-f-sowasred.jpg",
+  "text": "shawshank",
+  "title": "So was Red",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "Red carves his own words beside Brooks's and breaks parole: he chooses hope, where Brooks gave up.",
+  "moment": "shawshank-12",
+  "spots": [
+   {
+    "x": 38,
+    "y": 32,
+    "label": "The carving",
+    "note": "The same beam, two endings: Brooks's despair and Red's hope.",
+    "quote": "So was Red",
+    "moment": "shawshank-12"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-f-letter.jpg",
+  "text": "shawshank",
+  "title": "Andy's letter",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "Under the black rock in the hayfield: money and a letter inviting Red to Mexico.",
+  "moment": "shawshank-12",
+  "spots": [
+   {
+    "x": 40,
+    "y": 45,
+    "label": "The letter",
+    "note": "Andy kept his promise.",
     "quote": "Hope is a good thing, maybe the best of things, and no good thing ever dies.",
-    "moment": "shawshank-11"
+    "moment": "shawshank-12"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-f-beach.jpg",
+  "text": "shawshank",
+  "title": "Zihuatanejo",
+  "author": "The Shawshank Redemption (1994), directed by Frank Darabont; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/278-the-shawshank-redemption/images/backdrops",
+  "kind": "film",
+  "caption": "The last shot: Red walks along the beach to Andy, working on his boat. (Filmed at Sandy Point, St Croix.)",
+  "moment": "shawshank-12",
+  "spots": [
+   {
+    "x": 68,
+    "y": 78,
+    "label": "The boat",
+    "note": "Andy, free, doing the thing he dreamed of.",
+    "quote": "I hope the Pacific is as blue as it has been in my dreams. I hope.",
+    "moment": "shawshank-12"
+   },
+   {
+    "x": 50,
+    "y": 35,
+    "label": "The sea",
+    "note": "Open blue after decades of grey walls: the film ends in freedom and friendship.",
+    "quote": "They say it has no memory.",
+    "moment": "shawshank-12"
    }
   ]
  },
@@ -340,112 +934,84 @@
   ]
  },
  {
-  "file": "shawshank-beach.jpg",
-  "text": "shawshank",
-  "title": "Sandy Point, St Croix, US Virgin Islands",
-  "author": "Turn685 (Wikimedia Commons), 2008",
-  "licence": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Sandy_Point_Wildlife_Refuge_beach.jpg",
-  "kind": "place",
-  "caption": "The beach where the final 'Zihuatanejo' scene was filmed: on the Caribbean, not the Pacific.",
-  "moment": "shawshank-12",
-  "spots": [
-   {
-    "x": 50,
-    "y": 47,
-    "label": "The sea",
-    "note": "Open, endless blue after twenty years of grey walls: the film's most hopeful image.",
-    "quote": "They say it has no memory.",
-    "moment": "shawshank-12"
-   },
-   {
-    "x": 50,
-    "y": 78,
-    "label": "The sand",
-    "note": "Red walks along a beach like this to Andy. The film ends in freedom and friendship, before a word is spoken.",
-    "quote": "I hope the Pacific is as blue as it has been in my dreams. I hope.",
-    "moment": "shawshank-12"
-   }
-  ]
- },
- {
-  "file": "sive-kitchen.jpg",
-  "text": "sive",
-  "title": "A farmhouse kitchen, Bunratty Folk Park",
-  "author": "Joseph Mischyshyn, geograph.org.uk",
-  "licence": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Bunratty_Park_-_Site_%5E5-Mountain_Farmhouse_Kitchen_-_geograph.org.uk_-_3045722.jpg",
-  "kind": "place",
-  "caption": "The kitchen of the Mountain Farmhouse at Bunratty Folk Park, rebuilt as a poor farmer's house from the Limerick–Kerry border: the kind of kitchen where the whole of Sive is played.",
-  "moment": "sive-1",
+  "file": "stlt-f-coal.jpg",
+  "text": "stlt",
+  "title": "The coal yard",
+  "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
+  "kind": "film",
+  "caption": "Bill Furlong at work: the coal and timber merchant who keeps the town warm.",
+  "moment": "stlt-2",
   "spots": [
    {
     "x": 45,
-    "y": 38,
-    "label": "The hearth",
-    "note": "The fire is the centre of the house. Every row, bargain and plea in the play happens in this one room.",
+    "y": 40,
+    "label": "Bill",
+    "note": "He worked his way up from nothing, the son of an unmarried mother. Now he has a business, a wife and five daughters to keep.",
     "quote": "",
-    "moment": "sive-1"
-   },
-   {
-    "x": 20,
-    "y": 78,
-    "label": "Pots and chairs",
-    "note": "A bare, poor house. Money is short, which is why Seán Dóta's money can buy Mena's agreement.",
-    "quote": "",
-    "moment": "sive-2"
+    "moment": "stlt-1"
    },
    {
     "x": 76,
-    "y": 45,
-    "label": "The door",
-    "note": "Who comes through the door brings the outside world in: the matchmaker, the old suitor, the travelling men with their songs.",
+    "y": 72,
+    "label": "The coal",
+    "note": "Hard, black, filthy work, and a living in hard times: 1985, businesses closing and people emigrating.",
     "quote": "",
-    "moment": "sive-5"
+    "moment": "stlt-2"
    }
   ],
   "hero": true
  },
  {
-  "file": "sive-bog.jpg",
-  "text": "sive",
-  "title": "A Kerry bog",
-  "author": "Graham Horn, geograph.org.uk, 2008",
-  "licence": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Kerry_peat_bog_-_geograph.org.uk_-_775099.jpg",
-  "kind": "place",
-  "caption": "Turf cut by hand and stacked to dry, with dark water in the cut-away holes. The play's world is bog and mountain.",
-  "moment": "sive-11",
+  "file": "stlt-f-lorry.jpg",
+  "text": "stlt",
+  "title": "W. Furlong, New Ross",
+  "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
+  "kind": "film",
+  "caption": "Bill's lorry, with his name on it: everyone in the town knows him.",
+  "moment": "stlt-2",
   "spots": [
    {
-    "x": 74,
-    "y": 33,
-    "label": "Stacked turf",
-    "note": "Turf, cut each spring, was the fuel of every farmhouse: the hard, physical life of a small farm.",
+    "x": 76,
+    "y": 52,
+    "label": "His name",
+    "note": "Respectable and known by all, which is exactly what he risks at the end.",
     "quote": "",
-    "moment": "sive-1"
-   },
-   {
-    "x": 40,
-    "y": 78,
-    "label": "A bog hole",
-    "note": "Water fills the holes in the bog. Sive runs out across the bog at night and drowns in a bog hole.",
-    "quote": "",
-    "moment": "sive-11"
+    "moment": "stlt-12"
    }
   ]
  },
  {
-  "file": "sive-keane.jpg",
-  "text": "sive",
-  "title": "John B. Keane, 1983",
-  "author": "Bernard Gotfryd, Library of Congress",
-  "licence": "Public domain",
-  "source": "https://commons.wikimedia.org/wiki/File:John_B._Keane%2C_Irish_playwright.jpg",
-  "kind": "author",
-  "caption": "John B. Keane (1928–2002) ran a pub in Listowel, Co. Kerry. Sive, his first play, was put on by the Listowel Drama Group in 1959.",
-  "moment": "",
-  "spots": []
+  "file": "stlt-f-boy.jpg",
+  "text": "stlt",
+  "title": "The boy on the road",
+  "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
+  "kind": "film",
+  "caption": "On his rounds Bill sees the town's hardship: a young boy gathering sticks.",
+  "moment": "stlt-2",
+  "spots": [
+   {
+    "x": 24,
+    "y": 55,
+    "label": "The boy",
+    "note": "Mick Sinnott's son, out gathering sticks for the fire.",
+    "quote": "",
+    "moment": "stlt-2"
+   },
+   {
+    "x": 74,
+    "y": 40,
+    "label": "Bill",
+    "note": "He reaches out to the boy: one of the small kindnesses the title points to.",
+    "quote": "",
+    "moment": "stlt-2"
+   }
+  ]
  },
  {
   "file": "stlt-town.jpg",
@@ -483,26 +1049,55 @@
     "moment": "stlt-12"
    }
   ],
-  "hero": true
+  "scene": "stlt-2"
  },
  {
-  "file": "stlt-river.jpg",
+  "file": "stlt-f-home.jpg",
   "text": "stlt",
-  "title": "The River Barrow at New Ross",
-  "author": "Graham Horn, geograph.org.uk",
-  "licence": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:New_Ross_waterside_-_geograph.org.uk_-_1825235.jpg",
-  "kind": "place",
-  "caption": "The river runs through the town, crossed by the bridge that joins its two halves.",
+  "title": "At home",
+  "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
+  "kind": "film",
+  "caption": "Bill at the table with his family: the comfortable home he could lose.",
+  "moment": "stlt-3",
+  "spots": [
+   {
+    "x": 40,
+    "y": 42,
+    "label": "Bill",
+    "note": "He has a good life, and he can't stop thinking about what he saw at the convent.",
+    "quote": "",
+    "moment": "stlt-3"
+   }
+  ]
+ },
+ {
+  "file": "stlt-f-girls.jpg",
+  "text": "stlt",
+  "title": "The girls at the convent",
+  "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
+  "kind": "film",
+  "caption": "Girls in grey shifts, barefoot in the cold, watched by a nun.",
   "moment": "stlt-4",
   "spots": [
    {
-    "x": 45,
-    "y": 72,
-    "label": "The river",
-    "note": "A girl in the convent chapel begs Bill to take her as far as the river, and says she will drown herself.",
+    "x": 34,
+    "y": 62,
+    "label": "The girls",
+    "note": "One of the girls in the chapel begs Bill to take her as far as the river.",
     "quote": "",
     "moment": "stlt-4"
+   },
+   {
+    "x": 66,
+    "y": 40,
+    "label": "The nun",
+    "note": "The Church holds the power in the town. Nobody asks what happens behind the walls.",
+    "quote": "",
+    "moment": "stlt-10"
    }
   ]
  },
@@ -533,6 +1128,178 @@
     "quote": "",
     "moment": "stlt-10"
    }
+  ],
+  "scene": "stlt-4"
+ },
+ {
+  "file": "stlt-f-eileen.jpg",
+  "text": "stlt",
+  "title": "Eileen",
+  "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
+  "kind": "film",
+  "caption": "Bill tells Eileen what he saw. She says it has nothing to do with them.",
+  "moment": "stlt-6",
+  "spots": [
+   {
+    "x": 20,
+    "y": 50,
+    "label": "Eileen",
+    "note": "Practical and afraid for their girls: the nuns pay their bills, and their own daughters are well minded.",
+    "quote": "",
+    "moment": "stlt-6"
+   },
+   {
+    "x": 74,
+    "y": 40,
+    "label": "Bill",
+    "note": "He asks where he and his mother would have been if Mrs Wilson had thought that way.",
+    "quote": "",
+    "moment": "stlt-6"
+   }
+  ]
+ },
+ {
+  "file": "stlt-f-shed.jpg",
+  "text": "stlt",
+  "title": "The coal shed",
+  "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
+  "kind": "film",
+  "caption": "On an early delivery Bill finds a girl locked all night in the freezing coal shed.",
+  "moment": "stlt-7",
+  "spots": [
+   {
+    "x": 46,
+    "y": 48,
+    "label": "The girl",
+    "note": "Sarah. She asks him to find out about her baby, who has been taken from her.",
+    "quote": "",
+    "moment": "stlt-7"
+   }
+  ]
+ },
+ {
+  "file": "stlt-f-mother.jpg",
+  "text": "stlt",
+  "title": "The Mother Superior",
+  "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
+  "kind": "film",
+  "caption": "Sister Mary (Emily Watson): smooth, polite and in control.",
+  "moment": "stlt-8",
+  "spots": [
+   {
+    "x": 50,
+    "y": 40,
+    "label": "Sister Mary",
+    "note": "She calls the night in the shed a game of hide and seek, mentions how scarce places at the school are, and hands Bill an envelope with money.",
+    "quote": "",
+    "moment": "stlt-8"
+   }
+  ]
+ },
+ {
+  "file": "stlt-f-tea.jpg",
+  "text": "stlt",
+  "title": "Brought in for tea",
+  "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
+  "kind": "film",
+  "caption": "At the convent: Bill with the nuns and the girl, now washed and dressed. He leaves without asking about her baby.",
+  "moment": "stlt-8",
+  "spots": [
+   {
+    "x": 24,
+    "y": 40,
+    "label": "Bill",
+    "note": "Silenced by politeness and fear for his daughters' places at the school.",
+    "quote": "",
+    "moment": "stlt-8"
+   },
+   {
+    "x": 55,
+    "y": 45,
+    "label": "The girl",
+    "note": "Her name is Sarah, like Bill's mother's.",
+    "quote": "",
+    "moment": "stlt-8"
+   }
+  ]
+ },
+ {
+  "file": "stlt-f-mass.jpg",
+  "text": "stlt",
+  "title": "Mass",
+  "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
+  "kind": "film",
+  "caption": "At Mass Bill stays in his seat at Communion.",
+  "moment": "stlt-9",
+  "spots": [
+   {
+    "x": 70,
+    "y": 38,
+    "label": "The altar",
+    "note": "The Church at the centre of the town's life. Bill can't go up: something in him has changed.",
+    "quote": "",
+    "moment": "stlt-9"
+   }
+  ]
+ },
+ {
+  "file": "stlt-f-walk.jpg",
+  "text": "stlt",
+  "title": "Taking Sarah",
+  "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
+  "kind": "film",
+  "caption": "Bill finds Sarah in the coal shed again and walks her, barefoot, through the town.",
+  "moment": "stlt-11",
+  "spots": [
+   {
+    "x": 45,
+    "y": 30,
+    "label": "Bill",
+    "note": "He decides not to bring her to the priest's house. He is doing the thing, not asking permission.",
+    "quote": "",
+    "moment": "stlt-11"
+   },
+   {
+    "x": 57,
+    "y": 55,
+    "label": "Sarah",
+    "note": "Wrapped in his coat. People notice she isn't his daughter.",
+    "quote": "",
+    "moment": "stlt-12"
+   }
+  ]
+ },
+ {
+  "file": "stlt-f-door.jpg",
+  "text": "stlt",
+  "title": "His own door",
+  "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
+  "kind": "film",
+  "caption": "Bill comes to his own door with Sarah, afraid but hopeful. The novella ends before we see what Eileen or the town does.",
+  "moment": "stlt-12",
+  "spots": [
+   {
+    "x": 50,
+    "y": 60,
+    "label": "Bill and Sarah",
+    "note": "Happier than he has ever been, though he knows he will pay for it. The open ending leaves the reader to judge.",
+    "quote": "",
+    "moment": "stlt-12"
+   }
   ]
  },
  {
@@ -554,7 +1321,8 @@
     "quote": "To the women who worked in the Magdalen laundry institutions and to the children born to some members of those communities – reflect here upon their lives.",
     "moment": "stlt-12"
    }
-  ]
+  ],
+  "scene": "stlt-12"
  },
  {
   "file": "stlt-keegan.jpg",
@@ -566,6 +1334,7 @@
   "kind": "author",
   "caption": "Claire Keegan, from Co. Wicklow, published Small Things Like These in 2021. It was shortlisted for the Booker Prize.",
   "moment": "",
-  "spots": []
+  "spots": [],
+  "scene": ""
  }
 ]

@@ -51,7 +51,8 @@ def check_text(t, problems):
                     problems.append('%s %s: point cites [%s], which is not a key moment' % (t['id'], name, ref))
 
 
-LICENCES = ('Public domain', 'CC0', 'CC BY 2.0', 'CC BY-SA 2.0', 'CC BY-SA 3.0', 'CC BY-SA 4.0', 'Free Art Licence')
+# Free licences, and film stills and stage photos kept for the user's own study (the user: "its for me for now").
+LICENCES = ('Public domain', 'CC0', 'CC BY 2.0', 'CC BY-SA 2.0', 'CC BY-SA 3.0', 'CC BY-SA 4.0', 'Free Art Licence', 'Copyright: used here for study')
 
 
 def check_pictures(pics, texts, problems):

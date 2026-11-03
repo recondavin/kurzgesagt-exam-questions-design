@@ -21,8 +21,9 @@
   function nameLine(t) { return '<i>' + esc(t.title) + '</i>' + (t.kind === 'film' ? ', directed by ' : ' by ') + esc(t.author); }
   function pics(id) { return (D.images || []).filter(function (p) { return p.text === id; }); }
   function credit(p) {
+    var still = /^Copyright/.test(p.licence || '');
     return 'Picture: ' + (p.source ? '<a href="' + esc(p.source) + '" target="_blank" rel="noopener">' + esc(p.title || p.file) + '</a>' : esc(p.title || p.file)) +
-      (p.author ? ', ' + esc(p.author) : '') + (p.licence ? ' (' + esc(p.licence) + ')' : '');
+      (p.author ? ', ' + esc(p.author) : '') + (p.licence && !still ? ' (' + esc(p.licence) + ')' : '') + '.';
   }
 
   // ---------- your three texts ----------
@@ -204,73 +205,82 @@
     var t = text(id);
     if (!t) { location.hash = ''; return; }
     renderShell('text/' + id, t.title);
-    var p = pics(id), when = { opening: 'Opening', middle: 'Middle', climax: 'Climax', ending: 'Ending' };
-    app.innerHTML = '<div class="eng-hero eng-hero--solo" style="--c:' + COL[id] + '"><div><h1 class="eng-hero__t">' + esc(t.title) + '</h1><p class="eng-hero__a">' + esc(byline(t)) + (t.made ? ' · ' + esc(t.made) : '') + '</p>' +
-        '<p class="eng-p">' + esc(t.gist) + '</p><p class="eng-p"><b>Setting:</b> ' + esc(t.setting) + '</p></div></div>' +
-      (p.length ? '<h2 class="eng-h2">In pictures</h2><section class="eng-pv" data-eng-pv="' + id + '" style="--c:' + COL[id] + '"></section>' : '') +
+    var p = pics(id), hero = p.filter(function (x) { return x.hero; })[0], face = p.filter(function (x) { return x.kind === 'author'; })[0];
+    app.innerHTML = '<div class="eng-hero" style="--c:' + COL[id] + '"><div><h1 class="eng-hero__t">' + esc(t.title) + '</h1>' +
+        '<p class="eng-hero__a">' + (face ? '<img class="eng-hero__face" src="assets/eng/img/' + esc(face.file) + '" alt="' + esc(face.title) + '" title="' + esc(face.caption) + '">' : '') + esc(byline(t)) + (t.made ? ' · ' + esc(t.made) : '') + '</p>' +
+        '<p class="eng-p">' + esc(t.gist) + '</p><p class="eng-p"><b>Setting:</b> ' + esc(t.setting) + '</p></div>' +
+        (hero ? '<figure><img src="assets/eng/img/' + esc(hero.file) + '" alt="' + esc(hero.title) + '"><figcaption>' + credit(hero) + '</figcaption></figure>' : '') + '</div>' +
       '<h2 class="eng-h2">Characters</h2><ul class="eng-people">' + t.people.map(function (c) { return '<li><b>' + esc(c.name) + '</b> ' + esc(c.who) + '</li>'; }).join('') + '</ul>' +
-      '<h2 class="eng-h2">Key moments</h2><ol class="eng-moments">' + t.moments.map(function (m, k) {
-        return '<li class="eng-moment" id="' + esc(m.id) + '" style="--c:' + COL[id] + '"><span class="eng-moment__n">' + (k + 1) + '</span>' +
-          '<h3>' + esc(m.title) + '</h3><span class="eng-moment__w">' + esc(m.where) + (m.when ? ' · ' + esc(when[m.when] || m.when) : '') + ' · ' +
-          (m.modes || []).map(function (x) { return '<span class="eng-tag" style="--c:' + COL[x] + '">' + esc(MODE[x] ? MODE[x].short : x) + '</span>'; }).join(' ') + '</span>' +
-          '<p>' + esc(m.what) + '</p><p class="eng-moment__why">' + esc(m.why) + '</p>' + (m.quote ? '<p class="eng-quote">“' + esc(m.quote) + '”</p>' : '') +
-          p.map(function (q, k) { return q.moment === m.id ? '<button type="button" class="eng-moment__pic" data-eng-showpic="' + k + '" aria-label="See the picture: ' + esc(q.title) + '"><img src="assets/eng/img/' + esc(q.file) + '" alt="" loading="lazy"><span>See it</span></button>' : ''; }).join('') + '</li>';
-      }).join('') + '</ol>';
-    if (p.length) drawPics(id);
-    if (moment) { var el = document.getElementById(moment); if (el) el.scrollIntoView({ block: 'center' }); }
+      '<h2 class="eng-h2">The story in ' + t.moments.length + ' key moments</h2>' +
+      t.moments.map(function (m, k) { return sceneHtml(t, m, k); }).join('');
+    watchScenes();
+    if (moment) { var el = document.getElementById(moment); if (el) el.scrollIntoView({ block: 'start' }); }
   }
 
-  // ---------- a text's pictures: tap the numbers to look closer ----------
-  // Each picture (assets/eng/img/credits.json) has a caption, the key moment it shows and numbered spots, each with a
-  // note, maybe a quote, and the key moment it belongs to. The spots you've opened are kept (eng-pics-seen).
-  var PV = {}, KIND = { painting: 'Painting', stage: 'On the stage', place: 'The real place', author: 'The writer' };
-  function seenAll() { try { return JSON.parse(store('eng-pics-seen') || '{}') || {}; } catch (e) { return {}; } }
-  function momentLine(tid, mid) {
-    var t = text(tid), k = -1;
-    t.moments.forEach(function (m, i) { if (m.id === mid) k = i; });
-    return k < 0 ? '' : '<a class="eng-pv__go" href="#text/' + tid + '/' + mid + '">Key moment ' + (k + 1) + ': ' + esc(t.moments[k].title) + ' <small>' + esc(t.moments[k].where) + '</small> →</a>';
+  // ---------- the story, told scene by scene ----------
+  // Each key moment is a scene: its narration (moments[].tell, short beats), then each of its pictures (credits.json,
+  // placed by `scene` or else `moment`) with a line on what it is and a beat per numbered spot, then why it matters and
+  // the quote. The picture stays in view while the beats scroll past; the beat in the middle of the screen picks the
+  // picture shown and lights up the spot it talks about. Tapping a spot brings its beat into view.
+  var KIND = { film: 'From the film', production: 'On stage', painting: 'Painting', stage: 'On the stage', place: 'The real place', author: 'The writer' };
+  var WHEN = { opening: 'Opening', middle: 'Middle', climax: 'Climax', ending: 'Ending' };
+  function scenePics(tid, mid) { return pics(tid).filter(function (q) { return (q.scene != null ? q.scene : q.moment) === mid; }); }
+  function momentNo(tid, mid) { var k = -1; text(tid).moments.forEach(function (m, i) { if (m.id === mid) k = i; }); return k; }
+  function sceneHtml(t, m, k) {
+    var list = scenePics(t.id, m.id), beats = [];
+    (m.tell || [m.what]).forEach(function (s) { beats.push([0, -1, '', esc(s)]); });
+    list.forEach(function (q, j) {
+      beats.push([j, -1, ' eng-beat--cap', '<span class="eng-beat__kind">' + esc(KIND[q.kind] || 'Picture') + '</span>' + esc(q.caption)]);
+      (q.spots || []).forEach(function (s, i) {
+        var other = s.moment && s.moment !== m.id ? momentNo(t.id, s.moment) : -1;
+        beats.push([j, i, ' eng-beat--spot', '<b class="eng-beat__n">' + (i + 1) + '</b><strong>' + esc(s.label) + '.</strong> ' + esc(s.note) +
+          (s.quote ? ' <q>' + esc(s.quote) + '</q>' : '') + (other >= 0 ? ' <a class="eng-beat__go" href="#text/' + t.id + '/' + s.moment + '">Key moment ' + (other + 1) + ' →</a>' : '')]);
+      });
+    });
+    var last = Math.max(list.length - 1, 0), n = beats.length;
+    return '<section class="eng-scene' + (list.length ? '' : ' eng-scene--text') + '" id="' + esc(m.id) + '" data-scene="' + esc(m.id) + '" data-text="' + t.id + '" style="--c:' + COL[t.id] + '">' +
+      '<header class="eng-scene__head"><span class="eng-scene__n">' + (k + 1) + '</span><div><h3>' + esc(m.title) + '</h3><span class="eng-scene__w">' + esc(m.where) + (m.when ? ' · ' + esc(WHEN[m.when] || m.when) : '') + ' ' +
+        (m.modes || []).map(function (x) { return '<span class="eng-tag" style="--c:' + COL[x] + '">' + esc(MODE[x] ? MODE[x].short : x) + '</span>'; }).join(' ') + '</span></div></header>' +
+      (list.length ? '<div class="eng-scene__stage" data-stage></div>' : '') +
+      '<div class="eng-scene__beats">' + beats.map(function (b, i) {
+        return '<p class="eng-beat' + b[2] + '" data-beat="' + i + '" data-pic="' + b[0] + '" data-spot="' + b[1] + '">' + b[3] + '</p>';
+      }).join('') +
+        '<div class="eng-beat eng-beat--why" data-beat="' + n + '" data-pic="' + last + '" data-spot="-1"><span>Why it matters</span>' + esc(m.why) + '</div>' +
+        (m.quote ? '<blockquote class="eng-beat eng-beat--quote" data-beat="' + (n + 1) + '" data-pic="' + last + '" data-spot="-1">“' + esc(m.quote) + '”</blockquote>' : '') +
+      '</div></section>';
   }
-  function drawPics(id, focusPin) {
-    var box = document.querySelector('[data-eng-pv="' + id + '"]');
-    if (!box) return;
-    var list = pics(id), st = PV[id] || (PV[id] = { k: 0, pin: -1 }), q = list[st.k] || list[0], seen = seenAll()[q.file] || [];
-    var spots = q.spots || [], sp = spots[st.pin];
-    var note = sp ? '<div class="eng-pv__note"><span class="eng-pv__lab"><b>' + (st.pin + 1) + '</b>' + esc(sp.label) + '</span><p>' + esc(sp.note) + '</p>' +
-        (sp.quote ? '<blockquote>“' + esc(sp.quote) + '”</blockquote>' : '') + (sp.moment ? momentLine(id, sp.moment) : '') + '</div>'
-      : '<div class="eng-pv__note is-empty"><p>' + (spots.length ? 'Tap the numbers on the picture to look closer.' : '') + '</p>' + (q.moment ? momentLine(id, q.moment) : '') + '</div>';
-    var found = spots.filter(function (x, i) { return seen.indexOf(i) >= 0; }).length;
-    box.innerHTML = '<div class="eng-pv__main">' +
-        '<div class="eng-pv__stagebox"><div class="eng-pv__stage"><img src="assets/eng/img/' + esc(q.file) + '" alt="' + esc(q.title) + '">' +
-          spots.map(function (x, i) {
-            return '<button type="button" class="eng-pin' + (seen.indexOf(i) >= 0 ? ' is-seen' : '') + (i === st.pin ? ' is-on' : '') + '" style="left:' + x.x + '%;top:' + x.y + '%" data-eng-pin="' + i + '" aria-label="' + (i + 1) + ': ' + esc(x.label) + '" aria-pressed="' + (i === st.pin) + '">' + (i + 1) + '</button>';
-          }).join('') + '</div></div>' +
-        '<div class="eng-pv__panel"><span class="eng-pv__kind">' + esc(KIND[q.kind] || '') + '</span><h3 class="eng-pv__t">' + esc(q.title) + '</h3><p class="eng-pv__cap">' + esc(q.caption) + '</p>' +
-          note +
-          '<div class="eng-pv__foot">' + (spots.length ? '<span class="eng-pv__found' + (found === spots.length ? ' is-all' : '') + '">' + found + ' of ' + spots.length + ' looked at</span>' : '<span></span>') +
-            (list.length > 1 ? '<button type="button" class="eng-btn eng-btn--quiet" data-eng-pic="' + ((st.k + 1) % list.length) + '">Next picture →</button>' : '') + '</div>' +
-          '<p class="eng-credit">' + credit(q) + '</p></div></div>' +
-      (list.length > 1 ? '<div class="eng-pv__strip" role="tablist" aria-label="Pictures">' + list.map(function (x, k) {
-        var sAll = seenAll()[x.file] || [], done = (x.spots || []).length && (x.spots || []).every(function (y, i) { return sAll.indexOf(i) >= 0; });
-        return '<button type="button" class="eng-pv__th' + (k === st.k ? ' is-on' : '') + (done ? ' is-done' : '') + '" role="tab" aria-selected="' + (k === st.k) + '" data-eng-pic="' + k + '" title="' + esc(x.title) + '"><img src="assets/eng/img/' + esc(x.file) + '" alt="" loading="lazy">' +
-          ((x.spots || []).length ? '<i>' + (x.spots || []).length + '</i>' : '') + '</button>';
-      }).join('') + '</div>' : '');
-    if (focusPin != null) { var b = box.querySelector('[data-eng-pin="' + focusPin + '"]'); if (b) b.focus({ preventScroll: true }); }
-  }
-  function openPin(id, i) {
-    var st = PV[id], q = pics(id)[st.k], all = seenAll(), seen = all[q.file] || [];
-    st.pin = st.pin === i ? -1 : i;
-    if (st.pin >= 0 && seen.indexOf(i) < 0) {
-      seen.push(i); all[q.file] = seen; store('eng-pics-seen', JSON.stringify(all));
-      if (K) K.sfx(seen.length === q.spots.length ? 'stamp' : 'pop', 0.5);
+  // Show picture `pic` of a scene with spot `spot` lit (-1: none).
+  function stageShow(sc, pic, spot) {
+    var st = sc.querySelector('[data-stage]');
+    if (!st) return;
+    var list = scenePics(sc.getAttribute('data-text'), sc.getAttribute('data-scene')), q = list[pic] || list[0];
+    if (st.getAttribute('data-pic') !== String(pic)) {
+      st.setAttribute('data-pic', pic);
+      st.innerHTML = '<figure class="eng-scene__fig"><div class="eng-pv__stage"><img src="assets/eng/img/' + esc(q.file) + '" alt="' + esc(q.title) + '">' +
+        (q.spots || []).map(function (x, i) { return '<button type="button" class="eng-pin" style="left:' + x.x + '%;top:' + x.y + '%" data-eng-pin="' + i + '" aria-label="' + (i + 1) + ': ' + esc(x.label) + '">' + (i + 1) + '</button>'; }).join('') +
+        '</div><figcaption class="eng-credit">' + credit(q) + '</figcaption></figure>' +
+        (list.length > 1 ? '<div class="eng-scene__dots" aria-hidden="true">' + list.map(function (x, j) { return '<i' + (j === pic ? ' class="is-on"' : '') + '></i>'; }).join('') + '</div>' : '');
     }
-    drawPics(id, i);
+    st.querySelectorAll('[data-eng-pin]').forEach(function (b) {
+      var on = +b.getAttribute('data-eng-pin') === spot;
+      b.classList.toggle('is-on', on); b.classList.toggle('is-dim', spot >= 0 && !on); b.setAttribute('aria-pressed', on);
+    });
   }
-  function showPic(id, k, scroll) {
-    var st = PV[id] || (PV[id] = { k: 0, pin: -1 });
-    st.k = (k + pics(id).length) % pics(id).length; st.pin = -1;
-    drawPics(id);
-    var box = document.querySelector('[data-eng-pv="' + id + '"]');
-    if (scroll && box) box.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  function beatOn(beat) {
+    var sc = beat.closest('[data-scene]');
+    if (!sc) return;
+    sc.querySelectorAll('.eng-beat.is-on').forEach(function (x) { if (x !== beat) x.classList.remove('is-on'); });
+    beat.classList.add('is-on');
+    stageShow(sc, +beat.getAttribute('data-pic'), +beat.getAttribute('data-spot'));
+  }
+  var IO = null;
+  function watchScenes() {
+    if (IO) IO.disconnect();
+    document.querySelectorAll('[data-scene]').forEach(function (sc) { stageShow(sc, 0, -1); });
+    if (!('IntersectionObserver' in window)) return;
+    // The band just above the middle of the screen: the beat in it is the one being read.
+    IO = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) beatOn(e.target); }); }, { rootMargin: '-38% 0px -52% 0px' });
+    document.querySelectorAll('.eng-beat').forEach(function (b) { IO.observe(b); });
   }
 
   // ---------- language bank ----------
@@ -520,10 +530,12 @@
       renderHome();
       return;
     }
-    var pv = t.closest('[data-eng-pv]'), pin = t.closest('[data-eng-pin]'), pic = t.closest('[data-eng-pic]'), sp = t.closest('[data-eng-showpic]');
-    if (pv && pin) { openPin(pv.getAttribute('data-eng-pv'), +pin.getAttribute('data-eng-pin')); return; }
-    if (pv && pic) { showPic(pv.getAttribute('data-eng-pv'), +pic.getAttribute('data-eng-pic')); return; }
-    if (sp) { var tb = document.querySelector('[data-eng-pv]'); if (tb) showPic(tb.getAttribute('data-eng-pv'), +sp.getAttribute('data-eng-showpic'), true); return; }
+    var pin = t.closest('[data-eng-pin]'), scn = pin && pin.closest('[data-scene]');
+    if (scn) {
+      var stg = scn.querySelector('[data-stage]'), bt = scn.querySelector('.eng-beat[data-pic="' + stg.getAttribute('data-pic') + '"][data-spot="' + pin.getAttribute('data-eng-pin') + '"]');
+      if (bt) { beatOn(bt); bt.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+      return;
+    }
     var cp = t.closest('[data-eng-copy]');
     if (cp) { copy(cp.getAttribute('data-eng-copy'), cp); return; }
     var qf = t.closest('[data-eng-qf]');
@@ -581,14 +593,6 @@
     if (!p[2]) window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', route);
-  // Left and right arrows change the picture while you're in the pictures.
-  document.addEventListener('keydown', function (ev) {
-    var pv = ev.target.closest && ev.target.closest('[data-eng-pv]');
-    if (!pv || ev.altKey || ev.ctrlKey || ev.metaKey || (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight')) return;
-    var id = pv.getAttribute('data-eng-pv');
-    ev.preventDefault(); showPic(id, PV[id].k + (ev.key === 'ArrowRight' ? 1 : -1));
-    var on = pv.querySelector('.eng-pv__th.is-on'); if (on) on.focus({ preventScroll: true });
-  });
   window.EngApp = { chosen: chosen, text: text, data: D, colour: COL };
   route();
 })();

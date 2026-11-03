@@ -7,14 +7,38 @@
   "setting": "Shawshank, a fictional state prison in Maine, USA, from 1947 to 1966, with a final journey to the Pacific coast of Mexico in 1967.",
   "gist": "Andy Dufresne, a banker wrongly convicted of murdering his wife and her lover, is sent to Shawshank prison, where he becomes friends with Red, a long-serving prisoner who narrates the film. Over nearly twenty years Andy survives brutality and a corrupt, Bible-quoting warden, keeps hope alive, and finally escapes and exposes the warden; Red, released on parole, follows him to Mexico. Frank Darabont wrote and directed the film from Stephen King's novella 'Rita Hayworth and Shawshank Redemption'.",
   "people": [
-    {"name": "Andy Dufresne", "who": "A quiet, educated banker sentenced to two life sentences for murdering his wife and her lover, a crime he did not commit."},
-    {"name": "Ellis 'Red' Redding", "who": "A long-serving prisoner who can smuggle in almost anything; Andy's closest friend and the film's narrator."},
-    {"name": "Warden Samuel Norton", "who": "The Bible-quoting warden who secretly grows rich through corruption and uses Andy to hide his money."},
-    {"name": "Captain Byron Hadley", "who": "The brutal captain of the guards, who rules the prisoners through violence."},
-    {"name": "Brooks Hatlen", "who": "The elderly prison librarian, inside for about fifty years, who cannot cope when he is released."},
-    {"name": "Tommy Williams", "who": "A young thief who arrives in 1965; Andy helps him study, and Tommy turns out to know who really committed Andy's crime."},
-    {"name": "Heywood", "who": "One of Red's group of friends, who taunts the new arrivals on Andy's first night."},
-    {"name": "Bogs Diamond", "who": "Leader of 'the Sisters', a gang that repeatedly attacks Andy in his early years in prison."}
+    {
+      "name": "Andy Dufresne",
+      "who": "A quiet, educated banker sentenced to two life sentences for murdering his wife and her lover, a crime he did not commit."
+    },
+    {
+      "name": "Ellis 'Red' Redding",
+      "who": "A long-serving prisoner who can smuggle in almost anything; Andy's closest friend and the film's narrator."
+    },
+    {
+      "name": "Warden Samuel Norton",
+      "who": "The Bible-quoting warden who secretly grows rich through corruption and uses Andy to hide his money."
+    },
+    {
+      "name": "Captain Byron Hadley",
+      "who": "The brutal captain of the guards, who rules the prisoners through violence."
+    },
+    {
+      "name": "Brooks Hatlen",
+      "who": "The elderly prison librarian, inside for about fifty years, who cannot cope when he is released."
+    },
+    {
+      "name": "Tommy Williams",
+      "who": "A young thief who arrives in 1965; Andy helps him study, and Tommy turns out to know who really committed Andy's crime."
+    },
+    {
+      "name": "Heywood",
+      "who": "One of Red's group of friends, who taunts the new arrivals on Andy's first night."
+    },
+    {
+      "name": "Bogs Diamond",
+      "who": "Leader of 'the Sisters', a gang that repeatedly attacks Andy in his early years in prison."
+    }
   ],
   "moments": [
     {
@@ -24,9 +48,18 @@
       "when": "opening",
       "what": "At night, a drunk Andy sits in his car outside the house where his wife is with her lover, loading a revolver; these images are cut together with his trial, where he insists he threw the gun into a river. He is convicted of both murders and given two life sentences.",
       "why": "The film opens in darkness and injustice, and the cross-cutting between the night and the courtroom leaves the viewer unsure at first whether Andy is guilty.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Night. A man sits in his car, drunk, outside the house where his wife is with her lover. He's loading a revolver.",
+        "This is Andy Dufresne, a banker. The film cuts between this night and his trial, where he swears he threw the gun into a river.",
+        "The jury doesn't believe him. Two murders. Two life sentences."
+      ]
     },
     {
       "id": "shawshank-2",
@@ -35,9 +68,18 @@
       "when": "opening",
       "what": "Twenty years into a life sentence, Red tells the parole board he is a changed man, and his file is stamped 'REJECTED'. In voiceover he introduces himself as the prisoner who can get things smuggled into Shawshank.",
       "why": "It sets up the parole hearings that measure Red's journey, and introduces the voiceover through which we see the whole story.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Meet Red. Twenty years into a life sentence, telling the parole board he's a changed man.",
+        "Rejected.",
+        "Red is our narrator, and the man in Shawshank who can get you things, smuggled in from outside."
+      ]
     },
     {
       "id": "shawshank-3",
@@ -46,9 +88,18 @@
       "when": "opening",
       "what": "Warden Norton tells the new prisoners that he believes in discipline and the Bible. That night Heywood and other prisoners taunt the new arrivals until one breaks down in tears; Captain Hadley beats him, he dies in the infirmary, and the next morning Andy, who made no sound all night, asks what the dead man's name was.",
       "why": "It shows the cruelty and indifference of the institution, and Andy's quiet humanity in the middle of it.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "New men arrive. Warden Norton tells them he believes in two things: discipline and the Bible.",
+        "That night the old prisoners taunt the new ones until one breaks down in tears. Captain Hadley beats him, and he dies in the infirmary.",
+        "Andy makes no sound all night. In the morning he asks one question: what was the dead man's name?"
+      ]
     },
     {
       "id": "shawshank-4",
@@ -57,9 +108,18 @@
       "when": "middle",
       "what": "While tarring the roof of the licence-plate factory, Andy overhears Captain Hadley complaining about tax on an inheritance and dares to offer advice; Hadley nearly throws him off the roof, but Andy explains how to keep the money legally tax-free, asking only for three beers each for his fellow workers. The men drink in the sunshine while Andy sits apart, smiling, and Red's voiceover says they felt like free men.",
       "why": "Andy discovers that his knowledge is a kind of power, and the prisoners briefly experience ordinary freedom.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Andy is tarring a roof when he hears Captain Hadley complaining about tax on an inheritance. So he offers advice.",
+        "Hadley nearly throws him off the roof. But Andy explains how to keep the money legally, and asks for one thing in return: three beers each for his workmates.",
+        "The men drink in the sun. Andy sits apart, smiling. For a moment, they feel like free men."
+      ]
     },
     {
       "id": "shawshank-5",
@@ -68,9 +128,18 @@
       "when": "middle",
       "what": "When the elderly librarian Brooks Hatlen learns he is to be paroled after fifty years, he holds a knife to Heywood's throat in the hope of being kept inside, and Red explains that Brooks is 'institutionalized'. Outside, Brooks cannot cope with the changed world, and he hangs himself in his halfway-house room after carving 'Brooks was here' into a wooden beam.",
       "why": "It shows that prison can destroy a man's ability to live in freedom, a fate Red himself later fears.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "Brooks Hatlen was here",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Brooks Hatlen, the old librarian, is getting parole after fifty years. And he's terrified.",
+        "He holds a knife to Heywood's throat, hoping they'll keep him inside. Red explains: Brooks is 'institutionalized'.",
+        "Outside, the world has moved on without him. He can't cope. In his halfway-house room he carves his name into a beam, and hangs himself."
+      ]
     },
     {
       "id": "shawshank-6",
@@ -79,9 +148,18 @@
       "when": "middle",
       "what": "Andy's years of letters finally win a small grant and boxes of donated books and records for the library; he locks himself in the office and plays a duet from Mozart's 'The Marriage of Figaro' over the loudspeakers, and the prisoners stand still in the yard to listen. He is given two weeks in solitary, and afterwards tells the men that music is something inside that cannot be taken from them, while Red warns that hope is a dangerous thing.",
       "why": "It is the film's clearest image of inner freedom, and it begins the argument about hope that runs to the final scene.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Years of letters, and finally: a small grant, and boxes of donated books and records for the library.",
+        "Andy locks himself in the office and plays Mozart over the loudspeakers. The whole yard stops to listen.",
+        "It costs him two weeks in solitary. Worth it, he says: music is something inside that they can't take from you. Red isn't so sure. Hope, he warns, is a dangerous thing."
+      ]
     },
     {
       "id": "shawshank-7",
@@ -90,9 +168,18 @@
       "when": "climax",
       "what": "Tommy, a young prisoner Andy is helping to study, reveals that a former cellmate boasted of killing a golf pro and his lover, the crime Andy was convicted of. Warden Norton, who relies on Andy to hide his illegal profits, refuses to help and throws Andy into solitary when he protests, then has Hadley shoot Tommy dead at night and threatens to take away Andy's protection and destroy the library if he stops working for him.",
       "why": "The institution destroys justice to protect corrupt power, pushing Andy to the edge.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "How can you be so obtuse?",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Tommy, a young prisoner Andy is helping to study, tells a story: an old cellmate once boasted of killing a golf pro and his lover.",
+        "That's Andy's crime. Someone else did it.",
+        "But Andy is too useful to Warden Norton, who needs him to hide his illegal money. Norton throws Andy into solitary, has Hadley shoot Tommy dead, and threatens to destroy everything Andy has built."
+      ]
     },
     {
       "id": "shawshank-8",
@@ -101,9 +188,18 @@
       "when": "climax",
       "what": "Andy tells Red that he was a distant husband who drove his wife away, though he did not kill her, describes his dream of running a small hotel in Zihuatanejo, Mexico, and makes Red promise that if he is ever freed he will look under a rock by a stone wall in a hayfield near Buxton. When Red hears that Andy has asked for a length of rope, he fears Andy is planning to kill himself.",
       "why": "It frames the film's central choice between hope and despair.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "Get busy living, or get busy dying.",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Out of solitary, Andy sits with Red against the wall. He admits he was a distant husband who drove his wife away. But he didn't kill her.",
+        "He talks about a dream: a little hotel in Zihuatanejo, Mexico. And he makes Red promise to look under a rock by a stone wall in a hayfield near Buxton.",
+        "Then Red hears that Andy has asked for a length of rope, and fears the worst."
+      ]
     },
     {
       "id": "shawshank-9",
@@ -112,9 +208,18 @@
       "when": "climax",
       "what": "At the morning count Andy's cell is empty; in a rage the warden throws a stone at the poster on the wall, and it tears straight through, revealing a tunnel. Red's voiceover and a flashback show that Andy dug through the wall in less than twenty years with his small rock hammer and, during a thunderstorm, crawled through five hundred yards of sewer pipe to freedom, raising his arms in the rain.",
       "why": "The film's great reversal turns Andy's years of patience into an act of hidden defiance, and gives the film its central image of freedom.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Morning count. Andy's cell is empty.",
+        "The warden throws a stone at the poster on the wall, and it goes straight through. Behind it: a tunnel.",
+        "Red tells us how. Less than twenty years with a little rock hammer. Then, in a thunderstorm, five hundred yards of sewer pipe. And Andy, arms raised in the rain, free."
+      ]
     },
     {
       "id": "shawshank-10",
@@ -123,9 +228,18 @@
       "when": "ending",
       "what": "Posing as 'Randall Stephens', the false identity he had invented to hide Norton's money, Andy withdraws it from several banks and posts the warden's account book and evidence of his crimes to a newspaper. As police arrive, Hadley is arrested, and Norton opens his safe, hidden behind the embroidered words 'His judgment cometh and that right early', to find Andy's Bible with the rock hammer's hiding place cut into its pages, before shooting himself.",
       "why": "Corrupt power collapses, and justice arrives through Andy's cleverness and the press rather than through the courts.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Remember the person Andy invented to hide Norton's money? Andy becomes him, and empties the accounts.",
+        "He posts the warden's account book and the proof of his crimes to a newspaper. The police arrive, and Hadley is arrested.",
+        "Norton opens his safe and finds Andy's Bible, with the rock hammer's hiding place cut into its pages. Then he shoots himself."
+      ]
     },
     {
       "id": "shawshank-11",
@@ -134,9 +248,18 @@
       "when": "ending",
       "what": "After forty years, Red tells the parole board that 'rehabilitated' is just a made-up word, that he regrets the foolish young man who committed his crime, and that he no longer cares what they decide; this time he is released. Outside, he is given Brooks's old room and a job bagging groceries, as Brooks had, asks his manager's permission to go to the toilet, and admits he thinks about breaking parole to be sent back.",
       "why": "Red's honesty finally frees him, but life outside shows how deeply the institution has shaped him.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Forty years in, Red faces the board again. And this time he stops performing.",
+        "'Rehabilitated' is just a made-up word, he says. He regrets the foolish young man he was, and he doesn't care what they decide. Released.",
+        "Outside, he gets Brooks's old room and a job bagging groceries, as Brooks had. He asks permission to go to the toilet. And he thinks about breaking parole, just to be sent back."
+      ]
     },
     {
       "id": "shawshank-12",
@@ -145,9 +268,18 @@
       "when": "ending",
       "what": "Keeping his promise, Red finds the box Andy hid under the rock near Buxton, with money and a letter inviting him to Mexico; he carves 'So was Red' beside Brooks's words, breaks parole and takes a bus south. In the final scene he walks along a sunlit beach at Zihuatanejo to Andy, who is working on an old boat, and the camera pulls back over the blue Pacific.",
       "why": "The ending rewards hope and friendship, and shows Red choosing life instead of becoming another Brooks.",
-      "modes": ["theme", "cc", "gvv"],
+      "modes": [
+        "theme",
+        "cc",
+        "gvv"
+      ],
       "quote": "Hope is a good thing, maybe the best of things, and no good thing ever dies.",
-      "sure": true
+      "sure": true,
+      "tell": [
+        "Red keeps his promise. Under the rock near Buxton he finds a box: money, and a letter inviting him to Mexico.",
+        "He carves 'So was Red' beside Brooks's words, breaks parole, and takes a bus south.",
+        "The last scene: a sunlit beach, Andy working on an old boat, and Red walking towards him. The camera pulls back over the blue Pacific."
+      ]
     }
   ],
   "modes": {

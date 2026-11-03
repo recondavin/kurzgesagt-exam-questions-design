@@ -32,6 +32,7 @@ for (const id of D.order) {
   ok(t.moments.length >= 10, `${id}: at least 10 key moments`);
   ok(['opening', 'ending'].every(w => t.moments.some(m => m.when === w)), `${id}: key moments from the opening and the ending`);
   ok(t.moments.every(m => m.what && m.why && m.where && m.modes.length), `${id}: every key moment has what, why, where and modes`);
+  ok(t.moments.every(m => Array.isArray(m.tell) && m.tell.length >= 2 && m.tell.length <= 4 && m.tell.every(s => s.length > 5)), `${id}: every key moment is told in 2 to 4 beats`);
   const groups = [...t.modes.theme.themes, ...t.modes.cc.aspects, { name: 'vision', points: t.modes.gvv.points }];
   ok(t.modes.theme.themes.length === 3, `${id}: the three themes`);
   ok(t.modes.cc.aspects.length >= 6, `${id}: at least six cultural-context aspects`);
@@ -66,7 +67,8 @@ for (const m of ['theme', 'cc', 'gvv']) ok(['link', 'level', 'chains', 'spot'].e
 // link to exist; their spots sit on the picture; enough of your texts' pictures for Picture it.
 for (const p of D.images) {
   ok(fs.existsSync(new URL('../../../assets/eng/img/' + p.file, import.meta.url)), `picture ${p.file} exists`);
-  ok(p.licence && p.author && /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/.test(p.source) && /^(CC0|Public domain|CC BY(-SA)? [234]\.0|Free Art Licence)$/.test(p.licence), `picture ${p.file} is free to use and credited`);
+  const free = /^(CC0|Public domain|CC BY(-SA)? [234]\.0|Free Art Licence)$/.test(p.licence), still = p.licence === 'Copyright: used here for study' && ['film', 'production'].includes(p.kind);
+  ok(p.author && (free ? /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/.test(p.source) : still && /^https:\/\//.test(p.source)), `picture ${p.file} is credited: free with its Commons page, or a film still or stage photo with its source`);
   const ids = new Set(D.texts[p.text].moments.map(m => m.id));
   ok(!p.moment || ids.has(p.moment), `picture ${p.file}: its key moment exists`);
   ok(p.spots.every(s => s.x >= 0 && s.x <= 100 && s.y >= 0 && s.y <= 100 && s.label && s.note && (!s.moment || ids.has(s.moment))), `picture ${p.file}: every spot is on it, with a note and a real key moment`);
