@@ -105,20 +105,24 @@
   // ---------- how it's marked ----------
   function renderMarking() {
     renderShell('marking', 'How it\'s marked');
-    var cr = C.marks.criteria, col = { P: '#FFE45C', C: '#BFE3FF', L: '#C6F0B4', M: '#FFD3E6' };
+    var M = C.marks, cr = M.criteria, col = { P: '#FFE45C', C: '#BFE3FF', L: '#C6F0B4', M: '#FFD3E6' };
     app.innerHTML = title('How it\'s marked') +
-      '<p class="eng-p">The comparative question is worth <b>' + C.marks.total + ' marks</b>. ' + esc(C.marks.note) + '</p>' +
+      '<p class="eng-p">The comparative question is worth <b>' + M.total + ' marks</b>. ' + esc(M.note) + ' ' + esc(M.single) + '</p>' +
       '<div class="eng-pclm">' + cr.map(pclmSeg).join('') + '</div>' +
-      '<div class="eng-grid eng-grid--2">' + cr.map(function (c) {
+      '<p class="eng-note eng-note--warn"><span>The most important rule</span>' + esc(M.primacy) + '</p>' +
+      '<div class="eng-grid eng-grid--2" style="margin-top:18px">' + cr.map(function (c) {
         return '<div class="eng-card eng-crit"><span class="eng-crit__k" style="--c:' + col[c.code] + '">' + c.code + '</span>' +
-          '<h3>' + esc(c.name) + '</h3><span class="eng-crit__m">' + c.pct + '% · ' + c.of70 + ' of 70 · ' + c.of30 + ' of 30 · ' + c.of40 + ' of 40</span>' +
-          '<p>' + esc(c.what) + '</p></div>';
+          '<h3>' + esc(c.name) + '</h3><span class="eng-crit__m">' + c.pct + '% · ' + c.of70 + ' of 70</span>' +
+          '<p>' + esc(c.what) + '</p><p class="eng-crit__c">' + esc(c.comp) + '</p></div>';
       }).join('') + '</div>' +
-      '<h2 class="eng-h2">What gets the marks</h2>' +
-      cr.map(function (c) { return note(c.name, c.do); }).join('') +
+      '<h2 class="eng-h2">Grades out of 70</h2><div class="eng-grades">' + M.grades.map(function (g) { return '<span><b>' + g[0] + '</b>' + g[1] + '</span>'; }).join('') + '</div>' +
+      '<h2 class="eng-h2">A question in two parts</h2><p class="eng-p">' + esc(M.splitText) + '</p>' +
+      '<h2 class="eng-h2">What examiners reward</h2><ul class="eng-ask">' + M.reward.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ul>' +
+      '<p class="eng-credit">' + esc(M.rewardSource) + '</p>' +
+      '<h2 class="eng-h2">What gets the marks</h2>' + cr.map(function (c) { return note(c.name, c.do); }).join('') +
       '<h2 class="eng-h2">The rules for ' + C.year + '</h2>' +
       '<ul class="eng-ask">' + C.rules.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ul>' +
-      '<p class="eng-credit">Source: <a href="' + esc(C.source.split(': ').pop()) + '" target="_blank" rel="noopener">the ' + C.year + ' prescribed material circular</a> and the SEC\'s criteria for assessment.</p>';
+      '<p class="eng-credit">Sources: ' + (C.sources || []).map(function (x) { return '<a href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(x.name) + '</a>'; }).join(', ') + '.</p>';
   }
 
   // ---------- the essay and PACE ----------

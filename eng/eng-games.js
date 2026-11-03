@@ -48,7 +48,7 @@
       '<p class="eg-ans"><span>Right answer</span>' + right + '</p>' + (why ? '<p class="eg-why">' + esc(why) + '</p>' : '') + '</div>';
   }
   function step(ok) {
-    if (ok) { G.got += 1; K.ding(Math.min(G.got, 6)); K.sfx('stamp', 0.6); } else { K.bonk(); }
+    if (ok) { G.got += 1; K.ding(Math.min(G.got, 6)); K.sfx('stamp', 0.6); K.rollTo(G.card.querySelector('[data-am-gscore]'), G.got); } else { K.bonk(); }
     K.gameSeg(G.card, G.i, ok ? 'is-ok' : 'is-no');
     K.mascot(ok ? 'happy' : 'angry', ok ? ['Correct.', 'Fine.', 'Hmph.', 'Not bad.'][G.i % 4] : ['No.', 'Read it again.', 'Wrong.'][G.i % 3]);
     buttons([['ok', 'data-eg-next', G.i + 1 < G.list.length ? 'Next' : 'Finish']]);
@@ -104,7 +104,7 @@
     K.gameSeg(G.card, G.i, 'is-current');
     body('<div class="eg"><div class="am-run__top"><h3 class="am-run__kind">Link it</h3><span class="am-games__step">' + (G.i + 1) + ' of ' + G.list.length + '</span></div>' +
       '<p class="eg-q"><span class="eng-tag" style="--c:' + col(x.a.t) + '">' + esc(title(x.a.t)) + '</span> ' + esc(x.a.s) + '</p>' +
-      '<p class="eg-q"><span class="eg-gap" data-eg-gap>______</span> <span class="eng-tag" style="--c:' + col(x.b.t) + '">' + esc(title(x.b.t)) + '</span> ' + esc(x.b.s) + '</p>' +
+      '<p class="eg-q"><span class="eng-tag" style="--c:' + col(x.b.t) + '">' + esc(title(x.b.t)) + '</span> <span class="eg-gap" data-eg-gap>______</span> ' + esc(x.b.s) + '</p>' +
       '<p class="am-games__ask">Which link fits?</p>' +
       '<div class="eg-opts">' + G.opts.map(function (o, k) { return '<button type="button" class="am-run__opt eg-opt" data-eg-link="' + k + '"><kbd aria-hidden="true">' + (k + 1) + '</kbd><span>' + esc(o[0]) + '</span></button>'; }).join('') + '</div>' +
       '<div data-eg-after></div></div>');
