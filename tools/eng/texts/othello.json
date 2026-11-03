@@ -67,7 +67,12 @@
         "Venice, at night. Iago is furious: Othello has promoted Cassio over him.",
         "So he and Roderigo wake Desdemona's father, Brabantio, shouting crude, racist images into the dark: your daughter has run off with Othello.",
         "In the very first scene, Iago tells us exactly what he is. Or rather, what he isn't."
-      ]
+      ],
+      "chain": {
+        "happens": "Passed over for Cassio, Iago wakes Brabantio with crude, racist shouts.",
+        "shows": "Iago's hidden hatred, and the racism Othello faces in Venice.",
+        "leads": "Brabantio accuses Othello of witchcraft."
+      }
     },
     {
       "id": "othello-2",
@@ -87,7 +92,12 @@
         "Brabantio drags Othello before the Duke and the senators. The charge: he won Desdemona by witchcraft.",
         "Othello answers calmly. No magic. She fell in love with the stories of his life. And Desdemona backs him: her duty now is to her husband.",
         "Venice needs its general against the Turks, so the Duke accepts the marriage. But Brabantio leaves a warning behind: she deceived her father, and she may deceive you."
-      ]
+      ],
+      "chain": {
+        "happens": "Before the Senate, Othello explains that Desdemona fell in love with his stories.",
+        "shows": "Othello is noble, but an outsider who needs Venice's approval.",
+        "leads": "The marriage stands, but Brabantio's warning plants doubt."
+      }
     },
     {
       "id": "othello-3",
@@ -106,7 +116,12 @@
         "A storm wrecks the Turkish fleet. The war is over before it starts.",
         "Othello lands in Cyprus and finds Desdemona there. It's the happiest moment in the play.",
         "And Iago is watching. In an aside, he promises to wreck it."
-      ]
+      ],
+      "chain": {
+        "happens": "Othello and Desdemona are joyfully reunited in Cyprus, and Iago vows to ruin it.",
+        "shows": "Love at its height, with evil watching.",
+        "leads": "Iago begins his plot."
+      }
     },
     {
       "id": "othello-4",
@@ -126,7 +141,12 @@
         "A night of celebration. Iago gets Cassio drunk and has Roderigo provoke a brawl, and Cassio wounds Montano, the old governor of Cyprus.",
         "Othello dismisses Cassio as his lieutenant.",
         "Then Iago gives Cassio some friendly advice: ask Desdemona to plead for you. And alone, he tells us the plan. Her goodness will be the net that catches them all."
-      ]
+      ],
+      "chain": {
+        "happens": "Iago gets Cassio drunk, and Othello dismisses him.",
+        "shows": "Iago controls people through their weaknesses.",
+        "leads": "Cassio asks Desdemona for help: the trap Iago needs."
+      }
     },
     {
       "id": "othello-5",
@@ -146,7 +166,12 @@
         "This is the scene where everything turns. Iago never says Desdemona is unfaithful. He hints. He pauses. He pretends he'd rather not say.",
         "And that's enough. Othello's peace of mind collapses, and he demands proof.",
         "By the end, Othello kneels to swear revenge, and he makes Iago his lieutenant."
-      ]
+      ],
+      "chain": {
+        "happens": "Iago hints that Desdemona is unfaithful, and Othello demands proof.",
+        "shows": "How easily jealousy is planted in an outsider's insecurity.",
+        "leads": "Othello vows revenge and makes Iago his lieutenant."
+      }
     },
     {
       "id": "othello-6",
@@ -165,7 +190,12 @@
         "A tiny thing. Othello pushes away a handkerchief, his first gift to Desdemona, and it falls.",
         "Emilia picks it up and gives it to her husband, Iago, who plans to leave it in Cassio's lodging.",
         "When Othello demands to see it, Desdemona, frightened, insists it isn't lost. Emilia knows exactly where it is, and says nothing."
-      ]
+      ],
+      "chain": {
+        "happens": "The handkerchief falls, and Emilia gives it to Iago.",
+        "shows": "A small object becomes 'proof', and Emilia stays silent.",
+        "leads": "Iago plants it in Cassio's lodging."
+      }
     },
     {
       "id": "othello-7",
@@ -185,7 +215,12 @@
         "Iago drives Othello into a fit, then has him hide and watch Cassio laughing. Cassio is joking about Bianca. Othello thinks it's about Desdemona.",
         "Then Lodovico arrives from Venice with orders: Othello is recalled, and Cassio is to govern Cyprus.",
         "And in front of him, Othello strikes Desdemona. Venice watches its noble general fall apart."
-      ]
+      ],
+      "chain": {
+        "happens": "Othello strikes Desdemona in front of Lodovico.",
+        "shows": "The noble general has fallen apart, in public.",
+        "leads": "Venice sees how Othello has changed, and Desdemona is humiliated."
+      }
     },
     {
       "id": "othello-8",
@@ -205,7 +240,12 @@
         "Othello questions Emilia. She swears Desdemona is faithful. He doesn't listen.",
         "He treats his wife as a prostitute, and Emilia as the woman who keeps the brothel.",
         "Afterwards Emilia rages that some villain has slandered Desdemona, not knowing it's her own husband. And Desdemona kneels to Iago, of all people, to ask how she can win Othello back."
-      ]
+      ],
+      "chain": {
+        "happens": "Othello treats Desdemona as a whore, and she kneels to Iago for help.",
+        "shows": "Women are judged by men's suspicions; Desdemona is innocent.",
+        "leads": "Emilia suspects a villain: the first crack in Iago's plot."
+      }
     },
     {
       "id": "othello-9",
@@ -225,7 +265,12 @@
         "Night. Othello has ordered Desdemona to bed.",
         "She remembers her mother's maid, Barbary, abandoned by the man she loved, and sings Barbary's sad song: the willow song.",
         "Do women really betray their husbands, she asks? Emilia's answer: when wives go wrong, it's their husbands' fault."
-      ]
+      ],
+      "chain": {
+        "happens": "Desdemona sings the willow song, and Emilia blames husbands when wives go wrong.",
+        "shows": "A foreboding of death, and a sharp view of how men treat women.",
+        "leads": "The night of the murder."
+      }
     },
     {
       "id": "othello-10",
@@ -245,7 +290,12 @@
         "Othello comes into the bedroom where Desdemona sleeps. He's convinced this is justice, not revenge.",
         "She begs to be banished. Then to live one more night. He smothers her.",
         "She revives for a moment, just long enough to protect him. Nobody did this, she says. I did it myself."
-      ]
+      ],
+      "chain": {
+        "happens": "Othello smothers Desdemona, and with her last words she protects him.",
+        "shows": "Jealousy destroys love; Desdemona is loyal to the end.",
+        "leads": "Emilia arrives, and the truth begins to come out."
+      }
     },
     {
       "id": "othello-11",
@@ -265,7 +315,12 @@
         "Emilia learns it was Iago who accused Desdemona. And she will not be quiet.",
         "Othello has a sword. Iago orders her home. She speaks anyway: she found the handkerchief, and she gave it to Iago.",
         "Iago stabs her and runs. She dies asking to be laid beside her mistress."
-      ]
+      ],
+      "chain": {
+        "happens": "Emilia reveals the truth about the handkerchief, and Iago kills her.",
+        "shows": "Courage and truth from the least powerful person on stage.",
+        "leads": "Iago is exposed."
+      }
     },
     {
       "id": "othello-12",
@@ -285,7 +340,12 @@
         "Iago is caught, and refuses to explain himself.",
         "Lodovico strips Othello of his command and gives Cyprus to Cassio. Othello asks to be remembered as one who loved not wisely but too well.",
         "Then he stabs himself and dies on a kiss beside Desdemona. Iago's punishment, torture included, is left to Cassio."
-      ]
+      ],
+      "chain": {
+        "happens": "Othello asks to be remembered as one who loved too well, and kills himself.",
+        "shows": "A tragic fall, with a last glimpse of his old nobility.",
+        "leads": "Cassio rules Cyprus, and Iago is left to be punished."
+      }
     }
   ],
   "modes": {

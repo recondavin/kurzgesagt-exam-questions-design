@@ -406,5 +406,284 @@
     "seventy": "A single 70-mark question: refer to at least two texts. It is marked by the same criteria whether you use two texts or three.",
     "split": "A two-part question: part (a) (30 marks) on one text, part (b) (40 marks) on two other texts. Part (b) doesn't have to link back to part (a)."
   },
-  "current": "For 2027 you sit the current Leaving Certificate English syllabus: the revised Senior Cycle English specification hasn't started yet."
+  "current": "For 2027 you sit the current Leaving Certificate English syllabus: the revised Senior Cycle English specification hasn't started yet.",
+  "upgrades": [
+    {
+      "plain": "shows",
+      "exam": [
+        "highlights",
+        "exposes",
+        "lays bare"
+      ],
+      "eg": "The ending of Sive exposes the cruelty of a world that sells its girls."
+    },
+    {
+      "plain": "is about",
+      "exam": [
+        "explores",
+        "examines",
+        "grapples with"
+      ],
+      "eg": "Small Things Like These explores the cost of keeping quiet."
+    },
+    {
+      "plain": "is like / stands for",
+      "exam": [
+        "symbolises",
+        "represents",
+        "embodies"
+      ],
+      "eg": "The poster in Andy's cell symbolises hope hidden in plain sight."
+    },
+    {
+      "plain": "sums up",
+      "exam": [
+        "encapsulates",
+        "epitomises",
+        "crystallises"
+      ],
+      "eg": "Brooks's carving encapsulates the despair of a man who has lost his place in the world."
+    },
+    {
+      "plain": "sad, depressing",
+      "exam": [
+        "bleak",
+        "desolate",
+        "harrowing"
+      ],
+      "eg": "The closing scene of Sive is unrelentingly bleak."
+    },
+    {
+      "plain": "happy ending",
+      "exam": [
+        "an uplifting resolution",
+        "a hopeful close",
+        "a note of redemption"
+      ],
+      "eg": "The Shawshank Redemption ends on an uplifting resolution."
+    },
+    {
+      "plain": "gets worse",
+      "exam": [
+        "darkens",
+        "deteriorates",
+        "spirals"
+      ],
+      "eg": "Othello's world darkens once Iago's poison takes hold."
+    },
+    {
+      "plain": "gets better",
+      "exam": [
+        "the outlook brightens",
+        "hope emerges",
+        "light breaks through"
+      ],
+      "eg": "In the final pages the outlook brightens as Bill brings Sarah home."
+    },
+    {
+      "plain": "shocking",
+      "exam": [
+        "harrowing",
+        "disturbing",
+        "unsettling"
+      ],
+      "eg": "The murder of Desdemona is deeply harrowing."
+    },
+    {
+      "plain": "mean, cruel people",
+      "exam": [
+        "callous",
+        "ruthless",
+        "tyrannical"
+      ],
+      "eg": "Warden Norton is ruthless behind his Bible-quoting piety."
+    },
+    {
+      "plain": "rich people are in charge",
+      "exam": [
+        "wealth confers power",
+        "money dictates who matters"
+      ],
+      "eg": "In Sive, money dictates who matters and who is sold."
+    },
+    {
+      "plain": "poor",
+      "exam": [
+        "impoverished",
+        "poverty-stricken",
+        "deprived"
+      ],
+      "eg": "The Glavins' impoverished household is soured by want."
+    },
+    {
+      "plain": "the people in charge",
+      "exam": [
+        "those in authority",
+        "the powerful",
+        "the establishment"
+      ],
+      "eg": "In Small Things Like These, the establishment is the Church."
+    },
+    {
+      "plain": "follows the rules",
+      "exam": [
+        "conforms",
+        "obeys the norms",
+        "toes the line"
+      ],
+      "eg": "Most of New Ross conforms, keeping its eyes down."
+    },
+    {
+      "plain": "breaks the rules",
+      "exam": [
+        "defies",
+        "rebels against",
+        "challenges"
+      ],
+      "eg": "Bill finally defies the silence of the town."
+    },
+    {
+      "plain": "the same as",
+      "exam": [
+        "mirrors",
+        "echoes",
+        "parallels"
+      ],
+      "eg": "Red's release mirrors Brooks's, until Red chooses hope."
+    },
+    {
+      "plain": "different from",
+      "exam": [
+        "in stark contrast to",
+        "diverges from",
+        "unlike"
+      ],
+      "eg": "In stark contrast to Sive, Shawshank lets hope win."
+    },
+    {
+      "plain": "more",
+      "exam": [
+        "to a far greater extent",
+        "more powerfully",
+        "more starkly"
+      ],
+      "eg": "Othello presents jealousy more powerfully than any other text."
+    },
+    {
+      "plain": "a bit",
+      "exam": [
+        "to a limited extent",
+        "partially",
+        "only fleetingly"
+      ],
+      "eg": "Hope appears only fleetingly in Sive."
+    },
+    {
+      "plain": "at the start",
+      "exam": [
+        "from the outset",
+        "in the opening scenes",
+        "initially"
+      ],
+      "eg": "From the outset, Iago's hatred is clear."
+    },
+    {
+      "plain": "at the end",
+      "exam": [
+        "in the closing scene",
+        "ultimately",
+        "by the end"
+      ],
+      "eg": "Ultimately, Othello dies on a kiss."
+    },
+    {
+      "plain": "an important moment",
+      "exam": [
+        "a pivotal moment",
+        "a turning point",
+        "a key moment"
+      ],
+      "eg": "The temptation scene is the pivotal moment of the play."
+    },
+    {
+      "plain": "the main character",
+      "exam": [
+        "the protagonist",
+        "the central character"
+      ],
+      "eg": "The protagonist of Small Things Like These is Bill Furlong."
+    },
+    {
+      "plain": "the bad guy",
+      "exam": [
+        "the antagonist",
+        "the villain",
+        "the manipulator"
+      ],
+      "eg": "Iago is the play's arch-manipulator."
+    },
+    {
+      "plain": "the world of the story",
+      "exam": [
+        "the cultural context",
+        "the society depicted",
+        "the world of the text"
+      ],
+      "eg": "The society depicted in Sive is ruled by land and money."
+    },
+    {
+      "plain": "I think",
+      "exam": [
+        "I would argue that",
+        "it is evident that",
+        "clearly"
+      ],
+      "eg": "It is evident that power in Shawshank rests on fear."
+    },
+    {
+      "plain": "I liked it",
+      "exam": [
+        "I found it compelling",
+        "it moved me deeply",
+        "it struck me"
+      ],
+      "eg": "I found Bill's quiet courage deeply moving."
+    },
+    {
+      "plain": "makes you feel sorry for",
+      "exam": [
+        "evokes sympathy for",
+        "elicits pity for",
+        "draws us to"
+      ],
+      "eg": "Sive's helplessness evokes sympathy for her from the first scene."
+    },
+    {
+      "plain": "says",
+      "exam": [
+        "asserts",
+        "insists",
+        "declares"
+      ],
+      "eg": "Red insists that hope is a dangerous thing."
+    },
+    {
+      "plain": "a lot",
+      "exam": [
+        "profoundly",
+        "deeply",
+        "greatly"
+      ],
+      "eg": "Andy's escape profoundly shapes my view of the film."
+    },
+    {
+      "plain": "because",
+      "exam": [
+        "since",
+        "as a result of",
+        "owing to"
+      ],
+      "eg": "Desdemona dies as a result of Iago's lies."
+    }
+  ]
 }

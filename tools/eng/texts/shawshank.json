@@ -59,7 +59,12 @@
         "Night. A man sits in his car, drunk, outside the house where his wife is with her lover. He's loading a revolver.",
         "This is Andy Dufresne, a banker. The film cuts between this night and his trial, where he swears he threw the gun into a river.",
         "The jury doesn't believe him. Two murders. Two life sentences."
-      ]
+      ],
+      "chain": {
+        "happens": "Drunk, with a gun, outside his wife's lover's house; Andy is convicted of their murders.",
+        "shows": "Justice can fail, and an innocent man loses everything.",
+        "leads": "Andy is sent to Shawshank for life."
+      }
     },
     {
       "id": "shawshank-2",
@@ -79,7 +84,12 @@
         "Meet Red. Twenty years into a life sentence, telling the parole board he's a changed man.",
         "Rejected.",
         "Red is our narrator, and the man in Shawshank who can get you things, smuggled in from outside."
-      ]
+      ],
+      "chain": {
+        "happens": "After twenty years, Red's parole is rejected.",
+        "shows": "The system decides who counts as 'rehabilitated', and hope is rationed.",
+        "leads": "Red, our narrator, is still inside when Andy arrives."
+      }
     },
     {
       "id": "shawshank-3",
@@ -99,7 +109,12 @@
         "New men arrive. Warden Norton tells them he believes in two things: discipline and the Bible.",
         "That night the old prisoners taunt the new ones until one breaks down in tears. Captain Hadley beats him, and he dies in the infirmary.",
         "Andy makes no sound all night. In the morning he asks one question: what was the dead man's name?"
-      ]
+      ],
+      "chain": {
+        "happens": "Norton's welcome, and a new prisoner is beaten to death on the first night.",
+        "shows": "Shawshank runs on cruelty and fear.",
+        "leads": "Andy stays silent and survives."
+      }
     },
     {
       "id": "shawshank-4",
@@ -119,7 +134,12 @@
         "Andy is tarring a roof when he hears Captain Hadley complaining about tax on an inheritance. So he offers advice.",
         "Hadley nearly throws him off the roof. But Andy explains how to keep the money legally, and asks for one thing in return: three beers each for his workmates.",
         "The men drink in the sun. Andy sits apart, smiling. For a moment, they feel like free men."
-      ]
+      ],
+      "chain": {
+        "happens": "Andy's tax advice wins beers for the men tarring the roof.",
+        "shows": "Andy's brains give him a little power, and the men a little dignity.",
+        "leads": "Andy becomes useful to the guards."
+      }
     },
     {
       "id": "shawshank-5",
@@ -139,7 +159,12 @@
         "Brooks Hatlen, the old librarian, is getting parole after fifty years. And he's terrified.",
         "He holds a knife to Heywood's throat, hoping they'll keep him inside. Red explains: Brooks is 'institutionalized'.",
         "Outside, the world has moved on without him. He can't cope. In his halfway-house room he carves his name into a beam, and hangs himself."
-      ]
+      ],
+      "chain": {
+        "happens": "Brooks is paroled after fifty years, and hangs himself outside.",
+        "shows": "Institutionalisation: prison can make freedom unbearable.",
+        "leads": "Red fears the same will happen to him."
+      }
     },
     {
       "id": "shawshank-6",
@@ -159,7 +184,12 @@
         "Years of letters, and finally: a small grant, and boxes of donated books and records for the library.",
         "Andy locks himself in the office and plays Mozart over the loudspeakers. The whole yard stops to listen.",
         "It costs him two weeks in solitary. Worth it, he says: music is something inside that they can't take from you. Red isn't so sure. Hope, he warns, is a dangerous thing."
-      ]
+      ],
+      "chain": {
+        "happens": "Andy plays Mozart over the loudspeakers to the whole prison.",
+        "shows": "Beauty and hope can't be locked up.",
+        "leads": "Solitary for Andy, and Red's warning that hope is dangerous."
+      }
     },
     {
       "id": "shawshank-7",
@@ -179,7 +209,12 @@
         "Tommy, a young prisoner Andy is helping to study, tells a story: an old cellmate once boasted of killing a golf pro and his lover.",
         "That's Andy's crime. Someone else did it.",
         "But Andy is too useful to Warden Norton, who needs him to hide his illegal money. Norton throws Andy into solitary, has Hadley shoot Tommy dead, and threatens to destroy everything Andy has built."
-      ]
+      ],
+      "chain": {
+        "happens": "Tommy could prove Andy innocent, and Norton has him shot.",
+        "shows": "Corrupt power protects itself.",
+        "leads": "Andy loses his last legal hope."
+      }
     },
     {
       "id": "shawshank-8",
@@ -199,7 +234,12 @@
         "Out of solitary, Andy sits with Red against the wall. He admits he was a distant husband who drove his wife away. But he didn't kill her.",
         "He talks about a dream: a little hotel in Zihuatanejo, Mexico. And he makes Red promise to look under a rock by a stone wall in a hayfield near Buxton.",
         "Then Red hears that Andy has asked for a length of rope, and fears the worst."
-      ]
+      ],
+      "chain": {
+        "happens": "Andy tells Red to 'get busy living', and about the rock near Buxton.",
+        "shows": "Choosing hope over despair.",
+        "leads": "That night, Andy escapes."
+      }
     },
     {
       "id": "shawshank-9",
@@ -219,7 +259,12 @@
         "Morning count. Andy's cell is empty.",
         "The warden throws a stone at the poster on the wall, and it goes straight through. Behind it: a tunnel.",
         "Red tells us how. Less than twenty years with a little rock hammer. Then, in a thunderstorm, five hundred yards of sewer pipe. And Andy, arms raised in the rain, free."
-      ]
+      ],
+      "chain": {
+        "happens": "Andy's cell is empty, and the poster hides a tunnel.",
+        "shows": "Patience and hope beat the system.",
+        "leads": "Andy is free."
+      }
     },
     {
       "id": "shawshank-10",
@@ -239,7 +284,12 @@
         "Remember the person Andy invented to hide Norton's money? Andy becomes him, and empties the accounts.",
         "He posts the warden's account book and the proof of his crimes to a newspaper. The police arrive, and Hadley is arrested.",
         "Norton opens his safe and finds Andy's Bible, with the rock hammer's hiding place cut into its pages. Then he shoots himself."
-      ]
+      ],
+      "chain": {
+        "happens": "Andy exposes Norton's crimes, and Norton shoots himself.",
+        "shows": "Justice catches up with the corrupt at last.",
+        "leads": "Hadley is arrested, and Norton's power is gone."
+      }
     },
     {
       "id": "shawshank-11",
@@ -259,7 +309,12 @@
         "Forty years in, Red faces the board again. And this time he stops performing.",
         "'Rehabilitated' is just a made-up word, he says. He regrets the foolish young man he was, and he doesn't care what they decide. Released.",
         "Outside, he gets Brooks's old room and a job bagging groceries, as Brooks had. He asks permission to go to the toilet. And he thinks about breaking parole, just to be sent back."
-      ]
+      ],
+      "chain": {
+        "happens": "Red is released, and struggles outside just as Brooks did.",
+        "shows": "Institutionalisation again: freedom is frightening.",
+        "leads": "Red chooses Andy's path instead of Brooks's."
+      }
     },
     {
       "id": "shawshank-12",
@@ -279,7 +334,12 @@
         "Red keeps his promise. Under the rock near Buxton he finds a box: money, and a letter inviting him to Mexico.",
         "He carves 'So was Red' beside Brooks's words, breaks parole, and takes a bus south.",
         "The last scene: a sunlit beach, Andy working on an old boat, and Red walking towards him. The camera pulls back over the blue Pacific."
-      ]
+      ],
+      "chain": {
+        "happens": "Red finds Andy's letter and joins him in Zihuatanejo.",
+        "shows": "Hope and friendship win.",
+        "leads": "The film ends in freedom, by the open sea."
+      }
     }
   ],
   "modes": {

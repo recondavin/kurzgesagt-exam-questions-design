@@ -32,6 +32,7 @@ for (const id of D.order) {
   ok(t.moments.length >= 10, `${id}: at least 10 key moments`);
   ok(['opening', 'ending'].every(w => t.moments.some(m => m.when === w)), `${id}: key moments from the opening and the ending`);
   ok(t.moments.every(m => m.what && m.why && m.where && m.modes.length), `${id}: every key moment has what, why, where and modes`);
+  ok(t.moments.every(m => m.chain && m.chain.happens && m.chain.shows && m.chain.leads), `${id}: every key moment has its chain (happens, shows, leads to)`);
   ok(t.moments.every(m => Array.isArray(m.tell) && m.tell.length >= 2 && m.tell.length <= 4 && m.tell.every(s => s.length > 5)), `${id}: every key moment is told in 2 to 4 beats`);
   const groups = [...t.modes.theme.themes, ...t.modes.cc.aspects, { name: 'vision', points: t.modes.gvv.points }];
   ok(t.modes.theme.themes.length === 3, `${id}: the three themes`);
@@ -62,6 +63,8 @@ ok(G.chains.every(it => it.steps.length === 5), 'Order the paragraph: five PACE 
 ok(G.chains.every(it => it.steps.every(s => it.why.replace(/<\/?b>/g, '').includes(s.slice(0, 25)))), 'Order the paragraph: the whole paragraph is its steps in order');
 ok(G.spot.every(it => it.weak >= 0 && it.weak < it.lines.length && it.fix && it.why), 'Spot the weak line: a weak line, why, and a better one');
 for (const m of ['theme', 'cc', 'gvv']) ok(['link', 'level', 'chains', 'spot'].every(k => G[k].some(it => it.mode === m)), `every game has ${m} items`);
+
+ok((C.upgrades || []).length >= 25 && C.upgrades.every(u => u.plain && u.exam.length >= 2 && u.eg), 'Say it well: 25+ plain phrases, each with exam versions and an example');
 
 // The glossary: every entry explained, its examples for real texts, and the hard words of every past question covered.
 const GL = D.glossary || [];

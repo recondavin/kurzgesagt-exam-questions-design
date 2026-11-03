@@ -62,7 +62,12 @@
         "A kitchen in rural Kerry, in the 1950s. Not much furniture. Not much money. And two women who can't stand each other.",
         "Nanna, the old grandmother, hides her pipe and mocks Mena for being poor and childless. Mena gives it straight back.",
         "Then Sive walks in from school, and Mena's resentment finds a new target: why is this girl still at her books when she could be earning?"
-      ]
+      ],
+      "chain": {
+        "happens": "Nanna and Mena trade insults in the bare kitchen, and Mena resents Sive still being at school.",
+        "shows": "Poverty has made the house bitter, and a girl is valued only for what she can bring in.",
+        "leads": "Mena wants Sive out of the house, so the match will tempt her."
+      }
     },
     {
       "id": "sive-2",
@@ -81,7 +86,12 @@
         "Enter the matchmaker. Thomasheen Seán Rua has a deal, and he tells it to Mena in secret.",
         "Seán Dóta, an old farmer with land, wants to marry Sive. He'll pay £200. He'll even take Nanna off their hands.",
         "For Mena that means money, and a house with neither Sive nor Nanna in it. She agrees to work on Mike."
-      ]
+      ],
+      "chain": {
+        "happens": "Thomasheen offers £200 if Sive marries the old farmer Seán Dóta.",
+        "shows": "Marriage is a bargain, and a girl is something to be sold.",
+        "leads": "Mena agrees to work on Mike, and the match is set in motion."
+      }
     },
     {
       "id": "sive-3",
@@ -101,7 +111,12 @@
         "At first Mike says no. Angrily. A schoolgirl and an old man? He knows it's wrong.",
         "But then he catches Liam Scuab, the young man who loves Sive, visiting her in secret, and he orders him away.",
         "Old wounds: Mike blames Liam's cousin, Sive's father, for what happened to her mother. And the scene ends with Mike calling for Mena."
-      ]
+      ],
+      "chain": {
+        "happens": "Mike refuses the match at first, then throws Liam out, blaming Liam's family.",
+        "shows": "Mike knows it's wrong, but old grudges and weakness win.",
+        "leads": "Sive loses her protector, and Liam is shut out."
+      }
     },
     {
       "id": "sive-4",
@@ -121,7 +136,12 @@
         "Seán Dóta comes courting. He's bashful, he sings a foolish song, and when he's sent to walk Sive to a neighbour's house, he grabs at her.",
         "Meanwhile Thomasheen sweeps away Mike's doubts. Love? People like them can't afford it.",
         "And he says why: after his father's suicide, poverty cost him his own chance to marry. In this world, money decides who gets to love."
-      ]
+      ],
+      "chain": {
+        "happens": "Seán Dóta courts Sive clumsily and grabs at her; Thomasheen says love is for people who can afford it.",
+        "shows": "Money decides who gets to love, and Sive is prey.",
+        "leads": "Mike's doubts are brushed aside and the match moves closer."
+      }
     },
     {
       "id": "sive-5",
@@ -141,7 +161,12 @@
         "Two travelling men come to the door: Pats Bocock and his son Carthalawn, who sings.",
         "Nanna welcomes them. Mena and Thomasheen give them nothing, and squirm at Carthalawn's mocking songs.",
         "When the travellers tell Nanna about the match and she challenges them, Mena and Thomasheen turn on her: keep quiet, or it's the county home."
-      ]
+      ],
+      "chain": {
+        "happens": "The travellers arrive; Nanna welcomes them, and Mena and Thomasheen bully her.",
+        "shows": "The outsiders see the truth and say it; the weak are silenced.",
+        "leads": "Nanna is threatened with the county home and loses her voice."
+      }
     },
     {
       "id": "sive-6",
@@ -161,7 +186,12 @@
         "Now Mena works on Sive herself, all motherly sweetness: think of everything Seán Dóta can give you.",
         "Sive refuses. So Mena tells her the truth about her birth, cruelly, and that she'll leave school and no longer sleep beside Nanna.",
         "But we also see where Mena's hardness comes from: the poverty and desperation that pushed her into her own marriage."
-      ]
+      ],
+      "chain": {
+        "happens": "Mena tells Sive the truth about her birth and says she'll leave school.",
+        "shows": "Shame is a weapon, and Mena passes on her own hard life.",
+        "leads": "Sive is crushed, and cut off from Nanna and from school."
+      }
     },
     {
       "id": "sive-7",
@@ -180,7 +210,12 @@
         "Liam hears about the match and comes to beg: don't give her to Seán Dóta. He'll even keep away from her himself.",
         "Mike and Mena send him off.",
         "Then Mena lies to Sive. Liam only came to wish her joy, she says. He's gone for good."
-      ]
+      ],
+      "chain": {
+        "happens": "Liam begs them not to give Sive away; Mena lies to Sive that he's gone.",
+        "shows": "Love is powerless against money and lies.",
+        "leads": "Sive believes Liam has left her for good."
+      }
     },
     {
       "id": "sive-8",
@@ -200,7 +235,12 @@
         "Mike is getting ready to see the priest about the wedding, and Nanna begs him to stop it.",
         "Sive's dead mother, she warns, will curse this match.",
         "Mike says it's for the best, but he can't look his mother in the face. So he blames Liam's family instead."
-      ]
+      ],
+      "chain": {
+        "happens": "Nanna begs Mike to stop the match, and he can't look her in the face.",
+        "shows": "Conscience against greed, and Mike is too weak to act.",
+        "leads": "The wedding goes ahead."
+      }
     },
     {
       "id": "sive-9",
@@ -220,7 +260,12 @@
         "The day before the wedding. Pats brings Nanna a letter from Liam: Sive should slip out tonight, and they'll marry in secret.",
         "Mike finds out. Told it's only Liam's farewell, he promises to pass it to Sive unopened.",
         "Thomasheen makes him open it, then burns it. And Mike, uneasy, does nothing. One small silence, and the last way out is gone."
-      ]
+      ],
+      "chain": {
+        "happens": "Thomasheen burns Liam's letter, and Mike does nothing.",
+        "shows": "One small silence destroys the last hope of escape.",
+        "leads": "Sive never learns of Liam's plan."
+      }
     },
     {
       "id": "sive-10",
@@ -239,7 +284,12 @@
         "The eve of the wedding. Sive comes home with clothes bought with Seán Dóta's money and goes to her room, miserable. The men drink.",
         "Then Pats and Carthalawn arrive on a wedding visit, and they haven't come to celebrate.",
         "Pats says men of money like Seán will be the new lords of the land. Carthalawn sings that Seán will soon be travelling by hearse."
-      ]
+      ],
+      "chain": {
+        "happens": "On the wedding eve Pats and Carthalawn mock Seán Dóta in song.",
+        "shows": "The travellers judge the greed of the house and foreshadow death.",
+        "leads": "Sive, alone and miserable, slips out that night."
+      }
     },
     {
       "id": "sive-11",
@@ -259,7 +309,12 @@
         "Mena finds that Sive is gone. Pats admits he saw a girl crossing the bog in the dark.",
         "Then Liam carries her in. Sive has drowned in a bog hole, and the house takes it to be suicide.",
         "Thomasheen and Seán Dóta slip away. Liam turns on Mena."
-      ]
+      ],
+      "chain": {
+        "happens": "Sive drowns in a bog hole, and Liam carries her in.",
+        "shows": "The tragic price of a world that sells its girls.",
+        "leads": "Thomasheen and Seán Dóta slip away, and Liam turns on Mena."
+      }
     },
     {
       "id": "sive-12",
@@ -278,7 +333,12 @@
         "Mike, dazed, thinks first of the priest, and of whether Sive can be buried in holy ground.",
         "The play ends with a song: Carthalawn mourns Sive, and Nanna grieves beside her body.",
         "No one is punished. No one is saved. That's what makes it so bleak."
-      ]
+      ],
+      "chain": {
+        "happens": "Mike thinks of the priest and holy ground; Carthalawn's lament ends the play.",
+        "shows": "Respectability still comes first, and the vision is bleak.",
+        "leads": "No justice and no change: the play ends in grief."
+      }
     }
   ],
   "modes": {

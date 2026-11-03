@@ -63,7 +63,12 @@
         "Bill Furlong's story starts before he was born. His mother was sixteen, unmarried, and working for Mrs Wilson, a Protestant widow.",
         "Her own family wanted nothing more to do with her. Mrs Wilson kept her on.",
         "Bill's father: unknown. He was jeered at school, lost his mother at twelve, and worked his way up to owning the coal yard."
-      ]
+      ],
+      "chain": {
+        "happens": "Bill's mother, unmarried at sixteen, was kept on by Mrs Wilson.",
+        "shows": "One person's kindness can change a life, against a society that shames unmarried mothers.",
+        "leads": "Bill grows up to own the coal yard."
+      }
     },
     {
       "id": "stlt-2",
@@ -82,7 +87,12 @@
         "New Ross, 1985. Raw times. Businesses closing. People emigrating.",
         "On his rounds Bill sees it all: Mick Sinnott's young son gathering sticks on the road, a boy drinking the milk left out for a cat behind the priest's house.",
         "Eileen blames Sinnott's drinking. Bill decides to keep his head down, stay on the right side of people, and see his girls through St Margaret's."
-      ]
+      ],
+      "chain": {
+        "happens": "On his rounds Bill sees the hardship of 1985 and decides to keep his head down.",
+        "shows": "In hard times people protect themselves first.",
+        "leads": "Bill's comfortable silence."
+      }
     },
     {
       "id": "stlt-3",
@@ -101,7 +111,12 @@
         "The town gathers to see the Christmas lights switched on. The nuns speak only to the better-off parents.",
         "At home, the Furlongs bake the Christmas cake and the girls write to Santa.",
         "Bill remembers a lonely boyhood Christmas, longing for the father he never knew. Nearly forty, he wonders what all his hard work is for."
-      ]
+      ],
+      "chain": {
+        "happens": "Christmas at home, and Bill wonders what all his hard work is for.",
+        "shows": "Comfort isn't enough: Bill's unease is growing.",
+        "leads": "He is ready to notice what's happening at the convent."
+      }
     },
     {
       "id": "stlt-4",
@@ -121,7 +136,12 @@
         "A delivery at the convent. Bill wanders into a small chapel, where girls in grey shifts and no shoes are polishing the floor.",
         "One of them, her hair roughly cut, begs him to take her as far as the river. She says she'll drown herself.",
         "He holds out his empty hands. It's not up to him. He says nothing to the nun. But afterwards he keeps thinking of the padlocks, and the high wall topped with broken glass."
-      ]
+      ],
+      "chain": {
+        "happens": "A girl in the convent chapel begs Bill to take her as far as the river.",
+        "shows": "The convent is a prison, and the Church's cruelty is hidden.",
+        "leads": "Bill can't forget the padlocks and the high wall."
+      }
     },
     {
       "id": "stlt-5",
@@ -140,7 +160,12 @@
         "Driving away, troubled, Bill takes a wrong turn in the fog and loses his way.",
         "He asks an old man where the road will take him.",
         "The answer: wherever he wants to go."
-      ]
+      ],
+      "chain": {
+        "happens": "Lost in the fog, an old man tells Bill the road goes wherever he wants.",
+        "shows": "Bill has a choice.",
+        "leads": "He keeps thinking about what to do."
+      }
     },
     {
       "id": "stlt-6",
@@ -159,7 +184,12 @@
         "That night Bill tells Eileen what he saw. Her answer: it's nothing to do with us. The nuns pay their bills, and our girls are well minded.",
         "So Bill asks: where would he and his mother have been if Mrs Wilson had thought that way?",
         "Eileen's reply: Mrs Wilson was rich enough to do as she pleased."
-      ]
+      ],
+      "chain": {
+        "happens": "Eileen says what happens at the convent is none of their business.",
+        "shows": "Fear and self-interest keep the town silent.",
+        "leads": "Bill is left alone with his conscience."
+      }
     },
     {
       "id": "stlt-7",
@@ -178,7 +208,12 @@
       "tell": [
         "An early Sunday delivery. Bill finds a girl in the convent's coal shed, locked in all night. Freezing. Filthy. Frightened.",
         "As they wait at the convent door, she asks him one thing: find out about her baby. Fourteen weeks old, and taken from her."
-      ]
+      ],
+      "chain": {
+        "happens": "Bill finds a girl locked in the coal shed, and she asks about her baby.",
+        "shows": "The cruelty can't be ignored any more.",
+        "leads": "He brings her to the convent door."
+      }
     },
     {
       "id": "stlt-8",
@@ -197,7 +232,12 @@
         "The Mother Superior is all smooth politeness. She brings Bill in for tea and produces the girl, washed and dressed.",
         "The night in the shed? A game of hide and seek. And, by the way, places at the school are scarce. Then an envelope: a Christmas card, and money.",
         "The girl's name is Sarah, like Bill's mother. He leaves without asking about her baby."
-      ]
+      ],
+      "chain": {
+        "happens": "The Mother Superior gives Bill tea, a Christmas card and money.",
+        "shows": "Power buys silence, politely.",
+        "leads": "Bill leaves without asking about the baby, and is ashamed."
+      }
     },
     {
       "id": "stlt-9",
@@ -217,7 +257,12 @@
         "At Mass, when everyone goes up for Communion, Bill stays in his seat.",
         "That evening he visits Ned, the old farmhand at the Wilson house. A woman remarks on how alike they are, and Bill realises that Ned was most likely his father.",
         "Driving home, the shame hits: he left Sarah there, took the money, and never asked about her baby."
-      ]
+      ],
+      "chain": {
+        "happens": "Bill stays in his seat at Communion, and realises Ned was most likely his father.",
+        "shows": "Bill sees his own story in the girls' story.",
+        "leads": "He knows he has to act."
+      }
     },
     {
       "id": "stlt-10",
@@ -236,7 +281,12 @@
         "Christmas Eve. Bill is paying for his men's dinner when Mrs Kehoe asks about him and the Mother Superior.",
         "Be careful, she warns. Remember, your girls are at St Margaret's.",
         "Bill asks her a question: do the nuns only have as much power as people give them?"
-      ]
+      ],
+      "chain": {
+        "happens": "Mrs Kehoe warns Bill that the nuns have a finger in every pie.",
+        "shows": "The Church's power rests on the town's fear.",
+        "leads": "Bill asks whether their power is only what people give them."
+      }
     },
     {
       "id": "stlt-11",
@@ -256,7 +306,12 @@
         "Bill should be going home to get ready for midnight Mass. Instead he walks on, to the convent.",
         "Sarah is locked in the coal shed again. He tells her she's coming home with him.",
         "Not to the priest's house. To his. And he walks her, barefoot, through the town."
-      ]
+      ],
+      "chain": {
+        "happens": "Bill takes Sarah from the coal shed and walks her, barefoot, through the town.",
+        "shows": "Courage: one person doing the right thing.",
+        "leads": "He knows he will pay for it."
+      }
     },
     {
       "id": "stlt-12",
@@ -276,7 +331,12 @@
         "People notice. The barefoot girl isn't his daughter. Some avoid him; some cut their talk short.",
         "But Bill feels happier than he has ever felt, even knowing he'll pay for this.",
         "He thinks of all the small things Mrs Wilson did. Then he walks up to his own door with Sarah, afraid, but hopeful. And the book ends there."
-      ]
+      ],
+      "chain": {
+        "happens": "People look away, but Bill reaches his own door with Sarah, afraid and happy.",
+        "shows": "Small acts of kindness matter: a quietly hopeful ending.",
+        "leads": "We don't see what happens next: the reader must judge."
+      }
     }
   ],
   "modes": {

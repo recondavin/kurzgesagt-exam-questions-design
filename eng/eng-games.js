@@ -1,5 +1,6 @@
 // The English comparative games, in answer-mode.js's practice host (its cards, the examiner, sounds, "Leave the game?").
 //   Whose moment?        A key moment: which of your texts is it from? (from the texts' key moments)
+//   Upgrade it           A plain phrase: pick its exam version.
 //   Picture it           A real picture (a painting, the place, the stage): which key moment does it go with?
 //   Link it              Two sentences about two texts: pick the linking phrase that fits (similar, different, degree).
 //   Build a point        Level up: a Point, then the sentence that anchors it, then the one that compares (traps:
@@ -118,6 +119,36 @@
     K.later(function () { if (after.isConnected) after.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }, 60);
   }
 
+  // ======================================================================== Upgrade it
+  // A plain phrase: pick its exam version (the right one, and three exam phrases that mean something else).
+  function upOpen() {
+    var U = (D.comparative.upgrades || []), list = shuffle(U).slice(0, ROUND);
+    if (list.length < 4) return;
+    G = { kind: 'upgrade', card: host('Upgrade it'), list: list, i: 0, got: 0 };
+    K.gameHud(G.card, list.length, '/' + list.length);
+    K.playing(true);
+    K.mascot('ok', 'Plain words lose marks. Upgrade them.');
+    upShow();
+  }
+  function upShow() {
+    var x = G.list[G.i], U = D.comparative.upgrades, right = x.exam[G.i % x.exam.length];
+    var others = shuffle(U.filter(function (u) { return u !== x; })).slice(0, 3).map(function (u) { return u.exam[0]; });
+    G.opts = shuffle([[right, true]].concat(others.map(function (w) { return [w, false]; })));
+    K.gameSeg(G.card, G.i, 'is-current');
+    body('<div class="eg"><div class="am-run__top"><h3 class="am-run__kind">Upgrade it</h3><span class="am-games__step">' + (G.i + 1) + ' of ' + G.list.length + '</span></div>' +
+      '<p class="eg-q"><s class="eg-plain">' + esc(x.plain) + '</s></p><p class="am-games__ask">Which is the exam way to say it?</p>' +
+      '<div class="eg-opts">' + G.opts.map(function (o, k) { return '<button type="button" class="am-run__opt eg-opt" data-eg-up="' + k + '"><kbd aria-hidden="true">' + (k + 1) + '</kbd><span>' + esc(o[0]) + '</span></button>'; }).join('') + '</div>' +
+      '<div data-eg-after></div></div>');
+    buttons([['more', 'data-am-keep', 'Close']], true);
+  }
+  function upPick(btn) {
+    var x = G.list[G.i], o = G.opts[+btn.getAttribute('data-eg-up')], ok = o[1];
+    G.card.querySelectorAll('[data-eg-up]').forEach(function (b) { b.disabled = true; if (G.opts[+b.getAttribute('data-eg-up')][1]) b.classList.add('am-run__opt--ok'); });
+    if (!ok) btn.classList.add('am-run__opt--no');
+    G.card.querySelector('[data-eg-after]').innerHTML = verdict(ok, esc(x.plain) + ' → ' + x.exam.map(esc).join(', '), x.eg);
+    step(ok);
+  }
+
   // ======================================================================== Link it
   function linkOpen() {
     var list = forMe(GD.link || []).slice(0, ROUND);
@@ -199,6 +230,7 @@
   }
 
   var LIST = [['which', 'Whose moment?', 'A key moment: which text is it from?', function () { return true; }, whichOpen],
+    ['upgrade', 'Upgrade it', 'Plain words in, exam words out.', function () { return (D.comparative.upgrades || []).length >= 8; }, upOpen],
     ['pic', 'Picture it', 'A real picture: which key moment?', function () { return (D.images || []).filter(function (p) { return p.moment; }).length >= 4; }, picOpen],
     ['link', 'Link it', 'Pick the link that fits two texts.', function () { return (GD.link || []).length >= 4; }, linkOpen],
     ['point', 'Build a point', 'Point, anchor, compare: dodge the traps.', function () { return (GD.level || []).length >= 4; }, function () { aiGames('level'); }],
@@ -211,22 +243,23 @@
   document.addEventListener('click', function (e) {
     if (!live() || !G.card.contains(e.target)) return;
     var t;
-    if (e.target.closest('[data-eg-next]')) { G.i += 1; if (G.i >= G.list.length) { finish(); return; } ({ which: whichShow, pic: picShow, link: linkShow, spot: spotShow })[G.kind](); return; }
-    if (e.target.closest('[data-eg-again]')) { ({ which: whichOpen, pic: picOpen, link: linkOpen, spot: spotOpen })[G.kind](); return; }
+    if (e.target.closest('[data-eg-next]')) { G.i += 1; if (G.i >= G.list.length) { finish(); return; } ({ which: whichShow, pic: picShow, upgrade: upShow, link: linkShow, spot: spotShow })[G.kind](); return; }
+    if (e.target.closest('[data-eg-again]')) { ({ which: whichOpen, pic: picOpen, upgrade: upOpen, link: linkOpen, spot: spotOpen })[G.kind](); return; }
     if (G.kind === 'which' && (t = e.target.closest('[data-eg-pick]'))) { whichPick(t); return; }
     if (G.kind === 'pic' && (t = e.target.closest('[data-eg-mom]'))) { picPick(t); return; }
+    if (G.kind === 'upgrade' && (t = e.target.closest('[data-eg-up]'))) { upPick(t); return; }
     if (G.kind === 'link' && (t = e.target.closest('[data-eg-link]'))) { linkPick(t); return; }
     if (G.kind === 'spot' && (t = e.target.closest('[data-eg-line]'))) { spotPick(t); }
   });
   // Keys 1-4 pick an option.
   document.addEventListener('keydown', function (e) {
     if (!live() || e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|TEXTAREA)$/.test(e.target.tagName) || !/^[1-4]$/.test(e.key)) return;
-    var b = G.card.querySelectorAll('[data-eg-pick],[data-eg-mom],[data-eg-link],[data-eg-line]')[e.key - 1];
+    var b = G.card.querySelectorAll('[data-eg-pick],[data-eg-mom],[data-eg-up],[data-eg-link],[data-eg-line]')[e.key - 1];
     if (b && !b.disabled) { e.preventDefault(); b.click(); }
   });
   function finish() {
     var key = 'eng-' + G.kind + '-best', beat = best(key, G.got, G.list.length);
-    end(G.got, G.list.length, beat ? 'A new best.' : { which: 'Key moments are your evidence: know whose they are.', pic: 'Picture the moment and you can write about it.', link: 'Vary your links: similarly, in contrast, to a far greater extent.', spot: 'No plot summary, no single-text paragraphs, no vague lines.' }[G.kind]);
+    end(G.got, G.list.length, beat ? 'A new best.' : { which: 'Key moments are your evidence: know whose they are.', pic: 'Picture the moment and you can write about it.', upgrade: 'Shows becomes highlights. Sad becomes bleak. Every time.', link: 'Vary your links: similarly, in contrast, to a far greater extent.', spot: 'No plot summary, no single-text paragraphs, no vague lines.' }[G.kind]);
   }
   window.EngGames = { list: LIST.filter(function (g) { return g[3](); }).map(function (g) { return g.slice(0, 3); }), open: open };
 })();

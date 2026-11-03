@@ -46,9 +46,9 @@
     var mine = chosen();
     closeDef();
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
-      '<nav class="sh-nav" aria-label="English">' + link('#', 'Comparative', active === 'home') + link('#build', 'Build an essay', active === 'build') +
-      link('#marking', 'How it\'s marked', active === 'marking') + link('#structure', 'Essay and PACE', active === 'structure') +
-      link('#language', 'Language bank', active === 'language') + link('#questions', 'Past questions', active === 'questions') +
+      '<nav class="sh-nav" aria-label="English">' + link('#', 'Comparative', active === 'home') +
+      link('#learn', '1 · Learn the parts', active === 'learn') + link('#structure', '2 · Structure it', active === 'structure') + link('#language', '3 · Say it well', active === 'language') +
+      link('#build', 'Build an essay', active === 'build') + link('#marking', 'How it\'s marked', active === 'marking') + link('#questions', 'Past questions', active === 'questions') +
       (window.EngGames ? '<p class="sh-group">Games</p>' + window.EngGames.list.map(function (g) { return link('#play/' + g[0], g[1], false); }).join('') : '') +
       '<p class="sh-group">Modes</p>' + MODES.map(function (m) { return link('#mode/' + m.id, m.name, active === 'mode/' + m.id, '<span class="sh-n" aria-hidden="true"><span class="eng-tag" style="--c:' + COL[m.id] + '">&nbsp;</span></span>'); }).join('') +
       '<p class="sh-group">Your texts</p>' + mine.map(function (id) { return link('#text/' + id, text(id).title, active === 'text/' + id, '<span class="sh-n" aria-hidden="true"><span class="eng-tag" style="--c:' + COL[id] + '">&nbsp;</span></span>'); }).join('') + '</nav>';
@@ -78,10 +78,11 @@
     renderShell('home');
     var mine = picks();
     var pc = C.marks.criteria;
-    app.innerHTML = title('Comparative Study', '<a class="eng-btn" href="#build">Build an essay</a>') +
+    app.innerHTML = title('Comparative Study') +
       '<h2 class="eng-h2">Your three texts</h2>' +
       '<div class="eng-grid eng-grid--4">' + D.order.map(function (id) { return pickCard(id, mine.indexOf(id) >= 0); }).join('') + '</div>' +
       '<p class="eng-picked" data-eng-picked>' + pickedLine(mine) + '</p>' +
+      '<h2 class="eng-h2">Three steps. That\'s all it is.</h2>' + stepsHome() +
       '<h2 class="eng-h2">The modes for ' + C.year + '</h2>' +
       '<p class="eng-p">All three modes are on the ' + C.year + ' paper. You answer on one.</p>' +
       '<div class="eng-grid eng-grid--3">' + MODES.map(function (m) {
@@ -97,6 +98,55 @@
         return '<a class="eng-card" href="#play/' + g[0] + '"><h3>' + esc(g[1]) + '</h3><p>' + esc(g[2]) + '</p></a>';
       }).join('') + '</div>' : '');
   }
+  // The three steps (the user: "all u need to do is learn parts of it and how it represents what and that leads to
+  // what and then you have to learn how to structure it, and THEN u have to learn to put it into fancy words").
+  var STEPS = [['#learn', 'Learn the parts', 'Every key moment: what happens, what it shows, what it leads to.', 'learn'],
+    ['#structure', 'Structure it', 'Your chain slots into PACE. That\'s a paragraph.', 'structure'],
+    ['#language', 'Say it well', 'Plain words in, exam words out.', 'language']];
+  function stepsHome() {
+    var learnt = learnStore(), mine = chosen(), all = 0, got = 0;
+    mine.forEach(function (t) { text(t).moments.forEach(function (m) { all++; if (learnt[m.id]) got++; }); });
+    return '<div class="eng-steps">' + STEPS.map(function (x, k) {
+      return '<a class="eng-step" href="' + x[0] + '"><b>' + (k + 1) + '</b><h3>' + esc(x[1]) + '</h3><p>' + esc(x[2]) + '</p>' +
+        (k === 0 ? '<span class="eng-step__bar"><i style="width:' + Math.round(100 * got / Math.max(all, 1)) + '%"></i></span><small>' + got + ' of ' + all + ' moments learnt</small>' : '') + '</a>' +
+        (k < 2 ? '<span class="eng-step__arrow" aria-hidden="true">→</span>' : '');
+    }).join('') + '</div>' +
+      '<p class="eng-then"><span>Then put it together:</span><a class="eng-btn" href="#build">Build an essay</a></p>';
+  }
+
+  // ---------- step 1: learn the parts ----------
+  // Each key moment of your texts as a chain: what happens → what it shows → what it leads to. Test me hides the last
+  // two links: tap to see them, then say whether you had it. What you've learnt is kept (eng-learn).
+  var LT = null, LM = 'all', LTEST = false;
+  function learnStore() { try { return JSON.parse(store('eng-learn') || '{}') || {}; } catch (e) { return {}; } }
+  function renderLearn() {
+    renderShell('learn', 'Learn the parts');
+    var mine = chosen();
+    if (mine.indexOf(LT) < 0) LT = mine[0];
+    var t = text(LT), learnt = learnStore();
+    var list = t.moments.filter(function (m) { return LM === 'all' || (m.modes || []).indexOf(LM) >= 0; });
+    var got = t.moments.filter(function (m) { return learnt[m.id]; }).length;
+    app.innerHTML = title('Learn the parts', '<button type="button" class="eng-btn' + (LTEST ? '' : ' eng-btn--quiet') + '" data-eng-ltest aria-pressed="' + LTEST + '">' + (LTEST ? 'Show me everything' : 'Test me') + '</button>') +
+      '<p class="eng-p">Every key moment is a chain: <b>what happens</b>, <b>what it shows</b>, and <b>what it leads to</b>. Learn the chains and you have your paragraphs.</p>' +
+      '<div class="eb-choices">' + mine.map(function (x) { return '<button type="button" class="eng-chip" style="--c:' + COL[x] + '" data-eng-lt="' + x + '" aria-pressed="' + (x === LT) + '">' + esc(text(x).title) + '</button>'; }).join('') + '</div>' +
+      '<div class="eb-choices">' + [['all', 'All moments']].concat(MODES.map(function (m) { return [m.id, m.short || m.name]; })).map(function (x) { return '<button type="button" class="eng-chip" ' + (MODE[x[0]] ? 'style="--c:' + COL[x[0]] + '" ' : '') + 'data-eng-lm="' + x[0] + '" aria-pressed="' + (LM === x[0]) + '">' + esc(x[1]) + '</button>'; }).join('') + '</div>' +
+      '<div class="eng-lprog" style="--c:' + COL[LT] + '"><span><i style="width:' + Math.round(100 * got / t.moments.length) + '%"></i></span><b>' + got + ' of ' + t.moments.length + '</b> learnt in ' + esc(t.title) + '</div>' +
+      '<div class="eng-chains">' + list.map(function (m) { return chainHtml(LT, m, learnt); }).join('') + '</div>';
+  }
+  function chainHtml(tid, m, learnt) {
+    var c = m.chain || { happens: m.what, shows: m.why, leads: '' }, k = momentNo(tid, m.id), pic = scenePics(tid, m.id)[0];
+    var link = function (kind, label, body, hide) {
+      return '<div class="eng-link eng-link--' + kind + (hide ? ' is-hidden' : '') + '"' + (hide ? ' role="button" tabindex="0" data-eng-reveal' : '') + '><span>' + label + '</span><p>' + esc(body) + '</p>' + (hide ? '<em>Tap to see</em>' : '') + '</div>';
+    };
+    return '<article class="eng-chain' + (learnt[m.id] ? ' is-learnt' : '') + '" style="--c:' + COL[tid] + '" data-eng-chain="' + m.id + '">' +
+      '<header>' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '<span class="eng-chain__n">' + (k + 1) + '</span>') +
+        '<div><h3>' + esc(m.title) + '</h3><small>' + esc(m.where) + ' · ' + (m.modes || []).map(function (x) { return '<span class="eng-tag" style="--c:' + COL[x] + '">' + esc(MODE[x] ? MODE[x].short : x) + '</span>'; }).join(' ') + '</small></div>' +
+        (learnt[m.id] ? '<span class="eng-chain__ok">✓ Learnt</span>' : '') + '</header>' +
+      '<div class="eng-chain__row">' + link('h', 'What happens', c.happens, false) + '<i aria-hidden="true">→</i>' + link('s', 'What it shows', c.shows, LTEST) + '<i aria-hidden="true">→</i>' + link('l', 'What it leads to', c.leads, LTEST) + '</div>' +
+      (LTEST ? '<div class="eng-chain__judge"><button type="button" class="eng-btn eng-btn--quiet" data-eng-learn="' + m.id + ':0">Not yet</button><button type="button" class="eng-btn" data-eng-learn="' + m.id + ':1">Got it</button></div>' : '') +
+      '</article>';
+  }
+
   function pickedLine(mine) {
     if (mine.length !== 3) return 'Pick <b>three</b>: ' + (3 - mine.length) + ' more to choose.';
     return '<b>' + mine.map(function (id) { return esc(text(id).title); }).join(', ') + '</b>' +
@@ -142,20 +192,44 @@
 
   // ---------- the essay and PACE ----------
   function renderStructure() {
-    renderShell('structure', 'Essay and PACE');
+    renderShell('structure', 'Structure it');
     var S = C.structure, parts = S.parts;
     var flow = '<div class="eng-flow">' + parts.map(function (p, k) {
       return (k ? '<span class="eng-flow__arrow" aria-hidden="true">→</span>' : '') +
         '<div class="eng-card"><h3>' + esc(p.name) + '</h3><p>' + esc(p.what) + '</p><p class="eng-avoid">' + esc(p.avoid.replace(/^Don't /, 'Don\'t ')) + '</p></div>';
     }).join('') + '</div>';
     var eg = S.pace.map(function (p) { return '<mark class="pace-' + p.k.toLowerCase() + '">' + esc(p.eg) + '</mark>'; }).join(' ');
-    app.innerHTML = title('Essay and PACE', '<a class="eng-btn" href="#build">Build an essay</a>') +
+    app.innerHTML = title('Structure it', '<a class="eng-btn" href="#build">Build an essay</a>') +
+      '<h2 class="eng-h2">Your chain is a paragraph</h2><p class="eng-p">Take a moment from one text and a moment from another. The chains you learnt slot straight into PACE.</p>' + chainPace() +
+      '<h2 class="eng-h2">The whole essay</h2>' +
       '<p class="eng-p">' + esc(S.length) + ' ' + esc(S.time) + '</p>' + flow +
       '<h2 class="eng-h2">Every paragraph: PACE</h2>' +
       '<div class="eng-pace">' + S.pace.map(function (p) {
         return '<div class="eng-pace__t" style="background:' + PACE_COL[p.k] + '"><b>' + p.k + '</b><strong>' + esc(p.name) + '</strong><p>' + esc(p.what) + '</p></div>';
       }).join('') + '</div>' +
       '<h2 class="eng-h2">A PACE paragraph</h2><div class="eng-paper">' + eg + '</div>' + note('Remember it', S.hook);
+  }
+
+  // The chain → PACE: Point is what both moments show, Anchor is what happens in the first, Compare brings in the other
+  // text's moment, Evaluate is what each leads to and which says it more powerfully.
+  var CP = null;
+  function chainPace() {
+    var mine = chosen();
+    if (!CP || mine.indexOf(CP[0]) < 0 || mine.indexOf(CP[2]) < 0 || CP[0] === CP[2]) CP = [mine[0], 0, mine[1], 0];
+    var A = text(CP[0]).moments[CP[1]], B = text(CP[2]).moments[CP[3]], a = A.chain, b = B.chain;
+    var pick = function (slot) {
+      var tid = CP[slot], other = CP[slot === 0 ? 2 : 0];
+      return '<label class="eng-cpick" style="--c:' + COL[tid] + '"><select data-eng-cp="' + slot + '">' + mine.filter(function (x) { return x !== other; }).map(function (x) {
+        return '<optgroup label="' + esc(text(x).title) + '">' + text(x).moments.map(function (m, k) { return '<option value="' + x + ':' + k + '"' + (x === tid && k === CP[slot + 1] ? ' selected' : '') + '>' + esc(m.title) + '</option>'; }).join('') + '</optgroup>';
+      }).join('') + '</select></label>';
+    };
+    var row = function (k, label, from, body) { return '<div class="eng-cp__r"><b style="background:' + PACE_COL[k] + '">' + k + '</b><div><span>' + label + ' <em>' + from + '</em></span><p>' + body + '</p></div></div>'; };
+    var tA = esc(text(CP[0]).title), tB = esc(text(CP[2]).title);
+    return '<div class="eng-cp"><div class="eng-cp__picks">' + pick(0) + '<span>with</span>' + pick(2) + '</div>' +
+      row('P', 'Point', '= what both moments show', '<i>' + tA + ':</i> ' + esc(a.shows) + '<br><i>' + tB + ':</i> ' + esc(b.shows)) +
+      row('A', 'Anchor', '= what happens in ' + tA, esc(a.happens)) +
+      row('C', 'Compare', '= the other text: similarly, or in contrast,', esc(b.happens)) +
+      row('E', 'Evaluate', '= what each leads to, and which says it more powerfully', '<i>' + tA + ':</i> ' + esc(a.leads) + '<br><i>' + tB + ':</i> ' + esc(b.leads)) + '</div>';
   }
 
   // ---------- a mode: the three texts side by side ----------
@@ -286,8 +360,14 @@
 
   // ---------- language bank ----------
   function renderLanguage() {
-    renderShell('language', 'Language bank');
-    app.innerHTML = title('Language bank') + '<p class="eng-p">Tap a phrase to copy it.</p>' +
+    renderShell('language', 'Say it well');
+    app.innerHTML = title('Say it well', window.EngGames ? '<a class="eng-btn" href="#play/upgrade">Play Upgrade it</a>' : '') +
+      '<h2 class="eng-h2">Plain words in, exam words out</h2><p class="eng-p">Tap a card to upgrade it.</p>' +
+      '<div class="eng-ups">' + (C.upgrades || []).map(function (u, k) {
+        return '<button type="button" class="eng-up" data-eng-up="' + k + '"><span class="eng-up__in"><span class="eng-up__f"><s>' + esc(u.plain) + '</s><small>Tap to upgrade</small></span>' +
+          '<span class="eng-up__b"><small>' + esc(u.plain) + ' →</small>' + u.exam.map(function (w) { return '<b>' + esc(w) + '</b>'; }).join('') + '<em>' + esc(u.eg) + '</em></span></span></button>';
+      }).join('') + '</div>' +
+      '<h2 class="eng-h2">The language bank</h2><p class="eng-p">Tap a phrase to copy it.</p>' +
       '<div class="eng-grid eng-grid--2">' + C.language.map(function (g) {
         return '<div class="eng-card"><h3>' + esc(g.name) + '</h3><ul class="eng-words">' + g.items.map(chip).join('') + '</ul></div>';
       }).join('') + MODES.map(function (m) {
@@ -606,7 +686,8 @@
           '<button type="button" class="eng-btn ebd-wide ebd-surprise" data-eb-surprise>Surprise me</button>' + picker +
           (e.q ? '<button type="button" class="eng-btn eng-btn--quiet ebd-wide" data-eb-slips>Keep this question</button>' : '');
       } else {
-        out = '<div class="ebd-qhead"><span>' + esc(MODE[e.mode].name) + ' · ' + (split() ? '30 + 40' : '70') + ' marks</span><button type="button" class="ebd-link" data-eb-slips>Change question</button></div>' + crackHtml() + stanceHtml();
+        out = '<div class="ebd-qhead"><span>' + esc(MODE[e.mode].name) + ' · ' + (split() ? '30 + 40' : '70') + ' marks</span><button type="button" class="ebd-link" data-eb-slips>Change question</button></div>' + crackHtml() + stanceHtml() +
+          '<button type="button" class="ebd-link ebd-skip" data-eb-go="1">Skip this, go to planning →</button>';
       }
         } else if (cur === 'plan') {
       var opts = aspectOptions(e.mode);
@@ -899,6 +980,27 @@
       if (bt) { beatOn(bt); bt.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
       return;
     }
+    var lt = t.closest('[data-eng-lt]');
+    if (lt) { LT = lt.getAttribute('data-eng-lt'); renderLearn(); return; }
+    var lm = t.closest('[data-eng-lm]');
+    if (lm) { LM = lm.getAttribute('data-eng-lm'); renderLearn(); return; }
+    if (t.closest('[data-eng-ltest]')) { LTEST = !LTEST; renderLearn(); return; }
+    var rv = t.closest('[data-eng-reveal]');
+    if (rv) { rv.classList.remove('is-hidden'); rv.removeAttribute('data-eng-reveal'); rv.removeAttribute('role'); if (K) K.sfx('pop', 0.3); return; }
+    var lr = t.closest('[data-eng-learn]');
+    if (lr) {
+      var lv = lr.getAttribute('data-eng-learn').split(':'), ls = learnStore();
+      if (lv[1] === '1') ls[lv[0]] = 1; else delete ls[lv[0]];
+      store('eng-learn', JSON.stringify(ls));
+      if (K) { if (lv[1] === '1') K.sfx('stamp', 0.35); else K.sfx('tick', 0.3); }
+      var card = lr.closest('[data-eng-chain]'), m0 = text(LT).moments.filter(function (m) { return m.id === lv[0]; })[0];
+      if (card && m0) { card.outerHTML = chainHtml(LT, m0, ls); }
+      var pr = app.querySelector('.eng-lprog');
+      if (pr) { var g = text(LT).moments.filter(function (m) { return ls[m.id]; }).length; pr.querySelector('i').style.width = Math.round(100 * g / text(LT).moments.length) + '%'; pr.querySelector('b').textContent = g + ' of ' + text(LT).moments.length; }
+      return;
+    }
+    var up = t.closest('[data-eng-up]');
+    if (up) { up.classList.toggle('is-up'); if (K && up.classList.contains('is-up')) K.sfx('pop', 0.3); return; }
     var cp = t.closest('[data-eng-copy]');
     if (cp) { copy(cp.getAttribute('data-eng-copy'), cp); return; }
     var qf = t.closest('[data-eng-qf]');
@@ -950,6 +1052,16 @@
     if (t.closest('[data-eb-copyall]')) { copy(essayParts().join('\n\n')); return; }
     if (t.closest('[data-eb-new]')) { if (window.confirm('Start a new answer? This one will be cleared.')) { E = null; store('eng-essay', 'null'); drawBuild(); } return; }
   });
+  document.addEventListener('change', function (ev) {
+    var sl = ev.target.getAttribute && ev.target.getAttribute('data-eng-cp');
+    if (sl == null) return;
+    var v = ev.target.value.split(':'); CP[+sl] = v[0]; CP[+sl + 1] = +v[1];
+    var box = app.querySelector('.eng-cp'); if (box) box.outerHTML = chainPace();
+  });
+  document.addEventListener('keydown', function (ev) {
+    var rv = ev.target.closest && ev.target.closest('[data-eng-reveal]');
+    if (rv && (ev.key === 'Enter' || ev.key === ' ')) { ev.preventDefault(); rv.click(); }
+  });
   document.addEventListener('input', function (ev) {
     var key = ev.target.getAttribute && ev.target.getAttribute('data-eb');
     if (!key) return;
@@ -985,6 +1097,7 @@
     if (p[0] === 'play' && window.EngGames) { window.EngGames.open(p[1]); history.replaceState(null, '', '#'); renderHome(); return; }
     if (p[0] === 'marking') renderMarking();
     else if (p[0] === 'structure') renderStructure();
+    else if (p[0] === 'learn') renderLearn();
     else if (p[0] === 'mode') renderMode(p[1]);
     else if (p[0] === 'text') renderText(p[1], p[2]);
     else if (p[0] === 'language') renderLanguage();
