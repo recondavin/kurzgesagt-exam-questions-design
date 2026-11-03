@@ -135,7 +135,7 @@
     var t = text(LT), learnt = learnStore();
     var list = t.moments.filter(function (m) { return LM === 'all' || (m.modes || []).indexOf(LM) >= 0; });
     var got = t.moments.filter(function (m) { return learnt[m.id]; }).length;
-    app.innerHTML = title('Learn the parts', '<span class="eng-btns"><a class="eng-btn" href="eng-golf.html?story=' + LT + '">Mini Golf: ' + esc(text(LT).title) + '</a><a class="eng-btn" href="eng-pool.html?story=' + LT + '">Pool</a><button type="button" class="eng-btn eng-btn--quiet" data-eng-ltest aria-pressed="' + LTEST + '">' + (LTEST ? 'Show me everything' : 'Test me') + '</button></span>') +
+    app.innerHTML = title('Learn the parts', '<span class="eng-btns"><a class="eng-btn eng-btn--quiet" href="#text/' + LT + '/cast">Who\'s who</a><a class="eng-btn" href="eng-golf.html?story=' + LT + '">Mini Golf: ' + esc(text(LT).title) + '</a><a class="eng-btn" href="eng-pool.html?story=' + LT + '">Pool</a><button type="button" class="eng-btn eng-btn--quiet" data-eng-ltest aria-pressed="' + LTEST + '">' + (LTEST ? 'Show me everything' : 'Test me') + '</button></span>') +
       '<p class="eng-p">Every key moment is a chain: <b>what happens</b>, <b>what it shows</b>, and <b>what it leads to</b>. Learn the chains and you have your paragraphs.</p>' +
       '<div class="eb-choices">' + mine.map(function (x) { return '<button type="button" class="eng-chip" style="--c:' + COL[x] + '" data-eng-lt="' + x + '" aria-pressed="' + (x === LT) + '">' + esc(text(x).title) + '</button>'; }).join('') + '</div>' +
       '<div class="eb-choices">' + [['all', 'All moments']].concat(MODES.map(function (m) { return [m.id, m.short || m.name]; })).map(function (x) { return '<button type="button" class="eng-chip" ' + (MODE[x[0]] ? 'style="--c:' + COL[x[0]] + '" ' : '') + 'data-eng-lm="' + x[0] + '" aria-pressed="' + (LM === x[0]) + '">' + esc(x[1]) + '</button>'; }).join('') + '</div>' +
@@ -294,11 +294,45 @@
         '<p class="eng-p">' + esc(t.gist) + '</p><p class="eng-p"><b>Setting:</b> ' + esc(t.setting) + '</p>' +
         '<p class="eng-btns"><a class="eng-btn" href="eng-golf.html?story=' + id + '">Play the story: Mini Golf</a><a class="eng-btn eng-btn--quiet" href="eng-pool.html?story=' + id + '">Pool</a></p></div>' +
         (hero ? '<figure><img src="assets/eng/img/' + esc(hero.file) + '" alt="' + esc(hero.title) + '"><figcaption>' + credit(hero) + '</figcaption></figure>' : '') + '</div>' +
-      '<h2 class="eng-h2">Characters</h2><ul class="eng-people">' + t.people.map(function (c) { return '<li><b>' + esc(c.name) + '</b> ' + esc(c.who) + '</li>'; }).join('') + '</ul>' +
+      castHtml(t) +
       '<h2 class="eng-h2">The story in ' + t.moments.length + ' key moments</h2>' +
       t.moments.map(function (m, k) { return sceneHtml(t, m, k); }).join('');
     watchScenes();
     if (moment) { var el = document.getElementById(moment); if (el) el.scrollIntoView({ block: 'start' }); }
+  }
+
+  // ---------- who's who (the user: "i lowk dont know who the characters are") ----------
+  // Each text's people in their groups (the Glavin house, the match...), each with a face where a picture surely shows
+  // them (else their initials), who they are to the others, what they want, what happens to them in the end, and the
+  // key moments they're in (found by name in the moments).
+  var GROUP_COL = ['#FFD43B', '#6BC5F8', '#C792EA', '#FF9F6B', '#8FD3B8'];
+  var FIND = { 'Seán Dóta': 'Seán Dóta', "Ellis 'Red' Redding": 'Red', 'The Duke of Venice': 'Duke', 'The Mother Superior': 'Mother Superior', 'The Furlong daughters': 'daughters|girls', "Sarah (Bill's mother)": "Bill's mother|his mother", 'Sarah Redmond': 'Sarah' };
+  function findOf(c) {
+    if (FIND[c.name]) return FIND[c.name];
+    var w = c.name.replace(/\s*\(.*\)/, '').split(' ');
+    return /^(The|Mrs|Warden|Captain)$/.test(w[0]) ? w[w.length - 1] : w[0];
+  }
+  function inMoments(t, c) {
+    var re = new RegExp('(^|[^A-Za-zÀ-ÿ])(' + findOf(c) + ')(?![A-Za-zÀ-ÿ])');
+    return t.moments.filter(function (m) { return re.test(m.title + ' ' + m.what + ' ' + (m.chain ? m.chain.happens : '')); });
+  }
+  function faceHtml(c, size) {
+    var f = c.face;
+    if (!f) return '<span class="eng-face eng-face--init" style="width:' + size + 'px;height:' + size + 'px">' + esc(c.name.replace(/^(The|Mrs|Warden|Captain) /, '').replace(/[^A-Za-zÀ-ÿ ]/g, '').split(' ').filter(Boolean).slice(0, 2).map(function (w) { return w.charAt(0); }).join('')) + '</span>';
+    return '<span class="eng-face" style="width:' + size + 'px;height:' + size + 'px"><img src="assets/eng/img/' + esc(f.file) + '" alt="" loading="lazy" style="width:' + (f.zoom * 100) + '%;left:' + ((0.5 - f.x * f.zoom) * 100) + '%;top:' + ((0.5 - f.y * f.zoom * f.ar) * 100) + '%"></span>';
+  }
+  function groupsOf(t) { var g = []; t.people.forEach(function (c) { if (c.group && g.indexOf(c.group) < 0) g.push(c.group); }); return g; }
+  function castHtml(t) {
+    var groups = groupsOf(t);
+    return '<section class="eng-cast" id="cast"><div class="eng-cast__top"><h2 class="eng-h2">Who\'s who</h2>' + (window.EngGames ? '<a class="eng-btn eng-btn--quiet" href="#play/cast">Play Who\'s who?</a>' : '') + '</div>' +
+      '<div class="eng-cast__groups">' + groups.map(function (g, gi) {
+        return '<div class="eng-cast__g" style="--g:' + GROUP_COL[gi % GROUP_COL.length] + '"><h3>' + esc(g) + '</h3>' + t.people.filter(function (c) { return c.group === g; }).map(function (c) {
+          var ms = inMoments(t, c);
+          return '<article class="eng-who">' + faceHtml(c, 64) + '<div><h4>' + esc(c.name) + '</h4><span class="eng-who__tag">' + esc(c.tag) + '</span><p>' + esc(c.who) + '</p>' +
+            '<dl><dt>Wants</dt><dd>' + esc(c.wants) + '</dd><dt>In the end</dt><dd>' + esc(c.end) + '</dd></dl>' +
+            (ms.length ? '<p class="eng-who__in"><span>In</span>' + ms.map(function (m) { return '<a href="#text/' + t.id + '/' + m.id + '" title="' + esc(m.title) + '">' + (momentNo(t.id, m.id) + 1) + '</a>'; }).join('') + '</p>' : '') + '</div></article>';
+        }).join('') + '</div>';
+      }).join('') + '</div></section>';
   }
 
   // ---------- the story, told scene by scene ----------
@@ -1201,6 +1235,6 @@
     if (!p[2]) window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', route);
-  window.EngApp = { chosen: chosen, text: text, data: D, colour: COL };
+  window.EngApp = { chosen: chosen, text: text, data: D, colour: COL, inMoments: inMoments, faceHtml: faceHtml };
   route();
 })();

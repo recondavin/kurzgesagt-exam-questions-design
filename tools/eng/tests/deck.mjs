@@ -31,7 +31,10 @@ for (const t of ['sive', 'othello', 'shawshank', 'stlt']) {
   vm.runInContext(fs.readFileSync(new URL('eng/eng-deck.js', root), 'utf8'), box);
   const B = box.BoardDeck, items = B.items(), ms = box.EngData.texts[t].moments.map(m => m.id);
   ok(B.story === t && B.holes.length === 5 && B.chapters.every(c => B.names[c]), `${t} story: five named holes`);
-  const seen = items.map(it => it.qid.split(':')[0]), order = B.chapters.map(c => items.filter(it => it.ch === c).map(it => ms.indexOf(it.qid.split(':')[0])));
+  const story = items.filter(it => !/^(who|wants):/.test(it.qid));
+  const seen = story.map(it => it.qid.split(':')[0]), order = B.chapters.map(c => story.filter(it => it.ch === c).map(it => ms.indexOf(it.qid.split(':')[0])));
+  const people = box.EngData.texts[t].people.filter(p => p.tag).map(p => p.name), asked = new Set(items.filter(it => /^who:/.test(it.qid)).map(it => it.qid.slice(4)));
+  ok(people.filter(n => asked.has(n)).length >= people.length - 2, `${t} story: who's who questions on the people as they turn up (${asked.size} of ${people.length})`);
   ok(ms.every(id => seen.includes(id)), `${t} story: every key moment is asked about`);
   ok(order.every(o => o.length >= 10) && order.every((o, i) => !i || Math.min(...o) > Math.max(...order[i - 1])), `${t} story: 10+ questions a hole, the holes in story order`);
   items.forEach(it => ok(it.c.wrong.length === 3 && new Set(it.c.wrong).size === 3 && !it.c.wrong.includes(it.c.right), `${t} story: ${it.qid}: three different wrong answers`));

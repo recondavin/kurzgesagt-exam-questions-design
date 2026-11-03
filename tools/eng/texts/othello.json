@@ -9,43 +9,104 @@
   "people": [
     {
       "name": "Othello",
-      "who": "A celebrated general, a Black African ('the Moor'), who serves the Venetian state and secretly marries Desdemona."
+      "who": "A celebrated general, a Black African ('the Moor'), who serves the Venetian state and secretly marries Desdemona.",
+      "group": "The couple",
+      "tag": "The general, \"the Moor\"",
+      "wants": "Desdemona's love, and his honour as a soldier.",
+      "end": "He kills Desdemona, then himself.",
+      "face": {
+        "file": "othello-f-iago.jpg",
+        "x": 0.32,
+        "y": 0.52,
+        "zoom": 3,
+        "ar": 0.5625
+      }
     },
     {
       "name": "Desdemona",
-      "who": "Brabantio's daughter, who marries Othello without her father's consent and stays loyal to him even as he kills her."
+      "who": "Brabantio's daughter, who marries Othello without her father's consent and stays loyal to him even as he kills her.",
+      "group": "The couple",
+      "tag": "Othello's wife",
+      "wants": "To be with Othello; she stays loyal to him.",
+      "end": "Othello smothers her; she dies protecting him.",
+      "face": {
+        "file": "othello-f-desdemona.jpg",
+        "x": 0.42,
+        "y": 0.3,
+        "zoom": 3,
+        "ar": 0.5625
+      }
     },
     {
       "name": "Iago",
-      "who": "Othello's ensign ('ancient'), passed over for promotion, who is trusted as 'honest Iago' while he plots to destroy Othello."
+      "who": "Othello's ensign ('ancient'), passed over for promotion, who is trusted as 'honest Iago' while he plots to destroy Othello.",
+      "group": "The plotter",
+      "tag": "Othello's ensign",
+      "wants": "Revenge on Othello for promoting Cassio.",
+      "end": "Exposed and arrested, he refuses to explain.",
+      "face": {
+        "file": "othello-f-iago.jpg",
+        "x": 0.71,
+        "y": 0.47,
+        "zoom": 2.6,
+        "ar": 0.5625
+      }
     },
     {
       "name": "Cassio",
-      "who": "Othello's young lieutenant, a Florentine gentleman whom Iago resents and frames as Desdemona's lover."
+      "who": "Othello's young lieutenant, a Florentine gentleman whom Iago resents and frames as Desdemona's lover.",
+      "group": "Iago's pawns",
+      "tag": "Othello's lieutenant",
+      "wants": "To win back his place.",
+      "end": "He is left in charge of Cyprus."
     },
     {
       "name": "Emilia",
-      "who": "Iago's wife and Desdemona's attendant, who finally exposes her husband and is killed by him."
+      "who": "Iago's wife and Desdemona's attendant, who finally exposes her husband and is killed by him.",
+      "group": "The plotter",
+      "tag": "Iago's wife, Desdemona's attendant",
+      "wants": "To serve Desdemona, and to please Iago.",
+      "end": "She exposes Iago, and he kills her."
     },
     {
       "name": "Roderigo",
-      "who": "A rich, foolish Venetian who wants Desdemona and is used and cheated by Iago."
+      "who": "A rich, foolish Venetian who wants Desdemona and is used and cheated by Iago.",
+      "group": "Iago's pawns",
+      "tag": "A rich, foolish Venetian",
+      "wants": "Desdemona.",
+      "end": "Iago kills him."
     },
     {
       "name": "Brabantio",
-      "who": "A Venetian senator, Desdemona's father, who accuses Othello of winning her by witchcraft."
+      "who": "A Venetian senator, Desdemona's father, who accuses Othello of winning her by witchcraft.",
+      "group": "Venice",
+      "tag": "Desdemona's father",
+      "wants": "His daughter back.",
+      "end": "He dies of grief (we hear at the end)."
     },
     {
       "name": "Bianca",
-      "who": "A courtesan in Cyprus who is in love with Cassio."
+      "who": "A courtesan in Cyprus who is in love with Cassio.",
+      "group": "Iago's pawns",
+      "tag": "Cassio's lover in Cyprus",
+      "wants": "Cassio's love.",
+      "end": "Iago tries to blame her when Cassio is wounded."
     },
     {
       "name": "Lodovico",
-      "who": "A Venetian nobleman, Brabantio's kinsman, who brings orders from Venice and takes charge at the end."
+      "who": "A Venetian nobleman, Brabantio's kinsman, who brings orders from Venice and takes charge at the end.",
+      "group": "Venice",
+      "tag": "Brabantio's kinsman",
+      "wants": "To carry out Venice's orders.",
+      "end": "He takes charge at the end."
     },
     {
       "name": "The Duke of Venice",
-      "who": "Head of the Venetian state, who hears Brabantio's complaint and sends Othello to defend Cyprus."
+      "who": "Head of the Venetian state, who hears Brabantio's complaint and sends Othello to defend Cyprus.",
+      "group": "Venice",
+      "tag": "The ruler of Venice",
+      "wants": "Othello to defend Cyprus.",
+      "end": "He accepts the marriage."
     }
   ],
   "moments": [

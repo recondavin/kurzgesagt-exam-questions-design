@@ -32,6 +32,8 @@ for (const id of D.order) {
   ok(t.moments.length >= 10, `${id}: at least 10 key moments`);
   ok(['opening', 'ending'].every(w => t.moments.some(m => m.when === w)), `${id}: key moments from the opening and the ending`);
   ok(t.moments.every(m => m.what && m.why && m.where && m.modes.length), `${id}: every key moment has what, why, where and modes`);
+  ok(t.people.every(p => p.group && p.tag && p.wants && p.end && p.who) && new Set(t.people.map(p => p.tag)).size === t.people.length, `${id}: every character has a group, a role (all different), what they want and how they end`);
+  ok(t.people.every(p => !p.face || (p.face.file && p.face.x >= 0 && p.face.x <= 1 && p.face.y >= 0 && p.face.y <= 1 && p.face.zoom >= 1 && p.face.ar > 0 && fs.existsSync(new URL('../../../assets/eng/img/' + p.face.file, import.meta.url)))), `${id}: every face crop is on a picture that exists`);
   ok(t.moments.every(m => m.chain && m.chain.happens && m.chain.shows && m.chain.leads), `${id}: every key moment has its chain (happens, shows, leads to)`);
   ok(t.moments.every(m => Array.isArray(m.tell) && m.tell.length >= 2 && m.tell.length <= 4 && m.tell.every(s => s.length > 5)), `${id}: every key moment is told in 2 to 4 beats`);
   const groups = [...t.modes.theme.themes, ...t.modes.cc.aspects, { name: 'vision', points: t.modes.gvv.points }];

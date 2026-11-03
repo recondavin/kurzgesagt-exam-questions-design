@@ -1,4 +1,5 @@
 // The English comparative games, in answer-mode.js's practice host (its cards, the examiner, sounds, "Leave the game?").
+//   Who's who?           A character's description: who is it? Or a name: who are they?
 //   Whose moment?        A key moment: which of your texts is it from? (from the texts' key moments)
 //   Penalty shootout     Five kicks each against the examiner; the chains of your key moments are the questions.
 //   Upgrade it           A plain phrase: pick its exam version.
@@ -139,6 +140,46 @@
     } });
   }
 
+  // ======================================================================== Who's who?
+  // Your texts' people: a description (who they are to the others, what they want), pick the name; or a name, pick who
+  // they are. The other people of the same text are the wrong answers. The face shows once you've answered.
+  function castOpen() {
+    var list = [];
+    mine().forEach(function (t) { (D.texts[t].people || []).forEach(function (c) { if (c.tag) list.push({ t: t, c: c }); }); });
+    list = shuffle(list).slice(0, ROUND);
+    if (list.length < 4) return;
+    G = { kind: 'cast', card: host('Who\'s who?'), list: list, i: 0, got: 0 };
+    K.gameHud(G.card, list.length, '/' + list.length);
+    K.playing(true);
+    K.mascot('ok', 'Who\'s who. You should know these people by now.');
+    castShow();
+  }
+  function castShow() {
+    var x = G.list[G.i], ppl = D.texts[x.t].people.filter(function (c) { return c.tag && c !== x.c; }), byName = G.i % 2 === 0;
+    var others = shuffle(ppl).slice(0, 3);
+    G.opts = shuffle([x.c].concat(others));
+    G.byName = byName;
+    K.gameSeg(G.card, G.i, 'is-current');
+    var face = window.EngApp ? window.EngApp.faceHtml(x.c, 72) : '';
+    // The description never gives the name away ("honest Iago").
+    var hide = function (str) { x.c.name.replace(/[()']/g, ' ').split(' ').filter(function (w) { return w.length > 2 && !/^(The|Mrs|of)$/.test(w); }).forEach(function (w) { str = str.replace(new RegExp(w, 'g'), '___'); }); return str; };
+    body('<div class="eg"><div class="am-run__top"><h3 class="am-run__kind">Who\'s who?</h3><span class="am-games__step">' + (G.i + 1) + ' of ' + G.list.length + '</span></div>' +
+      '<p class="am-games__ask"><span class="eng-tag" style="--c:' + col(x.t) + '">' + esc(title(x.t)) + '</span></p>' +
+      (byName ? '<div class="eg-cast"><span data-eg-face style="visibility:hidden">' + face + '</span><p>' + esc(hide(x.c.tag + '. ' + x.c.who)) + '<small>Wants: ' + esc(hide(x.c.wants)) + '</small></p></div><p class="am-games__ask">Who is it?</p>'
+        : '<div class="eg-cast">' + face + '<p>' + esc(x.c.name) + '<small>Who are they?</small></p></div>') +
+      '<div class="eg-opts">' + G.opts.map(function (c, k) { return '<button type="button" class="am-run__opt eg-opt" style="--c:' + col(x.t) + '" data-eg-cast="' + k + '"><kbd aria-hidden="true">' + (k + 1) + '</kbd><span>' + esc(byName ? c.name : c.tag + ': ' + c.who) + '</span></button>'; }).join('') + '</div>' +
+      '<div data-eg-after></div></div>');
+    buttons([['more', 'data-am-keep', 'Close']], true);
+  }
+  function castPick(btn) {
+    var x = G.list[G.i], c = G.opts[+btn.getAttribute('data-eg-cast')], ok = c === x.c;
+    G.card.querySelectorAll('[data-eg-cast]').forEach(function (b) { b.disabled = true; if (G.opts[+b.getAttribute('data-eg-cast')] === x.c) b.classList.add('am-run__opt--ok'); });
+    if (!ok) btn.classList.add('am-run__opt--no');
+    var f = G.card.querySelector('[data-eg-face]'); if (f) f.style.visibility = '';
+    G.card.querySelector('[data-eg-after]').innerHTML = verdict(ok, esc(x.c.name) + ' <small>(' + esc(x.c.tag) + ')</small>', 'In the end: ' + x.c.end);
+    step(ok);
+  }
+
   // ======================================================================== Upgrade it
   // A plain phrase: pick its exam version (the right one, and three exam phrases that mean something else).
   function upOpen() {
@@ -249,7 +290,8 @@
     AM.practice('eng', kind, function () { G = null; });
   }
 
-  var LIST = [['which', 'Whose moment?', 'A key moment: which text is it from?', function () { return true; }, whichOpen],
+  var LIST = [['cast', 'Who\'s who?', 'Learn the characters of your texts.', function () { return true; }, castOpen],
+    ['which', 'Whose moment?', 'A key moment: which text is it from?', function () { return true; }, whichOpen],
     // Penalty shootout: off for now (the user: "scrap penalty shootout for now please"); english.html doesn't load
     // eng/eng-penalty.js, so this stays hidden. Load it again to bring it back.
     // Biology's Mini Golf and Pool with English questions (eng-golf.html, eng-pool.html, eng/eng-deck.js).
@@ -269,9 +311,10 @@
   document.addEventListener('click', function (e) {
     if (!live() || !G.card.contains(e.target)) return;
     var t;
-    if (e.target.closest('[data-eg-next]')) { G.i += 1; if (G.i >= G.list.length) { finish(); return; } ({ which: whichShow, pic: picShow, upgrade: upShow, link: linkShow, spot: spotShow })[G.kind](); return; }
-    if (e.target.closest('[data-eg-again]')) { ({ which: whichOpen, pic: picOpen, upgrade: upOpen, link: linkOpen, spot: spotOpen })[G.kind](); return; }
+    if (e.target.closest('[data-eg-next]')) { G.i += 1; if (G.i >= G.list.length) { finish(); return; } ({ cast: castShow, which: whichShow, pic: picShow, upgrade: upShow, link: linkShow, spot: spotShow })[G.kind](); return; }
+    if (e.target.closest('[data-eg-again]')) { ({ cast: castOpen, which: whichOpen, pic: picOpen, upgrade: upOpen, link: linkOpen, spot: spotOpen })[G.kind](); return; }
     if (G.kind === 'which' && (t = e.target.closest('[data-eg-pick]'))) { whichPick(t); return; }
+    if (G.kind === 'cast' && (t = e.target.closest('[data-eg-cast]'))) { castPick(t); return; }
     if (G.kind === 'pic' && (t = e.target.closest('[data-eg-mom]'))) { picPick(t); return; }
     if (G.kind === 'upgrade' && (t = e.target.closest('[data-eg-up]'))) { upPick(t); return; }
     if (G.kind === 'link' && (t = e.target.closest('[data-eg-link]'))) { linkPick(t); return; }
@@ -280,12 +323,12 @@
   // Keys 1-4 pick an option.
   document.addEventListener('keydown', function (e) {
     if (!live() || e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|TEXTAREA)$/.test(e.target.tagName) || !/^[1-4]$/.test(e.key)) return;
-    var b = G.card.querySelectorAll('[data-eg-pick],[data-eg-mom],[data-eg-up],[data-eg-link],[data-eg-line]')[e.key - 1];
+    var b = G.card.querySelectorAll('[data-eg-cast],[data-eg-pick],[data-eg-mom],[data-eg-up],[data-eg-link],[data-eg-line]')[e.key - 1];
     if (b && !b.disabled) { e.preventDefault(); b.click(); }
   });
   function finish() {
     var key = 'eng-' + G.kind + '-best', beat = best(key, G.got, G.list.length);
-    end(G.got, G.list.length, beat ? 'A new best.' : { which: 'Key moments are your evidence: know whose they are.', pic: 'Picture the moment and you can write about it.', upgrade: 'Shows becomes highlights. Sad becomes bleak. Every time.', link: 'Vary your links: similarly, in contrast, to a far greater extent.', spot: 'No plot summary, no single-text paragraphs, no vague lines.' }[G.kind]);
+    end(G.got, G.list.length, beat ? 'A new best.' : { cast: 'Know who wants what, and you know the story.', which: 'Key moments are your evidence: know whose they are.', pic: 'Picture the moment and you can write about it.', upgrade: 'Shows becomes highlights. Sad becomes bleak. Every time.', link: 'Vary your links: similarly, in contrast, to a far greater extent.', spot: 'No plot summary, no single-text paragraphs, no vague lines.' }[G.kind]);
   }
   window.EngGames = { list: LIST.filter(function (g) { return g[3](); }).map(function (g) { return g.slice(0, 3); }), open: open };
 })();

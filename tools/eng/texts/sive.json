@@ -9,39 +9,89 @@
   "people": [
     {
       "name": "Sive",
-      "who": "A gentle schoolgirl born outside marriage; her mother, Mike's sister, is dead, and she loves Liam Scuab."
+      "who": "A gentle schoolgirl born outside marriage; her mother, Mike's sister, is dead, and she loves Liam Scuab.",
+      "group": "The Glavin house",
+      "tag": "The girl",
+      "wants": "To stay at school and to be with Liam.",
+      "end": "She drowns in a bog hole on the night before the wedding.",
+      "face": {
+        "file": "sive-s-nanna.jpg",
+        "x": 0.5,
+        "y": 0.45,
+        "zoom": 4.5,
+        "ar": 0.6672
+      }
     },
     {
       "name": "Mena Glavin",
-      "who": "Mike's hard, bitter and childless wife, shaped by a poor upbringing; she drives the match for the money."
+      "who": "Mike's hard, bitter and childless wife, shaped by a poor upbringing; she drives the match for the money.",
+      "group": "The Glavin house",
+      "tag": "Mike's wife",
+      "wants": "The £200, and Sive and Nanna out of her house.",
+      "end": "Liam turns on her over Sive's body."
     },
     {
       "name": "Mike Glavin",
-      "who": "Sive's uncle, a small farmer who knows the match is wrong but is too weak to stop it."
+      "who": "Sive's uncle, a small farmer who knows the match is wrong but is too weak to stop it.",
+      "group": "The Glavin house",
+      "tag": "Sive's uncle",
+      "wants": "Peace in the house, and the money; he knows the match is wrong.",
+      "end": "Left dazed, thinking of the priest and holy ground."
     },
     {
       "name": "Nanna Glavin",
-      "who": "Mike's mother and Sive's grandmother; sharp-tongued and pipe-smoking, she is Sive's only defender in the house."
+      "who": "Mike's mother and Sive's grandmother; sharp-tongued and pipe-smoking, she is Sive's only defender in the house.",
+      "group": "The Glavin house",
+      "tag": "Mike's mother, Sive's grandmother",
+      "wants": "To protect Sive from the match.",
+      "end": "She grieves beside Sive's body.",
+      "face": {
+        "file": "sive-s-nanna.jpg",
+        "x": 0.69,
+        "y": 0.2,
+        "zoom": 4,
+        "ar": 0.6672
+      }
     },
     {
       "name": "Thomasheen Seán Rua",
-      "who": "The local matchmaker: cunning, persuasive and driven by his own payment."
+      "who": "The local matchmaker: cunning, persuasive and driven by his own payment.",
+      "group": "The match",
+      "tag": "The matchmaker",
+      "wants": "His fee for making the match.",
+      "end": "He slips away when Sive is found."
     },
     {
       "name": "Seán Dóta",
-      "who": "An elderly, well-off bachelor farmer who will pay to marry Sive."
+      "who": "An elderly, well-off bachelor farmer who will pay to marry Sive.",
+      "group": "The match",
+      "tag": "The old farmer",
+      "wants": "A young wife, bought with his money.",
+      "end": "He slips away when Sive is found."
     },
     {
       "name": "Liam Scuab",
-      "who": "The young man who loves Sive; a cousin of her father, so Mike hates him."
+      "who": "The young man who loves Sive; a cousin of her father, so Mike hates him.",
+      "group": "On Sive's side",
+      "tag": "Sive's sweetheart",
+      "wants": "To marry Sive and take her away.",
+      "end": "He carries her drowned body home."
     },
     {
       "name": "Pats Bocock",
-      "who": "A travelling man whose blunt sayings expose the greed behind the match; he carries Liam's escape plan to Nanna."
+      "who": "A travelling man whose blunt sayings expose the greed behind the match; he carries Liam's escape plan to Nanna.",
+      "group": "The travellers",
+      "tag": "A travelling man",
+      "wants": "To show up the greed behind the match; he carries Liam's letter.",
+      "end": "He saw a girl crossing the bog that night."
     },
     {
       "name": "Carthalawn",
-      "who": "Pats's son, whose mocking and cursing songs comment on the action like a chorus."
+      "who": "Pats's son, whose mocking and cursing songs comment on the action like a chorus.",
+      "group": "The travellers",
+      "tag": "Pats's son, the singer",
+      "wants": "To mock the greedy in his songs.",
+      "end": "He sings the lament that ends the play."
     }
   ],
   "moments": [

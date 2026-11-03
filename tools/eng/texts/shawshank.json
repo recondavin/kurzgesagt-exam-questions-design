@@ -9,35 +9,88 @@
   "people": [
     {
       "name": "Andy Dufresne",
-      "who": "A quiet, educated banker sentenced to two life sentences for murdering his wife and her lover, a crime he did not commit."
+      "who": "A quiet, educated banker sentenced to two life sentences for murdering his wife and her lover, a crime he did not commit.",
+      "group": "Andy and Red",
+      "tag": "The banker, innocent",
+      "wants": "Freedom, and to keep hope alive.",
+      "end": "He escapes to Zihuatanejo.",
+      "face": {
+        "file": "shawshank-f-wall.jpg",
+        "x": 0.44,
+        "y": 0.21,
+        "zoom": 6,
+        "ar": 0.5625
+      }
     },
     {
       "name": "Ellis 'Red' Redding",
-      "who": "A long-serving prisoner who can smuggle in almost anything; Andy's closest friend and the film's narrator."
+      "who": "A long-serving prisoner who can smuggle in almost anything; Andy's closest friend and the film's narrator.",
+      "group": "Andy and Red",
+      "tag": "The narrator, who gets things",
+      "wants": "Parole; later, to see Andy again.",
+      "end": "He breaks parole and joins Andy on the beach.",
+      "face": {
+        "file": "shawshank-f-wall.jpg",
+        "x": 0.72,
+        "y": 0.13,
+        "zoom": 7,
+        "ar": 0.5625
+      }
     },
     {
       "name": "Warden Samuel Norton",
-      "who": "The Bible-quoting warden who secretly grows rich through corruption and uses Andy to hide his money."
+      "who": "The Bible-quoting warden who secretly grows rich through corruption and uses Andy to hide his money.",
+      "group": "In charge",
+      "tag": "The warden",
+      "wants": "Money and control.",
+      "end": "Exposed, he shoots himself.",
+      "face": {
+        "file": "shawshank-f-hole.jpg",
+        "x": 0.54,
+        "y": 0.32,
+        "zoom": 5,
+        "ar": 0.5625
+      }
     },
     {
       "name": "Captain Byron Hadley",
-      "who": "The brutal captain of the guards, who rules the prisoners through violence."
+      "who": "The brutal captain of the guards, who rules the prisoners through violence.",
+      "group": "In charge",
+      "tag": "Captain of the guards",
+      "wants": "Order, through fear.",
+      "end": "Arrested."
     },
     {
       "name": "Brooks Hatlen",
-      "who": "The elderly prison librarian, inside for about fifty years, who cannot cope when he is released."
+      "who": "The elderly prison librarian, inside for about fifty years, who cannot cope when he is released.",
+      "group": "Red's crew",
+      "tag": "The old librarian",
+      "wants": "To stay inside, where he belongs.",
+      "end": "He hangs himself after his release."
     },
     {
       "name": "Tommy Williams",
-      "who": "A young thief who arrives in 1965; Andy helps him study, and Tommy turns out to know who really committed Andy's crime."
+      "who": "A young thief who arrives in 1965; Andy helps him study, and Tommy turns out to know who really committed Andy's crime.",
+      "group": "Red's crew",
+      "tag": "The young thief",
+      "wants": "His exam, and a way out.",
+      "end": "Shot dead on Norton's orders."
     },
     {
       "name": "Heywood",
-      "who": "One of Red's group of friends, who taunts the new arrivals on Andy's first night."
+      "who": "One of Red's group of friends, who taunts the new arrivals on Andy's first night.",
+      "group": "Red's crew",
+      "tag": "One of Red's friends",
+      "wants": "A laugh at the new arrivals.",
+      "end": "Still inside at the end."
     },
     {
       "name": "Bogs Diamond",
-      "who": "Leader of 'the Sisters', a gang that repeatedly attacks Andy in his early years in prison."
+      "who": "Leader of 'the Sisters', a gang that repeatedly attacks Andy in his early years in prison.",
+      "group": "The Sisters",
+      "tag": "The gang leader",
+      "wants": "To prey on Andy.",
+      "end": "Hadley beats him and he's moved away."
     }
   ],
   "moments": [

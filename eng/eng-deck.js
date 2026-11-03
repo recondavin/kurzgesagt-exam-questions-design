@@ -28,8 +28,22 @@
   function item(ch, id, text, right, wrong, why) {
     return { ch: ch, src: 'eng', qid: id, k: 0, text: text, c: { q: text, right: right, wrong: wrong, why: why } };
   }
+  // Who's who questions on a text's people (all of them, or those in some moments): who they are, and who wants what.
+  var FIND = { 'Seán Dóta': 'Seán Dóta', "Ellis 'Red' Redding": 'Red', 'The Duke of Venice': 'Duke', 'The Mother Superior': 'Mother Superior', 'The Furlong daughters': 'daughters|girls', "Sarah (Bill's mother)": "Bill's mother|his mother", 'Sarah Redmond': 'Sarah' };
+  function findOf(c) { if (FIND[c.name]) return FIND[c.name]; var w = c.name.replace(/\s*\(.*\)/, '').split(' '); return /^(The|Mrs|Warden|Captain)$/.test(w[0]) ? w[w.length - 1] : w[0]; }
+  function inThese(c, moments) { var re = new RegExp('(^|[^A-Za-zÀ-ÿ])(' + findOf(c) + ')(?![A-Za-zÀ-ÿ])'); return moments.some(function (m) { return re.test(m.title + ' ' + m.what); }); }
+  function castItems(t, ch, only) {
+    var ppl = (D.texts[t].people || []).filter(function (c) { return c.tag; }), out = [];
+    (only || ppl).forEach(function (c) {
+      var rest = shuffle(ppl.filter(function (o) { return o !== c; })).slice(0, 3);
+      out.push(item(ch, 'who:' + c.name, 'Who is ' + c.name + ' in ' + title(t) + '?', c.tag, rest.map(function (o) { return o.tag; }), c.name + ': ' + c.who + ' In the end: ' + c.end));
+      out.push(item(ch, 'wants:' + c.name, 'In ' + title(t) + ', who wants this: ' + c.wants.charAt(0).toLowerCase() + c.wants.slice(1), c.name, rest.map(function (o) { return o.name; }), c.name + ' (' + c.tag + ') wants: ' + c.wants));
+    });
+    return out;
+  }
   function items() {
     var out = [];
+    mine.forEach(function (t, i) { out = out.concat(castItems(t, SLOTS[i])); });
     // Your texts: two questions a moment.
     mine.forEach(function (t, i) {
       var ms = (D.texts[t].moments || []).filter(function (m) { return m.chain; });
@@ -102,7 +116,12 @@
     var others = function (m, f) { return shuffle(ms.filter(function (o) { return o.id !== m.id && f(o) !== f(m); })).slice(0, 3).map(f); };
     var storyItems = function () {
       var out = [];
+      var seen = {};
       groups.forEach(function (g, i) {
+        // The people who first turn up in this part of the story.
+        var fresh = (T.people || []).filter(function (c) { return c.tag && !seen[c.name] && inThese(c, g); });
+        fresh.forEach(function (c) { seen[c.name] = 1; });
+        out = out.concat(castItems(story, SLOTS[i], fresh));
         g.forEach(function (m) {
           var c = m.chain, ch = SLOTS[i], line = c.happens + ' → ' + c.shows + ' → ' + c.leads;
           out.push(item(ch, m.id + ':happens', 'What happens in "' + m.title + '"?', c.happens, others(m, function (o) { return o.chain.happens; }), line));

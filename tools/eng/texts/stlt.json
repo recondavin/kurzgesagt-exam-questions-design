@@ -9,39 +9,96 @@
   "people": [
     {
       "name": "Bill Furlong",
-      "who": "A hard-working coal and timber merchant, nearly forty, born to an unmarried mother; a quiet, decent man troubled by what he sees."
+      "who": "A hard-working coal and timber merchant, nearly forty, born to an unmarried mother; a quiet, decent man troubled by what he sees.",
+      "group": "The Furlongs",
+      "tag": "The coal merchant",
+      "wants": "To keep his family safe, and to do what's right.",
+      "end": "He takes Sarah home, afraid but hopeful.",
+      "face": {
+        "file": "stlt-f-home.jpg",
+        "x": 0.51,
+        "y": 0.41,
+        "zoom": 4,
+        "ar": 0.5625
+      }
     },
     {
       "name": "Eileen Furlong",
-      "who": "Bill's practical wife, who wants him to stay out of the convent's business to protect their daughters."
+      "who": "Bill's practical wife, who wants him to stay out of the convent's business to protect their daughters.",
+      "group": "The Furlongs",
+      "tag": "Bill's wife",
+      "wants": "To protect their girls by keeping out of it.",
+      "end": "We don't see how she takes it.",
+      "face": {
+        "file": "stlt-f-eileen.jpg",
+        "x": 0.21,
+        "y": 0.55,
+        "zoom": 3.4,
+        "ar": 0.5625
+      }
     },
     {
       "name": "The Furlong daughters",
-      "who": "Kathleen, Joan, Sheila, Grace and Loretta; their schooling at St Margaret's depends on the nuns."
+      "who": "Kathleen, Joan, Sheila, Grace and Loretta; their schooling at St Margaret's depends on the nuns.",
+      "group": "The Furlongs",
+      "tag": "Their five girls",
+      "wants": "Their places at St Margaret's school.",
+      "end": "Their places may be at risk."
     },
     {
       "name": "Sarah Redmond",
-      "who": "A young mother held at the convent; Bill finds her locked in the coal shed, her baby taken from her."
+      "who": "A young mother held at the convent; Bill finds her locked in the coal shed, her baby taken from her.",
+      "group": "The convent",
+      "tag": "The girl in the coal shed",
+      "wants": "Her baby back, and to get out.",
+      "end": "She walks home with Bill, barefoot."
     },
     {
       "name": "The Mother Superior",
-      "who": "Head of the convent: polished, polite and quietly threatening."
+      "who": "Head of the convent: polished, polite and quietly threatening.",
+      "group": "The convent",
+      "tag": "Head of the convent",
+      "wants": "Silence, and her power kept.",
+      "end": "Bill defies her; the book ends before we see her answer.",
+      "face": {
+        "file": "stlt-f-mother.jpg",
+        "x": 0.5,
+        "y": 0.34,
+        "zoom": 3.2,
+        "ar": 0.5625
+      }
     },
     {
       "name": "Mrs Wilson",
-      "who": "The Protestant widow who kept Bill's pregnant teenage mother on as a servant and helped raise him; dead by 1985."
+      "who": "The Protestant widow who kept Bill's pregnant teenage mother on as a servant and helped raise him; dead by 1985.",
+      "group": "Bill's past",
+      "tag": "The widow who took them in",
+      "wants": "To give Bill's mother a chance.",
+      "end": "Dead by 1985; Bill remembers her small kindnesses."
     },
     {
       "name": "Ned",
-      "who": "Mrs Wilson's farmhand, who quietly looked after Bill as a boy; Bill comes to realise he was most likely his father."
+      "who": "Mrs Wilson's farmhand, who quietly looked after Bill as a boy; Bill comes to realise he was most likely his father.",
+      "group": "Bill's past",
+      "tag": "Mrs Wilson's farmhand",
+      "wants": "To look after Bill, quietly.",
+      "end": "Bill realises Ned was most likely his father."
     },
     {
       "name": "Sarah (Bill's mother)",
-      "who": "Mrs Wilson's servant, who had Bill at sixteen and died when he was twelve."
+      "who": "Mrs Wilson's servant, who had Bill at sixteen and died when he was twelve.",
+      "group": "Bill's past",
+      "tag": "Bill's mother",
+      "wants": "To raise her son.",
+      "end": "She died when Bill was twelve."
     },
     {
       "name": "Mrs Kehoe",
-      "who": "Runs the eating-house where Bill's men have their dinner; she warns him to be careful of the nuns."
+      "who": "Runs the eating-house where Bill's men have their dinner; she warns him to be careful of the nuns.",
+      "group": "The town",
+      "tag": "Runs the eating-house",
+      "wants": "Bill to be careful of the nuns.",
+      "end": "She warns him on Christmas Eve."
     }
   ],
   "moments": [

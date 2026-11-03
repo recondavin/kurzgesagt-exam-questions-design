@@ -702,3 +702,30 @@ body.eng.sh-open .sh-brand { display: none; }
 @keyframes pkTimer { from { width: 100%; } to { width: 0; } }
 @media (max-width: 600px) { .pk-row { grid-template-columns: 70px minmax(0, 1fr) 28px; font-size: 13px; } .pk-row i { width: 20px; height: 20px; } .pk-q__h { font-size: 14px; } .pk-opt { font-size: 14px; padding: 8px 10px; } .pk-who__him { width: 30px; height: 30px; } }
 @media (prefers-reduced-motion: reduce) { .pk-keeper { transition-duration: .12s; } .pk-tell, .pk-say, .pk-scene [data-pk-net].is-ripple { animation: none; } }
+
+/* ---------- Who's who (eng.js castHtml) ---------- */
+.eng-cast { scroll-margin-top: 90px; }
+.eng-cast__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.eng-cast__groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; align-items: start; }
+.eng-cast__g { padding: 14px; border-radius: 18px; background: var(--surface); box-shadow: inset 0 5px 0 var(--g); }
+.eng-cast__g > h3 { margin: 4px 0 10px; color: var(--g); font: 800 13px Nunito, sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+.eng-who { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-top: 1px solid var(--rule, rgba(255, 255, 255, .08)); }
+.eng-who:first-of-type { border-top: 0; padding-top: 4px; }
+.eng-face { position: relative; display: block; flex: 0 0 auto; overflow: hidden; border: 3px solid var(--g, #fff); border-radius: 50%; background: #0F1A1F; }
+.eng-face img { position: absolute; display: block; max-width: none; height: auto; }
+.eng-face--init { display: grid; place-items: center; background: var(--g, #FFD43B); color: #13212A; font: 700 22px/1 Fredoka, Nunito, sans-serif; }
+.eng-who h4 { margin: 0; color: #fff; font: 600 18px/1.2 Fredoka, Nunito, sans-serif; }
+.eng-who__tag { display: inline-block; margin: 4px 0 6px; padding: 1px 9px; border-radius: 999px; background: var(--g); color: #13212A; font: 800 12px/1.7 Nunito, sans-serif; }
+.eng-who p { margin: 0; color: var(--muted); font: 700 14.5px/1.45 Nunito, sans-serif; }
+.eng-who dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3px 10px; margin: 8px 0 0; font: 700 14px/1.4 Nunito, sans-serif; }
+.eng-who dt { color: var(--faint); font-weight: 800; }
+.eng-who dd { margin: 0; color: #fff; }
+.eng-who__in { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-top: 8px !important; }
+.eng-who__in span { margin-right: 4px; color: var(--faint); font: 800 12.5px Nunito, sans-serif; }
+.eng-who__in a { display: grid; place-items: center; min-width: 24px; height: 24px; padding: 0 4px; border-radius: 7px; background: var(--raised); color: #fff; font: 800 12.5px Nunito, sans-serif; text-decoration: none; }
+.eng-who__in a:hover { background: var(--g); color: #13212A; }
+/* Who's who? (eng-games.js) */
+.eg-cast { display: flex; align-items: center; gap: 14px; margin: 6px 0 12px; }
+.eg-cast .eng-face { --g: #FFD43B; }
+.eg-cast p { margin: 0; color: #fff; font: 700 19px/1.4 Nunito, sans-serif; }
+.eg-cast small { display: block; color: #B9C6CE; font: 800 13px Nunito, sans-serif; }
