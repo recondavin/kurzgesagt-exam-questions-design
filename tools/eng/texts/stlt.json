@@ -1,0 +1,256 @@
+{
+  "id": "stlt",
+  "title": "Small Things Like These",
+  "author": "Claire Keegan",
+  "kind": "novel",
+  "made": "2021",
+  "setting": "New Ross, Co. Wexford, in the weeks before Christmas 1985.",
+  "gist": "Bill Furlong, a coal and timber merchant with five daughters, delivers to the town's convent, where the nuns run a laundry as well as the best girls' school. What he sees there, including girls locked up and a young mother whose baby has been taken, forces him to choose between keeping quiet to protect his family and acting on his conscience. Remembering how one woman's kindness saved his own unmarried mother, he brings a girl called Sarah home from the convent on Christmas Eve.",
+  "people": [
+    {"name": "Bill Furlong", "who": "A hard-working coal and timber merchant, nearly forty, born to an unmarried mother; a quiet, decent man troubled by what he sees."},
+    {"name": "Eileen Furlong", "who": "Bill's practical wife, who wants him to stay out of the convent's business to protect their daughters."},
+    {"name": "The Furlong daughters", "who": "Kathleen, Joan, Sheila, Grace and Loretta; their schooling at St Margaret's depends on the nuns."},
+    {"name": "Sarah Redmond", "who": "A young mother held at the convent; Bill finds her locked in the coal shed, her baby taken from her."},
+    {"name": "The Mother Superior", "who": "Head of the convent: polished, polite and quietly threatening."},
+    {"name": "Mrs Wilson", "who": "The Protestant widow who kept Bill's pregnant teenage mother on as a servant and helped raise him; dead by 1985."},
+    {"name": "Ned", "who": "Mrs Wilson's farmhand, who quietly looked after Bill as a boy; Bill comes to realise he was most likely his father."},
+    {"name": "Sarah (Bill's mother)", "who": "Mrs Wilson's servant, who had Bill at sixteen and died when he was twelve."},
+    {"name": "Mrs Kehoe", "who": "Runs the eating-house where Bill's men have their dinner; she warns him to be careful of the nuns."}
+  ],
+  "moments": [
+    {
+      "id": "stlt-1",
+      "title": "Born to an unmarried mother",
+      "where": "Chapter 2",
+      "when": "opening",
+      "what": "We learn that Bill's mother became pregnant at sixteen while working for Mrs Wilson, a Protestant widow, who kept her on when her own family would have nothing more to do with her. Bill's father is recorded as unknown, he was jeered at school, his mother died when he was twelve, and he worked his way up to owning the coal yard.",
+      "why": "Bill's own story mirrors that of the girls in the convent: he knows that one person's kindness decided his mother's fate.",
+      "modes": ["theme", "cc", "gvv"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "stlt-2",
+      "title": "Raw times",
+      "where": "Chapter 2",
+      "when": "opening",
+      "what": "On his rounds Bill sees the town's hardship: businesses closing, people emigrating, Mick Sinnott's young son gathering sticks on the road, and a boy drinking milk left out for a cat behind the priest's house. Eileen blames Sinnott's drinking, while Bill resolves to keep his head down, stay on the right side of people and see his girls through St Margaret's.",
+      "why": "It establishes the poverty and insecurity that make Bill, and the whole town, reluctant to cross anyone powerful.",
+      "modes": ["theme", "cc"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "stlt-3",
+      "title": "Christmas at home",
+      "where": "Chapter 3",
+      "when": "opening",
+      "what": "The town gathers to see the Christmas lights switched on, where the nuns speak only to the better-off parents, and at home the Furlongs bake the Christmas cake while the girls write to Santa. Bill remembers a lonely boyhood Christmas when he longed for the father he never knew, and he wonders, at nearly forty, what all his hard work is for.",
+      "why": "Family warmth is real but fragile, and Bill's restlessness shows a man already questioning the life he has built.",
+      "modes": ["cc", "gvv"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "stlt-4",
+      "title": "The girls in the chapel",
+      "where": "Chapter 4",
+      "when": "middle",
+      "what": "Delivering to the convent, Bill wanders into a small chapel where girls in grey shifts and no shoes are polishing the floor; one, with roughly cut hair, begs him to take her as far as the river and says she will drown herself. He holds out his empty hands, says it is not up to him, and says nothing about the girls to the nun who appears, though afterwards he thinks of the padlocks and the high wall topped with broken glass.",
+      "why": "This is Bill's first sight of the suffering hidden behind the convent walls, and his first silence.",
+      "modes": ["theme", "cc", "gvv"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "stlt-5",
+      "title": "Lost on the road",
+      "where": "Chapter 4",
+      "when": "middle",
+      "what": "Driving away troubled, Bill takes a wrong turn in the fog and loses his way. When he asks an old man where the road will take him, the man answers that it will take him wherever he wants to go.",
+      "why": "The old man's words suggest that Bill's direction in life is a matter of choice, foreshadowing the decision he must make.",
+      "modes": ["theme", "gvv"],
+      "quote": "This road will take you wherever you want to go, son.",
+      "sure": true
+    },
+    {
+      "id": "stlt-6",
+      "title": "Eileen's warning",
+      "where": "Chapter 4",
+      "when": "middle",
+      "what": "That night Bill tells Eileen what he saw; she says it has nothing to do with them, that the nuns always pay their bills, and that their own girls are well minded. When he asks where he and his mother would have been if Mrs Wilson had thought that way, Eileen replies that Mrs Wilson was rich enough to do as she pleased.",
+      "why": "Eileen voices the town's practical, protective silence: getting on in life means looking away.",
+      "modes": ["theme", "cc"],
+      "quote": "there's things you have to ignore, so you can keep on",
+      "sure": true
+    },
+    {
+      "id": "stlt-7",
+      "title": "The girl in the coal shed",
+      "where": "Chapter 5",
+      "when": "middle",
+      "what": "Making an early Sunday delivery to the convent, Bill finds a girl who has been locked all night in the freezing coal shed, filthy and frightened. As they wait at the convent door, she asks him to find out about her fourteen-week-old baby, who has been taken from her.",
+      "why": "The convent's cruelty is now undeniable, and the girl's plea puts the question of action directly to Bill.",
+      "modes": ["theme", "cc", "gvv"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "stlt-8",
+      "title": "Tea with the Mother Superior",
+      "where": "Chapter 5",
+      "when": "middle",
+      "what": "The Mother Superior smoothly brings Bill in for tea, produces the girl washed and dressed, passes off the night in the shed as a game of hide and seek, and remarks that places at the school are scarce; she then hands him an envelope with a Christmas card and money. Bill learns that the girl's name is Sarah, like his mother's, but leaves without asking about her baby.",
+      "why": "It shows how the institution controls appearances and buys silence, and how Bill, for now, goes along with it.",
+      "modes": ["theme", "cc"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "stlt-9",
+      "title": "Communion and Ned",
+      "where": "Chapter 6",
+      "when": "middle",
+      "what": "At Mass Bill stays in his seat at Communion, and that evening he drives to the Wilson house to see Ned, the old farmhand; a woman there remarks on how alike they are, and Bill realises that Ned was most likely his father. Driving home, he is ashamed that he left Sarah at the convent, took the money and never asked about her baby.",
+      "why": "Bill sees that a quiet, unclaimed kindness shaped his whole life, and his guilt over Sarah sharpens.",
+      "modes": ["theme", "cc", "gvv"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "stlt-10",
+      "title": "Mrs Kehoe's warning",
+      "where": "Chapter 7",
+      "when": "climax",
+      "what": "On Christmas Eve, when Bill pays for his men's dinner, Mrs Kehoe asks about his run-in with the Mother Superior and warns him to be careful, reminding him that his girls are at St Margaret's. Bill asks whether the nuns have only as much power as people give them.",
+      "why": "It shows that the town knows what goes on and has chosen to stay quiet, and spells out the cost Bill will pay if he acts.",
+      "modes": ["theme", "cc"],
+      "quote": "these nuns have a finger in every pie",
+      "sure": true
+    },
+    {
+      "id": "stlt-11",
+      "title": "Bill goes back for Sarah",
+      "where": "Chapter 7",
+      "when": "climax",
+      "what": "Instead of going home to get ready for midnight Mass, Bill walks on to the convent, finds Sarah locked in the coal shed again, and tells her she is coming home with him. He decides against bringing her to the priest's house and walks her, barefoot, through the town.",
+      "why": "Bill finally breaks his silence, choosing his conscience over his family's security and the town's approval.",
+      "modes": ["theme", "cc", "gvv"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "stlt-12",
+      "title": "The walk home",
+      "where": "Chapter 7",
+      "when": "ending",
+      "what": "People notice that the barefoot girl is not his daughter and avoid him or cut their talk short, but Bill feels a happiness greater than any he has known, though he knows he will pay for what he has done. Thinking of all the small things Mrs Wilson did, he approaches his own door with Sarah, afraid but hopeful; the novella ends before we see how Eileen or the town responds.",
+      "why": "The ending celebrates one person's courage while making clear that the community, and the cost, remain unchanged.",
+      "modes": ["theme", "cc", "gvv"],
+      "quote": "was there any point in being alive without helping one another?",
+      "sure": true
+    }
+  ],
+  "modes": {
+    "theme": {
+      "themes": [
+        {
+          "name": "Power and control",
+          "points": [
+            "Power in the novella is quiet but total: the Mother Superior controls every part of Bill's visit, presenting Sarah washed and dressed, calling the night in the shed a game and hinting that school places are scarce [stlt-8].",
+            "The Church's control reaches into every part of town life, as Mrs Kehoe warns, but Bill's question, whether the nuns have only the power people give them, suggests that their power depends on everyone else's silence [stlt-10].",
+            "Control over the girls is physical: locked doors, walls topped with broken glass, a girl shut in a coal shed overnight and a baby taken from its mother [stlt-4] [stlt-7].",
+            "Money is a quieter form of control: the nuns pay their coal bills on time, and the Mother Superior presses an envelope of money on Bill as he leaves [stlt-6] [stlt-8]."
+          ]
+        },
+        {
+          "name": "Freedom and entrapment",
+          "points": [
+            "The convent girls are prisoners: one begs Bill to take her as far as the river [stlt-4], and Sarah is found locked in the coal shed not once but twice [stlt-7] [stlt-11].",
+            "Bill is trapped in a different way, by hard times, routine and the fear of losing what he has built; he keeps his head down and wonders what all his work is for [stlt-2] [stlt-3].",
+            "The old man's answer, that the road will take Bill wherever he wants to go, hints that he is freer than he believes [stlt-5].",
+            "Acting on his conscience frees Bill: walking Sarah home, he feels a happiness greater than any he has known, even though he knows trouble lies ahead [stlt-12]."
+          ]
+        },
+        {
+          "name": "Courage and silence",
+          "points": [
+            "Silence is the town's habit, and Bill shares it at first: he holds out empty hands to the girl in the chapel and later leaves the convent with the Mother Superior's money, never asking about Sarah's baby [stlt-4] [stlt-8].",
+            "Silence is presented as sensible and even loving: Eileen says there are things you have to ignore to get on, and Mrs Kehoe warns him to think of his daughters [stlt-6] [stlt-10].",
+            "Bill's first protest is small and private, staying in his seat at Communion, while his shame over leaving Sarah grows [stlt-9].",
+            "His courage, when it comes, is an ordinary act: he walks Sarah home through the town, asking himself whether there is any point in being alive without helping one another [stlt-11] [stlt-12]."
+          ]
+        }
+      ]
+    },
+    "cc": {
+      "aspects": [
+        {
+          "name": "Power and authority",
+          "points": [
+            "The Catholic Church is the real authority in 1985 New Ross: the nuns run the laundry and the best girls' school, and even a respected businessman treads carefully around the Mother Superior [stlt-8].",
+            "Authority works through hints rather than orders: the Mother Superior never threatens Bill openly, but her remark about scarce school places is understood [stlt-8], and Mrs Kehoe spells out the risk [stlt-10].",
+            "The townspeople defer to the convent's power: on Christmas Eve people avoid Bill or cut their talk short rather than ask about the barefoot girl beside him [stlt-12]."
+          ]
+        },
+        {
+          "name": "Class, money and status",
+          "points": [
+            "Economic hardship shapes every choice: businesses close, people emigrate and children go without, so families like the Furlongs cling to what they have [stlt-2].",
+            "Status depends on respectability: Bill has risen from nothing to owning a business, and he and Eileen fear losing their place by offending the nuns [stlt-1] [stlt-6].",
+            "Eileen argues that only wealth gave Mrs Wilson the freedom to be kind, suggesting that conscience is a luxury for the secure [stlt-6].",
+            "Class divides even the Church's attention: at the Christmas lights the nuns speak only to the better-off parents [stlt-3]."
+          ]
+        },
+        {
+          "name": "Gender roles and marriage",
+          "points": [
+            "Unmarried mothers are punished and hidden: Bill's mother escaped only because Mrs Wilson kept her on, while Sarah's baby is taken and she is locked away [stlt-1] [stlt-7].",
+            "Shame falls on the women, never the fathers: Bill's own father is unknown, and Eileen blames the girls' families for letting them get into trouble [stlt-1] [stlt-6].",
+            "Even the Mother Superior suggests that Bill must regret having no son, and he answers that his own mother was a girl once [stlt-8].",
+            "Marriage is a working partnership: Eileen runs the home and the girls while Bill earns, so the threat to their daughters' schooling makes his choice a family matter [stlt-3] [stlt-6]."
+          ]
+        },
+        {
+          "name": "Religion and the Church",
+          "points": [
+            "The Church's public face hides private cruelty: the convent is admired for its beauty, while girls are locked behind walls topped with broken glass [stlt-4] [stlt-7].",
+            "Religious ritual is questioned: Bill cannot bring himself to receive Communion after leaving Sarah behind [stlt-9].",
+            "Keegan contrasts institutional religion with practical Christianity: Bill decides he cannot call himself a Christian if he is never brave enough to go against the way things are [stlt-12], and the kindness that saved his mother came from a Protestant widow [stlt-1].",
+            "Bill decides against bringing Sarah to the priest's house [stlt-11], suggesting that the clergy are seen as part of the same system as the convent."
+          ]
+        },
+        {
+          "name": "Family and community",
+          "points": [
+            "Family is Bill's greatest love and his strongest reason to stay quiet: Eileen argues that their own girls are safe and must be protected [stlt-6].",
+            "The community knows but looks away: Mrs Kehoe has already heard about his run-in with the nuns [stlt-10], and people avoid him as he walks Sarah through the town [stlt-12].",
+            "Small kindnesses within a community matter: Mrs Wilson and Ned quietly raised Bill, and the novella ends with him thinking of all the small things Mrs Wilson did [stlt-9] [stlt-12].",
+            "Struggling families are judged harshly: Eileen blames Mick Sinnott's drinking for his son gathering sticks on the road, while Bill refuses to blame the child [stlt-2]."
+          ]
+        },
+        {
+          "name": "Law, institutions and justice",
+          "points": [
+            "The laundry operates beyond the reach of the law: no guard, court or inspector ever appears, and at the convent the police are mentioned only when the Mother Superior claims they were about to call them because the girl was missing [stlt-8].",
+            "Keegan dedicates the book to the women and children who suffered in Ireland's mother and baby homes and Magdalen laundries, and opens with the 1916 Proclamation's promise to cherish all the children of the nation equally, so the coal-shed scene indicts the State as well as the Church [stlt-7].",
+            "Justice depends on one man's conscience, not on any institution: Bill takes Sarah out of the convent himself on Christmas Eve [stlt-11]."
+          ]
+        }
+      ]
+    },
+    "gvv": {
+      "opening": "The novella opens in a cold, struggling town where Bill works hard, worries about money and wonders what his life is for. The mood is muted and anxious, softened by the warmth of his family.",
+      "ending": "On Christmas Eve Bill frees Sarah and walks her home, feeling a happiness he has never known while knowing he will pay for it. The story ends at his door, so we never see how Eileen, the nuns or the town respond: it is hopeful about one man's courage but uncertain about everything else.",
+      "outlook": "mixed",
+      "points": [
+        "Light and dark sit side by side: the warmth of the Furlong kitchen at Christmas [stlt-3] contrasts sharply with the girls polishing the convent chapel and the girl locked in the coal shed [stlt-4] [stlt-7].",
+        "Kindness is the novella's source of light: Mrs Wilson's and Ned's quiet care for Bill [stlt-1] [stlt-9] is what finally moves him to help Sarah [stlt-12].",
+        "The ending is hopeful about individuals, since one man can choose to act, but darker about society, which looks away and will make him pay [stlt-12].",
+        "The open ending leaves the reader uneasy as well as uplifted: we never learn what happens to Sarah, Bill's daughters or his business [stlt-12].",
+        "Keegan makes the reader feel the pressure of silence before the relief of action: Eileen's warning and Mrs Kehoe's advice sound reasonable [stlt-6] [stlt-10], so Bill's choice feels genuinely brave.",
+        "The old man's words offer a hopeful view of human choice: Bill's road is not fixed, and he can still change direction [stlt-5]."
+      ]
+    }
+  }
+}
