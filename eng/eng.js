@@ -418,14 +418,17 @@
     var e = essay(), pts = function (pre, name) { return e.aspects.map(function (a, k) { return [pre + k, name + (k + 1)]; }); };
     // No Plan step (the user, of picking aspects: "do i have to do this its not engaging"): the paragraphs are picked
     // for the question (autoPlan) and can be changed from the first writing step.
-    if (split()) return [['q', 'Question']].concat(pts('a', '(a) Point ')).concat([['intro', '(b) Introduction']]).concat(pts('p', '(b) Point ')).concat([['end', '(b) Conclusion'], ['check', 'Check']]);
-    return [['q', 'Question'], ['intro', 'Introduction']].concat(pts('p', 'Point ')).concat([['end', 'Conclusion'], ['check', 'Check']]);
+    // ... then "but put it into a game or something": Plan is a card game (planGameHtml), and Pick for me does it for you.
+    if (split()) return [['q', 'Question'], ['plan', 'Plan']].concat(pts('a', '(a) Point ')).concat([['intro', '(b) Introduction']]).concat(pts('p', '(b) Point ')).concat([['end', '(b) Conclusion'], ['check', 'Check']]);
+    return [['q', 'Question'], ['plan', 'Plan'], ['intro', 'Introduction']].concat(pts('p', 'Point ')).concat([['end', 'Conclusion'], ['check', 'Check']]);
   }
   // The three aspects of the mode that fit the question best: the question's words (its glossary topic words and
   // its other long words, by their first five letters) counted in each aspect's name and in your texts' notes on it.
-  function autoPlan() {
+  function autoPlan() { var e = essay(); e.aspects = planScores().slice(0, 3).map(function (x) { return x[2]; }); }
+  // Each aspect of the mode with how well it fits the question, best first: [score, -order, aspect].
+  function planScores() {
     var e = essay(), opts = aspectOptions(e.mode);
-    if (opts.length <= 3) { e.aspects = opts.slice(); return; }
+    if (opts.length <= 3) return opts.map(function (a, i) { return [1, -i, a]; });
     var stop = /^(which|these|those|their|there|where|other|texts|chosen|course|comparative|reference|response|develop|discuss|compare|extent|about|between|different|possible)$/;
     var words = (e.q.toLowerCase().match(/[a-z]{5,}/g) || []).filter(function (w) { return !stop.test(w); }).map(function (w) { return w.slice(0, 5); });
     glossary().list.forEach(function (x) { if (x.g.kind === 'topic' && e.q.toLowerCase().indexOf(x.m) >= 0) words = words.concat((x.g.term + ' ' + x.g.def).toLowerCase().match(/[a-z]{5,}/g).map(function (w) { return w.slice(0, 5); })); });
@@ -440,7 +443,7 @@
       LINKS.forEach(function (l) { if (l[0].test(ql) && l[1].test(a.toLowerCase())) sc += 12; });
       return [sc, -i, a];
     }).sort(function (x, y) { return y[0] - x[0] || y[1] - x[1]; });
-    e.aspects = scored.slice(0, 3).map(function (x) { return x[2]; });
+    return scored;
   }
   function aspectOptions(mode) {
     var names = [], seen = {};
@@ -485,7 +488,8 @@
     crack: 'Crack it first. Tap each card: what it\'s about, what to do, which texts.',
     stance: 'Now take a stand. How far is it true in each text? No sitting on the fence.',
     ready: 'That\'s your line of argument. Every paragraph proves a piece of it. Next: plan.',
-    plan: 'Three or four aspects. Depth beats a list.',
+    plan: 'Knock off the three that answer the question. Not the ones you like.',
+    planned: 'There\'s your plan. Every paragraph proves a piece of your line.',
     intro: 'Answer the question in your first sentence. Then name the texts.',
     a: 'Part (a) is one text. No comparing yet.',
     p: 'Both texts in every paragraph. One text alone isn\'t a comparison.',
@@ -646,7 +650,7 @@
       (cur === 'q' ? '<textarea data-eb="thesis" rows="2" placeholder="One sentence that answers the question.">' + esc(e.thesis) + '</textarea>'
         : '<p data-eb-step="0" role="button" tabindex="0">' + (e.thesis ? esc(e.thesis) : '<i>Not written yet: tap to write it.</i>') + '</p>') + '</div>';
     out += '<div class="ebd-lines">';
-    if (!e.aspects.length) out += '<p class="ebd-ghost">Your paragraphs appear here once you pick a question.</p>';
+    if (!e.aspects.length) out += cur === 'plan' ? [0, 1, 2].map(function (k) { return '<p class="ebd-part">Paragraph ' + (k + 1) + '</p><p class="ebd-ghost">knock a crate off…</p>'; }).join('') : '<p class="ebd-ghost">Your paragraphs appear here once you pick a question.</p>';
     if (split() && e.aspects.length) {
       out += '<p class="ebd-part">(a) · 30 marks · ' + esc(text(textA()).title) + '</p>';
       e.aspects.forEach(function (a, k) {
@@ -694,6 +698,7 @@
     var e = essay(), cur = curStep(), m = MODE[e.mode], cmp = compared(), mine = chosen(), out = '';
     var tipKey = /^a\d/.test(cur) ? 'a' : /^p\d/.test(cur) ? 'p' : cur;
     if (cur === 'q') tipKey = !e.q || SLIPS ? 'q' : !crackedAll() ? 'crack' : !e.thesis ? 'stance' : 'ready';
+    if (cur === 'plan' && e.aspects.length) tipKey = 'planned';
     var face = window.ExamTeacher ? '<div class="ebd-face" data-mood="' + (cur === 'check' ? (checksList().every(function (c) { return c[1]; }) ? 'happy' : 'angry') : 'ok') + '"><span>' + window.ExamTeacher.head() + '</span><p>' + esc((TIPS[tipKey] || '')) + '</p></div>' : '';
     if (cur === 'q') {
       var qs = D.questions.filter(function (q) { return q.mode === e.mode; }).sort(function (a, b) { return b.year - a.year; });
@@ -712,7 +717,9 @@
         out = '<div class="ebd-qhead"><span>' + esc(MODE[e.mode].name) + ' · ' + (split() ? '30 + 40' : '70') + ' marks</span><button type="button" class="ebd-link" data-eb-slips>Change question</button></div>' + crackHtml() + stanceHtml() +
           '<button type="button" class="ebd-link ebd-skip" data-eb-go="1">Skip this, start writing →</button>';
       }
-        } else if (cur === 'intro') {
+        } else if (cur === 'plan') {
+      out = planGameHtml();
+    } else if (cur === 'intro') {
       out = tile('', split() ? 'Part (b): introduction' : 'Introduction', 'Answer the question straight away, name the texts with their authors or director, and the mode.') +
         '<div class="ebd-notes"><h4>Your texts, written correctly</h4><ul>' + cmp.map(function (t) { return '<li>' + nameLine(text(t)) + '</li>'; }).join('') + '</ul></div>' + fieldChips();
     } else if (cur === 'end') {
@@ -727,7 +734,7 @@
       out = tile(k2 || 'P', (isA ? 'Part (a), ' : '') + 'Paragraph ' + (k + 1) + ': ' + a, k2 ? FIELD[k2][1] : (isA ? 'Point, Anchor, Evaluate: on ' + text(textA()).title + ' alone.' : 'Point, Anchor, Compare, Evaluate.')) + fieldChips() +
         (isA ? momentCards(e.mode, a, textA()) : cmp.map(function (t) { return momentCards(e.mode, a, t); }).join(''));
     }
-    if (e.step === 1) out = planBox() + out;
+    if (e.step === 2) out = planBox() + out;
     return bodyOnly ? out : face + '<div class="ebd-coach__body" data-eb-coachbody>' + out + '</div>';
   }
 
@@ -795,6 +802,43 @@
       }).join('') +
       (line ? '<div class="ebd-line2' + (e.thesis === line ? ' is-used' : '') + '"><span>Your line of argument</span><p>' + esc(line) + '</p>' +
         (e.thesis === line ? '<b class="ebd-used">✓ On your sticky note. Change a meter to rewrite it.</b>' : '<button type="button" class="eng-btn" data-eb-useline>Put it on my sticky note</button>') + '</div>' : '') + '</div>';
+  }
+
+  // ----- Plan: Knock 'em off (eng/eng-plan.js) -----
+  // The mode's aspects are crates on shelves; knock three off with the slingshot. The examiner rates each for how well
+  // it fits the question (its place in planScores: the best three 3 stars, the next two 2, the rest 1). Or Pick for
+  // me. Then the plan here, with a swap offered for a weak pick.
+  var PG = null;
+  function planRank() { var r = {}; planScores().forEach(function (x, k) { r[x[2]] = k; }); return r; }
+  function stars(a) { var r = planRank()[a]; return r == null ? 1 : r < 3 ? 3 : r < 5 ? 2 : 1; }
+  function planTopic() {
+    var e = essay(), m = /the extent to which (?:the )?(.+?)(?:,|\.|;| is | was | are )/i.exec(e.q), t = qTerms('topic').filter(function (g) { return ['cc', 'gvv', 'theme'].indexOf(g.id) < 0; })[0];
+    return m && m[1].length < 70 ? m[1] : t ? t.term : MODE[e.mode].name;
+  }
+  function playPlan() {
+    var e = essay();
+    if (!window.EngPlanGame) { autoPlan(); saveEssay(); drawBuild(true); return; }
+    window.EngPlanGame.open({ topic: planTopic(), aspects: aspectOptions(e.mode), rank: planRank(), colour: COL[e.mode],
+      done: function (plan) { if (!plan) return; essay().aspects = plan.slice(0, 3); PG = { done: true, q: essay().q }; saveEssay(); drawBuild(true); } });
+  }
+  function planGameHtml() {
+    var e = essay(), m = MODE[e.mode], opts = aspectOptions(e.mode);
+    if (opts.length <= 3 && !e.aspects.length) { e.aspects = opts.slice(); saveEssay(); }
+    if (e.aspects.length) {
+      var got = e.aspects.reduce(function (n, a) { return n + stars(a); }, 0), max = e.aspects.length * 3;
+      var best = planScores().map(function (x) { return x[2]; }).filter(function (a) { return e.aspects.indexOf(a) < 0; })[0];
+      var weak = e.aspects.slice().sort(function (x, y) { return stars(x) - stars(y); })[0];
+      if (weak && best && stars(best) <= stars(weak)) weak = null;
+      var verdict = opts.length <= 3 ? 'For ' + m.name + ' the paragraphs are always these.' : got === max ? 'Perfect plan. Every paragraph answers the question.' : got >= max - 2 ? 'Strong plan.' : 'It works, but there are better aspects for this question.';
+      return '<div class="ebd-pg ebd-pg--done"><h3 class="ebd-pg__h">Your plan</h3><p class="ebd-pg__score"><b>' + got + '</b>/' + max + ' <span>' + esc(verdict) + '</span></p>' +
+        '<ol class="ebd-pg__list">' + e.aspects.map(function (a) { return '<li><span>' + esc(a) + '</span><i class="ebd-stars" aria-label="' + stars(a) + ' of 3">' + '★★★'.slice(0, stars(a)) + '<s>' + '★★★'.slice(stars(a)) + '</s></i></li>'; }).join('') + '</ol>' +
+        (weak && best ? '<button type="button" class="ebd-pg__swap" data-pg-swap="' + esc(weak) + '|' + esc(best) + '">Swap <b>' + esc(weak) + '</b> for <b>' + esc(best) + '</b>: it fits the question better</button>' : '') +
+        '<div class="ebd-pg__btns">' + (opts.length > 3 ? '<button type="button" class="eng-btn eng-btn--quiet" data-pg="play">Play again</button>' : '<span></span>') + '<button type="button" class="eng-btn" data-pg="use">Start writing →</button></div></div>';
+    }
+    return '<div class="ebd-pg ebd-pg--start"><div class="ebd-pg__art" aria-hidden="true"><i></i><i></i><i></i><b></b></div>' +
+      '<h3 class="ebd-pg__h">Plan: Knock \'em off</h3><p class="ebd-small">Every aspect of ' + esc(m.name.toLowerCase()) + ' is a crate on a shelf. Six shots with the slingshot: knock off the three that answer the question. Each one you knock off is a paragraph.</p>' +
+      '<button type="button" class="eng-btn ebd-wide ebd-pg__go" data-pg="play">Play</button>' +
+      '<button type="button" class="ebd-link ebd-skip" data-pg="auto">Pick for me</button></div>';
   }
 
   // Your paragraphs, picked for the question; Change opens the aspects (and, for a two-part question, the text for (a)).
@@ -882,13 +926,13 @@
   }
   function drawBuild(keepFocus) {
     var e0 = essay();
-    if (!e0.aspects.length && e0.q) { autoPlan(); saveEssay(); }
+    if (!e0.aspects.length && e0.q && e0.step > 1) { autoPlan(); saveEssay(); }
     var e = e0, st = stepsList();
     if (e.step >= st.length) e.step = st.length - 1;
     var cur = curStep();
     if (!keepFocus) FOCUS = null;
     app.innerHTML = '<div class="ebd-top"><h1 class="cv-h1">Build an essay</h1><div data-eb-stamps>' + stampsHtml() + '</div></div>' + trackHtml() +
-      '<div class="ebd">' +
+      '<div class="ebd' + (cur === 'plan' ? ' is-plan' : '') + '">' +
         '<div class="ebd-desk">' + sheetHtml() +
           '<div class="eb-nav">' + (e.step > 0 ? '<button type="button" class="eng-btn eng-btn--quiet" data-eb-go="-1">Back</button>' : '<span></span>') +
           (e.step < st.length - 1 ? '<button type="button" class="eng-btn" data-eb-go="1"' + '' + '>Next: ' + esc(st[e.step + 1][1]) + '</button>' : '') + '</div></div>' +
@@ -1038,6 +1082,7 @@
     // The builder.
     var e = E;
     var go = t.closest('[data-eb-go]');
+    if (go && !go.disabled && curStep() === 'plan' && +go.getAttribute('data-eb-go') > 0 && !essay().aspects.length) autoPlan();
     if (go && !go.disabled) { essay().step += +go.getAttribute('data-eb-go'); saveEssay(); drawBuild(); window.scrollTo(0, 0); return; }
     var sp = t.closest('[data-eb-step]');
     if (sp) { essay().step = +sp.getAttribute('data-eb-step'); saveEssay(); drawBuild(); return; }
@@ -1048,6 +1093,15 @@
     if (t.closest('[data-eb-useline]')) { useLine(); return; }
     if (t.closest('[data-eb-slips]')) { SLIPS = !SLIPS; drawBuild(true); return; }
     if (t.closest('[data-eb-plan]')) { PLAN_OPEN = !PLAN_OPEN; drawBuild(true); return; }
+    var pgb = t.closest('[data-pg]');
+    if (pgb) {
+      var pk = pgb.getAttribute('data-pg');
+      if (pk === 'play') { playPlan(); return; }
+      if (pk === 'auto') { autoPlan(); saveEssay(); if (K) K.sfx('stamp', 0.3); drawBuild(true); return; }
+      if (pk === 'use') { e = essay(); e.step = stepNo('plan') + 1; saveEssay(); if (K) K.sfx('stamp', 0.35); drawBuild(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    }
+    var sw = t.closest('[data-pg-swap]');
+    if (sw) { var pr = sw.getAttribute('data-pg-swap').split('|'), ea = essay().aspects; ea[ea.indexOf(pr[0])] = pr[1]; saveEssay(); if (K) K.sfx('pop', 0.35); drawBuild(true); return; }
     if (t.closest('[data-eb-surprise]')) {
       var pool = D.questions.filter(function (q) { return q.text !== essay().q; });
       useQuestion(pool[Math.floor(Math.random() * pool.length)]); SLIPS = false; saveEssay(); if (K) K.sfx('whoosh', 0.3); drawBuild(); window.scrollTo({ top: 0, behavior: 'smooth' }); return;
