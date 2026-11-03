@@ -1,0 +1,571 @@
+[
+ {
+  "file": "othello-fradelle.jpg",
+  "text": "othello",
+  "title": "Othello Relating His Life Story to Desdemona",
+  "author": "Henri-Jean-Baptiste Fradelle (1778–1865), Royal Shakespeare Theatre collection",
+  "licence": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Henri_Jean-Baptiste_Victoire_Fradelle_%281778-1865%29_-_%27Othello%27%2C_Act_I%2C_Scene_3%2C_Othello_Relating_His_Life_Story_to_Desdemona_-_STRPG-A%2C_1993.47_-_Royal_Shakespeare_Theatre.jpg",
+  "kind": "painting",
+  "caption": "The story Othello tells the Senate in Act 1, Scene 3: at her father's house in Venice, Desdemona falls in love with him as he tells the story of his life.",
+  "moment": "othello-2",
+  "spots": [
+   {
+    "x": 22,
+    "y": 40,
+    "label": "Othello",
+    "note": "He tells of battles, sieges, capture, slavery and escape. He wins Desdemona with words, not witchcraft, as Brabantio claims.",
+    "quote": "She loved me for the dangers I had passed, / And I loved her that she did pity them.",
+    "moment": "othello-2"
+   },
+   {
+    "x": 66,
+    "y": 44,
+    "label": "Desdemona",
+    "note": "She chooses her own husband, against her father and against Venice's expectations: a bold act for a woman in her world.",
+    "quote": "She'd come again, and with a greedy ear / Devour up my discourse.",
+    "moment": "othello-2"
+   },
+   {
+    "x": 75,
+    "y": 33,
+    "label": "Brabantio",
+    "note": "Her father welcomed Othello as a guest and a war hero, but not as a son-in-law. He later warns: she has deceived her father, and may deceive Othello.",
+    "quote": "Her father loved me, oft invited me",
+    "moment": "othello-2"
+   },
+   {
+    "x": 85,
+    "y": 14,
+    "label": "Venice",
+    "note": "Rich, ordered and proud: Othello is its trusted general and still an outsider. Cultural context: power, race and a daughter's duty.",
+    "quote": "",
+    "moment": ""
+   }
+  ],
+  "hero": true
+ },
+ {
+  "file": "othello-stothard.jpg",
+  "text": "othello",
+  "title": "The Return of Othello (Act 2, Scene 1)",
+  "author": "Thomas Stothard (1755–1834), for the Boydell Shakespeare Gallery",
+  "licence": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Thomas_Stothard_-_The_Return_of_Othello%2C_from_Othello%2C_Act_II%2C_Scene_ii.jpg",
+  "kind": "painting",
+  "caption": "Othello lands safely in Cyprus after the storm wrecks the Turkish fleet, and greets Desdemona. It is the happiest moment in the play.",
+  "moment": "othello-3",
+  "spots": [
+   {
+    "x": 31,
+    "y": 25,
+    "label": "Othello",
+    "note": "In armour, a soldier back from the sea. His joy is so complete he fears nothing can match it again: a warning for the audience.",
+    "quote": "If it were now to die, / 'Twere now to be most happy",
+    "moment": "othello-3"
+   },
+   {
+    "x": 38,
+    "y": 31,
+    "label": "Desdemona",
+    "note": "She has followed her husband to a war zone. He calls her his fair warrior.",
+    "quote": "O my fair warrior!",
+    "moment": "othello-3"
+   },
+   {
+    "x": 8,
+    "y": 16,
+    "label": "The soldiers",
+    "note": "Cyprus is a military outpost: soldiers, weapons and men far from home. Gossip, drink and rank matter here (cultural context).",
+    "quote": "",
+    "moment": "othello-4"
+   }
+  ]
+ },
+ {
+  "file": "othello-holl.jpg",
+  "text": "othello",
+  "title": "G. V. Brooke as Othello and James Bennett as Iago, Act 3, Scene 3",
+  "author": "Benjamin Holl, engraved from a daguerreotype; Yale Center for British Art",
+  "licence": "CC0",
+  "source": "https://commons.wikimedia.org/wiki/File:Benjamin_Holl_-_Mr._G._V._Brooke_as_Othello_and_James_Bennett_as_Iago_-_%27Othello%2C%27_Act_III%2C_Scene_III_-_B1976.1.158_-_Yale_Center_for_British_Art.jpg",
+  "kind": "stage",
+  "caption": "The temptation scene on the Victorian stage: Othello turns on Iago and demands proof. Brooke was a Dublin-born actor famous in the role.",
+  "moment": "othello-5",
+  "spots": [
+   {
+    "x": 35,
+    "y": 30,
+    "label": "Othello",
+    "note": "He seizes Iago. He wants certainty, and Iago gives him only hints, pauses and pretended reluctance.",
+    "quote": "Villain, be sure thou prove my love a whore; / Be sure of it; give me the ocular proof",
+    "moment": "othello-5"
+   },
+   {
+    "x": 67,
+    "y": 32,
+    "label": "Iago",
+    "note": "He looks shocked and loyal, but every word is planned. He warns Othello against jealousy while planting it.",
+    "quote": "O, beware, my lord, of jealousy; / It is the green-eyed monster",
+    "moment": "othello-5"
+   },
+   {
+    "x": 50,
+    "y": 86,
+    "label": "The caption",
+    "note": "The engraving prints a line from this scene, Othello's threat to Iago.",
+    "quote": "If thou dost slander her and torture me, / Never pray more",
+    "moment": "othello-5"
+   }
+  ]
+ },
+ {
+  "file": "othello-willow.jpg",
+  "text": "othello",
+  "title": "Desdemona (The Song of the Willow)",
+  "author": "Théodore Chassériau (1819–1856), Metropolitan Museum of Art",
+  "licence": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Th%C3%A9odore_Chass%C3%A9riau_-_Desdemona_%28The_Song_of_the_Willow%29_-_2019.141.8_-_Metropolitan_Museum_of_Art.jpg",
+  "kind": "painting",
+  "caption": "Act 4, Scene 3: preparing for bed as Othello ordered, Desdemona sings the willow song. Only Emilia is with her.",
+  "moment": "othello-9",
+  "spots": [
+   {
+    "x": 47,
+    "y": 36,
+    "label": "Desdemona",
+    "note": "Quiet and sad, remembering her mother's maid Barbary, whose lover abandoned her. She still won't blame Othello.",
+    "quote": "Sing willow, willow, willow",
+    "moment": "othello-9"
+   },
+   {
+    "x": 55,
+    "y": 56,
+    "label": "The harp",
+    "note": "The song is a story of a woman wronged by love: Desdemona's own story, though she can't see it yet.",
+    "quote": "",
+    "moment": "othello-9"
+   },
+   {
+    "x": 22,
+    "y": 54,
+    "label": "The lamp",
+    "note": "The light by her bed. In the next scene Othello enters with a light and says he will put it out, and hers.",
+    "quote": "Put out the light, and then put out the light",
+    "moment": "othello-10"
+   },
+   {
+    "x": 80,
+    "y": 34,
+    "label": "Emilia",
+    "note": "She tells Desdemona that when wives go wrong it is their husbands' fault: the play's sharpest words about how men treat women.",
+    "quote": "But I do think it is their husbands' faults / If wives do fall",
+    "moment": "othello-9"
+   }
+  ]
+ },
+ {
+  "file": "othello-colin.jpg",
+  "text": "othello",
+  "title": "Othello and Desdemona",
+  "author": "Alexandre-Marie Colin (1798–1875), 1829",
+  "licence": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Othello_and_Desdemona_by_Alexandre-Marie_Colin.jpg",
+  "kind": "painting",
+  "caption": "Act 5, Scene 2: Othello has smothered Desdemona. He believes he has done justice, not murder, until Emilia tells the truth.",
+  "moment": "othello-10",
+  "spots": [
+   {
+    "x": 30,
+    "y": 30,
+    "label": "Othello",
+    "note": "His hand on his heart: the noble general destroyed. At the end he asks to be remembered as one who loved too much.",
+    "quote": "one that loved not wisely but too well",
+    "moment": "othello-12"
+   },
+   {
+    "x": 70,
+    "y": 62,
+    "label": "Desdemona",
+    "note": "Reviving for a moment, she protects him even now and blames herself.",
+    "quote": "Nobody; I myself. Farewell.",
+    "moment": "othello-10"
+   },
+   {
+    "x": 52,
+    "y": 86,
+    "label": "The white cloth",
+    "note": "A white cloth lies by her hand. Is the painter reminding us of the handkerchief, Iago's false 'proof'?",
+    "quote": "",
+    "moment": "othello-6"
+   }
+  ]
+ },
+ {
+  "file": "othello-tower.jpg",
+  "text": "othello",
+  "title": "Othello's Tower, Famagusta, Cyprus",
+  "author": "A.Savin (Wikimedia Commons), 2017",
+  "licence": "Free Art Licence",
+  "source": "https://commons.wikimedia.org/wiki/File:Famagusta_01-2017_img26_city_walls_Othello_Tower.jpg",
+  "kind": "place",
+  "caption": "A citadel in the walls of Famagusta, rebuilt by the Venetians, who ruled Cyprus from 1489 to 1571. Its nickname comes from the play, set in a Venetian fortress on Cyprus.",
+  "moment": "othello-3",
+  "spots": [
+   {
+    "x": 46,
+    "y": 39,
+    "label": "The Lion of Saint Mark",
+    "note": "The winged lion carved over the tower is the symbol of Venice: the island belongs to Venice, and Othello governs it for Venice.",
+    "quote": "",
+    "moment": "othello-3"
+   },
+   {
+    "x": 82,
+    "y": 46,
+    "label": "The walls",
+    "note": "A fortress on the edge of the Venetian world, facing the Ottoman Turks. Once the Turks are drowned there is no enemy outside, so the war moves inside.",
+    "quote": "",
+    "moment": "othello-4"
+   }
+  ]
+ },
+ {
+  "file": "othello-aldridge.jpg",
+  "text": "othello",
+  "title": "Ira Aldridge as Othello",
+  "author": "Henry Perronet Briggs (1791–1844), about 1830",
+  "licence": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Henry_Perronet_Briggs_-_Ira_Aldridge_as_Othello_-_Google_Art_Project.jpg",
+  "kind": "stage",
+  "caption": "Ira Aldridge (1807–1867), an African American actor, was one of the first Black actors to play Othello, including in London in 1833, where some critics attacked him in racist terms.",
+  "moment": "",
+  "spots": [
+   {
+    "x": 50,
+    "y": 22,
+    "label": "Ira Aldridge",
+    "note": "A reminder that race is at the heart of the play and of how it was staged: for centuries Othello was usually played by white actors.",
+    "quote": "",
+    "moment": ""
+   }
+  ]
+ },
+ {
+  "file": "shawshank-prison.jpg",
+  "text": "shawshank",
+  "title": "The Ohio State Reformatory, Mansfield, Ohio",
+  "author": "Niagara66 (Wikimedia Commons), 2013",
+  "licence": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Ohio_State_Reformatory_Mansfield_08.jpg",
+  "kind": "place",
+  "caption": "The real prison that plays Shawshank in the film. It closed as a prison in 1990, and the film was shot here in 1993.",
+  "moment": "shawshank-3",
+  "spots": [
+   {
+    "x": 47,
+    "y": 25,
+    "label": "The towers",
+    "note": "It looks like a castle or a cathedral: a building made to show power. Warden Norton runs it with the Bible in one hand.",
+    "quote": "I believe in two things: discipline and the Bible. Here you'll receive both.",
+    "moment": "shawshank-3"
+   },
+   {
+    "x": 75,
+    "y": 55,
+    "label": "The front",
+    "note": "In the film, the bus of new prisoners drives up to this building as the men in the yard bet on who will crack first.",
+    "quote": "",
+    "moment": "shawshank-3"
+   }
+  ],
+  "hero": true
+ },
+ {
+  "file": "shawshank-cells.jpg",
+  "text": "shawshank",
+  "title": "Inside the Ohio State Reformatory",
+  "author": "Niagara66 (Wikimedia Commons), 2013",
+  "licence": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Ohio_State_Reformatory_Mansfield_04.jpg",
+  "kind": "place",
+  "caption": "Tiers of barred cells in the reformatory's own cell block. (The film's cell block was built as a set in a warehouse nearby.)",
+  "moment": "shawshank-5",
+  "spots": [
+   {
+    "x": 15,
+    "y": 70,
+    "label": "The cells",
+    "note": "Men live here for decades. Red explains what that does to them when Brooks is paroled.",
+    "quote": "These walls are funny. First you hate 'em, then you get used to 'em.",
+    "moment": "shawshank-5"
+   },
+   {
+    "x": 75,
+    "y": 25,
+    "label": "The windows",
+    "note": "Light and the outside world, in view but out of reach: hope is the film's key theme.",
+    "quote": "Hope is a good thing, maybe the best of things, and no good thing ever dies.",
+    "moment": "shawshank-11"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-oak.jpg",
+  "text": "shawshank",
+  "title": "The Shawshank oak, near Lucas, Ohio",
+  "author": "Tom Hart, 2013",
+  "licence": "CC BY 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Shawshank_tree%2C_Lucas%2C_Ohio_-_cropped.jpg",
+  "kind": "place",
+  "caption": "The white oak in the hayfield where Red finds Andy's box. A storm split it in half in 2011 (this photo is from 2013), and the rest fell in 2016.",
+  "moment": "shawshank-12",
+  "spots": [
+   {
+    "x": 40,
+    "y": 30,
+    "label": "The oak",
+    "note": "Andy describes the place: a long rock wall with a big oak tree at the north end.",
+    "quote": "a rock that has no earthly business in a Maine hayfield",
+    "moment": "shawshank-8"
+   },
+   {
+    "x": 22,
+    "y": 82,
+    "label": "The split trunk",
+    "note": "Under the black rock by the wall, Red finds money and a letter: Andy kept his promise, so Red keeps his and breaks parole.",
+    "quote": "",
+    "moment": "shawshank-12"
+   }
+  ]
+ },
+ {
+  "file": "shawshank-beach.jpg",
+  "text": "shawshank",
+  "title": "Sandy Point, St Croix, US Virgin Islands",
+  "author": "Turn685 (Wikimedia Commons), 2008",
+  "licence": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Sandy_Point_Wildlife_Refuge_beach.jpg",
+  "kind": "place",
+  "caption": "The beach where the final 'Zihuatanejo' scene was filmed: on the Caribbean, not the Pacific.",
+  "moment": "shawshank-12",
+  "spots": [
+   {
+    "x": 50,
+    "y": 47,
+    "label": "The sea",
+    "note": "Open, endless blue after twenty years of grey walls: the film's most hopeful image.",
+    "quote": "They say it has no memory.",
+    "moment": "shawshank-12"
+   },
+   {
+    "x": 50,
+    "y": 78,
+    "label": "The sand",
+    "note": "Red walks along a beach like this to Andy. The film ends in freedom and friendship, before a word is spoken.",
+    "quote": "I hope the Pacific is as blue as it has been in my dreams. I hope.",
+    "moment": "shawshank-12"
+   }
+  ]
+ },
+ {
+  "file": "sive-kitchen.jpg",
+  "text": "sive",
+  "title": "A farmhouse kitchen, Bunratty Folk Park",
+  "author": "Joseph Mischyshyn, geograph.org.uk",
+  "licence": "CC BY-SA 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Bunratty_Park_-_Site_%5E5-Mountain_Farmhouse_Kitchen_-_geograph.org.uk_-_3045722.jpg",
+  "kind": "place",
+  "caption": "The kitchen of the Mountain Farmhouse at Bunratty Folk Park, rebuilt as a poor farmer's house from the Limerick–Kerry border: the kind of kitchen where the whole of Sive is played.",
+  "moment": "sive-1",
+  "spots": [
+   {
+    "x": 45,
+    "y": 38,
+    "label": "The hearth",
+    "note": "The fire is the centre of the house. Every row, bargain and plea in the play happens in this one room.",
+    "quote": "",
+    "moment": "sive-1"
+   },
+   {
+    "x": 20,
+    "y": 78,
+    "label": "Pots and chairs",
+    "note": "A bare, poor house. Money is short, which is why Seán Dóta's money can buy Mena's agreement.",
+    "quote": "",
+    "moment": "sive-2"
+   },
+   {
+    "x": 76,
+    "y": 45,
+    "label": "The door",
+    "note": "Who comes through the door brings the outside world in: the matchmaker, the old suitor, the travelling men with their songs.",
+    "quote": "",
+    "moment": "sive-5"
+   }
+  ],
+  "hero": true
+ },
+ {
+  "file": "sive-bog.jpg",
+  "text": "sive",
+  "title": "A Kerry bog",
+  "author": "Graham Horn, geograph.org.uk, 2008",
+  "licence": "CC BY-SA 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Kerry_peat_bog_-_geograph.org.uk_-_775099.jpg",
+  "kind": "place",
+  "caption": "Turf cut by hand and stacked to dry, with dark water in the cut-away holes. The play's world is bog and mountain.",
+  "moment": "sive-11",
+  "spots": [
+   {
+    "x": 74,
+    "y": 33,
+    "label": "Stacked turf",
+    "note": "Turf, cut each spring, was the fuel of every farmhouse: the hard, physical life of a small farm.",
+    "quote": "",
+    "moment": "sive-1"
+   },
+   {
+    "x": 40,
+    "y": 78,
+    "label": "A bog hole",
+    "note": "Water fills the holes in the bog. Sive runs out across the bog at night and drowns in a bog hole.",
+    "quote": "",
+    "moment": "sive-11"
+   }
+  ]
+ },
+ {
+  "file": "sive-keane.jpg",
+  "text": "sive",
+  "title": "John B. Keane, 1983",
+  "author": "Bernard Gotfryd, Library of Congress",
+  "licence": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:John_B._Keane%2C_Irish_playwright.jpg",
+  "kind": "author",
+  "caption": "John B. Keane (1928–2002) ran a pub in Listowel, Co. Kerry. Sive, his first play, was put on by the Listowel Drama Group in 1959.",
+  "moment": "",
+  "spots": []
+ },
+ {
+  "file": "stlt-town.jpg",
+  "text": "stlt",
+  "title": "South Street, New Ross, 1993",
+  "author": "Ben Brooksbank, geograph.org.uk",
+  "licence": "CC BY-SA 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:New_Ross%2C_South_Street_to_Tholsel%2C_1993_-_geograph.org.uk_-_4451638.jpg",
+  "kind": "place",
+  "caption": "New Ross, Co. Wexford, where the novella is set: eight years after its Christmas of 1985.",
+  "moment": "stlt-2",
+  "spots": [
+   {
+    "x": 47,
+    "y": 25,
+    "label": "The Tholsel",
+    "note": "The old town hall at the top of the street, with its clock: a small town where everybody knows everybody's business.",
+    "quote": "",
+    "moment": "stlt-10"
+   },
+   {
+    "x": 85,
+    "y": 45,
+    "label": "The shops",
+    "note": "In 1985 businesses are closing and people are emigrating. Bill sees the hardship on his rounds and keeps his head down.",
+    "quote": "",
+    "moment": "stlt-2"
+   },
+   {
+    "x": 12,
+    "y": 75,
+    "label": "People in the street",
+    "note": "When Bill walks home with Sarah, barefoot, people notice and look away.",
+    "quote": "",
+    "moment": "stlt-12"
+   }
+  ],
+  "hero": true
+ },
+ {
+  "file": "stlt-river.jpg",
+  "text": "stlt",
+  "title": "The River Barrow at New Ross",
+  "author": "Graham Horn, geograph.org.uk",
+  "licence": "CC BY-SA 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:New_Ross_waterside_-_geograph.org.uk_-_1825235.jpg",
+  "kind": "place",
+  "caption": "The river runs through the town, crossed by the bridge that joins its two halves.",
+  "moment": "stlt-4",
+  "spots": [
+   {
+    "x": 45,
+    "y": 72,
+    "label": "The river",
+    "note": "A girl in the convent chapel begs Bill to take her as far as the river, and says she will drown herself.",
+    "quote": "",
+    "moment": "stlt-4"
+   }
+  ]
+ },
+ {
+  "file": "stlt-laundry.jpg",
+  "text": "stlt",
+  "title": "The ironing room, Gloucester Street laundry, Dublin",
+  "author": "Old postcard, via Architecture of Dublin (Flickr)",
+  "licence": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Monastery%2C_Gloucester_Street_North%2C_Dublin.jpg",
+  "kind": "place",
+  "caption": "The ironing room of the Monastery of Our Lady of Charity of Refuge, Gloucester Street (now Sean McDermott Street), Dublin. It was the last Magdalene laundry in Ireland to close, in 1996.",
+  "moment": "stlt-4",
+  "spots": [
+   {
+    "x": 55,
+    "y": 44,
+    "label": "The women at work",
+    "note": "Women and girls washed and ironed here for no pay, some for most of their lives. The girls Bill meets at the convent are kept the same way.",
+    "quote": "",
+    "moment": "stlt-4"
+   },
+   {
+    "x": 50,
+    "y": 23,
+    "label": "The crucifix",
+    "note": "The Church ran the laundries. In the novella the town knows what goes on at the convent and says nothing: the nuns have a hand in everything.",
+    "quote": "",
+    "moment": "stlt-10"
+   }
+  ]
+ },
+ {
+  "file": "stlt-seat.jpg",
+  "text": "stlt",
+  "title": "The Magdalene memorial seat, St Stephen's Green, Dublin",
+  "author": "Osama Shukir Muhammed Amin (Wikimedia Commons), 2015",
+  "licence": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Magdalene_seat%2C_St_Stephen%27s_Green_Park%2C_Dublin.jpg",
+  "kind": "place",
+  "caption": "A bench in St Stephen's Green, Dublin, remembering the women who worked in the Magdalene laundries and the children born to some of them.",
+  "moment": "stlt-12",
+  "spots": [
+   {
+    "x": 50,
+    "y": 52,
+    "label": "The words",
+    "note": "Ireland now remembers what Bill's town wouldn't talk about. Keegan's novella is part of that remembering.",
+    "quote": "To the women who worked in the Magdalen laundry institutions and to the children born to some members of those communities – reflect here upon their lives.",
+    "moment": "stlt-12"
+   }
+  ]
+ },
+ {
+  "file": "stlt-keegan.jpg",
+  "text": "stlt",
+  "title": "Claire Keegan, 2007",
+  "author": "Ian Oliver, at the Dublin Writers Festival",
+  "licence": "CC BY 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Dublin_Writers_Festival_2007_%28686228986%29_%28cropped%29.jpg",
+  "kind": "author",
+  "caption": "Claire Keegan, from Co. Wicklow, published Small Things Like These in 2021. It was shortlisted for the Booker Prize.",
+  "moment": "",
+  "spots": []
+ }
+]

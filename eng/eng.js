@@ -66,7 +66,7 @@
 
   // ---------- home ----------
   function pickCard(id, on) {
-    var t = text(id), p = pics(id)[0];
+    var t = text(id), p = pics(id).filter(function (x) { return x.hero; })[0] || pics(id)[0];
     return '<button type="button" class="eng-pick' + (on ? ' is-on' : '') + '" style="--c:' + COL[id] + '" data-eng-pick="' + id + '" aria-pressed="' + on + '">' +
       '<span class="eng-pick__img">' + (p ? '<img src="assets/eng/img/' + esc(p.file) + '" alt="" loading="lazy">' : '<span class="eng-pick__init">' + esc(t.title.charAt(0)) + '</span>') + '</span>' +
       '<span class="eng-pick__body"><span class="eng-pick__t">' + esc(t.title) + '</span><span class="eng-pick__a">' + esc(t.author) + ' · ' + esc(t.kind) + '</span></span>' +
@@ -205,20 +205,72 @@
     if (!t) { location.hash = ''; return; }
     renderShell('text/' + id, t.title);
     var p = pics(id), when = { opening: 'Opening', middle: 'Middle', climax: 'Climax', ending: 'Ending' };
-    app.innerHTML = '<div class="eng-hero" style="--c:' + COL[id] + '"><div><h1 class="eng-hero__t">' + esc(t.title) + '</h1><p class="eng-hero__a">' + esc(byline(t)) + (t.made ? ' · ' + esc(t.made) : '') + '</p>' +
-        '<p class="eng-p">' + esc(t.gist) + '</p><p class="eng-p"><b>Setting:</b> ' + esc(t.setting) + '</p></div>' +
-        (p[0] ? '<figure><img src="assets/eng/img/' + esc(p[0].file) + '" alt="' + esc(p[0].title || '') + '"><figcaption>' + credit(p[0]) + '</figcaption></figure>' : '') + '</div>' +
+    app.innerHTML = '<div class="eng-hero eng-hero--solo" style="--c:' + COL[id] + '"><div><h1 class="eng-hero__t">' + esc(t.title) + '</h1><p class="eng-hero__a">' + esc(byline(t)) + (t.made ? ' · ' + esc(t.made) : '') + '</p>' +
+        '<p class="eng-p">' + esc(t.gist) + '</p><p class="eng-p"><b>Setting:</b> ' + esc(t.setting) + '</p></div></div>' +
+      (p.length ? '<h2 class="eng-h2">In pictures</h2><section class="eng-pv" data-eng-pv="' + id + '" style="--c:' + COL[id] + '"></section>' : '') +
       '<h2 class="eng-h2">Characters</h2><ul class="eng-people">' + t.people.map(function (c) { return '<li><b>' + esc(c.name) + '</b> ' + esc(c.who) + '</li>'; }).join('') + '</ul>' +
       '<h2 class="eng-h2">Key moments</h2><ol class="eng-moments">' + t.moments.map(function (m, k) {
         return '<li class="eng-moment" id="' + esc(m.id) + '" style="--c:' + COL[id] + '"><span class="eng-moment__n">' + (k + 1) + '</span>' +
           '<h3>' + esc(m.title) + '</h3><span class="eng-moment__w">' + esc(m.where) + (m.when ? ' · ' + esc(when[m.when] || m.when) : '') + ' · ' +
           (m.modes || []).map(function (x) { return '<span class="eng-tag" style="--c:' + COL[x] + '">' + esc(MODE[x] ? MODE[x].short : x) + '</span>'; }).join(' ') + '</span>' +
-          '<p>' + esc(m.what) + '</p><p class="eng-moment__why">' + esc(m.why) + '</p>' + (m.quote ? '<p class="eng-quote">“' + esc(m.quote) + '”</p>' : '') + '</li>';
-      }).join('') + '</ol>' +
-      (p.length > 1 ? '<h2 class="eng-h2">Pictures</h2><div class="eng-grid eng-grid--3">' + p.slice(1).map(function (q) {
-        return '<figure style="margin:0"><img src="assets/eng/img/' + esc(q.file) + '" alt="' + esc(q.title || '') + '" loading="lazy" style="width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:14px"><figcaption class="eng-credit">' + credit(q) + '</figcaption></figure>';
-      }).join('') + '</div>' : '');
+          '<p>' + esc(m.what) + '</p><p class="eng-moment__why">' + esc(m.why) + '</p>' + (m.quote ? '<p class="eng-quote">“' + esc(m.quote) + '”</p>' : '') +
+          p.map(function (q, k) { return q.moment === m.id ? '<button type="button" class="eng-moment__pic" data-eng-showpic="' + k + '" aria-label="See the picture: ' + esc(q.title) + '"><img src="assets/eng/img/' + esc(q.file) + '" alt="" loading="lazy"><span>See it</span></button>' : ''; }).join('') + '</li>';
+      }).join('') + '</ol>';
+    if (p.length) drawPics(id);
     if (moment) { var el = document.getElementById(moment); if (el) el.scrollIntoView({ block: 'center' }); }
+  }
+
+  // ---------- a text's pictures: tap the numbers to look closer ----------
+  // Each picture (assets/eng/img/credits.json) has a caption, the key moment it shows and numbered spots, each with a
+  // note, maybe a quote, and the key moment it belongs to. The spots you've opened are kept (eng-pics-seen).
+  var PV = {}, KIND = { painting: 'Painting', stage: 'On the stage', place: 'The real place', author: 'The writer' };
+  function seenAll() { try { return JSON.parse(store('eng-pics-seen') || '{}') || {}; } catch (e) { return {}; } }
+  function momentLine(tid, mid) {
+    var t = text(tid), k = -1;
+    t.moments.forEach(function (m, i) { if (m.id === mid) k = i; });
+    return k < 0 ? '' : '<a class="eng-pv__go" href="#text/' + tid + '/' + mid + '">Key moment ' + (k + 1) + ': ' + esc(t.moments[k].title) + ' <small>' + esc(t.moments[k].where) + '</small> →</a>';
+  }
+  function drawPics(id, focusPin) {
+    var box = document.querySelector('[data-eng-pv="' + id + '"]');
+    if (!box) return;
+    var list = pics(id), st = PV[id] || (PV[id] = { k: 0, pin: -1 }), q = list[st.k] || list[0], seen = seenAll()[q.file] || [];
+    var spots = q.spots || [], sp = spots[st.pin];
+    var note = sp ? '<div class="eng-pv__note"><span class="eng-pv__lab"><b>' + (st.pin + 1) + '</b>' + esc(sp.label) + '</span><p>' + esc(sp.note) + '</p>' +
+        (sp.quote ? '<blockquote>“' + esc(sp.quote) + '”</blockquote>' : '') + (sp.moment ? momentLine(id, sp.moment) : '') + '</div>'
+      : '<div class="eng-pv__note is-empty"><p>' + (spots.length ? 'Tap the numbers on the picture to look closer.' : '') + '</p>' + (q.moment ? momentLine(id, q.moment) : '') + '</div>';
+    var found = spots.filter(function (x, i) { return seen.indexOf(i) >= 0; }).length;
+    box.innerHTML = '<div class="eng-pv__main">' +
+        '<div class="eng-pv__stagebox"><div class="eng-pv__stage"><img src="assets/eng/img/' + esc(q.file) + '" alt="' + esc(q.title) + '">' +
+          spots.map(function (x, i) {
+            return '<button type="button" class="eng-pin' + (seen.indexOf(i) >= 0 ? ' is-seen' : '') + (i === st.pin ? ' is-on' : '') + '" style="left:' + x.x + '%;top:' + x.y + '%" data-eng-pin="' + i + '" aria-label="' + (i + 1) + ': ' + esc(x.label) + '" aria-pressed="' + (i === st.pin) + '">' + (i + 1) + '</button>';
+          }).join('') + '</div></div>' +
+        '<div class="eng-pv__panel"><span class="eng-pv__kind">' + esc(KIND[q.kind] || '') + '</span><h3 class="eng-pv__t">' + esc(q.title) + '</h3><p class="eng-pv__cap">' + esc(q.caption) + '</p>' +
+          note +
+          '<div class="eng-pv__foot">' + (spots.length ? '<span class="eng-pv__found' + (found === spots.length ? ' is-all' : '') + '">' + found + ' of ' + spots.length + ' looked at</span>' : '<span></span>') +
+            (list.length > 1 ? '<button type="button" class="eng-btn eng-btn--quiet" data-eng-pic="' + ((st.k + 1) % list.length) + '">Next picture →</button>' : '') + '</div>' +
+          '<p class="eng-credit">' + credit(q) + '</p></div></div>' +
+      (list.length > 1 ? '<div class="eng-pv__strip" role="tablist" aria-label="Pictures">' + list.map(function (x, k) {
+        var sAll = seenAll()[x.file] || [], done = (x.spots || []).length && (x.spots || []).every(function (y, i) { return sAll.indexOf(i) >= 0; });
+        return '<button type="button" class="eng-pv__th' + (k === st.k ? ' is-on' : '') + (done ? ' is-done' : '') + '" role="tab" aria-selected="' + (k === st.k) + '" data-eng-pic="' + k + '" title="' + esc(x.title) + '"><img src="assets/eng/img/' + esc(x.file) + '" alt="" loading="lazy">' +
+          ((x.spots || []).length ? '<i>' + (x.spots || []).length + '</i>' : '') + '</button>';
+      }).join('') + '</div>' : '');
+    if (focusPin != null) { var b = box.querySelector('[data-eng-pin="' + focusPin + '"]'); if (b) b.focus({ preventScroll: true }); }
+  }
+  function openPin(id, i) {
+    var st = PV[id], q = pics(id)[st.k], all = seenAll(), seen = all[q.file] || [];
+    st.pin = st.pin === i ? -1 : i;
+    if (st.pin >= 0 && seen.indexOf(i) < 0) {
+      seen.push(i); all[q.file] = seen; store('eng-pics-seen', JSON.stringify(all));
+      if (K) K.sfx(seen.length === q.spots.length ? 'stamp' : 'pop', 0.5);
+    }
+    drawPics(id, i);
+  }
+  function showPic(id, k, scroll) {
+    var st = PV[id] || (PV[id] = { k: 0, pin: -1 });
+    st.k = (k + pics(id).length) % pics(id).length; st.pin = -1;
+    drawPics(id);
+    var box = document.querySelector('[data-eng-pv="' + id + '"]');
+    if (scroll && box) box.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
 
   // ---------- language bank ----------
@@ -468,6 +520,10 @@
       renderHome();
       return;
     }
+    var pv = t.closest('[data-eng-pv]'), pin = t.closest('[data-eng-pin]'), pic = t.closest('[data-eng-pic]'), sp = t.closest('[data-eng-showpic]');
+    if (pv && pin) { openPin(pv.getAttribute('data-eng-pv'), +pin.getAttribute('data-eng-pin')); return; }
+    if (pv && pic) { showPic(pv.getAttribute('data-eng-pv'), +pic.getAttribute('data-eng-pic')); return; }
+    if (sp) { var tb = document.querySelector('[data-eng-pv]'); if (tb) showPic(tb.getAttribute('data-eng-pv'), +sp.getAttribute('data-eng-showpic'), true); return; }
     var cp = t.closest('[data-eng-copy]');
     if (cp) { copy(cp.getAttribute('data-eng-copy'), cp); return; }
     var qf = t.closest('[data-eng-qf]');
@@ -525,6 +581,14 @@
     if (!p[2]) window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', route);
+  // Left and right arrows change the picture while you're in the pictures.
+  document.addEventListener('keydown', function (ev) {
+    var pv = ev.target.closest && ev.target.closest('[data-eng-pv]');
+    if (!pv || ev.altKey || ev.ctrlKey || ev.metaKey || (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight')) return;
+    var id = pv.getAttribute('data-eng-pv');
+    ev.preventDefault(); showPic(id, PV[id].k + (ev.key === 'ArrowRight' ? 1 : -1));
+    var on = pv.querySelector('.eng-pv__th.is-on'); if (on) on.focus({ preventScroll: true });
+  });
   window.EngApp = { chosen: chosen, text: text, data: D, colour: COL };
   route();
 })();

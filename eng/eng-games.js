@@ -1,5 +1,6 @@
 // The English comparative games, in answer-mode.js's practice host (its cards, the examiner, sounds, "Leave the game?").
 //   Whose moment?        A key moment: which of your texts is it from? (from the texts' key moments)
+//   Picture it           A real picture (a painting, the place, the stage): which key moment does it go with?
 //   Link it              Two sentences about two texts: pick the linking phrase that fits (similar, different, degree).
 //   Build a point        Level up: a Point, then the sentence that anchors it, then the one that compares (traps:
 //                        plot summary, off the mode, vague, wrong).
@@ -83,6 +84,40 @@
     step(ok);
   }
 
+  // ======================================================================== Picture it
+  // A picture from one of your texts (assets/eng/img/credits.json, the ones linked to a key moment): which moment?
+  function picsForMe() { var m = mine(); return (D.images || []).filter(function (p) { return p.moment && m.indexOf(p.text) >= 0; }); }
+  function picOpen() {
+    var list = shuffle(picsForMe()).slice(0, ROUND);
+    if (list.length < 4) return;
+    G = { kind: 'pic', card: host('Picture it'), list: list, i: 0, got: 0 };
+    K.gameHud(G.card, list.length, '/' + list.length);
+    K.playing(true);
+    K.mascot('ok', 'A picture. Which moment? Look properly.');
+    picShow();
+  }
+  function picShow() {
+    var x = G.list[G.i], moms = D.texts[x.text].moments, right = moms.filter(function (m) { return m.id === x.moment; })[0];
+    G.opts = shuffle([right].concat(shuffle(moms.filter(function (m) { return m.id !== x.moment; })).slice(0, 3)));
+    K.gameSeg(G.card, G.i, 'is-current');
+    body('<div class="eg"><div class="am-run__top"><h3 class="am-run__kind">Picture it</h3><span class="am-games__step">' + (G.i + 1) + ' of ' + G.list.length + '</span></div>' +
+      '<figure class="eg-pic"><img src="assets/eng/img/' + esc(x.file) + '" alt=""><figcaption><span class="eng-tag" style="--c:' + col(x.text) + '">' + esc(title(x.text)) + '</span></figcaption></figure>' +
+      '<p class="am-games__ask">Which key moment does this picture go with?</p>' +
+      '<div class="eg-opts">' + G.opts.map(function (m, k) { return '<button type="button" class="am-run__opt eg-opt" style="--c:' + col(x.text) + '" data-eg-mom="' + k + '"><kbd aria-hidden="true">' + (k + 1) + '</kbd><span>' + esc(m.title) + ' <small>' + esc(m.where) + '</small></span></button>'; }).join('') + '</div>' +
+      '<div data-eg-after></div></div>');
+    buttons([['more', 'data-am-keep', 'Close']], true);
+  }
+  function picPick(btn) {
+    var x = G.list[G.i], m = G.opts[+btn.getAttribute('data-eg-mom')], ok = m.id === x.moment, right = G.opts.filter(function (o) { return o.id === x.moment; })[0];
+    G.card.querySelectorAll('[data-eg-mom]').forEach(function (b) { b.disabled = true; if (G.opts[+b.getAttribute('data-eg-mom')].id === x.moment) b.classList.add('am-run__opt--ok'); });
+    if (!ok) btn.classList.add('am-run__opt--no');
+    var after = G.card.querySelector('[data-eg-after]');
+    after.innerHTML = verdict(ok, esc(right.title) + ' <small>(' + esc(right.where) + ')</small>', x.title + ': ' + x.caption);
+    step(ok);
+    // The picture takes room: bring the answer into view.
+    K.later(function () { if (after.isConnected) after.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }, 60);
+  }
+
   // ======================================================================== Link it
   function linkOpen() {
     var list = forMe(GD.link || []).slice(0, ROUND);
@@ -164,6 +199,7 @@
   }
 
   var LIST = [['which', 'Whose moment?', 'A key moment: which text is it from?', function () { return true; }, whichOpen],
+    ['pic', 'Picture it', 'A real picture: which key moment?', function () { return (D.images || []).filter(function (p) { return p.moment; }).length >= 4; }, picOpen],
     ['link', 'Link it', 'Pick the link that fits two texts.', function () { return (GD.link || []).length >= 4; }, linkOpen],
     ['point', 'Build a point', 'Point, anchor, compare: dodge the traps.', function () { return (GD.level || []).length >= 4; }, function () { aiGames('level'); }],
     ['order', 'Order the paragraph', 'Put a PACE paragraph back in order.', function () { return (GD.chains || []).length >= 3; }, function () { aiGames('chain'); }],
@@ -175,21 +211,22 @@
   document.addEventListener('click', function (e) {
     if (!live() || !G.card.contains(e.target)) return;
     var t;
-    if (e.target.closest('[data-eg-next]')) { G.i += 1; if (G.i >= G.list.length) { finish(); return; } ({ which: whichShow, link: linkShow, spot: spotShow })[G.kind](); return; }
-    if (e.target.closest('[data-eg-again]')) { ({ which: whichOpen, link: linkOpen, spot: spotOpen })[G.kind](); return; }
+    if (e.target.closest('[data-eg-next]')) { G.i += 1; if (G.i >= G.list.length) { finish(); return; } ({ which: whichShow, pic: picShow, link: linkShow, spot: spotShow })[G.kind](); return; }
+    if (e.target.closest('[data-eg-again]')) { ({ which: whichOpen, pic: picOpen, link: linkOpen, spot: spotOpen })[G.kind](); return; }
     if (G.kind === 'which' && (t = e.target.closest('[data-eg-pick]'))) { whichPick(t); return; }
+    if (G.kind === 'pic' && (t = e.target.closest('[data-eg-mom]'))) { picPick(t); return; }
     if (G.kind === 'link' && (t = e.target.closest('[data-eg-link]'))) { linkPick(t); return; }
     if (G.kind === 'spot' && (t = e.target.closest('[data-eg-line]'))) { spotPick(t); }
   });
   // Keys 1-4 pick an option.
   document.addEventListener('keydown', function (e) {
     if (!live() || e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|TEXTAREA)$/.test(e.target.tagName) || !/^[1-4]$/.test(e.key)) return;
-    var b = G.card.querySelectorAll('[data-eg-pick],[data-eg-link],[data-eg-line]')[e.key - 1];
+    var b = G.card.querySelectorAll('[data-eg-pick],[data-eg-mom],[data-eg-link],[data-eg-line]')[e.key - 1];
     if (b && !b.disabled) { e.preventDefault(); b.click(); }
   });
   function finish() {
     var key = 'eng-' + G.kind + '-best', beat = best(key, G.got, G.list.length);
-    end(G.got, G.list.length, beat ? 'A new best.' : { which: 'Key moments are your evidence: know whose they are.', link: 'Vary your links: similarly, in contrast, to a far greater extent.', spot: 'No plot summary, no single-text paragraphs, no vague lines.' }[G.kind]);
+    end(G.got, G.list.length, beat ? 'A new best.' : { which: 'Key moments are your evidence: know whose they are.', pic: 'Picture the moment and you can write about it.', link: 'Vary your links: similarly, in contrast, to a far greater extent.', spot: 'No plot summary, no single-text paragraphs, no vague lines.' }[G.kind]);
   }
   window.EngGames = { list: LIST.filter(function (g) { return g[3](); }).map(function (g) { return g.slice(0, 3); }), open: open };
 })();

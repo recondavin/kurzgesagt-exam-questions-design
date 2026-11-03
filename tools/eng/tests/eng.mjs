@@ -62,11 +62,18 @@ ok(G.chains.every(it => it.steps.every(s => it.why.replace(/<\/?b>/g, '').includ
 ok(G.spot.every(it => it.weak >= 0 && it.weak < it.lines.length && it.fix && it.why), 'Spot the weak line: a weak line, why, and a better one');
 for (const m of ['theme', 'cc', 'gvv']) ok(['link', 'level', 'chains', 'spot'].every(k => G[k].some(it => it.mode === m)), `every game has ${m} items`);
 
-// Pictures: each one on disk with its licence and source.
+// Pictures: each one on disk with a free licence, its author and source; every text has some; the key moments they
+// link to exist; their spots sit on the picture; enough of your texts' pictures for Picture it.
 for (const p of D.images) {
   ok(fs.existsSync(new URL('../../../assets/eng/img/' + p.file, import.meta.url)), `picture ${p.file} exists`);
-  ok(p.licence && p.source && /^(CC0|Public domain|PD|CC BY)/i.test(p.licence), `picture ${p.file} is free to use and credited`);
+  ok(p.licence && p.author && /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/.test(p.source) && /^(CC0|Public domain|CC BY(-SA)? [234]\.0|Free Art Licence)$/.test(p.licence), `picture ${p.file} is free to use and credited`);
+  const ids = new Set(D.texts[p.text].moments.map(m => m.id));
+  ok(!p.moment || ids.has(p.moment), `picture ${p.file}: its key moment exists`);
+  ok(p.spots.every(s => s.x >= 0 && s.x <= 100 && s.y >= 0 && s.y <= 100 && s.label && s.note && (!s.moment || ids.has(s.moment))), `picture ${p.file}: every spot is on it, with a note and a real key moment`);
 }
+for (const id of D.order) ok(D.images.filter(p => p.text === id).length >= 3 && D.images.some(p => p.text === id && p.hero), `${id}: at least 3 pictures and one for its tile`);
+for (const trio of [['sive', 'othello', 'shawshank'], ['sive', 'othello', 'stlt'], ['sive', 'shawshank', 'stlt'], ['othello', 'shawshank', 'stlt']])
+  ok(D.images.filter(p => p.moment && trio.includes(p.text)).length >= 4, `Picture it has 4+ pictures for ${trio.join(', ')}`);
 
 if (fails.length) { console.log(fails.slice(0, 30).join('\n')); console.log(fails.length + ' failures'); process.exit(1); }
 console.log(`ok: ${D.order.length} texts, ${D.order.reduce((n, id) => n + D.texts[id].moments.length, 0)} key moments, ${D.questions.length} past questions, ` +

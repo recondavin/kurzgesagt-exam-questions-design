@@ -51,6 +51,25 @@ def check_text(t, problems):
                     problems.append('%s %s: point cites [%s], which is not a key moment' % (t['id'], name, ref))
 
 
+LICENCES = ('Public domain', 'CC0', 'CC BY 2.0', 'CC BY-SA 2.0', 'CC BY-SA 3.0', 'CC BY-SA 4.0', 'Free Art Licence')
+
+
+def check_pictures(pics, texts, problems):
+    """Every picture: a text, a free licence, a source, a caption; its key moment and each spot's are real; spots on it."""
+    for p in pics:
+        where = 'picture %s' % p['file']
+        if p.get('text') not in texts: problems.append('%s: unknown text %r' % (where, p.get('text')))
+        if p.get('licence') not in LICENCES: problems.append('%s: licence %r is not one of %s' % (where, p.get('licence'), ', '.join(LICENCES)))
+        if not (p.get('source', '').startswith('https://') and p.get('author') and p.get('title') and p.get('caption')):
+            problems.append('%s: needs a title, author, https source and caption' % where)
+        ids = {m['id'] for m in texts.get(p.get('text'), {}).get('moments', [])}
+        for m in [p.get('moment')] + [s.get('moment') for s in p.get('spots', [])]:
+            if m and m not in ids: problems.append('%s: key moment %r does not exist' % (where, m))
+        for s in p.get('spots', []):
+            if not (0 <= s['x'] <= 100 and 0 <= s['y'] <= 100 and s.get('label') and s.get('note')):
+                problems.append('%s: spot %r needs a place on the picture, a label and a note' % (where, s.get('label')))
+
+
 def check_games(g, texts, problems):
     known = set(texts)
     for kind in ('link', 'level', 'chains', 'spot'):
@@ -87,6 +106,7 @@ def main():
     check_games(games, texts, problems)
     credits = load('assets/eng/img/credits.json', [])
     credits = [c for c in credits if os.path.exists(os.path.join(ROOT, 'assets', 'eng', 'img', c['file']))]
+    check_pictures(credits, texts, problems)
     data = {'comparative': comp, 'order': [t for t in ORDER if t in texts], 'texts': texts,
             'questions': [q for q in questions if q.get('mode') in ('theme', 'cc', 'gvv')], 'images': credits, 'games': games}
     with open(os.path.join(ROOT, 'eng', 'eng-data.js'), 'w', encoding='utf-8') as f:
