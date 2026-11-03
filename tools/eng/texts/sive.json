@@ -1,0 +1,255 @@
+{
+  "id": "sive",
+  "title": "Sive",
+  "author": "John B. Keane",
+  "kind": "drama",
+  "made": "1959",
+  "setting": "The Glavins' poor farmhouse kitchen in remote rural Co. Kerry, in the 1950s.",
+  "gist": "Sive, a schoolgirl born outside marriage whose mother is dead, lives with her uncle Mike, his bitter wife Mena and her grandmother Nanna. When the matchmaker Thomasheen Seán Rua offers Mike and Mena £200 to marry her to Seán Dóta, an elderly farmer, they force the match on her, cut her off from Liam Scuab, the young man she loves, and see his letter offering escape destroyed. On the eve of the wedding Sive runs out across the bog and drowns herself.",
+  "people": [
+    {"name": "Sive", "who": "A gentle schoolgirl born outside marriage; her mother, Mike's sister, is dead, and she loves Liam Scuab."},
+    {"name": "Mena Glavin", "who": "Mike's hard, bitter and childless wife, shaped by a poor upbringing; she drives the match for the money."},
+    {"name": "Mike Glavin", "who": "Sive's uncle, a small farmer who knows the match is wrong but is too weak to stop it."},
+    {"name": "Nanna Glavin", "who": "Mike's mother and Sive's grandmother; sharp-tongued and pipe-smoking, she is Sive's only defender in the house."},
+    {"name": "Thomasheen Seán Rua", "who": "The local matchmaker: cunning, persuasive and driven by his own payment."},
+    {"name": "Seán Dóta", "who": "An elderly, well-off bachelor farmer who will pay to marry Sive."},
+    {"name": "Liam Scuab", "who": "The young man who loves Sive; a cousin of her father, so Mike hates him."},
+    {"name": "Pats Bocock", "who": "A travelling man whose blunt sayings expose the greed behind the match; he carries Liam's escape plan to Nanna."},
+    {"name": "Carthalawn", "who": "Pats's son, whose mocking and cursing songs comment on the action like a chorus."}
+  ],
+  "moments": [
+    {
+      "id": "sive-1",
+      "title": "Nanna and Mena at war",
+      "where": "Act 1, Scene 1",
+      "when": "opening",
+      "what": "The play opens in a poorly furnished kitchen where Nanna, hiding her pipe, and her daughter-in-law Mena trade insults about Mena's poor background and her childlessness. When Sive comes in from school, Mena resents that she is still being educated instead of contributing to the house.",
+      "why": "It sets up a poor, bitter household where the women fight over status and space, and where Sive has no protector with real power.",
+      "modes": ["cc", "gvv"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "sive-2",
+      "title": "Thomasheen's offer",
+      "where": "Act 1, Scene 1",
+      "when": "opening",
+      "what": "The matchmaker Thomasheen Seán Rua tells Mena in secret that Seán Dóta, an elderly farmer, wants to marry Sive and will pay Mike and Mena £200, and will take Nanna into his house as well. Mena, tempted by the money and the chance to be rid of both Sive and Nanna, agrees to work on Mike.",
+      "why": "Marriage is shown as a cash bargain in which Sive is effectively sold by the adults around her.",
+      "modes": ["theme", "cc"],
+      "quote": "the grass of twenty cows",
+      "sure": true
+    },
+    {
+      "id": "sive-3",
+      "title": "Mike throws Liam out",
+      "where": "Act 1, Scene 1",
+      "when": "opening",
+      "what": "Mike at first refuses the match angrily, horrified at giving a schoolgirl to an old man. Later he catches Liam Scuab on a secret visit to Sive and orders him away, blaming Liam's cousin, Sive's father, for leaving her mother pregnant and unmarried; the scene ends with Mike calling for Mena.",
+      "why": "Mike's hatred of Liam's family and his fear that Sive will repeat her mother's 'shame' begin to push him towards the match.",
+      "modes": ["theme", "cc", "gvv"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "sive-4",
+      "title": "Seán Dóta comes courting",
+      "where": "Act 1, Scene 2",
+      "when": "middle",
+      "what": "Thomasheen brings Seán Dóta to the house; Seán acts bashful and sings a foolish song, but when he is sent to walk Sive to a neighbour's house he makes a grab at her. In the same scene Thomasheen brushes aside Mike's doubts, dismissing love as something people like them cannot afford and telling how poverty after his father's suicide cost him his own chance of marriage.",
+      "why": "Love is dismissed as a luxury of the better-off, and Sive is left exposed to a predatory old man by the adults meant to protect her.",
+      "modes": ["theme", "cc", "gvv"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "sive-5",
+      "title": "The travelling men",
+      "where": "Act 1, Scene 3",
+      "when": "middle",
+      "what": "Nanna welcomes the travelling men Pats Bocock and his son Carthalawn, but Mena and Thomasheen refuse them food and money and resent Carthalawn's mocking songs. When the travellers tell Nanna about the match and she challenges Mena and Thomasheen, they bully her and threaten her with the county home.",
+      "why": "It shows who holds power in the house, how the old and the poor are treated, and introduces the travellers as the play's truth-telling chorus.",
+      "modes": ["theme", "cc", "gvv"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "sive-6",
+      "title": "Mena tells Sive the truth",
+      "where": "Act 1, Scene 3",
+      "when": "middle",
+      "what": "Putting on a motherly air, Mena tries to tempt Sive with all that Seán Dóta can offer; when Sive refuses, Mena cruelly tells her the truth about her birth and says she will leave school and no longer sleep beside Nanna. Mena also reveals the poverty and desperation that drove her into her own marriage.",
+      "why": "Sive's birth is used as a weapon: in this society a girl born outside marriage is told her only way to respectability is a husband.",
+      "modes": ["theme", "cc", "gvv"],
+      "quote": "You will have no name till you take a husband.",
+      "sure": true
+    },
+    {
+      "id": "sive-7",
+      "title": "Liam's plea",
+      "where": "Act 2, Scene 1",
+      "when": "middle",
+      "what": "Having heard about the match, Liam comes to the house and begs Mike and Mena not to give Sive to Seán Dóta, even offering to keep away from her; they send him off. Mena then lies to Sive that Liam came only to wish her joy and has left her for good.",
+      "why": "The one person who speaks up openly is driven away, and Mena's lie cuts Sive off from her only hope.",
+      "modes": ["theme", "cc"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "sive-8",
+      "title": "Nanna pleads with Mike",
+      "where": "Act 2, Scene 1",
+      "when": "middle",
+      "what": "As Mike gets ready to see the priest about the wedding, Nanna begs him to stop the match, warning that Sive's dead mother will curse it. Mike insists it is for the best but cannot look his mother in the face, and justifies himself by blaming Liam's family for what happened to his sister.",
+      "why": "Mike knows the match is wrong but chooses money, his wife and respectability over his conscience.",
+      "modes": ["theme", "cc", "gvv"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "sive-9",
+      "title": "The letter is burned",
+      "where": "Act 2, Scene 2",
+      "when": "climax",
+      "what": "On the day before the wedding, Pats brings Nanna a letter from Liam telling Sive to slip out that night so they can be married in secret; Mike finds out about it and, told it is only Liam's farewell, promises to pass it to Sive unopened. Thomasheen spots it, insists that Mike open it and, once the plan is exposed, burns it, while Mike, uneasy, does nothing to let Sive know.",
+      "why": "Sive's last chance of escape is destroyed by the matchmaker, while the uncle who could save her stays silent.",
+      "modes": ["theme", "cc", "gvv"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "sive-10",
+      "title": "The eve of the wedding",
+      "where": "Act 2, Scene 2",
+      "when": "climax",
+      "what": "Mena and Sive come home from buying wedding clothes with Seán Dóta's money, and a miserable Sive goes to her room while the men drink with Seán. Pats and Carthalawn arrive to provoke Seán and Thomasheen: Pats says that men of money like Seán will be the new lords of the land, and Carthalawn sings that Seán will soon be travelling by hearse.",
+      "why": "The celebration is hollow, and the travellers' songs tell the truth about greed and foreshadow a death, though the hearse will be for Sive.",
+      "modes": ["cc", "gvv"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "sive-11",
+      "title": "Sive is found drowned",
+      "where": "Act 2, Scene 2",
+      "when": "climax",
+      "what": "Mena discovers that Sive has stolen out of the house, and Pats admits he glimpsed a girl crossing the bog. Liam carries in Sive's body: she has drowned herself, and as Thomasheen and Seán Dóta slip away, Liam turns furiously on Mena.",
+      "why": "Sive's only escape from the match is death, and those who profited from it run from the consequences.",
+      "modes": ["theme", "cc", "gvv"],
+      "quote": "",
+      "sure": true
+    },
+    {
+      "id": "sive-12",
+      "title": "Holy ground and a lament",
+      "where": "Act 2, Scene 2",
+      "when": "ending",
+      "what": "Dazed, Mike's first concern is fetching the priest and whether Sive can be buried in holy ground. The play closes with Carthalawn's song mourning Sive and Nanna grieving beside her body.",
+      "why": "The ending condemns a society that cares more for respectability than for a girl's life, and leaves grief rather than justice.",
+      "modes": ["cc", "gvv"],
+      "quote": "",
+      "sure": true
+    }
+  ],
+  "modes": {
+    "theme": {
+      "themes": [
+        {
+          "name": "Power and control",
+          "points": [
+            "Power in Sive lies with whoever controls money and the household: once Thomasheen offers £200, it is Mena, not Mike, who drives the match and works on her husband until he gives in [sive-2] [sive-3].",
+            "Sive herself has no say at all: her schooling, her bedroom and her marriage are all decided for her, and Mena announces each decision rather than asking [sive-6].",
+            "Control is kept through lies and destroyed words: Mena tells Sive that Liam has left her for good, and Thomasheen burns Liam's letter so that Sive never learns of his plan [sive-7] [sive-9].",
+            "The powerful bully the weak into silence: when Nanna challenges the match, Mena and Thomasheen threaten her with the county home [sive-5]."
+          ]
+        },
+        {
+          "name": "Freedom and entrapment",
+          "points": [
+            "Sive is trapped by the circumstances of her birth: Mena tells her she will have no name until she takes a husband, so marriage to Seán Dóta is presented as her only way out [sive-6].",
+            "Mena is trapped too: she married to escape a desperately poor home and now shares a house with a mother-in-law who taunts her, which helps explain her hunger to be rid of both Sive and Nanna [sive-1] [sive-6].",
+            "Liam offers a real escape, but his letter is burned before Sive can read it [sive-9], so the only freedom left to her is death in the bog [sive-11]."
+          ]
+        },
+        {
+          "name": "Courage and silence",
+          "points": [
+            "Mike's silence makes him complicit: he cannot look his mother in the face when he says the match is for the best [sive-8], and after Thomasheen burns Liam's letter he does nothing to warn Sive [sive-9].",
+            "Liam is the one character who speaks out openly, pleading with Mike and Mena to stop the match [sive-7] and condemning Mena over Sive's body [sive-11].",
+            "Courage comes from the margins: old Nanna confronts Mena and Thomasheen despite their threats [sive-5], and the travelling man Pats carries Liam's escape plan into the house [sive-9].",
+            "Sive objects to the match but is too isolated to act on it, so her death becomes a silent protest against the life chosen for her [sive-6] [sive-11]."
+          ]
+        }
+      ]
+    },
+    "cc": {
+      "aspects": [
+        {
+          "name": "Power and authority",
+          "points": [
+            "Authority in Sive belongs to the adults who control money and land, not to the young: Seán Dóta's wealth buys him a bride, and the matchmaker Thomasheen brokers the deal for his own gain [sive-2].",
+            "Mike is the man of the house in name only; Mena and Thomasheen steer him by playing on his love of money and his hatred of Liam's family [sive-3] [sive-4].",
+            "Old age brings a loss of authority: Nanna lives in her son's house on sufferance and can be silenced with threats of the county home [sive-5]."
+          ]
+        },
+        {
+          "name": "Class, money and status",
+          "points": [
+            "Poverty drives the tragedy: Mena married to escape a desperately poor home and resents the cost of Sive's schooling, so £200 is an offer she will not refuse [sive-2] [sive-6].",
+            "A man's worth is measured in land and cattle: Thomasheen sells Seán Dóta as a man with the grass of twenty cows, and his age is brushed aside [sive-2].",
+            "Thomasheen treats love as something the poor cannot afford, rooted in his own story of a marriage lost to poverty after his father's suicide [sive-4].",
+            "Travelling people sit at the bottom of the social ladder, refused food and money by Mena and Thomasheen, yet Pats and Carthalawn see most clearly, warning that men of money like Seán will be the new lords of the land [sive-5] [sive-10]."
+          ]
+        },
+        {
+          "name": "Gender roles and marriage",
+          "points": [
+            "Marriage is a bargain arranged by others, not a choice: a matchmaker, an aunt and an uncle settle Sive's future for cash while she is still at school [sive-2].",
+            "A woman's standing depends on a husband: Mena tells Sive she has no name until she marries, and the shame of her birth falls entirely on her and her dead mother [sive-6].",
+            "A girl's education is resented as a waste: Mena begrudges Sive's schooling and ends it once the match is made [sive-1] [sive-6].",
+            "Young women are left unprotected from men's desire: Seán Dóta makes a grab at Sive on the walk, yet the adults press ahead with the match [sive-4]."
+          ]
+        },
+        {
+          "name": "Religion and the Church",
+          "points": [
+            "The Church appears as a source of rules and respectability rather than protection: Mike goes to the priest to arrange the wedding, and no priest or nun ever steps in to protect Sive [sive-8].",
+            "Catholic shame about sex outside marriage shapes everyone's view of Sive: Mike fears she will follow her mother's example, and Mena uses her birth against her [sive-3] [sive-6].",
+            "Mike's first thought at Sive's death is whether she can be buried in holy ground, since the Church then refused consecrated burial to suicides: respectability comes before grief [sive-12].",
+            "Faith is voiced most sincerely by the young lover, not the authorities: Liam warns Mike and Mena that a day will come when they must answer for what they are doing [sive-7]."
+          ]
+        },
+        {
+          "name": "Family and community",
+          "points": [
+            "The family home is a battleground rather than a refuge: Nanna and Mena are bound together by marriage and trade insults from the first scene [sive-1].",
+            "Family history is held against the young: Mike hates Liam because Liam's cousin fathered Sive and left her mother, so one generation's wrongs fall on the next [sive-3].",
+            "Old community customs survive in Nanna's hospitality to the travelling men, which Mena and Thomasheen reject [sive-5]; the travellers act as the community's voice, carrying news of the match and singing the truth about it [sive-10].",
+            "The family's concern for its name outlasts Sive herself: Mike worries about the priest and burial while Nanna alone simply grieves [sive-12]."
+          ]
+        },
+        {
+          "name": "Law, institutions and justice",
+          "points": [
+            "Law and the state are almost absent: no guard, court or official appears, and a private bargain made in a kitchen decides Sive's life [sive-2].",
+            "The one state institution mentioned, the county home, is used as a threat to frighten Nanna into silence [sive-5].",
+            "There is no justice at the end: Thomasheen and Seán Dóta slip away unpunished, and the only judgement comes from Liam's fury and Carthalawn's song [sive-11] [sive-12]."
+          ]
+        }
+      ]
+    },
+    "gvv": {
+      "opening": "The play opens in a cramped, poor kitchen full of insults and resentment, where Sive is treated as a burden. The only hints of hope are her schooling and her secret love for Liam.",
+      "ending": "Sive drowns herself on the eve of the wedding; the matchmaker and the bridegroom slip away, Mike worries about holy ground, and the play closes on a lament and Nanna's grief. The outlook is bleak: innocence is destroyed by greed and no one is brought to account.",
+      "outlook": "bleak",
+      "points": [
+        "Moments of light are brief: Liam's secret visit shows young love [sive-3] and the travellers' songs bring humour [sive-5], but both are soon crushed by the adults' greed.",
+        "The dark moments grow steadily harsher, from Mena's cruel revelation about Sive's birth [sive-6] to the burning of Liam's letter [sive-9], so the audience feels the trap closing.",
+        "Keane raises false hope near the end, as Liam's escape plan and Mike's doubts suggest Sive might be saved, which makes her death all the more shocking [sive-9] [sive-11].",
+        "The ending suggests that a society ruled by money and respectability destroys its most innocent members: Mike's first thought is holy ground, not his niece [sive-12].",
+        "The play leaves the audience angry at Mena and Thomasheen and full of pity for Sive and Nanna, though Mena's own story of poverty makes even her partly pitiable [sive-6] [sive-12].",
+        "Goodness exists in Liam, Nanna and the travelling men, but it is powerless against money, which deepens the bleakness [sive-7] [sive-11]."
+      ]
+    }
+  }
+}
