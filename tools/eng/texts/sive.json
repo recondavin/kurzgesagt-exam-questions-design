@@ -121,6 +121,14 @@
           "away",
           "leave"
         ]
+      },
+      "face": {
+        "file": "faces/sive-mena.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Abbey Theatre, Dublin, 2014"
       }
     },
     {
@@ -168,6 +176,14 @@
           "match",
           "rich"
         ]
+      },
+      "face": {
+        "file": "faces/sive-mike.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Abbey Theatre, Dublin, 2014"
       }
     },
     {
@@ -273,6 +289,14 @@
           "fee",
           "reward"
         ]
+      },
+      "face": {
+        "file": "faces/sive-thomasheen.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Abbey Theatre, Dublin, 2014"
       }
     },
     {
@@ -314,6 +338,14 @@
           "bride",
           "woman"
         ]
+      },
+      "face": {
+        "file": "faces/sive-sean-dota.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Abbey Theatre, Dublin, 2014"
       }
     },
     {
@@ -413,6 +445,14 @@
           "stop",
           "show"
         ]
+      },
+      "face": {
+        "file": "faces/sive-pats.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Abbey Theatre, Dublin, 2014"
       }
     },
     {
@@ -457,6 +497,14 @@
           "laugh",
           "punish"
         ]
+      },
+      "face": {
+        "file": "faces/sive-carthalawn.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Abbey Theatre, Dublin, 2014"
       }
     }
   ],
