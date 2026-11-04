@@ -41,6 +41,7 @@ for (const id of D.order) {
   ok(t.people.every((p, i) => t.people.every((q, j) => j <= i || Math.hypot(p.pos[0] - q.pos[0], p.pos[1] - q.pos[1]) >= 150)), `${id}: no two people sit on top of each other on the cast map`);
   ok(Array.isArray(t.links) && t.links.length >= 8 && t.links.every(l => names.has(l[0]) && names.has(l[1]) && l[0] !== l[1] && l[2].length > 2), `${id}: every line on the cast map joins two people and says how`);
   ok(t.people.every(p => t.links.some(l => l[0] === p.name || l[1] === p.name)), `${id}: everyone on the cast map is linked to someone`);
+  ok(t.people.every(p => typeof p.trait === 'string' && p.trait.length > 6 && p.trait.length <= 45), `${id}: every character has their personality in a few words`);
   ok(t.moments.every(m => Array.isArray(m.tell) && m.tell.length >= 2 && m.tell.length <= 4 && m.tell.every(s => s.length > 5)), `${id}: every key moment is told in 2 to 4 beats`);
   const groups = [...t.modes.theme.themes, ...t.modes.cc.aspects, { name: 'vision', points: t.modes.gvv.points }];
   ok(t.modes.theme.themes.length === 3, `${id}: the three themes`);

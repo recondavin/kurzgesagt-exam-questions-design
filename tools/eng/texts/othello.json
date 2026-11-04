@@ -24,7 +24,8 @@
       "pos": [
         420,
         260
-      ]
+      ],
+      "trait": "Noble and proud, then wildly jealous"
     },
     {
       "name": "Desdemona",
@@ -43,7 +44,8 @@
       "pos": [
         640,
         260
-      ]
+      ],
+      "trait": "Brave, loving and loyal"
     },
     {
       "name": "Iago",
@@ -62,7 +64,8 @@
       "pos": [
         420,
         470
-      ]
+      ],
+      "trait": "Two-faced, clever and cruel"
     },
     {
       "name": "Cassio",
@@ -74,7 +77,8 @@
       "pos": [
         170,
         330
-      ]
+      ],
+      "trait": "Charming and loyal, but weak with drink"
     },
     {
       "name": "Emilia",
@@ -86,7 +90,8 @@
       "pos": [
         640,
         470
-      ]
+      ],
+      "trait": "Worldly and blunt; brave at the end"
     },
     {
       "name": "Roderigo",
@@ -98,7 +103,8 @@
       "pos": [
         190,
         530
-      ]
+      ],
+      "trait": "Gullible and lovesick"
     },
     {
       "name": "Brabantio",
@@ -110,7 +116,8 @@
       "pos": [
         820,
         110
-      ]
+      ],
+      "trait": "Proud and outraged"
     },
     {
       "name": "Bianca",
@@ -122,7 +129,8 @@
       "pos": [
         70,
         150
-      ]
+      ],
+      "trait": "Devoted and jealous"
     },
     {
       "name": "Lodovico",
@@ -134,7 +142,8 @@
       "pos": [
         880,
         330
-      ]
+      ],
+      "trait": "Calm and dutiful"
     },
     {
       "name": "The Duke of Venice",
@@ -146,7 +155,8 @@
       "pos": [
         520,
         70
-      ]
+      ],
+      "trait": "Practical and fair"
     }
   ],
   "moments": [

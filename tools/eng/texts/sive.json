@@ -24,7 +24,8 @@
       "pos": [
         320,
         500
-      ]
+      ],
+      "trait": "Gentle, shy and trusting"
     },
     {
       "name": "Mena Glavin",
@@ -36,7 +37,8 @@
       "pos": [
         440,
         290
-      ]
+      ],
+      "trait": "Hard, bitter and greedy"
     },
     {
       "name": "Mike Glavin",
@@ -48,7 +50,8 @@
       "pos": [
         200,
         290
-      ]
+      ],
+      "trait": "Weak, torn and guilty"
     },
     {
       "name": "Nanna Glavin",
@@ -67,7 +70,8 @@
       "pos": [
         200,
         90
-      ]
+      ],
+      "trait": "Sharp-tongued, sly and fiercely protective"
     },
     {
       "name": "Thomasheen Seán Rua",
@@ -79,7 +83,8 @@
       "pos": [
         690,
         140
-      ]
+      ],
+      "trait": "Cunning, smooth-talking and money-mad"
     },
     {
       "name": "Seán Dóta",
@@ -91,7 +96,8 @@
       "pos": [
         660,
         470
-      ]
+      ],
+      "trait": "Old, rich and lecherous"
     },
     {
       "name": "Liam Scuab",
@@ -103,7 +109,8 @@
       "pos": [
         80,
         500
-      ]
+      ],
+      "trait": "Young, honest and loyal"
     },
     {
       "name": "Pats Bocock",
@@ -115,7 +122,8 @@
       "pos": [
         910,
         290
-      ]
+      ],
+      "trait": "Blunt, wise and fearless"
     },
     {
       "name": "Carthalawn",
@@ -127,7 +135,8 @@
       "pos": [
         910,
         500
-      ]
+      ],
+      "trait": "Mocking; he sings the hard truth"
     }
   ],
   "moments": [

@@ -24,7 +24,8 @@
       "pos": [
         400,
         300
-      ]
+      ],
+      "trait": "Quiet, clever and patient"
     },
     {
       "name": "Ellis 'Red' Redding",
@@ -43,7 +44,8 @@
       "pos": [
         640,
         300
-      ]
+      ],
+      "trait": "Wry and worn down, then hopeful"
     },
     {
       "name": "Warden Samuel Norton",
@@ -62,7 +64,8 @@
       "pos": [
         300,
         80
-      ]
+      ],
+      "trait": "Holy on the outside, corrupt inside"
     },
     {
       "name": "Captain Byron Hadley",
@@ -74,7 +77,8 @@
       "pos": [
         110,
         240
-      ]
+      ],
+      "trait": "Brutal and violent"
     },
     {
       "name": "Brooks Hatlen",
@@ -86,7 +90,8 @@
       "pos": [
         850,
         130
-      ]
+      ],
+      "trait": "Gentle and lost outside the walls"
     },
     {
       "name": "Tommy Williams",
@@ -98,7 +103,8 @@
       "pos": [
         600,
         520
-      ]
+      ],
+      "trait": "Cocky but eager to learn"
     },
     {
       "name": "Heywood",
@@ -110,7 +116,8 @@
       "pos": [
         880,
         450
-      ]
+      ],
+      "trait": "Loud and jokey"
     },
     {
       "name": "Bogs Diamond",
@@ -122,7 +129,8 @@
       "pos": [
         170,
         500
-      ]
+      ],
+      "trait": "Violent and predatory"
     }
   ],
   "moments": [

@@ -24,7 +24,8 @@
       "pos": [
         440,
         290
-      ]
+      ],
+      "trait": "Quiet, kind and troubled"
     },
     {
       "name": "Eileen Furlong",
@@ -43,7 +44,8 @@
       "pos": [
         690,
         190
-      ]
+      ],
+      "trait": "Practical and cautious"
     },
     {
       "name": "The Furlong daughters",
@@ -55,7 +57,8 @@
       "pos": [
         880,
         330
-      ]
+      ],
+      "trait": "Young, bright and busy"
     },
     {
       "name": "Sarah Redmond",
@@ -67,7 +70,8 @@
       "pos": [
         520,
         520
-      ]
+      ],
+      "trait": "Frightened and worn out"
     },
     {
       "name": "The Mother Superior",
@@ -86,7 +90,8 @@
       "pos": [
         230,
         500
-      ]
+      ],
+      "trait": "Polished, polite and threatening"
     },
     {
       "name": "Mrs Wilson",
@@ -98,7 +103,8 @@
       "pos": [
         210,
         90
-      ]
+      ],
+      "trait": "Kind and generous"
     },
     {
       "name": "Ned",
@@ -110,7 +116,8 @@
       "pos": [
         90,
         270
-      ]
+      ],
+      "trait": "Quiet and steady"
     },
     {
       "name": "Sarah (Bill's mother)",
@@ -122,7 +129,8 @@
       "pos": [
         440,
         80
-      ]
+      ],
+      "trait": "Young and hard-working"
     },
     {
       "name": "Mrs Kehoe",
@@ -134,7 +142,8 @@
       "pos": [
         800,
         520
-      ]
+      ],
+      "trait": "Shrewd and careful"
     }
   ],
   "moments": [

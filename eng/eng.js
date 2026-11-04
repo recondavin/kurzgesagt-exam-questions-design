@@ -345,7 +345,7 @@
   }
   function whoCard(t, c) {
     var ms = inMoments(t, c);
-    return '<article class="eng-who">' + faceHtml(c, 64) + '<div><h4>' + esc(c.name) + '</h4><span class="eng-who__tag">' + esc(c.tag) + '</span><p>' + esc(c.who) + '</p>' +
+    return '<article class="eng-who">' + faceHtml(c, 64) + '<div><h4>' + esc(c.name) + '</h4><span class="eng-who__tag">' + esc(c.tag) + '</span>' + (c.trait ? '<p class="eng-who__trait">' + esc(c.trait) + '</p>' : '') + '<p>' + esc(c.who) + '</p>' +
       '<dl><dt>Wants</dt><dd>' + esc(c.wants) + '</dd><dt>In the end</dt><dd>' + esc(c.end) + '</dd></dl>' +
       (ms.length ? '<p class="eng-who__in"><span>In</span>' + ms.map(function (m) { return '<a href="#text/' + t.id + '/' + m.id + '" title="' + esc(m.title) + '">' + (momentNo(t.id, m.id) + 1) + '</a>'; }).join('') + '</p>' : '') + '</div></article>';
   }
@@ -397,7 +397,7 @@
     if (CM.mode === 'meet') {
       var c = P[CM.shown - 1];
       panel.innerHTML = '<div class="eng-meet" style="--g:' + gcol(t, c) + '">' + faceHtml(c, 72) + '<div><p class="eng-meet__n">' + CM.shown + ' of ' + P.length + '</p><h3>' + esc(c.name) + '</h3><span class="eng-who__tag">' + esc(c.tag) + '</span>' +
-        '<p>' + esc(c.who) + '</p><p class="eng-meet__w"><b>Wants:</b> ' + esc(c.wants) + '</p></div></div>' +
+        (c.trait ? '<p class="eng-who__trait">' + esc(c.trait) + '</p>' : '') + '<p>' + esc(c.who) + '</p><p class="eng-meet__w"><b>Wants:</b> ' + esc(c.wants) + '</p></div></div>' +
         '<div class="eng-map__btns">' + (CM.shown > 1 ? '<button type="button" class="eng-btn eng-btn--quiet" data-cm-back>Back</button>' : '<span></span>') +
         (CM.shown < P.length ? '<button type="button" class="eng-btn" data-cm-next>Next: meet ' + esc(P[CM.shown].name.replace(/^The /, 'the ')) + '</button>' : '<button type="button" class="eng-btn" data-cm="build">That\'s everyone. Now build it</button>') + '</div>';
     } else if (CM.mode === 'explore') {
@@ -406,8 +406,13 @@
           return '<li><b>' + esc(l[0]) + '</b> <span>' + esc(l[2]) + '</span> <b>' + esc(l[1]) + '</b></li>'; }).join('') + '</ul></div>';
     } else {
       var left = CM.order.filter(function (i) { return !CM.placed[i]; });
-      panel.innerHTML = left.length ? '<p class="eng-map__hint">Drag each name onto its person' + (tall ? '' : ' (or tap a name, then a person)') + '. The lines say how they\'re linked. Mistakes: <b>' + CM.miss + '</b></p>' +
-        '<div class="eng-chips">' + left.map(function (i) { return '<button type="button" class="eng-namechip' + (CM.pick === i ? ' is-on' : '') + '" data-chip="' + i + '">' + esc(P[i].name) + '</button>'; }).join('') + '</div>'
+      // The one you're placing shows as a card (who they are, their character, what they want); the rest wait as names.
+      if (left.length && left.indexOf(CM.pick) < 0) CM.pick = left[0];
+      var q = P[CM.pick];
+      panel.innerHTML = left.length ? '<p class="eng-map__hint">' + (tall ? 'Drag the card or tap the person. ' : 'Drag the card onto its person, or just tap the person. ') + 'The yellow lines are clues. Mistakes: <b>' + CM.miss + '</b></p>' +
+        '<div class="eng-tray"><div class="eng-placecard" data-chip="' + CM.pick + '" style="--g:' + gcol(t, q) + '"><span class="eng-placecard__grip" aria-hidden="true"></span><div><h3>' + esc(q.name) + '</h3><span class="eng-who__tag">' + esc(q.tag) + '</span>' +
+          '<p class="eng-who__trait">' + esc(q.trait || '') + '</p><p class="eng-placecard__w"><b>Wants:</b> ' + esc(q.wants) + '</p></div></div>' +
+        (left.length > 1 ? '<div class="eng-chips"><span class="eng-chips__lab">Or place</span>' + left.filter(function (i) { return i !== CM.pick; }).map(function (i) { return '<button type="button" class="eng-namechip" data-chip="' + i + '">' + esc(P[i].name) + '</button>'; }).join('') + '</div>' : '') + '</div>'
         : '<div class="eng-built"><b>All ' + P.length + ' in place</b> with ' + CM.miss + ' mistake' + (CM.miss === 1 ? '' : 's') + '.' + (CM.best != null ? ' Best: ' + CM.best + '.' : '') +
           '<div class="eng-map__btns"><button type="button" class="eng-btn eng-btn--quiet" data-cm="explore">Explore</button><button type="button" class="eng-btn" data-cm="build">Play again</button></div></div>';
     }
@@ -1201,7 +1206,7 @@
     if (t.closest('[data-cm-next]') && CM) { CM.shown += 1; if (CM.shown === text(CM.t).people.length) store('eng-cast-met-' + CM.t, '1'); if (K) K.sfx('pop', 0.35); castDraw('line'); return; }
     if (t.closest('[data-cm-back]') && CM) { CM.shown = Math.max(1, CM.shown - 1); castDraw(); return; }
     var chip = t.closest('[data-chip]');
-    if (chip && CM) { var ci = +chip.getAttribute('data-chip'); CM.pick = CM.pick === ci ? -1 : ci; castDraw(); return; }
+    if (chip && CM) { var ci = +chip.getAttribute('data-chip'); if (CM.pick !== ci) { CM.pick = ci; if (K) K.sfx('tick', 0.3); castDraw(); } return; }
     var node = t.closest('[data-node]');
     if (node && CM) {
       var ni = +node.getAttribute('data-node');
@@ -1351,7 +1356,7 @@
   document.addEventListener('pointermove', function (ev) {
     if (!DRAGC) return;
     if (!DRAGC.ghost && Math.hypot(ev.clientX - DRAGC.x, ev.clientY - DRAGC.y) < 8) return;
-    if (!DRAGC.ghost) { DRAGC.ghost = DRAGC.chip.cloneNode(true); DRAGC.ghost.className = 'eng-namechip is-ghost'; document.body.appendChild(DRAGC.ghost); DRAGC.chip.classList.add('is-lifted'); }
+    if (!DRAGC.ghost) { DRAGC.ghost = document.createElement('div'); DRAGC.ghost.className = 'eng-namechip is-ghost'; DRAGC.ghost.textContent = text(CM.t).people[DRAGC.i].name; document.body.appendChild(DRAGC.ghost); DRAGC.chip.classList.add('is-lifted'); }
     DRAGC.ghost.style.left = ev.clientX + 'px'; DRAGC.ghost.style.top = ev.clientY + 'px';
     DRAGC.cx = ev.clientX; DRAGC.cy = ev.clientY;
     dragOver();
