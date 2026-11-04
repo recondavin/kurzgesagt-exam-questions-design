@@ -155,6 +155,14 @@
           "learn",
           "christmas"
         ]
+      },
+      "face": {
+        "file": "faces/stlt-daughters.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Small Things Like These, film, 2024"
       }
     },
     {
@@ -198,6 +206,14 @@
           "help",
           "mother"
         ]
+      },
+      "face": {
+        "file": "faces/stlt-sarah-redmond.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Small Things Like These, film, 2024"
       }
     },
     {
@@ -293,6 +309,14 @@
           "home",
           "job"
         ]
+      },
+      "face": {
+        "file": "faces/stlt-mrs-wilson.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Small Things Like These, film, 2024"
       }
     },
     {
@@ -334,6 +358,14 @@
           "quiet",
           "secret"
         ]
+      },
+      "face": {
+        "file": "faces/stlt-ned.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Small Things Like These, film, 2024"
       }
     },
     {
@@ -374,6 +406,14 @@
           "home",
           "job"
         ]
+      },
+      "face": {
+        "file": "faces/stlt-bills-mother.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Small Things Like These, film, 2024"
       }
     },
     {
