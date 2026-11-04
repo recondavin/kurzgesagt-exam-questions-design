@@ -42,6 +42,7 @@ for (const id of D.order) {
   ok(Array.isArray(t.links) && t.links.length >= 8 && t.links.every(l => names.has(l[0]) && names.has(l[1]) && l[0] !== l[1] && l[2].length > 2), `${id}: every line on the cast map joins two people and says how`);
   ok(t.people.every(p => t.links.some(l => l[0] === p.name || l[1] === p.name)), `${id}: everyone on the cast map is linked to someone`);
   ok(t.people.every(p => typeof p.trait === 'string' && p.trait.length > 6 && p.trait.length <= 45), `${id}: every character has their personality in a few words`);
+  ok(t.people.every(p => p.check && ['like', 'want'].every(k => Array.isArray(p.check[k]) && p.check[k].length >= 5 && p.check[k].every(w => /^[a-z0-9£]{3,}$/.test(w)))), `${id}: every character has the words accepted when you write what they're like and what they want`);
   ok(t.moments.every(m => Array.isArray(m.tell) && m.tell.length >= 2 && m.tell.length <= 4 && m.tell.every(s => s.length > 5)), `${id}: every key moment is told in 2 to 4 beats`);
   const groups = [...t.modes.theme.themes, ...t.modes.cc.aspects, { name: 'vision', points: t.modes.gvv.points }];
   ok(t.modes.theme.themes.length === 3, `${id}: the three themes`);

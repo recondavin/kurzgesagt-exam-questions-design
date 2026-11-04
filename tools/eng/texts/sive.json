@@ -25,7 +25,46 @@
         320,
         500
       ],
-      "trait": "Gentle, shy and trusting"
+      "trait": "Gentle, shy and trusting",
+      "check": {
+        "like": [
+          "kind",
+          "sweet",
+          "quiet",
+          "innocent",
+          "nice",
+          "soft",
+          "naive",
+          "young",
+          "timid",
+          "nervous",
+          "scared",
+          "afraid",
+          "good",
+          "pure",
+          "vulnerable",
+          "helpless",
+          "loving",
+          "lonely",
+          "sad",
+          "clever",
+          "bright"
+        ],
+        "want": [
+          "school",
+          "educat",
+          "study",
+          "studies",
+          "learn",
+          "liam",
+          "love",
+          "free",
+          "escape",
+          "happy",
+          "exams",
+          "teacher"
+        ]
+      }
     },
     {
       "name": "Mena Glavin",
@@ -38,7 +77,50 @@
         440,
         290
       ],
-      "trait": "Hard, bitter and greedy"
+      "trait": "Hard, bitter and greedy",
+      "check": {
+        "like": [
+          "mean",
+          "cruel",
+          "nasty",
+          "harsh",
+          "cold",
+          "jealous",
+          "selfish",
+          "spite",
+          "angry",
+          "ruthless",
+          "evil",
+          "heartless",
+          "money",
+          "grasp",
+          "scheming",
+          "manipul",
+          "bitch",
+          "horrible",
+          "resent",
+          "wicked"
+        ],
+        "want": [
+          "money",
+          "cash",
+          "pound",
+          "200",
+          "rid",
+          "gone",
+          "out",
+          "house",
+          "home",
+          "match",
+          "sell",
+          "rich",
+          "wealth",
+          "marry",
+          "married",
+          "away",
+          "leave"
+        ]
+      }
     },
     {
       "name": "Mike Glavin",
@@ -51,7 +133,41 @@
         200,
         290
       ],
-      "trait": "Weak, torn and guilty"
+      "trait": "Weak, torn and guilty",
+      "check": {
+        "like": [
+          "coward",
+          "spineless",
+          "soft",
+          "conflict",
+          "ashamed",
+          "guilt",
+          "quiet",
+          "unsure",
+          "divided",
+          "tempt",
+          "greedy",
+          "pushover",
+          "henpeck",
+          "torn",
+          "dominated",
+          "scared",
+          "afraid"
+        ],
+        "want": [
+          "peace",
+          "quiet",
+          "money",
+          "cash",
+          "pound",
+          "200",
+          "calm",
+          "easy",
+          "happy",
+          "match",
+          "rich"
+        ]
+      }
     },
     {
       "name": "Nanna Glavin",
@@ -71,7 +187,43 @@
         200,
         90
       ],
-      "trait": "Sharp-tongued, sly and fiercely protective"
+      "trait": "Sharp-tongued, sly and fiercely protective",
+      "check": {
+        "like": [
+          "witty",
+          "clever",
+          "funny",
+          "cheeky",
+          "tough",
+          "strong",
+          "loyal",
+          "caring",
+          "loving",
+          "kind",
+          "brave",
+          "stubborn",
+          "feisty",
+          "old",
+          "protect",
+          "defend",
+          "sharp",
+          "sly",
+          "sneaky",
+          "smart"
+        ],
+        "want": [
+          "protect",
+          "save",
+          "help",
+          "stop",
+          "defend",
+          "safe",
+          "escape",
+          "prevent",
+          "match",
+          "free"
+        ]
+      }
     },
     {
       "name": "Thomasheen Seán Rua",
@@ -84,7 +236,42 @@
         690,
         140
       ],
-      "trait": "Cunning, smooth-talking and money-mad"
+      "trait": "Cunning, smooth-talking and money-mad",
+      "check": {
+        "like": [
+          "sly",
+          "clever",
+          "sneaky",
+          "greedy",
+          "liar",
+          "lying",
+          "manipul",
+          "persuas",
+          "charm",
+          "scheming",
+          "crafty",
+          "devious",
+          "slimy",
+          "sleazy",
+          "fake",
+          "selfish",
+          "talker",
+          "dishonest"
+        ],
+        "want": [
+          "money",
+          "cash",
+          "pay",
+          "paid",
+          "profit",
+          "commission",
+          "match",
+          "deal",
+          "rich",
+          "fee",
+          "reward"
+        ]
+      }
     },
     {
       "name": "Seán Dóta",
@@ -97,7 +284,35 @@
         660,
         470
       ],
-      "trait": "Old, rich and lecherous"
+      "trait": "Old, rich and lecherous",
+      "check": {
+        "like": [
+          "creepy",
+          "dirty",
+          "gross",
+          "pervert",
+          "lonely",
+          "wealthy",
+          "money",
+          "ugly",
+          "pathetic",
+          "desperate",
+          "lust",
+          "old",
+          "rich",
+          "disgusting",
+          "sleazy"
+        ],
+        "want": [
+          "marry",
+          "marriage",
+          "wife",
+          "young",
+          "girl",
+          "bride",
+          "woman"
+        ]
+      }
     },
     {
       "name": "Liam Scuab",
@@ -110,7 +325,40 @@
         80,
         500
       ],
-      "trait": "Young, honest and loyal"
+      "trait": "Young, honest and loyal",
+      "check": {
+        "like": [
+          "kind",
+          "good",
+          "brave",
+          "loving",
+          "caring",
+          "decent",
+          "true",
+          "faithful",
+          "romantic",
+          "determined",
+          "passionate",
+          "nice",
+          "honest",
+          "loyal",
+          "young",
+          "strong"
+        ],
+        "want": [
+          "marry",
+          "marriage",
+          "love",
+          "escape",
+          "save",
+          "rescue",
+          "together",
+          "away",
+          "elope",
+          "wife",
+          "england"
+        ]
+      }
     },
     {
       "name": "Pats Bocock",
@@ -123,7 +371,39 @@
         910,
         290
       ],
-      "trait": "Blunt, wise and fearless"
+      "trait": "Blunt, wise and fearless",
+      "check": {
+        "like": [
+          "honest",
+          "truthful",
+          "clever",
+          "bold",
+          "brave",
+          "outsider",
+          "wander",
+          "poor",
+          "funny",
+          "sharp",
+          "mysterious",
+          "insight",
+          "wise",
+          "blunt",
+          "fearless"
+        ],
+        "want": [
+          "expose",
+          "truth",
+          "greed",
+          "help",
+          "letter",
+          "warn",
+          "mock",
+          "shame",
+          "reveal",
+          "stop",
+          "show"
+        ]
+      }
     },
     {
       "name": "Carthalawn",
@@ -136,7 +416,38 @@
         910,
         500
       ],
-      "trait": "Mocking; he sings the hard truth"
+      "trait": "Mocking; he sings the hard truth",
+      "check": {
+        "like": [
+          "song",
+          "sing",
+          "singer",
+          "music",
+          "curse",
+          "funny",
+          "cheeky",
+          "mock",
+          "honest",
+          "truth",
+          "loud",
+          "wild",
+          "strange",
+          "chorus",
+          "rude"
+        ],
+        "want": [
+          "mock",
+          "sing",
+          "song",
+          "curse",
+          "shame",
+          "greed",
+          "expose",
+          "truth",
+          "laugh",
+          "punish"
+        ]
+      }
     }
   ],
   "moments": [

@@ -334,7 +334,7 @@
   var CM = null;
   function castHtml(t) {
     var met = store('eng-cast-met-' + t.id);
-    CM = { t: t.id, mode: met ? 'explore' : 'meet', sel: -1, shown: 1, placed: {}, pick: -1, miss: 0, order: null };
+    CM = { t: t.id, mode: met ? 'explore' : 'meet', sel: -1, shown: 1, placed: {}, pick: -1, miss: 0, order: null, write: -1, res: null, spot: 0, wrote: 0 };
     var groups = groupsOf(t);
     return '<section class="eng-cast" id="cast"><div class="eng-cast__top"><h2 class="eng-h2">Who\'s who</h2>' +
       '<div class="eng-tabs" role="tablist">' + [['meet', 'Meet them'], ['explore', 'Explore'], ['build', 'Build it']].map(function (m) { return '<button type="button" role="tab" data-cm="' + m[0] + '">' + m[1] + '</button>'; }).join('') + '</div></div>' +
@@ -365,7 +365,7 @@
     var hot = function (l) {
       var a = idx(l[0]), b = idx(l[1]);
       // (On a phone, only the clues still to use: a line from someone placed to someone not yet, so it stays readable.)
-      if (CM.mode === 'build') return tall ? !CM.placed[a] !== !CM.placed[b] : CM.placed[a] || CM.placed[b];
+      if (CM.mode === 'build') return tall ? (!CM.placed[a] !== !CM.placed[b]) || a === CM.write || b === CM.write : CM.placed[a] || CM.placed[b];
       return CM.mode === 'meet' ? (a === CM.shown - 1 || b === CM.shown - 1) : (CM.sel >= 0 && (a === CM.sel || b === CM.sel));
     };
     var lines = '', labels = '';
@@ -380,7 +380,7 @@
       P.map(function (c, i) {
         if (!visible(i)) return '';
         var linked = CM.sel >= 0 && links.some(function (l) { return (idx(l[0]) === CM.sel && idx(l[1]) === i) || (idx(l[1]) === CM.sel && idx(l[0]) === i); });
-        var cls = 'eng-node' + (i === CM.sel ? ' is-sel' : '') + (CM.mode === 'explore' && CM.sel >= 0 && i !== CM.sel && !linked ? ' is-dim' : '') + (CM.mode === 'meet' && i === CM.shown - 1 ? ' is-new' : '') +
+        var cls = 'eng-node' + (i === CM.sel || (CM.mode === 'build' && i === CM.write) ? ' is-sel' : '') + (CM.mode === 'explore' && CM.sel >= 0 && i !== CM.sel && !linked ? ' is-dim' : '') + (CM.mode === 'meet' && i === CM.shown - 1 ? ' is-new' : '') +
           (!named(i) ? ' is-blank' : '') + (fresh === 'placed' && CM.last === i ? ' is-new' : '') + (CM.mode === 'build' && CM.wrong === i ? ' is-wrong' : '');
         var xy = at(c);
         return '<button type="button" class="' + cls + '" data-node="' + i + '" style="left:' + xy[0] / VW * 100 + '%;top:' + xy[1] / VH * 100 + '%;--g:' + gcol(t, c) + '">' +
@@ -405,27 +405,27 @@
         : '<div class="eng-map__card" style="--g:' + gcol(t, P[CM.sel]) + '">' + whoCard(t, P[CM.sel]) + '<ul class="eng-map__links">' + links.filter(function (l) { return idx(l[0]) === CM.sel || idx(l[1]) === CM.sel; }).map(function (l) {
           return '<li><b>' + esc(l[0]) + '</b> <span>' + esc(l[2]) + '</span> <b>' + esc(l[1]) + '</b></li>'; }).join('') + '</ul></div>';
     } else {
-      var left = CM.order.filter(function (i) { return !CM.placed[i]; });
-      // The one you're placing shows as a card (who they are, their character, what they want); the rest wait as names.
-      if (left.length && left.indexOf(CM.pick) < 0) CM.pick = left[0];
-      var q = P[CM.pick];
-      panel.innerHTML = left.length ? '<p class="eng-map__hint">' + (tall ? 'Drag the card or tap the person. ' : 'Drag the card onto its person, or just tap the person. ') + 'The yellow lines are clues. Mistakes: <b>' + CM.miss + '</b></p>' +
-        '<div class="eng-tray"><div class="eng-placecard" data-chip="' + CM.pick + '" style="--g:' + gcol(t, q) + '"><span class="eng-placecard__grip" aria-hidden="true"></span><div><h3>' + esc(q.name) + '</h3><span class="eng-who__tag">' + esc(q.tag) + '</span>' +
-          '<p class="eng-who__trait">' + esc(q.trait || '') + '</p><p class="eng-placecard__w"><b>Wants:</b> ' + esc(q.wants) + '</p></div></div>' +
-        (left.length > 1 ? '<div class="eng-chips"><span class="eng-chips__lab">Or place</span>' + left.filter(function (i) { return i !== CM.pick; }).map(function (i) { return '<button type="button" class="eng-namechip" data-chip="' + i + '">' + esc(P[i].name) + '</button>'; }).join('') + '</div>' : '') + '</div>'
-        : '<div class="eng-built"><b>All ' + P.length + ' in place</b> with ' + CM.miss + ' mistake' + (CM.miss === 1 ? '' : 's') + '.' + (CM.best != null ? ' Best: ' + CM.best + '.' : '') +
+      var left = CM.order.filter(function (i) { return !CM.placed[i]; }), n = P.length;
+      if (CM.write >= 0) panel.innerHTML = writeHtml(t, P[CM.write]);
+      else if (left.length) panel.innerHTML = '<p class="eng-map__hint">Drag each name onto its person' + (tall ? '' : ' (or tap a name, then a person)') + ', then write who they are. The yellow lines are clues. ' +
+          'Mistakes: <b>' + CM.miss + '</b> · Written: <b>' + CM.spot + '/' + CM.wrote + '</b></p>' +
+        '<div class="eng-chips">' + left.map(function (i) { return '<button type="button" class="eng-namechip' + (CM.pick === i ? ' is-on' : '') + '" data-chip="' + i + '">' + esc(P[i].name) + '</button>'; }).join('') + '</div>';
+      else panel.innerHTML = '<div class="eng-built"><b>All ' + n + ' in place</b> with ' + CM.miss + ' mistake' + (CM.miss === 1 ? '' : 's') + ', and you wrote ' + CM.spot + ' of ' + n + ' spot on.' +
+          (CM.best != null ? ' Best: ' + CM.best + ' mistake' + (CM.best === 1 ? '' : 's') + (CM.bestW != null ? ', ' + CM.bestW + ' spot on' : '') + '.' : '') +
           '<div class="eng-map__btns"><button type="button" class="eng-btn eng-btn--quiet" data-cm="explore">Explore</button><button type="button" class="eng-btn" data-cm="build">Play again</button></div></div>';
+      if (CM.write >= 0 && !CM.res) { var inp = panel.querySelector('[data-cw-in="like"]'); if (inp && fresh !== 'resize') inp.focus({ preventScroll: true }); }
     }
   }
   function castMode(m) {
     var t = text(CM.t);
-    CM.mode = m; CM.sel = -1; CM.pick = -1;
+    CM.mode = m; CM.sel = -1; CM.pick = -1; CM.write = -1; CM.res = null;
     if (m === 'meet') CM.shown = 1;
     if (m === 'build') {
-      CM.placed = {}; CM.miss = 0;
-      // The title character starts you off.
+      CM.placed = {}; CM.miss = 0; CM.spot = 0; CM.wrote = 0; CM.res = null; CM.draft = {};
+      // The title character starts you off: they're in place, and you write about them first.
       var tc = t.people.filter(function (c) { return c.name === t.title; })[0];
-      CM.placed[tc ? t.people.indexOf(tc) : 0] = true;
+      CM.write = tc ? t.people.indexOf(tc) : 0; CM.placed[CM.write] = true;
+      var bw = +(store('eng-cast-wrote-' + CM.t) || -1); CM.bestW = bw >= 0 ? bw : null;
       CM.order = t.people.map(function (c, i) { return i; }).sort(function () { return Math.random() - 0.5; });
       var b = +(store('eng-cast-best-' + CM.t) || -1); CM.best = b >= 0 ? b : null;
     }
@@ -437,13 +437,8 @@
     var t = text(CM.t);
     if (CM.placed[node]) return;
     if (chip === node) {
-      CM.placed[node] = true; CM.last = node; CM.pick = -1;
+      CM.placed[node] = true; CM.last = node; CM.pick = -1; CM.write = node; CM.res = null; CM.draft = {};
       if (K) K.sfx('stamp', 0.4);
-      var done = t.people.every(function (c, i) { return CM.placed[i]; });
-      if (done) {
-        if (CM.best == null || CM.miss < CM.best) { store('eng-cast-best-' + CM.t, String(CM.miss)); CM.best = CM.miss; }
-        if (K) setTimeout(K.fanfare, 250);
-      }
       castDraw('placed');
     } else {
       CM.miss += 1; CM.wrong = node;
@@ -451,6 +446,63 @@
       toast('Not ' + t.people[chip].name + '. Read the lines around that one.');
       castDraw();
     }
+  }
+
+  // Writing it (the user: "they should put it in and WRITE IT"): once someone is in place you write what they're like and
+  // what they want, in your own words. Each answer is checked for the words that matter: those of their trait and wants,
+  // and the other words a student might fairly use for them (people[].check), matched by their first five letters.
+  // Then the real lines show, with the words you got marked.
+  var STOPW = ' and the then but with her his him she they them their this that for from into are was who what wants want like likes very really also just some more most has had have been being when where which will would can could does doing get gets got because about ';
+  function lowerOf(s) { return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+  function wordsOf(s) { return lowerOf(s).split(/[^a-z0-9£]+/).filter(function (w) { return w.length >= 3 && STOPW.indexOf(' ' + w + ' ') < 0; }); }
+  function wordHit(w, k) { k = k.slice(0, 5); return w.indexOf(k) === 0 || (w.length >= 4 && k.indexOf(w) === 0); }
+  // (A name in the real line, like 'Sive' in Nanna's 'To protect Sive from the match', doesn't count by itself.)
+  function writeCheck(answer, model, extra, names) {
+    var said = wordsOf(answer), keys = wordsOf(model).filter(function (k) { return !names || names.indexOf(k) < 0; }).concat((extra || []).map(lowerOf));
+    return keys.filter(function (k) { return said.some(function (w) { return wordHit(w, k); }); });
+  }
+  function markModel(model, got) {
+    return esc(model).replace(/[A-Za-zÀ-ÿ£0-9'’-]+/g, function (w) { var p = wordsOf(w)[0]; return p && got.some(function (k) { return wordHit(p, k) || wordHit(k, p.slice(0, 5)); }) ? '<mark>' + w + '</mark>' : w; });
+  }
+  var CALL = { "Ellis 'Red' Redding": 'Red', 'The Duke of Venice': 'the Duke', "Sarah (Bill's mother)": "Bill's mother", 'Warden Samuel Norton': 'Norton', 'Captain Byron Hadley': 'Hadley', 'Seán Dóta': 'Seán Dóta' };
+  function callOf(c) { return CALL[c.name] || (/^(The|Mrs) /.test(c.name) ? c.name.replace(/^The /, 'the ') : c.name.split(' ')[0]); }
+  function writeHtml(t, c) {
+    var who = callOf(c), many = / daughters$/.test(c.name), R = CM.res;
+    var head = '<div class="eng-write__top">' + faceHtml(c, 48) + '<div><p class="eng-meet__n">' + (R ? 'How you did' : 'Now write it') + '</p><h3>' + esc(c.name) + '</h3></div>' +
+      (R ? '<span class="eng-write__stamp is-' + R.grade + '">' + { spot: 'Spot on!', half: 'Half there', none: R.shown ? 'Here it is' : 'Not quite' }[R.grade] + '</span>' : '') + '</div>';
+    var qs = [['like', (many ? 'What are ' : 'What\'s ') + who + ' like?', 'Their character, in a few words', c.trait], ['want', (many ? 'What do ' : 'What does ') + who + ' want?', 'What they\'re after', c.wants]];
+    if (!R) return '<form class="eng-write" data-cw style="--g:' + gcol(t, c) + '">' + head + '<div class="eng-write__two">' + qs.map(function (q) {
+        return '<label class="eng-write__f"><span>' + esc(q[1].charAt(0).toUpperCase() + q[1].slice(1)) + '</span><input type="text" data-cw-in="' + q[0] + '" maxlength="100" autocomplete="off" spellcheck="true" enterkeyhint="' + (q[0] === 'like' ? 'next' : 'done') + '" placeholder="' + esc(q[2]) + '" value="' + esc((CM.draft || {})[q[0]] || '') + '"></label>';
+      }).join('') + '</div><div class="eng-map__btns"><button type="button" class="eng-btn eng-btn--quiet" data-cw-show>Show me</button><button type="submit" class="eng-btn">Check</button></div></form>';
+    return '<div class="eng-write is-done" style="--g:' + gcol(t, c) + '">' + head + '<div class="eng-write__two">' + qs.map(function (q) {
+        var you = R[q[0]], got = R[q[0] + 'Got'];
+        return '<div class="eng-write__row"><span class="eng-write__q">' + esc(q[1].charAt(0).toUpperCase() + q[1].slice(1)) + '</span>' +
+          (R.shown ? '' : '<p class="eng-write__you ' + (got.length ? 'is-ok' : 'is-no') + '"><i>' + (got.length ? '✓' : '✗') + '</i>' + (you ? esc(you) : '<em>(blank)</em>') + '</p>') +
+          '<p class="eng-write__real">' + markModel(q[3], got) + '</p></div>';
+      }).join('') + '</div><div class="eng-map__btns"><span></span><button type="button" class="eng-btn" data-cw-next>' + (CM.order.some(function (i) { return !CM.placed[i]; }) ? 'Next person' : 'Finish') + '</button></div></div>';
+  }
+  function writeSubmit(show) {
+    var c = text(CM.t).people[CM.write], f = app.querySelector('[data-cw]'); if (!c || !f) return;
+    var like = show ? '' : f.querySelector('[data-cw-in="like"]').value.trim(), want = show ? '' : f.querySelector('[data-cw-in="want"]').value.trim();
+    if (!show && !like && !want) { toast('Write a few words first, or tap Show me.'); return; }
+    var names = [].concat.apply([], text(CM.t).people.map(function (x) { return wordsOf(x.name); }));
+    var chk = c.check || {}, lg = writeCheck(like, c.trait || '', chk.like, names), wg = writeCheck(want, c.wants, chk.want, names);
+    var grade = lg.length && wg.length ? 'spot' : lg.length || wg.length ? 'half' : 'none';
+    CM.res = { like: like, want: want, likeGot: lg, wantGot: wg, grade: grade, shown: !!show };
+    CM.wrote += 1; if (grade === 'spot') CM.spot += 1;
+    if (K) { if (grade === 'spot') K.ding(); else if (grade === 'half') K.sfx('pop', 0.4); }
+    castDraw();
+    var nx = app.querySelector('[data-cw-next]'); if (nx) nx.focus({ preventScroll: true });
+  }
+  function writeNext() {
+    var t = text(CM.t);
+    CM.write = -1; CM.res = null;
+    if (t.people.every(function (c, i) { return CM.placed[i]; })) {
+      if (CM.best == null || CM.miss < CM.best) { store('eng-cast-best-' + CM.t, String(CM.miss)); CM.best = CM.miss; }
+      if (CM.bestW == null || CM.spot > CM.bestW) { store('eng-cast-wrote-' + CM.t, String(CM.spot)); CM.bestW = CM.spot; }
+      if (K) setTimeout(K.fanfare, 150);
+    }
+    castDraw();
   }
 
   // ---------- the story, told scene by scene ----------
@@ -1206,11 +1258,14 @@
     if (t.closest('[data-cm-next]') && CM) { CM.shown += 1; if (CM.shown === text(CM.t).people.length) store('eng-cast-met-' + CM.t, '1'); if (K) K.sfx('pop', 0.35); castDraw('line'); return; }
     if (t.closest('[data-cm-back]') && CM) { CM.shown = Math.max(1, CM.shown - 1); castDraw(); return; }
     var chip = t.closest('[data-chip]');
-    if (chip && CM) { var ci = +chip.getAttribute('data-chip'); if (CM.pick !== ci) { CM.pick = ci; if (K) K.sfx('tick', 0.3); castDraw(); } return; }
+    if (t.closest('[data-cw-show]') && CM) { writeSubmit(true); return; }
+    if (t.closest('[data-cw-next]') && CM) { writeNext(); return; }
+    if (chip && CM) { var ci = +chip.getAttribute('data-chip'); CM.pick = CM.pick === ci ? -1 : ci; castDraw(); return; }
     var node = t.closest('[data-node]');
     if (node && CM) {
       var ni = +node.getAttribute('data-node');
       if (CM.mode === 'explore') { CM.sel = CM.sel === ni ? -1 : ni; if (K) K.sfx('tick', 0.3); castDraw(); }
+      else if (CM.mode === 'build' && CM.write >= 0) toast('Write about ' + callOf(text(CM.t).people[CM.write]) + ' first.');
       else if (CM.mode === 'build' && CM.pick >= 0) castPlace(CM.pick, ni);
       else if (CM.mode === 'build') toast('Pick a name first, then tap who it is.');
       else if (CM.mode === 'meet') { CM.mode = 'explore'; CM.sel = ni; castDraw(); }
@@ -1344,7 +1399,7 @@
     if (DEF) { var b = DEF.btn; closeDef(); b.focus(); return; }
     if (document.body.classList.contains('sh-open')) menu(false);
   });
-  window.matchMedia('(max-width: 700px)').addEventListener('change', function () { if (CM && app.querySelector('[data-map]')) castDraw(); });
+  window.matchMedia('(max-width: 700px)').addEventListener('change', function () { if (CM && app.querySelector('[data-map]')) castDraw('resize'); });
   // Build it: a name chip dragged onto a person.
   var DRAGC = null;
   document.addEventListener('pointerdown', function (ev) {
@@ -1396,6 +1451,12 @@
     app.querySelectorAll('.eng-node.is-over').forEach(function (n) { n.classList.remove('is-over'); });
   });
   var DRAG_END = 0;
+  document.addEventListener('input', function (ev) { var k = ev.target.getAttribute && ev.target.getAttribute('data-cw-in'); if (k && CM) { CM.draft = CM.draft || {}; CM.draft[k] = ev.target.value; } });
+  document.addEventListener('submit', function (ev) { if (ev.target.matches && ev.target.matches('[data-cw]')) { ev.preventDefault(); writeSubmit(false); } });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Enter' || !ev.target.matches || !ev.target.matches('[data-cw-in="like"]')) return;
+    var w = app.querySelector('[data-cw-in="want"]'); if (w && !w.value.trim()) { ev.preventDefault(); w.focus(); }
+  });
   // The line of argument is one sentence: Enter doesn't start a new line.
   document.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' && ev.target.getAttribute && ev.target.getAttribute('data-eb') === 'thesis') ev.preventDefault(); });
   // The parts of the sheet you can tap to go to also go with Enter or Space.
@@ -1421,6 +1482,11 @@
     if (!p[2]) window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', route);
-  window.EngApp = { chosen: chosen, text: text, data: D, colour: COL, inMoments: inMoments, faceHtml: faceHtml };
+  window.EngApp = { grade: function (tid, name, like, want) {
+      var t = text(tid), c = t.people.filter(function (x) { return x.name === name; })[0], chk = c.check || {};
+      var names = [].concat.apply([], t.people.map(function (x) { return wordsOf(x.name); }));
+      var l = writeCheck(like, c.trait || '', chk.like, names).length > 0, w = writeCheck(want, c.wants, chk.want, names).length > 0;
+      return l && w ? 'spot' : l || w ? 'half' : 'none';
+    }, chosen: chosen, text: text, data: D, colour: COL, inMoments: inMoments, faceHtml: faceHtml };
   route();
 })();

@@ -25,7 +25,46 @@
         440,
         290
       ],
-      "trait": "Quiet, kind and troubled"
+      "trait": "Quiet, kind and troubled",
+      "check": {
+        "like": [
+          "caring",
+          "decent",
+          "good",
+          "gentle",
+          "thoughtful",
+          "worried",
+          "anxious",
+          "generous",
+          "moral",
+          "empath",
+          "sensitive",
+          "hardwork",
+          "humble",
+          "brave",
+          "conscience",
+          "kind",
+          "quiet",
+          "troubled"
+        ],
+        "want": [
+          "family",
+          "safe",
+          "protect",
+          "right",
+          "good",
+          "moral",
+          "help",
+          "sarah",
+          "daughters",
+          "girls",
+          "wife",
+          "peace",
+          "conscience",
+          "truth",
+          "justice"
+        ]
+      }
     },
     {
       "name": "Eileen Furlong",
@@ -45,7 +84,37 @@
         690,
         190
       ],
-      "trait": "Practical and cautious"
+      "trait": "Practical and cautious",
+      "check": {
+        "like": [
+          "sensible",
+          "careful",
+          "realistic",
+          "worried",
+          "protective",
+          "strict",
+          "cold",
+          "conform",
+          "sharp",
+          "busy",
+          "organised",
+          "loyal",
+          "practical",
+          "cautious"
+        ],
+        "want": [
+          "girls",
+          "daughters",
+          "protect",
+          "safe",
+          "school",
+          "out",
+          "quiet",
+          "family",
+          "ignore",
+          "business"
+        ]
+      }
     },
     {
       "name": "The Furlong daughters",
@@ -58,7 +127,33 @@
         880,
         330
       ],
-      "trait": "Young, bright and busy"
+      "trait": "Young, bright and busy",
+      "check": {
+        "like": [
+          "clever",
+          "smart",
+          "happy",
+          "innocent",
+          "good",
+          "sweet",
+          "lively",
+          "studious",
+          "children",
+          "kids",
+          "young",
+          "bright",
+          "busy"
+        ],
+        "want": [
+          "school",
+          "margaret",
+          "educat",
+          "place",
+          "study",
+          "learn",
+          "christmas"
+        ]
+      }
     },
     {
       "name": "Sarah Redmond",
@@ -71,7 +166,37 @@
         520,
         520
       ],
-      "trait": "Frightened and worn out"
+      "trait": "Frightened and worn out",
+      "check": {
+        "like": [
+          "scared",
+          "afraid",
+          "broken",
+          "weak",
+          "desperate",
+          "sad",
+          "terrified",
+          "traumat",
+          "exhaust",
+          "tired",
+          "vulnerable",
+          "helpless",
+          "young",
+          "timid",
+          "frightened"
+        ],
+        "want": [
+          "baby",
+          "child",
+          "out",
+          "escape",
+          "free",
+          "home",
+          "leave",
+          "help",
+          "mother"
+        ]
+      }
     },
     {
       "name": "The Mother Superior",
@@ -91,7 +216,41 @@
         230,
         500
       ],
-      "trait": "Polished, polite and threatening"
+      "trait": "Polished, polite and threatening",
+      "check": {
+        "like": [
+          "cold",
+          "calm",
+          "controlling",
+          "powerful",
+          "manipul",
+          "sinister",
+          "scary",
+          "intimidating",
+          "smooth",
+          "clever",
+          "evil",
+          "cruel",
+          "fake",
+          "hypocrit",
+          "menac",
+          "polite",
+          "threatening"
+        ],
+        "want": [
+          "silence",
+          "quiet",
+          "secret",
+          "hide",
+          "cover",
+          "power",
+          "control",
+          "keep",
+          "reputation",
+          "image",
+          "money"
+        ]
+      }
     },
     {
       "name": "Mrs Wilson",
@@ -104,7 +263,34 @@
         210,
         90
       ],
-      "trait": "Kind and generous"
+      "trait": "Kind and generous",
+      "check": {
+        "like": [
+          "caring",
+          "good",
+          "decent",
+          "gentle",
+          "brave",
+          "wise",
+          "charitable",
+          "nice",
+          "warm",
+          "loving",
+          "generous",
+          "kind"
+        ],
+        "want": [
+          "help",
+          "chance",
+          "mother",
+          "raise",
+          "care",
+          "look",
+          "support",
+          "home",
+          "job"
+        ]
+      }
     },
     {
       "name": "Ned",
@@ -117,7 +303,35 @@
         90,
         270
       ],
-      "trait": "Quiet and steady"
+      "trait": "Quiet and steady",
+      "check": {
+        "like": [
+          "kind",
+          "gentle",
+          "caring",
+          "reliable",
+          "shy",
+          "humble",
+          "loyal",
+          "patient",
+          "decent",
+          "calm",
+          "good",
+          "quiet",
+          "steady"
+        ],
+        "want": [
+          "bill",
+          "look",
+          "care",
+          "son",
+          "protect",
+          "help",
+          "raise",
+          "quiet",
+          "secret"
+        ]
+      }
     },
     {
       "name": "Sarah (Bill's mother)",
@@ -130,7 +344,34 @@
         440,
         80
       ],
-      "trait": "Young and hard-working"
+      "trait": "Young and hard-working",
+      "check": {
+        "like": [
+          "poor",
+          "brave",
+          "loving",
+          "kind",
+          "strong",
+          "determined",
+          "servant",
+          "unmarried",
+          "young",
+          "hardwork"
+        ],
+        "want": [
+          "bill",
+          "son",
+          "child",
+          "raise",
+          "keep",
+          "care",
+          "love",
+          "look",
+          "baby",
+          "home",
+          "job"
+        ]
+      }
     },
     {
       "name": "Mrs Kehoe",
@@ -143,7 +384,35 @@
         800,
         520
       ],
-      "trait": "Shrewd and careful"
+      "trait": "Shrewd and careful",
+      "check": {
+        "like": [
+          "wise",
+          "sensible",
+          "cautious",
+          "knowing",
+          "sharp",
+          "practical",
+          "kind",
+          "caring",
+          "honest",
+          "protective",
+          "nosy",
+          "worried",
+          "shrewd",
+          "careful"
+        ],
+        "want": [
+          "careful",
+          "nuns",
+          "warn",
+          "safe",
+          "protect",
+          "quiet",
+          "trouble",
+          "convent"
+        ]
+      }
     }
   ],
   "moments": [

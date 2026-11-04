@@ -25,7 +25,43 @@
         420,
         260
       ],
-      "trait": "Noble and proud, then wildly jealous"
+      "trait": "Noble and proud, then wildly jealous",
+      "check": {
+        "like": [
+          "brave",
+          "honour",
+          "respect",
+          "strong",
+          "soldier",
+          "leader",
+          "confident",
+          "trusting",
+          "gullible",
+          "naive",
+          "insecure",
+          "angry",
+          "violent",
+          "passion",
+          "loving",
+          "eloquent",
+          "jealous",
+          "noble",
+          "proud"
+        ],
+        "want": [
+          "desdemona",
+          "love",
+          "wife",
+          "honour",
+          "respect",
+          "reputation",
+          "name",
+          "trust",
+          "proof",
+          "truth",
+          "loyal"
+        ]
+      }
     },
     {
       "name": "Desdemona",
@@ -45,7 +81,39 @@
         640,
         260
       ],
-      "trait": "Brave, loving and loyal"
+      "trait": "Brave, loving and loyal",
+      "check": {
+        "like": [
+          "kind",
+          "gentle",
+          "innocent",
+          "faithful",
+          "true",
+          "sweet",
+          "strong",
+          "independent",
+          "honest",
+          "pure",
+          "good",
+          "devoted",
+          "defiant",
+          "brave",
+          "loving",
+          "loyal"
+        ],
+        "want": [
+          "othello",
+          "husband",
+          "love",
+          "together",
+          "marriage",
+          "marry",
+          "loved",
+          "trust",
+          "cassio",
+          "help"
+        ]
+      }
     },
     {
       "name": "Iago",
@@ -65,7 +133,43 @@
         420,
         470
       ],
-      "trait": "Two-faced, clever and cruel"
+      "trait": "Two-faced, clever and cruel",
+      "check": {
+        "like": [
+          "evil",
+          "manipul",
+          "liar",
+          "lying",
+          "deceit",
+          "jealous",
+          "sneaky",
+          "cunning",
+          "sly",
+          "villain",
+          "scheming",
+          "smart",
+          "fake",
+          "bitter",
+          "resent",
+          "racist",
+          "sinister",
+          "devil",
+          "clever",
+          "cruel"
+        ],
+        "want": [
+          "revenge",
+          "destroy",
+          "ruin",
+          "power",
+          "promot",
+          "lieutenant",
+          "position",
+          "rank",
+          "hate",
+          "downfall"
+        ]
+      }
     },
     {
       "name": "Cassio",
@@ -78,7 +182,38 @@
         170,
         330
       ],
-      "trait": "Charming and loyal, but weak with drink"
+      "trait": "Charming and loyal, but weak with drink",
+      "check": {
+        "like": [
+          "polite",
+          "gentleman",
+          "handsome",
+          "drunk",
+          "drink",
+          "honest",
+          "good",
+          "loyal",
+          "reckless",
+          "naive",
+          "trusting",
+          "kind",
+          "smooth",
+          "charming",
+          "weak"
+        ],
+        "want": [
+          "job",
+          "position",
+          "rank",
+          "lieutenant",
+          "place",
+          "reinstat",
+          "back",
+          "forgiv",
+          "favour",
+          "reputation"
+        ]
+      }
     },
     {
       "name": "Emilia",
@@ -91,7 +226,35 @@
         640,
         470
       ],
-      "trait": "Worldly and blunt; brave at the end"
+      "trait": "Worldly and blunt; brave at the end",
+      "check": {
+        "like": [
+          "honest",
+          "loyal",
+          "outspoken",
+          "strong",
+          "bold",
+          "cynical",
+          "realistic",
+          "practical",
+          "fearless",
+          "clever",
+          "sharp",
+          "brave",
+          "blunt",
+          "worldly"
+        ],
+        "want": [
+          "husband",
+          "help",
+          "serve",
+          "loyal",
+          "please",
+          "love",
+          "truth",
+          "justice"
+        ]
+      }
     },
     {
       "name": "Roderigo",
@@ -104,7 +267,30 @@
         190,
         530
       ],
-      "trait": "Gullible and lovesick"
+      "trait": "Gullible and lovesick",
+      "check": {
+        "like": [
+          "foolish",
+          "fool",
+          "stupid",
+          "naive",
+          "rich",
+          "desperate",
+          "weak",
+          "idiot",
+          "dumb",
+          "jealous",
+          "gullible",
+          "lovesick"
+        ],
+        "want": [
+          "desdemona",
+          "love",
+          "marry",
+          "wife",
+          "win"
+        ]
+      }
     },
     {
       "name": "Brabantio",
@@ -117,7 +303,32 @@
         820,
         110
       ],
-      "trait": "Proud and outraged"
+      "trait": "Proud and outraged",
+      "check": {
+        "like": [
+          "angry",
+          "racist",
+          "protective",
+          "controlling",
+          "stubborn",
+          "furious",
+          "upset",
+          "powerful",
+          "important",
+          "strict",
+          "proud",
+          "outraged"
+        ],
+        "want": [
+          "desdemona",
+          "daughter",
+          "back",
+          "home",
+          "revenge",
+          "justice",
+          "punish"
+        ]
+      }
     },
     {
       "name": "Bianca",
@@ -130,7 +341,28 @@
         70,
         150
       ],
-      "trait": "Devoted and jealous"
+      "trait": "Devoted and jealous",
+      "check": {
+        "like": [
+          "loving",
+          "love",
+          "passion",
+          "insecure",
+          "emotional",
+          "loyal",
+          "possess",
+          "suspicious",
+          "jealous",
+          "devoted"
+        ],
+        "want": [
+          "cassio",
+          "love",
+          "marry",
+          "attention",
+          "faithful"
+        ]
+      }
     },
     {
       "name": "Lodovico",
@@ -143,7 +375,37 @@
         880,
         330
       ],
-      "trait": "Calm and dutiful"
+      "trait": "Calm and dutiful",
+      "check": {
+        "like": [
+          "loyal",
+          "fair",
+          "sensible",
+          "noble",
+          "respectable",
+          "honest",
+          "steady",
+          "official",
+          "proper",
+          "polite",
+          "shocked",
+          "calm",
+          "dutiful"
+        ],
+        "want": [
+          "order",
+          "venice",
+          "duty",
+          "letter",
+          "justice",
+          "punish",
+          "recall",
+          "command",
+          "message",
+          "charge",
+          "control"
+        ]
+      }
     },
     {
       "name": "The Duke of Venice",
@@ -156,7 +418,34 @@
         520,
         70
       ],
-      "trait": "Practical and fair"
+      "trait": "Practical and fair",
+      "check": {
+        "like": [
+          "wise",
+          "sensible",
+          "reasonable",
+          "calm",
+          "just",
+          "leader",
+          "powerful",
+          "busy",
+          "respect",
+          "logical",
+          "practical",
+          "fair"
+        ],
+        "want": [
+          "cyprus",
+          "defend",
+          "war",
+          "turk",
+          "fight",
+          "army",
+          "protect",
+          "safe",
+          "battle"
+        ]
+      }
     }
   ],
   "moments": [

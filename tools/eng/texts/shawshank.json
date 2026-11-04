@@ -25,7 +25,43 @@
         400,
         300
       ],
-      "trait": "Quiet, clever and patient"
+      "trait": "Quiet, clever and patient",
+      "check": {
+        "like": [
+          "calm",
+          "smart",
+          "intelligent",
+          "determined",
+          "hopeful",
+          "hope",
+          "strong",
+          "reserved",
+          "resilient",
+          "educated",
+          "mysterious",
+          "innocent",
+          "brave",
+          "stubborn",
+          "kind",
+          "quiet",
+          "clever",
+          "patient"
+        ],
+        "want": [
+          "free",
+          "freedom",
+          "escape",
+          "out",
+          "hope",
+          "zihuatanejo",
+          "mexico",
+          "beach",
+          "justice",
+          "innocen",
+          "library",
+          "live"
+        ]
+      }
     },
     {
       "name": "Ellis 'Red' Redding",
@@ -45,7 +81,37 @@
         640,
         300
       ],
-      "trait": "Wry and worn down, then hopeful"
+      "trait": "Wry and worn down, then hopeful",
+      "check": {
+        "like": [
+          "funny",
+          "sarcastic",
+          "tired",
+          "cynical",
+          "realistic",
+          "hopeless",
+          "wise",
+          "loyal",
+          "friend",
+          "experienced",
+          "institution",
+          "honest",
+          "kind",
+          "practical"
+        ],
+        "want": [
+          "parole",
+          "free",
+          "out",
+          "andy",
+          "release",
+          "hope",
+          "friend",
+          "mexico",
+          "zihuatanejo",
+          "beach"
+        ]
+      }
     },
     {
       "name": "Warden Samuel Norton",
@@ -65,7 +131,36 @@
         300,
         80
       ],
-      "trait": "Holy on the outside, corrupt inside"
+      "trait": "Holy on the outside, corrupt inside",
+      "check": {
+        "like": [
+          "hypocrit",
+          "religious",
+          "bible",
+          "greedy",
+          "evil",
+          "cruel",
+          "fake",
+          "corrupt",
+          "liar",
+          "power",
+          "control",
+          "ruthless",
+          "sinister",
+          "cold",
+          "holy"
+        ],
+        "want": [
+          "money",
+          "cash",
+          "rich",
+          "power",
+          "control",
+          "order",
+          "wealth",
+          "profit"
+        ]
+      }
     },
     {
       "name": "Captain Byron Hadley",
@@ -78,7 +173,36 @@
         110,
         240
       ],
-      "trait": "Brutal and violent"
+      "trait": "Brutal and violent",
+      "check": {
+        "like": [
+          "cruel",
+          "aggressive",
+          "angry",
+          "harsh",
+          "evil",
+          "mean",
+          "bully",
+          "scary",
+          "vicious",
+          "tough",
+          "rough",
+          "sadist",
+          "brutal",
+          "violent"
+        ],
+        "want": [
+          "order",
+          "control",
+          "power",
+          "fear",
+          "discipline",
+          "obey",
+          "money",
+          "respect",
+          "rules"
+        ]
+      }
     },
     {
       "name": "Brooks Hatlen",
@@ -91,7 +215,38 @@
         850,
         130
       ],
-      "trait": "Gentle and lost outside the walls"
+      "trait": "Gentle and lost outside the walls",
+      "check": {
+        "like": [
+          "kind",
+          "old",
+          "quiet",
+          "sad",
+          "lonely",
+          "scared",
+          "afraid",
+          "institution",
+          "frail",
+          "nice",
+          "harmless",
+          "sweet",
+          "gentle",
+          "confused",
+          "lost"
+        ],
+        "want": [
+          "stay",
+          "inside",
+          "prison",
+          "shawshank",
+          "home",
+          "belong",
+          "safe",
+          "purpose",
+          "useful",
+          "back"
+        ]
+      }
     },
     {
       "name": "Tommy Williams",
@@ -104,7 +259,40 @@
         600,
         520
       ],
-      "trait": "Cocky but eager to learn"
+      "trait": "Cocky but eager to learn",
+      "check": {
+        "like": [
+          "young",
+          "confident",
+          "cheeky",
+          "energetic",
+          "funny",
+          "honest",
+          "keen",
+          "friendly",
+          "loud",
+          "immature",
+          "cocky",
+          "eager"
+        ],
+        "want": [
+          "exam",
+          "study",
+          "learn",
+          "diploma",
+          "educat",
+          "pass",
+          "school",
+          "out",
+          "free",
+          "better",
+          "family",
+          "wife",
+          "daughter",
+          "future",
+          "change"
+        ]
+      }
     },
     {
       "name": "Heywood",
@@ -117,7 +305,33 @@
         880,
         450
       ],
-      "trait": "Loud and jokey"
+      "trait": "Loud and jokey",
+      "check": {
+        "like": [
+          "funny",
+          "joke",
+          "cheeky",
+          "rude",
+          "mean",
+          "laugh",
+          "friend",
+          "loyal",
+          "silly",
+          "loud",
+          "jokey"
+        ],
+        "want": [
+          "laugh",
+          "fun",
+          "joke",
+          "bet",
+          "win",
+          "money",
+          "entertain",
+          "tease",
+          "mock"
+        ]
+      }
     },
     {
       "name": "Bogs Diamond",
@@ -130,7 +344,37 @@
         170,
         500
       ],
-      "trait": "Violent and predatory"
+      "trait": "Violent and predatory",
+      "check": {
+        "like": [
+          "cruel",
+          "aggressive",
+          "evil",
+          "scary",
+          "brutal",
+          "dangerous",
+          "nasty",
+          "bully",
+          "animal",
+          "monster",
+          "abus",
+          "attack",
+          "violent",
+          "predator"
+        ],
+        "want": [
+          "attack",
+          "hurt",
+          "abuse",
+          "power",
+          "control",
+          "dominat",
+          "victim",
+          "hunt",
+          "beat",
+          "prey"
+        ]
+      }
     }
   ],
   "moments": [
