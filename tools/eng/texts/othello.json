@@ -20,7 +20,11 @@
         "y": 0.52,
         "zoom": 3,
         "ar": 0.5625
-      }
+      },
+      "pos": [
+        420,
+        260
+      ]
     },
     {
       "name": "Desdemona",
@@ -35,7 +39,11 @@
         "y": 0.3,
         "zoom": 3,
         "ar": 0.5625
-      }
+      },
+      "pos": [
+        640,
+        260
+      ]
     },
     {
       "name": "Iago",
@@ -50,7 +58,11 @@
         "y": 0.47,
         "zoom": 2.6,
         "ar": 0.5625
-      }
+      },
+      "pos": [
+        420,
+        470
+      ]
     },
     {
       "name": "Cassio",
@@ -58,7 +70,11 @@
       "group": "Iago's pawns",
       "tag": "Othello's lieutenant",
       "wants": "To win back his place.",
-      "end": "He is left in charge of Cyprus."
+      "end": "He is left in charge of Cyprus.",
+      "pos": [
+        170,
+        330
+      ]
     },
     {
       "name": "Emilia",
@@ -66,7 +82,11 @@
       "group": "The plotter",
       "tag": "Iago's wife, Desdemona's attendant",
       "wants": "To serve Desdemona, and to please Iago.",
-      "end": "She exposes Iago, and he kills her."
+      "end": "She exposes Iago, and he kills her.",
+      "pos": [
+        640,
+        470
+      ]
     },
     {
       "name": "Roderigo",
@@ -74,7 +94,11 @@
       "group": "Iago's pawns",
       "tag": "A rich, foolish Venetian",
       "wants": "Desdemona.",
-      "end": "Iago kills him."
+      "end": "Iago kills him.",
+      "pos": [
+        190,
+        530
+      ]
     },
     {
       "name": "Brabantio",
@@ -82,7 +106,11 @@
       "group": "Venice",
       "tag": "Desdemona's father",
       "wants": "His daughter back.",
-      "end": "He dies of grief (we hear at the end)."
+      "end": "He dies of grief (we hear at the end).",
+      "pos": [
+        820,
+        110
+      ]
     },
     {
       "name": "Bianca",
@@ -90,7 +118,11 @@
       "group": "Iago's pawns",
       "tag": "Cassio's lover in Cyprus",
       "wants": "Cassio's love.",
-      "end": "Iago tries to blame her when Cassio is wounded."
+      "end": "Iago tries to blame her when Cassio is wounded.",
+      "pos": [
+        70,
+        150
+      ]
     },
     {
       "name": "Lodovico",
@@ -98,7 +130,11 @@
       "group": "Venice",
       "tag": "Brabantio's kinsman",
       "wants": "To carry out Venice's orders.",
-      "end": "He takes charge at the end."
+      "end": "He takes charge at the end.",
+      "pos": [
+        880,
+        330
+      ]
     },
     {
       "name": "The Duke of Venice",
@@ -106,7 +142,11 @@
       "group": "Venice",
       "tag": "The ruler of Venice",
       "wants": "Othello to defend Cyprus.",
-      "end": "He accepts the marriage."
+      "end": "He accepts the marriage.",
+      "pos": [
+        520,
+        70
+      ]
     }
   ],
   "moments": [
@@ -518,5 +558,67 @@
         "The play leaves us with pity rather than hope, as Othello asks to be remembered as 'one that loved not wisely but too well' and then kills himself [othello-12]."
       ]
     }
-  }
+  },
+  "links": [
+    [
+      "Othello",
+      "Desdemona",
+      "married in secret"
+    ],
+    [
+      "Iago",
+      "Emilia",
+      "married"
+    ],
+    [
+      "Emilia",
+      "Desdemona",
+      "her attendant"
+    ],
+    [
+      "Iago",
+      "Othello",
+      "his ensign; hates him"
+    ],
+    [
+      "Othello",
+      "Cassio",
+      "made him lieutenant"
+    ],
+    [
+      "Iago",
+      "Cassio",
+      "frames him"
+    ],
+    [
+      "Iago",
+      "Roderigo",
+      "uses and cheats him"
+    ],
+    [
+      "Cassio",
+      "Bianca",
+      "his lover"
+    ],
+    [
+      "Brabantio",
+      "Desdemona",
+      "her father"
+    ],
+    [
+      "The Duke of Venice",
+      "Othello",
+      "sends him to Cyprus"
+    ],
+    [
+      "Lodovico",
+      "Brabantio",
+      "his kinsman"
+    ],
+    [
+      "Lodovico",
+      "Othello",
+      "brings Venice's orders"
+    ]
+  ]
 }

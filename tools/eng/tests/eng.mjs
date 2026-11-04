@@ -35,6 +35,12 @@ for (const id of D.order) {
   ok(t.people.every(p => p.group && p.tag && p.wants && p.end && p.who) && new Set(t.people.map(p => p.tag)).size === t.people.length, `${id}: every character has a group, a role (all different), what they want and how they end`);
   ok(t.people.every(p => !p.face || (p.face.file && p.face.x >= 0 && p.face.x <= 1 && p.face.y >= 0 && p.face.y <= 1 && p.face.zoom >= 1 && p.face.ar > 0 && fs.existsSync(new URL('../../../assets/eng/img/' + p.face.file, import.meta.url)))), `${id}: every face crop is on a picture that exists`);
   ok(t.moments.every(m => m.chain && m.chain.happens && m.chain.shows && m.chain.leads), `${id}: every key moment has its chain (happens, shows, leads to)`);
+  // The cast map: everyone has a place on it, no two too close, and every line joins two people in the cast.
+  const names = new Set(t.people.map(p => p.name));
+  ok(t.people.every(p => Array.isArray(p.pos) && p.pos[0] >= 50 && p.pos[0] <= 950 && p.pos[1] >= 50 && p.pos[1] <= 550), `${id}: everyone has a place on the cast map`);
+  ok(t.people.every((p, i) => t.people.every((q, j) => j <= i || Math.hypot(p.pos[0] - q.pos[0], p.pos[1] - q.pos[1]) >= 150)), `${id}: no two people sit on top of each other on the cast map`);
+  ok(Array.isArray(t.links) && t.links.length >= 8 && t.links.every(l => names.has(l[0]) && names.has(l[1]) && l[0] !== l[1] && l[2].length > 2), `${id}: every line on the cast map joins two people and says how`);
+  ok(t.people.every(p => t.links.some(l => l[0] === p.name || l[1] === p.name)), `${id}: everyone on the cast map is linked to someone`);
   ok(t.moments.every(m => Array.isArray(m.tell) && m.tell.length >= 2 && m.tell.length <= 4 && m.tell.every(s => s.length > 5)), `${id}: every key moment is told in 2 to 4 beats`);
   const groups = [...t.modes.theme.themes, ...t.modes.cc.aspects, { name: 'vision', points: t.modes.gvv.points }];
   ok(t.modes.theme.themes.length === 3, `${id}: the three themes`);

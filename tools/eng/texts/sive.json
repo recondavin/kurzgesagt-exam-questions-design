@@ -20,7 +20,11 @@
         "y": 0.45,
         "zoom": 4.5,
         "ar": 0.6672
-      }
+      },
+      "pos": [
+        320,
+        500
+      ]
     },
     {
       "name": "Mena Glavin",
@@ -28,7 +32,11 @@
       "group": "The Glavin house",
       "tag": "Mike's wife",
       "wants": "The £200, and Sive and Nanna out of her house.",
-      "end": "Liam turns on her over Sive's body."
+      "end": "Liam turns on her over Sive's body.",
+      "pos": [
+        440,
+        290
+      ]
     },
     {
       "name": "Mike Glavin",
@@ -36,7 +44,11 @@
       "group": "The Glavin house",
       "tag": "Sive's uncle",
       "wants": "Peace in the house, and the money; he knows the match is wrong.",
-      "end": "Left dazed, thinking of the priest and holy ground."
+      "end": "Left dazed, thinking of the priest and holy ground.",
+      "pos": [
+        200,
+        290
+      ]
     },
     {
       "name": "Nanna Glavin",
@@ -51,7 +63,11 @@
         "y": 0.2,
         "zoom": 4,
         "ar": 0.6672
-      }
+      },
+      "pos": [
+        200,
+        90
+      ]
     },
     {
       "name": "Thomasheen Seán Rua",
@@ -59,7 +75,11 @@
       "group": "The match",
       "tag": "The matchmaker",
       "wants": "His fee for making the match.",
-      "end": "He slips away when Sive is found."
+      "end": "He slips away when Sive is found.",
+      "pos": [
+        690,
+        140
+      ]
     },
     {
       "name": "Seán Dóta",
@@ -67,7 +87,11 @@
       "group": "The match",
       "tag": "The old farmer",
       "wants": "A young wife, bought with his money.",
-      "end": "He slips away when Sive is found."
+      "end": "He slips away when Sive is found.",
+      "pos": [
+        660,
+        470
+      ]
     },
     {
       "name": "Liam Scuab",
@@ -75,7 +99,11 @@
       "group": "On Sive's side",
       "tag": "Sive's sweetheart",
       "wants": "To marry Sive and take her away.",
-      "end": "He carries her drowned body home."
+      "end": "He carries her drowned body home.",
+      "pos": [
+        80,
+        500
+      ]
     },
     {
       "name": "Pats Bocock",
@@ -83,7 +111,11 @@
       "group": "The travellers",
       "tag": "A travelling man",
       "wants": "To show up the greed behind the match; he carries Liam's letter.",
-      "end": "He saw a girl crossing the bog that night."
+      "end": "He saw a girl crossing the bog that night.",
+      "pos": [
+        910,
+        290
+      ]
     },
     {
       "name": "Carthalawn",
@@ -91,7 +123,11 @@
       "group": "The travellers",
       "tag": "Pats's son, the singer",
       "wants": "To mock the greedy in his songs.",
-      "end": "He sings the lament that ends the play."
+      "end": "He sings the lament that ends the play.",
+      "pos": [
+        910,
+        500
+      ]
     }
   ],
   "moments": [
@@ -491,5 +527,72 @@
         "Goodness exists in Liam, Nanna and the travelling men, but it is powerless against money, which deepens the bleakness [sive-7] [sive-11]."
       ]
     }
-  }
+  },
+  "links": [
+    [
+      "Nanna Glavin",
+      "Mike Glavin",
+      "his mother"
+    ],
+    [
+      "Mike Glavin",
+      "Mena Glavin",
+      "married"
+    ],
+    [
+      "Mike Glavin",
+      "Sive",
+      "her uncle"
+    ],
+    [
+      "Nanna Glavin",
+      "Sive",
+      "her grandmother"
+    ],
+    [
+      "Mena Glavin",
+      "Sive",
+      "wants her gone"
+    ],
+    [
+      "Liam Scuab",
+      "Sive",
+      "loves her"
+    ],
+    [
+      "Mike Glavin",
+      "Liam Scuab",
+      "throws him out"
+    ],
+    [
+      "Thomasheen Seán Rua",
+      "Mena Glavin",
+      "makes the deal"
+    ],
+    [
+      "Thomasheen Seán Rua",
+      "Seán Dóta",
+      "matchmaker for"
+    ],
+    [
+      "Seán Dóta",
+      "Sive",
+      "will pay to marry her"
+    ],
+    [
+      "Pats Bocock",
+      "Carthalawn",
+      "father and son"
+    ],
+    [
+      "Pats Bocock",
+      "Nanna Glavin",
+      "brings Liam's letter"
+    ],
+    [
+      "Thomasheen Seán Rua",
+      "Liam Scuab",
+      "burns his letter"
+    ]
+  ]
 }

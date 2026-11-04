@@ -729,3 +729,70 @@ body.eng.sh-open .sh-brand { display: none; }
 .eg-cast .eng-face { --g: #FFD43B; }
 .eg-cast p { margin: 0; color: #fff; font: 700 19px/1.4 Nunito, sans-serif; }
 .eg-cast small { display: block; color: #B9C6CE; font: 800 13px Nunito, sans-serif; }
+
+/* ---------- the cast map (eng.js castDraw) ---------- */
+.eng-tabs { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; background: var(--surface); }
+.eng-tabs button { padding: 8px 16px; border: 0; border-radius: 999px; background: none; color: var(--muted); font: 800 15px Nunito, sans-serif; cursor: pointer; }
+.eng-tabs button[aria-selected="true"] { background: #fff; color: #13212A; }
+.eng-map { position: relative; width: min(100%, 980px, calc(62vh * 1000 / 620)); aspect-ratio: 1000 / 620; margin-left: auto !important; margin-right: auto !important; margin: 6px 0 12px; border-radius: 20px; background: #1A2B33; background-image: radial-gradient(rgba(255, 255, 255, .06) 1.5px, transparent 1.5px); background-size: 26px 26px; overflow: hidden; user-select: none; }
+.eng-map__lines { position: absolute; inset: 0; width: 100%; height: 100%; }
+.eng-map__lines line { stroke: rgba(255, 255, 255, .22); stroke-width: 3; stroke-linecap: round; transition: stroke .2s, opacity .2s; }
+.eng-map__lines line.is-on { stroke: #FFE45C; stroke-width: 4; }
+.eng-map__lines line.is-dim { opacity: .25; }
+.eng-map__lines line.is-new { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: mapLine .7s .15s ease-out forwards; }
+@keyframes mapLine { to { stroke-dashoffset: 0; } }
+.eng-map__lab { position: absolute; z-index: 1; padding: 2px 8px; border-radius: 999px; background: #FFE45C; color: #2E2608; font: 800 12.5px/1.5 Nunito, sans-serif; white-space: nowrap; transform: translate(-50%, -50%); pointer-events: none; animation: ebUp .3s both; }
+.eng-node { position: absolute; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 3px; width: 120px; margin: 0; padding: 0; border: 0; background: none; color: #fff; cursor: pointer; transform: translate(-50%, -28px); transition: opacity .2s, transform .2s; }
+.eng-node b { max-width: 120px; padding: 1px 7px; border-radius: 999px; background: rgba(19, 33, 42, .85); font: 800 13px/1.4 Nunito, sans-serif; text-align: center; }
+.eng-node:hover .eng-face, .eng-node.is-sel .eng-face { box-shadow: 0 0 0 4px #fff; }
+.eng-node.is-dim { opacity: .3; }
+.eng-node.is-new { animation: nodeIn .45s cubic-bezier(.3, 1.5, .5, 1) both; }
+.eng-node.is-wrong { animation: nodeNo .4s; }
+.eng-node.is-over .eng-face { box-shadow: 0 0 0 5px #FFE45C; }
+@keyframes nodeIn { from { transform: translate(-50%, -28px) scale(.3); opacity: 0; } }
+@keyframes nodeNo { 25% { transform: translate(calc(-50% - 7px), -28px); } 75% { transform: translate(calc(-50% + 7px), -28px); } }
+.eng-face--q { display: grid; place-items: center; border-style: dashed; background: #26404C; color: rgba(255, 255, 255, .75); font: 700 24px/1 Fredoka, Nunito, sans-serif; }
+.eng-map__panel { min-height: 60px; }
+.eng-map__hint { margin: 0 0 10px; color: var(--muted); font: 700 15px/1.45 Nunito, sans-serif; }
+.eng-map__btns { display: flex; justify-content: space-between; gap: 10px; margin-top: 12px; }
+.eng-meet { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; padding: 16px; border-radius: 18px; background: var(--surface); box-shadow: inset 4px 0 0 var(--g); animation: ebUp .3s both; }
+.eng-meet h3 { margin: 0; color: #fff; font: 600 22px/1.2 Fredoka, Nunito, sans-serif; }
+.eng-meet__n { margin: 0 0 2px; color: var(--faint); font: 800 12px Nunito, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.eng-meet p { margin: 4px 0 0; color: var(--muted); font: 700 16px/1.5 Nunito, sans-serif; }
+.eng-meet__w b { color: #fff; }
+.eng-map__card { padding: 4px 16px 12px; border-radius: 18px; background: var(--surface); box-shadow: inset 4px 0 0 var(--g); animation: ebUp .25s both; }
+.eng-map__card .eng-who { border: 0; }
+.eng-map__links { display: grid; gap: 6px; margin: 0; padding: 0 0 4px; list-style: none; }
+.eng-map__links li { color: #fff; font: 700 14.5px/1.4 Nunito, sans-serif; }
+.eng-map__links span { padding: 1px 8px; border-radius: 999px; background: #FFE45C; color: #2E2608; font-weight: 800; }
+.eng-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.eng-namechip { user-select: none; -webkit-user-select: none; padding: 10px 14px; border: 2px solid transparent; border-radius: 12px; background: #fff; color: #13212A; font: 800 15px Nunito, sans-serif; cursor: grab; touch-action: none; box-shadow: 0 3px 0 rgba(0, 0, 0, .25); }
+.eng-namechip.is-on { border-color: #FFE45C; background: #FFF6CF; transform: translateY(-2px); }
+.eng-namechip.is-lifted { opacity: .35; }
+.eng-namechip.is-ghost { position: fixed; z-index: 90; pointer-events: none; transform: translate(-50%, -60%) rotate(-4deg); box-shadow: 0 8px 0 rgba(0, 0, 0, .3); }
+.eng-built { padding: 14px 16px; border-radius: 16px; background: #1F4A1A; color: #fff; font: 700 16px/1.5 Nunito, sans-serif; }
+.eng-built b { color: #9BE36B; font: 600 20px Fredoka, Nunito, sans-serif; }
+.eng-cast__all { margin-top: 18px; }
+.eng-cast__all summary { padding: 10px 0; color: var(--muted); font: 800 15px Nunito, sans-serif; cursor: pointer; }
+@media (max-width: 700px) {
+  .eng-map { aspect-ratio: 600 / 1000; max-height: none; }
+  .eng-node { width: 90px; transform: translate(-50%, -21px); }
+  .eng-node .eng-face { width: 42px !important; height: 42px !important; }
+  .eng-node b { max-width: 90px; font-size: 11px; }
+  .eng-map__lab { font-size: 10.5px; padding: 1px 6px; }
+  @keyframes nodeIn { from { transform: translate(-50%, -21px) scale(.3); opacity: 0; } }
+  .eng-meet { grid-template-columns: 56px minmax(0, 1fr); }
+  .eng-chips { gap: 6px; }
+  .eng-namechip { padding: 7px 10px; font-size: 13.5px; }
+  .eng-cast.is-build .eng-map__hint { font-size: 13.5px; }
+  .eng-cast.is-build .eng-map__panel { padding-top: 16px; padding-bottom: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .eng-node.is-new, .eng-map__lines line.is-new, .eng-node.is-wrong { animation: none; stroke-dashoffset: 0; } }
+
+.eng-cast { display: flex; flex-direction: column; }
+/* Build it: the names wait in a tray stuck to the bottom of the screen, so every person on the map can be reached
+   while you drag (the page scrolls when you drag near the top or bottom edge). */
+.eng-cast.is-build .eng-map__panel { position: sticky; bottom: 0; z-index: 5; margin: 0 calc(-1 * var(--gutter)); padding: 22px var(--gutter) 14px; background: linear-gradient(rgba(19, 31, 36, 0), var(--ground) 20px); }
+.eng-cast.is-build .eng-map__hint { margin-bottom: 8px; }
+.eng-node.is-blank b { visibility: hidden; }
+@media (max-width: 700px) { .eng-map { width: 100%; } }

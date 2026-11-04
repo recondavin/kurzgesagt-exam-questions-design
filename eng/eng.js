@@ -298,6 +298,7 @@
       '<h2 class="eng-h2">The story in ' + t.moments.length + ' key moments</h2>' +
       t.moments.map(function (m, k) { return sceneHtml(t, m, k); }).join('');
     watchScenes();
+    castDraw('line');
     if (moment) { var el = document.getElementById(moment); if (el) el.scrollIntoView({ block: 'start' }); }
   }
 
@@ -322,17 +323,129 @@
     return '<span class="eng-face" style="width:' + size + 'px;height:' + size + 'px"><img src="assets/eng/img/' + esc(f.file) + '" alt="" loading="lazy" style="width:' + (f.zoom * 100) + '%;left:' + ((0.5 - f.x * f.zoom) * 100) + '%;top:' + ((0.5 - f.y * f.zoom * f.ar) * 100) + '%"></span>';
   }
   function groupsOf(t) { var g = []; t.people.forEach(function (c) { if (c.group && g.indexOf(c.group) < 0) g.push(c.group); }); return g; }
+  // The cast as a map you play with (the user: "how am i gonna have fun learning when its not interactive at all"):
+  // people where they sit (people[].pos, 1000 x 600) and the lines between them with what links them (text.links: a,
+  // b, "his mother": a is b's mother). Three ways in:
+  //   Meet them  one at a time, each with a line on who they are; their lines draw in to the people already there.
+  //   Explore    tap anyone: their lines light up, the rest fade, and what they want and how they end shows below.
+  //   Build it   the faces are blank but the lines and what they say stay: drag (or tap, then tap) each name onto its
+  //              person. The title character is placed to start you off. Mistakes are counted; the best is kept.
+  // The full cards are still there, folded, under the map.
+  var CM = null;
   function castHtml(t) {
+    var met = store('eng-cast-met-' + t.id);
+    CM = { t: t.id, mode: met ? 'explore' : 'meet', sel: -1, shown: 1, placed: {}, pick: -1, miss: 0, order: null };
     var groups = groupsOf(t);
-    return '<section class="eng-cast" id="cast"><div class="eng-cast__top"><h2 class="eng-h2">Who\'s who</h2>' + (window.EngGames ? '<a class="eng-btn eng-btn--quiet" href="#play/cast">Play Who\'s who?</a>' : '') + '</div>' +
-      '<div class="eng-cast__groups">' + groups.map(function (g, gi) {
-        return '<div class="eng-cast__g" style="--g:' + GROUP_COL[gi % GROUP_COL.length] + '"><h3>' + esc(g) + '</h3>' + t.people.filter(function (c) { return c.group === g; }).map(function (c) {
-          var ms = inMoments(t, c);
-          return '<article class="eng-who">' + faceHtml(c, 64) + '<div><h4>' + esc(c.name) + '</h4><span class="eng-who__tag">' + esc(c.tag) + '</span><p>' + esc(c.who) + '</p>' +
-            '<dl><dt>Wants</dt><dd>' + esc(c.wants) + '</dd><dt>In the end</dt><dd>' + esc(c.end) + '</dd></dl>' +
-            (ms.length ? '<p class="eng-who__in"><span>In</span>' + ms.map(function (m) { return '<a href="#text/' + t.id + '/' + m.id + '" title="' + esc(m.title) + '">' + (momentNo(t.id, m.id) + 1) + '</a>'; }).join('') + '</p>' : '') + '</div></article>';
-        }).join('') + '</div>';
-      }).join('') + '</div></section>';
+    return '<section class="eng-cast" id="cast"><div class="eng-cast__top"><h2 class="eng-h2">Who\'s who</h2>' +
+      '<div class="eng-tabs" role="tablist">' + [['meet', 'Meet them'], ['explore', 'Explore'], ['build', 'Build it']].map(function (m) { return '<button type="button" role="tab" data-cm="' + m[0] + '">' + m[1] + '</button>'; }).join('') + '</div></div>' +
+      '<div class="eng-map" data-map></div><div class="eng-map__panel" data-map-panel aria-live="polite"></div>' +
+      '<details class="eng-cast__all"><summary>Every character in full</summary><div class="eng-cast__groups">' + groups.map(function (g, gi) {
+        return '<div class="eng-cast__g" style="--g:' + GROUP_COL[gi % GROUP_COL.length] + '"><h3>' + esc(g) + '</h3>' + t.people.filter(function (c) { return c.group === g; }).map(function (c) { return whoCard(t, c); }).join('') + '</div>';
+      }).join('') + '</div></details></section>';
+  }
+  function whoCard(t, c) {
+    var ms = inMoments(t, c);
+    return '<article class="eng-who">' + faceHtml(c, 64) + '<div><h4>' + esc(c.name) + '</h4><span class="eng-who__tag">' + esc(c.tag) + '</span><p>' + esc(c.who) + '</p>' +
+      '<dl><dt>Wants</dt><dd>' + esc(c.wants) + '</dd><dt>In the end</dt><dd>' + esc(c.end) + '</dd></dl>' +
+      (ms.length ? '<p class="eng-who__in"><span>In</span>' + ms.map(function (m) { return '<a href="#text/' + t.id + '/' + m.id + '" title="' + esc(m.title) + '">' + (momentNo(t.id, m.id) + 1) + '</a>'; }).join('') + '</p>' : '') + '</div></article>';
+  }
+  function gcol(t, c) { return GROUP_COL[groupsOf(t).indexOf(c.group) % GROUP_COL.length]; }
+  function castDraw(fresh) {
+    var box = app.querySelector('[data-map]'), panel = app.querySelector('[data-map-panel]');
+    if (!box || !CM) return;
+    var t = text(CM.t), P = t.people, links = t.links || [], idx = function (n) { for (var i = 0; i < P.length; i++) if (P[i].name === n) return i; return -1; };
+    app.querySelectorAll('[data-cm]').forEach(function (b) { b.setAttribute('aria-selected', String(b.getAttribute('data-cm') === CM.mode)); });
+    var sec = app.querySelector('.eng-cast'); if (sec) sec.classList.toggle('is-build', CM.mode === 'build');
+    // On a phone the map stands on its side (taller than wide), so the people spread out down the screen.
+    var tall = window.matchMedia('(max-width: 700px)').matches, at = function (c) { return tall ? [c.pos[1], c.pos[0]] : c.pos; };
+    var VW = tall ? 600 : 1000, VH = tall ? 1000 : 600;
+    var visible = function (i) { return CM.mode !== 'meet' || i < CM.shown; };
+    var named = function (i) { return CM.mode !== 'build' || CM.placed[i]; };
+    // Which lines say what links them: in Build it, the ones from someone already placed (each is a clue to the next).
+    var hot = function (l) {
+      var a = idx(l[0]), b = idx(l[1]);
+      // (On a phone, only the clues still to use: a line from someone placed to someone not yet, so it stays readable.)
+      if (CM.mode === 'build') return tall ? !CM.placed[a] !== !CM.placed[b] : CM.placed[a] || CM.placed[b];
+      return CM.mode === 'meet' ? (a === CM.shown - 1 || b === CM.shown - 1) : (CM.sel >= 0 && (a === CM.sel || b === CM.sel));
+    };
+    var lines = '', labels = '';
+    links.forEach(function (l, k) {
+      var a = idx(l[0]), b = idx(l[1]), A = at(P[a]), B = at(P[b]);
+      if (!visible(a) || !visible(b)) return;
+      var on = hot(l), dim = CM.mode === 'explore' && CM.sel >= 0 && !on;
+      lines += '<line x1="' + A[0] + '" y1="' + A[1] + '" x2="' + B[0] + '" y2="' + B[1] + '" vector-effect="non-scaling-stroke" class="' + (on ? 'is-on' : '') + (dim ? ' is-dim' : '') + (fresh === 'line' && (a === CM.shown - 1 || b === CM.shown - 1) ? ' is-new' : '') + '"/>';
+      if (on) labels += '<span class="eng-map__lab" style="left:' + ((A[0] + B[0]) / VW * 50) + '%;top:' + ((A[1] + B[1]) / VH * 50) + '%">' + esc(l[2]) + '</span>';
+    });
+    box.innerHTML = '<svg class="eng-map__lines" viewBox="0 0 ' + VW + ' ' + VH + '" preserveAspectRatio="none" aria-hidden="true">' + lines + '</svg>' + labels +
+      P.map(function (c, i) {
+        if (!visible(i)) return '';
+        var linked = CM.sel >= 0 && links.some(function (l) { return (idx(l[0]) === CM.sel && idx(l[1]) === i) || (idx(l[1]) === CM.sel && idx(l[0]) === i); });
+        var cls = 'eng-node' + (i === CM.sel ? ' is-sel' : '') + (CM.mode === 'explore' && CM.sel >= 0 && i !== CM.sel && !linked ? ' is-dim' : '') + (CM.mode === 'meet' && i === CM.shown - 1 ? ' is-new' : '') +
+          (!named(i) ? ' is-blank' : '') + (fresh === 'placed' && CM.last === i ? ' is-new' : '') + (CM.mode === 'build' && CM.wrong === i ? ' is-wrong' : '');
+        var xy = at(c);
+        return '<button type="button" class="' + cls + '" data-node="' + i + '" style="left:' + xy[0] / VW * 100 + '%;top:' + xy[1] / VH * 100 + '%;--g:' + gcol(t, c) + '">' +
+          (named(i) ? faceHtml(c, 56) + '<b>' + esc(c.name) + '</b>' : '<span class="eng-face eng-face--q" style="width:56px;height:56px">?</span><b>?</b>') + '</button>';
+      }).join('');
+    CM.wrong = -1;
+    // A label stays inside the map, even on a line along its edge.
+    var br = box.getBoundingClientRect();
+    box.querySelectorAll('.eng-map__lab').forEach(function (lab) {
+      var r = lab.getBoundingClientRect(), dx = r.left < br.left + 4 ? br.left + 4 - r.left : r.right > br.right - 4 ? br.right - 4 - r.right : 0;
+      if (dx) lab.style.marginLeft = dx + 'px';
+    });
+    // The panel under the map.
+    if (CM.mode === 'meet') {
+      var c = P[CM.shown - 1];
+      panel.innerHTML = '<div class="eng-meet" style="--g:' + gcol(t, c) + '">' + faceHtml(c, 72) + '<div><p class="eng-meet__n">' + CM.shown + ' of ' + P.length + '</p><h3>' + esc(c.name) + '</h3><span class="eng-who__tag">' + esc(c.tag) + '</span>' +
+        '<p>' + esc(c.who) + '</p><p class="eng-meet__w"><b>Wants:</b> ' + esc(c.wants) + '</p></div></div>' +
+        '<div class="eng-map__btns">' + (CM.shown > 1 ? '<button type="button" class="eng-btn eng-btn--quiet" data-cm-back>Back</button>' : '<span></span>') +
+        (CM.shown < P.length ? '<button type="button" class="eng-btn" data-cm-next>Next: meet ' + esc(P[CM.shown].name.replace(/^The /, 'the ')) + '</button>' : '<button type="button" class="eng-btn" data-cm="build">That\'s everyone. Now build it</button>') + '</div>';
+    } else if (CM.mode === 'explore') {
+      panel.innerHTML = CM.sel < 0 ? '<p class="eng-map__hint">Tap anyone on the map to see who they\'re linked to, what they want and how they end.</p>'
+        : '<div class="eng-map__card" style="--g:' + gcol(t, P[CM.sel]) + '">' + whoCard(t, P[CM.sel]) + '<ul class="eng-map__links">' + links.filter(function (l) { return idx(l[0]) === CM.sel || idx(l[1]) === CM.sel; }).map(function (l) {
+          return '<li><b>' + esc(l[0]) + '</b> <span>' + esc(l[2]) + '</span> <b>' + esc(l[1]) + '</b></li>'; }).join('') + '</ul></div>';
+    } else {
+      var left = CM.order.filter(function (i) { return !CM.placed[i]; });
+      panel.innerHTML = left.length ? '<p class="eng-map__hint">Drag each name onto its person' + (tall ? '' : ' (or tap a name, then a person)') + '. The lines say how they\'re linked. Mistakes: <b>' + CM.miss + '</b></p>' +
+        '<div class="eng-chips">' + left.map(function (i) { return '<button type="button" class="eng-namechip' + (CM.pick === i ? ' is-on' : '') + '" data-chip="' + i + '">' + esc(P[i].name) + '</button>'; }).join('') + '</div>'
+        : '<div class="eng-built"><b>All ' + P.length + ' in place</b> with ' + CM.miss + ' mistake' + (CM.miss === 1 ? '' : 's') + '.' + (CM.best != null ? ' Best: ' + CM.best + '.' : '') +
+          '<div class="eng-map__btns"><button type="button" class="eng-btn eng-btn--quiet" data-cm="explore">Explore</button><button type="button" class="eng-btn" data-cm="build">Play again</button></div></div>';
+    }
+  }
+  function castMode(m) {
+    var t = text(CM.t);
+    CM.mode = m; CM.sel = -1; CM.pick = -1;
+    if (m === 'meet') CM.shown = 1;
+    if (m === 'build') {
+      CM.placed = {}; CM.miss = 0;
+      // The title character starts you off.
+      var tc = t.people.filter(function (c) { return c.name === t.title; })[0];
+      CM.placed[tc ? t.people.indexOf(tc) : 0] = true;
+      CM.order = t.people.map(function (c, i) { return i; }).sort(function () { return Math.random() - 0.5; });
+      var b = +(store('eng-cast-best-' + CM.t) || -1); CM.best = b >= 0 ? b : null;
+    }
+    castDraw(m === 'meet' ? 'line' : '');
+    // Bring the whole map into view for building it.
+    if (m === 'build') { var sec = app.querySelector('.eng-cast'); if (sec && Math.abs(sec.getBoundingClientRect().top - 70) > 40) window.scrollTo({ top: window.scrollY + sec.getBoundingClientRect().top - 70, behavior: 'smooth' }); }
+  }
+  function castPlace(chip, node) {
+    var t = text(CM.t);
+    if (CM.placed[node]) return;
+    if (chip === node) {
+      CM.placed[node] = true; CM.last = node; CM.pick = -1;
+      if (K) K.sfx('stamp', 0.4);
+      var done = t.people.every(function (c, i) { return CM.placed[i]; });
+      if (done) {
+        if (CM.best == null || CM.miss < CM.best) { store('eng-cast-best-' + CM.t, String(CM.miss)); CM.best = CM.miss; }
+        if (K) setTimeout(K.fanfare, 250);
+      }
+      castDraw('placed');
+    } else {
+      CM.miss += 1; CM.wrong = node;
+      if (K) K.bonk();
+      toast('Not ' + t.people[chip].name + '. Read the lines around that one.');
+      castDraw();
+    }
   }
 
   // ---------- the story, told scene by scene ----------
@@ -1082,6 +1195,22 @@
     if (document.body.classList.contains('sh-open') && (t.closest('.sh-link') || !t.closest('.sh-side'))) menu(false);
     var gb = t.closest('a[href^="#build"]');
     if (gb && ev.button === 0 && !ev.metaKey && !ev.ctrlKey && !ev.shiftKey && !ev.altKey && !/^#build/.test(location.hash)) { ev.preventDefault(); goBuild(gb); return; }
+    if (Date.now() - DRAG_END < 250 && (t.closest('[data-node]') || t.closest('[data-chip]'))) return;
+    var cmb = t.closest('[data-cm]');
+    if (cmb && CM) { castMode(cmb.getAttribute('data-cm')); return; }
+    if (t.closest('[data-cm-next]') && CM) { CM.shown += 1; if (CM.shown === text(CM.t).people.length) store('eng-cast-met-' + CM.t, '1'); if (K) K.sfx('pop', 0.35); castDraw('line'); return; }
+    if (t.closest('[data-cm-back]') && CM) { CM.shown = Math.max(1, CM.shown - 1); castDraw(); return; }
+    var chip = t.closest('[data-chip]');
+    if (chip && CM) { var ci = +chip.getAttribute('data-chip'); CM.pick = CM.pick === ci ? -1 : ci; castDraw(); return; }
+    var node = t.closest('[data-node]');
+    if (node && CM) {
+      var ni = +node.getAttribute('data-node');
+      if (CM.mode === 'explore') { CM.sel = CM.sel === ni ? -1 : ni; if (K) K.sfx('tick', 0.3); castDraw(); }
+      else if (CM.mode === 'build' && CM.pick >= 0) castPlace(CM.pick, ni);
+      else if (CM.mode === 'build') toast('Pick a name first, then tap who it is.');
+      else if (CM.mode === 'meet') { CM.mode = 'explore'; CM.sel = ni; castDraw(); }
+      return;
+    }
     var out = t.closest('[data-eng-out]');
     if (out) {
       var oid = out.getAttribute('data-eng-out'), back = leftOut();
@@ -1210,6 +1339,58 @@
     if (DEF) { var b = DEF.btn; closeDef(); b.focus(); return; }
     if (document.body.classList.contains('sh-open')) menu(false);
   });
+  window.matchMedia('(max-width: 700px)').addEventListener('change', function () { if (CM && app.querySelector('[data-map]')) castDraw(); });
+  // Build it: a name chip dragged onto a person.
+  var DRAGC = null;
+  document.addEventListener('pointerdown', function (ev) {
+    var chip = ev.target.closest && ev.target.closest('[data-chip]');
+    if (!chip || !CM) return;
+    ev.preventDefault();
+    DRAGC = { i: +chip.getAttribute('data-chip'), x: ev.clientX, y: ev.clientY, ghost: null, chip: chip };
+  });
+  document.addEventListener('pointermove', function (ev) {
+    if (!DRAGC) return;
+    if (!DRAGC.ghost && Math.hypot(ev.clientX - DRAGC.x, ev.clientY - DRAGC.y) < 8) return;
+    if (!DRAGC.ghost) { DRAGC.ghost = DRAGC.chip.cloneNode(true); DRAGC.ghost.className = 'eng-namechip is-ghost'; document.body.appendChild(DRAGC.ghost); DRAGC.chip.classList.add('is-lifted'); }
+    DRAGC.ghost.style.left = ev.clientX + 'px'; DRAGC.ghost.style.top = ev.clientY + 'px';
+    DRAGC.cx = ev.clientX; DRAGC.cy = ev.clientY;
+    dragOver();
+    // Near the top or bottom edge the page scrolls, faster the closer you are.
+    var edge = 70, y = ev.clientY, h = window.innerHeight;
+    DRAGC.vy = y < edge + 60 ? -Math.ceil((edge + 60 - y) / 6) : y > h - edge ? Math.ceil((y - (h - edge)) / 5) : 0;
+    if (DRAGC.vy && !DRAGC.raf) DRAGC.raf = requestAnimationFrame(dragScroll);
+    ev.preventDefault();
+  });
+  function dragOver() {
+    app.querySelectorAll('.eng-node.is-over').forEach(function (n) { n.classList.remove('is-over'); });
+    var under = document.elementFromPoint(DRAGC.cx, DRAGC.cy), n = under && under.closest('[data-node]');
+    if (n) n.classList.add('is-over');
+  }
+  function dragScroll() {
+    if (!DRAGC) return;
+    DRAGC.raf = 0;
+    if (!DRAGC.vy) return;
+    window.scrollBy(0, DRAGC.vy); dragOver();
+    DRAGC.raf = requestAnimationFrame(dragScroll);
+  }
+  document.addEventListener('pointerup', function (ev) {
+    if (!DRAGC) return;
+    var d = DRAGC; DRAGC = null;
+    if (d.raf) cancelAnimationFrame(d.raf);
+    if (!d.ghost) return;
+    d.ghost.remove(); d.chip.classList.remove('is-lifted');
+    var under = document.elementFromPoint(ev.clientX, ev.clientY), n = under && under.closest('[data-node]');
+    DRAG_END = Date.now();
+    if (n) castPlace(d.i, +n.getAttribute('data-node')); else castDraw();
+  });
+  document.addEventListener('pointercancel', function () {
+    if (!DRAGC) return;
+    var d = DRAGC; DRAGC = null;
+    if (d.raf) cancelAnimationFrame(d.raf);
+    if (d.ghost) { d.ghost.remove(); d.chip.classList.remove('is-lifted'); }
+    app.querySelectorAll('.eng-node.is-over').forEach(function (n) { n.classList.remove('is-over'); });
+  });
+  var DRAG_END = 0;
   // The line of argument is one sentence: Enter doesn't start a new line.
   document.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' && ev.target.getAttribute && ev.target.getAttribute('data-eb') === 'thesis') ev.preventDefault(); });
   // The parts of the sheet you can tap to go to also go with Enter or Space.

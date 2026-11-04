@@ -20,7 +20,11 @@
         "y": 0.41,
         "zoom": 4,
         "ar": 0.5625
-      }
+      },
+      "pos": [
+        440,
+        290
+      ]
     },
     {
       "name": "Eileen Furlong",
@@ -35,7 +39,11 @@
         "y": 0.55,
         "zoom": 3.4,
         "ar": 0.5625
-      }
+      },
+      "pos": [
+        690,
+        190
+      ]
     },
     {
       "name": "The Furlong daughters",
@@ -43,7 +51,11 @@
       "group": "The Furlongs",
       "tag": "Their five girls",
       "wants": "Their places at St Margaret's school.",
-      "end": "Their places may be at risk."
+      "end": "Their places may be at risk.",
+      "pos": [
+        880,
+        330
+      ]
     },
     {
       "name": "Sarah Redmond",
@@ -51,7 +63,11 @@
       "group": "The convent",
       "tag": "The girl in the coal shed",
       "wants": "Her baby back, and to get out.",
-      "end": "She walks home with Bill, barefoot."
+      "end": "She walks home with Bill, barefoot.",
+      "pos": [
+        520,
+        520
+      ]
     },
     {
       "name": "The Mother Superior",
@@ -66,7 +82,11 @@
         "y": 0.34,
         "zoom": 3.2,
         "ar": 0.5625
-      }
+      },
+      "pos": [
+        230,
+        500
+      ]
     },
     {
       "name": "Mrs Wilson",
@@ -74,7 +94,11 @@
       "group": "Bill's past",
       "tag": "The widow who took them in",
       "wants": "To give Bill's mother a chance.",
-      "end": "Dead by 1985; Bill remembers her small kindnesses."
+      "end": "Dead by 1985; Bill remembers her small kindnesses.",
+      "pos": [
+        210,
+        90
+      ]
     },
     {
       "name": "Ned",
@@ -82,7 +106,11 @@
       "group": "Bill's past",
       "tag": "Mrs Wilson's farmhand",
       "wants": "To look after Bill, quietly.",
-      "end": "Bill realises Ned was most likely his father."
+      "end": "Bill realises Ned was most likely his father.",
+      "pos": [
+        90,
+        270
+      ]
     },
     {
       "name": "Sarah (Bill's mother)",
@@ -90,7 +118,11 @@
       "group": "Bill's past",
       "tag": "Bill's mother",
       "wants": "To raise her son.",
-      "end": "She died when Bill was twelve."
+      "end": "She died when Bill was twelve.",
+      "pos": [
+        440,
+        80
+      ]
     },
     {
       "name": "Mrs Kehoe",
@@ -98,7 +130,11 @@
       "group": "The town",
       "tag": "Runs the eating-house",
       "wants": "Bill to be careful of the nuns.",
-      "end": "She warns him on Christmas Eve."
+      "end": "She warns him on Christmas Eve.",
+      "pos": [
+        800,
+        520
+      ]
     }
   ],
   "moments": [
@@ -497,5 +533,67 @@
         "The old man's words offer a hopeful view of human choice: Bill's road is not fixed, and he can still change direction [stlt-5]."
       ]
     }
-  }
+  },
+  "links": [
+    [
+      "Bill Furlong",
+      "Eileen Furlong",
+      "married"
+    ],
+    [
+      "Bill Furlong",
+      "The Furlong daughters",
+      "their father"
+    ],
+    [
+      "The Mother Superior",
+      "The Furlong daughters",
+      "runs their school"
+    ],
+    [
+      "Bill Furlong",
+      "Sarah Redmond",
+      "takes her home"
+    ],
+    [
+      "The Mother Superior",
+      "Sarah Redmond",
+      "keeps her locked up"
+    ],
+    [
+      "The Mother Superior",
+      "Bill Furlong",
+      "buys his silence"
+    ],
+    [
+      "Mrs Wilson",
+      "Sarah (Bill's mother)",
+      "kept her on"
+    ],
+    [
+      "Sarah (Bill's mother)",
+      "Bill Furlong",
+      "his mother"
+    ],
+    [
+      "Ned",
+      "Bill Furlong",
+      "most likely his father"
+    ],
+    [
+      "Mrs Wilson",
+      "Ned",
+      "her farmhand"
+    ],
+    [
+      "Mrs Kehoe",
+      "Bill Furlong",
+      "warns him"
+    ],
+    [
+      "Eileen Furlong",
+      "Sarah Redmond",
+      "\"none of our business\""
+    ]
+  ]
 }

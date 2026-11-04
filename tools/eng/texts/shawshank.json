@@ -20,7 +20,11 @@
         "y": 0.21,
         "zoom": 6,
         "ar": 0.5625
-      }
+      },
+      "pos": [
+        400,
+        300
+      ]
     },
     {
       "name": "Ellis 'Red' Redding",
@@ -35,7 +39,11 @@
         "y": 0.13,
         "zoom": 7,
         "ar": 0.5625
-      }
+      },
+      "pos": [
+        640,
+        300
+      ]
     },
     {
       "name": "Warden Samuel Norton",
@@ -50,7 +58,11 @@
         "y": 0.32,
         "zoom": 5,
         "ar": 0.5625
-      }
+      },
+      "pos": [
+        300,
+        80
+      ]
     },
     {
       "name": "Captain Byron Hadley",
@@ -58,7 +70,11 @@
       "group": "In charge",
       "tag": "Captain of the guards",
       "wants": "Order, through fear.",
-      "end": "Arrested."
+      "end": "Arrested.",
+      "pos": [
+        110,
+        240
+      ]
     },
     {
       "name": "Brooks Hatlen",
@@ -66,7 +82,11 @@
       "group": "Red's crew",
       "tag": "The old librarian",
       "wants": "To stay inside, where he belongs.",
-      "end": "He hangs himself after his release."
+      "end": "He hangs himself after his release.",
+      "pos": [
+        850,
+        130
+      ]
     },
     {
       "name": "Tommy Williams",
@@ -74,7 +94,11 @@
       "group": "Red's crew",
       "tag": "The young thief",
       "wants": "His exam, and a way out.",
-      "end": "Shot dead on Norton's orders."
+      "end": "Shot dead on Norton's orders.",
+      "pos": [
+        600,
+        520
+      ]
     },
     {
       "name": "Heywood",
@@ -82,7 +106,11 @@
       "group": "Red's crew",
       "tag": "One of Red's friends",
       "wants": "A laugh at the new arrivals.",
-      "end": "Still inside at the end."
+      "end": "Still inside at the end.",
+      "pos": [
+        880,
+        450
+      ]
     },
     {
       "name": "Bogs Diamond",
@@ -90,7 +118,11 @@
       "group": "The Sisters",
       "tag": "The gang leader",
       "wants": "To prey on Andy.",
-      "end": "Hadley beats him and he's moved away."
+      "end": "Hadley beats him and he's moved away.",
+      "pos": [
+        170,
+        500
+      ]
     }
   ],
   "moments": [
@@ -505,5 +537,62 @@
         "The escape is hidden from the viewer as well as from Red, so its sudden reveal gives us the same shock and delight [shawshank-9]."
       ]
     }
-  }
+  },
+  "links": [
+    [
+      "Andy Dufresne",
+      "Ellis 'Red' Redding",
+      "best friends"
+    ],
+    [
+      "Ellis 'Red' Redding",
+      "Heywood",
+      "his crew"
+    ],
+    [
+      "Ellis 'Red' Redding",
+      "Brooks Hatlen",
+      "old friends"
+    ],
+    [
+      "Andy Dufresne",
+      "Brooks Hatlen",
+      "works in his library"
+    ],
+    [
+      "Andy Dufresne",
+      "Tommy Williams",
+      "helps him study"
+    ],
+    [
+      "Warden Samuel Norton",
+      "Tommy Williams",
+      "has him shot"
+    ],
+    [
+      "Warden Samuel Norton",
+      "Andy Dufresne",
+      "uses him to hide money"
+    ],
+    [
+      "Captain Byron Hadley",
+      "Andy Dufresne",
+      "beers for tax advice"
+    ],
+    [
+      "Warden Samuel Norton",
+      "Captain Byron Hadley",
+      "his captain"
+    ],
+    [
+      "Bogs Diamond",
+      "Andy Dufresne",
+      "attacks him"
+    ],
+    [
+      "Captain Byron Hadley",
+      "Bogs Diamond",
+      "beats him"
+    ]
+  ]
 }
