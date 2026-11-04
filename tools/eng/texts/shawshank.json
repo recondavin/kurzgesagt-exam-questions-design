@@ -205,6 +205,14 @@
           "respect",
           "rules"
         ]
+      },
+      "face": {
+        "file": "faces/shawshank-hadley.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "The Shawshank Redemption, film, 1994"
       }
     },
     {
@@ -249,6 +257,14 @@
           "useful",
           "back"
         ]
+      },
+      "face": {
+        "file": "faces/shawshank-brooks.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "The Shawshank Redemption, film, 1994"
       }
     },
     {
@@ -295,6 +311,14 @@
           "future",
           "change"
         ]
+      },
+      "face": {
+        "file": "faces/shawshank-tommy.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "The Shawshank Redemption, film, 1994"
       }
     },
     {
@@ -334,6 +358,14 @@
           "tease",
           "mock"
         ]
+      },
+      "face": {
+        "file": "faces/shawshank-heywood.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "The Shawshank Redemption, film, 1994"
       }
     },
     {
@@ -377,6 +409,14 @@
           "beat",
           "prey"
         ]
+      },
+      "face": {
+        "file": "faces/shawshank-bogs.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "The Shawshank Redemption, film, 1994"
       }
     }
   ],
