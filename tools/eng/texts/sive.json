@@ -19,7 +19,8 @@
         "x": 0.5,
         "y": 0.45,
         "zoom": 4.5,
-        "ar": 0.6672
+        "ar": 0.6672,
+        "from": "Gaiety Theatre, Dublin, 2024"
       },
       "pos": [
         320,
@@ -181,7 +182,8 @@
         "x": 0.69,
         "y": 0.2,
         "zoom": 4,
-        "ar": 0.6672
+        "ar": 0.6672,
+        "from": "Gaiety Theatre, Dublin, 2024"
       },
       "pos": [
         200,
@@ -358,6 +360,14 @@
           "wife",
           "england"
         ]
+      },
+      "face": {
+        "file": "faces/sive-liam.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Druid Theatre, 2003"
       }
     },
     {

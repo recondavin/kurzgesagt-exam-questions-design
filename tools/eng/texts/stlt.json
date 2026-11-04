@@ -19,7 +19,8 @@
         "x": 0.51,
         "y": 0.41,
         "zoom": 4,
-        "ar": 0.5625
+        "ar": 0.5625,
+        "from": "Small Things Like These, film, 2024"
       },
       "pos": [
         440,
@@ -78,7 +79,8 @@
         "x": 0.21,
         "y": 0.55,
         "zoom": 3.4,
-        "ar": 0.5625
+        "ar": 0.5625,
+        "from": "Small Things Like These, film, 2024"
       },
       "pos": [
         690,
@@ -210,7 +212,8 @@
         "x": 0.5,
         "y": 0.34,
         "zoom": 3.2,
-        "ar": 0.5625
+        "ar": 0.5625,
+        "from": "Small Things Like These, film, 2024"
       },
       "pos": [
         180,

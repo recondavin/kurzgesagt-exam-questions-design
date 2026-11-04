@@ -724,6 +724,7 @@ body.eng.sh-open .sh-brand { display: none; }
 .eng-who__in span { margin-right: 4px; color: #9FB0BA; font: 800 15px Nunito, sans-serif; }
 .eng-who__in a { display: grid; place-items: center; min-width: 32px; height: 32px; padding: 0 6px; border-radius: 9px; background: var(--raised); color: #fff; font: 800 15px Nunito, sans-serif; text-decoration: none; }
 .eng-who__in a:hover { background: var(--g); color: #13212A; }
+.eng-who p.eng-who__from, .eng-meet p.eng-who__from { margin-top: 8px; color: #8FA0AA; font: 700 14px/1.4 Nunito, sans-serif; }
 /* Who's who? (eng-games.js) */
 .eg-cast { display: flex; align-items: center; gap: 14px; margin: 6px 0 12px; }
 .eg-cast .eng-face { --g: #FFD43B; }

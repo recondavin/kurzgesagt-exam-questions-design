@@ -34,6 +34,7 @@ for (const id of D.order) {
   ok(t.moments.every(m => m.what && m.why && m.where && m.modes.length), `${id}: every key moment has what, why, where and modes`);
   ok(t.people.every(p => p.group && p.tag && p.wants && p.end && p.who) && new Set(t.people.map(p => p.tag)).size === t.people.length, `${id}: every character has a group, a role (all different), what they want and how they end`);
   ok(t.people.every(p => !p.face || (p.face.file && p.face.x >= 0 && p.face.x <= 1 && p.face.y >= 0 && p.face.y <= 1 && p.face.zoom >= 1 && p.face.ar > 0 && fs.existsSync(new URL('../../../assets/eng/img/' + p.face.file, import.meta.url)))), `${id}: every face crop is on a picture that exists`);
+  ok(t.people.every(p => !p.face || (typeof p.face.from === 'string' && p.face.from.length > 4)), `${id}: every face says which production or film it's from`);
   ok(t.moments.every(m => m.chain && m.chain.happens && m.chain.shows && m.chain.leads), `${id}: every key moment has its chain (happens, shows, leads to)`);
   // The cast map: everyone has a place on it, no two too close, and every line joins two people in the cast.
   const names = new Set(t.people.map(p => p.name));

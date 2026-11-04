@@ -19,7 +19,8 @@
         "x": 0.44,
         "y": 0.21,
         "zoom": 6,
-        "ar": 0.5625
+        "ar": 0.5625,
+        "from": "The Shawshank Redemption, film, 1994"
       },
       "pos": [
         370,
@@ -75,7 +76,8 @@
         "x": 0.72,
         "y": 0.13,
         "zoom": 7,
-        "ar": 0.5625
+        "ar": 0.5625,
+        "from": "The Shawshank Redemption, film, 1994"
       },
       "pos": [
         670,
@@ -125,7 +127,8 @@
         "x": 0.54,
         "y": 0.32,
         "zoom": 5,
-        "ar": 0.5625
+        "ar": 0.5625,
+        "from": "The Shawshank Redemption, film, 1994"
       },
       "pos": [
         300,

@@ -347,7 +347,10 @@
     var ms = inMoments(t, c);
     return '<article class="eng-who">' + faceHtml(c, 64) + '<div><h4>' + esc(c.name) + '</h4><span class="eng-who__tag">' + esc(c.tag) + '</span>' + (c.trait ? '<p class="eng-who__trait">' + esc(c.trait) + '</p>' : '') + '<p>' + esc(c.who) + '</p>' +
       '<dl><dt>Wants</dt><dd>' + esc(c.wants) + '</dd><dt>In the end</dt><dd>' + esc(c.end) + '</dd></dl>' +
-      (ms.length ? '<p class="eng-who__in"><span>In</span>' + ms.map(function (m) { return '<a href="#text/' + t.id + '/' + m.id + '" title="' + esc(m.title) + '">' + (momentNo(t.id, m.id) + 1) + '</a>'; }).join('') + '</p>' : '') + '</div></article>';
+      (ms.length ? '<p class="eng-who__in"><span>In</span>' + ms.map(function (m) { return '<a href="#text/' + t.id + '/' + m.id + '" title="' + esc(m.title) + '">' + (momentNo(t.id, m.id) + 1) + '</a>'; }).join('') + '</p>' : '') + fromHtml(c) + '</div></article>';
+  }
+  // Where the face is from (which production or film), so it's clear who's shown.
+  function fromHtml(c) { return c.face && c.face.from ? '<p class="eng-who__from">Pictured: ' + esc(c.face.from) + '</p>' : '';
   }
   function gcol(t, c) { return GROUP_COL[groupsOf(t).indexOf(c.group) % GROUP_COL.length]; }
   function castDraw(fresh) {
@@ -418,7 +421,7 @@
     if (CM.mode === 'meet') {
       var c = P[CM.shown - 1];
       panel.innerHTML = '<div class="eng-meet" style="--g:' + gcol(t, c) + '">' + faceHtml(c, 72) + '<div><p class="eng-meet__n">' + CM.shown + ' of ' + P.length + '</p><h3>' + esc(c.name) + '</h3><span class="eng-who__tag">' + esc(c.tag) + '</span>' +
-        (c.trait ? '<p class="eng-who__trait">' + esc(c.trait) + '</p>' : '') + '<p>' + esc(c.who) + '</p><p class="eng-meet__w"><b>Wants:</b> ' + esc(c.wants) + '</p></div></div>' +
+        (c.trait ? '<p class="eng-who__trait">' + esc(c.trait) + '</p>' : '') + '<p>' + esc(c.who) + '</p><p class="eng-meet__w"><b>Wants:</b> ' + esc(c.wants) + '</p>' + fromHtml(c) + '</div></div>' +
         '<div class="eng-map__btns">' + (CM.shown > 1 ? '<button type="button" class="eng-btn eng-btn--quiet" data-cm-back>Back</button>' : '<span></span>') +
         (CM.shown < P.length ? '<button type="button" class="eng-btn" data-cm-next>Next: meet ' + esc(P[CM.shown].name.replace(/^The /, 'the ')) + '</button>' : '<button type="button" class="eng-btn" data-cm="build">That\'s everyone. Now build it</button>') + '</div>';
     } else if (CM.mode === 'explore') {
