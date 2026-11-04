@@ -163,7 +163,7 @@
       "wants": "Her baby back, and to get out.",
       "end": "She walks home with Bill, barefoot.",
       "pos": [
-        520,
+        540,
         520
       ],
       "trait": "Frightened and worn out",
@@ -213,8 +213,8 @@
         "ar": 0.5625
       },
       "pos": [
-        230,
-        500
+        180,
+        510
       ],
       "trait": "Polished, polite and threatening",
       "check": {
@@ -260,7 +260,7 @@
       "wants": "To give Bill's mother a chance.",
       "end": "Dead by 1985; Bill remembers her small kindnesses.",
       "pos": [
-        210,
+        160,
         90
       ],
       "trait": "Kind and generous",
@@ -300,8 +300,8 @@
       "wants": "To look after Bill, quietly.",
       "end": "Bill realises Ned was most likely his father.",
       "pos": [
-        90,
-        270
+        80,
+        290
       ],
       "trait": "Quiet and steady",
       "check": {
@@ -341,7 +341,7 @@
       "wants": "To raise her son.",
       "end": "She died when Bill was twelve.",
       "pos": [
-        440,
+        470,
         80
       ],
       "trait": "Young and hard-working",

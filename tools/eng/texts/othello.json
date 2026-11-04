@@ -22,8 +22,8 @@
         "ar": 0.5625
       },
       "pos": [
-        420,
-        260
+        370,
+        250
       ],
       "trait": "Noble and proud, then wildly jealous",
       "check": {
@@ -78,8 +78,8 @@
         "ar": 0.5625
       },
       "pos": [
-        640,
-        260
+        670,
+        250
       ],
       "trait": "Brave, loving and loyal",
       "check": {
@@ -130,8 +130,8 @@
         "ar": 0.5625
       },
       "pos": [
-        420,
-        470
+        370,
+        480
       ],
       "trait": "Two-faced, clever and cruel",
       "check": {
@@ -179,7 +179,7 @@
       "wants": "To win back his place.",
       "end": "He is left in charge of Cyprus.",
       "pos": [
-        170,
+        110,
         330
       ],
       "trait": "Charming and loyal, but weak with drink",
@@ -223,8 +223,8 @@
       "wants": "To serve Desdemona, and to please Iago.",
       "end": "She exposes Iago, and he kills her.",
       "pos": [
-        640,
-        470
+        670,
+        480
       ],
       "trait": "Worldly and blunt; brave at the end",
       "check": {
@@ -264,8 +264,8 @@
       "wants": "Desdemona.",
       "end": "Iago kills him.",
       "pos": [
-        190,
-        530
+        120,
+        545
       ],
       "trait": "Gullible and lovesick",
       "check": {
@@ -338,8 +338,8 @@
       "wants": "Cassio's love.",
       "end": "Iago tries to blame her when Cassio is wounded.",
       "pos": [
-        70,
-        150
+        90,
+        110
       ],
       "trait": "Devoted and jealous",
       "check": {

@@ -374,7 +374,7 @@
       if (!visible(a) || !visible(b)) return;
       var on = hot(l), dim = CM.mode === 'explore' && CM.sel >= 0 && !on;
       lines += '<line x1="' + A[0] + '" y1="' + A[1] + '" x2="' + B[0] + '" y2="' + B[1] + '" vector-effect="non-scaling-stroke" class="' + (on ? 'is-on' : '') + (dim ? ' is-dim' : '') + (fresh === 'line' && (a === CM.shown - 1 || b === CM.shown - 1) ? ' is-new' : '') + '"/>';
-      if (on) labels += '<span class="eng-map__lab" style="left:' + ((A[0] + B[0]) / VW * 50) + '%;top:' + ((A[1] + B[1]) / VH * 50) + '%">' + esc(l[2]) + '</span>';
+      if (on) labels += '<span class="eng-map__lab" data-ab="' + [A[0] / VW * 100, A[1] / VH * 100, B[0] / VW * 100, B[1] / VH * 100].join(',') + '" style="left:' + ((A[0] + B[0]) / VW * 50) + '%;top:' + ((A[1] + B[1]) / VH * 50) + '%">' + esc(l[2]) + '</span>';
     });
     box.innerHTML = '<svg class="eng-map__lines" viewBox="0 0 ' + VW + ' ' + VH + '" preserveAspectRatio="none" aria-hidden="true">' + lines + '</svg>' + labels +
       P.map(function (c, i) {
@@ -387,11 +387,32 @@
           (named(i) ? faceHtml(c, 56) + '<b>' + esc(c.name) + '</b>' : '<span class="eng-face eng-face--q" style="width:56px;height:56px">?</span><b>?</b>') + '</button>';
       }).join('');
     CM.wrong = -1;
-    // A label stays inside the map, even on a line along its edge.
-    var br = box.getBoundingClientRect();
+    // A label sits in the middle of its line unless that covers someone (or another label): then it slides along the
+    // line to the first clear spot. It also stays inside the map, even on a line along its edge.
+    var br = box.getBoundingClientRect(), taken = [];
+    box.querySelectorAll('.eng-node .eng-face, .eng-node:not(.is-blank) b').forEach(function (e) { var r = e.getBoundingClientRect(); if (r.width) taken.push(r); });
+    var hits = function (r) { return taken.some(function (q) { return r.left < q.right + 3 && q.left < r.right + 3 && r.top < q.bottom + 3 && q.top < r.bottom + 3; }); };
+    var face = box.querySelector('.eng-node .eng-face'), fs = face ? face.getBoundingClientRect().width : 50;
     box.querySelectorAll('.eng-map__lab').forEach(function (lab) {
-      var r = lab.getBoundingClientRect(), dx = r.left < br.left + 4 ? br.left + 4 - r.left : r.right > br.right - 4 ? br.right - 4 - r.right : 0;
-      if (dx) lab.style.marginLeft = dx + 'px';
+      var ab = lab.getAttribute('data-ab').split(',').map(Number), r, W = br.width / 100, H = br.height / 100;
+      // Along the line first; on a short line between two close people, just beside it (clear of both faces).
+      var dx = (ab[2] - ab[0]) * W, dy = (ab[3] - ab[1]) * H, len = Math.hypot(dx, dy) || 1, lh = lab.offsetHeight, lw = lab.offsetWidth;
+      var nx = -dy / len, ny = dx / len, off = Math.abs(nx) * lw / 2 + Math.abs(ny) * lh / 2 + 5, tries = [];
+      [0.5, 0.42, 0.58, 0.35, 0.65, 0.28, 0.72, 0.22, 0.78].forEach(function (f) { tries.push([f, 0]); });
+      // (Right beside the line first; then far enough out to clear the faces at its ends.)
+      [off, off + fs / 2].forEach(function (o) { [0.5, 0.42, 0.58].forEach(function (f) { tries.push([f, -o], [f, o]); }); });
+      var put = function (f, o) {
+        lab.style.marginLeft = ''; lab.style.left = (ab[0] + (ab[2] - ab[0]) * f + nx * o / W) + '%'; lab.style.top = (ab[1] + (ab[3] - ab[1]) * f + ny * o / H) + '%';
+        var q = lab.getBoundingClientRect(), ex = q.left < br.left + 4 ? br.left + 4 - q.left : q.right > br.right - 4 ? br.right - 4 - q.right : 0;
+        if (ex) { lab.style.marginLeft = ex + 'px'; q = lab.getBoundingClientRect(); }
+        return q;
+      };
+      // (No clear spot: in Explore the label is dropped, since the same link is listed under the map.)
+      if (!tries.some(function (q) { r = put(q[0], q[1]); return !hits(r); })) {
+        if (CM.mode === 'explore') { lab.remove(); return; }
+        r = put(0.5, 0);
+      }
+      taken.push(r);
     });
     // The panel under the map.
     if (CM.mode === 'meet') {
@@ -402,8 +423,8 @@
         (CM.shown < P.length ? '<button type="button" class="eng-btn" data-cm-next>Next: meet ' + esc(P[CM.shown].name.replace(/^The /, 'the ')) + '</button>' : '<button type="button" class="eng-btn" data-cm="build">That\'s everyone. Now build it</button>') + '</div>';
     } else if (CM.mode === 'explore') {
       panel.innerHTML = CM.sel < 0 ? '<p class="eng-map__hint">Tap anyone on the map to see who they\'re linked to, what they want and how they end.</p>'
-        : '<div class="eng-map__card" style="--g:' + gcol(t, P[CM.sel]) + '">' + whoCard(t, P[CM.sel]) + '<ul class="eng-map__links">' + links.filter(function (l) { return idx(l[0]) === CM.sel || idx(l[1]) === CM.sel; }).map(function (l) {
-          return '<li><b>' + esc(l[0]) + '</b> <span>' + esc(l[2]) + '</span> <b>' + esc(l[1]) + '</b></li>'; }).join('') + '</ul></div>';
+        : '<div class="eng-map__card" style="--g:' + gcol(t, P[CM.sel]) + '">' + whoCard(t, P[CM.sel]) + '<div class="eng-map__side"><h5>Linked to</h5><ul class="eng-map__links">' + links.filter(function (l) { return idx(l[0]) === CM.sel || idx(l[1]) === CM.sel; }).map(function (l) {
+          return '<li><b>' + esc(l[0]) + '</b> <span>' + esc(l[2]) + '</span> <b>' + esc(l[1]) + '</b></li>'; }).join('') + '</ul></div></div>';
     } else {
       var left = CM.order.filter(function (i) { return !CM.placed[i]; }), n = P.length;
       if (CM.write >= 0) panel.innerHTML = writeHtml(t, P[CM.write]);

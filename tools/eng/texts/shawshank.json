@@ -22,7 +22,7 @@
         "ar": 0.5625
       },
       "pos": [
-        400,
+        370,
         300
       ],
       "trait": "Quiet, clever and patient",
@@ -78,7 +78,7 @@
         "ar": 0.5625
       },
       "pos": [
-        640,
+        670,
         300
       ],
       "trait": "Wry and worn down, then hopeful",
@@ -170,8 +170,8 @@
       "wants": "Order, through fear.",
       "end": "Arrested.",
       "pos": [
-        110,
-        240
+        90,
+        230
       ],
       "trait": "Brutal and violent",
       "check": {
