@@ -38,7 +38,7 @@ for (const id of D.order) {
   ok(t.moments.every(m => m.chain && m.chain.happens && m.chain.shows && m.chain.leads), `${id}: every key moment has its chain (happens, shows, leads to)`);
   // The cast map: everyone has a place on it, no two too close, and every line joins two people in the cast.
   const names = new Set(t.people.map(p => p.name));
-  ok(t.people.every(p => Array.isArray(p.pos) && p.pos[0] >= 50 && p.pos[0] <= 950 && p.pos[1] >= 50 && p.pos[1] <= 550), `${id}: everyone has a place on the cast map`);
+  ok(t.people.every(p => Array.isArray(p.pos) && p.pos[0] >= 50 && p.pos[0] <= 950 && p.pos[1] >= 50 && p.pos[1] <= 525), `${id}: everyone has a place on the cast map, with room for their name below`);
   ok(t.people.every((p, i) => t.people.every((q, j) => j <= i || Math.hypot(p.pos[0] - q.pos[0], p.pos[1] - q.pos[1]) >= 150)), `${id}: no two people sit on top of each other on the cast map`);
   ok(Array.isArray(t.links) && t.links.length >= 8 && t.links.every(l => names.has(l[0]) && names.has(l[1]) && l[0] !== l[1] && l[2].length > 2), `${id}: every line on the cast map joins two people and says how`);
   ok(t.people.every(p => t.links.some(l => l[0] === p.name || l[1] === p.name)), `${id}: everyone on the cast map is linked to someone`);

@@ -216,6 +216,14 @@
           "favour",
           "reputation"
         ]
+      },
+      "face": {
+        "file": "faces/othello-cassio.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Othello, film, 1995"
       }
     },
     {
@@ -257,6 +265,14 @@
           "truth",
           "justice"
         ]
+      },
+      "face": {
+        "file": "faces/othello-emilia.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Shakespeare's Globe, London, 2018"
       }
     },
     {
@@ -268,7 +284,7 @@
       "end": "Iago kills him.",
       "pos": [
         120,
-        545
+        505
       ],
       "trait": "Gullible and lovesick",
       "check": {
@@ -293,6 +309,14 @@
           "wife",
           "win"
         ]
+      },
+      "face": {
+        "file": "faces/othello-roderigo.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Shakespeare's Globe, London, 2018"
       }
     },
     {
@@ -331,6 +355,14 @@
           "justice",
           "punish"
         ]
+      },
+      "face": {
+        "file": "faces/othello-brabantio.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Othello, film, 1995"
       }
     },
     {
@@ -365,6 +397,14 @@
           "attention",
           "faithful"
         ]
+      },
+      "face": {
+        "file": "faces/othello-bianca.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Orson Welles's Othello, film, 1952"
       }
     },
     {
@@ -408,6 +448,14 @@
           "charge",
           "control"
         ]
+      },
+      "face": {
+        "file": "faces/othello-lodovico.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Othello, film, 1995"
       }
     },
     {
@@ -448,6 +496,14 @@
           "safe",
           "battle"
         ]
+      },
+      "face": {
+        "file": "faces/othello-duke.jpg",
+        "x": 0.5,
+        "y": 0.5,
+        "zoom": 1,
+        "ar": 1,
+        "from": "Othello, film, 1995"
       }
     }
   ],
