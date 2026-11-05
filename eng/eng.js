@@ -334,7 +334,7 @@
   var CM = null;
   function castHtml(t) {
     var met = store('eng-cast-met-' + t.id);
-    CM = { t: t.id, mode: met ? 'explore' : 'meet', sel: -1, shown: 1, placed: {}, pick: -1, miss: 0, order: null, write: -1, res: null, spot: 0, wrote: 0 };
+    CM = { t: t.id, mode: met ? 'explore' : 'meet', sel: -1, shown: 1, placed: {}, pick: -1, miss: 0, order: null, write: -1, res: null, spot: 0, wrote: 0, bad: {}, only: null };
     var groups = groupsOf(t);
     return '<section class="eng-cast" id="cast"><div class="eng-cast__top"><h2 class="eng-h2">Who\'s who</h2>' +
       '<div class="eng-tabs" role="tablist">' + [['meet', 'Meet them'], ['explore', 'Explore'], ['build', 'Build it']].map(function (m) { return '<button type="button" role="tab" data-cm="' + m[0] + '">' + m[1] + '</button>'; }).join('') + '</div></div>' +
@@ -359,6 +359,8 @@
     var t = text(CM.t), P = t.people, links = t.links || [], idx = function (n) { for (var i = 0; i < P.length; i++) if (P[i].name === n) return i; return -1; };
     app.querySelectorAll('[data-cm]').forEach(function (b) { b.setAttribute('aria-selected', String(b.getAttribute('data-cm') === CM.mode)); });
     var sec = app.querySelector('.eng-cast'); if (sec) sec.classList.toggle('is-build', CM.mode === 'build');
+    // (When a round is over its summary isn't stuck to the bottom of the screen.)
+    if (sec) sec.classList.toggle('is-done', CM.mode === 'build' && CM.write < 0 && P.every(function (c, i) { return CM.placed[i]; }));
     // On a phone the map stands on its side (taller than wide), so the people spread out down the screen.
     var tall = window.matchMedia('(max-width: 700px)').matches, at = function (c) { return tall ? [c.pos[1], c.pos[0]] : c.pos; };
     var VW = tall ? 600 : 1000, VH = tall ? 1000 : 600;
@@ -368,7 +370,8 @@
     var hot = function (l) {
       var a = idx(l[0]), b = idx(l[1]);
       // (On a phone, only the clues still to use: a line from someone placed to someone not yet, so it stays readable.)
-      if (CM.mode === 'build') return tall ? (!CM.placed[a] !== !CM.placed[b]) || a === CM.write || b === CM.write : CM.placed[a] || CM.placed[b];
+      // (In a retest, too, as nearly everyone is already in place.)
+      if (CM.mode === 'build') return tall || CM.only ? (!CM.placed[a] !== !CM.placed[b]) || a === CM.write || b === CM.write : CM.placed[a] || CM.placed[b];
       return CM.mode === 'meet' ? (a === CM.shown - 1 || b === CM.shown - 1) : (CM.sel >= 0 && (a === CM.sel || b === CM.sel));
     };
     var lines = '', labels = '';
@@ -432,26 +435,30 @@
     } else {
       var left = CM.order.filter(function (i) { return !CM.placed[i]; }), n = P.length;
       if (CM.write >= 0) panel.innerHTML = writeHtml(t, P[CM.write]);
-      else if (left.length) panel.innerHTML = '<p class="eng-map__hint">Drag each name onto its person' + (tall ? '' : ' (or tap a name, then a person)') + ', then write who they are. The yellow lines are clues. ' +
+      else if (left.length) panel.innerHTML = '<p class="eng-map__hint">' + (CM.only ? '<b class="eng-redo__k">Retest</b> Just the ' + CM.only.length + ' you got wrong. ' : '') + 'Drag each name onto its person' + (tall ? '' : ' (or tap a name, then a person)') + ', then write who they are. The yellow lines are clues. ' +
           'Mistakes: <b>' + CM.miss + '</b> · Written: <b>' + CM.spot + '/' + CM.wrote + '</b></p>' +
         '<div class="eng-chips">' + left.map(function (i) { return '<button type="button" class="eng-namechip' + (CM.pick === i ? ' is-on' : '') + '" data-chip="' + i + '">' + esc(P[i].name) + '</button>'; }).join('') + '</div>';
-      else panel.innerHTML = '<div class="eng-built"><b>All ' + n + ' in place</b> with ' + CM.miss + ' mistake' + (CM.miss === 1 ? '' : 's') + ', and you wrote ' + CM.spot + ' of ' + n + ' spot on.' +
-          (CM.best != null ? ' Best: ' + CM.best + ' mistake' + (CM.best === 1 ? '' : 's') + (CM.bestW != null ? ', ' + CM.bestW + ' spot on' : '') + '.' : '') +
-          '<div class="eng-map__btns"><button type="button" class="eng-btn eng-btn--quiet" data-cm="explore">Explore</button><button type="button" class="eng-btn" data-cm="build">Play again</button></div></div>';
+      else panel.innerHTML = builtHtml(t);
       if (CM.write >= 0 && !CM.res) { var inp = panel.querySelector('[data-cw-in="like"]'); if (inp && fresh !== 'resize') inp.focus({ preventScroll: true }); }
     }
   }
-  function castMode(m) {
+  // only: a retest of just these people (the ones you got wrong last round). Everyone else is already on the map, named,
+  // so their lines are clues too.
+  function castMode(m, only) {
     var t = text(CM.t);
     CM.mode = m; CM.sel = -1; CM.pick = -1; CM.write = -1; CM.res = null;
     if (m === 'meet') CM.shown = 1;
     if (m === 'build') {
-      CM.placed = {}; CM.miss = 0; CM.spot = 0; CM.wrote = 0; CM.res = null; CM.draft = {};
-      // The title character starts you off: they're in place, and you write about them first.
-      var tc = t.people.filter(function (c) { return c.name === t.title; })[0];
-      CM.write = tc ? t.people.indexOf(tc) : 0; CM.placed[CM.write] = true;
+      CM.placed = {}; CM.miss = 0; CM.spot = 0; CM.wrote = 0; CM.res = null; CM.draft = {}; CM.bad = {};
+      CM.only = only && only.length && only.length < t.people.length ? only.slice() : null;
+      if (CM.only) t.people.forEach(function (c, i) { if (CM.only.indexOf(i) < 0) CM.placed[i] = true; });
+      else {
+        // The title character starts you off: they're in place, and you write about them first.
+        var tc = t.people.filter(function (c) { return c.name === t.title; })[0];
+        CM.write = tc ? t.people.indexOf(tc) : 0; CM.placed[CM.write] = true;
+      }
       var bw = +(store('eng-cast-wrote-' + CM.t) || -1); CM.bestW = bw >= 0 ? bw : null;
-      CM.order = t.people.map(function (c, i) { return i; }).sort(function () { return Math.random() - 0.5; });
+      CM.order = (CM.only || t.people.map(function (c, i) { return i; })).slice().sort(function () { return Math.random() - 0.5; });
       var b = +(store('eng-cast-best-' + CM.t) || -1); CM.best = b >= 0 ? b : null;
     }
     castDraw(m === 'meet' ? 'line' : '');
@@ -466,7 +473,7 @@
       if (K) K.sfx('stamp', 0.4);
       castDraw('placed');
     } else {
-      CM.miss += 1; CM.wrong = node;
+      CM.miss += 1; CM.wrong = node; badOf(chip).place = true;
       if (K) K.bonk();
       toast('Not ' + t.people[chip].name + '. Read the lines around that one.');
       castDraw();
@@ -518,6 +525,8 @@
     var grade = lg.length && wg.length ? 'spot' : lg.length || wg.length ? 'half' : 'none';
     CM.res = { like: like, want: want, likeGot: lg, wantGot: wg, grade: grade, shown: !!show };
     CM.wrote += 1; if (grade === 'spot') CM.spot += 1;
+    if (!lg.length) badOf(CM.write).like = true;
+    if (!wg.length) badOf(CM.write).want = true;
     if (K) { if (grade === 'spot') K.ding(); else if (grade === 'half') K.sfx('pop', 0.4); }
     castDraw();
     var nx = app.querySelector('[data-cw-next]'); if (nx) nx.focus({ preventScroll: true });
@@ -525,12 +534,36 @@
   function writeNext() {
     var t = text(CM.t);
     CM.write = -1; CM.res = null;
-    if (t.people.every(function (c, i) { return CM.placed[i]; })) {
+    var over = t.people.every(function (c, i) { return CM.placed[i]; });
+    if (over && !CM.only) {
       if (CM.best == null || CM.miss < CM.best) { store('eng-cast-best-' + CM.t, String(CM.miss)); CM.best = CM.miss; }
       if (CM.bestW == null || CM.spot > CM.bestW) { store('eng-cast-wrote-' + CM.t, String(CM.spot)); CM.bestW = CM.spot; }
-      if (K) setTimeout(K.fanfare, 150);
     }
+    if (over && K) setTimeout(badList().length ? K.ding : K.fanfare, 150);
     castDraw();
+    if (over) { var bt = app.querySelector('.eng-built'); if (bt) bt.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+  }
+  // What went wrong this round, person by person: put in the wrong place, what they're like, what they want.
+  function badOf(i) { CM.bad = CM.bad || {}; return CM.bad[i] || (CM.bad[i] = {}); }
+  function badList() { return Object.keys(CM.bad || {}).map(Number).filter(function (i) { var b = CM.bad[i]; return b.place || b.like || b.want; }); }
+  function builtHtml(t) {
+    var P = t.people, n = CM.only ? CM.only.length : P.length, bad = badList(), right = n - bad.length;
+    var head = CM.only ? '<b>Retest done:</b> ' + right + ' of ' + n + ' right this time.'
+      : '<b>All ' + n + ' in place</b> with ' + CM.miss + ' mistake' + (CM.miss === 1 ? '' : 's') + ', and you wrote ' + CM.spot + ' of ' + n + ' spot on.' +
+        (CM.best != null ? ' Best: ' + CM.best + ' mistake' + (CM.best === 1 ? '' : 's') + (CM.bestW != null ? ', ' + CM.bestW + ' spot on' : '') + '.' : '');
+    var list = bad.length ? '<div class="eng-redo"><p class="eng-redo__h">' + (CM.only ? 'Still to get' : 'You got these wrong') + ': read them over, then retest just these</p><ul>' + bad.map(function (i) {
+        var c = P[i], b = CM.bad[i], tags = [];
+        if (b.place) tags.push('put in the wrong place');
+        if (b.like) tags.push('what they\'re like');
+        if (b.want) tags.push('what they want');
+        return '<li style="--g:' + gcol(t, c) + '">' + faceHtml(c, 52) + '<div><p class="eng-redo__n"><b>' + esc(c.name) + '</b>' + tags.map(function (x) { return '<i>' + x + '</i>'; }).join('') + '</p>' +
+          '<p class="eng-redo__t"><span>Like:</span> ' + wordMark(c.trait || '') + '</p><p class="eng-redo__t"><span>Wants:</span> ' + wordMark(c.wants) + '</p></div></li>';
+      }).join('') + '</ul></div>'
+      : '<p class="eng-redo__ok">' + (CM.only ? 'All fixed: you know every one of them now.' : 'Nothing wrong: you know the whole cast.') + '</p>';
+    return '<div class="eng-built' + (bad.length ? ' has-redo' : '') + '"><p class="eng-built__h">' + head + '</p>' + list +
+      '<div class="eng-map__btns"><button type="button" class="eng-btn eng-btn--quiet" data-cm="explore">Explore</button>' +
+      (bad.length ? '<span class="eng-map__two"><button type="button" class="eng-btn eng-btn--quiet" data-cm="build">Play all again</button><button type="button" class="eng-btn" data-cm-retest>Retest these ' + bad.length + '</button></span>'
+        : '<button type="button" class="eng-btn" data-cm="build">Play again</button>') + '</div></div>';
   }
 
   // ---------- the story, told scene by scene ----------
@@ -1292,6 +1325,7 @@
     var gb = t.closest('a[href^="#build"]');
     if (gb && ev.button === 0 && !ev.metaKey && !ev.ctrlKey && !ev.shiftKey && !ev.altKey && !/^#build/.test(location.hash)) { ev.preventDefault(); goBuild(gb); return; }
     if (Date.now() - DRAG_END < 250 && (t.closest('[data-node]') || t.closest('[data-chip]'))) return;
+    if (t.closest('[data-cm-retest]') && CM) { castMode('build', badList()); return; }
     var cmb = t.closest('[data-cm]');
     if (cmb && CM) { castMode(cmb.getAttribute('data-cm')); return; }
     if (t.closest('[data-cm-next]') && CM) { CM.shown += 1; if (CM.shown === text(CM.t).people.length) store('eng-cast-met-' + CM.t, '1'); if (K) K.sfx('pop', 0.35); castDraw('line'); return; }

@@ -818,7 +818,23 @@ body.eng.sh-open .sh-brand { display: none; }
 .eng-namechip.is-lifted { opacity: .35; }
 .eng-namechip.is-ghost { position: fixed; z-index: 90; pointer-events: none; transform: translate(-50%, -60%) rotate(-4deg); box-shadow: 0 8px 0 rgba(0, 0, 0, .3); }
 .eng-built { padding: 16px 20px; border-radius: 16px; background: #1F4A1A; color: #fff; font: 700 18px/1.5 Nunito, sans-serif; }
-.eng-built b { color: #9BE36B; font: 600 24px Fredoka, Nunito, sans-serif; }
+.eng-built__h { margin: 0; }
+.eng-built__h > b { color: #9BE36B; font: 600 24px Fredoka, Nunito, sans-serif; }
+.eng-built.has-redo { background: var(--surface); box-shadow: inset 0 5px 0 #FFB648; }
+.eng-built.has-redo .eng-built__h > b { color: #FFC56B; }
+/* What you got wrong, ready to retest. */
+.eng-redo__h { margin: 14px 0 8px; color: #C9D4DA; font: 800 14px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.eng-redo ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.eng-redo li { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; align-items: start; padding: 12px 14px; border-radius: 14px; background: #13212A; box-shadow: inset 4px 0 0 var(--g); }
+.eng-redo__n { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0 0 4px; }
+.eng-redo__n b { margin-right: 4px; color: #fff; font: 600 19px/1.2 Fredoka, Nunito, sans-serif; }
+.eng-redo__n i { padding: 1px 9px; border-radius: 999px; background: #4A2F1A; color: #FFC56B; font: 800 12.5px/1.6 Nunito, sans-serif; font-style: normal; }
+.eng-redo__t { margin: 2px 0 0; color: #DDE6EA; font: 700 16px/1.45 Nunito, sans-serif; }
+.eng-redo__t span { color: #9FB0BA; }
+.eng-redo__ok { margin: 8px 0 0; color: #fff; }
+.eng-redo__k { margin-right: 6px; padding: 1px 9px; border-radius: 999px; background: #FFB648; color: #2A1A06; font: 800 13px/1.6 Nunito, sans-serif; }
+.eng-map__two { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+.eng-cast.is-build.is-done .eng-map__panel { position: static; background: none; }
 .eng-cast__all { margin-top: 18px; }
 .eng-cast__all summary { padding: 10px 0; color: #C9D4DA; font: 800 17px Nunito, sans-serif; cursor: pointer; }
 @media (max-width: 700px) {
