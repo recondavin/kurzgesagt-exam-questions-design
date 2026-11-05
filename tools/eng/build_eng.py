@@ -109,8 +109,8 @@ def main():
     for g in glossary:
         if g['id'] in seen: problems.append('glossary: %s twice' % g['id'])
         seen.add(g['id'])
-        if g.get('kind') not in ('task', 'topic') or not g.get('match') or not g.get('def') or not g.get('term'):
-            problems.append('glossary %s: needs kind (task or topic), match, term and def' % g['id'])
+        if g.get('kind') not in ('task', 'topic', 'word') or not g.get('match') or not g.get('def') or not g.get('term'):
+            problems.append('glossary %s: needs kind (task, topic or word), match, term and def' % g['id'])
         for t in g.get('eg', {}):
             if t not in ORDER: problems.append('glossary %s: an example for %r, not one of the texts' % (g['id'], t))
     check_games(games, texts, problems)

@@ -79,7 +79,7 @@ ok((C.upgrades || []).length >= 25 && C.upgrades.every(u => u.plain && u.exam.le
 
 // The glossary: every entry explained, its examples for real texts, and the hard words of every past question covered.
 const GL = D.glossary || [];
-ok(GL.length >= 50 && GL.every(g => g.def && g.term && g.match.length && ['task', 'topic'].includes(g.kind)), 'glossary: 50+ words, each with its meaning');
+ok(GL.length >= 50 && GL.every(g => g.def && g.term && g.match.length && ['task', 'topic', 'word'].includes(g.kind)), 'glossary: 50+ words, each with its meaning');
 ok(GL.every(g => !g.eg || Object.keys(g.eg).every(t => D.order.includes(t))), 'glossary: examples only for the four texts');
 const glIds = new Set(GL.map(g => g.id));
 for (const id of ['mobility', 'position', 'extent', 'discuss', 'compare', 'cc', 'gvv', 'patriarchal', 'catalyst', 'intervention']) ok(glIds.has(id), `glossary has ${id}`);

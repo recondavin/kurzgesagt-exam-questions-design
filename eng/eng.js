@@ -345,8 +345,8 @@
   }
   function whoCard(t, c) {
     var ms = inMoments(t, c);
-    return '<article class="eng-who">' + faceHtml(c, 64) + '<div><h4>' + esc(c.name) + '</h4><span class="eng-who__tag">' + esc(c.tag) + '</span>' + (c.trait ? '<p class="eng-who__trait">' + esc(c.trait) + '</p>' : '') + '<p>' + esc(c.who) + '</p>' +
-      '<dl><dt>Wants</dt><dd>' + esc(c.wants) + '</dd><dt>In the end</dt><dd>' + esc(c.end) + '</dd></dl>' +
+    return '<article class="eng-who">' + faceHtml(c, 64) + '<div><h4>' + esc(c.name) + '</h4><span class="eng-who__tag">' + esc(c.tag) + '</span>' + (c.trait ? '<p class="eng-who__trait">' + wordMark(c.trait) + '</p>' : '') + '<p>' + wordMark(c.who) + '</p>' +
+      '<dl><dt>Wants</dt><dd>' + wordMark(c.wants) + '</dd><dt>In the end</dt><dd>' + wordMark(c.end) + '</dd></dl>' +
       (ms.length ? '<p class="eng-who__in"><span>In</span>' + ms.map(function (m) { return '<a href="#text/' + t.id + '/' + m.id + '" title="' + esc(m.title) + '">' + (momentNo(t.id, m.id) + 1) + '</a>'; }).join('') + '</p>' : '') + fromHtml(c) + '</div></article>';
   }
   // Where the face is from (which production or film), so it's clear who's shown.
@@ -390,6 +390,7 @@
           (named(i) ? faceHtml(c, 56) + '<b>' + esc(c.name) + '</b>' : '<span class="eng-face eng-face--q" style="width:56px;height:56px">?</span><b>?</b>') + '</button>';
       }).join('');
     CM.wrong = -1;
+    if (DEF && !document.body.contains(DEF.btn)) closeDef();
     // A label sits in the middle of its line unless that covers someone (or another label): then it slides along the
     // line to the first clear spot. It also stays inside the map, even on a line along its edge.
     var br = box.getBoundingClientRect(), taken = [];
@@ -421,7 +422,7 @@
     if (CM.mode === 'meet') {
       var c = P[CM.shown - 1];
       panel.innerHTML = '<div class="eng-meet" style="--g:' + gcol(t, c) + '">' + faceHtml(c, 72) + '<div><p class="eng-meet__n">' + CM.shown + ' of ' + P.length + '</p><h3>' + esc(c.name) + '</h3><span class="eng-who__tag">' + esc(c.tag) + '</span>' +
-        (c.trait ? '<p class="eng-who__trait">' + esc(c.trait) + '</p>' : '') + '<p>' + esc(c.who) + '</p><p class="eng-meet__w"><b>Wants:</b> ' + esc(c.wants) + '</p>' + fromHtml(c) + '</div></div>' +
+        (c.trait ? '<p class="eng-who__trait">' + wordMark(c.trait) + '</p>' : '') + '<p>' + wordMark(c.who) + '</p><p class="eng-meet__w"><b>Wants:</b> ' + wordMark(c.wants) + '</p>' + fromHtml(c) + '</div></div>' +
         '<div class="eng-map__btns">' + (CM.shown > 1 ? '<button type="button" class="eng-btn eng-btn--quiet" data-cm-back>Back</button>' : '<span></span>') +
         (CM.shown < P.length ? '<button type="button" class="eng-btn" data-cm-next>Next: meet ' + esc(P[CM.shown].name.replace(/^The /, 'the ')) + '</button>' : '<button type="button" class="eng-btn" data-cm="build">That\'s everyone. Now build it</button>') + '</div>';
     } else if (CM.mode === 'explore') {
@@ -486,7 +487,10 @@
     return keys.filter(function (k) { return said.some(function (w) { return wordHit(w, k); }); });
   }
   function markModel(model, got) {
-    return esc(model).replace(/[A-Za-zÀ-ÿ£0-9'’-]+/g, function (w) { var p = wordsOf(w)[0]; return p && got.some(function (k) { return wordHit(p, k) || wordHit(k, p.slice(0, 5)); }) ? '<mark>' + w + '</mark>' : w; });
+    return esc(model).replace(/[A-Za-zÀ-ÿ£0-9'’-]+/g, function (w) {
+      var p = wordsOf(w)[0], g = wordOf(w), m = p && got.some(function (k) { return wordHit(p, k) || wordHit(k, p.slice(0, 5)); }) ? '<mark>' + w + '</mark>' : w;
+      return g ? '<button type="button" class="q-def q-word" data-def="' + g.id + '" aria-haspopup="dialog">' + m + '</button>' : m;
+    });
   }
   var CALL = { "Ellis 'Red' Redding": 'Red', 'The Duke of Venice': 'the Duke', "Sarah (Bill's mother)": "Bill's mother", 'Warden Samuel Norton': 'Norton', 'Captain Byron Hadley': 'Hadley', 'Seán Dóta': 'Seán Dóta' };
   function callOf(c) { return CALL[c.name] || (/^(The|Mrs) /.test(c.name) ? c.name.replace(/^The /, 'the ') : c.name.split(' ')[0]); }
@@ -763,7 +767,7 @@
   // The words of the question with a meaning (tools/eng/glossary.json) become buttons: tap one for what it means,
   // what it asks you to do, and an example from each of your texts. Longest match first; task words underlined,
   // topic words highlighted.
-  var GL = null, DEF = null;
+  var GL = null, DEF = null, HOV = 0;
   function glossary() {
     if (GL) return GL;
     var list = [], by = {};
@@ -772,9 +776,11 @@
     GL = { list: list, by: by };
     return GL;
   }
-  function qMark(s) {
+  function qMark(s, kinds) {
+    kinds = kinds || ['task', 'topic'];
     var low = String(s).toLowerCase(), taken = [], hits = [];
     glossary().list.forEach(function (x) {
+      if (kinds.indexOf(x.g.kind) < 0) return;
       var re = new RegExp('(^|[^a-z’\'-])(' + x.m.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')(?=$|[^a-z’\'-])', 'g'), r;
       while ((r = re.exec(low))) {
         var st = r.index + r[1].length, en = st + r[2].length, free = true, k;
@@ -792,13 +798,22 @@
     });
     return out + esc(s.slice(at));
   }
+  // The hard words in what the cast cards say about a character (lecherous, cunning, ensign...): underlined, with their
+  // meaning on hover (or tap).
+  function wordMark(s) { return qMark(s, ['word']); }
+  function wordOf(w) {
+    var low = String(w).toLowerCase(), hit = null;
+    glossary().list.forEach(function (x) { if (!hit && x.g.kind === 'word' && x.m === low) hit = x.g; });
+    return hit;
+  }
   function closeDef() {
+    clearTimeout(HOV);
     if (!DEF) return;
     if (DEF.pop.parentNode) DEF.pop.parentNode.removeChild(DEF.pop);
     DEF.btn.classList.remove('is-open'); DEF.btn.setAttribute('aria-expanded', 'false');
     DEF = null;
   }
-  function openDef(btn) {
+  function openDef(btn, hover) {
     closeDef();
     var g = glossary().by[btn.getAttribute('data-def')];
     if (!g) return;
@@ -817,8 +832,8 @@
     pop.style.setProperty('--ax', Math.round(r.left + r.width / 2 - left) + 'px');
     pop.classList.add(below ? 'is-below' : 'is-above');
     btn.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true');
-    DEF = { pop: pop, btn: btn };
-    if (K) K.sfx('pop', 0.3);
+    DEF = { pop: pop, btn: btn, hover: !!hover };
+    if (K && !hover) K.sfx('pop', 0.3);
   }
   function qHtml(q) {
     // Only the first (a) and the first (b) after it start parts: "(as discussed in (a) above)" stays in the text.
@@ -1269,7 +1284,7 @@
   document.addEventListener('click', function (ev) {
     var t = ev.target;
     var dq = t.closest('[data-def]');
-    if (dq) { ev.preventDefault(); if (DEF && DEF.btn === dq) closeDef(); else openDef(dq); return; }
+    if (dq) { ev.preventDefault(); if (DEF && DEF.btn === dq && DEF.hover) DEF.hover = false; else if (DEF && DEF.btn === dq) closeDef(); else openDef(dq); return; }
     if (DEF && (t.closest('[data-def-close]') || !t.closest('.q-pop'))) { closeDef(); if (t.closest('[data-def-close]')) return; }
     if (t.closest('[data-sh-menu]')) { menu(!document.body.classList.contains('sh-open')); return; }
     // The menu closes when you pick something in it or click anywhere outside it.
@@ -1424,6 +1439,22 @@
     if (document.body.classList.contains('sh-open')) menu(false);
   });
   window.matchMedia('(max-width: 700px)').addEventListener('change', function () { if (CM && app.querySelector('[data-map]')) castDraw('resize'); });
+  // Meanings on hover, where there's a mouse: over a word, its meaning opens; it closes a moment after you leave both the
+  // word and the box (so you can move onto the box). A click keeps it open.
+  var CANHOVER = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  document.addEventListener('mouseover', function (ev) {
+    if (!CANHOVER || !ev.target.closest) return;
+    var b = ev.target.closest('.q-def');
+    if (b) { clearTimeout(HOV); if (!DEF || DEF.btn !== b) HOV = setTimeout(function () { openDef(b, true); }, 120); return; }
+    if (ev.target.closest('.q-pop')) clearTimeout(HOV);
+  });
+  document.addEventListener('mouseout', function (ev) {
+    if (!CANHOVER || !ev.target.closest) return;
+    var from = ev.target.closest('.q-def, .q-pop'), to = ev.relatedTarget && ev.relatedTarget.closest ? ev.relatedTarget.closest('.q-def, .q-pop') : null;
+    if (!from || from === to) return;
+    clearTimeout(HOV);
+    if (DEF && DEF.hover) HOV = setTimeout(function () { if (DEF && DEF.hover) closeDef(); }, 280);
+  });
   // Build it: a name chip dragged onto a person.
   var DRAGC = null;
   document.addEventListener('pointerdown', function (ev) {
