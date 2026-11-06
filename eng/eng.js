@@ -338,7 +338,7 @@
     var groups = groupsOf(t);
     return '<section class="eng-cast" id="cast"><div class="eng-cast__top"><h2 class="eng-h2">Who\'s who</h2>' +
       '<div class="eng-tabs" role="tablist">' + [['meet', 'Meet them'], ['explore', 'Explore'], ['build', 'Build it']].map(function (m) { return '<button type="button" role="tab" data-cm="' + m[0] + '">' + m[1] + '</button>'; }).join('') + '</div></div>' +
-      '<div class="eng-map" data-map></div><div class="eng-map__panel" data-map-panel aria-live="polite"></div>' +
+      '<div class="eng-stage"><div class="eng-map" data-map></div><div class="eng-map__panel" data-map-panel aria-live="polite"></div></div>' +
       '<details class="eng-cast__all"><summary>Every character in full</summary><div class="eng-cast__groups">' + groups.map(function (g, gi) {
         return '<div class="eng-cast__g" style="--g:' + GROUP_COL[gi % GROUP_COL.length] + '"><h3>' + esc(g) + '</h3>' + t.people.filter(function (c) { return c.group === g; }).map(function (c) { return whoCard(t, c); }).join('') + '</div>';
       }).join('') + '</div></details></section>';
@@ -359,6 +359,15 @@
     var t = text(CM.t), P = t.people, links = t.links || [], idx = function (n) { for (var i = 0; i < P.length; i++) if (P[i].name === n) return i; return -1; };
     app.querySelectorAll('[data-cm]').forEach(function (b) { b.setAttribute('aria-selected', String(b.getAttribute('data-cm') === CM.mode)); });
     var sec = app.querySelector('.eng-cast'); if (sec) sec.classList.toggle('is-build', CM.mode === 'build');
+    // Explore: picking someone slides the map to the right and their profile in on the left (wide screens). The map's
+    // move is measured before and after and played as one glide (it shrinks as it goes).
+    var open = CM.mode === 'explore' && CM.sel >= 0, glide = null;
+    if (sec && sec.classList.contains('is-open') !== open) {
+      var r0 = box.getBoundingClientRect();
+      sec.classList.toggle('is-open', open);
+      var r1 = box.getBoundingClientRect();
+      if (r1.width && (Math.abs(r0.left - r1.left) > 4 || Math.abs(r0.width - r1.width) > 4)) glide = [r0.left - r1.left, r0.top - r1.top, r0.width / r1.width];
+    }
     // (When a round is over its summary isn't stuck to the bottom of the screen.)
     if (sec) sec.classList.toggle('is-done', CM.mode === 'build' && CM.write < 0 && P.every(function (c, i) { return CM.placed[i]; }));
     // On a phone the map stands on its side (taller than wide), so the people spread out down the screen.
@@ -394,6 +403,8 @@
       }).join('');
     CM.wrong = -1;
     if (DEF && !document.body.contains(DEF.btn)) closeDef();
+    if (glide && box.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+      box.animate([{ transformOrigin: '0 0', transform: 'translate(' + glide[0] + 'px,' + glide[1] + 'px) scale(' + glide[2] + ')' }, { transformOrigin: '0 0', transform: 'none' }], { duration: 520, easing: 'cubic-bezier(.25,.8,.25,1)' });
     // A label sits in the middle of its line unless that covers someone (or another label): then it slides along the
     // line to the first clear spot. It also stays inside the map, even on a line along its edge.
     var br = box.getBoundingClientRect(), taken = [];
@@ -430,7 +441,7 @@
         (CM.shown < P.length ? '<button type="button" class="eng-btn" data-cm-next>Next: meet ' + esc(P[CM.shown].name.replace(/^The /, 'the ')) + '</button>' : '<button type="button" class="eng-btn" data-cm="build">That\'s everyone. Now build it</button>') + '</div>';
     } else if (CM.mode === 'explore') {
       panel.innerHTML = CM.sel < 0 ? '<p class="eng-map__hint">Tap anyone on the map to see who they\'re linked to, what they want and how they end.</p>'
-        : '<div class="eng-map__card" style="--g:' + gcol(t, P[CM.sel]) + '">' + whoCard(t, P[CM.sel]) + '<div class="eng-map__side"><h5>Linked to</h5><ul class="eng-map__links">' + links.filter(function (l) { return idx(l[0]) === CM.sel || idx(l[1]) === CM.sel; }).map(function (l) {
+        : '<div class="eng-map__card" style="--g:' + gcol(t, P[CM.sel]) + '"><button type="button" class="eng-map__x" data-cm-close aria-label="Close ' + esc(P[CM.sel].name) + '">×</button>' + whoCard(t, P[CM.sel]) + '<div class="eng-map__side"><h5>Linked to</h5><ul class="eng-map__links">' + links.filter(function (l) { return idx(l[0]) === CM.sel || idx(l[1]) === CM.sel; }).map(function (l) {
           return '<li><b>' + esc(l[0]) + '</b> <span>' + esc(l[2]) + '</span> <b>' + esc(l[1]) + '</b></li>'; }).join('') + '</ul></div></div>';
     } else {
       var left = CM.order.filter(function (i) { return !CM.placed[i]; }), n = P.length;
@@ -1326,6 +1337,7 @@
     if (gb && ev.button === 0 && !ev.metaKey && !ev.ctrlKey && !ev.shiftKey && !ev.altKey && !/^#build/.test(location.hash)) { ev.preventDefault(); goBuild(gb); return; }
     if (Date.now() - DRAG_END < 250 && (t.closest('[data-node]') || t.closest('[data-chip]'))) return;
     if (t.closest('[data-cm-retest]') && CM) { castMode('build', badList()); return; }
+    if (t.closest('[data-cm-close]') && CM) { CM.sel = -1; castDraw(); return; }
     var cmb = t.closest('[data-cm]');
     if (cmb && CM) { castMode(cmb.getAttribute('data-cm')); return; }
     if (t.closest('[data-cm-next]') && CM) { CM.shown += 1; if (CM.shown === text(CM.t).people.length) store('eng-cast-met-' + CM.t, '1'); if (K) K.sfx('pop', 0.35); castDraw('line'); return; }
@@ -1470,6 +1482,7 @@
   document.addEventListener('keydown', function (ev) {
     if (ev.key !== 'Escape') return;
     if (DEF) { var b = DEF.btn; closeDef(); b.focus(); return; }
+    if (CM && CM.mode === 'explore' && CM.sel >= 0 && app.querySelector('[data-map]')) { CM.sel = -1; castDraw(); return; }
     if (document.body.classList.contains('sh-open')) menu(false);
   });
   window.matchMedia('(max-width: 700px)').addEventListener('change', function () { if (CM && app.querySelector('[data-map]')) castDraw('resize'); });

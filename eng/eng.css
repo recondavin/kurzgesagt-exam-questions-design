@@ -867,6 +867,26 @@ body.eng.sh-open .sh-brand { display: none; }
 @media (prefers-reduced-motion: reduce) { .eng-node.is-new, .eng-map__lines line.is-new, .eng-node.is-wrong { animation: none; stroke-dashoffset: 0; } }
 
 .eng-cast { display: flex; flex-direction: column; }
+/* The map and its panel. In Explore, with someone picked (.is-open) and room for both, the profile sits on the left and
+   the map on the right (eng.js glides the map across). */
+.eng-stage { display: flex; flex-direction: column; }
+.eng-map__card { position: relative; }
+.eng-map__x { position: absolute; top: 10px; right: 10px; z-index: 1; width: 40px; height: 40px; border: 0; border-radius: 12px; background: rgba(255, 255, 255, .08); color: #C9D4DA; font: 700 26px/1 Nunito, sans-serif; cursor: pointer; }
+.eng-map__x:hover { background: #fff; color: #13212A; }
+@keyframes cardIn { from { opacity: 0; transform: translateX(-48px); } }
+@media (min-width: 1000px) {
+  .eng-cast.is-open .eng-stage { flex-direction: row; align-items: flex-start; gap: 24px; }
+  .eng-cast.is-open .eng-map { flex: 1 1 0; width: auto; min-width: 0; margin: 6px 0 12px !important; }
+  .eng-cast.is-open .eng-map__panel { flex: 0 0 min(440px, 40%); order: -1; margin-top: 6px; }
+  .eng-cast.is-open .eng-map__card { grid-template-columns: minmax(0, 1fr); padding: 14px 20px 20px; animation: cardIn .5s cubic-bezier(.25, .8, .25, 1) both; }
+  .eng-cast.is-open .eng-map__card .eng-who { grid-template-columns: 88px minmax(0, 1fr); gap: 16px; padding-right: 36px; }
+  .eng-cast.is-open .eng-map__card .eng-face { width: 88px !important; height: 88px !important; }
+  .eng-cast.is-open .eng-map__side { padding-top: 4px; border-top: 1px solid rgba(255, 255, 255, .08); }
+  .eng-cast.is-open .eng-map { position: sticky; top: 92px; }
+  .eng-cast.is-open .eng-map__card .eng-who dl { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .eng-cast.is-open .eng-map__card .eng-who dd { margin-bottom: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .eng-cast.is-open .eng-map__card { animation: none; } }
 /* Build it: the names wait in a tray stuck to the bottom of the screen, so every person on the map can be reached
    while you drag (the page scrolls when you drag near the top or bottom edge). */
 .eng-cast.is-build .eng-map__panel { position: sticky; bottom: 0; z-index: 5; margin: 0 calc(-1 * var(--gutter)); padding: 22px var(--gutter) 14px; background: linear-gradient(rgba(19, 31, 36, 0), var(--ground) 20px); }
