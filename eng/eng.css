@@ -875,16 +875,27 @@ body.eng.sh-open .sh-brand { display: none; }
 .eng-map__x:hover { background: #fff; color: #13212A; }
 @keyframes cardIn { from { opacity: 0; transform: translateX(-48px); } }
 @media (min-width: 1000px) {
-  .eng-cast.is-open .eng-stage { flex-direction: row; align-items: flex-start; gap: 24px; }
+  /* Side by side, the same height: the map sets the height, the profile fills it (scrolling inside if it must). */
+  .eng-cast.is-open .eng-stage { flex-direction: row; align-items: stretch; gap: 32px; }
   .eng-cast.is-open .eng-map { flex: 1 1 0; width: auto; min-width: 0; margin: 6px 0 12px !important; }
-  .eng-cast.is-open .eng-map__panel { flex: 0 0 min(440px, 40%); order: -1; margin-top: 6px; }
-  .eng-cast.is-open .eng-map__card { grid-template-columns: minmax(0, 1fr); padding: 14px 20px 20px; animation: cardIn .5s cubic-bezier(.25, .8, .25, 1) both; }
-  .eng-cast.is-open .eng-map__card .eng-who { grid-template-columns: 88px minmax(0, 1fr); gap: 16px; padding-right: 36px; }
-  .eng-cast.is-open .eng-map__card .eng-face { width: 88px !important; height: 88px !important; }
-  .eng-cast.is-open .eng-map__side { padding-top: 4px; border-top: 1px solid rgba(255, 255, 255, .08); }
-  .eng-cast.is-open .eng-map { position: sticky; top: 92px; }
-  .eng-cast.is-open .eng-map__card .eng-who dl { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .eng-cast.is-open .eng-map__card .eng-who dd { margin-bottom: 10px; }
+  .eng-cast.is-open .eng-map__panel { position: relative; flex: 0 0 min(400px, 36%); order: -1; min-height: 0; margin: 6px 0 12px; }
+  .eng-cast.is-open .eng-map__card { position: absolute; inset: 0; display: block; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; padding: 16px 16px 14px 20px; border-radius: 20px; animation: cardIn .5s cubic-bezier(.25, .8, .25, 1) both; }
+  .eng-cast.is-open .eng-map__card .eng-who { grid-template-columns: 64px minmax(0, 1fr); gap: 14px; padding: 0 34px 0 0; }
+  .eng-cast.is-open .eng-map__card .eng-face { width: 64px !important; height: 64px !important; border-width: 3px; }
+  .eng-cast.is-open .eng-map__card .eng-face--init { font-size: 24px; }
+  .eng-cast.is-open .eng-map__card .eng-who h4 { font-size: 24px; }
+  .eng-cast.is-open .eng-map__card .eng-who__tag { margin: 4px 0 6px; font-size: 13.5px; }
+  .eng-cast.is-open .eng-map__card .eng-who__trait { font-size: 18px !important; }
+  .eng-cast.is-open .eng-map__card .eng-who p, .eng-cast.is-open .eng-map__card .eng-who dl { font-size: 16px; line-height: 1.45; }
+  .eng-cast.is-open .eng-map__card .eng-who dl { grid-template-columns: minmax(0, 1fr); gap: 0; margin-top: 8px; }
+  .eng-cast.is-open .eng-map__card .eng-who dd { margin-bottom: 6px; }
+  .eng-cast.is-open .eng-map__card .eng-who__in { gap: 3px; margin-top: 4px !important; }
+  .eng-cast.is-open .eng-map__card .eng-who__in a { min-width: 25px; height: 25px; padding: 0 3px; border-radius: 7px; font-size: 13px; }
+  .eng-cast.is-open .eng-map__card .eng-who__in span { font-size: 13.5px; }
+  .eng-cast.is-open .eng-map__card .eng-who__from { margin-top: 6px !important; font-size: 13px !important; }
+  /* The map beside it already shows who they're linked to. */
+  .eng-cast.is-open .eng-map__side { display: none; }
+  .eng-cast.is-open .eng-map__x { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 24px; }
 }
 @media (prefers-reduced-motion: reduce) { .eng-cast.is-open .eng-map__card { animation: none; } }
 /* Build it: the names wait in a tray stuck to the bottom of the screen, so every person on the map can be reached
