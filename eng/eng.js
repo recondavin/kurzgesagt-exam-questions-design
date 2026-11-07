@@ -52,8 +52,6 @@
   function renderShell(active, crumb) {
     var mine = chosen();
     closeDef();
-    // A text's own page has its own look (eng/eng-text.css): the title as a poster over a still from the production.
-    app.classList.toggle('eng-tp', /^text\//.test(active));
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
       '<nav class="sh-nav" aria-label="English">' + link('#', 'Comparative', active === 'home') +
       link('#learn', '1 · Learn the parts', active === 'learn') + link('#structure', '2 · Structure it', active === 'structure') + link('#language', '3 · Say it well', active === 'language') +
@@ -291,65 +289,18 @@
     if (!t) { location.hash = ''; return; }
     renderShell('text/' + id, t.title);
     var p = pics(id), hero = p.filter(function (x) { return x.hero; })[0], face = p.filter(function (x) { return x.kind === 'author'; })[0];
-    // The poster: a still from the production across the top, the title under it as wide as the screen (fitTitle), and
-    // one row between them: who made it, and the one action. Then what happens, who's who, and the story.
-    app.innerHTML = '<header class="eng-poster" style="--c:' + COL[id] + '">' +
-        (hero ? '<figure class="eng-poster__pic"><img src="assets/eng/img/' + esc(hero.file) + '" alt="' + esc(hero.title) + '" fetchpriority="high"></figure>' : '') +
-        '<h1 class="eng-poster__t" data-fit aria-label="' + esc(t.title) + '">' + titleLines(t.title).map(function (l) { return '<span>' + esc(l) + '</span>'; }).join('') + '</h1>' +
-        '<div class="eng-poster__row"><p class="eng-poster__by">' + esc(byline(t)) + (t.made ? ' (' + esc(t.made) + ')' : '') + ': the story, the characters and the key moments for your comparative.</p>' +
-        '<p class="eng-poster__act"><a class="eng-btn" href="eng-golf.html?story=' + id + '">Play the story in Mini Golf</a><a class="eng-poster__alt" href="eng-pool.html?story=' + id + '">or in Pool</a></p></div>' +
-      '</header>' +
-      '<section class="eng-intro" style="--c:' + COL[id] + '"><h2 class="eng-h2">What happens</h2><div class="eng-intro__grid"><p class="eng-intro__lead">' + esc(t.gist) + '</p>' +
-        '<dl class="eng-intro__facts"><dt>Setting</dt><dd>' + esc(t.setting) + '</dd>' +
-        (face ? '<dt>' + (t.kind === 'film' ? 'Director' : 'Writer') + '</dt><dd class="eng-intro__who"><img src="assets/eng/img/' + esc(face.file) + '" alt="" title="' + esc(face.caption) + '"><span>' + esc(t.author) + '</span></dd>' : '') +
-        (hero ? '<dt>The picture</dt><dd class="eng-credit">' + credit(hero) + '</dd>' : '') + '</dl></div></section>' +
+    app.innerHTML = '<div class="eng-hero" style="--c:' + COL[id] + '"><div><h1 class="eng-hero__t">' + esc(t.title) + '</h1>' +
+        '<p class="eng-hero__a">' + (face ? '<img class="eng-hero__face" src="assets/eng/img/' + esc(face.file) + '" alt="' + esc(face.title) + '" title="' + esc(face.caption) + '">' : '') + esc(byline(t)) + (t.made ? ' · ' + esc(t.made) : '') + '</p>' +
+        '<p class="eng-p">' + esc(t.gist) + '</p><p class="eng-p"><b>Setting:</b> ' + esc(t.setting) + '</p>' +
+        '<p class="eng-btns"><a class="eng-btn" href="eng-golf.html?story=' + id + '">Play the story: Mini Golf</a><a class="eng-btn eng-btn--quiet" href="eng-pool.html?story=' + id + '">Pool</a></p></div>' +
+        (hero ? '<figure><img src="assets/eng/img/' + esc(hero.file) + '" alt="' + esc(hero.title) + '"><figcaption>' + credit(hero) + '</figcaption></figure>' : '') + '</div>' +
       castHtml(t) +
-      '<section class="eng-story"><h2 class="eng-h2">The story in ' + t.moments.length + ' moments</h2>' +
-      t.moments.map(function (m, k) { return sceneHtml(t, m, k); }).join('') + '</section>';
-    app.style.setProperty('--tc', COL[id]);
-    fitTitle(); fitWhenLoaded(); tpEnter();
+      '<h2 class="eng-h2">The story in ' + t.moments.length + ' key moments</h2>' +
+      t.moments.map(function (m, k) { return sceneHtml(t, m, k); }).join('');
     watchScenes();
     castDraw('line');
     if (moment) { var el = document.getElementById(moment); if (el) el.scrollIntoView({ block: 'start' }); }
   }
-
-  // A long title goes on two lines, split at the space nearest its middle ("The Shawshank / Redemption").
-  // (On a narrow screen a long title goes a word to a line, so it can be set bigger.)
-  function titleLines(title, narrow) {
-    if (title.length <= 12 || title.indexOf(' ') < 0) return [title];
-    if (narrow) return title.split(' ');
-    var best = -1;
-    title.replace(/ /g, function (m, i) { if (best < 0 || Math.abs(i - title.length / 2) < Math.abs(best - title.length / 2)) best = i; return m; });
-    return [title.slice(0, best), title.slice(best + 1)];
-  }
-  // The poster's title is set as wide as the page (its longest line fills the width), never larger than 300px.
-  function fitTitle() {
-    var h = app.querySelector('[data-fit]');
-    if (!h) return;
-    var lines = titleLines(h.getAttribute('aria-label'), h.clientWidth < 1000), html = lines.map(function (l) { return '<span>' + esc(l) + '</span>'; }).join('');
-    if (h.innerHTML !== html) h.innerHTML = html;
-    h.style.fontSize = '100px';
-    var w = 0; h.querySelectorAll('span').forEach(function (l) { w = Math.max(w, l.getBoundingClientRect().width); });
-    if (w) h.style.fontSize = Math.min(300, Math.floor(100 * h.clientWidth / w * 0.98)) + 'px';
-  }
-  // The parts of each section come in as they're reached: the heading, then the text, a beat at a time.
-  var TPIO = null;
-  function tpEnter() {
-    if (!('IntersectionObserver' in window)) return;
-    if (TPIO) TPIO.disconnect();
-    TPIO = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); TPIO.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
-    app.querySelectorAll('.eng-intro__lead, .eng-intro__facts > *, .eng-scene__meta, .eng-scene__modes, .eng-scene__beats > *').forEach(function (el) {
-      var sib = el.parentNode ? Array.prototype.indexOf.call(el.parentNode.children, el) : 0;
-      el.classList.add('tp-in'); el.style.setProperty('--d', Math.min(sib, 6) * 70 + 'ms');
-      TPIO.observe(el);
-    });
-  }
-  // (Only a real scrollbar counts: on a phone, or when something overflows, the two widths can differ for other reasons.)
-  function scrollbarWidth() { var w = window.innerWidth - document.documentElement.clientWidth; document.documentElement.style.setProperty('--sbw', (w > 0 && w <= 24 ? w : 0) + 'px'); }
-  window.addEventListener('resize', function () { scrollbarWidth(); fitTitle(); });
-  // (Sized again once the title's typeface has arrived: until then it's measured in a narrower stand-in.)
-  function fitWhenLoaded() { if (document.fonts && document.fonts.load) document.fonts.load('700 100px Panchang').then(function () { scrollbarWidth(); fitTitle(); }, function () {}); }
-  scrollbarWidth();
 
   // ---------- who's who (the user: "i lowk dont know who the characters are") ----------
   // Each text's people in their groups (the Glavin house, the match...), each with a face where a picture surely shows
@@ -388,18 +339,10 @@
     return '<section class="eng-cast" id="cast"><div class="eng-cast__top"><h2 class="eng-h2">Who\'s who</h2>' +
       '<div class="eng-tabs" role="tablist">' + [['meet', 'Meet them'], ['explore', 'Explore'], ['build', 'Build it']].map(function (m) { return '<button type="button" role="tab" data-cm="' + m[0] + '">' + m[1] + '</button>'; }).join('') + '</div></div>' +
       '<div class="eng-stage"><div class="eng-map" data-map></div><div class="eng-map__panel" data-map-panel aria-live="polite"></div></div>' +
-      '<details class="eng-cast__all" data-cast-all><summary>Every character in full</summary><div class="eng-cast__groups"></div></details></section>';
+      '<details class="eng-cast__all"><summary>Every character in full</summary><div class="eng-cast__groups">' + groups.map(function (g, gi) {
+        return '<div class="eng-cast__g" style="--g:' + GROUP_COL[gi % GROUP_COL.length] + '"><h3>' + esc(g) + '</h3>' + t.people.filter(function (c) { return c.group === g; }).map(function (c) { return whoCard(t, c); }).join('') + '</div>';
+      }).join('') + '</div></details></section>';
   }
-  function castAllHtml(t) {
-    return groupsOf(t).map(function (g, gi) {
-      return '<div class="eng-cast__g" style="--g:' + GROUP_COL[gi % GROUP_COL.length] + '"><h3>' + esc(g) + '</h3>' + t.people.filter(function (c) { return c.group === g; }).map(function (c) { return whoCard(t, c); }).join('') + '</div>';
-    }).join('');
-  }
-  document.addEventListener('toggle', function (ev) {
-    var d = ev.target;
-    if (!d.matches || !d.matches('[data-cast-all]') || !d.open || !CM) return;
-    var box = d.querySelector('.eng-cast__groups'); if (box && !box.children.length) box.innerHTML = castAllHtml(text(CM.t));
-  }, true);
   function whoCard(t, c) {
     var ms = inMoments(t, c);
     return '<article class="eng-who">' + faceHtml(c, 64) + '<div><h4>' + esc(c.name) + '</h4><span class="eng-who__tag">' + esc(c.tag) + '</span>' + (c.trait ? '<p class="eng-who__trait">' + wordMark(c.trait) + '</p>' : '') + '<p>' + wordMark(c.who) + '</p>' +
@@ -457,10 +400,7 @@
     });
     box.innerHTML = '<svg class="eng-map__lines" viewBox="0 0 ' + VW + ' ' + VH + '" preserveAspectRatio="none" aria-hidden="true">' + lines + '</svg>' + labels +
       P.map(function (c, i) {
-        if (!visible(i)) {
-          var gp = at(c);
-          return '<span class="eng-node is-blank is-ghost" aria-hidden="true" style="left:' + gp[0] / VW * 100 + '%;top:' + gp[1] / VH * 100 + '%;--g:' + gcol(t, c) + '"><span class="eng-face eng-face--q" style="width:56px;height:56px">?</span><b>?</b></span>';
-        }
+        if (!visible(i)) return '';
         var linked = CM.sel >= 0 && links.some(function (l) { return (idx(l[0]) === CM.sel && idx(l[1]) === i) || (idx(l[1]) === CM.sel && idx(l[0]) === i); });
         var cls = 'eng-node' + (i === CM.sel || (CM.mode === 'build' && i === CM.write) ? ' is-sel' : '') + (CM.mode === 'explore' && CM.sel >= 0 && i !== CM.sel && !linked ? ' is-dim' : '') + (CM.mode === 'meet' && i === CM.shown - 1 ? ' is-new' : '') +
           (!named(i) ? ' is-blank' : '') + (fresh === 'placed' && CM.last === i ? ' is-new' : '') + (CM.mode === 'build' && CM.wrong === i ? ' is-wrong' : '');
@@ -690,9 +630,8 @@
     });
     var last = Math.max(list.length - 1, 0), n = beats.length;
     return '<section class="eng-scene' + (list.length ? '' : ' eng-scene--text') + '" id="' + esc(m.id) + '" data-scene="' + esc(m.id) + '" data-text="' + t.id + '" style="--c:' + COL[t.id] + '">' +
-      '<header class="eng-scene__head"><div><h3>' + esc(m.title) + '</h3>' +
-        '<p class="eng-scene__meta">Key moment ' + (k + 1) + ' of ' + text(t.id).moments.length + ' · ' + esc(m.where) + (m.when ? ' · ' + esc(WHEN[m.when] || m.when) : '') + '</p>' +
-        '<p class="eng-scene__modes">' + (m.modes || []).map(function (x) { return '<span style="--c:' + COL[x] + '">' + esc(MODE[x] ? MODE[x].short : x) + '</span>'; }).join('') + '</p></div></header>' +
+      '<header class="eng-scene__head"><span class="eng-scene__n">' + (k + 1) + '</span><div><h3>' + esc(m.title) + '</h3><span class="eng-scene__w">' + esc(m.where) + (m.when ? ' · ' + esc(WHEN[m.when] || m.when) : '') + ' ' +
+        (m.modes || []).map(function (x) { return '<span class="eng-tag" style="--c:' + COL[x] + '">' + esc(MODE[x] ? MODE[x].short : x) + '</span>'; }).join(' ') + '</span></div></header>' +
       (list.length ? '<div class="eng-scene__stage" data-stage></div>' : '') +
       '<div class="eng-scene__beats">' + beats.map(function (b, i) {
         return '<p class="eng-beat' + b[2] + '" data-beat="' + i + '" data-pic="' + b[0] + '" data-spot="' + b[1] + '">' + b[3] + '</p>';
