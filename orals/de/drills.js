@@ -1,0 +1,18 @@
+// Short drills for the mistakes a student keeps making (after the same kind is caught three times): four quick
+// choices between the right and the wrong form, then the right form typed. One bank for each rule family in
+// grammar.js (ruleGroup).
+const BANKS = {
+  age: ['Age is said with sein: Ich bin … Jahre alt.', [['Ich bin siebzehn Jahre alt', 'Ich habe siebzehn Jahre'], ['Ich bin achtzehn', 'Ich habe achtzehn'], ['Mein Bruder ist zwölf', 'Mein Bruder hat zwölf'], ['Wie alt bist du?', 'Wie alt hast du?']]],
+  accusative: ['After haben and es gibt, a masculine noun takes einen, keinen or meinen.', [['Ich habe einen Bruder', 'Ich habe ein Bruder'], ['Ich habe einen Hund', 'Ich habe ein Hund'], ['Es gibt einen Park', 'Es gibt ein Park'], ['Ich habe keinen Bruder', 'Ich habe kein Bruder']]],
+  plural: ['After a number above one, the noun is plural.', [['zwei Brüder', 'zwei Bruder'], ['drei Schwestern', 'drei Schwester'], ['zwei Jahre', 'zwei Jahr'], ['vier Personen', 'vier Person']]],
+  mir: ['For how you feel, German says mir ist …', [['Mir ist kalt', 'Ich bin kalt'], ['Mir ist heiß', 'Ich bin heiß'], ['Mir ist schlecht', 'Ich bin schlecht'], ['Mir ist schwindlig', 'Ich bin schwindlig']]],
+  sein: ['Verbs of movement and change take sein in the Perfekt.', [['Ich bin gegangen', 'Ich habe gegangen'], ['Wir sind geblieben', 'Wir haben geblieben'], ['Es ist passiert', 'Es hat passiert'], ['Ich bin gekommen', 'Ich habe gekommen']]],
+  v2: ['The verb is the second idea: after a time phrase at the start, the verb comes before ich.', [['Am Wochenende spiele ich Fußball', 'Am Wochenende ich spiele Fußball'], ['Gestern bin ich ins Kino gegangen', 'Gestern ich bin ins Kino gegangen'], ['Nächstes Jahr werde ich studieren', 'Nächstes Jahr ich werde studieren'], ['Im Sommer fahre ich nach Spanien', 'Im Sommer ich fahre nach Spanien']]],
+  infinitive: ['With möchte, will, kann, muss, werde and würde, the second verb goes to the end.', [['Ich möchte Arzt werden', 'Ich möchte werden Arzt'], ['Ich will Deutsch lernen', 'Ich will lernen Deutsch'], ['Ich kann gut schwimmen', 'Ich kann schwimmen gut'], ['Ich werde Fußball spielen', 'Ich werde spielen Fußball']]],
+  gern: ['To say you like doing something, use the verb with gern.', [['Ich spiele gern Fußball', 'Ich mag spielen Fußball'], ['Ich lese gern', 'Ich mag lesen'], ['Ich schwimme gern', 'Ich mag schwimmen'], ['Ich tanze gern', 'Ich mag tanzen']]],
+  weil: ['After weil and dass, the verb goes to the end.', [['weil es nützlich ist', 'weil es ist nützlich'], ['weil ich gern reise', 'weil ich reise gern'], ['weil ich Lehrerin werden möchte', 'weil ich möchte Lehrerin werden'], ['weil das Wetter schön war', 'weil das Wetter war schön']]],
+  zur: ['zu + der = zur, zu + dem = zum.', [['Ich gehe zur Schule', 'Ich gehe zu Schule'], ['Ich gehe zum Arzt', 'Ich gehe zu Arzt'], ['Ich gehe zum Bahnhof', 'Ich gehe zu Bahnhof'], ['Ich fahre zur Arbeit', 'Ich fahre zu Arbeit']]],
+  seit: ['Seit takes the dative: plurals add -n; eine becomes einer, ein becomes einem.', [['seit zwei Tagen', 'seit zwei Tage'], ['seit einer Woche', 'seit eine Woche'], ['seit drei Jahren', 'seit drei Jahre'], ['seit einem Monat', 'seit ein Monat']]],
+  dative: ['Where you live takes the dative, and so does mit.', [['Ich wohne in der Stadt', 'Ich wohne in die Stadt'], ['Ich wohne auf dem Land', 'Ich wohne auf das Land'], ['mit meinen Eltern', 'mit meine Eltern'], ['mit meiner Mutter', 'mit meine Mutter']]],
+};
+export const DRILLS = Object.fromEntries(Object.entries(BANKS).map(([group, [reason, pairs]]) => [group, { group, reason, items: pairs.map(([right, wrong]) => ({ right, wrong, reason })), typed: pairs[0][0] }]));

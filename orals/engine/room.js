@@ -1,7 +1,7 @@
 // Builds a room from a content pack's description: a flagstone floor, the walls and the furniture. Everything that
 // doesn't move is merged into one mesh. Also returns what blocks walking and the named seats.
 //   { w, d, wallH, wall, props: [{ type, id?, x?, z?, ry?, wall?: 'back' | 'left' | 'right', at?, ...options }],
-//     floor?: 'boards' | 'tiles', house?: { door: { at, w }, windows: [x...], roof: 'thatch' | 'slate' | 'none', chimneys: [x...], sign },
+//     floor?: 'boards' | 'tiles', house?: { door: { at, w }, windows: [x...], roof: 'thatch' | 'slate' | 'none', roofColor, chimneys: [x...], sign },
 //     follow?, view?: [w, h] (a room too big to frame whole: the camera follows the player, see world.js) }
 // Without `house` it is a diorama: three walls cut off at the top on a slab of earth and grass, the front open.
 // With `house` it is a cottage standing in the open world: four walls (a door in the front one), a thatched roof
@@ -131,7 +131,7 @@ function roof(r, H) {
   const thatch = H.thatch || '#B8924F', c = r.wall || '#ECE5D5', p = [];
   if (H.roof === 'slate') {
     // Slates: a thin dark roof with a ridge tile.
-    p.push(prism([[-D2, -0.1], [D2, -0.1], [0, rise]], L, '#4E555B', { y: h }));
+    p.push(prism([[-D2, -0.1], [D2, -0.1], [0, rise]], L, H.roofColor || '#4E555B', { y: h }));
     p.push(cyl(0.09, 0.09, L, 6, '#3B4146', { y: h + rise - 0.06, rz: Math.PI / 2, x: L / 2 }));
   } else {
     // The thatch: a thick triangle with a rounded ridge and a darker trimmed edge at the eaves.

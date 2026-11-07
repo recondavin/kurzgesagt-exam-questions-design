@@ -6,7 +6,7 @@
 // Returns { group, blocks, portals, walkable(x, z), surface(x, z), shore(x, z), bounds, update(dt) }.
 import * as THREE from '../../lib/three.module.min.js';
 import { box, cyl, ball, slab, prism, paint, place, mesh, chunked, signMesh } from './kit.js';
-import { seeded } from './room.js';
+import { seeded } from './room.js?v=de-1';
 import { makeNav } from './nav.js?v=walk-1';
 
 const GRASS = '#7D9A5B', EARTH = '#6B5545', SAND = '#D8C79C', SEA = '#5A8F98', STONES = ['#9A9C95', '#8A8C86', '#A7A9A2', '#7F817B'];
@@ -44,17 +44,29 @@ function stoneWall(x0, z0, x1, z1, rnd) {
 function building(b, signs) {
   const { x, z, w, d } = b, h = b.h || 2.6, c = b.wall || '#ECE5D5', rise = b.rise || (b.roof === 'thatch' ? 2.0 : 1.5);
   const p = [box(w, h, d, c, { x, z }), box(w + 0.02, 0.22, d + 0.02, '#6E6A63', { x, z })];
-  const over = 0.3, roofC = b.roof === 'thatch' ? '#B8924F' : '#4E555B';
+  const over = 0.3, roofC = b.roofColor || (b.roof === 'thatch' ? '#B8924F' : '#4E555B');
   p.push(prism([[-d / 2 - over, -0.1], [d / 2 + over, -0.1], [0, rise]], w + 2 * over, roofC, { x, z, y: h }));
   if (b.roof !== 'thatch') p.push(cyl(0.08, 0.08, w + 2 * over, 6, '#3B4146', { x: x + w / 2 + over, z, y: h + rise - 0.05, rz: Math.PI / 2 }));
   else p.push(cyl(0.2, 0.2, w + 0.4, 8, '#A6823F', { x: x + w / 2 + 0.2, z, y: h + rise + 0.05, rz: Math.PI / 2 }));
   for (const sx of [-1, 1]) p.push(prism([[-d / 2, 0], [d / 2, 0], [0, rise]], 0.2, c, { x: x + sx * (w / 2 - 0.1), z, y: h }));
   const fz = z + d / 2, door = b.door || 0;
+  // Half-timbering (a German house): dark beams across the front at the floor lines and up the corners and sides.
+  if (b.timber) {
+    const beam = b.timber === true ? '#4A3328' : b.timber;
+    for (const y of [0.22, h / 2, h - 0.12]) p.push(box(w, 0.12, 0.04, beam, { x, z: fz + 0.02, y }));
+    for (const bx of [-w / 2 + 0.06, w / 2 - 0.06]) p.push(box(0.12, h - 0.22, 0.04, beam, { x: x + bx, z: fz + 0.02, y: 0.22 }));
+    for (let bx = -w / 2 + 1.2; bx < w / 2 - 0.6; bx += 1.6) if (Math.abs(bx - door) > 0.8 && !(b.windows || []).some(wx => Math.abs(bx - wx) < 0.7)) p.push(box(0.1, h / 2 - 0.22, 0.04, beam, { x: x + bx, z: fz + 0.02, y: h / 2 }), box(0.08, 1.2, 0.04, beam, { x: x + bx, z: fz + 0.02, y: h / 2 + 0.05, rz: 0.55 }));
+  }
   // A door you can go through (into a room somewhere else, see world.js) stands open: a dark doorway.
   if (b.enter) p.push(box(1.0, 2.05, 0.04, '#1E1A17', { x: x + door, z: fz + 0.005 }));
   else p.push(box(1.0, 2.05, 0.08, b.doorColor || '#8E3A2C', { x: x + door, z: fz + 0.03 }));
   p.push(box(1.16, 0.08, 0.1, '#E9E3D6', { x: x + door, z: fz + 0.04, y: 2.05 }));
   p.push(box(1.3, 0.06, 0.5, '#9A9C95', { x: x + door, z: fz + 0.25, y: -0.02 }));
+  // Window boxes of red geraniums (b.boxes).
+  if (b.boxes) for (const wx of b.windows || []) {
+    p.push(box(0.9, 0.16, 0.18, '#6B4E3A', { x: x + wx, y: 0.78, z: fz + 0.1 }));
+    for (let k = -3; k <= 3; k++) p.push(ball(0.07, k % 2 ? '#C8423A' : '#E25C5C', { x: x + wx + k * 0.12, y: 0.9, z: fz + 0.12 }, 0));
+  }
   for (const wx of b.windows || []) p.push(
     box(1.0, 1.0, 0.05, '#F4F1EA', { x: x + wx, y: 0.95, z: fz + 0.03 }),
     box(0.84, 0.84, 0.03, '#9DBEC4', { x: x + wx, y: 1.03, z: fz + 0.05 }),
@@ -118,10 +130,10 @@ export function buildLand(L) {
 
   // Roads (boreens, with grass up the middle) and paths.
   for (const r of L.roads || []) for (let i = 1; i < r.pts.length; i++) {
-    parts.push(strip(r.pts[i - 1], r.pts[i], r.w || 3, '#B9AE98', -0.02));
+    parts.push(strip(r.pts[i - 1], r.pts[i], r.w || 3, r.color || L.roadColor || '#B9AE98', -0.02));
     if (r.middle !== false) parts.push(strip(r.pts[i - 1], r.pts[i], 0.45, '#879F62', -0.015));
   }
-  for (const r of L.paths || []) for (let i = 1; i < r.pts.length; i++) parts.push(strip(r.pts[i - 1], r.pts[i], r.w || 1.2, '#A59D8C', -0.018));
+  for (const r of L.paths || []) for (let i = 1; i < r.pts.length; i++) parts.push(strip(r.pts[i - 1], r.pts[i], r.w || 1.2, r.color || L.pathColor || '#A59D8C', -0.018));
 
   for (const w of L.walls || []) { const s = stoneWall(...w, rnd); parts.push(...s.parts); blocks.push(s.block); }
   const portals = [];
@@ -191,7 +203,8 @@ export function buildLand(L) {
     parts.push(box(2.2, 2.1, 0.1, '#4E6E64', { x, z: z - 0.55 }), box(0.1, 2.1, 1.0, '#4E6E64', { x: x - 1.1, z: z - 0.1 }), box(0.1, 2.1, 1.0, '#4E6E64', { x: x + 1.1, z: z - 0.1 }));
     parts.push(box(2.4, 0.1, 1.2, '#3B4146', { x, z: z - 0.1, y: 2.1 }), box(1.8, 0.08, 0.45, '#6B4E3A', { x, z: z - 0.3, y: 0.45 }));
     parts.push(cyl(0.05, 0.05, 2.3, 6, '#3A3532', { x: x + 1.6, z: z + 0.4 }));
-    const s = signMesh('BUS', 0.7, 0.42, { bg: '#FFC800' });
+    const bs = L.busStop.sign || { text: 'BUS', bg: '#FFC800' };
+    const s = signMesh(bs.text, 0.7, 0.42, { bg: bs.bg, ink: bs.ink });
     s.position.set(x + 1.6, 2.1, z + 0.45);
     signs.push(s);
     blocks.push([x - 1.2, z - 0.65, x + 1.2, z + 0.35]);
@@ -204,6 +217,15 @@ export function buildLand(L) {
     line(0, -d / 2, w, 0.1); line(0, d / 2, w, 0.1); line(-w / 2, 0, 0.1, d); line(w / 2, 0, 0.1, d); line(0, 0, 0.1, d);
     for (const f of [-1, 1]) {
       line(f * (w / 2 - 3), 0, 0.1, d); line(f * (w / 2 - 1.2), 0, 0.1, 3.4);
+      if (pt.soccer) {
+        // A football goal: two low posts, a crossbar and the net behind.
+        const gx = x + f * w / 2;
+        line(f * (w / 2 - 0.6), -1.7, 1.2, 0.1); line(f * (w / 2 - 0.6), 1.7, 1.2, 0.1);
+        for (const sgn of [-1, 1]) parts.push(cyl(0.06, 0.06, 1.1, 6, white, { x: gx, z: z + sgn * 1.2 }));
+        parts.push(box(0.1, 0.1, 2.5, white, { x: gx, y: 1.05, z }), box(0.7, 0.03, 2.4, '#E4E1D8', { x: gx + f * 0.35, y: 1.1, z }), box(0.03, 1.1, 2.4, '#E4E1D8', { x: gx + f * 0.7, z }));
+        blocks.push([Math.min(gx, gx + f * 0.75), z - 1.3, Math.max(gx, gx + f * 0.75), z + 1.3]);
+        continue;
+      }
       line(f * (w / 2 - 0.6), -1.7, 1.2, 0.1); line(f * (w / 2 - 0.6), 1.7, 1.2, 0.1);
       const gx = x + f * w / 2;
       for (const s of [-1, 1]) {
@@ -287,6 +309,38 @@ export function buildLand(L) {
     s.position.set(bd.x, 1.45, bd.z + 0.06);
     signs.push(s);
     blocks.push([bd.x - w / 2, bd.z - 0.15, bd.x + w / 2, bd.z + 0.15]);
+  }
+  // Clipped hedges along a line [x0, z0, x1, z1] (a German town's gardens, where Conamara has stone walls).
+  for (const [x0, z0, x1, z1] of L.hedges || []) {
+    const len = Math.hypot(x1 - x0, z1 - z0), ang = Math.atan2(z1 - z0, x1 - x0), n = Math.max(1, Math.round(len / 0.9));
+    parts.push(box(len, 0.8, 0.55, '#4F7A45', { x: (x0 + x1) / 2, z: (z0 + z1) / 2, ry: -ang }));
+    for (let i = 0; i < n; i++) parts.push(ball(0.34, '#5B8A4E', { x: x0 + (x1 - x0) * (i + 0.5) / n, z: z0 + (z1 - z0) * (i + 0.5) / n, y: 0.5, sy: 0.6 }, 0));
+    blocks.push([Math.min(x0, x1) - 0.3, Math.min(z0, z1) - 0.3, Math.max(x0, x1) + 0.3, Math.max(z0, z1) + 0.3]);
+  }
+  // Market stalls: a table under a striped awning, with goods and a sign (the stallholder stands behind it).
+  for (const st of L.stalls || []) {
+    const { x, z } = st, c = st.color || '#C8423A', w = 2.2;
+    parts.push(box(w, 0.8, 0.8, '#7A4E33', { x, z }), box(w + 0.1, 0.05, 0.9, '#C2A27A', { x, z, y: 0.8 }));
+    for (const sx of [-1, 1]) parts.push(cyl(0.04, 0.04, 2.2, 5, '#3A3532', { x: x + sx * (w / 2), z: z - 0.4 }), cyl(0.04, 0.04, 1.9, 5, '#3A3532', { x: x + sx * (w / 2), z: z + 0.4 }));
+    for (let k = 0; k < 6; k++) parts.push(box(w / 6, 0.05, 1.2, k % 2 ? '#F4F1EA' : c, { x: x - w / 2 + w / 12 + k * w / 6, z: z + 0.05, y: 2.0, rx: -0.25 }));
+    for (let k = 0; k < 7; k++) parts.push(ball(0.08, (st.goods || ['#C99A5B', '#B5753C', '#E2B97A'])[k % 3], { x: x - 0.8 + k * 0.26, z: z + 0.1, y: 0.85 }, 0));
+    if (st.text) { const s = signMesh(st.text, 1.6, 0.36, { bg: '#F4F1EA', ink: '#2A2622' }); s.position.set(x, 1.6, z + 0.45); signs.push(s); }
+    blocks.push([x - w / 2 - 0.1, z - 0.5, x + w / 2 + 0.1, z + 0.5]);
+  }
+  // A fountain in the square: a round stone basin with a column.
+  for (const [x, z] of L.fountains || []) {
+    parts.push(cyl(1.2, 1.3, 0.5, 12, '#A7A9A2', { x, z }), cyl(1.0, 1.0, 0.05, 12, '#7FB3C8', { x, z, y: 0.42 }), cyl(0.18, 0.24, 1.5, 8, '#9A9C95', { x, z }), cyl(0.4, 0.3, 0.2, 8, '#A7A9A2', { x, z, y: 1.5 }));
+    blocks.push([x - 1.3, z - 1.3, x + 1.3, z + 1.3]);
+  }
+  // A railway line { x, z0, z1 }: sleepers and two rails running up the island, with the platform beside it.
+  for (const rl of L.railways || []) {
+    const len = rl.z1 - rl.z0, zc = (rl.z0 + rl.z1) / 2;
+    parts.push(box(2.4, 0.06, len, '#8C8578', { x: rl.x, z: zc, y: -0.04 }));
+    for (let zz = rl.z0 + 0.3; zz < rl.z1; zz += 0.7) parts.push(box(1.8, 0.05, 0.22, '#5A3F2E', { x: rl.x, z: zz, y: 0 }));
+    for (const sx of [-0.55, 0.55]) parts.push(box(0.08, 0.08, len, '#6E7378', { x: rl.x + sx, z: zc, y: 0.05 }));
+    // The platform is low enough to walk on.
+    parts.push(box(1.8, 0.1, len - 2, '#BDB6A8', { x: rl.x + 2.1, z: zc, y: -0.04 }), box(0.15, 0.11, len - 2, '#F2E6B0', { x: rl.x + 1.25, z: zc, y: -0.04 }));
+    blocks.push([rl.x - 1.2, rl.z0, rl.x + 1.2, rl.z1]);
   }
   // Flower beds: small clumps of colour [x, z, how many].
   const FLOWERS = ['#E25C5C', '#F2C94C', '#F4F1EA', '#B07CC6', '#E8932F'];

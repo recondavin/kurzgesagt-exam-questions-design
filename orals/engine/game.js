@@ -16,12 +16,12 @@
 // Nothing is forced: the game opens in the room to walk about, and a conversation can be left at any time (the
 // ✕ or Esc); talking to the same person again carries on from the question that was left. Opening the game
 // again also starts with walking about. The student's name and county are asked the first time they talk.
-import { createWorld } from './world.js?v=walk-2';
-import { createTalk } from './talk.js?v=oral-9';
+import { createWorld } from './world.js?v=walk-3';
+import { createTalk } from './talk.js?v=de-1';
 import { createMarker } from './marker.js?v=oral-9';
 import { createSound } from './sound.js?v=oral-9';
 import { createLearn } from './learn.js';
-import { createVoice, VOICES } from './voice.js';
+import { createVoice, VOICES } from './voice.js?v=de-1';
 
 const store = {
   get(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } },
@@ -30,16 +30,20 @@ const store = {
 };
 
 export function startGame(pack) {
+  // The language and its host: Irish with Máirín in Conamara unless the pack says otherwise.
+  const lang = Object.assign({ host: 'mairin', place: 'Conamara', day: 'Lá', right: ['Maith thú!', 'Well done!'], retry: ['Tá sé agat anois.', 'You have it now.'] }, pack.language);
+  const voices = pack.voices || VOICES;
   const root = document.querySelector('.og');
   const world = createWorld(root.querySelector('.og-world'), pack);
   const sound = createSound({ key: pack.key, music: pack.music && pack.music.src });
   let voiceActive = false, recordingActive = false;
-  const voice = createVoice(pack.voiceBase, on => { voiceActive = on; });
+  const voice = createVoice(pack.voiceBase, on => { voiceActive = on; }, voices.female);
   const learn = createLearn(localStorage, pack.key + '-learn');
   const playedDay = learn.played();
   const talk = createTalk(root, {
-    key: pack.key, back: pack.back, voice: text => voice.play(text), hasVoice: (text, model) => voice.has(text, model ? VOICES[profile?.voice] || VOICES.female : VOICES.female),
-    stopVoice: () => voice.stop(), modelVoice: text => voice.play(text, VOICES[profile?.voice] || VOICES.female),
+    language: Object.assign({ host: pack.people[lang.host]?.name }, pack.language && pack.language.talk),
+    key: pack.key, back: pack.back, voice: text => voice.play(text), hasVoice: (text, model) => voice.has(text, model ? voices[profile?.voice] || voices.female : voices.female),
+    stopVoice: () => voice.stop(), modelVoice: text => voice.play(text, voices[profile?.voice] || voices.female),
     onPlayback: on => { recordingActive = on; },
     onLevel: value => changeLevel(value),
     onMistakes: items => learn.mistakes(items, pack.ruleGroup || (() => null)),
@@ -318,7 +322,8 @@ export function startGame(pack) {
   async function session(before, g) {
     await voice.ready;
     const level = () => profile?.level || 'OL';
-    setPlace(`Lá ${learn.played()} · Conamara`);
+    const host = lang.host, hostName = pack.people[host].name;
+    setPlace(`${lang.day} ${learn.played()} · ${lang.place}`);
     if (!round?.session) round = { session: true, ids: learn.plan(Object.values(qById), level()).map(q => q.id), index: 0, items: [] };
     round.size = round.ids.length;
     let topic;
@@ -326,20 +331,21 @@ export function startGame(pack) {
       if (g !== gen) return;
       const q = qById[round.ids[round.index]];
       if (!q || (q.higher && level() !== 'HL')) { round.index++; continue; }
-      partner = 'mairin'; save(before);
+      partner = host; save(before);
       if (q.topic !== topic && pack.topics?.[q.topic]) {
         topic = q.topic; const [ga, en] = pack.topics[topic];
-        await talk.say({ id: 'mairin', name: pack.people.mairin.name, ga, en });
+        await talk.say({ id: host, name: hostName, ga, en });
         if (g !== gen) return;
       }
       const step = learn.step(q.id, level());
       const wording = step === 'wording' ? q.ask[q.ask.length - 1] : q.ask[0];
-      const result = await talk.ask({ id: 'mairin', name: pack.people.mairin.name, ga: wording, en: q.en }, prepared(q), step, marker);
+      const result = await talk.ask({ id: host, name: hostName, ga: wording, en: q.en }, prepared(q), step, marker);
       if (g !== gen || !result) return;
       learn.record(q.id, result.uncertain ? 'unsure' : result.firstTry ? 'first' : 'retry', level());
       round.items.push({ id: q.id, first: result.firstTry }); round.index++;
       talk.progress(round.index, round.size); save(before);
-      await talk.say({ id: 'mairin', name: pack.people.mairin.name, ga: result.firstTry ? 'Maith thú!' : 'Tá sé agat anois.', en: result.firstTry ? 'Well done!' : 'You have it now.' });
+      const [said, meant] = result.firstTry ? lang.right : lang.retry;
+      await talk.say({ id: host, name: hostName, ga: said, en: meant });
       if (g !== gen) return;
       for (const [group, count] of Object.entries(learn.data.rules)) if (count >= 3 && pack.drills?.[group]) {
         if (await talk.drill(pack.drills[group])) learn.resetRule(group, pack.ruleGroup);
@@ -354,7 +360,7 @@ export function startGame(pack) {
     const cmd = sp < 0 ? text.slice(1) : text.slice(1, sp), arg = sp < 0 ? '' : text.slice(sp + 1).trim();
     const parts = arg.split('^').map(s => s.trim());
     if (cmd === 'session') await session(before, g);
-    else if (cmd === 'place') setPlace(`Lá ${playedDay} · ${arg}`);
+    else if (cmd === 'place') setPlace(`${lang.day} ${playedDay} · ${arg}`);
     else if (cmd === 'mode') mode = arg === 'type' ? 'type' : 'tiles';
     else if (cmd === 'do') { talk.hideSheet(); await Promise.all(arg.split('&').map(act)); }
     else if (cmd === 'focus') setFocus(arg === 'room' ? [] : arg.split(/\s+/));

@@ -7,8 +7,8 @@
 // A building outside can lead into a room that is bigger inside (a building with `enter: <room id>`, a room with
 // `follow`): the room stands far off, you're moved there going through the door, and the camera follows you round it.
 import * as THREE from '../../lib/three.module.min.js';
-import { buildRoom } from './room.js';
-import { buildLand } from './land.js?v=walk-2';
+import { buildRoom } from './room.js?v=de-1';
+import { buildLand } from './land.js?v=de-1';
 import { person, animate } from './people.js?v=walk-1';
 import { makeNav } from './nav.js?v=walk-1';
 

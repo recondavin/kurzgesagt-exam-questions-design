@@ -9,12 +9,13 @@ export function voiceHash(voice, text) {
   return String(4294967296 * (2097151 & h2) + (h1 >>> 0));
 }
 export const sentences = text => String(text || '').match(/[^.!?]+[.!?]?/g)?.map(s => s.trim()).filter(Boolean) || [];
-export function createVoice(base = 'orals/ga/voice/', activity = () => {}) {
+// fallback: the voice for lines when no other is named (each language pack has its own pair, see VOICES).
+export function createVoice(base = 'orals/ga/voice/', activity = () => {}, fallback = VOICES.female) {
   let manifest = {}, current = null, generation = 0;
   const ready = fetch(base + 'index.json').then(r => r.ok ? r.json() : {}).then(m => { manifest = m; }).catch(() => {});
-  const has = (text, voice = VOICES.female) => sentences(text).every(s => manifest[voiceHash(voice, s)]) && sentences(text).length > 0;
+  const has = (text, voice = fallback) => sentences(text).every(s => manifest[voiceHash(voice, s)]) && sentences(text).length > 0;
   function stop() { generation++; if (current) { current.pause(); current.dispatchEvent(new Event('ended')); current = null; } activity(false); }
-  async function play(text, voice = VOICES.female) {
+  async function play(text, voice = fallback) {
     stop(); const g = generation; await ready;
     for (const sentence of sentences(text)) {
       if (g !== generation) return;

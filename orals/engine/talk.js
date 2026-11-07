@@ -19,6 +19,10 @@ export function createTalk(root, opts = {}) {
   const savePrefs = () => store.set(prefsKey, JSON.stringify(prefs));
   // A short sound for a tap (tap, untap, next), if the game has sound.
   const sfx = name => opts.sfx && opts.sfx(name);
+  // The language being practised: its code (for lang attributes), its name, the letters it needs buttons for,
+  // who runs drills and what they say. Irish unless the pack says otherwise.
+  const L = Object.assign({ code: 'ga', name: 'Irish', letters: ['á', 'é', 'í', 'ó', 'ú'], lettersLabel: 'Letters with a fada', host: 'Máirín',
+    drill: { choose: 'Déanaimis cleachtadh beag.', type: 'Scríobh an leagan ceart.' }, keepAccents: false }, opts.language);
 
   root.insertAdjacentHTML('beforeend', `
     <header class="og-top">
@@ -80,7 +84,7 @@ export function createTalk(root, opts = {}) {
     return `<p class="og-who"><b>${esc(line.name)}</b>${line.role ? `<span>${esc(line.role)}</span>` : ''}</p>`;
   }
   function lineHtml(ga, en, cls = '') {
-    return `<div class="og-say ${cls}"><p class="og-ga" lang="ga">${esc(ga)}</p>` +
+    return `<div class="og-say ${cls}"><p class="og-ga" lang="${L.code}">${esc(ga)}</p>` +
       (en ? `<p class="og-en"${prefs.english ? '' : ' hidden'}>${esc(en)}</p>` : '') + '</div>';
   }
   function enToggle(en) {
@@ -126,7 +130,7 @@ export function createTalk(root, opts = {}) {
       pending = done;
       showSheet(`${line && line.ga ? who(line) + lineHtml(line.ga, line.en) : ''}
         <p class="og-ask-label">Your reply</p>
-        <div class="og-choices">${options.map((o, i) => `<button class="og-choice" type="button" data-i="${i}"><span lang="ga">${esc(o.ga)}</span>${o.en ? `<small class="og-en"${prefs.english ? '' : ' hidden'}>${esc(o.en)}</small>` : ''}</button>`).join('')}</div>
+        <div class="og-choices">${options.map((o, i) => `<button class="og-choice" type="button" data-i="${i}"><span lang="${L.code}">${esc(o.ga)}</span>${o.en ? `<small class="og-en"${prefs.english ? '' : ' hidden'}>${esc(o.en)}</small>` : ''}</button>`).join('')}</div>
         <div class="og-row">${line?.ga ? voiceBtn(line.ga) : ''}${enToggle(options.some(o => o.en) || (line && line.en))}</div>`);
       wireVoice(sheet);
       const b = $('.og-en-btn', sheet);
@@ -155,8 +159,8 @@ export function createTalk(root, opts = {}) {
         <div class="og-answer">${useTiles ? `
           <div class="og-built" aria-label="Your answer"></div>
           <div class="og-bank" aria-label="Words"></div>` : `
-          <textarea class="og-type" lang="ga" rows="2" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false" placeholder="Type your answer in Irish" aria-label="Your answer"></textarea>
-          <div class="og-fadas" aria-label="Letters with a fada">${['á', 'é', 'í', 'ó', 'ú'].map(c => `<button type="button" data-c="${c}" tabindex="-1">${c}</button>`).join('')}</div>`}
+          <textarea class="og-type" lang="${L.code}" rows="2" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false" placeholder="Type your answer in ${esc(L.name)}" aria-label="Your answer"></textarea>
+          <div class="og-fadas" aria-label="${esc(L.lettersLabel)}">${L.letters.map(c => `<button type="button" data-c="${c}" tabindex="-1">${c}</button>`).join('')}</div>`}
         </div>
         ${mode === 'letters' ? `<p class="og-letter-hint">${esc(q.model.ga.split(/\s+/).map(w => w[0] + '…').join(' '))}</p>` : ''}
         <div class="og-row">${line.prompt ? '' : enToggle(line.en || q.en)}<button class="og-btn og-btn--check" type="button" disabled>Check</button></div>
@@ -177,7 +181,7 @@ export function createTalk(root, opts = {}) {
         const tiles = shuffle(q.tiles).map((w, i) => {
           const t = el('button', 'og-tile', esc(w));
           t.type = 'button';
-          t.lang = 'ga';
+          t.lang = L.code;
           t.dataset.i = i;
           t._word = w;
           const slot = el('span', 'og-slot');
@@ -234,17 +238,17 @@ export function createTalk(root, opts = {}) {
 
       function model(label, m) {
         if (!m) return '';
-        return `<div class="og-model"><p class="og-model-label">${esc(label)}</p><p class="og-model-ga" lang="ga">${esc(m.ga)}${voiceBtn(m.ga, true)}</p><p class="og-model-en"${prefs.english ? '' : ' hidden'}>${esc(m.en)}</p></div>`;
+        return `<div class="og-model"><p class="og-model-label">${esc(label)}</p><p class="og-model-ga" lang="${L.code}">${esc(m.ga)}${voiceBtn(m.ga, true)}</p><p class="og-model-en"${prefs.english ? '' : ' hidden'}>${esc(m.en)}</p></div>`;
       }
       // The student's answer with the corrected words marked.
       function fixedHtml(parts) {
         const text = parts.map(p => p.w).join(' ');
-        return `<div class="og-model"><p class="og-model-label">Fixed</p><p class="og-model-ga" lang="ga"><span>${parts.map(p => (p.changed ? `<mark class="og-fix">${esc(p.w)}</mark>` : esc(p.w))).join(' ')}</span>${voiceBtn(text)}</p></div>`;
+        return `<div class="og-model"><p class="og-model-label">Fixed</p><p class="og-model-ga" lang="${L.code}"><span>${parts.map(p => (p.changed ? `<mark class="og-fix">${esc(p.w)}</mark>` : esc(p.w))).join(' ')}</span>${voiceBtn(text)}</p></div>`;
       }
       function tipsHtml(tips) {
         if (!tips || !tips.length) return '';
         const words = [...new Set(tips.map(t => t.word))];
-        return `<p class="og-tip">Spelling: <b lang="ga">${words.map(esc).join(', ')}</b></p>`;
+        return `<p class="og-tip">Spelling: <b lang="${L.code}">${words.map(esc).join(', ')}</b></p>`;
       }
       const same = (a, b) => a.toLowerCase().replace(/[.!?\s]+$/g, '') === b.toLowerCase().replace(/[.!?\s]+$/g, '');
 
@@ -264,7 +268,7 @@ export function createTalk(root, opts = {}) {
           body = `<p class="og-why">${esc(marker.questions[r.other].q.en)} ${line.prompt ? 'The task was' : esc(line.name || 'They') + ' asked'}: ${esc(q.en)}</p>` + (tries >= 2 ? model('An answer that works', q.model) : '');
           buttons = '<button class="og-btn og-btn--retry" type="button" data-act="retry">Try again</button>';
         } else if (r.verdict === 'english') {
-          kind = 'other'; title = 'Answer in Irish';
+          kind = 'other'; title = `Answer in ${L.name}`;
           body = model('An answer that works', q.model);
           buttons = '<button class="og-btn og-btn--retry" type="button" data-act="retry">Try again</button>';
         } else if (r.verdict === 'digits') {
@@ -335,7 +339,7 @@ export function createTalk(root, opts = {}) {
       cleanup = () => { disposed = true; if (recorder?.state === 'recording') recorder.stop(); stopTracks(); playback.querySelector('audio')?.pause(); opts.onPlayback?.(false); if (url) URL.revokeObjectURL(url); };
       function reveal() {
         panel.hidden = false;
-        panel.innerHTML = `<p lang="ga">${esc(q.model.ga)}${voiceBtn(q.model.ga, true)}</p><p class="og-en"${prefs.english ? '' : ' hidden'}>${esc(q.model.en)}</p>
+        panel.innerHTML = `<p lang="${L.code}">${esc(q.model.ga)}${voiceBtn(q.model.ga, true)}</p><p class="og-en"${prefs.english ? '' : ' hidden'}>${esc(q.model.en)}</p>
           <div class="og-row"><button type="button" class="og-btn" data-self="yes">I said it right</button><button type="button" class="og-btn og-btn--ghost" data-self="no">Not yet</button><button type="button" class="og-link" data-self="unsure">Can't check</button></div>`;
         wireVoice(panel); opts.modelVoice?.(q.model.ga);
         panel.querySelectorAll('[data-self]').forEach(b => b.onclick = () => { cleanup(); cleanup = () => {}; done({ right: b.dataset.self === 'yes', firstTry: b.dataset.self === 'yes', uncertain: b.dataset.self === 'unsure', text: '', tries: 1 }); });
@@ -373,13 +377,14 @@ export function createTalk(root, opts = {}) {
     for (let i = 0; i < bank.items.length; i++) {
       const item = bank.items[i];
       const order = shuffle([item.right, item.wrong]);
-      const chosen = await choose({ name: 'Máirín', ga: 'Déanaimis cleachtadh beag.', en: `Choose the correct form (${i + 1}/4).` }, order.map(ga => ({ ga })));
+      const chosen = await choose({ name: L.host, ga: L.drill.choose, en: `Choose the correct form (${i + 1}/4).` }, order.map(ga => ({ ga })));
       if (chosen === null) return false;
-      const result = await say({ name: 'Máirín', ga: item.right, en: `${order[chosen] === item.right ? 'Right. ' : 'Use this form. '}${item.reason}` });
+      const result = await say({ name: L.host, ga: item.right, en: `${order[chosen] === item.right ? 'Right. ' : 'Use this form. '}${item.reason}` });
       if (result === null) return false;
     }
-    const normalize = t => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’‘]/g, "'").replace(/[.!?]/g, '').toLowerCase().trim();
-    const result = await ask({ name: 'Máirín', ga: 'Scríobh an leagan ceart.', en: `Type the correct form: ${bank.items[0].wrong}` },
+    // Irish forgives a missing fada here; German keeps its umlauts (Bruder and Brüder are different words).
+    const normalize = t => (L.keepAccents ? t.normalize('NFC') : t.normalize('NFD').replace(/[\u0300-\u036f]/g, '')).replace(/[’‘]/g, "'").replace(/[.!?]/g, '').toLowerCase().trim();
+    const result = await ask({ name: L.host, ga: L.drill.type, en: `Type the correct form: ${bank.items[0].wrong}` },
       { id: 'drill', noKeep: true, en: bank.reason, model: { ga: bank.typed, en: bank.reason } }, 'type',
       { mark: (_id, text) => ({ verdict: normalize(text) === normalize(bank.typed) ? 'right' : 'unsure' }) });
     return !!result && !result.uncertain;
@@ -432,7 +437,7 @@ export function createTalk(root, opts = {}) {
     return new Promise(done => {
       showCard(`<p class="og-kicker">${esc(s.kicker || '')}</p><h2>${esc(s.title)}</h2>
         <p class="og-score"><b>${s.first}</b> of ${s.total} right first time</p>
-        <ul class="og-list">${s.items.map(i => `<li class="${i.first ? 'is-first' : 'is-retry'}"><i aria-hidden="true"></i><span lang="ga">${esc(i.ga)}</span><small>${esc(i.en)}</small></li>`).join('')}</ul>
+        <ul class="og-list">${s.items.map(i => `<li class="${i.first ? 'is-first' : 'is-retry'}"><i aria-hidden="true"></i><span lang="${L.code}">${esc(i.ga)}</span><small>${esc(i.en)}</small></li>`).join('')}</ul>
         <button class="og-btn og-btn--go og-btn--wide" type="button">${esc(s.button || 'Continue')}</button>`, 'og-card--summary');
       $('.og-btn', card).addEventListener('click', () => { hideCard(); done(); });
     });
