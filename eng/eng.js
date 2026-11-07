@@ -80,7 +80,7 @@
     return '<div class="eng-pick' + (on ? ' is-on' : ' is-out') + '" style="--c:' + COL[id] + '">' +
       '<a class="eng-pick__link" href="#text/' + id + '"><span class="eng-pick__img">' + (p ? '<img src="assets/eng/img/' + esc(p.file) + '" alt="" loading="lazy">' : '<span class="eng-pick__init">' + esc(t.title.charAt(0)) + '</span>') + '</span>' +
       '<span class="eng-pick__body"><span class="eng-pick__t">' + esc(t.title) + '</span><span class="eng-pick__a">' + esc(t.author) + ' · ' + esc(t.kind) + '</span></span></a>' +
-      (on ? '<button type="button" class="eng-pick__tick" data-eng-out="' + id + '" title="Leave ' + esc(t.title) + ' out" aria-label="Studying ' + esc(t.title) + ': tap to leave it out instead">✓</button>'
+      (on ? '<button type="button" class="eng-pick__leave" data-eng-out="' + id + '" aria-label="Leave ' + esc(t.title) + ' out">Leave out</button>'
         : '<span class="eng-pick__off">Left out</span>') + '</div>';
   }
   function renderHome() {
@@ -157,7 +157,7 @@
   }
 
   function pickedLine(mine) {
-    return 'Tap a text to open it. Not studying one? Tap its ✓ to leave it out. Comparing <b>' + mine.map(function (id) { return esc(text(id).title); }).join(', ') + '</b>' +
+    return 'Tap a text to open it. Not studying one? Tap Leave out under it. Comparing <b>' + mine.map(function (id) { return esc(text(id).title); }).join(', ') + '</b>' +
       (mine.indexOf('othello') >= 0 ? '. Othello is your Shakespeare, so your single text must be another one.' : '. Your single text must be Othello, since a Shakespeare play is required at Higher Level.');
   }
   function pclmSeg(c) {
