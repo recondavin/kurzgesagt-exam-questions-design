@@ -372,8 +372,14 @@
     // (When a round is over its summary isn't stuck to the bottom of the screen.)
     if (sec) sec.classList.toggle('is-done', CM.mode === 'build' && CM.write < 0 && P.every(function (c, i) { return CM.placed[i]; }));
     // On a phone the map stands on its side (taller than wide), so the people spread out down the screen.
-    var tall = window.matchMedia('(max-width: 700px)').matches, at = function (c) { return tall ? [c.pos[1], c.pos[0]] : c.pos; };
+    var tall = window.matchMedia('(max-width: 700px)').matches;
     var VW = tall ? 600 : 1000, VH = tall ? 1000 : 600;
+    // People sit in the inner part of the map, with room round the edge for their names (more at the bottom, where a
+    // name hangs below its face). On a phone, where names are wide for the map, a name at the side is nudged inside.
+    var at = function (c) {
+      var q = tall ? [c.pos[1], c.pos[0]] : c.pos;
+      return tall ? [q[0], VH * 0.04 + q[1] * 0.86] : [VW * 0.05 + q[0] * 0.9, VH * 0.04 + q[1] * 0.86];
+    };
     var visible = function (i) { return CM.mode !== 'meet' || i < CM.shown; };
     var named = function (i) { return CM.mode !== 'build' || CM.placed[i]; };
     // Which lines say what links them: in Build it, the ones from someone already placed (each is a clue to the next).
@@ -409,6 +415,10 @@
     // A label sits in the middle of its line unless that covers someone (or another label): then it slides along the
     // line to the first clear spot. It also stays inside the map, even on a line along its edge.
     var br = box.getBoundingClientRect(), taken = [];
+    box.querySelectorAll('.eng-node b').forEach(function (nb) {
+      var r = nb.getBoundingClientRect(), dx = r.left < br.left + 3 ? br.left + 3 - r.left : r.right > br.right - 3 ? br.right - 3 - r.right : 0;
+      if (dx) nb.style.transform = 'translateX(' + Math.round(dx) + 'px)';
+    });
     box.querySelectorAll('.eng-node .eng-face, .eng-node:not(.is-blank) b').forEach(function (e) { var r = e.getBoundingClientRect(); if (r.width) taken.push(r); });
     var hits = function (r) { return taken.some(function (q) { return r.left < q.right + 3 && q.left < r.right + 3 && r.top < q.bottom + 3 && q.top < r.bottom + 3; }); };
     var face = box.querySelector('.eng-node .eng-face'), fs = face ? face.getBoundingClientRect().width : 50;
@@ -452,6 +462,12 @@
         '<div class="eng-chips">' + left.map(function (i) { return '<button type="button" class="eng-namechip' + (CM.pick === i ? ' is-on' : '') + '" data-chip="' + i + '">' + esc(P[i].name) + '</button>'; }).join('') + '</div>';
       else panel.innerHTML = builtHtml(t);
       if (CM.write >= 0 && !CM.res) { var inp = panel.querySelector('[data-cw-in="like"]'); if (inp && fresh !== 'resize') inp.focus({ preventScroll: true }); }
+    }
+    // A profile with more below than fits shows a fade at the bottom until you scroll to the end.
+    var card = panel.querySelector('.eng-map__card');
+    if (card) {
+      var more = function () { card.classList.toggle('is-more', card.scrollHeight - card.clientHeight - card.scrollTop > 4); };
+      card.addEventListener('scroll', more, { passive: true }); more(); setTimeout(more, 600);
     }
   }
   // only: a retest of just these people (the ones you got wrong last round). Everyone else is already on the map, named,
