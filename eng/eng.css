@@ -915,4 +915,5 @@ body.eng.sh-open .sh-brand { display: none; }
 .eng-cast.is-build .eng-map__hint { margin-bottom: 8px; }
 .eng-cast.is-build .eng-map { width: min(100%, 1180px, calc(60vh * 1000 / 620)); }
 .eng-node.is-blank b { visibility: hidden; }
+.eng-node.is-ghost { opacity: .32; pointer-events: none; }
 @media (max-width: 700px) { .eng-map { width: 100%; } }
