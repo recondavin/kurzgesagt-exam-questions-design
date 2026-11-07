@@ -53,7 +53,8 @@
     var mine = chosen();
     closeDef();
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
-      '<nav class="sh-nav" aria-label="English">' + link('#', 'Comparative', active === 'home') +
+      '<nav class="sh-nav" aria-label="English">' + link('#', 'All of English', active === 'hub') + link('#single', 'Single text', active === 'single') +
+      '<p class="sh-group">Comparative</p>' + link('#comparative', 'Comparative', active === 'home') +
       link('#learn', '1 · Learn the parts', active === 'learn') + link('#structure', '2 · Structure it', active === 'structure') + link('#language', '3 · Say it well', active === 'language') +
       link('#build', 'Build an essay', active === 'build') + link('#marking', 'How it\'s marked', active === 'marking') + link('#questions', 'Past questions', active === 'questions') +
       (window.EngGames ? '<p class="sh-group">Games</p>' + window.EngGames.list.map(function (g) { return link('#play/' + g[0], g[1], false); }).join('') : '') +
@@ -83,8 +84,63 @@
       (on ? '<button type="button" class="eng-pick__leave" data-eng-out="' + id + '" aria-label="Leave ' + esc(t.title) + ' out">Leave out</button>'
         : '<span class="eng-pick__off">Left out</span>') + '</div>';
   }
+  // ---------- every part of the exam (the user: "first thing you need to pick ... comprehension, creative writing,
+  // short story, diary, comparative, poetry ... dont fill them in yet just make them options and we go one by one") ----
+  // English opens on the parts of the two papers. The comparative is filled in (its own home, #comparative); the single
+  // text goes on to its text options (#single); the rest are options still to fill (#part/<id>), one at a time.
+  var PARTS = [
+    { paper: 'Paper 1', time: '2 hours 50 minutes, 200 marks', parts: [
+      { id: 'question-a', name: 'Comprehension', marks: 50, label: 'Question A', what: 'Read a text and answer questions on it: what it says, how it says it, and what you think.' },
+      { id: 'question-b', name: 'Writing task', marks: 50, label: 'Question B', what: 'A short piece in a set form, on a different text from your Question A: a diary entry, a letter, a speech, an article.', kinds: ['Diary entry', 'Letter', 'Speech or talk', 'Article', 'Blog post', 'Review', 'Report'] },
+      { id: 'composition', name: 'Composition', marks: 100, label: 'Composing', what: 'One longer piece, chosen from seven titles.', kinds: ['Short story', 'Personal essay', 'Speech', 'Feature article', 'Discursive essay', 'Descriptive essay'] }
+    ] },
+    { paper: 'Paper 2', time: '3 hours 20 minutes, 200 marks', parts: [
+      { id: 'single', name: 'Single text', marks: 60, what: 'One text studied on its own. You answer one of two questions on it.', href: '#single' },
+      { id: 'comparative', name: 'Comparative study', marks: 70, what: 'Three texts compared through a mode: Theme or Issue, Cultural Context, or General Vision and Viewpoint.', href: '#comparative', ready: true },
+      { id: 'unseen', name: 'Unseen poem', marks: 20, what: 'A poem you haven\'t seen before. You answer one of two questions on it.' },
+      { id: 'poetry', name: 'Prescribed poetry', marks: 50, what: 'Eight poets are prescribed for 2027. You answer on one of the poets on the paper.', kinds: ['Elizabeth Bishop', 'Emily Dickinson', 'John Donne', 'Patrick Kavanagh', 'Derek Mahon', 'Paula Meehan', 'Adrienne Rich', 'W. B. Yeats'] }
+    ] }
+  ];
+  // The single text's options for 2027 at Higher Level (Prescribed Material circular 0021/2025). Most schools do Othello.
+  var SINGLE = [['othello', 'Othello', 'William Shakespeare', 'play'], ['gatsby', 'The Great Gatsby', 'F. Scott Fitzgerald', 'novel'], ['hamnet', 'Hamnet', 'Maggie O\'Farrell', 'novel'],
+    ['dracula', 'Dracula', 'Bram Stoker', 'novel'], ['altar', 'Girl on an Altar', 'Marina Carr', 'play']];
+  function partOf(id) { var f = null; PARTS.forEach(function (g) { g.parts.forEach(function (x) { if (x.id === id) f = x; }); }); return f; }
+  function partCard(x) {
+    var state = x.ready ? 'Ready' : x.id === 'single' ? 'Pick your text' : 'Coming soon';
+    return '<a class="eng-card eng-part' + (x.ready ? ' is-ready' : '') + (state === 'Coming soon' ? ' is-soon' : '') + '" href="' + (x.href || '#part/' + x.id) + '">' +
+      '<span class="eng-part__m">' + (x.label ? esc(x.label) + ', ' : '') + x.marks + ' marks</span><h3>' + esc(x.name) + '</h3><p>' + esc(x.what) + '</p>' +
+      '<span class="eng-part__s">' + state + '</span></a>';
+  }
+  function renderHub() {
+    renderShell('hub');
+    app.innerHTML = title('English') + '<p class="eng-p">Leaving Cert English, Higher Level. Pick the part you\'re working on.</p>' +
+      PARTS.map(function (g) {
+        return '<h2 class="eng-h2">' + esc(g.paper) + ' <span class="eng-hub__t">' + esc(g.time) + '</span></h2>' +
+          '<div class="eng-grid eng-grid--' + g.parts.length + ' eng-hub">' + g.parts.map(partCard).join('') + '</div>';
+      }).join('');
+  }
+  function renderPart(id) {
+    var x = partOf(id);
+    if (!x || x.href) { location.hash = x && x.href ? x.href : ''; return; }
+    renderShell('part/' + id, x.name);
+    app.innerHTML = title(x.name) + '<p class="eng-p">' + (x.label ? esc(x.label) + ', ' : '') + x.marks + ' marks. ' + esc(x.what) + '</p>' +
+      (x.kinds ? '<h2 class="eng-h2">' + (id === 'poetry' ? 'The poets' : 'The kinds you can be asked for') + '</h2><div class="eng-grid eng-grid--3">' +
+        x.kinds.map(function (k) { return '<div class="eng-card eng-part is-soon"><h3>' + esc(k) + '</h3><span class="eng-part__s">Coming soon</span></div>'; }).join('') + '</div>' : '') +
+      '<p class="eng-soon">Coming soon: these are being filled in one at a time.</p><p class="eng-btns"><a class="eng-btn eng-btn--quiet" href="#">All of English</a></p>';
+  }
+  function renderSingle() {
+    renderShell('single', 'Single text');
+    var oth = pics('othello').filter(function (q) { return q.hero; })[0];
+    app.innerHTML = title('Single text') + '<p class="eng-p">60 marks on Paper 2. One text studied on its own: you answer one of two questions on it. Pick your text.</p>' +
+      '<div class="eng-grid eng-grid--4 eng-single">' + SINGLE.map(function (x) {
+        var img = x[0] === 'othello' && oth ? '<img src="assets/eng/img/' + esc(oth.file) + '" alt="" loading="lazy">' : '<span class="eng-pick__init">' + esc(x[1].replace(/^The /, '').charAt(0)) + '</span>';
+        return '<div class="eng-pick is-soon"><span class="eng-pick__img">' + img + '</span><span class="eng-pick__body"><span class="eng-pick__t">' + esc(x[1]) + '</span>' +
+          '<span class="eng-pick__a">' + esc(x[2]) + ' · ' + x[3] + '</span>' + (x[0] === 'othello' ? '<span class="eng-single__most">Most schools do this one</span>' : '') +
+          '<span class="eng-part__s">Coming soon</span></span></div>';
+      }).join('') + '</div><p class="eng-btns"><a class="eng-btn eng-btn--quiet" href="#">All of English</a></p>';
+  }
   function renderHome() {
-    renderShell('home');
+    renderShell('home', 'Comparative');
     var mine = chosen();
     var pc = C.marks.criteria;
     app.innerHTML = title('Comparative Study') +
@@ -1602,7 +1658,7 @@
   function route() {
     var h = decodeURIComponent(location.hash.replace(/^#/, '')), p = h.split('/');
     menu(false);
-    if (p[0] === 'play' && window.EngGames) { window.EngGames.open(p[1]); history.replaceState(null, '', '#'); renderHome(); return; }
+    if (p[0] === 'play' && window.EngGames) { window.EngGames.open(p[1]); history.replaceState(null, '', '#comparative'); renderHome(); return; }
     if (p[0] === 'marking') renderMarking();
     else if (p[0] === 'structure') renderStructure();
     else if (p[0] === 'learn') renderLearn();
@@ -1611,7 +1667,10 @@
     else if (p[0] === 'language') renderLanguage();
     else if (p[0] === 'questions') renderQuestions();
     else if (p[0] === 'build') renderBuild(p[1]);
-    else renderHome();
+    else if (p[0] === 'comparative') renderHome();
+    else if (p[0] === 'single') renderSingle();
+    else if (p[0] === 'part') renderPart(p[1]);
+    else renderHub();
     if (!p[2]) window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', route);

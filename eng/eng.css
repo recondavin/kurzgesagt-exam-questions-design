@@ -915,3 +915,22 @@ body.eng.sh-open .sh-brand { display: none; }
 .eng-cast.is-build .eng-map { width: min(100%, 1180px, calc(60vh * 1000 / 620)); }
 .eng-node.is-blank b { visibility: hidden; }
 @media (max-width: 700px) { .eng-map { width: 100%; } }
+
+/* The parts of the exam (eng.js renderHub, renderPart, renderSingle). */
+.eng-hub__t { margin-left: 8px; color: var(--muted); font: 700 15px Nunito, sans-serif; }
+.eng-part { display: flex; flex-direction: column; gap: 6px; }
+.eng-part h3 { margin: 0; color: #fff; font: 600 21px/1.2 Fredoka, Nunito, sans-serif; }
+.eng-part p { margin: 0; color: var(--muted); font: 700 15.5px/1.5 Nunito, sans-serif; }
+.eng-part__m { color: var(--muted); font: 800 13.5px Nunito, sans-serif; }
+.eng-part__s { align-self: flex-start; margin-top: auto; padding: 3px 11px; border-radius: 999px; background: var(--raised); color: #fff; font: 800 13px/1.5 Nunito, sans-serif; }
+.eng-part.is-ready { box-shadow: inset 0 0 0 3px #58CC02; }
+.eng-part.is-ready .eng-part__s { background: #58CC02; color: #fff; }
+.eng-part.is-soon .eng-part__s { background: none; padding: 0; color: var(--faint); }
+a.eng-part:hover { background: var(--raised); }
+.eng-pick.is-soon .eng-pick__body { display: flex; flex-direction: column; gap: 4px; }
+.eng-single__most { color: #FFD43B; font: 800 14px Nunito, sans-serif; }
+.eng-soon { margin: 22px 0 0; color: var(--muted); font: 700 16px Nunito, sans-serif; }
+.eng-single { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 1100px) { .eng-single { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .eng-single { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.eng-pick.is-soon .eng-part__s { margin-top: 4px; padding: 0; background: none; color: var(--faint); }
