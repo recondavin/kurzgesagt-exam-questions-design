@@ -365,6 +365,7 @@
     if (sec && sec.classList.contains('is-open') !== open) {
       var r0 = box.getBoundingClientRect();
       sec.classList.toggle('is-open', open);
+      sideSize(open);
       var r1 = box.getBoundingClientRect();
       if (r1.width && (Math.abs(r0.left - r1.left) > 4 || Math.abs(r0.width - r1.width) > 4)) glide = [r0.left - r1.left, r0.top - r1.top, r0.width / r1.width];
     }
@@ -455,6 +456,20 @@
   }
   // only: a retest of just these people (the ones you got wrong last round). Everyone else is already on the map, named,
   // so their lines are clues too.
+  // Side by side, the map keeps the size it had on its own (the user: "this is supposed to keep its size it just animates
+  // to the side"): the pair [profile | map] takes what it needs of the screen's width, past the page column if it must,
+  // centred. The profile gets what's left (340-420px); only on a screen too narrow for both does the map give way.
+  function sideSize(open) {
+    var box = app.querySelector('[data-map]'), pan = app.querySelector('[data-map-panel]'), stage = box && box.parentNode;
+    if (!stage) return;
+    if (!open || !window.matchMedia('(min-width: 1000px)').matches) { stage.style.width = stage.style.marginLeft = box.style.flex = box.style.width = pan.style.flexBasis = ''; return; }
+    var inner = stage.parentNode.getBoundingClientRect().width, gap = 32;
+    var W = Math.min(inner, 1180, 0.72 * window.innerHeight * 1000 / 620), avail = document.documentElement.clientWidth - 48;
+    var P = Math.min(420, Math.max(340, avail - W - gap)), mw = Math.floor(Math.min(W, avail - gap - P)), total = mw + gap + P;
+    stage.style.width = total + 'px'; stage.style.marginLeft = Math.round((inner - total) / 2) + 'px';
+    box.style.flex = '0 0 ' + mw + 'px'; box.style.width = mw + 'px'; pan.style.flexBasis = P + 'px';
+  }
+  window.addEventListener('resize', function () { if (CM && CM.mode === 'explore' && CM.sel >= 0 && app.querySelector('[data-map]')) sideSize(true); });
   function castMode(m, only) {
     var t = text(CM.t);
     CM.mode = m; CM.sel = -1; CM.pick = -1; CM.write = -1; CM.res = null;
