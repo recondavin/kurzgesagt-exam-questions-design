@@ -748,18 +748,64 @@
   }
 
   // ---------- past questions ----------
-  var qFilter = 'all';
+  // Every past comparative question (2012 to 2026, with the deferred papers), each with what it means in normal English
+  // and the key moments to use from each of your texts (tools/eng/research/picks.json). In a 30 + 40 question the text
+  // that fits best goes in part (a), if it's one of yours. "Show key moments" opens them all (eng-q-open).
+  var qFilter = 'all', QOPEN = store('eng-q-open') === '1';
+  var SHORT = { stlt: 'Small Things', shawshank: 'Shawshank' };
+  var MODE_AT = { theme: 0, cc: 1, gvv: 2 };
+  function isSplit(q) { return Array.isArray(q.marks); }
+  function plainHtml(s) { return s ? '<p class="eng-q__plain"><b>In normal English:</b> ' + esc(s) + '</p>' : ''; }
+  function qBody(q) {
+    if (!isSplit(q) || !q.parts) return '<p class="eng-q__t">' + qMark(q.text) + '</p>' + plainHtml(q.plain);
+    var pl = q.plain || {};
+    return (q.parts.stem ? '<p class="eng-q__t">' + qMark(q.parts.stem) + '</p>' : '') + ['a', 'b'].map(function (k) {
+      return '<div class="eng-q__part"><span class="eng-q__k">(' + k + ')<small>' + (k === 'a' ? 30 : 40) + ' marks</small></span>' +
+        '<div><p class="eng-q__t">' + qMark(q.parts[k]) + '</p>' + plainHtml(pl[k]) + '</div></div>';
+    }).join('');
+  }
+  // Your texts in the order to write about them: for a 30 + 40 question, part (a)'s text first.
+  function pickOrder(q) {
+    var mine = chosen().filter(function (id) { return q.picks && q.picks[id]; });
+    var a = isSplit(q) && mine.length ? (mine.indexOf(q.best) >= 0 ? q.best : mine[0]) : null;
+    return { ids: a ? [a].concat(mine.filter(function (id) { return id !== a; })) : mine, a: a };
+  }
+  function picksHtml(q) {
+    var o = pickOrder(q), none = chosen().filter(function (id) { return !(q.picks && q.picks[id]); });
+    if (!o.ids.length) return '';
+    var sum = o.ids.map(function (id) {
+      var k = q.picks[id];
+      return '<span class="eng-kp__s" style="--c:' + COL[id] + '">' + (o.a ? '(' + (id === o.a ? 'a' : 'b') + ') ' : '') + esc(SHORT[id] || text(id).title) + ' ' + (k.skip ? '<i>leave out</i>' : k.m.map(function (mid) { return momentNo(id, mid) + 1; }).join(', ')) + '</span>';
+    }).join('');
+    return '<details class="eng-kp"' + (QOPEN ? ' open' : '') + '><summary><span class="eng-kp__h">Key moments to use</span>' + sum + '</summary>' +
+      (q.theme ? '<p class="eng-kp__theme"><b>Theme to use:</b> ' + esc(q.theme) + '</p>' : '') +
+      '<ul class="eng-kp__list">' + o.ids.map(function (id) {
+        var k = q.picks[id], t = text(id);
+        return '<li class="eng-kp__row' + (k.skip ? ' is-skip' : '') + '" style="--c:' + COL[id] + '"><span class="eng-kp__t">' +
+          (o.a ? '<b>(' + (id === o.a ? 'a' : 'b') + ')</b> ' : '') + '<i>' + esc(t.title) + '</i></span>' +
+          (k.m.length ? '<span class="eng-kp__m">' + k.m.map(function (mid) {
+            var n = momentNo(id, mid);
+            return '<a href="#text/' + id + '/' + mid + '"><span>' + (n + 1) + '</span>' + esc(t.moments[n].title) + '</a>';
+          }).join('') + '</span>' : '') + '<span class="eng-kp__why">' + esc(k.why) + '</span></li>';
+      }).join('') + '</ul>' +
+      (q.note ? '<p class="eng-kp__note">' + esc(q.note) + '</p>' : '') +
+      (none.length ? '<p class="eng-kp__none">No picks for ' + none.map(function (id) { return '<i>' + esc(text(id).title) + '</i>'; }).join(' or ') + ' yet.</p>' : '') +
+      '</details>';
+  }
   function renderQuestions() {
     renderShell('questions', 'Past questions');
-    var list = D.questions.filter(function (q) { return qFilter === 'all' || q.mode === qFilter; }).sort(function (a, b) { return b.year - a.year; });
+    var list = D.questions.filter(function (q) { return qFilter === 'all' || q.mode === qFilter; }).sort(function (a, b) {
+      return b.year - a.year || (a.paper === 'deferred') - (b.paper === 'deferred') || MODE_AT[a.mode] - MODE_AT[b.mode] || isSplit(a) - isSplit(b);
+    });
     app.innerHTML = title('Past questions') +
+      '<p class="eng-p">Every comparative question from 2012 to 2026, with the deferred papers. Under each one: what it means in normal English, and the key moments to use from your texts.</p>' +
       '<div class="eng-filter">' + [['all', 'All']].concat(MODES.map(function (m) { return [m.id, m.name]; })).map(function (f) {
         return '<button type="button" class="eng-chip" data-eng-qf="' + f[0] + '" aria-pressed="' + (qFilter === f[0]) + '">' + esc(f[1]) + '</button>';
-      }).join('') + '</div>' +
+      }).join('') + '<button type="button" class="eng-chip eng-filter__end" data-eng-qopen aria-pressed="' + QOPEN + '">Show key moments</button></div>' +
       (list.length ? '<div class="eng-grid">' + list.map(function (q) {
         var k = D.questions.indexOf(q);
-        return '<div class="eng-q"><span class="eng-q__y">' + q.year + (q.paper === 'deferred' ? '<small>Deferred</small>' : '') + '<small>' + esc(MODE[q.mode].short) + ' · ' + (Array.isArray(q.marks) ? q.marks.join(' + ') : q.marks) + ' marks</small></span>' +
-          '<p>' + qMark(q.text) + '</p><a class="eng-btn eng-btn--quiet" href="#build/q' + k + '">Build it</a></div>';
+        return '<div class="eng-q"><span class="eng-q__y">' + q.year + (q.paper === 'deferred' ? '<small>Deferred</small>' : '') + '<small>' + esc(MODE[q.mode].short) + ' · ' + (isSplit(q) ? q.marks.join(' + ') : q.marks) + ' marks</small></span>' +
+          '<div class="eng-q__b">' + qBody(q) + picksHtml(q) + '</div><a class="eng-btn eng-btn--quiet" href="#build/q' + k + '">Build it</a></div>';
       }).join('') + '</div>' : '<p class="eng-p">The past questions are being collected.</p>');
   }
 
@@ -1483,6 +1529,7 @@
     if (cp) { copy(cp.getAttribute('data-eng-copy'), cp); return; }
     var qf = t.closest('[data-eng-qf]');
     if (qf) { qFilter = qf.getAttribute('data-eng-qf'); renderQuestions(); return; }
+    if (t.closest('[data-eng-qopen]')) { QOPEN = !QOPEN; store('eng-q-open', QOPEN ? '1' : '0'); renderQuestions(); return; }
     // The builder.
     var e = E;
     var go = t.closest('[data-eb-go]');

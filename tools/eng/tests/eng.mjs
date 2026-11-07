@@ -62,6 +62,15 @@ for (const id of D.order) {
 // Past questions: every mode, sane years and marks.
 for (const m of ['theme', 'cc', 'gvv']) ok(D.questions.filter(q => q.mode === m).length >= 5, `at least 5 past questions for ${m}`);
 ok(D.questions.every(q => q.year >= 2000 && q.year <= 2026 && q.text.length > 30 && (q.marks === 70 || (Array.isArray(q.marks) && q.marks.reduce((a, b) => a + b, 0) === 70))), 'every past question has a year, its wording and 70 marks');
+// Each one in normal English (both parts of a 30 + 40), and key moments from Sive, Small Things Like These and
+// Shawshank that exist, with why; a 30 + 40 says which text goes in part (a), a Theme or Issue question which theme.
+ok(D.questions.every(q => Array.isArray(q.marks) ? q.parts && q.plain && q.plain.a && q.plain.b : typeof q.plain === 'string' && q.plain.length > 20), 'every past question is in normal English');
+ok(D.questions.every(q => ['sive', 'stlt', 'shawshank'].every(id => {
+  const k = q.picks && q.picks[id], ids = new Set(D.texts[id].moments.map(m => m.id));
+  return k && k.why && (k.skip || (k.m.length && k.m.every(m => ids.has(m))));
+})), 'every past question has key moments to use from Sive, Small Things Like These and Shawshank');
+ok(D.questions.every(q => !Array.isArray(q.marks) || q.picks[q.best]), 'every 30 + 40 question says which text goes in part (a)');
+ok(D.questions.every(q => (q.mode === 'theme') === !!q.theme), 'every Theme or Issue question says which theme to use');
 
 // The games.
 const G = D.games, known = new Set(D.order);
