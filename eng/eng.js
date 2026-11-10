@@ -54,7 +54,7 @@
     closeDef();
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
       '<nav class="sh-nav" aria-label="English">' + link('#', 'All of English', active === 'hub') + link('#single', 'Single text', active === 'single') +
-      '<p class="sh-group">Comparative</p>' + link('#comparative', 'Comparative', active === 'home') +
+      '<p class="sh-group">Comparative</p>' + link('#comparative', 'Comparative', active === 'home') + link('#compare', 'Compare it', active === 'compare') +
       link('#learn', '1 · Learn the parts', active === 'learn') + link('#structure', '2 · Structure it', active === 'structure') + link('#language', '3 · Say it well', active === 'language') +
       link('#build', 'Build an essay', active === 'build') + link('#marking', 'How it\'s marked', active === 'marking') + link('#questions', 'Past questions', active === 'questions') +
       (window.EngGames ? '<p class="sh-group">Games</p>' + window.EngGames.list.map(function (g) { return link('#play/' + g[0], g[1], false); }).join('') : '') +
@@ -148,6 +148,8 @@
       '<div class="eng-grid eng-grid--4">' + D.order.map(function (id) { return pickCard(id, mine.indexOf(id) >= 0); }).join('') + '</div>' +
       '<p class="eng-picked" data-eng-picked>' + pickedLine(mine) + '</p>' +
       '<h2 class="eng-h2">Three steps. That\'s all it is.</h2>' + stepsHome() +
+      (D.compare && D.compare.length ? '<h2 class="eng-h2">Compare it</h2><a class="eng-card eng-cp__home" href="#compare" style="--c:var(--m-theme)"><span class="eng-bar"></span>' +
+        '<h3>' + esc(D.compare[0].name) + ': a 30 + 40 answer</h3><p>Pick your part (a) text, link moments across the other two, and get a plan for the whole answer.</p></a>' : '') +
       '<h2 class="eng-h2">The modes for ' + C.year + '</h2>' +
       '<p class="eng-p">All three modes are on the ' + C.year + ' paper. You answer on one.</p>' +
       '<div class="eng-grid eng-grid--3">' + MODES.map(function (m) {
@@ -807,6 +809,199 @@
         return '<div class="eng-q"><span class="eng-q__y">' + q.year + (q.paper === 'deferred' ? '<small>Deferred</small>' : '') + '<small>' + esc(MODE[q.mode].short) + ' · ' + (isSplit(q) ? q.marks.join(' + ') : q.marks) + ' marks</small></span>' +
           '<div class="eng-q__b">' + qBody(q) + picksHtml(q) + '</div><a class="eng-btn eng-btn--quiet" href="#build/q' + k + '">Build it</a></div>';
       }).join('') + '</div>' : '<p class="eng-p">The past questions are being collected.</p>');
+  }
+
+  // ---------- compare it (#compare) ----------
+  // One theme (tools/eng/compare.json) answered as a 30 + 40 question. 1: pick the text that goes in part (a). 2: pick
+  // three of its points. 3: link key moments of the other two texts on a board (tap one, then one in the other
+  // column, then say how they compare); only listed pairs are links, and the right kind is shown. 4: the plan.
+  // Saved in eng-compare: { th, by: { theme: { a, work: { text: { pts: [i], links: [{ a, b, rel, guess }] } } } } }.
+  var CP = null, CPSEL = null, CPPICK = null, CPFB = null, CPHINT = null;
+  var REL = { same: 'Similar', differ: 'Different', degree: 'More or less' };
+  var REL_SAY = { same: 'Showing similarity', differ: 'Showing difference', degree: 'Showing degree' };
+  function cpState() {
+    if (CP) return CP;
+    try { CP = JSON.parse(store('eng-compare') || 'null'); } catch (e) {}
+    if (!CP || typeof CP !== 'object') CP = {};
+    CP.by = CP.by || {};
+    if (!CP.th || !D.compare.some(function (t) { return t.id === CP.th; })) CP.th = D.compare.length ? D.compare[0].id : null;
+    return CP;
+  }
+  function cpSave() { store('eng-compare', JSON.stringify(CP)); }
+  function cpTheme() { var s = cpState(); return D.compare.filter(function (t) { return t.id === s.th; })[0]; }
+  function cpBy(th) { var s = cpState(); s.by[th.id] = s.by[th.id] || { a: null, work: {} }; return s.by[th.id]; }
+  function cpWork(th, a) { var b = cpBy(th); b.work[a] = b.work[a] || { pts: [], links: [] }; return b.work[a]; }
+  // Your three texts if the theme has notes for all of them, else its own three.
+  function cpTexts(th) {
+    var mine = chosen().filter(function (id) { return th.points[id]; });
+    return mine.length === 3 ? mine : D.order.filter(function (id) { return th.points[id]; }).slice(0, 3);
+  }
+  function tidOf(mid) { return mid.replace(/-\d+$/, ''); }
+  function mom(mid) { var t = text(tidOf(mid)), n = momentNo(t.id, mid); return { t: t, n: n + 1, m: t.moments[n] }; }
+  function pairKey(x, y) { return [x, y].sort().join('|'); }
+  function cpLinks(th, x, y) { var k = pairKey(x, y); return th.links.filter(function (l) { return pairKey(tidOf(l.a), tidOf(l.b)) === k; }); }
+  function cpFind(th, p, q) { var k = [p, q].sort().join(); return th.links.filter(function (l) { return [l.a, l.b].sort().join() === k; })[0]; }
+  function shortTitle(id) { return SHORT[id] || text(id).title; }
+  function stop(s) { return /[.?!]$/.test(s) ? s : s + '.'; }
+  function momChip(mid) {
+    var o = mom(mid);
+    return '<a class="eng-cpc" style="--c:' + COL[o.t.id] + '" href="#text/' + o.t.id + '/' + mid + '"><span>' + o.n + '</span>' + esc(o.m.title) + '</a>';
+  }
+  function renderCompare() {
+    renderShell('compare', 'Compare it');
+    var th = cpTheme();
+    if (!th) { app.innerHTML = title('Compare it') + '<p class="eng-p">Coming soon.</p>'; return; }
+    var ids = cpTexts(th), by = cpBy(th), a = ids.indexOf(by.a) >= 0 ? by.a : null;
+    var swapped = chosen().some(function (id) { return ids.indexOf(id) < 0; });
+    var h = title('Compare it') +
+      '<p class="eng-cp__theme"><span class="eng-tag" style="--c:var(--m-theme)">Theme or Issue</span> <b>' + esc(th.name) + '</b> · a 30 + 40 answer</p>' +
+      '<p class="eng-p">' + esc(th.what) + ' Part (a), 30 marks, is one text on its own. Part (b), 40 marks, compares your other two.</p>' +
+      (swapped ? '<p class="eng-p eng-cp__warn">This one isn\'t ready for every text yet, so it uses ' + ids.map(function (id) { return '<i>' + esc(text(id).title) + '</i>'; }).join(', ').replace(/, ([^,]*)$/, ' and $1') + '.</p>' : '') +
+      '<h2 class="eng-h2"><span class="eng-cp__n">1</span>Which text goes in part (a)?</h2>' +
+      '<div class="eng-cp__texts">' + ids.map(function (id) {
+        var p = pics(id).filter(function (x) { return x.hero; })[0] || pics(id)[0];
+        return '<button type="button" class="eng-cpt" data-cp-a="' + id + '" aria-pressed="' + (id === a) + '" style="--c:' + COL[id] + '">' +
+          (p ? '<img src="assets/eng/img/' + esc(p.file) + '" alt="" loading="lazy">' : '<span class="eng-cpt__img"></span>') +
+          '<span class="eng-cpt__t">' + esc(text(id).title) + '</span>' + (id === th.best ? '<span class="eng-cpt__best">Best for (a)</span>' : '') + '</button>';
+      }).join('') + '</div>' +
+      '<p class="eng-p eng-cp__why">' + esc(th.bestWhy) + '</p>';
+    if (!a) { app.innerHTML = h; return; }
+    var w = cpWork(th, a), B = ids.filter(function (id) { return id !== a; });
+    // 2: part (a)
+    h += '<h2 class="eng-h2"><span class="eng-cp__n">2</span>Part (a): three points about <i>' + esc(text(a).title) + '</i></h2>' +
+      '<p class="eng-p">Pick three. Each one is a paragraph, built on its key moment. <b data-cp-count>' + w.pts.length + ' of 3 picked</b>' + (w.pts.length >= 3 ? ': tap one to swap it out.' : '.') + '</p>' +
+      '<div class="eng-cp__pts">' + th.points[a].map(function (pt, i) {
+        var on = w.pts.indexOf(i) >= 0;
+        return '<div class="eng-cpp' + (on ? ' is-on' : '') + '" style="--c:' + COL[a] + '"><button type="button" class="eng-cpp__b" data-cp-pt="' + i + '" aria-pressed="' + on + '">' +
+          '<span class="eng-cpp__tick" aria-hidden="true">' + (on ? w.pts.indexOf(i) + 1 : '+') + '</span><span class="eng-cpp__t">' + esc(pt.title) + '</span></button>' +
+          '<p>' + esc(pt.say) + '</p><p class="eng-cpp__m">' + pt.m.map(function (n) { return momChip(text(a).moments[n - 1].id); }).join('') + '</p></div>';
+      }).join('') + '</div>';
+    // 3: part (b), the board
+    var L = cpLinks(th, B[0], B[1]);
+    var col = function (id) {
+      var ms = [];
+      L.forEach(function (l) { [l.a, l.b].forEach(function (m) { if (tidOf(m) === id && ms.indexOf(m) < 0) ms.push(m); }); });
+      ms.sort(function (x, y) { return mom(x).n - mom(y).n; });
+      return '<div class="eng-cpb__col" style="--c:' + COL[id] + '"><h3>' + esc(text(id).title) + '</h3>' + ms.map(function (mid) {
+        var o = mom(mid), nums = [], pic = scenePics(id, mid)[0];
+        w.links.forEach(function (l, k) { if (l.a === mid || l.b === mid) nums.push(k + 1); });
+        return '<button type="button" class="eng-cpm' + (CPHINT === mid ? ' is-hint' : '') + '" data-cpm="' + mid + '" aria-pressed="' + (CPSEL === mid) + '">' +
+          (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '') +
+          '<span class="eng-cpm__n">' + o.n + '</span><span class="eng-cpm__t">' + esc(o.m.title) + '</span>' +
+          (nums.length ? '<span class="eng-cpm__k" aria-label="In link ' + nums.join(' and ') + '">' + nums.join(' ') + '</span>' : '') + '</button>';
+      }).join('') + '</div>';
+    };
+    h += '<h2 class="eng-h2"><span class="eng-cp__n">3</span>Part (b): link <i>' + esc(shortTitle(B[0])) + '</i> and <i>' + esc(shortTitle(B[1])) + '</i></h2>' +
+      '<p class="eng-p">Tap a moment, then a moment from the other text that shows the same thing about power. Then say how they compare. Each link is a paragraph: get three or four.</p>' +
+      '<div class="eng-cpb" data-cpb>' + col(B[0]) + '<svg class="eng-cpb__lines" aria-hidden="true"></svg>' + col(B[1]) + '</div>';
+    if (CPPICK) {
+      h += '<div class="eng-cpq" role="group" aria-label="How do they compare?"><p><b>How do they compare?</b> ' + momChip(CPPICK[0]) + ' and ' + momChip(CPPICK[1]) + '</p><p class="eng-btns">' +
+        ['same', 'differ', 'degree'].map(function (r) { return '<button type="button" class="eng-btn eng-cpq__' + r + '" data-cp-rel="' + r + '">' + REL[r] + '</button>'; }).join('') +
+        '<button type="button" class="eng-btn eng-btn--quiet" data-cp-cancel>Cancel</button></p></div>';
+    } else {
+      h += '<p class="eng-btns eng-cp__tools"><button type="button" class="eng-btn eng-btn--quiet" data-cp-hint>Give me a hint</button>' +
+        (w.links.length || w.pts.length ? '<button type="button" class="eng-btn eng-btn--quiet" data-cp-reset>Start again</button>' : '') + '</p>';
+    }
+    if (CPFB) h += '<div class="eng-cpf eng-cpf--' + CPFB.kind + '" role="status"><b>' + esc(CPFB.head) + '</b> ' + esc(CPFB.body) + '</div>';
+    if (w.links.length) {
+      h += '<ol class="eng-cpl">' + w.links.map(function (l, k) {
+        var x = cpFind(th, l.a, l.b), left = tidOf(l.a) === B[0] ? l.a : l.b, right = left === l.a ? l.b : l.a;
+        return '<li class="eng-cpl__i eng-cpl--' + x.rel + '"><span class="eng-cpl__k">' + (k + 1) + '</span><div><p class="eng-cpl__h"><b>' + esc(x.aspect) + '</b> <span class="eng-cpl__rel">' + REL[x.rel] + '</span></p>' +
+          '<p class="eng-cpl__m">' + momChip(left) + momChip(right) + '</p><p>' + esc(x.say) + '</p></div>' +
+          '<button type="button" class="eng-cpl__x" data-cp-del="' + k + '" aria-label="Remove link ' + (k + 1) + '">×</button></li>';
+      }).join('') + '</ol>';
+    }
+    // 4: the plan
+    if (w.pts.length || w.links.length) h += '<h2 class="eng-h2"><span class="eng-cp__n">4</span>Your plan</h2>' + cpPlanHtml(th, a, B, w);
+    app.innerHTML = h;
+    requestAnimationFrame(cpLines);
+  }
+  function cpPlan(th, a, B, w) {
+    var pts = w.pts.map(function (i) { return th.points[a][i]; }), out = { a: [], b: [] };
+    out.a.push(['Opening', 'Introduce ' + text(a).title + ' and say how ' + th.name.toLowerCase() + ' shows itself in it' +
+      (pts.length ? ': ' + pts.map(function (p) { return p.title.toLowerCase(); }).join(', ').replace(/, ([^,]*)$/, ' and $1') : '') + '.']);
+    pts.forEach(function (p, k) {
+      out.a.push(['Paragraph ' + (k + 1) + ': ' + p.title, p.say, p.m.map(function (n) { return text(a).moments[n - 1].id; })]);
+    });
+    out.a.push(['Ending', 'Sum up what ' + text(a).title + ' says about ' + th.name.toLowerCase() + '.']);
+    out.b.push(['Opening', 'Introduce ' + text(B[0]).title + ' and ' + text(B[1]).title + ' together, and say in one line how they compare on ' + th.name.toLowerCase() + '.']);
+    w.links.forEach(function (l, k) {
+      var x = cpFind(th, l.a, l.b), left = tidOf(l.a) === B[0] ? l.a : l.b, right = left === l.a ? l.b : l.a;
+      var bank = (C.language.filter(function (g) { return g.name === REL_SAY[x.rel]; })[0] || { items: [] }).items.slice(0, 3);
+      out.b.push(['Paragraph ' + (k + 1) + ': ' + x.aspect + ' (' + REL[x.rel].toLowerCase() + ')', x.say, [left, right], bank]);
+    });
+    out.b.push(['Ending', th.ends[pairKey(B[0], B[1])]]);
+    return out;
+  }
+  function cpPlanHtml(th, a, B, w) {
+    var P = cpPlan(th, a, B, w), part = function (rows) {
+      return '<ol class="eng-cpn">' + rows.map(function (r) {
+        return '<li><b>' + esc(r[0]) + '</b><p>' + esc(r[1]) + '</p>' + (r[2] ? '<p class="eng-cpl__m">' + r[2].map(momChip).join('') + '</p>' : '') +
+          (r[3] && r[3].length ? '<p class="eng-cpn__w">Link with: ' + r[3].map(function (s) { return '<button type="button" class="eng-chip" data-eng-copy="' + esc(s) + '">' + esc(s) + '</button>'; }).join('') + '</p>' : '') + '</li>';
+      }).join('') + '</ol>';
+    };
+    var todo = [];
+    if (w.pts.length < 3) todo.push('pick ' + (3 - w.pts.length) + ' more point' + (w.pts.length === 2 ? '' : 's') + ' for part (a)');
+    if (w.links.length < 3) todo.push('make ' + (3 - w.links.length) + ' more link' + (w.links.length === 2 ? '' : 's') + ' for part (b)');
+    return (todo.length ? '<p class="eng-p eng-cp__todo">Still to do: ' + esc(todo.join(', and ')) + '.</p>' : '<p class="eng-p eng-cp__done">That\'s a full plan. Now write it.</p>') +
+      '<div class="eng-grid eng-grid--2 eng-cp__plan"><div class="eng-card" style="--c:' + COL[a] + '"><span class="eng-bar"></span><h3>(a) 30 marks · <i>' + esc(text(a).title) + '</i></h3>' + part(P.a) + '</div>' +
+      '<div class="eng-card"><span class="eng-bar" style="background:linear-gradient(180deg,' + COL[B[0]] + ' 50%,' + COL[B[1]] + ' 50%)"></span><h3>(b) 40 marks · <i>' + esc(shortTitle(B[0])) + '</i> and <i>' + esc(shortTitle(B[1])) + '</i></h3>' + part(P.b) + '</div></div>' +
+      '<p class="eng-btns"><button type="button" class="eng-btn eng-btn--quiet" data-cp-copy>Copy my plan</button><a class="eng-btn" href="#build">Write it: Build an essay</a></p>';
+  }
+  function cpPlanText() {
+    var th = cpTheme(), ids = cpTexts(th), a = cpBy(th).a, B = ids.filter(function (id) { return id !== a; }), P = cpPlan(th, a, B, cpWork(th, a));
+    var lines = function (rows) { return rows.map(function (r) { return r[0] + '\n' + r[1] + (r[2] ? '\nKey moments: ' + r[2].map(function (m) { var o = mom(m); return o.t.title + ' ' + o.n + ', ' + o.m.title; }).join('; ') : ''); }).join('\n\n'); };
+    return th.name + ': 30 + 40\n\n(a) 30 marks: ' + text(a).title + '\n\n' + lines(P.a) + '\n\n(b) 40 marks: ' + text(B[0]).title + ' and ' + text(B[1]).title + '\n\n' + lines(P.b) + '\n';
+  }
+  // The board's lines: from the right edge of a left card to the left edge of a right card, coloured by kind.
+  function cpLines() {
+    var b = app.querySelector('[data-cpb]'), svg = b && b.querySelector('svg');
+    if (!svg) return;
+    var th = cpTheme(), a = cpBy(th).a, w = cpWork(th, a), r0 = b.getBoundingClientRect(), d = '';
+    svg.setAttribute('viewBox', '0 0 ' + r0.width + ' ' + r0.height);
+    w.links.forEach(function (l, k) {
+      var p = b.querySelector('[data-cpm="' + l.a + '"]'), q = b.querySelector('[data-cpm="' + l.b + '"]');
+      if (!p || !q) return;
+      var rp = p.getBoundingClientRect(), rq = q.getBoundingClientRect();
+      if (rp.left > rq.left) { var t = rp; rp = rq; rq = t; }
+      var x1 = rp.right - r0.left, y1 = rp.top + rp.height / 2 - r0.top, x2 = rq.left - r0.left, y2 = rq.top + rq.height / 2 - r0.top, mx = (x1 + x2) / 2;
+      var rel = cpFind(th, l.a, l.b).rel;
+      d += '<path class="eng-cpb__ln eng-cpb__ln--' + rel + '" d="M' + x1 + ' ' + y1 + ' C' + mx + ' ' + y1 + ' ' + mx + ' ' + y2 + ' ' + x2 + ' ' + y2 + '"/>' +
+        '<circle class="eng-cpb__dot eng-cpb__ln--' + rel + '" cx="' + x1 + '" cy="' + y1 + '" r="4"/><circle class="eng-cpb__dot eng-cpb__ln--' + rel + '" cx="' + x2 + '" cy="' + y2 + '" r="4"/>';
+    });
+    svg.innerHTML = d;
+  }
+  window.addEventListener('resize', function () { if (app.querySelector('[data-cpb]')) cpLines(); });
+  // Tap a moment, then one in the other column: if it's a listed link, say how they compare.
+  function cpTap(mid) {
+    var th = cpTheme(), a = cpBy(th).a, w = cpWork(th, a);
+    CPFB = null; CPHINT = null;
+    if (!CPSEL || CPSEL === mid) { CPSEL = CPSEL === mid ? null : mid; CPPICK = null; return; }
+    if (tidOf(CPSEL) === tidOf(mid)) { CPSEL = mid; return; }
+    var have = w.links.filter(function (l) { return [l.a, l.b].sort().join() === [CPSEL, mid].sort().join(); })[0];
+    if (have) { var x = cpFind(th, have.a, have.b); CPFB = { kind: 'have', head: stop('You\'ve already linked these: ' + x.aspect), body: x.say }; CPSEL = null; return; }
+    CPPICK = [CPSEL, mid]; CPSEL = null;
+  }
+  function cpRel(rel) {
+    var th = cpTheme(), a = cpBy(th).a, w = cpWork(th, a), p = CPPICK;
+    CPPICK = null;
+    if (!p) return;
+    var x = cpFind(th, p[0], p[1]);
+    if (!x) { CPFB = { kind: 'miss', head: 'Not a strong link.', body: 'These two moments don\'t show the same thing about ' + th.name.toLowerCase() + '. Try another pair, or tap Give me a hint.' }; return; }
+    if (w.links.length >= 4) { CPFB = { kind: 'have', head: 'That\'s a good link, but you have four already.', body: 'Four paragraphs is plenty for part (b). Remove one to swap it in.' }; return; }
+    w.links.push({ a: x.a, b: x.b, rel: x.rel, guess: rel });
+    CPFB = rel === x.rel ? { kind: 'yes', head: stop('Spot on: ' + x.aspect), body: x.say } :
+      { kind: 'nearly', head: stop('Good pair! But it\'s really "' + REL[x.rel].toLowerCase() + '": ' + x.aspect), body: x.say };
+    cpSave();
+  }
+  function cpHint() {
+    var th = cpTheme(), ids = cpTexts(th), a = cpBy(th).a, w = cpWork(th, a), B = ids.filter(function (id) { return id !== a; });
+    var left = cpLinks(th, B[0], B[1]).filter(function (l) { return !w.links.some(function (m) { return m.a === l.a && m.b === l.b; }); })[0];
+    CPFB = null; CPPICK = null;
+    if (!left) { CPFB = { kind: 'have', head: 'You\'ve found every link.', body: 'Pick the three or four strongest for your answer.' }; return; }
+    var first = tidOf(left.a) === B[0] ? left.a : left.b;
+    CPSEL = first; CPHINT = first === left.a ? left.b : left.a;
+    CPFB = { kind: 'hint', head: 'Try these two.', body: 'The highlighted moment is picked for you. Find the one that glows in the other column: what do they share about ' + th.name.toLowerCase() + '?' };
   }
 
   // ---------- the essay builder ----------
@@ -1530,6 +1725,27 @@
     var qf = t.closest('[data-eng-qf]');
     if (qf) { qFilter = qf.getAttribute('data-eng-qf'); renderQuestions(); return; }
     if (t.closest('[data-eng-qopen]')) { QOPEN = !QOPEN; store('eng-q-open', QOPEN ? '1' : '0'); renderQuestions(); return; }
+    var cpa = t.closest('[data-cp-a]'), cpp = t.closest('[data-cp-pt]'), cpm = t.closest('[data-cpm]'), cpr = t.closest('[data-cp-rel]'), cpd = t.closest('[data-cp-del]');
+    if (cpa || cpp || cpm || cpr || cpd || t.closest('[data-cp-cancel],[data-cp-hint],[data-cp-reset],[data-cp-copy]')) {
+      var cth = cpTheme(), cby = cpBy(cth), focus = null;
+      if (cpa) { cby.a = cpa.getAttribute('data-cp-a'); CPSEL = CPPICK = CPFB = CPHINT = null; focus = '[data-cp-a="' + cby.a + '"]'; }
+      else if (cpp) {
+        var cw = cpWork(cth, cby.a), ci = +cpp.getAttribute('data-cp-pt'), at = cw.pts.indexOf(ci);
+        if (at >= 0) cw.pts.splice(at, 1); else if (cw.pts.length < 3) cw.pts.push(ci);
+        focus = '[data-cp-pt="' + ci + '"]';
+      }
+      else if (cpm) { cpTap(cpm.getAttribute('data-cpm')); focus = CPPICK ? '[data-cp-rel="same"]' : '[data-cpm="' + cpm.getAttribute('data-cpm') + '"]'; }
+      else if (cpr) { cpRel(cpr.getAttribute('data-cp-rel')); focus = '[data-cp-hint]'; }
+      else if (cpd) { cpWork(cth, cby.a).links.splice(+cpd.getAttribute('data-cp-del'), 1); CPFB = null; focus = '[data-cp-hint]'; }
+      else if (t.closest('[data-cp-cancel]')) { CPPICK = null; focus = '[data-cp-hint]'; }
+      else if (t.closest('[data-cp-hint]')) { cpHint(); focus = CPSEL ? '[data-cpm="' + CPSEL + '"]' : '[data-cp-hint]'; }
+      else if (t.closest('[data-cp-reset]')) { cby.work[cby.a] = { pts: [], links: [] }; CPSEL = CPPICK = CPFB = CPHINT = null; }
+      else if (t.closest('[data-cp-copy]')) { copy(cpPlanText(), t.closest('[data-cp-copy]')); return; }
+      cpSave(); renderCompare();
+      var fe = focus && app.querySelector(focus);
+      if (fe) fe.focus({ preventScroll: true });
+      return;
+    }
     // The builder.
     var e = E;
     var go = t.closest('[data-eb-go]');
@@ -1713,6 +1929,7 @@
     else if (p[0] === 'text') renderText(p[1], p[2]);
     else if (p[0] === 'language') renderLanguage();
     else if (p[0] === 'questions') renderQuestions();
+    else if (p[0] === 'compare') renderCompare();
     else if (p[0] === 'build') renderBuild(p[1]);
     else if (p[0] === 'comparative') renderHome();
     else if (p[0] === 'single') renderSingle();

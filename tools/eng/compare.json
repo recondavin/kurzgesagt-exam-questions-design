@@ -1,0 +1,64 @@
+{
+  "_about": "The interactive comparative (#compare in english.html): one theme, answered as a 30 + 40 question. For each theme: best, the text that stands best on its own in part (a), and why; points, for each text, the points to choose from for part (a) (moments m are key moment numbers, 1 to 12); links, the strong links between two texts' key moments for part (b) (rel: same, differ or degree; say: a model comparison sentence); ends, for each pair of texts, the judgement to end part (b) on. A pair of moments is a link only if it is listed; build_eng.py checks every moment and pair.",
+  "themes": [
+    {
+      "id": "power",
+      "name": "Abuse of power",
+      "notes": "Power and control",
+      "what": "Who has power, how they use it to control or hurt people, who suffers, and whether anyone stands up to them.",
+      "best": "shawshank",
+      "bestWhy": "Shawshank shows abuse of power most openly, so it stands on its own in part (a). Sive and Small Things Like These are both set in a controlling small Irish community, so they compare best together in part (b).",
+      "points": {
+        "shawshank": [
+          {"title": "Power through fear and violence", "m": [3], "say": "Norton greets the new men with “discipline and the Bible”, and that night Hadley beats a frightened prisoner to death. Nobody holds him to account."},
+          {"title": "Power over the mind", "m": [5, 11], "say": "Fifty years of control leave Brooks unable to live outside, and he hangs himself. Even Red, once freed, asks permission to go to the toilet."},
+          {"title": "Killing to keep control", "m": [7], "say": "When Tommy could prove Andy innocent, Norton has him shot, because Andy is too useful at hiding the warden's money."},
+          {"title": "Power turned back on the powerful", "m": [4, 10], "say": "Andy uses brains, not force: tax advice wins beer for the crew, and the false name Andy made up to hide the warden's money is what brings the warden down."}
+        ],
+        "sive": [
+          {"title": "Money decides everything", "m": [2], "say": "Once Thomasheen offers £200, it is Mena who drives the match and works on Mike until he gives in. A girl's life has a price."},
+          {"title": "The powerless have no say", "m": [6], "say": "Sive's schooling, her bed and her marriage are all decided for her. Mena announces each decision; she never asks."},
+          {"title": "Lies and burned words", "m": [7, 9], "say": "Mena lies that Liam has left Sive for good, and Thomasheen burns Liam's letter, so Sive never learns there was a way out."},
+          {"title": "Bullying the weak into silence", "m": [5], "say": "When Nanna stands up for Sive, Mena and Thomasheen threaten to send her to the county home."}
+        ],
+        "stlt": [
+          {"title": "Quiet, polite control", "m": [8], "say": "The Mother Superior controls every minute of Bill's visit: Sarah washed and dressed, the night in the shed called a game, and a hint that school places are scarce."},
+          {"title": "Locked doors", "m": [4, 7], "say": "The girls are kept behind walls topped with broken glass; one begs to be taken to the river, and Sarah is locked all night in the freezing coal shed."},
+          {"title": "Fear keeps the town quiet", "m": [6, 10], "say": "Eileen says there are things you have to ignore, and Mrs Kehoe warns that the nuns have “a finger in every pie”. Their power depends on everyone's silence."},
+          {"title": "One man stands up to it", "m": [11, 12], "say": "Bill goes back for Sarah and walks her through the town, knowing he will pay for it. Power can be broken, but at a cost."}
+        ]
+      },
+      "links": [
+        {"a": "sive-2", "b": "stlt-8", "rel": "same", "aspect": "Money buys obedience", "say": "In both texts money is the tool of power: just as the £200 buys Sive's future, the Mother Superior's envelope of money is meant to buy Bill's silence."},
+        {"a": "sive-6", "b": "stlt-8", "rel": "same", "aspect": "A woman enforces the system", "say": "In both texts a woman carries out the abuse for a system bigger than her: Mena announces every decision about Sive, and the Mother Superior smoothly protects the convent's secrets."},
+        {"a": "sive-6", "b": "stlt-7", "rel": "same", "aspect": "The victims have no say", "say": "Like Sive, who is told she will leave school and marry an old man, Sarah has no say at all: she is locked in a coal shed and her baby is taken from her."},
+        {"a": "sive-9", "b": "stlt-4", "rel": "same", "aspect": "Every way out is blocked", "say": "In both texts escape is cut off: Thomasheen burns the letter that would have freed Sive, and the convent girls are kept behind walls topped with broken glass."},
+        {"a": "sive-8", "b": "stlt-6", "rel": "same", "aspect": "Good people stay silent", "say": "In both texts abuse goes on because decent people look away: Mike cannot look his mother in the face, and Eileen tells Bill there are things you have to ignore."},
+        {"a": "sive-5", "b": "stlt-10", "rel": "same", "aspect": "Fear keeps people quiet", "say": "Fear silences anyone who might object: Nanna is threatened with the county home, and Mrs Kehoe warns Bill that the nuns have a finger in every pie."},
+        {"a": "sive-11", "b": "stlt-11", "rel": "differ", "aspect": "Does anyone stop it?", "say": "Here the texts part ways: in Sive nobody stops the abuse and Sive dies in the bog, whereas in Small Things Like These Bill walks back to the convent and takes Sarah out."},
+        {"a": "sive-12", "b": "stlt-12", "rel": "degree", "aspect": "How it ends", "say": "Both endings are touched by the abuse, but Small Things Like These is far more hopeful: Sive ends in grief with the powerful unpunished, while Bill walks home happy, though he knows he will pay."},
+
+        {"a": "sive-2", "b": "shawshank-7", "rel": "same", "aspect": "Greed drives it", "say": "Greed is at the root of both: Mena pushes the match for the £200, and Norton has Tommy killed to protect the money Andy hides for him."},
+        {"a": "sive-9", "b": "shawshank-7", "rel": "degree", "aspect": "Destroying the truth", "say": "Both abusers destroy the truth to keep control, but Norton goes much further: Thomasheen burns a letter, while Norton has a witness shot dead."},
+        {"a": "sive-5", "b": "shawshank-3", "rel": "degree", "aspect": "Bullying the weak", "say": "Both texts show the strong bullying the weak, but Shawshank is far more brutal: Nanna is threatened with the county home, while Hadley beats a frightened man to death."},
+        {"a": "sive-2", "b": "shawshank-3", "rel": "differ", "aspect": "How power is used", "say": "The weapons are different: in Sive power works through money and words, whereas in Shawshank it works through fists, guns and solitary confinement."},
+        {"a": "sive-11", "b": "shawshank-5", "rel": "same", "aspect": "The cost to the powerless", "say": "In both texts the abuse of power drives a powerless person to death: Sive drowns in the bog, and Brooks, broken by fifty years of control, hangs himself."},
+        {"a": "sive-8", "b": "shawshank-10", "rel": "differ", "aspect": "Standing up to power", "say": "Nanna pleads with Mike and fails, whereas Andy outwits the warden completely: in Sive the powerless lose, in Shawshank one of them wins."},
+        {"a": "sive-12", "b": "shawshank-12", "rel": "differ", "aspect": "How it ends", "say": "The endings could not be more different: Sive closes on a lament over her body, while Shawshank closes on two free men on a sunlit beach."},
+
+        {"a": "shawshank-3", "b": "stlt-8", "rel": "same", "aspect": "Religion as a mask", "say": "In both texts the abuser hides behind religion: Norton talks of discipline and the Bible, and the Mother Superior covers cruelty with politeness and a Christmas card."},
+        {"a": "shawshank-6", "b": "stlt-7", "rel": "same", "aspect": "Punished by being locked away", "say": "Both texts punish people by shutting them away: Andy gets two weeks in solitary for playing music, and Sarah is locked all night in the freezing coal shed."},
+        {"a": "shawshank-7", "b": "stlt-8", "rel": "degree", "aspect": "Hiding the truth", "say": "Both hide the truth to protect themselves, but Norton is far more violent: the Mother Superior calls the night in the shed a game, while Norton has Tommy shot."},
+        {"a": "shawshank-5", "b": "stlt-6", "rel": "same", "aspect": "Power over the mind", "say": "In both texts power gets inside people's heads: Brooks can no longer live without the prison, and the town has learnt there are things you have to ignore."},
+        {"a": "shawshank-3", "b": "stlt-10", "rel": "same", "aspect": "No one is held to account", "say": "In both worlds the powerful answer to no one: nobody holds Hadley to account for killing a prisoner, and Mrs Kehoe warns that the nuns have a finger in every pie."},
+        {"a": "shawshank-10", "b": "stlt-11", "rel": "degree", "aspect": "Standing up to power", "say": "Both texts show one man standing up to power, but Andy's victory is total, while Bill's quiet act of courage leaves him facing a cost we never see."},
+        {"a": "shawshank-12", "b": "stlt-12", "rel": "degree", "aspect": "How it ends", "say": "Both end in hope, but Shawshank's is complete, two free men on a beach, while Small Things Like These stops at Bill's door, before we see the price."}
+      ],
+      "ends": {
+        "sive|stlt": "Power wins completely in Sive: Sive dies and the powerful go unpunished. In Small Things Like These one decent man breaks the silence, so its view of power is darker in what it shows but more hopeful in how it ends.",
+        "shawshank|sive": "Sive shows power winning; Shawshank shows it beaten. The same abuse that destroys Sive is finally turned back on Norton, so Shawshank leaves us far more hopeful.",
+        "shawshank|stlt": "Both texts show one man standing up to an abusive system, but Shawshank's victory is complete, while Small Things Like These ends in a quieter, more uncertain hope."
+      }
+    }
+  ]
+}

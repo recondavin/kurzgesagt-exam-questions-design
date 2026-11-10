@@ -111,5 +111,20 @@ for (const trio of [['sive', 'othello', 'shawshank'], ['sive', 'othello', 'stlt'
   ok(D.images.filter(p => p.moment && trio.includes(p.text)).length >= 4, `Picture it has 4+ pictures for ${trio.join(', ')}`);
 
 if (fails.length) { console.log(fails.slice(0, 30).join('\n')); console.log(fails.length + ' failures'); process.exit(1); }
+// Compare it (#compare): every theme has a best text for part (a), 3+ points per text on real moments, and 4+ links
+// for every pair of texts, each a pair of real moments from two different texts, listed once, with a kind and a sentence.
+for (const th of D.compare || []) {
+  const tids = Object.keys(th.points), mid = new Map(tids.flatMap(t => D.texts[t].moments.map(m => [m.id, t])));
+  ok(tids.includes(th.best) && th.bestWhy, `${th.id}: a best text for part (a), and why`);
+  ok(tids.every(t => th.points[t].length >= 3 && th.points[t].every(p => p.title && p.say && p.m.every(n => n >= 1 && n <= D.texts[t].moments.length))), `${th.id}: 3+ points for each text, on real moments`);
+  const keys = th.links.map(l => [l.a, l.b].sort().join());
+  ok(new Set(keys).size === keys.length, `${th.id}: no link listed twice`);
+  ok(th.links.every(l => mid.has(l.a) && mid.has(l.b) && mid.get(l.a) !== mid.get(l.b) && ['same', 'differ', 'degree'].includes(l.rel) && l.aspect && l.say.length > 40), `${th.id}: every link joins two texts, with a kind and a sentence`);
+  for (let i = 0; i < tids.length; i++) for (let j = i + 1; j < tids.length; j++) {
+    const pair = [tids[i], tids[j]].sort();
+    ok(th.links.filter(l => [mid.get(l.a), mid.get(l.b)].sort().join() === pair.join()).length >= 4 && th.ends[pair.join('|')], `${th.id}: 4+ links and an ending for ${pair.join(' and ')}`);
+  }
+}
+
 console.log(`ok: ${D.order.length} texts, ${D.order.reduce((n, id) => n + D.texts[id].moments.length, 0)} key moments, ${D.questions.length} past questions, ` +
   `games: link ${G.link.length}, level ${G.level.length}, chains ${G.chains.length}, spot ${G.spot.length}; ${D.images.length} pictures`);
