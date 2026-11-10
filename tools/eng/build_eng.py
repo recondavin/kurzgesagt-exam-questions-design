@@ -115,8 +115,9 @@ def check_compare(cmp, texts, problems):
             for pt in pts:
                 if not (pt.get('title') and pt.get('say') and pt.get('m')) or any(not 1 <= n <= len(t['moments']) for n in pt['m']):
                     problems.append('%s %s %r: needs a title, say and real moments' % (where, tid, pt.get('title')))
-        # The writing guide (part (a)): for each scene, what it represents (title, say, start) and exactly 10 words with
-        # their meanings; an opening and an ending with tips, a start and 10 words; and the words to use instead of 'shows'.
+        # The writing guide (part (a)): for each scene, details for the anchor, what it represents (title, say, start and
+        # ideas) and exactly 10 words with their meanings; an opening and an ending, each in three parts with a label, a
+        # hint and ideas (or ideas made from your scenes: auto), and 10 words; and the words to use instead of 'shows'.
         if th.get('write') and len(th.get('instead', [])) < 8:
             problems.append('%s: needs 8+ words to use instead of shows' % where)
         for tid, wr in th.get('write', {}).items():
@@ -127,14 +128,17 @@ def check_compare(cmp, texts, problems):
             for n, sc in wr.get('scenes', {}).items():
                 if not n.isdigit() or not 1 <= int(n) <= len(t['moments']):
                     problems.append('%s write %s: no key moment %s' % (where, tid, n))
-                if not sc.get('reps') or any(not (r.get('title') and r.get('say') and r.get('start')) for r in sc['reps']):
-                    problems.append('%s write %s %s: each thing it represents needs a title, say and start' % (where, tid, n))
+                if not sc.get('reps') or any(not (r.get('title') and r.get('say') and r.get('start') and len(r.get('ideas', [])) >= 2) for r in sc['reps']):
+                    problems.append('%s write %s %s: each thing it represents needs a title, say, start and 2+ ideas' % (where, tid, n))
+                if len(sc.get('details', [])) < 2:
+                    problems.append('%s write %s %s: needs 2+ details for the anchor' % (where, tid, n))
                 if len(sc.get('words', [])) != 10 or any(len(x) != 2 or not x[0] or not x[1] for x in sc['words']):
                     problems.append('%s write %s %s: needs exactly 10 words, each with its meaning' % (where, tid, n))
-            for part in ('open', 'end'):
+            for part, keys in (('open', ['film', 'idea', 'points']), ('end', ['sum', 'final', 'last'])):
                 x = wr.get(part, {})
-                if not (x.get('tips') and x.get('start') and len(x.get('words', [])) == 10):
-                    problems.append('%s write %s: the %s needs tips, a start and 10 words' % (where, tid, part))
+                if [pt.get('k') for pt in x.get('parts', [])] != keys or len(x.get('words', [])) != 10 or \
+                        any(not (pt.get('label') and pt.get('hint') and (pt.get('ideas') or pt.get('auto'))) for pt in x.get('parts', [])):
+                    problems.append('%s write %s: the %s needs parts %s (label, hint, ideas or auto) and 10 words' % (where, tid, part, ', '.join(keys)))
         ids = {m['id']: tid for tid in tids if tid in texts for m in texts[tid]['moments']}
         seen, per = set(), {}
         for ln in th.get('links', []):

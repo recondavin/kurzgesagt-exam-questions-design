@@ -289,7 +289,11 @@
                 {
                   "title": "The system's power over an innocent man",
                   "say": "Andy is convicted of two murders he didn't commit: a cold court decides his whole life in one verdict.",
-                  "start": "From the opening scene, the film makes clear how much power the system holds over one man's life:"
+                  "start": "From the opening scene, the film makes clear how much power the system holds over one man's life:",
+                  "ideas": [
+                    "One verdict takes away the rest of a man's life, and the system never questions itself.",
+                    "It sets up the whole film: power does not care whether you are guilty or innocent."
+                  ]
                 }
               ],
               "words": [
@@ -333,6 +337,11 @@
                   "foreshadows",
                   "hints at what's coming"
                 ]
+              ],
+              "details": [
+                "Andy sits drunk in his car outside the house where his wife is with her lover, loading a revolver.",
+                "At the trial he insists he threw the gun into the river.",
+                "He is given two life sentences for two murders he did not commit."
               ]
             },
             "2": {
@@ -340,12 +349,20 @@
                 {
                   "title": "The system decides who is free",
                   "say": "After twenty years, Red's freedom depends on a few men behind a table, and one stamp, REJECTED, ends his hope.",
-                  "start": "Power over the prisoners' futures lies entirely with the parole board:"
+                  "start": "Power over the prisoners' futures lies entirely with the parole board:",
+                  "ideas": [
+                    "The board holds all the power, and Red's future comes down to a stamp.",
+                    "Freedom is not earned here: it is handed out, or not, by men who barely look up."
+                  ]
                 },
                 {
                   "title": "Power makes people perform",
                   "say": "Red says what he thinks the board wants to hear: under that kind of power, honesty seems pointless.",
-                  "start": "Under the board's power, even Red's words are not his own:"
+                  "start": "Under the board's power, even Red's words are not his own:",
+                  "ideas": [
+                    "Power makes honesty pointless: Red says what they want to hear, and it still isn't enough.",
+                    "The system turns men into performers."
+                  ]
                 }
               ],
               "words": [
@@ -389,6 +406,11 @@
                   "resigned",
                   "accepting something bad because you can't change it"
                 ]
+              ],
+              "details": [
+                "Twenty years into a life sentence, Red tells the parole board he is a changed man.",
+                "His file is stamped REJECTED.",
+                "In voiceover he introduces himself as the prisoner who can get things smuggled in."
               ]
             },
             "3": {
@@ -396,12 +418,20 @@
                 {
                   "title": "Power through fear and violence",
                   "say": "On Andy's first night Hadley beats a frightened prisoner to death, and nobody holds him to account.",
-                  "start": "From the first night, Shawshank is ruled by fear:"
+                  "start": "From the first night, Shawshank is ruled by fear:",
+                  "ideas": [
+                    "The guards can kill a man for crying, and nothing happens to them.",
+                    "Fear is the first lesson Shawshank teaches."
+                  ]
                 },
                 {
                   "title": "Religion as a mask",
                   "say": "Norton greets the new men with “discipline and the Bible” while he runs a brutal prison.",
-                  "start": "Norton hides his cruelty behind religion:"
+                  "start": "Norton hides his cruelty behind religion:",
+                  "ideas": [
+                    "Norton uses the Bible to look holy while his prison runs on violence.",
+                    "The film warns us not to trust power that dresses itself up as goodness."
+                  ]
                 }
               ],
               "words": [
@@ -445,6 +475,11 @@
                   "lays bare",
                   "reveals openly, holding nothing back"
                 ]
+              ],
+              "details": [
+                "Norton tells the new men he believes in discipline and the Bible.",
+                "That night Heywood and others taunt the new arrivals until one breaks down crying.",
+                "Hadley beats the crying man, who dies in the infirmary; the next morning Andy asks what his name was."
               ]
             },
             "4": {
@@ -452,12 +487,20 @@
                 {
                   "title": "Knowledge is a quieter kind of power",
                   "say": "By offering tax advice, Andy turns Hadley from a threat into a favour: brains beat brute force.",
-                  "start": "Andy discovers that knowledge can be as powerful as force:"
+                  "start": "Andy discovers that knowledge can be as powerful as force:",
+                  "ideas": [
+                    "Andy's knowledge gives him a power the guards don't have.",
+                    "For a moment the prisoners hold the power, and Red says they felt like free men."
+                  ]
                 },
                 {
                   "title": "Using power for others",
                   "say": "Andy asks only for beers for his crew: unlike the guards, he uses his power to give, not to take.",
-                  "start": "Unlike the guards, Andy uses what power he has for others:"
+                  "start": "Unlike the guards, Andy uses what power he has for others:",
+                  "ideas": [
+                    "Andy uses his small win for others, not himself: the opposite of the guards.",
+                    "Power used kindly is rare, and precious, in Shawshank."
+                  ]
                 }
               ],
               "words": [
@@ -501,6 +544,11 @@
                   "transforms",
                   "completely changes"
                 ]
+              ],
+              "details": [
+                "The prisoners are tarring the roof of the licence-plate factory.",
+                "Hadley nearly throws Andy off the roof for daring to speak to him.",
+                "Andy explains how to keep the inheritance tax-free and asks only for three beers each for his co-workers."
               ]
             },
             "5": {
@@ -508,12 +556,20 @@
                 {
                   "title": "Power over the mind",
                   "say": "Fifty years of control leave Brooks unable to live outside: the prison has taken over his mind.",
-                  "start": "The prison's power reaches beyond its walls and into the mind:"
+                  "start": "The prison's power reaches beyond its walls and into the mind:",
+                  "ideas": [
+                    "The prison's power does not end at the gate: it has taken over his mind.",
+                    "Fifty years of control have left Brooks unable to live without it."
+                  ]
                 },
                 {
                   "title": "The human cost of power",
                   "say": "Freed but broken, Brooks hangs himself after carving “Brooks Hatlen was here”.",
-                  "start": "The cost of the prison's power is measured in a human life:"
+                  "start": "The cost of the prison's power is measured in a human life:",
+                  "ideas": [
+                    "The system takes a man's whole life and gives nothing back.",
+                    "Brooks's death is the true cost of power without limits."
+                  ]
                 }
               ],
               "words": [
@@ -557,6 +613,11 @@
                   "stripped",
                   "had something taken away completely"
                 ]
+              ],
+              "details": [
+                "Told he will be paroled after fifty years, Brooks holds a knife to Heywood's throat so he can stay inside.",
+                "Red explains that Brooks is 'institutionalized'.",
+                "Outside, Brooks cannot cope, and he hangs himself after carving 'Brooks Hatlen was here'."
               ]
             },
             "6": {
@@ -564,12 +625,20 @@
                 {
                   "title": "Punished for a moment of freedom",
                   "say": "Andy gets two weeks in solitary for playing music: the guards can't stand anything they don't control.",
-                  "start": "Even a moment of beauty is treated as a threat:"
+                  "start": "Even a moment of beauty is treated as a threat:",
+                  "ideas": [
+                    "The guards punish beauty because it is something they don't control.",
+                    "Even a few minutes of freedom is treated as a crime."
+                  ]
                 },
                 {
                   "title": "Power can't reach the inside",
                   "say": "Andy says music is something inside that they can't take from you: control has its limits.",
-                  "start": "This scene suggests there is something power can never reach:"
+                  "start": "This scene suggests there is something power can never reach:",
+                  "ideas": [
+                    "Andy says music is something inside that they can't take from you.",
+                    "Power can lock up the body, but not everything inside a person."
+                  ]
                 }
               ],
               "words": [
@@ -613,6 +682,11 @@
                   "fragile",
                   "easily broken"
                 ]
+              ],
+              "details": [
+                "Andy's letters finally win books and records for the library.",
+                "He locks himself in the office and plays Mozart over the loudspeakers.",
+                "The prisoners stand still in the yard to listen, and Andy is given two weeks in solitary."
               ]
             },
             "7": {
@@ -620,12 +694,20 @@
                 {
                   "title": "Killing to keep control",
                   "say": "Norton has Tommy shot so that Andy, who hides his illegal money, can never leave.",
-                  "start": "Norton's power is so absolute that he will kill to protect it:"
+                  "start": "Norton's power is so absolute that he will kill to protect it:",
+                  "ideas": [
+                    "Norton would rather kill an innocent young man than lose the man who hides his money.",
+                    "Power at the top of Shawshank answers to no one."
+                  ]
                 },
                 {
                   "title": "Corruption at the top",
                   "say": "The man who preaches the Bible is hiding stolen money and having a witness murdered.",
-                  "start": "Corruption runs from the very top of Shawshank:"
+                  "start": "Corruption runs from the very top of Shawshank:",
+                  "ideas": [
+                    "The man who quotes the Bible is the most corrupt man in the prison.",
+                    "Corruption is not a few bad guards: it runs from the warden down."
+                  ]
                 }
               ],
               "words": [
@@ -669,6 +751,11 @@
                   "abuse of power",
                   "using power wrongly to hurt others"
                 ]
+              ],
+              "details": [
+                "Tommy reveals that a former cellmate boasted of the murders Andy was convicted of.",
+                "Norton refuses to help and throws Andy into solitary when he protests.",
+                "Norton has Hadley shoot Tommy dead at night, and threatens to destroy the library."
               ]
             },
             "8": {
@@ -676,12 +763,20 @@
                 {
                   "title": "Hope as a way of resisting",
                   "say": "After Tommy's death, Andy tells Red to “get busy living”: choosing hope is his answer to Norton's power.",
-                  "start": "Faced with Norton's power, Andy chooses hope:"
+                  "start": "Faced with Norton's power, Andy chooses hope:",
+                  "ideas": [
+                    "Hope becomes Andy's way of fighting back.",
+                    "Choosing to 'get busy living' is a quiet refusal to let Norton win."
+                  ]
                 },
                 {
                   "title": "What power does to people",
                   "say": "When Red hears Andy has asked for a rope, he fears the worst: power has pushed Andy to the edge.",
-                  "start": "The scene also reveals how close Norton's power has pushed Andy to breaking:"
+                  "start": "The scene also reveals how close Norton's power has pushed Andy to breaking:",
+                  "ideas": [
+                    "Norton's power has pushed Andy to the edge.",
+                    "The tension lets us feel how close power comes to breaking him."
+                  ]
                 }
               ],
               "words": [
@@ -725,6 +820,11 @@
                   "choice",
                   "a decision between options"
                 ]
+              ],
+              "details": [
+                "Andy admits he was a distant husband, though he did not kill his wife.",
+                "He tells Red about his dream of a small hotel in Zihuatanejo, Mexico.",
+                "He makes Red promise to look under a rock near Buxton, and Red fears Andy plans to kill himself."
               ]
             },
             "9": {
@@ -732,12 +832,20 @@
                 {
                   "title": "Power outwitted",
                   "say": "Behind a poster, Andy has spent nearly twenty years digging his way out: the warden's total control was never total.",
-                  "start": "The empty cell reveals that the warden's control was never as complete as it seemed:"
+                  "start": "The empty cell reveals that the warden's control was never as complete as it seemed:",
+                  "ideas": [
+                    "The warden's total control was an illusion all along.",
+                    "The powerless man beats the system with time and patience."
+                  ]
                 },
                 {
                   "title": "Freedom through patience",
                   "say": "Andy crawls through five hundred yards of sewer pipe and raises his arms in the rain.",
-                  "start": "Andy's escape is the reward for years of patient resistance:"
+                  "start": "Andy's escape is the reward for years of patient resistance:",
+                  "ideas": [
+                    "Freedom comes from years of quiet, stubborn hope.",
+                    "Andy raising his arms in the rain feels like a rebirth."
+                  ]
                 }
               ],
               "words": [
@@ -781,6 +889,11 @@
                   "vindicated",
                   "proved right"
                 ]
+              ],
+              "details": [
+                "At the morning count, Andy's cell is empty.",
+                "Norton throws a stone at the poster and it tears straight through to a tunnel.",
+                "Andy dug for nearly twenty years with a small rock hammer and crawled through five hundred yards of sewer pipe."
               ]
             },
             "10": {
@@ -788,12 +901,20 @@
                 {
                   "title": "Power turned back on the powerful",
                   "say": "Andy uses the false name he invented to hide Norton's money to take that money and expose him.",
-                  "start": "In the end, the system Norton built is the one that destroys him:"
+                  "start": "In the end, the system Norton built is the one that destroys him:",
+                  "ideas": [
+                    "The system Norton built to hide his crimes is what destroys him.",
+                    "Power turned back on its owner feels like justice."
+                  ]
                 },
                 {
                   "title": "Hypocrisy exposed",
                   "say": "Norton's safe is hidden behind the words “His judgment cometh and that right early”, and judgement does come.",
-                  "start": "Norton's hypocrisy is finally exposed:"
+                  "start": "Norton's hypocrisy is finally exposed:",
+                  "ideas": [
+                    "Behind “His judgment cometh” sits a safe full of dirty money.",
+                    "The hypocrite is finally judged by his own words."
+                  ]
                 }
               ],
               "words": [
@@ -837,6 +958,11 @@
                   "satisfying",
                   "giving a sense that things are right"
                 ]
+              ],
+              "details": [
+                "Posing as 'Randall Stephens', Andy withdraws Norton's money from several banks.",
+                "He posts the warden's account book and evidence of his crimes to a newspaper.",
+                "Hadley is arrested; Norton finds the Bible that hid the rock hammer, and shoots himself."
               ]
             },
             "11": {
@@ -844,12 +970,20 @@
                 {
                   "title": "The lasting damage of power",
                   "say": "Released at last, Red still asks permission to go to the toilet: the prison is still in his head.",
-                  "start": "Even after release, the prison's power lingers:"
+                  "start": "Even after release, the prison's power lingers:",
+                  "ideas": [
+                    "Even freedom can't undo forty years of control.",
+                    "Red's story echoes Brooks's, and we fear it will end the same way."
+                  ]
                 },
                 {
                   "title": "Honesty as a kind of freedom",
                   "say": "Red stops performing for the board, calls “rehabilitated” a made-up word, and is finally released.",
-                  "start": "Red finds freedom only when he stops playing the system's game:"
+                  "start": "Red finds freedom only when he stops playing the system's game:",
+                  "ideas": [
+                    "Red is finally freed when he stops performing for the system.",
+                    "Honesty is the one thing the board can't control."
+                  ]
                 }
               ],
               "words": [
@@ -893,6 +1027,11 @@
                   "echoes",
                   "repeats something from earlier (here, Brooks)"
                 ]
+              ],
+              "details": [
+                "After forty years, Red tells the board that 'rehabilitated' is a made-up word.",
+                "He says he regrets the foolish young man who committed his crime, and he is released.",
+                "Outside he gets Brooks's old room and job, and asks his manager for permission to go to the toilet."
               ]
             },
             "12": {
@@ -900,12 +1039,20 @@
                 {
                   "title": "Freedom beyond power's reach",
                   "say": "Red keeps his promise, breaks parole and finds Andy on a beach, far beyond the reach of any prison.",
-                  "start": "The ending places its characters beyond the reach of power:"
+                  "start": "The ending places its characters beyond the reach of power:",
+                  "ideas": [
+                    "The two men end up where no prison and no warden can reach them.",
+                    "The open sea is the opposite of the walls of Shawshank."
+                  ]
                 },
                 {
                   "title": "Hope defeats the system",
                   "say": "“Hope is a good thing”: the very thing Red once called dangerous is what saves him.",
-                  "start": "Ultimately, hope proves stronger than the system:"
+                  "start": "Ultimately, hope proves stronger than the system:",
+                  "ideas": [
+                    "The hope Red once called dangerous is what saves him.",
+                    "The ending leaves us believing that hope outlasts power."
+                  ]
                 }
               ],
               "words": [
@@ -949,16 +1096,15 @@
                   "cathartic",
                   "releasing pent-up feelings"
                 ]
+              ],
+              "details": [
+                "Red finds Andy's box under the rock near Buxton, with money and a letter.",
+                "He carves 'So was Red' beside Brooks's words and breaks his parole.",
+                "He finds Andy working on an old boat on a sunlit beach in Zihuatanejo."
               ]
             }
           },
           "open": {
-            "tips": [
-              "Name the film and its director: The Shawshank Redemption, directed by Frank Darabont.",
-              "Say in one line what the film says about abuse of power.",
-              "Name the three things your paragraphs will cover."
-            ],
-            "start": "In The Shawshank Redemption, directed by Frank Darabont, power is abused by those who run the prison:",
             "words": [
               [
                 "explores",
@@ -1000,15 +1146,35 @@
                 "ultimately",
                 "in the end"
               ]
+            ],
+            "parts": [
+              {
+                "k": "film",
+                "label": "The film",
+                "hint": "Name it and its director.",
+                "ideas": [
+                  "In The Shawshank Redemption, directed by Frank Darabont,"
+                ]
+              },
+              {
+                "k": "idea",
+                "label": "What it says about abuse of power",
+                "hint": "Your whole answer, in one line.",
+                "ideas": [
+                  "power in the wrong hands becomes cruelty, and the powerful will do anything to keep it.",
+                  "the men who run Shawshank use fear, violence and lies to control the prisoners, and answer to no one.",
+                  "abuse of power can crush a man’s life, but it cannot crush his hope."
+                ]
+              },
+              {
+                "k": "points",
+                "label": "Your three points",
+                "hint": "They come from the three scenes you picked.",
+                "auto": "points"
+              }
             ]
           },
           "end": {
-            "tips": [
-              "Sum up your three points in one or two sentences.",
-              "Say what the film finally says about abuse of power.",
-              "Do not bring in a new key moment."
-            ],
-            "start": "Ultimately, The Shawshank Redemption suggests that",
             "words": [
               [
                 "ultimately",
@@ -1050,6 +1216,32 @@
                 "lasting impression",
                 "a feeling that stays with you"
               ]
+            ],
+            "parts": [
+              {
+                "k": "sum",
+                "label": "Sum up your three points",
+                "hint": "One sentence that pulls them together.",
+                "auto": "sum"
+              },
+              {
+                "k": "final",
+                "label": "What the film finally says",
+                "hint": "Your judgement on abuse of power.",
+                "ideas": [
+                  "Shawshank warns that power without limits always ends in cruelty.",
+                  "Yet the film refuses to let power have the last word: Andy beats Norton at his own game."
+                ]
+              },
+              {
+                "k": "last",
+                "label": "Your last line",
+                "hint": "Leave the examiner with something.",
+                "ideas": [
+                  "Ultimately, The Shawshank Redemption leaves the viewer believing that hope outlasts even the most abusive power.",
+                  "In the end, the abusers lose everything, and the men they tried to break walk free."
+                ]
+              }
             ]
           }
         }
