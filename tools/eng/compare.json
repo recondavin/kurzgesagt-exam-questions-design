@@ -10,54 +10,1049 @@
       "bestWhy": "Shawshank shows abuse of power most openly, so it stands on its own in part (a). Sive and Small Things Like These are both set in a controlling small Irish community, so they compare best together in part (b).",
       "points": {
         "shawshank": [
-          {"title": "Power through fear and violence", "m": [3], "say": "Norton greets the new men with “discipline and the Bible”, and that night Hadley beats a frightened prisoner to death. Nobody holds him to account."},
-          {"title": "Power over the mind", "m": [5, 11], "say": "Fifty years of control leave Brooks unable to live outside, and he hangs himself. Even Red, once freed, asks permission to go to the toilet."},
-          {"title": "Killing to keep control", "m": [7], "say": "When Tommy could prove Andy innocent, Norton has him shot, because Andy is too useful at hiding the warden's money."},
-          {"title": "Power turned back on the powerful", "m": [4, 10], "say": "Andy uses brains, not force: tax advice wins beer for the crew, and the false name Andy made up to hide the warden's money is what brings the warden down."}
+          {
+            "title": "Power through fear and violence",
+            "m": [
+              3
+            ],
+            "say": "Norton greets the new men with “discipline and the Bible”, and that night Hadley beats a frightened prisoner to death. Nobody holds him to account."
+          },
+          {
+            "title": "Power over the mind",
+            "m": [
+              5,
+              11
+            ],
+            "say": "Fifty years of control leave Brooks unable to live outside, and he hangs himself. Even Red, once freed, asks permission to go to the toilet."
+          },
+          {
+            "title": "Killing to keep control",
+            "m": [
+              7
+            ],
+            "say": "When Tommy could prove Andy innocent, Norton has him shot, because Andy is too useful at hiding the warden's money."
+          },
+          {
+            "title": "Power turned back on the powerful",
+            "m": [
+              4,
+              10
+            ],
+            "say": "Andy uses brains, not force: tax advice wins beer for the crew, and the false name Andy made up to hide the warden's money is what brings the warden down."
+          }
         ],
         "sive": [
-          {"title": "Money decides everything", "m": [2], "say": "Once Thomasheen offers £200, it is Mena who drives the match and works on Mike until he gives in. A girl's life has a price."},
-          {"title": "The powerless have no say", "m": [6], "say": "Sive's schooling, her bed and her marriage are all decided for her. Mena announces each decision; she never asks."},
-          {"title": "Lies and burned words", "m": [7, 9], "say": "Mena lies that Liam has left Sive for good, and Thomasheen burns Liam's letter, so Sive never learns there was a way out."},
-          {"title": "Bullying the weak into silence", "m": [5], "say": "When Nanna stands up for Sive, Mena and Thomasheen threaten to send her to the county home."}
+          {
+            "title": "Money decides everything",
+            "m": [
+              2
+            ],
+            "say": "Once Thomasheen offers £200, it is Mena who drives the match and works on Mike until he gives in. A girl's life has a price."
+          },
+          {
+            "title": "The powerless have no say",
+            "m": [
+              6
+            ],
+            "say": "Sive's schooling, her bed and her marriage are all decided for her. Mena announces each decision; she never asks."
+          },
+          {
+            "title": "Lies and burned words",
+            "m": [
+              7,
+              9
+            ],
+            "say": "Mena lies that Liam has left Sive for good, and Thomasheen burns Liam's letter, so Sive never learns there was a way out."
+          },
+          {
+            "title": "Bullying the weak into silence",
+            "m": [
+              5
+            ],
+            "say": "When Nanna stands up for Sive, Mena and Thomasheen threaten to send her to the county home."
+          }
         ],
         "stlt": [
-          {"title": "Quiet, polite control", "m": [8], "say": "The Mother Superior controls every minute of Bill's visit: Sarah washed and dressed, the night in the shed called a game, and a hint that school places are scarce."},
-          {"title": "Locked doors", "m": [4, 7], "say": "The girls are kept behind walls topped with broken glass; one begs to be taken to the river, and Sarah is locked all night in the freezing coal shed."},
-          {"title": "Fear keeps the town quiet", "m": [6, 10], "say": "Eileen says there are things you have to ignore, and Mrs Kehoe warns that the nuns have “a finger in every pie”. Their power depends on everyone's silence."},
-          {"title": "One man stands up to it", "m": [11, 12], "say": "Bill goes back for Sarah and walks her through the town, knowing he will pay for it. Power can be broken, but at a cost."}
+          {
+            "title": "Quiet, polite control",
+            "m": [
+              8
+            ],
+            "say": "The Mother Superior controls every minute of Bill's visit: Sarah washed and dressed, the night in the shed called a game, and a hint that school places are scarce."
+          },
+          {
+            "title": "Locked doors",
+            "m": [
+              4,
+              7
+            ],
+            "say": "The girls are kept behind walls topped with broken glass; one begs to be taken to the river, and Sarah is locked all night in the freezing coal shed."
+          },
+          {
+            "title": "Fear keeps the town quiet",
+            "m": [
+              6,
+              10
+            ],
+            "say": "Eileen says there are things you have to ignore, and Mrs Kehoe warns that the nuns have “a finger in every pie”. Their power depends on everyone's silence."
+          },
+          {
+            "title": "One man stands up to it",
+            "m": [
+              11,
+              12
+            ],
+            "say": "Bill goes back for Sarah and walks her through the town, knowing he will pay for it. Power can be broken, but at a cost."
+          }
         ]
       },
       "links": [
-        {"a": "sive-2", "b": "stlt-8", "rel": "same", "aspect": "Money buys obedience", "say": "In both texts money is the tool of power: just as the £200 buys Sive's future, the Mother Superior's envelope of money is meant to buy Bill's silence."},
-        {"a": "sive-6", "b": "stlt-8", "rel": "same", "aspect": "A woman enforces the system", "say": "In both texts a woman carries out the abuse for a system bigger than her: Mena announces every decision about Sive, and the Mother Superior smoothly protects the convent's secrets."},
-        {"a": "sive-6", "b": "stlt-7", "rel": "same", "aspect": "The victims have no say", "say": "Like Sive, who is told she will leave school and marry an old man, Sarah has no say at all: she is locked in a coal shed and her baby is taken from her."},
-        {"a": "sive-9", "b": "stlt-4", "rel": "same", "aspect": "Every way out is blocked", "say": "In both texts escape is cut off: Thomasheen burns the letter that would have freed Sive, and the convent girls are kept behind walls topped with broken glass."},
-        {"a": "sive-8", "b": "stlt-6", "rel": "same", "aspect": "Good people stay silent", "say": "In both texts abuse goes on because decent people look away: Mike cannot look his mother in the face, and Eileen tells Bill there are things you have to ignore."},
-        {"a": "sive-5", "b": "stlt-10", "rel": "same", "aspect": "Fear keeps people quiet", "say": "Fear silences anyone who might object: Nanna is threatened with the county home, and Mrs Kehoe warns Bill that the nuns have a finger in every pie."},
-        {"a": "sive-11", "b": "stlt-11", "rel": "differ", "aspect": "Does anyone stop it?", "say": "Here the texts part ways: in Sive nobody stops the abuse and Sive dies in the bog, whereas in Small Things Like These Bill walks back to the convent and takes Sarah out."},
-        {"a": "sive-12", "b": "stlt-12", "rel": "degree", "aspect": "How it ends", "say": "Both endings are touched by the abuse, but Small Things Like These is far more hopeful: Sive ends in grief with the powerful unpunished, while Bill walks home happy, though he knows he will pay."},
-
-        {"a": "sive-2", "b": "shawshank-7", "rel": "same", "aspect": "Greed drives it", "say": "Greed is at the root of both: Mena pushes the match for the £200, and Norton has Tommy killed to protect the money Andy hides for him."},
-        {"a": "sive-9", "b": "shawshank-7", "rel": "degree", "aspect": "Destroying the truth", "say": "Both abusers destroy the truth to keep control, but Norton goes much further: Thomasheen burns a letter, while Norton has a witness shot dead."},
-        {"a": "sive-5", "b": "shawshank-3", "rel": "degree", "aspect": "Bullying the weak", "say": "Both texts show the strong bullying the weak, but Shawshank is far more brutal: Nanna is threatened with the county home, while Hadley beats a frightened man to death."},
-        {"a": "sive-2", "b": "shawshank-3", "rel": "differ", "aspect": "How power is used", "say": "The weapons are different: in Sive power works through money and words, whereas in Shawshank it works through fists, guns and solitary confinement."},
-        {"a": "sive-11", "b": "shawshank-5", "rel": "same", "aspect": "The cost to the powerless", "say": "In both texts the abuse of power drives a powerless person to death: Sive drowns in the bog, and Brooks, broken by fifty years of control, hangs himself."},
-        {"a": "sive-8", "b": "shawshank-10", "rel": "differ", "aspect": "Standing up to power", "say": "Nanna pleads with Mike and fails, whereas Andy outwits the warden completely: in Sive the powerless lose, in Shawshank one of them wins."},
-        {"a": "sive-12", "b": "shawshank-12", "rel": "differ", "aspect": "How it ends", "say": "The endings could not be more different: Sive closes on a lament over her body, while Shawshank closes on two free men on a sunlit beach."},
-
-        {"a": "shawshank-3", "b": "stlt-8", "rel": "same", "aspect": "Religion as a mask", "say": "In both texts the abuser hides behind religion: Norton talks of discipline and the Bible, and the Mother Superior covers cruelty with politeness and a Christmas card."},
-        {"a": "shawshank-6", "b": "stlt-7", "rel": "same", "aspect": "Punished by being locked away", "say": "Both texts punish people by shutting them away: Andy gets two weeks in solitary for playing music, and Sarah is locked all night in the freezing coal shed."},
-        {"a": "shawshank-7", "b": "stlt-8", "rel": "degree", "aspect": "Hiding the truth", "say": "Both hide the truth to protect themselves, but Norton is far more violent: the Mother Superior calls the night in the shed a game, while Norton has Tommy shot."},
-        {"a": "shawshank-5", "b": "stlt-6", "rel": "same", "aspect": "Power over the mind", "say": "In both texts power gets inside people's heads: Brooks can no longer live without the prison, and the town has learnt there are things you have to ignore."},
-        {"a": "shawshank-3", "b": "stlt-10", "rel": "same", "aspect": "No one is held to account", "say": "In both worlds the powerful answer to no one: nobody holds Hadley to account for killing a prisoner, and Mrs Kehoe warns that the nuns have a finger in every pie."},
-        {"a": "shawshank-10", "b": "stlt-11", "rel": "degree", "aspect": "Standing up to power", "say": "Both texts show one man standing up to power, but Andy's victory is total, while Bill's quiet act of courage leaves him facing a cost we never see."},
-        {"a": "shawshank-12", "b": "stlt-12", "rel": "degree", "aspect": "How it ends", "say": "Both end in hope, but Shawshank's is complete, two free men on a beach, while Small Things Like These stops at Bill's door, before we see the price."}
+        {
+          "a": "sive-2",
+          "b": "stlt-8",
+          "rel": "same",
+          "aspect": "Money buys obedience",
+          "say": "In both texts money is the tool of power: just as the £200 buys Sive's future, the Mother Superior's envelope of money is meant to buy Bill's silence."
+        },
+        {
+          "a": "sive-6",
+          "b": "stlt-8",
+          "rel": "same",
+          "aspect": "A woman enforces the system",
+          "say": "In both texts a woman carries out the abuse for a system bigger than her: Mena announces every decision about Sive, and the Mother Superior smoothly protects the convent's secrets."
+        },
+        {
+          "a": "sive-6",
+          "b": "stlt-7",
+          "rel": "same",
+          "aspect": "The victims have no say",
+          "say": "Like Sive, who is told she will leave school and marry an old man, Sarah has no say at all: she is locked in a coal shed and her baby is taken from her."
+        },
+        {
+          "a": "sive-9",
+          "b": "stlt-4",
+          "rel": "same",
+          "aspect": "Every way out is blocked",
+          "say": "In both texts escape is cut off: Thomasheen burns the letter that would have freed Sive, and the convent girls are kept behind walls topped with broken glass."
+        },
+        {
+          "a": "sive-8",
+          "b": "stlt-6",
+          "rel": "same",
+          "aspect": "Good people stay silent",
+          "say": "In both texts abuse goes on because decent people look away: Mike cannot look his mother in the face, and Eileen tells Bill there are things you have to ignore."
+        },
+        {
+          "a": "sive-5",
+          "b": "stlt-10",
+          "rel": "same",
+          "aspect": "Fear keeps people quiet",
+          "say": "Fear silences anyone who might object: Nanna is threatened with the county home, and Mrs Kehoe warns Bill that the nuns have a finger in every pie."
+        },
+        {
+          "a": "sive-11",
+          "b": "stlt-11",
+          "rel": "differ",
+          "aspect": "Does anyone stop it?",
+          "say": "Here the texts part ways: in Sive nobody stops the abuse and Sive dies in the bog, whereas in Small Things Like These Bill walks back to the convent and takes Sarah out."
+        },
+        {
+          "a": "sive-12",
+          "b": "stlt-12",
+          "rel": "degree",
+          "aspect": "How it ends",
+          "say": "Both endings are touched by the abuse, but Small Things Like These is far more hopeful: Sive ends in grief with the powerful unpunished, while Bill walks home happy, though he knows he will pay."
+        },
+        {
+          "a": "sive-2",
+          "b": "shawshank-7",
+          "rel": "same",
+          "aspect": "Greed drives it",
+          "say": "Greed is at the root of both: Mena pushes the match for the £200, and Norton has Tommy killed to protect the money Andy hides for him."
+        },
+        {
+          "a": "sive-9",
+          "b": "shawshank-7",
+          "rel": "degree",
+          "aspect": "Destroying the truth",
+          "say": "Both abusers destroy the truth to keep control, but Norton goes much further: Thomasheen burns a letter, while Norton has a witness shot dead."
+        },
+        {
+          "a": "sive-5",
+          "b": "shawshank-3",
+          "rel": "degree",
+          "aspect": "Bullying the weak",
+          "say": "Both texts show the strong bullying the weak, but Shawshank is far more brutal: Nanna is threatened with the county home, while Hadley beats a frightened man to death."
+        },
+        {
+          "a": "sive-2",
+          "b": "shawshank-3",
+          "rel": "differ",
+          "aspect": "How power is used",
+          "say": "The weapons are different: in Sive power works through money and words, whereas in Shawshank it works through fists, guns and solitary confinement."
+        },
+        {
+          "a": "sive-11",
+          "b": "shawshank-5",
+          "rel": "same",
+          "aspect": "The cost to the powerless",
+          "say": "In both texts the abuse of power drives a powerless person to death: Sive drowns in the bog, and Brooks, broken by fifty years of control, hangs himself."
+        },
+        {
+          "a": "sive-8",
+          "b": "shawshank-10",
+          "rel": "differ",
+          "aspect": "Standing up to power",
+          "say": "Nanna pleads with Mike and fails, whereas Andy outwits the warden completely: in Sive the powerless lose, in Shawshank one of them wins."
+        },
+        {
+          "a": "sive-12",
+          "b": "shawshank-12",
+          "rel": "differ",
+          "aspect": "How it ends",
+          "say": "The endings could not be more different: Sive closes on a lament over her body, while Shawshank closes on two free men on a sunlit beach."
+        },
+        {
+          "a": "shawshank-3",
+          "b": "stlt-8",
+          "rel": "same",
+          "aspect": "Religion as a mask",
+          "say": "In both texts the abuser hides behind religion: Norton talks of discipline and the Bible, and the Mother Superior covers cruelty with politeness and a Christmas card."
+        },
+        {
+          "a": "shawshank-6",
+          "b": "stlt-7",
+          "rel": "same",
+          "aspect": "Punished by being locked away",
+          "say": "Both texts punish people by shutting them away: Andy gets two weeks in solitary for playing music, and Sarah is locked all night in the freezing coal shed."
+        },
+        {
+          "a": "shawshank-7",
+          "b": "stlt-8",
+          "rel": "degree",
+          "aspect": "Hiding the truth",
+          "say": "Both hide the truth to protect themselves, but Norton is far more violent: the Mother Superior calls the night in the shed a game, while Norton has Tommy shot."
+        },
+        {
+          "a": "shawshank-5",
+          "b": "stlt-6",
+          "rel": "same",
+          "aspect": "Power over the mind",
+          "say": "In both texts power gets inside people's heads: Brooks can no longer live without the prison, and the town has learnt there are things you have to ignore."
+        },
+        {
+          "a": "shawshank-3",
+          "b": "stlt-10",
+          "rel": "same",
+          "aspect": "No one is held to account",
+          "say": "In both worlds the powerful answer to no one: nobody holds Hadley to account for killing a prisoner, and Mrs Kehoe warns that the nuns have a finger in every pie."
+        },
+        {
+          "a": "shawshank-10",
+          "b": "stlt-11",
+          "rel": "degree",
+          "aspect": "Standing up to power",
+          "say": "Both texts show one man standing up to power, but Andy's victory is total, while Bill's quiet act of courage leaves him facing a cost we never see."
+        },
+        {
+          "a": "shawshank-12",
+          "b": "stlt-12",
+          "rel": "degree",
+          "aspect": "How it ends",
+          "say": "Both end in hope, but Shawshank's is complete, two free men on a beach, while Small Things Like These stops at Bill's door, before we see the price."
+        }
       ],
       "ends": {
         "sive|stlt": "Power wins completely in Sive: Sive dies and the powerful go unpunished. In Small Things Like These one decent man breaks the silence, so its view of power is darker in what it shows but more hopeful in how it ends.",
         "shawshank|sive": "Sive shows power winning; Shawshank shows it beaten. The same abuse that destroys Sive is finally turned back on Norton, so Shawshank leaves us far more hopeful.",
         "shawshank|stlt": "Both texts show one man standing up to an abusive system, but Shawshank's victory is complete, while Small Things Like These ends in a quieter, more uncertain hope."
+      },
+      "instead": [
+        "reveals",
+        "exposes",
+        "highlights",
+        "underlines",
+        "illustrates",
+        "conveys",
+        "depicts",
+        "emphasises",
+        "suggests",
+        "captures",
+        "lays bare",
+        "demonstrates"
+      ],
+      "write": {
+        "shawshank": {
+          "scenes": {
+            "1": {
+              "reps": [
+                {
+                  "title": "The system's power over an innocent man",
+                  "say": "Andy is convicted of two murders he didn't commit: a cold court decides his whole life in one verdict.",
+                  "start": "From the opening scene, the film makes clear how much power the system holds over one man's life:"
+                }
+              ],
+              "words": [
+                [
+                  "verdict",
+                  "the court's decision"
+                ],
+                [
+                  "wrongful",
+                  "unfair and mistaken"
+                ],
+                [
+                  "circumstantial",
+                  "evidence that only hints at guilt; it does not prove it"
+                ],
+                [
+                  "condemn",
+                  "to sentence someone to punishment"
+                ],
+                [
+                  "impersonal",
+                  "cold, with no human feeling"
+                ],
+                [
+                  "injustice",
+                  "something deeply unfair"
+                ],
+                [
+                  "powerless",
+                  "with no way to fight back"
+                ],
+                [
+                  "composed",
+                  "calm and in control"
+                ],
+                [
+                  "establishes",
+                  "sets up from the start"
+                ],
+                [
+                  "foreshadows",
+                  "hints at what's coming"
+                ]
+              ]
+            },
+            "2": {
+              "reps": [
+                {
+                  "title": "The system decides who is free",
+                  "say": "After twenty years, Red's freedom depends on a few men behind a table, and one stamp, REJECTED, ends his hope.",
+                  "start": "Power over the prisoners' futures lies entirely with the parole board:"
+                },
+                {
+                  "title": "Power makes people perform",
+                  "say": "Red says what he thinks the board wants to hear: under that kind of power, honesty seems pointless.",
+                  "start": "Under the board's power, even Red's words are not his own:"
+                }
+              ],
+              "words": [
+                [
+                  "rejected",
+                  "turned down"
+                ],
+                [
+                  "arbitrary",
+                  "decided on a whim, not for good reasons"
+                ],
+                [
+                  "rehearsed",
+                  "practised, not honest"
+                ],
+                [
+                  "futile",
+                  "pointless"
+                ],
+                [
+                  "authority",
+                  "the right to give orders and decide"
+                ],
+                [
+                  "hollow",
+                  "empty, not really meant"
+                ],
+                [
+                  "routine",
+                  "done the same way every time, without care"
+                ],
+                [
+                  "dehumanising",
+                  "treating people as less than human"
+                ],
+                [
+                  "underlines",
+                  "makes a point stronger"
+                ],
+                [
+                  "resigned",
+                  "accepting something bad because you can't change it"
+                ]
+              ]
+            },
+            "3": {
+              "reps": [
+                {
+                  "title": "Power through fear and violence",
+                  "say": "On Andy's first night Hadley beats a frightened prisoner to death, and nobody holds him to account.",
+                  "start": "From the first night, Shawshank is ruled by fear:"
+                },
+                {
+                  "title": "Religion as a mask",
+                  "say": "Norton greets the new men with “discipline and the Bible” while he runs a brutal prison.",
+                  "start": "Norton hides his cruelty behind religion:"
+                }
+              ],
+              "words": [
+                [
+                  "brutality",
+                  "savage violence"
+                ],
+                [
+                  "intimidation",
+                  "frightening people into obeying"
+                ],
+                [
+                  "hypocrisy",
+                  "saying one thing and doing the opposite"
+                ],
+                [
+                  "impunity",
+                  "doing wrong without being punished"
+                ],
+                [
+                  "sadistic",
+                  "enjoying other people's pain"
+                ],
+                [
+                  "regime",
+                  "a strict system of rule"
+                ],
+                [
+                  "tyranny",
+                  "cruel, unfair use of power"
+                ],
+                [
+                  "unchecked",
+                  "with nothing to stop it"
+                ],
+                [
+                  "exposes",
+                  "reveals something bad that was hidden"
+                ],
+                [
+                  "lays bare",
+                  "reveals openly, holding nothing back"
+                ]
+              ]
+            },
+            "4": {
+              "reps": [
+                {
+                  "title": "Knowledge is a quieter kind of power",
+                  "say": "By offering tax advice, Andy turns Hadley from a threat into a favour: brains beat brute force.",
+                  "start": "Andy discovers that knowledge can be as powerful as force:"
+                },
+                {
+                  "title": "Using power for others",
+                  "say": "Andy asks only for beers for his crew: unlike the guards, he uses his power to give, not to take.",
+                  "start": "Unlike the guards, Andy uses what power he has for others:"
+                }
+              ],
+              "words": [
+                [
+                  "leverage",
+                  "an advantage you can use to get what you want"
+                ],
+                [
+                  "shrewd",
+                  "clever and good at judging people"
+                ],
+                [
+                  "reversal",
+                  "a complete turnaround"
+                ],
+                [
+                  "dignity",
+                  "self-respect"
+                ],
+                [
+                  "solidarity",
+                  "standing together as a group"
+                ],
+                [
+                  "defiance",
+                  "openly refusing to give in"
+                ],
+                [
+                  "fleeting",
+                  "lasting only a moment"
+                ],
+                [
+                  "exploits",
+                  "makes use of (here, Hadley's greed)"
+                ],
+                [
+                  "illustrates",
+                  "makes clear with an example"
+                ],
+                [
+                  "transforms",
+                  "completely changes"
+                ]
+              ]
+            },
+            "5": {
+              "reps": [
+                {
+                  "title": "Power over the mind",
+                  "say": "Fifty years of control leave Brooks unable to live outside: the prison has taken over his mind.",
+                  "start": "The prison's power reaches beyond its walls and into the mind:"
+                },
+                {
+                  "title": "The human cost of power",
+                  "say": "Freed but broken, Brooks hangs himself after carving “Brooks Hatlen was here”.",
+                  "start": "The cost of the prison's power is measured in a human life:"
+                }
+              ],
+              "words": [
+                [
+                  "institutionalised",
+                  "so used to an institution that you can't live without it"
+                ],
+                [
+                  "dependence",
+                  "needing something to survive"
+                ],
+                [
+                  "conditioned",
+                  "trained to think or act a certain way"
+                ],
+                [
+                  "isolation",
+                  "being cut off and alone"
+                ],
+                [
+                  "despair",
+                  "having lost all hope"
+                ],
+                [
+                  "poignant",
+                  "deeply sad and moving"
+                ],
+                [
+                  "tragic",
+                  "ending in suffering or death"
+                ],
+                [
+                  "haunting",
+                  "impossible to forget"
+                ],
+                [
+                  "underscores",
+                  "makes something stand out"
+                ],
+                [
+                  "stripped",
+                  "had something taken away completely"
+                ]
+              ]
+            },
+            "6": {
+              "reps": [
+                {
+                  "title": "Punished for a moment of freedom",
+                  "say": "Andy gets two weeks in solitary for playing music: the guards can't stand anything they don't control.",
+                  "start": "Even a moment of beauty is treated as a threat:"
+                },
+                {
+                  "title": "Power can't reach the inside",
+                  "say": "Andy says music is something inside that they can't take from you: control has its limits.",
+                  "start": "This scene suggests there is something power can never reach:"
+                }
+              ],
+              "words": [
+                [
+                  "defiance",
+                  "openly refusing to obey"
+                ],
+                [
+                  "transcendent",
+                  "rising above ordinary life"
+                ],
+                [
+                  "punitive",
+                  "meant to punish"
+                ],
+                [
+                  "solitary",
+                  "kept alone as a punishment"
+                ],
+                [
+                  "liberation",
+                  "being set free"
+                ],
+                [
+                  "resilience",
+                  "the strength to keep going"
+                ],
+                [
+                  "uplifting",
+                  "making you feel hopeful"
+                ],
+                [
+                  "captures",
+                  "gets across perfectly"
+                ],
+                [
+                  "rebellion",
+                  "resisting those in charge"
+                ],
+                [
+                  "fragile",
+                  "easily broken"
+                ]
+              ]
+            },
+            "7": {
+              "reps": [
+                {
+                  "title": "Killing to keep control",
+                  "say": "Norton has Tommy shot so that Andy, who hides his illegal money, can never leave.",
+                  "start": "Norton's power is so absolute that he will kill to protect it:"
+                },
+                {
+                  "title": "Corruption at the top",
+                  "say": "The man who preaches the Bible is hiding stolen money and having a witness murdered.",
+                  "start": "Corruption runs from the very top of Shawshank:"
+                }
+              ],
+              "words": [
+                [
+                  "ruthless",
+                  "willing to do anything, without pity"
+                ],
+                [
+                  "corruption",
+                  "dishonest use of power for your own gain"
+                ],
+                [
+                  "cover-up",
+                  "hiding a crime"
+                ],
+                [
+                  "silenced",
+                  "stopped from speaking (here, for good)"
+                ],
+                [
+                  "exploitation",
+                  "using someone unfairly for your own benefit"
+                ],
+                [
+                  "manipulative",
+                  "controlling people in sneaky ways"
+                ],
+                [
+                  "chilling",
+                  "frightening in a cold, quiet way"
+                ],
+                [
+                  "self-serving",
+                  "only caring about yourself"
+                ],
+                [
+                  "absolute",
+                  "total, with no limits"
+                ],
+                [
+                  "abuse of power",
+                  "using power wrongly to hurt others"
+                ]
+              ]
+            },
+            "8": {
+              "reps": [
+                {
+                  "title": "Hope as a way of resisting",
+                  "say": "After Tommy's death, Andy tells Red to “get busy living”: choosing hope is his answer to Norton's power.",
+                  "start": "Faced with Norton's power, Andy chooses hope:"
+                },
+                {
+                  "title": "What power does to people",
+                  "say": "When Red hears Andy has asked for a rope, he fears the worst: power has pushed Andy to the edge.",
+                  "start": "The scene also reveals how close Norton's power has pushed Andy to breaking:"
+                }
+              ],
+              "words": [
+                [
+                  "resolve",
+                  "firm determination"
+                ],
+                [
+                  "endurance",
+                  "the ability to survive something hard"
+                ],
+                [
+                  "despair",
+                  "having lost all hope"
+                ],
+                [
+                  "turning point",
+                  "the moment things change"
+                ],
+                [
+                  "determination",
+                  "refusing to give up"
+                ],
+                [
+                  "defiant",
+                  "openly refusing to give in"
+                ],
+                [
+                  "bleak",
+                  "cold and hopeless"
+                ],
+                [
+                  "conveys",
+                  "gets a feeling or idea across"
+                ],
+                [
+                  "ambiguous",
+                  "could mean more than one thing"
+                ],
+                [
+                  "choice",
+                  "a decision between options"
+                ]
+              ]
+            },
+            "9": {
+              "reps": [
+                {
+                  "title": "Power outwitted",
+                  "say": "Behind a poster, Andy has spent nearly twenty years digging his way out: the warden's total control was never total.",
+                  "start": "The empty cell reveals that the warden's control was never as complete as it seemed:"
+                },
+                {
+                  "title": "Freedom through patience",
+                  "say": "Andy crawls through five hundred yards of sewer pipe and raises his arms in the rain.",
+                  "start": "Andy's escape is the reward for years of patient resistance:"
+                }
+              ],
+              "words": [
+                [
+                  "triumph",
+                  "a great victory"
+                ],
+                [
+                  "ingenious",
+                  "very clever and original"
+                ],
+                [
+                  "outwit",
+                  "to beat someone by being cleverer"
+                ],
+                [
+                  "patience",
+                  "calmly waiting for a long time"
+                ],
+                [
+                  "irony",
+                  "when things turn out the opposite of what you'd expect"
+                ],
+                [
+                  "symbolic",
+                  "standing for a bigger idea"
+                ],
+                [
+                  "rebirth",
+                  "a new start, like being born again"
+                ],
+                [
+                  "liberation",
+                  "being set free"
+                ],
+                [
+                  "culminates",
+                  "reaches its highest point"
+                ],
+                [
+                  "vindicated",
+                  "proved right"
+                ]
+              ]
+            },
+            "10": {
+              "reps": [
+                {
+                  "title": "Power turned back on the powerful",
+                  "say": "Andy uses the false name he invented to hide Norton's money to take that money and expose him.",
+                  "start": "In the end, the system Norton built is the one that destroys him:"
+                },
+                {
+                  "title": "Hypocrisy exposed",
+                  "say": "Norton's safe is hidden behind the words “His judgment cometh and that right early”, and judgement does come.",
+                  "start": "Norton's hypocrisy is finally exposed:"
+                }
+              ],
+              "words": [
+                [
+                  "downfall",
+                  "a sudden loss of power"
+                ],
+                [
+                  "retribution",
+                  "deserved punishment"
+                ],
+                [
+                  "poetic justice",
+                  "when a wrongdoer is punished in a fitting way"
+                ],
+                [
+                  "exposed",
+                  "revealed for what they are"
+                ],
+                [
+                  "comeuppance",
+                  "the punishment someone deserves"
+                ],
+                [
+                  "crumbles",
+                  "falls apart"
+                ],
+                [
+                  "irony",
+                  "when things turn out the opposite of what you'd expect"
+                ],
+                [
+                  "hypocrisy",
+                  "saying one thing and doing the opposite"
+                ],
+                [
+                  "reversal",
+                  "a complete turnaround"
+                ],
+                [
+                  "satisfying",
+                  "giving a sense that things are right"
+                ]
+              ]
+            },
+            "11": {
+              "reps": [
+                {
+                  "title": "The lasting damage of power",
+                  "say": "Released at last, Red still asks permission to go to the toilet: the prison is still in his head.",
+                  "start": "Even after release, the prison's power lingers:"
+                },
+                {
+                  "title": "Honesty as a kind of freedom",
+                  "say": "Red stops performing for the board, calls “rehabilitated” a made-up word, and is finally released.",
+                  "start": "Red finds freedom only when he stops playing the system's game:"
+                }
+              ],
+              "words": [
+                [
+                  "rehabilitated",
+                  "reformed, made fit to live in society"
+                ],
+                [
+                  "candid",
+                  "honest and direct"
+                ],
+                [
+                  "remorse",
+                  "deep regret for doing wrong"
+                ],
+                [
+                  "weary",
+                  "tired from a long struggle"
+                ],
+                [
+                  "conditioned",
+                  "trained to think or act a certain way"
+                ],
+                [
+                  "lingers",
+                  "stays on"
+                ],
+                [
+                  "sincere",
+                  "truly meant"
+                ],
+                [
+                  "liberating",
+                  "setting you free"
+                ],
+                [
+                  "reflects",
+                  "thinks back on"
+                ],
+                [
+                  "echoes",
+                  "repeats something from earlier (here, Brooks)"
+                ]
+              ]
+            },
+            "12": {
+              "reps": [
+                {
+                  "title": "Freedom beyond power's reach",
+                  "say": "Red keeps his promise, breaks parole and finds Andy on a beach, far beyond the reach of any prison.",
+                  "start": "The ending places its characters beyond the reach of power:"
+                },
+                {
+                  "title": "Hope defeats the system",
+                  "say": "“Hope is a good thing”: the very thing Red once called dangerous is what saves him.",
+                  "start": "Ultimately, hope proves stronger than the system:"
+                }
+              ],
+              "words": [
+                [
+                  "redemption",
+                  "being saved or made whole again"
+                ],
+                [
+                  "hope",
+                  "believing things can get better"
+                ],
+                [
+                  "triumphant",
+                  "celebrating a great victory"
+                ],
+                [
+                  "reunion",
+                  "meeting again after a long time apart"
+                ],
+                [
+                  "optimistic",
+                  "expecting good things"
+                ],
+                [
+                  "resolution",
+                  "the way a story is settled"
+                ],
+                [
+                  "affirms",
+                  "states strongly and positively"
+                ],
+                [
+                  "uplifting",
+                  "making you feel hopeful"
+                ],
+                [
+                  "boundless",
+                  "with no limits"
+                ],
+                [
+                  "cathartic",
+                  "releasing pent-up feelings"
+                ]
+              ]
+            }
+          },
+          "open": {
+            "tips": [
+              "Name the film and its director: The Shawshank Redemption, directed by Frank Darabont.",
+              "Say in one line what the film says about abuse of power.",
+              "Name the three things your paragraphs will cover."
+            ],
+            "start": "In The Shawshank Redemption, directed by Frank Darabont, power is abused by those who run the prison:",
+            "words": [
+              [
+                "explores",
+                "looks closely at"
+              ],
+              [
+                "portrays",
+                "presents in a particular way"
+              ],
+              [
+                "exposes",
+                "reveals something bad that was hidden"
+              ],
+              [
+                "depicts",
+                "presents in pictures or scenes"
+              ],
+              [
+                "throughout",
+                "all the way through"
+              ],
+              [
+                "institution",
+                "a large organisation, like a prison"
+              ],
+              [
+                "corrupt",
+                "dishonest and using power for gain"
+              ],
+              [
+                "oppressive",
+                "harsh, keeping people down"
+              ],
+              [
+                "unflinching",
+                "not looking away from hard things"
+              ],
+              [
+                "ultimately",
+                "in the end"
+              ]
+            ]
+          },
+          "end": {
+            "tips": [
+              "Sum up your three points in one or two sentences.",
+              "Say what the film finally says about abuse of power.",
+              "Do not bring in a new key moment."
+            ],
+            "start": "Ultimately, The Shawshank Redemption suggests that",
+            "words": [
+              [
+                "ultimately",
+                "in the end"
+              ],
+              [
+                "overall",
+                "taking everything together"
+              ],
+              [
+                "leaves the viewer with",
+                "what you are left feeling or thinking"
+              ],
+              [
+                "enduring",
+                "lasting a long time"
+              ],
+              [
+                "resounding",
+                "very clear and strong"
+              ],
+              [
+                "warns",
+                "tells you to be careful of"
+              ],
+              [
+                "affirms",
+                "states strongly and positively"
+              ],
+              [
+                "triumph",
+                "a great victory"
+              ],
+              [
+                "cautionary",
+                "giving a warning"
+              ],
+              [
+                "lasting impression",
+                "a feeling that stays with you"
+              ]
+            ]
+          }
+        }
       }
     }
   ]

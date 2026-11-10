@@ -120,6 +120,11 @@ for (const th of D.compare || []) {
   const keys = th.links.map(l => [l.a, l.b].sort().join());
   ok(new Set(keys).size === keys.length, `${th.id}: no link listed twice`);
   ok(th.links.every(l => mid.has(l.a) && mid.has(l.b) && mid.get(l.a) !== mid.get(l.b) && ['same', 'differ', 'degree'].includes(l.rel) && l.aspect && l.say.length > 40), `${th.id}: every link joins two texts, with a kind and a sentence`);
+  // The writing guide: every scene of a guided text says what it represents and gives 10 words with meanings.
+  for (const [t, wr] of Object.entries(th.write || {})) {
+    ok(Object.keys(wr.scenes).length === D.texts[t].moments.length && Object.values(wr.scenes).every(sc => sc.reps.length && sc.reps.every(r => r.title && r.say && r.start) && sc.words.length === 10 && sc.words.every(x => x[0] && x[1])), `${th.id} ${t}: every scene has what it represents and 10 words`);
+    ok(['open', 'end'].every(k => wr[k].tips.length && wr[k].start && wr[k].words.length === 10) && th.instead.length >= 8, `${th.id} ${t}: an opening and ending to write, and words instead of "shows"`);
+  }
   for (let i = 0; i < tids.length; i++) for (let j = i + 1; j < tids.length; j++) {
     const pair = [tids[i], tids[j]].sort();
     ok(th.links.filter(l => [mid.get(l.a), mid.get(l.b)].sort().join() === pair.join()).length >= 4 && th.ends[pair.join('|')], `${th.id}: 4+ links and an ending for ${pair.join(' and ')}`);

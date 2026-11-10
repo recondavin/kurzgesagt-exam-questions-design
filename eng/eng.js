@@ -867,8 +867,10 @@
       '<p class="eng-p eng-cp__why">' + esc(th.bestWhy) + '</p>';
     if (!a) { app.innerHTML = h; return; }
     var w = cpWork(th, a), B = ids.filter(function (id) { return id !== a; });
-    // 2: part (a)
-    h += '<h2 class="eng-h2"><span class="eng-cp__n">2</span>Part (a): three points about <i>' + esc(text(a).title) + '</i></h2>' +
+    // 2: part (a): written in the popup if the text has a writing guide, else three points to pick
+    var WR = th.write && th.write[a];
+    if (WR) h += cpWriterHtml(th, a);
+    else h += '<h2 class="eng-h2"><span class="eng-cp__n">2</span>Part (a): three points about <i>' + esc(text(a).title) + '</i></h2>' +
       '<p class="eng-p">Pick three. Each one is a paragraph, built on its key moment. <b data-cp-count>' + w.pts.length + ' of 3 picked</b>' + (w.pts.length >= 3 ? ': tap one to swap it out.' : '.') + '</p>' +
       '<div class="eng-cp__pts">' + th.points[a].map(function (pt, i) {
         var on = w.pts.indexOf(i) >= 0;
@@ -900,7 +902,7 @@
         '<button type="button" class="eng-btn eng-btn--quiet" data-cp-cancel>Cancel</button></p></div>';
     } else {
       h += '<p class="eng-btns eng-cp__tools"><button type="button" class="eng-btn eng-btn--quiet" data-cp-hint>Give me a hint</button>' +
-        (w.links.length || w.pts.length ? '<button type="button" class="eng-btn eng-btn--quiet" data-cp-reset>Start again</button>' : '') + '</p>';
+        (w.links.length || w.pts.length || (w.write && cwPrompt(w.write)) ? '<button type="button" class="eng-btn eng-btn--quiet" data-cp-reset>Start again</button>' : '') + '</p>';
     }
     if (CPFB) h += '<div class="eng-cpf eng-cpf--' + CPFB.kind + '" role="status"><b>' + esc(CPFB.head) + '</b> ' + esc(CPFB.body) + '</div>';
     if (w.links.length) {
@@ -912,12 +914,19 @@
       }).join('') + '</ol>';
     }
     // 4: the plan
-    if (w.pts.length || w.links.length) h += '<h2 class="eng-h2"><span class="eng-cp__n">4</span>Your plan</h2>' + cpPlanHtml(th, a, B, w);
+    if (w.pts.length || w.links.length || (WR && (cwPrompt(cpWrite(th, a)) || cpPts(th, a, w).length))) h += '<h2 class="eng-h2"><span class="eng-cp__n">4</span>Your plan</h2>' + cpPlanHtml(th, a, B, w);
     app.innerHTML = h;
     requestAnimationFrame(cpLines);
   }
+  function cwPrompt(W) { return SLOTS.some(function (x) { return slotText(W, x); }); }
+  // Part (a)'s points: the paragraphs' scenes and what they represent if the text has a writing guide, else the picks.
+  function cpPts(th, a, w) {
+    var G = th.write && th.write[a];
+    if (!G) return w.pts.map(function (i) { return th.points[a][i]; });
+    return cpWrite(th, a).paras.filter(function (p) { return p.scene; }).map(function (p) { var r = G.scenes[p.scene].reps[p.rep || 0]; return { title: r.title, say: r.say, m: [p.scene] }; });
+  }
   function cpPlan(th, a, B, w) {
-    var pts = w.pts.map(function (i) { return th.points[a][i]; }), out = { a: [], b: [] };
+    var pts = cpPts(th, a, w), out = { a: [], b: [] };
     out.a.push(['Opening', 'Introduce ' + text(a).title + ' and say how ' + th.name.toLowerCase() + ' shows itself in it' +
       (pts.length ? ': ' + pts.map(function (p) { return p.title.toLowerCase(); }).join(', ').replace(/, ([^,]*)$/, ' and $1') : '') + '.']);
     pts.forEach(function (p, k) {
@@ -940,8 +949,9 @@
           (r[3] && r[3].length ? '<p class="eng-cpn__w">Link with: ' + r[3].map(function (s) { return '<button type="button" class="eng-chip" data-eng-copy="' + esc(s) + '">' + esc(s) + '</button>'; }).join('') + '</p>' : '') + '</li>';
       }).join('') + '</ol>';
     };
-    var todo = [];
-    if (w.pts.length < 3) todo.push('pick ' + (3 - w.pts.length) + ' more point' + (w.pts.length === 2 ? '' : 's') + ' for part (a)');
+    var todo = [], G = th.write && th.write[a];
+    if (G) { var W = cpWrite(th, a), done = SLOTS.filter(function (x) { return slotText(W, x); }).length; if (done < 5) todo.push('write ' + (5 - done) + ' more of part (a)\'s five parts'); }
+    else if (w.pts.length < 3) todo.push('pick ' + (3 - w.pts.length) + ' more point' + (w.pts.length === 2 ? '' : 's') + ' for part (a)');
     if (w.links.length < 3) todo.push('make ' + (3 - w.links.length) + ' more link' + (w.links.length === 2 ? '' : 's') + ' for part (b)');
     return (todo.length ? '<p class="eng-p eng-cp__todo">Still to do: ' + esc(todo.join(', and ')) + '.</p>' : '<p class="eng-p eng-cp__done">That\'s a full plan. Now write it.</p>') +
       '<div class="eng-grid eng-grid--2 eng-cp__plan"><div class="eng-card" style="--c:' + COL[a] + '"><span class="eng-bar"></span><h3>(a) 30 marks · <i>' + esc(text(a).title) + '</i></h3>' + part(P.a) + '</div>' +
@@ -1003,6 +1013,187 @@
     CPSEL = first; CPHINT = first === left.a ? left.b : left.a;
     CPFB = { kind: 'hint', head: 'Try these two.', body: 'The highlighted moment is picked for you. Find the one that glows in the other column: what do they share about ' + th.name.toLowerCase() + '?' };
   }
+
+  // ---------- compare it: writing part (a) (th.write[a]; Shawshank first) ----------
+  // Part (a) is written one paragraph at a time in a popup: the opening, three paragraphs and the ending. A paragraph:
+  // pick a key scene, pick what it represents, then write it with that scene's ten words, the words to use instead of
+  // "shows", and a check that flags "shows" and any word used three times or more. Saved as you type (eng-compare).
+  var CPW = null, CPW_FROM = null;
+  var SLOTS = ['open', 0, 1, 2, 'end'];
+  var SYN = { shows: ['reveals', 'exposes', 'highlights', 'underlines', 'conveys', 'lays bare'], power: ['control', 'authority', 'dominance', 'grip'],
+    important: ['significant', 'crucial', 'pivotal'], very: ['deeply', 'profoundly', 'utterly'], really: ['truly', 'deeply'], cruel: ['brutal', 'savage', 'merciless'],
+    sad: ['tragic', 'poignant', 'heartbreaking'], good: ['admirable', 'decent', 'hopeful'], says: ['declares', 'insists', 'admits'], uses: ['exploits', 'relies on', 'turns to'],
+    makes: ['forces', 'drives', 'leads'], gets: ['receives', 'is given', 'wins'], scene: ['moment', 'sequence', 'episode'], prison: ['Shawshank', 'the institution', 'the system'] };
+  var STOPW = ' the and that this with from they their them there then than were was have has had into onto over under about which while when where what whom whose would could should because after before also only even just more most much many some such been being does done your yours its it\'s his him her hers our you are not but all one two three four five film text shows show showed showing shown ';
+  function cpWrite(th, a) { var w = cpWork(th, a); if (!w.write) w.write = { open: '', paras: [{}, {}, {}], end: '' }; return w.write; }
+  function slotOf(v) { return v === 'open' || v === 'end' ? v : +v; }
+  function slotName(s) { return s === 'open' ? 'Opening' : s === 'end' ? 'Ending' : 'Paragraph ' + (s + 1); }
+  function slotText(W, s) { return s === 'open' ? W.open : s === 'end' ? W.end : (W.paras[s].text || ''); }
+  function setSlot(W, s, v) { if (s === 'open') W.open = v; else if (s === 'end') W.end = v; else W.paras[s].text = v; }
+  function wordsIn(s) { return (String(s || '').match(/[A-Za-zÀ-ÿ0-9'’£-]+/g) || []).length; }
+  function cpWriterHtml(th, a) {
+    var W = cpWrite(th, a), G = th.write[a], total = 0;
+    var rows = SLOTS.map(function (s) {
+      var txt = slotText(W, s), p = typeof s === 'number' ? W.paras[s] : null, sc = p && p.scene ? G.scenes[p.scene] : null, rep = sc ? sc.reps[p.rep || 0] : null;
+      total += wordsIn(txt);
+      return '<li class="eng-cpw__s' + (txt ? ' is-done' : '') + '"><div class="eng-cpw__h"><b>' + slotName(s) + '</b>' +
+        (rep ? '<span class="eng-cpw__rep">' + esc(rep.title) + '</span>' + momChip(text(a).moments[p.scene - 1].id) : '') +
+        '<button type="button" class="eng-btn' + (txt ? ' eng-btn--quiet' : '') + '" data-cpw="' + s + '">' + (txt ? 'Edit' : 'Write it') + '</button></div>' +
+        (txt ? '<p class="eng-cpw__t">' + esc(txt) + '</p>' : '<p class="eng-cpw__e">' + (s === 'open' ? 'Name the film, and say in a line what it says about abuse of power.' :
+          s === 'end' ? 'Sum it all up: what the film finally says about abuse of power.' : 'Pick a key scene and what it represents, then write it.') + '</p>') + '</li>';
+    });
+    return '<h2 class="eng-h2"><span class="eng-cp__n">2</span>Part (a): write it, one paragraph at a time</h2>' +
+      '<p class="eng-p">Tap <b>Write it</b>. For each paragraph you pick a key scene and what it represents, then write it with ten words for that scene beside you.</p>' +
+      '<ol class="eng-cpw">' + rows.join('') + '</ol>' +
+      '<p class="eng-cpw__foot"><span>Part (a) so far: <b>' + total + ' words</b></span>' + (total ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-copy>Copy part (a)</button>' : '') + '</p>';
+  }
+  function cpwOpen(s) {
+    var th = cpTheme(), W = cpWrite(th, cpBy(th).a);
+    CPW = { slot: s, step: typeof s === 'number' && !W.paras[s].scene ? 1 : 3 };
+    cpwDraw(true);
+  }
+  function cpwClose() {
+    var s = CPW && CPW.slot;
+    CPW = null; cpwDraw(); renderCompare();
+    var b = s != null && app.querySelector('[data-cpw="' + s + '"]');
+    if (b) b.focus({ preventScroll: true });
+  }
+  function cpwDraw(focus) {
+    var box = document.getElementById('eng-cpd');
+    if (!CPW) { if (box) box.remove(); document.body.classList.remove('eng-cpd-on'); return; }
+    if (!box) { box = document.createElement('div'); box.id = 'eng-cpd'; box.className = 'eng-cpd'; document.body.appendChild(box); }
+    document.body.classList.add('eng-cpd-on');
+    var th = cpTheme(), a = cpBy(th).a, W = cpWrite(th, a), G = th.write[a], s = CPW.slot, para = typeof s === 'number' ? W.paras[s] : null, body = '';
+    var steps = para ? ['Key scene', 'What it represents', 'Write it'] : null;
+    var head = '<div class="eng-cpd__top"><h2 id="eng-cpd-h">' + slotName(s) + '</h2>' +
+      (steps ? '<ol class="eng-cpd__steps">' + steps.map(function (x, i) {
+        return '<li class="' + (CPW.step === i + 1 ? 'is-on' : CPW.step > i + 1 ? 'is-done' : '') + '"' + (CPW.step === i + 1 ? ' aria-current="step"' : '') + '><span>' + (i + 1) + '</span>' + x + '</li>';
+      }).join('') + '</ol>' : '') + '<button type="button" class="eng-cpd__x" data-cpw-close aria-label="Close">×</button></div>';
+    if (para && CPW.step === 1) {
+      body = '<p class="eng-cpd__lead">Pick the key scene this paragraph is built on.</p><div class="eng-cpd__scenes">' + text(a).moments.map(function (m, i) {
+        var n = i + 1, sc = G.scenes[n];
+        if (!sc) return '';
+        var used = W.paras.map(function (q, k) { return k !== s && q.scene === n ? k + 1 : 0; }).filter(Boolean), pic = scenePics(a, m.id)[0];
+        return '<button type="button" class="eng-cpd__sc' + (para.scene === n ? ' is-on' : '') + '" data-cpw-scene="' + n + '" style="--c:' + COL[a] + '">' +
+          (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '<span class="eng-cpd__ph"></span>') +
+          '<span class="eng-cpd__sct"><span class="eng-cpm__n">' + n + '</span>' + esc(m.title) + '</span>' +
+          '<span class="eng-cpd__scr">' + sc.reps.map(function (r) { return esc(r.title); }).join(' · ') + '</span>' +
+          (used.length ? '<span class="eng-cpd__used">Already in paragraph ' + used.join(', ') + '</span>' : '') + '</button>';
+      }).join('') + '</div>';
+    } else if (para && CPW.step === 2) {
+      var sc2 = G.scenes[para.scene];
+      body = '<p class="eng-cpd__lead">' + momChip(text(a).moments[para.scene - 1].id) + ' What does this scene represent about ' + esc(th.name.toLowerCase()) + '?</p><div class="eng-cpd__reps">' +
+        sc2.reps.map(function (r, i) {
+          return '<button type="button" class="eng-cpd__rep' + (para.picked && (para.rep || 0) === i ? ' is-on' : '') + '" data-cpw-rep="' + i + '"><b>' + esc(r.title) + '</b><span>' + esc(r.say) + '</span></button>';
+        }).join('') + '</div><p class="eng-btns eng-cpd__foot"><button type="button" class="eng-btn eng-btn--quiet" data-cpw-step="1">Back</button></p>';
+    } else {
+      var words, start, rep = null, m = null, tips = null;
+      if (para) { var sc3 = G.scenes[para.scene]; rep = sc3.reps[para.rep || 0]; words = sc3.words; m = text(a).moments[para.scene - 1]; start = rep.start; }
+      else { words = G[s].words; tips = G[s].tips; start = G[s].start; }
+      var i0 = SLOTS.indexOf(s), next = SLOTS[i0 + 1];
+      body = (para ? '<div class="eng-cpd__brief">' + momChip(m.id) + '<div><b>' + esc(rep.title) + '</b><span>' + esc(rep.say) + '</span></div></div>' +
+          '<ol class="eng-cpd__pae"><li><b>Point</b> Say what the scene represents.</li><li><b>Anchor</b> What happens: a detail' + (m.quote ? ' or the quote' : '') + '.</li><li><b>Evaluate</b> Why it matters for ' + esc(th.name.toLowerCase()) + '.</li></ol>' +
+          (m.quote ? '<p class="eng-cpd__q">Quote you could use: <q>' + esc(m.quote) + '</q></p>' : '')
+        : '<ul class="eng-cpd__tips">' + tips.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>') +
+        '<div class="eng-cpd__write"><div class="eng-cpd__pad"><textarea data-cpw-text rows="9" aria-label="Write the ' + slotName(s).toLowerCase() + '" placeholder="Start writing here…">' + esc(slotText(W, s)) + '</textarea>' +
+        '<p class="eng-cpd__tools"><button type="button" class="eng-chip" data-cpw-start title="' + esc(start) + '">Start me off</button><span data-cpw-count></span></p>' +
+        '<div class="eng-cpd__check" data-cpw-check role="status" aria-live="polite"></div></div>' +
+        '<aside class="eng-cpd__bank"><h3>10 words for ' + (para ? 'this scene' : 'the ' + slotName(s).toLowerCase()) + '</h3><p class="eng-cpd__hint">Tap a word to add it where you\'re typing.</p><ul>' +
+        words.map(function (x) { return '<li><button type="button" class="eng-cpd__w" data-cpw-word="' + esc(x[0]) + '"><b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span></button></li>'; }).join('') +
+        '</ul><h3>Instead of “shows”</h3><p class="eng-cpd__inst">' + th.instead.map(function (x) { return '<button type="button" class="eng-chip" data-cpw-word="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') + '</p></aside></div>' +
+        '<p class="eng-btns eng-cpd__foot">' + (para ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-step="' + (G.scenes[para.scene].reps.length > 1 ? 2 : 1) + '">Back</button>' : '') +
+        (next != null ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-next>Next: ' + slotName(next) + '</button>' : '') + '<button type="button" class="eng-btn" data-cpw-close>Done</button></p>';
+    }
+    box.innerHTML = '<div class="eng-cpd__bg" data-cpw-close></div><div class="eng-cpd__box" role="dialog" aria-modal="true" aria-labelledby="eng-cpd-h">' + head + '<div class="eng-cpd__body">' + body + '</div></div>';
+    cpwCheck();
+    if (focus) {
+      var f = box.querySelector('[data-cpw-text]') || box.querySelector('.eng-cpd__sc.is-on, .eng-cpd__rep.is-on') || box.querySelector('[data-cpw-scene], [data-cpw-rep]') || box.querySelector('[data-cpw-close]');
+      if (f) f.focus({ preventScroll: true });
+      var bd = box.querySelector('.eng-cpd__body'); if (bd) bd.scrollTop = 0;
+    }
+  }
+  // The check under the box: word count, "shows" and "this shows", and any other word used three times or more.
+  function cpwCheck() {
+    var box = document.getElementById('eng-cpd'), ta = box && box.querySelector('[data-cpw-text]');
+    if (!ta) return;
+    var v = ta.value, out = [], n = wordsIn(v), th = cpTheme(), a = cpBy(th).a;
+    box.querySelector('[data-cpw-count]').textContent = n + ' word' + (n === 1 ? '' : 's');
+    var shows = (v.match(/\bshow(s|ed|ing|n)?\b/gi) || []).length;
+    if (/(^|[.!?]\s+)this shows\b/i.test(v)) out.push(['“This shows…” is a weak way to start a sentence.', 'Start with the idea itself, or try:', ['This exposes', 'Here we see', 'This lays bare']]);
+    if (shows >= 2) out.push(['You\'ve used “show” ' + shows + ' times.', 'Swap one for:', SYN.shows]);
+    var names = {};
+    text(a).people.concat([{ name: text(a).title }]).forEach(function (p) { p.name.toLowerCase().split(/[^a-zà-ÿ]+/).forEach(function (x) { names[x] = 1; }); });
+    var count = {};
+    (v.toLowerCase().match(/[a-zà-ÿ'’-]+/g) || []).forEach(function (x) {
+      x = x.replace(/[’']s$/, '');
+      if (x.length >= 4 && STOPW.indexOf(' ' + x + ' ') < 0 && !names[x]) count[x] = (count[x] || 0) + 1;
+    });
+    Object.keys(count).filter(function (x) { return count[x] >= 3; }).sort(function (x, y) { return count[y] - count[x]; }).slice(0, 3).forEach(function (x) {
+      out.push(['“' + x + '”: ' + count[x] + ' times.', SYN[x] ? 'Swap one for:' : 'Try a different word for one of them.', SYN[x] || []]);
+    });
+    box.querySelector('[data-cpw-check]').innerHTML = out.length ? out.map(function (o) {
+      return '<p class="eng-cpd__warn"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + (o[2].length ? ' ' + o[2].map(function (x) { return '<button type="button" class="eng-chip" data-cpw-word="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') : '') + '</p>';
+    }).join('') : (n >= 40 ? '<p class="eng-cpd__good">No “shows”, no repeated words. Nice.</p>' : '');
+  }
+  // Put a word in where you're typing, with a space either side if it needs one.
+  function cpwInsert(word) {
+    var box = document.getElementById('eng-cpd'), ta = box && box.querySelector('[data-cpw-text]');
+    if (!ta) return;
+    var i = ta.selectionStart == null ? ta.value.length : ta.selectionStart, j = ta.selectionEnd == null ? i : ta.selectionEnd;
+    var before = ta.value.slice(0, i), after = ta.value.slice(j);
+    var add = (before && !/\s$/.test(before) ? ' ' : '') + word + (after && /^\S/.test(after) ? ' ' : '');
+    ta.value = before + add + after;
+    var at = (before + add).length;
+    ta.focus(); ta.setSelectionRange(at, at);
+    cpwSave(ta.value);
+  }
+  function cpwSave(v) { var th = cpTheme(), W = cpWrite(th, cpBy(th).a); setSlot(W, CPW.slot, v); cpSave(); cpwCheck(); }
+  function cpwText() {
+    var th = cpTheme(), W = cpWrite(th, cpBy(th).a);
+    return SLOTS.map(function (s) { return slotText(W, s); }).filter(Boolean).join('\n\n');
+  }
+  function cpwClick(t) {
+    var v, th = cpTheme(), W = cpWrite(th, cpBy(th).a), G = th.write[cpBy(th).a];
+    if ((v = t.closest('[data-cpw]'))) { cpwOpen(slotOf(v.getAttribute('data-cpw'))); return true; }
+    if (t.closest('[data-cpw-copy]')) { copy(cpwText(), t.closest('[data-cpw-copy]')); return true; }
+    if (!CPW) return false;
+    var para = typeof CPW.slot === 'number' ? W.paras[CPW.slot] : null;
+    if (t.closest('[data-cpw-close]')) { cpwClose(); return true; }
+    if ((v = t.closest('[data-cpw-scene]'))) {
+      var n = +v.getAttribute('data-cpw-scene');
+      if (para.scene !== n) { para.scene = n; para.rep = 0; para.picked = false; }
+      CPW.step = G.scenes[n].reps.length > 1 ? 2 : 3;
+      if (CPW.step === 3) para.picked = true;
+      cpSave(); cpwDraw(true); return true;
+    }
+    if ((v = t.closest('[data-cpw-rep]'))) { para.rep = +v.getAttribute('data-cpw-rep'); para.picked = true; CPW.step = 3; cpSave(); cpwDraw(true); return true; }
+    if ((v = t.closest('[data-cpw-step]'))) { CPW.step = +v.getAttribute('data-cpw-step'); cpwDraw(true); return true; }
+    if (t.closest('[data-cpw-next]')) {
+      var nx = SLOTS[SLOTS.indexOf(CPW.slot) + 1];
+      CPW = { slot: nx, step: typeof nx === 'number' && !W.paras[nx].scene ? 1 : 3 }; cpwDraw(true); return true;
+    }
+    if ((v = t.closest('[data-cpw-word]'))) { cpwInsert(v.getAttribute('data-cpw-word')); return true; }
+    if (t.closest('[data-cpw-start]')) {
+      var ta = document.querySelector('#eng-cpd [data-cpw-text]'), st = para ? G.scenes[para.scene].reps[para.rep || 0].start : G[CPW.slot].start;
+      if (ta && !ta.value.trim()) { ta.value = st + ' '; ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); cpwSave(ta.value); }
+      else cpwInsert(st);
+      return true;
+    }
+    return false;
+  }
+  document.addEventListener('input', function (ev) { if (CPW && ev.target.matches && ev.target.matches('[data-cpw-text]')) cpwSave(ev.target.value); });
+  document.addEventListener('keydown', function (ev) {
+    if (!CPW) return;
+    if (ev.key === 'Escape') { ev.preventDefault(); cpwClose(); return; }
+    if (ev.key === 'Tab') {
+      // Keep Tab inside the popup.
+      var f = Array.prototype.filter.call(document.querySelectorAll('#eng-cpd .eng-cpd__box button, #eng-cpd .eng-cpd__box textarea, #eng-cpd .eng-cpd__box a[href]'), function (e) { return e.offsetParent !== null; });
+      if (!f.length) return;
+      var i = f.indexOf(document.activeElement);
+      if (ev.shiftKey && i <= 0) { ev.preventDefault(); f[f.length - 1].focus(); }
+      else if (!ev.shiftKey && i === f.length - 1) { ev.preventDefault(); f[0].focus(); }
+    }
+  });
 
   // ---------- the essay builder ----------
   // One draft, saved as you type (eng-essay). Two kinds of question, as on the 2027 paper:
@@ -1725,6 +1916,7 @@
     var qf = t.closest('[data-eng-qf]');
     if (qf) { qFilter = qf.getAttribute('data-eng-qf'); renderQuestions(); return; }
     if (t.closest('[data-eng-qopen]')) { QOPEN = !QOPEN; store('eng-q-open', QOPEN ? '1' : '0'); renderQuestions(); return; }
+    if ((CPW || t.closest('[data-cpw],[data-cpw-copy]')) && cpwClick(t)) return;
     var cpa = t.closest('[data-cp-a]'), cpp = t.closest('[data-cp-pt]'), cpm = t.closest('[data-cpm]'), cpr = t.closest('[data-cp-rel]'), cpd = t.closest('[data-cp-del]');
     if (cpa || cpp || cpm || cpr || cpd || t.closest('[data-cp-cancel],[data-cp-hint],[data-cp-reset],[data-cp-copy]')) {
       var cth = cpTheme(), cby = cpBy(cth), focus = null;
@@ -1739,7 +1931,11 @@
       else if (cpd) { cpWork(cth, cby.a).links.splice(+cpd.getAttribute('data-cp-del'), 1); CPFB = null; focus = '[data-cp-hint]'; }
       else if (t.closest('[data-cp-cancel]')) { CPPICK = null; focus = '[data-cp-hint]'; }
       else if (t.closest('[data-cp-hint]')) { cpHint(); focus = CPSEL ? '[data-cpm="' + CPSEL + '"]' : '[data-cp-hint]'; }
-      else if (t.closest('[data-cp-reset]')) { cby.work[cby.a] = { pts: [], links: [] }; CPSEL = CPPICK = CPFB = CPHINT = null; }
+      else if (t.closest('[data-cp-reset]')) {
+        var cwr = cpWork(cth, cby.a).write;
+        if (cwr && cwPrompt(cwr) && !window.confirm('Start again? This clears your writing, points and links for this text.')) return;
+        cby.work[cby.a] = { pts: [], links: [] }; CPSEL = CPPICK = CPFB = CPHINT = null;
+      }
       else if (t.closest('[data-cp-copy]')) { copy(cpPlanText(), t.closest('[data-cp-copy]')); return; }
       cpSave(); renderCompare();
       var fe = focus && app.querySelector(focus);
@@ -1921,6 +2117,7 @@
   function route() {
     var h = decodeURIComponent(location.hash.replace(/^#/, '')), p = h.split('/');
     menu(false);
+    if (CPW) { CPW = null; cpwDraw(); }
     if (p[0] === 'play' && window.EngGames) { window.EngGames.open(p[1]); history.replaceState(null, '', '#comparative'); renderHome(); return; }
     if (p[0] === 'marking') renderMarking();
     else if (p[0] === 'structure') renderStructure();
