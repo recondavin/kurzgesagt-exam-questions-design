@@ -1218,7 +1218,7 @@
   window.addEventListener('resize', function () { if (CPW) cpwArrows(); });
   function cpwDraw(focus) {
     var box = document.getElementById('eng-cpd');
-    if (!CPW) { if (box) box.remove(); document.body.classList.remove('eng-cpd-on'); return; }
+    if (!CPW) { if (box) box.remove(); if (TCH && TCH.parentNode) TCH.remove(); document.body.classList.remove('eng-cpd-on'); return; }
     if (!box) {
       // It fades in when it opens, not each time it redraws.
       box = document.createElement('div'); box.id = 'eng-cpd'; box.className = 'eng-cpd is-new'; document.body.appendChild(box);
@@ -1228,8 +1228,8 @@
     var th = cpTheme(), a = cpBy(th).a, W = cpWrite(th, a), G = th.write[a], s = CPW.slot, para = typeof s === 'number' ? W.paras[s] : null, body = '', foot = '';
     // A step plays its animations (cards popping in, arrows drawing) when it is first shown, not on every redraw; and a
     // redraw of the same step keeps your place (the user: "it just takes me to the top when i click on anything").
-    var key = s + '/' + CPW.step, oldBody = box.querySelector('.eng-cpd__body'), keep = box.getAttribute('data-key') === key && oldBody ? oldBody.scrollTop : 0;
-    if (box.getAttribute('data-key') !== key) {
+    var key = s + '/' + CPW.step, oldBody = box.querySelector('.eng-cpd__body'), keep = box.getAttribute('data-key') === key && oldBody ? oldBody.scrollTop : 0, fresh = box.getAttribute('data-key') !== key;
+    if (fresh) {
       box.setAttribute('data-key', key); box.classList.add('is-fresh');
       clearTimeout(box.cpT); box.cpT = setTimeout(function () { box.classList.remove('is-fresh'); }, 1700);
     }
@@ -1292,6 +1292,8 @@
     }
     box.innerHTML = '<div class="eng-cpd__bg" data-cpw-close></div><div class="eng-cpd__box" role="dialog" aria-modal="true" aria-labelledby="eng-cpd-h">' + head +
       '<div class="eng-cpd__body">' + body + (foot ? '<p class="eng-btns eng-cpd__foot">' + foot + '</p>' : '') + '</div></div>';
+    if (fresh) { CPW.tch = null; tchIdle(); }
+    if (!tchEl().parentNode) document.body.appendChild(TCH);
     Array.prototype.forEach.call(box.querySelectorAll('[data-cpw-box]'), grow);
     cpwArrows();
     CPW.just = null;
@@ -1399,6 +1401,14 @@
     hadleys: "Hadley's", tommys: "Tommy's", darabonts: "Darabont's" };
   var NAMES = ['Shawshank', 'Andy', 'Norton', 'Hadley', 'Brooks', 'Tommy', 'Darabont', 'Heywood', 'Zihuatanejo', 'Bible', 'Frank', 'Dufresne', 'Mexico', 'Buxton'];
   var TECH_WORDS = /\b(camera|shot|shots|angle|close-?up|lighting|lit|light|darkness|shadow|shadows|music|score|sound|soundtrack|voiceover|voice-over|narration|narrates|montage|flashback|editing|cuts?|cross-?cuts?|frame|framing|framed|colou?rs?|slow motion|wide|aerial|filmed|films|lingers|zoom|silence)\b/i;
+  // The scene some writing is really about, if it isn't the one picked (n): another scene's keys hit 3+ times and 2
+  // more than the picked one's. 0 if it's fine.
+  function cpwOtherScene(v, G, n) {
+    var low = v.toLowerCase(), hits = function (x) { return (G.scenes[x].keys || []).reduce(function (c, k) { return c + (low.indexOf(k) >= 0 ? 1 : 0); }, 0); };
+    var mine = hits(n), best = 0, bestN = 0;
+    Object.keys(G.scenes).forEach(function (x) { if (+x !== n) { var h = hits(x); if (h > best) { best = h; bestN = +x; } } });
+    return best >= 3 && best >= mine + 2 ? bestN : 0;
+  }
   function cpwMore(tas, v, out, th, a) {
     var G = th.write[a], s = CPW.slot, W = cpWrite(th, a), words = {};
     Array.prototype.forEach.call(tas, function (t) { words[t.getAttribute('data-cpw-box')] = wordsIn(t.value); });
@@ -1411,10 +1421,8 @@
       if (filled === 1 && total > 110) out.unshift(['It\'s all in one box.', 'Split it up: one sentence of Point (your idea), a short Anchor (the moment), then Evaluate (why it matters). It keeps you from just retelling the story.', []]);
       else if (A > 45 && A > P + E) out.unshift(['This is mostly retelling.', 'The Anchor (' + A + ' words) is longer than your Point and Evaluate together (' + (P + E) + '). Cut the story to a sentence or two and say more about why it matters: that is where the marks are.', []]);
       // Writing about a different scene from the one picked.
-      var hits = function (n) { var low = v.toLowerCase(); return (G.scenes[n].keys || []).reduce(function (c, k) { return c + (low.indexOf(k) >= 0 ? 1 : 0); }, 0); };
-      var mine = hits(W.paras[s].scene), best = 0, bestN = 0;
-      Object.keys(G.scenes).forEach(function (n) { if (+n !== W.paras[s].scene) { var h = hits(n); if (h > best) { best = h; bestN = +n; } } });
-      if (best >= 3 && best >= mine + 2) {
+      var bestN = cpwOtherScene(v, G, W.paras[s].scene);
+      if (bestN) {
         var o = ['This reads like it\'s about ' + text(a).moments[bestN - 1].title + ' (scene ' + bestN + ').', 'But this paragraph is built on ' + text(a).moments[W.paras[s].scene - 1].title + '. Change the scene, or write about the one you picked.', []];
         o.step = true; o.kind = 'bad'; out.unshift(o);
       }
@@ -1449,6 +1457,130 @@
     cpSave(); cpwCheck();
   }
   // Put text in a box where you're typing (or at its end), with a space either side if it needs one.
+  // The teacher in the corner (the user, stuck on an Evaluate box: "wheres bro to help me wheres the teacher"): the
+  // examiner from the Biology desk, bottom left of the popup, "Stuck? Click on me.". Tapped, he looks at the box you're
+  // in (or the next one that needs work) and says one short tip in his bubble; each tap gives the next. First the big
+  // problems (wrong scene, all in one box, mostly retelling), then what the box is for, then sentence starters you can
+  // tap in, then how the worked example puts it (to read, not to copy). In the picking steps, how to pick.
+  // He is one element on top of the popup (not inside it, so redraws don't replay his entrance or lose his bubble),
+  // added when the popup opens and removed when it closes.
+  var TCH = null;
+  function firstSentences(x, n) { return (String(x).match(/[^.!?]+[.!?]+["'’”]?/g) || [x]).slice(0, n).join('').trim(); }
+  function tchTips() {
+    var th = cpTheme(), a = cpBy(th).a, W = cpWrite(th, a), G = th.write[a], s = CPW.slot, para = typeof s === 'number' ? W.paras[s] : null;
+    if (CPW.step === 1 && s === 'open') return [{ id: 'o1', say: 'Pick three or four scenes where someone with power uses it on someone weaker. Different kinds of power make a stronger answer.' },
+      { id: 'o1b', say: 'Pick the scenes you can say the most about, not just the most dramatic ones.' }];
+    if (CPW.step === 1) return [{ id: 'p1', say: 'Pick a scene you haven\'t used yet: the one where the abuse of power is clearest.' }];
+    if (CPW.step === 2) return [{ id: 's2', say: 'Pick the meaning you could write the most about. Read how it\'s written under it before you choose.' }];
+    var P = slotParts(W, s), keys = slotKeys(s), wc = {}, tips = [];
+    keys.forEach(function (k) { wc[k] = wordsIn(P[k]); });
+    var parts = partsOf(th, a, s), label = {};
+    parts.forEach(function (pt) { label[pt.k] = pt.label; });
+    var status, list;
+    if (para) {
+      var sc = G.scenes[para.scene], rp = sc.reps[para.rep || 0], tech = sc.techniques[rp.t] || sc.techniques[0], m = text(a).moments[para.scene - 1];
+      var seg = function (k) { return rp.model.filter(function (g) { return g[0] === k; }).map(function (g) { return g[1]; }).join(' '); };
+      var all = keys.map(function (k) { return P[k] || ''; }).join(' '), total = wordsIn(all), filled = keys.filter(function (k) { return wc[k]; }).length;
+      var other = total >= 20 ? cpwOtherScene(all, G, para.scene) : 0, retell = wc.a > 45 && wc.a > wc.p + wc.e;
+      if (other) tips.push({ id: 'scene', mood: 'angry', say: 'Wrong scene. You picked “' + m.title + '”, but this reads like “' + text(a).moments[other - 1].title + '”. Write about yours, or change the scene.', step: true });
+      if (filled === 1 && total > 110) tips.push({ id: 'one', mood: 'angry', say: 'It\'s all in one box. Split it: one sentence of Point, a short Anchor, then Evaluate.' });
+      else if (retell) tips.push({ id: 'retell', mood: 'angry', say: 'Too much story. The examiner has seen the film. Cut the Anchor to one or two sentences and spend your words on Evaluate.' });
+      status = function (k) {
+        if (!wc[k]) return 'empty';
+        if (k === 'p') return wc.p > 35 ? 'long' : 'ok';
+        if (k === 'a') return wc.a > 45 ? (retell ? 'ok' : 'long') : !TECH_WORDS.test(P.a) ? 'notech' : 'ok';
+        return wc.e < 25 ? 'short' : 'ok';
+      };
+      var techs = sc.techniques.map(function (q) { return q.name.toLowerCase(); }).join(', ');
+      list = {
+        'p empty': [{ say: 'Point first. One sentence: not what happens, but what it says about abuse of power.' },
+          { say: 'Start with the idea itself. Tap one to start:', chips: ['Here, Darabont exposes', 'In this scene, power', 'This is the moment where'] },
+          { say: 'Here\'s how I\'d put it. Read it, then write your own:', quote: seg('p') }],
+        'p long': [{ say: 'Too long for a Point. One sentence: the idea. Save the detail for the Anchor.' }],
+        'a empty': [{ say: 'Anchor: the moment, in one or two sentences. Don\'t retell the whole scene.' },
+          { say: 'Then say how it\'s filmed. This scene has ' + techs + '. For example:', quote: tech.say },
+          { say: 'Here\'s one way. Read it, then write your own:', quote: firstSentences(seg('a'), 1) + ' ' + seg('t') }],
+        'a long': [{ say: 'Too long. Cut the Anchor to one or two sentences. The story isn\'t where the marks are.' }],
+        'a notech': [{ say: 'Now say how it\'s filmed: one technique lifts your Language mark. This scene has ' + techs + '. For example:', quote: tech.say }],
+        'e empty': [{ say: 'Evaluate: why does it matter? Link back to your Point, then say what it tells us about abuse of power.' },
+          { say: 'Two or three sentences. Tap one to start:', chips: ['This matters because', 'Ironically, the very', 'Darabont suggests that abuse of power'] },
+          { say: 'Here\'s how I\'d start it. Read it, then write your own:', quote: firstSentences(seg('e'), 2) }],
+        'e short': [{ say: 'Go further: one more sentence. What does the film say about power here?', chips: ['Darabont suggests that', 'Ultimately,'] }]
+      };
+    } else {
+      status = function (k) { return !wc[k] ? 'empty' : wc[k] > 70 ? 'long' : 'ok'; };
+      list = {};
+      parts.forEach(function (pt) {
+        list[pt.k + ' empty'] = [{ say: pt.hint }].concat((pt.ideas || []).slice(0, 2).map(function (x) { return { say: 'Here\'s one way. Read it, then write your own:', quote: typeof x === 'string' ? x : x.t }; }));
+        list[pt.k + ' long'] = [{ say: 'This part should be short. Cut it back to the one thing it needs to say.' }];
+      });
+    }
+    // The box you're in; if it's fine, the next one that needs work.
+    var at = keys.indexOf(CPW.box) < 0 ? 0 : keys.indexOf(CPW.box), k = keys[at], moved = false;
+    if (status(k) === 'ok') {
+      var nx = keys.slice(at + 1).concat(keys.slice(0, at)).filter(function (x) { return status(x) !== 'ok'; })[0];
+      if (nx == null) return tips.concat([{ id: 'done', mood: tips.length ? 'ok' : 'happy', say: para ? 'That\'s a paragraph. Fix anything in the check under it, then go on to the next part.' : 'That\'s this part done. Fix anything in the check, then go on.' }]);
+      k = nx; moved = true;
+    }
+    return tips.concat((list[k + ' ' + status(k)] || []).map(function (t, i) {
+      var o = { id: k + status(k) + i, k: k, say: t.say, quote: t.quote, chips: t.chips };
+      if (i === 0 && moved) o.say = 'Your ' + label[keys[at]] + ' is fine. ' + o.say;
+      return o;
+    }));
+  }
+  function tchEl() {
+    if (!TCH) {
+      TCH = document.createElement('div'); TCH.className = 'eng-tch'; TCH.setAttribute('data-mood', 'ok');
+      TCH.innerHTML = '<div class="eng-tch__say" data-tch-say></div><button type="button" class="eng-tch__fig" data-tch="fig" aria-label="Ask the examiner for help">' +
+        (window.ExamTeacher ? window.ExamTeacher.svg() : '') + '</button>';
+    }
+    return TCH;
+  }
+  function tchIdle() {
+    var t = tchEl(); clearInterval(t.typer); t.typing = null;
+    t.classList.remove('is-helping', 'is-talking'); t.setAttribute('data-mood', 'ok');
+    t.querySelector('[data-tch-say]').innerHTML = '<button type="button" class="eng-tch__ask" data-tch="fig">Stuck? Click on me.</button>';
+    tchPop();
+  }
+  function tchPop() { var say = TCH.querySelector('[data-tch-say]'); say.classList.remove('is-pop'); void say.offsetWidth; say.classList.add('is-pop'); }
+  function tchHelp(again) {
+    var t = tchEl(), tips = tchTips(), sig = tips.map(function (x) { return x.id; }).join(',');
+    // A warning he's already given in this part isn't repeated when the tips change (you typed): he goes on to the next.
+    var st = CPW.tch || (CPW.tch = { i: -1, sig: '', said: {} });
+    if (st.sig !== sig || !again) { st.sig = sig; st.i = 0; while (st.i < tips.length - 1 && tips[st.i].mood === 'angry' && st.said[tips[st.i].id]) st.i++; }
+    else st.i = Math.min(st.i + 1, tips.length - 1);
+    var tip = tips[st.i], last = st.i >= tips.length - 1;
+    st.said[tip.id] = 1;
+    t.classList.add('is-helping'); t.setAttribute('data-mood', tip.mood || 'ok');
+    var say = t.querySelector('[data-tch-say]');
+    say.innerHTML = '<p class="eng-tch__line"></p>' +
+      '<div class="eng-tch__rest">' + (tip.quote ? '<blockquote class="eng-tch__q">' + esc(tip.quote) + '</blockquote>' : '') +
+      (tip.chips ? '<p class="eng-tch__chips">' + tip.chips.map(function (c) { return '<button type="button" class="eng-chip" data-tch="word" data-tch-word="' + esc(c) + '" data-tch-box="' + (tip.k || '') + '">' + esc(c.replace(/,$/, '')) + '…</button>'; }).join('') + '</p>' : '') +
+      (tip.step ? '<p class="eng-tch__chips"><button type="button" class="eng-chip" data-cpw-step="1">Change the scene</button></p>' : '') +
+      '<p class="eng-tch__btns">' + (last ? '<button type="button" class="eng-btn eng-btn--quiet" data-tch="close">Got it</button>' : '<button type="button" class="eng-btn" data-tch="more">Another tip</button>') +
+      '</p></div><button type="button" class="eng-tch__x" data-tch="close" aria-label="Close the tip">×</button>';
+    tchPop();
+    var line = say.querySelector('.eng-tch__line'), full = tip.say, n = 0;
+    clearInterval(t.typer);
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { line.textContent = full; say.classList.add('is-done'); return; }
+    say.classList.remove('is-done'); t.classList.add('is-talking'); t.typing = full;
+    t.typer = setInterval(function () {
+      n += 2; line.textContent = full.slice(0, n);
+      if (n >= full.length) tchDone();
+    }, 22);
+  }
+  function tchDone() {
+    var t = TCH; if (!t || !t.typing) return;
+    clearInterval(t.typer); t.querySelector('.eng-tch__line').textContent = t.typing; t.typing = null;
+    t.classList.remove('is-talking'); t.querySelector('[data-tch-say]').classList.add('is-done');
+  }
+  function tchClick(v) {
+    var what = v.getAttribute('data-tch');
+    if (what === 'close') { tchIdle(); var f = TCH.querySelector('.eng-tch__fig'); if (f) f.focus(); return; }
+    if (TCH.typing) { tchDone(); if (what !== 'word') return; }
+    if (what === 'word') { cpwInsert(v.getAttribute('data-tch-word'), v.getAttribute('data-tch-box') || null); return; }
+    tchHelp(TCH.classList.contains('is-helping'));
+  }
   function cpwInsert(word, k) {
     var box = document.getElementById('eng-cpd'), ta = box && box.querySelector('[data-cpw-box="' + (k || CPW.box) + '"]');
     if (!ta) return;
@@ -1529,6 +1661,7 @@
       var bm = document.querySelector('#eng-cpd [data-cpw-more="' + km + '"]') || document.querySelector('#eng-cpd [data-cpw-box="' + km + '"]'); if (bm) bm.focus({ preventScroll: true });
       return true;
     }
+    if ((v = t.closest('[data-tch]'))) { tchClick(v); return true; }
     if ((v = t.closest('[data-cpw-fix]'))) { cpwFix(v.getAttribute('data-cpw-fix')); return true; }
     if ((v = t.closest('[data-cpw-word]'))) { cpwInsert(v.getAttribute('data-cpw-word')); return true; }
     return false;
@@ -1537,10 +1670,10 @@
   document.addEventListener('focusin', function (ev) { if (CPW && ev.target.matches && ev.target.matches('[data-cpw-box]')) CPW.box = ev.target.getAttribute('data-cpw-box'); });
   document.addEventListener('keydown', function (ev) {
     if (!CPW) return;
-    if (ev.key === 'Escape') { ev.preventDefault(); cpwClose(); return; }
+    if (ev.key === 'Escape') { ev.preventDefault(); if (TCH && TCH.classList.contains('is-helping')) { tchIdle(); return; } cpwClose(); return; }
     if (ev.key === 'Tab') {
       // Keep Tab inside the popup.
-      var f = Array.prototype.filter.call(document.querySelectorAll('#eng-cpd .eng-cpd__box button:not([disabled]), #eng-cpd .eng-cpd__box textarea, #eng-cpd .eng-cpd__box a[href]'), function (e) { return e.offsetParent !== null; });
+      var f = Array.prototype.filter.call(document.querySelectorAll('#eng-cpd .eng-cpd__box button:not([disabled]), #eng-cpd .eng-cpd__box textarea, #eng-cpd .eng-cpd__box a[href], .eng-tch button'), function (e) { return e.offsetParent !== null; });
       if (!f.length) return;
       var i = f.indexOf(document.activeElement);
       if (ev.shiftKey && i <= 0) { ev.preventDefault(); f[f.length - 1].focus(); }

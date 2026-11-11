@@ -1309,3 +1309,37 @@ a.eng-part:hover { background: var(--raised); }
 @media (max-width: 1100px) { .eng-single { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .eng-single { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .eng-pick.is-soon .eng-part__s { margin-top: 4px; padding: 0; background: none; color: var(--faint); }
+
+/* The teacher in the writing popup's corner (eng.js tchTips/tchHelp): the Biology desk's examiner, bottom left, in the
+   margin beside the writing on wide screens. Tapped, his tip types out in his bubble. */
+.eng-tch { --w: clamp(92px, calc(50vw - 590px), 168px); position: fixed; z-index: 81; left: max(10px, calc(50% - 560px - var(--w) - 18px)); bottom: 8px; width: var(--w); animation: tchUp .6s .15s cubic-bezier(.3, 1.35, .5, 1) both; }
+@keyframes tchUp { from { transform: translateY(115%); } }
+.eng-tch__fig { display: block; width: 100%; aspect-ratio: 908 / 1116; padding: 0; border: 0; background: none; cursor: pointer; filter: drop-shadow(0 6px 0 rgba(0, 0, 0, .3)); transition: transform .2s ease; }
+.eng-tch__fig:hover, .eng-tch__fig:focus-visible { transform: translateY(-6px); }
+.eng-tch__fig:focus-visible { outline: 3px solid #FFE14D; outline-offset: 4px; border-radius: 12px; }
+.eng-tch__say { box-sizing: border-box; position: absolute; left: 0; bottom: calc(100% + 14px); width: max-content; max-width: max(var(--w), 160px); border-radius: 18px; background: #fff; color: #1d2a3a; font: 800 20px/1.25 Nunito, sans-serif; box-shadow: 0 4px 0 rgba(0, 0, 0, .3); transform-origin: 30px 100%; }
+.eng-tch__say.is-pop { animation: tchPop .35s cubic-bezier(.3, 1.4, .5, 1) both; }
+.eng-tch__say::after { content: ""; position: absolute; left: calc(var(--w) * .45); bottom: -7px; width: 16px; height: 16px; border-radius: 0 0 4px 0; background: #fff; transform: rotate(45deg); }
+@keyframes tchPop { from { opacity: 0; transform: scale(.85); } }
+.eng-tch__ask { display: block; padding: 12px 16px; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.eng-tch.is-helping .eng-tch__say { width: min(420px, calc(100vw - 24px)); max-width: none; max-height: min(64vh, 560px); overflow: auto; padding: 18px 46px 16px 20px; }
+.eng-tch__line { margin: 0; min-height: 1.3em; font-size: 20px; line-height: 1.35; }
+.eng-tch__rest { opacity: 0; transform: translateY(6px); transition: opacity .3s ease, transform .3s ease; pointer-events: none; }
+.eng-tch__say.is-done .eng-tch__rest { opacity: 1; transform: none; pointer-events: auto; }
+.eng-tch__q { margin: 12px 0 0; padding: 10px 14px; border-left: 4px solid #E86FA6; border-radius: 0 10px 10px 0; background: #F1F4F9; color: #24324a; font: 600 italic 17.5px/1.45 Nunito, sans-serif; }
+.eng-tch__chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.eng-tch__chips .eng-chip { font-size: 16px; }
+.eng-tch__btns { display: flex; justify-content: flex-end; margin: 14px 0 0; }
+.eng-tch__btns .eng-btn { min-height: 44px; padding: 8px 20px; font-size: 17px; }
+.eng-tch__x { position: absolute; top: 8px; right: 8px; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #E6EBF2; color: #1d2a3a; font: 800 22px/1 Nunito, sans-serif; cursor: pointer; }
+@media (max-width: 1359px) { .eng-cpd__body { padding-bottom: 190px; } }
+@media (max-width: 600px) {
+  .eng-tch { --w: 84px; left: 6px; bottom: 6px; }
+  .eng-tch__say { font-size: 15.5px; }
+  .eng-tch__ask { padding: 9px 12px; }
+  .eng-tch.is-helping .eng-tch__say { width: calc(100vw - 12px); padding: 14px 44px 12px 14px; }
+  .eng-tch__line { font-size: 17px; }
+  .eng-tch__q { font-size: 15.5px; }
+  .eng-cpd__body { padding-bottom: 160px; }
+}
+@media (prefers-reduced-motion: reduce) { .eng-tch, .eng-tch__say.is-pop { animation: none; } .eng-tch__rest { transition: none; } }
