@@ -326,11 +326,15 @@ body.eng-cpd-on { overflow: hidden; }
 .eng-cpd__repi i { padding-left: 14px; border-left: 3px solid var(--m-theme); color: #DCE6EB; font: italic 700 18px/1.5 Nunito, sans-serif; }
 .eng-cpd__model { margin-top: 50px; }
 .eng-cpd__mh { margin: 0 0 18px; color: var(--m-theme); font: 600 27px Fredoka, Nunito, sans-serif; }
-.eng-cpd__ms { margin: 0 0 18px; padding-left: 20px; border-left: 6px solid var(--pc); color: #fff; font: 700 21px/1.6 Nunito, sans-serif; }
-.eng-cpd__ms > span { display: block; width: max-content; max-width: 100%; margin-bottom: 6px; padding: 2px 13px; border-radius: 999px; background: var(--pc); color: #13212A; font: 800 16px Nunito, sans-serif; }
-.eng-cpd__ms small { display: block; margin-top: 8px; color: var(--muted); font: 700 18px/1.45 Nunito, sans-serif; }
-.eng-cpd__ms small b { color: #fff; }
 .eng-cpd__model .eng-btns { margin: 10px 0 0; }
+/* The example as one paragraph: each part underlined in its colour, a key underneath. */
+.eng-cpd__mp { max-width: 74ch; margin: 0; color: #fff; font: 700 21px/1.85 Nunito, sans-serif; }
+.eng-cpd__seg { padding: 2px 0; background: linear-gradient(to top, color-mix(in srgb, var(--pc) 22%, transparent) 0, transparent 100%); box-shadow: inset 0 -3px 0 var(--pc); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.eng-cpd__key { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+.eng-cpd__key span { padding: 2px 13px; border-radius: 999px; background: var(--pc); color: #13212A; font: 800 16px Nunito, sans-serif; }
+.eng-cpd__tq { margin: 10px 0 0; color: var(--muted); font: 700 18px/1.45 Nunito, sans-serif; }
+.eng-cpd__tq b { color: #fff; }
+.eng-cpd__three + .eng-cpd__model { margin: 0 0 36px; }
 .eng-cpd__ar { fill: none; stroke: rgba(255, 255, 255, .3); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
 .eng-cpd__ah { fill: rgba(255, 255, 255, .3); }
 .eng-cpd__ar.is-on { stroke: var(--m-theme); stroke-width: 5; } .eng-cpd__ah.is-on { fill: var(--m-theme); }
@@ -414,7 +418,7 @@ body.eng-cpd-on { overflow: hidden; }
   .eng-cpd__tree .eng-cpd__model { margin-top: 28px; }
   .eng-cpd__rep { padding: 14px 14px 14px 54px; } .eng-cpd__rep::before { left: 14px; top: 18px; width: 28px; height: 28px; }
   .eng-cpd__rep b { font-size: 22px; } .eng-cpd__rep > span { font-size: 18px; } .eng-cpd__repi i { font-size: 17px; }
-  .eng-cpd__mh { font-size: 24px; } .eng-cpd__ms { padding-left: 14px; font-size: 19px; } .eng-cpd__ms small { font-size: 16.5px; }
+  .eng-cpd__mh { font-size: 24px; } .eng-cpd__mp { font-size: 19px; line-height: 1.8; } .eng-cpd__key span { font-size: 15px; } .eng-cpd__tq { font-size: 16.5px; }
   .eng-cpd__banner { grid-template-columns: minmax(0, 1fr); gap: 14px; } .eng-cpd__banner img { height: 180px; }
   .eng-cpd__banner b { font-size: 24px; } .eng-cpd__bs { font-size: 18px; }
   .eng-cpd__part { padding-left: 14px; } .eng-cpd__ph2 { font-size: 19px; } .eng-cpd__idea { font-size: 17.5px; } .eng-cpd__part textarea { font-size: 19.5px; }

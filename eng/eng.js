@@ -1123,21 +1123,26 @@
     text(a).people.forEach(function (p) { p.name.split(/[^A-Za-zÀ-ÿ']+/).forEach(function (x) { names[x] = 1; }); });
     return names[w] || w === 'I' ? s : lowerFirst(s);
   }
-  // The worked example for one meaning of a scene: Point, Anchor, the film technique and Evaluate.
-  function cpwModel(th, a, n, ri) {
-    var sc = th.write[a].scenes[n], r = sc.reps[ri];
-    return { p: r.start, a: afterColon(sc.details[r.d], a), t: sc.techniques[r.t], e: r.ideas[0] };
+  // The worked example: a whole paragraph, written out (rep.model: [kind, text] in order), each part in its colour, with
+  // a key underneath, and for a scene the film technique it uses. Start from this puts it in the boxes.
+  var SEG = { p: ['Point', 'var(--pace-p)'], a: ['Anchor', 'var(--pace-a)'], t: ['Technique', 'var(--m-gvv)'], e: ['Evaluate', 'var(--pace-e)'],
+    film: ['The film', 'var(--pace-p)'], idea: ['What it says', 'var(--pace-a)'], points: ['Your three points', 'var(--pace-c)'],
+    sum: ['Sum up', 'var(--pace-c)'], final: ['What it finally says', 'var(--pace-a)'], last: ['Last line', 'var(--pace-e)'] };
+  function cpwModel(th, a, n, ri) { var sc = th.write[a].scenes[n], r = sc.reps[ri]; return { segs: r.model, t: sc.techniques[r.t] }; }
+  // The opening's and ending's example, made from the ideas and your three scenes.
+  function slotExample(th, a, s) {
+    return partsOf(th, a, s).map(function (pt) { var x = pt.ideas && pt.ideas[0]; return x ? [pt.k, typeof x === 'string' ? x : x.t] : null; }).filter(Boolean);
   }
-  function modelHtml(th, a, n, ri, k) {
-    var M = cpwModel(th, a, n, ri);
+  function exampleHtml(segs, tech, use) {
+    var kinds = [];
+    segs.forEach(function (g) { if (kinds.indexOf(g[0]) < 0) kinds.push(g[0]); });
     return '<div class="eng-cpd__model"><p class="eng-cpd__mh">Here\'s one way to write it</p>' +
-      '<p class="eng-cpd__ms" style="--pc:var(--pace-p)"><span>Point</span>' + esc(M.p) + '</p>' +
-      '<p class="eng-cpd__ms" style="--pc:var(--pace-a)"><span>Anchor</span>' + esc(M.a) + '</p>' +
-      '<p class="eng-cpd__ms eng-cpd__ms--t" style="--pc:var(--m-gvv)"><span>Technique: ' + esc(M.t.name) + '</span>' + esc(M.t.say) +
-        '<small><b>' + esc(M.t.name) + ':</b> ' + esc(lowerFirst(M.t.what)) + '</small></p>' +
-      '<p class="eng-cpd__ms" style="--pc:var(--pace-e)"><span>Evaluate</span>' + esc(M.e) + '</p>' +
-      '<p class="eng-btns"><button type="button" class="eng-btn eng-btn--quiet" data-cpw-use="' + k + '">Start from this</button></p></div>';
+      '<p class="eng-cpd__mp">' + segs.map(function (g) { return '<span class="eng-cpd__seg" style="--pc:' + SEG[g[0]][1] + '">' + esc(g[1]) + '</span>'; }).join(' ') + '</p>' +
+      '<p class="eng-cpd__key">' + kinds.map(function (k) { return '<span style="--pc:' + SEG[k][1] + '">' + esc(k === 't' && tech ? 'Technique: ' + tech.name : SEG[k][0]) + '</span>'; }).join('') + '</p>' +
+      (tech ? '<p class="eng-cpd__tq"><b>' + esc(tech.name) + ':</b> ' + esc(lowerFirst(tech.what)) + '</p>' : '') +
+      '<p class="eng-btns"><button type="button" class="eng-btn eng-btn--quiet" data-cpw-use="' + use + '">Start from this</button></p></div>';
   }
+  function modelHtml(th, a, n, ri, k) { var M = cpwModel(th, a, n, ri); return exampleHtml(M.segs, M.t, k); }
   function repPicked(G, p) { return !!p.scene && (p.picked || G.scenes[p.scene].reps.length === 1); }
   // A scene and what it can represent, joined by arrows (drawn by cpwArrows); the one you pick leads on to the example.
   function treeHtml(th, a, k, p, attr, label) {
@@ -1245,7 +1250,7 @@
         top = '<div class="eng-cpd__banner" style="--c:' + COL[a] + '">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') +
           '<div><span class="eng-cpd__bt"><span class="eng-cpm__n">' + para.scene + '</span>' + esc(m.title) + '</span><b>' + esc(rep.title) + '</b><span class="eng-cpd__bs">' + esc(rep.say) + '</span>' +
           '<span class="eng-cpd__techs">Techniques: ' + G.scenes[para.scene].techniques.map(function (q) { return '<i title="' + esc(q.what) + '">' + esc(q.name) + '</i>'; }).join('') + '</span></div></div>';
-      } else top = threeHtml(th, a, W);
+      } else top = threeHtml(th, a, W) + (slotExample(th, a, s).length ? exampleHtml(slotExample(th, a, s), null, s) : '');
       var P = slotParts(W, s);
       body = top + '<div class="eng-cpd__write"><div class="eng-cpd__parts">' + partsOf(th, a, s).map(function (pt, pi) {
         return '<section class="eng-cpd__part" style="--pc:' + PART_COL[pt.k] + ';--i:' + pi + '"><header><span class="eng-cpd__pl">' + esc(pt.label) + '</span><span class="eng-cpd__ph2">' + esc(pt.hint) + '</span></header>' +
@@ -1357,11 +1362,15 @@
       return true;
     }
     if ((v = t.closest('[data-cpw-use]'))) {
-      // Start from the worked example: it fills that paragraph's three boxes (after asking, if they have writing).
-      var ku = +v.getAttribute('data-cpw-use'), qu = W.paras[ku], M = cpwModel(th, a, qu.scene, qu.rep || 0), pu = qu.parts;
-      if ((pu.p || pu.a || pu.e) && !window.confirm('Replace what you\'ve written in paragraph ' + (ku + 1) + ' with this example?')) return true;
-      qu.parts = { p: M.p, a: M.a + ' ' + M.t.say, e: M.e }; cpSave();
-      if (typeof CPW.slot === 'number') { CPW.step = 3; CPW.box = 'e'; cpwDraw(true); } else { cpwDraw(); toast('Paragraph ' + (ku + 1) + ' started from the example'); }
+      // Start from the worked example: it fills the boxes (after asking, if they have writing). In a paragraph the
+      // technique goes in with the anchor.
+      var us = slotOf(v.getAttribute('data-cpw-use')), segs = typeof us === 'number' ? cpwModel(th, a, W.paras[us].scene, W.paras[us].rep || 0).segs : slotExample(th, a, us);
+      var pu = slotParts(W, us), fill = {};
+      segs.forEach(function (g) { var k = g[0] === 't' ? 'a' : g[0]; fill[k] = (fill[k] ? fill[k] + ' ' : '') + g[1]; });
+      if (slotKeys(us).some(function (k) { return pu[k]; }) && !window.confirm('Replace what you\'ve written in the ' + slotName(us).toLowerCase() + ' with this example?')) return true;
+      slotKeys(us).forEach(function (k) { pu[k] = fill[k] || ''; });
+      cpSave();
+      if (us === CPW.slot) { CPW.step = 3; CPW.box = slotKeys(us)[slotKeys(us).length - 1]; cpwDraw(true); } else { cpwDraw(); toast(slotName(us) + ' started from the example'); }
       return true;
     }
     if ((v = t.closest('[data-cpw-step]'))) {

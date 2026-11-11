@@ -295,7 +295,25 @@
                     "It sets up the whole film: power does not care whether you are guilty or innocent."
                   ],
                   "d": 2,
-                  "t": 0
+                  "t": 0,
+                  "model": [
+                    [
+                      "p",
+                      "From the film's opening minutes, Darabont makes clear that the system holds total power over one man's life, whether he is guilty or not."
+                    ],
+                    [
+                      "a",
+                      "We first meet Andy Dufresne drunk in his car outside the house where his wife is with her lover, loading a revolver, and soon he is convicted of both murders and given two life sentences."
+                    ],
+                    [
+                      "t",
+                      "Darabont cross-cuts between that night and the courtroom, so we, like the jury, piece together a story that looks damning yet proves nothing."
+                    ],
+                    [
+                      "e",
+                      "This cold, impersonal verdict establishes the injustice at the heart of the film: once the system has decided, an innocent man is powerless to fight back."
+                    ]
+                  ]
                 }
               ],
               "words": [
@@ -369,7 +387,25 @@
                     "Freedom is not earned here: it is handed out, or not, by men who barely look up."
                   ],
                   "d": 1,
-                  "t": 0
+                  "t": 0,
+                  "model": [
+                    [
+                      "p",
+                      "The parole board embodies the arbitrary authority the system holds over every prisoner's future."
+                    ],
+                    [
+                      "a",
+                      "Twenty years into his sentence, Red sits before the board and assures them he is a changed man, only for his file to be stamped 'REJECTED'."
+                    ],
+                    [
+                      "t",
+                      "Darabont cuts to a close-up of the stamp coming down, so that twenty years of a man's life are dismissed in a single word."
+                    ],
+                    [
+                      "e",
+                      "Freedom here is not earned but handed out, or withheld, by men who barely look up, which underlines how little control the prisoners have over their own lives."
+                    ]
+                  ]
                 },
                 {
                   "title": "Power makes people perform",
@@ -380,7 +416,25 @@
                     "The system turns men into performers."
                   ],
                   "d": 0,
-                  "t": 1
+                  "t": 1,
+                  "model": [
+                    [
+                      "p",
+                      "Under the board's power, even Red's words are not his own."
+                    ],
+                    [
+                      "a",
+                      "In a rehearsed and hollow speech, he tells the board exactly what he thinks they want to hear: that he has learned his lesson, that he is a changed man and no longer a danger to society."
+                    ],
+                    [
+                      "t",
+                      "The close-up of the 'REJECTED' stamp that follows exposes how futile the performance is."
+                    ],
+                    [
+                      "e",
+                      "The system demands that prisoners act out their remorse, yet it is unmoved even when they do, so honesty and dignity become the first casualties of its authority."
+                    ]
+                  ]
                 }
               ],
               "words": [
@@ -454,7 +508,25 @@
                     "Fear is the first lesson Shawshank teaches."
                   ],
                   "d": 2,
-                  "t": 1
+                  "t": 1,
+                  "model": [
+                    [
+                      "p",
+                      "From Andy's first night, Shawshank is ruled by fear, and the guards wield their power with complete impunity."
+                    ],
+                    [
+                      "a",
+                      "When a terrified new prisoner, mockingly nicknamed 'Fat Ass' by Heywood, breaks down in tears, Captain Hadley beats him so savagely that he dies in the infirmary; the next morning, Andy is the only one who asks what his name was."
+                    ],
+                    [
+                      "t",
+                      "Darabont films that night in near-darkness, with the men behind bars, so the prison feels less like an institution than a cage."
+                    ],
+                    [
+                      "e",
+                      "The brutality is chilling precisely because nobody is held to account: a man can be killed for crying, and the regime carries on as normal. Fear is the first lesson Shawshank teaches."
+                    ]
+                  ]
                 },
                 {
                   "title": "Religion as a mask",
@@ -465,7 +537,25 @@
                     "The film warns us not to trust power that dresses itself up as goodness."
                   ],
                   "d": 0,
-                  "t": 2
+                  "t": 2,
+                  "model": [
+                    [
+                      "p",
+                      "Norton hides the cruelty of his regime behind a mask of religion."
+                    ],
+                    [
+                      "a",
+                      "Greeting the new prisoners, he tells them he believes in two things, discipline and the Bible, and that here they will receive both."
+                    ],
+                    [
+                      "t",
+                      "Norton's own dialogue sets up his hypocrisy from his very first scene: scripture, for him, is less a source of mercy than a tool of control."
+                    ],
+                    [
+                      "e",
+                      "Within hours, Hadley has beaten a frightened man to death, and the warden's talk of righteousness rings hollow. Darabont warns us not to trust power that dresses itself up as goodness."
+                    ]
+                  ]
                 }
               ],
               "words": [
@@ -544,7 +634,25 @@
                     "For a moment the prisoners hold the power, and Red says they felt like free men."
                   ],
                   "d": 2,
-                  "t": 1
+                  "t": 1,
+                  "model": [
+                    [
+                      "p",
+                      "Andy discovers that knowledge can be as powerful as force."
+                    ],
+                    [
+                      "a",
+                      "While tarring the roof of the licence-plate factory, he overhears Hadley complaining about tax on an inheritance and dares to offer advice; Hadley nearly throws him off the roof, but within minutes Andy has explained how to keep the money tax-free, asking only for three beers each for his co-workers."
+                    ],
+                    [
+                      "t",
+                      "Red's voiceover puts the moment into words: the men sat and drank with the sun on their shoulders and felt like free men."
+                    ],
+                    [
+                      "e",
+                      "In a striking reversal, the brutal guard ends up serving the prisoners, which suggests that brains, not brute force, are the one weapon the powerless can turn against the powerful."
+                    ]
+                  ]
                 },
                 {
                   "title": "Using power for others",
@@ -555,7 +663,25 @@
                     "Power used kindly is rare, and precious, in Shawshank."
                   ],
                   "d": 2,
-                  "t": 2
+                  "t": 2,
+                  "model": [
+                    [
+                      "p",
+                      "Unlike the guards, Andy uses what little power he has for others rather than himself."
+                    ],
+                    [
+                      "a",
+                      "Having won Hadley over with his tax advice, he asks for nothing for himself except three beers each for his co-workers."
+                    ],
+                    [
+                      "t",
+                      "Darabont frames Andy sitting apart from the drinking men, smiling, as warm sunlight falls across the rooftop."
+                    ],
+                    [
+                      "e",
+                      "The contrast with the guards could not be sharper: where they use their authority to take, Andy uses his to give, and his small act of dignity hints at a different, more humane kind of strength."
+                    ]
+                  ]
                 }
               ],
               "words": [
@@ -634,7 +760,25 @@
                     "Fifty years of control have left Brooks unable to live without it."
                   ],
                   "d": 1,
-                  "t": 1
+                  "t": 1,
+                  "model": [
+                    [
+                      "p",
+                      "The prison's power reaches far beyond its walls and into the minds of the men inside."
+                    ],
+                    [
+                      "a",
+                      "When Brooks Hatlen learns he is to be paroled after fifty years, he holds a knife to Heywood's throat in the hope of being kept inside, and Red explains that he is 'institutionalized'."
+                    ],
+                    [
+                      "t",
+                      "Once Brooks is released, a montage of rushing cars and busy streets makes the outside world seem fast and frightening to a man conditioned by half a century of routine."
+                    ],
+                    [
+                      "e",
+                      "The tragedy is that the system has made Brooks dependent on the very thing that imprisoned him; Shawshank has stripped him of the ability to live as a free man."
+                    ]
+                  ]
                 },
                 {
                   "title": "The human cost of power",
@@ -645,7 +789,25 @@
                     "Brooks's death is the true cost of power without limits."
                   ],
                   "d": 2,
-                  "t": 2
+                  "t": 2,
+                  "model": [
+                    [
+                      "p",
+                      "The true cost of the prison's power is measured in a human life."
+                    ],
+                    [
+                      "a",
+                      "Freed but broken, Brooks cannot cope with the changed world, and he hangs himself in his halfway-house room after carving 'Brooks Hatlen was here' into a wooden beam."
+                    ],
+                    [
+                      "t",
+                      "Darabont's camera lingers on those carved words, a poignant final attempt to prove that he existed at all."
+                    ],
+                    [
+                      "e",
+                      "This haunting moment underscores how completely the system takes a man's life and gives nothing back: unchecked power does not simply punish, it destroys."
+                    ]
+                  ]
                 }
               ],
               "words": [
@@ -724,7 +886,25 @@
                     "Even a few minutes of freedom is treated as a crime."
                   ],
                   "d": 2,
-                  "t": 0
+                  "t": 0,
+                  "model": [
+                    [
+                      "p",
+                      "In Shawshank, even a moment of beauty is treated as a threat to the warden's control."
+                    ],
+                    [
+                      "a",
+                      "Andy locks himself in the office and plays a duet from Mozart's The Marriage of Figaro over the loudspeakers; across the yard, the prisoners stand frozen, listening, and Andy is punished with two weeks in solitary."
+                    ],
+                    [
+                      "t",
+                      "Because the opera comes through the prison's own loudspeakers, every man in the yard hears it: for a few minutes, the instrument of control becomes an instrument of liberation."
+                    ],
+                    [
+                      "e",
+                      "The punitive response exposes how the regime fears anything it cannot command, even a song."
+                    ]
+                  ]
                 },
                 {
                   "title": "Power can't reach the inside",
@@ -735,7 +915,25 @@
                     "Power can lock up the body, but not everything inside a person."
                   ],
                   "d": 1,
-                  "t": 2
+                  "t": 2,
+                  "model": [
+                    [
+                      "p",
+                      "This scene suggests there is something that power can never reach."
+                    ],
+                    [
+                      "a",
+                      "After two weeks in solitary, Andy tells the other men that music is something inside you that they can't take from you, while Red warns that hope is a dangerous thing."
+                    ],
+                    [
+                      "t",
+                      "Red's voiceover admits he has no idea what those two Italian ladies were singing about, yet for a brief moment every man in Shawshank felt free."
+                    ],
+                    [
+                      "e",
+                      "However tightly the warden controls their bodies, he cannot control their inner lives, and that resilience is the first sign that the prison's power has limits."
+                    ]
+                  ]
                 }
               ],
               "words": [
@@ -814,7 +1012,25 @@
                     "Power at the top of Shawshank answers to no one."
                   ],
                   "d": 2,
-                  "t": 0
+                  "t": 0,
+                  "model": [
+                    [
+                      "p",
+                      "Norton's power is so absolute that he will kill to protect it."
+                    ],
+                    [
+                      "a",
+                      "When Tommy reveals that a former cellmate boasted of the murders Andy was convicted of, Norton refuses to help, throws Andy into solitary, and has Hadley shoot Tommy dead."
+                    ],
+                    [
+                      "t",
+                      "Darabont stages the killing at night, out in the dark yard, where the warden's crime can be hidden from everyone."
+                    ],
+                    [
+                      "e",
+                      "Norton would rather murder an innocent young man than lose the prisoner who hides his money, a ruthless act that reveals how the abuse of power protects itself at any cost."
+                    ]
+                  ]
                 },
                 {
                   "title": "Corruption at the top",
@@ -825,7 +1041,25 @@
                     "Corruption is not a few bad guards: it runs from the warden down."
                   ],
                   "d": 1,
-                  "t": 1
+                  "t": 1,
+                  "model": [
+                    [
+                      "p",
+                      "Corruption at Shawshank runs from the very top."
+                    ],
+                    [
+                      "a",
+                      "Norton, who greeted the new men with talk of the Bible, has been using Andy to hide his illegal profits for years, and when Tommy's evidence threatens that arrangement, he silences him for good."
+                    ],
+                    [
+                      "t",
+                      "Andy's furious cry, 'How can you be so obtuse?', is laced with irony: Norton understands perfectly, and that is exactly why he will not help."
+                    ],
+                    [
+                      "e",
+                      "The most self-serving man in Shawshank is the one who preaches morality, and Darabont exposes the hypocrisy that lets corruption flourish unchecked."
+                    ]
+                  ]
                 }
               ],
               "words": [
@@ -899,7 +1133,25 @@
                     "Choosing to 'get busy living' is a quiet refusal to let Norton win."
                   ],
                   "d": 1,
-                  "t": 0
+                  "t": 0,
+                  "model": [
+                    [
+                      "p",
+                      "Faced with the full weight of Norton's power, Andy chooses hope as his act of resistance."
+                    ],
+                    [
+                      "a",
+                      "After Tommy's death, he tells Red about his dream of a small hotel in Zihuatanejo and sums up the choice facing every prisoner: 'Get busy living, or get busy dying.'"
+                    ],
+                    [
+                      "t",
+                      "Darabont films the two men side by side against the wall, close enough that every pause carries weight."
+                    ],
+                    [
+                      "e",
+                      "Choosing to keep living is a quiet refusal to let the system break him; the warden can control his days, but not his determination."
+                    ]
+                  ]
                 },
                 {
                   "title": "What power does to people",
@@ -910,7 +1162,25 @@
                     "The tension lets us feel how close power comes to breaking him."
                   ],
                   "d": 2,
-                  "t": 1
+                  "t": 1,
+                  "model": [
+                    [
+                      "p",
+                      "The scene also reveals how close Norton's power has pushed Andy to breaking point."
+                    ],
+                    [
+                      "a",
+                      "Andy admits he drove his wife away, though he did not kill her, and makes Red promise to look under a rock near Buxton; when Red learns Andy has asked for a length of rope, he fears the worst."
+                    ],
+                    [
+                      "t",
+                      "Red's anxious voiceover builds suspense, leaving us, like him, unsure whether Andy plans to escape or to die."
+                    ],
+                    [
+                      "e",
+                      "The ambiguity is unsettling: years of abuse have left even the most resilient man on the edge, a bleak reminder of the human toll of unchecked authority."
+                    ]
+                  ]
                 }
               ],
               "words": [
@@ -984,7 +1254,25 @@
                     "The powerless man beats the system with time and patience."
                   ],
                   "d": 1,
-                  "t": 0
+                  "t": 0,
+                  "model": [
+                    [
+                      "p",
+                      "The empty cell reveals that the warden's control was never as complete as it seemed."
+                    ],
+                    [
+                      "a",
+                      "At the morning count, Andy is gone; in a rage, Norton hurls a stone at the poster on the wall, and it tears straight through to a tunnel."
+                    ],
+                    [
+                      "t",
+                      "Darabont's reveal turns on a single shot: the stone vanishing into the hole exposes twenty years of secret, patient work behind the warden's back."
+                    ],
+                    [
+                      "e",
+                      "The irony is complete: the man Norton thought he owned had been outwitting him all along, and the system's power proves to be an illusion."
+                    ]
+                  ]
                 },
                 {
                   "title": "Freedom through patience",
@@ -995,7 +1283,25 @@
                     "Andy raising his arms in the rain feels like a rebirth."
                   ],
                   "d": 2,
-                  "t": 2
+                  "t": 2,
+                  "model": [
+                    [
+                      "p",
+                      "Andy's escape is the reward for years of patient, quiet resistance."
+                    ],
+                    [
+                      "a",
+                      "A flashback reveals that he dug through the wall for nearly twenty years with a small rock hammer, then crawled through five hundred yards of sewer pipe to freedom."
+                    ],
+                    [
+                      "t",
+                      "Darabont ends the sequence with Andy standing in the pouring rain, arms raised and lit by lightning, an image of rebirth."
+                    ],
+                    [
+                      "e",
+                      "Liberation here is earned by ingenuity rather than force, which suggests that the most enduring answer to abuse of power is a hope that refuses to die."
+                    ]
+                  ]
                 }
               ],
               "words": [
@@ -1074,7 +1380,25 @@
                     "Power turned back on its owner feels like justice."
                   ],
                   "d": 0,
-                  "t": 0
+                  "t": 0,
+                  "model": [
+                    [
+                      "p",
+                      "In the end, the system Norton built to protect himself is what destroys him."
+                    ],
+                    [
+                      "a",
+                      "Posing as 'Randall Stephens', the false identity he created to hide the warden's money, Andy withdraws it from bank after bank and posts the account book to a newspaper."
+                    ],
+                    [
+                      "t",
+                      "A brisk montage of Andy, smartly dressed, moving from one counter to the next makes the warden's downfall feel unstoppable."
+                    ],
+                    [
+                      "e",
+                      "There is poetic justice in this reversal: the corruption Norton relied on becomes the weapon that brings him down, and the powerless man walks away free."
+                    ]
+                  ]
                 },
                 {
                   "title": "Hypocrisy exposed",
@@ -1085,7 +1409,25 @@
                     "The hypocrite is finally judged by his own words."
                   ],
                   "d": 2,
-                  "t": 1
+                  "t": 1,
+                  "model": [
+                    [
+                      "p",
+                      "Norton's hypocrisy is finally exposed."
+                    ],
+                    [
+                      "a",
+                      "As the police arrive, he opens his safe, hidden behind the embroidered words 'His judgment cometh and that right early', to find Andy's Bible, its pages cut out to hold the rock hammer; moments later, he shoots himself."
+                    ],
+                    [
+                      "t",
+                      "The camera lingers on the embroidered verse, so the warden's end feels like judgement arriving at last."
+                    ],
+                    [
+                      "e",
+                      "The book Norton used as a symbol of discipline literally hid the means of escape, an irony that lays bare how hollow his piety always was."
+                    ]
+                  ]
                 }
               ],
               "words": [
@@ -1164,7 +1506,25 @@
                     "Red's story echoes Brooks's, and we fear it will end the same way."
                   ],
                   "d": 2,
-                  "t": 1
+                  "t": 1,
+                  "model": [
+                    [
+                      "p",
+                      "Even after release, the prison's power lingers in Red's mind."
+                    ],
+                    [
+                      "a",
+                      "Given Brooks's old room and his job bagging groceries, Red still asks his manager for permission to go to the toilet, and admits he thinks about breaking parole just to be sent back."
+                    ],
+                    [
+                      "t",
+                      "Darabont deliberately retraces Brooks's steps, so we fear that Red's story will end the same way."
+                    ],
+                    [
+                      "e",
+                      "Forty years of control have conditioned him so completely that freedom feels frightening, a sobering reminder that the damage done by abusive power does not end at the prison gate."
+                    ]
+                  ]
                 },
                 {
                   "title": "Honesty as a kind of freedom",
@@ -1175,7 +1535,25 @@
                     "Honesty is the one thing the board can't control."
                   ],
                   "d": 0,
-                  "t": 0
+                  "t": 0,
+                  "model": [
+                    [
+                      "p",
+                      "Red finds freedom only when he stops playing the system's game."
+                    ],
+                    [
+                      "a",
+                      "At his final hearing, after forty years, he tells the board that 'rehabilitated' is just a made-up word and that he regrets the foolish young man who committed his crime; for the first time he no longer cares what they decide, and he is released."
+                    ],
+                    [
+                      "t",
+                      "The hearing is filmed just like the earlier ones, so the repetition draws attention to what has changed: this time, Red is candid."
+                    ],
+                    [
+                      "e",
+                      "His sincerity is liberating, suggesting that the one thing the system cannot control is a man who refuses to perform for it."
+                    ]
+                  ]
                 }
               ],
               "words": [
@@ -1249,7 +1627,25 @@
                     "The open sea is the opposite of the walls of Shawshank."
                   ],
                   "d": 2,
-                  "t": 1
+                  "t": 1,
+                  "model": [
+                    [
+                      "p",
+                      "The ending places Red and Andy far beyond the reach of any warden."
+                    ],
+                    [
+                      "a",
+                      "Keeping his promise, Red finds Andy's box beneath the rock near Buxton, then carves 'So was Red' beside Brooks's words, breaks parole and heads south to find Andy working on a boat on the beach at Zihuatanejo."
+                    ],
+                    [
+                      "t",
+                      "Darabont's final wide shot pulls back over the Pacific until the two men are tiny figures in a boundless blue world, the opposite of Shawshank's grey walls."
+                    ],
+                    [
+                      "e",
+                      "The open sea affirms that the prison's power, however brutal, was never total: these men end their story in a place where no one owns them."
+                    ]
+                  ]
                 },
                 {
                   "title": "Hope defeats the system",
@@ -1260,7 +1656,25 @@
                     "The ending leaves us believing that hope outlasts power."
                   ],
                   "d": 0,
-                  "t": 2
+                  "t": 2,
+                  "model": [
+                    [
+                      "p",
+                      "Ultimately, hope proves stronger than the system."
+                    ],
+                    [
+                      "a",
+                      "Andy's letter in the box tells Red that hope is a good thing, maybe the best of things, and that no good thing ever dies; the very feeling Red once called dangerous carries him to the beach at Zihuatanejo."
+                    ],
+                    [
+                      "t",
+                      "Red's closing voiceover is a string of wishes for the future, so the narration that began in a parole hearing ends on an open shore."
+                    ],
+                    [
+                      "e",
+                      "The film's final message is triumphant and uplifting: the abuse of power can crush men's bodies for decades, but it cannot destroy the belief that finally sets them free."
+                    ]
+                  ]
                 }
               ],
               "words": [

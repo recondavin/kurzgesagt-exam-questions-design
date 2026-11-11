@@ -136,6 +136,9 @@ def check_compare(cmp, texts, problems):
                 if len(tq) < 2 or any(not (q.get('name') and q.get('say') and q.get('what')) or re.search(r'\bshow', q['say'], re.I) for q in tq):
                     problems.append('%s write %s %s: needs 2+ film techniques (name, say without "show", what)' % (where, tid, n))
                 for r in sc.get('reps', []):
+                    kinds = [g[0] for g in r.get('model', [])]
+                    if not {'p', 'a', 'e'} <= set(kinds) or not set(kinds) <= {'p', 'a', 't', 'e'} or any(re.search(r'\bshow', g[1], re.I) for g in r.get('model', [])):
+                        problems.append('%s write %s %s %r: needs a model paragraph (p, a, e and maybe t parts, no "show")' % (where, tid, n, r.get('title')))
                     if not (0 <= r.get('d', -1) < len(sc.get('details', [])) and 0 <= r.get('t', -1) < len(tq)):
                         problems.append('%s write %s %s %r: d and t must point at one of its details and techniques' % (where, tid, n, r.get('title')))
                 if len(sc.get('words', [])) != 10 or any(len(x) != 2 or not x[0] or not x[1] for x in sc['words']):
