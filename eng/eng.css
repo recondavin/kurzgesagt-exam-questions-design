@@ -433,6 +433,10 @@ body.eng-cpd-on { overflow: hidden; }
 .eng-cpd__part header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; margin-bottom: 14px; }
 .eng-cpd__pl { padding: 3px 14px; border-radius: 999px; background: var(--pc); color: #13212A; font: 800 18px Nunito, sans-serif; }
 .eng-cpd__ph2 { color: #fff; font: 700 21px/1.45 Nunito, sans-serif; }
+.eng-cpd__hl { color: #10202b; font-weight: 900; padding: 1px 8px; border-radius: 6px; -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  background: linear-gradient(var(--pc), var(--pc)) no-repeat 0 0 / 100% 100%; animation: eng-cpd-hl .6s .35s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes eng-cpd-hl { from { background-size: 0% 100%; color: #fff; } }
+@media (prefers-reduced-motion: reduce) { .eng-cpd__hl { animation: none; } }
 .eng-cpd__ideas { display: grid; gap: 10px; margin-bottom: 14px; }
 .eng-cpd__ideas > span { color: var(--muted); font: 800 15px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
 .eng-cpd__none { margin: 0 0 14px; color: var(--muted); font: 700 18px Nunito, sans-serif; }

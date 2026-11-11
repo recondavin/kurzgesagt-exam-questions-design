@@ -1074,7 +1074,7 @@
     if (typeof s !== 'number') return G[s].parts.map(function (pt) { return { k: pt.k, label: pt.label, hint: pt.hint, ideas: pt.auto ? autoIdeas(th, a, pt.auto) : pt.ideas, auto: pt.auto }; });
     var para = W.paras[s], sc = G.scenes[para.scene], rep = sc.reps[para.rep || 0], m = text(a).moments[para.scene - 1];
     return [{ k: 'p', label: 'Point', hint: 'Your idea, in one sentence: what this scene represents.', ideas: [rep.start] },
-      { k: 'a', label: 'Anchor', hint: 'Keep it short: the moment in a sentence or two, with ' + (m.quote ? 'the quote or ' : '') + 'a film technique. Don\'t retell the story.', ideas: sc.details.concat(m.quote ? ['“' + m.quote + '”'] : [],
+      { k: 'a', label: 'Anchor', hl: 'Keep it short', hint: 'Keep it short: the moment in a sentence or two, with ' + (m.quote ? 'the quote or ' : '') + 'a film technique. Don\'t retell the story.', ideas: sc.details.concat(m.quote ? ['“' + m.quote + '”'] : [],
         sc.techniques.map(function (q) { return { t: q.say, tag: 'Technique: ' + q.name }; })) },
       { k: 'e', label: 'Evaluate', hint: 'Most of the marks are here: two or three sentences on why it matters for ' + th.name.toLowerCase() + '.', ideas: rep.ideas }];
   }
@@ -1273,7 +1273,7 @@
       }
       var P = slotParts(W, s);
       body = top + '<div class="eng-cpd__write"><div class="eng-cpd__parts">' + partsOf(th, a, s).map(function (pt, pi) {
-        return '<section class="eng-cpd__part" style="--pc:' + PART_COL[pt.k] + ';--i:' + pi + '"><header><span class="eng-cpd__pl">' + esc(pt.label) + '</span><span class="eng-cpd__ph2">' + esc(pt.hint) + '</span></header>' +
+        return '<section class="eng-cpd__part" style="--pc:' + PART_COL[pt.k] + ';--i:' + pi + '"><header><span class="eng-cpd__pl">' + esc(pt.label) + '</span><span class="eng-cpd__ph2">' + (pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark class="eng-cpd__hl">' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span></header>' +
           (pt.ideas && pt.ideas.length ? (function () {
             var shown = Math.min(pt.ideas.length, Math.max(1, (CPW.shown || {})[pt.k] || 1));
             return '<div class="eng-cpd__ideas"><span>Ideas to help you</span>' + pt.ideas.slice(0, shown).map(function (x) {
