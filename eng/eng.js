@@ -1062,7 +1062,8 @@
     if (typeof s !== 'number') return G[s].parts.map(function (pt) { return { k: pt.k, label: pt.label, hint: pt.hint, ideas: pt.auto ? autoIdeas(th, a, pt.auto) : pt.ideas, auto: pt.auto }; });
     var para = W.paras[s], sc = G.scenes[para.scene], rep = sc.reps[para.rep || 0], m = text(a).moments[para.scene - 1];
     return [{ k: 'p', label: 'Point', hint: 'Say what the scene represents.', ideas: [rep.start] },
-      { k: 'a', label: 'Anchor', hint: 'What happens: a detail' + (m.quote ? ' or the quote' : '') + '.', ideas: sc.details.concat(m.quote ? ['“' + m.quote + '”'] : []) },
+      { k: 'a', label: 'Anchor', hint: 'What happens: a detail' + (m.quote ? ', the quote' : '') + ' or a film technique.', ideas: sc.details.concat(m.quote ? ['“' + m.quote + '”'] : [],
+        sc.techniques.map(function (q) { return { t: q.say, tag: 'Technique: ' + q.name }; })) },
       { k: 'e', label: 'Evaluate', hint: 'Why it matters for ' + th.name.toLowerCase() + '.', ideas: rep.ideas }];
   }
   function cpWriterHtml(th, a) {
@@ -1082,9 +1083,10 @@
       '<p class="eng-cpw__foot"><span>Part (a) so far: <b>' + total + ' words</b></span>' + (total ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-copy>Copy part (a)</button>' : '') + '</p>';
   }
   function cpwFirstStep(W, s) {
-    if (s === 'open') return W.paras.every(function (p) { return p.scene; }) ? 3 : 1;
+    var G = cpTheme().write[cpBy(cpTheme()).a];
+    if (s === 'open') return !W.paras.every(function (p) { return p.scene; }) ? 1 : W.paras.every(function (p) { return repPicked(G, p); }) ? 3 : 2;
     if (s === 'end') return 3;
-    return W.paras[s].scene ? 3 : 1;
+    return !W.paras[s].scene ? 1 : repPicked(G, W.paras[s]) ? 3 : 2;
   }
   function cpwOpen(s) {
     var th = cpTheme(), W = cpWrite(th, cpBy(th).a);
@@ -1099,7 +1101,7 @@
   }
   function sceneCard(a, G, n, on, extra, attr) {
     var m = text(a).moments[n - 1], sc = G.scenes[n], pic = scenePics(a, m.id)[0];
-    return '<button type="button" class="eng-cpd__sc' + (on ? ' is-on' : '') + '" ' + attr + ' style="--c:' + COL[a] + '">' +
+    return '<button type="button" class="eng-cpd__sc' + (on ? ' is-on' : '') + '" ' + attr + ' style="--c:' + COL[a] + ';--i:' + (n - 1) + '">' +
       (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '<span class="eng-cpd__ph"></span>') +
       '<span class="eng-cpd__sct"><span class="eng-cpm__n">' + n + '</span>' + esc(m.title) + '</span>' +
       '<span class="eng-cpd__scr">' + sc.reps.map(function (r) { return esc(r.title); }).join(' · ') + '</span>' + (extra || '') + '</button>';
@@ -1113,6 +1115,75 @@
       return '<div class="eng-cpd__mini">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') + '<div><b>Paragraph ' + (k + 1) + ' · ' + (p.scene) + ' ' + esc(m.title) + '</b><span>' + esc(rep.title) + '</span></div></div>';
     }).join('') + '</div>';
   }
+  // Names keep their capital after the meaning's colon; anything else starts small.
+  function afterColon(s, a) {
+    var w = (s.match(/^[A-Za-zÀ-ÿ']+/) || [''])[0], names = {};
+    text(a).people.forEach(function (p) { p.name.split(/[^A-Za-zÀ-ÿ']+/).forEach(function (x) { names[x] = 1; }); });
+    return names[w] || w === 'I' ? s : lowerFirst(s);
+  }
+  // The worked example for one meaning of a scene: Point, Anchor, the film technique and Evaluate.
+  function cpwModel(th, a, n, ri) {
+    var sc = th.write[a].scenes[n], r = sc.reps[ri];
+    return { p: r.start, a: afterColon(sc.details[r.d], a), t: sc.techniques[r.t], e: r.ideas[0] };
+  }
+  function modelHtml(th, a, n, ri, k) {
+    var M = cpwModel(th, a, n, ri);
+    return '<div class="eng-cpd__model"><p class="eng-cpd__mh">Here\'s one way to write it</p>' +
+      '<p class="eng-cpd__ms" style="--pc:var(--pace-p)"><span>Point</span>' + esc(M.p) + '</p>' +
+      '<p class="eng-cpd__ms" style="--pc:var(--pace-a)"><span>Anchor</span>' + esc(M.a) + '</p>' +
+      '<p class="eng-cpd__ms eng-cpd__ms--t" style="--pc:var(--m-gvv)"><span>Technique: ' + esc(M.t.name) + '</span>' + esc(M.t.say) +
+        '<small><b>' + esc(M.t.name) + ':</b> ' + esc(lowerFirst(M.t.what)) + '</small></p>' +
+      '<p class="eng-cpd__ms" style="--pc:var(--pace-e)"><span>Evaluate</span>' + esc(M.e) + '</p>' +
+      '<p class="eng-btns"><button type="button" class="eng-btn eng-btn--quiet" data-cpw-use="' + k + '">Start from this</button></p></div>';
+  }
+  function repPicked(G, p) { return !!p.scene && (p.picked || G.scenes[p.scene].reps.length === 1); }
+  // A scene and what it can represent, joined by arrows (drawn by cpwArrows); the one you pick leads on to the example.
+  function treeHtml(th, a, k, p, attr, label) {
+    var G = th.write[a], sc = G.scenes[p.scene], m = text(a).moments[p.scene - 1], pic = scenePics(a, m.id)[0], on = repPicked(G, p);
+    return '<div class="eng-cpd__tree' + (CPW.just === k ? ' is-new' : '') + '" data-tree>' +
+      '<div class="eng-cpd__root" style="--c:' + COL[a] + '">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') +
+        '<span><b>' + (label ? esc(label) + ' · ' : '') + '<span class="eng-cpm__n">' + p.scene + '</span> ' + esc(m.title) + '</b><small>' + (on ? 'You picked one. Tap another to change it.' : 'What does it represent? Pick one.') + '</small></span></div>' +
+      '<svg class="eng-cpd__arrows" aria-hidden="true"></svg>' +
+      '<div class="eng-cpd__reps eng-cpd__reps--row">' + sc.reps.map(function (r, i) {
+        var sel = on && (p.rep || 0) === i;
+        return '<button type="button" class="eng-cpd__rep' + (sel ? ' is-on' : '') + '" ' + attr(i) + ' aria-pressed="' + sel + '" style="--i:' + i + '"><b>' + esc(r.title) + '</b><span>' + esc(r.say) + '</span>' +
+          '<span class="eng-cpd__repi">' + r.ideas.map(function (x) { return '<i>' + esc(x) + '</i>'; }).join('') + '</span></button>';
+      }).join('') + '</div>' + (on ? modelHtml(th, a, p.scene, p.rep || 0, k) : '') + '</div>';
+  }
+  // The arrows: side by side, they branch down from the scene; stacked (on a phone), they run down a rail on the left.
+  function cpwArrows() {
+    var box = document.getElementById('eng-cpd');
+    if (!box) return;
+    Array.prototype.forEach.call(box.querySelectorAll('[data-tree]'), function (tree) {
+      var svg = tree.querySelector('.eng-cpd__arrows'), r0 = tree.getBoundingClientRect(), root = tree.querySelector('.eng-cpd__root').getBoundingClientRect(), d = '';
+      var cards = Array.prototype.slice.call(tree.querySelectorAll('.eng-cpd__rep')), rows = cards.map(function (c) { return c.getBoundingClientRect(); });
+      var side = rows.length < 2 || rows.every(function (r) { return Math.abs(r.top - rows[0].top) < 6; });
+      svg.setAttribute('width', r0.width); svg.setAttribute('height', r0.height); svg.setAttribute('viewBox', '0 0 ' + r0.width + ' ' + r0.height);
+      var X = function (v) { return Math.round(v - r0.left); }, Y = function (v) { return Math.round(v - r0.top); };
+      var down = function (x1, y1, x2, y2, cls, i) {
+        var my = Math.round((y1 + y2) / 2);
+        return '<path class="eng-cpd__ar ' + cls + '" pathLength="1" style="--i:' + i + '" d="M' + x1 + ' ' + y1 + ' C' + x1 + ' ' + my + ' ' + x2 + ' ' + my + ' ' + x2 + ' ' + (y2 - 8) + '"/>' +
+          '<path class="eng-cpd__ah ' + cls + '" style="--i:' + i + '" d="M' + (x2 - 7) + ' ' + (y2 - 10) + ' L' + x2 + ' ' + (y2 - 1) + ' L' + (x2 + 7) + ' ' + (y2 - 10) + ' Z"/>';
+      };
+      var rail = function (x0, y1, x2, ym, cls, i) {
+        return '<path class="eng-cpd__ar ' + cls + '" pathLength="1" style="--i:' + i + '" d="M' + x0 + ' ' + y1 + ' L' + x0 + ' ' + (ym - 10) + ' Q' + x0 + ' ' + ym + ' ' + (x0 + 10) + ' ' + ym + ' L' + (x2 - 8) + ' ' + ym + '"/>' +
+          '<path class="eng-cpd__ah ' + cls + '" style="--i:' + i + '" d="M' + (x2 - 10) + ' ' + (ym - 7) + ' L' + (x2 - 1) + ' ' + ym + ' L' + (x2 - 10) + ' ' + (ym + 7) + ' Z"/>';
+      };
+      var x0 = 13, top = Y(root.bottom) + 2;
+      rows.forEach(function (r, i) {
+        var cls = cards[i].classList.contains('is-on') ? 'is-on' : '';
+        d += side ? down(X(root.left + Math.min(root.width / 2, 120)), top, X(r.left + r.width / 2), Y(r.top), cls, i) : rail(x0, top, X(r.left), Y(r.top + Math.min(r.height / 2, 40)), cls, i);
+      });
+      var on = tree.querySelector('.eng-cpd__rep.is-on'), mo = tree.querySelector('.eng-cpd__model');
+      if (on && mo) {
+        var a1 = on.getBoundingClientRect(), b1 = mo.getBoundingClientRect();
+        d += side ? down(X(a1.left + a1.width / 2), Y(a1.bottom) + 2, X(Math.min(a1.left + a1.width / 2, b1.right - 40)), Y(b1.top), 'is-on is-down', 0) :
+          rail(x0, Y(a1.bottom) + 2, X(b1.left), Y(b1.top + 24), 'is-on is-down', 0);
+      }
+      svg.innerHTML = d;
+    });
+  }
+  window.addEventListener('resize', function () { if (CPW) cpwArrows(); });
   function cpwDraw(focus) {
     var box = document.getElementById('eng-cpd');
     if (!CPW) { if (box) box.remove(); document.body.classList.remove('eng-cpd-on'); return; }
@@ -1123,6 +1194,12 @@
     }
     document.body.classList.add('eng-cpd-on');
     var th = cpTheme(), a = cpBy(th).a, W = cpWrite(th, a), G = th.write[a], s = CPW.slot, para = typeof s === 'number' ? W.paras[s] : null, body = '', foot = '';
+    // A step plays its animations (cards popping in, arrows drawing) when it is first shown, not on every redraw.
+    var key = s + '/' + CPW.step;
+    if (box.getAttribute('data-key') !== key) {
+      box.setAttribute('data-key', key); box.classList.add('is-fresh');
+      clearTimeout(box.cpT); box.cpT = setTimeout(function () { box.classList.remove('is-fresh'); }, 1700);
+    }
     var steps = s === 'end' ? null : s === 'open' ? ['Your three scenes', 'What they represent', 'Write it'] : ['Key scene', 'What it represents', 'Write it'];
     var head = '<div class="eng-cpd__top"><h2 id="eng-cpd-h">' + slotName(s) + '</h2>' +
       (steps ? '<ol class="eng-cpd__steps">' + steps.map(function (x, i) {
@@ -1134,39 +1211,36 @@
         nums.map(function (n) { var k = CPW.pick.indexOf(n); return sceneCard(a, G, n, k >= 0, k >= 0 ? '<span class="eng-cpd__ord">' + (k + 1) + '</span>' : '', 'data-cpw-pick="' + n + '" aria-pressed="' + (k >= 0) + '"'); }).join('') + '</div>';
       foot = '<button type="button" class="eng-btn" data-cpw-picked' + (CPW.pick.length === 3 ? '' : ' disabled') + '>Next: what they represent</button>';
     } else if (s === 'open' && CPW.step === 2) {
-      body = '<p class="eng-cpd__lead">What does each scene represent about ' + esc(th.name.toLowerCase()) + '? Pick one idea for each.</p>' + W.paras.map(function (p, k) {
-        var sc = G.scenes[p.scene], m = text(a).moments[p.scene - 1];
-        return '<div class="eng-cpd__orep"><p class="eng-cpd__oreph"><b>Paragraph ' + (k + 1) + '</b>' + momChip(m.id) + '</p><div class="eng-cpd__reps eng-cpd__reps--row">' + sc.reps.map(function (r, i) {
-          return '<button type="button" class="eng-cpd__rep' + ((p.rep || 0) === i && (p.picked || sc.reps.length === 1) ? ' is-on' : '') + '" data-cpw-orep="' + k + '|' + i + '"><b>' + esc(r.title) + '</b><span>' + esc(r.say) + '</span></button>';
-        }).join('') + '</div></div>';
-      }).join('');
-      foot = '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-step="1">Back</button><button type="button" class="eng-btn" data-cpw-step="3">Next: write it</button>';
+      var left = W.paras.filter(function (p) { return !repPicked(G, p); }).length;
+      body = '<p class="eng-cpd__lead">What does each scene represent about ' + esc(th.name.toLowerCase()) + '? Pick one for each, and see how you\'d write it. ' +
+        (left ? '<b>' + left + ' still to pick</b>' : '<b class="is-ok">All picked</b>') + '</p>' +
+        W.paras.map(function (p, k) { return treeHtml(th, a, k, p, function (i) { return 'data-cpw-orep="' + k + '|' + i + '"'; }, 'Paragraph ' + (k + 1)); }).join('');
+      foot = '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-step="1">Back</button><button type="button" class="eng-btn" data-cpw-step="3"' + (left ? ' disabled' : '') + '>Next: write it</button>';
     } else if (para && CPW.step === 1) {
       body = '<p class="eng-cpd__lead">Pick the key scene this paragraph is built on.</p><div class="eng-cpd__scenes">' + nums.map(function (n) {
         var used = W.paras.map(function (q, k) { return k !== s && q.scene === n ? k + 1 : 0; }).filter(Boolean);
         return sceneCard(a, G, n, para.scene === n, used.length ? '<span class="eng-cpd__used">Already in paragraph ' + used.join(', ') + '</span>' : '', 'data-cpw-scene="' + n + '"');
       }).join('') + '</div>';
     } else if (para && CPW.step === 2) {
-      var sc2 = G.scenes[para.scene];
-      body = '<p class="eng-cpd__lead">' + momChip(text(a).moments[para.scene - 1].id) + ' What does this scene represent about ' + esc(th.name.toLowerCase()) + '?</p><div class="eng-cpd__reps">' +
-        sc2.reps.map(function (r, i) {
-          return '<button type="button" class="eng-cpd__rep' + (para.picked && (para.rep || 0) === i ? ' is-on' : '') + '" data-cpw-rep="' + i + '"><b>' + esc(r.title) + '</b><span>' + esc(r.say) + '</span>' +
-            '<span class="eng-cpd__repi">' + r.ideas.map(function (x) { return '<i>' + esc(x) + '</i>'; }).join('') + '</span></button>';
-        }).join('') + '</div>';
-      foot = '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-step="1">Back</button>';
+      var got = repPicked(G, para);
+      body = '<p class="eng-cpd__lead">What does this scene represent about ' + esc(th.name.toLowerCase()) + '? Pick one, and see how you\'d write it.</p>' +
+        treeHtml(th, a, s, para, function (i) { return 'data-cpw-rep="' + i + '"'; }, '');
+      foot = '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-step="1">Back</button><button type="button" class="eng-btn" data-cpw-step="3"' + (got ? '' : ' disabled') + '>Next: write it</button>';
     } else {
       // Write it: the scene (or the three scenes) on top, then a box for each part with its ideas, the words beside.
       var words = para ? G.scenes[para.scene].words : G[s].words, top;
       if (para) {
         var m = text(a).moments[para.scene - 1], rep = G.scenes[para.scene].reps[para.rep || 0], pic = scenePics(a, m.id)[0];
         top = '<div class="eng-cpd__banner" style="--c:' + COL[a] + '">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') +
-          '<div><span class="eng-cpd__bt"><span class="eng-cpm__n">' + para.scene + '</span>' + esc(m.title) + '</span><b>' + esc(rep.title) + '</b><span>' + esc(rep.say) + '</span></div></div>';
+          '<div><span class="eng-cpd__bt"><span class="eng-cpm__n">' + para.scene + '</span>' + esc(m.title) + '</span><b>' + esc(rep.title) + '</b><span class="eng-cpd__bs">' + esc(rep.say) + '</span>' +
+          '<span class="eng-cpd__techs">Techniques: ' + G.scenes[para.scene].techniques.map(function (q) { return '<i title="' + esc(q.what) + '">' + esc(q.name) + '</i>'; }).join('') + '</span></div></div>';
       } else top = threeHtml(th, a, W);
       var P = slotParts(W, s);
-      body = top + '<div class="eng-cpd__write"><div class="eng-cpd__parts">' + partsOf(th, a, s).map(function (pt) {
-        return '<section class="eng-cpd__part" style="--pc:' + PART_COL[pt.k] + '"><header><span class="eng-cpd__pl">' + esc(pt.label) + '</span><span class="eng-cpd__ph2">' + esc(pt.hint) + '</span></header>' +
+      body = top + '<div class="eng-cpd__write"><div class="eng-cpd__parts">' + partsOf(th, a, s).map(function (pt, pi) {
+        return '<section class="eng-cpd__part" style="--pc:' + PART_COL[pt.k] + ';--i:' + pi + '"><header><span class="eng-cpd__pl">' + esc(pt.label) + '</span><span class="eng-cpd__ph2">' + esc(pt.hint) + '</span></header>' +
           (pt.ideas && pt.ideas.length ? '<div class="eng-cpd__ideas"><span>Ideas</span>' + pt.ideas.map(function (x, i) {
-            return '<button type="button" class="eng-cpd__idea" data-cpw-idea="' + pt.k + '|' + i + '">' + esc(x) + '</button>';
+            var tx = typeof x === 'string' ? x : x.t;
+            return '<button type="button" class="eng-cpd__idea' + (x.tag ? ' is-tech' : '') + '" data-cpw-idea="' + pt.k + '|' + i + '" data-txt="' + esc(tx) + '">' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + esc(tx) + '</button>';
           }).join('') + '</div>' : (pt.auto ? '<p class="eng-cpd__none">Pick your three scenes first.</p>' : '')) +
           '<textarea data-cpw-box="' + pt.k + '" rows="2" aria-label="' + esc(pt.label) + '" placeholder="' + esc(pt.label) + '…">' + esc(P[pt.k] || '') + '</textarea></section>';
       }).join('') + '<p class="eng-cpd__tools"><span data-cpw-count></span></p><div class="eng-cpd__check" data-cpw-check role="status" aria-live="polite"></div></div>' +
@@ -1174,12 +1248,14 @@
         words.map(function (x) { return '<li><button type="button" class="eng-cpd__w" data-cpw-word="' + esc(x[0]) + '"><b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span></button></li>'; }).join('') +
         '</ul><h3>Instead of “shows”</h3><p class="eng-cpd__inst">' + th.instead.map(function (x) { return '<button type="button" class="eng-chip" data-cpw-word="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') + '</p></aside></div>';
       var i0 = SLOTS.indexOf(s), next = SLOTS[i0 + 1];
-      foot = (s === 'open' ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-step="2">Back</button>' : para ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-step="' + (G.scenes[para.scene].reps.length > 1 ? 2 : 1) + '">Back</button>' : '') +
+      foot = (s === 'open' || para ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-step="2">Back</button>' : '') +
         (next != null ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-next>Next: ' + slotName(next) + '</button>' : '') + '<button type="button" class="eng-btn" data-cpw-close>Done</button>';
     }
     box.innerHTML = '<div class="eng-cpd__bg" data-cpw-close></div><div class="eng-cpd__box" role="dialog" aria-modal="true" aria-labelledby="eng-cpd-h">' + head +
       '<div class="eng-cpd__body">' + body + (foot ? '<p class="eng-btns eng-cpd__foot">' + foot + '</p>' : '') + '</div></div>';
     Array.prototype.forEach.call(box.querySelectorAll('[data-cpw-box]'), grow);
+    cpwArrows();
+    CPW.just = null;
     cpwCheck();
     if (focus) {
       var f = box.querySelector('[data-cpw-box="' + CPW.box + '"]') || box.querySelector('.eng-cpd__sc.is-on, .eng-cpd__rep.is-on') || box.querySelector('[data-cpw-scene], [data-cpw-pick], [data-cpw-rep], [data-cpw-orep]') || box.querySelector('[data-cpw-close]');
@@ -1200,7 +1276,7 @@
     // An idea already in its box is greyed out.
     Array.prototype.forEach.call(box.querySelectorAll('[data-cpw-idea]'), function (b) {
       var ta = box.querySelector('[data-cpw-box="' + b.getAttribute('data-cpw-idea').split('|')[0] + '"]');
-      b.classList.toggle('is-used', !!ta && ta.value.indexOf(b.textContent) >= 0);
+      b.classList.toggle('is-used', !!ta && ta.value.indexOf(b.getAttribute('data-txt')) >= 0);
     });
     if (shows >= 2) out.push(['You\'ve used “show” ' + shows + ' times.', 'Swap one for:', SYN.shows]);
     var names = {};
@@ -1245,9 +1321,8 @@
     if (t.closest('[data-cpw-close]')) { cpwClose(); return true; }
     if ((v = t.closest('[data-cpw-scene]'))) {
       var n = +v.getAttribute('data-cpw-scene');
-      if (para.scene !== n) { para.scene = n; para.rep = 0; para.picked = false; }
-      CPW.step = G.scenes[n].reps.length > 1 ? 2 : 3;
-      if (CPW.step === 3) { para.picked = true; CPW.box = 'p'; }
+      if (para.scene !== n) { para.scene = n; para.rep = 0; para.picked = G.scenes[n].reps.length === 1; }
+      CPW.step = 2; CPW.just = CPW.slot;
       cpSave(); cpwDraw(true); return true;
     }
     if ((v = t.closest('[data-cpw-pick]'))) {
@@ -1262,10 +1337,22 @@
     }
     if ((v = t.closest('[data-cpw-orep]'))) {
       var kr = v.getAttribute('data-cpw-orep').split('|'), q = W.paras[+kr[0]];
-      q.rep = +kr[1]; q.picked = true; cpSave(); cpwDraw(); var b2 = document.querySelector('#eng-cpd [data-cpw-orep="' + kr.join('|') + '"]'); if (b2) b2.focus({ preventScroll: true });
+      q.rep = +kr[1]; q.picked = true; CPW.just = +kr[0]; cpSave(); cpwDraw(); var b2 = document.querySelector('#eng-cpd [data-cpw-orep="' + kr.join('|') + '"]'); if (b2) b2.focus({ preventScroll: true });
       return true;
     }
-    if ((v = t.closest('[data-cpw-rep]'))) { para.rep = +v.getAttribute('data-cpw-rep'); para.picked = true; CPW.step = 3; CPW.box = 'p'; cpSave(); cpwDraw(true); return true; }
+    if ((v = t.closest('[data-cpw-rep]'))) {
+      para.rep = +v.getAttribute('data-cpw-rep'); para.picked = true; CPW.just = CPW.slot; cpSave(); cpwDraw();
+      var b3 = document.querySelector('#eng-cpd [data-cpw-rep="' + para.rep + '"]'); if (b3) b3.focus({ preventScroll: true });
+      return true;
+    }
+    if ((v = t.closest('[data-cpw-use]'))) {
+      // Start from the worked example: it fills that paragraph's three boxes (after asking, if they have writing).
+      var ku = +v.getAttribute('data-cpw-use'), qu = W.paras[ku], M = cpwModel(th, a, qu.scene, qu.rep || 0), pu = qu.parts;
+      if ((pu.p || pu.a || pu.e) && !window.confirm('Replace what you\'ve written in paragraph ' + (ku + 1) + ' with this example?')) return true;
+      qu.parts = { p: M.p, a: M.a + ' ' + M.t.say, e: M.e }; cpSave();
+      if (typeof CPW.slot === 'number') { CPW.step = 3; CPW.box = 'e'; cpwDraw(true); } else { cpwDraw(); toast('Paragraph ' + (ku + 1) + ' started from the example'); }
+      return true;
+    }
     if ((v = t.closest('[data-cpw-step]'))) {
       CPW.step = +v.getAttribute('data-cpw-step');
       if (CPW.slot === 'open' && CPW.step === 1) CPW.pick = W.paras.map(function (p) { return p.scene; }).filter(Boolean);
@@ -1277,8 +1364,8 @@
       CPW = { slot: nx, step: cpwFirstStep(W, nx), box: slotKeys(nx)[0], pick: [] }; cpwDraw(true); return true;
     }
     if ((v = t.closest('[data-cpw-idea]'))) {
-      var ki = v.getAttribute('data-cpw-idea').split('|'), pt = partsOf(th, a, CPW.slot).filter(function (x) { return x.k === ki[0]; })[0];
-      if (pt) cpwInsert(pt.ideas[+ki[1]], ki[0]);
+      var ki = v.getAttribute('data-cpw-idea').split('|'), pt = partsOf(th, a, CPW.slot).filter(function (x) { return x.k === ki[0]; })[0], it = pt && pt.ideas[+ki[1]];
+      if (it) cpwInsert(typeof it === 'string' ? it : it.t, ki[0]);
       return true;
     }
     if ((v = t.closest('[data-cpw-word]'))) { cpwInsert(v.getAttribute('data-cpw-word')); return true; }

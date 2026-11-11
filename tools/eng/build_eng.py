@@ -132,6 +132,12 @@ def check_compare(cmp, texts, problems):
                     problems.append('%s write %s %s: each thing it represents needs a title, say, start and 2+ ideas' % (where, tid, n))
                 if len(sc.get('details', [])) < 2:
                     problems.append('%s write %s %s: needs 2+ details for the anchor' % (where, tid, n))
+                tq = sc.get('techniques', [])
+                if len(tq) < 2 or any(not (q.get('name') and q.get('say') and q.get('what')) or re.search(r'\bshow', q['say'], re.I) for q in tq):
+                    problems.append('%s write %s %s: needs 2+ film techniques (name, say without "show", what)' % (where, tid, n))
+                for r in sc.get('reps', []):
+                    if not (0 <= r.get('d', -1) < len(sc.get('details', [])) and 0 <= r.get('t', -1) < len(tq)):
+                        problems.append('%s write %s %s %r: d and t must point at one of its details and techniques' % (where, tid, n, r.get('title')))
                 if len(sc.get('words', [])) != 10 or any(len(x) != 2 or not x[0] or not x[1] for x in sc['words']):
                     problems.append('%s write %s %s: needs exactly 10 words, each with its meaning' % (where, tid, n))
             for part, keys in (('open', ['film', 'idea', 'points']), ('end', ['sum', 'final', 'last'])):

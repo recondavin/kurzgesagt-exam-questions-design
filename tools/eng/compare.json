@@ -293,7 +293,9 @@
                   "ideas": [
                     "One verdict takes away the rest of a man's life, and the system never questions itself.",
                     "It sets up the whole film: power does not care whether you are guilty or innocent."
-                  ]
+                  ],
+                  "d": 2,
+                  "t": 0
                 }
               ],
               "words": [
@@ -342,6 +344,18 @@
                 "Andy sits drunk in his car outside the house where his wife is with her lover, loading a revolver.",
                 "At the trial he insists he threw the gun into the river.",
                 "He is given two life sentences for two murders he did not commit."
+              ],
+              "techniques": [
+                {
+                  "name": "Cross-cutting",
+                  "say": "Darabont cross-cuts between Andy drunk in his car and the courtroom, so we judge him in pieces, just as the jury does.",
+                  "what": "Jumping back and forth between two scenes."
+                },
+                {
+                  "name": "Music against the image",
+                  "say": "A soft old love song plays on Andy’s car radio as he loads the gun, a chilling contrast with what seems to be happening.",
+                  "what": "Music that clashes with what we see, to unsettle us."
+                }
               ]
             },
             "2": {
@@ -353,7 +367,9 @@
                   "ideas": [
                     "The board holds all the power, and Red's future comes down to a stamp.",
                     "Freedom is not earned here: it is handed out, or not, by men who barely look up."
-                  ]
+                  ],
+                  "d": 1,
+                  "t": 0
                 },
                 {
                   "title": "Power makes people perform",
@@ -362,7 +378,9 @@
                   "ideas": [
                     "Power makes honesty pointless: Red says what they want to hear, and it still isn't enough.",
                     "The system turns men into performers."
-                  ]
+                  ],
+                  "d": 0,
+                  "t": 1
                 }
               ],
               "words": [
@@ -411,6 +429,18 @@
                 "Twenty years into a life sentence, Red tells the parole board he is a changed man.",
                 "His file is stamped REJECTED.",
                 "In voiceover he introduces himself as the prisoner who can get things smuggled in."
+              ],
+              "techniques": [
+                {
+                  "name": "Close-up",
+                  "say": "A close-up of the stamp coming down on his papers, REJECTED, sums up twenty years in a single word.",
+                  "what": "A shot from very near, so one detail fills the screen."
+                },
+                {
+                  "name": "Voiceover",
+                  "say": "Red’s calm voiceover takes over at once, introducing himself as the man who can get things, as if the board’s answer barely touches him.",
+                  "what": "A character’s voice speaking over the pictures."
+                }
               ]
             },
             "3": {
@@ -422,7 +452,9 @@
                   "ideas": [
                     "The guards can kill a man for crying, and nothing happens to them.",
                     "Fear is the first lesson Shawshank teaches."
-                  ]
+                  ],
+                  "d": 2,
+                  "t": 1
                 },
                 {
                   "title": "Religion as a mask",
@@ -431,7 +463,9 @@
                   "ideas": [
                     "Norton uses the Bible to look holy while his prison runs on violence.",
                     "The film warns us not to trust power that dresses itself up as goodness."
-                  ]
+                  ],
+                  "d": 0,
+                  "t": 2
                 }
               ],
               "words": [
@@ -480,6 +514,23 @@
                 "Norton tells the new men he believes in discipline and the Bible.",
                 "That night Heywood and others taunt the new arrivals until one breaks down crying.",
                 "Hadley beats the crying man, who dies in the infirmary; the next morning Andy asks what his name was."
+              ],
+              "techniques": [
+                {
+                  "name": "Aerial shot",
+                  "say": "As the bus arrives, a sweeping aerial shot takes in the prison’s huge stone walls, and the new men look tiny beside them.",
+                  "what": "A shot from high above: the place looks huge and the people small."
+                },
+                {
+                  "name": "Lighting",
+                  "say": "The first night is filmed in near-darkness, with the men behind bars, so the prison feels like a cage.",
+                  "what": "How light and dark are used to set a mood."
+                },
+                {
+                  "name": "Dialogue",
+                  "say": "Norton’s own words, “discipline and the Bible”, set up his hypocrisy from his very first scene.",
+                  "what": "What characters say, and how it reveals them."
+                }
               ]
             },
             "4": {
@@ -491,7 +542,9 @@
                   "ideas": [
                     "Andy's knowledge gives him a power the guards don't have.",
                     "For a moment the prisoners hold the power, and Red says they felt like free men."
-                  ]
+                  ],
+                  "d": 2,
+                  "t": 1
                 },
                 {
                   "title": "Using power for others",
@@ -500,7 +553,9 @@
                   "ideas": [
                     "Andy uses his small win for others, not himself: the opposite of the guards.",
                     "Power used kindly is rare, and precious, in Shawshank."
-                  ]
+                  ],
+                  "d": 2,
+                  "t": 2
                 }
               ],
               "words": [
@@ -549,6 +604,23 @@
                 "The prisoners are tarring the roof of the licence-plate factory.",
                 "Hadley nearly throws Andy off the roof for daring to speak to him.",
                 "Andy explains how to keep the inheritance tax-free and asks only for three beers each for his co-workers."
+              ],
+              "techniques": [
+                {
+                  "name": "Lighting and colour",
+                  "say": "The rooftop is bathed in warm sunlight, the opposite of the grey yard below.",
+                  "what": "How light and colour set a mood."
+                },
+                {
+                  "name": "Voiceover",
+                  "say": "Red’s voiceover puts the moment into words: they sat and drank with the sun on their shoulders and felt like free men.",
+                  "what": "A character’s voice speaking over the pictures."
+                },
+                {
+                  "name": "Framing",
+                  "say": "Andy sits apart from the others, smiling: the man who made it happen asks nothing for himself.",
+                  "what": "Where a character is placed in the shot, and what that says."
+                }
               ]
             },
             "5": {
@@ -560,7 +632,9 @@
                   "ideas": [
                     "The prison's power does not end at the gate: it has taken over his mind.",
                     "Fifty years of control have left Brooks unable to live without it."
-                  ]
+                  ],
+                  "d": 1,
+                  "t": 1
                 },
                 {
                   "title": "The human cost of power",
@@ -569,7 +643,9 @@
                   "ideas": [
                     "The system takes a man's whole life and gives nothing back.",
                     "Brooks's death is the true cost of power without limits."
-                  ]
+                  ],
+                  "d": 2,
+                  "t": 2
                 }
               ],
               "words": [
@@ -618,6 +694,23 @@
                 "Told he will be paroled after fifty years, Brooks holds a knife to Heywood's throat so he can stay inside.",
                 "Red explains that Brooks is 'institutionalized'.",
                 "Outside, Brooks cannot cope, and he hangs himself after carving 'Brooks Hatlen was here'."
+              ],
+              "techniques": [
+                {
+                  "name": "Voiceover from a letter",
+                  "say": "Brooks’s letter to the men is read in his own voice over pictures of the outside world, so we hear his loneliness.",
+                  "what": "A character’s voice speaking over the pictures."
+                },
+                {
+                  "name": "Montage",
+                  "say": "A rush of cars and busy streets makes the outside world look fast and frightening to a man who has been inside for fifty years.",
+                  "what": "A run of quick shots that sums up a time or a feeling."
+                },
+                {
+                  "name": "Close-up",
+                  "say": "The camera lingers on the words he carves, “Brooks Hatlen was here”, before his death.",
+                  "what": "A shot from very near, so one detail fills the screen."
+                }
               ]
             },
             "6": {
@@ -629,7 +722,9 @@
                   "ideas": [
                     "The guards punish beauty because it is something they don't control.",
                     "Even a few minutes of freedom is treated as a crime."
-                  ]
+                  ],
+                  "d": 2,
+                  "t": 0
                 },
                 {
                   "title": "Power can't reach the inside",
@@ -638,7 +733,9 @@
                   "ideas": [
                     "Andy says music is something inside that they can't take from you.",
                     "Power can lock up the body, but not everything inside a person."
-                  ]
+                  ],
+                  "d": 1,
+                  "t": 2
                 }
               ],
               "words": [
@@ -687,6 +784,23 @@
                 "Andy's letters finally win books and records for the library.",
                 "He locks himself in the office and plays Mozart over the loudspeakers.",
                 "The prisoners stand still in the yard to listen, and Andy is given two weeks in solitary."
+              ],
+              "techniques": [
+                {
+                  "name": "Music in the scene",
+                  "say": "The opera plays over the prison’s own loudspeakers, so every man in the yard hears it: the music is part of the story, not just the soundtrack.",
+                  "what": "Diegetic sound: music or noise the characters can hear too."
+                },
+                {
+                  "name": "Wide shot",
+                  "say": "The camera rises over the yard as the men stand frozen, looking up, as if the music has stopped time.",
+                  "what": "A shot from far away, taking in the whole scene."
+                },
+                {
+                  "name": "Voiceover",
+                  "say": "Red admits he has no idea what the singers were singing about, yet for a moment every man in Shawshank felt free.",
+                  "what": "A character’s voice speaking over the pictures."
+                }
               ]
             },
             "7": {
@@ -698,7 +812,9 @@
                   "ideas": [
                     "Norton would rather kill an innocent young man than lose the man who hides his money.",
                     "Power at the top of Shawshank answers to no one."
-                  ]
+                  ],
+                  "d": 2,
+                  "t": 0
                 },
                 {
                   "title": "Corruption at the top",
@@ -707,7 +823,9 @@
                   "ideas": [
                     "The man who quotes the Bible is the most corrupt man in the prison.",
                     "Corruption is not a few bad guards: it runs from the warden down."
-                  ]
+                  ],
+                  "d": 1,
+                  "t": 1
                 }
               ],
               "words": [
@@ -756,6 +874,18 @@
                 "Tommy reveals that a former cellmate boasted of the murders Andy was convicted of.",
                 "Norton refuses to help and throws Andy into solitary when he protests.",
                 "Norton has Hadley shoot Tommy dead at night, and threatens to destroy the library."
+              ],
+              "techniques": [
+                {
+                  "name": "Darkness",
+                  "say": "Tommy is shot at night, out in the dark yard, where no one can see what is done to him.",
+                  "what": "How light and dark are used to set a mood."
+                },
+                {
+                  "name": "Dialogue",
+                  "say": "Andy’s angry cry, “How can you be so obtuse?”, marks the moment his patience snaps, and it gets him locked away.",
+                  "what": "What characters say, and how it reveals them."
+                }
               ]
             },
             "8": {
@@ -767,7 +897,9 @@
                   "ideas": [
                     "Hope becomes Andy's way of fighting back.",
                     "Choosing to 'get busy living' is a quiet refusal to let Norton win."
-                  ]
+                  ],
+                  "d": 1,
+                  "t": 0
                 },
                 {
                   "title": "What power does to people",
@@ -776,7 +908,9 @@
                   "ideas": [
                     "Norton's power has pushed Andy to the edge.",
                     "The tension lets us feel how close power comes to breaking him."
-                  ]
+                  ],
+                  "d": 2,
+                  "t": 1
                 }
               ],
               "words": [
@@ -825,6 +959,18 @@
                 "Andy admits he was a distant husband, though he did not kill his wife.",
                 "He tells Red about his dream of a small hotel in Zihuatanejo, Mexico.",
                 "He makes Red promise to look under a rock near Buxton, and Red fears Andy plans to kill himself."
+              ],
+              "techniques": [
+                {
+                  "name": "Two-shot",
+                  "say": "The two men sit side by side against the wall, filmed close, so every pause carries weight.",
+                  "what": "Two characters together in one shot, so we watch them react to each other."
+                },
+                {
+                  "name": "Voiceover and suspense",
+                  "say": "Red’s voiceover tells us Andy has asked for a length of rope, and the fear of what he means to do builds suspense.",
+                  "what": "Holding back what happens next, so we worry."
+                }
               ]
             },
             "9": {
@@ -836,7 +982,9 @@
                   "ideas": [
                     "The warden's total control was an illusion all along.",
                     "The powerless man beats the system with time and patience."
-                  ]
+                  ],
+                  "d": 1,
+                  "t": 0
                 },
                 {
                   "title": "Freedom through patience",
@@ -845,7 +993,9 @@
                   "ideas": [
                     "Freedom comes from years of quiet, stubborn hope.",
                     "Andy raising his arms in the rain feels like a rebirth."
-                  ]
+                  ],
+                  "d": 2,
+                  "t": 2
                 }
               ],
               "words": [
@@ -894,6 +1044,23 @@
                 "At the morning count, Andy's cell is empty.",
                 "Norton throws a stone at the poster and it tears straight through to a tunnel.",
                 "Andy dug for nearly twenty years with a small rock hammer and crawled through five hundred yards of sewer pipe."
+              ],
+              "techniques": [
+                {
+                  "name": "The reveal",
+                  "say": "The stone Norton throws tears straight through the poster: one shot reveals twenty years of secret work.",
+                  "what": "A shot that suddenly lets us see what was hidden."
+                },
+                {
+                  "name": "Flashback",
+                  "say": "A flashback, narrated by Red, takes us back through the escape step by step.",
+                  "what": "Going back in time to see what happened earlier."
+                },
+                {
+                  "name": "Weather and lighting",
+                  "say": "Andy stands in the pouring rain with his arms raised, lit by lightning, like a man being reborn.",
+                  "what": "Using weather and light to say something about a character."
+                }
               ]
             },
             "10": {
@@ -905,7 +1072,9 @@
                   "ideas": [
                     "The system Norton built to hide his crimes is what destroys him.",
                     "Power turned back on its owner feels like justice."
-                  ]
+                  ],
+                  "d": 0,
+                  "t": 0
                 },
                 {
                   "title": "Hypocrisy exposed",
@@ -914,7 +1083,9 @@
                   "ideas": [
                     "Behind “His judgment cometh” sits a safe full of dirty money.",
                     "The hypocrite is finally judged by his own words."
-                  ]
+                  ],
+                  "d": 2,
+                  "t": 1
                 }
               ],
               "words": [
@@ -963,6 +1134,23 @@
                 "Posing as 'Randall Stephens', Andy withdraws Norton's money from several banks.",
                 "He posts the warden's account book and evidence of his crimes to a newspaper.",
                 "Hadley is arrested; Norton finds the Bible that hid the rock hammer, and shoots himself."
+              ],
+              "techniques": [
+                {
+                  "name": "Montage",
+                  "say": "A quick montage of Andy at bank after bank, smartly dressed, makes the warden’s downfall feel unstoppable.",
+                  "what": "A run of quick shots that sums up a time or a feeling."
+                },
+                {
+                  "name": "Symbol",
+                  "say": "The camera lingers on “His judgment cometh and that right early” on Norton’s wall, so his end feels like judgement.",
+                  "what": "Something that stands for a bigger idea."
+                },
+                {
+                  "name": "A telling prop",
+                  "say": "Inside the Bible Norton handed back to Andy, the shape of the rock hammer is cut into the pages: the book of rules hid the way out.",
+                  "what": "An object that carries meaning in the story."
+                }
               ]
             },
             "11": {
@@ -974,7 +1162,9 @@
                   "ideas": [
                     "Even freedom can't undo forty years of control.",
                     "Red's story echoes Brooks's, and we fear it will end the same way."
-                  ]
+                  ],
+                  "d": 2,
+                  "t": 1
                 },
                 {
                   "title": "Honesty as a kind of freedom",
@@ -983,7 +1173,9 @@
                   "ideas": [
                     "Red is finally freed when he stops performing for the system.",
                     "Honesty is the one thing the board can't control."
-                  ]
+                  ],
+                  "d": 0,
+                  "t": 0
                 }
               ],
               "words": [
@@ -1032,6 +1224,18 @@
                 "After forty years, Red tells the board that 'rehabilitated' is a made-up word.",
                 "He says he regrets the foolish young man who committed his crime, and he is released.",
                 "Outside he gets Brooks's old room and job, and asks his manager for permission to go to the toilet."
+              ],
+              "techniques": [
+                {
+                  "name": "Repetition",
+                  "say": "The hearing is filmed just like Red’s earlier ones, so we notice what has changed: this time he tells the truth.",
+                  "what": "Repeating a scene or shot so we compare the two."
+                },
+                {
+                  "name": "Parallel",
+                  "say": "Red is given Brooks’s room and Brooks’s job, and the film retraces Brooks’s steps, so we fear the same ending.",
+                  "what": "Two characters or stories set side by side, so we compare them."
+                }
               ]
             },
             "12": {
@@ -1043,7 +1247,9 @@
                   "ideas": [
                     "The two men end up where no prison and no warden can reach them.",
                     "The open sea is the opposite of the walls of Shawshank."
-                  ]
+                  ],
+                  "d": 2,
+                  "t": 1
                 },
                 {
                   "title": "Hope defeats the system",
@@ -1052,7 +1258,9 @@
                   "ideas": [
                     "The hope Red once called dangerous is what saves him.",
                     "The ending leaves us believing that hope outlasts power."
-                  ]
+                  ],
+                  "d": 0,
+                  "t": 2
                 }
               ],
               "words": [
@@ -1101,6 +1309,23 @@
                 "Red finds Andy's box under the rock near Buxton, with money and a letter.",
                 "He carves 'So was Red' beside Brooks's words and breaks his parole.",
                 "He finds Andy working on an old boat on a sunlit beach in Zihuatanejo."
+              ],
+              "techniques": [
+                {
+                  "name": "Colour",
+                  "say": "After two hours of grey stone, the final scene is full of blue sea and sunshine.",
+                  "what": "How colour sets a mood."
+                },
+                {
+                  "name": "Final wide shot",
+                  "say": "The camera pulls back over the Pacific until the two men are tiny on the beach: free at last in an open world.",
+                  "what": "A shot from far away, taking in the whole scene."
+                },
+                {
+                  "name": "Voiceover",
+                  "say": "Red’s last words are about hope: the voiceover that began in a parole hearing ends on a beach.",
+                  "what": "A character’s voice speaking over the pictures."
+                }
               ]
             }
           },
