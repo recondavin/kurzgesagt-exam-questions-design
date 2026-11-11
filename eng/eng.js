@@ -1210,8 +1210,9 @@
     }
     document.body.classList.add('eng-cpd-on');
     var th = cpTheme(), a = cpBy(th).a, W = cpWrite(th, a), G = th.write[a], s = CPW.slot, para = typeof s === 'number' ? W.paras[s] : null, body = '', foot = '';
-    // A step plays its animations (cards popping in, arrows drawing) when it is first shown, not on every redraw.
-    var key = s + '/' + CPW.step;
+    // A step plays its animations (cards popping in, arrows drawing) when it is first shown, not on every redraw; and a
+    // redraw of the same step keeps your place (the user: "it just takes me to the top when i click on anything").
+    var key = s + '/' + CPW.step, oldBody = box.querySelector('.eng-cpd__body'), keep = box.getAttribute('data-key') === key && oldBody ? oldBody.scrollTop : 0;
     if (box.getAttribute('data-key') !== key) {
       box.setAttribute('data-key', key); box.classList.add('is-fresh');
       clearTimeout(box.cpT); box.cpT = setTimeout(function () { box.classList.remove('is-fresh'); }, 1700);
@@ -1273,7 +1274,8 @@
     cpwArrows();
     CPW.just = null;
     cpwCheck();
-    if (focus) {
+    if (keep) box.querySelector('.eng-cpd__body').scrollTop = keep;
+    if (focus && !keep) {
       var f = box.querySelector('[data-cpw-box="' + CPW.box + '"]') || box.querySelector('.eng-cpd__sc.is-on, .eng-cpd__rep.is-on') || box.querySelector('[data-cpw-scene], [data-cpw-pick], [data-cpw-rep], [data-cpw-orep]') || box.querySelector('[data-cpw-close]');
       if (f) f.focus({ preventScroll: true });
       var bd = box.querySelector('.eng-cpd__body'); if (bd) bd.scrollTop = 0;
