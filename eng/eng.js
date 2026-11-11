@@ -1160,11 +1160,17 @@
     var box = document.getElementById('eng-cpd');
     if (!box) return;
     Array.prototype.forEach.call(box.querySelectorAll('[data-tree]'), function (tree) {
-      var svg = tree.querySelector('.eng-cpd__arrows'), r0 = tree.getBoundingClientRect(), root = tree.querySelector('.eng-cpd__root').getBoundingClientRect(), d = '';
-      var cards = Array.prototype.slice.call(tree.querySelectorAll('.eng-cpd__rep')), rows = cards.map(function (c) { return c.getBoundingClientRect(); });
+      // Positions come from the layout (offsets), not the screen, so cards still popping in don't throw the arrows off.
+      var at = function (el) {
+        var x = 0, y = 0, e = el;
+        while (e && e !== tree) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; }
+        return { left: x, top: y, width: el.offsetWidth, height: el.offsetHeight, right: x + el.offsetWidth, bottom: y + el.offsetHeight };
+      };
+      var svg = tree.querySelector('.eng-cpd__arrows'), r0 = { left: 0, top: 0, width: tree.offsetWidth, height: tree.offsetHeight }, root = at(tree.querySelector('.eng-cpd__root')), d = '';
+      var cards = Array.prototype.slice.call(tree.querySelectorAll('.eng-cpd__rep')), rows = cards.map(at);
       var side = rows.length < 2 || rows.every(function (r) { return Math.abs(r.top - rows[0].top) < 6; });
       svg.setAttribute('width', r0.width); svg.setAttribute('height', r0.height); svg.setAttribute('viewBox', '0 0 ' + r0.width + ' ' + r0.height);
-      var X = function (v) { return Math.round(v - r0.left); }, Y = function (v) { return Math.round(v - r0.top); };
+      var X = function (v) { return Math.round(v); }, Y = function (v) { return Math.round(v); };
       var down = function (x1, y1, x2, y2, cls, i) {
         var my = Math.round((y1 + y2) / 2);
         return '<path class="eng-cpd__ar ' + cls + '" pathLength="1" style="--i:' + i + '" d="M' + x1 + ' ' + y1 + ' C' + x1 + ' ' + my + ' ' + x2 + ' ' + my + ' ' + x2 + ' ' + (y2 - 8) + '"/>' +
@@ -1181,8 +1187,8 @@
       });
       var on = tree.querySelector('.eng-cpd__rep.is-on'), mo = tree.querySelector('.eng-cpd__model');
       if (on && mo) {
-        var a1 = on.getBoundingClientRect(), b1 = mo.getBoundingClientRect();
-        d += side ? down(X(a1.left + a1.width / 2), Y(a1.bottom) + 2, X(Math.min(a1.left + a1.width / 2, b1.right - 40)), Y(b1.top), 'is-on is-down', 0) :
+        var a1 = at(on), b1 = at(mo);
+        d += side ? down(X(a1.left + a1.width / 2), Y(a1.bottom) + 2, X(Math.min(a1.left + a1.width / 2, b1.left + 90)), Y(b1.top), 'is-on is-down', 0) :
           rail(x0, Y(a1.bottom) + 2, X(b1.left), Y(b1.top + 24), 'is-on is-down', 0);
       }
       svg.innerHTML = d;
