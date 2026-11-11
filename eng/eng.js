@@ -865,7 +865,7 @@
           '<span class="eng-cpt__t">' + esc(text(id).title) + '</span>' + (id === th.best ? '<span class="eng-cpt__best">Best for (a)</span>' : '') + '</button>';
       }).join('') + '</div>' +
       '<p class="eng-p eng-cp__why">' + esc(th.bestWhy) + '</p>';
-    if (!a) { app.innerHTML = h; return; }
+    if (!a) { app.innerHTML = cpPage(h); return; }
     var w = cpWork(th, a), B = ids.filter(function (id) { return id !== a; });
     // 2: part (a): written in the popup if the text has a writing guide, else three points to pick
     var WR = th.write && th.write[a];
@@ -915,8 +915,19 @@
     }
     // 4: the plan
     if (w.pts.length || w.links.length || (WR && (cwPrompt(cpWrite(th, a)) || cpPts(th, a, w).length))) h += '<h2 class="eng-h2"><span class="eng-cp__n">4</span>Your plan</h2>' + cpPlanHtml(th, a, B, w);
-    app.innerHTML = h;
+    app.innerHTML = cpPage(h);
     requestAnimationFrame(cpLines);
+  }
+  // The page: each step in its own section (for the line joining them), sliding in when you arrive (CP_ENTER).
+  var CP_ENTER = false;
+  function cpPage(h) {
+    var mark = '<h2 class="eng-h2"><span class="eng-cp__n">', parts = h.split(mark), enter = CP_ENTER;
+    CP_ENTER = false;
+    var k = 0;
+    var tag = function (x) { return x.replace(/class="(eng-cpw__s(?: is-done)?|eng-cpm(?: is-hint)?)"/g, function (all) { return all + ' style="--i:' + (k++ % 12) + '"'; }); };
+    return '<div class="eng-cmpg' + (enter ? ' is-enter' : '') + '">' + tag(parts[0]) + parts.slice(1).map(function (x, i) {
+      return '<section class="eng-cp__step" style="--i:' + i + '">' + mark + tag(x) + '</section>';
+    }).join('') + '</div>';
   }
   function cwPrompt(W) { return SLOTS.some(function (x) { return slotText(W, x); }); }
   // Part (a)'s points: the paragraphs' scenes and what they represent if the text has a writing guide, else the picks.
@@ -2174,7 +2185,7 @@
     var cpa = t.closest('[data-cp-a]'), cpp = t.closest('[data-cp-pt]'), cpm = t.closest('[data-cpm]'), cpr = t.closest('[data-cp-rel]'), cpd = t.closest('[data-cp-del]');
     if (cpa || cpp || cpm || cpr || cpd || t.closest('[data-cp-cancel],[data-cp-hint],[data-cp-reset],[data-cp-copy]')) {
       var cth = cpTheme(), cby = cpBy(cth), focus = null;
-      if (cpa) { cby.a = cpa.getAttribute('data-cp-a'); CPSEL = CPPICK = CPFB = CPHINT = null; focus = '[data-cp-a="' + cby.a + '"]'; }
+      if (cpa) { cby.a = cpa.getAttribute('data-cp-a'); CPSEL = CPPICK = CPFB = CPHINT = null; focus = '[data-cp-a="' + cby.a + '"]'; CP_ENTER = true; }
       else if (cpp) {
         var cw = cpWork(cth, cby.a), ci = +cpp.getAttribute('data-cp-pt'), at = cw.pts.indexOf(ci);
         if (at >= 0) cw.pts.splice(at, 1); else if (cw.pts.length < 3) cw.pts.push(ci);
@@ -2380,7 +2391,7 @@
     else if (p[0] === 'text') renderText(p[1], p[2]);
     else if (p[0] === 'language') renderLanguage();
     else if (p[0] === 'questions') renderQuestions();
-    else if (p[0] === 'compare') renderCompare();
+    else if (p[0] === 'compare') { CP_ENTER = true; renderCompare(); }
     else if (p[0] === 'build') renderBuild(p[1]);
     else if (p[0] === 'comparative') renderHome();
     else if (p[0] === 'single') renderSingle();
