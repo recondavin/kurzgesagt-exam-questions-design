@@ -1104,7 +1104,8 @@
     return '<button type="button" class="eng-cpd__sc' + (on ? ' is-on' : '') + '" ' + attr + ' style="--c:' + COL[a] + ';--i:' + (n - 1) + '">' +
       (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '<span class="eng-cpd__ph"></span>') +
       '<span class="eng-cpd__sct"><span class="eng-cpm__n">' + n + '</span>' + esc(m.title) + '</span>' +
-      '<span class="eng-cpd__scr">' + sc.reps.map(function (r) { return esc(r.title); }).join(' · ') + '</span>' + (extra || '') + '</button>';
+      '<span class="eng-cpd__scw">' + esc(firstSentence(m.what)) + '</span>' +
+      '<span class="eng-cpd__scr"><em>Can represent:</em> ' + sc.reps.map(function (r) { return esc(r.title); }).join(' · ') + '</span>' + (extra || '') + '</button>';
   }
   // The three paragraphs' scenes, small, at the top of the opening and the ending.
   function threeHtml(th, a, W) {
@@ -1115,6 +1116,7 @@
       return '<div class="eng-cpd__mini">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') + '<div><b>Paragraph ' + (k + 1) + ' · ' + (p.scene) + ' ' + esc(m.title) + '</b><span>' + esc(rep.title) + '</span></div></div>';
     }).join('') + '</div>';
   }
+  function firstSentence(s) { return (String(s).match(/^.*?[.!?](?=\s+[A-Z‘“']|$)/) || [s])[0]; }
   // Names keep their capital after the meaning's colon; anything else starts small.
   function afterColon(s, a) {
     var w = (s.match(/^[A-Za-zÀ-ÿ']+/) || [''])[0], names = {};
@@ -1141,13 +1143,16 @@
   function treeHtml(th, a, k, p, attr, label) {
     var G = th.write[a], sc = G.scenes[p.scene], m = text(a).moments[p.scene - 1], pic = scenePics(a, m.id)[0], on = repPicked(G, p);
     return '<div class="eng-cpd__tree' + (CPW.just === k ? ' is-new' : '') + '" data-tree>' +
+      (label ? '<p class="eng-cpd__tl">' + esc(label) + '</p>' : '') +
       '<div class="eng-cpd__root" style="--c:' + COL[a] + '">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') +
-        '<span><b>' + (label ? esc(label) + ' · ' : '') + '<span class="eng-cpm__n">' + p.scene + '</span> ' + esc(m.title) + '</b><small>' + (on ? 'You picked one. Tap another to change it.' : 'What does it represent? Pick one.') + '</small></span></div>' +
+        '<div class="eng-cpd__rt"><b><span class="eng-cpm__n">' + p.scene + '</span> ' + esc(m.title) + '</b>' +
+        '<p class="eng-cpd__rw"><span>What happens</span>' + esc(m.what) + '</p>' +
+        '<small>' + (on ? 'You picked one below. Tap another to change it.' : 'So what does this scene represent about ' + esc(th.name.toLowerCase()) + '? Pick one below.') + '</small></div></div>' +
       '<svg class="eng-cpd__arrows" aria-hidden="true"></svg>' +
       '<div class="eng-cpd__reps eng-cpd__reps--row">' + sc.reps.map(function (r, i) {
         var sel = on && (p.rep || 0) === i;
         return '<button type="button" class="eng-cpd__rep' + (sel ? ' is-on' : '') + '" ' + attr(i) + ' aria-pressed="' + sel + '" style="--i:' + i + '"><b>' + esc(r.title) + '</b><span>' + esc(r.say) + '</span>' +
-          '<span class="eng-cpd__repi">' + r.ideas.map(function (x) { return '<i>' + esc(x) + '</i>'; }).join('') + '</span></button>';
+          '<span class="eng-cpd__repi"><em>Why it matters</em>' + r.ideas.map(function (x) { return '<i>' + esc(x) + '</i>'; }).join('') + '</span></button>';
       }).join('') + '</div>' + (on ? modelHtml(th, a, p.scene, p.rep || 0, k) : '') + '</div>';
   }
   // The arrows: side by side, they branch down from the scene; stacked (on a phone), they run down a rail on the left.
@@ -1214,7 +1219,7 @@
       var left = W.paras.filter(function (p) { return !repPicked(G, p); }).length;
       body = '<p class="eng-cpd__lead">What does each scene represent about ' + esc(th.name.toLowerCase()) + '? Pick one for each, and see how you\'d write it. ' +
         (left ? '<b>' + left + ' still to pick</b>' : '<b class="is-ok">All picked</b>') + '</p>' +
-        W.paras.map(function (p, k) { return treeHtml(th, a, k, p, function (i) { return 'data-cpw-orep="' + k + '|' + i + '"'; }, 'Paragraph ' + (k + 1)); }).join('');
+        W.paras.map(function (p, k) { return treeHtml(th, a, k, p, function (i) { return 'data-cpw-orep="' + k + '|' + i + '"'; }, 'Paragraph ' + (k + 1) + ' of 3'); }).join('');
       foot = '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-step="1">Back</button><button type="button" class="eng-btn" data-cpw-step="3"' + (left ? ' disabled' : '') + '>Next: write it</button>';
     } else if (para && CPW.step === 1) {
       body = '<p class="eng-cpd__lead">Pick the key scene this paragraph is built on.</p><div class="eng-cpd__scenes">' + nums.map(function (n) {

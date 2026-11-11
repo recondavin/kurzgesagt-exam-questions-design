@@ -283,7 +283,9 @@ body.eng-cpd-on { overflow: hidden; }
 .eng-cpd__sc.is-on { border-color: var(--c); }
 .eng-cpd__sc img, .eng-cpd__ph { display: block; width: 100%; aspect-ratio: 16 / 8; object-fit: cover; background: var(--raised); }
 .eng-cpd__sct { display: flex; align-items: center; gap: 8px; padding: 4px 12px 0; font: 600 17px/1.25 Fredoka, Nunito, sans-serif; }
+.eng-cpd__scw { padding: 0 12px; color: #fff; font: 700 14.5px/1.45 Nunito, sans-serif; }
 .eng-cpd__scr { padding: 0 12px; color: var(--m-theme); font: 700 14.5px/1.4 Nunito, sans-serif; }
+.eng-cpd__scr em { color: var(--muted); font-style: normal; }
 .eng-cpd__used { margin: 0 12px; justify-self: start; padding: 2px 9px; border-radius: 999px; background: var(--raised); color: var(--muted); font: 800 12.5px Nunito, sans-serif; }
 .eng-cpd__reps { display: grid; gap: 12px; }
 .eng-cpd__rep { display: grid; gap: 6px; padding: 16px 18px; border: 3px solid transparent; border-radius: 14px; background: var(--surface); color: #fff; text-align: left; cursor: pointer; }
@@ -344,6 +346,7 @@ body.eng-cpd-on { overflow: hidden; }
 .eng-cpd__lead b { color: var(--m-theme); }
 .eng-cpd__reps--row { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 .eng-cpd__repi { display: grid; gap: 4px; margin-top: 4px; }
+.eng-cpd__repi em { color: var(--muted); font: 800 12.5px Nunito, sans-serif; font-style: normal; letter-spacing: .04em; text-transform: uppercase; }
 .eng-cpd__repi i { padding-left: 10px; border-left: 3px solid var(--m-theme); color: var(--muted); font: italic 700 14.5px/1.45 Nunito, sans-serif; }
 .eng-btn[disabled] { opacity: .45; cursor: not-allowed; }
 /* Scene → what it represents → how you'd write it, joined by arrows that draw themselves in. */
@@ -351,10 +354,15 @@ body.eng-cpd-on { overflow: hidden; }
 .eng-cpd__tree { position: relative; margin: 0 0 22px; }
 .eng-cpd__arrows { position: absolute; left: 0; top: 0; z-index: 0; overflow: visible; pointer-events: none; }
 .eng-cpd__tree > :not(svg) { position: relative; z-index: 1; }
-.eng-cpd__root { display: inline-flex; align-items: center; gap: 12px; max-width: 100%; margin: 0 0 34px; padding: 6px 16px 6px 6px; border: 3px solid var(--c); border-radius: 14px; background: var(--surface); }
-.eng-cpd__root img { width: 84px; height: 56px; border-radius: 9px; object-fit: cover; }
-.eng-cpd__root b { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; color: #fff; font: 600 18px/1.25 Fredoka, Nunito, sans-serif; }
-.eng-cpd__root small { display: block; margin-top: 2px; color: var(--m-theme); font: 800 14px Nunito, sans-serif; }
+.eng-cpd__tree + .eng-cpd__tree { margin-top: 10px; padding-top: 18px; border-top: 2px dashed var(--raised); }
+.eng-cpd__tl { margin: 0 0 8px; color: var(--m-theme); font: 600 21px Fredoka, Nunito, sans-serif; }
+.eng-cpd__root { display: flex; align-items: flex-start; gap: 14px; margin: 0 0 34px; padding: 8px 16px 10px 8px; border: 3px solid var(--c); border-radius: 14px; background: var(--surface); }
+.eng-cpd__root img { flex: none; width: 150px; height: 100px; border-radius: 9px; object-fit: cover; }
+.eng-cpd__rt { min-width: 0; }
+.eng-cpd__root b { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; color: #fff; font: 600 19px/1.25 Fredoka, Nunito, sans-serif; }
+.eng-cpd__rw { margin: 6px 0 0; color: #fff; font: 700 15.5px/1.5 Nunito, sans-serif; }
+.eng-cpd__rw span { display: inline-block; margin-right: 8px; padding: 1px 9px; border-radius: 999px; background: var(--raised); color: var(--muted); font: 800 12.5px Nunito, sans-serif; letter-spacing: .04em; text-transform: uppercase; vertical-align: 1px; }
+.eng-cpd__root small { display: block; margin-top: 8px; color: var(--m-theme); font: 800 15px Nunito, sans-serif; }
 .eng-cpd__ar { fill: none; stroke: rgba(255, 255, 255, .28); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
 .eng-cpd__ah { fill: rgba(255, 255, 255, .28); }
 .eng-cpd__ar.is-on { stroke: var(--m-theme); stroke-width: 4; } .eng-cpd__ah.is-on { fill: var(--m-theme); }
@@ -391,8 +399,10 @@ body.eng-cpd-on { overflow: hidden; }
   .eng-cpd__tree .eng-cpd__reps, .eng-cpd__tree .eng-cpd__model { margin-left: 28px; }
   .eng-cpd__root { margin-bottom: 14px; }
   .eng-cpd__tree .eng-cpd__model { margin-top: 18px; }
-  .eng-cpd__root img { width: 64px; height: 46px; }
-  .eng-cpd__root b { font-size: 16px; }
+  .eng-cpd__root { flex-direction: column; padding: 8px; }
+  .eng-cpd__root img { width: 100%; height: 120px; }
+  .eng-cpd__root b { font-size: 17px; }
+  .eng-cpd__scw { padding: 0 10px 0 0; font-size: 13.5px; }
 }
 @media (max-width: 900px) { .eng-cpd__write { grid-template-columns: minmax(0, 1fr); } .eng-cpd__scenes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 600px) {
@@ -404,7 +414,7 @@ body.eng-cpd-on { overflow: hidden; }
   .eng-cpd__body { padding: 14px 16px 18px; }
   .eng-cpd__scenes { grid-template-columns: minmax(0, 1fr); }
   .eng-cpd__sc { grid-template-columns: 96px minmax(0, 1fr); grid-template-rows: auto auto; padding: 0; }
-  .eng-cpd__sc img, .eng-cpd__ph { grid-row: 1 / span 3; height: 100%; aspect-ratio: auto; }
+  .eng-cpd__sc img, .eng-cpd__ph { grid-row: 1 / span 4; height: 100%; aspect-ratio: auto; }
   .eng-cpd__sct { padding: 8px 10px 0 0; font-size: 16px; }
   .eng-cpd__scr { padding: 0 10px 0 0; font-size: 13.5px; }
   .eng-cpd__used { margin: 0 10px 8px 0; }
