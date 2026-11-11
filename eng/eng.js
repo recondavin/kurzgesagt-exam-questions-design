@@ -1071,12 +1071,12 @@
   }
   function partsOf(th, a, s) {
     var G = th.write[a], W = cpWrite(th, a);
-    if (typeof s !== 'number') return G[s].parts.map(function (pt) { return { k: pt.k, label: pt.label, hint: pt.hint, ideas: pt.auto ? autoIdeas(th, a, pt.auto) : pt.ideas, auto: pt.auto }; });
+    if (typeof s !== 'number') return G[s].parts.map(function (pt) { return { k: pt.k, label: pt.label, hint: pt.hint, hl: pt.hl, ideas: pt.auto ? autoIdeas(th, a, pt.auto) : pt.ideas, auto: pt.auto }; });
     var para = W.paras[s], sc = G.scenes[para.scene], rep = sc.reps[para.rep || 0], m = text(a).moments[para.scene - 1];
-    return [{ k: 'p', label: 'Point', hint: 'Your idea, in one sentence: what this scene represents.', ideas: [rep.start] },
+    return [{ k: 'p', label: 'Point', hl: 'Your idea, in one sentence', hint: 'Your idea, in one sentence: what this scene represents.', ideas: [rep.start] },
       { k: 'a', label: 'Anchor', hl: 'Keep it short', hint: 'Keep it short: the moment in a sentence or two, with ' + (m.quote ? 'the quote or ' : '') + 'a film technique. Don\'t retell the story.', ideas: sc.details.concat(m.quote ? ['“' + m.quote + '”'] : [],
         sc.techniques.map(function (q) { return { t: q.say, tag: 'Technique: ' + q.name }; })) },
-      { k: 'e', label: 'Evaluate', hint: 'Most of the marks are here: two or three sentences on why it matters for ' + th.name.toLowerCase() + '.', ideas: rep.ideas }];
+      { k: 'e', label: 'Evaluate', hl: 'Most of the marks are here', hint: 'Most of the marks are here: two or three sentences on why it matters for ' + th.name.toLowerCase() + '.', ideas: rep.ideas }];
   }
   function cpWriterHtml(th, a) {
     var W = cpWrite(th, a), G = th.write[a], total = 0;

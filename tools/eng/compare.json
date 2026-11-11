@@ -1952,13 +1952,15 @@
                   "In The Shawshank Redemption, directed by Frank Darabont, power in the wrong hands becomes cruelty, and those who hold it will do anything to keep it.",
                   "Frank Darabont's The Shawshank Redemption exposes a prison where the men in charge use fear, violence and lies to control the inmates, and answer to no one.",
                   "In The Shawshank Redemption, Frank Darabont portrays abuse of power at its most brutal, yet he also suggests that it can never crush a man's hope."
-                ]
+                ],
+                "hl": "Name the film and its director"
               },
               {
                 "k": "idea",
                 "label": "Your three points",
-                "hint": "Say the three things your paragraphs will cover, in the order you’ll write them.",
-                "auto": "points"
+                "hint": "Say the three or four things your paragraphs will cover, in the order you’ll write them.",
+                "auto": "points",
+                "hl": "three or four things"
               },
               {
                 "k": "points",
@@ -1968,7 +1970,8 @@
                   "Ultimately, Darabont suggests that hope can outlast even the most brutal regime.",
                   "By the end, the abusers have lost everything, and the men they tried to break walk free.",
                   "The film leaves us in no doubt that unchecked power corrupts, but it also refuses to let that power have the last word."
-                ]
+                ],
+                "hl": "One line"
               }
             ]
           },
@@ -2020,7 +2023,8 @@
                 "k": "sum",
                 "label": "Sum up your three points",
                 "hint": "One sentence that pulls them together.",
-                "auto": "sum"
+                "auto": "sum",
+                "hl": "One sentence"
               },
               {
                 "k": "final",
@@ -2029,7 +2033,8 @@
                 "ideas": [
                   "Shawshank warns that power without limits always ends in cruelty.",
                   "Yet the film refuses to let power have the last word: Andy beats Norton at his own game."
-                ]
+                ],
+                "hl": "Your judgement"
               },
               {
                 "k": "last",
@@ -2038,7 +2043,8 @@
                 "ideas": [
                   "Ultimately, The Shawshank Redemption leaves the viewer believing that hope outlasts even the most abusive power.",
                   "In the end, the abusers lose everything, and the men they tried to break walk free."
-                ]
+                ],
+                "hl": "Leave the examiner with something"
               }
             ]
           }

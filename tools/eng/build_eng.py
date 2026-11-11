@@ -148,8 +148,8 @@ def check_compare(cmp, texts, problems):
             for part, keys in (('open', ['film', 'idea', 'points']), ('end', ['sum', 'final', 'last'])):
                 x = wr.get(part, {})
                 if [pt.get('k') for pt in x.get('parts', [])] != keys or len(x.get('words', [])) != 10 or \
-                        any(not (pt.get('label') and pt.get('hint') and (pt.get('ideas') or pt.get('auto'))) for pt in x.get('parts', [])):
-                    problems.append('%s write %s: the %s needs parts %s (label, hint, ideas or auto) and 10 words' % (where, tid, part, ', '.join(keys)))
+                        any(not (pt.get('label') and pt.get('hint') and (pt.get('ideas') or pt.get('auto')) and pt.get('hl', '') in pt['hint']) for pt in x.get('parts', [])):
+                    problems.append('%s write %s: the %s needs parts %s (label, hint, ideas or auto; hl inside the hint) and 10 words' % (where, tid, part, ', '.join(keys)))
         ids = {m['id']: tid for tid in tids if tid in texts for m in texts[tid]['moments']}
         seen, per = set(), {}
         for ln in th.get('links', []):
