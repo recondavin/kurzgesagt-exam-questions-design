@@ -1026,7 +1026,7 @@
   var CPW = null;
   var SLOTS = ['open', 0, 1, 2, 'end'];
   var KEYS = { open: ['film', 'idea', 'points'], end: ['sum', 'final', 'last'], para: ['p', 'a', 'e'] };
-  var PART_COL = { p: 'var(--pace-p)', a: 'var(--pace-a)', e: 'var(--pace-e)', film: 'var(--pace-p)', idea: 'var(--pace-a)', points: 'var(--pace-c)', sum: 'var(--pace-c)', final: 'var(--pace-a)', last: 'var(--pace-e)' };
+  var PART_COL = { p: 'var(--pace-p)', a: 'var(--pace-a)', e: 'var(--pace-e)', film: 'var(--pace-p)', idea: 'var(--pace-c)', points: 'var(--pace-a)', sum: 'var(--pace-c)', final: 'var(--pace-a)', last: 'var(--pace-e)' };
   var SYN = { shows: ['reveals', 'exposes', 'highlights', 'underlines', 'conveys', 'lays bare'], power: ['control', 'authority', 'dominance', 'grip'],
     important: ['significant', 'crucial', 'pivotal'], very: ['deeply', 'profoundly', 'utterly'], really: ['truly', 'deeply'], cruel: ['brutal', 'savage', 'merciless'],
     sad: ['tragic', 'poignant', 'heartbreaking'], good: ['admirable', 'decent', 'hopeful'], says: ['declares', 'insists', 'admits'], uses: ['exploits', 'relies on', 'turns to'],
@@ -1090,7 +1090,7 @@
   }
   function cpwOpen(s) {
     var th = cpTheme(), W = cpWrite(th, cpBy(th).a);
-    CPW = { slot: s, step: cpwFirstStep(W, s), box: slotKeys(s)[0], pick: W.paras.map(function (p) { return p.scene; }).filter(Boolean) };
+    CPW = { slot: s, step: cpwFirstStep(W, s), box: slotKeys(s)[0], pick: W.paras.map(function (p) { return p.scene; }).filter(Boolean), shown: {} };
     cpwDraw(true);
   }
   function cpwClose() {
@@ -1126,23 +1126,25 @@
   // The worked example: a whole paragraph, written out (rep.model: [kind, text] in order), each part in its colour, with
   // a key underneath, and for a scene the film technique it uses. Start from this puts it in the boxes.
   var SEG = { p: ['Point', 'var(--pace-p)'], a: ['Anchor', 'var(--pace-a)'], t: ['Technique', 'var(--m-gvv)'], e: ['Evaluate', 'var(--pace-e)'],
-    film: ['The film', 'var(--pace-p)'], idea: ['What it says', 'var(--pace-a)'], points: ['Your three points', 'var(--pace-c)'],
+    film: ['Opening line', 'var(--pace-p)'], idea: ['Your three points', 'var(--pace-c)'], points: ['Where it\'s going', 'var(--pace-a)'],
     sum: ['Sum up', 'var(--pace-c)'], final: ['What it finally says', 'var(--pace-a)'], last: ['Last line', 'var(--pace-e)'] };
   function cpwModel(th, a, n, ri) { var sc = th.write[a].scenes[n], r = sc.reps[ri]; return { segs: r.model, t: sc.techniques[r.t] }; }
   // The opening's and ending's example, made from the ideas and your three scenes.
   function slotExample(th, a, s) {
     return partsOf(th, a, s).map(function (pt) { var x = pt.ideas && pt.ideas[0]; return x ? [pt.k, typeof x === 'string' ? x : x.t] : null; }).filter(Boolean);
   }
-  function exampleHtml(segs, tech, use) {
+  // An example only shows you; you write your own (the user: "it let me just click on shit and it wrote the whole thing
+  // for me ... it should show them").
+  function exampleHtml(segs, tech, key) {
     var kinds = [];
     segs.forEach(function (g) { if (kinds.indexOf(g[0]) < 0) kinds.push(g[0]); });
     return '<div class="eng-cpd__model"><p class="eng-cpd__mh">Here\'s one way to write it</p>' +
-      '<p class="eng-cpd__mp">' + segs.map(function (g) { return '<span class="eng-cpd__seg" style="--pc:' + SEG[g[0]][1] + '">' + esc(g[1]) + '</span>'; }).join(' ') + '</p>' +
+      '<p class="eng-cpd__mp" data-type="' + esc(key) + '">' + segs.map(function (g) { return '<span class="eng-cpd__seg" style="--pc:' + SEG[g[0]][1] + '">' + esc(g[1]) + '</span>'; }).join(' ') + '</p>' +
       '<p class="eng-cpd__key">' + kinds.map(function (k) { return '<span style="--pc:' + SEG[k][1] + '">' + esc(k === 't' && tech ? 'Technique: ' + tech.name : SEG[k][0]) + '</span>'; }).join('') + '</p>' +
       (tech ? '<p class="eng-cpd__tq"><b>' + esc(tech.name) + ':</b> ' + esc(lowerFirst(tech.what)) + '</p>' : '') +
-      '<p class="eng-btns"><button type="button" class="eng-btn eng-btn--quiet" data-cpw-use="' + use + '">Start from this</button></p></div>';
+      '<p class="eng-cpd__own">Now write your own, in your own words.</p></div>';
   }
-  function modelHtml(th, a, n, ri, k) { var M = cpwModel(th, a, n, ri); return exampleHtml(M.segs, M.t, k); }
+  function modelHtml(th, a, n, ri) { var M = cpwModel(th, a, n, ri); return exampleHtml(M.segs, M.t, 'm' + n + '-' + ri); }
   function repPicked(G, p) { return !!p.scene && (p.picked || G.scenes[p.scene].reps.length === 1); }
   // A scene and what it can represent, joined by arrows (drawn by cpwArrows); the one you pick leads on to the example.
   function treeHtml(th, a, k, p, attr, label) {
@@ -1151,14 +1153,14 @@
       (label ? '<p class="eng-cpd__tl">' + esc(label) + '</p>' : '') +
       '<div class="eng-cpd__root" style="--c:' + COL[a] + '">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') +
         '<div class="eng-cpd__rt"><b><span class="eng-cpm__n">' + p.scene + '</span> ' + esc(m.title) + '</b>' +
-        '<p class="eng-cpd__rw"><span>What happens</span>' + esc(m.what) + '</p>' +
+        '<p class="eng-cpd__rw"><span>What happens</span><span data-type="w' + p.scene + '">' + esc(m.what) + '</span></p>' +
         '<small>' + (on ? 'You picked one below. Tap another to change it.' : 'So what does this scene represent about ' + esc(th.name.toLowerCase()) + '? Pick one below.') + '</small></div></div>' +
       '<svg class="eng-cpd__arrows" aria-hidden="true"></svg>' +
       '<div class="eng-cpd__reps eng-cpd__reps--row">' + sc.reps.map(function (r, i) {
         var sel = on && (p.rep || 0) === i;
         return '<button type="button" class="eng-cpd__rep' + (sel ? ' is-on' : '') + '" ' + attr(i) + ' aria-pressed="' + sel + '" style="--i:' + i + '"><b>' + esc(r.title) + '</b><span>' + esc(r.say) + '</span>' +
           '<span class="eng-cpd__repi"><em>Why it matters</em>' + r.ideas.map(function (x) { return '<i>' + esc(x) + '</i>'; }).join('') + '</span></button>';
-      }).join('') + '</div>' + (on ? modelHtml(th, a, p.scene, p.rep || 0, k) : '') + '</div>';
+      }).join('') + '</div>' + (on ? modelHtml(th, a, p.scene, p.rep || 0) : '') + '</div>';
   }
   // The arrows: side by side, they branch down from the scene; stacked (on a phone), they run down a rail on the left.
   function cpwArrows() {
@@ -1251,15 +1253,21 @@
         top = '<div class="eng-cpd__banner" style="--c:' + COL[a] + '">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') +
           '<div><span class="eng-cpd__bt"><span class="eng-cpm__n">' + para.scene + '</span>' + esc(m.title) + '</span><b>' + esc(rep.title) + '</b><span class="eng-cpd__bs">' + esc(rep.say) + '</span>' +
           '<span class="eng-cpd__techs">Techniques: ' + G.scenes[para.scene].techniques.map(function (q) { return '<i title="' + esc(q.what) + '">' + esc(q.name) + '</i>'; }).join('') + '</span></div></div>';
-      } else top = threeHtml(th, a, W) + (slotExample(th, a, s).length ? exampleHtml(slotExample(th, a, s), null, s) : '');
+      } else {
+        var ex = slotExample(th, a, s);
+        top = threeHtml(th, a, W) + (ex.length ? exampleHtml(ex, null, 'x' + s + ex.map(function (g) { return g[1].length; }).join('-')) : '');
+      }
       var P = slotParts(W, s);
       body = top + '<div class="eng-cpd__write"><div class="eng-cpd__parts">' + partsOf(th, a, s).map(function (pt, pi) {
         return '<section class="eng-cpd__part" style="--pc:' + PART_COL[pt.k] + ';--i:' + pi + '"><header><span class="eng-cpd__pl">' + esc(pt.label) + '</span><span class="eng-cpd__ph2">' + esc(pt.hint) + '</span></header>' +
-          (pt.ideas && pt.ideas.length ? '<div class="eng-cpd__ideas"><span>Ideas</span>' + pt.ideas.map(function (x, i) {
-            var tx = typeof x === 'string' ? x : x.t;
-            return '<button type="button" class="eng-cpd__idea' + (x.tag ? ' is-tech' : '') + '" data-cpw-idea="' + pt.k + '|' + i + '" data-txt="' + esc(tx) + '">' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + esc(tx) + '</button>';
-          }).join('') + '</div>' : (pt.auto ? '<p class="eng-cpd__none">Pick your three scenes first.</p>' : '')) +
-          '<textarea data-cpw-box="' + pt.k + '" rows="2" aria-label="' + esc(pt.label) + '" placeholder="' + esc(pt.label) + '…">' + esc(P[pt.k] || '') + '</textarea></section>';
+          (pt.ideas && pt.ideas.length ? (function () {
+            var shown = Math.min(pt.ideas.length, Math.max(1, (CPW.shown || {})[pt.k] || 1));
+            return '<div class="eng-cpd__ideas"><span>Ideas to help you</span>' + pt.ideas.slice(0, shown).map(function (x) {
+              var tx = typeof x === 'string' ? x : x.t;
+              return '<p class="eng-cpd__idea' + (x.tag ? ' is-tech' : '') + '">' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + '<span data-type="i' + esc(tx.slice(0, 60)) + '">' + esc(tx) + '</span></p>';
+            }).join('') + (shown < pt.ideas.length ? '<button type="button" class="eng-cpd__more" data-cpw-more="' + pt.k + '">Show me another idea</button>' : '') + '</div>';
+          })() : (pt.auto ? '<p class="eng-cpd__none">Pick your three scenes first.</p>' : '')) +
+          '<textarea data-cpw-box="' + pt.k + '" rows="2" aria-label="' + esc(pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea></section>';
       }).join('') + '<p class="eng-cpd__tools"><span data-cpw-count></span></p><div class="eng-cpd__check" data-cpw-check role="status" aria-live="polite"></div></div>' +
         '<aside class="eng-cpd__bank"><h3>10 words for ' + (para ? 'this scene' : 'the ' + slotName(s).toLowerCase()) + '</h3><p class="eng-cpd__hint">Tap a word to add it to the box you\'re in.</p><ul>' +
         words.map(function (x) { return '<li><button type="button" class="eng-cpd__w" data-cpw-word="' + esc(x[0]) + '"><b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span></button></li>'; }).join('') +
@@ -1275,6 +1283,7 @@
     CPW.just = null;
     cpwCheck();
     if (keep) box.querySelector('.eng-cpd__body').scrollTop = keep;
+    cpwTypeIn(box);
     if (focus && !keep) {
       var f = box.querySelector('[data-cpw-box="' + CPW.box + '"]') || box.querySelector('.eng-cpd__sc.is-on, .eng-cpd__rep.is-on') || box.querySelector('[data-cpw-scene], [data-cpw-pick], [data-cpw-rep], [data-cpw-orep]') || box.querySelector('[data-cpw-close]');
       if (f) f.focus({ preventScroll: true });
@@ -1282,6 +1291,52 @@
     }
   }
   function grow(ta) { ta.style.height = 'auto'; ta.style.height = Math.max(ta.scrollHeight + 2, 64) + 'px'; }
+  // Long text types itself in (the user: "super long text should be like animated in with typing animation"): what
+  // happens in a scene, the examples and the ideas, each once (CPW_TYPED). Every text node becomes [typed][caret][still to
+  // come, invisible], so nothing moves while it types. A tap finishes it; reduced motion skips it.
+  // (Named cpw… because the essay builder has its own typeIn and TYPED further down.)
+  var CPW_TYPED = {};
+  function cpwTypeIn(root) {
+    var els = Array.prototype.filter.call(root.querySelectorAll('[data-type]'), function (e) { return !CPW_TYPED[e.getAttribute('data-type')]; });
+    els.forEach(function (e) { CPW_TYPED[e.getAttribute('data-type')] = 1; });
+    if (!els.length || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    els.forEach(function (el, n) {
+      var walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [], pairs = [], total = 0;
+      while (walk.nextNode()) if (walk.currentNode.nodeValue) nodes.push(walk.currentNode);
+      nodes.forEach(function (tn) {
+        var v = document.createElement('span'), h = document.createElement('span');
+        v.className = 'tw-v'; h.className = 'tw-h'; h.textContent = tn.nodeValue; total += tn.nodeValue.length;
+        tn.parentNode.insertBefore(v, tn); tn.parentNode.insertBefore(h, tn); tn.parentNode.removeChild(tn);
+        pairs.push([v, h]);
+      });
+      var caret = document.createElement('span'), done = false, start = null, dur = Math.max(500, Math.min(3200, total * 7)), delay = n * 220;
+      caret.className = 'tw-c';
+      el.classList.add('is-typing');
+      var finish = function () {
+        done = true;
+        pairs.forEach(function (p) { p[0].textContent += p[1].textContent; p[1].textContent = ''; });
+        if (caret.parentNode) caret.parentNode.removeChild(caret);
+        el.classList.remove('is-typing');
+      };
+      el.addEventListener('click', function () { if (!done) finish(); });
+      var step = function (t) {
+        if (done || !el.isConnected) return;
+        if (start === null) start = t + delay;
+        var want = Math.max(0, Math.floor((t - start) / dur * total)), seen = 0;
+        for (var k = 0; k < pairs.length; k++) {
+          var p = pairs[k], len = p[0].textContent.length + p[1].textContent.length;
+          if (seen + len <= want) { if (p[1].textContent) { p[0].textContent += p[1].textContent; p[1].textContent = ''; } seen += len; continue; }
+          var take = want - seen - p[0].textContent.length;
+          if (take > 0) { p[0].textContent += p[1].textContent.slice(0, take); p[1].textContent = p[1].textContent.slice(take); }
+          p[1].parentNode.insertBefore(caret, p[1]);
+          break;
+        }
+        if (want >= total) { finish(); return; }
+        requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
   // The check under the boxes, on everything written in this part.
   function cpwCheck() {
     var box = document.getElementById('eng-cpd'), tas = box ? box.querySelectorAll('[data-cpw-box]') : [];
@@ -1291,11 +1346,8 @@
     var shows = (v.match(/\bshow(s|ed|ing|n)?\b/gi) || []).length;
     // Each box starts a sentence of its own.
     if (Array.prototype.some.call(tas, function (t) { return /(^|[.!?]\s+)this shows\b/i.test(t.value.trim()); })) out.push(['“This shows…” is a weak way to start a sentence.', 'Start with the idea itself, or try:', ['This exposes', 'Here we see', 'This lays bare']]);
-    // An idea already in its box is greyed out.
-    Array.prototype.forEach.call(box.querySelectorAll('[data-cpw-idea]'), function (b) {
-      var ta = box.querySelector('[data-cpw-box="' + b.getAttribute('data-cpw-idea').split('|')[0] + '"]');
-      b.classList.toggle('is-used', !!ta && ta.value.indexOf(b.getAttribute('data-txt')) >= 0);
-    });
+    // A part with a few words in it gets its tick.
+    Array.prototype.forEach.call(tas, function (t) { t.closest('.eng-cpd__part').classList.toggle('is-done', wordsIn(t.value) >= 4); });
     if (shows >= 2) out.push(['You\'ve used “show” ' + shows + ' times.', 'Swap one for:', SYN.shows]);
     var names = {};
     text(a).people.concat([{ name: text(a).title }]).forEach(function (p) { p.name.toLowerCase().split(/[^a-zà-ÿ]+/).forEach(function (x) { names[x] = 1; }); });
@@ -1339,7 +1391,7 @@
     if (t.closest('[data-cpw-close]')) { cpwClose(); return true; }
     if ((v = t.closest('[data-cpw-scene]'))) {
       var n = +v.getAttribute('data-cpw-scene');
-      if (para.scene !== n) { para.scene = n; para.rep = 0; para.picked = G.scenes[n].reps.length === 1; }
+      if (para.scene !== n) { para.scene = n; para.rep = 0; para.picked = G.scenes[n].reps.length === 1; CPW.shown = {}; }
       CPW.step = 2; CPW.just = CPW.slot;
       cpSave(); cpwDraw(true); return true;
     }
@@ -1363,18 +1415,6 @@
       var b3 = document.querySelector('#eng-cpd [data-cpw-rep="' + para.rep + '"]'); if (b3) b3.focus({ preventScroll: true });
       return true;
     }
-    if ((v = t.closest('[data-cpw-use]'))) {
-      // Start from the worked example: it fills the boxes (after asking, if they have writing). In a paragraph the
-      // technique goes in with the anchor.
-      var us = slotOf(v.getAttribute('data-cpw-use')), segs = typeof us === 'number' ? cpwModel(th, a, W.paras[us].scene, W.paras[us].rep || 0).segs : slotExample(th, a, us);
-      var pu = slotParts(W, us), fill = {};
-      segs.forEach(function (g) { var k = g[0] === 't' ? 'a' : g[0]; fill[k] = (fill[k] ? fill[k] + ' ' : '') + g[1]; });
-      if (slotKeys(us).some(function (k) { return pu[k]; }) && !window.confirm('Replace what you\'ve written in the ' + slotName(us).toLowerCase() + ' with this example?')) return true;
-      slotKeys(us).forEach(function (k) { pu[k] = fill[k] || ''; });
-      cpSave();
-      if (us === CPW.slot) { CPW.step = 3; CPW.box = slotKeys(us)[slotKeys(us).length - 1]; cpwDraw(true); } else { cpwDraw(); toast(slotName(us) + ' started from the example'); }
-      return true;
-    }
     if ((v = t.closest('[data-cpw-step]'))) {
       CPW.step = +v.getAttribute('data-cpw-step');
       if (CPW.slot === 'open' && CPW.step === 1) CPW.pick = W.paras.map(function (p) { return p.scene; }).filter(Boolean);
@@ -1383,11 +1423,12 @@
     }
     if (t.closest('[data-cpw-next]')) {
       var nx = SLOTS[SLOTS.indexOf(CPW.slot) + 1];
-      CPW = { slot: nx, step: cpwFirstStep(W, nx), box: slotKeys(nx)[0], pick: [] }; cpwDraw(true); return true;
+      CPW = { slot: nx, step: cpwFirstStep(W, nx), box: slotKeys(nx)[0], pick: [], shown: {} }; cpwDraw(true); return true;
     }
-    if ((v = t.closest('[data-cpw-idea]'))) {
-      var ki = v.getAttribute('data-cpw-idea').split('|'), pt = partsOf(th, a, CPW.slot).filter(function (x) { return x.k === ki[0]; })[0], it = pt && pt.ideas[+ki[1]];
-      if (it) cpwInsert(typeof it === 'string' ? it : it.t, ki[0]);
+    if ((v = t.closest('[data-cpw-more]'))) {
+      var km = v.getAttribute('data-cpw-more');
+      CPW.shown = CPW.shown || {}; CPW.shown[km] = (CPW.shown[km] || 1) + 1; cpwDraw();
+      var bm = document.querySelector('#eng-cpd [data-cpw-more="' + km + '"]') || document.querySelector('#eng-cpd [data-cpw-box="' + km + '"]'); if (bm) bm.focus({ preventScroll: true });
       return true;
     }
     if ((v = t.closest('[data-cpw-word]'))) { cpwInsert(v.getAttribute('data-cpw-word')); return true; }

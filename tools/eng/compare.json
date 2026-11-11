@@ -1789,27 +1789,29 @@
             "parts": [
               {
                 "k": "film",
-                "label": "The film",
-                "hint": "Name it and its director.",
+                "label": "Your opening line",
+                "hint": "Name the film and its director, and give your answer to the question in one sentence.",
                 "ideas": [
-                  "In The Shawshank Redemption, directed by Frank Darabont,"
+                  "In The Shawshank Redemption, directed by Frank Darabont, power in the wrong hands becomes cruelty, and those who hold it will do anything to keep it.",
+                  "Frank Darabont's The Shawshank Redemption exposes a prison where the men in charge use fear, violence and lies to control the inmates, and answer to no one.",
+                  "In The Shawshank Redemption, Frank Darabont portrays abuse of power at its most brutal, yet he also suggests that it can never crush a man's hope."
                 ]
               },
               {
                 "k": "idea",
-                "label": "What it says about abuse of power",
-                "hint": "Your whole answer, in one line.",
-                "ideas": [
-                  "power in the wrong hands becomes cruelty, and the powerful will do anything to keep it.",
-                  "the men who run Shawshank use fear, violence and lies to control the prisoners, and answer to no one.",
-                  "abuse of power can crush a man’s life, but it cannot crush his hope."
-                ]
+                "label": "Your three points",
+                "hint": "Say the three things your paragraphs will cover, in the order you’ll write them.",
+                "auto": "points"
               },
               {
                 "k": "points",
-                "label": "Your three points",
-                "hint": "They come from the three scenes you picked.",
-                "auto": "points"
+                "label": "Where it’s going",
+                "hint": "One line on what the film finally suggests about abuse of power.",
+                "ideas": [
+                  "Ultimately, Darabont suggests that hope can outlast even the most brutal regime.",
+                  "By the end, the abusers have lost everything, and the men they tried to break walk free.",
+                  "The film leaves us in no doubt that unchecked power corrupts, but it also refuses to let that power have the last word."
+                ]
               }
             ]
           },
