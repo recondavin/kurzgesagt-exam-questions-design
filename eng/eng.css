@@ -212,6 +212,7 @@ a.eng-card:focus-visible, .eng-btn:focus-visible, .eng-chip:focus-visible, .eng-
 .eng-cpw__e { margin: 8px 0 0; color: var(--muted); font: 700 18.5px/1.5 Nunito, sans-serif; }
 .eng-cpw__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin: 6px 0 8px; color: var(--muted); font: 700 19px Nunito, sans-serif; }
 .eng-cpw__foot b { color: #fff; }
+.eng-cpw__more { margin: 14px 0 18px; }
 /* 3: the board: two columns of key moments with the links drawn between them. */
 .eng-cpb { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) clamp(40px, 8vw, 120px) minmax(0, 1fr); margin: 10px 0 18px; }
 .eng-cpb__col { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
@@ -443,6 +444,13 @@ body.eng-cpd-on { overflow: hidden; }
 .eng-cpd__warn b { color: var(--m-theme); }
 .eng-cpd__warn .eng-chip, .eng-cpd__inst .eng-chip { min-height: 42px; margin: 3px 3px 0 0; padding: 0 16px; font-size: 18px; }
 .eng-cpd__good { margin: 0; color: #8CE65A; font: 800 19px Nunito, sans-serif; }
+.eng-cpd__warn--bad { border-left-color: #FF7A6B; } .eng-cpd__warn--bad b { color: #FF9C90; }
+.eng-cpd__warn--spell { border-left-color: #6BC5F8; } .eng-cpd__warn--spell b { color: #9AD8FB; }
+.eng-cpd__warn--spell .eng-chip { background: #23465A; }
+/* How much is story (blue) and how much is your thinking (yellow, pink). */
+.eng-cpd__bal { display: flex; gap: 3px; height: 14px; margin: 4px 0 6px; overflow: hidden; border-radius: 7px; background: var(--raised); }
+.eng-cpd__bal span { min-width: 0; background: var(--pc); transition: flex .3s ease; }
+.eng-cpd__baltxt { margin: 0 0 4px; color: var(--muted); font: 700 16px/1.45 Nunito, sans-serif; }
 .eng-cpd__bank h3 { margin: 0 0 4px; color: #fff; font: 600 23px Fredoka, Nunito, sans-serif; }
 .eng-cpd__hint { margin: 0 0 12px; color: var(--muted); font: 700 17px Nunito, sans-serif; }
 .eng-cpd__bank ul { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }

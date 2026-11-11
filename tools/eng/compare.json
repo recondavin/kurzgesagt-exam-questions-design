@@ -374,6 +374,20 @@
                   "say": "A soft old love song plays on Andy’s car radio as he loads the gun, a chilling contrast with what seems to be happening.",
                   "what": "Music that clashes with what we see, to unsettle us."
                 }
+              ],
+              "keys": [
+                "trial",
+                "court",
+                "jury",
+                "judge",
+                "revolver",
+                "gun",
+                "lover",
+                "verdict",
+                "convicted",
+                "life sentences",
+                "golf pro",
+                "river"
               ]
             },
             "2": {
@@ -495,6 +509,16 @@
                   "say": "Red’s calm voiceover takes over at once, introducing himself as the man who can get things, as if the board’s answer barely touches him.",
                   "what": "A character’s voice speaking over the pictures."
                 }
+              ],
+              "keys": [
+                "parole",
+                "board",
+                "rejected",
+                "stamp",
+                "hearing",
+                "changed man",
+                "danger to society",
+                "twenty years"
               ]
             },
             "3": {
@@ -621,6 +645,22 @@
                   "say": "Norton’s own words, “discipline and the Bible”, set up his hypocrisy from his very first scene.",
                   "what": "What characters say, and how it reveals them."
                 }
+              ],
+              "keys": [
+                "first night",
+                "fresh fish",
+                "fat ass",
+                "crying",
+                "tears",
+                "beat",
+                "beaten",
+                "beating",
+                "infirmary",
+                "discipline",
+                "new prisoners",
+                "new arrivals",
+                "arrive",
+                "his name"
               ]
             },
             "4": {
@@ -747,6 +787,22 @@
                   "say": "Andy sits apart from the others, smiling: the man who made it happen asks nothing for himself.",
                   "what": "Where a character is placed in the shot, and what that says."
                 }
+              ],
+              "keys": [
+                "roof",
+                "rooftop",
+                "tar",
+                "beer",
+                "beers",
+                "tax",
+                "inheritance",
+                "oil",
+                "accountant",
+                "edge",
+                "co-workers",
+                "coworkers",
+                "sixty thousand",
+                "gift"
               ]
             },
             "5": {
@@ -873,6 +929,21 @@
                   "say": "The camera lingers on the words he carves, “Brooks Hatlen was here”, before his death.",
                   "what": "A shot from very near, so one detail fills the screen."
                 }
+              ],
+              "keys": [
+                "brooks",
+                "knife",
+                "institutionalized",
+                "institutionalised",
+                "paroled",
+                "halfway",
+                "groceries",
+                "was here",
+                "hangs himself",
+                "pigeon",
+                "crow",
+                "jake",
+                "fifty years"
               ]
             },
             "6": {
@@ -999,6 +1070,18 @@
                   "say": "Red admits he has no idea what the singers were singing about, yet for a moment every man in Shawshank felt free.",
                   "what": "A character’s voice speaking over the pictures."
                 }
+              ],
+              "keys": [
+                "mozart",
+                "opera",
+                "music",
+                "record",
+                "loudspeaker",
+                "speakers",
+                "italian",
+                "figaro",
+                "singing",
+                "two weeks"
               ]
             },
             "7": {
@@ -1120,6 +1203,18 @@
                   "say": "Andy’s angry cry, “How can you be so obtuse?”, marks the moment his patience snaps, and it gets him locked away.",
                   "what": "What characters say, and how it reveals them."
                 }
+              ],
+              "keys": [
+                "tommy",
+                "cellmate",
+                "evidence",
+                "golf",
+                "shot dead",
+                "obtuse",
+                "witness",
+                "elmo",
+                "new trial",
+                "testify"
               ]
             },
             "8": {
@@ -1241,6 +1336,18 @@
                   "say": "Red’s voiceover tells us Andy has asked for a length of rope, and the fear of what he means to do builds suspense.",
                   "what": "Holding back what happens next, so we worry."
                 }
+              ],
+              "keys": [
+                "zihuatanejo",
+                "get busy",
+                "rope",
+                "buxton",
+                "hotel",
+                "mexico",
+                "pacific",
+                "dream",
+                "hayfield",
+                "distant husband"
               ]
             },
             "9": {
@@ -1367,6 +1474,20 @@
                   "say": "Andy stands in the pouring rain with his arms raised, lit by lightning, like a man being reborn.",
                   "what": "Using weather and light to say something about a character."
                 }
+              ],
+              "keys": [
+                "empty cell",
+                "poster",
+                "rita",
+                "raquel",
+                "tunnel",
+                "rock hammer",
+                "sewer",
+                "rain",
+                "morning count",
+                "pipe",
+                "escaped",
+                "escape"
               ]
             },
             "10": {
@@ -1493,6 +1614,19 @@
                   "say": "Inside the Bible Norton handed back to Andy, the shape of the rock hammer is cut into the pages: the book of rules hid the way out.",
                   "what": "An object that carries meaning in the story."
                 }
+              ],
+              "keys": [
+                "randall",
+                "stephens",
+                "bank",
+                "banks",
+                "ledger",
+                "account book",
+                "newspaper",
+                "safe",
+                "judgment cometh",
+                "shoots himself",
+                "salvation"
               ]
             },
             "11": {
@@ -1614,6 +1748,17 @@
                   "say": "Red is given Brooks’s room and Brooks’s job, and the film retraces Brooks’s steps, so we fear the same ending.",
                   "what": "Two characters or stories set side by side, so we compare them."
                 }
+              ],
+              "keys": [
+                "rehabilitated",
+                "last hearing",
+                "forty years",
+                "toilet",
+                "permission",
+                "bagging",
+                "made-up word",
+                "final hearing",
+                "foolish young"
               ]
             },
             "12": {
@@ -1740,6 +1885,18 @@
                   "say": "Red’s last words are about hope: the voiceover that began in a parole hearing ends on a beach.",
                   "what": "A character’s voice speaking over the pictures."
                 }
+              ],
+              "keys": [
+                "beach",
+                "so was red",
+                "border",
+                "letter",
+                "box",
+                "boat",
+                "hope is a good thing",
+                "pacific",
+                "mexico",
+                "bus"
               ]
             }
           },

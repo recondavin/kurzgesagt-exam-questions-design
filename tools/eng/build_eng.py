@@ -130,6 +130,8 @@ def check_compare(cmp, texts, problems):
                     problems.append('%s write %s: no key moment %s' % (where, tid, n))
                 if not sc.get('reps') or any(not (r.get('title') and r.get('say') and r.get('start') and len(r.get('ideas', [])) >= 2) for r in sc['reps']):
                     problems.append('%s write %s %s: each thing it represents needs a title, say, start and 2+ ideas' % (where, tid, n))
+                if len(sc.get('keys', [])) < 5:
+                    problems.append('%s write %s %s: needs 5+ keys (words that mark writing about this scene)' % (where, tid, n))
                 if len(sc.get('details', [])) < 2:
                     problems.append('%s write %s %s: needs 2+ details for the anchor' % (where, tid, n))
                 tq = sc.get('techniques', [])
