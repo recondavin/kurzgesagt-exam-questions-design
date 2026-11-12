@@ -1940,13 +1940,23 @@
     DEF = { pop: pop, btn: btn, hover: !!hover };
     if (K && !hover) K.sfx('pop', 0.3);
   }
+  // On a Theme or Issue question with your Compare it theme, "a particular theme or issue" (and the like) is your theme,
+  // filled in (the user: "why the fuck is this here the theme or issue if abuse of power is already chosen").
+  var Q_THEME = /\b(?:(?:a|an|the|this|that|your)\s+)?(?:(?:particular|same|chosen|central|key)\s+)?theme or issue(?:\s+(?:you (?:have )?studied|you have chosen(?: to discuss)?|on your (?:comparative )?course))?/gi;
   function qHtml(q) {
     // Only the first (a) and the first (b) after it start parts: "(as discussed in (a) above)" stays in the text.
     q = String(q);
-    var ia = q.indexOf('(a)'), ib = ia < 0 ? -1 : q.indexOf('(b)', ia + 3);
-    if (ia < 0 || ib < 0) return '<p class="ebd-qp">' + qMark(q.trim()) + '</p>';
-    var part = function (l, t) { return '<p class="ebd-qp"><b class="ebd-qp__l">(' + l + ')</b><span>' + qMark(t.trim()) + '</span><span class="ebd-qp__m">' + (l === 'a' ? '30' : '40') + ' marks</span></p>'; };
-    return (q.slice(0, ia).trim() ? '<p class="ebd-qp ebd-qp--quote">' + qMark(q.slice(0, ia).trim()) + '</p>' : '') + part('a', q.slice(ia + 3, ib)) + part('b', q.slice(ib + 3));
+    var th = essay().mode === 'theme' ? myTheme() : null, tok = '\u27E6t\u27E7', tokU = '\u27E6T\u27E7';
+    if (th) q = q.replace(Q_THEME, function (m) { return /^[A-Z]/.test(m) ? tokU : tok; });
+    var ia = q.indexOf('(a)'), ib = ia < 0 ? -1 : q.indexOf('(b)', ia + 3), h;
+    if (ia < 0 || ib < 0) h = '<p class="ebd-qp">' + qMark(q.trim()) + '</p>';
+    else {
+      var part = function (l, t) { return '<p class="ebd-qp"><b class="ebd-qp__l">(' + l + ')</b><span>' + qMark(t.trim()) + '</span><span class="ebd-qp__m">' + (l === 'a' ? '30' : '40') + ' marks</span></p>'; };
+      h = (q.slice(0, ia).trim() ? '<p class="ebd-qp ebd-qp--quote">' + qMark(q.slice(0, ia).trim()) + '</p>' : '') + part('a', q.slice(ia + 3, ib)) + part('b', q.slice(ib + 3));
+    }
+    if (!th) return h;
+    var mk = function (x) { return '<mark class="ebd-qtheme" title="On the paper this says “theme or issue”">' + esc(x) + '</mark>'; };
+    return h.split(tok).join(mk(th.name.toLowerCase())).split(tokU).join(mk(th.name));
   }
   var TYPED = null;
   function typeIn(el) {
@@ -2051,7 +2061,7 @@
   function themeNote() {
     var th = myTheme(), e = essay();
     if (!th) return '';
-    if (e.mode === 'theme') return '<p class="ebd-mytheme">Your theme: <b>' + esc(th.name) + '</b>. Where a Theme or Issue question says “the theme or issue”, write about ' + esc(th.name.toLowerCase()) + '.</p>';
+    if (e.mode === 'theme') return '<p class="ebd-mytheme">Your theme, <b>' + esc(th.name.toLowerCase()) + '</b>, is filled into the question for you. On the real paper it says “theme or issue”: that\'s ' + esc(th.name.toLowerCase()) + '.</p>';
     // Not your theme's mode: say what this question is about (its yellow words), that your theme's scenes can still
     // help if they answer it (the user, of a question on social mobility: "i think it is about abuse and power"), and
     // the way back to Theme or Issue.
