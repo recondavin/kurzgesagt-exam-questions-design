@@ -828,6 +828,8 @@
     return CP;
   }
   function cpSave() { store('eng-compare', JSON.stringify(CP)); }
+  // The theme you're working on in Compare it, once you've started it there (picked a part (a) text); else null.
+  function myTheme() { var s = cpState(), th = cpTheme(); return th && s.by[th.id] && s.by[th.id].a ? th : null; }
   function cpTheme() { var s = cpState(); return D.compare.filter(function (t) { return t.id === s.th; })[0]; }
   function cpBy(th) { var s = cpState(); s.by[th.id] = s.by[th.id] || { a: null, work: {} }; return s.by[th.id]; }
   function cpWork(th, a) { var b = cpBy(th); b.work[a] = b.work[a] || { pts: [], links: [] }; return b.work[a]; }
@@ -1737,7 +1739,7 @@
   function essay() {
     if (E) return E;
     try { E = JSON.parse(store('eng-essay') || 'null'); } catch (e) {}
-    if (!E) E = { mode: 'gvv', type: '70', q: '', thesis: '', aspects: [], intro: '', paras: {}, end: '', step: 0 };
+    if (!E) E = { mode: myTheme() ? 'theme' : 'gvv', type: '70', q: '', thesis: '', aspects: [], intro: '', paras: {}, end: '', step: 0 };
     E.type = E.type || '70';
     E.parasA = E.parasA || {};
     E.crack = E.crack || {};
@@ -1747,7 +1749,11 @@
   function saveEssay() { store('eng-essay', JSON.stringify(E)); }
   function split() { return essay().type === 'split'; }
   // Part (a)'s text, and the texts compared (all three for a 70-mark answer; the other two for part (b)).
-  function textA() { var e = essay(), m = chosen(); return m.indexOf(e.textA) >= 0 ? e.textA : m[0]; }
+  // Unless you picked one here, part (a) is the text you put in part (a) in Compare it.
+  function textA() {
+    var e = essay(), m = chosen(), th = myTheme(), ca = th ? cpState().by[th.id].a : null;
+    return m.indexOf(e.textA) >= 0 ? e.textA : ca && m.indexOf(ca) >= 0 ? ca : m[0];
+  }
   function compared() { var m = chosen(); return split() ? m.filter(function (t) { return t !== textA(); }) : m; }
   function stepsList() {
     var e = essay(), pts = function (pre, name) { return e.aspects.map(function (a, k) { return [pre + k, name + (k + 1)]; }); };
@@ -2032,6 +2038,21 @@
   }
 
   // ----- the coach -----
+  // Your theme against the question's mode (the user, given a Cultural Context question on social mobility after choosing
+  // abuse of power: "i chose the theme abuse of power and here it is fucking talking about social mobility"): on Theme
+  // or Issue, a line saying the question's "theme or issue" is yours; on another mode, a red warning that this question
+  // isn't about your theme, what that mode asks about instead, and a button back to Theme or Issue.
+  var MODE_ASKS = { cc: 'the world of the texts: who has power, what is valued, what is allowed (class, gender, religion, family)', gvv: 'the view of life in the texts: how hopeful or bleak each one is, judged on its ending' };
+  function themeNote() {
+    var th = myTheme(), e = essay();
+    if (!th) return '';
+    if (e.mode === 'theme') return '<p class="ebd-mytheme">Your theme: <b>' + esc(th.name) + '</b>. Where a Theme or Issue question says “the theme or issue”, write about ' + esc(th.name.toLowerCase()) + '.</p>';
+    return cpWarnBox('This isn\'t your theme', [
+      'This is a <b>' + esc(MODE[e.mode].name) + '</b> question. It does <b>NOT</b> ask about ' + esc(th.name.toLowerCase()) + '.',
+      esc(MODE[e.mode].name) + ' asks about ' + MODE_ASKS[e.mode] + '.',
+      'Your theme only fits <b>Theme or Issue</b> questions. In 2027 all three modes are on the paper and you answer on one, so if you\'re doing Theme or Issue you don\'t need this one.',
+      '<button type="button" class="eng-btn" data-eb-mode="theme">Switch to Theme or Issue</button>']);
+  }
   function tile(k, name, what) {
     return '<div class="ebd-tile"><b style="background:' + (PACE_COL[k] || '#fff') + '">' + esc(k || ({ q: '?', plan: '≡', intro: 'In', check: '✓' })[curStep()] || '?') + '</b><div><h3>' + esc(name) + '</h3><p>' + esc(what) + '</p></div></div>';
   }
@@ -2056,15 +2077,15 @@
         }).join('') + '</div>' +
         '<label class="ebd-own"><span>Or your own question</span><textarea data-eb="q" rows="3" placeholder="Paste or type it here">' + esc(e.q) + '</textarea></label>';
       if (!e.q || SLIPS) {
-        out = tile('', 'Pick your question', 'A real exam question, by mode. Tap one and it lands on your sheet.') +
+        out = themeNote() + tile('', 'Pick your question', 'A real exam question, by mode. Tap one and it lands on your sheet.') +
           '<button type="button" class="eng-btn ebd-wide ebd-surprise" data-eb-surprise>Surprise me</button>' + picker +
           (e.q ? '<button type="button" class="eng-btn eng-btn--quiet ebd-wide" data-eb-slips>Keep this question</button>' : '');
       } else {
-        out = '<div class="ebd-qhead"><span>' + esc(MODE[e.mode].name) + ' · ' + (split() ? '30 + 40' : '70') + ' marks</span><button type="button" class="ebd-link" data-eb-slips>Change question</button></div>' + crackHtml() + stanceHtml() +
+        out = themeNote() + '<div class="ebd-qhead"><span>' + esc(MODE[e.mode].name) + ' · ' + (split() ? '30 + 40' : '70') + ' marks</span><button type="button" class="ebd-link" data-eb-slips>Change question</button></div>' + crackHtml() + stanceHtml() +
           '<button type="button" class="ebd-link ebd-skip" data-eb-go="1">Skip this, start writing →</button>';
       }
         } else if (cur === 'plan') {
-      out = planGameHtml();
+      out = themeNote() + planGameHtml();
     } else if (cur === 'intro') {
       out = tile('', split() ? 'Part (b): introduction' : 'Introduction', 'Answer the question straight away, name the texts with their authors or director, and the mode.') +
         '<div class="ebd-notes"><h4>Your texts, written correctly</h4><ul>' + cmp.map(function (t) { return '<li>' + nameLine(text(t)) + '</li>'; }).join('') + '</ul></div>' + fieldChips();
@@ -2497,11 +2518,19 @@
     var sw = t.closest('[data-pg-swap]');
     if (sw) { var pr = sw.getAttribute('data-pg-swap').split('|'), ea = essay().aspects; ea[ea.indexOf(pr[0])] = pr[1]; saveEssay(); if (K) K.sfx('pop', 0.35); drawBuild(true); return; }
     if (t.closest('[data-eb-surprise]')) {
-      var pool = D.questions.filter(function (q) { return q.text !== essay().q; });
+      var pool = D.questions.filter(function (q) { return q.mode === essay().mode && q.text !== essay().q; });
       useQuestion(pool[Math.floor(Math.random() * pool.length)]); SLIPS = false; saveEssay(); if (K) K.sfx('whoosh', 0.3); drawBuild(); window.scrollTo({ top: 0, behavior: 'smooth' }); return;
     }
     var md = t.closest('[data-eb-mode]');
-    if (md) { e = essay(); if (e.mode !== md.getAttribute('data-eb-mode')) { e.mode = md.getAttribute('data-eb-mode'); e.aspects = []; } saveEssay(); drawBuild(); return; }
+    if (md) {
+      e = essay();
+      if (e.mode !== md.getAttribute('data-eb-mode')) {
+        e.mode = md.getAttribute('data-eb-mode'); e.aspects = [];
+        // From the "This isn't your theme" warning: the old question goes too, and you pick a Theme or Issue one.
+        if (md.closest('.eng-cpwarn')) { e.q = ''; e.crack = {}; e.stance = {}; e.step = 0; SLIPS = true; }
+      }
+      saveEssay(); drawBuild(); window.scrollTo({ top: 0, behavior: 'smooth' }); return;
+    }
     var qq = t.closest('[data-eb-q]');
     if (qq) { useQuestion(D.questions[+qq.getAttribute('data-eb-q')]); SLIPS = false; saveEssay(); drawBuild(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     var ty = t.closest('[data-eb-type]');

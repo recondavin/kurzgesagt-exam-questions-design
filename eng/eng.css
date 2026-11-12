@@ -1533,3 +1533,12 @@ a.eng-part:hover { background: var(--raised); }
   #eng-cpd.is-write .eng-cpd__foot .eng-btn { flex: 1 1 auto; justify-content: center; }
   #eng-cpd.is-write .eng-cpd__foot [data-cpw-step] { margin-right: 0; }
 }
+
+/* The essay builder: your theme (from Compare it), or a red warning when the question isn't about it. */
+.ebd-coach .eng-cpwarn { margin: 0 0 16px; padding: 16px 16px 18px; border-width: 3px; }
+.ebd-coach .eng-cpwarn__h { font-size: 17px; } .ebd-coach .eng-cpwarn__h svg { width: 26px; height: 26px; }
+.ebd-coach .eng-cpwarn li { font-size: 16.5px; }
+.ebd-coach .eng-cpwarn li:last-child { padding-left: 0; } .ebd-coach .eng-cpwarn li:last-child::before { content: none; }
+.ebd-coach .eng-cpwarn .eng-btn { width: 100%; justify-content: center; margin-top: 4px; }
+.ebd-mytheme { margin: 0 0 14px; padding: 12px 14px; border-left: 5px solid var(--m-theme); border-radius: 0 12px 12px 0; background: rgba(255, 212, 59, .08); color: #fff; font: 700 16.5px/1.5 Nunito, sans-serif; }
+.ebd-mytheme b { color: var(--m-theme); }
