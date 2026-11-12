@@ -847,6 +847,36 @@
     var o = mom(mid);
     return '<a class="eng-cpc" style="--c:' + COL[o.t.id] + '" href="#text/' + o.t.id + '/' + mid + '"><span>' + o.n + '</span>' + esc(o.m.title) + '</a>';
   }
+  // A red warning box (the user: "almost like a warning", "red box", "i dont care if it looks ugly i want them to do
+  // WELL"): a warning sign, a heading, then each rule on its own line.
+  function cpWarnBox(head, lines) {
+    return '<div class="eng-cpwarn" role="note"><p class="eng-cpwarn__h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 1.5 21h21z" fill="currentColor"/>' +
+      '<rect x="11" y="9" width="2" height="6.5" rx="1" fill="#2A0D0D"/><circle cx="12" cy="18" r="1.25" fill="#2A0D0D"/></svg>' + head + '</p><ul>' +
+      lines.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>';
+  }
+  // How to write part (b), broken down the way the user had it explained to them ("very clearly and exactly broken down
+  // ... not very long"): together not one then the other; each paragraph as five steps; an example from this pair's
+  // first link; the whole of part (b); the part (a) text left out.
+  function cpHowB(th, a, B, L) {
+    var t0 = shortTitle(B[0]), t1 = shortTitle(B[1]), eg = L[0];
+    var step = function (c, name, say) { return '<li style="--c:' + c + '"><b>' + name + '</b><span>' + say + '</span></li>'; };
+    return '<div class="eng-cpx">' + cpWarnBox('Part (b): read this before you write', [
+      'Write about <i>' + esc(t0) + '</i> and <i>' + esc(t1) + '</i> <b>together</b>: a moment from <b>each</b> in <b>every</b> paragraph.',
+      'Do <b>NOT</b> write about one text and then the other. Part (b) is marked on <b>comparing</b>, so that loses marks.',
+      'Do <b>NOT</b> bring <i>' + esc(shortTitle(a)) + '</i> into part (b). It gets <b>no marks</b> there.']) +
+      '<h3>Each paragraph</h3><ol class="eng-cpx__flow">' +
+      step('var(--m-theme)', 'Point', 'what both show about ' + esc(th.name.toLowerCase())) +
+      step(COL[B[0]], esc(t0), 'the moment, short') +
+      step(COL[B[1]], esc(t1), 'the moment, short') +
+      step('var(--m-cc)', 'Compare', 'Similarly… Whereas… Even more so…') +
+      step('var(--pace-e)', 'Evaluate', 'why it matters') + '</ol>' +
+      (eg ? '<p class="eng-cpx__eg"><b>For example:</b> ' + esc(eg.aspect) + ', ' + momChip(eg.a) + ' and ' + momChip(eg.b) + '. <span>“' + esc(eg.say) + '”</span></p>' : '') +
+      '<h3>The whole of part (b)</h3><ul class="eng-cpx__whole">' +
+      '<li><b>Opening</b><span>Name both texts and their authors (<i>' + esc(text(B[0]).title) + '</i> by ' + esc(text(B[0]).author) + ', <i>' + esc(text(B[1]).title) + '</i> by ' + esc(text(B[1]).author) + '), answer the question, and say your 3 or 4 points.</span></li>' +
+      '<li><b>3 or 4 paragraphs</b><span>One for each link you make on the board below.</span></li>' +
+      '<li><b>Ending</b><span>Your judgement: which text shows ' + esc(th.name.toLowerCase()) + ' more powerfully, and why.</span></li></ul>' +
+      '</div>';
+  }
   function renderCompare() {
     renderShell('compare', 'Compare it');
     var th = cpTheme();
@@ -870,9 +900,10 @@
     // Which text goes where, said plainly (the user: "that should be mentioned clearly"): part (b) is the other two
     // compared together, never the part (a) text.
     var tx = function (id) { return '<i style="--c:' + COL[id] + '">' + esc(text(id).title) + '</i>'; };
-    h += '<div class="eng-cp__rule"><p><b>Part (a)</b><span>' + tx(a) + ' on its own</span></p>' +
-      '<p><b>Part (b)</b><span>' + tx(B[0]) + ' and ' + tx(B[1]) + ', compared together in every paragraph</span></p>' +
-      '<p class="eng-cp__rnot">Don\'t bring <i>' + esc(shortTitle(a)) + '</i> into part (b): it gets no marks there.</p></div>';
+    h += cpWarnBox('Which text goes where', [
+      '<b>Part (a):</b> ' + tx(a) + ' <b>on its own</b>.',
+      '<b>Part (b):</b> ' + tx(B[0]) + ' <b>and</b> ' + tx(B[1]) + ', compared <b>together</b> in every paragraph.',
+      'Do <b>NOT</b> write about <i>' + esc(shortTitle(a)) + '</i> in part (b). It gets <b>no marks</b> there.']);
     // 2: part (a): written in the popup if the text has a writing guide, else three points to pick
     var WR = th.write && th.write[a];
     if (WR) h += cpWriterHtml(th, a);
@@ -900,7 +931,7 @@
       }).join('') + '</div>';
     };
     h += '<h2 class="eng-h2"><span class="eng-cp__n">3</span>Part (b): link <i>' + esc(shortTitle(B[0])) + '</i> and <i>' + esc(shortTitle(B[1])) + '</i></h2>' +
-      '<p class="eng-p">Part (b) compares <i>' + esc(shortTitle(B[0])) + '</i> and <i>' + esc(shortTitle(B[1])) + '</i>: the two texts you didn\'t use in part (a). Write about them <b>together</b>, a moment from each in every paragraph, not one text and then the other. <i>' + esc(shortTitle(a)) + '</i> stays out of part (b).</p>' +
+      cpHowB(th, a, B, L) +
       '<p class="eng-p">Tap a moment, then a moment from the other text that shows the same thing about power. Then say how they compare. Each link is a paragraph: get three or four.</p>' +
       '<div class="eng-cpb" data-cpb>' + col(B[0]) + '<svg class="eng-cpb__lines" aria-hidden="true"></svg>' + col(B[1]) + '</div>';
     if (CPPICK) {

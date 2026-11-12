@@ -187,14 +187,35 @@ a.eng-card:focus-visible, .eng-btn:focus-visible, .eng-chip:focus-visible, .eng-
 .eng-cpt[aria-pressed="true"] { border-color: var(--m-theme); }
 .eng-cpt[aria-pressed="true"] .eng-cpt__t::after { content: '✓ Part (a)'; display: block; margin-top: 6px; color: var(--m-theme); font: 800 18px Nunito, sans-serif; }
 .eng-cp__why { margin-top: 18px; }
-/* Which text goes in which part, said plainly under the pick. */
-.eng-cp__rule { display: grid; gap: 10px; max-width: 900px; margin: 28px 0 0; padding: 22px 26px; border-radius: 20px; background: var(--surface); }
-.eng-cp__rule p { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; align-items: baseline; margin: 0; color: #fff; font: 700 20px/1.45 Nunito, sans-serif; }
-.eng-cp__rule b { color: var(--m-theme); font: 600 23px Fredoka, Nunito, sans-serif; }
-.eng-cp__rule i { color: var(--c, #fff); font-style: italic; }
-.eng-cp__rule .eng-cp__rnot { display: block; margin-top: 6px; padding-top: 14px; border-top: 2px solid var(--raised); color: var(--note); font-size: 18px; }
-.eng-cp__rule .eng-cp__rnot i { color: inherit; }
-@media (max-width: 600px) { .eng-cp__rule { padding: 18px; } .eng-cp__rule p { grid-template-columns: minmax(0, 1fr); gap: 2px; font-size: 18px; } .eng-cp__rule b { font-size: 20px; } }
+/* The red warning box: what students get wrong, impossible to miss. */
+.eng-cpwarn { max-width: 1000px; margin: 26px 0 30px; padding: 20px 26px 22px; border: 4px solid #FF4D4D; border-radius: 18px; background: #3A1518; }
+.eng-cpwarn__h { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; color: #FF6B66; font: 900 22px/1.2 Nunito, sans-serif; letter-spacing: .03em; text-transform: uppercase; }
+.eng-cpwarn__h svg { flex: none; width: 34px; height: 34px; color: #FF4D4D; }
+.eng-cpwarn ul { display: grid; gap: 10px; margin: 0; padding: 0 0 0 4px; list-style: none; }
+.eng-cpwarn li { position: relative; padding-left: 26px; color: #fff; font: 700 20px/1.5 Nunito, sans-serif; }
+.eng-cpwarn li::before { content: ''; position: absolute; left: 2px; top: .58em; width: 10px; height: 10px; border-radius: 50%; background: #FF4D4D; }
+.eng-cpwarn b { color: #FFD6D4; font-weight: 900; }
+.eng-cpwarn i { color: var(--c, #fff); font-style: italic; font-weight: 800; }
+@media (max-width: 600px) { .eng-cpwarn { padding: 16px 16px 18px; } .eng-cpwarn__h { font-size: 18px; } .eng-cpwarn__h svg { width: 28px; height: 28px; } .eng-cpwarn li { font-size: 17.5px; } }
+/* How to write part (b): the big rule, each paragraph as five steps, the whole answer in three. */
+.eng-cpx { max-width: 1000px; margin: 8px 0 30px; }
+.eng-cpx h3 { margin: 0 0 12px; color: var(--muted); font: 800 17px Nunito, sans-serif; }
+.eng-cpx__flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 26px; margin: 0 0 16px; padding: 0; list-style: none; }
+.eng-cpx__flow li { position: relative; display: grid; align-content: start; gap: 4px; padding: 14px 16px 16px; border-top: 5px solid var(--c); border-radius: 6px 6px 16px 16px; background: var(--surface); }
+.eng-cpx__flow li + li::before { content: '→'; position: absolute; left: -22px; top: 50%; margin-top: -14px; color: var(--muted); font: 800 22px/1 Nunito, sans-serif; }
+.eng-cpx__flow b { color: var(--c); font: 600 21px/1.2 Fredoka, Nunito, sans-serif; }
+.eng-cpx__flow span { color: #DCE6EB; font: 700 16px/1.4 Nunito, sans-serif; }
+.eng-cpx__eg { margin: 0 0 28px; color: #DCE6EB; font: 700 18px/1.6 Nunito, sans-serif; }
+.eng-cpx__eg b { color: #fff; }
+.eng-cpx__eg span { display: block; margin-top: 4px; padding-left: 14px; border-left: 3px solid var(--m-cc); color: #fff; font-style: italic; }
+.eng-cpx__whole { display: grid; gap: 10px; margin: 0 0 18px; padding: 0; list-style: none; }
+.eng-cpx__whole li { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 16px; align-items: baseline; color: #DCE6EB; font: 700 18px/1.5 Nunito, sans-serif; }
+.eng-cpx__whole b { color: #fff; font: 600 21px Fredoka, Nunito, sans-serif; }
+@media (max-width: 1000px) {
+  .eng-cpx__flow { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .eng-cpx__flow li + li::before { content: '↓'; left: 18px; top: -21px; margin-top: 0; font-size: 18px; }
+}
+@media (max-width: 600px) { .eng-cpx__whole li { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
 /* 2 (texts without a writing guide): three points to pick. */
 .eng-cp__pts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .eng-cpp { padding: 16px 20px 18px; border: 3px solid var(--raised); border-radius: 18px; }
