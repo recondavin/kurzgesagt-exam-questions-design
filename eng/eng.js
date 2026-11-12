@@ -1225,7 +1225,7 @@
       setTimeout(function () { box.classList.remove('is-new'); }, 300);
     }
     document.body.classList.add('eng-cpd-on');
-    var th = cpTheme(), a = cpBy(th).a, W = cpWrite(th, a), G = th.write[a], s = CPW.slot, para = typeof s === 'number' ? W.paras[s] : null, body = '', foot = '';
+    var th = cpTheme(), a = cpBy(th).a, W = cpWrite(th, a), G = th.write[a], s = CPW.slot, para = typeof s === 'number' ? W.paras[s] : null, body = '', foot = '', writing = false;
     // A step plays its animations (cards popping in, arrows drawing) when it is first shown, not on every redraw; and a
     // redraw of the same step keeps your place (the user: "it just takes me to the top when i click on anything").
     var key = s + '/' + CPW.step, oldBody = box.querySelector('.eng-cpd__body'), keep = box.getAttribute('data-key') === key && oldBody ? oldBody.scrollTop : 0, fresh = box.getAttribute('data-key') !== key;
@@ -1261,6 +1261,7 @@
       foot = '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-step="1">Back</button><button type="button" class="eng-btn" data-cpw-step="3"' + (got ? '' : ' disabled') + '>Next: write it</button>';
     } else {
       // Write it: the scene (or the three scenes) on top, then a box for each part with its ideas, the words beside.
+      writing = true;
       var words = para ? G.scenes[para.scene].words : G[s].words, top;
       if (para) {
         var m = text(a).moments[para.scene - 1], rep = G.scenes[para.scene].reps[para.rep || 0], pic = scenePics(a, m.id)[0];
@@ -1282,16 +1283,17 @@
             }).join('') + (shown < pt.ideas.length ? '<button type="button" class="eng-cpd__more" data-cpw-more="' + pt.k + '">Show me another idea</button>' : '') + '</div>';
           })() : (pt.auto ? '<p class="eng-cpd__none">Pick your three scenes first.</p>' : '')) +
           '<textarea data-cpw-box="' + pt.k + '" spellcheck="true" lang="en-IE" rows="2" aria-label="' + esc(pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea></section>';
-      }).join('') + '<p class="eng-cpd__tools"><span data-cpw-count></span></p><div class="eng-cpd__check" data-cpw-check role="status" aria-live="polite"></div></div>' +
+      }).join('') + '<p class="eng-cpd__tools"><b>How it reads</b><span data-cpw-count></span></p><div class="eng-cpd__check" data-cpw-check role="status" aria-live="polite"></div></div>' +
         '<aside class="eng-cpd__bank"><h3>10 words for ' + (para ? 'this scene' : 'the ' + slotName(s).toLowerCase()) + '</h3><p class="eng-cpd__hint">Tap a word to add it to the box you\'re in.</p><ul>' +
         words.map(function (x) { return '<li><button type="button" class="eng-cpd__w" data-cpw-word="' + esc(x[0]) + '"><b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span></button></li>'; }).join('') +
         '</ul><h3>Instead of “shows”</h3><p class="eng-cpd__inst">' + th.instead.map(function (x) { return '<button type="button" class="eng-chip" data-cpw-word="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') + '</p></aside></div>';
       var sl = cpwSlots(W), i0 = sl.indexOf(s), next = sl[i0 + 1];
       foot = (s === 'open' || para ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-step="2">Back</button>' : '') +
-        (next != null ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-next>Next: ' + slotName(next) + '</button>' : '') + '<button type="button" class="eng-btn" data-cpw-close>Done</button>';
+        (next != null ? '<button type="button" class="eng-btn" data-cpw-next>Next: ' + slotName(next) + '</button>' : '') + '<button type="button" class="eng-btn' + (next != null ? ' eng-btn--quiet' : '') + '" data-cpw-close>Done</button>';
     }
     box.innerHTML = '<div class="eng-cpd__bg" data-cpw-close></div><div class="eng-cpd__box" role="dialog" aria-modal="true" aria-labelledby="eng-cpd-h">' + head +
       '<div class="eng-cpd__body">' + body + (foot ? '<p class="eng-btns eng-cpd__foot">' + foot + '</p>' : '') + '</div></div>';
+    box.classList.toggle('is-write', writing);
     if (fresh) { CPW.tch = null; tchIdle(); }
     if (!tchEl().parentNode) document.body.appendChild(TCH);
     Array.prototype.forEach.call(box.querySelectorAll('[data-cpw-box]'), grow);
@@ -1376,6 +1378,11 @@
       out.push(['“' + x + '”: ' + count[x] + ' times.', SYN[x] ? 'Swap one for:' : 'Try a different word for one of them.', SYN[x] || []]);
     });
     cpwMore(tas, v, out, th, a);
+    // The scene's words you've already used are ticked in the list.
+    Array.prototype.forEach.call(box.querySelectorAll('.eng-cpd__w'), function (b) {
+      var w = b.getAttribute('data-cpw-word').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      b.classList.toggle('is-used', new RegExp('\\b' + w + '\\b', 'i').test(v));
+    });
     box.querySelector('[data-cpw-check]').innerHTML = (out.meter || '') + (out.length ? out.map(function (o) {
       if (o.fix) return '<p class="eng-cpd__warn eng-cpd__warn--' + o.kind + '"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + ' ' + o.fix.map(function (f) {
         return '<button type="button" class="eng-chip" data-cpw-fix="' + esc(f.join('|')) + '">' + esc(f[1]) + ' → ' + esc(f[2]) + '</button>';
@@ -1417,7 +1424,7 @@
       var P = words.p || 0, A = words.a || 0, E = words.e || 0, filled = [P, A, E].filter(Boolean).length, sc = G.scenes[W.paras[s].scene];
       // How much of it is the story, and how much is your thinking.
       if (total >= 30) out.meter = '<div class="eng-cpd__bal" aria-hidden="true"><span style="flex:' + P + ';--pc:var(--pace-p)"></span><span style="flex:' + A + ';--pc:var(--pace-a)"></span><span style="flex:' + E + ';--pc:var(--pace-e)"></span></div>' +
-        '<p class="eng-cpd__baltxt">The story (blue, Anchor) should be a third of the paragraph or less; your thinking (yellow and pink) the rest.</p>';
+        '<p class="eng-cpd__baltxt">The story (blue, Anchor) should be a third of the paragraph or less; your thinking (yellow and orange) the rest.</p>';
       if (filled === 1 && total > 110) out.unshift(['It\'s all in one box.', 'Split it up: one sentence of Point (your idea), a short Anchor (the moment), then Evaluate (why it matters). It keeps you from just retelling the story.', []]);
       else if (A > 45 && A > P + E) out.unshift(['This is mostly retelling.', 'The Anchor (' + A + ' words) is longer than your Point and Evaluate together (' + (P + E) + '). Cut the story to a sentence or two and say more about why it matters: that is where the marks are.', []]);
       // Writing about a different scene from the one picked.
@@ -1532,14 +1539,14 @@
     if (!TCH) {
       TCH = document.createElement('div'); TCH.className = 'eng-tch'; TCH.setAttribute('data-mood', 'ok');
       TCH.innerHTML = '<div class="eng-tch__say" data-tch-say></div><button type="button" class="eng-tch__fig" data-tch="fig" aria-label="Ask the examiner for help">' +
-        (window.ExamTeacher ? window.ExamTeacher.svg() : '') + '</button>';
+        (window.ExamTeacher ? window.ExamTeacher.svg() + '<span class="eng-tch__head">' + window.ExamTeacher.head() + '</span>' : '') + '</button>';
     }
     return TCH;
   }
   function tchIdle() {
     var t = tchEl(); clearInterval(t.typer); t.typing = null;
     t.classList.remove('is-helping', 'is-talking'); t.setAttribute('data-mood', 'ok');
-    t.querySelector('[data-tch-say]').innerHTML = '<button type="button" class="eng-tch__ask" data-tch="fig">Stuck? Click on me.</button>';
+    t.querySelector('[data-tch-say]').innerHTML = '<button type="button" class="eng-tch__ask" data-tch="fig">Stuck? <span>Click on me.</span></button>';
     tchPop();
   }
   function tchPop() { var say = TCH.querySelector('[data-tch-say]'); say.classList.remove('is-pop'); void say.offsetWidth; say.classList.add('is-pop'); }

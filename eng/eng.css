@@ -1332,15 +1332,28 @@ a.eng-part:hover { background: var(--raised); }
 .eng-tch__btns { display: flex; justify-content: flex-end; margin: 14px 0 0; }
 .eng-tch__btns .eng-btn { min-height: 44px; padding: 8px 20px; font-size: 17px; }
 .eng-tch__x { position: absolute; top: 8px; right: 8px; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #E6EBF2; color: #1d2a3a; font: 800 22px/1 Nunito, sans-serif; cursor: pointer; }
-@media (max-width: 1359px) { .eng-cpd__body { padding-bottom: 190px; } }
+.eng-tch__head { display: none; }
+@media (max-width: 1359px) {
+  .eng-cpd__body { padding-bottom: 110px; }
+  .eng-tch { --w: 64px; left: auto; right: 14px; bottom: 14px; }
+  .eng-tch__fig { aspect-ratio: 1; border-radius: 50%; background: #fff; overflow: hidden; filter: none; box-shadow: 0 4px 0 rgba(0, 0, 0, .3); }
+  .eng-tch__fig > svg { display: none; }
+  .eng-tch__head { display: block; width: 100%; height: 100%; padding: 6px 6px 0; box-sizing: border-box; }
+  .eng-tch__say { left: auto; right: 0; }
+  .eng-tch__say::after { left: auto; right: 24px; }
+  .eng-tch:not(.is-helping) .eng-tch__say { right: calc(100% + 12px); bottom: 12px; border-radius: 999px; }
+  .eng-tch:not(.is-helping) .eng-tch__say::after { right: -6px; bottom: 13px; }
+  .eng-tch__ask { padding: 9px 16px; white-space: nowrap; font-size: 16px; }
+  .eng-tch__ask span { display: none; }
+}
 @media (max-width: 600px) {
-  .eng-tch { --w: 84px; left: 6px; bottom: 6px; }
+  .eng-tch { --w: 58px; right: 10px; bottom: 10px; }
   .eng-tch__say { font-size: 15.5px; }
   .eng-tch__ask { padding: 9px 12px; }
-  .eng-tch.is-helping .eng-tch__say { width: calc(100vw - 12px); padding: 14px 44px 12px 14px; }
+  .eng-tch.is-helping .eng-tch__say { width: calc(100vw - 20px); padding: 14px 44px 12px 14px; }
   .eng-tch__line { font-size: 17px; }
   .eng-tch__q { font-size: 15.5px; }
-  .eng-cpd__body { padding-bottom: 160px; }
+  .eng-cpd__body { padding-bottom: 96px; }
 }
 @media (prefers-reduced-motion: reduce) { .eng-tch, .eng-tch__say.is-pop { animation: none; } .eng-tch__rest { transition: none; } }
 
@@ -1349,3 +1362,145 @@ a.eng-part:hover { background: var(--raised); }
    buttons) goes to 800. */
 #eng-cpd, #eng-cpd *, .eng-tch, .eng-tch * { font-family: Outfit, Nunito, sans-serif !important; }
 #eng-cpd h3, #eng-cpd .eng-btn, #eng-cpd .eng-cpd__banner b { font-weight: 800; }
+
+/* ===== The writing page, redesigned (the user: Kurzgesagt's bold colour with a premium platform's polish, on the dark
+   theme; Outfit since Nexa Pro isn't available). Colour means something here:
+     yellow  your idea (Point, the scene's meaning, the current step, the main button)
+     blue    the moment (Anchor)
+     orange  why it matters (Evaluate)
+     purple  how it's filmed (techniques)
+     mint    done, and the words to use
+     coral   something to fix
+   Flat surfaces one tone step off the ground, no shadows or gradients. Radii: 24 panels, 16 fields and pictures, pills
+   for buttons and chips. Type: 800 for headings, 500 for explanations, 500 at 19px for your writing.
+   The chrome (top bar, steps, buttons) is the whole popup's; everything else only the writing step (.is-write). */
+#eng-cpd {
+  --k-yellow: #FFD43B; --k-blue: #4DB5FF; --k-orange: #FF9F43; --k-purple: #C28BFF; --k-mint: #4CE0A6; --k-coral: #FF7A6B;
+  --pace-p: var(--k-yellow); --pace-a: var(--k-blue); --pace-e: var(--k-orange); --pace-c: var(--k-mint);
+  --k-ink: #F3F7F8; --k-ink2: #C3D0D7; --k-dim: #93A5AE; --k-panel: #1A2B32; --k-step: #22343C; --k-line: rgba(255, 255, 255, .09);
+  --k-paper: #FFFDF7; --k-paper-ink: #16222A;
+}
+/* Top bar: the part's name, the three steps as a track, close. */
+#eng-cpd .eng-cpd__top { gap: 12px 40px; padding-top: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--k-line); }
+#eng-cpd .eng-cpd__top h2 { font-size: 28px; font-weight: 800; letter-spacing: -.015em; }
+#eng-cpd .eng-cpd__steps { display: grid; grid-template-columns: repeat(3, minmax(120px, 170px)); gap: 10px; }
+#eng-cpd .eng-cpd__steps li { display: grid; gap: 8px; color: var(--k-dim); font-size: 15px; font-weight: 600; line-height: 1.2; }
+#eng-cpd .eng-cpd__steps li::before { content: ''; height: 6px; border-radius: 999px; background: var(--k-step); transition: background .3s ease; }
+#eng-cpd .eng-cpd__steps li span { display: none; }
+#eng-cpd .eng-cpd__steps li.is-done { color: var(--k-ink2); }
+#eng-cpd .eng-cpd__steps li.is-done::before { background: var(--k-mint); }
+#eng-cpd .eng-cpd__steps li.is-on { color: var(--k-ink); font-weight: 700; }
+#eng-cpd .eng-cpd__steps li.is-on::before { background: var(--k-yellow); }
+#eng-cpd .eng-cpd__x { top: 50%; width: 48px; height: 48px; margin-top: -24px; background: var(--k-panel); font-size: 26px; transition: background .15s ease; }
+#eng-cpd .eng-cpd__x:hover { background: var(--k-step); }
+/* Buttons: yellow for the one main action, an outline for the rest. Flat; a press sinks 1px. */
+#eng-cpd .eng-btn { height: 54px; padding: 0 28px; border-radius: 999px; background: var(--k-yellow); color: #17202A; box-shadow: none; font-size: 18px; font-weight: 700; transition: background .15s ease, transform .1s ease; }
+#eng-cpd .eng-btn:hover { background: #FFE066; }
+#eng-cpd .eng-btn:active { transform: translateY(1px); box-shadow: none; }
+#eng-cpd .eng-btn--quiet { background: transparent; color: var(--k-ink); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .2); }
+#eng-cpd .eng-btn--quiet:hover { background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .38); }
+#eng-cpd .eng-btn--quiet:active { box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .38); }
+#eng-cpd .eng-btn[disabled] { opacity: .4; }
+#eng-cpd .eng-btn:focus-visible, #eng-cpd .eng-chip:focus-visible, #eng-cpd .eng-cpd__w:focus-visible, #eng-cpd .eng-cpd__more:focus-visible, #eng-cpd .eng-cpd__x:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+#eng-cpd.is-write .eng-cpd__foot { gap: 12px; margin-top: 48px; }
+#eng-cpd.is-write .eng-cpd__foot [data-cpw-step] { margin-right: auto; }
+
+/* The scene: one flat panel, the picture, what it means (yellow: the idea), how it's filmed (purple). */
+#eng-cpd.is-write .eng-cpd__banner { grid-template-columns: 300px minmax(0, 1fr); gap: 28px; margin: 0 0 48px; padding: 16px 28px 16px 16px; border-radius: 24px; background: var(--k-panel); }
+#eng-cpd.is-write .eng-cpd__banner img { height: 196px; border-radius: 16px; }
+#eng-cpd.is-write .eng-cpd__banner > div { gap: 10px; }
+#eng-cpd.is-write .eng-cpd__bt { color: var(--k-ink2); font-size: 16px; font-weight: 600; }
+#eng-cpd.is-write .eng-cpd__bt .eng-cpm__n { width: 30px; height: 30px; background: var(--k-step); color: var(--k-ink); font-size: 15px; }
+#eng-cpd.is-write .eng-cpd__banner b { color: var(--k-yellow); font-size: 30px; font-weight: 800; line-height: 1.15; letter-spacing: -.015em; }
+#eng-cpd.is-write .eng-cpd__bs { color: var(--k-ink); font-size: 18px; font-weight: 500; line-height: 1.5; }
+#eng-cpd.is-write .eng-cpd__techs { gap: 8px; margin-top: 6px; color: var(--k-dim); font-size: 15px; font-weight: 600; }
+#eng-cpd.is-write .eng-cpd__techs i { padding: 5px 13px; background: rgba(194, 139, 255, .16); color: #E2CCFF; font-size: 15px; font-weight: 600; }
+
+/* The writing (the centre of the page) and the words beside it. */
+#eng-cpd.is-write .eng-cpd__write { grid-template-columns: minmax(0, 1fr) 340px; gap: 56px; }
+#eng-cpd.is-write .eng-cpd__parts { gap: 40px; }
+/* Point, Anchor and Evaluate hang off one spine, a node each in its colour: the three parts of one paragraph. */
+#eng-cpd.is-write .eng-cpd__part { padding-left: 54px; }
+#eng-cpd.is-write .eng-cpd__part::before { left: 14px; top: 30px; bottom: -40px; width: 3px; border-radius: 2px; background: var(--pc); transform-origin: top; }
+#eng-cpd.is-write .eng-cpd__part:last-of-type::before { bottom: 0; }
+#eng-cpd.is-write .eng-cpd__part header { position: relative; flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 16px; }
+#eng-cpd.is-write .eng-cpd__part header::before { content: ''; position: absolute; left: -50px; top: 2px; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--pc); box-shadow: 0 0 0 6px var(--ground); color: #17202A; font: 800 15px/1 Outfit, sans-serif; }
+#eng-cpd.is-write .eng-cpd__part.is-done header::before { content: '✓'; animation: cpTick .35s cubic-bezier(.3, 1.6, .5, 1); }
+#eng-cpd.is-write .eng-cpd__pl { padding: 0; background: none; color: var(--pc); font-size: 26px; font-weight: 800; line-height: 1.1; letter-spacing: -.01em; }
+#eng-cpd.is-write .eng-cpd__part.is-done .eng-cpd__pl::after { content: none; }
+#eng-cpd.is-write .eng-cpd__ph2 { color: var(--k-ink2); font-size: 18px; font-weight: 500; line-height: 1.5; }
+#eng-cpd.is-write .eng-cpd__hl { font-weight: 700; padding: 1px 7px; }
+#eng-cpd.is-write .eng-cpd__ideas { gap: 10px; margin-bottom: 16px; }
+#eng-cpd.is-write .eng-cpd__ideas > span { color: var(--k-dim); font-size: 15px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+#eng-cpd.is-write .eng-cpd__idea { padding: 2px 0 2px 16px; border-left: 3px solid var(--pc); color: #E3EBEF; font-size: 18px; font-weight: 500; line-height: 1.55; }
+#eng-cpd.is-write .eng-cpd__idea.is-tech { border-left-color: var(--k-purple); }
+#eng-cpd.is-write .eng-cpd__idea em { color: var(--k-purple); font-size: 14px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+#eng-cpd.is-write .eng-cpd__more { padding: 6px 2px; border: 0; border-radius: 6px; background: none; color: var(--pc); font-size: 16px; font-weight: 600; }
+#eng-cpd.is-write .eng-cpd__more::before { color: inherit; }
+#eng-cpd.is-write .eng-cpd__more:hover { background: none; text-decoration: underline; text-underline-offset: 4px; }
+/* Your writing: on paper, the clearest thing on the page; the part's colour rings it while you type. */
+#eng-cpd.is-write .eng-cpd__part textarea { min-height: 96px; padding: 18px 20px; border: 0; border-radius: 16px; background: var(--k-paper); color: var(--k-paper-ink); box-shadow: inset 0 0 0 2px transparent; font-size: 19px; font-weight: 500; line-height: 1.6; transition: box-shadow .2s ease; }
+#eng-cpd.is-write .eng-cpd__part textarea::placeholder { color: #66727B; }
+#eng-cpd.is-write .eng-cpd__part textarea:focus { box-shadow: 0 0 0 3px var(--pc); animation: none; }
+/* How it reads: the count, the balance of story and thinking, then what to fix. */
+#eng-cpd.is-write .eng-cpd__tools { justify-content: space-between; align-items: baseline; margin: 16px 0 0; color: var(--k-dim); font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; }
+#eng-cpd.is-write .eng-cpd__tools b { color: var(--k-ink); font-size: 24px; font-weight: 800; letter-spacing: -.01em; }
+#eng-cpd.is-write .eng-cpd__check { gap: 10px; }
+#eng-cpd.is-write .eng-cpd__bal { gap: 4px; height: 12px; margin: 2px 0 4px; border-radius: 999px; background: var(--k-step); }
+#eng-cpd.is-write .eng-cpd__baltxt { margin: 0 0 10px; color: var(--k-dim); font-size: 15px; font-weight: 500; }
+#eng-cpd.is-write .eng-cpd__warn { position: relative; padding: 14px 18px 14px 44px; border: 0; border-radius: 16px; background: var(--k-panel); color: var(--k-ink); font-size: 17px; font-weight: 500; line-height: 1.6; }
+#eng-cpd.is-write .eng-cpd__warn::before { content: ''; position: absolute; left: 18px; top: 22px; width: 12px; height: 12px; border-radius: 50%; background: var(--k-yellow); }
+#eng-cpd.is-write .eng-cpd__warn b { color: var(--k-yellow); font-weight: 700; }
+#eng-cpd.is-write .eng-cpd__warn--bad::before { background: var(--k-coral); } #eng-cpd.is-write .eng-cpd__warn--bad b { color: var(--k-coral); }
+#eng-cpd.is-write .eng-cpd__warn--spell::before { background: var(--k-blue); } #eng-cpd.is-write .eng-cpd__warn--spell b { color: var(--k-blue); }
+#eng-cpd.is-write .eng-cpd__good { padding: 14px 18px; border-radius: 16px; background: rgba(76, 224, 166, .12); color: var(--k-mint); font-size: 17px; font-weight: 600; }
+#eng-cpd.is-write .eng-chip { min-height: 38px; margin: 4px 4px 0 0; padding: 0 15px; background: rgba(255, 255, 255, .08); color: var(--k-ink); font-size: 16px; font-weight: 600; transition: background .15s ease, color .15s ease; }
+#eng-cpd.is-write .eng-chip:hover { background: rgba(255, 255, 255, .15); }
+#eng-cpd.is-write .eng-cpd__warn--spell .eng-chip { background: rgba(77, 181, 255, .16); }
+#eng-cpd.is-write .eng-cpd__warn--spell .eng-chip:hover { background: rgba(77, 181, 255, .26); }
+/* The words beside you (mint): stays in view as you write; a word you've used is ticked. */
+#eng-cpd.is-write .eng-cpd__bank { position: sticky; top: 0; max-height: calc(100dvh - 150px); overflow: auto; overscroll-behavior: contain; padding: 24px 18px 22px; border-radius: 24px; background: var(--k-panel); }
+#eng-cpd.is-write .eng-cpd__bank h3 { margin: 0 0 4px 6px; color: var(--k-mint); font-size: 21px; font-weight: 800; letter-spacing: -.01em; }
+#eng-cpd.is-write .eng-cpd__bank ul + h3 { margin-top: 22px; color: var(--k-ink); }
+#eng-cpd.is-write .eng-cpd__hint { margin: 0 0 12px 6px; color: var(--k-dim); font-size: 15px; font-weight: 500; }
+#eng-cpd.is-write .eng-cpd__bank ul { gap: 2px; }
+#eng-cpd.is-write .eng-cpd__w { position: relative; padding: 7px 40px 7px 12px; border-radius: 14px; transition: background .15s ease; }
+#eng-cpd.is-write .eng-cpd__w:hover { background: var(--k-step); }
+#eng-cpd.is-write .eng-cpd__w:active { transform: translateY(1px); }
+#eng-cpd.is-write .eng-cpd__w b { color: var(--k-ink); font-size: 17.5px; font-weight: 700; }
+#eng-cpd.is-write .eng-cpd__w span { color: var(--k-dim); font-size: 14.5px; font-weight: 500; line-height: 1.35; }
+#eng-cpd.is-write .eng-cpd__w::after { content: '+'; position: absolute; right: 12px; top: 9px; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; color: var(--k-mint); font: 700 20px/1 Outfit, sans-serif; opacity: 0; transition: opacity .15s ease; }
+#eng-cpd.is-write .eng-cpd__w:hover::after { opacity: 1; }
+#eng-cpd.is-write .eng-cpd__w.is-used b { color: var(--k-mint); }
+#eng-cpd.is-write .eng-cpd__w.is-used::after { content: '✓'; background: var(--k-mint); color: #17202A; font-size: 13px; opacity: 1; }
+#eng-cpd.is-write .eng-cpd__inst { gap: 0; margin: 10px 0 0 6px; }
+#eng-cpd.is-write .eng-cpd__inst .eng-chip { background: transparent; box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .16); }
+#eng-cpd.is-write .eng-cpd__inst .eng-chip:hover { background: rgba(76, 224, 166, .1); box-shadow: inset 0 0 0 2px var(--k-mint); color: var(--k-mint); }
+/* The opening and ending show their three scenes above the boxes: the same panel as a scene. */
+#eng-cpd.is-write .eng-cpd__three { gap: 12px; margin-bottom: 40px; }
+#eng-cpd.is-write .eng-cpd__mini { padding: 12px; border-radius: 24px; background: var(--k-panel); }
+
+@media (max-width: 1000px) {
+  #eng-cpd.is-write .eng-cpd__write { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  #eng-cpd.is-write .eng-cpd__bank { position: static; max-height: none; overflow: visible; }
+}
+@media (max-width: 760px) {
+  #eng-cpd .eng-cpd__top { gap: 12px; padding-top: 14px; padding-bottom: 14px; }
+  #eng-cpd .eng-cpd__top h2 { font-size: 23px; }
+  #eng-cpd .eng-cpd__steps { order: 3; width: 100%; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  #eng-cpd .eng-cpd__steps li { font-size: 13px; }
+  #eng-cpd .eng-cpd__x { top: 12px; margin-top: 0; width: 44px; height: 44px; }
+  #eng-cpd.is-write .eng-cpd__banner { grid-template-columns: minmax(0, 1fr); gap: 16px; padding: 12px 12px 20px; }
+  #eng-cpd.is-write .eng-cpd__banner img { height: auto; aspect-ratio: 16 / 9; }
+  #eng-cpd.is-write .eng-cpd__banner > div { padding: 0 8px; }
+  #eng-cpd.is-write .eng-cpd__banner b { font-size: 25px; }
+  #eng-cpd.is-write .eng-cpd__part { padding-left: 40px; }
+  #eng-cpd.is-write .eng-cpd__part::before { left: 9px; }
+  #eng-cpd.is-write .eng-cpd__part header::before { left: -40px; width: 22px; height: 22px; font-size: 13px; }
+  #eng-cpd.is-write .eng-cpd__pl { font-size: 23px; }
+  #eng-cpd.is-write .eng-cpd__ph2, #eng-cpd.is-write .eng-cpd__idea { font-size: 17px; }
+  #eng-cpd.is-write .eng-cpd__part textarea { padding: 14px 16px; font-size: 18px; }
+  #eng-cpd.is-write .eng-cpd__foot { flex-wrap: wrap; }
+  #eng-cpd.is-write .eng-cpd__foot .eng-btn { flex: 1 1 auto; justify-content: center; }
+  #eng-cpd.is-write .eng-cpd__foot [data-cpw-step] { margin-right: 0; }
+}
