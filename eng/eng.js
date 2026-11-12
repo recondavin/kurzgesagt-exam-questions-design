@@ -2084,6 +2084,20 @@
       'In 2027 all three modes are on the paper and you answer on one. To practise your theme itself, switch to Theme or Issue.',
       '<button type="button" class="eng-btn" data-eb-mode="theme">Switch to Theme or Issue</button>']);
   }
+  // Practice questions that aren't from the papers we hold, first in their mode's list (the user's homework question;
+  // the user: "fucking add it already").
+  var PRACTICE_QS = [{ mode: 'theme', marks: [30, 40], year: 'Practice', paper: '', text: '(a) Choose a theme from one text you have studied as part of your comparative course and say how it helped maintain your interest in the text. (b) Compare how the theme you have dealt with in part (a) is treated by the authors of two other texts from your comparative course to maintain the reader’s interest.' }];
+  // A question about how the theme keeps you interested: a red warning on every step, since every paragraph has to
+  // answer that, not just say what the texts show.
+  function interestNote() {
+    var e = essay();
+    if (!e.q || !/\b(?:maintain|hold|keep|kept|sustain)\w*[^.]{0,40}interest|interest(?:ed)? the (?:reader|viewer)/i.test(e.q)) return '';
+    var th = myTheme(), t = th ? th.name.toLowerCase() : 'the theme';
+    return cpWarnBox('This question is about interest', [
+      'It asks how ' + esc(t) + ' <b>keeps the reader hooked</b>, not just what the texts say about it.',
+      'Every paragraph needs at least one sentence on <b>interest</b>: tension, suspense, shock, sympathy, wanting justice, needing to know what happens next.',
+      'Try: <i>This kept me gripped because…</i> · <i>The tension builds as…</i> · <i>I was desperate to see…</i>']);
+  }
   function tile(k, name, what) {
     return '<div class="ebd-tile"><b style="background:' + (PACE_COL[k] || '#fff') + '">' + esc(k || ({ q: '?', plan: '≡', intro: 'In', check: '✓' })[curStep()] || '?') + '</b><div><h3>' + esc(name) + '</h3><p>' + esc(what) + '</p></div></div>';
   }
@@ -2102,7 +2116,10 @@
       var qs = D.questions.filter(function (q) { return q.mode === e.mode; }).sort(function (a, b) { return b.year - a.year; });
       var picker = '<div class="eb-choices">' + MODES.map(function (x) { return '<button type="button" class="eng-chip" style="--c:' + COL[x.id] + '" data-eb-mode="' + x.id + '" aria-pressed="' + (e.mode === x.id) + '">' + esc(x.name) + '</button>'; }).join('') + '</div>' +
         '<div class="eb-choices">' + [['70', 'One question, 70 marks'], ['split', 'Two parts, 30 + 40']].map(function (x) { return '<button type="button" class="eng-chip" data-eb-type="' + x[0] + '" aria-pressed="' + (e.type === x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>' +
-        '<div class="ebd-slips">' + qs.slice(0, 10).map(function (q) {
+        '<div class="ebd-slips">' + PRACTICE_QS.filter(function (q) { return q.mode === e.mode; }).map(function (q) {
+          return '<button type="button" class="ebd-slip' + (e.q === q.text ? ' is-on' : '') + '" style="--c:' + COL[q.mode] + '" data-eb-pq="' + PRACTICE_QS.indexOf(q) + '"><span class="ebd-slip__y">Practice</span><span class="ebd-slip__m">30 + 40</span>' +
+            '<span class="ebd-slip__t">' + esc(q.text.length > 120 ? q.text.slice(0, 118) + '…' : q.text) + '</span></button>';
+        }).join('') + qs.slice(0, 10).map(function (q) {
           return '<button type="button" class="ebd-slip' + (e.q === q.text ? ' is-on' : '') + '" style="--c:' + COL[q.mode] + '" data-eb-q="' + D.questions.indexOf(q) + '"><span class="ebd-slip__y">' + q.year + (q.paper === 'deferred' ? ' def.' : '') + '</span><span class="ebd-slip__m">' + (Array.isArray(q.marks) ? '30 + 40' : '70') + '</span>' +
             '<span class="ebd-slip__t">' + esc(q.text.length > 120 ? q.text.slice(0, 118) + '…' : q.text) + '</span></button>';
         }).join('') + '</div>' +
@@ -2132,6 +2149,7 @@
       out = tile(k2 || 'P', (isA ? 'Part (a), ' : '') + 'Paragraph ' + (k + 1) + ': ' + a, k2 ? FIELD[k2][1] : (isA ? 'Point, Anchor, Evaluate: on ' + text(textA()).title + ' alone.' : 'Point, Anchor, Compare, Evaluate.')) + fieldChips() +
         (isA ? momentCards(e.mode, a, textA()) : cmp.map(function (t) { return momentCards(e.mode, a, t); }).join(''));
     }
+    if (cur !== 'check') out = interestNote() + out;
     if (e.step === 2) out = planBox() + out;
     return bodyOnly ? out : face + '<div class="ebd-coach__body" data-eb-coachbody>' + out + '</div>';
   }
@@ -2563,6 +2581,8 @@
       }
       saveEssay(); drawBuild(); window.scrollTo({ top: 0, behavior: 'smooth' }); return;
     }
+    var pq = t.closest('[data-eb-pq]');
+    if (pq) { useQuestion(PRACTICE_QS[+pq.getAttribute('data-eb-pq')]); SLIPS = false; saveEssay(); drawBuild(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     var qq = t.closest('[data-eb-q]');
     if (qq) { useQuestion(D.questions[+qq.getAttribute('data-eb-q')]); SLIPS = false; saveEssay(); drawBuild(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     var ty = t.closest('[data-eb-type]');
