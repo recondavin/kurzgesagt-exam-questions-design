@@ -317,7 +317,7 @@ body.eng-cpd-on { overflow: hidden; }
 .eng-cpd.is-new .eng-cpd__box { animation: cpdIn .25s ease-out; }
 @keyframes cpdIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 .eng-cpd__top { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 28px; padding: 16px 92px 14px max(24px, calc(50% - 560px)); border-bottom: 1px solid var(--raised); }
-.eng-cpd__top h2 { margin: 0; color: #fff; font: 600 30px Fredoka, Nunito, sans-serif; }
+.eng-cpd__top h2 { margin: 0; color: #fff; font: 800 31px Outfit, Fredoka, Nunito, sans-serif; letter-spacing: -.01em; }
 .eng-cpd__steps { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 0; padding: 0; list-style: none; }
 .eng-cpd__steps li { display: inline-flex; align-items: center; gap: 9px; color: var(--faint); font: 800 18px Nunito, sans-serif; }
 .eng-cpd__steps li span { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--raised); color: #fff; font-size: 16px; }
