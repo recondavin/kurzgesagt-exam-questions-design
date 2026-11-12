@@ -1951,11 +1951,13 @@
   function noBackRef(t) {
     return t.replace(/\s*(,\s*)?\(?(?:as\s+)?(?:you\s+)?(?:discussed|dealt with)\s+in\s+(?:part\s+)?(?:1\.?\s*)?\(a\)\s+above\)?(\s*,)?/gi, function (m, c1, c2) { return c1 && c2 ? '' : c2 ? ',' : ''; });
   }
+  var Q_THEME2 = /\bthe theme(?: or issue)? (?:that )?you have (?:dealt with|discussed|chosen|explored)(?: in part \(a\)(?: above)?)?/gi;
   function qHtml(q) {
     // Only the first (a) and the first (b) after it start parts: "(as discussed in (a) above)" stays in the text.
-    q = String(q);
+    // A question pasted from a paper: its number ("2.") and marks ("(30)", "(40)") come out.
+    q = String(q).replace(/^\s*\d+\.\s*/, '').replace(/\s*\(\s*(?:30|40|50|70)\s*(?:marks)?\s*\)/gi, '');
     var th = essay().mode === 'theme' ? myTheme() : null, tok = '\u27E6t\u27E7', tokU = '\u27E6T\u27E7';
-    if (th) q = q.replace(Q_THEME, function (m) { return /^[A-Z]/.test(m) ? tokU : tok; });
+    if (th) q = q.replace(Q_THEME, function (m) { return /^[A-Z]/.test(m) ? tokU : tok; }).replace(Q_THEME2, function (m) { return /^[A-Z]/.test(m) ? tokU : tok; });
     var ia = q.indexOf('(a)'), ib = ia < 0 ? -1 : q.indexOf('(b)', ia + 3), h;
     if (ia < 0 || ib < 0) h = '<p class="ebd-qp">' + qMark(q.trim()) + '</p>';
     else {
@@ -2346,6 +2348,7 @@
   function setField(key, v) {
     var e = essay(), m;
     if (key === 'q' || key === 'thesis' || key === 'intro' || key === 'end') e[key] = v;
+    if (key === 'q' && /\(a\)/.test(v) && /\(b\)/.test(v)) e.type = 'split';
     else if ((m = /^a([PAE])(\d+)$/.exec(key))) { var aa = e.aspects[+m[2]]; if (!aa) return; (e.parasA[aa] = e.parasA[aa] || {})[m[1]] = v; }
     else { var part = key.charAt(0), k = +key.slice(1), a = e.aspects[k]; if (!a) return; (e.paras[a] = e.paras[a] || {})[part] = v; }
     saveEssay();
