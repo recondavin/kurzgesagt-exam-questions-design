@@ -1749,12 +1749,17 @@
   function saveEssay() { store('eng-essay', JSON.stringify(E)); }
   function split() { return essay().type === 'split'; }
   // Part (a)'s text, and the texts compared (all three for a 70-mark answer; the other two for part (b)).
-  // Unless you picked one here, part (a) is the text you put in part (a) in Compare it.
+  // The essay's three texts: with a Compare it theme on the go, the same three as Compare it (the user, given Small
+  // Things, Sive and Othello here while Compare it had Sive, Small Things and Shawshank: "is this a prank?"); else
+  // your texts from the home page.
+  function ebTexts() { var th = myTheme(); return th ? cpTexts(th) : chosen(); }
+  // With a Compare it theme, part (a) is Compare it's part (a) text, and picking it here changes it there too, so the
+  // two pages always agree; otherwise the one you picked here, else your first text.
   function textA() {
-    var e = essay(), m = chosen(), th = myTheme(), ca = th ? cpState().by[th.id].a : null;
-    return m.indexOf(e.textA) >= 0 ? e.textA : ca && m.indexOf(ca) >= 0 ? ca : m[0];
+    var e = essay(), m = ebTexts(), th = myTheme(), ca = th ? cpState().by[th.id].a : null;
+    return ca && m.indexOf(ca) >= 0 ? ca : m.indexOf(e.textA) >= 0 ? e.textA : m[0];
   }
-  function compared() { var m = chosen(); return split() ? m.filter(function (t) { return t !== textA(); }) : m; }
+  function compared() { var m = ebTexts(); return split() ? m.filter(function (t) { return t !== textA(); }) : m; }
   function stepsList() {
     var e = essay(), pts = function (pre, name) { return e.aspects.map(function (a, k) { return [pre + k, name + (k + 1)]; }); };
     // No Plan step (the user, of picking aspects: "do i have to do this its not engaging"): the paragraphs are picked
@@ -1779,7 +1784,7 @@
       [/family|community|friend|parent/, /family|community/], [/power|control|dominan|powerless/, /power|authority|control/], [/freedom|trap|confine|escape/, /freedom|entrap/], [/hope|despair|bleak|optimis|pessimis/, /hope|light|ending/]];
     var ql = e.q.toLowerCase();
     var scored = opts.map(function (a, i) {
-      var hay = (a + ' ' + chosen().map(function (t) { return pointsFor(e.mode, a, t).join(' '); }).join(' ')).toLowerCase(), sc = 0;
+      var hay = (a + ' ' + ebTexts().map(function (t) { return pointsFor(e.mode, a, t).join(' '); }).join(' ')).toLowerCase(), sc = 0;
       words.forEach(function (w) { if (w.length >= 5 && hay.indexOf(w) >= 0) sc += a.toLowerCase().indexOf(w) >= 0 ? 3 : 1; });
       LINKS.forEach(function (l) { if (l[0].test(ql) && l[1].test(a.toLowerCase())) sc += 12; });
       return [sc, -i, a];
@@ -1788,7 +1793,7 @@
   }
   function aspectOptions(mode) {
     var names = [], seen = {};
-    chosen().forEach(function (t) { modeRows(mode, t).forEach(function (r) { if (!seen[r[0]] && r[0] !== 'Outlook' && r[0] !== 'More' && r[1].length) { seen[r[0]] = 1; names.push(r[0]); } }); });
+    ebTexts().forEach(function (t) { modeRows(mode, t).forEach(function (r) { if (!seen[r[0]] && r[0] !== 'Outlook' && r[0] !== 'More' && r[1].length) { seen[r[0]] = 1; names.push(r[0]); } }); });
     return names.length ? names : MODE[mode].topics;
   }
   function pointsFor(mode, aspect, tid) {
@@ -2068,7 +2073,7 @@
     return '<div class="ebd-chips" data-eb-chips><h4>' + (k ? 'Phrases for your ' + FIELD[k][0].toLowerCase() : 'Phrases to use') + '</h4><div class="eb-starters">' + chips(groups) + '</div></div>';
   }
   function coachHtml(bodyOnly) {
-    var e = essay(), cur = curStep(), m = MODE[e.mode], cmp = compared(), mine = chosen(), out = '';
+    var e = essay(), cur = curStep(), m = MODE[e.mode], cmp = compared(), mine = ebTexts(), out = '';
     var tipKey = /^a\d/.test(cur) ? 'a' : /^p\d/.test(cur) ? 'p' : cur;
     if (cur === 'q') tipKey = !e.q || SLIPS ? 'q' : !crackedAll() ? 'crack' : !e.thesis ? 'stance' : 'ready';
     if (cur === 'plan' && e.aspects.length) tipKey = 'planned';
@@ -2217,7 +2222,7 @@
   // Your paragraphs, picked for the question; Change opens the aspects (and, for a two-part question, the text for (a)).
   var PLAN_OPEN = false;
   function planBox() {
-    var e = essay(), mine = chosen(), cmp = compared();
+    var e = essay(), mine = ebTexts(), cmp = compared();
     return '<div class="ebd-plan"><div class="ebd-plan__top"><span>Your paragraphs, picked for this question</span><button type="button" class="ebd-link" data-eb-plan>' + (PLAN_OPEN ? 'Done' : 'Change') + '</button></div>' +
       '<ol>' + e.aspects.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ol>' +
       (PLAN_OPEN ? (split() ? '<h4 class="ebd-h">Part (a) is on</h4><div class="eb-choices">' + mine.map(function (t) { return '<button type="button" class="eng-chip" style="--c:' + COL[t] + '" data-eb-atext="' + t + '" aria-pressed="' + (textA() === t) + '">' + esc(text(t).title) + '</button>'; }).join('') + '</div>' +
@@ -2260,7 +2265,7 @@
     var cmpWords = [].concat.apply([], C.language.filter(function (g) { return g.id !== 'moment'; }).map(function (g) { return g.items; })).map(function (s) { return s.replace(/[,.…]/g, '').replace(/ ….*$/, '').trim().toLowerCase(); }).filter(function (s) { return s.length > 3; });
     var usedCmp = cmpWords.filter(function (s) { return bTxt.indexOf(s) >= 0; });
     var modeWords = MODE[e.mode].words.filter(function (w) { return low.indexOf(w.toLowerCase()) >= 0; });
-    var used = split() ? chosen() : cmp;
+    var used = split() ? ebTexts() : cmp;
     var titlesRight = used.every(function (t) { var tt = text(t).title; return all.indexOf(tt) >= 0 || low.indexOf(tt.toLowerCase()) < 0; });
     var checks = [
       ['P', qWords.length ? qHit.length >= Math.min(3, qWords.length) : false, 'The question\'s own words', qWords.length ? 'You use ' + qHit.length + ' of its key words (' + qWords.slice(0, 6).join(', ') + '). Keep the question in view in every paragraph.' : 'Put the question in at the first step.'],
@@ -2542,7 +2547,11 @@
     var ty = t.closest('[data-eb-type]');
     if (ty) { essay().type = ty.getAttribute('data-eb-type'); saveEssay(); drawBuild(); return; }
     var at = t.closest('[data-eb-atext]');
-    if (at) { essay().textA = at.getAttribute('data-eb-atext'); saveEssay(); drawBuild(); return; }
+    if (at) {
+      essay().textA = at.getAttribute('data-eb-atext'); saveEssay();
+      var mt = myTheme(); if (mt) { cpBy(mt).a = essay().textA; cpSave(); }
+      drawBuild(); return;
+    }
     var as = t.closest('[data-eb-aspect]');
     if (as) {
       e = essay(); var a = as.getAttribute('data-eb-aspect'), i = e.aspects.indexOf(a);
