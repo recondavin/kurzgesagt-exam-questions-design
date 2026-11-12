@@ -1543,3 +1543,10 @@ a.eng-part:hover { background: var(--raised); }
 .ebd-mytheme { margin: 0 0 14px; padding: 12px 14px; border-left: 5px solid var(--m-theme); border-radius: 0 12px 12px 0; background: rgba(255, 212, 59, .08); color: #fff; font: 700 16.5px/1.5 Nunito, sans-serif; }
 .ebd-mytheme b { color: var(--m-theme); }
 .ebd-qtheme { padding: 0 5px; border-radius: 4px; background: #FFD43B; color: #1E2A3A; font-weight: 800; }
+/* Pick your theme, under the question on the sheet. */
+.ebd-themes { display: grid; gap: 8px; margin: 14px 0 6px; padding: 12px 14px; border-radius: 12px; background: #FFF6D6; }
+.ebd-themes > span { color: #6B5A1E; font: 800 14px Nunito, sans-serif; }
+.ebd-themes > div { display: flex; flex-wrap: wrap; gap: 8px; }
+.ebd-themes .eng-chip { min-height: 38px; background: #fff; color: #1E2A3A; box-shadow: inset 0 0 0 2px #E8D9A0; font: 800 15px Nunito, sans-serif; }
+.ebd-themes .eng-chip:hover { box-shadow: inset 0 0 0 2px #D9B63C; background: #fff; }
+.ebd-themes .eng-chip[aria-pressed="true"] { background: #FFD43B; box-shadow: inset 0 0 0 2px #C9A21E; color: #1E2A3A; }

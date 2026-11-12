@@ -1753,6 +1753,18 @@
   // the texts are part (b)'s two, no part (a) paragraphs, part (b)'s words and marks.
   function bOnly() { return split() && !!myTheme(); }
   // Part (a)'s text, and the texts compared (all three for a 70-mark answer; the other two for part (b)).
+  // The theme you write about on a Theme or Issue question (the user: "under that question should be a list of themes
+  // that you choose from"): the one picked under the question, else your Compare it theme. The choices are your
+  // Compare it theme and the themes the text notes cover (the Theme mode's topics).
+  function themeChoices() { var th = myTheme(), list = MODE.theme ? (MODE.theme.topics || []).slice() : []; if (th && list.indexOf(th.name) < 0) list.unshift(th.name); return list; }
+  function themeName() { var e = essay(), c = themeChoices(); return e.theme && c.indexOf(e.theme) >= 0 ? e.theme : (myTheme() ? myTheme().name : ''); }
+  function themePick() {
+    var e = essay(), c = themeChoices(), on = themeName();
+    if (e.mode !== 'theme' || !e.q || !c.length) return '';
+    return '<div class="ebd-themes"><span>Pick your theme</span><div>' + c.map(function (x) {
+      return '<button type="button" class="eng-chip" data-eb-theme="' + esc(x) + '" aria-pressed="' + (x === on) + '">' + esc(x) + '</button>';
+    }).join('') + '</div></div>';
+  }
   // The essay's three texts: with a Compare it theme on the go, the same three as Compare it (the user, given Small
   // Things, Sive and Othello here while Compare it had Sive, Small Things and Shawshank: "is this a prank?"); else
   // your texts from the home page.
@@ -1956,7 +1968,7 @@
     // Only the first (a) and the first (b) after it start parts: "(as discussed in (a) above)" stays in the text.
     // A question pasted from a paper: its number ("2.") and marks ("(30)", "(40)") come out.
     q = String(q).replace(/^\s*\d+\.\s*/, '').replace(/\s*\(\s*(?:30|40|50|70)\s*(?:marks)?\s*\)/gi, '');
-    var th = essay().mode === 'theme' ? myTheme() : null, tok = '\u27E6t\u27E7', tokU = '\u27E6T\u27E7';
+    var tn = essay().mode === 'theme' ? themeName() : '', th = tn ? { name: tn } : null, tok = '\u27E6t\u27E7', tokU = '\u27E6T\u27E7';
     if (th) q = q.replace(Q_THEME, function (m) { return /^[A-Z]/.test(m) ? tokU : tok; }).replace(Q_THEME2, function (m) { return /^[A-Z]/.test(m) ? tokU : tok; });
     var ia = q.indexOf('(a)'), ib = ia < 0 ? -1 : q.indexOf('(b)', ia + 3), h;
     if (ia < 0 || ib < 0) h = '<p class="ebd-qp">' + qMark(q.trim()) + '</p>';
@@ -2022,7 +2034,7 @@
     var mentions = function (s, ids) { s = (s || '').toLowerCase(); return ids.filter(function (t) { return nameOf(t).some(function (n) { return n && s.indexOf(n) >= 0; }); }).length; };
     out += '<div class="ebd-q' + (cur === 'q' ? ' is-on' : '') + '"' + (cur === 'q' ? '' : ' data-eb-step="0" role="button" tabindex="0"') + '>' +
       '<span class="ebd-q__tab" style="--c:' + COL[e.mode] + '">' + esc(MODE[e.mode].name) + ' · ' + (bOnly() ? 'part (b), 40' : split() ? '30 + 40' : '70') + ' marks</span>' +
-      '<div class="ebd-qtext" data-eb-qtext>' + (e.q ? qHtml(e.q) : '<p class="ebd-ghost">Pick a question from the real papers, or write your own.</p>') + '</div></div>';
+      '<div class="ebd-qtext" data-eb-qtext>' + (e.q ? qHtml(e.q) : '<p class="ebd-ghost">Pick a question from the real papers, or write your own.</p>') + '</div></div>' + themePick();
     out += '<div class="ebd-note' + (cur === 'q' ? ' is-on' : '') + '"><span>Your line of argument</span>' +
       (cur === 'q' ? '<textarea data-eb="thesis" rows="2" placeholder="One sentence that answers the question.">' + esc(e.thesis) + '</textarea>'
         : '<p data-eb-step="0" role="button" tabindex="0">' + (e.thesis ? esc(e.thesis) : '<i>Not written yet: tap to write it.</i>') + '</p>') + '</div>';
@@ -2071,7 +2083,7 @@
   function themeNote() {
     var th = myTheme(), e = essay();
     if (!th) return '';
-    if (e.mode === 'theme') return '<p class="ebd-mytheme">Your theme, <b>' + esc(th.name.toLowerCase()) + '</b>, is filled into the question for you. On the real paper it says “theme or issue”: that\'s ' + esc(th.name.toLowerCase()) + '.</p>';
+    if (e.mode === 'theme') { var tn = themeName().toLowerCase(); return '<p class="ebd-mytheme">Your theme, <b>' + esc(tn) + '</b>, is filled into the question for you: change it under the question. On the real paper it says “theme or issue”: that\'s ' + esc(tn) + '.</p>'; }
     // Not your theme's mode: say what this question is about (its yellow words), that your theme's scenes can still
     // help if they answer it (the user, of a question on social mobility: "i think it is about abuse and power"), and
     // the way back to Theme or Issue.
@@ -2092,7 +2104,7 @@
   function interestNote() {
     var e = essay();
     if (!e.q || !/\b(?:maintain|hold|keep|kept|sustain)\w*[^.]{0,40}interest|interest(?:ed)? the (?:reader|viewer)/i.test(e.q)) return '';
-    var th = myTheme(), t = th ? th.name.toLowerCase() : 'the theme';
+    var t = themeName() ? themeName().toLowerCase() : 'the theme';
     return cpWarnBox('This question is about interest', [
       'It asks how ' + esc(t) + ' <b>keeps the reader hooked</b>, not just what the texts say about it.',
       'Every paragraph needs at least one sentence on <b>interest</b>: tension, suspense, shock, sympathy, wanting justice, needing to know what happens next.',
@@ -2581,6 +2593,8 @@
       }
       saveEssay(); drawBuild(); window.scrollTo({ top: 0, behavior: 'smooth' }); return;
     }
+    var tp = t.closest('[data-eb-theme]');
+    if (tp) { essay().theme = tp.getAttribute('data-eb-theme'); saveEssay(); TYPED = essay().q; drawBuild(); return; }
     var pq = t.closest('[data-eb-pq]');
     if (pq) { useQuestion(PRACTICE_QS[+pq.getAttribute('data-eb-pq')]); SLIPS = false; saveEssay(); drawBuild(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     var qq = t.closest('[data-eb-q]');
