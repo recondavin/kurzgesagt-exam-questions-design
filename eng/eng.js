@@ -2047,10 +2047,16 @@
     var th = myTheme(), e = essay();
     if (!th) return '';
     if (e.mode === 'theme') return '<p class="ebd-mytheme">Your theme: <b>' + esc(th.name) + '</b>. Where a Theme or Issue question says “the theme or issue”, write about ' + esc(th.name.toLowerCase()) + '.</p>';
-    return cpWarnBox('This isn\'t your theme', [
-      'This is a <b>' + esc(MODE[e.mode].name) + '</b> question. It does <b>NOT</b> ask about ' + esc(th.name.toLowerCase()) + '.',
-      esc(MODE[e.mode].name) + ' asks about ' + MODE_ASKS[e.mode] + '.',
-      'Your theme only fits <b>Theme or Issue</b> questions. In 2027 all three modes are on the paper and you answer on one, so if you\'re doing Theme or Issue you don\'t need this one.',
+    // Not your theme's mode: say what this question is about (its yellow words), that your theme's scenes can still
+    // help if they answer it (the user, of a question on social mobility: "i think it is about abuse and power"), and
+    // the way back to Theme or Issue.
+    var tp = e.q ? qTerms('topic').filter(function (g) { return ['cc', 'gvv', 'theme'].indexOf(g.id) < 0; }).slice(0, 2).map(function (g) { return '<b>' + esc(g.term) + '</b>'; }).join(' and ') : '';
+    var about = tp || 'what the question names (its yellow words)', mine = esc(th.name.toLowerCase());
+    return cpWarnBox('Not a theme question', [
+      (e.q ? 'This is a <b>' + esc(MODE[e.mode].name) + '</b> question. It asks about ' + about : '<b>' + esc(MODE[e.mode].name) + '</b> questions ask about ' + MODE_ASKS[e.mode]) + ', not about ' + mine + ' itself.',
+      'Your ' + mine + ' scenes can still help, but only to answer the question' + (e.mode === 'cc' ? ': for example, how the people in power control what others can do or become.' : ': for example, whether the ' + mine + ' leaves each text hopeful or bleak.'),
+      'Every paragraph has to be about ' + (tp || 'the question') + '. A paragraph that only shows ' + mine + ' gets few marks.',
+      'In 2027 all three modes are on the paper and you answer on one. To practise your theme itself, switch to Theme or Issue.',
       '<button type="button" class="eng-btn" data-eb-mode="theme">Switch to Theme or Issue</button>']);
   }
   function tile(k, name, what) {
