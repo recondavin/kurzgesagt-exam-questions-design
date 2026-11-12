@@ -855,7 +855,7 @@
     var swapped = chosen().some(function (id) { return ids.indexOf(id) < 0; });
     var h = title('Compare it') +
       '<p class="eng-cp__theme"><span class="eng-tag" style="--c:var(--m-theme)">Theme or Issue</span> <b>' + esc(th.name) + '</b> · a 30 + 40 answer</p>' +
-      '<p class="eng-p">' + esc(th.what) + ' Part (a), 30 marks, is one text on its own. Part (b), 40 marks, compares your other two.</p>' +
+      '<p class="eng-p">' + esc(th.what) + ' Part (a), 30 marks, is one text on its own. Part (b), 40 marks, compares your other two texts together, and the part (a) text stays out of it.</p>' +
       (swapped ? '<p class="eng-p eng-cp__warn">This one isn\'t ready for every text yet, so it uses ' + ids.map(function (id) { return '<i>' + esc(text(id).title) + '</i>'; }).join(', ').replace(/, ([^,]*)$/, ' and $1') + '.</p>' : '') +
       '<h2 class="eng-h2"><span class="eng-cp__n">1</span>Which text goes in part (a)?</h2>' +
       '<div class="eng-cp__texts">' + ids.map(function (id) {
@@ -867,6 +867,12 @@
       '<p class="eng-p eng-cp__why">' + esc(th.bestWhy) + '</p>';
     if (!a) { app.innerHTML = cpPage(h); return; }
     var w = cpWork(th, a), B = ids.filter(function (id) { return id !== a; });
+    // Which text goes where, said plainly (the user: "that should be mentioned clearly"): part (b) is the other two
+    // compared together, never the part (a) text.
+    var tx = function (id) { return '<i style="--c:' + COL[id] + '">' + esc(text(id).title) + '</i>'; };
+    h += '<div class="eng-cp__rule"><p><b>Part (a)</b><span>' + tx(a) + ' on its own</span></p>' +
+      '<p><b>Part (b)</b><span>' + tx(B[0]) + ' and ' + tx(B[1]) + ', compared together in every paragraph</span></p>' +
+      '<p class="eng-cp__rnot">Don\'t bring <i>' + esc(shortTitle(a)) + '</i> into part (b): it gets no marks there.</p></div>';
     // 2: part (a): written in the popup if the text has a writing guide, else three points to pick
     var WR = th.write && th.write[a];
     if (WR) h += cpWriterHtml(th, a);
@@ -894,6 +900,7 @@
       }).join('') + '</div>';
     };
     h += '<h2 class="eng-h2"><span class="eng-cp__n">3</span>Part (b): link <i>' + esc(shortTitle(B[0])) + '</i> and <i>' + esc(shortTitle(B[1])) + '</i></h2>' +
+      '<p class="eng-p">Part (b) compares <i>' + esc(shortTitle(B[0])) + '</i> and <i>' + esc(shortTitle(B[1])) + '</i>: the two texts you didn\'t use in part (a). Write about them <b>together</b>, a moment from each in every paragraph, not one text and then the other. <i>' + esc(shortTitle(a)) + '</i> stays out of part (b).</p>' +
       '<p class="eng-p">Tap a moment, then a moment from the other text that shows the same thing about power. Then say how they compare. Each link is a paragraph: get three or four.</p>' +
       '<div class="eng-cpb" data-cpb>' + col(B[0]) + '<svg class="eng-cpb__lines" aria-hidden="true"></svg>' + col(B[1]) + '</div>';
     if (CPPICK) {

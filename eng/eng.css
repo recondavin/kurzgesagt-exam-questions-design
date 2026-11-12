@@ -187,6 +187,14 @@ a.eng-card:focus-visible, .eng-btn:focus-visible, .eng-chip:focus-visible, .eng-
 .eng-cpt[aria-pressed="true"] { border-color: var(--m-theme); }
 .eng-cpt[aria-pressed="true"] .eng-cpt__t::after { content: '✓ Part (a)'; display: block; margin-top: 6px; color: var(--m-theme); font: 800 18px Nunito, sans-serif; }
 .eng-cp__why { margin-top: 18px; }
+/* Which text goes in which part, said plainly under the pick. */
+.eng-cp__rule { display: grid; gap: 10px; max-width: 900px; margin: 28px 0 0; padding: 22px 26px; border-radius: 20px; background: var(--surface); }
+.eng-cp__rule p { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; align-items: baseline; margin: 0; color: #fff; font: 700 20px/1.45 Nunito, sans-serif; }
+.eng-cp__rule b { color: var(--m-theme); font: 600 23px Fredoka, Nunito, sans-serif; }
+.eng-cp__rule i { color: var(--c, #fff); font-style: italic; }
+.eng-cp__rule .eng-cp__rnot { display: block; margin-top: 6px; padding-top: 14px; border-top: 2px solid var(--raised); color: var(--note); font-size: 18px; }
+.eng-cp__rule .eng-cp__rnot i { color: inherit; }
+@media (max-width: 600px) { .eng-cp__rule { padding: 18px; } .eng-cp__rule p { grid-template-columns: minmax(0, 1fr); gap: 2px; font-size: 18px; } .eng-cp__rule b { font-size: 20px; } }
 /* 2 (texts without a writing guide): three points to pick. */
 .eng-cp__pts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .eng-cpp { padding: 16px 20px 18px; border: 3px solid var(--raised); border-radius: 18px; }
