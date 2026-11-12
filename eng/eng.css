@@ -1343,3 +1343,9 @@ a.eng-part:hover { background: var(--raised); }
   .eng-cpd__body { padding-bottom: 160px; }
 }
 @media (prefers-reduced-motion: reduce) { .eng-tch, .eng-tch__say.is-pop { animation: none; } .eng-tch__rest { transition: none; } }
+
+/* The whole writing popup in thick Outfit (the user: "all of the paragraph 3 page"): every piece of text in it and in
+   the teacher's bubble, keeping each one's weight (600-900); what was in Fredoka (scene title, word-list headings,
+   buttons) goes to 800. */
+#eng-cpd, #eng-cpd *, .eng-tch, .eng-tch * { font-family: Outfit, Nunito, sans-serif !important; }
+#eng-cpd h3, #eng-cpd .eng-btn, #eng-cpd .eng-cpd__banner b { font-weight: 800; }
