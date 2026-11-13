@@ -1485,10 +1485,16 @@
         var m = text(a).moments[para.scene - 1], rep = G.scenes[para.scene].reps[para.rep || 0], pic = scenePics(a, m.id)[0];
         top = '<div class="eng-cpd__banner" style="--c:' + COL[a] + '">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') +
           '<div><span class="eng-cpd__bt"><span class="eng-cpm__n">' + para.scene + '</span>' + esc(m.title) + '</span><b>' + esc(rep.title) + '</b><span class="eng-cpd__bs">' + esc(rep.say) + '</span>' +
-          '<span class="eng-cpd__techs">Techniques: ' + G.scenes[para.scene].techniques.map(function (q) { return '<i title="' + esc(q.what) + '">' + esc(q.name) + '</i>'; }).join('') + '</span></div></div>';
+          '<span class="eng-cpd__techs">Techniques: ' + G.scenes[para.scene].techniques.map(function (q) { return '<i title="' + esc(q.what) + '">' + esc(q.name) + '</i>'; }).join('') + '</span></div></div>' +
+          '<div class="eng-cpb__recap"><h3>What happens in this key scene</h3><p><b>' + esc(sceneWhere(a, m)) + ':</b> ' + esc(m.what) + '</p></div>';
       } else {
         var ex = slotExample(th, a, s);
-        top = threeHtml(th, a, W) + (ex.length ? exampleHtml(ex, null, 'x' + s + ex.map(function (g) { return g[1].length; }).join('-')) : '');
+        var rc = W.paras.map(function (q, k) {
+          if (!q.scene) return '';
+          var mq = text(a).moments[q.scene - 1];
+          return '<p><b>Paragraph ' + (k + 1) + ', ' + esc(mq.title) + ':</b> ' + esc(firstSentence(mq.what)) + '</p>';
+        }).join('');
+        top = threeHtml(th, a, W) + (rc ? '<div class="eng-cpb__recap"><h3>What happens in these key scenes</h3>' + rc + '</div>' : '') + (ex.length ? exampleHtml(ex, null, 'x' + s + ex.map(function (g) { return g[1].length; }).join('-')) : '');
       }
       var P = slotParts(W, s);
       body = top + '<div class="eng-cpd__write"><div class="eng-cpd__parts">' + partsOf(th, a, s).map(function (pt, pi) {
@@ -1947,8 +1953,11 @@
   // Keep the scene recap concrete. The student builds the thematic comparison for themselves in the PACE boxes below.
   function cpbSceneRecap(mid) {
     var o = mom(mid), tid = tidOf(mid);
-    return '<p><b>' + esc(shortTitle(tid)) + ':</b> ' + esc(firstSentences(o.m.what, 2)) + '</p>';
+    return '<p><b>' + esc(sceneWhere(tid, o.m)) + ':</b> ' + esc(firstSentences(o.m.what, 2)) + '</p>';
   }
+  // What actually happens, under the scene you're writing about (the user: "under the scenes you see when writing the essay
+  // put context underneath them of what actually happens"): the text and where in it, e.g. "Sive (Act 1, Scene 2)".
+  function sceneWhere(tid, m) { return shortTitle(tid) + (m.where ? ' (' + m.where + ')' : ''); }
   function cpbCard(mid, on, extra, attr, i) {
     var o = mom(mid), tid = tidOf(mid), pic = scenePics(tid, mid)[0];
     return '<button type="button" class="eng-cpd__sc' + (on ? ' is-on' : '') + '" ' + attr + ' style="--c:' + COL[tid] + ';--i:' + i + '">' +

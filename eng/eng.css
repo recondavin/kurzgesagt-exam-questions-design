@@ -1755,3 +1755,7 @@ body.eng-cpd-on #eng-guide { display: none; }
 .eng-cpd__part.is-skip header { opacity: .5; }
 .eng-cpd__part.is-skip .eng-cpd__pl { text-decoration: line-through; text-decoration-thickness: 2px; }
 .eng-cpd__skipped { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 8px 0 0; color: var(--k-dim, #93A5AE); font: 600 17px Outfit, Nunito, sans-serif; }
+
+/* What happens, right under the scene(s) at the top of the part (a) writing step: sits close to the banner or the cards. */
+.eng-cpd__banner + .eng-cpb__recap, .eng-cpd__three + .eng-cpb__recap { margin-top: -14px; }
+.eng-cpb__recap p { max-width: 980px; }
