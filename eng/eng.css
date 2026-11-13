@@ -1821,8 +1821,8 @@ body.eng-cpd-on #eng-guide { display: none; }
   .eng-cpd__mhead { display: grid; gap: 14px; margin: -4px 0 24px; }
   .eng-cpd__mhead .eng-cpd__steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-/* The popup's header never shrinks to make room for a long page under it. */
-#eng-cpd .eng-cpd__top { flex: none; }
+/* Phones: the popup's header never shrinks to make room for a long page under it. */
+@media (max-width: 700px) { #eng-cpd .eng-cpd__top { flex: none; } }
 
 /* Phones: the swipe-through before a paragraph. One screen at a time (snap scrolling), each one animating in as it arrives,
    a finger on the first showing you to swipe up, dots on the right for where you are, and Start on the last. */
