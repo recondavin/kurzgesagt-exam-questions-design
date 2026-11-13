@@ -1771,3 +1771,16 @@ body.eng-cpd-on #eng-guide { display: none; }
   .eng-cpm__b { grid-template-columns: minmax(0, 1fr); gap: 6px; }
   .eng-cmpg .eng-cpm__t { overflow-wrap: break-word; hyphens: auto; }
 }
+
+/* No numbered circles (the user: "what is the point in every single number with colored circle please get rid of them"):
+   the steps lose their big numbered circle and the line joining them (the step bar at the top still numbers them), the
+   scene chips are just the title in the text's colour, the board says "Paired" in words, and the opening's picked scenes
+   say "Paragraph 1" in a pill. */
+.eng-cmpg .eng-cp__n { display: none; }
+.eng-cp__step { padding-left: 0; }
+.eng-cp__step::before { display: none; }
+.eng-cp__step + .eng-cp__step { padding-top: 36px; border-top: 2px solid var(--raised); }
+.eng-cpc { padding: 3px 14px; background: color-mix(in srgb, var(--c) 18%, var(--raised)); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--c) 55%, transparent); }
+.eng-cpl__i { grid-template-columns: minmax(0, 1fr); }
+.eng-cpm__used { justify-self: start; padding: 3px 10px; border-radius: 999px; background: #58CC02; color: #13212A; font: 800 13px/1.3 Nunito, sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+.eng-cpd__ord { width: auto; height: auto; padding: 6px 14px; border-radius: 999px; font-size: 17px; }

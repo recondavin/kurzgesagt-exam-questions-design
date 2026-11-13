@@ -847,7 +847,7 @@
   function stop(s) { return /[.?!]$/.test(s) ? s : s + '.'; }
   function momChip(mid) {
     var o = mom(mid);
-    return '<a class="eng-cpc" style="--c:' + COL[o.t.id] + '" href="#text/' + o.t.id + '/' + mid + '"><span>' + o.n + '</span>' + esc(o.m.title) + '</a>';
+    return '<a class="eng-cpc" style="--c:' + COL[o.t.id] + '" href="#text/' + o.t.id + '/' + mid + '">' + esc(o.m.title) + '</a>';
   }
   // A red warning box (the user: "almost like a warning", "red box", "i dont care if it looks ugly i want them to do
   // WELL"): a warning sign, a heading, then each rule on its own line.
@@ -993,9 +993,8 @@
         if (used[mid]) st += ' is-used';
         w.links.forEach(function (l, k) { if (l.a === mid || l.b === mid) nums.push(k + 1); });
         return '<button type="button" class="eng-cpm' + st + '" data-cpm="' + mid + '" aria-pressed="' + (CPSEL === mid) + '">' +
-          (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '<span class="eng-cpm__ph" aria-hidden="true">' + o.n + '</span>') +
-          '<span class="eng-cpm__b"><span class="eng-cpm__n">' + o.n + '</span><span class="eng-cpm__t">' + esc(o.m.title) + '</span></span>' +
-          (nums.length ? '<span class="eng-cpm__k" aria-label="In pair ' + nums.join(' and ') + '">' + nums.join(' ') + '</span>' : '') + '</button>';
+          (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '<span class="eng-cpm__ph" aria-hidden="true"></span>') +
+          '<span class="eng-cpm__b"><span class="eng-cpm__t">' + esc(o.m.title) + '</span>' + (nums.length ? '<span class="eng-cpm__used">Paired</span>' : '') + '</span></button>';
       }).join('') + '</div>';
     };
     var other = CPSEL ? F.filter(function (x) { return x !== tidOf(CPSEL); })[0] : null, pr;
@@ -1012,7 +1011,7 @@
       '<div class="eng-cpb" data-cpb>' + col(F[0]) + '<svg class="eng-cpb__lines" aria-hidden="true"></svg>' + col(F[1]) + '</div>' +
       (n ? '<ol class="eng-cpl eng-cpl--mini">' + w.links.map(function (l, k) {
         var x = cpFind(th, l.a, l.b), left = tidOf(l.a) === F[0] ? l.a : l.b, right = left === l.a ? l.b : l.a;
-        return '<li class="eng-cpl__i eng-cpl--' + x.rel + '"><span class="eng-cpl__k">' + (k + 1) + '</span><div><p class="eng-cpl__m">' + momChip(left) + momChip(right) + '</p>' +
+        return '<li class="eng-cpl__i eng-cpl--' + x.rel + '"><div><p class="eng-cpl__m">' + momChip(left) + momChip(right) + '</p>' +
           '<p class="eng-cpl__h"><b>' + esc(x.aspect) + '</b></p></div>' +
           '<button type="button" class="eng-cpl__x" data-cp-del="' + k + '" aria-label="Remove pair ' + (k + 1) + '">×</button></li>';
       }).join('') + '</ol>' : '') +
@@ -1177,7 +1176,7 @@
     CPFB = null; CPHINT = null;
     var inPair = 0;
     w.links.forEach(function (l, k) { if (!inPair && (l.a === mid || l.b === mid)) inPair = k + 1; });
-    if (inPair) { CPFB = { kind: 'have', head: 'Already in pair ' + inPair + '. Remove that first.', body: '' }; return; }
+    if (inPair) { CPFB = { kind: 'have', head: 'Already paired. Remove that pair first.', body: '' }; return; }
     if (!CPSEL || CPSEL === mid || tidOf(CPSEL) === tidOf(mid)) {
       if (CPSEL === mid) { CPSEL = null; CPPICK = null; return; }
       // A scene whose matches are all used already: say so, rather than nothing glowing.
@@ -1335,7 +1334,7 @@
     var m = text(a).moments[n - 1], sc = G.scenes[n], pic = scenePics(a, m.id)[0];
     return '<button type="button" class="eng-cpd__sc' + (on ? ' is-on' : '') + '" ' + attr + ' style="--c:' + COL[a] + ';--i:' + (n - 1) + '">' +
       (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '<span class="eng-cpd__ph"></span>') +
-      '<span class="eng-cpd__sct"><span class="eng-cpm__n">' + n + '</span>' + esc(m.title) + '</span>' + sceneCtx(m) +
+      '<span class="eng-cpd__sct">' + esc(m.title) + '</span>' + sceneCtx(m) +
       '<span class="eng-cpd__scr"><em>Can represent:</em> ' + sc.reps.map(function (r) { return esc(r.title); }).join(' · ') + '</span>' + (extra || '') + '</button>';
   }
   // The three paragraphs' scenes, small, at the top of the opening and the ending.
@@ -1344,7 +1343,7 @@
     return '<div class="eng-cpd__three">' + W.paras.map(function (p, k) {
       if (!p.scene) return '<div class="eng-cpd__mini is-empty"><b>Paragraph ' + (k + 1) + '</b><span>No scene yet</span></div>';
       var m = text(a).moments[p.scene - 1], pic = scenePics(a, m.id)[0], rep = G.scenes[p.scene].reps[p.rep || 0];
-      return '<div class="eng-cpd__mini">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') + '<div><b>Paragraph ' + (k + 1) + ' · ' + (p.scene) + ' ' + esc(m.title) + '</b><span>' + esc(rep.title) + '</span></div></div>';
+      return '<div class="eng-cpd__mini">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') + '<div><b>Paragraph ' + (k + 1) + ' · ' + esc(m.title) + '</b><span>' + esc(rep.title) + '</span></div></div>';
     }).join('') + '</div>';
   }
   function firstSentence(s) { return (String(s).match(/^.*?[.!?](?=\s+[A-Z‘“']|$)/) || [s])[0]; }
@@ -1383,7 +1382,7 @@
     return '<div class="eng-cpd__tree' + (CPW.just === k ? ' is-new' : '') + '" data-tree>' +
       (label ? '<p class="eng-cpd__tl">' + esc(label) + '</p>' : '') +
       '<div class="eng-cpd__root" style="--c:' + COL[a] + '">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') +
-        '<div class="eng-cpd__rt"><b><span class="eng-cpm__n">' + p.scene + '</span> ' + esc(m.title) + '</b>' +
+        '<div class="eng-cpd__rt"><b>' + esc(m.title) + '</b>' +
         '<p class="eng-cpd__rw"><span>What happens</span><span data-type="w' + p.scene + '">' + esc(m.what) + '</span></p>' +
         '<small>' + (on ? 'You picked one below. Tap another to change it.' : 'So what does this scene represent about ' + esc(th.name.toLowerCase()) + '? Pick one below.') + '</small></div></div>' +
       '<svg class="eng-cpd__arrows" aria-hidden="true"></svg>' +
@@ -1459,7 +1458,7 @@
     var nums = text(a).moments.map(function (m, i) { return i + 1; }).filter(function (n) { return G.scenes[n]; });
     if (s === 'open' && CPW.step === 1) {
       body = '<p class="eng-cpd__lead">Pick the three or four scenes your answer is built on, in the order you\'ll write about them. <b>' + CPW.pick.length + ' picked</b></p><div class="eng-cpd__scenes">' +
-        nums.map(function (n) { var k = CPW.pick.indexOf(n); return sceneCard(a, G, n, k >= 0, k >= 0 ? '<span class="eng-cpd__ord">' + (k + 1) + '</span>' : '', 'data-cpw-pick="' + n + '" aria-pressed="' + (k >= 0) + '"'); }).join('') + '</div>';
+        nums.map(function (n) { var k = CPW.pick.indexOf(n); return sceneCard(a, G, n, k >= 0, k >= 0 ? '<span class="eng-cpd__ord">Paragraph ' + (k + 1) + '</span>' : '', 'data-cpw-pick="' + n + '" aria-pressed="' + (k >= 0) + '"'); }).join('') + '</div>';
       foot = '<button type="button" class="eng-btn" data-cpw-picked' + (CPW.pick.length >= 3 ? '' : ' disabled') + '>Next: what they represent</button>';
     } else if (s === 'open' && CPW.step === 2) {
       var left = W.paras.filter(function (p) { return !repPicked(G, p); }).length;
@@ -1484,7 +1483,7 @@
       if (para) {
         var m = text(a).moments[para.scene - 1], rep = G.scenes[para.scene].reps[para.rep || 0], pic = scenePics(a, m.id)[0];
         top = '<div class="eng-cpd__banner" style="--c:' + COL[a] + '">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') +
-          '<div><span class="eng-cpd__bt"><span class="eng-cpm__n">' + para.scene + '</span>' + esc(m.title) + '</span><b>' + esc(rep.title) + '</b><span class="eng-cpd__bs">' + esc(rep.say) + '</span>' +
+          '<div><span class="eng-cpd__bt">' + esc(m.title) + '</span><b>' + esc(rep.title) + '</b><span class="eng-cpd__bs">' + esc(rep.say) + '</span>' +
           '<span class="eng-cpd__techs">Techniques: ' + G.scenes[para.scene].techniques.map(function (q) { return '<i title="' + esc(q.what) + '">' + esc(q.name) + '</i>'; }).join('') + '</span></div></div>' +
           '<div class="eng-cpb__recap"><h3>What happens in this key scene</h3><p><b>' + esc(sceneWhere(a, m)) + ':</b> ' + esc(m.what) + '</p></div>';
       } else {
@@ -1962,7 +1961,7 @@
     var o = mom(mid), tid = tidOf(mid), pic = scenePics(tid, mid)[0];
     return '<button type="button" class="eng-cpd__sc' + (on ? ' is-on' : '') + '" ' + attr + ' style="--c:' + COL[tid] + ';--i:' + i + '">' +
       (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '<span class="eng-cpd__ph"></span>') +
-      '<span class="eng-cpd__sct"><span class="eng-cpm__n">' + o.n + '</span>' + esc(o.m.title) + '</span>' + sceneCtx(o.m) + (extra || '') + '</button>';
+      '<span class="eng-cpd__sct">' + esc(o.m.title) + '</span>' + sceneCtx(o.m) + (extra || '') + '</button>';
   }
   function cpbDraw(focus) {
     var box = document.getElementById('eng-cpd');
