@@ -875,7 +875,7 @@
       (eg ? '<p class="eng-cpx__eg"><b>For example:</b> ' + esc(eg.aspect) + ', ' + momChip(eg.a) + ' and ' + momChip(eg.b) + '. <span>“' + esc(eg.say) + '”</span></p>' : '') +
       '<h3>The whole of part (b)</h3><ul class="eng-cpx__whole">' +
       '<li><b>Opening</b><span>Name both texts and their authors (<i>' + esc(text(B[0]).title) + '</i> by ' + esc(text(B[0]).author) + ', <i>' + esc(text(B[1]).title) + '</i> by ' + esc(text(B[1]).author) + '), answer the question, and say your 3 or 4 points.</span></li>' +
-      '<li><b>3 or 4 paragraphs</b><span>One for each link you make on the board below.</span></li>' +
+      '<li><b>3 or 4 paragraphs</b><span>One for each pair of scenes you picked above.</span></li>' +
       '<li><b>Ending</b><span>Your judgement: which text shows ' + esc(th.name.toLowerCase()) + ' more powerfully, and why.</span></li></ul>' +
       '</div>';
   }
@@ -932,9 +932,11 @@
           (nums.length ? '<span class="eng-cpm__k" aria-label="In link ' + nums.join(' and ') + '">' + nums.join(' ') + '</span>' : '') + '</button>';
       }).join('') + '</div>';
     };
-    h += '<h2 class="eng-h2"><span class="eng-cp__n">3</span>Part (b): link <i>' + esc(shortTitle(B[0])) + '</i> and <i>' + esc(shortTitle(B[1])) + '</i></h2>' +
-      cpHowB(th, a, B, L) +
-      '<p class="eng-p">Tap a moment, then a moment from the other text that shows the same thing about power. Then say how they compare. Each link is a paragraph: get three or four.</p>' +
+    // Picking first, the explaining after (the user: "first you pick the scenes and then move onto part b", "it should
+    // say PICK scenes and then the info can come later"): the board straight under the heading; the warning and the
+    // breakdown come after it, just before part (b) is written.
+    h += '<h2 class="eng-h2"><span class="eng-cp__n">3</span>Part (b): pick your scenes from <i>' + esc(shortTitle(B[0])) + '</i> and <i>' + esc(shortTitle(B[1])) + '</i></h2>' +
+      '<p class="eng-cp__pick"><b>Pick your scenes:</b> tap a moment in one text, then a moment in the other that shows the same thing about power, then say how they compare. Each pair is one paragraph: get three or four.</p>' +
       '<div class="eng-cpb" data-cpb>' + col(B[0]) + '<svg class="eng-cpb__lines" aria-hidden="true"></svg>' + col(B[1]) + '</div>';
     if (CPPICK) {
       h += '<div class="eng-cpq" role="group" aria-label="How do they compare?"><p><b>How do they compare?</b> ' + momChip(CPPICK[0]) + ' and ' + momChip(CPPICK[1]) + '</p><p class="eng-btns">' +
@@ -954,7 +956,7 @@
       }).join('') + '</ol>';
     }
     // 4: part (b), written like part (a)
-    h += cpbWriterHtml();
+    h += cpHowB(th, a, B, L) + cpbWriterHtml();
     // 5: the plan
     if (w.pts.length || w.links.length || (WR && (cwPrompt(cpWrite(th, a)) || cpPts(th, a, w).length))) h += '<h2 class="eng-h2"><span class="eng-cp__n">5</span>Your plan</h2>' + cpPlanHtml(th, a, B, w);
     app.innerHTML = cpPage(h);
