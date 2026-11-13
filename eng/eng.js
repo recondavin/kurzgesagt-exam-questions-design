@@ -879,88 +879,198 @@
       '<li><b>Ending</b><span>Your judgement: which text shows ' + esc(th.name.toLowerCase()) + ' more powerfully, and why.</span></li></ul>' +
       '</div>';
   }
+  // Compare it as building blocks, like a tutorial (the user: "its not in building blocks when you shove a bunch of
+  // information in my face ... pick your scene and then 4 reveals itself (the plan should come before the essay) and make
+  // the plan simpler and then click next and then you start making the essay", "the student learns from doing, not from
+  // reading a page of random words", "make it EASY to get around"). Five steps, each shown once the one before is done
+  // or you tap Next (`by.stage`, the furthest reached): 1 pick the part (a) text, 2 write part (a), 3 pick your part (b)
+  // scenes, 4 your plan, 5 write part (b). A step bar under the top bar jumps between them. No blocks of explaining on
+  // the page: the examiner in the corner gives it one short tip at a time (`guideDraw`), for the step you're on.
+  var CP_STEPS = ['Part (a) text', 'Write part (a)', 'Pick scenes', 'Your plan', 'Write part (b)'];
+  function cpStage(th, a, w) {
+    if (!a) return 1;
+    var st = Math.max(cpBy(th).stage || 1, 2);
+    if (w.links.length) st = Math.max(st, 3);
+    if (w.links.length >= 3) st = Math.max(st, 4);
+    var Wb = w.writeB;
+    if (Wb && cpbSlots(Wb).some(function (x) { return cpbText(Wb, x); })) st = Math.max(st, 5);
+    return st;
+  }
+  function cpNav(st) {
+    return '<nav class="eng-cpnav" aria-label="Steps"><ol>' + CP_STEPS.map(function (x, i) {
+      var n = i + 1, open = n <= st, now = n === st;
+      return '<li class="' + (now ? 'is-on' : open ? 'is-open' : '') + '"><button type="button" data-cp-go="' + n + '"' + (open ? '' : ' disabled') + (now ? ' aria-current="step"' : '') + '><span>' + n + '</span>' + x + '</button></li>';
+    }).join('') + '</ol></nav>';
+  }
+  function cpNext(n, label) { return '<p class="eng-cp__nextp"><button type="button" class="eng-btn eng-cp__next" data-cp-stage="' + n + '">' + label + ' →</button></p>'; }
+  function cpScrollTo(n) {
+    var el = app.querySelectorAll('.eng-cp__step')[n - 1];
+    if (!el) return;
+    var nav = app.querySelector('.eng-cpnav'), off = (window.innerWidth <= 1100 ? 56 : 76) + (nav ? nav.offsetHeight : 0) + 12;
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - off, behavior: 'smooth' });
+  }
   function renderCompare() {
     renderShell('compare', 'Compare it');
     var th = cpTheme();
     if (!th) { app.innerHTML = title('Compare it') + '<p class="eng-p">Coming soon.</p>'; return; }
     var ids = cpTexts(th), by = cpBy(th), a = ids.indexOf(by.a) >= 0 ? by.a : null;
     var swapped = chosen().some(function (id) { return ids.indexOf(id) < 0; });
+    var w = a ? cpWork(th, a) : null, B = a ? ids.filter(function (id) { return id !== a; }) : [], st = cpStage(th, a, w);
     var h = title('Compare it') +
-      '<p class="eng-cp__theme"><span class="eng-tag" style="--c:var(--m-theme)">Theme or Issue</span> <b>' + esc(th.name) + '</b> · a 30 + 40 answer</p>' +
-      '<p class="eng-p">' + esc(th.what) + ' Part (a), 30 marks, is one text on its own. Part (b), 40 marks, compares your other two texts together, and the part (a) text stays out of it.</p>' +
-      (swapped ? '<p class="eng-p eng-cp__warn">This one isn\'t ready for every text yet, so it uses ' + ids.map(function (id) { return '<i>' + esc(text(id).title) + '</i>'; }).join(', ').replace(/, ([^,]*)$/, ' and $1') + '.</p>' : '') +
-      '<h2 class="eng-h2"><span class="eng-cp__n">1</span>Which text goes in part (a)?</h2>' +
+      '<p class="eng-cp__theme"><span class="eng-tag" style="--c:var(--m-theme)">Theme or Issue</span> <b>' + esc(th.name) + '</b> · a 30 + 40 answer</p>' + cpNav(st) +
+      (swapped ? '<p class="eng-p eng-cp__warn">Using ' + ids.map(function (id) { return '<i>' + esc(text(id).title) + '</i>'; }).join(', ').replace(/, ([^,]*)$/, ' and $1') + ' for this one.</p>' : '') +
+      '<h2 class="eng-h2"><span class="eng-cp__n">1</span>Pick your part (a) text</h2>' +
       '<div class="eng-cp__texts">' + ids.map(function (id) {
         var p = pics(id).filter(function (x) { return x.hero; })[0] || pics(id)[0];
         return '<button type="button" class="eng-cpt" data-cp-a="' + id + '" aria-pressed="' + (id === a) + '" style="--c:' + COL[id] + '">' +
           (p ? '<img src="assets/eng/img/' + esc(p.file) + '" alt="" loading="lazy">' : '<span class="eng-cpt__img"></span>') +
           '<span class="eng-cpt__t">' + esc(text(id).title) + '</span>' + (id === th.best ? '<span class="eng-cpt__best">Best for (a)</span>' : '') + '</button>';
-      }).join('') + '</div>' +
-      '<p class="eng-p eng-cp__why">' + esc(th.bestWhy) + '</p>';
-    if (!a) { app.innerHTML = cpPage(h); return; }
-    var w = cpWork(th, a), B = ids.filter(function (id) { return id !== a; });
-    // Which text goes where, said plainly (the user: "that should be mentioned clearly"): part (b) is the other two
-    // compared together, never the part (a) text.
-    var tx = function (id) { return '<i style="--c:' + COL[id] + '">' + esc(text(id).title) + '</i>'; };
-    h += cpWarnBox('Which text goes where', [
-      '<b>Part (a):</b> ' + tx(a) + ' <b>on its own</b>.',
-      '<b>Part (b):</b> ' + tx(B[0]) + ' <b>and</b> ' + tx(B[1]) + ', compared <b>together</b> in every paragraph.',
-      'Do <b>NOT</b> write about <i>' + esc(shortTitle(a)) + '</i> in part (b). It gets <b>no marks</b> there.']);
+      }).join('') + '</div>';
+    if (!a) { app.innerHTML = cpPage(h); cpNavShow(); guideDraw(1, th, null, []); return; }
     // 2: part (a): written in the popup if the text has a writing guide, else three points to pick
     var WR = th.write && th.write[a];
     if (WR) h += cpWriterHtml(th, a);
     else h += '<h2 class="eng-h2"><span class="eng-cp__n">2</span>Part (a): three points about <i>' + esc(text(a).title) + '</i></h2>' +
-      '<p class="eng-p">Pick three. Each one is a paragraph, built on its key moment. <b data-cp-count>' + w.pts.length + ' of 3 picked</b>' + (w.pts.length >= 3 ? ': tap one to swap it out.' : '.') + '</p>' +
+      '<p class="eng-p">Pick three. <b data-cp-count>' + w.pts.length + ' of 3 picked</b></p>' +
       '<div class="eng-cp__pts">' + th.points[a].map(function (pt, i) {
         var on = w.pts.indexOf(i) >= 0;
         return '<div class="eng-cpp' + (on ? ' is-on' : '') + '" style="--c:' + COL[a] + '"><button type="button" class="eng-cpp__b" data-cp-pt="' + i + '" aria-pressed="' + on + '">' +
           '<span class="eng-cpp__tick" aria-hidden="true">' + (on ? w.pts.indexOf(i) + 1 : '+') + '</span><span class="eng-cpp__t">' + esc(pt.title) + '</span></button>' +
           '<p>' + esc(pt.say) + '</p><p class="eng-cpp__m">' + pt.m.map(function (n) { return momChip(text(a).moments[n - 1].id); }).join('') + '</p></div>';
       }).join('') + '</div>';
-    // 3: part (b), the board
-    var L = cpLinks(th, B[0], B[1]);
+    if (st < 3) h += cpNext(3, 'Next: part (b)');
+    if (st >= 3) {
+      var F = cpbOrder(B);
+      h += cpBoardHtml(th, w, F, cpLinks(th, F[0], F[1]));
+      if (st >= 4) { h += cpPlanB(th, a, F); if (st < 5) h += cpNext(5, 'Next: write part (b)'); }
+      if (st >= 5) h += cpbWriterHtml();
+    }
+    app.innerHTML = cpPage(h);
+    if (st >= 3) requestAnimationFrame(cpLines);
+    cpNavShow();
+    guideDraw(st, th, a, B);
+  }
+  // On a narrow screen the step bar scrolls sideways: keep the step you're on in view.
+  function cpNavShow() {
+    var cur = app.querySelector('.eng-cpnav .is-on'), ol = cur && cur.parentNode;
+    if (cur && ol.scrollWidth > ol.clientWidth) ol.scrollLeft = Math.max(0, cur.offsetLeft - 12);
+  }
+  // 3: pick your scenes. One big line says what to do next; after the first tap, the scenes it links to glow and the rest
+  // fade; tapping one of those makes the pair. Swap puts the other text first.
+  function cpBoardHtml(th, w, F, L) {
+    var n = w.links.length, partners = {};
+    if (CPSEL) L.forEach(function (l) { if (l.a === CPSEL) partners[l.b] = 1; if (l.b === CPSEL) partners[l.a] = 1; });
     var col = function (id) {
       var ms = [];
       L.forEach(function (l) { [l.a, l.b].forEach(function (m) { if (tidOf(m) === id && ms.indexOf(m) < 0) ms.push(m); }); });
       ms.sort(function (x, y) { return mom(x).n - mom(y).n; });
       return '<div class="eng-cpb__col" style="--c:' + COL[id] + '"><h3>' + esc(text(id).title) + '</h3>' + ms.map(function (mid) {
-        var o = mom(mid), nums = [], pic = scenePics(id, mid)[0];
+        var o = mom(mid), nums = [], pic = scenePics(id, mid)[0], st = CPSEL && tidOf(CPSEL) !== id ? (partners[mid] ? ' is-hint' : ' is-dim') : (CPHINT === mid ? ' is-hint' : '');
         w.links.forEach(function (l, k) { if (l.a === mid || l.b === mid) nums.push(k + 1); });
-        return '<button type="button" class="eng-cpm' + (CPHINT === mid ? ' is-hint' : '') + '" data-cpm="' + mid + '" aria-pressed="' + (CPSEL === mid) + '">' +
+        return '<button type="button" class="eng-cpm' + st + '" data-cpm="' + mid + '" aria-pressed="' + (CPSEL === mid) + '">' +
           (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '') +
           '<span class="eng-cpm__n">' + o.n + '</span><span class="eng-cpm__t">' + esc(o.m.title) + '</span>' +
-          (nums.length ? '<span class="eng-cpm__k" aria-label="In link ' + nums.join(' and ') + '">' + nums.join(' ') + '</span>' : '') + '</button>';
+          (nums.length ? '<span class="eng-cpm__k" aria-label="In pair ' + nums.join(' and ') + '">' + nums.join(' ') + '</span>' : '') + '</button>';
       }).join('') + '</div>';
     };
-    // Picking first, the explaining after (the user: "first you pick the scenes and then move onto part b", "it should
-    // say PICK scenes and then the info can come later"): the board straight under the heading; the warning and the
-    // breakdown come after it, just before part (b) is written.
-    h += '<h2 class="eng-h2"><span class="eng-cp__n">3</span>Part (b): pick your scenes from <i>' + esc(shortTitle(B[0])) + '</i> and <i>' + esc(shortTitle(B[1])) + '</i></h2>' +
-      '<p class="eng-cp__pick"><b>Pick your scenes:</b> tap a moment in one text, then a moment in the other that shows the same thing about power, then say how they compare. Each pair is one paragraph: get three or four.</p>' +
-      '<div class="eng-cpb" data-cpb>' + col(B[0]) + '<svg class="eng-cpb__lines" aria-hidden="true"></svg>' + col(B[1]) + '</div>';
-    if (CPPICK) {
-      h += '<div class="eng-cpq" role="group" aria-label="How do they compare?"><p><b>How do they compare?</b> ' + momChip(CPPICK[0]) + ' and ' + momChip(CPPICK[1]) + '</p><p class="eng-btns">' +
-        ['same', 'differ', 'degree'].map(function (r) { return '<button type="button" class="eng-btn eng-cpq__' + r + '" data-cp-rel="' + r + '">' + REL[r] + '</button>'; }).join('') +
-        '<button type="button" class="eng-btn eng-btn--quiet" data-cp-cancel>Cancel</button></p></div>';
-    } else {
-      h += '<p class="eng-btns eng-cp__tools"><button type="button" class="eng-btn eng-btn--quiet" data-cp-hint>Give me a hint</button>' +
-        (w.links.length || w.pts.length || (w.write && cwPrompt(w.write)) ? '<button type="button" class="eng-btn eng-btn--quiet" data-cp-reset>Start again</button>' : '') + '</p>';
+    var other = CPSEL ? F.filter(function (x) { return x !== tidOf(CPSEL); })[0] : null, pr;
+    if (CPSEL) pr = ['Now pick one to link it with', other];
+    else if (n >= 4) pr = ['Four pairs: that\'s your part (b)', null];
+    else if (n >= 3) pr = ['That\'s ' + n + ' pairs. Add one more, or check your plan below', null];
+    else if (n) pr = ['Pick your next scene', F[0]];
+    else pr = ['Pick a scene', F[0]];
+    return '<h2 class="eng-h2"><span class="eng-cp__n">3</span><span class="eng-cpk-t"><span>Pick</span> <span>your</span> <span>scenes</span></span></h2>' +
+      '<div class="eng-cpk"><p class="eng-cpk__p" style="--c:' + (pr[1] ? COL[pr[1]] : 'var(--m-theme)') + '" aria-live="polite">' + esc(pr[0]) + (pr[1] ? ' in <i>' + esc(shortTitle(pr[1])) + '</i>' : '') +
+        (n ? ' <span class="eng-cpk__n">' + n + ' of 3–4</span>' : '') + '</p>' +
+        '<button type="button" class="eng-btn eng-btn--quiet eng-cpk__swap" data-cp-swap>⇄ ' + esc(shortTitle(F[1])) + ' first</button></div>' +
+      (CPFB ? '<div class="eng-cpf eng-cpf--' + CPFB.kind + '" role="status"><b>' + esc(CPFB.head) + '</b> ' + esc(CPFB.body || '') + '</div>' : '') +
+      '<div class="eng-cpb" data-cpb>' + col(F[0]) + '<svg class="eng-cpb__lines" aria-hidden="true"></svg>' + col(F[1]) + '</div>' +
+      (n ? '<ol class="eng-cpl eng-cpl--mini">' + w.links.map(function (l, k) {
+        var x = cpFind(th, l.a, l.b), left = tidOf(l.a) === F[0] ? l.a : l.b, right = left === l.a ? l.b : l.a;
+        return '<li class="eng-cpl__i eng-cpl--' + x.rel + '"><span class="eng-cpl__k">' + (k + 1) + '</span><div><p class="eng-cpl__m">' + momChip(left) + momChip(right) + '</p>' +
+          '<p class="eng-cpl__h"><b>' + esc(x.aspect) + '</b> <span class="eng-cpl__rel">' + REL[x.rel] + '</span></p></div>' +
+          '<button type="button" class="eng-cpl__x" data-cp-del="' + k + '" aria-label="Remove pair ' + (k + 1) + '">×</button></li>';
+      }).join('') + '</ol>' : '') +
+      '<p class="eng-btns eng-cp__tools"><button type="button" class="eng-btn eng-btn--quiet" data-cp-hint>Give me a hint</button>' +
+      (n ? '<button type="button" class="eng-btn eng-btn--quiet" data-cp-reset>Start again</button>' : '') + '</p>';
+  }
+  // 4: your plan, simple: the opening, a paragraph for each pair (its two scenes and what they share), the ending.
+  function cpPlanB(th, a, F) {
+    var W = cpWriteB(th, a, F), name = th.name.toLowerCase(), rows = [['Opening', 'Name both texts and their authors, and answer the question.']];
+    W.paras.forEach(function (q, k) {
+      if (!q.x || !q.y) return;
+      var L2 = cpbLink(th, q.x, q.y);
+      rows.push(['Paragraph ' + (k + 1), L2 ? L2.aspect + ' (' + REL[L2.rel].toLowerCase() + ')' : 'Your own link', [q.x, q.y]]);
+    });
+    rows.push(['Ending', 'Which text shows ' + name + ' more powerfully, and why.']);
+    return '<h2 class="eng-h2"><span class="eng-cp__n">4</span>Your plan</h2><ol class="eng-cpn2">' + rows.map(function (r) {
+      return '<li><b>' + esc(r[0]) + '</b><span>' + esc(r[1]) + '</span>' + (r[2] ? '<span class="eng-cpn2__m">' + r[2].map(momChip).join('') + '</span>' : '') + '</li>';
+    }).join('') + '</ol>';
+  }
+  function cpSwap(th) {
+    var by = cpBy(th), B = cpTexts(th).filter(function (id) { return id !== by.a; }), F = cpbOrder(B);
+    by.bFirst = F[1];
+    var Wb = cpWork(th, by.a).writeB;
+    if (Wb) Wb.paras.forEach(function (q) { var t1 = q.x; q.x = q.y; q.y = t1; q.parts = q.parts || {}; var p1 = q.parts.x; q.parts.x = q.parts.y; q.parts.y = p1; });
+    CPSEL = null; CPFB = null; CPHINT = null;
+  }
+  // The examiner's tips for the step you're on: one short line at a time, "1 of 4" with arrows (the user: "every big piece
+  // of information ... should come in smaller parts as you go along ... put some of it in that examiner in the side and
+  // on the top can be '1 of 5' and arrows back and forth ... so its like the examiner is talking to you"). The rules
+  // that cost marks are in red. Bottom right of the page; hidden while a writing popup is open.
+  var GUIDE = { stage: 0, i: 0, open: true, key: '', tips: [] }, GUIDE_EL = null;
+  function guideTips(st, th, a, B) {
+    var F = B.length ? cpbOrder(B) : [], s = function (id) { return shortTitle(id); }, name = th.name.toLowerCase();
+    if (st <= 1) return [{ t: 'This is a 30 + 40 answer on ' + name + '.' }, { t: 'Part (a) is one text on its own: 30 marks.' }, { t: 'Part (b) compares your other two texts: 40 marks.' },
+      { t: firstSentence(th.bestWhy) }, { t: 'Tap the text you want for part (a).' }];
+    if (st === 2) return [{ t: 'Part (a) is ' + text(a).title + ' on its own.' }, { t: 'Tap Write it on the Opening first: you pick your scenes there.' },
+      { t: 'Each paragraph: Point, Anchor, Evaluate. Most of the marks are in Evaluate.' }, { t: 'Aim for about 450 words.' }, { t: 'Done, or ready for part (b)? Tap Next: part (b).' }];
+    if (st === 3) return [{ t: 'Part (b) is ' + s(F[0]) + ' and ' + s(F[1]) + ' only. ' + s(a) + ' gets no marks here.', rule: true },
+      { t: 'Tap a scene, then the one it links to. The ones that glow are matches.' }, { t: 'Each pair is one paragraph. Get three or four.' }, { t: 'Want ' + s(F[1]) + ' first? Tap ⇄.' }];
+    if (st === 4) return [{ t: 'Your plan: one paragraph for each pair, in this order.' }, { t: 'Opening: name both texts and their authors, and answer the question.' },
+      { t: 'Ending: say which text does it more powerfully, and why.' }, { t: 'Happy with it? Tap Next: write part (b).' }];
+    return [{ t: 'Write about both texts together in every paragraph. Not one, then the other.', rule: true }, { t: 'Each paragraph: Point, ' + s(F[0]) + ', ' + s(F[1]) + ', Compare, Evaluate.' },
+      { t: 'Compare with Similarly, Whereas or Even more so.' }, { t: 'Aim for about 650 words in part (b).' }];
+  }
+  function guideDraw(st, th, a, B) {
+    if (!GUIDE_EL) {
+      GUIDE_EL = document.createElement('div'); GUIDE_EL.id = 'eng-guide'; GUIDE_EL.className = 'eng-tch eng-guide'; GUIDE_EL.setAttribute('data-mood', 'ok');
+      GUIDE_EL.addEventListener('click', function (e) { var b = e.target.closest('[data-guide]'); if (b && !b.disabled) guideClick(b.getAttribute('data-guide')); });
+      window.addEventListener('hashchange', function () { if (GUIDE_EL.parentNode && !/^#compare/.test(location.hash)) GUIDE_EL.remove(); });
     }
-    if (CPFB) h += '<div class="eng-cpf eng-cpf--' + CPFB.kind + '" role="status"><b>' + esc(CPFB.head) + '</b> ' + esc(CPFB.body) + '</div>';
-    if (w.links.length) {
-      h += '<ol class="eng-cpl">' + w.links.map(function (l, k) {
-        var x = cpFind(th, l.a, l.b), left = tidOf(l.a) === B[0] ? l.a : l.b, right = left === l.a ? l.b : l.a;
-        return '<li class="eng-cpl__i eng-cpl--' + x.rel + '"><span class="eng-cpl__k">' + (k + 1) + '</span><div><p class="eng-cpl__h"><b>' + esc(x.aspect) + '</b> <span class="eng-cpl__rel">' + REL[x.rel] + '</span></p>' +
-          '<p class="eng-cpl__m">' + momChip(left) + momChip(right) + '</p><p>' + esc(x.say) + '</p></div>' +
-          '<button type="button" class="eng-cpl__x" data-cp-del="' + k + '" aria-label="Remove link ' + (k + 1) + '">×</button></li>';
-      }).join('') + '</ol>';
-    }
-    // 4: part (b), written like part (a)
-    h += cpHowB(th, a, B, L) + cpbWriterHtml();
-    // 5: the plan
-    if (w.pts.length || w.links.length || (WR && (cwPrompt(cpWrite(th, a)) || cpPts(th, a, w).length))) h += '<h2 class="eng-h2"><span class="eng-cp__n">5</span>Your plan</h2>' + cpPlanHtml(th, a, B, w);
-    app.innerHTML = cpPage(h);
-    requestAnimationFrame(cpLines);
+    if (!GUIDE_EL.parentNode) { document.body.appendChild(GUIDE_EL); GUIDE.key = ''; }
+    if (GUIDE.stage !== st) { GUIDE.stage = st; GUIDE.i = 0; GUIDE.open = true; }
+    GUIDE.tips = guideTips(st, th, a, B);
+    guideRender();
+  }
+  function guideRender() {
+    var g = GUIDE, el = GUIDE_EL, i = Math.min(g.i, g.tips.length - 1), tip = g.tips[i], key = g.stage + '/' + i + '/' + g.open + '/' + tip.t;
+    if (key === g.key) return;
+    g.key = key;
+    clearInterval(el.typer); el.classList.remove('is-talking');
+    el.classList.toggle('is-helping', g.open); el.classList.toggle('is-rule', !!(g.open && tip.rule));
+    var fig = '<button type="button" class="eng-tch__fig" data-guide="toggle" aria-label="' + (g.open ? 'Hide the examiner\'s tips' : 'Show the examiner\'s tips') + '">' +
+      (window.ExamTeacher ? window.ExamTeacher.svg('left') + '<span class="eng-tch__head">' + window.ExamTeacher.head('left') + '</span>' : '') + '</button>';
+    var say = g.open ? '<div class="eng-tch__say is-pop is-done"><p class="eng-guide__top"><button type="button" data-guide="prev" aria-label="Previous tip"' + (i ? '' : ' disabled') + '>‹</button>' +
+        '<span>' + (i + 1) + ' of ' + g.tips.length + '</span><button type="button" data-guide="next" aria-label="Next tip"' + (i < g.tips.length - 1 ? '' : ' disabled') + '>›</button></p>' +
+        (tip.rule ? '<p class="eng-guide__rule">Rule</p>' : '') + '<p class="eng-tch__line" aria-live="polite"></p><button type="button" class="eng-tch__x" data-guide="toggle" aria-label="Hide the tips">×</button></div>'
+      : '<div class="eng-tch__say is-pop"><button type="button" class="eng-tch__ask" data-guide="toggle">Tips</button></div>';
+    el.innerHTML = say + fig;
+    var line = el.querySelector('.eng-tch__line');
+    if (!line) return;
+    var full = tip.t, n = 0;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { line.textContent = full; return; }
+    el.classList.add('is-talking');
+    el.typer = setInterval(function () { n += 2; line.textContent = full.slice(0, n); if (n >= full.length) { clearInterval(el.typer); el.classList.remove('is-talking'); } }, 20);
+  }
+  function guideClick(what) {
+    var g = GUIDE;
+    if (what === 'prev') g.i = Math.max(0, g.i - 1);
+    else if (what === 'next') g.i = Math.min(g.tips.length - 1, g.i + 1);
+    else if (what === 'toggle') g.open = !g.open;
+    guideRender();
+    var b = GUIDE_EL.querySelector('[data-guide="' + what + '"]:not([disabled])') || GUIDE_EL.querySelector('[data-guide="toggle"]');
+    if (b) b.focus({ preventScroll: true });
   }
   // The page: each step in its own section (for the line joining them), sliding in when you arrive (CP_ENTER).
   var CP_ENTER = false;
@@ -1044,8 +1154,13 @@
     if (!CPSEL || CPSEL === mid) { CPSEL = CPSEL === mid ? null : mid; CPPICK = null; return; }
     if (tidOf(CPSEL) === tidOf(mid)) { CPSEL = mid; return; }
     var have = w.links.filter(function (l) { return [l.a, l.b].sort().join() === [CPSEL, mid].sort().join(); })[0];
-    if (have) { var x = cpFind(th, have.a, have.b); CPFB = { kind: 'have', head: stop('You\'ve already linked these: ' + x.aspect), body: x.say }; CPSEL = null; return; }
-    CPPICK = [CPSEL, mid]; CPSEL = null;
+    if (have) { CPFB = { kind: 'have', head: 'You\'ve already paired these.', body: '' }; CPSEL = null; return; }
+    var x = cpFind(th, CPSEL, mid);
+    if (!x) { CPFB = { kind: 'miss', head: 'Not a strong link.', body: 'Pick one that glows.' }; return; }
+    if (w.links.length >= 4) { CPFB = { kind: 'have', head: 'You have four pairs already.', body: 'Remove one to swap this in.' }; CPSEL = null; return; }
+    w.links.push({ a: x.a, b: x.b, rel: x.rel });
+    CPFB = { kind: 'yes', head: 'Paired: ' + x.aspect + ' (' + REL[x.rel].toLowerCase() + ').', body: '' };
+    CPSEL = null;
   }
   function cpRel(rel) {
     var th = cpTheme(), a = cpBy(th).a, w = cpWork(th, a), p = CPPICK;
@@ -1142,8 +1257,8 @@
         (txt ? '<p class="eng-cpw__t">' + esc(txt) + '</p>' : '<p class="eng-cpw__e">' + (s === 'open' ? 'Start here: pick your three or four scenes, then write the opening.' :
           s === 'end' ? 'Sum it all up: what the film finally says about abuse of power.' : 'Pick a key scene and what it represents, then write it.') + '</p>') + '</li>';
     });
-    return '<h2 class="eng-h2"><span class="eng-cp__n">2</span>Part (a): write it, one part at a time</h2>' +
-      '<p class="eng-p">Tap <b>Write it</b>. You pick your scenes and what they represent, then write each part in small boxes, with ideas and ten words beside you.</p>' +
+    return '<h2 class="eng-h2"><span class="eng-cp__n">2</span>Write part (a)</h2>' +
+      '<p class="eng-p">Tap <b>Write it</b>, starting with the Opening.</p>' +
       '<ol class="eng-cpw">' + rows.join('') + '</ol>' +
       '<p class="eng-cpw__more">' + (W.paras.length < 4 ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-add>+ Add a fourth paragraph</button>' :
         '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-drop>Remove paragraph 4</button>') + '</p>' +
@@ -1697,7 +1812,11 @@
   // the paragraphs start from the links made on the board.
   var CPB_RANGE = { p: [15, 30], x: [20, 40], y: [20, 40], c: [25, 50], e: [35, 70], texts: [25, 50], points: [15, 35], judge: [25, 50], last: [10, 25] };
   var CPB_LINKWORDS = ['Similarly,', 'Likewise,', 'In the same way,', 'Both', 'Whereas', 'In contrast,', 'Unlike', 'On the other hand,', 'Even more so,', 'To a far greater extent,', 'Less obviously,', 'Just as'];
-  function cpbOrder(B) { return B.indexOf('stlt') >= 0 ? ['stlt'].concat(B.filter(function (x) { return x !== 'stlt'; })) : [B[1], B[0]]; }
+  function cpbOrder(B) {
+    var th = cpTheme(), f = th ? cpBy(th).bFirst : null;
+    if (f && B.indexOf(f) >= 0) return [f].concat(B.filter(function (x) { return x !== f; }));
+    return B.indexOf('stlt') >= 0 ? ['stlt'].concat(B.filter(function (x) { return x !== 'stlt'; })) : [B[1], B[0]];
+  }
   function cpWriteB(th, a, F) {
     var w = cpWork(th, a);
     if (!w.writeB) {
@@ -1708,6 +1827,13 @@
     var W = w.writeB;
     W.openParts = W.openParts || {}; W.endParts = W.endParts || {};
     W.paras.forEach(function (q) { q.parts = q.parts || {}; });
+    // The paragraphs follow the pairs picked in step 3, unless one is already written on another pair.
+    (w.links || []).slice(0, 4).forEach(function (l, k) {
+      var x = tidOf(l.a) === F[0] ? l.a : l.b, y = x === l.a ? l.b : l.a, q = W.paras[k];
+      if (!q) { W.paras.push({ x: x, y: y, parts: {} }); return; }
+      var blank = !cpbKeys(k).some(function (kk) { return q.parts[kk]; });
+      if ((!q.x && !q.y) || (blank && (q.x !== x || q.y !== y))) { q.x = x; q.y = y; }
+    });
     return W;
   }
   function cpbCtx() {
@@ -1733,8 +1859,8 @@
         (txt ? '<p class="eng-cpw__t">' + esc(txt) + '</p>' : '<p class="eng-cpw__e">' + (s === 'open' ? 'Name both texts and their authors, answer the question, and say your points.' :
           s === 'end' ? 'Your judgement: which text does it more powerfully, and why.' : 'Pick a scene from ' + esc(shortTitle(F[0])) + ', then the ' + esc(shortTitle(F[1])) + ' scene to compare it with, then write it.') + '</p>') + '</li>';
     });
-    return '<h2 class="eng-h2"><span class="eng-cp__n">4</span>Part (b): write it, one paragraph at a time</h2>' +
-      '<p class="eng-p">The same as part (a): tap <b>Write it</b>, pick a scene from <i>' + esc(shortTitle(F[0])) + '</i>, then the <i>' + esc(shortTitle(F[1])) + '</i> scene to compare it with, and write it in boxes.</p>' +
+    return '<h2 class="eng-h2"><span class="eng-cp__n">5</span>Write part (b)</h2>' +
+      '<p class="eng-p">Tap <b>Write it</b>, starting with the Opening.</p>' +
       '<ol class="eng-cpw">' + rows.join('') + '</ol>' +
       '<p class="eng-cpw__more">' + (W.paras.length < 4 ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpb-add>+ Add a fourth paragraph</button>' :
         '<button type="button" class="eng-btn eng-btn--quiet" data-cpb-drop>Remove paragraph 4</button>') + '</p>' +
@@ -2784,8 +2910,14 @@
     if (t.closest('[data-eng-qopen]')) { QOPEN = !QOPEN; store('eng-q-open', QOPEN ? '1' : '0'); renderQuestions(); return; }
     if ((CPW || t.closest('[data-cpw],[data-cpw-copy],[data-cpw-add],[data-cpw-drop],[data-cpbw],[data-cpb-copy],[data-cpb-add],[data-cpb-drop]')) && cpwClick(t)) return;
     var cpa = t.closest('[data-cp-a]'), cpp = t.closest('[data-cp-pt]'), cpm = t.closest('[data-cpm]'), cpr = t.closest('[data-cp-rel]'), cpd = t.closest('[data-cp-del]');
-    if (cpa || cpp || cpm || cpr || cpd || t.closest('[data-cp-cancel],[data-cp-hint],[data-cp-reset],[data-cp-copy]')) {
-      var cth = cpTheme(), cby = cpBy(cth), focus = null;
+    var cgo = t.closest('[data-cp-go]');
+    if (cgo && !cgo.disabled) { cpScrollTo(+cgo.getAttribute('data-cp-go')); return; }
+    if (cpa || cpp || cpm || cpr || cpd || t.closest('[data-cp-cancel],[data-cp-hint],[data-cp-reset],[data-cp-copy],[data-cp-stage],[data-cp-swap]')) {
+      var cth = cpTheme(), cby = cpBy(cth), focus = null, cstg = t.closest('[data-cp-stage]'), goTo = 0;
+      if (GUIDE.open && window.innerWidth <= 760 && !cstg) { GUIDE.open = false; GUIDE.key = ''; }
+      if (cstg) { goTo = +cstg.getAttribute('data-cp-stage'); cby.stage = Math.max(cby.stage || 1, goTo); }
+      else if (t.closest('[data-cp-swap]')) { cpSwap(cth); focus = '[data-cp-swap]'; }
+      else
       if (cpa) { cby.a = cpa.getAttribute('data-cp-a'); CPSEL = CPPICK = CPFB = CPHINT = null; focus = '[data-cp-a="' + cby.a + '"]'; CP_ENTER = true; }
       else if (cpp) {
         var cw = cpWork(cth, cby.a), ci = +cpp.getAttribute('data-cp-pt'), at = cw.pts.indexOf(ci);
@@ -2806,6 +2938,7 @@
       cpSave(); renderCompare();
       var fe = focus && app.querySelector(focus);
       if (fe) fe.focus({ preventScroll: true });
+      if (goTo) requestAnimationFrame(function () { cpScrollTo(goTo); });
       return;
     }
     // The builder.
