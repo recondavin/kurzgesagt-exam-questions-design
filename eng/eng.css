@@ -1759,3 +1759,15 @@ body.eng-cpd-on #eng-guide { display: none; }
 /* What happens, right under the scene(s) at the top of the part (a) writing step: sits close to the banner or the cards. */
 .eng-cpd__banner + .eng-cpb__recap, .eng-cpd__three + .eng-cpb__recap { margin-top: -14px; }
 .eng-cpb__recap p { max-width: 980px; }
+
+/* A paired scene stays easy to read (the user circled a faded title): no fading, a green border and green pair number,
+   the same green as the lines. It only fades, like the others, while you're picking a match for another scene. */
+.eng-cpm.is-used { opacity: 1; border-color: #58CC02; background: color-mix(in srgb, #58CC02 8%, var(--ground)); }
+.eng-cpm.is-used .eng-cpm__t { color: #fff; }
+.eng-cpm.is-used .eng-cpm__k { background: #58CC02; color: #13212A; }
+.eng-cpm.is-used.is-dim { opacity: .32; }
+/* Phones: the scene number sits above the title, not beside it, so a long word ("Thomasheen's") has the card's full width. */
+@media (max-width: 600px) {
+  .eng-cpm__b { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .eng-cmpg .eng-cpm__t { overflow-wrap: break-word; hyphens: auto; }
+}
