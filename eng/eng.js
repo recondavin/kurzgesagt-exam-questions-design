@@ -1510,7 +1510,7 @@
         top = '<div class="eng-cpd__banner" style="--c:' + COL[a] + '">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') +
           '<div><span class="eng-cpd__bt">' + esc(m.title) + '</span><b>' + esc(rep.title) + '</b><span class="eng-cpd__bs">' + esc(rep.say) + '</span>' +
           '<span class="eng-cpd__techs">Techniques: ' + G.scenes[para.scene].techniques.map(function (q) { return '<i title="' + esc(q.what) + '">' + esc(q.name) + '</i>'; }).join('') + '</span></div></div>' +
-          '<div class="eng-cpb__recap"><h3>What happens in this key scene</h3><p><b>' + esc(sceneWhere(a, m)) + ':</b> ' + esc(m.what) + '</p></div>';
+          recapBox('What happens in this key scene', '<p><b>' + esc(sceneWhere(a, m)) + ':</b> ' + esc(m.what) + '</p>');
       } else {
         var ex = slotExample(th, a, s);
         var rc = W.paras.map(function (q, k) {
@@ -1518,7 +1518,7 @@
           var mq = text(a).moments[q.scene - 1];
           return '<p><b>Paragraph ' + (k + 1) + ', ' + esc(mq.title) + ':</b> ' + esc(firstSentence(mq.what)) + '</p>';
         }).join('');
-        top = threeHtml(th, a, W) + (rc ? '<div class="eng-cpb__recap"><h3>What happens in these key scenes</h3>' + rc + '</div>' : '') + (ex.length ? exampleHtml(ex, null, 'x' + s + ex.map(function (g) { return g[1].length; }).join('-')) : '');
+        top = threeHtml(th, a, W) + (rc ? recapBox('What happens in these key scenes', rc) : '') + (ex.length ? exampleHtml(ex, null, 'x' + s + ex.map(function (g) { return g[1].length; }).join('-')) : '');
       }
       var P = slotParts(W, s);
       body = top + '<div class="eng-cpd__write"><div class="eng-cpd__parts">' + partsOf(th, a, s).map(function (pt, pi) {
@@ -1989,6 +1989,15 @@
   }
   // What actually happens, under the scene you're writing about (the user: "under the scenes you see when writing the essay
   // put context underneath them of what actually happens"): the text and where in it, e.g. "Sive (Act 1, Scene 2)".
+  // The "What happens" box can be folded away (the user: "there should he an arrow underneath the scene and it should say
+  // \"hide\" for bith"): an arrow and Hide under both scenes' text; folded, it's one line with Show. It stays folded, in
+  // part (a) and part (b), until shown again (localStorage eng-recap-hide).
+  var CHEV = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 12.5 10 7.5l5 5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  function recapBox(h, inner) {
+    var hid = store('eng-recap-hide') === '1';
+    return '<div class="eng-cpb__recap' + (hid ? ' is-hid' : '') + '"><h3>' + esc(h) + '</h3>' + (hid ? '' : inner) +
+      '<button type="button" class="eng-cpb__rhide" data-recap-hide aria-expanded="' + !hid + '">' + CHEV + (hid ? 'Show' : 'Hide') + '</button></div>';
+  }
   function sceneWhere(tid, m) { return shortTitle(tid) + (m.where ? ' (' + m.where + ')' : ''); }
   function cpbCard(mid, on, extra, attr, i) {
     var o = mom(mid), tid = tidOf(mid), pic = scenePics(tid, mid)[0];
@@ -2033,7 +2042,7 @@
       var top;
       if (q) {
         top = '<div class="eng-cpb__pair">' + cpbMini(q.x) + cpbMini(q.y) + '</div>' +
-          '<div class="eng-cpb__recap"><h3>What happens in these key scenes</h3>' + cpbSceneRecap(q.x) + cpbSceneRecap(q.y) + '</div>';
+          recapBox('What happens in these key scenes', cpbSceneRecap(q.x) + cpbSceneRecap(q.y));
       } else {
         var hid = store('eng-plan-hide') === '1';
         top = '<div class="eng-cpb__list' + (hid ? ' is-hid' : '') + '"><p class="eng-cpb__lh"><b>Your plan</b><button type="button" class="eng-cpb__hide" data-plan-hide aria-expanded="' + !hid + '">' + (hid ? 'Show plan' : 'Hide plan') + '</button></p>' +
@@ -2157,6 +2166,11 @@
     if (t.closest('[data-cpw-next]')) {
       var sln = cpwSlots(W), nx = sln[sln.indexOf(CPW.slot) + 1];
       CPW = { slot: nx, step: cpwFirstStep(W, nx), box: slotKeys(nx)[0], pick: [], shown: {} }; cpwDraw(true); return true;
+    }
+    if (t.closest('[data-recap-hide]')) {
+      store('eng-recap-hide', store('eng-recap-hide') === '1' ? '0' : '1'); cpwDraw();
+      var rh = document.querySelector('#eng-cpd [data-recap-hide]'); if (rh) rh.focus({ preventScroll: true });
+      return true;
     }
     if ((v = t.closest('[data-cpw-ideas]'))) { var ki = v.getAttribute('data-cpw-ideas'); ideasSet(ki, !(CPW.ideas && CPW.ideas[ki])); return true; }
     if ((v = t.closest('[data-cpw-skip]'))) {

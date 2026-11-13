@@ -1799,3 +1799,13 @@ body.eng-cpd-on #eng-guide { display: none; }
 .eng-cpd__ilist .eng-cpd__idea:nth-child(3) { animation-delay: .14s; }
 @keyframes cpIdeaIn { from { opacity: 0; transform: translateY(-6px); } }
 @media (prefers-reduced-motion: reduce) { .eng-cpd__ilist .eng-cpd__idea { animation: none; } }
+
+/* The "What happens" box folds away: an arrow and Hide, centred under the text; folded, one line with Show. */
+.eng-cpb__rhide { display: flex; align-items: center; gap: 6px; min-height: 40px; margin: 10px auto 0; padding: 0 18px 0 12px; border: 0; border-radius: 999px; background: rgba(143, 208, 255, .14); color: #8FD0FF; font: 700 16px Outfit, Nunito, sans-serif; cursor: pointer; transition: background .15s ease; }
+.eng-cpb__rhide:hover { background: rgba(143, 208, 255, .24); }
+.eng-cpb__rhide:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.eng-cpb__rhide svg { width: 20px; height: 20px; transition: transform .2s ease; }
+.eng-cpb__recap.is-hid { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; padding: 10px 12px 10px 18px; }
+.eng-cpb__recap.is-hid h3 { margin: 0; }
+.eng-cpb__recap.is-hid .eng-cpb__rhide { margin: 0; }
+.eng-cpb__recap.is-hid .eng-cpb__rhide svg { transform: rotate(180deg); }
