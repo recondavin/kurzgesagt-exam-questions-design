@@ -1876,3 +1876,10 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
 .eng-story__cap .eng-story__t { font-size: 26px; }
 .eng-story__beat { font-size: 18px; line-height: 1.45; }
 .eng-story__go .eng-btn { justify-content: center; text-align: center; }
+
+/* Phones: nothing stays pinned on the Compare page (the user: "this is fucking in my face still when i said i want it to
+   be SCROLLED"): the top bar, the step bar and the question scroll away with the page. */
+@media (max-width: 700px) {
+  .eng .sh-top { position: relative; }
+  .eng-cpnav { position: static; margin-bottom: 20px; padding-top: 6px; }
+}

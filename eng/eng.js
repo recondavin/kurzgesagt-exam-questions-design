@@ -926,7 +926,9 @@
   function cpScrollTo(n) {
     var el = app.querySelectorAll('.eng-cp__step')[n - 1];
     if (!el) return;
-    var nav = app.querySelector('.eng-cpnav'), off = (window.innerWidth <= 1100 ? 56 : 76) + (nav ? nav.offsetHeight : 0) + 12;
+    var nav = app.querySelector('.eng-cpnav'), pinned = nav && getComputedStyle(nav).position === 'sticky';
+    var off = pinned ? (window.innerWidth <= 1100 ? 56 : 76) + nav.offsetHeight + 12 : 12;
+    GUIDE.hold = Date.now() + 1400;
     window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - off, behavior: 'smooth' });
   }
   function renderCompare() {
@@ -1055,14 +1057,23 @@
     return [{ t: 'Write about both texts together in every paragraph. Not one, then the other.', rule: true }, { t: 'Each paragraph: Point, ' + s(F[0]) + ', ' + s(F[1]) + ', Compare, Evaluate.' },
       { t: 'Compare with Similarly, Whereas or Even more so.' }, { t: 'Aim for about 650 words in part (b).' }];
   }
+  // Phones: the examiner's tip shows when you reach a step, then folds to his head as soon as you scroll the page (the
+  // user: "this is fucking in my face still when i said i want it to be SCROLLED"). Scrolls the page does itself (going to
+  // a step) don't count.
+  window.addEventListener('scroll', function () {
+    if (!GUIDE.open || !GUIDE_EL || !GUIDE_EL.parentNode || CPW || !isPhone()) { GUIDE.y0 = window.scrollY; return; }
+    if (GUIDE.hold && Date.now() < GUIDE.hold) { GUIDE.y0 = window.scrollY; return; }
+    if (GUIDE.y0 == null) GUIDE.y0 = window.scrollY;
+    if (Math.abs(window.scrollY - GUIDE.y0) > 80) { GUIDE.open = false; guideRender(); }
+  }, { passive: true });
   function guideDraw(st, th, a, B) {
     if (!GUIDE_EL) {
       GUIDE_EL = document.createElement('div'); GUIDE_EL.id = 'eng-guide'; GUIDE_EL.className = 'eng-tch eng-guide'; GUIDE_EL.setAttribute('data-mood', 'ok');
-      GUIDE_EL.addEventListener('click', function (e) { var b = e.target.closest('[data-guide]'); if (b && !b.disabled) guideClick(b.getAttribute('data-guide')); });
+      GUIDE_EL.addEventListener('click', function (e) { var b = e.target.closest('[data-guide]'); if (b && !b.disabled) { guideClick(b.getAttribute('data-guide')); GUIDE.y0 = window.scrollY; } });
       window.addEventListener('hashchange', function () { if (GUIDE_EL.parentNode && !/^#compare/.test(location.hash)) GUIDE_EL.remove(); });
     }
     if (!GUIDE_EL.parentNode) { document.body.appendChild(GUIDE_EL); GUIDE.key = ''; }
-    if (GUIDE.stage !== st) { GUIDE.stage = st; GUIDE.i = 0; GUIDE.open = true; }
+    if (GUIDE.stage !== st) { GUIDE.stage = st; GUIDE.i = 0; GUIDE.open = true; GUIDE.y0 = window.scrollY; }
     GUIDE.tips = guideTips(st, th, a, B);
     guideRender();
   }
