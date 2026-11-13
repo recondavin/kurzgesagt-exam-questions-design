@@ -2064,3 +2064,10 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
   .eng-fi__plan span { font-size: 15.5px; line-height: 1.25; }
   .eng-fi__plan i { font-size: 12.5px; }
 }
+
+/* Phones: the examiner's profile picture in the rail shows his whole face, higher in the circle with the red + under his
+   mouth, and holds still (the user: "i meant this face higher and not moving in the TIKTOK"). */
+@media (max-width: 700px) {
+  .eng-rail__b.is-me .eng-rail__i svg { transform: translateY(-15%) scale(.86); }
+  .eng-rail__i svg.tch, .eng-rail__i svg.tch * { animation: none !important; }
+}
