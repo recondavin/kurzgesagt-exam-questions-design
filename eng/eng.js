@@ -1480,6 +1480,9 @@
       (steps ? '<ol class="eng-cpd__steps">' + steps.map(function (x, i) {
         return '<li class="' + (CPW.step === i + 1 ? 'is-on' : CPW.step > i + 1 ? 'is-done' : '') + '"' + (CPW.step === i + 1 ? ' aria-current="step"' : '') + '><span>' + (i + 1) + '</span>' + x + '</li>';
       }).join('') + '</ol>' : '') + cpQ('a') + '<button type="button" class="eng-cpd__x" data-cpw-close aria-label="Close">×</button></div>';
+    // On a phone the steps and the question scroll away with the page instead of staying pinned (the user: "on mobile this
+    // is distracting"): the same two, at the top of the body, shown only on phones.
+    var mhead = '<div class="eng-cpd__mhead">' + head.replace(/^.*?<\/h2>/, '').replace(/<button type="button" class="eng-cpd__x"[^]*$/, '') + '</div>';
     var nums = text(a).moments.map(function (m, i) { return i + 1; }).filter(function (n) { return G.scenes[n]; });
     if (s === 'open' && CPW.step === 1) {
       body = '<p class="eng-cpd__lead">Pick the three or four scenes your answer is built on, in the order you\'ll write about them. <b>' + CPW.pick.length + ' picked</b></p><div class="eng-cpd__scenes">' +
@@ -1536,7 +1539,7 @@
         (next != null ? '<button type="button" class="eng-btn" data-cpw-next>Next: ' + slotName(next) + '</button>' : '') + '<button type="button" class="eng-btn' + (next != null ? ' eng-btn--quiet' : '') + '" data-cpw-close>Done</button>';
     }
     box.innerHTML = '<div class="eng-cpd__bg" data-cpw-close></div><div class="eng-cpd__box" role="dialog" aria-modal="true" aria-labelledby="eng-cpd-h">' + head +
-      '<div class="eng-cpd__body">' + body + (foot ? '<p class="eng-btns eng-cpd__foot">' + foot + '</p>' : '') + '</div></div>';
+      '<div class="eng-cpd__body">' + mhead + body + (foot ? '<p class="eng-btns eng-cpd__foot">' + foot + '</p>' : '') + '</div></div>';
     box.classList.toggle('is-write', writing);
     if (fresh) { CPW.tch = null; tchIdle(); }
     if (!tchEl().parentNode) document.body.appendChild(TCH);
@@ -2020,6 +2023,9 @@
       (steps ? '<ol class="eng-cpd__steps">' + steps.map(function (x, i) {
         return '<li class="' + (CPW.step === i + 1 ? 'is-on' : CPW.step > i + 1 ? 'is-done' : '') + '"' + (CPW.step === i + 1 ? ' aria-current="step"' : '') + '><span>' + (i + 1) + '</span>' + esc(x) + '</li>';
       }).join('') + '</ol>' : '') + cpQ('b') + '<button type="button" class="eng-cpd__x" data-cpw-close aria-label="Close">×</button></div>';
+    // On a phone the steps and the question scroll away with the page instead of staying pinned (the user: "on mobile this
+    // is distracting"): the same two, at the top of the body, shown only on phones.
+    var mhead = '<div class="eng-cpd__mhead">' + head.replace(/^.*?<\/h2>/, '').replace(/<button type="button" class="eng-cpd__x"[^]*$/, '') + '</div>';
     if (q && CPW.step === 1) {
       body = '<p class="eng-cpd__lead">Pick the key scene from <i>' + esc(text(F[0]).title) + '</i> this paragraph is built on.</p><div class="eng-cpd__scenes">' +
         text(F[0]).moments.map(function (m, i) {
@@ -2069,7 +2075,7 @@
         '<button type="button" class="eng-btn' + (next != null ? ' eng-btn--quiet' : '') + '" data-cpw-close>Done</button>';
     }
     box.innerHTML = '<div class="eng-cpd__bg" data-cpw-close></div><div class="eng-cpd__box" role="dialog" aria-modal="true" aria-labelledby="eng-cpd-h">' + head +
-      '<div class="eng-cpd__body">' + body + (foot ? '<p class="eng-btns eng-cpd__foot">' + foot + '</p>' : '') + '</div></div>';
+      '<div class="eng-cpd__body">' + mhead + body + (foot ? '<p class="eng-btns eng-cpd__foot">' + foot + '</p>' : '') + '</div></div>';
     box.classList.toggle('is-write', writing);
     if (fresh) { CPW.tch = null; tchIdle(); }
     if (!tchEl().parentNode) document.body.appendChild(TCH);

@@ -1809,3 +1809,17 @@ body.eng-cpd-on #eng-guide { display: none; }
 .eng-cpb__recap.is-hid h3 { margin: 0; }
 .eng-cpb__recap.is-hid .eng-cpb__rhide { margin: 0; }
 .eng-cpb__recap.is-hid .eng-cpb__rhide svg { transform: rotate(180deg); }
+
+/* Phones: only the title and × stay pinned at the top of the writing popup; the steps and the question sit at the top of
+   the page and scroll away as you write (the user: "on mobile this is distracting"). */
+.eng-cpd__mhead { display: none; }
+@media (max-width: 700px) {
+  #eng-cpd .eng-cpd__top .eng-cpd__steps, #eng-cpd .eng-cpd__top .eng-cpq { display: none; }
+  #eng-cpd .eng-cpd__top { padding-top: 12px; padding-bottom: 12px; }
+  #eng-cpd .eng-cpd__top h2 { font-size: 21px; line-height: 1.25; }
+  #eng-cpd .eng-cpd__x { top: 50%; margin-top: -22px; }
+  .eng-cpd__mhead { display: grid; gap: 14px; margin: -4px 0 24px; }
+  .eng-cpd__mhead .eng-cpd__steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+/* The popup's header never shrinks to make room for a long page under it. */
+#eng-cpd .eng-cpd__top { flex: none; }
