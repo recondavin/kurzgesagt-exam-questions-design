@@ -45,6 +45,9 @@ for (const id of D.order) {
   ok(t.people.every(p => typeof p.trait === 'string' && p.trait.length > 6 && p.trait.length <= 45), `${id}: every character has their personality in a few words`);
   ok(t.people.every(p => p.check && ['like', 'want'].every(k => Array.isArray(p.check[k]) && p.check[k].length >= 5 && p.check[k].every(w => /^[a-z0-9£]{3,}$/.test(w)))), `${id}: every character has the words accepted when you write what they're like and what they want`);
   ok(t.moments.every(m => Array.isArray(m.tell) && m.tell.length >= 2 && m.tell.length <= 4 && m.tell.every(s => s.length > 5)), `${id}: every key moment is told in 2 to 4 beats`);
+  // Part (b)'s Anchor ideas: one or two short lines per scene, which with its quote make at least two ideas.
+  if (id === 'sive' || id === 'stlt') ok(t.moments.every(m => Array.isArray(m.anchor) && m.anchor.length >= 1 && m.anchor.length <= 2 && m.anchor.length + (m.quote ? 1 : 0) >= 2 &&
+    m.anchor.every(s => s.split(/\s+/).length <= 16)), `${id}: every key moment has one or two short Anchor ideas (16 words or fewer)`);
   const groups = [...t.modes.theme.themes, ...t.modes.cc.aspects, { name: 'vision', points: t.modes.gvv.points }];
   ok(t.modes.theme.themes.length === 3, `${id}: the three themes`);
   ok(t.modes.cc.aspects.length >= 6, `${id}: at least six cultural-context aspects`);

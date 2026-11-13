@@ -126,7 +126,9 @@
           "b": "stlt-7",
           "rel": "same",
           "aspect": "The victims have no say",
-          "say": "Like Sive, who is told she will leave school and marry an old man, Sarah has no say at all: she is locked in a coal shed and her baby is taken from her."
+          "say": "Like Sive, who is told she will leave school and marry an old man, Sarah has no say at all: she is locked in a coal shed and her baby is taken from her.",
+          "p": "In both texts, the victims of the abuse have no say in their own lives.",
+          "c": "Just as Sive is told she will leave school and marry an old man, Sarah is locked in a coal shed and her baby is taken."
         },
         {
           "a": "sive-9",
@@ -154,7 +156,8 @@
           "b": "stlt-11",
           "rel": "differ",
           "aspect": "Does anyone stop it?",
-          "say": "Here the texts part ways: in Sive nobody stops the abuse and Sive dies in the bog, whereas in Small Things Like These Bill walks back to the convent and takes Sarah out."
+          "say": "Here the texts part ways: in Sive nobody stops the abuse and Sive dies in the bog, whereas in Small Things Like These Bill walks back to the convent and takes Sarah out.",
+          "p": "The two texts part ways on whether anyone stops the abuse."
         },
         {
           "a": "sive-12",
@@ -1949,9 +1952,9 @@
                 "label": "Your opening line",
                 "hint": "Name the film and its director, and give your answer to the question in one sentence.",
                 "ideas": [
-                  "In The Shawshank Redemption, directed by Frank Darabont, power in the wrong hands becomes cruelty, and those who hold it will do anything to keep it.",
-                  "Frank Darabont's The Shawshank Redemption exposes a prison where the men in charge use fear, violence and lies to control the inmates, and answer to no one.",
-                  "In The Shawshank Redemption, Frank Darabont portrays abuse of power at its most brutal, yet he also suggests that it can never crush a man's hope."
+                  "In Frank Darabont's The Shawshank Redemption, power in the wrong hands becomes cruelty.",
+                  "Darabont's The Shawshank Redemption shows men in charge who answer to no one.",
+                  "In The Shawshank Redemption, Darabont shows abuse of power at its most brutal."
                 ],
                 "hl": "Name the film and its director"
               },
@@ -1969,7 +1972,7 @@
                 "ideas": [
                   "Ultimately, Darabont suggests that hope can outlast even the most brutal regime.",
                   "By the end, the abusers have lost everything, and the men they tried to break walk free.",
-                  "The film leaves us in no doubt that unchecked power corrupts, but it also refuses to let that power have the last word."
+                  "Unchecked power corrupts, but the film won't let it have the last word."
                 ],
                 "hl": "One line"
               }
@@ -2032,7 +2035,8 @@
                 "hint": "Your judgement on abuse of power.",
                 "ideas": [
                   "Shawshank warns that power without limits always ends in cruelty.",
-                  "Yet the film refuses to let power have the last word: Andy beats Norton at his own game."
+                  "Yet the film refuses to let power have the last word: Andy beats Norton at his own game.",
+                  "Norton's fall shows that cruelty finally destroys itself."
                 ],
                 "hl": "Your judgement"
               },
@@ -2042,7 +2046,8 @@
                 "hint": "Leave the examiner with something.",
                 "ideas": [
                   "Ultimately, The Shawshank Redemption leaves the viewer believing that hope outlasts even the most abusive power.",
-                  "In the end, the abusers lose everything, and the men they tried to break walk free."
+                  "In the end, the abusers lose everything, and the men they tried to break walk free.",
+                  "Hope, not power, has the last word."
                 ],
                 "hl": "Leave the examiner with something"
               }

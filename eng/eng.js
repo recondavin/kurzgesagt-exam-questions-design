@@ -1261,6 +1261,28 @@
   // line, in both parts. A skipped part folds to one line with "Add it back"; what's in it is kept but left out of the answer.
   var SKIPPABLE = { points: 1, last: 1 };
   function skipped(P, k) { return !!(P && P._skip && P._skip[k]); }
+  // A box's ideas (the user: "make them show only when a student clicks show idea and once it clicks on the box the idea
+  // dissapears and re appears if student clicks show idea again, however it should give 3 diffent ideas at once ... keep
+  // them short"): a "Show ideas" button; three short ideas at once; tapping into the box hides them again.
+  function ideasHtml(pt) {
+    var list = (pt.ideas || []).filter(Boolean).slice(0, 3);
+    if (!list.length) return pt.auto ? '<p class="eng-cpd__none">Pick your three scenes first.</p>' : '';
+    var on = !!(CPW.ideas && CPW.ideas[pt.k]);
+    return '<div class="eng-cpd__ideas' + (on ? ' is-on' : '') + '" data-ideas="' + pt.k + '"><button type="button" class="eng-cpd__show" data-cpw-ideas="' + pt.k + '" aria-expanded="' + on + '">' +
+      (on ? 'Hide ideas' : 'Show ideas') + '</button><div class="eng-cpd__ilist"' + (on ? '' : ' hidden') + '>' + list.map(function (x) {
+        var tx = typeof x === 'string' ? x : x.t;
+        return '<p class="eng-cpd__idea' + (x.tag ? ' is-tech' : '') + '">' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + esc(tx) + '</p>';
+      }).join('') + '</div></div>';
+  }
+  function ideasSet(k, on) {
+    if (!CPW) return;
+    CPW.ideas = CPW.ideas || {}; CPW.ideas[k] = on;
+    var box = document.querySelector('#eng-cpd [data-ideas="' + k + '"]');
+    if (!box) return;
+    box.classList.toggle('is-on', on);
+    box.querySelector('.eng-cpd__ilist').hidden = !on;
+    var b = box.querySelector('[data-cpw-ideas]'); b.setAttribute('aria-expanded', on); b.textContent = on ? 'Hide ideas' : 'Show ideas';
+  }
   function skipRow(k, wc) { return SKIPPABLE[k] ? '<div class="eng-cpd__pf"><button type="button" class="eng-cpd__skip" data-cpw-skip="' + k + '">or skip</button>' + wc + '</div>' : wc; }
   function skipPart(pt, col, i) {
     return '<section class="eng-cpd__part is-skip" style="--pc:' + col + ';--i:' + i + '"><header><span class="eng-cpd__pl">' + esc(pt.label) + '</span></header>' +
@@ -1274,17 +1296,20 @@
     var reps = cpPts(th, a, cpWork(th, a)).map(function (p) { return lowerFirst(p.title); });
     if (!reps.length) return [];
     var list = reps.join(', ').replace(/, ([^,]*)$/, ' and $1');
-    return kind === 'points' ? ['This is clear in ' + ['one way', 'two ways', 'three ways', 'four ways'][reps.length - 1] + ': ' + list + '.'] :
-      ['Through ' + list + ', the film exposes how far the powerful will go to stay in control.'];
+    return kind === 'points' ? ['This is clear in ' + ['one way', 'two ways', 'three ways', 'four ways'][reps.length - 1] + ': ' + list + '.',
+        'First, ' + reps[0] + (reps[1] ? '; then, ' + reps[1] : '') + '.', 'Each scene shows a different side of ' + th.name.toLowerCase() + '.'] :
+      ['Each of these scenes shows how far the powerful will go to stay in control.', 'In every scene, the men in charge abuse the power they hold.',
+        'Together, these scenes show power used to crush, not to protect.'];
   }
   function partsOf(th, a, s) {
     var G = th.write[a], W = cpWrite(th, a);
     if (typeof s !== 'number') return G[s].parts.map(function (pt) { return { k: pt.k, label: pt.label, hint: pt.hint, hl: pt.hl, ideas: pt.auto ? autoIdeas(th, a, pt.auto) : pt.ideas, auto: pt.auto }; });
     var para = W.paras[s], sc = G.scenes[para.scene], rep = sc.reps[para.rep || 0], m = text(a).moments[para.scene - 1];
-    return [{ k: 'p', label: 'Point', hl: 'Your idea, in one sentence', hint: 'Your idea, in one sentence: what this scene represents.', ideas: [rep.start] },
-      { k: 'a', label: 'Anchor', hl: 'Keep it short', hint: 'Keep it short: the moment in a sentence or two, with ' + (m.quote ? 'the quote or ' : '') + 'a film technique. Don\'t retell the story.', ideas: sc.details.concat(m.quote ? ['“' + m.quote + '”'] : [],
-        sc.techniques.map(function (q) { return { t: q.say, tag: 'Technique: ' + q.name }; })) },
-      { k: 'e', label: 'Evaluate', hl: 'Most of the marks are here', hint: 'Most of the marks are here: two or three sentences on why it matters for ' + th.name.toLowerCase() + '.', ideas: rep.ideas }];
+    var tq = sc.techniques[rep.t] || sc.techniques[0];
+    return [{ k: 'p', label: 'Point', hl: 'Your idea, in one sentence', hint: 'Your idea, in one sentence: what this scene represents.', ideas: [rep.start, rep.title + '.', firstSentence(rep.say)] },
+      { k: 'a', label: 'Anchor', hl: 'Keep it short', hint: 'Keep it short: the moment in a sentence or two, with ' + (m.quote ? 'the quote or ' : '') + 'a film technique. Don\'t retell the story.',
+        ideas: [sc.details[0], m.quote ? { t: '“' + m.quote + '”', tag: 'Quote' } : sc.details[1], { t: tq.say, tag: 'Technique: ' + tq.name }].filter(Boolean) },
+      { k: 'e', label: 'Evaluate', hl: 'Most of the marks are here', hint: 'Most of the marks are here: two or three sentences on why it matters for ' + th.name.toLowerCase() + '.', ideas: rep.ideas.slice(0, 2).concat([{ t: 'Darabont suggests that …', tag: 'Start with' }]) }];
   }
   function cpWriterHtml(th, a) {
     var W = cpWrite(th, a), G = th.write[a], total = 0;
@@ -1499,13 +1524,7 @@
       body = top + '<div class="eng-cpd__write"><div class="eng-cpd__parts">' + partsOf(th, a, s).map(function (pt, pi) {
         if (skipped(P, pt.k)) return skipPart(pt, PART_COL[pt.k], pi);
         return '<section class="eng-cpd__part" style="--pc:' + PART_COL[pt.k] + ';--i:' + pi + '"><header><span class="eng-cpd__pl">' + esc(pt.label) + '</span><span class="eng-cpd__ph2">' + (pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark class="eng-cpd__hl">' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span></header>' +
-          (pt.ideas && pt.ideas.length ? (function () {
-            var shown = Math.min(pt.ideas.length, Math.max(1, (CPW.shown || {})[pt.k] || 1));
-            return '<div class="eng-cpd__ideas"><span>Ideas to help you</span>' + pt.ideas.slice(0, shown).map(function (x) {
-              var tx = typeof x === 'string' ? x : x.t;
-              return '<p class="eng-cpd__idea' + (x.tag ? ' is-tech' : '') + '">' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + '<span data-type="i' + esc(tx.slice(0, 60)) + '">' + esc(tx) + '</span></p>';
-            }).join('') + (shown < pt.ideas.length ? '<button type="button" class="eng-cpd__more" data-cpw-more="' + pt.k + '">Show me another idea</button>' : '') + '</div>';
-          })() : (pt.auto ? '<p class="eng-cpd__none">Pick your three scenes first.</p>' : '')) +
+          ideasHtml(pt) +
           '<textarea data-cpw-box="' + pt.k + '" spellcheck="true" lang="en-IE" rows="2" aria-label="' + esc(pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
           skipRow(pt.k, CPW_RANGE[pt.k] ? '<p class="eng-cpd__wc" data-cpw-wc="' + pt.k + '" aria-live="polite">' + wcHtml(wordsIn(P[pt.k]), CPW_RANGE[pt.k]) + '</p>' : '') + '</section>';
       }).join('') + '<p class="eng-cpd__tools"><b>How it reads</b><span data-cpw-count></span></p><div class="eng-cpd__check" data-cpw-check role="status" aria-live="polite"></div></div>' +
@@ -1921,26 +1940,40 @@
   // The boxes of a part, each with its hint and ideas.
   function cpbPartsOf(c, s) {
     var th = c.th, F = c.F, W = c.W, name = th.name.toLowerCase();
+    var TA = text(F[0]), TB = text(F[1]), sur = function (t) { return t.author.split(' ').pop(); }, Name = name.charAt(0).toUpperCase() + name.slice(1);
     if (s === 'open') {
       var asp = W.paras.map(function (q) { var L = cpbLink(th, q.x, q.y); return L ? lowerFirst(L.aspect) : ''; }).filter(Boolean);
       return [{ k: 'texts', label: 'Your opening line', hl: 'Name both texts and their authors', hint: 'Name both texts and their authors, and answer the question in one sentence.',
-          ideas: ['In both ' + text(F[1]).title + ' by ' + text(F[1]).author + ' and ' + text(F[0]).title + ' by ' + text(F[0]).author + ', ' + name + ' …'] },
+          ideas: ['In ' + TB.title + ' by ' + TB.author + ' and ' + TA.title + ' by ' + TA.author + ', ' + name + ' …', sur(TB) + ' and ' + sur(TA) + ' both use ' + name + ' to keep us hooked.',
+            Name + ' drives both ' + TB.title + ' and ' + TA.title + '.'] },
         { k: 'points', label: 'Your points', hl: 'your three or four points', hint: 'Say your three or four points, in the order you\'ll write them.',
-          ideas: asp.length ? ['This is clear in ' + ['one way', 'two ways', 'three ways', 'four ways'][asp.length - 1] + ': ' + asp.join(', ').replace(/, ([^,]*)$/, ' and $1') + '.'] : [] }];
+          ideas: asp.length ? ['This is clear in ' + ['one way', 'two ways', 'three ways', 'four ways'][asp.length - 1] + ': ' + asp.join(', ').replace(/, ([^,]*)$/, ' and $1') + '.',
+            'First, ' + asp[0] + (asp[1] ? '; then, ' + asp[1] : '') + '.', 'I will compare ' + ['one key moment', 'two key moments', 'three key moments', 'four key moments'][asp.length - 1] + ' from each text.'] : [] }];
     }
     if (s === 'end') {
-      var en = th.ends && th.ends[[F[0], F[1]].sort().join('|')];
-      return [{ k: 'judge', label: 'Your judgement', hl: 'which text', hint: 'Your judgement: which text shows ' + name + ' more powerfully, or keeps you more interested, and why.', ideas: en ? [en] : [] },
-        { k: 'last', label: 'Your last line', hl: 'Leave the examiner with something', hint: 'Leave the examiner with something: one line that sticks.', ideas: [] }];
+      return [{ k: 'judge', label: 'Your judgement', hl: 'which text', hint: 'Your judgement: which text shows ' + name + ' more powerfully, or keeps you more interested, and why.',
+          ideas: [{ t: 'For me, ' + TB.title + ' is more powerful, because …', tag: 'Start with' }, { t: TA.title + ' hits harder, because …', tag: 'Start with' }, { t: 'Both hook the reader, but …', tag: 'Start with' }] },
+        { k: 'last', label: 'Your last line', hl: 'Leave the examiner with something', hint: 'Leave the examiner with something: one line that sticks.',
+          ideas: ['In the end, both writers show what ' + name + ' costs the powerless.', 'Both texts leave us asking: who will speak up?', 'In both worlds, silence lets ' + name + ' win.'] }];
     }
     var q = W.paras[s], L = cpbLink(th, q.x, q.y), mx = mom(q.x), my = mom(q.y);
     var starts = { same: ['Similarly,', 'Just as', 'Both'], differ: ['Whereas', 'In contrast,', 'Unlike'], degree: ['Even more so,', 'To a far greater extent,', 'Less obviously,'] }[L ? L.rel : 'same'];
+    // A link's say is "the point: the comparison"; each half is an idea for its own box.
+    var cut = L ? L.say.indexOf(': ') : -1, sayP = L && L.p || (cut > 0 ? L.say.slice(0, cut) + '.' : ''), sayC = L && L.c || (cut > 0 ? L.say.charAt(cut + 2).toUpperCase() + L.say.slice(cut + 3) : (L ? L.say : ''));
+    var startWith = function (w) { return { t: w + ' …', tag: 'Start with' }; };
+    // The moment in a line or two: the scene's short lines, its quote if it has one, and where it is, to start from.
+    var anchor = function (o) {
+      var ls = (o.m.anchor || [firstSentence(o.m.what)]).slice();
+      if (o.m.quote) ls.splice(1, 0, { t: '“' + o.m.quote + '”', tag: 'Quote' });
+      return ls.slice(0, 2).concat([startWith('In ' + o.m.where + ',')]);
+    };
     return [
-      { k: 'p', label: 'Point', hl: 'One sentence about both texts', hint: 'One sentence about both texts: what they both show about ' + name + '.', ideas: [L ? 'In both texts, ' + lowerFirst(L.aspect) + '.' : 'In both texts, …'] },
-      { k: 'x', label: shortTitle(F[0]), hl: 'Keep it short', hint: 'Keep it short: the moment in ' + shortTitle(F[0]) + ', in a sentence or two. Don\'t retell the story.', ideas: [firstSentence(mx.m.what)] },
-      { k: 'y', label: shortTitle(F[1]), hl: 'Keep it short', hint: 'Keep it short: the moment in ' + shortTitle(F[1]) + ', in a sentence or two.', ideas: [firstSentence(my.m.what)] },
+      { k: 'p', label: 'Point', hl: 'One sentence about both texts', hint: 'One sentence about both texts: what they both show about ' + name + '.',
+        ideas: (sayP ? [sayP] : []).concat([startWith(sur(TB) + ' and ' + sur(TA) + ' both show that'), startWith('In both texts,'), startWith('Both scenes show')]).slice(0, 3) },
+      { k: 'x', label: shortTitle(F[0]), hl: 'Keep it short', hint: 'Keep it short: the moment in ' + shortTitle(F[0]) + ', in a sentence or two. Don\'t retell the story.', ideas: anchor(mx) },
+      { k: 'y', label: shortTitle(F[1]), hl: 'Keep it short', hint: 'Keep it short: the moment in ' + shortTitle(F[1]) + ', in a sentence or two.', ideas: anchor(my) },
       { k: 'c', label: 'Compare', hl: 'How they\'re alike or different', hint: 'How they\'re alike or different: Similarly… Whereas… Even more so…',
-        ideas: (L ? [L.say] : []).concat(starts.map(function (w) { return { t: w + ' …', tag: 'Start with' }; })) },
+        ideas: (sayC ? [sayC] : []).concat(starts.map(startWith)).slice(0, 3) },
       { k: 'e', label: 'Evaluate', hl: 'Most of the marks are here', hint: 'Most of the marks are here: why it matters for ' + name + ', and how it keeps the reader hooked.',
         ideas: ['This matters because …', 'Both kept me gripped because …', L && L.rel === 'differ' ? 'The difference shows that …' : 'Together they suggest that …'] }];
   }
@@ -2012,13 +2045,9 @@
       var P = cpbParts(W, s), PC = { p: 'var(--pace-p)', x: COL[F[0]], y: COL[F[1]], c: 'var(--k-blue)', e: '#FF8FB1', texts: 'var(--pace-p)', points: 'var(--k-blue)', judge: 'var(--k-orange)', last: '#FF8FB1' };
       body = top + '<div class="eng-cpd__write"><div class="eng-cpd__parts">' + cpbPartsOf(c, s).map(function (pt, pi) {
         if (skipped(P, pt.k)) return skipPart(pt, PC[pt.k], pi);
-        var shown = Math.min(pt.ideas.length, Math.max(1, (CPW.shown || {})[pt.k] || 1));
         return '<section class="eng-cpd__part" style="--pc:' + PC[pt.k] + ';--i:' + pi + '"><header><span class="eng-cpd__pl">' + esc(pt.label) + '</span><span class="eng-cpd__ph2">' +
           esc(pt.hint).replace(esc(pt.hl), '<mark class="eng-cpd__hl">' + esc(pt.hl) + '</mark>') + '</span></header>' +
-          (pt.ideas.length ? '<div class="eng-cpd__ideas"><span>Ideas to help you</span>' + pt.ideas.slice(0, shown).map(function (x) {
-            var tx = typeof x === 'string' ? x : x.t;
-            return '<p class="eng-cpd__idea' + (x.tag ? ' is-tech' : '') + '">' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + '<span data-type="i' + esc(tx.slice(0, 60)) + '">' + esc(tx) + '</span></p>';
-          }).join('') + (shown < pt.ideas.length ? '<button type="button" class="eng-cpd__more" data-cpw-more="' + pt.k + '">Show me another idea</button>' : '') + '</div>' : '') +
+          ideasHtml(pt) +
           '<textarea data-cpw-box="' + pt.k + '" spellcheck="true" lang="en-IE" rows="2" aria-label="' + esc(pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
           skipRow(pt.k, '<p class="eng-cpd__wc" data-cpw-wc="' + pt.k + '" aria-live="polite">' + wcHtml(wordsIn(P[pt.k]), CPB_RANGE[pt.k]) + '</p>') + '</section>';
       }).join('') + '<p class="eng-cpd__tools"><b>How it reads</b><span data-cpw-count></span></p><div class="eng-cpd__check" data-cpw-check role="status" aria-live="polite"></div></div>' +
@@ -2129,6 +2158,7 @@
       var sln = cpwSlots(W), nx = sln[sln.indexOf(CPW.slot) + 1];
       CPW = { slot: nx, step: cpwFirstStep(W, nx), box: slotKeys(nx)[0], pick: [], shown: {} }; cpwDraw(true); return true;
     }
+    if ((v = t.closest('[data-cpw-ideas]'))) { var ki = v.getAttribute('data-cpw-ideas'); ideasSet(ki, !(CPW.ideas && CPW.ideas[ki])); return true; }
     if ((v = t.closest('[data-cpw-skip]'))) {
       var ks = v.getAttribute('data-cpw-skip'), PS = cpwParts();
       PS._skip = PS._skip || {};
@@ -2150,7 +2180,9 @@
     return false;
   }
   document.addEventListener('input', function (ev) { if (CPW && ev.target.matches && ev.target.matches('[data-cpw-box]')) { grow(ev.target); cpwSave(ev.target); } });
-  document.addEventListener('focusin', function (ev) { if (CPW && ev.target.matches && ev.target.matches('[data-cpw-box]')) CPW.box = ev.target.getAttribute('data-cpw-box'); });
+  document.addEventListener('focusin', function (ev) {
+    if (CPW && ev.target.matches && ev.target.matches('[data-cpw-box]')) { CPW.box = ev.target.getAttribute('data-cpw-box'); ideasSet(CPW.box, false); }
+  });
   document.addEventListener('keydown', function (ev) {
     if (!CPW) return;
     if (ev.key === 'Escape') { ev.preventDefault(); if (TCH && TCH.classList.contains('is-helping')) { tchIdle(); return; } cpwClose(); return; }

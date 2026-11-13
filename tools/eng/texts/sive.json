@@ -531,7 +531,11 @@
         "happens": "Nanna and Mena trade insults in the bare kitchen, and Mena resents Sive still being at school.",
         "shows": "Poverty has made the house bitter, and a girl is valued only for what she can bring in.",
         "leads": "Mena wants Sive out of the house, so the match will tempt her."
-      }
+      },
+      "anchor": [
+        "Nanna mocks Mena for being poor and childless, and Mena hits straight back.",
+        "Mena resents Sive for staying at school when she could be earning."
+      ]
     },
     {
       "id": "sive-2",
@@ -555,7 +559,10 @@
         "happens": "Thomasheen offers £200 if Sive marries the old farmer Seán Dóta.",
         "shows": "Marriage is a bargain, and a girl is something to be sold.",
         "leads": "Mena agrees to work on Mike, and the match is set in motion."
-      }
+      },
+      "anchor": [
+        "Thomasheen secretly offers Mena £200 if Sive marries the old farmer Seán Dóta."
+      ]
     },
     {
       "id": "sive-3",
@@ -580,7 +587,11 @@
         "happens": "Mike refuses the match at first, then throws Liam out, blaming Liam's family.",
         "shows": "Mike knows it's wrong, but old grudges and weakness win.",
         "leads": "Sive loses her protector, and Liam is shut out."
-      }
+      },
+      "anchor": [
+        "At first Mike refuses: a schoolgirl and an old man is wrong.",
+        "Mike catches Liam visiting Sive in secret and orders him away."
+      ]
     },
     {
       "id": "sive-4",
@@ -605,7 +616,11 @@
         "happens": "Seán Dóta courts Sive clumsily and grabs at her; Thomasheen says love is for people who can afford it.",
         "shows": "Money decides who gets to love, and Sive is prey.",
         "leads": "Mike's doubts are brushed aside and the match moves closer."
-      }
+      },
+      "anchor": [
+        "Sent to walk Sive to a neighbour's house, Seán Dóta grabs at her.",
+        "Thomasheen tells Mike that people like them cannot afford love."
+      ]
     },
     {
       "id": "sive-5",
@@ -630,7 +645,11 @@
         "happens": "The travellers arrive; Nanna welcomes them, and Mena and Thomasheen bully her.",
         "shows": "The outsiders see the truth and say it; the weak are silenced.",
         "leads": "Nanna is threatened with the county home and loses her voice."
-      }
+      },
+      "anchor": [
+        "Carthalawn's mocking songs make Mena and Thomasheen squirm.",
+        "When Nanna challenges the match, she is threatened with the county home."
+      ]
     },
     {
       "id": "sive-6",
@@ -655,7 +674,10 @@
         "happens": "Mena tells Sive the truth about her birth and says she'll leave school.",
         "shows": "Shame is a weapon, and Mena passes on her own hard life.",
         "leads": "Sive is crushed, and cut off from Nanna and from school."
-      }
+      },
+      "anchor": [
+        "Mena cruelly tells Sive the truth about her birth to push her into the match."
+      ]
     },
     {
       "id": "sive-7",
@@ -679,7 +701,11 @@
         "happens": "Liam begs them not to give Sive away; Mena lies to Sive that he's gone.",
         "shows": "Love is powerless against money and lies.",
         "leads": "Sive believes Liam has left her for good."
-      }
+      },
+      "anchor": [
+        "Liam begs Mike and Mena not to give Sive to Seán Dóta.",
+        "Mena lies to Sive that Liam only came to wish her joy."
+      ]
     },
     {
       "id": "sive-8",
@@ -704,7 +730,11 @@
         "happens": "Nanna begs Mike to stop the match, and he can't look her in the face.",
         "shows": "Conscience against greed, and Mike is too weak to act.",
         "leads": "The wedding goes ahead."
-      }
+      },
+      "anchor": [
+        "Nanna warns Mike that Sive's dead mother will curse the match.",
+        "Mike cannot look his mother in the face, so he blames Liam's family."
+      ]
     },
     {
       "id": "sive-9",
@@ -729,7 +759,11 @@
         "happens": "Thomasheen burns Liam's letter, and Mike does nothing.",
         "shows": "One small silence destroys the last hope of escape.",
         "leads": "Sive never learns of Liam's plan."
-      }
+      },
+      "anchor": [
+        "Thomasheen makes Mike open Liam's letter, then burns it.",
+        "Mike, uneasy, watches Sive's last way out burn and does nothing."
+      ]
     },
     {
       "id": "sive-10",
@@ -753,7 +787,11 @@
         "happens": "On the wedding eve Pats and Carthalawn mock Seán Dóta in song.",
         "shows": "The travellers judge the greed of the house and foreshadow death.",
         "leads": "Sive, alone and miserable, slips out that night."
-      }
+      },
+      "anchor": [
+        "Sive comes home miserable, in clothes bought with Seán Dóta's money.",
+        "Carthalawn sings that Seán will soon be travelling by hearse."
+      ]
     },
     {
       "id": "sive-11",
@@ -778,7 +816,11 @@
         "happens": "Sive drowns in a bog hole, and Liam carries her in.",
         "shows": "The tragic price of a world that sells its girls.",
         "leads": "Thomasheen and Seán Dóta slip away, and Liam turns on Mena."
-      }
+      },
+      "anchor": [
+        "Liam carries in Sive's body: she has drowned in a bog hole.",
+        "Thomasheen and Seán Dóta slip away, and Liam turns on Mena."
+      ]
     },
     {
       "id": "sive-12",
@@ -802,7 +844,11 @@
         "happens": "Mike thinks of the priest and holy ground; Carthalawn's lament ends the play.",
         "shows": "Respectability still comes first, and the vision is bleak.",
         "leads": "No justice and no change: the play ends in grief."
-      }
+      },
+      "anchor": [
+        "Mike thinks first of whether Sive can be buried in holy ground.",
+        "The play ends with Carthalawn's lament, and no one is punished."
+      ]
     }
   ],
   "modes": {
