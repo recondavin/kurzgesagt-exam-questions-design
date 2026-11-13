@@ -1942,7 +1942,12 @@
   function cpbMini(mid) {
     var o = mom(mid), tid = tidOf(mid), pic = scenePics(tid, mid)[0];
     return '<div class="eng-cpb__m" style="--c:' + COL[tid] + '">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '<span class="eng-cpb__ph"></span>') +
-      '<div><span>' + esc(shortTitle(tid)) + '</span><b><span class="eng-cpm__n">' + o.n + '</span>' + esc(o.m.title) + '</b></div></div>';
+      '<div><span>' + esc(shortTitle(tid)) + '</span><b>' + esc(o.m.title) + '</b></div></div>';
+  }
+  // Keep the scene recap concrete. The student builds the thematic comparison for themselves in the PACE boxes below.
+  function cpbSceneRecap(mid) {
+    var o = mom(mid), tid = tidOf(mid);
+    return '<p><b>' + esc(shortTitle(tid)) + ':</b> ' + esc(firstSentences(o.m.what, 2)) + '</p>';
   }
   function cpbCard(mid, on, extra, attr, i) {
     var o = mom(mid), tid = tidOf(mid), pic = scenePics(tid, mid)[0];
@@ -1986,9 +1991,8 @@
       writing = true;
       var top;
       if (q) {
-        var L = cpbLink(th, q.x, q.y);
         top = '<div class="eng-cpb__pair">' + cpbMini(q.x) + cpbMini(q.y) + '</div>' +
-          (L ? '<p class="eng-cpb__link"><b>' + esc(REL[L.rel] || '') + ': ' + esc(L.aspect) + '.</b> ' + esc(L.say) + '</p>' : '<p class="eng-cpb__link">These two aren\'t one of the strong matches, so how they compare is up to you.</p>');
+          '<div class="eng-cpb__recap"><h3>What happens in these key scenes</h3>' + cpbSceneRecap(q.x) + cpbSceneRecap(q.y) + '</div>';
       } else {
         var hid = store('eng-plan-hide') === '1';
         top = '<div class="eng-cpb__list' + (hid ? ' is-hid' : '') + '"><p class="eng-cpb__lh"><b>Your plan</b><button type="button" class="eng-cpb__hide" data-plan-hide aria-expanded="' + !hid + '">' + (hid ? 'Show plan' : 'Hide plan') + '</button></p>' +
