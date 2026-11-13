@@ -948,7 +948,7 @@
           (p ? '<img src="assets/eng/img/' + esc(p.file) + '" alt="" loading="lazy">' : '<span class="eng-cpt__img"></span>') +
           '<span class="eng-cpt__t">' + esc(text(id).title) + '</span>' + (id === th.best ? '<span class="eng-cpt__best">Best for (a)</span>' : '') + '</button>';
       }).join('') + '</div>';
-    if (!a) { app.innerHTML = cpPage(h); cpSnap(); cpNavShow(); guideDraw(1, th, null, []); return; }
+    if (!a) { CP_ST = 1; app.innerHTML = cpPage(h); cpSnap(); cpNavShow(); guideDraw(1, th, null, []); railDraw(); return; }
     // 2: part (a): written in the popup if the text has a writing guide, else three points to pick
     var WR = th.write && th.write[a];
     if (WR) h += cpWriterHtml(th, a);
@@ -967,11 +967,13 @@
       if (st >= 4) { h += cpPlanB(th, a, F); if (st < 5) h += cpNext(5, 'Next: write part (b)'); }
       if (st >= 5) h += cpbWriterHtml();
     }
+    CP_ST = st;
     app.innerHTML = cpPage(h);
     cpSnap();
     if (st >= 3) requestAnimationFrame(cpLines);
     cpNavShow();
     guideDraw(st, th, a, B);
+    railDraw();
   }
   // On a narrow screen the step bar scrolls sideways: keep the step you're on in view.
   function cpNavShow() {
@@ -1123,6 +1125,82 @@
   // you see one part on your screen and then the next fucking part"): each step fills the screen, the page snaps from one
   // to the next, each step fades in the first time it arrives, and the bottom of a step says which one is next.
   var CP_SEEN = {}, cpIO = null;
+  // Phones: the tools as a TikTok-style rail of round buttons down the right side (the user: "you know the like share
+  // follow repost", and chose "Tools in a side rail"), instead of sitting on the page: the examiner (his tips; "Stuck?" in
+  // the writing popup), the exam question, which step you're on (tap for the list) and Next. The step bar, the pinned
+  // question and the examiner in the corner go on phones; the laptop keeps them.
+  var RAIL = null, SHEET = null, CP_ST = 1;
+  var RICON = {
+    q: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h10a1.5 1.5 0 0 1 1.5 1.5v15.5l-2.6-1.7-2.5 1.7-2.4-1.7-2.5 1.7-2.5-1.7V5A1.5 1.5 0 0 1 7 3.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5h6M9 12h6M9 15.5h3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    steps: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 21 8l-9 4.5L3 8l9-4.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m3 12 9 4.5 9-4.5M3 16l9 4.5 9-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
+    next: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9.5 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+  };
+  function railOn() { return isPhone() && /^#compare/.test(location.hash) && !document.body.classList.contains('eng-story-on'); }
+  // The step on screen: the last one whose top is above the middle of the screen.
+  function cpStepAt() {
+    var k = 0, mid = window.innerHeight * 0.45;
+    Array.prototype.forEach.call(app.querySelectorAll('.eng-cp__step'), function (el, i) { if (el.getBoundingClientRect().top < mid) k = i; });
+    return k;
+  }
+  function railDraw() {
+    if (!railOn()) { if (RAIL) { RAIL.remove(); RAIL = null; } sheetClose(); return; }
+    if (!RAIL) {
+      RAIL = document.createElement('nav'); RAIL.id = 'eng-rail'; RAIL.setAttribute('aria-label', 'Tools');
+      RAIL.addEventListener('click', function (e) { var b = e.target.closest('[data-rail]'); if (b && !b.disabled) railClick(b.getAttribute('data-rail')); });
+    }
+    if (!RAIL.parentNode) document.body.appendChild(RAIL);
+    var head = window.ExamTeacher ? window.ExamTeacher.head('left') : '';
+    var btn = function (k, icon, label, dis) {
+      return '<button type="button" class="eng-rail__b' + (k === 'tips' || k === 'stuck' ? ' is-me' : '') + '" data-rail="' + k + '"' + (dis ? ' disabled' : '') + '><span class="eng-rail__i">' + icon + '</span><b data-rail-l="' + k + '">' + label + '</b></button>';
+    };
+    if (CPW) { RAIL.innerHTML = btn('stuck', head, 'Stuck?') + btn('q', RICON.q, 'Question'); return; }
+    RAIL.innerHTML = btn('tips', head, 'Tips') + btn('q', RICON.q, 'Question') + btn('steps', RICON.steps, '') + btn('next', RICON.next, 'Next');
+    railSync();
+  }
+  // As you scroll: which step you're on, and whether there's a next one.
+  function railSync() {
+    if (!RAIL || CPW) return;
+    var n = app.querySelectorAll('.eng-cp__step').length, k = cpStepAt(), l = RAIL.querySelector('[data-rail-l="steps"]'), nx = RAIL.querySelector('[data-rail="next"]');
+    if (l) l.textContent = 'Step ' + (k + 1) + '/' + CP_STEPS.length;
+    if (nx) nx.disabled = k >= n - 1;
+  }
+  function railClick(k) {
+    if (k === 'tips') { GUIDE.open = !GUIDE.open; GUIDE.y0 = window.scrollY; guideRender(); return; }
+    if (k === 'stuck') { tchEl(); if (TCH.typing) tchDone(); tchHelp(TCH.classList.contains('is-helping')); return; }
+    if (k === 'q' || k === 'steps') { sheetOpen(k); return; }
+    if (k === 'next') { var i = cpStepAt(); if (i < app.querySelectorAll('.eng-cp__step').length - 1) cpScrollTo(i + 2); }
+  }
+  // A sheet that slides up from the bottom: the question (both parts, the one you're on first), or the steps to jump to.
+  function sheetOpen(kind) {
+    sheetClose();
+    var part = CPW ? (CPW.part === 'b' ? 'b' : 'a') : (cpStepAt() >= 2 ? 'b' : 'a'), other = part === 'a' ? 'b' : 'a', inner;
+    if (kind === 'q') {
+      inner = '<h3>The question</h3><p class="eng-cpq is-full eng-sheet__now"><span>' + cpQIn(part).replace(/^<span>|<\/span>$/g, '') + '</span></p>' +
+        '<p class="eng-cpq is-full eng-sheet__other"><span>' + cpQIn(other).replace(/^<span>|<\/span>$/g, '') + '</span></p>';
+    } else {
+      var at = cpStepAt();
+      inner = '<h3>Steps</h3><ol class="eng-sheet__steps">' + CP_STEPS.map(function (x, i) {
+        var open = i + 1 <= CP_ST, here = i === at;
+        return '<li><button type="button" data-sheet-go="' + (i + 1) + '"' + (open ? '' : ' disabled') + ' class="' + (here ? 'is-here' : '') + '">' + esc(x) +
+          '<em>' + (here ? 'You\'re here' : open ? (i < at ? '✓' : '') : 'Locked') + '</em></button></li>';
+      }).join('') + '</ol>';
+    }
+    SHEET = document.createElement('div'); SHEET.id = 'eng-sheet';
+    SHEET.innerHTML = '<div class="eng-sheet__bg" data-sheet-close></div><div class="eng-sheet__p" role="dialog" aria-modal="true" aria-label="' + (kind === 'q' ? 'The question' : 'Steps') + '">' +
+      '<button type="button" class="eng-sheet__x" data-sheet-close aria-label="Close">×</button>' + inner + '</div>';
+    SHEET.addEventListener('click', function (e) {
+      var g = e.target.closest('[data-sheet-go]');
+      if (g && !g.disabled) { sheetClose(); cpScrollTo(+g.getAttribute('data-sheet-go')); return; }
+      if (e.target.closest('[data-sheet-close]')) sheetClose();
+    });
+    document.body.appendChild(SHEET);
+    var x = SHEET.querySelector('.eng-sheet__x'); if (x) x.focus({ preventScroll: true });
+  }
+  function sheetClose() { if (SHEET) { SHEET.remove(); SHEET = null; } }
+  window.addEventListener('scroll', function () { if (RAIL) railSync(); }, { passive: true });
+  window.addEventListener('resize', function () { railDraw(); });
+  window.addEventListener('hashchange', function () { railDraw(); });
+  document.addEventListener('keydown', function (e) { if (SHEET && e.key === 'Escape') { e.stopPropagation(); sheetClose(); } }, true);
   function cpSnap() {
     var on = isPhone(), root = document.documentElement;
     root.classList.toggle('eng-snap', on);
@@ -1488,7 +1566,7 @@
   window.addEventListener('resize', function () { if (CPW) cpwArrows(); });
   function cpwDraw(focus) {
     var box = document.getElementById('eng-cpd');
-    if (!CPW) { if (box) box.remove(); if (TCH && TCH.parentNode) TCH.remove(); document.body.classList.remove('eng-cpd-on', 'eng-story-on'); return; }
+    if (!CPW) { if (box) box.remove(); if (TCH && TCH.parentNode) TCH.remove(); document.body.classList.remove('eng-cpd-on', 'eng-story-on'); railDraw(); return; }
     if (CPW.part === 'b') return cpbDraw(focus);
     if (!box) {
       // It fades in when it opens, not each time it redraws.
@@ -1573,6 +1651,7 @@
     box.classList.toggle('is-write', writing);
     box.classList.toggle('is-story', !!story); document.body.classList.toggle('eng-story-on', !!story);
     if (story) storyWire(box);
+    railDraw();
     if (fresh) { CPW.tch = null; tchIdle(); }
     if (!tchEl().parentNode) document.body.appendChild(TCH);
     Array.prototype.forEach.call(box.querySelectorAll('[data-cpw-box]'), grow);
@@ -2174,6 +2253,7 @@
     box.classList.toggle('is-write', writing);
     box.classList.toggle('is-story', !!story); document.body.classList.toggle('eng-story-on', !!story);
     if (story) storyWire(box);
+    railDraw();
     if (fresh) { CPW.tch = null; tchIdle(); }
     if (!tchEl().parentNode) document.body.appendChild(TCH);
     Array.prototype.forEach.call(box.querySelectorAll('[data-cpw-box]'), grow);

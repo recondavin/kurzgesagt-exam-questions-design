@@ -1933,3 +1933,61 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
 @media (max-width: 700px) {
   html.eng-snap .eng-cp__step[data-next]::after { right: auto; max-width: calc(100% - 170px); text-align: left; line-height: 1.3; }
 }
+
+/* Phones: the TikTok-style rail down the right side, and the sheet it opens. The step bar, the pinned question and the
+   examiner in the corner make way for it (the examiner's bubble still opens, from the rail). Laptops don't show it. */
+#eng-rail, #eng-sheet { display: none; }
+@media (max-width: 700px) {
+  #eng-rail { position: fixed; right: 6px; bottom: 210px; z-index: 84; display: grid; gap: 16px; justify-items: center; }
+  .eng-rail__b { display: grid; justify-items: center; gap: 4px; min-width: 56px; padding: 0; border: 0; background: none; color: #fff; font: 800 11.5px/1.15 Nunito, sans-serif; text-shadow: 0 1px 3px rgba(0, 0, 0, .7); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .eng-rail__i { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: rgba(23, 36, 43, .86); box-shadow: 0 3px 10px rgba(0, 0, 0, .4); transition: transform .15s ease; }
+  .eng-rail__b:active .eng-rail__i { transform: scale(.9); }
+  .eng-rail__i svg { width: 25px; height: 25px; }
+  .eng-rail__b.is-me .eng-rail__i { width: 54px; height: 54px; overflow: hidden; border: 2px solid #fff; background: #fff; }
+  .eng-rail__b.is-me .eng-rail__i svg { width: 100%; height: 100%; }
+  .eng-rail__b[disabled] { opacity: .35; cursor: default; }
+  .eng-rail__b:focus-visible { outline: none; }
+  .eng-rail__b:focus-visible .eng-rail__i { outline: 3px solid #FFE14D; outline-offset: 2px; }
+  /* room on the right for the rail */
+  .eng-cmpg .eng-cp__step { padding-right: 58px; }
+  #eng-cpd:not(.is-story) .eng-cpd__body { padding-right: 62px; }
+  /* what the rail replaces */
+  .eng-cpnav, .eng-cpd__mhead .eng-cpq { display: none; }
+  #eng-guide .eng-tch__fig, #eng-guide:not(.is-helping) { display: none; }
+  body.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__fig, body.eng-cpd-on .eng-tch:not(#eng-guide):not(.is-helping) { display: none; }
+  .eng-tch.is-helping .eng-tch__say::after { display: none; }
+  /* the sheet */
+  #eng-sheet { position: fixed; inset: 0; z-index: 95; display: block; }
+  .eng-sheet__bg { position: absolute; inset: 0; background: rgba(5, 10, 13, .55); animation: sheetFade .2s ease both; }
+  .eng-sheet__p { position: absolute; right: 0; bottom: 0; left: 0; max-height: 80vh; overflow: auto; padding: 22px 18px calc(22px + env(safe-area-inset-bottom)); border-radius: 24px 24px 0 0; background: #1A2B32; box-shadow: 0 -8px 30px rgba(0, 0, 0, .4); animation: sheetUp .32s cubic-bezier(.2, .8, .2, 1) both; }
+  .eng-sheet__p h3 { margin: 0 52px 14px 2px; color: #fff; font: 800 22px Outfit, Nunito, sans-serif; }
+  .eng-sheet__x { position: absolute; top: 14px; right: 14px; width: 42px; height: 42px; border: 0; border-radius: 50%; background: #243A43; color: #fff; font: 800 24px/1 Nunito, sans-serif; cursor: pointer; }
+  .eng-sheet__p .eng-cpq { margin: 0 0 12px; font-size: 16.5px; cursor: default; }
+  .eng-sheet__p .eng-cpq > span { display: block; }
+  .eng-sheet__other { opacity: .6; }
+  .eng-sheet__steps { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .eng-sheet__steps button { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 54px; padding: 0 18px; border: 0; border-radius: 16px; background: #243A43; color: #fff; font: 800 18px Nunito, sans-serif; text-align: left; cursor: pointer; }
+  .eng-sheet__steps button.is-here { background: var(--m-theme); color: #13212A; }
+  .eng-sheet__steps button[disabled] { opacity: .45; cursor: default; }
+  .eng-sheet__steps em { color: inherit; font: 700 14px Nunito, sans-serif; font-style: normal; opacity: .8; }
+  @keyframes sheetUp { from { transform: translateY(100%); } }
+  @keyframes sheetFade { from { opacity: 0; } }
+}
+@media (max-width: 700px) and (prefers-reduced-motion: reduce) { .eng-sheet__p, .eng-sheet__bg { animation: none; } }
+@media (max-width: 700px) {
+  #eng-rail { bottom: 230px; }
+  .eng-tch.is-helping { z-index: 86; }
+}
+@media (max-width: 700px) {
+  .eng-cmpg { padding-right: 58px; }
+  .eng-cmpg .eng-cp__step { padding-right: 0; }
+}
+@media (max-width: 700px) {
+  .eng-cmpg .eng-cp__step > h2 + .eng-p { display: none; }
+  .eng-cmpg .eng-cpn2 li { padding: 8px 12px; }
+}
+/* The examiner at the top of the rail as a profile picture, TikTok style: round, white ring, a red + under it. */
+@media (max-width: 700px) {
+  .eng-rail__b.is-me { position: relative; gap: 12px; }
+  .eng-rail__b.is-me::after { content: '+'; position: absolute; top: 43px; left: 50%; display: grid; place-items: center; width: 22px; height: 22px; margin-left: -11px; border-radius: 50%; background: #FE2C55; color: #fff; font: 900 17px/1 Nunito, sans-serif; text-shadow: none; box-shadow: 0 2px 4px rgba(0, 0, 0, .35); }
+}
