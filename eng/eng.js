@@ -965,8 +965,94 @@
         (o.text ? '<p class="eng-fi__txt">' + o.text + '</p>' : '') + (o.html || '') + (o.act ? '<div class="eng-fi__act">' + o.act + '</div>' : '') + '</div>' +
       fRail(o.rail) + '</section>';
   }
+  // A picked scene, played like a video (the user: "SHOW the scenes and when a really important thing happens it pauses and
+  // does a cool analysis of it like circles and lines"): its picture fills the screen and its story comes a beat at a
+  // time, with bars at the top like a story; then it pauses on the key moment: the picture slides up, circles are drawn
+  // round what matters with lines out to a note on each, and what the scene represents and its technique come in, with
+  // Write it. Tap the picture to skip to the pause; Watch again replays it.
+  function fScene(tid, s, m, sc, rp, act, rail) {
+    var pic = scenePics(tid, m.id).filter(function (q) { return q.spots && q.spots.length; })[0] || scenePics(tid, m.id)[0];
+    var beats = (m.tell && m.tell.length ? m.tell : storySentences(m.what)).slice(0, 4), tq = sc.techniques[rp.t] || sc.techniques[0];
+    var spots = pic ? (pic.spots || []).slice(0, 2) : [], key = tid + '/' + s + '/' + m.id;
+    return '<section class="eng-fi is-play' + (pic ? '' : ' is-plain') + '" data-fstep="2" data-beats="' + beats.length + '" data-play="' + esc(key) + '" style="--c:' + COL[tid] + '">' +
+      '<div class="eng-fi__bg">' + (pic ? '<div class="eng-fi__ph"><img src="assets/eng/img/' + esc(pic.file) + '" alt=""></div>' : '') + '</div>' +
+      '<div class="eng-fi__ana" aria-hidden="true"><svg class="eng-fi__svg"></svg>' + spots.map(function (q) {
+        return '<div class="eng-fi__spot" data-x="' + q.x + '" data-y="' + q.y + '"><b>' + esc(q.label) + '</b><span>' + esc(q.note) + '</span></div>';
+      }).join('') + '</div>' +
+      '<header class="eng-fi__top"><a class="eng-fi__back" href="#" aria-label="Back to English">‹</a><span>Step 2 of ' + CP_STEPS.length + ' · ' + esc(CP_STEPS[1]) + '</span></header>' +
+      '<div class="eng-fi__bars" aria-hidden="true">' + beats.concat(['']).map(function () { return '<i><b></b></i>'; }).join('') + '</div>' +
+      '<div class="eng-fi__cap"><p class="eng-fi__tag">Part (a) · ' + slotName(s) + ' · ' + esc(m.title) + '</p>' +
+        '<div class="eng-fi__beats">' + beats.map(function (x, i) { return '<p class="eng-fi__beat' + (i ? '' : ' is-on') + '">' + esc(x) + '</p>'; }).join('') + '</div>' +
+        '<div class="eng-fi__key"><p class="eng-fi__pause">⏸ Key moment</p><h3>' + esc(rp.title) + '</h3><p class="eng-fi__txt">' + esc(rp.say) + '</p>' +
+          (tq ? '<p class="eng-fi__tech"><em>Technique</em>' + esc(tq.name) + '</p>' : '') + '</div>' +
+        '<div class="eng-fi__act">' + act + '<button type="button" class="eng-btn eng-btn--quiet eng-fi__again" data-feed-replay>↻ Watch again</button></div></div>' +
+      fRail(rail) + '</section>';
+  }
+  var FPL = { el: null, t: [] }, FBEAT = 3400, FSEEN = {};
+  function fStop() { FPL.t.forEach(clearTimeout); FPL.t = []; FPL.el = null; }
+  function fGo(el, i) {
+    Array.prototype.forEach.call(el.querySelectorAll('.eng-fi__beat'), function (b, k) { b.classList.toggle('is-on', k === i); });
+    Array.prototype.forEach.call(el.querySelectorAll('.eng-fi__bars i'), function (b, k) { b.className = k < i ? 'is-done' : k === i ? 'is-now' : ''; });
+  }
+  function fReset(el) { el.classList.remove('is-playing', 'is-paused', 'is-marked'); var im = el.querySelector('.eng-fi__ph img'); if (im) im.style.objectPosition = ''; fGo(el, 0); }
+  function fPlay(el, again) {
+    if (FPL.el === el && !again) return;
+    fStop(); FPL.el = el; fReset(el);
+    var n = +el.getAttribute('data-beats'), reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || (!again && FSEEN[el.getAttribute('data-play')])) { fGo(el, n); fPause(el); return; }
+    el.classList.add('is-playing');
+    for (var i = 1; i < n; i++) (function (i) { FPL.t.push(setTimeout(function () { fGo(el, i); }, i * FBEAT)); })(i);
+    FPL.t.push(setTimeout(function () { fGo(el, n); fPause(el); }, n * FBEAT));
+  }
+  function fSkip(el) { fStop(); FPL.el = el; fGo(el, +el.getAttribute('data-beats')); fPause(el); }
+  function fPause(el) {
+    FSEEN[el.getAttribute('data-play')] = 1;
+    el.classList.remove('is-playing'); el.classList.add('is-paused');
+    FPL.t.push(setTimeout(function () { fSpots(el); }, 620));
+  }
+  // The circles and lines: each note's spot on the picture (x, y in % of the picture), found where object-fit: cover
+  // puts it, the picture first moved so the spots are in view.
+  function fSpots(el) {
+    var ana = el.querySelector('.eng-fi__ana'), svg = ana && ana.querySelector('svg'), img = el.querySelector('.eng-fi__ph img'), sp = ana ? ana.querySelectorAll('.eng-fi__spot') : [];
+    if (!img || !sp.length) { el.classList.add('is-marked'); return; }
+    var run = function () {
+      var box = el.querySelector('.eng-fi__bg').getBoundingClientRect(), cw = box.width, ch = box.height, iw = img.naturalWidth, ih = img.naturalHeight;
+      if (!iw || !cw) return;
+      var k = Math.max(cw / iw, ch / ih), dw = iw * k, dh = ih * k, clamp = function (v, lo, hi) { return Math.max(lo, Math.min(hi, v)); };
+      var xs = Array.prototype.map.call(sp, function (e) { return +e.getAttribute('data-x') / 100 * dw; }), ys = Array.prototype.map.call(sp, function (e) { return +e.getAttribute('data-y') / 100 * dh; });
+      var mean = function (a) { return a.reduce(function (x, y) { return x + y; }, 0) / a.length; };
+      var dx = clamp(cw / 2 - mean(xs), cw - dw, 0), dy = clamp(ch / 2 - mean(ys), ch - dh, 0);
+      img.style.objectPosition = (dw > cw + 1 ? dx / (cw - dw) * 100 : 50) + '% ' + (dh > ch + 1 ? dy / (ch - dh) * 100 : 50) + '%';
+      var d = '', prev = null, lw = Math.min(210, cw * 0.56);
+      Array.prototype.forEach.call(sp, function (e, i) {
+        var px = clamp(dx + xs[i], 40, cw - 40), py = clamp(dy + ys[i], 96, ch - 40), right = px < cw / 2;
+        var ly = clamp(py - 22, 92, ch - 96);
+        if (prev != null && Math.abs(ly - prev) < 96) ly = clamp(prev + 100, 92, ch - 96);
+        prev = ly;
+        var lx = right ? Math.min(px + 58, cw - lw - 8) : Math.max(px - 58 - lw, 8);
+        e.style.left = lx + 'px'; e.style.top = ly + 'px'; e.style.width = lw + 'px'; e.style.setProperty('--k', i);
+        d += '<circle class="eng-fi__ring" cx="' + px.toFixed(1) + '" cy="' + py.toFixed(1) + '" r="30" style="--k:' + i + '"/>' +
+          '<path class="eng-fi__line" d="M' + (px + (right ? 30 : -30)).toFixed(1) + ' ' + py.toFixed(1) + ' L' + (right ? lx : lx + lw).toFixed(1) + ' ' + (ly + 16).toFixed(1) + '" style="--k:' + i + '"/>';
+      });
+      svg.setAttribute('viewBox', '0 0 ' + cw.toFixed(1) + ' ' + ch.toFixed(1)); svg.innerHTML = d;
+      el.classList.add('is-marked');
+    };
+    if (img.complete && img.naturalWidth) run(); else img.addEventListener('load', run, { once: true });
+  }
+  function fPick(n) {
+    var th = cpTheme(), a = cpBy(th).a, W = cpWrite(th, a), G = th.write[a], at = W.paras.map(function (q) { return q.scene; }).indexOf(n);
+    if (at >= 0) { W.paras[at].scene = 0; W.paras[at].rep = 0; W.paras[at].picked = false; }
+    else {
+      var e = -1;
+      W.paras.forEach(function (q, k) { if (e < 0 && !q.scene) e = k; });
+      if (e < 0) { if (W.paras.length >= 4) return; W.paras.push({ parts: { p: '', a: '', e: '' } }); e = W.paras.length - 1; }
+      var q = W.paras[e]; q.scene = n; q.rep = 0; q.picked = G.scenes[n].reps.length === 1;
+    }
+    cpSave(); renderCompare();
+  }
   function fBtn(attr, label, quiet) { return '<button type="button" class="eng-btn' + (quiet ? ' eng-btn--quiet' : '') + '" ' + attr + '>' + label + '</button>'; }
   function renderFeed(th, ids, by, a, w, B, st, swapped) {
+    fStop();
     var old = app.querySelector('[data-feed]'), y = old ? old.scrollTop : FEED_Y, items = [];
     // the theme
     items.push(fItem({ step: 1, bg: [fHero(a || th.best || ids[0])], eager: true, c: 'var(--m-theme)', tag: 'Compare it · a 30 + 40 answer', title: esc(th.name),
@@ -983,28 +1069,35 @@
       // part (a), a paragraph per item
       var WR = th.write && th.write[a];
       if (WR) {
-        var W = cpWrite(th, a), G = th.write[a], tot = 0;
-        cpwSlots(W).forEach(function (s, i, all) {
-          var txt = slotText(W, s), para = typeof s === 'number' ? W.paras[s] : null, sc = para && para.scene ? G.scenes[para.scene] : null, rp = sc ? sc.reps[para.rep || 0] : null, m = para && para.scene ? text(a).moments[para.scene - 1] : null;
-          tot += wordsIn(txt);
-          var act = fBtn('data-cpw="' + s + '"', txt ? 'Edit' : 'Write it', !!txt);
-          if (typeof s === 'number' && s === W.paras.length - 1) act += W.paras.length < 4 ? fBtn('data-cpw-add', '+ Paragraph 4', true) : fBtn('data-cpw-drop', 'Remove paragraph 4', true);
-          if (s === 'end') { if (tot) act += fBtn('data-cpw-copy', 'Copy part (a)', true); if (st < 3) act += fBtn('data-cp-stage="3"', 'Next: part (b) →'); }
-          // No scene yet: the scenes themselves, to tap (the user: "the image should be what you PICKED"); then its picture.
-          var picked = W.paras.filter(function (q) { return q.scene; }).map(function (q) { return fPic(text(a).moments[q.scene - 1].id, true); }).filter(Boolean);
-          var choose = para && !para.scene ? '<div class="eng-fi__scenes" role="list">' + text(a).moments.map(function (mm, mi) {
-            var n = mi + 1, at = W.paras.map(function (q, k) { return k !== s && q.scene === n ? k + 1 : 0; }).filter(Boolean)[0];
+        var W = cpWrite(th, a), G = th.write[a], tot = 0, mo = text(a).moments;
+        var pickedN = W.paras.filter(function (q) { return q.scene; }).length;
+        var mos = W.paras.filter(function (q) { return q.scene; }).map(function (q) { return fPic(mo[q.scene - 1].id, true); }).filter(Boolean).slice(0, 4);
+        // Pick the scenes once, first, for all the paragraphs (the user: "i thought you already pick them before hand").
+        items.push(fItem({ step: 2, c: COL[a], cls: 'is-pick is-scenes', tag: 'Part (a) · ' + esc(text(a).title), title: 'Pick your 3 or 4 scenes',
+          text: pickedN < 3 ? 'Tap one for each paragraph: ' + (3 - pickedN) + ' more to go.' : pickedN === 3 ? 'Three picked. Add a fourth, or watch them.' : 'Four picked. Now watch them.',
+          html: '<div class="eng-fi__grid">' + mo.map(function (mm, mi) {
+            var n = mi + 1;
             if (!G.scenes[n]) return '';
-            var own = fPic(mm.id, true);
-            return '<button type="button" class="eng-fi__sc" role="listitem" data-feed-scene="' + s + '|' + n + '"' + (at ? ' disabled' : '') + '>' +
+            var k = W.paras.map(function (q) { return q.scene; }).indexOf(n), own = fPic(mm.id, true), full = k < 0 && pickedN >= 4;
+            return '<button type="button" class="eng-fi__tile' + (k >= 0 ? ' is-on' : '') + '" data-feed-pick="' + n + '" aria-pressed="' + (k >= 0) + '"' + (full ? ' disabled' : '') + '>' +
               (own ? '<img src="assets/eng/img/' + esc(own) + '" alt="" loading="lazy">' : '<span class="eng-fi__noimg">' + esc(mm.where || '') + '</span>') +
-              '<b>' + esc(mm.title) + '</b>' + (at ? '<em>In paragraph ' + at + '</em>' : '') + '</button>';
-          }).join('') + '</div>' : '';
-          items.push(fItem({ step: 2, bg: m ? [fPic(m.id, true)] : para ? [] : (picked.length ? picked.slice(0, 4) : [fHero(a)]), c: COL[a], cls: choose ? 'is-choose' : '', html: choose,
-            tag: 'Part (a) · ' + slotName(s) + (m ? ' · ' + esc(m.title) : ''),
-            title: rp ? esc(rp.title) : s === 'open' ? 'Your opening' : s === 'end' ? 'Your ending' : 'Pick a key scene',
-            text: txt ? esc(txt) : s === 'open' ? 'Pick your three or four scenes, then write the opening.' : s === 'end' ? 'Sum it all up: what the film finally says about ' + esc(th.name.toLowerCase()) + '.' : choose ? 'Swipe sideways through the scenes and tap the one for this paragraph.' : 'Now pick what it represents, then write it.',
-            act: (choose ? act.replace(/^<button[^>]*data-cpw="[^"]*"[^>]*>[^<]*<\/button>/, '') : act) + (s === 'end' && tot ? '<span class="eng-fi__count">Part (a): ' + tot + ' words</span>' : ''), rail: fRailBtn(FICON.pen, txt ? 'Edit' : 'Write', '', 'data-cpw="' + s + '"') }));
+              '<b>' + esc(mm.title) + '</b>' + (k >= 0 ? '<em>Paragraph ' + (k + 1) + '</em>' : '') + '</button>';
+          }).join('') + '</div>',
+          act: pickedN >= 3 ? fBtn('data-feed-next', 'Watch your scenes ↓') : '' }));
+        cpwSlots(W).forEach(function (s) {
+          var txt = slotText(W, s), para = typeof s === 'number' ? W.paras[s] : null, sc = para && para.scene ? G.scenes[para.scene] : null, rp = sc ? sc.reps[para.rep || 0] : null, m = para && para.scene ? mo[para.scene - 1] : null;
+          tot += wordsIn(txt);
+          var act = fBtn('data-cpw="' + s + '"', txt ? 'Edit' : 'Write it', !!txt), rail = fRailBtn(FICON.pen, txt ? 'Edit' : 'Write', '', 'data-cpw="' + s + '"');
+          if (s === 'end') { if (tot) act += fBtn('data-cpw-copy', 'Copy part (a)', true); if (st < 3) act += fBtn('data-cp-stage="3"', 'Next: part (b) →'); }
+          if (m && rp) { items.push(fScene(a, s, m, sc, rp, act, rail)); return; }
+          if (para) {
+            items.push(fItem({ step: 2, c: COL[a], tag: 'Part (a) · ' + slotName(s), title: 'No scene yet', text: 'Pick its scene on the scenes screen first.',
+              act: fBtn('data-feed-goto="scenes"', '↑ Pick your scenes') + (s === 3 ? fBtn('data-cpw-drop', 'Remove paragraph 4', true) : ''), rail: rail }));
+            return;
+          }
+          items.push(fItem({ step: 2, bg: mos.length ? mos : [fHero(a)], c: COL[a], tag: 'Part (a) · ' + slotName(s), title: s === 'open' ? 'Your opening' : 'Your ending',
+            text: txt ? esc(txt) : s === 'open' ? (pickedN >= 3 ? 'Name the film and its director, answer the question, and say your points.' : 'Pick your scenes first, then write the opening.') : 'Sum it all up: what the film finally says about ' + esc(th.name.toLowerCase()) + '.',
+            act: act + (s === 'end' && tot ? '<span class="eng-fi__count">Part (a): ' + tot + ' words</span>' : ''), rail: rail }));
         });
       } else {
         items.push(fItem({ step: 2, bg: [fHero(a)], c: COL[a], tag: 'Part (a) · ' + esc(text(a).title), title: 'Pick three points', cls: 'is-pick',
@@ -1072,6 +1165,10 @@
       if (!GUIDE.open) GUIDE.fy = null;
     }, { passive: true });
     GUIDE.fy = fd.scrollTop;
+    if (window.IntersectionObserver) {
+      var fio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) fPlay(e.target); else if (FPL.el === e.target) fStop(); }); }, { root: fd, threshold: 0.6 });
+      Array.prototype.forEach.call(fd.querySelectorAll('.eng-fi.is-play'), function (x) { fio.observe(x); });
+    } else Array.prototype.forEach.call(fd.querySelectorAll('.eng-fi.is-play'), function (x) { fSkip(x); });
     CP_ST = st;
     guideDraw(st, th, a, B);
     railDraw();
@@ -3382,6 +3479,13 @@
     var qf = t.closest('[data-eng-qf]');
     if (qf) { qFilter = qf.getAttribute('data-eng-qf'); renderQuestions(); return; }
     if (t.closest('[data-eng-qopen]')) { QOPEN = !QOPEN; store('eng-q-open', QOPEN ? '1' : '0'); renderQuestions(); return; }
+    var fpk = t.closest('[data-feed-pick]');
+    if (fpk) { if (!fpk.disabled) fPick(+fpk.getAttribute('data-feed-pick')); return; }
+    if (t.closest('[data-feed-replay]')) { var frp = t.closest('.eng-fi.is-play'); if (frp) fPlay(frp, true); return; }
+    var fgt = t.closest('[data-feed-goto]');
+    if (fgt) { var fdg = app.querySelector('[data-feed]'), tg = fdg && fdg.querySelector('.eng-fi.is-scenes'); if (tg) fdg.scrollTo({ top: tg.offsetTop, behavior: 'smooth' }); return; }
+    var fpl = t.closest('.eng-fi.is-play');
+    if (fpl && !t.closest('button, a') && !fpl.classList.contains('is-paused')) { fSkip(fpl); return; }
     var fsc = t.closest('[data-feed-scene]');
     if (fsc) {
       if (!fsc.disabled) {
