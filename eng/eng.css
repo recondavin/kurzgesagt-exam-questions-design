@@ -1672,3 +1672,43 @@ body.eng-cpd-on #eng-guide { display: none; }
 /* A scene already in a pair: used, so it can't be paired again. */
 .eng-cpm.is-used { opacity: .55; cursor: not-allowed; }
 .eng-cpm.is-used .eng-cpm__k { background: var(--m-theme); color: #13212A; }
+
+/* Pick your scenes, roomier (the user: "everything must be nicely spaced, and the scenes should actually be bigger the
+   images ... and each scene box should be much bigger"): each scene a big card, its picture 190 x 116 (or a box in the
+   text's colour with the number, until it has one), the number and title beside; wider gaps; every line green. */
+.eng-cmpg .eng-cpb { grid-template-columns: minmax(0, 1fr) clamp(56px, 9vw, 150px) minmax(0, 1fr); margin: 16px 0 26px; }
+.eng-cmpg .eng-cpb__col { gap: 16px; }
+.eng-cmpg .eng-cpb__col h3 { margin: 0 0 6px; font-size: 27px; }
+.eng-cmpg .eng-cpm { grid-template-columns: 190px minmax(0, 1fr); gap: 20px; min-height: 136px; padding: 10px 20px 10px 10px; border-radius: 20px; }
+.eng-cmpg .eng-cpm img, .eng-cpm__ph { display: block; width: 190px; height: 116px; border-radius: 14px; object-fit: cover; }
+.eng-cpm__ph { display: grid; place-items: center; background: color-mix(in srgb, var(--c) 22%, var(--raised)); color: var(--c); font: 800 46px/1 Nunito, sans-serif; }
+.eng-cpm__b { display: grid; gap: 10px; justify-items: start; min-width: 0; }
+.eng-cmpg .eng-cpm__n { width: 38px; height: 38px; font-size: 18px; }
+.eng-cmpg .eng-cpm__t { font: 800 21px/1.3 Nunito, sans-serif; }
+.eng-cmpg .eng-cpm__k { top: -12px; right: 12px; padding: 3px 11px; font-size: 15px; }
+.eng-cpb__ln--differ, .eng-cpb__ln--degree { stroke: #58CC02; stroke-dasharray: none; }
+.eng-cpb__dot.eng-cpb__ln--differ, .eng-cpb__dot.eng-cpb__ln--degree { fill: #58CC02; }
+.eng-cmpg .eng-cpk { margin: 4px 0 22px; }
+.eng-cmpg .eng-cpf { margin: 0 0 18px; }
+.eng-cmpg .eng-cpl--mini { margin-top: 10px; }
+.eng-cmpg .eng-cpl--mini .eng-cpl__i { gap: 18px; padding: 22px 60px 22px 0; }
+.eng-cmpg .eng-cpl--mini .eng-cpl__h { margin-top: 12px; }
+.eng-cmpg .eng-cp__tools { margin-top: 22px; }
+@media (max-width: 760px) {
+  .eng-cmpg .eng-cpb { grid-template-columns: minmax(0, 1fr) 26px minmax(0, 1fr); }
+  .eng-cmpg .eng-cpm { grid-template-columns: minmax(0, 1fr); gap: 10px; min-height: 0; padding: 8px 8px 12px; }
+  .eng-cmpg .eng-cpm img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; }
+  .eng-cpm__ph { width: 100%; height: auto; aspect-ratio: 16 / 10; }
+  .eng-cpm__ph { font-size: 34px; }
+  .eng-cpm__b { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 8px; }
+  .eng-cmpg .eng-cpm__n { width: 30px; height: 30px; font-size: 15px; }
+  .eng-cmpg .eng-cpm__t { font-size: 15.5px; }
+}
+
+/* Phones: the subject menu (Geography … German) is wider than the screen, which made the whole page slide sideways.
+   It now scrolls on its own, inside the top bar. */
+@media (max-width: 700px) {
+  .sh-switch { min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .sh-switch::-webkit-scrollbar { display: none; }
+  .sh-switch a { flex: none; }
+}

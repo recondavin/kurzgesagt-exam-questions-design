@@ -75,7 +75,7 @@
   "source": "https://commons.wikimedia.org/wiki/File:Kerry_peat_bog_-_geograph.org.uk_-_775099.jpg",
   "kind": "place",
   "caption": "Turf cut by hand and stacked to dry, with dark water in the cut-away holes. The play's world is bog and mountain.",
-  "moment": "sive-11",
+  "moment": "sive-12",
   "spots": [
    {
     "x": 74,
@@ -94,7 +94,7 @@
     "moment": "sive-11"
    }
   ],
-  "scene": "sive-11"
+  "scene": "sive-12"
  },
  {
   "file": "sive-s-kitchen.jpg",
@@ -1022,7 +1022,7 @@
   "source": "https://commons.wikimedia.org/wiki/File:New_Ross%2C_South_Street_to_Tholsel%2C_1993_-_geograph.org.uk_-_4451638.jpg",
   "kind": "place",
   "caption": "New Ross, Co. Wexford, where the novella is set: eight years after its Christmas of 1985.",
-  "moment": "stlt-2",
+  "moment": "stlt-10",
   "spots": [
    {
     "x": 47,
@@ -1049,7 +1049,7 @@
     "moment": "stlt-12"
    }
   ],
-  "scene": "stlt-2"
+  "scene": "stlt-10"
  },
  {
   "file": "stlt-f-home.jpg",
@@ -1336,5 +1336,215 @@
   "moment": "",
   "spots": [],
   "scene": ""
+ },
+ {
+  "file": "sive-b-offer.jpg",
+  "text": "sive",
+  "title": "Thomasheen and Mena",
+  "author": "Sive, Bench Theatre (Havant), 2017, directed by Simon Walton; photo from the company's production page",
+  "licence": "Copyright: used here for study",
+  "source": "https://benchtheatre.org.uk/plays10s/sive.php",
+  "kind": "production",
+  "caption": "Thomasheen the matchmaker leans in to Mena with his offer.",
+  "moment": "sive-2",
+  "spots": [
+   {
+    "x": 38,
+    "y": 35,
+    "label": "Mena",
+    "note": "She sees the £200 as her way out, and a way to be rid of Sive.",
+    "quote": "",
+    "moment": "sive-2"
+   }
+  ]
+ },
+ {
+  "file": "sive-b-liam.jpg",
+  "text": "sive",
+  "title": "Sive and Liam",
+  "author": "Sive, Bench Theatre (Havant), 2017, directed by Simon Walton; photo from the company's production page",
+  "licence": "Copyright: used here for study",
+  "source": "https://benchtheatre.org.uk/plays10s/sive.php",
+  "kind": "production",
+  "caption": "Sive and Liam Scuab together: Mike catches him on a secret visit and orders him away.",
+  "moment": "sive-3",
+  "spots": [
+   {
+    "x": 70,
+    "y": 45,
+    "label": "Liam",
+    "note": "A young man her own age who truly loves her.",
+    "quote": "",
+    "moment": "sive-3"
+   }
+  ]
+ },
+ {
+  "file": "sive-b-courting.jpg",
+  "text": "sive",
+  "title": "Seán Dóta comes courting",
+  "author": "Sive, Bench Theatre (Havant), 2017, directed by Simon Walton; photo from the company's production page",
+  "licence": "Copyright: used here for study",
+  "source": "https://benchtheatre.org.uk/plays10s/sive.php",
+  "kind": "production",
+  "caption": "Thomasheen brings Seán Dóta, the old farmer, into the Glavins' kitchen, with the family gathered.",
+  "moment": "sive-4",
+  "spots": [
+   {
+    "x": 49,
+    "y": 58,
+    "label": "Seán Dóta",
+    "note": "The rich old farmer who wants to marry a schoolgirl.",
+    "quote": "",
+    "moment": "sive-4"
+   }
+  ]
+ },
+ {
+  "file": "sive-b-travellers.jpg",
+  "text": "sive",
+  "title": "The travelling men",
+  "author": "Sive, Bench Theatre (Havant), 2017, directed by Simon Walton; photo from the company's production page",
+  "licence": "Copyright: used here for study",
+  "source": "https://benchtheatre.org.uk/plays10s/sive.php",
+  "kind": "production",
+  "caption": "Pats Bocock and Carthalawn, the travelling men, with the bodhrán for their songs.",
+  "moment": "sive-5",
+  "spots": [
+   {
+    "x": 30,
+    "y": 55,
+    "label": "The bodhrán",
+    "note": "Carthalawn's songs mock the matchmaker and the old man to their faces.",
+    "quote": "",
+    "moment": "sive-5"
+   }
+  ]
+ },
+ {
+  "file": "sive-b-school.jpg",
+  "text": "sive",
+  "title": "Sive in her school uniform",
+  "author": "Sive, Bench Theatre (Havant), 2017, directed by Simon Walton; photo from the company's production page",
+  "licence": "Copyright: used here for study",
+  "source": "https://benchtheatre.org.uk/plays10s/sive.php",
+  "kind": "production",
+  "caption": "Sive, still a schoolgirl: Mena tells her she will leave school and marry Seán Dóta.",
+  "moment": "sive-6",
+  "spots": [
+   {
+    "x": 62,
+    "y": 45,
+    "label": "Sive",
+    "note": "In her school uniform: a child, being sold into marriage.",
+    "quote": "",
+    "moment": "sive-6"
+   }
+  ]
+ },
+ {
+  "file": "sive-b-plea.jpg",
+  "text": "sive",
+  "title": "Liam and Mike",
+  "author": "Sive, Bench Theatre (Havant), 2017, directed by Simon Walton; photo from the company's production page",
+  "licence": "Copyright: used here for study",
+  "source": "https://benchtheatre.org.uk/plays10s/sive.php",
+  "kind": "production",
+  "caption": "Liam comes to the house and pleads with Mike not to give Sive to Seán Dóta.",
+  "moment": "sive-7",
+  "spots": [
+   {
+    "x": 68,
+    "y": 40,
+    "label": "Liam",
+    "note": "He even offers to keep away from her, if only she is spared the match.",
+    "quote": "",
+    "moment": "sive-7"
+   }
+  ]
+ },
+ {
+  "file": "sive-b-mike-mena.jpg",
+  "text": "sive",
+  "title": "Mike and Mena",
+  "author": "Sive, Bench Theatre (Havant), 2017, directed by Simon Walton; photo from the company's production page",
+  "licence": "Copyright: used here for study",
+  "source": "https://benchtheatre.org.uk/plays10s/sive.php",
+  "kind": "production",
+  "caption": "Mike and Mena, the couple who make the match: Liam's letter could have saved Sive.",
+  "moment": "sive-9",
+  "spots": [
+   {
+    "x": 72,
+    "y": 45,
+    "label": "Mena",
+    "note": "She wants the match, and the money, more than anyone.",
+    "quote": "",
+    "moment": "sive-9"
+   }
+  ]
+ },
+ {
+  "file": "sive-b-table.jpg",
+  "text": "sive",
+  "title": "Thomasheen at the table",
+  "author": "Sive, Bench Theatre (Havant), 2017, directed by Simon Walton; photo from the company's production page",
+  "licence": "Copyright: used here for study",
+  "source": "https://benchtheatre.org.uk/plays10s/sive.php",
+  "kind": "production",
+  "caption": "Thomasheen at the Glavins' table, as the men drink with Seán Dóta on the eve of the wedding.",
+  "moment": "sive-10",
+  "spots": [
+   {
+    "x": 50,
+    "y": 40,
+    "label": "Thomasheen",
+    "note": "The matchmaker, waiting for his cut of the money.",
+    "quote": "",
+    "moment": "sive-10"
+   }
+  ]
+ },
+ {
+  "file": "stlt-f-flashback.jpg",
+  "text": "stlt",
+  "title": "A flashback",
+  "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
+  "kind": "film",
+  "caption": "The film's flashbacks go back to the time of Bill's mother, a young unmarried mother working for Mrs Wilson.",
+  "moment": "stlt-1",
+  "spots": [
+   {
+    "x": 55,
+    "y": 45,
+    "label": "A flashback",
+    "note": "Bill's own start in life, saved by one woman's kindness.",
+    "quote": "",
+    "moment": "stlt-1"
+   }
+  ]
+ },
+ {
+  "file": "stlt-f-drive.jpg",
+  "text": "stlt",
+  "title": "On the road at night",
+  "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
+  "licence": "Copyright: used here for study",
+  "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
+  "kind": "film",
+  "caption": "Bill in his lorry at night: lost on the road, he asks the way.",
+  "moment": "stlt-5",
+  "spots": [
+   {
+    "x": 45,
+    "y": 45,
+    "label": "Bill",
+    "note": "Lost, he is told the road will take him anywhere he wants.",
+    "quote": "",
+    "moment": "stlt-5"
+   }
+  ]
  }
 ]

@@ -972,8 +972,8 @@
         if (used[mid]) st += ' is-used';
         w.links.forEach(function (l, k) { if (l.a === mid || l.b === mid) nums.push(k + 1); });
         return '<button type="button" class="eng-cpm' + st + '" data-cpm="' + mid + '" aria-pressed="' + (CPSEL === mid) + '">' +
-          (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '') +
-          '<span class="eng-cpm__n">' + o.n + '</span><span class="eng-cpm__t">' + esc(o.m.title) + '</span>' +
+          (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '<span class="eng-cpm__ph" aria-hidden="true">' + o.n + '</span>') +
+          '<span class="eng-cpm__b"><span class="eng-cpm__n">' + o.n + '</span><span class="eng-cpm__t">' + esc(o.m.title) + '</span></span>' +
           (nums.length ? '<span class="eng-cpm__k" aria-label="In pair ' + nums.join(' and ') + '">' + nums.join(' ') + '</span>' : '') + '</button>';
       }).join('') + '</div>';
     };
@@ -992,7 +992,7 @@
       (n ? '<ol class="eng-cpl eng-cpl--mini">' + w.links.map(function (l, k) {
         var x = cpFind(th, l.a, l.b), left = tidOf(l.a) === F[0] ? l.a : l.b, right = left === l.a ? l.b : l.a;
         return '<li class="eng-cpl__i eng-cpl--' + x.rel + '"><span class="eng-cpl__k">' + (k + 1) + '</span><div><p class="eng-cpl__m">' + momChip(left) + momChip(right) + '</p>' +
-          '<p class="eng-cpl__h"><b>' + esc(x.aspect) + '</b> <span class="eng-cpl__rel">' + REL[x.rel] + '</span></p></div>' +
+          '<p class="eng-cpl__h"><b>' + esc(x.aspect) + '</b></p></div>' +
           '<button type="button" class="eng-cpl__x" data-cp-del="' + k + '" aria-label="Remove pair ' + (k + 1) + '">×</button></li>';
       }).join('') + '</ol>' : '') +
       (n ? '<p class="eng-btns eng-cp__tools"><button type="button" class="eng-btn eng-btn--quiet" data-cp-reset>Start again</button></p>' : '');
@@ -1003,7 +1003,7 @@
     W.paras.forEach(function (q, k) {
       if (!q.x || !q.y) return;
       var L2 = cpbLink(th, q.x, q.y);
-      rows.push(['Paragraph ' + (k + 1), L2 ? L2.aspect + ' (' + REL[L2.rel].toLowerCase() + ')' : 'Your own link', [q.x, q.y]]);
+      rows.push(['Paragraph ' + (k + 1), L2 ? L2.aspect : 'Your own link', [q.x, q.y]]);
     });
     rows.push(['Ending', 'Which text shows ' + name + ' more powerfully, and why.']);
     return '<h2 class="eng-h2"><span class="eng-cp__n">4</span>Your plan</h2><ol class="eng-cpn2">' + rows.map(function (r) {
@@ -1143,7 +1143,7 @@
       var rp = p.getBoundingClientRect(), rq = q.getBoundingClientRect();
       if (rp.left > rq.left) { var t = rp; rp = rq; rq = t; }
       var x1 = rp.right - r0.left, y1 = rp.top + rp.height / 2 - r0.top, x2 = rq.left - r0.left, y2 = rq.top + rq.height / 2 - r0.top, mx = (x1 + x2) / 2;
-      var rel = cpFind(th, l.a, l.b).rel;
+      var rel = 'same';   // every pair's line is the same solid green (the user: "only green")
       d += '<path class="eng-cpb__ln eng-cpb__ln--' + rel + '" d="M' + x1 + ' ' + y1 + ' C' + mx + ' ' + y1 + ' ' + mx + ' ' + y2 + ' ' + x2 + ' ' + y2 + '"/>' +
         '<circle class="eng-cpb__dot eng-cpb__ln--' + rel + '" cx="' + x1 + '" cy="' + y1 + '" r="4"/><circle class="eng-cpb__dot eng-cpb__ln--' + rel + '" cx="' + x2 + '" cy="' + y2 + '" r="4"/>';
     });
@@ -1170,7 +1170,7 @@
     if (!x) { CPFB = { kind: 'miss', head: 'Not a match. Pick a glowing one.', body: '' }; return; }
     if (w.links.length >= 4) { CPFB = { kind: 'have', head: 'Four pairs already. Remove one first.', body: '' }; CPSEL = null; return; }
     w.links.push({ a: x.a, b: x.b, rel: x.rel });
-    CPFB = { kind: 'yes', head: 'Paired: ' + x.aspect + ' (' + REL[x.rel].toLowerCase() + ').', body: '' };
+    CPFB = { kind: 'yes', head: 'Paired: ' + x.aspect + '.', body: '' };
     CPSEL = null;
   }
   function cpRel(rel) {
