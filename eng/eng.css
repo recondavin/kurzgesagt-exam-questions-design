@@ -2071,3 +2071,23 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
   .eng-rail__b.is-me .eng-rail__i svg { transform: translateY(-15%) scale(.86); }
   .eng-rail__i svg.tch, .eng-rail__i svg.tch * { animation: none !important; }
 }
+
+/* Part (a) on the phone feed: a paragraph with no scene shows the scenes themselves, a strip of picture cards you swipe
+   sideways and tap; the opening and ending show the scenes you've picked, together. */
+@media (max-width: 700px) {
+  .eng-fi.is-choose .eng-fi__cap { top: 64px; align-content: safe end; }
+  .eng-fi__scenes { display: flex; gap: 10px; margin: 6px -14px 0 0; padding: 4px 14px 8px 0; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .eng-fi__scenes::-webkit-scrollbar { display: none; }
+  .eng-fi__sc { display: grid; flex: none; align-content: start; gap: 6px; width: 148px; padding: 6px 6px 10px; border: 3px solid rgba(255, 255, 255, .16); border-radius: 18px; background: rgba(14, 23, 28, .88); color: #fff; text-align: left; scroll-snap-align: start; cursor: pointer; }
+  .eng-fi__sc img { display: block; width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; object-fit: cover; }
+  .eng-fi__sc b { padding: 0 4px; font: 800 15px/1.2 Outfit, Nunito, sans-serif; }
+  .eng-fi__sc em { padding: 0 4px; color: var(--m-theme); font: 800 12.5px Nunito, sans-serif; font-style: normal; }
+  .eng-fi__sc:active { border-color: var(--m-theme); }
+  .eng-fi__sc[disabled] { opacity: .45; cursor: default; }
+  .eng-fi__bg.is-mosaic { bottom: 36%; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: none; grid-auto-rows: minmax(0, 1fr); gap: 3px; background: #05090B; }
+  .eng-fi__bg.is-mosaic .eng-fi__ph:nth-child(3):last-child { grid-column: span 2; }
+  .eng-fi__bg.is-mosaic::after { background: linear-gradient(rgba(0, 0, 0, .55), rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 70%, #0E171C); }
+}
+@media (max-width: 700px) {
+  .eng-fi__noimg { display: grid; place-items: center; aspect-ratio: 4 / 3; padding: 8px; border-radius: 12px; background: linear-gradient(135deg, color-mix(in srgb, var(--c) 35%, #13212A), #13212A); color: #DCE6EB; font: 700 13px/1.3 Nunito, sans-serif; text-align: center; }
+}

@@ -943,7 +943,9 @@
     pen: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5 17v3Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="m14.5 7.5 3 3" stroke="currentColor" stroke-width="2.2"/></svg>'
   };
   function fHero(id) { var q = pics(id).filter(function (x) { return x.hero; })[0] || pics(id)[0]; return q ? q.file : ''; }
-  function fPic(mid) { var tid = tidOf(mid), q = scenePics(tid, mid)[0]; return q ? q.file : fHero(tid); }
+  // A scene's own picture; with own, '' when it has none rather than another scene's (the user: "the image should be what
+  // you PICKED").
+  function fPic(mid, own) { var tid = tidOf(mid), q = scenePics(tid, mid)[0]; return q ? q.file : own ? '' : fHero(tid); }
   function fRail(extra) {
     var head = window.ExamTeacher ? window.ExamTeacher.head('left') : '';
     var b = function (k, icon, label, cls, attr) { return '<button type="button" class="eng-rail__b' + (cls || '') + '" ' + attr + '><span class="eng-rail__i">' + icon + '</span><b>' + label + '</b></button>'; };
@@ -954,7 +956,7 @@
   function fItem(o) {
     var bg = (o.bg || []).filter(Boolean);
     return '<section class="eng-fi' + (bg.length ? '' : ' is-plain') + (o.cls ? ' ' + o.cls : '') + '" data-fstep="' + o.step + '" style="--c:' + (o.c || '#8FD0FF') + '">' +
-      '<div class="eng-fi__bg' + (bg.length > 1 ? ' is-two' : '') + '">' + bg.map(function (f, i) {
+      '<div class="eng-fi__bg' + (bg.length === 2 ? ' is-two' : bg.length > 2 ? ' is-mosaic' : '') + '">' + bg.map(function (f, i) {
         var l = o.labels && o.labels[i];
         return '<div class="eng-fi__ph"><img src="assets/eng/img/' + esc(f) + '" alt="" loading="' + (o.eager ? 'eager' : 'lazy') + '">' + (l ? '<span class="eng-fi__lbl" style="--c:' + l[1] + '">' + esc(l[0]) + '</span>' : '') + '</div>';
       }).join('') + '</div>' +
@@ -988,10 +990,21 @@
           var act = fBtn('data-cpw="' + s + '"', txt ? 'Edit' : 'Write it', !!txt);
           if (typeof s === 'number' && s === W.paras.length - 1) act += W.paras.length < 4 ? fBtn('data-cpw-add', '+ Paragraph 4', true) : fBtn('data-cpw-drop', 'Remove paragraph 4', true);
           if (s === 'end') { if (tot) act += fBtn('data-cpw-copy', 'Copy part (a)', true); if (st < 3) act += fBtn('data-cp-stage="3"', 'Next: part (b) →'); }
-          items.push(fItem({ step: 2, bg: [m ? fPic(m.id) : fHero(a)], c: COL[a], tag: 'Part (a) · ' + slotName(s) + (m ? ' · ' + esc(m.title) : ''),
+          // No scene yet: the scenes themselves, to tap (the user: "the image should be what you PICKED"); then its picture.
+          var picked = W.paras.filter(function (q) { return q.scene; }).map(function (q) { return fPic(text(a).moments[q.scene - 1].id, true); }).filter(Boolean);
+          var choose = para && !para.scene ? '<div class="eng-fi__scenes" role="list">' + text(a).moments.map(function (mm, mi) {
+            var n = mi + 1, at = W.paras.map(function (q, k) { return k !== s && q.scene === n ? k + 1 : 0; }).filter(Boolean)[0];
+            if (!G.scenes[n]) return '';
+            var own = fPic(mm.id, true);
+            return '<button type="button" class="eng-fi__sc" role="listitem" data-feed-scene="' + s + '|' + n + '"' + (at ? ' disabled' : '') + '>' +
+              (own ? '<img src="assets/eng/img/' + esc(own) + '" alt="" loading="lazy">' : '<span class="eng-fi__noimg">' + esc(mm.where || '') + '</span>') +
+              '<b>' + esc(mm.title) + '</b>' + (at ? '<em>In paragraph ' + at + '</em>' : '') + '</button>';
+          }).join('') + '</div>' : '';
+          items.push(fItem({ step: 2, bg: m ? [fPic(m.id, true)] : para ? [] : (picked.length ? picked.slice(0, 4) : [fHero(a)]), c: COL[a], cls: choose ? 'is-choose' : '', html: choose,
+            tag: 'Part (a) · ' + slotName(s) + (m ? ' · ' + esc(m.title) : ''),
             title: rp ? esc(rp.title) : s === 'open' ? 'Your opening' : s === 'end' ? 'Your ending' : 'Pick a key scene',
-            text: txt ? esc(txt) : s === 'open' ? 'Pick your three or four scenes, then write the opening.' : s === 'end' ? 'Sum it all up: what the film finally says about ' + esc(th.name.toLowerCase()) + '.' : 'Pick a key scene and what it represents, then write it.',
-            act: act + (s === 'end' && tot ? '<span class="eng-fi__count">Part (a): ' + tot + ' words</span>' : ''), rail: fRailBtn(FICON.pen, txt ? 'Edit' : 'Write', '', 'data-cpw="' + s + '"') }));
+            text: txt ? esc(txt) : s === 'open' ? 'Pick your three or four scenes, then write the opening.' : s === 'end' ? 'Sum it all up: what the film finally says about ' + esc(th.name.toLowerCase()) + '.' : choose ? 'Swipe sideways through the scenes and tap the one for this paragraph.' : 'Now pick what it represents, then write it.',
+            act: (choose ? act.replace(/^<button[^>]*data-cpw="[^"]*"[^>]*>[^<]*<\/button>/, '') : act) + (s === 'end' && tot ? '<span class="eng-fi__count">Part (a): ' + tot + ' words</span>' : ''), rail: fRailBtn(FICON.pen, txt ? 'Edit' : 'Write', '', 'data-cpw="' + s + '"') }));
         });
       } else {
         items.push(fItem({ step: 2, bg: [fHero(a)], c: COL[a], tag: 'Part (a) · ' + esc(text(a).title), title: 'Pick three points', cls: 'is-pick',
@@ -3369,6 +3382,15 @@
     var qf = t.closest('[data-eng-qf]');
     if (qf) { qFilter = qf.getAttribute('data-eng-qf'); renderQuestions(); return; }
     if (t.closest('[data-eng-qopen]')) { QOPEN = !QOPEN; store('eng-q-open', QOPEN ? '1' : '0'); renderQuestions(); return; }
+    var fsc = t.closest('[data-feed-scene]');
+    if (fsc) {
+      if (!fsc.disabled) {
+        var fsp = fsc.getAttribute('data-feed-scene').split('|'), fth = cpTheme(), fa2 = cpBy(fth).a, fW = cpWrite(fth, fa2), fG = fth.write[fa2], fq = fW.paras[+fsp[0]], fn = +fsp[1];
+        if (fq && fq.scene !== fn) { fq.scene = fn; fq.rep = 0; fq.picked = fG.scenes[fn].reps.length === 1; }
+        cpSave(); renderCompare();
+      }
+      return;
+    }
     var fp = t.closest('[data-feed-pair]');
     if (fp) { if (!fp.disabled) feedPair(fp.getAttribute('data-feed-pair')); return; }
     if (t.closest('[data-feed-tips]')) { GUIDE.open = !GUIDE.open; var fa0 = feedAt(); GUIDE.fy = fa0 ? fa0.fd.scrollTop : null; guideRender(); return; }
