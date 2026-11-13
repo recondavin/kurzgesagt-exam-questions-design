@@ -1669,3 +1669,6 @@ body.eng-cpd-on #eng-guide { display: none; }
 .eng-cpk__swap span { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--m-theme); color: #13212A; font-size: 22px; transition: transform .3s ease; }
 .eng-cpk__swap:hover span { transform: rotate(180deg); }
 @media (max-width: 600px) { .eng-cmpg .eng-cpk__swap { height: 58px; padding: 0 18px; gap: 10px; font-size: 18px; } .eng-cpk__swap span { width: 34px; height: 34px; } }
+/* A scene already in a pair: used, so it can't be paired again. */
+.eng-cpm.is-used { opacity: .55; cursor: not-allowed; }
+.eng-cpm.is-used .eng-cpm__k { background: var(--m-theme); color: #13212A; }

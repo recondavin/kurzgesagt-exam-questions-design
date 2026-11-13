@@ -958,14 +958,18 @@
   // 3: pick your scenes. One big line says what to do next; after the first tap, the scenes it links to glow and the rest
   // fade; tapping one of those makes the pair. Swap puts the other text first.
   function cpBoardHtml(th, w, F, L) {
-    var n = w.links.length, partners = {};
-    if (CPSEL) L.forEach(function (l) { if (l.a === CPSEL) partners[l.b] = 1; if (l.b === CPSEL) partners[l.a] = 1; });
+    // Each scene goes in one pair only (the user: "i also shouldnt be able to link 2 to 1"): a paired scene is marked used,
+    // never glows as a match, and tapping it says which pair it's in.
+    var n = w.links.length, partners = {}, used = {};
+    w.links.forEach(function (l, k) { used[l.a] = used[l.a] || k + 1; used[l.b] = used[l.b] || k + 1; });
+    if (CPSEL) L.forEach(function (l) { if (l.a === CPSEL && !used[l.b]) partners[l.b] = 1; if (l.b === CPSEL && !used[l.a]) partners[l.a] = 1; });
     var col = function (id) {
       var ms = [];
       L.forEach(function (l) { [l.a, l.b].forEach(function (m) { if (tidOf(m) === id && ms.indexOf(m) < 0) ms.push(m); }); });
       ms.sort(function (x, y) { return mom(x).n - mom(y).n; });
       return '<div class="eng-cpb__col" style="--c:' + COL[id] + '"><h3>' + esc(text(id).title) + '</h3>' + ms.map(function (mid) {
         var o = mom(mid), nums = [], pic = scenePics(id, mid)[0], st = CPSEL && tidOf(CPSEL) !== id ? (partners[mid] ? ' is-hint' : ' is-dim') : (CPHINT === mid ? ' is-hint' : '');
+        if (used[mid]) st += ' is-used';
         w.links.forEach(function (l, k) { if (l.a === mid || l.b === mid) nums.push(k + 1); });
         return '<button type="button" class="eng-cpm' + st + '" data-cpm="' + mid + '" aria-pressed="' + (CPSEL === mid) + '">' +
           (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '') +
@@ -1150,8 +1154,16 @@
   function cpTap(mid) {
     var th = cpTheme(), a = cpBy(th).a, w = cpWork(th, a);
     CPFB = null; CPHINT = null;
-    if (!CPSEL || CPSEL === mid) { CPSEL = CPSEL === mid ? null : mid; CPPICK = null; return; }
-    if (tidOf(CPSEL) === tidOf(mid)) { CPSEL = mid; return; }
+    var inPair = 0;
+    w.links.forEach(function (l, k) { if (!inPair && (l.a === mid || l.b === mid)) inPair = k + 1; });
+    if (inPair) { CPFB = { kind: 'have', head: 'Already in pair ' + inPair + '. Remove that first.', body: '' }; return; }
+    if (!CPSEL || CPSEL === mid || tidOf(CPSEL) === tidOf(mid)) {
+      if (CPSEL === mid) { CPSEL = null; CPPICK = null; return; }
+      // A scene whose matches are all used already: say so, rather than nothing glowing.
+      var free = th.links.some(function (l) { var o = l.a === mid ? l.b : l.b === mid ? l.a : null; return o && tidOf(o) !== a && !w.links.some(function (k) { return k.a === o || k.b === o; }); });
+      if (!free) { CPFB = { kind: 'miss', head: 'No free match left. Pick another.', body: '' }; CPSEL = null; return; }
+      CPSEL = mid; CPPICK = null; return;
+    }
     var have = w.links.filter(function (l) { return [l.a, l.b].sort().join() === [CPSEL, mid].sort().join(); })[0];
     if (have) { CPFB = { kind: 'have', head: 'You already paired these two.', body: '' }; CPSEL = null; return; }
     var x = cpFind(th, CPSEL, mid);
