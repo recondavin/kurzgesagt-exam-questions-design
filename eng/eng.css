@@ -1883,3 +1883,53 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
   .eng .sh-top { position: relative; }
   .eng-cpnav { position: static; margin-bottom: 20px; padding-top: 6px; }
 }
+
+/* Phones: the Compare page as one step per screen, snapping from one to the next like TikTok. A step taller than the
+   screen (the scene board) scrolls normally inside, then snaps on to the next. Each step fades in the first time it
+   arrives; "Swipe up" at the bottom names the next step. */
+@media (max-width: 700px) {
+  html.eng-snap { scroll-snap-type: y mandatory; }
+  html.eng-snap .sh-top { scroll-snap-align: start; }
+  html.eng-snap .eng-cp__step { box-sizing: border-box; min-height: 100vh; min-height: 100svh; margin-top: 0; padding-top: 28px; padding-bottom: 96px; scroll-snap-align: start; }
+  html.eng-snap .eng-cp__step + .eng-cp__step { padding-top: 28px; }
+  html.eng-snap .eng-cp__step[data-next]::after { content: '👆  Swipe up: ' attr(data-next); position: absolute; left: 0; right: 0; bottom: 34px; color: var(--muted); font: 800 16px Nunito, sans-serif; text-align: center; animation: cpSwipe 1.8s ease-in-out infinite; }
+  @keyframes cpSwipe { 0%, 100% { transform: translateY(0); opacity: .75; } 50% { transform: translateY(-8px); opacity: 1; } }
+  html.eng-snapfx .eng-cp__step > * { opacity: 0; transition: opacity .55s ease; }
+  html.eng-snapfx .eng-cp__step > h2 { transform: translateY(18px); transition: opacity .55s ease, transform .7s cubic-bezier(.2, .8, .2, 1); }
+  html.eng-snapfx .eng-cp__step > :nth-child(2) { transition-delay: .12s; }
+  html.eng-snapfx .eng-cp__step > :nth-child(3) { transition-delay: .24s; }
+  html.eng-snapfx .eng-cp__step > :nth-child(n+4) { transition-delay: .36s; }
+  html.eng-snapfx .eng-cp__step.is-in > * { opacity: 1; transform: none; }
+}
+@media (max-width: 700px) and (prefers-reduced-motion: reduce) {
+  html.eng-snapfx .eng-cp__step > * { opacity: 1; transform: none; transition: none; }
+  html.eng-snap .eng-cp__step[data-next]::after { animation: none; }
+}
+/* Phones: the writing lists and the plan fit one screen each. Each row is its name, what it's about and Write it; the
+   repeated "Pick a key scene…" lines go, and anything written shows as two lines (tap Edit to see it all). */
+@media (max-width: 700px) {
+  .eng-cmpg .eng-cpw__e { display: none; }
+  .eng-cmpg .eng-cpw__s { padding: 11px 0 11px 12px; }
+  .eng-cmpg .eng-cpw__h { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: center; }
+  .eng-cmpg .eng-cpw__h > b { grid-column: 1; font-size: 19px; }
+  .eng-cmpg .eng-cpw__rep { grid-column: 1; font-size: 15px; line-height: 1.3; }
+  .eng-cmpg .eng-cpw__h .eng-cpc { display: none; }
+  .eng-cmpg .eng-cpw__h .eng-btn { grid-column: 2; grid-row: 1 / span 2; height: 42px; padding: 0 16px; font-size: 16px; }
+  .eng-cmpg .eng-cpw__t { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; margin-top: 6px; font-size: 15.5px; line-height: 1.45; }
+  .eng-cmpg .eng-cpw__more { margin: 10px 0 8px; }
+  .eng-cmpg .eng-cpw__foot { font-size: 16px; }
+  .eng-cmpg .eng-cpn2 { gap: 6px; }
+  .eng-cmpg .eng-cpn2 li { gap: 4px; padding: 10px 14px; }
+  .eng-cmpg .eng-cpn2 b { font-size: 17px; }
+  .eng-cmpg .eng-cpn2 > li > span { font-size: 15.5px; }
+  .eng-cmpg .eng-cpn2 .eng-cpc { min-height: 30px; font-size: 14px; }
+}
+@media (max-width: 700px) {
+  html.eng-snap .eng-cp__step, html.eng-snap .eng-cp__step + .eng-cp__step { padding-top: 18px; padding-bottom: 70px; }
+  html.eng-snap .eng-cp__step[data-next]::after { bottom: 22px; }
+  .eng-app .eng-cmpg .eng-cp__step h2.eng-h2 { margin-bottom: 12px; }
+  .eng-cmpg .eng-cp__step > h2 + .eng-p { margin: 0 0 6px; font-size: 15.5px; }
+}
+@media (max-width: 700px) {
+  html.eng-snap .eng-cp__step[data-next]::after { right: auto; max-width: calc(100% - 170px); text-align: left; line-height: 1.3; }
+}

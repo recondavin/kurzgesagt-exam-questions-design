@@ -948,7 +948,7 @@
           (p ? '<img src="assets/eng/img/' + esc(p.file) + '" alt="" loading="lazy">' : '<span class="eng-cpt__img"></span>') +
           '<span class="eng-cpt__t">' + esc(text(id).title) + '</span>' + (id === th.best ? '<span class="eng-cpt__best">Best for (a)</span>' : '') + '</button>';
       }).join('') + '</div>';
-    if (!a) { app.innerHTML = cpPage(h); cpNavShow(); guideDraw(1, th, null, []); return; }
+    if (!a) { app.innerHTML = cpPage(h); cpSnap(); cpNavShow(); guideDraw(1, th, null, []); return; }
     // 2: part (a): written in the popup if the text has a writing guide, else three points to pick
     var WR = th.write && th.write[a];
     if (WR) h += cpWriterHtml(th, a);
@@ -968,6 +968,7 @@
       if (st >= 5) h += cpbWriterHtml();
     }
     app.innerHTML = cpPage(h);
+    cpSnap();
     if (st >= 3) requestAnimationFrame(cpLines);
     cpNavShow();
     guideDraw(st, th, a, B);
@@ -1113,10 +1114,27 @@
     CP_ENTER = false;
     var k = 0;
     var tag = function (x) { return x.replace(/class="(eng-cpw__s(?: is-done)?|eng-cpm(?: is-hint)?)"/g, function (all) { return all + ' style="--i:' + (k++ % 12) + '"'; }); };
+    var last = parts.length - 2;
     return '<div class="eng-cmpg' + (enter ? ' is-enter' : '') + '">' + tag(parts[0]) + parts.slice(1).map(function (x, i) {
-      return '<section class="eng-cp__step" style="--i:' + i + '">' + mark + tag(x) + '</section>';
+      return '<section class="eng-cp__step' + (CP_SEEN[i] ? ' is-in' : '') + '" style="--i:' + i + '" data-step-i="' + i + '"' + (i < last ? ' data-next="' + esc(CP_STEPS[i + 1]) + '"' : '') + '>' + mark + tag(x) + '</section>';
     }).join('') + '</div>';
   }
+  // Phones: the Compare page one step per screen, like TikTok (the user: "do you know what tiktok is?? the SCROLL feature
+  // you see one part on your screen and then the next fucking part"): each step fills the screen, the page snaps from one
+  // to the next, each step fades in the first time it arrives, and the bottom of a step says which one is next.
+  var CP_SEEN = {}, cpIO = null;
+  function cpSnap() {
+    var on = isPhone(), root = document.documentElement;
+    root.classList.toggle('eng-snap', on);
+    if (cpIO) { cpIO.disconnect(); cpIO = null; }
+    if (!on || !window.IntersectionObserver) { root.classList.remove('eng-snapfx'); return; }
+    root.classList.add('eng-snapfx');
+    cpIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); CP_SEEN[e.target.getAttribute('data-step-i')] = 1; } });
+    }, { threshold: 0.12 });
+    Array.prototype.forEach.call(app.querySelectorAll('.eng-cp__step'), function (x) { cpIO.observe(x); });
+  }
+  window.addEventListener('hashchange', function () { if (!/^#compare/.test(location.hash)) document.documentElement.classList.remove('eng-snap', 'eng-snapfx'); });
   function cwPrompt(W) { return cpwSlots(W).some(function (x) { return slotText(W, x); }); }
   // Part (a)'s points: the paragraphs' scenes and what they represent if the text has a writing guide, else the picks.
   function cpPts(th, a, w) {
