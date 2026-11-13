@@ -1327,7 +1327,7 @@
   // user: "this is fucking in my face still when i said i want it to be SCROLLED"). Scrolls the page does itself (going to
   // a step) don't count.
   window.addEventListener('scroll', function () {
-    if (!GUIDE.open || !GUIDE_EL || !GUIDE_EL.parentNode || CPW || !isPhone()) { GUIDE.y0 = window.scrollY; return; }
+    if (!GUIDE.open || !GUIDE_EL || !GUIDE_EL.parentNode || CPW) { GUIDE.y0 = window.scrollY; return; }
     if (GUIDE.hold && Date.now() < GUIDE.hold) { GUIDE.y0 = window.scrollY; return; }
     if (GUIDE.y0 == null) GUIDE.y0 = window.scrollY;
     if (Math.abs(window.scrollY - GUIDE.y0) > 80) { GUIDE.open = false; guideRender(); }
@@ -1681,15 +1681,24 @@
         ideas: [sc.details[0], m.quote ? { t: '“' + m.quote + '”', tag: 'Quote' } : sc.details[1], { t: tq.say, tag: 'Technique: ' + tq.name }].filter(Boolean) },
       { k: 'e', label: 'Evaluate', hl: 'Most of the marks are here', hint: 'Most of the marks are here: two or three sentences on why it matters for ' + th.name.toLowerCase() + '.', ideas: rep.ideas.slice(0, 2).concat([{ t: 'Darabont suggests that …', tag: 'Start with' }]) }];
   }
+  // The pictures at the top of a writing card (the user, of the laptop list: "this is something i wouldnt want to look at").
+  function cpwPics(mids) {
+    if (!mids.length) return '<span class="eng-cpw__pics is-none"></span>';
+    return '<span class="eng-cpw__pics">' + mids.map(function (mid) {
+      var tid = tidOf(mid), f = fPic(mid, true);
+      return '<span class="eng-cpw__pic" style="--c:' + COL[tid] + '">' + (f ? '<img src="assets/eng/img/' + esc(f) + '" alt="" loading="lazy">' : '') + '<i>' + esc(shortTitle(tid)) + '</i></span>';
+    }).join('') + '</span>';
+  }
   function cpWriterHtml(th, a) {
     var W = cpWrite(th, a), G = th.write[a], total = 0;
     var rows = cpwSlots(W).map(function (s) {
       var txt = slotText(W, s), p = typeof s === 'number' ? W.paras[s] : null, sc = p && p.scene ? G.scenes[p.scene] : null, rep = sc ? sc.reps[p.rep || 0] : null;
       total += wordsIn(txt);
-      return '<li class="eng-cpw__s' + (txt ? ' is-done' : '') + '"><div class="eng-cpw__h"><b>' + slotName(s) + '</b>' +
-        (rep ? '<span class="eng-cpw__rep">' + esc(rep.title) + '</span>' + momChip(text(a).moments[p.scene - 1].id) : '') +
+      var mid = rep ? text(a).moments[p.scene - 1].id : null;
+      return '<li class="eng-cpw__s' + (txt ? ' is-done' : '') + (p ? ' is-card' : ' is-wide') + '">' + (p ? cpwPics(mid ? [mid] : []) : '') + '<div class="eng-cpw__h"><b>' + slotName(s) + '</b>' +
+        (rep ? '<span class="eng-cpw__rep">' + esc(rep.title) + '</span>' + momChip(mid) : '') +
         '<button type="button" class="eng-btn' + (txt ? ' eng-btn--quiet' : '') + '" data-cpw="' + s + '">' + (txt ? 'Edit' : 'Write it') + '</button></div>' +
-        (txt ? '<p class="eng-cpw__t">' + esc(txt) + '</p>' : '<p class="eng-cpw__e">' + (s === 'open' ? 'Start here: pick your three or four scenes, then write the opening.' :
+        (txt ? '<p class="eng-cpw__t">' + esc(txt) + '</p>' : rep ? '' : '<p class="eng-cpw__e">' + (s === 'open' ? 'Start here: pick your three or four scenes, then write the opening.' :
           s === 'end' ? 'Sum it all up: what the film finally says about abuse of power.' : 'Pick a key scene and what it represents, then write it.') + '</p>') + '</li>';
     });
     return '<h2 class="eng-h2"><span class="eng-cp__n">2</span>Write part (a)</h2>' +
@@ -2296,10 +2305,10 @@
     var rows = cpbSlots(W).map(function (s) {
       var txt = cpbText(W, s), q = typeof s === 'number' ? W.paras[s] : null, L = q ? cpbLink(th, q.x, q.y) : null;
       total += wordsIn(txt);
-      return '<li class="eng-cpw__s' + (txt ? ' is-done' : '') + '"><div class="eng-cpw__h"><b>' + (s === 'open' ? 'Opening' : s === 'end' ? 'Ending' : 'Paragraph ' + (s + 1)) + '</b>' +
-        (q && q.x ? momChip(q.x) : '') + (q && q.y ? momChip(q.y) : '') + (L ? '<span class="eng-cpw__rep">' + esc(L.aspect) + '</span>' : '') +
+      return '<li class="eng-cpw__s' + (txt ? ' is-done' : '') + (q ? ' is-card' : ' is-wide') + '">' + (q ? cpwPics([q.x, q.y].filter(Boolean)) : '') + '<div class="eng-cpw__h"><b>' + (s === 'open' ? 'Opening' : s === 'end' ? 'Ending' : 'Paragraph ' + (s + 1)) + '</b>' +
+        (L ? '<span class="eng-cpw__rep">' + esc(L.aspect) + '</span>' : '') + (q && q.x ? momChip(q.x) : '') + (q && q.y ? momChip(q.y) : '') +
         '<button type="button" class="eng-btn' + (txt ? ' eng-btn--quiet' : '') + '" data-cpbw="' + s + '">' + (txt ? 'Edit' : 'Write it') + '</button></div>' +
-        (txt ? '<p class="eng-cpw__t">' + esc(txt) + '</p>' : '<p class="eng-cpw__e">' + (s === 'open' ? 'Name both texts and their authors, answer the question, and say your points.' :
+        (txt ? '<p class="eng-cpw__t">' + esc(txt) + '</p>' : q && q.x && q.y ? '' : '<p class="eng-cpw__e">' + (s === 'open' ? 'Name both texts and their authors, answer the question, and say your points.' :
           s === 'end' ? 'Your judgement: which text does it more powerfully, and why.' : 'Pick a scene from ' + esc(shortTitle(F[0])) + ', then the ' + esc(shortTitle(F[1])) + ' scene to compare it with, then write it.') + '</p>') + '</li>';
     });
     return '<h2 class="eng-h2"><span class="eng-cp__n">5</span>Write part (b)</h2>' +

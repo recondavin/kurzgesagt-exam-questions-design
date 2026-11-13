@@ -2179,3 +2179,40 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
 @media (min-width: 701px) and (max-width: 1359px) {
   #eng-guide.is-rule.is-helping .eng-tch__say::after { bottom: -11px; border-right-width: 4px; border-bottom-width: 4px; border-bottom-right-radius: 3px; }
 }
+
+/* Laptops: the part (a) and part (b) writing lists as cards (the user: "this is something i wouldnt want to look at").
+   Each paragraph is a card with its scene pictures on top, the link or meaning as its title, the scenes as plain
+   coloured names under it and Write it in the corner; the opening and ending are slim rows across the top and bottom.
+   Calmer colours: no tinted pills, one accent (the green button). The sticky bar gets a shadow so the list doesn't look
+   cut off under it. */
+@media (min-width: 701px) {
+  .eng-cmpg .eng-cpw { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; max-width: 1180px; border-top: 0; }
+  .eng-cmpg .eng-cpw__s { position: relative; display: flex; flex-direction: column; padding: 0; overflow: hidden; border: 0; border-radius: 20px; background: var(--surface); }
+  .eng-cmpg .eng-cpw__s.is-wide { grid-column: 1 / -1; }
+  .eng-cmpg .eng-cpw__s.is-done { box-shadow: inset 0 0 0 2px rgba(88, 204, 2, .55); }
+  .eng-cpw__pics { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 3px; height: 168px; background: #0B1418; }
+  .eng-cpw__pics.is-none { height: 0; }
+  .eng-cpw__pic { position: relative; display: block; overflow: hidden; background: linear-gradient(135deg, color-mix(in srgb, var(--c) 30%, #13212A), #13212A); }
+  .eng-cpw__pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .eng-cpw__pic i { position: absolute; left: 10px; bottom: 8px; padding: 2px 10px; border-radius: 999px; background: rgba(0, 0, 0, .62); color: var(--c); font: 800 13px Nunito, sans-serif; font-style: normal; }
+  .eng-cmpg .eng-cpw__h { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: start; padding: 16px 18px 0; }
+  .eng-cmpg .eng-cpw__s.is-wide .eng-cpw__h { align-items: center; padding: 14px 18px; }
+  .eng-cmpg .eng-cpw__h > b { grid-column: 1; color: var(--muted); font: 800 14px Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+  .eng-cmpg .eng-cpw__s.is-wide .eng-cpw__h > b { color: #fff; font: 600 22px Fredoka, Nunito, sans-serif; letter-spacing: 0; text-transform: none; }
+  .eng-cmpg .eng-cpw__rep { grid-column: 1; color: #fff; font: 800 21px/1.25 Outfit, Nunito, sans-serif; }
+  .eng-cmpg .eng-cpw__h .eng-cpc { grid-column: 1; justify-self: start; min-height: 0; padding: 0; border-radius: 0; background: none; box-shadow: none; color: var(--c); font: 700 15.5px/1.35 Nunito, sans-serif; }
+  .eng-cmpg .eng-cpw__h .eng-cpc:hover { background: none; text-decoration: underline; text-underline-offset: 3px; }
+  .eng-cmpg .eng-cpw__h .eng-btn { grid-column: 2; grid-row: 1 / span 4; align-self: end; margin: 0; height: 46px; padding: 0 22px; font-size: 17px; }
+  .eng-cmpg .eng-cpw__s.is-wide .eng-cpw__h .eng-btn { grid-row: 1 / span 2; align-self: center; }
+  .eng-cmpg .eng-cpw__s.is-card .eng-cpw__h { flex: 1; padding-bottom: 16px; }
+  .eng-cmpg .eng-cpw__t { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; max-width: none; margin: 0; padding: 0 18px 16px; color: #DCE6EB; font: 600 15.5px/1.55 Nunito, sans-serif; }
+  .eng-cmpg .eng-cpw__e { margin: 0; padding: 0 18px 16px; font-size: 16px; }
+  .eng-cmpg .eng-cpw__s.is-wide .eng-cpw__e { margin-top: -6px; }
+  .eng-cpnav { box-shadow: 0 10px 18px -12px rgba(0, 0, 0, .7); }
+}
+@media (min-width: 701px) and (max-width: 1000px) { .eng-cmpg .eng-cpw { grid-template-columns: minmax(0, 1fr); } }
+@media (min-width: 701px) {
+  .eng-cmpg .eng-cpw__s.is-card .eng-cpw__h { align-content: start; }
+  .eng-cpw__pic:only-child i { display: none; }
+}
+@media (min-width: 1360px) { .eng-cmpg .eng-cpw { max-width: min(1180px, calc(100vw - 360px)); } }
