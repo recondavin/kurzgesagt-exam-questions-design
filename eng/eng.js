@@ -1258,7 +1258,16 @@
   function slotName(s) { return s === 'open' ? 'Opening' : s === 'end' ? 'Ending' : 'Paragraph ' + (s + 1); }
   function slotKeys(s) { return typeof s === 'number' ? KEYS.para : KEYS[s]; }
   function slotParts(W, s) { return (s === 'open' ? W.openParts : s === 'end' ? W.endParts : (W.paras[s] || {}).parts) || {}; }
-  function slotText(W, s) { var P = slotParts(W, s); return slotKeys(s).map(function (k) { return String(P[k] || '').trim(); }).filter(Boolean).join(' '); }
+  // Optional parts (the user: "it should be like 'or skip' at the bottom"): the opening's points and the ending's last
+  // line, in both parts. A skipped part folds to one line with "Add it back"; what's in it is kept but left out of the answer.
+  var SKIPPABLE = { points: 1, last: 1 };
+  function skipped(P, k) { return !!(P && P._skip && P._skip[k]); }
+  function skipRow(k, wc) { return SKIPPABLE[k] ? '<div class="eng-cpd__pf"><button type="button" class="eng-cpd__skip" data-cpw-skip="' + k + '">or skip</button>' + wc + '</div>' : wc; }
+  function skipPart(pt, col, i) {
+    return '<section class="eng-cpd__part is-skip" style="--pc:' + col + ';--i:' + i + '"><header><span class="eng-cpd__pl">' + esc(pt.label) + '</span></header>' +
+      '<p class="eng-cpd__skipped">Skipped. <button type="button" class="eng-cpd__skip" data-cpw-skip="' + pt.k + '">Add it back</button></p></section>';
+  }
+  function slotText(W, s) { var P = slotParts(W, s); return slotKeys(s).filter(function (k) { return !skipped(P, k); }).map(function (k) { return String(P[k] || '').trim(); }).filter(Boolean).join(' '); }
   function wordsIn(s) { return (String(s || '').match(/[A-Za-zÀ-ÿ0-9'’£-]+/g) || []).length; }
   function lowerFirst(s) { return s.charAt(0).toLowerCase() + s.slice(1); }
   // The ideas made from your paragraphs' scenes: the opening's three points, the ending's summing up.
@@ -1483,6 +1492,7 @@
       }
       var P = slotParts(W, s);
       body = top + '<div class="eng-cpd__write"><div class="eng-cpd__parts">' + partsOf(th, a, s).map(function (pt, pi) {
+        if (skipped(P, pt.k)) return skipPart(pt, PART_COL[pt.k], pi);
         return '<section class="eng-cpd__part" style="--pc:' + PART_COL[pt.k] + ';--i:' + pi + '"><header><span class="eng-cpd__pl">' + esc(pt.label) + '</span><span class="eng-cpd__ph2">' + (pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark class="eng-cpd__hl">' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span></header>' +
           (pt.ideas && pt.ideas.length ? (function () {
             var shown = Math.min(pt.ideas.length, Math.max(1, (CPW.shown || {})[pt.k] || 1));
@@ -1492,7 +1502,7 @@
             }).join('') + (shown < pt.ideas.length ? '<button type="button" class="eng-cpd__more" data-cpw-more="' + pt.k + '">Show me another idea</button>' : '') + '</div>';
           })() : (pt.auto ? '<p class="eng-cpd__none">Pick your three scenes first.</p>' : '')) +
           '<textarea data-cpw-box="' + pt.k + '" spellcheck="true" lang="en-IE" rows="2" aria-label="' + esc(pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
-          (CPW_RANGE[pt.k] ? '<p class="eng-cpd__wc" data-cpw-wc="' + pt.k + '" aria-live="polite">' + wcHtml(wordsIn(P[pt.k]), CPW_RANGE[pt.k]) + '</p>' : '') + '</section>';
+          skipRow(pt.k, CPW_RANGE[pt.k] ? '<p class="eng-cpd__wc" data-cpw-wc="' + pt.k + '" aria-live="polite">' + wcHtml(wordsIn(P[pt.k]), CPW_RANGE[pt.k]) + '</p>' : '') + '</section>';
       }).join('') + '<p class="eng-cpd__tools"><b>How it reads</b><span data-cpw-count></span></p><div class="eng-cpd__check" data-cpw-check role="status" aria-live="polite"></div></div>' +
         '<aside class="eng-cpd__bank"><h3>10 words for ' + (para ? 'this scene' : 'the ' + slotName(s).toLowerCase()) + '</h3><p class="eng-cpd__hint">Tap a word to add it to the box you\'re in.</p><ul>' +
         words.map(function (x) { return '<li><button type="button" class="eng-cpd__w" data-cpw-word="' + esc(x[0]) + '"><b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span></button></li>'; }).join('') +
@@ -1697,7 +1707,7 @@
     if (CPW.part === 'b') {
       if (CPW.step === 1) return [{ id: 'b1', say: 'Pick the scene you can say the most about: one where the abuse of power is clear.' }];
       if (CPW.step === 2) return [{ id: 'b2', say: 'Pick a scene that shows the same thing, or the opposite. The best matches are at the top.' }];
-      var cb = cpbCtx(), bp = cpbPartsOf(cb, CPW.slot), BP = cpbParts(cb.W, CPW.slot), pt = bp.filter(function (x) { return x.k === CPW.box; })[0] || bp[0], n = wordsIn(BP[pt.k]), r = CPB_RANGE[pt.k], tl = [];
+      var cb = cpbCtx(), BP = cpbParts(cb.W, CPW.slot), bp = cpbPartsOf(cb, CPW.slot).filter(function (x) { return !skipped(BP, x.k); }), pt = bp.filter(function (x) { return x.k === CPW.box; })[0] || bp[0], n = wordsIn(BP[pt.k]), r = CPB_RANGE[pt.k], tl = [];
       if (r && n > r[1]) tl.push({ id: 'bl' + pt.k, mood: 'angry', say: 'Too long for this box. Aim for ' + r[0] + '–' + r[1] + ' words.' });
       tl.push({ id: 'bh' + pt.k, say: pt.hint });
       pt.ideas.slice(0, 2).forEach(function (x, i) { tl.push({ id: 'bi' + pt.k + i, say: 'Here\'s one way. Read it, then write your own:', quote: typeof x === 'string' ? x : x.t }); });
@@ -1708,7 +1718,7 @@
       { id: 'o1b', say: 'Pick the scenes you can say the most about, not just the most dramatic ones.' }];
     if (CPW.step === 1) return [{ id: 'p1', say: 'Pick a scene you haven\'t used yet: the one where the abuse of power is clearest.' }];
     if (CPW.step === 2) return [{ id: 's2', say: 'Pick the meaning you could write the most about. Read how it\'s written under it before you choose.' }];
-    var P = slotParts(W, s), keys = slotKeys(s), wc = {}, tips = [];
+    var P = slotParts(W, s), keys = slotKeys(s).filter(function (k) { return !skipped(P, k); }), wc = {}, tips = [];
     keys.forEach(function (k) { wc[k] = wordsIn(P[k]); });
     var parts = partsOf(th, a, s), label = {};
     parts.forEach(function (pt) { label[pt.k] = pt.label; });
@@ -1875,7 +1885,7 @@
   function cpbSlots(W) { return ['open'].concat(W.paras.map(function (q, i) { return i; }), ['end']); }
   function cpbKeys(s) { return typeof s === 'number' ? ['p', 'x', 'y', 'c', 'e'] : s === 'open' ? ['texts', 'points'] : ['judge', 'last']; }
   function cpbParts(W, s) { return s === 'open' ? W.openParts : s === 'end' ? W.endParts : (W.paras[s] || {}).parts || {}; }
-  function cpbText(W, s) { var P = cpbParts(W, s); return cpbKeys(s).map(function (k) { return String(P[k] || '').trim(); }).filter(Boolean).join(' '); }
+  function cpbText(W, s) { var P = cpbParts(W, s); return cpbKeys(s).filter(function (k) { return !skipped(P, k); }).map(function (k) { return String(P[k] || '').trim(); }).filter(Boolean).join(' '); }
   function cpbLink(th, x, y) { return x && y ? cpFind(th, x, y) : null; }
   function cpbName(s) { return s === 'open' ? 'Part (b): opening' : s === 'end' ? 'Part (b): ending' : 'Part (b): paragraph ' + (s + 1); }
   function cpbFirst(W, s) { var q = typeof s === 'number' ? W.paras[s] : null; return q ? (!q.x ? 1 : !q.y ? 2 : 3) : 3; }
@@ -1989,6 +1999,7 @@
       }
       var P = cpbParts(W, s), PC = { p: 'var(--pace-p)', x: COL[F[0]], y: COL[F[1]], c: 'var(--k-blue)', e: '#FF8FB1', texts: 'var(--pace-p)', points: 'var(--k-blue)', judge: 'var(--k-orange)', last: '#FF8FB1' };
       body = top + '<div class="eng-cpd__write"><div class="eng-cpd__parts">' + cpbPartsOf(c, s).map(function (pt, pi) {
+        if (skipped(P, pt.k)) return skipPart(pt, PC[pt.k], pi);
         var shown = Math.min(pt.ideas.length, Math.max(1, (CPW.shown || {})[pt.k] || 1));
         return '<section class="eng-cpd__part" style="--pc:' + PC[pt.k] + ';--i:' + pi + '"><header><span class="eng-cpd__pl">' + esc(pt.label) + '</span><span class="eng-cpd__ph2">' +
           esc(pt.hint).replace(esc(pt.hl), '<mark class="eng-cpd__hl">' + esc(pt.hl) + '</mark>') + '</span></header>' +
@@ -1997,7 +2008,7 @@
             return '<p class="eng-cpd__idea' + (x.tag ? ' is-tech' : '') + '">' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + '<span data-type="i' + esc(tx.slice(0, 60)) + '">' + esc(tx) + '</span></p>';
           }).join('') + (shown < pt.ideas.length ? '<button type="button" class="eng-cpd__more" data-cpw-more="' + pt.k + '">Show me another idea</button>' : '') + '</div>' : '') +
           '<textarea data-cpw-box="' + pt.k + '" spellcheck="true" lang="en-IE" rows="2" aria-label="' + esc(pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
-          '<p class="eng-cpd__wc" data-cpw-wc="' + pt.k + '" aria-live="polite">' + wcHtml(wordsIn(P[pt.k]), CPB_RANGE[pt.k]) + '</p></section>';
+          skipRow(pt.k, '<p class="eng-cpd__wc" data-cpw-wc="' + pt.k + '" aria-live="polite">' + wcHtml(wordsIn(P[pt.k]), CPB_RANGE[pt.k]) + '</p>') + '</section>';
       }).join('') + '<p class="eng-cpd__tools"><b>How it reads</b><span data-cpw-count></span></p><div class="eng-cpd__check" data-cpw-check role="status" aria-live="polite"></div></div>' +
         '<aside class="eng-cpd__bank"><h3>Linking words</h3><p class="eng-cpd__hint">Tap one to add it to the box you\'re in.</p><p class="eng-cpd__inst">' +
         CPB_LINKWORDS.map(function (x) { return '<button type="button" class="eng-chip" data-cpw-word="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') +
@@ -2105,6 +2116,15 @@
     if (t.closest('[data-cpw-next]')) {
       var sln = cpwSlots(W), nx = sln[sln.indexOf(CPW.slot) + 1];
       CPW = { slot: nx, step: cpwFirstStep(W, nx), box: slotKeys(nx)[0], pick: [], shown: {} }; cpwDraw(true); return true;
+    }
+    if ((v = t.closest('[data-cpw-skip]'))) {
+      var ks = v.getAttribute('data-cpw-skip'), PS = cpwParts();
+      PS._skip = PS._skip || {};
+      if (PS._skip[ks]) delete PS._skip[ks]; else PS._skip[ks] = 1;
+      cpSave(); cpwDraw();
+      var fs = document.querySelector('#eng-cpd [data-cpw-box="' + ks + '"]') || document.querySelector('#eng-cpd [data-cpw-skip="' + ks + '"]');
+      if (fs) fs.focus({ preventScroll: true });
+      return true;
     }
     if ((v = t.closest('[data-cpw-more]'))) {
       var km = v.getAttribute('data-cpw-more');

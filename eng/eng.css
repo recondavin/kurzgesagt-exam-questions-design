@@ -1744,3 +1744,13 @@ body.eng-cpd-on #eng-guide { display: none; }
   body.eng-cpd-on #eng-cpd .eng-cpd__top { padding-right: max(92px, calc(100% - var(--pl) - 1120px)); }
   body.eng-cpd-on .eng-tch:not(#eng-guide):not(.is-helping) .eng-tch__say { font-size: 22px; }
 }
+
+/* "or skip" under the optional parts (the opening's points, the ending's last line), and the folded skipped part. */
+.eng-cpd__pf { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 8px 2px 0; }
+#eng-cpd .eng-cpd__pf .eng-cpd__wc { margin: 0 0 0 auto; }
+.eng-cpd__skip { flex: none; white-space: nowrap; min-height: 38px; padding: 0 16px; border: 2px solid var(--k-line, #2A3D46); border-radius: 999px; background: none; color: #C9D6DC; font: 700 16px Outfit, Nunito, sans-serif; cursor: pointer; transition: background .15s ease, color .15s ease; }
+.eng-cpd__skip:hover { background: var(--k-panel, #1A2B32); color: #fff; }
+.eng-cpd__skip:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.eng-cpd__part.is-skip header { opacity: .5; }
+.eng-cpd__part.is-skip .eng-cpd__pl { text-decoration: line-through; text-decoration-thickness: 2px; }
+.eng-cpd__skipped { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 8px 0 0; color: var(--k-dim, #93A5AE); font: 600 17px Outfit, Nunito, sans-serif; }
