@@ -1645,3 +1645,19 @@ body.eng-cpd-on #eng-guide { display: none; }
   .eng-cpnav button { min-height: 42px; font-size: 14.5px; }
 }
 @media (max-width: 600px) { #eng-guide.eng-tch { --w: 58px; right: 10px; } #eng-guide .eng-tch__line { font-size: 17px; } }
+
+/* The examiner bigger and closer, and no scroll bar in his bubble (the user: "make this dumbass closer and bigger and get
+   rid of the scroll bar that makes it square inside of a rectangular box"). The bubble's tail stuck out past it, so the
+   bubble scrolled: on Windows that showed a square scroll bar inside the rounded bubble, and hid the tail. Tips are
+   short, so the bubble simply grows. On a wide screen the page examiner is 190px and talks from right beside his head. */
+.eng-tch.is-helping .eng-tch__say { overflow: visible; max-height: none; }
+.eng-cpnav ol::-webkit-scrollbar { display: none; }
+@media (min-width: 1360px) {
+  #eng-guide.eng-tch { --w: 190px; right: 8px; bottom: 2px; }
+  #eng-guide.is-helping .eng-tch__say { right: calc(100% - 22px); bottom: calc(var(--w) * .8); width: min(400px, calc(100vw - 260px)); }
+  #eng-guide.is-helping .eng-tch__say::after { left: auto; right: -7px; bottom: 26px; }
+  #eng-guide:not(.is-helping) .eng-tch__say { right: calc(100% - 18px); bottom: calc(var(--w) * .9); }
+  #eng-guide:not(.is-helping) .eng-tch__say::after { right: -6px; bottom: 13px; }
+}
+@media (max-width: 1359px) { #eng-guide.eng-tch { --w: 80px; } }
+@media (max-width: 600px) { #eng-guide.eng-tch { --w: 68px; } }
