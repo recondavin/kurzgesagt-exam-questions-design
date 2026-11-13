@@ -2167,3 +2167,15 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
 @media (max-width: 700px) {
   .eng-fi__tile .eng-fi__noimg { box-sizing: border-box; overflow: hidden; padding: 4px 6px; font-size: 10.5px; line-height: 1.25; }
 }
+
+/* Laptops: on a rule tip the bubble has a red border, and its pointer now carries that border too, instead of a plain
+   white triangle poking out through it (the user: "what the fuck is this"). */
+@media (min-width: 701px) {
+  #eng-guide.is-rule.is-helping .eng-tch__say::after { box-sizing: content-box; width: 14px; height: 14px; border: 0 solid #FF4D4D; border-radius: 0; }
+}
+@media (min-width: 1360px) {
+  #eng-guide.is-rule.is-helping .eng-tch__say::after { right: -11px; border-top-width: 4px; border-right-width: 4px; border-top-right-radius: 3px; }
+}
+@media (min-width: 701px) and (max-width: 1359px) {
+  #eng-guide.is-rule.is-helping .eng-tch__say::after { bottom: -11px; border-right-width: 4px; border-bottom-width: 4px; border-bottom-right-radius: 3px; }
+}
