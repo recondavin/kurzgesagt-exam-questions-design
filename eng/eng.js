@@ -1459,7 +1459,7 @@
   window.addEventListener('resize', function () { if (CPW) cpwArrows(); });
   function cpwDraw(focus) {
     var box = document.getElementById('eng-cpd');
-    if (!CPW) { if (box) box.remove(); if (TCH && TCH.parentNode) TCH.remove(); document.body.classList.remove('eng-cpd-on'); return; }
+    if (!CPW) { if (box) box.remove(); if (TCH && TCH.parentNode) TCH.remove(); document.body.classList.remove('eng-cpd-on', 'eng-story-on'); return; }
     if (CPW.part === 'b') return cpbDraw(focus);
     if (!box) {
       // It fades in when it opens, not each time it redraws.
@@ -1470,7 +1470,8 @@
     var th = cpTheme(), a = cpBy(th).a, W = cpWrite(th, a), G = th.write[a], s = CPW.slot, para = typeof s === 'number' ? W.paras[s] : null, body = '', foot = '', writing = false;
     // A step plays its animations (cards popping in, arrows drawing) when it is first shown, not on every redraw; and a
     // redraw of the same step keeps your place (the user: "it just takes me to the top when i click on anything").
-    var key = s + '/' + CPW.step, oldBody = box.querySelector('.eng-cpd__body'), keep = box.getAttribute('data-key') === key && oldBody ? oldBody.scrollTop : 0, fresh = box.getAttribute('data-key') !== key;
+    var story = para && CPW.step === 3 && storyOn(slotText(W, s)) ? storyHtml(cpwStory(th, a, s)) : '', again = !story && para && CPW.step === 3 && isPhone() ? storyAgain() : '';
+    var key = s + '/' + CPW.step + (story ? '/story' : ''), oldBody = box.querySelector('.eng-cpd__body'), keep = box.getAttribute('data-key') === key && oldBody ? oldBody.scrollTop : 0, fresh = box.getAttribute('data-key') !== key;
     if (fresh) {
       box.setAttribute('data-key', key); box.classList.add('is-fresh');
       clearTimeout(box.cpT); box.cpT = setTimeout(function () { box.classList.remove('is-fresh'); }, 1700);
@@ -1539,8 +1540,10 @@
         (next != null ? '<button type="button" class="eng-btn" data-cpw-next>Next: ' + slotName(next) + '</button>' : '') + '<button type="button" class="eng-btn' + (next != null ? ' eng-btn--quiet' : '') + '" data-cpw-close>Done</button>';
     }
     box.innerHTML = '<div class="eng-cpd__bg" data-cpw-close></div><div class="eng-cpd__box" role="dialog" aria-modal="true" aria-labelledby="eng-cpd-h">' + head +
-      '<div class="eng-cpd__body">' + mhead + body + (foot ? '<p class="eng-btns eng-cpd__foot">' + foot + '</p>' : '') + '</div></div>';
+      '<div class="eng-cpd__body">' + (story || mhead + again + body + (foot ? '<p class="eng-btns eng-cpd__foot">' + foot + '</p>' : '')) + '</div></div>';
     box.classList.toggle('is-write', writing);
+    box.classList.toggle('is-story', !!story); document.body.classList.toggle('eng-story-on', !!story);
+    if (story) storyWire(box);
     if (fresh) { CPW.tch = null; tchIdle(); }
     if (!tchEl().parentNode) document.body.appendChild(TCH);
     Array.prototype.forEach.call(box.querySelectorAll('[data-cpw-box]'), grow);
@@ -2001,6 +2004,68 @@
     return '<div class="eng-cpb__recap' + (hid ? ' is-hid' : '') + '"><h3>' + esc(h) + '</h3>' + (hid ? '' : inner) +
       '<button type="button" class="eng-cpb__rhide" data-recap-hide aria-expanded="' + !hid + '">' + CHEV + (hid ? 'Show' : 'Hide') + '</button></div>';
   }
+  // Phones: before you write a paragraph, a swipe-through, one screen at a time like TikTok (the user: "if it were put in a
+  // scroll thing and a finger to animate so they know they are suppozed to scroll and it goes through it like a scroll but
+  // more like a video where everything gets animated in (the information) not just like a fucking page, and then scroll to
+  // a buttom the says \"start\" to which point you get to the essay writing section"): the question; each scene, its picture
+  // and then what happens a sentence at a time; what it represents, or what links the two; then Start. It plays when the
+  // paragraph is still empty; "Watch the intro again" plays it after.
+  function isPhone() { return !!(window.matchMedia && window.matchMedia('(max-width: 700px)').matches); }
+  function storyOn(txt) { return isPhone() && (CPW.storyForce || (!CPW.storyDone && !txt)); }
+  var NUMW = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'];
+  function inEl(tag, cls, html, d) { return '<' + tag + ' class="eng-in' + (cls ? ' ' + cls : '') + '" style="--d:' + d + 'ms">' + html + '</' + tag + '>'; }
+  function storySentences(x) { return (String(x).match(/[^.!?]+[.!?]+["'’”]?/g) || [String(x)]).map(function (y) { return y.trim(); }); }
+  function storyIntro(kicker, big, part) {
+    return inEl('p', 'eng-story__k', esc(kicker), 0) + inEl('h3', 'eng-story__big', esc(big), 160) + inEl('div', 'eng-story__q', cpQ(part), 380) +
+      '<div class="eng-story__hint" aria-hidden="true"><span>👆</span><b>Swipe up</b></div>';
+  }
+  // A scene: its picture with the title over it, like a video's caption, then its story told in short beats, one after another.
+  function storyScene(tid, m) {
+    var pic = scenePics(tid, m.id)[0], beats = m.tell && m.tell.length ? m.tell : storySentences(m.what);
+    return '<div class="eng-in eng-story__hero' + (pic ? '' : ' is-nopic') + '" style="--d:0ms;--c:' + COL[tid] + '">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') +
+      '<div class="eng-story__cap"><p class="eng-story__k">' + esc(sceneWhere(tid, m)) + '</p><h3 class="eng-story__t">' + esc(m.title) + '</h3></div></div>' +
+      beats.map(function (x, i) { return inEl('p', 'eng-story__p eng-story__beat', esc(x), 500 + i * 450); }).join('');
+  }
+  function storyStart(parts, back) {
+    return inEl('p', 'eng-story__k', 'Now write it', 0) + inEl('h3', 'eng-story__big', NUMW[parts.length] + ' short boxes', 160) +
+      '<ol class="eng-story__boxes">' + parts.map(function (pt, i) { return inEl('li', '', esc(pt.label), 320 + i * 110); }).join('') + '</ol>' +
+      inEl('div', 'eng-story__go', '<button type="button" class="eng-btn" data-story-start>Start</button><button type="button" class="eng-btn eng-btn--quiet" ' + back + '>Change the scenes</button>', 420 + parts.length * 110);
+  }
+  function storyHtml(slides) {
+    return '<div class="eng-storyw"><div class="eng-story" data-story>' + slides.map(function (x, i) {
+      return '<section class="eng-story__s" data-story-i="' + i + '">' + x + (i && i < slides.length - 1 ? '<span class="eng-story__more" aria-hidden="true"></span>' : '') + '</section>';
+    }).join('') + '</div><ol class="eng-story__dots" aria-hidden="true">' + slides.map(function (x, i) { return '<li' + (i ? '' : ' class="is-on"') + '></li>'; }).join('') + '</ol></div>';
+  }
+  // Each screen animates in when it scrolls into view; the dots on the right show where you are.
+  function storyWire(box) {
+    var st = box.querySelector('[data-story]');
+    if (!st) return;
+    var ss = st.querySelectorAll('.eng-story__s'), dots = box.querySelectorAll('.eng-story__dots li');
+    var show = function (el) {
+      var i = +el.getAttribute('data-story-i');
+      el.classList.add('is-in');
+      Array.prototype.forEach.call(dots, function (d, k) { d.classList.toggle('is-on', k === i); });
+      if (i) st.classList.add('is-moved');
+    };
+    if (!window.IntersectionObserver) { Array.prototype.forEach.call(ss, show); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) show(e.target); }); }, { root: st, threshold: 0.4 });
+    Array.prototype.forEach.call(ss, function (x) { io.observe(x); });
+  }
+  function cpwStory(th, a, s) {
+    var W = cpWrite(th, a), G = th.write[a], para = W.paras[s], m = text(a).moments[para.scene - 1], sc = G.scenes[para.scene], rp = sc.reps[para.rep || 0];
+    return [storyIntro('Part (a) · Paragraph ' + (s + 1), 'One scene. One idea.', 'a'), storyScene(a, m),
+      inEl('p', 'eng-story__k', 'What it represents', 0) + inEl('h3', 'eng-story__big', esc(rp.title), 160) + inEl('p', 'eng-story__p', esc(rp.say), 380) +
+        inEl('p', 'eng-story__techs', 'Techniques: ' + sc.techniques.map(function (q) { return '<i>' + esc(q.name) + '</i>'; }).join(''), 600),
+      storyStart(partsOf(th, a, s), 'data-cpw-step="1"')];
+  }
+  function cpbStory(c, s, q) {
+    var L = cpbLink(c.th, q.x, q.y);
+    return [storyIntro('Part (b) · Paragraph ' + (s + 1), 'Two scenes. One paragraph.', 'b'), storyScene(tidOf(q.x), mom(q.x).m), storyScene(tidOf(q.y), mom(q.y).m),
+      inEl('p', 'eng-story__k', 'What links them', 0) + inEl('h3', 'eng-story__big', esc(L ? L.aspect : 'Your own link'), 160) +
+        inEl('p', 'eng-story__p', esc(L ? L.say : 'These two aren\'t one of the strong matches, so how they compare is up to you.'), 380),
+      storyStart(cpbPartsOf(c, s), 'data-cpb-step="1"')];
+  }
+  function storyAgain() { return '<p class="eng-story__again"><button type="button" class="eng-btn eng-btn--quiet" data-story-replay>▶ Watch the intro again</button></p>'; }
   function sceneWhere(tid, m) { return shortTitle(tid) + (m.where ? ' (' + m.where + ')' : ''); }
   function cpbCard(mid, on, extra, attr, i) {
     var o = mom(mid), tid = tidOf(mid), pic = scenePics(tid, mid)[0];
@@ -2016,7 +2081,8 @@
     }
     document.body.classList.add('eng-cpd-on');
     var c = cpbCtx(), th = c.th, F = c.F, W = c.W, s = CPW.slot, q = typeof s === 'number' ? W.paras[s] : null, body = '', foot = '', writing = false;
-    var key = 'b' + s + '/' + CPW.step, oldBody = box.querySelector('.eng-cpd__body'), keep = box.getAttribute('data-key') === key && oldBody ? oldBody.scrollTop : 0, fresh = box.getAttribute('data-key') !== key;
+    var story = q && q.x && q.y && CPW.step === 3 && storyOn(cpbText(W, s)) ? storyHtml(cpbStory(c, s, q)) : '', again = !story && q && CPW.step === 3 && isPhone() ? storyAgain() : '';
+    var key = 'b' + s + '/' + CPW.step + (story ? '/story' : ''), oldBody = box.querySelector('.eng-cpd__body'), keep = box.getAttribute('data-key') === key && oldBody ? oldBody.scrollTop : 0, fresh = box.getAttribute('data-key') !== key;
     if (fresh) { box.setAttribute('data-key', key); box.classList.add('is-fresh'); clearTimeout(box.cpT); box.cpT = setTimeout(function () { box.classList.remove('is-fresh'); }, 1700); }
     var steps = q ? ['Scene in ' + shortTitle(F[0]), 'Scene in ' + shortTitle(F[1]), 'Write it'] : null;
     var head = '<div class="eng-cpd__top"><h2 id="eng-cpd-h">' + cpbName(s) + '</h2>' +
@@ -2075,8 +2141,10 @@
         '<button type="button" class="eng-btn' + (next != null ? ' eng-btn--quiet' : '') + '" data-cpw-close>Done</button>';
     }
     box.innerHTML = '<div class="eng-cpd__bg" data-cpw-close></div><div class="eng-cpd__box" role="dialog" aria-modal="true" aria-labelledby="eng-cpd-h">' + head +
-      '<div class="eng-cpd__body">' + mhead + body + (foot ? '<p class="eng-btns eng-cpd__foot">' + foot + '</p>' : '') + '</div></div>';
+      '<div class="eng-cpd__body">' + (story || mhead + again + body + (foot ? '<p class="eng-btns eng-cpd__foot">' + foot + '</p>' : '')) + '</div></div>';
     box.classList.toggle('is-write', writing);
+    box.classList.toggle('is-story', !!story); document.body.classList.toggle('eng-story-on', !!story);
+    if (story) storyWire(box);
     if (fresh) { CPW.tch = null; tchIdle(); }
     if (!tchEl().parentNode) document.body.appendChild(TCH);
     Array.prototype.forEach.call(box.querySelectorAll('[data-cpw-box]'), grow);
@@ -2173,6 +2241,14 @@
       var sln = cpwSlots(W), nx = sln[sln.indexOf(CPW.slot) + 1];
       CPW = { slot: nx, step: cpwFirstStep(W, nx), box: slotKeys(nx)[0], pick: [], shown: {} }; cpwDraw(true); return true;
     }
+    if (t.closest('[data-story-start]')) {
+      // Start lands on the writing boxes; the scenes and the question are still there above, if you scroll up.
+      CPW.storyDone = true; CPW.storyForce = false; cpwDraw();
+      var sb = document.querySelector('#eng-cpd .eng-cpd__body'), wr = sb && sb.querySelector('.eng-cpd__write');
+      if (wr) sb.scrollTop += wr.getBoundingClientRect().top - sb.getBoundingClientRect().top - 12;
+      return true;
+    }
+    if (t.closest('[data-story-replay]')) { CPW.storyDone = false; CPW.storyForce = true; cpwDraw(); return true; }
     if (t.closest('[data-recap-hide]')) {
       store('eng-recap-hide', store('eng-recap-hide') === '1' ? '0' : '1'); cpwDraw();
       var rh = document.querySelector('#eng-cpd [data-recap-hide]'); if (rh) rh.focus({ preventScroll: true });
