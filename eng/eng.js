@@ -924,6 +924,8 @@
   window.addEventListener('scroll', function () { if (!cpQT) cpQT = requestAnimationFrame(function () { cpQT = 0; cpQSync(); }); }, { passive: true });
   function cpNext(n, label) { return '<p class="eng-cp__nextp"><button type="button" class="eng-btn eng-cp__next" data-cp-stage="' + n + '">' + label + ' →</button></p>'; }
   function cpScrollTo(n) {
+    var fdj = app.querySelector('[data-feed]');
+    if (fdj) { var itj = fdj.querySelector('[data-fstep="' + n + '"]'); if (itj) fdj.scrollTo({ top: itj.offsetTop, behavior: 'smooth' }); return; }
     var el = app.querySelectorAll('.eng-cp__step')[n - 1];
     if (!el) return;
     var nav = app.querySelector('.eng-cpnav'), pinned = nav && getComputedStyle(nav).position === 'sticky';
@@ -931,6 +933,155 @@
     GUIDE.hold = Date.now() + 1400;
     window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - off, behavior: 'smooth' });
   }
+  // ----- Phones: Compare it as a TikTok feed (the user: "it does not look like the tiktok scroll feature"). One item per
+  // screen, edge to edge, over its picture, a caption at the bottom left and round buttons down the right; a swipe moves
+  // exactly one item. The items: the theme; your part (a) text; each part (a) paragraph; the pairs of scenes (tap ❤ to
+  // pick 3 or 4); your plan; each part (b) paragraph. The laptop keeps the page.
+  var FEED_Y = 0, FEED_GO = 0, FEED_ON = false;
+  var FICON = {
+    heart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 7.9 3.5 4.5 7 4.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3.5 0 5.6 3.4 4.3 6.8-1.8 4.6-9.3 9.2-9.3 9.2Z" fill="currentColor"/></svg>',
+    pen: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5 17v3Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="m14.5 7.5 3 3" stroke="currentColor" stroke-width="2.2"/></svg>'
+  };
+  function fHero(id) { var q = pics(id).filter(function (x) { return x.hero; })[0] || pics(id)[0]; return q ? q.file : ''; }
+  function fPic(mid) { var tid = tidOf(mid), q = scenePics(tid, mid)[0]; return q ? q.file : fHero(tid); }
+  function fRail(extra) {
+    var head = window.ExamTeacher ? window.ExamTeacher.head('left') : '';
+    var b = function (k, icon, label, cls, attr) { return '<button type="button" class="eng-rail__b' + (cls || '') + '" ' + attr + '><span class="eng-rail__i">' + icon + '</span><b>' + label + '</b></button>'; };
+    return '<div class="eng-fi__rail">' + b('tips', head, 'Tips', ' is-me', 'data-feed-tips') + (extra || '') + b('q', RICON.q, 'Question', '', 'data-feed-q') + b('next', RICON.next, 'Next', '', 'data-feed-next') + '</div>';
+  }
+  function fRailBtn(icon, label, cls, attr) { return '<button type="button" class="eng-rail__b' + (cls || '') + '" ' + attr + '><span class="eng-rail__i">' + icon + '</span><b>' + label + '</b></button>'; }
+  // One item: o = { step, bg: [file, file?], c, tag, title, text, html, act, rail, cls, labels: [[name, colour], ...] }
+  function fItem(o) {
+    var bg = (o.bg || []).filter(Boolean);
+    return '<section class="eng-fi' + (bg.length ? '' : ' is-plain') + (o.cls ? ' ' + o.cls : '') + '" data-fstep="' + o.step + '" style="--c:' + (o.c || '#8FD0FF') + '">' +
+      '<div class="eng-fi__bg' + (bg.length > 1 ? ' is-two' : '') + '">' + bg.map(function (f, i) {
+        var l = o.labels && o.labels[i];
+        return '<div class="eng-fi__ph"><img src="assets/eng/img/' + esc(f) + '" alt="" loading="' + (o.eager ? 'eager' : 'lazy') + '">' + (l ? '<span class="eng-fi__lbl" style="--c:' + l[1] + '">' + esc(l[0]) + '</span>' : '') + '</div>';
+      }).join('') + '</div>' +
+      '<header class="eng-fi__top"><a class="eng-fi__back" href="#" aria-label="Back to English">‹</a><span>Step ' + o.step + ' of ' + CP_STEPS.length + ' · ' + esc(CP_STEPS[o.step - 1]) + '</span></header>' +
+      '<div class="eng-fi__cap">' + (o.tag ? '<p class="eng-fi__tag">' + o.tag + '</p>' : '') + (o.title ? '<h3>' + o.title + '</h3>' : '') +
+        (o.text ? '<p class="eng-fi__txt">' + o.text + '</p>' : '') + (o.html || '') + (o.act ? '<div class="eng-fi__act">' + o.act + '</div>' : '') + '</div>' +
+      fRail(o.rail) + '</section>';
+  }
+  function fBtn(attr, label, quiet) { return '<button type="button" class="eng-btn' + (quiet ? ' eng-btn--quiet' : '') + '" ' + attr + '>' + label + '</button>'; }
+  function renderFeed(th, ids, by, a, w, B, st, swapped) {
+    var old = app.querySelector('[data-feed]'), y = old ? old.scrollTop : FEED_Y, items = [];
+    // the theme
+    items.push(fItem({ step: 1, bg: [fHero(a || th.best || ids[0])], eager: true, c: 'var(--m-theme)', tag: 'Compare it · a 30 + 40 answer', title: esc(th.name),
+      text: 'Part (a): one text, 30 marks. Part (b): compare the other two, 40 marks.' + (swapped ? ' Using ' + ids.map(function (id) { return esc(text(id).title); }).join(', ').replace(/, ([^,]*)$/, ' and $1') + '.' : ''),
+      html: '<p class="eng-fi__swipe" aria-hidden="true"><span>👆</span> Swipe up to start</p>' }));
+    // your part (a) text
+    items.push(fItem({ step: 1, c: 'var(--m-theme)', tag: 'Part (a)', title: 'Pick your part (a) text', cls: 'is-pick',
+      html: '<div class="eng-fi__opts">' + ids.map(function (id) {
+        var f = fHero(id);
+        return '<button type="button" class="eng-fi__opt' + (id === a ? ' is-on' : '') + '" data-cp-a="' + id + '" aria-pressed="' + (id === a) + '" style="--c:' + COL[id] + '">' + (f ? '<img src="assets/eng/img/' + esc(f) + '" alt="">' : '<i></i>') +
+          '<span><b>' + esc(text(id).title) + '</b>' + (id === a ? '<em>✓ Your part (a)</em>' : id === th.best ? '<em>Best for (a)</em>' : '') + '</span></button>';
+      }).join('') + '</div>' }));
+    if (a) {
+      // part (a), a paragraph per item
+      var WR = th.write && th.write[a];
+      if (WR) {
+        var W = cpWrite(th, a), G = th.write[a], tot = 0;
+        cpwSlots(W).forEach(function (s, i, all) {
+          var txt = slotText(W, s), para = typeof s === 'number' ? W.paras[s] : null, sc = para && para.scene ? G.scenes[para.scene] : null, rp = sc ? sc.reps[para.rep || 0] : null, m = para && para.scene ? text(a).moments[para.scene - 1] : null;
+          tot += wordsIn(txt);
+          var act = fBtn('data-cpw="' + s + '"', txt ? 'Edit' : 'Write it', !!txt);
+          if (typeof s === 'number' && s === W.paras.length - 1) act += W.paras.length < 4 ? fBtn('data-cpw-add', '+ Paragraph 4', true) : fBtn('data-cpw-drop', 'Remove paragraph 4', true);
+          if (s === 'end') { if (tot) act += fBtn('data-cpw-copy', 'Copy part (a)', true); if (st < 3) act += fBtn('data-cp-stage="3"', 'Next: part (b) →'); }
+          items.push(fItem({ step: 2, bg: [m ? fPic(m.id) : fHero(a)], c: COL[a], tag: 'Part (a) · ' + slotName(s) + (m ? ' · ' + esc(m.title) : ''),
+            title: rp ? esc(rp.title) : s === 'open' ? 'Your opening' : s === 'end' ? 'Your ending' : 'Pick a key scene',
+            text: txt ? esc(txt) : s === 'open' ? 'Pick your three or four scenes, then write the opening.' : s === 'end' ? 'Sum it all up: what the film finally says about ' + esc(th.name.toLowerCase()) + '.' : 'Pick a key scene and what it represents, then write it.',
+            act: act + (s === 'end' && tot ? '<span class="eng-fi__count">Part (a): ' + tot + ' words</span>' : ''), rail: fRailBtn(FICON.pen, txt ? 'Edit' : 'Write', '', 'data-cpw="' + s + '"') }));
+        });
+      } else {
+        items.push(fItem({ step: 2, bg: [fHero(a)], c: COL[a], tag: 'Part (a) · ' + esc(text(a).title), title: 'Pick three points', cls: 'is-pick',
+          html: '<div class="eng-fi__opts">' + th.points[a].map(function (pt, i) {
+            var on = w.pts.indexOf(i) >= 0;
+            return '<button type="button" class="eng-fi__opt is-text' + (on ? ' is-on' : '') + '" data-cp-pt="' + i + '" aria-pressed="' + on + '"><span><b>' + esc(pt.title) + '</b>' + (on ? '<em>✓ Picked</em>' : '') + '</span></button>';
+          }).join('') + '</div>', act: st < 3 ? fBtn('data-cp-stage="3"', 'Next: part (b) →') : '' }));
+      }
+      // the pairs
+      if (st >= 3) {
+        var F = cpbOrder(B), L = cpLinks(th, F[0], F[1]).map(function (l) { var x = tidOf(l.a) === F[0] ? l.a : l.b; return { l: l, x: x, y: x === l.a ? l.b : l.a }; });
+        L.sort(function (p1, p2) { return mom(p1.x).n - mom(p2.x).n; });
+        var n = w.links.length, used = {};
+        w.links.forEach(function (l) { used[l.a] = 1; used[l.b] = 1; });
+        var picked = function (q) { return w.links.some(function (l) { return [l.a, l.b].sort().join() === [q.x, q.y].sort().join(); }); };
+        items.push(fItem({ step: 3, bg: [fHero(F[0]), fHero(F[1])], labels: [[shortTitle(F[0]), COL[F[0]]], [shortTitle(F[1]), COL[F[1]]]], c: '#FF8FB1', tag: 'Part (b) · ' + esc(shortTitle(F[0])) + ' and ' + esc(shortTitle(F[1])),
+          title: 'Pick your pairs', text: 'Swipe through the best matches. Tap ❤ on three or four: each one is a paragraph.',
+          act: '<span class="eng-fi__count">' + n + ' of 3–4 picked</span>' + fBtn('data-cp-swap', esc(shortTitle(F[1])) + ' first ⇄', true) }));
+        L.forEach(function (q) {
+          var on = picked(q), clash = !on && (used[q.x] || used[q.y]), full = !on && n >= 4;
+          var attr = 'data-feed-pair="' + q.l.a + '|' + q.l.b + '"' + (clash || full ? ' disabled' : '') + ' aria-pressed="' + on + '"';
+          items.push(fItem({ step: 3, bg: [fPic(q.x), fPic(q.y)], labels: [[shortTitle(F[0]) + ': ' + mom(q.x).m.title, COL[F[0]]], [shortTitle(F[1]) + ': ' + mom(q.y).m.title, COL[F[1]]]],
+            c: '#FF8FB1', cls: on ? 'is-picked' : '', tag: on ? '❤ Picked' : 'A pair', title: esc(q.l.aspect), text: esc(q.l.say),
+            act: fBtn(attr, on ? '✓ Picked · tap to remove' : clash ? 'One of these scenes is already paired' : full ? 'Four pairs already' : '❤ Pick this pair', on),
+            rail: fRailBtn(FICON.heart, on ? 'Picked' : 'Pick', ' is-heart' + (on ? ' is-on' : ''), attr) }));
+        });
+      }
+      // the plan
+      if (st >= 4) {
+        var cb = cpbCtx(), Wb = cb.W;
+        var rows = ['<li><b>Opening</b><span>Both texts and authors; answer the question</span></li>'].concat(Wb.paras.map(function (q, k) {
+          var L2 = cpbLink(th, q.x, q.y);
+          return '<li><b>Paragraph ' + (k + 1) + '</b><span>' + esc(L2 ? L2.aspect : 'Your own link') + (q.x && q.y ? '<i>' + esc(mom(q.x).m.title) + ' · ' + esc(mom(q.y).m.title) + '</i>' : '') + '</span></li>';
+        })).concat(['<li><b>Ending</b><span>Which text does it more powerfully, and why</span></li>']);
+        items.push(fItem({ step: 4, c: '#58CC02', tag: 'Part (b)', title: 'Your plan', cls: 'is-pick is-plan',
+          html: '<ol class="eng-fi__plan">' + rows.join('') + '</ol>', act: st < 5 ? fBtn('data-cp-stage="5"', 'Next: write part (b) →') : '' }));
+      }
+      // part (b), a paragraph per item
+      if (st >= 5) {
+        var cc = cpbCtx(), W2 = cc.W, F2 = cc.F, tot2 = 0;
+        cpbSlots(W2).forEach(function (s2) {
+          var txt2 = cpbText(W2, s2), q2 = typeof s2 === 'number' ? W2.paras[s2] : null, L3 = q2 ? cpbLink(th, q2.x, q2.y) : null;
+          tot2 += wordsIn(txt2);
+          var act2 = fBtn('data-cpbw="' + s2 + '"', txt2 ? 'Edit' : 'Write it', !!txt2);
+          if (typeof s2 === 'number' && s2 === W2.paras.length - 1) act2 += W2.paras.length < 4 ? fBtn('data-cpb-add', '+ Paragraph 4', true) : fBtn('data-cpb-drop', 'Remove paragraph 4', true);
+          if (s2 === 'end' && tot2) act2 += fBtn('data-cpb-copy', 'Copy part (b)', true) + '<span class="eng-fi__count">Part (b): ' + tot2 + ' words</span>';
+          items.push(fItem({ step: 5, bg: q2 && q2.x && q2.y ? [fPic(q2.x), fPic(q2.y)] : [fHero(F2[0]), fHero(F2[1])],
+            labels: q2 && q2.x && q2.y ? [[shortTitle(F2[0]) + ': ' + mom(q2.x).m.title, COL[F2[0]]], [shortTitle(F2[1]) + ': ' + mom(q2.y).m.title, COL[F2[1]]]] : null,
+            c: '#FF8FB1', tag: 'Part (b) · ' + (s2 === 'open' ? 'Opening' : s2 === 'end' ? 'Ending' : 'Paragraph ' + (s2 + 1)),
+            title: L3 ? esc(L3.aspect) : s2 === 'open' ? 'Your opening' : s2 === 'end' ? 'Your ending' : 'Pick the two scenes',
+            text: txt2 ? esc(txt2) : s2 === 'open' ? 'Name both texts and their authors, answer the question, and say your points.' : s2 === 'end' ? 'Your judgement: which text does it more powerfully, and why.' : 'Pick a scene from each text, then write it.',
+            act: act2, rail: fRailBtn(FICON.pen, txt2 ? 'Edit' : 'Write', '', 'data-cpbw="' + s2 + '"') }));
+        });
+      }
+    }
+    FEED_ON = true;
+    document.documentElement.classList.remove('eng-snap', 'eng-snapfx');
+    app.innerHTML = '<div class="eng-feed" data-feed>' + items.join('') + '</div>';
+    var fd = app.querySelector('[data-feed]');
+    fd.scrollTop = y;
+    if (FEED_GO) { var go = fd.querySelector('[data-fstep="' + FEED_GO + '"]'); FEED_GO = 0; if (go) requestAnimationFrame(function () { fd.scrollTo({ top: go.offsetTop, behavior: 'smooth' }); }); }
+    fd.addEventListener('scroll', function () {
+      FEED_Y = fd.scrollTop;
+      if (GUIDE.open && GUIDE.fy != null && Math.abs(fd.scrollTop - GUIDE.fy) > 80) { GUIDE.open = false; guideRender(); }
+      if (!GUIDE.open) GUIDE.fy = null;
+    }, { passive: true });
+    GUIDE.fy = fd.scrollTop;
+    CP_ST = st;
+    guideDraw(st, th, a, B);
+    railDraw();
+  }
+  // The item on screen, and the next one.
+  function feedAt() {
+    var fd = app.querySelector('[data-feed]');
+    if (!fd) return null;
+    var its = fd.querySelectorAll('.eng-fi'), k = Math.round(fd.scrollTop / Math.max(1, fd.clientHeight));
+    return { fd: fd, its: its, k: Math.min(its.length - 1, Math.max(0, k)) };
+  }
+  function feedPair(ab) {
+    var th = cpTheme(), a = cpBy(th).a, w = cpWork(th, a), x = ab.split('|'), at = -1;
+    w.links.forEach(function (l, k) { if ([l.a, l.b].sort().join() === x.slice().sort().join()) at = k; });
+    if (at >= 0) w.links.splice(at, 1);
+    else {
+      var L = cpFind(th, x[0], x[1]);
+      if (!L || w.links.length >= 4 || w.links.some(function (l) { return x.indexOf(l.a) >= 0 || x.indexOf(l.b) >= 0; })) return;
+      w.links.push({ a: L.a, b: L.b, rel: L.rel });
+    }
+    cpSave(); renderCompare();
+  }
+  window.addEventListener('resize', function () { if (/^#compare/.test(location.hash) && !CPW && isPhone() !== FEED_ON) renderCompare(); });
   function renderCompare() {
     renderShell('compare', 'Compare it');
     var th = cpTheme();
@@ -938,6 +1089,8 @@
     var ids = cpTexts(th), by = cpBy(th), a = ids.indexOf(by.a) >= 0 ? by.a : null;
     var swapped = chosen().some(function (id) { return ids.indexOf(id) < 0; });
     var w = a ? cpWork(th, a) : null, B = a ? ids.filter(function (id) { return id !== a; }) : [], st = cpStage(th, a, w);
+    if (isPhone()) { renderFeed(th, ids, by, a, w, B, st, swapped); return; }
+    FEED_ON = false;
     var h = title('Compare it') +
       '<p class="eng-cp__theme"><span class="eng-tag" style="--c:var(--m-theme)">Theme or Issue</span> <b>' + esc(th.name) + '</b> · a 30 + 40 answer</p>' + cpNav(st) +
       (swapped ? '<p class="eng-p eng-cp__warn">Using ' + ids.map(function (id) { return '<i>' + esc(text(id).title) + '</i>'; }).join(', ').replace(/, ([^,]*)$/, ' and $1') + ' for this one.</p>' : '') +
@@ -1135,7 +1288,7 @@
     steps: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 21 8l-9 4.5L3 8l9-4.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m3 12 9 4.5 9-4.5M3 16l9 4.5 9-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
     next: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9.5 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
   };
-  function railOn() { return isPhone() && /^#compare/.test(location.hash) && !document.body.classList.contains('eng-story-on'); }
+  function railOn() { return isPhone() && /^#compare/.test(location.hash) && !document.body.classList.contains('eng-story-on') && (!!CPW || !app.querySelector('[data-feed]')); }
   // The step on screen: the last one whose top is above the middle of the screen.
   function cpStepAt() {
     var k = 0, mid = window.innerHeight * 0.45;
@@ -1173,7 +1326,7 @@
   // A sheet that slides up from the bottom: the question (both parts, the one you're on first), or the steps to jump to.
   function sheetOpen(kind) {
     sheetClose();
-    var part = CPW ? (CPW.part === 'b' ? 'b' : 'a') : (cpStepAt() >= 2 ? 'b' : 'a'), other = part === 'a' ? 'b' : 'a', inner;
+    var fa = feedAt(), part = CPW ? (CPW.part === 'b' ? 'b' : 'a') : fa ? (+fa.its[fa.k].getAttribute('data-fstep') >= 3 ? 'b' : 'a') : (cpStepAt() >= 2 ? 'b' : 'a'), other = part === 'a' ? 'b' : 'a', inner;
     if (kind === 'q') {
       inner = '<h3>The question</h3><p class="eng-cpq is-full eng-sheet__now"><span>' + cpQIn(part).replace(/^<span>|<\/span>$/g, '') + '</span></p>' +
         '<p class="eng-cpq is-full eng-sheet__other"><span>' + cpQIn(other).replace(/^<span>|<\/span>$/g, '') + '</span></p>';
@@ -3216,6 +3369,11 @@
     var qf = t.closest('[data-eng-qf]');
     if (qf) { qFilter = qf.getAttribute('data-eng-qf'); renderQuestions(); return; }
     if (t.closest('[data-eng-qopen]')) { QOPEN = !QOPEN; store('eng-q-open', QOPEN ? '1' : '0'); renderQuestions(); return; }
+    var fp = t.closest('[data-feed-pair]');
+    if (fp) { if (!fp.disabled) feedPair(fp.getAttribute('data-feed-pair')); return; }
+    if (t.closest('[data-feed-tips]')) { GUIDE.open = !GUIDE.open; var fa0 = feedAt(); GUIDE.fy = fa0 ? fa0.fd.scrollTop : null; guideRender(); return; }
+    if (t.closest('[data-feed-q]')) { sheetOpen('q'); return; }
+    if (t.closest('[data-feed-next]')) { var fa1 = feedAt(); if (fa1 && fa1.k < fa1.its.length - 1) fa1.fd.scrollTo({ top: fa1.its[fa1.k + 1].offsetTop, behavior: 'smooth' }); return; }
     var cq = t.closest('[data-cpq]');
     if (cq) { cq.classList.toggle('is-full'); return; }
     if ((CPW || t.closest('[data-cpw],[data-cpw-copy],[data-cpw-add],[data-cpw-drop],[data-cpbw],[data-cpb-copy],[data-cpb-add],[data-cpb-drop]')) && cpwClick(t)) return;
@@ -3228,7 +3386,7 @@
       if (cstg) { goTo = +cstg.getAttribute('data-cp-stage'); cby.stage = Math.max(cby.stage || 1, goTo); }
       else if (t.closest('[data-cp-swap]')) { cpSwap(cth); focus = '[data-cp-swap]'; }
       else
-      if (cpa) { cby.a = cpa.getAttribute('data-cp-a'); CPSEL = CPPICK = CPFB = CPHINT = null; focus = '[data-cp-a="' + cby.a + '"]'; CP_ENTER = true; }
+      if (cpa) { cby.a = cpa.getAttribute('data-cp-a'); CPSEL = CPPICK = CPFB = CPHINT = null; focus = '[data-cp-a="' + cby.a + '"]'; CP_ENTER = true; if (isPhone()) FEED_GO = 2; }
       else if (cpp) {
         var cw = cpWork(cth, cby.a), ci = +cpp.getAttribute('data-cp-pt'), at = cw.pts.indexOf(ci);
         if (at >= 0) cw.pts.splice(at, 1); else if (cw.pts.length < 3) cw.pts.push(ci);
