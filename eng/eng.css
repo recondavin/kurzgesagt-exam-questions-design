@@ -1712,3 +1712,35 @@ body.eng-cpd-on #eng-guide { display: none; }
   .sh-switch::-webkit-scrollbar { display: none; }
   .sh-switch a { flex: none; }
 }
+
+/* The exam question, always on screen: under the sticky step bar and at the top of the writing popup. */
+.eng-cpq { margin: 10px 0 0; padding: 10px 16px; border-left: 5px solid var(--m-theme); border-radius: 0 14px 14px 0; background: var(--surface); color: #E3EBEF; font: 600 17px/1.45 Nunito, sans-serif; }
+.eng-cpq b { margin-right: 4px; color: var(--m-theme); font-weight: 800; white-space: nowrap; }
+.eng-cpq mark { padding: 0 4px; border-radius: 5px; background: #FFE14D; color: #13212A; font-weight: 800; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+#eng-cpd .eng-cpq { flex: 1 0 100%; max-width: 980px; margin: 2px 0 0; background: var(--k-panel, #1A2B32); font-family: Outfit, Nunito, sans-serif; font-weight: 500; }
+#eng-cpd .eng-cpq b { font-weight: 700; }
+#eng-cpd .eng-cpq mark { font-weight: 700; }
+#eng-cpd .eng-cpd__x { top: 16px; margin-top: 0; }
+@media (max-width: 700px) {
+  .eng-cpq, #eng-cpd .eng-cpq { padding: 8px 12px; font-size: 14.5px; cursor: pointer; }
+  .eng-cpq > span { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+  .eng-cpq.is-full > span { display: block; }
+  #eng-cpd .eng-cpd__x { top: 12px; }
+}
+
+/* The plan at the top of part (b)'s opening and ending: a Hide button. */
+.eng-cpb__list .eng-cpb__lh { justify-content: space-between; color: var(--k-dim, #93A5AE); font: 700 15px Outfit, Nunito, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.eng-cpb__hide { min-height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--k-step, #22343C); color: #fff; font: 700 16px Outfit, Nunito, sans-serif; letter-spacing: 0; text-transform: none; cursor: pointer; }
+.eng-cpb__hide:hover { background: var(--raised); }
+.eng-cpb__hide:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.eng-cpb__list.is-hid { padding: 10px 12px 10px 18px; margin-bottom: 28px; }
+
+/* A bigger examiner in the writing popup on wide screens (the user: "make bro bigger"): up to 240px, and the popup's
+   content moves right to leave room for him, so he never covers a box. */
+@media (min-width: 1360px) {
+  body.eng-cpd-on { --tw: clamp(190px, calc(100vw - 1160px), 240px); --pl: max(calc(var(--tw) + 44px), calc(50% - 560px)); }
+  body.eng-cpd-on .eng-tch:not(#eng-guide) { --w: var(--tw); left: max(12px, calc(var(--pl) - var(--tw) - 26px)); bottom: 6px; }
+  body.eng-cpd-on #eng-cpd .eng-cpd__top, body.eng-cpd-on #eng-cpd .eng-cpd__body { padding-left: var(--pl); padding-right: max(24px, calc(100% - var(--pl) - 1120px)); }
+  body.eng-cpd-on #eng-cpd .eng-cpd__top { padding-right: max(92px, calc(100% - var(--pl) - 1120px)); }
+  body.eng-cpd-on .eng-tch:not(#eng-guide):not(.is-helping) .eng-tch__say { font-size: 22px; }
+}

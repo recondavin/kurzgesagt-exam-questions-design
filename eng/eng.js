@@ -900,8 +900,28 @@
     return '<nav class="eng-cpnav" aria-label="Steps"><ol>' + CP_STEPS.map(function (x, i) {
       var n = i + 1, open = n <= st, now = n === st;
       return '<li class="' + (now ? 'is-on' : open ? 'is-open' : '') + '"><button type="button" data-cp-go="' + n + '"' + (open ? '' : ' disabled') + (now ? ' aria-current="step"' : '') + '><span>' + n + '</span>' + x + '</button></li>';
-    }).join('') + '</ol></nav>';
+    }).join('') + '</ol>' + cpQ(st >= 3 ? 'b' : 'a') + '</nav>';
   }
+  // The exam question is always on screen (the user: "the exam question should be with you all the time"): under the step
+  // bar, which stays at the top as you scroll, and at the top of the writing popup. It shows the part you're working on,
+  // (a) for steps 1 and 2 and (b) from step 3, with its key words marked. On a phone it is cut to two lines; tap for all.
+  function cpQIn(part) {
+    return '<span><b>' + (part === 'a' ? '(a) 30 marks' : '(b) 40 marks') + '</b> ' + (part === 'a'
+      ? 'Choose a theme from one text you have studied as part of your comparative course and say <mark>how it helped maintain your interest</mark> in the text.'
+      : '<mark>Compare</mark> how the theme you have dealt with in part (a) is treated by the authors of two other texts from your comparative course <mark>to maintain the reader’s interest</mark>.') + '</span>';
+  }
+  function cpQ(part) { return '<p class="eng-cpq" data-cpq="' + part + '">' + cpQIn(part) + '</p>'; }
+  // The step bar's question follows the step on screen as you scroll.
+  function cpQSync() {
+    var q = app.querySelector('.eng-cpnav [data-cpq]');
+    if (!q) return;
+    var line = app.querySelector('.eng-cpnav').getBoundingClientRect().bottom + 60, k = 0;
+    Array.prototype.forEach.call(app.querySelectorAll('.eng-cp__step'), function (el, i) { if (el.getBoundingClientRect().top < line) k = i; });
+    var part = k >= 2 ? 'b' : 'a';
+    if (q.getAttribute('data-cpq') !== part) { q.setAttribute('data-cpq', part); q.innerHTML = cpQIn(part); }
+  }
+  var cpQT = 0;
+  window.addEventListener('scroll', function () { if (!cpQT) cpQT = requestAnimationFrame(function () { cpQT = 0; cpQSync(); }); }, { passive: true });
   function cpNext(n, label) { return '<p class="eng-cp__nextp"><button type="button" class="eng-btn eng-cp__next" data-cp-stage="' + n + '">' + label + ' →</button></p>'; }
   function cpScrollTo(n) {
     var el = app.querySelectorAll('.eng-cp__step')[n - 1];
@@ -954,6 +974,7 @@
   function cpNavShow() {
     var cur = app.querySelector('.eng-cpnav .is-on'), ol = cur && cur.parentNode;
     if (cur && ol.scrollWidth > ol.clientWidth) ol.scrollLeft = Math.max(0, cur.offsetLeft - 12);
+    cpQSync();
   }
   // 3: pick your scenes. One big line says what to do next; after the first tap, the scenes it links to glow and the rest
   // fade; tapping one of those makes the pair. Swap puts the other text first.
@@ -1425,7 +1446,7 @@
     var head = '<div class="eng-cpd__top"><h2 id="eng-cpd-h">' + slotName(s) + '</h2>' +
       (steps ? '<ol class="eng-cpd__steps">' + steps.map(function (x, i) {
         return '<li class="' + (CPW.step === i + 1 ? 'is-on' : CPW.step > i + 1 ? 'is-done' : '') + '"' + (CPW.step === i + 1 ? ' aria-current="step"' : '') + '><span>' + (i + 1) + '</span>' + x + '</li>';
-      }).join('') + '</ol>' : '') + '<button type="button" class="eng-cpd__x" data-cpw-close aria-label="Close">×</button></div>';
+      }).join('') + '</ol>' : '') + cpQ('a') + '<button type="button" class="eng-cpd__x" data-cpw-close aria-label="Close">×</button></div>';
     var nums = text(a).moments.map(function (m, i) { return i + 1; }).filter(function (n) { return G.scenes[n]; });
     if (s === 'open' && CPW.step === 1) {
       body = '<p class="eng-cpd__lead">Pick the three or four scenes your answer is built on, in the order you\'ll write about them. <b>' + CPW.pick.length + ' picked</b></p><div class="eng-cpd__scenes">' +
@@ -1933,7 +1954,7 @@
     var head = '<div class="eng-cpd__top"><h2 id="eng-cpd-h">' + cpbName(s) + '</h2>' +
       (steps ? '<ol class="eng-cpd__steps">' + steps.map(function (x, i) {
         return '<li class="' + (CPW.step === i + 1 ? 'is-on' : CPW.step > i + 1 ? 'is-done' : '') + '"' + (CPW.step === i + 1 ? ' aria-current="step"' : '') + '><span>' + (i + 1) + '</span>' + esc(x) + '</li>';
-      }).join('') + '</ol>' : '') + '<button type="button" class="eng-cpd__x" data-cpw-close aria-label="Close">×</button></div>';
+      }).join('') + '</ol>' : '') + cpQ('b') + '<button type="button" class="eng-cpd__x" data-cpw-close aria-label="Close">×</button></div>';
     if (q && CPW.step === 1) {
       body = '<p class="eng-cpd__lead">Pick the key scene from <i>' + esc(text(F[0]).title) + '</i> this paragraph is built on.</p><div class="eng-cpd__scenes">' +
         text(F[0]).moments.map(function (m, i) {
@@ -1959,10 +1980,12 @@
         top = '<div class="eng-cpb__pair">' + cpbMini(q.x) + cpbMini(q.y) + '</div>' +
           (L ? '<p class="eng-cpb__link"><b>' + esc(REL[L.rel] || '') + ': ' + esc(L.aspect) + '.</b> ' + esc(L.say) + '</p>' : '<p class="eng-cpb__link">These two aren\'t one of the strong matches, so how they compare is up to you.</p>');
       } else {
-        top = '<div class="eng-cpb__list">' + W.paras.map(function (o, k) {
-          var L2 = cpbLink(th, o.x, o.y);
-          return '<p><b>Paragraph ' + (k + 1) + '</b>' + (o.x ? momChip(o.x) : '') + (o.y ? momChip(o.y) : '') + (L2 ? '<span>' + esc(L2.aspect) + '</span>' : '') + '</p>';
-        }).join('') + '</div>';
+        var hid = store('eng-plan-hide') === '1';
+        top = '<div class="eng-cpb__list' + (hid ? ' is-hid' : '') + '"><p class="eng-cpb__lh"><b>Your plan</b><button type="button" class="eng-cpb__hide" data-plan-hide aria-expanded="' + !hid + '">' + (hid ? 'Show plan' : 'Hide plan') + '</button></p>' +
+          (hid ? '' : W.paras.map(function (o, k) {
+            var L2 = cpbLink(th, o.x, o.y);
+            return '<p><b>Paragraph ' + (k + 1) + '</b>' + (o.x ? momChip(o.x) : '') + (o.y ? momChip(o.y) : '') + (L2 ? '<span>' + esc(L2.aspect) + '</span>' : '') + '</p>';
+          }).join('')) + '</div>';
       }
       var P = cpbParts(W, s), PC = { p: 'var(--pace-p)', x: COL[F[0]], y: COL[F[1]], c: 'var(--k-blue)', e: '#FF8FB1', texts: 'var(--pace-p)', points: 'var(--k-blue)', judge: 'var(--k-orange)', last: '#FF8FB1' };
       body = top + '<div class="eng-cpd__write"><div class="eng-cpd__parts">' + cpbPartsOf(c, s).map(function (pt, pi) {
@@ -2004,6 +2027,11 @@
     if (q && (v = t.closest('[data-cpb-x]'))) { var mx = v.getAttribute('data-cpb-x'); if (q.x !== mx) { q.x = mx; q.y = null; } CPW.step = 2; CPW.shown = {}; cpSave(); cpwDraw(true); return true; }
     if (q && (v = t.closest('[data-cpb-y]'))) { q.y = v.getAttribute('data-cpb-y'); CPW.step = 3; CPW.box = 'p'; CPW.shown = {}; cpSave(); cpwDraw(true); return true; }
     if ((v = t.closest('[data-cpb-step]'))) { CPW.step = +v.getAttribute('data-cpb-step'); cpwDraw(true); return true; }
+    if (t.closest('[data-plan-hide]')) {
+      store('eng-plan-hide', store('eng-plan-hide') === '1' ? '0' : '1'); cpwDraw();
+      var hb = document.querySelector('[data-plan-hide]'); if (hb) hb.focus({ preventScroll: true });
+      return true;
+    }
     if (t.closest('[data-cpb-next]')) {
       var sl = cpbSlots(W), nx = sl[sl.indexOf(s) + 1];
       CPW = { part: 'b', slot: nx, step: cpbFirst(W, nx), box: cpbKeys(nx)[0], shown: {} }; cpwDraw(true); return true;
@@ -2919,6 +2947,8 @@
     var qf = t.closest('[data-eng-qf]');
     if (qf) { qFilter = qf.getAttribute('data-eng-qf'); renderQuestions(); return; }
     if (t.closest('[data-eng-qopen]')) { QOPEN = !QOPEN; store('eng-q-open', QOPEN ? '1' : '0'); renderQuestions(); return; }
+    var cq = t.closest('[data-cpq]');
+    if (cq) { cq.classList.toggle('is-full'); return; }
     if ((CPW || t.closest('[data-cpw],[data-cpw-copy],[data-cpw-add],[data-cpw-drop],[data-cpbw],[data-cpb-copy],[data-cpb-add],[data-cpb-drop]')) && cpwClick(t)) return;
     var cpa = t.closest('[data-cp-a]'), cpp = t.closest('[data-cp-pt]'), cpm = t.closest('[data-cpm]'), cpr = t.closest('[data-cp-rel]'), cpd = t.closest('[data-cp-del]');
     var cgo = t.closest('[data-cp-go]');
