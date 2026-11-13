@@ -1550,3 +1550,15 @@ a.eng-part:hover { background: var(--raised); }
 .ebd-themes .eng-chip { min-height: 38px; background: #fff; color: #1E2A3A; box-shadow: inset 0 0 0 2px #E8D9A0; font: 800 15px Nunito, sans-serif; }
 .ebd-themes .eng-chip:hover { box-shadow: inset 0 0 0 2px #D9B63C; background: #fff; }
 .ebd-themes .eng-chip[aria-pressed="true"] { background: #FFD43B; box-shadow: inset 0 0 0 2px #C9A21E; color: #1E2A3A; }
+
+/* Word ranges under every writing box: grey keep going, green in range, red too long. */
+.eng-wc { display: inline-block; font: 700 14px/1.3 Nunito, sans-serif; font-variant-numeric: tabular-nums; }
+#eng-cpd .eng-cpd__wc { margin: 8px 2px 0; text-align: right; }
+#eng-cpd .eng-wc { padding: 3px 10px; border-radius: 999px; background: var(--k-step, #22343C); color: var(--k-dim, #93A5AE); font-weight: 600; }
+#eng-cpd .eng-wc.is-ok { background: rgba(76, 224, 166, .14); color: var(--k-mint, #4CE0A6); }
+#eng-cpd .eng-wc.is-high { background: rgba(255, 122, 107, .16); color: var(--k-coral, #FF7A6B); }
+.ebd-line { position: relative; }
+.ebd-wc { display: block; margin: 2px 0 6px; text-align: right; }
+.ebd-wc .eng-wc { padding: 1px 9px; border-radius: 999px; background: #EFEBDD; color: #6B6450; }
+.ebd-wc .eng-wc.is-ok { background: #DDF5E7; color: #1E7A4C; }
+.ebd-wc .eng-wc.is-high { background: #FDE2DE; color: #B4302A; }

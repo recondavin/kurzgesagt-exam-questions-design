@@ -1075,6 +1075,15 @@
   // Beside the boxes: ten words (the scene's, or the opening's or ending's), words to use instead of "shows", and a
   // check on everything written: "This shows", "show" twice, and any word used three times. Saved as you type.
   var CPW = null;
+  // A word range for every box (the user: "we should set a minimum and maximum words for each box"), so the parts add
+  // up to about 450 words for part (a) and 600-650 for part (b) (the teacher's figures, and what the high-grade
+  // sample answers come to). Soft limits: the count under the box goes from grey (keep going) to green (in range) to
+  // red (too long); nothing stops you typing.
+  var CPW_RANGE = { p: [15, 30], a: [20, 40], e: [40, 80], film: [15, 30], idea: [15, 35], points: [10, 25], sum: [15, 30], final: [15, 30], last: [10, 25] };
+  function wcHtml(n, r) {
+    var st = n > r[1] ? 'is-high' : n >= r[0] ? 'is-ok' : 'is-low';
+    return '<span class="eng-wc ' + st + '">' + n + ' word' + (n === 1 ? '' : 's') + ' · aim for ' + r[0] + '–' + r[1] + (st === 'is-high' ? ': too long, cut it down' : st === 'is-ok' ? ' ✓' : n ? ': keep going' : '') + '</span>';
+  }
   // The parts of part (a): the opening, three or four paragraphs (the user: "you should be able pick 3 OR 4"), the ending.
   function cpwSlots(W) { return ['open'].concat(W.paras.map(function (p, i) { return i; }), ['end']); }
   var KEYS = { open: ['film', 'idea', 'points'], end: ['sum', 'final', 'last'], para: ['p', 'a', 'e'] };
@@ -1322,7 +1331,8 @@
               return '<p class="eng-cpd__idea' + (x.tag ? ' is-tech' : '') + '">' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + '<span data-type="i' + esc(tx.slice(0, 60)) + '">' + esc(tx) + '</span></p>';
             }).join('') + (shown < pt.ideas.length ? '<button type="button" class="eng-cpd__more" data-cpw-more="' + pt.k + '">Show me another idea</button>' : '') + '</div>';
           })() : (pt.auto ? '<p class="eng-cpd__none">Pick your three scenes first.</p>' : '')) +
-          '<textarea data-cpw-box="' + pt.k + '" spellcheck="true" lang="en-IE" rows="2" aria-label="' + esc(pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea></section>';
+          '<textarea data-cpw-box="' + pt.k + '" spellcheck="true" lang="en-IE" rows="2" aria-label="' + esc(pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
+          (CPW_RANGE[pt.k] ? '<p class="eng-cpd__wc" data-cpw-wc="' + pt.k + '" aria-live="polite">' + wcHtml(wordsIn(P[pt.k]), CPW_RANGE[pt.k]) + '</p>' : '') + '</section>';
       }).join('') + '<p class="eng-cpd__tools"><b>How it reads</b><span data-cpw-count></span></p><div class="eng-cpd__check" data-cpw-check role="status" aria-live="polite"></div></div>' +
         '<aside class="eng-cpd__bank"><h3>10 words for ' + (para ? 'this scene' : 'the ' + slotName(s).toLowerCase()) + '</h3><p class="eng-cpd__hint">Tap a word to add it to the box you\'re in.</p><ul>' +
         words.map(function (x) { return '<li><button type="button" class="eng-cpd__w" data-cpw-word="' + esc(x[0]) + '"><b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span></button></li>'; }).join('') +
@@ -1404,6 +1414,10 @@
     var shows = (v.match(/\bshow(s|ed|ing|n)?\b/gi) || []).length;
     // Each box starts a sentence of its own.
     if (Array.prototype.some.call(tas, function (t) { return /(^|[.!?]\s+)this shows\b/i.test(t.value.trim()); })) out.push(['“This shows…” is a weak way to start a sentence.', 'Start with the idea itself, or try:', ['This exposes', 'Here we see', 'This lays bare']]);
+    Array.prototype.forEach.call(tas, function (t) {
+      var k = t.getAttribute('data-cpw-box'), el = box.querySelector('[data-cpw-wc="' + k + '"]');
+      if (el && CPW_RANGE[k]) el.innerHTML = wcHtml(wordsIn(t.value), CPW_RANGE[k]);
+    });
     // A part with a few words in it gets its tick.
     Array.prototype.forEach.call(tas, function (t) { t.closest('.eng-cpd__part').classList.toggle('is-done', wordsIn(t.value) >= 4); });
     if (shows >= 2) out.push(['You\'ve used “show” ' + shows + ' times.', 'Swap one for:', SYN.shows]);
@@ -1534,9 +1548,9 @@
       else if (retell) tips.push({ id: 'retell', mood: 'angry', say: 'Too much story. The examiner has seen the film. Cut the Anchor to one or two sentences and spend your words on Evaluate.' });
       status = function (k) {
         if (!wc[k]) return 'empty';
-        if (k === 'p') return wc.p > 35 ? 'long' : 'ok';
-        if (k === 'a') return wc.a > 45 ? (retell ? 'ok' : 'long') : !TECH_WORDS.test(P.a) ? 'notech' : 'ok';
-        return wc.e < 25 ? 'short' : 'ok';
+        if (k === 'p') return wc.p > CPW_RANGE.p[1] ? 'long' : 'ok';
+        if (k === 'a') return wc.a > CPW_RANGE.a[1] ? (retell ? 'ok' : 'long') : !TECH_WORDS.test(P.a) ? 'notech' : 'ok';
+        return wc.e < CPW_RANGE.e[0] ? 'short' : 'ok';
       };
       var techs = sc.techniques.map(function (q) { return q.name.toLowerCase(); }).join(', ');
       list = {
@@ -1555,7 +1569,7 @@
         'e short': [{ say: 'Go further: one more sentence. What does the film say about power here?', chips: ['Darabont suggests that', 'Ultimately,'] }]
       };
     } else {
-      status = function (k) { return !wc[k] ? 'empty' : wc[k] > 70 ? 'long' : 'ok'; };
+      status = function (k) { return !wc[k] ? 'empty' : wc[k] > (CPW_RANGE[k] || [0, 70])[1] ? 'long' : 'ok'; };
       list = {};
       parts.forEach(function (pt) {
         list[pt.k + ' empty'] = [{ say: pt.hint }].concat((pt.ideas || []).slice(0, 2).map(function (x) { return { say: 'Here\'s one way. Read it, then write your own:', quote: typeof x === 'string' ? x : x.t }; }));
@@ -2017,9 +2031,20 @@
   }
 
   // ----- the sheet -----
+  // Each box's word range: part (b) (and a 70-mark answer) has Compare boxes and two texts in each Anchor, so its boxes
+  // run longer; part (a)'s match Compare it's.
+  function ebRange(key) {
+    if (key === 'intro') return split() ? [50, 90] : [70, 120];
+    if (key === 'end') return split() ? [40, 80] : [60, 100];
+    var m = /^(a?)([PACE])\d+$/.exec(key);
+    if (!m) return null;
+    return m[1] ? { P: [15, 30], A: [20, 40], E: [40, 80] }[m[2]] : { P: [15, 30], A: [30, 60], C: [25, 50], E: [35, 70] }[m[2]];
+  }
   function line(key, value, ph, k) {
+    var r = ebRange(key);
     return '<label class="ebd-line' + (k ? ' ebd-line--k' : '') + '">' + (k ? '<span class="ebd-k" style="background:' + PACE_COL[k] + '" title="' + FIELD[k][0] + '">' + k + '</span>' : '') +
-      '<textarea data-eb="' + key + '" rows="1" placeholder="' + esc(ph) + '">' + esc(value || '') + '</textarea></label>';
+      '<textarea data-eb="' + key + '" rows="1" placeholder="' + esc(ph) + '">' + esc(value || '') + '</textarea>' +
+      (r ? '<span class="ebd-wc" data-eb-wc="' + key + '">' + wcHtml(words(value || ''), r) + '</span>' : '') + '</label>';
   }
   function blockHtml(id, label, inner, empty, note) {
     var on = id === curStep();
@@ -2383,6 +2408,8 @@
     else { var part = key.charAt(0), k = +key.slice(1), a = e.aspects[k]; if (!a) return; (e.paras[a] = e.paras[a] || {})[part] = v; }
     saveEssay();
     if (key === 'q') { var qt = app.querySelector('[data-eb-qtext]'); if (qt) qt.innerHTML = v ? qHtml(v) : ''; TYPED = v; }
+    var wcEl = app.querySelector('[data-eb-wc="' + key + '"]'), wr = ebRange(key);
+    if (wcEl && wr) wcEl.innerHTML = wcHtml(words(v), wr);
     var cnt = app.querySelector('.ebd-count');
     if (cnt) { var na = words(essayParts('a').join(' ')), nb = words(essayParts('b').join(' ')); cnt.firstChild.textContent = bOnly() ? '(b) ' + nb + ' words' : split() ? '(a) ' + na + ' words · (b) ' + nb + ' words' : nb + ' words'; }
     updateStamps();
