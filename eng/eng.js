@@ -1164,12 +1164,20 @@
     var b = s != null && app.querySelector('[data-cpw="' + s + '"]');
     if (b) b.focus({ preventScroll: true });
   }
+  // A scene card's context (the user: "when picking the key scenes ... explains them with context also"): where it is
+  // in the text and when (the opening, the middle, the climax, the ending), what happens in two sentences, and why it
+  // matters.
+  var WHEN = { opening: 'at the start', middle: 'in the middle', climax: 'at the climax', ending: 'at the end' };
+  function sceneCtx(m) {
+    return '<span class="eng-cpd__scx">' + esc(m.where || '') + (m.when && WHEN[m.when] ? (m.where ? ' · ' : '') + WHEN[m.when] : '') + '</span>' +
+      '<span class="eng-cpd__scw">' + esc(firstSentences(m.what, 2)) + '</span>' +
+      (m.why ? '<span class="eng-cpd__scy"><em>Why it matters:</em> ' + esc(firstSentence(m.why)) + '</span>' : '');
+  }
   function sceneCard(a, G, n, on, extra, attr) {
     var m = text(a).moments[n - 1], sc = G.scenes[n], pic = scenePics(a, m.id)[0];
     return '<button type="button" class="eng-cpd__sc' + (on ? ' is-on' : '') + '" ' + attr + ' style="--c:' + COL[a] + ';--i:' + (n - 1) + '">' +
       (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '<span class="eng-cpd__ph"></span>') +
-      '<span class="eng-cpd__sct"><span class="eng-cpm__n">' + n + '</span>' + esc(m.title) + '</span>' +
-      '<span class="eng-cpd__scw">' + esc(firstSentence(m.what)) + '</span>' +
+      '<span class="eng-cpd__sct"><span class="eng-cpm__n">' + n + '</span>' + esc(m.title) + '</span>' + sceneCtx(m) +
       '<span class="eng-cpd__scr"><em>Can represent:</em> ' + sc.reps.map(function (r) { return esc(r.title); }).join(' · ') + '</span>' + (extra || '') + '</button>';
   }
   // The three paragraphs' scenes, small, at the top of the opening and the ending.
@@ -1770,8 +1778,7 @@
     var o = mom(mid), tid = tidOf(mid), pic = scenePics(tid, mid)[0];
     return '<button type="button" class="eng-cpd__sc' + (on ? ' is-on' : '') + '" ' + attr + ' style="--c:' + COL[tid] + ';--i:' + i + '">' +
       (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="" loading="lazy">' : '<span class="eng-cpd__ph"></span>') +
-      '<span class="eng-cpd__sct"><span class="eng-cpm__n">' + o.n + '</span>' + esc(o.m.title) + '</span>' +
-      '<span class="eng-cpd__scw">' + esc(firstSentence(o.m.what)) + '</span>' + (extra || '') + '</button>';
+      '<span class="eng-cpd__sct"><span class="eng-cpm__n">' + o.n + '</span>' + esc(o.m.title) + '</span>' + sceneCtx(o.m) + (extra || '') + '</button>';
   }
   function cpbDraw(focus) {
     var box = document.getElementById('eng-cpd');
