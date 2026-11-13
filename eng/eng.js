@@ -982,7 +982,7 @@
     return '<h2 class="eng-h2"><span class="eng-cp__n">3</span><span class="eng-cpk-t"><span>Pick</span> <span>your</span> <span>scenes</span></span></h2>' +
       '<div class="eng-cpk"><p class="eng-cpk__p" style="--c:' + (pr[1] ? COL[pr[1]] : 'var(--m-theme)') + '" aria-live="polite">' + esc(pr[0]) + (pr[1] ? ' in <i>' + esc(shortTitle(pr[1])) + '</i>' : '') +
         (n ? ' <span class="eng-cpk__n">' + n + ' of 3–4</span>' : '') + '</p>' +
-        '<button type="button" class="eng-btn eng-btn--quiet eng-cpk__swap" data-cp-swap>⇄ ' + esc(shortTitle(F[1])) + ' first</button></div>' +
+        '<button type="button" class="eng-btn eng-cpk__swap" data-cp-swap aria-label="Swap: put ' + esc(shortTitle(F[1])) + ' first"><i style="--c:' + COL[F[0]] + '">' + esc(shortTitle(F[0])) + '</i><span aria-hidden="true">⇄</span><i style="--c:' + COL[F[1]] + '">' + esc(shortTitle(F[1])) + '</i></button></div>' +
       (CPFB ? '<div class="eng-cpf eng-cpf--' + CPFB.kind + '" role="status"><b>' + esc(CPFB.head) + '</b> ' + esc(CPFB.body || '') + '</div>' : '') +
       '<div class="eng-cpb" data-cpb>' + col(F[0]) + '<svg class="eng-cpb__lines" aria-hidden="true"></svg>' + col(F[1]) + '</div>' +
       (n ? '<ol class="eng-cpl eng-cpl--mini">' + w.links.map(function (l, k) {
@@ -991,8 +991,7 @@
           '<p class="eng-cpl__h"><b>' + esc(x.aspect) + '</b> <span class="eng-cpl__rel">' + REL[x.rel] + '</span></p></div>' +
           '<button type="button" class="eng-cpl__x" data-cp-del="' + k + '" aria-label="Remove pair ' + (k + 1) + '">×</button></li>';
       }).join('') + '</ol>' : '') +
-      '<p class="eng-btns eng-cp__tools"><button type="button" class="eng-btn eng-btn--quiet" data-cp-hint>Give me a hint</button>' +
-      (n ? '<button type="button" class="eng-btn eng-btn--quiet" data-cp-reset>Start again</button>' : '') + '</p>';
+      (n ? '<p class="eng-btns eng-cp__tools"><button type="button" class="eng-btn eng-btn--quiet" data-cp-reset>Start again</button></p>' : '');
   }
   // 4: your plan, simple: the opening, a paragraph for each pair (its two scenes and what they share), the ending.
   function cpPlanB(th, a, F) {
@@ -1026,7 +1025,7 @@
     if (st === 2) return [{ t: 'Part (a) is ' + text(a).title + ' on its own.' }, { t: 'Tap Write it on the Opening first: you pick your scenes there.' },
       { t: 'Each paragraph: Point, Anchor, Evaluate. Most of the marks are in Evaluate.' }, { t: 'Aim for about 450 words.' }, { t: 'Done, or ready for part (b)? Tap Next: part (b).' }];
     if (st === 3) return [{ t: 'Part (b) is ' + s(F[0]) + ' and ' + s(F[1]) + ' only. ' + s(a) + ' gets no marks here.', rule: true },
-      { t: 'Tap a scene, then the one it links to. The ones that glow are matches.' }, { t: 'Each pair is one paragraph. Get three or four.' }, { t: 'Want ' + s(F[1]) + ' first? Tap ⇄.' }];
+      { t: 'Tap a scene, then the one it links to. The ones that glow are matches.' }, { t: 'Each pair is one paragraph. Get three or four.' }, { t: 'Want ' + s(F[1]) + ' first? Tap the swap button.' }];
     if (st === 4) return [{ t: 'Your plan: one paragraph for each pair, in this order.' }, { t: 'Opening: name both texts and their authors, and answer the question.' },
       { t: 'Ending: say which text does it more powerfully, and why.' }, { t: 'Happy with it? Tap Next: write part (b).' }];
     return [{ t: 'Write about both texts together in every paragraph. Not one, then the other.', rule: true }, { t: 'Each paragraph: Point, ' + s(F[0]) + ', ' + s(F[1]) + ', Compare, Evaluate.' },
@@ -1154,10 +1153,10 @@
     if (!CPSEL || CPSEL === mid) { CPSEL = CPSEL === mid ? null : mid; CPPICK = null; return; }
     if (tidOf(CPSEL) === tidOf(mid)) { CPSEL = mid; return; }
     var have = w.links.filter(function (l) { return [l.a, l.b].sort().join() === [CPSEL, mid].sort().join(); })[0];
-    if (have) { CPFB = { kind: 'have', head: 'You\'ve already paired these.', body: '' }; CPSEL = null; return; }
+    if (have) { CPFB = { kind: 'have', head: 'You already paired these two.', body: '' }; CPSEL = null; return; }
     var x = cpFind(th, CPSEL, mid);
-    if (!x) { CPFB = { kind: 'miss', head: 'Not a strong link.', body: 'Pick one that glows.' }; return; }
-    if (w.links.length >= 4) { CPFB = { kind: 'have', head: 'You have four pairs already.', body: 'Remove one to swap this in.' }; CPSEL = null; return; }
+    if (!x) { CPFB = { kind: 'miss', head: 'Not a match. Pick a glowing one.', body: '' }; return; }
+    if (w.links.length >= 4) { CPFB = { kind: 'have', head: 'Four pairs already. Remove one first.', body: '' }; CPSEL = null; return; }
     w.links.push({ a: x.a, b: x.b, rel: x.rel });
     CPFB = { kind: 'yes', head: 'Paired: ' + x.aspect + ' (' + REL[x.rel].toLowerCase() + ').', body: '' };
     CPSEL = null;
