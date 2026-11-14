@@ -2248,7 +2248,8 @@
     }
     return tips.concat((list[k + ' ' + status(k)] || []).map(function (t, i) {
       var o = { id: k + status(k) + i, k: k, say: t.say, quote: t.quote, chips: t.chips };
-      if (i === 0 && moved) o.say = 'Your ' + label[keys[at]] + ' is fine. ' + o.say;
+      // (a box's name can already start with "Your": "Your opening line is fine", not "Your Your opening line")
+      if (i === 0 && moved) o.say = (/^your /i.test(label[keys[at]]) ? '' : 'Your ') + label[keys[at]] + ' is fine. ' + o.say;
       return o;
     }));
   }
@@ -2426,7 +2427,7 @@
         ideas: (sayP ? [sayP] : []).concat([startWith(sur(TB) + ' and ' + sur(TA) + ' both show that'), startWith('In both texts,'), startWith('Both scenes show')]).slice(0, 3) },
       { k: 'x', label: shortTitle(F[0]), hl: 'Keep it short', hint: 'Keep it short: the moment in ' + shortTitle(F[0]) + ', in a sentence or two. Don\'t retell the story.', ideas: anchor(mx) },
       { k: 'y', label: shortTitle(F[1]), hl: 'Keep it short', hint: 'Keep it short: the moment in ' + shortTitle(F[1]) + ', in a sentence or two.', ideas: anchor(my) },
-      { k: 'c', label: 'Compare', hl: 'How they\'re alike or different', hint: 'How they\'re alike or different: Similarly… Whereas… Even more so…',
+      { k: 'c', label: 'Compare', hl: 'How they\'re alike or different', hint: 'How they\'re alike or different, using words such as “Similarly”, “Whereas” or “Even more so”.',
         ideas: (sayC ? [sayC] : []).concat(starts.map(startWith)).slice(0, 3) },
       { k: 'e', label: 'Evaluate', hl: 'Most of the marks are here', hint: 'Most of the marks are here: why it matters for ' + name + ', and how it keeps the reader hooked.',
         ideas: ['This matters because …', 'Both kept me gripped because …', L && L.rel === 'differ' ? 'The difference shows that …' : 'Together they suggest that …'] }];

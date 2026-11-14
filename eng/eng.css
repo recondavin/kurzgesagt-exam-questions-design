@@ -2456,3 +2456,167 @@ body.eng-papertop .eng-cmpg .eng-cpp.is-on .eng-cpp__tick { background: var(--ex
 body.eng-papertop .eng-cmpg .eng-cpp__t { font: 700 20px/1.25 var(--font-head); letter-spacing: -.01em; }
 body.eng-papertop .eng-cmpg .eng-cpp p { margin: 8px 0 0; color: var(--exam-ink); font: 400 19px/1.5 var(--font-body); }
 body.eng-papertop .eng-cmpg .eng-cpp .eng-cpp__m { margin-top: 12px; }
+
+/* ===== Compare it, the writing popup: the answer booklet (laptops and tablets; phones keep the dark popup that goes
+   with the feed). The user was told: ruled paper for the writing boxes, the checker's feedback as red-pen notes in the
+   margin, the examiner's head docked at the top instead of the full figure in the corner, one red button, the exam
+   question one tap away; they said "go on". The Point / Anchor / Evaluate / Compare colours stay, as highlighter: a
+   label, its key phrase and its stripe down the box, in the part's colour (--pc). Everything else is paper and ink. ===== */
+@media (min-width: 701px) {
+  body.eng-papertop #eng-cpd.eng-cpd { background: var(--exam-paper); color: var(--exam-ink);
+    --k-ink: var(--exam-ink); --k-ink2: var(--exam-ink-2); --k-dim: var(--exam-ink-2); --k-panel: var(--exam-paper-2); --k-step: var(--exam-paper-2); --k-line: var(--exam-rule); --k-paper: #FFFDF6; --k-paper-ink: var(--exam-ink); }
+  body.eng-papertop #eng-cpd, body.eng-papertop #eng-cpd *, body.eng-papertop.eng-cpd-on .eng-tch, body.eng-papertop.eng-cpd-on .eng-tch * { font-family: var(--font-body) !important; }
+  body.eng-papertop #eng-cpd h2, body.eng-papertop #eng-cpd h3, body.eng-papertop #eng-cpd .eng-cpd__sct, body.eng-papertop #eng-cpd .eng-cpd__rt b, body.eng-papertop #eng-cpd .eng-cpd__rep > b, body.eng-papertop #eng-cpd .eng-cpd__mh, body.eng-papertop #eng-cpd .eng-cpd__pl, body.eng-papertop #eng-cpd .eng-cpd__tools b, body.eng-papertop #eng-cpd .eng-cpd__banner b, body.eng-papertop #eng-cpd .eng-cpb__m b { font-family: var(--font-head) !important; letter-spacing: -.01em; }
+  body.eng-papertop #eng-cpd :focus-visible { outline: 3px solid var(--exam-ink); outline-offset: 2px; }
+  /* the head of the sheet: the part, its steps, the question (one line; tap it for all of it), close */
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__top { gap: 8px 32px; padding-top: 14px; padding-right: 330px; padding-bottom: 14px; border-bottom: 1px solid var(--exam-rule); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__top h2 { color: var(--exam-ink); font-size: 26px; font-weight: var(--font-head-weight); letter-spacing: -.02em; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__steps li { color: var(--exam-ink-2); font-size: 16px; font-weight: 500; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__steps li::before { height: 4px; border-radius: 2px; background: var(--exam-rule); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__steps li.is-done::before { background: var(--exam-done); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__steps li.is-on { color: var(--exam-ink); font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__steps li.is-on::before { background: var(--exam-pen); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__top .eng-cpq { flex: 1 0 100%; max-width: none; margin: 0; padding: 0; border: 0; border-radius: 0; background: none; color: var(--exam-ink-2); font: 400 17px/1.5 var(--font-body); cursor: pointer; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__top .eng-cpq > span { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__top .eng-cpq.is-full > span { display: block; color: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__top .eng-cpq b { color: var(--exam-ink); font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__top .eng-cpq mark { padding: 1px 3px; border-radius: 2px; background: var(--exam-hi); color: var(--exam-ink); font-weight: 600; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__top .eng-cpq:not(.is-full) mark { padding-top: 0; padding-bottom: 0; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__x { width: 44px; height: 44px; border-radius: 4px; background: none; color: var(--exam-ink); font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__x:hover { background: var(--exam-paper-2); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__lead { color: var(--exam-ink); font-size: 21px; font-weight: 600; line-height: 1.4; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__lead b, body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__lead b.is-ok { color: var(--exam-ink-2); font-weight: 400; }
+  /* buttons: one red (the way on), the rest ink outlines */
+  body.eng-papertop #eng-cpd.eng-cpd .eng-btn { height: 48px; padding: 0 22px; border-radius: 4px; background: var(--exam-pen); box-shadow: none; color: var(--exam-paper); font-size: 18px; font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-btn:hover { background: color-mix(in srgb, var(--exam-pen) 86%, var(--exam-ink)); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-btn:active { transform: none; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-btn[disabled] { background: var(--exam-paper-2); color: var(--exam-ink-2); opacity: 1; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-btn--quiet, body.eng-papertop #eng-cpd.eng-cpd .eng-btn--quiet:hover { background: none; box-shadow: inset 0 0 0 2px var(--exam-ink); color: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-btn--quiet:hover { background: var(--exam-paper-2); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-chip { min-height: 40px; padding: 0 12px; border-radius: 4px; background: none; box-shadow: inset 0 0 0 1px var(--exam-done); color: var(--exam-ink); font-size: 17px; font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-chip:hover { background: var(--exam-paper-2); }
+  /* picking scenes: each a photograph with its notes, ruled round; the picked ones outlined in ink */
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__sc { border: 1px solid var(--exam-rule); border-radius: 4px; background: none; color: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__sc:hover { background: var(--exam-paper-2); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__sc.is-on, body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__sc[aria-pressed="true"] { border-color: var(--exam-ink); box-shadow: inset 0 0 0 1px var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__sc img, body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__ph { background: var(--exam-paper-2); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__sct { color: var(--exam-ink); font-size: 20px; font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__scx { color: var(--exam-ink-2); font-size: 16px; font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__scw { color: var(--exam-ink); font-size: 17px; font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__scy { color: var(--exam-ink-2); font-size: 16px; font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__scy em { color: var(--exam-ink); font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__scr { color: var(--exam-ink); font-size: 17px; font-weight: 600; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__scr em { color: var(--exam-ink-2); font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__ord { border-radius: 3px; background: var(--exam-ink); box-shadow: none; color: var(--exam-paper); font-size: 16px; font-weight: 600; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__used { border-radius: 3px; background: var(--exam-paper-2); color: var(--exam-ink-2); font-size: 16px; font-weight: 400; }
+  /* what a scene represents: the scene, then the choices; the one you picked outlined in ink */
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__tree.is-new, body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__tree + .eng-cpd__tree { border-color: var(--exam-rule); border-width: 1px; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__tl { color: var(--exam-ink-2); font-size: 18px; font-weight: 600; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__root img { border-radius: 2px; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__rt b { color: var(--exam-ink); font-size: 24px; font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__rw { color: var(--exam-ink); font-size: 18px; font-weight: 400; line-height: 1.55; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__rw > span:first-child { border-radius: 3px; background: var(--exam-paper-2); color: var(--exam-ink-2); font-size: 15px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__rw span, body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__mp span { color: inherit; }
+  body.eng-papertop #eng-cpd.eng-cpd .tw-c { border-left-color: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__rt small { color: var(--exam-ink-2); font-size: 17px; font-weight: 600; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__ar { stroke: var(--exam-done); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__ar.is-on { stroke: var(--exam-ink); stroke-width: 3; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__ah { fill: var(--exam-done); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__ah.is-on { fill: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__rep { border: 1px solid var(--exam-rule); border-radius: 4px; background: none; color: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__rep:hover { background: var(--exam-paper-2); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__rep.is-on { border-color: var(--exam-ink); background: none; box-shadow: inset 0 0 0 1px var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__rep::before { border: 2px solid var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__rep.is-on::before { border-color: var(--exam-ink); background: var(--exam-ink); box-shadow: inset 0 0 0 5px var(--exam-paper); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__rep > b { color: var(--exam-ink); font-size: 21px; font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__rep > span, body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__repi { color: var(--exam-ink); font-size: 18px; font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__repi em { color: var(--exam-ink-2); font-size: 16px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__repi i { border-left: 2px solid var(--exam-rule); color: var(--exam-ink-2); font-size: 17px; font-weight: 400; }
+  /* the worked example: its parts marked in their highlighter colours */
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__mh { color: var(--exam-ink); font-size: 22px; font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__mp { color: var(--exam-ink); font-size: 19px; font-weight: 400; line-height: 1.7; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__seg, body.eng-papertop #eng-cpd.eng-cpd .is-typing .eng-cpd__seg .tw-v { background: color-mix(in srgb, var(--pc) 40%, var(--exam-paper)); box-shadow: none; }
+  body.eng-papertop #eng-cpd.eng-cpd .is-typing .eng-cpd__seg { background: none; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__key span { border-radius: 3px; color: var(--exam-ink); font-size: 16px; font-weight: 600; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__tq { color: var(--exam-ink-2); font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__tq b { color: var(--exam-ink); font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__own { color: var(--exam-ink); font-size: 19px; font-weight: 700; }
+  /* above the boxes: your scenes, what happens in them, the scene you're writing about */
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__mini { border-radius: 0; background: none; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__mini img, body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__banner img, body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__m img, body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__ph { border-radius: 2px; background: var(--exam-paper-2); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__mini b { color: var(--exam-ink); font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__mini span { color: var(--exam-ink-2); font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__recap { border-radius: 4px; background: var(--exam-paper-2); color: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__recap h3 { color: var(--exam-ink); font-size: 18px; font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__recap p { color: var(--exam-ink); font-size: 17px; font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__recap p b { color: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__rhide, body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__hide, body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__skip, body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__show { min-height: 40px; border: 0; border-radius: 4px; background: none; box-shadow: inset 0 0 0 1px var(--exam-done); color: var(--exam-ink); font-size: 17px; font-weight: 600; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__rhide:hover, body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__hide:hover, body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__skip:hover, body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__show:hover { background: var(--exam-paper-2); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__banner { border-radius: 0; background: none; box-shadow: none; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__bt { color: var(--exam-ink-2); font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__banner b { color: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__bs { color: var(--exam-ink); font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__techs { color: var(--exam-ink-2); font-size: 16px; font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__techs i { border-radius: 3px; background: var(--exam-paper-2); color: var(--exam-ink); font-size: 16px; font-weight: 600; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__m { border-radius: 0; background: none; box-shadow: none; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__m span:first-child { color: var(--exam-ink-2); font-size: 16px; font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__m b { color: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__list { border-radius: 4px; background: var(--exam-paper-2); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__list p { color: var(--exam-ink); font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__list p > span:last-child, body.eng-papertop #eng-cpd.eng-cpd .eng-cpb__list .eng-cpb__lh { color: var(--exam-ink-2); letter-spacing: 0; text-transform: none; }
+  /* the boxes: ruled paper to write on; each part's name, key phrase and stripe in its highlighter colour */
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__part::before { width: 2px; background: color-mix(in srgb, var(--pc) 70%, var(--exam-paper)); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__part header::before { background: var(--pc); box-shadow: 0 0 0 6px var(--exam-paper); color: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__pl { padding: 2px 10px; margin-left: -10px; border-radius: 3px; background: color-mix(in srgb, var(--pc) 55%, var(--exam-paper)); color: var(--exam-ink); font-size: 21px; font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__ph2 { color: var(--exam-ink-2); font-size: 18px; font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__hl { border-radius: 2px; background: color-mix(in srgb, var(--pc) 45%, var(--exam-paper)); color: var(--exam-ink); font-weight: 600; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__show { border: 0; box-shadow: inset 0 0 0 1px var(--exam-done); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__idea { border-left: 3px solid color-mix(in srgb, var(--pc) 70%, var(--exam-paper)); color: var(--exam-ink); font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__idea em { color: var(--exam-ink-2); font-size: 16px; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__none { color: var(--exam-ink-2); font-size: 18px; font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__part textarea { min-height: 96px; padding: 0 16px; border: 1px solid var(--exam-rule); border-left: 4px solid color-mix(in srgb, var(--pc) 75%, var(--exam-paper)); border-radius: 2px; background-color: var(--k-paper); background-image: linear-gradient(to bottom, transparent 31px, var(--exam-rule) 31px); background-size: 100% 32px; background-attachment: local; box-shadow: none; color: var(--exam-ink); font-size: 19px; font-weight: 400; line-height: 32px; animation: none; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__part textarea::placeholder { color: var(--exam-ink-2); opacity: 1; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__part textarea:focus { border-color: var(--exam-ink); border-left-color: color-mix(in srgb, var(--pc) 75%, var(--exam-paper)); outline: 2px solid var(--exam-ink); outline-offset: 0; box-shadow: none; animation: none; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-wc { padding: 0; border-radius: 0; background: none; color: var(--exam-ink-2); font-size: 16px; font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-wc.is-ok { background: none; color: var(--exam-ink); font-weight: 600; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-wc.is-high, body.eng-papertop #eng-cpd.eng-cpd .eng-wc.is-over { background: none; color: var(--exam-pen); font-weight: 600; }
+  /* how it reads: the checker's notes in red pen */
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__tools { color: var(--exam-ink-2); font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__tools b { color: var(--exam-ink); font-size: 21px; font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__bal { height: 10px; border-radius: 2px; background: var(--exam-paper-2); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__baltxt { color: var(--exam-ink-2); font-size: 16px; font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__warn, body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__warn--bad, body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__warn--spell { padding: 2px 0 2px 16px; border-left: 2px solid var(--exam-pen); border-radius: 0; background: none; color: var(--exam-ink); font-size: 18px; font-weight: 400; line-height: 1.55; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__warn b { color: var(--exam-pen); font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__warn::before { content: none; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__warn .eng-chip, body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__warn--spell .eng-chip { background: none; }
+  /* the words beside: a margin column */
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__bank { padding: 0 0 0 24px; border-left: 1px solid var(--exam-rule); border-radius: 0; background: none; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__bank h3 { color: var(--exam-ink); font-size: 19px; font-weight: 700; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__hint { color: var(--exam-ink-2); font-size: 16px; font-weight: 400; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__w { border-radius: 4px; color: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__w:hover { background: var(--exam-paper-2); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__w b { color: var(--exam-ink); font-size: 18px; font-weight: 600; }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__w span { color: var(--exam-ink-2); font-size: 16px; font-weight: 400; }
+  /* the examiner: his head at the top of the sheet, by the close button; his help opens under him as a red-pen note */
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) { --w: 54px; top: 8px; right: 84px; bottom: auto; left: auto; width: 54px; animation: none; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__fig { display: block; width: 54px; height: 60px; aspect-ratio: auto; overflow: hidden; border-radius: 4px; background: none; box-shadow: none; filter: none; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__fig:hover, body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__fig:focus-visible { transform: none; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__fig:focus-visible { outline: 3px solid var(--exam-ink); outline-offset: 2px; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__fig > svg { display: none; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__head { display: block; width: 54px; height: 61.3px; padding: 0; mix-blend-mode: multiply; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__say { top: 6px; right: calc(100% + 6px); bottom: auto; left: auto; width: max-content; max-width: none; max-height: none; overflow: visible; padding: 0; border-radius: 0; background: none; box-shadow: none; color: var(--exam-pen); font-size: 17px; font-weight: 600; animation: none; transform: none; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__say::after { display: none; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__ask { display: block; height: 44px; padding: 0 8px; color: var(--exam-pen); font-size: 17px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; white-space: nowrap; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__ask span { display: inline; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide).is-helping .eng-tch__say { top: calc(100% + 10px); right: -62px; box-sizing: border-box; width: min(440px, calc(100vw - 32px)); max-height: calc(100vh - 110px); overflow: auto; padding: 16px 52px 16px 18px; border: 2px solid var(--exam-pen); border-radius: 14px; background: var(--exam-paper); box-shadow: 0 12px 28px rgba(19, 35, 58, .24); color: var(--exam-ink); }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__line { color: var(--exam-pen); font-size: 19px; font-weight: 600; line-height: 1.4; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__q { border-left: 2px solid var(--exam-rule); border-radius: 0; background: var(--exam-paper-2); color: var(--exam-ink); font-size: 17px; font-weight: 400; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__chips .eng-chip { min-height: 40px; padding: 0 12px; border-radius: 4px; background: none; box-shadow: inset 0 0 0 1px var(--exam-done); color: var(--exam-ink); font-size: 17px; font-weight: 400; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__btns .eng-btn { height: 44px; padding: 0 18px; border-radius: 4px; background: none; box-shadow: inset 0 0 0 2px var(--exam-ink); color: var(--exam-ink); font-size: 17px; font-weight: 700; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__x { top: 6px; right: 6px; width: 40px; height: 40px; border-radius: 4px; background: none; color: var(--exam-ink); font-weight: 400; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__x:hover { background: var(--exam-paper-2); }
+}
+@media (min-width: 701px) and (max-width: 1199px) {
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__top { padding-right: 160px; }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide):not(.is-helping) .eng-tch__say { display: none; }
+}
