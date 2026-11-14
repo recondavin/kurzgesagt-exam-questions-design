@@ -2161,7 +2161,8 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
    "too many navigation layers stacked on top of each other", "ONE accent colour, used for ONE meaning only", "no glows",
    "the mascot looks slapped on rather than part of it". Cream paper, black ink, red pen, highlighter.
    - Ink is the examiner's own outline colour, so he reads as drawn with the pen the page is written in.
-   - Red pen is the examiner talking, and nothing else. The steps are ink tick boxes: ticked, filled (you're here), empty.
+   - Red pen is "now", and nothing else: the examiner talking, and the step you're on. Done steps are faded ticks joined
+     by the line you've come along; steps to come are empty boxes.
    - Highlighter is only on the exam question's key words.
    - Surfaces part by a tone step or a 1px rule; a shadow only on the two dropdowns, which float.
    Type: headings in --font-head, everything else in --font-body; 20px reading size (19px on phones), 17px for labels,
@@ -2169,6 +2170,7 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
 :root {
   --exam-paper: #F7F2E4; --exam-paper-2: #ECE5D1; --exam-rule: #D6CDB5;
   --exam-ink: #13233A; --exam-ink-2: #515D6E; --exam-pen: #BF1A2C; --exam-hi: #FFE45C;
+  --exam-done: color-mix(in srgb, var(--exam-ink) 50%, var(--exam-paper)); --exam-todo: color-mix(in srgb, var(--exam-ink) 32%, var(--exam-paper));
   --font-head: Inter, 'Helvetica Neue', Arial, sans-serif; --font-head-weight: 800;
   --font-body: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --cpx-h: 72px;
@@ -2204,16 +2206,22 @@ body.eng-papertop .sh-menu:hover { background: var(--exam-paper-2); }
 .cpx-sheet .eng-cpq > span { display: block; }
 .cpx-sheet .eng-cpq b { display: block; margin: 0 0 6px; color: var(--exam-ink); font: 700 17px/1.3 var(--font-body); white-space: normal; }
 .cpx-sheet .eng-cpq mark { padding: 1px 3px; border-radius: 2px; background: var(--exam-hi); color: var(--exam-ink); font-weight: 600; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-/* the steps: five tick boxes and where you are */
+/* the steps, as progress: done ones faded and ticked, joined by the line you've come along; the one you're on bigger, in
+   red, with its number; the ones to come empty */
 .cpx-steps { grid-area: steps; display: flex; align-items: center; gap: 10px; min-width: 0; }
 .cpx-steps ol { display: flex; flex: none; margin: 0; padding: 0; list-style: none; }
-.cpx-step { display: grid; place-items: center; width: 28px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
-.cpx-step i { box-sizing: border-box; display: grid; place-items: center; width: 18px; height: 18px; border: 2px solid var(--exam-ink); border-radius: 3px; }
+.cpx-steps li { position: relative; }
+.cpx-steps li + li::before { content: ""; position: absolute; top: 50%; left: -5px; width: 10px; height: 2px; margin-top: -1px; background: var(--exam-rule); }
+.cpx-steps li.is-done::before, .cpx-steps li.is-on::before { background: var(--exam-done); }
+.cpx-step { position: relative; z-index: 1; display: grid; place-items: center; width: 28px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
+.cpx-step i { box-sizing: border-box; display: grid; place-items: center; width: 18px; height: 18px; border: 2px solid var(--exam-ink); border-radius: 3px; background: var(--exam-paper); font-style: normal; }
 .cpx-step:not([disabled]):hover i { background: var(--exam-paper-2); }
-.cpx-step.is-done i::after { content: ""; width: 4px; height: 9px; margin-top: -3px; border: solid var(--exam-ink); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
-.cpx-step.is-on i, .cpx-step.is-on:hover i { background: var(--exam-ink); }
+.cpx-step.is-done i { border-color: var(--exam-done); }
+.cpx-step.is-done i::after { content: ""; width: 4px; height: 9px; margin-top: -3px; border: solid var(--exam-done); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+.cpx-step.is-done:hover i, .cpx-step.is-done:hover i::after, .cpx-step.is-done:focus-visible i, .cpx-step.is-done:focus-visible i::after { border-color: var(--exam-ink); }
+.cpx-step.is-on i, .cpx-step.is-on:hover i { width: 26px; height: 26px; border-color: var(--exam-pen); border-radius: 5px; background: var(--exam-pen); color: var(--exam-paper); font: 700 16px/1 var(--font-body); font-variant-numeric: tabular-nums; }
 .cpx-step[disabled] { cursor: default; }
-.cpx-step[disabled] i { border-color: color-mix(in srgb, var(--exam-ink) 32%, var(--exam-paper)); }
+.cpx-step[disabled] i { border-color: var(--exam-todo); }
 .cpx-steps__l { min-width: 0; margin: 0; overflow: hidden; color: var(--exam-ink-2); font: 500 17px/1.2 var(--font-body); text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .cpx-steps__l b { color: var(--exam-ink); font-weight: 700; }
 /* the examiner: his head sits on the strip's bottom edge, printed in the page's ink (multiply: his whites take the
@@ -2272,8 +2280,9 @@ body.eng-papertop .sh-menu:hover { background: var(--exam-paper-2); }
   .cpx.is-feed .cpx-slot, .cpx.is-feed .cpx-ex { display: contents; }
   .cpx.is-feed .cpx-slot { border: 0; }
   .cpx.is-feed .cpx-steps { gap: 6px; }
-  .cpx.is-feed .cpx-step { width: 24px; }
+  .cpx.is-feed .cpx-step { width: 26px; }
   .cpx.is-feed .cpx-step i { width: 16px; height: 16px; }
+  .cpx.is-feed .cpx-step.is-on i { width: 24px; height: 24px; font-size: 15px; }
   .cpx.is-feed .cpx-steps__l span { display: inline; }
   .cpx.is-feed .cpx-ex__fig { grid-area: fig; align-self: end; justify-self: center; width: 44px; height: 48px; margin: 0; }
   .cpx.is-feed .cpx-ex__fig svg.tch { width: 44px; height: 50px; }

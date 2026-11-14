@@ -904,14 +904,18 @@
   // floating over content", then "the mascot looks slapped on rather than part of it". So the top bar, the breadcrumb,
   // the subject tabs, the five step pills and the pinned question banner are one row: the menu, the subject (a quiet
   // dropdown), the examiner with his tip in red pen (`guideDraw` puts him in the slot), the exam question one tap away,
-  // and five tick boxes for the steps. Black ink is the examiner's own outline colour; red is only ever him talking; the
-  // highlighter is only on the exam question's key words. Phones (the feed) get the same strip in place of each item's
+  // and five tick boxes for the steps. Black ink is the examiner's own outline colour; red is "now": him talking and the
+  // step you're on; the highlighter is only on the exam question's key words. The steps read as progress (the user: "these
+  // check boxes should have a lower opacity like their done and the one that we are on should be vibrant and make it like
+  // a progress thing your getting through"): done steps are faded ticks joined by the line you've come along, the step
+  // you're on is a bigger red box with its number, the ones to come are empty. Phones (the feed) get the same strip in place of each item's
   // own header: back, the tick boxes, the examiner.
   function cpSteps(st, at) {
     return '<nav class="cpx-steps" aria-label="Steps" data-at="' + at + '"><ol>' + CP_STEPS.map(function (x, i) {
       var n = i + 1, open = n <= st, now = n === at, done = n < at;
-      return '<li><button type="button" class="cpx-step' + (now ? ' is-on' : done ? ' is-done' : '') + '" data-cp-go="' + n + '" title="' + esc(x) + '"' + (open ? '' : ' disabled') + (now ? ' aria-current="step"' : '') +
-        ' aria-label="Step ' + n + ': ' + esc(x) + (now ? '' : done ? ', done' : open ? '' : ', locked') + '"><i aria-hidden="true"></i></button></li>';
+      var cls = now ? ' is-on' : done ? ' is-done' : '';
+      return '<li class="' + cls.slice(1) + '"><button type="button" class="cpx-step' + cls + '" data-cp-go="' + n + '" title="' + esc(x) + '"' + (open ? '' : ' disabled') + (now ? ' aria-current="step"' : '') +
+        ' aria-label="Step ' + n + ': ' + esc(x) + (now ? '' : done ? ', done' : open ? '' : ', locked') + '"><i aria-hidden="true">' + (now ? n : '') + '</i></button></li>';
     }).join('') + '</ol><p class="cpx-steps__l"><span>Step ' + at + ' of ' + CP_STEPS.length + ' · </span><b>' + esc(CP_STEPS[at - 1]) + '</b></p></nav>';
   }
   function cpStepsSync(at) {
