@@ -2597,6 +2597,24 @@ body.eng-papertop .eng-cmpg .eng-cpp .eng-cpp__m { margin-top: 12px; }
   body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__w:hover { background: var(--exam-paper-2); }
   body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__w b { color: var(--exam-ink); font-size: 18px; font-weight: 600; }
   body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__w span { color: var(--exam-ink-2); font-size: 16px; font-weight: 400; }
+  /* the margin column's rhythm (the user, of the linking words: "make the spacing better"): a heading, its note 4px
+     under it, its list 12px under that with 8px between items both ways, and 32px before the next heading */
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__bank { padding: 4px 0 8px 28px; }
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__bank h3 { margin: 0; line-height: 1.25; }
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__bank * + h3 { margin-top: 32px; }
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__hint { margin: 4px 0 0; line-height: 1.4; }
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__bank ul { gap: 0; margin: 10px 0 0 -10px; }
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__w { padding: 8px 40px 8px 10px; }
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__w::after { color: var(--exam-ink-2); }
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__w.is-used b { color: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__w.is-used::after { background: var(--exam-ink); color: var(--exam-paper); }
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__inst { gap: 8px; margin: 12px 0 0; }
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__inst .eng-chip { margin: 0; }
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__inst .eng-chip:hover { background: var(--exam-paper-2); box-shadow: inset 0 0 0 1px var(--exam-ink); color: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__warn .eng-chip { margin: 8px 8px 0 0; }
+  body.eng-papertop #eng-cpd.eng-cpd.is-write .eng-cpd__good { border-radius: 4px; background: var(--exam-paper-2); color: var(--exam-ink); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__rep:hover { border-color: var(--exam-done); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-cpd__rep.is-on:hover { border-color: var(--exam-ink); }
   /* the examiner: his head at the top of the sheet, by the close button; his help opens under him as a red-pen note */
   body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) { --w: 54px; top: 8px; right: 84px; bottom: auto; left: auto; width: 54px; animation: none; }
   body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__fig { display: block; width: 54px; height: 60px; aspect-ratio: auto; overflow: hidden; border-radius: 4px; background: none; box-shadow: none; filter: none; }
