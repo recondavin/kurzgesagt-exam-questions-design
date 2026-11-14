@@ -2057,23 +2057,15 @@
     });
   }
   // The check under the boxes, on everything written in this part.
-  function cpwCheck() {
-    var box = document.getElementById('eng-cpd'), tas = box ? box.querySelectorAll('[data-cpw-box]') : [];
-    if (!tas.length) return;
-    var v = Array.prototype.map.call(tas, function (t) { return t.value.trim(); }).filter(Boolean).join(' '), out = [], n = wordsIn(v), th = cpTheme(), a = cpBy(th).a;
-    box.querySelector('[data-cpw-count]').textContent = n + ' word' + (n === 1 ? '' : 's');
+  // The check on one part of the answer: vals is [{ k, v }], its boxes. Used by the popup's boxes and by the page.
+  function checkOut(part, s, vals) {
+    var v = vals.map(function (x) { return x.v.trim(); }).filter(Boolean).join(' '), out = [], th = cpTheme(), a = cpBy(th).a;
     var shows = (v.match(/\bshow(s|ed|ing|n)?\b/gi) || []).length;
     // Each box starts a sentence of its own.
-    if (Array.prototype.some.call(tas, function (t) { return /(^|[.!?]\s+)this shows\b/i.test(t.value.trim()); })) out.push(['“This shows…” is a weak way to start a sentence.', 'Start with the idea itself, or try:', ['This exposes', 'Here we see', 'This lays bare']]);
-    Array.prototype.forEach.call(tas, function (t) {
-      var k = t.getAttribute('data-cpw-box'), el = box.querySelector('[data-cpw-wc="' + k + '"]');
-      if (el && boxRange(k)) el.innerHTML = wcHtml(wordsIn(t.value), boxRange(k));
-    });
-    // A part with a few words in it gets its tick.
-    Array.prototype.forEach.call(tas, function (t) { t.closest('.eng-cpd__part').classList.toggle('is-done', wordsIn(t.value) >= 4); });
+    if (vals.some(function (x) { return /(^|[.!?]\s+)this shows\b/i.test(x.v.trim()); })) out.push(['“This shows…” is a weak way to start a sentence.', 'Start with the idea itself, or try:', ['This exposes', 'Here we see', 'This lays bare']]);
     if (shows >= 2) out.push(['You\'ve used “show” ' + shows + ' times.', 'Swap one for:', SYN.shows]);
     var names = {};
-    (CPW.part === 'b' ? cpbCtx().F : [a]).forEach(function (tid) {
+    (part === 'b' ? cpbCtx().F : [a]).forEach(function (tid) {
       text(tid).people.concat([{ name: text(tid).title }]).forEach(function (p) { p.name.toLowerCase().split(/[^a-zà-ÿ]+/).forEach(function (x) { names[x] = 1; }); });
     });
     var count = {};
@@ -2084,19 +2076,38 @@
     Object.keys(count).filter(function (x) { return count[x] >= 3; }).sort(function (x, y) { return count[y] - count[x]; }).slice(0, 3).forEach(function (x) {
       out.push(['“' + x + '”: ' + count[x] + ' times.', SYN[x] ? 'Swap one for:' : 'Try a different word for one of them.', SYN[x] || []]);
     });
-    cpwMore(tas, v, out, th, a);
+    cpwMore(vals, v, out, th, a, part, s);
+    out.v = v;
+    return out;
+  }
+  // pg: for the page (its own chips and actions) rather than the popup.
+  function checkHtml(out, n, pg) {
+    var word = pg ? 'data-page-word' : 'data-cpw-word', fix = pg ? 'data-page-fix' : 'data-cpw-fix', step = pg ? 'data-page-pick' : 'data-cpw-step="1"', chip = pg ? 'eng-read__chip' : 'eng-chip';
+    return (out.meter || '') + (out.length ? out.map(function (o) {
+      if (o.fix) return '<p class="eng-cpd__warn eng-cpd__warn--' + o.kind + '"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + ' ' + o.fix.map(function (f) {
+        return '<button type="button" class="' + chip + '" ' + fix + '="' + esc(f.join('|')) + '">' + esc(f[1]) + ' → ' + esc(f[2]) + '</button>';
+      }).join('') + '</p>';
+      if (o.step) return '<p class="eng-cpd__warn eng-cpd__warn--' + o.kind + '"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + ' <button type="button" class="' + chip + '" ' + step + '>Change the scene</button></p>';
+      return '<p class="eng-cpd__warn' + (o.kind ? ' eng-cpd__warn--' + o.kind : '') + '"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + (o[2].length ? ' ' + o[2].map(function (x) { return '<button type="button" class="' + chip + '" ' + word + '="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') : '') + '</p>';
+    }).join('') : (n >= 40 ? '<p class="eng-cpd__good">No “shows”, no repeated words, nothing misspelt. Nice.</p>' : ''));
+  }
+  function cpwCheck() {
+    var box = document.getElementById('eng-cpd'), tas = box ? box.querySelectorAll('[data-cpw-box]') : [];
+    if (!tas.length) return;
+    var out = checkOut(CPW.part === 'b' ? 'b' : 'a', CPW.slot, Array.prototype.map.call(tas, function (t) { return { k: t.getAttribute('data-cpw-box'), v: t.value }; })), v = out.v, n = wordsIn(v);
+    box.querySelector('[data-cpw-count]').textContent = n + ' word' + (n === 1 ? '' : 's');
+    Array.prototype.forEach.call(tas, function (t) {
+      var k = t.getAttribute('data-cpw-box'), el = box.querySelector('[data-cpw-wc="' + k + '"]');
+      if (el && boxRange(k)) el.innerHTML = wcHtml(wordsIn(t.value), boxRange(k));
+    });
+    // A part with a few words in it gets its tick.
+    Array.prototype.forEach.call(tas, function (t) { t.closest('.eng-cpd__part').classList.toggle('is-done', wordsIn(t.value) >= 4); });
     // The scene's words you've already used are ticked in the list.
     Array.prototype.forEach.call(box.querySelectorAll('.eng-cpd__w'), function (b) {
       var w = b.getAttribute('data-cpw-word').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       b.classList.toggle('is-used', new RegExp('\\b' + w + '\\b', 'i').test(v));
     });
-    box.querySelector('[data-cpw-check]').innerHTML = (out.meter || '') + (out.length ? out.map(function (o) {
-      if (o.fix) return '<p class="eng-cpd__warn eng-cpd__warn--' + o.kind + '"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + ' ' + o.fix.map(function (f) {
-        return '<button type="button" class="eng-chip" data-cpw-fix="' + esc(f.join('|')) + '">' + esc(f[1]) + ' → ' + esc(f[2]) + '</button>';
-      }).join('') + '</p>';
-      if (o.step) return '<p class="eng-cpd__warn eng-cpd__warn--' + o.kind + '"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + ' <button type="button" class="eng-chip" data-cpw-step="1">Change the scene</button></p>';
-      return '<p class="eng-cpd__warn' + (o.kind ? ' eng-cpd__warn--' + o.kind : '') + '"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + (o[2].length ? ' ' + o[2].map(function (x) { return '<button type="button" class="eng-chip" data-cpw-word="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') : '') + '</p>';
-    }).join('') : (n >= 40 ? '<p class="eng-cpd__good">No “shows”, no repeated words, nothing misspelt. Nice.</p>' : ''));
+    box.querySelector('[data-cpw-check]').innerHTML = checkHtml(out, n);
   }
   // The rest of the check, answering what an examiner (and the user's own marker) picks on: a paragraph that mostly
   // retells the story, writing about a different scene from the one picked, no film technique, a paragraph that
@@ -2124,14 +2135,14 @@
     Object.keys(G.scenes).forEach(function (x) { if (+x !== n) { var h = hits(x); if (h > best) { best = h; bestN = +x; } } });
     return best >= 3 && best >= mine + 2 ? bestN : 0;
   }
-  function cpwMore(tas, v, out, th, a) {
-    var G = th.write[a], s = CPW.slot, W = cpWrite(th, a), words = {};
-    Array.prototype.forEach.call(tas, function (t) { words[t.getAttribute('data-cpw-box')] = wordsIn(t.value); });
+  function cpwMore(vals, v, out, th, a, part, s) {
+    var G = th.write[a], W = G ? cpWrite(th, a) : null, words = {};
+    vals.forEach(function (x) { words[x.k] = wordsIn(x.v); });
     var total = wordsIn(v);
     // Part (b): a paragraph that never compares.
-    if (CPW.part === 'b' && typeof s === 'number' && total >= 40 && !/\b(similarly|likewise|both|whereas|in contrast|unlike|on the other hand|in the same way|just as|even more|to a (?:far )?greater extent|less obviously)\b/i.test(v))
+    if (part === 'b' && typeof s === 'number' && total >= 40 && !/\b(similarly|likewise|both|whereas|in contrast|unlike|on the other hand|in the same way|just as|even more|to a (?:far )?greater extent|less obviously)\b/i.test(v))
       { var nc = ['No comparing yet.', 'Part (b) is marked on comparing: link the two scenes with', CPB_LINKWORDS.slice(0, 5)]; nc.kind = 'bad'; out.unshift(nc); }
-    if (CPW.part !== 'b' && typeof s === 'number' && W.paras[s] && W.paras[s].scene) {
+    if (part !== 'b' && W && typeof s === 'number' && W.paras[s] && W.paras[s].scene) {
       var P = words.p || 0, A = words.a || 0, E = words.e || 0, filled = [P, A, E].filter(Boolean).length, sc = G.scenes[W.paras[s].scene];
       // How much of it is the story, and how much is your thinking.
       if (total >= 30) out.meter = '<div class="eng-cpd__bal" aria-hidden="true"><span style="flex:' + P + ';--pc:var(--pace-p)"></span><span style="flex:' + A + ';--pc:var(--pace-a)"></span><span style="flex:' + E + ';--pc:var(--pace-e)"></span></div>' +
@@ -2161,7 +2172,7 @@
     if (fixes.length) { var f = ['Spelling and capitals.', 'Tap to fix:', []]; f.fix = fixes; f.kind = 'spell'; out.push(f); }
     // Sentences that run on.
     var long = 0;
-    Array.prototype.forEach.call(tas, function (t) { t.value.split(/[.!?]+\s+/).forEach(function (x) { if (wordsIn(x) > 45) long++; }); });
+    vals.forEach(function (t) { t.v.split(/[.!?]+\s+/).forEach(function (x) { if (wordsIn(x) > 45) long++; }); });
     if (long) out.push([(long === 1 ? 'One sentence runs' : long + ' sentences run') + ' over 45 words.', 'Split ' + (long === 1 ? 'it' : 'them') + ' with a full stop, and don\'t join two sentences with just a comma.', []]);
   }
   // Fix a word everywhere in this part: 'w' ignores case (keeping a capital first letter), 'c' matches exactly.
@@ -2328,31 +2339,41 @@
     return cpwSlots(W).map(function (s) { return slotText(W, s); }).filter(Boolean).join('\n\n');
   }
   // ----- The page: you write your answer on the exam paper, on the exam desk (the user: "do you think the writing part
-  // should be like on an exam paper", showing their Geography desk, "like this"; "CAN we make it work on phone"; then
-  // "can it just be written on a page and then the exam question is at the top of the page and the student has like
-  // hypervision where he can see linking words and instead of shows and the details of the scenes"). One lined page of an
-  // answer booklet on the site's desk: the part's question at the top with its key words marked, then a paragraph for
-  // each part of the answer (Opening, Paragraphs, Ending), typed straight onto the lines, with the word count against
-  // the target. An empty paragraph says in grey what goes there. Help (the "hypervision") is beside the page: for the
-  // paragraph you're in, its scene (picture, where, what happens, what it represents, details to use, film techniques,
-  // a quote), then the words (part (a): the scene's 10 words; part (b): linking words) and Instead of "shows"; tap a
-  // word and it goes in where your cursor is. On a laptop Help is a column beside the page, on while you write; on a
-  // tablet or phone it is a sheet that slides up from the Help button and closes when you tap a word.
-  // - Write it and Edit open the page at that paragraph (`cpwDraw` hands over as soon as the popup reaches its Write it
-  //   step); the popup is still where you pick scenes and what they represent. Read it through opens the page at the top.
-  // - The boxes (Point, Anchor, Evaluate, with their hints and the check) are still there: "Write this part in boxes
-  //   instead", under the help (`CPW.boxes`).
-  // - Saved in the same place as the boxes, so nothing else changes: a paragraph typed on the page is that part's first
-  //   box (as older one-box saves are), and typing on the page in a part that was written in several boxes joins them.
+  // should be like on an exam paper", showing their Geography desk, "like this"; "CAN we make it work on phone"; "can it
+  // just be written on a page and then the exam question is at the top of the page and the student has like hypervision
+  // where he can see linking words and instead of shows and the details of the scenes"; then, of the first version, "it
+  // doesnt actually take you through it and get rid of the write this part in boxes instead the paper should be in boxes
+  // and there should be a 'hide option' structure to which it will get rid of the boxes but STILL BE THE PAPER ... and
+  // then you can say show structure which brings it back and then its like you are writing an exam but hypervision like
+  // you know what to do"). One page of an answer booklet on the site's desk: the part's question at the top with its key
+  // words marked, the word count against the target, and your answer.
+  // - Structure shown (how you write it): each part of the answer (Opening, Paragraphs, Ending) has its heading and its
+  //   boxes on the paper, the same ones the popup had (Point, Anchor, Evaluate; in part (b) Point, each text, Compare,
+  //   Evaluate), each with its name in its highlighter colour, a line saying what to write, lines to write on and its
+  //   word range. The box to write next says so in red, and moves on as you fill them: that is what takes you through it.
+  // - Hide structure: the same paper with the boxes gone, your answer as continuous writing, as the examiner gets it.
+  //   You can still type; Show structure brings the boxes back with everything in its box. To keep that true, the plain
+  //   page remembers where each box's text starts and ends as you edit (`pagePlain`); new writing joins the box your
+  //   cursor is in.
+  // - Help (the "hypervision") is for the paragraph and box you're in: ideas for the box, How it reads (the check, the
+  //   same one the boxes had: `checkOut`), the scene (picture, where, what happens, what it represents, details, film
+  //   techniques, a quote), the words (part (a): the scene's 10 words; part (b): linking words) and Instead of "shows".
+  //   Tap a word and it goes in at your cursor. A column beside the page on a laptop, on while you write; a sheet from
+  //   the bottom on a tablet or phone, closing when you tap a word.
+  // - Write it and Edit open the page at that paragraph (`cpwDraw` hands over when the popup reaches its Write it step);
+  //   the popup is where you pick scenes and what they represent. Read it through opens it with the structure hidden.
+  // - Saved exactly as the popup's boxes were (each box its own key), so nothing else changed.
   // - The desk and the two hands are the Geography desk's own artwork, used as they are; about 1.2MB, so the paper shows
   //   first and they fade in, and they aren't loaded when the phone asks to save data. On a laptop they make way for
   //   the help column.
-  var READ = null, READ_SEL = '', READ_PART = 'a', READ_SLOT = null, READ_TA = null;
+  var READ = null, READ_SEL = '', READ_PART = 'a', READ_SLOT = null, READ_BOX = null, READ_TA = null, READ_STRUCT = true, PAGE_STRUCT = true, READ_B = {}, READ_CK = 0;
+  var PAGE_COL = { p: 'var(--pace-p)', a: 'var(--pace-a)', e: 'var(--pace-e)', film: 'var(--pace-p)', idea: 'var(--pace-c)', points: 'var(--pace-a)', sum: 'var(--pace-c)', final: 'var(--pace-a)', last: 'var(--pace-e)',
+    x: 'var(--pace-c)', y: '#E6D9FF', c: 'var(--pace-a)', texts: 'var(--pace-p)', judge: '#E6D9FF' };
   function pageCtx(part) {
     var th = cpTheme(), a = cpBy(th).a;
-    if (part === 'b') { var c = cpbCtx(); return { th: th, a: a, W: c.W, F: c.F, slots: cpbSlots(c.W), keys: cpbKeys, parts: cpbParts, text: cpbText }; }
+    if (part === 'b') { var c = cpbCtx(); return { th: th, a: a, W: c.W, F: c.F, slots: cpbSlots(c.W), keys: cpbKeys, parts: cpbParts, text: cpbText, range: CPB_RANGE }; }
     var W = cpWrite(th, a);
-    return { th: th, a: a, W: W, G: th.write[a], slots: cpwSlots(W), keys: slotKeys, parts: slotParts, text: slotText };
+    return { th: th, a: a, W: W, G: th.write[a], slots: cpwSlots(W), keys: slotKeys, parts: slotParts, text: slotText, range: CPW_RANGE };
   }
   function pageWide() { return window.innerWidth > 1100; }
   function pageHint(part, s, c) {
@@ -2361,8 +2382,35 @@
     return s === 'open' ? 'Opening: name the film and its director, answer the question, say your points.' : s === 'end' ? 'Ending: sum it up, and what the film finally says about ' + c.th.name.toLowerCase() + '.' :
       'Paragraph ' + (s + 1) + ': your point, the moment with a film technique, why it matters.';
   }
+  // The boxes of one part of the answer: the popup's own, or plain ones if the paragraph has no scene yet.
+  function pageParts(part, s, c) {
+    var name = c.th.name.toLowerCase(), para = typeof s === 'number', P = c.parts(c.W, s), list;
+    if (part === 'b') {
+      var q = para ? c.W.paras[s] : null;
+      list = !para || (q && q.x && q.y) ? cpbPartsOf(c, s) : [
+        { k: 'p', label: 'Point', hl: 'One sentence about both texts', hint: 'One sentence about both texts: what they both show about ' + name + '.' },
+        { k: 'x', label: shortTitle(c.F[0]), hl: 'Keep it short', hint: 'Keep it short: the moment in ' + shortTitle(c.F[0]) + ', in a sentence or two. Don\'t retell the story.' },
+        { k: 'y', label: shortTitle(c.F[1]), hl: 'Keep it short', hint: 'Keep it short: the moment in ' + shortTitle(c.F[1]) + ', in a sentence or two.' },
+        { k: 'c', label: 'Compare', hl: 'How they\'re alike or different', hint: 'How they\'re alike or different, using words such as “Similarly”, “Whereas” or “Even more so”.' },
+        { k: 'e', label: 'Evaluate', hl: 'Most of the marks are here', hint: 'Most of the marks are here: why it matters for ' + name + ', and how it keeps the reader hooked.' }];
+    } else {
+      var p = para ? c.W.paras[s] : null;
+      list = !para || (p && p.scene) ? partsOf(c.th, c.a, s) : [
+        { k: 'p', label: 'Point', hl: 'Your idea, in one sentence', hint: 'Your idea, in one sentence: what this scene represents.' },
+        { k: 'a', label: 'Anchor', hl: 'Keep it short', hint: 'Keep it short: the moment in a sentence or two, with a film technique. Don\'t retell the story.' },
+        { k: 'e', label: 'Evaluate', hl: 'Most of the marks are here', hint: 'Most of the marks are here: two or three sentences on why it matters for ' + name + '.' }];
+    }
+    return list.filter(function (pt) { return !skipped(P, pt.k); });
+  }
+  function pageSub(part, s, c) {
+    if (typeof s !== 'number') return '';
+    if (part === 'b') { var q = c.W.paras[s], L = q && q.x && q.y ? cpbLink(c.th, q.x, q.y) : null; return L ? L.aspect : q && q.x && q.y ? mom(q.x).m.title + ' and ' + mom(q.y).m.title : ''; }
+    var p = c.W.paras[s];
+    return p && p.scene ? text(c.a).moments[p.scene - 1].title : '';
+  }
   function readClose() {
     if (!READ) return;
+    clearTimeout(READ_CK);
     READ.remove(); READ = null; READ_TA = null;
     document.body.classList.remove('eng-read-on');
     var sel = READ_SEL; READ_SEL = '';
@@ -2373,21 +2421,78 @@
   function pageGrow(ta) {
     var lh = parseFloat(getComputedStyle(ta).lineHeight) || 30;
     ta.style.height = '0px';
-    ta.style.height = Math.max(ta.value ? 1 : pageWide() ? 2 : 3, Math.round(ta.scrollHeight / lh)) * lh + 'px';
+    ta.style.height = Math.max(READ_STRUCT ? 2 : ta.value ? 1 : pageWide() ? 2 : 3, Math.round(ta.scrollHeight / lh)) * lh + 'px';
   }
   function pageCount() {
     var n = 0, el = READ.querySelector('[data-page-count]');
     Array.prototype.forEach.call(READ.querySelectorAll('.eng-read__ta'), function (ta) { n += wordsIn(ta.value); });
     el.textContent = n + (n === 1 ? ' word' : ' words') + ' · aim for about ' + (READ_PART === 'b' ? 650 : 450);
   }
-  function pageSave(ta) {
-    var c = pageCtx(READ_PART), s = slotOf(ta.getAttribute('data-page-slot')), P = c.parts(c.W, s);
-    c.keys(s).forEach(function (k, i) { P[k] = i ? '' : ta.value; });
-    cpSave(); pageCount();
+  // The answer on the paper: in its boxes, or (structure hidden) as plain paragraphs.
+  function pageLines() {
+    var part = READ_PART, c = pageCtx(part);
+    READ_B = {};
+    return c.slots.map(function (s) {
+      var P = c.parts(c.W, s), pts = pageParts(part, s, c), sub = pageSub(part, s, c);
+      if (!READ_STRUCT) {
+        // One paragraph, remembering where each box's text starts (b), so Show structure can put it all back.
+        var j = '', bs = [];
+        pts.forEach(function (pt) { var t = String(P[pt.k] || '').trim(); if (t && j) j += ' '; bs.push(j.length); j += t; });
+        READ_B[s] = { keys: pts.map(function (pt) { return pt.k; }), b: bs, o: j };
+        return '<div class="eng-read__para"><textarea class="eng-read__ta" data-page-slot="' + s + '" rows="1" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s)) + '" placeholder="' + esc(pageHint(part, s, c)) + '">' + esc(j) + '</textarea></div>';
+      }
+      return '<div class="eng-read__para"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + pts.map(function (pt) {
+        return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh"><b>' + esc(pt.label) + '</b><span>' +
+          (pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span></p>' +
+          '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s) + ': ' + pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
+          (c.range[pt.k] ? '<p class="eng-read__wc" data-page-wc="' + s + '|' + pt.k + '"></p>' : '') + '</div>';
+      }).join('') + '</div>';
+    }).join('');
   }
-  // The help for the paragraph you're in.
-  function pageHelp(part, s) {
-    var c = pageCtx(part), th = c.th, h = '', para = typeof s === 'number', words = '';
+  // A box's word count, its tick, and which box to write next (the first with under four words: in the paragraph you're
+  // in, else in the whole answer).
+  function pageMarks() {
+    if (!READ_STRUCT) return;
+    var c = pageCtx(READ_PART), tas = Array.prototype.slice.call(READ.querySelectorAll('.eng-read__ta')), any = false, next = null;
+    tas.forEach(function (ta) {
+      var k = ta.getAttribute('data-page-box'), n = wordsIn(ta.value), wc = READ.querySelector('[data-page-wc="' + ta.getAttribute('data-page-slot') + '|' + k + '"]');
+      if (wc) wc.innerHTML = wcHtml(n, c.range[k]);
+      ta.parentNode.classList.toggle('is-done', n >= 4); ta.parentNode.classList.remove('is-next');
+      if (n) any = true;
+    });
+    var open = function (ta) { return wordsIn(ta.value) < 4; };
+    next = tas.filter(function (ta) { return ta.getAttribute('data-page-slot') === String(READ_SLOT) && open(ta); })[0] || tas.filter(open)[0];
+    if (next) { next.parentNode.classList.add('is-next'); next.parentNode.setAttribute('data-next', any ? 'Write this next' : 'Start here'); }
+  }
+  // Typing on the plain page: move the remembered box starts along with the edit, then save each box's slice.
+  function pagePlain(ta) {
+    var s = slotOf(ta.getAttribute('data-page-slot')), st = READ_B[s], c = pageCtx(READ_PART), P = c.parts(c.W, s), o = st.o, v = ta.value, pre = 0, suf = 0, max = Math.min(o.length, v.length);
+    while (pre < max && o.charCodeAt(pre) === v.charCodeAt(pre)) pre++;
+    while (suf < max - pre && o.charCodeAt(o.length - 1 - suf) === v.charCodeAt(v.length - 1 - suf)) suf++;
+    var end = o.length - suf, d = v.length - o.length;
+    st.b = st.b.map(function (x, i) { return !i ? 0 : x >= end ? x + d : x > pre ? pre : x; });
+    st.o = v;
+    st.keys.forEach(function (k, i) { P[k] = v.slice(st.b[i], i + 1 < st.b.length ? st.b[i + 1] : v.length).trim(); });
+  }
+  function pageInput(ta) {
+    pageGrow(ta);
+    if (READ_STRUCT) { var c = pageCtx(READ_PART); c.parts(c.W, slotOf(ta.getAttribute('data-page-slot')))[ta.getAttribute('data-page-box')] = ta.value; }
+    else pagePlain(ta);
+    cpSave(); pageCount(); pageMarks();
+    clearTimeout(READ_CK); READ_CK = setTimeout(pageCheck, 350);
+  }
+  // How it reads: the check on the part you're in, in the help.
+  function pageCheck() {
+    if (!READ) return;
+    var c = pageCtx(READ_PART), P = c.parts(c.W, READ_SLOT), el = READ.querySelector('[data-page-check]');
+    if (!el) return;
+    var out = checkOut(READ_PART, READ_SLOT, c.keys(READ_SLOT).filter(function (k) { return !skipped(P, k); }).map(function (k) { return { k: k, v: String(P[k] || '') }; })), h = checkHtml(out, wordsIn(out.v), true);
+    el.innerHTML = h ? '<h3>How it reads</h3>' + h : '';
+    el.hidden = !h;
+  }
+  // The help for the paragraph, and the box, you're in.
+  function pageHelp(part, s, box) {
+    var c = pageCtx(part), th = c.th, h = '', para = typeof s === 'number', words = '', ideas = '';
     var chips = function (list) { return '<p class="eng-read__chips">' + list.map(function (x) { return '<button type="button" class="eng-read__chip" data-page-word="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') + '</p>'; };
     var scene = function (tid, mid, extra) {
       var m = mom(mid).m, pic = scenePics(tid, mid)[0];
@@ -2395,6 +2500,10 @@
         '<p>' + esc(m.what) + '</p>' + (extra || '') + (m.quote ? '<p><b>Quote:</b> “' + esc(m.quote) + '”</p>' : '') + '</div>';
     };
     var none = function (label) { return '<p>No scene picked for this paragraph yet.</p><p><button type="button" class="eng-read__btn" data-page-pick>' + label + '</button></p>'; };
+    var pt = box ? pageParts(part, s, c).filter(function (x) { return x.k === box; })[0] : null, il = pt ? (pt.ideas || []).filter(Boolean).slice(0, 3) : [];
+    if (il.length) ideas = '<section><h3>Ideas for ' + esc(/^your /i.test(pt.label) ? lowerFirst(pt.label) : 'your ' + (/^(Point|Anchor|Evaluate|Compare)$/.test(pt.label) ? pt.label : pt.label + ' box')) + '</h3>' + il.map(function (x) {
+      return '<p class="eng-read__idea">' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + esc(typeof x === 'string' ? x : x.t) + '</p>';
+    }).join('') + '<p class="eng-read__note">To read, then say it your own way.</p></section>';
     if (part === 'b') {
       if (para) {
         var q = c.W.paras[s], L = q && q.x && q.y ? cpbLink(th, q.x, q.y) : null;
@@ -2424,18 +2533,32 @@
         return '<li><button type="button" class="eng-read__w" data-page-word="' + esc(x[0]) + '"><b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span></button></li>';
       }).join('') + '</ul></section>';
     }
-    return '<header class="eng-read__hh"><h2>' + slotName(s) + '</h2><button type="button" class="eng-read__hx" data-page-help aria-label="Close help">×</button></header>' +
+    return '<header class="eng-read__hh"><h2>' + slotName(s) + (pt ? ' <span>' + esc(pt.label) + '</span>' : '') + '</h2><button type="button" class="eng-read__hx" data-page-help aria-label="Close help">×</button></header>' +
+      ideas + '<section class="eng-read__check" data-page-check hidden></section>' +
       '<section><h3>' + (para ? (part === 'b' ? 'The scenes' : 'The scene') : 'Your paragraphs') + '</h3>' + h + '</section>' + words +
-      '<section><h3>Instead of “shows”</h3>' + chips(th.instead) + '</section>' +
-      '<p class="eng-read__alt"><button type="button" data-page-boxes>Write this part in boxes instead</button></p>';
+      '<section><h3>Instead of “shows”</h3>' + chips(th.instead) + '</section>';
   }
-  function pageHelpDraw() { var box = READ.querySelector('[data-page-helpbox]'); box.innerHTML = pageHelp(READ_PART, READ_SLOT); box.parentNode.scrollTop = 0; }
+  function pageHelpDraw() { var box = READ.querySelector('[data-page-helpbox]'); box.innerHTML = pageHelp(READ_PART, READ_SLOT, READ_STRUCT ? READ_BOX : null); box.parentNode.scrollTop = 0; pageCheck(); }
   function pageHelpSet(on) {
     READ.classList.toggle('is-help', on);
     READ.querySelector('.eng-read__helpb').setAttribute('aria-pressed', String(on));
   }
+  // Show or hide the structure: redraw the answer in the other form, and go back to the paragraph you were in.
+  function pageStruct(on, focus) {
+    READ_STRUCT = on;
+    READ.classList.toggle('is-struct', on);
+    var tb = READ.querySelector('.eng-read__structb'); tb.textContent = on ? 'Hide structure' : 'Show structure'; tb.setAttribute('aria-pressed', String(on));
+    READ.querySelector('.eng-read__lines').innerHTML = pageLines();
+    READ_TA = null; if (!on) READ_BOX = null;
+    Array.prototype.forEach.call(READ.querySelectorAll('.eng-read__ta'), pageGrow);
+    pageCount(); pageMarks(); pageHelpDraw();
+    if (!focus) return;
+    var ta = (on && READ.querySelector('.eng-read__box.is-next .eng-read__ta[data-page-slot="' + READ_SLOT + '"]')) || READ.querySelector('.eng-read__ta[data-page-slot="' + READ_SLOT + '"]');
+    if (ta) { ta.focus({ preventScroll: true }); ta.setSelectionRange(ta.value.length, ta.value.length); ta.scrollIntoView({ block: 'nearest' }); }
+  }
+  function pageTas() { return Array.prototype.slice.call(READ.querySelectorAll('.eng-read__ta[data-page-slot="' + READ_SLOT + '"]')); }
   function pageInsert(word) {
-    var ta = READ_TA || READ.querySelector('.eng-read__ta[data-page-slot="' + READ_SLOT + '"]') || READ.querySelector('.eng-read__ta');
+    var ta = READ_TA || READ.querySelector('.eng-read__box.is-next .eng-read__ta') || pageTas()[0] || READ.querySelector('.eng-read__ta');
     if (!ta) return;
     var i = READ_TA && ta.selectionStart != null ? ta.selectionStart : ta.value.length, j = READ_TA && ta.selectionEnd != null ? ta.selectionEnd : i;
     var before = ta.value.slice(0, i), after = ta.value.slice(j);
@@ -2443,43 +2566,50 @@
     ta.value = before + add + after;
     if (!pageWide()) pageHelpSet(false);
     ta.focus(); ta.setSelectionRange((before + add).length, (before + add).length);
-    pageGrow(ta); pageSave(ta);
+    pageInput(ta);
   }
-  // slot: the paragraph to start writing in (Write it, Edit); none for Read it through.
+  // Fix a word everywhere in this part of the answer: 'w' ignores case (keeping a capital first letter), 'c' matches exactly.
+  function pageFix(spec) {
+    var f = spec.split('|');
+    pageTas().forEach(function (ta) {
+      var nv = ta.value.replace(new RegExp('\\b' + f[1] + '\\b', f[0] === 'w' ? 'gi' : 'g'), function (m) { return f[0] === 'w' && /^[A-Z]/.test(m) ? f[2].charAt(0).toUpperCase() + f[2].slice(1) : f[2]; });
+      if (nv !== ta.value) { ta.value = nv; pageInput(ta); }
+    });
+    clearTimeout(READ_CK); pageCheck();
+  }
+  // slot: the paragraph to start writing in (Write it, Edit); none for Read it through, which opens with the structure hidden.
   function pageOpen(part, slot, sel) {
     if (READ) { READ.remove(); READ = null; }
     var c = pageCtx(part), writing = slot != null, lean = navigator.connection && navigator.connection.saveData;
-    READ_PART = part; READ_SLOT = writing ? slot : c.slots[0]; READ_TA = null;
+    // A box skipped in the old popup with nothing in it is just an empty box here.
+    c.slots.forEach(function (s) { var P = c.parts(c.W, s); if (P._skip) Object.keys(P._skip).forEach(function (k) { if (!String(P[k] || '').trim()) delete P._skip[k]; }); });
+    READ_PART = part; READ_SLOT = writing ? slot : c.slots[0]; READ_BOX = null; READ_TA = null; READ_STRUCT = writing ? PAGE_STRUCT : false;
     READ_SEL = sel || (writing ? '[data-cp' + (part === 'b' ? 'bw' : 'w') + '="' + slot + '"]' : '[data-cp-read="' + part + '"]');
     READ = document.createElement('div'); READ.id = 'eng-read'; READ.className = 'eng-read';
     READ.setAttribute('role', 'dialog'); READ.setAttribute('aria-modal', 'true'); READ.setAttribute('aria-labelledby', 'eng-read-h');
     READ.innerHTML = '<div class="eng-read__paper"><header class="eng-read__head"><h2 id="eng-read-h">Part (' + part + ')</h2><p data-page-count aria-live="polite"></p></header>' +
-      '<p class="eng-read__q">' + cpQIn(part) + '</p><div class="eng-read__lines">' + c.slots.map(function (s) {
-        return '<div class="eng-read__para"><textarea class="eng-read__ta" data-page-slot="' + s + '" rows="1" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s)) + '" placeholder="' + esc(pageHint(part, s, c)) + '">' + esc(c.text(c.W, s)) + '</textarea></div>';
-      }).join('') + '</div></div>' +
+      '<p class="eng-read__q">' + cpQIn(part) + '</p><div class="eng-read__lines"></div></div>' +
       '<aside class="eng-read__help" aria-label="Help with the part you\'re writing"><div data-page-helpbox></div></aside>' +
       (lean ? '' : '<img class="eng-read__hand is-left" src="assets/hands/left-resting-layered.svg" alt=""><img class="eng-read__hand is-right" src="assets/hands/right-writing-gentle-rig.svg" alt="">') +
       '<button type="button" class="eng-read__x" data-read-close aria-label="Close and go back"><i aria-hidden="true"></i><b>Back</b></button>' +
-      '<button type="button" class="eng-read__helpb" data-page-help aria-pressed="false">Help</button>';
+      '<div class="eng-read__tools"><button type="button" class="eng-read__structb" data-page-struct aria-pressed="true">Hide structure</button>' +
+      '<button type="button" class="eng-read__helpb" data-page-help aria-pressed="false">Help</button></div>';
     document.body.appendChild(READ);
     document.body.classList.add('eng-read-on');
-    READ.addEventListener('input', function (e) { var ta = e.target.closest && e.target.closest('.eng-read__ta'); if (ta) { pageGrow(ta); pageSave(ta); } });
+    READ.addEventListener('input', function (e) { var ta = e.target.closest && e.target.closest('.eng-read__ta'); if (ta) pageInput(ta); });
     READ.addEventListener('focusin', function (e) {
       var ta = e.target.closest && e.target.closest('.eng-read__ta');
       if (!ta) return;
       READ_TA = ta;
-      var s = slotOf(ta.getAttribute('data-page-slot'));
-      if (s !== READ_SLOT) { READ_SLOT = s; pageHelpDraw(); }
+      var s = slotOf(ta.getAttribute('data-page-slot')), k = ta.getAttribute('data-page-box');
+      if (s !== READ_SLOT || k !== READ_BOX) { READ_SLOT = s; READ_BOX = k; pageMarks(); pageHelpDraw(); }
     });
     Array.prototype.forEach.call(READ.querySelectorAll('img'), function (im) {
       if (im.complete && im.naturalWidth) im.classList.add('is-in'); else im.addEventListener('load', function () { im.classList.add('is-in'); });
     });
-    pageHelpDraw(); pageHelpSet(writing && pageWide());
-    Array.prototype.forEach.call(READ.querySelectorAll('.eng-read__ta'), pageGrow);
-    pageCount();
-    var first = writing && READ.querySelector('.eng-read__ta[data-page-slot="' + slot + '"]');
-    if (first) { first.focus({ preventScroll: true }); first.setSelectionRange(first.value.length, first.value.length); first.scrollIntoView({ block: 'nearest' }); }
-    else READ.querySelector('.eng-read__x').focus({ preventScroll: true });
+    pageHelpSet(writing && pageWide());
+    pageStruct(READ_STRUCT, writing);
+    if (!writing) READ.querySelector('.eng-read__x').focus({ preventScroll: true });
   }
   window.addEventListener('resize', function () { if (READ) Array.prototype.forEach.call(READ.querySelectorAll('.eng-read__ta'), pageGrow); });
   document.addEventListener('keydown', function (e) {
@@ -3660,19 +3790,21 @@
     var t = ev.target;
     Array.prototype.forEach.call(bar.querySelectorAll('details[open]'), function (d) { if (!d.contains(t)) d.open = false; });
     if (READ && READ.contains(t)) {
-      var pw = t.closest('[data-page-word]'), pgp = READ_PART, pgs = READ_SLOT;
+      var pw = t.closest('[data-page-word]'), pfx = t.closest('[data-page-fix]'), pgp = READ_PART, pgs = READ_SLOT;
       if (t.closest('[data-read-close]')) readClose();
       else if (pw) pageInsert(pw.getAttribute('data-page-word'));
+      else if (pfx) pageFix(pfx.getAttribute('data-page-fix'));
+      else if (t.closest('[data-page-struct]')) { PAGE_STRUCT = !READ_STRUCT; pageStruct(PAGE_STRUCT, !!READ_TA); if (!READ.contains(document.activeElement)) READ.querySelector('.eng-read__structb').focus({ preventScroll: true }); }
       else if (t.closest('[data-page-help]')) {
         var hon = !READ.classList.contains('is-help');
         pageHelpSet(hon);
         var hf = hon && !pageWide() ? READ.querySelector('.eng-read__hx') : READ.querySelector('.eng-read__helpb');
         if (hf) hf.focus({ preventScroll: true });
-      } else if (t.closest('[data-page-pick]')) { READ_SEL = ''; readClose(); if (pgp === 'b') cpbOpen(pgs); else cpwOpen(pgs); }
-      else if (t.closest('[data-page-boxes]')) {
-        // The boxes for this part: by way of its scene steps if it has no scene yet.
+      } else if (t.closest('[data-page-pick]')) {
+        // Pick (or change) this paragraph's scene: the popup, at its scene step; its Write it step comes back here.
         READ_SEL = ''; readClose();
-        if (pgp === 'b') cpbOpen(pgs, true); else cpwOpen(pgs, true);
+        if (pgp === 'b') cpbOpen(pgs);
+        else { var Wp = cpWrite(cpTheme(), cpBy(cpTheme()).a); CPW = { slot: pgs, step: 1, box: slotKeys(pgs)[0], pick: Wp.paras.map(function (q) { return q.scene; }).filter(Boolean), shown: {} }; cpwDraw(true); }
       }
       return;
     }
