@@ -164,12 +164,8 @@ a.eng-card:focus-visible, .eng-btn:focus-visible, .eng-chip:focus-visible, .eng-
 .sh-canvas.eng-app:has(> .eng-cmpg) { max-width: 1400px; }
 .eng-cmpg { max-width: 1240px; }
 .eng-cmpg .cv-h1 { font-size: 44px; }
-.eng-cp__theme { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: -6px 0 16px; color: var(--muted); font: 700 20px Nunito, sans-serif; }
-.eng-cp__theme b { color: #fff; font: 600 30px Fredoka, Nunito, sans-serif; }
-.eng-cp__theme .eng-tag { padding: 4px 14px; font-size: 15px; }
 .eng-cmpg .eng-p { max-width: 72ch; color: #DCE6EB; font: 700 20px/1.6 Nunito, sans-serif; }
 .eng-cmpg .eng-p b { color: #fff; }
-.eng-cmpg .eng-cp__warn { padding-left: 16px; border-left: 4px solid var(--note); color: var(--note); font-size: 18px; }
 .eng-cmpg .eng-btn { height: 54px; padding: 0 26px; font-size: 19px; }
 /* The steps, joined by a line. */
 .eng-cp__step { position: relative; margin-top: 40px; padding: 0 0 20px 80px; }
@@ -310,7 +306,6 @@ a.eng-card:focus-visible, .eng-btn:focus-visible, .eng-chip:focus-visible, .eng-
 @media (prefers-reduced-motion: reduce) { .eng-cmpg *, .eng-cmpg *::before { animation: none !important; transition: none !important; } }
 @media (max-width: 760px) {
   .eng-cmpg .cv-h1 { font-size: 32px; }
-  .eng-cp__theme b { font-size: 24px; }
   .eng-cmpg .eng-p { font-size: 18px; }
   .eng-cp__step { margin-top: 30px; padding-left: 0; }
   .eng-cp__step::before { display: none; }
@@ -1588,18 +1583,8 @@ a.eng-part:hover { background: var(--raised); }
 .eng-cp__pick b { color: var(--m-theme); font-weight: 900; }
 @media (max-width: 600px) { .eng-cp__pick { font-size: 18.5px; } }
 
-/* ===== Compare it as building blocks: the step bar, Next, Pick your scenes, the plan, the examiner's tips. ===== */
-.eng-cpnav { position: sticky; top: 76px; z-index: 5; margin: 0 0 26px; padding: 10px 0 12px; background: var(--ground); }
-.eng-cpnav ol { display: flex; gap: 8px; margin: 0; padding: 0; list-style: none; overflow-x: auto; scrollbar-width: none; }
-.eng-cpnav button { display: inline-flex; align-items: center; gap: 9px; min-height: 46px; padding: 0 18px 0 8px; border: 0; border-radius: 999px; background: var(--surface); color: var(--muted); font: 800 16px Nunito, sans-serif; white-space: nowrap; cursor: pointer; transition: background .15s ease; }
-.eng-cpnav button span { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--raised); color: #fff; font-size: 15px; }
-.eng-cpnav .is-open button { color: #fff; }
-.eng-cpnav .is-open button span { background: #58CC02; }
-.eng-cpnav .is-open button:hover { background: var(--raised); }
-.eng-cpnav .is-on button { background: var(--m-theme); color: #13212A; }
-.eng-cpnav .is-on button span { background: #13212A; color: var(--m-theme); }
-.eng-cpnav button[disabled] { opacity: .4; cursor: default; }
-.eng-cpnav button:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+/* ===== Compare it as building blocks: Next, Pick your scenes, the plan. (The steps and the examiner's tips are in the
+   paper strip: see the end of this file.) ===== */
 .eng-cp__nextp { margin: 30px 0 0; }
 .eng-cmpg .eng-cp__next { height: 62px; padding: 0 34px; font-size: 22px; }
 /* Pick your scenes: the heading big and in colour, then one line saying what to tap. */
@@ -1621,47 +1606,18 @@ a.eng-part:hover { background: var(--raised); }
 .eng-cpn2 > li > span { color: #fff; font: 700 19px/1.45 Nunito, sans-serif; }
 .eng-cpn2__m { grid-column: 2; display: flex; flex-wrap: wrap; gap: 6px; }
 .eng-cmpg { padding-bottom: 200px; }
-/* The examiner's tips: bottom right, facing in; "1 of 4" with arrows; a rule in red. */
-#eng-guide.eng-tch { left: auto; right: 16px; --w: 130px; }
-#eng-guide .eng-tch__say { left: auto; right: 0; }
-#eng-guide .eng-tch__say::after { left: auto; right: calc(var(--w) * .42); }
-#eng-guide.is-helping .eng-tch__say { width: min(380px, calc(100vw - 24px)); padding-top: 12px; }
-#eng-guide:not(.is-helping) .eng-tch__say { right: calc(100% + 10px); bottom: 14px; border-radius: 999px; }
-#eng-guide:not(.is-helping) .eng-tch__say::after { right: -6px; bottom: 13px; }
-.eng-guide__top { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; color: #5D6A74; font: 800 14px Nunito, sans-serif; font-variant-numeric: tabular-nums; }
-.eng-guide__top button { display: grid; place-items: center; width: 34px; height: 34px; padding: 0 0 2px; border: 0; border-radius: 50%; background: #E6EBF2; color: #1d2a3a; font: 800 22px/1 Nunito, sans-serif; cursor: pointer; }
-.eng-guide__top button:hover:not([disabled]) { background: #D5DDE8; }
-.eng-guide__top button[disabled] { opacity: .35; cursor: default; }
-.eng-guide__rule { margin: 0 0 4px; color: #D93A3A; font: 900 13px Nunito, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
-#eng-guide.is-rule .eng-tch__say { box-shadow: 0 0 0 4px #FF4D4D, 0 4px 0 rgba(0, 0, 0, .3); }
-#eng-guide .eng-tch__line { font: 800 19px/1.35 Nunito, sans-serif; }
-body.eng-cpd-on #eng-guide { display: none; }
-@media (max-width: 1359px) { #eng-guide.eng-tch { --w: 64px; right: 14px; } }
-@media (max-width: 1100px) { .eng-cpnav { top: 56px; } }
 @media (max-width: 760px) {
   .eng-cpk-t { font-size: 40px; }
   .eng-cpk__p { font-size: 21px; padding: 14px 16px; }
   .eng-cpn2 li { grid-template-columns: minmax(0, 1fr); }
   .eng-cpn2__m { grid-column: auto; }
-  .eng-cpnav button { min-height: 42px; font-size: 14.5px; }
 }
-@media (max-width: 600px) { #eng-guide.eng-tch { --w: 58px; right: 10px; } #eng-guide .eng-tch__line { font-size: 17px; } }
 
 /* The examiner bigger and closer, and no scroll bar in his bubble (the user: "make this dumbass closer and bigger and get
    rid of the scroll bar that makes it square inside of a rectangular box"). The bubble's tail stuck out past it, so the
    bubble scrolled: on Windows that showed a square scroll bar inside the rounded bubble, and hid the tail. Tips are
-   short, so the bubble simply grows. On a wide screen the page examiner is 190px and talks from right beside his head. */
+   short, so the bubble simply grows. */
 .eng-tch.is-helping .eng-tch__say { overflow: visible; max-height: none; }
-.eng-cpnav ol::-webkit-scrollbar { display: none; }
-@media (min-width: 1360px) {
-  #eng-guide.eng-tch { --w: 190px; right: 8px; bottom: 2px; }
-  #eng-guide.is-helping .eng-tch__say { right: calc(100% - 22px); bottom: calc(var(--w) * .8); width: min(400px, calc(100vw - 260px)); }
-  #eng-guide.is-helping .eng-tch__say::after { left: auto; right: -7px; bottom: 26px; }
-  #eng-guide:not(.is-helping) .eng-tch__say { right: calc(100% - 18px); bottom: calc(var(--w) * .9); }
-  #eng-guide:not(.is-helping) .eng-tch__say::after { right: -6px; bottom: 13px; }
-}
-@media (max-width: 1359px) { #eng-guide.eng-tch { --w: 80px; } }
-@media (max-width: 600px) { #eng-guide.eng-tch { --w: 68px; } }
 /* The swap button: big, both texts in their colours (the user: "make the small things sive switch bigger and show sive
    AND small things in that button"). */
 .eng-cmpg .eng-cpk__swap { display: inline-flex; align-items: center; gap: 14px; height: 66px; padding: 0 26px; border-radius: 999px; background: var(--surface); box-shadow: inset 0 0 0 3px var(--raised); color: #fff; font: 800 22px Nunito, sans-serif; }
@@ -1881,7 +1837,6 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
    be SCROLLED"): the top bar, the step bar and the question scroll away with the page. */
 @media (max-width: 700px) {
   .eng .sh-top { position: relative; }
-  .eng-cpnav { position: static; margin-bottom: 20px; padding-top: 6px; }
 }
 
 /* Phones: the Compare page as one step per screen, snapping from one to the next like TikTok. A step taller than the
@@ -1952,8 +1907,7 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
   .eng-cmpg .eng-cp__step { padding-right: 58px; }
   #eng-cpd:not(.is-story) .eng-cpd__body { padding-right: 62px; }
   /* what the rail replaces */
-  .eng-cpnav, .eng-cpd__mhead .eng-cpq { display: none; }
-  #eng-guide .eng-tch__fig, #eng-guide:not(.is-helping) { display: none; }
+  .eng-cpd__mhead .eng-cpq { display: none; }
   body.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__fig, body.eng-cpd-on .eng-tch:not(#eng-guide):not(.is-helping) { display: none; }
   .eng-tch.is-helping .eng-tch__say::after { display: none; }
   /* the sheet */
@@ -2006,8 +1960,6 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
   .eng-fi__bg::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(rgba(0, 0, 0, .55), rgba(0, 0, 0, 0) 16%, rgba(0, 0, 0, 0) 34%, rgba(0, 0, 0, .7) 58%, rgba(0, 0, 0, .94) 82%); }
   .eng-fi__lbl { position: absolute; left: 12px; top: 64px; max-width: calc(100% - 90px); padding: 5px 12px; border-radius: 999px; background: rgba(0, 0, 0, .55); color: var(--c); font: 800 14px/1.25 Nunito, sans-serif; }
   .eng-fi__bg.is-two .eng-fi__ph + .eng-fi__ph .eng-fi__lbl { top: 12px; }
-  .eng-fi__top { position: absolute; top: 0; right: 0; left: 0; z-index: 3; display: flex; align-items: center; gap: 10px; padding: calc(10px + env(safe-area-inset-top)) 14px 0 10px; color: #fff; font: 800 14.5px/1.2 Nunito, sans-serif; text-shadow: 0 1px 3px rgba(0, 0, 0, .7); }
-  .eng-fi__back { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 50%; background: rgba(0, 0, 0, .4); color: #fff; font: 700 30px/1 Nunito, sans-serif; text-decoration: none; }
   .eng-fi__cap { position: absolute; right: 74px; bottom: 0; left: 0; z-index: 2; display: grid; gap: 8px; padding: 0 14px calc(20px + env(safe-area-inset-bottom)) 16px; }
   .eng-fi__tag { margin: 0; color: var(--c); font: 800 13.5px/1.3 Nunito, sans-serif; letter-spacing: .05em; text-transform: uppercase; text-shadow: 0 1px 3px rgba(0, 0, 0, .8); }
   .eng-fi__cap h3 { margin: 0; color: #fff; font: 800 29px/1.1 Outfit, Nunito, sans-serif; letter-spacing: -.01em; text-shadow: 0 2px 10px rgba(0, 0, 0, .6); }
@@ -2168,17 +2120,6 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
   .eng-fi__tile .eng-fi__noimg { box-sizing: border-box; overflow: hidden; padding: 4px 6px; font-size: 10.5px; line-height: 1.25; }
 }
 
-/* Laptops: on a rule tip the bubble has a red border, and its pointer now carries that border too, instead of a plain
-   white triangle poking out through it (the user: "what the fuck is this"). */
-@media (min-width: 701px) {
-  #eng-guide.is-rule.is-helping .eng-tch__say::after { box-sizing: content-box; width: 14px; height: 14px; border: 0 solid #FF4D4D; border-radius: 0; }
-}
-@media (min-width: 1360px) {
-  #eng-guide.is-rule.is-helping .eng-tch__say::after { right: -11px; border-top-width: 4px; border-right-width: 4px; border-top-right-radius: 3px; }
-}
-@media (min-width: 701px) and (max-width: 1359px) {
-  #eng-guide.is-rule.is-helping .eng-tch__say::after { bottom: -11px; border-right-width: 4px; border-bottom-width: 4px; border-bottom-right-radius: 3px; }
-}
 
 /* Laptops: the part (a) and part (b) writing lists as cards (the user: "this is something i wouldnt want to look at").
    Each paragraph is a card with its scene pictures on top, the link or meaning as its title, the scenes as plain
@@ -2208,7 +2149,6 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
   .eng-cmpg .eng-cpw__t { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; max-width: none; margin: 0; padding: 0 18px 16px; color: #DCE6EB; font: 600 15.5px/1.55 Nunito, sans-serif; }
   .eng-cmpg .eng-cpw__e { margin: 0; padding: 0 18px 16px; font-size: 16px; }
   .eng-cmpg .eng-cpw__s.is-wide .eng-cpw__e { margin-top: -6px; }
-  .eng-cpnav { box-shadow: 0 10px 18px -12px rgba(0, 0, 0, .7); }
 }
 @media (min-width: 701px) and (max-width: 1000px) { .eng-cmpg .eng-cpw { grid-template-columns: minmax(0, 1fr); } }
 @media (min-width: 701px) {
@@ -2216,3 +2156,134 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
   .eng-cpw__pic:only-child i { display: none; }
 }
 @media (min-width: 1360px) { .eng-cmpg .eng-cpw { max-width: min(1180px, calc(100vw - 360px)); } }
+
+/* ===== Compare it: the top of the page as one strip of exam paper (body.eng-papertop, set by eng.js `cpTop`). The user:
+   "too many navigation layers stacked on top of each other", "ONE accent colour, used for ONE meaning only", "no glows",
+   "the mascot looks slapped on rather than part of it". Cream paper, black ink, red pen, highlighter.
+   - Ink is the examiner's own outline colour, so he reads as drawn with the pen the page is written in.
+   - Red pen is the examiner talking, and nothing else. The steps are ink tick boxes: ticked, filled (you're here), empty.
+   - Highlighter is only on the exam question's key words.
+   - Surfaces part by a tone step or a 1px rule; a shadow only on the two dropdowns, which float.
+   Type: headings in --font-head, everything else in --font-body; 20px reading size (19px on phones), 17px for labels,
+   nothing under 16px. Spacing on a 4px grid: 4, 8, 12, 16, 24, 32. Touch targets 44px. ===== */
+:root {
+  --exam-paper: #F7F2E4; --exam-paper-2: #ECE5D1; --exam-rule: #D6CDB5;
+  --exam-ink: #13233A; --exam-ink-2: #515D6E; --exam-pen: #BF1A2C; --exam-hi: #FFE45C;
+  --font-head: Fredoka, Nunito, system-ui, sans-serif;
+  --font-body: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --cpx-h: 72px;
+}
+/* The paper runs to the window's edges (the page has an 8px margin): it is painted past the bar's box as a border image,
+   which adds no scrolling, with the rule along its bottom as the image's last pixel. */
+body.eng-papertop .sh-top { display: block; height: auto; padding: 0; border: 0; border-image: linear-gradient(var(--exam-paper) calc(100% - 1px), var(--exam-rule) 0) fill 0 / 0 / 8px 100vmax 0; background: var(--exam-paper); color: var(--exam-ink); font-family: var(--font-body); }
+body.eng-papertop.sh-open .sh-side { top: var(--cpx-h); }
+.cpx { position: relative; display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto auto; grid-template-areas: "menu subj guide ask steps"; align-items: center; gap: 0 16px; max-width: 1400px; min-height: 72px; margin: 0 auto; padding: 0 var(--gutter); }
+.cpx :focus-visible, body.eng-papertop .sh-menu:focus-visible { outline: 3px solid var(--exam-ink); outline-offset: 2px; }
+.cpx button, .cpx summary, .cpx a { -webkit-tap-highlight-color: transparent; }
+/* the menu */
+body.eng-papertop .sh-menu { grid-area: menu; margin-left: -12px; border-radius: 4px; color: var(--exam-ink); }
+body.eng-papertop .sh-menu:hover { background: var(--exam-paper-2); }
+/* the two dropdowns: the subject (quiet) and the exam question */
+.cpx-drop { position: relative; }
+.cpx-subj { grid-area: subj; margin-left: -12px; }
+.cpx-ask { grid-area: ask; }
+.cpx-drop > summary { display: flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 4px; color: var(--exam-ink-2); font: 500 17px/1 var(--font-body); list-style: none; white-space: nowrap; cursor: pointer; }
+.cpx-drop > summary::-webkit-details-marker { display: none; }
+.cpx-drop > summary::after { content: ""; width: 6px; height: 6px; margin: -3px 0 0 2px; border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.cpx-drop[open] > summary::after { margin-top: 3px; transform: rotate(-135deg); }
+.cpx-drop > summary:hover, .cpx-drop[open] > summary { background: var(--exam-paper-2); color: var(--exam-ink); }
+.cpx-ask > summary b { color: var(--exam-ink); font-weight: 700; }
+.cpx-sheet { position: absolute; top: calc(100% + 6px); left: 0; z-index: 2; box-sizing: border-box; min-width: 200px; padding: 6px; border: 1px solid var(--exam-rule); border-radius: 6px; background: var(--exam-paper); box-shadow: 0 12px 28px rgba(19, 35, 58, .24); }
+.cpx-ask .cpx-sheet { right: 0; left: auto; width: min(600px, calc(100vw - 32px)); padding: 16px 20px 18px; }
+.cpx-subj .cpx-sheet a { display: flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 4px; color: var(--exam-ink); font: 500 18px/1 var(--font-body); text-decoration: none; }
+.cpx-subj .cpx-sheet a:hover { background: var(--exam-paper-2); }
+.cpx-subj .cpx-sheet a[aria-current="page"] { font-weight: 700; }
+.cpx-subj .cpx-sheet a[aria-current="page"]::after { content: ""; width: 6px; height: 11px; margin: -3px 4px 0 auto; border: solid var(--exam-ink); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+/* the question, as the paper prints it: its part and marks, then the wording, key words in highlighter */
+.cpx-sheet .eng-cpq { margin: 0; padding: 0; border: 0; border-radius: 0; background: none; color: var(--exam-ink); font: 400 20px/1.5 var(--font-body); animation: none; cursor: default; }
+.cpx-sheet .eng-cpq > span { display: block; }
+.cpx-sheet .eng-cpq b { display: block; margin: 0 0 6px; color: var(--exam-ink); font: 700 17px/1.3 var(--font-body); white-space: normal; }
+.cpx-sheet .eng-cpq mark { padding: 1px 3px; border-radius: 2px; background: var(--exam-hi); color: var(--exam-ink); font-weight: 600; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* the steps: five tick boxes and where you are */
+.cpx-steps { grid-area: steps; display: flex; align-items: center; gap: 10px; min-width: 0; }
+.cpx-steps ol { display: flex; flex: none; margin: 0; padding: 0; list-style: none; }
+.cpx-step { display: grid; place-items: center; width: 28px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
+.cpx-step i { box-sizing: border-box; display: grid; place-items: center; width: 18px; height: 18px; border: 2px solid var(--exam-ink); border-radius: 3px; }
+.cpx-step:not([disabled]):hover i { background: var(--exam-paper-2); }
+.cpx-step.is-done i::after { content: ""; width: 4px; height: 9px; margin-top: -3px; border: solid var(--exam-ink); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+.cpx-step.is-on i, .cpx-step.is-on:hover i { background: var(--exam-ink); }
+.cpx-step[disabled] { cursor: default; }
+.cpx-step[disabled] i { border-color: color-mix(in srgb, var(--exam-ink) 32%, var(--exam-paper)); }
+.cpx-steps__l { min-width: 0; margin: 0; overflow: hidden; color: var(--exam-ink-2); font: 500 17px/1.2 var(--font-body); text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.cpx-steps__l b { color: var(--exam-ink); font-weight: 700; }
+/* the examiner: his head sits on the strip's bottom edge, printed in the page's ink (multiply: his whites take the
+   paper's colour); his tip is a note in red pen, its tail at his mouth */
+.cpx-slot { grid-area: guide; align-self: stretch; display: flex; min-width: 0; }
+.cpx-ex { display: flex; flex: 1; align-items: center; gap: 14px; min-width: 0; }
+.cpx-ex__fig { flex: none; align-self: flex-end; width: 58px; height: 62px; padding: 0; overflow: hidden; border: 0; border-radius: 4px 4px 0 0; background: none; cursor: pointer; }
+.cpx-ex__fig svg.tch { width: 58px; height: 66px; mix-blend-mode: multiply; transition: transform .2s ease; }
+.cpx-ex__fig:hover svg.tch { transform: translateY(-3px); }
+.cpx-ex__say { position: relative; box-sizing: border-box; display: flex; flex: 0 1 auto; align-items: center; gap: 4px 12px; min-width: 0; max-width: 700px; min-height: 52px; padding: 4px 4px 4px 16px; border: 2px solid var(--exam-pen); border-radius: 16px 14px 15px 13px; color: var(--exam-pen); }
+.cpx-ex__say::before { content: ""; position: absolute; top: 64%; left: -8px; width: 12px; height: 12px; margin-top: -7px; border: solid var(--exam-pen); border-width: 0 0 2px 2px; border-radius: 0 0 0 3px; background: var(--exam-paper); transform: rotate(45deg); }
+.cpx-ex__line { display: grid; flex: 1 1 auto; min-width: 0; margin: 0; font: 600 20px/1.3 var(--font-body); }
+.cpx-ex__line > span { grid-area: 1 / 1; }
+.cpx-ex__ghost { visibility: hidden; }
+.cpx-ex__rule { flex: none; padding: 3px 8px; border-radius: 4px; background: var(--exam-pen); color: var(--exam-paper); font: 700 16px/1.2 var(--font-body); }
+.cpx-ex__nav { display: flex; flex: none; align-items: center; margin: 0 0 0 auto; color: var(--exam-ink-2); font: 500 16px/1 var(--font-body); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.cpx-ex__nav button { display: grid; place-items: center; width: 40px; height: 40px; padding: 0 0 3px; border: 0; border-radius: 4px; background: none; color: var(--exam-ink); font: 500 24px/1 var(--font-body); cursor: pointer; }
+.cpx-ex__nav button:hover:not([disabled]) { background: var(--exam-paper-2); }
+.cpx-ex__nav button[disabled] { color: color-mix(in srgb, var(--exam-ink) 32%, var(--exam-paper)); cursor: default; }
+.cpx-ex__tips { height: 44px; padding: 0 12px; border: 0; border-radius: 4px; background: none; color: var(--exam-pen); font: 600 18px/1 var(--font-body); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.cpx-ex__tips:hover { background: var(--exam-paper-2); }
+@media (pointer: coarse) { .cpx-ex__nav button { width: 44px; height: 44px; } }
+@media (prefers-reduced-motion: reduce) { .cpx-ex__fig svg.tch { transition: none; } }
+/* the head of the paper: the page's title and its theme, on the same sheet as the strip; it scrolls away, the strip stays */
+.cpx-head { margin: -28px 0 36px; padding: 22px 0 26px; border-image: linear-gradient(var(--exam-paper), var(--exam-paper)) fill 0 / 0 / 0 100vmax; color: var(--exam-ink); }
+.cpx-head .cv-title { margin: 0 0 6px; }
+.eng-cmpg .cpx-head .cv-h1 { color: var(--exam-ink); font: 600 34px/38px var(--font-head); letter-spacing: -.01em; }
+.cpx-head__theme { margin: 0; color: var(--exam-ink-2); font: 400 20px/29px var(--font-body); }
+.cpx-head__theme span::after { content: ":"; }
+.cpx-head__theme b { color: var(--exam-ink); font-weight: 700; }
+.cpx-head__note { margin: 4px 0 0; color: var(--exam-ink-2); font: 400 17px/25px var(--font-body); }
+.cpx-head__note i { color: var(--exam-ink); }
+
+/* A laptop: the step's name on its own (the tick boxes already say which of the five) and the question's part without
+   its marks, so the examiner's note keeps to two lines in the one row. */
+@media (min-width: 1280px) and (max-width: 1439px) { .cpx-steps__l span, .cpx-ask > summary b span { display: none; } }
+/* Narrower than a laptop: the examiner gets a row of his own under the bar. */
+@media (max-width: 1279px) {
+  .cpx { grid-template-areas: "menu subj . ask steps" "guide guide guide guide guide"; grid-template-rows: 56px auto; min-height: 0; }
+  .cpx-slot { padding-top: 6px; border-top: 1px solid var(--exam-rule); }
+  .cpx-ask { position: static; }
+  .cpx-ask .cpx-sheet { top: 52px; right: var(--gutter); left: var(--gutter); width: auto; }
+  .cpx-ex__say { flex: 1; max-width: none; margin-bottom: 8px; }
+  .eng-cmpg .cpx-head .cv-h1 { font-size: 30px; line-height: 34px; }
+}
+@media (max-width: 860px) { .cpx-steps__l span { display: none; } }
+
+/* Phones: the feed. The strip is fixed over the top of every item, where each item's own header used to be: back, the
+   tick boxes, the examiner's head. His tip opens as a second row of the same paper and folds away on the first swipe. */
+@media (max-width: 700px) {
+  body.eng-papertop .sh-top { position: fixed; top: 0; right: 0; left: 0; z-index: 60; padding-top: env(safe-area-inset-top); border-bottom: 1px solid var(--exam-rule); border-image: none; }
+  .cpx.is-feed { grid-template-columns: 48px minmax(0, 1fr) 48px; grid-template-areas: "back steps fig"; grid-template-rows: 52px; gap: 0 4px; padding: 0 8px 0 4px; }
+  .cpx.is-feed.is-open { grid-template-areas: "back steps steps" "fig say say"; grid-template-rows: 52px auto; }
+  .cpx-back { grid-area: back; display: grid; place-items: center; width: 44px; height: 44px; margin: 0 auto; border-radius: 4px; color: var(--exam-ink); font: 500 32px/1 var(--font-body); text-decoration: none; }
+  .cpx-back span { margin-top: -4px; }
+  .cpx.is-feed .cpx-slot, .cpx.is-feed .cpx-ex { display: contents; }
+  .cpx.is-feed .cpx-slot { border: 0; }
+  .cpx.is-feed .cpx-steps { gap: 6px; }
+  .cpx.is-feed .cpx-step { width: 24px; }
+  .cpx.is-feed .cpx-step i { width: 16px; height: 16px; }
+  .cpx.is-feed .cpx-steps__l span { display: inline; }
+  .cpx.is-feed .cpx-ex__fig { grid-area: fig; align-self: end; justify-self: center; width: 44px; height: 48px; margin: 0; }
+  .cpx.is-feed .cpx-ex__fig svg.tch { width: 44px; height: 50px; }
+  .cpx.is-feed .cpx-ex__tips { display: none; }
+  .cpx.is-feed.is-open .cpx-ex__fig { justify-self: start; width: 62px; height: 66px; margin-left: 6px; }
+  .cpx.is-feed.is-open .cpx-ex__fig svg.tch { width: 62px; height: 70.4px; }
+  .cpx.is-feed .cpx-ex__say { grid-area: say; flex-wrap: wrap; margin: 0 4px 12px 32px; padding: 8px 4px 0 14px; }
+  .cpx.is-feed .cpx-ex__say::before { top: auto; bottom: 20px; margin: 0; }
+  .cpx.is-feed .cpx-ex__line { flex: 1 1 100%; padding-right: 10px; font-size: 19px; }
+  .cpx.is-feed .cpx-ex__rule { margin: 0 0 2px; }
+  .cpx.is-feed .cpx-ex__nav button { width: 44px; height: 44px; }
+}
+@media (max-width: 400px) { .cpx.is-feed .cpx-steps__l span { display: none; } }

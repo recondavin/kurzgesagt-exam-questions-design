@@ -49,9 +49,11 @@
   function link(href, label, active, extra) {
     return '<a class="sh-link" href="' + href + '"' + (active ? ' aria-current="page"' : '') + '>' + (extra || '') + '<span class="sh-t">' + esc(label) + '</span></a>';
   }
+  var SUBJECTS = '<a href="Geography%20Questions.dc.html">Geography</a><a href="biology.html">Biology</a><a href="english.html" aria-current="page">English</a><a href="irish.html">Irish</a><a href="german.html">German</a>';
   function renderShell(active, crumb) {
     var mine = chosen();
     closeDef();
+    document.body.classList.remove('eng-papertop');
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
       '<nav class="sh-nav" aria-label="English">' + link('#', 'All of English', active === 'hub') + link('#single', 'Single text', active === 'single') +
       '<p class="sh-group">Comparative</p>' + link('#comparative', 'Comparative', active === 'home') + link('#compare', 'Compare it', active === 'compare') +
@@ -62,7 +64,7 @@
       '<p class="sh-group">Your texts</p>' + mine.map(function (id) { return link('#text/' + id, text(id).title, active === 'text/' + id, '<span class="sh-n" aria-hidden="true"><span class="eng-tag" style="--c:' + COL[id] + '">&nbsp;</span></span>'); }).join('') + '</nav>';
     bar.innerHTML = '<button type="button" class="sh-menu" data-sh-menu aria-expanded="false" aria-controls="eng-side"><span class="sh-burger" aria-hidden="true"></span><span class="sr">Menu</span></button>' +
       '<p class="sh-crumb">' + (crumb ? '<a href="#">English</a><span class="sh-sep" aria-hidden="true">/</span><span class="sh-here">' + esc(crumb) + '</span>' : '<span class="sh-here">English</span>') + '</p>' +
-      '<nav class="sh-switch" aria-label="Subject"><a href="Geography%20Questions.dc.html">Geography</a><a href="biology.html">Biology</a><a href="english.html" aria-current="page">English</a><a href="irish.html">Irish</a><a href="german.html">German</a></nav>';
+      '<nav class="sh-switch" aria-label="Subject">' + SUBJECTS + '</nav>';
   }
   function menu(open) {
     document.body.classList.toggle('sh-open', open);
@@ -896,29 +898,61 @@
     if (Wb && cpbSlots(Wb).some(function (x) { return cpbText(Wb, x); })) st = Math.max(st, 5);
     return st;
   }
-  function cpNav(st) {
-    return '<nav class="eng-cpnav" aria-label="Steps"><ol>' + CP_STEPS.map(function (x, i) {
-      var n = i + 1, open = n <= st, now = n === st;
-      return '<li class="' + (now ? 'is-on' : open ? 'is-open' : '') + '"><button type="button" data-cp-go="' + n + '"' + (open ? '' : ' disabled') + (now ? ' aria-current="step"' : '') + '><span>' + n + '</span>' + x + '</button></li>';
-    }).join('') + '</ol>' + cpQ(st >= 3 ? 'b' : 'a') + '</nav>';
+  // The top of Compare it is one strip of exam paper, on this page only (body.eng-papertop). The user: "too many navigation
+  // layers stacked on top of each other ... replace the stacked bars with a single slim progress indicator", "ONE accent
+  // colour, used for ONE meaning only", "the mascot delivers them in a speech bubble placed beside the instructions, not
+  // floating over content", then "the mascot looks slapped on rather than part of it". So the top bar, the breadcrumb,
+  // the subject tabs, the five step pills and the pinned question banner are one row: the menu, the subject (a quiet
+  // dropdown), the examiner with his tip in red pen (`guideDraw` puts him in the slot), the exam question one tap away,
+  // and five tick boxes for the steps. Black ink is the examiner's own outline colour; red is only ever him talking; the
+  // highlighter is only on the exam question's key words. Phones (the feed) get the same strip in place of each item's
+  // own header: back, the tick boxes, the examiner.
+  function cpSteps(st, at) {
+    return '<nav class="cpx-steps" aria-label="Steps" data-at="' + at + '"><ol>' + CP_STEPS.map(function (x, i) {
+      var n = i + 1, open = n <= st, now = n === at, done = n < at;
+      return '<li><button type="button" class="cpx-step' + (now ? ' is-on' : done ? ' is-done' : '') + '" data-cp-go="' + n + '" title="' + esc(x) + '"' + (open ? '' : ' disabled') + (now ? ' aria-current="step"' : '') +
+        ' aria-label="Step ' + n + ': ' + esc(x) + (now ? '' : done ? ', done' : open ? '' : ', locked') + '"><i aria-hidden="true"></i></button></li>';
+    }).join('') + '</ol><p class="cpx-steps__l"><span>Step ' + at + ' of ' + CP_STEPS.length + ' · </span><b>' + esc(CP_STEPS[at - 1]) + '</b></p></nav>';
+  }
+  function cpStepsSync(at) {
+    var nav = bar.querySelector('.cpx-steps');
+    if (nav && +nav.getAttribute('data-at') !== at) nav.outerHTML = cpSteps(CP_ST, at);
+  }
+  function cpTop(st, at, feed) {
+    var part = st >= 3 ? 'b' : 'a';
+    document.body.classList.add('eng-papertop');
+    bar.innerHTML = '<div class="cpx' + (feed ? ' is-feed' : '') + (GUIDE.open ? ' is-open' : '') + '">' +
+      (feed ? '<h1 class="sr">Compare it</h1><a class="cpx-back" href="#" aria-label="Back to English"><span aria-hidden="true">‹</span></a>'
+        : '<button type="button" class="sh-menu cpx-menu" data-sh-menu aria-expanded="false" aria-controls="eng-side"><span class="sh-burger" aria-hidden="true"></span><span class="sr">Menu</span></button>' +
+          '<details class="cpx-drop cpx-subj"><summary>English</summary><nav class="cpx-sheet" aria-label="Subject">' + SUBJECTS + '</nav></details>') +
+      '<div class="cpx-slot" data-cpx-guide></div>' +
+      (feed ? '' : '<details class="cpx-drop cpx-ask"><summary><span>Question </span><b data-cpx-part>' + cpQTag(part) + '</b></summary><div class="cpx-sheet">' + cpQ(part) + '</div></details>') +
+      cpSteps(st, at) + '</div>';
+    guideMount();
   }
   // The exam question is always on screen (the user: "the exam question should be with you all the time"): under the step
   // bar, which stays at the top as you scroll, and at the top of the writing popup. It shows the part you're working on,
   // (a) for steps 1 and 2 and (b) from step 3, with its key words marked. On a phone it is cut to two lines; tap for all.
+  function cpQLabel(part) { return part === 'a' ? '(a) 30 marks' : '(b) 40 marks'; }
+  // The same in the strip, where a small laptop has room for "(a)" only.
+  function cpQTag(part) { return cpQLabel(part).replace(/^(\(\w\))(.*)$/, '$1<span>$2</span>'); }
   function cpQIn(part) {
-    return '<span><b>' + (part === 'a' ? '(a) 30 marks' : '(b) 40 marks') + '</b> ' + (part === 'a'
+    return '<span><b>' + cpQLabel(part) + '</b> ' + (part === 'a'
       ? 'Choose a theme from one text you have studied as part of your comparative course and say <mark>how it helped maintain your interest</mark> in the text.'
       : '<mark>Compare</mark> how the theme you have dealt with in part (a) is treated by the authors of two other texts from your comparative course <mark>to maintain the reader’s interest</mark>.') + '</span>';
   }
   function cpQ(part) { return '<p class="eng-cpq" data-cpq="' + part + '">' + cpQIn(part) + '</p>'; }
   // The step bar's question follows the step on screen as you scroll.
   function cpQSync() {
-    var q = app.querySelector('.eng-cpnav [data-cpq]');
+    var q = bar.querySelector('[data-cpq]');
     if (!q) return;
-    var line = app.querySelector('.eng-cpnav').getBoundingClientRect().bottom + 60, k = 0;
+    var line = bar.getBoundingClientRect().bottom + 60, k = 0;
     Array.prototype.forEach.call(app.querySelectorAll('.eng-cp__step'), function (el, i) { if (el.getBoundingClientRect().top < line) k = i; });
     var part = k >= 2 ? 'b' : 'a';
-    if (q.getAttribute('data-cpq') !== part) { q.setAttribute('data-cpq', part); q.innerHTML = cpQIn(part); }
+    if (q.getAttribute('data-cpq') !== part) {
+      q.setAttribute('data-cpq', part); q.innerHTML = cpQIn(part);
+      var ql = bar.querySelector('[data-cpx-part]'); if (ql) ql.innerHTML = cpQTag(part);
+    }
   }
   var cpQT = 0;
   window.addEventListener('scroll', function () { if (!cpQT) cpQT = requestAnimationFrame(function () { cpQT = 0; cpQSync(); }); }, { passive: true });
@@ -928,8 +962,7 @@
     if (fdj) { var itj = fdj.querySelector('[data-fstep="' + n + '"]'); if (itj) fdj.scrollTo({ top: itj.offsetTop, behavior: 'smooth' }); return; }
     var el = app.querySelectorAll('.eng-cp__step')[n - 1];
     if (!el) return;
-    var nav = app.querySelector('.eng-cpnav'), pinned = nav && getComputedStyle(nav).position === 'sticky';
-    var off = pinned ? (window.innerWidth <= 1100 ? 56 : 76) + nav.offsetHeight + 12 : 12;
+    var off = (getComputedStyle(bar).position === 'sticky' ? bar.offsetHeight : 0) + 12;
     GUIDE.hold = Date.now() + 1400;
     window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - off, behavior: 'smooth' });
   }
@@ -947,9 +980,8 @@
   // you PICKED").
   function fPic(mid, own) { var tid = tidOf(mid), q = scenePics(tid, mid)[0]; return q ? q.file : own ? '' : fHero(tid); }
   function fRail(extra) {
-    var head = window.ExamTeacher ? window.ExamTeacher.head('left') : '';
     var b = function (k, icon, label, cls, attr) { return '<button type="button" class="eng-rail__b' + (cls || '') + '" ' + attr + '><span class="eng-rail__i">' + icon + '</span><b>' + label + '</b></button>'; };
-    return '<div class="eng-fi__rail">' + b('tips', head, 'Tips', ' is-me', 'data-feed-tips') + (extra || '') + b('q', RICON.q, 'Question', '', 'data-feed-q') + b('next', RICON.next, 'Next', '', 'data-feed-next') + '</div>';
+    return '<div class="eng-fi__rail">' + (extra || '') + b('q', RICON.q, 'Question', '', 'data-feed-q') + b('next', RICON.next, 'Next', '', 'data-feed-next') + '</div>';
   }
   function fRailBtn(icon, label, cls, attr) { return '<button type="button" class="eng-rail__b' + (cls || '') + '" ' + attr + '><span class="eng-rail__i">' + icon + '</span><b>' + label + '</b></button>'; }
   // One item: o = { step, bg: [file, file?], c, tag, title, text, html, act, rail, cls, labels: [[name, colour], ...] }
@@ -960,7 +992,6 @@
         var l = o.labels && o.labels[i];
         return '<div class="eng-fi__ph"><img src="assets/eng/img/' + esc(f) + '" alt="" loading="' + (o.eager ? 'eager' : 'lazy') + '">' + (l ? '<span class="eng-fi__lbl" style="--c:' + l[1] + '">' + esc(l[0]) + '</span>' : '') + '</div>';
       }).join('') + '</div>' +
-      '<header class="eng-fi__top"><a class="eng-fi__back" href="#" aria-label="Back to English">‹</a><span>Step ' + o.step + ' of ' + CP_STEPS.length + ' · ' + esc(CP_STEPS[o.step - 1]) + '</span></header>' +
       '<div class="eng-fi__cap">' + (o.tag ? '<p class="eng-fi__tag">' + o.tag + '</p>' : '') + (o.title ? '<h3>' + o.title + '</h3>' : '') +
         (o.text ? '<p class="eng-fi__txt">' + o.text + '</p>' : '') + (o.html || '') + (o.act ? '<div class="eng-fi__act">' + o.act + '</div>' : '') + '</div>' +
       fRail(o.rail) + '</section>';
@@ -979,7 +1010,6 @@
       '<div class="eng-fi__ana" aria-hidden="true"><svg class="eng-fi__svg"></svg>' + spots.map(function (q) {
         return '<div class="eng-fi__spot" data-x="' + q.x + '" data-y="' + q.y + '"><b>' + esc(q.label) + '</b><span>' + esc(q.note) + '</span></div>';
       }).join('') + '</div>' +
-      '<header class="eng-fi__top"><a class="eng-fi__back" href="#" aria-label="Back to English">‹</a><span>Step 2 of ' + CP_STEPS.length + ' · ' + esc(CP_STEPS[1]) + '</span></header>' +
       '<div class="eng-fi__bars" aria-hidden="true">' + beats.concat(['']).map(function () { return '<i><b></b></i>'; }).join('') + '</div>' +
       '<div class="eng-fi__cap"><p class="eng-fi__tag">Part (a) · ' + slotName(s) + ' · ' + esc(m.title) + '</p>' +
         '<div class="eng-fi__beats">' + beats.map(function (x, i) { return '<p class="eng-fi__beat' + (i ? '' : ' is-on') + '">' + esc(x) + '</p>'; }).join('') + '</div>' +
@@ -1161,6 +1191,7 @@
     if (FEED_GO) { var go = fd.querySelector('[data-fstep="' + FEED_GO + '"]'); FEED_GO = 0; if (go) requestAnimationFrame(function () { fd.scrollTo({ top: go.offsetTop, behavior: 'smooth' }); }); }
     fd.addEventListener('scroll', function () {
       FEED_Y = fd.scrollTop;
+      cpFeedStep();
       if (GUIDE.open && GUIDE.fy != null && Math.abs(fd.scrollTop - GUIDE.fy) > 80) { GUIDE.open = false; guideRender(); }
       if (!GUIDE.open) GUIDE.fy = null;
     }, { passive: true });
@@ -1170,9 +1201,11 @@
       Array.prototype.forEach.call(fd.querySelectorAll('.eng-fi.is-play'), function (x) { fio.observe(x); });
     } else Array.prototype.forEach.call(fd.querySelectorAll('.eng-fi.is-play'), function (x) { fSkip(x); });
     CP_ST = st;
+    cpFeedStep();
     guideDraw(st, th, a, B);
     railDraw();
   }
+  function cpFeedStep() { var fa = feedAt(); if (fa && fa.its.length) cpStepsSync(+fa.its[fa.k].getAttribute('data-fstep') || 1); }
   // The item on screen, and the next one.
   function feedAt() {
     var fd = app.querySelector('[data-feed]');
@@ -1199,11 +1232,13 @@
     var ids = cpTexts(th), by = cpBy(th), a = ids.indexOf(by.a) >= 0 ? by.a : null;
     var swapped = chosen().some(function (id) { return ids.indexOf(id) < 0; });
     var w = a ? cpWork(th, a) : null, B = a ? ids.filter(function (id) { return id !== a; }) : [], st = cpStage(th, a, w);
-    if (isPhone()) { renderFeed(th, ids, by, a, w, B, st, swapped); return; }
+    CP_ST = st;
+    if (isPhone()) { cpTop(st, 1, true); renderFeed(th, ids, by, a, w, B, st, swapped); return; }
     FEED_ON = false;
-    var h = title('Compare it') +
-      '<p class="eng-cp__theme"><span class="eng-tag" style="--c:var(--m-theme)">Theme or Issue</span> <b>' + esc(th.name) + '</b> · a 30 + 40 answer</p>' + cpNav(st) +
-      (swapped ? '<p class="eng-p eng-cp__warn">Using ' + ids.map(function (id) { return '<i>' + esc(text(id).title) + '</i>'; }).join(', ').replace(/, ([^,]*)$/, ' and $1') + ' for this one.</p>' : '') +
+    cpTop(st, st, false);
+    var h = '<header class="cpx-head">' + title('Compare it') +
+      '<p class="cpx-head__theme"><span>Theme or Issue</span> <b>' + esc(th.name) + '</b> · a 30 + 40 answer</p>' +
+      (swapped ? '<p class="cpx-head__note">Using ' + ids.map(function (id) { return '<i>' + esc(text(id).title) + '</i>'; }).join(', ').replace(/, ([^,]*)$/, ' and $1') + ' for this one.</p>' : '') + '</header>' +
       '<h2 class="eng-h2"><span class="eng-cp__n">1</span>Pick your part (a) text</h2>' +
       '<div class="eng-cp__texts">' + ids.map(function (id) {
         var p = pics(id).filter(function (x) { return x.hero; })[0] || pics(id)[0];
@@ -1211,7 +1246,7 @@
           (p ? '<img src="assets/eng/img/' + esc(p.file) + '" alt="" loading="lazy">' : '<span class="eng-cpt__img"></span>') +
           '<span class="eng-cpt__t">' + esc(text(id).title) + '</span>' + (id === th.best ? '<span class="eng-cpt__best">Best for (a)</span>' : '') + '</button>';
       }).join('') + '</div>';
-    if (!a) { CP_ST = 1; app.innerHTML = cpPage(h); cpSnap(); cpNavShow(); guideDraw(1, th, null, []); railDraw(); return; }
+    if (!a) { CP_ST = 1; app.innerHTML = cpPage(h); cpSnap(); guideDraw(1, th, null, []); cpNavShow(); railDraw(); return; }
     // 2: part (a): written in the popup if the text has a writing guide, else three points to pick
     var WR = th.write && th.write[a];
     if (WR) h += cpWriterHtml(th, a);
@@ -1234,16 +1269,11 @@
     app.innerHTML = cpPage(h);
     cpSnap();
     if (st >= 3) requestAnimationFrame(cpLines);
-    cpNavShow();
     guideDraw(st, th, a, B);
+    cpNavShow();
     railDraw();
   }
-  // On a narrow screen the step bar scrolls sideways: keep the step you're on in view.
-  function cpNavShow() {
-    var cur = app.querySelector('.eng-cpnav .is-on'), ol = cur && cur.parentNode;
-    if (cur && ol.scrollWidth > ol.clientWidth) ol.scrollLeft = Math.max(0, cur.offsetLeft - 12);
-    cpQSync();
-  }
+  function cpNavShow() { cpQSync(); }
   // 3: pick your scenes. One big line says what to do next; after the first tap, the scenes it links to glow and the rest
   // fade; tapping one of those makes the pair. Swap puts the other text first.
   function cpBoardHtml(th, w, F, L) {
@@ -1307,8 +1337,10 @@
   }
   // The examiner's tips for the step you're on: one short line at a time, "1 of 4" with arrows (the user: "every big piece
   // of information ... should come in smaller parts as you go along ... put some of it in that examiner in the side and
-  // on the top can be '1 of 5' and arrows back and forth ... so its like the examiner is talking to you"). The rules
-  // that cost marks are in red. Bottom right of the page; hidden while a writing popup is open.
+  // on the top can be '1 of 5' and arrows back and forth ... so its like the examiner is talking to you"). He sits in the
+  // paper strip at the top (`cpTop`), his head on its bottom edge, and the tip is his note in red pen beside him: part of
+  // the page, not over it. A rule that costs marks is tagged Rule and he looks angry. Tap his head to hide or show the
+  // tips. Hidden while a writing popup is open (the popup covers the strip).
   var GUIDE = { stage: 0, i: 0, open: true, key: '', tips: [] }, GUIDE_EL = null;
   function guideTips(st, th, a, B) {
     var F = B.length ? cpbOrder(B) : [], s = function (id) { return shortTitle(id); }, name = th.name.toLowerCase();
@@ -1323,40 +1355,52 @@
     return [{ t: 'Write about both texts together in every paragraph. Not one, then the other.', rule: true }, { t: 'Each paragraph: Point, ' + s(F[0]) + ', ' + s(F[1]) + ', Compare, Evaluate.' },
       { t: 'Compare with Similarly, Whereas or Even more so.' }, { t: 'Aim for about 650 words in part (b).' }];
   }
-  // Phones: the examiner's tip shows when you reach a step, then folds to his head as soon as you scroll the page (the
-  // user: "this is fucking in my face still when i said i want it to be SCROLLED"). Scrolls the page does itself (going to
-  // a step) don't count.
-  window.addEventListener('scroll', function () {
-    if (!GUIDE.open || !GUIDE_EL || !GUIDE_EL.parentNode || CPW) { GUIDE.y0 = window.scrollY; return; }
-    if (GUIDE.hold && Date.now() < GUIDE.hold) { GUIDE.y0 = window.scrollY; return; }
-    if (GUIDE.y0 == null) GUIDE.y0 = window.scrollY;
-    if (Math.abs(window.scrollY - GUIDE.y0) > 80) { GUIDE.open = false; guideRender(); }
-  }, { passive: true });
+  // Phones (the feed): the tip opens under the strip when you reach a step and folds to his head as soon as you swipe
+  // (the user: "this is fucking in my face still when i said i want it to be SCROLLED"); the feed's own scroll does that.
+  // On the page he is in the strip, over nothing, so the tip stays while you scroll.
   function guideDraw(st, th, a, B) {
     if (!GUIDE_EL) {
-      GUIDE_EL = document.createElement('div'); GUIDE_EL.id = 'eng-guide'; GUIDE_EL.className = 'eng-tch eng-guide'; GUIDE_EL.setAttribute('data-mood', 'ok');
-      GUIDE_EL.addEventListener('click', function (e) { var b = e.target.closest('[data-guide]'); if (b && !b.disabled) { guideClick(b.getAttribute('data-guide')); GUIDE.y0 = window.scrollY; } });
+      GUIDE_EL = document.createElement('div'); GUIDE_EL.id = 'cpx-guide'; GUIDE_EL.className = 'cpx-ex'; GUIDE_EL.setAttribute('data-mood', 'ok');
+      GUIDE_EL.addEventListener('click', function (e) { var b = e.target.closest('[data-guide]'); if (b && !b.disabled) guideClick(b.getAttribute('data-guide')); });
       window.addEventListener('hashchange', function () { if (GUIDE_EL.parentNode && !/^#compare/.test(location.hash)) GUIDE_EL.remove(); });
+      if (window.ResizeObserver) new ResizeObserver(cpTopSize).observe(bar);
     }
-    if (!GUIDE_EL.parentNode) { document.body.appendChild(GUIDE_EL); GUIDE.key = ''; }
-    if (GUIDE.stage !== st) { GUIDE.stage = st; GUIDE.i = 0; GUIDE.open = true; GUIDE.y0 = window.scrollY; }
+    if (!guideMount()) return;
+    if (GUIDE.stage !== st) { GUIDE.stage = st; GUIDE.i = 0; GUIDE.open = true; }
     GUIDE.tips = guideTips(st, th, a, B);
     guideRender();
   }
+  // Every render redraws the strip (`cpTop`), which puts him straight back in its slot as he is, so the strip keeps its
+  // height and he doesn't type his tip again; he types again only on arriving at the page.
+  function guideMount() {
+    var slot = bar.querySelector('[data-cpx-guide]');
+    if (!slot || !GUIDE_EL) return !!slot;
+    if (!GUIDE_EL.parentNode) GUIDE.key = '';
+    if (GUIDE_EL.parentNode !== slot) slot.appendChild(GUIDE_EL);
+    return true;
+  }
+  // The strip's height, for the menu drawer that opens under it.
+  function cpTopSize() { if (document.body.classList.contains('eng-papertop')) document.documentElement.style.setProperty('--cpx-h', bar.offsetHeight + 'px'); }
   function guideRender() {
     var g = GUIDE, el = GUIDE_EL, i = Math.min(g.i, g.tips.length - 1), tip = g.tips[i], key = g.stage + '/' + i + '/' + g.open + '/' + tip.t;
-    if (key === g.key) return;
+    var strip = bar.querySelector('.cpx');
+    if (strip) strip.classList.toggle('is-open', g.open);
+    if (key === g.key) { cpTopSize(); return; }
     g.key = key;
     clearInterval(el.typer); el.classList.remove('is-talking');
-    el.classList.toggle('is-helping', g.open); el.classList.toggle('is-rule', !!(g.open && tip.rule));
-    var fig = '<button type="button" class="eng-tch__fig" data-guide="toggle" aria-label="' + (g.open ? 'Hide the examiner\'s tips' : 'Show the examiner\'s tips') + '">' +
-      (window.ExamTeacher ? window.ExamTeacher.svg('left') + '<span class="eng-tch__head">' + window.ExamTeacher.head('left') + '</span>' : '') + '</button>';
-    var say = g.open ? '<div class="eng-tch__say is-pop is-done"><p class="eng-guide__top"><button type="button" data-guide="prev" aria-label="Previous tip"' + (i ? '' : ' disabled') + '>‹</button>' +
-        '<span>' + (i + 1) + ' of ' + g.tips.length + '</span><button type="button" data-guide="next" aria-label="Next tip"' + (i < g.tips.length - 1 ? '' : ' disabled') + '>›</button></p>' +
-        (tip.rule ? '<p class="eng-guide__rule">Rule</p>' : '') + '<p class="eng-tch__line" aria-live="polite"></p><button type="button" class="eng-tch__x" data-guide="toggle" aria-label="Hide the tips">×</button></div>'
-      : '<div class="eng-tch__say is-pop"><button type="button" class="eng-tch__ask" data-guide="toggle">Tips</button></div>';
-    el.innerHTML = say + fig;
-    var line = el.querySelector('.eng-tch__line');
+    el.classList.toggle('is-open', g.open); el.classList.toggle('is-rule', !!(g.open && tip.rule));
+    el.setAttribute('data-mood', g.open && tip.rule ? 'angry' : 'ok');
+    var fig = '<button type="button" class="cpx-ex__fig" data-guide="toggle" aria-expanded="' + g.open + '" aria-label="' + (g.open ? 'Hide the examiner\'s tips' : 'Show the examiner\'s tips') + '">' +
+      (window.ExamTeacher ? window.ExamTeacher.head('right') : '') + '</button>';
+    // The whole tip is there from the start, unseen, so the strip is its final height before the typing begins.
+    var say = g.open ? '<div class="cpx-ex__say">' + (tip.rule ? '<b class="cpx-ex__rule">Rule</b>' : '') +
+        '<p class="cpx-ex__line"><span class="cpx-ex__ghost" aria-hidden="true">' + esc(tip.t) + '</span><span class="cpx-ex__typed" aria-live="polite"></span></p>' +
+        '<p class="cpx-ex__nav"><button type="button" data-guide="prev" aria-label="Previous tip"' + (i ? '' : ' disabled') + '>‹</button>' +
+        '<span>' + (i + 1) + ' of ' + g.tips.length + '</span><button type="button" data-guide="next" aria-label="Next tip"' + (i < g.tips.length - 1 ? '' : ' disabled') + '>›</button></p></div>'
+      : '<button type="button" class="cpx-ex__tips" data-guide="toggle">Tips</button>';
+    el.innerHTML = fig + say;
+    cpTopSize();
+    var line = el.querySelector('.cpx-ex__typed');
     if (!line) return;
     var full = tip.t, n = 0;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { line.textContent = full; return; }
@@ -1367,7 +1411,7 @@
     var g = GUIDE;
     if (what === 'prev') g.i = Math.max(0, g.i - 1);
     else if (what === 'next') g.i = Math.min(g.tips.length - 1, g.i + 1);
-    else if (what === 'toggle') g.open = !g.open;
+    else if (what === 'toggle') { g.open = !g.open; var fa = feedAt(); g.fy = g.open && fa ? fa.fd.scrollTop : null; }
     guideRender();
     var b = GUIDE_EL.querySelector('[data-guide="' + what + '"]:not([disabled])') || GUIDE_EL.querySelector('[data-guide="toggle"]');
     if (b) b.focus({ preventScroll: true });
@@ -3416,8 +3460,14 @@
     at(2040, done);
   }
 
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Escape') return;
+    var d = bar.querySelector('details[open]');
+    if (d) { d.open = false; var sm = d.querySelector('summary'); if (sm) sm.focus(); }
+  });
   document.addEventListener('click', function (ev) {
     var t = ev.target;
+    Array.prototype.forEach.call(bar.querySelectorAll('details[open]'), function (d) { if (!d.contains(t)) d.open = false; });
     var dq = t.closest('[data-def]');
     if (dq) { ev.preventDefault(); if (DEF && DEF.btn === dq && DEF.hover) DEF.hover = false; else if (DEF && DEF.btn === dq) closeDef(); else openDef(dq); return; }
     if (DEF && (t.closest('[data-def-close]') || !t.closest('.q-pop'))) { closeDef(); if (t.closest('[data-def-close]')) return; }
@@ -3506,7 +3556,6 @@
     }
     var fp = t.closest('[data-feed-pair]');
     if (fp) { if (!fp.disabled) feedPair(fp.getAttribute('data-feed-pair')); return; }
-    if (t.closest('[data-feed-tips]')) { GUIDE.open = !GUIDE.open; var fa0 = feedAt(); GUIDE.fy = fa0 ? fa0.fd.scrollTop : null; guideRender(); return; }
     if (t.closest('[data-feed-q]')) { sheetOpen('q'); return; }
     if (t.closest('[data-feed-next]')) { var fa1 = feedAt(); if (fa1 && fa1.k < fa1.its.length - 1) fa1.fd.scrollTo({ top: fa1.its[fa1.k + 1].offsetTop, behavior: 'smooth' }); return; }
     var cq = t.closest('[data-cpq]');
@@ -3517,7 +3566,7 @@
     if (cgo && !cgo.disabled) { cpScrollTo(+cgo.getAttribute('data-cp-go')); return; }
     if (cpa || cpp || cpm || cpr || cpd || t.closest('[data-cp-cancel],[data-cp-hint],[data-cp-reset],[data-cp-copy],[data-cp-stage],[data-cp-swap]')) {
       var cth = cpTheme(), cby = cpBy(cth), focus = null, cstg = t.closest('[data-cp-stage]'), goTo = 0;
-      if (GUIDE.open && window.innerWidth <= 760 && !cstg) { GUIDE.open = false; GUIDE.key = ''; }
+      if (GUIDE.open && isPhone() && !cstg) { GUIDE.open = false; GUIDE.key = ''; }
       if (cstg) { goTo = +cstg.getAttribute('data-cp-stage'); cby.stage = Math.max(cby.stage || 1, goTo); }
       else if (t.closest('[data-cp-swap]')) { cpSwap(cth); focus = '[data-cp-swap]'; }
       else
