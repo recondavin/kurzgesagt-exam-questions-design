@@ -2639,41 +2639,87 @@ body.eng-papertop .eng-cmpg .eng-cpp .eng-cpp__m { margin-top: 12px; }
   body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide):not(.is-helping) .eng-tch__say { display: none; }
 }
 
-/* ===== Read it through: your answer on the exam desk (eng.js `readOpen`). The Geography desk's own desk and hands, one
-   lined page of an answer booklet, the answer as continuous writing in the page's ink and type. Composed three ways, not
-   scaled: phones (the paper nearly full width, the desk a strip above and below, the hands coming up from the bottom
-   edge), tablets (the same, larger), and laptops (the paper in the middle, a hand at each side, kept clear of the
-   writing). The paper scrolls inside itself; the desk and hands stay still. The paper's shadow is the one shadow here:
-   it lies on the desk. ===== */
+/* ===== The page: you write your answer on the exam paper, on the exam desk (eng.js `pageOpen`). The Geography desk's own
+   desk and hands; one lined page of an answer booklet with the question at the top; a paragraph typed straight onto the
+   lines for each part of the answer; and Help beside it (the scene's details and the words to use, for the paragraph
+   you're in). Composed three ways, not scaled: phones (the paper nearly full width, the desk a strip above and below,
+   the hands coming up from the bottom edge, Help a sheet from the bottom), tablets (the same, larger), and laptops (the
+   paper with Help as a column beside it; with Help off, the paper in the middle and a hand at each side). The paper
+   scrolls inside itself; the desk stays still. The paper's shadow is the one shadow at rest: it lies on the desk. ===== */
 body.eng-read-on { overflow: hidden; }
-.eng-read { position: fixed; inset: 0; z-index: 120; overflow: hidden; background: #C9864F url(../assets/cartoon-desk.svg) center / cover no-repeat; color: var(--exam-ink); font-family: var(--font-body); animation: readIn .25s ease-out; }
+.eng-read { position: fixed; inset: 0; z-index: 120; overflow: hidden; background: #C9864F url(../assets/cartoon-desk.svg) center / cover no-repeat; color: var(--exam-ink); font-family: var(--font-body); animation: readIn .25s ease-out; --lh: 30px; }
 @keyframes readIn { from { opacity: 0; } }
+.eng-read button { -webkit-tap-highlight-color: transparent; }
+.eng-read button:focus-visible { outline: 3px solid var(--exam-ink); outline-offset: 2px; }
 .eng-read__paper { position: absolute; top: calc(64px + env(safe-area-inset-top)); right: max(12px, calc(50% - 380px)); bottom: 96px; left: max(12px, calc(50% - 380px)); box-sizing: border-box; display: flex; flex-direction: column; overflow: auto; overscroll-behavior: contain; padding: 18px 18px 40px; background: #FFFDF6; box-shadow: 0 2px 0 rgba(60, 30, 10, .18), 0 18px 40px rgba(60, 30, 10, .28); scrollbar-width: thin; }
-.eng-read__paper:focus-visible { outline: 3px solid var(--exam-ink); outline-offset: -3px; }
 .eng-read__head { display: flex; flex: none; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 16px; padding-bottom: 8px; border-bottom: 2px solid var(--exam-ink); }
 .eng-read__head h2 { margin: 0; color: var(--exam-ink); font: var(--font-head-weight) 22px/1.2 var(--font-head); letter-spacing: -.02em; }
 .eng-read__head p { margin: 0; color: var(--exam-ink-2); font: 600 16px/1.3 var(--font-body); font-variant-numeric: tabular-nums; }
 .eng-read__q { flex: none; margin: 10px 0 0; color: var(--exam-ink-2); font: 400 16px/1.45 var(--font-body); }
 .eng-read__q b { margin-right: 4px; color: var(--exam-ink); font-weight: 700; }
 .eng-read__q mark { padding: 0 3px; border-radius: 2px; background: var(--exam-hi); color: var(--exam-ink); font-weight: 600; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-.eng-read__lines { flex: 1 0 auto; margin-top: 14px; color: var(--exam-ink); font: 400 17px/30px var(--font-body); background-image: linear-gradient(to bottom, transparent 29px, var(--exam-rule) 29px); background-size: 100% 30px; }
-.eng-read__lines p { margin: 0; overflow-wrap: break-word; text-indent: 1.4em; }
-.eng-read__lines p.is-gap { color: var(--exam-ink-2); font-style: italic; text-indent: 0; }
-.eng-read__x { position: absolute; top: calc(10px + env(safe-area-inset-top)); left: 12px; display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 16px 0 12px; border: 0; border-radius: 6px; background: #FFFDF6; box-shadow: 0 2px 0 rgba(60, 30, 10, .18); color: var(--exam-ink); font: 600 17px/1 var(--font-body); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+/* the lines you write on: a paragraph for each part, no boxes; the one you're in has an ink bar in the margin */
+.eng-read__lines { flex: 1 0 auto; margin-top: 14px; color: var(--exam-ink); font: 400 17px/var(--lh) var(--font-body); background-image: linear-gradient(to bottom, transparent calc(var(--lh) - 1px), var(--exam-rule) calc(var(--lh) - 1px)); background-size: 100% var(--lh); }
+.eng-read__para { position: relative; }
+.eng-read__para:focus-within::before { content: ""; position: absolute; top: 5px; bottom: 6px; left: -11px; width: 3px; border-radius: 2px; background: var(--exam-ink); }
+.eng-read__ta { display: block; box-sizing: border-box; width: 100%; height: var(--lh); margin: 0; padding: 0; overflow: hidden; border: 0; border-radius: 0; background: none; color: inherit; font: inherit; text-indent: 1.4em; resize: none; outline: none; }
+.eng-read__ta::placeholder { color: var(--exam-ink-2); font-style: italic; opacity: 1; }
+/* Back and Help, on the desk */
+.eng-read__x, .eng-read__helpb { position: absolute; top: calc(10px + env(safe-area-inset-top)); display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 16px; border: 0; border-radius: 6px; background: #FFFDF6; box-shadow: 0 2px 0 rgba(60, 30, 10, .18); color: var(--exam-ink); font: 600 17px/1 var(--font-body); cursor: pointer; }
+.eng-read__x { left: 12px; padding-left: 12px; }
+.eng-read__helpb { right: 12px; }
+.eng-read__helpb[aria-pressed="true"] { background: var(--exam-ink); color: #FFFDF6; }
 .eng-read__x i { font: 400 26px/1 var(--font-body); font-style: normal; }
 .eng-read__x i::before { content: "‹"; position: relative; top: -2px; }
-.eng-read__x:hover { background: var(--exam-paper); }
-.eng-read__x:focus-visible { outline: 3px solid var(--exam-ink); outline-offset: 2px; }
+.eng-read__x:hover, .eng-read__helpb[aria-pressed="false"]:hover { background: var(--exam-paper); }
+/* Help: the scene's details and the words, for the paragraph you're in. A sheet from the bottom here; a column on laptops. */
+.eng-read__help { position: absolute; right: 0; bottom: 0; left: 0; z-index: 3; display: none; box-sizing: border-box; max-height: 66%; overflow: auto; overscroll-behavior: contain; padding: 14px 18px calc(24px + env(safe-area-inset-bottom)); background: var(--exam-paper); box-shadow: 0 -12px 28px rgba(60, 30, 10, .32); color: var(--exam-ink); font: 400 17px/1.5 var(--font-body); scrollbar-width: thin; }
+.eng-read.is-help .eng-read__help { display: block; }
+.eng-read__hh { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 4px; }
+.eng-read__hh h2 { margin: 0; font: var(--font-head-weight) 21px/1.2 var(--font-head); letter-spacing: -.02em; }
+.eng-read__hx { flex: none; width: 44px; height: 44px; margin-right: -10px; border: 0; border-radius: 4px; background: none; color: var(--exam-ink); font: 400 26px/1 var(--font-body); cursor: pointer; }
+.eng-read__hx:hover { background: var(--exam-paper-2); }
+.eng-read__help section { padding: 16px 0 20px; border-top: 1px solid var(--exam-rule); }
+.eng-read__help section:first-of-type { border-top: 0; padding-top: 8px; }
+.eng-read__help h3 { margin: 0 0 8px; color: var(--exam-ink-2); font: 600 16px/1.3 var(--font-body); }
+.eng-read__help h4 { margin: 10px 0 0; font: 700 19px/1.25 var(--font-head); letter-spacing: -.01em; }
+.eng-read__help p { margin: 8px 0 0; }
+.eng-read__help b { font-weight: 700; }
+.eng-read__scene + .eng-read__scene { margin-top: 20px; }
+.eng-read__scene img { display: block; width: 100%; max-width: 360px; aspect-ratio: 16 / 9; border-radius: 2px; object-fit: cover; background: var(--exam-paper-2); }
+.eng-read__help .eng-read__where { margin-top: 2px; color: var(--exam-ink-2); font-size: 16px; }
+.eng-read__help .eng-read__link { margin: 0 0 14px; }
+.eng-read__list { display: grid; gap: 6px; margin: 6px 0 0; padding: 0 0 0 20px; }
+.eng-read__list span { display: block; color: var(--exam-ink-2); }
+.eng-read__words { display: grid; gap: 0; margin: 0 0 0 -10px; padding: 0; list-style: none; }
+.eng-read__w { display: grid; gap: 1px; width: 100%; min-height: 44px; padding: 6px 10px; border: 0; border-radius: 4px; background: none; color: var(--exam-ink); font: inherit; text-align: left; cursor: pointer; }
+.eng-read__w b { font-weight: 600; }
+.eng-read__w span { color: var(--exam-ink-2); font-size: 16px; line-height: 1.35; }
+.eng-read__w:hover, .eng-read__chip:hover { background: var(--exam-paper-2); }
+.eng-read__help .eng-read__chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+.eng-read__chip { min-height: 40px; padding: 0 12px; border: 0; border-radius: 4px; background: none; box-shadow: inset 0 0 0 1px var(--exam-done); color: var(--exam-ink); font: 400 17px/1 var(--font-body); cursor: pointer; }
+.eng-read__chip:hover { box-shadow: inset 0 0 0 1px var(--exam-ink); }
+.eng-read__btn { height: 44px; padding: 0 16px; border: 0; border-radius: 4px; background: none; box-shadow: inset 0 0 0 2px var(--exam-ink); color: var(--exam-ink); font: 700 17px/1 var(--font-body); cursor: pointer; }
+.eng-read__btn:hover { background: var(--exam-paper-2); }
+.eng-read__help .eng-read__alt { margin: 0; padding-top: 14px; border-top: 1px solid var(--exam-rule); }
+.eng-read__alt button { min-height: 44px; padding: 0; border: 0; background: none; color: var(--exam-ink-2); font: 400 16px/1.3 var(--font-body); text-align: left; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.eng-read__alt button:hover { color: var(--exam-ink); }
+/* the hands */
 .eng-read__hand { position: absolute; z-index: 1; opacity: 0; pointer-events: none; transition: opacity .4s ease; }
 .eng-read__hand.is-in { opacity: 1; }
 .eng-read__hand.is-left { top: calc(100% - 46px); left: -40px; width: 150px; transform: rotate(6deg); }
 .eng-read__hand.is-right { top: calc(100% - 96px); right: -34px; width: 190px; transform: rotate(-8deg); }
 @media (min-width: 701px) {
+  .eng-read { --lh: 34px; }
   .eng-read__paper { top: 72px; bottom: 132px; padding: 32px 44px 56px; }
   .eng-read__head h2 { font-size: 24px; }
   .eng-read__head p, .eng-read__q { font-size: 17px; }
-  .eng-read__lines { margin-top: 16px; font-size: 19px; line-height: 34px; background-image: linear-gradient(to bottom, transparent 33px, var(--exam-rule) 33px); background-size: 100% 34px; }
-  .eng-read__x { top: 14px; left: max(12px, calc(50% - 380px)); }
+  .eng-read__lines { margin-top: 16px; font-size: 19px; }
+  .eng-read__para:focus-within::before { left: -16px; }
+  .eng-read__x, .eng-read__helpb { top: 14px; }
+  .eng-read__x { left: max(12px, calc(50% - 380px)); }
+  .eng-read__helpb { right: max(12px, calc(50% - 380px)); }
+  .eng-read__help { right: max(12px, calc(50% - 380px)); left: max(12px, calc(50% - 380px)); padding: 18px 28px 28px; }
   .eng-read__hand.is-left { top: calc(100% - 70px); left: max(-30px, calc(50% - 470px)); width: 230px; }
   .eng-read__hand.is-right { top: calc(100% - 132px); right: max(-20px, calc(50% - 470px)); width: 270px; }
 }
@@ -2682,7 +2728,15 @@ body.eng-read-on { overflow: hidden; }
   .eng-read__x { top: 26px; right: 28px; left: auto; justify-content: center; width: 44px; padding: 0; }
   .eng-read__x i::before { content: "×"; }
   .eng-read__x b { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .eng-read__helpb { top: 26px; right: 84px; }
   .eng-read__hand.is-left { top: auto; right: calc(50% + 290px); bottom: -190px; left: auto; width: 400px; transform: none; }
   .eng-read__hand.is-right { top: auto; right: auto; bottom: -150px; left: calc(50% + 255px); width: 430px; transform: none; }
+  /* Help on: the paper moves over and Help is a column beside it, under the two buttons; the hands make way */
+  .eng-read { --px: max(24px, calc(50% - 600px)); --pw: min(760px, calc(100% - 388px)); }
+  .eng-read.is-help .eng-read__paper { right: auto; left: var(--px); width: var(--pw); }
+  .eng-read__help { top: 86px; right: var(--px); bottom: 26px; left: calc(var(--px) + var(--pw) + 24px); max-height: none; padding: 18px 24px 24px; box-shadow: 0 2px 0 rgba(60, 30, 10, .18), 0 12px 28px rgba(60, 30, 10, .22); }
+  .eng-read.is-help .eng-read__hand { display: none; }
+  .eng-read__hx { display: none; }
+  .eng-read__hh { min-height: 32px; }
 }
 @media (prefers-reduced-motion: reduce) { .eng-read { animation: none; } .eng-read__hand { transition: none; } }
