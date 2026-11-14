@@ -1353,7 +1353,7 @@
     if (st === 4) return [{ t: 'Your plan: one paragraph for each pair, in this order.' }, { t: 'Opening: name both texts and their authors, and answer the question.' },
       { t: 'Ending: say which text does it more powerfully, and why.' }, { t: 'Happy with it? Tap Next: write part (b).' }];
     return [{ t: 'Write about both texts together in every paragraph. Not one, then the other.', rule: true }, { t: 'Each paragraph: Point, ' + s(F[0]) + ', ' + s(F[1]) + ', Compare, Evaluate.' },
-      { t: 'Compare with Similarly, Whereas or Even more so.' }, { t: 'Aim for about 650 words in part (b).' }];
+      { t: 'Compare using words such as “Similarly”, “Whereas” or “Even more so”.' }, { t: 'Aim for about 650 words in part (b).' }];
   }
   // Phones (the feed): the tip opens under the strip when you reach a step and folds to his head as soon as you swipe
   // (the user: "this is fucking in my face still when i said i want it to be SCROLLED"); the feed's own scroll does that.
