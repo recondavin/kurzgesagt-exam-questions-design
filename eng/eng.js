@@ -2352,10 +2352,10 @@
   //   Evaluate), each with its name in its highlighter colour, a line saying what to write, lines to write on and its
   //   word range. The box to write next says so in red, and moves on as you fill them: that is what takes you through it.
   // - Hide structure: the same paper with the boxes gone, your answer as continuous writing, as the examiner gets it.
-  //   You can still type; Show structure brings the boxes back with everything in its box. To keep that true, the plain
+  //   Each box also has Show ideas. You can still type with the structure hidden; Show structure brings the boxes back with everything in its box. To keep that true, the plain
   //   page remembers where each box's text starts and ends as you edit (`pagePlain`); new writing joins the box your
   //   cursor is in.
-  // - Help (the "hypervision") is for the paragraph and box you're in: ideas for the box, How it reads (the check, the
+  // - Help (the "hypervision") is for the paragraph and box you're in: How it reads (the check, the
   //   same one the boxes had: `checkOut`), the scene (picture, where, what happens, what it represents, details, film
   //   techniques, a quote), the words (part (a): the scene's 10 words; part (b): linking words) and Instead of "shows".
   //   Tap a word and it goes in at your cursor. A column beside the page on a laptop, on while you write; a sheet from
@@ -2366,7 +2366,7 @@
   // - The desk and the two hands are the Geography desk's own artwork, used as they are; about 1.2MB, so the paper shows
   //   first and they fade in, and they aren't loaded when the phone asks to save data. On a laptop they make way for
   //   the help column.
-  var READ = null, READ_SEL = '', READ_PART = 'a', READ_SLOT = null, READ_BOX = null, READ_TA = null, READ_STRUCT = true, PAGE_STRUCT = true, READ_B = {}, READ_CK = 0;
+  var READ = null, READ_SEL = '', READ_PART = 'a', READ_SLOT = null, READ_BOX = null, READ_TA = null, READ_STRUCT = true, PAGE_STRUCT = true, READ_B = {}, READ_CK = 0, READ_IDEAS = {};
   var PAGE_COL = { p: 'var(--pace-p)', a: 'var(--pace-a)', e: 'var(--pace-e)', film: 'var(--pace-p)', idea: 'var(--pace-c)', points: 'var(--pace-a)', sum: 'var(--pace-c)', final: 'var(--pace-a)', last: 'var(--pace-e)',
     x: 'var(--pace-c)', y: '#E6D9FF', c: 'var(--pace-a)', texts: 'var(--pace-p)', judge: '#E6D9FF' };
   function pageCtx(part) {
@@ -2443,11 +2443,22 @@
       }
       return '<div class="eng-read__para"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + pts.map(function (pt) {
         return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh"><b>' + esc(pt.label) + '</b><span>' +
-          (pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span></p>' +
+          (pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span></p>' + pageIdeas(s, pt) +
           '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s) + ': ' + pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
           (c.range[pt.k] ? '<p class="eng-read__wc" data-page-wc="' + s + '|' + pt.k + '"></p>' : '') + '</div>';
       }).join('') + '</div>';
     }).join('');
+  }
+  // A box's ideas, as the popup's boxes had them (the user, of the paper in boxes: "what about the ideas"): Show ideas
+  // under what to write, opening two or three lines to read and then say your own way. Open ones stay open while the
+  // page is.
+  function pageIdeas(s, pt) {
+    var list = (pt.ideas || []).filter(Boolean).slice(0, 3), id = s + '|' + pt.k, on = !!READ_IDEAS[id];
+    if (!list.length) return '';
+    return '<div class="eng-read__ideas"><button type="button" class="eng-read__ideasb" data-page-ideas="' + id + '" aria-expanded="' + on + '">' + (on ? 'Hide ideas' : 'Show ideas') + '</button>' +
+      '<div class="eng-read__ilist"' + (on ? '' : ' hidden') + '>' + list.map(function (x) {
+        return '<p>' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + esc(typeof x === 'string' ? x : x.t) + '</p>';
+      }).join('') + '</div></div>';
   }
   // A box's word count, its tick, and which box to write next (the first with under four words: in the paragraph you're
   // in, else in the whole answer).
@@ -2492,7 +2503,7 @@
   }
   // The help for the paragraph, and the box, you're in.
   function pageHelp(part, s, box) {
-    var c = pageCtx(part), th = c.th, h = '', para = typeof s === 'number', words = '', ideas = '';
+    var c = pageCtx(part), th = c.th, h = '', para = typeof s === 'number', words = '';
     var chips = function (list) { return '<p class="eng-read__chips">' + list.map(function (x) { return '<button type="button" class="eng-read__chip" data-page-word="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') + '</p>'; };
     var scene = function (tid, mid, extra) {
       var m = mom(mid).m, pic = scenePics(tid, mid)[0];
@@ -2500,10 +2511,7 @@
         '<p>' + esc(m.what) + '</p>' + (extra || '') + (m.quote ? '<p><b>Quote:</b> “' + esc(m.quote) + '”</p>' : '') + '</div>';
     };
     var none = function (label) { return '<p>No scene picked for this paragraph yet.</p><p><button type="button" class="eng-read__btn" data-page-pick>' + label + '</button></p>'; };
-    var pt = box ? pageParts(part, s, c).filter(function (x) { return x.k === box; })[0] : null, il = pt ? (pt.ideas || []).filter(Boolean).slice(0, 3) : [];
-    if (il.length) ideas = '<section><h3>Ideas for ' + esc(/^your /i.test(pt.label) ? lowerFirst(pt.label) : 'your ' + (/^(Point|Anchor|Evaluate|Compare)$/.test(pt.label) ? pt.label : pt.label + ' box')) + '</h3>' + il.map(function (x) {
-      return '<p class="eng-read__idea">' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + esc(typeof x === 'string' ? x : x.t) + '</p>';
-    }).join('') + '<p class="eng-read__note">To read, then say it your own way.</p></section>';
+    var pt = box ? pageParts(part, s, c).filter(function (x) { return x.k === box; })[0] : null;
     if (part === 'b') {
       if (para) {
         var q = c.W.paras[s], L = q && q.x && q.y ? cpbLink(th, q.x, q.y) : null;
@@ -2534,7 +2542,7 @@
       }).join('') + '</ul></section>';
     }
     return '<header class="eng-read__hh"><h2>' + slotName(s) + (pt ? ' <span>' + esc(pt.label) + '</span>' : '') + '</h2><button type="button" class="eng-read__hx" data-page-help aria-label="Close help">×</button></header>' +
-      ideas + '<section class="eng-read__check" data-page-check hidden></section>' +
+      '<section class="eng-read__check" data-page-check hidden></section>' +
       '<section><h3>' + (para ? (part === 'b' ? 'The scenes' : 'The scene') : 'Your paragraphs') + '</h3>' + h + '</section>' + words +
       '<section><h3>Instead of “shows”</h3>' + chips(th.instead) + '</section>';
   }
@@ -2583,7 +2591,7 @@
     var c = pageCtx(part), writing = slot != null, lean = navigator.connection && navigator.connection.saveData;
     // A box skipped in the old popup with nothing in it is just an empty box here.
     c.slots.forEach(function (s) { var P = c.parts(c.W, s); if (P._skip) Object.keys(P._skip).forEach(function (k) { if (!String(P[k] || '').trim()) delete P._skip[k]; }); });
-    READ_PART = part; READ_SLOT = writing ? slot : c.slots[0]; READ_BOX = null; READ_TA = null; READ_STRUCT = writing ? PAGE_STRUCT : false;
+    READ_PART = part; READ_SLOT = writing ? slot : c.slots[0]; READ_BOX = null; READ_TA = null; READ_STRUCT = writing ? PAGE_STRUCT : false; READ_IDEAS = {};
     READ_SEL = sel || (writing ? '[data-cp' + (part === 'b' ? 'bw' : 'w') + '="' + slot + '"]' : '[data-cp-read="' + part + '"]');
     READ = document.createElement('div'); READ.id = 'eng-read'; READ.className = 'eng-read';
     READ.setAttribute('role', 'dialog'); READ.setAttribute('aria-modal', 'true'); READ.setAttribute('aria-labelledby', 'eng-read-h');
@@ -3794,6 +3802,10 @@
       if (t.closest('[data-read-close]')) readClose();
       else if (pw) pageInsert(pw.getAttribute('data-page-word'));
       else if (pfx) pageFix(pfx.getAttribute('data-page-fix'));
+      else if (t.closest('[data-page-ideas]')) {
+        var ib = t.closest('[data-page-ideas]'), iid = ib.getAttribute('data-page-ideas'), ion = !READ_IDEAS[iid];
+        READ_IDEAS[iid] = ion; ib.setAttribute('aria-expanded', String(ion)); ib.textContent = ion ? 'Hide ideas' : 'Show ideas'; ib.nextElementSibling.hidden = !ion;
+      }
       else if (t.closest('[data-page-struct]')) { PAGE_STRUCT = !READ_STRUCT; pageStruct(PAGE_STRUCT, !!READ_TA); if (!READ.contains(document.activeElement)) READ.querySelector('.eng-read__structb').focus({ preventScroll: true }); }
       else if (t.closest('[data-page-help]')) {
         var hon = !READ.classList.contains('is-help');

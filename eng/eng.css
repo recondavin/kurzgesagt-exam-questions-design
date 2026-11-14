@@ -2647,7 +2647,9 @@ body.eng-papertop .eng-cmpg .eng-cpp .eng-cpp__m { margin-top: 12px; }
    paper with Help as a column beside it; with Help off, the paper in the middle and a hand at each side). The paper
    scrolls inside itself; the desk stays still. The paper's shadow is the one shadow at rest: it lies on the desk. ===== */
 body.eng-read-on { overflow: hidden; }
-.eng-read { position: fixed; inset: 0; z-index: 120; overflow: hidden; background: #C9864F url(../assets/cartoon-desk.svg) center / cover no-repeat; color: var(--exam-ink); font-family: var(--font-body); animation: readIn .25s ease-out; --lh: 30px; --pace-e: #FFD2A6; }
+/* (overflow: clip, so the desk itself can never be scrolled: the hands hang below it, and bringing a line into view,
+   or a phone's keyboard, would otherwise slide the whole desk up and take Back and Help off the screen) */
+.eng-read { position: fixed; inset: 0; z-index: 120; overflow: hidden; overflow: clip; background: #C9864F url(../assets/cartoon-desk.svg) center / cover no-repeat; color: var(--exam-ink); font-family: var(--font-body); animation: readIn .25s ease-out; --lh: 30px; --pace-e: #FFD2A6; }
 @keyframes readIn { from { opacity: 0; } }
 .eng-read button { -webkit-tap-highlight-color: transparent; }
 .eng-read button:focus-visible { outline: 3px solid var(--exam-ink); outline-offset: 2px; }
@@ -2677,6 +2679,15 @@ body.eng-read-on { overflow: hidden; }
 .eng-read__bh b { flex: none; padding: 1px 8px; border-radius: 3px; background: color-mix(in srgb, var(--pc) 72%, #FFFDF6); color: var(--exam-ink); font: 700 17px/1.45 var(--font-head); letter-spacing: -.01em; }
 .eng-read__bh span { flex: 1 1 240px; min-width: 0; }
 .eng-read__bh mark { padding: 0 3px; border-radius: 2px; background: color-mix(in srgb, var(--pc) 50%, #FFFDF6); color: var(--exam-ink); font-weight: 600; }
+.eng-read__ideas { margin: 6px 0 8px; }
+.eng-read__ideasb { height: 40px; padding: 0 12px; border: 0; border-radius: 4px; background: none; box-shadow: inset 0 0 0 1px var(--exam-done); color: var(--exam-ink); font: 600 16px/1 var(--font-body); cursor: pointer; }
+.eng-read__ideasb::before { content: "+ "; color: var(--exam-ink-2); }
+.eng-read__ideasb[aria-expanded="true"]::before { content: "− "; }
+.eng-read__ideasb:hover { background: var(--exam-paper-2); }
+.eng-read__ilist { margin: 8px 0 0; }
+.eng-read__ilist[hidden] { display: none; }
+.eng-read__ilist p { margin: 0 0 6px; padding: 2px 0 2px 12px; border-left: 3px solid color-mix(in srgb, var(--pc) 72%, #FFFDF6); color: var(--exam-ink); font: 400 17px/1.45 var(--font-body); }
+.eng-read__ilist em { margin-right: 8px; color: var(--exam-ink-2); font-size: 16px; font-style: normal; }
 .eng-read__box.is-done .eng-read__bh b::after { content: ""; display: inline-block; width: 5px; height: 10px; margin: 0 2px 1px 9px; border: solid var(--exam-ink); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
 .eng-read__box.is-next::before { content: attr(data-next); display: block; margin: 0 0 4px; color: var(--exam-pen); font: 600 16px/1.3 var(--font-body); }
 .eng-read.is-struct .eng-read__ta { text-indent: 0; background-image: linear-gradient(to bottom, transparent calc(var(--lh) - 1px), var(--exam-rule) calc(var(--lh) - 1px)); background-size: 100% var(--lh); background-attachment: local; }
@@ -2700,9 +2711,6 @@ body.eng-read-on { overflow: hidden; }
 .eng-read__hh { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 4px; }
 .eng-read__hh h2 { margin: 0; font: var(--font-head-weight) 21px/1.2 var(--font-head); letter-spacing: -.02em; }
 .eng-read__hh h2 span { margin-left: 6px; color: var(--exam-ink-2); font: 600 17px/1.2 var(--font-body); letter-spacing: 0; }
-.eng-read__help .eng-read__idea { margin: 0 0 8px; padding-left: 12px; border-left: 2px solid var(--exam-rule); }
-.eng-read__idea em { display: block; color: var(--exam-ink-2); font-size: 16px; font-style: normal; }
-.eng-read__help .eng-read__note { margin: 0; color: var(--exam-ink-2); font-size: 16px; }
 /* How it reads: the check's notes, in red pen */
 .eng-read__check[hidden] { display: none; }
 .eng-read__help .eng-cpd__warn { margin: 0 0 12px; padding: 2px 0 2px 14px; border-left: 2px solid var(--exam-pen); border-radius: 0; background: none; color: var(--exam-ink); font: 400 17px/1.5 var(--font-body); }
