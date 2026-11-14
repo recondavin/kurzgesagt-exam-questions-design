@@ -950,8 +950,8 @@
   function cpQSync() {
     var q = bar.querySelector('[data-cpq]');
     if (!q) return;
-    var line = bar.getBoundingClientRect().bottom + 60, k = 0;
-    Array.prototype.forEach.call(app.querySelectorAll('.eng-cp__step'), function (el, i) { if (el.getBoundingClientRect().top < line) k = i; });
+    var line = bar.getBoundingClientRect().bottom + 60, k = -1;
+    Array.prototype.forEach.call(app.querySelectorAll('.eng-cp__step'), function (el, i) { if (!el.classList.contains('is-folded') && (k < 0 || el.getBoundingClientRect().top < line)) k = i; });
     var part = k >= 2 ? 'b' : 'a';
     if (q.getAttribute('data-cpq') !== part) {
       q.setAttribute('data-cpq', part); q.innerHTML = cpQIn(part);
@@ -960,10 +960,11 @@
   }
   var cpQT = 0;
   window.addEventListener('scroll', function () { if (!cpQT) cpQT = requestAnimationFrame(function () { cpQT = 0; cpQSync(); }); }, { passive: true });
-  function cpNext(n, label) { return '<p class="eng-cp__nextp"><button type="button" class="eng-btn eng-cp__next" data-cp-stage="' + n + '">' + label + ' →</button></p>'; }
+  function cpNext(n, label, isNext) { return '<p class="eng-cp__nextp"><button type="button" class="eng-btn eng-cp__next' + (isNext ? ' is-next' : '') + '" data-cp-stage="' + n + '">' + label + ' →</button></p>'; }
   function cpScrollTo(n) {
     var fdj = app.querySelector('[data-feed]');
     if (fdj) { var itj = fdj.querySelector('[data-fstep="' + n + '"]'); if (itj) fdj.scrollTo({ top: itj.offsetTop, behavior: 'smooth' }); return; }
+    if (cpFolded(n)) { CP_UNFOLD[n] = true; renderCompare(); }
     var el = app.querySelectorAll('.eng-cp__step')[n - 1];
     if (!el) return;
     var off = (getComputedStyle(bar).position === 'sticky' ? bar.offsetHeight : 0) + 12;
@@ -1250,6 +1251,7 @@
           (p ? '<img src="assets/eng/img/' + esc(p.file) + '" alt="" loading="lazy">' : '<span class="eng-cpt__img"></span>') +
           '<span class="eng-cpt__t">' + esc(text(id).title) + '</span>' + (id === th.best ? '<span class="eng-cpt__best">Best for (a)</span>' : '') + '</button>';
       }).join('') + '</div>';
+    if (CP_FOLD_ST !== st) { CP_FOLD_ST = st; CP_UNFOLD = {}; }
     if (!a) { CP_ST = 1; app.innerHTML = cpPage(h); cpSnap(); guideDraw(1, th, null, []); cpNavShow(); railDraw(); return; }
     // 2: part (a): written in the popup if the text has a writing guide, else three points to pick
     var WR = th.write && th.write[a];
@@ -1262,15 +1264,23 @@
           '<span class="eng-cpp__tick" aria-hidden="true">' + (on ? w.pts.indexOf(i) + 1 : '+') + '</span><span class="eng-cpp__t">' + esc(pt.title) + '</span></button>' +
           '<p>' + esc(pt.say) + '</p><p class="eng-cpp__m">' + pt.m.map(function (n) { return momChip(text(a).moments[n - 1].id); }).join('') + '</p></div>';
       }).join('') + '</div>';
-    if (st < 3) h += cpNext(3, 'Next: part (b)');
+    // What each finished step says when it is folded to one line.
+    var sums = [[esc(text(a).title), 'Change']], doneA;
+    if (WR) {
+      var Wa = cpWrite(th, a), sl = cpwSlots(Wa), nw = sl.filter(function (x) { return slotText(Wa, x); }).length;
+      doneA = nw === sl.length;
+      sums.push([nw + ' of ' + sl.length + ' parts written · ' + sl.reduce(function (n, x) { return n + wordsIn(slotText(Wa, x)); }, 0) + ' words', 'Open']);
+    } else { doneA = w.pts.length >= 3; sums.push([w.pts.length + ' of 3 points picked', 'Change']); }
+    sums.push([w.links.length + (w.links.length === 1 ? ' pair' : ' pairs'), 'Change'], [w.links.length + ' paragraphs, with an opening and an ending', 'Open']);
+    if (st < 3) h += cpNext(3, 'Next: part (b)', doneA);
     if (st >= 3) {
       var F = cpbOrder(B);
       h += cpBoardHtml(th, w, F, cpLinks(th, F[0], F[1]));
-      if (st >= 4) { h += cpPlanB(th, a, F); if (st < 5) h += cpNext(5, 'Next: write part (b)'); }
+      if (st >= 4) { h += cpPlanB(th, a, F); if (st < 5) h += cpNext(5, 'Next: write part (b)', true); }
       if (st >= 5) h += cpbWriterHtml();
     }
     CP_ST = st;
-    app.innerHTML = cpPage(h);
+    app.innerHTML = cpPage(h, sums);
     cpSnap();
     if (st >= 3) requestAnimationFrame(cpLines);
     guideDraw(st, th, a, B);
@@ -1353,7 +1363,7 @@
     if (st === 2) return [{ t: 'Part (a) is ' + text(a).title + ' on its own.' }, { t: 'Tap Write it on the Opening first: you pick your scenes there.' },
       { t: 'Each paragraph: Point, Anchor, Evaluate. Most of the marks are in Evaluate.' }, { t: 'Aim for about 450 words.' }, { t: 'Done, or ready for part (b)? Tap Next: part (b).' }];
     if (st === 3) return [{ t: 'Part (b) is ' + s(F[0]) + ' and ' + s(F[1]) + ' only. ' + s(a) + ' gets no marks here.', rule: true },
-      { t: 'Tap a scene, then the one it links to. The ones that glow are matches.' }, { t: 'Each pair is one paragraph. Get three or four.' }, { t: 'Want ' + s(F[1]) + ' first? Tap the swap button.' }];
+      { t: 'Tap a scene, then the one it links to. The ones outlined in red are matches.' }, { t: 'Each pair is one paragraph. Get three or four.' }, { t: 'Want ' + s(F[1]) + ' first? Tap the swap button.' }];
     if (st === 4) return [{ t: 'Your plan: one paragraph for each pair, in this order.' }, { t: 'Opening: name both texts and their authors, and answer the question.' },
       { t: 'Ending: say which text does it more powerfully, and why.' }, { t: 'Happy with it? Tap Next: write part (b).' }];
     return [{ t: 'Write about both texts together in every paragraph. Not one, then the other.', rule: true }, { t: 'Each paragraph: Point, ' + s(F[0]) + ', ' + s(F[1]) + ', Compare, Evaluate.' },
@@ -1421,15 +1431,25 @@
     if (b) b.focus({ preventScroll: true });
   }
   // The page: each step in its own section (for the line joining them), sliding in when you arrive (CP_ENTER).
-  var CP_ENTER = false;
-  function cpPage(h) {
+  // A finished step folds to one line (the user: the page kept every finished step, about 5,600px tall at step 5, and
+  // they agreed to "finished steps fold to one line each"): its tick, its name, what you chose, and Change or Open. Tap
+  // the line, or its tick box in the strip, to open it again; tap it once more to fold it. A step is finished once you
+  // have moved past it, except that the scene board stays open beside the plan it feeds (step 3 while you are on step 4).
+  // Opened steps close again when you move on a step. The folded step's content stays in the page, hidden, so nothing
+  // that looks it up breaks.
+  var CP_ENTER = false, CP_UNFOLD = {}, CP_FOLD_ST = 0;
+  function cpDone(n) { return n < CP_ST && !(CP_ST === 4 && n === 3); }
+  function cpFolded(n) { return cpDone(n) && !CP_UNFOLD[n]; }
+  function cpPage(h, sums) {
     var mark = '<h2 class="eng-h2"><span class="eng-cp__n">', parts = h.split(mark), enter = CP_ENTER;
     CP_ENTER = false;
     var k = 0;
     var tag = function (x) { return x.replace(/class="(eng-cpw__s(?: is-done)?|eng-cpm(?: is-hint)?)"/g, function (all) { return all + ' style="--i:' + (k++ % 12) + '"'; }); };
     var last = parts.length - 2;
     return '<div class="eng-cmpg' + (enter ? ' is-enter' : '') + '">' + tag(parts[0]) + parts.slice(1).map(function (x, i) {
-      return '<section class="eng-cp__step' + (CP_SEEN[i] ? ' is-in' : '') + '" style="--i:' + i + '" data-step-i="' + i + '"' + (i < last ? ' data-next="' + esc(CP_STEPS[i + 1]) + '"' : '') + '>' + mark + tag(x) + '</section>';
+      var n = i + 1, sum = sums && sums[i] && cpDone(n) ? sums[i] : null, fold = sum && cpFolded(n);
+      var row = sum ? '<button type="button" class="cpx-fold" data-cp-fold="' + n + '" aria-expanded="' + !fold + '"><i aria-hidden="true"></i><b>' + esc(CP_STEPS[i]) + '</b><span>' + sum[0] + '</span><em>' + (fold ? sum[1] : 'Fold away') + '</em></button>' : '';
+      return '<section class="eng-cp__step' + (CP_SEEN[i] ? ' is-in' : '') + (fold ? ' is-folded' : '') + (sum ? ' is-past' : ' is-now') + '" style="--i:' + i + '" data-step-i="' + i + '"' + (i < last ? ' data-next="' + esc(CP_STEPS[i + 1]) + '"' : '') + '>' + row + mark + tag(x) + '</section>';
     }).join('') + '</div>';
   }
   // Phones: the Compare page one step per screen, like TikTok (the user: "do you know what tiktok is?? the SCROLL feature
@@ -1605,7 +1625,7 @@
     var have = w.links.filter(function (l) { return [l.a, l.b].sort().join() === [CPSEL, mid].sort().join(); })[0];
     if (have) { CPFB = { kind: 'have', head: 'You already paired these two.', body: '' }; CPSEL = null; return; }
     var x = cpFind(th, CPSEL, mid);
-    if (!x) { CPFB = { kind: 'miss', head: 'Not a match. Pick a glowing one.', body: '' }; return; }
+    if (!x) { CPFB = { kind: 'miss', head: 'Not a match. Pick one outlined in red.', body: '' }; return; }
     if (w.links.length >= 4) { CPFB = { kind: 'have', head: 'Four pairs already. Remove one first.', body: '' }; CPSEL = null; return; }
     w.links.push({ a: x.a, b: x.b, rel: x.rel });
     CPFB = { kind: 'yes', head: 'Paired: ' + x.aspect + '.', body: '' };
@@ -1630,7 +1650,7 @@
     if (!left) { CPFB = { kind: 'have', head: 'You\'ve found every link.', body: 'Pick the three or four strongest for your answer.' }; return; }
     var first = tidOf(left.a) === B[0] ? left.a : left.b;
     CPSEL = first; CPHINT = first === left.a ? left.b : left.a;
-    CPFB = { kind: 'hint', head: 'Try these two.', body: 'The highlighted moment is picked for you. Find the one that glows in the other column: what do they share about ' + th.name.toLowerCase() + '?' };
+    CPFB = { kind: 'hint', head: 'Try these two.', body: 'The highlighted moment is picked for you. Find the one outlined in red in the other column: what do they share about ' + th.name.toLowerCase() + '?' };
   }
 
   // ---------- compare it: writing part (a) (th.write[a]; Shawshank first) ----------
@@ -3568,6 +3588,14 @@
     var cpa = t.closest('[data-cp-a]'), cpp = t.closest('[data-cp-pt]'), cpm = t.closest('[data-cpm]'), cpr = t.closest('[data-cp-rel]'), cpd = t.closest('[data-cp-del]');
     var cgo = t.closest('[data-cp-go]');
     if (cgo && !cgo.disabled) { cpScrollTo(+cgo.getAttribute('data-cp-go')); return; }
+    var cfd = t.closest('[data-cp-fold]');
+    if (cfd) {
+      var fn = +cfd.getAttribute('data-cp-fold'), fy = cfd.getBoundingClientRect().top;
+      CP_UNFOLD[fn] = !CP_UNFOLD[fn]; renderCompare();
+      var nfd = app.querySelector('[data-cp-fold="' + fn + '"]');
+      if (nfd) { window.scrollBy(0, nfd.getBoundingClientRect().top - fy); nfd.focus({ preventScroll: true }); }
+      return;
+    }
     if (cpa || cpp || cpm || cpr || cpd || t.closest('[data-cp-cancel],[data-cp-hint],[data-cp-reset],[data-cp-copy],[data-cp-stage],[data-cp-swap]')) {
       var cth = cpTheme(), cby = cpBy(cth), focus = null, cstg = t.closest('[data-cp-stage]'), goTo = 0;
       if (GUIDE.open && isPhone() && !cstg) { GUIDE.open = false; GUIDE.key = ''; }
