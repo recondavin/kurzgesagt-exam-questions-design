@@ -1123,7 +1123,7 @@
           var txt = slotText(W, s), para = typeof s === 'number' ? W.paras[s] : null, sc = para && para.scene ? G.scenes[para.scene] : null, rp = sc ? sc.reps[para.rep || 0] : null, m = para && para.scene ? mo[para.scene - 1] : null;
           tot += wordsIn(txt);
           var act = fBtn('data-cpw="' + s + '"', txt ? 'Edit' : 'Write it', !!txt), rail = fRailBtn(FICON.pen, txt ? 'Edit' : 'Write', '', 'data-cpw="' + s + '"');
-          if (s === 'end') { if (tot) act += fBtn('data-cpw-copy', 'Copy part (a)', true); if (st < 3) act += fBtn('data-cp-stage="3"', 'Next: part (b) →'); }
+          if (s === 'end') { if (tot) act += fBtn('data-cp-read="a"', 'Read it through', true) + fBtn('data-cpw-copy', 'Copy part (a)', true); if (st < 3) act += fBtn('data-cp-stage="3"', 'Next: part (b) →'); }
           if (m && rp) { items.push(fScene(a, s, m, sc, rp, act, rail)); return; }
           if (para) {
             items.push(fItem({ step: 2, c: COL[a], tag: 'Part (a) · ' + slotName(s), title: 'No scene yet', text: 'Pick its scene on the scenes screen first.',
@@ -1178,7 +1178,7 @@
           tot2 += wordsIn(txt2);
           var act2 = fBtn('data-cpbw="' + s2 + '"', txt2 ? 'Edit' : 'Write it', !!txt2);
           if (typeof s2 === 'number' && s2 === W2.paras.length - 1) act2 += W2.paras.length < 4 ? fBtn('data-cpb-add', '+ Paragraph 4', true) : fBtn('data-cpb-drop', 'Remove paragraph 4', true);
-          if (s2 === 'end' && tot2) act2 += fBtn('data-cpb-copy', 'Copy part (b)', true) + '<span class="eng-fi__count">Part (b): ' + tot2 + ' words</span>';
+          if (s2 === 'end' && tot2) act2 += fBtn('data-cp-read="b"', 'Read it through', true) + fBtn('data-cpb-copy', 'Copy part (b)', true) + '<span class="eng-fi__count">Part (b): ' + tot2 + ' words</span>';
           items.push(fItem({ step: 5, bg: q2 && q2.x && q2.y ? [fPic(q2.x), fPic(q2.y)] : [fHero(F2[0]), fHero(F2[1])],
             labels: q2 && q2.x && q2.y ? [[shortTitle(F2[0]) + ': ' + mom(q2.x).m.title, COL[F2[0]]], [shortTitle(F2[1]) + ': ' + mom(q2.y).m.title, COL[F2[1]]]] : null,
             c: '#FF8FB1', tag: 'Part (b) · ' + (s2 === 'open' ? 'Opening' : s2 === 'end' ? 'Ending' : 'Paragraph ' + (s2 + 1)),
@@ -1774,7 +1774,7 @@
       '<ol class="eng-cpw">' + rows.join('') + '</ol>' +
       '<p class="eng-cpw__more">' + (W.paras.length < 4 ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-add>+ Add a fourth paragraph</button>' :
         '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-drop>Remove paragraph 4</button>') + '</p>' +
-      '<p class="eng-cpw__foot"><span>Part (a) so far: <b>' + total + ' words</b></span>' + (total ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpw-copy>Copy part (a)</button>' : '') + '</p>';
+      '<p class="eng-cpw__foot"><span>Part (a) so far: <b>' + total + ' words</b></span>' + (total ? '<button type="button" class="eng-btn" data-cp-read="a">Read it through</button><button type="button" class="eng-btn eng-btn--quiet" data-cpw-copy>Copy part (a)</button>' : '') + '</p>';
   }
   function cpwFirstStep(W, s) {
     var G = cpTheme().write[cpBy(cpTheme()).a];
@@ -2324,6 +2324,58 @@
     var th = cpTheme(), W = cpWrite(th, cpBy(th).a);
     return cpwSlots(W).map(function (s) { return slotText(W, s); }).filter(Boolean).join('\n\n');
   }
+  // ----- Read it through: your answer as the examiner will get it, on the exam desk (the user, of the writing: "do you
+  // think the writing part should be like on an exam paper", then showing their Geography desk, "like this", and "CAN we
+  // make it work on phone"). You build the answer in boxes; this is where you read it back: one lined page of an answer
+  // booklet on the site's desk, the part's question at the top with its key words marked, then everything you've written
+  // for that part as continuous writing, no boxes and no colours, with the word count against the target. A part you
+  // haven't written yet says so in its place. The desk and the two hands are the Geography desk's own artwork, used as
+  // they are (assets/cartoon-desk.svg, assets/hands/*.svg; their own gentle movement, and their own reduced-motion rule,
+  // come with them). Phones get their own layout, not the laptop scene shrunk: the paper nearly the full width at
+  // reading size, scrolling inside itself, the desk a strip above and below with the hands coming up from the bottom
+  // edge. The hands are about 1.2MB, so the paper shows first and they fade in once loaded; not loaded at all when the
+  // phone asks to save data. Opens from Read it through, beside Copy, once the part has any writing (the page's part (a)
+  // and part (b) lists; on phones, each part's Ending screen). Escape or the button closes it; Tab stays inside.
+  var READ = null, READ_FROM = null;
+  function readClose() {
+    if (!READ) return;
+    READ.remove(); READ = null;
+    document.body.classList.remove('eng-read-on');
+    if (READ_FROM && READ_FROM.isConnected) READ_FROM.focus({ preventScroll: true });
+    READ_FROM = null;
+  }
+  function readOpen(part, from) {
+    readClose();
+    var th = cpTheme(), rows, total = 0, aim = part === 'b' ? 650 : 450;
+    if (part === 'b') { var cb = cpbCtx(); rows = cpbSlots(cb.W).map(function (x) { return [slotName(x), cpbText(cb.W, x)]; }); }
+    else { var Wa = cpWrite(th, cpBy(th).a); rows = cpwSlots(Wa).map(function (x) { return [slotName(x), slotText(Wa, x)]; }); }
+    rows.forEach(function (r) { total += wordsIn(r[1]); });
+    var lean = navigator.connection && navigator.connection.saveData;
+    READ_FROM = from || null;
+    READ = document.createElement('div'); READ.id = 'eng-read'; READ.className = 'eng-read';
+    READ.setAttribute('role', 'dialog'); READ.setAttribute('aria-modal', 'true'); READ.setAttribute('aria-labelledby', 'eng-read-h');
+    READ.innerHTML = '<div class="eng-read__paper" tabindex="0"><header class="eng-read__head"><h2 id="eng-read-h">Part (' + part + ')</h2>' +
+      '<p>' + total + (total === 1 ? ' word' : ' words') + ' · aim for about ' + aim + '</p></header>' +
+      '<p class="eng-read__q">' + cpQIn(part) + '</p><div class="eng-read__lines">' + rows.map(function (r) {
+        if (!r[1]) return '<p class="is-gap">' + esc(r[0]) + ': not written yet.</p>';
+        return r[1].split(/\n+/).filter(Boolean).map(function (x) { return '<p>' + esc(x) + '</p>'; }).join('');
+      }).join('') + '</div></div>' +
+      (lean ? '' : '<img class="eng-read__hand is-left" src="assets/hands/left-resting-layered.svg" alt=""><img class="eng-read__hand is-right" src="assets/hands/right-writing-gentle-rig.svg" alt="">') +
+      '<button type="button" class="eng-read__x" data-read-close aria-label="Close and go back to your answer"><i aria-hidden="true"></i><b>Back</b></button>';
+    document.body.appendChild(READ);
+    document.body.classList.add('eng-read-on');
+    Array.prototype.forEach.call(READ.querySelectorAll('img'), function (im) {
+      if (im.complete && im.naturalWidth) im.classList.add('is-in'); else im.addEventListener('load', function () { im.classList.add('is-in'); });
+    });
+    READ.querySelector('.eng-read__x').focus({ preventScroll: true });
+  }
+  document.addEventListener('keydown', function (e) {
+    if (!READ) return;
+    if (e.key === 'Escape') { e.stopPropagation(); readClose(); return; }
+    if (e.key !== 'Tab') return;
+    var f = READ.querySelectorAll('.eng-read__paper, .eng-read__x'), i = Array.prototype.indexOf.call(f, document.activeElement);
+    e.preventDefault(); f[(i + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus();
+  }, true);
   // ----- Part (b), written like part (a) (the user: "you should fucking make it the same as the last one where you pick
   // one key scene from small things and then you click the one to compare with sive ... i want part B) to be like the
   // last one"). A paragraph: pick a scene from the first text (Small Things when part (b) is Sive and Small Things),
@@ -2385,7 +2437,7 @@
       '<ol class="eng-cpw">' + rows.join('') + '</ol>' +
       '<p class="eng-cpw__more">' + (W.paras.length < 4 ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpb-add>+ Add a fourth paragraph</button>' :
         '<button type="button" class="eng-btn eng-btn--quiet" data-cpb-drop>Remove paragraph 4</button>') + '</p>' +
-      '<p class="eng-cpw__foot"><span>Part (b) so far: <b>' + total + ' words</b> (aim for about 650)</span>' + (total ? '<button type="button" class="eng-btn eng-btn--quiet" data-cpb-copy>Copy part (b)</button>' : '') + '</p>';
+      '<p class="eng-cpw__foot"><span>Part (b) so far: <b>' + total + ' words</b> (aim for about 650)</span>' + (total ? '<button type="button" class="eng-btn" data-cp-read="b">Read it through</button><button type="button" class="eng-btn eng-btn--quiet" data-cpb-copy>Copy part (b)</button>' : '') + '</p>';
   }
   function cpbOpen(s) {
     var c = cpbCtx();
@@ -3493,6 +3545,9 @@
   document.addEventListener('click', function (ev) {
     var t = ev.target;
     Array.prototype.forEach.call(bar.querySelectorAll('details[open]'), function (d) { if (!d.contains(t)) d.open = false; });
+    if (t.closest('[data-read-close]')) { readClose(); return; }
+    var rdb = t.closest('[data-cp-read]');
+    if (rdb) { readOpen(rdb.getAttribute('data-cp-read'), rdb); return; }
     var dq = t.closest('[data-def]');
     if (dq) { ev.preventDefault(); if (DEF && DEF.btn === dq && DEF.hover) DEF.hover = false; else if (DEF && DEF.btn === dq) closeDef(); else openDef(dq); return; }
     if (DEF && (t.closest('[data-def-close]') || !t.closest('.q-pop'))) { closeDef(); if (t.closest('[data-def-close]')) return; }
@@ -3817,6 +3872,7 @@
   function route() {
     var h = decodeURIComponent(location.hash.replace(/^#/, '')), p = h.split('/');
     menu(false);
+    readClose();
     if (CPW) { CPW = null; cpwDraw(); }
     if (p[0] === 'play' && window.EngGames) { window.EngGames.open(p[1]); history.replaceState(null, '', '#comparative'); renderHome(); return; }
     if (p[0] === 'marking') renderMarking();
