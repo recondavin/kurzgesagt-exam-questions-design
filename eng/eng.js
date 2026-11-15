@@ -2370,6 +2370,7 @@
   //   first and they fade in, and they aren't loaded when the phone asks to save data. On a laptop they make way for
   //   the help column.
   var READ = null, READ_SEL = '', READ_PART = 'a', READ_SLOT = null, READ_BOX = null, READ_TA = null, READ_STRUCT = true, PAGE_STRUCT = true, READ_B = {}, READ_CK = 0, READ_IDEAS = {};
+  var READ_TK = {}, READ_TKQ = false, READ_TKT = 0;
   var PAGE_COL = { p: 'var(--pace-p)', a: 'var(--pace-a)', e: 'var(--pace-e)', film: 'var(--pace-p)', idea: 'var(--pace-c)', points: 'var(--pace-a)', sum: 'var(--pace-c)', final: 'var(--pace-a)', last: 'var(--pace-e)',
     x: 'var(--pace-c)', y: '#E6D9FF', c: 'var(--pace-a)', texts: 'var(--pace-p)', judge: '#E6D9FF' };
   function pageCtx(part) {
@@ -2407,7 +2408,7 @@
   }
   function readClose() {
     if (!READ) return;
-    clearTimeout(READ_CK);
+    clearTimeout(READ_CK); clearTimeout(READ_TKT);
     READ.remove(); READ = null; READ_TA = null;
     document.body.classList.remove('eng-read-on');
     var sel = READ_SEL; READ_SEL = '';
@@ -2462,7 +2463,7 @@
   // The answer on the paper: the part you're on in its boxes, or (structure hidden) all of it as plain paragraphs.
   function pageLines() {
     var part = READ_PART, c = pageCtx(part);
-    READ_B = {};
+    READ_B = {}; READ_TK = {}; READ_TKQ = true;
     if (c.slots.map(String).indexOf(String(READ_SLOT)) < 0) READ_SLOT = c.slots[0];
     var shown = READ_STRUCT ? [READ_SLOT] : c.slots;
     return (READ_STRUCT ? pageTabs(c) : '') + shown.map(function (s) {
@@ -2474,13 +2475,15 @@
         READ_B[s] = { keys: pts.map(function (pt) { return pt.k; }), b: bs, o: j };
         return '<div class="eng-read__para"><textarea class="eng-read__ta" data-page-slot="' + s + '" rows="1" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s)) + '">' + esc(j) + '</textarea></div>';
       }
-      return '<div class="eng-read__para"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + pts.map(function (pt) {
+      // The examiner's ticks: each box's own, in the margin; the count sits by the heading.
+      var tk = pts.map(function (pt) { return tickList(part, s, pt.k, c); }), any = tk.some(function (x) { return x.length > 0; });
+      return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any ? tickTally() : '') + '</div>' + pts.map(function (pt, i) {
         return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh"><b>' + esc(pt.label) + '</b><span>' +
-          (pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span>' + pageIdeasBtn(s, pt) + '</p>' + pageIdeasList(s, pt) +
+          (pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span>' + pageIdeasBtn(s, pt) + '</p>' + (any ? tickHtml(part, s, pt.k, tk[i], c) : '') + pageIdeasList(s, pt) + '<div class="eng-read__ul" aria-hidden="true"><div></div></div>' +
           '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s) + ': ' + pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
           (c.range[pt.k] ? '<p class="eng-read__wc" data-page-wc="' + s + '|' + pt.k + '"></p>' : '') + '</div>';
       }).join('') + '</div>';
-    }).join('') + (READ_STRUCT ? pageFoot(c) : '');
+    }).join('') + (READ_STRUCT ? '<div class="eng-read__stamp" data-page-stamp hidden><b></b><p></p></div>' + pageFoot(c) : '');
   }
   // A box's ideas, as the popup's boxes had them (the user, of the paper in boxes: "what about the ideas"): Show ideas,
   // at the end of the line that says what to write (beside it, not under it, so a paragraph takes less of the page),
@@ -2551,6 +2554,174 @@
     fn();
     paper.scrollTop += top() - y0;
   }
+  // The examiner's ticks (the user: "im thinking i originally wanted it to be like a game where people have fun
+  // writing it"; offered three ways and chose this one: "do A"). Each box has two or three things an examiner looks
+  // for in it, listed in a margin down the right of the paper (under the header on a phone) as empty ticks. Write one
+  // and it is ticked in red pen there and then, the words that earned it are underlined in red in what you wrote, the
+  // examiner at the top of the margin says what he saw, and the count by the heading goes up. A page with every tick
+  // is stamped. They are ticks, not marks: each is something the page can really see (a name, a word from the scene,
+  // a linking word, "because"), and nothing here judges how good a sentence is. The plain page (structure hidden) has
+  // none of it. Red stays the examiner's.
+  var TICK = {
+    both: ['both texts', 'Both texts named.'], text: ['the film', 'You named it.'], author: ['the director', 'And who made it.'], authors: ['both authors', 'Both authors named.'],
+    theme: ['the theme', 'On the theme.'], one: ['one sentence', 'One clear sentence.'], detail: ['scene detail', 'Good detail.'], who: ['who is there', 'You said who.'],
+    tech: ['film technique', 'A film technique.'], link: ['linking word', 'That is comparing.'], verb: ['strong verb', 'A strong verb.'], why: ['says why', 'You said why.'],
+    reader: ['the reader', 'Back to the question.'], order: ['in order', 'I can follow that.'], side: ['your view', 'A view of your own.']
+  };
+  var TICK_BOX = {
+    a: { p: ['theme', 'one'], a: ['detail', 'tech'], e: ['verb', 'why', 'reader'], film: ['text', 'author'], idea: ['order'], points: ['theme'], sum: ['one'], final: ['theme', 'side'], last: ['one'] },
+    b: { p: ['both', 'theme'], x: ['detail', 'who'], y: ['detail', 'who'], c: ['link', 'both'], e: ['verb', 'why', 'reader'], texts: ['both', 'authors'], points: ['order'], judge: ['side', 'why'], last: ['theme'] }
+  };
+  var TICK_RX = {
+    tech: TECH_WORDS,
+    link: /\b(similarly|likewise|both|whereas|in contrast|by contrast|unlike|on the other hand|in the same way|just as|even more so|to a (?:far )?greater extent|less obviously)\b/i,
+    verb: /\b(?:lays? bare|(?:reveal|expos|highlight|underlin|convey|suggest|present|portray|emphasi[sz]|reinforc|impl|illustrat|demonstrat|captur|challeng|critici[sz]|condemn|warn|remind)(?:s|es|ed|ing|ies|ied))\b/i,
+    why: /\b(because|since|so that|which means|this means|therefore|as a result|that is why|this is why|in order to|consequently|thus)\b/i,
+    reader: /\b(readers?|audience|viewers?|interest(?:ed|ing)?|hooked|grip(?:s|ped|ping)?|tension|suspense|engag(?:es|ed|ing)|compelling|we (?:care|want|fear|hope|wait|watch|wonder)|keeps (?:us|me))\b/i,
+    order: /\b(first(?:ly)?|second(?:ly)?|third(?:ly)?|then|next|finally|lastly|(?:two|three|four) (?:ways|moments|scenes|points))\b/i,
+    side: /\b(for me|i (?:think|believe|feel|found|find)|in my (?:view|opinion)|to my mind|more (?:powerful(?:ly)?|interesting|convincing|disturbing|effective(?:ly)?|shocking|moving)|hits? harder|strong(?:er|est)|most (?:powerful|disturbing|effective|shocking|moving)|ultimately|in the end)\b/i
+  };
+  var TICK_PATH = 'M3 13C5 15 7 18 9 21C12 13 16 7 22 3';
+  // Words too ordinary to count as a detail from a scene.
+  var TICK_PLAIN = ' about after again against along among around asked because before being below between comes could every first found gives going great having holds later little makes might never nothing other really since small something still takes taken tells their there these thing things those three through under until where which while whole whose would ';
+  var TICK_END = { a: 'A clear idea, the moment itself and why it matters. That is what I give marks for.', b: 'Both texts, a detail from each, a clear link and a reason why. That is what I give marks for.',
+    open: 'I know what you are writing about and where you are going. A strong start.', end: 'A view of your own and a clean finish. That is how to leave an examiner.' };
+  function tickEsc(x) { return x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+'); }
+  function tickFind(v, rx) { var m = rx.exec(v); return m ? [[m.index, m.index + m[0].length]] : null; }
+  // A text is named by one of its people (with its capital letter) or by its title.
+  function tickPeople(tid) {
+    var w = [];
+    text(tid).people.forEach(function (p) {
+      p.name.replace(/\(.*?\)/g, ' ').split(/[^A-Za-zÀ-ÿ]+/).forEach(function (x) { if (x.length >= 3 && !/^(the|and|mrs|mother|daughters)$/i.test(x) && w.indexOf(x) < 0) w.push(x); });
+    });
+    return new RegExp('(?:^|[^A-Za-zÀ-ÿ])(' + w.join('|') + ')(?![A-Za-zÀ-ÿ])');
+  }
+  function tickWho(v, tid) { var m = tickPeople(tid).exec(v); return m ? [[m.index + m[0].length - m[1].length, m.index + m[0].length]] : null; }
+  function tickTitle(v, tid) { return tickFind(v, new RegExp('\\b(' + [text(tid).title, shortTitle(tid)].map(tickEsc).join('|') + ')\\b', 'i')); }
+  function tickText(v, tid) { return tickTitle(v, tid) || tickWho(v, tid); }
+  function tickAuthor(v, tid) { return tickFind(v, new RegExp('\\b' + tickEsc(text(tid).author.split(' ').pop()) + '\\b')); }
+  function tickTheme(v, th) {
+    var name = th.name.toLowerCase(), w = name.split(/[^a-z]+/).filter(function (x) { return x.length >= 4; }).map(function (x) { return x.replace(/e$/, '') + '[a-z]*'; });
+    return tickFind(v, new RegExp('\\b(' + [tickEsc(name)].concat(w).join('|') + ')', 'i'));
+  }
+  // The scene a box is about: whose it is, and (once one is picked) the moment itself.
+  function tickScene(part, s, k, c) {
+    if (typeof s !== 'number') return null;
+    var q = c.W.paras[s];
+    if (part === 'b') {
+      if (k !== 'x' && k !== 'y') return null;
+      var mid = q && q[k];
+      return { tid: mid ? tidOf(mid) : c.F[k === 'y' ? 1 : 0], m: mid ? mom(mid).m : null };
+    }
+    if (!q || !q.scene) return null;
+    var sc = c.G.scenes[q.scene];
+    return { tid: c.a, m: text(c.a).moments[q.scene - 1], more: (sc.details || []).concat(sc.words || []) };
+  }
+  // A detail: two different words that belong to the scene (not names, not ordinary words).
+  function tickDetail(v, sc) {
+    var skip = {}, seen = {}, stems = [], m = sc.m;
+    var strs = [m.title, m.what, m.quote || ''].concat((sc.more || []).map(function (x) { return typeof x === 'string' ? x : (x && (x.t || x.w)) || ''; }));
+    text(sc.tid).people.forEach(function (p) { p.name.toLowerCase().split(/[^a-zà-ÿ]+/).forEach(function (x) { skip[x] = 1; }); });
+    strs.join(' ').toLowerCase().split(/[^a-zà-ÿ]+/).forEach(function (x) {
+      if (x.length < 5 || skip[x] || STOPW.indexOf(' ' + x + ' ') >= 0 || TICK_PLAIN.indexOf(' ' + x + ' ') >= 0) return;
+      var st = x.replace(/(ing|ed|es|s)$/, ''); if (st.length < 4) st = x;
+      if (!seen[st]) { seen[st] = 1; stems.push(st); }
+    });
+    if (!stems.length) return null;
+    stems.sort(function (a, b) { return b.length - a.length; });
+    var rx = new RegExp('\\b(' + stems.join('|') + ')[a-zà-ÿ]*', 'gi'), hit, got = [], used = {};
+    while ((hit = rx.exec(v)) && got.length < 2) { var st = hit[1].toLowerCase(); if (!used[st]) { used[st] = 1; got.push([hit.index, hit.index + hit[0].length]); } }
+    return got.length >= 2 ? got : null;
+  }
+  // The ticks a box can earn (a paragraph with no scene picked has no detail to check against).
+  function tickList(part, s, k, c) {
+    return (TICK_BOX[part === 'b' ? 'b' : 'a'][k] || []).filter(function (t) {
+      if (t !== 'detail' && t !== 'who') return true;
+      var sc = tickScene(part, s, k, c);
+      return !!sc && (t === 'who' || !!sc.m);
+    });
+  }
+  function tickLabel(t, part, c) {
+    if (t === 'text') return text(c.a).kind === 'film' ? 'the film' : 'the text';
+    if (t === 'author') return text(c.a).kind === 'film' ? 'the director' : 'the author';
+    if (t === 'reader') return part === 'b' ? 'the reader' : 'your interest';
+    return TICK[t][0];
+  }
+  // Is this tick earned by what is in the box? The stretches of the writing that earned it (to underline), or null.
+  function tickRun(t, v, part, s, k, c) {
+    var x, y, sc;
+    if (!v || !v.trim()) return null;
+    if (TICK_RX[t]) return tickFind(v, TICK_RX[t]);
+    if (t === 'theme') return tickTheme(v, c.th);
+    if (t === 'one') { x = v.trim(); return wordsIn(x) >= 8 && /[.!?]["”’']?$/.test(x) && x.split(/[.!?]+(?:\s+|$)/).filter(Boolean).length === 1 ? [] : null; }
+    if (t === 'both') { x = tickText(v, c.F[0]); y = tickText(v, c.F[1]); return x && y ? x.concat(y) : null; }
+    if (t === 'authors') { x = tickAuthor(v, c.F[0]); y = tickAuthor(v, c.F[1]); return x && y ? x.concat(y) : null; }
+    if (t === 'text') return tickTitle(v, c.a);
+    if (t === 'author') return tickAuthor(v, c.a);
+    sc = tickScene(part, s, k, c);
+    if (!sc) return null;
+    if (t === 'who') return tickWho(v, sc.tid);
+    if (t === 'detail') return sc.m ? tickDetail(v, sc) : null;
+    return null;
+  }
+  function tickTally() {
+    return '<p class="eng-read__tally" data-page-tally><i aria-hidden="true">' + (window.ExamTeacher ? window.ExamTeacher.head('right') : '') + '</i><b data-page-tallyn aria-live="polite"></b><small data-page-tallysay>ticks on this page</small></p>';
+  }
+  function tickHtml(part, s, k, ids, c) {
+    return '<ul class="eng-read__ticks" data-page-ticks="' + s + '|' + k + '" aria-label="What the examiner ticks in this box">' + ids.map(function (t) {
+      return '<li data-tick="' + t + '"><svg viewBox="0 0 25 24" aria-hidden="true"><path pathLength="1" d="' + TICK_PATH + '"/></svg><span>' + esc(tickLabel(t, part, c)) + '</span></li>';
+    }).join('') + '</ul>';
+  }
+  // The red-pen underline: a copy of the box's words laid exactly over them, clear but for its underlines.
+  function tickUnder(box, v, marks) {
+    var el = box.querySelector('.eng-read__ul > div'), h = '', at = 0;
+    if (!el) return;
+    if (!marks.length) { if (el.firstChild) el.textContent = ''; return; }
+    marks.sort(function (a, b) { return a[0] - b[0]; });
+    marks.forEach(function (m) { if (m[0] < at || m[1] <= m[0]) return; h += esc(v.slice(at, m[0])) + '<u>' + esc(v.slice(m[0], m[1])) + '</u>'; at = m[1]; });
+    el.innerHTML = h + esc(v.slice(at));
+  }
+  // Mark the page: every tick on it, the underlines, the count and the stamp. The first pass after the page is drawn
+  // is quiet (ticks you already had are simply there); after that a new one is drawn in and the examiner speaks.
+  function pageTicks() {
+    if (!READ || !READ_STRUCT) return;
+    var c = pageCtx(READ_PART), total = 0, got = 0, fresh = '', quiet = READ_TKQ, motion = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    READ_TKQ = false;
+    Array.prototype.forEach.call(READ.querySelectorAll('[data-page-ticks]'), function (ul) {
+      var id = ul.getAttribute('data-page-ticks'), at = id.indexOf('|'), s = slotOf(id.slice(0, at)), k = id.slice(at + 1), box = ul.parentNode, v = box.querySelector('.eng-read__ta').value, marks = [];
+      Array.prototype.forEach.call(ul.children, function (li) {
+        var t = li.getAttribute('data-tick'), r = tickRun(t, v, READ_PART, s, k, c), key = id + '|' + t, was = !!READ_TK[key];
+        total++;
+        if (r) { got++; marks = marks.concat(r); }
+        li.classList.toggle('is-on', !!r);
+        li.classList.toggle('is-new', !!r && !was && !quiet && motion);
+        li.setAttribute('aria-label', li.textContent + (r ? ': ticked' : ': not yet'));
+        if (r && !was && !quiet) fresh = t;
+        READ_TK[key] = !!r;
+      });
+      tickUnder(box, v, marks);
+    });
+    var tally = READ.querySelector('[data-page-tally]'), stamp = READ.querySelector('[data-page-stamp]');
+    if (tally) {
+      tally.querySelector('[data-page-tallyn]').textContent = got + ' of ' + total;
+      if (fresh) {
+        var say = tally.querySelector('[data-page-tallysay]');
+        say.textContent = TICK[fresh][1]; say.classList.add('is-say');
+        if (motion) { tally.classList.remove('is-pop'); void tally.offsetWidth; tally.classList.add('is-pop'); }
+        clearTimeout(READ_TKT);
+        READ_TKT = setTimeout(function () { if (READ && say.isConnected) { say.textContent = 'ticks on this page'; say.classList.remove('is-say'); } }, 2600);
+      }
+    }
+    if (stamp) {
+      var full = total > 0 && got === total, was = !stamp.hidden;
+      if (full && !was) {
+        stamp.querySelector('b').innerHTML = esc(slotName(READ_SLOT)) + '<small>' + got + ' of ' + total + ' ticks</small>';
+        stamp.querySelector('p').textContent = TICK_END[typeof READ_SLOT === 'number' ? (READ_PART === 'b' ? 'b' : 'a') : READ_SLOT];
+        stamp.classList.toggle('is-new', !quiet && motion);
+      }
+      stamp.hidden = !full;
+    }
+  }
   // A box's word count, its tick, and which box on this page to write next (the first with under four words). When
   // there is none the page is done: its tab is ticked and Next is the red thing.
   function pageMarks() {
@@ -2566,6 +2737,7 @@
     var go = READ.querySelector('[data-page-next]'), tab = READ.querySelector('.eng-read__pg.is-on');
     if (go) go.classList.toggle('is-go', !next && tas.length > 0);
     if (tab) tab.classList.toggle('is-done', !next && tas.length > 0);
+    pageTicks();
   }
   // Typing on the plain page: move the remembered box starts along with the edit, then save each box's slice.
   function pagePlain(ta) {
