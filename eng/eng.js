@@ -2458,12 +2458,18 @@
   // Ideas are to read and remember, not to copy (the user: "as soon as you click on the write the ideas are supposed to
   // disappear ... so students remember rather than word for word"): going to write in any box closes every open one.
   // The box you clicked stays where it was on screen.
-  function pageIdeasHide(ta) {
-    var open = READ.querySelectorAll('.eng-read__ideasb[aria-expanded="true"]');
-    if (!open.length) return;
-    var paper = READ.querySelector('.eng-read__paper'), y0 = ta.getBoundingClientRect().top;
-    Array.prototype.forEach.call(open, function (b) { READ_IDEAS[b.getAttribute('data-page-ideas')] = false; b.setAttribute('aria-expanded', 'false'); b.textContent = 'Show ideas'; b.nextElementSibling.hidden = true; });
-    paper.scrollTop += ta.getBoundingClientRect().top - y0;
+  function pageIdeasHide() {
+    Array.prototype.forEach.call(READ.querySelectorAll('.eng-read__ideasb[aria-expanded="true"]'), function (b) {
+      READ_IDEAS[b.getAttribute('data-page-ideas')] = false; b.setAttribute('aria-expanded', 'false'); b.textContent = 'Show ideas'; b.nextElementSibling.hidden = true;
+    });
+  }
+  // Do something that moves things on the paper (close the ideas, move "Write this next") without the lines you're on
+  // jumping: the paper scrolls by however far they moved. Measured down the page rather than on screen, so it holds
+  // when the desk is scaled up on a big screen.
+  function pageKeep(ta, fn) {
+    var paper = READ.querySelector('.eng-read__paper'), top = function () { var y = 0, e = ta; while (e && e !== paper) { y += e.offsetTop; e = e.offsetParent; } return y; }, y0 = top();
+    fn();
+    paper.scrollTop += top() - y0;
   }
   // A box's word count, its tick, and which box to write next (the first with under four words: in the paragraph you're
   // in, else in the whole answer).
@@ -2494,7 +2500,7 @@
     pageGrow(ta);
     if (READ_STRUCT) { var c = pageCtx(READ_PART); c.parts(c.W, slotOf(ta.getAttribute('data-page-slot')))[ta.getAttribute('data-page-box')] = ta.value; }
     else pagePlain(ta);
-    cpSave(); pageCount(); pageMarks();
+    cpSave(); pageCount(); pageKeep(ta, pageMarks);
     clearTimeout(READ_CK); READ_CK = setTimeout(pageCheck, 350);
   }
   // How it reads: the check on the part you're in, in the help.
@@ -2613,10 +2619,11 @@
     READ.addEventListener('focusin', function (e) {
       var ta = e.target.closest && e.target.closest('.eng-read__ta');
       if (!ta) return;
-      pageIdeasHide(ta);
       READ_TA = ta;
-      var s = slotOf(ta.getAttribute('data-page-slot')), k = ta.getAttribute('data-page-box');
-      if (s !== READ_SLOT || k !== READ_BOX) { READ_SLOT = s; READ_BOX = k; pageMarks(); pageHelpDraw(); }
+      var s = slotOf(ta.getAttribute('data-page-slot')), k = ta.getAttribute('data-page-box'), moved = s !== READ_SLOT || k !== READ_BOX;
+      READ_SLOT = s; READ_BOX = k;
+      pageKeep(ta, function () { pageIdeasHide(); if (moved) pageMarks(); });
+      if (moved) pageHelpDraw();
     });
     Array.prototype.forEach.call(READ.querySelectorAll('img'), function (im) {
       if (im.complete && im.naturalWidth) im.classList.add('is-in'); else im.addEventListener('load', function () { im.classList.add('is-in'); });
