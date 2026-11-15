@@ -2351,7 +2351,9 @@
   //   boxes on the paper, the same ones the popup had (Point, Anchor, Evaluate; in part (b) Point, each text, Compare,
   //   Evaluate), each with its name in its highlighter colour, a line saying what to write, lines to write on and its
   //   word range. The box to write next says so in red, and moves on as you fill them: that is what takes you through it.
-  // - Hide structure: the same paper with the boxes gone, your answer as continuous writing, as the examiner gets it.
+  // - Hide structure: the same paper with the boxes gone, your answer as continuous writing, as the examiner gets it,
+  //   and nothing else on the lines: no headings, no prompts (the user, of grey prompts in the empty paragraphs: "hide
+  //   structure shouldnt have this"). An empty part is one empty line; clicking the blank page puts you in the first.
   //   Each box also has Show ideas. You can still type with the structure hidden; Show structure brings the boxes back with everything in its box. To keep that true, the plain
   //   page remembers where each box's text starts and ends as you edit (`pagePlain`); new writing joins the box your
   //   cursor is in.
@@ -2376,12 +2378,6 @@
     return { th: th, a: a, W: W, G: th.write[a], slots: cpwSlots(W), keys: slotKeys, parts: slotParts, text: slotText, range: CPW_RANGE };
   }
   function pageWide() { return window.innerWidth > 1100; }
-  function pageHint(part, s, c) {
-    if (part === 'b') return s === 'open' ? 'Opening: name both texts and their authors, and answer the question.' : s === 'end' ? 'Ending: which text does it more powerfully, and why.' :
-      'Paragraph ' + (s + 1) + ': one point about both texts, a moment from each, how they compare, why it matters.';
-    return s === 'open' ? 'Opening: name the film and its director, answer the question, say your points.' : s === 'end' ? 'Ending: sum it up, and what the film finally says about ' + c.th.name.toLowerCase() + '.' :
-      'Paragraph ' + (s + 1) + ': your point, the moment with a film technique, why it matters.';
-  }
   // The boxes of one part of the answer: the popup's own, or plain ones if the paragraph has no scene yet.
   function pageParts(part, s, c) {
     var name = c.th.name.toLowerCase(), para = typeof s === 'number', P = c.parts(c.W, s), list;
@@ -2421,7 +2417,7 @@
   function pageGrow(ta) {
     var lh = parseFloat(getComputedStyle(ta).lineHeight) || 30;
     ta.style.height = '0px';
-    ta.style.height = Math.max(READ_STRUCT ? 2 : ta.value ? 1 : pageWide() ? 2 : 3, Math.round(ta.scrollHeight / lh)) * lh + 'px';
+    ta.style.height = Math.max(READ_STRUCT ? 2 : 1, Math.round(ta.scrollHeight / lh)) * lh + 'px';
   }
   function pageCount() {
     var n = 0, el = READ.querySelector('[data-page-count]');
@@ -2439,7 +2435,7 @@
         var j = '', bs = [];
         pts.forEach(function (pt) { var t = String(P[pt.k] || '').trim(); if (t && j) j += ' '; bs.push(j.length); j += t; });
         READ_B[s] = { keys: pts.map(function (pt) { return pt.k; }), b: bs, o: j };
-        return '<div class="eng-read__para"><textarea class="eng-read__ta" data-page-slot="' + s + '" rows="1" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s)) + '" placeholder="' + esc(pageHint(part, s, c)) + '">' + esc(j) + '</textarea></div>';
+        return '<div class="eng-read__para"><textarea class="eng-read__ta" data-page-slot="' + s + '" rows="1" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s)) + '">' + esc(j) + '</textarea></div>';
       }
       return '<div class="eng-read__para"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + pts.map(function (pt) {
         return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh"><b>' + esc(pt.label) + '</b><span>' +
@@ -3815,6 +3811,10 @@
       else if (t.closest('[data-page-ideas]')) {
         var ib = t.closest('[data-page-ideas]'), iid = ib.getAttribute('data-page-ideas'), ion = !READ_IDEAS[iid];
         READ_IDEAS[iid] = ion; ib.setAttribute('aria-expanded', String(ion)); ib.textContent = ion ? 'Hide ideas' : 'Show ideas'; ib.nextElementSibling.hidden = !ion;
+      }
+      else if (!READ_STRUCT && t.closest('.eng-read__paper') && !t.closest('.eng-read__ta')) {
+        var pts2 = Array.prototype.slice.call(READ.querySelectorAll('.eng-read__ta')), pt2 = pts2.filter(function (x) { return !x.value.trim(); })[0] || pts2[pts2.length - 1];
+        if (pt2) { pt2.focus(); pt2.setSelectionRange(pt2.value.length, pt2.value.length); }
       }
       else if (t.closest('[data-page-struct]')) { PAGE_STRUCT = !READ_STRUCT; pageStruct(PAGE_STRUCT, !!READ_TA); if (!READ.contains(document.activeElement)) READ.querySelector('.eng-read__structb').focus({ preventScroll: true }); }
       else if (t.closest('[data-page-help]')) {
