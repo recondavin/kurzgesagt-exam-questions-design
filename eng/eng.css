@@ -2981,3 +2981,7 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 .eng-pause__again i { margin-right: 4px; font-style: normal; font-size: 12px; }
 .eng-pause__again[hidden] { display: none; }
 @media (max-width: 700px) { .eng-pause__again { position: static; flex: none; align-self: flex-end; height: 40px; margin: 0 12px 12px; order: 5; } }
+
+/* A pause part-way through a clip: the video is still there (so it can carry on with no new ad) but out of sight and
+   out of reach until the sentence is written. A file that says where its spot is stays, stopped, under the circle. */
+.eng-pause.is-held .eng-pause__yt, .eng-pause.is-held:not(.is-frame) .eng-pause__vid { visibility: hidden; pointer-events: none; }

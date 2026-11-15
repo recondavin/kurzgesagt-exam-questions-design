@@ -2768,12 +2768,12 @@
     clearInterval(w.poll); clearTimeout(w.ytWait); w.poll = 0;
     if (w.player) { try { w.player.destroy(); } catch (e) {} w.player = null; }
     if (w.video) { try { w.video.pause(); } catch (e) {} if (!w.keep) w.video = null; }
-    w.clip = null;
+    w.clip = null; w.hold = false;
   }
   function watchClipFail(dead) { var w = WATCH; if (!w) return; if (dead) WATCH_NOYT = true; watchClipStop(w); w.noclip = true; watchDraw(); }
   function watchClip() {
     var w = WATCH, sc = w.list[w.at], clip = watchClipOf(sc), el = w.el, beat = el.querySelector('.eng-pause__beat'), at = w.at;
-    w.clip = clip; w.clipT = -1; w.clipStuck = Date.now(); w.clipSeen = false;
+    w.clip = clip; w.clipT = -1; w.clipStuck = Date.now(); w.clipSeen = false; w.pi = 0;
     if (clip.src) { watchFile(); return; }
     el.classList.add('is-clip');
     el.querySelector('.eng-pause__bars').innerHTML = '<i class="is-clipbar"><b></b></i><i><b></b></i>';
@@ -2812,13 +2812,13 @@
     if (!w || !w.clip || !w.player) return;
     var t = 0, st = -1, dur = 0;
     try { t = w.player.getCurrentTime() || 0; st = w.player.getPlayerState(); dur = w.player.getDuration() || 0; } catch (e) { return; }
-    var clip = w.clip, start = clip.start || 0, end = clip.pause || dur, beat = w.el.querySelector('.eng-pause__beat'), bar = w.el.querySelector('.eng-pause__bars .is-clipbar b');
+    var clip = w.clip, ps = watchPauses(clip), nx = ps[w.pi], start = w.pi ? ps[w.pi - 1].at : clip.start || 0, end = nx ? nx.at : clip.end || dur, beat = w.el.querySelector('.eng-pause__beat'), bar = w.el.querySelector('.eng-pause__bars .is-clipbar b');
     if (t !== w.clipT) { w.clipT = t; w.clipStuck = Date.now(); if (t > start + 0.4) w.clipSeen = true; }
     // The clip's own clock stands still while an ad plays or while it loads (st 2 is the student's own pause).
     var stuck = Date.now() - w.clipStuck > 2500 && st !== 2, say = stuck && !w.clipSeen ? WATCH_HINT.ad : w.clipSeen ? WATCH_HINT.on : WATCH_HINT.wait;
     if (beat.textContent !== say) beat.textContent = say;
     if (bar && end > start) bar.style.width = Math.max(0, Math.min(100, (t - start) / (end - start) * 100)) + '%';
-    if (clip.pause && t >= clip.pause) watchClipEnd();
+    if (nx && t >= nx.at) watchHold(nx); else if (clip.end && t >= clip.end) watchClipEnd();
   }
   // A video file of the site's own in place of a YouTube clip (the user, offered remade scenes of their own as the
   // way to have video with no ads: "i could do that but i want both options"). CLIPS: moment id -> { src: the file
@@ -2850,23 +2850,80 @@
   function watchFileTick() {
     var w = WATCH;
     if (!w || !w.clip || !w.video) return;
-    var v = w.video, clip = w.clip, start = clip.start || 0, end = clip.pause || v.duration || 0, bar = w.el.querySelector('.eng-pause__bars .is-clipbar b'), beat = w.el.querySelector('.eng-pause__beat');
+    var v = w.video, clip = w.clip, ps = watchPauses(clip), nx = ps[w.pi], start = w.pi ? ps[w.pi - 1].at : clip.start || 0, end = nx ? nx.at : clip.end || v.duration || 0, bar = w.el.querySelector('.eng-pause__bars .is-clipbar b'), beat = w.el.querySelector('.eng-pause__beat');
     if (!v.paused && beat.textContent) beat.textContent = '';
     if (bar && end > start) bar.style.width = Math.max(0, Math.min(100, (v.currentTime - start) / (end - start) * 100)) + '%';
-    if (clip.pause && v.currentTime >= clip.pause) watchClipEnd();
+    if (nx && v.currentTime >= nx.at) watchHold(nx); else if (clip.end && v.currentTime >= clip.end) watchClipEnd();
+  }
+  // Pause and carry on (the user: "i want it to pause and then continue but does it have to be a youtube video pauser
+  // and they can just unpause it"). A clip's pauses are its own list, `pauses: [{ at, x, y, label, note, what }, ...]`
+  // (at: the second; the rest as for a file's spot), or its one `pause`; with neither it pauses once, at its end, and
+  // that is the end of the scene. At a pause part-way the video is stopped and put out of reach: YouTube's player is
+  // hidden (so there is no play button to press) and stopped again if it ever starts by itself; the pause is shown on
+  // the picture (or on the frame, for a file that says where its spot is); and only when the sentence is written does
+  // Keep watching bring the video back, from the same second, with no new ad because it is the same player. After
+  // its last pause the clip runs to its end (or `end`) and the scene is done. Skip jumps to the next pause.
+  function watchPauses(clip) {
+    if (clip.pauses && clip.pauses.length) return clip.pauses;
+    var cs = clip.spot || {};
+    return clip.pause ? [{ at: clip.pause, x: cs.x, y: cs.y, label: cs.label, note: cs.note, what: clip.what }] : [];
+  }
+  // What a pause points at: its own spot if it gives one, else the picture's spots in turn. Sets the label too.
+  function watchSpot(ps) {
+    var w = WATCH, sc = w.list[w.at], pic = sc.pic, base = sc.spot0 || null, i = w.pi || 0, sp;
+    if (ps.x != null && ps.y != null) sp = { x: ps.x, y: ps.y, label: ps.label || (base && base.label) || '', note: ps.note || (!ps.label && base && base.note) || '', quote: ps.quote || '' };
+    else {
+      var others = pic ? (pic.spots || []).filter(function (x) { return x !== base; }) : [];
+      sp = i === 0 ? base : others[i - 1] || base;
+      if (sp && (ps.label || ps.note)) sp = { x: sp.x, y: sp.y, label: ps.label || sp.label, note: ps.note || sp.note, quote: ps.note ? '' : sp.quote };
+    }
+    sc.spot = sp || null;
+    w.el.querySelector('.eng-pause__label').innerHTML = (sp && sp.label ? '<b>' + esc(sp.label) + '</b>' : '') + esc(ps.what || (pic && pic.caption) || sc.beats[sc.beats.length - 1] || '');
+  }
+  function watchHold(ps) {
+    var w = WATCH, el = w.el, sc = w.list[w.at], own = !!w.video && ((ps.x != null && ps.y != null) || !sc.pic);
+    clearInterval(w.poll); w.poll = 0;
+    if (w.video) { try { w.video.pause(); } catch (e) {} }
+    else {
+      try { w.player.pauseVideo(); } catch (e) {}
+      if (w.clipSeen) watchSeen(sc.mid, true);
+      // Out of reach: hidden by the styles, and stopped again if it starts.
+      w.poll = setInterval(function () { try { if (WATCH === w && w.hold && w.player && w.player.getPlayerState() === 1) w.player.pauseVideo(); } catch (e) {} }, 400);
+    }
+    w.hold = true; w.holdCls = w.video ? 'is-file' : 'is-clip';
+    watchSpot(ps);
+    el.classList.remove('is-clip'); el.classList.remove('is-file'); el.classList.add('is-held'); el.classList.toggle('is-frame', own);
+    el.querySelector('.eng-pause__beat').textContent = '';
+    Array.prototype.forEach.call(el.querySelectorAll('.eng-pause__bars i'), function (b) { b.className = 'is-done'; b.firstChild.style.width = ''; });
+    watchPause();
+  }
+  function watchResume() {
+    var w = WATCH, el = w.el;
+    clearInterval(w.poll);
+    w.hold = false; w.paused = false; w.pi = (w.pi || 0) + 1;
+    el.classList.remove('is-paused'); el.classList.remove('is-held'); el.classList.remove('is-frame'); el.classList.add(w.holdCls);
+    el.querySelector('.eng-pause__card').hidden = true;
+    el.querySelector('.eng-pause__bars').innerHTML = '<i class="is-clipbar"><b></b></i><i><b></b></i>';
+    el.querySelector('[data-watch-skip]').textContent = watchPauses(w.clip)[w.pi] ? 'Skip to the pause ›' : 'Skip the rest ›';
+    watchFit();
+    if (w.video) { w.poll = setInterval(watchFileTick, 80); var pr = w.video.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    else { w.clipStuck = Date.now(); try { w.player.playVideo(); } catch (e) {} w.poll = setInterval(watchClipTick, 250); }
+    el.querySelector('.eng-pause__x').focus({ preventScroll: true });
+  }
+  function watchSkip() {
+    var w = WATCH, nx = watchPauses(w.clip)[w.pi || 0];
+    if (!nx) { watchClipEnd(); return; }
+    try { if (w.video) w.video.currentTime = nx.at; else w.player.seekTo(nx.at, true); } catch (e) {}
+    watchHold(nx);
   }
   function watchFileEnd() {
-    var w = WATCH, el = w.el, sc = w.list[w.at], clip = w.clip, v = w.video, own = !!clip.spot || !sc.pic;
+    var w = WATCH, el = w.el, sc = w.list[w.at], clip = w.clip, v = w.video, cs = clip.spot || {}, own = (cs.x != null && cs.y != null) || !sc.pic;
     try { v.pause(); } catch (e) {}
     w.keep = own;
     watchClipStop(w);
-    if (own) {
-      // The pause is on the frame itself.
-      var old = sc.spot || {}, cs = clip.spot;
-      if (cs) sc.spot = { x: cs.x, y: cs.y, label: cs.label || old.label || '', note: cs.note || old.note || '', quote: cs.quote || (cs.note ? '' : old.quote) || '' };
-      el.querySelector('.eng-pause__label').innerHTML = (sc.spot && sc.spot.label ? '<b>' + esc(sc.spot.label) + '</b>' : '') + esc(clip.what || (sc.pic && sc.pic.caption) || sc.beats[sc.beats.length - 1] || '');
-      el.classList.add('is-frame');
-    } else if (v.parentNode) v.parentNode.removeChild(v);
+    // With a spot of its own the pause is on the frame itself.
+    watchSpot({ x: cs.x, y: cs.y, label: cs.label, note: cs.note, what: clip.what });
+    if (own) el.classList.add('is-frame'); else if (v.parentNode) v.parentNode.removeChild(v);
     el.classList.remove('is-file');
     el.querySelector('.eng-pause__beat').textContent = '';
     Array.prototype.forEach.call(el.querySelectorAll('.eng-pause__bars i'), function (b) { b.className = 'is-done'; b.firstChild.style.width = ''; });
@@ -2876,6 +2933,8 @@
   function watchClipEnd() {
     var w = WATCH;
     if (!w || !w.clip) return;
+    // A clip with pauses of its own has had them all by its end: the scene is done.
+    if (watchPauses(w.clip).length) { if (!w.video && w.clipSeen) watchSeen(w.list[w.at].mid, true); watchClipStop(w); watchNext(); return; }
     if (w.video) { watchFileEnd(); return; }
     if (w.clipSeen) watchSeen(w.list[w.at].mid, true);
     try { if (w.player) w.player.pauseVideo(); } catch (e) {}
@@ -2918,7 +2977,7 @@
       var t = e.target, w = WATCH;
       if (!w) return;
       if (t.closest('[data-watch-close]')) watchClose(true);
-      else if (t.closest('[data-watch-skip]')) { if (w.clip) watchClipEnd(); else { w.step = w.list[w.at].beats.length; watchStep(); } }
+      else if (t.closest('[data-watch-skip]')) { if (w.clip) watchSkip(); else { w.step = w.list[w.at].beats.length; watchStep(); } }
       else if (t.closest('[data-watch-again]')) { w.again = true; watchDraw(); }
       else if (t.closest('[data-watch-done]')) watchDone();
       else if (t.closest('[data-watch-next]')) watchNext();
@@ -2950,7 +3009,7 @@
     if (to) to.focus({ preventScroll: true });
   }
   function watchDraw() {
-    var w = WATCH, sc = w.list[w.at], pic = sc.pic, sp = sc.spot, name = w.c.th.name.toLowerCase(), box = pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === watchKey(w); })[0];
+    var w = WATCH, sc = w.list[w.at], pic = sc.pic, sp = (sc.spot = sc.spot0 = sc.spot0 === undefined ? sc.spot : sc.spot0), name = w.c.th.name.toLowerCase(), box = pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === watchKey(w); })[0];
     clearTimeout(w.timer); w.keep = false; watchClipStop(w);
     w.step = 0; w.paused = false; w.wrote = '';
     w.el.className = 'eng-pause' + (watchStill() ? ' is-still' : '');
@@ -2968,6 +3027,7 @@
         '<p class="eng-pause__row"><span>It goes into your ' + esc(box ? box.label : 'Evaluate') + ' box.</span><button type="button" class="eng-read__btn" data-watch-done disabled>Done</button></p></div>';
     var img = w.el.querySelector('.eng-pause__stage img');
     if (img) img.addEventListener('load', watchFit);
+    w.cardHtml = w.el.querySelector('.eng-pause__card').innerHTML;
     watchFit();
     w.el.querySelector('.eng-pause__x').focus({ preventScroll: true });
     var cl = w.noclip ? null : watchClipOf(sc);
@@ -2981,7 +3041,7 @@
     if (!w) return;
     var el = w.el, stage = el.querySelector('.eng-pause__stage'), img = stage.querySelector('img'), sp = w.list[w.at].spot, wide = el.clientWidth > 700;
     // A clip is 16:9 and keeps clear of the title above it and the line of help below it.
-    var vid = w.video, yt = !!w.clip && !vid, ar = yt ? 16 / 9 : vid ? (vid.videoWidth || 16) / (vid.videoHeight || 9) : img ? (img.naturalWidth || 16) / (img.naturalHeight || 9) : 16 / 9;
+    var vid = w.video && (!w.hold || el.classList.contains('is-frame')) ? w.video : null, yt = !!w.clip && !w.video && !w.hold, ar = yt ? 16 / 9 : vid ? (vid.videoWidth || 16) / (vid.videoHeight || 9) : img ? (img.naturalWidth || 16) / (img.naturalHeight || 9) : 16 / 9;
     var aw = el.clientWidth, ah = wide ? el.clientHeight - (yt ? 176 : 0) : Math.round(el.clientHeight * 0.38);
     var W = Math.round(Math.min(aw, ah * ar)), H = Math.round(W / ar), svg = stage.querySelector('svg'), lab = el.querySelector('.eng-pause__label'), card = el.querySelector('.eng-pause__card');
     stage.style.width = W + 'px'; stage.style.height = H + 'px';
@@ -3019,6 +3079,7 @@
     var w = WATCH, el = w.el, card = el.querySelector('.eng-pause__card');
     w.paused = true;
     el.classList.add('is-paused');
+    if (w.cardHtml) card.innerHTML = w.cardHtml;   // a fresh card: a clip can pause more than once
     card.hidden = false;
     watchFit();
     if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) el.querySelector('.eng-pause__ta').focus({ preventScroll: true });
@@ -3044,12 +3105,13 @@
     if (!sp || !sp.note) { watchNext(); return; }
     card.innerHTML = '<p class="eng-pause__who">The examiner</p><p class="eng-pause__note"><b>' + esc(sp.label) + '.</b> ' + esc(sp.note) + (sp.quote ? '<q>' + esc(sp.quote) + '</q>' : '') + '</p>' +
       '<p class="eng-pause__mine"><span>You wrote</span>' + esc(v) + '</p>' +
-      '<p class="eng-pause__row"><span>It is in your ' + esc(box ? box.label : 'Evaluate') + ' box now.</span><button type="button" class="eng-read__btn is-go" data-watch-next>' + (last ? 'Back to your answer ›' : 'Next scene ›') + '</button></p>';
+      '<p class="eng-pause__row"><span>It is in your ' + esc(box ? box.label : 'Evaluate') + ' box now.</span><button type="button" class="eng-read__btn is-go" data-watch-next>' + (w.hold ? 'Keep watching ›' : last ? 'Back to your answer ›' : 'Next scene ›') + '</button></p>';
     card.querySelector('[data-watch-next]').focus({ preventScroll: true });
   }
   function watchNext() {
     var w = WATCH;
     if (!w) return;
+    if (w.hold) { watchResume(); return; }
     if (w.at < w.list.length - 1) { w.at++; w.noclip = false; watchDraw(); } else watchClose(true);
   }
   window.addEventListener('resize', function () { if (WATCH) watchFit(); });
