@@ -2752,6 +2752,16 @@
   var CLIPS = { 'shawshank-4': { yt: 'njJ41irPjTc', start: 0, pause: 0 } }, WATCH_NOYT = false;
   var WATCH_HINT = { wait: 'Press play if it does not start by itself. If an ad comes first, skip it when you can.', ad: 'If an ad is playing, skip it when you can. The scene starts straight after it.', on: 'It pauses by itself on the moment that matters.' };
   function watchClipOf(sc) { return (window.EngClips || {})[sc.mid] || CLIPS[sc.mid] || null; }
+  // Fewer ads (the user: "is there a way to minimize ads or get less ones because youtube ads are getting really bad
+  // now"): a page cannot remove YouTube's ads, but it need not bring the same one back. A YouTube clip that has been
+  // watched on this device is remembered (localStorage eng-watched), and the next time its scene is opened it goes
+  // straight to the pause, with Watch the clip again in the corner for anyone who wants it.
+  function watchSeen(mid, set) {
+    var o = {};
+    try { o = JSON.parse(localStorage.getItem('eng-watched') || '{}') || {}; } catch (e) {}
+    if (set && !o[mid]) { o[mid] = 1; try { localStorage.setItem('eng-watched', JSON.stringify(o)); } catch (e) {} }
+    return !!o[mid];
+  }
   function watchClipStop(w) {
     w = w || WATCH;
     if (!w) return;
@@ -2867,6 +2877,7 @@
     var w = WATCH;
     if (!w || !w.clip) return;
     if (w.video) { watchFileEnd(); return; }
+    if (w.clipSeen) watchSeen(w.list[w.at].mid, true);
     try { if (w.player) w.player.pauseVideo(); } catch (e) {}
     watchClipStop(w);
     var el = w.el, yt = el.querySelector('.eng-pause__yt');
@@ -2908,6 +2919,7 @@
       if (!w) return;
       if (t.closest('[data-watch-close]')) watchClose(true);
       else if (t.closest('[data-watch-skip]')) { if (w.clip) watchClipEnd(); else { w.step = w.list[w.at].beats.length; watchStep(); } }
+      else if (t.closest('[data-watch-again]')) { w.again = true; watchDraw(); }
       else if (t.closest('[data-watch-done]')) watchDone();
       else if (t.closest('[data-watch-next]')) watchNext();
       else if (!w.paused && w.video && t.closest('.eng-pause__stage, .eng-pause__beat')) { if (w.video.paused) w.video.play(); else w.video.pause(); }
@@ -2947,6 +2959,7 @@
       '<div class="eng-pause__bars" aria-hidden="true">' + sc.beats.concat(['']).map(function () { return '<i><b></b></i>'; }).join('') + '</div>' +
       '<p class="eng-pause__top"><b>' + esc(sc.m.title) + '</b><span>' + esc(shortTitle(sc.tid)) + (w.list.length > 1 ? ' · scene ' + (w.at + 1) + ' of ' + w.list.length : '') + '</span></p>' +
       '<button type="button" class="eng-pause__skip" data-watch-skip>Skip to the pause ›</button>' +
+      '<button type="button" class="eng-pause__again" data-watch-again hidden><i aria-hidden="true">▶</i> Watch the clip again</button>' +
       '<button type="button" class="eng-pause__x" data-watch-close aria-label="Back to your answer">×</button>' +
       '<p class="eng-pause__beat" aria-live="polite"></p>' +
       '<div class="eng-pause__card" hidden><p class="eng-pause__who">Paused</p><h3>Why is this important for <mark>' + esc(name) + '</mark>?</h3>' +
@@ -2958,7 +2971,9 @@
     watchFit();
     w.el.querySelector('.eng-pause__x').focus({ preventScroll: true });
     var cl = w.noclip ? null : watchClipOf(sc);
-    if (cl && (cl.src || (cl.yt && !WATCH_NOYT))) watchClip(); else watchStep();
+    if (cl && cl.yt && !cl.src && !WATCH_NOYT && !w.again && watchSeen(sc.mid)) { w.el.querySelector('[data-watch-again]').hidden = false; w.step = sc.beats.length; watchStep(); }
+    else if (cl && (cl.src || (cl.yt && !WATCH_NOYT))) watchClip(); else watchStep();
+    w.again = false;
   }
   // Size the picture to the screen (all of it showing), and draw the dark and the circle on it at the spot.
   function watchFit() {

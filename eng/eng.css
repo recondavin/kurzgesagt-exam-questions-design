@@ -2974,3 +2974,10 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 .eng-pause__vid { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: contain; background: #000; }
 .eng-pause__svg { z-index: 1; }
 .eng-pause.is-file .eng-pause__stage img, .eng-pause.is-frame .eng-pause__stage img { visibility: hidden; animation: none; }
+
+/* Watch the clip again: shown at the pause when a YouTube clip you have already watched was not replayed. */
+.eng-pause__again { position: absolute; top: 26px; right: 74px; z-index: 3; height: 44px; padding: 0 14px; border: 0; border-radius: 4px; background: rgba(255, 253, 246, .16); color: #FFFDF6; font: 600 15px/1 var(--font-body); cursor: pointer; }
+.eng-pause__again:hover { background: rgba(255, 253, 246, .26); }
+.eng-pause__again i { margin-right: 4px; font-style: normal; font-size: 12px; }
+.eng-pause__again[hidden] { display: none; }
+@media (max-width: 700px) { .eng-pause__again { position: static; flex: none; align-self: flex-end; height: 40px; margin: 0 12px 12px; order: 5; } }
