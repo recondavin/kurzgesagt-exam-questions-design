@@ -2408,7 +2408,7 @@
   }
   function readClose() {
     if (!READ) return;
-    clearTimeout(READ_CK); clearTimeout(READ_TKT);
+    clearTimeout(READ_CK); clearTimeout(READ_TKT); watchClose();
     READ.remove(); READ = null; READ_TA = null;
     document.body.classList.remove('eng-read-on');
     var sel = READ_SEL; READ_SEL = '';
@@ -2477,7 +2477,7 @@
       }
       // The examiner's ticks: each box's own, in the margin; the count sits by the heading.
       var tk = pts.map(function (pt) { return tickList(part, s, pt.k, c); }), any = tk.some(function (x) { return x.length > 0; });
-      return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any ? tickTally() : '') + '</div>' + pts.map(function (pt, i) {
+      return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any ? tickTally() : '') + '</div>' + watchBtn(part, s, c) + pts.map(function (pt, i) {
         return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh"><b>' + esc(pt.label) + '</b><span>' +
           (pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span>' + pageIdeasBtn(s, pt) + '</p>' + (any ? tickHtml(part, s, pt.k, tk[i], c) : '') + pageIdeasList(s, pt) + '<div class="eng-read__ul" aria-hidden="true"><div></div></div>' +
           '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s) + ': ' + pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
@@ -2722,6 +2722,176 @@
       stamp.hidden = !full;
     }
   }
+  // Watch the scene (the user: "like the actual film if you could let people play that and it pauses after something
+  // important happens and the student has to write why its important", "and its full screen and circling and its going
+  // slightly dark and then labelling something that happened", "dont forget sive and small things also"). The film
+  // itself cannot be on the site and YouTube allows nothing drawn over its player, so this plays on the scene's own
+  // picture, for every text: full screen, the story told a line at a time under bars like a story's, then it pauses:
+  // the picture goes dark but for the thing that matters, a red circle is drawn round it (the picture's own spot, from
+  // the data), a label says what it is and what happened, and a card asks why it is important for the theme. You
+  // write one sentence (it shows the ticks it will earn); it goes onto the end of the paragraph's Evaluate box, and
+  // then the examiner's own note on the spot is shown, never before. Part (b) plays both scenes, one after the other.
+  // A clip from YouTube could later play in place of the story lines (a scene would carry its video id and the second
+  // to pause at); the pause itself would stay on our picture.
+  var WATCH = null;
+  function watchScenes(part, s, c) {
+    if (typeof s !== 'number') return [];
+    var q = c.W.paras[s], mids = !q ? [] : part === 'b' ? [q.x, q.y] : [q.scene ? text(c.a).moments[q.scene - 1].id : ''];
+    return mids.filter(Boolean).map(function (mid) {
+      var tid = tidOf(mid), m = mom(mid).m, ps = scenePics(tid, mid), pic = ps.filter(function (p) { return p.spots && p.spots.length; })[0] || ps[0];
+      if (!pic || !m) return null;
+      var spot = (pic.spots || []).filter(function (x) { return x.moment === mid; })[0] || (pic.spots || [])[0] || null;
+      return { tid: tid, mid: mid, m: m, pic: pic, spot: spot, beats: (m.tell && m.tell.length ? m.tell : storySentences(m.what)).slice(0, 4) };
+    }).filter(Boolean);
+  }
+  function watchBtn(part, s, c) {
+    var n = watchScenes(part, s, c).length;
+    return n ? '<p class="eng-read__watch"><button type="button" class="eng-read__btn is-quiet" data-page-watch><i aria-hidden="true">▶</i> Watch the scene' + (n > 1 ? 's' : '') + '</button><span>It pauses on what matters, and you say why.</span></p>' : '';
+  }
+  function watchStill() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+  // The box the sentence goes into: Evaluate, or the last box of the paragraph.
+  function watchKey(w) { var pts = pageParts(READ_PART, READ_SLOT, w.c); return pts.some(function (pt) { return pt.k === 'e'; }) ? 'e' : pts.length ? pts[pts.length - 1].k : 'e'; }
+  function watchOpen() {
+    if (!READ) return;
+    var c = pageCtx(READ_PART), list = watchScenes(READ_PART, READ_SLOT, c);
+    if (!list.length) return;
+    watchClose();
+    var el = document.createElement('div');
+    el.id = 'eng-pause'; el.className = 'eng-pause'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Watch the scene');
+    READ.appendChild(el);
+    WATCH = { el: el, list: list, at: 0, c: c, timer: 0, step: 0 };
+    el.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var t = e.target, w = WATCH;
+      if (!w) return;
+      if (t.closest('[data-watch-close]')) watchClose(true);
+      else if (t.closest('[data-watch-skip]')) { w.step = w.list[w.at].beats.length; watchStep(); }
+      else if (t.closest('[data-watch-done]')) watchDone();
+      else if (t.closest('[data-watch-next]')) watchNext();
+      else if (!w.paused && t.closest('.eng-pause__stage, .eng-pause__beat')) { w.step++; watchStep(); }
+    });
+    el.addEventListener('input', function (e) { e.stopPropagation(); if (e.target.classList.contains('eng-pause__ta')) watchInput(); });
+    el.addEventListener('focusin', function (e) { e.stopPropagation(); });
+    el.addEventListener('keydown', function (e) {
+      e.stopPropagation();
+      if (e.key === 'Enter' && !e.shiftKey && e.target.classList.contains('eng-pause__ta')) { e.preventDefault(); watchDone(); return; }
+      if (e.key !== 'Tab') return;
+      var f = Array.prototype.filter.call(el.querySelectorAll('button, textarea'), function (x) { return !x.disabled && x.offsetParent; });
+      if (!f.length) return;
+      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+    });
+    watchDraw();
+  }
+  function watchClose(back) {
+    var w = WATCH;
+    if (!w) return;
+    clearTimeout(w.timer);
+    WATCH = null;
+    if (w.el.parentNode) w.el.parentNode.removeChild(w.el);
+    if (!back || !READ) return;
+    var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var to = (fine && READ.querySelector('.eng-read__box.is-next .eng-read__ta')) || READ.querySelector('[data-page-watch]');
+    if (to) to.focus({ preventScroll: true });
+  }
+  function watchDraw() {
+    var w = WATCH, sc = w.list[w.at], pic = sc.pic, sp = sc.spot, name = w.c.th.name.toLowerCase(), box = pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === watchKey(w); })[0];
+    clearTimeout(w.timer);
+    w.step = 0; w.paused = false; w.wrote = '';
+    w.el.className = 'eng-pause' + (watchStill() ? ' is-still' : '');
+    w.el.innerHTML = '<div class="eng-pause__stage"' + (sp ? ' style="--ox:' + sp.x + '%;--oy:' + sp.y + '%"' : '') + '><img src="assets/eng/img/' + esc(pic.file) + '" alt="' + esc(pic.caption || sc.m.title) + '"><svg class="eng-pause__svg" aria-hidden="true"></svg></div>' +
+      '<p class="eng-pause__label">' + (sp ? '<b>' + esc(sp.label) + '</b>' : '') + esc(pic.caption || sc.beats[sc.beats.length - 1] || '') + '</p>' +
+      '<div class="eng-pause__bars" aria-hidden="true">' + sc.beats.concat(['']).map(function () { return '<i><b></b></i>'; }).join('') + '</div>' +
+      '<p class="eng-pause__top"><b>' + esc(sc.m.title) + '</b><span>' + esc(shortTitle(sc.tid)) + (w.list.length > 1 ? ' · scene ' + (w.at + 1) + ' of ' + w.list.length : '') + '</span></p>' +
+      '<button type="button" class="eng-pause__skip" data-watch-skip>Skip to the pause ›</button>' +
+      '<button type="button" class="eng-pause__x" data-watch-close aria-label="Back to your answer">×</button>' +
+      '<p class="eng-pause__beat" aria-live="polite"></p>' +
+      '<div class="eng-pause__card" hidden><p class="eng-pause__who">Paused</p><h3>Why is this important for <mark>' + esc(name) + '</mark>?</h3>' +
+        '<textarea class="eng-pause__ta" rows="3" spellcheck="true" lang="en-IE" aria-label="Why is this important for ' + esc(name) + '? One sentence." placeholder="Write one sentence…"></textarea>' +
+        tickHtml(READ_PART, READ_SLOT, watchKey(w), tickList(READ_PART, READ_SLOT, watchKey(w), w.c), w.c).replace('class="eng-read__ticks"', 'class="eng-read__ticks eng-pause__ticks"').replace(/ data-page-ticks="[^"]*"/, '') +
+        '<p class="eng-pause__row"><span>It goes into your ' + esc(box ? box.label : 'Evaluate') + ' box.</span><button type="button" class="eng-read__btn" data-watch-done disabled>Done</button></p></div>';
+    var img = w.el.querySelector('img');
+    img.addEventListener('load', watchFit);
+    watchFit();
+    w.el.querySelector('.eng-pause__x').focus({ preventScroll: true });
+    watchStep();
+  }
+  // Size the picture to the screen (all of it showing), and draw the dark and the circle on it at the spot.
+  function watchFit() {
+    var w = WATCH;
+    if (!w) return;
+    var el = w.el, stage = el.querySelector('.eng-pause__stage'), img = stage.querySelector('img'), sp = w.list[w.at].spot, wide = el.clientWidth > 700;
+    var ar = (img.naturalWidth || 16) / (img.naturalHeight || 9), aw = el.clientWidth, ah = wide ? el.clientHeight : Math.round(el.clientHeight * 0.38);
+    var W = Math.round(Math.min(aw, ah * ar)), H = Math.round(W / ar), svg = stage.querySelector('svg'), lab = el.querySelector('.eng-pause__label'), card = el.querySelector('.eng-pause__card');
+    stage.style.width = W + 'px'; stage.style.height = H + 'px';
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    if (!sp) { svg.innerHTML = '<rect class="eng-pause__dim" width="' + W + '" height="' + H + '"/>'; }
+    var r = Math.max(42, Math.min(120, W * 0.085)), cx = sp ? Math.max(r + 8, Math.min(W - r - 8, sp.x / 100 * W)) : W / 2, cy = sp ? Math.max(r + 8, Math.min(H - r - 8, sp.y / 100 * H)) : H / 2;
+    if (sp) svg.innerHTML = '<defs><filter id="eng-pause-soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="' + (r * 0.12).toFixed(1) + '"/></filter>' +
+      '<mask id="eng-pause-hole"><rect width="' + W + '" height="' + H + '" fill="#fff"/><circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="#000" filter="url(#eng-pause-soft)"/></mask></defs>' +
+      '<rect class="eng-pause__dim" width="' + W + '" height="' + H + '" mask="url(#eng-pause-hole)"/>' +
+      '<ellipse class="eng-pause__ring" pathLength="1" cx="' + cx + '" cy="' + cy + '" rx="' + (r + 5) + '" ry="' + (r + 1) + '" transform="rotate(-12 ' + cx + ' ' + cy + ')"/>' +
+      '<ellipse class="eng-pause__ring is-2" pathLength="1" cx="' + (cx + 2) + '" cy="' + (cy - 1) + '" rx="' + (r + 1) + '" ry="' + (r + 6) + '" transform="rotate(24 ' + cx + ' ' + cy + ')"/>';
+    if (!wide) { lab.style.left = lab.style.top = ''; card.classList.remove('is-left'); return; }
+    // The card takes the side away from the spot; the label sits under the circle (over it if there is no room), clear of the card.
+    var left = !!sp && sp.x < 50 ? false : !!sp, sx = (aw - W) / 2, sy = (el.clientHeight - H) / 2, side = 36 + 420 + 18, lw = lab.offsetWidth, lh = lab.offsetHeight;
+    card.classList.toggle('is-left', left);
+    var minL = Math.max(sx + 12, left ? side : 12), maxL = Math.min(sx + W - 12, left ? aw - 12 : aw - side) - lw;
+    var x = Math.max(minL, Math.min(maxL, sx + cx - lw / 2)), below = cy + r + 14 + lh < H - 16, y = below || cy - r - 14 - lh < 84 - sy ? sy + cy + r + 14 : sy + cy - r - 14 - lh;
+    if (!sp) { x = Math.max(12, sx + 24); y = sy + H - lh - 28; }
+    lab.style.left = Math.round(x) + 'px'; lab.style.top = Math.round(Math.min(y, el.clientHeight - lh - 12)) + 'px';
+  }
+  // One line of the story at a time; after the last, the pause.
+  function watchStep() {
+    var w = WATCH;
+    if (!w) return;
+    var sc = w.list[w.at], el = w.el, bars = el.querySelectorAll('.eng-pause__bars i');
+    clearTimeout(w.timer);
+    Array.prototype.forEach.call(bars, function (b, i) { b.className = i < w.step ? 'is-done' : ''; });
+    if (w.step >= sc.beats.length) { watchPause(); return; }
+    var ms = Math.min(5600, 1500 + wordsIn(sc.beats[w.step]) * 170), bar = bars[w.step];
+    el.querySelector('.eng-pause__beat').textContent = sc.beats[w.step];
+    bar.style.setProperty('--ms', ms + 'ms'); void bar.offsetWidth; bar.className = 'is-on';
+    w.timer = setTimeout(function () { w.step++; watchStep(); }, ms);
+  }
+  function watchPause() {
+    var w = WATCH, el = w.el, card = el.querySelector('.eng-pause__card');
+    w.paused = true;
+    el.classList.add('is-paused');
+    card.hidden = false;
+    watchFit();
+    if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) el.querySelector('.eng-pause__ta').focus({ preventScroll: true });
+  }
+  function watchInput() {
+    var w = WATCH, el = w.el, ta = el.querySelector('.eng-pause__ta'), v = ta.value, done = el.querySelector('[data-watch-done]'), k = watchKey(w);
+    done.disabled = wordsIn(v) < 4; done.classList.toggle('is-go', !done.disabled);
+    Array.prototype.forEach.call(el.querySelectorAll('.eng-pause__ticks li'), function (li) {
+      var on = !!tickRun(li.getAttribute('data-tick'), v, READ_PART, READ_SLOT, k, w.c);
+      li.classList.toggle('is-new', on && !li.classList.contains('is-on') && !watchStill()); li.classList.toggle('is-on', on);
+    });
+  }
+  // The sentence goes onto the end of the box on the paper; then what the examiner would say about the spot.
+  function watchDone() {
+    var w = WATCH, el = w.el, sc = w.list[w.at], v = el.querySelector('.eng-pause__ta').value.replace(/\s+/g, ' ').trim(), k = watchKey(w);
+    if (wordsIn(v) < 4) return;
+    if (!/[.!?]["”’']?$/.test(v)) v += '.';
+    var P = w.c.parts(w.c.W, READ_SLOT), ta = READ.querySelector('.eng-read__ta[data-page-box="' + k + '"]');
+    P[k] = (P[k] && String(P[k]).trim() ? String(P[k]).replace(/\s+$/, '') + ' ' : '') + v;
+    if (ta) { ta.value = P[k]; pageInput(ta); } else cpSave();
+    w.wrote = v;
+    var last = w.at === w.list.length - 1, card = el.querySelector('.eng-pause__card'), sp = sc.spot, box = pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === k; })[0];
+    if (!sp || !sp.note) { watchNext(); return; }
+    card.innerHTML = '<p class="eng-pause__who">The examiner</p><p class="eng-pause__note"><b>' + esc(sp.label) + '.</b> ' + esc(sp.note) + (sp.quote ? '<q>' + esc(sp.quote) + '</q>' : '') + '</p>' +
+      '<p class="eng-pause__mine"><span>You wrote</span>' + esc(v) + '</p>' +
+      '<p class="eng-pause__row"><span>It is in your ' + esc(box ? box.label : 'Evaluate') + ' box now.</span><button type="button" class="eng-read__btn is-go" data-watch-next>' + (last ? 'Back to your answer ›' : 'Next scene ›') + '</button></p>';
+    card.querySelector('[data-watch-next]').focus({ preventScroll: true });
+  }
+  function watchNext() {
+    var w = WATCH;
+    if (!w) return;
+    if (w.at < w.list.length - 1) { w.at++; watchDraw(); } else watchClose(true);
+  }
+  window.addEventListener('resize', function () { if (WATCH) watchFit(); });
   // A box's word count, its tick, and which box on this page to write next (the first with under four words). When
   // there is none the page is done: its tab is ticked and Next is the red thing.
   function pageMarks() {
@@ -2890,6 +3060,8 @@
   window.addEventListener('resize', function () { if (READ) Array.prototype.forEach.call(READ.querySelectorAll('.eng-read__ta'), pageGrow); });
   document.addEventListener('keydown', function (e) {
     if (!READ) return;
+    // While a scene is being watched, Escape closes that and nothing else, and its own Tab loop applies.
+    if (WATCH) { if (e.key === 'Escape') { e.stopPropagation(); e.preventDefault(); watchClose(true); } return; }
     if (e.key === 'Escape') { e.stopPropagation(); if (!pageWide() && READ.classList.contains('is-help')) pageHelpSet(false); else readClose(); return; }
     if (e.key !== 'Tab') return;
     var f = Array.prototype.filter.call(READ.querySelectorAll('textarea, button'), function (x) { return x.offsetParent !== null; }), i = f.indexOf(document.activeElement);
@@ -4066,6 +4238,7 @@
     var t = ev.target;
     Array.prototype.forEach.call(bar.querySelectorAll('details[open]'), function (d) { if (!d.contains(t)) d.open = false; });
     if (READ && READ.contains(t)) {
+      if (t.closest('[data-page-watch]')) { watchOpen(); return; }
       var pw = t.closest('[data-page-word]'), pfx = t.closest('[data-page-fix]'), pgp = READ_PART, pgs = READ_SLOT;
       if (t.closest('[data-read-close]')) readClose();
       else if (pw) pageInsert(pw.getAttribute('data-page-word'));

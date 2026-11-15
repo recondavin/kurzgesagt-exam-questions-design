@@ -2881,3 +2881,78 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
   .eng-read__tally i { width: 40px; height: 40px; }
 }
 @media (prefers-reduced-motion: reduce) { .eng-read__ticks li.is-new path, .eng-read__tally.is-pop b, .eng-read__stamp.is-new b { animation: none; stroke-dashoffset: 0; } }
+
+/* Watch the scene: the picture full screen over the desk, the story told under bars, then the pause: dark but for the
+   spot, a red circle drawn round it, a label for what happened, and a card of exam paper asking why it matters. The
+   circle is a brighter red than the pen so it reads on a dark picture; everything else keeps the page's tokens. */
+.eng-read__watch { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0 0 12px; color: var(--exam-ink-2); font: 400 16px/1.3 var(--font-body); }
+.eng-read__watch .eng-read__btn { height: 40px; padding: 0 14px; font-size: 16px; }
+.eng-read__watch .eng-read__btn i { margin-right: 4px; color: var(--exam-pen); font-style: normal; font-size: 13px; }
+.eng-pause { position: absolute; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #05080D; color: #FFFDF6; font-family: var(--font-body); animation: readIn .2s ease-out; }
+.eng-pause::before { content: ""; position: absolute; top: 0; right: 0; left: 0; z-index: 1; height: 120px; background: linear-gradient(rgba(5, 8, 13, .78), rgba(5, 8, 13, 0)); pointer-events: none; }
+.eng-pause__stage { position: relative; flex: none; overflow: hidden; background: #0C1420; cursor: pointer; }
+.eng-pause.is-paused .eng-pause__stage { cursor: default; }
+.eng-pause__stage img { display: block; width: 100%; height: 100%; object-fit: cover; transform-origin: var(--ox, 50%) var(--oy, 50%); animation: eng-pause-push 16s linear forwards; }
+.eng-pause.is-paused .eng-pause__stage img { animation-play-state: paused; }
+.eng-pause__svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.eng-pause__dim { fill: rgba(5, 9, 16, .7); opacity: 0; transition: opacity .4s ease; }
+.eng-pause.is-paused .eng-pause__dim { opacity: 1; }
+.eng-pause__ring { fill: none; stroke: #DC2B40; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.eng-pause__ring.is-2 { stroke-width: 3.5; opacity: .85; }
+.eng-pause.is-paused .eng-pause__ring { animation: eng-tick-draw .55s ease-out .35s forwards; }
+.eng-pause.is-paused .eng-pause__ring.is-2 { animation-duration: .45s; animation-delay: .75s; }
+.eng-pause__label { position: absolute; z-index: 2; box-sizing: border-box; width: max-content; max-width: 300px; margin: 0; padding: 10px 14px 11px; border-radius: 4px; background: #FFFDF6; color: var(--exam-ink); font: 400 16px/1.4 var(--font-body); opacity: 0; transform: translateY(6px); transition: opacity .25s ease 1s, transform .25s ease 1s; pointer-events: none; }
+.eng-pause__label b { display: block; margin-bottom: 2px; font: 800 21px/1.2 var(--font-head); letter-spacing: -.01em; }
+.eng-pause.is-paused .eng-pause__label { opacity: 1; transform: none; }
+.eng-pause__bars { position: absolute; top: 10px; right: 16px; left: 16px; z-index: 2; display: flex; gap: 6px; }
+.eng-pause__bars i { flex: 1; height: 4px; overflow: hidden; border-radius: 2px; background: rgba(255, 253, 246, .28); }
+.eng-pause__bars b { display: block; width: 0; height: 100%; background: #FFFDF6; }
+.eng-pause__bars i.is-done b { width: 100%; transition: none; }
+.eng-pause__bars i.is-on b { width: 100%; transition: width var(--ms, 3s) linear; }
+.eng-pause.is-paused .eng-pause__bars i:last-child b { width: 100%; background: #DC2B40; }
+.eng-pause__top { position: absolute; top: 22px; left: 12px; z-index: 2; margin: 0; padding: 6px 10px 7px; border-radius: 4px; background: rgba(5, 9, 16, .74); }
+.eng-pause__top b { display: block; font: 700 21px/1.2 var(--font-head); letter-spacing: -.01em; }
+.eng-pause__top span { display: block; margin-top: 2px; font: 500 14px/1.2 var(--font-body); opacity: .8; }
+.eng-pause__x, .eng-pause__skip { position: absolute; top: 26px; z-index: 3; height: 44px; border: 0; border-radius: 4px; cursor: pointer; }
+.eng-pause__x { right: 20px; width: 44px; background: #FFFDF6; color: var(--exam-ink); font: 700 24px/1 var(--font-body); }
+.eng-pause__skip { right: 74px; padding: 0 14px; background: rgba(255, 253, 246, .16); color: #FFFDF6; font: 600 15px/1 var(--font-body); }
+.eng-pause__skip:hover { background: rgba(255, 253, 246, .26); }
+.eng-pause__beat { position: absolute; bottom: 40px; left: 50%; z-index: 2; box-sizing: border-box; width: max-content; max-width: min(880px, calc(100% - 48px)); margin: 0; padding: 10px 16px; border-radius: 4px; background: rgba(5, 9, 16, .84); font: 500 21px/1.4 var(--font-body); text-align: center; transform: translateX(-50%); cursor: pointer; }
+.eng-pause__beat:empty, .eng-pause.is-paused .eng-pause__beat, .eng-pause.is-paused .eng-pause__skip { display: none; }
+.eng-pause__card { position: absolute; top: 50%; right: 36px; z-index: 2; box-sizing: border-box; width: 420px; max-height: calc(100% - 150px); overflow: auto; padding: 20px 22px; border-radius: 3px; background: var(--exam-paper); color: var(--exam-ink); transform: translateY(-50%); animation: eng-pause-card .3s ease-out 1.15s backwards; }
+.eng-pause__card.is-left { right: auto; left: 36px; }
+.eng-pause__card[hidden] { display: none; }
+.eng-pause__who { margin: 0; color: var(--exam-pen); font: 700 15px/1 var(--font-body); }
+.eng-pause__card h3 { margin: 8px 0 12px; color: var(--exam-ink); font: 800 25px/1.18 var(--font-head); letter-spacing: -.015em; }
+.eng-pause__card h3 mark { padding: 0 3px; background: var(--exam-hi); color: inherit; }
+.eng-pause__ta { display: block; box-sizing: border-box; width: 100%; height: 114px; margin: 0; padding: 0; border: 0; border-radius: 0; background: linear-gradient(to bottom, transparent 37px, var(--exam-rule) 37px) 0 0 / 100% 38px local; color: var(--exam-ink); font: 400 19px/38px var(--font-body); resize: none; outline: none; }
+.eng-pause__ticks { margin-top: 8px; }
+.eng-pause__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 12px 0 0; color: var(--exam-ink-2); font: 500 15px/1.3 var(--font-body); }
+.eng-pause__row .eng-read__btn { flex: none; }
+.eng-pause__row .eng-read__btn[disabled] { box-shadow: inset 0 0 0 1.5px var(--exam-rule); background: none; color: color-mix(in srgb, var(--exam-ink-2) 70%, var(--exam-paper)); cursor: default; }
+.eng-pause__note { margin: 10px 0 0; font: 400 18px/1.45 var(--font-body); }
+.eng-pause__note q { display: block; margin-top: 8px; color: var(--exam-ink-2); font-style: italic; }
+.eng-pause__mine { margin: 14px 0 0; padding: 12px 0 0; border-top: 1px solid var(--exam-rule); font: 400 17px/1.45 var(--font-body); }
+.eng-pause__mine span { display: block; margin-bottom: 3px; color: var(--exam-ink-2); font: 600 13px/1 var(--font-body); letter-spacing: .06em; text-transform: uppercase; }
+@keyframes eng-pause-push { from { transform: scale(1); } to { transform: scale(1.08); } }
+@keyframes eng-pause-card { from { opacity: 0; transform: translateY(calc(-50% + 12px)); } }
+@media (max-width: 700px) {
+  .eng-pause { flex-direction: column; align-items: stretch; justify-content: flex-start; overflow: auto; padding-top: calc(82px + env(safe-area-inset-top)); }
+  .eng-pause::before { display: none; }
+  .eng-pause__stage { align-self: center; }
+  .eng-pause__bars { top: calc(10px + env(safe-area-inset-top)); right: 12px; left: 12px; }
+  .eng-pause__top { top: calc(22px + env(safe-area-inset-top)); right: 70px; left: 4px; background: none; }
+  .eng-pause__top b { font-size: 18px; }
+  .eng-pause__x { top: calc(24px + env(safe-area-inset-top)); right: 12px; }
+  .eng-pause__skip { position: static; align-self: flex-end; flex: none; height: 40px; margin: 0 12px 12px; order: 5; }
+  .eng-pause__label { position: static; width: auto; max-width: none; margin: 10px 12px 0; transform: none; }
+  .eng-pause:not(.is-paused) .eng-pause__label { display: none; }
+  .eng-pause__beat { position: static; width: auto; max-width: none; margin: 14px 12px; padding: 0; background: none; font-size: 19px; text-align: left; transform: none; }
+  .eng-pause__card, .eng-pause__card.is-left { position: static; flex: none; width: auto; max-height: none; margin: 10px 12px 20px; padding: 16px 16px 18px; overflow: visible; transform: none; animation-name: readIn; }
+  .eng-pause__card h3 { font-size: 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eng-pause, .eng-pause__stage img, .eng-pause__card { animation: none; }
+  .eng-pause__dim, .eng-pause__label, .eng-pause__bars i.is-on b { transition: none; }
+  .eng-pause.is-paused .eng-pause__ring { animation: none; stroke-dashoffset: 0; }
+}
