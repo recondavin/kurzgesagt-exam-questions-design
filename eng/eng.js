@@ -3152,7 +3152,7 @@
       // The card goes wherever it covers least of what is lit: beside the picture's middle, or down in a corner, or up.
       var ch = card.offsetHeight || 340, cw = card.offsetWidth || 420, mean = spots.reduce(function (t, s) { return t + s.x; }, 0) / spots.length, slots = [];
       [[mean >= 50, ''], [mean < 50, ''], [mean >= 50, 'is-bottom'], [mean < 50, 'is-bottom'], [mean >= 50, 'is-top'], [mean < 50, 'is-top']].forEach(function (o) {
-        var L = (o[0] ? 36 : aw - 36 - cw) - sx, T = (o[1] === 'is-bottom' ? eh - 28 - ch : o[1] === 'is-top' ? 92 : (eh - ch) / 2) - sy, box = { l: L - 14, t: T - 14, r: L + cw + 14, b: T + ch + 14 };
+        var L = (o[0] ? 36 : aw - 36 - cw) - sx, T = (o[1] === 'is-bottom' ? eh - Math.round(eh * 0.12) - ch : o[1] === 'is-top' ? 92 : (eh - ch) / 2) - sy, box = { l: L - 14, t: T - 14, r: L + cw + 14, b: T + ch + 14 };
         var cover = cs.reduce(function (t, c) { var q = boxOf(c); return t + Math.max(0, Math.min(q.r, box.r) - Math.max(q.l, box.l)) * Math.max(0, Math.min(q.b, box.b) - Math.max(q.t, box.t)); }, 0);
         slots.push({ left: o[0], v: o[1], box: box, cover: cover });
       });
