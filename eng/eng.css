@@ -2997,7 +2997,8 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 .eng-pause.is-num .eng-pause__num { display: block; fill: #FFFDF6; font: 700 14px var(--font-body); text-anchor: middle; dominant-baseline: central; }
 .eng-pause.is-num .eng-pause__label.is-pin { max-width: none; margin-top: 6px; }
 .eng-pause.is-num .eng-pause__label.is-pin::before { content: attr(data-n); float: left; width: 22px; height: 22px; margin: 1px 8px 0 0; border-radius: 50%; background: #DC2B40; color: #FFFDF6; font: 700 14px/22px var(--font-body); text-align: center; }
-.eng-pause__what { margin: 8px 0 0; color: var(--exam-ink); font: 500 16px/1.4 var(--font-body); }
+.eng-pause__what { margin: 0; color: var(--exam-ink); font: 500 16px/1.4 var(--font-body); }
+.eng-pause__card > h3:first-child { margin-top: 0; }
 @media (prefers-reduced-motion: reduce) { .eng-pause.is-paused .eng-pause__line { animation: none; stroke-dashoffset: 0; } }
 
 /* A scene opened on its own from a link: over the whole window, not inside the desk. */

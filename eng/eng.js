@@ -3087,7 +3087,7 @@
       '<button type="button" class="eng-pause__again" data-watch-again hidden><i aria-hidden="true">▶</i> Watch the clip again</button>' +
       '<button type="button" class="eng-pause__x" data-watch-close aria-label="Back to your answer">×</button>' +
       '<p class="eng-pause__beat" aria-live="polite"></p>' +
-      '<div class="eng-pause__card" hidden><p class="eng-pause__who">Paused</p><h3>Why is this important for <mark>' + esc(name) + '</mark>?</h3>' +
+      '<div class="eng-pause__card" hidden><h3>Why is this important for <mark>' + esc(name) + '</mark>?</h3>' +
         '<textarea class="eng-pause__ta" rows="3" spellcheck="true" lang="en-IE" aria-label="Why is this important for ' + esc(name) + '? One sentence." placeholder="Write one sentence…"></textarea>' +
         tickHtml(READ_PART, READ_SLOT, watchKey(w), tickList(READ_PART, READ_SLOT, watchKey(w), w.c), w.c).replace('class="eng-read__ticks"', 'class="eng-read__ticks eng-pause__ticks"').replace(/ data-page-ticks="[^"]*"/, '') +
         '<p class="eng-pause__row"><span>' + (w.solo ? 'A preview: this is not saved.' : 'It goes into your ' + esc(box ? box.label : 'Evaluate') + ' box.') + '</span><button type="button" class="eng-read__btn" data-watch-done disabled>Done</button></p></div>';
@@ -3211,7 +3211,9 @@
     w.paused = true;
     el.classList.add('is-paused');
     if (w.cardHtml) card.innerHTML = w.cardHtml;   // a fresh card: a clip can pause more than once
-    if (w.what) card.querySelector('.eng-pause__who').insertAdjacentHTML('afterend', '<p class="eng-pause__what">' + esc(w.what) + '</p>');
+    // No word saying it is paused (the user: "why the fuck do you need to mention red paused every time i add a afeature you
+    // dont need to name it like i think its kind of obvious that its paused"). The card starts with what happened.
+    if (w.what) card.insertAdjacentHTML('afterbegin', '<p class="eng-pause__what">' + esc(w.what) + '</p>');
     // A pause can ask its own question, fitted to its moment; the theme in it is still highlighted.
     if (w.ask) { var thn = esc(w.c.th.name.toLowerCase()); card.querySelector('h3').innerHTML = esc(w.ask).replace(thn, '<mark>' + thn + '</mark>'); }
     card.hidden = false;
