@@ -2499,16 +2499,50 @@
       return '<p>' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + esc(typeof x === 'string' ? x : x.t) + '</p>';
     }).join('') + '</div>';
   }
+  // Opening and closing are animated (the user: "make the ideas get animated in", then "make them get animated back
+  // out"): the space for the ideas opens, and folds away again as they fade, with the Web Animations API on the list's
+  // measured height (so it works in every browser); the lines' own fade-up as they arrive is CSS. Instant under reduced
+  // motion. A change of mind half way starts from where the list had got to.
   function pageIdeasSet(b, on) {
     var id = b.getAttribute('data-page-ideas'), list = READ.querySelector('[data-page-ilist="' + id + '"]');
     READ_IDEAS[id] = on; b.setAttribute('aria-expanded', String(on)); b.textContent = on ? 'Hide ideas' : 'Show ideas';
-    if (list) list.hidden = !on;
+    if (!list) return;
+    var still = !list.animate || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    var at = list.hidden ? 0 : list.getBoundingClientRect().height;
+    if (list.ideaAnim) { list.ideaAnim.onfinish = null; list.ideaAnim.cancel(); list.ideaAnim = null; }
+    if (on) {
+      list.hidden = false;
+      if (still) return;
+      var cs = getComputedStyle(list), full = list.offsetHeight;
+      list.ideaAnim = list.animate([{ height: at + 'px', marginTop: at ? cs.marginTop : '0px', marginBottom: at ? cs.marginBottom : '0px' }, { height: full + 'px', marginTop: cs.marginTop, marginBottom: cs.marginBottom }],
+        { duration: 300, easing: 'cubic-bezier(.2, .8, .2, 1)' });
+      list.ideaAnim.onfinish = function () { list.ideaAnim = null; };
+      return;
+    }
+    if (still || list.hidden) { list.hidden = true; return; }
+    var cs2 = getComputedStyle(list);
+    list.ideaAnim = list.animate([{ height: at + 'px', marginTop: cs2.marginTop, marginBottom: cs2.marginBottom, opacity: 1 }, { height: '0px', marginTop: '0px', marginBottom: '0px', opacity: 0 }],
+      { duration: 260, easing: 'cubic-bezier(.4, 0, .2, 1)', fill: 'forwards' });
+    list.ideaAnim.onfinish = function () { list.hidden = true; if (list.ideaAnim) { list.ideaAnim.cancel(); list.ideaAnim = null; } };
   }
   // Ideas are to read and remember, not to copy (the user: "as soon as you click on the write the ideas are supposed to
   // disappear ... so students remember rather than word for word"): going to write in any box closes every open one.
-  // The box you clicked stays where it was on screen.
+  // Says whether any were open.
   function pageIdeasHide() {
-    Array.prototype.forEach.call(READ.querySelectorAll('.eng-read__ideasb[aria-expanded="true"]'), function (b) { pageIdeasSet(b, false); });
+    var open = READ.querySelectorAll('.eng-read__ideasb[aria-expanded="true"]');
+    Array.prototype.forEach.call(open, function (b) { pageIdeasSet(b, false); });
+    return open.length > 0;
+  }
+  // While ideas above the lines you've gone to are folding away, keep those lines where they are on screen: each frame
+  // the paper scrolls by however far they have moved.
+  function pageFollow(ta, ms) {
+    var paper = READ.querySelector('.eng-read__paper'), top = function () { var y = 0, e = ta; while (e && e !== paper) { y += e.offsetTop; e = e.offsetParent; } return y; }, last = top(), t0 = Date.now(), el = READ;
+    (function step() {
+      if (READ !== el || !ta.isConnected) return;
+      var y = top();
+      if (y !== last) { paper.scrollTop += y - last; last = y; }
+      if (Date.now() - t0 < ms) requestAnimationFrame(step);
+    })();
   }
   // Do something that moves things on the paper (close the ideas, move "Write this next") without the lines you're on
   // jumping: the paper scrolls by however far they moved (measured down the page, not on screen).
@@ -2669,7 +2703,9 @@
       READ_TA = ta;
       var s = slotOf(ta.getAttribute('data-page-slot')), k = ta.getAttribute('data-page-box'), moved = s !== READ_SLOT || k !== READ_BOX;
       READ_SLOT = s; READ_BOX = k;
-      pageKeep(ta, function () { pageIdeasHide(); if (moved) pageMarks(); });
+      var folding = false;
+      pageKeep(ta, function () { folding = pageIdeasHide(); if (moved) pageMarks(); });
+      if (folding) pageFollow(ta, 340);
       if (moved) pageHelpDraw();
     });
     Array.prototype.forEach.call(READ.querySelectorAll('img'), function (im) {
