@@ -2776,14 +2776,22 @@
       // The video is a shorter upload of the same scene (3:30) than the user's first pick (njJ41irPjTc, 4:23), used
       // because YouTube's frames for it fall on the two moments that matter, so each pause's picture is the moment it
       // stops on: its half-way frame is Hadley with Andy by the collar, its three-quarter frame Andy sitting apart.
-      { at: 105, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres2.jpg', what: 'Andy asked Captain Hadley if he trusts his wife. Hadley has grabbed him and dragged him to the edge of the roof.',
+      // The seconds were first guessed as half and three quarters of the way through, which is not where YouTube's
+      // frames are from: the video stopped on one shot and the picture was of another, five seconds later (the user,
+      // sending a recording of it: "it pisses me off that it cuts do a different frame and isnt the frame that its
+      // supposed to be"). They are now read off the video's own seek previews (the small pictures YouTube's player
+      // shows on its progress bar, one every 2s, which the player is given for every video): the half-way frame is
+      // Hadley, still holding Andy's collar, shouting the crew back to work straight after Andy's offer, between
+      // 1:50 and 1:52; the other is Andy sitting apart at 2:50 to 2:52. A pause's `at` has to be the second its
+      // picture is from, and its words have to be about that second.
+      { at: 110.5, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres2.jpg', what: 'Hadley dragged Andy to the edge of the roof for speaking to him. Andy has just offered to save him the tax on his money, for three beers each for the crew.',
         ask: 'What does this show about abuse of power in Shawshank?', title: 'Knowledge is a quieter kind of power',
         note: 'Hadley nearly throws Andy off the roof for daring to speak to him. By offering tax advice, Andy turns Hadley from a threat into a favour: brains beat brute force.',
-        spots: [{ x: 32.8, y: 41.7, rx: 16.8, ry: 36.8, label: 'Hadley answers with violence', side: 'b' }, { x: 60.9, y: 39.6, rx: 12.5, ry: 25.7, label: 'Andy keeps talking' }] },
-      { at: 157, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres3.jpg', what: 'Andy\'s advice has saved Hadley his money. All he asked for in return was three beers each for the crew.',
+        spots: [{ x: 32.8, y: 41.7, rx: 16.8, ry: 36.8, label: 'Hadley still has him by the collar', side: 'b' }, { x: 60.9, y: 39.6, rx: 12.5, ry: 25.7, label: 'Andy has made his offer' }] },
+      { at: 171, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres3.jpg', what: 'The men are drinking the beer Andy won for them. He asked for nothing for himself.',
         ask: 'How is Andy\'s use of power different from the guards\' abuse of power?', title: 'Using power for others',
         note: 'Andy asks only for beers for his crew: unlike the guards, he uses his power to give, not to take. For a moment the prisoners hold the power.', quote: 'We sat and drank with the sun on our shoulders and felt like free men.',
-        spots: [{ x: 62.5, y: 27.8, rx: 11, ry: 24, label: 'Nothing for himself' }, { x: 28.7, y: 69.4, rx: 13, ry: 18.5, label: 'No beer in his hands' }] }
+        spots: [{ x: 62.5, y: 27.8, rx: 11, ry: 24, label: 'Andy sits apart' }, { x: 28.7, y: 69.4, rx: 13, ry: 18.5, label: 'No beer in his hands' }] }
     ] },   // The Roof Scene, 3:30
     'shawshank-5': { yt: 'LU7SIVHZda4' },    // "Brooks was here" scene, 4:18
     'shawshank-6': { yt: 'ScU1O_Xuoxo' },    // "The Marriage of Figaro" scene, 4:04
@@ -2830,7 +2838,7 @@
         w.player = new window.YT.Player('eng-pause-yt', { width: '100%', height: '100%', videoId: clip.yt, host: 'https://www.youtube-nocookie.com',
           playerVars: { autoplay: 1, playsinline: 1, rel: 0, start: clip.start || 0, origin: location.origin },
           events: {
-            onReady: function (e) { if (WATCH !== w || !w.clip) return; try { e.target.playVideo(); } catch (x) {} w.clipStuck = Date.now(); beat.textContent = WATCH_HINT.wait; w.poll = setInterval(watchClipTick, 250); },
+            onReady: function (e) { if (WATCH !== w || !w.clip) return; try { e.target.playVideo(); } catch (x) {} w.clipStuck = Date.now(); beat.textContent = WATCH_HINT.wait; w.poll = setInterval(watchClipTick, 80); },
             onError: function () { if (WATCH === w && w.clip) watchClipFail(false); },
             onStateChange: function (e) { if (WATCH === w && w.clip && e.data === 0) watchClipEnd(); }
           } });
@@ -2967,7 +2975,7 @@
     el.querySelector('[data-watch-skip]').textContent = watchPauses(w.clip)[w.pi] ? 'Skip to the pause ›' : 'Skip the rest ›';
     watchFit();
     if (w.video) { w.poll = setInterval(watchFileTick, 80); var pr = w.video.play(); if (pr && pr.catch) pr.catch(function () {}); }
-    else { w.clipStuck = Date.now(); try { w.player.playVideo(); } catch (e) {} w.poll = setInterval(watchClipTick, 250); }
+    else { w.clipStuck = Date.now(); try { w.player.playVideo(); } catch (e) {} w.poll = setInterval(watchClipTick, 80); }
     el.querySelector('.eng-pause__x').focus({ preventScroll: true });
   }
   function watchSkip() {
@@ -3123,9 +3131,9 @@
     card.classList.remove('is-left'); card.classList.remove('is-top'); card.classList.remove('is-bottom');
     if (wide) {
       // The card goes wherever it covers least of what is lit: beside the picture's middle, or down in a corner, or up.
-      var ch = card.offsetHeight || 340, mean = spots.reduce(function (t, s) { return t + s.x; }, 0) / spots.length, slots = [];
+      var ch = card.offsetHeight || 340, cw = card.offsetWidth || 420, mean = spots.reduce(function (t, s) { return t + s.x; }, 0) / spots.length, slots = [];
       [[mean >= 50, ''], [mean < 50, ''], [mean >= 50, 'is-bottom'], [mean < 50, 'is-bottom'], [mean >= 50, 'is-top'], [mean < 50, 'is-top']].forEach(function (o) {
-        var L = (o[0] ? 36 : aw - 456) - sx, T = (o[1] === 'is-bottom' ? eh - 28 - ch : o[1] === 'is-top' ? 92 : (eh - ch) / 2) - sy, box = { l: L - 14, t: T - 14, r: L + 434, b: T + ch + 14 };
+        var L = (o[0] ? 36 : aw - 36 - cw) - sx, T = (o[1] === 'is-bottom' ? eh - 28 - ch : o[1] === 'is-top' ? 92 : (eh - ch) / 2) - sy, box = { l: L - 14, t: T - 14, r: L + cw + 14, b: T + ch + 14 };
         var cover = cs.reduce(function (t, c) { var q = boxOf(c); return t + Math.max(0, Math.min(q.r, box.r) - Math.max(q.l, box.l)) * Math.max(0, Math.min(q.b, box.b) - Math.max(q.t, box.t)); }, 0);
         slots.push({ left: o[0], v: o[1], box: box, cover: cover });
       });
@@ -3169,6 +3177,8 @@
     var w = WATCH;
     if (!w) return;
     var el = w.el, stage = el.querySelector('.eng-pause__stage'), img = stage.querySelector('img'), sp = w.list[w.at].spot, wide = el.clientWidth > 700;
+    // The words grow with the screen (the user: "and make the text bigger"): everything in the pause is sized from --ps.
+    el.style.setProperty('--ps', (wide ? Math.max(1, Math.min(1.55, el.clientWidth / 1440)) : 1).toFixed(3));
     // A clip is 16:9 and keeps clear of the title above it and the line of help below it.
     var vid = w.video && (!w.hold || el.classList.contains('is-frame')) ? w.video : null, yt = !!w.clip && !w.video && !w.hold, ar = yt ? 16 / 9 : vid ? (vid.videoWidth || 16) / (vid.videoHeight || 9) : img ? (img.naturalWidth || 16) / (img.naturalHeight || 9) : 16 / 9;
     var aw = el.clientWidth, ah = wide ? el.clientHeight - (yt ? 176 : 0) : Math.round(el.clientHeight * 0.38);
@@ -3186,7 +3196,7 @@
       '<ellipse class="eng-pause__ring is-2" pathLength="1" cx="' + (cx + 2) + '" cy="' + (cy - 1) + '" rx="' + (r + 1) + '" ry="' + (r + 6) + '" transform="rotate(24 ' + cx + ' ' + cy + ')"/>';
     if (!wide) { lab.style.left = lab.style.top = ''; card.classList.remove('is-left'); return; }
     // The card takes the side away from the spot; the label sits under the circle (over it if there is no room), clear of the card.
-    var left = !!sp && sp.x < 50 ? false : !!sp, sx = (aw - W) / 2, sy = (el.clientHeight - H) / 2, side = 36 + 420 + 18, lw = lab.offsetWidth, lh = lab.offsetHeight;
+    var left = !!sp && sp.x < 50 ? false : !!sp, sx = (aw - W) / 2, sy = (el.clientHeight - H) / 2, side = 36 + (card.offsetWidth || 420) + 18, lw = lab.offsetWidth, lh = lab.offsetHeight;
     card.classList.toggle('is-left', left);
     var minL = Math.max(sx + 12, left ? side : 12), maxL = Math.min(sx + W - 12, left ? aw - 12 : aw - side) - lw;
     var x = Math.max(minL, Math.min(maxL, sx + cx - lw / 2)), below = cy + r + 14 + lh < H - 16, y = below || cy - r - 14 - lh < 84 - sy ? sy + cy + r + 14 : sy + cy - r - 14 - lh;

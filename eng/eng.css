@@ -3026,3 +3026,34 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 .eng-pause__card.is-bottom { top: auto; bottom: 28px; transform: none; animation-name: readIn; }
 .eng-pause__card.is-top { top: 92px; transform: none; animation-name: readIn; }
 @media (max-width: 700px) { .eng-pause__card.is-bottom, .eng-pause__card.is-top { top: auto; bottom: auto; } }
+
+/* The pause's words are bigger, and grow with the screen (the user: "and make the text bigger"): --ps is 1 at a
+   1440px-wide window and rises to 1.55 on a very wide one, so a big monitor shows what a laptop shows, larger. */
+.eng-pause { --ps: 1; }
+.eng-pause__label { max-width: calc(330px * var(--ps)); font-size: calc(19px * var(--ps)); }
+.eng-pause__label b { font-size: calc(27px * var(--ps)); }
+.eng-pause__label.is-pin { max-width: calc(320px * var(--ps)); font-size: calc(19px * var(--ps)); }
+.eng-pause__label.is-pin b { font-size: calc(30px * var(--ps)); }
+.eng-pause__line { stroke-width: calc(2.5px * var(--ps)); }
+.eng-pause__card { width: calc(440px * var(--ps)); padding: calc(20px * var(--ps)) calc(22px * var(--ps)); }
+.eng-pause__what { font-size: calc(18px * var(--ps)); }
+.eng-pause__card h3 { margin: calc(8px * var(--ps)) 0 calc(12px * var(--ps)); font-size: calc(27px * var(--ps)); }
+.eng-pause__ta { height: calc(120px * var(--ps)); background: linear-gradient(to bottom, transparent calc(40px * var(--ps) - 1px), var(--exam-rule) calc(40px * var(--ps) - 1px)) 0 0 / 100% calc(40px * var(--ps)) local; font-size: calc(21px * var(--ps)); line-height: calc(40px * var(--ps)); }
+.eng-pause__ticks li { height: calc(28px * var(--ps)); font-size: calc(15px * var(--ps)); }
+.eng-pause__ticks svg { width: calc(19px * var(--ps)); height: calc(19px * var(--ps)); }
+.eng-pause__row { margin-top: calc(12px * var(--ps)); font-size: calc(15px * var(--ps)); }
+.eng-pause__row .eng-read__btn { height: calc(46px * var(--ps)); padding: 0 calc(18px * var(--ps)); font-size: calc(18px * var(--ps)); }
+.eng-pause__who { font-size: calc(16px * var(--ps)); }
+.eng-pause__note { font-size: calc(19px * var(--ps)); }
+.eng-pause__mine { font-size: calc(18px * var(--ps)); }
+.eng-pause__mine span { font-size: calc(13px * var(--ps)); }
+.eng-pause__top b { font-size: calc(22px * var(--ps)); }
+.eng-pause__top span { font-size: calc(15px * var(--ps)); }
+.eng-pause__beat { font-size: calc(22px * var(--ps)); }
+.eng-pause.is-clip .eng-pause__beat { font-size: calc(18px * var(--ps)); }
+@media (max-width: 700px) {
+  .eng-pause__card, .eng-pause__card.is-left { width: auto; padding: 16px 16px 18px; }
+  .eng-pause__card h3 { font-size: 23px; }
+  .eng-pause__label, .eng-pause__label.is-pin { max-width: none; }
+  .eng-pause__label.is-pin b { font-size: 22px; }
+}
