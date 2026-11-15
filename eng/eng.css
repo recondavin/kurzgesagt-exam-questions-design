@@ -2785,17 +2785,17 @@ body.eng-read-on { overflow: hidden; }
 /* a small laptop with Help off: the page in the middle would run under the buttons, so it starts below them */
 @media (min-width: 1101px) and (max-width: 1580px) { .eng-read:not(.is-help) .eng-read__paper { top: 86px; } }
 /* The paper's and Help's scroll bars (the user: "make the scroll bar better"; on Windows they were the browser's wide
-   grey default, with arrows; then, of a slim grey one, "can you make the scroll bar thicker and dark blue"): a rounded
-   dark blue bar, 12px thick, on the paper itself, no track and no arrows, a little lighter under the mouse. The standard properties are only for browsers without the -webkit- ones (setting both would switch
+   grey default, with arrows; then, of a slim grey one, "can you make the scroll bar thicker and dark blue"): then "lighter"): a
+   rounded blue bar, 12px thick, on the paper itself, no track and no arrows, a little darker under the mouse. The standard properties are only for browsers without the -webkit- ones (setting both would switch
    the drawn bar off in Chrome). */
 .eng-read__paper::-webkit-scrollbar, .eng-read__help::-webkit-scrollbar { width: 20px; height: 20px; }
 .eng-read__paper::-webkit-scrollbar-track, .eng-read__help::-webkit-scrollbar-track { background: transparent; }
-.eng-read__paper::-webkit-scrollbar-thumb, .eng-read__help::-webkit-scrollbar-thumb { min-height: 56px; border: 4px solid transparent; border-radius: 999px; background: #1E3A6E; background-clip: content-box; }
-.eng-read__paper::-webkit-scrollbar-thumb:hover, .eng-read__help::-webkit-scrollbar-thumb:hover, .eng-read__paper::-webkit-scrollbar-thumb:active, .eng-read__help::-webkit-scrollbar-thumb:active { background-color: #2B4F92; }
+.eng-read__paper::-webkit-scrollbar-thumb, .eng-read__help::-webkit-scrollbar-thumb { min-height: 56px; border: 4px solid transparent; border-radius: 999px; background: #4A7BD0; background-clip: content-box; }
+.eng-read__paper::-webkit-scrollbar-thumb:hover, .eng-read__help::-webkit-scrollbar-thumb:hover, .eng-read__paper::-webkit-scrollbar-thumb:active, .eng-read__help::-webkit-scrollbar-thumb:active { background-color: #3866B8; }
 .eng-read__paper::-webkit-scrollbar-button, .eng-read__help::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
 .eng-read__paper::-webkit-scrollbar-corner, .eng-read__help::-webkit-scrollbar-corner { background: transparent; }
 @supports not selector(::-webkit-scrollbar) {
-  .eng-read__paper, .eng-read__help { scrollbar-width: auto; scrollbar-color: #1E3A6E transparent; }
+  .eng-read__paper, .eng-read__help { scrollbar-width: auto; scrollbar-color: #4A7BD0 transparent; }
 }
 /* Width (the user, on a wide monitor: "it should be wider (except for phone)", and of a version that scaled the whole
    desk up, "not absolutely huge just the same length that it was but just a bit wider"): everything stays the size it
