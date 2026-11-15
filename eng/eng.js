@@ -2347,7 +2347,8 @@
   // then you can say show structure which brings it back and then its like you are writing an exam but hypervision like
   // you know what to do"). One page of an answer booklet on the site's desk: the part's question at the top with its key
   // words marked, the word count against the target, and your answer.
-  // - Structure shown (how you write it): each part of the answer (Opening, Paragraphs, Ending) has its heading and its
+  // - Structure shown (how you write it): one part of the answer (Opening, a Paragraph, Ending) to a page, with tabs and
+  //   Next to move between them (`pageTabs`, `pageFoot`, `pageGo`); the part has its heading and its
   //   boxes on the paper, the same ones the popup had (Point, Anchor, Evaluate; in part (b) Point, each text, Compare,
   //   Evaluate), each with its name in its highlighter colour, a line saying what to write, lines to write on and its
   //   word range. The box to write next says so in red, and moves on as you fill them: that is what takes you through it.
@@ -2420,15 +2421,51 @@
     ta.style.height = Math.max(READ_STRUCT ? 2 : 1, Math.round(ta.scrollHeight / lh)) * lh + 'px';
   }
   function pageCount() {
-    var n = 0, el = READ.querySelector('[data-page-count]');
-    Array.prototype.forEach.call(READ.querySelectorAll('.eng-read__ta'), function (ta) { n += wordsIn(ta.value); });
+    var c = pageCtx(READ_PART), n = pageWords(c), el = READ.querySelector('[data-page-count]');
     el.textContent = n + (n === 1 ? ' word' : ' words') + ' · aim for about ' + (READ_PART === 'b' ? 650 : 450);
   }
-  // The answer on the paper: in its boxes, or (structure hidden) as plain paragraphs.
+  function pageWords(c) { var n = 0; c.slots.forEach(function (s) { n += wordsIn(c.text(c.W, s)); }); return n; }
+  // A part of the answer is done when every one of its boxes has four words or more.
+  function pageDone(c, s) { var P = c.parts(c.W, s), pts = pageParts(READ_PART, s, c); return pts.length > 0 && pts.every(function (pt) { return wordsIn(P[pt.k]) >= 4; }); }
+  // One part of the answer to a page (the user, of all the paragraphs running down one long page while Help showed
+  // only the two key moments of the one you were on: "why do you need all paragraphs there if we are displaying 2 key
+  // moments, should you point sive small things compare evaluate for each 3/4 page to 1 page"). With the structure
+  // shown the paper holds the part you're on, its boxes and nothing else: tabs across the top to go to any part (the
+  // one you're on filled in ink, a finished one ticked), and at the foot the way back and Next, which turns red once
+  // every box on the page has something in it; the last page offers the whole answer to read through. With the
+  // structure hidden the paper is still the whole answer, top to bottom.
+  function pageTabs(c) {
+    return '<nav class="eng-read__pages" aria-label="The parts of your answer">' + c.slots.map(function (s) {
+      var here = String(s) === String(READ_SLOT);
+      return '<button type="button" class="eng-read__pg' + (here ? ' is-on' : '') + (pageDone(c, s) ? ' is-done' : '') + '" data-page-go="' + s + '"' + (here ? ' aria-current="page"' : '') +
+        ' aria-label="' + esc(slotName(s)) + '">' + (typeof s === 'number' ? '<span>Paragraph </span>' + (s + 1) : slotName(s)) + '</button>';
+    }).join('') + '</nav>';
+  }
+  function pageFoot(c) {
+    var i = c.slots.map(String).indexOf(String(READ_SLOT)), prev = c.slots[i - 1], next = c.slots[i + 1];
+    return '<p class="eng-read__nav">' + (i > 0 ? '<button type="button" class="eng-read__btn is-quiet" data-page-go="' + prev + '">‹ ' + slotName(prev) + '</button>' : '<span></span>') +
+      (i < c.slots.length - 1 ? '<button type="button" class="eng-read__btn" data-page-go="' + next + '" data-page-next>Next: ' + slotName(next) + ' ›</button>'
+        : '<button type="button" class="eng-read__btn" data-page-readall data-page-next>Read it all through</button>') + '</p>';
+  }
+  function pageGo(s) {
+    READ_SLOT = s; READ_BOX = null; READ_TA = null;
+    READ.querySelector('.eng-read__lines').innerHTML = pageLines();
+    Array.prototype.forEach.call(READ.querySelectorAll('.eng-read__ta'), pageGrow);
+    pageMarks(); pageHelpDraw();
+    READ.querySelector('.eng-read__paper').scrollTop = 0;
+    // With a keyboard, the cursor goes straight to the box to write next; on a touch screen you tap it (so the page is
+    // read before the keyboard covers half of it).
+    var ta = READ.querySelector('.eng-read__box.is-next .eng-read__ta') || READ.querySelector('.eng-read__ta');
+    if (ta && window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) { ta.focus({ preventScroll: true }); ta.setSelectionRange(ta.value.length, ta.value.length); }
+    else { var tab = READ.querySelector('.eng-read__pg.is-on'); if (tab) tab.focus({ preventScroll: true }); }
+  }
+  // The answer on the paper: the part you're on in its boxes, or (structure hidden) all of it as plain paragraphs.
   function pageLines() {
     var part = READ_PART, c = pageCtx(part);
     READ_B = {};
-    return c.slots.map(function (s) {
+    if (c.slots.map(String).indexOf(String(READ_SLOT)) < 0) READ_SLOT = c.slots[0];
+    var shown = READ_STRUCT ? [READ_SLOT] : c.slots;
+    return (READ_STRUCT ? pageTabs(c) : '') + shown.map(function (s) {
       var P = c.parts(c.W, s), pts = pageParts(part, s, c), sub = pageSub(part, s, c);
       if (!READ_STRUCT) {
         // One paragraph, remembering where each box's text starts (b), so Show structure can put it all back.
@@ -2439,29 +2476,37 @@
       }
       return '<div class="eng-read__para"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + pts.map(function (pt) {
         return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh"><b>' + esc(pt.label) + '</b><span>' +
-          (pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span></p>' + pageIdeas(s, pt) +
+          (pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span>' + pageIdeasBtn(s, pt) + '</p>' + pageIdeasList(s, pt) +
           '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s) + ': ' + pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
           (c.range[pt.k] ? '<p class="eng-read__wc" data-page-wc="' + s + '|' + pt.k + '"></p>' : '') + '</div>';
       }).join('') + '</div>';
-    }).join('');
+    }).join('') + (READ_STRUCT ? pageFoot(c) : '');
   }
-  // A box's ideas, as the popup's boxes had them (the user, of the paper in boxes: "what about the ideas"): Show ideas
-  // under what to write, opening two or three lines to read and then say your own way.
-  function pageIdeas(s, pt) {
-    var list = (pt.ideas || []).filter(Boolean).slice(0, 3), id = s + '|' + pt.k, on = !!READ_IDEAS[id];
+  // A box's ideas, as the popup's boxes had them (the user, of the paper in boxes: "what about the ideas"): Show ideas,
+  // at the end of the line that says what to write (beside it, not under it, so a paragraph takes less of the page),
+  // opening two or three lines to read and then say your own way.
+  function pageIdeaList(pt) { return (pt.ideas || []).filter(Boolean).slice(0, 3); }
+  function pageIdeasBtn(s, pt) {
+    var id = s + '|' + pt.k, on = !!READ_IDEAS[id];
+    return pageIdeaList(pt).length ? '<button type="button" class="eng-read__ideasb" data-page-ideas="' + id + '" aria-expanded="' + on + '">' + (on ? 'Hide ideas' : 'Show ideas') + '</button>' : '';
+  }
+  function pageIdeasList(s, pt) {
+    var list = pageIdeaList(pt), id = s + '|' + pt.k;
     if (!list.length) return '';
-    return '<div class="eng-read__ideas"><button type="button" class="eng-read__ideasb" data-page-ideas="' + id + '" aria-expanded="' + on + '">' + (on ? 'Hide ideas' : 'Show ideas') + '</button>' +
-      '<div class="eng-read__ilist"' + (on ? '' : ' hidden') + '>' + list.map(function (x) {
-        return '<p>' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + esc(typeof x === 'string' ? x : x.t) + '</p>';
-      }).join('') + '<p class="eng-read__inote">These hide when you start writing.</p></div></div>';
+    return '<div class="eng-read__ilist" data-page-ilist="' + id + '"' + (READ_IDEAS[id] ? '' : ' hidden') + '>' + list.map(function (x) {
+      return '<p>' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + esc(typeof x === 'string' ? x : x.t) + '</p>';
+    }).join('') + '<p class="eng-read__inote">These hide when you start writing.</p></div>';
+  }
+  function pageIdeasSet(b, on) {
+    var id = b.getAttribute('data-page-ideas'), list = READ.querySelector('[data-page-ilist="' + id + '"]');
+    READ_IDEAS[id] = on; b.setAttribute('aria-expanded', String(on)); b.textContent = on ? 'Hide ideas' : 'Show ideas';
+    if (list) list.hidden = !on;
   }
   // Ideas are to read and remember, not to copy (the user: "as soon as you click on the write the ideas are supposed to
   // disappear ... so students remember rather than word for word"): going to write in any box closes every open one.
   // The box you clicked stays where it was on screen.
   function pageIdeasHide() {
-    Array.prototype.forEach.call(READ.querySelectorAll('.eng-read__ideasb[aria-expanded="true"]'), function (b) {
-      READ_IDEAS[b.getAttribute('data-page-ideas')] = false; b.setAttribute('aria-expanded', 'false'); b.textContent = 'Show ideas'; b.nextElementSibling.hidden = true;
-    });
+    Array.prototype.forEach.call(READ.querySelectorAll('.eng-read__ideasb[aria-expanded="true"]'), function (b) { pageIdeasSet(b, false); });
   }
   // Do something that moves things on the paper (close the ideas, move "Write this next") without the lines you're on
   // jumping: the paper scrolls by however far they moved (measured down the page, not on screen).
@@ -2470,20 +2515,21 @@
     fn();
     paper.scrollTop += top() - y0;
   }
-  // A box's word count, its tick, and which box to write next (the first with under four words: in the paragraph you're
-  // in, else in the whole answer).
+  // A box's word count, its tick, and which box on this page to write next (the first with under four words). When
+  // there is none the page is done: its tab is ticked and Next is the red thing.
   function pageMarks() {
     if (!READ_STRUCT) return;
-    var c = pageCtx(READ_PART), tas = Array.prototype.slice.call(READ.querySelectorAll('.eng-read__ta')), any = false, next = null;
+    var c = pageCtx(READ_PART), tas = Array.prototype.slice.call(READ.querySelectorAll('.eng-read__ta')), any = pageWords(c) > 0, next = null;
     tas.forEach(function (ta) {
       var k = ta.getAttribute('data-page-box'), n = wordsIn(ta.value), wc = READ.querySelector('[data-page-wc="' + ta.getAttribute('data-page-slot') + '|' + k + '"]');
       if (wc) wc.innerHTML = wcHtml(n, c.range[k]);
       ta.parentNode.classList.toggle('is-done', n >= 4); ta.parentNode.classList.remove('is-next');
-      if (n) any = true;
     });
-    var open = function (ta) { return wordsIn(ta.value) < 4; };
-    next = tas.filter(function (ta) { return ta.getAttribute('data-page-slot') === String(READ_SLOT) && open(ta); })[0] || tas.filter(open)[0];
+    next = tas.filter(function (ta) { return wordsIn(ta.value) < 4; })[0];
     if (next) { next.parentNode.classList.add('is-next'); next.parentNode.setAttribute('data-next', any ? 'Write this next' : 'Start here'); }
+    var go = READ.querySelector('[data-page-next]'), tab = READ.querySelector('.eng-read__pg.is-on');
+    if (go) go.classList.toggle('is-go', !next && tas.length > 0);
+    if (tab) tab.classList.toggle('is-done', !next && tas.length > 0);
   }
   // Typing on the plain page: move the remembered box starts along with the edit, then save each box's slice.
   function pagePlain(ta) {
@@ -3815,8 +3861,15 @@
       else if (pw) pageInsert(pw.getAttribute('data-page-word'));
       else if (pfx) pageFix(pfx.getAttribute('data-page-fix'));
       else if (t.closest('[data-page-ideas]')) {
-        var ib = t.closest('[data-page-ideas]'), iid = ib.getAttribute('data-page-ideas'), ion = !READ_IDEAS[iid];
-        READ_IDEAS[iid] = ion; ib.setAttribute('aria-expanded', String(ion)); ib.textContent = ion ? 'Hide ideas' : 'Show ideas'; ib.nextElementSibling.hidden = !ion;
+        var ib = t.closest('[data-page-ideas]');
+        pageIdeasSet(ib, !READ_IDEAS[ib.getAttribute('data-page-ideas')]);
+      }
+      else if (t.closest('[data-page-go]')) pageGo(slotOf(t.closest('[data-page-go]').getAttribute('data-page-go')));
+      else if (t.closest('[data-page-readall]')) {
+        // The whole answer, plain, from the top. (Not remembered as a choice: Write it still opens in boxes.)
+        pageStruct(false, false);
+        READ.querySelector('.eng-read__paper').scrollTop = 0;
+        READ.querySelector('.eng-read__structb').focus({ preventScroll: true });
       }
       else if (!READ_STRUCT && t.closest('.eng-read__paper') && !t.closest('.eng-read__ta')) {
         var pts2 = Array.prototype.slice.call(READ.querySelectorAll('.eng-read__ta')), pt2 = pts2.filter(function (x) { return !x.value.trim(); })[0] || pts2[pts2.length - 1];
