@@ -2171,7 +2171,7 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
   --exam-paper: #F7F2E4; --exam-paper-2: #ECE5D1; --exam-rule: #D6CDB5;
   --exam-ink: #13233A; --exam-ink-2: #515D6E; --exam-pen: #BF1A2C; --exam-hi: #FFE45C;
   --exam-done: color-mix(in srgb, var(--exam-ink) 50%, var(--exam-paper)); --exam-todo: color-mix(in srgb, var(--exam-ink) 32%, var(--exam-paper));
-  --font-head: Inter, 'Helvetica Neue', Arial, sans-serif; --font-head-weight: 800;
+  --font-head: Outfit, 'Helvetica Neue', Arial, sans-serif; --font-head-weight: 800;
   --font-body: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --cpx-h: 72px;
 }
