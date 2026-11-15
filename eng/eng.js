@@ -2450,15 +2450,24 @@
     }).join('');
   }
   // A box's ideas, as the popup's boxes had them (the user, of the paper in boxes: "what about the ideas"): Show ideas
-  // under what to write, opening two or three lines to read and then say your own way. Open ones stay open while the
-  // page is.
+  // under what to write, opening two or three lines to read and then say your own way.
   function pageIdeas(s, pt) {
     var list = (pt.ideas || []).filter(Boolean).slice(0, 3), id = s + '|' + pt.k, on = !!READ_IDEAS[id];
     if (!list.length) return '';
     return '<div class="eng-read__ideas"><button type="button" class="eng-read__ideasb" data-page-ideas="' + id + '" aria-expanded="' + on + '">' + (on ? 'Hide ideas' : 'Show ideas') + '</button>' +
       '<div class="eng-read__ilist"' + (on ? '' : ' hidden') + '>' + list.map(function (x) {
         return '<p>' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + esc(typeof x === 'string' ? x : x.t) + '</p>';
-      }).join('') + '</div></div>';
+      }).join('') + '<p class="eng-read__inote">These hide when you start writing.</p></div></div>';
+  }
+  // Ideas are to read and remember, not to copy (the user: "as soon as you click on the write the ideas are supposed to
+  // disappear ... so students remember rather than word for word"): going to write in any box closes every open one.
+  // The box you clicked stays where it was on screen.
+  function pageIdeasHide(ta) {
+    var open = READ.querySelectorAll('.eng-read__ideasb[aria-expanded="true"]');
+    if (!open.length) return;
+    var paper = READ.querySelector('.eng-read__paper'), y0 = ta.getBoundingClientRect().top;
+    Array.prototype.forEach.call(open, function (b) { READ_IDEAS[b.getAttribute('data-page-ideas')] = false; b.setAttribute('aria-expanded', 'false'); b.textContent = 'Show ideas'; b.nextElementSibling.hidden = true; });
+    paper.scrollTop += ta.getBoundingClientRect().top - y0;
   }
   // A box's word count, its tick, and which box to write next (the first with under four words: in the paragraph you're
   // in, else in the whole answer).
@@ -2608,6 +2617,7 @@
     READ.addEventListener('focusin', function (e) {
       var ta = e.target.closest && e.target.closest('.eng-read__ta');
       if (!ta) return;
+      pageIdeasHide(ta);
       READ_TA = ta;
       var s = slotOf(ta.getAttribute('data-page-slot')), k = ta.getAttribute('data-page-box');
       if (s !== READ_SLOT || k !== READ_BOX) { READ_SLOT = s; READ_BOX = k; pageMarks(); pageHelpDraw(); }
