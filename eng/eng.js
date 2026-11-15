@@ -2484,7 +2484,9 @@
   }
   // A box's ideas, as the popup's boxes had them (the user, of the paper in boxes: "what about the ideas"): Show ideas,
   // at the end of the line that says what to write (beside it, not under it, so a paragraph takes less of the page),
-  // opening two or three lines to read and then say your own way.
+  // opening two or three lines to read and then say your own way. They come in one after another (the user: "make the
+  // ideas get animated in"), and nothing under them says they'll hide (the user: "get rid of these hide when you start
+  // writing"); they still do.
   function pageIdeaList(pt) { return (pt.ideas || []).filter(Boolean).slice(0, 3); }
   function pageIdeasBtn(s, pt) {
     var id = s + '|' + pt.k, on = !!READ_IDEAS[id];
@@ -2495,7 +2497,7 @@
     if (!list.length) return '';
     return '<div class="eng-read__ilist" data-page-ilist="' + id + '"' + (READ_IDEAS[id] ? '' : ' hidden') + '>' + list.map(function (x) {
       return '<p>' + (x.tag ? '<em>' + esc(x.tag) + '</em>' : '') + esc(typeof x === 'string' ? x : x.t) + '</p>';
-    }).join('') + '<p class="eng-read__inote">These hide when you start writing.</p></div>';
+    }).join('') + '</div>';
   }
   function pageIdeasSet(b, on) {
     var id = b.getAttribute('data-page-ideas'), list = READ.querySelector('[data-page-ilist="' + id + '"]');
