@@ -2792,8 +2792,11 @@
       // 1:50 and 1:52; the other is Andy sitting apart at 2:50 to 2:52. A pause's `at` has to be the second its
       // picture is from, and its words have to be about that second.
       { at: 110.5, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres2.jpg', what: 'Hadley dragged Andy to the edge of the roof for speaking to him. Andy has just offered to save him the tax on his money, for three beers each for the crew.',
-        ask: 'What does this show about abuse of power in Shawshank?', title: 'Knowledge is a quieter kind of power',
-        note: 'Hadley nearly throws Andy off the roof for daring to speak to him. By offering tax advice, Andy turns Hadley from a threat into a favour: brains beat brute force.',
+        // The note answers the question that was asked. It first gave the site's point for the scene, "Knowledge is a quieter kind
+        // of power ... brains beat brute force" (the user: "also is this abuse of power or education"): that is about Andy's
+        // cleverness. The abuse of power in the scene is Hadley's.
+        ask: 'What does this show about abuse of power in Shawshank?', title: 'Power with no one to answer to',
+        note: 'Hadley can kill a prisoner for asking a question and call it an accident, and nobody on the roof could stop him. He only lets Andy live because there is money in it for him. In Shawshank the guards use their power for themselves.',
         // The words on the labels are what was said, taken from the clip's own captions and checked against the film (the user,
         // of labels like "Hadley answers with violence" and "Andy keeps talking": "not like after any quotes or after anything
         // like its very little with whats happening with the chracters ... like thanks thats all i need to start my essay").
@@ -2839,6 +2842,10 @@
   function watchClip() {
     var w = WATCH, sc = w.list[w.at], clip = watchClipOf(sc), el = w.el, beat = el.querySelector('.eng-pause__beat'), at = w.at;
     w.clip = clip; w.clipT = -1; w.clipStuck = Date.now(); w.clipSeen = false; w.pi = 0;
+    // Each pause's picture is fetched now, not at the pause, so it is there the instant the video stops on that frame
+    // (the user: "it pauses on teh frame its on straight as its on the frame show the ss"; fetched late, the scene's
+    // other picture showed for a moment first).
+    w.pre = watchPauses(clip).filter(function (ps) { return ps.img; }).map(function (ps) { var im = new Image(); im.src = ps.img; return im; });
     if (clip.src) { watchFile(); return; }
     el.classList.add('is-clip');
     el.querySelector('.eng-pause__bars').innerHTML = '<i class="is-clipbar"><b></b></i><i><b></b></i>';
@@ -2958,7 +2965,11 @@
     // The picture for this pause: its own (the frame it stopped on), or the scene's.
     if (src) {
       if (!img) { stage.insertAdjacentHTML('afterbegin', '<img alt="">'); img = stage.querySelector('img'); img.addEventListener('load', watchFit); }
-      if (img.getAttribute('src') !== src) img.setAttribute('src', src);
+      if (img.getAttribute('src') !== src) {
+        img.setAttribute('src', src);
+        // Never the last picture while this one arrives.
+        if (!img.complete) { img.style.opacity = '0'; img.addEventListener('load', function shown() { img.style.opacity = ''; img.removeEventListener('load', shown); }); }
+      }
     }
   }
   function watchHold(ps) {
