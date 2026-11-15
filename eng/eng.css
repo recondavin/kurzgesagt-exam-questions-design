@@ -2985,3 +2985,17 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 /* A pause part-way through a clip: the video is still there (so it can carry on with no new ad) but out of sight and
    out of reach until the sentence is written. A file that says where its spot is stays, stopped, under the circle. */
 .eng-pause.is-held .eng-pause__yt, .eng-pause.is-held:not(.is-frame) .eng-pause__vid { visibility: hidden; pointer-events: none; }
+
+/* A pause that marks several things: a small label for each, joined to its circle by a red line drawn after the
+   circles. On a phone the lines go and the circles and labels carry matching numbers. */
+.eng-pause__label.is-pin { max-width: 250px; padding: 8px 12px 9px; font-size: 15px; transition-delay: 1.3s; }
+.eng-pause__label.is-pin b { margin: 0; font-size: 19px; }
+.eng-pause__line { fill: none; stroke: #DC2B40; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.eng-pause.is-paused .eng-pause__line { animation: eng-tick-draw .3s ease-out 1.05s forwards; }
+.eng-pause__num, .eng-pause__numdot { display: none; }
+.eng-pause.is-num .eng-pause__numdot { display: block; fill: #DC2B40; }
+.eng-pause.is-num .eng-pause__num { display: block; fill: #FFFDF6; font: 700 14px var(--font-body); text-anchor: middle; dominant-baseline: central; }
+.eng-pause.is-num .eng-pause__label.is-pin { max-width: none; margin-top: 6px; }
+.eng-pause.is-num .eng-pause__label.is-pin::before { content: attr(data-n); float: left; width: 22px; height: 22px; margin: 1px 8px 0 0; border-radius: 50%; background: #DC2B40; color: #FFFDF6; font: 700 14px/22px var(--font-body); text-align: center; }
+.eng-pause__what { margin: 8px 0 0; color: var(--exam-ink); font: 500 16px/1.4 var(--font-body); }
+@media (prefers-reduced-motion: reduce) { .eng-pause.is-paused .eng-pause__line { animation: none; stroke-dashoffset: 0; } }

@@ -2759,7 +2759,22 @@
   var CLIPS = {
     'shawshank-1': { yt: 'nbo7A03c_A0' },    // The Conviction of Andy Dufresne, 5:09 (nine seconds over five minutes)
     'shawshank-3': { yt: '5OKgW7_Iqvg' },    // Warden Norton's Principles, 1:34
-    'shawshank-4': { yt: 'njJ41irPjTc', start: 0, pause: 0 },   // Rooftop Scene, 4:23 (the user's own pick)
+    // The full test (the user: "we can give it a test put one clip up there and do all the stuff"): three pauses, each on
+    // the frame YouTube publishes for this video at about a quarter, a half and three quarters of the way through
+    // (i.ytimg.com/vi/<id>/maxres1..3.jpg, shown from YouTube, not copied), so the seconds are estimates until the
+    // user says where each should land. The labels, the lines of what happened and the notes were written for this
+    // test from those frames and the scene's own summary and spot note; the user was asked to check them.
+    'shawshank-4': { yt: 'njJ41irPjTc', pauses: [
+      { at: 66, img: 'https://i.ytimg.com/vi/njJ41irPjTc/maxres1.jpg', what: 'Captain Hadley is telling the other guards that tax will take most of the money he has been left.',
+        title: 'The guards', note: 'They carry the weapons and answer to nobody on this roof. A prisoner who speaks out of turn is taking a real risk.',
+        spots: [{ x: 51.5, y: 34, label: 'Captain Hadley' }, { x: 21.5, y: 47, label: 'Armed guards', r: 7.5 }] },
+      { at: 131, img: 'https://i.ytimg.com/vi/njJ41irPjTc/maxres2.jpg', what: 'Andy has spoken to Hadley without being asked. The crew stop work and stare.',
+        title: 'The crew', note: 'Red and the others expect Andy to be punished. Their fear shows how complete the guards\' power is.',
+        spots: [{ x: 49.5, y: 13, label: 'Red', r: 6.5 }, { x: 22, y: 79, label: 'Tar and mops: hard labour', r: 7.5 }] },
+      { at: 197, img: 'https://i.ytimg.com/vi/njJ41irPjTc/maxres3.jpg', what: 'The men are drinking the beer Andy won for them. Andy sits apart, smiling.',
+        title: 'The beer', note: 'A small reward, but for a moment they aren\'t prisoners. Andy sits apart and doesn\'t drink: he did it for them.', quote: 'We sat and drank with the sun on our shoulders and felt like free men.',
+        spots: [{ x: 61, y: 27.5, label: 'Andy sits apart', r: 6.5 }, { x: 26, y: 65, label: 'No beer in his hands' }] }
+    ] },   // Rooftop Scene, 4:23 (the user's own pick)
     'shawshank-5': { yt: 'LU7SIVHZda4' },    // "Brooks was here" scene, 4:18
     'shawshank-6': { yt: 'ScU1O_Xuoxo' },    // "The Marriage of Figaro" scene, 4:04
     'shawshank-8': { yt: 'XLZEdhU-gGs' },    // Get Busy Living or Get Busy Dying, 3:29
@@ -2896,8 +2911,24 @@
       sp = i === 0 ? base : others[i - 1] || base;
       if (sp && (ps.label || ps.note)) sp = { x: sp.x, y: sp.y, label: ps.label || sp.label, note: ps.note || sp.note, quote: ps.note ? '' : sp.quote };
     }
+    // The labels: one for each thing a pause marks, or the one label with what happened under the name.
+    var el = w.el, stage = el.querySelector('.eng-pause__stage'), img = stage.querySelector('img'), src = ps.img || w.picSrc, many = ps.spots && ps.spots.length ? ps.spots : null;
+    Array.prototype.forEach.call(el.querySelectorAll('.eng-pause__label'), function (x) { x.parentNode.removeChild(x); });
+    if (many) {
+      sc.spots = many;
+      sp = { x: many[0].x, y: many[0].y, label: ps.title || many[0].label, note: ps.note || '', quote: ps.quote || '' };
+      w.what = ps.what || '';
+      el.querySelector('.eng-pause__bars').insertAdjacentHTML('beforebegin', many.map(function (s, n) { return '<p class="eng-pause__label is-pin" data-n="' + (n + 1) + '"><b>' + esc(s.label) + '</b>' + (s.say ? esc(s.say) : '') + '</p>'; }).join(''));
+    } else {
+      sc.spots = null; w.what = '';
+      el.querySelector('.eng-pause__bars').insertAdjacentHTML('beforebegin', '<p class="eng-pause__label">' + (sp && sp.label ? '<b>' + esc(sp.label) + '</b>' : '') + esc(ps.what || (pic && pic.caption) || sc.beats[sc.beats.length - 1] || '') + '</p>');
+    }
     sc.spot = sp || null;
-    w.el.querySelector('.eng-pause__label').innerHTML = (sp && sp.label ? '<b>' + esc(sp.label) + '</b>' : '') + esc(ps.what || (pic && pic.caption) || sc.beats[sc.beats.length - 1] || '');
+    // The picture for this pause: its own (the frame it stopped on), or the scene's.
+    if (src) {
+      if (!img) { stage.insertAdjacentHTML('afterbegin', '<img alt="">'); img = stage.querySelector('img'); img.addEventListener('load', watchFit); }
+      if (img.getAttribute('src') !== src) img.setAttribute('src', src);
+    }
   }
   function watchHold(ps) {
     var w = WATCH, el = w.el, sc = w.list[w.at], own = !!w.video && ((ps.x != null && ps.y != null) || !sc.pic);
@@ -3030,7 +3061,7 @@
   function watchDraw() {
     var w = WATCH, sc = w.list[w.at], pic = sc.pic, sp = (sc.spot = sc.spot0 = sc.spot0 === undefined ? sc.spot : sc.spot0), name = w.c.th.name.toLowerCase(), box = pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === watchKey(w); })[0];
     clearTimeout(w.timer); w.keep = false; watchClipStop(w);
-    w.step = 0; w.paused = false; w.wrote = '';
+    w.step = 0; w.paused = false; w.wrote = ''; w.what = ''; sc.spots = null; w.picSrc = pic ? 'assets/eng/img/' + pic.file : '';
     w.el.className = 'eng-pause' + (watchStill() ? ' is-still' : '');
     w.el.innerHTML = '<div class="eng-pause__stage"' + (sp ? ' style="--ox:' + sp.x + '%;--oy:' + sp.y + '%"' : '') + '>' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="' + esc(pic.caption || sc.m.title) + '">' : '') + '<svg class="eng-pause__svg" aria-hidden="true"></svg></div>' +
       '<p class="eng-pause__label">' + (sp ? '<b>' + esc(sp.label) + '</b>' : '') + esc((pic && pic.caption) || sc.beats[sc.beats.length - 1] || '') + '</p>' +
@@ -3050,9 +3081,60 @@
     watchFit();
     w.el.querySelector('.eng-pause__x').focus({ preventScroll: true });
     var cl = w.noclip ? null : watchClipOf(sc);
-    if (cl && cl.yt && !cl.src && !WATCH_NOYT && !w.again && watchSeen(sc.mid)) { w.el.querySelector('[data-watch-again]').hidden = false; w.step = sc.beats.length; watchStep(); }
+    if (cl && cl.yt && !cl.src && !WATCH_NOYT && !w.again && !watchPauses(cl).length && watchSeen(sc.mid)) { w.el.querySelector('[data-watch-again]').hidden = false; w.step = sc.beats.length; watchStep(); }
     else if (cl && (cl.src || (cl.yt && !WATCH_NOYT))) watchClip(); else watchStep();
     w.again = false;
+  }
+  // A pause that marks several things (the user, asking for one clip set up in full as a test: "do all the stuff like
+  // privacy mode and overlay the dark and labels and lines connecting to labels etc"). A pause with `spots: [{ x, y,
+  // label, r, side }, ...]` gets a circle on each, a red line from each circle out to its label, and the labels kept
+  // clear of the card, of the picture's edges, of the other circles and of each other (eight directions are tried,
+  // `side` first if given). `img` is the picture for that pause (so it can be the very frame the video stopped on),
+  // `what` is the line saying what just happened (shown in the card above the question), and `title` and `note` are
+  // the examiner's word on it after the sentence is written. On a phone there is no room for lines: the circles are
+  // numbered and the labels listed under the picture with the same numbers.
+  function watchPins(el, svg, card, W, H, aw, wide) {
+    var w = WATCH, spots = w.list[w.at].spots, sx = (aw - W) / 2, sy = (el.clientHeight - H) / 2, labs = el.querySelectorAll('.eng-pause__label');
+    var base = Math.max(40, Math.min(110, W * 0.08)), cs = spots.map(function (s) { var r = s.r ? s.r / 100 * W : base; return { r: r, x: Math.max(r + 8, Math.min(W - r - 8, s.x / 100 * W)), y: Math.max(r + 8, Math.min(H - r - 8, s.y / 100 * H)) }; });
+    var left = spots.reduce(function (a, s) { return a + s.x; }, 0) / spots.length >= 50, lines = '', nums = '';
+    // The card takes the side where it covers less of the circles (the side away from most of them if it is a tie).
+    var ch0 = card.offsetHeight || 340, ct = (el.clientHeight - ch0) / 2 - sy, cover = function (L) { return cs.reduce(function (a, c) { return a + (c.y + c.r > ct && c.y - c.r < ct + ch0 ? Math.max(0, Math.min(c.x + c.r, L + 420) - Math.max(c.x - c.r, L)) : 0); }, 0); };
+    var oL = cover(36 - sx), oR = cover(aw - 456 - sx);
+    if (oL !== oR) left = oL < oR;
+    card.classList.toggle('is-left', wide && left);
+    el.classList.toggle('is-num', !wide);
+    if (wide) {
+      var ch = card.offsetHeight || 340, cb = { l: (left ? 36 : aw - 456) - sx - 14, t: (el.clientHeight - ch) / 2 - sy - 14 }, placed = [], D = { br: [1, 1], bl: [-1, 1], tr: [1, -1], tl: [-1, -1], r: [1, 0], l: [-1, 0], b: [0, 1], t: [0, -1] };
+      cb.r = cb.l + 420 + 28; cb.b = cb.t + ch + 28;
+      var hit = function (a, b) { return a.l < b.r && a.r > b.l && a.t < b.b && a.b > b.t; };
+      spots.forEach(function (s, i) {
+        var c = cs[i], lab = labs[i];
+        if (!lab) return;
+        var lw = lab.offsetWidth, lh = lab.offsetHeight, g = 30, low = c.y > H * 0.62, order = c.x < W / 2 ? (low ? ['tr', 'r', 'br', 't', 'b', 'tl', 'l', 'bl'] : ['br', 'r', 'tr', 'b', 't', 'bl', 'l', 'tl']) : (low ? ['tl', 'l', 'bl', 't', 'b', 'tr', 'r', 'br'] : ['bl', 'l', 'tl', 'b', 't', 'br', 'r', 'tr']);
+        if (s.side && D[s.side]) order.unshift(s.side);
+        var best = null;
+        order.some(function (k, n) {
+          var d = D[k], q = d[0] && d[1] ? 0.7071 : 1, ax = c.x + d[0] * c.r * q, ay = c.y + d[1] * c.r * q, px = ax + d[0] * g, py = ay + d[1] * g * (d[0] ? 0.7 : 1);
+          var L = d[0] > 0 ? px : d[0] < 0 ? px - lw : px - lw / 2, T = d[0] && d[1] ? (d[1] > 0 ? py - 4 : py - lh + 4) : d[1] > 0 ? py : d[1] < 0 ? py - lh : py - lh / 2;
+          var box = { l: L - 6, t: T - 6, r: L + lw + 6, b: T + lh + 6 }, cand = { L: L, T: T, ax: ax, ay: ay, px: px, py: py, box: box };
+          if (!n) best = cand;
+          var ok = L >= 8 && T >= Math.max(8, 86 - sy) && L + lw <= W - 8 && T + lh <= H - 8 && !hit(box, cb) && !placed.some(function (b) { return hit(box, b); }) &&
+            !cs.some(function (o, j) { return j !== i && hit(box, { l: o.x - o.r, t: o.y - o.r, r: o.x + o.r, b: o.y + o.r }); });
+          if (ok) best = cand;
+          return ok;
+        });
+        placed.push(best.box);
+        lab.style.left = Math.round(sx + best.L) + 'px'; lab.style.top = Math.round(sy + best.T) + 'px';
+        lines += '<line class="eng-pause__line" pathLength="1" x1="' + best.ax.toFixed(1) + '" y1="' + best.ay.toFixed(1) + '" x2="' + best.px.toFixed(1) + '" y2="' + best.py.toFixed(1) + '"/>';
+      });
+    } else Array.prototype.forEach.call(labs, function (lab) { lab.style.left = lab.style.top = ''; });
+    cs.forEach(function (c, i) { var nx = c.x - c.r * 0.72, ny = c.y - c.r * 0.72; nums += '<circle class="eng-pause__numdot" cx="' + nx.toFixed(1) + '" cy="' + ny.toFixed(1) + '" r="12"/><text class="eng-pause__num" x="' + nx.toFixed(1) + '" y="' + ny.toFixed(1) + '">' + (i + 1) + '</text>'; });
+    svg.innerHTML = '<defs><filter id="eng-pause-soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="' + (base * 0.12).toFixed(1) + '"/></filter>' +
+      '<mask id="eng-pause-hole"><rect width="' + W + '" height="' + H + '" fill="#fff"/>' + cs.map(function (c) { return '<circle cx="' + c.x + '" cy="' + c.y + '" r="' + c.r + '" fill="#000" filter="url(#eng-pause-soft)"/>'; }).join('') + '</mask></defs>' +
+      '<rect class="eng-pause__dim" width="' + W + '" height="' + H + '" mask="url(#eng-pause-hole)"/>' + cs.map(function (c) {
+        return '<ellipse class="eng-pause__ring" pathLength="1" cx="' + c.x + '" cy="' + c.y + '" rx="' + (c.r + 5) + '" ry="' + (c.r + 1) + '" transform="rotate(-12 ' + c.x + ' ' + c.y + ')"/>' +
+          '<ellipse class="eng-pause__ring is-2" pathLength="1" cx="' + (c.x + 2) + '" cy="' + (c.y - 1) + '" rx="' + (c.r + 1) + '" ry="' + (c.r + 6) + '" transform="rotate(24 ' + c.x + ' ' + c.y + ')"/>';
+      }).join('') + lines + nums;
   }
   // Size the picture to the screen (all of it showing), and draw the dark and the circle on it at the spot.
   function watchFit() {
@@ -3065,6 +3147,8 @@
     var W = Math.round(Math.min(aw, ah * ar)), H = Math.round(W / ar), svg = stage.querySelector('svg'), lab = el.querySelector('.eng-pause__label'), card = el.querySelector('.eng-pause__card');
     stage.style.width = W + 'px'; stage.style.height = H + 'px';
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    if (w.list[w.at].spots) { watchPins(el, svg, card, W, H, aw, wide); return; }
+    el.classList.remove('is-num');
     if (!sp) { svg.innerHTML = '<rect class="eng-pause__dim" width="' + W + '" height="' + H + '"/>'; }
     var r = Math.max(42, Math.min(120, W * 0.085)), cx = sp ? Math.max(r + 8, Math.min(W - r - 8, sp.x / 100 * W)) : W / 2, cy = sp ? Math.max(r + 8, Math.min(H - r - 8, sp.y / 100 * H)) : H / 2;
     if (sp) svg.innerHTML = '<defs><filter id="eng-pause-soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="' + (r * 0.12).toFixed(1) + '"/></filter>' +
@@ -3099,6 +3183,7 @@
     w.paused = true;
     el.classList.add('is-paused');
     if (w.cardHtml) card.innerHTML = w.cardHtml;   // a fresh card: a clip can pause more than once
+    if (w.what) card.querySelector('.eng-pause__who').insertAdjacentHTML('afterend', '<p class="eng-pause__what">' + esc(w.what) + '</p>');
     card.hidden = false;
     watchFit();
     if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) el.querySelector('.eng-pause__ta').focus({ preventScroll: true });
