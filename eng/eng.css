@@ -2165,14 +2165,14 @@ body.eng-story-on .eng-tch:not(#eng-guide) { display: none; }
      by the line you've come along; steps to come are empty boxes.
    - Highlighter is only on the exam question's key words.
    - Surfaces part by a tone step or a 1px rule; a shadow only on the two dropdowns, which float.
-   Type: headings in --font-head, everything else in --font-body; 20px reading size (19px on phones), 17px for labels,
+   Type: headings in --font-head, everything else in --font-body (both Outfit now: see the end of this file); 20px reading size (19px on phones), 17px for labels,
    nothing under 16px. Spacing on a 4px grid: 4, 8, 12, 16, 24, 32. Touch targets 44px. ===== */
 :root {
   --exam-paper: #F7F2E4; --exam-paper-2: #ECE5D1; --exam-rule: #D6CDB5;
   --exam-ink: #13233A; --exam-ink-2: #515D6E; --exam-pen: #BF1A2C; --exam-hi: #FFE45C;
   --exam-done: color-mix(in srgb, var(--exam-ink) 50%, var(--exam-paper)); --exam-todo: color-mix(in srgb, var(--exam-ink) 32%, var(--exam-paper));
   --font-head: Outfit, 'Helvetica Neue', Arial, sans-serif; --font-head-weight: 800;
-  --font-body: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --cpx-h: 72px;
 }
 /* The paper runs to the window's edges (the page has an 8px margin): it is painted past the bar's box as a border image,
@@ -2785,3 +2785,9 @@ body.eng-read-on { overflow: hidden; }
 /* a small laptop with Help off: the page in the middle would run under the buttons, so it starts below them */
 @media (min-width: 1101px) and (max-width: 1420px) { .eng-read:not(.is-help) .eng-read__paper { top: 86px; } }
 @media (prefers-reduced-motion: reduce) { .eng-read { animation: none; } .eng-read__hand { transition: none; } }
+
+/* One typeface on Compare it (the user, having picked Outfit for headings: "i want everything to have this font"): the
+   two tokens are both Outfit, and the parts of this page that still named their own fonts (the phone feed, its rail and
+   Question sheet, the menu drawer) take it too. Other English pages are not changed. */
+body.eng-papertop .eng-feed, body.eng-papertop .eng-feed *, body.eng-papertop #eng-rail, body.eng-papertop #eng-rail *, body.eng-papertop #eng-sheet, body.eng-papertop #eng-sheet *,
+body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng-cmpg, body.eng-papertop .eng-cmpg * { font-family: var(--font-body) !important; }
