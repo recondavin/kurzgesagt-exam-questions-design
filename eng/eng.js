@@ -2765,14 +2765,15 @@
     // user says where each should land. The labels, the lines of what happened and the notes were written for this
     // test from those frames and the scene's own summary and spot note; the user was asked to check them.
     'shawshank-4': { yt: 'njJ41irPjTc', pauses: [
-      { at: 66, img: 'https://i.ytimg.com/vi/njJ41irPjTc/maxres1.jpg', what: 'Captain Hadley is telling the other guards that tax will take most of the money he has been left.',
-        title: 'The guards', note: 'They carry the weapons and answer to nobody on this roof. A prisoner who speaks out of turn is taking a real risk.',
-        spots: [{ x: 51.5, y: 34, label: 'Captain Hadley' }, { x: 21.5, y: 47, label: 'Armed guards', r: 7.5 }] },
-      { at: 131, img: 'https://i.ytimg.com/vi/njJ41irPjTc/maxres2.jpg', what: 'Andy has spoken to Hadley without being asked. The crew stop work and stare.',
-        title: 'The crew', note: 'Red and the others expect Andy to be punished. Their fear shows how complete the guards\' power is.',
-        spots: [{ x: 49.5, y: 13, label: 'Red', r: 6.5 }, { x: 22, y: 79, label: 'Tar and mops: hard labour', r: 7.5 }] },
-      { at: 197, img: 'https://i.ytimg.com/vi/njJ41irPjTc/maxres3.jpg', what: 'The men are drinking the beer Andy won for them. Andy sits apart, smiling.',
-        title: 'The beer', note: 'A small reward, but for a moment they aren\'t prisoners. Andy sits apart and doesn\'t drink: he did it for them.', quote: 'We sat and drank with the sun on our shoulders and felt like free men.',
+      // The first version also paused at 66s on Hadley complaining about tax, asking why that mattered for abuse of
+      // power. The user: "is this really important for abuse of power like am i supposed to make a criticism of the
+      // IRS". It was not: it had been chosen because YouTube had a frame there, not because the moment matters. A pause
+      // has to be on a moment where the theme is actually at work, and its question (`ask`) has to fit that moment.
+      { at: 131, img: 'https://i.ytimg.com/vi/njJ41irPjTc/maxres2.jpg', what: 'Andy spoke to Captain Hadley without being asked, and Hadley has dragged him to the edge of the roof. The crew can only watch.',
+        ask: 'What does this moment show about abuse of power?', title: 'The edge of the roof', note: 'A guard can kill a prisoner for speaking out of turn, and nobody on the roof can stop him. The men\'s fear shows how complete that power is.',
+        spots: [{ x: 49.5, y: 13, label: 'Red can only watch', r: 6.5 }, { x: 22, y: 79, label: 'Tar and mops: forced labour', r: 7.5 }] },
+      { at: 197, img: 'https://i.ytimg.com/vi/njJ41irPjTc/maxres3.jpg', what: 'Andy\'s tax advice has won every man on the crew three beers. They drink in the sun while Andy sits apart, smiling.',
+        ask: 'Why does this moment matter for abuse of power?', title: 'The beer', note: 'A small reward, but for a moment they aren\'t prisoners. Andy sits apart and doesn\'t drink: he did it for them.', quote: 'We sat and drank with the sun on our shoulders and felt like free men.',
         spots: [{ x: 61, y: 27.5, label: 'Andy sits apart', r: 6.5 }, { x: 26, y: 65, label: 'No beer in his hands' }] }
     ] },   // Rooftop Scene, 4:23 (the user's own pick)
     'shawshank-5': { yt: 'LU7SIVHZda4' },    // "Brooks was here" scene, 4:18
@@ -2917,10 +2918,10 @@
     if (many) {
       sc.spots = many;
       sp = { x: many[0].x, y: many[0].y, label: ps.title || many[0].label, note: ps.note || '', quote: ps.quote || '' };
-      w.what = ps.what || '';
+      w.what = ps.what || ''; w.ask = ps.ask || '';
       el.querySelector('.eng-pause__bars').insertAdjacentHTML('beforebegin', many.map(function (s, n) { return '<p class="eng-pause__label is-pin" data-n="' + (n + 1) + '"><b>' + esc(s.label) + '</b>' + (s.say ? esc(s.say) : '') + '</p>'; }).join(''));
     } else {
-      sc.spots = null; w.what = '';
+      sc.spots = null; w.what = ''; w.ask = ps.ask || '';
       el.querySelector('.eng-pause__bars').insertAdjacentHTML('beforebegin', '<p class="eng-pause__label">' + (sp && sp.label ? '<b>' + esc(sp.label) + '</b>' : '') + esc(ps.what || (pic && pic.caption) || sc.beats[sc.beats.length - 1] || '') + '</p>');
     }
     sc.spot = sp || null;
@@ -3067,7 +3068,7 @@
   function watchDraw() {
     var w = WATCH, sc = w.list[w.at], pic = sc.pic, sp = (sc.spot = sc.spot0 = sc.spot0 === undefined ? sc.spot : sc.spot0), name = w.c.th.name.toLowerCase(), box = w.solo ? null : pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === watchKey(w); })[0];
     clearTimeout(w.timer); w.keep = false; watchClipStop(w);
-    w.step = 0; w.paused = false; w.wrote = ''; w.what = ''; sc.spots = null; w.picSrc = pic ? 'assets/eng/img/' + pic.file : '';
+    w.step = 0; w.paused = false; w.wrote = ''; w.what = ''; w.ask = ''; sc.spots = null; w.picSrc = pic ? 'assets/eng/img/' + pic.file : '';
     w.el.className = 'eng-pause' + (w.solo ? ' is-solo' : '') + (watchStill() ? ' is-still' : '');
     w.el.innerHTML = '<div class="eng-pause__stage"' + (sp ? ' style="--ox:' + sp.x + '%;--oy:' + sp.y + '%"' : '') + '>' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="' + esc(pic.caption || sc.m.title) + '">' : '') + '<svg class="eng-pause__svg" aria-hidden="true"></svg></div>' +
       '<p class="eng-pause__label">' + (sp ? '<b>' + esc(sp.label) + '</b>' : '') + esc((pic && pic.caption) || sc.beats[sc.beats.length - 1] || '') + '</p>' +
@@ -3190,6 +3191,8 @@
     el.classList.add('is-paused');
     if (w.cardHtml) card.innerHTML = w.cardHtml;   // a fresh card: a clip can pause more than once
     if (w.what) card.querySelector('.eng-pause__who').insertAdjacentHTML('afterend', '<p class="eng-pause__what">' + esc(w.what) + '</p>');
+    // A pause can ask its own question, fitted to its moment; the theme in it is still highlighted.
+    if (w.ask) { var thn = esc(w.c.th.name.toLowerCase()); card.querySelector('h3').innerHTML = esc(w.ask).replace(thn, '<mark>' + thn + '</mark>'); }
     card.hidden = false;
     watchFit();
     if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) el.querySelector('.eng-pause__ta').focus({ preventScroll: true });
