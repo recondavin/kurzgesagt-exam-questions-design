@@ -2653,7 +2653,7 @@ body.eng-read-on { overflow: hidden; }
 @keyframes readIn { from { opacity: 0; } }
 .eng-read button { -webkit-tap-highlight-color: transparent; }
 .eng-read button:focus-visible { outline: 3px solid var(--exam-ink); outline-offset: 2px; }
-.eng-read__paper { position: absolute; top: calc(64px + env(safe-area-inset-top)); right: max(12px, calc(50% - 380px)); bottom: 96px; left: max(12px, calc(50% - 380px)); box-sizing: border-box; display: flex; flex-direction: column; overflow: auto; overflow-anchor: none; overscroll-behavior: contain; padding: 18px 18px 40px; background: #FFFDF6; box-shadow: 0 2px 0 rgba(60, 30, 10, .18), 0 18px 40px rgba(60, 30, 10, .28); scrollbar-width: thin; }
+.eng-read__paper { position: absolute; top: calc(64px + env(safe-area-inset-top)); right: max(12px, calc(50% - 460px)); bottom: 96px; left: max(12px, calc(50% - 460px)); box-sizing: border-box; display: flex; flex-direction: column; overflow: auto; overflow-anchor: none; overscroll-behavior: contain; padding: 18px 18px 40px; background: #FFFDF6; box-shadow: 0 2px 0 rgba(60, 30, 10, .18), 0 18px 40px rgba(60, 30, 10, .28); scrollbar-width: thin; }
 .eng-read__head { display: flex; flex: none; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 16px; padding-bottom: 8px; border-bottom: 2px solid var(--exam-ink); }
 .eng-read__head h2 { margin: 0; color: var(--exam-ink); font: var(--font-head-weight) 22px/1.2 var(--font-head); letter-spacing: -.02em; }
 .eng-read__head p { margin: 0; color: var(--exam-ink-2); font: 600 16px/1.3 var(--font-body); font-variant-numeric: tabular-nums; }
@@ -2758,13 +2758,13 @@ body.eng-read-on { overflow: hidden; }
   .eng-read__head p, .eng-read__q { font-size: 17px; }
   .eng-read__lines { margin-top: 16px; font-size: 19px; }
   .eng-read__x, .eng-read__tools { top: 14px; }
-  .eng-read__x { left: max(12px, calc(50% - 380px)); }
-  .eng-read__tools { right: max(12px, calc(50% - 380px)); }
+  .eng-read__x { left: max(12px, calc(50% - 460px)); }
+  .eng-read__tools { right: max(12px, calc(50% - 460px)); }
   .eng-read__ph { font-size: 21px; }
   .eng-read__box { padding-left: 16px; }
-  .eng-read__help { right: max(12px, calc(50% - 380px)); left: max(12px, calc(50% - 380px)); padding: 18px 28px 28px; }
-  .eng-read__hand.is-left { top: calc(100% - 70px); left: max(-30px, calc(50% - 470px)); width: 230px; }
-  .eng-read__hand.is-right { top: calc(100% - 132px); right: max(-20px, calc(50% - 470px)); width: 270px; }
+  .eng-read__help { right: max(12px, calc(50% - 460px)); left: max(12px, calc(50% - 460px)); padding: 18px 28px 28px; }
+  .eng-read__hand.is-left { top: calc(100% - 70px); left: max(-30px, calc(50% - 550px)); width: 230px; }
+  .eng-read__hand.is-right { top: calc(100% - 132px); right: max(-20px, calc(50% - 550px)); width: 270px; }
 }
 @media (min-width: 1101px) {
   .eng-read__paper { top: 26px; bottom: 26px; padding: 40px 56px 64px; }
@@ -2772,10 +2772,10 @@ body.eng-read-on { overflow: hidden; }
   .eng-read__x i::before { content: "×"; }
   .eng-read__x b { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .eng-read__tools { top: 26px; right: 84px; }
-  .eng-read__hand.is-left { top: auto; right: calc(50% + 290px); bottom: -190px; left: auto; width: 400px; transform: none; }
-  .eng-read__hand.is-right { top: auto; right: auto; bottom: -150px; left: calc(50% + 255px); width: 430px; transform: none; }
+  .eng-read__hand.is-left { top: auto; right: calc(50% + 370px); bottom: -190px; left: auto; width: 400px; transform: none; }
+  .eng-read__hand.is-right { top: auto; right: auto; bottom: -150px; left: calc(50% + 335px); width: 430px; transform: none; }
   /* Help on: the paper moves over and Help is a column beside it, under the two buttons; the hands make way */
-  .eng-read { --px: max(24px, calc(50% - 600px)); --pw: min(760px, calc(100% - 388px)); }
+  .eng-read { --px: max(24px, calc(50% - 712px)); --pw: min(920px, calc(100% - 412px)); }
   .eng-read.is-help .eng-read__paper { right: auto; left: var(--px); width: var(--pw); }
   .eng-read__help { top: 86px; right: var(--px); bottom: 26px; left: calc(var(--px) + var(--pw) + 24px); max-height: none; padding: 18px 24px 24px; box-shadow: 0 2px 0 rgba(60, 30, 10, .18), 0 12px 28px rgba(60, 30, 10, .22); }
   .eng-read.is-help .eng-read__hand { display: none; }
@@ -2783,15 +2783,10 @@ body.eng-read-on { overflow: hidden; }
   .eng-read__hh { min-height: 32px; }
 }
 /* a small laptop with Help off: the page in the middle would run under the buttons, so it starts below them */
-@media (min-width: 1101px) and (max-width: 1420px) { .eng-read:not(.is-help) .eng-read__paper { top: 86px; } }
-/* Big screens (the user, on a wide monitor where the desk was a small sheet in the middle: "it should be wider (except
-   for phone)"): the whole desk is scaled up, paper, help, type, pictures and hands together, so it fills the width and
-   the writing gets bigger with it rather than running to very long lines. Up to 1699px nothing changes. */
-@media (min-width: 1700px) { .eng-read { zoom: 1.25; } }
-@media (min-width: 2000px) { .eng-read { zoom: 1.45; } }
-@media (min-width: 2400px) { .eng-read { zoom: 1.7; } }
-@media (min-width: 3000px) { .eng-read { zoom: 2; } }
-@media (min-width: 3600px) { .eng-read { zoom: 2.4; } }
+@media (min-width: 1101px) and (max-width: 1580px) { .eng-read:not(.is-help) .eng-read__paper { top: 86px; } }
+/* Width (the user, on a wide monitor: "it should be wider (except for phone)", and of a version that scaled the whole
+   desk up, "not absolutely huge just the same length that it was but just a bit wider"): everything stays the size it
+   was; the paper can be up to 920px wide (it was 760) and Help up to 480px beside it. Phones are unchanged. */
 @media (prefers-reduced-motion: reduce) { .eng-read { animation: none; } .eng-read__hand { transition: none; } }
 
 /* One typeface on Compare it (the user, having picked Outfit for headings: "i want everything to have this font"): the

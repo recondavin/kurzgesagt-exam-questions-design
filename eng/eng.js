@@ -2464,8 +2464,7 @@
     });
   }
   // Do something that moves things on the paper (close the ideas, move "Write this next") without the lines you're on
-  // jumping: the paper scrolls by however far they moved. Measured down the page rather than on screen, so it holds
-  // when the desk is scaled up on a big screen.
+  // jumping: the paper scrolls by however far they moved (measured down the page, not on screen).
   function pageKeep(ta, fn) {
     var paper = READ.querySelector('.eng-read__paper'), top = function () { var y = 0, e = ta; while (e && e !== paper) { y += e.offsetTop; e = e.offsetParent; } return y; }, y0 = top();
     fn();
