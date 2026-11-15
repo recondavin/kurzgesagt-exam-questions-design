@@ -3108,3 +3108,15 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 .eng-pause__ctx { color: rgba(255, 253, 246, .74); font-size: calc(16px * var(--ps)); line-height: 1.35; }
 .eng-pause.is-stack .eng-pause__card h3 { margin-top: 0; }
 @media (max-width: 700px) { .eng-pause__q, .eng-pause__ctx { margin-top: 3px; } .eng-pause__ctx { font-size: 15px; } }
+
+/* The mini corrector at a pause (the user: "should their not be lik ea mini corrector"): the examiner's ticks under the
+   line you write on, white on the picture, each tick drawn in red pen as the sentence earns it. And a scene with a clip
+   has no bars along its top ("the bar that tracks teh stops shouldnt really be there"). A line may start outside the
+   picture, where the block of words is, so the drawing is not cut off at the picture's edge. */
+.eng-pause__ticks { margin: calc(10px * var(--ps)) 0 0; gap: 0 calc(14px * var(--ps)); }
+.eng-pause__ticks li { color: rgba(255, 253, 246, .68); }
+.eng-pause__ticks path { stroke: rgba(255, 253, 246, .5); }
+.eng-pause__ticks li.is-on { color: #FFFDF6; }
+.eng-pause__ticks li.is-on path { stroke: #FF4B5E; }
+.eng-pause.is-nobars .eng-pause__bars { display: none; }
+.eng-pause.is-stack .eng-pause__svg { overflow: visible; }

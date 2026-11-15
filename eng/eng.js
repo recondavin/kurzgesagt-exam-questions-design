@@ -2573,7 +2573,8 @@
     both: ['both texts', 'Both texts named.'], text: ['the film', 'You named it.'], author: ['the director', 'And who made it.'], authors: ['both authors', 'Both authors named.'],
     theme: ['the theme', 'On the theme.'], one: ['one sentence', 'One clear sentence.'], detail: ['scene detail', 'Good detail.'], who: ['who is there', 'You said who.'],
     tech: ['film technique', 'A film technique.'], link: ['linking word', 'That is comparing.'], verb: ['strong verb', 'A strong verb.'], why: ['says why', 'You said why.'],
-    reader: ['the reader', 'Back to the question.'], order: ['in order', 'I can follow that.'], side: ['your view', 'A view of your own.']
+    reader: ['the reader', 'Back to the question.'], order: ['in order', 'I can follow that.'], side: ['your view', 'A view of your own.'],
+    quote: ['a quote', 'You used their words.']
   };
   var TICK_BOX = {
     a: { p: ['theme', 'one'], a: ['detail', 'tech'], e: ['verb', 'why', 'reader'], film: ['text', 'author'], idea: ['order'], points: ['theme'], sum: ['one'], final: ['theme', 'side'], last: ['one'] },
@@ -2800,12 +2801,14 @@
       // not "Step aside, Mert", which the first version gave. And each question asks about those words.
       { at: 116, ask: 'What do Hadley’s words show about abuse of power in Shawshank?', title: 'Power with no one to answer to',
         note: 'Hadley was a second from killing a prisoner for asking a question, and nobody on the roof could stop him. He lets Andy live only once there is money in it for him, and even then Andy is just “that smart banker who killed his wife”. In Shawshank the guards use their power for themselves.',
+        // Every label says what its person is doing as well as what they say (the user, of a first version that did so
+        // for Hadley only: "it says what hadley is doing does it say what andy is doing trying to...").
         spots: [{ x: 29, y: 40, rx: 18.5, ry: 35, label: 'Hadley', say: ['About to throw Andy off the roof, he hears he can keep all of his $35,000:', '“You better start making sense.”', '“You’re that smart banker who killed his wife, aren’t you? Why should I believe a smart banker like you?”'] },
-          { x: 57, y: 52, rx: 13.5, ry: 36, label: 'Andy', say: ['“Mr Hadley, do you trust your wife?”', '“I’d only ask three beers apiece for each of my co-workers.”'] }] },
+          { x: 57, y: 52, rx: 13.5, ry: 36, label: 'Andy', say: ['Risks his life by speaking to a guard, to tell him how to keep the money:', '“Mr Hadley, do you trust your wife?”', 'All he asks in return, and none of it for himself:', '“I’d only ask three beers apiece for each of my co-workers.”'] }] },
       { at: 180.5, ask: 'Going by Red’s words, how is Andy’s use of power different from the guards’ abuse of power?', title: 'Using power for others',
         note: 'Andy asks only for beers for his crew: unlike the guards, he uses his power to give, not to take. For a moment the prisoners hold the power.',
-        spots: [{ x: 34, y: 45, rx: 6.5, ry: 11, label: 'Andy', say: ['Red, of Andy sitting apart with no beer:', '“a strange little smile on his face, watching us drink his beer.”'] },
-          { x: 70, y: 30, rx: 15, ry: 25, label: 'Red', say: ['“We sat and drank with the sun on our shoulders and felt like free men.”'] }] }
+        spots: [{ x: 34, y: 45, rx: 6.5, ry: 11, label: 'Andy', say: ['Sits apart with no beer of his own. Red, of him:', '“a strange little smile on his face, watching us drink his beer.”'] },
+          { x: 70, y: 30, rx: 15, ry: 25, label: 'Red', say: ['Narrating, as the crew drink the beer Andy won for them:', '“We sat and drank with the sun on our shoulders and felt like free men.”'] }] }
     ] },   // The Roof Scene, 3:30
     'shawshank-5': { yt: 'LU7SIVHZda4' },    // "Brooks was here" scene, 4:18
     'shawshank-6': { yt: 'ScU1O_Xuoxo' },    // "The Marriage of Figaro" scene, 4:04
@@ -3155,6 +3158,9 @@
     watchFit();
     w.el.querySelector('.eng-pause__x').focus({ preventScroll: true });
     var cl = w.noclip ? null : watchClipOf(sc);
+    // A scene with a clip has no bars along its top (the user: "the bar that tracks teh stops shouldnt really be there").
+    // The bars stay on a scene told in stills, where each is one beat of the telling.
+    if (cl && (cl.src || (cl.yt && !WATCH_NOYT))) w.el.classList.add('is-nobars');
     if (cl && cl.yt && !cl.src && !WATCH_NOYT && !w.again && !watchPauses(cl).length && watchSeen(sc.mid)) { w.el.querySelector('[data-watch-again]').hidden = false; w.step = sc.beats.length; watchStep(); }
     else if (cl && (cl.src || (cl.yt && !WATCH_NOYT))) watchClip(); else watchStep();
     w.again = false;
@@ -3194,7 +3200,7 @@
       // (is-set goes on before anything is measured: taking it off and putting it back around a measurement restarts the
       // block's fade, which left the examiner's note blank for two seconds after Done.)
       el.classList.add('is-stack'); card.classList.add('is-set');
-      [1, 0.93, 0.86, 0.8, 0.75].some(function (k) {
+      var fit = function () { return [1, 0.93, 0.86, 0.8, 0.75].some(function (k) {
         all.forEach(function (x) { x.style.setProperty('--ps', (ps * k).toFixed(3)); });
         cw = Math.round(Math.max(300 * ps * k, Math.min(520 * ps * k, roomW)));
         card.style.width = cw + 'px';
@@ -3203,7 +3209,9 @@
         ch = card.offsetHeight || 0; gap = Math.round(16 * ps * k);
         total = hs.reduce(function (t, h) { return t + h + gap; }, 0) + ch;
         return total <= botMax - topMin;
-      });
+      }); };
+      // If it is still too tall at three quarters it may run past the picture, up to the title and down to the screen's edge.
+      if (!fit()) { topMin = Math.min(topMin, 90 - sy); botMax = Math.max(botMax, eh - 14 - sy); fit(); }
       var L0 = left ? eL : eR - cw, bx = left ? L0 + cw + 14 : L0 - 14, hy = [], nw = [], rg = document.createRange();
       for (i = 0; i < n; i++) { var hb = labs[i].querySelector('b'); hy.push(hb ? hb.offsetTop + hb.offsetHeight / 2 : 16); if (hb) rg.selectNodeContents(hb); nw.push(hb ? rg.getBoundingClientRect().width : 0); }
       // Which person's words come first, and whether the block is at the picture's middle, top or bottom, is whatever
@@ -3315,15 +3323,40 @@
     // Done are white on the picture, wherever they cover least of what is lit.
     // A pause can ask its own question, fitted to its moment; the theme in it is still highlighted.
     if (w.ask) { var thn = esc(w.c.th.name.toLowerCase()); card.querySelector('h3').innerHTML = esc(w.ask).replace(thn, '<mark>' + thn + '</mark>'); }
+    var row = card.querySelector('.eng-pause__row'), tk = watchKey(w), ids = watchQuotes(w.list[w.at]).length ? ['quote', 'verb', 'why'] : tickList(READ_PART, READ_SLOT, tk, w.c);
+    if (row && ids.length) row.insertAdjacentHTML('beforebegin', tickHtml(READ_PART, READ_SLOT, tk, ids, w.c).replace('class="eng-read__ticks"', 'class="eng-read__ticks eng-pause__ticks"').replace(/ data-page-ticks="[^"]*"/, ''));
     card.hidden = false;
     watchFit();
     if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) el.querySelector('.eng-pause__ta').focus({ preventScroll: true });
+  }
+  // The mini corrector at a pause (the user, of a pause that had only the question and Done: "should their not be lik
+  // ea mini corrector"): the examiner's ticks, small, under the line you write on, drawn in as the sentence earns them.
+  // Where the labels give quotes the ticks are a quote, a strong verb and a reason; otherwise they are the ticks of
+  // the box the sentence goes into. A quote counts when three words running from any quoted line are in the sentence.
+  // The verb also counts without its -s here, because the question's subject is often plural ("Hadley's words expose").
+  function watchQuotes(sc) {
+    var out = [];
+    (sc.spots || []).forEach(function (sp) { (typeof sp.say === 'string' ? [sp.say] : sp.say || []).forEach(function (t) { String(t).replace(/“([^”]+)”/g, function (m, q) { out.push(q); return m; }); }); });
+    return out;
+  }
+  function watchTick(t, v, w) {
+    var norm = function (x) { return String(x).toLowerCase().replace(/[’‘]/g, "'").replace(/[^a-z0-9'$ ]+/g, ' ').replace(/\s+/g, ' ').trim(); };
+    if (t === 'quote') {
+      var mine = ' ' + norm(v) + ' ';
+      return watchQuotes(w.list[w.at]).some(function (q) {
+        var ws = norm(q).split(' '), n = Math.min(3, ws.length);
+        for (var i = 0; i + n <= ws.length; i++) if (mine.indexOf(' ' + ws.slice(i, i + n).join(' ') + ' ') >= 0) return true;
+        return false;
+      });
+    }
+    if (t === 'verb' && /\b(?:reveal|expose|highlight|underline|convey|suggest|portray|emphasi[sz]e|reinforce|imply|illustrate|demonstrate|critici[sz]e|condemn)\b/i.test(v)) return true;
+    return !!tickRun(t, v, READ_PART, READ_SLOT, watchKey(w), w.c);
   }
   function watchInput() {
     var w = WATCH, el = w.el, ta = el.querySelector('.eng-pause__ta'), v = ta.value, done = el.querySelector('[data-watch-done]'), k = watchKey(w);
     done.disabled = wordsIn(v) < 4; done.classList.toggle('is-go', !done.disabled);
     Array.prototype.forEach.call(el.querySelectorAll('.eng-pause__ticks li'), function (li) {
-      var on = !!tickRun(li.getAttribute('data-tick'), v, READ_PART, READ_SLOT, k, w.c);
+      var on = watchTick(li.getAttribute('data-tick'), v, w);
       li.classList.toggle('is-new', on && !li.classList.contains('is-on') && !watchStill()); li.classList.toggle('is-on', on);
     });
   }
