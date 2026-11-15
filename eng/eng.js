@@ -2749,7 +2749,26 @@
   // upload of the roof scene ("this has been up on youtube for 9 years and its fine"; 1.4m views, not the studio's
   // channel) and chose to use it. It is their decision for their site; if it is ever taken down the scene falls back
   // to the story lines by itself. It plays whole (4:23) to its end until the user gives a second to pause at.
-  var CLIPS = { 'shawshank-4': { yt: 'njJ41irPjTc', start: 0, pause: 0 } }, WATCH_NOYT = false;
+  // The rest were searched for at the user's request ("can you search for clips with these", of: under five minutes,
+  // the upload with fewest ads, the privacy player; "and preferably high quality, start with small things and
+  // shawshank and its for important scenes"). Each was checked from the build session for what can be checked there:
+  // YouTube's own embedded player accepts it, its length, and that an HD thumbnail exists. Nobody has watched them
+  // through (video does not stream in the build session), so the scene each shows is taken from its title, and how
+  // many ads each brings is for the user to see. None is the studio's own upload: Movieclips' official scenes refuse
+  // to play embedded. Each plays whole and pauses at its end until the user gives a second to pause at.
+  var CLIPS = {
+    'shawshank-1': { yt: 'nbo7A03c_A0' },    // The Conviction of Andy Dufresne, 5:09 (nine seconds over five minutes)
+    'shawshank-3': { yt: '5OKgW7_Iqvg' },    // Warden Norton's Principles, 1:34
+    'shawshank-4': { yt: 'njJ41irPjTc', start: 0, pause: 0 },   // Rooftop Scene, 4:23 (the user's own pick)
+    'shawshank-5': { yt: 'LU7SIVHZda4' },    // "Brooks was here" scene, 4:18
+    'shawshank-6': { yt: 'ScU1O_Xuoxo' },    // "The Marriage of Figaro" scene, 4:04
+    'shawshank-8': { yt: 'XLZEdhU-gGs' },    // Get Busy Living or Get Busy Dying, 3:29
+    'shawshank-9': { yt: 'NXM0p4kUcZU' },    // Norton Finds Out That Andy Has Escaped, 3:40
+    'shawshank-10': { yt: '-x0JaHI-dp8' },   // Uncovering the Corruption, 3:34
+    'shawshank-11': { yt: 'TuQjBDFVuo8' },   // Red attends his final parole hearing, 2:35
+    'shawshank-12': { yt: 'CkxXGxa2JkU' },   // Ending scene, 4:34
+    'stlt-8': { yt: 'bPKayfiskBw' }          // Small Things: "Bill speaks to Sr Mary" (a festival press clip), 1:22
+  }, WATCH_NOYT = false;
   var WATCH_HINT = { wait: 'Press play if it does not start by itself. If an ad comes first, skip it when you can.', ad: 'If an ad is playing, skip it when you can. The scene starts straight after it.', on: 'It pauses by itself on the moment that matters.' };
   function watchClipOf(sc) { return (window.EngClips || {})[sc.mid] || CLIPS[sc.mid] || null; }
   // Fewer ads (the user: "is there a way to minimize ads or get less ones because youtube ads are getting really bad
