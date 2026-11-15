@@ -2653,7 +2653,7 @@ body.eng-read-on { overflow: hidden; }
 @keyframes readIn { from { opacity: 0; } }
 .eng-read button { -webkit-tap-highlight-color: transparent; }
 .eng-read button:focus-visible { outline: 3px solid var(--exam-ink); outline-offset: 2px; }
-.eng-read__paper { position: absolute; top: calc(64px + env(safe-area-inset-top)); right: max(12px, calc(50% - 460px)); bottom: 96px; left: max(12px, calc(50% - 460px)); box-sizing: border-box; display: flex; flex-direction: column; overflow: auto; overflow-anchor: none; overscroll-behavior: contain; padding: 18px 18px 40px; background: #FFFDF6; box-shadow: 0 2px 0 rgba(60, 30, 10, .18), 0 18px 40px rgba(60, 30, 10, .28); scrollbar-width: thin; }
+.eng-read__paper { position: absolute; top: calc(64px + env(safe-area-inset-top)); right: max(12px, calc(50% - 460px)); bottom: 96px; left: max(12px, calc(50% - 460px)); box-sizing: border-box; display: flex; flex-direction: column; overflow: auto; overflow-anchor: none; overscroll-behavior: contain; padding: 18px 18px 40px; background: #FFFDF6; box-shadow: 0 2px 0 rgba(60, 30, 10, .18), 0 18px 40px rgba(60, 30, 10, .28); }
 .eng-read__head { display: flex; flex: none; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 16px; padding-bottom: 8px; border-bottom: 2px solid var(--exam-ink); }
 .eng-read__head h2 { margin: 0; color: var(--exam-ink); font: var(--font-head-weight) 22px/1.2 var(--font-head); letter-spacing: -.02em; }
 .eng-read__head p { margin: 0; color: var(--exam-ink-2); font: 600 16px/1.3 var(--font-body); font-variant-numeric: tabular-nums; }
@@ -2707,7 +2707,7 @@ body.eng-read-on { overflow: hidden; }
 .eng-read__x i::before { content: "‹"; position: relative; top: -2px; }
 .eng-read__x:hover, .eng-read__structb:hover, .eng-read__helpb[aria-pressed="false"]:hover { background: var(--exam-paper); }
 /* Help: the scene's details and the words, for the paragraph you're in. A sheet from the bottom here; a column on laptops. */
-.eng-read__help { position: absolute; right: 0; bottom: 0; left: 0; z-index: 3; display: none; box-sizing: border-box; max-height: 66%; overflow: auto; overscroll-behavior: contain; padding: 14px 18px calc(24px + env(safe-area-inset-bottom)); background: var(--exam-paper); box-shadow: 0 -12px 28px rgba(60, 30, 10, .32); color: var(--exam-ink); font: 400 17px/1.5 var(--font-body); scrollbar-width: thin; }
+.eng-read__help { position: absolute; right: 0; bottom: 0; left: 0; z-index: 3; display: none; box-sizing: border-box; max-height: 66%; overflow: auto; overscroll-behavior: contain; padding: 14px 18px calc(24px + env(safe-area-inset-bottom)); background: var(--exam-paper); box-shadow: 0 -12px 28px rgba(60, 30, 10, .32); color: var(--exam-ink); font: 400 17px/1.5 var(--font-body); }
 .eng-read.is-help .eng-read__help { display: block; }
 .eng-read__hh { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 4px; }
 .eng-read__hh h2 { margin: 0; font: var(--font-head-weight) 21px/1.2 var(--font-head); letter-spacing: -.02em; }
@@ -2784,6 +2784,19 @@ body.eng-read-on { overflow: hidden; }
 }
 /* a small laptop with Help off: the page in the middle would run under the buttons, so it starts below them */
 @media (min-width: 1101px) and (max-width: 1580px) { .eng-read:not(.is-help) .eng-read__paper { top: 86px; } }
+/* The paper's and Help's scroll bars (the user: "make the scroll bar better"; on Windows they were the browser's wide
+   grey default, with arrows): a slim rounded bar in ink on the paper itself, no track and no arrows, a little darker
+   under the mouse. The standard properties are only for browsers without the -webkit- ones (setting both would switch
+   the drawn bar off in Chrome). */
+.eng-read__paper::-webkit-scrollbar, .eng-read__help::-webkit-scrollbar { width: 14px; height: 14px; }
+.eng-read__paper::-webkit-scrollbar-track, .eng-read__help::-webkit-scrollbar-track { background: transparent; }
+.eng-read__paper::-webkit-scrollbar-thumb, .eng-read__help::-webkit-scrollbar-thumb { min-height: 48px; border: 4px solid transparent; border-radius: 999px; background: color-mix(in srgb, var(--exam-ink) 26%, transparent); background-clip: content-box; }
+.eng-read__paper::-webkit-scrollbar-thumb:hover, .eng-read__help::-webkit-scrollbar-thumb:hover, .eng-read__paper::-webkit-scrollbar-thumb:active, .eng-read__help::-webkit-scrollbar-thumb:active { background-color: color-mix(in srgb, var(--exam-ink) 48%, transparent); }
+.eng-read__paper::-webkit-scrollbar-button, .eng-read__help::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+.eng-read__paper::-webkit-scrollbar-corner, .eng-read__help::-webkit-scrollbar-corner { background: transparent; }
+@supports not selector(::-webkit-scrollbar) {
+  .eng-read__paper, .eng-read__help { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--exam-ink) 30%, transparent) transparent; }
+}
 /* Width (the user, on a wide monitor: "it should be wider (except for phone)", and of a version that scaled the whole
    desk up, "not absolutely huge just the same length that it was but just a bit wider"): everything stays the size it
    was; the paper can be up to 920px wide (it was 760) and Help up to 480px beside it. Phones are unchanged. */
