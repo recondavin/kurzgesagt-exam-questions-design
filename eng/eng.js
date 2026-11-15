@@ -3126,7 +3126,7 @@
       spots.forEach(function (s, i) {
         var c = cs[i], lab = labs[i];
         if (!lab) return;
-        var lw = lab.offsetWidth, lh = lab.offsetHeight, g = 30, low = c.y > H * 0.62, order = c.x < W / 2 ? (low ? ['tr', 'r', 'br', 't', 'b', 'tl', 'l', 'bl'] : ['br', 'r', 'tr', 'b', 't', 'bl', 'l', 'tl']) : (low ? ['tl', 'l', 'bl', 't', 'b', 'tr', 'r', 'br'] : ['bl', 'l', 'tl', 'b', 't', 'br', 'r', 'tr']);
+        var lw = lab.offsetWidth, lh = lab.offsetHeight, g = Math.max(70, Math.min(120, W * 0.075)), low = c.y > H * 0.62, order = c.x < W / 2 ? (low ? ['tr', 'r', 'br', 't', 'b', 'tl', 'l', 'bl'] : ['br', 'r', 'tr', 'b', 't', 'bl', 'l', 'tl']) : (low ? ['tl', 'l', 'bl', 't', 'b', 'tr', 'r', 'br'] : ['bl', 'l', 'tl', 'b', 't', 'br', 'r', 'tr']);
         if (s.side && D[s.side]) order.unshift(s.side);
         var best = null;
         order.some(function (k, n) {
@@ -3141,7 +3141,8 @@
         });
         placed.push(best.box);
         lab.style.left = Math.round(sx + best.L) + 'px'; lab.style.top = Math.round(sy + best.T) + 'px';
-        lines += '<line class="eng-pause__line" pathLength="1" x1="' + best.ax.toFixed(1) + '" y1="' + best.ay.toFixed(1) + '" x2="' + best.px.toFixed(1) + '" y2="' + best.py.toFixed(1) + '"/>';
+        lines += '<line class="eng-pause__line" pathLength="1" x1="' + best.ax.toFixed(1) + '" y1="' + best.ay.toFixed(1) + '" x2="' + best.px.toFixed(1) + '" y2="' + best.py.toFixed(1) + '"/>' +
+          '<circle class="eng-pause__dot" cx="' + best.ax.toFixed(1) + '" cy="' + best.ay.toFixed(1) + '" r="4.5"/>';
       });
     } else Array.prototype.forEach.call(labs, function (lab) { lab.style.left = lab.style.top = ''; });
     cs.forEach(function (c, i) { var nx = c.x - c.r * 0.72, ny = c.y - c.r * 0.72; nums += '<circle class="eng-pause__numdot" cx="' + nx.toFixed(1) + '" cy="' + ny.toFixed(1) + '" r="12"/><text class="eng-pause__num" x="' + nx.toFixed(1) + '" y="' + ny.toFixed(1) + '">' + (i + 1) + '</text>'; });

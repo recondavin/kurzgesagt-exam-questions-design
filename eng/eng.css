@@ -3002,3 +3002,21 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 
 /* A scene opened on its own from a link: over the whole window, not inside the desk. */
 .eng-pause.is-solo { position: fixed; z-index: 200; }
+
+/* The pause's marks, as the user asked after seeing them ("get rid of the cred circles and make the text white and not
+   black in a white box and the lines are white and longer"): no red rings (the thing that matters is simply left lit
+   while the rest goes dark), each label is white words straight on the picture, and a longer white line with a dot at
+   its end runs from the lit spot out to its label. Red is left for the examiner's words. */
+.eng-pause__ring { display: none; }
+.eng-pause__label, .eng-pause__label.is-pin { padding: 4px 8px; border-radius: 0; background: none; color: #FFFDF6; }
+.eng-pause__label b { color: #FFFDF6; }
+.eng-pause__label.is-pin b { font-size: 22px; }
+.eng-pause__line { stroke: #FFFDF6; stroke-width: 2.5; }
+.eng-pause.is-paused .eng-pause__line { animation-delay: .55s; animation-duration: .4s; }
+.eng-pause__label.is-pin { transition-delay: .95s; }
+.eng-pause__dot { fill: #FFFDF6; opacity: 0; transition: opacity .2s ease .5s; }
+.eng-pause.is-paused .eng-pause__dot { opacity: 1; }
+.eng-pause.is-num .eng-pause__numdot { fill: #FFFDF6; }
+.eng-pause.is-num .eng-pause__num { fill: var(--exam-ink); }
+.eng-pause.is-num .eng-pause__label.is-pin::before { background: #FFFDF6; color: var(--exam-ink); }
+@media (prefers-reduced-motion: reduce) { .eng-pause__dot { transition: none; } }
