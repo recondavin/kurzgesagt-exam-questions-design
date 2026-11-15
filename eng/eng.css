@@ -3057,3 +3057,19 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
   .eng-pause__label, .eng-pause__label.is-pin { max-width: none; }
   .eng-pause__label.is-pin b { font-size: 22px; }
 }
+
+/* No card at a pause (the user: "GET RID OF THE WHITE CARD, make the text white instead and it should be the question
+   and done"): the question, two lines to write on and Done are white on the dark picture, with nothing behind them.
+   The key words of the exam question keep their highlighter. Done is an outline until there is a sentence, then red. */
+.eng-pause__card { width: calc(520px * var(--ps)); padding: 0; overflow: visible; border-radius: 0; background: none; color: #FFFDF6; }
+.eng-pause__card h3 { color: #FFFDF6; }
+.eng-pause__card h3 mark { background: var(--exam-hi); color: var(--exam-ink); }
+.eng-pause__ta { height: calc(80px * var(--ps)); background: linear-gradient(to bottom, transparent calc(40px * var(--ps) - 2px), rgba(255, 253, 246, .5) calc(40px * var(--ps) - 2px)) 0 0 / 100% calc(40px * var(--ps)) local; color: #FFFDF6; caret-color: #FFFDF6; }
+.eng-pause__ta::placeholder { color: rgba(255, 253, 246, .62); }
+.eng-pause__row .eng-read__btn { box-shadow: inset 0 0 0 2px #FFFDF6; background: none; color: #FFFDF6; }
+.eng-pause__row .eng-read__btn:hover { background: rgba(255, 253, 246, .14); }
+.eng-pause__row .eng-read__btn[disabled] { box-shadow: inset 0 0 0 1.5px rgba(255, 253, 246, .42); background: none; color: rgba(255, 253, 246, .55); }
+.eng-pause__row .eng-read__btn.is-go, .eng-pause__row .eng-read__btn.is-go:hover { box-shadow: none; background: var(--exam-pen); color: #FFFDF6; }
+.eng-pause__note { margin: 0; color: #FFFDF6; }
+.eng-pause__note q { color: rgba(255, 253, 246, .82); }
+@media (max-width: 700px) { .eng-pause__card, .eng-pause__card.is-left { width: auto; padding: 4px 0 8px; } }

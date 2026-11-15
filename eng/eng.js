@@ -2468,6 +2468,13 @@
     var shown = READ_STRUCT ? [READ_SLOT] : c.slots;
     return (READ_STRUCT ? pageTabs(c) : '') + shown.map(function (s) {
       var P = c.parts(c.W, s), pts = pageParts(part, s, c), sub = pageSub(part, s, c);
+      // Sentences written while watching this paragraph's scenes from a direct link come in here.
+      if (pts.length) watchScenes(part, s, c).forEach(function (sc) {
+        var kept = watchKept(sc.mid), kk = pts.some(function (pt) { return pt.k === 'e'; }) ? 'e' : pts[pts.length - 1].k;
+        if (!kept) return;
+        P[kk] = (P[kk] && String(P[kk]).trim() ? String(P[kk]).replace(/\s+$/, '') + ' ' : '') + kept;
+        watchKept(sc.mid, null); cpSave();
+      });
       if (!READ_STRUCT) {
         // One paragraph, remembering where each box's text starts (b), so Show structure can put it all back.
         var j = '', bs = [];
@@ -2787,11 +2794,13 @@
       { at: 110.5, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres2.jpg', what: 'Hadley dragged Andy to the edge of the roof for speaking to him. Andy has just offered to save him the tax on his money, for three beers each for the crew.',
         ask: 'What does this show about abuse of power in Shawshank?', title: 'Knowledge is a quieter kind of power',
         note: 'Hadley nearly throws Andy off the roof for daring to speak to him. By offering tax advice, Andy turns Hadley from a threat into a favour: brains beat brute force.',
-        spots: [{ x: 32.8, y: 41.7, rx: 16.8, ry: 36.8, label: 'Hadley still has him by the collar', side: 'b' }, { x: 60.9, y: 39.6, rx: 12.5, ry: 25.7, label: 'Andy has made his offer' }] },
+        spots: [{ x: 32.8, y: 41.7, rx: 16.8, ry: 36.8, label: 'Hadley', say: 'Dragged Andy to the edge of the roof for speaking to him, and still has him by the collar.', side: 'b' },
+          { x: 60.9, y: 39.6, rx: 12.5, ry: 25.7, label: 'Andy', say: 'Has just offered to save Hadley the tax on his money, for three beers each for the crew.' }] },
       { at: 171, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres3.jpg', what: 'The men are drinking the beer Andy won for them. He asked for nothing for himself.',
         ask: 'How is Andy\'s use of power different from the guards\' abuse of power?', title: 'Using power for others',
         note: 'Andy asks only for beers for his crew: unlike the guards, he uses his power to give, not to take. For a moment the prisoners hold the power.', quote: 'We sat and drank with the sun on our shoulders and felt like free men.',
-        spots: [{ x: 62.5, y: 27.8, rx: 11, ry: 24, label: 'Andy sits apart' }, { x: 28.7, y: 69.4, rx: 13, ry: 18.5, label: 'No beer in his hands' }] }
+        spots: [{ x: 62.5, y: 27.8, rx: 11, ry: 24, label: 'Andy', say: 'Asked for nothing for himself. He sits apart, smiling.' },
+          { x: 28.7, y: 69.4, rx: 13, ry: 18.5, label: 'His hands', say: 'No beer. The crew are drinking what he won for them.' }] }
     ] },   // The Roof Scene, 3:30
     'shawshank-5': { yt: 'LU7SIVHZda4' },    // "Brooks was here" scene, 4:18
     'shawshank-6': { yt: 'ScU1O_Xuoxo' },    // "The Marriage of Figaro" scene, 4:04
@@ -3031,6 +3040,17 @@
   }
   function watchStill() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
   // The box the sentence goes into: Evaluate, or the last box of the paragraph.
+  // A sentence written from a direct link has no answer open to go into (the user: "it should be saved to be honest but
+  // you DONT NEED TO FUCKING MENTION IT"). It is kept with its scene (localStorage eng-watch-kept) and put into the
+  // Evaluate box the next time a paragraph built on that scene is opened on the desk. Nothing on screen says so.
+  function watchKept(mid, add) {
+    var o = {};
+    try { o = JSON.parse(localStorage.getItem('eng-watch-kept') || '{}') || {}; } catch (e) {}
+    if (add === undefined) return o[mid] || '';
+    if (add === null) delete o[mid]; else o[mid] = (o[mid] ? o[mid] + ' ' : '') + add;
+    try { localStorage.setItem('eng-watch-kept', JSON.stringify(o)); } catch (e) {}
+    return o[mid] || '';
+  }
   function watchKey(w) { if (w.solo) return 'e'; var pts = pageParts(READ_PART, READ_SLOT, w.c); return pts.some(function (pt) { return pt.k === 'e'; }) ? 'e' : pts.length ? pts[pts.length - 1].k : 'e'; }
   // solo: a scene opened on its own from a link (#watch/<moment id>; the user, of the test clip: "i donbt know where to
   // actually watch it"): the same screen over whatever page is behind it, with no answer open, so what is written is
@@ -3097,8 +3117,7 @@
       '<p class="eng-pause__beat" aria-live="polite"></p>' +
       '<div class="eng-pause__card" hidden><h3>Why is this important for <mark>' + esc(name) + '</mark>?</h3>' +
         '<textarea class="eng-pause__ta" rows="3" spellcheck="true" lang="en-IE" aria-label="Why is this important for ' + esc(name) + '? One sentence." placeholder="Write one sentence…"></textarea>' +
-        tickHtml(READ_PART, READ_SLOT, watchKey(w), tickList(READ_PART, READ_SLOT, watchKey(w), w.c), w.c).replace('class="eng-read__ticks"', 'class="eng-read__ticks eng-pause__ticks"').replace(/ data-page-ticks="[^"]*"/, '') +
-        '<p class="eng-pause__row">' + (w.solo ? '<span>A preview: this is not saved.</span>' : '') + '<button type="button" class="eng-read__btn" data-watch-done disabled>Done</button></p></div>';
+        '<p class="eng-pause__row"><button type="button" class="eng-read__btn" data-watch-done disabled>Done</button></p></div>';
     var img = w.el.querySelector('.eng-pause__stage img');
     if (img) img.addEventListener('load', watchFit);
     w.cardHtml = w.el.querySelector('.eng-pause__card').innerHTML;
@@ -3155,10 +3174,13 @@
             var ax = c.x + ux * t, ay = c.y + uy * t, px = ax + d[0] * g, py = ay + d[1] * g * (d[0] ? 0.7 : 1);
             var L = d[0] > 0 ? px : d[0] < 0 ? px - lw : px - lw / 2, T = d[0] && d[1] ? (d[1] > 0 ? py - 4 : py - lh + 4) : d[1] > 0 ? py : d[1] < 0 ? py - lh : py - lh / 2;
             var box = { l: L - 6, t: T - 6, r: L + lw + 6, b: T + lh + 6 }, cand = { L: L, T: T, ax: ax, ay: ay, px: px, py: py, box: box };
-            if (!gi && !n) best = cand;
-            var ok = L >= 8 && T >= Math.max(8, 86 - sy) && L + lw <= W - 8 && T + lh <= H - 8 && !hit(box, cb) && !placed.some(function (q) { return hit(box, q); }) && !cs.some(function (o, j) { return j !== i && hit(box, boxOf(o)); });
-            if (ok) best = cand;
-            return ok;
+            // How badly this place fits: what of the label would hang off the picture or lie over the question, another
+            // label or something lit. Nothing at all is taken at once; failing that, the least bad place is used.
+            var over = function (q) { return Math.max(0, Math.min(box.r, q.r) - Math.max(box.l, q.l)) * Math.max(0, Math.min(box.b, q.b) - Math.max(box.t, q.t)); };
+            var off = Math.max(0, 8 - L) + Math.max(0, Math.max(8, 86 - sy) - T) + Math.max(0, L + lw - (W - 8)) + Math.max(0, T + lh - (H - 8));
+            cand.pen = off * 4000 + over(cb) * 3 + placed.reduce(function (t, q) { return t + over(q) * 3; }, 0) + cs.reduce(function (t, o, j) { return t + (j !== i ? over(boxOf(o)) : 0); }, 0);
+            if (!best || cand.pen < best.pen) best = cand;
+            return cand.pen === 0;
           });
         });
         placed.push(best.box);
@@ -3223,7 +3245,10 @@
     if (w.cardHtml) card.innerHTML = w.cardHtml;   // a fresh card: a clip can pause more than once
     // No word saying it is paused (the user: "why the fuck do you need to mention red paused every time i add a afeature you
     // dont need to name it like i think its kind of obvious that its paused"). The card starts with what happened.
-    if (w.what) card.insertAdjacentHTML('afterbegin', '<p class="eng-pause__what">' + esc(w.what) + '</p>');
+    // Nor does the card say what happened: that is on the labels, with the people it is about (the user: "GET RID OF THE
+    // WHITE CARD, make the text white instead and it should be the question and done and the shit at the top should be
+    // connected to the labels attached to the characters"). There is no card now: the question, a line to write on and
+    // Done are white on the picture, wherever they cover least of what is lit.
     // A pause can ask its own question, fitted to its moment; the theme in it is still highlighted.
     if (w.ask) { var thn = esc(w.c.th.name.toLowerCase()); card.querySelector('h3').innerHTML = esc(w.ask).replace(thn, '<mark>' + thn + '</mark>'); }
     card.hidden = false;
@@ -3247,13 +3272,12 @@
       var P = w.c.parts(w.c.W, READ_SLOT), ta = READ.querySelector('.eng-read__ta[data-page-box="' + k + '"]');
       P[k] = (P[k] && String(P[k]).trim() ? String(P[k]).replace(/\s+$/, '') + ' ' : '') + v;
       if (ta) { ta.value = P[k]; pageInput(ta); } else cpSave();
-    }
+    } else watchKept(sc.mid, v);
     w.wrote = v;
     var last = w.at === w.list.length - 1, card = el.querySelector('.eng-pause__card'), sp = sc.spot, box = w.solo ? null : pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === k; })[0];
     if (!sp || !sp.note) { watchNext(); return; }
-    card.innerHTML = '<p class="eng-pause__who">The examiner</p><p class="eng-pause__note"><b>' + esc(sp.label) + '.</b> ' + esc(sp.note) + (sp.quote ? '<q>' + esc(sp.quote) + '</q>' : '') + '</p>' +
-      '<p class="eng-pause__mine"><span>You wrote</span>' + esc(v) + '</p>' +
-      '<p class="eng-pause__row">' + (w.solo ? '<span>A preview: this was not saved.</span>' : '') + '<button type="button" class="eng-read__btn is-go" data-watch-next>' + (w.hold ? 'Keep watching ›' : w.solo ? 'Close ›' : last ? 'Back to your answer ›' : 'Next scene ›') + '</button></p>';
+    card.innerHTML = '<p class="eng-pause__note"><b>' + esc(sp.label) + '.</b> ' + esc(sp.note) + (sp.quote ? '<q>' + esc(sp.quote) + '</q>' : '') + '</p>' +
+      '<p class="eng-pause__row"><button type="button" class="eng-read__btn is-go" data-watch-next>' + (w.hold ? 'Keep watching ›' : w.solo ? 'Close ›' : last ? 'Back to your answer ›' : 'Next scene ›') + '</button></p>';
     card.querySelector('[data-watch-next]').focus({ preventScroll: true });
   }
   function watchNext() {
