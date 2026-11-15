@@ -3090,7 +3090,7 @@
       '<div class="eng-pause__card" hidden><h3>Why is this important for <mark>' + esc(name) + '</mark>?</h3>' +
         '<textarea class="eng-pause__ta" rows="3" spellcheck="true" lang="en-IE" aria-label="Why is this important for ' + esc(name) + '? One sentence." placeholder="Write one sentence…"></textarea>' +
         tickHtml(READ_PART, READ_SLOT, watchKey(w), tickList(READ_PART, READ_SLOT, watchKey(w), w.c), w.c).replace('class="eng-read__ticks"', 'class="eng-read__ticks eng-pause__ticks"').replace(/ data-page-ticks="[^"]*"/, '') +
-        '<p class="eng-pause__row"><span>' + (w.solo ? 'A preview: this is not saved.' : 'It goes into your ' + esc(box ? box.label : 'Evaluate') + ' box.') + '</span><button type="button" class="eng-read__btn" data-watch-done disabled>Done</button></p></div>';
+        '<p class="eng-pause__row">' + (w.solo ? '<span>A preview: this is not saved.</span>' : '') + '<button type="button" class="eng-read__btn" data-watch-done disabled>Done</button></p></div>';
     var img = w.el.querySelector('.eng-pause__stage img');
     if (img) img.addEventListener('load', watchFit);
     w.cardHtml = w.el.querySelector('.eng-pause__card').innerHTML;
@@ -3243,7 +3243,7 @@
     if (!sp || !sp.note) { watchNext(); return; }
     card.innerHTML = '<p class="eng-pause__who">The examiner</p><p class="eng-pause__note"><b>' + esc(sp.label) + '.</b> ' + esc(sp.note) + (sp.quote ? '<q>' + esc(sp.quote) + '</q>' : '') + '</p>' +
       '<p class="eng-pause__mine"><span>You wrote</span>' + esc(v) + '</p>' +
-      '<p class="eng-pause__row"><span>' + (w.solo ? 'A preview: this was not saved.' : 'It is in your ' + esc(box ? box.label : 'Evaluate') + ' box now.') + '</span><button type="button" class="eng-read__btn is-go" data-watch-next>' + (w.hold ? 'Keep watching ›' : w.solo ? 'Close ›' : last ? 'Back to your answer ›' : 'Next scene ›') + '</button></p>';
+      '<p class="eng-pause__row">' + (w.solo ? '<span>A preview: this was not saved.</span>' : '') + '<button type="button" class="eng-read__btn is-go" data-watch-next>' + (w.hold ? 'Keep watching ›' : w.solo ? 'Close ›' : last ? 'Back to your answer ›' : 'Next scene ›') + '</button></p>';
     card.querySelector('[data-watch-next]').focus({ preventScroll: true });
   }
   function watchNext() {
