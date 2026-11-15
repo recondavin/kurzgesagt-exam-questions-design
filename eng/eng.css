@@ -2968,3 +2968,9 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 .eng-pause.is-clip .eng-pause__beat { bottom: 28px; padding: 0; background: none; color: rgba(255, 253, 246, .88); font-size: 17px; cursor: default; }
 .eng-pause__bars i.is-clipbar b { transition: width .25s linear; }
 @media (max-width: 700px) { .eng-pause.is-clip { padding: calc(84px + env(safe-area-inset-top)) 0 20px; } }
+
+/* A video file of the site's own in Watch the scene: it fills the stage like the picture does, and at the pause the
+   dark and the circle are drawn over its stopped frame (is-frame) when the clip says where its spot is. */
+.eng-pause__vid { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: contain; background: #000; }
+.eng-pause__svg { z-index: 1; }
+.eng-pause.is-file .eng-pause__stage img, .eng-pause.is-frame .eng-pause__stage img { visibility: hidden; animation: none; }

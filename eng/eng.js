@@ -2757,12 +2757,14 @@
     if (!w) return;
     clearInterval(w.poll); clearTimeout(w.ytWait); w.poll = 0;
     if (w.player) { try { w.player.destroy(); } catch (e) {} w.player = null; }
+    if (w.video) { try { w.video.pause(); } catch (e) {} if (!w.keep) w.video = null; }
     w.clip = null;
   }
   function watchClipFail(dead) { var w = WATCH; if (!w) return; if (dead) WATCH_NOYT = true; watchClipStop(w); w.noclip = true; watchDraw(); }
   function watchClip() {
     var w = WATCH, sc = w.list[w.at], clip = watchClipOf(sc), el = w.el, beat = el.querySelector('.eng-pause__beat'), at = w.at;
     w.clip = clip; w.clipT = -1; w.clipStuck = Date.now(); w.clipSeen = false;
+    if (clip.src) { watchFile(); return; }
     el.classList.add('is-clip');
     el.querySelector('.eng-pause__bars').innerHTML = '<i class="is-clipbar"><b></b></i><i><b></b></i>';
     el.querySelector('.eng-pause__stage').insertAdjacentHTML('beforeend', '<div class="eng-pause__yt"><div id="eng-pause-yt"></div></div>');
@@ -2808,10 +2810,63 @@
     if (bar && end > start) bar.style.width = Math.max(0, Math.min(100, (t - start) / (end - start) * 100)) + '%';
     if (clip.pause && t >= clip.pause) watchClipEnd();
   }
+  // A video file of the site's own in place of a YouTube clip (the user, offered remade scenes of their own as the
+  // way to have video with no ads: "i could do that but i want both options"). CLIPS: moment id -> { src: the file
+  // (assets/eng/video/...), start, pause (seconds; 0 is its end), spot: { x, y, label, note } (where on the frame, in
+  // per cent, the thing that matters is, with its name and the examiner's note), what: the line under the label }.
+  // The page plays it itself, so there are no ads and the pause is exact; click the picture to hold or carry on. With
+  // a spot of its own the pause is on the frame itself: it goes dark and the circle is drawn where the video stopped.
+  // With none, the scene's picture takes over at the pause as it does for YouTube. A scene with no picture at all can
+  // be watched once it has a file. If the file will not load or play, it is the story lines. The player plays whatever
+  // file is listed; which files are put on the site is the owner's decision (they were told studio footage would not
+  // be added for them).
+  function watchFile() {
+    var w = WATCH, clip = w.clip, el = w.el, stage = el.querySelector('.eng-pause__stage'), beat = el.querySelector('.eng-pause__beat');
+    el.classList.add('is-file');
+    el.querySelector('.eng-pause__bars').innerHTML = '<i class="is-clipbar"><b></b></i><i><b></b></i>';
+    stage.insertAdjacentHTML('beforeend', '<video class="eng-pause__vid" playsinline preload="auto"></video>');
+    var v = stage.querySelector('video');
+    w.video = v;
+    v.addEventListener('loadedmetadata', function () { if (WATCH !== w || w.video !== v) return; if (clip.start) { try { v.currentTime = clip.start; } catch (e) {} } watchFit(); });
+    v.addEventListener('ended', function () { if (WATCH === w && w.clip && w.video === v) watchClipEnd(); });
+    v.addEventListener('error', function () { if (WATCH === w && w.clip && w.video === v) watchClipFail(false); });
+    v.src = clip.src;
+    beat.textContent = '';
+    watchFit();
+    w.poll = setInterval(watchFileTick, 80);
+    var pr = v.play();
+    if (pr && pr.catch) pr.catch(function () { if (WATCH === w && w.video === v && v.paused && !v.error) beat.textContent = 'Press the picture to play.'; });
+  }
+  function watchFileTick() {
+    var w = WATCH;
+    if (!w || !w.clip || !w.video) return;
+    var v = w.video, clip = w.clip, start = clip.start || 0, end = clip.pause || v.duration || 0, bar = w.el.querySelector('.eng-pause__bars .is-clipbar b'), beat = w.el.querySelector('.eng-pause__beat');
+    if (!v.paused && beat.textContent) beat.textContent = '';
+    if (bar && end > start) bar.style.width = Math.max(0, Math.min(100, (v.currentTime - start) / (end - start) * 100)) + '%';
+    if (clip.pause && v.currentTime >= clip.pause) watchClipEnd();
+  }
+  function watchFileEnd() {
+    var w = WATCH, el = w.el, sc = w.list[w.at], clip = w.clip, v = w.video, own = !!clip.spot || !sc.pic;
+    try { v.pause(); } catch (e) {}
+    w.keep = own;
+    watchClipStop(w);
+    if (own) {
+      // The pause is on the frame itself.
+      var old = sc.spot || {}, cs = clip.spot;
+      if (cs) sc.spot = { x: cs.x, y: cs.y, label: cs.label || old.label || '', note: cs.note || old.note || '', quote: cs.quote || (cs.note ? '' : old.quote) || '' };
+      el.querySelector('.eng-pause__label').innerHTML = (sc.spot && sc.spot.label ? '<b>' + esc(sc.spot.label) + '</b>' : '') + esc(clip.what || (sc.pic && sc.pic.caption) || sc.beats[sc.beats.length - 1] || '');
+      el.classList.add('is-frame');
+    } else if (v.parentNode) v.parentNode.removeChild(v);
+    el.classList.remove('is-file');
+    el.querySelector('.eng-pause__beat').textContent = '';
+    Array.prototype.forEach.call(el.querySelectorAll('.eng-pause__bars i'), function (b) { b.className = 'is-done'; b.firstChild.style.width = ''; });
+    watchPause();
+  }
   // The pause: the player goes (nothing may be drawn on it) and the picture takes its place.
   function watchClipEnd() {
     var w = WATCH;
     if (!w || !w.clip) return;
+    if (w.video) { watchFileEnd(); return; }
     try { if (w.player) w.player.pauseVideo(); } catch (e) {}
     watchClipStop(w);
     var el = w.el, yt = el.querySelector('.eng-pause__yt');
@@ -2826,8 +2881,8 @@
     var q = c.W.paras[s], mids = !q ? [] : part === 'b' ? [q.x, q.y] : [q.scene ? text(c.a).moments[q.scene - 1].id : ''];
     return mids.filter(Boolean).map(function (mid) {
       var tid = tidOf(mid), m = mom(mid).m, ps = scenePics(tid, mid), pic = ps.filter(function (p) { return p.spots && p.spots.length; })[0] || ps[0];
-      if (!pic || !m) return null;
-      var spot = (pic.spots || []).filter(function (x) { return x.moment === mid; })[0] || (pic.spots || [])[0] || null;
+      if (!m || (!pic && !((window.EngClips || {})[mid] || CLIPS[mid] || {}).src)) return null;
+      var spot = pic ? (pic.spots || []).filter(function (x) { return x.moment === mid; })[0] || (pic.spots || [])[0] || null : null;
       return { tid: tid, mid: mid, m: m, pic: pic, spot: spot, beats: (m.tell && m.tell.length ? m.tell : storySentences(m.what)).slice(0, 4) };
     }).filter(Boolean);
   }
@@ -2855,6 +2910,7 @@
       else if (t.closest('[data-watch-skip]')) { if (w.clip) watchClipEnd(); else { w.step = w.list[w.at].beats.length; watchStep(); } }
       else if (t.closest('[data-watch-done]')) watchDone();
       else if (t.closest('[data-watch-next]')) watchNext();
+      else if (!w.paused && w.video && t.closest('.eng-pause__stage, .eng-pause__beat')) { if (w.video.paused) w.video.play(); else w.video.pause(); }
       else if (!w.paused && !w.clip && t.closest('.eng-pause__stage, .eng-pause__beat')) { w.step++; watchStep(); }
     });
     el.addEventListener('input', function (e) { e.stopPropagation(); if (e.target.classList.contains('eng-pause__ta')) watchInput(); });
@@ -2883,11 +2939,11 @@
   }
   function watchDraw() {
     var w = WATCH, sc = w.list[w.at], pic = sc.pic, sp = sc.spot, name = w.c.th.name.toLowerCase(), box = pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === watchKey(w); })[0];
-    clearTimeout(w.timer); watchClipStop(w);
+    clearTimeout(w.timer); w.keep = false; watchClipStop(w);
     w.step = 0; w.paused = false; w.wrote = '';
     w.el.className = 'eng-pause' + (watchStill() ? ' is-still' : '');
-    w.el.innerHTML = '<div class="eng-pause__stage"' + (sp ? ' style="--ox:' + sp.x + '%;--oy:' + sp.y + '%"' : '') + '><img src="assets/eng/img/' + esc(pic.file) + '" alt="' + esc(pic.caption || sc.m.title) + '"><svg class="eng-pause__svg" aria-hidden="true"></svg></div>' +
-      '<p class="eng-pause__label">' + (sp ? '<b>' + esc(sp.label) + '</b>' : '') + esc(pic.caption || sc.beats[sc.beats.length - 1] || '') + '</p>' +
+    w.el.innerHTML = '<div class="eng-pause__stage"' + (sp ? ' style="--ox:' + sp.x + '%;--oy:' + sp.y + '%"' : '') + '>' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="' + esc(pic.caption || sc.m.title) + '">' : '') + '<svg class="eng-pause__svg" aria-hidden="true"></svg></div>' +
+      '<p class="eng-pause__label">' + (sp ? '<b>' + esc(sp.label) + '</b>' : '') + esc((pic && pic.caption) || sc.beats[sc.beats.length - 1] || '') + '</p>' +
       '<div class="eng-pause__bars" aria-hidden="true">' + sc.beats.concat(['']).map(function () { return '<i><b></b></i>'; }).join('') + '</div>' +
       '<p class="eng-pause__top"><b>' + esc(sc.m.title) + '</b><span>' + esc(shortTitle(sc.tid)) + (w.list.length > 1 ? ' · scene ' + (w.at + 1) + ' of ' + w.list.length : '') + '</span></p>' +
       '<button type="button" class="eng-pause__skip" data-watch-skip>Skip to the pause ›</button>' +
@@ -2897,11 +2953,12 @@
         '<textarea class="eng-pause__ta" rows="3" spellcheck="true" lang="en-IE" aria-label="Why is this important for ' + esc(name) + '? One sentence." placeholder="Write one sentence…"></textarea>' +
         tickHtml(READ_PART, READ_SLOT, watchKey(w), tickList(READ_PART, READ_SLOT, watchKey(w), w.c), w.c).replace('class="eng-read__ticks"', 'class="eng-read__ticks eng-pause__ticks"').replace(/ data-page-ticks="[^"]*"/, '') +
         '<p class="eng-pause__row"><span>It goes into your ' + esc(box ? box.label : 'Evaluate') + ' box.</span><button type="button" class="eng-read__btn" data-watch-done disabled>Done</button></p></div>';
-    var img = w.el.querySelector('img');
-    img.addEventListener('load', watchFit);
+    var img = w.el.querySelector('.eng-pause__stage img');
+    if (img) img.addEventListener('load', watchFit);
     watchFit();
     w.el.querySelector('.eng-pause__x').focus({ preventScroll: true });
-    if (!w.noclip && !WATCH_NOYT && watchClipOf(sc)) watchClip(); else watchStep();
+    var cl = w.noclip ? null : watchClipOf(sc);
+    if (cl && (cl.src || (cl.yt && !WATCH_NOYT))) watchClip(); else watchStep();
   }
   // Size the picture to the screen (all of it showing), and draw the dark and the circle on it at the spot.
   function watchFit() {
@@ -2909,7 +2966,8 @@
     if (!w) return;
     var el = w.el, stage = el.querySelector('.eng-pause__stage'), img = stage.querySelector('img'), sp = w.list[w.at].spot, wide = el.clientWidth > 700;
     // A clip is 16:9 and keeps clear of the title above it and the line of help below it.
-    var ar = w.clip ? 16 / 9 : (img.naturalWidth || 16) / (img.naturalHeight || 9), aw = el.clientWidth, ah = wide ? el.clientHeight - (w.clip ? 176 : 0) : Math.round(el.clientHeight * 0.38);
+    var vid = w.video, yt = !!w.clip && !vid, ar = yt ? 16 / 9 : vid ? (vid.videoWidth || 16) / (vid.videoHeight || 9) : img ? (img.naturalWidth || 16) / (img.naturalHeight || 9) : 16 / 9;
+    var aw = el.clientWidth, ah = wide ? el.clientHeight - (yt ? 176 : 0) : Math.round(el.clientHeight * 0.38);
     var W = Math.round(Math.min(aw, ah * ar)), H = Math.round(W / ar), svg = stage.querySelector('svg'), lab = el.querySelector('.eng-pause__label'), card = el.querySelector('.eng-pause__card');
     stage.style.width = W + 'px'; stage.style.height = H + 'px';
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
