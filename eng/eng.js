@@ -2999,12 +2999,13 @@
   function watchScenes(part, s, c) {
     if (typeof s !== 'number') return [];
     var q = c.W.paras[s], mids = !q ? [] : part === 'b' ? [q.x, q.y] : [q.scene ? text(c.a).moments[q.scene - 1].id : ''];
-    return mids.filter(Boolean).map(function (mid) {
+    return mids.filter(Boolean).map(watchScene).filter(Boolean);
+  }
+  function watchScene(mid) {
       var tid = tidOf(mid), m = mom(mid).m, ps = scenePics(tid, mid), pic = ps.filter(function (p) { return p.spots && p.spots.length; })[0] || ps[0];
       if (!m || (!pic && !((window.EngClips || {})[mid] || CLIPS[mid] || {}).src)) return null;
       var spot = pic ? (pic.spots || []).filter(function (x) { return x.moment === mid; })[0] || (pic.spots || [])[0] || null : null;
       return { tid: tid, mid: mid, m: m, pic: pic, spot: spot, beats: (m.tell && m.tell.length ? m.tell : storySentences(m.what)).slice(0, 4) };
-    }).filter(Boolean);
   }
   function watchBtn(part, s, c) {
     var n = watchScenes(part, s, c).length;
@@ -3012,16 +3013,19 @@
   }
   function watchStill() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
   // The box the sentence goes into: Evaluate, or the last box of the paragraph.
-  function watchKey(w) { var pts = pageParts(READ_PART, READ_SLOT, w.c); return pts.some(function (pt) { return pt.k === 'e'; }) ? 'e' : pts.length ? pts[pts.length - 1].k : 'e'; }
-  function watchOpen() {
-    if (!READ) return;
-    var c = pageCtx(READ_PART), list = watchScenes(READ_PART, READ_SLOT, c);
+  function watchKey(w) { if (w.solo) return 'e'; var pts = pageParts(READ_PART, READ_SLOT, w.c); return pts.some(function (pt) { return pt.k === 'e'; }) ? 'e' : pts.length ? pts[pts.length - 1].k : 'e'; }
+  // solo: a scene opened on its own from a link (#watch/<moment id>; the user, of the test clip: "i donbt know where to
+  // actually watch it"): the same screen over whatever page is behind it, with no answer open, so what is written is
+  // not saved anywhere and the card says so. Closing it leaves you on Compare it.
+  function watchOpen(solo) {
+    if (!READ && !solo) return;
+    var c = solo ? { th: cpTheme() } : pageCtx(READ_PART), list = solo ? [solo] : watchScenes(READ_PART, READ_SLOT, c);
     if (!list.length) return;
     watchClose();
     var el = document.createElement('div');
     el.id = 'eng-pause'; el.className = 'eng-pause'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Watch the scene');
-    READ.appendChild(el);
-    WATCH = { el: el, list: list, at: 0, c: c, timer: 0, step: 0 };
+    (solo ? document.body : READ).appendChild(el);
+    WATCH = { el: el, list: list, at: 0, c: c, timer: 0, step: 0, solo: !!solo };
     el.addEventListener('click', function (e) {
       e.stopPropagation();
       var t = e.target, w = WATCH;
@@ -3038,6 +3042,7 @@
     el.addEventListener('focusin', function (e) { e.stopPropagation(); });
     el.addEventListener('keydown', function (e) {
       e.stopPropagation();
+      if (e.key === 'Escape' && WATCH && WATCH.solo) { e.preventDefault(); watchClose(true); return; }
       if (e.key === 'Enter' && !e.shiftKey && e.target.classList.contains('eng-pause__ta')) { e.preventDefault(); watchDone(); return; }
       if (e.key !== 'Tab') return;
       var f = Array.prototype.filter.call(el.querySelectorAll('button, textarea'), function (x) { return !x.disabled && x.offsetParent; });
@@ -3053,16 +3058,17 @@
     clearTimeout(w.timer); watchClipStop(w);
     WATCH = null;
     if (w.el.parentNode) w.el.parentNode.removeChild(w.el);
+    if (w.solo && back && /^#watch/.test(location.hash)) { try { history.replaceState(null, '', '#compare'); } catch (e) {} }
     if (!back || !READ) return;
     var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     var to = (fine && READ.querySelector('.eng-read__box.is-next .eng-read__ta')) || READ.querySelector('[data-page-watch]');
     if (to) to.focus({ preventScroll: true });
   }
   function watchDraw() {
-    var w = WATCH, sc = w.list[w.at], pic = sc.pic, sp = (sc.spot = sc.spot0 = sc.spot0 === undefined ? sc.spot : sc.spot0), name = w.c.th.name.toLowerCase(), box = pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === watchKey(w); })[0];
+    var w = WATCH, sc = w.list[w.at], pic = sc.pic, sp = (sc.spot = sc.spot0 = sc.spot0 === undefined ? sc.spot : sc.spot0), name = w.c.th.name.toLowerCase(), box = w.solo ? null : pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === watchKey(w); })[0];
     clearTimeout(w.timer); w.keep = false; watchClipStop(w);
     w.step = 0; w.paused = false; w.wrote = ''; w.what = ''; sc.spots = null; w.picSrc = pic ? 'assets/eng/img/' + pic.file : '';
-    w.el.className = 'eng-pause' + (watchStill() ? ' is-still' : '');
+    w.el.className = 'eng-pause' + (w.solo ? ' is-solo' : '') + (watchStill() ? ' is-still' : '');
     w.el.innerHTML = '<div class="eng-pause__stage"' + (sp ? ' style="--ox:' + sp.x + '%;--oy:' + sp.y + '%"' : '') + '>' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="' + esc(pic.caption || sc.m.title) + '">' : '') + '<svg class="eng-pause__svg" aria-hidden="true"></svg></div>' +
       '<p class="eng-pause__label">' + (sp ? '<b>' + esc(sp.label) + '</b>' : '') + esc((pic && pic.caption) || sc.beats[sc.beats.length - 1] || '') + '</p>' +
       '<div class="eng-pause__bars" aria-hidden="true">' + sc.beats.concat(['']).map(function () { return '<i><b></b></i>'; }).join('') + '</div>' +
@@ -3074,7 +3080,7 @@
       '<div class="eng-pause__card" hidden><p class="eng-pause__who">Paused</p><h3>Why is this important for <mark>' + esc(name) + '</mark>?</h3>' +
         '<textarea class="eng-pause__ta" rows="3" spellcheck="true" lang="en-IE" aria-label="Why is this important for ' + esc(name) + '? One sentence." placeholder="Write one sentence…"></textarea>' +
         tickHtml(READ_PART, READ_SLOT, watchKey(w), tickList(READ_PART, READ_SLOT, watchKey(w), w.c), w.c).replace('class="eng-read__ticks"', 'class="eng-read__ticks eng-pause__ticks"').replace(/ data-page-ticks="[^"]*"/, '') +
-        '<p class="eng-pause__row"><span>It goes into your ' + esc(box ? box.label : 'Evaluate') + ' box.</span><button type="button" class="eng-read__btn" data-watch-done disabled>Done</button></p></div>';
+        '<p class="eng-pause__row"><span>' + (w.solo ? 'A preview: this is not saved.' : 'It goes into your ' + esc(box ? box.label : 'Evaluate') + ' box.') + '</span><button type="button" class="eng-read__btn" data-watch-done disabled>Done</button></p></div>';
     var img = w.el.querySelector('.eng-pause__stage img');
     if (img) img.addEventListener('load', watchFit);
     w.cardHtml = w.el.querySelector('.eng-pause__card').innerHTML;
@@ -3201,15 +3207,17 @@
     var w = WATCH, el = w.el, sc = w.list[w.at], v = el.querySelector('.eng-pause__ta').value.replace(/\s+/g, ' ').trim(), k = watchKey(w);
     if (wordsIn(v) < 4) return;
     if (!/[.!?]["”’']?$/.test(v)) v += '.';
-    var P = w.c.parts(w.c.W, READ_SLOT), ta = READ.querySelector('.eng-read__ta[data-page-box="' + k + '"]');
-    P[k] = (P[k] && String(P[k]).trim() ? String(P[k]).replace(/\s+$/, '') + ' ' : '') + v;
-    if (ta) { ta.value = P[k]; pageInput(ta); } else cpSave();
+    if (!w.solo) {
+      var P = w.c.parts(w.c.W, READ_SLOT), ta = READ.querySelector('.eng-read__ta[data-page-box="' + k + '"]');
+      P[k] = (P[k] && String(P[k]).trim() ? String(P[k]).replace(/\s+$/, '') + ' ' : '') + v;
+      if (ta) { ta.value = P[k]; pageInput(ta); } else cpSave();
+    }
     w.wrote = v;
-    var last = w.at === w.list.length - 1, card = el.querySelector('.eng-pause__card'), sp = sc.spot, box = pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === k; })[0];
+    var last = w.at === w.list.length - 1, card = el.querySelector('.eng-pause__card'), sp = sc.spot, box = w.solo ? null : pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === k; })[0];
     if (!sp || !sp.note) { watchNext(); return; }
     card.innerHTML = '<p class="eng-pause__who">The examiner</p><p class="eng-pause__note"><b>' + esc(sp.label) + '.</b> ' + esc(sp.note) + (sp.quote ? '<q>' + esc(sp.quote) + '</q>' : '') + '</p>' +
       '<p class="eng-pause__mine"><span>You wrote</span>' + esc(v) + '</p>' +
-      '<p class="eng-pause__row"><span>It is in your ' + esc(box ? box.label : 'Evaluate') + ' box now.</span><button type="button" class="eng-read__btn is-go" data-watch-next>' + (w.hold ? 'Keep watching ›' : last ? 'Back to your answer ›' : 'Next scene ›') + '</button></p>';
+      '<p class="eng-pause__row"><span>' + (w.solo ? 'A preview: this was not saved.' : 'It is in your ' + esc(box ? box.label : 'Evaluate') + ' box now.') + '</span><button type="button" class="eng-read__btn is-go" data-watch-next>' + (w.hold ? 'Keep watching ›' : w.solo ? 'Close ›' : last ? 'Back to your answer ›' : 'Next scene ›') + '</button></p>';
     card.querySelector('[data-watch-next]').focus({ preventScroll: true });
   }
   function watchNext() {
@@ -4925,7 +4933,7 @@
   function route() {
     var h = decodeURIComponent(location.hash.replace(/^#/, '')), p = h.split('/');
     menu(false);
-    readClose();
+    readClose(); watchClose();
     if (CPW) { CPW = null; cpwDraw(); }
     if (p[0] === 'play' && window.EngGames) { window.EngGames.open(p[1]); history.replaceState(null, '', '#comparative'); renderHome(); return; }
     if (p[0] === 'marking') renderMarking();
@@ -4936,6 +4944,7 @@
     else if (p[0] === 'language') renderLanguage();
     else if (p[0] === 'questions') renderQuestions();
     else if (p[0] === 'compare') { CP_ENTER = true; renderCompare(); }
+    else if (p[0] === 'watch') { CP_ENTER = true; renderCompare(); var ws = p[1] && D.texts[tidOf(p[1])] ? watchScene(p[1]) : null; if (ws) watchOpen(ws); }
     else if (p[0] === 'build') renderBuild(p[1]);
     else if (p[0] === 'comparative') renderHome();
     else if (p[0] === 'single') renderSingle();
