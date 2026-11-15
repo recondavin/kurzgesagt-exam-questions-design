@@ -2772,46 +2772,38 @@
     // user says where each should land. The labels, the lines of what happened and the notes were written for this
     // test from those frames and the scene's own summary and spot note; the user was asked to check them.
     'shawshank-4': { yt: 'bM7MB1pgb9w', pauses: [
-      // Two earlier versions of this test were wrong, and why is the rule for every clip. First it paused on Hadley
-      // complaining about tax (the user: "is this really important for abuse of power like am i supposed to make a
-      // criticism of the IRS"). Then it paused on the crew watching, with labels for Red and for the tar and mops
-      // (the user: "i feel like we are playing games here and we wont talk about this in an essay, the talk would be
-      // about what actually HAPPENED between hadley and andy, like this would be the case in ANY prison setting").
-      // Both came from labelling whatever the one available frame showed. A pause goes on the EVENT an essay would
-      // discuss, its labels say what each person in it is doing, and its question and note are about what that event
-      // shows in this text: here both are the site's own points for the scene (`reps` in the comparative data).
-      // The video is a shorter upload of the same scene (3:30) than the user's first pick (njJ41irPjTc, 4:23), used
-      // because YouTube's frames for it fall on the two moments that matter, so each pause's picture is the moment it
-      // stops on: its half-way frame is Hadley with Andy by the collar, its three-quarter frame Andy sitting apart.
-      // The seconds were first guessed as half and three quarters of the way through, which is not where YouTube's
-      // frames are from: the video stopped on one shot and the picture was of another, five seconds later (the user,
-      // sending a recording of it: "it pisses me off that it cuts do a different frame and isnt the frame that its
-      // supposed to be"). They are now read off the video's own seek previews (the small pictures YouTube's player
-      // shows on its progress bar, one every 2s, which the player is given for every video): the half-way frame is
-      // Hadley, still holding Andy's collar, shouting the crew back to work straight after Andy's offer, between
-      // 1:50 and 1:52; the other is Andy sitting apart at 2:50 to 2:52. A pause's `at` has to be the second its
-      // picture is from, and its words have to be about that second.
-      // 109.9, not 110.5: the user's second recording showed the shot of Hadley ending at about 110.3, so the video cut
-      // to the crew and sat there for a fifth of a second before the picture of Hadley came up ("look what happens
-      // before it says whats happening with hadley and andy it shows this frame"). A pause has to fall well inside its
-      // picture's shot, allowing a fifth of a second for the stop to take effect.
-      { at: 109.9, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres2.jpg', what: 'Hadley dragged Andy to the edge of the roof for speaking to him. Andy has just offered to save him the tax on his money, for three beers each for the crew.',
-        // The note answers the question that was asked. It first gave the site's point for the scene, "Knowledge is a quieter kind
-        // of power ... brains beat brute force" (the user: "also is this abuse of power or education"): that is about Andy's
-        // cleverness. The abuse of power in the scene is Hadley's.
-        ask: 'What does this show about abuse of power in Shawshank?', title: 'Power with no one to answer to',
+      // How this test got here, because each wrong turn is a rule for every clip. (1) It paused on Hadley complaining
+      // about tax (the user: "am i supposed to make a criticism of the IRS"), then on the crew watching, labelled with
+      // Red and the tar and mops ("we wont talk about this in an essay, the talk would be about what actually HAPPENED
+      // between hadley and andy"): a pause is on the event an essay would discuss. (2) Its labels were a few words of
+      // description ("thanks thats all i need to start my essay"): a label gives the line that was spoken and what the
+      // person did. (3) Its note was about Andy's cleverness ("is this abuse of power or education"): the note answers
+      // the question asked. (4) It cut to a still of another moment, then of the right moment a fraction late, and in
+      // the middle of a line ("pick a time where theres at least one second after they stop talking, and not in the
+      // middle of him talking make the screenshot ON POINT ... it should be size proprtionate and higher quality, i want
+      // it to look like it paused the screen goes dark and then the lines appear"). So there is no still any more: a
+      // pause with no `img` stops the video and draws over its own frame.
+      // How a second is chosen now, for every clip: (a) from the clip's captions word by word, a stretch with nobody
+      // speaking that starts at least a second after a line ends (the first word of a caption line is often stamped
+      // seconds late, so go by the words around it); (b) inside that stretch, a shot that does not change for a second
+      // either side, read from the seek previews (one frame every 2s) of this upload AND of another upload of the same
+      // scene lined up by its captions, which gives frames in between; (c) who is who is checked against the shots
+      // before and after, not guessed from one small frame. (c) is there because the second pause was first labelled
+      // with the man in the foreground as Andy; he is Red, and Andy is the small figure by the wall.
+      // Here: Hadley's "What are you jimmies staring at? Back to work!" ends at about 1:52; from 1:54 to 1:58 the shot
+      // is Hadley and Andy face to face, his hand still on Andy's collar, nobody speaking: 1:56. Red's "watching us
+      // drink his beer" ends at about 2:55 and Heywood's "Hey, want a cold one, Andy?" starts after 3:02; from 3:00 the
+      // shot is over Red's shoulder at Andy sitting apart, and it holds: 3:00.5. (Andy's close-up after "No thanks, I
+      // gave up drinking" would be the better picture, but the shot changes within about a second of the line.)
+      // Where things are on those frames was read off the 160x90 previews, so the shapes are close, not exact.
+      { at: 116, ask: 'What does this show about abuse of power in Shawshank?', title: 'Power with no one to answer to',
         note: 'Hadley can kill a prisoner for asking a question and call it an accident, and nobody on the roof could stop him. He only lets Andy live because there is money in it for him. In Shawshank the guards use their power for themselves.',
-        // The words on the labels are what was said, taken from the clip's own captions and checked against the film (the user,
-        // of labels like "Hadley answers with violence" and "Andy keeps talking": "not like after any quotes or after anything
-        // like its very little with whats happening with the chracters ... like thanks thats all i need to start my essay").
-        // A label has to give a student something to write down: the line that was spoken and what the person did.
-        spots: [{ x: 32.8, y: 41.7, rx: 16.8, ry: 36.8, label: 'Hadley', say: '“Step aside, Mert.” Dragged Andy to the edge to throw him off, for asking one question.', side: 'b' },
-          { x: 60.9, y: 39.6, rx: 12.5, ry: 25.7, label: 'Andy', say: 'Showed Hadley how to keep his $35,000, then: “I’d only ask three beers apiece for each of my co-workers.”' }] },
-      { at: 171, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres3.jpg', what: 'The men are drinking the beer Andy won for them. He asked for nothing for himself.',
-        ask: 'How is Andy\'s use of power different from the guards\' abuse of power?', title: 'Using power for others',
-        note: 'Andy asks only for beers for his crew: unlike the guards, he uses his power to give, not to take. For a moment the prisoners hold the power.', quote: 'We sat and drank with the sun on our shoulders and felt like free men.',
-        spots: [{ x: 62.5, y: 27.8, rx: 11, ry: 24, label: 'Andy', say: 'Red: “a strange little smile on his face, watching us drink his beer.” He asked for nothing for himself.' },
-          { x: 28.7, y: 69.4, rx: 13, ry: 18.5, label: 'The crew', say: 'Red: “We sat and drank with the sun on our shoulders and felt like free men.” Andy’s own hands are empty.' }] }
+        spots: [{ x: 29, y: 40, rx: 18.5, ry: 35, label: 'Hadley', say: '“Step aside, Mert.” Dragged Andy to the edge to throw him off, for asking one question.' },
+          { x: 57, y: 52, rx: 13.5, ry: 36, label: 'Andy', say: 'Showed Hadley how to keep his $35,000, then: “I’d only ask three beers apiece for each of my co-workers.”' }] },
+      { at: 180.5, ask: 'How is Andy\'s use of power different from the guards\' abuse of power?', title: 'Using power for others',
+        note: 'Andy asks only for beers for his crew: unlike the guards, he uses his power to give, not to take. For a moment the prisoners hold the power.',
+        spots: [{ x: 34, y: 45, rx: 6.5, ry: 11, label: 'Andy', say: 'Red: “a strange little smile on his face, watching us drink his beer.” He sits apart and asked for nothing for himself.' },
+          { x: 70, y: 30, rx: 15, ry: 25, label: 'Red', say: '“We sat and drank with the sun on our shoulders and felt like free men.”' }] }
     ] },   // The Roof Scene, 3:30
     'shawshank-5': { yt: 'LU7SIVHZda4' },    // "Brooks was here" scene, 4:18
     'shawshank-6': { yt: 'ScU1O_Xuoxo' },    // "The Marriage of Figaro" scene, 4:04
@@ -2840,7 +2832,7 @@
     clearInterval(w.poll); clearTimeout(w.ytWait); w.poll = 0;
     if (w.player) { try { w.player.destroy(); } catch (e) {} w.player = null; }
     if (w.video) { try { w.video.pause(); } catch (e) {} if (!w.keep) w.video = null; }
-    w.clip = null; w.hold = false;
+    w.clip = null; w.hold = false; w.live = false;
   }
   function watchClipFail(dead) { var w = WATCH; if (!w) return; if (dead) WATCH_NOYT = true; watchClipStop(w); w.noclip = true; watchDraw(); }
   function watchClip() {
@@ -2986,18 +2978,27 @@
       // Out of reach: hidden by the styles, and stopped again if it starts.
       w.poll = setInterval(function () { try { if (WATCH === w && w.hold && w.player && w.player.getPlayerState() === 1) w.player.pauseVideo(); } catch (e) {} }, 400);
     }
-    w.hold = true; w.holdCls = w.video ? 'is-file' : 'is-clip';
+    // live: a YouTube pause with no picture of its own is drawn over the player's own stopped frame. The player stays
+    // exactly where and as big as it was, so nothing jumps: it looks like the video paused, then it goes dark, then the
+    // lines come. (YouTube's rules for embedded players say nothing should be drawn over the player; the user was told
+    // and wanted the exact frame. A pause that has `img` still swaps to that picture and draws on it, as before.)
+    w.hold = true; w.live = !w.video && !ps.img; w.holdCls = w.video ? 'is-file' : 'is-clip';
     watchSpot(ps);
-    el.classList.remove('is-clip'); el.classList.remove('is-file'); el.classList.add('is-held'); el.classList.toggle('is-frame', own);
+    if (w.live) { el.classList.add('is-held'); el.classList.add('is-live'); }
+    else { el.classList.remove('is-clip'); el.classList.remove('is-file'); el.classList.add('is-held'); el.classList.toggle('is-frame', own); }
     el.querySelector('.eng-pause__beat').textContent = '';
     Array.prototype.forEach.call(el.querySelectorAll('.eng-pause__bars i'), function (b) { b.className = 'is-done'; b.firstChild.style.width = ''; });
     watchPause();
+    // The order on a live pause: the stopped frame alone for half a second, then the dark, then the lines, then the
+    // labels, then the question. It is started here, after everything has been built and laid out, because the dark and
+    // the labels are made at the pause and something new on the page does not fade in, it is simply there.
+    if (w.live) { el.classList.remove('is-dark'); void el.offsetWidth; el.classList.add('is-dark'); }
   }
   function watchResume() {
     var w = WATCH, el = w.el;
     clearInterval(w.poll);
     w.hold = false; w.paused = false; w.pi = (w.pi || 0) + 1;
-    el.classList.remove('is-paused'); el.classList.remove('is-held'); el.classList.remove('is-frame'); el.classList.add(w.holdCls);
+    el.classList.remove('is-paused'); el.classList.remove('is-held'); el.classList.remove('is-frame'); el.classList.remove('is-live'); el.classList.remove('is-dark'); el.classList.add(w.holdCls); w.live = false;
     el.querySelector('.eng-pause__card').hidden = true;
     el.querySelector('.eng-pause__bars').innerHTML = '<i class="is-clipbar"><b></b></i><i><b></b></i>';
     el.querySelector('[data-watch-skip]').textContent = watchPauses(w.clip)[w.pi] ? 'Skip to the pause ›' : 'Skip the rest ›';
@@ -3156,7 +3157,7 @@
   // the examiner's word on it after the sentence is written. On a phone there is no room for lines: the circles are
   // numbered and the labels listed under the picture with the same numbers.
   function watchPins(el, svg, card, W, H, aw, wide) {
-    var w = WATCH, spots = w.list[w.at].spots, sx = (aw - W) / 2, eh = el.clientHeight, sy = (eh - H) / 2, labs = el.querySelectorAll('.eng-pause__label');
+    var w = WATCH, spots = w.list[w.at].spots, sr = svg.parentNode.getBoundingClientRect(), er = el.getBoundingClientRect(), sx = sr.left - er.left, sy = sr.top - er.top, eh = el.clientHeight, labs = el.querySelectorAll('.eng-pause__label');
     // Each lit shape: a circle (r, per cent of the width) or an oval fitted to the thing (rx per cent of the width, ry
     // per cent of the height; the user, of small round patches on a face and a wrist: "match his ful head and hand").
     var base = Math.max(40, Math.min(110, W * 0.08)), cs = spots.map(function (s) {
@@ -3173,7 +3174,7 @@
       // white words are never over a lit face.
       var ps = parseFloat(el.style.getPropertyValue('--ps')) || 1, mean = spots.reduce(function (t, s) { return t + s.x; }, 0) / spots.length;
       card.style.width = '';
-      var cwMax = card.offsetWidth || 520, cwMin = Math.min(cwMax, 300 * ps), ch = card.offsetHeight || 300, top = (eh - ch) / 2 - sy;
+      var cwMax = card.offsetWidth || 520, cwMin = Math.min(cwMax, 300 * ps), ch = card.offsetHeight || 300, top = (H - ch) / 2;
       var room = function (onLeft) {
         var edge = onLeft ? 36 - sx : aw - 36 - sx, bound = null;
         cs.forEach(function (c) { var q = boxOf(c); if (q.b < top - 14 || q.t > top + ch + 14) return; bound = onLeft ? (bound === null ? q.l - 24 : Math.min(bound, q.l - 24)) : (bound === null ? q.r + 24 : Math.max(bound, q.r + 24)); });
@@ -3181,7 +3182,8 @@
       };
       var rl = room(true), rr = room(false), left = Math.abs(rl - rr) < 1 ? mean >= 50 : rl > rr, cw = Math.max(cwMin, Math.min(cwMax, left ? rl : rr));
       card.style.width = Math.round(cw) + 'px';
-      ch = card.offsetHeight || ch; top = (eh - ch) / 2 - sy;
+      ch = card.offsetHeight || ch; top = (H - ch) / 2;
+      card.classList.add('is-set'); card.style.top = Math.round(sy + top) + 'px';
       if (left) card.classList.add('is-left');
       var L0 = (left ? 36 : aw - 36 - cw) - sx;
       cb = { l: L0 - 14, t: top - 14, r: L0 + cw + 14, b: top + ch + 14 };
@@ -3229,12 +3231,12 @@
     // The words grow with the screen (the user: "and make the text bigger"): everything in the pause is sized from --ps.
     el.style.setProperty('--ps', (wide ? Math.max(1, Math.min(1.55, el.clientWidth / 1440)) : 1).toFixed(3));
     // A clip is 16:9 and keeps clear of the title above it and the line of help below it.
-    var vid = w.video && (!w.hold || el.classList.contains('is-frame')) ? w.video : null, yt = !!w.clip && !w.video && !w.hold, ar = yt ? 16 / 9 : vid ? (vid.videoWidth || 16) / (vid.videoHeight || 9) : img ? (img.naturalWidth || 16) / (img.naturalHeight || 9) : 16 / 9;
+    var vid = w.video && (!w.hold || el.classList.contains('is-frame')) ? w.video : null, yt = !!w.clip && !w.video && (!w.hold || w.live), ar = yt ? 16 / 9 : vid ? (vid.videoWidth || 16) / (vid.videoHeight || 9) : img ? (img.naturalWidth || 16) / (img.naturalHeight || 9) : 16 / 9;
     var aw = el.clientWidth, ah = wide ? el.clientHeight - (yt ? 108 : 0) : Math.round(el.clientHeight * 0.38);
     var W = Math.round(Math.min(aw, ah * ar)), H = Math.round(W / ar), svg = stage.querySelector('svg'), lab = el.querySelector('.eng-pause__label'), card = el.querySelector('.eng-pause__card');
     stage.style.width = W + 'px'; stage.style.height = H + 'px';
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-    card.style.width = '';
+    card.style.width = ''; card.style.top = ''; card.classList.remove('is-set');
     if (w.list[w.at].spots) { watchPins(el, svg, card, W, H, aw, wide); return; }
     el.classList.remove('is-num');
     if (!sp) { svg.innerHTML = '<rect class="eng-pause__dim" width="' + W + '" height="' + H + '"/>'; }

@@ -3074,3 +3074,27 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 .eng-pause__note { margin: 0; color: #FFFDF6; }
 .eng-pause__note q { color: rgba(255, 253, 246, .82); }
 @media (max-width: 700px) { .eng-pause__card, .eng-pause__card.is-left { width: auto; padding: 4px 0 8px; } }
+
+/* A pause on the video's own stopped frame (the user: "make the screenshot ON POINT ... i want it to look like it
+   paused the screen goes dark and then the lines appear"). The player is not swapped for a picture: it stays, stopped
+   and out of reach, and the page draws over it in this order, started by is-dark (put on once the pause is built):
+   the plain frame for half a second, the dark, the dots and lines, the labels, the question. The question's block is
+   placed by the page (is-set) at the middle of the picture, wherever the picture is. */
+.eng-pause.is-held.is-live .eng-pause__yt { visibility: visible; pointer-events: none; }
+.eng-pause.is-clip.is-live .eng-pause__svg { display: block; z-index: 2; }
+.eng-pause.is-clip.is-live .eng-pause__label { display: block; }
+.eng-pause.is-live .eng-pause__dim { opacity: 0; transition: opacity .5s ease .5s; }
+.eng-pause.is-live.is-dark .eng-pause__dim { opacity: 1; }
+.eng-pause.is-live .eng-pause__dot { opacity: 0; transition-delay: 1.1s; }
+.eng-pause.is-live.is-dark .eng-pause__dot { opacity: 1; }
+.eng-pause.is-live.is-paused .eng-pause__line { animation: none; transition: stroke-dashoffset .4s ease-out 1.15s; }
+.eng-pause.is-live.is-dark .eng-pause__line { stroke-dashoffset: 0; }
+.eng-pause.is-live .eng-pause__label, .eng-pause.is-live .eng-pause__label.is-pin { opacity: 0; transform: translateY(6px); transition-delay: 1.6s; }
+.eng-pause.is-live.is-dark .eng-pause__label, .eng-pause.is-live.is-dark .eng-pause__label.is-pin { opacity: 1; transform: none; }
+.eng-pause.is-live .eng-pause__card { animation-delay: 2s; }
+.eng-pause__card.is-set { transform: none; animation-name: readIn; }
+@media (max-width: 700px) { .eng-pause.is-clip.is-live .eng-pause__label { display: block; } }
+@media (prefers-reduced-motion: reduce) {
+  .eng-pause.is-live .eng-pause__dim, .eng-pause.is-live .eng-pause__dot, .eng-pause.is-live.is-paused .eng-pause__line,
+  .eng-pause.is-live .eng-pause__label, .eng-pause.is-live .eng-pause__label.is-pin { transition: none; }
+}
