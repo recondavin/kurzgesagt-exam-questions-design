@@ -2764,18 +2764,27 @@
     // (i.ytimg.com/vi/<id>/maxres1..3.jpg, shown from YouTube, not copied), so the seconds are estimates until the
     // user says where each should land. The labels, the lines of what happened and the notes were written for this
     // test from those frames and the scene's own summary and spot note; the user was asked to check them.
-    'shawshank-4': { yt: 'njJ41irPjTc', pauses: [
-      // The first version also paused at 66s on Hadley complaining about tax, asking why that mattered for abuse of
-      // power. The user: "is this really important for abuse of power like am i supposed to make a criticism of the
-      // IRS". It was not: it had been chosen because YouTube had a frame there, not because the moment matters. A pause
-      // has to be on a moment where the theme is actually at work, and its question (`ask`) has to fit that moment.
-      { at: 131, img: 'https://i.ytimg.com/vi/njJ41irPjTc/maxres2.jpg', what: 'Andy spoke to Captain Hadley without being asked, and Hadley has dragged him to the edge of the roof. The crew can only watch.',
-        ask: 'What does this moment show about abuse of power?', title: 'The edge of the roof', note: 'A guard can kill a prisoner for speaking out of turn, and nobody on the roof can stop him. The men\'s fear shows how complete that power is.',
-        spots: [{ x: 49.5, y: 13, label: 'Red can only watch', r: 6.5 }, { x: 22, y: 79, label: 'Tar and mops: forced labour', r: 7.5 }] },
-      { at: 197, img: 'https://i.ytimg.com/vi/njJ41irPjTc/maxres3.jpg', what: 'Andy\'s tax advice has won every man on the crew three beers. They drink in the sun while Andy sits apart, smiling.',
-        ask: 'Why does this moment matter for abuse of power?', title: 'The beer', note: 'A small reward, but for a moment they aren\'t prisoners. Andy sits apart and doesn\'t drink: he did it for them.', quote: 'We sat and drank with the sun on our shoulders and felt like free men.',
-        spots: [{ x: 61, y: 27.5, label: 'Andy sits apart', r: 6.5 }, { x: 26, y: 65, label: 'No beer in his hands' }] }
-    ] },   // Rooftop Scene, 4:23 (the user's own pick)
+    'shawshank-4': { yt: 'bM7MB1pgb9w', pauses: [
+      // Two earlier versions of this test were wrong, and why is the rule for every clip. First it paused on Hadley
+      // complaining about tax (the user: "is this really important for abuse of power like am i supposed to make a
+      // criticism of the IRS"). Then it paused on the crew watching, with labels for Red and for the tar and mops
+      // (the user: "i feel like we are playing games here and we wont talk about this in an essay, the talk would be
+      // about what actually HAPPENED between hadley and andy, like this would be the case in ANY prison setting").
+      // Both came from labelling whatever the one available frame showed. A pause goes on the EVENT an essay would
+      // discuss, its labels say what each person in it is doing, and its question and note are about what that event
+      // shows in this text: here both are the site's own points for the scene (`reps` in the comparative data).
+      // The video is a shorter upload of the same scene (3:30) than the user's first pick (njJ41irPjTc, 4:23), used
+      // because YouTube's frames for it fall on the two moments that matter, so each pause's picture is the moment it
+      // stops on: its half-way frame is Hadley with Andy by the collar, its three-quarter frame Andy sitting apart.
+      { at: 105, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres2.jpg', what: 'Andy asked Captain Hadley if he trusts his wife. Hadley has grabbed him and dragged him to the edge of the roof.',
+        ask: 'What does this show about abuse of power in Shawshank?', title: 'Knowledge is a quieter kind of power',
+        note: 'Hadley nearly throws Andy off the roof for daring to speak to him. By offering tax advice, Andy turns Hadley from a threat into a favour: brains beat brute force.',
+        spots: [{ x: 33.5, y: 46, label: 'Hadley answers with violence', r: 9, side: 'b' }, { x: 61, y: 41.5, label: 'Andy keeps talking', r: 7 }] },
+      { at: 157, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres3.jpg', what: 'Andy\'s advice has saved Hadley his money. All he asked for in return was three beers each for the crew.',
+        ask: 'How is Andy\'s use of power different from the guards\' abuse of power?', title: 'Using power for others',
+        note: 'Andy asks only for beers for his crew: unlike the guards, he uses his power to give, not to take. For a moment the prisoners hold the power.', quote: 'We sat and drank with the sun on our shoulders and felt like free men.',
+        spots: [{ x: 61.5, y: 27.5, label: 'Nothing for himself', r: 6.5 }, { x: 26, y: 66, label: 'No beer in his hands' }] }
+    ] },   // The Roof Scene, 3:30
     'shawshank-5': { yt: 'LU7SIVHZda4' },    // "Brooks was here" scene, 4:18
     'shawshank-6': { yt: 'ScU1O_Xuoxo' },    // "The Marriage of Figaro" scene, 4:04
     'shawshank-8': { yt: 'XLZEdhU-gGs' },    // Get Busy Living or Get Busy Dying, 3:29
