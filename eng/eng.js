@@ -2796,14 +2796,16 @@
       // shot is over Red's shoulder at Andy sitting apart, and it holds: 3:00.5. (Andy's close-up after "No thanks, I
       // gave up drinking" would be the better picture, but the shot changes within about a second of the line.)
       // Where things are on those frames was read off the 160x90 previews, so the shapes are close, not exact.
-      { at: 116, ask: 'What does this show about abuse of power in Shawshank?', title: 'Power with no one to answer to',
-        note: 'Hadley can kill a prisoner for asking a question and call it an accident, and nobody on the roof could stop him. He only lets Andy live because there is money in it for him. In Shawshank the guards use their power for themselves.',
-        spots: [{ x: 29, y: 40, rx: 18.5, ry: 35, label: 'Hadley', say: '“Step aside, Mert.” Dragged Andy to the edge to throw him off, for asking one question.' },
-          { x: 57, y: 52, rx: 13.5, ry: 36, label: 'Andy', say: 'Showed Hadley how to keep his $35,000, then: “I’d only ask three beers apiece for each of my co-workers.”' }] },
-      { at: 180.5, ask: 'How is Andy\'s use of power different from the guards\' abuse of power?', title: 'Using power for others',
+      // The words on the labels are the lines of the scene an essay quotes, as spoken in this upload (its captions):
+      // not "Step aside, Mert", which the first version gave. And each question asks about those words.
+      { at: 116, ask: 'What do Hadley’s words show about abuse of power in Shawshank?', title: 'Power with no one to answer to',
+        note: 'Hadley was a second from killing a prisoner for asking a question, and nobody on the roof could stop him. He lets Andy live only once there is money in it for him, and even then Andy is just “that smart banker who killed his wife”. In Shawshank the guards use their power for themselves.',
+        spots: [{ x: 29, y: 40, rx: 18.5, ry: 35, label: 'Hadley', say: ['About to throw Andy off the roof, he hears he can keep all of his $35,000:', '“You better start making sense.”', '“You’re that smart banker who killed his wife, aren’t you? Why should I believe a smart banker like you?”'] },
+          { x: 57, y: 52, rx: 13.5, ry: 36, label: 'Andy', say: ['“Mr Hadley, do you trust your wife?”', '“I’d only ask three beers apiece for each of my co-workers.”'] }] },
+      { at: 180.5, ask: 'Going by Red’s words, how is Andy’s use of power different from the guards’ abuse of power?', title: 'Using power for others',
         note: 'Andy asks only for beers for his crew: unlike the guards, he uses his power to give, not to take. For a moment the prisoners hold the power.',
-        spots: [{ x: 34, y: 45, rx: 6.5, ry: 11, label: 'Andy', say: 'Red: “a strange little smile on his face, watching us drink his beer.” He sits apart and asked for nothing for himself.' },
-          { x: 70, y: 30, rx: 15, ry: 25, label: 'Red', say: '“We sat and drank with the sun on our shoulders and felt like free men.”' }] }
+        spots: [{ x: 34, y: 45, rx: 6.5, ry: 11, label: 'Andy', say: ['Red, of Andy sitting apart with no beer:', '“a strange little smile on his face, watching us drink his beer.”'] },
+          { x: 70, y: 30, rx: 15, ry: 25, label: 'Red', say: ['“We sat and drank with the sun on our shoulders and felt like free men.”'] }] }
     ] },   // The Roof Scene, 3:30
     'shawshank-5': { yt: 'LU7SIVHZda4' },    // "Brooks was here" scene, 4:18
     'shawshank-6': { yt: 'ScU1O_Xuoxo' },    // "The Marriage of Figaro" scene, 4:04
@@ -2937,6 +2939,15 @@
     return clip.pause ? [{ at: clip.pause, x: cs.x, y: cs.y, label: cs.label, note: cs.note, what: clip.what }] : [];
   }
   // What a pause points at: its own spot if it gives one, else the picture's spots in turn. Sets the label too.
+  // What a label says under the name. The words spoken are what a student can use (the user, of labels that gave a
+  // passing line: "make sure its important QUOTES LIEK 'your the smart banker who killed his wife' and what he says
+  // when realises andy can be useful not 'step aside mert' like come on"): `say` is a list, each quote on a line of
+  // its own, and any line with no quote in it (what was going on when it was said) is set quieter.
+  function watchSay(say) {
+    if (!say) return '';
+    if (typeof say === 'string') return esc(say);
+    return say.map(function (t) { return '<span class="' + (/[“"]/.test(t) ? 'eng-pause__q' : 'eng-pause__ctx') + '">' + esc(t) + '</span>'; }).join('');
+  }
   function watchSpot(ps) {
     var w = WATCH, sc = w.list[w.at], pic = sc.pic, base = sc.spot0 || null, i = w.pi || 0, sp;
     if (ps.x != null && ps.y != null) sp = { x: ps.x, y: ps.y, label: ps.label || (base && base.label) || '', note: ps.note || (!ps.label && base && base.note) || '', quote: ps.quote || '' };
@@ -2952,7 +2963,7 @@
       sc.spots = many;
       sp = { x: many[0].x, y: many[0].y, label: ps.title || many[0].label, note: ps.note || '', quote: ps.quote || '' };
       w.what = ps.what || ''; w.ask = ps.ask || '';
-      el.querySelector('.eng-pause__bars').insertAdjacentHTML('beforebegin', many.map(function (s, n) { return '<p class="eng-pause__label is-pin" data-n="' + (n + 1) + '"><b>' + esc(s.label) + '</b>' + (s.say ? esc(s.say) : '') + '</p>'; }).join(''));
+      el.querySelector('.eng-pause__bars').insertAdjacentHTML('beforebegin', many.map(function (s, n) { return '<p class="eng-pause__label is-pin" data-n="' + (n + 1) + '"><b>' + esc(s.label) + '</b>' + watchSay(s.say) + '</p>'; }).join(''));
     } else {
       sc.spots = null; w.what = ''; w.ask = ps.ask || '';
       el.querySelector('.eng-pause__bars').insertAdjacentHTML('beforebegin', '<p class="eng-pause__label">' + (sp && sp.label ? '<b>' + esc(sp.label) + '</b>' : '') + esc(ps.what || (pic && pic.caption) || sc.beats[sc.beats.length - 1] || '') + '</p>');
@@ -3169,55 +3180,77 @@
     el.classList.toggle('is-num', !wide);
     card.classList.remove('is-left'); card.classList.remove('is-top'); card.classList.remove('is-bottom');
     if (wide) {
-      // The question sits beside the picture's middle (the user: "make the question higher", then "like in the middle"),
-      // on the side with more room clear of what is lit, and only as wide as that room (never under 300px by --ps), so its
-      // white words are never over a lit face.
-      var ps = parseFloat(el.style.getPropertyValue('--ps')) || 1, mean = spots.reduce(function (t, s) { return t + s.x; }, 0) / spots.length;
-      card.style.width = '';
-      var cwMax = card.offsetWidth || 520, cwMin = Math.min(cwMax, 300 * ps), ch = card.offsetHeight || 300, top = (H - ch) / 2;
-      var room = function (onLeft) {
-        var edge = onLeft ? 36 - sx : aw - 36 - sx, bound = null;
-        cs.forEach(function (c) { var q = boxOf(c); if (q.b < top - 14 || q.t > top + ch + 14) return; bound = onLeft ? (bound === null ? q.l - 24 : Math.min(bound, q.l - 24)) : (bound === null ? q.r + 24 : Math.max(bound, q.r + 24)); });
-        return bound === null ? cwMax : onLeft ? bound - edge : edge - bound;
-      };
-      var rl = room(true), rr = room(false), left = Math.abs(rl - rr) < 1 ? mean >= 50 : rl > rr, cw = Math.max(cwMin, Math.min(cwMax, left ? rl : rr));
-      card.style.width = Math.round(cw) + 'px';
-      ch = card.offsetHeight || ch; top = (H - ch) / 2;
-      card.classList.add('is-set'); card.style.top = Math.round(sy + top) + 'px';
-      if (left) card.classList.add('is-left');
-      var L0 = (left ? 36 : aw - 36 - cw) - sx;
-      cb = { l: L0 - 14, t: top - 14, r: L0 + cw + 14, b: top + ch + 14 };
-      var placed = [], D = { br: [1, 1], bl: [-1, 1], tr: [1, -1], tl: [-1, -1], r: [1, 0], l: [-1, 0], b: [0, 1], t: [0, -1] }, g0 = Math.max(70, Math.min(120, W * 0.075));
-      spots.forEach(function (s, i) {
-        var c = cs[i], lab = labs[i];
-        if (!lab) return;
-        var lw = lab.offsetWidth, lh = lab.offsetHeight, low = c.y > H * 0.62, order = c.x < W / 2 ? (low ? ['tr', 'r', 'br', 't', 'b', 'tl', 'l', 'bl'] : ['br', 'r', 'tr', 'b', 't', 'bl', 'l', 'tl']) : (low ? ['tl', 'l', 'bl', 't', 'b', 'tr', 'r', 'br'] : ['bl', 'l', 'tl', 'b', 't', 'br', 'r', 'tr']);
-        if (s.side && D[s.side]) order.unshift(s.side);
-        var best = null;
-        // A long line if there is room for one; shorter if that is the only way the label fits.
-        [g0, g0 * 0.6, g0 * 0.34].some(function (g, gi) {
-          return order.some(function (k, n) {
-            var d = D[k], len = Math.sqrt(d[0] * d[0] + d[1] * d[1]), ux = d[0] / len, uy = d[1] / len, t = 1 / Math.sqrt(ux * ux / (c.rx * c.rx) + uy * uy / (c.ry * c.ry));
-            var ax = c.x + ux * t, ay = c.y + uy * t, px = ax + d[0] * g, py = ay + d[1] * g * (d[0] ? 0.7 : 1);
-            var L = d[0] > 0 ? px : d[0] < 0 ? px - lw : px - lw / 2, T = d[0] && d[1] ? (d[1] > 0 ? py - 4 : py - lh + 4) : d[1] > 0 ? py : d[1] < 0 ? py - lh : py - lh / 2;
-            var box = { l: L - 6, t: T - 6, r: L + lw + 6, b: T + lh + 6 }, cand = { L: L, T: T, ax: ax, ay: ay, px: px, py: py, box: box };
-            // How badly this place fits: what of the label would hang off the picture or lie over the question, another
-            // label or something lit. Nothing at all is taken at once; failing that, the least bad place is used.
-            var over = function (q) { return Math.max(0, Math.min(box.r, q.r) - Math.max(box.l, q.l)) * Math.max(0, Math.min(box.b, q.b) - Math.max(box.t, q.t)); };
-            var off = Math.max(0, 8 - L) + Math.max(0, Math.max(8, 86 - sy) - T) + Math.max(0, L + lw - (W - 8)) + Math.max(0, T + lh - (H - 8));
-            // A label also has to sit nearer its own person than anyone else's, or it reads as the wrong person's.
-            var lx = L + lw / 2, ly = T + lh / 2, own = Math.sqrt((lx - c.x) * (lx - c.x) + (ly - c.y) * (ly - c.y));
-            cand.pen = off * 4000 + over(cb) * 3 + placed.reduce(function (t, q) { return t + over(q) * 3; }, 0) + cs.reduce(function (t, o, j) { return t + (j !== i ? over(boxOf(o)) + (Math.sqrt((lx - o.x) * (lx - o.x) + (ly - o.y) * (ly - o.y)) < own ? 200000 : 0) : 0); }, 0);
-            if (!best || cand.pen < best.pen) best = cand;
-            return cand.pen === 0;
-          });
-        });
-        placed.push(best.box);
-        lab.style.left = Math.round(sx + best.L) + 'px'; lab.style.top = Math.round(sy + best.T) + 'px';
-        lines += '<line class="eng-pause__line" pathLength="1" x1="' + best.ax.toFixed(1) + '" y1="' + best.ay.toFixed(1) + '" x2="' + best.px.toFixed(1) + '" y2="' + best.py.toFixed(1) + '"/>' +
-          '<circle class="eng-pause__dot" cx="' + best.ax.toFixed(1) + '" cy="' + best.ay.toFixed(1) + '" r="4.5"/>';
+      // One block of words (the user: "make the qeustion attached to the text"): each person's lines, then the question,
+      // the line to write on and Done, in one column beside the picture, on the side with more room clear of what is
+      // lit, so the question is read straight after the words it asks about. A line runs from each name to its person.
+      // (Before this each label sat beside its person and the question stood by itself at the picture's middle, after
+      // "make the question higher" and "like in the middle"; the block is still centred on the picture when it can be.)
+      // The block is as wide as the room allows (never under 300px by --ps) and its words shrink a little, down to three
+      // quarters, if it would otherwise be taller than the picture.
+      var ps = parseFloat(el.style.getPropertyValue('--ps')) || 1, n = Math.min(spots.length, labs.length), all = [card].concat(Array.prototype.slice.call(labs, 0, n));
+      var topMin = Math.max(14, 86 - sy), botMax = H - 14, clear = Math.max(44, W * 0.04), minL = Infinity, maxR = -Infinity, i;
+      cs.forEach(function (c) { minL = Math.min(minL, c.x - c.rx); maxR = Math.max(maxR, c.x + c.rx); });
+      var eL = 36 - sx, eR = aw - 36 - sx, rl = minL - clear - eL, rr = eR - (maxR + clear), left = rl > rr, roomW = Math.max(rl, rr), cw = 0, hs = [], ch = 0, gap = 0, total = 0;
+      // (is-set goes on before anything is measured: taking it off and putting it back around a measurement restarts the
+      // block's fade, which left the examiner's note blank for two seconds after Done.)
+      el.classList.add('is-stack'); card.classList.add('is-set');
+      [1, 0.93, 0.86, 0.8, 0.75].some(function (k) {
+        all.forEach(function (x) { x.style.setProperty('--ps', (ps * k).toFixed(3)); });
+        cw = Math.round(Math.max(300 * ps * k, Math.min(520 * ps * k, roomW)));
+        card.style.width = cw + 'px';
+        hs = [];
+        for (i = 0; i < n; i++) { labs[i].style.width = cw + 'px'; hs.push(labs[i].offsetHeight); }
+        ch = card.offsetHeight || 0; gap = Math.round(16 * ps * k);
+        total = hs.reduce(function (t, h) { return t + h + gap; }, 0) + ch;
+        return total <= botMax - topMin;
       });
-    } else Array.prototype.forEach.call(labs, function (lab) { lab.style.left = lab.style.top = ''; });
+      var L0 = left ? eL : eR - cw, bx = left ? L0 + cw + 14 : L0 - 14, hy = [], nw = [], rg = document.createRange();
+      for (i = 0; i < n; i++) { var hb = labs[i].querySelector('b'); hy.push(hb ? hb.offsetTop + hb.offsetHeight / 2 : 16); if (hb) rg.selectNodeContents(hb); nw.push(hb ? rg.getBoundingClientRect().width : 0); }
+      // Which person's words come first, and whether the block is at the picture's middle, top or bottom, is whatever
+      // lets every line reach its person without crossing anything lit; among those, the shortest lines win. A line
+      // leaves its shape from whichever point on the edge gives the cleanest run.
+      var inside = function (x, y, own) { return cs.some(function (c, j) { var pad = j === own ? 0 : 10, dx = (x - c.x) / (c.rx + pad), dy = (y - c.y) / (c.ry + pad); return dx * dx + dy * dy < 1; }); };
+      var reach = function (j, ly) {
+        var c = cs[j], best = null;
+        for (var q = 0; q < 48; q++) {
+          var th = q / 48 * Math.PI * 2, ax = c.x + Math.cos(th) * c.rx, ay = c.y + Math.sin(th) * c.ry, cross = 0;
+          for (var t = 1; t < 30; t++) { if (inside(ax + (bx - ax) * t / 30, ay + (ly - ay) * t / 30, j)) cross++; }
+          var len = Math.sqrt((bx - ax) * (bx - ax) + (ly - ay) * (ly - ay)), cost = cross * 100000 + len;
+          if (!best || cost < best.cost) best = { ax: ax, ay: ay, cost: cost };
+        }
+        return best;
+      };
+      var side = function (x1, y1, x2, y2, x, y) { return (x2 - x1) * (y - y1) - (y2 - y1) * (x - x1); };
+      var cuts = function (a, b, c, d, e, f, g, h) { return side(a, b, c, d, e, f) * side(a, b, c, d, g, h) < 0 && side(e, f, g, h, a, b) * side(e, f, g, h, c, d) < 0; };
+      var ids = []; for (i = 0; i < n; i++) ids.push(i);
+      var perms = n === 2 ? [[0, 1], [1, 0]] : n === 3 ? [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]] : [ids];
+      var free = Math.max(0, botMax - topMin - total), tops = [topMin + free / 2, topMin, topMin + free], plan = null, key = w.at + ':' + (w.pi || 0) + ':' + W + ':' + H;
+      // Once laid out, a pause keeps its order and its top while the examiner's note takes the question's place.
+      var real = el.classList.contains('is-paused') && ch > 0 && hs.every(function (h) { return h > 0; });
+      if (real && w.stack && w.stack.key === key && w.stack.order.length === n) { perms = [w.stack.order]; tops = [Math.max(topMin, Math.min(w.stack.top, botMax - total))]; }
+      perms.forEach(function (order, oi) {
+        tops.forEach(function (t0, ti) {
+          var y = t0, cost = oi * 30 + (ti ? 40 : 0), rows = [];
+          order.forEach(function (j) { var r = reach(j, y + hy[j]); rows.push({ i: j, top: y, ly: y + hy[j], ax: r.ax, ay: r.ay }); cost += r.cost; y += hs[j] + gap; });
+          // Two lines must not cross each other either.
+          rows.forEach(function (p, pi) { rows.forEach(function (q, qi) { if (qi > pi && cuts(p.ax, p.ay, bx, p.ly, q.ax, q.ay, bx, q.ly)) cost += 100000; }); });
+          if (!plan || cost < plan.cost) plan = { cost: cost, rows: rows, cardTop: y, order: order, top: t0 };
+        });
+      });
+      if (real) w.stack = { key: key, order: plan.order, top: plan.top };
+      plan.rows.forEach(function (r) {
+        var lab = labs[r.i], nx = left ? L0 + nw[r.i] + 10 : bx;
+        lab.style.left = Math.round(sx + L0) + 'px'; lab.style.top = Math.round(sy + r.top) + 'px';
+        // On the left the words start at the block's far edge, so the line runs along from the end of the name first.
+        lines += '<polyline class="eng-pause__line" pathLength="1" points="' + r.ax.toFixed(1) + ',' + r.ay.toFixed(1) + ' ' + bx.toFixed(1) + ',' + r.ly.toFixed(1) + (left && nx < bx - 4 ? ' ' + nx.toFixed(1) + ',' + r.ly.toFixed(1) : '') + '"/>' +
+          '<circle class="eng-pause__dot" cx="' + r.ax.toFixed(1) + '" cy="' + r.ay.toFixed(1) + '" r="4.5"/>';
+      });
+      card.style.left = Math.round(sx + L0) + 'px'; card.style.right = 'auto'; card.style.top = Math.round(sy + plan.cardTop) + 'px';
+    } else {
+      el.classList.remove('is-stack'); card.classList.remove('is-set');
+      card.style.width = card.style.top = card.style.left = card.style.right = ''; card.style.removeProperty('--ps');
+      Array.prototype.forEach.call(labs, function (lab) { lab.style.left = lab.style.top = lab.style.width = ''; lab.style.removeProperty('--ps'); });
+    }
     cs.forEach(function (c, i) { var nx = Math.max(14, c.x - c.rx * 0.72), ny = Math.max(14, c.y - c.ry * 0.72); nums += '<circle class="eng-pause__numdot" cx="' + nx.toFixed(1) + '" cy="' + ny.toFixed(1) + '" r="12"/><text class="eng-pause__num" x="' + nx.toFixed(1) + '" y="' + ny.toFixed(1) + '">' + (i + 1) + '</text>'; });
     svg.innerHTML = '<defs><filter id="eng-pause-soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="' + (base * 0.14).toFixed(1) + '"/></filter>' +
       '<mask id="eng-pause-hole"><rect width="' + W + '" height="' + H + '" fill="#fff"/>' + cs.map(function (c) { return '<ellipse cx="' + c.x.toFixed(1) + '" cy="' + c.y.toFixed(1) + '" rx="' + c.rx.toFixed(1) + '" ry="' + c.ry.toFixed(1) + '" fill="#000" filter="url(#eng-pause-soft)"/>'; }).join('') + '</mask></defs>' +
@@ -3236,8 +3269,9 @@
     var W = Math.round(Math.min(aw, ah * ar)), H = Math.round(W / ar), svg = stage.querySelector('svg'), lab = el.querySelector('.eng-pause__label'), card = el.querySelector('.eng-pause__card');
     stage.style.width = W + 'px'; stage.style.height = H + 'px';
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-    card.style.width = ''; card.style.top = ''; card.classList.remove('is-set');
     if (w.list[w.at].spots) { watchPins(el, svg, card, W, H, aw, wide); return; }
+    card.style.width = ''; card.style.top = ''; card.style.left = ''; card.style.right = ''; card.style.removeProperty('--ps'); card.classList.remove('is-set');
+    el.classList.remove('is-stack');
     el.classList.remove('is-num');
     if (!sp) { svg.innerHTML = '<rect class="eng-pause__dim" width="' + W + '" height="' + H + '"/>'; }
     var r = Math.max(42, Math.min(120, W * 0.085)), cx = sp ? Math.max(r + 8, Math.min(W - r - 8, sp.x / 100 * W)) : W / 2, cy = sp ? Math.max(r + 8, Math.min(H - r - 8, sp.y / 100 * H)) : H / 2;
@@ -3308,6 +3342,7 @@
     if (!sp || !sp.note) { watchNext(); return; }
     card.innerHTML = '<p class="eng-pause__note"><b>' + esc(sp.label) + '.</b> ' + esc(sp.note) + (sp.quote ? '<q>' + esc(sp.quote) + '</q>' : '') + '</p>' +
       '<p class="eng-pause__row"><button type="button" class="eng-read__btn is-go" data-watch-next>' + (w.hold ? 'Keep watching ›' : w.solo ? 'Close ›' : last ? 'Back to your answer ›' : 'Next scene ›') + '</button></p>';
+    if (sc.spots) watchFit();
     card.querySelector('[data-watch-next]').focus({ preventScroll: true });
   }
   function watchNext() {

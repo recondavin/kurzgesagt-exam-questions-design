@@ -3098,3 +3098,13 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
   .eng-pause.is-live .eng-pause__dim, .eng-pause.is-live .eng-pause__dot, .eng-pause.is-live.is-paused .eng-pause__line,
   .eng-pause.is-live .eng-pause__label, .eng-pause.is-live .eng-pause__label.is-pin { transition: none; }
 }
+
+/* The question attached to the text (the user: "make the qeustion attached to the text"): on a wide screen a pause that
+   labels people is one block, each person's lines and then the question, placed and sized by the page. A person's
+   quotes sit one under another; a line that is not a quote (what was going on) is quieter. */
+.eng-pause.is-stack .eng-pause__label.is-pin { max-width: none; padding: 0; }
+.eng-pause__q, .eng-pause__ctx { display: block; margin-top: calc(5px * var(--ps)); }
+.eng-pause__q { font-weight: 500; }
+.eng-pause__ctx { color: rgba(255, 253, 246, .74); font-size: calc(16px * var(--ps)); line-height: 1.35; }
+.eng-pause.is-stack .eng-pause__card h3 { margin-top: 0; }
+@media (max-width: 700px) { .eng-pause__q, .eng-pause__ctx { margin-top: 3px; } .eng-pause__ctx { font-size: 15px; } }
