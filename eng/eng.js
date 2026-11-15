@@ -2794,13 +2794,17 @@
       { at: 110.5, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres2.jpg', what: 'Hadley dragged Andy to the edge of the roof for speaking to him. Andy has just offered to save him the tax on his money, for three beers each for the crew.',
         ask: 'What does this show about abuse of power in Shawshank?', title: 'Knowledge is a quieter kind of power',
         note: 'Hadley nearly throws Andy off the roof for daring to speak to him. By offering tax advice, Andy turns Hadley from a threat into a favour: brains beat brute force.',
-        spots: [{ x: 32.8, y: 41.7, rx: 16.8, ry: 36.8, label: 'Hadley', say: 'Dragged Andy to the edge of the roof for speaking to him, and still has him by the collar.', side: 'b' },
-          { x: 60.9, y: 39.6, rx: 12.5, ry: 25.7, label: 'Andy', say: 'Has just offered to save Hadley the tax on his money, for three beers each for the crew.' }] },
+        // The words on the labels are what was said, taken from the clip's own captions and checked against the film (the user,
+        // of labels like "Hadley answers with violence" and "Andy keeps talking": "not like after any quotes or after anything
+        // like its very little with whats happening with the chracters ... like thanks thats all i need to start my essay").
+        // A label has to give a student something to write down: the line that was spoken and what the person did.
+        spots: [{ x: 32.8, y: 41.7, rx: 16.8, ry: 36.8, label: 'Hadley', say: '“Step aside, Mert.” Dragged Andy to the edge to throw him off, for asking one question.', side: 'b' },
+          { x: 60.9, y: 39.6, rx: 12.5, ry: 25.7, label: 'Andy', say: 'Showed Hadley how to keep his $35,000, then: “I’d only ask three beers apiece for each of my co-workers.”' }] },
       { at: 171, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres3.jpg', what: 'The men are drinking the beer Andy won for them. He asked for nothing for himself.',
         ask: 'How is Andy\'s use of power different from the guards\' abuse of power?', title: 'Using power for others',
         note: 'Andy asks only for beers for his crew: unlike the guards, he uses his power to give, not to take. For a moment the prisoners hold the power.', quote: 'We sat and drank with the sun on our shoulders and felt like free men.',
-        spots: [{ x: 62.5, y: 27.8, rx: 11, ry: 24, label: 'Andy', say: 'Asked for nothing for himself. He sits apart, smiling.' },
-          { x: 28.7, y: 69.4, rx: 13, ry: 18.5, label: 'His hands', say: 'No beer. The crew are drinking what he won for them.' }] }
+        spots: [{ x: 62.5, y: 27.8, rx: 11, ry: 24, label: 'Andy', say: 'Red: “a strange little smile on his face, watching us drink his beer.” He asked for nothing for himself.' },
+          { x: 28.7, y: 69.4, rx: 13, ry: 18.5, label: 'The crew', say: 'Red: “We sat and drank with the sun on our shoulders and felt like free men.” Andy’s own hands are empty.' }] }
     ] },   // The Roof Scene, 3:30
     'shawshank-5': { yt: 'LU7SIVHZda4' },    // "Brooks was here" scene, 4:18
     'shawshank-6': { yt: 'ScU1O_Xuoxo' },    // "The Marriage of Figaro" scene, 4:04
@@ -3184,7 +3188,9 @@
             // label or something lit. Nothing at all is taken at once; failing that, the least bad place is used.
             var over = function (q) { return Math.max(0, Math.min(box.r, q.r) - Math.max(box.l, q.l)) * Math.max(0, Math.min(box.b, q.b) - Math.max(box.t, q.t)); };
             var off = Math.max(0, 8 - L) + Math.max(0, Math.max(8, 86 - sy) - T) + Math.max(0, L + lw - (W - 8)) + Math.max(0, T + lh - (H - 8));
-            cand.pen = off * 4000 + over(cb) * 3 + placed.reduce(function (t, q) { return t + over(q) * 3; }, 0) + cs.reduce(function (t, o, j) { return t + (j !== i ? over(boxOf(o)) : 0); }, 0);
+            // A label also has to sit nearer its own person than anyone else's, or it reads as the wrong person's.
+            var lx = L + lw / 2, ly = T + lh / 2, own = Math.sqrt((lx - c.x) * (lx - c.x) + (ly - c.y) * (ly - c.y));
+            cand.pen = off * 4000 + over(cb) * 3 + placed.reduce(function (t, q) { return t + over(q) * 3; }, 0) + cs.reduce(function (t, o, j) { return t + (j !== i ? over(boxOf(o)) + (Math.sqrt((lx - o.x) * (lx - o.x) + (ly - o.y) * (ly - o.y)) < own ? 200000 : 0) : 0); }, 0);
             if (!best || cand.pen < best.pen) best = cand;
             return cand.pen === 0;
           });
