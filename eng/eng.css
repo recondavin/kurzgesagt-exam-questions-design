@@ -2685,12 +2685,15 @@ body.eng-read-on { overflow: hidden; }
 .eng-read__btn.is-go:hover { background: color-mix(in srgb, var(--exam-pen) 86%, var(--exam-ink)); }
 @media (max-width: 700px) { .eng-read__pg span { display: none; } .eng-read__pg { min-width: 40px; justify-content: center; } }
 .eng-read__ph span { margin-left: 6px; color: var(--exam-ink-2); font: 400 17px/1.25 var(--font-body); letter-spacing: 0; }
-.eng-read__box { margin: 0 0 12px; padding-left: 14px; border-left: 4px solid color-mix(in srgb, var(--pc) 82%, var(--exam-ink)); }
+.eng-read__box { --bxp: 14px; margin: 0 0 12px; padding-left: var(--bxp); border-left: 4px solid color-mix(in srgb, var(--pc) 82%, var(--exam-ink)); }
 .eng-read__box:focus-within { border-left-color: var(--exam-ink); }
 .eng-read__bh { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0 0 4px; color: var(--exam-ink-2); font: 400 17px/1.45 var(--font-body); }
-.eng-read__bh b { flex: none; padding: 1px 8px; border-radius: 3px; background: color-mix(in srgb, var(--pc) 72%, #FFFDF6); color: var(--exam-ink); font: 700 17px/1.45 var(--font-head); letter-spacing: -.01em; }
+/* The name is a tab growing out of the box's stripe: one object, one colour. It goes to ink with the stripe while you write in the box. */
+.eng-read__bh b { flex: none; margin-left: calc(-1 * var(--bxp)); padding: 3px 12px 3px var(--bxp); border-radius: 0 6px 6px 0; background: color-mix(in srgb, var(--pc) 82%, var(--exam-ink)); color: var(--exam-ink); font: 700 17px/1.45 var(--font-head); letter-spacing: -.01em; }
+.eng-read__box:focus-within .eng-read__bh b { background: var(--exam-ink); color: #FFFDF6; }
+.eng-read__box.is-done:focus-within .eng-read__bh b::after { border-color: #FFFDF6; }
 .eng-read__bh span { flex: 1 1 240px; min-width: 0; }
-.eng-read__bh mark { padding: 0 3px; border-radius: 2px; background: color-mix(in srgb, var(--pc) 50%, #FFFDF6); color: var(--exam-ink); font-weight: 600; }
+.eng-read__bh mark { padding: 0; background: none; color: var(--exam-ink); font-weight: 700; }
 .eng-read__ideasb { flex: none; align-self: center; height: 36px; margin-left: auto; padding: 0 12px; border: 0; border-radius: 4px; background: none; box-shadow: inset 0 0 0 1px var(--exam-done); color: var(--exam-ink); font: 600 16px/1 var(--font-body); cursor: pointer; }
 .eng-read__ideasb::before { content: "+ "; color: var(--exam-ink-2); }
 .eng-read__ideasb[aria-expanded="true"]::before { content: "− "; }
@@ -2780,7 +2783,7 @@ body.eng-read-on { overflow: hidden; }
   .eng-read__x { left: max(12px, calc(50% - 460px)); }
   .eng-read__tools { right: max(12px, calc(50% - 460px)); }
   .eng-read__ph { font-size: 21px; }
-  .eng-read__box { padding-left: 16px; }
+  .eng-read__box { --bxp: 16px; }
   .eng-read__help { right: max(12px, calc(50% - 460px)); left: max(12px, calc(50% - 460px)); padding: 18px 28px 28px; }
   .eng-read__hand.is-left { top: calc(100% - 70px); left: max(-30px, calc(50% - 550px)); width: 230px; }
   .eng-read__hand.is-right { top: calc(100% - 132px); right: max(-20px, calc(50% - 550px)); width: 270px; }
