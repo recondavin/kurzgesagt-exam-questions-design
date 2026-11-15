@@ -2784,18 +2784,23 @@ body.eng-read-on { overflow: hidden; }
 }
 /* a small laptop with Help off: the page in the middle would run under the buttons, so it starts below them */
 @media (min-width: 1101px) and (max-width: 1580px) { .eng-read:not(.is-help) .eng-read__paper { top: 86px; } }
-/* The paper's and Help's scroll bars (the user: "make the scroll bar better"; on Windows they were the browser's wide
-   grey default, with arrows; then, of a slim grey one, "can you make the scroll bar thicker and dark blue"): then "lighter"): a
-   rounded blue bar, 12px thick, on the paper itself, no track and no arrows, a little darker under the mouse. The standard properties are only for browsers without the -webkit- ones (setting both would switch
-   the drawn bar off in Chrome). */
-.eng-read__paper::-webkit-scrollbar, .eng-read__help::-webkit-scrollbar { width: 20px; height: 20px; }
-.eng-read__paper::-webkit-scrollbar-track, .eng-read__help::-webkit-scrollbar-track { background: transparent; }
-.eng-read__paper::-webkit-scrollbar-thumb, .eng-read__help::-webkit-scrollbar-thumb { min-height: 56px; border: 4px solid transparent; border-radius: 999px; background: #4A7BD0; background-clip: content-box; }
-.eng-read__paper::-webkit-scrollbar-thumb:hover, .eng-read__help::-webkit-scrollbar-thumb:hover, .eng-read__paper::-webkit-scrollbar-thumb:active, .eng-read__help::-webkit-scrollbar-thumb:active { background-color: #3866B8; }
-.eng-read__paper::-webkit-scrollbar-button, .eng-read__help::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
-.eng-read__paper::-webkit-scrollbar-corner, .eng-read__help::-webkit-scrollbar-corner { background: transparent; }
-@supports not selector(::-webkit-scrollbar) {
-  .eng-read__paper, .eng-read__help { scrollbar-width: auto; scrollbar-color: #4A7BD0 transparent; }
+/* The paper's and Help's scroll bars (the user: "make the scroll bar better", on Windows they were the browser's wide
+   grey default; then "thicker and dark blue", "lighter", and "i want it fun but not that noticable"): the bar is a
+   small pencil, point up, in pale colours that sit quietly on the paper, and it takes its full colours when the mouse
+   is on it. No track, no arrows. Drawn in three layers so it can be any length: the sharpened tip at the top, the
+   ferrule and rubber at the bottom, the barrel between. Only where there is a mouse: phones and tablets keep their own
+   bars, which take no room from the paper. The standard properties are only for browsers without the -webkit- ones
+   (setting both would switch the drawn bar off in Chrome). */
+@media (hover: hover) and (pointer: fine) {
+  .eng-read__paper::-webkit-scrollbar, .eng-read__help::-webkit-scrollbar { width: 20px; height: 20px; }
+  .eng-read__paper::-webkit-scrollbar-track, .eng-read__help::-webkit-scrollbar-track { background: transparent; }
+  .eng-read__paper::-webkit-scrollbar-thumb, .eng-read__help::-webkit-scrollbar-thumb { min-height: 64px; border: 4px solid transparent; background-color: transparent; background-clip: content-box; background-origin: content-box; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 16'%3E%3Cpath d='M6 0l6 16H0z' fill='%23EBDCC0'/%3E%3Cpath d='M6 0l2.25 6h-4.5z' fill='%23A7ADB8'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M0 0h12v4H0z' fill='%23D9DCE2'/%3E%3Cpath d='M0 4h12v4a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4z' fill='%23F1CFCA'/%3E%3C/svg%3E"), linear-gradient(90deg, #BFD0EC 0 34%, #CFDCF2 34% 66%, #BFD0EC 66%); background-repeat: no-repeat; background-position: center top, center bottom, center 16px; background-size: 12px 16px, 12px 12px, 12px calc(100% - 28px); }
+  .eng-read__paper::-webkit-scrollbar-thumb:hover, .eng-read__help::-webkit-scrollbar-thumb:hover, .eng-read__paper::-webkit-scrollbar-thumb:active, .eng-read__help::-webkit-scrollbar-thumb:active { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 16'%3E%3Cpath d='M6 0l6 16H0z' fill='%23E3BE86'/%3E%3Cpath d='M6 0l2.25 6h-4.5z' fill='%2313233A'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M0 0h12v4H0z' fill='%23A6AEBB'/%3E%3Cpath d='M0 4h12v4a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4z' fill='%23E88F88'/%3E%3C/svg%3E"), linear-gradient(90deg, #4A7BD0 0 34%, #6A94DE 34% 66%, #4A7BD0 66%); background-repeat: no-repeat; background-position: center top, center bottom, center 16px; background-size: 12px 16px, 12px 12px, 12px calc(100% - 28px); }
+  .eng-read__paper::-webkit-scrollbar-button, .eng-read__help::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+  .eng-read__paper::-webkit-scrollbar-corner, .eng-read__help::-webkit-scrollbar-corner { background: transparent; }
+  @supports not selector(::-webkit-scrollbar) {
+    .eng-read__paper, .eng-read__help { scrollbar-width: auto; scrollbar-color: #BFD0EC transparent; }
+  }
 }
 /* Width (the user, on a wide monitor: "it should be wider (except for phone)", and of a version that scaled the whole
    desk up, "not absolutely huge just the same length that it was but just a bit wider"): everything stays the size it
