@@ -2660,14 +2660,14 @@ body.eng-read-on { overflow: hidden; }
 .eng-read__q { flex: none; margin: 10px 0 0; color: var(--exam-ink-2); font: 400 16px/1.45 var(--font-body); }
 .eng-read__q b { margin-right: 4px; color: var(--exam-ink); font-weight: 700; }
 .eng-read__q mark { padding: 0 3px; border-radius: 2px; background: var(--exam-hi); color: var(--exam-ink); font-weight: 600; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-/* the lines you write on. Structure hidden: the whole page ruled, a paragraph for each part, the one you're in with an
-   ink bar in the margin. Structure shown: each part's heading and its boxes, a box being its name in its highlighter
+/* the lines you write on. Structure hidden: the whole page ruled, a paragraph for each part, and nothing but the text
+   cursor to show where you are (a bar in the margin as well was one mark too many: the user, "what do we need 2 for").
+   Structure shown: each part's heading and its boxes, a box being its name in its highlighter
    colour (--pc), what to write, ruled lines with a stripe in that colour, and its word range; the box to write next
    says so in red. */
 .eng-read__lines { flex: 1 0 auto; margin-top: 14px; color: var(--exam-ink); font: 400 17px/var(--lh) var(--font-body); }
 .eng-read:not(.is-struct) .eng-read__lines { background-image: linear-gradient(to bottom, transparent calc(var(--lh) - 1px), var(--exam-rule) calc(var(--lh) - 1px)); background-size: 100% var(--lh); }
 .eng-read__para { position: relative; }
-.eng-read:not(.is-struct) .eng-read__para:focus-within::before { content: ""; position: absolute; top: 5px; bottom: 6px; left: -11px; width: 3px; border-radius: 2px; background: var(--exam-ink); }
 .eng-read__ta { display: block; box-sizing: border-box; width: 100%; height: var(--lh); margin: 0; padding: 0; overflow: hidden; border: 0; border-radius: 0; background: none; color: inherit; font: inherit; text-indent: 1.4em; resize: none; outline: none; }
 .eng-read__ta::placeholder { color: var(--exam-ink-2); font-style: italic; opacity: 1; }
 .eng-read__ph { margin: 26px 0 10px; color: var(--exam-ink); font: 700 20px/1.25 var(--font-head); letter-spacing: -.01em; }
@@ -2757,7 +2757,6 @@ body.eng-read-on { overflow: hidden; }
   .eng-read__head h2 { font-size: 24px; }
   .eng-read__head p, .eng-read__q { font-size: 17px; }
   .eng-read__lines { margin-top: 16px; font-size: 19px; }
-  .eng-read__para:focus-within::before { left: -16px; }
   .eng-read__x, .eng-read__tools { top: 14px; }
   .eng-read__x { left: max(12px, calc(50% - 380px)); }
   .eng-read__tools { right: max(12px, calc(50% - 380px)); }
