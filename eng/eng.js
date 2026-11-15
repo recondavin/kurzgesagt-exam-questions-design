@@ -2779,11 +2779,11 @@
       { at: 105, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres2.jpg', what: 'Andy asked Captain Hadley if he trusts his wife. Hadley has grabbed him and dragged him to the edge of the roof.',
         ask: 'What does this show about abuse of power in Shawshank?', title: 'Knowledge is a quieter kind of power',
         note: 'Hadley nearly throws Andy off the roof for daring to speak to him. By offering tax advice, Andy turns Hadley from a threat into a favour: brains beat brute force.',
-        spots: [{ x: 33.5, y: 46, label: 'Hadley answers with violence', r: 9, side: 'b' }, { x: 61, y: 41.5, label: 'Andy keeps talking', r: 7 }] },
+        spots: [{ x: 32.8, y: 41.7, rx: 16.8, ry: 36.8, label: 'Hadley answers with violence', side: 'b' }, { x: 60.9, y: 39.6, rx: 12.5, ry: 25.7, label: 'Andy keeps talking' }] },
       { at: 157, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres3.jpg', what: 'Andy\'s advice has saved Hadley his money. All he asked for in return was three beers each for the crew.',
         ask: 'How is Andy\'s use of power different from the guards\' abuse of power?', title: 'Using power for others',
         note: 'Andy asks only for beers for his crew: unlike the guards, he uses his power to give, not to take. For a moment the prisoners hold the power.', quote: 'We sat and drank with the sun on our shoulders and felt like free men.',
-        spots: [{ x: 61.5, y: 27.5, label: 'Nothing for himself', r: 6.5 }, { x: 26, y: 66, label: 'No beer in his hands' }] }
+        spots: [{ x: 62.5, y: 27.8, rx: 11, ry: 24, label: 'Nothing for himself' }, { x: 28.7, y: 69.4, rx: 13, ry: 18.5, label: 'No beer in his hands' }] }
     ] },   // The Roof Scene, 3:30
     'shawshank-5': { yt: 'LU7SIVHZda4' },    // "Brooks was here" scene, 4:18
     'shawshank-6': { yt: 'ScU1O_Xuoxo' },    // "The Marriage of Figaro" scene, 4:04
@@ -3110,34 +3110,48 @@
   // the examiner's word on it after the sentence is written. On a phone there is no room for lines: the circles are
   // numbered and the labels listed under the picture with the same numbers.
   function watchPins(el, svg, card, W, H, aw, wide) {
-    var w = WATCH, spots = w.list[w.at].spots, sx = (aw - W) / 2, sy = (el.clientHeight - H) / 2, labs = el.querySelectorAll('.eng-pause__label');
-    var base = Math.max(40, Math.min(110, W * 0.08)), cs = spots.map(function (s) { var r = s.r ? s.r / 100 * W : base; return { r: r, x: Math.max(r + 8, Math.min(W - r - 8, s.x / 100 * W)), y: Math.max(r + 8, Math.min(H - r - 8, s.y / 100 * H)) }; });
-    var left = spots.reduce(function (a, s) { return a + s.x; }, 0) / spots.length >= 50, lines = '', nums = '';
-    // The card takes the side where it covers less of the circles (the side away from most of them if it is a tie).
-    var ch0 = card.offsetHeight || 340, ct = (el.clientHeight - ch0) / 2 - sy, cover = function (L) { return cs.reduce(function (a, c) { return a + (c.y + c.r > ct && c.y - c.r < ct + ch0 ? Math.max(0, Math.min(c.x + c.r, L + 420) - Math.max(c.x - c.r, L)) : 0); }, 0); };
-    var oL = cover(36 - sx), oR = cover(aw - 456 - sx);
-    if (oL !== oR) left = oL < oR;
-    card.classList.toggle('is-left', wide && left);
+    var w = WATCH, spots = w.list[w.at].spots, sx = (aw - W) / 2, eh = el.clientHeight, sy = (eh - H) / 2, labs = el.querySelectorAll('.eng-pause__label');
+    // Each lit shape: a circle (r, per cent of the width) or an oval fitted to the thing (rx per cent of the width, ry
+    // per cent of the height; the user, of small round patches on a face and a wrist: "match his ful head and hand").
+    var base = Math.max(40, Math.min(110, W * 0.08)), cs = spots.map(function (s) {
+      var rx = s.rx ? s.rx / 100 * W : s.r ? s.r / 100 * W : base, ry = s.ry ? s.ry / 100 * H : rx;
+      return { rx: rx, ry: ry, x: rx * 2 + 16 < W ? Math.max(rx + 8, Math.min(W - rx - 8, s.x / 100 * W)) : s.x / 100 * W, y: ry * 2 + 16 < H ? Math.max(ry + 8, Math.min(H - ry - 8, s.y / 100 * H)) : s.y / 100 * H };
+    });
+    var boxOf = function (c) { return { l: c.x - c.rx, t: c.y - c.ry, r: c.x + c.rx, b: c.y + c.ry }; }, hit = function (a, b) { return a.l < b.r && a.r > b.l && a.t < b.b && a.b > b.t; };
+    var lines = '', nums = '', cb = null;
     el.classList.toggle('is-num', !wide);
+    card.classList.remove('is-left'); card.classList.remove('is-top'); card.classList.remove('is-bottom');
     if (wide) {
-      var ch = card.offsetHeight || 340, cb = { l: (left ? 36 : aw - 456) - sx - 14, t: (el.clientHeight - ch) / 2 - sy - 14 }, placed = [], D = { br: [1, 1], bl: [-1, 1], tr: [1, -1], tl: [-1, -1], r: [1, 0], l: [-1, 0], b: [0, 1], t: [0, -1] };
-      cb.r = cb.l + 420 + 28; cb.b = cb.t + ch + 28;
-      var hit = function (a, b) { return a.l < b.r && a.r > b.l && a.t < b.b && a.b > b.t; };
+      // The card goes wherever it covers least of what is lit: beside the picture's middle, or down in a corner, or up.
+      var ch = card.offsetHeight || 340, mean = spots.reduce(function (t, s) { return t + s.x; }, 0) / spots.length, slots = [];
+      [[mean >= 50, ''], [mean < 50, ''], [mean >= 50, 'is-bottom'], [mean < 50, 'is-bottom'], [mean >= 50, 'is-top'], [mean < 50, 'is-top']].forEach(function (o) {
+        var L = (o[0] ? 36 : aw - 456) - sx, T = (o[1] === 'is-bottom' ? eh - 28 - ch : o[1] === 'is-top' ? 92 : (eh - ch) / 2) - sy, box = { l: L - 14, t: T - 14, r: L + 434, b: T + ch + 14 };
+        var cover = cs.reduce(function (t, c) { var q = boxOf(c); return t + Math.max(0, Math.min(q.r, box.r) - Math.max(q.l, box.l)) * Math.max(0, Math.min(q.b, box.b) - Math.max(q.t, box.t)); }, 0);
+        slots.push({ left: o[0], v: o[1], box: box, cover: cover });
+      });
+      var slot = slots.reduce(function (m, x) { return x.cover < m.cover - 1 ? x : m; });
+      if (slot.left) card.classList.add('is-left');
+      if (slot.v) card.classList.add(slot.v);
+      cb = slot.box;
+      var placed = [], D = { br: [1, 1], bl: [-1, 1], tr: [1, -1], tl: [-1, -1], r: [1, 0], l: [-1, 0], b: [0, 1], t: [0, -1] }, g0 = Math.max(70, Math.min(120, W * 0.075));
       spots.forEach(function (s, i) {
         var c = cs[i], lab = labs[i];
         if (!lab) return;
-        var lw = lab.offsetWidth, lh = lab.offsetHeight, g = Math.max(70, Math.min(120, W * 0.075)), low = c.y > H * 0.62, order = c.x < W / 2 ? (low ? ['tr', 'r', 'br', 't', 'b', 'tl', 'l', 'bl'] : ['br', 'r', 'tr', 'b', 't', 'bl', 'l', 'tl']) : (low ? ['tl', 'l', 'bl', 't', 'b', 'tr', 'r', 'br'] : ['bl', 'l', 'tl', 'b', 't', 'br', 'r', 'tr']);
+        var lw = lab.offsetWidth, lh = lab.offsetHeight, low = c.y > H * 0.62, order = c.x < W / 2 ? (low ? ['tr', 'r', 'br', 't', 'b', 'tl', 'l', 'bl'] : ['br', 'r', 'tr', 'b', 't', 'bl', 'l', 'tl']) : (low ? ['tl', 'l', 'bl', 't', 'b', 'tr', 'r', 'br'] : ['bl', 'l', 'tl', 'b', 't', 'br', 'r', 'tr']);
         if (s.side && D[s.side]) order.unshift(s.side);
         var best = null;
-        order.some(function (k, n) {
-          var d = D[k], q = d[0] && d[1] ? 0.7071 : 1, ax = c.x + d[0] * c.r * q, ay = c.y + d[1] * c.r * q, px = ax + d[0] * g, py = ay + d[1] * g * (d[0] ? 0.7 : 1);
-          var L = d[0] > 0 ? px : d[0] < 0 ? px - lw : px - lw / 2, T = d[0] && d[1] ? (d[1] > 0 ? py - 4 : py - lh + 4) : d[1] > 0 ? py : d[1] < 0 ? py - lh : py - lh / 2;
-          var box = { l: L - 6, t: T - 6, r: L + lw + 6, b: T + lh + 6 }, cand = { L: L, T: T, ax: ax, ay: ay, px: px, py: py, box: box };
-          if (!n) best = cand;
-          var ok = L >= 8 && T >= Math.max(8, 86 - sy) && L + lw <= W - 8 && T + lh <= H - 8 && !hit(box, cb) && !placed.some(function (b) { return hit(box, b); }) &&
-            !cs.some(function (o, j) { return j !== i && hit(box, { l: o.x - o.r, t: o.y - o.r, r: o.x + o.r, b: o.y + o.r }); });
-          if (ok) best = cand;
-          return ok;
+        // A long line if there is room for one; shorter if that is the only way the label fits.
+        [g0, g0 * 0.6, g0 * 0.34].some(function (g, gi) {
+          return order.some(function (k, n) {
+            var d = D[k], len = Math.sqrt(d[0] * d[0] + d[1] * d[1]), ux = d[0] / len, uy = d[1] / len, t = 1 / Math.sqrt(ux * ux / (c.rx * c.rx) + uy * uy / (c.ry * c.ry));
+            var ax = c.x + ux * t, ay = c.y + uy * t, px = ax + d[0] * g, py = ay + d[1] * g * (d[0] ? 0.7 : 1);
+            var L = d[0] > 0 ? px : d[0] < 0 ? px - lw : px - lw / 2, T = d[0] && d[1] ? (d[1] > 0 ? py - 4 : py - lh + 4) : d[1] > 0 ? py : d[1] < 0 ? py - lh : py - lh / 2;
+            var box = { l: L - 6, t: T - 6, r: L + lw + 6, b: T + lh + 6 }, cand = { L: L, T: T, ax: ax, ay: ay, px: px, py: py, box: box };
+            if (!gi && !n) best = cand;
+            var ok = L >= 8 && T >= Math.max(8, 86 - sy) && L + lw <= W - 8 && T + lh <= H - 8 && !hit(box, cb) && !placed.some(function (q) { return hit(box, q); }) && !cs.some(function (o, j) { return j !== i && hit(box, boxOf(o)); });
+            if (ok) best = cand;
+            return ok;
+          });
         });
         placed.push(best.box);
         lab.style.left = Math.round(sx + best.L) + 'px'; lab.style.top = Math.round(sy + best.T) + 'px';
@@ -3145,13 +3159,10 @@
           '<circle class="eng-pause__dot" cx="' + best.ax.toFixed(1) + '" cy="' + best.ay.toFixed(1) + '" r="4.5"/>';
       });
     } else Array.prototype.forEach.call(labs, function (lab) { lab.style.left = lab.style.top = ''; });
-    cs.forEach(function (c, i) { var nx = c.x - c.r * 0.72, ny = c.y - c.r * 0.72; nums += '<circle class="eng-pause__numdot" cx="' + nx.toFixed(1) + '" cy="' + ny.toFixed(1) + '" r="12"/><text class="eng-pause__num" x="' + nx.toFixed(1) + '" y="' + ny.toFixed(1) + '">' + (i + 1) + '</text>'; });
-    svg.innerHTML = '<defs><filter id="eng-pause-soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="' + (base * 0.12).toFixed(1) + '"/></filter>' +
-      '<mask id="eng-pause-hole"><rect width="' + W + '" height="' + H + '" fill="#fff"/>' + cs.map(function (c) { return '<circle cx="' + c.x + '" cy="' + c.y + '" r="' + c.r + '" fill="#000" filter="url(#eng-pause-soft)"/>'; }).join('') + '</mask></defs>' +
-      '<rect class="eng-pause__dim" width="' + W + '" height="' + H + '" mask="url(#eng-pause-hole)"/>' + cs.map(function (c) {
-        return '<ellipse class="eng-pause__ring" pathLength="1" cx="' + c.x + '" cy="' + c.y + '" rx="' + (c.r + 5) + '" ry="' + (c.r + 1) + '" transform="rotate(-12 ' + c.x + ' ' + c.y + ')"/>' +
-          '<ellipse class="eng-pause__ring is-2" pathLength="1" cx="' + (c.x + 2) + '" cy="' + (c.y - 1) + '" rx="' + (c.r + 1) + '" ry="' + (c.r + 6) + '" transform="rotate(24 ' + c.x + ' ' + c.y + ')"/>';
-      }).join('') + lines + nums;
+    cs.forEach(function (c, i) { var nx = Math.max(14, c.x - c.rx * 0.72), ny = Math.max(14, c.y - c.ry * 0.72); nums += '<circle class="eng-pause__numdot" cx="' + nx.toFixed(1) + '" cy="' + ny.toFixed(1) + '" r="12"/><text class="eng-pause__num" x="' + nx.toFixed(1) + '" y="' + ny.toFixed(1) + '">' + (i + 1) + '</text>'; });
+    svg.innerHTML = '<defs><filter id="eng-pause-soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="' + (base * 0.14).toFixed(1) + '"/></filter>' +
+      '<mask id="eng-pause-hole"><rect width="' + W + '" height="' + H + '" fill="#fff"/>' + cs.map(function (c) { return '<ellipse cx="' + c.x.toFixed(1) + '" cy="' + c.y.toFixed(1) + '" rx="' + c.rx.toFixed(1) + '" ry="' + c.ry.toFixed(1) + '" fill="#000" filter="url(#eng-pause-soft)"/>'; }).join('') + '</mask></defs>' +
+      '<rect class="eng-pause__dim" width="' + W + '" height="' + H + '" mask="url(#eng-pause-hole)"/>' + lines + nums;
   }
   // Size the picture to the screen (all of it showing), and draw the dark and the circle on it at the spot.
   function watchFit() {

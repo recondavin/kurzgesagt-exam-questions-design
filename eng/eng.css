@@ -3020,3 +3020,8 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 .eng-pause.is-num .eng-pause__num { fill: var(--exam-ink); }
 .eng-pause.is-num .eng-pause__label.is-pin::before { background: #FFFDF6; color: var(--exam-ink); }
 @media (prefers-reduced-motion: reduce) { .eng-pause__dot { transition: none; } }
+
+/* The card can sit down in a corner or up under the title when the middle would cover what is lit. */
+.eng-pause__card.is-bottom { top: auto; bottom: 28px; transform: none; animation-name: readIn; }
+.eng-pause__card.is-top { top: 92px; transform: none; animation-name: readIn; }
+@media (max-width: 700px) { .eng-pause__card.is-bottom, .eng-pause__card.is-top { top: auto; bottom: auto; } }
