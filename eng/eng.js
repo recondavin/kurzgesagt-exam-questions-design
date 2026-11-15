@@ -3149,17 +3149,23 @@
     el.classList.toggle('is-num', !wide);
     card.classList.remove('is-left'); card.classList.remove('is-top'); card.classList.remove('is-bottom');
     if (wide) {
-      // The card goes wherever it covers least of what is lit: beside the picture's middle, or down in a corner, or up.
-      var ch = card.offsetHeight || 340, cw = card.offsetWidth || 420, mean = spots.reduce(function (t, s) { return t + s.x; }, 0) / spots.length, slots = [];
-      [[mean >= 50, ''], [mean < 50, ''], [mean >= 50, 'is-bottom'], [mean < 50, 'is-bottom'], [mean >= 50, 'is-top'], [mean < 50, 'is-top']].forEach(function (o) {
-        var L = (o[0] ? 36 : aw - 36 - cw) - sx, T = (o[1] === 'is-bottom' ? eh - Math.round(eh * 0.12) - ch : o[1] === 'is-top' ? 92 : (eh - ch) / 2) - sy, box = { l: L - 14, t: T - 14, r: L + cw + 14, b: T + ch + 14 };
-        var cover = cs.reduce(function (t, c) { var q = boxOf(c); return t + Math.max(0, Math.min(q.r, box.r) - Math.max(q.l, box.l)) * Math.max(0, Math.min(q.b, box.b) - Math.max(q.t, box.t)); }, 0);
-        slots.push({ left: o[0], v: o[1], box: box, cover: cover });
-      });
-      var slot = slots.reduce(function (m, x) { return x.cover < m.cover - 1 ? x : m; });
-      if (slot.left) card.classList.add('is-left');
-      if (slot.v) card.classList.add(slot.v);
-      cb = slot.box;
+      // The question sits beside the picture's middle (the user: "make the question higher", then "like in the middle"),
+      // on the side with more room clear of what is lit, and only as wide as that room (never under 300px by --ps), so its
+      // white words are never over a lit face.
+      var ps = parseFloat(el.style.getPropertyValue('--ps')) || 1, mean = spots.reduce(function (t, s) { return t + s.x; }, 0) / spots.length;
+      card.style.width = '';
+      var cwMax = card.offsetWidth || 520, cwMin = Math.min(cwMax, 300 * ps), ch = card.offsetHeight || 300, top = (eh - ch) / 2 - sy;
+      var room = function (onLeft) {
+        var edge = onLeft ? 36 - sx : aw - 36 - sx, bound = null;
+        cs.forEach(function (c) { var q = boxOf(c); if (q.b < top - 14 || q.t > top + ch + 14) return; bound = onLeft ? (bound === null ? q.l - 24 : Math.min(bound, q.l - 24)) : (bound === null ? q.r + 24 : Math.max(bound, q.r + 24)); });
+        return bound === null ? cwMax : onLeft ? bound - edge : edge - bound;
+      };
+      var rl = room(true), rr = room(false), left = Math.abs(rl - rr) < 1 ? mean >= 50 : rl > rr, cw = Math.max(cwMin, Math.min(cwMax, left ? rl : rr));
+      card.style.width = Math.round(cw) + 'px';
+      ch = card.offsetHeight || ch; top = (eh - ch) / 2 - sy;
+      if (left) card.classList.add('is-left');
+      var L0 = (left ? 36 : aw - 36 - cw) - sx;
+      cb = { l: L0 - 14, t: top - 14, r: L0 + cw + 14, b: top + ch + 14 };
       var placed = [], D = { br: [1, 1], bl: [-1, 1], tr: [1, -1], tl: [-1, -1], r: [1, 0], l: [-1, 0], b: [0, 1], t: [0, -1] }, g0 = Math.max(70, Math.min(120, W * 0.075));
       spots.forEach(function (s, i) {
         var c = cs[i], lab = labs[i];
@@ -3207,6 +3213,7 @@
     var W = Math.round(Math.min(aw, ah * ar)), H = Math.round(W / ar), svg = stage.querySelector('svg'), lab = el.querySelector('.eng-pause__label'), card = el.querySelector('.eng-pause__card');
     stage.style.width = W + 'px'; stage.style.height = H + 'px';
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    card.style.width = '';
     if (w.list[w.at].spots) { watchPins(el, svg, card, W, H, aw, wide); return; }
     el.classList.remove('is-num');
     if (!sp) { svg.innerHTML = '<rect class="eng-pause__dim" width="' + W + '" height="' + H + '"/>'; }
