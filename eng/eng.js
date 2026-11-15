@@ -2791,7 +2791,11 @@
       // Hadley, still holding Andy's collar, shouting the crew back to work straight after Andy's offer, between
       // 1:50 and 1:52; the other is Andy sitting apart at 2:50 to 2:52. A pause's `at` has to be the second its
       // picture is from, and its words have to be about that second.
-      { at: 110.5, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres2.jpg', what: 'Hadley dragged Andy to the edge of the roof for speaking to him. Andy has just offered to save him the tax on his money, for three beers each for the crew.',
+      // 109.9, not 110.5: the user's second recording showed the shot of Hadley ending at about 110.3, so the video cut
+      // to the crew and sat there for a fifth of a second before the picture of Hadley came up ("look what happens
+      // before it says whats happening with hadley and andy it shows this frame"). A pause has to fall well inside its
+      // picture's shot, allowing a fifth of a second for the stop to take effect.
+      { at: 109.9, img: 'https://i.ytimg.com/vi/bM7MB1pgb9w/maxres2.jpg', what: 'Hadley dragged Andy to the edge of the roof for speaking to him. Andy has just offered to save him the tax on his money, for three beers each for the crew.',
         // The note answers the question that was asked. It first gave the site's point for the scene, "Knowledge is a quieter kind
         // of power ... brains beat brute force" (the user: "also is this abuse of power or education"): that is about Andy's
         // cleverness. The abuse of power in the scene is Hadley's.
@@ -2850,7 +2854,9 @@
     el.classList.add('is-clip');
     el.querySelector('.eng-pause__bars').innerHTML = '<i class="is-clipbar"><b></b></i><i><b></b></i>';
     el.querySelector('.eng-pause__stage').insertAdjacentHTML('beforeend', '<div class="eng-pause__yt"><div id="eng-pause-yt"></div></div>');
-    beat.textContent = 'Loading the clip…';
+    // Nothing is written under the player (the user: "GET RID OF SUBTITLES THE YOUTUBE VIDEO ALREADY HAS THEM": the line
+    // of help there read as a subtitle). The player has its own play button and its own way to skip an ad.
+    beat.textContent = '';
     watchFit();
     var ready = function () {
       if (WATCH !== w || w.at !== at || !w.clip) return;
@@ -2858,7 +2864,7 @@
         w.player = new window.YT.Player('eng-pause-yt', { width: '100%', height: '100%', videoId: clip.yt, host: 'https://www.youtube-nocookie.com',
           playerVars: { autoplay: 1, playsinline: 1, rel: 0, start: clip.start || 0, origin: location.origin },
           events: {
-            onReady: function (e) { if (WATCH !== w || !w.clip) return; try { e.target.playVideo(); } catch (x) {} w.clipStuck = Date.now(); beat.textContent = WATCH_HINT.wait; w.poll = setInterval(watchClipTick, 80); },
+            onReady: function (e) { if (WATCH !== w || !w.clip) return; try { e.target.playVideo(); } catch (x) {} w.clipStuck = Date.now(); w.poll = setInterval(watchClipTick, 80); },
             onError: function () { if (WATCH === w && w.clip) watchClipFail(false); },
             onStateChange: function (e) { if (WATCH === w && w.clip && e.data === 0) watchClipEnd(); }
           } });
@@ -2887,8 +2893,6 @@
     var clip = w.clip, ps = watchPauses(clip), nx = ps[w.pi], start = w.pi ? ps[w.pi - 1].at : clip.start || 0, end = nx ? nx.at : clip.end || dur, beat = w.el.querySelector('.eng-pause__beat'), bar = w.el.querySelector('.eng-pause__bars .is-clipbar b');
     if (t !== w.clipT) { w.clipT = t; w.clipStuck = Date.now(); if (t > start + 0.4) w.clipSeen = true; }
     // The clip's own clock stands still while an ad plays or while it loads (st 2 is the student's own pause).
-    var stuck = Date.now() - w.clipStuck > 2500 && st !== 2, say = stuck && !w.clipSeen ? WATCH_HINT.ad : w.clipSeen ? WATCH_HINT.on : WATCH_HINT.wait;
-    if (beat.textContent !== say) beat.textContent = say;
     if (bar && end > start) bar.style.width = Math.max(0, Math.min(100, (t - start) / (end - start) * 100)) + '%';
     if (nx && t >= nx.at) watchHold(nx); else if (clip.end && t >= clip.end) watchClipEnd();
   }
@@ -3226,7 +3230,7 @@
     el.style.setProperty('--ps', (wide ? Math.max(1, Math.min(1.55, el.clientWidth / 1440)) : 1).toFixed(3));
     // A clip is 16:9 and keeps clear of the title above it and the line of help below it.
     var vid = w.video && (!w.hold || el.classList.contains('is-frame')) ? w.video : null, yt = !!w.clip && !w.video && !w.hold, ar = yt ? 16 / 9 : vid ? (vid.videoWidth || 16) / (vid.videoHeight || 9) : img ? (img.naturalWidth || 16) / (img.naturalHeight || 9) : 16 / 9;
-    var aw = el.clientWidth, ah = wide ? el.clientHeight - (yt ? 176 : 0) : Math.round(el.clientHeight * 0.38);
+    var aw = el.clientWidth, ah = wide ? el.clientHeight - (yt ? 108 : 0) : Math.round(el.clientHeight * 0.38);
     var W = Math.round(Math.min(aw, ah * ar)), H = Math.round(W / ar), svg = stage.querySelector('svg'), lab = el.querySelector('.eng-pause__label'), card = el.querySelector('.eng-pause__card');
     stage.style.width = W + 'px'; stage.style.height = H + 'px';
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);

@@ -2959,7 +2959,7 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 
 /* A real clip in Watch the scene: YouTube's own player in the stage, kept clear of everything of ours (the title and
    buttons sit above it, one line of help below), because nothing may be drawn over that player. */
-.eng-pause.is-clip { box-sizing: border-box; padding: 84px 0 92px; }
+.eng-pause.is-clip { box-sizing: border-box; padding: 84px 0 24px; }
 .eng-pause.is-clip::before { display: none; }
 .eng-pause.is-clip .eng-pause__stage { cursor: default; }
 .eng-pause.is-clip .eng-pause__stage img, .eng-pause.is-clip .eng-pause__svg, .eng-pause.is-clip .eng-pause__label { display: none; }
