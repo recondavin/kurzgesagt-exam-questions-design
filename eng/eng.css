@@ -2956,3 +2956,15 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
   .eng-pause__dim, .eng-pause__label, .eng-pause__bars i.is-on b { transition: none; }
   .eng-pause.is-paused .eng-pause__ring { animation: none; stroke-dashoffset: 0; }
 }
+
+/* A real clip in Watch the scene: YouTube's own player in the stage, kept clear of everything of ours (the title and
+   buttons sit above it, one line of help below), because nothing may be drawn over that player. */
+.eng-pause.is-clip { box-sizing: border-box; padding: 84px 0 92px; }
+.eng-pause.is-clip::before { display: none; }
+.eng-pause.is-clip .eng-pause__stage { cursor: default; }
+.eng-pause.is-clip .eng-pause__stage img, .eng-pause.is-clip .eng-pause__svg, .eng-pause.is-clip .eng-pause__label { display: none; }
+.eng-pause__yt { position: absolute; inset: 0; background: #000; }
+.eng-pause__yt iframe { display: block; width: 100%; height: 100%; border: 0; }
+.eng-pause.is-clip .eng-pause__beat { bottom: 28px; padding: 0; background: none; color: rgba(255, 253, 246, .88); font-size: 17px; cursor: default; }
+.eng-pause__bars i.is-clipbar b { transition: width .25s linear; }
+@media (max-width: 700px) { .eng-pause.is-clip { padding: calc(84px + env(safe-area-inset-top)) 0 20px; } }

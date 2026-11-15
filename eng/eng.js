@@ -2734,6 +2734,93 @@
   // A clip from YouTube could later play in place of the story lines (a scene would carry its video id and the second
   // to pause at); the pause itself would stay on our picture.
   var WATCH = null;
+  // A real clip in place of the story lines (the user, told the film cannot be copied onto the site and that YouTube
+  // shows ads: "to use the video but there needs to be a program that detects if theres an ad or not you know and then
+  // pause the video at a certian time to do that thing the circling"). A scene listed in CLIPS plays in YouTube's own
+  // player (the privacy-enhanced one), with nothing of ours drawn over it: the title, Skip and × sit above it and one
+  // line of help below. The page watches the clip's own clock, which stands still while an ad plays, so "pause at 47
+  // seconds" lands on the same frame with or without an ad; a clock that is not moving while something plays is read
+  // as an ad (or a slow start) and the line under the player says to skip it. The page cannot skip or shorten an ad.
+  // At the pause time (or the end of the clip) the player is removed and the picture comes up for the pause as before.
+  // If YouTube cannot be reached, or the video is gone or may not be played here, it is the story lines instead.
+  // CLIPS: moment id -> { yt: the video's id, start: seconds in to begin at, pause: the second to pause at (0: its end) }.
+  // The first one is the user's own pick: shown that only official uploads are the safe ones to embed, and that the
+  // official Movieclips scenes would not play in an embedded player from the build session, they pointed to this
+  // upload of the roof scene ("this has been up on youtube for 9 years and its fine"; 1.4m views, not the studio's
+  // channel) and chose to use it. It is their decision for their site; if it is ever taken down the scene falls back
+  // to the story lines by itself. It plays whole (4:23) to its end until the user gives a second to pause at.
+  var CLIPS = { 'shawshank-4': { yt: 'njJ41irPjTc', start: 0, pause: 0 } }, WATCH_NOYT = false;
+  var WATCH_HINT = { wait: 'Press play if it does not start by itself. If an ad comes first, skip it when you can.', ad: 'If an ad is playing, skip it when you can. The scene starts straight after it.', on: 'It pauses by itself on the moment that matters.' };
+  function watchClipOf(sc) { return (window.EngClips || {})[sc.mid] || CLIPS[sc.mid] || null; }
+  function watchClipStop(w) {
+    w = w || WATCH;
+    if (!w) return;
+    clearInterval(w.poll); clearTimeout(w.ytWait); w.poll = 0;
+    if (w.player) { try { w.player.destroy(); } catch (e) {} w.player = null; }
+    w.clip = null;
+  }
+  function watchClipFail(dead) { var w = WATCH; if (!w) return; if (dead) WATCH_NOYT = true; watchClipStop(w); w.noclip = true; watchDraw(); }
+  function watchClip() {
+    var w = WATCH, sc = w.list[w.at], clip = watchClipOf(sc), el = w.el, beat = el.querySelector('.eng-pause__beat'), at = w.at;
+    w.clip = clip; w.clipT = -1; w.clipStuck = Date.now(); w.clipSeen = false;
+    el.classList.add('is-clip');
+    el.querySelector('.eng-pause__bars').innerHTML = '<i class="is-clipbar"><b></b></i><i><b></b></i>';
+    el.querySelector('.eng-pause__stage').insertAdjacentHTML('beforeend', '<div class="eng-pause__yt"><div id="eng-pause-yt"></div></div>');
+    beat.textContent = 'Loading the clip…';
+    watchFit();
+    var ready = function () {
+      if (WATCH !== w || w.at !== at || !w.clip) return;
+      try {
+        w.player = new window.YT.Player('eng-pause-yt', { width: '100%', height: '100%', videoId: clip.yt, host: 'https://www.youtube-nocookie.com',
+          playerVars: { autoplay: 1, playsinline: 1, rel: 0, start: clip.start || 0, origin: location.origin },
+          events: {
+            onReady: function (e) { if (WATCH !== w || !w.clip) return; try { e.target.playVideo(); } catch (x) {} w.clipStuck = Date.now(); beat.textContent = WATCH_HINT.wait; w.poll = setInterval(watchClipTick, 250); },
+            onError: function () { if (WATCH === w && w.clip) watchClipFail(false); },
+            onStateChange: function (e) { if (WATCH === w && w.clip && e.data === 0) watchClipEnd(); }
+          } });
+      } catch (e) { watchClipFail(false); }
+    };
+    if (window.YT && window.YT.Player) { ready(); return; }
+    if (!document.getElementById('eng-yt-api')) {
+      var s = document.createElement('script');
+      s.id = 'eng-yt-api'; s.src = 'https://www.youtube.com/iframe_api';
+      s.onerror = function () { s.parentNode.removeChild(s); if (WATCH === w && w.clip) watchClipFail(true); };
+      document.head.appendChild(s);
+    }
+    var t0 = Date.now();
+    (function wait() {
+      if (WATCH !== w || w.at !== at || !w.clip) return;
+      if (window.YT && window.YT.Player) { ready(); return; }
+      if (Date.now() - t0 > 7000) { watchClipFail(true); return; }
+      w.ytWait = setTimeout(wait, 150);
+    })();
+  }
+  function watchClipTick() {
+    var w = WATCH;
+    if (!w || !w.clip || !w.player) return;
+    var t = 0, st = -1, dur = 0;
+    try { t = w.player.getCurrentTime() || 0; st = w.player.getPlayerState(); dur = w.player.getDuration() || 0; } catch (e) { return; }
+    var clip = w.clip, start = clip.start || 0, end = clip.pause || dur, beat = w.el.querySelector('.eng-pause__beat'), bar = w.el.querySelector('.eng-pause__bars .is-clipbar b');
+    if (t !== w.clipT) { w.clipT = t; w.clipStuck = Date.now(); if (t > start + 0.4) w.clipSeen = true; }
+    // The clip's own clock stands still while an ad plays or while it loads (st 2 is the student's own pause).
+    var stuck = Date.now() - w.clipStuck > 2500 && st !== 2, say = stuck && !w.clipSeen ? WATCH_HINT.ad : w.clipSeen ? WATCH_HINT.on : WATCH_HINT.wait;
+    if (beat.textContent !== say) beat.textContent = say;
+    if (bar && end > start) bar.style.width = Math.max(0, Math.min(100, (t - start) / (end - start) * 100)) + '%';
+    if (clip.pause && t >= clip.pause) watchClipEnd();
+  }
+  // The pause: the player goes (nothing may be drawn on it) and the picture takes its place.
+  function watchClipEnd() {
+    var w = WATCH;
+    if (!w || !w.clip) return;
+    try { if (w.player) w.player.pauseVideo(); } catch (e) {}
+    watchClipStop(w);
+    var el = w.el, yt = el.querySelector('.eng-pause__yt');
+    if (yt) yt.parentNode.removeChild(yt);
+    el.classList.remove('is-clip');
+    el.querySelector('.eng-pause__beat').textContent = '';
+    Array.prototype.forEach.call(el.querySelectorAll('.eng-pause__bars i'), function (b) { b.className = 'is-done'; b.firstChild.style.width = ''; });
+    watchPause();
+  }
   function watchScenes(part, s, c) {
     if (typeof s !== 'number') return [];
     var q = c.W.paras[s], mids = !q ? [] : part === 'b' ? [q.x, q.y] : [q.scene ? text(c.a).moments[q.scene - 1].id : ''];
@@ -2765,10 +2852,10 @@
       var t = e.target, w = WATCH;
       if (!w) return;
       if (t.closest('[data-watch-close]')) watchClose(true);
-      else if (t.closest('[data-watch-skip]')) { w.step = w.list[w.at].beats.length; watchStep(); }
+      else if (t.closest('[data-watch-skip]')) { if (w.clip) watchClipEnd(); else { w.step = w.list[w.at].beats.length; watchStep(); } }
       else if (t.closest('[data-watch-done]')) watchDone();
       else if (t.closest('[data-watch-next]')) watchNext();
-      else if (!w.paused && t.closest('.eng-pause__stage, .eng-pause__beat')) { w.step++; watchStep(); }
+      else if (!w.paused && !w.clip && t.closest('.eng-pause__stage, .eng-pause__beat')) { w.step++; watchStep(); }
     });
     el.addEventListener('input', function (e) { e.stopPropagation(); if (e.target.classList.contains('eng-pause__ta')) watchInput(); });
     el.addEventListener('focusin', function (e) { e.stopPropagation(); });
@@ -2786,7 +2873,7 @@
   function watchClose(back) {
     var w = WATCH;
     if (!w) return;
-    clearTimeout(w.timer);
+    clearTimeout(w.timer); watchClipStop(w);
     WATCH = null;
     if (w.el.parentNode) w.el.parentNode.removeChild(w.el);
     if (!back || !READ) return;
@@ -2796,7 +2883,7 @@
   }
   function watchDraw() {
     var w = WATCH, sc = w.list[w.at], pic = sc.pic, sp = sc.spot, name = w.c.th.name.toLowerCase(), box = pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === watchKey(w); })[0];
-    clearTimeout(w.timer);
+    clearTimeout(w.timer); watchClipStop(w);
     w.step = 0; w.paused = false; w.wrote = '';
     w.el.className = 'eng-pause' + (watchStill() ? ' is-still' : '');
     w.el.innerHTML = '<div class="eng-pause__stage"' + (sp ? ' style="--ox:' + sp.x + '%;--oy:' + sp.y + '%"' : '') + '><img src="assets/eng/img/' + esc(pic.file) + '" alt="' + esc(pic.caption || sc.m.title) + '"><svg class="eng-pause__svg" aria-hidden="true"></svg></div>' +
@@ -2814,14 +2901,15 @@
     img.addEventListener('load', watchFit);
     watchFit();
     w.el.querySelector('.eng-pause__x').focus({ preventScroll: true });
-    watchStep();
+    if (!w.noclip && !WATCH_NOYT && watchClipOf(sc)) watchClip(); else watchStep();
   }
   // Size the picture to the screen (all of it showing), and draw the dark and the circle on it at the spot.
   function watchFit() {
     var w = WATCH;
     if (!w) return;
     var el = w.el, stage = el.querySelector('.eng-pause__stage'), img = stage.querySelector('img'), sp = w.list[w.at].spot, wide = el.clientWidth > 700;
-    var ar = (img.naturalWidth || 16) / (img.naturalHeight || 9), aw = el.clientWidth, ah = wide ? el.clientHeight : Math.round(el.clientHeight * 0.38);
+    // A clip is 16:9 and keeps clear of the title above it and the line of help below it.
+    var ar = w.clip ? 16 / 9 : (img.naturalWidth || 16) / (img.naturalHeight || 9), aw = el.clientWidth, ah = wide ? el.clientHeight - (w.clip ? 176 : 0) : Math.round(el.clientHeight * 0.38);
     var W = Math.round(Math.min(aw, ah * ar)), H = Math.round(W / ar), svg = stage.querySelector('svg'), lab = el.querySelector('.eng-pause__label'), card = el.querySelector('.eng-pause__card');
     stage.style.width = W + 'px'; stage.style.height = H + 'px';
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
@@ -2889,7 +2977,7 @@
   function watchNext() {
     var w = WATCH;
     if (!w) return;
-    if (w.at < w.list.length - 1) { w.at++; watchDraw(); } else watchClose(true);
+    if (w.at < w.list.length - 1) { w.at++; w.noclip = false; watchDraw(); } else watchClose(true);
   }
   window.addEventListener('resize', function () { if (WATCH) watchFit(); });
   // A box's word count, its tick, and which box on this page to write next (the first with under four words). When
