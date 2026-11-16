@@ -56,3 +56,13 @@ This file applies to everything inside `kurzgesagt-exam-questions-design/`.
 - Verify asset paths, clipping, overflow and cache freshness.
 - Run `git diff --check` and `node --check hyper-focus.js` after relevant edits.
 - Do not claim an exact visual match without inspecting the rendered result.
+
+## English: key scenes and themes (standing rule from the user)
+
+The user asked for this to be remembered. It applies to everything in English that ties a scene to a theme (pause labels, quotes, questions, examiner's notes, "what it represents"), not to one clip or one task.
+
+- A key scene has a fixed part that must be known exactly: where and when it happens, who is there, what is said and what is done.
+- What the scene is used to say depends on the theme being written about. Same scene, different point. The user's example, Hadley holding Andy at the edge of the roof: for education, "andy used his education to free himself of a dangerous situation his education benefited him"; for abuse of power, "hadley finds out hes a banker and takes advantage of it".
+- Scenes are chosen to suit the theme: "its for whatever suits, sometimes different topics/themes will have different scenes, and sometimes 2 or 3 or more could represent the same scene". So each theme has its own set of scenes, one scene can serve several themes with a different reading for each, and a scene that does not suit a theme is not used for it.
+- Quotes on screen must be the ones relevant to that theme, given whole, and each must be able to answer "what does this show about the theme?" in one sentence.
+- Details and history are in `PROJECT_STATE.md` (the English section).

@@ -2797,26 +2797,39 @@
       // shot is over Red's shoulder at Andy sitting apart, and it holds: 3:00.5. (Andy's close-up after "No thanks, I
       // gave up drinking" would be the better picture, but the shot changes within about a second of the line.)
       // Where things are on those frames was read off the 160x90 previews, so the shapes are close, not exact.
-      // The words on the labels are the lines of the scene an essay quotes, as spoken in this upload (its captions):
-      // not "Step aside, Mert", which the first version gave. And each question asks about those words.
-      { at: 116, ask: 'What do Hadley’s words show about abuse of power in Shawshank?', title: 'Power with no one to answer to',
-        note: 'Hadley can kill a prisoner for speaking to him and call it “an accident”, and nobody on the roof could stop him. He lets Andy live only once there is money in it for him, and even then Andy is just “that smart banker who killed his wife”. In Shawshank the guards use their power for themselves.',
-        // The line that shows the abuse itself is "having himself an accident" (a guard can kill a prisoner and have it
-        // called an accident). The first version quoted only the half before it, "Step aside, Mert", which the user
-        // rightly threw out; then, asked of the smart-banker line "but what does it do for abuse and power exact;y",
-        // the honest answer was that it shows how Hadley sees a prisoner, not the abuse, so the accident half is on
-        // the label too, without the swearing in front of it.
-        // A quote is given whole: Hadley's stopped at "...a smart banker like you?" and the user could not see what he
-        // meant by it ("why does he say so i can believe a smart banker like you?"); the sentence that explains it,
-        // "So I can end up in here with you?", was the one left off.
-        // Every label says what its person is doing as well as what they say (the user, of a first version that did so
-        // for Hadley only: "it says what hadley is doing does it say what andy is doing trying to...").
-        spots: [{ x: 29, y: 40, rx: 18.5, ry: 35, label: 'Hadley', say: ['Drags Andy to the edge of the roof for speaking to him:', '“…having himself an accident.”', 'Stops when he hears he can keep all of his $35,000:', '“You better start making sense.”', '“You’re that smart banker who killed his wife, aren’t you? Why should I believe a smart banker like you? So I can end up in here with you?”'] },
-          { x: 57, y: 52, rx: 13.5, ry: 36, label: 'Andy', say: ['Risks his life by speaking to a guard, to tell him how to keep the money:', '“Mr Hadley, do you trust your wife?”', 'All he asks in return, and none of it for himself:', '“I’d only ask three beers apiece for each of my co-workers.”'] }] },
-      { at: 180.5, ask: 'Going by Red’s words, how is Andy’s use of power different from the guards’ abuse of power?', title: 'Using power for others',
-        note: 'Andy asks only for beers for his crew: unlike the guards, he uses his power to give, not to take. For a moment the prisoners hold the power.',
-        spots: [{ x: 34, y: 45, rx: 6.5, ry: 11, label: 'Andy', say: ['Sits apart with no beer of his own. Red, of him:', '“a strange little smile on his face, watching us drink his beer.”'] },
-          { x: 70, y: 30, rx: 15, ry: 25, label: 'Red', say: ['Narrating, as the crew drink the beer Andy won for them:', '“We sat and drank with the sun on our shoulders and felt like free men.”'] }] }
+      // The words on the labels are the lines of the scene an essay quotes, as spoken in this upload (its captions), and
+      // a quote is given whole. Before a quote goes on a label, say in one sentence what it shows about the theme; if
+      // that is hard to write it is the wrong quote, or the wrong half of it ("Step aside, Mert" was the throwaway half
+      // of "having himself an accident").
+      // One scene is read differently for each theme (the user: "say hadley holding andy off a rooftop we are talking
+      // about education we say andy used his education to free himself of a dangerous situation his education benefited
+      // him, we are talking abuse and power we are saying hadley finds out hes a banker and takes advantage of it, see
+      // its two different things"). So a pause has a fixed part (`at`, and `spots`: who is where) and, in `themes`, a
+      // reading for each theme id: the question, the examiner's point (title, note) and `say`, the lines for each spot
+      // in the same order as `spots`. The theme is the one the student is writing on (here "power"); a link can name
+      // another (#watch/shawshank-4/education).
+      { at: 116, spots: [{ x: 29, y: 40, rx: 18.5, ry: 35, label: 'Hadley' }, { x: 57, y: 52, rx: 13.5, ry: 36, label: 'Andy' }],
+        themes: {
+          power: { ask: 'What do Hadley’s words show about abuse of power in Shawshank?', title: 'Power with no one to answer to',
+            note: 'Hadley can kill a prisoner for speaking to him and call it “an accident”, and nobody on the roof could stop him. When he learns Andy is a banker the abuse does not stop, it changes: a prisoner’s skill is one more thing a guard can take for himself. In Shawshank the guards use their power for themselves.',
+            say: [['Drags Andy to the edge of the roof for speaking to him:', '“…having himself an accident.”', 'Finds out the prisoner is a banker, and that he can use him:', '“You’re that smart banker who killed his wife, aren’t you? Why should I believe a smart banker like you? So I can end up in here with you?”'],
+              ['Risks his life by speaking to a guard, to tell him how to keep the money:', '“Mr Hadley, do you trust your wife?”', 'All he asks in return, and none of it for himself:', '“I’d only ask three beers apiece for each of my co-workers.”']] },
+          education: { ask: 'What does this moment show about education in Shawshank?', title: 'Education is protection',
+            note: 'Andy’s education saves his life here: a second from being thrown off the roof, he knows the tax law and the guards do not. It also changes what he is worth in Shawshank, from a prisoner who can be killed to “a smart banker” a guard needs. In this prison knowledge is the one power a prisoner can have.',
+            say: [['Has the uniform and the gun, but needs a prisoner to explain his own money to him:', '“You better start making sense.”', 'What he calls Andy, twice:', '“a smart banker like you”'],
+              ['A banker before prison, he knows the law the guards do not:', '“The IRS allows a one-time-only gift to your spouse for up to $60,000.”', 'And he can do the paperwork himself:', '“If you get the forms, I’ll prepare them for you, nearly free of charge.”']] }
+        } },
+      { at: 180.5, spots: [{ x: 34, y: 45, rx: 6.5, ry: 11, label: 'Andy' }, { x: 70, y: 30, rx: 15, ry: 25, label: 'Red' }],
+        themes: {
+          power: { ask: 'Going by Red’s words, how is Andy’s use of power different from the guards’ abuse of power?', title: 'Using power for others',
+            note: 'Andy asks only for beers for his crew: unlike the guards, he uses his power to give, not to take. For a moment the prisoners hold the power.',
+            say: [['Sits apart with no beer of his own. Red, of him:', '“a strange little smile on his face, watching us drink his beer.”'],
+              ['Narrating, as the crew drink the beer Andy won for them:', '“We sat and drank with the sun on our shoulders and felt like free men.”']] },
+          education: { ask: 'Going by Red’s words, what did Andy’s education win for the other men?', title: 'What knowledge buys',
+            note: 'Andy’s education does not only save him. It buys every man on the roof a cold beer and a morning in which they “felt like free men”. He keeps none of it for himself: what he knows is the one thing Shawshank cannot take from him, and he shares what it earns.',
+            say: [['Sits apart with no beer: what his knowledge won, he gave away. Red, of him:', '“a strange little smile on his face, watching us drink his beer.”'],
+              ['Narrating, on what one prisoner’s knowledge bought the crew:', '“We sat and drank with the sun on our shoulders and felt like free men.”']] }
+        } }
     ] },   // The Roof Scene, 3:30
     'shawshank-5': { yt: 'LU7SIVHZda4' },    // "Brooks was here" scene, 4:18
     'shawshank-6': { yt: 'ScU1O_Xuoxo' },    // "The Marriage of Figaro" scene, 4:04
@@ -2944,8 +2957,12 @@
   // the picture (or on the frame, for a file that says where its spot is); and only when the sentence is written does
   // Keep watching bring the video back, from the same second, with no new ad because it is the same player. After
   // its last pause the clip runs to its end (or `end`) and the scene is done. Skip jumps to the next pause.
+  // A pause that is read by theme is only a pause for a theme it has a reading for: scenes are chosen to suit the
+  // theme (the user: "its for whatever suits, sometimes different topics/themes will have different scenes, and
+  // sometimes 2 or 3 or more could represent the same scene"). For any other theme the clip plays through it.
   function watchPauses(clip) {
-    if (clip.pauses && clip.pauses.length) return clip.pauses;
+    var th = WATCH && WATCH.c && WATCH.c.th ? WATCH.c.th.id : '';
+    if (clip.pauses && clip.pauses.length) return clip.pauses.filter(function (ps) { return !ps.themes || !!ps.themes[th]; });
     var cs = clip.spot || {};
     return clip.pause ? [{ at: clip.pause, x: cs.x, y: cs.y, label: cs.label, note: cs.note, what: clip.what }] : [];
   }
@@ -3067,7 +3084,17 @@
     w.el.classList.remove('is-typing');
     w.el.removeEventListener('pointerdown', run.skip);
   }
+  // A pause as it is read for the theme in hand: its own fixed part with that theme's question, point and lines.
+  function watchRead(ps, w) {
+    var id = w.c && w.c.th ? w.c.th.id : '', rd = ps.themes && ps.themes[id], out = {}, k;
+    if (!rd) return ps;
+    for (k in ps) if (k !== 'themes' && k !== 'spots') out[k] = ps[k];
+    for (k in rd) if (k !== 'say') out[k] = rd[k];
+    out.spots = (ps.spots || []).map(function (sp, i) { var o = {}, j; for (j in sp) o[j] = sp[j]; if (rd.say && rd.say[i]) o.say = rd.say[i]; return o; });
+    return out;
+  }
   function watchHold(ps) {
+    ps = watchRead(ps, WATCH);
     var w = WATCH, el = w.el, sc = w.list[w.at], own = !!w.video && ((ps.x != null && ps.y != null) || !sc.pic);
     clearInterval(w.poll); w.poll = 0;
     if (w.video) { try { w.video.pause(); } catch (e) {} }
@@ -3176,9 +3203,12 @@
   // solo: a scene opened on its own from a link (#watch/<moment id>; the user, of the test clip: "i donbt know where to
   // actually watch it"): the same screen over whatever page is behind it, with no answer open, so what is written is
   // not saved anywhere and the card says so. Closing it leaves you on Compare it.
-  function watchOpen(solo) {
+  // Themes a scene can be read for that the Compare page has no exam question on yet (it has abuse of power only).
+  var WATCH_THEMES = { education: { id: 'education', name: 'Education' } };
+  function watchOpen(solo, thId) {
     if (!READ && !solo) return;
-    var c = solo ? { th: cpTheme() } : pageCtx(READ_PART), list = solo ? [solo] : watchScenes(READ_PART, READ_SLOT, c);
+    var linked = thId ? D.compare.filter(function (t) { return t.id === thId; })[0] || WATCH_THEMES[thId] : null;
+    var c = solo ? { th: linked || cpTheme() } : pageCtx(READ_PART), list = solo ? [solo] : watchScenes(READ_PART, READ_SLOT, c);
     if (!list.length) return;
     watchClose();
     var el = document.createElement('div');
@@ -5196,7 +5226,7 @@
     else if (p[0] === 'language') renderLanguage();
     else if (p[0] === 'questions') renderQuestions();
     else if (p[0] === 'compare') { CP_ENTER = true; renderCompare(); }
-    else if (p[0] === 'watch') { CP_ENTER = true; renderCompare(); var ws = p[1] && D.texts[tidOf(p[1])] ? watchScene(p[1]) : null; if (ws) watchOpen(ws); }
+    else if (p[0] === 'watch') { CP_ENTER = true; renderCompare(); var ws = p[1] && D.texts[tidOf(p[1])] ? watchScene(p[1]) : null; if (ws) watchOpen(ws, p[2]); }
     else if (p[0] === 'build') renderBuild(p[1]);
     else if (p[0] === 'comparative') renderHome();
     else if (p[0] === 'single') renderSingle();
