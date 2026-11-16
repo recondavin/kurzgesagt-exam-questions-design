@@ -49,7 +49,9 @@ for (const id of D.order) {
   if (id === 'sive' || id === 'stlt') ok(t.moments.every(m => Array.isArray(m.anchor) && m.anchor.length >= 1 && m.anchor.length <= 2 && m.anchor.length + (m.quote ? 1 : 0) >= 2 &&
     m.anchor.every(s => s.split(/\s+/).length <= 16)), `${id}: every key moment has one or two short Anchor ideas (16 words or fewer)`);
   const groups = [...t.modes.theme.themes, ...t.modes.cc.aspects, { name: 'vision', points: t.modes.gvv.points }];
-  ok(t.modes.theme.themes.length === 3, `${id}: the three themes`);
+  // The essay builder is planned around three themes; themes added so that every theme has its key scenes are `more`.
+  ok(t.modes.theme.themes.filter(g => !g.more).length === 3, `${id}: the three themes`);
+  ok(t.modes.theme.themes.filter(g => g.more).every(g => g.points.length >= 2), `${id}: every extra theme has at least two key scenes`);
   ok(t.modes.cc.aspects.length >= 6, `${id}: at least six cultural-context aspects`);
   ok(['bleak', 'hopeful', 'mixed'].includes(t.modes.gvv.outlook) && t.modes.gvv.opening && t.modes.gvv.ending, `${id}: vision has an opening, an ending and an outlook`);
   for (const g of groups) {

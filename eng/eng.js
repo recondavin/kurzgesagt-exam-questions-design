@@ -4182,9 +4182,16 @@
     }).sort(function (x, y) { return y[0] - x[0] || y[1] - x[1]; });
     return scored;
   }
+  // The themes and aspects written later so that every theme has its key scenes (`more: true` in the text's notes: the
+  // user, "i need key scenes for all of them") are in the notes tables but are not offered as an essay's paragraphs:
+  // the essay builder is planned around each text's first three themes and seven or so aspects.
+  function modeMore(mode, tid, name) {
+    var m = text(tid).modes[mode] || {}, g = (mode === 'theme' ? m.themes : mode === 'cc' ? m.aspects : null) || [];
+    return g.some(function (x) { return x.name === name && x.more; });
+  }
   function aspectOptions(mode) {
     var names = [], seen = {};
-    ebTexts().forEach(function (t) { modeRows(mode, t).forEach(function (r) { if (!seen[r[0]] && r[0] !== 'Outlook' && r[0] !== 'More' && r[1].length) { seen[r[0]] = 1; names.push(r[0]); } }); });
+    ebTexts().forEach(function (t) { modeRows(mode, t).forEach(function (r) { if (!seen[r[0]] && r[0] !== 'Outlook' && r[0] !== 'More' && r[1].length && !modeMore(mode, t, r[0])) { seen[r[0]] = 1; names.push(r[0]); } }); });
     return names.length ? names : MODE[mode].topics;
   }
   function pointsFor(mode, aspect, tid) {
