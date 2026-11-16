@@ -3150,7 +3150,7 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 .eng-read__btn, body.eng-papertop .eng-cmpg .eng-btn, .eng-read__ideasb, .eng-read__helpb, .eng-read__structb, .eng-pause__skip, .eng-pause__again {
   --tab: var(--exam-paper-2); --stripe: var(--exam-ink); --sw: 7px;
   --tabbg: linear-gradient(var(--stripe), var(--stripe)) left / var(--sw) 100% no-repeat, var(--tab);
-  border-radius: 0 6px 6px 0; background: var(--tabbg); box-shadow: none; transition: background-size .22s ease, color .16s ease;
+  border-radius: 0 6px 6px 0; background: var(--tabbg); box-shadow: none; transition: background-size .7s cubic-bezier(.5, 1, .89, 1), color .45s ease-out;
 }
 .eng-read__btn:hover, body.eng-papertop .eng-cmpg .eng-btn:hover, .eng-read__ideasb:hover, .eng-read__structb:hover, .eng-read__helpb[aria-pressed="false"]:hover, .eng-pause__skip:hover, .eng-pause__again:hover { background: var(--tabbg); }
 /* on the exam desk */
@@ -3183,7 +3183,7 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
   body.eng-papertop #eng-cpd.eng-cpd .eng-btn, body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__btns .eng-btn {
     --tab: var(--exam-pen); --stripe: color-mix(in srgb, var(--exam-pen) 68%, #000); --sw: 7px;
     --tabbg: linear-gradient(var(--stripe), var(--stripe)) left / var(--sw) 100% no-repeat, var(--tab);
-    padding: 0 22px 0 27px; border-radius: 0 6px 6px 0; background: var(--tabbg); box-shadow: none; transition: background-size .22s ease, color .16s ease;
+    padding: 0 22px 0 27px; border-radius: 0 6px 6px 0; background: var(--tabbg); box-shadow: none; transition: background-size .7s cubic-bezier(.5, 1, .89, 1), color .45s ease-out;
   }
   body.eng-papertop #eng-cpd.eng-cpd .eng-btn:hover, body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__btns .eng-btn:hover { background: var(--tabbg); }
   body.eng-papertop #eng-cpd.eng-cpd .eng-btn[disabled] { --tab: var(--exam-paper-2); --stripe: var(--exam-todo); background: var(--tabbg); }
@@ -3195,7 +3195,9 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
    you hover over a button make that stripe go the fullw ay across not just a bit"). The button fills with its stripe's
    colour and its words change to stay readable: cream on ink, ink on grey, ink on white (on the video); a red tab
    fills with its darker red. Only where there is a pointer to hover with, so a tap on a phone does not leave a button
-   filled. A button that cannot be pressed does not fill. */
+   filled. A button that cannot be pressed does not fill. The fill takes .7s and slows to a stop (the user, of a
+   quick .22s sweep: "make it slower and decellertate"): half way across at .2s, nine tenths at .5s. (A sharper
+   curve was tried first and was nine tenths across in .2s, which is not slower to the eye.) */
 @media (hover: hover) {
   .eng-read__btn:hover, body.eng-papertop .eng-cmpg .eng-btn:hover, .eng-read__structb:hover, .eng-read__helpb[aria-pressed="false"]:hover { --sw: 100%; color: #FFFDF6; }
   body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(.is-done) .eng-btn:not(.eng-btn--quiet):hover { color: #FFFDF6; }
