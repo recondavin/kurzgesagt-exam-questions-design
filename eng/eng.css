@@ -3139,3 +3139,56 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 .eng-pause.is-tw.is-paused .eng-pause__line.is-in { stroke-dashoffset: 0; }
 .eng-pause.is-tw.is-paused .eng-pause__dot { opacity: 0; transition: opacity .15s ease; }
 .eng-pause.is-tw.is-paused .eng-pause__dot.is-in { opacity: 1; }
+
+/* Buttons are tabs on a stripe (the user, shown four directions for new buttons beside the old thin outline boxes: "i
+   asked 2 people they said D"). A button is a flat tab with a coloured stripe down its left edge, the same idea as the
+   labels on the paper: ink stripe on a paper tab for an ordinary step, a darker stripe on a red tab for the next step
+   (red is still the examiner and the way on), a grey stripe for a quiet one. The stripe widens under the pointer.
+   On the video the tab is see-through with a white stripe. The page tabs (Opening, Paragraph 1...) and the square
+   close buttons are not buttons of this kind and keep their look. --tabbg is the whole background, so a rule that
+   changes a button's colours only sets --tab and --stripe. */
+.eng-read__btn, body.eng-papertop .eng-cmpg .eng-btn, .eng-read__ideasb, .eng-read__helpb, .eng-read__structb, .eng-pause__skip, .eng-pause__again {
+  --tab: var(--exam-paper-2); --stripe: var(--exam-ink); --sw: 7px;
+  --tabbg: linear-gradient(var(--stripe), var(--stripe)) left / var(--sw) 100% no-repeat, var(--tab);
+  border-radius: 0 6px 6px 0; background: var(--tabbg); box-shadow: none; transition: background-size .14s ease;
+}
+.eng-read__btn:hover, body.eng-papertop .eng-cmpg .eng-btn:hover, .eng-read__ideasb:hover, .eng-read__structb:hover, .eng-read__helpb[aria-pressed="false"]:hover, .eng-pause__skip:hover, .eng-pause__again:hover { --sw: 11px; background: var(--tabbg); }
+/* on the exam desk */
+.eng-read__btn { padding: 0 16px 0 21px; }
+.eng-read__btn.is-quiet { --stripe: var(--exam-done); box-shadow: none; }
+.eng-read__btn.is-go, .eng-read__btn.is-go:hover { --tab: var(--exam-pen); --stripe: color-mix(in srgb, var(--exam-pen) 68%, #000); background: var(--tabbg); box-shadow: none; color: #FFFDF6; }
+.eng-read__watch .eng-read__btn { padding: 0 14px 0 19px; }
+.eng-read__ideasb { --stripe: var(--exam-done); --sw: 5px; padding: 0 12px 0 15px; }
+.eng-read__ideasb:hover { --sw: 8px; }
+.eng-read__helpb, .eng-read__structb { --tab: #FFFDF6; padding: 0 14px 0 19px; }
+.eng-read__helpb[aria-pressed="true"] { --tab: var(--exam-ink); --stripe: var(--exam-pen); background: var(--tabbg); color: #FFFDF6; }
+/* on the Compare page and in its writing steps */
+body.eng-papertop .eng-cmpg .eng-btn { padding: 0 20px 0 25px; }
+body.eng-papertop .eng-cmpg .eng-btn:active { box-shadow: none; }
+body.eng-papertop .eng-cmpg .eng-btn--quiet, body.eng-papertop .eng-cmpg .eng-btn--quiet:active { --stripe: var(--exam-done); box-shadow: none; }
+body.eng-papertop .eng-cmpg .eng-cp__next { padding: 0 24px 0 29px; }
+body.eng-papertop .eng-cmpg .eng-cpw__h .eng-btn { padding: 0 20px 0 25px; }
+body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) .eng-btn:not(.eng-btn--quiet), body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) .eng-btn:not(.eng-btn--quiet):hover { --tab: var(--exam-pen); --stripe: color-mix(in srgb, var(--exam-pen) 68%, #000); background: var(--tabbg); box-shadow: none; color: var(--exam-paper); }
+body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(.is-done) .eng-btn:not(.eng-btn--quiet), body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(.is-done) .eng-btn:not(.eng-btn--quiet):hover { --tab: var(--exam-paper-2); --stripe: var(--exam-ink); background: var(--tabbg); box-shadow: none; color: var(--exam-ink); }
+/* on the video */
+.eng-pause__row .eng-read__btn { --sw: calc(7px * var(--ps)); padding: 0 calc(18px * var(--ps)) 0 calc(24px * var(--ps)); background: var(--tabbg); box-shadow: none; color: var(--exam-ink); }
+.eng-pause__row .eng-read__btn:hover { --sw: calc(11px * var(--ps)); background: var(--tabbg); }
+.eng-pause__row .eng-read__btn[disabled] { --tab: rgba(255, 253, 246, .14); --stripe: rgba(255, 253, 246, .4); --sw: calc(7px * var(--ps)); background: var(--tabbg); box-shadow: none; color: rgba(255, 253, 246, .6); }
+.eng-pause__row .eng-read__btn.is-go, .eng-pause__row .eng-read__btn.is-go:hover { --tab: var(--exam-pen); --stripe: color-mix(in srgb, var(--exam-pen) 68%, #000); background: var(--tabbg); box-shadow: none; color: #FFFDF6; }
+.eng-pause__skip, .eng-pause__again { --tab: rgba(255, 253, 246, .16); --stripe: #FFFDF6; --sw: 5px; padding: 0 14px 0 18px; }
+.eng-pause__skip:hover, .eng-pause__again:hover { --tab: rgba(255, 253, 246, .26); --sw: 8px; }
+.eng-pause__x { border-radius: 6px; }
+@media (prefers-reduced-motion: reduce) { .eng-read__btn, body.eng-papertop .eng-cmpg .eng-btn, .eng-read__ideasb, .eng-read__helpb, .eng-read__structb, .eng-pause__skip, .eng-pause__again { transition: none; } }
+/* The same tabs for the writing popup's buttons and the helper's, which are styled by rules of their own on a wide
+   screen: red tab for the way on, paper tab with an ink stripe for Back. (On a phone the popup keeps its dark look.) */
+@media (min-width: 701px) {
+  body.eng-papertop #eng-cpd.eng-cpd .eng-btn, body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__btns .eng-btn {
+    --tab: var(--exam-pen); --stripe: color-mix(in srgb, var(--exam-pen) 68%, #000); --sw: 7px;
+    --tabbg: linear-gradient(var(--stripe), var(--stripe)) left / var(--sw) 100% no-repeat, var(--tab);
+    padding: 0 22px 0 27px; border-radius: 0 6px 6px 0; background: var(--tabbg); box-shadow: none; transition: background-size .14s ease;
+  }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-btn:hover, body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__btns .eng-btn:hover { --sw: 11px; background: var(--tabbg); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-btn[disabled] { --tab: var(--exam-paper-2); --stripe: var(--exam-todo); background: var(--tabbg); }
+  body.eng-papertop #eng-cpd.eng-cpd .eng-btn--quiet, body.eng-papertop #eng-cpd.eng-cpd .eng-btn--quiet:hover, body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__btns .eng-btn, body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__btns .eng-btn:hover { --tab: var(--exam-paper-2); --stripe: var(--exam-ink); background: var(--tabbg); box-shadow: none; color: var(--exam-ink); }
+  body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__btns .eng-btn { padding: 0 18px 0 23px; }
+}
