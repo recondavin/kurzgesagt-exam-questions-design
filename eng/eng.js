@@ -2982,6 +2982,83 @@
       }
     }
   }
+  // The words of a pause that labels people are typed in, not shown all at once (the user, of a block with two people's
+  // lines and a question: "now because its a lot it should have a typing animation first hadley then andy then the
+  // question be animated in with a typing animation"). Top to bottom: a name, its lines one after another, the next
+  // name and its lines, then the question (its highlighted words land in one piece); only then the line to write on,
+  // the ticks and Done. Every word is in place from the start and only made visible letter by letter, so nothing moves
+  // as it types. A click or any key shows the rest at once. Not typed for someone who asked for less motion.
+  function watchType(lead) {
+    var w = WATCH, el = w.el, sc = w.list[w.at];
+    watchTypeEnd();
+    if (!sc.spots || watchStill()) return;
+    var labs = Array.prototype.slice.call(el.querySelectorAll('.eng-pause__label.is-pin')).sort(function (a, b) { return a.getBoundingClientRect().top - b.getBoundingClientRect().top; });
+    // The pace is one you can read along with, about 38 letters a second, with a beat between lines and a longer one
+    // between people (the user, told it was being built: "the animation shouldnt be too fast"). It was 75 at first.
+    var h3 = el.querySelector('.eng-pause__card h3'), steps = [], rate = 0.038;
+    var words = function (node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (ch) {
+        if (ch.nodeType === 1) { ch.classList.add('eng-type__unit'); steps.push({ unit: ch, ms: 260 }); return; }
+        if (ch.nodeType !== 3 || !ch.nodeValue) return;
+        var wrap = document.createElement('span'), on = document.createElement('span'), off = document.createElement('span');
+        wrap.className = 'eng-type'; on.className = 'eng-type__on'; off.className = 'eng-type__off'; off.textContent = ch.nodeValue;
+        wrap.appendChild(on); wrap.appendChild(off); node.replaceChild(wrap, ch);
+        steps.push({ on: on, off: off, wrap: wrap, text: off.textContent, ms: off.textContent.length / rate });
+      });
+    };
+    labs.forEach(function (lab, i) {
+      steps.push({ ms: i ? 480 : 0 });
+      steps.push({ row: i, ms: 340 });   // its line is drawn to the person first
+      Array.prototype.slice.call(lab.childNodes).forEach(function (ch) {
+        if (ch.nodeType === 1 && ch.tagName === 'B') { ch.classList.add('eng-type__unit'); steps.push({ unit: ch, ms: 260 }); }
+        else if (ch.nodeType === 1) { steps.push({ ms: 200 }); words(ch); }
+        else if (ch.nodeType === 3 && ch.nodeValue) {
+          var hold = document.createElement('span'); lab.replaceChild(hold, ch); hold.appendChild(ch); words(hold);
+        }
+      });
+    });
+    if (h3) { steps.push({ ms: 520 }); words(h3); }
+    if (!steps.length) return;
+    var at = 0; steps.forEach(function (st) { st.t = at; at += st.ms; });
+    var run = { steps: steps, t0: performance.now() + lead, i: 0, skip: function () { watchTypeEnd(); } };
+    w.typeRun = run; w.lineIn = 0;
+    el.classList.add('is-tw'); el.classList.add('is-typing');
+    Array.prototype.forEach.call(el.querySelectorAll('.eng-pause__line, .eng-pause__dot'), function (x) { x.classList.remove('is-in'); });
+    el.addEventListener('pointerdown', run.skip);
+    var tick = function (now) {
+      if (WATCH !== w || w.typeRun !== run) return;
+      var e = now - run.t0;
+      while (run.i < steps.length) {
+        var st = steps[run.i];
+        if (e < st.t) break;
+        if (st.unit) st.unit.classList.add('is-in');
+        if (st.row !== undefined && w.lineIn <= st.row) { w.lineIn = st.row + 1; Array.prototype.forEach.call(el.querySelectorAll('[data-row="' + st.row + '"]'), function (x) { x.classList.add('is-in'); }); }
+        if (st.on) {
+          var n = Math.min(st.text.length, Math.floor((e - st.t) * rate));
+          if (n !== st.n) { st.n = n; st.on.textContent = st.text.slice(0, n); st.off.textContent = st.text.slice(n); st.wrap.classList.add('is-now'); }
+        }
+        if (e < st.t + st.ms) break;
+        if (st.on) { st.on.textContent = st.text; st.off.textContent = ''; st.wrap.classList.remove('is-now'); }
+        run.i++;
+      }
+      if (run.i >= steps.length) { watchTypeEnd(); return; }
+      run.raf = requestAnimationFrame(tick);
+    };
+    run.raf = requestAnimationFrame(tick);
+  }
+  function watchTypeEnd() {
+    var w = WATCH, run = w && w.typeRun;
+    if (!run) return;
+    w.typeRun = null; w.lineIn = undefined;
+    cancelAnimationFrame(run.raf);
+    Array.prototype.forEach.call(w.el.querySelectorAll('.eng-pause__line, .eng-pause__dot'), function (x) { x.classList.add('is-in'); });
+    run.steps.forEach(function (st) {
+      if (st.unit) st.unit.classList.add('is-in');
+      if (st.on) { st.on.textContent = st.text; st.off.textContent = ''; st.wrap.classList.remove('is-now'); }
+    });
+    w.el.classList.remove('is-typing');
+    w.el.removeEventListener('pointerdown', run.skip);
+  }
   function watchHold(ps) {
     var w = WATCH, el = w.el, sc = w.list[w.at], own = !!w.video && ((ps.x != null && ps.y != null) || !sc.pic);
     clearInterval(w.poll); w.poll = 0;
@@ -3007,11 +3084,13 @@
     // labels, then the question. It is started here, after everything has been built and laid out, because the dark and
     // the labels are made at the pause and something new on the page does not fade in, it is simply there.
     if (w.live) { el.classList.remove('is-dark'); void el.offsetWidth; el.classList.add('is-dark'); }
+    watchType(w.live ? 1150 : 700);
   }
   function watchResume() {
     var w = WATCH, el = w.el;
     clearInterval(w.poll);
     w.hold = false; w.paused = false; w.pi = (w.pi || 0) + 1;
+    watchTypeEnd(); el.classList.remove('is-tw');
     el.classList.remove('is-paused'); el.classList.remove('is-held'); el.classList.remove('is-frame'); el.classList.remove('is-live'); el.classList.remove('is-dark'); el.classList.add(w.holdCls); w.live = false;
     el.querySelector('.eng-pause__card').hidden = true;
     el.querySelector('.eng-pause__bars').innerHTML = '<i class="is-clipbar"><b></b></i><i><b></b></i>';
@@ -3194,7 +3273,7 @@
       // The block is as wide as the room allows (never under 300px by --ps) and its words shrink a little, down to three
       // quarters, if it would otherwise be taller than the picture.
       var ps = parseFloat(el.style.getPropertyValue('--ps')) || 1, n = Math.min(spots.length, labs.length), all = [card].concat(Array.prototype.slice.call(labs, 0, n));
-      var topMin = Math.max(14, 86 - sy), botMax = H - 14, clear = Math.max(44, W * 0.04), minL = Infinity, maxR = -Infinity, i;
+      var topEl = el.querySelector('.eng-pause__top'), tb = topEl ? topEl.offsetTop + topEl.offsetHeight + 8 : 86, topMin = Math.max(14, tb - sy), botMax = H - 14, clear = Math.max(44, W * 0.04), minL = Infinity, maxR = -Infinity, i;
       cs.forEach(function (c) { minL = Math.min(minL, c.x - c.rx); maxR = Math.max(maxR, c.x + c.rx); });
       var eL = 36 - sx, eR = aw - 36 - sx, rl = minL - clear - eL, rr = eR - (maxR + clear), left = rl > rr, roomW = Math.max(rl, rr), cw = 0, hs = [], ch = 0, gap = 0, total = 0;
       // (is-set goes on before anything is measured: taking it off and putting it back around a measurement restarts the
@@ -3211,7 +3290,7 @@
         return total <= botMax - topMin;
       }); };
       // If it is still too tall at three quarters it may run past the picture, up to the title and down to the screen's edge.
-      if (!fit()) { topMin = Math.min(topMin, 90 - sy); botMax = Math.max(botMax, eh - 14 - sy); fit(); }
+      if (!fit()) { topMin = Math.min(topMin, tb + 4 - sy); botMax = Math.max(botMax, eh - 14 - sy); fit(); }
       var L0 = left ? eL : eR - cw, bx = left ? L0 + cw + 14 : L0 - 14, hy = [], nw = [], rg = document.createRange();
       for (i = 0; i < n; i++) { var hb = labs[i].querySelector('b'); hy.push(hb ? hb.offsetTop + hb.offsetHeight / 2 : 16); if (hb) rg.selectNodeContents(hb); nw.push(hb ? rg.getBoundingClientRect().width : 0); }
       // Which person's words come first, and whether the block is at the picture's middle, top or bottom, is whatever
@@ -3246,12 +3325,14 @@
         });
       });
       if (real) w.stack = { key: key, order: plan.order, top: plan.top };
-      plan.rows.forEach(function (r) {
-        var lab = labs[r.i], nx = left ? L0 + nw[r.i] + 10 : bx;
+      // While a pause is being typed, a line is drawn when its person's words begin: row k is in once w.lineIn is past k.
+      var rowsIn = w.lineIn === undefined ? Infinity : w.lineIn;
+      plan.rows.forEach(function (r, k) {
+        var lab = labs[r.i], nx = left ? L0 + nw[r.i] + 10 : bx, inCls = k < rowsIn ? ' is-in' : '';
         lab.style.left = Math.round(sx + L0) + 'px'; lab.style.top = Math.round(sy + r.top) + 'px';
         // On the left the words start at the block's far edge, so the line runs along from the end of the name first.
-        lines += '<polyline class="eng-pause__line" pathLength="1" points="' + r.ax.toFixed(1) + ',' + r.ay.toFixed(1) + ' ' + bx.toFixed(1) + ',' + r.ly.toFixed(1) + (left && nx < bx - 4 ? ' ' + nx.toFixed(1) + ',' + r.ly.toFixed(1) : '') + '"/>' +
-          '<circle class="eng-pause__dot" cx="' + r.ax.toFixed(1) + '" cy="' + r.ay.toFixed(1) + '" r="4.5"/>';
+        lines += '<polyline class="eng-pause__line' + inCls + '" data-row="' + k + '" pathLength="1" points="' + r.ax.toFixed(1) + ',' + r.ay.toFixed(1) + ' ' + bx.toFixed(1) + ',' + r.ly.toFixed(1) + (left && nx < bx - 4 ? ' ' + nx.toFixed(1) + ',' + r.ly.toFixed(1) : '') + '"/>' +
+          '<circle class="eng-pause__dot' + inCls + '" data-row="' + k + '" cx="' + r.ax.toFixed(1) + '" cy="' + r.ay.toFixed(1) + '" r="4.5"/>';
       });
       card.style.left = Math.round(sx + L0) + 'px'; card.style.right = 'auto'; card.style.top = Math.round(sy + plan.cardTop) + 'px';
     } else {
@@ -3273,7 +3354,12 @@
     el.style.setProperty('--ps', (wide ? Math.max(1, Math.min(1.55, el.clientWidth / 1440)) : 1).toFixed(3));
     // A clip is 16:9 and keeps clear of the title above it and the line of help below it.
     var vid = w.video && (!w.hold || el.classList.contains('is-frame')) ? w.video : null, yt = !!w.clip && !w.video && (!w.hold || w.live), ar = yt ? 16 / 9 : vid ? (vid.videoWidth || 16) / (vid.videoHeight || 9) : img ? (img.naturalWidth || 16) / (img.naturalHeight || 9) : 16 / 9;
-    var aw = el.clientWidth, ah = wide ? el.clientHeight - (yt ? 108 : 0) : Math.round(el.clientHeight * 0.38);
+    // A clip sits wholly under the scene's title (the user, of a title that grew with the screen and lay over the
+    // video's corner: "idk whu the label on beer on the roof overlaps the scene it looks messy"): the room above the
+    // player is measured from the title, not fixed.
+    var topEl = el.querySelector('.eng-pause__top'), pad = wide && yt ? Math.max(84, topEl ? topEl.offsetTop + topEl.offsetHeight + 12 : 0) : 0;
+    el.style.paddingTop = pad ? pad + 'px' : '';
+    var aw = el.clientWidth, ah = wide ? el.clientHeight - (yt ? pad + 24 : 0) : Math.round(el.clientHeight * 0.38);
     var W = Math.round(Math.min(aw, ah * ar)), H = Math.round(W / ar), svg = stage.querySelector('svg'), lab = el.querySelector('.eng-pause__label'), card = el.querySelector('.eng-pause__card');
     stage.style.width = W + 'px'; stage.style.height = H + 'px';
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
@@ -3554,7 +3640,7 @@
   document.addEventListener('keydown', function (e) {
     if (!READ) return;
     // While a scene is being watched, Escape closes that and nothing else, and its own Tab loop applies.
-    if (WATCH) { if (e.key === 'Escape') { e.stopPropagation(); e.preventDefault(); watchClose(true); } return; }
+    if (WATCH) { if (WATCH.typeRun) watchTypeEnd(); if (e.key === 'Escape') { e.stopPropagation(); e.preventDefault(); watchClose(true); } return; }
     if (e.key === 'Escape') { e.stopPropagation(); if (!pageWide() && READ.classList.contains('is-help')) pageHelpSet(false); else readClose(); return; }
     if (e.key !== 'Tab') return;
     var f = Array.prototype.filter.call(READ.querySelectorAll('textarea, button'), function (x) { return x.offsetParent !== null; }), i = f.indexOf(document.activeElement);

@@ -3120,3 +3120,22 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 .eng-pause__ticks li.is-on path { stroke: #FF4B5E; }
 .eng-pause.is-nobars .eng-pause__bars { display: none; }
 .eng-pause.is-stack .eng-pause__svg { overflow: visible; }
+
+/* The pause's words typed in (the user: "it should have a typing animation first hadley then andy then the question").
+   The words are all in place and only shown letter by letter (eng-type__off is the part not yet typed; a name and the
+   question's highlighted words come in whole), so nothing moves. While it types (is-typing) the line to write on, the
+   ticks and Done wait, then fade in. is-tw stays on for the whole pause so that fade-ins of the block do not start over.
+   And a clip's title has no dark plate behind it: it stands on the screen above the video, clear of it. */
+.eng-type__off, .eng-type__unit { visibility: hidden; }
+.eng-type__unit.is-in { visibility: visible; }
+.eng-type.is-now .eng-type__on { margin-right: -2px; border-right: 2px solid currentColor; }
+.eng-pause.is-tw .eng-pause__label, .eng-pause.is-tw .eng-pause__label.is-pin { opacity: 1; transform: none; transition: none; }
+.eng-pause.is-tw .eng-pause__card { animation: none; }
+.eng-pause.is-tw .eng-pause__card > * { transition: opacity .35s ease; }
+.eng-pause.is-typing .eng-pause__card > :not(h3) { opacity: 0; }
+.eng-pause.is-clip .eng-pause__top { background: none; }
+/* While a pause is typed, each line is drawn to its person as that person's words begin (is-in). */
+.eng-pause.is-tw.is-paused .eng-pause__line { animation: none; stroke-dashoffset: 1; transition: stroke-dashoffset .32s ease-out; }
+.eng-pause.is-tw.is-paused .eng-pause__line.is-in { stroke-dashoffset: 0; }
+.eng-pause.is-tw.is-paused .eng-pause__dot { opacity: 0; transition: opacity .15s ease; }
+.eng-pause.is-tw.is-paused .eng-pause__dot.is-in { opacity: 1; }
