@@ -2800,13 +2800,18 @@
       // The words on the labels are the lines of the scene an essay quotes, as spoken in this upload (its captions):
       // not "Step aside, Mert", which the first version gave. And each question asks about those words.
       { at: 116, ask: 'What do Hadley’s words show about abuse of power in Shawshank?', title: 'Power with no one to answer to',
-        note: 'Hadley was a second from killing a prisoner for asking a question, and nobody on the roof could stop him. He lets Andy live only once there is money in it for him, and even then Andy is just “that smart banker who killed his wife”. In Shawshank the guards use their power for themselves.',
+        note: 'Hadley can kill a prisoner for speaking to him and call it “an accident”, and nobody on the roof could stop him. He lets Andy live only once there is money in it for him, and even then Andy is just “that smart banker who killed his wife”. In Shawshank the guards use their power for themselves.',
+        // The line that shows the abuse itself is "having himself an accident" (a guard can kill a prisoner and have it
+        // called an accident). The first version quoted only the half before it, "Step aside, Mert", which the user
+        // rightly threw out; then, asked of the smart-banker line "but what does it do for abuse and power exact;y",
+        // the honest answer was that it shows how Hadley sees a prisoner, not the abuse, so the accident half is on
+        // the label too, without the swearing in front of it.
         // A quote is given whole: Hadley's stopped at "...a smart banker like you?" and the user could not see what he
         // meant by it ("why does he say so i can believe a smart banker like you?"); the sentence that explains it,
         // "So I can end up in here with you?", was the one left off.
         // Every label says what its person is doing as well as what they say (the user, of a first version that did so
         // for Hadley only: "it says what hadley is doing does it say what andy is doing trying to...").
-        spots: [{ x: 29, y: 40, rx: 18.5, ry: 35, label: 'Hadley', say: ['About to throw Andy off the roof, he hears he can keep all of his $35,000:', '“You better start making sense.”', '“You’re that smart banker who killed his wife, aren’t you? Why should I believe a smart banker like you? So I can end up in here with you?”'] },
+        spots: [{ x: 29, y: 40, rx: 18.5, ry: 35, label: 'Hadley', say: ['Drags Andy to the edge of the roof for speaking to him:', '“…having himself an accident.”', 'Stops when he hears he can keep all of his $35,000:', '“You better start making sense.”', '“You’re that smart banker who killed his wife, aren’t you? Why should I believe a smart banker like you? So I can end up in here with you?”'] },
           { x: 57, y: 52, rx: 13.5, ry: 36, label: 'Andy', say: ['Risks his life by speaking to a guard, to tell him how to keep the money:', '“Mr Hadley, do you trust your wife?”', 'All he asks in return, and none of it for himself:', '“I’d only ask three beers apiece for each of my co-workers.”'] }] },
       { at: 180.5, ask: 'Going by Red’s words, how is Andy’s use of power different from the guards’ abuse of power?', title: 'Using power for others',
         note: 'Andy asks only for beers for his crew: unlike the guards, he uses his power to give, not to take. For a moment the prisoners hold the power.',
