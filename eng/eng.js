@@ -2485,7 +2485,17 @@
     // Gone back to a part that is written, with the rest of the paragraph under it: no empty lines between them.
     var af = READ.querySelector('[data-cine-after]');
     if (af && !af.hidden && ta.value.trim()) return 1;
-    return Math.max(used ? 3 : 2, Math.min(7, Math.ceil(r[1] * 5.6 / (w / ((parseFloat(cs.fontSize) || 20) * .46)))) - used);
+    var need = Math.max(used ? 3 : 2, Math.min(7, Math.ceil(r[1] * 5.6 / (w / ((parseFloat(cs.fontSize) || 20) * .46)))) - used);
+    // And never fewer than the screen has room for: the lines run down to the foot's tabs. (A review the user passed
+    // on said the picture and the scene's name took more room than the writing; the user: "i agree with it on writing
+    // area bigger".) This is measured while pageGrow holds the box at no height, so what is left under the foot's tabs
+    // is the room there is for lines. On a phone, or any screen the page does not fit, there is none to add.
+    var paper = READ.querySelector('.eng-read__paper'), nav = READ.querySelector('.eng-read__nav'), fit = 0;
+    // (Not once the page has been scrolled: then it does not fit, and the lines are as many as the words need.)
+    if (paper && nav && !paper.scrollTop) {
+      fit = Math.floor((paper.getBoundingClientRect().top + paper.clientHeight - (parseFloat(getComputedStyle(paper).paddingBottom) || 0) - nav.getBoundingClientRect().bottom) / (parseFloat(cs.lineHeight) || 34));
+    }
+    return Math.max(need, Math.min(14, fit));
   }
   // What a step is called here. "Anchor" is the site's word for the middle of a paragraph (the user, of this page:
   // "anchor(which is a but dumb i didnt know what that meant)"), so here it is what it means: the scene.

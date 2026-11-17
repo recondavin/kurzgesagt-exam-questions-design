@@ -3259,7 +3259,7 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 /* the part's heading and its count of ticks are not shown (the heading stays for a screen reader) */
 .eng-read.is-cine .eng-read__phrow { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 /* the frame */
-.eng-read.is-cine .eng-cine { --lh: 34px; position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); align-content: start; gap: 0 28px; box-sizing: border-box; min-height: clamp(340px, calc(100vh - 470px), 440px); margin: 0; padding: 40px 36px 34px; overflow: hidden; border-radius: 4px; background: #000; }
+.eng-read.is-cine .eng-cine { --lh: 34px; position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); align-content: start; gap: 0 28px; box-sizing: border-box; margin: 0; padding: 40px 36px 34px; overflow: hidden; border-radius: 4px; background: #000; }
 .eng-read.is-cine .eng-cine.is-nopic { grid-template-columns: minmax(0, 1fr); }
 .eng-read.is-cine .eng-cine::before, .eng-read.is-cine .eng-cine::after { content: ""; position: absolute; z-index: 1; right: 10px; left: 10px; height: 10px; background: repeating-linear-gradient(90deg, rgba(255, 253, 246, .88) 0 12px, transparent 12px 28px); }
 .eng-read.is-cine .eng-cine::before { top: 8px; }
@@ -3267,15 +3267,18 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-cine__bg { position: absolute; inset: 26px 12px; overflow: hidden; border-radius: 3px; background: #141B26; }
 .eng-cine__bg i { position: absolute; inset: -48px; background: center / cover no-repeat; filter: blur(26px) brightness(.32) saturate(1.2); }
 /* the scene, small and sharp */
-/* (the picture was 210px wide; the user: "makebthe image top left image bigger". It is 320px, still only half its real
-   width on a sharp screen; its name and Watch the scene share one line under it so the frame is not much taller) */
-.eng-cine__scene { position: relative; grid-row: 1; grid-column: 1; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; align-self: start; gap: 10px 12px; width: 320px; min-width: 0; margin: 0 0 12px; }
+/* (the picture was 210px wide; the user: "makebthe image top left image bigger", and it went to 320px. Then a review
+   the user passed on said the picture and the scene's name took more room than the writing, and the user agreed: "i
+   agree with it on writing area bigger". So it is 260px, between the two, and the lines under it fill whatever
+   height the screen has (eng.js, cineLines). Its name and a short Watch share one line under it.) */
+.eng-cine__scene { position: relative; grid-row: 1; grid-column: 1; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; align-self: start; gap: 10px 12px; width: 260px; min-width: 0; margin: 0 0 12px; }
 .eng-cine__scene figure { display: contents; margin: 0; }
 .eng-cine__scene img { grid-column: 1 / -1; display: block; width: 100%; height: auto; max-height: 300px; border-radius: 3px; object-fit: cover; object-position: 50% 25%; box-shadow: 0 0 0 1.5px rgba(255, 253, 246, .85), 0 12px 26px rgba(0, 0, 0, .5); }
 .eng-cine__scene figcaption { grid-column: 1; margin: 0; color: #FFFDF6; font: 700 17px/1.25 var(--font-head); letter-spacing: -.01em; }
 .eng-cine__scene figcaption small { display: block; margin: 0 0 3px; color: rgba(255, 253, 246, .84); font: 600 13px/1.2 var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
 .eng-cine__scene > .eng-read__btn { grid-column: 2; }
-.eng-cine__scene.is-two { grid-template-columns: 1fr 1fr; align-items: start; gap: 12px; width: 380px; }
+.eng-cine__scene:not(.is-two) .eng-read__btn span { display: none; }
+.eng-cine__scene.is-two { grid-template-columns: 1fr 1fr; align-items: start; gap: 12px; width: 320px; }
 .eng-cine__scene.is-two figure { display: block; width: 100%; transition: opacity .4s ease-out; }
 .eng-cine__scene.is-two img { aspect-ratio: 4 / 3; }
 .eng-cine__scene.is-two figcaption { margin: 10px 0 0; font-size: 15px; }
@@ -3351,7 +3354,6 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
   .eng-cine__scene figcaption { grid-column: 2; align-self: end; margin: 0; font-size: 17px; }
   .eng-cine__scene > .eng-read__btn { grid-row: 2; grid-column: 2; align-self: start; justify-self: start; }
   .eng-read.is-cine .eng-cine__scene .eng-read__btn { height: 38px; }
-  .eng-cine__scene:not(.is-two) .eng-read__btn span { display: none; }
   .eng-cine__scene.is-two { grid-template-columns: 1fr 1fr; align-items: start; gap: 10px 12px; width: 100%; }
   .eng-cine__scene.is-two figure { display: block; }
   .eng-cine__scene.is-two figcaption { margin: 8px 0 0; font-size: 15px; }
