@@ -2591,7 +2591,8 @@
     READ_B = {}; READ_TK = {}; READ_TKQ = true;
     if (c.slots.map(String).indexOf(String(READ_SLOT)) < 0) READ_SLOT = c.slots[0];
     var shown = READ_STRUCT ? [READ_SLOT] : c.slots;
-    return (READ_STRUCT ? pageTabs(c) : '') + shown.map(function (s) {
+    var teacher = false;
+    var body = shown.map(function (s) {
       var P = c.parts(c.W, s), pts = pageParts(part, s, c), sub = pageSub(part, s, c);
       // Sentences written while watching this paragraph's scenes from a direct link come in here.
       if (pts.length) watchScenes(part, s, c).forEach(function (sc) {
@@ -2609,17 +2610,23 @@
       }
       // The examiner's ticks: each box's own, in the margin; the count sits by the heading.
       var tk = pts.map(function (pt) { return tickList(part, s, pt.k, c); }), any = tk.some(function (x) { return x.length > 0; }), pics = CINE ? cinePics(part, s, c) : [];
+      if (any) teacher = true;
       var steps = CINE ? '<span class="eng-cine__steps">' + pts.map(function (pt, i) {
         return '<button type="button" class="eng-cine__tab" data-cine-go="' + pt.k + '" data-name="' + esc(cineName(pt)) + '"><i aria-hidden="true">' + (i + 1) + '</i><span aria-hidden="true">' + esc(cineName(pt)) + '</span></button>';
       }).join('') + '</span>' : '';
-      return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any ? tickTally() : '') + '</div>' + (CINE ? '' : watchBtn(part, s, c)) +
+      return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any && !CINE ? tickTally() : '') + '</div>' + (CINE ? '' : watchBtn(part, s, c)) +
         (CINE ? '<div class="eng-cine' + (pics.length ? '' : ' is-nopic') + '">' + cineScene(part, s, c) + '<p class="eng-cine__sofar" data-cine-before hidden></p><p class="eng-cine__sofar is-after" data-cine-after hidden></p>' : '') + pts.map(function (pt, i) {
         return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh">' + steps + '<b>' + esc(CINE ? cineName(pt) : pt.label) + '</b><span' + (CINE ? ' class="eng-cine__q"' : '') + '>' +
           (CINE ? esc(cineAsk(part, s, pt, c)) : pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span>' + pageIdeasBtn(s, pt) + '</p>' + (any ? tickHtml(part, s, pt.k, tk[i], c) : '') + pageIdeasList(s, pt) + '<div class="eng-read__ul" aria-hidden="true"><div></div></div>' +
           '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s) + ': ' + (CINE ? cineName(pt) : pt.label)) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
           (c.range[pt.k] ? '<p class="eng-read__wc" data-page-wc="' + s + '|' + pt.k + '"></p>' : '') + '</div>';
       }).join('') + (CINE ? '</div>' : '') + '</div>';
-    }).join('') + (READ_STRUCT ? '<div class="eng-read__stamp" data-page-stamp hidden><b></b><p></p></div>' + pageFoot(c) : '');
+    }).join('');
+    // On the cinema try-out the part's heading is not shown, and for a while the examiner went with it (his face, his
+    // count of ticks and what he says when you earn one). The user, of the try-out: "and do you get instant feedback
+    // from the teacher". So he is back, on the paper, at the end of the line the tabs are on.
+    return (READ_STRUCT ? (CINE ? '<div class="eng-cine__top">' + pageTabs(c) + (teacher ? tickTally() : '') + '</div>' : pageTabs(c)) : '') + body +
+      (READ_STRUCT ? '<div class="eng-read__stamp" data-page-stamp hidden><b></b><p></p></div>' + pageFoot(c) : '');
   }
   // A box's ideas, as the popup's boxes had them (the user, of the paper in boxes: "what about the ideas"): Show ideas,
   // at the end of the line that says what to write (beside it, not under it, so a paragraph takes less of the page),

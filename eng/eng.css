@@ -3241,6 +3241,11 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
    keep the backround as it was before the desk". So: the soothing picture inside the frame, the desk's paper
    outside it, and nothing navy.) The ink and paper colours swap inside the frame only, so everything in it follows. */
 .eng-read.is-cine .eng-read__paper { padding-bottom: 18px; }
+/* the tabs, and at the end of their line the examiner: his face, his count of ticks, and what he says the moment
+   you earn one (he drops to a line of his own, on the right, where the tabs fill the row, as on a phone) */
+.eng-cine__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; margin: 0 0 18px; }
+.eng-cine__top .eng-read__pages { margin: 0; }
+.eng-cine__top .eng-read__tally { margin: 0 0 0 auto; }
 .eng-read.is-cine .eng-cine {
   --exam-ink: #FFFDF6; --exam-ink-2: rgba(255, 253, 246, .72); --exam-paper: #0C1118; --exam-paper-2: rgba(255, 253, 246, .14); --exam-rule: rgba(255, 253, 246, .3); --exam-done: rgba(255, 253, 246, .5);
   --cine-lamp: #FFE45C; --cine-night: #0C1118;
