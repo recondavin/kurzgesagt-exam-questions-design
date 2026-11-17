@@ -2478,10 +2478,18 @@
   // most; after that the lines grow with what is typed, as they always did. A letter is about .46 of the font size
   // wide and a word with its space about 5.6 letters.
   function cineLines(ta) {
-    var w = ta.clientWidth, r = pageCtx(READ_PART).range[ta.getAttribute('data-page-box')];
+    var w = ta.clientWidth, r = pageCtx(READ_PART).range[ta.getAttribute('data-page-box')], cs = getComputedStyle(ta);
     if (!w || !r) return 2;
-    return Math.max(2, Math.min(7, Math.ceil(r[1] * 5.6 / (w / ((parseFloat(getComputedStyle(ta).fontSize) || 20) * .46)))));
+    // The paragraph so far, shown above, is part of the same paragraph: its lines count.
+    var sf = READ.querySelector('[data-cine-before]'), used = sf && !sf.hidden ? Math.round(sf.offsetHeight / (parseFloat(cs.lineHeight) || 34)) : 0;
+    // Gone back to a part that is written, with the rest of the paragraph under it: no empty lines between them.
+    var af = READ.querySelector('[data-cine-after]');
+    if (af && !af.hidden && ta.value.trim()) return 1;
+    return Math.max(used ? 3 : 2, Math.min(7, Math.ceil(r[1] * 5.6 / (w / ((parseFloat(cs.fontSize) || 20) * .46)))) - used);
   }
+  // What a step is called here. "Anchor" is the site's word for the middle of a paragraph (the user, of this page:
+  // "anchor(which is a but dumb i didnt know what that meant)"), so here it is what it means: the scene.
+  function cineName(pt) { return pt.k === 'a' ? 'The scene' : pt.label; }
   function cineBoxes() { return READ ? Array.prototype.slice.call(READ.querySelectorAll('.eng-cine > .eng-read__box')) : []; }
   function cineKey(b) { var id = b.getAttribute('data-page-boxof'); return id.slice(id.lastIndexOf('|') + 1); }
   // Show one box: the one asked for (k), else the one already showing, else the box to write next, else the first.
@@ -2506,6 +2514,18 @@
         tab.setAttribute('aria-label', name(j) + (done ? ', written' : '') + (nx ? ', to write next' : ''));
         if (of === cur) tab.setAttribute('aria-current', 'step'); else tab.removeAttribute('aria-current');
       });
+    });
+    // One paragraph, written a part at a time: what the parts before this one say is shown above the lines, dimmed,
+    // and what the parts after it say (if you have gone back) under them, so it reads as the one paragraph it is
+    // (the user, of one box to a frame: "its misleading to say seperate like 1 big part into 2 paragraphs"). A click
+    // on any of it goes to that part. At most three lines above (the end of it) and two below (the start of it).
+    var seg = function (b) { var v = b.querySelector('.eng-read__ta').value.trim(); return v ? '<span class="eng-cine__seg" data-cine-go="' + cineKey(b) + '">' + esc(v) + '</span> ' : ''; };
+    [[strip.querySelector('[data-cine-before]'), bx.slice(0, i)], [strip.querySelector('[data-cine-after]'), bx.slice(i + 1)]].forEach(function (r) {
+      if (!r[0]) return;
+      var h = r[1].map(seg).join('');
+      if (r[0].cineH !== h) { r[0].cineH = h; r[0].innerHTML = '<span>' + h + '</span>'; }
+      r[0].hidden = !h;
+      r[0].classList.toggle('is-clip', !!h && r[0].firstChild.offsetHeight > r[0].clientHeight + 2);
     });
     if (moved && ta) pageGrow(ta);
     var prev = READ.querySelector('[data-cine-step="-1"]'), next = READ.querySelector('[data-cine-step="1"]');
@@ -2590,13 +2610,13 @@
       // The examiner's ticks: each box's own, in the margin; the count sits by the heading.
       var tk = pts.map(function (pt) { return tickList(part, s, pt.k, c); }), any = tk.some(function (x) { return x.length > 0; }), pics = CINE ? cinePics(part, s, c) : [];
       var steps = CINE ? '<span class="eng-cine__steps">' + pts.map(function (pt, i) {
-        return '<button type="button" class="eng-cine__tab" data-cine-go="' + pt.k + '" data-name="' + esc(pt.label) + '"><i aria-hidden="true">' + (i + 1) + '</i><span aria-hidden="true">' + esc(pt.label) + '</span></button>';
+        return '<button type="button" class="eng-cine__tab" data-cine-go="' + pt.k + '" data-name="' + esc(cineName(pt)) + '"><i aria-hidden="true">' + (i + 1) + '</i><span aria-hidden="true">' + esc(cineName(pt)) + '</span></button>';
       }).join('') + '</span>' : '';
       return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any ? tickTally() : '') + '</div>' + (CINE ? '' : watchBtn(part, s, c)) +
-        (CINE ? '<div class="eng-cine' + (pics.length ? '' : ' is-nopic') + '">' + cineScene(part, s, c) : '') + pts.map(function (pt, i) {
-        return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh">' + steps + '<b>' + esc(pt.label) + '</b><span' + (CINE ? ' class="eng-cine__q"' : '') + '>' +
+        (CINE ? '<div class="eng-cine' + (pics.length ? '' : ' is-nopic') + '">' + cineScene(part, s, c) + '<p class="eng-cine__sofar" data-cine-before hidden></p><p class="eng-cine__sofar is-after" data-cine-after hidden></p>' : '') + pts.map(function (pt, i) {
+        return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh">' + steps + '<b>' + esc(CINE ? cineName(pt) : pt.label) + '</b><span' + (CINE ? ' class="eng-cine__q"' : '') + '>' +
           (CINE ? esc(cineAsk(part, s, pt, c)) : pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span>' + pageIdeasBtn(s, pt) + '</p>' + (any ? tickHtml(part, s, pt.k, tk[i], c) : '') + pageIdeasList(s, pt) + '<div class="eng-read__ul" aria-hidden="true"><div></div></div>' +
-          '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s) + ': ' + pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
+          '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s) + ': ' + (CINE ? cineName(pt) : pt.label)) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
           (c.range[pt.k] ? '<p class="eng-read__wc" data-page-wc="' + s + '|' + pt.k + '"></p>' : '') + '</div>';
       }).join('') + (CINE ? '</div>' : '') + '</div>';
     }).join('') + (READ_STRUCT ? '<div class="eng-read__stamp" data-page-stamp hidden><b></b><p></p></div>' + pageFoot(c) : '');
