@@ -3241,24 +3241,13 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
    keep the backround as it was before the desk". So: the soothing picture inside the frame, the desk's paper
    outside it, and nothing navy.) The ink and paper colours swap inside the frame only, so everything in it follows. */
 .eng-read.is-cine .eng-read__paper { padding-bottom: 18px; }
-/* The tabs across the top (Opening, Paragraph 1, 2, 3, Ending) are how you know what you are writing, and the user
-   liked them ("you did that well with paragraph 1 2 and 3 at the top"); asked for the picture to be bigger, the next
-   message was "paragraph 1 2 3", read as: those bigger too. On this page they are taller, in bigger and bolder type,
-   and share the whole width of the paper. */
-.eng-read.is-cine .eng-read__pages { gap: 8px; margin-bottom: 12px; }
-.eng-read.is-cine .eng-read__pg { flex: 1 1 auto; justify-content: center; min-height: 50px; padding: 0 14px; font-size: 18px; font-weight: 700; }
-.eng-read.is-cine .eng-read__pg.is-done::before { width: 5px; height: 10px; border-width: 0 2.5px 2.5px 0; }
-@media (max-width: 700px) {
-  .eng-read.is-cine .eng-read__pages { gap: 6px; }
-  .eng-read.is-cine .eng-read__pg { min-height: 46px; padding: 0 10px; font-size: 17px; }
-}
 .eng-read.is-cine .eng-cine {
   --exam-ink: #FFFDF6; --exam-ink-2: rgba(255, 253, 246, .72); --exam-paper: #0C1118; --exam-paper-2: rgba(255, 253, 246, .14); --exam-rule: rgba(255, 253, 246, .3); --exam-done: rgba(255, 253, 246, .5);
   --cine-lamp: #FFE45C; --cine-night: #0C1118;
   color: #FFFDF6;
 }
 .eng-read.is-cine .eng-cine .eng-wc.is-high { color: #FF8A94; }
-.eng-read.is-cine .eng-read__nav { margin-top: 8px; }
+.eng-read.is-cine .eng-read__nav { margin-top: 12px; }
 @media (hover: hover) {
   .eng-read.is-cine .eng-cine .eng-read__btn:not(.is-go):hover, .eng-read.is-cine .eng-cine .eng-read__ideasb:hover { color: var(--cine-night); }
 }
