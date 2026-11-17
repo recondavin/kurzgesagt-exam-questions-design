@@ -2419,7 +2419,66 @@
   function pageGrow(ta) {
     var lh = parseFloat(getComputedStyle(ta).lineHeight) || 30;
     ta.style.height = '0px';
-    ta.style.height = Math.max(READ_STRUCT ? 2 : 1, Math.round(ta.scrollHeight / lh)) * lh + 'px';
+    ta.style.height = Math.max(READ_STRUCT && !CINE ? 2 : 1, Math.round(ta.scrollHeight / lh)) * lh + 'px';
+  }
+  // ----- The writing page as a strip of film: a try-out, on only when the address has ?look=cinema. -----
+  // The user, of the writing page: "my insitinct is telling me that this is boring to look at"; shown directions, then
+  // six takes on the cinema one, "i cant decide". So one is built to be tried rather than judged from a picture: the
+  // film strip (a frame for each box of the paragraph) with what you type as the subtitles of the frame you are on.
+  // The frames are the page's own boxes, so the ticks, the ideas, the word counts and saving are the ones the page
+  // already has. One frame is in the gate at a time: its picture is the paragraph's scene, what to write is at its
+  // top, the words you type sit at its foot like subtitles and its ticks are lamps under them. The other frames are
+  // slivers showing a slice of the picture; a click (or the Next tab at the foot) brings one into the gate.
+  // Without ?look=cinema nothing here runs and the page is as it was.
+  var CINE = /[?&]look=cinema(&|$)/.test(location.search);
+  // The pictures for a part's frames: its scene (part (b): its two scenes); for Opening and Ending, which have no
+  // scene of their own, the scenes the answer is built on (Ending: last scene first).
+  function cinePics(part, s, c) {
+    var list = watchScenes(part, s, c).map(function (x) { return x.pic; }).filter(Boolean);
+    if (!list.length) {
+      c.slots.forEach(function (q) { watchScenes(part, q, c).forEach(function (x) { if (x.pic && list.indexOf(x.pic) < 0) list.push(x.pic); }); });
+      if (s === 'end') list.reverse();
+    }
+    return list;
+  }
+  function cineStyle(pics, k, i, n) {
+    var pic = pics.length ? pics[k === 'x' ? 0 : k === 'y' ? Math.min(1, pics.length - 1) : i % pics.length] : null;
+    // (The picture is set as background-image here, not as a custom property: a url() in a custom property is
+    // resolved against the stylesheet that uses it, which is in eng/, and the picture is not found.)
+    return (pic ? 'background-image:url(assets/eng/img/' + encodeURI(pic.file) + ');' : '') + '--px:' + (n > 1 ? Math.round(18 + 64 * i / (n - 1)) : 50) + '%;';
+  }
+  function cineBoxes() { return READ ? Array.prototype.slice.call(READ.querySelectorAll('.eng-cine > .eng-read__box')) : []; }
+  function cineKey(b) { var id = b.getAttribute('data-page-boxof'); return id.slice(id.lastIndexOf('|') + 1); }
+  // Put a frame in the gate: the one asked for (k), else the one already there, else the box to write next, else the
+  // first. The foot's two tabs step through the frames of this part before they leave it for the part before or after.
+  function cineSet(k, focus) {
+    if (!CINE || !READ || !READ_STRUCT) return;
+    var bx = cineBoxes(), cur = null;
+    if (!bx.length) return;
+    if (k) cur = bx.filter(function (b) { return cineKey(b) === k; })[0];
+    cur = cur || bx.filter(function (b) { return b.classList.contains('is-cur'); })[0] || bx.filter(function (b) { return b.classList.contains('is-next'); })[0] || bx[0];
+    var i = bx.indexOf(cur), moved = !cur.classList.contains('is-cur'), ta = cur.querySelector('.eng-read__ta');
+    bx.forEach(function (b, j) {
+      b.classList.toggle('is-cur', b === cur); b.classList.toggle('is-past', j < i);
+      var tab = b.querySelector('.eng-cine__tab');
+      if (tab) tab.setAttribute('aria-label', tab.getAttribute('data-name') + (b.classList.contains('is-done') ? ', written' : '') + (b.classList.contains('is-next') ? ', to write next' : ''));
+    });
+    if (moved && ta) pageGrow(ta);
+    var prev = READ.querySelector('[data-cine-step="-1"]'), next = READ.querySelector('[data-cine-step="1"]');
+    [[prev, i > 0 ? bx[i - 1] : null, '‹ ', ''], [next, i < bx.length - 1 ? bx[i + 1] : null, 'Next: ', ' ›']].forEach(function (r) {
+      if (!r[0]) return;
+      var other = r[0].nextElementSibling;
+      r[0].hidden = !r[1]; if (other) other.hidden = !!r[1];
+      if (r[1]) r[0].textContent = r[2] + r[1].querySelector('.eng-cine__tab').getAttribute('data-name') + r[3];
+    });
+    if (next) next.classList.toggle('is-go', cur.classList.contains('is-done'));
+    if (!k) return;
+    if (focus && ta && window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) { ta.focus({ preventScroll: true }); ta.setSelectionRange(ta.value.length, ta.value.length); }
+    else if (moved) { READ_BOX = k; pageMarks(); pageHelpDraw(); }
+  }
+  function cineStep(d) {
+    var bx = cineBoxes(), i = bx.map(function (b) { return b.classList.contains('is-cur'); }).indexOf(true), to = bx[i + d];
+    if (to) cineSet(cineKey(to), true);
   }
   function pageCount() {
     var c = pageCtx(READ_PART), n = pageWords(c), el = READ.querySelector('[data-page-count]');
@@ -2444,7 +2503,9 @@
   }
   function pageFoot(c) {
     var i = c.slots.map(String).indexOf(String(READ_SLOT)), prev = c.slots[i - 1], next = c.slots[i + 1];
-    return '<p class="eng-read__nav">' + (i > 0 ? '<button type="button" class="eng-read__btn is-quiet" data-page-go="' + prev + '">‹ ' + slotName(prev) + '</button>' : '<span></span>') +
+    return '<p class="eng-read__nav">' + (CINE ? '<button type="button" class="eng-read__btn is-quiet" data-cine-step="-1" hidden></button>' : '') +
+      (i > 0 ? '<button type="button" class="eng-read__btn is-quiet" data-page-go="' + prev + '">‹ ' + slotName(prev) + '</button>' : '<span></span>') +
+      (CINE ? '<button type="button" class="eng-read__btn" data-cine-step="1" hidden></button>' : '') +
       (i < c.slots.length - 1 ? '<button type="button" class="eng-read__btn" data-page-go="' + next + '" data-page-next>Next: ' + slotName(next) + ' ›</button>'
         : '<button type="button" class="eng-read__btn" data-page-readall data-page-next>Read it all through</button>') + '</p>';
   }
@@ -2483,13 +2544,14 @@
         return '<div class="eng-read__para"><textarea class="eng-read__ta" data-page-slot="' + s + '" rows="1" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s)) + '">' + esc(j) + '</textarea></div>';
       }
       // The examiner's ticks: each box's own, in the margin; the count sits by the heading.
-      var tk = pts.map(function (pt) { return tickList(part, s, pt.k, c); }), any = tk.some(function (x) { return x.length > 0; });
-      return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any ? tickTally() : '') + '</div>' + watchBtn(part, s, c) + pts.map(function (pt, i) {
-        return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh"><b>' + esc(pt.label) + '</b><span>' +
+      var tk = pts.map(function (pt) { return tickList(part, s, pt.k, c); }), any = tk.some(function (x) { return x.length > 0; }), pics = CINE ? cinePics(part, s, c) : [];
+      return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any ? tickTally() : '') + '</div>' + watchBtn(part, s, c) + (CINE ? '<div class="eng-cine" style="--n:' + pts.length + '">' : '') + pts.map(function (pt, i) {
+        return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + ';' + (CINE ? cineStyle(pics, pt.k, i, pts.length) : '') + '">' +
+          (CINE ? '<button type="button" class="eng-cine__tab" data-cine-go="' + pt.k + '" data-name="' + esc(pt.label) + '"><i aria-hidden="true">' + (i + 1) + '</i><span aria-hidden="true">' + esc(pt.label) + '</span></button>' : '') + '<p class="eng-read__bh"><b>' + esc(pt.label) + '</b><span>' +
           (pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span>' + pageIdeasBtn(s, pt) + '</p>' + (any ? tickHtml(part, s, pt.k, tk[i], c) : '') + pageIdeasList(s, pt) + '<div class="eng-read__ul" aria-hidden="true"><div></div></div>' +
           '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s) + ': ' + pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
           (c.range[pt.k] ? '<p class="eng-read__wc" data-page-wc="' + s + '|' + pt.k + '"></p>' : '') + '</div>';
-      }).join('') + '</div>';
+      }).join('') + (CINE ? '</div>' : '') + '</div>';
     }).join('') + (READ_STRUCT ? '<div class="eng-read__stamp" data-page-stamp hidden><b></b><p></p></div>' + pageFoot(c) : '');
   }
   // A box's ideas, as the popup's boxes had them (the user, of the paper in boxes: "what about the ideas"): Show ideas,
@@ -3524,6 +3586,7 @@
     var go = READ.querySelector('[data-page-next]'), tab = READ.querySelector('.eng-read__pg.is-on');
     if (go) go.classList.toggle('is-go', !next && tas.length > 0);
     if (tab) tab.classList.toggle('is-done', !next && tas.length > 0);
+    cineSet();
     pageTicks();
   }
   // Typing on the plain page: move the remembered box starts along with the edit, then save each box's slice.
@@ -3606,6 +3669,7 @@
   function pageStruct(on, focus) {
     READ_STRUCT = on;
     READ.classList.toggle('is-struct', on);
+    READ.classList.toggle('is-cine', CINE && on);
     var tb = READ.querySelector('.eng-read__structb'); tb.textContent = on ? 'Hide structure' : 'Show structure'; tb.setAttribute('aria-pressed', String(on));
     READ.querySelector('.eng-read__lines').innerHTML = pageLines();
     READ_TA = null; if (!on) READ_BOX = null;
@@ -4872,6 +4936,13 @@
         pageIdeasSet(ib, !READ_IDEAS[ib.getAttribute('data-page-ideas')]);
       }
       else if (t.closest('[data-page-go]')) pageGo(slotOf(t.closest('[data-page-go]').getAttribute('data-page-go')));
+      else if (t.closest('[data-cine-go]')) cineSet(t.closest('[data-cine-go]').getAttribute('data-cine-go'), true);
+      else if (t.closest('[data-cine-step]')) cineStep(+t.closest('[data-cine-step]').getAttribute('data-cine-step'));
+      else if (CINE && t.closest('.eng-cine > .eng-read__box.is-cur') && !t.closest('button, textarea')) {
+        // A click on the picture is a click on its subtitles.
+        var cta = t.closest('.eng-read__box').querySelector('.eng-read__ta');
+        if (cta) { cta.focus({ preventScroll: true }); cta.setSelectionRange(cta.value.length, cta.value.length); }
+      }
       else if (t.closest('[data-page-readall]')) {
         // The whole answer, plain, from the top. (Not remembered as a choice: Write it still opens in boxes.)
         pageStruct(false, false);
