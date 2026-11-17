@@ -3247,7 +3247,7 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-cine__top .eng-read__pages { margin: 0; }
 .eng-cine__top .eng-read__tally { margin: 0 0 0 auto; }
 .eng-read.is-cine .eng-cine {
-  --exam-ink: #FFFDF6; --exam-ink-2: rgba(255, 253, 246, .72); --exam-paper: #0C1118; --exam-paper-2: rgba(255, 253, 246, .14); --exam-rule: rgba(255, 253, 246, .3); --exam-done: rgba(255, 253, 246, .5);
+  --exam-ink: #FFFDF6; --exam-ink-2: rgba(255, 253, 246, .84); --exam-paper: #0C1118; --exam-paper-2: rgba(255, 253, 246, .14); --exam-rule: rgba(255, 253, 246, .3); --exam-done: rgba(255, 253, 246, .5);
   --cine-lamp: #FFE45C; --cine-night: #0C1118;
   color: #FFFDF6;
 }
@@ -3265,7 +3265,7 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-read.is-cine .eng-cine::before { top: 8px; }
 .eng-read.is-cine .eng-cine::after { bottom: 8px; }
 .eng-cine__bg { position: absolute; inset: 26px 12px; overflow: hidden; border-radius: 3px; background: #141B26; }
-.eng-cine__bg i { position: absolute; inset: -48px; background: center / cover no-repeat; filter: blur(26px) brightness(.38) saturate(1.2); }
+.eng-cine__bg i { position: absolute; inset: -48px; background: center / cover no-repeat; filter: blur(26px) brightness(.32) saturate(1.2); }
 /* the scene, small and sharp */
 /* (the picture was 210px wide; the user: "makebthe image top left image bigger". It is 320px, still only half its real
    width on a sharp screen; its name and Watch the scene share one line under it so the frame is not much taller) */
@@ -3273,7 +3273,7 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-cine__scene figure { display: contents; margin: 0; }
 .eng-cine__scene img { grid-column: 1 / -1; display: block; width: 100%; height: auto; max-height: 300px; border-radius: 3px; object-fit: cover; object-position: 50% 25%; box-shadow: 0 0 0 1.5px rgba(255, 253, 246, .85), 0 12px 26px rgba(0, 0, 0, .5); }
 .eng-cine__scene figcaption { grid-column: 1; margin: 0; color: #FFFDF6; font: 700 17px/1.25 var(--font-head); letter-spacing: -.01em; }
-.eng-cine__scene figcaption small { display: block; margin: 0 0 3px; color: rgba(255, 253, 246, .72); font: 600 13px/1.2 var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
+.eng-cine__scene figcaption small { display: block; margin: 0 0 3px; color: rgba(255, 253, 246, .84); font: 600 13px/1.2 var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
 .eng-cine__scene > .eng-read__btn { grid-column: 2; }
 .eng-cine__scene.is-two { grid-template-columns: 1fr 1fr; align-items: start; gap: 12px; width: 380px; }
 .eng-cine__scene.is-two figure { display: block; width: 100%; transition: opacity .4s ease-out; }
@@ -3287,19 +3287,18 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-read.is-cine .eng-cine__scene .eng-read__btn { --tab: rgba(255, 253, 246, .16); --stripe: #FFFDF6; height: 40px; padding: 0 14px 0 19px; color: #FFFDF6; font-size: 16px; white-space: nowrap; }
 .eng-read.is-cine .eng-cine__scene .eng-read__btn i { margin-right: 4px; color: #FFFDF6; font-style: normal; font-size: 13px; }
 @media (hover: hover) { .eng-read.is-cine .eng-read__paper .eng-cine__scene .eng-read__btn:hover i { color: var(--cine-night); } }
-/* where this box is among the part's: numbers, the one you are on with its name, a tick once written, red for the
-   one to write next */
+/* where this box is among the part's: each step with its number and its name (first only the one you were on had its
+   name, and two bare ticks beside "3 Evaluate" did not say what they stood for), a tick once written, red for the one
+   to write next, filled for the one you are on */
 .eng-read.is-cine .eng-cine .eng-cine__steps { display: flex; flex: none; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 14px; }
 .eng-read.is-cine .eng-cine .eng-cine__tab span { flex: none; min-width: 0; }
-.eng-cine__tab { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-width: 34px; height: 34px; margin: 0; padding: 0; border: 0; border-radius: 17px; background: rgba(255, 253, 246, .16); color: #FFFDF6; font: 700 15px/1 var(--font-body); cursor: pointer; }
+.eng-cine__tab { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-width: 34px; height: 34px; margin: 0; padding: 0 14px 0 3px; border: 0; border-radius: 17px; background: rgba(255, 253, 246, .16); color: #FFFDF6; font: 700 15px/1 var(--font-body); cursor: pointer; }
 .eng-cine__tab i { display: grid; place-items: center; width: 34px; height: 34px; font: 700 15px/1 var(--font-head); font-style: normal; }
-.eng-cine__tab span { display: none; }
 .eng-cine__tab:hover { background: rgba(255, 253, 246, .3); }
 .eng-cine__tab.is-next { background: var(--exam-pen); }
 .eng-cine__tab.is-done i { font-size: 0; }
 .eng-cine__tab.is-done i::after { content: ""; width: 5px; height: 11px; margin-top: -3px; border: solid currentColor; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
 .eng-cine__tab.is-cur, .eng-cine__tab.is-cur:hover { padding: 0 15px 0 3px; background: #FFFDF6; color: #0C1118; }
-.eng-cine__tab.is-cur span { display: inline; }
 .eng-cine__tab:focus-visible { outline: 3px solid #FFE45C; outline-offset: 2px; }
 /* one box. It is display: contents: its heading (steps, question, Show ideas) sits beside the scene, and its
    ideas, lines, lamps and word count run under both, the whole width of the frame */
@@ -3316,24 +3315,24 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-read.is-cine .eng-cine .eng-read__ilist { grid-row: 2; grid-column: 1 / -1; margin: 0 0 12px; }
 .eng-read.is-cine .eng-cine .eng-read__ul { grid-row: 4; grid-column: 1 / -1; font: 500 21px/var(--lh) var(--font-body); }
 .eng-read.is-cine .eng-cine .eng-read__ta { grid-row: 5; grid-column: 1 / -1; color: #FFFDF6; font: 500 21px/var(--lh) var(--font-body); caret-color: var(--cine-lamp); }
-.eng-read.is-cine .eng-cine .eng-read__ta::placeholder { color: rgba(255, 253, 246, .6); }
+.eng-read.is-cine .eng-cine .eng-read__ta::placeholder { color: rgba(255, 253, 246, .72); }
 .eng-read.is-cine .eng-cine .eng-read__ul u { text-decoration-color: var(--cine-lamp); }
 /* the paragraph so far: what the parts before this one say, dimmed, on the same ruled lines, so the part being
    written is seen to carry on one paragraph (and, under the lines, what the parts after it say, if you went back).
    At most three lines above, showing the end of it, and two below, showing the start; a click goes to that part. */
-.eng-cine__sofar { position: relative; grid-row: 3; grid-column: 1 / -1; display: flex; flex-direction: column; justify-content: flex-end; max-height: calc(3 * var(--lh)); margin: 0; overflow: hidden; color: rgba(255, 253, 246, .5); font: 500 21px/var(--lh) var(--font-body); }
+.eng-cine__sofar { position: relative; grid-row: 3; grid-column: 1 / -1; display: flex; flex-direction: column; justify-content: flex-end; max-height: calc(3 * var(--lh)); margin: 0; overflow: hidden; color: rgba(255, 253, 246, .7); font: 500 21px/var(--lh) var(--font-body); }
 .eng-cine__sofar[hidden] { display: none; }
 .eng-cine__sofar > span { flex: none; background-image: linear-gradient(to bottom, transparent calc(var(--lh) - 1px), var(--exam-rule) calc(var(--lh) - 1px)); background-size: 100% var(--lh); }
 .eng-cine__sofar.is-clip { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--lh)); mask-image: linear-gradient(to bottom, transparent, #000 var(--lh)); }
 .eng-cine__sofar.is-after { grid-row: 6; justify-content: flex-start; max-height: calc(2 * var(--lh)); }
 .eng-cine__sofar.is-after.is-clip { -webkit-mask-image: linear-gradient(to top, transparent, #000 var(--lh)); mask-image: linear-gradient(to top, transparent, #000 var(--lh)); }
 .eng-cine__seg { cursor: pointer; transition: color .2s ease-out; }
-.eng-cine__seg:hover { color: rgba(255, 253, 246, .88); }
+.eng-cine__seg:hover { color: #FFFDF6; }
 /* its ticks, as lamps */
 .eng-read.is-cine .eng-cine .eng-read__ticks { position: relative; inset: auto; grid-row: 7; grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 2px 20px; width: auto; margin: 14px 0 0; padding: 0 210px 0 0; border: 0; }
-.eng-read.is-cine .eng-cine .eng-read__ticks li { gap: 8px; height: 26px; margin: 0; color: rgba(255, 253, 246, .68); font: 500 15px/1 var(--font-body); white-space: nowrap; }
+.eng-read.is-cine .eng-cine .eng-read__ticks li { gap: 8px; height: 26px; margin: 0; color: rgba(255, 253, 246, .82); font: 500 15px/1 var(--font-body); white-space: nowrap; }
 .eng-read.is-cine .eng-cine .eng-read__ticks svg { display: none; }
-.eng-read.is-cine .eng-cine .eng-read__ticks li::before { content: ""; flex: none; width: 11px; height: 11px; border-radius: 50%; background: rgba(255, 253, 246, .3); }
+.eng-read.is-cine .eng-cine .eng-read__ticks li::before { content: ""; flex: none; width: 11px; height: 11px; border-radius: 50%; background: rgba(255, 253, 246, .42); }
 .eng-read.is-cine .eng-cine .eng-read__ticks li.is-on { color: #FFFDF6; font-weight: 600; }
 .eng-read.is-cine .eng-cine .eng-read__ticks li.is-on::before { background: var(--cine-lamp); box-shadow: 0 0 10px 3px rgba(255, 228, 92, .55); }
 .eng-read.is-cine .eng-cine .eng-read__ticks li.is-new::before { animation: eng-cine-lamp .6s ease-out; }
@@ -3358,8 +3357,11 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
   .eng-cine__scene.is-two figcaption { margin: 8px 0 0; font-size: 15px; }
   .eng-cine__scene.is-all { display: block; }
   .eng-cine__all { grid-template-columns: repeat(4, 1fr); gap: 6px; }
-  .eng-cine__tab, .eng-cine__tab i { min-width: 40px; height: 40px; border-radius: 20px; }
-  .eng-cine__tab i { width: 40px; }
+  /* on a phone the three names fit one line without their numbers (the order is left to right); a written one keeps its tick */
+  .eng-read.is-cine .eng-cine .eng-cine__steps { gap: 5px; }
+  .eng-cine__tab, .eng-cine__tab.is-cur, .eng-cine__tab.is-cur:hover { min-width: 0; height: 38px; padding: 0 10px; border-radius: 19px; font-size: 14px; }
+  .eng-cine__tab i { display: none; }
+  .eng-cine__tab.is-done i { display: grid; width: 12px; height: 38px; margin-right: 5px; }
   .eng-read.is-cine .eng-cine .eng-read__bh { grid-row: 2; margin-bottom: 16px; }
   .eng-read.is-cine .eng-cine .eng-cine__q { font-size: 25px; }
   .eng-read.is-cine .eng-cine .eng-read__ilist { grid-row: 3; }
