@@ -3215,106 +3215,122 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
   body.eng-papertop #eng-cpd.eng-cpd .eng-btn--quiet:hover, body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__btns .eng-btn:hover { color: var(--exam-paper); }
   body.eng-papertop #eng-cpd.eng-cpd .eng-btn[disabled]:hover { --sw: 7px; }
 }
-/* ===== The writing page as a strip of film: a try-out, on only with ?look=cinema in the address (eng.js, CINE). =====
+/* ===== The writing page as a frame of film: a try-out, on only with ?look=cinema in the address (eng.js, CINE). =====
    The user, of the writing page: "my insitinct is telling me that this is boring to look at"; shown eight directions
-   and then six takes on the cinema one, "i cant decide". This is the film strip with what you type as subtitles,
-   built to be tried. The paper goes dark (its ink and paper colours swap, so everything on it follows), and the
-   paragraph's boxes become frames on a strip: the one you are writing is in the gate with the scene behind it, what
-   to write at its top, your words at its foot like subtitles, its ticks as lamps; the others are slivers of the same
-   picture with a number, ticked once written, red when it is the one to write next. Words sit straight on the
-   picture, darkened behind them, with no card. A frame's parts are laid out at the gate's full width (--fw) from the
-   start, so nothing reflows while a frame widens. */
+   and then six takes on the cinema one, "i cant decide", so one was built to be tried. Of the first build (the scene
+   filling a wide frame with your words on it as subtitles, the other boxes as slivers beside it): "its not bad but it
+   could eb better like because the imags are such low quality is one thing but also its that they should be focusing
+   on one thing at a time and they should be asked the qeustion(although it should be shorter) and they should also
+   know what they are writing i suppose you did that well with paragraph 1 2 and 3 at the top".
+   So: the paper goes dark (its ink and paper colours swap, so everything on it follows) and the part is one frame.
+   Behind it is the scene out of focus and dark, which has no quality to lose. On the left the scene itself, small
+   enough to be sharp (the stills are 1280 wide and well compressed, the Sive photographs 448), with its name and
+   Watch the scene. On the right one box at a time: its number among the part's steps, one short question, the lines
+   to answer on, and its ticks as lamps. No heading (the tabs across the top say which part this is) and no count of
+   ticks (the lamps are the count). Words sit straight on the dark, with no card. */
 .eng-read__btn[hidden] { display: none; }
 .eng-read.is-cine .eng-read__paper {
   --exam-ink: #FFFDF6; --exam-ink-2: rgba(255, 253, 246, .72); --exam-paper: #0C1118; --exam-paper-2: #1E2836; --exam-rule: rgba(255, 253, 246, .3); --exam-done: #8D949E;
   --cine-lamp: #FFE45C; --cine-night: #0C1118;
-  background: var(--cine-night);
+  padding-bottom: 24px; background: var(--cine-night);
 }
 .eng-read.is-cine .eng-read__q mark { color: #13233A; }
 .eng-read.is-cine .eng-read__pg.is-on, .eng-read.is-cine .eng-read__pg.is-on:hover { color: var(--cine-night); }
-.eng-read.is-cine .eng-read__tally, .eng-read.is-cine .eng-read__tally small.is-say { color: var(--cine-lamp); }
-.eng-read.is-cine .eng-read__tally i svg { mix-blend-mode: normal; }
 .eng-read.is-cine .eng-read__stamp b, .eng-read.is-cine .eng-read__stamp p, .eng-read.is-cine .eng-wc.is-high { border-color: #FF8A94; color: #FF8A94; }
+.eng-read.is-cine .eng-read__nav { margin-top: 16px; }
 @media (hover: hover) {
   .eng-read.is-cine .eng-read__paper .eng-read__btn:not(.is-go):hover, .eng-read.is-cine .eng-read__paper .eng-read__ideasb:hover { color: var(--cine-night); }
 }
-/* the heading, Watch the scene and the count share one line (and the paper ends sooner), so the strip and the tabs
-   under it fit a laptop screen without scrolling */
-.eng-read.is-cine .eng-read__paper { padding-bottom: 24px; }
-.eng-read.is-cine .eng-read__para { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
-.eng-read.is-cine .eng-read__phrow { display: contents; }
-.eng-read.is-cine .eng-read__para .eng-read__ph { flex: 0 1 auto; min-width: 0; margin: 0; }
-.eng-read.is-cine .eng-read__watch { flex: none; order: 1; margin: 0; }
-.eng-read.is-cine .eng-read__watch span { display: none; }
-.eng-read.is-cine .eng-read__tally { order: 2; margin: 0 0 0 auto; }
-.eng-read.is-cine .eng-read__nav { margin-top: 16px; }
-/* the strip */
-.eng-read.is-cine .eng-cine { order: 3; flex: 0 0 100%; box-sizing: border-box; --sl: 64px; --gap: 8px; --fp: 24px; --fh: clamp(360px, calc(100vh - 470px), 470px); position: relative; display: flex; gap: var(--gap); margin: 4px 0 0; padding: 26px 12px; border-radius: 4px; background: #000; container-type: inline-size; }
-.eng-read.is-cine .eng-cine::before, .eng-read.is-cine .eng-cine::after { content: ""; position: absolute; right: 10px; left: 10px; height: 10px; background: repeating-linear-gradient(90deg, rgba(255, 253, 246, .88) 0 12px, transparent 12px 28px); }
+/* the part's heading and its count of ticks are not shown (the heading stays for a screen reader) */
+.eng-read.is-cine .eng-read__phrow { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* the frame */
+.eng-read.is-cine .eng-cine { --lh: 34px; position: relative; display: grid; grid-template-columns: 290px minmax(0, 1fr); grid-template-rows: auto 1fr; gap: 16px 30px; box-sizing: border-box; min-height: clamp(340px, calc(100vh - 470px), 440px); margin: 0; padding: 50px 36px 46px; overflow: hidden; border-radius: 4px; background: #000; }
+.eng-read.is-cine .eng-cine.is-nopic { grid-template-columns: minmax(0, 1fr); }
+.eng-read.is-cine .eng-cine::before, .eng-read.is-cine .eng-cine::after { content: ""; position: absolute; z-index: 1; right: 10px; left: 10px; height: 10px; background: repeating-linear-gradient(90deg, rgba(255, 253, 246, .88) 0 12px, transparent 12px 28px); }
 .eng-read.is-cine .eng-cine::before { top: 8px; }
 .eng-read.is-cine .eng-cine::after { bottom: 8px; }
-/* a frame */
-.eng-read.is-cine .eng-cine > .eng-read__box { --fw: calc(100cqw - (var(--n) - 1) * (var(--sl) + var(--gap))); position: relative; display: flex; flex: 0 0 var(--sl); flex-direction: column; box-sizing: border-box; min-width: 0; min-height: var(--fh); margin: 0; padding: 0 0 16px; overflow: hidden; border: 0; border-radius: 3px; background: #141B26 var(--px, 50%) 30% / cover no-repeat; transition: flex-basis .7s cubic-bezier(.5, 1, .89, 1); }
-.eng-read.is-cine .eng-cine > .eng-read__box.is-cur { flex-basis: var(--fw); }
-.eng-read.is-cine .eng-cine > .eng-read__box::before { content: ""; position: absolute; inset: 0; z-index: 0; display: block; margin: 0; background: rgba(8, 12, 18, .64); pointer-events: none; }
-.eng-read.is-cine .eng-cine > .eng-read__box.is-done:not(.is-cur)::before { background: rgba(8, 12, 18, .28); }
-.eng-read.is-cine .eng-cine > .eng-read__box:not(.is-cur):hover::before { background: rgba(8, 12, 18, .2); }
-.eng-read.is-cine .eng-cine > .eng-read__box.is-cur::before { background: linear-gradient(180deg, rgba(8, 12, 18, .88) 0%, rgba(8, 12, 18, .5) 27%, rgba(8, 12, 18, .1) 46%, rgba(8, 12, 18, .5) 66%, rgba(8, 12, 18, .95) 100%); }
-.eng-read.is-cine .eng-cine > .eng-read__box.is-cur:has(.eng-read__ilist:not([hidden]))::before { background: rgba(8, 12, 18, .86); }
-.eng-read.is-cine .eng-cine > .eng-read__box > * { position: relative; z-index: 1; flex: none; box-sizing: border-box; width: var(--fw); }
-.eng-read.is-cine .eng-cine > .eng-read__box:not(.is-cur) > :not(.eng-cine__tab) { display: none; }
-.eng-read.is-cine .eng-cine > .eng-read__box.is-cur > * { animation: eng-cine-in .5s .2s both; }
-@keyframes eng-cine-in { from { opacity: 0; } }
-/* a sliver: the number (a tick once written, red when it is the one to write next) and the box's name down it */
-.eng-read.is-cine .eng-cine > .eng-read__box > .eng-cine__tab { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 12px; width: auto; margin: 0; padding: 12px 0 0; border: 0; border-radius: 0; background: none; color: #FFFDF6; font: 700 16px/1 var(--font-body); cursor: pointer; }
-.eng-read.is-cine .eng-cine > .eng-read__box.is-cur > .eng-cine__tab { display: none; }
-.eng-cine__tab i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: rgba(8, 12, 18, .8); box-shadow: inset 0 0 0 1.5px rgba(255, 253, 246, .5); font: 700 16px/1 var(--font-head); font-style: normal; }
-.eng-cine__tab span { writing-mode: vertical-rl; text-orientation: sideways; letter-spacing: .02em; text-shadow: 0 1px 4px rgba(0, 0, 0, .9); }
-.eng-read__box.is-next > .eng-cine__tab i { background: var(--exam-pen); box-shadow: none; }
-.eng-read__box.is-done > .eng-cine__tab i { background: #FFFDF6; box-shadow: none; font-size: 0; }
-.eng-read__box.is-done > .eng-cine__tab i::after { content: ""; width: 6px; height: 12px; margin-top: -3px; border: solid #0C1118; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
-.eng-cine__tab:focus-visible { outline: 3px solid #FFE45C; outline-offset: -3px; }
-/* the frame in the gate: what to write, at the top */
-.eng-read.is-cine .eng-cine .eng-read__bh { order: 0; display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 4px 12px; margin: 0; padding: 18px var(--fp) 0; color: rgba(255, 253, 246, .92); font: 400 18px/1.4 var(--font-body); text-shadow: 0 1px 3px rgba(0, 0, 0, .85); }
-.eng-read.is-cine .eng-cine .eng-read__bh b { grid-column: 1; margin: 0; padding: 0; border-radius: 0; background: none; color: #FFFDF6; font: 800 27px/1.15 var(--font-head); letter-spacing: -.01em; }
-.eng-read.is-cine .eng-cine .eng-read__box.is-done .eng-read__bh b::after { width: 7px; height: 14px; margin: 0 2px 1px 14px; border-width: 0 3px 3px 0; }
-.eng-read.is-cine .eng-cine .eng-read__bh span { grid-column: 1 / -1; }
-.eng-read.is-cine .eng-cine .eng-read__ideasb { grid-row: 1; grid-column: 2; --tab: rgba(255, 253, 246, .16); --stripe: #FFFDF6; margin: 0; text-shadow: none; }
-.eng-read.is-cine .eng-cine .eng-read__ilist { order: 1; margin: 0; padding: 10px var(--fp) 0; }
-.eng-read.is-cine .eng-cine .eng-read__ilist p { text-shadow: 0 1px 3px rgba(0, 0, 0, .85); }
-/* your words, as its subtitles (the red-pen underline is a lamp-yellow one here) */
-.eng-read.is-cine .eng-cine .eng-read__ul { order: 2; margin-top: auto; font: 600 22px/34px var(--font-body); text-align: center; }
-.eng-read.is-cine .eng-cine .eng-read__ul > div { right: var(--fp); left: var(--fp); }
+.eng-cine__bg { position: absolute; inset: 26px 12px; overflow: hidden; border-radius: 3px; background: #141B26; }
+.eng-cine__bg i { position: absolute; inset: -48px; background: center / cover no-repeat; filter: blur(26px) brightness(.38) saturate(1.2); }
+/* the scene, small and sharp */
+.eng-cine__scene { position: relative; grid-row: 1 / 3; grid-column: 1; display: flex; flex-direction: column; align-items: flex-start; align-self: start; gap: 14px; min-width: 0; }
+.eng-cine__scene figure { width: 100%; margin: 0; transition: opacity .4s ease-out; }
+.eng-cine__scene img { display: block; width: 100%; height: auto; max-height: 250px; border-radius: 3px; object-fit: cover; object-position: 50% 25%; box-shadow: 0 0 0 1.5px rgba(255, 253, 246, .85), 0 12px 26px rgba(0, 0, 0, .5); }
+.eng-cine__scene figcaption { margin: 12px 0 0; color: #FFFDF6; font: 700 19px/1.25 var(--font-head); letter-spacing: -.01em; }
+.eng-cine__scene figcaption small { display: block; margin: 0 0 3px; color: rgba(255, 253, 246, .72); font: 600 13px/1.2 var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
+.eng-cine__scene.is-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 12px; }
+.eng-cine__scene.is-two img { aspect-ratio: 4 / 3; }
+.eng-cine__scene.is-two figcaption { font-size: 16px; }
+.eng-cine__scene.is-two .eng-read__btn { grid-column: 1 / -1; justify-self: start; }
+.eng-cine[data-cur="x"] figure[data-cine-pic="y"], .eng-cine[data-cur="y"] figure[data-cine-pic="x"] { opacity: .38; }
+.eng-cine__all { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+.eng-cine__all img { aspect-ratio: 16 / 9; }
+.eng-read.is-cine .eng-cine__scene .eng-read__btn { --tab: rgba(255, 253, 246, .16); --stripe: #FFFDF6; height: 40px; padding: 0 14px 0 19px; color: #FFFDF6; font-size: 16px; white-space: nowrap; }
+.eng-read.is-cine .eng-cine__scene .eng-read__btn i { margin-right: 4px; color: #FFFDF6; font-style: normal; font-size: 13px; }
+@media (hover: hover) { .eng-read.is-cine .eng-read__paper .eng-cine__scene .eng-read__btn:hover i { color: var(--cine-night); } }
+/* where this box is among the part's: numbers, the one you are on with its name, a tick once written, red for the
+   one to write next */
+.eng-cine__steps { position: relative; grid-row: 1; grid-column: -2 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; }
+.eng-cine__tab { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-width: 34px; height: 34px; margin: 0; padding: 0; border: 0; border-radius: 17px; background: rgba(255, 253, 246, .16); color: #FFFDF6; font: 700 15px/1 var(--font-body); cursor: pointer; }
+.eng-cine__tab i { display: grid; place-items: center; width: 34px; height: 34px; font: 700 15px/1 var(--font-head); font-style: normal; }
+.eng-cine__tab span { display: none; }
+.eng-cine__tab:hover { background: rgba(255, 253, 246, .3); }
+.eng-cine__tab.is-next { background: var(--exam-pen); }
+.eng-cine__tab.is-done i { font-size: 0; }
+.eng-cine__tab.is-done i::after { content: ""; width: 5px; height: 11px; margin-top: -3px; border: solid currentColor; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+.eng-cine__tab.is-cur, .eng-cine__tab.is-cur:hover { padding: 0 15px 0 3px; background: #FFFDF6; color: #0C1118; }
+.eng-cine__tab.is-cur span { display: inline; }
+.eng-cine__tab:focus-visible { outline: 3px solid #FFE45C; outline-offset: 2px; }
+/* one box: the question, the lines, the lamps */
+.eng-read.is-cine .eng-cine > .eng-read__box { position: relative; grid-row: 2; grid-column: -2 / -1; display: none; flex-direction: column; min-width: 0; margin: 0; padding: 0; border: 0; }
+.eng-read.is-cine .eng-cine > .eng-read__box.is-cur { display: flex; animation: eng-cine-in .45s ease-out both; }
+@keyframes eng-cine-in { from { opacity: 0; transform: translateY(6px); } }
+.eng-read.is-cine .eng-cine > .eng-read__box::before { content: none; }
+.eng-read.is-cine .eng-cine .eng-read__bh { display: contents; }
+.eng-read.is-cine .eng-cine .eng-read__bh b { position: absolute; width: 1px; height: 1px; margin: 0; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.eng-read.is-cine .eng-cine .eng-read__bh span { order: 0; flex: none; margin: 0 0 12px; color: #FFFDF6; font: 800 31px/1.16 var(--font-head); letter-spacing: -.02em; text-wrap: balance; }
+.eng-read.is-cine .eng-cine .eng-read__ideasb { order: 1; align-self: flex-start; --tab: rgba(255, 253, 246, .16); --stripe: #FFFDF6; margin: 0 0 12px; }
+.eng-read.is-cine .eng-cine .eng-read__ilist { order: 2; margin: 0 0 10px; }
+.eng-read.is-cine .eng-cine .eng-read__ul { order: 3; font: 500 21px/var(--lh) var(--font-body); }
+.eng-read.is-cine .eng-cine .eng-read__ta { order: 4; color: #FFFDF6; font: 500 21px/var(--lh) var(--font-body); caret-color: var(--cine-lamp); }
+.eng-read.is-cine .eng-cine .eng-read__ta::placeholder { color: rgba(255, 253, 246, .6); }
 .eng-read.is-cine .eng-cine .eng-read__ul u { text-decoration-color: var(--cine-lamp); }
-.eng-read.is-cine .eng-cine .eng-read__ta { order: 3; height: 34px; max-height: calc(var(--fh) - 210px); padding: 0 var(--fp); overflow-y: auto; background-image: none; color: #FFFDF6; font: 600 22px/34px var(--font-body); text-align: center; text-shadow: 0 1px 2px rgba(0, 0, 0, .95), 0 0 14px rgba(0, 0, 0, .8); caret-color: var(--cine-lamp); scrollbar-width: none; }
-.eng-read.is-cine .eng-cine .eng-read__ta::-webkit-scrollbar { display: none; }
-.eng-read.is-cine .eng-cine .eng-read__ta::placeholder { color: rgba(255, 253, 246, .68); font-weight: 500; }
 /* its ticks, as lamps */
-.eng-read.is-cine .eng-cine .eng-read__ticks { position: relative; inset: auto; order: 4; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 20px; margin: 0; padding: 10px var(--fp) 0; border: 0; }
-.eng-read.is-cine .eng-cine .eng-read__ticks li { gap: 8px; height: 24px; margin: 0; color: rgba(255, 253, 246, .68); font: 500 15px/1 var(--font-body); text-shadow: 0 1px 3px rgba(0, 0, 0, .85); white-space: nowrap; }
+.eng-read.is-cine .eng-cine .eng-read__ticks { position: relative; inset: auto; order: 5; display: flex; flex-wrap: wrap; gap: 2px 20px; width: auto; margin: 14px 0 0; padding: 0; border: 0; }
+.eng-read.is-cine .eng-cine .eng-read__ticks li { gap: 8px; height: 26px; margin: 0; color: rgba(255, 253, 246, .68); font: 500 15px/1 var(--font-body); white-space: nowrap; }
 .eng-read.is-cine .eng-cine .eng-read__ticks svg { display: none; }
 .eng-read.is-cine .eng-cine .eng-read__ticks li::before { content: ""; flex: none; width: 11px; height: 11px; border-radius: 50%; background: rgba(255, 253, 246, .3); }
 .eng-read.is-cine .eng-cine .eng-read__ticks li.is-on { color: #FFFDF6; font-weight: 600; }
 .eng-read.is-cine .eng-cine .eng-read__ticks li.is-on::before { background: var(--cine-lamp); box-shadow: 0 0 10px 3px rgba(255, 228, 92, .55); }
 .eng-read.is-cine .eng-cine .eng-read__ticks li.is-new::before { animation: eng-cine-lamp .6s ease-out; }
 @keyframes eng-cine-lamp { 0% { background: rgba(255, 253, 246, .3); box-shadow: none; } 35% { box-shadow: 0 0 20px 9px rgba(255, 228, 92, .85); } }
-.eng-read.is-cine .eng-cine .eng-read__wc { order: 5; margin: 6px 0 0; padding: 0 var(--fp); text-align: center; }
-/* on a phone the strip runs down the page: the other frames are bars, the one in the gate is tall */
+.eng-read.is-cine .eng-cine .eng-read__wc { order: 6; margin: 4px 0 0; text-align: left; }
+/* on a phone: the scene is a small picture with its name beside it, and the question comes straight after */
 @media (max-width: 700px) {
-  .eng-read.is-cine .eng-cine { --sl: 48px; --gap: 6px; --fp: 14px; flex-direction: column; padding: 10px 22px; }
+  .eng-read.is-cine .eng-cine { --lh: 30px; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr; gap: 14px; min-height: 0; padding: 22px 34px 24px; }
   .eng-read.is-cine .eng-cine::before, .eng-read.is-cine .eng-cine::after { top: 8px; bottom: 8px; width: 8px; height: auto; background: repeating-linear-gradient(180deg, rgba(255, 253, 246, .88) 0 10px, transparent 10px 24px); }
   .eng-read.is-cine .eng-cine::before { right: auto; left: 7px; }
   .eng-read.is-cine .eng-cine::after { right: 7px; left: auto; }
-  .eng-read.is-cine .eng-cine > .eng-read__box { --fw: 100cqw; flex: none; height: var(--sl); min-height: 0; background-position: 50% var(--px, 30%); transition: none; }
-  .eng-read.is-cine .eng-cine > .eng-read__box.is-cur { height: auto; min-height: 380px; background-position: 50% 30%; }
-  .eng-read.is-cine .eng-cine > .eng-read__box > .eng-cine__tab { flex-direction: row; justify-content: flex-start; padding: 0 10px; }
-  .eng-cine__tab span { writing-mode: horizontal-tb; text-orientation: mixed; }
-  .eng-read.is-cine .eng-cine .eng-read__bh { padding-top: 14px; font-size: 17px; }
-  .eng-read.is-cine .eng-cine .eng-read__bh b { font-size: 23px; }
-  .eng-read.is-cine .eng-cine .eng-read__ul, .eng-read.is-cine .eng-cine .eng-read__ta { font-size: 19px; line-height: 30px; }
-  .eng-read.is-cine .eng-cine .eng-read__ta { height: 30px; max-height: 210px; }
+  .eng-cine__bg { inset: 8px 22px; }
+  .eng-cine__scene { grid-row: 1; display: grid; grid-template-columns: 116px minmax(0, 1fr); align-items: center; gap: 4px 12px; width: 100%; }
+  .eng-cine__scene figure { display: contents; }
+  .eng-cine__scene img { grid-row: 1 / 3; grid-column: 1; aspect-ratio: 16 / 9; }
+  .eng-cine__scene figcaption { grid-column: 2; align-self: end; margin: 0; font-size: 17px; }
+  .eng-cine__scene > .eng-read__btn { grid-column: 2; align-self: start; justify-self: start; }
+  .eng-read.is-cine .eng-cine__scene .eng-read__btn { height: 38px; }
+  .eng-cine__scene:not(.is-two) .eng-read__btn span { display: none; }
+  .eng-cine__scene.is-two { grid-template-columns: 1fr 1fr; align-items: start; gap: 10px 12px; }
+  .eng-cine__scene.is-two figure { display: block; }
+  .eng-cine__scene.is-two figcaption { margin: 8px 0 0; font-size: 15px; }
+  .eng-cine__scene.is-all { display: block; }
+  .eng-cine__all { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .eng-cine__steps { grid-row: 2; }
+  .eng-cine__tab, .eng-cine__tab i { min-width: 40px; height: 40px; border-radius: 20px; }
+  .eng-cine__tab i { width: 40px; }
+  .eng-read.is-cine .eng-cine > .eng-read__box { grid-row: 3; }
+  .eng-read.is-cine .eng-cine .eng-read__bh span { font-size: 25px; }
+  .eng-read.is-cine .eng-cine .eng-read__ul, .eng-read.is-cine .eng-cine .eng-read__ta { font-size: 19px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .eng-read.is-cine .eng-cine > .eng-read__box { transition: none; }
-  .eng-read.is-cine .eng-cine > .eng-read__box.is-cur > *, .eng-read.is-cine .eng-cine .eng-read__ticks li.is-new::before { animation: none; }
+  .eng-read.is-cine .eng-cine > .eng-read__box.is-cur, .eng-read.is-cine .eng-cine .eng-read__ticks li.is-new::before { animation: none; }
+  .eng-cine__scene figure { transition: none; }
 }
