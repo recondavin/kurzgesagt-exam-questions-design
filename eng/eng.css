@@ -3222,11 +3222,8 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
    could eb better like because the imags are such low quality is one thing but also its that they should be focusing
    on one thing at a time and they should be asked the qeustion(although it should be shorter) and they should also
    know what they are writing i suppose you did that well with paragraph 1 2 and 3 at the top".
-   So: the paper goes dark (its ink and paper colours swap, so everything on it follows) and the part is one frame.
-   The whole paper is the scene out of focus and dark, which has no quality to lose (first only the frame was, with
-   navy paper round it: "the backround is quite soothing but outside of that i dont like the dark blue nothingness";
-   so nothing on this page is navy now: tabs and buttons are see-through cream on the picture, and the frame is only
-   a strip of film edge above and below the writing). On the left the scene itself, small
+   So: the part is one dark frame on the desk's cream paper (see the note on the paper, below).
+   Behind it is the scene out of focus and dark, which has no quality to lose. On the left the scene itself, small
    enough to be sharp (the stills are 1280 wide and well compressed, the Sive photographs 448), with its name and
    Watch the scene. Beside it one box at a time: its number among the part's steps and one short question. Under
    both, across the whole frame, the lines to answer on, and its ticks as lamps. No heading (the tabs across the top
@@ -3237,29 +3234,33 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
    in those lines". They still grow with what is typed. So the picture is smaller again (210px), which costs it
    nothing. The box itself is display: contents, so its heading sits beside the scene and its lines under both. */
 .eng-read__btn[hidden] { display: none; }
-.eng-read.is-cine .eng-read__paper {
-  --exam-ink: #FFFDF6; --exam-ink-2: rgba(255, 253, 246, .74); --exam-paper: #15110E; --exam-paper-2: rgba(255, 253, 246, .14); --exam-rule: rgba(255, 253, 246, .3); --exam-done: rgba(255, 253, 246, .5);
-  --cine-lamp: #FFE45C; --cine-night: #15110E;
-  padding-bottom: 24px;
-  /* the scene out of focus, darkened, over the whole paper (--cine-bg is made in eng.js, cineBack); until it is
-     there, and for a part with no picture, a warm dark and not the navy it was */
-  background: linear-gradient(rgba(12, 9, 7, .6), rgba(12, 9, 7, .6)), var(--cine-bg, none) center / cover no-repeat var(--cine-night);
+/* The paper is the desk's own cream paper, as it always was: its header, the exam question, the tabs and the foot's
+   tabs are untouched. Only the frame is dark. (The whole paper was dark navy at first, with the frame's blurred
+   picture inside it; the user: "the backround is quite soothing but outside of that i dont like the dark blue
+   nothingness". The blurred picture was then spread over the whole paper, which was not what was meant: "i meant
+   keep the backround as it was before the desk". So: the soothing picture inside the frame, the desk's paper
+   outside it, and nothing navy.) The ink and paper colours swap inside the frame only, so everything in it follows. */
+.eng-read.is-cine .eng-read__paper { padding-bottom: 24px; }
+.eng-read.is-cine .eng-cine {
+  --exam-ink: #FFFDF6; --exam-ink-2: rgba(255, 253, 246, .72); --exam-paper: #0C1118; --exam-paper-2: rgba(255, 253, 246, .14); --exam-rule: rgba(255, 253, 246, .3); --exam-done: rgba(255, 253, 246, .5);
+  --cine-lamp: #FFE45C; --cine-night: #0C1118;
+  color: #FFFDF6;
 }
-.eng-read.is-cine .eng-read__q mark { color: #13233A; }
-.eng-read.is-cine .eng-read__pg.is-on, .eng-read.is-cine .eng-read__pg.is-on:hover { color: var(--cine-night); }
-.eng-read.is-cine .eng-read__stamp b, .eng-read.is-cine .eng-read__stamp p, .eng-read.is-cine .eng-wc.is-high { border-color: #FF8A94; color: #FF8A94; }
+.eng-read.is-cine .eng-cine .eng-wc.is-high { color: #FF8A94; }
 .eng-read.is-cine .eng-read__nav { margin-top: 16px; }
 @media (hover: hover) {
-  .eng-read.is-cine .eng-read__paper .eng-read__btn:not(.is-go):hover, .eng-read.is-cine .eng-read__paper .eng-read__ideasb:hover { color: var(--cine-night); }
+  .eng-read.is-cine .eng-cine .eng-read__btn:not(.is-go):hover, .eng-read.is-cine .eng-cine .eng-read__ideasb:hover { color: var(--cine-night); }
 }
 /* the part's heading and its count of ticks are not shown (the heading stays for a screen reader) */
 .eng-read.is-cine .eng-read__phrow { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-/* the frame: no box of its own any more (the paper is the picture), only a strip of film edge above and below */
-.eng-read.is-cine .eng-cine { --lh: 34px; position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); align-content: start; gap: 0 28px; box-sizing: border-box; min-height: clamp(340px, calc(100vh - 470px), 440px); margin: 0; padding: 46px 0 40px; }
+/* the frame */
+.eng-read.is-cine .eng-cine { --lh: 34px; position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); align-content: start; gap: 0 28px; box-sizing: border-box; min-height: clamp(340px, calc(100vh - 470px), 440px); margin: 0; padding: 46px 36px 40px; overflow: hidden; border-radius: 4px; background: #000; }
 .eng-read.is-cine .eng-cine.is-nopic { grid-template-columns: minmax(0, 1fr); }
-.eng-read.is-cine .eng-cine::before, .eng-read.is-cine .eng-cine::after { content: ""; position: absolute; right: 0; left: 0; box-sizing: border-box; height: 26px; padding: 0 4px; border-radius: 3px; background: linear-gradient(90deg, transparent 8px, rgba(255, 253, 246, .85) 8px 20px, transparent 20px) 0 50% / 28px 10px space no-repeat content-box, rgba(0, 0, 0, .72); }
-.eng-read.is-cine .eng-cine::before { top: 0; }
-.eng-read.is-cine .eng-cine::after { bottom: 0; }
+.eng-read.is-cine .eng-cine::before, .eng-read.is-cine .eng-cine::after { content: ""; position: absolute; z-index: 1; right: 10px; left: 10px; height: 10px; background: repeating-linear-gradient(90deg, rgba(255, 253, 246, .88) 0 12px, transparent 12px 28px); }
+.eng-read.is-cine .eng-cine::before { top: 8px; }
+.eng-read.is-cine .eng-cine::after { bottom: 8px; }
+.eng-cine__bg { position: absolute; inset: 26px 12px; overflow: hidden; border-radius: 3px; background: #141B26; }
+.eng-cine__bg i { position: absolute; inset: -48px; background: center / cover no-repeat; filter: blur(26px) brightness(.38) saturate(1.2); }
 /* the scene, small and sharp */
 .eng-cine__scene { position: relative; grid-row: 1; grid-column: 1; display: flex; flex-direction: column; align-items: flex-start; align-self: start; gap: 12px; width: 210px; min-width: 0; margin: 0 0 18px; }
 .eng-cine__scene figure { width: 100%; margin: 0; transition: opacity .4s ease-out; }
@@ -3287,7 +3288,7 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-cine__tab.is-next { background: var(--exam-pen); }
 .eng-cine__tab.is-done i { font-size: 0; }
 .eng-cine__tab.is-done i::after { content: ""; width: 5px; height: 11px; margin-top: -3px; border: solid currentColor; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
-.eng-cine__tab.is-cur, .eng-cine__tab.is-cur:hover { padding: 0 15px 0 3px; background: #FFFDF6; color: #15110E; }
+.eng-cine__tab.is-cur, .eng-cine__tab.is-cur:hover { padding: 0 15px 0 3px; background: #FFFDF6; color: #0C1118; }
 .eng-cine__tab.is-cur span { display: inline; }
 .eng-cine__tab:focus-visible { outline: 3px solid #FFE45C; outline-offset: 2px; }
 /* one box. It is display: contents: its heading (steps, question, Show ideas) sits beside the scene, and its
@@ -3330,8 +3331,11 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-read.is-cine .eng-cine .eng-read__wc { grid-row: 7; grid-column: 1 / -1; align-self: end; justify-self: end; margin: 14px 0 0; line-height: 26px; text-align: right; }
 /* on a phone: the scene is a small picture with its name beside it, and the question comes straight after */
 @media (max-width: 700px) {
-  .eng-read.is-cine .eng-cine { --lh: 30px; grid-template-columns: minmax(0, 1fr); gap: 0; min-height: 0; padding: 38px 0 36px; }
-  .eng-read.is-cine .eng-cine::before, .eng-read.is-cine .eng-cine::after { height: 22px; }
+  .eng-read.is-cine .eng-cine { --lh: 30px; grid-template-columns: minmax(0, 1fr); gap: 0; min-height: 0; padding: 22px 34px 24px; }
+  .eng-read.is-cine .eng-cine::before, .eng-read.is-cine .eng-cine::after { top: 8px; bottom: 8px; width: 8px; height: auto; background: repeating-linear-gradient(180deg, rgba(255, 253, 246, .88) 0 10px, transparent 10px 24px); }
+  .eng-read.is-cine .eng-cine::before { right: auto; left: 7px; }
+  .eng-read.is-cine .eng-cine::after { right: 7px; left: auto; }
+  .eng-cine__bg { inset: 8px 22px; }
   .eng-cine__scene { grid-row: 1; display: grid; grid-template-columns: 116px minmax(0, 1fr); align-items: center; gap: 4px 12px; width: 100%; margin: 0 0 16px; }
   .eng-cine__scene figure { display: contents; }
   .eng-cine__scene img { grid-row: 1 / 3; grid-column: 1; aspect-ratio: 16 / 9; }
