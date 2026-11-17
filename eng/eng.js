@@ -2419,7 +2419,7 @@
   function pageGrow(ta) {
     var lh = parseFloat(getComputedStyle(ta).lineHeight) || 30;
     ta.style.height = '0px';
-    ta.style.height = Math.max(READ_STRUCT ? 2 : 1, Math.round(ta.scrollHeight / lh)) * lh + 'px';
+    ta.style.height = Math.max(READ_STRUCT ? (CINE ? cineLines(ta) : 2) : 1, Math.round(ta.scrollHeight / lh)) * lh + 'px';
   }
   // ----- The writing page as a frame of film: a try-out, on only when the address has ?look=cinema. -----
   // The user, of the writing page: "my insitinct is telling me that this is boring to look at"; shown directions, then
@@ -2473,6 +2473,15 @@
       }).join('') + '<button type="button" class="eng-read__btn is-quiet" data-page-watch aria-label="Watch the scene' + (sc.length > 1 ? 's' : '') + '"><i aria-hidden="true">▶</i> Watch<span> the scene' + (sc.length > 1 ? 's' : '') + '</span></button>'
         : '<div class="eng-cine__all">' + pics.slice(0, 4).map(function (q) { return '<img src="' + src(q.file) + '" alt="">'; }).join('') + '</div>') + '</div>';
   }
+  // How many lines a box starts with: enough for the top of its word range at the width it has (the user, of two
+  // lines in a narrow column: "what if its a long like u cant fit a paragraph in those lines"). Two at least, seven at
+  // most; after that the lines grow with what is typed, as they always did. A letter is about .46 of the font size
+  // wide and a word with its space about 5.6 letters.
+  function cineLines(ta) {
+    var w = ta.clientWidth, r = pageCtx(READ_PART).range[ta.getAttribute('data-page-box')];
+    if (!w || !r) return 2;
+    return Math.max(2, Math.min(7, Math.ceil(r[1] * 5.6 / (w / ((parseFloat(getComputedStyle(ta).fontSize) || 20) * .46)))));
+  }
   function cineBoxes() { return READ ? Array.prototype.slice.call(READ.querySelectorAll('.eng-cine > .eng-read__box')) : []; }
   function cineKey(b) { var id = b.getAttribute('data-page-boxof'); return id.slice(id.lastIndexOf('|') + 1); }
   // Show one box: the one asked for (k), else the one already showing, else the box to write next, else the first.
@@ -2480,19 +2489,23 @@
   // next); the foot's two tabs step through the boxes of this part before they leave it for the part before or after.
   function cineSet(k, focus) {
     if (!CINE || !READ || !READ_STRUCT) return;
-    var bx = cineBoxes(), cur = null, strip = READ.querySelector('.eng-cine'), tabs = Array.prototype.slice.call(READ.querySelectorAll('.eng-cine__tab'));
+    var bx = cineBoxes(), cur = null, strip = READ.querySelector('.eng-cine');
     if (!bx.length) return;
     if (k) cur = bx.filter(function (b) { return cineKey(b) === k; })[0];
     cur = cur || bx.filter(function (b) { return b.classList.contains('is-cur'); })[0] || bx.filter(function (b) { return b.classList.contains('is-next'); })[0] || bx[0];
-    var i = bx.indexOf(cur), moved = !cur.classList.contains('is-cur'), ta = cur.querySelector('.eng-read__ta'), name = function (j) { return tabs[j] ? tabs[j].getAttribute('data-name') : ''; };
+    var i = bx.indexOf(cur), moved = !cur.classList.contains('is-cur'), ta = cur.querySelector('.eng-read__ta'), names = Array.prototype.map.call(bx[0].querySelectorAll('.eng-cine__tab'), function (t) { return t.getAttribute('data-name'); });
+    var name = function (j) { return names[j] || ''; };
     strip.setAttribute('data-cur', cineKey(cur));
-    bx.forEach(function (b, j) {
-      var tab = tabs[j], done = b.classList.contains('is-done'), nx = b.classList.contains('is-next');
+    bx.forEach(function (b) {
       b.classList.toggle('is-cur', b === cur);
-      if (!tab) return;
-      tab.classList.toggle('is-cur', b === cur); tab.classList.toggle('is-done', done); tab.classList.toggle('is-next', nx);
-      tab.setAttribute('aria-label', name(j) + (done ? ', written' : '') + (nx ? ', to write next' : ''));
-      if (b === cur) tab.setAttribute('aria-current', 'step'); else tab.removeAttribute('aria-current');
+      // Each box carries the part's steps in its own heading; all of them are kept right, the one showing is seen.
+      Array.prototype.forEach.call(b.querySelectorAll('.eng-cine__tab'), function (tab, j) {
+        var of = bx[j]; if (!of) return;
+        var done = of.classList.contains('is-done'), nx = of.classList.contains('is-next');
+        tab.classList.toggle('is-cur', of === cur); tab.classList.toggle('is-done', done); tab.classList.toggle('is-next', nx);
+        tab.setAttribute('aria-label', name(j) + (done ? ', written' : '') + (nx ? ', to write next' : ''));
+        if (of === cur) tab.setAttribute('aria-current', 'step'); else tab.removeAttribute('aria-current');
+      });
     });
     if (moved && ta) pageGrow(ta);
     var prev = READ.querySelector('[data-cine-step="-1"]'), next = READ.querySelector('[data-cine-step="1"]');
@@ -2576,11 +2589,12 @@
       }
       // The examiner's ticks: each box's own, in the margin; the count sits by the heading.
       var tk = pts.map(function (pt) { return tickList(part, s, pt.k, c); }), any = tk.some(function (x) { return x.length > 0; }), pics = CINE ? cinePics(part, s, c) : [];
+      var steps = CINE ? '<span class="eng-cine__steps">' + pts.map(function (pt, i) {
+        return '<button type="button" class="eng-cine__tab" data-cine-go="' + pt.k + '" data-name="' + esc(pt.label) + '"><i aria-hidden="true">' + (i + 1) + '</i><span aria-hidden="true">' + esc(pt.label) + '</span></button>';
+      }).join('') + '</span>' : '';
       return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any ? tickTally() : '') + '</div>' + (CINE ? '' : watchBtn(part, s, c)) +
-        (CINE ? '<div class="eng-cine' + (pics.length ? '' : ' is-nopic') + '">' + cineScene(part, s, c) + '<p class="eng-cine__steps">' + pts.map(function (pt, i) {
-          return '<button type="button" class="eng-cine__tab" data-cine-go="' + pt.k + '" data-name="' + esc(pt.label) + '"><i aria-hidden="true">' + (i + 1) + '</i><span aria-hidden="true">' + esc(pt.label) + '</span></button>';
-        }).join('') + '</p>' : '') + pts.map(function (pt, i) {
-        return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh"><b>' + esc(pt.label) + '</b><span>' +
+        (CINE ? '<div class="eng-cine' + (pics.length ? '' : ' is-nopic') + '">' + cineScene(part, s, c) : '') + pts.map(function (pt, i) {
+        return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh">' + steps + '<b>' + esc(pt.label) + '</b><span' + (CINE ? ' class="eng-cine__q"' : '') + '>' +
           (CINE ? esc(cineAsk(part, s, pt, c)) : pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span>' + pageIdeasBtn(s, pt) + '</p>' + (any ? tickHtml(part, s, pt.k, tk[i], c) : '') + pageIdeasList(s, pt) + '<div class="eng-read__ul" aria-hidden="true"><div></div></div>' +
           '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s) + ': ' + pt.label) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
           (c.range[pt.k] ? '<p class="eng-read__wc" data-page-wc="' + s + '|' + pt.k + '"></p>' : '') + '</div>';

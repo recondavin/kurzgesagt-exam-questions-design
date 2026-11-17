@@ -3225,9 +3225,14 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
    So: the paper goes dark (its ink and paper colours swap, so everything on it follows) and the part is one frame.
    Behind it is the scene out of focus and dark, which has no quality to lose. On the left the scene itself, small
    enough to be sharp (the stills are 1280 wide and well compressed, the Sive photographs 448), with its name and
-   Watch the scene. On the right one box at a time: its number among the part's steps, one short question, the lines
-   to answer on, and its ticks as lamps. No heading (the tabs across the top say which part this is) and no count of
-   ticks (the lamps are the count). Words sit straight on the dark, with no card. */
+   Watch the scene. Beside it one box at a time: its number among the part's steps and one short question. Under
+   both, across the whole frame, the lines to answer on, and its ticks as lamps. No heading (the tabs across the top
+   say which part this is) and no count of ticks (the lamps are the count). Words sit straight on the dark, with no
+   card.
+   The lines run the whole width, and a box starts with as many as its answer should take (eng.js, cineLines), after
+   the user said of two lines in a narrow column beside the picture: "what if its a long like u cant fit a paragraph
+   in those lines". They still grow with what is typed. So the picture is smaller again (210px), which costs it
+   nothing. The box itself is display: contents, so its heading sits beside the scene and its lines under both. */
 .eng-read__btn[hidden] { display: none; }
 .eng-read.is-cine .eng-read__paper {
   --exam-ink: #FFFDF6; --exam-ink-2: rgba(255, 253, 246, .72); --exam-paper: #0C1118; --exam-paper-2: #1E2836; --exam-rule: rgba(255, 253, 246, .3); --exam-done: #8D949E;
@@ -3244,7 +3249,7 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 /* the part's heading and its count of ticks are not shown (the heading stays for a screen reader) */
 .eng-read.is-cine .eng-read__phrow { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 /* the frame */
-.eng-read.is-cine .eng-cine { --lh: 34px; position: relative; display: grid; grid-template-columns: 290px minmax(0, 1fr); grid-template-rows: auto 1fr; gap: 16px 30px; box-sizing: border-box; min-height: clamp(340px, calc(100vh - 470px), 440px); margin: 0; padding: 50px 36px 46px; overflow: hidden; border-radius: 4px; background: #000; }
+.eng-read.is-cine .eng-cine { --lh: 34px; position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); align-content: start; gap: 0 28px; box-sizing: border-box; min-height: clamp(340px, calc(100vh - 470px), 440px); margin: 0; padding: 46px 36px 40px; overflow: hidden; border-radius: 4px; background: #000; }
 .eng-read.is-cine .eng-cine.is-nopic { grid-template-columns: minmax(0, 1fr); }
 .eng-read.is-cine .eng-cine::before, .eng-read.is-cine .eng-cine::after { content: ""; position: absolute; z-index: 1; right: 10px; left: 10px; height: 10px; background: repeating-linear-gradient(90deg, rgba(255, 253, 246, .88) 0 12px, transparent 12px 28px); }
 .eng-read.is-cine .eng-cine::before { top: 8px; }
@@ -3252,24 +3257,25 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-cine__bg { position: absolute; inset: 26px 12px; overflow: hidden; border-radius: 3px; background: #141B26; }
 .eng-cine__bg i { position: absolute; inset: -48px; background: center / cover no-repeat; filter: blur(26px) brightness(.38) saturate(1.2); }
 /* the scene, small and sharp */
-.eng-cine__scene { position: relative; grid-row: 1 / 3; grid-column: 1; display: flex; flex-direction: column; align-items: flex-start; align-self: start; gap: 14px; min-width: 0; }
+.eng-cine__scene { position: relative; grid-row: 1; grid-column: 1; display: flex; flex-direction: column; align-items: flex-start; align-self: start; gap: 12px; width: 210px; min-width: 0; margin: 0 0 18px; }
 .eng-cine__scene figure { width: 100%; margin: 0; transition: opacity .4s ease-out; }
 .eng-cine__scene img { display: block; width: 100%; height: auto; max-height: 250px; border-radius: 3px; object-fit: cover; object-position: 50% 25%; box-shadow: 0 0 0 1.5px rgba(255, 253, 246, .85), 0 12px 26px rgba(0, 0, 0, .5); }
-.eng-cine__scene figcaption { margin: 12px 0 0; color: #FFFDF6; font: 700 19px/1.25 var(--font-head); letter-spacing: -.01em; }
+.eng-cine__scene figcaption { margin: 10px 0 0; color: #FFFDF6; font: 700 17px/1.25 var(--font-head); letter-spacing: -.01em; }
 .eng-cine__scene figcaption small { display: block; margin: 0 0 3px; color: rgba(255, 253, 246, .72); font: 600 13px/1.2 var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
-.eng-cine__scene.is-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 12px; }
+.eng-cine__scene.is-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 290px; }
 .eng-cine__scene.is-two img { aspect-ratio: 4 / 3; }
-.eng-cine__scene.is-two figcaption { font-size: 16px; }
+.eng-cine__scene.is-two figcaption { font-size: 15px; }
 .eng-cine__scene.is-two .eng-read__btn { grid-column: 1 / -1; justify-self: start; }
 .eng-cine[data-cur="x"] figure[data-cine-pic="y"], .eng-cine[data-cur="y"] figure[data-cine-pic="x"] { opacity: .38; }
-.eng-cine__all { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+.eng-cine__all { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
 .eng-cine__all img { aspect-ratio: 16 / 9; }
 .eng-read.is-cine .eng-cine__scene .eng-read__btn { --tab: rgba(255, 253, 246, .16); --stripe: #FFFDF6; height: 40px; padding: 0 14px 0 19px; color: #FFFDF6; font-size: 16px; white-space: nowrap; }
 .eng-read.is-cine .eng-cine__scene .eng-read__btn i { margin-right: 4px; color: #FFFDF6; font-style: normal; font-size: 13px; }
 @media (hover: hover) { .eng-read.is-cine .eng-read__paper .eng-cine__scene .eng-read__btn:hover i { color: var(--cine-night); } }
 /* where this box is among the part's: numbers, the one you are on with its name, a tick once written, red for the
    one to write next */
-.eng-cine__steps { position: relative; grid-row: 1; grid-column: -2 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; }
+.eng-read.is-cine .eng-cine .eng-cine__steps { display: flex; flex: none; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 14px; }
+.eng-read.is-cine .eng-cine .eng-cine__tab span { flex: none; min-width: 0; }
 .eng-cine__tab { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-width: 34px; height: 34px; margin: 0; padding: 0; border: 0; border-radius: 17px; background: rgba(255, 253, 246, .16); color: #FFFDF6; font: 700 15px/1 var(--font-body); cursor: pointer; }
 .eng-cine__tab i { display: grid; place-items: center; width: 34px; height: 34px; font: 700 15px/1 var(--font-head); font-style: normal; }
 .eng-cine__tab span { display: none; }
@@ -3280,22 +3286,25 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-cine__tab.is-cur, .eng-cine__tab.is-cur:hover { padding: 0 15px 0 3px; background: #FFFDF6; color: #0C1118; }
 .eng-cine__tab.is-cur span { display: inline; }
 .eng-cine__tab:focus-visible { outline: 3px solid #FFE45C; outline-offset: 2px; }
-/* one box: the question, the lines, the lamps */
-.eng-read.is-cine .eng-cine > .eng-read__box { position: relative; grid-row: 2; grid-column: -2 / -1; display: none; flex-direction: column; min-width: 0; margin: 0; padding: 0; border: 0; }
-.eng-read.is-cine .eng-cine > .eng-read__box.is-cur { display: flex; animation: eng-cine-in .45s ease-out both; }
-@keyframes eng-cine-in { from { opacity: 0; transform: translateY(6px); } }
+/* one box. It is display: contents: its heading (steps, question, Show ideas) sits beside the scene, and its
+   ideas, lines, lamps and word count run under both, the whole width of the frame */
+.eng-read.is-cine .eng-cine > .eng-read__box { display: none; margin: 0; padding: 0; border: 0; }
+.eng-read.is-cine .eng-cine > .eng-read__box.is-cur { display: contents; }
+/* (a box that is display: contents still has its ::before, the red "Write this next"; the steps say that here) */
 .eng-read.is-cine .eng-cine > .eng-read__box::before { content: none; }
-.eng-read.is-cine .eng-cine .eng-read__bh { display: contents; }
+.eng-read.is-cine .eng-cine > .eng-read__box.is-cur > * { position: relative; animation: eng-cine-in .45s ease-out both; }
+@keyframes eng-cine-in { from { opacity: 0; transform: translateY(6px); } }
+.eng-read.is-cine .eng-cine .eng-read__bh { grid-row: 1; grid-column: -2 / -1; display: flex; flex-direction: column; flex-wrap: nowrap; align-items: flex-start; align-self: start; gap: 0; min-width: 0; margin: 0 0 22px; }
 .eng-read.is-cine .eng-cine .eng-read__bh b { position: absolute; width: 1px; height: 1px; margin: 0; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.eng-read.is-cine .eng-cine .eng-read__bh span { order: 0; flex: none; margin: 0 0 12px; color: #FFFDF6; font: 800 31px/1.16 var(--font-head); letter-spacing: -.02em; text-wrap: balance; }
-.eng-read.is-cine .eng-cine .eng-read__ideasb { order: 1; align-self: flex-start; --tab: rgba(255, 253, 246, .16); --stripe: #FFFDF6; margin: 0 0 12px; }
-.eng-read.is-cine .eng-cine .eng-read__ilist { order: 2; margin: 0 0 10px; }
-.eng-read.is-cine .eng-cine .eng-read__ul { order: 3; font: 500 21px/var(--lh) var(--font-body); }
-.eng-read.is-cine .eng-cine .eng-read__ta { order: 4; color: #FFFDF6; font: 500 21px/var(--lh) var(--font-body); caret-color: var(--cine-lamp); }
+.eng-read.is-cine .eng-cine .eng-cine__q { flex: none; margin: 0 0 14px; color: #FFFDF6; font: 800 31px/1.16 var(--font-head); letter-spacing: -.02em; text-wrap: balance; }
+.eng-read.is-cine .eng-cine .eng-read__ideasb { --tab: rgba(255, 253, 246, .16); --stripe: #FFFDF6; align-self: flex-start; margin: 0; }
+.eng-read.is-cine .eng-cine .eng-read__ilist { grid-row: 2; grid-column: 1 / -1; margin: 0 0 12px; }
+.eng-read.is-cine .eng-cine .eng-read__ul { grid-row: 3; grid-column: 1 / -1; font: 500 21px/var(--lh) var(--font-body); }
+.eng-read.is-cine .eng-cine .eng-read__ta { grid-row: 4; grid-column: 1 / -1; color: #FFFDF6; font: 500 21px/var(--lh) var(--font-body); caret-color: var(--cine-lamp); }
 .eng-read.is-cine .eng-cine .eng-read__ta::placeholder { color: rgba(255, 253, 246, .6); }
 .eng-read.is-cine .eng-cine .eng-read__ul u { text-decoration-color: var(--cine-lamp); }
 /* its ticks, as lamps */
-.eng-read.is-cine .eng-cine .eng-read__ticks { position: relative; inset: auto; order: 5; display: flex; flex-wrap: wrap; gap: 2px 20px; width: auto; margin: 14px 0 0; padding: 0; border: 0; }
+.eng-read.is-cine .eng-cine .eng-read__ticks { position: relative; inset: auto; grid-row: 5; grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 2px 20px; width: auto; margin: 14px 0 0; padding: 0 210px 0 0; border: 0; }
 .eng-read.is-cine .eng-cine .eng-read__ticks li { gap: 8px; height: 26px; margin: 0; color: rgba(255, 253, 246, .68); font: 500 15px/1 var(--font-body); white-space: nowrap; }
 .eng-read.is-cine .eng-cine .eng-read__ticks svg { display: none; }
 .eng-read.is-cine .eng-cine .eng-read__ticks li::before { content: ""; flex: none; width: 11px; height: 11px; border-radius: 50%; background: rgba(255, 253, 246, .3); }
@@ -3303,34 +3312,38 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-read.is-cine .eng-cine .eng-read__ticks li.is-on::before { background: var(--cine-lamp); box-shadow: 0 0 10px 3px rgba(255, 228, 92, .55); }
 .eng-read.is-cine .eng-cine .eng-read__ticks li.is-new::before { animation: eng-cine-lamp .6s ease-out; }
 @keyframes eng-cine-lamp { 0% { background: rgba(255, 253, 246, .3); box-shadow: none; } 35% { box-shadow: 0 0 20px 9px rgba(255, 228, 92, .85); } }
-.eng-read.is-cine .eng-cine .eng-read__wc { order: 6; margin: 4px 0 0; text-align: left; }
+.eng-read.is-cine .eng-cine .eng-read__wc { grid-row: 5; grid-column: 1 / -1; align-self: end; justify-self: end; margin: 14px 0 0; line-height: 26px; text-align: right; }
 /* on a phone: the scene is a small picture with its name beside it, and the question comes straight after */
 @media (max-width: 700px) {
-  .eng-read.is-cine .eng-cine { --lh: 30px; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr; gap: 14px; min-height: 0; padding: 22px 34px 24px; }
+  .eng-read.is-cine .eng-cine { --lh: 30px; grid-template-columns: minmax(0, 1fr); gap: 0; min-height: 0; padding: 22px 34px 24px; }
   .eng-read.is-cine .eng-cine::before, .eng-read.is-cine .eng-cine::after { top: 8px; bottom: 8px; width: 8px; height: auto; background: repeating-linear-gradient(180deg, rgba(255, 253, 246, .88) 0 10px, transparent 10px 24px); }
   .eng-read.is-cine .eng-cine::before { right: auto; left: 7px; }
   .eng-read.is-cine .eng-cine::after { right: 7px; left: auto; }
   .eng-cine__bg { inset: 8px 22px; }
-  .eng-cine__scene { grid-row: 1; display: grid; grid-template-columns: 116px minmax(0, 1fr); align-items: center; gap: 4px 12px; width: 100%; }
+  .eng-cine__scene { grid-row: 1; display: grid; grid-template-columns: 116px minmax(0, 1fr); align-items: center; gap: 4px 12px; width: 100%; margin: 0 0 16px; }
   .eng-cine__scene figure { display: contents; }
   .eng-cine__scene img { grid-row: 1 / 3; grid-column: 1; aspect-ratio: 16 / 9; }
   .eng-cine__scene figcaption { grid-column: 2; align-self: end; margin: 0; font-size: 17px; }
   .eng-cine__scene > .eng-read__btn { grid-column: 2; align-self: start; justify-self: start; }
   .eng-read.is-cine .eng-cine__scene .eng-read__btn { height: 38px; }
   .eng-cine__scene:not(.is-two) .eng-read__btn span { display: none; }
-  .eng-cine__scene.is-two { grid-template-columns: 1fr 1fr; align-items: start; gap: 10px 12px; }
+  .eng-cine__scene.is-two { grid-template-columns: 1fr 1fr; align-items: start; gap: 10px 12px; width: 100%; }
   .eng-cine__scene.is-two figure { display: block; }
   .eng-cine__scene.is-two figcaption { margin: 8px 0 0; font-size: 15px; }
   .eng-cine__scene.is-all { display: block; }
   .eng-cine__all { grid-template-columns: repeat(4, 1fr); gap: 6px; }
-  .eng-cine__steps { grid-row: 2; }
   .eng-cine__tab, .eng-cine__tab i { min-width: 40px; height: 40px; border-radius: 20px; }
   .eng-cine__tab i { width: 40px; }
-  .eng-read.is-cine .eng-cine > .eng-read__box { grid-row: 3; }
-  .eng-read.is-cine .eng-cine .eng-read__bh span { font-size: 25px; }
+  .eng-read.is-cine .eng-cine .eng-read__bh { grid-row: 2; margin-bottom: 16px; }
+  .eng-read.is-cine .eng-cine .eng-cine__q { font-size: 25px; }
+  .eng-read.is-cine .eng-cine .eng-read__ilist { grid-row: 3; }
+  .eng-read.is-cine .eng-cine .eng-read__ul { grid-row: 4; }
+  .eng-read.is-cine .eng-cine .eng-read__ta { grid-row: 5; }
+  .eng-read.is-cine .eng-cine .eng-read__ticks { grid-row: 6; padding-right: 0; }
+  .eng-read.is-cine .eng-cine .eng-read__wc { grid-row: 7; justify-self: start; margin-top: 4px; }
   .eng-read.is-cine .eng-cine .eng-read__ul, .eng-read.is-cine .eng-cine .eng-read__ta { font-size: 19px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .eng-read.is-cine .eng-cine > .eng-read__box.is-cur, .eng-read.is-cine .eng-cine .eng-read__ticks li.is-new::before { animation: none; }
+  .eng-read.is-cine .eng-cine > .eng-read__box.is-cur > *, .eng-read.is-cine .eng-cine .eng-read__ticks li.is-new::before { animation: none; }
   .eng-cine__scene figure { transition: none; }
 }
