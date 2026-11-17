@@ -2465,8 +2465,7 @@
   function cineScene(part, s, c) {
     var sc = watchScenes(part, s, c).filter(function (x) { return x.pic; }), pics = cinePics(part, s, c), src = function (f) { return 'assets/eng/img/' + encodeURI(f); };
     if (!pics.length) return '';
-    return '<span class="eng-cine__bg" aria-hidden="true"><i style="background-image:url(' + src(pics[0].file) + ')"></i></span>' +
-      '<div class="eng-cine__scene' + (sc.length > 1 ? ' is-two' : '') + (sc.length ? '' : ' is-all') + '">' +
+    return '<div class="eng-cine__scene' + (sc.length > 1 ? ' is-two' : '') + (sc.length ? '' : ' is-all') + '">' +
       (sc.length ? sc.map(function (x, i) {
         return '<figure data-cine-pic="' + (part === 'b' ? (i ? 'y' : 'x') : '') + '"><img src="' + src(x.pic.file) + '" alt="">' +
           '<figcaption>' + (part === 'b' ? '<small>' + esc(shortTitle(x.tid)) + '</small>' : '') + esc(x.m.title) + '</figcaption></figure>';
@@ -2490,6 +2489,46 @@
   // What a step is called here. "Anchor" is the site's word for the middle of a paragraph (the user, of this page:
   // "anchor(which is a but dumb i didnt know what that meant)"), so here it is what it means: the scene.
   function cineName(pt) { return pt.k === 'a' ? 'The scene' : pt.label; }
+  // The whole paper's background: the part's first picture, out of focus and dark. The user, of the frame's blurred
+  // picture with dark navy paper around it: "the backround is quite soothing but outside of that i dont like the dark
+  // blue nothingness". So the soothing part is the whole page. It is made here, once for each picture: the picture is
+  // drawn very small (32 by 18, which throws its detail away) and then up again to 256 wide, softened, and that is
+  // set as the paper's background (--cine-bg, a data: address), which the browser stretches smoothly. A background on
+  // the paper stays put while the page scrolls under it, which a blurred layer inside the page would not.
+  var CINE_BG = {};
+  // key: the part's pictures, file names joined by "|" (one for a paragraph of part (a), both texts' for part (b),
+  // the answer's scenes for Opening and Ending). More than one are laid side by side before the softening, so the
+  // paper carries the colours of each.
+  function cineBack(key) {
+    var paper = READ && READ.querySelector('.eng-read__paper');
+    if (!paper || paper.cineBg === key) return;
+    paper.cineBg = key;
+    var put = function () { if (paper.cineBg === key) paper.style.setProperty('--cine-bg', CINE_BG[key] ? 'url(' + CINE_BG[key] + ')' : 'none'); };
+    if (!key || CINE_BG[key] != null) { put(); return; }
+    var files = key.split('|'), ims = [], left = files.length;
+    var draw = function () {
+      try {
+        var a = document.createElement('canvas'), b = document.createElement('canvas'), x, n = ims.length, cw = 32 / n, r = cw / 18;
+        a.width = 32; a.height = 18; x = a.getContext('2d'); x.imageSmoothingQuality = 'high';
+        ims.forEach(function (im, i) {
+          var w = im.naturalWidth, h = im.naturalHeight;
+          if (!w || !h) return;
+          var sw = w / h > r ? h * r : w, sh = w / h > r ? h : w / r;
+          x.drawImage(im, (w - sw) / 2, (h - sh) * .25, sw, sh, i * cw, 0, cw, 18);
+        });
+        b.width = 256; b.height = 144; x = b.getContext('2d'); x.imageSmoothingQuality = 'high';
+        if ('filter' in x) x.filter = 'blur(5px) saturate(1.25)';
+        x.drawImage(a, -16, -9, 288, 162);
+        CINE_BG[key] = b.toDataURL('image/jpeg', .85);
+      } catch (e) { CINE_BG[key] = ''; }
+      put();
+    };
+    files.forEach(function (f, i) {
+      var im = new Image(); ims[i] = im;
+      im.onload = im.onerror = function () { if (--left === 0) draw(); };
+      im.src = 'assets/eng/img/' + encodeURI(f);
+    });
+  }
   function cineBoxes() { return READ ? Array.prototype.slice.call(READ.querySelectorAll('.eng-cine > .eng-read__box')) : []; }
   function cineKey(b) { var id = b.getAttribute('data-page-boxof'); return id.slice(id.lastIndexOf('|') + 1); }
   // Show one box: the one asked for (k), else the one already showing, else the box to write next, else the first.
@@ -2504,6 +2543,7 @@
     var i = bx.indexOf(cur), moved = !cur.classList.contains('is-cur'), ta = cur.querySelector('.eng-read__ta'), names = Array.prototype.map.call(bx[0].querySelectorAll('.eng-cine__tab'), function (t) { return t.getAttribute('data-name'); });
     var name = function (j) { return names[j] || ''; };
     strip.setAttribute('data-cur', cineKey(cur));
+    cineBack(strip.getAttribute('data-cine-bg') || '');
     bx.forEach(function (b) {
       b.classList.toggle('is-cur', b === cur);
       // Each box carries the part's steps in its own heading; all of them are kept right, the one showing is seen.
@@ -2613,7 +2653,7 @@
         return '<button type="button" class="eng-cine__tab" data-cine-go="' + pt.k + '" data-name="' + esc(cineName(pt)) + '"><i aria-hidden="true">' + (i + 1) + '</i><span aria-hidden="true">' + esc(cineName(pt)) + '</span></button>';
       }).join('') + '</span>' : '';
       return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any ? tickTally() : '') + '</div>' + (CINE ? '' : watchBtn(part, s, c)) +
-        (CINE ? '<div class="eng-cine' + (pics.length ? '' : ' is-nopic') + '">' + cineScene(part, s, c) + '<p class="eng-cine__sofar" data-cine-before hidden></p><p class="eng-cine__sofar is-after" data-cine-after hidden></p>' : '') + pts.map(function (pt, i) {
+        (CINE ? '<div class="eng-cine' + (pics.length ? '' : ' is-nopic') + '"' + (pics.length ? ' data-cine-bg="' + esc(pics.slice(0, 4).map(function (q) { return q.file; }).join('|')) + '"' : '') + '>' + cineScene(part, s, c) + '<p class="eng-cine__sofar" data-cine-before hidden></p><p class="eng-cine__sofar is-after" data-cine-after hidden></p>' : '') + pts.map(function (pt, i) {
         return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh">' + steps + '<b>' + esc(CINE ? cineName(pt) : pt.label) + '</b><span' + (CINE ? ' class="eng-cine__q"' : '') + '>' +
           (CINE ? esc(cineAsk(part, s, pt, c)) : pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span>' + pageIdeasBtn(s, pt) + '</p>' + (any ? tickHtml(part, s, pt.k, tk[i], c) : '') + pageIdeasList(s, pt) + '<div class="eng-read__ul" aria-hidden="true"><div></div></div>' +
           '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s) + ': ' + (CINE ? cineName(pt) : pt.label)) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
