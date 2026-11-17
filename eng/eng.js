@@ -2490,6 +2490,12 @@
   // What a step is called here. "Anchor" is the site's word for the middle of a paragraph (the user, of this page:
   // "anchor(which is a but dumb i didnt know what that meant)"), so here it is what it means: the scene.
   function cineName(pt) { return pt.k === 'a' ? 'The scene' : pt.label; }
+  // What a part of the answer is called on this page. Each middle part of part (a) is about one scene, and the user,
+  // once that was clear: "ah so its discussing 1 scene then well its misleading to say seperate like 1 big part into
+  // 2 paragraphs", then, pointing at the tabs, "paragraph 1 2 3", then, of that first message, "i just realised u
+  // didnt do this shit". So here they are Scene 1, Scene 2, Scene 3, between Opening and Ending: on the tabs, on the
+  // foot's tabs, in the help and on the stamp. (Part (b)'s middle parts each compare two scenes and keep "Paragraph".)
+  function pageSlot(s) { return CINE && READ_STRUCT && READ_PART === 'a' && typeof s === 'number' ? 'Scene ' + (s + 1) : slotName(s); }
   function cineBoxes() { return READ ? Array.prototype.slice.call(READ.querySelectorAll('.eng-cine > .eng-read__box')) : []; }
   function cineKey(b) { var id = b.getAttribute('data-page-boxof'); return id.slice(id.lastIndexOf('|') + 1); }
   // Show one box: the one asked for (k), else the one already showing, else the box to write next, else the first.
@@ -2562,15 +2568,15 @@
     return '<nav class="eng-read__pages" aria-label="The parts of your answer">' + c.slots.map(function (s) {
       var here = String(s) === String(READ_SLOT);
       return '<button type="button" class="eng-read__pg' + (here ? ' is-on' : '') + (pageDone(c, s) ? ' is-done' : '') + '" data-page-go="' + s + '"' + (here ? ' aria-current="page"' : '') +
-        ' aria-label="' + esc(slotName(s)) + '">' + (typeof s === 'number' ? '<span>Paragraph </span>' + (s + 1) : slotName(s)) + '</button>';
+        ' aria-label="' + esc(pageSlot(s)) + '">' + (typeof s === 'number' ? '<span>' + pageSlot(s).replace(/\d+$/, '') + '</span>' + (s + 1) : slotName(s)) + '</button>';
     }).join('') + '</nav>';
   }
   function pageFoot(c) {
     var i = c.slots.map(String).indexOf(String(READ_SLOT)), prev = c.slots[i - 1], next = c.slots[i + 1];
     return '<p class="eng-read__nav">' + (CINE ? '<button type="button" class="eng-read__btn is-quiet" data-cine-step="-1" hidden></button>' : '') +
-      (i > 0 ? '<button type="button" class="eng-read__btn is-quiet" data-page-go="' + prev + '">‹ ' + slotName(prev) + '</button>' : '<span></span>') +
+      (i > 0 ? '<button type="button" class="eng-read__btn is-quiet" data-page-go="' + prev + '">‹ ' + pageSlot(prev) + '</button>' : '<span></span>') +
       (CINE ? '<button type="button" class="eng-read__btn" data-cine-step="1" hidden></button>' : '') +
-      (i < c.slots.length - 1 ? '<button type="button" class="eng-read__btn" data-page-go="' + next + '" data-page-next>Next: ' + slotName(next) + ' ›</button>'
+      (i < c.slots.length - 1 ? '<button type="button" class="eng-read__btn" data-page-go="' + next + '" data-page-next>Next: ' + pageSlot(next) + ' ›</button>'
         : '<button type="button" class="eng-read__btn" data-page-readall data-page-next>Read it all through</button>') + '</p>';
   }
   function pageGo(s) {
@@ -2612,11 +2618,11 @@
       var steps = CINE ? '<span class="eng-cine__steps">' + pts.map(function (pt, i) {
         return '<button type="button" class="eng-cine__tab" data-cine-go="' + pt.k + '" data-name="' + esc(cineName(pt)) + '"><i aria-hidden="true">' + (i + 1) + '</i><span aria-hidden="true">' + esc(cineName(pt)) + '</span></button>';
       }).join('') + '</span>' : '';
-      return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any ? tickTally() : '') + '</div>' + (CINE ? '' : watchBtn(part, s, c)) +
+      return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + pageSlot(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any ? tickTally() : '') + '</div>' + (CINE ? '' : watchBtn(part, s, c)) +
         (CINE ? '<div class="eng-cine' + (pics.length ? '' : ' is-nopic') + '">' + cineScene(part, s, c) + '<p class="eng-cine__sofar" data-cine-before hidden></p><p class="eng-cine__sofar is-after" data-cine-after hidden></p>' : '') + pts.map(function (pt, i) {
         return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh">' + steps + '<b>' + esc(CINE ? cineName(pt) : pt.label) + '</b><span' + (CINE ? ' class="eng-cine__q"' : '') + '>' +
           (CINE ? esc(cineAsk(part, s, pt, c)) : pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span>' + pageIdeasBtn(s, pt) + '</p>' + (any ? tickHtml(part, s, pt.k, tk[i], c) : '') + pageIdeasList(s, pt) + '<div class="eng-read__ul" aria-hidden="true"><div></div></div>' +
-          '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s) + ': ' + (CINE ? cineName(pt) : pt.label)) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
+          '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(pageSlot(s) + ': ' + (CINE ? cineName(pt) : pt.label)) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
           (c.range[pt.k] ? '<p class="eng-read__wc" data-page-wc="' + s + '|' + pt.k + '"></p>' : '') + '</div>';
       }).join('') + (CINE ? '</div>' : '') + '</div>';
     }).join('') + (READ_STRUCT ? '<div class="eng-read__stamp" data-page-stamp hidden><b></b><p></p></div>' + pageFoot(c) : '');
@@ -2852,7 +2858,7 @@
     if (stamp) {
       var full = total > 0 && got === total, was = !stamp.hidden;
       if (full && !was) {
-        stamp.querySelector('b').innerHTML = esc(slotName(READ_SLOT)) + '<small>' + got + ' of ' + total + ' ticks</small>';
+        stamp.querySelector('b').innerHTML = esc(pageSlot(READ_SLOT)) + '<small>' + got + ' of ' + total + ' ticks</small>';
         stamp.querySelector('p').textContent = TICK_END[typeof READ_SLOT === 'number' ? (READ_PART === 'b' ? 'b' : 'a') : READ_SLOT];
         stamp.classList.toggle('is-new', !quiet && motion);
       }
@@ -3679,6 +3685,8 @@
     var c = pageCtx(READ_PART), P = c.parts(c.W, READ_SLOT), el = READ.querySelector('[data-page-check]');
     if (!el) return;
     var out = checkOut(READ_PART, READ_SLOT, c.keys(READ_SLOT).filter(function (k) { return !skipped(P, k); }).map(function (k) { return { k: k, v: String(P[k] || '') }; })), h = checkHtml(out, wordsIn(out.v), true);
+    // On the cinema try-out that step is "The scene", so the check does not call it Anchor either.
+    if (h && CINE && READ_STRUCT) h = h.replace(/\ba short Anchor\b/g, 'the scene, kept short').replace(/\bThe Anchor\b/g, 'The scene').replace(/\b(the )?Anchor\b/g, 'the scene');
     el.innerHTML = h ? '<h3>How it reads</h3>' + h : '';
     el.hidden = !h;
   }
@@ -3722,7 +3730,7 @@
         return '<li><button type="button" class="eng-read__w" data-page-word="' + esc(x[0]) + '"><b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span></button></li>';
       }).join('') + '</ul></section>';
     }
-    return '<header class="eng-read__hh"><h2>' + slotName(s) + (pt ? ' <span>' + esc(pt.label) + '</span>' : '') + '</h2><button type="button" class="eng-read__hx" data-page-help aria-label="Close help">×</button></header>' +
+    return '<header class="eng-read__hh"><h2>' + pageSlot(s) + (pt ? ' <span>' + esc(CINE && READ_STRUCT ? cineName(pt) : pt.label) + '</span>' : '') + '</h2><button type="button" class="eng-read__hx" data-page-help aria-label="Close help">×</button></header>' +
       '<section class="eng-read__check" data-page-check hidden></section>' +
       '<section><h3>' + (para ? (part === 'b' ? 'The scenes' : 'The scene') : 'Your paragraphs') + '</h3>' + h + '</section>' + words +
       '<section><h3>Instead of “shows”</h3>' + chips(th.instead) + '</section>';
