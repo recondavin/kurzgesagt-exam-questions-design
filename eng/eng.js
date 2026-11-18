@@ -2990,6 +2990,10 @@
   // to play embedded. Each plays whole and pauses at its end until the user gives a second to pause at.
   var CLIPS = {
     'shawshank-1': { yt: 'nbo7A03c_A0' },    // The Conviction of Andy Dufresne, 5:09 (nine seconds over five minutes)
+    // Red's first parole hearing, 0:51 ("Red gets rejected from parole"). This scene had nothing to play and no picture.
+    // It plays whole and then asks the usual question; its pause is drafted with the others in
+    // tools/eng/research/pauses-not-yet-seen/shawshank.js and is not live for the reason given at the Sive scenes below.
+    'shawshank-2': { yt: 'I5Gumyh1nmo' },
     // Warden Norton's Principles, 1:33. Two pauses, each on the second straight after the line an essay would quote
     // (times from the clip's own captions) and each checked against the clip's seek previews for who is where: at
     // 1:10 a guard in a cap (Hadley) stands over the man he has just struck; at 1:28 Norton is alone in close-up. The
