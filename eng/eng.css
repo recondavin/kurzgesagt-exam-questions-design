@@ -3264,8 +3264,9 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 /* the scene, small and sharp */
 /* (the picture was 210px wide; the user: "makebthe image top left image bigger", and it went to 320px. Then a review
    the user passed on said the picture and the scene's name took more room than the writing, and the user agreed: "i
-   agree with it on writing area bigger". So it is 260px, between the two, and the lines under it fill whatever
-   height the screen has (eng.js, cineLines). Its name and a short Watch share one line under it.) */
+   agree with it on writing area bigger". So it is 260px, between the two. (The lines under it were also made to fill
+   the screen, which the user did not want: a box has room for the words it asks for; eng.js, cineLines.) Its name
+   and a short Watch share one line under it.) */
 .eng-cine__scene { position: relative; grid-row: 1; grid-column: 1; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; align-self: start; gap: 10px 12px; width: 260px; min-width: 0; margin: 0 0 12px; }
 .eng-cine__scene figure { display: contents; margin: 0; }
 .eng-cine__scene img { grid-column: 1 / -1; display: block; width: 100%; height: auto; max-height: 300px; border-radius: 3px; object-fit: cover; object-position: 50% 25%; box-shadow: 0 0 0 1.5px rgba(255, 253, 246, .85), 0 12px 26px rgba(0, 0, 0, .5); }

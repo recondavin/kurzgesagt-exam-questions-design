@@ -2473,29 +2473,20 @@
       }).join('') + '<button type="button" class="eng-read__btn is-quiet" data-page-watch aria-label="Watch the scene' + (sc.length > 1 ? 's' : '') + '"><i aria-hidden="true">▶</i> Watch<span> the scene' + (sc.length > 1 ? 's' : '') + '</span></button>'
         : '<div class="eng-cine__all">' + pics.slice(0, 4).map(function (q) { return '<img src="' + src(q.file) + '" alt="">'; }).join('') + '</div>') + '</div>';
   }
-  // How many lines a box starts with: enough for the top of its word range at the width it has (the user, of two
-  // lines in a narrow column: "what if its a long like u cant fit a paragraph in those lines"). Two at least, seven at
-  // most; after that the lines grow with what is typed, as they always did. A letter is about .46 of the font size
-  // wide and a word with its space about 5.6 letters.
+  // How many lines a box starts with: room for the words it asks for, no more and no fewer. The user, of two lines in
+  // a narrow column: "what if its a long like u cant fit a paragraph in those lines"; then, when the lines were made
+  // to fill the screen and a 15-30 word box showed thirteen of them: "if want 15 words make space for 15 words and if
+  // u want 50 words make space for 50 words". So: the top of the box's word range, at the width the box has (a letter
+  // is about .46 of the font size wide, a word with its space about 5.6 letters), rounded to whole lines. At 736px
+  // wide that is two lines for 15-30 words, three for 20-40, four for 25-50, six for 40-80. Two at least, ten at most
+  // (a phone's lines are short); the lines still grow with what is typed.
   function cineLines(ta) {
-    var w = ta.clientWidth, r = pageCtx(READ_PART).range[ta.getAttribute('data-page-box')], cs = getComputedStyle(ta);
+    var w = ta.clientWidth, r = pageCtx(READ_PART).range[ta.getAttribute('data-page-box')];
     if (!w || !r) return 2;
-    // The paragraph so far, shown above, is part of the same paragraph: its lines count.
-    var sf = READ.querySelector('[data-cine-before]'), used = sf && !sf.hidden ? Math.round(sf.offsetHeight / (parseFloat(cs.lineHeight) || 34)) : 0;
     // Gone back to a part that is written, with the rest of the paragraph under it: no empty lines between them.
     var af = READ.querySelector('[data-cine-after]');
     if (af && !af.hidden && ta.value.trim()) return 1;
-    var need = Math.max(used ? 3 : 2, Math.min(7, Math.ceil(r[1] * 5.6 / (w / ((parseFloat(cs.fontSize) || 20) * .46)))) - used);
-    // And never fewer than the screen has room for: the lines run down to the foot's tabs. (A review the user passed
-    // on said the picture and the scene's name took more room than the writing; the user: "i agree with it on writing
-    // area bigger".) This is measured while pageGrow holds the box at no height, so what is left under the foot's tabs
-    // is the room there is for lines. On a phone, or any screen the page does not fit, there is none to add.
-    var paper = READ.querySelector('.eng-read__paper'), nav = READ.querySelector('.eng-read__nav'), fit = 0;
-    // (Not once the page has been scrolled: then it does not fit, and the lines are as many as the words need.)
-    if (paper && nav && !paper.scrollTop) {
-      fit = Math.floor((paper.getBoundingClientRect().top + paper.clientHeight - (parseFloat(getComputedStyle(paper).paddingBottom) || 0) - nav.getBoundingClientRect().bottom) / (parseFloat(cs.lineHeight) || 34));
-    }
-    return Math.max(need, Math.min(14, fit));
+    return Math.max(2, Math.min(10, Math.round(r[1] * 5.6 / (w / ((parseFloat(getComputedStyle(ta).fontSize) || 20) * .46)))));
   }
   // What a step is called here. "Anchor" is the site's word for the middle of a paragraph (the user, of this page:
   // "anchor(which is a but dumb i didnt know what that meant)"), so here it is what it means: the scene.
@@ -2621,6 +2612,15 @@
     });
     if (next) next.classList.toggle('is-go', cur.classList.contains('is-done'));
     if (!k) return;
+    // A box with room for a long answer can push the foot's tabs off a laptop screen. When you move to it, the paper
+    // slides up just far enough to show them, as long as the whole frame still fits (on a phone it does not, and the
+    // paper stays where it is).
+    var paper = READ.querySelector('.eng-read__paper'), nav = READ.querySelector('.eng-read__nav');
+    if (moved && paper && nav) {
+      var pr = paper.getBoundingClientRect(), over = nav.getBoundingClientRect().bottom - (pr.top + paper.clientHeight - (parseFloat(getComputedStyle(paper).paddingBottom) || 0));
+      if (over > 0 && strip.getBoundingClientRect().top - over >= pr.top) paper.scrollTop += over;
+      else if (over <= 0 && paper.scrollTop && paper.scrollHeight <= paper.clientHeight + paper.scrollTop) paper.scrollTop = Math.max(0, paper.scrollTop + over);
+    }
     if (focus && ta && window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) { ta.focus({ preventScroll: true }); ta.setSelectionRange(ta.value.length, ta.value.length); }
     else if (moved) { READ_BOX = k; pageMarks(); pageHelpDraw(); }
   }
