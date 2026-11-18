@@ -2817,8 +2817,9 @@ body.eng-read-on { overflow: hidden; }
      button or Help's words. The paper and Help move in a little on a laptop (--px) so each side has room for a
      hand; on a wide screen there was room already.) */
   .eng-read.is-cine.is-help { --px: max(24px, min(96px, calc(50% - 650px)), calc(50% - 712px)); }
-  .eng-read.is-cine.is-help .eng-read__hand.is-left { right: auto; bottom: -250px; left: calc(var(--px) + 52px - 520px); width: 520px; }
-  .eng-read.is-cine.is-help .eng-read__hand.is-right { bottom: -200px; left: calc(100% - var(--px) - 150px); width: 560px; }
+  /* (and "make the hands higher": each is 130px further up the side than it was) */
+  .eng-read.is-cine.is-help .eng-read__hand.is-left { right: auto; bottom: -120px; left: calc(var(--px) + 52px - 520px); width: 520px; }
+  .eng-read.is-cine.is-help .eng-read__hand.is-right { bottom: -70px; left: calc(100% - var(--px) - 150px); width: 560px; }
   .eng-read.is-cine.is-help .eng-read__help { padding-bottom: 60px; }
   .eng-read__hx { display: none; }
   .eng-read__hh { min-height: 32px; }
