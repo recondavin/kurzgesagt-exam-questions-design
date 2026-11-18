@@ -2800,7 +2800,15 @@ body.eng-read-on { overflow: hidden; }
   .eng-read { --px: max(24px, calc(50% - 712px)); --pw: min(920px, calc(100% - 412px)); }
   .eng-read.is-help .eng-read__paper { right: auto; left: var(--px); width: var(--pw); }
   .eng-read__help { top: 86px; right: var(--px); bottom: 26px; left: calc(var(--px) + var(--pw) + 24px); max-height: none; padding: 18px 24px 24px; box-shadow: 0 2px 0 rgba(60, 30, 10, .18), 0 12px 28px rgba(60, 30, 10, .22); }
-  .eng-read.is-help .eng-read__hand { display: none; }
+  /* (With Help on the hands were taken away: "the hands make way". The user: "can you bring his hands back but further
+     out". So they stay, at the outer corners of the paper and Help together, lower and further apart than with Help
+     off: the resting hand over the paper's bottom left corner, the writing hand over Help's bottom right. Each
+     reaches only a little way in over what is written; on a narrow screen they slide outwards but never further
+     than leaves 160px of the resting hand and 220px of the writing hand showing. Help has room at its foot so its last
+     lines can be scrolled clear of the pen.) */
+  .eng-read.is-help .eng-read__hand.is-left { right: auto; bottom: -230px; left: max(calc(var(--px) - 310px), -240px); }
+  .eng-read.is-help .eng-read__hand.is-right { bottom: -200px; left: min(calc(100% - var(--px) - 110px), calc(100% - 220px)); }
+  .eng-read.is-help .eng-read__help { padding-bottom: 150px; }
   .eng-read__hx { display: none; }
   .eng-read__hh { min-height: 32px; }
 }
