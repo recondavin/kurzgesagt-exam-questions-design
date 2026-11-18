@@ -3241,11 +3241,6 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
    keep the backround as it was before the desk". So: the soothing picture inside the frame, the desk's paper
    outside it, and nothing navy.) The ink and paper colours swap inside the frame only, so everything in it follows. */
 .eng-read.is-cine .eng-read__paper { padding-bottom: 18px; }
-/* the tabs, and at the end of their line the examiner: his face, his count of ticks, and what he says the moment
-   you earn one (he drops to a line of his own, on the right, where the tabs fill the row, as on a phone) */
-.eng-cine__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; margin: 0 0 18px; }
-.eng-cine__top .eng-read__pages { margin: 0; }
-.eng-cine__top .eng-read__tally { margin: 0 0 0 auto; }
 .eng-read.is-cine .eng-cine {
   --exam-ink: #FFFDF6; --exam-ink-2: rgba(255, 253, 246, .84); --exam-paper: #0C1118; --exam-paper-2: rgba(255, 253, 246, .14); --exam-rule: rgba(255, 253, 246, .3); --exam-done: rgba(255, 253, 246, .5);
   --cine-lamp: #FFE45C; --cine-night: #0C1118;
@@ -3331,8 +3326,19 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-cine__sofar.is-after.is-clip { -webkit-mask-image: linear-gradient(to top, transparent, #000 var(--lh)); mask-image: linear-gradient(to top, transparent, #000 var(--lh)); }
 .eng-cine__seg { cursor: pointer; transition: color .2s ease-out; }
 .eng-cine__seg:hover { color: #FFFDF6; }
+/* the teacher, under the lines: his face, and beside it what he says about the box as you write it (eng.js,
+   cineTeach) with the box's lamps under his words, so his face takes two short lines and not a row of its own. His
+   face changes with what he says (pleased when a box is done, cross when it runs too long) and his mouth moves for
+   a moment when the comment changes. The page's count of ticks is not shown here: he is talking, not counting. */
+.eng-read.is-cine .eng-cine .eng-read__tally { position: relative; grid-row: 7; grid-column: 1 / -1; display: block; box-sizing: border-box; width: auto; min-height: 24px; margin: 8px 0 0; padding: 0 0 0 58px; color: #FFFDF6; white-space: normal; }
+.eng-read.is-cine .eng-cine .eng-read__tally i { position: absolute; top: 1px; left: 0; width: 46px; height: 46px; }
+.eng-read.is-cine .eng-cine .eng-read__tally i svg { mix-blend-mode: normal; }
+.eng-read.is-cine .eng-cine .eng-read__tally small { display: block; margin: 0; color: #FFFDF6; font: 600 18px/24px var(--font-body); }
+.eng-read.is-cine .eng-cine .eng-read__tally b { display: none; }
+.eng-read.is-cine .eng-cine .eng-read__tally.is-pop small { animation: eng-cine-say .32s ease-out; }
+@keyframes eng-cine-say { from { opacity: 0; transform: translateY(4px); } }
 /* its ticks, as lamps */
-.eng-read.is-cine .eng-cine .eng-read__ticks { position: relative; inset: auto; grid-row: 7; grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 2px 20px; width: auto; margin: 14px 0 0; padding: 0 210px 0 0; border: 0; }
+.eng-read.is-cine .eng-cine .eng-read__ticks { position: relative; inset: auto; grid-row: 8; grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 2px 20px; width: auto; margin: 2px 0 0; padding: 0 210px 0 58px; border: 0; }
 .eng-read.is-cine .eng-cine .eng-read__ticks li { gap: 8px; height: 26px; margin: 0; color: rgba(255, 253, 246, .82); font: 500 15px/1 var(--font-body); white-space: nowrap; }
 .eng-read.is-cine .eng-cine .eng-read__ticks svg { display: none; }
 .eng-read.is-cine .eng-cine .eng-read__ticks li::before { content: ""; flex: none; width: 11px; height: 11px; border-radius: 50%; background: rgba(255, 253, 246, .42); }
@@ -3340,7 +3346,7 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-read.is-cine .eng-cine .eng-read__ticks li.is-on::before { background: var(--cine-lamp); box-shadow: 0 0 10px 3px rgba(255, 228, 92, .55); }
 .eng-read.is-cine .eng-cine .eng-read__ticks li.is-new::before { animation: eng-cine-lamp .6s ease-out; }
 @keyframes eng-cine-lamp { 0% { background: rgba(255, 253, 246, .3); box-shadow: none; } 35% { box-shadow: 0 0 20px 9px rgba(255, 228, 92, .85); } }
-.eng-read.is-cine .eng-cine .eng-read__wc { grid-row: 7; grid-column: 1 / -1; align-self: end; justify-self: end; margin: 14px 0 0; line-height: 26px; text-align: right; }
+.eng-read.is-cine .eng-cine .eng-read__wc { grid-row: 8; grid-column: 1 / -1; align-self: end; justify-self: end; margin: 2px 0 0; line-height: 26px; text-align: right; }
 /* on a phone: the scene is a small picture with its name beside it, and the question comes straight after */
 @media (max-width: 700px) {
   .eng-read.is-cine .eng-cine { --lh: 30px; grid-template-columns: minmax(0, 1fr); gap: 0; min-height: 0; padding: 22px 34px 24px; }
@@ -3371,8 +3377,10 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
   .eng-read.is-cine .eng-cine .eng-read__ul { grid-row: 5; }
   .eng-read.is-cine .eng-cine .eng-read__ta { grid-row: 6; }
   .eng-cine__sofar.is-after { grid-row: 7; }
-  .eng-read.is-cine .eng-cine .eng-read__ticks { grid-row: 8; padding-right: 0; }
-  .eng-read.is-cine .eng-cine .eng-read__wc { grid-row: 9; justify-self: start; margin-top: 4px; }
+  .eng-read.is-cine .eng-cine .eng-read__tally { grid-row: 8; }
+  .eng-read.is-cine .eng-cine .eng-read__tally small { font-size: 17px; }
+  .eng-read.is-cine .eng-cine .eng-read__ticks { grid-row: 9; padding-right: 0; }
+  .eng-read.is-cine .eng-cine .eng-read__wc { grid-row: 10; justify-self: start; margin: 4px 0 0 58px; }
   .eng-read.is-cine .eng-cine .eng-read__ul, .eng-read.is-cine .eng-cine .eng-read__ta { font-size: 19px; }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -2500,6 +2500,64 @@
   // What a step is called here. "Anchor" is the site's word for the middle of a paragraph (the user, of this page:
   // "anchor(which is a but dumb i didnt know what that meant)"), so here it is what it means: the scene.
   function cineName(pt) { return pt.k === 'a' ? 'The scene' : pt.label; }
+  // The teacher's comment on the box being written, as it is written. On the ordinary page he counts ticks and names
+  // the one just earned; on the try-out that was all he did too, and the user: "bro isnt giving instant feed back, hes
+  // just doing checkmarks". So here he says the next thing to do to what is in the box right now: how to start it,
+  // what it is still missing (the first of its ticks not yet earned, said as an instruction), that it has run too long
+  // or is not long enough, and when it is done, what comes next. A tick just earned is said first ("On the theme."),
+  // then what follows from it. He goes by what is on the page (a name, a word from the scene, "because", a full
+  // stop, the number of words): he cannot judge how good a sentence is, and says nothing that pretends to.
+  function cineTeach(tally, fresh) {
+    var cur = READ.querySelector('.eng-cine > .eng-read__box.is-cur'), say = tally.querySelector('[data-page-tallysay]');
+    if (!cur || !say) return;
+    var c = pageCtx(READ_PART), k = cineKey(cur), b = READ_PART === 'b', ta = cur.querySelector('.eng-read__ta'), v = ta.value, n = wordsIn(v), r = c.range[k];
+    var theme = c.th.name.toLowerCase(), film = !b && text(c.a).kind === 'film', work = film ? 'film' : 'text';
+    var lis = Array.prototype.slice.call(cur.querySelectorAll('.eng-read__ticks li')), off = lis.filter(function (li) { return !li.classList.contains('is-on'); }).map(function (li) { return li.getAttribute('data-tick'); });
+    var mine = lis.some(function (li) { return li.getAttribute('data-tick') === fresh; }), tabs = cur.querySelectorAll('.eng-cine__tab'), bx = cineBoxes(), i = bx.indexOf(cur);
+    var name = tabs[i] ? tabs[i].getAttribute('data-name') : '', next = tabs[i + 1] ? tabs[i + 1].getAttribute('data-name') : '';
+    var sentences = v.trim().split(/[.!?]+(?:\s+|$)/).filter(Boolean).length, story = k === 'a' || k === 'x' || k === 'y', t = '', mood = 'ok';
+    var START = b ? {
+      p: 'One sentence about both texts: what do they both show about ' + theme + '?', c: 'Now compare them. Start with a word like “Similarly” or “Whereas”.',
+      e: 'Most of the marks are here. Why does it matter, and how does it keep the reader hooked?', texts: 'Name both texts and their authors, then answer the question in one sentence.',
+      points: 'Say your points, in the order you’ll write them.', judge: 'Which text shows ' + theme + ' more powerfully, and why?', last: 'Leave me with something: one line that sticks.'
+    } : {
+      p: 'Point first. One sentence: not what happens, but what it says about ' + theme + '.', a: 'The moment itself, in one or two sentences. Don’t retell the whole scene.',
+      e: 'Most of the marks are here. Why does it matter? Link back to your point.', film: 'Name the ' + work + ' and who made it, then answer the question in one sentence.',
+      idea: 'Say what your paragraphs will cover, in the order you’ll write them.', points: 'One line: what does the ' + work + ' finally suggest about ' + theme + '?',
+      sum: 'One sentence that pulls your points together.', final: 'Your judgement: what does the ' + work + ' finally say about ' + theme + '?', last: 'Leave me with something: one line that sticks.'
+    };
+    var NEED = {
+      text: 'Name the ' + work + '.', author: 'Name who made it too.', both: 'Name both texts.', authors: 'Name both authors.',
+      theme: 'Say the theme in it: ' + theme + '.',
+      one: sentences > 1 ? 'That’s more than one sentence. Make it one.' : n < 8 ? 'Keep going: one full sentence.' : 'Finish it: one clear sentence, with a full stop.',
+      detail: 'Give me a detail from the scene: who does what.', who: 'Say who is there.',
+      tech: 'Now say how it’s filmed: a shot, the lighting, the music, a voiceover.', link: 'Use a comparing word: similarly, whereas, by contrast.',
+      verb: 'Use a strong verb: suggests, exposes, reveals.', why: 'Say why. Use “because”.',
+      reader: b ? 'Back to the question: how does it keep the reader interested?' : 'Back to the question: how did this keep you interested?',
+      order: 'Put them in order: first, then, finally.', side: 'Give your own view: “For me…” or “In the end…”.', quote: 'Use their words: a short quote.'
+    };
+    if (!n) t = (story && b ? 'The moment in ' + name + ', in a sentence or two. Don’t retell the story.' : START[k]) || '';
+    else if (r && n > r[1]) {
+      mood = 'angry';
+      t = k === 'p' ? 'Too long for a point. One sentence: the idea. Save the detail for the scene.' : story ? 'Too much story. I’ve seen it. Cut this to one or two sentences.' :
+        k === 'e' ? 'Too long. Keep your two or three best sentences.' : 'Too long. Cut it to about ' + r[1] + ' words.';
+    }
+    else if (off.length) t = NEED[off[0]] || '';
+    else if (r && n < r[0]) t = k === 'e' ? 'Good. Go further: one more sentence.' : 'Good. A little more: at least ' + r[0] + ' words.';
+    else {
+      mood = 'happy';
+      t = (k === 'p' ? 'That’s your point.' : story ? 'That’s the moment, and no more story than it needs.' : k === 'e' ? 'That’s the thinking I’m marking.' : 'Good.') +
+        (next ? ' Next: ' + next + '.' : typeof READ_SLOT === 'number' ? ' That’s the paragraph.' : '');
+    }
+    if (fresh && mine && TICK[fresh] && n) t = TICK[fresh][1] + ' ' + t;
+    tally.setAttribute('data-mood', mood);
+    if (say.textContent === t) return;
+    say.textContent = t; say.classList.add('is-say');
+    if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      tally.classList.remove('is-pop', 'is-talking'); void tally.offsetWidth; tally.classList.add('is-pop', 'is-talking');
+      clearTimeout(READ_TKT); READ_TKT = setTimeout(function () { if (tally.isConnected) tally.classList.remove('is-talking'); }, 1400);
+    }
+  }
   function cineBoxes() { return READ ? Array.prototype.slice.call(READ.querySelectorAll('.eng-cine > .eng-read__box')) : []; }
   function cineKey(b) { var id = b.getAttribute('data-page-boxof'); return id.slice(id.lastIndexOf('|') + 1); }
   // Show one box: the one asked for (k), else the one already showing, else the box to write next, else the first.
@@ -2601,7 +2659,6 @@
     READ_B = {}; READ_TK = {}; READ_TKQ = true;
     if (c.slots.map(String).indexOf(String(READ_SLOT)) < 0) READ_SLOT = c.slots[0];
     var shown = READ_STRUCT ? [READ_SLOT] : c.slots;
-    var teacher = false;
     var body = shown.map(function (s) {
       var P = c.parts(c.W, s), pts = pageParts(part, s, c), sub = pageSub(part, s, c);
       // Sentences written while watching this paragraph's scenes from a direct link come in here.
@@ -2620,22 +2677,18 @@
       }
       // The examiner's ticks: each box's own, in the margin; the count sits by the heading.
       var tk = pts.map(function (pt) { return tickList(part, s, pt.k, c); }), any = tk.some(function (x) { return x.length > 0; }), pics = CINE ? cinePics(part, s, c) : [];
-      if (any) teacher = true;
       var steps = CINE ? '<span class="eng-cine__steps">' + pts.map(function (pt, i) {
         return '<button type="button" class="eng-cine__tab" data-cine-go="' + pt.k + '" data-name="' + esc(cineName(pt)) + '"><i aria-hidden="true">' + (i + 1) + '</i><span aria-hidden="true">' + esc(cineName(pt)) + '</span></button>';
       }).join('') + '</span>' : '';
       return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any && !CINE ? tickTally() : '') + '</div>' + (CINE ? '' : watchBtn(part, s, c)) +
-        (CINE ? '<div class="eng-cine' + (pics.length ? '' : ' is-nopic') + '">' + cineScene(part, s, c) + '<p class="eng-cine__sofar" data-cine-before hidden></p><p class="eng-cine__sofar is-after" data-cine-after hidden></p>' : '') + pts.map(function (pt, i) {
+        (CINE ? '<div class="eng-cine' + (pics.length ? '' : ' is-nopic') + '">' + cineScene(part, s, c) + '<p class="eng-cine__sofar" data-cine-before hidden></p><p class="eng-cine__sofar is-after" data-cine-after hidden></p>' + (any ? tickTally() : '') : '') + pts.map(function (pt, i) {
         return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh">' + steps + '<b>' + esc(CINE ? cineName(pt) : pt.label) + '</b><span' + (CINE ? ' class="eng-cine__q"' : '') + '>' +
           (CINE ? esc(cineAsk(part, s, pt, c)) : pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span>' + pageIdeasBtn(s, pt) + '</p>' + (any ? tickHtml(part, s, pt.k, tk[i], c) : '') + pageIdeasList(s, pt) + '<div class="eng-read__ul" aria-hidden="true"><div></div></div>' +
           '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s) + ': ' + (CINE ? cineName(pt) : pt.label)) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
           (c.range[pt.k] ? '<p class="eng-read__wc" data-page-wc="' + s + '|' + pt.k + '"></p>' : '') + '</div>';
       }).join('') + (CINE ? '</div>' : '') + '</div>';
     }).join('');
-    // On the cinema try-out the part's heading is not shown, and for a while the examiner went with it (his face, his
-    // count of ticks and what he says when you earn one). The user, of the try-out: "and do you get instant feedback
-    // from the teacher". So he is back, on the paper, at the end of the line the tabs are on.
-    return (READ_STRUCT ? (CINE ? '<div class="eng-cine__top">' + pageTabs(c) + (teacher ? tickTally() : '') + '</div>' : pageTabs(c)) : '') + body +
+    return (READ_STRUCT ? pageTabs(c) : '') + body +
       (READ_STRUCT ? '<div class="eng-read__stamp" data-page-stamp hidden><b></b><p></p></div>' + pageFoot(c) : '');
   }
   // A box's ideas, as the popup's boxes had them (the user, of the paper in boxes: "what about the ideas"): Show ideas,
@@ -2858,7 +2911,8 @@
     var tally = READ.querySelector('[data-page-tally]'), stamp = READ.querySelector('[data-page-stamp]');
     if (tally) {
       tally.querySelector('[data-page-tallyn]').textContent = got + ' of ' + total;
-      if (fresh) {
+      if (CINE) cineTeach(tally, quiet ? '' : fresh);
+      else if (fresh) {
         var say = tally.querySelector('[data-page-tallysay]');
         say.textContent = TICK[fresh][1]; say.classList.add('is-say');
         if (motion) { tally.classList.remove('is-pop'); void tally.offsetWidth; tally.classList.add('is-pop'); }
