@@ -2463,15 +2463,19 @@
   // its name, and Watch the scene. Part (b) has both texts' scenes side by side; Opening and Ending have the scenes
   // of the whole answer, small, and nothing to watch.
   function cineScene(part, s, c) {
-    var sc = watchScenes(part, s, c).filter(function (x) { return x.pic; }), pics = cinePics(part, s, c), src = function (f) { return 'assets/eng/img/' + encodeURI(f); };
-    if (!pics.length) return '';
-    return '<span class="eng-cine__bg" aria-hidden="true"><i style="background-image:url(' + src(pics[0].file) + ')"></i></span>' +
+    // A scene's picture: ours if there is one; if not, and the scene has a clip on YouTube, the clip's own small
+    // preview picture, shown from YouTube (not copied).
+    var img = function (x) { var cl = (window.EngClips || {})[x.mid] || CLIPS[x.mid] || {}; return x.pic ? 'assets/eng/img/' + encodeURI(x.pic.file) : cl.yt ? 'https://i.ytimg.com/vi/' + encodeURIComponent(cl.yt) + '/mqdefault.jpg' : ''; };
+    var sc = watchScenes(part, s, c), shown = sc.filter(img), all = shown.length ? [] : cinePics(part, s, c).map(function (q) { return 'assets/eng/img/' + encodeURI(q.file); });
+    var back = shown.length ? img(shown[0]) : all[0] || '';
+    if (!back && !sc.length) return '';
+    return (back ? '<span class="eng-cine__bg" aria-hidden="true"><i style="background-image:url(' + back + ')"></i></span>' : '') +
       '<div class="eng-cine__scene' + (sc.length > 1 ? ' is-two' : '') + (sc.length ? '' : ' is-all') + '">' +
       (sc.length ? sc.map(function (x, i) {
-        return '<figure data-cine-pic="' + (part === 'b' ? (i ? 'y' : 'x') : '') + '"><img src="' + src(x.pic.file) + '" alt="">' +
+        return '<figure data-cine-pic="' + (part === 'b' ? (i ? 'y' : 'x') : '') + '">' + (img(x) ? '<img src="' + img(x) + '" alt="">' : '') +
           '<figcaption>' + (part === 'b' ? '<small>' + esc(shortTitle(x.tid)) + '</small>' : '') + esc(x.m.title) + '</figcaption></figure>';
       }).join('') + '<button type="button" class="eng-read__btn is-quiet" data-page-watch aria-label="Watch the scene' + (sc.length > 1 ? 's' : '') + '"><i aria-hidden="true">▶</i> Watch<span> the scene' + (sc.length > 1 ? 's' : '') + '</span></button>'
-        : '<div class="eng-cine__all">' + pics.slice(0, 4).map(function (q) { return '<img src="' + src(q.file) + '" alt="">'; }).join('') + '</div>') + '</div>';
+        : '<div class="eng-cine__all">' + all.slice(0, 4).map(function (u) { return '<img src="' + u + '" alt="">'; }).join('') + '</div>') + '</div>';
   }
   // How many lines a box starts with: room for the words it asks for, no more and no fewer. The user, of two lines in
   // a narrow column: "what if its a long like u cant fit a paragraph in those lines"; then, when the lines were made
@@ -2982,7 +2986,22 @@
   // to play embedded. Each plays whole and pauses at its end until the user gives a second to pause at.
   var CLIPS = {
     'shawshank-1': { yt: 'nbo7A03c_A0' },    // The Conviction of Andy Dufresne, 5:09 (nine seconds over five minutes)
-    'shawshank-3': { yt: '5OKgW7_Iqvg' },    // Warden Norton's Principles, 1:34
+    // Warden Norton's Principles, 1:33. Two pauses, each on the second straight after the line an essay would quote
+    // (times from the clip's own captions) and each checked against the clip's seek previews for who is where: at
+    // 1:10 a guard in a cap (Hadley) stands over the man he has just struck; at 1:28 Norton is alone in close-up. The
+    // large figure in a suit at the left edge of the first shot is NOT labelled: the new men arrive in their own
+    // suits, so a suit does not make him the warden.
+    'shawshank-3': { yt: '5OKgW7_Iqvg', pauses: [
+      { at: 70, spots: [{ x: 64, y: 36, rx: 7, ry: 21, label: 'Hadley' }, { x: 75, y: 52, rx: 7, ry: 21, label: 'The new man' }],
+        themes: { power: { ask: 'What does Hadley’s answer show about abuse of power in Shawshank?', title: 'Power through fear and violence',
+          note: 'A new prisoner asks one ordinary question and is screamed at and struck for it, in front of the warden and every other man in the line. Nobody stops Hadley and nobody ever will: before their first night is over the men have learned that in Shawshank a guard can do what he likes to them.',
+          say: [['Screams in the face of a man who asked a question, then drives his baton into his stomach:', '“You eat when we say you eat. You shit when we say you shit, and you piss when we say you piss.”'],
+            ['All he asked was:', '“When do we eat?”']] } } },
+      { at: 88.5, spots: [{ x: 50, y: 42, rx: 16, ry: 40, label: 'Norton' }],
+        themes: { power: { ask: 'What do Norton’s words show about abuse of power in Shawshank?', title: 'Religion as a mask',
+          note: 'Norton offers the men God and tells them he owns them in the same breath. His religion is part of how he rules: it lets a brutal prison look like a righteous one, and the man who runs it like a good man.',
+          say: [['The warden, to men who have just watched one of them beaten for asking a question:', '“I believe in two things: discipline and the Bible. Here you’ll receive both. Put your trust in the Lord. Your ass belongs to me. Welcome to Shawshank.”']] } } }
+    ] },
     // The full test (the user: "we can give it a test put one clip up there and do all the stuff"): three pauses, each on
     // the frame YouTube publishes for this video at about a quarter, a half and three quarters of the way through
     // (i.ytimg.com/vi/<id>/maxres1..3.jpg, shown from YouTube, not copied), so the seconds are estimates until the
@@ -3049,10 +3068,33 @@
     ] },   // The Roof Scene, 3:30
     'shawshank-5': { yt: 'LU7SIVHZda4' },    // "Brooks was here" scene, 4:18
     'shawshank-6': { yt: 'ScU1O_Xuoxo' },    // "The Marriage of Figaro" scene, 4:04
+    // "Norton and Tommy", 2:45 (found in the search of YouTube for key scenes; plays in the embedded player). Norton
+    // asks Tommy whether he would swear to his story, hears that he would, and has Hadley shoot him from the tower. The
+    // first pause is on Norton's close-up straight after "That's what I thought"; the second on the shot from above,
+    // Tommy on the ground and a man in a dark coat walking out to him (Norton: he is the only other man down there).
+    // The clip's captions gave the lines and their seconds.
+    'shawshank-7': { yt: 'OWh-zc5waNY', pauses: [
+      { at: 131, spots: [{ x: 47, y: 40, rx: 20, ry: 38, label: 'Norton' }],
+        themes: { power: { ask: 'What does Norton’s question show about abuse of power in Shawshank?', title: 'Killing to keep control',
+          note: 'Norton is not finding out whether Tommy is telling the truth so that an innocent man can go free. He is finding out whether Tommy would say it in court, and when the answer is yes he has him shot. Andy hides the warden’s stolen money, so Andy can never be allowed to leave.',
+          say: [['Outside at night, gently, to the one man whose story could clear Andy:', '“Would you be willing to swear before a judge and jury, having placed your hand on the Good Book and taken an oath before Almighty God himself?”', 'Tommy says he would. Norton:', '“That’s what I thought.”']] } } },
+      { at: 160, spots: [{ x: 63, y: 38, rx: 11, ry: 15, label: 'Tommy' }, { x: 83, y: 50, rx: 8, ry: 14, label: 'Norton' }],
+        themes: { power: { ask: 'What does Tommy’s death show about abuse of power in Shawshank?', title: 'Corruption at the top',
+          note: 'A prisoner is shot dead because the warden wants him dead, and there is nobody above Norton to answer to. The man who preaches the Bible to the prisoners is hiding stolen money and has a witness murdered to keep it hidden.',
+          say: [['Shot from the tower by Hadley, moments after asking for nothing more than to tell the truth:', '“Just give me that chance.”'],
+            ['Walks out to the body of the witness he has just had killed.']] } } }
+    ] },
     'shawshank-8': { yt: 'XLZEdhU-gGs' },    // Get Busy Living or Get Busy Dying, 3:29
     'shawshank-9': { yt: 'NXM0p4kUcZU' },    // Norton Finds Out That Andy Has Escaped, 3:40
     'shawshank-10': { yt: '-x0JaHI-dp8' },   // Uncovering the Corruption, 3:34
-    'shawshank-11': { yt: 'TuQjBDFVuo8' },   // Red attends his final parole hearing, 2:35
+    // Red attends his final parole hearing, 2:34. One pause, on Red's close-up straight after his last line to the
+    // board (the next shot is the board, then the stamp as the clip ends). Lines and seconds from the clip's captions.
+    'shawshank-11': { yt: 'TuQjBDFVuo8', pauses: [
+      { at: 139, spots: [{ x: 47, y: 46, rx: 22, ry: 42, label: 'Red' }],
+        themes: { power: { ask: 'What do Red’s words show about the board’s power over him after forty years?', title: 'Honesty as a kind of freedom',
+          note: 'For forty years a few men behind a table have decided whether Red ever leaves, and at his earlier hearings he told them what he thought they wanted to hear. Here he stops performing. Their power over him only worked while he was afraid of their answer.',
+          say: [['Asked if he has been rehabilitated, after forty years inside:', '“To me it’s just a made-up word. A politician’s word, so that young fellas like yourself can wear a suit and a tie and have a job.”', 'His last words to the men who decide whether he is ever freed:', '“So you go on and stamp your form, sonny, and stop wasting my time. Because to tell you the truth, I don’t give a shit.”']] } } }
+    ] },
     'shawshank-12': { yt: 'CkxXGxa2JkU' },   // Ending scene, 4:34
     'stlt-8': { yt: 'bPKayfiskBw' }          // Small Things: "Bill speaks to Sr Mary" (a festival press clip), 1:22
   }, WATCH_NOYT = false;
@@ -3394,7 +3436,10 @@
   }
   function watchScene(mid) {
       var tid = tidOf(mid), m = mom(mid).m, ps = scenePics(tid, mid), pic = ps.filter(function (p) { return p.spots && p.spots.length; })[0] || ps[0];
-      if (!m || (!pic && !((window.EngClips || {})[mid] || CLIPS[mid] || {}).src)) return null;
+      // A scene needs something to show: a picture of ours, a clip of ours, or (since "Tommy's evidence", which has
+      // no picture) a clip on YouTube, whose pause is the video's own frame.
+      var wc = (window.EngClips || {})[mid] || CLIPS[mid] || {};
+      if (!m || (!pic && !wc.src && !wc.yt)) return null;
       var spot = pic ? (pic.spots || []).filter(function (x) { return x.moment === mid; })[0] || (pic.spots || [])[0] || null : null;
       return { tid: tid, mid: mid, m: m, pic: pic, spot: spot, beats: (m.tell && m.tell.length ? m.tell : storySentences(m.what)).slice(0, 4) };
   }
