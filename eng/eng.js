@@ -2421,7 +2421,11 @@
     ta.style.height = '0px';
     ta.style.height = Math.max(READ_STRUCT ? (CINE ? cineLines(ta) : 2) : 1, Math.round(ta.scrollHeight / lh)) * lh + 'px';
   }
-  // ----- The writing page as a frame of film: a try-out, on only when the address has ?look=cinema. -----
+  // ----- The writing page as a frame of film. It began as a try-out at ?look=cinema and is now THE page. -----
+  // Why it is the page: after a day of fixes made only on the try-out (one thing at a time, the teacher's comments,
+  // lines sized to the word range, the hands), a report ended with the plain #compare link, the user opened it, met
+  // the old page with none of that on it and said "what the fuck is this shit this is what you sent". So every link
+  // opens this look; the old page is kept at ?look=plain, and with "Hide structure" the paper is plain as before.
   // The user, of the writing page: "my insitinct is telling me that this is boring to look at"; shown directions, then
   // six takes on the cinema one, "i cant decide", so one was built to be tried. Of that first build (the scene filling
   // a wide frame, your words on it as subtitles, the other boxes as slivers beside it): "its not bad but it could eb
@@ -2435,8 +2439,8 @@
   //    lamps. No slivers of the other boxes, no heading (the tabs across the top already say which part), no count;
   //  - you know what you are writing: the tabs across the top as before, and under the picture the scene's name.
   // The boxes are the page's own, so the ticks, the ideas, the word counts and saving are the ones the page already
-  // has. Without ?look=cinema nothing here runs and the page is as it was.
-  var CINE = /[?&]look=cinema(&|$)/.test(location.search);
+  // has. With ?look=plain nothing here runs and the page is as it was.
+  var CINE = !/[?&]look=plain(&|$)/.test(location.search);
   // The pictures for a part: its scene (part (b): its two scenes); for Opening and Ending, which have no scene of
   // their own, the scenes the answer is built on.
   function cinePics(part, s, c) {

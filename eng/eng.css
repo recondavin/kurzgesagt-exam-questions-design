@@ -3235,7 +3235,7 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
   body.eng-papertop #eng-cpd.eng-cpd .eng-btn--quiet:hover, body.eng-papertop.eng-cpd-on .eng-tch:not(#eng-guide) .eng-tch__btns .eng-btn:hover { color: var(--exam-paper); }
   body.eng-papertop #eng-cpd.eng-cpd .eng-btn[disabled]:hover { --sw: 7px; }
 }
-/* ===== The writing page as a frame of film: a try-out, on only with ?look=cinema in the address (eng.js, CINE). =====
+/* ===== The writing page as a frame of film: now the page itself; off only with ?look=plain in the address (eng.js, CINE). =====
    The user, of the writing page: "my insitinct is telling me that this is boring to look at"; shown eight directions
    and then six takes on the cinema one, "i cant decide", so one was built to be tried. Of the first build (the scene
    filling a wide frame with your words on it as subtitles, the other boxes as slivers beside it): "its not bad but it
