@@ -3096,7 +3096,51 @@
           say: [['Asked if he has been rehabilitated, after forty years inside:', '“To me it’s just a made-up word. A politician’s word, so that young fellas like yourself can wear a suit and a tie and have a job.”', 'His last words to the men who decide whether he is ever freed:', '“So you go on and stamp your form, sonny, and stop wasting my time. Because to tell you the truth, I don’t give a shit.”']] } } }
     ] },
     'shawshank-12': { yt: 'CkxXGxa2JkU' },   // Ending scene, 4:34
-    'stlt-8': { yt: 'bPKayfiskBw' }          // Small Things: "Bill speaks to Sr Mary" (a festival press clip), 1:22
+    // Small Things Like These, "Bring Her In", 5:01: Bill brings the girl back and is given tea (it was the press
+    // clip "Bill speaks to Sr Mary", bPKayfiskBw, which has no captions). Two pauses, lines and seconds from the
+    // clip's captions. The clip is very dark and its seek previews small, so only the Mother Superior is labelled,
+    // where her habit can be made out and the line being spoken is hers; Bill and the girl are not. The words are
+    // the film's; the novel the class reads tells the same scene in its own words.
+    'stlt-8': { yt: 'Xh8bnSbhF2M', pauses: [
+      { at: 64.5, spots: [{ x: 47, y: 40, rx: 14, ry: 40, label: 'The Mother Superior' }],
+        themes: { power: { ask: 'What does the Mother Superior’s concern show about how power works in the convent?', title: 'A woman enforces the system',
+          note: 'A girl has been locked in a coal shed overnight, and the Mother Superior answers with warmth and good manners. Nothing is admitted and nothing is explained. Her power does not need to raise its voice: she smoothly protects the convent’s secrets, and everyone in the room lets her.',
+          say: [['Bill has brought back the girl he found in the coal shed. The Mother Superior, all concern:', '“You gave us an awful fright, child. Sister Francis was about to send for the guards to look for you.”', 'Bill tells her the girl was locked in the shed. She answers:', '“Whatever had her in there? My God, you poor girl.”']] } } },
+      { at: 287, spots: [{ x: 32, y: 45, rx: 14, ry: 42, label: 'The Mother Superior' }],
+        themes: { power: { ask: 'What do the Mother Superior’s words about the school show about abuse of power?', title: 'Power that never raises its voice',
+          note: 'She never threatens Bill. She only asks after his daughters and remarks how hard it is to find a place for everyone, and he understands her: his girls’ schooling is in her hands. In this town the convent keeps its power through what people stand to lose.',
+          say: [['Over tea, having asked after each of Bill’s daughters by name:', '“So many trying to get in. It’s no easy task trying to find a place for everyone.”']] } } }
+    ] },
+    // Sive (the user: "make the scenes like in shawshank"). One recording of the whole play, St Brigid's Drama Group
+    // (two hours; the user chose it over the Dunhill one), so each scene has the second it starts and ends as well as
+    // its pauses. Lines and seconds from the recording's captions; who is where from its seek previews, which come
+    // only every ten seconds, so a pause is put where a preview shows the shot (and the next one shows whether it
+    // has changed). The words on the labels are the play's as they are spoken in this production; where the captions
+    // were not clear enough to be sure of a line, it is not quoted.
+    'sive-2': { yt: 'Vql0MTCXTiY', start: 786, end: 968, pauses: [
+      { at: 834, spots: [{ x: 57, y: 55, rx: 4.5, ry: 16, label: 'Thomasheen' }, { x: 43, y: 57, rx: 4.5, ry: 15, label: 'Mena' }],
+        themes: { power: { ask: 'What do Thomasheen’s words show about how power is used in Sive?', title: 'Money buys obedience',
+          note: 'Nobody in this kitchen asks what Sive wants. Thomasheen talks only of money, because money is what will make Mena do his work for him: in Sive, power belongs to whoever can pay, and a girl with nothing can be bought.',
+          say: [['The matchmaker, who is to get a hundred pounds himself, tells Mena how to frighten Sive into agreeing, then what the match is worth to her:', '“Think of the two hundred sovereigns dancing in the heel of your fist.”'],
+            ['Listens, and does not say no.']] } } },
+      { at: 931, spots: [{ x: 23, y: 48, rx: 9, ry: 36, label: 'Mena' }, { x: 85, y: 40, rx: 9, ry: 38, label: 'Thomasheen' }],
+        themes: { power: { ask: 'What do Mena’s words show about who has power over Sive?', title: 'Greed drives it',
+          note: 'Mena does not have to be forced. For two hundred pounds, and a house without Sive in it, she will hand over a girl who is in her care. Sive has no money and no say, so two adults settle her whole life between them at the kitchen table.',
+          say: [['Sive is her husband’s niece and lives under her roof. What Mena sees in the match:', '“And I would be rid of her. And two hundred pounds into the bargain, I would.”'],
+            ['What he has just promised for Sive:', '“She will have the life of a queen.”']] } } }
+    ] },
+    'sive-6': { yt: 'Vql0MTCXTiY', start: 4003, end: 4072, pauses: [
+      { at: 4046, spots: [{ x: 38, y: 45, rx: 12, ry: 42, label: 'Mena' }, { x: 90, y: 42, rx: 9, ry: 30, label: 'Sive' }],
+        themes: { power: { ask: 'What do Mena’s words show about abuse of power in Sive?', title: 'A woman enforces the system',
+          note: 'Mena has no power anywhere but in this kitchen, and here she uses all of it on a girl who has none. She turns the one thing Sive cannot help, her birth, into the reason she must obey: without a husband she is nobody.',
+          say: [['Sive has refused the match. Mena, on her father:', '“He had no name. You have no name. You will have no name till you take a husband.”'],
+            ['All she asked:', '“I thought you said you’d tell me about my father.”']] } } },
+      { at: 4067, spots: [{ x: 35, y: 30, rx: 12, ry: 26, label: 'Mena' }, { x: 68, y: 68, rx: 13, ry: 22, label: 'Sive' }],
+        themes: { power: { ask: 'What does this moment show about who decides Sive’s life?', title: 'The victims have no say',
+          note: 'In a few sentences Mena takes away Sive’s good name, her bed beside her grandmother and her schooling. Sive is asked about none of it: every decision about her life is announced to her by someone stronger.',
+          say: [['Standing over her:', '“You are a bye-child. A common bye-child, a bastard.”', 'And what is to happen to her now:', '“You will sleep with that old woman no longer. There will be no more school for you.”'],
+            ['Says nothing. Nothing she could say would change it.']] } } }
+    ] }
   }, WATCH_NOYT = false;
   var WATCH_HINT = { wait: 'Press play if it does not start by itself. If an ad comes first, skip it when you can.', ad: 'If an ad is playing, skip it when you can. The scene starts straight after it.', on: 'It pauses by itself on the moment that matters.' };
   function watchClipOf(sc) { return (window.EngClips || {})[sc.mid] || CLIPS[sc.mid] || null; }
