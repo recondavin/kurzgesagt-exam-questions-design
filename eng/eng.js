@@ -3471,7 +3471,27 @@
     if (w.video) { try { w.video.pause(); } catch (e) {} if (!w.keep) w.video = null; }
     w.clip = null; w.hold = false; w.live = false;
   }
-  function watchClipFail(dead) { var w = WATCH; if (!w) return; if (dead) WATCH_NOYT = true; watchClipStop(w); w.noclip = true; watchDraw(); }
+  // WHY THE FILM WOULD NOT START is kept and shown (the user sent a recording: "Play the scene" pressed three times,
+  // the player gone again a third of a second later each time, nothing on screen to say why, and "i might need to
+  // start to learn coding"). Two things can refuse it and they look the same from here:
+  //  - YouTube's player reports an error. The cookie-free player (youtube-nocookie.com) carries no YouTube login, so
+  //    when YouTube wants a viewer to be signed in it refuses there. So the FIRST error switches to the ordinary
+  //    player (youtube.com), which does carry the login, and plays again by itself; the choice is remembered
+  //    (localStorage eng-yt-host). If that is refused too, YouTube's own player is LEFT ON SCREEN, because it says
+  //    what is wrong in its own words, with the error number under it and the button to try again.
+  //  - YouTube's script never arrives (blocked, or no connection): the dark screen, the button, and that reason.
+  var YT_HOSTS = ['https://www.youtube-nocookie.com', 'https://www.youtube.com'], WATCH_HOST = YT_HOSTS[0];
+  try { if (localStorage.getItem('eng-yt-host') === '1') WATCH_HOST = YT_HOSTS[1]; } catch (e) {}
+  function watchClipFail(dead, why) { var w = WATCH; if (!w) return; if (dead) WATCH_NOYT = true; watchClipStop(w); w.noclip = true; w.why = why || ''; watchDraw(); }
+  function watchClipErr(code) {
+    var w = WATCH;
+    if (!w) return;
+    if (WATCH_HOST !== YT_HOSTS[1]) { WATCH_HOST = YT_HOSTS[1]; try { localStorage.setItem('eng-yt-host', '1'); } catch (e) {} watchDraw(); return; }
+    clearInterval(w.poll); w.poll = 0;
+    w.el.classList.add('is-erred');
+    w.el.querySelector('[data-watch-again]').hidden = false; w.el.querySelector('[data-watch-skip]').hidden = true;
+    w.el.querySelector('.eng-pause__beat').textContent = 'YouTube error ' + (code || '');
+  }
   function watchClip() {
     var w = WATCH, sc = w.list[w.at], clip = watchClipOf(sc), el = w.el, beat = el.querySelector('.eng-pause__beat'), at = w.at;
     w.clip = clip; w.clipT = -1; w.clipStuck = Date.now(); w.clipSeen = false; w.pi = 0;
@@ -3490,27 +3510,27 @@
     var ready = function () {
       if (WATCH !== w || w.at !== at || !w.clip) return;
       try {
-        w.player = new window.YT.Player('eng-pause-yt', { width: '100%', height: '100%', videoId: clip.yt, host: 'https://www.youtube-nocookie.com',
+        w.player = new window.YT.Player('eng-pause-yt', { width: '100%', height: '100%', videoId: clip.yt, host: WATCH_HOST,
           playerVars: { autoplay: 1, playsinline: 1, rel: 0, start: clip.start || 0, origin: location.origin },
           events: {
             onReady: function (e) { if (WATCH !== w || !w.clip) return; try { e.target.playVideo(); } catch (x) {} w.clipStuck = Date.now(); w.poll = setInterval(watchClipTick, 80); },
-            onError: function () { if (WATCH === w && w.clip) watchClipFail(false); },
+            onError: function (e) { if (WATCH === w && w.clip) watchClipErr(e ? e.data : 0); },
             onStateChange: function (e) { if (WATCH === w && w.clip && e.data === 0) watchClipEnd(); }
           } });
-      } catch (e) { watchClipFail(false); }
+      } catch (e) { watchClipFail(false, 'The player would not start'); }
     };
     if (window.YT && window.YT.Player) { ready(); return; }
     if (!document.getElementById('eng-yt-api')) {
       var s = document.createElement('script');
       s.id = 'eng-yt-api'; s.src = 'https://www.youtube.com/iframe_api';
-      s.onerror = function () { s.parentNode.removeChild(s); if (WATCH === w && w.clip) watchClipFail(true); };
+      s.onerror = function () { s.parentNode.removeChild(s); if (WATCH === w && w.clip) watchClipFail(true, 'YouTube did not load'); };
       document.head.appendChild(s);
     }
     var t0 = Date.now();
     (function wait() {
       if (WATCH !== w || w.at !== at || !w.clip) return;
       if (window.YT && window.YT.Player) { ready(); return; }
-      if (Date.now() - t0 > 7000) { watchClipFail(true); return; }
+      if (Date.now() - t0 > 7000) { watchClipFail(true, 'YouTube did not load'); return; }
       w.ytWait = setTimeout(wait, 150);
     })();
   }
@@ -3913,6 +3933,7 @@
       if (w.noclip) {
         w.el.classList.add('is-clip'); w.el.classList.add('is-failed');
         var ag = w.el.querySelector('[data-watch-again]'); ag.hidden = false; w.el.querySelector('[data-watch-skip]').hidden = true;
+        w.el.querySelector('.eng-pause__beat').textContent = w.why || '';
         watchFit(); ag.focus({ preventScroll: true });
       } else watchClip();
     } else watchStep();
