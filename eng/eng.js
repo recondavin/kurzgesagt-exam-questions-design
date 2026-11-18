@@ -3114,11 +3114,12 @@
     // Sive (the user: "make the scenes like in shawshank"). One recording of the whole play, St Brigid's Drama Group
     // (two hours; the user chose it over the Dunhill one), so each scene has the second it starts and ends as well as
     // its pauses. Lines and seconds from the recording's captions; who is where from its seek previews, which come
-    // only every ten seconds, so a pause is put where a preview shows the shot (and the next one shows whether it
-    // has changed). The words on the labels are the play's as they are spoken in this production; where the captions
+    // only every ten seconds. THE CAMERA CUTS BETWEEN PREVIEWS, so a pause must sit within a second of a preview (13:51
+    // and 15:31 here do) or be checked against a screenshot of the real pause: a pause placed six seconds after a
+    // preview was on a different shot, and its labels pointed at the dresser and the ceiling. The words on the labels are the play's as they are spoken in this production; where the captions
     // were not clear enough to be sure of a line, it is not quoted.
     'sive-2': { yt: 'Vql0MTCXTiY', start: 786, end: 968, pauses: [
-      { at: 834, spots: [{ x: 57, y: 55, rx: 4.5, ry: 16, label: 'Thomasheen' }, { x: 43, y: 57, rx: 4.5, ry: 15, label: 'Mena' }],
+      { at: 831, spots: [{ x: 56, y: 56, rx: 4.5, ry: 16, label: 'Thomasheen' }, { x: 43, y: 57, rx: 4.5, ry: 15, label: 'Mena' }],
         themes: { power: { ask: 'What do Thomasheen’s words show about how power is used in Sive?', title: 'Money buys obedience',
           note: 'Nobody in this kitchen asks what Sive wants. Thomasheen talks only of money, because money is what will make Mena do his work for him: in Sive, power belongs to whoever can pay, and a girl with nothing can be bought.',
           say: [['The matchmaker, who is to get a hundred pounds himself, tells Mena how to frighten Sive into agreeing, then what the match is worth to her:', '“Think of the two hundred sovereigns dancing in the heel of your fist.”'],
@@ -3129,13 +3130,16 @@
           say: [['Sive is her husband’s niece and lives under her roof. What Mena sees in the match:', '“And I would be rid of her. And two hundred pounds into the bargain, I would.”'],
             ['What he has just promised for Sive:', '“She will have the life of a queen.”']] } } }
     ] },
-    'sive-6': { yt: 'Vql0MTCXTiY', start: 4003, end: 4072, pauses: [
-      { at: 4046, spots: [{ x: 38, y: 45, rx: 12, ry: 42, label: 'Mena' }, { x: 90, y: 42, rx: 9, ry: 30, label: 'Sive' }],
+    'sive-6': { yt: 'Vql0MTCXTiY', start: 4003, end: 4073, pauses: [
+      // (This pause was first labelled from the seek preview at 1:07:20, a close shot of the two of them. The user's
+      // screenshot of the real pause showed the wide shot of the whole stage, Mena standing behind Sive at the table:
+      // the camera had cut in between. These places are measured from that screenshot.)
+      { at: 4046, spots: [{ x: 51.2, y: 47, rx: 3.4, ry: 7.5, label: 'Mena' }, { x: 51.5, y: 59, rx: 3.8, ry: 8.5, label: 'Sive' }],
         themes: { power: { ask: 'What do Mena’s words show about abuse of power in Sive?', title: 'A woman enforces the system',
           note: 'Mena has no power anywhere but in this kitchen, and here she uses all of it on a girl who has none. She turns the one thing Sive cannot help, her birth, into the reason she must obey: without a husband she is nobody.',
           say: [['Sive has refused the match. Mena, on her father:', '“He had no name. You have no name. You will have no name till you take a husband.”'],
             ['All she asked:', '“I thought you said you’d tell me about my father.”']] } } },
-      { at: 4067, spots: [{ x: 35, y: 30, rx: 12, ry: 26, label: 'Mena' }, { x: 68, y: 68, rx: 13, ry: 22, label: 'Sive' }],
+      { at: 4068, spots: [{ x: 40, y: 34, rx: 13, ry: 34, label: 'Mena' }, { x: 61, y: 63, rx: 13, ry: 30, label: 'Sive' }],
         themes: { power: { ask: 'What does this moment show about who decides Sive’s life?', title: 'The victims have no say',
           note: 'In a few sentences Mena takes away Sive’s good name, her bed beside her grandmother and her schooling. Sive is asked about none of it: every decision about her life is announced to her by someone stronger.',
           say: [['Standing over her:', '“You are a bye-child. A common bye-child, a bastard.”', 'And what is to happen to her now:', '“You will sleep with that old woman no longer. There will be no more school for you.”'],
