@@ -3232,7 +3232,21 @@
           note: 'In a few sentences Mena takes away Sive’s good name, her bed beside her grandmother and her schooling. Sive is asked about none of it: every decision about her life is announced to her by someone stronger.',
           say: [['Standing over her:', '“You are a bye-child. A common bye-child, a bastard.”', 'And what is to happen to her now:', '“You will sleep with that old woman no longer. There will be no more school for you.”'],
             ['Says nothing. Nothing she could say would change it.']] } } }
-    ] }
+    ] },
+    // The other Sive scenes the abuse-of-power theme uses (the user: "did u get all the scenes and stopped showing
+    // pictures"; until now these six showed only a photograph). Each plays its stretch of the same recording and then
+    // asks the usual question. They have NO pause and NO labels YET, on purpose. Pauses with labels and quotes are
+    // drafted for all six (tools/eng/research/pauses-not-yet-seen/sive.js), but where the people are was read off
+    // YouTube's small seek previews, and the user's rule for an accurate pause is: "pause it first, look at the pause
+    // and then do the tracking". The real video cannot be played in a cloud build session (YouTube answers "Video
+    // unavailable" to a browser on a cloud server, even with the network open), so nothing is pointed at until the
+    // real paused frame has been looked at, in a browser on a real computer or in a screenshot from the user.
+    'sive-5': { yt: 'Vql0MTCXTiY', start: 3380, end: 3604.6 },    // Nanna is threatened with the county home
+    'sive-7': { yt: 'Vql0MTCXTiY', start: 4343, end: 4539 },      // Liam's plea, and Mena's lie to Sive
+    'sive-8': { yt: 'Vql0MTCXTiY', start: 4612, end: 4720.6 },    // Nanna pleads with Mike
+    'sive-9': { yt: 'Vql0MTCXTiY', start: 5812, end: 5936 },      // The letter is read and burned
+    'sive-11': { yt: 'Vql0MTCXTiY', start: 6714, end: 6896 },     // Sive is found drowned
+    'sive-12': { yt: 'Vql0MTCXTiY', start: 6929, end: 7097 }      // Holy ground
   }, WATCH_NOYT = false;
   var WATCH_HINT = { wait: 'Press play if it does not start by itself. If an ad comes first, skip it when you can.', ad: 'If an ad is playing, skip it when you can. The scene starts straight after it.', on: 'It pauses by itself on the moment that matters.' };
   function watchClipOf(sc) { return (window.EngClips || {})[sc.mid] || CLIPS[sc.mid] || null; }
