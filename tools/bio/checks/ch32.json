@@ -2465,7 +2465,7 @@
  ],
  "S2-Q1b": [
   {
-   "q": "Why test the vaccine on people from all over the world?",
+   "q": "Why test the vaccine in people from all around the world?",
    "right": "Genes and virus strains vary, so results apply worldwide",
    "wrong": [
     "So no placebo group was needed, saving time and money",
@@ -2474,7 +2474,7 @@
    ],
    "why": "People's genes differ and virus strains vary from place to place, so a worldwide sample gives results that apply to everyone.",
    "hint": "Think about how people, and the virus itself, might differ from one country to another.",
-   "board": "Why test a new vaccine in a trial with people from all over the world?",
+   "board": "Why test a new vaccine in a trial with people from all around the world?",
    "hook": "Test it on the whole world if it's for the whole world: genes and strains vary",
    "keys": [
     "genes differ",
