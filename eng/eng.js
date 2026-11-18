@@ -2587,6 +2587,9 @@
     var i = bx.indexOf(cur), moved = !cur.classList.contains('is-cur'), ta = cur.querySelector('.eng-read__ta'), names = Array.prototype.map.call(bx[0].querySelectorAll('.eng-cine__tab'), function (t) { return t.getAttribute('data-name'); });
     var name = function (j) { return names[j] || ''; };
     strip.setAttribute('data-cur', cineKey(cur));
+    // Part (b): on a text's own step the other text's picture is not there (styles) and the button watches one scene.
+    var wb = strip.querySelector('.eng-cine__scene.is-two [data-page-watch]');
+    if (wb) { var one = /^[xy]$/.test(cineKey(cur)); wb.setAttribute('aria-label', one ? 'Watch the scene' : 'Watch the scenes'); wb.querySelector('span').textContent = one ? ' the scene' : ' the scenes'; }
     bx.forEach(function (b) {
       b.classList.toggle('is-cur', b === cur);
       // Each box carries the part's steps in its own heading; all of them are kept right, the one showing is seen.
@@ -3810,10 +3813,20 @@
     w.ended = true;
     watchHold({ at: 0, end: true });
   }
-  function watchScenes(part, s, c) {
+  // PART (b) KEEPS ITS TWO TEXTS APART (the user, of an Evaluate box that Watch had filled with what they wrote about
+  // Mena AND what they wrote about Sarah, 77 words and "too long": "you fucked your not supposed to have the option to
+  // bring the small thigns into the sive paragraph" / "and vice vers"). A paragraph of part (b) has a box for each
+  // text. So each scene knows its own text's box (`box`: x for the first text, y for the second): what is written at
+  // its pauses goes into THAT box and nowhere else (watchKey), and on a text's own step only that text's scene is
+  // shown and watched (`only`; the other picture is not there, see cineSet and the styles).
+  function watchScenes(part, s, c, only) {
     if (typeof s !== 'number') return [];
     var q = c.W.paras[s], mids = !q ? [] : part === 'b' ? [q.x, q.y] : [q.scene ? text(c.a).moments[q.scene - 1].id : ''];
-    return mids.filter(Boolean).map(watchScene).filter(Boolean);
+    return mids.map(function (mid, i) {
+      var sc = mid ? watchScene(mid) : null;
+      if (sc && part === 'b') sc.box = i ? 'y' : 'x';
+      return sc;
+    }).filter(function (sc) { return sc && (!only || sc.box === only); });
   }
   function watchScene(mid) {
       var tid = tidOf(mid), m = mom(mid).m, ps = scenePics(tid, mid), pic = ps.filter(function (p) { return p.spots && p.spots.length; })[0] || ps[0];
@@ -3841,7 +3854,7 @@
     try { localStorage.setItem('eng-watch-kept', JSON.stringify(o)); } catch (e) {}
     return o[mid] || '';
   }
-  function watchKey(w) { if (w.solo) return 'e'; var pts = pageParts(READ_PART, READ_SLOT, w.c); return pts.some(function (pt) { return pt.k === 'e'; }) ? 'e' : pts.length ? pts[pts.length - 1].k : 'e'; }
+  function watchKey(w) { if (w.solo) return 'e'; if (w.list[w.at] && w.list[w.at].box) return w.list[w.at].box; var pts = pageParts(READ_PART, READ_SLOT, w.c); return pts.some(function (pt) { return pt.k === 'e'; }) ? 'e' : pts.length ? pts[pts.length - 1].k : 'e'; }
   // solo: a scene opened on its own from a link (#watch/<moment id>; the user, of the test clip: "i donbt know where to
   // actually watch it"): the same screen over whatever page is behind it, with no answer open, so what is written is
   // not saved anywhere and the card says so. Closing it leaves you on Compare it.
@@ -3850,7 +3863,9 @@
   function watchOpen(solo, thId) {
     if (!READ && !solo) return;
     var linked = thId ? D.compare.filter(function (t) { return t.id === thId; })[0] || WATCH_THEMES[thId] : null;
-    var c = solo ? { th: linked || cpTheme() } : pageCtx(READ_PART), list = solo ? [solo] : watchScenes(READ_PART, READ_SLOT, c);
+    // On a text's own step of part (b) only that text's scene is watched.
+    var cstrip = !solo && CINE && READ_STRUCT && READ_PART === 'b' ? READ.querySelector('.eng-cine') : null, only = cstrip ? cstrip.getAttribute('data-cur') : '';
+    var c = solo ? { th: linked || cpTheme() } : pageCtx(READ_PART), list = solo ? [solo] : watchScenes(READ_PART, READ_SLOT, c, only === 'x' || only === 'y' ? only : '');
     if (!list.length) return;
     watchClose();
     var el = document.createElement('div');
