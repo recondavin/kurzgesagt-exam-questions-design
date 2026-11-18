@@ -74,14 +74,7 @@
       "tag": "Bill's wife",
       "wants": "To protect their girls by keeping out of it.",
       "end": "We don't see how she takes it.",
-      "face": {
-        "file": "stlt-f-eileen.jpg",
-        "x": 0.21,
-        "y": 0.55,
-        "zoom": 3.4,
-        "ar": 0.5625,
-        "from": "Small Things Like These, film, 2024"
-      },
+      "face": null,
       "pos": [
         690,
         190

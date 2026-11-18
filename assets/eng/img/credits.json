@@ -1132,31 +1132,31 @@
   "scene": "stlt-4"
  },
  {
-  "file": "stlt-f-eileen.jpg",
+  "file": "stlt-f-plea.jpg",
   "text": "stlt",
-  "title": "Eileen",
+  "title": "A girl begs Bill",
   "author": "Small Things Like These (2024 film of the novella), directed by Tim Mielants, with Cillian Murphy; still via TMDB",
   "licence": "Copyright: used here for study",
   "source": "https://www.themoviedb.org/movie/1102493-small-things-like-these/images/backdrops",
   "kind": "film",
-  "caption": "Bill tells Eileen what he saw. She says it has nothing to do with them.",
-  "moment": "stlt-6",
+  "caption": "Inside the convent, one of the girls runs to Bill and begs him to get her out.",
+  "moment": "stlt-4",
   "spots": [
    {
-    "x": 20,
-    "y": 50,
-    "label": "Eileen",
-    "note": "Practical and afraid for their girls: the nuns pay their bills, and their own daughters are well minded.",
+    "x": 22,
+    "y": 62,
+    "label": "The girl",
+    "note": "She begs the coalman, a stranger, to take her away: in the novella, as far as the river.",
     "quote": "",
-    "moment": "stlt-6"
+    "moment": "stlt-4"
    },
    {
-    "x": 74,
+    "x": 72,
     "y": 40,
     "label": "Bill",
-    "note": "He asks where he and his mother would have been if Mrs Wilson had thought that way.",
+    "note": "He says it is not up to him, and says nothing about the girls to the nun.",
     "quote": "",
-    "moment": "stlt-6"
+    "moment": "stlt-4"
    }
   ]
  },

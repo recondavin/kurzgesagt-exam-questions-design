@@ -2465,7 +2465,7 @@
   function cineScene(part, s, c) {
     // A scene's picture: ours if there is one; if not, and the scene has a clip on YouTube, the clip's own small
     // preview picture, shown from YouTube (not copied).
-    var img = function (x) { var cl = (window.EngClips || {})[x.mid] || CLIPS[x.mid] || {}; return x.pic ? 'assets/eng/img/' + encodeURI(x.pic.file) : cl.yt ? 'https://i.ytimg.com/vi/' + encodeURIComponent(cl.yt) + '/mqdefault.jpg' : ''; };
+    var img = function (x) { var cl = (window.EngClips || {})[x.mid] || CLIPS[x.mid] || {}; return x.pic ? 'assets/eng/img/' + encodeURI(x.pic.file) : cl.yt && !cl.trailer ? 'https://i.ytimg.com/vi/' + encodeURIComponent(cl.yt) + '/mqdefault.jpg' : ''; };
     var sc = watchScenes(part, s, c), shown = sc.filter(img), all = shown.length ? [] : cinePics(part, s, c).map(function (q) { return 'assets/eng/img/' + encodeURI(q.file); });
     var back = shown.length ? img(shown[0]) : all[0] || '';
     if (!back && !sc.length) return '';
@@ -3096,37 +3096,104 @@
           say: [['Asked if he has been rehabilitated, after forty years inside:', '“To me it’s just a made-up word. A politician’s word, so that young fellas like yourself can wear a suit and a tie and have a job.”', 'His last words to the men who decide whether he is ever freed:', '“So you go on and stamp your form, sonny, and stop wasting my time. Because to tell you the truth, I don’t give a shit.”']] } } }
     ] },
     'shawshank-12': { yt: 'CkxXGxa2JkU' },   // Ending scene, 4:34
-    // Small Things Like These, "The Girl In the Coal Shed", 3:00 (the user, shown our dark still of the shed at this
-    // scene's pause: "thanks this is very helpful i really see the actual film and not just bags of coal"). This clip
-    // gives the player NO captions and NO seek previews, so all that can be seen of it from the build session is the
-    // three pictures YouTube publishes for every video, at about a quarter, a half and three quarters of the way
-    // through: Bill in close-up, then the girl in close-up twice. So: two pauses at about those points (0:45 and
-    // 1:30), one shape each and a wide one, and NO quotation, because what is said in the clip could not be heard or
-    // read. The seconds and the shapes are estimates until the user sends a screenshot of each pause.
-    'stlt-7': { yt: 'H6vL0bWiksw', pauses: [
-      { at: 45, spots: [{ x: 55, y: 46, rx: 17, ry: 42, label: 'Bill' }],
+    // SMALL THINGS LIKE THESE (the user: "i hope your doing EVERY small things scene", then "take extra time to make
+    // sure everything is accurate at where you paue it"). The scenes are the seven the abuse-of-power theme uses for
+    // this text (4, 6, 7, 8, 10, 11, 12). HOW EACH PAUSE WAS CHECKED: every seek preview of the clip was laid out in
+    // order (the player is given one every 1, 2 or 5 seconds for each of these clips; the coal-shed and convent clips
+    // were first thought to have none, which was wrong), and a pause is put only where the previews on BOTH sides of it
+    // show the same shot, or exactly on a preview where they come 5 seconds apart. Where things are was read off the
+    // previews enlarged with a 10% grid. Somebody who cannot be told apart for certain on those frames is not given a
+    // label of their own (two small figures at a door are "Bill and Sarah", one shape). Only two of these clips have
+    // captions; a line is quoted only where captions or the distributor's own subtitles give the words.
+    // The first try at the coal shed, from YouTube's three published pictures alone, had put "The girl" on a second
+    // where the previews show Bill. Checking beats estimating.
+    //
+    // "Inside the Magdalene Asylum", 2:23. Bill walks in through the convent (the first minute and a half), sees two
+    // girls on their knees scrubbing a floor (1:34 to 1:40), and one runs to him and pleads, hands clasped (1:50 to
+    // 2:08, one held shot of the two of them). This clip has no captions: the two lines quoted are the film's, from
+    // the official international trailer (which carries its own subtitles), where they are spoken over this same shot.
+    'stlt-4': { yt: 'ElSWOfAmL4o', end: 141, pauses: [
+      { at: 97, spots: [{ x: 60, y: 68, rx: 27, ry: 24, label: 'The girls' }],
+        themes: { power: { ask: 'What does what Bill sees here show about abuse of power?', title: 'Locked doors',
+          note: 'Behind the convent’s locked doors, girls are put to work on their knees, out of sight of the town. Nobody outside sees it, so nobody has to answer for it. The nuns’ power is safest where there are no witnesses, and Bill has only seen this by walking in.',
+          say: [['On their knees, scrubbing the floor, inside a convent the whole town respects. Bill has walked in on what nobody outside is meant to see.']] } } },
+      { at: 127.5, spots: [{ x: 29, y: 53, rx: 14, ry: 24, label: 'The girl' }, { x: 68, y: 32, rx: 13, ry: 30, label: 'Bill' }],
+        themes: { power: { ask: 'What do the girl’s words, and Bill’s answer, show about abuse of power?', title: 'Every way out is blocked',
+          note: 'She begs the first outsider she sees, because inside the convent there is nobody to ask. Bill is a decent man and he still says no. The nuns do not need a guard on the door when ordinary people will not get involved: her one way out is closed by his silence.',
+          say: [['Runs to a stranger delivering coal and begs him to get her out:', '“Please. Please don’t leave me here, take me home.”'],
+            ['All he gives her:', '“I’m sorry, love.”']] } } }
+    ] },
+    // Eileen's warning and Mrs Kehoe's warning (below) are NOT on YouTube as scenes: no clip of either was found. What
+    // there is: the official international trailer, with its own subtitles, in which the lines are spoken, mostly
+    // over other pictures. So these two play that stretch of the trailer and then ask the usual question, on our own
+    // picture where the scene has one. (Eileen's warning has none now: the still that had been labelled "Eileen" is
+    // the girl pleading with Bill in the convent, the very shot stlt-4 pauses on, and it was moved to that scene.)
+    // They have NO pause and NO labels, on purpose: the person speaking is not on screen for certain at any
+    // second (a frame first read as Mrs Kehoe turned out, enlarged, to be a boy at a door). Here: Bill, "What if it was
+    // one of ours?"; Eileen, "They're not our girls."; "So what do we have to answer for?"; Bill, "Don't you ever
+    // question it?" (1:34.9 to 1:45.3 by the subtitles).
+    // `trailer: true` keeps the trailer's own poster picture from standing in as the scene's picture where a scene
+    // with no picture of ours borrows its clip's. `start` is a whole second: the player takes no fractions.
+    'stlt-6': { yt: 'PBJ3zgH4pGM', trailer: true, start: 94, end: 105.7 },
+    // "The Girl In the Coal Shed", 3:00 (the user, shown our dark still of the shed at this scene's pause: "thanks this
+    // is very helpful i really see the actual film and not just bags of coal"). No captions, so nothing is quoted.
+    // First pause: the girl against the shed wall in Bill's torchlight (0:30 to 0:34, the one bright shot of the clip).
+    // Second: her close-up, which holds from 2:08 to 2:22. The logo comes at 2:56.
+    'stlt-7': { yt: 'H6vL0bWiksw', end: 175, pauses: [
+      { at: 32, spots: [{ x: 56, y: 58, rx: 15, ry: 36, label: 'The girl' }],
         themes: { power: { ask: 'What does what Bill finds here show about abuse of power?', title: 'The victims have no say',
           note: 'A girl has been locked in a coal shed overnight in winter, inside a convent the whole town respects. Nobody was meant to see it: this is what the nuns’ power looks like when no one is watching, and Bill has only found it by arriving early.',
-          say: [['Making an early Sunday delivery, he finds the coal shed bolted from the outside, and a girl inside it who has been there all night.']] } } },
-      { at: 90, spots: [{ x: 46, y: 46, rx: 19, ry: 42, label: 'The girl' }],
+          say: [['Bill, making an early Sunday delivery, has unbolted the coal shed. She has been locked inside it all night.']] } } },
+      { at: 135, spots: [{ x: 44, y: 42, rx: 15, ry: 34, label: 'The girl' }],
         themes: { power: { ask: 'What does the girl’s state show about the power the convent has over her?', title: 'The victims have no say',
           note: 'She is freezing, filthy and frightened, and she does not ask to be let go. All she asks is for someone to find out about her baby, fourteen weeks old and taken from her. Everything in her life, even her child, is decided by the people who locked her in.',
-          say: [['Locked in all night, freezing, filthy and frightened. She asks Bill for one thing only: to find out about her baby, who has been taken from her.']] } } }
+          say: [['Freezing, filthy and frightened after a night in the shed. At the convent door she will ask Bill for one thing only: to find out about her baby, fourteen weeks old and taken from her.']] } } }
     ] },
-    // Small Things Like These, "Bring Her In", 5:01: Bill brings the girl back and is given tea (it was the press
-    // clip "Bill speaks to Sr Mary", bPKayfiskBw, which has no captions). Two pauses, lines and seconds from the
-    // clip's captions. The clip is very dark and its seek previews small, so only the Mother Superior is labelled,
-    // where her habit can be made out and the line being spoken is hers; Bill and the girl are not. The words are
-    // the film's; the novel the class reads tells the same scene in its own words.
-    'stlt-8': { yt: 'Xh8bnSbhF2M', pauses: [
-      { at: 64.5, spots: [{ x: 47, y: 40, rx: 14, ry: 40, label: 'The Mother Superior' }],
+    // "Bring Her In", 5:01: Bill brings the girl back and is given tea (it was the press clip "Bill speaks to Sr Mary",
+    // bPKayfiskBw, which has no captions). Lines and seconds from this clip's captions; its previews come every 5
+    // seconds. First pause: the Mother Superior's close-up, the same shot at 1:00 and 1:05, while she is speaking.
+    // Second: her line about school places ends at about 4:46, and the previews show her at 4:45 and BILL at 4:50, so
+    // which of them is on screen at 4:47 cannot be known. The pause is therefore at 4:49.8, on Bill hearing it, and
+    // the label is his with her words. The subscribe card follows within five seconds, so the clip is ended at 4:51.5.
+    'stlt-8': { yt: 'Xh8bnSbhF2M', end: 291.5, pauses: [
+      { at: 64.5, spots: [{ x: 48, y: 42, rx: 16, ry: 40, label: 'The Mother Superior' }],
         themes: { power: { ask: 'What does the Mother Superior’s concern show about how power works in the convent?', title: 'A woman enforces the system',
           note: 'A girl has been locked in a coal shed overnight, and the Mother Superior answers with warmth and good manners. Nothing is admitted and nothing is explained. Her power does not need to raise its voice: she smoothly protects the convent’s secrets, and everyone in the room lets her.',
           say: [['Bill has brought back the girl he found in the coal shed. The Mother Superior, all concern:', '“You gave us an awful fright, child. Sister Francis was about to send for the guards to look for you.”', 'Bill tells her the girl was locked in the shed. She answers:', '“Whatever had her in there? My God, you poor girl.”']] } } },
-      { at: 287, spots: [{ x: 32, y: 45, rx: 14, ry: 42, label: 'The Mother Superior' }],
+      { at: 289.8, spots: [{ x: 60, y: 42, rx: 13, ry: 30, label: 'Bill' }],
         themes: { power: { ask: 'What do the Mother Superior’s words about the school show about abuse of power?', title: 'Power that never raises its voice',
           note: 'She never threatens Bill. She only asks after his daughters and remarks how hard it is to find a place for everyone, and he understands her: his girls’ schooling is in her hands. In this town the convent keeps its power through what people stand to lose.',
-          say: [['Over tea, having asked after each of Bill’s daughters by name:', '“So many trying to get in. It’s no easy task trying to find a place for everyone.”']] } } }
+          say: [['Over tea, the Mother Superior has asked after each of his daughters by name. Then, to him:', '“So many trying to get in. It’s no easy task trying to find a place for everyone.”', 'He looks down.']] } } }
+    ] },
+    // Mrs Kehoe's warning: see the note at stlt-6. The same trailer, 1:10.7 to 1:19.1 by its subtitles: "Those nuns
+    // have a finger in every pie, Bill. If you go making a nuisance of yourself now you might be denying your younger
+    // ones an education." No pause, no labels.
+    'stlt-10': { yt: 'PBJ3zgH4pGM', trailer: true, start: 70, end: 79.4 },
+    // "End scene", 6:50 (an upload in the film's own 5:3 shape, previews every 5 seconds, no captions): Bill walks to
+    // the convent, takes Sarah out of the coal shed, walks her home. The shed is filmed so dark and so close that no
+    // preview of it shows for certain who is in the shot, so there is no pause there. One pause, on the long shot of
+    // the two of them walking the quay (2:35 to 3:05, the same shot in seven previews); the clip is ended there, since
+    // the walk through the town is the next scene.
+    'stlt-11': { yt: 'DmoSLXWi2hQ', end: 187, pauses: [
+      { at: 172.5, spots: [{ x: 51, y: 62, rx: 9, ry: 17, label: 'Bill and Sarah' }],
+        themes: { power: { ask: 'What does Bill’s choice show about standing up to abuse of power?', title: 'One man stands up to it',
+          note: 'The convent’s power has rested on everyone in the town looking away. Bill stops looking away: on Christmas Eve, instead of going to Mass, he takes Sarah out of the coal shed and walks her through the town where anybody can see. One ordinary man can break that power, and he knows he will pay for it.',
+          say: [['Instead of going home to get ready for midnight Mass, he walked on to the convent, found Sarah locked in the coal shed again and took her out. He does not hide her: he walks her home through the town.']] } } }
+    ] },
+    // "The Walk Home", 2:08 (previews every 2 seconds, no captions). First pause: Bill holding Sarah up as they pass
+    // the houses (1:04 to 1:18 is one travelling shot; he drifts left across it, so the shapes are for 1:11). Second:
+    // the two of them at his own front door, one held shot from 1:50 to 2:02; seen from across the street they cannot
+    // be told apart, so they share a label. The logo comes at 2:04.
+    'stlt-12': { yt: '6qeUOeqmRe8', end: 123, pauses: [
+      { at: 71, spots: [{ x: 41, y: 24, rx: 9, ry: 20, label: 'Bill' }, { x: 62, y: 58, rx: 15, ry: 24, label: 'Sarah' }],
+        themes: { power: { ask: 'What does this walk show about the cost of standing up to abuse of power?', title: 'One man stands up to it',
+          note: 'Bill does what nobody else in the town has done, and he does it in the open, on Christmas Eve, with everyone about. That is the price: his coal yard and his own daughters’ places at the school depend on the nuns’ goodwill. Power can be broken, but at a cost.',
+          say: [['Holds her up and keeps walking, through the middle of the town, where anyone can see who is with him.'],
+            ['Out of the coal shed at last, leaning on him to walk.']] } } },
+      { at: 116, spots: [{ x: 47, y: 52, rx: 12, ry: 34, label: 'Bill and Sarah' }],
+        themes: { power: { ask: 'What does this ending show about abuse of power in Small Things Like These?', title: 'How it ends',
+          note: 'The story stops at Bill’s own front door. One girl is out, but the convent is still there, the other girls are still inside it, and we never see what the nuns or the town do to Bill. The ending is hopeful because one man acted, not because the abuse of power is over.',
+          say: [['At his own front door, with a girl the convent had locked away. What the nuns and the town do next, we are never shown.']] } } }
     ] },
     // Sive (the user: "make the scenes like in shawshank"). One recording of the whole play, St Brigid's Drama Group
     // (two hours; the user chose it over the Dunhill one), so each scene has the second it starts and ends as well as
