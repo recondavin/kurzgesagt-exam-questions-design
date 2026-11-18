@@ -3419,8 +3419,8 @@
   },
   {
    "id": "S2-Q5a",
-   "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level (Irish-language paper, translated), Question 5 (a)",
-   "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+   "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level, Question 5 (a)",
+   "file": "sample/lc-biology-2027-2-ms-d13y2.pdf",
    "page": 20,
    "section": "sample",
    "stem": "The diagram shows the internal structure of the human heart.",
@@ -3478,7 +3478,7 @@
     },
     {
      "label": "(iii)",
-     "text": "On the diagram, draw X where the pacemaker is located.",
+     "text": "On the diagram, draw an X where the pacemaker is located.",
      "marks": null,
      "points": [
       {
@@ -3496,7 +3496,7 @@
     },
     {
      "label": "(iv)",
-     "text": "Describe how the concentration of carbon dioxide in blood plasma changes between blood vessels A and B.",
+     "text": "Describe how the carbon dioxide concentration in blood plasma varies between blood vessels A and B.",
      "marks": null,
      "points": [
       {
@@ -3520,7 +3520,7 @@
     },
     {
      "label": "(v)",
-     "text": "In the space below, model one structural difference between an artery and a vein, by describing the difference and/or by drawing a labelled diagram.",
+     "text": "In the space below, model one structural difference between an artery and a vein, by describing the difference and/or drawing a labelled diagram.",
      "marks": null,
      "points": [
       {
@@ -3552,16 +3552,16 @@
   },
   {
    "id": "S2-Q5b",
-   "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level (Irish-language paper, translated), Question 5 (b)",
-   "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+   "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level, Question 5 (b)",
+   "file": "sample/lc-biology-2027-2-ms-d13y2.pdf",
    "page": 21,
    "section": "sample",
-   "stem": "Materials are transported within humans by a two-circuit circulatory system.",
+   "stem": "The transport of materials within humans is carried out using a two-circuit circulatory system.",
    "diagram": null,
    "parts": [
     {
      "label": "(i)",
-     "text": "Identify the two circuits.",
+     "text": "Identify both circuits.",
      "marks": null,
      "points": [
       {
@@ -3607,7 +3607,7 @@
     },
     {
      "label": "(iii)",
-     "text": "Describe what could happen to the heart if a coronary artery were completely blocked.",
+     "text": "Describe what may happen to the heart when a coronary artery becomes completely blocked.",
      "marks": null,
      "points": [
       {
@@ -3657,11 +3657,11 @@
   },
   {
    "id": "S2-Q5c",
-   "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level (Irish-language paper, translated), Question 5 (c)",
-   "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+   "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level, Question 5 (c)",
+   "file": "sample/lc-biology-2027-2-ms-d13y2.pdf",
    "page": 22,
    "section": "sample",
-   "stem": "The graph below shows the change in the arterial blood pressure of an athlete over two consecutive heartbeats. Analyse the graph and answer the following questions.",
+   "stem": "The graph below shows the change in arterial blood pressure of an athlete over two consecutive heartbeats. Analyse the graph and answer the questions that follow.",
    "diagram": {
     "page": 22,
     "what": "Line graph: y-axis 'relative arterial pressure', x-axis 'time (s)' marked 0, 0.5 and 1.0. Two identical waves: pressure rises steeply to a peak at about 0.08 s and 0.58 s, then falls gradually to minima at about 0, 0.5 and 1.0 s.",
@@ -3670,7 +3670,7 @@
    "parts": [
     {
      "label": "(i)",
-     "text": "On the graph above, write the letter X to indicate a point in time at which the left ventricle is contracting.",
+     "text": "On the graph above, write the letter X to indicate a point in time during which the left ventricle is contracting.",
      "marks": null,
      "points": [
       {
@@ -3688,7 +3688,7 @@
     },
     {
      "label": "(ii)",
-     "text": "Based on the information given on the graph above, calculate the athlete's heart rate in beats per minute (bpm). [Calculation: ...]",
+     "text": "Using the information given on the graph above, calculate the heart rate in beats per minute (bpm) of the athlete. [Calculation: ...]",
      "marks": null,
      "points": [
       {
@@ -3711,7 +3711,7 @@
     },
     {
      "label": "(iii)",
-     "text": "Does the graph above show an athlete at rest? Justify your answer.",
+     "text": "Does the graph shown above represent an athlete at rest? Justify your answer.",
      "marks": null,
      "points": [
       {
@@ -3738,8 +3738,8 @@
   },
   {
    "id": "S2-Q5d",
-   "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level (Irish-language paper, translated), Question 5 (d)(i)",
-   "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+   "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level, Question 5 (d)(i)",
+   "file": "sample/lc-biology-2027-2-ms-d13y2.pdf",
    "page": 23,
    "section": "sample",
    "stem": "",
@@ -3747,7 +3747,7 @@
    "parts": [
     {
      "label": "(i)",
-     "text": "Explain why there is a large number of mitochondria in cardiac muscle cells.",
+     "text": "Explain why cardiac muscle cells have large numbers of mitochondria.",
      "marks": null,
      "points": [
       {

@@ -4315,16 +4315,16 @@
   },
   {
    "id": "S2-Q1b",
-   "source": "SEC Sample Paper 2 (2027), Higher Level, Question 1 (b) (Irish version, translated)",
-   "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+   "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level, Question 1 (b)",
+   "file": "sample/lc-biology-2027-2-ms-d13y2.pdf",
    "page": 4,
    "section": "sample",
-   "stem": "(Translated from Irish.) The following experiment was carried out to investigate the effectiveness of a vaccine. Read the article and answer the questions that follow. 'An international, double-blind, placebo-controlled trial was carried out to find out whether the vaccine was effective. In total 43 448 people received injections: 21 720 of them with the vaccine and 21 728 with the placebo. People aged 16 years or over were randomly assigned and they received two doses, 21 days apart, of the placebo or the vaccine. Two doses of the vaccine gave 95% protection against the pathogen in people aged 16 years or over.' (Adapted from Polack et al., 2020.)",
+   "stem": "The following experiment was carried out to investigate the effectiveness of a vaccine. Read the article and answer the questions that follow. 'An international, placebo-controlled, double-blind trial was carried out to see if the vaccine was effective. A total of 43 448 people received injections: 21 720 with the vaccine and 21 728 with the placebo. Randomly assigned persons aged 16 years or older received two doses, 21 days apart, of either the placebo or the vaccine. Two doses of the vaccine gave 95% protection against the pathogen in persons 16 years of age or older.' (Adapted from Polack et al., 2020.)",
    "diagram": null,
    "parts": [
     {
      "label": "(i)",
-     "text": "Why was it important to test the vaccine on people from all over the world?",
+     "text": "Why was it important that the vaccine was tested in people from all around the world?",
      "marks": null,
      "points": [
       {
@@ -4353,7 +4353,7 @@
     },
     {
      "label": "(ii)",
-     "text": "What is meant by 'placebo-controlled' in the context of this experiment?",
+     "text": "What does \"placebo-controlled\" mean in the context of this experiment?",
      "marks": null,
      "points": [
       {
@@ -4376,7 +4376,7 @@
     },
     {
      "label": "(iii)",
-     "text": "In total, 43 448 people aged 16 years or over took part in this experiment. Comment on the number of people in the sample used in this experiment in terms of the reliability of the data.",
+     "text": "A total of 43 448 people aged 16 years or older took part in this experiment. Comment on the sample size used in relation to the reliability of the data.",
      "marks": null,
      "points": [
       {
@@ -4400,7 +4400,7 @@
     },
     {
      "label": "(iv)",
-     "text": "Should the conclusion be drawn that this vaccine works on children under 16 years of age? Justify your answer.",
+     "text": "Would it be correct to conclude that this vaccine works in children under the age of 16 years? Justify your answer.",
      "marks": null,
      "points": [
       {
@@ -4428,11 +4428,11 @@
   },
   {
    "id": "S2-Q1e",
-   "source": "SEC Sample Paper 2 (2027), Higher Level, Question 1 (e) (Irish version, translated)",
-   "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+   "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level, Question 1 (e)",
+   "file": "sample/lc-biology-2027-2-ms-d13y2.pdf",
    "page": 7,
    "section": "sample",
-   "stem": "(Translated from Irish.) Read the following passage and answer the questions that follow. 'Transmissible spongiform encephalopathies (TSEs) are a family of neurodegenerative disorders of the central nervous system (CNS) which include scrapie in sheep, bovine spongiform encephalopathy (BSE) in cattle, and Creutzfeldt-Jakob disease (CJD) and variant CJD (vCJD) in humans (World Health Organisation, WHO, 2002). TSEs occur as a result of the misfolding of a particular protein, called a prion, which is normally found on nerve-cell membranes in the brain.' (Adapted from fsai.ie)",
+   "stem": "Read the following passage and answer the questions that follow. 'Transmissible spongiform encephalopathies (TSEs) are a family of neurodegenerative disorders of the central nervous system (CNS) that include scrapie in sheep, bovine spongiform encephalopathy (BSE) in cattle and Creutzfeldt-Jakob disease (CJD) and variant CJD (vCJD) in humans (World Health Organisation, WHO, 2002). TSEs result from the misfolding of a particular protein called a prion, which is normally found on the nerve cell membranes in the brain.' (Adapted from fsai.ie)",
    "diagram": {
     "page": 7,
     "what": "Two ribbon models side by side: a normal protein (labelled 'Próitéin normálta', mostly coiled alpha-helices) and a prion (labelled 'Prión', the same chain refolded mostly into flat beta-sheet arrows).",
@@ -4467,7 +4467,7 @@
     },
     {
      "label": "(ii)",
-     "text": "BSE was first identified in cattle in the United Kingdom in the 1980s, and the first cases of variant CJD were reported in 1996. Suggest a way in which this prion could be transmitted from cattle to humans, causing disease.",
+     "text": "BSE in cattle was first identified in the United Kingdom (UK) in the 1980s and the first cases of vCJD were reported in 1996. Suggest a way in which this prion might have been transmitted from cattle to humans to cause disease.",
      "marks": null,
      "points": [
       {
@@ -4487,7 +4487,7 @@
     },
     {
      "label": "(iii)",
-     "text": "Prions are an example of misfolded proteins. Explain the importance of folding in proteins.",
+     "text": "Prions are an example of a misfolded protein. Explain the importance of folding in proteins.",
      "marks": null,
      "points": [
       {

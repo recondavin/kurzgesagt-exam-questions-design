@@ -2109,11 +2109,11 @@
     },
     {
       "id": "S2-Q5a",
-      "source": "SEC Sample Paper 2 (2027), Higher Level (Irish version), Question 5 (a) (iv)",
-      "file": "sample/lc-biology-2027-2-qp-buv2z.pdf",
+      "source": "SEC Sample Paper 2 (new course, first exam 2027), Higher Level, Question 5 (a) (iv)",
+      "file": "sample/lc-biology-2027-2-ms-d13y2.pdf",
       "page": 20,
       "section": "sample",
-      "stem": "(Translated from Irish.) The diagram shows the internal structure of the human heart. ((i) asks to identify the vessels labelled A and B; (ii), (iii) and (v) are on the heart and blood vessels and are not included.)",
+      "stem": "The diagram shows the internal structure of the human heart. ((i) asks to identify the vessels labelled A and B; (ii), (iii) and (v) are on the heart and blood vessels and are not included.)",
       "diagram": {
         "page": 20,
         "what": "Cut-away drawing of the human heart. Arrow A points to the red arched vessel leaving the top of the heart; arrow B points to the grey vessel branching to the right at the top; 'Comhla' (valve) points to a valve inside the heart.",
@@ -2126,7 +2126,7 @@
       "parts": [
         {
           "label": "(iv)",
-          "text": "Describe how the concentration of carbon dioxide in the blood plasma changes between vessels A and B.",
+          "text": "Describe how the carbon dioxide concentration in blood plasma varies between blood vessels A and B.",
           "marks": null,
           "points": [
             {

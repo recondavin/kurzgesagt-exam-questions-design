@@ -23,7 +23,9 @@ ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
 OUT_DIR = os.path.join(ROOT, 'assets', 'bio', 'papers')
 WIDTH = 2055
 ROMAN = r'(?:i{1,3}|iv|vi{0,3}|ix|x)'
-SAMPLES = {'S1': 'lc-biology-2027-1-qp-smlwu.pdf', 'S2': 'lc-biology-2027-2-qp-buv2z.pdf'}
+# S2 is the English Higher Level question paper (simplestudy.io names it -ms-, but it is the paper, not the scheme);
+# the pages were from the Irish version (-qp-buv2z) until the English one was found.
+SAMPLES = {'S1': 'lc-biology-2027-1-qp-smlwu.pdf', 'S2': 'lc-biology-2027-2-ms-d13y2.pdf'}
 
 
 def pdf_lines(pdf):
