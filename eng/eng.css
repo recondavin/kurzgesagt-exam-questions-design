@@ -3319,7 +3319,8 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-cine__tab { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-width: 34px; height: 34px; margin: 0; padding: 0 14px 0 3px; border: 0; border-radius: 17px; background: rgba(255, 253, 246, .16); color: #FFFDF6; font: 700 15px/1 var(--font-body); cursor: pointer; }
 .eng-cine__tab i { display: grid; place-items: center; width: 34px; height: 34px; font: 700 15px/1 var(--font-head); font-style: normal; }
 .eng-cine__tab:hover { background: rgba(255, 253, 246, .3); }
-.eng-cine__tab.is-next { background: var(--exam-pen); }
+/* Only the step you are on is lit. The red pill for the one to write next is gone: with it there were two lit pills
+   and no telling which was yours (the user: "i dont even know where the fuck i am"). */
 .eng-cine__tab.is-done i { font-size: 0; }
 .eng-cine__tab.is-done i::after { content: ""; width: 5px; height: 11px; margin-top: -3px; border: solid currentColor; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
 .eng-cine__tab.is-cur, .eng-cine__tab.is-cur:hover { padding: 0 15px 0 3px; background: #FFFDF6; color: #0C1118; }

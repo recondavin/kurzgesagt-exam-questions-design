@@ -2528,8 +2528,9 @@
     var c = pageCtx(READ_PART), k = cineKey(cur), b = READ_PART === 'b', ta = cur.querySelector('.eng-read__ta'), v = ta.value, n = wordsIn(v), r = c.range[k];
     var theme = c.th.name.toLowerCase(), film = !b && text(c.a).kind === 'film', work = film ? 'film' : 'text';
     var lis = Array.prototype.slice.call(cur.querySelectorAll('.eng-read__ticks li')), off = lis.filter(function (li) { return !li.classList.contains('is-on'); }).map(function (li) { return li.getAttribute('data-tick'); });
-    var mine = lis.some(function (li) { return li.getAttribute('data-tick') === fresh; }), tabs = cur.querySelectorAll('.eng-cine__tab'), bx = cineBoxes(), i = bx.indexOf(cur);
-    var name = tabs[i] ? tabs[i].getAttribute('data-name') : '', next = tabs[i + 1] ? tabs[i + 1].getAttribute('data-name') : '';
+    var mine = lis.some(function (li) { return li.getAttribute('data-tick') === fresh; }), bx = cineBoxes(), i = bx.indexOf(cur);
+    var tabName = function (q) { var t = q && cur.querySelector('.eng-cine__tab[data-cine-go="' + cineKey(q) + '"]'); return t ? t.getAttribute('data-name') : ''; };
+    var name = tabName(cur) || (cur.querySelector('.eng-read__bh b') || {}).textContent || '', next = tabName(cineNear(bx, cur, 1));
     var sentences = v.trim().split(/[.!?]+(?:\s+|$)/).filter(Boolean).length, story = k === 'a' || k === 'x' || k === 'y', t = '', mood = 'ok';
     var START = b ? {
       p: 'One sentence about both texts: what do they both show about ' + theme + '?', c: 'Now compare them. Start with a word like “Similarly” or “Whereas”.',
@@ -2575,17 +2576,36 @@
   }
   function cineBoxes() { return READ ? Array.prototype.slice.call(READ.querySelectorAll('.eng-cine > .eng-read__box')) : []; }
   function cineKey(b) { var id = b.getAttribute('data-page-boxof'); return id.slice(id.lastIndexOf('|') + 1); }
+  // PART (b): THE TWO TEXTS' OWN BOXES ARE NOT STEPS. The user, of five pills in a row (Point, Sive, Small Things,
+  // Compare, Evaluate), one of them red and another white: "witgh point sicve small things compare avaluate i dont
+  // even know where the fuck i am", then "get rid of those right now the ones you can just put in because you wrote
+  // it in the scene". What a paragraph says about each text is written IN THE SCENE: the sentence written at a
+  // scene's pause is put into that text's box (watchKey). So the steps of a part (b) paragraph are Point, Compare,
+  // Evaluate. The two texts' boxes are still there: their sentences show in the paragraph where they belong, a click
+  // on one opens it to change it, and they never count as the thing to write next. And only the step you are on is
+  // lit: the red pill for "write this next" is gone, because two lit pills was the "where am I".
+  function cineIsStep(k) { return !(READ_PART === 'b' && (k === 'x' || k === 'y')); }
+  function cineSteps(bx) { return bx.filter(function (b) { return cineIsStep(cineKey(b)); }); }
+  // The step before (d -1) or after (d 1) a box, in the order of the paragraph; from a box that is not a step, the
+  // nearest step on that side.
+  function cineNear(bx, cur, d) {
+    var st = cineSteps(bx), si = st.indexOf(cur), i = bx.indexOf(cur);
+    if (si >= 0) return st[si + d] || null;
+    var side = st.filter(function (b) { return d < 0 ? bx.indexOf(b) < i : bx.indexOf(b) > i; });
+    return (d < 0 ? side[side.length - 1] : side[0]) || null;
+  }
   // Show one box: the one asked for (k), else the one already showing, else the box to write next, else the first.
-  // The numbered steps above the question say where it is in the part (ticked once written, red for the one to write
-  // next); the foot's two tabs step through the boxes of this part before they leave it for the part before or after.
+  // The numbered steps above the question say where it is in the part (ticked once written; only the one showing is
+  // lit); the foot's two tabs step through the steps of this part before they leave it for the part before or after.
   function cineSet(k, focus) {
     if (!CINE || !READ || !READ_STRUCT) return;
     var bx = cineBoxes(), cur = null, strip = READ.querySelector('.eng-cine');
     if (!bx.length) return;
     if (k) cur = bx.filter(function (b) { return cineKey(b) === k; })[0];
-    cur = cur || bx.filter(function (b) { return b.classList.contains('is-cur'); })[0] || bx.filter(function (b) { return b.classList.contains('is-next'); })[0] || bx[0];
-    var i = bx.indexOf(cur), moved = !cur.classList.contains('is-cur'), ta = cur.querySelector('.eng-read__ta'), names = Array.prototype.map.call(bx[0].querySelectorAll('.eng-cine__tab'), function (t) { return t.getAttribute('data-name'); });
-    var name = function (j) { return names[j] || ''; };
+    var steps = cineSteps(bx);
+    cur = cur || bx.filter(function (b) { return b.classList.contains('is-cur'); })[0] || steps.filter(function (b) { return b.classList.contains('is-next'); })[0] || steps[0] || bx[0];
+    var i = bx.indexOf(cur), moved = !cur.classList.contains('is-cur'), ta = cur.querySelector('.eng-read__ta');
+    var nameOf = function (b) { var t = b && bx[0].querySelector('.eng-cine__tab[data-cine-go="' + cineKey(b) + '"]'); return t ? t.getAttribute('data-name') : ''; };
     strip.setAttribute('data-cur', cineKey(cur));
     // Part (b): on a text's own step the other text's picture is not there (styles) and the button watches one scene.
     var wb = strip.querySelector('.eng-cine__scene.is-two [data-page-watch]');
@@ -2593,11 +2613,11 @@
     bx.forEach(function (b) {
       b.classList.toggle('is-cur', b === cur);
       // Each box carries the part's steps in its own heading; all of them are kept right, the one showing is seen.
-      Array.prototype.forEach.call(b.querySelectorAll('.eng-cine__tab'), function (tab, j) {
-        var of = bx[j]; if (!of) return;
+      Array.prototype.forEach.call(b.querySelectorAll('.eng-cine__tab'), function (tab) {
+        var of = bx.filter(function (q) { return cineKey(q) === tab.getAttribute('data-cine-go'); })[0]; if (!of) return;
         var done = of.classList.contains('is-done'), nx = of.classList.contains('is-next');
         tab.classList.toggle('is-cur', of === cur); tab.classList.toggle('is-done', done); tab.classList.toggle('is-next', nx);
-        tab.setAttribute('aria-label', name(j) + (done ? ', written' : '') + (nx ? ', to write next' : ''));
+        tab.setAttribute('aria-label', tab.getAttribute('data-name') + (done ? ', written' : '') + (nx ? ', to write next' : ''));
         if (of === cur) tab.setAttribute('aria-current', 'step'); else tab.removeAttribute('aria-current');
       });
     });
@@ -2615,7 +2635,8 @@
     });
     if (moved && ta) pageGrow(ta);
     var prev = READ.querySelector('[data-cine-step="-1"]'), next = READ.querySelector('[data-cine-step="1"]');
-    [[prev, i > 0, '‹ ' + name(i - 1)], [next, i < bx.length - 1, 'Next: ' + name(i + 1) + ' ›']].forEach(function (r) {
+    var before = cineNear(bx, cur, -1), after = cineNear(bx, cur, 1);
+    [[prev, !!before, '‹ ' + nameOf(before)], [next, !!after, 'Next: ' + nameOf(after) + ' ›']].forEach(function (r) {
       if (!r[0]) return;
       var other = r[0].nextElementSibling;
       r[0].hidden = !r[1]; if (other) other.hidden = r[1];
@@ -2636,7 +2657,7 @@
     else if (moved) { READ_BOX = k; pageMarks(); pageHelpDraw(); }
   }
   function cineStep(d) {
-    var bx = cineBoxes(), i = bx.map(function (b) { return b.classList.contains('is-cur'); }).indexOf(true), to = bx[i + d];
+    var bx = cineBoxes(), cur = bx.filter(function (b) { return b.classList.contains('is-cur'); })[0], to = cur ? cineNear(bx, cur, d) : null;
     if (to) cineSet(cineKey(to), true);
   }
   function pageCount() {
@@ -2645,7 +2666,7 @@
   }
   function pageWords(c) { var n = 0; c.slots.forEach(function (s) { n += wordsIn(c.text(c.W, s)); }); return n; }
   // A part of the answer is done when every one of its boxes has four words or more.
-  function pageDone(c, s) { var P = c.parts(c.W, s), pts = pageParts(READ_PART, s, c); return pts.length > 0 && pts.every(function (pt) { return wordsIn(P[pt.k]) >= 4; }); }
+  function pageDone(c, s) { var P = c.parts(c.W, s), pts = pageParts(READ_PART, s, c).filter(function (pt) { return !CINE || cineIsStep(pt.k); }); return pts.length > 0 && pts.every(function (pt) { return wordsIn(P[pt.k]) >= 4; }); }
   // One part of the answer to a page (the user, of all the paragraphs running down one long page while Help showed
   // only the two key moments of the one you were on: "why do you need all paragraphs there if we are displaying 2 key
   // moments, should you point sive small things compare evaluate for each 3/4 page to 1 page"). With the structure
@@ -2704,7 +2725,7 @@
       }
       // The examiner's ticks: each box's own, in the margin; the count sits by the heading.
       var tk = pts.map(function (pt) { return tickList(part, s, pt.k, c); }), any = tk.some(function (x) { return x.length > 0; }), pics = CINE ? cinePics(part, s, c) : [];
-      var steps = CINE ? '<span class="eng-cine__steps">' + pts.map(function (pt, i) {
+      var steps = CINE ? '<span class="eng-cine__steps">' + pts.filter(function (pt) { return !(part === 'b' && (pt.k === 'x' || pt.k === 'y')); }).map(function (pt, i) {
         return '<button type="button" class="eng-cine__tab" data-cine-go="' + pt.k + '" data-name="' + esc(cineName(pt)) + '"><i aria-hidden="true">' + (i + 1) + '</i><span aria-hidden="true">' + esc(cineName(pt)) + '</span></button>';
       }).join('') + '</span>' : '';
       return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any && !CINE ? tickTally() : '') + '</div>' + (CINE ? '' : watchBtn(part, s, c)) +
@@ -4191,7 +4212,8 @@
       if (wc) wc.innerHTML = wcHtml(n, c.range[k]);
       ta.parentNode.classList.toggle('is-done', n >= 4); ta.parentNode.classList.remove('is-next');
     });
-    next = tas.filter(function (ta) { return wordsIn(ta.value) < 4; })[0];
+    // In the film frame the two texts' own boxes of part (b) are written in the scene: they are never "write this next".
+    next = tas.filter(function (ta) { return wordsIn(ta.value) < 4 && (!CINE || cineIsStep(ta.getAttribute('data-page-box'))); })[0];
     if (next) { next.parentNode.classList.add('is-next'); next.parentNode.setAttribute('data-next', any ? 'Write this next' : 'Start here'); }
     var go = READ.querySelector('[data-page-next]'), tab = READ.querySelector('.eng-read__pg.is-on');
     if (go) go.classList.toggle('is-go', !next && tas.length > 0);
