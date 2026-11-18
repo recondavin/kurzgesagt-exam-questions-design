@@ -3408,3 +3408,12 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
   .eng-read.is-cine .eng-cine > .eng-read__box.is-cur > *, .eng-read.is-cine .eng-cine .eng-read__ticks li.is-new::before { animation: none; }
   .eng-cine__scene figure { transition: none; }
 }
+
+/* ===== A scene with a clip is never told in photographs (eng.js, watchDraw). =====
+   If the film will not start: a dark screen and one button to try again, in the middle. No photo, no story lines.
+   At the frozen end of a clip with no pause of its own: the film's own frame, dimmed only enough to read the question. */
+.eng-pause.is-failed .eng-pause__again { top: 50%; left: 50%; right: auto; transform: translate(-50%, -50%); height: 52px; padding: 0 22px 0 26px; font-size: 17px; }
+.eng-pause.is-failed .eng-pause__stage { background: #000; }
+.eng-pause__label.is-none { display: none !important; }
+.eng-pause.is-live.is-end.is-dark .eng-pause__dim { opacity: .6; }
+@media (max-width: 700px) { .eng-pause.is-failed .eng-pause__again { position: absolute; margin: 0; } }

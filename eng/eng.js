@@ -2989,11 +2989,38 @@
   // many ads each brings is for the user to see. None is the studio's own upload: Movieclips' official scenes refuse
   // to play embedded. Each plays whole and pauses at its end until the user gives a second to pause at.
   var CLIPS = {
-    'shawshank-1': { yt: 'nbo7A03c_A0' },    // The Conviction of Andy Dufresne, 5:09 (nine seconds over five minutes)
-    // Red's first parole hearing, 0:51 ("Red gets rejected from parole"). This scene had nothing to play and no picture.
-    // It plays whole and then asks the usual question; its pause is drafted with the others in
-    // tools/eng/research/pauses-not-yet-seen/shawshank.js and is not live for the reason given at the Sive scenes below.
-    'shawshank-2': { yt: 'I5Gumyh1nmo' },
+    // SHAWSHANK 1, 2, 5, 6, 8, 9, 10, 12 for abuse of power, placed by rule 13: every seek preview around each pause
+    // laid out, a pause only where the previews on both sides show the same shot, positions read off the enlarged
+    // preview with a 10% grid, and every shape then drawn on the previews either side and looked at (scratchpad
+    // ellchk.py; sheets ell-a/b/c.jpg). All seven wired uploads DO give previews (the old note that 1 and 6 give none
+    // was false). Two pauses are not bracketed by two previews of their own upload and are marked CROSS-CHECKED.
+    //
+    // "The Conviction of Andy Dufresne", 5:09; previews only every 5 seconds, so the shots were also read from another
+    // upload of the same scene with previews every 2 (dsLSE5mOKh4; this one runs 23.2 s later, from five caption lines
+    // and four cuts). 3:08.2, CROSS-CHECKED: Andy's close-up (this upload's preview at 3:05; in the other upload the
+    // same shot holds for five previews up to the equivalent of 3:09.2, then the falling bullets), his line ending at
+    // about 3:08. 5:04.6: Andy standing for sentence, the same shot in this upload's previews at 4:55, 5:00 and 5:05;
+    // "So be it" and the cut to black come after the pause.
+    'shawshank-1': { yt: 'nbo7A03c_A0', pauses: [
+      { at: 188.2, spots: [{ x: 40, y: 46, rx: 19, ry: 42, label: 'Andy' }],
+        themes: { power: { ask: 'What does this exchange show about the power the court has over Andy?', title: 'The system’s power over an innocent man',
+          note: 'Andy tells the truth and it does him no good. The prosecutor has a story, the missing gun fits it, and an innocent man cannot prove what he did not do. The court does not have to be right about Andy: it only has to be believed.',
+          say: [['On trial for the murder of his wife and her lover. The prosecutor has just called it very convenient that his gun was never found. Andy:', '“Since I am innocent of this crime, sir, I find it decidedly inconvenient that the gun was never found.”']] } } },
+      { at: 304.6, spots: [{ x: 51, y: 45, rx: 14, ry: 42, label: 'Andy' }],
+        themes: { power: { ask: 'What do the judge’s words show about the system’s power over Andy?', title: 'A life decided in one verdict',
+          note: 'The judge condemns Andy on how he seems, icy and remorseless, and one sentence takes the rest of his life. Andy is innocent, and the court’s power over him is total all the same: there is nobody he can make look again.',
+          say: [['Standing to be sentenced. The judge, to him:', '“You strike me as a particularly icy and remorseless man, Mr Dufresne. It chills my blood just to look at you.”', 'Then the sentence:', '“By the power vested in me by the State of Maine, I hereby order you to serve two life sentences, back to back, one for each of your victims.”']] } } }
+    ] },
+    // Red's first parole hearing: a NEW clip, I5Gumyh1nmo ("Red gets rejected from parole", 0:51, previews every
+    // second, captions timed word by word). One pause, 0:44.8: Red's close-up is one held shot from 0:23 to 0:48 (26
+    // previews) and "That's God's honest truth" ends at about 0:44.2. The REJECTED stamp is the clip's last second
+    // (preview at 0:51), too close to the end for a pause of its own, so the note names it.
+    'shawshank-2': { yt: 'I5Gumyh1nmo', pauses: [
+      { at: 44.8, spots: [{ x: 55, y: 42, rx: 15, ry: 40, label: 'Red' }],
+        themes: { power: { ask: 'What do Red’s words show about the power the parole board has over him?', title: 'Power makes people perform',
+          note: 'Twenty years in, Red’s freedom depends on a few men behind a table, so he says what he thinks they want to hear. Under that kind of power, honesty seems pointless. The stamp that follows, REJECTED, is the board’s whole answer.',
+          say: [['Twenty years into a life sentence, asked if he feels he has been rehabilitated:', '“Oh, yes, sir. Absolutely, sir. I mean, I learned my lesson. I can honestly say that I’m a changed man. I’m no longer a danger to society. That’s God’s honest truth.”']] } } }
+    ] },
     // Warden Norton's Principles, 1:33. Two pauses, each on the second straight after the line an essay would quote
     // (times from the clip's own captions) and each checked against the clip's seek previews for who is where: at
     // 1:10 a guard in a cap (Hadley) stands over the man he has just struck; at 1:28 Norton is alone in close-up. The
@@ -3074,8 +3101,34 @@
               ['Narrating, on what one prisoner’s knowledge bought the crew:', '“We sat and drank with the sun on our shoulders and felt like free men.”']] }
         } }
     ] },   // The Roof Scene, 3:30
-    'shawshank-5': { yt: 'LU7SIVHZda4' },    // "Brooks was here" scene, 4:18
-    'shawshank-6': { yt: 'ScU1O_Xuoxo' },    // "The Marriage of Figaro" scene, 4:04
+    // "Brooks was here" scene, 4:18 (previews every 2 seconds). 3:10.9: Brooks's close-up in his suit, the same shot
+    // at 3:10 and 3:12, after "I've decided not to stay" (ends about 2:57) and before "Not for an old crook like me".
+    // 3:45: his face seen up through the rafters as he finishes carving, the same shot from 3:40 to 3:48. The carved
+    // words cannot be read on a preview, so the label is on Brooks, not on the beam.
+    'shawshank-5': { yt: 'LU7SIVHZda4', pauses: [
+      { at: 190.9, spots: [{ x: 44, y: 38, rx: 17, ry: 38, label: 'Brooks' }],
+        themes: { power: { ask: 'What do Brooks’s words show about what fifty years in Shawshank have done to him?', title: 'Power over the mind',
+          note: 'Brooks is free and he wants to go back. After fifty years of being told when to eat, sleep and work, the prison is the only place he knows how to live: he calls it home. Shawshank’s power did not end at the gate, because it had taken over his mind.',
+          say: [['Paroled after fifty years, alone in a halfway house, writing to the men inside:', '“Maybe I should get me a gun and rob the Foodway, so they’d send me home.”', 'And at the end of the letter:', '“I don’t like it here. I’m tired of being afraid all the time. I’ve decided not to stay.”']] } } },
+      { at: 225, spots: [{ x: 44, y: 44, rx: 15, ry: 34, label: 'Brooks' }],
+        themes: { power: { ask: 'What does Brooks’s end show about the human cost of power in Shawshank?', title: 'The human cost of power',
+          note: 'Nobody beats Brooks or locks him up at the end. The prison let him go, and that is what kills him: fifty years of control left him unable to live without it. The only mark he leaves on the outside world is a line cut into a beam.',
+          say: [['In his suit, standing on the table in his room, he has just carved into the beam above him:', '“Brooks was here”']] } } }
+    ] },
+    // "The Marriage of Figaro" scene, 4:04 (previews every 2 seconds). 3:51: Andy's close-up after the glass is broken,
+    // the same shot at 3:50 and 3:52; both of Red's lines are over by 3:08. 4:01.4: Norton standing in the doorway, the
+    // same shot at 4:00 and 4:02 (already fading), as Red's "two weeks in the hole" ends. Norton's shouted order is
+    // not quoted: the captions garble it.
+    'shawshank-6': { yt: 'ScU1O_Xuoxo', pauses: [
+      { at: 231, spots: [{ x: 40, y: 42, rx: 17, ry: 38, label: 'Andy' }],
+        themes: { power: { ask: 'What do Red’s words show about the limits of the warden’s power?', title: 'Power can’t reach the inside',
+          note: 'Norton controls every minute of these men’s days, and for a few minutes a record does what he cannot stop: every man in the yard feels free. Andy knows what it will cost him and turns the music up. Control has its limits, because it cannot reach what is inside a man.',
+          say: [['Has locked himself in the office and played Mozart to the whole prison. Norton, at the door, orders him to turn it off, and he turns it up. Red, of the music:', '“It was like some beautiful bird flapped into our drab little cage and made those walls dissolve away, and for the briefest of moments, every last man at Shawshank felt free.”', '“It pissed the warden off something awful.”']] } } },
+      { at: 241.4, spots: [{ x: 59, y: 45, rx: 16, ry: 42, label: 'Norton' }],
+        themes: { power: { ask: 'What does Andy’s punishment show about abuse of power in Shawshank?', title: 'Punished for a moment of freedom',
+          note: 'Nobody was hurt and nothing was stolen: Andy played a piece of music. For that he gets two weeks alone in the dark. In Shawshank the men in charge cannot stand anything they do not control, and the hole is how they answer it.',
+          say: [['Walks into his own office once the guards have broken in. Red, of what it cost Andy:', '“Andy got two weeks in the hole for that little stunt.”']] } } }
+    ] },
     // "Norton and Tommy", 2:45 (found in the search of YouTube for key scenes; plays in the embedded player). Norton
     // asks Tommy whether he would swear to his story, hears that he would, and has Hadley shoot him from the tower. The
     // first pause is on Norton's close-up straight after "That's what I thought"; the second on the shot from above,
@@ -3092,9 +3145,51 @@
           say: [['Shot from the tower by Hadley, moments after asking for nothing more than to tell the truth:', '“Just give me that chance.”'],
             ['Walks out to the body of the witness he has just had killed.']] } } }
     ] },
-    'shawshank-8': { yt: 'XLZEdhU-gGs' },    // Get Busy Living or Get Busy Dying, 3:29
-    'shawshank-9': { yt: 'NXM0p4kUcZU' },    // Norton Finds Out That Andy Has Escaped, 3:40
-    'shawshank-10': { yt: '-x0JaHI-dp8' },   // Uncovering the Corruption, 3:34
+    // "Get Busy Living or Get Busy Dying", 3:28 (previews every 2 seconds). This upload's captions are rough, so the
+    // words and their seconds are from the official TNT upload's own subtitles (T2bE_Abo0q0, which runs 128.6 s
+    // later). 2:23.9: Andy's close-up, the same shot from 2:14 to 2:26, after "And then some". 3:06.1, CROSS-CHECKED:
+    // "Get busy living or get busy dying" ends at 3:04.5; the two-shot is still there at 3:04 and by 3:06 the film
+    // has cut to the two of them seen small against the yard wall, and the official upload's preview shows that
+    // same wide shot 0.4 s later. So the pause is on the wide shot and the two share a label. `end`: from 3:08 this
+    // upload tacks on Red's later repeat of the line, which belongs to the ending.
+    'shawshank-8': { yt: 'XLZEdhU-gGs', end: 187.2, pauses: [
+      { at: 143.9, spots: [{ x: 55, y: 44, rx: 18, ry: 40, label: 'Andy' }],
+        themes: { power: { ask: 'What do Andy’s words show about what the system has done to him?', title: 'What power does to people',
+          note: 'Andy has served nineteen years for a crime he did not commit, and Norton has just had the one witness who could clear him shot. The system has taken everything it can from him and will never admit it was wrong. All he has left to hold against it is a plan for a life outside.',
+          say: [['Out of solitary after Tommy’s death, sitting in the yard with Red:', '“I didn’t shoot my wife, and I didn’t shoot her lover. Whatever mistakes I made, I paid for them. And then some.”']] } } },
+      { at: 186.1, spots: [{ x: 67, y: 67, rx: 9, ry: 10, label: 'Andy and Red' }],
+        themes: { power: { ask: 'What does Andy’s choice show about standing up to Norton’s power?', title: 'Hope as a way of resisting',
+          note: 'Norton has killed Tommy and buried Andy’s last chance of a fair hearing, and expects that to break him. Andy’s answer is to choose: he will not spend the rest of his life dying slowly in Shawshank. Hope is the one thing in him the warden’s power has not reached.',
+          say: [['Against the wall of the yard. Andy, to Red:', '“I guess it comes down to a simple choice, really. Get busy living, or get busy dying.”']] } } }
+    ] },
+    // "Norton Finds Out That Andy Has Escaped", 3:39 (previews every 2 seconds). Its captions are useless (the player
+    // is given a Spanish reading of English speech), so NOTHING is quoted. 2:26: Norton's close-up as he questions
+    // Red, the same shot at 2:24, 2:26 and 2:28. 3:35: Norton seen from inside the tunnel, one pull-back shot from
+    // 3:32 to 3:38; the guard beside him is not labelled.
+    'shawshank-9': { yt: 'NXM0p4kUcZU', pauses: [
+      { at: 146, spots: [{ x: 52, y: 42, rx: 17, ry: 38, label: 'Norton' }],
+        themes: { power: { ask: 'What does Norton’s rage show about his power over Shawshank?', title: 'Power outwitted',
+          note: 'For nineteen years Norton has decided where every man in this prison sleeps, and one morning a cell is simply empty. He shouts at guards and at Red because there is nobody he can punish. His control was total only as long as everyone believed it was.',
+          say: [['Andy’s cell is empty at the morning count. Norton has the guards and Red in front of him, and nobody can tell him where a prisoner has gone.']] } } },
+      { at: 215, spots: [{ x: 52, y: 38, rx: 9, ry: 20, label: 'Norton' }],
+        themes: { power: { ask: 'What does the tunnel show about the limits of the warden’s control?', title: 'Power outwitted',
+          note: 'Behind a poster, with a rock hammer small enough to hide in a Bible, Andy has spent nearly twenty years digging through the wall of the cell Norton locked him in. Total control was never total: patience beat it.',
+          say: [['Has just thrown a stone at the poster on Andy’s wall and seen it go straight through. He is looking down the tunnel Andy dug behind it.']] } } }
+    ] },
+    // "Uncovering the Corruption", 3:33 (previews every 2 seconds). 1:55: Norton's close-up with the Bible from his
+    // safe, the same shot at 1:54 and 1:56; Red's line about the money ends at about 1:05. 3:31.8: Norton at his desk,
+    // one slow shot from 3:24 to 3:32, as Red's last line ends. The sampler's words are not put on a label: the
+    // preview at 1:26 reads "...and that Right Soon", where the site's notes say "right early".
+    'shawshank-10': { yt: '-x0JaHI-dp8', pauses: [
+      { at: 115, spots: [{ x: 42, y: 45, rx: 17, ry: 40, label: 'Norton' }],
+        themes: { power: { ask: 'What does this moment show about how Norton’s power is turned against him?', title: 'Hypocrisy exposed',
+          note: 'Norton hid his stolen money behind a Bible verse about judgement, and judgement is what comes. The false name he had Andy invent to hide the money is the name Andy uses to take it, and the newspaper has his account books. Everything he built to protect his power is what destroys it.',
+          say: [['Red, of the man who existed only on paper until Andy walked into the bank as him:', '“All told, he blew town with better than 370 thousand dollars of Warden Norton’s money. Severance pay for nineteen years.”', 'Norton has opened the safe behind his sampler and found Andy’s Bible where his account books were.']] } } },
+      { at: 211.8, spots: [{ x: 50, y: 45, rx: 10, ry: 12, label: 'Norton' }],
+        themes: { power: { ask: 'What do Red’s words show about how abuse of power ends in Shawshank?', title: 'Power turned back on the powerful',
+          note: 'Hadley is arrested and led away, and Norton shoots himself sooner than face the same. Neither is brought down by force. A prisoner did it with a false name and the warden’s own account books. The men nobody could hold to account are held to account at last.',
+          say: [['With the police at his door, he has shot himself at his desk. Red:', '“I like to think the last thing that went through his head, other than that bullet, was to wonder how the hell Andy Dufresne ever got the best of him.”']] } } }
+    ] },
     // Red attends his final parole hearing, 2:34. One pause, on Red's close-up straight after his last line to the
     // board (the next shot is the board, then the stamp as the clip ends). Lines and seconds from the clip's captions.
     'shawshank-11': { yt: 'TuQjBDFVuo8', pauses: [
@@ -3103,7 +3198,19 @@
           note: 'For forty years a few men behind a table have decided whether Red ever leaves, and at his earlier hearings he told them what he thought they wanted to hear. Here he stops performing. Their power over him only worked while he was afraid of their answer.',
           say: [['Asked if he has been rehabilitated, after forty years inside:', '“To me it’s just a made-up word. A politician’s word, so that young fellas like yourself can wear a suit and a tie and have a job.”', 'His last words to the men who decide whether he is ever freed:', '“So you go on and stamp your form, sonny, and stop wasting my time. Because to tell you the truth, I don’t give a shit.”']] } } }
     ] },
-    'shawshank-12': { yt: 'CkxXGxa2JkU' },   // Ending scene, 4:34
+    // "Ending scene", 4:33 (previews every 2 seconds). 2:14.4: Red reading the letter by the stone wall, the same shot
+    // from 2:00 to 2:24, as "no good thing ever dies" ends. 4:21: Red walking up the beach, the same shot at 4:18,
+    // 4:20 and 4:22; his lines on the bus are over by 4:01.
+    'shawshank-12': { yt: 'CkxXGxa2JkU', pauses: [
+      { at: 134.4, spots: [{ x: 45, y: 42, rx: 16, ry: 34, label: 'Red' }],
+        themes: { power: { ask: 'What does Andy’s letter show about what the prison’s power could not destroy?', title: 'Hope defeats the system',
+          note: 'Red once called hope a dangerous thing, because forty years of Shawshank had taught him to expect nothing. Andy’s letter says the opposite, and it is hope that gets Red off the path Brooks took. The system could hold these men for decades and still could not kill that.',
+          say: [['Out on parole, he has kept his promise and found what Andy hid for him by the stone wall. Andy, in the letter:', '“Remember, Red, hope is a good thing, maybe the best of things, and no good thing ever dies.”']] } } },
+      { at: 261, spots: [{ x: 58, y: 42, rx: 15, ry: 38, label: 'Red' }],
+        themes: { power: { ask: 'What does this ending show about the limits of the system’s power?', title: 'Freedom beyond power’s reach',
+          note: 'Red breaks his parole, the last hold the system has on him, and walks onto a beach no prison can reach. For forty years other men decided where he could go. The film ends with him choosing for himself, and with the friend the system tried to bury alive.',
+          say: [['Has broken parole and crossed the border to find Andy. On the bus he said:', '“I think it’s the excitement only a free man can feel, a free man at the start of a long journey whose conclusion is uncertain.”', '“I hope to see my friend and shake his hand. I hope the Pacific is as blue as it has been in my dreams.”']] } } }
+    ] },
     // SMALL THINGS LIKE THESE (the user: "i hope your doing EVERY small things scene", then "take extra time to make
     // sure everything is accurate at where you paue it"). The scenes are the seven the abuse-of-power theme uses for
     // this text (4, 6, 7, 8, 10, 11, 12). HOW EACH PAUSE WAS CHECKED: every seek preview of the clip was laid out in
@@ -3237,27 +3344,119 @@
           say: [['Standing over her:', '“You are a bye-child. A common bye-child, a bastard.”', 'And what is to happen to her now:', '“You will sleep with that old woman no longer. There will be no more school for you.”'],
             ['Says nothing. Nothing she could say would change it.']] } } }
     ] },
-    // The other Sive scenes the abuse-of-power theme uses (the user: "did u get all the scenes and stopped showing
-    // pictures"; until now these six showed only a photograph). Each plays its stretch of the same recording and then
-    // asks the usual question. They have NO pause and NO labels YET, on purpose. Pauses with labels and quotes are
-    // drafted for all six (tools/eng/research/pauses-not-yet-seen/sive.js), but where the people are was read off
-    // YouTube's small seek previews, and the user's rule for an accurate pause is: "pause it first, look at the pause
-    // and then do the tracking". The real video cannot be played in a cloud build session (YouTube answers "Video
-    // unavailable" to a browser on a cloud server, even with the network open), so nothing is pointed at until the
-    // real paused frame has been looked at, in a browser on a real computer or in a screenshot from the user.
-    'sive-5': { yt: 'Vql0MTCXTiY', start: 3380, end: 3604.6 },    // Nanna is threatened with the county home
-    'sive-7': { yt: 'Vql0MTCXTiY', start: 4343, end: 4539 },      // Liam's plea, and Mena's lie to Sive
-    'sive-8': { yt: 'Vql0MTCXTiY', start: 4612, end: 4720.6 },    // Nanna pleads with Mike
-    'sive-9': { yt: 'Vql0MTCXTiY', start: 5812, end: 5936 },      // The letter is read and burned
-    'sive-11': { yt: 'Vql0MTCXTiY', start: 6714, end: 6896 },     // Sive is found drowned
-    'sive-12': { yt: 'Vql0MTCXTiY', start: 6929, end: 7097 }      // Holy ground
+    // THE USER'S RULE FOR EVERY SCENE: "watch scene -> freeze scene -> track where everything is on frozen screen -> use
+    // THAT image for labels and pauses", and "DONT use photos". So a scene is its film, frozen where it matters, with
+    // the labels placed on that frozen frame of the film. Where things are on the frozen frame was read off the
+    // clip's own frames at that second (YouTube's seek previews of the clip, the only frames a cloud build session
+    // can see: the video itself is refused there), never off a photograph. They are small, so a shape can be a little
+    // out; a screenshot of the real pause from the user settles it, as it did for sive-6.
+    // SIVE 5, 7, 8, 9, 11, 12, placed by rule 13. The same recording as sive-2 and sive-6 (Vql0MTCXTiY), whose seek
+    // previews come every 10 seconds, with the camera cutting between them. So every pause here sits within a second
+    // of a preview (most within half a second) AND between two previews that show the same shot, and inside a silence
+    // found from the captions' word-by-word times. Positions were read off the enlarged previews with a 10% grid and
+    // each pause's shapes were then drawn on its preview and looked at (scratchpad ell.py, ell-a.jpg, ell-b.jpg).
+    // Lines are quoted only where the captions give the words plainly.
+    //
+    // sive-5, the travelling men: the part where Nanna, who has stood up for Sive, is turned on (56:20 to 1:00:04).
+    // 56:49.5: Thomasheen bent over the seated Nanna, the same shot at 56:40 and 56:50; a three-second silence after
+    // Mena's two lines from out of shot. 59:49.5: Mena standing over Nanna, the same close shot at 59:30, 59:40 and
+    // 59:50 (the camera settles between the last two; shapes are for 59:50); the gap after "the queen of the land".
+    'sive-5': { yt: 'Vql0MTCXTiY', start: 3380, end: 3604.6, pauses: [
+      { at: 3409.5, spots: [{ x: 54, y: 55, rx: 12, ry: 38, label: 'Thomasheen' }, { x: 81, y: 68, rx: 10, ry: 27, label: 'Nanna' }],
+        themes: { power: { ask: 'What do these threats show about abuse of power in Sive?', title: 'Bullying the weak into silence',
+          note: 'Nanna is the one person in the house who says the match is wrong, so she is the one who has to be shut up. She is old, widowed and living under her son’s roof, and Mena and Thomasheen use exactly that against her. In Sive the powerful do not answer an argument: they threaten whoever has least.',
+          say: [['Nanna has spoken up for Sive. He stands over her:', '“You are a lone woman with your husband feeding worms in his trench.”'],
+            ['Mena joins in, to the old woman who lives under her roof:', '“…with the county home staring you in the face.”']] } } },
+      { at: 3589.5, spots: [{ x: 40, y: 55, rx: 20, ry: 45, label: 'Mena' }, { x: 85, y: 68, rx: 12, ry: 30, label: 'Nanna' }],
+        themes: { power: { ask: 'What do Mena’s words show about how she keeps power over Nanna?', title: 'Fear keeps people quiet',
+          note: 'Mena runs the house, and she reminds Nanna that every bite she eats comes from Mena’s work. An old woman with nothing of her own is told she has no right to an opinion. This is how the one voice raised for Sive is silenced: by the fear of losing her place by the fire.',
+          say: [['Standing over her husband’s mother, who dared to speak for Sive:', '“You sit there day in, day out, taking all you can get without a word of thanks, with a puss on you like a child in the cradle, feeding yourself up on the fruits of our labour.”'],
+            ['Old, widowed, and with nowhere else to go.']] } } }
+    ] },
+    // sive-7, Liam's plea and Mena's lie (1:12:23 to 1:15:39). 1:13:09.4: the wide shot of the whole kitchen, the same
+    // at 1:13:00 and 1:13:10 (and at every preview from 1:12:40 to 1:13:50), Mena at the table, Liam behind it, Mike
+    // in his cap at the right; the one-second gap after "this terrible auction". 1:15:29.7: the wide shot again, the
+    // same at 1:15:00, :10, :20 and :30, Sive (pale blue) and Mena together at the left, Mike sitting at the right;
+    // after Mena's "off with him" and before Sive's "Gone."
+    'sive-7': { yt: 'Vql0MTCXTiY', start: 4343, end: 4539, pauses: [
+      { at: 4389.4, spots: [{ x: 31, y: 57, rx: 4.5, ry: 18, label: 'Mena' }, { x: 52, y: 45, rx: 4.5, ry: 16, label: 'Liam' }, { x: 76, y: 58, rx: 4.5, ry: 21, label: 'Mike' }],
+        themes: { power: { ask: 'What do Liam’s words show about abuse of power in Sive?', title: 'Money decides everything',
+          note: 'Liam says out loud what the match is: an auction, with Sive as the thing being sold. He has no money and no standing in this house, so all he can do is beg, and he goes on to offer to give Sive up himself if they will only not hand her to Seán Dóta. Mike and Mena have the power to decide, and they answer him with threats.',
+          say: [['The match is her doing, and she means to see it through.'],
+            ['Has heard of the match and come to the house to stop it:', '“If I’ve upset you, I’m sorry. But surely, if ye know God, you must think of this terrible auction.”'],
+            ['Sive’s uncle, the one man with the right to stop it. His answer to Liam:', '“Get out of this house before I’ll be tempted to take a weapon in my hands.”']] } } },
+      { at: 4529.7, spots: [{ x: 32, y: 52, rx: 4, ry: 20, label: 'Sive' }, { x: 43, y: 48, rx: 4, ry: 15, label: 'Mena' }, { x: 86.5, y: 61, rx: 5, ry: 15, label: 'Mike' }],
+        themes: { power: { ask: 'What does Mena’s lie show about how power is kept over Sive?', title: 'Lies and burned words',
+          note: 'Liam came to fight for Sive, and Mena tells her he came to wish her joy and has gone away for good. Sive cannot check a word of it: everything she knows about her own life comes through the people who are marrying her off. Whoever controls what the powerless are told controls them, and Mike sits there and lets the lie stand.',
+          say: [['Heard Liam’s voice from her room, and asks what he wanted.'],
+            ['Minutes after driving him out:', '“He came wishing you joy.”', '“And he’s gone away now altogether to foreign places.”'],
+            ['Heard every word Liam said, and says nothing.']] } } }
+    ] },
+    // sive-8, Nanna pleads with Mike (1:16:52 to 1:18:40). 1:17:19.8: the wide shot, the same from 1:17:10 to 1:18:10,
+    // Mike at the far left where he has been shaving, Nanna coming towards him (shapes are for 1:17:20); the second
+    // of silence after "curse it from her grave". 1:18:30.8: the two of them close, one camera at 1:18:20, :30 and
+    // :40 (shapes are for 1:18:30: they move apart after it); straight after "Won't you look me in the face?".
+    'sive-8': { yt: 'Vql0MTCXTiY', start: 4612, end: 4720.6, pauses: [
+      { at: 4639.8, spots: [{ x: 11, y: 53, rx: 4.5, ry: 19, label: 'Mike' }, { x: 36.5, y: 50, rx: 4.5, ry: 16, label: 'Nanna' }],
+        themes: { power: { ask: 'What does Nanna’s warning show about standing up to power in Sive?', title: 'Standing up to power',
+          note: 'Nanna is the only one in the house who says to Mike’s face that the match is wrong. She has no money and no say, so all she has to fight with is words: a mother’s plea and a curse. In Sive the powerless can protest, but they cannot stop anything.',
+          say: [['Shaving, on his way to see the priest about the wedding of his dead sister’s child.'],
+            ['To her son:', '“There’s a curse of evil in this house. Your dead sister and my dead daughter will curse it from her grave.”']] } } },
+      { at: 4710.8, spots: [{ x: 18, y: 58, rx: 12, ry: 40, label: 'Mike' }, { x: 48, y: 64, rx: 10, ry: 34, label: 'Nanna' }],
+        themes: { power: { ask: 'What does Mike’s answer show about why the abuse of power goes on?', title: 'Good people stay silent',
+          note: 'Mike knows the match is wrong: he cannot look his own mother in the face and say it is for the best. He is the one person with the right to stop it, and he chooses his wife, the money and a quiet life over Sive. The abuse goes on because a decent man will not stand in its way.',
+          say: [['All he can say for marrying Sive to Seán Dóta:', '“It’s for the best, I tell you.”'],
+            ['She does not let him away with it:', '“You will not look me in the face and say it’s for the best.”', '“Won’t you look me in the face?”']] } } }
+    ] },
+    // sive-9, the letter: from Mike reading out Liam's plan to Thomasheen's orders after burning it (1:36:52 to
+    // 1:38:56). The wide shot holds at every preview from 1:36:40 to 1:39:20. 1:38:09.8: the two men together at the
+    // hearth (1:38:10; ten seconds earlier Thomasheen was still at the table), in the five-second silence after Mike's
+    // "What are you doing?"; they are on top of one another there, so they share one shape. 1:38:40: the two standing
+    // apart at the right, the same at 1:38:30, :40 and :50; Thomasheen's "Forget about the letter..." has ended three
+    // seconds before and Mike is part-way through a reply the captions do not catch.
+    'sive-9': { yt: 'Vql0MTCXTiY', start: 5812, end: 5936, pauses: [
+      { at: 5889.8, spots: [{ x: 86.5, y: 60, rx: 9, ry: 24, label: 'Thomasheen and Mike' }],
+        themes: { power: { ask: 'What does burning the letter show about abuse of power in Sive?', title: 'Every way out is blocked',
+          note: 'The letter was Sive’s way out: Liam waiting for her that night, and a wedding of her own choosing in the morning. Thomasheen stands to lose his hundred pounds if she reads it, so he puts it in the fire, and she never learns there was a way out. Power here is not only threats: it is deciding what the powerless are allowed to know.',
+          say: [['Thomasheen has made Mike open Liam’s letter to Sive and read it out:', '“Tonight when they have all gone to bed, steal away quietly and come to my house. I will be waiting there for you.”', 'Thomasheen takes it to the fire. Mike:', '“What are you doing?”']] } } },
+      { at: 5920, spots: [{ x: 74, y: 63, rx: 5, ry: 25, label: 'Mike' }, { x: 87, y: 64, rx: 6, ry: 25, label: 'Thomasheen' }],
+        themes: { power: { ask: 'What do Thomasheen’s orders show about how the truth is kept from Sive?', title: 'Destroying the truth',
+          note: 'Burning the letter is only half of it. Thomasheen then tells Mike to forget it and to act as if nothing had happened, and Mike, who gave his word that Sive would get the letter, does as he is told. The truth is destroyed twice: once in the fire and once by a decent man’s silence.',
+          say: [['Gave his word that Sive would get the letter. Uneasy, he does nothing.'],
+            ['With the letter in ashes, to her uncle:', '“Forget about the letter. You don’t know the harm you might cause.”']] } } }
+    ] },
+    // sive-11, Sive is found drowned: from Liam carrying her in to his turning on Mena (1:51:54 to 1:54:56).
+    // 1:53:30: Liam in close-up, the same shot at 1:53:20, :30 and :40, in the five-second silence after "She would
+    // not stop". 1:54:29.8: Mena, hand to her mouth, and Liam beside her, the same shot at 1:54:20, :30 and :40; the
+    // silence after "strike you dead where you stand". The wide shots of this scene are not used: the small figures
+    // standing round the table cannot be told apart for certain.
+    'sive-11': { yt: 'Vql0MTCXTiY', start: 6714, end: 6896, pauses: [
+      { at: 6810, spots: [{ x: 48, y: 50, rx: 21, ry: 45, label: 'Liam' }],
+        themes: { power: { ask: 'What does Sive’s death show about the cost of abuse of power?', title: 'The cost to the powerless',
+          note: 'Everyone with power over Sive used it against her, and every way out was closed: her schooling, Liam, the letter. The only choice left to her was to run into the bog at night. In Sive the price of the adults’ greed is paid by the one person who had no say in any of it.',
+          say: [['Has carried Sive’s body in from the bog and laid it on the table. He saw her run:', '“She ran like the wind, letting cries out of her that would rend your heart.”', '“She would not stop.”']] } } },
+      { at: 6869.8, spots: [{ x: 21, y: 55, rx: 15, ry: 42, label: 'Mena' }, { x: 62, y: 52, rx: 13, ry: 48, label: 'Liam' }],
+        themes: { power: { ask: 'What does Liam’s accusation show about abuse of power in Sive?', title: 'Does anyone stop it?',
+          note: 'Nobody stopped the match. Liam was driven off, Nanna was bullied into silence, Mike looked away, and Sive is dead. Liam can name who did it, but naming is all he can do: nobody is punished, and Thomasheen and Seán Dóta slip away. In Sive the abuse of power is never stopped, and the powerful walk away from it.',
+          say: [['She forced the match on Sive from the day the money was offered. Now she has nothing to say.'],
+            ['Over Sive’s body, to her:', '“You killed her. You killed her.”']] } } }
+    ] },
+    // sive-12, holy ground and the lament (1:55:29 to 1:58:17, just before the lights go down). One pause, 1:57:39.8:
+    // the empty stage with Sive's body on the table, the same at 1:57:30 and 1:57:40, in the silence after the song's
+    // last line; Nanna comes in to her after it. The wide shot during Mike's "the priest" lines is not used: he and
+    // Liam, both in shirt and waistcoat beside the table, cannot be told apart at that size.
+    'sive-12': { yt: 'Vql0MTCXTiY', start: 6929, end: 7097, pauses: [
+      { at: 7059.8, spots: [{ x: 50, y: 56, rx: 17, ry: 6, label: 'Sive' }],
+        themes: { power: { ask: 'What does this ending show about abuse of power in Sive?', title: 'How it ends',
+          note: 'The play ends with nobody punished and nothing put right. Mike’s first thought over his niece’s body is for the priest and a proper burial, for what is respectable, and it is left to the travelling men, the poorest people in the play, to say what was done to her. Sive closes on a lament, with the powerful unpunished.',
+          say: [['Her uncle’s first thought:', '“We must go for the priest. She must have the priest.”', 'The last word is the travelling men’s song:', '“Oh, they murdered lovely Sive, for she would not be a bride, and they laid her dead to bury in the clay.”']] } } }
+    ] }
   }, WATCH_NOYT = false;
   var WATCH_HINT = { wait: 'Press play if it does not start by itself. If an ad comes first, skip it when you can.', ad: 'If an ad is playing, skip it when you can. The scene starts straight after it.', on: 'It pauses by itself on the moment that matters.' };
   function watchClipOf(sc) { return (window.EngClips || {})[sc.mid] || CLIPS[sc.mid] || null; }
-  // Fewer ads (the user: "is there a way to minimize ads or get less ones because youtube ads are getting really bad
-  // now"): a page cannot remove YouTube's ads, but it need not bring the same one back. A YouTube clip that has been
-  // watched on this device is remembered (localStorage eng-watched), and the next time its scene is opened it goes
-  // straight to the pause, with Watch the clip again in the corner for anyone who wants it.
+  // Which clips have been watched on this device (localStorage eng-watched). It was kept so that a clip with no pause
+  // of its own, once watched, was skipped the next time and its question asked over the scene's photograph (the user
+  // had asked for fewer ads). That is gone: "DONT use photos". The film plays every time; the record is only kept.
   function watchSeen(mid, set) {
     var o = {};
     try { o = JSON.parse(localStorage.getItem('eng-watched') || '{}') || {}; } catch (e) {}
@@ -3324,7 +3523,10 @@
     if (t !== w.clipT) { w.clipT = t; w.clipStuck = Date.now(); if (t > start + 0.4) w.clipSeen = true; }
     // The clip's own clock stands still while an ad plays or while it loads (st 2 is the student's own pause).
     if (bar && end > start) bar.style.width = Math.max(0, Math.min(100, (t - start) / (end - start) * 100)) + '%';
-    if (nx && t >= nx.at) watchHold(nx); else if (clip.end && t >= clip.end) watchClipEnd();
+    // A clip with no `end` of its own is stopped just short of its last frame, so it freezes on the film and not on
+    // YouTube's screen of other videos.
+    var stop = clip.end || (dur > 3 ? dur - 0.7 : 0);
+    if (nx && t >= nx.at) watchHold(nx); else if (stop && t >= stop) watchClipEnd();
   }
   // A video file of the site's own in place of a YouTube clip (the user, offered remade scenes of their own as the
   // way to have video with no ads: "i could do that but i want both options"). CLIPS: moment id -> { src: the file
@@ -3390,6 +3592,14 @@
   }
   function watchSpot(ps) {
     var w = WATCH, sc = w.list[w.at], pic = sc.pic, base = sc.spot0 || null, i = w.pi || 0, sp;
+    // The frozen end of a clip with no pause of its own: the question only. Nothing is pointed at, and nothing of the
+    // scene's photograph (its label, its caption, its place) is carried over onto the film's frame.
+    if (ps.end) {
+      Array.prototype.forEach.call(w.el.querySelectorAll('.eng-pause__label'), function (x) { x.parentNode.removeChild(x); });
+      w.el.querySelector('.eng-pause__bars').insertAdjacentHTML('beforebegin', '<p class="eng-pause__label is-none"></p>');
+      sc.spot = null; sc.spots = null; w.what = ''; w.ask = '';
+      return;
+    }
     if (ps.x != null && ps.y != null) sp = { x: ps.x, y: ps.y, label: ps.label || (base && base.label) || '', note: ps.note || (!ps.label && base && base.note) || '', quote: ps.quote || '' };
     else {
       var others = pic ? (pic.spots || []).filter(function (x) { return x !== base; }) : [];
@@ -3522,6 +3732,7 @@
     // and wanted the exact frame. A pause that has `img` still swaps to that picture and draws on it, as before.)
     w.hold = true; w.live = !w.video && !ps.img; w.holdCls = w.video ? 'is-file' : 'is-clip';
     watchSpot(ps);
+    el.classList.toggle('is-end', !!ps.end);
     if (w.live) { el.classList.add('is-held'); el.classList.add('is-live'); }
     else { el.classList.remove('is-clip'); el.classList.remove('is-file'); el.classList.add('is-held'); el.classList.toggle('is-frame', own); }
     el.querySelector('.eng-pause__beat').textContent = '';
@@ -3573,15 +3784,11 @@
     // A clip with pauses of its own has had them all by its end: the scene is done.
     if (watchPauses(w.clip).length) { if (!w.video && w.clipSeen) watchSeen(w.list[w.at].mid, true); watchClipStop(w); watchNext(); return; }
     if (w.video) { watchFileEnd(); return; }
-    if (w.clipSeen) watchSeen(w.list[w.at].mid, true);
-    try { if (w.player) w.player.pauseVideo(); } catch (e) {}
-    watchClipStop(w);
-    var el = w.el, yt = el.querySelector('.eng-pause__yt');
-    if (yt) yt.parentNode.removeChild(yt);
-    el.classList.remove('is-clip');
-    el.querySelector('.eng-pause__beat').textContent = '';
-    Array.prototype.forEach.call(el.querySelectorAll('.eng-pause__bars i'), function (b) { b.className = 'is-done'; b.firstChild.style.width = ''; });
-    watchPause();
+    // A YouTube clip with no pause of its own (the two Small Things warnings, which are lines from the trailer): it
+    // FREEZES on the frame it has reached and the question is asked over that frozen frame. It used to be taken away
+    // here and the scene's photograph put in its place ("use THAT image").
+    w.ended = true;
+    watchHold({ at: 0, end: true });
   }
   function watchScenes(part, s, c) {
     if (typeof s !== 'number') return [];
@@ -3636,7 +3843,11 @@
       if (!w) return;
       if (t.closest('[data-watch-close]')) watchClose(true);
       else if (t.closest('[data-watch-skip]')) { if (w.clip) watchSkip(); else { w.step = w.list[w.at].beats.length; watchStep(); } }
-      else if (t.closest('[data-watch-again]')) { w.again = true; watchDraw(); }
+      else if (t.closest('[data-watch-again]')) {
+        // Try the film again: a script that never arrived is asked for afresh.
+        var ys = document.getElementById('eng-yt-api'); if (ys && !(window.YT && window.YT.Player)) ys.parentNode.removeChild(ys);
+        w.again = true; w.noclip = false; WATCH_NOYT = false; watchDraw();
+      }
       else if (t.closest('[data-watch-done]')) watchDone();
       else if (t.closest('[data-watch-next]')) watchNext();
       else if (!w.paused && w.video && t.closest('.eng-pause__stage, .eng-pause__beat')) { if (w.video.paused) w.video.play(); else w.video.pause(); }
@@ -3671,14 +3882,14 @@
   function watchDraw() {
     var w = WATCH, sc = w.list[w.at], pic = sc.pic, sp = (sc.spot = sc.spot0 = sc.spot0 === undefined ? sc.spot : sc.spot0), name = w.c.th.name.toLowerCase(), box = w.solo ? null : pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === watchKey(w); })[0];
     clearTimeout(w.timer); w.keep = false; watchClipStop(w);
-    w.step = 0; w.paused = false; w.wrote = ''; w.what = ''; w.ask = ''; sc.spots = null; w.picSrc = pic ? 'assets/eng/img/' + pic.file : '';
+    w.step = 0; w.paused = false; w.ended = false; w.wrote = ''; w.what = ''; w.ask = ''; sc.spots = null; w.picSrc = pic ? 'assets/eng/img/' + pic.file : '';
     w.el.className = 'eng-pause' + (w.solo ? ' is-solo' : '') + (watchStill() ? ' is-still' : '');
     w.el.innerHTML = '<div class="eng-pause__stage"' + (sp ? ' style="--ox:' + sp.x + '%;--oy:' + sp.y + '%"' : '') + '>' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="' + esc(pic.caption || sc.m.title) + '">' : '') + '<svg class="eng-pause__svg" aria-hidden="true"></svg></div>' +
       '<p class="eng-pause__label">' + (sp ? '<b>' + esc(sp.label) + '</b>' : '') + esc((pic && pic.caption) || sc.beats[sc.beats.length - 1] || '') + '</p>' +
       '<div class="eng-pause__bars" aria-hidden="true">' + sc.beats.concat(['']).map(function () { return '<i><b></b></i>'; }).join('') + '</div>' +
       '<p class="eng-pause__top"><b>' + esc(sc.m.title) + '</b><span>' + esc(shortTitle(sc.tid)) + (w.list.length > 1 ? ' · scene ' + (w.at + 1) + ' of ' + w.list.length : '') + '</span></p>' +
       '<button type="button" class="eng-pause__skip" data-watch-skip>Skip to the pause ›</button>' +
-      '<button type="button" class="eng-pause__again" data-watch-again hidden><i aria-hidden="true">▶</i> Watch the clip again</button>' +
+      '<button type="button" class="eng-pause__again" data-watch-again hidden><i aria-hidden="true">▶</i> Play the scene</button>' +
       '<button type="button" class="eng-pause__x" data-watch-close aria-label="Back to your answer">×</button>' +
       '<p class="eng-pause__beat" aria-live="polite"></p>' +
       '<div class="eng-pause__card" hidden><h3>Why is this important for <mark>' + esc(name) + '</mark>?</h3>' +
@@ -3689,12 +3900,22 @@
     w.cardHtml = w.el.querySelector('.eng-pause__card').innerHTML;
     watchFit();
     w.el.querySelector('.eng-pause__x').focus({ preventScroll: true });
-    var cl = w.noclip ? null : watchClipOf(sc);
+    var cl = watchClipOf(sc);
     // A scene with a clip has no bars along its top (the user: "the bar that tracks teh stops shouldnt really be there").
-    // The bars stay on a scene told in stills, where each is one beat of the telling.
-    if (cl && (cl.src || (cl.yt && !WATCH_NOYT))) w.el.classList.add('is-nobars');
-    if (cl && cl.yt && !cl.src && !WATCH_NOYT && !w.again && !watchPauses(cl).length && watchSeen(sc.mid)) { w.el.querySelector('[data-watch-again]').hidden = false; w.step = sc.beats.length; watchStep(); }
-    else if (cl && (cl.src || (cl.yt && !WATCH_NOYT))) watchClip(); else watchStep();
+    // A SCENE WITH A CLIP IS NEVER TOLD IN PHOTOGRAPHS (the user, shown a Sive scene told line by line over a photo
+    // because the player had been slow to load: "i said DONT use photos you knobhead your telling the story with a
+    // fucking photo, watch scene -> freeze scene -> track where everything is on frozen screen -> use THAT image for
+    // labels and pauses"). It used to fall back to the photo story when YouTube's script took over seven seconds, when
+    // the player reported an error, and, for a clip with no pause, whenever it had been watched before. Now: the film
+    // plays every time; if it will not start there is a dark screen and one button to try again, and no photo.
+    if (cl && (cl.src || cl.yt)) {
+      w.el.classList.add('is-nobars');
+      if (w.noclip) {
+        w.el.classList.add('is-clip'); w.el.classList.add('is-failed');
+        var ag = w.el.querySelector('[data-watch-again]'); ag.hidden = false; w.el.querySelector('[data-watch-skip]').hidden = true;
+        watchFit(); ag.focus({ preventScroll: true });
+      } else watchClip();
+    } else watchStep();
     w.again = false;
   }
   // A pause that marks several things (the user, asking for one clip set up in full as a test: "do all the stuff like
@@ -3920,7 +4141,7 @@
   function watchNext() {
     var w = WATCH;
     if (!w) return;
-    if (w.hold) { watchResume(); return; }
+    if (w.hold && !w.ended) { watchResume(); return; }
     if (w.at < w.list.length - 1) { w.at++; w.noclip = false; watchDraw(); } else watchClose(true);
   }
   window.addEventListener('resize', function () { if (WATCH) watchFit(); });
