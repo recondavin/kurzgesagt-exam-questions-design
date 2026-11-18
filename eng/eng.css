@@ -2805,15 +2805,16 @@ body.eng-read-on { overflow: hidden; }
      "can you bring his hands back but further out"; shown them peeping in at the outer corners: "the hands should
      overlap the shit".) So they rest ON things: the resting hand over the paper's bottom left corner, the writing
      hand with its pen over Help's bottom right, further apart than with Help off because the paper and Help
-     together are wider. On a narrow screen they slide outwards but never further than leaves 260px of the resting
-     hand and 280px of the writing hand showing. The frame and the foot's tabs lie over the hand, so on a short
-     screen it never hides the teacher or a button, and Help has room at its foot so its last lines can be scrolled
-     clear of the pen. The ordinary page is as it was: no hands while Help is on. */
+     together are wider. For a moment the frame and the foot's tabs were laid over the hand so it hid nothing;
+     the user: "hands and pen overlaps everything". So the hands and the pen are on top of everything on the page,
+     as hands on a desk are (clicks pass through them). On a narrow screen they slide outwards but never further
+     than leaves 290px of the resting hand and 350px of the writing hand showing, and Help has room at its foot so
+     its last lines can be scrolled clear of the pen. The ordinary page is as it was: no hands while Help is on. */
   .eng-read.is-cine.is-help .eng-read__hand { display: block; }
-  .eng-read.is-cine.is-help .eng-read__hand.is-left { right: auto; bottom: -190px; left: max(calc(var(--px) - 220px), -140px); }
-  .eng-read.is-cine.is-help .eng-read__hand.is-right { bottom: -150px; left: min(calc(100% - var(--px) - 250px), calc(100% - 280px)); }
-  .eng-read.is-cine.is-help .eng-read__help { padding-bottom: 260px; }
-  .eng-read.is-cine.is-help .eng-cine, .eng-read.is-cine.is-help .eng-read__nav { position: relative; z-index: 2; }
+  .eng-read.is-cine.is-help .eng-read__hand { z-index: 3; }
+  .eng-read.is-cine.is-help .eng-read__hand.is-left { right: auto; bottom: -190px; left: max(calc(var(--px) - 160px), -110px); }
+  .eng-read.is-cine.is-help .eng-read__hand.is-right { bottom: -150px; left: min(calc(100% - var(--px) - 330px), calc(100% - 350px)); }
+  .eng-read.is-cine.is-help .eng-read__help { padding-bottom: 300px; }
   .eng-read__hx { display: none; }
   .eng-read__hh { min-height: 32px; }
 }
