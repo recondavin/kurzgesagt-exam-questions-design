@@ -2507,6 +2507,22 @@
   // or is not long enough, and when it is done, what comes next. A tick just earned is said first ("On the theme."),
   // then what follows from it. He goes by what is on the page (a name, a word from the scene, "because", a full
   // stop, the number of words): he cannot judge how good a sentence is, and says nothing that pretends to.
+  // What to say when a box still wants its scene detail. The tick is earned by two words that belong to this scene
+  // (tickDetail), not by saying who does what, so the advice names two of the scene's own words not yet used: first
+  // said as "who does what", it told a student who had written exactly that to do it again.
+  function cineDetail(k, c, v) {
+    var sc = tickScene(READ_PART, READ_SLOT, k, c), out = [], seen = {}, skip = {}, low = ' ' + v.toLowerCase() + ' ';
+    if (sc && sc.m) {
+      text(sc.tid).people.forEach(function (q) { q.name.toLowerCase().split(/[^a-zà-ÿ]+/).forEach(function (x) { skip[x] = 1; }); });
+      [sc.m.what].concat((sc.more || []).map(function (x) { return typeof x === 'string' ? x : (x && (x.t || x.w)) || ''; })).join(' ').toLowerCase().split(/[^a-zà-ÿ]+/).forEach(function (x) {
+        if (out.length >= 2 || x.length < 5 || skip[x] || STOPW.indexOf(' ' + x + ' ') >= 0 || TICK_PLAIN.indexOf(' ' + x + ' ') >= 0) return;
+        var st = x.replace(/(ing|ed|es|s)$/, ''); if (st.length < 4) st = x;
+        if (seen[st] || low.indexOf(st) >= 0) return;
+        seen[st] = 1; out.push(x);
+      });
+    }
+    return 'Add something only this scene has' + (out.length ? ', such as “' + out.join('” or “') + '”' : '') + '.';
+  }
   function cineTeach(tally, fresh) {
     var cur = READ.querySelector('.eng-cine > .eng-read__box.is-cur'), say = tally.querySelector('[data-page-tallysay]');
     if (!cur || !say) return;
@@ -2530,7 +2546,7 @@
       text: 'Name the ' + work + '.', author: 'Name who made it too.', both: 'Name both texts.', authors: 'Name both authors.',
       theme: 'Say the theme in it: ' + theme + '.',
       one: sentences > 1 ? 'That’s more than one sentence. Make it one.' : n < 8 ? 'Keep going: one full sentence.' : 'Finish it: one clear sentence, with a full stop.',
-      detail: 'Give me a detail from the scene: who does what.', who: 'Say who is there.',
+      detail: cineDetail(k, c, v), who: 'Say who is there.',
       tech: 'Now say how it’s filmed: a shot, the lighting, the music, a voiceover.', link: 'Use a comparing word: similarly, whereas, by contrast.',
       verb: 'Use a strong verb: suggests, exposes, reveals.', why: 'Say why. Use “because”.',
       reader: b ? 'Back to the question: how does it keep the reader interested?' : 'Back to the question: how did this keep you interested?',
