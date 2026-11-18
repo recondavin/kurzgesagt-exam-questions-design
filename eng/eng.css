@@ -2810,11 +2810,16 @@ body.eng-read-on { overflow: hidden; }
      as hands on a desk are (clicks pass through them). On a narrow screen they slide outwards but never further
      than leaves 290px of the resting hand and 350px of the writing hand showing, and Help has room at its foot so
      its last lines can be scrolled clear of the pen. The ordinary page is as it was: no hands while Help is on. */
-  .eng-read.is-cine.is-help .eng-read__hand { display: block; }
-  .eng-read.is-cine.is-help .eng-read__hand { z-index: 3; }
-  .eng-read.is-cine.is-help .eng-read__hand.is-left { right: auto; bottom: -190px; left: max(calc(var(--px) - 160px), -110px); }
-  .eng-read.is-cine.is-help .eng-read__hand.is-right { bottom: -150px; left: min(calc(100% - var(--px) - 330px), calc(100% - 350px)); }
-  .eng-read.is-cine.is-help .eng-read__help { padding-bottom: 300px; }
+  .eng-read.is-cine.is-help .eng-read__hand { display: block; z-index: 3; }
+  /* (Then, of the hands lying on top of the teacher, a button and Help's words: "make those hands bigger and to the
+     side so not blocking shit". So they are a third bigger and stand at the two sides: the resting hand comes in
+     over the paper's left margin, the writing hand over Help's right edge, and neither reaches the writing, a
+     button or Help's words. The paper and Help move in a little on a laptop (--px) so each side has room for a
+     hand; on a wide screen there was room already.) */
+  .eng-read.is-cine.is-help { --px: max(24px, min(96px, calc(50% - 650px)), calc(50% - 712px)); }
+  .eng-read.is-cine.is-help .eng-read__hand.is-left { right: auto; bottom: -250px; left: calc(var(--px) + 52px - 520px); width: 520px; }
+  .eng-read.is-cine.is-help .eng-read__hand.is-right { bottom: -200px; left: calc(100% - var(--px) - 150px); width: 560px; }
+  .eng-read.is-cine.is-help .eng-read__help { padding-bottom: 60px; }
   .eng-read__hx { display: none; }
   .eng-read__hh { min-height: 32px; }
 }
