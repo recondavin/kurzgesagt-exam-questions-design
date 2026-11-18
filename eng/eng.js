@@ -3096,6 +3096,23 @@
           say: [['Asked if he has been rehabilitated, after forty years inside:', '“To me it’s just a made-up word. A politician’s word, so that young fellas like yourself can wear a suit and a tie and have a job.”', 'His last words to the men who decide whether he is ever freed:', '“So you go on and stamp your form, sonny, and stop wasting my time. Because to tell you the truth, I don’t give a shit.”']] } } }
     ] },
     'shawshank-12': { yt: 'CkxXGxa2JkU' },   // Ending scene, 4:34
+    // Small Things Like These, "The Girl In the Coal Shed", 3:00 (the user, shown our dark still of the shed at this
+    // scene's pause: "thanks this is very helpful i really see the actual film and not just bags of coal"). This clip
+    // gives the player NO captions and NO seek previews, so all that can be seen of it from the build session is the
+    // three pictures YouTube publishes for every video, at about a quarter, a half and three quarters of the way
+    // through: Bill in close-up, then the girl in close-up twice. So: two pauses at about those points (0:45 and
+    // 1:30), one shape each and a wide one, and NO quotation, because what is said in the clip could not be heard or
+    // read. The seconds and the shapes are estimates until the user sends a screenshot of each pause.
+    'stlt-7': { yt: 'H6vL0bWiksw', pauses: [
+      { at: 45, spots: [{ x: 55, y: 46, rx: 17, ry: 42, label: 'Bill' }],
+        themes: { power: { ask: 'What does what Bill finds here show about abuse of power?', title: 'The victims have no say',
+          note: 'A girl has been locked in a coal shed overnight in winter, inside a convent the whole town respects. Nobody was meant to see it: this is what the nuns’ power looks like when no one is watching, and Bill has only found it by arriving early.',
+          say: [['Making an early Sunday delivery, he finds the coal shed bolted from the outside, and a girl inside it who has been there all night.']] } } },
+      { at: 90, spots: [{ x: 46, y: 46, rx: 19, ry: 42, label: 'The girl' }],
+        themes: { power: { ask: 'What does the girl’s state show about the power the convent has over her?', title: 'The victims have no say',
+          note: 'She is freezing, filthy and frightened, and she does not ask to be let go. All she asks is for someone to find out about her baby, fourteen weeks old and taken from her. Everything in her life, even her child, is decided by the people who locked her in.',
+          say: [['Locked in all night, freezing, filthy and frightened. She asks Bill for one thing only: to find out about her baby, who has been taken from her.']] } } }
+    ] },
     // Small Things Like These, "Bring Her In", 5:01: Bill brings the girl back and is given tea (it was the press
     // clip "Bill speaks to Sr Mary", bPKayfiskBw, which has no captions). Two pauses, lines and seconds from the
     // clip's captions. The clip is very dark and its seek previews small, so only the Mother Superior is labelled,
