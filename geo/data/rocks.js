@@ -241,7 +241,7 @@
       c: ['What happens to the minerals in metamorphism?', 'recrystallise · new interlocking crystals · harder · denser'],
       v: 'The minerals change.', w: 'The minerals melt into a liquid and flow away.', why: 'Nothing melts: the minerals recrystallise in the solid rock.' },
     // ---------- marble ----------
-    { id: 'rocks.marbleParent', a: 'Marble from limestone', t: 'Marble forms when limestone is changed by great heat and pressure.',
+    { id: 'rocks.marbleParent', a: 'Marble from limestone', t: 'Marble forms when limestone is changed by great heat and pressure, either next to an intrusion or where plates collide.',
       n: ['dissolv', 'rain', 'carbonation', 'weather', 'sea creature', 'shell'],
       k: [['marble'], ['limestone', 'chalk'], ['heat', 'pressure', 'bake', 'metamorph', 'changed', 'transform']],
       c: ['Which rock is changed into marble, and how?', 'limestone · great heat · pressure'],
