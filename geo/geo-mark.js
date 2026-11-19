@@ -206,7 +206,7 @@
         if (h.grp && h.item) (named[h.grp] = named[h.grp] || []).push(h.item);
       });
       if (!counts) { if (!s.heads.length) s.note = 'short'; return; }
-      // the essay's own SRPs, in the order of the plan: the first one this sentence makes that is not banked yet
+      // the essay's own SRPs, in the order of the plan: the most specific one this sentence makes that is not banked yet
       var cand = [];
       live.forEach(function (lp, pi) { lp.srps.forEach(function (sid) { var p = g.srp[sid]; if (p && cand.indexOf(p) < 0) cand.push(p); }); });
       var hit = null, repeat = null, capped = null, full = null, hitPart = -1;
@@ -217,7 +217,9 @@
         var pi2 = partOf[p.id].filter(function (k) { return partGot[k] < partMax[k]; })[0];
         if (p.x && exUsed >= exCap) { capped = capped || p; continue; }
         if (pi2 == null) { full = full || p; continue; }
-        hit = p; hitPart = pi2; break;
+        // of the points the sentence makes, the most specific (the one with the most word groups) wins, then plan order:
+        // "In Iceland geothermal water heats 90 per cent of homes" is the Iceland point, not just "geothermal is heat"
+        if (!hit || p.k.length > hit.k.length) { hit = p; hitPart = pi2; }
       }
       if (hit) {
         used[hit.id] = si; s.srp = hit; if (hit.x) exUsed++; partGot[hitPart]++;

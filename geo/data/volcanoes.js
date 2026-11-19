@@ -227,7 +227,7 @@
       v: 'There is granite in Leinster.', w: 'The Leinster batholith formed 60 million years ago when the Atlantic opened.', why: 'It formed about 400 million years ago, during the Caledonian folding.' },
     { id: 'volcanoes.wicklowMts', a: 'Now the Wicklow Mountains', t: 'Erosion of the overlying rock exposed this granite, which now forms the Wicklow Mountains, including Lugnaquilla.',
       n: ['volcano', 'extinct', 'erupt'],
-      k: [['wicklow', 'lugnaquilla', 'leinster'], ['expos', 'erod', 'erosion', 'uncover', 'worn']],
+      k: [['wicklow', 'lugnaquilla', 'leinster'], ['expos', 'erod', 'erosion', 'uncover', 'worn'], ['granite', 'mountain', 'batholith', 'upland']],
       c: ['What did the Leinster batholith become?', 'exposed by erosion · the Wicklow Mountains · Lugnaquilla'],
       v: 'Wicklow has mountains.', w: 'The Wicklow Mountains are a chain of extinct volcanoes.', why: 'They are a granite batholith that cooled underground and was exposed by erosion.' },
     { id: 'volcanoes.schistRing', a: 'A ring of mica schist', t: 'A ring of mica schist surrounds the Wicklow granite, where the heat of the magma baked the slate around it.',
