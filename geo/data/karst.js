@@ -66,11 +66,11 @@
       k: [['burren'], ['rocky place', 'best example', 'karst landscape', 'karst region', 'karst area', 'largest', 'example of karst', 'boireann']],
       c: ['Name Ireland\'s best example of a karst landscape.', 'the Burren · north Co. Clare · "a rocky place"'],
       v: 'The Burren is in Ireland.', w: 'The Burren in Co. Kerry is Ireland\'s best example of a granite landscape.', why: 'The Burren is in north Co. Clare, and it is limestone karst.' },
-    { id: 'karst.glaciation', a: 'Ice Age stripped the soil', t: 'In the Burren, glaciers in the last Ice Age scraped away the soil and loose rock, exposing bare limestone to the rain.',
+    { id: 'karst.glaciation', a: 'Stripped by ice, then farmers', t: 'Glaciers in the last Ice Age scraped the Burren bare, and later forest clearance by early farmers let much of the new soil wash away.',
       n: ['meltwater', 'melt water', 'permafrost', 'frozen', 'dry valley', 'striation', 'scratch', 'thick layer'],
       k: [['glacier', 'glaciat', 'ice age', 'ice sheet'], ['strip', 'scrap', 'remov', 'expos', 'bare', 'cleared', 'scour']],
-      c: ['Why is so much bare limestone exposed in the Burren?', 'glaciers · last Ice Age · scraped away the soil · bare limestone'],
-      v: 'The Burren was covered by ice.', w: 'Glaciers left a thick layer of soil over the Burren.', why: 'Glaciers scraped the Burren bare; that is why the limestone is exposed at the surface.' },
+      c: ['Why is so much bare limestone exposed in the Burren?', 'glaciers · last Ice Age · scraped bare · forest clearance by early farmers · soil washed away'],
+      v: 'The Burren was covered by ice.', w: 'Glaciers left a thick layer of soil over the Burren.', why: 'Glaciers scraped the Burren bare, and after early farmers cleared its forests much of the new soil washed away.' },
     { id: 'karst.shaleCap', a: 'The shale cover was eroded', t: 'The limestone was once covered by a layer of shale, most of which has been eroded away, though it still caps hills such as Slieve Elva.',
       n: ['stream', 'river', 'swallow', 'sink', 'swell', 'clay mineral'],
       k: [['shale'], ['eroded', 'erosion', 'removed', 'worn', 'stripped', 'caps', 'capped']],
@@ -147,6 +147,11 @@
       k: [['swallow', 'sink hole', 'sinkhole'], ['downstream', 'below the swallow', 'beyond the swallow', 'past the swallow']],
       c: ['What happens to the valley below a swallow hole?', 'downstream · river now underground · valley left dry'],
       v: 'Swallow holes and dry valleys are both found in karst.', w: 'A dry valley forms upstream of a swallow hole, where the river has not yet reached.', why: 'The valley is left dry DOWNSTREAM, below the point where the river now sinks.' },
+    { id: 'karst.resurgence', a: 'Resurgence: the river reappears', t: 'Where the underground river meets impermeable rock beneath the limestone, it flows out at the surface again as a spring called a resurgence.',
+      n: ['sink', 'swallow', 'disappear'],
+      k: [['resurgence', 'resurge', 'reappear', 're emerge', 'emerge'], ['surface', 'impermeab', 'impervious', 'spring', 'shale', 'valley', 'cliff']],
+      c: ['Where does an underground river come back out of the limestone?', 'meets impermeable rock · flows out at the surface · spring · resurgence'],
+      v: 'The river comes out somewhere else.', w: 'A resurgence is the place where a surface stream first sinks into the limestone.', why: 'That is a swallow hole; a resurgence is where the underground river flows back out at the surface.' },
     // ---------- caves ----------
     { id: 'karst.passages', a: 'Passages along bedding planes', t: 'Underground, the water flows along joints and bedding planes and dissolves them into passages, which in time become caves.',
       n: ['stalact', 'stalagm', 'drip', 'deposit', 'pillar', 'sea', 'cavern', 'chamber'],
@@ -288,7 +293,7 @@
       k: [['polje'], ['carbonation', 'dissolv', 'solution', 'merge', 'join', 'uvala']],
       c: ['How can carbonation make a polje?', 'dissolves limestone over a wide area · uvalas merge · polje'],
       v: 'Poljes form over time.', w: 'A polje is a hollow scooped out by a volcano erupting.', why: 'A polje is made by carbonation dissolving the limestone over a wide area.' },
-    { id: 'karst.poljeCollapse', a: 'Cavern roofs collapse', t: 'A polje can also form when the roofs of underground caverns collapse, lowering the land above them.',
+    { id: 'karst.poljeCollapse', a: 'Cavern roofs collapse', t: 'A polje may also form where the roofs of underground caverns collapse, lowering the land above them.',
       n: ['doline', 'swallow', 'gorge'],
       k: [['collaps'], ['cavern', 'cave', 'roof', 'underground']],
       c: ['What else can make a polje?', 'roofs of underground caverns collapse · land above lowered'],
@@ -343,7 +348,7 @@
           { id: 'pavement', name: 'Limestone pavement', k: [['pavement', 'clint', 'grike', 'gryke']], say: 'The landform I will examine is limestone pavement.',
             srps: ['karst.glaciation', 'karst.grikes', 'karst.clints', 'karst.solPans', 'karst.runnels', 'karst.pavSoil', 'karst.grikePlants', 'karst.mullaghmore'] },
           { id: 'swallowhole', name: 'Swallow hole', k: [['swallow hole', 'swallowhole', 'sink hole', 'sinkhole']], say: 'The landform I will examine is a swallow hole.',
-            srps: ['karst.shaleCap', 'karst.shaleStream', 'karst.swallowForm', 'karst.swallowErode', 'karst.polnagcolm', 'karst.doline', 'karst.passages', 'karst.dryCapture'] },
+            srps: ['karst.shaleCap', 'karst.shaleStream', 'karst.swallowForm', 'karst.swallowErode', 'karst.polnagcolm', 'karst.doline', 'karst.passages', 'karst.dryCapture', 'karst.resurgence'] },
           { id: 'cave', name: 'Cave (stalactites, stalagmites, pillars)', k: [['cave', 'cavern', 'stalactite', 'stalagmite', 'pillar']], say: 'The landform I will examine is a cave with stalactites and stalagmites.',
             srps: ['karst.passages', 'karst.caverns', 'karst.waterTable', 'karst.dripLoses', 'karst.stalactite', 'karst.stalagmite', 'karst.pillar', 'karst.curtain', 'karst.slow', 'karst.aillwee', 'karst.doolin', 'karst.marbleArch'] },
           { id: 'turlough', name: 'Turlough', k: [['turlough']], say: 'The landform I will examine is a turlough.',
@@ -366,7 +371,7 @@
               'karst.mullaghmore', 'karst.polnagcolm', 'karst.carran', 'karst.caher', 'karst.burrenEx', 'karst.procNamed', 'karst.surfNamed'] },
           { id: 'underground', name: 'The underground karst landscape', k: [['underground', 'cave', 'cavern', 'stalactite', 'stalagmite', 'pillar']], say: 'I will explain how chemical weathering has shaped the underground karst landscape.',
             srps: ['karst.shaleStream', 'karst.passages', 'karst.caverns', 'karst.waterTable', 'karst.dripLoses', 'karst.stalactite', 'karst.stalagmite', 'karst.pillar', 'karst.curtain', 'karst.slow',
-              'karst.aillwee', 'karst.doolin', 'karst.polnagcolm', 'karst.marbleArch', 'karst.burrenEx', 'karst.procNamed', 'karst.underNamed'] }] }
+              'karst.resurgence', 'karst.aillwee', 'karst.doolin', 'karst.polnagcolm', 'karst.marbleArch', 'karst.burrenEx', 'karst.procNamed', 'karst.underNamed'] }] }
       ],
       notes: ['A labelled diagram: 2 marks (draw it on paper; it is not marked here), and up to 2 SRPs for new information on it. The explanation is 14 SRPs.', 'A named process of chemical weathering, a named landform and one specific named example each count as 1 SRP; further processes must be explained.', 'Chemical weathering described with no link to shaping the landscape: at most 2 SRPs. Surface and underground both written: each is marked and the better one counts.', 'The question is not tied to Ireland, but the Burren gives the examples.'] }
   ]

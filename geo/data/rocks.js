@@ -12,11 +12,11 @@
   var BASALT = ['rocks.basaltExtrusive', 'rocks.basaltBasic', 'volcanoes.smallCrystals', 'volcanoes.fissure', 'volcanoes.antrimLava', 'rocks.basaltWhere', 'volcanoes.columns',
     'volcanoes.antrimPlat', 'rocks.basaltConstructive', 'volcanoes.causeway', 'rocks.igneous', 'rocks.crystalSize', 'rocks.cycle'];
   var LIME = ['rocks.limeShells', 'rocks.limeSea', 'rocks.limeCalcite', 'rocks.compaction', 'rocks.cementation', 'rocks.limeWhere', 'rocks.lithification',
-    'rocks.limeChemical', 'rocks.bedding', 'rocks.fossils', 'rocks.sedDef', 'rocks.sedSource', 'rocks.chalk'];
+    'rocks.limeChemical', 'rocks.bedding', 'rocks.fossils', 'rocks.sedUplift', 'rocks.sedDef', 'rocks.sedSource', 'rocks.chalk'];
   var SAND = ['rocks.sandGrains', 'rocks.sedSource', 'rocks.orsDesert', 'rocks.orsRed', 'rocks.compaction', 'rocks.cementation', 'rocks.sandWhere',
-    'rocks.lithification', 'rocks.bedding', 'rocks.sedDef', 'rocks.fossils'];
+    'rocks.lithification', 'rocks.bedding', 'rocks.sedUplift', 'rocks.sedDef', 'rocks.fossils'];
   var SHALE = ['rocks.shaleMud', 'rocks.sedSource', 'rocks.compaction', 'rocks.shaleSplit', 'rocks.shaleWhere', 'rocks.lithification', 'rocks.cementation',
-    'rocks.bedding', 'rocks.sedDef', 'rocks.fossils'];
+    'rocks.bedding', 'rocks.sedUplift', 'rocks.sedDef', 'rocks.fossils'];
   var MARBLE = ['rocks.marbleParent', 'rocks.marbleCalcite', 'rocks.marbleFossils', 'rocks.marbleColour', 'rocks.contact', 'rocks.marbleWhere', 'rocks.regional',
     'rocks.metaDef', 'rocks.aureole', 'rocks.recryst', 'rocks.caledonian'];
   var QTZ = ['rocks.qtzParent', 'rocks.qtzFused', 'rocks.qtzHard', 'rocks.regional', 'rocks.qtzWhere', 'rocks.contact', 'rocks.caledonian',
@@ -139,6 +139,10 @@
       k: [['fossil'], ['remain', 'buried', 'trap', 'preserv', 'plant', 'animal', 'creature', 'shell', 'skeleton', 'coral']],
       c: ['What is often found in sedimentary rocks?', 'fossils · remains of plants and animals · buried in the sediment'],
       v: 'Sedimentary rocks have fossils.', w: 'Fossils are found mainly in igneous rocks such as granite.', why: 'Fossils survive in sedimentary rock; magma would destroy them.' },
+    { id: 'rocks.sedUplift', a: 'Uplifted and exposed', t: 'Earth movements later uplifted the layers above sea level, and erosion of the rocks above them exposed the sedimentary rock at the surface.',
+      k: [['uplift', 'raised', 'pushed up', 'lifted', 'upheav'], ['sea level', 'surface', 'expos', 'above the sea', 'out of the sea', 'dry land']],
+      c: ['How did rock laid down on the sea floor end up on land?', 'earth movements · uplifted above sea level · exposed by erosion'],
+      v: 'The rock ended up on land later.', w: 'The layers reached the surface because the sea dissolved the rocks above them.', why: 'The sea did not dissolve the rocks above: earth movements uplifted the layers and erosion exposed them.' },
     // ---------- limestone ----------
     { id: 'rocks.limeShells', a: 'Limestone: shells and skeletons', t: 'Limestone is an organic rock formed from the shells and skeletons of sea creatures, such as corals, that piled up on the sea floor when they died.',
       n: ['microscop', 'tiny', 'chalk', 'marble', 'metamorph', 'dissolv', 'carbonation', 'heat', 'pressure', 'calcium carbonate', 'calcite'],
@@ -368,7 +372,7 @@
       ],
       need: 13, caps: { ex: 2 },
       parts: [{ id: 'disc', name: 'Examination of formation', srps: ['rocks.sedDef', 'rocks.sedSource', 'rocks.sedTypes', 'rocks.bedding', 'rocks.compaction', 'rocks.cementation',
-        'rocks.lithification', 'rocks.fossils', 'rocks.limeShells', 'rocks.limeSea', 'rocks.limeCalcite', 'rocks.limeChemical', 'rocks.limeWhere', 'rocks.chalk',
+        'rocks.lithification', 'rocks.fossils', 'rocks.sedUplift', 'rocks.limeShells', 'rocks.limeSea', 'rocks.limeCalcite', 'rocks.limeChemical', 'rocks.limeWhere', 'rocks.chalk',
         'rocks.sandGrains', 'rocks.orsDesert', 'rocks.orsRed', 'rocks.sandWhere', 'rocks.shaleMud', 'rocks.shaleSplit', 'rocks.shaleWhere', 'rocks.coal', 'rocks.cycle'] }],
       notes: ['Two sedimentary rocks named: 2 marks each. A further rock earns nothing unless its formation is examined.',
         'The 13 SRPs need not be split by rock: a general account of how sedimentary rocks form (sediment, compaction, cementation) counts.',
