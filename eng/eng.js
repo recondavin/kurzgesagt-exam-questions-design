@@ -3497,19 +3497,54 @@
   //  - YouTube's script never arrives (blocked, or no connection): the dark screen, the button, and that reason.
   var YT_HOSTS = ['https://www.youtube-nocookie.com', 'https://www.youtube.com'], WATCH_HOST = YT_HOSTS[0];
   try { if (localStorage.getItem('eng-yt-host') === '1') WATCH_HOST = YT_HOSTS[1]; } catch (e) {}
+  // YOUTUBE IS GOT READY BEFORE WATCH IS PRESSED (the user: "every time i go on the videos and kick watch scene it
+  // turns black i hate that it, it takes a while for it to load"). Measured from a fast connection: nothing of
+  // YouTube's was fetched until the click, and its player took 1.5 to 2.2 seconds to be put on the page, before any
+  // video had loaded. So: once the writing page has settled, and at once when the pointer comes near Watch, the
+  // page fetches YouTube's script and builds one hidden player for a scene on this page (nothing plays, nothing is
+  // shown, no ad), which fetches the player's own code; then it is taken away. When Watch is pressed that code is
+  // already in the browser. Once per page load.
+  var YT_WARM = false;
+  function ytScript() {
+    if (window.YT && window.YT.Player || document.getElementById('eng-yt-api')) return;
+    var s = document.createElement('script');
+    s.id = 'eng-yt-api'; s.src = 'https://www.youtube.com/iframe_api';
+    s.onerror = function () { if (s.parentNode) s.parentNode.removeChild(s); };
+    document.head.appendChild(s);
+  }
+  function ytWarm() {
+    if (YT_WARM || WATCH || !READ) return;
+    var c = pageCtx(READ_PART), sc = watchScenes(READ_PART, READ_SLOT, c).concat([].concat.apply([], c.slots.map(function (q) { return watchScenes(READ_PART, q, c); })));
+    var clip = sc.map(function (x) { return watchClipOf(x); }).filter(function (cl) { return cl && cl.yt && !cl.src; })[0];
+    if (!clip) return;
+    YT_WARM = true;
+    ytScript();
+    var t0 = Date.now();
+    (function wait() {
+      if (WATCH) return;
+      if (!(window.YT && window.YT.Player)) { if (Date.now() - t0 < 15000) setTimeout(wait, 200); return; }
+      var box = document.createElement('div'), el = document.createElement('div');
+      box.setAttribute('aria-hidden', 'true'); box.style.cssText = 'position:fixed;left:-10000px;top:0;width:320px;height:180px;overflow:hidden;pointer-events:none;';
+      box.appendChild(el); document.body.appendChild(box);
+      var gone = function () { try { pl.destroy(); } catch (e) {} if (box.parentNode) box.parentNode.removeChild(box); };
+      var pl;
+      try { pl = new window.YT.Player(el, { width: 320, height: 180, videoId: clip.yt, host: WATCH_HOST, playerVars: { autoplay: 0, mute: 1, playsinline: 1, rel: 0, start: clip.start || 0, origin: location.origin }, events: { onReady: function () { setTimeout(gone, 1500); }, onError: gone } }); } catch (e) { gone(); }
+      setTimeout(gone, 20000);
+    })();
+  }
   function watchClipFail(dead, why) { var w = WATCH; if (!w) return; if (dead) WATCH_NOYT = true; watchClipStop(w); w.noclip = true; w.why = why || ''; watchDraw(); }
   function watchClipErr(code) {
     var w = WATCH;
     if (!w) return;
     if (WATCH_HOST !== YT_HOSTS[1]) { WATCH_HOST = YT_HOSTS[1]; try { localStorage.setItem('eng-yt-host', '1'); } catch (e) {} watchDraw(); return; }
     clearInterval(w.poll); w.poll = 0;
-    w.el.classList.add('is-erred');
+    w.el.classList.add('is-erred'); w.el.classList.add('is-ytready'); w.el.classList.add('is-ytshow'); w.shown = true;
     w.el.querySelector('[data-watch-again]').hidden = false; w.el.querySelector('[data-watch-skip]').hidden = true;
     w.el.querySelector('.eng-pause__beat').textContent = 'YouTube error ' + (code || '');
   }
   function watchClip() {
     var w = WATCH, sc = w.list[w.at], clip = watchClipOf(sc), el = w.el, beat = el.querySelector('.eng-pause__beat'), at = w.at;
-    w.clip = clip; w.clipT = -1; w.clipStuck = Date.now(); w.clipSeen = false; w.pi = 0;
+    w.clip = clip; w.clipT = -1; w.clipStuck = Date.now(); w.clipSeen = false; w.pi = 0; w.shown = false; w.readyAt = 0;
     // Each pause's picture is fetched now, not at the pause, so it is there the instant the video stops on that frame
     // (the user: "it pauses on teh frame its on straight as its on the frame show the ss"; fetched late, the scene's
     // other picture showed for a moment first).
@@ -3517,7 +3552,11 @@
     if (clip.src) { watchFile(); return; }
     el.classList.add('is-clip');
     el.querySelector('.eng-pause__bars').innerHTML = '<i class="is-clipbar"><b></b></i><i><b></b></i>';
-    el.querySelector('.eng-pause__stage').insertAdjacentHTML('beforeend', '<div class="eng-pause__yt"><div id="eng-pause-yt"></div></div>');
+    // While YouTube's player gets ready the screen is not black: behind it, the scene's picture out of focus and dark
+    // (the same wash as behind the writing, nothing in it can be made out), and a spinner. The player fades in over
+    // it the moment it is ready.
+    var wash = sc.pic ? 'assets/eng/img/' + encodeURI(sc.pic.file) : clip.yt && !clip.trailer && !clip.start ? 'https://i.ytimg.com/vi/' + encodeURIComponent(clip.yt) + '/mqdefault.jpg' : '';
+    el.querySelector('.eng-pause__stage').insertAdjacentHTML('beforeend', '<div class="eng-pause__yt">' + (wash ? '<i class="eng-pause__ytbg" aria-hidden="true" style="background-image:url(' + wash + ')"></i>' : '') + '<span class="eng-pause__spin" aria-hidden="true"></span><div id="eng-pause-yt"></div></div>');
     // Nothing is written under the player (the user: "GET RID OF SUBTITLES THE YOUTUBE VIDEO ALREADY HAS THEM": the line
     // of help there read as a subtitle). The player has its own play button and its own way to skip an ad.
     beat.textContent = '';
@@ -3528,7 +3567,7 @@
         w.player = new window.YT.Player('eng-pause-yt', { width: '100%', height: '100%', videoId: clip.yt, host: WATCH_HOST,
           playerVars: { autoplay: 1, playsinline: 1, rel: 0, start: clip.start || 0, origin: location.origin },
           events: {
-            onReady: function (e) { if (WATCH !== w || !w.clip) return; try { e.target.playVideo(); } catch (x) {} w.clipStuck = Date.now(); w.poll = setInterval(watchClipTick, 80); },
+            onReady: function (e) { if (WATCH !== w || !w.clip) return; w.el.classList.add('is-ytready'); w.readyAt = Date.now(); try { e.target.playVideo(); } catch (x) {} w.clipStuck = Date.now(); w.poll = setInterval(watchClipTick, 80); },
             onError: function (e) { if (WATCH === w && w.clip) watchClipErr(e ? e.data : 0); },
             onStateChange: function (e) { if (WATCH === w && w.clip && e.data === 0) watchClipEnd(); }
           } });
@@ -3538,7 +3577,7 @@
     if (!document.getElementById('eng-yt-api')) {
       var s = document.createElement('script');
       s.id = 'eng-yt-api'; s.src = 'https://www.youtube.com/iframe_api';
-      s.onerror = function () { s.parentNode.removeChild(s); if (WATCH === w && w.clip) watchClipFail(true, 'YouTube did not load'); };
+      s.onerror = function () { if (s.parentNode) s.parentNode.removeChild(s); if (WATCH === w && w.clip) watchClipFail(true, 'YouTube did not load'); };
       document.head.appendChild(s);
     }
     var t0 = Date.now();
@@ -3556,6 +3595,10 @@
     try { t = w.player.getCurrentTime() || 0; st = w.player.getPlayerState(); dur = w.player.getDuration() || 0; } catch (e) { return; }
     var clip = w.clip, ps = watchPauses(clip), nx = ps[w.pi], start = w.pi ? ps[w.pi - 1].at : clip.start || 0, end = nx ? nx.at : clip.end || dur, beat = w.el.querySelector('.eng-pause__beat'), bar = w.el.querySelector('.eng-pause__bars .is-clipbar b');
     if (t !== w.clipT) { w.clipT = t; w.clipStuck = Date.now(); if (t > start + 0.4) w.clipSeen = true; }
+    // The player is shown when the scene is actually playing, so the black of YouTube's own loading is never seen;
+    // after two and a half seconds it is shown whatever it is doing, so an ad, or a play button when the browser will
+    // not start a video by itself, is never hidden.
+    if (!w.shown && (st === 1 || (w.readyAt && Date.now() - w.readyAt > 2500))) { w.shown = true; w.el.classList.add('is-ytshow'); }
     // The clip's own clock stands still while an ad plays or while it loads (st 2 is the student's own pause).
     if (bar && end > start) bar.style.width = Math.max(0, Math.min(100, (t - start) / (end - start) * 100)) + '%';
     // A clip with no `end` of its own is stopped just short of its last frame, so it freezes on the film and not on
@@ -3754,6 +3797,7 @@
     ps = watchRead(ps, WATCH);
     var w = WATCH, el = w.el, sc = w.list[w.at], own = !!w.video && ((ps.x != null && ps.y != null) || !sc.pic);
     clearInterval(w.poll); w.poll = 0;
+    w.shown = true; el.classList.add('is-ytshow');   // a pause is on the film's own frame: the player is shown
     if (w.video) { try { w.video.pause(); } catch (e) {} }
     else {
       try { w.player.pauseVideo(); } catch (e) {}
@@ -4393,6 +4437,9 @@
     pageHelpSet(writing && pageWide());
     pageStruct(READ_STRUCT, writing);
     if (!writing) READ.querySelector('.eng-read__x').focus({ preventScroll: true });
+    setTimeout(ytWarm, 1200);
+    var near = function (e) { if (e.target.closest && e.target.closest('[data-page-watch]')) ytWarm(); };
+    READ.addEventListener('pointerover', near); READ.addEventListener('focusin', near);
   }
   window.addEventListener('resize', function () { if (READ) Array.prototype.forEach.call(READ.querySelectorAll('.eng-read__ta'), pageGrow); });
   document.addEventListener('keydown', function (e) {

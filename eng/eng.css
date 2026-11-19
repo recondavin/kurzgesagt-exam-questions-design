@@ -2983,8 +2983,17 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 .eng-pause.is-clip::before { display: none; }
 .eng-pause.is-clip .eng-pause__stage { cursor: default; }
 .eng-pause.is-clip .eng-pause__stage img, .eng-pause.is-clip .eng-pause__svg, .eng-pause.is-clip .eng-pause__label { display: none; }
-.eng-pause__yt { position: absolute; inset: 0; background: #000; }
-.eng-pause__yt iframe { display: block; width: 100%; height: 100%; border: 0; }
+.eng-pause__yt { position: absolute; inset: 0; overflow: hidden; background: #05080D; }
+.eng-pause__yt iframe { position: absolute; inset: 0; z-index: 1; display: block; width: 100%; height: 100%; border: 0; }
+/* While YouTube's player gets ready (eng.js, watchClip): the scene's colours out of focus and dark, and a spinner,
+   not a black box; the player fades in over them once the scene is playing (or after 2.5 s whatever it is doing). */
+.eng-pause__ytbg { position: absolute; inset: -48px; background: center / cover no-repeat; filter: blur(26px) brightness(.32) saturate(1.2); }
+.eng-pause__spin { position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; margin: -22px 0 0 -22px; border: 3px solid rgba(255, 253, 246, .22); border-top-color: #FFFDF6; border-radius: 50%; animation: engSpin .8s linear infinite; }
+@keyframes engSpin { to { transform: rotate(360deg); } }
+.eng-pause.is-clip:not(.is-ytshow) .eng-pause__yt iframe { opacity: 0; }
+.eng-pause.is-clip .eng-pause__yt iframe { transition: opacity .35s ease-out; }
+.eng-pause.is-ytshow .eng-pause__spin { display: none; }
+@media (prefers-reduced-motion: reduce) { .eng-pause__spin { animation-duration: 2.4s; } .eng-pause.is-clip .eng-pause__yt iframe { transition: none; } }
 .eng-pause.is-clip .eng-pause__beat { bottom: 28px; padding: 0; background: none; color: rgba(255, 253, 246, .88); font-size: 17px; cursor: default; }
 .eng-pause__bars i.is-clipbar b { transition: width .25s linear; }
 @media (max-width: 700px) { .eng-pause.is-clip { padding: calc(84px + env(safe-area-inset-top)) 0 20px; } }
