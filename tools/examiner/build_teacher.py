@@ -11,7 +11,8 @@ What is written:
   assets/examiner/bro.webp                 all of him
   assets/examiner/bro-head-<mood>.webp     his head in each mood, all four on the same canvas so the head does not
                                            jump when the mood changes
-  assets/examiner/teacher-head.svg         his head facing right, in one file, for the logo on the desk and the tab icon
+  assets/examiner/teacher-head.svg         his head facing right, all of it, in one file, for the logo on the desk
+  assets/examiner/bro-icon.svg             the tab icon: a square that his head fills (see ICON_CUT)
   examiner-art.js                          window.ExamTeacher, the same two calls as before:
       ExamTeacher.svg(faces)   all of him, never cropped. He is drawn facing left; he is mirrored to face right unless
                                `faces` is 'left' (he always faces into the page).
@@ -35,7 +36,16 @@ from PIL import Image
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
 EX = os.path.join(ROOT, 'assets', 'examiner')
 MOODS = ['ok', 'happy', 'angry', 'furious']
-VER = '1'   # goes on the picture addresses: raise it when a picture changes
+VER = '2'   # goes on the picture addresses: raise it when a picture changes
+
+# "make bro less tan" (the user, the day after sending the drawings; his skin as drawn is a strong orange-peach,
+# 252 186 126). TAN is how much of that colour is kept: 1 is as drawn, 0.66 gives a light peach (252 208 169).
+# Only his skin moves: the pointer, the books, the papers and the red of the furious head are outside the window.
+TAN = 0.66
+# "and bigger head ... asm in bigger in the tab bar": the tab icon is its own file, a square that his head fills from
+# side to side and chin to crown. Only the tips of his tufts of hair, this many pixels of the head drawing, run off
+# the top (on a dark tab bar they could not be seen anyway). The logo on the desk still shows all of his head.
+ICON_CUT = 44
 
 # Where the "ok" head sits on the figure, in the figure picture's own pixels: its scale and the top-left corner of
 # its own outline box. Found by --refit (the dark ink of the two agrees over 88.5% of the head).
@@ -50,6 +60,27 @@ def solid(im):
     al[al <= 4] = 0
     a[al == 0] = 0
     return Image.fromarray(a)
+
+
+def less_tan(im, keep):
+    """His skin with less colour in it: same hue, saturation brought down to `keep` of what it was."""
+    a = np.asarray(im.convert('RGBA')).astype(np.float32) / 255.0
+    r, g, b = a[..., 0], a[..., 1], a[..., 2]
+    mx, mn = a[..., :3].max(-1), a[..., :3].min(-1)
+    d = mx - mn
+    sat = np.where(mx > 0, d / np.maximum(mx, 1e-6), 0)
+    hue = np.where((mx == r) & (d > 1e-6), 60 * (g - b) / np.maximum(d, 1e-6), -999)      # warm colours only
+
+    def win(x, a0, a1, b1, b0):
+        return np.clip((x - a0) / (a1 - a0), 0, 1) * np.clip((b0 - x) / (b0 - b1), 0, 1)
+    w = win(hue, 14, 20, 34, 40) * win(sat, 0.15, 0.25, 0.55, 0.68) * np.clip((mx - 0.45) / 0.30, 0, 1)
+    mn2 = mx * (1 - sat * (1 - (1 - keep) * w))
+    fg = np.where(d > 1e-6, (g - mn) / np.maximum(d, 1e-6), 0)
+    fb = np.where(d > 1e-6, (b - mn) / np.maximum(d, 1e-6), 0)
+    out = a.copy()
+    out[..., 1] = np.where(w > 0, mn2 + (mx - mn2) * fg, g)
+    out[..., 2] = np.where(w > 0, mn2 + (mx - mn2) * fb, b)
+    return Image.fromarray((out * 255 + 0.5).astype(np.uint8))
 
 
 def ink(im):
@@ -104,8 +135,8 @@ def webp(im, path):
 
 
 # ---------- the two drawings ----------
-fig = solid(Image.open(os.path.join(EX, 'src', 'bro-figure.webp')))
-sheet = solid(Image.open(os.path.join(EX, 'src', 'bro-heads.webp')))
+fig = less_tan(solid(Image.open(os.path.join(EX, 'src', 'bro-figure.webp'))), TAN)
+sheet = less_tan(solid(Image.open(os.path.join(EX, 'src', 'bro-heads.webp'))), TAN)
 W, H = sheet.size
 quarters = {'ok': (0, 0, W // 2, H // 2), 'happy': (W // 2, 0, W, H // 2), 'angry': (0, H // 2, W // 2, H), 'furious': (W // 2, H // 2, W, H)}
 raw = {}
@@ -261,6 +292,18 @@ open(os.path.join(EX, 'teacher-head.svg'), 'w', encoding='utf8').write(
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 489 555" width="489" height="555"><g transform="translate(489 0) scale(-1 1)">'
     '<image href="data:image/webp;base64,%s" x="%s" y="%s" width="%s" height="%s"/></g></svg>\n'
     % (base64.b64encode(buf.getvalue()).decode('ascii'), n(lx), n(ly), n(lw * k3), n(logo.size[1] * k3)))
+
+# ---------- the tab icon: a square his head fills ----------
+ih = raw['ok']
+iw_, ih_ = ih.size
+ik = 100.0 / max(iw_, ih_ - ICON_CUT)
+small = ih.resize((192, int(round(ih_ * 192.0 / iw_))), Image.LANCZOS)
+buf = io.BytesIO()
+small.save(buf, 'WEBP', lossless=True, quality=100, method=6)
+open(os.path.join(EX, 'bro-icon.svg'), 'w', encoding='utf8').write(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><g transform="translate(100 0) scale(-1 1)">'
+    '<image href="data:image/webp;base64,%s" x="%s" y="%s" width="%s" height="%s"/></g></svg>\n'
+    % (base64.b64encode(buf.getvalue()).decode('ascii'), n((100 - iw_ * ik) / 2), n(100 - ih_ * ik), n(iw_ * ik), n(ih_ * ik)))
 
 print('figure %dx%d, heads %dx%d (moved to match ok: %s)' % (bw, bh, cw, ch, {m: off[m] for m in MOODS[1:]}))
 print('files:', ', '.join('%s %d KB' % (f, round(v / 1024.0)) for f, v in sizes.items()), '| logo %d KB' % round(os.path.getsize(os.path.join(EX, 'teacher-head.svg')) / 1024.0))
