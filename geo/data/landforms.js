@@ -891,7 +891,7 @@
       k: [['ireland', 'irish'], ['tide', 'tidal', 'current', 'few', 'carry away', 'carried away', 'carry the']],
       c: ['Why are there few deltas on Irish coasts?', 'strong tides and currents · sediment carried away'],
       v: 'Ireland has rivers.', w: 'Ireland has many large deltas because its rivers carry huge loads.', why: 'Irish rivers carry little load and Irish tides are strong, so sea deltas are rare.' },
-    { id: 'landforms.deltaEx', a: 'Example: Glendalough, the Nile', t: 'At Glendalough in Co. Wicklow, deposition by the Poulanass River built a delta that split one lake into the Upper and Lower Lakes.', x: 1,
+    { id: 'landforms.deltaEx', a: 'Example: the Glendalough delta', t: 'At Glendalough in Co. Wicklow, deposition by the Poulanass River built a delta that split one lake into the Upper and Lower Lakes.', x: 1,
       n: ['shannon'],
       k: [['glendalough', 'poulanass', 'pollanass', 'nile', 'mississippi', 'ganges', 'rhone', 'camargue', 'tiber', 'niger']],
       c: ['Give an example of a delta.', 'Glendalough: the Poulanass River split the lake · Nile · Mississippi'],
@@ -1069,9 +1069,9 @@
       k: [['kettle'], ['ice', 'melted', 'melting', 'melts', 'hollow', 'block', 'buried']],
       c: ['What left hollows in the outwash plain?', 'buried blocks of ice melted · kettle holes'],
       v: 'There are kettle holes.', w: 'Kettle holes are dug by meltwater streams.', why: 'Kettle holes form where buried ice blocks melted.' },
-    { id: 'landforms.moraineLimit', a: 'Beyond the terminal moraine', t: 'A terminal moraine often lies just behind the outwash, marking the furthest point the ice reached.',
+    { id: 'landforms.moraineLimit', a: 'Beyond the terminal moraine', t: 'The outwash plain often lies just beyond a terminal moraine, which marks the furthest point the ice reached.',
       k: [['moraine'], ['beyond', 'in front', 'furthest', 'edge', 'end', 'behind']],
-      c: ['What often lies just behind an outwash plain?', 'terminal moraine · furthest point the ice reached'],
+      c: ['What ridge often lies along the ice side of an outwash plain?', 'just beyond a terminal moraine · furthest point the ice reached'],
       v: 'There may be a moraine.', w: 'The terminal moraine lies on top of the outwash plain in its middle.', why: 'The outwash plain lies beyond the terminal moraine, outside the ice\'s furthest advance.' },
     { id: 'landforms.wellDrained', a: 'Dry, well-drained soils', t: 'Because the deposits are sand and gravel, the soils are dry and well drained.',
       n: ['badly drained', 'poorly drained', 'heavy clay'],
@@ -1140,7 +1140,12 @@
       n: ['soot'],
       k: [['stripe', 'dark band', 'dark line', 'band'], ['surface', 'glacier', 'today']],
       c: ['How can moraines be seen on glaciers today?', 'dark stripes of rock · on the surface of glaciers'],
-      v: 'Glaciers are dirty.', w: 'The dark stripes on glaciers are made of soot from the air.', why: 'The stripes are lateral and medial moraines of rock debris.' }
+      v: 'Glaciers are dirty.', w: 'The dark stripes on glaciers are made of soot from the air.', why: 'The stripes are lateral and medial moraines of rock debris.' },
+    { id: 'landforms.moraineEx', a: 'Example: the Midlandian end moraine', t: 'In Ireland, an end moraine left by the Midlandian ice sheet runs as a belt of hummocky ground from west Limerick through south Tipperary.', x: 1,
+      n: ['donegal', 'antrim'],
+      k: [['limerick', 'tipperary', 'midlandian', 'nahanagan']],
+      c: ['Name an Irish moraine.', 'end moraine of the Midlandian ice sheet · west Limerick · south Tipperary'],
+      v: 'There are moraines in Ireland.', w: 'The Midlandian end moraine runs along the north coast of Co. Donegal.', why: 'The Midlandian end moraine crosses the south of Ireland, from west Limerick through south Tipperary.' }
   ];
 
   // ---------- each landform's SRPs, in the order a strong answer makes them ----------
@@ -1152,10 +1157,10 @@
     gorge: ['gorgeForm', 'wfRocks', 'wfDifferential', 'riverHydraulic', 'riverAbrasion', 'plungeHydraulic', 'wfUndercut', 'wfCollapse', 'wfRetreat', 'vertical', 'wfFall', 'plungeAbrasion', 'wfSpray', 'wfOverhang', 'gorgeWalls', 'gorgeNiagara', 'niagaraRocks'],
     cliff: ['cliffDef', 'coastHydraulic', 'coastAir', 'coastAbrasion', 'cliffNotch', 'cliffOverhang', 'cliffCollapse', 'coastFetch', 'coastDestructive', 'coastSolution', 'coastWeak', 'coastAttrition', 'cliffRetreat', 'platform', 'platformSmooth', 'platformWide', 'cliffMoher'],
     stack: ['headland', 'coastWeak', 'coastHydraulic', 'coastAbrasion', 'seaCave', 'arch', 'stackCollapse', 'refraction', 'coastAir', 'blowhole', 'archRoof', 'stump', 'coastSolution', 'coastAttrition', 'coastFetch', 'coastDestructive', 'dunBriste'],
-    corrie: ['corrieWhere', 'corrieSnow', 'iceForm', 'pluck', 'backwall', 'iceAbrasion', 'corrieFloor', 'rotation', 'freezeThaw', 'bergschrund', 'iceMove', 'corrieLip', 'armchair', 'tarn', 'corrieEx', 'corrieSpill'],
+    corrie: ['corrieWhere', 'corrieSnow', 'nivation', 'iceForm', 'pluck', 'backwall', 'iceAbrasion', 'corrieFloor', 'rotation', 'freezeThaw', 'bergschrund', 'iceMove', 'corrieLip', 'armchair', 'tarn', 'corrieEx', 'corrieSpill'],
     uvalley: ['uvBefore', 'uvFollow', 'pluck', 'iceAbrasion', 'uvFills', 'truncated', 'uvShape', 'uvThick', 'iceMove', 'freezeThaw', 'ribbon', 'hanging', 'hangingFall', 'misfit', 'striations', 'roche', 'uvEx', 'fjord'],
-    arete: ['areteCorries', 'corrieSnow', 'pluck', 'backwall', 'freezeThaw', 'areteNarrow', 'areteKnife', 'corrieWhere', 'iceForm', 'iceAbrasion', 'corrieFloor', 'rotation', 'bergschrund', 'iceMove', 'scree', 'areteEx', 'pyrCorries'],
-    pyramidal: ['pyrCorries', 'corrieSnow', 'pluck', 'backwall', 'freezeThaw', 'pyrMeet', 'pyrPeak', 'corrieWhere', 'iceForm', 'iceAbrasion', 'rotation', 'bergschrund', 'iceMove', 'areteNarrow', 'scree', 'pyrEx']
+    arete: ['areteCorries', 'corrieSnow', 'nivation', 'pluck', 'backwall', 'freezeThaw', 'areteNarrow', 'areteKnife', 'corrieWhere', 'iceForm', 'iceAbrasion', 'corrieFloor', 'rotation', 'bergschrund', 'iceMove', 'scree', 'areteEx', 'pyrCorries'],
+    pyramidal: ['pyrCorries', 'corrieSnow', 'nivation', 'pluck', 'backwall', 'freezeThaw', 'pyrMeet', 'pyrPeak', 'corrieWhere', 'iceForm', 'iceAbrasion', 'rotation', 'bergschrund', 'iceMove', 'areteNarrow', 'scree', 'pyrEx']
   };
   var DEP = {
     floodplain: ['lowerCourse', 'riverDep', 'overbank', 'friction', 'thinLayer', 'buildUp', 'depOrder', 'suspension', 'drain', 'coarse', 'leveeDef', 'pointBar', 'riverVeg', 'backswamp', 'fertile', 'bluffs', 'fpEx'],
@@ -1168,7 +1173,7 @@
     dunes: ['dunesWhere', 'dunesDry', 'saltation', 'obstacle', 'embryo', 'marram', 'buried', 'wideBeach', 'yellow', 'grey', 'succession', 'ridges', 'duneSlack', 'constructive', 'coastSources', 'prevailing', 'dunesEx'],
     drumlin: ['iceSheets', 'drumlinWhat', 'till', 'overload', 'lodgement', 'mould', 'stoss', 'lee', 'angular', 'streamline', 'align', 'core', 'swarm', 'drumlinLakes', 'iceMelted', 'drumlinBelt', 'clewBay'],
     esker: ['eskerWhat', 'meltRelease', 'tunnel', 'pressure', 'eskerDep', 'meltSorted', 'eskerLeft', 'iceSheets', 'fluvio', 'release', 'coarseFine', 'rounded', 'eskerSides', 'uphill', 'eskerParallel', 'riada', 'eskerMidlands'],
-    moraine: ['moraineWhat', 'moraineSupply', 'lateralMoraine', 'medial', 'moraineSnout', 'conveyor', 'terminal', 'iceSheets', 'till', 'angular', 'overload', 'ground', 'crescent', 'terminalLimit', 'recessional', 'dam', 'stripes'],
+    moraine: ['moraineWhat', 'moraineSupply', 'lateralMoraine', 'medial', 'moraineSnout', 'conveyor', 'terminal', 'iceSheets', 'till', 'angular', 'overload', 'ground', 'crescent', 'terminalLimit', 'recessional', 'dam', 'stripes', 'moraineEx'],
     outwash: ['outwashWhat', 'meltRelease', 'snout', 'spread', 'meltSorted', 'outwashOrder', 'kettle', 'iceSheets', 'fluvio', 'release', 'braided', 'rounded', 'layers', 'moraineLimit', 'wellDrained', 'valleyTrain', 'curragh']
   };
   var ANY_EXTRA = { floodplain: [['lowerCourse', 'lateral']], oxbow: [['bendSpeed', 'outerBank']], dunes: [['duneSlack', 'blowout']] };
@@ -1248,6 +1253,7 @@
         parts: [{ id: 'lf', name: 'Formation of the landform', pick: 'Your landform', opts: opts(EOPTS, ERO, 'The landform I will examine is').concat(opts(DOPTS, DEP, 'The landform I will examine is', true)) }],
         notes: ['Landform named and one process named: 2 marks each; the formation is shared out in SRPs (13 here, where older schemes also gave marks for the diagram).',
           'Up to 2010 the question asked for an Irish landform and gave 2 marks for an Irish example: name one (here it counts as an SRP).',
+          'In 2011 and 2018 the landform was picked from the OS map, and its six-figure grid reference earned 2 marks too.',
           'Formation is what is asked: a description of the landform alone earns at most 2 SRPs.'] },
       { id: 'landform-two', name: 'One landform of erosion and one of deposition',
         ask: 'Explain the formation of one landform of erosion and one landform of deposition that you have studied.',
