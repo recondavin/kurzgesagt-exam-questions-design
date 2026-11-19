@@ -212,7 +212,8 @@
       var opt = tags.slice(1), score = function (x) { return (x.m.tags || []).some(function (t) { return opt.indexOf(t) >= 0; }) ? 2 : 1; };
       var best = {};
       out.forEach(function (x) { best[x.kind] = Math.max(best[x.kind] || 0, score(x)); });
-      out = out.filter(function (x) { return score(x) === best[x.kind]; });
+      // a picture of another landform is no help: with an option picked, only that option's pictures
+      out = out.filter(function (x) { return score(x) === best[x.kind] && !(opt.length && score(x) === 1); });
       var n = {}; out = out.filter(function (x) { n[x.kind] = (n[x.kind] || 0) + 1; return n[x.kind] <= 3; });
     }
     return out;
@@ -233,6 +234,33 @@
     return '<button type="button" class="g-card g-m g-m--' + x.kind + '" data-g-media="' + esc(key) + '"><span class="g-m__img"><img src="' + esc(img) + '" alt="" loading="lazy">' +
       (x.kind === 'video' ? '<span class="g-m__play" aria-hidden="true"></span>' : '') + '</span>' +
       '<span class="g-m__t">' + esc(m.name || m.caption || m.title) + '</span><span class="g-m__k">' + esc(kind) + '</span></button>';
+  }
+  // The pictures for one point (the user: "when writing points include diagrams and images from videos and images"):
+  // the diagram, photo and video of the landform, process or option the point belongs to (else of its essays), one of each.
+  var SRP_OPTS = null;
+  function srpMedia(s) {
+    if (!SRP_OPTS) {
+      SRP_OPTS = {};
+      Object.keys(G.essay).forEach(function (eid) { (G.essay[eid].parts || []).forEach(function (p) { (p.opts || []).forEach(function (o) {
+        (o.srps || []).forEach(function (id) { (SRP_OPTS[id] = SRP_OPTS[id] || []).push(o.id); });
+      }); }); });
+    }
+    var opts = SRP_OPTS[s.id] || [], ess = s.essays || [], out = [];
+    MKINDS.forEach(function (k) {
+      var best = null, bestSc = 0;
+      (MEDIA[k[0]] || []).forEach(function (m) {
+        var tg = m.tags || [], sc = tg.some(function (x) { return opts.indexOf(x) >= 0; }) ? 3 : tg.some(function (x) { return ess.indexOf(x) >= 0; }) ? 2 : 0;
+        if (sc && m.topic !== s.topic) sc -= 0.5;
+        if (sc > bestSc) { best = m; bestSc = sc; }
+      });
+      // a point of a landform (or process) shows only that landform's pictures, never another one's
+      if (best && (!opts.length || bestSc >= 2.5)) out.push({ kind: k[1], m: best });
+    });
+    return out;
+  }
+  function pointPics(s) {
+    var list = s ? srpMedia(s) : [];
+    return list.length ? '<div class="g-pics">' + list.map(mediaCard).join('') + '</div>' : '';
   }
   var VIEW = null;
   function openMedia(key, from) {
@@ -516,7 +544,7 @@
       el.innerHTML = '<p class="gd-clue__q">' + (D.r.marks >= D.r.max ? 'Full marks. Read it through once, then try another question.' : 'That\'s every point this answer can use.') + '</p>';
       return;
     }
-    el.innerHTML = '<p class="gd-clue__k">Next point</p><p class="gd-clue__q">' + esc(c.q) + '</p>' +
+    el.innerHTML = '<p class="gd-clue__k">Next point</p><p class="gd-clue__q">' + esc(c.q) + '</p>' + (D.target && D.target.srp ? pointPics(D.target.srp) : '') +
       (D.level >= 1 && c.w ? keyBoxes(c.w) : '') +
       (D.level >= 2 ? '<p class="gd-model">' + esc(c.t) + '</p><p class="gd-model__n">Now write it yourself, in your own words.</p>' : '') +
       '<p class="gd-clue__b">' + (D.level < 2 ? '<button type="button" class="g-btn" data-gd-more>' + (D.level === 0 && c.w ? 'Key words' : 'Show me') + '</button>' : '') +
@@ -588,7 +616,7 @@
     if (!L.order) L.order = shuffle([['t', s.t], ['v', s.v], ['w', s.w]]);
     var h = '<div class="gl-top"><span class="gl-n">Point ' + (L.i + 1) + ' of ' + n + '</span><span class="gl-have"><b>' + have + '</b> in your bank</span>' +
       '<span class="g-bar"><i style="width:' + Math.round(100 * have / n) + '%"></i></span></div>';
-    h += '<section class="gl-card' + (L.anim ? ' rise' : '') + '" style="--c:' + esc(t.colour) + '"><p class="gl-q">' + esc(s.c[0]) + '</p>';
+    h += '<section class="gl-card' + (L.anim ? ' rise' : '') + '" style="--c:' + esc(t.colour) + '"><p class="gl-q">' + esc(s.c[0]) + '</p>' + pointPics(s);
     if (L.stage === 'pick') {
       h += '<p class="gl-ask">Which one gets the 2 marks?</p><div class="gl-opts">' + L.order.map(function (o) {
         var bad = L.wrong[o[0]];

@@ -341,3 +341,9 @@ body.geo .gd-ta:focus-visible, body.geo .gl-ta:focus-visible { outline: 0; }
 }
 .g-topic__img.is-fig { background: #fff; }
 .g-topic__img.is-fig img { object-fit: contain; }
+
+/* the point's own diagram, photo and video, beside the clue and in Build your points */
+.g-pics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 12px 0 4px; }
+.g-pics .g-m__t { padding: 6px 8px 0; font-size: 13.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.g-pics .g-m__k { padding: 0 8px 8px; font-size: 12.5px; }
+.gl-card .g-pics { grid-template-columns: repeat(3, minmax(0, 200px)); margin: 16px 0 0; }
