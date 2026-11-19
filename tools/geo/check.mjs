@@ -96,7 +96,8 @@ G.topics.forEach((t) => (t.essays || []).forEach((e) => {
     const avail = live.reduce((a, lp) => a + (lp.part.max != null ? Math.min(lp.part.max, lp.srps.length) : lp.srps.length), 0);
     const label = e.id + (Object.keys(pick).length ? ' [' + Object.values(pick).join('+') + ']' : '');
     if (avail < e.need) err(t.id, label + ': only ' + avail + ' SRPs can be earned, the essay needs ' + e.need);
-    else if (avail < e.need + 2) warn(t.id, label + ': only ' + avail + ' SRPs to choose from (needs ' + e.need + ')');
+    // (a split essay, e.g. two landforms of up to 7 SRPs each for 13, is capped by the scheme itself: no warning)
+    else if (avail < e.need + 2 && !live.every((lp) => lp.part.max != null)) warn(t.id, label + ': only ' + avail + ' SRPs to choose from (needs ' + e.need + ')');
     const text = heads.join(' ') + ' ' + plan.map((id) => G.srp[id].t).join(' ');
     const r = M.mark(e, text, pick);
     if (r.marks < r.max) {

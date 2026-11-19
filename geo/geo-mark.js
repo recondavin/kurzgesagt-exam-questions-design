@@ -58,7 +58,7 @@
 
   // ---------- sentences (the practice host's rules: students skip full stops) ----------
   function wordSet(list) { var o = {}; list.split(' ').forEach(function (w) { o[w] = true; }); return o; }
-  var LINKING = wordSet('and or but nor the a an of to from by into onto which that because so as such with in on at is are was were be been can could will would may might called when where while than then their its this these those it they for over under during after before through also including like near named beside around between across along off outside inside towards toward via about than against among within without');
+  var LINKING = wordSet('del de la le van von da di du na northern southern eastern western central north south east west upper lower greater and or but nor the a an of to from by into onto which that because so as such with in on at is are was were be been can could will would may might called when where while than then their its this these those it they for over under during after before through also including like near named beside around between across along off outside inside towards toward via about than against among within without');
   var PROPER = wordSet('i ireland irish burren clare co county kerry cork munster leinster ulster connacht antrim giants causeway mourne mournes leinster wicklow donegal mayo galway kerry dingle killarney macgillycuddys reeks carrauntoohil shannon liffey boyne bann barrow suir slaney nore moy corrib erne atlantic pacific iceland india indian british britain england english europe european african africa asia american america japan japanese italy italian etna vesuvius hawaii hawaiian andes alps himalayas rockies san andreas california chile mexico nepal turkey haiti indonesia philippines new zealand mount mt st kobe tohoku fukushima tokyo ganges bengal delhi mumbai bombay calcutta kolkata bangalore punjab kashmir pakistan bangladesh raj company');
   var VERB_WORDS = wordSet('is are was were be been am has have had can will may might could would do does did lay laid made make makes built ran sank rose fell took gave saw seen got went came kept broke broken forms formed occurs grow grew flow flows cut cuts drop drops');
   var VERB_STEMS = ['becom', 'form', 'compact', 'compress', 'cement', 'carr', 'transport', 'deposit', 'settl', 'build', 'erod', 'weather', 'break', 'turn', 'contain', 'occur', 'caus', 'use', 'record', 'measur', 'detect', 'predict', 'reduc', 'design', 'sway', 'absorb', 'warn', 'send', 'stop', 'prevent', 'practi', 'creat', 'produc', 'mov', 'push', 'pull', 'sink', 'subduct', 'melt', 'cool', 'rise', 'erupt', 'flow', 'fold', 'fault', 'lift', 'uplift', 'expand', 'contract', 'freez', 'thaw', 'dissolv', 'react', 'widen', 'deepen', 'undercut', 'collaps', 'retreat', 'migrat', 'meander', 'trap', 'slow', 'lose', 'gain', 'export', 'import', 'grow', 'destroy', 'introduc', 'rule', 'exploit', 'tax', 'impos', 'leav', 'left', 'suffer', 'benefit', 'provid', 'allow', 'help', 'attract', 'generat', 'heat', 'pump', 'drill', 'extract', 'quarr', 'mine', 'blast', 'crush', 'shap', 'carv', 'scour', 'pluck', 'abrad', 'grind', 'shatter', 'split', 'widen', 'fill', 'leach', 'seep'];
@@ -167,8 +167,9 @@
   function mark(e, text, pick, opts) {
     opts = opts || {};
     var g = G(), t = g.topic[e.topic] || {}, rules = t.normalise || [];
+    // an SRP can belong to more than one part (both landforms use abrasion): it counts for the first with room
     var live = liveParts(e, pick), allowed = {}, partOf = {};
-    live.forEach(function (lp, i) { lp.srps.forEach(function (s) { allowed[s] = true; if (partOf[s] == null) partOf[s] = i; }); });
+    live.forEach(function (lp, i) { lp.srps.forEach(function (s) { allowed[s] = true; (partOf[s] = partOf[s] || []).push(i); }); });
     // SRPs of the essay's other options (another landform than the one picked) and of other topics: a sentence that
     // makes one of those makes a real point, just not one this question asks for.
     var others = [];
@@ -207,18 +208,18 @@
       // the essay's own SRPs, in the order of the plan: the first one this sentence makes that is not banked yet
       var cand = [];
       live.forEach(function (lp, pi) { lp.srps.forEach(function (sid) { var p = g.srp[sid]; if (p && cand.indexOf(p) < 0) cand.push(p); }); });
-      var hit = null, repeat = null;
+      var hit = null, repeat = null, hitPart = -1;
       for (var i = 0; i < cand.length; i++) {
         var p = cand[i];
         if (!earns(p, norm, tok)) continue;
         if (used[p.id] != null) { repeat = repeat || p; continue; }
-        var pi2 = partOf[p.id];
+        var pi2 = partOf[p.id].filter(function (k) { return partGot[k] < partMax[k]; })[0];
         if (p.x && exUsed >= exCap) { repeat = repeat || p; continue; }
-        if (partGot[pi2] >= partMax[pi2]) { repeat = repeat || p; continue; }
-        hit = p; break;
+        if (pi2 == null) { repeat = repeat || p; continue; }
+        hit = p; hitPart = pi2; break;
       }
       if (hit) {
-        used[hit.id] = si; s.srp = hit; if (hit.x) exUsed++; partGot[partOf[hit.id]]++;
+        used[hit.id] = si; s.srp = hit; if (hit.x) exUsed++; partGot[hitPart]++;
         return;
       }
       if (repeat) { s.note = 'repeat'; s.near = repeat; return; }
