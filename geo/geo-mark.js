@@ -42,7 +42,7 @@
   function stemHit(stem, norm, tokens) {
     if (stem.indexOf(' ') >= 0) return norm.indexOf(' ' + stem) >= 0;
     if (stem.charAt(0) === '=') { stem = stem.slice(1); return tokens.some(function (t) { return t === stem || t === stem + 's' || t === stem + 'es'; }); }
-    if (stem.length <= 3) return tokens.some(function (t) { return t === stem || t === stem + 's'; });
+    if (stem.length <= 3) return tokens.some(function (t) { return t === stem || t === stem + 's' || t === stem + 'es'; });
     return tokens.some(function (t) {
       if (t.indexOf(stem) === 0) return true;
       if (stem.length < 6 || t.length < stem.length - 1 || t[0] !== stem[0]) return false;
@@ -76,7 +76,9 @@
     while ((m = re.exec(body))) {
       var prev = m[1], next = body.slice(m.index + m[0].length).match(/^[A-Za-z']+/);
       if (!next) continue;
-      if (/[,;:(\-]$/.test(prev)) continue;
+      if (/[,;:(\-"“”‘’']$/.test(prev)) continue;
+      // an acronym is not a new sentence ("a big IT industry", "the OPW built", "the EU")
+      if (/^[A-Z]{2,}s?$/.test(next[0])) continue;
       var p = bare(prev), n = bare(next[0]);
       if (!p || LINKING[p] || PROPER[n] || n.length < 2 && n !== 'a') continue;
       if (/^[A-Z]/.test(prev)) continue;

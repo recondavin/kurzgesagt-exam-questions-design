@@ -91,7 +91,7 @@ G.topics.forEach((t) => (t.essays || []).forEach((e) => {
     const plan = [];
     live.forEach((lp) => {
       let n = 0;
-      lp.srps.forEach((id) => { if (lp.part.max == null || n < lp.part.max) { plan.push(id); n++; } });
+      lp.srps.forEach((id) => { if (!G.srp[id]) return; if (lp.part.max == null || n < lp.part.max) { plan.push(id); n++; } });
     });
     const avail = live.reduce((a, lp) => a + (lp.part.max != null ? Math.min(lp.part.max, lp.srps.length) : lp.srps.length), 0);
     const label = e.id + (Object.keys(pick).length ? ' [' + Object.values(pick).join('+') + ']' : '');
