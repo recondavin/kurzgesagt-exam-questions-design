@@ -266,8 +266,9 @@
       need: 14, caps: { ex: 2 },
       parts: [{ id: 'exam', name: 'Examination', srps: ['deform.caledonian', 'deform.iapetus', 'deform.caledTrend', 'deform.caledMts', 'deform.metamorph', 'volcanoes.leinster', 'volcanoes.wicklowMts',
         'deform.caledWorn', 'deform.ors', 'deform.limestoneLaid', 'deform.armorican', 'deform.armTrend', 'deform.ridges', 'deform.valleys', 'deform.stripped', 'deform.rivers', 'deform.peninsulas',
-        'isostasy.riaSW', 'deform.reeks', 'volcanoes.antrimLava', 'volcanoes.antrimPlat', 'volcanoes.causeway', 'deform.irelandStable'] }],
+        'isostasy.riaSW', 'deform.reeks', 'volcanoes.mournes', 'volcanoes.antrimLava', 'volcanoes.antrimPlat', 'volcanoes.causeway', 'volcanoes.slemish', 'volcanoes.neagh',
+        'deform.irelandStable'] }],
       notes: ['One influence of tectonic activity on the Irish landscape identified: 2 marks. A second influence named counts as one SRP; all others need examining.', 'Two named Irish examples can earn an SRP each. A labelled diagram: 1 SRP, and up to 2 more for new information on it.',
-        'Tied to Ireland: tectonic activity with no Irish landscape, or a landscape with no tectonic activity, earns at most 2 SRPs each.', 'Volcanic activity (the Leinster batholith, the Antrim basalt) counts as tectonic activity here as well as folding.'] }
+        'Tied to Ireland: tectonic activity with no Irish landscape, or a landscape with no tectonic activity, earns at most 2 SRPs each.', 'Volcanic activity (the Leinster batholith, the Mournes, the Antrim basalt) counts as tectonic activity here as well as folding.'] }
   ]
 });

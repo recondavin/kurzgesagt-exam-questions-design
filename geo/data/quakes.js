@@ -91,7 +91,7 @@
       k: [['fukushima', 'nuclear'], ['meltdown', 'radiat', 'evacuat', 'leak', 'flood', 'leave']],
       c: ['What second disaster did the 2011 tsunami cause?', 'Fukushima nuclear power station flooded · meltdowns · over 100,000 evacuated'],
       v: 'There was a problem at a power station.', w: 'The Fukushima power station was destroyed when a volcano erupted beside it.', why: 'It was flooded by the 2011 tsunami, which knocked out its cooling.' },
-    { id: 'quakes.haiti', a: 'Haiti 2010', t: 'The 2010 Haiti earthquake, magnitude 7.0, killed over 200,000 people, mostly because badly built concrete homes fell in on them.', x: 1,
+    { id: 'quakes.haiti', a: 'Haiti 2010', t: 'The 2010 Haiti earthquake, magnitude 7.0, is estimated to have killed over 200,000 people, mostly because badly built concrete homes fell in on them.', x: 1,
       n: ['few people', 'nobody', 'well built'],
       k: [['haiti', 'port au prince'], ['200', 'killed', 'died', '7 0']],
       c: ['Give an example of an earthquake in a poor country.', 'Haiti · 2010 · magnitude 7.0 · over 200,000 killed · badly built homes'],
@@ -164,10 +164,10 @@
       k: [['seismic gap', 'gap'], ['not moved', 'not slipped', 'locked', 'stress', 'overdue', 'likely', 'long time']],
       c: ['Which parts of a fault are most likely to move next?', 'seismic gaps · not moved for a long time · stress built up'],
       v: 'There are gaps along faults.', w: 'A seismic gap is the safest part of a fault, because it has not moved for years.', why: 'A gap is the most dangerous part: stress has been building up there.' },
-    { id: 'quakes.lomaPrieta', a: 'Loma Prieta 1989', t: 'The Loma Prieta earthquake of 1989 struck a stretch of the San Andreas Fault that scientists had named as likely to move within 30 years.', x: 1,
+    { id: 'quakes.lomaPrieta', a: 'Loma Prieta 1989', t: 'The Loma Prieta earthquake of 1989 struck a quiet stretch of the San Andreas fault zone that scientists had identified as a seismic gap where a large earthquake was expected.', x: 1,
       k: [['loma prieta'], ['predict', 'forecast', 'likely', 'gap', 'expected', 'named']],
-      c: ['Give an example of an earthquake that struck where scientists expected one.', 'Loma Prieta · 1989 · San Andreas Fault · named as likely to move'],
-      v: 'Loma Prieta was an earthquake in California.', w: 'The Loma Prieta earthquake of 1989 struck a fault nobody knew existed.', why: 'It struck a stretch of the San Andreas Fault that had been forecast as likely to move.' },
+      c: ['Give an example of an earthquake that struck where scientists expected one.', 'Loma Prieta · 1989 · San Andreas fault zone · seismic gap · large earthquake expected'],
+      v: 'Loma Prieta was an earthquake in California.', w: 'The Loma Prieta earthquake of 1989 struck a fault nobody knew existed.', why: 'It struck a stretch of the San Andreas fault zone that had been identified as a seismic gap where a large earthquake was expected.' },
     { id: 'quakes.seismoMonitor', a: 'Seismometer networks', t: 'Networks of seismometers record movement along active faults all the time, as along the San Andreas Fault in California.',
       k: [['network', 'seismometer', 'seismograph', 'monitor'], ['fault', 'active', 'all the time', 'constant', 'continu', '24 hours']],
       c: ['How are active faults watched?', 'networks of seismometers · record all the time · San Andreas Fault'],
@@ -185,10 +185,10 @@
       k: [['haicheng', '1975'], ['evacuat', 'saved', 'foreshock', 'predict']],
       c: ['Give an example of a successful earthquake prediction.', 'Haicheng · China · 1975 · evacuated after foreshocks · thousands saved'],
       v: 'China predicted an earthquake once.', w: 'In 1975 Haicheng was evacuated after a computer forecast the exact time of the earthquake.', why: 'The warning came from foreshocks and other signs, not an exact forecast.' },
-    { id: 'quakes.tangshan', a: 'Tangshan 1976: no warning', t: 'A year later the Tangshan earthquake struck with no warning and killed about 240,000 people, showing how unreliable prediction still is.', x: 1,
+    { id: 'quakes.tangshan', a: 'Tangshan 1976: no warning', t: 'A year later the Tangshan earthquake struck with no warning and killed at least 240,000 people, showing how unreliable prediction still is.', x: 1,
       k: [['tangshan', '1976'], ['no warning', 'without warning', 'no foreshock', '240', 'killed', 'unreliab']],
-      c: ['Give an example of an earthquake that was not predicted.', 'Tangshan · 1976 · no warning · about 240,000 killed'],
-      v: 'Tangshan had an earthquake too.', w: 'The Tangshan earthquake was predicted and the city was evacuated in time.', why: 'There was no warning at Tangshan, and about 240,000 people died.' },
+      c: ['Give an example of an earthquake that was not predicted.', 'Tangshan · 1976 · no warning · at least 240,000 killed'],
+      v: 'Tangshan had an earthquake too.', w: 'The Tangshan earthquake was predicted and the city was evacuated in time.', why: 'There was no warning at Tangshan, and at least 240,000 people died.' },
     { id: 'quakes.radon', a: 'Radon gas', t: 'Scientists measure radon gas in groundwater, because its level can rise as rocks crack under stress before an earthquake.',
       n: ['zero', 'before every', 'fall to'],
       k: [['radon'], ['gas', 'rise', 'increase', 'level', 'groundwater']],
@@ -295,9 +295,12 @@
         { id: 'pred', name: 'Prediction', max: 7, srps: ['quakes.predHard', 'quakes.history', 'quakes.parkfield', 'quakes.gap', 'quakes.lomaPrieta', 'quakes.seismoMonitor', 'quakes.strain',
           'quakes.foreshocks', 'quakes.haicheng', 'quakes.tangshan', 'quakes.radon', 'quakes.waterLevel', 'quakes.animals', 'quakes.cause'] },
         { id: 'red', name: 'Reducing the effects', max: 7, srps: ['quakes.buildCodes', 'quakes.baseIsolation', 'quakes.steelFrame', 'quakes.damper', 'quakes.retrofit', 'quakes.earlyWarning',
-          'quakes.landUse', 'quakes.drills', 'quakes.emergency', 'quakes.gasShutoff', 'quakes.tsunamiWarn', 'quakes.aid'] }
+          'quakes.landUse', 'quakes.drills', 'quakes.emergency', 'quakes.gasShutoff', 'quakes.tsunamiWarn', 'quakes.aid'] },
+        { id: 'volc', name: 'Volcanic eruptions (only when asked, as in 2013)', max: 7, srps: ['volcanoes.monEasier', 'volcanoes.monSeismic', 'volcanoes.monBulge', 'volcanoes.monGas',
+          'volcanoes.monHeat', 'volcanoes.monHistory', 'volcanoes.monObservatory', 'volcanoes.monPinatubo', 'volcanoes.monRuiz'] }
       ],
       notes: ['A reference to prediction and a reference to reducing the effects: 2 marks each. A second reference to each counts as one SRP; every further one must be explained.', 'Only prediction or only reducing the effects explained: at most 7 SRPs. Both are read broadly.',
-        'A labelled diagram: 1 SRP, and up to 2 more for new information on it. In 2017 a reference to why earthquakes occur also earned an SRP; in 2013 the question was earthquakes and volcanic eruptions (at most 8 SRPs if only one).'] }
+        'A labelled diagram: 1 SRP, and up to 2 more for new information on it. In 2017 a reference to why earthquakes occur also earned an SRP.',
+        'In 2013 the question was how earthquakes AND volcanic eruptions are monitored and predicted: 15 SRPs, at most 8 if only one of them, and nothing for reducing the effects. Only then do the volcanic eruption points count; in the earthquake-only questions they earn nothing.'] }
   ]
 });

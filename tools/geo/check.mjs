@@ -110,6 +110,13 @@ G.topics.forEach((t) => (t.essays || []).forEach((e) => {
       const meant = plan.find((id) => s.text.indexOf(G.srp[id].t.slice(0, -1)) === 0);
       if (meant && s.srp && s.srp.id !== meant) warn(t.id, label + ': "' + G.srp[meant].a + '" (' + meant + ') is credited to ' + s.srp.id);
     });
+    // in any order: each point's model sentence written on its own must earn that point (a student doesn't follow the plan)
+    const own = {};
+    live.forEach((lp) => lp.srps.forEach((id) => { if (G.srp[id]) own[id] = 1; }));
+    Object.keys(own).forEach((id) => {
+      const r1 = M.mark(e, G.srp[id].t, pick), s1 = r1.sentences[0];
+      if (s1 && s1.srp && s1.srp.id !== id) err(t.id, label + ': on its own, "' + G.srp[id].a + '" (' + id + ') is credited to ' + s1.srp.id);
+    });
   });
 }));
 

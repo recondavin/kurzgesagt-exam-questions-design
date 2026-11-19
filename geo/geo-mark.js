@@ -161,6 +161,17 @@
     });
   }
 
+  // How close a sentence is to a point's own model sentence: the share of the model's words of 4+ letters (the first 5
+  // letters of each) that the sentence uses.
+  var SMALL = wordSet('that this with from into which their there these those have been were when where while than then they them also over under about after before because such more most some many very much only other each');
+  function closeness(p, tok) {
+    if (!p._w) p._w = normalise(p.t).trim().split(' ').filter(function (w) { return w.length > 3 && !SMALL[w]; }).map(function (w) { return w.slice(0, 5); });
+    if (!p._w.length) return 0;
+    var have = {};
+    tok.forEach(function (w) { have[w.slice(0, 5)] = 1; });
+    return p._w.filter(function (w) { return have[w]; }).length / p._w.length;
+  }
+
   // ---------- marking an essay ----------
   // Returns { sentences: [...], marks, max, srps, need, heads: [{label, marks, got}], parts: [{name, got, max}], notes }
   // Each sentence: { text, start, end, complete, open, srp: srp|null, heads: [labels], note: null|'short'|'vague'|
@@ -209,7 +220,7 @@
       // the essay's own SRPs, in the order of the plan: the most specific one this sentence makes that is not banked yet
       var cand = [];
       live.forEach(function (lp, pi) { lp.srps.forEach(function (sid) { var p = g.srp[sid]; if (p && cand.indexOf(p) < 0) cand.push(p); }); });
-      var hit = null, repeat = null, capped = null, full = null, hitPart = -1;
+      var hit = null, repeat = null, capped = null, full = null, hitPart = -1, hitScore = -1;
       for (var i = 0; i < cand.length; i++) {
         var p = cand[i];
         if (!earns(p, norm, tok)) continue;
@@ -217,9 +228,11 @@
         var pi2 = partOf[p.id].filter(function (k) { return partGot[k] < partMax[k]; })[0];
         if (p.x && exUsed >= exCap) { capped = capped || p; continue; }
         if (pi2 == null) { full = full || p; continue; }
-        // of the points the sentence makes, the most specific (the one with the most word groups) wins, then plan order:
-        // "In Iceland geothermal water heats 90 per cent of homes" is the Iceland point, not just "geothermal is heat"
-        if (!hit || p.k.length > hit.k.length) { hit = p; hitPart = pi2; }
+        // of the points the sentence makes, the one it is closest to wins (most of that point's own words, then the most
+        // word groups), then plan order: "In Iceland geothermal water heats 90 per cent of homes" is the Iceland point,
+        // not just "geothermal is heat"; "The Leinster batholith..." is the Leinster point, not just "a batholith"
+        var sc = closeness(p, tok) + 0.05 * p.k.length;
+        if (!hit || sc > hitScore + 1e-9) { hit = p; hitPart = pi2; hitScore = sc; }
       }
       if (hit) {
         used[hit.id] = si; s.srp = hit; if (hit.x) exUsed++; partGot[hitPart]++;
