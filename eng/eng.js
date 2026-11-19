@@ -2084,11 +2084,12 @@
   function checkHtml(out, n, pg) {
     var word = pg ? 'data-page-word' : 'data-cpw-word', fix = pg ? 'data-page-fix' : 'data-cpw-fix', step = pg ? 'data-page-pick' : 'data-cpw-step="1"', chip = pg ? 'eng-read__chip' : 'eng-chip';
     return (out.meter || '') + (out.length ? out.map(function (o) {
-      if (o.fix) return '<p class="eng-cpd__warn eng-cpd__warn--' + o.kind + '"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + ' ' + o.fix.map(function (f) {
-        return '<button type="button" class="' + chip + '" ' + fix + '="' + esc(f.join('|')) + '">' + esc(f[1]) + ' → ' + esc(f[2]) + '</button>';
+      // On the page these are words to read, not buttons: nothing that is clicked writes into the essay (see pageHelp).
+      if (o.fix) return '<p class="eng-cpd__warn eng-cpd__warn--' + o.kind + '"><b>' + esc(o[0]) + '</b> ' + esc(pg ? '' : o[1]) + ' ' + o.fix.map(function (f) {
+        return pg ? '<span class="' + chip + ' is-plain">' + esc(f[1]) + ' → ' + esc(f[2]) + '</span>' : '<button type="button" class="' + chip + '" ' + fix + '="' + esc(f.join('|')) + '">' + esc(f[1]) + ' → ' + esc(f[2]) + '</button>';
       }).join('') + '</p>';
       if (o.step) return '<p class="eng-cpd__warn eng-cpd__warn--' + o.kind + '"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + ' <button type="button" class="' + chip + '" ' + step + '>Change the scene</button></p>';
-      return '<p class="eng-cpd__warn' + (o.kind ? ' eng-cpd__warn--' + o.kind : '') + '"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + (o[2].length ? ' ' + o[2].map(function (x) { return '<button type="button" class="' + chip + '" ' + word + '="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') : '') + '</p>';
+      return '<p class="eng-cpd__warn' + (o.kind ? ' eng-cpd__warn--' + o.kind : '') + '"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + (o[2].length ? ' ' + o[2].map(function (x) { return pg ? '<span class="' + chip + ' is-plain">' + esc(x) + '</span>' : '<button type="button" class="' + chip + '" ' + word + '="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') : '') + '</p>';
     }).join('') : (n >= 40 ? '<p class="eng-cpd__good">No “shows”, no repeated words, nothing misspelt. Nice.</p>' : ''));
   }
   function cpwCheck() {
@@ -2576,15 +2577,11 @@
   }
   function cineBoxes() { return READ ? Array.prototype.slice.call(READ.querySelectorAll('.eng-cine > .eng-read__box')) : []; }
   function cineKey(b) { var id = b.getAttribute('data-page-boxof'); return id.slice(id.lastIndexOf('|') + 1); }
-  // PART (b): THE TWO TEXTS' OWN BOXES ARE NOT STEPS. The user, of five pills in a row (Point, Sive, Small Things,
-  // Compare, Evaluate), one of them red and another white: "witgh point sicve small things compare avaluate i dont
-  // even know where the fuck i am", then "get rid of those right now the ones you can just put in because you wrote
-  // it in the scene". What a paragraph says about each text is written IN THE SCENE: the sentence written at a
-  // scene's pause is put into that text's box (watchKey). So the steps of a part (b) paragraph are Point, Compare,
-  // Evaluate. The two texts' boxes are still there: their sentences show in the paragraph where they belong, a click
-  // on one opens it to change it, and they never count as the thing to write next. And only the step you are on is
-  // lit: the red pill for "write this next" is gone, because two lit pills was the "where am I".
-  function cineIsStep(k) { return !(READ_PART === 'b' && (k === 'x' || k === 'y')); }
+  // Every box of a part is a step, part (b)'s two texts included: Point, the first text, the second text, Compare,
+  // Evaluate ("thats kind of what there was at the start"). ONLY THE STEP YOU ARE ON IS LIT: with a red pill for the
+  // one to write next beside the white one, the user could not tell which was theirs ("i dont even know where the
+  // fuck i am"). cineIsStep is kept as the one place to say otherwise.
+  function cineIsStep(k) { return true; }
   function cineSteps(bx) { return bx.filter(function (b) { return cineIsStep(cineKey(b)); }); }
   // The step before (d -1) or after (d 1) a box, in the order of the paragraph; from a box that is not a step, the
   // nearest step on that side.
@@ -2607,9 +2604,6 @@
     var i = bx.indexOf(cur), moved = !cur.classList.contains('is-cur'), ta = cur.querySelector('.eng-read__ta');
     var nameOf = function (b) { var t = b && bx[0].querySelector('.eng-cine__tab[data-cine-go="' + cineKey(b) + '"]'); return t ? t.getAttribute('data-name') : ''; };
     strip.setAttribute('data-cur', cineKey(cur));
-    // Part (b): on a text's own step the other text's picture is not there (styles) and the button watches one scene.
-    var wb = strip.querySelector('.eng-cine__scene.is-two [data-page-watch]');
-    if (wb) { var one = /^[xy]$/.test(cineKey(cur)); wb.setAttribute('aria-label', one ? 'Watch the scene' : 'Watch the scenes'); wb.querySelector('span').textContent = one ? ' the scene' : ' the scenes'; }
     bx.forEach(function (b) {
       b.classList.toggle('is-cur', b === cur);
       // Each box carries the part's steps in its own heading; all of them are kept right, the one showing is seen.
@@ -2709,13 +2703,8 @@
     var shown = READ_STRUCT ? [READ_SLOT] : c.slots;
     var body = shown.map(function (s) {
       var P = c.parts(c.W, s), pts = pageParts(part, s, c), sub = pageSub(part, s, c);
-      // Sentences written while watching this paragraph's scenes from a direct link come in here.
-      if (pts.length) watchScenes(part, s, c).forEach(function (sc) {
-        var kept = watchKept(sc.mid), kk = pts.some(function (pt) { return pt.k === 'e'; }) ? 'e' : pts[pts.length - 1].k;
-        if (!kept) return;
-        P[kk] = (P[kk] && String(P[kk]).trim() ? String(P[kk]).replace(/\s+$/, '') + ' ' : '') + kept;
-        watchKept(sc.mid, null); cpSave();
-      });
+      // The page's own words that were once pasted into a box by mistake are taken back out (pageUnjunk).
+      pts.forEach(function (pt) { var was = P[pt.k], now = pageUnjunk(was, pts.filter(function (o) { return o !== pt; }).map(function (o) { return P[o.k]; })); if (now !== was) { P[pt.k] = now; cpSave(); } });
       if (!READ_STRUCT) {
         // One paragraph, remembering where each box's text starts (b), so Show structure can put it all back.
         var j = '', bs = [];
@@ -2725,7 +2714,7 @@
       }
       // The examiner's ticks: each box's own, in the margin; the count sits by the heading.
       var tk = pts.map(function (pt) { return tickList(part, s, pt.k, c); }), any = tk.some(function (x) { return x.length > 0; }), pics = CINE ? cinePics(part, s, c) : [];
-      var steps = CINE ? '<span class="eng-cine__steps">' + pts.filter(function (pt) { return !(part === 'b' && (pt.k === 'x' || pt.k === 'y')); }).map(function (pt, i) {
+      var steps = CINE ? '<span class="eng-cine__steps">' + pts.map(function (pt, i) {
         return '<button type="button" class="eng-cine__tab" data-cine-go="' + pt.k + '" data-name="' + esc(cineName(pt)) + '"><i aria-hidden="true">' + (i + 1) + '</i><span aria-hidden="true">' + esc(cineName(pt)) + '</span></button>';
       }).join('') + '</span>' : '';
       return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any && !CINE ? tickTally() : '') + '</div>' + (CINE ? '' : watchBtn(part, s, c)) +
@@ -3834,20 +3823,13 @@
     w.ended = true;
     watchHold({ at: 0, end: true });
   }
-  // PART (b) KEEPS ITS TWO TEXTS APART (the user, of an Evaluate box that Watch had filled with what they wrote about
-  // Mena AND what they wrote about Sarah, 77 words and "too long": "you fucked your not supposed to have the option to
-  // bring the small thigns into the sive paragraph" / "and vice vers"). A paragraph of part (b) has a box for each
-  // text. So each scene knows its own text's box (`box`: x for the first text, y for the second): what is written at
-  // its pauses goes into THAT box and nowhere else (watchKey), and on a text's own step only that text's scene is
-  // shown and watched (`only`; the other picture is not there, see cineSet and the styles).
-  function watchScenes(part, s, c, only) {
+  // The scenes of the part being written. (For a day Watch put what was written at a pause into the essay, and then
+  // each text's sentences into that text's own box, with the two texts' boxes taken out of the steps: both were
+  // misreadings of the user, who wanted the opposite: nothing from a scene goes into the essay at all. See watchDone.)
+  function watchScenes(part, s, c) {
     if (typeof s !== 'number') return [];
     var q = c.W.paras[s], mids = !q ? [] : part === 'b' ? [q.x, q.y] : [q.scene ? text(c.a).moments[q.scene - 1].id : ''];
-    return mids.map(function (mid, i) {
-      var sc = mid ? watchScene(mid) : null;
-      if (sc && part === 'b') sc.box = i ? 'y' : 'x';
-      return sc;
-    }).filter(function (sc) { return sc && (!only || sc.box === only); });
+    return mids.filter(Boolean).map(watchScene).filter(Boolean);
   }
   function watchScene(mid) {
       var tid = tidOf(mid), m = mom(mid).m, ps = scenePics(tid, mid), pic = ps.filter(function (p) { return p.spots && p.spots.length; })[0] || ps[0];
@@ -3867,6 +3849,7 @@
   // A sentence written from a direct link has no answer open to go into (the user: "it should be saved to be honest but
   // you DONT NEED TO FUCKING MENTION IT"). It is kept with its scene (localStorage eng-watch-kept) and put into the
   // Evaluate box the next time a paragraph built on that scene is opened on the desk. Nothing on screen says so.
+  try { localStorage.removeItem('eng-watch-kept'); } catch (e) {}   // sentences once kept to be added to an answer: gone, never added
   function watchKept(mid, add) {
     var o = {};
     try { o = JSON.parse(localStorage.getItem('eng-watch-kept') || '{}') || {}; } catch (e) {}
@@ -3875,7 +3858,7 @@
     try { localStorage.setItem('eng-watch-kept', JSON.stringify(o)); } catch (e) {}
     return o[mid] || '';
   }
-  function watchKey(w) { if (w.solo) return 'e'; if (w.list[w.at] && w.list[w.at].box) return w.list[w.at].box; var pts = pageParts(READ_PART, READ_SLOT, w.c); return pts.some(function (pt) { return pt.k === 'e'; }) ? 'e' : pts.length ? pts[pts.length - 1].k : 'e'; }
+  function watchKey(w) { if (w.solo) return 'e'; var pts = pageParts(READ_PART, READ_SLOT, w.c); return pts.some(function (pt) { return pt.k === 'e'; }) ? 'e' : pts.length ? pts[pts.length - 1].k : 'e'; }
   // solo: a scene opened on its own from a link (#watch/<moment id>; the user, of the test clip: "i donbt know where to
   // actually watch it"): the same screen over whatever page is behind it, with no answer open, so what is written is
   // not saved anywhere and the card says so. Closing it leaves you on Compare it.
@@ -3884,9 +3867,7 @@
   function watchOpen(solo, thId) {
     if (!READ && !solo) return;
     var linked = thId ? D.compare.filter(function (t) { return t.id === thId; })[0] || WATCH_THEMES[thId] : null;
-    // On a text's own step of part (b) only that text's scene is watched.
-    var cstrip = !solo && CINE && READ_STRUCT && READ_PART === 'b' ? READ.querySelector('.eng-cine') : null, only = cstrip ? cstrip.getAttribute('data-cur') : '';
-    var c = solo ? { th: linked || cpTheme() } : pageCtx(READ_PART), list = solo ? [solo] : watchScenes(READ_PART, READ_SLOT, c, only === 'x' || only === 'y' ? only : '');
+    var c = solo ? { th: linked || cpTheme() } : pageCtx(READ_PART), list = solo ? [solo] : watchScenes(READ_PART, READ_SLOT, c);
     if (!list.length) return;
     watchClose();
     var el = document.createElement('div');
@@ -4182,11 +4163,9 @@
     var w = WATCH, el = w.el, sc = w.list[w.at], v = el.querySelector('.eng-pause__ta').value.replace(/\s+/g, ' ').trim(), k = watchKey(w);
     if (wordsIn(v) < 4) return;
     if (!/[.!?]["”’']?$/.test(v)) v += '.';
-    if (!w.solo) {
-      var P = w.c.parts(w.c.W, READ_SLOT), ta = READ.querySelector('.eng-read__ta[data-page-box="' + k + '"]');
-      P[k] = (P[k] && String(P[k]).trim() ? String(P[k]).replace(/\s+$/, '') + ' ' : '') + v;
-      if (ta) { ta.value = P[k]; pageInput(ta); } else cpSave();
-    } else watchKept(sc.mid, v);
+    // It is NOT put into the essay and not kept anywhere (it used to be added to a box of the paragraph, and from a
+    // direct link kept and added the next time the paragraph was opened: text the student had not typed there turning
+    // up in their answer). A pause is practice at saying why; the essay is written in the essay.
     w.wrote = v;
     var last = w.at === w.list.length - 1, card = el.querySelector('.eng-pause__card'), sp = sc.spot, box = w.solo ? null : pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === k; })[0];
     if (!sp || !sp.note) { watchNext(); return; }
@@ -4250,7 +4229,12 @@
   // The help for the paragraph, and the box, you're in.
   function pageHelp(part, s, box) {
     var c = pageCtx(part), th = c.th, h = '', para = typeof s === 'number', words = '';
-    var chips = function (list) { return '<p class="eng-read__chips">' + list.map(function (x) { return '<button type="button" class="eng-read__chip" data-page-word="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') + '</p>'; };
+    // THE ESSAY HOLDS ONLY WHAT IS TYPED INTO IT (the user: "this whole thing is a mess where you click on shit and it
+    // spawns in text get rid of it" / "like if you wrote something IN the essay it saves but not fucking during scenes
+    // or anything you click on and it saves i better see it gotten rid of"). So the words and phrases here are read,
+    // not pressed: they used to be buttons that dropped the word into the box. The same for a spelling fix (it is
+    // shown, not applied) and for what is written at a scene's pause (it stays at the pause: watchDone).
+    var chips = function (list) { return '<p class="eng-read__chips">' + list.map(function (x) { return '<span class="eng-read__chip is-plain">' + esc(x) + '</span>'; }).join('') + '</p>'; };
     var scene = function (tid, mid, extra) {
       var m = mom(mid).m, pic = scenePics(tid, mid)[0];
       return '<div class="eng-read__scene">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') + '<h4>' + esc(m.title) + '</h4><p class="eng-read__where">' + esc(sceneWhere(tid, m)) + '</p>' +
@@ -4284,7 +4268,7 @@
         return '<li><b>Paragraph ' + (k + 1) + ':</b> ' + esc(text(c.a).moments[p2.scene - 1].title) + '<span>' + esc(G.scenes[p2.scene].reps[p2.rep || 0].title) + '</span></li>';
       }).join('') + '</ul>';
       if (list && list.length) words = '<section><h3>10 words for ' + (para ? 'this scene' : 'the ' + slotName(s).toLowerCase()) + '</h3><ul class="eng-read__words">' + list.map(function (x) {
-        return '<li><button type="button" class="eng-read__w" data-page-word="' + esc(x[0]) + '"><b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span></button></li>';
+        return '<li><div class="eng-read__w is-plain"><b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span></div></li>';
       }).join('') + '</ul></section>';
     }
     return '<header class="eng-read__hh"><h2>' + slotName(s) + (pt ? ' <span>' + esc(pt.label) + '</span>' : '') + '</h2><button type="button" class="eng-read__hx" data-page-help aria-label="Close help">×</button></header>' +
@@ -4310,6 +4294,27 @@
     if (!focus) return;
     var ta = (on && READ.querySelector('.eng-read__box.is-next .eng-read__ta[data-page-slot="' + READ_SLOT + '"]')) || READ.querySelector('.eng-read__ta[data-page-slot="' + READ_SLOT + '"]');
     if (ta) { ta.focus({ preventScroll: true }); ta.setSelectionRange(ta.value.length, ta.value.length); ta.scrollIntoView({ block: 'nearest' }); }
+  }
+  // THE PAGE'S OWN WORDS, ONCE PASTED INTO A BOX BY MISTAKE, ARE TAKEN BACK OUT. The user's Evaluate box had, in the
+  // middle of a sentence: "Small Things / The girl in the coal shed / ▶ Watch the scenes / <their own Point sentence> /
+  // Too long. Keep your two or three best sentences." (a drag that began above the box had selected the frame's
+  // words; that cannot happen now, see the styles). Told it was still there: "i better see it gotten rid of". This
+  // runs only on a box that has the Watch button itself as a line, which nobody types: that line goes, with the
+  // titles straight above it, any line under it that is just another box of the same paragraph over again, and the
+  // teacher's comment that came last and ran straight into what followed ("...sentences.Sives fate"). Nothing else
+  // in anyone's writing is ever touched.
+  function pageUnjunk(v, others) {
+    v = String(v == null ? '' : v);
+    var mark = /^[ \t]*▶[ \t]*Watch( the scenes?)?[ \t]*$/, lines = v.split('\n'), i = -1;
+    lines.forEach(function (l, j) { if (i < 0 && mark.test(l)) i = j; });
+    if (i < 0) return v;
+    var norm = function (x) { return String(x || '').replace(/\s+/g, ' ').trim().replace(/[.!?]+$/, '').toLowerCase(); }, titles = {};
+    Object.keys(D.texts).forEach(function (id) { var t = D.texts[id]; [t.title, shortTitle(id)].concat((t.moments || []).map(function (m) { return m.title; })).forEach(function (x) { if (x) titles[norm(x)] = 1; }); });
+    var same = (others || []).map(norm).filter(Boolean), a = i, b = i;
+    while (a > 0 && (!lines[a - 1].trim() || titles[norm(lines[a - 1])])) a--;
+    while (b < lines.length - 1 && (!lines[b + 1].trim() || titles[norm(lines[b + 1])] || same.indexOf(norm(lines[b + 1])) >= 0)) b++;
+    var head = lines.slice(0, a).join('\n').replace(/\s+$/, ''), tail = lines.slice(b + 1).join('\n').replace(/^\s+/, '').replace(/^[A-Z][^\n]{0,140}?[.?!](?=[A-Za-z])/, '');
+    return pageUnjunk(head && tail ? head + ' ' + tail : head + tail, others);
   }
   function pageTas() { return Array.prototype.slice.call(READ.querySelectorAll('.eng-read__ta[data-page-slot="' + READ_SLOT + '"]')); }
   function pageInsert(word) {
@@ -5571,8 +5576,6 @@
       if (t.closest('[data-page-watch]')) { watchOpen(); return; }
       var pw = t.closest('[data-page-word]'), pfx = t.closest('[data-page-fix]'), pgp = READ_PART, pgs = READ_SLOT;
       if (t.closest('[data-read-close]')) readClose();
-      else if (pw) pageInsert(pw.getAttribute('data-page-word'));
-      else if (pfx) pageFix(pfx.getAttribute('data-page-fix'));
       else if (t.closest('[data-page-ideas]')) {
         var ib = t.closest('[data-page-ideas]');
         pageIdeasSet(ib, !READ_IDEAS[ib.getAttribute('data-page-ideas')]);
