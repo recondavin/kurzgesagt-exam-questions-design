@@ -71,6 +71,35 @@
   ];
   // Another subject names the holes its own way (the shapes stay).
   if (window.BoardDeck && window.BoardDeck.holes) HOLES.forEach(function (h, k) { if (window.BoardDeck.holes[k]) h.name = window.BoardDeck.holes[k]; });
+  // More holes, for a subject that asks for them (Geography: the user, "including mini golf with more levels"): five more
+  // shapes after the first five, each a landform. BoardDeck.moreHoles names them and gives each its question slot.
+  //   6 The volcano     a cone (a big bump) between the tee and the cup: over it or round it.
+  //   7 The oxbow       a U-bend: up the right, back across the top, the inside of the bend walled off.
+  //   8 The drumlins    a swarm of low egg-shaped bumps to thread through.
+  //   9 The spit        a long narrow strip that hooks round at the end, the cup in the hook.
+  //   10 The fault      two blocks offset along a fault, joined by a gap: tee in the lower block, cup in the upper.
+  var MORE = [
+    { ch: 28, name: 'The volcano', par: 3, tee: [0, 1.4], cup: [0, 20.2],
+      outline: [[-5, 0], [5, 0], [6, 1], [6, 21], [5, 22], [-5, 22], [-6, 21], [-6, 1]],
+      bumps: [[0, 10.5, 2.6, 0.75], [0, 10.5, 1.2, 0.45]] },
+    { ch: 30, name: 'The oxbow', par: 4, tee: [-3.2, 2], cup: [-3.2, 17.5],
+      outline: [[-6, 0], [5, 0], [6.5, 1.5], [6.5, 19], [5, 20.5], [-6, 20.5], [-6, 14], [1.2, 14], [1.2, 6.5], [-6, 6.5]] },
+    { ch: 30, name: 'The drumlins', par: 3, tee: [0, 1.4], cup: [0.8, 20],
+      outline: [[-5.5, 0], [5.5, 0], [5.5, 22], [-5.5, 22]],
+      bumps: [[-2.6, 6, 1.1, 0.35], [2.4, 7.5, 1.1, 0.35], [-0.2, 11, 1.1, 0.35], [-3, 14.5, 1.1, 0.35], [2.6, 15.5, 1.1, 0.35], [-0.6, 17.8, 0.9, 0.3]] },
+    { ch: 30, name: 'The spit', par: 4, tee: [0, 1.2], cup: [-4.6, 19.2],
+      outline: [[-2.2, 0], [2.2, 0], [2.2, 17], [1.2, 20], [-1.5, 21.8], [-6.5, 21.8], [-6.5, 17.4], [-3.2, 17.4], [-2.2, 16]] },
+    { ch: 28, name: 'The fault', par: 3, tee: [-3, 2], cup: [3, 20],
+      outline: [[-5.5, 0], [2, 0], [2, 11], [5.5, 11], [5.5, 22], [-2, 22], [-2, 11], [-5.5, 11]] }
+  ];
+  if (window.BoardDeck && window.BoardDeck.moreHoles) window.BoardDeck.moreHoles.forEach(function (m, k) {
+    if (!MORE[k]) return;
+    var h = MORE[k];
+    if (m.name) h.name = m.name;
+    if (m.ch != null) h.ch = m.ch;
+    HOLES.push(h);
+  });
+  var HOLE_WORD = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'][HOLES.length] || String(HOLES.length);
   // The walls (flat: ax, ay, bx, by for each), anticlockwise round the outline so the green is on their left, and the
   // hole's box.
   function prep(h) {
@@ -1009,7 +1038,7 @@
     }
   }
   function confetti(x, y) {
-    var g = new TH.BoxGeometry(0.16, 0.04, 0.11), mats = [COL[A.h.ch], '#FFFFFF', '#FFC800', COL[CH[(CH.indexOf(A.h.ch) + 2) % 5]]].map(function (c) { return toon(c); });
+    var g = new TH.BoxGeometry(0.16, 0.04, 0.11), mats = [COL[A.h.ch], '#FFFFFF', '#FFC800', COL[CH[(CH.indexOf(A.h.ch) + 2) % CH.length]]].map(function (c) { return toon(c); });
     for (var i = 0; i < 36; i++) {
       var m = new TH.Mesh(i ? g : keep(g), mats[i % 4]), a = Math.random() * Math.PI * 2, s = 1.5 + Math.random() * 2.5;
       m.position.copy(at(x, y, 0.3));
@@ -1218,7 +1247,7 @@
 
   // ======================================================================== the game
   var SAY = {
-    start: ['Mini golf? I was club champion.', 'Five holes. I\'ve never missed a putt.'],
+    start: ['Mini golf? I was club champion.', HOLE_WORD + ' holes. I\'ve never missed a putt.'],
     right: ['Hmph. Line it up, then.', 'Fine. You get the line.'],
     wrong: ['Wrong. That\'s a stroke gone.', 'No putt for you.'],
     in: ['Hmph. Lucky bounce.', 'In. Don\'t celebrate.'],
@@ -1257,11 +1286,11 @@
   function openGolf() {
     if (A) dispose3d();
     var c = host();
-    A = { card: c, pools: BB.pools(), right: 0, asked: 0, qn: 0, mulligans: 0, strokes: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], holed: [[], []], hole: 0, trash: [], pos: [[0, 0], [0, 0]], on: [false, false], drop: [0, 0], who: 0, mood: 'happy', held: [] };
+    A = { card: c, pools: BB.pools(), right: 0, asked: 0, qn: 0, mulligans: 0, strokes: [HOLES.map(function () { return 0; }), HOLES.map(function () { return 0; })], holed: [[], []], hole: 0, trash: [], pos: [[0, 0], [0, 0]], on: [false, false], drop: [0, 0], who: 0, mood: 'happy', held: [] };
     K.gameHud(A.card, 0, '');
     var best = K.store(PRE + 'golf-best');
     show('<div class="am-games__end mg-start"><div class="ar-face" aria-hidden="true">' + K.face + '</div><h3 class="am-games__title">Mini Golf</h3>' +
-      '<p class="am-games__sub">Five holes against the examiner. Answer right to putt; get it wrong and the stroke\'s gone. Fewest strokes wins.</p>' +
+      '<p class="am-games__sub">' + HOLE_WORD + ' holes against the examiner. Answer right to putt; get it wrong and the stroke\'s gone. Fewest strokes wins.</p>' +
       '<ol class="mg-holes">' + HOLES.map(function (h, i) {
         var b = K.store(PRE + 'golf-hole-' + (i + 1));
         return '<li style="--c:' + COL[h.ch] + '"><b>' + (i + 1) + '. ' + esc(h.name) + '</b><span>' + esc(NAME[h.ch]) + ' · Par ' + h.par + (b ? ' · Best ' + b : '') + '</span></li>';
@@ -1325,7 +1354,7 @@
     var hole = q('[data-mg-hole]'), t = q('[data-mg-tally]'), m = q('[data-mg-mull]'), h = A.h, i = A.hole, playing = A.phase !== 'between' && A.phase !== 'over';
     if (hole) {
       hole.style.setProperty('--c', COL[h.ch]);
-      hole.innerHTML = '<b>Hole ' + (i + 1) + '<small> of 5</small></b><span>' + esc(h.name) + ' · Par ' + h.par + '</span>';
+      hole.innerHTML = '<b>Hole ' + (i + 1) + '<small> of ' + HOLES.length + '</small></b><span>' + esc(h.name) + ' · Par ' + h.par + '</span>';
     }
     if (t) t.innerHTML = '<table class="mg-tally"><thead><tr><td></td><th scope="col">Hole</th><th scope="col">Total</th></tr></thead><tbody>' + [0, 1].map(function (p) {
       return '<tr class="' + (playing && A.who === p ? 'is-turn' : '') + '"><th scope="row">' + (p ? '<span class="mg-face" data-mg-him data-mood="' + A.mood + '" aria-hidden="true">' + K.face + '</span>Him' : '<i class="mg-ball" aria-hidden="true"></i>You') +
@@ -1657,7 +1686,7 @@
     open: openGolf,
     state: function () { return A; },
     // For tools/bio/tests/golf.mjs.
-    test: { HOLES: HOLES, prep: prep, roll: roll, aimLine: aimLine, search: search, solve: solve, hisMode: hisMode, hisAim: hisAim, nextGo: nextGo, costAt: costAt, ahead: ahead,
+    test: { HOLES: HOLES, MORE: MORE, holeStart: function (i) { holeStart(i); }, prep: prep, roll: roll, aimLine: aimLine, search: search, solve: solve, hisMode: hisMode, hisAim: hisAim, nextGo: nextGo, costAt: costAt, ahead: ahead,
       height: height, inPoly: inPoly, gap: gap, cellAt: cellAt, speedOf: speedOf, R: R, CUP: CUP, MAX: MAX, TRAIL: TRAIL, MIN_TRAIL: MIN_TRAIL, EDGE: EDGE, NOCUP: NOCUP, NEAR: NEAR }
   };
 })();

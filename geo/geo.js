@@ -121,6 +121,10 @@
       if (!ts.length) return;
       h += '<h2 class="g-h2 rise" style="--i:' + (gi + 2) + '">' + esc(g.name) + '</h2><div class="g-topics">' + ts.map(function (t, i) { return topicCard(t, gi * 3 + i + 2); }).join('') + '</div>';
     });
+    h += '<h2 class="g-h2 rise">Games</h2><div class="g-games rise">' +
+      '<a class="g-card g-game" href="geo-golf.html"><b>Mini Golf</b><span>Ten holes against the examiner, from the rift and the volcano to the spit and the fault. A question before every putt.</span></a>' +
+      '<a class="g-card g-game" href="geo-pool.html"><b>Pool</b><span>Pot your four, then the black. A question from all of Geography before every shot.</span></a>' +
+      '<a class="g-card g-game" href="#papers"><b>Every past question</b><span>Pick any one and write it on the desk.</span></a></div>';
     app.innerHTML = h;
   }
   function topicCard(t, i) {
@@ -151,7 +155,11 @@
     h += '<h2 class="g-h2 rise" style="--i:4">Games</h2><div class="g-games rise" style="--i:5">' +
       '<a class="g-card g-game" href="#play/real/' + tid + '"><b>Real, vague or wrong?</b><span>Ten sentences. Say which ones get the marks.</span></a>' +
       '<a class="g-card g-game" href="#play/where/' + tid + '"><b>Where does it score?</b><span>One point, many essays: find every past question it earns marks in.</span></a>' +
-      '<a class="g-card g-game" href="#bank/' + tid + '"><b>Your bank vs the papers</b><span>How many marks your points get in every past essay.</span></a></div>';
+      '<a class="g-card g-game" href="#bank/' + tid + '"><b>Your bank vs the papers</b><span>How many marks your points get in every past essay.</span></a>' +
+      '<a class="g-card g-game" href="#play/pic/' + tid + '"><b>Picture it</b><span>A diagram or a photo: name the landform, rock or process.</span></a>' +
+      '<a class="g-card g-game" href="#play/fix/' + tid + '"><b>Fix it</b><span>A wrong sentence: rewrite it so it gets the 2 marks.</span></a>' +
+      '<a class="g-card g-game" href="geo-golf.html"><b>Mini Golf</b><span>Ten holes against the examiner, from the rift to the fault. A question before every putt.</span></a>' +
+      '<a class="g-card g-game" href="geo-pool.html"><b>Pool</b><span>Pot your balls against the examiner. A question before every shot.</span></a></div>';
     h += '<h2 class="g-h2 rise" style="--i:6">Past questions</h2>' + paperList(papers);
     app.innerHTML = h;
   }
@@ -783,17 +791,103 @@
     WS.anim = false;
   }
 
+  // ---------- game: picture it (a diagram or a photo: which landform, rock or process is it?) ----------
+  var PI = null;
+  function optNames(tid) {
+    var names = {}, groups = [];
+    G.topic[tid].essays.forEach(function (e) { (e.parts || []).forEach(function (p) { if (!p.opts) return; groups.push(p.opts); p.opts.forEach(function (o) { names[o.id] = o.name; }); }); });
+    return { names: names, groups: groups };
+  }
+  function renderPic(tid) {
+    var t = G.topic[tid];
+    if (!t) return renderHub();
+    shell('t/' + tid, [[t.name, '#t/' + tid], ['Picture it']], 'What is it? Name it the way the exam wants.');
+    var on = optNames(tid), rounds = [];
+    ['figs', 'photos'].forEach(function (k) {
+      (MEDIA[k] || []).forEach(function (m) {
+        if (m.topic !== tid) return;
+        var id = (m.tags || []).filter(function (x) { return on.names[x]; })[0];
+        if (!id) return;
+        var grp = on.groups.filter(function (g) { return g.some(function (o) { return o.id === id; }); })[0] || [];
+        var wrong = shuffle(grp.filter(function (o) { return o.name !== on.names[id] && (m.tags || []).indexOf(o.id) < 0; })).slice(0, 3).map(function (o) { return o.name; });
+        if (wrong.length < 2) return;
+        rounds.push({ m: m, kind: k === 'figs' ? 'fig' : 'photo', right: on.names[id], opts: shuffle([on.names[id]].concat(wrong)) });
+      });
+    });
+    PI = { t: t, list: shuffle(rounds).slice(0, 10), i: 0, right: 0, answered: null, anim: true };
+    app.innerHTML = '<div class="gg">' + backLink() + '<div data-gg></div></div>';
+    paintPic();
+  }
+  function paintPic() {
+    var x = PI.list[PI.i], el = $('[data-gg]', app);
+    if (!PI.list.length) { el.innerHTML = '<p class="g-lead">No pictures for this topic yet.</p>'; return; }
+    if (!x) {
+      el.innerHTML = '<section class="gg-card rise"><p class="gg-big">' + PI.right + '<span class="of">/' + PI.list.length + '</span></p><p class="gg-say">' +
+        (PI.right === PI.list.length ? 'Every one right.' : 'Look at the ones you missed again: you\'ll draw them in the exam.') + '</p>' +
+        '<p class="gl-row"><button type="button" class="g-btn" data-pi-again>Again</button></p></section>';
+      return;
+    }
+    var a = PI.answered;
+    var h = '<div class="gl-top"><span class="gl-n">' + (PI.i + 1) + ' of ' + PI.list.length + '</span><span class="gl-have"><b>' + PI.right + '</b> right</span></div>' +
+      '<section class="gg-card' + (PI.anim ? ' rise' : '') + '"><div class="g-pic' + (x.kind === 'fig' ? ' is-fig' : '') + '"><img src="' + esc(x.m.file) + '" alt="A picture to name"></div>' +
+      '<p class="gl-ask">What is it?</p><div class="gg-btns g-pic__opts">' + x.opts.map(function (o, k) {
+        var c = a != null ? (o === x.right ? ' is-right' : k === a ? ' is-bad' : '') : '';
+        return '<button type="button" class="gg-b' + c + '" data-pi-a="' + k + '"' + (a != null ? ' disabled' : '') + '>' + esc(o) + '</button>';
+      }).join('') + '</div>';
+    if (a != null) h += '<p class="gg-say">' + (x.opts[a] === x.right ? 'Yes: ' : 'No: it\'s ') + esc(x.right) + '. ' + esc(x.m.caption || x.m.name || '') + '</p><p class="gl-row"><button type="button" class="g-btn" data-pi-next>Next</button></p>';
+    el.innerHTML = h + '</section>';
+    PI.anim = false;
+  }
+
+  // ---------- game: fix it (a wrong sentence: rewrite it so it gets the 2 marks) ----------
+  var FX = null;
+  function renderFix(tid) {
+    var t = G.topic[tid];
+    if (!t) return renderHub();
+    shell('t/' + tid, [[t.name, '#t/' + tid], ['Fix it']], 'That sentence is wrong. Write it so it scores.');
+    FX = { t: t, list: shuffle(t.srps.filter(function (s) { return s.w && s.why; })).slice(0, 10), i: 0, right: 0, shown: false, done: false, draft: '' };
+    app.innerHTML = '<div class="gg">' + backLink() + '<div data-gg></div></div>';
+    paintFix();
+  }
+  function paintFix() {
+    var s = FX.list[FX.i], el = $('[data-gg]', app);
+    if (!s) {
+      el.innerHTML = '<section class="gg-card rise"><p class="gg-big">' + FX.right + '<span class="of">/' + FX.list.length + '</span></p><p class="gg-say">Fixed without help: ' + FX.right + '.</p>' +
+        '<p class="gl-row"><button type="button" class="g-btn" data-fx-again>Again</button></p></section>';
+      return;
+    }
+    var h = '<div class="gl-top"><span class="gl-n">' + (FX.i + 1) + ' of ' + FX.list.length + '</span><span class="gl-have"><b>' + FX.right + '</b> fixed</span></div>' +
+      '<section class="gg-card"><p class="gg-k">This sentence is wrong</p><p class="gg-s g-wrong">' + esc(s.w) + '</p>' +
+      '<p class="gl-ask">' + esc(s.c[0]) + '</p>' + (FX.shown ? '<p class="gg-say">' + esc(s.why) + '</p>' : '') +
+      '<textarea class="gl-ta g-fix" rows="3" aria-label="Your fixed sentence" spellcheck="true" autocapitalize="sentences" placeholder="Write it so it gets the 2 marks."></textarea>' +
+      '<p class="gl-check" data-fx-check aria-live="polite"></p><p class="gl-row">' +
+      (FX.done ? '<button type="button" class="g-btn" data-fx-next>Next</button>' : (!FX.shown ? '<button type="button" class="g-link" data-fx-why>What\'s wrong with it?</button>' : '') + '<button type="button" class="g-link" data-fx-next>Skip</button>') + '</p></section>';
+    el.innerHTML = h;
+    var ta = $('.g-fix', app); ta.value = FX.draft; ta.focus(); checkFix();
+  }
+  function checkFix() {
+    var ta = $('.g-fix', app), s = FX.list[FX.i], v = ta.value, out = $('[data-fx-check]', app);
+    FX.draft = v;
+    var ok = words(v) >= 5 && M.hits(v, s, rules(FX.t)) && v.trim() !== s.w.trim();
+    out.className = 'gl-check' + (ok ? ' is-ok' : '');
+    out.textContent = ok ? 'Fixed: that gets the 2 marks.' : '';
+    if (ok && !FX.done) { FX.done = true; if (!FX.shown) FX.right++; var row = $('.gl-row', fxRoot()); if (row) row.innerHTML = '<button type="button" class="g-btn" data-fx-next>Next</button>'; }
+  }
+  function fxRoot() { return $('[data-gg]', app); }
+
   // ---------- routing and events ----------
   function route() {
     var parts = location.hash.replace(/^#/, '').split('/');
     var k = parts[0];
-    D = L = RV = WS = null;
+    D = L = RV = WS = PI = FX = null;
     if (k === 't') renderTopic(parts[1]);
     else if (k === 'w') renderDesk(parts[1], parts[2]);
     else if (k === 'learn') renderLearn(parts[1], parts[2]);
     else if (k === 'bank') renderBank(parts[1]);
     else if (k === 'play' && parts[1] === 'real') renderReal(parts[2]);
     else if (k === 'play' && parts[1] === 'where') renderWhere(parts[2]);
+    else if (k === 'play' && parts[1] === 'pic') renderPic(parts[2]);
+    else if (k === 'play' && parts[1] === 'fix') renderFix(parts[2]);
     else if (k === 'papers') renderPapers();
     else renderHub();
   }
@@ -847,6 +941,16 @@
       if (t.closest('[data-gg-next]')) { RV.i++; RV.answered = null; RV.anim = true; paintReal(); return; }
       if (t.closest('[data-gg-again]')) { renderReal(RV.t.id); return; }
     }
+    if (PI && t.closest('[data-gg]')) {
+      if ((b = t.closest('[data-pi-a]'))) { var x2 = PI.list[PI.i]; PI.answered = +b.getAttribute('data-pi-a'); if (x2.opts[PI.answered] === x2.right) PI.right++; paintPic(); return; }
+      if (t.closest('[data-pi-next]')) { PI.i++; PI.answered = null; PI.anim = true; paintPic(); return; }
+      if (t.closest('[data-pi-again]')) { renderPic(PI.t.id); return; }
+    }
+    if (FX && t.closest('[data-gg]')) {
+      if (t.closest('[data-fx-why]')) { FX.shown = true; paintFix(); return; }
+      if (t.closest('[data-fx-next]')) { FX.i++; FX.shown = false; FX.done = false; FX.draft = ''; paintFix(); return; }
+      if (t.closest('[data-fx-again]')) { renderFix(FX.t.id); return; }
+    }
     if (WS && t.closest('[data-gg]')) {
       if ((b = t.closest('[data-gw]'))) { var i = +b.getAttribute('data-gw'); WS.on[i] = !WS.on[i]; paintWhere(); return; }
       if (t.closest('[data-gw-check]')) {
@@ -861,6 +965,7 @@
       D.text = D.ta.value; D.caret = D.ta.selectionStart; D.sel = -1;
       grow(); update();
     } else if (L && ev.target.classList.contains('gl-ta')) checkLearn();
+    else if (FX && ev.target.classList.contains('g-fix')) checkFix();
   });
   ['click', 'keyup', 'focus'].forEach(function (k) {
     document.addEventListener(k, function (ev) {

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pool | Leaving Cert Geography</title>
+<meta name="description" content="Pool against the examiner, with questions on every topic of physical geography and British India.">
+<link rel="icon" href="assets/examiner/bro-icon.svg?v=1" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Nunito:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="bio/bio.css?v=eng-108">
+<link rel="stylesheet" href="bio/bio-shell.css?v=eng-108">
+</head>
+<body class="mg-page">
+<!-- Biology's Pool (bio/bio-pool.js) with Geography questions: geo/geo-deck.js gives bio/bio-board.js a deck
+     (every topic's points: which one gets the marks, what's wrong, an example of what, which essay). -->
+<main class="mg-land">
+<h1>Pool</h1>
+<p>Geography: pool against the examiner, a question before every shot.</p>
+<button type="button" class="tb-btn tb-btn--go" data-pl-play>Play</button>
+<p><a href="geography.html">Back to Geography</a></p>
+</main>
+<script src="./examiner-art.js?v=teacher-15"></script>
+<script src="./answer-mode.js?v=answer-mode-48"></script>
+<script src="./geo/geo-mark.js?v=geo-5"></script>
+<script src="./geo/data/plates.js?v=c5847f75"></script>
+<script src="./geo/data/quakes.js?v=739a8fc0"></script>
+<script src="./geo/data/volcanoes.js?v=f7cad09e"></script>
+<script src="./geo/data/deform.js?v=e4e34837"></script>
+<script src="./geo/data/isostasy.js?v=d2257c85"></script>
+<script src="./geo/data/rocks.js?v=3539ff73"></script>
+<script src="./geo/data/landscape.js?v=820ff1f8"></script>
+<script src="./geo/data/rockuse.js?v=c43ed96f"></script>
+<script src="./geo/data/weathering.js?v=1cbd10da"></script>
+<script src="./geo/data/karst.js?v=d93d6e8a"></script>
+<script src="./geo/data/landforms.js?v=18c8f4cf"></script>
+<script src="./geo/data/massmove.js?v=13653840"></script>
+<script src="./geo/data/surfacehuman.js?v=89513c14"></script>
+<script src="./geo/data/india.js?v=7e35b542"></script>
+<script src="./geo/geo-deck.js?v=geo-1"></script>
+<script src="./bio/bio-games.js?v=eng-108"></script>
+<script src="./bio/bio-board.js?v=eng-108"></script>
+<script src="./bio/vendor/three.min.js?v=eng-108"></script>
+<script src="./bio/bio-pool.js?v=eng-108"></script>
+<script>
+(function () {
+  function play() { if (window.BioPool) window.BioPool.open(); }
+  document.querySelector('[data-pl-play]').addEventListener('click', play);
+  play();
+})();
+</script>
+</body>
+</html>

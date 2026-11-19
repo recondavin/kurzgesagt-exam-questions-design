@@ -19,7 +19,8 @@ let fails = 0;
 const fail = msg => { fails++; console.log('   FAIL', msg); };
 const seeded = s => () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
 const t0 = Date.now();
-const holes = T.HOLES.map(h => T.prep(h));
+// the five holes, then the five more a subject can ask for (Geography's landforms)
+const holes = T.HOLES.concat(T.MORE).map(h => T.prep(h));
 
 // ---------------------------------------------------------------- par: searched aims sink every hole within par + 2
 const starts = holes.map(() => []);
@@ -159,5 +160,5 @@ holes.forEach((h, n) => {
 });
 if (short) fail(`${short} of ${aims} trails were shorter than ${T.MIN_TRAIL} when the putt went further`);
 
-console.log(fails ? `${fails} failures` : `ok: 5 holes sunk within par + 2, the ball stays on the course, the same putt rolls the same way, valves are one way, turns (wrong ends a turn, two right and it's capped), his putts (aces from the tee ${aces}/${tries}), trails (${aims} aims) (${((Date.now() - t0) / 1000).toFixed(1)}s)`);
+console.log(fails ? `${fails} failures` : `ok: ${holes.length} holes sunk within par + 2, the ball stays on the course, the same putt rolls the same way, valves are one way, turns (wrong ends a turn, two right and it's capped), his putts (aces from the tee ${aces}/${tries}), trails (${aims} aims) (${((Date.now() - t0) / 1000).toFixed(1)}s)`);
 process.exit(fails ? 1 : 0);
