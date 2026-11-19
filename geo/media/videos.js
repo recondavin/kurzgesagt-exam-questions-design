@@ -1,6 +1,7 @@
 // Geography: short YouTube videos beside each essay (see tools/geo/MEDIA.md).
-// Every id was checked with YouTube's oEmbed endpoint (exists and embeddable) and against its watch page's title,
-// length and description. `secs` is the video's length; `start` skips to the part that is on the point.
+// Every id was checked with YouTube's oEmbed endpoint (exists and embeddable) and against its watch page's title and
+// description; `secs` is the length YouTube lists for it (its search listing, as the watch page hid the player data).
+// `start` skips to the part that is on the point.
 (window.GEO_MEDIA = window.GEO_MEDIA || { figs: [], photos: [], videos: [] }).videos.push(
 
   // ---- plates ----
@@ -10,7 +11,7 @@
     why: "From Wegener's continental drift to sea-floor spreading and convection: the evidence behind plate tectonics theory" },
   { id: 'oCPjgv2Pccc', topic: 'plates', tags: ['plates-boundaries', 'constructive', 'destructive', 'conservative'], title: 'The 4 Tectonic Plate Boundaries and the Hazards they Create', channel: 'Simple Geography', secs: 336, start: 0,
     why: 'Each kind of plate boundary side by side, how the plates move there and the earthquakes and volcanoes each one makes' },
-  { id: 'MmdHZ0IXoSs', topic: 'plates', tags: ['constructive', 'plates-constructive'], title: 'Explaining Constructive Plate Boundaries - GCSE', channel: 'Geographer Online', secs: 0, start: 0,
+  { id: 'MmdHZ0IXoSs', topic: 'plates', tags: ['constructive', 'plates-constructive'], title: 'Explaining Constructive Plate Boundaries - GCSE', channel: 'Geographer Online', secs: 161, start: 0,
     why: 'A constructive boundary drawn step by step: plates pulling apart, magma rising, new crust and a mid-ocean ridge' },
   { id: 'iL4Q1BDQ3ms', topic: 'plates', tags: ['constructive', 'plates-constructive'], title: 'Why Iceland Offers a Perfect Picture of our Geological Past', channel: 'Smithsonian Channel', secs: 132, start: 0,
     why: 'Iceland, where the Mid-Atlantic Ridge rises above the sea and the North American and Eurasian plates pull apart' },
@@ -18,6 +19,8 @@
     why: 'Oceanic crust subducting under continental crust: the trench, melting, the magma that feeds explosive volcanoes and earthquakes' },
   { id: 'lFKXOmgrqZU', topic: 'plates', tags: ['destructive', 'plates-destructive'], title: 'Explaining Destructive Plate Boundaries - GCSE', channel: 'Geographer Online', secs: 200, start: 0,
     why: 'The destructive boundary drawn by hand: the denser oceanic plate sinking into a trench, melting, and the volcanoes it feeds' },
+  { id: 'uy9GFAOGGXU', topic: 'plates', tags: ['destructive', 'plates-destructive', 'foldmountains', 'folding'], title: 'Why is Mount Everest so tall? - Michele Koppes', channel: 'TED-Ed', secs: 293, start: 0,
+    why: 'Two continental plates colliding with no subduction: India pushing into Asia and crumpling the crust up into the Himalayas' },
   { id: 'lrS_240BkBA', topic: 'plates', tags: ['conservative'], title: 'Conservative Plate Margins | AQA GCSE Geography | Tectonic Hazards 7', channel: 'tutor2u', secs: 182, start: 0,
     why: 'Plates sliding past each other, sticking and slipping: the San Andreas Fault and why there are earthquakes but no volcanoes' },
   { id: '5p0K1V_7-Rs', topic: 'plates', tags: ['conservative'], title: 'Conservative plate boundary - diagram and explanation', channel: 'Geographer Online', secs: 136, start: 0,
@@ -135,13 +138,13 @@
 
   // ---- landforms: glaciation ----
   { id: 'loI584OFVpE', topic: 'landforms', tags: ['corrie', 'uvalley', 'arete', 'pyramidal'], title: 'How do glaciers shape the landscape? Animation from geog.1 Kerboodle.', channel: 'Oxford Education', secs: 151, start: 0,
-    why: 'An animation of a glacier carving corries, arêtes, a pyramidal peak and a U-shaped valley' },
+    why: 'An animation of plucking, abrasion and freeze-thaw, and the corries, arêtes and U-shaped valleys they carve' },
   { id: '7p-oPgOkIl4', topic: 'landforms', tags: ['corrie', 'arete', 'pyramidal'], title: 'The Formation of an Arete and Pyramidal Peak (Corrie, Cirque and Cwm) Glaciation Geography Revision', channel: 'TheGeographyGuy', secs: 126, start: 0,
     why: 'Plucking and abrasion hollowing out a corrie, and two or more corries eating back to leave an arête and pyramidal peak' },
-  { id: 'YVPgVNy9-oA', topic: 'landforms', tags: ['corrie', 'uvalley', 'arete', 'pyramidal'], title: 'Landforms made by Glacial Erosion', channel: "Mr Gedge's Geography Channel", secs: 310, start: 0,
-    why: 'Corries, arêtes, pyramidal peaks and U-shaped valleys with truncated spurs and hanging valleys, one after another' },
-  { id: '4hBtb4VgDLI', topic: 'landforms', tags: ['drumlin', 'esker', 'moraine'], title: 'Landforms made by Glacial Deposition', channel: "Mr Gedge's Geography Channel", secs: 178, start: 0,
-    why: 'What a melting glacier leaves behind: moraines, drumlins and eskers' },
+  { id: 'YVPgVNy9-oA', topic: 'landforms', tags: ['uvalley'], title: 'Landforms made by Glacial Erosion', channel: "Mr Gedge's Geography Channel", secs: 310, start: 0,
+    why: 'U-shaped valleys, fiords and ribbon lakes carved by glaciers, filmed in New Zealand\'s South Island' },
+  { id: '4hBtb4VgDLI', topic: 'landforms', tags: ['moraine'], title: 'Landforms made by Glacial Deposition', channel: "Mr Gedge's Geography Channel", secs: 178, start: 0,
+    why: 'Why a melting glacier drops its load, and the lateral, medial and terminal moraines it leaves' },
   { id: 'zvjpHy85GW8', topic: 'landforms', tags: ['esker'], title: 'Glaciers: Esker formation', channel: 'The Live Streamed Classroom', secs: 484, start: 0,
     why: 'An Irish teacher explains how meltwater rivers under the ice laid down the long sand and gravel ridges called eskers' },
   { id: 'RyKmLINrRAg', topic: 'landforms', tags: ['drumlin'], title: 'A Level Physical Geography - Drumlins', channel: 'A Level Revision', secs: 134, start: 0,
@@ -159,23 +162,21 @@
   { id: '20jHXUHs1ek', topic: 'surfacehuman', tags: ['coastal', 'surface-human'], title: 'Coastal Management: Hard Engineering Strategies | AQA GCSE Geography | Coastal Landscapes 10', channel: 'tutor2u', secs: 469, start: 0,
     why: 'Sea walls, groynes, rock armour and gabions: how each one protects the coast, what it costs and its drawbacks' },
   { id: 'B08iDMXYtR8', topic: 'surfacehuman', tags: ['coastal', 'surface-human'], title: 'How Coastal Erosion Works', channel: 'Practical Engineering', secs: 584, start: 0,
-    why: 'An engineer shows coastal erosion and longshore drift in a wave tank, and how groynes and sea walls change the beach' },
+    why: 'An engineer shows coastal erosion in a home-made wave tank, and why protecting one stretch of coast affects the next' },
   { id: 'dcZ0BXJYlUA', topic: 'surfacehuman', tags: ['dams', 'surface-human'], title: "Building the world's largest (and most controversial) power plant - Alex Gendler", channel: 'TED-Ed', secs: 338, start: 0,
     why: "The Three Gorges Dam: its power and flood control, against the people moved, the sediment trapped and the river's ecosystem" },
   { id: 'rW3Eg1cEgW0', topic: 'surfacehuman', tags: ['dams', 'surface-human'], title: 'Shannon Hydro Scheme', channel: 'Institution of Civil Engineers', secs: 168, start: 0,
-    why: "Ireland's own dam: the Shannon Scheme at Ardnacrusha, built in the 1920s to dam the river for hydroelectricity" },
+    why: "Ireland's own dam: the 1920s Shannon Scheme at Ardnacrusha, which dammed the Shannon for hydroelectricity and set up the ESB" },
   { id: 'GjyqlBloRGs', topic: 'surfacehuman', tags: ['flood', 'surface-human'], title: 'River Management: Hard Engineering Strategies | AQA GCSE Geography | River Landscapes 10', channel: 'tutor2u', secs: 426, start: 0,
     why: 'Dams, straightening, embankments and flood relief channels: how hard engineering manages flooding, with costs and effects' },
   { id: '24eOw7tiWDg', topic: 'surfacehuman', tags: ['flood', 'surface-human'], title: 'The Lower Lee (Cork City) Flood Relief Scheme', channel: 'Office of Public Works', secs: 297, start: 0,
     why: "The Office of Public Works' plan to protect Cork city from the River Lee: flood walls, embankments and warning systems" },
 
   // ---- india ----
-  { id: 'OxeTFB84e2k', topic: 'india', tags: ['colonial-impact', 'colonial-posneg'], title: 'How one of the most profitable companies in history rose to power - Adam Clulow', channel: 'TED-Ed', secs: 305, start: 0,
-    why: "How the East India Company went from trading to ruling Bengal and taxing it, the start of Britain's grip on India's wealth" },
   { id: 'rST1OOa6Euc', topic: 'india', tags: ['colonial-impact', 'colonial-posneg'], title: 'The deindustrialization of India', channel: 'Marginal Revolution University', secs: 286, start: 0,
-    why: "Why India's hand-made cotton textile industry collapsed under British rule as machine-made cloth from Britain flooded in" },
+    why: "India's share of world manufacturing falling from 25% in 1750 to under 3% by 1880, and the part British rule and trade played" },
   { id: 'DrcCTgwbsjc', topic: 'india', tags: ['colonial-challenges', 'colonial-impact'], title: 'Why was India split into two countries? - Haimanti Roy', channel: 'TED-Ed', secs: 349, start: 0,
-    why: 'A historian explains how British rule and divide-and-rule politics led to the hurried partition of 1947 and its violence' },
+    why: 'A historian on the 1947 partition of British India into India and Pakistan, and the mass migration and violence that followed' },
   { id: '3AsvcUn3XQc', topic: 'india', tags: ['colonial-challenges', 'colonial-impact'], title: 'Why was India Partitioned? (Short Animated Documentary)', channel: 'History Matters', secs: 206, start: 0,
     why: 'A short animated history of why British India was divided into India and Pakistan in 1947' }
 );
