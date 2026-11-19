@@ -212,7 +212,7 @@
         k: [['tundra', 'sparse', 'moss', 'lichen', 'shallow roots', 'little vegetation', 'few plants'], ['root', 'hold', 'bind', 'vegetat', 'plant']],
         c: ['Why does tundra vegetation do little to stop solifluction?', 'low and sparse · shallow roots · little to hold the soil'],
         v: 'The tundra is a cold place.', w: 'Thick forests in the tundra hold the soil firmly in place.', why: 'The tundra has no forests: its mosses and dwarf shrubs have shallow roots that hold little soil.' },
-      { id: 'massmove.solHuman', a: 'Heat from buildings thaws permafrost', t: 'Heat from buildings, roads and pipelines can thaw the permafrost, so in Alaska the oil pipeline is raised above the ground on supports.',
+      { id: 'massmove.solHuman', a: 'Heat from buildings thaws permafrost', t: 'Heat from buildings, roads and pipelines can thaw the permafrost, so in Alaska much of the oil pipeline is raised above the ground on supports.',
         k: [['building', 'pipeline', 'road', 'house', 'human', 'heated'], ['thaw', 'melt', 'raised', 'stilts']],
         c: ['How can human activity speed up solifluction?', 'heat from buildings and pipelines · thaws permafrost · Alaska pipeline raised'],
         v: 'People live in the tundra too.', w: 'Heat from buildings freezes the permafrost harder, so it can not move.', why: 'Heat from buildings and pipes thaws the permafrost, which is why pipelines are raised above the ground.' },
