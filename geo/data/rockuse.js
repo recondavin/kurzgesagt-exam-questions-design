@@ -92,7 +92,7 @@
       c: ['Name an Irish river polluted by old mines.', 'Avoca, Co. Wicklow · old copper mines · acid drainage · orange river'],
       v: 'Some old mines in Ireland caused problems.', w: 'The Avoca River is clean again because the copper mines closed.', why: 'Acid drainage from the abandoned Avoca mines still pollutes the river decades after they closed.' },
     { id: 'rockuse.lisheen', a: 'Restoring a closed mine', t: 'After Lisheen zinc mine in Co. Tipperary closed in 2015, its tailings were covered with soil and grass and the site was restored.',
-      k: [['restor', 'rehabilit', 'reclaim', 'landscap'], ['mine', 'site', 'tailing', 'lisheen', 'galmoy', 'grass', 'plant', 'soil']],
+      k: [['restor', 'rehabilit', 'reclaim'], ['mine', 'site', 'tailing', 'lisheen', 'galmoy', 'grass', 'plant', 'soil']],
       c: ['What must happen to a mine site when it closes?', 'Lisheen closed 2015 · tailings covered with soil and grass · site restored'],
       v: 'The mine closed in the end.', w: 'When a mine closes, its tailings pond is simply left open to the weather.', why: 'Closed sites such as Lisheen must be restored: the tailings are capped with soil and planted.' },
     { id: 'rockuse.openpit', a: 'Open-pit mining scars the land', t: 'Where ore lies near the surface it is mined in an open pit, as at Bingham Canyon copper mine in Utah, which leaves a huge scar on the landscape.',
