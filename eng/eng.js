@@ -4275,7 +4275,9 @@
     }
     return '<header class="eng-read__hh"><h2>' + slotName(s) + (pt ? ' <span>' + esc(pt.label) + '</span>' : '') + '</h2><button type="button" class="eng-read__hx" data-page-help aria-label="Close help">×</button></header>' +
       '<section class="eng-read__check" data-page-check hidden></section>' +
-      '<section><h3>' + (para ? (part === 'b' ? 'The scenes' : 'The scene') : 'Your paragraphs') + '</h3>' + h + '</section>' + words +
+      // No "Your paragraphs" on the Opening and the Ending (the user: "the paragraphs shouldnt be there get rid of your
+      // paragraphs"): a paragraph's own Help shows its scenes; the Opening and Ending show only the words to use.
+      (para ? '<section><h3>' + (part === 'b' ? 'The scenes' : 'The scene') + '</h3>' + h + '</section>' : '') + words +
       '<section><h3>Instead of “shows”</h3>' + chips(th.instead) + '</section>';
   }
   function pageHelpDraw() { var box = READ.querySelector('[data-page-helpbox]'); box.innerHTML = pageHelp(READ_PART, READ_SLOT, READ_STRUCT ? READ_BOX : null); box.parentNode.scrollTop = 0; pageCheck(); }

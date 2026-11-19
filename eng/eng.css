@@ -3437,13 +3437,13 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-read__paper textarea, .eng-read__paper input { -webkit-user-select: text; user-select: text; }
 
 /* ===== The essay holds only what is typed into it (eng.js, pageHelp). =====
-   The words, phrases and spelling fixes in Help are there to read, so they are written as words, not drawn as
-   boxes that look like buttons (they were buttons that wrote into the box; then boxes that did nothing, which
-   looked like buttons and made Help look like a wall of them). A row of them is one line of words with a dot
-   between. */
-.eng-read__help .eng-read__chips.is-plain { display: block; margin: 0; color: var(--exam-ink); font: 400 17px/1.75 var(--font-body); }
-.eng-read__chip.is-plain, .eng-read__help .eng-cpd__warn .eng-read__chip.is-plain { display: inline; min-height: 0; margin: 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; color: inherit; font: inherit; cursor: auto; white-space: nowrap; }
-.eng-read__chip.is-plain:hover { background: none; box-shadow: none; }
-.eng-read__chips.is-plain .eng-read__chip.is-plain:not(:last-child)::after, .eng-cpd__warn .eng-read__chip.is-plain:not(:last-child)::after { content: "\0000B7"; margin: 0 .22em 0 .5em; color: var(--exam-ink-2); font-weight: 700; }
-.eng-read__w.is-plain { box-sizing: border-box; cursor: auto; }
+   Help's linking words, words instead of "shows" and spelling fixes are there to read: pressing one does nothing.
+   They are drawn as the boxes the user chose (a screenshot of them as boxes: "makethe linking words and instead of
+   shows more consistent throughout the whole thing looking like the image i sent"), the same box everywhere they
+   appear, with no hover, since there is nothing to press. */
+.eng-read__help .eng-read__chips.is-plain { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+.eng-read__chip.is-plain { display: inline-flex; align-items: center; box-sizing: border-box; min-height: 40px; padding: 0 12px; border: 0; border-radius: 4px; background: none; box-shadow: inset 0 0 0 1px var(--exam-done); color: var(--exam-ink); font: 400 17px/1 var(--font-body); white-space: nowrap; cursor: default; }
+.eng-read__help .eng-cpd__warn .eng-read__chip.is-plain { margin: 6px 6px 0 0; vertical-align: middle; }
+.eng-read__chip.is-plain:hover { background: none; box-shadow: inset 0 0 0 1px var(--exam-done); }
+.eng-read__w.is-plain { box-sizing: border-box; cursor: default; }
 .eng-read__w.is-plain:hover { background: none; }
