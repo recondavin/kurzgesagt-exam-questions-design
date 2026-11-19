@@ -38,7 +38,7 @@
       // ---------- gradient ----------
       { id: 'massmove.gradient', a: 'Steeper slopes, faster movement', t: 'The steeper the gradient, the stronger the pull of gravity on the material, so mass movement is faster and more likely on steep slopes.',
         n: ['slower on steep', 'slowest on steep', 'faster on gentle', 'fastest on gentle'],
-        k: [['steep', 'gradient', 'slope angle', 'angle of the slope', 'angle of slope'], ['faster', 'quicker', 'more rapid', 'more likely', 'stronger', 'greater', 'speed', 'pull of gravity', 'more quickly', 'force of gravity']],
+        k: [['steep', 'gradient', 'slope angle', 'angle of the slope', 'angle of slope'], ['=faster', 'quicker', 'more rapid', 'more likely', 'stronger', 'greater', 'speed', 'pull of gravity', 'more quickly', 'force of gravity']],
         c: ['How does the steepness of a slope affect mass movement?', 'steeper gradient · stronger pull of gravity · faster · more likely'],
         v: 'The slope affects how the material moves.', w: 'Mass movement is fastest on gentle slopes because more material collects there.', why: 'Gravity pulls hardest on steep slopes, so movement is fastest there; gentle slopes give slow creep.' },
       // ---------- water ----------
@@ -129,6 +129,7 @@
         c: ['What is soil creep, and how fast is it?', 'slowest form · less than a centimetre a year · can not be seen'],
         v: 'Soil creep is a type of mass movement.', w: 'Soil creep is a fast movement of soil that happens suddenly after heavy rain.', why: 'Soil creep is the slowest mass movement: often less than a centimetre a year, too slow to see.' },
       { id: 'massmove.creepGentle', a: 'Creep on gentle slopes', t: 'Soil creep happens even on gentle, grass-covered slopes, which makes it the most widespread form of mass movement in Ireland.',
+        n: ['terracette', 'ridges', 'step like'],
         k: [['creep'], ['gentle', 'widespread', 'most common', 'grass']],
         c: ['On what kind of slopes does soil creep happen?', 'even gentle grassy slopes · most widespread in Ireland'],
         v: 'Soil creep happens on slopes.', w: 'Soil creep is rare in Ireland because it needs a dry climate.', why: 'Soil creep is the most widespread mass movement in Ireland: it happens even on gentle, grassy slopes in a wet climate.' },
@@ -212,7 +213,7 @@
         c: ['Why does tundra vegetation do little to stop solifluction?', 'low and sparse · shallow roots · little to hold the soil'],
         v: 'The tundra is a cold place.', w: 'Thick forests in the tundra hold the soil firmly in place.', why: 'The tundra has no forests: its mosses and dwarf shrubs have shallow roots that hold little soil.' },
       { id: 'massmove.solHuman', a: 'Heat from buildings thaws permafrost', t: 'Heat from buildings, roads and pipelines can thaw the permafrost, so in Alaska the oil pipeline is raised above the ground on supports.',
-        k: [['building', 'pipeline', 'road', 'house', 'human', 'heated'], ['thaw', 'melt', 'raised', 'stilts', 'supports']],
+        k: [['building', 'pipeline', 'road', 'house', 'human', 'heated'], ['thaw', 'melt', 'raised', 'stilts']],
         c: ['How can human activity speed up solifluction?', 'heat from buildings and pipelines · thaws permafrost · Alaska pipeline raised'],
         v: 'People live in the tundra too.', w: 'Heat from buildings freezes the permafrost harder, so it can not move.', why: 'Heat from buildings and pipes thaws the permafrost, which is why pipelines are raised above the ground.' },
       { id: 'massmove.solEx', a: 'Today: Alaska, Siberia, Canada', t: 'Today solifluction takes place in tundra areas such as Alaska, Siberia and the north of Canada.', x: 1,
@@ -347,6 +348,7 @@
         c: ['How far can a mudflow go?', 'many kilometres · along river valleys · buries everything'],
         v: 'Mudflows can be very destructive.', w: 'Mudflows stop as soon as they reach the bottom of the slope.', why: 'Mudflows are so liquid that they follow valleys for many kilometres.' },
       { id: 'massmove.mudFine', a: 'Fine material: clay, silt, ash', t: 'Mudflows happen where slopes are covered in fine material such as clay, silt or ash, which turns to mud when it is soaked.',
+        n: ['liquid', 'full of water'],
         k: [['fine', 'silt', 'ash'], ['mud', 'clay', 'material', 'particle', 'soak']],
         c: ['What kind of material makes a mudflow?', 'fine material · clay · silt · ash · turns to mud when soaked'],
         v: 'Mudflows are made of mud.', w: 'Mudflows happen where slopes are made of large boulders.', why: 'Mudflows need fine material such as clay, silt or ash that turns to mud when soaked.' },

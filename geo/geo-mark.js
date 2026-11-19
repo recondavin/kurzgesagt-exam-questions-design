@@ -70,6 +70,7 @@
       return VERB_STEMS.some(function (stem) { return t.indexOf(stem) === 0 && t.length <= stem.length + 4; });
     });
   }
+  var STARTERS = wordSet('the this that these those it its they there then when where while as in on at by from because so but also another one a an each many most some such during after before if although however we he she his her their our these');
   function bare(w) { return w.toLowerCase().replace(/'s$/, '').replace(/[^a-z']/g, ''); }
   function capitalBreaks(body) {
     var out = [], re = /(\S+)(\s+)(?=[A-Z])/g, m;
@@ -79,6 +80,10 @@
       if (/[,;:(\-"“”‘’']$/.test(prev)) continue;
       // an acronym is not a new sentence ("a big IT industry", "the OPW built", "the EU")
       if (/^[A-Z]{2,}s?$/.test(next[0])) continue;
+      // nor is a name of two or more capitalised words ("hard Old Red Sandstone", "the Mid Atlantic Ridge"), unless it
+      // starts with a word that starts sentences ("The Burren is...", "In Iceland...")
+      var after = body.slice(m.index + m[0].length).match(/^[A-Za-z'’-]+\s+([A-Za-z])/);
+      if (after && /[A-Z]/.test(after[1]) && !STARTERS[bare(next[0])]) continue;
       var p = bare(prev), n = bare(next[0]);
       if (!p || LINKING[p] || PROPER[n] || n.length < 2 && n !== 'a') continue;
       if (/^[A-Z]/.test(prev)) continue;
