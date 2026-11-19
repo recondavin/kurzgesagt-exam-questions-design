@@ -2617,9 +2617,12 @@
     });
     // One paragraph, written a part at a time: what the parts before this one say is shown above the lines, dimmed,
     // and what the parts after it say (if you have gone back) under them, so it reads as the one paragraph it is
-    // (the user, of one box to a frame: "its misleading to say seperate like 1 big part into 2 paragraphs"). A click
-    // on any of it goes to that part. At most three lines above (the end of it) and two below (the start of it).
-    var seg = function (b) { var v = b.querySelector('.eng-read__ta').value.trim(); return v ? '<span class="eng-cine__seg" data-cine-go="' + cineKey(b) + '">' + esc(v) + '</span> ' : ''; };
+    // (the user, of one box to a frame: "its misleading to say seperate like 1 big part into 2 paragraphs"). At most
+    // three lines above (the end of it) and two below (the start of it).
+    // IT IS ONLY TO READ. A click on it used to bring that part's box in, its words jumping up into the lines (the user:
+    // "GET RID OF CLICKLING ON TEXT WITH LESS OPACITY AND IT APPEARING"). Now nothing happens: the steps above the
+    // question are the way to another part.
+    var seg = function (b) { var v = b.querySelector('.eng-read__ta').value.trim(); return v ? '<span class="eng-cine__seg">' + esc(v) + '</span> ' : ''; };
     [[strip.querySelector('[data-cine-before]'), bx.slice(0, i)], [strip.querySelector('[data-cine-after]'), bx.slice(i + 1)]].forEach(function (r) {
       if (!r[0]) return;
       var h = r[1].map(seg).join('');
