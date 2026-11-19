@@ -3427,3 +3427,14 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 @media (max-width: 700px) { .eng-pause.is-failed .eng-pause__again { position: absolute; margin: 0; } }
 /* Why the film would not start, small, under the screen (eng.js, watchClipFail / watchClipErr). */
 .eng-pause.is-failed .eng-pause__beat, .eng-pause.is-erred .eng-pause__beat { color: rgba(255, 253, 246, .62); font-size: calc(15px * var(--ps, 1)); }
+
+/* ===== On the paper, ONLY YOUR OWN WRITING CAN BE SELECTED. =====
+   The user sent an Evaluate box with this in the middle of their sentence: "Small Things / The girl in the coal shed /
+   Watch the scenes / In both texts, the victims have no choice... / Too long. Keep your two or three best
+   sentences." ("this is nonsense you really need to start looking out for these things"). They had dragged to select
+   their writing, the drag began a little above the box, and what got selected, copied and pasted was the page's own
+   words: a picture's caption, a button, the paragraph so far, the teacher's comment. All of that looked like text
+   beside the writing and behaved like it. Now none of it can be selected; a drag that starts on it selects nothing.
+   The Help panel is not on the paper and can still be copied from (a quote, a note). */
+.eng-read__paper, .eng-read__paper * { -webkit-user-select: none; user-select: none; }
+.eng-read__paper textarea, .eng-read__paper input { -webkit-user-select: text; user-select: text; }

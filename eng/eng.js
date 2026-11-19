@@ -4376,6 +4376,16 @@
     // While a scene is being watched, Escape closes that and nothing else, and its own Tab loop applies.
     if (WATCH) { if (WATCH.typeRun) watchTypeEnd(); if (e.key === 'Escape') { e.stopPropagation(); e.preventDefault(); watchClose(true); } return; }
     if (e.key === 'Escape') { e.stopPropagation(); if (!pageWide() && READ.classList.contains('is-help')) pageHelpSet(false); else readClose(); return; }
+    // Select all, with the cursor not in a box: it means "all of what I am writing here", not every word of the site
+    // behind the desk (which is what the browser would take, and what would then be pasted into the answer). So it
+    // selects the box being written. With the paper's own words unselectable (styles), this is the other way the
+    // page's words could get into someone's writing.
+    if ((e.ctrlKey || e.metaKey) && !e.altKey && (e.key === 'a' || e.key === 'A') && !/^(TEXTAREA|INPUT)$/.test((document.activeElement || {}).tagName || '')) {
+      var box = (READ_TA && READ.contains(READ_TA) && READ_TA.offsetParent ? READ_TA : null) || READ.querySelector('.eng-read__box.is-cur .eng-read__ta') || READ.querySelector('.eng-read__box.is-next .eng-read__ta') || READ.querySelector('.eng-read__ta');
+      e.preventDefault(); e.stopPropagation();
+      if (box) { box.focus({ preventScroll: true }); box.setSelectionRange(0, box.value.length); }
+      return;
+    }
     if (e.key !== 'Tab') return;
     var f = Array.prototype.filter.call(READ.querySelectorAll('textarea, button'), function (x) { return x.offsetParent !== null; }), i = f.indexOf(document.activeElement);
     if (!f.length) return;
