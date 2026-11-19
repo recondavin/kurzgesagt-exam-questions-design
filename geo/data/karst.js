@@ -10,6 +10,7 @@
   srps: [
     // ---------- limestone and karst (shared) ----------
     { id: 'karst.karstDef', a: 'Karst: limestone shaped by solution', t: 'A karst landscape is a limestone region shaped by carbonation, and its name comes from the Karst region of Slovenia.',
+      n: ['landform', 'feature', 'pavement', 'turlough', 'swallow', 'polje', 'cave', 'stalact', 'burren'],
       k: [['karst is', 'karst landscape is', 'karst landscapes are', 'karst region is', 'karst regions are', 'karst area is', 'karst means', 'karst refers', 'karst comes', 'name karst', 'word karst', 'slovenia', 'kras'], ['limestone', 'carbonation', 'solution', 'dissolv', 'chemical weathering']],
       c: ['What is a karst landscape, and where does the name come from?', 'limestone region · shaped by carbonation · the Karst region of Slovenia'],
       v: 'Karst is a type of landscape.', w: 'A karst landscape is a granite region shaped by freeze-thaw.', why: 'Karst is limestone country, shaped by carbonation (chemical weathering).' },
@@ -24,7 +25,7 @@
       c: ['What lines of weakness run through limestone?', 'vertical joints · horizontal bedding planes'],
       v: 'Limestone has cracks in it.', w: 'Limestone has horizontal joints and vertical bedding planes.', why: 'Joints are vertical and bedding planes are horizontal (between the layers).' },
     { id: 'karst.pervious', a: 'Pervious: water drains underground', t: 'Limestone is pervious, so rainwater sinks down through its joints instead of flowing over the surface, leaving few surface rivers.',
-      n: ['impermeab', 'impervious', 'not permeab', 'not pervious', 'swallow', 'pol na', 'poll na', 'sink hole', 'sinkhole', 'shale'],
+      n: ['impermeab', 'impervious', 'not permeab', 'not pervious', 'swallow', 'pol na', 'poll na', 'sink hole', 'sinkhole', 'shale', 'water table', 'old bed', 'dry valley'],
       k: [['pervious', 'permeab', 'underground drainage', 'drains underground', 'flows underground', 'sinks underground', 'goes underground', 'sinks down', 'sink down'], ['joint', 'crack', 'surface', 'river', 'stream']],
       c: ['Why are there so few rivers on limestone?', 'pervious · water sinks down the joints · few surface rivers'],
       v: 'Water goes into limestone.', w: 'Limestone is impermeable, so rivers flow over its surface.', why: 'Limestone is pervious: water sinks down its joints, so few rivers flow over it.' },
@@ -45,7 +46,7 @@
       c: ['What happens to the calcium bicarbonate?', 'soluble · dissolves · carried away in solution'],
       v: 'The limestone dissolves.', w: 'The calcium bicarbonate is left behind as a hard crust on the rock.', why: 'Calcium bicarbonate is soluble: it is carried away in solution, which is how the limestone is removed.' },
     { id: 'karst.carbJoints', a: 'Acid attacks joints and bedding planes', t: 'The acidic rainwater seeps into the joints and bedding planes of the limestone and dissolves the rock along them.',
-      n: ['grike', 'gryke', 'clint', 'freez', 'ice', 'stalact', 'stalagm', 'evenly', 'passage', 'cave', 'cavern', 'swallow', 'polje', 'sponge'],
+      n: ['grike', 'gryke', 'clint', 'freez', 'ice', 'stalact', 'stalagm', 'evenly', 'passage', 'cave', 'cavern', 'swallow', 'polje', 'sponge', 'salt'],
       k: [['joint', 'bedding plane', 'crack', 'lines of weakness', 'line of weakness'], ['acid', 'carbonation', 'dissolv', 'react']],
       c: ['Where in the limestone does carbonation work fastest?', 'acidic rainwater · joints and bedding planes · dissolves along them'],
       v: 'The water goes into the limestone.', w: 'The acidic water soaks evenly through the whole rock like a sponge.', why: 'Limestone is not porous like a sponge: the water moves only along joints and bedding planes, and that is where the rock dissolves.' },
@@ -61,7 +62,7 @@
       v: 'Plants can affect limestone.', w: 'Plant roots protect limestone, so carbonation is slower under soil.', why: 'Water passing through soil picks up humic acids and extra carbon dioxide, making it more acidic, not less.' },
     // ---------- the Burren ----------
     { id: 'karst.burrenEx', a: 'The Burren, Co. Clare', x: 1, t: 'The Burren in north Co. Clare, whose name comes from the Irish for "a rocky place", is Ireland\'s best example of a karst landscape.',
-      n: ['kerry', 'granite', 'carran', 'polje', 'aillwee', 'doolin', 'mullaghmore', 'pol na', 'caher', 'turlough'],
+      n: ['kerry', 'granite', 'carran', 'polje', 'aillwee', '=doolin', 'mullaghmore', 'pol na', 'caher', 'turlough'],
       k: [['burren'], ['rocky place', 'best example', 'karst landscape', 'karst region', 'karst area', 'largest', 'example of karst', 'boireann']],
       c: ['Name Ireland\'s best example of a karst landscape.', 'the Burren · north Co. Clare · "a rocky place"'],
       v: 'The Burren is in Ireland.', w: 'The Burren in Co. Kerry is Ireland\'s best example of a granite landscape.', why: 'The Burren is in north Co. Clare, and it is limestone karst.' },
@@ -168,7 +169,7 @@
       c: ['Why does a drip of water leave calcite behind on a cave roof?', 'drop loses carbon dioxide · water evaporates · calcite deposited'],
       v: 'The water drips down from the roof.', w: 'The drop of water freezes on the roof, and the ice becomes a stalactite.', why: 'Stalactites are not ice: they are calcite left as dripping water loses carbon dioxide.' },
     { id: 'karst.stalactite', a: 'Stalactites hang from the roof', t: 'Layer by layer these deposits build up into a stalactite, an icicle-shaped spike of calcite hanging from the cave roof.',
-      n: ['floor', 'grows up', 'grow up', 'upward', 'doolin', 'great stalactite', 'longest', 'metres long', 'meet', 'join'],
+      n: ['floor', 'grows up', 'grow up', 'upward', '=doolin', 'great stalactite', 'longest', 'metres long', 'meet', 'join'],
       k: [['stalactite'], ['roof', 'ceiling', 'hang', 'down', 'icicle']],
       c: ['What builds up on the cave roof?', 'deposits build up · stalactite · icicle-shaped · hangs from the roof'],
       v: 'Caves have stalactites.', w: 'Stalactites grow up from the floor of the cave.', why: 'Stalactites hang from the roof; stalagmites grow up from the floor.' },
@@ -183,7 +184,7 @@
       v: 'Pillars can be found in caves.', w: 'A pillar is a column of limestone left standing when the rock around it dissolved away.', why: 'A pillar is built, not left: a stalactite and a stalagmite grow until they join.' },
     { id: 'karst.curtain', a: 'Curtains of calcite', t: 'Where water trickles along a crack in a sloping roof, the calcite builds up in thin, wavy sheets called curtains.',
       n: ['shale', 'exposed'],
-      k: [['curtain', 'drape', 'flowstone'], ['crack', 'slop', 'trickl', 'roof', 'wall', 'flow']],
+      k: [['=curtain', 'drape', 'flowstone'], ['crack', 'slop', 'trickl', 'roof', 'wall', 'flow']],
       c: ['What forms where water trickles along a sloping roof?', 'trickles along a crack · thin sheets of calcite · curtains'],
       v: 'Caves have curtains.', w: 'Curtains are layers of shale exposed in the cave walls.', why: 'Curtains are thin sheets of calcite built up where water trickles along a crack in a sloping roof.' },
     { id: 'karst.slow', a: 'They grow very slowly', t: 'Stalactites and stalagmites grow very slowly, so the largest have taken many thousands of years to form.',
@@ -198,7 +199,7 @@
       v: 'Aillwee is in Clare.', w: 'Aillwee Cave was carved by the sea into the cliffs of the Clare coast.', why: 'Aillwee is an inland cave in the Burren, dissolved by water underground.' },
     { id: 'karst.doolin', a: 'Example: the Great Stalactite', x: 1, t: 'The Great Stalactite in Doolin Cave in Co. Clare is over 7 metres long, one of the longest free-hanging stalactites in the world.',
       n: ['floor', 'grows up'],
-      k: [['doolin', 'great stalactite', 'pol an ionain', 'poll an ionain'], ['stalactite', '7', 'seven', 'metre', 'long']],
+      k: [['=doolin', 'doolin cave', 'great stalactite', 'pol an ionain', 'poll an ionain'], ['stalactite', '7', 'seven', 'metre', 'long']],
       c: ['Name a famous Irish stalactite and how long it is.', 'Great Stalactite · Doolin Cave · over 7 metres'],
       v: 'Doolin has a big cave.', w: 'The Great Stalactite in Doolin Cave grows up from the floor of the cave.', why: 'It is a stalactite: it hangs from the roof, over 7 m down.' },
     { id: 'karst.marbleArch', a: 'Example: Marble Arch Caves', x: 1, t: 'The Marble Arch Caves in Co. Fermanagh were dissolved by streams that sink on the slopes of Cuilcagh Mountain.',
@@ -208,7 +209,7 @@
       v: 'There are caves in Fermanagh.', w: 'The Marble Arch Caves were carved out of marble by the sea.', why: 'Despite the name they are in limestone, dissolved by streams sinking off Cuilcagh Mountain.' },
     // ---------- turloughs ----------
     { id: 'karst.turDef', a: 'Turlough: a seasonal lake', t: 'A turlough is a seasonal lake that fills a limestone hollow in winter and dries up in summer; the name means "dry lake" in Irish.',
-      n: ['water table', 'groundwater', 'swallow', 'spring', 'estavelle', 'graz', 'cattle', 'all year', 'carran', 'rahasane', 'coole'],
+      n: ['water table', 'groundwater', 'swallow', 'spring', 'estavelle', 'graz', 'cattle', 'all year', 'carran', 'rahasane', '=coole'],
       k: [['turlough'], ['seasonal', 'winter', 'summer', 'dry lake', 'temporary', 'disappear', 'some of the year', 'part of the year']],
       c: ['What is a turlough, and what does the name mean?', 'seasonal lake · limestone hollow · winter · "dry lake"'],
       v: 'A turlough is a type of lake.', w: 'A turlough is a lake that is full of water all year round.', why: 'A turlough is seasonal: it fills in winter and empties in summer.' },
@@ -237,13 +238,13 @@
       c: ['How do farmers use a turlough?', 'summer · graze cattle and sheep · grassy floor'],
       v: 'Turloughs are used by farmers.', w: 'Farmers grow crops of wheat on the turlough floor all year round.', why: 'It floods every winter, so the floor is used only for summer grazing.' },
     { id: 'karst.turIrish', a: 'Almost unique to the west of Ireland', t: 'Turloughs are found almost only in the limestone lowlands of the west of Ireland, in counties such as Clare, Galway and Mayo.',
-      n: ['granite', 'wicklow', 'rahasane', 'carran', 'coole', 'craughwell'],
+      n: ['granite', 'wicklow', 'rahasane', 'carran', '=coole', 'craughwell'],
       k: [['turlough'], ['west of ireland', 'western', 'galway', 'clare', 'mayo', 'roscommon', 'unique', 'only in ireland', 'mostly in ireland', 'almost only', 'mainly in ireland']],
       c: ['Where are turloughs found?', 'almost only in Ireland · limestone lowlands of the west · Clare, Galway, Mayo'],
       v: 'Turloughs are found in Ireland.', w: 'Turloughs are found mainly in the granite mountains of Wicklow.', why: 'Turloughs are limestone features, found in the lowlands of the west of Ireland.' },
     { id: 'karst.carranTur', a: 'Example: Rahasane, Carran', x: 1, t: 'Examples of turloughs are Rahasane turlough near Craughwell in Co. Galway and the turlough at Carran in the Burren.',
       n: ['granite', 'connemara', 'polje'],
-      k: [['rahasane', 'coole', 'gealain', 'carran turlough', 'turlough at carran'], ['turlough', 'lake', 'flood']],
+      k: [['rahasane', '=coole', 'gealain', 'carran turlough', 'turlough at carran'], ['turlough', 'lake', 'flood']],
       c: ['Name a turlough.', 'Rahasane, near Craughwell, Co. Galway · the turlough at Carran'],
       v: 'There is a turlough in Galway.', w: 'Rahasane is a turlough in the granite of Connemara.', why: 'Rahasane is on the limestone lowland of east Co. Galway, near Craughwell.' },
     // ---------- dry valleys ----------
@@ -297,7 +298,7 @@
       c: ['Why do many poljes form along faults?', 'faults · shattered limestone · weaker · dissolves faster'],
       v: 'Poljes can be near faults.', w: 'Faults make limestone stronger, so poljes form away from them.', why: 'Faulting shatters the limestone, so it dissolves faster along the fault.' },
     { id: 'karst.poljeFloor', a: 'A flat floor of deposits', t: 'The floor of a polje is flat because it is covered by clay and other deposits, and it is often farmed.',
-      n: ['turlough', 'cave', 'stalag', 'graz'],
+      n: ['turlough', 'cave', 'stalag', 'graz', 'steep', 'enclosed', 'large', 'kilomet'],
       k: [['floor'], ['flat', 'clay', 'deposit', 'alluvi', 'sediment']],
       c: ['Why is a polje\'s floor flat?', 'covered by clay and other deposits · often farmed'],
       v: 'The polje has a floor.', w: 'The floor of a polje is bare, jagged limestone pavement.', why: 'The floor is flat because clay and other deposits cover it.' },
@@ -324,7 +325,7 @@
       c: ['Name a surface karst landform.', 'limestone pavement · swallow hole · turlough · polje'],
       v: 'There are many landforms.', w: 'One surface landform found in a karst region is a stalactite.', why: 'Stalactites are underground; surface landforms are pavement, swallow holes, turloughs and poljes.' },
     { id: 'karst.underNamed', a: 'An underground landform named', t: 'One underground landform found in a karst region is the stalactite.',
-      k: [['stalactite', 'stalagmite', 'pillar', 'cave', 'cavern', 'curtain', 'column'], ['landform', 'feature']],
+      k: [['stalactite', 'stalagmite', 'pillar', 'cave', 'cavern', '=curtain', 'column'], ['landform', 'feature']],
       c: ['Name an underground karst landform.', 'cave · stalactite · stalagmite · pillar'],
       v: 'There are landforms underground.', w: 'One underground landform in a karst region is a turlough.', why: 'A turlough is a surface feature; underground landforms are caves, stalactites, stalagmites and pillars.' }
   ],
@@ -334,7 +335,7 @@
       head: [
         { label: 'Landform identified', marks: 2, pick: 'land' },
         { label: 'Process named', marks: 2, k: [['carbonation', 'solution', 'dissolution', 'carbonic']], say: 'The main process at work is carbonation, a type of chemical weathering.' },
-        { label: 'Irish example', marks: 2, k: [['burren', 'clare', 'aillwee', 'doolin', 'pol na', 'poll na', 'pollnagollum', 'poulnagollum', 'carran', 'mullaghmore', 'marble arch', 'fermanagh', 'mitchelstown', 'crag cave', 'rahasane', 'coole', 'craughwell', 'slieve elva', 'caher', 'cuilcagh', 'ballyvaughan']], say: 'The Irish example I will use is the Burren in Co. Clare.' }
+        { label: 'Irish example', marks: 2, k: [['burren', 'clare', 'aillwee', '=doolin', 'doolin cave', 'pol na', 'poll na', 'pollnagollum', 'poulnagollum', 'carran', 'mullaghmore', 'marble arch', 'fermanagh', 'mitchelstown', 'crag cave', 'rahasane', '=coole', 'craughwell', 'slieve elva', 'caher', 'cuilcagh', 'ballyvaughan']], say: 'The Irish example I will use is the Burren in Co. Clare.' }
       ],
       need: 12,
       parts: [

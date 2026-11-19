@@ -46,7 +46,7 @@ button.eng-pick:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px;
 .gd-s { border-radius: 2px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .gd-s.is-srp, .gd-s.is-head { text-decoration: underline solid rgba(214, 49, 43, .6) 2px; text-underline-offset: 6px; }
 .gd-s.is-vague { text-decoration: underline wavy #D6312B 1.5px; text-underline-offset: 6px; }
-.gd-s.is-repeat, .gd-s.is-off { text-decoration: underline dotted #A49B83 2px; text-underline-offset: 6px; }
+.gd-s.is-repeat, .gd-s.is-off, .gd-s.is-cap, .gd-s.is-full { text-decoration: underline dotted #A49B83 2px; text-underline-offset: 6px; }
 .gd-s.is-sel { background: rgba(255, 228, 92, .45); }
 .gd-marks { position: absolute; top: 0; right: 0; width: 72px; height: 100%; pointer-events: none; }
 .gd-m { position: absolute; right: 8px; height: 34px; padding: 0 4px; border: 0; border-radius: 4px; background: none; color: #A49B83; font: 700 21px/34px Caveat, cursive; white-space: nowrap; pointer-events: auto; cursor: pointer; transform: rotate(-3deg); animation: ebdPen .5s both; }

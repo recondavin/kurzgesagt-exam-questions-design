@@ -356,7 +356,7 @@
     if (s.srp) return 'is-srp';
     if (s.heads && s.heads.length) return 'is-head';
     if (s.note === 'vague') return 'is-vague';
-    if (s.note === 'repeat' || s.note === 'off') return 'is-' + s.note;
+    if (s.note === 'repeat' || s.note === 'off' || s.note === 'cap' || s.note === 'full') return 'is-' + s.note;
     return '';
   }
   // Until you pick an option yourself, the desk follows what you write: the first landform (process, interaction...)
@@ -426,12 +426,12 @@
       var marks = (s.srp ? 2 : 0) + (s.heads || []).length * 2;
       var row = rows[y] = rows[y] || { y: y, marks: 0, note: '', i: i };
       row.marks += marks;
-      if (!marks && !row.note) row.note = s.note === 'vague' ? 'vague' : s.note === 'repeat' ? 'repeat' : 'off';
+      if (!marks && !row.note) row.note = ['vague', 'repeat', 'cap', 'full'].indexOf(s.note) >= 0 ? s.note : 'off';
     });
     $('.gd-marks', app).innerHTML = Object.keys(rows).map(function (k) {
       var row = rows[k];
       return '<button type="button" class="gd-m ' + (row.marks ? 'is-ok' : 'is-' + row.note) + '" style="top:' + row.y + 'px" data-gd-s="' + row.i + '" tabindex="-1">' +
-        (row.marks ? '✓ ' + row.marks : row.note) + '</button>';
+        (row.marks ? '✓ ' + row.marks : { cap: 'no more' }[row.note] || row.note) + '</button>';
     }).join('');
   }
   function paintScore(r) {
@@ -528,6 +528,8 @@
     if (s.heads && s.heads.length) return ['happy', s.heads.join(' and ') + ': +' + s.heads.length * 2 + '.'];
     if (s.note === 'vague') return ['ok', 'Nearly, but too vague to score. ' + (s.near ? s.near.c[0] : 'Say exactly what happens and why.')];
     if (s.note === 'repeat') return ['angry', 'You\'ve made that point already' + (s.near ? ' (' + s.near.a + ')' : '') + '. A point only scores once.'];
+    if (s.note === 'cap') return ['ok', 'True, but that\'s another example, and the scheme only credits so many. Explain a process instead.'];
+    if (s.note === 'full') return ['ok', 'True, but that part already has all its marks. Write about the other part now.'];
     if (s.note === 'off') return ['ok', 'True, but that\'s ' + (s.other ? '"' + s.other.a + '"' : 'another topic') + ', which this question doesn\'t ask for.'];
     if (s.note === 'short') return ['ok', 'Too short to be a point. Write the whole sentence.'];
     return ['ok', 'No point in that sentence yet. One fact a sentence: what happens, and why.'];

@@ -45,7 +45,8 @@
     if (stem.length <= 3) return tokens.some(function (t) { return t === stem || t === stem + 's' || t === stem + 'es'; });
     return tokens.some(function (t) {
       if (t.indexOf(stem) === 0) return true;
-      if (stem.length < 6 || t.length < stem.length - 1 || t[0] !== stem[0]) return false;
+      // a slip of one letter, only in a long word and never in its first two letters ("corrie" is not "carried")
+      if (stem.length < 7 || t.length < stem.length - 1 || t[0] !== stem[0] || t[1] !== stem[1]) return false;
       for (var L = stem.length - 1; L <= stem.length + 1; L++) if (lev(stem, t.slice(0, L)) <= 1) return true;
       return false;
     });
@@ -163,7 +164,7 @@
   // ---------- marking an essay ----------
   // Returns { sentences: [...], marks, max, srps, need, heads: [{label, marks, got}], parts: [{name, got, max}], notes }
   // Each sentence: { text, start, end, complete, open, srp: srp|null, heads: [labels], note: null|'short'|'vague'|
-  //   'repeat'|'off'|'other', near: srp|null, other: srp|null }.
+  //   'repeat'|'cap' (an example over the scheme's limit)|'full' (its part has all its SRPs)|'off'|'other', near: srp|null, other: srp|null }.
   function mark(e, text, pick, opts) {
     opts = opts || {};
     var g = G(), t = g.topic[e.topic] || {}, rules = t.normalise || [];
@@ -208,14 +209,14 @@
       // the essay's own SRPs, in the order of the plan: the first one this sentence makes that is not banked yet
       var cand = [];
       live.forEach(function (lp, pi) { lp.srps.forEach(function (sid) { var p = g.srp[sid]; if (p && cand.indexOf(p) < 0) cand.push(p); }); });
-      var hit = null, repeat = null, hitPart = -1;
+      var hit = null, repeat = null, capped = null, full = null, hitPart = -1;
       for (var i = 0; i < cand.length; i++) {
         var p = cand[i];
         if (!earns(p, norm, tok)) continue;
         if (used[p.id] != null) { repeat = repeat || p; continue; }
         var pi2 = partOf[p.id].filter(function (k) { return partGot[k] < partMax[k]; })[0];
-        if (p.x && exUsed >= exCap) { repeat = repeat || p; continue; }
-        if (pi2 == null) { repeat = repeat || p; continue; }
+        if (p.x && exUsed >= exCap) { capped = capped || p; continue; }
+        if (pi2 == null) { full = full || p; continue; }
         hit = p; hitPart = pi2; break;
       }
       if (hit) {
@@ -223,6 +224,9 @@
         return;
       }
       if (repeat) { s.note = 'repeat'; s.near = repeat; return; }
+      // a real point the scheme no longer credits: one example too many, or a half that has all its marks
+      if (capped) { s.note = 'cap'; s.near = capped; return; }
+      if (full) { s.note = 'full'; s.near = full; return; }
       // a real point, but for another option of this question or another topic
       for (var j = 0; j < others.length; j++) if (earns(others[j], norm, tok)) { s.note = 'off'; s.other = others[j]; return; }
       if (s.heads.length) return;   // it named what the question asks to name: that is its job

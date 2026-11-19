@@ -1,0 +1,19 @@
+// Diagrams for plate tectonics and earthquakes (topics plates and quakes): animated SVGs in geo/fig/.
+(window.GEO_MEDIA = window.GEO_MEDIA || { figs: [], photos: [], videos: [] }).figs.push(
+  { id: 'convection', name: 'Convection currents in the mantle', topic: 'plates', tags: ['plates-theory', 'plates-boundaries', 'constructive'], file: 'geo/fig/convection.svg',
+    desc: 'Heat from the core makes hot, less dense rock in the mantle rise, spread out under the crust and sink again as it cools; these convection currents drag the plates of the crust apart where they rise, and magma fills the gap to make new crust.' },
+  { id: 'constructive', name: 'Constructive plate boundary: mid-ocean ridge', topic: 'plates', tags: ['constructive', 'plates-constructive', 'plates-boundaries'], file: 'geo/fig/constructive.svg',
+    desc: 'Two oceanic plates move apart at a mid-ocean ridge: magma rises from the mantle into a magma chamber and up through the rift valley to form new oceanic crust, so the sea floor spreads. Bands of normal and reversed magnetic polarity in the crust are the same on both sides of the ridge, with the youngest rock at the ridge.' },
+  { id: 'subduction', name: 'Destructive plate boundary: oceanic and continental', topic: 'plates', tags: ['destructive', 'plates-destructive', 'plates-destructive-impacts', 'plates-boundaries', 'volcanoes', 'foldmountains'], file: 'geo/fig/subduction.svg',
+    desc: 'A denser oceanic plate is subducted beneath a lighter continental plate at an ocean trench; it melts in the mantle and the magma rises to form volcanoes, while the edge of the continent is crumpled into fold mountains, as in the Andes.' },
+  { id: 'islandarc', name: 'Destructive plate boundary: oceanic and oceanic', topic: 'plates', tags: ['destructive', 'plates-destructive', 'plates-destructive-impacts'], file: 'geo/fig/islandarc.svg',
+    desc: 'Where two oceanic plates meet, the older, denser plate is subducted at an ocean trench; it melts in the mantle and the rising magma builds a curved chain of volcanic islands, an island arc, as in Japan.' },
+  { id: 'collision', name: 'Destructive plate boundary: continental and continental', topic: 'plates', tags: ['destructive', 'foldmountains', 'plates-destructive'], file: 'geo/fig/collision.svg',
+    desc: 'Two continental plates collide; both are too light to be subducted, so the sediments between them are squeezed, folded and pushed up into high fold mountains with deep roots, as in the Himalayas.' },
+  { id: 'conservative', name: 'Conservative plate boundary: plates sliding past', topic: 'plates', tags: ['conservative', 'plates-boundaries', 'earthquakes'], file: 'geo/fig/conservative.svg',
+    desc: 'Seen from above, two plates slide past each other along a fault line, such as the San Andreas Fault, so crust is neither made nor destroyed; the plates stick and then jerk free, causing earthquakes, and features such as rivers are offset across the fault.' },
+  { id: 'quake', name: 'Earthquake: focus, epicentre and seismic waves', topic: 'quakes', tags: ['earthquakes', 'quakes-measure', 'quakes-predict'], file: 'geo/fig/quake.svg',
+    desc: 'Stress builds up until rocks snap and slip along a fault line; the point where this happens underground is the focus, the point on the surface directly above it is the epicentre, and seismic waves spread out from the focus in all directions.' },
+  { id: 'seismograph', name: 'Seismograph and the magnitude scale', topic: 'quakes', tags: ['quakes-measure'], file: 'geo/fig/seismograph.svg',
+    desc: 'A seismograph fixed to bedrock records the shaking: the heavy weight and pen stay still while the drum moves with the ground, drawing P waves first, then S waves, then the biggest surface waves; magnitude is worked out from the amplitude of the waves, and each step up the Richter or moment magnitude scale means waves ten times bigger and about 32 times more energy.' }
+);
