@@ -85,7 +85,7 @@
       c: ['Where does exfoliation happen, and what is special about the temperature there?', 'hot deserts · Sahara · large diurnal (daily) range'],
       v: 'Exfoliation happens in deserts.', w: 'Exfoliation happens in cold, wet places like Ireland where it rains every day.', why: 'Exfoliation needs a large daily range of temperature with clear skies, as in hot deserts, not a mild wet climate.' },
     { id: 'weathering.exRange', a: 'Hot days, cold nights, no cloud', t: 'Day temperatures can rise above 40°C, but with no cloud cover to keep the heat in, nights can be close to freezing.',
-      n: ['thick cloud', 'cloudy', 'as hot as', 'warm night', 'hot night'],
+      n: ['thick cloud', 'cloudy sk', 'cloudy night', 'as hot as', 'warm night', 'hot night'],
       k: [['cloud', 'clear sk', '40', '45', '50', 'forty', 'fifty'], ['night']],
       c: ['How hot and how cold does a desert get, and why are the nights cold?', 'over 40°C by day · no cloud cover · nights close to freezing'],
       v: 'It is hot in the day and cold at night.', w: 'Thick cloud keeps desert nights as hot as the days.', why: 'Desert skies are clear: with no cloud to trap it, the heat escapes and nights turn cold.' },
