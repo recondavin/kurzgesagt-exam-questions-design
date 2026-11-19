@@ -132,8 +132,16 @@
         out.push({ kind: k[1], m: m });
       });
     });
-    // on the desk: diagrams first (the one to draw), then photos, then videos, at most three of each
-    if (tags) { var n = {}; out = out.filter(function (x) { n[x.kind] = (n[x.kind] || 0) + 1; return n[x.kind] <= 3; }); }
+    // on the desk: what shows the option you picked (the waterfall) comes before what only shares the essay (every
+    // landform of erosion); of each kind, the picked option's items only if there are any; diagrams first (the one to
+    // draw), then photos, then videos, at most three of each
+    if (tags) {
+      var opt = tags.slice(1), score = function (x) { return (x.m.tags || []).some(function (t) { return opt.indexOf(t) >= 0; }) ? 2 : 1; };
+      var best = {};
+      out.forEach(function (x) { best[x.kind] = Math.max(best[x.kind] || 0, score(x)); });
+      out = out.filter(function (x) { return score(x) === best[x.kind]; });
+      var n = {}; out = out.filter(function (x) { n[x.kind] = (n[x.kind] || 0) + 1; return n[x.kind] <= 3; });
+    }
     return out;
   }
   // a topic's picture: its first photo (the registry lists the best one first)

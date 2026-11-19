@@ -18,8 +18,6 @@
     why: 'Oceanic crust subducting under continental crust: the trench, melting, the magma that feeds explosive volcanoes and earthquakes' },
   { id: 'lFKXOmgrqZU', topic: 'plates', tags: ['destructive', 'plates-destructive'], title: 'Explaining Destructive Plate Boundaries - GCSE', channel: 'Geographer Online', secs: 200, start: 0,
     why: 'The destructive boundary drawn by hand: the denser oceanic plate sinking into a trench, melting, and the volcanoes it feeds' },
-  { id: 'COLLISION_TBD', topic: 'plates', tags: ['destructive', 'plates-destructive', 'foldmountains', 'folding'], title: '', channel: '', secs: 0, start: 0,
-    why: '' },
   { id: 'lrS_240BkBA', topic: 'plates', tags: ['conservative'], title: 'Conservative Plate Margins | AQA GCSE Geography | Tectonic Hazards 7', channel: 'tutor2u', secs: 182, start: 0,
     why: 'Plates sliding past each other, sticking and slipping: the San Andreas Fault and why there are earthquakes but no volcanoes' },
   { id: '5p0K1V_7-Rs', topic: 'plates', tags: ['conservative'], title: 'Conservative plate boundary - diagram and explanation', channel: 'Geographer Online', secs: 136, start: 0,
