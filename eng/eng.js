@@ -2087,9 +2087,9 @@
       // On the page these are words to read, not buttons: nothing that is clicked writes into the essay (see pageHelp).
       if (o.fix) return '<p class="eng-cpd__warn eng-cpd__warn--' + o.kind + '"><b>' + esc(o[0]) + '</b> ' + esc(pg ? '' : o[1]) + ' ' + o.fix.map(function (f) {
         return pg ? '<span class="' + chip + ' is-plain">' + esc(f[1]) + ' → ' + esc(f[2]) + '</span>' : '<button type="button" class="' + chip + '" ' + fix + '="' + esc(f.join('|')) + '">' + esc(f[1]) + ' → ' + esc(f[2]) + '</button>';
-      }).join('') + '</p>';
+      }).join(pg ? ' ' : '') + '</p>';
       if (o.step) return '<p class="eng-cpd__warn eng-cpd__warn--' + o.kind + '"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + ' <button type="button" class="' + chip + '" ' + step + '>Change the scene</button></p>';
-      return '<p class="eng-cpd__warn' + (o.kind ? ' eng-cpd__warn--' + o.kind : '') + '"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + (o[2].length ? ' ' + o[2].map(function (x) { return pg ? '<span class="' + chip + ' is-plain">' + esc(x) + '</span>' : '<button type="button" class="' + chip + '" ' + word + '="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') : '') + '</p>';
+      return '<p class="eng-cpd__warn' + (o.kind ? ' eng-cpd__warn--' + o.kind : '') + '"><b>' + esc(o[0]) + '</b> ' + esc(o[1]) + (o[2].length ? ' ' + o[2].map(function (x) { return pg ? '<span class="' + chip + ' is-plain">' + esc(x) + '</span>' : '<button type="button" class="' + chip + '" ' + word + '="' + esc(x) + '">' + esc(x) + '</button>'; }).join(pg ? ' ' : '') : '') + '</p>';
     }).join('') : (n >= 40 ? '<p class="eng-cpd__good">No “shows”, no repeated words, nothing misspelt. Nice.</p>' : ''));
   }
   function cpwCheck() {
@@ -4236,7 +4236,7 @@
     // or anything you click on and it saves i better see it gotten rid of"). So the words and phrases here are read,
     // not pressed: they used to be buttons that dropped the word into the box. The same for a spelling fix (it is
     // shown, not applied) and for what is written at a scene's pause (it stays at the pause: watchDone).
-    var chips = function (list) { return '<p class="eng-read__chips">' + list.map(function (x) { return '<span class="eng-read__chip is-plain">' + esc(x) + '</span>'; }).join('') + '</p>'; };
+    var chips = function (list) { return '<p class="eng-read__chips is-plain">' + list.map(function (x) { return '<span class="eng-read__chip is-plain">' + esc(x) + '</span>'; }).join(' ') + '</p>'; };
     var scene = function (tid, mid, extra) {
       var m = mom(mid).m, pic = scenePics(tid, mid)[0];
       return '<div class="eng-read__scene">' + (pic ? '<img src="assets/eng/img/' + esc(pic.file) + '" alt="">' : '') + '<h4>' + esc(m.title) + '</h4><p class="eng-read__where">' + esc(sceneWhere(tid, m)) + '</p>' +

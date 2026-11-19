@@ -3302,7 +3302,10 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-cine__scene.is-two .eng-read__btn { grid-column: 1 / -1; justify-self: start; }
 .eng-cine[data-cur="x"] figure[data-cine-pic="y"], .eng-cine[data-cur="y"] figure[data-cine-pic="x"] { opacity: .38; }
 .eng-cine__all { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
-.eng-cine__all img { aspect-ratio: 16 / 9; }
+/* The Opening's and the Ending's pictures, two by two, the size of one scene's picture. (They were each spanning
+   both columns, "grid-column: 1 / -1" from the scene picture's own rule, so the four stood in a tall column that
+   pushed the writing to the bottom of the screen; the user: "it looks so messy".) */
+.eng-cine__all img { grid-column: auto; grid-row: auto; aspect-ratio: 16 / 9; }
 .eng-read.is-cine .eng-cine__scene .eng-read__btn { --tab: rgba(255, 253, 246, .16); --stripe: #FFFDF6; height: 40px; padding: 0 14px 0 19px; color: #FFFDF6; font-size: 16px; white-space: nowrap; }
 .eng-read.is-cine .eng-cine__scene .eng-read__btn i { margin-right: 4px; color: #FFFDF6; font-style: normal; font-size: 13px; }
 @media (hover: hover) { .eng-read.is-cine .eng-read__paper .eng-cine__scene .eng-read__btn:hover i { color: var(--cine-night); } }
@@ -3387,6 +3390,7 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
   .eng-cine__scene.is-two figcaption { margin: 8px 0 0; font-size: 15px; }
   .eng-cine__scene.is-all { display: block; }
   .eng-cine__all { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .eng-cine__all img { grid-column: auto; grid-row: auto; }
   /* on a phone the three names fit one line without their numbers (the order is left to right); a written one keeps its tick */
   .eng-read.is-cine .eng-cine .eng-cine__steps { gap: 5px; }
   .eng-cine__tab, .eng-cine__tab.is-cur, .eng-cine__tab.is-cur:hover { min-width: 0; height: 38px; padding: 0 10px; border-radius: 19px; font-size: 14px; }
@@ -3433,8 +3437,13 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-read__paper textarea, .eng-read__paper input { -webkit-user-select: text; user-select: text; }
 
 /* ===== The essay holds only what is typed into it (eng.js, pageHelp). =====
-   The words, phrases and spelling fixes in Help are there to read. They were buttons that wrote into the box. */
-.eng-read__chip.is-plain { display: inline-flex; align-items: center; cursor: default; }
-.eng-read__chip.is-plain:hover { background: none; box-shadow: inset 0 0 0 1px var(--exam-done); }
-.eng-read__w.is-plain { box-sizing: border-box; cursor: default; }
+   The words, phrases and spelling fixes in Help are there to read, so they are written as words, not drawn as
+   boxes that look like buttons (they were buttons that wrote into the box; then boxes that did nothing, which
+   looked like buttons and made Help look like a wall of them). A row of them is one line of words with a dot
+   between. */
+.eng-read__help .eng-read__chips.is-plain { display: block; margin: 0; color: var(--exam-ink); font: 400 17px/1.75 var(--font-body); }
+.eng-read__chip.is-plain, .eng-read__help .eng-cpd__warn .eng-read__chip.is-plain { display: inline; min-height: 0; margin: 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; color: inherit; font: inherit; cursor: auto; white-space: nowrap; }
+.eng-read__chip.is-plain:hover { background: none; box-shadow: none; }
+.eng-read__chips.is-plain .eng-read__chip.is-plain:not(:last-child)::after, .eng-cpd__warn .eng-read__chip.is-plain:not(:last-child)::after { content: "\0000B7"; margin: 0 .22em 0 .5em; color: var(--exam-ink-2); font-weight: 700; }
+.eng-read__w.is-plain { box-sizing: border-box; cursor: auto; }
 .eng-read__w.is-plain:hover { background: none; }
