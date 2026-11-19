@@ -49,7 +49,7 @@
   function link(href, label, active, extra) {
     return '<a class="sh-link" href="' + href + '"' + (active ? ' aria-current="page"' : '') + '>' + (extra || '') + '<span class="sh-t">' + esc(label) + '</span></a>';
   }
-  var SUBJECTS = '<a href="Geography%20Questions.dc.html">Geography</a><a href="biology.html">Biology</a><a href="english.html" aria-current="page">English</a><a href="irish.html">Irish</a><a href="german.html">German</a>';
+  var SUBJECTS = '<a href="geography.html">Geography</a><a href="biology.html">Biology</a><a href="english.html" aria-current="page">English</a><a href="irish.html">Irish</a><a href="german.html">German</a>';
   function renderShell(active, crumb) {
     var mine = chosen();
     closeDef();
