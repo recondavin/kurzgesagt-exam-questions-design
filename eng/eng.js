@@ -2492,9 +2492,6 @@
   function cineLines(ta) {
     var w = ta.clientWidth, r = pageCtx(READ_PART).range[ta.getAttribute('data-page-box')];
     if (!w || !r) return 2;
-    // Gone back to a part that is written, with the rest of the paragraph under it: no empty lines between them.
-    var af = READ.querySelector('[data-cine-after]');
-    if (af && !af.hidden && ta.value.trim()) return 1;
     return Math.max(2, Math.min(10, Math.round(r[1] * 5.6 / (w / ((parseFloat(getComputedStyle(ta).fontSize) || 20) * .46)))));
   }
   // What a step is called here. "Anchor" is the site's word for the middle of a paragraph (the user, of this page:
@@ -2623,7 +2620,9 @@
     // "GET RID OF CLICKLING ON TEXT WITH LESS OPACITY AND IT APPEARING"). Now nothing happens: the steps above the
     // question are the way to another part.
     var seg = function (b) { var v = b.querySelector('.eng-read__ta').value.trim(); return v ? '<span class="eng-cine__seg">' + esc(v) + '</span> ' : ''; };
-    [[strip.querySelector('[data-cine-before]'), bx.slice(0, i)], [strip.querySelector('[data-cine-after]'), bx.slice(i + 1)]].forEach(function (r) {
+    // ONLY WHAT CAME BEFORE (the user, of the later parts shown dimmed under the lines: "why is it even fucking there
+    // there should be what you wrote previously"). Nothing is shown under the lines.
+    [[strip.querySelector('[data-cine-before]'), bx.slice(0, i)]].forEach(function (r) {
       if (!r[0]) return;
       var h = r[1].map(seg).join('');
       if (r[0].cineH !== h) { r[0].cineH = h; r[0].innerHTML = '<span>' + h + '</span>'; }
@@ -2707,7 +2706,7 @@
     var body = shown.map(function (s) {
       var P = c.parts(c.W, s), pts = pageParts(part, s, c), sub = pageSub(part, s, c);
       // The page's own words that were once pasted into a box by mistake are taken back out (pageUnjunk).
-      pts.forEach(function (pt) { var was = P[pt.k], now = pageUnjunk(was, pts.filter(function (o) { return o !== pt; }).map(function (o) { return P[o.k]; })); if (now !== was) { P[pt.k] = now; cpSave(); } });
+      pts.forEach(function (pt) { var was = P[pt.k], now = pageUnwatched(pageUnjunk(was, pts.filter(function (o) { return o !== pt; }).map(function (o) { return P[o.k]; }))); if (now !== was) { P[pt.k] = now; cpSave(); } });
       if (!READ_STRUCT) {
         // One paragraph, remembering where each box's text starts (b), so Show structure can put it all back.
         var j = '', bs = [];
@@ -2721,7 +2720,7 @@
         return '<button type="button" class="eng-cine__tab" data-cine-go="' + pt.k + '" data-name="' + esc(cineName(pt)) + '"><i aria-hidden="true">' + (i + 1) + '</i><span aria-hidden="true">' + esc(cineName(pt)) + '</span></button>';
       }).join('') + '</span>' : '';
       return '<div class="eng-read__para' + (any ? ' has-ticks' : '') + '"><div class="eng-read__phrow"><h3 class="eng-read__ph">' + slotName(s) + (sub ? ' <span>' + esc(sub) + '</span>' : '') + '</h3>' + (any && !CINE ? tickTally() : '') + '</div>' + (CINE ? '' : watchBtn(part, s, c)) +
-        (CINE ? '<div class="eng-cine' + (pics.length ? '' : ' is-nopic') + '">' + cineScene(part, s, c) + '<p class="eng-cine__sofar" data-cine-before hidden></p><p class="eng-cine__sofar is-after" data-cine-after hidden></p>' + (any ? tickTally() : '') : '') + pts.map(function (pt, i) {
+        (CINE ? '<div class="eng-cine' + (pics.length ? '' : ' is-nopic') + '">' + cineScene(part, s, c) + '<p class="eng-cine__sofar" data-cine-before hidden></p>' + (any ? tickTally() : '') : '') + pts.map(function (pt, i) {
         return '<div class="eng-read__box" data-page-boxof="' + s + '|' + pt.k + '" style="--pc:' + (PAGE_COL[pt.k] || 'var(--pace-p)') + '"><p class="eng-read__bh">' + steps + '<b>' + esc(CINE ? cineName(pt) : pt.label) + '</b><span' + (CINE ? ' class="eng-cine__q"' : '') + '>' +
           (CINE ? esc(cineAsk(part, s, pt, c)) : pt.hl ? esc(pt.hint).replace(esc(pt.hl), '<mark>' + esc(pt.hl) + '</mark>') : esc(pt.hint)) + '</span>' + pageIdeasBtn(s, pt) + '</p>' + (any ? tickHtml(part, s, pt.k, tk[i], c) : '') + pageIdeasList(s, pt) + '<div class="eng-read__ul" aria-hidden="true"><div></div></div>' +
           '<textarea class="eng-read__ta" data-page-slot="' + s + '" data-page-box="' + pt.k + '" rows="2" spellcheck="true" lang="en-IE" aria-label="' + esc(slotName(s) + ': ' + (CINE ? cineName(pt) : pt.label)) + '" placeholder="Write it in your own words…">' + esc(P[pt.k] || '') + '</textarea>' +
@@ -4318,6 +4317,21 @@
     while (b < lines.length - 1 && (!lines[b + 1].trim() || titles[norm(lines[b + 1])] || same.indexOf(norm(lines[b + 1])) >= 0)) b++;
     var head = lines.slice(0, a).join('\n').replace(/\s+$/, ''), tail = lines.slice(b + 1).join('\n').replace(/^\s+/, '').replace(/^[A-Z][^\n]{0,140}?[.?!](?=[A-Za-z])/, '');
     return pageUnjunk(head && tail ? head + ' ' + tail : head + tail, others);
+  }
+  // SENTENCES THE OLD WATCH PUT INTO THE ESSAY, TAKEN BACK OUT. Until js eng-180 a sentence written at a scene's pause
+  // was added to a box of the paragraph and saved with it, so nothing in the saved answer tells it from typing. The
+  // user, of two such sentences still in their part (b) paragraph: "why is it even fucking there ... not what you
+  // wrote in the fucking watching of it". Those two are known (from the user's screenshots) and are removed wherever
+  // they are, matched by a hash of the sentence so no one's writing is copied into the site: only a sentence whose
+  // letters are exactly one of these goes. Anything else written at a pause before eng-180 cannot be told from
+  // typing and is left for the student.
+  var WATCH_LEFT = { '9538e47f': 1, 'aa23cac4': 1, 'c3d41f4b': 1 };
+  function pageUnwatched(v) {
+    v = String(v == null ? '' : v);
+    var hash = function (x) { var h = 0x811c9dc5; for (var i = 0; i < x.length; i++) { h ^= x.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16); };
+    var norm = function (x) { return x.toLowerCase().replace(/\u2019/g, "'").replace(/[^a-z ]+/g, '').replace(/ +/g, ' ').trim(); };
+    var out = v.replace(/[^.!?\n]+[.!?]*["\u201d\u2019']?/g, function (m) { return WATCH_LEFT[hash(norm(m))] ? '' : m; });
+    return out === v ? v : out.replace(/[ \t]+\n/g, '\n').replace(/[ \t]{2,}/g, ' ').trim();
   }
   function pageTas() { return Array.prototype.slice.call(READ.querySelectorAll('.eng-read__ta[data-page-slot="' + READ_SLOT + '"]')); }
   function pageInsert(word) {
