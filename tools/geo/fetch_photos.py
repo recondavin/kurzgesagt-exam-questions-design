@@ -16,28 +16,28 @@ WANT = [
  ('burren-landscape', 'landscape', ['limestone', 'landscape-rocks'], 'Burren landscape Mullaghmore', 'The bare limestone landscape of the Burren, Co. Clare'),
  ('connemara-marble', 'rocks', ['marble', 'rocks-metamorphic', 'rocks-sed-met', 'rocks-ign-met'], 'Connemara marble', 'Connemara marble, Co. Galway'),
  ('errigal-quartzite', 'rocks', ['quartzite', 'rocks-metamorphic', 'rocks-sed-met'], 'Errigal mountain Donegal', 'Errigal, Co. Donegal: a quartzite peak with scree slopes'),
- ('old-red-sandstone', 'rocks', ['sandstone', 'rocks-sedimentary', 'rocks-sed-met'], 'Old Red Sandstone Ireland', 'Old Red Sandstone'),
- ('limestone-quarry', 'rockuse', ['quarrying', 'rockuse'], 'limestone quarry Ireland', 'A limestone quarry in Ireland'),
- ('torc-waterfall', 'landforms', ['waterfall', 'gorge', 'landform-erosion', 'landform-any'], 'Torc Waterfall', 'Torc Waterfall, Killarney, Co. Kerry'),
+ ('old-red-sandstone', 'rocks', ['sandstone', 'rocks-sedimentary', 'rocks-sed-met'], 'Old Red Sandstone cliff', 'Old Red Sandstone'),
+ ('limestone-quarry', 'rockuse', ['quarrying', 'rockuse'], 'limestone quarry face', 'A limestone quarry in Ireland'),
+ ('torc-waterfall', 'landforms', ['waterfall', 'gorge', 'landform-erosion', 'landform-any'], 'Torc Waterfall cascade Killarney', 'Torc Waterfall, Killarney, Co. Kerry'),
  ('coumshingaun', 'landforms', ['corrie', 'landform-erosion', 'landform-any'], 'Coumshingaun Lough', 'Coumshingaun corrie lake, Comeragh Mountains, Co. Waterford'),
  ('cliffs-of-moher', 'landforms', ['cliff', 'landform-erosion', 'landform-any'], 'Cliffs of Moher', 'The Cliffs of Moher, Co. Clare'),
  ('dun-briste', 'landforms', ['stack', 'landform-erosion', 'landform-any'], 'Dun Briste sea stack Downpatrick Head', 'Dún Briste sea stack, Downpatrick Head, Co. Mayo'),
- ('inch-strand', 'landforms', ['spit', 'beach', 'landform-deposition', 'landform-any'], 'Inch Strand Kerry', 'Inch Strand, a sand spit on Dingle Bay, Co. Kerry'),
+ ('inch-strand', 'landforms', ['spit', 'beach', 'landform-deposition', 'landform-any'], 'Inch beach Dingle sand dunes', 'Inch Strand, a sand spit on Dingle Bay, Co. Kerry'),
  ('clew-bay-drumlins', 'landforms', ['drumlin', 'landform-deposition', 'landform-any'], 'Clew Bay drumlins', 'Drowned drumlins in Clew Bay, Co. Mayo'),
- ('esker', 'landforms', ['esker', 'landform-deposition', 'landform-any'], 'esker Ireland', 'An esker in the Irish midlands'),
+ ('esker', 'landforms', ['esker', 'landform-deposition', 'landform-any'], 'esker ridge glacial', 'An esker in the Irish midlands'),
  ('oxbow-lake', 'landforms', ['oxbow', 'floodplain', 'landform-deposition', 'landform-any'], 'oxbow lake aerial', 'A meander and oxbow lake'),
- ('shannon-callows', 'landforms', ['floodplain', 'levee', 'landform-deposition', 'landform-any'], 'Shannon Callows flood', 'The River Shannon\'s floodplain, the Shannon Callows'),
+ ('shannon-callows', 'landforms', ['floodplain', 'levee', 'landform-deposition', 'landform-any'], 'Shannon callows', 'The River Shannon\'s floodplain, the Shannon Callows'),
  ('delta-aerial', 'landforms', ['delta', 'landform-deposition', 'landform-any'], 'river delta aerial', 'A river delta'),
- ('terminal-moraine', 'landforms', ['moraine', 'outwash', 'landform-deposition', 'landform-any'], 'terminal moraine glacier', 'A glacier\'s terminal moraine'),
- ('terracettes', 'massmove', ['creep', 'mass-process', 'mass-factors', 'mass-two'], 'terracettes', 'Terracettes on a grassy slope, a sign of soil creep'),
+ ('terminal-moraine', 'landforms', ['moraine', 'outwash', 'landform-deposition', 'landform-any'], 'terminal moraine', 'A glacier\'s terminal moraine'),
+ ('terracettes hillside sheep tracks', 'massmove', ['creep', 'mass-process', 'mass-factors', 'mass-two'], 'terracettes hillside sheep tracks', 'Terracettes on a grassy slope, a sign of soil creep'),
  ('landslide-scar', 'massmove', ['landslide', 'slump', 'mass-process', 'mass-factors', 'mass-two'], 'landslide scar', 'A landslide scar'),
- ('bog-slide', 'massmove', ['bogburst', 'mudflow', 'mass-process', 'mass-factors'], 'Derrybrien landslide', 'The Derrybrien bog slide, Co. Galway, 2003'),
+ ('bog-slide', 'massmove', ['bogburst', 'mudflow', 'mass-process', 'mass-factors'], 'bog burst peat landslide', 'The Derrybrien bog slide, Co. Galway, 2003'),
  ('groynes', 'surfacehuman', ['coastal', 'surface-human', 'beach'], 'groynes beach', 'Groynes trapping sand on a beach'),
  ('ardnacrusha', 'surfacehuman', ['dams', 'surface-human'], 'Ardnacrusha power station', 'Ardnacrusha hydroelectric station on the River Shannon, Co. Clare'),
  ('aswan-dam', 'surfacehuman', ['dams', 'surface-human'], 'Aswan High Dam', 'The Aswan High Dam on the Nile, Egypt'),
  ('csmt-mumbai', 'india', ['colonial-impact', 'colonial-posneg', 'colonial-challenges'], 'Chhatrapati Shivaji Terminus', 'Victoria Terminus (Chhatrapati Shivaji Terminus), Mumbai, built by the British in 1888'),
  ('darjeeling-tea', 'india', ['colonial-impact', 'colonial-posneg'], 'Darjeeling tea garden', 'A tea plantation at Darjeeling, first planted under British rule'),
- ('bangalore-it', 'india', ['colonial-challenges', 'colonial-posneg'], 'Bangalore Electronic City', 'Electronic City, Bengaluru (Bangalore), India\'s IT centre'),
+ ('bangalore-it', 'india', ['colonial-challenges', 'colonial-posneg'], 'Infosys campus Bangalore', 'Electronic City, Bengaluru (Bangalore), India\'s IT centre'),
  ('andes', 'plates', ['destructive', 'plates-destructive', 'foldmountains'], 'Andes mountains Aconcagua', 'The Andes, fold mountains at a destructive boundary'),
 ]
 FREE = re.compile(r'^(cc[ -]by|cc[ -]by-sa|cc0|public domain|pd)', re.I)
@@ -83,6 +83,6 @@ for pid, topic, tags, q, cap in WANT:
                 'credit': (r.get('creator') or 'Flickr')[:120], 'licence': lic, 'source': r.get('foreign_landing_url'), 'title': r.get('title')})
     print('ok', pid, '|', r.get('title'), '|', lic, flush=True)
     json.dump(res, open(os.path.join(ROOT, 'tools', 'geo', 'research', 'photos-new.json'), 'w'), indent=1, ensure_ascii=False)
-    time.sleep(1)
+    time.sleep(4)
 json.dump(res, open(os.path.join(ROOT, 'tools', 'geo', 'research', 'photos-new.json'), 'w'), indent=1, ensure_ascii=False)
 print(len(res), 'saved')
