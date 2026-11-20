@@ -156,7 +156,7 @@
       '<a class="g-card g-game" href="#play/real/' + tid + '"><b>Real, vague or wrong?</b><span>Ten sentences. Say which ones get the marks.</span></a>' +
       '<a class="g-card g-game" href="#play/where/' + tid + '"><b>Where does it score?</b><span>One point, many essays: find every past question it earns marks in.</span></a>' +
       '<a class="g-card g-game" href="#bank/' + tid + '"><b>Your bank vs the papers</b><span>How many marks your points get in every past essay.</span></a>' +
-      '<a class="g-card g-game" href="#play/pic/' + tid + '"><b>Picture it</b><span>A diagram or a photo: name the landform, rock or process.</span></a>' +
+      (picRounds(tid).length >= 3 ? '<a class="g-card g-game" href="#play/pic/' + tid + '"><b>Picture it</b><span>A diagram or a photo: name the landform, rock or process.</span></a>' : '') +
       '<a class="g-card g-game" href="#play/fix/' + tid + '"><b>Fix it</b><span>A wrong sentence: rewrite it so it gets the 2 marks.</span></a>' +
       '<a class="g-card g-game" href="geo-golf.html"><b>Mini Golf</b><span>Ten holes against the examiner, from the rift to the fault. A question before every putt.</span></a>' +
       '<a class="g-card g-game" href="geo-pool.html"><b>Pool</b><span>Pot your balls against the examiner. A question before every shot.</span></a></div>';
@@ -802,6 +802,12 @@
     var t = G.topic[tid];
     if (!t) return renderHub();
     shell('t/' + tid, [[t.name, '#t/' + tid], ['Picture it']], 'What is it? Name it the way the exam wants.');
+    PI = { t: t, list: shuffle(picRounds(tid)).slice(0, 10), i: 0, right: 0, answered: null, anim: true };
+    app.innerHTML = '<div class="gg">' + backLink() + '<div data-gg></div></div>';
+    paintPic();
+  }
+  // the pictures (diagrams and photos) of a topic that show one of its options, with three other options to choose from
+  function picRounds(tid) {
     var on = optNames(tid), rounds = [];
     ['figs', 'photos'].forEach(function (k) {
       (MEDIA[k] || []).forEach(function (m) {
@@ -814,9 +820,7 @@
         rounds.push({ m: m, kind: k === 'figs' ? 'fig' : 'photo', right: on.names[id], opts: shuffle([on.names[id]].concat(wrong)) });
       });
     });
-    PI = { t: t, list: shuffle(rounds).slice(0, 10), i: 0, right: 0, answered: null, anim: true };
-    app.innerHTML = '<div class="gg">' + backLink() + '<div data-gg></div></div>';
-    paintPic();
+    return rounds;
   }
   function paintPic() {
     var x = PI.list[PI.i], el = $('[data-gg]', app);

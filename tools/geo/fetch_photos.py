@@ -1,4 +1,4 @@
-# Fetches photos from Wikimedia Commons (free licences only) for the Geography section: for each wanted subject, one
+# Fetches photos from Openverse (Flickr and other open collections; free licences only) for the Geography section: for each wanted subject, one
 # search that returns the files' 1280px thumbnails with their licence and author; keeps the first JPEG with a free
 # licence, saves it under assets/geo/photos/<id>.jpg (resized to stay under 250 KB) and writes
 # tools/geo/research/photos-new.json for review. Requests are paced (Wikimedia rate-limits bursts).
@@ -48,33 +48,29 @@ def get(url, binary=False):
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=40) as r:
                 return r.read() if binary else json.loads(r.read())
         except urllib.error.HTTPError as e:
-            if e.code == 429: time.sleep(12); continue
+            if e.code == 429: time.sleep(5); continue
             raise
     raise RuntimeError('rate limited')
 
 def strip(h): return re.sub(r'<[^>]+>', '', h or '').strip()
 
 out_dir = os.path.join(ROOT, 'assets', 'geo', 'photos'); os.makedirs(out_dir, exist_ok=True)
-have = {f[:-4] for f in os.listdir(out_dir)}
+# skip only photos already in the registry (a file without its credit is fetched again)
+have = set(re.findall(r'"id": "([a-z0-9-]+)"', open(os.path.join(ROOT, 'geo', 'media', 'photos.js')).read()))
+LIC = {'by': 'CC BY', 'by-sa': 'CC BY-SA', 'cc0': 'CC0', 'pdm': 'Public domain'}
 res = []
+only = sys.argv[1:]
 for pid, topic, tags, q, cap in WANT:
-    if pid in have: continue
-    api = 'https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode({'action': 'query', 'format': 'json', 'generator': 'search', 'gsrnamespace': 6,
-        'gsrsearch': q + ' filetype:bitmap', 'gsrlimit': 10, 'prop': 'imageinfo', 'iiprop': 'url|extmetadata|size|mime', 'iiurlwidth': 1280})
+    if pid in have or (only and pid not in only): continue
+    api = 'https://api.openverse.org/v1/images/?' + urllib.parse.urlencode({'q': q, 'license': 'by,by-sa,cc0,pdm', 'page_size': 12, 'mature': 'false'})
     try: data = get(api)
-    except Exception as e: print('FAIL search', pid, e); time.sleep(6); continue
-    pages = sorted((data.get('query') or {}).get('pages', {}).values(), key=lambda p: p.get('index', 99))
-    pick = None
-    for p in pages:
-        ii = (p.get('imageinfo') or [{}])[0]; md = ii.get('extmetadata', {})
-        lic = strip(md.get('LicenseShortName', {}).get('value'))
-        if ii.get('mime') != 'image/jpeg' or not FREE.match(lic) or ii.get('width', 0) < 900: continue
-        pick = (p, ii, lic, strip(md.get('Artist', {}).get('value')) or 'Wikimedia Commons'); break
-    time.sleep(6)
-    if not pick: print('none', pid); continue
-    p, ii, lic, artist = pick
-    try: raw = get(ii['thumburl'], binary=True)
-    except Exception as e: print('FAIL download', pid, e); time.sleep(6); continue
+    except Exception as e: print('FAIL search', pid, e); time.sleep(3); continue
+    cands = [r for r in data.get('results', []) if (r.get('width') or 0) >= 900 and (r.get('width') or 0) >= (r.get('height') or 0) and r.get('url', '').endswith('.jpg')]
+    if not cands: cands = [r for r in data.get('results', []) if (r.get('width') or 0) >= 700 and r.get('url', '').endswith('.jpg')]
+    if not cands: print('none', pid); time.sleep(2); continue
+    r = cands[0]
+    try: raw = get(r['url'], binary=True)
+    except Exception as e: print('FAIL download', pid, e); time.sleep(2); continue
     im = Image.open(io.BytesIO(raw)).convert('RGB'); im.thumbnail((1280, 1280))
     q_ = 82
     while True:
@@ -82,9 +78,11 @@ for pid, topic, tags, q, cap in WANT:
         if b.tell() < 250000 or q_ < 50: break
         q_ -= 8
     open(os.path.join(out_dir, pid + '.jpg'), 'wb').write(b.getvalue())
+    lic = LIC.get(r.get('license'), r.get('license', '').upper()) + ((' ' + r['license_version']) if r.get('license_version') and r.get('license') not in ('cc0', 'pdm') else '')
     res.append({'id': pid, 'topic': topic, 'tags': tags, 'file': 'assets/geo/photos/' + pid + '.jpg', 'w': im.width, 'h': im.height, 'caption': cap,
-                'credit': artist[:120], 'licence': lic, 'source': ii.get('descriptionurl'), 'title': p.get('title')})
-    print('ok', pid, '|', p.get('title'), '|', lic)
-    time.sleep(6)
+                'credit': (r.get('creator') or 'Flickr')[:120], 'licence': lic, 'source': r.get('foreign_landing_url'), 'title': r.get('title')})
+    print('ok', pid, '|', r.get('title'), '|', lic, flush=True)
+    json.dump(res, open(os.path.join(ROOT, 'tools', 'geo', 'research', 'photos-new.json'), 'w'), indent=1, ensure_ascii=False)
+    time.sleep(1)
 json.dump(res, open(os.path.join(ROOT, 'tools', 'geo', 'research', 'photos-new.json'), 'w'), indent=1, ensure_ascii=False)
 print(len(res), 'saved')
