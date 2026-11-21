@@ -3510,7 +3510,19 @@
         themes: { power: { ask: 'What does this ending show about abuse of power in Sive?', title: 'How it ends',
           note: 'The play ends with nobody punished and nothing put right. Mike’s first thought over his niece’s body is for the priest and a proper burial, for what is respectable, and it is left to the travelling men, the poorest people in the play, to say what was done to her. Sive closes on a lament, with the powerful unpunished.',
           say: [['Her uncle’s first thought:', '“We must go for the priest. She must have the priest.”', 'The last word is the travelling men’s song:', '“Oh, they murdered lovely Sive, for she would not be a bride, and they laid her dead to bury in the clay.”']] } } }
-    ] }
+    ] },
+    // The scenes that had no clip (the user, on the Scene board: "why cant i watch all of them"). Sive's four, from the
+    // same St Brigid's recording, starting where tools/eng/research/clips.json found each scene by its captions
+    // (0:44 "There's a smell of smoke"; 29:35 "your cousin" and 29:43 "Go on. Get out of here"; 37:40 "What do the likes
+    // of us know about love?" and 40:04 "He hung himself from a tree"; 1:47:22 "The farmer will be the new lord of the
+    // land"), ending before the next scene found there. Small Things' Christmas at home is "The jigsaw puzzle" clip
+    // ("Daddy, did Santa ever come to you when you were a little kid", 0:00), to before its Mass at 2:08. No pauses of
+    // their own: each freezes on its last frame for the question.
+    'sive-1': { yt: 'Vql0MTCXTiY', start: 44, end: 430 },
+    'sive-3': { yt: 'Vql0MTCXTiY', start: 1740, end: 1815 },
+    'sive-4': { yt: 'Vql0MTCXTiY', start: 2240, end: 2445 },
+    'sive-10': { yt: 'Vql0MTCXTiY', start: 6400, end: 6600 },
+    'stlt-3': { yt: 'YNVkLgjCDqQ', start: 0, end: 125 }
   }, WATCH_NOYT = false;
   var WATCH_HINT = { wait: 'Press play if it does not start by itself. If an ad comes first, skip it when you can.', ad: 'If an ad is playing, skip it when you can. The scene starts straight after it.', on: 'It pauses by itself on the moment that matters.' };
   function watchClipOf(sc) { return (window.EngClips || {})[sc.mid] || CLIPS[sc.mid] || null; }
@@ -6065,7 +6077,9 @@
       renderShell('board', 'Scene board');
       if (window.EngBoard) window.EngBoard.render(app, p.slice(1), { esc: esc, title: title, pics: pics, text: text, COL: COL,
         // the scene's clip, in the same player as #watch/<scene>, over the board (closing it leaves you on the board)
-        canWatch: function (mid) { return !!(((window.EngClips || {})[mid] || CLIPS[mid]) && watchScene(mid)); },
+        // every scene opens in the player: the clip where there is one, otherwise its picture with the scene told beat by beat
+        canWatch: function (mid) { return !!watchScene(mid); },
+        hasClip: function (mid) { return !!((window.EngClips || {})[mid] || CLIPS[mid]); },
         watch: function (mid, th) { var ws = watchScene(mid); if (ws) watchOpen(ws, th === 'power' || th === 'education' ? th : undefined); } });
       else app.innerHTML = title('Scene board') + '<p class="eng-p">Coming soon.</p>';
     }

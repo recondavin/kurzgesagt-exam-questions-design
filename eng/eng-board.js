@@ -21,7 +21,8 @@
     wide: { W: 1400, sw: 400, tw: 250, th: 80, full: true },
     narrow: { W: 620, H: 940, sw: 180, sh: 214, tw: 272, th: 70 }
   };
-  var C = null, DRAG = null, LAYN = 'wide', K = 1, AUTO = {}, HB = 0;
+  var C = null, DRAG = null, LAYN = 'wide', K = 1, AUTO = {}, HB = 0, TOPY = 74;
+  // where the top row starts, under the label strips (set per layout in corkHtml)
 
   function esc(s) { return A.esc(s); }
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
@@ -42,6 +43,13 @@
     var tid = tidOf(mid), all = A.pics(tid), q = all.filter(function (p) { return (p.scene != null ? p.scene : p.moment) === mid; })[0] || all.filter(function (p) { return p.hero; })[0] || all[0];
     return q ? 'assets/eng/img/' + q.file : '';
   }
+  // the user: "why arent they organised by what text they are actually in": the texts in their order, each text's
+  // scenes in the order they happen
+  function sortIds(ids) {
+    var at = function (mid) { var tid = tidOf(mid); return T.texts.indexOf(tid) * 100 + A.text(tid).moments.map(function (m) { return m.id; }).indexOf(mid); };
+    return ids.slice().sort(function (a, b) { return at(a) - at(b); });
+  }
+  function hasClip(mid) { try { return !!(A.hasClip && A.hasClip(mid)); } catch (e) { return false; } }
   function canWatch(mid) { try { return !!(A.canWatch && A.canWatch(mid)); } catch (e) { return false; } }
   function noWhy(mid, th) {
     var y = yesOf(mid).map(function (t) { return t.name.toLowerCase(); });
@@ -72,7 +80,11 @@
     return '<dl class="sb-fix"><dt>Where</dt><dd>' + esc(m.where) + '</dd><dt>Who\'s there</dt><dd>' + esc(s.who) + '</dd><dt>What happens</dt><dd><ol>' +
       (m.tell || [m.what]).map(function (x) { return '<li>' + marked(mid, x, named) + '</li>'; }).join('') + '</ol></dd></dl>';
   }
-  function watchBtn(mid, cls) { return canWatch(mid) ? '<button type="button" class="' + (cls || 'sb-btn is-quiet') + '" data-cb-watch="' + mid + '"><i aria-hidden="true">▶</i> Watch the scene</button>' : ''; }
+  function watchBtn(mid, cls) {
+    if (!canWatch(mid)) return '';
+    return '<button type="button" class="' + (cls || 'sb-btn is-quiet') + '" data-cb-watch="' + mid + '"><i aria-hidden="true">▶</i> ' + (hasClip(mid) ? 'Watch the scene' : 'See the scene') + '</button>' +
+      (hasClip(mid) ? '' : '<span class="cb-noclip">There\'s no clip of this one on YouTube, so it\'s told over a still.</span>');
+  }
   // Why: what it works for, the strings that don't hold, the ones that touch it but have nothing to write.
   function why(mid, picks, play) {
     var yes = [], wrong = [], thin = [], none = [];
@@ -120,15 +132,16 @@
   function load() {
     var v = null;
     try { v = JSON.parse(store('eng-cork') || 'null'); } catch (e) {}
-    if (v && Array.isArray(v.ids) && v.ids.length && v.ids.every(function (mid) { return T.scenes[mid]; })) { C = v; C.pos = C.pos || {}; C.strings = (C.strings || []).filter(function (x) { return T.scenes[x.s] && TH[x.t]; }); S.text = C.text || 'all'; return; }
+    if (v && Array.isArray(v.ids) && v.ids.length && v.ids.every(function (mid) { return T.scenes[mid]; })) { C = v; C.ids = sortIds(C.ids); C.pos = C.pos || {}; C.strings = (C.strings || []).filter(function (x) { return T.scenes[x.s] && TH[x.t]; }); S.text = C.text || 'all'; return; }
     newCase();
   }
   function save() { store('eng-cork', JSON.stringify(C)); }
   function newCase() {
     var mk = marks(), n = (C && C.n || 0) + 1, ids;
     var order = function (list) { return shuffle(list).sort(function (a, b) { var x = mk[a] == null ? -1 : mk[a], y = mk[b] == null ? -1 : mk[b]; return x - y; }); };
-    if (S.text === 'all') { ids = []; T.texts.forEach(function (t) { ids = ids.concat(order(scenes(t)).slice(0, CASE_N / T.texts.length)); }); ids = shuffle(ids); }
+    if (S.text === 'all') { ids = []; T.texts.forEach(function (t) { ids = ids.concat(order(scenes(t)).slice(0, CASE_N / T.texts.length)); }); }
     else ids = order(scenes(S.text)).slice(0, CASE_N);
+    ids = sortIds(ids);
     C = { n: n, ids: ids, strings: [], pos: {}, checked: false, text: S.text };
     S.sel = null; S.arm = null; S.miss = false;
     save();
@@ -139,18 +152,21 @@
   // on the bulletin board") in a row along the top and the bottom, the themes in two rows between them, placed from
   // the cards' real heights; on phones, small photos.
   function placeAuto() {
-    var L = lay(), hs = {}, top = C.ids.slice(0, 3), bot = C.ids.slice(3, 6);
+    var L = lay(), hs = {}, top, bot;
+    if ((C.text || 'all') === 'all') { var by = T.texts.map(function (t) { return C.ids.filter(function (mid) { return tidOf(mid) === t; }); }); top = by.map(function (g) { return g[0]; }); bot = by.map(function (g) { return g[1]; }); }
+    else { top = C.ids.slice(0, 3); bot = C.ids.slice(3, 6); }
+    top = top.filter(Boolean); bot = bot.filter(Boolean);
     Array.prototype.forEach.call(app.querySelectorAll('.cb-card'), function (el) { hs[el.getAttribute('data-k')] = el.offsetHeight; });
     var hOf = function (k) { return hs[k] || (k.charAt(0) === 's' ? L.sh || 420 : L.th); };
     AUTO = {};
     if (LAYN === 'wide') {
-      var topH = Math.max.apply(null, top.map(function (m) { return hOf('s:' + m); }).concat([0])), band = 30 + topH + 64;
-      top.forEach(function (mid, i) { AUTO['s:' + mid] = { x: 30 + i * 465 + jit(mid, 12), y: 30 + jit(mid + 'y', 6) }; });
+      var topH = Math.max.apply(null, top.map(function (m) { return hOf('s:' + m); }).concat([0])), band = TOPY + topH + 64;
+      top.forEach(function (mid, i) { AUTO['s:' + mid] = { x: 30 + i * 465 + jit(mid, 10), y: TOPY + jit(mid + 'y', 5) }; });
       T.themes.forEach(function (t, i) { AUTO['t:' + t.id] = { x: 60 + (i % 4) * 330 + jit(t.id, 18), y: band + (i < 4 ? 0 : 124) + jit(t.id + 'y', 10) }; });
       var y2 = band + 124 + L.th + 74;
-      bot.forEach(function (mid, i) { AUTO['s:' + mid] = { x: 30 + i * 465 + jit(mid, 12), y: y2 + jit(mid + 'y', 6) }; });
+      bot.forEach(function (mid, i) { AUTO['s:' + mid] = { x: 30 + i * 465 + jit(mid, 10), y: y2 + jit(mid + 'y', 5) }; });
     } else {
-      [top, bot].forEach(function (row, r) { row.forEach(function (mid, i) { AUTO['s:' + mid] = { x: 14 + i * 202, y: (r ? L.H - L.sh - 18 : 18) + jit(mid + 'y', 6) }; }); });
+      [top, bot].forEach(function (row, r) { row.forEach(function (mid, i) { AUTO['s:' + mid] = { x: 14 + i * 202, y: (r ? L.H - L.sh - 18 : TOPY) + jit(mid + 'y', 4) }; }); });
       T.themes.forEach(function (t, i) { AUTO['t:' + t.id] = { x: 26 + (i % 2) * 296 + jit(t.id, 6), y: 258 + Math.floor(i / 2) * 106 + jit(t.id + 'y', 8) }; });
     }
   }
@@ -170,6 +186,7 @@
 
   function corkHtml() {
     LAYN = (app.clientWidth || window.innerWidth) >= 900 ? 'wide' : 'narrow';
+    TOPY = LAYN === 'wide' ? 74 : 52;
     var L = lay(), res = C.checked ? tally() : null;
     var h = textChips() + '<div class="cb-bar"><span class="cb-case">Case ' + C.n + '</span>' +
       (res ? '<span class="cb-res"><b>' + res.ok + '</b> hold · <b class="is-bad">' + res.bad + '</b> don\'t · <b class="is-miss">' + res.miss + '</b> missed</span>' : '<span class="cb-how">Drag a scene\'s pin onto a theme to tie a string. Drag cards anywhere. Tap a string to cut it.</span>') +
@@ -186,12 +203,17 @@
         (L.full ? (src ? '<img class="cb-full__img" src="' + esc(src) + '" alt="" draggable="false">' : '') +
           '<div class="cb-full__body"><p class="sb-card__tag">' + esc(A.text(tid).title) + '</p><h3 class="sb-card__h">' + esc(m.title) + '</h3>' + fixed(mid, C.checked) + '</div>'
           : (src ? '<img src="' + esc(src) + '" alt="" draggable="false">' : '<span class="cb-noimg"></span>') + '<span class="cb-scene__t">' + esc(m.title) + '</span><span class="cb-scene__x">' + esc(short(tid)) + '</span>') +
-        (canWatch(mid) ? '<button type="button" class="cb-watch" data-cb-watch="' + mid + '" aria-label="Watch ' + esc(m.title) + '">▶</button>' : '') + '</div>';
+        (canWatch(mid) ? '<button type="button" class="cb-watch' + (hasClip(mid) ? '' : ' is-still') + '" data-cb-watch="' + mid + '" aria-label="' + (hasClip(mid) ? 'Watch ' : 'See ') + esc(m.title) + '" title="' + (hasClip(mid) ? 'Watch the scene' : 'No clip of this scene exists: see it told over a still') + '">▶</button>' : '') + '</div>';
     });
     T.themes.forEach(function (t) {
       var k = 't:' + t.id, p = pos(k);
       h += '<div class="cb-card cb-theme' + (S.sel === k ? ' is-sel' : '') + (S.arm === k ? ' is-arm' : '') + '" data-k="' + k + '" style="left:' + p.x + 'px;top:' + p.y + 'px;width:' + L.tw + 'px;height:' + L.th + 'px;--r:' + rot(k) + 'deg" tabindex="0" role="button" aria-label="' + esc(t.name) + '">' +
         '<span class="cb-pin" data-pin="' + k + '" aria-hidden="true"></span><b>' + esc(t.name) + '</b></div>';
+    });
+    var one = (C.text || 'all') !== 'all', colW = LAY[LAYN].full ? 465 : 202, lw = LAY[LAYN].full ? 400 : 180;
+    (one ? [C.text] : T.texts).forEach(function (tid, i) {
+      h += '<p class="cb-label" style="left:' + (one ? (LAY[LAYN].full ? 30 : 14) : (LAY[LAYN].full ? 30 : 14) + i * colW) + 'px;width:' + (one ? LAY[LAYN].W - (LAY[LAYN].full ? 60 : 28) : lw) + 'px;--c:' + (A.COL[tid] || '#13233A') + '">' +
+        esc(one ? A.text(tid).title + ' · in story order' : LAY[LAYN].full ? A.text(tid).title : short(tid)) + '</p>';
     });
     h += '<svg class="cb-tags" data-cb-tags aria-hidden="true"></svg></div></div>';
     return h + '<section class="cb-file" data-cb-file aria-live="polite">' + fileHtml() + '</section>';
@@ -292,7 +314,11 @@
       return '<section class="cb-sum"><h3 class="sb-h3"><button type="button" class="cb-link" data-cb-sel="s:' + mid + '">' + esc(mom(mid).title) + '</button> <span>' + esc(short(tidOf(mid))) + '</span></h3>' + why(mid, strung(mid), true) + '</section>';
     }).join('') + '<p class="sb-row"><button type="button" class="sb-btn" data-cb-new>Next case</button></p>';
     return '<p class="cb-file__k">Case file</p><p class="cb-file__tip">Tap a scene to read its file, the giveaways highlighted, and watch it. Tie each scene to every theme you could write a paragraph about. Some scenes prove three or four themes; some prove one.</p>' +
-      '<ul class="cb-list">' + C.ids.map(function (mid) { return '<li><button type="button" class="cb-link" data-cb-sel="s:' + mid + '">' + esc(mom(mid).title) + '</button> <span>' + esc(short(tidOf(mid))) + '</span>' + (canWatch(mid) ? ' <button type="button" class="cb-link is-watch" data-cb-watch="' + mid + '">▶ watch</button>' : '') + '</li>'; }).join('') + '</ul>';
+      T.texts.filter(function (tid) { return C.ids.some(function (mid) { return tidOf(mid) === tid; }); }).map(function (tid) {
+        return '<p class="cb-file__sub">' + esc(A.text(tid).title) + '</p><ul class="cb-list">' + C.ids.filter(function (mid) { return tidOf(mid) === tid; }).map(function (mid) {
+          return '<li><button type="button" class="cb-link" data-cb-sel="s:' + mid + '">' + esc(mom(mid).title) + '</button> <span>' + esc(mom(mid).where) + '</span>' + (canWatch(mid) ? ' <button type="button" class="cb-link is-watch" data-cb-watch="' + mid + '">▶ ' + (hasClip(mid) ? 'watch' : 'see it') + '</button>' : '') + '</li>';
+        }).join('') + '</ul>';
+      }).join('');
   }
   function fileDraw() { var f = app.querySelector('[data-cb-file]'); if (f) f.innerHTML = fileHtml(); }
   function select(k) {
