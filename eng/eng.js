@@ -6063,7 +6063,10 @@
     else if (p[0] === 'board') {
       // The Scene board (eng/eng-board.js): every scene of the three texts against the themes.
       renderShell('board', 'Scene board');
-      if (window.EngBoard) window.EngBoard.render(app, p.slice(1), { esc: esc, title: title, pics: pics, text: text, COL: COL });
+      if (window.EngBoard) window.EngBoard.render(app, p.slice(1), { esc: esc, title: title, pics: pics, text: text, COL: COL,
+        // the scene's clip, in the same player as #watch/<scene>, over the board (closing it leaves you on the board)
+        canWatch: function (mid) { return !!(((window.EngClips || {})[mid] || CLIPS[mid]) && watchScene(mid)); },
+        watch: function (mid, th) { var ws = watchScene(mid); if (ws) watchOpen(ws, th === 'power' || th === 'education' ? th : undefined); } });
       else app.innerHTML = title('Scene board') + '<p class="eng-p">Coming soon.</p>';
     }
     else if (p[0] === 'write' || p[0] === 'read') {

@@ -239,3 +239,44 @@ window.EngThemes = {
       freedom: ['thin', 'Kind of: Sarah is out, but the ending is about Bill\'s courage and its cost.'] } }
   }
 };
+// The giveaways (the user: "in teh descriptions of the scenes pt highlights on important parts like "better off
+// parents" kind of highlight the giveaways"): words in each scene's own description (its `tell` in eng-data.js, found
+// as written, any case) and the themes they point to. Highlighted as clues; the theme is named once you've checked.
+window.EngThemes.hl = {
+  'shawshank-1': [['Two life sentences', 'freedom'], ['The jury doesn\'t believe him', 'hope']],
+  'shawshank-2': [['Rejected', 'hope'], ['telling the parole board he\'s a changed man', 'freedom']],
+  'shawshank-3': [['discipline and the Bible', 'religion'], ['breaks down in tears', 'hope'], ['Captain Hadley beats him, and he dies in the infirmary', 'power'], ['what was the dead man\'s name?', 'courage']],
+  'shawshank-4': [['tax on an inheritance', 'money'], ['So he offers advice', 'education'], ['Hadley nearly throws him off the roof', 'power'], ['three beers each for his workmates', 'courage'], ['they feel like free men', 'freedom hope']],
+  'shawshank-5': [['after fifty years', 'power'], ['\'institutionalized\'', 'power'], ['the world has moved on without him', 'freedom'], ['hangs himself', 'hope']],
+  'shawshank-6': [['books and records for the library', 'education'], ['plays Mozart over the loudspeakers', 'courage'], ['two weeks in solitary', 'power'], ['something inside that they can\'t take from you', 'freedom'], ['Hope, he warns, is a dangerous thing', 'hope']],
+  'shawshank-7': [['helping to study', 'education'], ['Someone else did it', 'freedom hope'], ['too useful to Warden Norton', 'power'], ['hide his illegal money', 'money'], ['has Hadley shoot Tommy dead', 'power']],
+  'shawshank-8': [['a little hotel in Zihuatanejo, Mexico', 'freedom'], ['fears the worst', 'hope']],
+  'shawshank-9': [['Behind it: a tunnel', 'power'], ['Less than twenty years', 'hope'], ['arms raised in the rain, free', 'freedom']],
+  'shawshank-10': [['the person Andy invented', 'education'], ['empties the accounts', 'money'], ['Hadley is arrested', 'power'], ['Andy\'s Bible', 'religion']],
+  'shawshank-11': [['he doesn\'t care what they decide', 'hope'], ['Released', 'freedom'], ['He asks permission to go to the toilet', 'power'], ['breaking parole, just to be sent back', 'freedom']],
+  'shawshank-12': [['Red keeps his promise', 'courage'], ['a letter inviting him to Mexico', 'hope'], ['breaks parole', 'freedom courage'], ['the blue Pacific', 'freedom']],
+  'sive-1': [['Not much money', 'money'], ['hides her pipe', 'power'], ['mocks Mena for being poor and childless', 'women'], ['still at her books when she could be earning', 'education']],
+  'sive-2': [['in secret', 'power'], ['wants to marry Sive', 'women'], ['He\'ll pay £200', 'money']],
+  'sive-3': [['he orders him away', 'power'], ['what happened to her mother', 'women']],
+  'sive-4': [['he grabs at her', 'power women'], ['People like them can\'t afford it', 'money'], ['money decides who gets to love', 'money']],
+  'sive-5': [['give them nothing', 'money'], ['mocking songs', 'courage'], ['she challenges them', 'courage'], ['keep quiet, or it\'s the county home', 'power']],
+  'sive-6': [['everything Seán Dóta can give you', 'money'], ['the truth about her birth', 'power women freedom'], ['she\'ll leave school', 'education'], ['pushed her into her own marriage', 'women money']],
+  'sive-7': [['comes to beg', 'courage'], ['Mike and Mena send him off', 'power'], ['Mena lies to Sive', 'power hope'], ['He\'s gone for good', 'hope']],
+  'sive-8': [['see the priest about the wedding', 'religion'], ['Mike says it\'s for the best', 'power'], ['he can\'t look his mother in the face', 'courage']],
+  'sive-9': [['a letter from Liam', 'hope'], ['Sive should slip out tonight', 'freedom'], ['then burns it', 'power'], ['Mike, uneasy, does nothing', 'courage'], ['One small silence', 'courage']],
+  'sive-10': [['clothes bought with Seán Dóta\'s money', 'money women'], ['The men drink', 'women'], ['they haven\'t come to celebrate', 'courage'], ['men of money like Seán will be the new lords of the land', 'power money']],
+  'sive-11': [['Sive has drowned in a bog hole', 'women hope freedom'], ['slip away', 'power'], ['Liam turns on Mena', 'courage']],
+  'sive-12': [['buried in holy ground', 'religion'], ['No one is punished. No one is saved.', 'hope']],
+  'stlt-1': [['sixteen, unmarried', 'women'], ['a Protestant widow', 'religion'], ['Her own family wanted nothing more to do with her', 'women'], ['Mrs Wilson kept her on', 'courage']],
+  'stlt-2': [['Businesses closing. People emigrating.', 'money'], ['keep his head down', 'courage'], ['see his girls through St Margaret\'s', 'education']],
+  'stlt-3': [['The nuns speak only to the better-off parents', 'money religion']],
+  'stlt-4': [['a small chapel', 'religion'], ['girls in grey shifts and no shoes', 'power women'], ['take her as far as the river', 'hope'], ['He says nothing to the nun', 'courage'], ['the padlocks, and the high wall topped with broken glass', 'freedom power']],
+  'stlt-5': [['wherever he wants to go', 'freedom']],
+  'stlt-6': [['it\'s nothing to do with us', 'courage'], ['The nuns pay their bills', 'power'], ['our girls are well minded', 'women'], ['rich enough to do as she pleased', 'money']],
+  'stlt-7': [['the convent\'s coal shed', 'religion'], ['locked in all night', 'freedom power'], ['Freezing. Filthy. Frightened.', 'power'], ['find out about her baby', 'hope courage'], ['taken from her', 'women']],
+  'stlt-8': [['all smooth politeness', 'religion'], ['A game of hide and seek', 'power'], ['places at the school are scarce', 'education power'], ['a Christmas card, and money', 'money'], ['He leaves without asking about her baby', 'courage']],
+  'stlt-9': [['Bill stays in his seat', 'religion'], ['the shame hits', 'courage']],
+  'stlt-10': [['Be careful, she warns', 'power'], ['your girls are at St Margaret\'s', 'education'], ['do the nuns only have as much power as people give them?', 'courage religion power']],
+  'stlt-11': [['get ready for midnight Mass', 'religion'], ['he walks on, to the convent', 'courage'], ['she\'s coming home with him', 'women hope freedom'], ['Not to the priest\'s house', 'religion'], ['barefoot, through the town', 'power']],
+  'stlt-12': [['Some avoid him; some cut their talk short', 'power'], ['happier than he has ever felt', 'hope'], ['he\'ll pay for this', 'courage'], ['all the small things Mrs Wilson did', 'courage'], ['afraid, but hopeful', 'hope']]
+};
