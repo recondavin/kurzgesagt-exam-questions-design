@@ -56,7 +56,7 @@
     document.body.classList.remove('eng-papertop');
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
       '<nav class="sh-nav" aria-label="English">' + link('#', 'All of English', active === 'hub') + link('#single', 'Single text', active === 'single') +
-      '<p class="sh-group">Comparative</p>' + link('#compare', 'Compare it', active === 'compare' || active === 'home') +
+      '<p class="sh-group">Comparative</p>' + link('#compare', 'Compare it', active === 'compare' || active === 'home') + link('#board', 'Scene board', active === 'board') +
       link('#learn', '1 · Learn the parts', active === 'learn') + link('#structure', '2 · Structure it', active === 'structure') + link('#language', '3 · Say it well', active === 'language') +
       link('#build', 'Build an essay', active === 'build') + link('#marking', 'How it\'s marked', active === 'marking') + link('#questions', 'Past questions', active === 'questions') +
       (window.EngGames ? '<p class="sh-group">Games</p>' + window.EngGames.list.map(function (g) { return link('#play/' + g[0], g[1], false); }).join('') : '') +
@@ -1456,7 +1456,7 @@
   function cpMoreRows() {
     var learnt = learnStore(), mine = chosen(), all = 0, got = 0;
     mine.forEach(function (t) { text(t).moments.forEach(function (m) { all++; if (learnt[m.id]) got++; }); });
-    var rows = [['#learn', 'Learn the moments', got + ' of ' + all + ' learnt: what happens, what it shows, what it leads to'],
+    var rows = [['#board', 'Scene board', 'Every scene of your three texts, and which themes it works for'], ['#learn', 'Learn the moments', got + ' of ' + all + ' learnt: what happens, what it shows, what it leads to'],
       ['#structure', 'Structure it', 'Every paragraph is PACE: Point, Anchor, Compare, Evaluate'],
       ['#language', 'Say it well', 'Plain words in, exam words out']];
     MODES.forEach(function (m) { rows.push(['#mode/' + m.id, m.name, m.hook]); });
@@ -2417,7 +2417,7 @@
     try { var c = pageCtx(part); return c.slots.reduce(function (n, s) { return n + wordsIn(c.text(c.W, s)); }, 0); } catch (e) { return 0; }
   }
   function quickWrite() {
-    return '<p class="eng-quick"><a class="eng-btn" href="#write">Write your essay</a>' + (partWords('a') ? '<a class="eng-btn eng-btn--quiet" href="#read">Read it through</a>' : '') + '</p>';
+    return '<p class="eng-quick"><a class="eng-btn" href="#write">Write your essay</a><a class="eng-btn eng-btn--quiet" href="#board">Scene board</a>' + (partWords('a') ? '<a class="eng-btn eng-btn--quiet" href="#read">Read it through</a>' : '') + '</p>';
   }
   function pageCtx(part) {
     var th = cpTheme(), a = cpBy(th).a;
@@ -6060,6 +6060,12 @@
     else if (p[0] === 'language') renderLanguage();
     else if (p[0] === 'questions') renderQuestions();
     else if (p[0] === 'compare') { CP_ENTER = true; renderCompare(); }
+    else if (p[0] === 'board') {
+      // The Scene board (eng/eng-board.js): every scene of the three texts against the themes.
+      renderShell('board', 'Scene board');
+      if (window.EngBoard) window.EngBoard.render(app, p.slice(1), { esc: esc, title: title, pics: pics, text: text, COL: COL });
+      else app.innerHTML = title('Scene board') + '<p class="eng-p">Coming soon.</p>';
+    }
     else if (p[0] === 'write' || p[0] === 'read') {
       var wpart = p[1] === 'b' ? 'b' : 'a', wread = p[0] === 'read';
       history.replaceState(null, '', '#compare');
