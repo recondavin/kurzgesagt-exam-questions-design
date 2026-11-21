@@ -3479,3 +3479,13 @@ body.eng-papertop .eng-app .cpx-more h2.eng-h2 { margin: 0 0 8px; color: var(--e
 .eng-fi__texts .eng-pick__a { display: none; }
 .eng-fi__more { display: grid; gap: 8px; }
 .eng-fi__more a { display: block; padding: 12px 14px; border-radius: 12px; background: rgba(255, 255, 255, .1); color: #fff; font: 700 16px/1.2 Outfit, system-ui, sans-serif; text-decoration: none; }
+
+/* The pause screen's words, always white and easy to read on the picture (the user: "i can barely read this", then "make
+   it higher"): white whatever else is loaded (these beat any page-wide paper colours), the lines under a name nearly
+   white, and a dark shadow behind every letter so they hold up over a bright frame. */
+body.eng .eng-pause .eng-pause__label, body.eng .eng-pause .eng-pause__label b, body.eng .eng-pause .eng-pause__q,
+body.eng .eng-pause .eng-pause__card, body.eng .eng-pause .eng-pause__card h3, body.eng .eng-pause .eng-pause__note, body.eng .eng-pause .eng-pause__ta {
+  color: #FFFDF6 !important; text-shadow: 0 1px 2px rgba(0, 0, 0, .9), 0 0 14px rgba(0, 0, 0, .75), 0 0 30px rgba(0, 0, 0, .55); }
+body.eng .eng-pause .eng-pause__ctx { color: rgba(255, 253, 246, .9) !important; text-shadow: 0 1px 2px rgba(0, 0, 0, .9), 0 0 14px rgba(0, 0, 0, .75); }
+body.eng .eng-pause .eng-pause__card h3 mark { color: #13233A !important; text-shadow: none; }
+body.eng .eng-pause .eng-pause__ta::placeholder { color: rgba(255, 253, 246, .78); }
