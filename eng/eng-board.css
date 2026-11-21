@@ -209,3 +209,39 @@ mark.cb-hl { padding: 0 2px; border-radius: 2px; background: linear-gradient(tra
 .sb-came { max-width: 880px; margin: 0 0 12px; padding: 8px 12px; border-left: 4px solid var(--sb-pen); background: #FFFDF8; font-size: 15.5px; line-height: 1.45; }
 .sb-came.is-never { border-left-color: var(--sb-rule); color: var(--sb-ink2); }
 .cb-theme { padding-top: 28px; padding-bottom: 8px; }
+
+/* ---------- laptops: the whole board in one frame (eng-board.js LAY.wide, scale, giveaways, sideDraw) ---------- */
+.cb-full__body.is-compact { padding: 12px 14px 14px; }
+.cb-full__body.is-compact .sb-card__tag { margin-bottom: 2px; font-size: 13px; }
+.cb-full__body.is-compact .sb-card__h { margin: 0 0 8px; font-size: 25px; line-height: 1.1; }
+.cb-gv { display: grid; gap: 7px; margin: 0; padding: 0; list-style: none; }
+.cb-gv li { color: #13233A; font: 600 18px/1.28 Outfit, system-ui, sans-serif; }
+.cb-gv mark.cb-hl { padding: 1px 3px; }
+.cb-scene.is-full .cb-full__img { aspect-ratio: 16 / 7.5; }
+.cb-board.is-full .cb-theme b { font-size: 21px; line-height: 1.12; }
+.cb-board.is-full .cb-theme small { font-size: 13px; }
+.cb-board.is-full .cb-label { font-size: 18px; padding: 9px 14px; }
+.cb-wrap { margin-right: 0; }
+/* the case file of the card you tapped, beside the board */
+.cb-side { position: fixed; top: 88px; right: 16px; bottom: 16px; z-index: 40; box-sizing: border-box; width: min(460px, 42vw); overflow: auto; padding: 20px 22px 24px;
+  border: 2px solid #13233A; border-radius: 10px; background: #FFFDF8; color: #13233A; box-shadow: 0 18px 40px rgba(20, 12, 4, .35); animation: cbSide .18s ease-out; }
+@keyframes cbSide { from { opacity: 0; transform: translateX(16px); } }
+.cb-side__x { position: sticky; top: 0; float: right; z-index: 1; width: 40px; height: 40px; margin: -6px -8px 0 8px; border: 2px solid #13233A; border-radius: 8px; background: #FFFDF8; color: #13233A; font: 700 24px/1 Outfit, sans-serif; cursor: pointer; }
+.cb-side .sb-h2 { font-size: 28px; }
+.cb-side .sb-fix { font-size: 16px; }
+.cb-side .sb-why p { font-size: 16px; }
+@media (prefers-reduced-motion: reduce) { .cb-side { animation: none; } }
+.cb-label.is-th { border-left-color: #BF1A2C; }
+.cb-gv li { font-size: 20px; line-height: 1.25; }
+.cb-full__body.is-compact .sb-card__h { font-size: 27px; }
+.cb-full__body.is-compact .sb-card__tag { font-size: 14px; }
+.cb-board.is-full .cb-theme b { font-size: 22px; }
+.cb-side { font-family: Outfit, system-ui, -apple-system, "Segoe UI", sans-serif; }
+.cb-scene.is-full .cb-full__img { aspect-ratio: 16 / 6; }
+.cb-wrap { background-color: #B88A5A; }
+/* the case's controls on one line above the board where there's room */
+.cb-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; margin: 0 0 6px; }
+.cb-ctl > .sb-chips, .cb-ctl > .cb-bar { margin: 0; }
+.cb-ctl .cb-case { font-size: 20px; }
+.cb-ctl .cb-case small { font-size: 13px; }
+.cb-ctl > .sb-chips { flex: 0 1 auto; }

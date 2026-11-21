@@ -24,10 +24,14 @@
   function onIds() { var o = {}; ON().forEach(function (t) { o[t.id] = true; }); return o; }
   var TAG = { power: 'Power', education: 'Education', women: 'Women', hope: 'Hope', freedom: 'Freedom', money: 'Money', class: 'Class', religion: 'Church', courage: 'Courage' };
   var LAY = {
-    wide: { W: 1400, sw: 400, tw: 246, th: 104, full: true },
+    // laptops: the whole board in one frame (the user: "make the white board wider and the text on each card bigger and
+    // more clear ... so that you can see them all on one full frame without scrolling down", then "no top scenes, then
+    // themes then bottom senes"): six columns, two for each text, a row of scenes above the themes and a row below,
+    // cards with the picture, the title and the giveaways; the full file opens beside the board
+    wide: { W: 2058, sw: 320, tw: 210, th: 124, full: true },
     narrow: { W: 620, H: 940, sw: 180, sh: 214, tw: 272, th: 92 }
   };
-  var C = null, DRAG = null, LAYN = 'wide', K = 1, AUTO = {}, HB = 0, TOPY = 74;
+  var C = null, DRAG = null, LAYN = 'wide', K = 1, AUTO = {}, HB = 0, TOPY = 74, TWN = 200, SEEN_BOARD = false;
   // where the top row starts, under the label strips (set per layout in corkHtml)
 
   function esc(s) { return A.esc(s); }
@@ -128,12 +132,11 @@
         '<button type="button" class="sb-chip" data-cb-th="all" aria-pressed="' + ALLTH + '">All ' + T.themes.length + '</button>' : '') + '</div>';
   }
   function paint() {
+    if (S.mode === 'board') { LAY.wide.sw = 320; LAY.wide.gap = 18; boardPass(); fitWide(); strings(); sideDraw(); frameIn(); return; }
     var h = head();
-    if (S.mode === 'board') h += corkHtml();
-    else if (S.mode === 'theme') h += themeHtml();
+    if (S.mode === 'theme') h += themeHtml();
     else h += sceneHtml();
-    app.innerHTML = '<div class="sb' + (S.mode === 'board' ? ' is-cork' : '') + '">' + h + '</div>';
-    if (S.mode === 'board') { layout(); scale(); strings(); }
+    app.innerHTML = '<div class="sb">' + h + '</div>';
   }
 
   // ---------- the case: six scenes on the board ----------
@@ -191,7 +194,15 @@
     } else for (var j = 0; j < C.ids.length; j += 3) rows.push(C.ids.slice(j, j + 3));
     Array.prototype.forEach.call(app.querySelectorAll('.cb-card'), function (el) { hs[el.getAttribute('data-k')] = el.offsetHeight; });
     var hOf = function (k) { return hs[k] || (k.charAt(0) === 's' ? L.sh || 420 : L.th); };
-    var wide = LAYN === 'wide', colX = wide ? function (i) { return 30 + i * 465; } : function (i) { return 14 + i * 202; }, gap = wide ? 34 : 22;
+    var wide = LAYN === 'wide', colX = wide ? colX6 : function (i) { return 14 + i * 202; }, gap = wide ? 16 : 22;
+    if (wide) {
+      // a row is six cards: the next two scenes of each text (each text keeps its two columns), or six of one text
+      rows = [];
+      if ((C.text || 'all') === 'all') {
+        var by6 = T.texts.map(function (t) { return C.ids.filter(function (mid) { return tidOf(mid) === t; }); }), n6 = Math.max.apply(null, by6.map(function (g) { return g.length; }));
+        for (var r6 = 0; r6 < n6; r6 += 2) { var row6 = []; by6.forEach(function (g, ti) { row6[ti * 2] = g[r6] || null; row6[ti * 2 + 1] = g[r6 + 1] || null; }); rows.push(row6); }
+      } else for (var j6 = 0; j6 < C.ids.length; j6 += 6) rows.push(C.ids.slice(j6, j6 + 6));
+    }
     var up = rows.slice(0, Math.ceil(rows.length / 2)), down = rows.slice(Math.ceil(rows.length / 2)), y = TOPY;
     AUTO = {};
     var put = function (row) {
@@ -200,22 +211,24 @@
       y += h + gap;
     };
     up.forEach(put);
-    y += wide ? 30 : 16;
+    y += wide ? 8 : 16;
     // the themes: rows of five on a laptop (the last row centred), two on a phone
-    var TL = ON(), per = wide ? 5 : 2, nrow = Math.ceil(TL.length / per);
+    // the themes: one row across the board on a laptop (two rows with all of them), two to a row on a phone
+    var TL = ON(), per = wide ? (TL.length <= 9 ? TL.length : Math.ceil(TL.length / 2)) : 2, nrow = Math.ceil(TL.length / per);
     TL.forEach(function (t, i) {
       var r = Math.floor(i / per), c = i % per, inRow = Math.min(per, TL.length - r * per);
-      AUTO['t:' + t.id] = wide ? { x: 30 + (per - inRow) * 135 + c * 270 + jit(t.id, 10), y: y + r * 124 + jit(t.id + 'y', 10) }
+      AUTO['t:' + t.id] = wide ? { x: Math.round((L.W - (inRow * TWN + (inRow - 1) * 14)) / 2) + c * (TWN + 14) + jit(t.id, 4), y: y + r * (L.th + 18) + jit(t.id + 'y', 6) }
         : { x: 26 + (per - inRow) * 148 + c * 296 + jit(t.id, 6), y: y + r * 96 + jit(t.id + 'y', 6) };
     });
-    y += wide ? (nrow - 1) * 124 + L.th + 64 : nrow * 96 + 18;
+    y += wide ? nrow * (L.th + 18) + 6 : nrow * 96 + 18;
     down.forEach(put);
   }
+  function colX6(i) { return 24 + i * (LAY.wide.sw + (LAY.wide.gap || 18)); }
   function moved() { return C.pos[LAYN] = C.pos[LAYN] || {}; }
   function pos(key) { return moved()[key] || AUTO[key] || { x: 0, y: 0 }; }
   function size(key) {
     var L = lay(), el = app && app.querySelector('.cb-card[data-k="' + key + '"]');
-    return key.charAt(0) === 's' ? [L.sw, el ? el.offsetHeight : L.sh || 420] : [L.tw, el ? el.offsetHeight : L.th];
+    return key.charAt(0) === 's' ? [L.sw, el ? el.offsetHeight : L.sh || 420] : [LAYN === 'wide' ? TWN : L.tw, el ? el.offsetHeight : L.th];
   }
   function rot(key) { return LAY[LAYN].full && key.charAt(0) === 's' ? ((hash(key) % 5) - 2) * 0.45 : ((hash(key) % 9) - 4) * 0.6; }
   // Where a card's pin is, on the board: its top middle, turned with the card.
@@ -227,12 +240,13 @@
 
   function corkHtml() {
     LAYN = (app.clientWidth || window.innerWidth) >= 900 ? 'wide' : 'narrow';
-    TOPY = LAYN === 'wide' ? 74 : 52;
+    TOPY = LAYN === 'wide' ? 64 : 52;
     var L = lay(), res = C.checked ? tally() : null;
-    var h = textChips() + '<div class="cb-bar"><span class="cb-case">Case ' + C.n + ' of ' + C.of + '<small>' + esc(caseWhat()) + (C.text === 'all' ? ' of each text' : ' of ' + esc(A.text(C.text).title)) + '</small></span>' +
-      (res ? '<span class="cb-res"><b>' + res.ok + '</b> hold · <b class="is-bad">' + res.bad + '</b> don\'t · <b class="is-miss">' + res.miss + '</b> missed</span>' : '<span class="cb-how">Drag a scene\'s pin onto a theme to tie a string. Drag cards anywhere. Tap a string to cut it.</span>') +
+    if (LAYN === 'wide') { L.W = colX6(5) + L.sw + 24; var nT = ON().length, perT = nT <= 9 ? nT : Math.ceil(nT / 2); TWN = Math.min(L.tw, Math.floor((L.W - 48 - (perT - 1) * 14) / perT)); }
+    var h = '<div class="cb-ctl">' + textChips() + '<div class="cb-bar"><span class="cb-case">Case ' + C.n + ' of ' + C.of + '<small>' + esc(caseWhat()) + (C.text === 'all' ? ' of each text' : ' of ' + esc(A.text(C.text).title)) + '</small></span>' +
+      (res ? '<span class="cb-res"><b>' + res.ok + '</b> hold · <b class="is-bad">' + res.bad + '</b> don\'t · <b class="is-miss">' + res.miss + '</b> missed</span>' : '') +
       '<span class="cb-btns"><button type="button" class="sb-btn" data-cb-check' + (C.strings.length ? '' : ' disabled') + '>' + (C.checked ? 'Check again' : 'Check my strings') + '</button>' +
-      (res && res.miss ? '<button type="button" class="sb-btn is-quiet" data-cb-miss aria-pressed="' + S.miss + '">' + (S.miss ? 'Hide what I missed' : 'Show what I missed') + '</button>' : '') + '<button type="button" class="sb-btn is-quiet" data-cb-go="-1"' + (C.n > 1 ? '' : ' disabled') + '>‹ Previous</button><button type="button" class="sb-btn is-quiet" data-cb-go="1">' + (C.n < C.of ? 'Next case ›' : 'Back to case 1') + '</button><button type="button" class="sb-btn is-quiet" data-cb-clear' + (C.strings.length ? '' : ' disabled') + '>Clear strings</button></span></div>';
+      (res && res.miss ? '<button type="button" class="sb-btn is-quiet" data-cb-miss aria-pressed="' + S.miss + '">' + (S.miss ? 'Hide what I missed' : 'Show what I missed') + '</button>' : '') + '<button type="button" class="sb-btn is-quiet" data-cb-go="-1"' + (C.n > 1 ? '' : ' disabled') + '>‹ Previous</button><button type="button" class="sb-btn is-quiet" data-cb-go="1">' + (C.n < C.of ? 'Next case ›' : 'Back to case 1') + '</button><button type="button" class="sb-btn is-quiet" data-cb-clear' + (C.strings.length ? '' : ' disabled') + '>Clear strings</button></span></div></div>';
     h += '<div class="cb-wrap" data-cb-wrap><div class="cb-board' + (L.full ? ' is-full' : '') + '" data-cb-board style="width:' + L.W + 'px;height:' + (L.H || 900) + 'px">' +
       '<svg class="cb-strings" data-cb-svg aria-hidden="true"></svg>';
     C.ids.forEach(function (mid) {
@@ -242,22 +256,32 @@
       h += '<div class="' + cls + '" data-k="' + k + '" style="' + st + '" tabindex="0" role="button" aria-label="' + esc(m.title) + ', ' + esc(short(tid)) + '">' +
         '<span class="cb-pin" data-pin="' + k + '" aria-hidden="true"></span>' +
         (L.full ? (src ? '<img class="cb-full__img" src="' + esc(src) + '" alt="" draggable="false">' : '') +
-          '<div class="cb-full__body"><p class="sb-card__tag">' + esc(A.text(tid).title) + ' · scene ' + mid.replace(/^.*-/, '') + '</p><h3 class="sb-card__h">' + esc(m.title) + '</h3>' + fixed(mid, C.checked) + '</div>'
+          '<div class="cb-full__body is-compact"><p class="sb-card__tag">' + esc(short(tid)) + ' · scene ' + mid.replace(/^.*-/, '') + '</p><h3 class="sb-card__h">' + esc(m.title) + '</h3>' + giveaways(mid, C.checked) + '</div>'
           : (src ? '<img src="' + esc(src) + '" alt="" draggable="false">' : '<span class="cb-noimg"></span>') + '<span class="cb-scene__t">' + esc(m.title) + '</span><span class="cb-scene__x">' + esc(short(tid)) + ' · ' + mid.replace(/^.*-/, '') + '</span>') +
         (canWatch(mid) ? '<button type="button" class="cb-watch' + (hasClip(mid) ? '' : ' is-still') + '" data-cb-watch="' + mid + '" aria-label="' + (hasClip(mid) ? 'Watch ' : 'See ') + esc(m.title) + '" title="' + (hasClip(mid) ? 'Watch the scene' : 'No clip of this scene exists: see it told over a still') + '">▶</button>' : '') + '</div>';
     });
     ON().forEach(function (t) {
       var k = 't:' + t.id, p = pos(k);
-      h += '<div class="cb-card cb-theme' + (S.sel === k ? ' is-sel' : '') + (S.arm === k ? ' is-arm' : '') + '" data-k="' + k + '" style="left:' + p.x + 'px;top:' + p.y + 'px;width:' + L.tw + 'px;height:' + L.th + 'px;--r:' + rot(k) + 'deg" tabindex="0" role="button" aria-label="' + esc(t.name) + '">' +
+      h += '<div class="cb-card cb-theme' + (S.sel === k ? ' is-sel' : '') + (S.arm === k ? ' is-arm' : '') + '" data-k="' + k + '" style="left:' + p.x + 'px;top:' + p.y + 'px;width:' + (LAYN === 'wide' ? TWN : L.tw) + 'px;height:' + L.th + 'px;--r:' + rot(k) + 'deg" tabindex="0" role="button" aria-label="' + esc(t.name) + '">' +
         '<span class="cb-pin" data-pin="' + k + '" aria-hidden="true"></span><b>' + esc(t.name) + '</b>' + (t.times ? '<small>came up ' + (t.times === 1 ? 'once' : t.times + ' times') + '</small>' : '') + '</div>';
     });
-    var one = (C.text || 'all') !== 'all', colW = LAY[LAYN].full ? 465 : 202, lw = LAY[LAYN].full ? 400 : 180;
+    var one = (C.text || 'all') !== 'all', wideL = LAYN === 'wide';
     (one ? [C.text] : T.texts).forEach(function (tid, i) {
-      h += '<p class="cb-label" style="left:' + (one ? (LAY[LAYN].full ? 30 : 14) : (LAY[LAYN].full ? 30 : 14) + i * colW) + 'px;width:' + (one ? LAY[LAYN].W - (LAY[LAYN].full ? 60 : 28) : lw) + 'px;--c:' + (A.COL[tid] || '#13233A') + '">' +
+      var lx = one ? (wideL ? 24 : 14) : wideL ? colX6(i * 2) : 14 + i * 202, lwid = one ? L.W - (wideL ? 48 : 28) : wideL ? colX6(1) - colX6(0) + L.sw : 180;
+      h += '<p class="cb-label" style="left:' + lx + 'px;width:' + lwid + 'px;--c:' + (A.COL[tid] || '#13233A') + '">' +
         esc(one ? A.text(tid).title + ' · in story order' : LAY[LAYN].full ? A.text(tid).title : short(tid)) + '</p>';
     });
     h += '<svg class="cb-tags" data-cb-tags aria-hidden="true"></svg></div></div>';
-    return h + '<section class="cb-file" data-cb-file aria-live="polite">' + fileHtml() + '</section>';
+    return h + '<section class="cb-file" data-cb-file aria-live="polite">' + (sideOn() ? fileHtml0() : fileHtml()) + '</section>';
+  }
+  // A card's giveaways, the highlighted words of its description, as written there (in story order, four at most).
+  function giveaways(mid, named) {
+    var m = mom(mid), txt = (m.tell || [m.what]).join(' '), low = txt.toLowerCase(), list = [];
+    (T.hl && T.hl[mid] || []).forEach(function (h) { var at = low.indexOf(h[0].toLowerCase()); if (at >= 0) list.push({ at: at, t: txt.slice(at, at + h[0].length), th: h[1].split(' ') }); });
+    list.sort(function (a, b) { return a.at - b.at; });
+    return '<ul class="cb-gv">' + list.slice(0, 3).map(function (x) {
+      return '<li><mark class="cb-hl">' + esc(x.t) + '</mark>' + (named ? '<span class="cb-hl__t">' + x.th.map(function (t) { return esc(TAG[t] || t); }).join(' · ') + '</span>' : '') + '</li>';
+    }).join('') + '</ul>';
   }
   // After the board is drawn: the cards' real heights decide where the unmoved ones go and how tall the board is.
   function layout() {
@@ -270,7 +294,7 @@
       el.style.left = p.x + 'px'; el.style.top = p.y + 'px';
       bottom = Math.max(bottom, p.y + el.offsetHeight);
     });
-    HB = Math.max(bottom + (L.full ? 34 : 20), 600);
+    HB = Math.max(bottom + 20, 600);
     board.style.height = HB + 'px';
     ['[data-cb-svg]', '[data-cb-tags]'].forEach(function (q) { var v = board.querySelector(q); v.setAttribute('viewBox', '0 0 ' + L.W + ' ' + HB); v.setAttribute('width', L.W); v.setAttribute('height', HB); });
   }
@@ -322,9 +346,40 @@
   function scale() {
     var wrap = app.querySelector('[data-cb-wrap]'), board = app.querySelector('[data-cb-board]'), L = lay();
     if (!wrap) return;
-    K = Math.min(1, wrap.clientWidth / L.W);
+    if (LAYN !== 'wide') {
+      wrap.style.width = ''; wrap.style.marginLeft = ''; board.style.marginLeft = '';
+      var row0 = app.querySelector('.cb-ctl'); if (row0) { row0.style.width = ''; row0.style.marginLeft = ''; }
+      K = Math.min(1, wrap.clientWidth / L.W);
+    } else {
+      // the whole width of the window, and the whole board in view under the top bar with the case's controls above it
+      var docW = document.documentElement.clientWidth, bar = document.querySelector('.sh-top'), topH = bar ? bar.offsetHeight : 76;
+      var frameW = docW - 56, left = wrap.parentElement.getBoundingClientRect().left, row = app.querySelector('.cb-ctl');
+      // the controls take the same full width, so on a wide window they sit on one line
+      if (row) { row.style.width = frameW + 'px'; row.style.marginLeft = (28 - left) + 'px'; }
+      var ctl = app.querySelector('.sb-chips'), ctlH = ctl ? wrap.getBoundingClientRect().top - ctl.getBoundingClientRect().top : 120;
+      wrap.style.width = frameW + 'px'; wrap.style.marginLeft = (28 - left) + 'px';
+      K = Math.min(frameW / L.W, Math.max(320, window.innerHeight - topH - ctlH - 34) / (HB || 900));
+      board.style.marginLeft = Math.max(0, Math.round((frameW - L.W * K) / 2)) + 'px';
+    }
     board.style.transform = 'scale(' + K + ')';
     wrap.style.height = Math.ceil((HB || L.H) * K) + 'px';
+  }
+  function boardPass() { app.innerHTML = '<div class="sb is-cork">' + head() + corkHtml() + '</div>'; layout(); scale(); }
+  // On a wide, short window the board is limited by its height: the cards widen into the spare width (wider cards are
+  // shorter, so the board can be drawn bigger), and what's left goes between the columns. No empty sides.
+  function fitWide() {
+    if (LAYN !== 'wide') return;
+    var L = LAY.wide, wrap = app.querySelector('[data-cb-wrap]'), room = function () { return wrap.clientWidth / K; };
+    if (room() - L.W > 40 && L.sw < 400) { L.sw = Math.min(400, Math.floor((room() - 48 - 5 * L.gap) / 6)); boardPass(); wrap = app.querySelector('[data-cb-wrap]'); }
+    if (room() - L.W > 40) { L.gap = Math.floor((room() - 48 - 6 * L.sw) / 5); boardPass(); }
+  }
+  // The first time the board is shown, the page scrolls so the case's controls and the whole board fill the window.
+  function frameIn() {
+    if (SEEN_BOARD || LAYN !== 'wide') return;
+    SEEN_BOARD = true;
+    var ctl = app.querySelector('.sb-chips'), bar = document.querySelector('.sh-top');
+    var go = function () { if (ctl && ctl.isConnected) window.scrollTo(0, Math.max(0, ctl.getBoundingClientRect().top + window.scrollY - (bar ? bar.offsetHeight : 76) - 8)); };
+    requestAnimationFrame(go); setTimeout(go, 150);
   }
   function at(e) { var r = app.querySelector('[data-cb-board]').getBoundingClientRect(); return [(e.clientX - r.left) / K, (e.clientY - r.top) / K]; }
 
@@ -361,14 +416,21 @@
     if (C.checked) return '<p class="cb-file__k">Case file · what the strings prove</p>' + C.ids.map(function (mid) {
       return '<section class="cb-sum"><h3 class="sb-h3"><button type="button" class="cb-link" data-cb-sel="s:' + mid + '">' + esc(mom(mid).title) + '</button> <span>' + esc(short(tidOf(mid))) + '</span></h3>' + why(mid, strung(mid), true) + '</section>';
     }).join('') + '<p class="sb-row"><button type="button" class="sb-btn" data-cb-go="1">' + (C.n < C.of ? 'Next case: the next scenes ›' : 'Back to case 1') + '</button></p>';
-    return '<p class="cb-file__k">Case file</p><p class="cb-file__tip">Tap a scene to read its file, the giveaways highlighted, and watch it. Tie each scene to every theme you could write a paragraph about. Some scenes prove three or four themes; some prove one.</p>' +
+    return '<p class="cb-file__k">Case file</p><p class="cb-file__tip"><b>How it works:</b> drag a scene\'s red pin onto a theme to tie a string (or tap the pin, then the theme). Drag any card to move it. Tap a string to cut it.</p><p class="cb-file__tip">Tap a scene to read its file, the giveaways highlighted, and watch it. Tie each scene to every theme you could write a paragraph about. Some scenes prove three or four themes; some prove one.</p>' +
       T.texts.filter(function (tid) { return C.ids.some(function (mid) { return tidOf(mid) === tid; }); }).map(function (tid) {
         return '<p class="cb-file__sub">' + esc(A.text(tid).title) + '</p><ul class="cb-list">' + C.ids.filter(function (mid) { return tidOf(mid) === tid; }).map(function (mid) {
           return '<li><button type="button" class="cb-link" data-cb-sel="s:' + mid + '">' + esc(mom(mid).title) + '</button> <span>' + esc(mom(mid).where) + '</span>' + (canWatch(mid) ? ' <button type="button" class="cb-link is-watch" data-cb-watch="' + mid + '">▶ ' + (hasClip(mid) ? 'watch' : 'see it') + '</button>' : '') + '</li>';
         }).join('') + '</ul>';
       }).join('');
   }
-  function fileDraw() { var f = app.querySelector('[data-cb-file]'); if (f) f.innerHTML = fileHtml(); }
+  function sideOn() { return S.mode === 'board' && LAYN === 'wide' && !!S.sel; }
+  function sideDraw() {
+    var side = document.querySelector('.cb-side');
+    if (!sideOn()) { if (side) side.parentNode.removeChild(side); return; }
+    if (!side) { side = document.createElement('aside'); side.className = 'cb-side'; side.setAttribute('aria-label', 'Case file'); (app.querySelector('.sb') || app).appendChild(side); }
+    side.innerHTML = '<button type="button" class="cb-side__x" data-cb-close aria-label="Close the case file">×</button>' + fileHtml();
+  }
+  function fileDraw() { var f = app.querySelector('[data-cb-file]'); if (f) f.innerHTML = sideOn() ? fileHtml0() : fileHtml(); sideDraw(); }
   function select(k) {
     S.sel = k;
     Array.prototype.forEach.call(app.querySelectorAll('.cb-card'), function (c) { c.classList.toggle('is-sel', c.getAttribute('data-k') === k); });
@@ -536,6 +598,7 @@
     if ((x = t.closest('[data-sb-go]'))) { var ids = scenes(S.text), k = ids.indexOf(S.scene) + +x.getAttribute('data-sb-go'); S.scene = ids[(k + ids.length) % ids.length]; paint(); return; }
     if (t.closest('[data-cb-check]')) { check(); return; }
     if (t.closest('[data-cb-miss]')) { S.miss = !S.miss; paint(); return; }
+    if (t.closest('[data-cb-close]')) { select(null); return; }
     if ((x = t.closest('[data-cb-th]'))) { ALLTH = x.getAttribute('data-cb-th') === 'all'; try { localStorage.setItem('eng-cork-th', ALLTH ? 'all' : 'past'); } catch (er) {} S.sel = null; paint(); return; }
     if ((x = t.closest('[data-cb-per]'))) {
       var was = C.ids[0]; CASE_N = +x.getAttribute('data-cb-per'); store('eng-cork-per', String(CASE_N));
@@ -559,6 +622,7 @@
     var c = e.target.closest && e.target.closest('.cb-card');
     if (c && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); var k = c.getAttribute('data-k'); if (S.arm && S.arm !== k) { var a = S.arm; S.arm = null; tie(a, k); paint(); } else select(k); }
     if (e.key === 'Escape' && S.arm) { S.arm = null; paint(); }
+    else if (e.key === 'Escape' && sideOn()) select(null);
   });
 
   window.EngBoard = { render: render };
