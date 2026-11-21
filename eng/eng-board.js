@@ -222,7 +222,8 @@
     var dx = b[0] - a[0], dy = b[1] - a[1], dist = Math.sqrt(dx * dx + dy * dy), sag = Math.min(70, dist * 0.14), cx = (a[0] + b[0]) / 2, cy = (a[1] + b[1]) / 2 + sag;
     return { d: 'M' + a[0].toFixed(1) + ' ' + a[1].toFixed(1) + ' Q' + cx.toFixed(1) + ' ' + cy.toFixed(1) + ' ' + b[0].toFixed(1) + ' ' + b[1].toFixed(1), mid: [0.25 * a[0] + 0.5 * cx + 0.25 * b[0], 0.25 * a[1] + 0.5 * cy + 0.25 * b[1]] };
   }
-  // The strings run behind the cards (so they never cross the writing); their knots and the ✓ / ✗ tags sit on top.
+  // The strings run over the cards, as on a real board (the user: "the strings must overlap the pictures"), with their
+  // knots and the ✓ / ✗ / ? tags on top of them.
   function strings(live) {
     var svg = app.querySelector('[data-cb-svg]'), tags = app.querySelector('[data-cb-tags]');
     if (!svg || !tags) return;
@@ -246,7 +247,7 @@
     var knots = {};
     C.strings.forEach(function (x) { knots['s:' + x.s] = 1; knots['t:' + x.t] = 1; });
     Object.keys(knots).forEach(function (k) { var p = pinAt(k); g += '<circle class="cb-knot" cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="4"/>'; });
-    svg.innerHTML = h; tags.innerHTML = g;
+    svg.innerHTML = ''; tags.innerHTML = h + g;
   }
   function scale() {
     var wrap = app.querySelector('[data-cb-wrap]'), board = app.querySelector('[data-cb-board]'), L = lay();

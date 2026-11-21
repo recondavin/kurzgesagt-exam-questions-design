@@ -131,10 +131,10 @@ mark.cb-hl { padding: 0 2px; border-radius: 2px; background: linear-gradient(tra
 .cb-watch { position: absolute; top: 18px; right: 18px; z-index: 2; display: grid; place-items: center; width: 40px; height: 40px; padding: 0 0 0 3px; border: 0; border-radius: 50%; background: rgba(12, 17, 24, .78); color: #fff; font-size: 17px; cursor: pointer; }
 .cb-watch:hover { background: #C0262D; }
 .cb-strings, .cb-tags { position: absolute; inset: 0; z-index: 0; overflow: visible; pointer-events: none; }
-.cb-tags { z-index: 4; }
+.cb-tags { z-index: 3; }
 .cb-tags .cb-tag { pointer-events: auto; cursor: pointer; }
 .cb-str { pointer-events: none; }
-.cb-str__hit { fill: none; stroke: transparent; stroke-width: 22; pointer-events: stroke; cursor: pointer; }
+.cb-str__hit { fill: none; stroke: transparent; stroke-width: 14; pointer-events: stroke; cursor: pointer; }
 .cb-str__shade { fill: none; stroke: rgba(60, 10, 10, .35); stroke-width: 5; transform: translate(1.5px, 3px); }
 .cb-str__line { fill: none; stroke: #C0262D; stroke-width: 3.2; stroke-linecap: round; }
 .cb-str.is-live .cb-str__line { stroke-dasharray: 8 6; }
