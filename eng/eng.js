@@ -53,7 +53,7 @@
   function renderShell(active, crumb) {
     var mine = chosen();
     closeDef();
-    document.body.classList.remove('eng-papertop');
+    document.body.classList.remove('eng-papertop'); document.body.classList.remove('eng-wall');
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
       '<nav class="sh-nav" aria-label="English">' + link('#', 'All of English', active === 'hub') + link('#single', 'Single text', active === 'single') +
       '<p class="sh-group">Comparative</p>' + link('#compare', 'Compare it', active === 'compare' || active === 'home') + link('#board', 'Scene board', active === 'board') +

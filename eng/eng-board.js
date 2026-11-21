@@ -136,7 +136,17 @@
         '<span class="sb-chips__gap" aria-hidden="true"></span><span class="sb-chips__k">Themes</span><button type="button" class="sb-chip" data-cb-th="past" aria-pressed="' + !ALLTH + '">From past papers</button>' +
         '<button type="button" class="sb-chip" data-cb-th="all" aria-pressed="' + ALLTH + '">All ' + T.themes.length + '</button>' : '') + '</div>';
   }
+  function boardTools() {
+    var chip = function (id, label) { return '<button type="button" class="sb-chip" data-sb-text="' + id + '" aria-pressed="' + (S.text === id) + '">' + esc(label) + '</button>'; };
+    var per = function (n) { return '<button type="button" class="sb-chip" data-cb-per="' + n + '" aria-pressed="' + (CASE_N === n) + '">' + n + '</button>'; };
+    var grp = function (k, inner) { return '<span class="cb-grp" role="group" aria-label="' + esc(k) + '"><span class="cb-grp__k">' + esc(k) + '</span>' + inner + '</span>'; };
+    return '<div class="cb-tools">' + grp('Texts', chip('all', 'All three') + T.texts.map(function (t) { return chip(t, short(t)); }).join('')) +
+      grp('Scenes', per(12) + per(6)) +
+      grp('Themes', '<button type="button" class="sb-chip" data-cb-th="past" aria-pressed="' + !ALLTH + '">From past papers</button><button type="button" class="sb-chip" data-cb-th="all" aria-pressed="' + ALLTH + '">All ' + T.themes.length + '</button>') +
+      (LAYN === 'wide' ? grp('Size', '<button type="button" class="sb-chip is-zoom" data-cb-zoom="-1" aria-label="Make the board smaller"' + (ZOOM <= 0.5 ? ' disabled' : '') + '>−</button><button type="button" class="sb-chip is-zoom" data-cb-zoom="1" aria-label="Make the board bigger"' + (ZOOM >= 1 ? ' disabled' : '') + '>+</button>') : '') + '</div>';
+  }
   function paint() {
+    document.body.classList.toggle('eng-wall', S.mode === 'board');
     if (S.mode === 'board') { LAY.wide.sw = 320; LAY.wide.gap = 18; boardPass(); fitWide(); strings(); sideDraw(); frameIn(); return; }
     var h = head();
     if (S.mode === 'theme') h += themeHtml();
@@ -248,7 +258,8 @@
     TOPY = LAYN === 'wide' ? 64 : 52;
     var L = lay(), res = C.checked ? tally() : null;
     if (LAYN === 'wide') { L.W = colX6(5) + L.sw + 24; var nT = ON().length, perT = nT <= 9 ? nT : Math.ceil(nT / 2); TWN = Math.min(L.tw, Math.floor((L.W - 48 - (perT - 1) * 14) / perT)); }
-    var h = '<div class="cb-ctl">' + textChips() + '<div class="cb-bar"><span class="cb-case">Case ' + C.n + ' of ' + C.of + '<small>' + esc(caseWhat()) + (C.text === 'all' ? ' of each text' : ' of ' + esc(A.text(C.text).title)) + '</small></span>' +
+    LAYN = (app.clientWidth || window.innerWidth) >= 900 ? 'wide' : 'narrow';
+    var h = '<div class="cb-ctl">' + boardTools() + '<div class="cb-bar"><span class="cb-case">Case ' + C.n + ' of ' + C.of + '<small>' + esc(caseWhat()) + (C.text === 'all' ? ' of each text' : ' of ' + esc(A.text(C.text).title)) + '</small></span>' +
       (res ? '<span class="cb-res"><b>' + res.ok + '</b> hold · <b class="is-bad">' + res.bad + '</b> don\'t · <b class="is-miss">' + res.miss + '</b> missed</span>' : '') +
       '<span class="cb-btns"><button type="button" class="sb-btn" data-cb-check' + (C.strings.length ? '' : ' disabled') + '>' + (C.checked ? 'Check again' : 'Check my strings') + '</button>' +
       (res && res.miss ? '<button type="button" class="sb-btn is-quiet" data-cb-miss aria-pressed="' + S.miss + '">' + (S.miss ? 'Hide what I missed' : 'Show what I missed') + '</button>' : '') + '<button type="button" class="sb-btn is-quiet" data-cb-go="-1"' + (C.n > 1 ? '' : ' disabled') + '>‹ Previous</button><button type="button" class="sb-btn is-quiet" data-cb-go="1">' + (C.n < C.of ? 'Next case ›' : 'Back to case 1') + '</button><button type="button" class="sb-btn is-quiet" data-cb-clear' + (C.strings.length ? '' : ' disabled') + '>Clear strings</button></span></div></div>';
@@ -361,12 +372,17 @@
       var frameW = docW - 56, left = wrap.parentElement.getBoundingClientRect().left, row = app.querySelector('.cb-ctl');
       // the controls take the same full width, so on a wide window they sit on one line
       if (row) { row.style.width = frameW + 'px'; row.style.marginLeft = (28 - left) + 'px'; }
-      var ctl = app.querySelector('.sb-chips'), ctlH = ctl ? wrap.getBoundingClientRect().top - ctl.getBoundingClientRect().top : 120;
-      KF = Math.min(frameW / L.W, Math.max(320, window.innerHeight - topH - ctlH - 34) / (HB || 900));
-      K = KF * ZOOM;
+      var fit = function () {
+        var ctl = app.querySelector('.cb-ctl'), ctlH = ctl ? wrap.getBoundingClientRect().top - ctl.getBoundingClientRect().top : 120;
+        KF = Math.min(frameW / L.W, Math.max(320, window.innerHeight - topH - ctlH - 34) / (HB || 900));
+        K = KF * ZOOM;
+        return Math.round(L.W * K);
+      };
+      var bw = fit(), off = 28 - left + Math.max(0, Math.round((frameW - bw) / 2));
+      // the toolbar is the width of the board, over it; a narrower toolbar can wrap, so measure again
+      if (row) { row.style.width = bw + 'px'; row.style.marginLeft = off + 'px'; bw = fit(); off = 28 - left + Math.max(0, Math.round((frameW - bw) / 2)); row.style.width = bw + 'px'; row.style.marginLeft = off + 'px'; }
       // the cork frame hugs the board, centred
-      var bw = Math.round(L.W * K);
-      wrap.style.width = bw + 'px'; wrap.style.marginLeft = (28 - left + Math.max(0, Math.round((frameW - bw) / 2))) + 'px';
+      wrap.style.width = bw + 'px'; wrap.style.marginLeft = off + 'px';
       board.style.marginLeft = '0px';
     }
     board.style.transform = 'scale(' + K + ')';
@@ -385,7 +401,7 @@
   function frameIn() {
     if (SEEN_BOARD || LAYN !== 'wide') return;
     SEEN_BOARD = true;
-    var ctl = app.querySelector('.sb-chips'), bar = document.querySelector('.sh-top');
+    var ctl = app.querySelector('.cb-ctl'), bar = document.querySelector('.sh-top');
     var go = function () { if (ctl && ctl.isConnected) window.scrollTo(0, Math.max(0, ctl.getBoundingClientRect().top + window.scrollY - (bar ? bar.offsetHeight : 76) - 8)); };
     requestAnimationFrame(go); setTimeout(go, 150);
   }
