@@ -457,7 +457,7 @@
         '. In Theme or Issue you choose the theme, and it has to work for all three of your texts, so pick a different one if you can.' + (gap.some(function (c) { return T.gaps && T.gaps[t.id] && T.gaps[t.id][c[0]]; }) ? ' If you\'re stuck with it, there\'s a way to handle it below.' : '') + '</p>' : '');
     h += '<div class="sb-cols">' + T.texts.map(function (tid) {
       var ids = scenes(tid), yes = ids.filter(function (mid) { return isYes(mid, t.id); }), thin = ids.filter(function (mid) { var c = cell(mid, t.id); return c && c[0] === 'thin'; });
-      return '<section class="sb-colt" style="--c:' + (A.COL[tid] || '#13233A') + '"><h3 class="sb-colt__h">' + esc(A.text(tid).title) + '</h3>' +
+      return '<section class="sb-colt" style="--c:' + (A.COL[tid] || '#13233A') + '"><h3 class="sb-colt__h">' + esc(A.text(tid).title) + '</h3>' + noteHtml(t.id, tid) +
         (yes.length ? yes.map(function (mid) {
           var c = cell(mid, t.id), p = pic(mid), m = mom(mid);
           return '<a class="sb-use" href="#board/scene/' + mid + '">' + (p ? '<img src="' + esc(p) + '" alt="" loading="lazy">' : '') + '<span class="sb-use__t">' + esc(m.title) + '</span>' +
@@ -470,6 +470,14 @@
     return h;
   }
 
+  // A weak text for this theme: what angle to take, a moment beyond the key scenes, and a comparing sentence.
+  function noteHtml(th, tid) {
+    var g = T.notes && T.notes[th] && T.notes[th][tid];
+    if (!g) return '';
+    return '<div class="sb-gap is-note"><p class="sb-gap__h">How to use this text for it</p><p>' + esc(g.say) + '</p>' + (g.extra || []).map(function (x) {
+      return '<div class="sb-use is-gap"><span class="sb-use__t">' + esc(x[0]) + '</span><span class="sb-use__w">' + esc(x[1]) + '</span><span class="sb-use__s">' + esc(x[2]) + '</span></div>';
+    }).join('') + '<p class="sb-gap__c"><b>Comparing:</b> ' + esc(g.compare) + '</p></div>';
+  }
   // A text with nothing for this theme: how to write about it anyway, if you're stuck with it (EngThemes.gaps).
   function gapHtml(th, tid) {
     var g = T.gaps && T.gaps[th] && T.gaps[th][tid];

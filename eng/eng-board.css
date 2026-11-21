@@ -199,3 +199,5 @@ mark.cb-hl { padding: 0 2px; border-radius: 2px; background: linear-gradient(tra
 .sb-gap__h { color: var(--sb-pen); font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
 .sb-gap .sb-use { padding-top: 10px; }
 .sb-gap__c { margin: 4px 0 0 !important; }
+.sb-gap.is-note { margin: 0 0 12px; border-color: var(--sb-ink); border-style: solid; border-width: 1px 1px 1px 4px; }
+.sb-gap.is-note .sb-gap__h { color: var(--sb-ink); }

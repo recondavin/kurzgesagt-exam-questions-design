@@ -29,7 +29,7 @@ window.EngThemes = {
       hope: ['yes', 'The film starts at its lowest point: an innocent man is given two life sentences, the despair the rest of the film climbs out of.'],
       freedom: ['yes', 'Andy loses his freedom for a crime he didn\'t commit, and two life sentences seem to take it away for good.'],
       power: ['thin', 'Kind of: the court has power over Andy, but it makes a mistake, it isn\'t cruel. Nothing to write until he reaches Shawshank.'],
-      women: ['thin', 'Kind of: Andy\'s wife is in the scene, but only as the victim of the crime. She never speaks, so there\'s nothing to write about women.'],
+      women: ['yes', 'The film opens with a woman killed: Andy\'s wife never speaks, we only glimpse her with her lover, and at the trial she is just the motive the men argue over.'],
       education: ['thin', 'Kind of: Andy is a banker, but his learning plays no part in the trial.'] } },
     'shawshank-2': { who: 'Red; the parole board', t: {
       hope: ['yes', 'Red says what he thinks the board wants to hear and his file is stamped REJECTED: after twenty years, a prisoner learns not to hope.'],
@@ -48,7 +48,7 @@ window.EngThemes = {
       freedom: ['yes', 'For a moment, with a beer in the sun, the men feel free: freedom is a feeling Andy can give even inside a prison.', 'We sat and drank with the sun on our shoulders and felt like free men.'],
       hope: ['yes', 'The beer gives the men a moment of feeling normal again, the first small hope Andy gives the others.', 'Me, I think he did it just to feel normal again, if only for a short while.'],
       courage: ['yes', 'Andy risks his life by speaking to Hadley, and asks nothing for himself: only three beers each for his workmates.'],
-      women: ['thin', 'Kind of: Andy asks Hadley whether he trusts his wife, but she\'s only part of a tax trick, so there\'s nothing to write about women.'] } },
+      women: ['thin', 'Kind of: Andy asks "Mr Hadley, do you trust your wife?" because the money can be given to her tax-free, so she\'s only a loophole for a man\'s money. Worth a line at most, not a paragraph.'] } },
     'shawshank-5': { who: 'Brooks Hatlen; Heywood; Red; Andy', t: {
       power: ['yes', 'Shawshank\'s power reaches into the mind: after fifty years Brooks can\'t live outside, and he hangs himself.', 'These walls are funny. First you hate \'em, then you get used to \'em. Enough time passes, gets so you depend on \'em. That\'s institutionalized.'],
       hope: ['yes', 'Brooks is the film\'s warning about despair: with no hope left outside, he gives up.', 'I don\'t like it here. I\'m tired of being afraid all the time.'],
@@ -60,25 +60,26 @@ window.EngThemes = {
       hope: ['yes', 'Andy says music keeps something alive inside you, and Red warns that hope is dangerous: the argument the whole film settles at the end.', 'Hope is a dangerous thing. Hope can drive a man insane.'],
       freedom: ['yes', 'For two minutes of Mozart every man in the yard stands still and feels free.', 'It was like some beautiful bird flapped into our drab little cage and made those walls dissolve away, and for the briefest of moments, every last man in Shawshank felt free.'],
       courage: ['yes', 'Andy knows he\'ll be punished and plays the record anyway, to give the whole prison something beautiful.'],
-      women: ['thin', 'Kind of: two women sing the duet, but no woman is in the scene, so there\'s nothing to write about women.'] } },
+      women: ['yes', 'The only women in the prison are two voices: two women singing Mozart make every man feel free for a moment, though none of them knows what they are singing.', 'I have no idea to this day what those two Italian ladies were singing about.'] } },
     'shawshank-7': { who: 'Tommy Williams; Andy; Red; Warden Norton; Captain Hadley', t: {
       power: ['yes', 'When Tommy could prove Andy innocent, Norton has him shot, because Andy is too useful at hiding the warden\'s money.'],
       education: ['yes', 'Andy teaches Tommy until he passes his exam, but when that education could set Andy free, Norton has the boy killed: learning is only allowed while it serves the warden.'],
       money: ['yes', 'Norton needs Andy to keep laundering his money, so the money matters more to him than a young man\'s life.'],
       hope: ['yes', 'Andy\'s best hope of freedom dies with Tommy, and he sinks into the despair of the next scene.'],
       freedom: ['yes', 'The law could free Andy, and the warden deliberately keeps him trapped.'],
-      courage: ['yes', 'Andy stands up to the warden and is thrown into solitary; Tommy tells the truth and is shot for it.', 'How can you be so obtuse?'] } },
+      courage: ['yes', 'Andy stands up to the warden and is thrown into solitary; Tommy tells the truth and is shot for it.', 'How can you be so obtuse?'],
+      women: ['thin', 'Kind of: the murdered wife comes up again, but only as the golf pro\'s "lover". It backs up the trial scene; it isn\'t a point of its own.'] } },
     'shawshank-8': { who: 'Andy; Red; Heywood (who tells Red about the rope)', t: {
       hope: ['yes', 'Andy puts the film\'s message into one choice: keep hoping or give up.', 'I guess it comes down to a simple choice, really. Get busy living or get busy dying.'],
       freedom: ['yes', 'Zihuatanejo is Andy\'s picture of freedom: a warm place with no memory of the past.', 'You know what the Mexicans say about the Pacific? They say it has no memory.'],
-      women: ['thin', 'Kind of: Andy admits he drove his wife away, but it\'s about his own guilt, and she never speaks in the film.'] } },
+      women: ['yes', 'Andy blames himself for driving his wife away: the one time she is talked about as a person, it is through a man\'s guilt.'] } },
     'shawshank-9': { who: 'Warden Norton; the guards; Red (voiceover); Andy (in the flashback)', t: {
       power: ['yes', 'The warden\'s power is made a fool of: in a rage he throws a stone at the poster and finds the tunnel a prisoner dug under his nose.'],
       education: ['yes', 'Andy\'s knowledge is his way out: he knows rocks, and pressure and time are all he needs.', 'Geology is the study of pressure and time. That\'s all it takes really, pressure and time.'],
       hope: ['yes', 'Nearly twenty years of quiet hope pay off: Andy digs, waits and crawls out.'],
       freedom: ['yes', 'The film\'s great image of freedom: Andy raises his arms in the rain after five hundred yards of sewer pipe.', 'Andy Dufresne, who crawled through a river of shit and came out clean on the other side.'],
       courage: ['thin', 'Kind of: it takes nerve, but it\'s a secret escape, not standing up to anyone. Write it under hope or freedom.'],
-      women: ['thin', 'Kind of: a poster of Raquel Welch hides the tunnel, but she\'s a picture, not a woman in the story.'] } },
+      women: ['yes', 'The posters on Andy\'s wall, Rita Hayworth, then Marilyn Monroe, then Raquel Welch, are the only women in his cell for nearly twenty years, and the last one is literally a cover for his escape.'] } },
     'shawshank-10': { who: 'Andy (as Randall Stephens); the bank clerks; Warden Norton; Captain Hadley; the police', t: {
       power: ['yes', 'Corrupt power falls: Andy sends the warden\'s books to the newspaper, Hadley is arrested and Norton shoots himself.'],
       education: ['yes', 'Andy beats the warden with his brains: the false name he invented, Randall Stephens, lets him take the money and expose Norton.'],
@@ -243,15 +244,15 @@ window.EngThemes = {
 // parents" kind of highlight the giveaways"): words in each scene's own description (its `tell` in eng-data.js, found
 // as written, any case) and the themes they point to. Highlighted as clues; the theme is named once you've checked.
 window.EngThemes.hl = {
-  'shawshank-1': [['Two life sentences', 'freedom'], ['The jury doesn\'t believe him', 'hope']],
+  'shawshank-1': [['his wife is with her lover', 'women'], ['Two life sentences', 'freedom'], ['The jury doesn\'t believe him', 'hope']],
   'shawshank-2': [['Rejected', 'hope'], ['telling the parole board he\'s a changed man', 'freedom']],
   'shawshank-3': [['discipline and the Bible', 'religion'], ['breaks down in tears', 'hope'], ['Captain Hadley beats him, and he dies in the infirmary', 'power'], ['what was the dead man\'s name?', 'courage']],
   'shawshank-4': [['tax on an inheritance', 'money'], ['So he offers advice', 'education'], ['Hadley nearly throws him off the roof', 'power'], ['three beers each for his workmates', 'courage'], ['they feel like free men', 'freedom hope']],
   'shawshank-5': [['after fifty years', 'power'], ['\'institutionalized\'', 'power'], ['the world has moved on without him', 'freedom'], ['hangs himself', 'hope']],
-  'shawshank-6': [['books and records for the library', 'education'], ['plays Mozart over the loudspeakers', 'courage'], ['two weeks in solitary', 'power'], ['something inside that they can\'t take from you', 'freedom'], ['Hope, he warns, is a dangerous thing', 'hope']],
+  'shawshank-6': [['books and records for the library', 'education'], ['plays Mozart over the loudspeakers', 'courage women'], ['two weeks in solitary', 'power'], ['something inside that they can\'t take from you', 'freedom'], ['Hope, he warns, is a dangerous thing', 'hope']],
   'shawshank-7': [['helping to study', 'education'], ['Someone else did it', 'freedom hope'], ['too useful to Warden Norton', 'power'], ['hide his illegal money', 'money'], ['has Hadley shoot Tommy dead', 'power']],
-  'shawshank-8': [['a little hotel in Zihuatanejo, Mexico', 'freedom'], ['fears the worst', 'hope']],
-  'shawshank-9': [['Behind it: a tunnel', 'power'], ['Less than twenty years', 'hope'], ['arms raised in the rain, free', 'freedom']],
+  'shawshank-8': [['drove his wife away', 'women'], ['a little hotel in Zihuatanejo, Mexico', 'freedom'], ['fears the worst', 'hope']],
+  'shawshank-9': [['the poster on the wall', 'women'], ['Behind it: a tunnel', 'power'], ['Less than twenty years', 'hope'], ['arms raised in the rain, free', 'freedom']],
   'shawshank-10': [['the person Andy invented', 'education'], ['empties the accounts', 'money'], ['Hadley is arrested', 'power'], ['Andy\'s Bible', 'religion']],
   'shawshank-11': [['he doesn\'t care what they decide', 'hope'], ['Released', 'freedom'], ['He asks permission to go to the toilet', 'power'], ['breaking parole, just to be sent back', 'freedom']],
   'shawshank-12': [['Red keeps his promise', 'courage'], ['a letter inviting him to Mexico', 'hope'], ['breaks parole', 'freedom courage'], ['the blue Pacific', 'freedom']],
@@ -280,18 +281,16 @@ window.EngThemes.hl = {
   'stlt-11': [['get ready for midnight Mass', 'religion'], ['he walks on, to the convent', 'courage'], ['she\'s coming home with him', 'women hope freedom'], ['Not to the priest\'s house', 'religion'], ['barefoot, through the town', 'power']],
   'stlt-12': [['Some avoid him; some cut their talk short', 'power'], ['happier than he has ever felt', 'hope'], ['he\'ll pay for this', 'courage'], ['all the small things Mrs Wilson did', 'courage'], ['afraid, but hopeful', 'hope']]
 };
-// When a text has nothing for a theme (the user, of Shawshank and the role of women: "what if ur supposed to talk
-// about the role of women"): how to handle it if you're stuck with that theme. Shown on By theme, in place of the
-// empty column; the board's verdicts don't change (these scenes still have nothing of their own to say about women).
-window.EngThemes.gaps = {
+// When a text has nothing for a theme: how to handle it if you're stuck with it (none now), and notes on a weak text
+// for a theme (the user, of Shawshank: "role of women is NOT really good one but w eneed to think of scenes where women
+// are relevant in shawshank"): what to say about it, a moment that isn't one of the twelve key scenes, and a comparing
+// sentence. Shown at the top of that text's column on By theme.
+window.EngThemes.gaps = {};
+window.EngThemes.notes = {
   women: {
     shawshank: {
-      say: 'Shawshank has no women\'s story, but the absence is something you can write about: it\'s a world run entirely by men, where women appear only as a victim and as pictures on a wall. Use it as the contrast that shows up the other two texts, and keep it to one short paragraph.',
-      scenes: [
-        ['shawshank-1', 'The one woman in the plot is Andy\'s wife, and she is dead before the story properly begins: we never hear her side, and she is known only through the men who talk about her at the trial.'],
-        ['shawshank-8', 'When Andy finally talks about his wife, it is about his own guilt: he admits he drove her away. Even here she is seen only through a man\'s eyes.'],
-        ['shawshank-9', 'A poster of Raquel Welch hides the tunnel: in Shawshank women exist only as pictures the men pin to their walls, and this one is literally a cover.']
-      ],
+      say: 'Shawshank is a weak text for this theme, so the angle is absence: a world run entirely by men, where women appear only as a dead wife, as voices and as pictures on a wall. Use it as the contrast that shows up the other two texts, and keep the Shawshank part short.',
+      extra: [['Rita Hayworth', 'Early in the film (not one of the twelve key scenes)', 'The men watch Gilda in the prison hall and howl at Rita Hayworth\'s entrance, and Andy asks Red to get him her poster: women reach Shawshank only as film stars and fantasies.']],
       compare: 'Whereas Sive and Small Things Like These show women both suffering and holding power over other women, Mena over Sive and the Mother Superior over the girls in the laundry, The Shawshank Redemption shows a world with no place for women at all, where the power and the cruelty are entirely between men.'
     }
   }
