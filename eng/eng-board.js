@@ -29,7 +29,9 @@
     // themes then bottom senes"): six columns, two for each text, a row of scenes above the themes and a row below,
     // cards with the picture, the title and the giveaways; the full file opens beside the board
     wide: { W: 2058, sw: 320, tw: 210, th: 124, full: true },
-    narrow: { W: 620, H: 940, sw: 180, sh: 214, tw: 272, th: 92 }
+    // phones: the same cards as on a laptop (picture, title, giveaways), two to a row (the user, of the small photo
+    // cards: "add a bit more detail to the scenes")
+    narrow: { W: 620, H: 940, sw: 288, tw: 272, th: 100, full: true }
   };
   var C = null, DRAG = null, LAYN = 'wide', K = 1, AUTO = {}, HB = 0, TOPY = 74, TWN = 200, SEEN_BOARD = false;
   // How big the board is drawn on a laptop, as a share of the size that just fills the window (the user: "make the whole
@@ -154,18 +156,22 @@
     app.innerHTML = '<div class="sb">' + h + '</div>';
   }
 
-  // ---------- the case: six scenes on the board ----------
-  // The cases go through the scenes in story order (the user: "make it all by scene automatically on the board"):
-  // with All three, case 1 is scenes 1 and 2 of each text, case 2 scenes 3 and 4, and so on to 11 and 12; with one
-  // text, its scenes six at a time. Each case keeps its own strings and card positions (eng-cork-case:<text>:<n>);
-  // eng-cork-at is the case you were on.
+  // ---------- the case: the scenes on the board ----------
+  // A case is one text's scenes in story order (the user: "make it all by scene automatically on the board", then
+  // "make them automatically by what text they are in"): all twelve, or six at a time. With All three the cases go
+  // through Shawshank, then Sive, then Small Things. Each case keeps its own strings and card positions
+  // (eng-cork-case:<text>:<size>:<n>, see caseKey); eng-cork-at is the case you were on.
   function cases(tid) {
-    var out = [];
-    if (tid === 'all') {
-      var n = Math.max.apply(null, T.texts.map(function (t) { return scenes(t).length; }));
-      for (var k = 0; k < n; k += CASE_N / T.texts.length) out.push(T.texts.reduce(function (ids, t) { return ids.concat(scenes(t).slice(k, k + CASE_N / T.texts.length)); }, []));
-    } else for (var j = 0, all = scenes(tid); j < all.length; j += CASE_N) out.push(all.slice(j, j + CASE_N));
+    if (tid === 'all') return T.texts.reduce(function (out, t) { return out.concat(cases(t)); }, []);
+    for (var j = 0, out = [], all = scenes(tid); j < all.length; j += CASE_N) out.push(all.slice(j, j + CASE_N));
     return out;
+  }
+  // where a case's strings and card positions are kept: by its text and its number within that text, so a case is the
+  // same board whether you reach it from All three or from its own text
+  function caseKey(ids) {
+    var tid = tidOf(ids[0]), k = 1;
+    cases(tid).forEach(function (c, i) { if (c.indexOf(ids[0]) >= 0) k = i + 1; });
+    return 'eng-cork-case:' + tid + ':' + CASE_N + ':' + k;
   }
   function load() {
     var at = null, per = +(store('eng-cork-per') || 12);
@@ -178,46 +184,35 @@
     var list = cases(S.text), of = list.length;
     n = ((Math.round(n || 1) - 1) % of + of) % of + 1;
     var saved = null;
-    try { saved = JSON.parse(store('eng-cork-case:' + S.text + ':' + CASE_N + ':' + n) || 'null'); } catch (e) {}
+    try { saved = JSON.parse(store(caseKey(list[n - 1])) || 'null'); } catch (e) {}
     saved = saved || {};
-    C = { n: n, of: of, ids: sortIds(list[n - 1]), text: S.text, pos: saved.pos || {}, checked: !!saved.checked,
+    C = { n: n, of: of, ids: sortIds(list[n - 1]), text: S.text, tid: tidOf(list[n - 1][0]), pos: saved.pos || {}, checked: !!saved.checked,
       strings: (saved.strings || []).filter(function (x) { return T.scenes[x.s] && TH[x.t] && list[n - 1].indexOf(x.s) >= 0; }) };
     S.sel = null; S.arm = null; S.miss = false;
     store('eng-cork-at', JSON.stringify({ text: S.text, n: n }));
   }
   function save() {
-    store('eng-cork-case:' + C.text + ':' + CASE_N + ':' + C.n, JSON.stringify({ strings: C.strings, pos: C.pos, checked: C.checked }));
+    store(caseKey(C.ids), JSON.stringify({ strings: C.strings, pos: C.pos, checked: C.checked }));
     store('eng-cork-at', JSON.stringify({ text: C.text, n: C.n }));
   }
   // which scenes this case is: "scenes 3 and 4" (All three) or "scenes 1 to 6"
   function caseWhat() {
     var nums = C.ids.map(function (mid) { return +mid.replace(/^.*-/, ''); }), lo = Math.min.apply(null, nums), hi = Math.max.apply(null, nums);
-    return lo === hi ? 'scene ' + lo : hi - lo === 1 ? 'scenes ' + lo + ' and ' + hi : 'scenes ' + lo + ' to ' + hi;
+    return lo === hi ? 'Scene ' + lo : hi - lo === 1 ? 'Scenes ' + lo + ' and ' + hi : 'Scenes ' + lo + ' to ' + hi;
   }
   function lay() { return LAY[LAYN]; }
   function jit(k, n) { return (hash(k) % (2 * n + 1)) - n; }
   // Where cards go until you move them: on laptops the full scene cards (the user: "just make it like these were ...
   // on the bulletin board") in a row along the top and the bottom, the themes in two rows between them, placed from
   // the cards' real heights; on phones, small photos.
-  // Rows of scene cards: with All three, a row is the next scene of each text (so each text keeps its column); with one
-  // text, three at a time in story order. The first half of the rows go above the themes, the rest below.
+  // Rows of scene cards: a case is one text, so its scenes in story order, six to a row on a laptop and two on a phone.
+  // The first half of the rows go above the themes, the rest below.
   function placeAuto() {
-    var L = lay(), hs = {}, rows = [];
-    if ((C.text || 'all') === 'all') {
-      var by = T.texts.map(function (t) { return C.ids.filter(function (mid) { return tidOf(mid) === t; }); }), n = Math.max.apply(null, by.map(function (g) { return g.length; }));
-      for (var r = 0; r < n; r++) rows.push(by.map(function (g) { return g[r] || null; }));
-    } else for (var j = 0; j < C.ids.length; j += 3) rows.push(C.ids.slice(j, j + 3));
+    var L = lay(), hs = {}, rows = [], wide = LAYN === 'wide', per = wide ? 6 : 2;
+    for (var j = 0; j < C.ids.length; j += per) rows.push(C.ids.slice(j, j + per));
     Array.prototype.forEach.call(app.querySelectorAll('.cb-card'), function (el) { hs[el.getAttribute('data-k')] = el.offsetHeight; });
     var hOf = function (k) { return hs[k] || (k.charAt(0) === 's' ? L.sh || 420 : L.th); };
-    var wide = LAYN === 'wide', colX = wide ? colX6 : function (i) { return 14 + i * 202; }, gap = wide ? 16 : 22;
-    if (wide) {
-      // a row is six cards: the next two scenes of each text (each text keeps its two columns), or six of one text
-      rows = [];
-      if ((C.text || 'all') === 'all') {
-        var by6 = T.texts.map(function (t) { return C.ids.filter(function (mid) { return tidOf(mid) === t; }); }), n6 = Math.max.apply(null, by6.map(function (g) { return g.length; }));
-        for (var r6 = 0; r6 < n6; r6 += 2) { var row6 = []; by6.forEach(function (g, ti) { row6[ti * 2] = g[r6] || null; row6[ti * 2 + 1] = g[r6 + 1] || null; }); rows.push(row6); }
-      } else for (var j6 = 0; j6 < C.ids.length; j6 += 6) rows.push(C.ids.slice(j6, j6 + 6));
-    }
+    var colX = wide ? colX6 : function (i) { return 16 + i * (L.sw + 12); }, gap = wide ? 16 : 22;
     var up = rows.slice(0, Math.ceil(rows.length / 2)), down = rows.slice(Math.ceil(rows.length / 2)), y = TOPY;
     AUTO = {};
     var put = function (row) {
@@ -233,9 +228,9 @@
     TL.forEach(function (t, i) {
       var r = Math.floor(i / per), c = i % per, inRow = Math.min(per, TL.length - r * per);
       AUTO['t:' + t.id] = wide ? { x: Math.round((L.W - (inRow * TWN + (inRow - 1) * 14)) / 2) + c * (TWN + 14) + jit(t.id, 4), y: y + r * (L.th + 18) + jit(t.id + 'y', 6) }
-        : { x: 26 + (per - inRow) * 148 + c * 296 + jit(t.id, 6), y: y + r * 96 + jit(t.id + 'y', 6) };
+        : { x: 26 + (per - inRow) * 148 + c * 296 + jit(t.id, 6), y: y + r * (L.th + 16) + jit(t.id + 'y', 4) };
     });
-    y += wide ? nrow * (L.th + 18) + 6 : nrow * 96 + 18;
+    y += wide ? nrow * (L.th + 18) + 6 : nrow * (L.th + 16) + 14;
     down.forEach(put);
   }
   function colX6(i) { return 24 + i * (LAY.wide.sw + (LAY.wide.gap || 18)); }
@@ -259,7 +254,7 @@
     var L = lay(), res = C.checked ? tally() : null;
     if (LAYN === 'wide') { L.W = colX6(5) + L.sw + 24; var nT = ON().length, perT = nT <= 9 ? nT : Math.ceil(nT / 2); TWN = Math.min(L.tw, Math.floor((L.W - 48 - (perT - 1) * 14) / perT)); }
     LAYN = (app.clientWidth || window.innerWidth) >= 900 ? 'wide' : 'narrow';
-    var h = '<div class="cb-ctl">' + boardTools() + '<div class="cb-bar"><span class="cb-case">Case ' + C.n + ' of ' + C.of + '<small>' + esc(caseWhat()) + (C.text === 'all' ? ' of each text' : ' of ' + esc(A.text(C.text).title)) + '</small></span>' +
+    var h = '<div class="cb-ctl">' + boardTools() + '<div class="cb-bar"><span class="cb-case">Case ' + C.n + ' of ' + C.of + '<small>' + esc(caseWhat()) + ' of ' + esc(A.text(C.tid).title) + '</small></span>' +
       (res ? '<span class="cb-res"><b>' + res.ok + '</b> hold · <b class="is-bad">' + res.bad + '</b> don\'t · <b class="is-miss">' + res.miss + '</b> missed</span>' : '') +
       '<span class="cb-btns"><button type="button" class="sb-btn" data-cb-check' + (C.strings.length ? '' : ' disabled') + '>' + (C.checked ? 'Check again' : 'Check my strings') + '</button>' +
       (res && res.miss ? '<button type="button" class="sb-btn is-quiet" data-cb-miss aria-pressed="' + S.miss + '">' + (S.miss ? 'Hide what I missed' : 'Show what I missed') + '</button>' : '') + '<button type="button" class="sb-btn is-quiet" data-cb-go="-1"' + (C.n > 1 ? '' : ' disabled') + '>‹ Previous</button><button type="button" class="sb-btn is-quiet" data-cb-go="1">' + (C.n < C.of ? 'Next case ›' : 'Back to case 1') + '</button><button type="button" class="sb-btn is-quiet" data-cb-clear' + (C.strings.length ? '' : ' disabled') + '>Clear strings</button></span></div></div>';
@@ -267,13 +262,12 @@
       '<svg class="cb-strings" data-cb-svg aria-hidden="true"></svg>';
     C.ids.forEach(function (mid) {
       var k = 's:' + mid, p = pos(k), m = mom(mid), src = pic(mid), tid = tidOf(mid);
-      var cls = 'cb-card cb-scene' + (L.full ? ' is-full' : '') + (S.sel === k ? ' is-sel' : '') + (S.arm === k ? ' is-arm' : '');
-      var st = 'left:' + p.x + 'px;top:' + p.y + 'px;width:' + L.sw + 'px;' + (L.full ? '' : 'height:' + L.sh + 'px;') + '--r:' + rot(k) + 'deg;--c:' + (A.COL[tid] || '#13233A');
+      var cls = 'cb-card cb-scene is-full' + (S.sel === k ? ' is-sel' : '') + (S.arm === k ? ' is-arm' : '');
+      var st = 'left:' + p.x + 'px;top:' + p.y + 'px;width:' + L.sw + 'px;--r:' + rot(k) + 'deg;--c:' + (A.COL[tid] || '#13233A');
       h += '<div class="' + cls + '" data-k="' + k + '" style="' + st + '" tabindex="0" role="button" aria-label="' + esc(m.title) + ', ' + esc(short(tid)) + '">' +
         '<span class="cb-pin" data-pin="' + k + '" aria-hidden="true"></span>' +
-        (L.full ? (src ? '<img class="cb-full__img" src="' + esc(src) + '" alt="" draggable="false">' : '') +
-          '<div class="cb-full__body is-compact"><p class="sb-card__tag">' + esc(short(tid)) + ' · scene ' + mid.replace(/^.*-/, '') + '</p><h3 class="sb-card__h">' + esc(m.title) + '</h3>' + giveaways(mid, C.checked) + '</div>'
-          : (src ? '<img src="' + esc(src) + '" alt="" draggable="false">' : '<span class="cb-noimg"></span>') + '<span class="cb-scene__t">' + esc(m.title) + '</span><span class="cb-scene__x">' + esc(short(tid)) + ' · ' + mid.replace(/^.*-/, '') + '</span>') +
+        (src ? '<img class="cb-full__img" src="' + esc(src) + '" alt="" draggable="false">' : '') +
+          '<div class="cb-full__body is-compact"><p class="sb-card__tag">Scene ' + mid.replace(/^.*-/, '') + (m.where ? ' · ' + esc(m.where) : '') + '</p><h3 class="sb-card__h">' + esc(m.title) + '</h3>' + giveaways(mid, C.checked) + '</div>' +
         (canWatch(mid) ? '<button type="button" class="cb-watch' + (hasClip(mid) ? '' : ' is-still') + '" data-cb-watch="' + mid + '" aria-label="' + (hasClip(mid) ? 'Watch ' : 'See ') + esc(m.title) + '" title="' + (hasClip(mid) ? 'Watch the scene' : 'No clip of this scene exists: see it told over a still') + '">▶</button>' : '') + '</div>';
     });
     ON().forEach(function (t) {
@@ -281,12 +275,9 @@
       h += '<div class="cb-card cb-theme' + (S.sel === k ? ' is-sel' : '') + (S.arm === k ? ' is-arm' : '') + '" data-k="' + k + '" style="left:' + p.x + 'px;top:' + p.y + 'px;width:' + (LAYN === 'wide' ? TWN : L.tw) + 'px;height:' + L.th + 'px;--r:' + rot(k) + 'deg" tabindex="0" role="button" aria-label="' + esc(t.name) + '">' +
         '<span class="cb-pin" data-pin="' + k + '" aria-hidden="true"></span><b>' + esc(t.name) + '</b>' + (t.times ? '<small>came up ' + (t.times === 1 ? 'once' : t.times + ' times') + '</small>' : '') + '</div>';
     });
-    var one = (C.text || 'all') !== 'all', wideL = LAYN === 'wide';
-    (one ? [C.text] : T.texts).forEach(function (tid, i) {
-      var lx = one ? (wideL ? 24 : 14) : wideL ? colX6(i * 2) : 14 + i * 202, lwid = one ? L.W - (wideL ? 48 : 28) : wideL ? colX6(1) - colX6(0) + L.sw : 180;
-      h += '<p class="cb-label" style="left:' + lx + 'px;width:' + lwid + 'px;--c:' + (A.COL[tid] || '#13233A') + '">' +
-        esc(one ? A.text(tid).title + ' · in story order' : LAY[LAYN].full ? A.text(tid).title : short(tid)) + '</p>';
-    });
+    var wideL = LAYN === 'wide';
+    h += '<p class="cb-label" style="left:' + (wideL ? 24 : 16) + 'px;width:' + (L.W - (wideL ? 48 : 32)) + 'px;--c:' + (A.COL[C.tid] || '#13233A') + '">' +
+      esc(A.text(C.tid).title) + ' · in story order</p>';
     h += '<svg class="cb-tags" data-cb-tags aria-hidden="true"></svg></div></div>';
     // the desk under the board, with the case file on it as a folder (the user, of the wall: "lik ea detective office")
     return h + '<div class="cb-desk" data-cb-desk>' + (LAYN === 'wide' ? '<svg class="cb-prop cb-lamp" viewBox="0 0 220 230" aria-hidden="true"><defs><linearGradient id="cbShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2F7A4C"/><stop offset=".55" stop-color="#15502E"/><stop offset="1" stop-color="#0B3520"/></linearGradient><linearGradient id="cbBrass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7A5A22"/><stop offset=".45" stop-color="#E2C374"/><stop offset="1" stop-color="#6E4F1C"/></linearGradient><radialGradient id="cbGlow" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#FFE2A8" stop-opacity=".85"/><stop offset="1" stop-color="#FFE2A8" stop-opacity="0"/></radialGradient></defs><path d="M38 96 L182 96 L210 160 L10 160 Z" fill="url(#cbGlow)" opacity=".55"/><rect x="104" y="92" width="12" height="108" fill="url(#cbBrass)"/><ellipse cx="110" cy="212" rx="62" ry="14" fill="#3E2A10" opacity=".6"/><path d="M52 214 Q52 196 110 194 Q168 196 168 214 Z" fill="url(#cbBrass)"/><path d="M24 92 Q30 40 110 34 Q190 40 196 92 Z" fill="url(#cbShade)"/><path d="M40 82 Q56 50 104 44" stroke="#8FD1A6" stroke-width="5" stroke-linecap="round" fill="none" opacity=".55"/><rect x="20" y="90" width="180" height="8" rx="4" fill="url(#cbBrass)"/><rect x="104" y="24" width="12" height="12" rx="3" fill="url(#cbBrass)"/></svg>' + '<svg class="cb-prop cb-folders" viewBox="0 0 260 90" aria-hidden="true"><rect x="14" y="40" width="230" height="34" rx="3" fill="#B98B4E" transform="rotate(-3 130 57)"/><rect x="6" y="30" width="236" height="36" rx="3" fill="#D8B77A" transform="rotate(2 124 48)"/><rect x="20" y="16" width="226" height="38" rx="3" fill="#E6CB93" transform="rotate(-1.5 133 35)"/><rect x="150" y="8" width="60" height="14" rx="3" fill="#E6CB93" transform="rotate(-1.5 180 15)"/><path d="M40 70 L232 52" stroke="#C21F2E" stroke-width="3"/><path d="M38 74 L60 72" stroke="#2B2B2B" stroke-width="5" stroke-linecap="round"/></svg>' + '<svg class="cb-prop cb-phone" viewBox="0 0 240 150" aria-hidden="true"><ellipse cx="120" cy="138" rx="104" ry="10" fill="#1A0F06" opacity=".55"/><path d="M40 136 Q36 78 72 64 L168 64 Q204 78 200 136 Z" fill="#15161A"/><path d="M58 120 Q58 84 82 76 L158 76 Q182 84 182 120" fill="none" stroke="#3A3D45" stroke-width="3"/><circle cx="120" cy="104" r="26" fill="#26282E" stroke="#C9CDD3" stroke-width="2"/><circle cx="120" cy="104" r="9" fill="#E9E4D6"/><g fill="#0C0D10"><circle cx="120" cy="85" r="4"/><circle cx="134" cy="91" r="4"/><circle cx="139" cy="104" r="4"/><circle cx="134" cy="117" r="4"/><circle cx="106" cy="91" r="4"/><circle cx="101" cy="104" r="4"/><circle cx="106" cy="117" r="4"/></g><path d="M30 52 Q24 30 46 26 L194 26 Q216 30 210 52 Q204 62 186 58 L178 44 L62 44 L54 58 Q36 62 30 52 Z" fill="#1D1F24"/><path d="M48 32 L192 32" stroke="#4A4E57" stroke-width="3" stroke-linecap="round"/><path d="M200 120 Q236 126 228 146" fill="none" stroke="#15161A" stroke-width="4"/></svg>' : '') +
@@ -621,7 +612,11 @@
     var t = e.target, x;
     if ((x = t.closest('[data-cb-watch]'))) { e.preventDefault(); if (A.watch) A.watch(x.getAttribute('data-cb-watch'), S.mode === 'theme' ? S.theme : null); return; }
     if ((x = t.closest('[data-sb-mode]'))) { S.mode = x.getAttribute('data-sb-mode'); history.replaceState(null, '', '#board'); paint(); return; }
-    if ((x = t.closest('[data-sb-text]'))) { S.text = x.getAttribute('data-sb-text'); if (S.mode === 'board') goCase(1); paint(); return; }
+    if ((x = t.closest('[data-sb-text]'))) {
+      var was0 = C && C.ids[0], n0 = 1; S.text = x.getAttribute('data-sb-text');
+      if (S.mode === 'board') { cases(S.text).forEach(function (ids, i) { if (ids.indexOf(was0) >= 0) n0 = i + 1; }); goCase(n0); }
+      paint(); return;
+    }
     if ((x = t.closest('[data-sb-theme]'))) { S.theme = x.getAttribute('data-sb-theme'); paint(); return; }
     if ((x = t.closest('[data-sb-go]'))) { var ids = scenes(S.text), k = ids.indexOf(S.scene) + +x.getAttribute('data-sb-go'); S.scene = ids[(k + ids.length) % ids.length]; paint(); return; }
     if (t.closest('[data-cb-check]')) { check(); return; }

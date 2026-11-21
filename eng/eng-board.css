@@ -346,3 +346,14 @@ body.eng.eng-wall .cb-desk .cb-file::before { content: ""; position: absolute; t
 body.eng.eng-wall .cb-desk .cb-file .cb-file__k { color: #7A5726; }
 @media (max-width: 1500px) { .cb-folders { display: none; } }
 @media (max-width: 899px) { .cb-desk { padding: 40px 0 30px; margin-top: 18px; } .cb-prop { display: none; } }
+/* phones: the full cards two to a row, sized for the board's scale on a phone (about half): title, where it is and
+   the giveaways (the user: "add a bit more detail to the scenes") */
+@media (max-width: 899px) {
+  .cb-scene.is-full .cb-full__img { aspect-ratio: 16 / 8; }
+  .cb-full__body.is-compact { padding: 10px 12px 14px; }
+  .cb-full__body.is-compact .sb-card__tag { margin-bottom: 4px; font-size: 16px; line-height: 1.2; letter-spacing: .03em; }
+  .cb-full__body.is-compact .sb-card__h { margin: 0 0 8px; font-size: 28px; line-height: 1.08; }
+  .cb-gv { gap: 6px; }
+  .cb-gv li { font-size: 21px; line-height: 1.22; }
+  .cb-board.is-full .cb-label { font-size: 17px; padding: 8px 12px; }
+}
