@@ -16,9 +16,9 @@
   var A = null, app = null, CASE_N = 12;
   var S = { mode: 'board', text: 'all', theme: 'power', scene: null, sel: null, arm: null, miss: false };
   var TH = {}; T.themes.forEach(function (t) { TH[t.id] = t; });
-  var TAG = { power: 'Power', education: 'Education', women: 'Women', hope: 'Hope', freedom: 'Freedom', money: 'Money', religion: 'Church', courage: 'Courage' };
+  var TAG = { power: 'Power', education: 'Education', women: 'Women', hope: 'Hope', freedom: 'Freedom', money: 'Money', class: 'Class', religion: 'Church', courage: 'Courage' };
   var LAY = {
-    wide: { W: 1400, sw: 400, tw: 250, th: 80, full: true },
+    wide: { W: 1400, sw: 400, tw: 246, th: 80, full: true },
     narrow: { W: 620, H: 940, sw: 180, sh: 214, tw: 272, th: 70 }
   };
   var C = null, DRAG = null, LAYN = 'wide', K = 1, AUTO = {}, HB = 0, TOPY = 74;
@@ -194,11 +194,14 @@
     };
     up.forEach(put);
     y += wide ? 30 : 16;
+    // the themes: rows of five on a laptop (the last row centred), two on a phone
+    var per = wide ? 5 : 2, nrow = Math.ceil(T.themes.length / per);
     T.themes.forEach(function (t, i) {
-      AUTO['t:' + t.id] = wide ? { x: 60 + (i % 4) * 330 + jit(t.id, 18), y: y + (i < 4 ? 0 : 124) + jit(t.id + 'y', 10) }
-        : { x: 26 + (i % 2) * 296 + jit(t.id, 6), y: y + Math.floor(i / 2) * 96 + jit(t.id + 'y', 6) };
+      var r = Math.floor(i / per), c = i % per, inRow = Math.min(per, T.themes.length - r * per);
+      AUTO['t:' + t.id] = wide ? { x: 30 + (per - inRow) * 135 + c * 270 + jit(t.id, 10), y: y + r * 124 + jit(t.id + 'y', 10) }
+        : { x: 26 + (per - inRow) * 148 + c * 296 + jit(t.id, 6), y: y + r * 96 + jit(t.id + 'y', 6) };
     });
-    y += wide ? 124 + L.th + 64 : 4 * 96 + 18;
+    y += wide ? (nrow - 1) * 124 + L.th + 64 : nrow * 96 + 18;
     down.forEach(put);
   }
   function moved() { return C.pos[LAYN] = C.pos[LAYN] || {}; }
