@@ -288,7 +288,9 @@
         esc(one ? A.text(tid).title + ' · in story order' : LAY[LAYN].full ? A.text(tid).title : short(tid)) + '</p>';
     });
     h += '<svg class="cb-tags" data-cb-tags aria-hidden="true"></svg></div></div>';
-    return h + '<section class="cb-file" data-cb-file aria-live="polite">' + (sideOn() ? fileHtml0() : fileHtml()) + '</section>';
+    // the desk under the board, with the case file on it as a folder (the user, of the wall: "lik ea detective office")
+    return h + '<div class="cb-desk" data-cb-desk>' + (LAYN === 'wide' ? '<svg class="cb-prop cb-lamp" viewBox="0 0 220 230" aria-hidden="true"><defs><linearGradient id="cbShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2F7A4C"/><stop offset=".55" stop-color="#15502E"/><stop offset="1" stop-color="#0B3520"/></linearGradient><linearGradient id="cbBrass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7A5A22"/><stop offset=".45" stop-color="#E2C374"/><stop offset="1" stop-color="#6E4F1C"/></linearGradient><radialGradient id="cbGlow" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#FFE2A8" stop-opacity=".85"/><stop offset="1" stop-color="#FFE2A8" stop-opacity="0"/></radialGradient></defs><path d="M38 96 L182 96 L210 160 L10 160 Z" fill="url(#cbGlow)" opacity=".55"/><rect x="104" y="92" width="12" height="108" fill="url(#cbBrass)"/><ellipse cx="110" cy="212" rx="62" ry="14" fill="#3E2A10" opacity=".6"/><path d="M52 214 Q52 196 110 194 Q168 196 168 214 Z" fill="url(#cbBrass)"/><path d="M24 92 Q30 40 110 34 Q190 40 196 92 Z" fill="url(#cbShade)"/><path d="M40 82 Q56 50 104 44" stroke="#8FD1A6" stroke-width="5" stroke-linecap="round" fill="none" opacity=".55"/><rect x="20" y="90" width="180" height="8" rx="4" fill="url(#cbBrass)"/><rect x="104" y="24" width="12" height="12" rx="3" fill="url(#cbBrass)"/></svg>' + '<svg class="cb-prop cb-folders" viewBox="0 0 260 90" aria-hidden="true"><rect x="14" y="40" width="230" height="34" rx="3" fill="#B98B4E" transform="rotate(-3 130 57)"/><rect x="6" y="30" width="236" height="36" rx="3" fill="#D8B77A" transform="rotate(2 124 48)"/><rect x="20" y="16" width="226" height="38" rx="3" fill="#E6CB93" transform="rotate(-1.5 133 35)"/><rect x="150" y="8" width="60" height="14" rx="3" fill="#E6CB93" transform="rotate(-1.5 180 15)"/><path d="M40 70 L232 52" stroke="#C21F2E" stroke-width="3"/><path d="M38 74 L60 72" stroke="#2B2B2B" stroke-width="5" stroke-linecap="round"/></svg>' + '<svg class="cb-prop cb-phone" viewBox="0 0 240 150" aria-hidden="true"><ellipse cx="120" cy="138" rx="104" ry="10" fill="#1A0F06" opacity=".55"/><path d="M40 136 Q36 78 72 64 L168 64 Q204 78 200 136 Z" fill="#15161A"/><path d="M58 120 Q58 84 82 76 L158 76 Q182 84 182 120" fill="none" stroke="#3A3D45" stroke-width="3"/><circle cx="120" cy="104" r="26" fill="#26282E" stroke="#C9CDD3" stroke-width="2"/><circle cx="120" cy="104" r="9" fill="#E9E4D6"/><g fill="#0C0D10"><circle cx="120" cy="85" r="4"/><circle cx="134" cy="91" r="4"/><circle cx="139" cy="104" r="4"/><circle cx="134" cy="117" r="4"/><circle cx="106" cy="91" r="4"/><circle cx="101" cy="104" r="4"/><circle cx="106" cy="117" r="4"/></g><path d="M30 52 Q24 30 46 26 L194 26 Q216 30 210 52 Q204 62 186 58 L178 44 L62 44 L54 58 Q36 62 30 52 Z" fill="#1D1F24"/><path d="M48 32 L192 32" stroke="#4A4E57" stroke-width="3" stroke-linecap="round"/><path d="M200 120 Q236 126 228 146" fill="none" stroke="#15161A" stroke-width="4"/></svg>' : '') +
+      '<section class="cb-file" data-cb-file aria-live="polite">' + (sideOn() ? fileHtml0() : fileHtml()) + '</section></div>';
   }
   // A card's giveaways, the highlighted words of its description, as written there (in story order, four at most).
   function giveaways(mid, named) {
@@ -364,6 +366,7 @@
     if (!wrap) return;
     if (LAYN !== 'wide') {
       wrap.style.width = ''; wrap.style.marginLeft = ''; board.style.marginLeft = '';
+      var desk0 = app.querySelector('[data-cb-desk]'); if (desk0) { desk0.style.width = ''; desk0.style.marginLeft = ''; }
       var row0 = app.querySelector('.cb-ctl'); if (row0) { row0.style.width = ''; row0.style.marginLeft = ''; }
       K = Math.min(1, wrap.clientWidth / L.W);
     } else {
@@ -383,6 +386,7 @@
       if (row) { row.style.width = bw + 'px'; row.style.marginLeft = off + 'px'; bw = fit(); off = 28 - left + Math.max(0, Math.round((frameW - bw) / 2)); row.style.width = bw + 'px'; row.style.marginLeft = off + 'px'; }
       // the cork frame hugs the board, centred
       wrap.style.width = bw + 'px'; wrap.style.marginLeft = off + 'px';
+      var desk = app.querySelector('[data-cb-desk]'); if (desk) { desk.style.width = docW + 'px'; desk.style.marginLeft = (-left) + 'px'; }
       board.style.marginLeft = '0px';
     }
     board.style.transform = 'scale(' + K + ')';

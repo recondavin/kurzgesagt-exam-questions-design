@@ -302,3 +302,47 @@ body.eng.eng-wall .sb-tab:not([aria-pressed="true"]) { border-color: rgba(243, 2
 body.eng.eng-wall .cb-ctl { box-shadow: 0 10px 24px rgba(0, 0, 0, .4); }
 body.eng.eng-wall .cb-wrap { box-shadow: 0 0 0 10px #6E4526, 0 0 0 12px #3E2512, 0 28px 50px rgba(0, 0, 0, .6), 0 8px 14px rgba(0, 0, 0, .4); }
 body.eng.eng-wall .cb-file { box-shadow: 0 12px 28px rgba(0, 0, 0, .45); }
+
+/* ---------- more of a wall (the user: "make the wall more wally") ----------
+   Deeper plaster: big lumps and a fine stucco grain, both lit from the upper left; patchy paint; a few hairline cracks;
+   the lamp glow and the dark corners on top. Overrides the wall above. */
+body.eng.eng-wall {
+  background-color: #56636E;
+  background-image:
+    radial-gradient(ellipse 30% 42% at 7% 32%, rgba(255, 180, 96, .34), rgba(255, 180, 96, 0) 72%),
+    radial-gradient(ellipse 70% 50% at 50% 14%, rgba(205, 220, 232, .16), rgba(205, 220, 232, 0) 70%),
+    radial-gradient(ellipse 125% 95% at 50% 40%, rgba(0, 0, 0, 0) 48%, rgba(5, 8, 12, .7) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'%3E%3Cg fill='none' stroke='%23161D24' stroke-opacity='.55' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1600 120 1540 150 1512 205 1470 222 1452 268 1405 290 1398 330' stroke-width='1.6'/%3E%3Cpath d='M1512 205 1530 248 1522 286' stroke-width='1'/%3E%3Cpath d='M0 760 46 742 70 700 118 688 140 640 176 628' stroke-width='1.5'/%3E%3Cpath d='M70 700 96 716 104 752' stroke-width='.9'/%3E%3Cpath d='M820 1000 806 962 830 930 812 884 836 850' stroke-width='1.2'/%3E%3C/g%3E%3Cg fill='none' stroke='%23C9D4DC' stroke-opacity='.22' stroke-linecap='round'%3E%3Cpath d='M1601 122 1541 152 1513 207 1471 224 1453 270 1406 292 1399 332' stroke-width='1'/%3E%3Cpath d='M1 762 47 744 71 702 119 690 141 642 177 630' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='1200'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.0035' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .6 0 0 0 0 .64 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='b' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.016' numOctaves='5' seed='3' stitchTiles='stitch'/%3E%3CfeDiffuseLighting lighting-color='%23DCE4EA' surfaceScale='6'%3E%3CfeDistantLight azimuth='225' elevation='38'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='s' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.11' numOctaves='3' seed='5' stitchTiles='stitch'/%3E%3CfeDiffuseLighting lighting-color='%23F2F5F7' surfaceScale='1.8'%3E%3CfeDistantLight azimuth='225' elevation='48'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 1200px 1200px, 600px 600px, 300px 300px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat, repeat;
+  background-attachment: fixed, fixed, fixed, fixed, scroll, scroll, scroll;
+  background-blend-mode: screen, screen, normal, normal, soft-light, multiply, multiply;
+}
+
+/* ---------- the detective's desk under the board (the user: "lik ea detective office") ----------
+   Dark wood with its grain, a lit front edge, a green banker's lamp at the left (its glow is the warm light on the wall),
+   a stack of case folders and an old black telephone; the case file lies on it as a manila folder. Props on laptops only. */
+.cb-desk { position: relative; box-sizing: border-box; margin-top: 30px; padding: 150px 24px 70px; }
+body.eng.eng-wall .cb-desk {
+  background-color: #4B2E19;
+  background-image:
+    linear-gradient(to bottom, #9A6A40 0, #7A4F2D 10px, rgba(0, 0, 0, .35) 11px, rgba(0, 0, 0, 0) 40px),
+    radial-gradient(ellipse 40% 70% at 8% 0%, rgba(255, 196, 120, .30), rgba(255, 196, 120, 0) 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2400' height='300'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.0025 .09' numOctaves='3' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .11 0 0 0 0 .05 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E"),
+    linear-gradient(to bottom, #5A3820, #3A2211);
+  background-size: 100% 100%, 100% 100%, 2400px 300px, 100% 100%;
+  box-shadow: inset 0 18px 30px -18px rgba(0, 0, 0, .7);
+}
+.cb-prop { position: absolute; pointer-events: none; filter: drop-shadow(0 10px 10px rgba(0, 0, 0, .45)); }
+.cb-lamp { left: 3%; top: -62px; width: 210px; }
+.cb-phone { right: 4%; top: 36px; width: 230px; }
+.cb-folders { left: 15%; top: 70px; width: 250px; transform: rotate(-4deg); }
+/* the case file: a manila folder on the desk */
+body.eng.eng-wall .cb-desk .cb-file { position: relative; border: 0; border-radius: 4px 4px 6px 6px; background: #ECD9AC; background-image: linear-gradient(rgba(255, 255, 255, .25), rgba(255, 255, 255, 0) 30%); box-shadow: 0 14px 30px rgba(0, 0, 0, .55), 0 2px 0 #C9AE76; transform: rotate(-.4deg); }
+body.eng.eng-wall .cb-desk .cb-file::before { content: ""; position: absolute; top: -22px; left: 28px; width: 150px; height: 22px; padding: 0; border-radius: 6px 6px 0 0; background: #ECD9AC; color: #6B4B1E; font: 800 12px/1.2 Outfit, system-ui, sans-serif; letter-spacing: .12em; }
+body.eng.eng-wall .cb-desk .cb-file .cb-file__k { color: #7A5726; }
+@media (max-width: 1500px) { .cb-folders { display: none; } }
+@media (max-width: 899px) { .cb-desk { padding: 40px 0 30px; margin-top: 18px; } .cb-prop { display: none; } }
