@@ -3456,3 +3456,26 @@ body.eng-papertop .eng-cmpg .is-now .eng-cpw__s:not(.is-done) ~ .eng-cpw__s:not(
 .eng-read__chip.is-plain:hover { background: none; box-shadow: inset 0 0 0 1px var(--exam-done); }
 .eng-read__w.is-plain { box-sizing: border-box; cursor: default; }
 .eng-read__w.is-plain:hover { background: none; }
+
+/* Everything the Comparative page did, at the foot of Compare it (eng.js cpMore): one ruled row each, as the folded steps. */
+.cpx-more { margin-top: 12px; padding-top: 28px; border-top: 1px solid var(--exam-rule, #D6CDB5); color: var(--exam-ink, #13233A); }
+body.eng-papertop .eng-app .cpx-more h2.eng-h2 { margin: 0 0 8px; color: var(--exam-ink); font: var(--font-head-weight) 28px/1.15 var(--font-head); letter-spacing: -.02em; }
+.cpx-more__row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 0 14px; min-height: 56px; border-bottom: 1px solid var(--exam-rule, #D6CDB5); color: var(--exam-ink-2, #3E4A5A); font: 400 18px/1.3 var(--font-body); text-decoration: none; cursor: pointer; list-style: none; }
+.cpx-more__row::-webkit-details-marker { display: none; }
+.cpx-more__row:hover { background: var(--exam-paper-2, #ECE5D1); box-shadow: -12px 0 0 var(--exam-paper-2, #ECE5D1), 12px 0 0 var(--exam-paper-2, #ECE5D1); }
+.cpx-more__row:focus-visible { outline: 3px solid var(--exam-ink, #13233A); outline-offset: 2px; }
+.cpx-more__row b { color: var(--exam-ink, #13233A); font: 700 20px/1.2 var(--font-head); letter-spacing: -.01em; white-space: nowrap; }
+.cpx-more__row span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cpx-more__row em { color: var(--exam-ink, #13233A); font: 600 17px/1 var(--font-body); font-style: normal; text-decoration: underline; text-underline-offset: 4px; white-space: nowrap; }
+.cpx-more__txt[open] > .cpx-more__row em { visibility: hidden; }
+.cpx-more__txt > .eng-grid { margin: 20px 0 12px; }
+.cpx-more__txt > .eng-picked { margin: 0 0 24px; }
+@media (max-width: 900px) { .cpx-more__row { grid-template-columns: minmax(0, 1fr) auto; padding: 10px 0; } .cpx-more__row span { grid-column: 1; grid-row: 2; white-space: normal; } .cpx-more__row em { grid-row: 1 / 3; grid-column: 2; } }
+/* phones: the last two screens of the feed */
+.eng-fi__texts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.eng-fi__texts .eng-pick__img { aspect-ratio: 16 / 9; }
+.eng-fi__texts .eng-pick__body { padding: 8px 10px 4px; }
+.eng-fi__texts .eng-pick__t { font-size: 15px; }
+.eng-fi__texts .eng-pick__a { display: none; }
+.eng-fi__more { display: grid; gap: 8px; }
+.eng-fi__more a { display: block; padding: 12px 14px; border-radius: 12px; background: rgba(255, 255, 255, .1); color: #fff; font: 700 16px/1.2 Outfit, system-ui, sans-serif; text-decoration: none; }

@@ -481,7 +481,7 @@ body.eng .eng-story__boxes li { font-family: Outfit, system-ui, -apple-system, '
 body.eng .eng-story__hint { color: #13233A !important; font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; }
 body.eng .eng-story__dots li { background: rgba(19, 35, 58, .25); }
 @media (max-width: 700px) { body.eng html.eng-snap .eng-cp__step[data-next]::after { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
-@media (max-width: 700px) { body.eng .eng-rail__b { color: #13233A !important; font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
+@media (max-width: 700px) { body.eng .eng-rail__b { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (max-width: 700px) { body.eng .eng-sheet__p { background: #FFFDF8; } }
 @media (max-width: 700px) { body.eng .eng-sheet__p h3 { color: #13233A !important; font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (max-width: 700px) { body.eng .eng-sheet__x { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
@@ -490,30 +490,26 @@ body.eng .eng-story__dots li { background: rgba(19, 35, 58, .25); }
 @media (max-width: 700px) { body.eng .eng-rail__b.is-me::after { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (max-width: 700px) { body.eng .eng-fi__lbl { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (max-width: 700px) { body.eng .eng-fi__tag { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
-@media (max-width: 700px) { body.eng .eng-fi__cap h3 { color: #13233A !important; font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
+@media (max-width: 700px) { body.eng .eng-fi__cap h3 { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (max-width: 700px) { body.eng .eng-fi__txt { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
-@media (max-width: 700px) { body.eng .eng-fi__count { color: #13233A !important; font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
-@media (max-width: 700px) { body.eng .eng-fi__swipe { color: #13233A !important; font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
-@media (max-width: 700px) { body.eng .eng-fi__opt { border: 3px solid rgba(19, 35, 58, .14); } }
+@media (max-width: 700px) { body.eng .eng-fi__count { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
+@media (max-width: 700px) { body.eng .eng-fi__swipe { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (max-width: 700px) { body.eng .eng-fi__opt b { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (max-width: 700px) { body.eng .eng-fi__opt em { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (max-width: 700px) { body.eng .eng-fi__plan b { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
-@media (max-width: 700px) { body.eng .eng-fi__plan span { color: #13233A !important; font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
+@media (max-width: 700px) { body.eng .eng-fi__plan span { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (max-width: 700px) { body.eng .eng-fi__plan i { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
-@media (max-width: 700px) { body.eng .eng-fi__sc { border: 3px solid rgba(19, 35, 58, .16); } }
 @media (max-width: 700px) { body.eng .eng-fi__sc b { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (max-width: 700px) { body.eng .eng-fi__sc em { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (max-width: 700px) { body.eng .eng-fi__noimg { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
-@media (max-width: 700px) { body.eng .eng-fi__tile { border: 3px solid rgba(19, 35, 58, .14); } }
 @media (max-width: 700px) { body.eng .eng-fi__tile b { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (max-width: 700px) { body.eng .eng-fi__tile em { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
-@media (max-width: 700px) { body.eng .eng-fi__bars i { background: rgba(19, 35, 58, .3); } }
-@media (max-width: 700px) { body.eng .eng-fi__beat { color: #13233A !important; font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
-@media (max-width: 700px) { body.eng .eng-fi__pause { color: #7A5A00 !important; font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
-@media (max-width: 700px) { body.eng .eng-fi__tech { color: #13233A !important; font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
+@media (max-width: 700px) { body.eng .eng-fi__beat { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
+@media (max-width: 700px) { body.eng .eng-fi__pause { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
+@media (max-width: 700px) { body.eng .eng-fi__tech { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (max-width: 700px) { body.eng .eng-fi__tech em { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
-@media (max-width: 700px) { body.eng .eng-fi__spot b { color: #7A5A00 !important; font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
-@media (max-width: 700px) { body.eng .eng-fi__spot span { color: #13233A !important; font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
+@media (max-width: 700px) { body.eng .eng-fi__spot b { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
+@media (max-width: 700px) { body.eng .eng-fi__spot span { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (min-width: 701px) { body.eng .eng-cpw__pic i { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (min-width: 701px) { body.eng .eng-cmpg .eng-cpw__h > b { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }
 @media (min-width: 701px) { body.eng .eng-cmpg .eng-cpw__s.is-wide .eng-cpw__h > b { color: #13233A !important; font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; } }

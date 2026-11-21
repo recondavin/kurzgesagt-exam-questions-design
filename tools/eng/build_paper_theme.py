@@ -17,6 +17,8 @@ LIGHT = {'#fff': '#13233A', '#ffffff': '#13233A', '#fffdf6': '#13233A', '#e3ebef
          '#dce6eb': '#2E3A4A', '#ffe45c': '#7A5A00', '#ffe14d': '#7A5A00', '#8ce65a': '#2E7D12', '#8be07a': '#2E7D12', '#c6f0b4': '#2E7D12', '#c9d4da': '#3E4A5A', '#9fb0ba': '#515D6E', '#b9c7cf': '#515D6E', '#93a5ae': '#6B7480'}
 DARK_BG = {'#0f1a1f': '#FFFDF8', '#131f24': '#F7F2E4', '#1a2b32': '#FFFDF8', '#22343c': '#ECE5D1', '#2b3b42': '#E3DAC2',
            '#101a1e': '#E3DAC2', '#1a2b33': '#ECE5D1', '#162329': '#FFFDF8', '#1d2f37': '#FFFDF8'}
+# the phone feed (Compare it on phones) stays dark, as the user had it: only its fonts change
+DARK_KEEP = re.compile(r'\.eng-fi|eng-feed|\.eng-rail')
 NEUTRAL_BG = re.compile(r'^(none|transparent|var\(--(surface|raised|active|ground|control)\)|#(0f1a1f|131f24|1a2b32|22343c|2b3b42|162329|1d2f37))', re.I)
 
 def rules(css):
@@ -80,15 +82,16 @@ for f in ('bio/bio-shell.css', 'eng/eng.css'):
         sc = scope(sel)
         if not sc: continue
         add = []
+        keep = bool(DARK_KEEP.search(sel))
         col, bg = decl(body, 'color'), decl(body, 'background') or decl(body, 'background-color')
-        if col and col.lower() in LIGHT and (bg is None or NEUTRAL_BG.match(bg)):
+        if not keep and col and col.lower() in LIGHT and (bg is None or NEUTRAL_BG.match(bg)):
             add.append('color: ' + LIGHT[col.lower()] + ' !important')
-        if bg and bg.split()[0].lower() in DARK_BG:
+        if not keep and bg and bg.split()[0].lower() in DARK_BG:
             add.append('background: ' + DARK_BG[bg.split()[0].lower()])
         # pale washes and rules drawn in white on the dark page: the same in the ink on paper
         for prop in ('background', 'background-color', 'border', 'border-color', 'border-top', 'border-bottom', 'border-left', 'border-right', 'box-shadow', 'outline'):
             v = decl(body, prop)
-            if v and re.search(r'rgba\(255, ?255, ?255, ?\.?\d', v) and not (prop.startswith('background') and col and col.lower() in ('#fff', '#ffffff')):
+            if not keep and v and re.search(r'rgba\(255, ?255, ?255, ?\.?\d', v) and not (prop.startswith('background') and col and col.lower() in ('#fff', '#ffffff')):
                 add.append(prop + ': ' + re.sub(r'rgba\(255, ?255, ?255,', 'rgba(19, 35, 58,', v))
         font = decl(body, 'font') or decl(body, 'font-family') or ''
         if re.search(r'Fredoka|Nunito', font) and not re.search(r'Caveat|Lexend', font):

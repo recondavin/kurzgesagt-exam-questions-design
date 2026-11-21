@@ -56,7 +56,7 @@
     document.body.classList.remove('eng-papertop');
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (K ? K.face : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
       '<nav class="sh-nav" aria-label="English">' + link('#', 'All of English', active === 'hub') + link('#single', 'Single text', active === 'single') +
-      '<p class="sh-group">Comparative</p>' + link('#comparative', 'Comparative', active === 'home') + link('#compare', 'Compare it', active === 'compare') +
+      '<p class="sh-group">Comparative</p>' + link('#compare', 'Compare it', active === 'compare' || active === 'home') +
       link('#learn', '1 · Learn the parts', active === 'learn') + link('#structure', '2 · Structure it', active === 'structure') + link('#language', '3 · Say it well', active === 'language') +
       link('#build', 'Build an essay', active === 'build') + link('#marking', 'How it\'s marked', active === 'marking') + link('#questions', 'Past questions', active === 'questions') +
       (window.EngGames ? '<p class="sh-group">Games</p>' + window.EngGames.list.map(function (g) { return link('#play/' + g[0], g[1], false); }).join('') : '') +
@@ -1190,6 +1190,11 @@
     }
     FEED_ON = true;
     document.documentElement.classList.remove('eng-snap', 'eng-snapfx');
+    var fmine = chosen();
+    items.push(fItem({ step: st, c: 'var(--m-theme)', tag: 'English · Comparative', title: 'Your three texts', cls: 'is-pick is-more',
+      html: '<div class="eng-fi__texts">' + D.order.map(function (id) { return pickCard(id, fmine.indexOf(id) >= 0); }).join('') + '</div>' }));
+    items.push(fItem({ step: st, c: 'var(--m-theme)', tag: 'English · Comparative', title: 'Everything else', cls: 'is-pick is-more',
+      html: '<div class="eng-fi__more">' + cpMoreRows().map(function (r) { return '<a href="' + r[0] + '">' + esc(r[1]) + '</a>'; }).join('') + '</div>' }));
     app.innerHTML = '<div class="eng-feed" data-feed>' + items.join('') + '</div>';
     var fd = app.querySelector('[data-feed]');
     fd.scrollTop = y;
@@ -1252,7 +1257,7 @@
           '<span class="eng-cpt__t">' + esc(text(id).title) + '</span>' + (id === th.best ? '<span class="eng-cpt__best">Best for (a)</span>' : '') + '</button>';
       }).join('') + '</div>';
     if (CP_FOLD_ST !== st) { CP_FOLD_ST = st; CP_UNFOLD = {}; }
-    if (!a) { CP_ST = 1; app.innerHTML = cpPage(h); cpSnap(); guideDraw(1, th, null, []); cpNavShow(); railDraw(); return; }
+    if (!a) { CP_ST = 1; app.innerHTML = cpPage(h).replace(/<\/div>$/, cpMore() + '</div>'); cpSnap(); guideDraw(1, th, null, []); cpNavShow(); railDraw(); return; }
     // 2: part (a): written in the popup if the text has a writing guide, else three points to pick
     var WR = th.write && th.write[a];
     if (WR) h += cpWriterHtml(th, a);
@@ -1280,7 +1285,7 @@
       if (st >= 5) h += cpbWriterHtml();
     }
     CP_ST = st;
-    app.innerHTML = cpPage(h, sums);
+    app.innerHTML = cpPage(h, sums).replace(/<\/div>$/, cpMore() + '</div>');
     cpSnap();
     if (st >= 3) requestAnimationFrame(cpLines);
     guideDraw(st, th, a, B);
@@ -1443,6 +1448,31 @@
   function writeOpen(part, read) {
     try { var c = pageCtx(part); if (read && partWords(part)) pageOpen(part); else pageOpen(part, c.slots[0]); }
     catch (e) { if (READ) { READ.remove(); READ = null; document.body.classList.remove("eng-read-on"); } }
+  }
+  // Everything the Comparative page did, at the foot of Compare it (the user, of the two pages: "take jobs of that page
+  // and just put it on this one"): your three texts (Leave out, as before), the moments to learn, PACE, the modes,
+  // the marking, past questions, the older essay builder (any text) and the games. #comparative now opens Compare it.
+  var CP_MORE_TXT = false;
+  function cpMoreRows() {
+    var learnt = learnStore(), mine = chosen(), all = 0, got = 0;
+    mine.forEach(function (t) { text(t).moments.forEach(function (m) { all++; if (learnt[m.id]) got++; }); });
+    var rows = [['#learn', 'Learn the moments', got + ' of ' + all + ' learnt: what happens, what it shows, what it leads to'],
+      ['#structure', 'Structure it', 'Every paragraph is PACE: Point, Anchor, Compare, Evaluate'],
+      ['#language', 'Say it well', 'Plain words in, exam words out']];
+    MODES.forEach(function (m) { rows.push(['#mode/' + m.id, m.name, m.hook]); });
+    rows.push(['#marking', 'How it\'s marked', C.marks.criteria.map(function (c) { return c.name + ' ' + c.of70; }).join(' · ')],
+      ['#questions', 'Past questions', 'Every comparative question, by mode'],
+      ['#build', 'Build an essay', 'Any of your texts, a paragraph at a time']);
+    if (window.EngGames) window.EngGames.list.forEach(function (g) { rows.push(['#play/' + g[0], g[1], g[2]]); });
+    return rows;
+  }
+  function cpMore() {
+    var mine = chosen();
+    return '<section class="cpx-more"><h2 class="eng-h2">Everything else</h2>' +
+      '<details class="cpx-more__txt"' + (CP_MORE_TXT ? ' open' : '') + '><summary class="cpx-more__row"><b>Your three texts</b><span>' + mine.map(function (id) { return esc(text(id).title); }).join(', ') + '</span><em>Change</em></summary>' +
+      '<div class="eng-grid eng-grid--4">' + D.order.map(function (id) { return pickCard(id, mine.indexOf(id) >= 0); }).join('') + '</div>' +
+      '<p class="eng-picked">' + pickedLine(mine) + '</p></details>' +
+      cpMoreRows().map(function (r) { return '<a class="cpx-more__row" href="' + r[0] + '"><b>' + esc(r[1]) + '</b><span>' + esc(r[2]) + '</span><em>Open</em></a>'; }).join('') + '</section>';
   }
   function cpDone(n) { return n < CP_ST && !(CP_ST === 4 && n === 3); }
   function cpFolded(n) { return cpDone(n) && !CP_UNFOLD[n]; }
@@ -1759,7 +1789,7 @@
   function cpwPics(mids) {
     if (!mids.length) return '<span class="eng-cpw__pics is-none"></span>';
     return '<span class="eng-cpw__pics">' + mids.map(function (mid) {
-      var tid = tidOf(mid), f = fPic(mid, true);
+      var tid = tidOf(mid), f = fPic(mid); // a moment with no picture of its own (Eileen's warning) shows its text's
       return '<span class="eng-cpw__pic" style="--c:' + COL[tid] + '">' + (f ? '<img src="assets/eng/img/' + esc(f) + '" alt="" loading="lazy">' : '') + '<i>' + esc(shortTitle(tid)) + '</i></span>';
     }).join('') + '</span>';
   }
@@ -5729,7 +5759,7 @@
       var oid = out.getAttribute('data-eng-out'), back = leftOut();
       leaveOut(oid);
       if (K) K.sfx('pop', 0.5);
-      renderHome();
+      if (/^#compare/.test(location.hash)) { CP_MORE_TXT = true; renderCompare(); } else renderHome();
       toast(text(oid).title + ' left out: ' + text(back).title + ' is back in.');
       return;
     }
@@ -6021,7 +6051,7 @@
     menu(false);
     readClose(); watchClose();
     if (CPW) { CPW = null; cpwDraw(); }
-    if (p[0] === 'play' && window.EngGames) { window.EngGames.open(p[1]); history.replaceState(null, '', '#comparative'); renderHome(); return; }
+    if (p[0] === 'play' && window.EngGames) { window.EngGames.open(p[1]); history.replaceState(null, '', '#compare'); renderCompare(); return; }
     if (p[0] === 'marking') renderMarking();
     else if (p[0] === 'structure') renderStructure();
     else if (p[0] === 'learn') renderLearn();
@@ -6042,7 +6072,7 @@
     }
     else if (p[0] === 'watch') { CP_ENTER = true; renderCompare(); var ws = p[1] && D.texts[tidOf(p[1])] ? watchScene(p[1]) : null; if (ws) watchOpen(ws, p[2]); }
     else if (p[0] === 'build') renderBuild(p[1]);
-    else if (p[0] === 'comparative') renderHome();
+    else if (p[0] === 'comparative') { history.replaceState(null, '', '#compare'); CP_ENTER = true; renderCompare(); }
     else if (p[0] === 'single') renderSingle();
     else if (p[0] === 'part') renderPart(p[1]);
     else renderHub();
