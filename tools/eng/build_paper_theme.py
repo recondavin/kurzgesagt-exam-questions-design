@@ -17,8 +17,9 @@ LIGHT = {'#fff': '#13233A', '#ffffff': '#13233A', '#fffdf6': '#13233A', '#e3ebef
          '#dce6eb': '#2E3A4A', '#ffe45c': '#7A5A00', '#ffe14d': '#7A5A00', '#8ce65a': '#2E7D12', '#8be07a': '#2E7D12', '#c6f0b4': '#2E7D12', '#c9d4da': '#3E4A5A', '#9fb0ba': '#515D6E', '#b9c7cf': '#515D6E', '#93a5ae': '#6B7480'}
 DARK_BG = {'#0f1a1f': '#FFFDF8', '#131f24': '#F7F2E4', '#1a2b32': '#FFFDF8', '#22343c': '#ECE5D1', '#2b3b42': '#E3DAC2',
            '#101a1e': '#E3DAC2', '#1a2b33': '#ECE5D1', '#162329': '#FFFDF8', '#1d2f37': '#FFFDF8'}
-# the phone feed (Compare it on phones) stays dark, as the user had it: only its fonts change
-DARK_KEEP = re.compile(r'\.eng-fi|eng-feed|\.eng-rail')
+# the phone feed (Compare it on phones), the scene player's pause screen and the story player stay dark (the user, of
+# the pause screen in paper colours: "i can barely read this"): only their fonts change
+DARK_KEEP = re.compile(r'\.eng-fi|eng-feed|\.eng-rail|\.eng-pause|\.eng-story')
 NEUTRAL_BG = re.compile(r'^(none|transparent|var\(--(surface|raised|active|ground|control)\)|#(0f1a1f|131f24|1a2b32|22343c|2b3b42|162329|1d2f37))', re.I)
 
 def rules(css):
