@@ -191,3 +191,5 @@ mark.cb-hl { padding: 0 2px; border-radius: 2px; background: linear-gradient(tra
 .cb-noclip { align-self: center; color: var(--sb-ink2); font-size: 14px; }
 @media (max-width: 899px) { .cb-label { top: 10px; padding: 6px 8px; font-size: 13px; letter-spacing: .03em; } }
 .cb-case small { display: block; margin-top: 4px; color: var(--sb-ink2); font-size: 14px; font-weight: 600; }
+.sb-chips__gap { flex: 0 0 18px; }
+.sb-chips__k { align-self: center; color: var(--sb-ink2); font-size: 14px; font-weight: 700; }

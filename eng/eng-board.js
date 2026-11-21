@@ -13,7 +13,7 @@
   'use strict';
   var T = window.EngThemes, D = window.EngData;
   if (!T || !D) return;
-  var A = null, app = null, CASE_N = 6;
+  var A = null, app = null, CASE_N = 12;
   var S = { mode: 'board', text: 'all', theme: 'power', scene: null, sel: null, arm: null, miss: false };
   var TH = {}; T.themes.forEach(function (t) { TH[t.id] = t; });
   var TAG = { power: 'Power', education: 'Education', women: 'Women', hope: 'Hope', freedom: 'Freedom', money: 'Money', religion: 'Church', courage: 'Courage' };
@@ -116,7 +116,9 @@
   }
   function textChips() {
     var chip = function (id, label) { return '<button type="button" class="sb-chip" data-sb-text="' + id + '" aria-pressed="' + (S.text === id) + '">' + esc(label) + '</button>'; };
-    return '<div class="sb-chips" role="group" aria-label="Which text">' + chip('all', 'All three') + T.texts.map(function (t) { return chip(t, short(t)); }).join('') + '</div>';
+    var per = function (n) { return '<button type="button" class="sb-chip" data-cb-per="' + n + '" aria-pressed="' + (CASE_N === n) + '">' + n + ' scenes</button>'; };
+    return '<div class="sb-chips" role="group" aria-label="Which text">' + chip('all', 'All three') + T.texts.map(function (t) { return chip(t, short(t)); }).join('') +
+      (S.mode === 'board' ? '<span class="sb-chips__gap" aria-hidden="true"></span><span class="sb-chips__k">On the board</span>' + per(12) + per(6) : '') + '</div>';
   }
   function paint() {
     var h = head();
@@ -141,7 +143,8 @@
     return out;
   }
   function load() {
-    var at = null;
+    var at = null, per = +(store('eng-cork-per') || 12);
+    CASE_N = per === 6 ? 6 : 12;
     try { at = JSON.parse(store('eng-cork-at') || 'null'); } catch (e) {}
     if (at && (at.text === 'all' || T.texts.indexOf(at.text) >= 0)) S.text = at.text;
     goCase(at && at.text === S.text ? at.n : 1);
@@ -150,7 +153,7 @@
     var list = cases(S.text), of = list.length;
     n = ((Math.round(n || 1) - 1) % of + of) % of + 1;
     var saved = null;
-    try { saved = JSON.parse(store('eng-cork-case:' + S.text + ':' + n) || 'null'); } catch (e) {}
+    try { saved = JSON.parse(store('eng-cork-case:' + S.text + ':' + CASE_N + ':' + n) || 'null'); } catch (e) {}
     saved = saved || {};
     C = { n: n, of: of, ids: sortIds(list[n - 1]), text: S.text, pos: saved.pos || {}, checked: !!saved.checked,
       strings: (saved.strings || []).filter(function (x) { return T.scenes[x.s] && TH[x.t] && list[n - 1].indexOf(x.s) >= 0; }) };
@@ -158,7 +161,7 @@
     store('eng-cork-at', JSON.stringify({ text: S.text, n: n }));
   }
   function save() {
-    store('eng-cork-case:' + C.text + ':' + C.n, JSON.stringify({ strings: C.strings, pos: C.pos, checked: C.checked }));
+    store('eng-cork-case:' + C.text + ':' + CASE_N + ':' + C.n, JSON.stringify({ strings: C.strings, pos: C.pos, checked: C.checked }));
     store('eng-cork-at', JSON.stringify({ text: C.text, n: C.n }));
   }
   // which scenes this case is: "scenes 3 and 4" (All three) or "scenes 1 to 6"
@@ -171,24 +174,32 @@
   // Where cards go until you move them: on laptops the full scene cards (the user: "just make it like these were ...
   // on the bulletin board") in a row along the top and the bottom, the themes in two rows between them, placed from
   // the cards' real heights; on phones, small photos.
+  // Rows of scene cards: with All three, a row is the next scene of each text (so each text keeps its column); with one
+  // text, three at a time in story order. The first half of the rows go above the themes, the rest below.
   function placeAuto() {
-    var L = lay(), hs = {}, top, bot;
-    if ((C.text || 'all') === 'all') { var by = T.texts.map(function (t) { return C.ids.filter(function (mid) { return tidOf(mid) === t; }); }); top = by.map(function (g) { return g[0]; }); bot = by.map(function (g) { return g[1]; }); }
-    else { top = C.ids.slice(0, 3); bot = C.ids.slice(3, 6); }
-    top = top.filter(Boolean); bot = bot.filter(Boolean);
+    var L = lay(), hs = {}, rows = [];
+    if ((C.text || 'all') === 'all') {
+      var by = T.texts.map(function (t) { return C.ids.filter(function (mid) { return tidOf(mid) === t; }); }), n = Math.max.apply(null, by.map(function (g) { return g.length; }));
+      for (var r = 0; r < n; r++) rows.push(by.map(function (g) { return g[r] || null; }));
+    } else for (var j = 0; j < C.ids.length; j += 3) rows.push(C.ids.slice(j, j + 3));
     Array.prototype.forEach.call(app.querySelectorAll('.cb-card'), function (el) { hs[el.getAttribute('data-k')] = el.offsetHeight; });
     var hOf = function (k) { return hs[k] || (k.charAt(0) === 's' ? L.sh || 420 : L.th); };
+    var wide = LAYN === 'wide', colX = wide ? function (i) { return 30 + i * 465; } : function (i) { return 14 + i * 202; }, gap = wide ? 34 : 22;
+    var up = rows.slice(0, Math.ceil(rows.length / 2)), down = rows.slice(Math.ceil(rows.length / 2)), y = TOPY;
     AUTO = {};
-    if (LAYN === 'wide') {
-      var topH = Math.max.apply(null, top.map(function (m) { return hOf('s:' + m); }).concat([0])), band = TOPY + topH + 64;
-      top.forEach(function (mid, i) { AUTO['s:' + mid] = { x: 30 + i * 465 + jit(mid, 10), y: TOPY + jit(mid + 'y', 5) }; });
-      T.themes.forEach(function (t, i) { AUTO['t:' + t.id] = { x: 60 + (i % 4) * 330 + jit(t.id, 18), y: band + (i < 4 ? 0 : 124) + jit(t.id + 'y', 10) }; });
-      var y2 = band + 124 + L.th + 74;
-      bot.forEach(function (mid, i) { AUTO['s:' + mid] = { x: 30 + i * 465 + jit(mid, 10), y: y2 + jit(mid + 'y', 5) }; });
-    } else {
-      [top, bot].forEach(function (row, r) { row.forEach(function (mid, i) { AUTO['s:' + mid] = { x: 14 + i * 202, y: (r ? L.H - L.sh - 18 : TOPY) + jit(mid + 'y', 4) }; }); });
-      T.themes.forEach(function (t, i) { AUTO['t:' + t.id] = { x: 26 + (i % 2) * 296 + jit(t.id, 6), y: 258 + Math.floor(i / 2) * 106 + jit(t.id + 'y', 8) }; });
-    }
+    var put = function (row) {
+      var h = 0;
+      row.forEach(function (mid, i) { if (!mid) return; AUTO['s:' + mid] = { x: colX(i) + jit(mid, wide ? 10 : 2), y: y + jit(mid + 'y', wide ? 5 : 3) }; h = Math.max(h, hOf('s:' + mid)); });
+      y += h + gap;
+    };
+    up.forEach(put);
+    y += wide ? 30 : 16;
+    T.themes.forEach(function (t, i) {
+      AUTO['t:' + t.id] = wide ? { x: 60 + (i % 4) * 330 + jit(t.id, 18), y: y + (i < 4 ? 0 : 124) + jit(t.id + 'y', 10) }
+        : { x: 26 + (i % 2) * 296 + jit(t.id, 6), y: y + Math.floor(i / 2) * 96 + jit(t.id + 'y', 6) };
+    });
+    y += wide ? 124 + L.th + 64 : 4 * 96 + 18;
+    down.forEach(put);
   }
   function moved() { return C.pos[LAYN] = C.pos[LAYN] || {}; }
   function pos(key) { return moved()[key] || AUTO[key] || { x: 0, y: 0 }; }
@@ -249,7 +260,7 @@
       el.style.left = p.x + 'px'; el.style.top = p.y + 'px';
       bottom = Math.max(bottom, p.y + el.offsetHeight);
     });
-    HB = L.full ? Math.max(bottom + 34, 600) : L.H;
+    HB = Math.max(bottom + (L.full ? 34 : 20), 600);
     board.style.height = HB + 'px';
     ['[data-cb-svg]', '[data-cb-tags]'].forEach(function (q) { var v = board.querySelector(q); v.setAttribute('viewBox', '0 0 ' + L.W + ' ' + HB); v.setAttribute('width', L.W); v.setAttribute('height', HB); });
   }
@@ -488,6 +499,12 @@
     if ((x = t.closest('[data-sb-go]'))) { var ids = scenes(S.text), k = ids.indexOf(S.scene) + +x.getAttribute('data-sb-go'); S.scene = ids[(k + ids.length) % ids.length]; paint(); return; }
     if (t.closest('[data-cb-check]')) { check(); return; }
     if (t.closest('[data-cb-miss]')) { S.miss = !S.miss; paint(); return; }
+    if ((x = t.closest('[data-cb-per]'))) {
+      var was = C.ids[0]; CASE_N = +x.getAttribute('data-cb-per'); store('eng-cork-per', String(CASE_N));
+      // stay on the case that has the scene you were looking at
+      var list = cases(S.text), k = 0; list.forEach(function (ids, i) { if (ids.indexOf(was) >= 0) k = i; });
+      goCase(k + 1); paint(); return;
+    }
     if ((x = t.closest('[data-cb-go]'))) { goCase(C.n + +x.getAttribute('data-cb-go')); paint(); var bar = app.querySelector('.cb-bar'); if (bar) window.scrollTo({ top: Math.max(0, bar.getBoundingClientRect().top + window.scrollY - 90), behavior: 'smooth' }); return; }
     if (t.closest('[data-cb-clear]')) { C.strings = []; C.checked = false; S.sel = null; save(); paint(); return; }
     if ((x = t.closest('[data-cb-tie]'))) {
