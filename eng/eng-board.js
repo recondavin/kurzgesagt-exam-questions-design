@@ -32,6 +32,10 @@
     narrow: { W: 620, H: 940, sw: 180, sh: 214, tw: 272, th: 92 }
   };
   var C = null, DRAG = null, LAYN = 'wide', K = 1, AUTO = {}, HB = 0, TOPY = 74, TWN = 200, SEEN_BOARD = false;
+  // How big the board is drawn on a laptop, as a share of the size that just fills the window (the user: "make the whole
+  // thing smaller"): 85% to start, − and + beside the other controls change it (eng-cork-zoom). KF is the full size.
+  var ZOOM = 0.85, KF = 1;
+  try { var z0 = parseFloat(localStorage.getItem('eng-cork-zoom')); if (z0 >= 0.5 && z0 <= 1) ZOOM = z0; } catch (e) {}
   // where the top row starts, under the label strips (set per layout in corkHtml)
 
   function esc(s) { return A.esc(s); }
@@ -128,6 +132,7 @@
     var per = function (n) { return '<button type="button" class="sb-chip" data-cb-per="' + n + '" aria-pressed="' + (CASE_N === n) + '">' + n + ' scenes</button>'; };
     return '<div class="sb-chips" role="group" aria-label="Which text">' + chip('all', 'All three') + T.texts.map(function (t) { return chip(t, short(t)); }).join('') +
       (S.mode === 'board' ? '<span class="sb-chips__gap" aria-hidden="true"></span><span class="sb-chips__k">On the board</span>' + per(12) + per(6) +
+        (LAYN === 'wide' ? '<span class="sb-chips__gap" aria-hidden="true"></span><span class="sb-chips__k">Size</span><button type="button" class="sb-chip is-zoom" data-cb-zoom="-1" aria-label="Make the board smaller"' + (ZOOM <= 0.5 ? ' disabled' : '') + '>−</button><button type="button" class="sb-chip is-zoom" data-cb-zoom="1" aria-label="Make the board bigger"' + (ZOOM >= 1 ? ' disabled' : '') + '>+</button>' : '') +
         '<span class="sb-chips__gap" aria-hidden="true"></span><span class="sb-chips__k">Themes</span><button type="button" class="sb-chip" data-cb-th="past" aria-pressed="' + !ALLTH + '">From past papers</button>' +
         '<button type="button" class="sb-chip" data-cb-th="all" aria-pressed="' + ALLTH + '">All ' + T.themes.length + '</button>' : '') + '</div>';
   }
@@ -357,9 +362,12 @@
       // the controls take the same full width, so on a wide window they sit on one line
       if (row) { row.style.width = frameW + 'px'; row.style.marginLeft = (28 - left) + 'px'; }
       var ctl = app.querySelector('.sb-chips'), ctlH = ctl ? wrap.getBoundingClientRect().top - ctl.getBoundingClientRect().top : 120;
-      wrap.style.width = frameW + 'px'; wrap.style.marginLeft = (28 - left) + 'px';
-      K = Math.min(frameW / L.W, Math.max(320, window.innerHeight - topH - ctlH - 34) / (HB || 900));
-      board.style.marginLeft = Math.max(0, Math.round((frameW - L.W * K) / 2)) + 'px';
+      KF = Math.min(frameW / L.W, Math.max(320, window.innerHeight - topH - ctlH - 34) / (HB || 900));
+      K = KF * ZOOM;
+      // the cork frame hugs the board, centred
+      var bw = Math.round(L.W * K);
+      wrap.style.width = bw + 'px'; wrap.style.marginLeft = (28 - left + Math.max(0, Math.round((frameW - bw) / 2))) + 'px';
+      board.style.marginLeft = '0px';
     }
     board.style.transform = 'scale(' + K + ')';
     wrap.style.height = Math.ceil((HB || L.H) * K) + 'px';
@@ -369,7 +377,7 @@
   // shorter, so the board can be drawn bigger), and what's left goes between the columns. No empty sides.
   function fitWide() {
     if (LAYN !== 'wide') return;
-    var L = LAY.wide, wrap = app.querySelector('[data-cb-wrap]'), room = function () { return wrap.clientWidth / K; };
+    var L = LAY.wide, wrap = app.querySelector('[data-cb-wrap]'), frame = function () { return document.documentElement.clientWidth - 56; }, room = function () { return frame() / KF; };
     if (room() - L.W > 40 && L.sw < 400) { L.sw = Math.min(400, Math.floor((room() - 48 - 5 * L.gap) / 6)); boardPass(); wrap = app.querySelector('[data-cb-wrap]'); }
     if (room() - L.W > 40) { L.gap = Math.floor((room() - 48 - 6 * L.sw) / 5); boardPass(); }
   }
@@ -599,6 +607,13 @@
     if (t.closest('[data-cb-check]')) { check(); return; }
     if (t.closest('[data-cb-miss]')) { S.miss = !S.miss; paint(); return; }
     if (t.closest('[data-cb-close]')) { select(null); return; }
+    if ((x = t.closest('[data-cb-zoom]'))) {
+      ZOOM = Math.round(Math.max(0.5, Math.min(1, ZOOM + 0.1 * +x.getAttribute('data-cb-zoom'))) * 100) / 100;
+      try { localStorage.setItem('eng-cork-zoom', String(ZOOM)); } catch (er) {}
+      scale();
+      Array.prototype.forEach.call(app.querySelectorAll('[data-cb-zoom]'), function (b) { b.disabled = +b.getAttribute('data-cb-zoom') < 0 ? ZOOM <= 0.5 : ZOOM >= 1; });
+      return;
+    }
     if ((x = t.closest('[data-cb-th]'))) { ALLTH = x.getAttribute('data-cb-th') === 'all'; try { localStorage.setItem('eng-cork-th', ALLTH ? 'all' : 'past'); } catch (er) {} S.sel = null; paint(); return; }
     if ((x = t.closest('[data-cb-per]'))) {
       var was = C.ids[0]; CASE_N = +x.getAttribute('data-cb-per'); store('eng-cork-per', String(CASE_N));

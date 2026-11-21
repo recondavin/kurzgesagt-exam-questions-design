@@ -245,3 +245,15 @@ mark.cb-hl { padding: 0 2px; border-radius: 2px; background: linear-gradient(tra
 .cb-ctl .cb-case { font-size: 20px; }
 .cb-ctl .cb-case small { font-size: 13px; }
 .cb-ctl > .sb-chips { flex: 0 1 auto; }
+/* smaller controls above the board on a laptop (the user: "make the whole thing smaller") */
+@media (min-width: 900px) {
+  .cb-ctl .sb-chip { min-height: 34px; padding: 0 12px; font-size: 14px; }
+  .cb-ctl .sb-chip.is-zoom { width: 36px; padding: 0; font-size: 20px; line-height: 1; }
+  .cb-ctl .sb-chip[disabled] { opacity: .4; cursor: default; }
+  .cb-ctl .sb-chips__k { font-size: 13px; }
+  .cb-ctl .cb-btns .sb-btn { min-height: 36px; padding: 0 14px; font-size: 14.5px; }
+  .cb-ctl .cb-case { font-size: 17px; }
+  .cb-ctl .cb-case small { font-size: 12px; }
+  .cb-ctl .cb-res { font-size: 15px; }
+  .cb-ctl .cb-res b { font-size: 18px; }
+}
