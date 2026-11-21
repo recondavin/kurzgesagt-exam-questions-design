@@ -193,3 +193,9 @@ mark.cb-hl { padding: 0 2px; border-radius: 2px; background: linear-gradient(tra
 .cb-case small { display: block; margin-top: 4px; color: var(--sb-ink2); font-size: 14px; font-weight: 600; }
 .sb-chips__gap { flex: 0 0 18px; }
 .sb-chips__k { align-self: center; color: var(--sb-ink2); font-size: 14px; font-weight: 700; }
+/* a text with nothing for a theme: how to handle it if you're stuck with it */
+.sb-gap { padding: 12px 14px 14px; border: 2px dashed var(--sb-pen); border-radius: 8px; background: #FFFDF8; font-size: 15.5px; line-height: 1.45; }
+.sb-gap p { margin: 0 0 10px; }
+.sb-gap__h { color: var(--sb-pen); font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.sb-gap .sb-use { padding-top: 10px; }
+.sb-gap__c { margin: 4px 0 0 !important; }

@@ -454,7 +454,7 @@
     var gap = counts.filter(function (c) { return !c[1]; });
     h += '<p class="sb-works">' + counts.map(function (c) { return '<span class="' + (c[1] ? '' : 'is-none') + '">' + esc(short(c[0])) + ': ' + (c[1] ? c[1] + ' scene' + (c[1] > 1 ? 's' : '') : 'nothing') + '</span>'; }).join('') + '</p>' +
       (gap.length ? '<p class="sb-warn">' + gap.map(function (c) { return esc(A.text(c[0]).title); }).join(' and ') + ' has nothing to write about ' + esc(t.name.toLowerCase()) +
-        '. A theme has to work for all three of your texts, so if it\'s one of yours, pick a different theme.</p>' : '');
+        '. In Theme or Issue you choose the theme, and it has to work for all three of your texts, so pick a different one if you can.' + (gap.some(function (c) { return T.gaps && T.gaps[t.id] && T.gaps[t.id][c[0]]; }) ? ' If you\'re stuck with it, there\'s a way to handle it below.' : '') + '</p>' : '');
     h += '<div class="sb-cols">' + T.texts.map(function (tid) {
       var ids = scenes(tid), yes = ids.filter(function (mid) { return isYes(mid, t.id); }), thin = ids.filter(function (mid) { var c = cell(mid, t.id); return c && c[0] === 'thin'; });
       return '<section class="sb-colt" style="--c:' + (A.COL[tid] || '#13233A') + '"><h3 class="sb-colt__h">' + esc(A.text(tid).title) + '</h3>' +
@@ -462,12 +462,22 @@
           var c = cell(mid, t.id), p = pic(mid), m = mom(mid);
           return '<a class="sb-use" href="#board/scene/' + mid + '">' + (p ? '<img src="' + esc(p) + '" alt="" loading="lazy">' : '') + '<span class="sb-use__t">' + esc(m.title) + '</span>' +
             '<span class="sb-use__w">' + esc(m.where) + '</span><span class="sb-use__s">' + esc(c[1]) + '</span>' + (c[2] ? '<q class="sb-q">' + esc(c[2]) + '</q>' : '') + '</a>';
-        }).join('') : '<p class="sb-empty">No scene works for this theme.</p>') +
+        }).join('') : gapHtml(t.id, tid)) +
         (thin.length ? '<details class="sb-skip"><summary>Skip these: they touch it, but there\'s nothing to write</summary><ul>' + thin.map(function (mid) {
           return '<li><b>' + esc(mom(mid).title) + '</b> ' + esc(cell(mid, t.id)[1]) + '</li>';
         }).join('') + '</ul></details>' : '') + '</section>';
     }).join('') + '</div>';
     return h;
+  }
+
+  // A text with nothing for this theme: how to write about it anyway, if you're stuck with it (EngThemes.gaps).
+  function gapHtml(th, tid) {
+    var g = T.gaps && T.gaps[th] && T.gaps[th][tid];
+    if (!g) return '<p class="sb-empty">No scene works for this theme.</p>';
+    return '<div class="sb-gap"><p class="sb-gap__h">If you\'re stuck with this theme</p><p>' + esc(g.say) + '</p>' + g.scenes.map(function (x) {
+      var m = mom(x[0]);
+      return '<a class="sb-use is-gap" href="#board/scene/' + x[0] + '"><span class="sb-use__t">' + esc(m.title) + '</span><span class="sb-use__w">' + esc(m.where) + '</span><span class="sb-use__s">' + esc(x[1]) + '</span></a>';
+    }).join('') + '<p class="sb-gap__c"><b>Comparing:</b> ' + esc(g.compare) + '</p></div>';
   }
 
   // ---------- By scene ----------

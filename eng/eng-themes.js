@@ -280,3 +280,19 @@ window.EngThemes.hl = {
   'stlt-11': [['get ready for midnight Mass', 'religion'], ['he walks on, to the convent', 'courage'], ['she\'s coming home with him', 'women hope freedom'], ['Not to the priest\'s house', 'religion'], ['barefoot, through the town', 'power']],
   'stlt-12': [['Some avoid him; some cut their talk short', 'power'], ['happier than he has ever felt', 'hope'], ['he\'ll pay for this', 'courage'], ['all the small things Mrs Wilson did', 'courage'], ['afraid, but hopeful', 'hope']]
 };
+// When a text has nothing for a theme (the user, of Shawshank and the role of women: "what if ur supposed to talk
+// about the role of women"): how to handle it if you're stuck with that theme. Shown on By theme, in place of the
+// empty column; the board's verdicts don't change (these scenes still have nothing of their own to say about women).
+window.EngThemes.gaps = {
+  women: {
+    shawshank: {
+      say: 'Shawshank has no women\'s story, but the absence is something you can write about: it\'s a world run entirely by men, where women appear only as a victim and as pictures on a wall. Use it as the contrast that shows up the other two texts, and keep it to one short paragraph.',
+      scenes: [
+        ['shawshank-1', 'The one woman in the plot is Andy\'s wife, and she is dead before the story properly begins: we never hear her side, and she is known only through the men who talk about her at the trial.'],
+        ['shawshank-8', 'When Andy finally talks about his wife, it is about his own guilt: he admits he drove her away. Even here she is seen only through a man\'s eyes.'],
+        ['shawshank-9', 'A poster of Raquel Welch hides the tunnel: in Shawshank women exist only as pictures the men pin to their walls, and this one is literally a cover.']
+      ],
+      compare: 'Whereas Sive and Small Things Like These show women both suffering and holding power over other women, Mena over Sive and the Mother Superior over the girls in the laundry, The Shawshank Redemption shows a world with no place for women at all, where the power and the cruelty are entirely between men.'
+    }
+  }
+};
