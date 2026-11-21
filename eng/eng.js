@@ -115,7 +115,7 @@
   }
   function renderHub() {
     renderShell('hub');
-    app.innerHTML = title('English') + '<p class="eng-p">Leaving Cert English, Higher Level. Pick the part you\'re working on.</p>' +
+    app.innerHTML = title('English', quickWrite()) + '<p class="eng-p">Leaving Cert English, Higher Level. Pick the part you\'re working on.</p>' +
       PARTS.map(function (g) {
         return '<h2 class="eng-h2">' + esc(g.paper) + ' <span class="eng-hub__t">' + esc(g.time) + '</span></h2>' +
           '<div class="eng-grid eng-grid--' + g.parts.length + ' eng-hub">' + g.parts.map(partCard).join('') + '</div>';
@@ -145,7 +145,7 @@
     renderShell('home', 'Comparative');
     var mine = chosen();
     var pc = C.marks.criteria;
-    app.innerHTML = title('Comparative Study') +
+    app.innerHTML = title('Comparative Study', quickWrite()) +
       '<h2 class="eng-h2">Your three texts</h2>' +
       '<div class="eng-grid eng-grid--4">' + D.order.map(function (id) { return pickCard(id, mine.indexOf(id) >= 0); }).join('') + '</div>' +
       '<p class="eng-picked" data-eng-picked>' + pickedLine(mine) + '</p>' +
@@ -1438,6 +1438,12 @@
   // Opened steps close again when you move on a step. The folded step's content stays in the page, hidden, so nothing
   // that looks it up breaks.
   var CP_ENTER = false, CP_UNFOLD = {}, CP_FOLD_ST = 0;
+  // The direct links english.html#write and #read (the user: "if i want people to find that they should just get
+  // claude to send them the link"): the writing page with the cinema, or Read it through on the desk with the hands.
+  function writeOpen(part, read) {
+    try { var c = pageCtx(part); if (read && partWords(part)) pageOpen(part); else pageOpen(part, c.slots[0]); }
+    catch (e) { if (READ) { READ.remove(); READ = null; document.body.classList.remove("eng-read-on"); } }
+  }
   function cpDone(n) { return n < CP_ST && !(CP_ST === 4 && n === 3); }
   function cpFolded(n) { return cpDone(n) && !CP_UNFOLD[n]; }
   function cpPage(h, sums) {
@@ -2374,6 +2380,15 @@
   var READ_TK = {}, READ_TKQ = false, READ_TKT = 0;
   var PAGE_COL = { p: 'var(--pace-p)', a: 'var(--pace-a)', e: 'var(--pace-e)', film: 'var(--pace-p)', idea: 'var(--pace-c)', points: 'var(--pace-a)', sum: 'var(--pace-c)', final: 'var(--pace-a)', last: 'var(--pace-e)',
     x: 'var(--pace-c)', y: '#E6D9FF', c: 'var(--pace-a)', texts: 'var(--pace-p)', judge: '#E6D9FF' };
+  // Straight to the writing (the user: "if i want people to find that they should just get claude to send them the
+  // link"): Write your essay opens the cinema writing page on part (a)'s first paragraph (#write); once part (a) has
+  // writing, Read it through opens it on the desk with the hands (#read). On the English and Comparative pages' titles.
+  function partWords(part) {
+    try { var c = pageCtx(part); return c.slots.reduce(function (n, s) { return n + wordsIn(c.text(c.W, s)); }, 0); } catch (e) { return 0; }
+  }
+  function quickWrite() {
+    return '<p class="eng-quick"><a class="eng-btn" href="#write">Write your essay</a>' + (partWords('a') ? '<a class="eng-btn eng-btn--quiet" href="#read">Read it through</a>' : '') + '</p>';
+  }
   function pageCtx(part) {
     var th = cpTheme(), a = cpBy(th).a;
     if (part === 'b') { var c = cpbCtx(); return { th: th, a: a, W: c.W, F: c.F, slots: cpbSlots(c.W), keys: cpbKeys, parts: cpbParts, text: cpbText, range: CPB_RANGE }; }
@@ -6015,6 +6030,16 @@
     else if (p[0] === 'language') renderLanguage();
     else if (p[0] === 'questions') renderQuestions();
     else if (p[0] === 'compare') { CP_ENTER = true; renderCompare(); }
+    else if (p[0] === 'write' || p[0] === 'read') {
+      var wpart = p[1] === 'b' ? 'b' : 'a', wread = p[0] === 'read';
+      history.replaceState(null, '', '#compare');
+      // No text chosen yet, or one with no writing page (someone opening the link for the first time): the part (a)
+      // text that has one is chosen for them, so the link goes straight to writing.
+      var wth = cpTheme(), wby = cpBy(wth), wok = Object.keys(wth.write || {});
+      if (wok.length && wok.indexOf(wby.a) < 0) { wby.a = wok[0]; cpSave(); }
+      CP_ENTER = true; renderCompare();
+      if (wok.length) setTimeout(function () { writeOpen(wpart, wread); }, 80);
+    }
     else if (p[0] === 'watch') { CP_ENTER = true; renderCompare(); var ws = p[1] && D.texts[tidOf(p[1])] ? watchScene(p[1]) : null; if (ws) watchOpen(ws, p[2]); }
     else if (p[0] === 'build') renderBuild(p[1]);
     else if (p[0] === 'comparative') renderHome();

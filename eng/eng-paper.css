@@ -12,6 +12,7 @@ body.eng .cv-h1 { font-weight: 800 !important; letter-spacing: -.02em; }
 body.eng .eng-app h2.eng-h2 { font-weight: 800; letter-spacing: -.01em; }
 body.eng .eng-card h3, body.eng .eng-step h3, body.eng .eng-part h3, body.eng .eng-pick__t, body.eng .ebd-tile h3 { font-weight: 700; }
 body.eng .eng-cp__home { display: block; padding-left: 28px; }
+body.eng .eng-quick { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
 body.eng .sh-name { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; }
 body.eng .sh-link { font-family: Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif; }
 body.eng .sh-link:hover { color: #13233A !important; }
