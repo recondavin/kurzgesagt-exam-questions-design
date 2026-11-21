@@ -24,18 +24,17 @@
   function onIds() { var o = {}; ON().forEach(function (t) { o[t.id] = true; }); return o; }
   var TAG = { power: 'Power', education: 'Education', women: 'Women', hope: 'Hope', freedom: 'Freedom', money: 'Money', class: 'Class', religion: 'Church', courage: 'Courage' };
   var LAY = {
-    // laptops: the whole board in one frame (the user: "make the white board wider and the text on each card bigger and
-    // more clear ... so that you can see them all on one full frame without scrolling down", then "no top scenes, then
-    // themes then bottom senes"): six columns, two for each text, a row of scenes above the themes and a row below,
-    // cards with the picture, the title and the giveaways; the full file opens beside the board
-    wide: { W: 2058, sw: 320, tw: 210, th: 124, full: true },
-    // phones: the same cards as on a laptop (picture, title, giveaways), two to a row (the user, of the small photo
-    // cards: "add a bit more detail to the scenes")
+    // laptops: the board the width of the window, as long as its cards need (the user: "no top scenes, then themes then
+    // bottom senes", then "make the bulletin board longer and put a bit more detail in those cards"): six columns, a row
+    // of scenes above the themes and a row below, cards with the picture, the title, who's there and what happens; the
+    // full file opens beside the board
+    wide: { W: 2058, sw: 320, gap: 18, tw: 210, th: 124, full: true },
+    // phones: the same cards, two to a row (the user, of the small photo cards: "add a bit more detail to the scenes")
     narrow: { W: 620, H: 940, sw: 288, tw: 272, th: 100, full: true }
   };
   var C = null, DRAG = null, LAYN = 'wide', K = 1, AUTO = {}, HB = 0, TOPY = 74, TWN = 200, SEEN_BOARD = false;
-  // How big the board is drawn on a laptop, as a share of the size that just fills the window (the user: "make the whole
-  // thing smaller"): 85% to start, − and + beside the other controls change it (eng-cork-zoom). KF is the full size.
+  // How big the board is drawn on a laptop, as a share of the window's width (the user: "make the whole thing smaller"):
+  // 85% to start, − and + beside the other controls change it (eng-cork-zoom). KF is the full width.
   var ZOOM = 0.85, KF = 1;
   try { var z0 = parseFloat(localStorage.getItem('eng-cork-zoom')); if (z0 >= 0.5 && z0 <= 1) ZOOM = z0; } catch (e) {}
   // where the top row starts, under the label strips (set per layout in corkHtml)
@@ -149,7 +148,7 @@
   }
   function paint() {
     document.body.classList.toggle('eng-wall', S.mode === 'board');
-    if (S.mode === 'board') { LAY.wide.sw = 320; LAY.wide.gap = 18; boardPass(); fitWide(); strings(); sideDraw(); frameIn(); return; }
+    if (S.mode === 'board') { boardPass(); strings(); sideDraw(); frameIn(); return; }
     var h = head();
     if (S.mode === 'theme') h += themeHtml();
     else h += sceneHtml();
@@ -267,7 +266,7 @@
       h += '<div class="' + cls + '" data-k="' + k + '" style="' + st + '" tabindex="0" role="button" aria-label="' + esc(m.title) + ', ' + esc(short(tid)) + '">' +
         '<span class="cb-pin" data-pin="' + k + '" aria-hidden="true"></span>' +
         (src ? '<img class="cb-full__img" src="' + esc(src) + '" alt="" draggable="false">' : '') +
-          '<div class="cb-full__body is-compact"><p class="sb-card__tag">Scene ' + mid.replace(/^.*-/, '') + (m.where ? ' · ' + esc(m.where) : '') + '</p><h3 class="sb-card__h">' + esc(m.title) + '</h3>' + giveaways(mid, C.checked) + '</div>' +
+          '<div class="cb-full__body is-compact"><p class="sb-card__tag">Scene ' + mid.replace(/^.*-/, '') + (m.where ? ' · ' + esc(m.where) : '') + '</p><h3 class="sb-card__h">' + esc(m.title) + '</h3>' + cardDesc(mid, C.checked) + '</div>' +
         (canWatch(mid) ? '<button type="button" class="cb-watch' + (hasClip(mid) ? '' : ' is-still') + '" data-cb-watch="' + mid + '" aria-label="' + (hasClip(mid) ? 'Watch ' : 'See ') + esc(m.title) + '" title="' + (hasClip(mid) ? 'Watch the scene' : 'No clip of this scene exists: see it told over a still') + '">▶</button>' : '') + '</div>';
     });
     ON().forEach(function (t) {
@@ -283,14 +282,13 @@
     return h + '<div class="cb-desk" data-cb-desk>' + (LAYN === 'wide' ? '<svg class="cb-prop cb-lamp" viewBox="0 0 220 230" aria-hidden="true"><defs><linearGradient id="cbShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2F7A4C"/><stop offset=".55" stop-color="#15502E"/><stop offset="1" stop-color="#0B3520"/></linearGradient><linearGradient id="cbBrass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7A5A22"/><stop offset=".45" stop-color="#E2C374"/><stop offset="1" stop-color="#6E4F1C"/></linearGradient><radialGradient id="cbGlow" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#FFE2A8" stop-opacity=".85"/><stop offset="1" stop-color="#FFE2A8" stop-opacity="0"/></radialGradient></defs><path d="M38 96 L182 96 L210 160 L10 160 Z" fill="url(#cbGlow)" opacity=".55"/><rect x="104" y="92" width="12" height="108" fill="url(#cbBrass)"/><ellipse cx="110" cy="212" rx="62" ry="14" fill="#3E2A10" opacity=".6"/><path d="M52 214 Q52 196 110 194 Q168 196 168 214 Z" fill="url(#cbBrass)"/><path d="M24 92 Q30 40 110 34 Q190 40 196 92 Z" fill="url(#cbShade)"/><path d="M40 82 Q56 50 104 44" stroke="#8FD1A6" stroke-width="5" stroke-linecap="round" fill="none" opacity=".55"/><rect x="20" y="90" width="180" height="8" rx="4" fill="url(#cbBrass)"/><rect x="104" y="24" width="12" height="12" rx="3" fill="url(#cbBrass)"/></svg>' + '<svg class="cb-prop cb-folders" viewBox="0 0 260 90" aria-hidden="true"><rect x="14" y="40" width="230" height="34" rx="3" fill="#B98B4E" transform="rotate(-3 130 57)"/><rect x="6" y="30" width="236" height="36" rx="3" fill="#D8B77A" transform="rotate(2 124 48)"/><rect x="20" y="16" width="226" height="38" rx="3" fill="#E6CB93" transform="rotate(-1.5 133 35)"/><rect x="150" y="8" width="60" height="14" rx="3" fill="#E6CB93" transform="rotate(-1.5 180 15)"/><path d="M40 70 L232 52" stroke="#C21F2E" stroke-width="3"/><path d="M38 74 L60 72" stroke="#2B2B2B" stroke-width="5" stroke-linecap="round"/></svg>' + '<svg class="cb-prop cb-phone" viewBox="0 0 240 150" aria-hidden="true"><ellipse cx="120" cy="138" rx="104" ry="10" fill="#1A0F06" opacity=".55"/><path d="M40 136 Q36 78 72 64 L168 64 Q204 78 200 136 Z" fill="#15161A"/><path d="M58 120 Q58 84 82 76 L158 76 Q182 84 182 120" fill="none" stroke="#3A3D45" stroke-width="3"/><circle cx="120" cy="104" r="26" fill="#26282E" stroke="#C9CDD3" stroke-width="2"/><circle cx="120" cy="104" r="9" fill="#E9E4D6"/><g fill="#0C0D10"><circle cx="120" cy="85" r="4"/><circle cx="134" cy="91" r="4"/><circle cx="139" cy="104" r="4"/><circle cx="134" cy="117" r="4"/><circle cx="106" cy="91" r="4"/><circle cx="101" cy="104" r="4"/><circle cx="106" cy="117" r="4"/></g><path d="M30 52 Q24 30 46 26 L194 26 Q216 30 210 52 Q204 62 186 58 L178 44 L62 44 L54 58 Q36 62 30 52 Z" fill="#1D1F24"/><path d="M48 32 L192 32" stroke="#4A4E57" stroke-width="3" stroke-linecap="round"/><path d="M200 120 Q236 126 228 146" fill="none" stroke="#15161A" stroke-width="4"/></svg>' : '') +
       '<section class="cb-file" data-cb-file aria-live="polite">' + (sideOn() ? fileHtml0() : fileHtml()) + '</section></div>';
   }
-  // A card's giveaways, the highlighted words of its description, as written there (in story order, four at most).
-  function giveaways(mid, named) {
-    var m = mom(mid), txt = (m.tell || [m.what]).join(' '), low = txt.toLowerCase(), list = [];
-    (T.hl && T.hl[mid] || []).forEach(function (h) { var at = low.indexOf(h[0].toLowerCase()); if (at >= 0) list.push({ at: at, t: txt.slice(at, at + h[0].length), th: h[1].split(' ') }); });
-    list.sort(function (a, b) { return a.at - b.at; });
-    return '<ul class="cb-gv">' + list.slice(0, 3).map(function (x) {
-      return '<li><mark class="cb-hl">' + esc(x.t) + '</mark>' + (named ? '<span class="cb-hl__t">' + x.th.map(function (t) { return esc(TAG[t] || t); }).join(' · ') + '</span>' : '') + '</li>';
-    }).join('') + '</ul>';
+  // What a card says about its scene: who's there and what happens, beat by beat, with the giveaways highlighted (the
+  // user, of cards showing only the giveaways: "put a bit more detail in those cards than there is now there used to be
+  // detail and you got rid of them"). Once the strings are checked, each giveaway names the themes it points to.
+  function cardDesc(mid, named) {
+    var m = mom(mid);
+    return '<p class="cb-who"><b>Who</b> ' + esc(T.scenes[mid].who) + '</p><ol class="cb-beats">' +
+      (m.tell || [m.what]).map(function (x) { return '<li>' + marked(mid, x, named) + '</li>'; }).join('') + '</ol>';
   }
   // After the board is drawn: the cards' real heights decide where the unmoved ones go and how tall the board is.
   function layout() {
@@ -361,20 +359,15 @@
       var row0 = app.querySelector('.cb-ctl'); if (row0) { row0.style.width = ''; row0.style.marginLeft = ''; }
       K = Math.min(1, wrap.clientWidth / L.W);
     } else {
-      // the whole width of the window, and the whole board in view under the top bar with the case's controls above it
-      var docW = document.documentElement.clientWidth, bar = document.querySelector('.sh-top'), topH = bar ? bar.offsetHeight : 76;
+      // the width of the window (times ZOOM); the board is as long as its cards make it, and the page scrolls
+      var docW = document.documentElement.clientWidth;
       var frameW = docW - 56, left = wrap.parentElement.getBoundingClientRect().left, row = app.querySelector('.cb-ctl');
       // the controls take the same full width, so on a wide window they sit on one line
       if (row) { row.style.width = frameW + 'px'; row.style.marginLeft = (28 - left) + 'px'; }
-      var fit = function () {
-        var ctl = app.querySelector('.cb-ctl'), ctlH = ctl ? wrap.getBoundingClientRect().top - ctl.getBoundingClientRect().top : 120;
-        KF = Math.min(frameW / L.W, Math.max(320, window.innerHeight - topH - ctlH - 34) / (HB || 900));
-        K = KF * ZOOM;
-        return Math.round(L.W * K);
-      };
-      var bw = fit(), off = 28 - left + Math.max(0, Math.round((frameW - bw) / 2));
-      // the toolbar is the width of the board, over it; a narrower toolbar can wrap, so measure again
-      if (row) { row.style.width = bw + 'px'; row.style.marginLeft = off + 'px'; bw = fit(); off = 28 - left + Math.max(0, Math.round((frameW - bw) / 2)); row.style.width = bw + 'px'; row.style.marginLeft = off + 'px'; }
+      KF = frameW / L.W; K = KF * ZOOM;
+      var bw = Math.round(L.W * K), off = 28 - left + Math.max(0, Math.round((frameW - bw) / 2));
+      // the toolbar is the width of the board, over it
+      if (row) { row.style.width = bw + 'px'; row.style.marginLeft = off + 'px'; }
       // the cork frame hugs the board, centred
       wrap.style.width = bw + 'px'; wrap.style.marginLeft = off + 'px';
       var desk = app.querySelector('[data-cb-desk]'); if (desk) { desk.style.width = docW + 'px'; desk.style.marginLeft = (-left) + 'px'; }
@@ -384,14 +377,6 @@
     wrap.style.height = Math.ceil((HB || L.H) * K) + 'px';
   }
   function boardPass() { app.innerHTML = '<div class="sb is-cork">' + head() + corkHtml() + '</div>'; layout(); scale(); }
-  // On a wide, short window the board is limited by its height: the cards widen into the spare width (wider cards are
-  // shorter, so the board can be drawn bigger), and what's left goes between the columns. No empty sides.
-  function fitWide() {
-    if (LAYN !== 'wide') return;
-    var L = LAY.wide, wrap = app.querySelector('[data-cb-wrap]'), frame = function () { return document.documentElement.clientWidth - 56; }, room = function () { return frame() / KF; };
-    if (room() - L.W > 40 && L.sw < 400) { L.sw = Math.min(400, Math.floor((room() - 48 - 5 * L.gap) / 6)); boardPass(); wrap = app.querySelector('[data-cb-wrap]'); }
-    if (room() - L.W > 40) { L.gap = Math.floor((room() - 48 - 6 * L.sw) / 5); boardPass(); }
-  }
   // The first time the board is shown, the page scrolls so the case's controls and the whole board fill the window.
   function frameIn() {
     if (SEEN_BOARD || LAYN !== 'wide') return;

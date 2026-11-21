@@ -357,3 +357,32 @@ body.eng.eng-wall .cb-desk .cb-file .cb-file__k { color: #7A5726; }
   .cb-gv li { font-size: 21px; line-height: 1.22; }
   .cb-board.is-full .cb-label { font-size: 17px; padding: 8px 12px; }
 }
+/* the card's description: who's there and what happens, the giveaways highlighted (the user: "put a bit more detail in
+   those cards than there is now"); sizes are board units, the board is drawn at about 0.6-0.8 on a laptop */
+.cb-who { margin: 0 0 8px; color: #3D4A5C; font: 500 17.5px/1.3 Outfit, system-ui, sans-serif; }
+.cb-who b { margin-right: 4px; color: #13233A; font-size: 13px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+.cb-beats { display: grid; gap: 6px; margin: 0; padding: 0 0 0 22px; color: #13233A; font: 500 20px/1.32 Outfit, system-ui, sans-serif; }
+.cb-beats li::marker { color: #6B7686; font-weight: 800; }
+.cb-beats mark.cb-hl { padding: 1px 2px; font-weight: 700; }
+.cb-beats .cb-hl__t { margin-left: 4px; padding: 1px 5px; border-radius: 3px; background: #13233A; color: #FFFDF6; font-size: 12px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; vertical-align: 2px; }
+/* the bar over the board, taller (the user: "make tghe bar above it higher") */
+.cb-ctl { gap: 14px; padding: 18px 24px; }
+.cb-ctl .sb-chip { min-height: 48px; padding: 0 15px; font-size: 17px; }
+.cb-grp { gap: 7px; padding: 0 16px; }
+.cb-grp__k { margin-right: 6px; font-size: 13.5px; }
+.cb-grp .sb-chip.is-zoom { width: 48px; font-size: 24px; }
+.cb-ctl .cb-bar { padding-top: 14px; }
+.cb-ctl .cb-case { font-size: 26px; }
+.cb-ctl .cb-case small { margin-top: 6px; font-size: 15px; }
+.cb-ctl .cb-btns .sb-btn { min-height: 50px; padding: 0 22px; font-size: 17px; }
+@media (max-width: 899px) {
+  .cb-who { font-size: 18px; }
+  .cb-who b { font-size: 14px; }
+  .cb-beats { padding-left: 24px; font-size: 21px; line-height: 1.3; }
+  .cb-ctl { padding: 14px 14px; }
+  .cb-ctl .sb-chip { min-height: 44px; padding: 0 14px; font-size: 16px; }
+  .cb-grp { padding: 0 12px; }
+  .cb-ctl .cb-case { font-size: 22px; }
+  /* the board out into the page's margins, so its words are drawn bigger */
+  .sb.is-cork .cb-wrap { margin-left: -20px; margin-right: -20px; }
+}
