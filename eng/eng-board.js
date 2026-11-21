@@ -117,7 +117,6 @@
   function head() {
     var tab = function (m, label) { return '<button type="button" class="sb-tab" data-sb-mode="' + m + '" aria-pressed="' + (S.mode === m) + '">' + label + '</button>'; };
     return A.title('Scene board') +
-      '<p class="sb-lead">You\'re the detective. Every scene is evidence; tie it with string to every theme it proves. The scene never changes (where it is, who\'s there, what\'s said and done): what it proves depends on the theme.</p>' +
       '<div class="sb-tabs" role="group" aria-label="How to use the board">' + tab('board', 'The board') + tab('theme', 'By theme') + tab('scene', 'By scene') + '</div>';
   }
   function textChips() {
