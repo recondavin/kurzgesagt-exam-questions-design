@@ -27,7 +27,6 @@
   function esc(s) { return A.esc(s); }
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
   function marks() { try { return JSON.parse(store('eng-board-scenes') || '{}') || {}; } catch (e) { return {}; } }
-  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), x = a[i]; a[i] = a[j]; a[j] = x; } return a; }
   function short(tid) { return { shawshank: 'Shawshank', sive: 'Sive', stlt: 'Small Things' }[tid] || A.text(tid).title; }
   function tidOf(mid) { return mid.replace(/-\d+$/, ''); }
   function mom(mid) { return A.text(tidOf(mid)).moments.filter(function (m) { return m.id === mid; })[0]; }
@@ -129,22 +128,43 @@
   }
 
   // ---------- the case: six scenes on the board ----------
-  function load() {
-    var v = null;
-    try { v = JSON.parse(store('eng-cork') || 'null'); } catch (e) {}
-    if (v && Array.isArray(v.ids) && v.ids.length && v.ids.every(function (mid) { return T.scenes[mid]; })) { C = v; C.ids = sortIds(C.ids); C.pos = C.pos || {}; C.strings = (C.strings || []).filter(function (x) { return T.scenes[x.s] && TH[x.t]; }); S.text = C.text || 'all'; return; }
-    newCase();
+  // The cases go through the scenes in story order (the user: "make it all by scene automatically on the board"):
+  // with All three, case 1 is scenes 1 and 2 of each text, case 2 scenes 3 and 4, and so on to 11 and 12; with one
+  // text, its scenes six at a time. Each case keeps its own strings and card positions (eng-cork-case:<text>:<n>);
+  // eng-cork-at is the case you were on.
+  function cases(tid) {
+    var out = [];
+    if (tid === 'all') {
+      var n = Math.max.apply(null, T.texts.map(function (t) { return scenes(t).length; }));
+      for (var k = 0; k < n; k += CASE_N / T.texts.length) out.push(T.texts.reduce(function (ids, t) { return ids.concat(scenes(t).slice(k, k + CASE_N / T.texts.length)); }, []));
+    } else for (var j = 0, all = scenes(tid); j < all.length; j += CASE_N) out.push(all.slice(j, j + CASE_N));
+    return out;
   }
-  function save() { store('eng-cork', JSON.stringify(C)); }
-  function newCase() {
-    var mk = marks(), n = (C && C.n || 0) + 1, ids;
-    var order = function (list) { return shuffle(list).sort(function (a, b) { var x = mk[a] == null ? -1 : mk[a], y = mk[b] == null ? -1 : mk[b]; return x - y; }); };
-    if (S.text === 'all') { ids = []; T.texts.forEach(function (t) { ids = ids.concat(order(scenes(t)).slice(0, CASE_N / T.texts.length)); }); }
-    else ids = order(scenes(S.text)).slice(0, CASE_N);
-    ids = sortIds(ids);
-    C = { n: n, ids: ids, strings: [], pos: {}, checked: false, text: S.text };
+  function load() {
+    var at = null;
+    try { at = JSON.parse(store('eng-cork-at') || 'null'); } catch (e) {}
+    if (at && (at.text === 'all' || T.texts.indexOf(at.text) >= 0)) S.text = at.text;
+    goCase(at && at.text === S.text ? at.n : 1);
+  }
+  function goCase(n) {
+    var list = cases(S.text), of = list.length;
+    n = ((Math.round(n || 1) - 1) % of + of) % of + 1;
+    var saved = null;
+    try { saved = JSON.parse(store('eng-cork-case:' + S.text + ':' + n) || 'null'); } catch (e) {}
+    saved = saved || {};
+    C = { n: n, of: of, ids: sortIds(list[n - 1]), text: S.text, pos: saved.pos || {}, checked: !!saved.checked,
+      strings: (saved.strings || []).filter(function (x) { return T.scenes[x.s] && TH[x.t] && list[n - 1].indexOf(x.s) >= 0; }) };
     S.sel = null; S.arm = null; S.miss = false;
-    save();
+    store('eng-cork-at', JSON.stringify({ text: S.text, n: n }));
+  }
+  function save() {
+    store('eng-cork-case:' + C.text + ':' + C.n, JSON.stringify({ strings: C.strings, pos: C.pos, checked: C.checked }));
+    store('eng-cork-at', JSON.stringify({ text: C.text, n: C.n }));
+  }
+  // which scenes this case is: "scenes 3 and 4" (All three) or "scenes 1 to 6"
+  function caseWhat() {
+    var nums = C.ids.map(function (mid) { return +mid.replace(/^.*-/, ''); }), lo = Math.min.apply(null, nums), hi = Math.max.apply(null, nums);
+    return lo === hi ? 'scene ' + lo : hi - lo === 1 ? 'scenes ' + lo + ' and ' + hi : 'scenes ' + lo + ' to ' + hi;
   }
   function lay() { return LAY[LAYN]; }
   function jit(k, n) { return (hash(k) % (2 * n + 1)) - n; }
@@ -188,10 +208,10 @@
     LAYN = (app.clientWidth || window.innerWidth) >= 900 ? 'wide' : 'narrow';
     TOPY = LAYN === 'wide' ? 74 : 52;
     var L = lay(), res = C.checked ? tally() : null;
-    var h = textChips() + '<div class="cb-bar"><span class="cb-case">Case ' + C.n + '</span>' +
+    var h = textChips() + '<div class="cb-bar"><span class="cb-case">Case ' + C.n + ' of ' + C.of + '<small>' + esc(caseWhat()) + (C.text === 'all' ? ' of each text' : ' of ' + esc(A.text(C.text).title)) + '</small></span>' +
       (res ? '<span class="cb-res"><b>' + res.ok + '</b> hold · <b class="is-bad">' + res.bad + '</b> don\'t · <b class="is-miss">' + res.miss + '</b> missed</span>' : '<span class="cb-how">Drag a scene\'s pin onto a theme to tie a string. Drag cards anywhere. Tap a string to cut it.</span>') +
       '<span class="cb-btns"><button type="button" class="sb-btn" data-cb-check' + (C.strings.length ? '' : ' disabled') + '>' + (C.checked ? 'Check again' : 'Check my strings') + '</button>' +
-      (res && res.miss ? '<button type="button" class="sb-btn is-quiet" data-cb-miss aria-pressed="' + S.miss + '">' + (S.miss ? 'Hide what I missed' : 'Show what I missed') + '</button>' : '') + '<button type="button" class="sb-btn is-quiet" data-cb-new>New case</button><button type="button" class="sb-btn is-quiet" data-cb-clear' + (C.strings.length ? '' : ' disabled') + '>Clear strings</button></span></div>';
+      (res && res.miss ? '<button type="button" class="sb-btn is-quiet" data-cb-miss aria-pressed="' + S.miss + '">' + (S.miss ? 'Hide what I missed' : 'Show what I missed') + '</button>' : '') + '<button type="button" class="sb-btn is-quiet" data-cb-go="-1"' + (C.n > 1 ? '' : ' disabled') + '>‹ Previous</button><button type="button" class="sb-btn is-quiet" data-cb-go="1">' + (C.n < C.of ? 'Next case ›' : 'Back to case 1') + '</button><button type="button" class="sb-btn is-quiet" data-cb-clear' + (C.strings.length ? '' : ' disabled') + '>Clear strings</button></span></div>';
     h += '<div class="cb-wrap" data-cb-wrap><div class="cb-board' + (L.full ? ' is-full' : '') + '" data-cb-board style="width:' + L.W + 'px;height:' + (L.H || 900) + 'px">' +
       '<svg class="cb-strings" data-cb-svg aria-hidden="true"></svg>';
     C.ids.forEach(function (mid) {
@@ -201,8 +221,8 @@
       h += '<div class="' + cls + '" data-k="' + k + '" style="' + st + '" tabindex="0" role="button" aria-label="' + esc(m.title) + ', ' + esc(short(tid)) + '">' +
         '<span class="cb-pin" data-pin="' + k + '" aria-hidden="true"></span>' +
         (L.full ? (src ? '<img class="cb-full__img" src="' + esc(src) + '" alt="" draggable="false">' : '') +
-          '<div class="cb-full__body"><p class="sb-card__tag">' + esc(A.text(tid).title) + '</p><h3 class="sb-card__h">' + esc(m.title) + '</h3>' + fixed(mid, C.checked) + '</div>'
-          : (src ? '<img src="' + esc(src) + '" alt="" draggable="false">' : '<span class="cb-noimg"></span>') + '<span class="cb-scene__t">' + esc(m.title) + '</span><span class="cb-scene__x">' + esc(short(tid)) + '</span>') +
+          '<div class="cb-full__body"><p class="sb-card__tag">' + esc(A.text(tid).title) + ' · scene ' + mid.replace(/^.*-/, '') + '</p><h3 class="sb-card__h">' + esc(m.title) + '</h3>' + fixed(mid, C.checked) + '</div>'
+          : (src ? '<img src="' + esc(src) + '" alt="" draggable="false">' : '<span class="cb-noimg"></span>') + '<span class="cb-scene__t">' + esc(m.title) + '</span><span class="cb-scene__x">' + esc(short(tid)) + ' · ' + mid.replace(/^.*-/, '') + '</span>') +
         (canWatch(mid) ? '<button type="button" class="cb-watch' + (hasClip(mid) ? '' : ' is-still') + '" data-cb-watch="' + mid + '" aria-label="' + (hasClip(mid) ? 'Watch ' : 'See ') + esc(m.title) + '" title="' + (hasClip(mid) ? 'Watch the scene' : 'No clip of this scene exists: see it told over a still') + '">▶</button>' : '') + '</div>';
     });
     T.themes.forEach(function (t) {
@@ -312,7 +332,7 @@
   function fileHtml0() {
     if (C.checked) return '<p class="cb-file__k">Case file · what the strings prove</p>' + C.ids.map(function (mid) {
       return '<section class="cb-sum"><h3 class="sb-h3"><button type="button" class="cb-link" data-cb-sel="s:' + mid + '">' + esc(mom(mid).title) + '</button> <span>' + esc(short(tidOf(mid))) + '</span></h3>' + why(mid, strung(mid), true) + '</section>';
-    }).join('') + '<p class="sb-row"><button type="button" class="sb-btn" data-cb-new>Next case</button></p>';
+    }).join('') + '<p class="sb-row"><button type="button" class="sb-btn" data-cb-go="1">' + (C.n < C.of ? 'Next case: the next scenes ›' : 'Back to case 1') + '</button></p>';
     return '<p class="cb-file__k">Case file</p><p class="cb-file__tip">Tap a scene to read its file, the giveaways highlighted, and watch it. Tie each scene to every theme you could write a paragraph about. Some scenes prove three or four themes; some prove one.</p>' +
       T.texts.filter(function (tid) { return C.ids.some(function (mid) { return tidOf(mid) === tid; }); }).map(function (tid) {
         return '<p class="cb-file__sub">' + esc(A.text(tid).title) + '</p><ul class="cb-list">' + C.ids.filter(function (mid) { return tidOf(mid) === tid; }).map(function (mid) {
@@ -463,12 +483,12 @@
     var t = e.target, x;
     if ((x = t.closest('[data-cb-watch]'))) { e.preventDefault(); if (A.watch) A.watch(x.getAttribute('data-cb-watch'), S.mode === 'theme' ? S.theme : null); return; }
     if ((x = t.closest('[data-sb-mode]'))) { S.mode = x.getAttribute('data-sb-mode'); history.replaceState(null, '', '#board'); paint(); return; }
-    if ((x = t.closest('[data-sb-text]'))) { S.text = x.getAttribute('data-sb-text'); if (S.mode === 'board') newCase(); paint(); return; }
+    if ((x = t.closest('[data-sb-text]'))) { S.text = x.getAttribute('data-sb-text'); if (S.mode === 'board') goCase(1); paint(); return; }
     if ((x = t.closest('[data-sb-theme]'))) { S.theme = x.getAttribute('data-sb-theme'); paint(); return; }
     if ((x = t.closest('[data-sb-go]'))) { var ids = scenes(S.text), k = ids.indexOf(S.scene) + +x.getAttribute('data-sb-go'); S.scene = ids[(k + ids.length) % ids.length]; paint(); return; }
     if (t.closest('[data-cb-check]')) { check(); return; }
     if (t.closest('[data-cb-miss]')) { S.miss = !S.miss; paint(); return; }
-    if (t.closest('[data-cb-new]')) { newCase(); paint(); window.scrollTo({ top: Math.max(0, app.querySelector('.cb-bar') ? app.querySelector('.cb-bar').getBoundingClientRect().top + window.scrollY - 90 : 0), behavior: 'smooth' }); return; }
+    if ((x = t.closest('[data-cb-go]'))) { goCase(C.n + +x.getAttribute('data-cb-go')); paint(); var bar = app.querySelector('.cb-bar'); if (bar) window.scrollTo({ top: Math.max(0, bar.getBoundingClientRect().top + window.scrollY - 90), behavior: 'smooth' }); return; }
     if (t.closest('[data-cb-clear]')) { C.strings = []; C.checked = false; S.sel = null; save(); paint(); return; }
     if ((x = t.closest('[data-cb-tie]'))) {
       var v = x.getAttribute('data-cb-tie').split('|'), have = -1;

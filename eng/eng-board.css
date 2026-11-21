@@ -190,3 +190,4 @@ mark.cb-hl { padding: 0 2px; border-radius: 2px; background: linear-gradient(tra
 .cb-watch.is-still { background: rgba(255, 253, 248, .9); color: #13233A; box-shadow: inset 0 0 0 2px #13233A; }
 .cb-noclip { align-self: center; color: var(--sb-ink2); font-size: 14px; }
 @media (max-width: 899px) { .cb-label { top: 10px; padding: 6px 8px; font-size: 13px; letter-spacing: .03em; } }
+.cb-case small { display: block; margin-top: 4px; color: var(--sb-ink2); font-size: 14px; font-weight: 600; }
