@@ -16,10 +16,16 @@
   var A = null, app = null, CASE_N = 12;
   var S = { mode: 'board', text: 'all', theme: 'power', scene: null, sel: null, arm: null, miss: false };
   var TH = {}; T.themes.forEach(function (t) { TH[t.id] = t; });
+  // The themes on the board: the ones the exam has asked about (`came`), in that order (the user: "i think we should
+  // prioritise what came up in comparitives"), or all of them with "All themes" (eng-cork-th). Everywhere else, all.
+  var ALLTH = false;
+  try { ALLTH = localStorage.getItem('eng-cork-th') === 'all'; } catch (e) {}
+  function ON() { return S.mode === 'board' && !ALLTH ? T.themes.filter(function (t) { return t.came; }) : T.themes; }
+  function onIds() { var o = {}; ON().forEach(function (t) { o[t.id] = true; }); return o; }
   var TAG = { power: 'Power', education: 'Education', women: 'Women', hope: 'Hope', freedom: 'Freedom', money: 'Money', class: 'Class', religion: 'Church', courage: 'Courage' };
   var LAY = {
-    wide: { W: 1400, sw: 400, tw: 246, th: 80, full: true },
-    narrow: { W: 620, H: 940, sw: 180, sh: 214, tw: 272, th: 70 }
+    wide: { W: 1400, sw: 400, tw: 246, th: 104, full: true },
+    narrow: { W: 620, H: 940, sw: 180, sh: 214, tw: 272, th: 92 }
   };
   var C = null, DRAG = null, LAYN = 'wide', K = 1, AUTO = {}, HB = 0, TOPY = 74;
   // where the top row starts, under the label strips (set per layout in corkHtml)
@@ -37,7 +43,7 @@
   }
   function cell(mid, th) { return T.scenes[mid].t[th] || null; }
   function isYes(mid, th) { var c = cell(mid, th); return !!(c && c[0] === 'yes'); }
-  function yesOf(mid) { return T.themes.filter(function (t) { return isYes(mid, t.id); }); }
+  function yesOf(mid) { return ON().filter(function (t) { return isYes(mid, t.id); }); }
   function pic(mid) {
     var tid = tidOf(mid), all = A.pics(tid), q = all.filter(function (p) { return (p.scene != null ? p.scene : p.moment) === mid; })[0] || all.filter(function (p) { return p.hero; })[0] || all[0];
     return q ? 'assets/eng/img/' + q.file : '';
@@ -87,7 +93,7 @@
   // Why: what it works for, the strings that don't hold, the ones that touch it but have nothing to write.
   function why(mid, picks, play) {
     var yes = [], wrong = [], thin = [], none = [];
-    T.themes.forEach(function (t) {
+    ON().forEach(function (t) {
       var c = cell(mid, t.id), on = !!picks[t.id];
       if (c && c[0] === 'yes') yes.push('<li class="sb-why is-yes' + (play && !on ? ' is-miss' : '') + '"><p class="sb-why__h"><b>' + esc(t.name) + '</b>' +
         (play ? '<span>' + (on ? 'Your string holds' : 'You missed this one') + '</span>' : '') + '</p><p>' + esc(c[1]) + '</p>' + quote(c[2]) + '</li>');
@@ -118,7 +124,9 @@
     var chip = function (id, label) { return '<button type="button" class="sb-chip" data-sb-text="' + id + '" aria-pressed="' + (S.text === id) + '">' + esc(label) + '</button>'; };
     var per = function (n) { return '<button type="button" class="sb-chip" data-cb-per="' + n + '" aria-pressed="' + (CASE_N === n) + '">' + n + ' scenes</button>'; };
     return '<div class="sb-chips" role="group" aria-label="Which text">' + chip('all', 'All three') + T.texts.map(function (t) { return chip(t, short(t)); }).join('') +
-      (S.mode === 'board' ? '<span class="sb-chips__gap" aria-hidden="true"></span><span class="sb-chips__k">On the board</span>' + per(12) + per(6) : '') + '</div>';
+      (S.mode === 'board' ? '<span class="sb-chips__gap" aria-hidden="true"></span><span class="sb-chips__k">On the board</span>' + per(12) + per(6) +
+        '<span class="sb-chips__gap" aria-hidden="true"></span><span class="sb-chips__k">Themes</span><button type="button" class="sb-chip" data-cb-th="past" aria-pressed="' + !ALLTH + '">From past papers</button>' +
+        '<button type="button" class="sb-chip" data-cb-th="all" aria-pressed="' + ALLTH + '">All ' + T.themes.length + '</button>' : '') + '</div>';
   }
   function paint() {
     var h = head();
@@ -195,9 +203,9 @@
     up.forEach(put);
     y += wide ? 30 : 16;
     // the themes: rows of five on a laptop (the last row centred), two on a phone
-    var per = wide ? 5 : 2, nrow = Math.ceil(T.themes.length / per);
-    T.themes.forEach(function (t, i) {
-      var r = Math.floor(i / per), c = i % per, inRow = Math.min(per, T.themes.length - r * per);
+    var TL = ON(), per = wide ? 5 : 2, nrow = Math.ceil(TL.length / per);
+    TL.forEach(function (t, i) {
+      var r = Math.floor(i / per), c = i % per, inRow = Math.min(per, TL.length - r * per);
       AUTO['t:' + t.id] = wide ? { x: 30 + (per - inRow) * 135 + c * 270 + jit(t.id, 10), y: y + r * 124 + jit(t.id + 'y', 10) }
         : { x: 26 + (per - inRow) * 148 + c * 296 + jit(t.id, 6), y: y + r * 96 + jit(t.id + 'y', 6) };
     });
@@ -216,7 +224,7 @@
     var p = pos(key), sz = size(key), r = rot(key) * Math.PI / 180, cx = p.x + sz[0] / 2, cy = p.y + sz[1] / 2, d = -sz[1] / 2 + 13;
     return [cx - d * Math.sin(r), cy + d * Math.cos(r)];
   }
-  function strung(mid) { var o = {}; C.strings.forEach(function (x) { if (x.s === mid) o[x.t] = true; }); return o; }
+  function strung(mid) { var o = {}, on = onIds(); C.strings.forEach(function (x) { if (x.s === mid && on[x.t]) o[x.t] = true; }); return o; }
 
   function corkHtml() {
     LAYN = (app.clientWidth || window.innerWidth) >= 900 ? 'wide' : 'narrow';
@@ -239,10 +247,10 @@
           : (src ? '<img src="' + esc(src) + '" alt="" draggable="false">' : '<span class="cb-noimg"></span>') + '<span class="cb-scene__t">' + esc(m.title) + '</span><span class="cb-scene__x">' + esc(short(tid)) + ' · ' + mid.replace(/^.*-/, '') + '</span>') +
         (canWatch(mid) ? '<button type="button" class="cb-watch' + (hasClip(mid) ? '' : ' is-still') + '" data-cb-watch="' + mid + '" aria-label="' + (hasClip(mid) ? 'Watch ' : 'See ') + esc(m.title) + '" title="' + (hasClip(mid) ? 'Watch the scene' : 'No clip of this scene exists: see it told over a still') + '">▶</button>' : '') + '</div>';
     });
-    T.themes.forEach(function (t) {
+    ON().forEach(function (t) {
       var k = 't:' + t.id, p = pos(k);
       h += '<div class="cb-card cb-theme' + (S.sel === k ? ' is-sel' : '') + (S.arm === k ? ' is-arm' : '') + '" data-k="' + k + '" style="left:' + p.x + 'px;top:' + p.y + 'px;width:' + L.tw + 'px;height:' + L.th + 'px;--r:' + rot(k) + 'deg" tabindex="0" role="button" aria-label="' + esc(t.name) + '">' +
-        '<span class="cb-pin" data-pin="' + k + '" aria-hidden="true"></span><b>' + esc(t.name) + '</b></div>';
+        '<span class="cb-pin" data-pin="' + k + '" aria-hidden="true"></span><b>' + esc(t.name) + '</b>' + (t.times ? '<small>came up ' + (t.times === 1 ? 'once' : t.times + ' times') + '</small>' : '') + '</div>';
     });
     var one = (C.text || 'all') !== 'all', colW = LAY[LAYN].full ? 465 : 202, lw = LAY[LAYN].full ? 400 : 180;
     (one ? [C.text] : T.texts).forEach(function (tid, i) {
@@ -269,7 +277,8 @@
   }
   function tally() {
     var ok = 0, bad = 0, miss = 0;
-    C.strings.forEach(function (x) { if (isYes(x.s, x.t)) ok++; else bad++; });
+    var on = onIds();
+    C.strings.forEach(function (x) { if (!on[x.t]) return; if (isYes(x.s, x.t)) ok++; else bad++; });
     C.ids.forEach(function (mid) { var on = strung(mid); yesOf(mid).forEach(function (t) { if (!on[t.id]) miss++; }); });
     return { ok: ok, bad: bad, miss: miss };
   }
@@ -283,27 +292,33 @@
   function strings(live) {
     var svg = app.querySelector('[data-cb-svg]'), tags = app.querySelector('[data-cb-tags]');
     if (!svg || !tags) return;
-    var h = '', g = '';
+    // hit: each string's wide invisible line for tapping it, under the cards (so a string never blocks a tap on a card
+    // or its pin); h: the visible strings, over the cards; g: tags and knots, on top
+    var hit = '', h = '', g = '';
     var tag = function (c, txt, attr) { return '<g class="cb-tag"' + attr + ' transform="translate(' + c.mid[0].toFixed(1) + ' ' + c.mid[1].toFixed(1) + ')"><circle r="14"/><text dy="5">' + txt + '</text></g>'; };
     if (C.checked) C.ids.forEach(function (mid) {
       var on = strung(mid);
       yesOf(mid).forEach(function (t) {
         if (on[t.id] || !(S.miss || S.sel === 's:' + mid || S.sel === 'm:' + mid + '|' + t.id)) return;
         var c = curve(pinAt('s:' + mid), pinAt('t:' + t.id)), sel = S.sel === 'm:' + mid + '|' + t.id ? ' is-sel' : '', at = ' data-miss="' + mid + '|' + t.id + '"';
-        h += '<g class="cb-str is-miss' + sel + '"' + at + '><path class="cb-str__hit" d="' + c.d + '"/><path class="cb-str__line" d="' + c.d + '"/></g>';
+        hit += '<g class="cb-str"' + at + '><path class="cb-str__hit" d="' + c.d + '"/></g>';
+        h += '<g class="cb-str is-miss' + sel + '"><path class="cb-str__line" d="' + c.d + '"/></g>';
         g += '<g class="cb-str is-miss' + sel + '"' + at + '>' + tag(c, '?', '') + '</g>';
       });
     });
+    var onT = onIds();
     C.strings.forEach(function (x, i) {
+      if (!onT[x.t]) return;
       var c = curve(pinAt('s:' + x.s), pinAt('t:' + x.t)), ok = isYes(x.s, x.t), cls = 'cb-str' + (C.checked ? ok ? ' is-ok' : ' is-bad' : '') + (S.sel === 'x:' + i ? ' is-sel' : '');
-      h += '<g class="' + cls + '" data-str="' + i + '"><path class="cb-str__hit" d="' + c.d + '"/><path class="cb-str__shade" d="' + c.d + '"/><path class="cb-str__line" d="' + c.d + '"/></g>';
+      hit += '<g class="cb-str" data-str="' + i + '"><path class="cb-str__hit" d="' + c.d + '"/></g>';
+      h += '<g class="' + cls + '"><path class="cb-str__shade" d="' + c.d + '"/><path class="cb-str__line" d="' + c.d + '"/></g>';
       if (C.checked) g += '<g class="' + cls + '" data-str="' + i + '">' + tag(c, ok ? '✓' : '✗', '') + '</g>';
     });
     if (live) { var c2 = curve(live[0], live[1]); g += '<g class="cb-str is-live"><path class="cb-str__shade" d="' + c2.d + '"/><path class="cb-str__line" d="' + c2.d + '"/></g>'; }
     var knots = {};
-    C.strings.forEach(function (x) { knots['s:' + x.s] = 1; knots['t:' + x.t] = 1; });
+    C.strings.forEach(function (x) { if (onT[x.t]) { knots['s:' + x.s] = 1; knots['t:' + x.t] = 1; } });
     Object.keys(knots).forEach(function (k) { var p = pinAt(k); g += '<circle class="cb-knot" cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="4"/>'; });
-    svg.innerHTML = ''; tags.innerHTML = h + g;
+    svg.innerHTML = hit; tags.innerHTML = h + g;
   }
   function scale() {
     var wrap = app.querySelector('[data-cb-wrap]'), board = app.querySelector('[data-cb-board]'), L = lay();
@@ -321,7 +336,7 @@
       var mid = s.slice(2), m = mom(mid), on = strung(mid);
       return '<p class="cb-file__k">Case file · ' + esc(A.text(tidOf(mid)).title) + '</p><h2 class="sb-h2">' + esc(m.title) + '</h2>' + fixed(mid, C.checked) +
         '<p class="sb-row is-left">' + watchBtn(mid) + '</p>' +
-        '<p class="cb-file__sub">Tie this scene to:</p><div class="cb-ties">' + T.themes.map(function (t) {
+        '<p class="cb-file__sub">Tie this scene to:</p><div class="cb-ties">' + ON().map(function (t) {
           return '<button type="button" class="sb-chip" data-cb-tie="' + mid + '|' + t.id + '" aria-pressed="' + !!on[t.id] + '">' + esc(t.name) + '</button>';
         }).join('') + '</div>' + (C.checked ? why(mid, on, true) : '<p class="cb-file__tip">The highlighted words are the giveaways. Check to see what each one points to.</p>');
     }
@@ -379,7 +394,7 @@
   function check() {
     var mk = marks();
     C.checked = true;
-    C.ids.forEach(function (mid) { var on = strung(mid); mk[mid] = T.themes.filter(function (t) { return !!on[t.id] === isYes(mid, t.id); }).length; });
+    C.ids.forEach(function (mid) { var on = strung(mid); mk[mid] = ON().filter(function (t) { return !!on[t.id] === isYes(mid, t.id); }).length; });
     store('eng-board-scenes', JSON.stringify(mk)); save();
     var r = tally(); sfx(!r.bad && !r.miss ? 'stamp' : r.ok > r.bad + r.miss ? 'ding' : 'bonk');
     S.sel = null; paint();
@@ -450,9 +465,11 @@
   // ---------- By theme ----------
   function themeHtml() {
     var t = TH[S.theme];
-    var h = '<div class="sb-chips" role="group" aria-label="Theme">' + T.themes.map(function (x) {
-      return '<button type="button" class="sb-chip" data-sb-theme="' + x.id + '" aria-pressed="' + (x.id === S.theme) + '">' + esc(x.name) + '</button>';
-    }).join('') + '</div><h2 class="sb-h2">' + esc(t.name) + '</h2><p class="sb-themeask">' + esc(t.ask) + '</p>';
+    var chip = function (x) { return '<button type="button" class="sb-chip" data-sb-theme="' + x.id + '" aria-pressed="' + (x.id === S.theme) + '">' + esc(x.name) + (x.times ? ' <small>×' + x.times + '</small>' : '') + '</button>'; };
+    var h = '<p class="sb-chips__k is-row">Came up in past papers</p><div class="sb-chips" role="group" aria-label="Themes from past papers">' + T.themes.filter(function (x) { return x.came; }).map(chip).join('') + '</div>' +
+      '<p class="sb-chips__k is-row">Never named in a question (you can still choose them in Theme or Issue)</p><div class="sb-chips" role="group" aria-label="Other themes">' + T.themes.filter(function (x) { return !x.came; }).map(chip).join('') + '</div>' +
+      '<h2 class="sb-h2">' + esc(t.name) + '</h2><p class="sb-themeask">' + esc(t.ask) + '</p>' +
+      (t.came ? '<p class="sb-came"><b>Came up ' + (t.times === 1 ? 'once' : t.times + ' times') + ':</b> ' + esc(t.came) + '.</p>' : '<p class="sb-came is-never">Never named in a past question. You can still choose it in Theme or Issue, where you pick the theme.</p>');
     var counts = T.texts.map(function (tid) { return [tid, scenes(tid).filter(function (mid) { return isYes(mid, t.id); }).length]; });
     var gap = counts.filter(function (c) { return !c[1]; });
     h += '<p class="sb-works">' + counts.map(function (c) { return '<span class="' + (c[1] ? '' : 'is-none') + '">' + esc(short(c[0])) + ': ' + (c[1] ? c[1] + ' scene' + (c[1] > 1 ? 's' : '') : 'nothing') + '</span>'; }).join('') + '</p>' +
@@ -520,6 +537,7 @@
     if ((x = t.closest('[data-sb-go]'))) { var ids = scenes(S.text), k = ids.indexOf(S.scene) + +x.getAttribute('data-sb-go'); S.scene = ids[(k + ids.length) % ids.length]; paint(); return; }
     if (t.closest('[data-cb-check]')) { check(); return; }
     if (t.closest('[data-cb-miss]')) { S.miss = !S.miss; paint(); return; }
+    if ((x = t.closest('[data-cb-th]'))) { ALLTH = x.getAttribute('data-cb-th') === 'all'; try { localStorage.setItem('eng-cork-th', ALLTH ? 'all' : 'past'); } catch (er) {} S.sel = null; paint(); return; }
     if ((x = t.closest('[data-cb-per]'))) {
       var was = C.ids[0]; CASE_N = +x.getAttribute('data-cb-per'); store('eng-cork-per', String(CASE_N));
       // stay on the case that has the scene you were looking at

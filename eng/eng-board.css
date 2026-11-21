@@ -134,7 +134,7 @@ mark.cb-hl { padding: 0 2px; border-radius: 2px; background: linear-gradient(tra
 .cb-tags { z-index: 3; }
 .cb-tags .cb-tag { pointer-events: auto; cursor: pointer; }
 .cb-str { pointer-events: none; }
-.cb-str__hit { fill: none; stroke: transparent; stroke-width: 14; pointer-events: stroke; cursor: pointer; }
+.cb-str__hit { fill: none; stroke: transparent; stroke-width: 22; pointer-events: stroke; cursor: pointer; }
 .cb-str__shade { fill: none; stroke: rgba(60, 10, 10, .35); stroke-width: 5; transform: translate(1.5px, 3px); }
 .cb-str__line { fill: none; stroke: #C0262D; stroke-width: 3.2; stroke-linecap: round; }
 .cb-str.is-live .cb-str__line { stroke-dasharray: 8 6; }
@@ -201,3 +201,11 @@ mark.cb-hl { padding: 0 2px; border-radius: 2px; background: linear-gradient(tra
 .sb-gap__c { margin: 4px 0 0 !important; }
 .sb-gap.is-note { margin: 0 0 12px; border-color: var(--sb-ink); border-style: solid; border-width: 1px 1px 1px 4px; }
 .sb-gap.is-note .sb-gap__h { color: var(--sb-ink); }
+/* themes from past papers: how often each came up */
+.cb-theme { align-content: center; gap: 4px; }
+.cb-theme small { display: block; color: #BF1A2C; font: 700 12px/1 Outfit, system-ui, sans-serif; letter-spacing: .05em; text-align: center; text-transform: uppercase; }
+.sb-chip small { color: inherit; font-weight: 800; opacity: .75; }
+.sb-chips__k.is-row { margin: 10px 0 6px; }
+.sb-came { max-width: 880px; margin: 0 0 12px; padding: 8px 12px; border-left: 4px solid var(--sb-pen); background: #FFFDF8; font-size: 15.5px; line-height: 1.45; }
+.sb-came.is-never { border-left-color: var(--sb-rule); color: var(--sb-ink2); }
+.cb-theme { padding-top: 28px; padding-bottom: 8px; }
