@@ -3964,7 +3964,7 @@
   function watchKey(w) { if (w.solo) return 'e'; var pts = pageParts(READ_PART, READ_SLOT, w.c); return pts.some(function (pt) { return pt.k === 'e'; }) ? 'e' : pts.length ? pts[pts.length - 1].k : 'e'; }
   // solo: a scene opened on its own from a link (#watch/<moment id>; the user, of the test clip: "i donbt know where to
   // actually watch it"): the same screen over whatever page is behind it, with no answer open, so what is written is
-  // not saved anywhere and the card says so. Closing it leaves you on Compare it.
+  // not put into any answer (what is written at its pauses is kept for the pause, pauseSet). Closing it leaves you on Compare it.
   // Themes a scene can be read for that the Compare page has no exam question on yet (it has abuse of power only).
   var WATCH_THEMES = { education: { id: 'education', name: 'Education' } };
   function watchOpen(solo, thId) {
@@ -4226,10 +4226,24 @@
     if (w.ask) { var thn = esc(w.c.th.name.toLowerCase()); card.querySelector('h3').innerHTML = esc(w.ask).replace(thn, '<mark>' + thn + '</mark>'); }
     var row = card.querySelector('.eng-pause__row'), tk = watchKey(w), ids = watchQuotes(w.list[w.at]).length ? ['quote', 'verb', 'why'] : tickList(READ_PART, READ_SLOT, tk, w.c);
     if (row && ids.length) row.insertAdjacentHTML('beforebegin', tickHtml(READ_PART, READ_SLOT, tk, ids, w.c).replace('class="eng-read__ticks"', 'class="eng-read__ticks eng-pause__ticks"').replace(/ data-page-ticks="[^"]*"/, ''));
+    // what you wrote here before, back in the line
+    var had = pauseGet(w);
+    if (row) row.insertAdjacentHTML('afterbegin', '<span class="eng-pause__kept" data-watch-kept aria-live="polite">' + (had ? 'Your sentence from last time' : '') + '</span>');
+    if (had) { el.querySelector('.eng-pause__ta').value = had; watchInput(true); }
     card.hidden = false;
     watchFit();
     if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) el.querySelector('.eng-pause__ta').focus({ preventScroll: true });
   }
+  // What you write at a pause is kept (the user, at a pause they had written their sentence at before: "i already wrote
+  // it in here can it be saved"): on this device, for that scene, that theme and that pause's question, saved as you
+  // type and put back in the line the next time the same pause comes up. It is still never put into the essay.
+  function pauseKey(w) {
+    var sc = w.list[w.at];
+    return 'eng-pause-said:' + ((sc.m && sc.m.id) || sc.tid) + ':' + ((w.c && w.c.th && w.c.th.id) || '') + ':' + (w.ask || 'p' + (w.pi || 0));
+  }
+  function pauseGet(w) { try { return localStorage.getItem(pauseKey(w)) || ''; } catch (e) { return ''; } }
+  function pauseSet(w, v) { try { if (String(v).trim()) localStorage.setItem(pauseKey(w), v); else localStorage.removeItem(pauseKey(w)); } catch (e) {} }
+  function pauseKept(w, txt) { var k = w.el.querySelector('[data-watch-kept]'); if (k) k.textContent = txt; }
   // The mini corrector at a pause (the user, of a pause that had only the question and Done: "should their not be lik
   // ea mini corrector"): the examiner's ticks, small, under the line you write on, drawn in as the sentence earns them.
   // Where the labels give quotes the ticks are a quote, a strong verb and a reason; otherwise they are the ticks of
@@ -4253,8 +4267,9 @@
     if (t === 'verb' && /\b(?:reveal|expose|highlight|underline|convey|suggest|portray|emphasi[sz]e|reinforce|imply|illustrate|demonstrate|critici[sz]e|condemn)\b/i.test(v)) return true;
     return !!tickRun(t, v, READ_PART, READ_SLOT, watchKey(w), w.c);
   }
-  function watchInput() {
+  function watchInput(back) {
     var w = WATCH, el = w.el, ta = el.querySelector('.eng-pause__ta'), v = ta.value, done = el.querySelector('[data-watch-done]'), k = watchKey(w);
+    if (!back) { pauseSet(w, v); pauseKept(w, v.trim() ? 'Saved' : ''); }
     done.disabled = wordsIn(v) < 4; done.classList.toggle('is-go', !done.disabled);
     Array.prototype.forEach.call(el.querySelectorAll('.eng-pause__ticks li'), function (li) {
       var on = watchTick(li.getAttribute('data-tick'), v, w);
@@ -4266,10 +4281,10 @@
     var w = WATCH, el = w.el, sc = w.list[w.at], v = el.querySelector('.eng-pause__ta').value.replace(/\s+/g, ' ').trim(), k = watchKey(w);
     if (wordsIn(v) < 4) return;
     if (!/[.!?]["”’']?$/.test(v)) v += '.';
-    // It is NOT put into the essay and not kept anywhere (it used to be added to a box of the paragraph, and from a
+    // It is kept for this pause only (pauseSet) and NOT put into the essay (it used to be added to a box of the paragraph, and from a
     // direct link kept and added the next time the paragraph was opened: text the student had not typed there turning
     // up in their answer). A pause is practice at saying why; the essay is written in the essay.
-    w.wrote = v;
+    w.wrote = v; pauseSet(w, v);
     var last = w.at === w.list.length - 1, card = el.querySelector('.eng-pause__card'), sp = sc.spot, box = w.solo ? null : pageParts(READ_PART, READ_SLOT, w.c).filter(function (pt) { return pt.k === k; })[0];
     if (!sp || !sp.note) { watchNext(); return; }
     card.innerHTML = '<p class="eng-pause__note"><b>' + esc(sp.label) + '.</b> ' + esc(sp.note) + (sp.quote ? '<q>' + esc(sp.quote) + '</q>' : '') + '</p>' +

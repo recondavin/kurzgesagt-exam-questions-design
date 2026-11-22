@@ -3099,6 +3099,9 @@ body.eng-papertop .sh-side, body.eng-papertop .sh-side *, body.eng-papertop .eng
 .eng-pause__row .eng-read__btn { box-shadow: inset 0 0 0 2px #FFFDF6; background: none; color: #FFFDF6; }
 .eng-pause__row .eng-read__btn:hover { background: rgba(255, 253, 246, .14); }
 .eng-pause__row .eng-read__btn[disabled] { box-shadow: inset 0 0 0 1.5px rgba(255, 253, 246, .42); background: none; color: rgba(255, 253, 246, .55); }
+/* what you wrote here is kept: a quiet word beside Done */
+.eng-pause__kept { color: rgba(255, 253, 246, .7); font-size: calc(14px * var(--ps, 1)); font-weight: 600; }
+.eng-pause__kept:not(:empty)::before { content: '✓ '; color: #8FD1A6; }
 .eng-pause__row .eng-read__btn.is-go, .eng-pause__row .eng-read__btn.is-go:hover { box-shadow: none; background: var(--exam-pen); color: #FFFDF6; }
 .eng-pause__note { margin: 0; color: #FFFDF6; }
 .eng-pause__note q { color: rgba(255, 253, 246, .82); }
