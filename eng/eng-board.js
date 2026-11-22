@@ -53,7 +53,7 @@
   // finished scene you're looking back at).
   var GUIDE = true;
   try { if (localStorage.getItem('eng-cork-mode') === 'free') GUIDE = false; } catch (e) {}
-  var SIDE_WAS = null;
+  var SIDE_WAS = null, SHEET_LAST = '';
   try { if (localStorage.getItem('eng-cork-detail') === 'full') DETAIL = 'full'; } catch (e) {}
   try { var z0 = parseFloat(localStorage.getItem('eng-cork-zoom')); if (z0 >= 0.5 && z0 <= 1) ZOOM = z0; } catch (e) {}
   // where the top row starts, under the label strips (set per layout in corkHtml)
@@ -224,12 +224,12 @@
     store('eng-cork-at', JSON.stringify({ text: S.text, n: n }));
   }
   function save() {
-    store(caseKey(C.ids), JSON.stringify({ strings: C.strings, pos: C.pos, checked: C.checked, guide: { at: C.g.at, step: C.g.step, done: C.g.done } }));
+    store(caseKey(C.ids), JSON.stringify({ strings: C.strings, pos: C.pos, checked: C.checked, guide: { at: C.g.at, step: C.g.step, done: C.g.done, ks: C.g.ks || {} } }));
     store('eng-cork-at', JSON.stringify({ text: C.text, n: C.n }));
   }
   function freshGuide(g0) {
     g0 = g0 || {};
-    var g = { at: Math.max(0, Math.min(C.ids.length, Math.round(+g0.at || 0))), step: g0.step || 'read', done: g0.done || {}, hint: 0, clued: {}, msg: '', look: null };
+    var g = { at: Math.max(0, Math.min(C.ids.length, Math.round(+g0.at || 0))), step: g0.step || 'read', done: g0.done || {}, ks: g0.ks || {}, hint: 0, clued: {}, msg: '', look: null, x: null, qr: null };
     if (g.at >= C.ids.length) g.step = 'end';
     else if (['read', 'tie', 'checked'].indexOf(g.step) < 0 || (g.step === 'checked' && !g.done[C.ids[g.at]])) g.step = 'read';
     return g;
@@ -322,6 +322,7 @@
     var wideL = LAYN === 'wide';
     h += '<p class="cb-label" style="left:' + (wideL ? 24 : 16) + 'px;width:' + (L.W - (wideL ? 48 : 32)) + 'px;--c:' + (A.COL[C.tid] || '#13233A') + '">' +
       esc(A.text(C.tid).title) + ' · in story order</p>';
+    if (guided()) h += sheetHtml();
     h += '<svg class="cb-tags" data-cb-tags aria-hidden="true"></svg></div></div>';
     // the desk under the board, with the case file on it as a folder (the user, of the wall: "lik ea detective office")
     return h + '<div class="cb-desk" data-cb-desk>' + (LAYN === 'wide' ? '<svg class="cb-prop cb-lamp" viewBox="0 0 220 230" aria-hidden="true"><defs><linearGradient id="cbShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2F7A4C"/><stop offset=".55" stop-color="#15502E"/><stop offset="1" stop-color="#0B3520"/></linearGradient><linearGradient id="cbBrass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7A5A22"/><stop offset=".45" stop-color="#E2C374"/><stop offset="1" stop-color="#6E4F1C"/></linearGradient><radialGradient id="cbGlow" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#FFE2A8" stop-opacity=".85"/><stop offset="1" stop-color="#FFE2A8" stop-opacity="0"/></radialGradient></defs><path d="M38 96 L182 96 L210 160 L10 160 Z" fill="url(#cbGlow)" opacity=".55"/><rect x="104" y="92" width="12" height="108" fill="url(#cbBrass)"/><ellipse cx="110" cy="212" rx="62" ry="14" fill="#3E2A10" opacity=".6"/><path d="M52 214 Q52 196 110 194 Q168 196 168 214 Z" fill="url(#cbBrass)"/><path d="M24 92 Q30 40 110 34 Q190 40 196 92 Z" fill="url(#cbShade)"/><path d="M40 82 Q56 50 104 44" stroke="#8FD1A6" stroke-width="5" stroke-linecap="round" fill="none" opacity=".55"/><rect x="20" y="90" width="180" height="8" rx="4" fill="url(#cbBrass)"/><rect x="104" y="24" width="12" height="12" rx="3" fill="url(#cbBrass)"/></svg>' + '<svg class="cb-prop cb-folders" viewBox="0 0 260 90" aria-hidden="true"><rect x="14" y="40" width="230" height="34" rx="3" fill="#B98B4E" transform="rotate(-3 130 57)"/><rect x="6" y="30" width="236" height="36" rx="3" fill="#D8B77A" transform="rotate(2 124 48)"/><rect x="20" y="16" width="226" height="38" rx="3" fill="#E6CB93" transform="rotate(-1.5 133 35)"/><rect x="150" y="8" width="60" height="14" rx="3" fill="#E6CB93" transform="rotate(-1.5 180 15)"/><path d="M40 70 L232 52" stroke="#C21F2E" stroke-width="3"/><path d="M38 74 L60 72" stroke="#2B2B2B" stroke-width="5" stroke-linecap="round"/></svg>' + '<svg class="cb-prop cb-phone" viewBox="0 0 240 150" aria-hidden="true"><ellipse cx="120" cy="138" rx="104" ry="10" fill="#1A0F06" opacity=".55"/><path d="M40 136 Q36 78 72 64 L168 64 Q204 78 200 136 Z" fill="#15161A"/><path d="M58 120 Q58 84 82 76 L158 76 Q182 84 182 120" fill="none" stroke="#3A3D45" stroke-width="3"/><circle cx="120" cy="104" r="26" fill="#26282E" stroke="#C9CDD3" stroke-width="2"/><circle cx="120" cy="104" r="9" fill="#E9E4D6"/><g fill="#0C0D10"><circle cx="120" cy="85" r="4"/><circle cx="134" cy="91" r="4"/><circle cx="139" cy="104" r="4"/><circle cx="134" cy="117" r="4"/><circle cx="106" cy="91" r="4"/><circle cx="101" cy="104" r="4"/><circle cx="106" cy="117" r="4"/></g><path d="M30 52 Q24 30 46 26 L194 26 Q216 30 210 52 Q204 62 186 58 L178 44 L62 44 L54 58 Q36 62 30 52 Z" fill="#1D1F24"/><path d="M48 32 L192 32" stroke="#4A4E57" stroke-width="3" stroke-linecap="round"/><path d="M200 120 Q236 126 228 146" fill="none" stroke="#15161A" stroke-width="4"/></svg>' : '') +
@@ -347,9 +348,12 @@
       el.style.left = p.x + 'px'; el.style.top = p.y + 'px';
       bottom = Math.max(bottom, p.y + el.offsetHeight);
     });
+    var sh = board.querySelector('[data-cb-sheet]');
+    if (sh) bottom = Math.max(bottom, placeSheet(sh));
     HB = Math.max(bottom + 20, 600);
     board.style.height = HB + 'px';
     ['[data-cb-svg]', '[data-cb-tags]'].forEach(function (q) { var v = board.querySelector(q); v.setAttribute('viewBox', '0 0 ' + L.W + ' ' + HB); v.setAttribute('width', L.W); v.setAttribute('height', HB); });
+    if (sh) { placeSheet(sh); sheetStrings(); }
   }
   function tally() {
     var ok = 0, bad = 0, miss = 0;
@@ -615,11 +619,11 @@
   function pick(list) { var o = {}; (list || []).forEach(function (t) { o[t] = true; }); return o; }
   function gCls(mid) {
     var g = C.g, i = C.ids.indexOf(mid);
-    return mid === cur() ? ' is-now' : g.done[mid] ? ' is-done' + (g.look === mid ? ' is-look' : '') : i > g.at ? ' is-later' : '';
+    return mid === cur() ? ' is-now' + (g.step === 'read' && g.x && g.x.mid === mid && g.x.kt && g.x.kt.phase !== 'done' ? ' is-quiz' : '') : g.done[mid] ? ' is-done' + (g.look === mid ? ' is-look' : '') : i > g.at ? ' is-later' : '';
   }
   function gBadge(mid) {
     var d = C.g.done[mid], h = mid === cur() ? '<span class="cb-nowtag">Your scene</span>' : '';
-    if (d) h += '<span class="cb-donetag' + (d.bad || d.miss ? ' is-part' : '') + '">' + (d.of ? (d.bad || d.miss ? '' : '✓ ') + d.ok + ' of ' + d.of : d.bad ? 'Done' : '✓ Done') + '</span>';
+    if (d && mid !== cur()) h += '<span class="cb-donetag' + (d.bad || d.miss ? ' is-part' : '') + '">' + starRow(stars(d)) + ' ' + (d.of ? d.ok + ' of ' + d.of : 'Done') + '</span>';
     return h;
   }
   // Only the scene you're on ties, and only until it's checked.
@@ -628,6 +632,7 @@
     if (!cm) { toast('This case is closed. Start it again, or go on to the next case.'); return false; }
     if (sKey && sKey.slice(2) !== cm) { gNotNow(sKey.slice(2)); return false; }
     if (C.g.step === 'checked') { toast('This scene is checked. Try it again to change its strings, or go on to the next scene.'); return false; }
+    if (C.g.step === 'read') { toast('First, know the scene: read it, then take the test in the guide.'); return false; }
     return true;
   }
   function gNotNow(mid) {
@@ -655,11 +660,11 @@
     if (!cm || C.g.step === 'checked') return;
     var on = strung(cm), yes = yesOf(cm), p = Object.keys(on);
     var ok = yes.filter(function (t) { return on[t.id]; }).length, bad = p.filter(function (t) { return !isYes(cm, t); }).length, miss = yes.length - ok;
-    C.g.done[cm] = { p: p, ok: ok, bad: bad, miss: miss, of: yes.length };
+    C.g.done[cm] = { p: p, ok: ok, bad: bad, miss: miss, of: yes.length, k: !!(C.g.ks && C.g.ks[cm]), s: !bad && !miss && !C.g.hint, l: false };
     C.g.step = 'checked'; C.g.msg = '';
     var mk = marks(); mk[cm] = ON().filter(function (t) { return !!on[t.id] === isYes(cm, t.id); }).length; store('eng-board-scenes', JSON.stringify(mk));
     save(); sfx(!bad && !miss ? 'stamp' : ok > bad + miss ? 'ding' : 'bonk');
-    paint(); coachTop();
+    paint(); coachTop(); sheetShow();
   }
   // On to the next scene. The board ends up right: the strings that don't hold are cut, the ones you missed are tied
   // for you (dashed).
@@ -670,14 +675,14 @@
     var on = strung(cm);
     yesOf(cm).forEach(function (t) { if (!on[t.id]) C.strings.push({ s: cm, t: t.id, g: 1 }); });
     C.g.at++; C.g.step = C.g.at >= C.ids.length ? 'end' : 'read';
-    C.g.hint = 0; C.g.clued = {}; C.g.msg = ''; C.g.look = null;
+    C.g.hint = 0; C.g.clued = {}; C.g.msg = ''; C.g.look = null; C.g.x = null;
     save(); paint(); showNow(); coachTop();
   }
   function gAgain() {
     var cm = cur();
     if (!cm) return;
     C.strings = C.strings.filter(function (x) { return x.s !== cm; });
-    delete C.g.done[cm]; C.g.step = 'tie'; C.g.hint = 0; C.g.clued = {}; C.g.msg = '';
+    delete C.g.done[cm]; C.g.step = 'tie'; C.g.hint = 0; C.g.clued = {}; C.g.msg = ''; if (C.g.x) { C.g.x.df = null; C.g.x.dfNone = false; C.g.x.ln = null; }
     save(); paint(); coachTop();
   }
   // Hints, one at a time: first how many themes the scene proves, then for each one you haven't tied, the giveaway
@@ -742,51 +747,287 @@
   }
   function toBoard() { return coachSide() ? '' : ' <button type="button" class="cb-tob" data-cb-toboard>See it on the board ↓</button>'; }
   function gHead(mid, m) { return '<h2 class="cb-coach__h">' + esc(m.title) + '</h2><p class="cb-coach__n">Scene ' + num(mid) + (m.where ? ' · ' + esc(m.where) : '') + toBoard() + '</p>'; }
+  // ---------- doing it yourself ----------
+  // (the user, of Know it / Tie it / Check it: "it should feel like they are accomplishing it themself and they should
+  // remember the scene and the quote"). Each step is something you do: Know it ends in a test with the scene hidden
+  // (put what happens in order, fill the missing giveaway); Tie it is yours (a hint costs the star); Prove it asks you
+  // to pick the real reason for one of your strings, then build the scene's line from memory. Up to three stars a
+  // scene; the case ends with a round of its lines. The line is the scene's own quote, or the quote for one of the
+  // themes it proves (both as checked in eng-data.js / eng-themes.js); scenes with neither are remembered by their
+  // giveaways. G.x holds the scene's tests while you're on it: kt (the memory test), df (prove it), ln (the line).
+  function lineOf(mid) {
+    var m = mom(mid), c = T.scenes[mid].t, q = m.quote || null;
+    ON().concat(T.themes).forEach(function (t) { var x = c[t.id]; if (!q && x && x[0] === 'yes' && x[2]) q = x[2]; });
+    return q;
+  }
+  // the same shuffle every time for the same scene, never the right order
+  function shuf(n, seed) {
+    var a = [], h = hash(seed) || 7;
+    for (var i = 0; i < n; i++) a.push(i);
+    for (var j = n - 1; j > 0; j--) { h = (h * 1103515245 + 12345) & 0x7fffffff; var k = h % (j + 1), t = a[j]; a[j] = a[k]; a[k] = t; }
+    if (n > 1 && a.every(function (x, i) { return x === i; })) a.push(a.shift());
+    return a;
+  }
+  function X() {
+    var cm = cur();
+    if (!C.g.x || C.g.x.mid !== cm) C.g.x = { mid: cm, kt: null, df: null, ln: null, peek: false };
+    return C.g.x;
+  }
+  function beatsOf(mid) { var m = mom(mid); return m.tell || [m.what]; }
+  // the memory test: the beats to put in order, and one giveaway taken out of them with two from other scenes of the
+  // same text to choose from
+  function kStart(mid) {
+    var beats = beatsOf(mid), gap = null, low = beats.join(' ').toLowerCase();
+    beats.forEach(function (b, bi) {
+      (T.hl[mid] || []).forEach(function (h) {
+        var at = b.toLowerCase().indexOf(h[0].toLowerCase()), len = h[0].length, sc = len >= 10 && len <= 48 ? 100 - Math.abs(len - 26) : len;
+        if (at >= 0 && (!gap || sc > gap.sc)) gap = { bi: bi, at: at, len: len, sc: sc, word: b.substr(at, len) };
+      });
+    });
+    if (gap) {
+      var pool = [];
+      scenes(tidOf(mid)).forEach(function (o) { if (o !== mid) (T.hl[o] || []).forEach(function (h) { var l = h[0].length; if (low.indexOf(h[0].toLowerCase()) < 0 && l >= gap.len * 0.5 && l <= gap.len * 1.9) pool.push(h[0]); }); });
+      var cap = function (s) { return /^[A-Z]/.test(gap.word) ? s.charAt(0).toUpperCase() + s.slice(1) : /^[A-Z]/.test(s) && !/^(I|I'|Andy|Red|Brooks|Hadley|Norton|Tommy|Sive|Mena|Mike|Nanna|Liam|Pats|Thomasheen|Seán|Carthalawn|Bill|Eileen|Sarah|Ned|Mrs|Mother|Mick|St)\b/.test(s) ? s.charAt(0).toLowerCase() + s.slice(1) : s; };
+      var pick = shuf(pool.length, mid + 'g').slice(0, 2).map(function (i) { return cap(pool[i]); });
+      gap.opts = [gap.word].concat(pick);
+      gap.order = shuf(gap.opts.length, mid + 'go');
+      gap.bad = -1;
+    }
+    return { phase: beats.length > 1 ? 'order' : gap ? 'gap' : 'done', ord: shuf(beats.length, mid + 'o'), got: [], bad: -1, miss: 0, gap: gap };
+  }
+  // prove it: why one of your strings holds, against the reasons other scenes hold for the same theme
+  function dStart(mid, picks) {
+    var t = ON().filter(function (x) { return picks[x.id] && isYes(mid, x.id) && cell(mid, x.id)[1]; })[0];
+    if (!t) return null;
+    var same = [], other = [];
+    Object.keys(T.scenes).forEach(function (o) { var c = o !== mid && cell(o, t.id); if (c && c[0] === 'yes' && c[1]) (tidOf(o) === tidOf(mid) ? same : other).push(c[1]); });
+    var pool = same.length >= 2 ? same : same.concat(other), wrong = shuf(pool.length, mid + t.id).slice(0, 2).map(function (i) { return pool[i]; });
+    var opts = [cell(mid, t.id)[1]].concat(wrong);
+    return { th: t.id, opts: opts, order: shuf(opts.length, mid + t.id + 'o'), bad: -1, miss: 0, done: false };
+  }
+  // the line in three to six pieces, shuffled, to put back together
+  function lStart(q, seed) {
+    var w = q.split(/\s+/).filter(Boolean), n = Math.min(w.length, Math.max(3, Math.min(6, Math.ceil(w.length / 2)))), parts = [];
+    for (var i = 0; i < n; i++) parts.push(w.slice(Math.round(i * w.length / n), Math.round((i + 1) * w.length / n)).join(' '));
+    return { q: q, parts: parts, order: shuf(parts.length, seed), used: {}, got: 0, bad: -1, miss: 0, done: false };
+  }
+  function stars(d) { return [d.k, d.s, d.l].filter(Boolean).length; }
+  function starRow(n, of) { var s = ''; for (var i = 0; i < (of || 3); i++) s += i < n ? '★' : '☆'; return '<span class="cb-stars" aria-label="' + n + ' of ' + (of || 3) + ' stars">' + s + '</span>'; }
+  // the line, being built: what you've put together so far, and the pieces left
+  function lineHtml(ln, attr) {
+    if (ln.done) return '<div class="cb-built is-done"><p class="cb-built__k">' + (ln.miss ? 'You built it' : 'You built it first time') + '</p><q class="sb-q">' + esc(ln.q) + '</q></div>';
+    return '<div class="cb-built"><p class="cb-built__line">' + (ln.got ? esc(ln.parts.slice(0, ln.got).join(' ')) + ' ' : '') + '<span class="cb-blank">…</span></p></div>' +
+      '<div class="cb-picks">' + ln.order.map(function (j) {
+        return ln.used[j] ? '' : '<button type="button" class="cb-pickb' + (ln.bad === j ? ' is-bad' : '') + '" data-cb-q="' + attr + ':' + j + '">' + esc(ln.parts[j]) + '</button>';
+      }).join('') + '</div>';
+  }
+  // a tap in one of the tests
+  function gQ(v) {
+    var a = v.split(':'), kind = a[0], j = +a[1], x = X(), cm = x.mid, full = false;
+    if (kind === 'test') { x.kt = kStart(cm); full = true; }
+    else if (kind === 'study') { x.kt = null; x.peek = true; full = true; }
+    else if (kind === 'ord' && x.kt) {
+      var kt = x.kt;
+      if (j === kt.got.length) { kt.got.push(j); kt.bad = -1; if (kt.got.length === kt.ord.length) kt.phase = kt.gap ? 'gap' : 'done'; sfx('pop'); }
+      else { kt.bad = j; kt.miss++; sfx('bonk'); }
+      if (kt.phase === 'done') full = kDone(kt);
+    } else if (kind === 'gap' && x.kt && x.kt.gap) {
+      var gp = x.kt.gap;
+      if (j === 0) { x.kt.phase = 'done'; gp.bad = -1; sfx('ding'); full = kDone(x.kt); } else { gp.bad = j; x.kt.miss++; sfx('bonk'); }
+    } else if (kind === 'def' && x.df) {
+      if (j === 0) { x.df.done = true; x.df.bad = -1; sfx('ding'); if (!lineOf(cm)) { C.g.done[cm].l = !x.df.miss; save(); full = true; } }
+      else { x.df.bad = j; x.df.miss++; sfx('bonk'); }
+    } else if ((kind === 'ln' || kind === 'qr') && (kind === 'ln' ? x.ln : C.g.qr && C.g.qr.ln)) {
+      var ln = kind === 'ln' ? x.ln : C.g.qr.ln;
+      if (ln.parts[j] === ln.parts[ln.got] && !ln.used[j]) { ln.used[j] = 1; ln.got++; ln.bad = -1; sfx('pop'); if (ln.got === ln.parts.length) { ln.done = true; sfx('stamp'); } }
+      else { ln.bad = j; ln.miss++; sfx('bonk'); }
+      if (ln.done && kind === 'ln') { C.g.done[cm].l = !ln.miss; save(); full = true; }
+      if (ln.done && kind === 'qr') { C.g.qr.res.push(!ln.miss); }
+    } else if (kind === 'qrgo') { qrNext(); }
+    else if (kind === 'qrstart') { C.g.qr = { list: C.ids.filter(lineOf), i: -1, res: [] }; qrNext(); }
+    else if (kind === 'qrend') { C.g.qr = null; }
+    paint();
+    if (kind === 'test' || kind === 'qrstart') sheetShow();
+  }
+  function kDone(kt) { C.g.ks = C.g.ks || {}; C.g.ks[X().mid] = !kt.miss && !X().peek; save(); return true; }
+  function qrNext() { var r = C.g.qr; r.i++; r.ln = r.i < r.list.length ? lStart(lineOf(r.list[r.i]), r.list[r.i] + 'qr') : null; }
+  // ---------- the tests, on the board ----------
+  // (the user: "but still on teh board dont get me wronmg"): the memory test, proving a string and building the line
+  // are done on a sheet pinned to the board, over the rows you don't need for it (on a phone, at the top of the board,
+  // under the guide); the guide says what to do and what you've earned.
+  function ensureCheck(cm) {
+    var x = X();
+    if (!x.df && !x.dfNone) { x.df = dStart(cm, pick(C.g.done[cm].p)); x.dfNone = !x.df; }
+    if (lineOf(cm) && !x.ln) x.ln = lStart(lineOf(cm), cm + 'l');
+    return x;
+  }
+  function sheetState() {
+    var g = C.g, cm = cur();
+    if (g.step === 'end') return g.qr && g.qr.ln ? 'qr' : null;
+    if (!cm) return null;
+    var x = X();
+    if (g.step === 'read' && x.kt) return 'k';
+    if (g.step === 'checked' && g.done[cm]) {
+      ensureCheck(cm);
+      if (x.df && !x.df.done) return 'df';
+      if (x.ln && !x.ln.done) return 'ln';
+    }
+    return null;
+  }
+  function sheetHtml() {
+    var st = sheetState();
+    if (!st) return '';
+    // it slides in when it first appears, not again with every tap
+    var cm = cur(), x = cm ? X() : null, key = st + ':' + (cm || '') + ':' + (st === 'k' ? x.kt.phase : st === 'qr' ? C.g.qr.i : ''), fresh = key !== SHEET_LAST;
+    SHEET_LAST = key;
+    var h = '<div class="cb-sheet' + (fresh ? ' is-in' : '') + '" data-cb-sheet><i class="cb-sheet__pin is-a"></i><i class="cb-sheet__pin is-b"></i>';
+    var tilt = function (k) { return ' style="--r:' + (((hash(k) % 7) - 3) * 0.6).toFixed(1) + 'deg"'; };
+    if (st === 'k') {
+      var kt = x.kt, beats = beatsOf(cm), title = mom(cm).title, first = !kt.miss && !x.peek;
+      if (kt.phase === 'gap') {
+        var gp = kt.gap, b = beats[gp.bi];
+        h += '<p class="cb-sheet__k">Evidence · ' + esc(title) + '</p><h3 class="cb-sheet__h">Fill the gap: which giveaway was cut out of this note?</h3>' +
+          '<div class="cb-gapnote"' + tilt(cm + 'gap') + '><i class="cb-note__pin"></i>' + esc(b.slice(0, gp.at)) + '<span class="cb-blank">' + (gp.bad >= 0 ? '?' : '') + '</span>' + esc(b.slice(gp.at + gp.len)) + '</div>' +
+          '<div class="cb-strips">' + gp.order.map(function (i) { return '<button type="button" class="cb-strip' + (gp.bad === i ? ' is-bad' : '') + '" data-cb-q="gap:' + i + '"' + tilt(cm + 's' + i) + '>' + esc(gp.opts[i]) + '</button>'; }).join('') + '</div>' +
+          (gp.bad >= 0 ? '<p class="cb-sheet__nope">That one\'s from another scene. Try again.</p>' : '');
+      } else {
+        var done = kt.phase === 'done', list = done ? beats.map(function (bt, i) { return i; }) : kt.ord;
+        h += (done ? '<span class="cb-stamp">Known' + (first ? ' ★' : '') + '</span>' : '') +
+          '<p class="cb-sheet__k">Evidence · ' + esc(title) + '</p><h3 class="cb-sheet__h">' + (done ? 'You pinned it together' + (first ? ', first time.' : '.') : 'What happens? From memory, tap the notes in order: what happens first, then next.') + '</h3>' +
+          '<div class="cb-notes">' + list.map(function (i) {
+            var at = done ? i : kt.got.indexOf(i);
+            return '<button type="button" class="cb-note' + (at >= 0 ? ' is-placed' : '') + (kt.bad === i ? ' is-bad' : '') + '" data-cb-q="ord:' + i + '"' + (at >= 0 ? ' disabled' : '') + tilt(cm + 'n' + i) + '><i class="cb-note__pin"></i>' +
+              (at >= 0 ? '<b class="cb-note__n">' + (at + 1) + '</b>' : '') + (done ? marked(cm, beats[i], false) : esc(beats[i])) + '</button>';
+          }).join('') + '</div>' +
+          (kt.bad >= 0 ? '<p class="cb-sheet__nope">Not that one yet. What comes ' + (kt.got.length ? 'next' : 'first') + '?</p>' : '') +
+          (done ? '<div class="cb-sheet__go"><button type="button" class="sb-btn" data-cb-step="tie">Next: tie the strings ›</button></div>' : '');
+      }
+    } else if (st === 'df') {
+      var df = x.df, tn = TH[df.th].name;
+      h += '<p class="cb-sheet__k">Prove it · ' + esc(tn) + '</p><h3 class="cb-sheet__h">Your string holds. But why does ' + esc(mom(cm).title) + ' show ' + esc(tn.toLowerCase()) + '? Tap the note that\'s about this scene.</h3>' +
+        '<div class="cb-notes">' + df.order.map(function (i) { return '<button type="button" class="cb-note' + (df.bad === i ? ' is-bad' : '') + '" data-cb-q="def:' + i + '"' + tilt(cm + 'd' + i) + '><i class="cb-note__pin"></i>' + esc(df.opts[i]) + '</button>'; }).join('') + '</div>' +
+        (df.bad >= 0 ? '<p class="cb-sheet__nope">That\'s true of another scene. Which one is about ' + esc(mom(cm).title) + '?</p>' : '');
+    } else {
+      var qr = st === 'qr', ln = qr ? C.g.qr.ln : x.ln, of = qr ? mom(C.g.qr.list[C.g.qr.i]).title : mom(cm).title;
+      h += (ln.done ? '<span class="cb-stamp">Got it' + (ln.miss ? '' : ' ★') + '</span>' : '') +
+        '<p class="cb-sheet__k">' + (qr ? 'The lines · ' + (C.g.qr.i + 1) + ' of ' + C.g.qr.list.length : 'The line') + ' · ' + esc(of) + '</p><h3 class="cb-sheet__h">' + (ln.done ? 'You built it' + (ln.miss ? '.' : ' first time.') : 'Build the line from memory: tap the cut-outs in order.') + '</h3>' +
+        '<div class="cb-lineplate">' + (ln.got ? esc(ln.parts.slice(0, ln.got).join(' ')) : '') + (ln.done ? '' : ' <span class="cb-blank"></span>') + '</div>' +
+        (ln.done ? '' : '<div class="cb-cutouts">' + ln.order.map(function (j) { return ln.used[j] ? '' : '<button type="button" class="cb-cut is-v' + (hash(ln.parts[j] + j) % 4) + (ln.bad === j ? ' is-bad' : '') + '" data-cb-q="' + (qr ? 'qr' : 'ln') + ':' + j + '"' + tilt(of + j) + '>' + esc(ln.parts[j]) + '</button>'; }).join('') + '</div>') +
+        (ln.bad >= 0 && !ln.done ? '<p class="cb-sheet__nope">Not that piece yet. What comes next?</p>' : '') +
+        (qr && ln.done ? '<div class="cb-sheet__go"><button type="button" class="sb-btn" data-cb-q="qrgo">' + (C.g.qr.i + 1 < C.g.qr.list.length ? 'Next line ›' : 'Finish ›') + '</button></div>' : '');
+    }
+    return h + '<svg class="cb-sheet__str" data-cb-sheetstr aria-hidden="true"></svg></div>';
+  }
+  // Where the sheet goes: on a laptop, over the themes and the row the scene you're on isn't in; on a phone, at the top.
+  // Returns its bottom, so the board is tall enough for it.
+  function placeSheet(el) {
+    var L = lay(), cm = cur(), tp = ON().map(function (t) { return AUTO['t:' + t.id]; }).filter(Boolean);
+    var tTop = Math.min.apply(null, tp.map(function (p) { return p.y; })), tBot = Math.max.apply(null, tp.map(function (p) { return p.y; })) + L.th, y0, y1;
+    if (LAYN === 'wide') {
+      var up = !cm || (AUTO['s:' + cm] && AUTO['s:' + cm].y < tTop);
+      if (up) { y0 = tTop - 26; y1 = Math.max(HB - 18, y0 + 560); } else { y0 = TOPY - 10; y1 = tBot + 26; }
+      el.style.left = '30px'; el.style.width = (L.W - 60) + 'px'; el.style.top = y0 + 'px'; el.style.minHeight = (y1 - y0) + 'px';
+    } else { el.style.left = '10px'; el.style.width = (L.W - 20) + 'px'; el.style.top = (TOPY - 8) + 'px'; el.style.minHeight = '0'; }
+    return el.offsetTop + el.offsetHeight + 16;
+  }
+  // the red string from note to note, in the order you've pinned them
+  function sheetStrings() {
+    var sh = app.querySelector('[data-cb-sheet]'), svg = sh && sh.querySelector('[data-cb-sheetstr]'), x = cur() && X(), kt = x && x.kt;
+    if (!svg) return;
+    var w = sh.offsetWidth, hh = sh.offsetHeight, out = '';
+    svg.setAttribute('viewBox', '0 0 ' + w + ' ' + hh); svg.setAttribute('width', w); svg.setAttribute('height', hh);
+    if (kt && kt.phase !== 'gap') {
+      var ids = kt.phase === 'done' ? beatsOf(x.mid).map(function (b, i) { return i; }) : kt.got;
+      var pts = ids.map(function (i) { var n = sh.querySelector('[data-cb-q="ord:' + i + '"] .cb-note__pin'), o = n && n.offsetParent; return n ? [o.offsetLeft + n.offsetLeft + n.offsetWidth / 2, o.offsetTop + n.offsetTop + n.offsetHeight / 2] : null; }).filter(Boolean);
+      for (var k = 1; k < pts.length; k++) { var c = curve(pts[k - 1], pts[k]); out += '<path class="cb-str__shade" d="' + c.d + '"/><path class="cb-str__line" d="' + c.d + '"/>'; }
+    }
+    svg.innerHTML = out ? '<g class="cb-str is-now">' + out + '</g>' : '';
+  }
+  // bring the sheet into view
+  function sheetShow() {
+    var sh = app.querySelector('[data-cb-sheet]');
+    if (!sh) return;
+    var bar = document.querySelector('.sh-top'), top = (bar ? bar.offsetHeight : 76) + 10, r = sh.getBoundingClientRect();
+    if (r.top < top || r.bottom > window.innerHeight - 10) window.scrollTo({ top: Math.max(0, window.scrollY + r.top - top), behavior: 'smooth' });
+  }
+
   function coachHtml() {
     var g = C.g, cm = cur(), look = g.look && g.done[g.look] ? g.look : null;
     var h = '<aside class="cb-coach' + (coachSide() ? '' : ' is-flow') + '" data-cb-coach data-key="' + esc((cm || 'end') + ':' + g.step + ':' + (look || '')) + '" aria-label="Step by step">' +
       '<p class="cb-coach__k">Step by step · ' + esc(A.text(C.tid).title) + '</p>' + gDots();
     if (look) {
-      var dl = g.done[look];
-      return h + '<p class="cb-coach__back">Looking back</p>' + gHead(look, mom(look)) + '<div class="cb-score' + (dl.bad || dl.miss ? '' : ' is-perfect') + '"><b>' + esc(scoreLine(dl)) + '</b></div>' +
+      var dl = g.done[look], lq = lineOf(look);
+      return h + '<p class="cb-coach__back">Looking back</p>' + gHead(look, mom(look)) + '<div class="cb-score' + (dl.bad || dl.miss ? '' : ' is-perfect') + '"><b>' + esc(scoreLine(dl)) + '</b> ' + starRow(stars(dl)) + '</div>' +
+        (lq ? '<div class="cb-learn"><p class="cb-learn__k">The line</p><q class="sb-q">' + esc(lq) + '</q></div>' : '') +
         why(look, pick(dl.p), true) + '<div class="cb-coach__go"><button type="button" class="sb-btn" data-cb-look="">' + (cm ? 'Back to scene ' + num(cm) + ' ›' : 'Back to the case ›') + '</button></div></aside>';
     }
     if (!cm) return h + gEnd() + '</aside>';
-    var m = mom(cm), si = { read: 0, tie: 1, checked: 2 }[g.step];
-    h += '<ol class="cb-steps">' + ['Know it', 'Tie it', 'Check it'].map(function (x, j) { return '<li class="' + (j < si ? 'is-done' : j === si ? 'is-on' : '') + '"><b>' + (j + 1) + '</b>' + x + '</li>'; }).join('') + '</ol>' + gHead(cm, m);
+    var m = mom(cm), si = { read: 0, tie: 1, checked: 2 }[g.step], x = X(), q = lineOf(cm);
+    h += '<ol class="cb-steps">' + ['Know it', 'Tie it', 'Prove it'].map(function (s, j) { return '<li class="' + (j < si ? 'is-done' : j === si ? 'is-on' : '') + '"><b>' + (j + 1) + '</b>' + s + '</li>'; }).join('') + '</ol>' + gHead(cm, m);
     if (g.step === 'read') {
-      var wb = watchBtn(cm);
-      return h + '<div class="cb-do"><p><b>Step 1: know the scene.</b> Read what happens, or watch it. This is the part you have to get exactly right in the exam: where it is, who\'s there, what\'s said and what\'s done.</p></div>' +
-        fixed(cm, false) + (wb ? '<p class="sb-row is-left">' + wb + '</p>' : '') +
-        '<p class="cb-coach__tip">The <mark class="cb-hl">highlighted</mark> words are the giveaways: the clues to what this scene is about. You\'ll use them next.</p>' +
+      var kt = x.kt;
+      if (!kt) {
+        var wb = watchBtn(cm);
+        return h + '<div class="cb-do"><p><b>Step 1: know the scene.</b> Read it, or watch it, until you could tell it to someone: where it is, who\'s there, what\'s said and what\'s done. Then you\'ll be tested on it, with the text hidden.</p></div>' +
+          fixed(cm, false) + (wb ? '<p class="sb-row is-left">' + wb + '</p>' : '') +
+          (q ? '<div class="cb-learn"><p class="cb-learn__k">Learn this line. You\'ll build it from memory at the end.</p><q class="sb-q">' + esc(q) + '</q></div>'
+            : '<p class="cb-coach__tip">There\'s no line from this scene checked word for word here, so learn it by its giveaways, the <mark class="cb-hl">highlighted</mark> words.</p>') +
+          '<div class="cb-coach__go"><button type="button" class="sb-btn" data-cb-q="test">I\'ve got it: test me ›</button></div></aside>';
+      }
+      var beats = beatsOf(cm);
+      if (kt.phase !== 'done') return h + (kt.phase === 'gap' ? '<div class="cb-ok">You put it in order' + (kt.miss ? '.' : ' first time.') + '</div>' : '') +
+        '<div class="cb-do"><p><b>' + (kt.phase === 'order' ? 'On the board: what happens, from memory.' : 'On the board: fill the gap.') + '</b> ' +
+        (kt.phase === 'order' ? 'The scene\'s card is covered. Tap the notes on the board in the order things happen.' : 'One giveaway has been cut out of a note. Tap the strip that goes in the gap.') + '</p></div>' +
+        '<div class="cb-coach__go"><button type="button" class="sb-btn is-quiet" data-cb-q="study">Let me look again</button></div></aside>';
+      var first = !kt.miss && !x.peek;
+      return h + '<div class="cb-score is-perfect"><b>' + (first ? 'You know this scene: every answer right first time.' : 'You know this scene now.') + '</b> ' + (first ? '<span class="cb-stars">★</span>' : '') + '</div>' +
+        '<ol class="cb-placed">' + beats.map(function (bt) { return '<li>' + marked(cm, bt, false) + '</li>'; }).join('') + '</ol>' +
         '<div class="cb-coach__go"><button type="button" class="sb-btn" data-cb-step="tie">Next: tie the strings ›</button></div></aside>';
     }
     if (g.step === 'tie') {
       var on = strung(cm), n = Object.keys(on).length;
-      return h + '<div class="cb-do"><p><b>Step 2: tie the strings.</b> Tie this scene to every theme you could write a whole paragraph about. Tap a theme on the board or below, or drag the scene\'s red pin to it. Tap it again to untie it.</p>' +
-        '<p>For each theme, ask: does something happen here that shows it? If it\'s only a little, leave it out.</p></div>' +
-        '<p class="cb-coach__sub">What happens</p><ol class="cb-coach__beats">' + (m.tell || [m.what]).map(function (x) { return '<li>' + marked(cm, x, false) + '</li>'; }).join('') + '</ol>' +
+      return h + '<div class="cb-do"><p><b>Step 2: tie the strings, yourself.</b> Tie this scene to every theme you could write a whole paragraph about. Tap a theme on the board or below, or drag the scene\'s red pin to it. Tap it again to untie it.</p>' +
+        '<p>For each theme, ask: does something happen here that shows it? If it\'s only a little, leave it out. Get them all with no hints for a star.</p></div>' +
+        '<p class="cb-coach__sub">What happens</p><ol class="cb-coach__beats">' + beatsOf(cm).map(function (bt) { return '<li>' + marked(cm, bt, false) + '</li>'; }).join('') + '</ol>' +
         '<p class="cb-coach__sub">Tie it to</p><div class="cb-ties">' + ON().map(function (t) {
           return '<button type="button" class="sb-chip" data-cb-gtie="' + t.id + '" aria-pressed="' + !!on[t.id] + '">' + esc(t.name) + '</button>';
         }).join('') + '</div>' +
         '<p class="cb-coach__count">' + (n ? 'Tied to ' + words(n) + ' theme' + (n > 1 ? 's' : '') + '.' : 'Nothing tied yet.') + '</p>' +
-        '<div class="cb-hintbox">' + (g.msg ? '<p class="cb-hint">' + g.msg + '</p>' : '') + '<button type="button" class="sb-btn is-quiet" data-cb-ghint>' + (g.hint ? 'Another hint' : 'Give me a hint') + '</button></div>' +
-        '<div class="cb-coach__go"><button type="button" class="sb-btn is-quiet" data-cb-step="read">‹ The scene</button><button type="button" class="sb-btn" data-cb-gcheck>Check this scene ›</button></div></aside>';
+        '<div class="cb-hintbox">' + (g.msg ? '<p class="cb-hint">' + g.msg + '</p>' : '') + '<button type="button" class="sb-btn is-quiet" data-cb-ghint>' + (g.hint ? 'Another hint' : 'Give me a hint (costs the star)') + '</button></div>' +
+        '<div class="cb-coach__go"><button type="button" class="sb-btn is-quiet" data-cb-step="read">‹ The scene</button><button type="button" class="sb-btn" data-cb-gcheck>Check my strings ›</button></div></aside>';
     }
     var d = g.done[cm], yes = yesOf(cm);
-    return h + '<div class="cb-score' + (d.bad || d.miss ? '' : ' is-perfect') + '"><b>' + esc(scoreLine(d)) + '</b></div>' +
-      '<div class="cb-do"><p><b>Step 3: see what holds.</b> Read why each string holds or doesn\'t. On the board, ✓ holds, ✗ doesn\'t, and a blue ? is one you missed.</p></div>' +
-      why(cm, pick(d.p), true) +
-      '<div class="cb-remember"><p>Remember: this scene is your evidence for</p>' + (yes.length ? yes.map(function (t) { return '<span>' + esc(t.name) + '</span>'; }).join('') : '<em>none of the themes on this board</em>') + '</div>' +
+    ensureCheck(cm);
+    var df = x.df, proved = !df || df.done, built = !q || (x.ln && x.ln.done);
+    h += '<div class="cb-score' + (d.bad || d.miss ? '' : ' is-perfect') + '"><b>' + esc(scoreLine(d)) + '</b>' + (d.s ? ' <span class="cb-stars">★</span>' : '') + '</div>';
+    if (!proved) return h + '<div class="cb-do"><p><b>Step 3: prove it.</b> Your string to <b>' + esc(TH[df.th].name) + '</b> holds. But why? On the board, tap the note that\'s about this scene.</p></div></aside>';
+    h += df ? '<div class="cb-ok">' + (df.miss ? 'You proved it.' : 'You proved it first time.') + '</div>' : '';
+    if (!built) return h + '<div class="cb-do"><p><b>Now the line, from memory.</b> On the board, tap the cut-out pieces in order to build the line you learned at the start.</p></div></aside>';
+    if (q) h += '<p class="cb-coach__sub">The line</p>' + lineHtml(x.ln, 'ln');
+    h += '<p class="cb-coach__sub">Every theme, and why</p>' + why(cm, pick(d.p), true);
+    return h + '<div class="cb-remember"><p>Remember: this scene is your evidence for</p>' + (yes.length ? yes.map(function (t) { return '<span>' + esc(t.name) + '</span>'; }).join('') : '<em>none of the themes on this board</em>') + '</div>' +
+      '<div class="cb-earned">This scene: ' + starRow(stars(d)) + '<small>' + ['know it from memory', 'every string, no hints', q ? 'the line first time' : 'proved first time'].map(function (s, i) { return '<span class="' + ([d.k, d.s, d.l][i] ? 'is-got' : '') + '">' + s + '</span>'; }).join('') + '</small></div>' +
       '<p class="cb-coach__tip">When you go on, the strings that don\'t hold are cut and any you missed are tied for you, dashed, so the board ends up right.</p>' +
       '<div class="cb-coach__go"><button type="button" class="sb-btn is-quiet" data-cb-gagain>Try it again</button><button type="button" class="sb-btn" data-cb-gnext>' + (g.at + 1 < C.ids.length ? 'Next scene ›' : 'Close the case ›') + '</button></div></aside>';
   }
-  // The end of the case: the score, and the evidence for each theme, the scenes you missed the first time dashed.
+  // The end of the case: your stars, the evidence for each theme (dashed: missed the first time), and a round of the
+  // case's lines from memory.
   function gEnd() {
-    var g = C.g, ok = 0, of = 0, bad = 0, nx = cases(S.text)[C.n];
-    C.ids.forEach(function (mid) { var d = g.done[mid]; if (d) { ok += d.ok; of += d.of; bad += d.bad; } });
+    var g = C.g, ok = 0, of = 0, bad = 0, st = 0, nx = cases(S.text)[C.n], lines = C.ids.filter(lineOf);
+    C.ids.forEach(function (mid) { var d = g.done[mid]; if (d) { ok += d.ok; of += d.of; bad += d.bad; st += stars(d); } });
+    var r = g.qr;
+    if (r) {
+      if (r.ln) return '<h2 class="cb-coach__h">The lines, from memory</h2><p class="cb-coach__n">Line ' + (r.i + 1) + ' of ' + r.list.length + '</p>' +
+        '<div class="cb-do"><p>On the board: build the line from <b>' + esc(mom(r.list[r.i]).title) + '</b>.</p></div>' + (r.ln.done ? lineHtml(r.ln, 'qr') : '') +
+        '<div class="cb-coach__go">' + (r.ln.done ? '<button type="button" class="sb-btn" data-cb-q="qrgo">' + (r.i + 1 < r.list.length ? 'Next line ›' : 'Finish ›') + '</button>' : '<button type="button" class="sb-btn is-quiet" data-cb-q="qrend">Stop</button>') + '</div>';
+      var firsts = r.res.filter(Boolean).length, miss = r.list.filter(function (mid, i) { return !r.res[i]; });
+      return '<h2 class="cb-coach__h">You know ' + firsts + ' of ' + r.list.length + ' lines</h2><p class="cb-coach__n">first time, from memory</p>' +
+        (miss.length ? '<div class="cb-do"><p><b>Go over these:</b> ' + miss.map(function (mid) { return esc(mom(mid).title); }).join(' · ') + '</p></div>' : '<div class="cb-score is-perfect"><b>Every line, first time.</b></div>') +
+        '<div class="cb-coach__go"><button type="button" class="sb-btn is-quiet" data-cb-q="qrstart">Again</button><button type="button" class="sb-btn" data-cb-q="qrend">Back to the case ›</button></div>';
+    }
     return '<h2 class="cb-coach__h">Case closed</h2><p class="cb-coach__n">' + esc(caseWhat()) + ' of ' + esc(A.text(C.tid).title) + '</p>' +
-      '<div class="cb-score' + (ok === of && !bad ? ' is-perfect' : '') + '"><b>You found ' + ok + ' of the ' + of + ' strings yourself' + (bad ? ', and ' + bad + (bad > 1 ? ' others didn\'t' : ' other didn\'t') + ' hold' : '') + '.</b></div>' +
+      '<div class="cb-score' + (ok === of && !bad ? ' is-perfect' : '') + '"><b>You found ' + ok + ' of the ' + of + ' strings yourself' + (bad ? ', and ' + bad + (bad > 1 ? ' others didn\'t' : ' other didn\'t') + ' hold' : '') + '.</b><br>' + '<span class="cb-stars">★</span> <small>' + st + ' of ' + C.ids.length * 3 + ' stars</small></div>' +
+      (lines.length ? '<div class="cb-learn"><p class="cb-learn__k">Last test: the ' + words(lines.length) + ' lines from this case, from memory.</p><button type="button" class="sb-btn" data-cb-q="qrstart">Start the round ›</button></div>' : '') +
       '<div class="cb-do"><p><b>Your evidence, theme by theme.</b> These are the scenes to use for each theme. Dashed ones you missed the first time: tap one to go over it again.</p></div>' +
       '<ul class="cb-bank">' + ON().map(function (t) {
         var ids = C.ids.filter(function (mid) { return isYes(mid, t.id); });
@@ -906,8 +1147,9 @@
       S.sel = null; S.arm = null; SEEN_BOARD = false; paint(); if (GUIDE && !coachSide()) showNow(true); return;
     }
     if ((x = t.closest('[data-cb-gtie]'))) { gTap('t:' + x.getAttribute('data-cb-gtie')); return; }
-    if ((x = t.closest('[data-cb-step]'))) { C.g.step = x.getAttribute('data-cb-step'); save(); paint(); coachTop(); return; }
+    if ((x = t.closest('[data-cb-step]'))) { C.g.step = x.getAttribute('data-cb-step'); if (C.g.step === 'read' && C.g.x) C.g.x.kt = null; save(); paint(); coachTop(); return; }
     if (t.closest('[data-cb-gcheck]')) { gCheck(); return; }
+    if ((x = t.closest('[data-cb-q]'))) { gQ(x.getAttribute('data-cb-q')); return; }
     if (t.closest('[data-cb-toboard]')) {
       var nc = app.querySelector('.cb-scene.is-now') || app.querySelector('[data-cb-wrap]'), tb = document.querySelector('.sh-top');
       if (nc) window.scrollTo({ top: Math.max(0, nc.getBoundingClientRect().top + window.scrollY - (tb ? tb.offsetHeight : 76) - 16), behavior: 'smooth' });
