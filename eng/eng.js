@@ -3377,13 +3377,15 @@
     // and 15:31 here do) or be checked against a screenshot of the real pause: a pause placed six seconds after a
     // preview was on a different shot, and its labels pointed at the dresser and the ceiling. The words on the labels are the play's as they are spoken in this production; where the captions
     // were not clear enough to be sure of a line, it is not quoted.
+    // (At 15:31 Thomasheen's lit oval first sat on the wall and chair to his right, at x 85; the user's screenshot of
+    // the real pause shows him at 72, from his hat at the top of the frame down past the bottom of his coat.)
     'sive-2': { yt: 'Vql0MTCXTiY', start: 786, end: 968, pauses: [
       { at: 831, spots: [{ x: 56, y: 56, rx: 4.5, ry: 16, label: 'Thomasheen' }, { x: 43, y: 57, rx: 4.5, ry: 15, label: 'Mena' }],
         themes: { power: { ask: 'What do Thomasheen’s words show about how power is used in Sive?', title: 'Money buys obedience',
           note: 'Nobody in this kitchen asks what Sive wants. Thomasheen talks only of money, because money is what will make Mena do his work for him: in Sive, power belongs to whoever can pay, and a girl with nothing can be bought.',
           say: [['The matchmaker, who is to get a hundred pounds himself, tells Mena how to frighten Sive into agreeing, then what the match is worth to her:', '“Think of the two hundred sovereigns dancing in the heel of your fist.”'],
             ['Listens, and does not say no.']] } } },
-      { at: 931, spots: [{ x: 23, y: 48, rx: 9, ry: 36, label: 'Mena' }, { x: 85, y: 40, rx: 9, ry: 38, label: 'Thomasheen' }],
+      { at: 931, spots: [{ x: 23, y: 48, rx: 9, ry: 36, label: 'Mena' }, { x: 72, y: 42, rx: 11, ry: 41, label: 'Thomasheen' }],
         themes: { power: { ask: 'What do Mena’s words show about who has power over Sive?', title: 'Greed drives it',
           note: 'Mena does not have to be forced. For two hundred pounds, and a house without Sive in it, she will hand over a girl who is in her care. Sive has no money and no say, so two adults settle her whole life between them at the kitchen table.',
           say: [['Sive is her husband’s niece and lives under her roof. What Mena sees in the match:', '“And I would be rid of her. And two hundred pounds into the bargain, I would.”'],
