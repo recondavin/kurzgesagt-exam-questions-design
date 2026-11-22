@@ -177,7 +177,7 @@
     document.body.classList.toggle('eng-wall', S.mode === 'board');
     if (S.mode === 'board') {
       var co = app.querySelector('[data-cb-coach]'), ck = co && co.getAttribute('data-key'), ct = co ? co.scrollTop : 0;
-      boardPass(); strings(); sideDraw(); frameIn();
+      boardPass(); strings(); sideDraw(); frameIn(); if (guided()) xpAnim();
       var co2 = app.querySelector('[data-cb-coach]'); if (co2 && ck && co2.getAttribute('data-key') === ck) co2.scrollTop = ct;
       return;
     }
@@ -299,8 +299,8 @@
       (guided() ? '' : (res ? '<span class="cb-res"><b>' + res.ok + '</b> hold · <b class="is-bad">' + res.bad + '</b> don\'t · <b class="is-miss">' + res.miss + '</b> missed</span>' : '') +
       '<span class="cb-btns"><button type="button" class="sb-btn" data-cb-check' + (C.strings.length ? '' : ' disabled') + '>' + (C.checked ? 'Check again' : 'Check my strings') + '</button>' +
       (res && res.miss ? '<button type="button" class="sb-btn is-quiet" data-cb-miss aria-pressed="' + S.miss + '">' + (S.miss ? 'Hide what I missed' : 'Show what I missed') + '</button>' : '') + '<button type="button" class="sb-btn is-quiet" data-cb-go="-1"' + (C.n > 1 ? '' : ' disabled') + '>‹ Previous</button><button type="button" class="sb-btn is-quiet" data-cb-go="1">' + (C.n < C.of ? 'Next case ›' : 'Back to case 1') + '</button><button type="button" class="sb-btn is-quiet" data-cb-clear' + (C.strings.length ? '' : ' disabled') + '>Clear strings</button></span></div></div>');
-    // the guide: beside the board on a wide window, over it otherwise
-    if (guided()) h += coachHtml();
+    // the guide: beside the board on a wide window, over it otherwise (and then your points stay in view in the corner)
+    if (guided()) h += coachHtml() + (coachSide() ? '' : '<div class="cb-hud" aria-hidden="true"><b data-cb-hud>' + (XP_SHOWN == null ? XP : XP_SHOWN) + '</b> pts' + (STREAK >= 2 ? ' <span>🔥 ' + STREAK + '</span>' : '') + '</div>');
     var gb = guided() ? ' is-guide' + (C.g.step === 'read' || C.g.step === 'tie' ? ' is-tie' : '') : '';
     h += '<div class="cb-wrap" data-cb-wrap><div class="cb-board' + (L.full ? ' is-full' : '') + gb + '" data-cb-board style="width:' + L.W + 'px;height:' + (L.H || 900) + 'px">' +
       '<svg class="cb-strings" data-cb-svg aria-hidden="true"></svg>';
@@ -380,8 +380,8 @@
     if (gc) yesOf(cm).forEach(function (t) {
       if (strung(cm)[t.id]) return;
       var c = curve(pinAt('s:' + cm), pinAt('t:' + t.id));
-      h += '<g class="cb-str is-miss"><path class="cb-str__line" d="' + c.d + '"/></g>';
-      g += '<g class="cb-str is-miss">' + tag(c, '?', '') + '</g>';
+      h += '<g class="cb-str is-miss' + (REVEAL ? ' is-wait' : '') + '"><path class="cb-str__line" d="' + c.d + '"/></g>';
+      g += '<g class="cb-str is-miss' + (REVEAL ? ' is-wait' : '') + '">' + tag(c, '?', '') + '</g>';
     });
     if (C.checked && !gd) C.ids.forEach(function (mid) {
       var on = strung(mid);
@@ -402,7 +402,7 @@
       hit += '<g class="cb-str" data-str="' + i + '"><path class="cb-str__hit" d="' + c.d + '"/></g>';
       var line = '<g class="' + cls + '"><path class="cb-str__shade" d="' + c.d + '"/><path class="cb-str__line" d="' + c.d + '"/></g>';
       if (now) hNow += line; else h += line;
-      if (named) g += '<g class="' + cls + '" data-str="' + i + '">' + tag(c, ok ? '✓' : '✗', '') + '</g>';
+      if (named) g += '<g class="' + cls + (REVEAL && now ? ' is-wait' : '') + '" data-str="' + i + '">' + tag(c, ok ? '✓' : '✗', '') + '</g>';
     };
     C.strings.forEach(drawn);
     h += hNow;
@@ -608,6 +608,117 @@
     }
   });
 
+  // ---------- rewards ----------
+  // (the user: "give constant rewardness for what they get right like dopamine"): everything you get right pays at
+  // once: points fly up from what you tapped, a note that climbs higher the longer your streak, a pop on the thing
+  // itself, confetti for the bigger ones, stars as you earn them, and a detective's rank that rises with your points
+  // (eng-cork-xp), with a promotion when it does. Checking your strings is a reveal, one string at a time. A wrong
+  // tap costs nothing but the streak.
+  var XP = 0, XP_SHOWN = null, STREAK = 0, PT = null, REVEAL = false;
+  try { XP = Math.max(0, parseInt(localStorage.getItem('eng-cork-xp'), 10) || 0); } catch (e) {}
+  var RANKS = [[0, 'Rookie'], [500, 'Constable'], [1500, 'Sergeant'], [3500, 'Detective'], [6500, 'Detective Inspector'], [10000, 'Chief Inspector'], [15000, 'Superintendent'], [21000, 'Commissioner']];
+  function rank(xp) { var r = RANKS[0], nx = null; RANKS.forEach(function (k, i) { if (xp >= k[0]) { r = k; nx = RANKS[i + 1] || null; } }); return { name: r[1], at: r[0], next: nx }; }
+  var PRAISE = {
+    order: ['Right!', 'Yes!', 'That\'s it.', 'Spot on.', 'Good memory.', 'Correct!'],
+    gap: ['Sharp eye!', 'Exactly!', 'Nailed it.', 'That\'s the giveaway.'],
+    tie: ['It holds!', 'Solid.', 'Good evidence!', 'Yes!', 'Strong.'],
+    prove: ['Proved!', 'Watertight.', 'Case made!'],
+    piece: ['', 'Yes', '', 'Keep going'],
+    line: ['Word for word!', 'You know it!', 'Perfect recall!'],
+    all: ['Every string!', 'Clean sweep!'],
+    case: ['Case closed!']
+  };
+  function kit() { return window.ExamAnswerMode && window.ExamAnswerMode.kit; }
+  function quiet() { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
+  // a right answer: points (and a streak bonus from three in a row), a rising note, and the praise where you tapped
+  function win(pts, kind, at, big, word) {
+    STREAK++;
+    var bonus = STREAK >= 3 ? Math.min(STREAK, 10) : 0, before = rank(XP).name, list = PRAISE[kind] || [''];
+    XP += pts + bonus; store('eng-cork-xp', String(XP));
+    word = word || list[(XP + STREAK) % list.length];
+    if (STREAK === 3 || STREAK === 5 || STREAK % 10 === 0) word = (STREAK >= 10 ? 'Unstoppable!' : STREAK >= 5 ? 'On fire!' : 'Streak!') + ' ×' + STREAK;
+    popup(at || PT, '+' + (pts + bonus), word, big);
+    if (big && !quiet()) confetti(at || PT, big === 2 ? 70 : 30);
+    try { var k = kit(); if (k) { k.ding(Math.min(STREAK - 1, 10), !!big); if (big === 2) setTimeout(function () { k.fanfare(); }, 120); } } catch (e) {}
+    var after = rank(XP).name;
+    if (after !== before) setTimeout(function () { promoted(after); }, 700);
+  }
+  function lose() { STREAK = 0; }
+  function starWin(label) { var co = app.querySelector('[data-cb-coach]'), r = co && co.getBoundingClientRect(); win(25, 'star', r ? [r.left + r.width / 2, r.top + 150] : null, 1, '★ ' + label); }
+  function centre() { return [window.innerWidth / 2, window.innerHeight / 2]; }
+  function popup(at, big, small, strong) {
+    at = at || centre();
+    var p = document.createElement('div');
+    p.className = 'cb-pop' + (strong ? ' is-big' : '');
+    p.style.left = Math.round(at[0]) + 'px'; p.style.top = Math.round(at[1]) + 'px';
+    p.innerHTML = '<b>' + esc(big) + '</b>' + (small ? '<span>' + esc(small) + '</span>' : '');
+    document.body.appendChild(p);
+    setTimeout(function () { if (p.parentNode) p.parentNode.removeChild(p); }, 1300);
+  }
+  function confetti(at, n) {
+    at = at || centre();
+    var box = document.createElement('div'), cols = ['#FFD23F', '#C0262D', '#2F5FA8', '#1F6E3A', '#FFFDF6', '#F08A24'], h = '';
+    box.className = 'cb-confetti'; box.style.left = Math.round(at[0]) + 'px'; box.style.top = Math.round(at[1]) + 'px';
+    for (var i = 0; i < n; i++) {
+      var a = Math.random() * Math.PI * 2, d = 60 + Math.random() * (n > 40 ? 260 : 150);
+      h += '<i style="--dx:' + Math.round(Math.cos(a) * d) + 'px;--dy:' + Math.round(Math.sin(a) * d - 60) + 'px;--rot:' + Math.round(Math.random() * 720 - 360) + 'deg;--c:' + cols[i % cols.length] + ';--d:' + (0.7 + Math.random() * 0.5).toFixed(2) + 's"></i>';
+    }
+    box.innerHTML = h; document.body.appendChild(box);
+    setTimeout(function () { if (box.parentNode) box.parentNode.removeChild(box); }, 1400);
+  }
+  function promoted(name) {
+    var b = document.createElement('div');
+    b.className = 'cb-promo'; b.setAttribute('role', 'status');
+    b.innerHTML = '<small>Promoted</small><b>' + esc(name) + '</b><span>' + XP + ' points</span>';
+    document.body.appendChild(b);
+    if (!quiet()) confetti([window.innerWidth / 2, 150], 90);
+    try { var k = kit(); if (k) k.fanfare(); } catch (e) {}
+    setTimeout(function () { b.classList.add('is-out'); }, 2600);
+    setTimeout(function () { if (b.parentNode) b.parentNode.removeChild(b); }, 3200);
+  }
+  // your rank, points, the way to the next rank, and your streak, at the top of the guide
+  function xpHtml() {
+    var r = rank(XP), pct = r.next ? Math.round(100 * (XP - r.at) / (r.next[0] - r.at)) : 100, from = XP_SHOWN == null ? XP : XP_SHOWN, r0 = rank(from);
+    var pct0 = r0.name !== r.name ? 0 : r.next ? Math.round(100 * (from - r.at) / (r.next[0] - r.at)) : 100;
+    return '<div class="cb-xp"><span class="cb-xp__rank">' + esc(r.name) + '</span><b class="cb-xp__n" data-cb-xp>' + from + '</b><small>points</small>' +
+      (STREAK >= 2 ? '<span class="cb-streak' + (STREAK >= 5 ? ' is-hot' : '') + '" title="Right answers in a row">🔥 ' + STREAK + ' in a row</span>' : '') +
+      '<i class="cb-xp__bar" title="' + (r.next ? (r.next[0] - XP) + ' points to ' + esc(r.next[1]) : 'Top rank') + '"><i data-cb-xpbar data-to="' + pct + '" style="width:' + pct0 + '%"></i></i>' +
+      (r.next ? '<small class="cb-xp__next">' + (r.next[0] - XP) + ' to ' + esc(r.next[1]) + '</small>' : '') + '</div>';
+  }
+  // after a redraw: the points count up and the bar fills to where you are now
+  function xpAnim() {
+    var el = app.querySelector('[data-cb-xp]'), bar = app.querySelector('[data-cb-xpbar]'), hud = app.querySelector('[data-cb-hud]');
+    if (hud) { if (XP_SHOWN != null && XP_SHOWN !== XP) hud.parentNode.classList.add('is-bump'); hud.textContent = XP; }
+    if (bar) requestAnimationFrame(function () { requestAnimationFrame(function () { bar.style.width = bar.getAttribute('data-to') + '%'; }); });
+    if (!el) { XP_SHOWN = XP; return; }
+    var from = XP_SHOWN == null ? XP : XP_SHOWN, to = XP, t0 = null;
+    XP_SHOWN = XP;
+    if (from === to) return;
+    el.parentNode.classList.add('is-bump');
+    var step = function (t) { if (!t0) t0 = t; var k = Math.min(1, (t - t0) / 600); el.textContent = Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3))); if (k < 1 && el.isConnected) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+  // Checking your strings: each one lights up in turn, ✓ first, and each that holds pays; then the proof comes in.
+  function reveal() {
+    var cm = cur(), d = C.g.done[cm], x = X(), rk = function (el) { return el.classList.contains('is-ok') ? 0 : el.classList.contains('is-bad') ? 1 : 2; };
+    var tags = Array.prototype.slice.call(app.querySelectorAll('.cb-tags .cb-str.is-wait')).sort(function (a, b) { return rk(a) - rk(b); }), gap = quiet() ? 120 : 340;
+    tags.forEach(function (el, i) {
+      setTimeout(function () {
+        var c = el.querySelector('circle'), r = c && el.isConnected ? c.getBoundingClientRect() : null, at = r ? [r.left + r.width / 2, r.top] : null;
+        if (el.isConnected) { el.classList.remove('is-wait'); el.classList.add('is-show'); }
+        if (rk(el) === 0) win(15, 'tie', at);
+        else if (rk(el) === 1) { lose(); sfx('bonk'); }
+        else sfx('tick');
+      }, 350 + i * gap);
+    });
+    setTimeout(function () {
+      x.reveal = false;
+      if (d && d.of && !d.bad && !d.miss) win(30, 'all', centre(), 2);
+      if (d && d.s) setTimeout(function () { starWin('Every string, no hints'); }, 500);
+      paint(); sheetShow();
+    }, 350 + tags.length * gap + 300);
+  }
+
   // ---------- step by step ----------
   function guided() { return GUIDE && S.mode === 'board' && !!C; }
   function cur() { return C && C.g.step !== 'end' ? C.ids[C.g.at] || null : null; }
@@ -663,8 +774,8 @@
     C.g.done[cm] = { p: p, ok: ok, bad: bad, miss: miss, of: yes.length, k: !!(C.g.ks && C.g.ks[cm]), s: !bad && !miss && !C.g.hint, l: false };
     C.g.step = 'checked'; C.g.msg = '';
     var mk = marks(); mk[cm] = ON().filter(function (t) { return !!on[t.id] === isYes(cm, t.id); }).length; store('eng-board-scenes', JSON.stringify(mk));
-    save(); sfx(!bad && !miss ? 'stamp' : ok > bad + miss ? 'ding' : 'bonk');
-    paint(); coachTop(); sheetShow();
+    save();
+    X().reveal = true; REVEAL = true; paint(); REVEAL = false; coachTop(); reveal();
   }
   // On to the next scene. The board ends up right: the strings that don't hold are cut, the ones you missed are tied
   // for you (dashed).
@@ -675,6 +786,8 @@
     var on = strung(cm);
     yesOf(cm).forEach(function (t) { if (!on[t.id]) C.strings.push({ s: cm, t: t.id, g: 1 }); });
     C.g.at++; C.g.step = C.g.at >= C.ids.length ? 'end' : 'read';
+    if (C.g.step === 'end') setTimeout(function () { win(100, 'case', centre(), 2); }, 400);
+    else try { var k0 = kit(); if (k0) k0.sfx('whoosh', 0.5); } catch (er) {}
     C.g.hint = 0; C.g.clued = {}; C.g.msg = ''; C.g.look = null; C.g.x = null;
     save(); paint(); showNow(); coachTop();
   }
@@ -828,20 +941,22 @@
     else if (kind === 'study') { x.kt = null; x.peek = true; full = true; }
     else if (kind === 'ord' && x.kt) {
       var kt = x.kt;
-      if (j === kt.got.length) { kt.got.push(j); kt.bad = -1; if (kt.got.length === kt.ord.length) kt.phase = kt.gap ? 'gap' : 'done'; sfx('pop'); }
-      else { kt.bad = j; kt.miss++; sfx('bonk'); }
+      if (j === kt.got.length) { kt.got.push(j); kt.bad = -1; kt.pop = j; if (kt.got.length === kt.ord.length) kt.phase = kt.gap ? 'gap' : 'done'; win(10, 'order'); }
+      else { kt.bad = j; kt.miss++; lose(); sfx('bonk'); }
       if (kt.phase === 'done') full = kDone(kt);
     } else if (kind === 'gap' && x.kt && x.kt.gap) {
       var gp = x.kt.gap;
-      if (j === 0) { x.kt.phase = 'done'; gp.bad = -1; sfx('ding'); full = kDone(x.kt); } else { gp.bad = j; x.kt.miss++; sfx('bonk'); }
+      if (j === 0) { x.kt.phase = 'done'; gp.bad = -1; win(20, 'gap', null, 1); full = kDone(x.kt); } else { gp.bad = j; x.kt.miss++; lose(); sfx('bonk'); }
     } else if (kind === 'def' && x.df) {
-      if (j === 0) { x.df.done = true; x.df.bad = -1; sfx('ding'); if (!lineOf(cm)) { C.g.done[cm].l = !x.df.miss; save(); full = true; } }
-      else { x.df.bad = j; x.df.miss++; sfx('bonk'); }
+      if (j === 0) { x.df.done = true; x.df.bad = -1; win(25 + (x.df.miss ? 0 : 10), 'prove', null, 1); if (!lineOf(cm)) { C.g.done[cm].l = !x.df.miss; save(); full = true; if (!x.df.miss) setTimeout(function () { starWin('Proved first time'); }, 600); } }
+      else { x.df.bad = j; x.df.miss++; lose(); sfx('bonk'); }
     } else if ((kind === 'ln' || kind === 'qr') && (kind === 'ln' ? x.ln : C.g.qr && C.g.qr.ln)) {
       var ln = kind === 'ln' ? x.ln : C.g.qr.ln;
-      if (ln.parts[j] === ln.parts[ln.got] && !ln.used[j]) { ln.used[j] = 1; ln.got++; ln.bad = -1; sfx('pop'); if (ln.got === ln.parts.length) { ln.done = true; sfx('stamp'); } }
-      else { ln.bad = j; ln.miss++; sfx('bonk'); }
-      if (ln.done && kind === 'ln') { C.g.done[cm].l = !ln.miss; save(); full = true; }
+      if (ln.parts[j] === ln.parts[ln.got] && !ln.used[j]) {
+        ln.used[j] = 1; ln.got++; ln.bad = -1;
+        if (ln.got === ln.parts.length) { ln.done = true; sfx('stamp'); win(30 + (ln.miss ? 0 : 20), 'line', null, 2); } else win(5, 'piece');
+      } else { ln.bad = j; ln.miss++; lose(); sfx('bonk'); }
+      if (ln.done && kind === 'ln') { C.g.done[cm].l = !ln.miss; save(); full = true; if (!ln.miss) setTimeout(function () { starWin('Word for word'); }, 700); }
       if (ln.done && kind === 'qr') { C.g.qr.res.push(!ln.miss); }
     } else if (kind === 'qrgo') { qrNext(); }
     else if (kind === 'qrstart') { C.g.qr = { list: C.ids.filter(lineOf), i: -1, res: [] }; qrNext(); }
@@ -849,7 +964,7 @@
     paint();
     if (kind === 'test' || kind === 'qrstart') sheetShow();
   }
-  function kDone(kt) { C.g.ks = C.g.ks || {}; C.g.ks[X().mid] = !kt.miss && !X().peek; save(); return true; }
+  function kDone(kt) { C.g.ks = C.g.ks || {}; C.g.ks[X().mid] = !kt.miss && !X().peek; save(); if (C.g.ks[X().mid]) setTimeout(function () { starWin('Known from memory'); }, 600); return true; }
   function qrNext() { var r = C.g.qr; r.i++; r.ln = r.i < r.list.length ? lStart(lineOf(r.list[r.i]), r.list[r.i] + 'qr') : null; }
   // ---------- the tests, on the board ----------
   // (the user: "but still on teh board dont get me wronmg"): the memory test, proving a string and building the line
@@ -869,6 +984,7 @@
     if (g.step === 'read' && x.kt) return 'k';
     if (g.step === 'checked' && g.done[cm]) {
       ensureCheck(cm);
+      if (x.reveal) return null;
       if (x.df && !x.df.done) return 'df';
       if (x.ln && !x.ln.done) return 'ln';
     }
@@ -896,7 +1012,7 @@
           '<p class="cb-sheet__k">Evidence · ' + esc(title) + '</p><h3 class="cb-sheet__h">' + (done ? 'You pinned it together' + (first ? ', first time.' : '.') : 'What happens? From memory, tap the notes in order: what happens first, then next.') + '</h3>' +
           '<div class="cb-notes">' + list.map(function (i) {
             var at = done ? i : kt.got.indexOf(i);
-            return '<button type="button" class="cb-note' + (at >= 0 ? ' is-placed' : '') + (kt.bad === i ? ' is-bad' : '') + '" data-cb-q="ord:' + i + '"' + (at >= 0 ? ' disabled' : '') + tilt(cm + 'n' + i) + '><i class="cb-note__pin"></i>' +
+            return '<button type="button" class="cb-note' + (at >= 0 ? ' is-placed' : '') + (kt.bad === i ? ' is-bad' : '') + (!done && kt.pop === i ? ' is-pop' : '') + '" data-cb-q="ord:' + i + '"' + (at >= 0 ? ' disabled' : '') + tilt(cm + 'n' + i) + '><i class="cb-note__pin"></i>' +
               (at >= 0 ? '<b class="cb-note__n">' + (at + 1) + '</b>' : '') + (done ? marked(cm, beats[i], false) : esc(beats[i])) + '</button>';
           }).join('') + '</div>' +
           (kt.bad >= 0 ? '<p class="cb-sheet__nope">Not that one yet. What comes ' + (kt.got.length ? 'next' : 'first') + '?</p>' : '') +
@@ -911,7 +1027,7 @@
       var qr = st === 'qr', ln = qr ? C.g.qr.ln : x.ln, of = qr ? mom(C.g.qr.list[C.g.qr.i]).title : mom(cm).title;
       h += (ln.done ? '<span class="cb-stamp">Got it' + (ln.miss ? '' : ' ★') + '</span>' : '') +
         '<p class="cb-sheet__k">' + (qr ? 'The lines · ' + (C.g.qr.i + 1) + ' of ' + C.g.qr.list.length : 'The line') + ' · ' + esc(of) + '</p><h3 class="cb-sheet__h">' + (ln.done ? 'You built it' + (ln.miss ? '.' : ' first time.') : 'Build the line from memory: tap the cut-outs in order.') + '</h3>' +
-        '<div class="cb-lineplate">' + (ln.got ? esc(ln.parts.slice(0, ln.got).join(' ')) : '') + (ln.done ? '' : ' <span class="cb-blank"></span>') + '</div>' +
+        '<div class="cb-lineplate">' + (ln.got > 1 ? esc(ln.parts.slice(0, ln.got - 1).join(' ')) + ' ' : '') + (ln.got ? '<span class="cb-justin">' + esc(ln.parts[ln.got - 1]) + '</span>' : '') + (ln.done ? '' : ' <span class="cb-blank"></span>') + '</div>' +
         (ln.done ? '' : '<div class="cb-cutouts">' + ln.order.map(function (j) { return ln.used[j] ? '' : '<button type="button" class="cb-cut is-v' + (hash(ln.parts[j] + j) % 4) + (ln.bad === j ? ' is-bad' : '') + '" data-cb-q="' + (qr ? 'qr' : 'ln') + ':' + j + '"' + tilt(of + j) + '>' + esc(ln.parts[j]) + '</button>'; }).join('') + '</div>') +
         (ln.bad >= 0 && !ln.done ? '<p class="cb-sheet__nope">Not that piece yet. What comes next?</p>' : '') +
         (qr && ln.done ? '<div class="cb-sheet__go"><button type="button" class="sb-btn" data-cb-q="qrgo">' + (C.g.qr.i + 1 < C.g.qr.list.length ? 'Next line ›' : 'Finish ›') + '</button></div>' : '');
@@ -954,7 +1070,7 @@
   function coachHtml() {
     var g = C.g, cm = cur(), look = g.look && g.done[g.look] ? g.look : null;
     var h = '<aside class="cb-coach' + (coachSide() ? '' : ' is-flow') + '" data-cb-coach data-key="' + esc((cm || 'end') + ':' + g.step + ':' + (look || '')) + '" aria-label="Step by step">' +
-      '<p class="cb-coach__k">Step by step · ' + esc(A.text(C.tid).title) + '</p>' + gDots();
+      '<p class="cb-coach__k">Step by step · ' + esc(A.text(C.tid).title) + '</p>' + xpHtml() + gDots();
     if (look) {
       var dl = g.done[look], lq = lineOf(look);
       return h + '<p class="cb-coach__back">Looking back</p>' + gHead(look, mom(look)) + '<div class="cb-score' + (dl.bad || dl.miss ? '' : ' is-perfect') + '"><b>' + esc(scoreLine(dl)) + '</b> ' + starRow(stars(dl)) + '</div>' +
@@ -999,6 +1115,7 @@
     var d = g.done[cm], yes = yesOf(cm);
     ensureCheck(cm);
     var df = x.df, proved = !df || df.done, built = !q || (x.ln && x.ln.done);
+    if (x.reveal) return h + '<div class="cb-do cb-checking"><p><b>Checking your strings…</b> Watch the board: every string that holds lights up.</p></div></aside>';
     h += '<div class="cb-score' + (d.bad || d.miss ? '' : ' is-perfect') + '"><b>' + esc(scoreLine(d)) + '</b>' + (d.s ? ' <span class="cb-stars">★</span>' : '') + '</div>';
     if (!proved) return h + '<div class="cb-do"><p><b>Step 3: prove it.</b> Your string to <b>' + esc(TH[df.th].name) + '</b> holds. But why? On the board, tap the note that\'s about this scene.</p></div></aside>';
     h += df ? '<div class="cb-ok">' + (df.miss ? 'You proved it.' : 'You proved it first time.') + '</div>' : '';
@@ -1106,6 +1223,8 @@
   });
   document.addEventListener('click', function (e) {
     if (!app || !app.querySelector('.sb') || !app.contains(e.target)) return;
+    var tr = e.target.getBoundingClientRect ? e.target.getBoundingClientRect() : null;
+    PT = e.clientX || e.clientY ? [e.clientX, e.clientY] : tr ? [tr.left + tr.width / 2, tr.top] : null;
     var t = e.target, x;
     if ((x = t.closest('[data-cb-watch]'))) { e.preventDefault(); if (A.watch) A.watch(x.getAttribute('data-cb-watch'), S.mode === 'theme' ? S.theme : null); return; }
     if ((x = t.closest('[data-sb-mode]'))) {
