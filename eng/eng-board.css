@@ -401,3 +401,80 @@ body.eng.eng-wall .cb-desk .cb-file .cb-file__k { color: #7A5726; }
   .cb-grp.is-cards-t { display: none; }
   .cb-grp.is-cards-b { display: inline-flex; }
 }
+
+/* Step by step (board-35): the guide beside the board (over it on narrower windows), and the board lit for the scene
+   you're on: the ones to come dimmed, the finished ones with their score, your theme strings on top */
+.cb-coach { position: fixed; top: 88px; right: 16px; bottom: 16px; z-index: 40; box-sizing: border-box; width: 400px; overflow: auto; overscroll-behavior: contain; padding: 18px 22px 0;
+  border: 2px solid #13233A; border-radius: 10px; background: #FFFDF8; color: #13233A; box-shadow: 0 18px 40px rgba(20, 12, 4, .45); font-family: Outfit, system-ui, -apple-system, "Segoe UI", sans-serif; }
+.cb-coach.is-flow { position: relative; top: auto; right: auto; bottom: auto; z-index: 2; width: auto; max-width: 900px; margin: 0 auto 16px; overflow: visible; }
+.cb-coach__k { margin: 0 0 10px; color: #7A5726; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.cb-dots { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+.cb-dot { display: inline-grid; place-items: center; box-sizing: border-box; width: 30px; height: 30px; padding: 0; border: 2px solid #CFC5AE; border-radius: 50%; background: #FFFDF8; color: #8A8170; font: 800 13px/1 Outfit, system-ui, sans-serif; }
+.cb-dot.is-full { border-color: #1F6E3A; background: #1F6E3A; color: #fff; }
+.cb-dot.is-part { border-color: #B7791F; background: #F6D58E; color: #5A3B06; }
+.cb-dot.is-now { border-color: #13233A; background: #FFD23F; color: #13233A; box-shadow: 0 0 0 3px rgba(255, 210, 63, .5); }
+.cb-dot.is-look { box-shadow: 0 0 0 3px #13233A; }
+button.cb-dot { cursor: pointer; }
+button.cb-dot:hover { transform: translateY(-1px); }
+.cb-steps { display: flex; gap: 6px; margin: 0 0 16px; padding: 0; list-style: none; }
+.cb-steps li { display: flex; flex: 1; align-items: center; gap: 6px; padding: 7px 8px; border-radius: 6px; background: #F1EADB; color: #7A6F5C; font-size: 14px; font-weight: 700; }
+.cb-steps li b { display: inline-grid; flex: none; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #FFFDF8; font-size: 12px; }
+.cb-steps li.is-on { background: #13233A; color: #fff; }
+.cb-steps li.is-on b { background: #FFD23F; color: #13233A; }
+.cb-steps li.is-done { background: #DCEBDD; color: #1F6E3A; }
+.cb-steps li.is-done b { background: #1F6E3A; color: #fff; }
+.cb-coach__h { margin: 0; font: 800 30px/1.1 Outfit, system-ui, sans-serif; letter-spacing: -.01em; }
+.cb-coach__n { margin: 5px 0 14px; color: #5A6372; font-size: 15px; font-weight: 600; }
+.cb-coach__back { margin: 0 0 4px; color: #2F5FA8; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.cb-do { margin: 0 0 14px; padding: 12px 14px; border-left: 5px solid #FFD23F; border-radius: 0 8px 8px 0; background: #FFF6D6; }
+.cb-do p { margin: 0; font-size: 17px; line-height: 1.42; }
+.cb-do p + p { margin-top: 8px; }
+.cb-coach .sb-fix { font-size: 17px; }
+.cb-coach .sb-why p { font-size: 16px; }
+.cb-coach mark.cb-hl { padding: 1px 2px; font-weight: 700; }
+.cb-coach__sub { margin: 18px 0 8px; color: #5A6372; font-size: 13.5px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+.cb-coach__beats { display: grid; gap: 6px; margin: 0; padding-left: 22px; font-size: 17px; line-height: 1.42; }
+.cb-coach__tip { margin: 12px 0 0; color: #5A6372; font-size: 15.5px; line-height: 1.42; }
+.cb-coach__count { margin: 10px 0 0; font-weight: 700; }
+.cb-hintbox { margin: 14px 0 0; }
+.cb-hint { margin: 0 0 10px; padding: 10px 12px; border: 2px dashed #2F5FA8; border-radius: 8px; background: #EEF3FB; font-size: 16.5px; line-height: 1.42; }
+.cb-score { margin: 0 0 14px; padding: 12px 14px; border-radius: 8px; background: #FBE3CF; color: #6A2A0A; font-size: 19px; line-height: 1.3; }
+.cb-score.is-perfect { background: #DCEBDD; color: #14522B; }
+.cb-remember { margin: 16px 0 0; padding: 12px 14px 8px; border-radius: 8px; background: #13233A; color: #fff; }
+.cb-remember p { margin: 0 0 8px; font-weight: 700; }
+.cb-remember span { display: inline-block; margin: 0 6px 6px 0; padding: 4px 10px; border-radius: 999px; background: #FFD23F; color: #13233A; font-size: 14.5px; font-weight: 700; }
+.cb-remember em { display: block; margin-bottom: 6px; }
+.cb-coach__go { position: sticky; bottom: 0; z-index: 2; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin: 18px -22px 0; padding: 14px 22px 16px; border-top: 1px solid #E5DCC8; background: #FFFDF8; }
+.cb-coach.is-flow .cb-coach__go { border-radius: 0 0 10px 10px; box-shadow: 0 -6px 12px rgba(20, 12, 4, .08); }
+.cb-coach__go .sb-btn { min-height: 48px; padding: 0 20px; font-size: 17px; }
+.cb-bank { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.cb-bank b { display: block; margin-bottom: 5px; }
+.cb-chipb { display: inline-block; margin: 0 6px 6px 0; padding: 4px 9px; border: 2px solid #C0262D; border-radius: 6px; background: #FFFDF8; color: #13233A; font: 600 14.5px/1.25 Outfit, system-ui, sans-serif; text-align: left; cursor: pointer; }
+.cb-chipb.is-missed { border-style: dashed; border-color: #2F5FA8; }
+.cb-bank .is-none { color: #8A8170; }
+
+.cb-board.is-guide .cb-scene.is-later { opacity: .38; filter: grayscale(.8); }
+.cb-board.is-guide .cb-scene.is-now { z-index: 4; box-shadow: 0 0 0 7px #FFD23F, 0 0 0 14px rgba(255, 210, 63, .35), 0 24px 44px rgba(20, 10, 0, .55); }
+.cb-board.is-guide .cb-scene.is-look { z-index: 3; box-shadow: 0 0 0 6px #13233A, 0 14px 26px rgba(20, 10, 0, .45); }
+.cb-nowtag, .cb-donetag { position: absolute; top: 12px; left: 12px; z-index: 3; padding: 7px 13px; border-radius: 6px; background: #FFD23F; color: #13233A; font: 800 22px/1 Outfit, system-ui, sans-serif; letter-spacing: .04em; text-transform: uppercase; box-shadow: 0 3px 8px rgba(0, 0, 0, .4); pointer-events: none; }
+.cb-donetag { border-radius: 999px; background: #1F6E3A; color: #fff; letter-spacing: 0; text-transform: none; }
+.cb-donetag.is-part { background: #B7791F; }
+.cb-nowtag + .cb-donetag { top: 54px; }
+.cb-board.is-tie .cb-theme { cursor: pointer; }
+.cb-board.is-tie .cb-theme:hover { box-shadow: 0 0 0 5px rgba(192, 38, 45, .45), 0 6px 14px rgba(40, 24, 10, .4); }
+.cb-board.is-guide .cb-theme.is-tied { background: #FFF0D9; box-shadow: 0 0 0 6px #C0262D, 0 6px 14px rgba(40, 24, 10, .4); }
+.cb-str.is-old .cb-str__line { opacity: .5; stroke-width: 2.6; }
+.cb-str.is-old .cb-str__shade { opacity: .35; }
+.cb-str.is-given .cb-str__line { stroke-dasharray: 10 7; }
+.cb-str.is-look .cb-str__line { opacity: 1; stroke-width: 4.5; }
+.cb-str.is-now .cb-str__line { stroke-width: 4; }
+@media (max-width: 899px) {
+  .cb-coach.is-flow { margin: 0 -6px 14px; padding: 16px 16px 0; }
+  .cb-coach.is-flow .cb-coach__go { margin: 16px -16px 0; padding: 12px 16px 14px; }
+  .cb-coach__h { font-size: 26px; }
+  .cb-steps li { padding: 6px; font-size: 13px; }
+  .cb-nowtag, .cb-donetag { font-size: 24px; }
+}
+.cb-toast { font-family: Outfit, system-ui, -apple-system, "Segoe UI", sans-serif; }
+.cb-tob { display: inline; margin-left: 8px; padding: 0; border: 0; background: none; color: #2F5FA8; font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+@media (max-width: 899px) { .cb-toast { bottom: 100px; max-width: calc(100vw - 48px); } }

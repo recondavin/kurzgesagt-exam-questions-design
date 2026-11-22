@@ -2,6 +2,8 @@
 // bulletin board with strings like ur a detective figuring out whats what", "and u get to actually watch them too",
 // "and u move the pins and strings urself", "and in teh descriptions of the scenes pt highlights on important parts
 // like "better off parents" kind of highlight the giveaways". Content: eng/eng-themes.js.
+//   Step by step  the board's default: one scene at a time, with a guide beside the board (know the scene, tie its
+//               strings, see what holds and why), then Next scene. Free board is the board without the guide.
 //   The board   a case: six scene photos and the eight theme cards pinned to cork. Drag a card to move it; drag from
 //               a scene's pin to a theme (or tap one pin, then the other) to tie a string; tap a string to cut it.
 //               Tap a scene for its case file: where, who, what happens with the giveaways highlighted, Watch, and
@@ -40,6 +42,18 @@
   // much"): 'short', the scene in two or three sentences with its giveaways (EngThemes.gist), or 'full', who's there
   // and every beat. Short to start; Cards over the board changes it (eng-cork-detail). The case file always has it all.
   var DETAIL = 'short';
+  // Step by step (the user: "make you need to connect strings scene by scene and its spread and theres a next scene
+  // button and it really REALLY guides you through it like a learning experience"): on the board you take the case one
+  // scene at a time, in story order, with a guide beside the board. Each scene has three steps: know the scene, tie
+  // its strings (only that scene's pin ties; tap a theme or drag the pin), then check it and read why each string
+  // holds or doesn't. Next scene cuts the strings that don't hold and ties the ones you missed (dashed), so the finished
+  // board is right. Free board (eng-cork-mode) is the board without the guide. The walk-through is kept with the case:
+  // C.g = { at: the scene's place in the case, step: 'read' | 'tie' | 'checked' | 'end', done: { scene: { p: the
+  // themes you tied, ok, bad, miss, of } } }, and for this visit only hint, clued, msg (the hints) and look (a
+  // finished scene you're looking back at).
+  var GUIDE = true;
+  try { if (localStorage.getItem('eng-cork-mode') === 'free') GUIDE = false; } catch (e) {}
+  var SIDE_WAS = null;
   try { if (localStorage.getItem('eng-cork-detail') === 'full') DETAIL = 'full'; } catch (e) {}
   try { var z0 = parseFloat(localStorage.getItem('eng-cork-zoom')); if (z0 >= 0.5 && z0 <= 1) ZOOM = z0; } catch (e) {}
   // where the top row starts, under the label strips (set per layout in corkHtml)
@@ -130,8 +144,10 @@
   }
   function head() {
     var tab = function (m, label) { return '<button type="button" class="sb-tab" data-sb-mode="' + m + '" aria-pressed="' + (S.mode === m) + '">' + label + '</button>'; };
+    // the board two ways: with the guide, one scene at a time, or free
+    var btab = function (gm, label) { return '<button type="button" class="sb-tab" data-sb-mode="board" data-cb-mode="' + gm + '" aria-pressed="' + (S.mode === 'board' && GUIDE === (gm === 'guide')) + '">' + label + '</button>'; };
     return A.title('Scene board') +
-      '<div class="sb-tabs" role="group" aria-label="How to use the board">' + tab('board', 'The board') + tab('theme', 'By theme') + tab('scene', 'By scene') + '</div>';
+      '<div class="sb-tabs" role="group" aria-label="How to use the board">' + btab('guide', 'Step by step') + btab('free', 'Free board') + tab('theme', 'By theme') + tab('scene', 'By scene') + '</div>';
   }
   function textChips() {
     var chip = function (id, label) { return '<button type="button" class="sb-chip" data-sb-text="' + id + '" aria-pressed="' + (S.text === id) + '">' + esc(label) + '</button>'; };
@@ -155,11 +171,16 @@
     return '<div class="cb-tools">' + grp('Texts', chip('all', 'All three') + T.texts.map(function (t) { return chip(t, short(t)); }).join('')) +
       grp('Scenes', per(12) + per(6)) +
       grp('Themes', '<button type="button" class="sb-chip" data-cb-th="past" aria-pressed="' + !ALLTH + '">From past papers</button><button type="button" class="sb-chip" data-cb-th="all" aria-pressed="' + ALLTH + '">All ' + T.themes.length + '</button>') +
-      (LAYN === 'wide' ? grp('Size', '<button type="button" class="sb-chip is-zoom" data-cb-zoom="-1" aria-label="Make the board smaller"' + (ZOOM <= 0.5 ? ' disabled' : '') + '>−</button><button type="button" class="sb-chip is-zoom" data-cb-zoom="1" aria-label="Make the board bigger"' + (ZOOM >= 1 ? ' disabled' : '') + '>+</button>') : '') + cardsGrp('is-cards-t') + '</div>';
+      (LAYN === 'wide' && !coachSide() ? grp('Size', '<button type="button" class="sb-chip is-zoom" data-cb-zoom="-1" aria-label="Make the board smaller"' + (ZOOM <= 0.5 ? ' disabled' : '') + '>−</button><button type="button" class="sb-chip is-zoom" data-cb-zoom="1" aria-label="Make the board bigger"' + (ZOOM >= 1 ? ' disabled' : '') + '>+</button>') : '') + cardsGrp('is-cards-t') + '</div>';
   }
   function paint() {
     document.body.classList.toggle('eng-wall', S.mode === 'board');
-    if (S.mode === 'board') { boardPass(); strings(); sideDraw(); frameIn(); return; }
+    if (S.mode === 'board') {
+      var co = app.querySelector('[data-cb-coach]'), ck = co && co.getAttribute('data-key'), ct = co ? co.scrollTop : 0;
+      boardPass(); strings(); sideDraw(); frameIn();
+      var co2 = app.querySelector('[data-cb-coach]'); if (co2 && ck && co2.getAttribute('data-key') === ck) co2.scrollTop = ct;
+      return;
+    }
     var h = head();
     if (S.mode === 'theme') h += themeHtml();
     else h += sceneHtml();
@@ -198,12 +219,20 @@
     saved = saved || {};
     C = { n: n, of: of, ids: sortIds(list[n - 1]), text: S.text, tid: tidOf(list[n - 1][0]), pos: saved.pos || {}, checked: !!saved.checked,
       strings: (saved.strings || []).filter(function (x) { return T.scenes[x.s] && TH[x.t] && list[n - 1].indexOf(x.s) >= 0; }) };
+    C.g = freshGuide(saved.guide);
     S.sel = null; S.arm = null; S.miss = false;
     store('eng-cork-at', JSON.stringify({ text: S.text, n: n }));
   }
   function save() {
-    store(caseKey(C.ids), JSON.stringify({ strings: C.strings, pos: C.pos, checked: C.checked }));
+    store(caseKey(C.ids), JSON.stringify({ strings: C.strings, pos: C.pos, checked: C.checked, guide: { at: C.g.at, step: C.g.step, done: C.g.done } }));
     store('eng-cork-at', JSON.stringify({ text: C.text, n: C.n }));
+  }
+  function freshGuide(g0) {
+    g0 = g0 || {};
+    var g = { at: Math.max(0, Math.min(C.ids.length, Math.round(+g0.at || 0))), step: g0.step || 'read', done: g0.done || {}, hint: 0, clued: {}, msg: '', look: null };
+    if (g.at >= C.ids.length) g.step = 'end';
+    else if (['read', 'tie', 'checked'].indexOf(g.step) < 0 || (g.step === 'checked' && !g.done[C.ids[g.at]])) g.step = 'read';
+    return g;
   }
   // which scenes this case is: "scenes 3 and 4" (All three) or "scenes 1 to 6"
   function caseWhat() {
@@ -266,24 +295,28 @@
     LAYN = (app.clientWidth || window.innerWidth) >= 900 ? 'wide' : 'narrow';
     var h = '<div class="cb-ctl">' + boardTools() + '<div class="cb-bar"><span class="cb-case">Case ' + C.n + ' of ' + C.of + '<small>' + esc(caseWhat()) + ' of ' + esc(A.text(C.tid).title) + '</small></span>' +
       cardsGrp('is-cards-b') +
-      (res ? '<span class="cb-res"><b>' + res.ok + '</b> hold · <b class="is-bad">' + res.bad + '</b> don\'t · <b class="is-miss">' + res.miss + '</b> missed</span>' : '') +
+      (guided() ? '<span class="cb-btns"><button type="button" class="sb-btn is-quiet" data-cb-go="-1"' + (C.n > 1 ? '' : ' disabled') + '>‹ Previous case</button><button type="button" class="sb-btn is-quiet" data-cb-go="1">' + (C.n < C.of ? 'Next case ›' : 'Back to case 1') + '</button><button type="button" class="sb-btn is-quiet" data-cb-grestart' + (C.strings.length || C.g.at ? '' : ' disabled') + '>Start again</button></span></div></div>' : '') +
+      (guided() ? '' : (res ? '<span class="cb-res"><b>' + res.ok + '</b> hold · <b class="is-bad">' + res.bad + '</b> don\'t · <b class="is-miss">' + res.miss + '</b> missed</span>' : '') +
       '<span class="cb-btns"><button type="button" class="sb-btn" data-cb-check' + (C.strings.length ? '' : ' disabled') + '>' + (C.checked ? 'Check again' : 'Check my strings') + '</button>' +
-      (res && res.miss ? '<button type="button" class="sb-btn is-quiet" data-cb-miss aria-pressed="' + S.miss + '">' + (S.miss ? 'Hide what I missed' : 'Show what I missed') + '</button>' : '') + '<button type="button" class="sb-btn is-quiet" data-cb-go="-1"' + (C.n > 1 ? '' : ' disabled') + '>‹ Previous</button><button type="button" class="sb-btn is-quiet" data-cb-go="1">' + (C.n < C.of ? 'Next case ›' : 'Back to case 1') + '</button><button type="button" class="sb-btn is-quiet" data-cb-clear' + (C.strings.length ? '' : ' disabled') + '>Clear strings</button></span></div></div>';
-    h += '<div class="cb-wrap" data-cb-wrap><div class="cb-board' + (L.full ? ' is-full' : '') + '" data-cb-board style="width:' + L.W + 'px;height:' + (L.H || 900) + 'px">' +
+      (res && res.miss ? '<button type="button" class="sb-btn is-quiet" data-cb-miss aria-pressed="' + S.miss + '">' + (S.miss ? 'Hide what I missed' : 'Show what I missed') + '</button>' : '') + '<button type="button" class="sb-btn is-quiet" data-cb-go="-1"' + (C.n > 1 ? '' : ' disabled') + '>‹ Previous</button><button type="button" class="sb-btn is-quiet" data-cb-go="1">' + (C.n < C.of ? 'Next case ›' : 'Back to case 1') + '</button><button type="button" class="sb-btn is-quiet" data-cb-clear' + (C.strings.length ? '' : ' disabled') + '>Clear strings</button></span></div></div>');
+    // the guide: beside the board on a wide window, over it otherwise
+    if (guided()) h += coachHtml();
+    var gb = guided() ? ' is-guide' + (C.g.step === 'read' || C.g.step === 'tie' ? ' is-tie' : '') : '';
+    h += '<div class="cb-wrap" data-cb-wrap><div class="cb-board' + (L.full ? ' is-full' : '') + gb + '" data-cb-board style="width:' + L.W + 'px;height:' + (L.H || 900) + 'px">' +
       '<svg class="cb-strings" data-cb-svg aria-hidden="true"></svg>';
     C.ids.forEach(function (mid) {
       var k = 's:' + mid, p = pos(k), m = mom(mid), src = pic(mid), tid = tidOf(mid);
-      var cls = 'cb-card cb-scene is-full' + (S.sel === k ? ' is-sel' : '') + (S.arm === k ? ' is-arm' : '');
+      var cls = 'cb-card cb-scene is-full' + (S.sel === k ? ' is-sel' : '') + (S.arm === k ? ' is-arm' : '') + (guided() ? gCls(mid) : '');
       var st = 'left:' + p.x + 'px;top:' + p.y + 'px;width:' + L.sw + 'px;--r:' + rot(k) + 'deg;--c:' + (A.COL[tid] || '#13233A');
       h += '<div class="' + cls + '" data-k="' + k + '" style="' + st + '" tabindex="0" role="button" aria-label="' + esc(m.title) + ', ' + esc(short(tid)) + '">' +
-        '<span class="cb-pin" data-pin="' + k + '" aria-hidden="true"></span>' +
+        '<span class="cb-pin" data-pin="' + k + '" aria-hidden="true"></span>' + (guided() ? gBadge(mid) : '') +
         (src ? '<img class="cb-full__img" src="' + esc(src) + '" alt="" draggable="false">' : '') +
-          '<div class="cb-full__body is-compact"><p class="sb-card__tag">Scene ' + mid.replace(/^.*-/, '') + (m.where ? ' · ' + esc(m.where) : '') + '</p><h3 class="sb-card__h">' + esc(m.title) + '</h3>' + cardDesc(mid, C.checked) + '</div>' +
+          '<div class="cb-full__body is-compact"><p class="sb-card__tag">Scene ' + mid.replace(/^.*-/, '') + (m.where ? ' · ' + esc(m.where) : '') + '</p><h3 class="sb-card__h">' + esc(m.title) + '</h3>' + cardDesc(mid, guided() ? mid === cur() && C.g.step === 'checked' : C.checked) + '</div>' +
         (canWatch(mid) ? '<button type="button" class="cb-watch' + (hasClip(mid) ? '' : ' is-still') + '" data-cb-watch="' + mid + '" aria-label="' + (hasClip(mid) ? 'Watch ' : 'See ') + esc(m.title) + '" title="' + (hasClip(mid) ? 'Watch the scene' : 'No clip of this scene exists: see it told over a still') + '">▶</button>' : '') + '</div>';
     });
     ON().forEach(function (t) {
       var k = 't:' + t.id, p = pos(k);
-      h += '<div class="cb-card cb-theme' + (S.sel === k ? ' is-sel' : '') + (S.arm === k ? ' is-arm' : '') + '" data-k="' + k + '" style="left:' + p.x + 'px;top:' + p.y + 'px;width:' + (LAYN === 'wide' ? TWN : L.tw) + 'px;height:' + L.th + 'px;--r:' + rot(k) + 'deg" tabindex="0" role="button" aria-label="' + esc(t.name) + '">' +
+      h += '<div class="cb-card cb-theme' + (S.sel === k ? ' is-sel' : '') + (S.arm === k ? ' is-arm' : '') + (guided() && cur() && strung(cur())[t.id] ? ' is-tied' : '') + '" data-k="' + k + '" style="left:' + p.x + 'px;top:' + p.y + 'px;width:' + (LAYN === 'wide' ? TWN : L.tw) + 'px;height:' + L.th + 'px;--r:' + rot(k) + 'deg" tabindex="0" role="button" aria-label="' + esc(t.name) + '">' +
         '<span class="cb-pin" data-pin="' + k + '" aria-hidden="true"></span><b>' + esc(t.name) + '</b>' + (t.times ? '<small>came up ' + (t.times === 1 ? 'once' : t.times + ' times') + '</small>' : '') + '</div>';
     });
     var wideL = LAYN === 'wide';
@@ -292,7 +325,7 @@
     h += '<svg class="cb-tags" data-cb-tags aria-hidden="true"></svg></div></div>';
     // the desk under the board, with the case file on it as a folder (the user, of the wall: "lik ea detective office")
     return h + '<div class="cb-desk" data-cb-desk>' + (LAYN === 'wide' ? '<svg class="cb-prop cb-lamp" viewBox="0 0 220 230" aria-hidden="true"><defs><linearGradient id="cbShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2F7A4C"/><stop offset=".55" stop-color="#15502E"/><stop offset="1" stop-color="#0B3520"/></linearGradient><linearGradient id="cbBrass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7A5A22"/><stop offset=".45" stop-color="#E2C374"/><stop offset="1" stop-color="#6E4F1C"/></linearGradient><radialGradient id="cbGlow" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#FFE2A8" stop-opacity=".85"/><stop offset="1" stop-color="#FFE2A8" stop-opacity="0"/></radialGradient></defs><path d="M38 96 L182 96 L210 160 L10 160 Z" fill="url(#cbGlow)" opacity=".55"/><rect x="104" y="92" width="12" height="108" fill="url(#cbBrass)"/><ellipse cx="110" cy="212" rx="62" ry="14" fill="#3E2A10" opacity=".6"/><path d="M52 214 Q52 196 110 194 Q168 196 168 214 Z" fill="url(#cbBrass)"/><path d="M24 92 Q30 40 110 34 Q190 40 196 92 Z" fill="url(#cbShade)"/><path d="M40 82 Q56 50 104 44" stroke="#8FD1A6" stroke-width="5" stroke-linecap="round" fill="none" opacity=".55"/><rect x="20" y="90" width="180" height="8" rx="4" fill="url(#cbBrass)"/><rect x="104" y="24" width="12" height="12" rx="3" fill="url(#cbBrass)"/></svg>' + '<svg class="cb-prop cb-folders" viewBox="0 0 260 90" aria-hidden="true"><rect x="14" y="40" width="230" height="34" rx="3" fill="#B98B4E" transform="rotate(-3 130 57)"/><rect x="6" y="30" width="236" height="36" rx="3" fill="#D8B77A" transform="rotate(2 124 48)"/><rect x="20" y="16" width="226" height="38" rx="3" fill="#E6CB93" transform="rotate(-1.5 133 35)"/><rect x="150" y="8" width="60" height="14" rx="3" fill="#E6CB93" transform="rotate(-1.5 180 15)"/><path d="M40 70 L232 52" stroke="#C21F2E" stroke-width="3"/><path d="M38 74 L60 72" stroke="#2B2B2B" stroke-width="5" stroke-linecap="round"/></svg>' + '<svg class="cb-prop cb-phone" viewBox="0 0 240 150" aria-hidden="true"><ellipse cx="120" cy="138" rx="104" ry="10" fill="#1A0F06" opacity=".55"/><path d="M40 136 Q36 78 72 64 L168 64 Q204 78 200 136 Z" fill="#15161A"/><path d="M58 120 Q58 84 82 76 L158 76 Q182 84 182 120" fill="none" stroke="#3A3D45" stroke-width="3"/><circle cx="120" cy="104" r="26" fill="#26282E" stroke="#C9CDD3" stroke-width="2"/><circle cx="120" cy="104" r="9" fill="#E9E4D6"/><g fill="#0C0D10"><circle cx="120" cy="85" r="4"/><circle cx="134" cy="91" r="4"/><circle cx="139" cy="104" r="4"/><circle cx="134" cy="117" r="4"/><circle cx="106" cy="91" r="4"/><circle cx="101" cy="104" r="4"/><circle cx="106" cy="117" r="4"/></g><path d="M30 52 Q24 30 46 26 L194 26 Q216 30 210 52 Q204 62 186 58 L178 44 L62 44 L54 58 Q36 62 30 52 Z" fill="#1D1F24"/><path d="M48 32 L192 32" stroke="#4A4E57" stroke-width="3" stroke-linecap="round"/><path d="M200 120 Q236 126 228 146" fill="none" stroke="#15161A" stroke-width="4"/></svg>' : '') +
-      '<section class="cb-file" data-cb-file aria-live="polite">' + (sideOn() ? fileHtml0() : fileHtml()) + '</section></div>';
+      (guided() ? '' : '<section class="cb-file" data-cb-file aria-live="polite">' + (sideOn() ? fileHtml0() : fileHtml()) + '</section>') + '</div>';
   }
   // What a card says about its scene: who's there and what happens, beat by beat, with the giveaways highlighted (the
   // user, of cards showing only the giveaways: "put a bit more detail in those cards than there is now there used to be
@@ -339,7 +372,14 @@
     // or its pin); h: the visible strings, over the cards; g: tags and knots, on top
     var hit = '', h = '', g = '';
     var tag = function (c, txt, attr) { return '<g class="cb-tag"' + attr + ' transform="translate(' + c.mid[0].toFixed(1) + ' ' + c.mid[1].toFixed(1) + ')"><circle r="14"/><text dy="5">' + txt + '</text></g>'; };
-    if (C.checked) C.ids.forEach(function (mid) {
+    var gd = guided(), cm = gd ? cur() : null, gc = gd && C.g.step === 'checked';
+    if (gc) yesOf(cm).forEach(function (t) {
+      if (strung(cm)[t.id]) return;
+      var c = curve(pinAt('s:' + cm), pinAt('t:' + t.id));
+      h += '<g class="cb-str is-miss"><path class="cb-str__line" d="' + c.d + '"/></g>';
+      g += '<g class="cb-str is-miss">' + tag(c, '?', '') + '</g>';
+    });
+    if (C.checked && !gd) C.ids.forEach(function (mid) {
       var on = strung(mid);
       yesOf(mid).forEach(function (t) {
         if (on[t.id] || !(S.miss || S.sel === 's:' + mid || S.sel === 'm:' + mid + '|' + t.id)) return;
@@ -350,13 +390,18 @@
       });
     });
     var onT = onIds();
-    C.strings.forEach(function (x, i) {
+    var hNow = '', drawn = function (x, i) {
       if (!onT[x.t]) return;
-      var c = curve(pinAt('s:' + x.s), pinAt('t:' + x.t)), ok = isYes(x.s, x.t), cls = 'cb-str' + (C.checked ? ok ? ' is-ok' : ' is-bad' : '') + (S.sel === 'x:' + i ? ' is-sel' : '');
+      var c = curve(pinAt('s:' + x.s), pinAt('t:' + x.t)), ok = isYes(x.s, x.t), now = gd && x.s === cm, named = gd ? now && gc : C.checked;
+      var cls = 'cb-str' + (named ? ok ? ' is-ok' : ' is-bad' : '') + (S.sel === 'x:' + i ? ' is-sel' : '') +
+        (gd ? (now ? ' is-now' : ' is-old') + (x.g ? ' is-given' : '') + (C.g.look === x.s ? ' is-look' : '') : '');
       hit += '<g class="cb-str" data-str="' + i + '"><path class="cb-str__hit" d="' + c.d + '"/></g>';
-      h += '<g class="' + cls + '"><path class="cb-str__shade" d="' + c.d + '"/><path class="cb-str__line" d="' + c.d + '"/></g>';
-      if (C.checked) g += '<g class="' + cls + '" data-str="' + i + '">' + tag(c, ok ? '✓' : '✗', '') + '</g>';
-    });
+      var line = '<g class="' + cls + '"><path class="cb-str__shade" d="' + c.d + '"/><path class="cb-str__line" d="' + c.d + '"/></g>';
+      if (now) hNow += line; else h += line;
+      if (named) g += '<g class="' + cls + '" data-str="' + i + '">' + tag(c, ok ? '✓' : '✗', '') + '</g>';
+    };
+    C.strings.forEach(drawn);
+    h += hNow;
     if (live) { var c2 = curve(live[0], live[1]); g += '<g class="cb-str is-live"><path class="cb-str__shade" d="' + c2.d + '"/><path class="cb-str__line" d="' + c2.d + '"/></g>'; }
     var knots = {};
     C.strings.forEach(function (x) { if (onT[x.t]) { knots['s:' + x.s] = 1; knots['t:' + x.t] = 1; } });
@@ -379,6 +424,12 @@
       if (row) { row.style.width = frameW + 'px'; row.style.marginLeft = (28 - left) + 'px'; }
       KF = frameW / L.W; K = KF * ZOOM;
       var bw = Math.round(L.W * K), off = 28 - left + Math.max(0, Math.round((frameW - bw) / 2));
+      // with the guide beside it, the board takes the rest of the width, at its full size there
+      if (coachSide()) {
+        var cw = Math.round(Math.max(360, Math.min(440, docW * 0.25))), co = app.querySelector('[data-cb-coach]');
+        if (co) co.style.width = cw + 'px';
+        KF = (docW - cw - 16 - 20 - 24) / L.W; K = KF; bw = Math.round(L.W * K); off = 24 - left;
+      }
       // the toolbar is the width of the board, over it
       if (row) { row.style.width = bw + 'px'; row.style.marginLeft = off + 'px'; }
       // the cork frame hugs the board, centred
@@ -389,11 +440,12 @@
     board.style.transform = 'scale(' + K + ')';
     wrap.style.height = Math.ceil((HB || L.H) * K) + 'px';
   }
-  function boardPass() { app.innerHTML = '<div class="sb is-cork">' + head() + corkHtml() + '</div>'; layout(); scale(); }
+  function boardPass() { app.innerHTML = '<div class="sb is-cork' + (coachSide() ? ' has-coach' : '') + '">' + head() + corkHtml() + '</div>'; layout(); scale(); SIDE_WAS = coachSide(); }
   // The first time the board is shown, the page scrolls so the case's controls and the whole board fill the window.
   function frameIn() {
     if (SEEN_BOARD || LAYN !== 'wide') return;
     SEEN_BOARD = true;
+    if (coachSide()) { requestAnimationFrame(function () { showNow(true, true); }); setTimeout(function () { showNow(true, true); }, 150); return; }
     var ctl = app.querySelector('.cb-ctl'), bar = document.querySelector('.sh-top');
     var go = function () { if (ctl && ctl.isConnected) window.scrollTo(0, Math.max(0, ctl.getBoundingClientRect().top + window.scrollY - (bar ? bar.offsetHeight : 76) - 8)); };
     requestAnimationFrame(go); setTimeout(go, 150);
@@ -440,7 +492,7 @@
         }).join('') + '</ul>';
       }).join('');
   }
-  function sideOn() { return S.mode === 'board' && LAYN === 'wide' && !!S.sel; }
+  function sideOn() { return S.mode === 'board' && !guided() && LAYN === 'wide' && !!S.sel; }
   function sideDraw() {
     var side = document.querySelector('.cb-side');
     if (!sideOn()) { if (side) side.parentNode.removeChild(side); return; }
@@ -465,8 +517,8 @@
   }
   function cut(i) { C.strings.splice(i, 1); C.checked = false; S.sel = null; save(); }
   function toast(msg) {
-    var t = app.querySelector('.cb-toast');
-    if (!t) { t = document.createElement('p'); t.className = 'cb-toast'; t.setAttribute('role', 'status'); app.querySelector('.sb').appendChild(t); }
+    var t = document.querySelector('.cb-toast');
+    if (!t) { t = document.createElement('p'); t.className = 'cb-toast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }
     t.textContent = msg; t.classList.add('is-on'); clearTimeout(t._t); t._t = setTimeout(function () { t.classList.remove('is-on'); }, 2200);
   }
   function check() {
@@ -518,6 +570,7 @@
     Array.prototype.forEach.call(app.querySelectorAll('.cb-card.is-over, .cb-card.is-lift'), function (c) { c.classList.remove('is-over'); c.classList.remove('is-lift'); });
     if (d.kind === 'move') {
       if (d.moved) { save(); return; }
+      if (guided()) { gTap(d.key); return; }
       // a tap on a card: tie it to the pin you tapped first, or open its file
       if (S.arm && S.arm !== d.key) { var a = S.arm; S.arm = null; tie(a, d.key); paint(); return; }
       select(d.key); return;
@@ -525,8 +578,13 @@
     if (d.kind === 'string') {
       if (d.moved) {
         var over = document.elementFromPoint(e.clientX, e.clientY), oc = over && over.closest && over.closest('.cb-card');
-        if (oc && oc.getAttribute('data-k') !== d.from) tie(d.from, oc.getAttribute('data-k'));
+        if (oc && oc.getAttribute('data-k') !== d.from && (!guided() || gCan(d.from, oc.getAttribute('data-k')))) { tie(d.from, oc.getAttribute('data-k')); if (guided()) gTied(); }
         paint(); return;
+      }
+      if (guided()) {
+        // a tap on a theme's pin ties it, like a tap on the card; a scene's pin is held only if it's the scene you're on
+        if (d.from.charAt(0) === 't' || S.arm) { var a0 = S.arm; S.arm = null; if (d.from.charAt(0) === 't') gTap(d.from); else if (a0 !== d.from) gTap(d.from); else paint(); return; }
+        if (!gCan(d.from, null)) { paint(); return; }
       }
       // a tap on a pin: hold it, then tap the card to tie it to
       if (S.arm && S.arm !== d.from) { var b = S.arm; S.arm = null; tie(b, d.from); paint(); return; }
@@ -536,9 +594,209 @@
     }
     if (d.kind === 'str' && !d.moved) {
       var i = d.el.getAttribute('data-str'), m = d.el.getAttribute('data-miss');
+      if (guided()) {
+        var xs = i != null ? C.strings[+i] : null;
+        if (xs && xs.s === cur() && C.g.step !== 'checked') { cut(+i); toast('String cut.'); paint(); }
+        else if (xs) toast(xs.s === cur() ? 'This scene is checked. Try it again to change its strings.' : 'That string is from a scene you\'ve finished.');
+        return;
+      }
       select(i != null ? 'x:' + i : 'm:' + m);
     }
   });
+
+  // ---------- step by step ----------
+  function guided() { return GUIDE && S.mode === 'board' && !!C; }
+  function cur() { return C && C.g.step !== 'end' ? C.ids[C.g.at] || null : null; }
+  // the guide sits beside the board when the window is wide enough for the board to stay readable next to it, and over
+  // the board otherwise
+  function coachSide() { return guided() && LAYN === 'wide' && document.documentElement.clientWidth >= 1200; }
+  function num(mid) { return +mid.replace(/^.*-/, ''); }
+  function words(n) { return ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'][n] || String(n); }
+  function pick(list) { var o = {}; (list || []).forEach(function (t) { o[t] = true; }); return o; }
+  function gCls(mid) {
+    var g = C.g, i = C.ids.indexOf(mid);
+    return mid === cur() ? ' is-now' : g.done[mid] ? ' is-done' + (g.look === mid ? ' is-look' : '') : i > g.at ? ' is-later' : '';
+  }
+  function gBadge(mid) {
+    var d = C.g.done[mid], h = mid === cur() ? '<span class="cb-nowtag">Your scene</span>' : '';
+    if (d) h += '<span class="cb-donetag' + (d.bad || d.miss ? ' is-part' : '') + '">' + (d.of ? (d.bad || d.miss ? '' : '✓ ') + d.ok + ' of ' + d.of : d.bad ? 'Done' : '✓ Done') + '</span>';
+    return h;
+  }
+  // Only the scene you're on ties, and only until it's checked.
+  function gCan(a, b) {
+    var cm = cur(), sKey = a && a.charAt(0) === 's' ? a : b && b.charAt(0) === 's' ? b : null;
+    if (!cm) { toast('This case is closed. Start it again, or go on to the next case.'); return false; }
+    if (sKey && sKey.slice(2) !== cm) { gNotNow(sKey.slice(2)); return false; }
+    if (C.g.step === 'checked') { toast('This scene is checked. Try it again to change its strings, or go on to the next scene.'); return false; }
+    return true;
+  }
+  function gNotNow(mid) {
+    toast(C.g.done[mid] ? 'You\'ve finished that scene. Tap it to look back at it.' : 'One scene at a time: you\'re on scene ' + num(cur()) + ', ' + mom(cur()).title + '.');
+  }
+  // A tap on a card: a theme ties to (or unties from) the scene you're on; a finished scene opens to look back at.
+  function gTap(k) {
+    S.arm = null;
+    var cm = cur();
+    if (k.charAt(0) === 't') {
+      if (!gCan(k, null)) { paint(); return; }
+      var th = k.slice(2), have = -1;
+      C.strings.forEach(function (x, i) { if (x.s === cm && x.t === th) have = i; });
+      if (have >= 0) { cut(have); toast('Untied from ' + TH[th].name + '.'); } else tie('s:' + cm, k);
+      gTied(); paint(); return;
+    }
+    var mid = k.slice(2);
+    if (mid === cm) { if (C.g.look) { C.g.look = null; paint(); } coachTop(); return; }
+    if (C.g.done[mid]) { C.g.look = C.g.look === mid ? null : mid; paint(); coachTop(); return; }
+    gNotNow(mid);
+  }
+  function gTied() { if (C.g.step === 'read') C.g.step = 'tie'; C.g.look = null; save(); }
+  function gCheck() {
+    var cm = cur();
+    if (!cm || C.g.step === 'checked') return;
+    var on = strung(cm), yes = yesOf(cm), p = Object.keys(on);
+    var ok = yes.filter(function (t) { return on[t.id]; }).length, bad = p.filter(function (t) { return !isYes(cm, t); }).length, miss = yes.length - ok;
+    C.g.done[cm] = { p: p, ok: ok, bad: bad, miss: miss, of: yes.length };
+    C.g.step = 'checked'; C.g.msg = '';
+    var mk = marks(); mk[cm] = ON().filter(function (t) { return !!on[t.id] === isYes(cm, t.id); }).length; store('eng-board-scenes', JSON.stringify(mk));
+    save(); sfx(!bad && !miss ? 'stamp' : ok > bad + miss ? 'ding' : 'bonk');
+    paint(); coachTop();
+  }
+  // On to the next scene. The board ends up right: the strings that don't hold are cut, the ones you missed are tied
+  // for you (dashed).
+  function gNext() {
+    var cm = cur();
+    if (!cm || !C.g.done[cm]) return;
+    C.strings = C.strings.filter(function (x) { return x.s !== cm || isYes(cm, x.t); });
+    var on = strung(cm);
+    yesOf(cm).forEach(function (t) { if (!on[t.id]) C.strings.push({ s: cm, t: t.id, g: 1 }); });
+    C.g.at++; C.g.step = C.g.at >= C.ids.length ? 'end' : 'read';
+    C.g.hint = 0; C.g.clued = {}; C.g.msg = ''; C.g.look = null;
+    save(); paint(); showNow(); coachTop();
+  }
+  function gAgain() {
+    var cm = cur();
+    if (!cm) return;
+    C.strings = C.strings.filter(function (x) { return x.s !== cm; });
+    delete C.g.done[cm]; C.g.step = 'tie'; C.g.hint = 0; C.g.clued = {}; C.g.msg = '';
+    save(); paint(); coachTop();
+  }
+  // Hints, one at a time: first how many themes the scene proves, then for each one you haven't tied, the giveaway
+  // that shows it (or the theme's question), then its name.
+  function gHint() {
+    var cm = cur(), g = C.g;
+    if (!cm) return;
+    var yes = yesOf(cm), on = strung(cm), n = Object.keys(on).length;
+    var missing = yes.filter(function (t) { return !on[t.id]; }), wrong = Object.keys(on).filter(function (t) { return !isYes(cm, t); });
+    g.hint++;
+    if (g.hint === 1) g.msg = yes.length ? 'This scene proves <b>' + words(yes.length) + '</b> of the themes on the board. You\'ve tied ' + (n ? words(n) : 'none yet') + '.'
+      : 'None of the themes on this board really fit this scene, so the right answer is to tie nothing.';
+    else if (missing.length) {
+      var t = missing[0];
+      if (!g.clued[t.id]) {
+        g.clued[t.id] = 1;
+        var gv = (T.hl[cm] || []).filter(function (x) { return x[1].split(' ').indexOf(t.id) >= 0; })[0];
+        g.msg = gv ? 'Look at the giveaway <mark class="cb-hl">' + esc(gv[0]) + '</mark>. Which theme on the board does it show?' : 'Ask yourself: ' + esc(t.ask);
+      } else g.msg = 'It\'s <b>' + esc(t.name) + '</b>. Tie it, then see if there are any more.';
+    } else if (wrong.length) g.msg = 'You\'ve found every theme this scene proves, but ' + (wrong.length > 1 ? 'some of your strings won\'t' : 'one of your strings won\'t') + ' hold. Which one couldn\'t you write a paragraph on?';
+    else g.msg = 'You\'ve got them all. Check the scene.';
+    paint();
+  }
+  // Bring the scene you're on into view with the themes (the whole board when it fits); with the guide over the board,
+  // the guide.
+  function showNow(force, instant) {
+    var bar = document.querySelector('.sh-top'), top = (bar ? bar.offsetHeight : 76) + 10, how = instant ? 'auto' : 'smooth';
+    if (!coachSide()) { coachTop(true, how); return; }
+    var card = app.querySelector('.cb-scene.is-now'), wrap = app.querySelector('[data-cb-wrap]');
+    if (!wrap) return;
+    var room = window.innerHeight - top - 10, wr = wrap.getBoundingClientRect(), y;
+    if (wr.height <= room || !card) y = wr.top - top;
+    else {
+      var r = card.getBoundingClientRect(), a = r.top, b = r.bottom;
+      Array.prototype.forEach.call(app.querySelectorAll('.cb-theme'), function (el) { var q = el.getBoundingClientRect(); a = Math.min(a, q.top); b = Math.max(b, q.bottom); });
+      if (!force && a >= top && b <= window.innerHeight - 10) return;
+      y = b - a <= room ? a - top : r.top - top;
+    }
+    window.scrollTo({ top: Math.max(0, window.scrollY + y), behavior: how });
+  }
+  // The top of the guide: scrolled to inside the panel beside the board, or the page scrolled to it over the board.
+  function coachTop(page, how) {
+    var co = app.querySelector('[data-cb-coach]');
+    if (!co) return;
+    if (coachSide()) { co.scrollTop = 0; return; }
+    var bar = document.querySelector('.sh-top'), top = (bar ? bar.offsetHeight : 76) + 8, r = co.getBoundingClientRect();
+    if (page || r.top < top || r.top > window.innerHeight * 0.5) window.scrollTo({ top: Math.max(0, window.scrollY + r.top - top), behavior: how || 'smooth' });
+  }
+  function scoreLine(d) {
+    if (!d.of) return d.bad ? 'None of the themes on this board fit this scene, so ' + (d.bad > 1 ? 'your strings don\'t' : 'your string doesn\'t') + ' hold.' : 'Right: none of the themes on this board need this scene.';
+    if (!d.bad && !d.miss) return d.of === 1 ? 'Your string holds. That\'s the one.' : 'Every string holds: you found all ' + words(d.of) + '.';
+    return 'You found ' + d.ok + ' of ' + d.of + '.' + (d.bad ? ' ' + (d.bad > 1 ? words(d.bad).replace(/^./, function (c) { return c.toUpperCase(); }) + ' of your strings don\'t' : 'One of your strings doesn\'t') + ' hold.' : '');
+  }
+  function gDots() {
+    var g = C.g;
+    return '<div class="cb-dots">' + C.ids.map(function (mid) {
+      var d = g.done[mid], now = mid === cur(), cls = 'cb-dot' + (now ? ' is-now' : d ? (d.bad || d.miss ? ' is-part' : ' is-full') : '') + (g.look === mid ? ' is-look' : '');
+      var lb = 'Scene ' + num(mid) + ', ' + mom(mid).title + (d ? ': ' + d.ok + ' of ' + d.of + ' found' : now ? ': the one you\'re on' : '');
+      return d && !now ? '<button type="button" class="' + cls + '" data-cb-look="' + mid + '" title="' + esc(lb) + '" aria-label="' + esc(lb) + '">' + num(mid) + '</button>'
+        : '<span class="' + cls + '" title="' + esc(lb) + '">' + num(mid) + '</span>';
+    }).join('') + '</div>';
+  }
+  function toBoard() { return coachSide() ? '' : ' <button type="button" class="cb-tob" data-cb-toboard>See it on the board ↓</button>'; }
+  function gHead(mid, m) { return '<h2 class="cb-coach__h">' + esc(m.title) + '</h2><p class="cb-coach__n">Scene ' + num(mid) + (m.where ? ' · ' + esc(m.where) : '') + toBoard() + '</p>'; }
+  function coachHtml() {
+    var g = C.g, cm = cur(), look = g.look && g.done[g.look] ? g.look : null;
+    var h = '<aside class="cb-coach' + (coachSide() ? '' : ' is-flow') + '" data-cb-coach data-key="' + esc((cm || 'end') + ':' + g.step + ':' + (look || '')) + '" aria-label="Step by step">' +
+      '<p class="cb-coach__k">Step by step · ' + esc(A.text(C.tid).title) + '</p>' + gDots();
+    if (look) {
+      var dl = g.done[look];
+      return h + '<p class="cb-coach__back">Looking back</p>' + gHead(look, mom(look)) + '<div class="cb-score' + (dl.bad || dl.miss ? '' : ' is-perfect') + '"><b>' + esc(scoreLine(dl)) + '</b></div>' +
+        why(look, pick(dl.p), true) + '<div class="cb-coach__go"><button type="button" class="sb-btn" data-cb-look="">' + (cm ? 'Back to scene ' + num(cm) + ' ›' : 'Back to the case ›') + '</button></div></aside>';
+    }
+    if (!cm) return h + gEnd() + '</aside>';
+    var m = mom(cm), si = { read: 0, tie: 1, checked: 2 }[g.step];
+    h += '<ol class="cb-steps">' + ['Know it', 'Tie it', 'Check it'].map(function (x, j) { return '<li class="' + (j < si ? 'is-done' : j === si ? 'is-on' : '') + '"><b>' + (j + 1) + '</b>' + x + '</li>'; }).join('') + '</ol>' + gHead(cm, m);
+    if (g.step === 'read') {
+      var wb = watchBtn(cm);
+      return h + '<div class="cb-do"><p><b>Step 1: know the scene.</b> Read what happens, or watch it. This is the part you have to get exactly right in the exam: where it is, who\'s there, what\'s said and what\'s done.</p></div>' +
+        fixed(cm, false) + (wb ? '<p class="sb-row is-left">' + wb + '</p>' : '') +
+        '<p class="cb-coach__tip">The <mark class="cb-hl">highlighted</mark> words are the giveaways: the clues to what this scene is about. You\'ll use them next.</p>' +
+        '<div class="cb-coach__go"><button type="button" class="sb-btn" data-cb-step="tie">Next: tie the strings ›</button></div></aside>';
+    }
+    if (g.step === 'tie') {
+      var on = strung(cm), n = Object.keys(on).length;
+      return h + '<div class="cb-do"><p><b>Step 2: tie the strings.</b> Tie this scene to every theme you could write a whole paragraph about. Tap a theme on the board or below, or drag the scene\'s red pin to it. Tap it again to untie it.</p>' +
+        '<p>For each theme, ask: does something happen here that shows it? If it\'s only a little, leave it out.</p></div>' +
+        '<p class="cb-coach__sub">What happens</p><ol class="cb-coach__beats">' + (m.tell || [m.what]).map(function (x) { return '<li>' + marked(cm, x, false) + '</li>'; }).join('') + '</ol>' +
+        '<p class="cb-coach__sub">Tie it to</p><div class="cb-ties">' + ON().map(function (t) {
+          return '<button type="button" class="sb-chip" data-cb-gtie="' + t.id + '" aria-pressed="' + !!on[t.id] + '">' + esc(t.name) + '</button>';
+        }).join('') + '</div>' +
+        '<p class="cb-coach__count">' + (n ? 'Tied to ' + words(n) + ' theme' + (n > 1 ? 's' : '') + '.' : 'Nothing tied yet.') + '</p>' +
+        '<div class="cb-hintbox">' + (g.msg ? '<p class="cb-hint">' + g.msg + '</p>' : '') + '<button type="button" class="sb-btn is-quiet" data-cb-ghint>' + (g.hint ? 'Another hint' : 'Give me a hint') + '</button></div>' +
+        '<div class="cb-coach__go"><button type="button" class="sb-btn is-quiet" data-cb-step="read">‹ The scene</button><button type="button" class="sb-btn" data-cb-gcheck>Check this scene ›</button></div></aside>';
+    }
+    var d = g.done[cm], yes = yesOf(cm);
+    return h + '<div class="cb-score' + (d.bad || d.miss ? '' : ' is-perfect') + '"><b>' + esc(scoreLine(d)) + '</b></div>' +
+      '<div class="cb-do"><p><b>Step 3: see what holds.</b> Read why each string holds or doesn\'t. On the board, ✓ holds, ✗ doesn\'t, and a blue ? is one you missed.</p></div>' +
+      why(cm, pick(d.p), true) +
+      '<div class="cb-remember"><p>Remember: this scene is your evidence for</p>' + (yes.length ? yes.map(function (t) { return '<span>' + esc(t.name) + '</span>'; }).join('') : '<em>none of the themes on this board</em>') + '</div>' +
+      '<p class="cb-coach__tip">When you go on, the strings that don\'t hold are cut and any you missed are tied for you, dashed, so the board ends up right.</p>' +
+      '<div class="cb-coach__go"><button type="button" class="sb-btn is-quiet" data-cb-gagain>Try it again</button><button type="button" class="sb-btn" data-cb-gnext>' + (g.at + 1 < C.ids.length ? 'Next scene ›' : 'Close the case ›') + '</button></div></aside>';
+  }
+  // The end of the case: the score, and the evidence for each theme, the scenes you missed the first time dashed.
+  function gEnd() {
+    var g = C.g, ok = 0, of = 0, bad = 0, nx = cases(S.text)[C.n];
+    C.ids.forEach(function (mid) { var d = g.done[mid]; if (d) { ok += d.ok; of += d.of; bad += d.bad; } });
+    return '<h2 class="cb-coach__h">Case closed</h2><p class="cb-coach__n">' + esc(caseWhat()) + ' of ' + esc(A.text(C.tid).title) + '</p>' +
+      '<div class="cb-score' + (ok === of && !bad ? ' is-perfect' : '') + '"><b>You found ' + ok + ' of the ' + of + ' strings yourself' + (bad ? ', and ' + bad + (bad > 1 ? ' others didn\'t' : ' other didn\'t') + ' hold' : '') + '.</b></div>' +
+      '<div class="cb-do"><p><b>Your evidence, theme by theme.</b> These are the scenes to use for each theme. Dashed ones you missed the first time: tap one to go over it again.</p></div>' +
+      '<ul class="cb-bank">' + ON().map(function (t) {
+        var ids = C.ids.filter(function (mid) { return isYes(mid, t.id); });
+        return '<li><b>' + esc(t.name) + '</b>' + (ids.length ? '<span>' + ids.map(function (mid) {
+          var d = g.done[mid], missed = d && d.p.indexOf(t.id) < 0;
+          return '<button type="button" class="cb-chipb' + (missed ? ' is-missed' : '') + '" data-cb-look="' + mid + '">' + num(mid) + ' · ' + esc(mom(mid).title) + '</button>';
+        }).join('') + '</span>' : '<span class="is-none">Nothing in this case.</span>') + '</li>';
+      }).join('') + '</ul>' +
+      '<div class="cb-coach__go"><button type="button" class="sb-btn is-quiet" data-cb-grestart>Do this case again</button><button type="button" class="sb-btn" data-cb-go="1">' + (nx ? 'Next case: ' + esc(short(tidOf(nx[0]))) + ' ›' : 'Back to case 1 ›') + '</button></div>';
+  }
 
   // ---------- By theme ----------
   function themeHtml() {
@@ -603,13 +861,19 @@
   window.addEventListener('resize', function () {
     if (!app || S.mode !== 'board' || !app.querySelector('[data-cb-board]')) return;
     var n = (app.clientWidth || window.innerWidth) >= 900 ? 'wide' : 'narrow';
-    if (n !== LAYN) paint(); else { scale(); strings(); }
+    if (n !== LAYN || (guided() && coachSide() !== SIDE_WAS)) paint(); else { scale(); strings(); }
   });
   document.addEventListener('click', function (e) {
     if (!app || !app.querySelector('.sb') || !app.contains(e.target)) return;
     var t = e.target, x;
     if ((x = t.closest('[data-cb-watch]'))) { e.preventDefault(); if (A.watch) A.watch(x.getAttribute('data-cb-watch'), S.mode === 'theme' ? S.theme : null); return; }
-    if ((x = t.closest('[data-sb-mode]'))) { S.mode = x.getAttribute('data-sb-mode'); history.replaceState(null, '', '#board'); paint(); return; }
+    if ((x = t.closest('[data-sb-mode]'))) {
+      var gm = x.getAttribute('data-cb-mode');
+      if (gm) { GUIDE = gm === 'guide'; store('eng-cork-mode', GUIDE ? 'guide' : 'free'); S.sel = null; S.arm = null; SEEN_BOARD = false; }
+      S.mode = x.getAttribute('data-sb-mode'); history.replaceState(null, '', '#board'); paint();
+      if (gm === 'guide' && !coachSide()) showNow(true);
+      return;
+    }
     if ((x = t.closest('[data-sb-text]'))) {
       var was0 = C && C.ids[0], n0 = 1; S.text = x.getAttribute('data-sb-text');
       if (S.mode === 'board') { cases(S.text).forEach(function (ids, i) { if (ids.indexOf(was0) >= 0) n0 = i + 1; }); goCase(n0); }
@@ -636,7 +900,24 @@
       goCase(k + 1); paint(); return;
     }
     if ((x = t.closest('[data-cb-go]'))) { goCase(C.n + +x.getAttribute('data-cb-go')); paint(); var bar = app.querySelector('.cb-bar'); if (bar) window.scrollTo({ top: Math.max(0, bar.getBoundingClientRect().top + window.scrollY - 90), behavior: 'smooth' }); return; }
-    if (t.closest('[data-cb-clear]')) { C.strings = []; C.checked = false; S.sel = null; save(); paint(); return; }
+    if (t.closest('[data-cb-clear]')) { C.strings = []; C.checked = false; C.g = freshGuide(null); S.sel = null; save(); paint(); return; }
+    if ((x = t.closest('[data-cb-mode]'))) {
+      GUIDE = x.getAttribute('data-cb-mode') === 'guide'; store('eng-cork-mode', GUIDE ? 'guide' : 'free');
+      S.sel = null; S.arm = null; SEEN_BOARD = false; paint(); if (GUIDE && !coachSide()) showNow(true); return;
+    }
+    if ((x = t.closest('[data-cb-gtie]'))) { gTap('t:' + x.getAttribute('data-cb-gtie')); return; }
+    if ((x = t.closest('[data-cb-step]'))) { C.g.step = x.getAttribute('data-cb-step'); save(); paint(); coachTop(); return; }
+    if (t.closest('[data-cb-gcheck]')) { gCheck(); return; }
+    if (t.closest('[data-cb-toboard]')) {
+      var nc = app.querySelector('.cb-scene.is-now') || app.querySelector('[data-cb-wrap]'), tb = document.querySelector('.sh-top');
+      if (nc) window.scrollTo({ top: Math.max(0, nc.getBoundingClientRect().top + window.scrollY - (tb ? tb.offsetHeight : 76) - 16), behavior: 'smooth' });
+      return;
+    }
+    if (t.closest('[data-cb-gnext]')) { gNext(); return; }
+    if (t.closest('[data-cb-gagain]')) { gAgain(); return; }
+    if (t.closest('[data-cb-ghint]')) { gHint(); return; }
+    if (t.closest('[data-cb-grestart]')) { C.strings = []; C.checked = false; C.g = freshGuide(null); save(); paint(); showNow(true); return; }
+    if ((x = t.closest('[data-cb-look]'))) { C.g.look = x.getAttribute('data-cb-look') || null; paint(); coachTop(); return; }
     if ((x = t.closest('[data-cb-tie]'))) {
       var v = x.getAttribute('data-cb-tie').split('|'), have = -1;
       C.strings.forEach(function (y, i) { if (y.s === v[0] && y.t === v[1]) have = i; });
@@ -649,6 +930,7 @@
   document.addEventListener('keydown', function (e) {
     if (!app || S.mode !== 'board' || !app.querySelector('[data-cb-board]')) return;
     var c = e.target.closest && e.target.closest('.cb-card');
+    if (c && (e.key === 'Enter' || e.key === ' ') && guided()) { e.preventDefault(); gTap(c.getAttribute('data-k')); return; }
     if (c && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); var k = c.getAttribute('data-k'); if (S.arm && S.arm !== k) { var a = S.arm; S.arm = null; tie(a, k); paint(); } else select(k); }
     if (e.key === 'Escape' && S.arm) { S.arm = null; paint(); }
     else if (e.key === 'Escape' && sideOn()) select(null);
