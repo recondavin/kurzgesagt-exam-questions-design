@@ -466,6 +466,48 @@ window.EngThemes.hl = {
   'stlt-11': [['get ready for midnight Mass', 'religion'], ['he walks on, to the convent', 'courage'], ['she\'s coming home with him', 'women hope freedom love'], ['Not to the priest\'s house', 'religion'], ['barefoot, through the town', 'power class']],
   'stlt-12': [['Some avoid him; some cut their talk short', 'power class conform'], ['happier than he has ever felt', 'hope'], ['he\'ll pay for this', 'courage'], ['all the small things Mrs Wilson did', 'courage kind'], ['afraid, but hopeful', 'hope']]
 };
+// The short version of each scene on the board's cards (the user, of the cards with every beat on them: "its what i
+// had in mind but now its just too much"): two or three sentences cut down from the scene's own beats (its `tell` in
+// eng-data.js), nothing added, and the giveaways kept word for word so they're still highlighted. The whole scene is
+// in its case file, and "Full" over the board puts every beat back on the cards.
+window.EngThemes.gist = {
+  'shawshank-1': 'His wife is with her lover, and Andy, a banker, sits outside drunk with a gun. The jury doesn\'t believe him. Two life sentences.',
+  'shawshank-2': 'Red, twenty years in, is telling the parole board he\'s a changed man. Rejected. He\'s the man in Shawshank who can get you things.',
+  'shawshank-3': 'Warden Norton believes in discipline and the Bible. A new man breaks down in tears; Captain Hadley beats him, and he dies in the infirmary. Andy asks: what was the dead man\'s name?',
+  'shawshank-4': 'Andy hears Hadley complain about tax on an inheritance. So he offers advice. Hadley nearly throws him off the roof, but Andy\'s price is three beers each for his workmates.',
+  'shawshank-5': 'Brooks, the old librarian, is paroled after fifty years, and he\'s terrified: he\'s \'institutionalized\'. The world has moved on without him, and he hangs himself.',
+  'shawshank-6': 'Andy plays Mozart over the loudspeakers, and it costs him two weeks in solitary. Worth it: music is something inside that they can\'t take from you. Red isn\'t so sure.',
+  'shawshank-7': 'Tommy, whom Andy is helping to study, once heard a cellmate boast of Andy\'s crime. Someone else did it. But Andy is too useful to Warden Norton, who has Hadley shoot Tommy dead.',
+  'shawshank-8': 'Andy admits he drove his wife away, but he didn\'t kill her. He dreams of a little hotel in Zihuatanejo, Mexico. Then he asks for a rope, and Red fears the worst.',
+  'shawshank-9': 'Andy\'s cell is empty. A stone goes through the poster on the wall. Behind it: a tunnel. Less than twenty years with a rock hammer, then the sewer, and Andy, arms raised in the rain, free.',
+  'shawshank-10': 'As the person Andy invented to hide Norton\'s money, he empties the accounts. He sends the proof to a newspaper: Hadley is arrested. Norton finds Andy\'s Bible in his safe, and shoots himself.',
+  'shawshank-11': 'Forty years in, Red stops performing for the board: he doesn\'t care what they decide. Released. But outside, he asks permission to go to the toilet.',
+  'shawshank-12': 'Red keeps his promise. Under the rock near Buxton: money, and a letter inviting him to Mexico. He breaks parole, and walks to Andy on a beach by the blue Pacific.',
+  'sive-1': 'Not much money, and two women who can\'t stand each other. Nanna mocks Mena for being poor and childless; Mena asks why Sive is still at her books when she could be earning.',
+  'sive-2': 'Thomasheen the matchmaker tells Mena in secret: Seán Dóta, an old farmer with land, wants to marry Sive. He\'ll pay £200, and take Nanna too. Mena agrees to work on Mike.',
+  'sive-3': 'Mike says no: a schoolgirl and an old man? But he catches Liam Scuab, who loves Sive, visiting her, and he orders him away. He blames Sive\'s father for what happened to her mother.',
+  'sive-4': 'Seán Dóta comes courting. Sent to walk Sive to a neighbour\'s, he grabs at her. Thomasheen tells Mike: love? People like them can\'t afford it. In this world, money decides who gets to love.',
+  'sive-5': 'Two travelling men come to the door. Nanna welcomes them; Mena and Thomasheen give them nothing. When Nanna hears of the match and challenges them, they turn on her: keep quiet, or it\'s the county home.',
+  'sive-6': 'Mena tries sweetness: think of everything Seán Dóta can give you. Sive refuses, so Mena tells her the truth about her birth, and that she\'ll leave school. Poverty once pushed her into her own marriage.',
+  'sive-7': 'Liam comes to beg: don\'t give her to Seán Dóta. Mike and Mena send him off. Then Mena lies to Sive: he only came to wish her joy. He\'s gone for good.',
+  'sive-8': 'As Mike goes to see the priest about the wedding, Nanna begs him to stop it. Mike says it\'s for the best, but he can\'t look his mother in the face.',
+  'sive-9': 'Pats brings a letter from Liam: Sive should slip out tonight, and they\'ll marry in secret. Thomasheen makes Mike open it, then burns it. And Mike, uneasy, does nothing.',
+  'sive-10': 'Sive comes home with clothes bought with Seán Dóta\'s money, miserable. Pats says men of money like Seán will be the new lords of the land. Carthalawn sings that Seán will soon travel by hearse.',
+  'sive-11': 'Sive is gone. Liam carries her in: Sive has drowned in a bog hole, and the house takes it to be suicide. Thomasheen and Seán Dóta slip away. Liam turns on Mena.',
+  'sive-12': 'Mike, dazed, thinks first of whether Sive can be buried in holy ground. Carthalawn mourns her in song; Nanna grieves by her body. No one is punished. No one is saved.',
+  'stlt-1': 'Bill\'s mother was sixteen, unmarried, working for a Protestant widow. Her family cut her off; Mrs Wilson kept her on. Bill\'s father: unknown. He worked his way up to owning the coal yard.',
+  'stlt-2': 'New Ross, 1985. Businesses closing. People emigrating. Bill sees a boy drinking the milk left out for a cat, but decides to keep his head down and see his girls through St Margaret\'s.',
+  'stlt-3': 'At the Christmas lights, the nuns speak only to the better-off parents. Bill remembers longing for the father he never knew. Nearly forty, he wonders what all his hard work is for.',
+  'stlt-4': 'In a small chapel at the convent, girls in grey shifts and no shoes are polishing the floor. One begs Bill to take her as far as the river. He says nothing to the nun.',
+  'stlt-5': 'Driving away troubled, Bill gets lost in the fog. He asks an old man where the road will take him. The answer: wherever he wants to go.',
+  'stlt-6': 'Bill tells Eileen what he saw. Her answer: it\'s nothing to do with us, and our girls are well minded. And if Mrs Wilson had thought that way? She was rich enough to do as she pleased.',
+  'stlt-7': 'Bill finds a girl locked in all night in the convent\'s coal shed. Freezing. Filthy. Frightened. She asks him to find out about her baby, fourteen weeks old and taken from her.',
+  'stlt-8': 'The Mother Superior is all smooth politeness. The night in the shed? A game of hide and seek. Places at the school are scarce. A Christmas card, and money. He leaves without asking about her baby.',
+  'stlt-9': 'At Mass, Bill stays in his seat for Communion. Visiting the Wilson house, he realises Ned was most likely his father. Driving home, the shame hits: he left Sarah there, and took the money.',
+  'stlt-10': 'Christmas Eve. Mrs Kehoe asks about Bill and the Mother Superior. Be careful, she warns: your girls are at St Margaret\'s. Bill asks: do the nuns only have as much power as people give them?',
+  'stlt-11': 'Bill should be getting ready for midnight Mass. Instead he walks on, to the convent, and tells Sarah she\'s coming home with him. Not to the priest\'s house. To his.',
+  'stlt-12': 'People notice the barefoot girl. Some avoid him; some cut their talk short. But Bill feels happier than he has ever felt, even knowing he\'ll pay for this. He reaches his door afraid, but hopeful.'
+};
 // When a text has nothing for a theme: how to handle it if you're stuck with it (none now), and notes on a weak text
 // for a theme (the user, of Shawshank: "role of women is NOT really good one but w eneed to think of scenes where women
 // are relevant in shawshank"): what to say about it, a moment that isn't one of the twelve key scenes, and a comparing

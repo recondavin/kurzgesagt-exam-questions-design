@@ -386,3 +386,18 @@ body.eng.eng-wall .cb-desk .cb-file .cb-file__k { color: #7A5726; }
   /* the board out into the page's margins, so its words are drawn bigger */
   .sb.is-cork .cb-wrap { margin-left: -20px; margin-right: -20px; }
 }
+
+/* Short cards (board-34): the scene in two or three sentences, its giveaways highlighted; Full puts every beat back */
+.cb-gist { margin: 2px 0 0; color: #13233A; font: 500 21px/1.36 Outfit, system-ui, sans-serif; }
+.cb-gist mark.cb-hl { padding: 1px 2px; font-weight: 700; }
+.cb-gist .cb-hl__t { margin-left: 4px; padding: 1px 5px; border-radius: 3px; background: #13233A; color: #FFFDF6; font-size: 12px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; vertical-align: 2px; }
+@media (max-width: 899px) { .cb-gist { font-size: 22px; line-height: 1.32; } }
+/* Cards: Short / Full. Beside the case's name when the controls fit on one line, after Size when they wrap */
+.cb-ctl { container: cbctl / inline-size; }
+.cb-ctl .cb-bar .cb-grp.is-cards { padding: 0 0 0 18px; }
+.cb-ctl .cb-bar .cb-grp.is-cards .sb-chip { min-height: 44px; }
+.cb-grp.is-cards-b { display: none; }
+@container cbctl (min-width: 1250px) {
+  .cb-grp.is-cards-t { display: none; }
+  .cb-grp.is-cards-b { display: inline-flex; }
+}

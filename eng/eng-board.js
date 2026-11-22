@@ -36,6 +36,11 @@
   // How big the board is drawn on a laptop, as a share of the window's width (the user: "make the whole thing smaller"):
   // 85% to start, − and + beside the other controls change it (eng-cork-zoom). KF is the full width.
   var ZOOM = 0.85, KF = 1;
+  // What the scene cards say (the user, of cards with every beat on them: "its what i had in mind but now its just too
+  // much"): 'short', the scene in two or three sentences with its giveaways (EngThemes.gist), or 'full', who's there
+  // and every beat. Short to start; Cards over the board changes it (eng-cork-detail). The case file always has it all.
+  var DETAIL = 'short';
+  try { if (localStorage.getItem('eng-cork-detail') === 'full') DETAIL = 'full'; } catch (e) {}
   try { var z0 = parseFloat(localStorage.getItem('eng-cork-zoom')); if (z0 >= 0.5 && z0 <= 1) ZOOM = z0; } catch (e) {}
   // where the top row starts, under the label strips (set per layout in corkHtml)
 
@@ -137,6 +142,12 @@
         '<span class="sb-chips__gap" aria-hidden="true"></span><span class="sb-chips__k">Themes</span><button type="button" class="sb-chip" data-cb-th="past" aria-pressed="' + !ALLTH + '">From past papers</button>' +
         '<button type="button" class="sb-chip" data-cb-th="all" aria-pressed="' + ALLTH + '">All ' + T.themes.length + '</button>' : '') + '</div>';
   }
+  // Short or full cards. It's drawn twice and CSS shows one: beside the case's name when the row of controls is wide
+  // enough to hold everything on one line (there, it would push them onto two), and after Size when that row wraps.
+  function cardsGrp(where) {
+    var b = function (v, label) { return '<button type="button" class="sb-chip" data-cb-detail="' + v + '" aria-pressed="' + (DETAIL === v) + '">' + label + '</button>'; };
+    return '<span class="cb-grp is-cards ' + where + '" role="group" aria-label="Cards"><span class="cb-grp__k">Cards</span>' + b('short', 'Short') + b('full', 'Full') + '</span>';
+  }
   function boardTools() {
     var chip = function (id, label) { return '<button type="button" class="sb-chip" data-sb-text="' + id + '" aria-pressed="' + (S.text === id) + '">' + esc(label) + '</button>'; };
     var per = function (n) { return '<button type="button" class="sb-chip" data-cb-per="' + n + '" aria-pressed="' + (CASE_N === n) + '">' + n + '</button>'; };
@@ -144,7 +155,7 @@
     return '<div class="cb-tools">' + grp('Texts', chip('all', 'All three') + T.texts.map(function (t) { return chip(t, short(t)); }).join('')) +
       grp('Scenes', per(12) + per(6)) +
       grp('Themes', '<button type="button" class="sb-chip" data-cb-th="past" aria-pressed="' + !ALLTH + '">From past papers</button><button type="button" class="sb-chip" data-cb-th="all" aria-pressed="' + ALLTH + '">All ' + T.themes.length + '</button>') +
-      (LAYN === 'wide' ? grp('Size', '<button type="button" class="sb-chip is-zoom" data-cb-zoom="-1" aria-label="Make the board smaller"' + (ZOOM <= 0.5 ? ' disabled' : '') + '>−</button><button type="button" class="sb-chip is-zoom" data-cb-zoom="1" aria-label="Make the board bigger"' + (ZOOM >= 1 ? ' disabled' : '') + '>+</button>') : '') + '</div>';
+      (LAYN === 'wide' ? grp('Size', '<button type="button" class="sb-chip is-zoom" data-cb-zoom="-1" aria-label="Make the board smaller"' + (ZOOM <= 0.5 ? ' disabled' : '') + '>−</button><button type="button" class="sb-chip is-zoom" data-cb-zoom="1" aria-label="Make the board bigger"' + (ZOOM >= 1 ? ' disabled' : '') + '>+</button>') : '') + cardsGrp('is-cards-t') + '</div>';
   }
   function paint() {
     document.body.classList.toggle('eng-wall', S.mode === 'board');
@@ -254,6 +265,7 @@
     if (LAYN === 'wide') { L.W = colX6(5) + L.sw + 24; var nT = ON().length, perT = nT <= 9 ? nT : Math.ceil(nT / 2); TWN = Math.min(L.tw, Math.floor((L.W - 48 - (perT - 1) * 14) / perT)); }
     LAYN = (app.clientWidth || window.innerWidth) >= 900 ? 'wide' : 'narrow';
     var h = '<div class="cb-ctl">' + boardTools() + '<div class="cb-bar"><span class="cb-case">Case ' + C.n + ' of ' + C.of + '<small>' + esc(caseWhat()) + ' of ' + esc(A.text(C.tid).title) + '</small></span>' +
+      cardsGrp('is-cards-b') +
       (res ? '<span class="cb-res"><b>' + res.ok + '</b> hold · <b class="is-bad">' + res.bad + '</b> don\'t · <b class="is-miss">' + res.miss + '</b> missed</span>' : '') +
       '<span class="cb-btns"><button type="button" class="sb-btn" data-cb-check' + (C.strings.length ? '' : ' disabled') + '>' + (C.checked ? 'Check again' : 'Check my strings') + '</button>' +
       (res && res.miss ? '<button type="button" class="sb-btn is-quiet" data-cb-miss aria-pressed="' + S.miss + '">' + (S.miss ? 'Hide what I missed' : 'Show what I missed') + '</button>' : '') + '<button type="button" class="sb-btn is-quiet" data-cb-go="-1"' + (C.n > 1 ? '' : ' disabled') + '>‹ Previous</button><button type="button" class="sb-btn is-quiet" data-cb-go="1">' + (C.n < C.of ? 'Next case ›' : 'Back to case 1') + '</button><button type="button" class="sb-btn is-quiet" data-cb-clear' + (C.strings.length ? '' : ' disabled') + '>Clear strings</button></span></div></div>';
@@ -287,6 +299,7 @@
   // detail and you got rid of them"). Once the strings are checked, each giveaway names the themes it points to.
   function cardDesc(mid, named) {
     var m = mom(mid);
+    if (DETAIL === 'short' && T.gist && T.gist[mid]) return '<p class="cb-gist">' + marked(mid, T.gist[mid], named) + '</p>';
     return '<p class="cb-who"><b>Who</b> ' + esc(T.scenes[mid].who) + '</p><ol class="cb-beats">' +
       (m.tell || [m.what]).map(function (x) { return '<li>' + marked(mid, x, named) + '</li>'; }).join('') + '</ol>';
   }
@@ -614,6 +627,7 @@
       Array.prototype.forEach.call(app.querySelectorAll('[data-cb-zoom]'), function (b) { b.disabled = +b.getAttribute('data-cb-zoom') < 0 ? ZOOM <= 0.5 : ZOOM >= 1; });
       return;
     }
+    if ((x = t.closest('[data-cb-detail]'))) { DETAIL = x.getAttribute('data-cb-detail'); try { localStorage.setItem('eng-cork-detail', DETAIL); } catch (er) {} paint(); return; }
     if ((x = t.closest('[data-cb-th]'))) { ALLTH = x.getAttribute('data-cb-th') === 'all'; try { localStorage.setItem('eng-cork-th', ALLTH ? 'all' : 'past'); } catch (er) {} S.sel = null; paint(); return; }
     if ((x = t.closest('[data-cb-per]'))) {
       var was = C.ids[0]; CASE_N = +x.getAttribute('data-cb-per'); store('eng-cork-per', String(CASE_N));
