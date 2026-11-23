@@ -63,7 +63,7 @@
     { href: 'maths-pool.html', name: 'Pool', say: 'Pool against the examiner. Get the question right to take your shot; the wrong answers are the classic mistakes.',
       art: '<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="24" cy="36" r="13" fill="#1CB0F6"/><circle cx="24" cy="36" r="6" fill="#F1F7FB"/><text x="24" y="39.5" text-anchor="middle" font-size="9" font-weight="800" fill="#131F24">9</text><circle cx="45" cy="24" r="9" fill="#F1F7FB"/><path d="M52 52L37 37" stroke="#C08552" stroke-width="3" stroke-linecap="round"/></svg>' }
   ];
-  var WARM_ON = false; // the Warm-up level, once its cards are in maths/maths-cards.js (window.MathsWarm)
+  var WARM_ON = true; // the Warm-up level: its cards are in maths/maths-cards.js (window.MathsWarm)
   var GAMES_ON = true; // the cards are in maths/maths-cards.js (tools/maths/build_cards.py)
   function games() {
     if (!GAMES_ON) return '';

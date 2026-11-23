@@ -1,0 +1,482 @@
+{
+ "chapter": 12,
+ "warm": true,
+ "cards": [
+  {
+   "id": "warm:12:1",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Work out 5! (5 factorial).",
+   "right": "120",
+   "wrong": [
+    "15",
+    "25",
+    "3125"
+   ],
+   "why": "5! means multiply all the way down to 1: 5 × 4 × 3 × 2 × 1 = 120.",
+   "hook": "n! counts down to 1, multiplying all the way.",
+   "keys": [
+    "5 × 4 × 3 × 2 × 1 = 120"
+   ]
+  },
+  {
+   "id": "warm:12:2",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A café sells 5 different sandwiches and 3 different drinks. How many different meals of one sandwich and one drink can you choose?",
+   "right": "15",
+   "wrong": [
+    "8",
+    "125",
+    "243"
+   ],
+   "why": "Every sandwich can go with every drink, so multiply the options: 5 × 3 = 15. Adding (5 + 3 = 8) only counts the items on the menu.",
+   "hook": "One choice, then another? Multiply the options, don't add.",
+   "keys": [
+    "5 × 3 = 15"
+   ]
+  },
+  {
+   "id": "warm:12:3",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A coin is tossed and a six-sided die is rolled. How many different outcomes (like H5 or T2) are there?",
+   "right": "12",
+   "wrong": [
+    "8",
+    "36",
+    "6"
+   ],
+   "why": "Each of the 2 coin results can go with each of the 6 die scores: 2 × 6 = 12 outcomes (H1, H2, …, T6).",
+   "hook": "Draw it as a table: rows × columns = outcomes.",
+   "keys": [
+    "2 × 6 = 12"
+   ]
+  },
+  {
+   "id": "warm:12:4",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A coin is tossed 3 times. How many different outcomes (like HHT) are there?",
+   "right": "8",
+   "wrong": [
+    "6",
+    "9",
+    "4"
+   ],
+   "why": "Each toss has 2 results and every toss goes with every other: 2 × 2 × 2 = 8 (HHH, HHT, HTH, HTT, THH, THT, TTH, TTT).",
+   "hook": "The same choice made again and again? Multiply it by itself.",
+   "keys": [
+    "2 × 2 × 2 = 8"
+   ]
+  },
+  {
+   "id": "warm:12:5",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A spinner has 4 equal sections: red, yellow, blue and green. It is spun twice. How many outcomes are in the sample space?",
+   "right": "16",
+   "wrong": [
+    "8",
+    "12",
+    "10"
+   ],
+   "why": "Any of the 4 colours on the 1st spin with any of the 4 on the 2nd, and a colour can come up twice: 4 × 4 = 16.",
+   "hook": "Two spins of 4: a 4 by 4 table, 16 boxes.",
+   "keys": [
+    "4 × 4 = 16"
+   ]
+  },
+  {
+   "id": "warm:12:6",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A lock code has 3 digits. Each digit can be 0 to 9 and digits may be repeated. How many codes are possible?",
+   "right": "1000",
+   "wrong": [
+    "720",
+    "30",
+    "729"
+   ],
+   "why": "Repeats are allowed, so each of the 3 places has all 10 digits: 10 × 10 × 10 = 1000. (10 × 9 × 8 is for no repeats.)",
+   "hook": "Repeats allowed: every box keeps all its options.",
+   "keys": [
+    "10 × 10 × 10 = 1000"
+   ]
+  },
+  {
+   "id": "warm:12:7",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A code has 3 digits, each 0 to 9, and digits may be repeated. How many codes do not contain any zero?",
+   "right": "729",
+   "wrong": [
+    "900",
+    "504",
+    "271"
+   ],
+   "why": "No zero leaves 9 options (1 to 9) for every place, and repeats are still allowed: 9 × 9 × 9 = 729.",
+   "hook": "No zero anywhere: take 0 out of every box, then multiply.",
+   "keys": [
+    "9 × 9 × 9 = 729"
+   ]
+  },
+  {
+   "id": "warm:12:8",
+   "from": "warm",
+   "lvl": 1,
+   "q": "In how many different orders can 4 different books be arranged on a shelf?",
+   "right": "24",
+   "wrong": [
+    "16",
+    "10",
+    "256"
+   ],
+   "why": "4 choices for the 1st place, 3 left for the 2nd, 2 for the 3rd, 1 for the last: 4 × 3 × 2 × 1 = 4! = 24.",
+   "hook": "Each place uses one up: the options go down by 1 each time.",
+   "keys": [
+    "4 × 3 × 2 × 1 = 4! = 24"
+   ]
+  },
+  {
+   "id": "warm:12:9",
+   "from": "warm",
+   "lvl": 1,
+   "q": "9 different cats are put into 9 separate pens, one cat in each pen. In how many different ways can this be done?",
+   "right": "362 880",
+   "wrong": [
+    "81",
+    "45",
+    "387 420 489"
+   ],
+   "why": "9 cats for the 1st pen, 8 left for the 2nd, and so on down to 1: 9 × 8 × 7 × … × 1 = 9! = 362 880.",
+   "hook": "n different things into n places: n! (the x! button).",
+   "keys": [
+    "9! = 362 880"
+   ]
+  },
+  {
+   "id": "warm:12:10",
+   "from": "warm",
+   "lvl": 1,
+   "q": "How many 3-letter arrangements can be made from the 7 letters of RAINBOW, if each letter is used at most once?",
+   "right": "210",
+   "wrong": [
+    "343",
+    "35",
+    "5040"
+   ],
+   "why": "7 letters for the 1st place, 6 left for the 2nd, 5 for the 3rd: 7 × 6 × 5 = 210. Only 3 places, so stop after three.",
+   "hook": "Only 3 places? Count down 3 times: 7 × 6 × 5.",
+   "keys": [
+    "7 × 6 × 5 = 210"
+   ]
+  },
+  {
+   "id": "warm:12:11",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A 4-digit PIN uses the digits 0 to 9, and no digit may be used twice. How many PINs are possible?",
+   "right": "5040",
+   "wrong": [
+    "10 000",
+    "210",
+    "24"
+   ],
+   "why": "10 digits for the 1st place, 9 left for the 2nd, then 8, then 7: 10 × 9 × 8 × 7 = 5040.",
+   "hook": "No repeats: one fewer option at every step.",
+   "keys": [
+    "10 × 9 × 8 × 7 = 5040"
+   ]
+  },
+  {
+   "id": "warm:12:12",
+   "from": "warm",
+   "lvl": 1,
+   "q": "8 runners are in a race. In how many different ways can the gold, silver and bronze medals be won?",
+   "right": "336",
+   "wrong": [
+    "56",
+    "512",
+    "24"
+   ],
+   "why": "Gold to any of 8, silver to one of the 7 left, bronze to one of 6: 8 × 7 × 6 = 336. Order matters: gold is not silver.",
+   "hook": "Different prizes? The order matters: count it as an arrangement.",
+   "keys": [
+    "8 × 7 × 6 = 336"
+   ]
+  },
+  {
+   "id": "warm:12:13",
+   "from": "warm",
+   "lvl": 1,
+   "q": "The 4 letters of the word FISH are arranged. How many of the arrangements start with F?",
+   "right": "6",
+   "wrong": [
+    "24",
+    "3",
+    "27"
+   ],
+   "why": "F is fixed in the 1st place (1 way). The other 3 letters fill the last 3 places: 1 × 3 × 2 × 1 = 6.",
+   "hook": "Fill the fussy place first, then count down for the rest.",
+   "keys": [
+    "1 × 3 × 2 × 1 = 6"
+   ]
+  },
+  {
+   "id": "warm:12:14",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Which of these is a selection, where the order does not matter?",
+   "right": "Picking 3 players for a team",
+   "wrong": [
+    "Giving 1st, 2nd and 3rd prizes",
+    "Setting a 3-digit PIN",
+    "Arranging 3 books on a shelf"
+   ],
+   "why": "Ann, Bob, Cara is the same team as Cara, Ann, Bob, so order doesn't matter. Prizes, PINs and shelves change when you swap the order.",
+   "hook": "Swap the order: the same thing? Then it is a selection.",
+   "keys": [
+    "order doesn't matter"
+   ]
+  },
+  {
+   "id": "warm:12:15",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Which of these is an arrangement, where the order matters?",
+   "right": "Picking a captain and a vice-captain",
+   "wrong": [
+    "Picking 2 players for a team",
+    "Picking 2 toppings for a pizza",
+    "Picking 3 boxes of a password to check"
+   ],
+   "why": "Ann captain with Bob vice-captain is not the same as Bob captain with Ann vice-captain: different jobs, so the order matters.",
+   "hook": "Different jobs or places? Order matters: an arrangement.",
+   "keys": [
+    "different jobs, so the order matters"
+   ]
+  },
+  {
+   "id": "warm:12:16",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Two of 4 friends (A, B, C and D) are picked to go on a trip together. How many different pairs are possible?",
+   "right": "6",
+   "wrong": [
+    "12",
+    "16",
+    "8"
+   ],
+   "why": "List them: AB, AC, AD, BC, BD, CD = 6. AB and BA are the same pair, so 4 × 3 = 12 counts each pair twice.",
+   "hook": "Order doesn't matter: list in alphabetical order so none repeat.",
+   "keys": [
+    "AB, AC, AD, BC, BD, CD = 6"
+   ]
+  },
+  {
+   "id": "warm:12:17",
+   "from": "warm",
+   "lvl": 2,
+   "q": "An ice cream van has 7 flavours, 4 toppings, and a choice of a cone or a tub. You pick one flavour, one topping and one container. How many different choices are there?",
+   "right": "56",
+   "wrong": [
+    "13",
+    "28",
+    "30"
+   ],
+   "why": "Three choices one after another, so multiply all three: 7 × 4 × 2 = 56. The cone-or-tub choice doubles the 28 flavour-topping pairs.",
+   "hook": "Every choice gets multiplied in, even a 2-way one.",
+   "keys": [
+    "7 × 4 × 2 = 56"
+   ]
+  },
+  {
+   "id": "warm:12:18",
+   "from": "warm",
+   "lvl": 2,
+   "q": "There are 1000 three-digit codes (each digit 0 to 9, repeats allowed), and 729 of them have no zero. How many codes contain at least one zero?",
+   "right": "271",
+   "wrong": [
+    "243",
+    "300",
+    "729"
+   ],
+   "why": "\"At least one zero\" is every code except those with no zero: 1000 − 729 = 271. Counting 3 × 9 × 9 = 243 only finds exactly one zero.",
+   "hook": "At least one = all of them − none.",
+   "keys": [
+    "1000 − 729 = 271"
+   ]
+  },
+  {
+   "id": "warm:12:19",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A club of 5 people picks a chairperson and a secretary (two different people). In how many ways can this be done?",
+   "right": "20",
+   "wrong": [
+    "10",
+    "25",
+    "9"
+   ],
+   "why": "5 choices for chairperson, then 4 left for secretary: 5 × 4 = 20. Ann chair with Bob secretary is not Bob chair with Ann secretary.",
+   "hook": "Different jobs? Order matters: multiply down, don't halve.",
+   "keys": [
+    "5 × 4 = 20"
+   ]
+  },
+  {
+   "id": "warm:12:20",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A restaurant has 4 starters and 6 main courses. Jack can make 120 different meals of a starter, a main and a dessert. How many desserts are there?",
+   "right": "5",
+   "wrong": [
+    "110",
+    "20",
+    "30"
+   ],
+   "why": "Starters × mains × desserts = meals, so 4 × 6 × d = 120. That is 24d = 120, so d = 120 ÷ 24 = 5.",
+   "hook": "Work back: divide the total by everything you know.",
+   "keys": [
+    "d = 120 ÷ 24 = 5"
+   ]
+  },
+  {
+   "id": "warm:12:21",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Ben picks one subject from each group: Group A has 3, B has 4 and C has 5. One extra subject is added to one group. What is the largest number of choices this can give?",
+   "right": "80",
+   "wrong": [
+    "72",
+    "75",
+    "61"
+   ],
+   "why": "Try each: A gives 4 × 4 × 5 = 80, B gives 3 × 5 × 5 = 75, C gives 3 × 4 × 6 = 72. Adding to the smallest group gives the most.",
+   "hook": "Add the extra one to the smallest group: it multiplies the most.",
+   "keys": [
+    "4 × 4 × 5 = 80"
+   ]
+  },
+  {
+   "id": "warm:12:22",
+   "from": "warm",
+   "lvl": 2,
+   "q": "How many arrangements of the 6 letters of PLANET start with P and end with a vowel (A or E)?",
+   "right": "48",
+   "wrong": [
+    "240",
+    "24",
+    "720"
+   ],
+   "why": "1st place: P (1 way). Last place: A or E (2 ways). 4 letters are left for the 4 middle places: 1 × 4 × 3 × 2 × 1 × 2 = 48.",
+   "hook": "Fill the fussy places first, then count down for the rest.",
+   "keys": [
+    "1 × 4 × 3 × 2 × 1 × 2 = 48"
+   ]
+  },
+  {
+   "id": "warm:12:23",
+   "from": "warm",
+   "lvl": 2,
+   "q": "How many arrangements of the 6 letters of ORANGE start with a vowel (O, A or E)?",
+   "right": "360",
+   "wrong": [
+    "720",
+    "120",
+    "2160"
+   ],
+   "why": "1st place: one of the 3 vowels (3 ways). The other 5 letters fill the last 5 places: 3 × 5 × 4 × 3 × 2 × 1 = 360.",
+   "hook": "Fussy place first: count its options, then the rest count down.",
+   "keys": [
+    "3 × 5 × 4 × 3 × 2 × 1 = 360"
+   ]
+  },
+  {
+   "id": "warm:12:24",
+   "from": "warm",
+   "lvl": 2,
+   "q": "How many 3-digit numbers can be made from the digits 1, 2, 3, 4 and 5, with no digit used twice, if the number must be even?",
+   "right": "24",
+   "wrong": [
+    "60",
+    "30",
+    "50"
+   ],
+   "why": "Even means the last digit is 2 or 4 (2 ways). Then 4 digits are left for the 1st place and 3 for the 2nd: 2 × 4 × 3 = 24.",
+   "hook": "The rule is on the last digit, so fill that place first.",
+   "keys": [
+    "2 × 4 × 3 = 24"
+   ]
+  },
+  {
+   "id": "warm:12:25",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A code is 2 letters (A to Z) followed by 3 digits (0 to 9). Letters and digits may repeat. How many codes are possible?",
+   "right": "676 000",
+   "wrong": [
+    "468 000",
+    "1676",
+    "60 466 176"
+   ],
+   "why": "Letters: 26 × 26 = 676. Digits: 10 × 10 × 10 = 1000. Every letter pair goes with every digit triple: 676 × 1000 = 676 000.",
+   "hook": "Box by box: write the options in each box, then multiply.",
+   "keys": [
+    "676 × 1000 = 676 000"
+   ]
+  },
+  {
+   "id": "warm:12:26",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A bank asks for 3 of the 5 digits of a PIN (for example the 1st, 3rd and 4th). In how many ways can it choose the 3 positions?",
+   "right": "10",
+   "wrong": [
+    "60",
+    "20",
+    "125"
+   ],
+   "why": "Positions 1, 3, 4 are the same choice as 4, 1, 3. In order: 5 × 4 × 3 = 60, but each choice is counted 3 × 2 × 1 = 6 times, so 60 ÷ 6 = 10.",
+   "hook": "Order doesn't matter? Count in order, then divide by 3 × 2 × 1.",
+   "keys": [
+    "60 ÷ 6 = 10"
+   ]
+  },
+  {
+   "id": "warm:12:27",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Ben picks one subject from each group: 3 languages, 4 sciences and 5 others. How many of his possible choices include French (one of the languages)?",
+   "right": "20",
+   "wrong": [
+    "60",
+    "10",
+    "4"
+   ],
+   "why": "French is fixed: 1 way. Then any of 4 sciences and any of 5 others: 1 × 4 × 5 = 20.",
+   "hook": "A fixed choice counts as 1 option: multiply the rest as usual.",
+   "keys": [
+    "1 × 4 × 5 = 20"
+   ]
+  },
+  {
+   "id": "warm:12:28",
+   "from": "warm",
+   "lvl": 2,
+   "q": "How many 4-letter arrangements of the letters of MATHS (no letter used twice) start with M?",
+   "right": "24",
+   "wrong": [
+    "120",
+    "60",
+    "64"
+   ],
+   "why": "M is fixed first (1 way). 4 letters are left for the other 3 places: 1 × 4 × 3 × 2 = 24.",
+   "hook": "A fixed letter is used up: the next place has one fewer to choose from.",
+   "keys": [
+    "1 × 4 × 3 × 2 = 24"
+   ]
+  }
+ ]
+}

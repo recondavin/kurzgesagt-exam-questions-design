@@ -1,0 +1,688 @@
+{
+ "chapter": 14,
+ "warm": true,
+ "cards": [
+  {
+   "id": "warm:14:1",
+   "from": "warm",
+   "lvl": 1,
+   "q": "On a scatter plot, the points go down from left to right and lie close to a straight line. What kind of correlation is this?",
+   "right": "Strong negative",
+   "wrong": [
+    "Strong positive",
+    "Weak negative",
+    "No correlation"
+   ],
+   "why": "Going down from left to right is negative; lying close to a straight line is strong. So it is a strong negative correlation.",
+   "hook": "Direction gives the sign; closeness to a line gives the strength.",
+   "keys": [
+    "close to a straight line is strong"
+   ]
+  },
+  {
+   "id": "warm:14:2",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Which of these could be a correlation coefficient?",
+   "right": "−0.8",
+   "wrong": [
+    "5",
+    "−1.5",
+    "1.2"
+   ],
+   "why": "A correlation coefficient r is always between −1 and 1. Only −0.8 is in that range; 5, −1.5 and 1.2 are outside it.",
+   "hook": "r always lies between −1 and 1.",
+   "keys": [
+    "always between −1 and 1"
+   ]
+  },
+  {
+   "id": "warm:14:3",
+   "from": "warm",
+   "lvl": 1,
+   "q": "For 20 teenagers, the correlation coefficient between height and arm span is 0.9. What does this tell you?",
+   "right": "Taller teens tend to have longer spans",
+   "wrong": [
+    "Taller teens tend to have shorter spans",
+    "Arm span is 90% of height",
+    "Height and arm span are hardly linked"
+   ],
+   "why": "0.9 is close to 1, so the link is strong, and it is positive: as height goes up, arm span goes up too.",
+   "hook": "Say the strength and the direction, in context.",
+   "keys": [
+    "0.9 is close to 1"
+   ]
+  },
+  {
+   "id": "warm:14:4",
+   "from": "warm",
+   "lvl": 1,
+   "q": "In a stem-and-leaf diagram the key is 1 | 9 = 19. What value does stem 4, leaf 3 stand for?",
+   "right": "43",
+   "wrong": [
+    "4.3",
+    "34",
+    "7"
+   ],
+   "why": "The stem is the tens digit and the leaf is the units digit: stem 4, leaf 3 is 43.",
+   "hook": "Stem = tens, leaf = units. Always read the key.",
+   "keys": [
+    "stem 4, leaf 3 is 43"
+   ]
+  },
+  {
+   "id": "warm:14:5",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A stem-and-leaf plot of dogs' weights has the key 6 | 0 = 6.0 kg. What weight does stem 5, leaf 7 show?",
+   "right": "5.7 kg",
+   "wrong": [
+    "57 kg",
+    "7.5 kg",
+    "5.07 kg"
+   ],
+   "why": "The key says the stem is whole kilograms and the leaf is tenths: stem 5, leaf 7 is 5.7 kg.",
+   "hook": "Read the key first: it tells you what the stem and the leaf are worth.",
+   "keys": [
+    "stem 5, leaf 7 is 5.7 kg"
+   ]
+  },
+  {
+   "id": "warm:14:6",
+   "from": "warm",
+   "lvl": 1,
+   "q": "7 of the 28 employees in a business are in their 50s. What percentage of the employees is that?",
+   "right": "25%",
+   "wrong": [
+    "7%",
+    "4%",
+    "75%"
+   ],
+   "why": "Write it as a fraction of all 28, then × 100: 7 ÷ 28 × 100 = 25%.",
+   "hook": "Percentage = part ÷ whole × 100.",
+   "keys": [
+    "7 ÷ 28 × 100 = 25%"
+   ]
+  },
+  {
+   "id": "warm:14:7",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A country's energy use: oil 40%, gas 25%, coal 10%, other 5%, and the rest is renewable. What percentage is renewable?",
+   "right": "20%",
+   "wrong": [
+    "80%",
+    "25%",
+    "30%"
+   ],
+   "why": "One country's percentages add up to 100%: 100 − 40 − 25 − 10 − 5 = 20%.",
+   "hook": "The parts of a whole add up to 100%.",
+   "keys": [
+    "100 − 40 − 25 − 10 − 5 = 20%"
+   ]
+  },
+  {
+   "id": "warm:14:8",
+   "from": "warm",
+   "lvl": 1,
+   "q": "In a pie chart, what angle shows a group that is 15% of the total?",
+   "right": "54°",
+   "wrong": [
+    "15°",
+    "24°",
+    "5.4°"
+   ],
+   "why": "The full circle, 360°, is 100%, so each 1% is 3.6°: 15 × 3.6 = 54°.",
+   "hook": "Pie chart: 100% is 360°, so 1% is 3.6°.",
+   "keys": [
+    "15 × 3.6 = 54°"
+   ]
+  },
+  {
+   "id": "warm:14:9",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Find the mean of 2, 5, 6, 9, 13.",
+   "right": "7",
+   "wrong": [
+    "6",
+    "8.75",
+    "11"
+   ],
+   "why": "Add them: 2 + 5 + 6 + 9 + 13 = 35. Divide by how many there are (5): 35 ÷ 5 = 7.",
+   "hook": "Mean = total ÷ how many.",
+   "keys": [
+    "35 ÷ 5 = 7"
+   ]
+  },
+  {
+   "id": "warm:14:10",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Find the median of 8, 3, 11, 5, 9.",
+   "right": "8",
+   "wrong": [
+    "11",
+    "7.2",
+    "3"
+   ],
+   "why": "Put them in order: 3, 5, 8, 9, 11. The median is the middle (3rd) value: 8.",
+   "hook": "Median: sort first, then take the middle.",
+   "keys": [
+    "3, 5, 8, 9, 11"
+   ]
+  },
+  {
+   "id": "warm:14:11",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Find the range of 12, 5, 20, 9, 14.",
+   "right": "15",
+   "wrong": [
+    "2",
+    "8",
+    "12"
+   ],
+   "why": "Range = largest − smallest = 20 − 5 = 15.",
+   "hook": "Range: biggest minus smallest, wherever they sit in the list.",
+   "keys": [
+    "20 − 5 = 15"
+   ]
+  },
+  {
+   "id": "warm:14:12",
+   "from": "warm",
+   "lvl": 1,
+   "q": "What does the standard deviation of a set of data measure?",
+   "right": "How spread out it is around the mean",
+   "wrong": [
+    "The middle value",
+    "The most common value",
+    "The biggest minus the smallest"
+   ],
+   "why": "The standard deviation is a typical distance of the values from the mean: small means bunched together, big means spread out.",
+   "hook": "Standard deviation = spread around the mean.",
+   "keys": [
+    "a typical distance of the values from the mean"
+   ]
+  },
+  {
+   "id": "warm:14:13",
+   "from": "warm",
+   "lvl": 1,
+   "q": "For normally distributed data, about what percentage lies within one standard deviation of the mean?",
+   "right": "68%",
+   "wrong": [
+    "95%",
+    "99.7%",
+    "34%"
+   ],
+   "why": "The empirical rule: about 68% within 1 standard deviation, 95% within 2, 99.7% within 3.",
+   "hook": "68, 95, 99.7: for 1, 2 and 3 standard deviations.",
+   "keys": [
+    "about 68% within 1 standard deviation"
+   ]
+  },
+  {
+   "id": "warm:14:14",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Test scores are normal with mean 100 and standard deviation 20. About what percentage score between 60 and 140?",
+   "right": "95%",
+   "wrong": [
+    "68%",
+    "99.7%",
+    "47.5%"
+   ],
+   "why": "60 and 140 are each 40 = 2 × 20 from the mean: 2 standard deviations either side, so about 95%.",
+   "hook": "First ask: how many standard deviations from the mean?",
+   "keys": [
+    "2 standard deviations either side"
+   ]
+  },
+  {
+   "id": "warm:14:15",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Sleep times are normal with mean 7.8 hours and standard deviation 0.6 hours. Between which values do the middle 68% lie?",
+   "right": "7.2 h and 8.4 h",
+   "wrong": [
+    "6.6 h and 9.0 h",
+    "7.5 h and 8.1 h",
+    "7.8 h and 8.4 h"
+   ],
+   "why": "68% is within 1 standard deviation of the mean: 7.8 − 0.6 = 7.2 h and 7.8 + 0.6 = 8.4 h.",
+   "hook": "Middle 68%: the mean ± 1 standard deviation.",
+   "keys": [
+    "7.8 − 0.6 = 7.2 h"
+   ]
+  },
+  {
+   "id": "warm:14:16",
+   "from": "warm",
+   "lvl": 1,
+   "q": "For a random sample of size n, what is the 95% margin of error for a population proportion?",
+   "right": "1/√n",
+   "wrong": [
+    "1/n",
+    "√n",
+    "1/n²"
+   ],
+   "why": "Margin of error = 1/√n. For example, n = 100 gives 1/√100 = 1/10 = 0.1 = 10%.",
+   "hook": "Margin of error: one over root n.",
+   "keys": [
+    "Margin of error = 1/√n"
+   ]
+  },
+  {
+   "id": "warm:14:17",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A poll asks a random sample of 400 people. What is the 95% margin of error, as a percentage?",
+   "right": "5%",
+   "wrong": [
+    "0.25%",
+    "20%",
+    "0.05%"
+   ],
+   "why": "1/√n = 1/√400 = 1/20 = 0.05. As a percentage: 0.05 × 100 = 5%.",
+   "hook": "Square root first, then 1 over it, then × 100 for %.",
+   "keys": [
+    "1/√400 = 1/20 = 0.05"
+   ]
+  },
+  {
+   "id": "warm:14:18",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A poll gives 54% support, with a margin of error of 3.2%. What is the 95% confidence interval for the support?",
+   "right": "50.8% ≤ p ≤ 57.2%",
+   "wrong": [
+    "54% ≤ p ≤ 57.2%",
+    "52.4% ≤ p ≤ 55.6%",
+    "47.6% ≤ p ≤ 60.4%"
+   ],
+   "why": "Go one margin of error below and above the sample result: 54 − 3.2 = 50.8 and 54 + 3.2 = 57.2.",
+   "hook": "Confidence interval = sample % ± margin of error.",
+   "keys": [
+    "54 − 3.2 = 50.8",
+    "54 + 3.2 = 57.2"
+   ]
+  },
+  {
+   "id": "warm:14:19",
+   "from": "warm",
+   "lvl": 1,
+   "q": "In a random sample of 300 people, 45 said yes. What percentage of the sample said yes?",
+   "right": "15%",
+   "wrong": [
+    "6.7%",
+    "0.15%",
+    "45%"
+   ],
+   "why": "Sample proportion = 45 ÷ 300 = 0.15. Multiply by 100: 15%.",
+   "hook": "Proportion = the ones who said yes ÷ the sample size.",
+   "keys": [
+    "45 ÷ 300 = 0.15"
+   ]
+  },
+  {
+   "id": "warm:14:20",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A 95% confidence interval for the share of new cars that are electric is 9.5% ≤ p ≤ 16.5%. A reporter claims the share is 19.2%. What do you conclude?",
+   "right": "Reject: 19.2% is outside the interval",
+   "wrong": [
+    "Accept: 19.2% is outside the interval",
+    "Accept: 19.2% is within 3.5% of 16.5%",
+    "Can't tell without the sample size"
+   ],
+   "why": "19.2% is outside 9.5% to 16.5%, so the sample doesn't support it: there is evidence the share is different. Reject the claim.",
+   "hook": "Claim inside the interval: no evidence. Outside: reject it.",
+   "keys": [
+    "Reject the claim"
+   ]
+  },
+  {
+   "id": "warm:14:21",
+   "from": "warm",
+   "lvl": 1,
+   "q": "To estimate how long Irish students read each day, a group asked the first 200 students to arrive at one school on a Monday. What is the main problem?",
+   "right": "It isn't random, so it may be biased",
+   "wrong": [
+    "A survey must ask every student",
+    "200 students is too many to ask",
+    "They should have asked on a Friday"
+   ],
+   "why": "A good sample is random, so it represents all students in Ireland. Early arrivals at one school on one morning may not be typical.",
+   "hook": "Was everyone equally likely to be picked? If not, it may be biased.",
+   "keys": [
+    "A good sample is random"
+   ]
+  },
+  {
+   "id": "warm:14:22",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Data: minutes spent reading per day, grouped as 0–30, 30–60, 60–90 and so on. Which graph suits it best?",
+   "right": "A histogram, with bars touching",
+   "wrong": [
+    "A bar chart with gaps",
+    "A scatter plot",
+    "A stem-and-leaf diagram"
+   ],
+   "why": "Time is continuous and the classes are equal 30-minute intervals, so use a histogram: the bars touch, with no gaps.",
+   "hook": "Continuous data in classes → histogram, bars touching.",
+   "keys": [
+    "the bars touch, with no gaps"
+   ]
+  },
+  {
+   "id": "warm:14:23",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Scatter plots: A falls, close to a line; B rises, close to a line; C rises but is spread out. Their r values are 0.95, 0.6 and −0.95. Which matching is right?",
+   "right": "A −0.95, B 0.95, C 0.6",
+   "wrong": [
+    "A −0.95, B 0.6, C 0.95",
+    "A 0.6, B 0.95, C −0.95",
+    "A 0.95, B −0.95, C 0.6"
+   ],
+   "why": "A goes down, so it is negative: −0.95. B and C go up. B hugs a line, so B is 0.95 (strong); C is more spread out, so 0.6.",
+   "hook": "Sign from the direction; size from how close the points are to a line.",
+   "keys": [
+    "B is 0.95"
+   ]
+  },
+  {
+   "id": "warm:14:24",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Stem-and-leaf (key 4 | 1 = 41): 4 | 1 2 3 3 9; 5 | 4 5 7 7 8; 6 | 3 4 5 5. How many of the values are more than 45?",
+   "right": "10",
+   "wrong": [
+    "9",
+    "14",
+    "4"
+   ],
+   "why": "Above 45: on the 4 row only 49 (1 value), then all 5 of the 50s and all 4 of the 60s: 1 + 5 + 4 = 10.",
+   "hook": "Turn each leaf back into the full number before you count.",
+   "keys": [
+    "1 + 5 + 4 = 10"
+   ]
+  },
+  {
+   "id": "warm:14:25",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Stem-and-leaf (key 1 | 5 = 15): 1 | 5 8 9; 2 | 0 3 6 7; 3 | 1 4. What is the median?",
+   "right": "23",
+   "wrong": [
+    "21.5",
+    "23.7",
+    "20"
+   ],
+   "why": "9 values, already in order. The median is the (9 + 1) ÷ 2 = 5th value: 15, 18, 19, 20, 23, so it is 23.",
+   "hook": "Median is value number (n + 1) ÷ 2. Stem-and-leaf is already sorted.",
+   "keys": [
+    "(9 + 1) ÷ 2 = 5th value"
+   ]
+  },
+  {
+   "id": "warm:14:26",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Year A: 600 of 1000 tonnes of waste went to landfill. Year B: 450 of 900 tonnes did. What is the difference between the two landfill percentages?",
+   "right": "10%",
+   "wrong": [
+    "15%",
+    "16.7%",
+    "25%"
+   ],
+   "why": "A: 600 ÷ 1000 × 100 = 60%. B: 450 ÷ 900 × 100 = 50%. Difference: 60% − 50% = 10%.",
+   "hook": "Work out each percentage first, then subtract.",
+   "keys": [
+    "60% − 50% = 10%"
+   ]
+  },
+  {
+   "id": "warm:14:27",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A pie chart shows the grades of 72 students. 39 of them got Merit. What angle is the Merit sector?",
+   "right": "195°",
+   "wrong": [
+    "39°",
+    "140.4°",
+    "7.8°"
+   ],
+   "why": "360° shared by 72 students is 360 ÷ 72 = 5° each. Merit: 39 × 5 = 195°.",
+   "hook": "Angle = number ÷ total × 360°.",
+   "keys": [
+    "360 ÷ 72 = 5° each"
+   ]
+  },
+  {
+   "id": "warm:14:28",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A shelter has 40 animals: 14 cats and the rest dogs. 11 of the dogs are male. How many female dogs are there?",
+   "right": "15",
+   "wrong": [
+    "26",
+    "29",
+    "3"
+   ],
+   "why": "Dogs: 40 − 14 = 26. Female dogs are the dogs that are not male: 26 − 11 = 15.",
+   "hook": "Two-way table: each row and column adds up to its total.",
+   "keys": [
+    "26 − 11 = 15"
+   ]
+  },
+  {
+   "id": "warm:14:29",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Find the mean of 12, 7, 9, 15, 8, 10, 11, correct to 1 decimal place.",
+   "right": "10.3",
+   "wrong": [
+    "10.2",
+    "10",
+    "12"
+   ],
+   "why": "Total: 72. Divide by 7: 72 ÷ 7 = 10.285… The next digit after the 2 is 8, so round up: 10.3.",
+   "hook": "Rounding: look at the next digit. 5 or more, round up.",
+   "keys": [
+    "72 ÷ 7 = 10.285…"
+   ]
+  },
+  {
+   "id": "warm:14:30",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Find the median of 4, 9, 6, 12, 7, 14.",
+   "right": "8",
+   "wrong": [
+    "9",
+    "8.67",
+    "3.5"
+   ],
+   "why": "In order: 4, 6, 7, 9, 12, 14. An even number of values, so go halfway between the middle two: (7 + 9) ÷ 2 = 8.",
+   "hook": "Even number of values? Median = halfway between the middle two.",
+   "keys": [
+    "(7 + 9) ÷ 2 = 8"
+   ]
+  },
+  {
+   "id": "warm:14:31",
+   "from": "warm",
+   "lvl": 2,
+   "q": "The list 8, 8, 9, 11, 14, 17, 28 has a median of 11. One more number is added and the new median is 10.5. What number was added?",
+   "right": "10",
+   "wrong": [
+    "12",
+    "21",
+    "−11"
+   ],
+   "why": "8 numbers: the median is halfway between the 4th and 5th. 10.5 is between 9 and 11, so the middle two are x and 11: (x + 11) ÷ 2 = 10.5, x = 10.",
+   "hook": "Even count: the median is the average of the middle two.",
+   "keys": [
+    "(x + 11) ÷ 2 = 10.5"
+   ]
+  },
+  {
+   "id": "warm:14:32",
+   "from": "warm",
+   "lvl": 2,
+   "q": "In a frequency table, the scores 1, 2 and 3 occur 5, 3 and 2 times. What is the mean score?",
+   "right": "1.7",
+   "wrong": [
+    "2",
+    "3.33",
+    "5.67"
+   ],
+   "why": "Total = 1 × 5 + 2 × 3 + 3 × 2 = 17. Number of scores = 5 + 3 + 2 = 10. Mean = 17 ÷ 10 = 1.7.",
+   "hook": "Frequency table: add up (value × frequency), then ÷ total frequency.",
+   "keys": [
+    "17 ÷ 10 = 1.7"
+   ]
+  },
+  {
+   "id": "warm:14:33",
+   "from": "warm",
+   "lvl": 2,
+   "q": "The mean of four numbers is 50. Three of them are 40, 55 and 60. What is the fourth number?",
+   "right": "45",
+   "wrong": [
+    "−5",
+    "51.67",
+    "50"
+   ],
+   "why": "Four numbers with a mean of 50 add up to 4 × 50 = 200. The three you know add to 155, so the fourth is 200 − 155 = 45.",
+   "hook": "Mean × how many = the total.",
+   "keys": [
+    "4 × 50 = 200",
+    "200 − 155 = 45"
+   ]
+  },
+  {
+   "id": "warm:14:34",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Heights are normally distributed, and 95% of them are between 150 cm and 170 cm. What are the mean and the standard deviation?",
+   "right": "Mean 160 cm, st. dev. 5 cm",
+   "wrong": [
+    "Mean 160 cm, st. dev. 10 cm",
+    "Mean 160 cm, st. dev. 20 cm",
+    "Mean 160 cm, st. dev. 3.3 cm"
+   ],
+   "why": "The mean is halfway: (150 + 170) ÷ 2 = 160 cm. 95% spans 2 standard deviations each side, 4 in all: 20 ÷ 4 = 5 cm.",
+   "hook": "95% spans 4 standard deviations: 2 below the mean and 2 above.",
+   "keys": [
+    "20 ÷ 4 = 5 cm"
+   ]
+  },
+  {
+   "id": "warm:14:35",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Weights are normally distributed. The middle 68% are between 60 kg and 80 kg. What is the standard deviation?",
+   "right": "10 kg",
+   "wrong": [
+    "20 kg",
+    "5 kg",
+    "70 kg"
+   ],
+   "why": "The middle 68% is 1 standard deviation either side of the mean, so 60 to 80 is 2 of them: 20 ÷ 2 = 10 kg.",
+   "hook": "Middle 68%: 2 standard deviations wide. Middle 95%: 4 wide.",
+   "keys": [
+    "20 ÷ 2 = 10 kg"
+   ]
+  },
+  {
+   "id": "warm:14:36",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Sleep times are normal with mean 7.8 hours and standard deviation 0.6 hours. What percentage of people sleep at least 9 hours?",
+   "right": "2.5%",
+   "wrong": [
+    "5%",
+    "16%",
+    "97.5%"
+   ],
+   "why": "9 = 7.8 + 2 × 0.6, two standard deviations above. 95% are within 2, so 5% are outside, half at each end: 5% ÷ 2 = 2.5%.",
+   "hook": "Outside the middle 95%: 5%, split equally between the two ends.",
+   "keys": [
+    "5% ÷ 2 = 2.5%"
+   ]
+  },
+  {
+   "id": "warm:14:37",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Scores are normal with mean 100 and standard deviation 20. The top 2.5% get \"Exceptional\". What is the lowest score that gets it?",
+   "right": "140",
+   "wrong": [
+    "120",
+    "160",
+    "60"
+   ],
+   "why": "95% of scores are between 100 − 40 = 60 and 100 + 40 = 140. The other 5% splits in two, so the top 2.5% starts at 140.",
+   "hook": "Top 2.5% starts 2 standard deviations above the mean.",
+   "keys": [
+    "the top 2.5% starts at 140"
+   ]
+  },
+  {
+   "id": "warm:14:38",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A poll asks a random sample of 1000 people. What is the 95% margin of error, as a percentage correct to 1 decimal place?",
+   "right": "3.2%",
+   "wrong": [
+    "3.1%",
+    "0.1%",
+    "31.6%"
+   ],
+   "why": "1/√1000 = 0.0316…, which is 3.16…%. The next digit is 6, so round up: 3.2%.",
+   "hook": "Round at the very end: look at the next digit.",
+   "keys": [
+    "round up: 3.2%"
+   ]
+  },
+  {
+   "id": "warm:14:39",
+   "from": "warm",
+   "lvl": 2,
+   "q": "In a random sample of 500 Cork students, 12.2% got Excellent; the margin of error is 4.5%. Nationally, 10% get Excellent. Is there evidence Cork is different?",
+   "right": "No: 10% is inside 7.7% to 16.7%",
+   "wrong": [
+    "Yes: 12.2% is not equal to 10%",
+    "Yes: 10% is inside 7.7% to 16.7%",
+    "Yes: 10% is outside 12.2% to 16.7%"
+   ],
+   "why": "Interval: 12.2 − 4.5 = 7.7% to 12.2 + 4.5 = 16.7%. 10% is inside it, so there is no evidence that Cork is different.",
+   "hook": "Claim inside the interval: no evidence of a difference.",
+   "keys": [
+    "10% is inside it"
+   ]
+  },
+  {
+   "id": "warm:14:40",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Minutes reading per day: 90–120 min: 59 students, 120–150 min: 18, 150–180 min: 10. At most how many students read for more than 100 minutes?",
+   "right": "87",
+   "wrong": [
+    "28",
+    "67",
+    "77"
+   ],
+   "why": "For the most, assume all 59 in the 90–120 class read over 100 minutes. Add everyone above: 59 + 18 + 10 = 87.",
+   "hook": "\"At most\": assume the whole split class falls on your side.",
+   "keys": [
+    "59 + 18 + 10 = 87"
+   ]
+  }
+ ]
+}

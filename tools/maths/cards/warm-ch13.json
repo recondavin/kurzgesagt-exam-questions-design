@@ -1,0 +1,686 @@
+{
+ "chapter": 13,
+ "warm": true,
+ "cards": [
+  {
+   "id": "warm:13:1",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A bag has 3 red and 5 blue marbles. One is picked at random. What is the probability that it is red?",
+   "right": "3/8",
+   "wrong": [
+    "3/5",
+    "5/8",
+    "1/2"
+   ],
+   "why": "3 of the 8 marbles are red: P(red) = 3 ÷ 8 = 3/8. Divide by all the marbles (3 + 5), not just the blue ones.",
+   "hook": "Probability = the ones you want ÷ all of them.",
+   "keys": [
+    "P(red) = 3 ÷ 8 = 3/8"
+   ]
+  },
+  {
+   "id": "warm:13:2",
+   "from": "warm",
+   "lvl": 1,
+   "q": "The probability of knocking a coconut off its stand is 0.34. What is the probability of not knocking it off?",
+   "right": "0.66",
+   "wrong": [
+    "0.34",
+    "0.5",
+    "0.76"
+   ],
+   "why": "You either knock it off or you don't, so the two probabilities add to 1: 1 − 0.34 = 0.66.",
+   "hook": "P(not A) = 1 − P(A).",
+   "keys": [
+    "1 − 0.34 = 0.66"
+   ]
+  },
+  {
+   "id": "warm:13:3",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A spinner can land on red, blue or green. P(red) = 0.2 and P(blue) = 0.5. What is P(green)?",
+   "right": "0.3",
+   "wrong": [
+    "0.7",
+    "0.8",
+    "0.33"
+   ],
+   "why": "The three probabilities add to 1: 1 − 0.2 − 0.5 = 0.3.",
+   "hook": "All the outcomes' probabilities add up to 1.",
+   "keys": [
+    "1 − 0.2 − 0.5 = 0.3"
+   ]
+  },
+  {
+   "id": "warm:13:4",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Of 200 babies born in a hospital, 104 were boys. What is the probability that a baby picked at random from them is a boy?",
+   "right": "0.52",
+   "wrong": [
+    "0.48",
+    "0.104",
+    "0.5"
+   ],
+   "why": "P(boy) = boys ÷ all the babies = 104 ÷ 200 = 0.52.",
+   "hook": "From data: probability = how often it happened ÷ how many in all.",
+   "keys": [
+    "104 ÷ 200 = 0.52"
+   ]
+  },
+  {
+   "id": "warm:13:5",
+   "from": "warm",
+   "lvl": 1,
+   "q": "The probability that a baby is born on a Tuesday is 0.16. Out of 1300 babies, how many would you expect to be born on a Tuesday?",
+   "right": "208",
+   "wrong": [
+    "186",
+    "8125",
+    "1092"
+   ],
+   "why": "Expected number = total × probability = 1300 × 0.16 = 208.",
+   "hook": "Expected number = how many times × the probability.",
+   "keys": [
+    "1300 × 0.16 = 208"
+   ]
+  },
+  {
+   "id": "warm:13:6",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Eoin scores a free throw with probability 0.4, and each throw is independent. What is the probability that he scores both of his next two throws?",
+   "right": "0.16",
+   "wrong": [
+    "0.8",
+    "0.24",
+    "0.4"
+   ],
+   "why": "Independent events: multiply. P(score, score) = 0.4 × 0.4 = 0.16.",
+   "hook": "AND with independent events: multiply.",
+   "keys": [
+    "0.4 × 0.4 = 0.16"
+   ]
+  },
+  {
+   "id": "warm:13:7",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Two fair six-sided dice are thrown. How many different outcomes (like a 2 on the first and a 5 on the second) are there?",
+   "right": "36",
+   "wrong": [
+    "12",
+    "11",
+    "21"
+   ],
+   "why": "Each of the 6 scores on the 1st die can go with each of the 6 on the 2nd: 6 × 6 = 36. (2, 5) and (5, 2) are different outcomes.",
+   "hook": "Two dice: a 6 by 6 table, 36 boxes.",
+   "keys": [
+    "6 × 6 = 36"
+   ]
+  },
+  {
+   "id": "warm:13:8",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Two fair dice are thrown and the scores are added. What is the probability of a total of 7?",
+   "right": "6/36",
+   "wrong": [
+    "1/11",
+    "3/36",
+    "3/21"
+   ],
+   "why": "7 comes from (1,6), (2,5), (3,4), (4,3), (5,2), (6,1): 6 of the 36 outcomes, so 6/36. The 11 totals are not equally likely.",
+   "hook": "Count outcomes in the 36-box table, not the totals.",
+   "keys": [
+    "6 of the 36 outcomes"
+   ]
+  },
+  {
+   "id": "warm:13:9",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Spinner 1 has 4 equal sections (left/right hand, left/right foot); spinner 2 has 4 equal colours. Both are spun. What is P(right hand and blue)?",
+   "right": "1/16",
+   "wrong": [
+    "1/2",
+    "1/4",
+    "2/16"
+   ],
+   "why": "Right hand and blue is 1 cell of the 4 × 4 table: 1/16. Or multiply, as the spinners are independent: 1/4 × 1/4 = 1/16.",
+   "hook": "AND: multiply. OR: add (and take off any overlap).",
+   "keys": [
+    "1/4 × 1/4 = 1/16"
+   ]
+  },
+  {
+   "id": "warm:13:10",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Spinner 1 has 4 equal body parts; spinner 2 has 4 equal colours: red, yellow, blue, green. Both are spun (16 outcomes). What is P(red or yellow)?",
+   "right": "8/16",
+   "wrong": [
+    "1/16",
+    "2/16",
+    "4/16"
+   ],
+   "why": "Red is a column of 4 outcomes and yellow is another 4. A spot can't be both, so just add: 4 + 4 = 8 of 16, so 8/16.",
+   "hook": "OR with no overlap: just add.",
+   "keys": [
+    "4 + 4 = 8 of 16"
+   ]
+  },
+  {
+   "id": "warm:13:11",
+   "from": "warm",
+   "lvl": 1,
+   "q": "In a class of 30, 18 play football, 12 play hurling and 5 play both. How many play football or hurling (or both)?",
+   "right": "25",
+   "wrong": [
+    "30",
+    "20",
+    "35"
+   ],
+   "why": "Adding 18 + 12 counts the 5 who play both twice, so take them away once: 18 + 12 − 5 = 25.",
+   "hook": "Football or hurling: add, then take off the \"both\" once.",
+   "keys": [
+    "18 + 12 − 5 = 25"
+   ]
+  },
+  {
+   "id": "warm:13:12",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A Venn diagram shows 40 students: 12 study French only, 9 study French and German, and 8 study German only. How many study neither?",
+   "right": "11",
+   "wrong": [
+    "20",
+    "19",
+    "2"
+   ],
+   "why": "The four regions add to 40: 40 − 12 − 9 − 8 = 11 study neither.",
+   "hook": "All the regions of a Venn diagram add up to the total.",
+   "keys": [
+    "40 − 12 − 9 − 8 = 11"
+   ]
+  },
+  {
+   "id": "warm:13:13",
+   "from": "warm",
+   "lvl": 1,
+   "q": "On a tree diagram, P(Seán wins match 1) = 0.6 and then P(he loses match 2) = 0.3. What is the probability that he wins match 1 and loses match 2?",
+   "right": "0.18",
+   "wrong": [
+    "0.9",
+    "0.3",
+    "0.42"
+   ],
+   "why": "Multiply along the path Win → Lose: 0.6 × 0.3 = 0.18.",
+   "hook": "Along a path: multiply. Between paths: add.",
+   "keys": [
+    "0.6 × 0.3 = 0.18"
+   ]
+  },
+  {
+   "id": "warm:13:14",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Mandy picks Balcony or Stalls (equally likely), then Monday, Wednesday or Friday (equally likely). What is the probability she picks Balcony and Wednesday?",
+   "right": "1/6",
+   "wrong": [
+    "5/6",
+    "1/5",
+    "2/5"
+   ],
+   "why": "Multiply along the path Balcony → Wednesday: 1/2 × 1/3 = 1/6. There are 2 × 3 = 6 equally likely paths.",
+   "hook": "Tree diagram: multiply along the branches.",
+   "keys": [
+    "1/2 × 1/3 = 1/6"
+   ]
+  },
+  {
+   "id": "warm:13:15",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A spinner has 7 sectors of different sizes. The red sector has an angle of 72°. What is the probability of landing on red?",
+   "right": "1/5",
+   "wrong": [
+    "18/25",
+    "1/7",
+    "2/5"
+   ],
+   "why": "Probability is the sector's share of the full turn: 72 ÷ 360 = 1/5.",
+   "hook": "Spinner probability = angle ÷ 360°.",
+   "keys": [
+    "72 ÷ 360 = 1/5"
+   ]
+  },
+  {
+   "id": "warm:13:16",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A game pays €10 with probability 0.2 and nothing otherwise. What is the expected prize?",
+   "right": "€2",
+   "wrong": [
+    "€5",
+    "€8",
+    "€50"
+   ],
+   "why": "Expected value = each prize × its probability, added: 10 × 0.2 + 0 × 0.8 = €2.",
+   "hook": "Expected value: multiply each value by its probability, then add.",
+   "keys": [
+    "10 × 0.2 + 0 × 0.8 = €2"
+   ]
+  },
+  {
+   "id": "warm:13:17",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Jena pays €1 to play a game. Her expected winnings are €0.90 a game. Is the game fair?",
+   "right": "No: she loses 10c a game on average",
+   "wrong": [
+    "Yes: €0.90 is close to €1",
+    "No: she gains 10c a game on average",
+    "Yes: she can sometimes win over €1"
+   ],
+   "why": "Fair means the expected value equals the cost. €0.90 is less than €1, so on average she loses 10c a game: not fair.",
+   "hook": "Fair game: expected winnings = the cost to play.",
+   "keys": [
+    "expected value equals the cost"
+   ]
+  },
+  {
+   "id": "warm:13:18",
+   "from": "warm",
+   "lvl": 1,
+   "q": "14 cards: 7 green and 7 red. A red card is picked and not put back. What is the probability that the next card picked is green?",
+   "right": "7/13",
+   "wrong": [
+    "7/14",
+    "6/13",
+    "6/14"
+   ],
+   "why": "The red card isn't put back, so 13 cards are left, and all 7 greens are still there: 7/13.",
+   "hook": "No replacement: the total goes down by 1 after each pick.",
+   "keys": [
+    "13 cards are left"
+   ]
+  },
+  {
+   "id": "warm:13:19",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Cards: green 1 to 7 and red 1 to 7 (14 cards). One card is picked at random. What is the probability that its number is even?",
+   "right": "6/14",
+   "wrong": [
+    "3/14",
+    "8/14",
+    "6/7"
+   ],
+   "why": "The even numbers are 2, 4 and 6, in both colours: G2, G4, G6, R2, R4, R6. That is 6 of the 14 cards: 6/14.",
+   "hook": "Count every card that fits, in every colour.",
+   "keys": [
+    "6 of the 14 cards"
+   ]
+  },
+  {
+   "id": "warm:13:20",
+   "from": "warm",
+   "lvl": 1,
+   "q": "30 animals are in a shelter. The probability that one picked at random is a dog is 11/15. How many dogs are there?",
+   "right": "22",
+   "wrong": [
+    "11",
+    "8",
+    "2"
+   ],
+   "why": "Dogs = 11/15 of 30 = 30 ÷ 15 × 11 = 22.",
+   "hook": "Number expected = total × probability.",
+   "keys": [
+    "30 ÷ 15 × 11 = 22"
+   ]
+  },
+  {
+   "id": "warm:13:21",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Rohan scores 70% of his free throws. Which is a good reason why his throws might not be independent?",
+   "right": "Missing one can make him nervous",
+   "wrong": [
+    "He scores 70% of them on average",
+    "Each throw is a score or a miss",
+    "He takes more than one throw"
+   ],
+   "why": "Independent means one throw doesn't change the chance of the next. Nerves after a miss (or confidence after a score) would change it.",
+   "hook": "Independent: what happened before makes no difference.",
+   "keys": [
+    "doesn't change the chance of the next"
+   ]
+  },
+  {
+   "id": "warm:13:22",
+   "from": "warm",
+   "lvl": 1,
+   "q": "What is the quickest correct way to find the probability of at least one six in 3 rolls of a fair die?",
+   "right": "1 − P(no six)",
+   "wrong": [
+    "3 × P(six)",
+    "1 − P(three sixes)",
+    "P(exactly one six)"
+   ],
+   "why": "\"At least one six\" is every result except no six at all, so work out P(no six) and take it away from 1. 3 × 1/6 counts some results twice.",
+   "hook": "At least one? Find P(none), then take it from 1.",
+   "keys": [
+    "take it away from 1"
+   ]
+  },
+  {
+   "id": "warm:13:23",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Two fair dice are thrown and the scores are added. What is the probability that the total is a prime number?",
+   "right": "15/36",
+   "wrong": [
+    "5/11",
+    "14/36",
+    "19/36"
+   ],
+   "why": "The prime totals are 2, 3, 5, 7 and 11. In the 36-box table they come up 1 + 2 + 4 + 6 + 2 = 15 times: 15/36.",
+   "hook": "Prime: exactly two factors. 2 is prime; 1 and 9 are not.",
+   "keys": [
+    "1 + 2 + 4 + 6 + 2 = 15"
+   ]
+  },
+  {
+   "id": "warm:13:24",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A spinner numbered 1 to 5 (all equally likely) is spun twice and the two numbers are added. What is the probability of a total of 4 or 5?",
+   "right": "7/25",
+   "wrong": [
+    "2/9",
+    "4/25",
+    "3/25"
+   ],
+   "why": "Total 4: (1,3), (2,2), (3,1). Total 5: (1,4), (2,3), (3,2), (4,1). That is 3 + 4 = 7 of the 25 outcomes: 7/25.",
+   "hook": "Write both orders: (1,3) and (3,1) are different outcomes.",
+   "keys": [
+    "3 + 4 = 7"
+   ]
+  },
+  {
+   "id": "warm:13:25",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Spinner 1 has 4 equal body parts; spinner 2 has 4 equal colours. Both are spun (16 outcomes). What is the probability of right hand or blue?",
+   "right": "7/16",
+   "wrong": [
+    "8/16",
+    "1/16",
+    "6/16"
+   ],
+   "why": "Right hand is a row of 4 cells, blue a column of 4. They share 1 cell, so count it once: 4 + 4 − 1 = 7, so 7/16.",
+   "hook": "OR: add, then take away the overlap you counted twice.",
+   "keys": [
+    "4 + 4 − 1 = 7"
+   ]
+  },
+  {
+   "id": "warm:13:26",
+   "from": "warm",
+   "lvl": 2,
+   "q": "30 cars: 18 Fords (7 of them red) and 12 Renaults (4 of them red). A car is picked at random. What is the probability that it is a Ford or is not red?",
+   "right": "26/30",
+   "wrong": [
+    "11/30",
+    "18/30",
+    "19/30"
+   ],
+   "why": "Every Ford (18) plus the Renaults that are not red (12 − 4 = 8): 18 + 8 = 26, so 26/30. Fords that aren't red are already in the 18.",
+   "hook": "OR: count everything in either group, each car only once.",
+   "keys": [
+    "18 + 8 = 26"
+   ]
+  },
+  {
+   "id": "warm:13:27",
+   "from": "warm",
+   "lvl": 2,
+   "q": "100 customers: 42 bought vanilla, 37 bought a cone, and 45 bought neither. How many bought vanilla in a cone (both)?",
+   "right": "24",
+   "wrong": [
+    "21",
+    "55",
+    "34"
+   ],
+   "why": "100 − 45 = 55 are in the circles. 42 + 37 = 79 counts \"both\" twice, so both = 79 − 55 = 24.",
+   "hook": "The two circles added − the people in the circles = the overlap.",
+   "keys": [
+    "79 − 55 = 24"
+   ]
+  },
+  {
+   "id": "warm:13:28",
+   "from": "warm",
+   "lvl": 2,
+   "q": "50 people: 12 own a cat only, 18 own a dog only, 10 own both and 10 own neither. What percentage own only one of the two animals?",
+   "right": "60%",
+   "wrong": [
+    "80%",
+    "20%",
+    "36%"
+   ],
+   "why": "Only one animal = cat only + dog only = 12 + 18 = 30. Then 30 ÷ 50 × 100 = 60%.",
+   "hook": "\"Only\" means the part of a circle outside the overlap.",
+   "keys": [
+    "12 + 18 = 30"
+   ]
+  },
+  {
+   "id": "warm:13:29",
+   "from": "warm",
+   "lvl": 2,
+   "q": "P(Seán wins match 1) = 0.6 and P(he wins match 2) = 0.7, independently. What is the probability that he loses both matches?",
+   "right": "0.12",
+   "wrong": [
+    "0.42",
+    "0.7",
+    "0.58"
+   ],
+   "why": "P(lose 1st) = 1 − 0.6 = 0.4 and P(lose 2nd) = 1 − 0.7 = 0.3. Multiply: 0.4 × 0.3 = 0.12.",
+   "hook": "Losing is \"not winning\": 1 − p on each branch, then multiply.",
+   "keys": [
+    "0.4 × 0.3 = 0.12"
+   ]
+  },
+  {
+   "id": "warm:13:30",
+   "from": "warm",
+   "lvl": 2,
+   "q": "P(Seán wins match 1) = 0.6 and P(he wins match 2) = 0.7, independently. What is the probability that he wins at least one match?",
+   "right": "0.88",
+   "wrong": [
+    "0.46",
+    "0.58",
+    "0.42"
+   ],
+   "why": "At least one win is everything except losing both: 1 − 0.4 × 0.3 = 1 − 0.12 = 0.88.",
+   "hook": "At least one = 1 − P(none of them).",
+   "keys": [
+    "1 − 0.12 = 0.88"
+   ]
+  },
+  {
+   "id": "warm:13:31",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A game pays €20 with probability 0.1, €5 with probability 0.3, and €0 otherwise. What is the expected prize?",
+   "right": "€3.50",
+   "wrong": [
+    "€8.33",
+    "€2.00",
+    "€1.50"
+   ],
+   "why": "20 × 0.1 + 5 × 0.3 + 0 × 0.6 = 2 + 1.5 + 0 = €3.50.",
+   "hook": "Don't average the prizes: weight each one by its probability.",
+   "keys": [
+    "2 + 1.5 + 0 = €3.50"
+   ]
+  },
+  {
+   "id": "warm:13:32",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A game costs €1.50 to play. You win €5 with probability 0.2, and nothing otherwise. On average, what happens to a player each game?",
+   "right": "Loses 50c",
+   "wrong": [
+    "Wins 50c",
+    "Wins €3.50",
+    "Loses €1.50"
+   ],
+   "why": "Expected winnings: 5 × 0.2 = €1. It costs €1.50, so €1 − €1.50 = −50c: a player loses 50c a game on average.",
+   "hook": "Compare the expected value with the price of a go.",
+   "keys": [
+    "5 × 0.2 = €1"
+   ]
+  },
+  {
+   "id": "warm:13:33",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A bag has 5 red and 3 blue sweets. Two are taken, one after the other, without replacement. What is the probability that both are red?",
+   "right": "20/56",
+   "wrong": [
+    "25/64",
+    "20/64",
+    "9/15"
+   ],
+   "why": "1st red: 5/8. One red has gone, so 2nd red: 4/7. Multiply: 5/8 × 4/7 = 20/56 (= 5/14).",
+   "hook": "Without replacement: one fewer on the top and on the bottom.",
+   "keys": [
+    "5/8 × 4/7 = 20/56"
+   ]
+  },
+  {
+   "id": "warm:13:34",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Cards: green 1 to 7 and red 1 to 7. The first card picked is G3 and it is not put back. What is the probability that the second card is a different colour and a different number?",
+   "right": "6/13",
+   "wrong": [
+    "7/13",
+    "6/14",
+    "1/13"
+   ],
+   "why": "13 cards are left. A different colour means red; a different number rules out R3. That leaves 7 − 1 = 6 red cards: 6/13.",
+   "hook": "Two conditions: count only the cards that pass both.",
+   "keys": [
+    "7 − 1 = 6"
+   ]
+  },
+  {
+   "id": "warm:13:35",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Each shot hits the target with probability 0.2, independently. What is the probability that the first hit is on the 3rd shot?",
+   "right": "0.128",
+   "wrong": [
+    "0.008",
+    "0.032",
+    "0.384"
+   ],
+   "why": "First hit on the 3rd shot means miss, miss, hit: 0.8 × 0.8 × 0.2 = 0.128. Only one order fits.",
+   "hook": "\"First time on the 3rd\": write out the order, then multiply.",
+   "keys": [
+    "0.8 × 0.8 × 0.2 = 0.128"
+   ]
+  },
+  {
+   "id": "warm:13:36",
+   "from": "warm",
+   "lvl": 2,
+   "q": "The probability that a person has blue eyes is 0.7. Four people are picked at random. What is the probability that the 4th is the only one with blue eyes?",
+   "right": "0.0189",
+   "wrong": [
+    "0.0756",
+    "0.1029",
+    "0.0081"
+   ],
+   "why": "Not, not, not, blue: 0.3 × 0.3 × 0.3 × 0.7 = 0.0189. The question says which person, so there is just one order.",
+   "hook": "Told which one? One order. Not told? Count the orders.",
+   "keys": [
+    "0.3 × 0.3 × 0.3 × 0.7 = 0.0189"
+   ]
+  },
+  {
+   "id": "warm:13:37",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Rohan scores a free throw with probability 0.6, independently. What is the probability that he scores exactly 2 of his next 3 throws?",
+   "right": "0.432",
+   "wrong": [
+    "0.144",
+    "0.36",
+    "0.216"
+   ],
+   "why": "One miss, and it can be the 1st, 2nd or 3rd throw: 3 orders, each 0.6 × 0.6 × 0.4 = 0.144. So 3 × 0.144 = 0.432.",
+   "hook": "Exactly 2 of 3: the odd one out can be in 3 places, so × 3.",
+   "keys": [
+    "3 × 0.144 = 0.432"
+   ]
+  },
+  {
+   "id": "warm:13:38",
+   "from": "warm",
+   "lvl": 2,
+   "q": "The probability of rain on any day is 0.3, independently. What is the probability of rain on at least one of the next two days?",
+   "right": "0.51",
+   "wrong": [
+    "0.6",
+    "0.09",
+    "0.42"
+   ],
+   "why": "At least one is everything except no rain on both days: 1 − 0.7 × 0.7 = 1 − 0.49 = 0.51.",
+   "hook": "At least once? Work out \"never\", then take it from 1.",
+   "keys": [
+    "1 − 0.49 = 0.51"
+   ]
+  },
+  {
+   "id": "warm:13:39",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Daily sales: €100 on a wet day (50% of days), €200 on a dull day (30%), €400 on a sunny day (20%). What are the expected daily sales?",
+   "right": "€190",
+   "wrong": [
+    "€233.33",
+    "€19 000",
+    "€110"
+   ],
+   "why": "Change % to decimals: 100 × 0.5 + 200 × 0.3 + 400 × 0.2 = 50 + 60 + 80 = €190.",
+   "hook": "Turn percentages into decimals first: 30% = 0.3.",
+   "keys": [
+    "50 + 60 + 80 = €190"
+   ]
+  },
+  {
+   "id": "warm:13:40",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A team takes 6 shots that each score 10% of the time, and 3 shots that each score 40% of the time. What is the expected number of goals?",
+   "right": "1.8",
+   "wrong": [
+    "0.5",
+    "2.25",
+    "4.5"
+   ],
+   "why": "Each shot is worth its probability: 6 × 0.1 + 3 × 0.4 = 0.6 + 1.2 = 1.8 goals.",
+   "hook": "Expected total = number × probability for each kind, added.",
+   "keys": [
+    "0.6 + 1.2 = 1.8"
+   ]
+  }
+ ]
+}
