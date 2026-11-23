@@ -247,7 +247,8 @@
               }
             }
           ],
-          "tip": "Make each dot clear and count them: fewer than ten dots loses marks even if the pattern is right."
+          "tip": "Make each dot clear and count them: fewer than ten dots loses marks even if the pattern is right.",
+          "ask": "Draw ten or more points showing strong positive correlation."
         },
         {
           "l": "(a)(ii)",
@@ -419,7 +420,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Draw ten or more points showing strong negative correlation."
         },
         {
           "l": "(a)(iii)",
@@ -579,7 +581,8 @@
               }
             }
           ],
-          "tip": "Use the whole grid, top to bottom and left to right, so that no trend up or down can show."
+          "tip": "Use the whole grid, top to bottom and left to right, so that no trend up or down can show.",
+          "ask": "Draw ten or more points showing no correlation."
         },
         {
           "l": "(b)(i)",
@@ -670,7 +673,8 @@
               }
             }
           ],
-          "tip": "Write the formula 1/√n first: it earns marks even if you slip later."
+          "tip": "Write the formula 1/√n first: it earns marks even if you slip later.",
+          "ask": "Find the margin of error for a poll of 1000 people, as a % to 1 d.p."
         },
         {
           "l": "(b)(ii)",
@@ -733,7 +737,8 @@
               }
             }
           ],
-          "tip": "Write the interval with ≤ signs and a % on both ends."
+          "tip": "Write the interval with ≤ signs and a % on both ends.",
+          "ask": "Find a 95% confidence interval for the 'No' support (poll said 54%)."
         }
       ]
     },
@@ -933,7 +938,8 @@
               }
             }
           ],
-          "tip": "Count your leaves at the end: the total must equal the number of values (28 here)."
+          "tip": "Count your leaves at the end: the total must equal the number of values (28 here).",
+          "ask": "Complete the stem-and-leaf diagram of all 28 employees' ages."
         },
         {
           "l": "(b)",
@@ -1233,7 +1239,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the percentage of employees older than 40."
         },
         {
           "l": "(c)(i)",
@@ -1346,7 +1353,8 @@
               }
             }
           ],
-          "tip": "A probability can never be more than 1: if yours is, check what you divided by."
+          "tip": "A probability can never be more than 1: if yours is, check what you divided by.",
+          "ask": "What's the chance a random employee is a teenager (under 20)?"
         },
         {
           "l": "(c)(ii)",
@@ -1514,7 +1522,8 @@
               }
             }
           ],
-          "tip": "Repeated ages are different people: 34 appears twice, so it counts twice."
+          "tip": "Repeated ages are different people: 34 appears twice, so it counts twice.",
+          "ask": "What's the chance of an even age in the 30s or an odd age in the 40s?"
         }
       ]
     },
@@ -1665,7 +1674,8 @@
               }
             }
           ],
-          "tip": "Don't subtract the kilotonnes: the question compares two percentages. Keep full calculator values until the end."
+          "tip": "Don't subtract the kilotonnes: the question compares two percentages. Keep full calculator values until the end.",
+          "ask": "Find the difference in % of waste sent to landfill, 2005 vs 2011."
         },
         {
           "l": "(a)(ii)",
@@ -1760,7 +1770,8 @@
               }
             }
           ],
-          "tip": "2005 to 2011 is 7 years, not 6: count the rows."
+          "tip": "2005 to 2011 is 7 years, not 6: count the rows.",
+          "ask": "Find the mean waste collected per year, 2005 to 2011, to 1 d.p."
         },
         {
           "l": "(a)(iii)",
@@ -1852,7 +1863,8 @@
               }
             }
           ],
-          "tip": "Mean × number of values = total. This lets you work backwards from any mean."
+          "tip": "Mean × number of values = total. This lets you work backwards from any mean.",
+          "ask": "Find the 2012 landfill amount, if the 2009–2012 mean was 1398 kilotonnes."
         },
         {
           "l": "(b)(i)",
@@ -2245,7 +2257,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What percentage of Denmark's energy in 2014 was renewable?"
         },
         {
           "l": "(b)(ii)",
@@ -2347,7 +2360,8 @@
               }
             }
           ],
-          "tip": "'Lower than' means strictly less: a country with exactly 6% would not count."
+          "tip": "'Lower than' means strictly less: a country with exactly 6% would not count.",
+          "ask": "Name the four countries with less renewable energy than Ireland."
         },
         {
           "l": "(b)(iii)",
@@ -2426,7 +2440,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Name a country that used no gas as a fuel source."
         },
         {
           "l": "(b)(iv)",
@@ -2691,7 +2706,8 @@
               }
             }
           ],
-          "tip": "Always check that your pie chart angles add up to 360°."
+          "tip": "Always check that your pie chart angles add up to 360°.",
+          "ask": "Work out the pie chart angle for each energy type (6% renewable is 22°)."
         },
         {
           "l": "(b)(v)",
@@ -2801,7 +2817,8 @@
               }
             }
           ],
-          "tip": "Labels are worth marks: name every sector."
+          "tip": "Labels are worth marks: name every sector.",
+          "ask": "Draw the rest of the pie chart for Ireland's energy and label it."
         }
       ]
     },
@@ -3041,7 +3058,8 @@
               }
             }
           ],
-          "tip": "Find the mean first (the middle); then the standard deviation is the distance from the mean to an end, divided by 2."
+          "tip": "Find the mean first (the middle); then the standard deviation is the distance from the mean to an end, divided by 2.",
+          "ask": "Find the mean and standard deviation if 95% are 147.9 to 178.7 cm."
         },
         {
           "l": "(b)(i)",
@@ -3444,7 +3462,8 @@
               }
             }
           ],
-          "tip": "Height across, arm span up: plotting them the wrong way round loses marks."
+          "tip": "Height across, arm span up: plotting them the wrong way round loses marks.",
+          "ask": "Plot the males' heights and arm spans on the scatter plot."
         },
         {
           "l": "(b)(ii)",
@@ -3728,7 +3747,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Tick the best correlation coefficient: 0.2, 0.9 or −0.6."
         },
         {
           "l": "(b)(iii)",
@@ -4059,7 +4079,8 @@
               }
             }
           ],
-          "tip": "Use both words, 'strong' and 'positive', and link them to height and arm span."
+          "tip": "Use both words, 'strong' and 'positive', and link them to height and arm span.",
+          "ask": "Explain what that correlation coefficient says about height and arm span."
         }
       ]
     },
@@ -4258,7 +4279,8 @@
               }
             }
           ],
-          "tip": "For an angle over 180°, like 195°, draw the smaller sectors first: the last gap is the big one."
+          "tip": "For an angle over 180°, like 195°, draw the smaller sectors first: the last gap is the big one.",
+          "ask": "Complete and label the grades pie chart (Distinction is 40°)."
         },
         {
           "l": "(b)(i)",
@@ -4322,7 +4344,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What percentage scored between 80 and 120 (mean 100, sd 20)?"
         },
         {
           "l": "(b)(ii)",
@@ -4393,7 +4416,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the least score needed for the top 2.5% ('Exceptional')."
         },
         {
           "l": "(c)",
@@ -4556,7 +4580,8 @@
               }
             }
           ],
-          "tip": "Give the range as one number (31), not as 82 to 113."
+          "tip": "Give the range as one number (31), not as 82 to 113.",
+          "ask": "Find the range and standard deviation of 104, 82, 94, 113, 98, 105."
         }
       ]
     },
@@ -4792,7 +4817,8 @@
               }
             }
           ],
-          "tip": "Fill every row with no gaps, and keep the leaves in order outwards from the stem."
+          "tip": "Fill every row with no gaps, and keep the leaves in order outwards from the stem.",
+          "ask": "Draw a back-to-back stem-and-leaf plot of the Day X and Day Y weights."
         },
         {
           "l": "(a)(ii)",
@@ -4995,7 +5021,8 @@
               }
             }
           ],
-          "tip": "The scheme needs the word 'increased' (or similar) in your answer."
+          "tip": "The scheme needs the word 'increased' (or similar) in your answer.",
+          "ask": "Explain what the plot shows about the dogs' weights on Day X and Day Y."
         },
         {
           "l": "(a)(iii)",
@@ -5264,7 +5291,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Pick the most likely r: −0.9, −0.2, 0.2 or 0.9, and give a reason."
         },
         {
           "l": "(b)",
@@ -5519,7 +5547,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Complete the cats and dogs table by filling in the four missing values."
         },
         {
           "l": "(c)(i)",
@@ -5583,7 +5612,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance the first of three animals picked is a cat?"
         },
         {
           "l": "(c)(ii)",
@@ -5730,7 +5760,8 @@
               }
             }
           ],
-          "tip": "Three different animals: the totals go 40, 39, 38."
+          "tip": "Three different animals: the totals go 40, 39, 38.",
+          "ask": "What's the chance all three animals picked are male dogs? 3 d.p."
         },
         {
           "l": "(d)",
@@ -5853,7 +5884,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "How many ways can the 9 female cats be put in 9 separate pens?"
         },
         {
           "l": "(e)",
@@ -5969,7 +6001,8 @@
               }
             }
           ],
-          "tip": "Write each step's meaning in words (animals left, dogs left, cats left): the scheme marks each step."
+          "tip": "Write each step's meaning in words (animals left, dogs left, cats left): the scheme marks each step.",
+          "ask": "How many cats left, if 10 animals left and P(dog) is now 11/15?"
         }
       ]
     },
@@ -6113,7 +6146,8 @@
               }
             }
           ],
-          "tip": "'Maximum' means count the whole class that the cut-off falls in."
+          "tip": "'Maximum' means count the whole class that the cut-off falls in.",
+          "ask": "Work out the most students who could have read over 100 minutes a day."
         },
         {
           "l": "(a)(ii)",
@@ -6254,7 +6288,8 @@
               }
             }
           ],
-          "tip": "Any value from 60 up to (not including) 90 earns full marks if you justify it with the running totals."
+          "tip": "Any value from 60 up to (not including) 90 earns full marks if you justify it with the running totals.",
+          "ask": "Estimate the median reading time of the 200 students, and justify it."
         },
         {
           "l": "(a)(iii)",
@@ -6323,7 +6358,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Explain why asking the first 200 students in could limit the conclusions."
         },
         {
           "l": "(a)(iv)",
@@ -6468,7 +6504,8 @@
               }
             }
           ],
-          "tip": "Label both axes: a missing label costs a mark."
+          "tip": "Label both axes: a missing label costs a mark.",
+          "ask": "Draw a labelled graph or chart of the reading-time data."
         },
         {
           "l": "(b)(i)",
@@ -6528,7 +6565,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the percentage of the 500 Cork students rated Excellent (61)."
         },
         {
           "l": "(b)(ii)",
@@ -6593,7 +6631,8 @@
               }
             }
           ],
-          "tip": "In a 'show that' question, write the unrounded value (4.47…) before the rounded one."
+          "tip": "In a 'show that' question, write the unrounded value (4.47…) before the rounded one.",
+          "ask": "Show that the margin of error for this sample is 4.5%."
         },
         {
           "l": "(b)(iii)",
@@ -6664,7 +6703,8 @@
               }
             }
           ],
-          "tip": "Write all three: the interval, the conclusion, and the reason (10% is inside the interval)."
+          "tip": "Write all three: the interval, the conclusion, and the reason (10% is inside the interval).",
+          "ask": "Test the claim that Cork's Excellent % differs from 10%, at the 5% level."
         }
       ]
     },
@@ -6999,7 +7039,8 @@
               }
             }
           ],
-          "tip": "Use the numbers of cars, not the rounded percentages, so your answers match the table."
+          "tip": "Use the numbers of cars, not the rounded percentages, so your answers match the table.",
+          "ask": "Complete the table: Diesel and Hybrid %, Diesel and Fully Electric angles."
         },
         {
           "l": "(a)(ii)",
@@ -7102,7 +7143,8 @@
               }
             }
           ],
-          "tip": "Label every sector with its fuel type: missing labels cost a mark."
+          "tip": "Label every sector with its fuel type: missing labels cost a mark.",
+          "ask": "Complete and label the pie chart for Diesel, Fully Electric and Hybrid."
         },
         {
           "l": "(b)(i)",
@@ -7374,7 +7416,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Pick the correlation type for engine size vs fuel efficiency and explain."
         },
         {
           "l": "(b)(ii)",
@@ -7469,7 +7512,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Explain why a correlation coefficient of 5 can't be right."
         },
         {
           "l": "(c)(i)",
@@ -7534,7 +7578,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Show that the margin of error for a sample of 815 is 3.5%."
         },
         {
           "l": "(c)(ii)",
@@ -7594,7 +7639,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the percentage of the 815 cars that were electric (106), nearest %."
         },
         {
           "l": "(c)(iii)",
@@ -7665,7 +7711,8 @@
               }
             }
           ],
-          "tip": "Give the interval, a conclusion in context, and the reason (19.2% is outside the interval)."
+          "tip": "Give the interval, a conclusion in context, and the reason (19.2% is outside the interval).",
+          "ask": "Test the claim that 2024's electric % differs from 2023's 19.2%, 5% level."
         }
       ]
     }

@@ -116,7 +116,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Complete the Venn diagram: 168 surveyed, 19 own neither a cat nor a dog."
         },
         {
           "l": "(a)(ii)",
@@ -194,7 +195,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance a random person owns both a cat and a dog?"
         },
         {
           "l": "(a)(iii)",
@@ -259,7 +261,8 @@
               }
             }
           ],
-          "tip": "\"Only one\" leaves out the overlap: don't add the 64."
+          "tip": "\"Only one\" leaves out the overlap: don't add the 64.",
+          "ask": "What percentage owned one animal only? Give it to 1 decimal place."
         },
         {
           "l": "(b)",
@@ -763,7 +766,8 @@
               }
             }
           ],
-          "tip": "Or count outcomes: 2 of the 12 equally likely outcomes fit, so 2/12 = 1/6."
+          "tip": "Or count outcomes: 2 of the 12 equally likely outcomes fit, so 2/12 = 1/6.",
+          "ask": "Complete Mandy's ticket tree, then find the chance of VIP on a Wednesday."
         }
       ]
     },
@@ -859,7 +863,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "How many boys were born in Ireland in 2015?"
         },
         {
           "l": "(a)(ii)",
@@ -934,7 +939,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the chance a random 2015 baby is a boy, to 2 decimal places."
         },
         {
           "l": "(b)(i)",
@@ -1092,7 +1098,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the chance the first three babies born were boys, to 4 decimal places."
         },
         {
           "l": "(b)(ii)",
@@ -1253,7 +1260,8 @@
               }
             }
           ],
-          "tip": "The scheme also accepts 0·1275, which you get using the exact fractions instead of 0·51."
+          "tip": "The scheme also accepts 0·1275, which you get using the exact fractions instead of 0·51.",
+          "ask": "Find the chance the third baby was the first girl born that day."
         },
         {
           "l": "(c)(i)",
@@ -1378,7 +1386,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Complete the day-of-the-week table: find Tuesday's probability."
         },
         {
           "l": "(c)(ii)",
@@ -1483,7 +1492,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Out of 1300 babies, how many would you expect born on the Tuesday?"
         }
       ]
     },
@@ -1791,7 +1801,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Complete the table of totals for two dice."
         },
         {
           "l": "(a)(ii)",
@@ -1859,7 +1870,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance of a total of 7 or 11?"
         },
         {
           "l": "(a)(iii)",
@@ -1947,7 +1959,8 @@
               }
             }
           ],
-          "tip": "1 is not a prime, and 9 is not prime (3 × 3)."
+          "tip": "1 is not a prime, and 9 is not prime (3 × 3).",
+          "ask": "What's the chance the total is a prime number?"
         },
         {
           "l": "(b)",
@@ -2068,7 +2081,8 @@
               }
             }
           ],
-          "tip": "Quick check: the only cars that are neither Ford nor \"not red\" are the 4 red Renaults, and 30 − 4 = 26."
+          "tip": "Quick check: the only cars that are neither Ford nor \"not red\" are the 4 red Renaults, and 30 − 4 = 26.",
+          "ask": "What's the chance a random car of the 30 is a Ford or not red?"
         }
       ]
     },
@@ -2294,7 +2308,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "How many arrangements of all the letters of RAINBOW?"
         },
         {
           "l": "(a)(ii)",
@@ -2380,7 +2395,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "How many 3-letter arrangements of RAINBOW?"
         },
         {
           "l": "(b)(i)",
@@ -2589,7 +2605,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Complete the Probability column for the spinner, using the angles."
         },
         {
           "l": "(b)(ii)",
@@ -2759,7 +2776,8 @@
               }
             }
           ],
-          "tip": "Don't stop at the seven products: they must be added to get the expected value."
+          "tip": "Don't stop at the seven products: they must be added to get the expected value.",
+          "ask": "Find the expected value of the prize in the Rainbow game."
         }
       ]
     },
@@ -2850,7 +2868,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance a random person does not have blue eyes?"
         },
         {
           "l": "(b)",
@@ -2983,7 +3002,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance two random people both have blue eyes?"
         },
         {
           "l": "(c)",
@@ -3346,7 +3366,8 @@
               }
             }
           ],
-          "tip": "Don't forget the × 3."
+          "tip": "Don't forget the × 3.",
+          "ask": "What's the chance exactly two of three people have blue eyes?"
         },
         {
           "l": "(d)",
@@ -3426,7 +3447,8 @@
               }
             }
           ],
-          "tip": "No × 4 here: the question names the person (the fourth), so only one order counts."
+          "tip": "No × 4 here: the question names the person (the fourth), so only one order counts.",
+          "ask": "What's the chance only the 4th of four people has blue eyes?"
         }
       ]
     },
@@ -3526,7 +3548,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "How many different outcomes can the two Twister spinners give?"
         },
         {
           "l": "(b)(i)",
@@ -3642,7 +3665,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance Kate must use her left foot?"
         },
         {
           "l": "(b)(ii)",
@@ -3748,7 +3772,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance Kate gets a red or yellow spot?"
         },
         {
           "l": "(c)(i)",
@@ -3818,7 +3843,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance Jack gets right hand and a blue spot?"
         },
         {
           "l": "(c)(ii)",
@@ -3888,7 +3914,8 @@
               }
             }
           ],
-          "tip": "Count the shaded cells to check: 7 out of 16."
+          "tip": "Count the shaded cells to check: 7 out of 16.",
+          "ask": "What's the chance Jack gets right hand or a blue spot?"
         }
       ]
     },
@@ -3979,7 +4006,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance of not knocking the coconut off, if knocking is 0.34?"
         },
         {
           "l": "(a)(ii)",
@@ -4116,7 +4144,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance David first knocks the coconut off on his 3rd go?"
         },
         {
           "l": "(b)",
@@ -4265,7 +4294,8 @@
               }
             }
           ],
-          "tip": "Perimeter means only the outside edges. The diagonal AC is inside the figure."
+          "tip": "Perimeter means only the outside edges. The diagonal AC is inside the figure.",
+          "ask": "Find the area and perimeter of ABCDE (small square side 2 cm)."
         }
       ]
     },
@@ -4395,7 +4425,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance Rohan scores his first 3 free throws (70% each)?"
         },
         {
           "l": "(a)(ii)",
@@ -4640,7 +4671,8 @@
               }
             }
           ],
-          "tip": "0·147 on its own is only one arrangement: remember the × 3."
+          "tip": "0·147 on its own is only one arrangement: remember the × 3.",
+          "ask": "What's the chance Rohan scores exactly 2 of his first 3 free throws?"
         },
         {
           "l": "(a)(iii)",
@@ -4749,7 +4781,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Explain why his free throws might not be independent events."
         },
         {
           "l": "(b)",
@@ -4882,7 +4915,8 @@
               }
             }
           ],
-          "tip": "Divide by the number of games (19), not by the number of columns (6)."
+          "tip": "Divide by the number of games (19), not by the number of columns (6).",
+          "ask": "Find Rohan's mean points per game from the table, to 2 decimal places."
         }
       ]
     },
@@ -5028,7 +5062,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Work out |∠CBA|, an angle of the regular pentagon."
         },
         {
           "l": "(b)",
@@ -5162,7 +5197,8 @@
               }
             }
           ],
-          "tip": "Your calculator must be in degrees (DEG). In radians you would get 4.56."
+          "tip": "Your calculator must be in degrees (DEG). In radians you would get 4.56.",
+          "ask": "Find the area of triangle AOB, then of the pentagon (|AO| = 6 cm)."
         },
         {
           "l": "(c)(i)",
@@ -5282,7 +5318,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Write out all 25 outcomes for spinning the 1–5 spinner twice."
         },
         {
           "l": "(c)(ii)",
@@ -5366,7 +5403,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the biggest and smallest possible totals from two spins."
         },
         {
           "l": "(c)(iii)",
@@ -5467,7 +5505,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance the two spins add up to 4 or 5?"
         },
         {
           "l": "(d)",
@@ -5589,7 +5628,8 @@
               }
             }
           ],
-          "tip": "Give the expected value AND the conclusion with its reason: leaving either out costs a mark."
+          "tip": "Give the expected value AND the conclusion with its reason: leaving either out costs a mark.",
+          "ask": "Is Jena's €1 N, S, E, W spinner game fair? Use the expected value."
         }
       ]
     },
@@ -5742,7 +5782,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Complete the table of all 14 possible cards, like G2 and R5."
         },
         {
           "l": "(b)",
@@ -5924,7 +5965,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance a random card has an even number?"
         },
         {
           "l": "(c)",
@@ -6019,7 +6061,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "R5 is taken out: what's the chance the second card is green?"
         },
         {
           "l": "(d)",
@@ -6140,7 +6183,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance the 2nd card differs from the 1st in colour and number?"
         }
       ]
     },
@@ -6253,7 +6297,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Use the empirical rule to fill in the three missing axis numbers."
         },
         {
           "l": "(a)(ii)",
@@ -6305,7 +6350,8 @@
               }
             }
           ],
-          "tip": "Only the top end counts here, so halve the 5%."
+          "tip": "Only the top end counts here, so halve the 5%.",
+          "ask": "What percentage got at least 9 hours of sleep?"
         },
         {
           "l": "(b)(i)",
@@ -6378,7 +6424,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance Owen doesn't get enough sleep on a night (10% he does)?"
         },
         {
           "l": "(b)(ii)",
@@ -6515,7 +6562,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance Owen first gets enough sleep on Tuesday, the 3rd night?"
         }
       ]
     },
@@ -6638,7 +6686,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "How many choices from 7 flavours, 4 toppings and a cone or tub?"
         },
         {
           "l": "(a)(ii)",
@@ -6699,7 +6748,8 @@
               }
             }
           ],
-          "tip": "Adding one to the smaller number (4 toppings) makes the bigger difference."
+          "tip": "Adding one to the smaller number (4 toppings) makes the bigger difference.",
+          "ask": "Should Diarmuid add an extra flavour or an extra topping? Show why."
         },
         {
           "l": "(b)(i)",
@@ -6829,7 +6879,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Complete the Venn diagram: V 42, C 37, and 45 bought neither."
         },
         {
           "l": "(b)(ii)",
@@ -6907,7 +6958,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance a customer bought a cone with a flavour other than vanilla?"
         },
         {
           "l": "(c)",
@@ -6992,7 +7044,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the expected value of Diarmuid's ice cream sales next Sunday."
         },
         {
           "l": "(d)(i)",
@@ -7076,7 +7129,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the angle θ, then the arc length s (radius 20 cm), to 1 d.p."
         },
         {
           "l": "(d)(ii)",
@@ -7145,7 +7199,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Use trigonometry to find the side l, to the nearest cm."
         }
       ]
     },
@@ -7351,7 +7406,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Fill in the missing branch probabilities on Seán's tree diagram."
         },
         {
           "l": "(a)(ii)",
@@ -7491,7 +7547,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Work out each outcome's probability for the final column of the tree."
         },
         {
           "l": "(a)(iii)",
@@ -7621,7 +7678,8 @@
               }
             }
           ],
-          "tip": "Or add the three paths: 0.42 + 0.18 + 0.28 = 0.88."
+          "tip": "Or add the three paths: 0.42 + 0.18 + 0.28 = 0.88.",
+          "ask": "What's the chance Seán wins at least 1 match?"
         },
         {
           "l": "(b)(i)",
@@ -7693,7 +7751,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance Sarah loses her next service game (she wins 0.78)?"
         },
         {
           "l": "(b)(ii)",
@@ -7831,7 +7890,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance the first service game Sarah loses is her third?"
         },
         {
           "l": "(c)(i)",
@@ -7905,7 +7965,8 @@
               }
             }
           ],
-          "tip": "\"In terms of π\" means leave the π as a letter: don't multiply it out."
+          "tip": "\"In terms of π\" means leave the π as a letter: don't multiply it out.",
+          "ask": "Find the volume of a ball 18 cm in diameter, in terms of π."
         },
         {
           "l": "(c)(ii)",
@@ -7982,7 +8043,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the radius of a ball of volume 5424.6 cm³, to 1 decimal place."
         },
         {
           "l": "(d)",
@@ -8077,7 +8139,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Work out the team's Expected Goals (xG) from the 15 shots."
         }
       ]
     }

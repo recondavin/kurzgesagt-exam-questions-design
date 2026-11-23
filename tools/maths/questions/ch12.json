@@ -212,7 +212,8 @@
               }
             }
           ],
-          "tip": "Repeats allowed means the number of options stays the same for every box."
+          "tip": "Repeats allowed means the number of options stays the same for every box.",
+          "ask": "How many different six-digit passwords are possible?"
         },
         {
           "l": "(b)(i)",
@@ -311,7 +312,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "How many six-digit passwords have no zero in them?"
         },
         {
           "l": "(b)(ii)",
@@ -428,7 +430,8 @@
               }
             }
           ],
-          "tip": "\"At least one\" questions: count \"none\" first, then subtract."
+          "tip": "\"At least one\" questions: count \"none\" first, then subtract.",
+          "ask": "What's the chance a random password has at least one zero?"
         },
         {
           "l": "(c)",
@@ -939,7 +942,8 @@
               }
             }
           ],
-          "tip": "Shortcut: 6 × 5 × 4 = 120 ordered picks, but each group of 3 boxes is picked in 3 × 2 × 1 = 6 different orders, so 120 ÷ 6 = 20."
+          "tip": "Shortcut: 6 × 5 × 4 = 120 ordered picks, but each group of 3 boxes is picked in 3 × 2 × 1 = 6 different orders, so 120 ÷ 6 = 20.",
+          "ask": "How many ways can the bank pick 3 of John's 6 password boxes?"
         }
       ]
     },
@@ -1077,7 +1081,8 @@
               }
             }
           ],
-          "tip": "Multiply, don't add: 4 + 6 + 8 = 18 counts dishes, not meals."
+          "tip": "Multiply, don't add: 4 + 6 + 8 = 18 counts dishes, not meals.",
+          "ask": "How many meals from 4 starters, 6 mains and 8 desserts?"
         },
         {
           "l": "(a)(ii)",
@@ -1177,7 +1182,8 @@
               }
             }
           ],
-          "tip": "Check your answer: 4 × 6 × 5 = 120."
+          "tip": "Check your answer: 4 × 6 × 5 = 120.",
+          "ask": "How many desserts are left if Jack has 120 meal choices?"
         },
         {
           "l": "(b)(i)",
@@ -1380,7 +1386,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "What's the chance only the 4th of four people plays tennis (1 in 8 do)?"
         },
         {
           "l": "(b)(ii)",
@@ -1734,7 +1741,8 @@
               }
             }
           ],
-          "tip": "Don't forget the × 3: any one of the three people could be the one who doesn't play."
+          "tip": "Don't forget the × 3: any one of the three people could be the one who doesn't play.",
+          "ask": "What's the chance exactly 2 of 3 people play tennis?"
         }
       ]
     },
@@ -1856,7 +1864,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the mean of 17, 8, 9, 8, 14, 11, 28, to 1 decimal place."
         },
         {
           "l": "(a)(ii)",
@@ -1926,7 +1935,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the median of the 7 numbers."
         },
         {
           "l": "(a)(iii)",
@@ -2034,7 +2044,8 @@
               }
             }
           ],
-          "tip": "Check: 8, 8, 9, 10, 11, 14, 17, 28 has middle numbers 10 and 11, so the median is 10.5."
+          "tip": "Check: 8, 8, 9, 10, 11, 14, 17, 28 has middle numbers 10 and 11, so the median is 10.5.",
+          "ask": "Find the number added to the list that makes the new median 10.5."
         },
         {
           "l": "(b)(i)",
@@ -2158,7 +2169,8 @@
               }
             }
           ],
-          "tip": "Multiply, don't add: 3 + 4 + 5 = 12 is the number of subjects, not the number of choices."
+          "tip": "Multiply, don't add: 3 + 4 + 5 = 12 is the number of subjects, not the number of choices.",
+          "ask": "How many ways can Ben pick one subject from each of groups A, B and C?"
         },
         {
           "l": "(b)(ii)",
@@ -2234,7 +2246,8 @@
               }
             }
           ],
-          "tip": "Show all three calculations: \"Group A\" on its own only gets partial credit."
+          "tip": "Show all three calculations: \"Group A\" on its own only gets partial credit.",
+          "ask": "Which group should get the extra subject to give Ben the most choices? Why?"
         }
       ]
     },
@@ -2455,7 +2468,8 @@
               }
             }
           ],
-          "tip": "Your calculator has a factorial key (x! or n!): 7! = 5040."
+          "tip": "Your calculator has a factorial key (x! or n!): 7! = 5040.",
+          "ask": "How many ways can the letters of CAMOGIE be arranged?"
         },
         {
           "l": "(a)(ii)",
@@ -2757,7 +2771,8 @@
               }
             }
           ],
-          "tip": "Always deal with the restricted places (first, last, vowels...) before the free ones."
+          "tip": "Always deal with the restricted places (first, last, vowels...) before the free ones.",
+          "ask": "How many CAMOGIE arrangements start with M and end with a vowel?"
         },
         {
           "l": "(a)(iii)",
@@ -2842,7 +2857,8 @@
               }
             }
           ],
-          "tip": "Stop after 3 places: 7 × 6 × 5, not 7!."
+          "tip": "Stop after 3 places: 7 × 6 × 5, not 7!.",
+          "ask": "How many 3-letter arrangements can be made from CAMOGIE?"
         },
         {
           "l": "(b)(i)",
@@ -3089,7 +3105,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Match scatterplots A, B and C to r = 0.95, 0.6 and −0.95."
         },
         {
           "l": "(b)(ii)",
@@ -3221,7 +3238,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Explain why the value you picked for scatterplot B is right."
         }
       ]
     }
