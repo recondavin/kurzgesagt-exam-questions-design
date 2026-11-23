@@ -43,7 +43,7 @@
     "0.6",
     "0.354294"
    ],
-   "why": "All the passwords that are left have at least one zero: 1 000 000 − 531 441 = 468 559, so P = 468 559 ÷ 1 000 000 = 0.468559 (= 1 − 0.531441).",
+   "why": "Take the no-zero passwords from the total: 1 000 000 − 531 441 = 468 559 have at least one zero. P = 468 559 ÷ 1 000 000 = 0.468559 (= 1 − 0.531441).",
    "hook": "At least one = 1 − none.",
    "keys": [
     "1 000 000 − 531 441 = 468 559"
@@ -86,7 +86,7 @@
    "id": "2015-P2-Q1:(c):2",
    "from": "2015-P2-Q1",
    "q": "The bank picks 3 of the 6 boxes of John's password (for example the 2nd, 4th and 5th). Is this an arrangement or a selection, and why?",
-   "right": "Selection: 2, 4, 5 is the same as 5, 2, 4",
+   "right": "Selection: 2, 4, 5 = 5, 2, 4",
    "wrong": [
     "Arrangement: the boxes are numbered 1–6",
     "Arrangement: each box holds a digit",
@@ -443,7 +443,7 @@
    "id": "2023-P2-Q3:(b)(ii):1",
    "from": "2023-P2-Q3",
    "q": "Scatterplot B: the points go up and lie close to a straight line, and r = 0.95. What must a full explanation of why 0.95 is right say?",
-   "right": "Positive, and the points are close to a line",
+   "right": "Positive, and points close to a line",
    "wrong": [
     "Positive: as x goes up, y goes up",
     "The points rise along a steep line",

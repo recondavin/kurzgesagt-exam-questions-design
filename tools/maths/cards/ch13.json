@@ -1,0 +1,1397 @@
+{
+ "chapter": 13,
+ "cards": [
+  {
+   "id": "2016-P2-Q1:(a)(i):1",
+   "from": "2016-P2-Q1",
+   "q": "168 people were surveyed: 64 own a cat and a dog, 48 own a dog only and 19 own neither. How many own a cat only?",
+   "right": "37",
+   "wrong": [
+    "56",
+    "101",
+    "85"
+   ],
+   "why": "All four regions of the Venn diagram add to 168, so cats only = 168 − 19 − 64 − 48 = 37. The 19 go outside both circles.",
+   "hook": "Venn regions add up to the total: take away the ones you know.",
+   "keys": [
+    "168 − 19 − 64 − 48 = 37"
+   ]
+  },
+  {
+   "id": "2016-P2-Q1:(a)(ii):1",
+   "from": "2016-P2-Q1",
+   "q": "168 people surveyed: 37 own a cat only, 64 a cat and a dog, 48 a dog only, 19 neither. One is picked at random. What is the probability they own both a cat and a dog?",
+   "right": "64/168 (= 8/21)",
+   "wrong": [
+    "64/149",
+    "64/112",
+    "64/101"
+   ],
+   "why": "Both = the overlap, 64 people. Divide by everyone surveyed, 168 (the 19 with no pet were surveyed too): 64/168 = 8/21.",
+   "hook": "Probability = how many fit ÷ everyone who could be picked.",
+   "keys": [
+    "64/168 = 8/21"
+   ]
+  },
+  {
+   "id": "2016-P2-Q1:(a)(iii):1",
+   "from": "2016-P2-Q1",
+   "q": "168 surveyed: 37 own a cat only, 64 a cat and a dog, 48 a dog only, 19 neither. What percentage own one animal only, correct to one decimal place?",
+   "right": "50.6%",
+   "wrong": [
+    "88.7%",
+    "57.0%",
+    "0.5%"
+   ],
+   "why": "One animal only = cats only + dogs only = 37 + 48 = 85 (leave out the 64 with both). 85 ÷ 168 × 100 = 50.59…% ≈ 50.6%.",
+   "hook": "\"Only one\" leaves out the overlap. A percentage: × 100.",
+   "keys": [
+    "37 + 48 = 85",
+    "50.6%"
+   ]
+  },
+  {
+   "id": "2016-P2-Q1:(a)(iii):2",
+   "from": "2016-P2-Q1",
+   "q": "In a Venn diagram of cat owners and dog owners, which regions hold the people who own one animal only?",
+   "right": "Cats only and dogs only",
+   "wrong": [
+    "Cats only, dogs only and both",
+    "The overlap of the two circles",
+    "Everything outside the overlap"
+   ],
+   "why": "One animal only means a cat but no dog, or a dog but no cat: the two parts of the circles that don't overlap. The overlap owns two; outside owns none.",
+   "hook": "Only one = the circles without the overlap.",
+   "keys": [
+    "the two parts of the circles that don't overlap"
+   ]
+  },
+  {
+   "id": "2016-P2-Q1:(b):1",
+   "from": "2016-P2-Q1",
+   "q": "Mandy picks Balcony or Stalls, then Monday, Wednesday or Friday, then VIP or show only. All choices are equally likely. What is the probability that she chooses a VIP ticket on a Wednesday?",
+   "right": "1/6",
+   "wrong": [
+    "1/12",
+    "5/6",
+    "2/7"
+   ],
+   "why": "Two paths fit: B→W→V and S→W→V, each ½ × ⅓ × ½ = 1/12. Add them: 1/12 + 1/12 = 2/12 = 1/6. Or: 2 of the 12 equally likely outcomes.",
+   "hook": "Multiply along a path; add the paths that fit.",
+   "keys": [
+    "1/12 + 1/12 = 2/12 = 1/6"
+   ]
+  },
+  {
+   "id": "2016-P2-Q1:(b):2",
+   "from": "2016-P2-Q1",
+   "q": "Mandy chooses Balcony or Stalls, then Monday, Wednesday or Friday, then VIP or show only. How many outcomes does the finished tree diagram have?",
+   "right": "12",
+   "wrong": [
+    "7",
+    "6",
+    "8"
+   ],
+   "why": "Each seat splits into 3 days, and each day into 2 ticket types: 2 × 3 × 2 = 12 outcomes at the ends of the branches. 2 + 3 + 2 = 7 adds instead.",
+   "hook": "Tree outcomes = the numbers of branches multiplied.",
+   "keys": [
+    "2 × 3 × 2 = 12"
+   ]
+  },
+  {
+   "id": "2017-P2-Q1:(a)(i):1",
+   "from": "2017-P2-Q1",
+   "q": "65 909 babies were born in Ireland in 2015, and 32 290 of them were girls. How many boys were born?",
+   "right": "33 619",
+   "wrong": [
+    "98 199",
+    "33 799",
+    "33 719"
+   ],
+   "why": "Every baby is a boy or a girl, so boys = all babies − girls = 65 909 − 32 290 = 33 619. Check by adding back: 33 619 + 32 290 = 65 909.",
+   "hook": "Check a subtraction by adding the answer back.",
+   "keys": [
+    "65 909 − 32 290 = 33 619"
+   ]
+  },
+  {
+   "id": "2017-P2-Q1:(a)(ii):1",
+   "from": "2017-P2-Q1",
+   "q": "Of the 65 909 babies born in 2015, 33 619 were boys. What is the probability that a baby picked at random is a boy, correct to 2 decimal places?",
+   "right": "0.51",
+   "wrong": [
+    "0.49",
+    "1.04",
+    "0.50"
+   ],
+   "why": "P(boy) = boys ÷ all babies = 33 619 ÷ 65 909 = 0.5100… ≈ 0.51. Divide by all the babies, not by the girls, and use the real counts, not 50:50.",
+   "hook": "Probability = what you want ÷ the total.",
+   "keys": [
+    "33 619 ÷ 65 909 = 0.5100…"
+   ]
+  },
+  {
+   "id": "2017-P2-Q1:(b)(i):1",
+   "from": "2017-P2-Q1",
+   "q": "P(a baby is a boy) = 0.51, and births are independent. 8 babies are born in a hospital one day. What is the probability that the first three are boys, to 4 decimal places?",
+   "right": "0.1327",
+   "wrong": [
+    "0.2601",
+    "0.0037",
+    "0.1176"
+   ],
+   "why": "Independent births: multiply. 0.51 × 0.51 × 0.51 = 0.132651 ≈ 0.1327. The other 5 babies can be boys or girls, so they don't come into it.",
+   "hook": "Independent events one after another: multiply.",
+   "keys": [
+    "0.51 × 0.51 × 0.51 = 0.132651"
+   ]
+  },
+  {
+   "id": "2017-P2-Q1:(b)(ii):1",
+   "from": "2017-P2-Q1",
+   "q": "P(a baby is a boy) = 0.51, and births are independent. What is the probability that the third birth was the first girl born that day, to 4 decimal places?",
+   "right": "0.1274",
+   "wrong": [
+    "0.1225",
+    "0.3823",
+    "0.4900"
+   ],
+   "why": "Third birth the first girl: boy, boy, girl. P(girl) = 1 − 0.51 = 0.49, so 0.51 × 0.51 × 0.49 = 0.127449 ≈ 0.1274. One order only: no × 3.",
+   "hook": "\"First … on the 3rd\": fail, fail, then succeed.",
+   "keys": [
+    "boy, boy, girl",
+    "0.51 × 0.51 × 0.49 = 0.127449"
+   ]
+  },
+  {
+   "id": "2017-P2-Q1:(b)(ii):2",
+   "from": "2017-P2-Q1",
+   "q": "\"The third baby born was the first girl born that day.\" Which outcomes for births 1, 2 and 3 does this mean?",
+   "right": "Boy, boy, girl",
+   "wrong": [
+    "Girl, boy, boy",
+    "Any order with exactly one girl",
+    "Boy, boy, then a boy or a girl"
+   ],
+   "why": "The first girl comes 3rd, so births 1 and 2 must both be boys, and birth 3 a girl. Only that one order fits.",
+   "hook": "First success on go 3 = fail, fail, success.",
+   "keys": [
+    "births 1 and 2 must both be boys"
+   ]
+  },
+  {
+   "id": "2017-P2-Q1:(c)(i):1",
+   "from": "2017-P2-Q1",
+   "q": "Probability of being born on each day: Mon 0.14, Tue ?, Wed 0.15, Thu 0.18, Fri 0.15, Sat 0.12, Sun 0.1. What is the probability for Tuesday?",
+   "right": "0.16",
+   "wrong": [
+    "0.84",
+    "0.14",
+    "0.25"
+   ],
+   "why": "The six known ones add to 0.14 + 0.15 + 0.18 + 0.15 + 0.12 + 0.1 = 0.84. All seven add to 1, so Tuesday = 1 − 0.84 = 0.16. (Sunday 0.1 = 0.10.)",
+   "hook": "The probabilities of all the outcomes add up to 1.",
+   "keys": [
+    "1 − 0.84 = 0.16"
+   ]
+  },
+  {
+   "id": "2017-P2-Q1:(c)(i):2",
+   "from": "2017-P2-Q1",
+   "q": "Why must the probabilities of being born on Monday, Tuesday, …, Sunday add up to exactly 1?",
+   "right": "Every baby is born on exactly one day",
+   "wrong": [
+    "There are 7 days in the week",
+    "Each day is equally likely",
+    "Probabilities are never more than 1"
+   ],
+   "why": "The seven days cover every possible outcome, and no baby is born on two days, so together they are certain: total probability 1.",
+   "hook": "Outcomes that cover everything, with no overlap, add to 1.",
+   "keys": [
+    "together they are certain"
+   ]
+  },
+  {
+   "id": "2017-P2-Q1:(c)(ii):1",
+   "from": "2017-P2-Q1",
+   "q": "P(a baby is born on a Tuesday) = 0.16. In one week 1300 babies were born. How many babies would you expect to be born on the Tuesday of that week?",
+   "right": "208",
+   "wrong": [
+    "186",
+    "8125",
+    "1092"
+   ],
+   "why": "Expected number = total × probability = 1300 × 0.16 = 208. (1300 ÷ 7 would treat all days as equally likely, but Tuesday's is 0.16.)",
+   "hook": "Expected number = how many there are × the probability.",
+   "keys": [
+    "1300 × 0.16 = 208"
+   ]
+  },
+  {
+   "id": "2018-P2-Q1:(a)(i):1",
+   "from": "2018-P2-Q1",
+   "q": "Two fair dice are thrown and the scores added. A table shows the total for every pair of scores (Die 1 across, Die 2 down). How many cells does it have?",
+   "right": "36",
+   "wrong": [
+    "11",
+    "12",
+    "21"
+   ],
+   "why": "Each of Die 1's 6 scores goes with each of Die 2's 6 scores: 6 × 6 = 36 outcomes. 11 is only the number of different totals (2 to 12).",
+   "hook": "Count outcomes, not totals: two dice give 6 × 6 = 36.",
+   "keys": [
+    "6 × 6 = 36"
+   ]
+  },
+  {
+   "id": "2018-P2-Q1:(a)(ii):1",
+   "from": "2018-P2-Q1",
+   "q": "Two fair dice are thrown and the scores added. What is the probability of getting a total of 7 or 11?",
+   "right": "8/36",
+   "wrong": [
+    "2/11",
+    "6/36",
+    "12/1296"
+   ],
+   "why": "Six of the 36 outcomes make 7 (1+6, 2+5, … 6+1) and two make 11 (5+6, 6+5). A total can't be both, so add: 8/36 = 2/9.",
+   "hook": "\"Or\" with no overlap: add the counts.",
+   "keys": [
+    "8/36 = 2/9"
+   ]
+  },
+  {
+   "id": "2018-P2-Q1:(a)(ii):2",
+   "from": "2018-P2-Q1",
+   "q": "Two dice: P(total of 7 or 11) = 6/36 + 2/36. Why can you simply add the two here?",
+   "right": "A total can't be 7 and 11 at once",
+   "wrong": [
+    "The two dice are independent",
+    "7 and 11 are both odd numbers",
+    "Each total is equally likely"
+   ],
+   "why": "No outcome is in both groups (they are mutually exclusive), so nothing is counted twice and P(7 or 11) = P(7) + P(11).",
+   "hook": "Add for \"or\" only when nothing can be in both.",
+   "keys": [
+    "mutually exclusive"
+   ]
+  },
+  {
+   "id": "2018-P2-Q1:(a)(iii):1",
+   "from": "2018-P2-Q1",
+   "q": "Two fair dice are thrown and the scores added. What is the probability that the total is a prime number?",
+   "right": "15/36",
+   "wrong": [
+    "5/11",
+    "19/36",
+    "14/36"
+   ],
+   "why": "Prime totals: 2, 3, 5, 7, 11. They come up 1 + 2 + 4 + 6 + 2 = 15 times in the 36 outcomes: 15/36 = 5/12. (9 = 3 × 3 is not prime.)",
+   "hook": "Primes up to 12: 2, 3, 5, 7, 11. Then count outcomes.",
+   "keys": [
+    "1 + 2 + 4 + 6 + 2 = 15"
+   ]
+  },
+  {
+   "id": "2018-P2-Q1:(a)(iii):2",
+   "from": "2018-P2-Q1",
+   "q": "Two dice are thrown and the scores added. Which of the possible totals are prime numbers?",
+   "right": "2, 3, 5, 7, 11",
+   "wrong": [
+    "3, 5, 7, 11",
+    "2, 3, 5, 7, 9, 11",
+    "3, 5, 7, 9, 11"
+   ],
+   "why": "A prime has exactly two factors, 1 and itself. 2 is prime (the only even one); 9 = 3 × 3 is not. The totals run 2 to 12, so: 2, 3, 5, 7, 11.",
+   "hook": "2 is prime; 9 isn't (3 × 3).",
+   "keys": [
+    "exactly two factors"
+   ]
+  },
+  {
+   "id": "2018-P2-Q1:(b):1",
+   "from": "2018-P2-Q1",
+   "q": "30 cars: 18 Fords (7 of them red) and 12 Renaults (4 of them red). One car is chosen at random. What is the probability that it is a Ford or a car which is not red?",
+   "right": "26/30",
+   "wrong": [
+    "37/30",
+    "11/30",
+    "19/30"
+   ],
+   "why": "All 18 Fords, plus the Renaults that are not red: 12 − 4 = 8. Not-red Fords are already in the 18. 18 + 8 = 26, so 26/30 = 13/15. (Or 30 − 4.)",
+   "hook": "\"Or\": count everything in either group, but each car only once.",
+   "keys": [
+    "18 + 8 = 26",
+    "26/30 = 13/15"
+   ]
+  },
+  {
+   "id": "2018-P2-Q1:(b):2",
+   "from": "2018-P2-Q1",
+   "q": "30 cars: Ford 18 (7 red, 11 not red), Renault 12 (4 red, 8 not red). Which cars are NOT \"a Ford or not red\"?",
+   "right": "The 4 red Renaults",
+   "wrong": [
+    "The 7 red Fords",
+    "The 8 not-red Renaults",
+    "The 11 not-red Fords"
+   ],
+   "why": "A car fails \"Ford or not red\" only if it is not a Ford and is red: a red Renault. There are 4, so P = (30 − 4)/30 = 26/30.",
+   "hook": "Tricky \"or\"? Count what fits neither, and take it away.",
+   "keys": [
+    "(30 − 4)/30 = 26/30"
+   ]
+  },
+  {
+   "id": "2018-P2-Q3:(a)(i):1",
+   "from": "2018-P2-Q3",
+   "q": "Find the number of different arrangements that can be made using all the letters of the word RAINBOW, each letter used only once.",
+   "right": "5040",
+   "wrong": [
+    "823 543",
+    "720",
+    "49"
+   ],
+   "why": "7 different letters fill 7 places: 7, then 6, 5, 4, 3, 2, 1 options. 7! = 7 × 6 × 5 × 4 × 3 × 2 × 1 = 5040.",
+   "hook": "All n different letters in a row: n! (the x! key).",
+   "keys": [
+    "7! = 7 × 6 × 5 × 4 × 3 × 2 × 1 = 5040"
+   ]
+  },
+  {
+   "id": "2018-P2-Q3:(a)(i):2",
+   "from": "2018-P2-Q3",
+   "q": "Arranging all 7 letters of RAINBOW: why is it 7 × 6 × 5 × … and not 7 × 7 × 7 × …?",
+   "right": "Each letter is used only once",
+   "wrong": [
+    "There are 7 letters to choose from",
+    "The order of the letters matters",
+    "There are 7 places to fill"
+   ],
+   "why": "Once a letter is placed it can't be used again, so each place has one option fewer: 7, 6, 5, … 7 × 7 × 7 × … would let letters repeat.",
+   "hook": "No repeats: the options drop by 1 at each place.",
+   "keys": [
+    "each place has one option fewer"
+   ]
+  },
+  {
+   "id": "2018-P2-Q3:(a)(ii):1",
+   "from": "2018-P2-Q3",
+   "q": "How many different 3-letter arrangements can be made using the letters of the word RAINBOW, each letter used at most once?",
+   "right": "210",
+   "wrong": [
+    "35",
+    "343",
+    "18"
+   ],
+   "why": "3 places, 7 letters, no repeats: 7 × 6 × 5 = 210. Order matters (RAI isn't IAR), so not ⁷C₃ = 35; no repeats, so not 7³ = 343.",
+   "hook": "Stop after 3 places: 7 × 6 × 5, not 7!.",
+   "keys": [
+    "7 × 6 × 5 = 210"
+   ]
+  },
+  {
+   "id": "2018-P2-Q3:(b)(i):1",
+   "from": "2018-P2-Q3",
+   "q": "A spinner has 7 sectors: red 72°, orange 30°, yellow 45°, green 90°, blue 60°, indigo 18°, violet 45°. Yellow's probability is 1/8. What is the probability of red?",
+   "right": "1/5",
+   "wrong": [
+    "1/7",
+    "18/25",
+    "2/5"
+   ],
+   "why": "Probability = the sector's angle ÷ 360° (check: yellow 45/360 = 1/8). Red: 72/360 = 1/5. The sectors aren't equal, so not 1/7.",
+   "hook": "Spinner probability = angle ÷ 360°.",
+   "keys": [
+    "72/360 = 1/5"
+   ]
+  },
+  {
+   "id": "2018-P2-Q3:(b)(i):2",
+   "from": "2018-P2-Q3",
+   "q": "A spinner has 7 sectors of different sizes. How do you find the probability of it stopping in each sector?",
+   "right": "Its angle ÷ 360°",
+   "wrong": [
+    "1 ÷ 7, the number of sectors",
+    "Its angle ÷ 100",
+    "Its angle ÷ 180°"
+   ],
+   "why": "A sector's chance is the fraction of the full turn it covers: its angle ÷ 360°. 1/7 only works if all 7 sectors are the same size.",
+   "hook": "Fraction of the circle = fraction of the time.",
+   "keys": [
+    "the fraction of the full turn it covers"
+   ]
+  },
+  {
+   "id": "2018-P2-Q3:(b)(ii):1",
+   "from": "2018-P2-Q3",
+   "q": "Spinner prizes (probability): red €20 (1/5), orange €60 (1/12), yellow €24 (1/8), green €8 (1/4), blue €42 (1/6), indigo €90 (1/20), violet €48 (1/8). Expected prize?",
+   "right": "€31.50",
+   "wrong": [
+    "€41.71",
+    "€4.50",
+    "€25.50"
+   ],
+   "why": "E(X) = Σ prize × probability = 4 + 5 + 3 + 2 + 7 + 4.5 + 6 = €31.50. Add all seven products, and don't divide by 7.",
+   "hook": "Expected value: each value × its probability, then add them all.",
+   "keys": [
+    "4 + 5 + 3 + 2 + 7 + 4.5 + 6 = €31.50"
+   ]
+  },
+  {
+   "id": "2018-P2-Q3:(b)(ii):2",
+   "from": "2018-P2-Q3",
+   "q": "A spinner game has seven prizes, each with its own probability. How do you find the expected value of the prize?",
+   "right": "Add up prize × probability for all 7",
+   "wrong": [
+    "Add the 7 prizes and divide by 7",
+    "Biggest prize × its probability",
+    "The prize of the likeliest colour"
+   ],
+   "why": "E(X) = Σ x·P(x): multiply each prize by its probability and add all seven. Dividing by 7 would treat every colour as equally likely.",
+   "hook": "E(X) = Σ x × P(x).",
+   "keys": [
+    "Σ x·P(x)"
+   ]
+  },
+  {
+   "id": "2019-P2-Q3:(a):1",
+   "from": "2019-P2-Q3",
+   "q": "In a population, the probability that a person has blue eyes is 0.7. One person is chosen at random. What is the probability that they do not have blue eyes?",
+   "right": "0.3",
+   "wrong": [
+    "30",
+    "0.03",
+    "0.7"
+   ],
+   "why": "A person either has blue eyes or doesn't, so the two add to 1: P(not blue) = 1 − 0.7 = 0.3. A probability is never more than 1 (30% = 0.3).",
+   "hook": "P(not A) = 1 − P(A).",
+   "keys": [
+    "1 − 0.7 = 0.3"
+   ]
+  },
+  {
+   "id": "2019-P2-Q3:(b):1",
+   "from": "2019-P2-Q3",
+   "q": "P(a person has blue eyes) = 0.7. Two people are chosen at random. What is the probability that both have blue eyes?",
+   "right": "0.49",
+   "wrong": [
+    "0.09",
+    "0.21",
+    "0.7"
+   ],
+   "why": "The two people are independent, so multiply along blue, blue: 0.7 × 0.7 = 0.49. (0.3 × 0.3 = 0.09 is the chance that neither has blue eyes.)",
+   "hook": "\"Both\", with independent people: multiply.",
+   "keys": [
+    "0.7 × 0.7 = 0.49"
+   ]
+  },
+  {
+   "id": "2019-P2-Q3:(b):2",
+   "from": "2019-P2-Q3",
+   "q": "P(blue eyes) = 0.7. Why can you multiply 0.7 × 0.7 for two people chosen at random from a large population?",
+   "right": "One person's eyes don't affect another's",
+   "wrong": [
+    "Both people have the same probability",
+    "There are two people",
+    "0.7 is more than a half"
+   ],
+   "why": "Multiplying works for independent events: one person's eye colour doesn't change the chance for the next, so P(blue, blue) = 0.7 × 0.7.",
+   "hook": "Multiply only when one result doesn't change the other's chance.",
+   "keys": [
+    "independent events"
+   ]
+  },
+  {
+   "id": "2019-P2-Q3:(c):1",
+   "from": "2019-P2-Q3",
+   "q": "P(a person has blue eyes) = 0.7. Three people are chosen at random. What is the probability that exactly two of them have blue eyes?",
+   "right": "0.441",
+   "wrong": [
+    "0.147",
+    "0.343",
+    "0.189"
+   ],
+   "why": "One order: 0.7 × 0.7 × 0.3 = 0.147. The person without blue eyes can be 1st, 2nd or 3rd, so × 3: 3 × 0.147 = 0.441.",
+   "hook": "Exactly 2 of 3: one order's chance × 3.",
+   "keys": [
+    "3 × 0.147 = 0.441"
+   ]
+  },
+  {
+   "id": "2019-P2-Q3:(c):2",
+   "from": "2019-P2-Q3",
+   "q": "Three people are chosen. Which list shows every way that exactly two have blue eyes (B = blue, N = not blue)?",
+   "right": "BBN, BNB, NBB",
+   "wrong": [
+    "BBN only",
+    "BBN, NBB",
+    "BBN, BNB, NBB, BBB"
+   ],
+   "why": "Exactly two blue means exactly one N, and the N can be in any of the 3 places: BBN, BNB, NBB. BBB has three blue, so it doesn't count.",
+   "hook": "Exactly 2: list every place the odd one out can go.",
+   "keys": [
+    "BBN, BNB, NBB"
+   ]
+  },
+  {
+   "id": "2019-P2-Q3:(d):1",
+   "from": "2019-P2-Q3",
+   "q": "P(a person has blue eyes) = 0.7. Four people are chosen one after another. What is the probability that the fourth person is the only one with blue eyes?",
+   "right": "0.0189",
+   "wrong": [
+    "0.0756",
+    "0.0081",
+    "0.1029"
+   ],
+   "why": "Not, not, not, blue: 0.3 × 0.3 × 0.3 × 0.7 = 0.0189. The question names the 4th person, so only this one order counts: no × 4.",
+   "hook": "Named position? One order only.",
+   "keys": [
+    "0.3 × 0.3 × 0.3 × 0.7 = 0.0189"
+   ]
+  },
+  {
+   "id": "2021-P2-Q1:(a):1",
+   "from": "2021-P2-Q1",
+   "q": "Twister: one spinner gives Left Hand, Right Hand, Left Foot or Right Foot; the other gives Yellow, Red, Blue or Green. How many different outcomes are there?",
+   "right": "16",
+   "wrong": [
+    "8",
+    "24",
+    "6"
+   ],
+   "why": "Each of the 4 body parts can go with each of the 4 colours: 4 × 4 = 16 outcomes (a 4 by 4 table). 4 + 4 = 8 counts the sections, not the pairs.",
+   "hook": "Two spinners: multiply their numbers of sections.",
+   "keys": [
+    "4 × 4 = 16"
+   ]
+  },
+  {
+   "id": "2021-P2-Q1:(b)(i):1",
+   "from": "2021-P2-Q1",
+   "q": "Twister: spinner 1 gives LH, RH, LF or RF; spinner 2 gives one of 4 colours (equal sections). Kate spins both once. What is the probability that she must use her left foot?",
+   "right": "1/4",
+   "wrong": [
+    "1/16",
+    "1/8",
+    "1/2"
+   ],
+   "why": "Left foot is a whole row of the 4 × 4 table: 4 of the 16 outcomes, any colour. 4/16 = 1/4 (or just spinner 1: 1 of its 4 sections).",
+   "hook": "Only one spinner matters? Use just that spinner.",
+   "keys": [
+    "4/16 = 1/4"
+   ]
+  },
+  {
+   "id": "2021-P2-Q1:(b)(ii):1",
+   "from": "2021-P2-Q1",
+   "q": "Twister: the colour spinner has 4 equal sections: Yellow, Red, Blue and Green. Kate spins both spinners once. What is the probability of a red or yellow spot?",
+   "right": "1/2",
+   "wrong": [
+    "1/16",
+    "2/16",
+    "1/4"
+   ],
+   "why": "Red and Yellow are 2 of the 4 colours: 8 of the 16 outcomes, or 1/4 + 1/4 = 1/2. A spot can't be both, so just add. Multiplying is for \"and\".",
+   "hook": "\"Or\" with no overlap: add.",
+   "keys": [
+    "1/4 + 1/4 = 1/2"
+   ]
+  },
+  {
+   "id": "2021-P2-Q1:(c)(i):1",
+   "from": "2021-P2-Q1",
+   "q": "Twister: spinner 1 has 4 equal sections (LH, RH, LF, RF), spinner 2 has 4 equal colours. Jack spins both. What is the probability of his right hand and a blue spot?",
+   "right": "1/16",
+   "wrong": [
+    "1/2",
+    "1/8",
+    "7/16"
+   ],
+   "why": "Right hand and blue is one cell of the 16-cell table: 1/16. Or, as the spinners are independent, 1/4 × 1/4 = 1/16. Adding 1/4 + 1/4 is for \"or\".",
+   "hook": "\"And\" with independent spinners: multiply.",
+   "keys": [
+    "1/4 × 1/4 = 1/16"
+   ]
+  },
+  {
+   "id": "2021-P2-Q1:(c)(ii):1",
+   "from": "2021-P2-Q1",
+   "q": "Twister: spinner 1 has 4 equal sections (LH, RH, LF, RF), spinner 2 has 4 equal colours. Jack spins both. What is the probability of his right hand or a blue spot?",
+   "right": "7/16",
+   "wrong": [
+    "8/16",
+    "1/16",
+    "6/16"
+   ],
+   "why": "Right hand is a row of 4, blue a column of 4, and they share 1 cell. 4/16 + 4/16 − 1/16 = 7/16: take off the shared cell so it's counted once.",
+   "hook": "P(A or B) = P(A) + P(B) − P(A and B).",
+   "keys": [
+    "4/16 + 4/16 − 1/16 = 7/16"
+   ]
+  },
+  {
+   "id": "2021-P2-Q1:(c)(ii):2",
+   "from": "2021-P2-Q1",
+   "q": "Twister: P(right hand or blue) = 4/16 + 4/16 − 1/16. Why take away the 1/16?",
+   "right": "Right hand AND blue was counted twice",
+   "wrong": [
+    "The two spinners are independent",
+    "Right hand with blue doesn't count",
+    "Blue is only one of the 4 colours"
+   ],
+   "why": "Right hand + blue is in the right-hand row AND the blue column, so 4 + 4 counts it twice. Take 1 off so it is counted once: it still counts.",
+   "hook": "\"Or\" means either one or both: count the overlap once.",
+   "keys": [
+    "counts it twice"
+   ]
+  },
+  {
+   "id": "2021-P2-Q2:(a)(i):1",
+   "from": "2021-P2-Q2",
+   "q": "At a fun fair stall, the probability of knocking a coconut off its support is 0.34. What is the probability of not knocking it off?",
+   "right": "0.66",
+   "wrong": [
+    "0.34",
+    "66",
+    "0.066"
+   ],
+   "why": "You either knock it off or you don't, so the two add to 1: P(not) = 1 − 0.34 = 0.66. Keep it a decimal: 66 is the percentage (66%).",
+   "hook": "P(not) = 1 − P(it happens).",
+   "keys": [
+    "1 − 0.34 = 0.66"
+   ]
+  },
+  {
+   "id": "2021-P2-Q2:(a)(ii):1",
+   "from": "2021-P2-Q2",
+   "q": "P(knocking the coconut off) = 0.34 each go, independently. David has three goes. What is the probability he knocks it off for the first time on his third go, to 3 d.p.?",
+   "right": "0.148",
+   "wrong": [
+    "0.444",
+    "0.076",
+    "0.287"
+   ],
+   "why": "First time on the 3rd go: miss, miss, hit. 0.66 × 0.66 × 0.34 = 0.148104 ≈ 0.148. One order only, so no × 3.",
+   "hook": "First success on go 3: miss, miss, hit.",
+   "keys": [
+    "miss, miss, hit",
+    "0.66 × 0.66 × 0.34 = 0.148104"
+   ]
+  },
+  {
+   "id": "2021-P2-Q2:(b):1",
+   "from": "2021-P2-Q2",
+   "q": "Figure ABCDE: a large square ACDE stands on the diagonal [AC] of a small square ABCF with side 2 cm, so triangle ABC sticks out below it. Find the area of ABCDE.",
+   "right": "10 cm²",
+   "wrong": [
+    "8 cm²",
+    "12 cm²",
+    "6 cm²"
+   ],
+   "why": "|AC|² = 2² + 2² = 8, so the big square is √8 × √8 = 8 cm². Triangle ABC is half the small square: ½ × 2 × 2 = 2. Total 8 + 2 = 10 cm².",
+   "hook": "Square on a diagonal: Pythagoras gives its side; side² its area.",
+   "keys": [
+    "|AC|² = 2² + 2² = 8",
+    "8 + 2 = 10 cm²"
+   ]
+  },
+  {
+   "id": "2021-P2-Q2:(b):2",
+   "from": "2021-P2-Q2",
+   "q": "Figure ABCDE: a large square ACDE on the diagonal [AC] of a small square ABCF (side 2 cm), where |AC| = √8 cm. Find the perimeter of ABCDE, to two decimal places.",
+   "right": "12.49 cm",
+   "wrong": [
+    "15.31 cm",
+    "10.00 cm",
+    "8.49 cm"
+   ],
+   "why": "Go round the outside: AB + BC + CD + DE + EA = 2 + 2 + √8 + √8 + √8 = 4 + 3√8 = 12.485… ≈ 12.49 cm. AC is inside, so leave it out.",
+   "hook": "Perimeter: only the outside edges. Lines inside don't count.",
+   "keys": [
+    "4 + 3√8 = 12.485…",
+    "AC is inside"
+   ]
+  },
+  {
+   "id": "2023-P2-Q4:(a)(i):1",
+   "from": "2023-P2-Q4",
+   "q": "Rohan scores 70% of his free throws, and his throws are independent. What is the probability that he scores his first 3 free throws?",
+   "right": "0.343",
+   "wrong": [
+    "0.027",
+    "0.49",
+    "0.7"
+   ],
+   "why": "P(score) = 0.7 each time, and the throws are independent, so multiply: 0.7 × 0.7 × 0.7 = 0.343. (0.027 is missing all three.)",
+   "hook": "Independent, and all three must happen: multiply three times.",
+   "keys": [
+    "0.7 × 0.7 × 0.7 = 0.343"
+   ]
+  },
+  {
+   "id": "2023-P2-Q4:(a)(ii):1",
+   "from": "2023-P2-Q4",
+   "q": "Rohan scores 70% of his free throws, independently. What is the probability that he scores exactly 2 of his first 3 free throws?",
+   "right": "0.441",
+   "wrong": [
+    "0.147",
+    "0.189",
+    "0.294"
+   ],
+   "why": "A miss is 1 − 0.7 = 0.3. One order: 0.7 × 0.7 × 0.3 = 0.147. The miss can be 1st, 2nd or 3rd (SSF, SFS, FSS), so 3 × 0.147 = 0.441.",
+   "hook": "Exactly 2 of 3: one order's chance × 3.",
+   "keys": [
+    "3 × 0.147 = 0.441"
+   ]
+  },
+  {
+   "id": "2023-P2-Q4:(a)(ii):2",
+   "from": "2023-P2-Q4",
+   "q": "Rohan scores each free throw with probability 0.7. Why is 0.7 × 0.7 × 0.3 = 0.147 not the answer to \"exactly 2 of his first 3\"?",
+   "right": "It is only one order: score, score, miss",
+   "wrong": [
+    "It leaves out 0.343 for all three",
+    "The 0.3 should be another 0.7",
+    "They should be added, not multiplied"
+   ],
+   "why": "0.147 is the chance of S, S, F in that order. SFS and FSS also give exactly 2 scores, each 0.147, so the answer is 3 × 0.147 = 0.441.",
+   "hook": "Same chance for each order? Multiply by how many orders.",
+   "keys": [
+    "SFS and FSS also give exactly 2 scores"
+   ]
+  },
+  {
+   "id": "2023-P2-Q4:(a)(iii):1",
+   "from": "2023-P2-Q4",
+   "q": "Give one reason why Rohan scoring his free throws might not be independent events.",
+   "right": "A miss may make him nervous next time",
+   "wrong": [
+    "He scores 70% of his throws",
+    "Every throw has the same 0.7 chance",
+    "Each throw is either a score or a miss"
+   ],
+   "why": "Independent means one throw doesn't change the chance of the next. But earlier throws can affect him: a miss may make him nervous, a score more confident.",
+   "hook": "Not independent = one result changes the next one's chance.",
+   "keys": [
+    "one throw doesn't change the chance of the next"
+   ]
+  },
+  {
+   "id": "2023-P2-Q4:(b):1",
+   "from": "2023-P2-Q4",
+   "q": "Points Rohan scored (number of games): 0 (4 games), 6 (5), 8 (4), 10 (2), 12 (3), 16 (1). Find his mean number of points per game, to 2 decimal places.",
+   "right": "7.05",
+   "wrong": [
+    "22.33",
+    "8.67",
+    "8.93"
+   ],
+   "why": "Total points = 4(0) + 5(6) + 4(8) + 2(10) + 3(12) + 1(16) = 134. Games = 4 + 5 + 4 + 2 + 3 + 1 = 19. Mean = 134 ÷ 19 = 7.05.",
+   "hook": "Mean from a frequency table: Σfx ÷ Σf.",
+   "keys": [
+    "134 ÷ 19 = 7.05"
+   ]
+  },
+  {
+   "id": "2023-P2-Q4:(b):2",
+   "from": "2023-P2-Q4",
+   "q": "Rohan's frequency table gives a total of 134 points over all his games. To find his mean points per game, what do you divide 134 by?",
+   "right": "19, the total number of games",
+   "wrong": [
+    "6, the number of columns",
+    "52, the total of the point values",
+    "15, the games where he scored"
+   ],
+   "why": "The mean is per game, so divide by the number of games: 4 + 5 + 4 + 2 + 3 + 1 = 19, including the 4 games where he scored 0.",
+   "hook": "Divide by Σf (how many games), not by the number of columns.",
+   "keys": [
+    "divide by the number of games"
+   ]
+  },
+  {
+   "id": "2023-P2-Q10:(a):1",
+   "from": "2023-P2-Q10",
+   "q": "A regular pentagon ABCDE is split into five congruent isosceles triangles meeting at its centre O, and |∠BOC| = 72°. Find |∠CBA|.",
+   "right": "108°",
+   "wrong": [
+    "54°",
+    "72°",
+    "36°"
+   ],
+   "why": "|OB| = |OC|, so triangle BOC's base angles are (180° − 72°) ÷ 2 = 54°. ∠CBA is two of them, ∠OBC + ∠OBA: 54° + 54° = 108°.",
+   "hook": "Isosceles: the two base angles are equal; share what's left of 180°.",
+   "keys": [
+    "(180° − 72°) ÷ 2 = 54°",
+    "54° + 54° = 108°"
+   ]
+  },
+  {
+   "id": "2023-P2-Q10:(b):1",
+   "from": "2023-P2-Q10",
+   "q": "Triangle AOB in a regular pentagon has |OA| = |OB| = 6 cm and |∠AOB| = 72°. Find its area, correct to 1 decimal place.",
+   "right": "17.1 cm²",
+   "wrong": [
+    "18.0 cm²",
+    "4.6 cm²",
+    "34.2 cm²"
+   ],
+   "why": "Two sides and the angle between them: Area = ½ab sin C = ½(6)(6) sin 72° = 17.119… ≈ 17.1 cm². Calculator in degrees (radians gives 4.6).",
+   "hook": "Two sides and the angle between: Area = ½ab sin C.",
+   "keys": [
+    "½(6)(6) sin 72° = 17.119…"
+   ]
+  },
+  {
+   "id": "2023-P2-Q10:(b):2",
+   "from": "2023-P2-Q10",
+   "q": "A regular pentagon is made of 5 congruent triangles, each with sides 6 cm and 6 cm and 72° between them (area 17.119… cm²). Find the pentagon's area, to 1 decimal place.",
+   "right": "85.6 cm²",
+   "wrong": [
+    "85.5 cm²",
+    "90.0 cm²",
+    "22.8 cm²"
+   ],
+   "why": "The pentagon is 5 of the triangles: 17.119… × 5 = 85.59… ≈ 85.6 cm². Use the unrounded value: 17.1 × 5 = 85.5 has lost accuracy.",
+   "hook": "Round only at the very end.",
+   "keys": [
+    "17.119… × 5 = 85.59…"
+   ]
+  },
+  {
+   "id": "2023-P2-Q10:(c)(i):1",
+   "from": "2023-P2-Q10",
+   "q": "A spinner numbered 1 to 5 is spun twice, and each number landed on is recorded. How many outcomes are in the sample space?",
+   "right": "25",
+   "wrong": [
+    "10",
+    "15",
+    "9"
+   ],
+   "why": "Each of the 5 first spins goes with each of the 5 second spins: 5 × 5 = 25 pairs, (1,1) to (5,5). (1,2) and (2,1) are different outcomes.",
+   "hook": "Two-way table: rows × columns.",
+   "keys": [
+    "5 × 5 = 25"
+   ]
+  },
+  {
+   "id": "2023-P2-Q10:(c)(ii):1",
+   "from": "2023-P2-Q10",
+   "q": "A spinner numbered 1 to 5 is spun twice and the two numbers are added. What are the maximum and minimum possible totals?",
+   "right": "Max 10, min 2",
+   "wrong": [
+    "Max 9, min 3",
+    "Max 25, min 1",
+    "Max 5, min 1"
+   ],
+   "why": "The same number can come up on both spins. Biggest: 5 + 5 = 10. Smallest: 1 + 1 = 2.",
+   "hook": "Spun twice: the same number can come up both times.",
+   "keys": [
+    "5 + 5 = 10",
+    "1 + 1 = 2"
+   ]
+  },
+  {
+   "id": "2023-P2-Q10:(c)(iii):1",
+   "from": "2023-P2-Q10",
+   "q": "A spinner numbered 1 to 5 (each equally likely) is spun twice and the two numbers are added. What is the probability of a total of either 4 or 5?",
+   "right": "7/25",
+   "wrong": [
+    "2/9",
+    "12/625",
+    "4/15"
+   ],
+   "why": "Total 4: (1,3), (2,2), (3,1): 3 ways. Total 5: (1,4), (2,3), (3,2), (4,1): 4 ways. 3 + 4 = 7 of the 25 outcomes: 7/25 = 0.28.",
+   "hook": "Count outcomes in the 25-cell table, not totals.",
+   "keys": [
+    "3 + 4 = 7 of the 25 outcomes"
+   ]
+  },
+  {
+   "id": "2023-P2-Q10:(d):1",
+   "from": "2023-P2-Q10",
+   "q": "Jena pays €1 to spin. N: probability 0.3, she gets €1. S: 0.2, €0.50. E: 0.4, €0. W: 0.1, €5. What is the expected value of the money she gets?",
+   "right": "€0.90",
+   "wrong": [
+    "€1.63",
+    "€6.50",
+    "€0.40"
+   ],
+   "why": "E(x) = Σ x·P(x) = 1(0.3) + 0.5(0.2) + 0(0.4) + 5(0.1) = 0.3 + 0.1 + 0 + 0.5 = €0.90.",
+   "hook": "Each amount × its probability, then add all four.",
+   "keys": [
+    "0.3 + 0.1 + 0 + 0.5 = €0.90"
+   ]
+  },
+  {
+   "id": "2023-P2-Q10:(d):2",
+   "from": "2023-P2-Q10",
+   "q": "Jena pays €1 for each spin, and the expected value of the money she gets back is €0.90. Is the game fair?",
+   "right": "No: on average she loses 10c a go",
+   "wrong": [
+    "Yes: €0.90 is close to €1",
+    "Yes: the probabilities add up to 1",
+    "No: she gets nothing 40% of the time"
+   ],
+   "why": "A fair game gives back, on average, what you pay. She pays €1 and expects €0.90 back: €0.90 < €1, so she loses 10c a go. Not fair.",
+   "hook": "Fair: the expected payout equals the cost to play.",
+   "keys": [
+    "€0.90 < €1"
+   ]
+  },
+  {
+   "id": "2024-P2-Q2:(a):1",
+   "from": "2024-P2-Q2",
+   "q": "Seán's cards: green ones numbered 1 to 7 and red ones numbered 1 to 7. A table has Colour (G, R) down the side and Number (1 to 7) across. How many outcomes does it show?",
+   "right": "14",
+   "wrong": [
+    "9",
+    "49",
+    "7"
+   ],
+   "why": "Each of the 2 colours goes with each of the 7 numbers: 2 × 7 = 14 cells, G1 to G7 and R1 to R7: one for each card.",
+   "hook": "Outcomes in a table = rows × columns.",
+   "keys": [
+    "2 × 7 = 14"
+   ]
+  },
+  {
+   "id": "2024-P2-Q2:(b):1",
+   "from": "2024-P2-Q2",
+   "q": "Seán has 14 cards: green G1 to G7 and red R1 to R7. A card is chosen at random. What is the probability that it has an even number?",
+   "right": "3/7",
+   "wrong": [
+    "3/14",
+    "4/7",
+    "1/2"
+   ],
+   "why": "Even numbers are 2, 4 and 6 in both colours: G2, G4, G6, R2, R4, R6. That's 6 of the 14 cards: 6/14 = 3/7. (1 to 7 has more odds than evens.)",
+   "hook": "List the cards that fit, in every colour.",
+   "keys": [
+    "6/14 = 3/7"
+   ]
+  },
+  {
+   "id": "2024-P2-Q2:(c):1",
+   "from": "2024-P2-Q2",
+   "q": "Seán's 14 cards: G1–G7 and R1–R7. He picks a card, Red 5, and doesn't put it back. He then picks a second card at random. What is the probability that it is green?",
+   "right": "7/13",
+   "wrong": [
+    "7/14",
+    "6/13",
+    "1/26"
+   ],
+   "why": "R5 is not put back, so 13 cards are left. It wasn't green, so all 7 greens are still there: P(green) = 7/13.",
+   "hook": "Without replacement: the total goes down by one.",
+   "keys": [
+    "13 cards are left",
+    "7/13"
+   ]
+  },
+  {
+   "id": "2024-P2-Q2:(d):1",
+   "from": "2024-P2-Q2",
+   "q": "Seán's 14 cards: G1–G7 and R1–R7. He picks a card, doesn't replace it, then picks a second. What is the probability the 2nd is a different colour and a different number?",
+   "right": "6/13",
+   "wrong": [
+    "7/13",
+    "6/14",
+    "12/13"
+   ],
+   "why": "Say the first is G3: 13 cards are left. A different colour means a red card (7), and a different number rules out R3: 7 − 1 = 6. So 6/13.",
+   "hook": "Without replacement, two conditions: count the cards left that fit both.",
+   "keys": [
+    "7 − 1 = 6",
+    "6/13"
+   ]
+  },
+  {
+   "id": "2024-P2-Q5:(a)(i):1",
+   "from": "2024-P2-Q5",
+   "q": "Hours of sleep are normally distributed, and the middle 68% slept between 7.2 and 8.4 hours. Which values go in the axis boxes: left of 7.2, in the middle, right of 8.4?",
+   "right": "6.6, 7.8, 9.0",
+   "wrong": [
+    "6.0, 7.8, 9.6",
+    "5.4, 7.8, 10.2",
+    "6.9, 7.8, 8.7"
+   ],
+   "why": "68% is μ ± σ, so μ = (7.2 + 8.4) ÷ 2 = 7.8 and 2σ = 8.4 − 7.2 = 1.2, so σ = 0.6. The outer boxes are μ ± 2σ: 6.6 and 9.0.",
+   "hook": "Empirical rule: 68% within 1σ, 95% within 2σ, 99.7% within 3σ.",
+   "keys": [
+    "σ = 0.6",
+    "6.6 and 9.0"
+   ]
+  },
+  {
+   "id": "2024-P2-Q5:(a)(i):2",
+   "from": "2024-P2-Q5",
+   "q": "On a normal curve with mean μ and standard deviation σ, the middle 68% of the data lies between which two values?",
+   "right": "μ − σ and μ + σ",
+   "wrong": [
+    "μ and μ + σ",
+    "μ − 2σ and μ + 2σ",
+    "μ − 3σ and μ + 3σ"
+   ],
+   "why": "The empirical rule: about 68% lie within 1 standard deviation of the mean (μ ± σ), 95% within 2 (μ ± 2σ) and 99.7% within 3 (μ ± 3σ).",
+   "hook": "68 – 95 – 99.7 for 1σ – 2σ – 3σ.",
+   "keys": [
+    "within 1 standard deviation of the mean"
+   ]
+  },
+  {
+   "id": "2024-P2-Q5:(a)(ii):1",
+   "from": "2024-P2-Q5",
+   "q": "Sleep is normally distributed with mean 7.8 hours and standard deviation 0.6 hours. Using the empirical rule, what percentage got at least 9 hours of sleep?",
+   "right": "2.5%",
+   "wrong": [
+    "5%",
+    "97.5%",
+    "16%"
+   ],
+   "why": "9 = 7.8 + 2(0.6) = μ + 2σ. 95% lie between 6.6 and 9.0; the other 5% splits equally between the two ends, so 2.5% got 9 hours or more.",
+   "hook": "Only one end? Halve what's outside.",
+   "keys": [
+    "μ + 2σ",
+    "2.5%"
+   ]
+  },
+  {
+   "id": "2024-P2-Q5:(b)(i):1",
+   "from": "2024-P2-Q5",
+   "q": "Owen gets the recommended amount of sleep 10% of the time. What is the probability that he does not get the recommended amount of sleep on a particular night?",
+   "right": "0.9",
+   "wrong": [
+    "0.1",
+    "90",
+    "0.09"
+   ],
+   "why": "10% = 0.1 is the chance he does get enough sleep. Enough or not enough: they add to 1, so P(not) = 1 − 0.1 = 0.9 (that is 90%).",
+   "hook": "Change % to a decimal first, then use 1 − P.",
+   "keys": [
+    "1 − 0.1 = 0.9"
+   ]
+  },
+  {
+   "id": "2024-P2-Q5:(b)(ii):1",
+   "from": "2024-P2-Q5",
+   "q": "Owen gets enough sleep on a night with probability 0.1, independently each night. Starting Sunday, what is the probability that Tuesday (the 3rd night) is the first night with enough sleep?",
+   "right": "0.081",
+   "wrong": [
+    "0.009",
+    "0.243",
+    "0.729"
+   ],
+   "why": "First time on Tuesday: Sunday no, Monday no, Tuesday yes. The nights are independent, so multiply: 0.9 × 0.9 × 0.1 = 0.081.",
+   "hook": "First success on the 3rd try: fail × fail × success.",
+   "keys": [
+    "0.9 × 0.9 × 0.1 = 0.081"
+   ]
+  },
+  {
+   "id": "2024-P2-Q9:(a)(i):1",
+   "from": "2024-P2-Q9",
+   "q": "An ice cream van sells 7 flavours, 4 toppings, and a cone or a tub. How many different choices are there of one flavour, one topping, and a cone or a tub?",
+   "right": "56",
+   "wrong": [
+    "13",
+    "28",
+    "286"
+   ],
+   "why": "One from each group: 7 × 4 × 2 = 56. Every flavour goes with every topping, and each pair comes in a cone or a tub. 7 + 4 + 2 = 13 counts items.",
+   "hook": "Choices from separate groups: multiply.",
+   "keys": [
+    "7 × 4 × 2 = 56"
+   ]
+  },
+  {
+   "id": "2024-P2-Q9:(a)(ii):1",
+   "from": "2024-P2-Q9",
+   "q": "7 flavours, 4 toppings, 2 containers: 56 choices. How many choices would there be with one extra flavour, and how many with one extra topping instead?",
+   "right": "Flavour 64, topping 70",
+   "wrong": [
+    "Flavour 70, topping 64",
+    "Both 57",
+    "Both 14"
+   ],
+   "why": "Extra flavour: 8 × 4 × 2 = 64. Extra topping: 7 × 5 × 2 = 70. 70 > 64, so he should add a topping.",
+   "hook": "An extra topping pairs with 7 × 2 = 14 others; a flavour only with 4 × 2 = 8.",
+   "keys": [
+    "7 × 5 × 2 = 70",
+    "add a topping"
+   ]
+  },
+  {
+   "id": "2024-P2-Q9:(b)(i):1",
+   "from": "2024-P2-Q9",
+   "q": "100 customers: 42 bought vanilla (V), 37 bought a cone (C), and 45 bought neither vanilla nor a cone. How many bought vanilla in a cone (both)?",
+   "right": "24",
+   "wrong": [
+    "79",
+    "55",
+    "34"
+   ],
+   "why": "100 − 45 = 55 are inside the circles. 42 + 37 = 79 counts the overlap twice, so 79 − 55 = 24 bought both. Then V only 18 and C only 13.",
+   "hook": "Both circles added − people inside = the overlap.",
+   "keys": [
+    "79 − 55 = 24"
+   ]
+  },
+  {
+   "id": "2024-P2-Q9:(b)(i):2",
+   "from": "2024-P2-Q9",
+   "q": "100 customers: 42 bought vanilla, 37 a cone, 45 neither. Why is 42 + 37 = 79 more than the 55 people inside the two circles?",
+   "right": "Those who bought both were counted twice",
+   "wrong": [
+    "The 45 outside were counted as well",
+    "Vanilla and cones are independent",
+    "Some customers bought two ice creams"
+   ],
+   "why": "Anyone with vanilla in a cone is in the 42 and in the 37, so adding counts those people twice. The extra, 79 − 55 = 24, is the overlap.",
+   "hook": "Adding two circles counts the overlap twice.",
+   "keys": [
+    "counts those people twice"
+   ]
+  },
+  {
+   "id": "2024-P2-Q9:(b)(ii):1",
+   "from": "2024-P2-Q9",
+   "q": "Venn diagram of 100 customers: vanilla only 18, vanilla and cone 24, cone only 13, neither 45. What is P(a customer bought a cone with a flavour other than vanilla)?",
+   "right": "13/100",
+   "wrong": [
+    "37/100",
+    "24/100",
+    "58/100"
+   ],
+   "why": "A cone but not vanilla is the cone-only region: 13 of the 100 customers, so 13/100 = 0.13. The 24 in the overlap had vanilla.",
+   "hook": "\"A but not B\" = the part of A's circle outside B.",
+   "keys": [
+    "13/100 = 0.13"
+   ]
+  },
+  {
+   "id": "2024-P2-Q9:(c):1",
+   "from": "2024-P2-Q9",
+   "q": "Typical Sunday sales: wet €150 (probability 30%), dry and cold €200 (45%), dry and warm €450 (25%). What is the expected value of next Sunday's sales?",
+   "right": "€247.50",
+   "wrong": [
+    "€266.67",
+    "€24 750",
+    "€200.00"
+   ],
+   "why": "Percentages to decimals, then Σ x·P(x): 150(0.3) + 200(0.45) + 450(0.25) = 45 + 90 + 112.5 = €247.50.",
+   "hook": "Percentages → decimals before you multiply.",
+   "keys": [
+    "45 + 90 + 112.5 = €247.50"
+   ]
+  },
+  {
+   "id": "2024-P2-Q9:(d)(i):1",
+   "from": "2024-P2-Q9",
+   "q": "A cone logo: a sector of radius 20 cm, angle θ at the centre, sits on two right-angled triangles whose angles at the centre are 70° each. Find θ.",
+   "right": "220°",
+   "wrong": [
+    "140°",
+    "40°",
+    "290°"
+   ],
+   "why": "The angles all the way round the centre add to 360°. The two 70° angles belong to the triangles, so θ = 360° − 2(70°) = 220°.",
+   "hook": "Angles round a point add up to 360°.",
+   "keys": [
+    "θ = 360° − 2(70°) = 220°"
+   ]
+  },
+  {
+   "id": "2024-P2-Q9:(d)(i):2",
+   "from": "2024-P2-Q9",
+   "q": "A sector has radius 20 cm and angle 220° at the centre. Find the length of its arc s, correct to 1 decimal place.",
+   "right": "76.8 cm",
+   "wrong": [
+    "38.4 cm",
+    "767.9 cm",
+    "48.9 cm"
+   ],
+   "why": "Arc = (θ/360) × 2πr = (220/360) × 2π(20) = 76.79… ≈ 76.8 cm. (θ/360) × πr² would be the sector's area, not its arc.",
+   "hook": "Arc: (θ/360) × 2πr. Area: (θ/360) × πr².",
+   "keys": [
+    "(220/360) × 2π(20) = 76.79…"
+   ]
+  },
+  {
+   "id": "2024-P2-Q9:(d)(ii):1",
+   "from": "2024-P2-Q9",
+   "q": "In the logo, a right-angled triangle has a 70° angle at the centre, the 20 cm radius next to that angle (adjacent) and side l opposite it. Find l, to the nearest cm.",
+   "right": "55 cm",
+   "wrong": [
+    "19 cm",
+    "58 cm",
+    "7 cm"
+   ],
+   "why": "Opposite and adjacent: use tan. tan 70° = l/20, so l = 20 tan 70° = 54.9… ≈ 55 cm (calculator in degrees).",
+   "hook": "SOH CAH TOA: opposite and adjacent → tan.",
+   "keys": [
+    "l = 20 tan 70° = 54.9…"
+   ]
+  },
+  {
+   "id": "2024-P2-Q9:(d)(ii):2",
+   "from": "2024-P2-Q9",
+   "q": "A right-angled triangle has a 70° angle. The side next to it (adjacent) is 20 cm, and side l is opposite it. Which equation gives l?",
+   "right": "tan 70° = l/20",
+   "wrong": [
+    "sin 70° = l/20",
+    "cos 70° = 20/l",
+    "tan 70° = 20/l"
+   ],
+   "why": "tan = opposite ÷ adjacent. l is opposite the 70° and 20 is adjacent, so tan 70° = l/20. (cos 70° = 20/l would find the hypotenuse.)",
+   "hook": "TOA: Tan = Opposite ÷ Adjacent.",
+   "keys": [
+    "tan = opposite ÷ adjacent"
+   ]
+  },
+  {
+   "id": "2025-P2-Q7:(a)(i):1",
+   "from": "2025-P2-Q7",
+   "q": "Seán wins match 1 with probability 0.6 and match 2 with probability 0.7, independently. On a tree diagram, what goes on the \"Win match 2\" branch after he loses match 1?",
+   "right": "0.7",
+   "wrong": [
+    "0.3",
+    "0.4",
+    "0.28"
+   ],
+   "why": "The matches are independent, so match 2's chances don't depend on match 1: Win 0.7 (and Lose 0.3), after a win or after a loss.",
+   "hook": "Independent: the second set of branches is the same every time.",
+   "keys": [
+    "match 2's chances don't depend on match 1"
+   ]
+  },
+  {
+   "id": "2025-P2-Q7:(a)(ii):1",
+   "from": "2025-P2-Q7",
+   "q": "Tree: match 1 Win 0.6, Lose 0.4; match 2 Win 0.7, Lose 0.3 (independent). Win-Win = 0.42 and Lose-Lose = 0.12. What are Win-Lose and Lose-Win?",
+   "right": "W-L 0.18, L-W 0.28",
+   "wrong": [
+    "W-L 0.28, L-W 0.18",
+    "W-L 0.3, L-W 0.7",
+    "W-L 0.23, L-W 0.23"
+   ],
+   "why": "Multiply along each path: W-L = 0.6 × 0.3 = 0.18 and L-W = 0.4 × 0.7 = 0.28. Check: 0.42 + 0.18 + 0.28 + 0.12 = 1.",
+   "hook": "Along a path: multiply. The ends of the tree add up to 1.",
+   "keys": [
+    "0.6 × 0.3 = 0.18",
+    "0.4 × 0.7 = 0.28"
+   ]
+  },
+  {
+   "id": "2025-P2-Q7:(a)(iii):1",
+   "from": "2025-P2-Q7",
+   "q": "Two matches: P(Win-Win) = 0.42, P(Win-Lose) = 0.18, P(Lose-Win) = 0.28, P(Lose-Lose) = 0.12. What is the probability that Seán wins at least 1 match?",
+   "right": "0.88",
+   "wrong": [
+    "0.46",
+    "0.12",
+    "0.58"
+   ],
+   "why": "At least 1 win is every outcome except Lose-Lose: 1 − 0.12 = 0.88. (Or 0.42 + 0.18 + 0.28 = 0.88: Win-Win counts too.)",
+   "hook": "At least one = 1 − none.",
+   "keys": [
+    "1 − 0.12 = 0.88"
+   ]
+  },
+  {
+   "id": "2025-P2-Q7:(a)(iii):2",
+   "from": "2025-P2-Q7",
+   "q": "Seán plays two matches and wins or loses each. What is the quickest way to find the probability that he wins at least 1 match?",
+   "right": "1 − P(lose both)",
+   "wrong": [
+    "1 − P(win both)",
+    "P(W-L) + P(L-W)",
+    "P(win 1st) + P(win 2nd)"
+   ],
+   "why": "\"At least 1 win\" leaves out only Lose-Lose, so take that from 1. P(W-L) + P(L-W) is exactly one win; 0.6 + 0.7 = 1.3 is more than 1.",
+   "hook": "At least one? 1 − P(none).",
+   "keys": [
+    "leaves out only Lose-Lose"
+   ]
+  },
+  {
+   "id": "2025-P2-Q7:(b)(i):1",
+   "from": "2025-P2-Q7",
+   "q": "Each time Sarah plays a service game, the probability that she wins it is 0.78. What is the probability that she loses her next service game?",
+   "right": "0.22",
+   "wrong": [
+    "0.78",
+    "22",
+    "0.022"
+   ],
+   "why": "Each game she either wins or loses, so P(lose) = 1 − P(win) = 1 − 0.78 = 0.22.",
+   "hook": "Win or lose, nothing else: P(lose) = 1 − P(win).",
+   "keys": [
+    "1 − 0.78 = 0.22"
+   ]
+  },
+  {
+   "id": "2025-P2-Q7:(b)(ii):1",
+   "from": "2025-P2-Q7",
+   "q": "Sarah wins each service game with probability 0.78, independently. What is the probability that the first service game she loses is her third, to 3 decimal places?",
+   "right": "0.134",
+   "wrong": [
+    "0.038",
+    "0.402",
+    "0.475"
+   ],
+   "why": "First loss on game 3: win, win, lose. 0.78 × 0.78 × 0.22 = 0.133848 ≈ 0.134. One order only: no × 3.",
+   "hook": "First loss on game 3: win, win, lose.",
+   "keys": [
+    "0.78 × 0.78 × 0.22 = 0.133848"
+   ]
+  },
+  {
+   "id": "2025-P2-Q7:(c)(i):1",
+   "from": "2025-P2-Q7",
+   "q": "A child's football is a sphere with a diameter of 18 cm. Find its volume, in cm³, in terms of π.",
+   "right": "972π cm³",
+   "wrong": [
+    "7776π cm³",
+    "324π cm³",
+    "2916π cm³"
+   ],
+   "why": "r = 18 ÷ 2 = 9 cm. V = (4/3)πr³ = (4/3)π(9)³ = (4/3) × 729π = 972π cm³. Leave π as a letter.",
+   "hook": "Given the diameter? Halve it first.",
+   "keys": [
+    "r = 18 ÷ 2 = 9 cm",
+    "972π cm³"
+   ]
+  },
+  {
+   "id": "2025-P2-Q7:(c)(ii):1",
+   "from": "2025-P2-Q7",
+   "q": "An adult's football is a sphere with a volume of 5424.6 cm³. Work out its radius, correct to 1 decimal place.",
+   "right": "10.9 cm",
+   "wrong": [
+    "36.0 cm",
+    "12.0 cm",
+    "21.8 cm"
+   ],
+   "why": "(4/3)πr³ = 5424.6, so r³ = 5424.6 ÷ (4/3)π = 1295.03…, and r = ∛1295.03… = 10.899… ≈ 10.9 cm. A cube root, not a square root.",
+   "hook": "Undo r³ with a cube root (∛).",
+   "keys": [
+    "r³ = 5424.6 ÷ (4/3)π = 1295.03…",
+    "10.9 cm"
+   ]
+  },
+  {
+   "id": "2025-P2-Q7:(d):1",
+   "from": "2025-P2-Q7",
+   "q": "A team had 15 shots: 6 with a 10% chance of a goal, 5 with 20%, 3 with 40% and 1 with 70%. What are the Expected Goals (the expected number of goals)?",
+   "right": "3.5",
+   "wrong": [
+    "1.4",
+    "350",
+    "0.23"
+   ],
+   "why": "Each shot is worth its probability in goals: 6(0.1) + 5(0.2) + 3(0.4) + 1(0.7) = 0.6 + 1 + 1.2 + 0.7 = 3.5 goals.",
+   "hook": "Expected number = Σ (how many × probability).",
+   "keys": [
+    "0.6 + 1 + 1.2 + 0.7 = 3.5"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1573 @@
+{
+ "chapter": 10,
+ "cards": [
+  {
+   "id": "2020-P1-Q6:(a)(i):1",
+   "from": "2020-P1-Q6",
+   "q": "Differentiate f(x) = 4x³ − 3x² + x − 7 with respect to x.",
+   "right": "12x² − 6x + 1",
+   "wrong": [
+    "12x² − 6x − 6",
+    "12x³ − 6x² + x",
+    "4x² − 3x + 1"
+   ],
+   "why": "Bring each power down and take one off: 4x³ → 12x², −3x² → −6x, x → 1, and the number −7 → 0.",
+   "hook": "Power down in front, then one off the power. A number on its own becomes 0.",
+   "keys": [
+    "−7 → 0"
+   ]
+  },
+  {
+   "id": "2020-P1-Q6:(a)(i):2",
+   "from": "2020-P1-Q6",
+   "q": "When you differentiate a term axⁿ (like 4x³), what does it become?",
+   "right": "naxⁿ⁻¹",
+   "wrong": [
+    "axⁿ⁻¹",
+    "naxⁿ",
+    "(n − 1)axⁿ⁻¹"
+   ],
+   "why": "Multiply by the power, then take one off the power: 4x³ → 3 × 4x² = 12x².",
+   "hook": "Down, then one off: the power comes down in front, then drops by one.",
+   "keys": [
+    "Multiply by the power"
+   ]
+  },
+  {
+   "id": "2020-P1-Q6:(a)(ii):1",
+   "from": "2020-P1-Q6",
+   "q": "f(x) = 4x³ − 3x² + x − 7, so f′(x) = 12x² − 6x + 1. Find the slope of the tangent to the graph of f at the point (1, −5).",
+   "right": "7",
+   "wrong": [
+    "−5",
+    "0",
+    "2"
+   ],
+   "why": "The slope of the tangent is f′(1) = 12(1)² − 6(1) + 1 = 7. The −5 is only the height of the point.",
+   "hook": "Slope of the tangent = f′ at that x. f gives the height, f′ gives the slope.",
+   "keys": [
+    "f′(1) = 12(1)² − 6(1) + 1 = 7"
+   ]
+  },
+  {
+   "id": "2020-P1-Q6:(a)(iii):1",
+   "from": "2020-P1-Q6",
+   "q": "The tangent to the graph of f at the point (1, −5) has slope 7. Find the equation of the tangent.",
+   "right": "y = 7x − 12",
+   "wrong": [
+    "y = 7x + 12",
+    "y = 7x − 2",
+    "y = 7x − 5"
+   ],
+   "why": "y − y₁ = m(x − x₁): y − (−5) = 7(x − 1), so y + 5 = 7x − 7 and y = 7x − 12 (or 7x − y − 12 = 0).",
+   "hook": "Minus a minus is a plus: y − (−5) is y + 5.",
+   "keys": [
+    "y − (−5) = 7(x − 1)"
+   ]
+  },
+  {
+   "id": "2020-P1-Q6:(a)(iii):2",
+   "from": "2020-P1-Q6",
+   "q": "You know one point (x₁, y₁) on a line and its slope m. Which formula gives the equation of the line?",
+   "right": "y − y₁ = m(x − x₁)",
+   "wrong": [
+    "m = (y₂ − y₁) ÷ (x₂ − x₁)",
+    "y − x₁ = m(x − y₁)",
+    "y = m(x − x₁)"
+   ],
+   "why": "y − y₁ = m(x − x₁) builds a line from one point and its slope. m = (y₂ − y₁) ÷ (x₂ − x₁) only finds a slope from two points.",
+   "hook": "Point + slope → y − y₁ = m(x − x₁). It is in the Formulae and Tables booklet.",
+   "keys": [
+    "one point and its slope"
+   ]
+  },
+  {
+   "id": "2020-P1-Q6:(b):1",
+   "from": "2020-P1-Q6",
+   "q": "g(x) = 2x² + px + q, where p and q are whole numbers. What is g′(x)?",
+   "right": "4x + p",
+   "wrong": [
+    "4x + p + q",
+    "2x + p",
+    "4x"
+   ],
+   "why": "p and q are just numbers: 2x² → 4x, px → p (like 5x → 5) and q → 0.",
+   "hook": "Letters like p and q are numbers in disguise: px → p, q → 0.",
+   "keys": [
+    "px → p"
+   ]
+  },
+  {
+   "id": "2020-P1-Q6:(b):2",
+   "from": "2020-P1-Q6",
+   "q": "g(x) = 2x² + px + q. Given that g(2) = 6 and g′(3) = 9, find the value of p and the value of q.",
+   "right": "p = −3, q = 4",
+   "wrong": [
+    "p = −7, q = 12",
+    "p = 1, q = −4",
+    "p = 3, q = −8"
+   ],
+   "why": "g′(x) = 4x + p, so g′(3) = 12 + p = 9 gives p = −3. Then g(2) = 8 + 2(−3) + q = 6 gives q = 4.",
+   "hook": "Start with the clue that has only one unknown: g′(x) has no q in it.",
+   "keys": [
+    "12 + p = 9"
+   ]
+  },
+  {
+   "id": "2020-P1-Q8:(a):1",
+   "from": "2020-P1-Q8",
+   "q": "A swimmer dives off a block. Her level above the water is h(x) = (1/60)x² − (1/4)x + 3/5 m when she is x m out from the block. Find the height of the block above the water.",
+   "right": "0.6 m",
+   "wrong": [
+    "0.37 m",
+    "3 m",
+    "0.34 m"
+   ],
+   "why": "On the block she hasn't moved forward yet, so x = 0: h(0) = 0 − 0 + 3/5 = 3/5 m = 0.6 m.",
+   "hook": "Where it starts: put x = 0. Every x term vanishes, leaving the number.",
+   "keys": [
+    "x = 0"
+   ]
+  },
+  {
+   "id": "2020-P1-Q8:(b)(i):1",
+   "from": "2020-P1-Q8",
+   "q": "Show that h(x) = (1/60)x² − (1/4)x + 3/5 is 0 when x = 12. What are its three terms worth at x = 12?",
+   "right": "2.4 − 3 + 0.6",
+   "wrong": [
+    "0.2 − 3 + 0.6",
+    "0.4 − 3 + 0.6",
+    "2.4 − 0.25 + 0.6"
+   ],
+   "why": "(1/60)(12)² = 144 ÷ 60 = 2.4, (1/4)(12) = 3 and 3/5 = 0.6, so h(12) = 2.4 − 3 + 0.6 = 0.",
+   "hook": "Square first: (1/60)(12)² is 144 ÷ 60, not 12 ÷ 60.",
+   "keys": [
+    "144 ÷ 60 = 2.4"
+   ]
+  },
+  {
+   "id": "2020-P1-Q8:(b)(ii):1",
+   "from": "2020-P1-Q8",
+   "q": "Swimmer: h(x) = (1/60)x² − (1/4)x + 3/5 m. She is on the surface when h(x) = 0, and h(12) = 0 is where she comes back up. How far from the block does she enter the water?",
+   "right": "3 m",
+   "wrong": [
+    "12 m",
+    "7.5 m",
+    "0.6 m"
+   ],
+   "why": "Multiply h(x) = 0 by 60: x² − 15x + 36 = 0, so (x − 3)(x − 12) = 0. She comes up at 12 m, so she goes in at 3 m.",
+   "hook": "Two roots, two splashes: in at the first, out at the second.",
+   "keys": [
+    "x² − 15x + 36 = 0"
+   ]
+  },
+  {
+   "id": "2020-P1-Q8:(b)(ii):2",
+   "from": "2020-P1-Q8",
+   "q": "To clear the fractions in (1/60)x² − (1/4)x + 3/5 = 0, you multiply every term by 60. What equation do you get?",
+   "right": "x² − 15x + 36 = 0",
+   "wrong": [
+    "x² − 15x + 3/5 = 0",
+    "x² − (1/4)x + 36 = 0",
+    "x² − 15x + 100 = 0"
+   ],
+   "why": "60 × 1/60 = 1, 60 × 1/4 = 15 and 60 × 3/5 = 36, so x² − 15x + 36 = 0. Every term gets multiplied, the number too.",
+   "hook": "Multiply EVERY term by the common denominator, the number at the end too.",
+   "keys": [
+    "60 × 3/5 = 36"
+   ]
+  },
+  {
+   "id": "2020-P1-Q8:(c)(i):1",
+   "from": "2020-P1-Q8",
+   "q": "Find h′(x), the derivative of h(x) = (1/60)x² − (1/4)x + 3/5.",
+   "right": "(1/30)x − 1/4",
+   "wrong": [
+    "(1/60)x − 1/4",
+    "(1/120)x − 1/4",
+    "(1/30)x − 1/4 + 3/5"
+   ],
+   "why": "Bring the 2 down: 2 × 1/60 = 1/30, so (1/60)x² → (1/30)x. Then −(1/4)x → −1/4 and the 3/5 → 0.",
+   "hook": "Fractions follow the same rule: multiply by the power, then take one off.",
+   "keys": [
+    "2 × 1/60 = 1/30"
+   ]
+  },
+  {
+   "id": "2020-P1-Q8:(c)(ii):1",
+   "from": "2020-P1-Q8",
+   "q": "Swimmer: h(x) = (1/60)x² − (1/4)x + 3/5 m, and h′(x) = (1/30)x − 1/4. How far from the block (x) does she reach her greatest depth?",
+   "right": "7.5 m",
+   "wrong": [
+    "3 m",
+    "0.008 m",
+    "120 m"
+   ],
+   "why": "At the greatest depth the slope is 0: (1/30)x − 1/4 = 0, so (1/30)x = 1/4 and x = 30/4 = 7.5 m.",
+   "hook": "Deepest point = bottom of the U = flat tangent: set h′(x) = 0.",
+   "keys": [
+    "the slope is 0"
+   ]
+  },
+  {
+   "id": "2020-P1-Q8:(c)(ii):2",
+   "from": "2020-P1-Q8",
+   "q": "Why do you set h′(x) = 0 to find where the swimmer is deepest?",
+   "right": "The slope is 0 at the bottom of the dip",
+   "wrong": [
+    "She is at the water's surface there",
+    "h′(x) gives her depth below the water",
+    "The curve is steepest at the bottom"
+   ],
+   "why": "h′(x) is the slope of her path. At the lowest point she stops going down and starts coming up: the tangent is flat, so h′(x) = 0.",
+   "hook": "Top of a hill or bottom of a dip: the tangent is flat, so the derivative is 0.",
+   "keys": [
+    "the tangent is flat"
+   ]
+  },
+  {
+   "id": "2020-P1-Q8:(c)(iii):1",
+   "from": "2020-P1-Q8",
+   "q": "Swimmer: h(x) = (1/60)x² − (1/4)x + 3/5 m. She is deepest at x = 7.5 m. Find her greatest depth.",
+   "right": "0.3375 m",
+   "wrong": [
+    "0 m",
+    "3.4125 m",
+    "1.15 m"
+   ],
+   "why": "Put x = 7.5 into h itself: 0.9375 − 1.875 + 0.6 = −0.3375. The minus means below the water: 0.3375 m (27/80 m) deep.",
+   "hook": "f′ = 0 tells you where; f tells you how high (or how deep).",
+   "keys": [
+    "Put x = 7.5 into h itself"
+   ]
+  },
+  {
+   "id": "2020-P1-Q8:(d)(i):1",
+   "from": "2020-P1-Q8",
+   "q": "Phelps' 50 m split times: 28.5 s for 50–100 m, then 29.33 s for 100–150 m. Find the percentage increase, correct to one decimal place.",
+   "right": "2.9%",
+   "wrong": [
+    "2.8%",
+    "0.8%",
+    "102.9%"
+   ],
+   "why": "Increase ÷ old value × 100: (29.33 − 28.5) ÷ 28.5 × 100 = 0.83 ÷ 28.5 × 100 = 2.91…%, so 2.9%.",
+   "hook": "Percentage change: always divide by the OLD value.",
+   "keys": [
+    "Increase ÷ old value × 100"
+   ]
+  },
+  {
+   "id": "2020-P1-Q8:(d)(i):2",
+   "from": "2020-P1-Q8",
+   "q": "Phelps' four 50 m splits: 24.85 s, 28.5 s, 29.33 s, then 30.68 s. Find the percentage increase of the last split on the one before it, to one decimal place.",
+   "right": "4.6%",
+   "wrong": [
+    "4.4%",
+    "23.5%",
+    "1.4%"
+   ],
+   "why": "Compare with the previous split, 29.33 s: (30.68 − 29.33) ÷ 29.33 × 100 = 1.35 ÷ 29.33 × 100 = 4.60…%, so 4.6%.",
+   "hook": "'On the one before it': the old value is the previous split.",
+   "keys": [
+    "Compare with the previous split"
+   ]
+  },
+  {
+   "id": "2020-P1-Q8:(d)(ii):1",
+   "from": "2020-P1-Q8",
+   "q": "Another swimmer's first 50 m split is 25.01 s. His second split is 14.7% longer, the same increase as Phelps'. Which calculation gives his second split?",
+   "right": "25.01 × 1.147",
+   "wrong": [
+    "25.01 × 0.147",
+    "25.01 + 14.7",
+    "28.5 × 1.147"
+   ],
+   "why": "An increase of 14.7% means 100% + 14.7% = 114.7% of the old time: 25.01 × 1.147 = 28.69 s.",
+   "hook": "Increase by r%: multiply by (1 + r/100) in one step.",
+   "keys": [
+    "25.01 × 1.147 = 28.69 s"
+   ]
+  },
+  {
+   "id": "2020-P1-Q8:(d)(ii):2",
+   "from": "2020-P1-Q8",
+   "q": "His four splits add up to 114.10 s. Phelps' finishing time was 1:53.36 (1 minute 53.36 seconds). What is the difference between their times?",
+   "right": "0.74 s",
+   "wrong": [
+    "39.26 s",
+    "60.74 s",
+    "1.26 s"
+   ],
+   "why": "1:53.36 is 60 + 53.36 = 113.36 seconds, so the difference is 114.10 − 113.36 = 0.74 s.",
+   "hook": "Change minutes to seconds first: 1 minute is 60 seconds, not 100.",
+   "keys": [
+    "60 + 53.36 = 113.36"
+   ]
+  },
+  {
+   "id": "2021-P1-Q5:(a):1",
+   "from": "2021-P1-Q5",
+   "q": "f(x) = 3x² − 6x + 7. Find f(0.67), correct to 2 decimal places.",
+   "right": "4.33",
+   "wrong": [
+    "4.99",
+    "7.02",
+    "4.32"
+   ],
+   "why": "3(0.67)² = 3 × 0.4489 = 1.3467 and 6(0.67) = 4.02, so f(0.67) = 1.3467 − 4.02 + 7 = 4.3267 ≈ 4.33.",
+   "hook": "3x² means 3 × (x²): square first, then multiply.",
+   "keys": [
+    "3 × 0.4489 = 1.3467"
+   ]
+  },
+  {
+   "id": "2021-P1-Q5:(b):1",
+   "from": "2021-P1-Q5",
+   "q": "f(x) = 3x² − 6x + 7. To find the value of x when f(x) = 4, what is your first step?",
+   "right": "Subtract 4: 3x² − 6x + 3 = 0",
+   "wrong": [
+    "Put x = 4 into f(x)",
+    "Add 4: 3x² − 6x + 11 = 0",
+    "Solve 3x² − 6x + 7 = 0"
+   ],
+   "why": "f(x) = 4 means 3x² − 6x + 7 = 4. Take 4 from both sides so one side is 0: 3x² − 6x + 3 = 0. Then factorise.",
+   "hook": "f(x) = 4 asks for x. f(4) gives you a y. Don't mix them up.",
+   "keys": [
+    "Take 4 from both sides"
+   ]
+  },
+  {
+   "id": "2021-P1-Q5:(b):2",
+   "from": "2021-P1-Q5",
+   "q": "f(x) = 3x² − 6x + 7. Find the value of x when f(x) = 4.",
+   "right": "x = 1",
+   "wrong": [
+    "x = −1",
+    "x = 5/3",
+    "x = 1 or x = −1"
+   ],
+   "why": "3x² − 6x + 3 = 0 → x² − 2x + 1 = 0 → (x − 1)(x − 1) = 0, so x = 1, and only x = 1.",
+   "hook": "A repeated factor gives just one answer: the curve only touches that height.",
+   "keys": [
+    "(x − 1)(x − 1) = 0"
+   ]
+  },
+  {
+   "id": "2021-P1-Q5:(c):1",
+   "from": "2021-P1-Q5",
+   "q": "Use calculus to find the co-ordinates of the local minimum point of f(x) = 3x² − 6x + 7.",
+   "right": "(1, 4)",
+   "wrong": [
+    "(−1, 16)",
+    "(2, 7)",
+    "(1, 0)"
+   ],
+   "why": "f′(x) = 6x − 6 = 0 gives x = 1. Then f(1) = 3(1)² − 6(1) + 7 = 4, so the minimum is (1, 4).",
+   "hook": "'Use calculus' means differentiate: no f′(x) in your working, no marks.",
+   "keys": [
+    "f′(x) = 6x − 6 = 0"
+   ]
+  },
+  {
+   "id": "2021-P1-Q5:(c):2",
+   "from": "2021-P1-Q5",
+   "q": "f(x) = 3x² − 6x + 7. You solved f′(x) = 0 and got x = 1. How do you get the y co-ordinate of the local minimum?",
+   "right": "Put x = 1 into f(x)",
+   "wrong": [
+    "Put x = 1 into f′(x)",
+    "Solve f(x) = 0",
+    "No need: the answer is just x = 1"
+   ],
+   "why": "The point is on the curve y = f(x), so y = f(1) = 3 − 6 + 7 = 4. f′(1) = 0 is the slope there, not the height.",
+   "hook": "Turning point: f′(x) = 0 gives x, then f(x) gives y.",
+   "keys": [
+    "y = f(1) = 3 − 6 + 7 = 4"
+   ]
+  },
+  {
+   "id": "2022-P1-Q4:(a)(i):1",
+   "from": "2022-P1-Q4",
+   "q": "g(x) = x³ − 7x² + x − 12. Work out the value of g(5).",
+   "right": "−57",
+   "wrong": [
+    "−1107",
+    "−167",
+    "48"
+   ],
+   "why": "Powers first: 5³ = 125 and 7(5)² = 7 × 25 = 175. So g(5) = 125 − 175 + 5 − 12 = −57.",
+   "hook": "Powers before multiplying: 7(5)² is 7 × 25, not 35².",
+   "keys": [
+    "7 × 25 = 175"
+   ]
+  },
+  {
+   "id": "2022-P1-Q4:(a)(ii):1",
+   "from": "2022-P1-Q4",
+   "q": "Find g′(x), the derivative of g(x) = x³ − 7x² + x − 12.",
+   "right": "3x² − 14x + 1",
+   "wrong": [
+    "3x² − 14x − 11",
+    "3x² − 7x + 1",
+    "3x² − 14x"
+   ],
+   "why": "x³ → 3x², −7x² → 2 × (−7)x = −14x, x → 1 and −12 → 0.",
+   "hook": "An x on its own becomes 1; a number on its own becomes 0.",
+   "keys": [
+    "x → 1"
+   ]
+  },
+  {
+   "id": "2022-P1-Q4:(a)(iii):1",
+   "from": "2022-P1-Q4",
+   "q": "g(x) = x³ − 7x² + x − 12. For the tangent to y = g(x) at x = 5, where do its point and its slope come from?",
+   "right": "Point from g(5), slope from g′(5)",
+   "wrong": [
+    "Point from g′(5), slope from g(5)",
+    "Point (5, 0), slope from g′(5)",
+    "Point from g(5), slope g(5) ÷ 5"
+   ],
+   "why": "The tangent touches the curve at (5, g(5)) = (5, −57). Its slope is the slope of the curve there: g′(5) = 6.",
+   "hook": "Tangent recipe: point from f, slope from f′, then y − y₁ = m(x − x₁).",
+   "keys": [
+    "g′(5) = 6"
+   ]
+  },
+  {
+   "id": "2022-P1-Q4:(a)(iii):2",
+   "from": "2022-P1-Q4",
+   "q": "g(5) = −57 and g′(5) = 6. Find the equation of the tangent to y = g(x) at x = 5, in the form ax + by + c = 0.",
+   "right": "6x − y − 87 = 0",
+   "wrong": [
+    "6x − y + 27 = 0",
+    "6x − y − 27 = 0",
+    "57x + y − 291 = 0"
+   ],
+   "why": "Point (5, −57), slope 6: y − (−57) = 6(x − 5), so y + 57 = 6x − 30, which gives 6x − y − 87 = 0.",
+   "hook": "Finish in the form asked: everything on one side, = 0.",
+   "keys": [
+    "y + 57 = 6x − 30"
+   ]
+  },
+  {
+   "id": "2022-P1-Q4:(b)(i):1",
+   "from": "2022-P1-Q4",
+   "q": "A graph of y = u(x), 0 ≤ x ≤ 10: it rises from (0, −2.5), crosses the x-axis at x = 3, climbs to (4, 2), is flat near 2.2 around x = 5.5, then falls to (10, 0.4). Where is u′(x) negative?",
+   "right": "Where it falls, e.g. x = 8",
+   "wrong": [
+    "Below the x-axis, e.g. x = 1",
+    "Where it crosses the x-axis, x = 3",
+    "At the flat top, where it turns"
+   ],
+   "why": "u′(x) is the slope. It is negative where the graph goes down as you move right: after the flat top, e.g. x = 8.",
+   "hook": "Read left to right: uphill u′ > 0, downhill u′ < 0, flat u′ = 0.",
+   "keys": [
+    "goes down as you move right"
+   ]
+  },
+  {
+   "id": "2022-P1-Q4:(b)(ii):1",
+   "from": "2022-P1-Q4",
+   "q": "How do you estimate u′(4) from the graph of y = u(x)?",
+   "right": "Draw the tangent at x = 4: its slope",
+   "wrong": [
+    "Read the height of the curve at x = 4",
+    "Join (0, u(0)) to (4, u(4)): its slope",
+    "Divide u(4) by 4"
+   ],
+   "why": "u′(4) is the slope of the curve at x = 4, which is the slope of the tangent there. A line to another point on the curve is not the tangent.",
+   "hook": "A derivative at a point = the slope of the tangent at that point.",
+   "keys": [
+    "the slope of the tangent there"
+   ]
+  },
+  {
+   "id": "2022-P1-Q4:(b)(ii):2",
+   "from": "2022-P1-Q4",
+   "q": "The tangent you draw to y = u(x) at the point (4, 2) also passes through the point (6, 3). Use it to estimate u′(4).",
+   "right": "1/2",
+   "wrong": [
+    "2",
+    "−1/2",
+    "1"
+   ],
+   "why": "u′(4) is the slope of the tangent: rise ÷ run = (3 − 2) ÷ (6 − 4) = 1/2.",
+   "hook": "Slope = rise ÷ run: the up goes on top.",
+   "keys": [
+    "rise ÷ run"
+   ]
+  },
+  {
+   "id": "2022-P1-Q7:(a)(i):1",
+   "from": "2022-P1-Q7",
+   "q": "Joseph's heart-rate is h(x) = −0.38x³ + 2.6x² − 0.13x + 158 BPM, x minutes into a session. Find h(2), to the nearest whole number.",
+   "right": "165",
+   "wrong": [
+    "166",
+    "171",
+    "160"
+   ],
+   "why": "h(2) = −0.38(8) + 2.6(4) − 0.13(2) + 158 = −3.04 + 10.4 − 0.26 + 158 = 165.1 ≈ 165.",
+   "hook": "Powers first, with the minus kept: −0.38(2)³ = −0.38 × 8.",
+   "keys": [
+    "−0.38(8)"
+   ]
+  },
+  {
+   "id": "2022-P1-Q7:(a)(ii):1",
+   "from": "2022-P1-Q7",
+   "q": "Heart-rate table: at x = 0, 1, 2, 3, 4, 5, 6 minutes, h(x) = 158, 160, 165, 171, 175, 175, 169 BPM. When you draw the curve through these points, where is its peak?",
+   "right": "Between 4 and 5 minutes",
+   "wrong": [
+    "At exactly 4 minutes",
+    "At exactly 5 minutes",
+    "Two peaks: at 4 and at 5 minutes"
+   ],
+   "why": "h(4) and h(5) are both about 175, with lower values either side, so the smooth curve tops out between 4 and 5 minutes (at 4.54, part (f)).",
+   "hook": "Two equal top values: a smooth curve peaks once, between them.",
+   "keys": [
+    "between 4 and 5 minutes"
+   ]
+  },
+  {
+   "id": "2022-P1-Q7:(b):1",
+   "from": "2022-P1-Q7",
+   "q": "On the graph of Joseph's heart-rate, h(x) in BPM against time x in minutes, what does the point A (6, 169) mean?",
+   "right": "At 6 minutes his heart-rate is 169 BPM",
+   "wrong": [
+    "At 169 minutes his heart-rate is 6 BPM",
+    "It rose by 169 BPM in 6 minutes",
+    "It stayed at 169 BPM for 6 minutes"
+   ],
+   "why": "The first number is the time x (6 minutes) and the second is the heart-rate h(x) (169 BPM): 6 minutes after the start, his heart-rate is 169 BPM.",
+   "hook": "A point is (x, y): say what each number is, with its units.",
+   "keys": [
+    "6 minutes after the start"
+   ]
+  },
+  {
+   "id": "2022-P1-Q7:(c):1",
+   "from": "2022-P1-Q7",
+   "q": "From A (6, 169), Joseph's heart-rate stays level for 2 minutes, then falls at a steady 10 BPM per minute for 2 minutes. Where does the graph end?",
+   "right": "(10, 149)",
+   "wrong": [
+    "(10, 159)",
+    "(8, 149)",
+    "(10, 129)"
+   ],
+   "why": "Level from (6, 169) to (8, 169). Then 2 minutes at 10 BPM per minute is a drop of 20: 169 − 20 = 149, at x = 10.",
+   "hook": "Rate × time = change: 10 BPM per minute for 2 minutes is 20 BPM.",
+   "keys": [
+    "169 − 20 = 149"
+   ]
+  },
+  {
+   "id": "2022-P1-Q7:(c):2",
+   "from": "2022-P1-Q7",
+   "q": "Joseph's heart-rate falls at a steady rate of 10 BPM per minute for 2 minutes. What does that part of the graph look like?",
+   "right": "A straight line sloping down",
+   "wrong": [
+    "A curve that gets steeper",
+    "A curve that levels off",
+    "A flat (horizontal) line"
+   ],
+   "why": "A steady rate means the same drop every minute, so the slope never changes: a straight line, going down 10 for every 1 across.",
+   "hook": "Steady rate = constant slope = straight line.",
+   "keys": [
+    "a straight line"
+   ]
+  },
+  {
+   "id": "2022-P1-Q7:(d):1",
+   "from": "2022-P1-Q7",
+   "q": "Calories burned per minute: c(x) = 0.1 h(x) − 7, where h(x) is Joseph's heart-rate after x minutes. His heart-rate at 6 minutes is 169 BPM. Find c(6).",
+   "right": "9.9",
+   "wrong": [
+    "−6.4",
+    "16.2",
+    "16.9"
+   ],
+   "why": "c(6) uses h(6), the heart-rate at 6 minutes: c(6) = 0.1(169) − 7 = 16.9 − 7 = 9.9 calories per minute.",
+   "hook": "c(6) needs h(6) first: put the heart-rate in, not the time.",
+   "keys": [
+    "c(6) uses h(6)"
+   ]
+  },
+  {
+   "id": "2022-P1-Q7:(e):1",
+   "from": "2022-P1-Q7",
+   "q": "A smart watch beeps every 15 seconds: first at exactly 2:55 p.m. and last at exactly 3:23 p.m. How many times does it beep in total, including the first and last?",
+   "right": "113",
+   "wrong": [
+    "112",
+    "273",
+    "421"
+   ],
+   "why": "2:55 to 3:23 is 28 minutes. 4 beeps a minute gives 4 × 28 = 112 gaps, and there is one more beep than gaps: 112 + 1 = 113.",
+   "hook": "Fence posts: count the gaps, then add one for the first post.",
+   "keys": [
+    "112 + 1 = 113"
+   ]
+  },
+  {
+   "id": "2022-P1-Q7:(f):1",
+   "from": "2022-P1-Q7",
+   "q": "Solve h′(x) = −1.14x² + 5.2x − 0.13 = 0 to find when Joseph's heart-rate is at a maximum, 0 ≤ x ≤ 6. Give your answer in minutes, to 2 decimal places.",
+   "right": "4.54 minutes",
+   "wrong": [
+    "0.03 minutes",
+    "−4.54 minutes",
+    "9.07 minutes"
+   ],
+   "why": "x = (−5.2 ± √(5.2² − 4(−1.14)(−0.13))) ÷ 2(−1.14) = 4.536… or 0.025…. The peak is between 4 and 5 minutes: 4.54.",
+   "hook": "−b ± √(b² − 4ac), all over 2a: keep every minus sign in brackets.",
+   "keys": [
+    "The peak is between 4 and 5 minutes"
+   ]
+  },
+  {
+   "id": "2022-P1-Q7:(f):2",
+   "from": "2022-P1-Q7",
+   "q": "Heart-rate: h′(x) = 0 gives x = 4.54 or x = 0.03 minutes. Why is 4.54 the time of the maximum heart-rate?",
+   "right": "0.03 is a minimum; the top is near 4.5",
+   "wrong": [
+    "Always take the larger root",
+    "0.03 is outside 0 ≤ x ≤ 6",
+    "Both are maxima: take the later one"
+   ],
+   "why": "h′(x) = 0 at both turning points. At 0.03 min the heart-rate is at its lowest (about 158); the curve peaks between 4 and 5 min, so 4.54.",
+   "hook": "Two roots of f′(x) = 0? Use the graph or table to see which one is the top.",
+   "keys": [
+    "the curve peaks between 4 and 5 min"
+   ]
+  },
+  {
+   "id": "2022-P1-Q10:(a)(i):1",
+   "from": "2022-P1-Q10",
+   "q": "A hurling ball's height is h = −2t² + 5t + 1.2 metres, t seconds after it is hit. How high was the ball when it was hit?",
+   "right": "1.2 m",
+   "wrong": [
+    "4.2 m",
+    "0 m",
+    "4.325 m"
+   ],
+   "why": "When it was hit, t = 0: h = −2(0)² + 5(0) + 1.2 = 1.2 m.",
+   "hook": "The start of the motion is t = 0: only the number on its own is left.",
+   "keys": [
+    "t = 0"
+   ]
+  },
+  {
+   "id": "2022-P1-Q10:(a)(ii):1",
+   "from": "2022-P1-Q10",
+   "q": "Hurling ball: h = −2t² + 5t + 1.2 metres after t seconds. It was caught after 2.4 seconds. How high was it when it was caught?",
+   "right": "1.68 m",
+   "wrong": [
+    "8.4 m",
+    "24.72 m",
+    "36.24 m"
+   ],
+   "why": "Square first: 2.4² = 5.76, so h = −2(5.76) + 5(2.4) + 1.2 = −11.52 + 12 + 1.2 = 1.68 m.",
+   "hook": "−2t² is −2 × (t²): only the t is squared, and the minus stays.",
+   "keys": [
+    "2.4² = 5.76"
+   ]
+  },
+  {
+   "id": "2022-P1-Q10:(a)(iii):1",
+   "from": "2022-P1-Q10",
+   "q": "Hurling ball: h = −2t² + 5t + 1.2 metres after t seconds. To find when the ball is 3.2 m high, what do you do?",
+   "right": "Solve −2t² + 5t + 1.2 = 3.2",
+   "wrong": [
+    "Solve −2t² + 5t + 1.2 = 0",
+    "Solve −4t + 5 = 3.2",
+    "Put t = 3.2 into the formula"
+   ],
+   "why": "3.2 is a height, so set h = 3.2: −2t² + 5t + 1.2 = 3.2, which gives 2t² − 5t + 2 = 0. Then solve for t.",
+   "hook": "Given the height, find the time: set the formula equal to that height.",
+   "keys": [
+    "3.2 is a height"
+   ]
+  },
+  {
+   "id": "2022-P1-Q10:(a)(iii):2",
+   "from": "2022-P1-Q10",
+   "q": "h = −2t² + 5t + 1.2. Over the halfway line the ball was 3.2 m high and its height was decreasing. How many seconds after it was hit was that?",
+   "right": "2 s",
+   "wrong": [
+    "0.5 s",
+    "1.25 s",
+    "2.72 s"
+   ],
+   "why": "−2t² + 5t + 1.2 = 3.2 → 2t² − 5t + 2 = 0 → (2t − 1)(t − 2) = 0, so t = ½ or 2. Coming down means the later one: 2 s.",
+   "hook": "A ball passes each height twice: once going up, once coming down.",
+   "keys": [
+    "(2t − 1)(t − 2) = 0"
+   ]
+  },
+  {
+   "id": "2022-P1-Q10:(a)(iv):1",
+   "from": "2022-P1-Q10",
+   "q": "Hurling ball: h = −2t² + 5t + 1.2 metres. At its greatest height the ball is 4.325 m up. What is dh/dt at that moment?",
+   "right": "0 m/s",
+   "wrong": [
+    "4.325 m/s",
+    "5 m/s",
+    "−4 m/s"
+   ],
+   "why": "dh/dt is how fast the height changes. At the very top the ball stops rising and starts falling, so dh/dt = 0 there.",
+   "hook": "Rate, not amount: at the top the height is big but its rate of change is 0.",
+   "keys": [
+    "dh/dt = 0 there"
+   ]
+  },
+  {
+   "id": "2022-P1-Q10:(a)(iv):2",
+   "from": "2022-P1-Q10",
+   "q": "h = −2t² + 5t + 1.2 metres after t seconds. Find dh/dt and hence how long it took the ball to reach its greatest height.",
+   "right": "1.25 s",
+   "wrong": [
+    "2.5 s",
+    "0.8 s",
+    "−1.25 s"
+   ],
+   "why": "dh/dt = −4t + 5. At the greatest height −4t + 5 = 0, so 4t = 5 and t = 5/4 = 1.25 s.",
+   "hook": "Greatest height: set dh/dt = 0 and solve for t.",
+   "keys": [
+    "−4t + 5 = 0"
+   ]
+  },
+  {
+   "id": "2022-P1-Q10:(b):1",
+   "from": "2022-P1-Q10",
+   "q": "A ball is 1 m high when it is hit and reaches its greatest height, 5 m, after 2 seconds. Its height graph is a quadratic. Which other point must be on it?",
+   "right": "(4, 1)",
+   "wrong": [
+    "(4, 0)",
+    "(1, 4)",
+    "(5, 2)"
+   ],
+   "why": "A quadratic is symmetric about its top, at t = 2. t = 0 is 2 s before the top, so 2 s after it, at t = 4, the height is 1 m again: (4, 1).",
+   "hook": "Symmetry gives a free point: mirror the start in the top.",
+   "keys": [
+    "the height is 1 m again"
+   ]
+  },
+  {
+   "id": "2022-P1-Q10:(b):2",
+   "from": "2022-P1-Q10",
+   "q": "The ball's height graph goes through (0, 1), (2, 5) and (4, 1), and the ball hits the ground without being caught. Where should your graph stop?",
+   "right": "On the t-axis, just after t = 4",
+   "wrong": [
+    "At (4, 1), 1 m above the ground",
+    "On the t-axis at exactly t = 4",
+    "At t = 5, the end of the axes"
+   ],
+   "why": "At t = 4 the ball is still 1 m up. It keeps falling until the height is 0, so the curve carries on down to the t-axis just after t = 4.",
+   "hook": "Hits the ground means height 0: finish the curve on the t-axis.",
+   "keys": [
+    "until the height is 0"
+   ]
+  },
+  {
+   "id": "2022-P1-Q10:(c)(i):1",
+   "from": "2022-P1-Q10",
+   "q": "A hurl usually costs €33. Keith gets a student discount of 15%. Work out the price Keith pays for the hurl.",
+   "right": "€28.05",
+   "wrong": [
+    "€4.95",
+    "€18.00",
+    "€37.95"
+   ],
+   "why": "15% off means he pays 85%: €33 × 0.85 = €28.05.",
+   "hook": "A discount of r%: pay (100 − r)%, in one multiplication.",
+   "keys": [
+    "€33 × 0.85 = €28.05"
+   ]
+  },
+  {
+   "id": "2022-P1-Q10:(c)(ii):1",
+   "from": "2022-P1-Q10",
+   "q": "A jersey costs €49.50, including VAT at 23%. Work out the VAT on the jersey, correct to the nearest cent.",
+   "right": "€9.26",
+   "wrong": [
+    "€11.39",
+    "€40.24",
+    "€38.12"
+   ],
+   "why": "€49.50 is 123% of the price before VAT. 1% = 49.50 ÷ 123 = 0.4024…, so the VAT is 23 × 0.4024… = 9.256… ≈ €9.26.",
+   "hook": "A price including VAT is 123%, not 100%.",
+   "keys": [
+    "€49.50 is 123%"
+   ]
+  },
+  {
+   "id": "2023-P1-Q4:(a)(i):1",
+   "from": "2023-P1-Q4",
+   "q": "From the graph of y = g(x), you want to estimate g(1.5). What do you read off the graph?",
+   "right": "The height of the curve at x = 1.5",
+   "wrong": [
+    "The x where the curve is 1.5 high",
+    "The slope of the curve at x = 1.5",
+    "1.5 times the y-intercept"
+   ],
+   "why": "g(1.5) is the y value when x = 1.5: go up from 1.5 on the x-axis to the curve, then across to the y-axis (about 2 here).",
+   "hook": "g(number): the number goes on the x-axis; the answer is read on the y-axis.",
+   "keys": [
+    "go up from 1.5 on the x-axis"
+   ]
+  },
+  {
+   "id": "2023-P1-Q4:(a)(ii):1",
+   "from": "2023-P1-Q4",
+   "q": "From the graph of y = g(x), how do you estimate the value of x for which g(x) = −6?",
+   "right": "Across from −6 on the y-axis; read x",
+   "wrong": [
+    "Up from −6 on the x-axis; read y",
+    "Across from 6 on the y-axis; read x",
+    "Read where the curve cuts the x-axis"
+   ],
+   "why": "g(x) = −6 is a height. Find −6 on the y-axis, go across to the curve, then down to read x (about −2.8 here).",
+   "hook": "Known height: start on the y-axis. Known x: start on the x-axis.",
+   "keys": [
+    "g(x) = −6 is a height"
+   ]
+  },
+  {
+   "id": "2023-P1-Q4:(a)(iii):1",
+   "from": "2023-P1-Q4",
+   "q": "On the graph of a function g, what is a real root of g?",
+   "right": "A point where the graph cuts the x-axis",
+   "wrong": [
+    "A point where it cuts the y-axis",
+    "A turning point (hump or dip)",
+    "The lowest point of the graph"
+   ],
+   "why": "A root is a value of x where g(x) = 0, and g(x) = 0 is exactly where the graph meets the x-axis.",
+   "hook": "Roots live on the x-axis: count the crossings.",
+   "keys": [
+    "g(x) = 0"
+   ]
+  },
+  {
+   "id": "2023-P1-Q4:(a)(iii):2",
+   "from": "2023-P1-Q4",
+   "q": "A cubic graph g, −3 ≤ x ≤ 2, rises from (−3, −8) to a hump at about (−1.6, −1), dips to about (0.25, −3.1), then climbs to (2, 8). How many real roots does g have here?",
+   "right": "1",
+   "wrong": [
+    "3",
+    "2",
+    "0"
+   ],
+   "why": "Roots are where the graph cuts the x-axis. The hump and the dip are both below it, so the graph crosses only once, after the dip.",
+   "hook": "Count the crossings, not the bumps: a cubic can have 1, 2 or 3 roots.",
+   "keys": [
+    "the graph crosses only once"
+   ]
+  },
+  {
+   "id": "2023-P1-Q4:(a)(iv):1",
+   "from": "2023-P1-Q4",
+   "q": "Graph of g, −3 ≤ x ≤ 2: lowest point drawn (−3, −8), a hump at about (−1.6, −1), a dip at about (0.25, −3.1), highest point drawn (2, 8). What is the local maximum point?",
+   "right": "(−1.6, −1)",
+   "wrong": [
+    "(2, 8)",
+    "(0.25, −3.1)",
+    "(−1, −1.6)"
+   ],
+   "why": "A local maximum is the top of a hump, where the curve turns from going up to going down: (−1.6, −1). (2, 8) is just where the drawing ends.",
+   "hook": "Local max = top of a hill, even if the graph goes higher somewhere else.",
+   "keys": [
+    "the top of a hump"
+   ]
+  },
+  {
+   "id": "2023-P1-Q4:(a)(iv):2",
+   "from": "2023-P1-Q4",
+   "q": "The graph of g has a hump at about (−1.6, −1) and a dip at about (0.25, −3.1). What is g′(x) at these two points?",
+   "right": "0 at both",
+   "wrong": [
+    "−1 at the hump, −3.1 at the dip",
+    "0 at the hump only",
+    "Largest at the hump, least at the dip"
+   ],
+   "why": "g′(x) is the slope. At the top of a hump and the bottom of a dip the curve is flat for a moment, so the slope is 0 at both.",
+   "hook": "Hump or dip, the tangent is flat: g′(x) = 0 at every turning point.",
+   "keys": [
+    "the slope is 0 at both"
+   ]
+  },
+  {
+   "id": "2023-P1-Q4:(b)(i):1",
+   "from": "2023-P1-Q4",
+   "q": "Find h′(x), the derivative of h(x) = x³ + 2x² − x − 8.",
+   "right": "3x² + 4x − 1",
+   "wrong": [
+    "3x² + 4x − 9",
+    "3x² + 4x + 1",
+    "3x² + 2x − 1"
+   ],
+   "why": "x³ → 3x², 2x² → 2 × 2x = 4x, −x → −1 and −8 → 0.",
+   "hook": "Keep each term's sign: −x becomes −1, not +1.",
+   "keys": [
+    "−x → −1"
+   ]
+  },
+  {
+   "id": "2023-P1-Q4:(b)(ii):1",
+   "from": "2023-P1-Q4",
+   "q": "h(x) = x³ + 2x² − x − 8 and h′(x) = 3x² + 4x − 1. What is the slope of the tangent to h(x) at the point (2, 6)?",
+   "right": "19",
+   "wrong": [
+    "6",
+    "131",
+    "43"
+   ],
+   "why": "The slope is h′ at x = 2: h′(2) = 3(2)² + 4(2) − 1 = 12 + 8 − 1 = 19.",
+   "hook": "Put the point's x into h′(x), not its y.",
+   "keys": [
+    "h′(2) = 3(2)² + 4(2) − 1"
+   ]
+  },
+  {
+   "id": "2023-P1-Q4:(b)(ii):2",
+   "from": "2023-P1-Q4",
+   "q": "The tangent to h(x) = x³ + 2x² − x − 8 at the point (2, 6) has slope 19. Find the equation of the tangent.",
+   "right": "19x − y − 32 = 0",
+   "wrong": [
+    "19x − y + 44 = 0",
+    "19x − y − 44 = 0",
+    "19x − y + 6 = 0"
+   ],
+   "why": "y − y₁ = m(x − x₁): y − 6 = 19(x − 2), so y − 6 = 19x − 38, which gives 19x − y − 32 = 0.",
+   "hook": "y − y₁ = m(x − x₁): the point's own numbers go in after minus signs.",
+   "keys": [
+    "y − 6 = 19(x − 2)"
+   ]
+  },
+  {
+   "id": "2023-P1-Q6:(a)(i):1",
+   "from": "2023-P1-Q6",
+   "q": "g(x) = x² + 8x − 6. Find the value of g(−5).",
+   "right": "−21",
+   "wrong": [
+    "−71",
+    "59",
+    "−56"
+   ],
+   "why": "(−5)² = +25 and 8(−5) = −40, so g(−5) = 25 − 40 − 6 = −21.",
+   "hook": "A negative squared is positive: (−5)² = +25. Use brackets on the calculator.",
+   "keys": [
+    "(−5)² = +25"
+   ]
+  },
+  {
+   "id": "2023-P1-Q6:(a)(ii):1",
+   "from": "2023-P1-Q6",
+   "q": "Use calculus to find the value of x which gives the minimum value of g(x) = x² + 8x − 6.",
+   "right": "x = −4",
+   "wrong": [
+    "x = 4",
+    "x = 0.69",
+    "x = −8"
+   ],
+   "why": "g′(x) = 2x + 8. At the minimum the slope is 0: 2x + 8 = 0, so x = −4. (Solving g(x) = 0 instead earns no marks.)",
+   "hook": "Max or min: set the DERIVATIVE equal to 0, not the function.",
+   "keys": [
+    "2x + 8 = 0"
+   ]
+  },
+  {
+   "id": "2023-P1-Q6:(b):1",
+   "from": "2023-P1-Q6",
+   "q": "Expand and simplify (2x − 4)² − 6.",
+   "right": "4x² − 16x + 10",
+   "wrong": [
+    "4x² + 10",
+    "4x² − 8x + 10",
+    "2x² − 16x + 10"
+   ],
+   "why": "(2x − 4)(2x − 4) = 4x² − 8x − 8x + 16 = 4x² − 16x + 16. Then take away 6: 4x² − 16x + 10.",
+   "hook": "Squaring a bracket: write it out twice and multiply every term by every term.",
+   "keys": [
+    "4x² − 8x − 8x + 16"
+   ]
+  },
+  {
+   "id": "2023-P1-Q6:(c):1",
+   "from": "2023-P1-Q6",
+   "q": "You solve 9x² + 6x − 5 = 0 with the quadratic formula. What is b² − 4ac?",
+   "right": "216",
+   "wrong": [
+    "−144",
+    "192",
+    "−5"
+   ],
+   "why": "a = 9, b = 6, c = −5: b² − 4ac = 36 − 4(9)(−5) = 36 + 180 = 216. Minus times minus makes +180.",
+   "hook": "Put c in with its sign, in brackets: −4(9)(−5) = +180.",
+   "keys": [
+    "36 + 180 = 216"
+   ]
+  },
+  {
+   "id": "2023-P1-Q6:(c):2",
+   "from": "2023-P1-Q6",
+   "q": "Solve the equation 9x² + 6x − 5 = 0. Give each answer correct to 2 decimal places.",
+   "right": "0.48 or −1.15",
+   "wrong": [
+    "1.15 or −0.48",
+    "0.97 or −2.30",
+    "−5.18 or −6.82"
+   ],
+   "why": "x = (−6 ± √216) ÷ 18, so x = 0.483… ≈ 0.48 or x = −1.149… ≈ −1.15.",
+   "hook": "In the formula the whole top, −b ± √(b² − 4ac), is divided by 2a.",
+   "keys": [
+    "(−6 ± √216) ÷ 18"
+   ]
+  },
+  {
+   "id": "2023-P1-Q7:(a)(i):1",
+   "from": "2023-P1-Q7",
+   "q": "The runoff curve number is C = 1000 ÷ (S + 10). Find the value of C when S = 15.",
+   "right": "40",
+   "wrong": [
+    "76.67",
+    "66.67",
+    "0.025"
+   ],
+   "why": "Work out the bottom first: 15 + 10 = 25. Then C = 1000 ÷ 25 = 40.",
+   "hook": "Bottom first: the whole of (S + 10) divides the 1000.",
+   "keys": [
+    "15 + 10 = 25"
+   ]
+  },
+  {
+   "id": "2023-P1-Q7:(a)(ii):1",
+   "from": "2023-P1-Q7",
+   "q": "C = 1000 ÷ (S + 10). When S increases, does C increase or decrease, and why?",
+   "right": "Decreases: the bottom gets bigger",
+   "wrong": [
+    "Increases: S is getting bigger",
+    "Increases: the bottom gets bigger",
+    "Stays the same: the top is fixed"
+   ],
+   "why": "S is on the bottom. As S grows, 1000 is divided by a bigger number, so C gets smaller: 1000 ÷ 25 = 40 but 1000 ÷ 50 = 20.",
+   "hook": "Bigger bottom, smaller fraction: test it with two numbers.",
+   "keys": [
+    "1000 ÷ 25 = 40 but 1000 ÷ 50 = 20"
+   ]
+  },
+  {
+   "id": "2023-P1-Q7:(a)(iii):1",
+   "from": "2023-P1-Q7",
+   "q": "Rearrange C = 1000 ÷ (S + 10) to write S in terms of C.",
+   "right": "S = (1000 − 10C) ÷ C",
+   "wrong": [
+    "S = 1000C − 10",
+    "S = 1000 ÷ C + 10",
+    "S = (1000 − 10) ÷ C"
+   ],
+   "why": "Multiply by (S + 10): C(S + 10) = 1000, so CS + 10C = 1000, CS = 1000 − 10C and S = (1000 − 10C) ÷ C.",
+   "hook": "Get rid of the fraction first: multiply both sides by the bottom.",
+   "keys": [
+    "CS + 10C = 1000"
+   ]
+  },
+  {
+   "id": "2023-P1-Q7:(a)(iv):1",
+   "from": "2023-P1-Q7",
+   "q": "S = (1000 − 10C) ÷ C, and the values of C go from 30 to 100. What is the range of values of S?",
+   "right": "0 to 23.3",
+   "wrong": [
+    "9.1 to 25",
+    "10 to 33.3",
+    "11.1 to 50"
+   ],
+   "why": "C = 30: S = (1000 − 300) ÷ 30 = 23.3…; C = 100: S = (1000 − 1000) ÷ 100 = 0. So S goes from 0 to 23.3.",
+   "hook": "Put each end of the range of C into the formula for S.",
+   "keys": [
+    "S = (1000 − 1000) ÷ 100 = 0"
+   ]
+  },
+  {
+   "id": "2023-P1-Q7:(b)(i):1",
+   "from": "2023-P1-Q7",
+   "q": "The probability that it is raining t hours after the start of the day is P(t) = 0.3 + 0.02t, 0 ≤ t ≤ 24. Find P(0) and P(24).",
+   "right": "0.3 and 0.78",
+   "wrong": [
+    "0.3 and 0.348",
+    "0 and 0.48",
+    "0.32 and 0.78"
+   ],
+   "why": "Start of the day, t = 0: P(0) = 0.3. End of the day, t = 24: P(24) = 0.3 + 0.02(24) = 0.3 + 0.48 = 0.78.",
+   "hook": "Start of the day is t = 0, the end is t = 24: put each into P(t).",
+   "keys": [
+    "0.3 + 0.48 = 0.78"
+   ]
+  },
+  {
+   "id": "2023-P1-Q7:(b)(ii):1",
+   "from": "2023-P1-Q7",
+   "q": "P(t) = 0.3 + 0.02t is the probability that it is raining t hours into the day. Find P′(t). What does its value mean?",
+   "right": "0.02: P goes up 0.02 every hour",
+   "wrong": [
+    "0.02: a 2% chance that it is raining",
+    "0.3: the chance of rain at the start",
+    "0.32: the chance after 1 hour"
+   ],
+   "why": "P′(t) = 0.02 (the 0.3 → 0). It is a rate: the probability that it is raining goes up by 0.02 (2%) every hour.",
+   "hook": "A derivative is a rate: how much it changes per hour, not how much there is.",
+   "keys": [
+    "It is a rate"
+   ]
+  },
+  {
+   "id": "2023-P1-Q7:(b)(iii):1",
+   "from": "2023-P1-Q7",
+   "q": "P(t) = 0.3 + 0.02t. At a certain time, the probability that it is raining is 0.35. What is the probability exactly 1 hour later?",
+   "right": "0.37",
+   "wrong": [
+    "0.32",
+    "0.357",
+    "0.55"
+   ],
+   "why": "P′(t) = 0.02: the probability goes up 0.02 every hour, all day. One hour later: 0.35 + 0.02 = 0.37.",
+   "hook": "Constant rate: add the rate once for every hour.",
+   "keys": [
+    "0.35 + 0.02 = 0.37"
+   ]
+  },
+  {
+   "id": "2024-P1-Q5:(a):1",
+   "from": "2024-P1-Q5",
+   "q": "Find the value of (3x + 5)/10 − 1/(x + 3) when x = 2. Give your answer in the form a/b.",
+   "right": "9/10",
+   "wrong": [
+    "10/5",
+    "19/10",
+    "−12/5"
+   ],
+   "why": "(3(2) + 5)/10 − 1/(2 + 3) = 11/10 − 1/5 = 11/10 − 2/10 = 9/10.",
+   "hook": "Subtract fractions over a common bottom: never subtract the bottoms.",
+   "keys": [
+    "11/10 − 2/10 = 9/10"
+   ]
+  },
+  {
+   "id": "2024-P1-Q5:(b):1",
+   "from": "2024-P1-Q5",
+   "q": "f(x) = 5x² − 20x + 2. What is f′(x)?",
+   "right": "10x − 20",
+   "wrong": [
+    "10x − 18",
+    "5x − 20",
+    "10x² − 20x"
+   ],
+   "why": "5x² → 2 × 5x = 10x, −20x → −20, and the 2 on its own → 0.",
+   "hook": "A number on its own has a flat graph, slope 0: it disappears.",
+   "keys": [
+    "the 2 on its own → 0"
+   ]
+  },
+  {
+   "id": "2024-P1-Q5:(b):2",
+   "from": "2024-P1-Q5",
+   "q": "Use calculus to find the co-ordinates of the local minimum point of f(x) = 5x² − 20x + 2.",
+   "right": "(2, −18)",
+   "wrong": [
+    "(−2, 62)",
+    "(4, 2)",
+    "(0.1, 0)"
+   ],
+   "why": "f′(x) = 10x − 20 = 0 gives x = 2. Then f(2) = 5(4) − 40 + 2 = −18, so the minimum is (2, −18).",
+   "hook": "Three steps, three marks: f′(x), solve f′(x) = 0 for x, then f(x) for y.",
+   "keys": [
+    "f′(x) = 10x − 20 = 0"
+   ]
+  },
+  {
+   "id": "2024-P1-Q5:(c):1",
+   "from": "2024-P1-Q5",
+   "q": "A straight line g(x) passes through (−3, −1), (0, 1) and (6, 5). Find its rate of change, g′(x), in the form a/b.",
+   "right": "2/3",
+   "wrong": [
+    "3/2",
+    "5/6",
+    "−2/3"
+   ],
+   "why": "For a line, g′(x) is its slope: rise ÷ run = (5 − 1) ÷ (6 − 0) = 4/6 = 2/3, the same all along the line.",
+   "hook": "Straight line: the derivative is just the slope, the same everywhere.",
+   "keys": [
+    "4/6 = 2/3"
+   ]
+  },
+  {
+   "id": "2024-P1-Q7:(a)(i):1",
+   "from": "2024-P1-Q7",
+   "q": "Bacteria in a dish: p(t) = t³ − 6t² + 6t + 20 thousand, t hours after the start. Find p(3).",
+   "right": "11",
+   "wrong": [
+    "−7",
+    "119",
+    "29"
+   ],
+   "why": "p(3) = 27 − 6(9) + 18 + 20 = 27 − 54 + 18 + 20 = 11 (thousand).",
+   "hook": "Cube and square before multiplying: 6t² at t = 3 is 6 × 9.",
+   "keys": [
+    "27 − 54 + 18 + 20 = 11"
+   ]
+  },
+  {
+   "id": "2024-P1-Q7:(a)(iii):1",
+   "from": "2024-P1-Q7",
+   "q": "Find p′(t), the derivative of p(t) = t³ − 6t² + 6t + 20.",
+   "right": "3t² − 12t + 6",
+   "wrong": [
+    "3t² − 12t + 26",
+    "3t² − 12t",
+    "t² − 6t + 6"
+   ],
+   "why": "t³ → 3t², −6t² → 2 × (−6)t = −12t, 6t → 6 and the 20 → 0.",
+   "hook": "Same rule for t as for x: power down in front, then one off.",
+   "keys": [
+    "the 20 → 0"
+   ]
+  },
+  {
+   "id": "2024-P1-Q7:(a)(iv):1",
+   "from": "2024-P1-Q7",
+   "q": "Bacteria: p(t) = t³ − 6t² + 6t + 20 and p′(t) = 3t² − 12t + 6. Find p′(2).",
+   "right": "−6",
+   "wrong": [
+    "16",
+    "18",
+    "42"
+   ],
+   "why": "p′(2) = 3(2)² − 12(2) + 6 = 12 − 24 + 6 = −6. Negative: at 2 hours the number of bacteria is falling.",
+   "hook": "p′(2): put 2 into the derivative, not into p(t).",
+   "keys": [
+    "12 − 24 + 6 = −6"
+   ]
+  },
+  {
+   "id": "2024-P1-Q7:(a)(v):1",
+   "from": "2024-P1-Q7",
+   "q": "p(t) is the number of bacteria, in thousands, t hours after the start. p′(4) = 6. What does this mean?",
+   "right": "At 4 h it grows by 6000 per hour",
+   "wrong": [
+    "At 4 h there are 6000 bacteria",
+    "At 4 h it grows by 6 per hour",
+    "In 4 h it grew by 6000 in total"
+   ],
+   "why": "p′(4) is a rate: positive, so growing. p is in thousands and t in hours, so 6 means 6000 bacteria per hour.",
+   "hook": "Derivative in context: up or down, by how much, per what.",
+   "keys": [
+    "p′(4) is a rate"
+   ]
+  },
+  {
+   "id": "2024-P1-Q7:(a)(v):2",
+   "from": "2024-P1-Q7",
+   "q": "p′(4) = 6, where p(t) is the number of bacteria at time t. What is the graph of p doing at t = 4?",
+   "right": "Going up as t increases",
+   "wrong": [
+    "Going down as t increases",
+    "Flat: a turning point",
+    "At a height of 6 (thousand)"
+   ],
+   "why": "p′(4) is the slope of the graph at t = 4. It is positive, so the graph is going up there: the bacteria are increasing.",
+   "hook": "Sign of the derivative = direction of the graph: + up, − down, 0 flat.",
+   "keys": [
+    "It is positive"
+   ]
+  },
+  {
+   "id": "2024-P1-Q7:(b)(i):1",
+   "from": "2024-P1-Q7",
+   "q": "Bacteria: k(t) = 3000 × 2.72^(0.5t) after t hours. Find the number of bacteria after 1 hour, correct to the nearest whole number.",
+   "right": "4948",
+   "wrong": [
+    "4080",
+    "8160",
+    "90"
+   ],
+   "why": "k(1) = 3000 × 2.72^0.5 = 3000 × 1.649… = 4947.7… ≈ 4948. Only the 2.72 is raised to the power.",
+   "hook": "Power before multiplying: 3000 × (2.72^0.5). Put the power in brackets.",
+   "keys": [
+    "Only the 2.72 is raised to the power"
+   ]
+  },
+  {
+   "id": "2024-P1-Q7:(b)(ii):1",
+   "from": "2024-P1-Q7",
+   "q": "k(t) = 3000 × 2.72^(0.5t) bacteria after t hours. Find the smallest whole number of hours, n, after which there are at least 35 000 bacteria.",
+   "right": "5",
+   "wrong": [
+    "4",
+    "3",
+    "11"
+   ],
+   "why": "k(4) = 3000 × 2.72² = 22 195, less than 35 000, but k(5) = 3000 × 2.72^2.5 = 36 605, more. So n = 5.",
+   "hook": "Smallest n: show the value just below the target and the one just above.",
+   "keys": [
+    "k(5) = 3000 × 2.72^2.5 = 36 605"
+   ]
+  },
+  {
+   "id": "2025-P1-Q4:(a):1",
+   "from": "2025-P1-Q4",
+   "q": "Solve the equation 5(a − 3) = 2a + 7.",
+   "right": "a = 22/3",
+   "wrong": [
+    "a = 10/3",
+    "a = −8/3",
+    "a = 22/7"
+   ],
+   "why": "5a − 15 = 2a + 7, so 5a − 2a = 7 + 15, giving 3a = 22 and a = 22/3.",
+   "hook": "Multiply the 5 into BOTH terms of the bracket; change sign when you cross the =.",
+   "keys": [
+    "3a = 22"
+   ]
+  },
+  {
+   "id": "2025-P1-Q4:(b):1",
+   "from": "2025-P1-Q4",
+   "q": "Find f′(x), the derivative of f(x) = x³ − 3x² + 4x − 8.",
+   "right": "3x² − 6x + 4",
+   "wrong": [
+    "3x² − 6x − 4",
+    "3x² − 3x + 4",
+    "3x² + 6x + 4"
+   ],
+   "why": "x³ → 3x², −3x² → 2 × (−3)x = −6x, 4x → 4 and −8 → 0.",
+   "hook": "The sign travels with its term: −3x² gives −6x.",
+   "keys": [
+    "−3x² → 2 × (−3)x = −6x"
+   ]
+  },
+  {
+   "id": "2025-P1-Q4:(b):2",
+   "from": "2025-P1-Q4",
+   "q": "f(x) = x³ − 3x² + 4x − 8, so f′(x) = 3x² − 6x + 4. Find the slope of the tangent to f(x) at the point (2, −4).",
+   "right": "4",
+   "wrong": [
+    "−4",
+    "8",
+    "76"
+   ],
+   "why": "The slope is f′(2) = 3(2)² − 6(2) + 4 = 12 − 12 + 4 = 4. Putting 2 into f(x) only gives −4, the height of the point.",
+   "hook": "Slope at a point: put its x into f′(x), never into f(x).",
+   "keys": [
+    "f′(2) = 3(2)² − 6(2) + 4"
+   ]
+  },
+  {
+   "id": "2025-P1-Q4:(c)(i):1",
+   "from": "2025-P1-Q4",
+   "q": "A cubic graph g: P is at the top of its hump, Q is on the part going down, R is on the part going up after the low point. All three are above the x-axis. Where is g′(x) < 0?",
+   "right": "At Q",
+   "wrong": [
+    "At P",
+    "At R",
+    "At none of them"
+   ],
+   "why": "g′(x) is the slope. It is negative where the curve goes down as you move right: at Q. Being above the x-axis is about g(x), not g′(x).",
+   "hook": "The sign of g′ comes from the direction of the curve, not its height.",
+   "keys": [
+    "at Q"
+   ]
+  },
+  {
+   "id": "2025-P1-Q4:(c)(i):2",
+   "from": "2025-P1-Q4",
+   "q": "On a cubic graph g, the point R is on the part going up after the low point. Which is true at R?",
+   "right": "g′(x) > 0: the curve is rising",
+   "wrong": [
+    "g′(x) < 0: R is lower than P",
+    "g′(x) = 0: R is near the low point",
+    "g′(x) < 0: it fell to get there"
+   ],
+   "why": "At R the curve is going up as you move right, so its slope is positive: g′(x) > 0. How high R is, or what came before, does not matter.",
+   "hook": "Uphill to the right: g′ > 0. Downhill: g′ < 0. Flat: g′ = 0.",
+   "keys": [
+    "its slope is positive"
+   ]
+  },
+  {
+   "id": "2025-P1-Q4:(c)(ii):1",
+   "from": "2025-P1-Q4",
+   "q": "On a cubic graph g, P is at the top of the hump. What is the reason that g′(x) = 0 at P?",
+   "right": "A turning point: the tangent is flat",
+   "wrong": [
+    "The curve is at its steepest at P",
+    "g(x) = 0 at P",
+    "g′(x) is biggest at the top"
+   ],
+   "why": "At P the curve stops going up and starts going down: it is a turning point, so the tangent there is horizontal and its slope, g′(x), is 0.",
+   "hook": "Turning point = flat tangent = derivative 0.",
+   "keys": [
+    "it is a turning point"
+   ]
+  },
+  {
+   "id": "2025-P1-Q8:(a)(i):1",
+   "from": "2025-P1-Q8",
+   "q": "A company's profit is P(x) = −1.5x² + 10.5x − 4 million euro, where x is the number of phones it makes, in tens of thousands. Find P(0) and say what it means.",
+   "right": "−4: no phones made, a €4m loss",
+   "wrong": [
+    "0: no phones made, no profit",
+    "4: no phones made, a €4m profit",
+    "−4: a loss of €4 on each phone"
+   ],
+   "why": "P(0) = −1.5(0)² + 10.5(0) − 4 = −4. x = 0 means no phones, and −4 million euro is a loss: making no phones loses €4 million.",
+   "hook": "Explain in context: what x = 0 means AND what −4 means, with units.",
+   "keys": [
+    "making no phones loses €4 million"
+   ]
+  },
+  {
+   "id": "2025-P1-Q8:(a)(ii):1",
+   "from": "2025-P1-Q8",
+   "q": "Profit P(x) = −1.5x² + 10.5x − 4 (millions of euro). Find P(3).",
+   "right": "14",
+   "wrong": [
+    "23",
+    "41",
+    "47.75"
+   ],
+   "why": "P(3) = −1.5(9) + 10.5(3) − 4 = −13.5 + 31.5 − 4 = 14.",
+   "hook": "−1.5x² means −1.5 × (x²): square only the x, keep the minus.",
+   "keys": [
+    "−13.5 + 31.5 − 4 = 14"
+   ]
+  },
+  {
+   "id": "2025-P1-Q8:(a)(ii):2",
+   "from": "2025-P1-Q8",
+   "q": "P(x) = −1.5x² + 10.5x − 4 gives P(0) = −4, P(1) = 5, P(2) = 11, P(3) = 14, P(4) = 14 and P(5) = 11. Without working it out, what is P(6)?",
+   "right": "5",
+   "wrong": [
+    "8",
+    "−4",
+    "11"
+   ],
+   "why": "A quadratic is symmetric about its top. P(3) = P(4), so the mirror line is x = 3.5, and x = 6 mirrors x = 1: P(6) = P(1) = 5.",
+   "hook": "Two equal values: the mirror line is halfway between them.",
+   "keys": [
+    "P(6) = P(1) = 5"
+   ]
+  },
+  {
+   "id": "2025-P1-Q8:(a)(iii):1",
+   "from": "2025-P1-Q8",
+   "q": "The graph of P(x) = −1.5x² + 10.5x − 4 is an upside-down U, with P(3) = P(4) = 14. What are the co-ordinates of its highest point?",
+   "right": "(3.5, 14.375)",
+   "wrong": [
+    "(3.5, 14)",
+    "(3, 14)",
+    "(14, 3.5)"
+   ],
+   "why": "The top is halfway between x = 3 and x = 4, at x = 3.5, and it is above 14: P(3.5) = −18.375 + 36.75 − 4 = 14.375.",
+   "hook": "A smooth curve peaks between two equal values, a little higher than both.",
+   "keys": [
+    "it is above 14"
+   ]
+  },
+  {
+   "id": "2025-P1-Q8:(a)(iv):1",
+   "from": "2025-P1-Q8",
+   "q": "On the graph of profit P(x), the line across from a profit of 6 cuts the curve at x ≈ 1.2 and x ≈ 5.8. For which values of x is the profit at least €6 million?",
+   "right": "1.2 ≤ x ≤ 5.8",
+   "wrong": [
+    "x ≤ 1.2 or x ≥ 5.8",
+    "x ≥ 1.2",
+    "x = 1.2 or x = 5.8"
+   ],
+   "why": "Between the two crossings the curve is on or above the line at 6, so the profit is at least €6 million for 1.2 ≤ x ≤ 5.8.",
+   "hook": "'At least' = on or above the line: the x values BETWEEN the crossings.",
+   "keys": [
+    "Between the two crossings"
+   ]
+  },
+  {
+   "id": "2025-P1-Q8:(b)(i):1",
+   "from": "2025-P1-Q8",
+   "q": "Second-year profit: Q(x) = −1.5x² + 9.6x − 3.5. What is Q′(x)?",
+   "right": "−3x + 9.6",
+   "wrong": [
+    "−3x + 6.1",
+    "3x + 9.6",
+    "−1.5x + 9.6"
+   ],
+   "why": "−1.5x² → 2 × (−1.5)x = −3x, 9.6x → 9.6 and −3.5 → 0.",
+   "hook": "Keep the minus: 2 × (−1.5) = −3.",
+   "keys": [
+    "2 × (−1.5)x = −3x"
+   ]
+  },
+  {
+   "id": "2025-P1-Q8:(b)(i):2",
+   "from": "2025-P1-Q8",
+   "q": "Second-year profit: Q(x) = −1.5x² + 9.6x − 3.5. Find Q′(x), and hence the value of x which gives the maximum value of Q(x).",
+   "right": "x = 3.2",
+   "wrong": [
+    "x = −3.2",
+    "x = 6.4",
+    "x = 0.39"
+   ],
+   "why": "Q′(x) = −3x + 9.6. At the maximum the slope is 0: −3x + 9.6 = 0, so 3x = 9.6 and x = 3.2 (32 000 phones).",
+   "hook": "Top of the profit curve = flat tangent: Q′(x) = 0.",
+   "keys": [
+    "−3x + 9.6 = 0"
+   ]
+  },
+  {
+   "id": "2025-P1-Q8:(b)(ii):1",
+   "from": "2025-P1-Q8",
+   "q": "Q(x) = −1.5x² + 9.6x − 3.5 (millions of euro) is greatest at x = 3.2. Find this maximum value of Q(x).",
+   "right": "€11.86 million",
+   "wrong": [
+    "€0 million",
+    "€42.58 million",
+    "€22.42 million"
+   ],
+   "why": "Put x = 3.2 into Q itself: −1.5(10.24) + 9.6(3.2) − 3.5 = −15.36 + 30.72 − 3.5 = 11.86, so €11.86 million.",
+   "hook": "Q′ = 0 finds where the top is; Q gives how high it is.",
+   "keys": [
+    "Put x = 3.2 into Q itself"
+   ]
+  },
+  {
+   "id": "2025-P1-Q8:(c)(i):1",
+   "from": "2025-P1-Q8",
+   "q": "Third-year profit is R(x) + 3 million euro, where R(x) is read off a graph. How do you find R(2) + 3?",
+   "right": "Read R at x = 2, then add 3",
+   "wrong": [
+    "Read R at x = 5 (2 + 3)",
+    "Read R at x = 2, then times by 3",
+    "Read x where R = 2, then add 3"
+   ],
+   "why": "R(2) is the height of the graph at x = 2 (it reads 8). The + 3 is added after: R(2) + 3 = 8 + 3 = 11.",
+   "hook": "R(2) + 3: find R(2) first, then add 3. R(2 + 3) would be R(5).",
+   "keys": [
+    "R(2) + 3 = 8 + 3 = 11"
+   ]
+  },
+  {
+   "id": "2025-P1-Q8:(c)(ii):1",
+   "from": "2025-P1-Q8",
+   "q": "The graph of R(x) has its top at (3, 9.5). Where is the top of the graph of y = R(x) + 3?",
+   "right": "(3, 12.5)",
+   "wrong": [
+    "(6, 9.5)",
+    "(0, 9.5)",
+    "(3, 6.5)"
+   ],
+   "why": "Adding 3 to every profit moves every point of the graph straight up by 3: the top (3, 9.5) moves to (3, 12.5).",
+   "hook": "+3 outside the function moves the graph UP 3, not sideways.",
+   "keys": [
+    "straight up by 3"
+   ]
+  }
+ ]
+}
