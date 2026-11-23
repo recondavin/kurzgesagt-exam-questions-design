@@ -473,7 +473,7 @@
    "wrong": [
     "Read the height of the curve at x = 4",
     "Join (0, u(0)) to (4, u(4)): its slope",
-    "Divide u(4) by 4"
+    "Draw the tangent where y = 4: its slope"
    ],
    "why": "u′(4) is the slope of the curve at x = 4, which is the slope of the tangent there. A line to another point on the curve is not the tangent.",
    "hook": "A derivative at a point = the slope of the tangent at that point.",
@@ -744,7 +744,7 @@
    "right": "(4, 1)",
    "wrong": [
     "(4, 0)",
-    "(1, 4)",
+    "(−2, 1)",
     "(5, 2)"
    ],
    "why": "A quadratic is symmetric about its top, at t = 2. t = 0 is 2 s before the top, so 2 s after it, at t = 4, the height is 1 m again: (4, 1).",
