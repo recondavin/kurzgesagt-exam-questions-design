@@ -1,0 +1,1031 @@
+{
+ "chapter": 14,
+ "cards": [
+  {
+   "id": "2015-P2-Q6:(a)(i):1",
+   "from": "2015-P2-Q6",
+   "q": "On a scatter graph you must mark ten or more points to show strong positive correlation. Which pattern of points should you draw?",
+   "right": "Up to the right, close to a line",
+   "wrong": [
+    "Up to the right, loosely spread",
+    "Down to the right, close to a line",
+    "Very steep, however spread out"
+   ],
+   "why": "Positive: the points go up as you move right. Strong: they all lie close to one straight line. Steepness doesn't matter; the spread does.",
+   "hook": "Direction gives the sign; closeness to a line gives the strength.",
+   "keys": [
+    "close to one straight line"
+   ]
+  },
+  {
+   "id": "2015-P2-Q6:(a)(ii):1",
+   "from": "2015-P2-Q6",
+   "q": "A scatter graph shows strong negative correlation between x and y. Which description fits it?",
+   "right": "y falls as x rises, close to a line",
+   "wrong": [
+    "y rises as x rises, close to a line",
+    "y falls as x rises, widely spread",
+    "Points have negative x and y values"
+   ],
+   "why": "Negative describes the direction: the points fall from top left to bottom right. It has nothing to do with negative numbers. Strong means close to one line.",
+   "hook": "Negative = downhill, left to right. It's about slope, not minus numbers.",
+   "keys": [
+    "fall from top left to bottom right"
+   ]
+  },
+  {
+   "id": "2015-P2-Q6:(a)(iii):1",
+   "from": "2015-P2-Q6",
+   "q": "You must mark ten or more points on a scatter graph to show no correlation. Which set of points does that?",
+   "right": "Spread all over with no trend up or down",
+   "wrong": [
+    "Down to the right, close to a line",
+    "Up to the right, loosely spread",
+    "Down to the right, loosely spread"
+   ],
+   "why": "No correlation: knowing x tells you nothing about y, so the dots fill the grid with no trend. Going down is negative; loosely spread is weak, not none.",
+   "hook": "No correlation = no trend at all. Weak and negative are still trends.",
+   "keys": [
+    "no trend"
+   ]
+  },
+  {
+   "id": "2015-P2-Q6:(b)(i):1",
+   "from": "2015-P2-Q6",
+   "q": "A poll of 1000 people estimated support for the ‘No’ campaign at 54%. Find the margin of error, as a percentage correct to one decimal place.",
+   "right": "3.2%",
+   "wrong": [
+    "0.1%",
+    "31.6%",
+    "0.03%"
+   ],
+   "why": "Margin of error = 1/√n = 1/√1000 = 0.0316… Multiply by 100 for a percentage: 3.2%.",
+   "hook": "Margin of error: one over root n, then × 100 for a %.",
+   "keys": [
+    "1/√n = 1/√1000"
+   ]
+  },
+  {
+   "id": "2015-P2-Q6:(b)(i):2",
+   "from": "2015-P2-Q6",
+   "q": "At the 95% confidence level, which formula gives the margin of error of a survey of n people?",
+   "right": "1/√n",
+   "wrong": [
+    "1/n",
+    "√n",
+    "2/√n"
+   ],
+   "why": "The margin of error is 1/√n. Because of the square root, a bigger sample gives a smaller error, but four times the people only halves it.",
+   "hook": "Bigger sample, smaller error: E = 1/√n.",
+   "keys": [
+    "1/√n"
+   ]
+  },
+  {
+   "id": "2015-P2-Q6:(b)(ii):1",
+   "from": "2015-P2-Q6",
+   "q": "A poll of 1000 people found 54% support ‘No’. The margin of error is 3.2%. What is the 95% confidence interval for the support for ‘No’?",
+   "right": "50.8% ≤ p ≤ 57.2%",
+   "wrong": [
+    "52.4% ≤ p ≤ 55.6%",
+    "53.97% ≤ p ≤ 54.03%",
+    "47.6% ≤ p ≤ 60.4%"
+   ],
+   "why": "Go one whole margin of error below and above the sample result: 54 − 3.2 ≤ p ≤ 54 + 3.2, so 50.8% ≤ p ≤ 57.2%.",
+   "hook": "Sample result ± the whole margin of error, on each side.",
+   "keys": [
+    "54 − 3.2 ≤ p ≤ 54 + 3.2"
+   ]
+  },
+  {
+   "id": "2015-P2-Q6:(b)(ii):2",
+   "from": "2015-P2-Q6",
+   "q": "From a poll of 1000 people, the 95% confidence interval for support for ‘No’ is 50.8% ≤ p ≤ 57.2%. What does this tell you?",
+   "right": "95% confident the true % is in it",
+   "wrong": [
+    "95% of all voters support ‘No’",
+    "Exactly 54% of all voters support ‘No’",
+    "The poll's 54% is 95% accurate"
+   ],
+   "why": "The poll is only a sample. We are 95% confident that the true support among all voters lies between 50.8% and 57.2%; 54% is just the sample's estimate.",
+   "hook": "A confidence interval traps the true population value, with 95% confidence.",
+   "keys": [
+    "95% confident"
+   ]
+  },
+  {
+   "id": "2019-P2-Q1:(a):1",
+   "from": "2019-P2-Q1",
+   "q": "A stem-and-leaf diagram of employees' ages has the key 1|9 = 19 years. What ages does the row 6 | 3 3 4 5 show?",
+   "right": "63, 63, 64 and 65",
+   "wrong": [
+    "6.3, 6.3, 6.4 and 6.5",
+    "63, 64 and 65",
+    "36, 36, 46 and 56"
+   ],
+   "why": "The key says the stem is the tens digit and the leaf is the units: 6|3 = 63. Each leaf is one person, so the two 3s are two people aged 63.",
+   "hook": "Read the key first: stem = tens, leaf = units. Every leaf is one person.",
+   "keys": [
+    "6|3 = 63",
+    "Each leaf is one person"
+   ]
+  },
+  {
+   "id": "2019-P2-Q1:(a):2",
+   "from": "2019-P2-Q1",
+   "q": "Employees in their fifties are aged 57, 54, 58, 55 and 57 (key 1|9 = 19 years). What is the 5 row of the finished stem-and-leaf diagram, leaves in order?",
+   "right": "5 | 4 5 7 7 8",
+   "wrong": [
+    "5 | 4 5 7 8",
+    "5 | 54 55 57 57 58",
+    "5 | 7 4 8 5 7"
+   ],
+   "why": "Each age gives one leaf, its units digit. In order: 4 5 7 7 8. Both 57s are written, one leaf for each person.",
+   "hook": "One leaf per person, units digit only, smallest next to the stem.",
+   "keys": [
+    "one leaf for each person"
+   ]
+  },
+  {
+   "id": "2019-P2-Q1:(b):1",
+   "from": "2019-P2-Q1",
+   "q": "Ages of 28 employees (key 1|9 = 19): 1|8 8 9, 2|0 1 1 2, 3|2 3 3 4 4 5 9, 4|1 2 3 3 9, 5|4 5 7 7 8, 6|3 3 4 5. What percentage of the employees are older than 40?",
+   "right": "50%",
+   "wrong": [
+    "14%",
+    "39.3%",
+    "17.9%"
+   ],
+   "why": "Older than 40 means the 4, 5 and 6 rows (nobody is exactly 40): 5 + 5 + 4 = 14 leaves. 14/28 × 100 = 50%.",
+   "hook": "Count leaves, not different values, then ÷ total × 100.",
+   "keys": [
+    "14/28 × 100 = 50%"
+   ]
+  },
+  {
+   "id": "2019-P2-Q1:(c)(i):1",
+   "from": "2019-P2-Q1",
+   "q": "A business has 28 employees. The youngest rows of its stem-and-leaf diagram are 1 | 8 8 9 and 2 | 0 1 1 2 (key 1|9 = 19 years). One employee is chosen at random. P(teenager, under 20)?",
+   "right": "3/28",
+   "wrong": [
+    "2/28",
+    "4/28",
+    "3/25"
+   ],
+   "why": "Under 20 means the 1 row only: 18, 18 and 19, so 3 people. P = 3 ÷ all 28 employees = 3/28. Someone aged 20 is not a teenager.",
+   "hook": "Probability = how many fit ÷ how many there are in total.",
+   "keys": [
+    "3 ÷ all 28 employees"
+   ]
+  },
+  {
+   "id": "2019-P2-Q1:(c)(ii):1",
+   "from": "2019-P2-Q1",
+   "q": "28 employees; rows 3 | 2 3 3 4 4 5 9 and 4 | 1 2 3 3 9 (key 1|9 = 19). One is picked at random. P(in their thirties with an even age, or in their forties with an odd age)?",
+   "right": "7/28 (= 1/4)",
+   "wrong": [
+    "3/196",
+    "5/28",
+    "7/12"
+   ],
+   "why": "Thirties, even: 32, 34, 34 (3). Forties, odd: 41, 43, 43, 49 (4). Nobody is in both, so add: 3/28 + 4/28 = 7/28 = 1/4.",
+   "hook": "'Or' with no overlap: add the probabilities.",
+   "keys": [
+    "3/28 + 4/28 = 7/28"
+   ]
+  },
+  {
+   "id": "2019-P2-Q1:(c)(ii):2",
+   "from": "2019-P2-Q1",
+   "q": "One of 28 employees is picked. P(thirties and an even age) = 3/28 and P(forties and an odd age) = 4/28. How do you find P(one or the other)?",
+   "right": "Add them: no one is in both groups",
+   "wrong": [
+    "Multiply them: 3/28 × 4/28",
+    "Add, then take away 3/28 × 4/28",
+    "Find their mean: (3/28 + 4/28) ÷ 2"
+   ],
+   "why": "Nobody can be in their thirties and their forties, so the groups are mutually exclusive: P(A or B) = P(A) + P(B), with no overlap to take away.",
+   "hook": "OR with no overlap: add. AND for independent events: multiply.",
+   "keys": [
+    "mutually exclusive"
+   ]
+  },
+  {
+   "id": "2020-P2-Q8:(a)(i):1",
+   "from": "2020-P2-Q8",
+   "q": "In 2005, 2779 kilotonnes of waste were collected and 1833 kilotonnes of it were sent to landfill. What percentage of the waste collected was sent to landfill?",
+   "right": "66.0%",
+   "wrong": [
+    "151.6%",
+    "34.0%",
+    "39.7%"
+   ],
+   "why": "Percentage = part ÷ whole × 100. The landfill waste is part of the waste collected: 1833 ÷ 2779 × 100 = 65.96… ≈ 66.0%.",
+   "hook": "Part over whole, times 100. The whole is what it's 'a percentage of'.",
+   "keys": [
+    "1833 ÷ 2779 × 100"
+   ]
+  },
+  {
+   "id": "2020-P2-Q8:(a)(i):2",
+   "from": "2020-P2-Q8",
+   "q": "Waste (kilotonnes): 2005: 2779 collected, 1833 to landfill. 2011: 2547 collected, 1344 to landfill. Find the difference between the two years' landfill percentages, to 1 d.p.",
+   "right": "13.2%",
+   "wrong": [
+    "17.6%",
+    "26.7%",
+    "37.9%"
+   ],
+   "why": "Work out each year's percentage first: 1833/2779 × 100 = 65.96% and 1344/2547 × 100 = 52.77%. Then subtract: 13.19… ≈ 13.2%.",
+   "hook": "Each year has its own total: find both percentages, then subtract.",
+   "keys": [
+    "Work out each year's percentage first"
+   ]
+  },
+  {
+   "id": "2020-P2-Q8:(a)(ii):1",
+   "from": "2020-P2-Q8",
+   "q": "Total waste collected (kilotonnes), 2005 to 2011: 2779, 3100, 3175, 3104, 2825, 2580, 2547. Find the mean amount collected each year, correct to 1 decimal place.",
+   "right": "2872.9 kt",
+   "wrong": [
+    "2825.0 kt",
+    "3351.7 kt",
+    "2861.0 kt"
+   ],
+   "why": "Mean = sum ÷ number of values. 2005 to 2011 is 7 years: 20110 ÷ 7 = 2872.857… ≈ 2872.9 kilotonnes.",
+   "hook": "Mean: add them all, divide by how many. Count the years, both ends included.",
+   "keys": [
+    "20110 ÷ 7"
+   ]
+  },
+  {
+   "id": "2020-P2-Q8:(a)(iii):1",
+   "from": "2020-P2-Q8",
+   "q": "The mean amount of waste sent to landfill in the 4 years from 2009 to 2012 was 1398 kilotonnes. What was the total sent to landfill in those 4 years?",
+   "right": "5592 kt",
+   "wrong": [
+    "349.5 kt",
+    "4194 kt",
+    "1398 kt"
+   ],
+   "why": "Mean = total ÷ 4, so total = mean × 4 = 1398 × 4 = 5592 kilotonnes.",
+   "hook": "Know the mean? Multiply by how many to get the total back.",
+   "keys": [
+    "total = mean × 4"
+   ]
+  },
+  {
+   "id": "2020-P2-Q8:(a)(iii):2",
+   "from": "2020-P2-Q8",
+   "q": "Mean landfill waste for the 4 years 2009 to 2012 was 1398 kilotonnes. 2009: 1724, 2010: 1496, 2011: 1344 kilotonnes. How much waste was sent to landfill in 2012?",
+   "right": "1028 kt",
+   "wrong": [
+    "1398 kt",
+    "1521 kt",
+    "2372 kt"
+   ],
+   "why": "The 4 years total 4 × 1398 = 5592. The three known years add to 1724 + 1496 + 1344 = 4564. So 2012 = 5592 − 4564 = 1028 kilotonnes.",
+   "hook": "Total from the mean, minus what you know: the rest is the missing value.",
+   "keys": [
+    "5592 − 4564 = 1028"
+   ]
+  },
+  {
+   "id": "2020-P2-Q8:(b)(i):1",
+   "from": "2020-P2-Q8",
+   "q": "In 2014 Denmark's energy came from Oil 31%, Solid Fuel 11%, Gas 13%, Electricity 12%, Other 13% and Renewable (left blank). What percentage was renewable?",
+   "right": "20%",
+   "wrong": [
+    "80%",
+    "16%",
+    "32%"
+   ],
+   "why": "One country's row is all of its energy, so it adds to 100%. 31 + 11 + 13 + 12 + 13 = 80, so renewable = 100 − 80 = 20%.",
+   "hook": "Parts of a whole add to 100%: the missing part is what's left.",
+   "keys": [
+    "100 − 80 = 20%"
+   ]
+  },
+  {
+   "id": "2020-P2-Q8:(b)(ii):1",
+   "from": "2020-P2-Q8",
+   "q": "Renewable % of energy in 2014: Austria 25, Bulgaria 8, Cyprus 5, Denmark 20, France 7, Germany 10, Greece 9, Ireland 6, Latvia 31, Luxembourg 4, Malta 2, Netherlands 4, Portugal 21. Which four were lower than Ireland?",
+   "right": "Cyprus, Luxembourg, Malta, Netherlands",
+   "wrong": [
+    "Latvia, Luxembourg, Malta, Netherlands",
+    "Austria, Denmark, Latvia, Portugal",
+    "Cyprus, France, Luxembourg, Malta"
+   ],
+   "why": "Ireland's renewable figure is 6%. Go down the Renewable column for numbers below 6: Cyprus 5, Luxembourg 4, Malta 2 and Netherlands 4.",
+   "hook": "Lower means a smaller number in that column, not further down the table.",
+   "keys": [
+    "numbers below 6"
+   ]
+  },
+  {
+   "id": "2020-P2-Q8:(b)(iii):1",
+   "from": "2020-P2-Q8",
+   "q": "Energy % in 2014 (Renewable, Oil, Solid Fuel, Gas, Electricity, Other): Cyprus 5, 82, 0, 0, 13, 0; Greece 9, 43, 24, 9, 15, 0; Ireland 6, 42, 13, 24, 15, 0; Latvia 31, 26, 1, 20, 11, 11. Which did not use gas?",
+   "right": "Cyprus",
+   "wrong": [
+    "Greece",
+    "Ireland",
+    "Latvia"
+   ],
+   "why": "Not using gas means 0% in the Gas column, the fourth number. Only Cyprus has 0 there (Malta does too). Greece and Ireland have 0 under Other, not Gas.",
+   "hook": "Find the right column first, then look for the 0.",
+   "keys": [
+    "0% in the Gas column"
+   ]
+  },
+  {
+   "id": "2020-P2-Q8:(b)(iv):1",
+   "from": "2020-P2-Q8",
+   "q": "In a pie chart of Ireland's energy, Renewable (6%) has an angle of 22°. Oil is 42%. What is the angle for Oil, correct to the nearest degree?",
+   "right": "151°",
+   "wrong": [
+    "42°",
+    "154°",
+    "12°"
+   ],
+   "why": "100% is the full 360°, so Oil = 42/100 × 360 = 151.2 ≈ 151°. Scaling up the 22° gives 154°, because 22° is itself rounded (6% is 21.6°).",
+   "hook": "Angle = percentage ÷ 100 × 360. Start from 360°, not from a rounded angle.",
+   "keys": [
+    "42/100 × 360 = 151.2"
+   ]
+  },
+  {
+   "id": "2020-P2-Q8:(b)(iv):2",
+   "from": "2020-P2-Q8",
+   "q": "Gas is 24% of Ireland's energy. Which calculation gives the angle of the Gas sector in a pie chart?",
+   "right": "24 ÷ 100 × 360",
+   "wrong": [
+    "24 ÷ 360 × 100",
+    "24 ÷ 100 × 180",
+    "24 × 360"
+   ],
+   "why": "The full circle, 360°, is 100% of the energy, so Gas gets 24/100 of 360°: 24 ÷ 100 × 360 = 86.4 ≈ 86°.",
+   "hook": "Fraction of the whole × 360°.",
+   "keys": [
+    "24/100 of 360°"
+   ]
+  },
+  {
+   "id": "2020-P2-Q8:(b)(v):1",
+   "from": "2020-P2-Q8",
+   "q": "Ireland's energy pie chart: Renewable 22°, Oil 151°, Solid Fuel 47° and Gas 86° are drawn. What angle should the gap left for Electricity measure?",
+   "right": "54°",
+   "wrong": [
+    "76°",
+    "15°",
+    "306°"
+   ],
+   "why": "The angles must fill the circle: 360 − (22 + 151 + 47 + 86) = 360 − 306 = 54°, which is 15% × 3.6. Measure the gap to check.",
+   "hook": "All the sectors together make 360°.",
+   "keys": [
+    "360 − (22 + 151 + 47 + 86)"
+   ]
+  },
+  {
+   "id": "2021-P2-Q5:(a):1",
+   "from": "2021-P2-Q5",
+   "q": "Heights are normally distributed. 95% of the population are between 147.9 cm and 178.7 cm. Using the empirical rule, find the mean and the standard deviation.",
+   "right": "mean 163.3 cm, sd 7.7 cm",
+   "wrong": [
+    "mean 163.3 cm, sd 15.4 cm",
+    "mean 163.3 cm, sd 5.1 cm",
+    "mean 163.3 cm, sd 30.8 cm"
+   ],
+   "why": "Mean: halfway, (147.9 + 178.7) ÷ 2 = 163.3. 95% is μ ± 2σ, so the gap is 4σ: 30.8 ÷ 4 = 7.7 cm.",
+   "hook": "Halfway gives the mean; the 95% gap is 4 standard deviations wide.",
+   "keys": [
+    "30.8 ÷ 4 = 7.7"
+   ]
+  },
+  {
+   "id": "2021-P2-Q5:(a):2",
+   "from": "2021-P2-Q5",
+   "q": "By the empirical rule, between which two values does about 95% of a normal distribution lie (mean μ, standard deviation σ)?",
+   "right": "μ − 2σ and μ + 2σ",
+   "wrong": [
+    "μ − σ and μ + σ",
+    "μ − 3σ and μ + 3σ",
+    "μ and μ + 2σ"
+   ],
+   "why": "About 68% lies within 1σ of the mean, 95% within 2σ and 99.7% within 3σ, each measured on both sides of μ.",
+   "hook": "68, 95, 99.7 go with 1, 2, 3 standard deviations, both sides.",
+   "keys": [
+    "95% within 2σ"
+   ]
+  },
+  {
+   "id": "2021-P2-Q5:(b)(i):1",
+   "from": "2021-P2-Q5",
+   "q": "On a scatter plot, height (cm) goes across and arm span (cm) goes up. Person 13 is 168 cm tall with an arm span of 169 cm. Which point do you plot?",
+   "right": "(168, 169)",
+   "wrong": [
+    "(169, 168)",
+    "(13, 169)",
+    "(170, 170)"
+   ],
+   "why": "Each person is one point (height, arm span): go across to 168 on the height axis, then up to 169. The grid lines are 5 apart, so it goes between them.",
+   "hook": "Across first (x), then up (y): (height, arm span).",
+   "keys": [
+    "(height, arm span)"
+   ]
+  },
+  {
+   "id": "2021-P2-Q5:(b)(ii):1",
+   "from": "2021-P2-Q5",
+   "q": "Height and arm span (cm) of teenagers: (139, 129), (147, 150), (153, 148), (160, 160), (164, 144), (169, 174), (174, 170), (177, 176). Which value best represents the correlation coefficient?",
+   "right": "0.9",
+   "wrong": [
+    "0.2",
+    "−0.6",
+    "−0.9"
+   ],
+   "why": "Taller teenagers have longer arm spans, so r is positive, and the points lie close to a straight line, so it's strong: near 1. That is 0.9.",
+   "hook": "Sign = direction (up or down); size = how close to a line (near ±1 is strong).",
+   "keys": [
+    "r is positive",
+    "close to a straight line"
+   ]
+  },
+  {
+   "id": "2021-P2-Q5:(b)(iii):1",
+   "from": "2021-P2-Q5",
+   "q": "The correlation coefficient between height and arm span for twenty teenagers is 0.9. What does it tell you about the relationship?",
+   "right": "Strong positive: taller, longer arm span",
+   "wrong": [
+    "Weak positive: hardly related",
+    "Strong negative: taller, shorter span",
+    "90% have an arm span equal to height"
+   ],
+   "why": "0.9 is close to 1, so the relationship is strong (points near a straight line). It is positive, so as height goes up, arm span tends to go up too.",
+   "hook": "Say both: how strong (near 1?) and which way (+ or −), in context.",
+   "keys": [
+    "0.9 is close to 1"
+   ]
+  },
+  {
+   "id": "2022-P2-Q4:(a):1",
+   "from": "2022-P2-Q4",
+   "q": "Grades: Distinction 8, High Merit 12, Merit 39, Achieved 13 students. In a pie chart, Distinction has 40°. How many degrees does each student get?",
+   "right": "5°",
+   "wrong": [
+    "0.2°",
+    "90°",
+    "5.625°"
+   ],
+   "why": "Total students: 8 + 12 + 39 + 13 = 72. The whole 360° is shared by all 72: 360 ÷ 72 = 5° each. Check: 40 ÷ 8 = 5.",
+   "hook": "Degrees per person = 360 ÷ total. Check it against the sector you're given.",
+   "keys": [
+    "360 ÷ 72 = 5°"
+   ]
+  },
+  {
+   "id": "2022-P2-Q4:(a):2",
+   "from": "2022-P2-Q4",
+   "q": "Grades: Distinction 8, High Merit 12, Merit 39, Achieved 13 students. Distinction's pie-chart sector is 40°. What angle is the Merit sector?",
+   "right": "195°",
+   "wrong": [
+    "39°",
+    "54°",
+    "140°"
+   ],
+   "why": "Each student is worth 360 ÷ 72 = 5° (and 40 ÷ 8 = 5 agrees), so Merit = 39 × 5 = 195°.",
+   "hook": "Number in the group × degrees per person.",
+   "keys": [
+    "39 × 5 = 195°"
+   ]
+  },
+  {
+   "id": "2022-P2-Q4:(b)(i):1",
+   "from": "2022-P2-Q4",
+   "q": "Reading test scores are normally distributed with mean 100 and standard deviation 20. Using the empirical rule, what percentage scored between 80 and 120?",
+   "right": "68%",
+   "wrong": [
+    "95%",
+    "34%",
+    "99.7%"
+   ],
+   "why": "80 = 100 − 20 and 120 = 100 + 20: one standard deviation either side of the mean. The empirical rule puts about 68% there.",
+   "hook": "Count how many σ from the mean first, then pick 68, 95 or 99.7.",
+   "keys": [
+    "one standard deviation either side"
+   ]
+  },
+  {
+   "id": "2022-P2-Q4:(b)(ii):1",
+   "from": "2022-P2-Q4",
+   "q": "Reading scores are normal with mean 100 and standard deviation 20. The top 2.5% got ‘Exceptional’. Using the empirical rule, what was the least score needed?",
+   "right": "140",
+   "wrong": [
+    "120",
+    "160",
+    "60"
+   ],
+   "why": "95% lie within 2σ: 60 to 140. The other 5% is split between the two tails, so 2.5% are above 140. 140 = 100 + 2(20).",
+   "hook": "Outside the 95%: 5% shared by two tails, 2.5% each.",
+   "keys": [
+    "2.5% are above 140"
+   ]
+  },
+  {
+   "id": "2022-P2-Q4:(b)(ii):2",
+   "from": "2022-P2-Q4",
+   "q": "By the empirical rule, what percentage of a normal distribution lies above μ + 2σ?",
+   "right": "2.5%",
+   "wrong": [
+    "5%",
+    "47.5%",
+    "16%"
+   ],
+   "why": "95% lies between μ − 2σ and μ + 2σ. The 5% left over is split equally between the two tails: 5 ÷ 2 = 2.5% above μ + 2σ.",
+   "hook": "Picture the bell: what's left over splits evenly into two tails.",
+   "keys": [
+    "5 ÷ 2 = 2.5%"
+   ]
+  },
+  {
+   "id": "2022-P2-Q4:(c):1",
+   "from": "2022-P2-Q4",
+   "q": "Six people's test scores were 104, 82, 94, 113, 98 and 105. What is the range?",
+   "right": "31",
+   "wrong": [
+    "8",
+    "1",
+    "99.3"
+   ],
+   "why": "Range = largest − smallest. In order: 82, 94, 98, 104, 105, 113, so the range is 113 − 82 = 31.",
+   "hook": "Range: biggest minus smallest, one number.",
+   "keys": [
+    "113 − 82 = 31"
+   ]
+  },
+  {
+   "id": "2022-P2-Q4:(c):2",
+   "from": "2022-P2-Q4",
+   "q": "Six test scores: 104, 82, 94, 113, 98, 105 (mean 99.3). Find the standard deviation, correct to 1 decimal place.",
+   "right": "9.8",
+   "wrong": [
+    "10.7",
+    "95.2",
+    "23.9"
+   ],
+   "why": "σ = √(Σ(x − μ)² ÷ n) = √(571.33… ÷ 6) = √95.22… = 9.758… ≈ 9.8. On a calculator use σx, not sx.",
+   "hook": "Square the gaps, average them, then square root.",
+   "keys": [
+    "√(571.33… ÷ 6)"
+   ]
+  },
+  {
+   "id": "2022-P2-Q7:(a)(i):1",
+   "from": "2022-P2-Q7",
+   "q": "A back-to-back stem-and-leaf plot has Day X on the left and Day Y on the right, key 6 | 0 = 6.0 kg. A row reads 7 5 3 3 | 5 | 4 5. What are the Day X weights on it?",
+   "right": "5.3, 5.3, 5.5 and 5.7 kg",
+   "wrong": [
+    "7.5, 5.5, 3.5 and 3.5 kg",
+    "53, 53, 55 and 57 kg",
+    "5.4 and 5.5 kg"
+   ],
+   "why": "The stem 5 is the whole kilograms and each leaf is the tenths. Left leaves grow going outwards: 3, 3, 5, 7 give 5.3, 5.3, 5.5 and 5.7 kg.",
+   "hook": "The stem sits in the middle for both sides: stem first, then the leaf.",
+   "keys": [
+    "each leaf is the tenths"
+   ]
+  },
+  {
+   "id": "2022-P2-Q7:(a)(i):2",
+   "from": "2022-P2-Q7",
+   "q": "Day Y weights (kg) of 10 dogs: 4.8, 5.4, 5.5, 6.1, 6.3, 6.0, 7.0, 7.6, 8.1, 7.9. Key 6 | 0 = 6.0 kg. Which leaves go beside stem 7, in order?",
+   "right": "0 6 9",
+   "wrong": [
+    "6 9",
+    "0 6",
+    "7.0 7.6 7.9"
+   ],
+   "why": "7.0, 7.6 and 7.9 kg have stem 7 and leaves 0, 6 and 9. 7.0 still needs its leaf 0, and 7.9 comes after 8.1 in the list, so don't miss it.",
+   "hook": "A 0 is a real leaf. Tick off each value as you place it.",
+   "keys": [
+    "7.0 still needs its leaf 0"
+   ]
+  },
+  {
+   "id": "2022-P2-Q7:(a)(ii):1",
+   "from": "2022-P2-Q7",
+   "q": "Back-to-back stem-and-leaf of 10 dogs' weights (Day X left, Day Y right, key 6 | 0 = 6.0 kg): 9 5 | 4 | 8; 7 5 3 3 | 5 | 4 5; 9 7 | 6 | 0 1 3; 4 3 | 7 | 0 6 9; | 8 | 1. What does it show?",
+   "right": "Weights increased from Day X to Day Y",
+   "wrong": [
+    "Weights decreased from Day X to Day Y",
+    "No change: 10 leaves on each side",
+    "Day Y had more dogs than Day X"
+   ],
+   "why": "On Day X most leaves are on the 5 row; on Day Y they've moved to the 6 and 7 rows and one reaches 8. The weights increased from Day X to Day Y.",
+   "hook": "Compare where the leaves sit on each side: lower stems = lighter.",
+   "keys": [
+    "The weights increased"
+   ]
+  },
+  {
+   "id": "2022-P2-Q7:(a)(iii):1",
+   "from": "2022-P2-Q7",
+   "q": "Weights (kg) of 10 dogs, Day X → Day Y: 4.5→4.8, 4.9→5.4, 5.3→5.5, 5.3→6.1, 5.5→6.3, 5.7→6.0, 6.7→7.0, 6.9→7.6, 7.3→8.1, 7.4→7.9. Most likely correlation coefficient r?",
+   "right": "0.9",
+   "wrong": [
+    "−0.9",
+    "0.2",
+    "−0.2"
+   ],
+   "why": "Dogs heavy on Day X are still heavy on Day Y, so r is positive, and the points (X, Y) lie very close to a line: strong. A calculator gives 0.979…",
+   "hook": "Heavy stays heavy: positive. Tight to a line: near 1.",
+   "keys": [
+    "r is positive"
+   ]
+  },
+  {
+   "id": "2022-P2-Q7:(b):1",
+   "from": "2022-P2-Q7",
+   "q": "Shelter animals. Cats: Male 5, Female 9, Total 14. Dogs: Male 11, Female ?, Total ?. Grand total: 40. How many female dogs are there?",
+   "right": "15",
+   "wrong": [
+    "29",
+    "26",
+    "20"
+   ],
+   "why": "First the dogs' total: 40 − 14 = 26. Then the female dogs are the dogs that aren't male: 26 − 11 = 15.",
+   "hook": "Every row and column adds to its total. Fill in the easiest gap first.",
+   "keys": [
+    "26 − 11 = 15"
+   ]
+  },
+  {
+   "id": "2022-P2-Q7:(b):2",
+   "from": "2022-P2-Q7",
+   "q": "Shelter animals. Cats: 5 male, 9 female (14 cats). Dogs: 11 male, 15 female (26 dogs). 40 animals in all. How many males are there altogether?",
+   "right": "16",
+   "wrong": [
+    "20",
+    "25",
+    "24"
+   ],
+   "why": "Add down the Male column: 5 male cats + 11 male dogs = 16. Check with the females: 9 + 15 = 24, and 16 + 24 = 40.",
+   "hook": "Totals row: add down each column, then check it makes the grand total.",
+   "keys": [
+    "5 male cats + 11 male dogs = 16"
+   ]
+  },
+  {
+   "id": "2022-P2-Q7:(c)(i):1",
+   "from": "2022-P2-Q7",
+   "q": "A shelter has 5 male and 9 female cats, and 11 male and 15 female dogs: 40 animals. One animal is picked at random. What is the probability that it is a cat?",
+   "right": "14/40 (= 7/20)",
+   "wrong": [
+    "14/26",
+    "1/2",
+    "26/40"
+   ],
+   "why": "Probability = cats ÷ all animals = 14/40 = 7/20. Cats and dogs aren't equally likely, because there are more dogs.",
+   "hook": "Divide by everything you could pick, not by the other group.",
+   "keys": [
+    "14/40 = 7/20"
+   ]
+  },
+  {
+   "id": "2022-P2-Q7:(c)(ii):1",
+   "from": "2022-P2-Q7",
+   "q": "A shelter has 40 animals: 16 males, of which 11 are male dogs. Three different animals are picked at random. Find the probability that all three are male dogs, to 3 decimal places.",
+   "right": "0.017",
+   "wrong": [
+    "0.021",
+    "0.057",
+    "0.015"
+   ],
+   "why": "No animal is picked twice, so both counts drop each time: 11/40 × 10/39 × 9/38 = 0.01670… ≈ 0.017.",
+   "hook": "AND over several picks: multiply the fractions.",
+   "keys": [
+    "11/40 × 10/39 × 9/38"
+   ]
+  },
+  {
+   "id": "2022-P2-Q7:(c)(ii):2",
+   "from": "2022-P2-Q7",
+   "q": "A shelter has 40 animals, 11 of them male dogs. The first animal picked (and kept out) is a male dog. What is the probability the second one picked is also a male dog?",
+   "right": "10/39",
+   "wrong": [
+    "11/40",
+    "10/40",
+    "11/39"
+   ],
+   "why": "One male dog has gone, so there are 10 male dogs left out of 39 animals: 10/39.",
+   "hook": "Picked animals don't go back: one fewer of that kind AND one fewer in total.",
+   "keys": [
+    "10 male dogs left out of 39 animals"
+   ]
+  },
+  {
+   "id": "2022-P2-Q7:(d):1",
+   "from": "2022-P2-Q7",
+   "q": "The 9 female cats are put in 9 separate pens, one cat per pen. In how many different ways can this be done?",
+   "right": "362 880",
+   "wrong": [
+    "387 420 489",
+    "45",
+    "81"
+   ],
+   "why": "The first pen can have any of 9 cats, the next any of the 8 left, and so on: 9 × 8 × 7 × … × 1 = 9! = 362 880.",
+   "hook": "Arranging n different things in order: n! ways.",
+   "keys": [
+    "9! = 362 880"
+   ]
+  },
+  {
+   "id": "2022-P2-Q7:(e):1",
+   "from": "2022-P2-Q7",
+   "q": "A shelter had 14 cats and 26 dogs. During the week 10 animals left and none came in. Now the probability of picking a dog is 11/15. How many cats left the shelter?",
+   "right": "6",
+   "wrong": [
+    "8",
+    "4",
+    "22"
+   ],
+   "why": "30 animals remain. Dogs: 11/15 × 30 = 22, so the cats still there: 30 − 22 = 8. The cats that left: 14 − 8 = 6.",
+   "hook": "Work out what's left first, then compare with the start.",
+   "keys": [
+    "14 − 8 = 6"
+   ]
+  },
+  {
+   "id": "2023-P2-Q9:(a)(i):1",
+   "from": "2023-P2-Q9",
+   "q": "Minutes reading per day for 200 students: 0−30: 16, 30−60: 35, 60−90: 62, 90−120: 59, 120−150: 18, 150−180: 10. What is the largest number of students who could have read for more than 100 minutes?",
+   "right": "87",
+   "wrong": [
+    "28",
+    "67",
+    "58"
+   ],
+   "why": "We don't know where in 90−120 those 59 students are, so at most all 59 read over 100. Add the higher classes: 59 + 18 + 10 = 87.",
+   "hook": "'Maximum' from a class: assume the whole class could count.",
+   "keys": [
+    "59 + 18 + 10 = 87"
+   ]
+  },
+  {
+   "id": "2023-P2-Q9:(a)(ii):1",
+   "from": "2023-P2-Q9",
+   "q": "Minutes reading per day for 200 students: 0−30: 16, 30−60: 35, 60−90: 62, 90−120: 59, 120−150: 18, 150−180: 10. Which is the best estimate of the median time spent reading?",
+   "right": "75 minutes",
+   "wrong": [
+    "100.5 minutes",
+    "26.5 minutes",
+    "90 minutes"
+   ],
+   "why": "The median is between the 100th and 101st students. Running totals: 16, 51, 113, so they're in the 60−90 class: about 75 minutes.",
+   "hook": "Median: find the middle person with running totals, then read their class.",
+   "keys": [
+    "between the 100th and 101st students"
+   ]
+  },
+  {
+   "id": "2023-P2-Q9:(a)(iii):1",
+   "from": "2023-P2-Q9",
+   "q": "To estimate how long students in Ireland read each day, a group asked the first 200 students to arrive at their school one Monday morning. What is wrong with how the students were chosen?",
+   "right": "Not random: may not be representative",
+   "wrong": [
+    "200 students is too small a sample",
+    "Nothing: the first 200 are random",
+    "Some students may lie about reading"
+   ],
+   "why": "The first 200 into one school (maybe locals, or one early bus) aren't a random sample, so they may not represent all students in Ireland: the sample is biased.",
+   "hook": "A sample must be random to stand for everyone. Convenient isn't random.",
+   "keys": [
+    "aren't a random sample"
+   ]
+  },
+  {
+   "id": "2023-P2-Q9:(a)(iv):1",
+   "from": "2023-P2-Q9",
+   "q": "Minutes spent reading per day, grouped 0−30, 30−60, …, 150−180, with the number of students in each, is drawn as a histogram. Why do the bars touch?",
+   "right": "Time is continuous: the classes join up",
+   "wrong": [
+    "All bar charts have touching bars",
+    "The data are categories, like colours",
+    "The bars all have the same height"
+   ],
+   "why": "Time is continuous data: 30−60 ends exactly where 60−90 starts, with no gap between classes. So the histogram's bars touch, unlike a bar chart's.",
+   "hook": "Continuous data (time, height): bars touch. Categories: gaps.",
+   "keys": [
+    "Time is continuous data"
+   ]
+  },
+  {
+   "id": "2023-P2-Q9:(b)(i):1",
+   "from": "2023-P2-Q9",
+   "q": "In a random sample of 500 Cork students, 61 were rated Excellent on a statistics test. What percentage of the sample was rated Excellent?",
+   "right": "12.2%",
+   "wrong": [
+    "0.122%",
+    "8.2%",
+    "61%"
+   ],
+   "why": "Sample proportion = 61 ÷ 500 = 0.122. Multiply by 100 for a percentage: 12.2%.",
+   "hook": "Part ÷ whole, then × 100.",
+   "keys": [
+    "61 ÷ 500 = 0.122"
+   ]
+  },
+  {
+   "id": "2023-P2-Q9:(b)(ii):1",
+   "from": "2023-P2-Q9",
+   "q": "In a random sample of 500 students, 61 were rated Excellent. Which calculation shows that the margin of error is 4.5%, to 1 decimal place?",
+   "right": "1 ÷ √500 × 100",
+   "wrong": [
+    "1 ÷ 500 × 100",
+    "1 ÷ √61 × 100",
+    "2 ÷ √500 × 100"
+   ],
+   "why": "The margin of error uses the whole sample size, n = 500: 1/√500 = 0.0447… = 4.47…% ≈ 4.5%. The 61 only gives the sample's percentage.",
+   "hook": "n is everyone in the sample, not just the ones who said yes.",
+   "keys": [
+    "n = 500"
+   ]
+  },
+  {
+   "id": "2023-P2-Q9:(b)(iii):1",
+   "from": "2023-P2-Q9",
+   "q": "In a sample of 500 Cork students, 12.2% were rated Excellent; the margin of error is 4.5%. What is the 95% confidence interval for the percentage in Cork? (Usually 10% get Excellent.)",
+   "right": "7.7% ≤ p ≤ 16.7%",
+   "wrong": [
+    "5.5% ≤ p ≤ 14.5%",
+    "9.95% ≤ p ≤ 14.45%",
+    "11.65% ≤ p ≤ 12.75%"
+   ],
+   "why": "Confidence interval = sample result ± margin of error: 12.2 − 4.5 ≤ p ≤ 12.2 + 4.5, so 7.7% ≤ p ≤ 16.7%.",
+   "hook": "Centre the interval on the sample's %, not on the claimed figure.",
+   "keys": [
+    "12.2 − 4.5 ≤ p ≤ 12.2 + 4.5"
+   ]
+  },
+  {
+   "id": "2023-P2-Q9:(b)(iii):2",
+   "from": "2023-P2-Q9",
+   "q": "Usually 10% of students are rated Excellent. Cork's sample: 12.2% Excellent, 95% confidence interval 7.7% ≤ p ≤ 16.7%. At the 5% level, is Cork different?",
+   "right": "No: 10% is inside the interval",
+   "wrong": [
+    "Yes: 10% is inside the interval",
+    "Yes: 12.2% is more than 10%",
+    "Yes: 4.5% is less than 5%"
+   ],
+   "why": "10% lies inside 7.7% to 16.7%, so the sample fits the usual 10%: there is no evidence that Cork is different.",
+   "hook": "Inside the interval: no evidence of a change. Outside: evidence of a difference.",
+   "keys": [
+    "no evidence that Cork is different"
+   ]
+  },
+  {
+   "id": "2025-P2-Q8:(a)(i):1",
+   "from": "2025-P2-Q8",
+   "q": "Of 117 400 new cars sold in 2023, 25 900 were Diesel. What percentage were Diesel, correct to 2 decimal places?",
+   "right": "22.06%",
+   "wrong": [
+    "0.22%",
+    "4.53%",
+    "79.42%"
+   ],
+   "why": "Percentage = Diesel ÷ total × 100 = 25 900 ÷ 117 400 × 100 = 22.061… ≈ 22.06%.",
+   "hook": "Part ÷ whole × 100 for a %; × 360 is for a pie-chart angle.",
+   "keys": [
+    "25 900 ÷ 117 400 × 100"
+   ]
+  },
+  {
+   "id": "2025-P2-Q8:(a)(i):2",
+   "from": "2025-P2-Q8",
+   "q": "Of 117 400 new cars, 22 500 were Fully Electric (19.17%). What is the angle for Fully Electric in a pie chart, correct to the nearest degree?",
+   "right": "69°",
+   "wrong": [
+    "19°",
+    "68°",
+    "5°"
+   ],
+   "why": "Angle = 22 500 ÷ 117 400 × 360 = 68.99… ≈ 69°. Rounding the % to 19 first gives 19 × 3.6 = 68.4, which rounds the wrong way.",
+   "hook": "Fraction × 360°, and round only at the very end.",
+   "keys": [
+    "22 500 ÷ 117 400 × 360"
+   ]
+  },
+  {
+   "id": "2025-P2-Q8:(a)(ii):1",
+   "from": "2025-P2-Q8",
+   "q": "Pie chart of new cars: Petrol 119°, Diesel 79° and Fully Electric 69° are drawn. Hybrid (25.81% of the cars) fills the rest. What angle should the Hybrid sector measure?",
+   "right": "93°",
+   "wrong": [
+    "26°",
+    "267°",
+    "162°"
+   ],
+   "why": "The sectors fill 360°: 360 − (119 + 79 + 69) = 93°. Check: 25.81% × 3.6 = 92.9 ≈ 93°.",
+   "hook": "Measure the last gap as a check: everything adds to 360°.",
+   "keys": [
+    "360 − (119 + 79 + 69) = 93°"
+   ]
+  },
+  {
+   "id": "2025-P2-Q8:(b)(i):1",
+   "from": "2025-P2-Q8",
+   "q": "Ten petrol cars (engine size in litres, km per litre): (1, 17.5), (1.2, 16), (1.4, 14), (1.6, 13), (1.9, 10.5), (2, 11), (2.5, 9), (3, 9), (3.5, 8.5), (4, 7). Which best describes the correlation?",
+   "right": "Strong negative",
+   "wrong": [
+    "Strong positive",
+    "Weak negative",
+    "Weak positive"
+   ],
+   "why": "As engine size goes up, km per litre goes down: negative. The points follow that downward pattern closely, with none far off: strong.",
+   "hook": "Read left to right: down = negative; tight pattern = strong.",
+   "keys": [
+    "km per litre goes down"
+   ]
+  },
+  {
+   "id": "2025-P2-Q8:(b)(i):2",
+   "from": "2025-P2-Q8",
+   "q": "Engine size and fuel efficiency (km per litre) of ten petrol cars have a strong negative correlation. Which explanation, in context, is right?",
+   "right": "Bigger engines tend to do fewer km/l",
+   "wrong": [
+    "Bigger engines tend to do more km/l",
+    "Engine size barely affects km/l",
+    "Every bigger engine does fewer km/l"
+   ],
+   "why": "Negative: as engine size rises, km per litre falls. Strong: the cars follow that pattern closely. It's a trend, not a rule: a 2-litre car beats a 1.9-litre one.",
+   "hook": "Explain in context: name both variables and say which way they move.",
+   "keys": [
+    "It's a trend, not a rule"
+   ]
+  },
+  {
+   "id": "2025-P2-Q8:(b)(ii):1",
+   "from": "2025-P2-Q8",
+   "q": "Tom says that the correlation coefficient for two sets of data is 5. Why can't this be correct?",
+   "right": "r is always between −1 and 1",
+   "wrong": [
+    "r is always between 0 and 1",
+    "r can only be −1, 0 or 1",
+    "r must be a decimal, not 5"
+   ],
+   "why": "The correlation coefficient always lies in −1 ≤ r ≤ 1: 1 is a perfect rising line, −1 a perfect falling one. 5 is bigger than 1.",
+   "hook": "r lives between −1 and 1. Anything outside is a mistake.",
+   "keys": [
+    "−1 ≤ r ≤ 1"
+   ]
+  },
+  {
+   "id": "2025-P2-Q8:(c)(i):1",
+   "from": "2025-P2-Q8",
+   "q": "A random sample of 815 cars gives a margin of error of 1/√815 ≈ 3.5%. About how many cars would a sample need to halve this, to about 1.75%?",
+   "right": "3260",
+   "wrong": [
+    "1630",
+    "408",
+    "664 225"
+   ],
+   "why": "E = 1/√n, so halving E means doubling √n, which needs 4 times n: 4 × 815 = 3260, and 1/√3260 ≈ 1.75%.",
+   "hook": "Four times the sample, half the margin of error.",
+   "keys": [
+    "4 × 815 = 3260"
+   ]
+  },
+  {
+   "id": "2025-P2-Q8:(c)(ii):1",
+   "from": "2025-P2-Q8",
+   "q": "106 of a random sample of 815 new cars bought in 2024 were electric. What percentage of the sample were electric, correct to the nearest percent?",
+   "right": "13%",
+   "wrong": [
+    "8%",
+    "12%",
+    "47%"
+   ],
+   "why": "Sample proportion = 106 ÷ 815 = 0.13006…; × 100 = 13.006…% ≈ 13%.",
+   "hook": "Of the sample: divide by the sample size, 815.",
+   "keys": [
+    "106 ÷ 815 = 0.13006…"
+   ]
+  },
+  {
+   "id": "2025-P2-Q8:(c)(iii):1",
+   "from": "2025-P2-Q8",
+   "q": "In 2023, 19.2% of new cars were electric. A 2024 sample gives 13% with a margin of error of 3.5%. At the 5% level, is the 2024 percentage different?",
+   "right": "Yes: 19.2% is outside 9.5% to 16.5%",
+   "wrong": [
+    "No: 19.2% is outside 9.5% to 16.5%",
+    "No: 13% is inside 9.5% to 16.5%",
+    "No: 19.2% is inside 15.7% to 22.7%"
+   ],
+   "why": "CI: 13 − 3.5 ≤ p ≤ 13 + 3.5, so 9.5% to 16.5%. 19.2% is outside it, so there is evidence that the 2024 percentage is different.",
+   "hook": "Test the OLD figure against the NEW sample's interval.",
+   "keys": [
+    "19.2% is outside it"
+   ]
+  }
+ ]
+}

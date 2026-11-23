@@ -1,0 +1,1074 @@
+{
+ "chapter": 10,
+ "cards": [
+  {
+   "id": "2015-P1-Q4:(a):1",
+   "from": "2015-P1-Q4",
+   "q": "Solve the equation −x² + 6x − 4 = 0. Give each solution correct to one decimal place.",
+   "right": "x = 0.8 or x = 5.2",
+   "wrong": [
+    "x = −0.8 or x = −5.2",
+    "x = −0.6 or x = 6.6",
+    "x = 0.7 or x = 5.2"
+   ],
+   "why": "a = −1, b = 6, c = −4: x = (−6 ± √(36 − 16)) / 2(−1) = (−6 ± √20)/(−2), so x = 0.763… ≈ 0.8 or x = 5.236… ≈ 5.2.",
+   "hook": "Brackets round every negative: 2a = 2(−1) = −2, not 2.",
+   "keys": [
+    "(−6 ± √20)/(−2)",
+    "0.763… ≈ 0.8"
+   ]
+  },
+  {
+   "id": "2015-P1-Q4:(a):2",
+   "from": "2015-P1-Q4",
+   "q": "You solve −x² + 6x − 4 = 0 with the quadratic formula. What is b² − 4ac, the number under the square root?",
+   "right": "20",
+   "wrong": [
+    "52",
+    "−4",
+    "32"
+   ],
+   "why": "a = −1, b = 6, c = −4: b² − 4ac = 6² − 4(−1)(−4) = 36 − 16 = 20. (−1)(−4) is +4, and the minus in front makes −16.",
+   "hook": "Bracket every negative: −4(−1)(−4) = −16.",
+   "keys": [
+    "36 − 16 = 20"
+   ]
+  },
+  {
+   "id": "2015-P1-Q4:(b):1",
+   "from": "2015-P1-Q4",
+   "q": "Find the co-ordinates of the turning point of the function f(x) = −x² + 6x − 4.",
+   "right": "(3, 5)",
+   "wrong": [
+    "(3, 23)",
+    "(1, 1)",
+    "(−3, −31)"
+   ],
+   "why": "f′(x) = −2x + 6 = 0 gives x = 3. Then f(3) = −9 + 18 − 4 = 5, so the turning point is (3, 5).",
+   "hook": "Slope 0 finds the x; the original f(x) finds the y. −3² is −9.",
+   "keys": [
+    "f′(x) = −2x + 6 = 0",
+    "f(3) = −9 + 18 − 4 = 5"
+   ]
+  },
+  {
+   "id": "2015-P1-Q4:(b):2",
+   "from": "2015-P1-Q4",
+   "q": "To find the turning point of f(x) = −x² + 6x − 4, which equation do you solve first?",
+   "right": "−2x + 6 = 0",
+   "wrong": [
+    "−x² + 6x − 4 = 0",
+    "−2x + 2 = 0",
+    "−x + 6 = 0"
+   ],
+   "why": "At a turning point the curve is flat, so its slope f′(x) is 0. f′(x) = −2x + 6 (the −4 goes), so solve −2x + 6 = 0. f(x) = 0 gives the roots instead.",
+   "hook": "Turning point: slope = 0, so f′(x) = 0, not f(x) = 0.",
+   "keys": [
+    "f′(x) = −2x + 6 (the −4 goes)"
+   ]
+  },
+  {
+   "id": "2015-P1-Q4:(c):1",
+   "from": "2015-P1-Q4",
+   "q": "Sketch y = −x² + 6x − 4 using its roots x ≈ 0.8 and x ≈ 5.2 and its turning point (3, 5). What must the sketch show to get full marks?",
+   "right": "Roots, top at (3, 5), scale on both axes",
+   "wrong": [
+    "Roots and top at (3, 5); no scale",
+    "Ruled lines joining the three points",
+    "A U shape with its bottom at (3, 5)"
+   ],
+   "why": "One smooth upside-down U (the −x² flips it) through (0.8, 0) and (5.2, 0) with its top at (3, 5), and both axes numbered: the scale earns marks too.",
+   "hook": "Minus x² = a frown ∩. Number both axes before you draw.",
+   "keys": [
+    "both axes numbered"
+   ]
+  },
+  {
+   "id": "2015-P1-Q8:(a):1",
+   "from": "2015-P1-Q8",
+   "q": "An oil trader's daily profit is p = 96x − 0.03x² euro, where x is the number of barrels traded. Complete the table: what is the profit when x = 1000?",
+   "right": "€66 000",
+   "wrong": [
+    "€95 970",
+    "€95 100",
+    "€93 000"
+   ],
+   "why": "p = 96(1000) − 0.03(1000)² = 96 000 − 0.03 × 1 000 000 = 96 000 − 30 000 = €66 000.",
+   "hook": "Square first, then multiply by 0.03.",
+   "keys": [
+    "0.03 × 1 000 000"
+   ]
+  },
+  {
+   "id": "2015-P1-Q8:(b):1",
+   "from": "2015-P1-Q8",
+   "q": "You plot (500, 40 500), (1000, 66 000), (1500, 76 500), (2000, 72 000) and (2500, 52 500) for p = 96x − 0.03x². How do you draw the graph?",
+   "right": "Smooth curve, top between 1500 and 2000",
+   "wrong": [
+    "Ruled straight lines, point to point",
+    "Smooth curve, top at (1500, 76 500)",
+    "Plot the five points; don't join them"
+   ],
+   "why": "The x² makes the graph a curve: join all five points freehand with one smooth curve. It is still rising at 1500 and turns before 2000.",
+   "hook": "x² in the formula → one smooth curve, never ruled lines.",
+   "keys": [
+    "one smooth curve"
+   ]
+  },
+  {
+   "id": "2015-P1-Q8:(c)(i):1",
+   "from": "2015-P1-Q8",
+   "q": "Graph of the profit p = 96x − 0.03x²: barrels x across, profit p up. How do you use it to estimate the daily profit when 1750 barrels are traded?",
+   "right": "Up from 1750 barrels to the curve, across",
+   "wrong": [
+    "Across from 1750 on the p axis, then down",
+    "Halfway between the 1500 and 2000 profits",
+    "Read the slope of the curve at x = 1750"
+   ],
+   "why": "Profit is on the up axis. Find 1750 on the barrels axis, go up to the curve, then across to read the profit: about €76 000 (the formula gives €76 125).",
+   "hook": "Start on the axis you know, finish on the axis you want.",
+   "keys": [
+    "go up to the curve, then across"
+   ]
+  },
+  {
+   "id": "2015-P1-Q8:(c)(ii):1",
+   "from": "2015-P1-Q8",
+   "q": "Graph of the profit p = 96x − 0.03x² (barrels across, profit up). A line across at €60 000 is drawn. About how many barrels are traded when the daily profit is €60 000?",
+   "right": "About 850 or about 2350 barrels",
+   "wrong": [
+    "About 850 barrels only",
+    "About 2350 barrels only",
+    "About 625 barrels"
+   ],
+   "why": "The line across at €60 000 cuts the hill-shaped curve twice, once going up and once coming down: about 850 and about 2350 barrels. Give both.",
+   "hook": "A line across a hill can cut it twice: give both answers.",
+   "keys": [
+    "cuts the hill-shaped curve twice"
+   ]
+  },
+  {
+   "id": "2015-P1-Q8:(d)(i):1",
+   "from": "2015-P1-Q8",
+   "q": "Daily profit p = 96x − 0.03x² for x barrels. Use calculus to find the number of barrels traded that will earn the maximum daily profit.",
+   "right": "1600 barrels",
+   "wrong": [
+    "3200 barrels",
+    "160 barrels",
+    "1500 barrels"
+   ],
+   "why": "dp/dx = 96 − 0.06x (2 × 0.03 = 0.06). At the maximum the slope is 0: 96 − 0.06x = 0, so x = 96 ÷ 0.06 = 1600 barrels.",
+   "hook": "Max or min: set the derivative equal to 0.",
+   "keys": [
+    "dp/dx = 96 − 0.06x",
+    "x = 96 ÷ 0.06 = 1600"
+   ]
+  },
+  {
+   "id": "2015-P1-Q8:(d)(i):2",
+   "from": "2015-P1-Q8",
+   "q": "The daily profit is p = 96x − 0.03x². What is dp/dx?",
+   "right": "96 − 0.06x",
+   "wrong": [
+    "96 − 0.03x",
+    "96x − 0.06x",
+    "96 − 0.06x²"
+   ],
+   "why": "96x becomes 96. For 0.03x², bring the 2 down (2 × 0.03 = 0.06) and take one off the power: 0.06x. So dp/dx = 96 − 0.06x.",
+   "hook": "Power down in front, then one off the power.",
+   "keys": [
+    "2 × 0.03 = 0.06"
+   ]
+  },
+  {
+   "id": "2015-P1-Q8:(d)(ii):1",
+   "from": "2015-P1-Q8",
+   "q": "The profit p = 96x − 0.03x² is greatest when x = 1600 barrels (dp/dx = 96 − 0.06x). Find this maximum daily profit.",
+   "right": "€76 800",
+   "wrong": [
+    "€0",
+    "€153 552",
+    "€151 296"
+   ],
+   "why": "Put x = 1600 into the profit function itself, not into dp/dx: p = 96(1600) − 0.03(1600)² = 153 600 − 76 800 = €76 800.",
+   "hook": "Derivative says WHERE the max is; the function says HOW BIG it is.",
+   "keys": [
+    "not into dp/dx"
+   ]
+  },
+  {
+   "id": "2015-P1-Q8:(e):1",
+   "from": "2015-P1-Q8",
+   "q": "Daily profit p = 96x − 0.03x² for x barrels. The trader will not make a profit if he trades more than k barrels of oil in a day. Calculate k.",
+   "right": "3200 barrels",
+   "wrong": [
+    "1600 barrels",
+    "0 barrels",
+    "320 barrels"
+   ],
+   "why": "No profit means p = 0: 96x − 0.03x² = 0, so x(96 − 0.03x) = 0. x = 0 is trading nothing; the other gives x = 96 ÷ 0.03 = 3200.",
+   "hook": "Break-even: set the profit itself to 0, not its derivative.",
+   "keys": [
+    "x(96 − 0.03x) = 0",
+    "96 ÷ 0.03 = 3200"
+   ]
+  },
+  {
+   "id": "2016-P1-Q4:(a):1",
+   "from": "2016-P1-Q4",
+   "q": "f(x) = x³ + x² − 2x + 7. Find the co-ordinates of the point where the graph of f cuts the y-axis.",
+   "right": "(0, 7)",
+   "wrong": [
+    "(7, 0)",
+    "(1, 7)",
+    "(0, 5)"
+   ],
+   "why": "Every point on the y-axis has x = 0: f(0) = 0 + 0 − 2(0) + 7 = 7, so the graph cuts the y-axis at (0, 7).",
+   "hook": "y-axis: put x = 0. x-axis: put y = 0.",
+   "keys": [
+    "f(0) = 0 + 0 − 2(0) + 7 = 7"
+   ]
+  },
+  {
+   "id": "2016-P1-Q4:(b):1",
+   "from": "2016-P1-Q4",
+   "q": "f(x) = x³ + x² − 2x + 7. How do you verify, using algebra, that the point A(1, 7) is on the graph of f?",
+   "right": "Work out f(1) and get 7",
+   "wrong": [
+    "Work out f(7) and get 1",
+    "Work out f′(1) and get 7",
+    "Work out f(1) and get 0"
+   ],
+   "why": "A point is on the graph when its x, put into f, gives its y: f(1) = 1 + 1 − 2 + 7 = 7, the same as the y of A(1, 7).",
+   "hook": "On the graph means: put in x, get out y.",
+   "keys": [
+    "f(1) = 1 + 1 − 2 + 7 = 7"
+   ]
+  },
+  {
+   "id": "2016-P1-Q4:(c)(i):1",
+   "from": "2016-P1-Q4",
+   "q": "f(x) = x³ + x² − 2x + 7. Find f′(x), the derivative of f(x).",
+   "right": "f′(x) = 3x² + 2x − 2",
+   "wrong": [
+    "f′(x) = 3x² + 2x + 5",
+    "f′(x) = x² + x − 2",
+    "f′(x) = 3x³ + 2x² − 2x"
+   ],
+   "why": "Bring each power down and take one off: x³ → 3x², x² → 2x, −2x → −2, and the 7 on its own → 0. So f′(x) = 3x² + 2x − 2.",
+   "hook": "Power down in front, one off the power; a number on its own vanishes.",
+   "keys": [
+    "the 7 on its own → 0"
+   ]
+  },
+  {
+   "id": "2016-P1-Q4:(c)(i):2",
+   "from": "2016-P1-Q4",
+   "q": "f(x) = x³ + x² − 2x + 7 and f′(x) = 3x² + 2x − 2. What is the slope of the tangent to the graph of f when x = 1?",
+   "right": "3",
+   "wrong": [
+    "7",
+    "10",
+    "0"
+   ],
+   "why": "The slope of the tangent is f′(1), not f(1): f′(1) = 3(1)² + 2(1) − 2 = 3 + 2 − 2 = 3.",
+   "hook": "Slope → put x into f′(x). Height → put x into f(x).",
+   "keys": [
+    "f′(1) = 3(1)² + 2(1) − 2 = 3 + 2 − 2 = 3"
+   ]
+  },
+  {
+   "id": "2016-P1-Q4:(c)(ii):1",
+   "from": "2016-P1-Q4",
+   "q": "The tangent to the graph of f(x) = x³ + x² − 2x + 7 at the point A(1, 7) has slope 3. Find the equation of the tangent.",
+   "right": "y = 3x + 4",
+   "wrong": [
+    "y = 3x + 7",
+    "y = 3x − 20",
+    "y = 3x + 10"
+   ],
+   "why": "Use y − y₁ = m(x − x₁) with (1, 7) and m = 3: y − 7 = 3(x − 1), so y − 7 = 3x − 3 and y = 3x + 4.",
+   "hook": "A line needs a point and a slope: y − y₁ = m(x − x₁).",
+   "keys": [
+    "y − 7 = 3(x − 1)"
+   ]
+  },
+  {
+   "id": "2016-P1-Q8:(a):1",
+   "from": "2016-P1-Q8",
+   "q": "Kieran has 21 m of fencing to enclose a rectangular garden of length x m and width y m. Which equation for the perimeter leads to y = 10.5 − x?",
+   "right": "2x + 2y = 21",
+   "wrong": [
+    "x + y = 21",
+    "xy = 21",
+    "2x + y = 21"
+   ],
+   "why": "The perimeter is two lengths and two widths, all 21 m of fencing: 2x + 2y = 21. Divide by 2: x + y = 10.5, so y = 10.5 − x.",
+   "hook": "Perimeter = all the way round: 2 lengths + 2 widths.",
+   "keys": [
+    "2x + 2y = 21"
+   ]
+  },
+  {
+   "id": "2016-P1-Q8:(b)(i):1",
+   "from": "2016-P1-Q8",
+   "q": "Kieran's garden has length x m and width y = 10.5 − x m. Complete the table: what are y and the area A when x = 7?",
+   "right": "y = 3.5 m, A = 24.5 m²",
+   "wrong": [
+    "y = 3.5 m, A = 10.5 m²",
+    "y = 3.5 m, A = 21 m²",
+    "y = 17.5 m, A = 122.5 m²"
+   ],
+   "why": "y = 10.5 − 7 = 3.5 m. The area of a rectangle is length × width, so A = 7 × 3.5 = 24.5 m².",
+   "hook": "Area multiplies length × width; perimeter adds all four sides.",
+   "keys": [
+    "A = 7 × 3.5 = 24.5 m²"
+   ]
+  },
+  {
+   "id": "2016-P1-Q8:(b)(ii):1",
+   "from": "2016-P1-Q8",
+   "q": "One column of Kieran's table reads x = 3 m, y = 7.5 m, A = 22.5 m². You plot the graph of A (up) against x (across). Which point do you plot for this column?",
+   "right": "(3, 22.5)",
+   "wrong": [
+    "(3, 7.5)",
+    "(22.5, 3)",
+    "(7.5, 22.5)"
+   ],
+   "why": "Points are (across, up). The graph is A against x: x = 3 across, A = 22.5 up, so plot (3, 22.5). The width y is not plotted.",
+   "hook": "(x, y) means across first, then up.",
+   "keys": [
+    "plot (3, 22.5)"
+   ]
+  },
+  {
+   "id": "2016-P1-Q8:(c):1",
+   "from": "2016-P1-Q8",
+   "q": "On your graph of the garden's area A (up) against its length x (across), how do you estimate the maximum area and the length that gives it?",
+   "right": "Top of the curve: across to A, down to x",
+   "wrong": [
+    "Top of the curve: down to A, across to x",
+    "Where the curve meets the x-axis",
+    "The right-hand end of the curve, x = 10"
+   ],
+   "why": "The maximum area is the highest point of the curve. Read across to the A axis (about 27.5 m²) and down to the x axis (about 5.25 m).",
+   "hook": "Max = the top of the hill. Across for its height, down for its x.",
+   "keys": [
+    "highest point of the curve"
+   ]
+  },
+  {
+   "id": "2016-P1-Q8:(d)(i):1",
+   "from": "2016-P1-Q8",
+   "q": "Kieran's rectangular garden has length x m and width y = 10.5 − x m. Write its area A in terms of x only.",
+   "right": "A = 10.5x − x²",
+   "wrong": [
+    "A = 10.5 − x²",
+    "A = 10.5x − 2x",
+    "A = 21x − 2x²"
+   ],
+   "why": "Area = length × width = x × y. Replace y with 10.5 − x and multiply out: A = x(10.5 − x) = 10.5x − x².",
+   "hook": "Max/min problems: first get the thing you want in ONE letter.",
+   "keys": [
+    "A = x(10.5 − x) = 10.5x − x²"
+   ]
+  },
+  {
+   "id": "2016-P1-Q8:(d)(ii):1",
+   "from": "2016-P1-Q8",
+   "q": "The area of Kieran's garden is A = 10.5x − x². Find dA/dx.",
+   "right": "10.5 − 2x",
+   "wrong": [
+    "10.5 − x",
+    "−2x",
+    "10.5x − 2x"
+   ],
+   "why": "10.5x differentiates to 10.5 (the x goes, the number stays). For x², bring the 2 down and take one off: 2x. So dA/dx = 10.5 − 2x.",
+   "hook": "ax → a; x² → 2x; a number on its own → 0.",
+   "keys": [
+    "10.5x differentiates to 10.5"
+   ]
+  },
+  {
+   "id": "2016-P1-Q8:(d)(iii):1",
+   "from": "2016-P1-Q8",
+   "q": "The garden's area is A = 10.5x − x² and dA/dx = 10.5 − 2x. Find the value of x which will give the maximum area.",
+   "right": "x = 5.25 m",
+   "wrong": [
+    "x = 10.5 m",
+    "x = 21 m",
+    "x = 5 m"
+   ],
+   "why": "At the maximum the slope is 0: 10.5 − 2x = 0, so 2x = 10.5 and x = 10.5 ÷ 2 = 5.25 m.",
+   "hook": "Biggest area → slope 0 → solve dA/dx = 0.",
+   "keys": [
+    "10.5 − 2x = 0",
+    "x = 10.5 ÷ 2 = 5.25 m"
+   ]
+  },
+  {
+   "id": "2016-P1-Q8:(d)(iii):2",
+   "from": "2016-P1-Q8",
+   "q": "The area of Kieran's garden is A = 10.5x − x². Why is dA/dx = 0 at the length that gives the maximum area?",
+   "right": "The curve is flat at its top: slope 0",
+   "wrong": [
+    "The area is 0 at the top",
+    "The length x is 0 at the top",
+    "dA/dx is at its largest at the top"
+   ],
+   "why": "dA/dx is the slope of the area graph. Going up to the top the slope is positive, after it negative: at the top it is 0, so the curve is flat there.",
+   "hook": "Top of a hill: flat for a moment, so the slope is 0.",
+   "keys": [
+    "at the top it is 0"
+   ]
+  },
+  {
+   "id": "2016-P1-Q8:(d)(iv):1",
+   "from": "2016-P1-Q8",
+   "q": "Kieran's garden: area A = 10.5x − x², dA/dx = 10.5 − 2x, and the maximum is at length x = 5.25 m. Find this maximum area.",
+   "right": "27.56 m²",
+   "wrong": [
+    "0 m²",
+    "10.5 m²",
+    "55.13 m²"
+   ],
+   "why": "Put x = 5.25 into A, not into dA/dx. The width is 10.5 − 5.25 = 5.25 m too, so A = 5.25 × 5.25 = 27.5625 ≈ 27.56 m².",
+   "hook": "The derivative finds where; the area formula finds how much.",
+   "keys": [
+    "A = 5.25 × 5.25 = 27.5625"
+   ]
+  },
+  {
+   "id": "2017-P1-Q3:(a):1",
+   "from": "2017-P1-Q3",
+   "q": "Find the two values of x for which 3x² − 6x − 8 = 0. Give each answer correct to 1 decimal place.",
+   "right": "x = 2.9 or x = −0.9",
+   "wrong": [
+    "x = 0.9 or x = −2.9",
+    "x = 2.3 or x = −0.3",
+    "x = 8.7 or x = −2.7"
+   ],
+   "why": "a = 3, b = −6, c = −8: x = (6 ± √(36 + 96))/6 = (6 ± √132)/6, so x = 2.914… ≈ 2.9 or x = −0.948… ≈ −0.9.",
+   "hook": "−b of a negative b is positive; (−6)² = +36; 2a = 6.",
+   "keys": [
+    "(6 ± √132)/6"
+   ]
+  },
+  {
+   "id": "2017-P1-Q3:(a):2",
+   "from": "2017-P1-Q3",
+   "q": "You use the quadratic formula to solve 3x² − 6x − 8 = 0. What are a, b and c?",
+   "right": "a = 3, b = −6, c = −8",
+   "wrong": [
+    "a = 3, b = 6, c = −8",
+    "a = 3, b = 6, c = 8",
+    "a = 3, b = −6, c = 8"
+   ],
+   "why": "Match 3x² − 6x − 8 = 0 to ax² + bx + c = 0 and keep each sign with its number: a = 3, b = −6, c = −8.",
+   "hook": "The sign in front belongs to the number: −6x gives b = −6.",
+   "keys": [
+    "keep each sign with its number"
+   ]
+  },
+  {
+   "id": "2017-P1-Q3:(b):1",
+   "from": "2017-P1-Q3",
+   "q": "Find the co-ordinates of the minimum point of the function f(x) = 3x² − 6x − 8.",
+   "right": "(1, −11)",
+   "wrong": [
+    "(2, −8)",
+    "(−1, 1)",
+    "(1, 0)"
+   ],
+   "why": "f′(x) = 6x − 6. At the minimum 6x − 6 = 0, so x = 1. Then y = f(1) = 3 − 6 − 8 = −11: the minimum point is (1, −11).",
+   "hook": "Co-ordinates = x AND y. The y comes from f(x), not f′(x).",
+   "keys": [
+    "f′(x) = 6x − 6",
+    "f(1) = 3 − 6 − 8 = −11"
+   ]
+  },
+  {
+   "id": "2017-P1-Q3:(b):2",
+   "from": "2017-P1-Q3",
+   "q": "f(x) = 3x² − 6x − 8. Solving f′(x) = 6x − 6 = 0 gives x = 1 at the minimum point. How do you get its y co-ordinate?",
+   "right": "Put x = 1 into f(x)",
+   "wrong": [
+    "Put x = 1 into f′(x)",
+    "Solve 3x² − 6x − 8 = 0",
+    "No need: x = 1 is the answer"
+   ],
+   "why": "The point is on the curve, so its height comes from f itself: f(1) = 3(1)² − 6(1) − 8 = −11. f′(1) = 0 is only the slope there.",
+   "hook": "f′(x) = 0 finds the x; f(x) finds the y. Give both.",
+   "keys": [
+    "f(1) = 3(1)² − 6(1) − 8 = −11"
+   ]
+  },
+  {
+   "id": "2017-P1-Q8:(a):1",
+   "from": "2017-P1-Q8",
+   "q": "A company's weekly profit is P(x) = 275x − x² − 2000 euro, where x is the km of cable sold. How much money does it lose if it sells no cable?",
+   "right": "€2000",
+   "wrong": [
+    "€0",
+    "€275",
+    "€1725"
+   ],
+   "why": "Selling no cable means x = 0, and 275 × 0 = 0: P(0) = 0 − 0 − 2000 = −2000. A profit of −€2000 is a loss of €2000.",
+   "hook": "Nothing sold → put x = 0. A negative profit is a loss.",
+   "keys": [
+    "P(0) = 0 − 0 − 2000 = −2000"
+   ]
+  },
+  {
+   "id": "2017-P1-Q8:(b):1",
+   "from": "2017-P1-Q8",
+   "q": "Profit P(x) = 275x − x² − 2000 euro for x km of cable, and at most 200 km can be sold. One week the profit was €8350. How many km were sold?",
+   "right": "45 km",
+   "wrong": [
+    "230 km",
+    "45 km or 230 km",
+    "34.8 km"
+   ],
+   "why": "275x − x² − 2000 = 8350 gives x² − 275x + 10 350 = 0, so (x − 45)(x − 230) = 0. At most 200 km can be sold, so x = 45 km.",
+   "hook": "Check every answer against the limits: here x ≤ 200.",
+   "keys": [
+    "(x − 45)(x − 230) = 0",
+    "x = 45 km"
+   ]
+  },
+  {
+   "id": "2017-P1-Q8:(b):2",
+   "from": "2017-P1-Q8",
+   "q": "Profit P(x) = 275x − x² − 2000 euro for x km of cable. Which equation finds the km sold in a week when the profit was €8350?",
+   "right": "275x − x² − 2000 = 8350",
+   "wrong": [
+    "275 − 2x = 8350",
+    "275x − x² − 2000 = 0",
+    "275x − x² = 8350"
+   ],
+   "why": "The profit itself is €8350, so set P(x) = 8350 and keep the −2000. The derivative 275 − 2x is the rate the profit changes, not the profit.",
+   "hook": "Amount given → set P(x) to it. Rate given → set P′(x) to it.",
+   "keys": [
+    "set P(x) = 8350"
+   ]
+  },
+  {
+   "id": "2017-P1-Q8:(c)(i):1",
+   "from": "2017-P1-Q8",
+   "q": "Profit P(x) = 275x − x² − 2000 euro for x km of cable. Complete the table: what is the profit when x = 50?",
+   "right": "€9250",
+   "wrong": [
+    "€14 250",
+    "€11 650",
+    "€11 250"
+   ],
+   "why": "P(50) = 275(50) − 50² − 2000 = 13 750 − 2500 − 2000 = €9250.",
+   "hook": "Square first, keep every minus, and don't drop the −2000.",
+   "keys": [
+    "13 750 − 2500 − 2000 = €9250"
+   ]
+  },
+  {
+   "id": "2017-P1-Q8:(c)(ii):1",
+   "from": "2017-P1-Q8",
+   "q": "Profit P(x) = 275x − x² − 2000. You plot (50, 9250), (60, 10 900), (70, 12 350), (80, 13 600), (90, 14 650), (100, 15 500). What do you draw?",
+   "right": "Smooth curve, rising more and more slowly",
+   "wrong": [
+    "Smooth curve, rising faster and faster",
+    "One straight line through the points",
+    "Ruled lines from point to point"
+   ],
+   "why": "The profit goes up by 1650, 1450, 1250, 1050, 850: still rising, but by less each time. Join the points with one smooth curve that bends over.",
+   "hook": "Look at the gaps: shrinking gaps = a curve that flattens.",
+   "keys": [
+    "1650, 1450, 1250, 1050, 850"
+   ]
+  },
+  {
+   "id": "2017-P1-Q8:(c)(iii):1",
+   "from": "2017-P1-Q8",
+   "q": "Graph of the profit P (up, in €) against km of cable sold x (across). How do you find the sales that give a profit between €10 000 and €14 000?",
+   "right": "Across from €10 000 and €14 000, then down",
+   "wrong": [
+    "Up from 10 000 and 14 000 on the km axis",
+    "Put x = 10 000 and x = 14 000 into P(x)",
+    "Solve P′(x) = 10 000 and P′(x) = 14 000"
+   ],
+   "why": "Profit is on the up axis. Draw lines across at €10 000 and €14 000 to the curve, then down: about 55 km and 83 km. Sales between them work.",
+   "hook": "Know the profit? Start on the profit axis, go across, then down.",
+   "keys": [
+    "about 55 km and 83 km"
+   ]
+  },
+  {
+   "id": "2017-P1-Q8:(d):1",
+   "from": "2017-P1-Q8",
+   "q": "Profit P(x) = 275x − x² − 2000 euro for x km of cable. Use calculus to find the km sold when the profit is increasing at a rate of €105 per km.",
+   "right": "85 km",
+   "wrong": [
+    "137.5 km",
+    "170 km",
+    "190 km"
+   ],
+   "why": "The rate the profit increases is P′(x) = 275 − 2x. Set it equal to 105: 275 − 2x = 105, so 2x = 170 and x = 85 km.",
+   "hook": "Rate of change = derivative. Set P′(x) equal to the rate given.",
+   "keys": [
+    "275 − 2x = 105",
+    "x = 85 km"
+   ]
+  },
+  {
+   "id": "2017-P1-Q8:(d):2",
+   "from": "2017-P1-Q8",
+   "q": "Profit P(x) = 275x − x² − 2000. The profit is increasing at a rate of €105 per km. Which equation do you solve?",
+   "right": "275 − 2x = 105",
+   "wrong": [
+    "275x − x² − 2000 = 105",
+    "275 − 2x = 0",
+    "275 − 2x − 2000 = 105"
+   ],
+   "why": "\"Increasing at a rate of\" means the derivative: P′(x) = 275 − 2x (the −2000 goes to 0). Set it equal to 105, not to 0.",
+   "hook": "Rate → P′(x). Amount → P(x). Max or min → P′(x) = 0.",
+   "keys": [
+    "P′(x) = 275 − 2x"
+   ]
+  },
+  {
+   "id": "2018-P1-Q5:(a):1",
+   "from": "2018-P1-Q5",
+   "q": "A quadratic graph cuts the y-axis at height 6 (point A) and the x-axis at −2 (point B) and at 3 (point C). Write down the co-ordinates of A, B and C.",
+   "right": "A(0, 6), B(−2, 0), C(3, 0)",
+   "wrong": [
+    "A(6, 0), B(0, −2), C(0, 3)",
+    "A(6, 0), B(−2, 0), C(3, 0)",
+    "A(0, 6), B(0, −2), C(0, 3)"
+   ],
+   "why": "On the y-axis x = 0, so A = (0, 6). On the x-axis y = 0, so B = (−2, 0) and C = (3, 0). Co-ordinates are (across, up).",
+   "hook": "(x, y): across first, then up. On the x-axis, y = 0.",
+   "keys": [
+    "A = (0, 6)",
+    "B = (−2, 0) and C = (3, 0)"
+   ]
+  },
+  {
+   "id": "2018-P1-Q5:(b):1",
+   "from": "2018-P1-Q5",
+   "q": "A quadratic graph is an upside-down U that cuts the x-axis at x = −2 and x = 3, and the y-axis at 6. Which formula fits it?",
+   "right": "f(x) = −(x + 2)(x − 3)",
+   "wrong": [
+    "f(x) = (x + 2)(x − 3)",
+    "f(x) = −(x − 2)(x + 3)",
+    "f(x) = (x − 2)(x + 3)"
+   ],
+   "why": "Each root gives a factor with its sign changed: x = −2 → (x + 2), x = 3 → (x − 3). The ∩ needs a minus in front: −(x + 2)(x − 3) = −x² + x + 6.",
+   "hook": "Root −2 → factor (x + 2): change the sign.",
+   "keys": [
+    "−(x + 2)(x − 3) = −x² + x + 6"
+   ]
+  },
+  {
+   "id": "2018-P1-Q5:(b):2",
+   "from": "2018-P1-Q5",
+   "q": "The quadratic with roots −2 and 3 and an upside-down U shape is f(x) = −(x + 2)(x − 3). Multiply it out.",
+   "right": "−x² + x + 6",
+   "wrong": [
+    "−x² − x − 6",
+    "x² − x − 6",
+    "−x² + 5x + 6"
+   ],
+   "why": "(x + 2)(x − 3) = x² − 3x + 2x − 6 = x² − x − 6. The minus in front changes every sign: −x² + x + 6.",
+   "hook": "Multiply out the brackets first, then flip every sign.",
+   "keys": [
+    "x² − 3x + 2x − 6 = x² − x − 6"
+   ]
+  },
+  {
+   "id": "2018-P1-Q5:(c):1",
+   "from": "2018-P1-Q5",
+   "q": "f(x) = −x² + x + 6. Use calculus to find the maximum point of f(x).",
+   "right": "(0.5, 6.25)",
+   "wrong": [
+    "(−0.5, 5.25)",
+    "(0.5, 6.75)",
+    "(1, 6)"
+   ],
+   "why": "f′(x) = −2x + 1 = 0 gives x = 0.5. Then f(0.5) = −0.25 + 0.5 + 6 = 6.25, so the maximum point is (0.5, 6.25).",
+   "hook": "−(0.5)² = −0.25: square first, then put the minus in front.",
+   "keys": [
+    "f′(x) = −2x + 1 = 0",
+    "f(0.5) = −0.25 + 0.5 + 6 = 6.25"
+   ]
+  },
+  {
+   "id": "2018-P1-Q5:(c):2",
+   "from": "2018-P1-Q5",
+   "q": "f(x) = −x² + x + 6. What is f′(x)?",
+   "right": "−2x + 1",
+   "wrong": [
+    "−2x + 7",
+    "2x + 1",
+    "−x + 1"
+   ],
+   "why": "−x² → −2x (bring the 2 down and keep the minus), x → 1, and the 6 on its own → 0. So f′(x) = −2x + 1.",
+   "hook": "Keep the sign in front when you bring the power down.",
+   "keys": [
+    "the 6 on its own → 0"
+   ]
+  },
+  {
+   "id": "2018-P1-Q8:(a):1",
+   "from": "2018-P1-Q8",
+   "q": "The amount of a drug in the bloodstream t hours after it is taken is C(t) = −t³ + 4.5t² + 54t units. What is the amount after 4 hours?",
+   "right": "224 units",
+   "wrong": [
+    "276 units",
+    "188 units",
+    "476 units"
+   ],
+   "why": "C(4) = −(4)³ + 4.5(4)² + 54(4) = −64 + 4.5 × 16 + 216 = −64 + 72 + 216 = 224 units.",
+   "hook": "Powers first: 4³ = 64 and 4² = 16, then multiply.",
+   "keys": [
+    "−64 + 4.5 × 16 + 216"
+   ]
+  },
+  {
+   "id": "2018-P1-Q8:(b):1",
+   "from": "2018-P1-Q8",
+   "q": "Drug amount C(t) = −t³ + 4.5t² + 54t units after t hours. Complete the table: what is C(3)?",
+   "right": "175.5 units",
+   "wrong": [
+    "229.5 units",
+    "193.5 units",
+    "162 units"
+   ],
+   "why": "C(3) = −(3)³ + 4.5(3)² + 54(3) = −27 + 4.5 × 9 + 162 = −27 + 40.5 + 162 = 175.5 units.",
+   "hook": "Bracket the number: −(3)³ = −27, and 3² = 9 before × 4.5.",
+   "keys": [
+    "−27 + 40.5 + 162 = 175.5"
+   ]
+  },
+  {
+   "id": "2018-P1-Q8:(d)(i):1",
+   "from": "2018-P1-Q8",
+   "q": "Graph of the drug amount C(t): time t in hours across, amount in units up. How do you use it to estimate the amount after 3½ hours?",
+   "right": "Up from 3.5 on the time axis, then across",
+   "wrong": [
+    "Up from 3.3 on the time axis, then across",
+    "Across from 3.5 on the amount axis, down",
+    "Read the slope of the curve at t = 3.5"
+   ],
+   "why": "3½ hours is 3.5 (not 3.3: half an hour is 0.5). Go up from 3.5 on the time axis to the curve, then across: about 200 units.",
+   "hook": "Time is across: start there. 3½ h = 3.5, not 3.3.",
+   "keys": [
+    "3½ hours is 3.5"
+   ]
+  },
+  {
+   "id": "2018-P1-Q8:(d)(ii):1",
+   "from": "2018-P1-Q8",
+   "q": "Graph of the drug amount C(t) against time t (hours). Going across from 100 units to the curve and down, you reach 1.75 on the time axis. How long after taking the drug is that?",
+   "right": "1 hour 45 minutes",
+   "wrong": [
+    "1 hour 75 minutes",
+    "1 hour 7.5 minutes",
+    "1 hour 15 minutes"
+   ],
+   "why": "1.75 hours is 1 hour and 0.75 of an hour: 0.75 × 60 = 45 minutes. So about 1 hour 45 minutes.",
+   "hook": "Decimal hours → minutes: multiply the decimal part by 60.",
+   "keys": [
+    "0.75 × 60 = 45 minutes"
+   ]
+  },
+  {
+   "id": "2018-P1-Q8:(e)(i):1",
+   "from": "2018-P1-Q8",
+   "q": "Drug amount C(t) = −t³ + 4.5t² + 54t. Find, in terms of t, the rate at which the drug amount is changing after t hours.",
+   "right": "C′(t) = −3t² + 9t + 54",
+   "wrong": [
+    "C′(t) = −3t² + 4.5t + 54",
+    "C′(t) = 3t² + 9t + 54",
+    "C′(t) = −3t³ + 9t² + 54t"
+   ],
+   "why": "Rate of change = derivative. Bring each power down and take one off: −t³ → −3t², 4.5t² → 9t (2 × 4.5), 54t → 54.",
+   "hook": "\"Rate at which it is changing\" = differentiate.",
+   "keys": [
+    "4.5t² → 9t (2 × 4.5)"
+   ]
+  },
+  {
+   "id": "2018-P1-Q8:(e)(i):2",
+   "from": "2018-P1-Q8",
+   "q": "Drug amount C(t) = −t³ + 4.5t² + 54t units after t hours. \"The rate at which the drug amount is changing after t hours\" means which of these?",
+   "right": "C′(t), the derivative of C(t)",
+   "wrong": [
+    "C(t), the amount itself",
+    "C(t) ÷ t, the amount per hour",
+    "C″(t), the second derivative"
+   ],
+   "why": "A rate of change is the derivative: how fast C is going up or down at that moment. C(t) is the amount, and C(t) ÷ t is only an average.",
+   "hook": "\"Rate\", \"how fast\", \"increasing at\" → the derivative.",
+   "keys": [
+    "A rate of change is the derivative"
+   ]
+  },
+  {
+   "id": "2018-P1-Q8:(e)(ii):1",
+   "from": "2018-P1-Q8",
+   "q": "The drug amount changes at the rate C′(t) = −3t² + 9t + 54 units per hour. Find the rate at which the drug amount is changing after 4 hours.",
+   "right": "42 units per hour",
+   "wrong": [
+    "224 units per hour",
+    "138 units per hour",
+    "−54 units per hour"
+   ],
+   "why": "Put t = 4 into the derivative, not into C(t): C′(4) = −3(16) + 9(4) + 54 = −48 + 36 + 54 = 42 units per hour.",
+   "hook": "Rate → C′(t). Amount → C(t).",
+   "keys": [
+    "C′(4) = −3(16) + 9(4) + 54"
+   ]
+  },
+  {
+   "id": "2018-P1-Q8:(e)(iii):1",
+   "from": "2018-P1-Q8",
+   "q": "C(t) = −t³ + 4.5t² + 54t for 0 ≤ t ≤ 9, and C′(t) = −3t² + 9t + 54. Find the maximum amount of the drug in the bloodstream over the first 9 hours.",
+   "right": "270 units",
+   "wrong": [
+    "175.5 units",
+    "121.5 units",
+    "0 units"
+   ],
+   "why": "Set C′(t) = 0 and divide by −3: t² − 3t − 18 = 0, so (t − 6)(t + 3) = 0 and t = 6 (not −3). C(6) = −216 + 162 + 324 = 270 units.",
+   "hook": "C′(t) = 0 finds WHEN; C(t) finds HOW MUCH.",
+   "keys": [
+    "(t − 6)(t + 3) = 0",
+    "C(6) = −216 + 162 + 324 = 270"
+   ]
+  },
+  {
+   "id": "2018-P1-Q8:(e)(iii):2",
+   "from": "2018-P1-Q8",
+   "q": "At the maximum drug amount C′(t) = −3t² + 9t + 54 = 0. Dividing by −3 gives t² − 3t − 18 = 0. Which time do you use?",
+   "right": "t = 6 hours",
+   "wrong": [
+    "t = −3 hours",
+    "t = 3 hours",
+    "t = 6 and t = −3 hours"
+   ],
+   "why": "(t − 6)(t + 3) = 0 gives t = 6 or t = −3. The time after taking the drug can't be negative, so t = 6 hours.",
+   "hook": "Check roots against the story: time can't be negative.",
+   "keys": [
+    "(t − 6)(t + 3) = 0"
+   ]
+  },
+  {
+   "id": "2018-P1-Q8:(e)(iv):1",
+   "from": "2018-P1-Q8",
+   "q": "The drug amount changes at the rate C′(t) = −3t² + 9t + 54 units per hour. Which shows the amount is decreasing 7 hours after the drug was taken?",
+   "right": "C′(7) = −30 < 0, so it is decreasing",
+   "wrong": [
+    "C′(7) = 264 > 0, so it is increasing",
+    "C(7) = 255.5 > 0, so it is decreasing",
+    "C′(7) = −30, so 30 units are left"
+   ],
+   "why": "C′(7) = −3(49) + 9(7) + 54 = −147 + 63 + 54 = −30. A negative rate means the amount is going down, by 30 units per hour.",
+   "hook": "Sign of the derivative: + going up, − going down.",
+   "keys": [
+    "−147 + 63 + 54 = −30"
+   ]
+  },
+  {
+   "id": "2019-P1-Q3:(a)(i):1",
+   "from": "2019-P1-Q3",
+   "q": "f(x) = −x³ + 4x² + x − 2. Complete the table: what is f(−1)?",
+   "right": "2",
+   "wrong": [
+    "0",
+    "−6",
+    "4"
+   ],
+   "why": "f(−1) = −(−1)³ + 4(−1)² + (−1) − 2 = −(−1) + 4(1) − 1 − 2 = 1 + 4 − 1 − 2 = 2.",
+   "hook": "Bracket the negative: (−1)³ = −1, so −(−1)³ = +1.",
+   "keys": [
+    "1 + 4 − 1 − 2 = 2"
+   ]
+  },
+  {
+   "id": "2019-P1-Q3:(a)(ii):1",
+   "from": "2019-P1-Q3",
+   "q": "You have drawn the graph of f(x) = −x³ + 4x² + x − 2 for −1 ≤ x ≤ 4. Where on the graph do you read the two roots of f(x)?",
+   "right": "Where the curve cuts the x-axis",
+   "wrong": [
+    "Where the curve cuts the y-axis",
+    "At the bottom and top of the curve",
+    "At the two ends, x = −1 and x = 4"
+   ],
+   "why": "A root is where f(x) = 0, a height of 0: where the curve cuts the x-axis. It crosses twice in this domain, at about x = −0.7 and x = 0.7.",
+   "hook": "Roots = where the curve cuts the x-axis (height 0).",
+   "keys": [
+    "about x = −0.7 and x = 0.7"
+   ]
+  },
+  {
+   "id": "2019-P1-Q3:(b):1",
+   "from": "2019-P1-Q3",
+   "q": "f(x) = −x³ + 4x² + x − 2. Find the value of x for which f″(x) = 0, where f″(x) is the second derivative of f(x).",
+   "right": "x = 4/3",
+   "wrong": [
+    "x = −4/3",
+    "x = 2/3",
+    "x = 3/4"
+   ],
+   "why": "f′(x) = −3x² + 8x + 1. Differentiate again: f″(x) = −6x + 8. Then −6x + 8 = 0 gives 6x = 8, so x = 8/6 = 4/3.",
+   "hook": "f″: differentiate, then differentiate again.",
+   "keys": [
+    "f″(x) = −6x + 8",
+    "x = 8/6 = 4/3"
+   ]
+  },
+  {
+   "id": "2019-P1-Q3:(b):2",
+   "from": "2019-P1-Q3",
+   "q": "f(x) = −x³ + 4x² + x − 2. What is f″(x), the second derivative?",
+   "right": "−6x + 8",
+   "wrong": [
+    "−3x² + 8x + 1",
+    "−6x + 9",
+    "6x + 8"
+   ],
+   "why": "First f′(x) = −3x² + 8x + 1 (the −2 goes). Differentiate again: −3x² → −6x, 8x → 8, 1 → 0. So f″(x) = −6x + 8.",
+   "hook": "Second derivative = differentiate twice. Numbers on their own vanish.",
+   "keys": [
+    "f′(x) = −3x² + 8x + 1"
+   ]
+  },
+  {
+   "id": "2019-P1-Q7:(a):1",
+   "from": "2019-P1-Q7",
+   "q": "A ball is hit straight up. Its height is f(t) = −4t² + 16t + 1 metres, t seconds after it is hit. At what height was the ball when it was hit?",
+   "right": "1 m",
+   "wrong": [
+    "16 m",
+    "13 m",
+    "17 m"
+   ],
+   "why": "When the ball is hit, no time has passed: t = 0. f(0) = −4(0)² + 16(0) + 1 = 1 m.",
+   "hook": "At the start, t = 0.",
+   "keys": [
+    "f(0) = −4(0)² + 16(0) + 1 = 1 m"
+   ]
+  },
+  {
+   "id": "2019-P1-Q7:(b)(i):1",
+   "from": "2019-P1-Q7",
+   "q": "Ball height f(t) = −4t² + 16t + 1 metres after t seconds. Complete the table: what is the height at t = 0.5?",
+   "right": "8 m",
+   "wrong": [
+    "13 m",
+    "5 m",
+    "10 m"
+   ],
+   "why": "f(0.5) = −4(0.5)² + 16(0.5) + 1 = −4 × 0.25 + 8 + 1 = −1 + 8 + 1 = 8 m.",
+   "hook": "Square first: 0.5² = 0.25, not 1. Then × −4.",
+   "keys": [
+    "−4 × 0.25 + 8 + 1"
+   ]
+  },
+  {
+   "id": "2019-P1-Q7:(c)(i):1",
+   "from": "2019-P1-Q7",
+   "q": "Ball height f(t) = −4t² + 16t + 1 m. Your table stops at t = 4 s, when the ball is still 1 m up. How do you use the graph to find how long it was in the air?",
+   "right": "Extend the curve to the time axis, read t",
+   "wrong": [
+    "Read the last time in the table, t = 4",
+    "Read the time at the top of the curve",
+    "Read where the curve meets the height axis"
+   ],
+   "why": "The ball is in the air until its height is 0, so carry the curve down to the time axis: it lands just after t = 4, at about 4.1 s.",
+   "hook": "Landed = height 0 = on the time axis.",
+   "keys": [
+    "about 4.1 s"
+   ]
+  },
+  {
+   "id": "2019-P1-Q7:(c)(ii):1",
+   "from": "2019-P1-Q7",
+   "q": "Ball height f(t) = −4t² + 16t + 1 m. A line across at 10 m cuts the graph at about t = 0.6 s and t = 3.4 s. For how long was the ball 10 m or more above the ground?",
+   "right": "about 2.8 s",
+   "wrong": [
+    "about 3.4 s",
+    "about 4 s",
+    "about 1.4 s"
+   ],
+   "why": "The ball passes 10 m going up (t ≈ 0.6 s) and coming down (t ≈ 3.4 s). Length of time = later − earlier = 3.4 − 0.6 = 2.8 s.",
+   "hook": "\"How long\" = later time minus earlier time.",
+   "keys": [
+    "3.4 − 0.6 = 2.8 s"
+   ]
+  },
+  {
+   "id": "2019-P1-Q7:(d)(i):1",
+   "from": "2019-P1-Q7",
+   "q": "Ball height f(t) = −4t² + 16t + 1. Find f′(t), the derivative of f(t).",
+   "right": "f′(t) = −8t + 16",
+   "wrong": [
+    "f′(t) = −8t + 17",
+    "f′(t) = 8t + 16",
+    "f′(t) = −4t + 16"
+   ],
+   "why": "−4t² → 2 × (−4)t = −8t, 16t → 16, and the 1 on its own → 0. So f′(t) = −8t + 16.",
+   "hook": "Bring the power down and multiply: 2 × (−4) = −8.",
+   "keys": [
+    "2 × (−4)t = −8t"
+   ]
+  },
+  {
+   "id": "2019-P1-Q7:(d)(ii):1",
+   "from": "2019-P1-Q7",
+   "q": "Ball height f(t) = −4t² + 16t + 1 m, and f′(t) = −8t + 16. Find the speed of the ball when it had been in the air for 4 seconds.",
+   "right": "16 m/s",
+   "wrong": [
+    "1 m/s",
+    "48 m/s",
+    "0 m/s"
+   ],
+   "why": "Speed comes from the derivative: f′(4) = −8(4) + 16 = −32 + 16 = −16. The minus only says the ball is falling, so the speed is 16 m/s.",
+   "hook": "Height → f(t). Speed → f′(t).",
+   "keys": [
+    "f′(4) = −8(4) + 16 = −32 + 16 = −16"
+   ]
+  },
+  {
+   "id": "2019-P1-Q7:(d)(ii):2",
+   "from": "2019-P1-Q7",
+   "q": "For the ball, f′(4) = −16, where f′(t) is the rate its height changes in m/s. What does the minus sign tell you?",
+   "right": "The ball is coming down",
+   "wrong": [
+    "The ball is 16 m below the pitch",
+    "The ball is slowing down",
+    "The ball is going up at 16 m/s"
+   ],
+   "why": "f′(t) is the rate the height changes. Negative means the height is going down: the ball is falling at 16 m/s. It says nothing about where the ball is.",
+   "hook": "Sign of the derivative: + rising, − falling.",
+   "keys": [
+    "the ball is falling at 16 m/s"
+   ]
+  },
+  {
+   "id": "2019-P1-Q7:(d)(iii):1",
+   "from": "2019-P1-Q7",
+   "q": "Ball height f(t) = −4t² + 16t + 1 m, and f′(t) = −8t + 16. Find the time t when the ball was descending at a speed of 8 m/s.",
+   "right": "t = 3 s",
+   "wrong": [
+    "t = 1 s",
+    "t = 3.5 s",
+    "t = 6 s"
+   ],
+   "why": "Descending means the height is falling, so the rate is negative: f′(t) = −8. −8t + 16 = −8 gives 8t = 24, so t = 3 s. (+8 gives t = 1, still rising.)",
+   "hook": "Going down → negative derivative.",
+   "keys": [
+    "f′(t) = −8",
+    "t = 3 s"
+   ]
+  }
+ ]
+}

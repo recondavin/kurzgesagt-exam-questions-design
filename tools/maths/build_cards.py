@@ -13,13 +13,23 @@ TEXISH = re.compile(r'\$|\\[a-zA-Z]+|\^\{|_\{')
 
 
 def parts_of():
-    """Every real part: (chapter, question id) -> set of part labels."""
+    """Every real part: (chapter, question id) -> {part label: the part's own book chapter}."""
     out = {}
     for path in glob.glob(os.path.join(HERE, 'questions', 'ch*.json')):
         d = json.load(open(path, encoding='utf-8'))
         for q in d['questions']:
-            out[(d['chapter'], q['id'])] = {p['l'] for p in q['parts']}
+            out[(d['chapter'], q['id'])] = {p['l']: p.get('chapter') for p in q['parts']}
     return out
+
+
+def topic(ch, part_ch):
+    """The game slot a card goes in: its part's own chapter (10-14; 15, Statistics II, goes with 14), else the
+    chapter its question is filed under (parts on functions, algebra, geometry)."""
+    if part_ch in (10, 11, 12, 13, 14):
+        return part_ch
+    if part_ch == 15:
+        return 14
+    return ch
 
 
 def norm(s):
@@ -81,7 +91,9 @@ def main():
         for c in d.get('cards', []):
             problems += check_card(c, ch, real, seen)
             card = {k: c[k] for k in FIELDS + ['hook', 'keys'] if c.get(k)}
-            out.setdefault(ch, []).append(card)
+            bits = str(c.get('id', '')).split(':')
+            part_ch = real.get((ch, c.get('from')), {}).get(bits[1]) if len(bits) == 3 else None
+            out.setdefault(topic(ch, part_ch), []).append(card)
     for p in problems:
         print(p)
     print('%d cards (%s), %d problems' % (sum(len(v) for v in out.values()), ', '.join('ch%d %d' % (k, len(out[k])) for k in sorted(out)), len(problems)))

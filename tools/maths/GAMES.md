@@ -48,5 +48,6 @@ Two cards for most parts, one for small ones, three at most. Don't repeat the sa
 
 Write `tools/maths/cards/<name>.json`: `{"chapter": 13, "cards": [...]}` (only cards for that chapter). Then
 `python3 tools/maths/build_cards.py` checks every file (fields, lengths, four different options, plain text, ids
-match real parts) and writes `maths/maths-cards.js` (`window.MathsCards[ch] = [...]`), which `maths/maths-deck.js`
+match real parts) and writes `maths/maths-cards.js` (`window.MathsCards[ch] = [...]`, each card under its part's own chapter: a probability
+part in a counting question is a probability card, a chapter-15 part goes with statistics), which `maths/maths-deck.js`
 gives to the games (maths-golf.html, maths-pool.html).

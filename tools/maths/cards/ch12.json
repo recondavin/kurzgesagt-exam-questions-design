@@ -1,0 +1,460 @@
+{
+ "chapter": 12,
+ "cards": [
+  {
+   "id": "2015-P2-Q1:(a):1",
+   "from": "2015-P2-Q1",
+   "q": "A bank password has 6 digits. Each digit can be any of 0 to 9, and digits may be repeated. How many different passwords are possible?",
+   "right": "1 000 000",
+   "wrong": [
+    "151 200",
+    "531 441",
+    "60"
+   ],
+   "why": "6 boxes with 10 options each, and repeats are allowed: 10 × 10 × 10 × 10 × 10 × 10 = 10⁶ = 1 000 000. (10 × 9 × 8 × … is for no repeats.)",
+   "hook": "Repeats allowed: every box keeps all its options. Multiply them.",
+   "keys": [
+    "10⁶ = 1 000 000"
+   ]
+  },
+  {
+   "id": "2015-P2-Q1:(b)(i):1",
+   "from": "2015-P2-Q1",
+   "q": "A password has 6 digits, each 0 to 9, and digits may be repeated. How many different passwords do not contain any zero?",
+   "right": "531 441",
+   "wrong": [
+    "900 000",
+    "60 480",
+    "468 559"
+   ],
+   "why": "No zero leaves 9 options (1 to 9) for every one of the 6 boxes, repeats still allowed: 9⁶ = 531 441. No zero anywhere, not only in the first box.",
+   "hook": "No zero: take 0 out of every box, then multiply.",
+   "keys": [
+    "9⁶ = 531 441"
+   ]
+  },
+  {
+   "id": "2015-P2-Q1:(b)(ii):1",
+   "from": "2015-P2-Q1",
+   "q": "Of the 1 000 000 possible 6-digit passwords, 531 441 contain no zero. One password is picked at random. What is the probability that it contains at least one zero?",
+   "right": "0.468559",
+   "wrong": [
+    "0.531441",
+    "0.6",
+    "0.354294"
+   ],
+   "why": "All the passwords that are left have at least one zero: 1 000 000 − 531 441 = 468 559, so P = 468 559 ÷ 1 000 000 = 0.468559 (= 1 − 0.531441).",
+   "hook": "At least one = 1 − none.",
+   "keys": [
+    "1 000 000 − 531 441 = 468 559"
+   ]
+  },
+  {
+   "id": "2015-P2-Q1:(b)(ii):2",
+   "from": "2015-P2-Q1",
+   "q": "What is the quickest correct way to find the probability that a random 6-digit password contains at least one zero?",
+   "right": "1 − P(no zero)",
+   "wrong": [
+    "1 − P(all six digits are 0)",
+    "6 × P(a digit is 0)",
+    "P(exactly one zero)"
+   ],
+   "why": "\"At least one zero\" is every password except those with no zero, so take P(no zero) away from 1. 6 × 0.1 counts passwords with two or more zeros more than once.",
+   "hook": "At least one? Find P(none), then take it from 1.",
+   "keys": [
+    "take P(no zero) away from 1"
+   ]
+  },
+  {
+   "id": "2015-P2-Q1:(c):1",
+   "from": "2015-P2-Q1",
+   "q": "The bank asks John for 3 of the 6 digits of his password, for example the 2nd, 4th and 5th. In how many different ways can the bank select the three boxes?",
+   "right": "20",
+   "wrong": [
+    "120",
+    "216",
+    "15"
+   ],
+   "why": "Boxes 2, 4, 5 are the same pick as 5, 2, 4: not an order, a selection. ⁶C₃ = (6 × 5 × 4) ÷ (3 × 2 × 1) = 20, or list them: 10 + 6 + 3 + 1 = 20.",
+   "hook": "Order doesn't matter? Count the orders, then divide by 3 × 2 × 1.",
+   "keys": [
+    "not an order, a selection",
+    "= 20"
+   ]
+  },
+  {
+   "id": "2015-P2-Q1:(c):2",
+   "from": "2015-P2-Q1",
+   "q": "The bank picks 3 of the 6 boxes of John's password (for example the 2nd, 4th and 5th). Is this an arrangement or a selection, and why?",
+   "right": "Selection: 2, 4, 5 is the same as 5, 2, 4",
+   "wrong": [
+    "Arrangement: the boxes are numbered 1–6",
+    "Arrangement: each box holds a digit",
+    "Selection: the digits may be repeated"
+   ],
+   "why": "Asking for boxes 2, 4, 5 or 5, 2, 4 gets the same three digits, so order doesn't matter: a selection, ⁶C₃ = 20, not 6 × 5 × 4 = 120.",
+   "hook": "Does swapping the order give something new? No: it's a selection (nCr).",
+   "keys": [
+    "order doesn't matter"
+   ]
+  },
+  {
+   "id": "2020-P2-Q1:(a)(i):1",
+   "from": "2020-P2-Q1",
+   "q": "A restaurant has 4 starters, 6 main courses and 8 desserts. A meal is one starter, one main course and one dessert. How many different three-course meals are available?",
+   "right": "192",
+   "wrong": [
+    "18",
+    "816",
+    "24"
+   ],
+   "why": "Every starter goes with every main, and every pair with every dessert, so multiply: 4 × 6 × 8 = 192. 4 + 6 + 8 = 18 counts dishes, not meals.",
+   "hook": "One from each group: multiply the group sizes.",
+   "keys": [
+    "4 × 6 × 8 = 192"
+   ]
+  },
+  {
+   "id": "2020-P2-Q1:(a)(ii):1",
+   "from": "2020-P2-Q1",
+   "q": "The restaurant still has its 4 starters and 6 main courses, but some of its 8 desserts have sold out. There are now 120 different three-course meals. How many desserts are still available?",
+   "right": "5",
+   "wrong": [
+    "110",
+    "20",
+    "3"
+   ],
+   "why": "Starters × mains × desserts = meals: 4 × 6 × d = 120, so 24d = 120 and d = 5. Check: 4 × 6 × 5 = 120. (3 is how many sold out.)",
+   "hook": "Same counting rule with the unknown in it: then solve for d.",
+   "keys": [
+    "4 × 6 × d = 120",
+    "d = 5"
+   ]
+  },
+  {
+   "id": "2020-P2-Q1:(a)(ii):2",
+   "from": "2020-P2-Q1",
+   "q": "4 starters, 6 main courses and d desserts give 120 different three-course meals. Which equation finds d?",
+   "right": "4 × 6 × d = 120",
+   "wrong": [
+    "4 + 6 + d = 120",
+    "4 × 6 + d = 120",
+    "4 × 6 × 8 − d = 120"
+   ],
+   "why": "The number of meals is starters × mains × desserts, however many desserts there are, so 4 × 6 × d = 120, giving d = 120 ÷ 24 = 5.",
+   "hook": "Meals = starters × mains × desserts.",
+   "keys": [
+    "starters × mains × desserts"
+   ]
+  },
+  {
+   "id": "2020-P2-Q1:(b)(i):1",
+   "from": "2020-P2-Q1",
+   "q": "In a large population, 1 in 8 people play tennis. Four people are chosen at random. What is the probability that the fourth person chosen is the only one to play tennis?",
+   "right": "343/4096",
+   "wrong": [
+    "1372/4096",
+    "7/4096",
+    "1/8"
+   ],
+   "why": "Only the 4th plays: no, no, no, yes. People are independent, so 7/8 × 7/8 × 7/8 × 1/8 = 343/4096 ≈ 0.0837. The question names the person, so no × 4.",
+   "hook": "Named position (the 4th)? One order only: no × 4.",
+   "keys": [
+    "7/8 × 7/8 × 7/8 × 1/8 = 343/4096"
+   ]
+  },
+  {
+   "id": "2020-P2-Q1:(b)(i):2",
+   "from": "2020-P2-Q1",
+   "q": "1 in 8 people play tennis. Four people are chosen. Why is P(the fourth is the only one who plays) just 7/8 × 7/8 × 7/8 × 1/8, with no × 4?",
+   "right": "The question says which person plays",
+   "wrong": [
+    "The four people are independent",
+    "Only one of the four people plays",
+    "Each person has the same 1/8 chance"
+   ],
+   "why": "A × 4 would count the 4 places the one player could be in. Here the player must be the 4th, so only the order no, no, no, yes counts.",
+   "hook": "\"Exactly one\": × the number of orders. \"Only the 4th\": one order.",
+   "keys": [
+    "only the order no, no, no, yes counts"
+   ]
+  },
+  {
+   "id": "2020-P2-Q1:(b)(ii):1",
+   "from": "2020-P2-Q1",
+   "q": "1 in 8 people play tennis. Three people are chosen at random. What is the probability that exactly two of them play tennis?",
+   "right": "21/512",
+   "wrong": [
+    "7/512",
+    "147/512",
+    "3/64"
+   ],
+   "why": "Two play, one doesn't: 1/8 × 1/8 × 7/8 = 7/512 for each order. The non-player can be 1st, 2nd or 3rd, so 3 × 7/512 = 21/512 ≈ 0.041.",
+   "hook": "Exactly two of three: one order's chance × 3.",
+   "keys": [
+    "3 × 7/512 = 21/512"
+   ]
+  },
+  {
+   "id": "2020-P2-Q1:(b)(ii):2",
+   "from": "2020-P2-Q1",
+   "q": "Three people are chosen and exactly two of them play tennis (T = plays, N = doesn't play). In how many different orders can this happen?",
+   "right": "3",
+   "wrong": [
+    "2",
+    "6",
+    "8"
+   ],
+   "why": "The one who doesn't play can be 1st, 2nd or 3rd: TTN, TNT, NTT. So there are 3 orders, each with the same probability.",
+   "hook": "Not sure how many orders? List them: TTN, TNT, NTT.",
+   "keys": [
+    "TTN, TNT, NTT"
+   ]
+  },
+  {
+   "id": "2022-P2-Q3:(a)(i):1",
+   "from": "2022-P2-Q3",
+   "q": "Find the mean of these 7 numbers, correct to 1 decimal place: 17, 8, 9, 8, 14, 11, 28.",
+   "right": "13.6",
+   "wrong": [
+    "11.0",
+    "13.5",
+    "14.5"
+   ],
+   "why": "Add all 7 numbers, both 8s included: 95. Divide by 7: 95 ÷ 7 = 13.571…, and the next digit (7) rounds up: 13.6.",
+   "hook": "Mean = total ÷ how many. Every value counts, repeats too.",
+   "keys": [
+    "95 ÷ 7 = 13.571…"
+   ]
+  },
+  {
+   "id": "2022-P2-Q3:(a)(ii):1",
+   "from": "2022-P2-Q3",
+   "q": "Find the median of these 7 numbers: 17, 8, 9, 8, 14, 11, 28.",
+   "right": "11",
+   "wrong": [
+    "8",
+    "13.6",
+    "18"
+   ],
+   "why": "In order: 8, 8, 9, 11, 14, 17, 28. With 7 numbers the median is the (7 + 1) ÷ 2 = 4th one: 11. (13.6 is the mean.)",
+   "hook": "Median: put them in order first, then take the middle one.",
+   "keys": [
+    "8, 8, 9, 11, 14, 17, 28",
+    "4th one: 11"
+   ]
+  },
+  {
+   "id": "2022-P2-Q3:(a)(ii):2",
+   "from": "2022-P2-Q3",
+   "q": "To find the median of 17, 8, 9, 8, 14, 11, 28, what must you do first?",
+   "right": "Put the numbers in order",
+   "wrong": [
+    "Add them and divide by 7",
+    "Cross out the repeated 8",
+    "Find halfway between 8 and 28"
+   ],
+   "why": "The median is the middle value of the ordered list, so sort first: 8, 8, 9, 11, 14, 17, 28. Keep both 8s: every value counts.",
+   "hook": "Median = middle of the sorted list.",
+   "keys": [
+    "sort first"
+   ]
+  },
+  {
+   "id": "2022-P2-Q3:(a)(iii):1",
+   "from": "2022-P2-Q3",
+   "q": "The list 8, 8, 9, 11, 14, 17, 28 has median 11. One more number is added, and the new median is 10.5. What number was added?",
+   "right": "10",
+   "wrong": [
+    "10.5",
+    "12",
+    "21"
+   ],
+   "why": "8 numbers: the median is halfway between the 4th and 5th. The new number x sits between 9 and 11, so (x + 11) ÷ 2 = 10.5, x + 11 = 21, x = 10.",
+   "hook": "Even count: the median is the average of the two middle numbers.",
+   "keys": [
+    "(x + 11) ÷ 2 = 10.5",
+    "x = 10"
+   ]
+  },
+  {
+   "id": "2022-P2-Q3:(a)(iii):2",
+   "from": "2022-P2-Q3",
+   "q": "A list of numbers in order now has 8 numbers. Where is its median?",
+   "right": "Halfway between the 4th and 5th",
+   "wrong": [
+    "The 4th number",
+    "The 5th number",
+    "Halfway between the 1st and 8th"
+   ],
+   "why": "(8 + 1) ÷ 2 = 4.5, so the median is halfway between the 4th and 5th numbers of the ordered list: add those two and halve.",
+   "hook": "Odd count: the middle one. Even count: the average of the middle two.",
+   "keys": [
+    "(8 + 1) ÷ 2 = 4.5"
+   ]
+  },
+  {
+   "id": "2022-P2-Q3:(b)(i):1",
+   "from": "2022-P2-Q3",
+   "q": "Ben must pick one subject from each group: Group A has 3 subjects, Group B has 4 and Group C has 5. How many different choices of three subjects can he make?",
+   "right": "60",
+   "wrong": [
+    "12",
+    "220",
+    "360"
+   ],
+   "why": "Each A subject goes with each B subject and each C subject: 3 × 4 × 5 = 60. 3 + 4 + 5 = 12 is the number of subjects, not of choices.",
+   "hook": "One from each group: multiply.",
+   "keys": [
+    "3 × 4 × 5 = 60"
+   ]
+  },
+  {
+   "id": "2022-P2-Q3:(b)(ii):1",
+   "from": "2022-P2-Q3",
+   "q": "Groups A, B and C have 3, 4 and 5 subjects, and Ben picks one from each. One extra subject is added to one group. Which group should get it, to give Ben the most choices?",
+   "right": "Group A",
+   "wrong": [
+    "Group B",
+    "Group C",
+    "It makes no difference"
+   ],
+   "why": "Try each: extra in A gives 4 × 4 × 5 = 80, in B 3 × 5 × 5 = 75, in C 3 × 4 × 6 = 72. 80 is the biggest, so Group A.",
+   "hook": "Test every option and compare: show all three products.",
+   "keys": [
+    "4 × 4 × 5 = 80"
+   ]
+  },
+  {
+   "id": "2022-P2-Q3:(b)(ii):2",
+   "from": "2022-P2-Q3",
+   "q": "Groups A, B and C have 3, 4 and 5 subjects: 60 choices of one from each. One extra subject is added to Group A. How many choices are there now?",
+   "right": "80",
+   "wrong": [
+    "61",
+    "13",
+    "120"
+   ],
+   "why": "Group A now has 4: 4 × 4 × 5 = 80. The new subject pairs with every one of the 4 × 5 = 20 B-and-C pairs, so 20 more choices, not 1 more.",
+   "hook": "One new item adds a choice for every pairing of the other groups.",
+   "keys": [
+    "4 × 4 × 5 = 80",
+    "20 more choices"
+   ]
+  },
+  {
+   "id": "2023-P2-Q3:(a)(i):1",
+   "from": "2023-P2-Q3",
+   "q": "In how many ways can the letters of the word CAMOGIE be arranged?",
+   "right": "5040",
+   "wrong": [
+    "823 543",
+    "28",
+    "720"
+   ],
+   "why": "7 different letters: 7 choices for the 1st place, 6 left for the 2nd, and so on: 7 × 6 × 5 × 4 × 3 × 2 × 1 = 7! = 5040. No letter repeats, so not 7⁷.",
+   "hook": "n different things in a row: n! ways.",
+   "keys": [
+    "7! = 5040"
+   ]
+  },
+  {
+   "id": "2023-P2-Q3:(a)(ii):1",
+   "from": "2023-P2-Q3",
+   "q": "How many arrangements of the letters of CAMOGIE start with M and end with a vowel (A, O, I or E)?",
+   "right": "480",
+   "wrong": [
+    "120",
+    "2880",
+    "720"
+   ],
+   "why": "Restricted places first: the 1st must be M (1 way), the last a vowel (4 ways). 5 letters are left for the 5 middle places: 5! = 120. 1 × 120 × 4 = 480.",
+   "hook": "Restricted places first (first, last), then fill the rest.",
+   "keys": [
+    "1 × 120 × 4 = 480"
+   ]
+  },
+  {
+   "id": "2023-P2-Q3:(a)(ii):2",
+   "from": "2023-P2-Q3",
+   "q": "You are counting the arrangements of CAMOGIE that start with M and end with a vowel. Which places should you fill first?",
+   "right": "The first and last places",
+   "wrong": [
+    "The places in order, left to right",
+    "The five middle places",
+    "The places with the most options"
+   ],
+   "why": "Places with rules come first: the 1st (only M: 1 way) and the last (a vowel: 4 ways). Then the 5 free letters fill the middle: 5 × 4 × 3 × 2 × 1.",
+   "hook": "Rules first, free places last.",
+   "keys": [
+    "Places with rules come first"
+   ]
+  },
+  {
+   "id": "2023-P2-Q3:(a)(iii):1",
+   "from": "2023-P2-Q3",
+   "q": "How many arrangements of 3 different letters can be made from the letters of the word CAMOGIE?",
+   "right": "210",
+   "wrong": [
+    "35",
+    "343",
+    "5040"
+   ],
+   "why": "3 places, 7 letters, no letter twice: 7 × 6 × 5 = 210. Stop after 3 places (not 7!), and order counts, so not ⁷C₃ = 35.",
+   "hook": "r places from n things: n × (n − 1) × … with only r numbers.",
+   "keys": [
+    "7 × 6 × 5 = 210"
+   ]
+  },
+  {
+   "id": "2023-P2-Q3:(b)(i):1",
+   "from": "2023-P2-Q3",
+   "q": "Scatterplot A: points go down, close to a line. B: points go up, close to a line. C: points go up but are spread out. Match them to r = 0.95, 0.6 and −0.95.",
+   "right": "0.95: B, 0.6: C, −0.95: A",
+   "wrong": [
+    "0.95: C, 0.6: B, −0.95: A",
+    "0.95: A, 0.6: C, −0.95: B",
+    "0.95: B, 0.6: A, −0.95: C"
+   ],
+   "why": "A goes down, so it is the negative one: −0.95. B and C go up; B's points hug a line, so B is 0.95, and the spread-out C is 0.6.",
+   "hook": "Sign = direction. Size = how tightly the points hug a line.",
+   "keys": [
+    "A goes down",
+    "B is 0.95"
+   ]
+  },
+  {
+   "id": "2023-P2-Q3:(b)(i):2",
+   "from": "2023-P2-Q3",
+   "q": "Three scatterplots have correlation coefficients 0.95, 0.6 and −0.95. How do you spot the one with r = −0.95?",
+   "right": "Its points go down from left to right",
+   "wrong": [
+    "Its points are the most spread out",
+    "Its points are closest to the x-axis",
+    "Its points go up most steeply"
+   ],
+   "why": "A negative r means y goes down as x goes up. −0.95 is also close to −1, so its points go downhill and sit close to a straight line.",
+   "hook": "Minus sign = downhill.",
+   "keys": [
+    "A negative r means y goes down as x goes up"
+   ]
+  },
+  {
+   "id": "2023-P2-Q3:(b)(ii):1",
+   "from": "2023-P2-Q3",
+   "q": "Scatterplot B: the points go up and lie close to a straight line, and r = 0.95. What must a full explanation of why 0.95 is right say?",
+   "right": "Positive, and the points are close to a line",
+   "wrong": [
+    "Positive: as x goes up, y goes up",
+    "The points rise along a steep line",
+    "There are lots of points in the plot"
+   ],
+   "why": "Say both: the direction (as x goes up, y goes up: positive) and the strength (the points lie close to a straight line: strong). So r is close to +1.",
+   "hook": "Explain r with two things: direction and strength.",
+   "keys": [
+    "the direction",
+    "the strength"
+   ]
+  }
+ ]
+}

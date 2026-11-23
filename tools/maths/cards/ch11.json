@@ -1,0 +1,1897 @@
+{
+ "chapter": 11,
+ "cards": [
+  {
+   "id": "2015-P2-Q8:(a)(i):1",
+   "from": "2015-P2-Q8",
+   "q": "A spherical storage tank has a diameter of 12 m. What is the radius of the tank?",
+   "right": "6 m",
+   "wrong": [
+    "12 m",
+    "24 m",
+    "3 m"
+   ],
+   "why": "The radius goes from the centre to the edge: half the diameter. 12 ÷ 2 = 6 m.",
+   "hook": "Diameter goes all the way across; radius is half of it.",
+   "keys": [
+    "half the diameter"
+   ]
+  },
+  {
+   "id": "2015-P2-Q8:(a)(ii):1",
+   "from": "2015-P2-Q8",
+   "q": "A spherical tank has radius 6 m. What is its volume, correct to the nearest m³?",
+   "right": "905 m³",
+   "wrong": [
+    "7238 m³",
+    "679 m³",
+    "151 m³"
+   ],
+   "why": "V = (4/3)πr³ = (4/3)π(6)³ = 288π = 904.78… ≈ 905 m³.",
+   "hook": "Sphere volume: four-thirds pi r cubed. Cube the radius, not the diameter.",
+   "keys": [
+    "(4/3)πr³"
+   ]
+  },
+  {
+   "id": "2015-P2-Q8:(a)(ii):2",
+   "from": "2015-P2-Q8",
+   "q": "Which formula gives the volume of a sphere of radius r?",
+   "right": "V = (4/3)πr³",
+   "wrong": [
+    "V = 4πr²",
+    "V = (2/3)πr³",
+    "V = (4/3)πr²"
+   ],
+   "why": "Volume is cubic, so r³: V = (4/3)πr³. 4πr² is the surface area and (2/3)πr³ is a hemisphere.",
+   "hook": "Volume has r³ (m³); area has r² (m²).",
+   "keys": [
+    "r³",
+    "4πr² is the surface area"
+   ]
+  },
+  {
+   "id": "2015-P2-Q8:(b)(i):1",
+   "from": "2015-P2-Q8",
+   "q": "A spherical tank has radius 6 m. What is its curved surface area, correct to one decimal place?",
+   "right": "452.4 m²",
+   "wrong": [
+    "1809.6 m²",
+    "113.1 m²",
+    "75.4 m²"
+   ],
+   "why": "Curved surface area of a sphere = 4πr² = 4π(6)² = 144π = 452.389… ≈ 452.4 m².",
+   "hook": "The skin of a sphere is four circles: 4πr².",
+   "keys": [
+    "4πr²"
+   ]
+  },
+  {
+   "id": "2015-P2-Q8:(b)(ii):1",
+   "from": "2015-P2-Q8",
+   "q": "A tank has curved surface area 452.4 m² and volume 905 m³. One litre of paint covers 3.5 m². How many litres paint the curved surface, to the nearest litre?",
+   "right": "129 litres",
+   "wrong": [
+    "1583 litres",
+    "259 litres",
+    "452 litres"
+   ],
+   "why": "Paint covers the surface, so use the area: 452.4 ÷ 3.5 = 129.26… ≈ 129 litres.",
+   "hook": "Paint goes on the area, not the volume. \"How many fit into\" means divide.",
+   "keys": [
+    "use the area",
+    "452.4 ÷ 3.5"
+   ]
+  },
+  {
+   "id": "2015-P2-Q8:(b)(iii):1",
+   "from": "2015-P2-Q8",
+   "q": "129 litres of paint are needed. Paint is sold in 25 litre tins costing €180 each. What is the total cost of the paint?",
+   "right": "€1080",
+   "wrong": [
+    "€900",
+    "€928.80",
+    "€23,220"
+   ],
+   "why": "129 ÷ 25 = 5.16, and you can’t buy part of a tin, so 6 tins: 6 × €180 = €1080.",
+   "hook": "Tins, boxes, buses: always round UP.",
+   "keys": [
+    "so 6 tins"
+   ]
+  },
+  {
+   "id": "2015-P2-Q8:(c)(i):1",
+   "from": "2015-P2-Q8",
+   "q": "A tank has a hemisphere at each end, each of radius 4.5 m. What is the volume of one hemispherical end, correct to the nearest m³?",
+   "right": "191 m³",
+   "wrong": [
+    "382 m³",
+    "95 m³",
+    "127 m³"
+   ],
+   "why": "A hemisphere is half a sphere: V = (2/3)πr³ = (2/3)π(4.5)³ = 190.85… ≈ 191 m³.",
+   "hook": "Hemi = half: half of (4/3)πr³ is (2/3)πr³.",
+   "keys": [
+    "(2/3)πr³"
+   ]
+  },
+  {
+   "id": "2015-P2-Q8:(c)(ii):1",
+   "from": "2015-P2-Q8",
+   "q": "A tank of volume 905 m³ is a cylinder of length h with a hemisphere (191 m³ each) at each end, all of radius 4.5 m. Which equation finds h?",
+   "right": "2(191) + π(4.5)²h = 905",
+   "wrong": [
+    "191 + π(4.5)²h = 905",
+    "2(191) + 2π(4.5)h = 905",
+    "2(191) + π(9)²h = 905"
+   ],
+   "why": "Parts add up to the total: two hemispheres plus the cylinder’s volume πr²h equals 905.",
+   "hook": "Write \"parts = total\" first, then solve for the one letter left.",
+   "keys": [
+    "two hemispheres",
+    "πr²h"
+   ]
+  },
+  {
+   "id": "2015-P2-Q8:(c)(ii):2",
+   "from": "2015-P2-Q8",
+   "q": "A tank of volume 905 m³ is a cylinder of length h m with a 191 m³ hemisphere at each end, all of radius 4.5 m. Find h, correct to one decimal place.",
+   "right": "8.2 m",
+   "wrong": [
+    "11.2 m",
+    "14.2 m",
+    "2.1 m"
+   ],
+   "why": "905 − 2(191) = 523 is the cylinder, so π(4.5)²h = 523 and h = 523 ÷ 63.62 = 8.22… ≈ 8.2 m.",
+   "hook": "Take away both ends before dividing by πr².",
+   "keys": [
+    "905 − 2(191) = 523"
+   ]
+  },
+  {
+   "id": "2016-P2-Q7:(a):1",
+   "from": "2016-P2-Q7",
+   "q": "A billion is a thousand million. Write 165 billion in the form a × 10ⁿ, where 1 ≤ a < 10.",
+   "right": "1.65 × 10¹¹",
+   "wrong": [
+    "1.65 × 10⁹",
+    "1.65 × 10⁷",
+    "1.65 × 10²⁰"
+   ],
+   "why": "A billion = 10³ × 10⁶ = 10⁹, so 165 billion = 165 × 10⁹ = 1.65 × 10² × 10⁹ = 1.65 × 10¹¹.",
+   "hook": "Multiplying powers of 10? Add the indices.",
+   "keys": [
+    "10³ × 10⁶ = 10⁹",
+    "1.65 × 10² × 10⁹"
+   ]
+  },
+  {
+   "id": "2016-P2-Q7:(b)(i):1",
+   "from": "2016-P2-Q7",
+   "q": "Each sphere of the Atomium has a diameter of 18 metres. What is the radius of each sphere?",
+   "right": "9 m",
+   "wrong": [
+    "18 m",
+    "36 m",
+    "4.5 m"
+   ],
+   "why": "The radius is half the diameter: 18 ÷ 2 = 9 m.",
+   "hook": "Radius = diameter ÷ 2. Halve it before any formula.",
+   "keys": [
+    "half the diameter"
+   ]
+  },
+  {
+   "id": "2016-P2-Q7:(b)(ii):1",
+   "from": "2016-P2-Q7",
+   "q": "Each sphere of the Atomium has radius 9 m. What is the volume of one sphere, correct to 2 decimal places?",
+   "right": "3053.63 m³",
+   "wrong": [
+    "24,429.02 m³",
+    "2290.22 m³",
+    "1017.88 m³"
+   ],
+   "why": "V = (4/3)πr³ = (4/3)π(9)³ = 972π = 3053.628… ≈ 3053.63 m³.",
+   "hook": "Four-thirds pi r cubed: cube first, then × 4 ÷ 3 × π.",
+   "keys": [
+    "972π"
+   ]
+  },
+  {
+   "id": "2016-P2-Q7:(c):1",
+   "from": "2016-P2-Q7",
+   "q": "The Atomium has 9 identical spheres, each of radius 9 m. What is the combined surface area of the 9 spheres, to the nearest m²?",
+   "right": "9161 m²",
+   "wrong": [
+    "1018 m²",
+    "2290 m²",
+    "36,644 m²"
+   ],
+   "why": "One sphere: 4πr² = 4π(9)² = 324π. Nine spheres: 9 × 324π = 2916π = 9160.88… ≈ 9161 m².",
+   "hook": "Find one, then multiply by how many there are.",
+   "keys": [
+    "9 × 324π = 2916π"
+   ]
+  },
+  {
+   "id": "2016-P2-Q7:(d)(i):1",
+   "from": "2016-P2-Q7",
+   "q": "Which formula gives the curved surface area of a cylinder of radius r and height (length) h?",
+   "right": "2πrh",
+   "wrong": [
+    "πr²h",
+    "2πr² + 2πrh",
+    "πrh"
+   ],
+   "why": "Unrolled, the curved surface is a rectangle: the circumference 2πr by the height h, so 2πrh. πr²h is the volume.",
+   "hook": "Peel the label off a can: a rectangle 2πr wide and h tall.",
+   "keys": [
+    "2πr by the height h"
+   ]
+  },
+  {
+   "id": "2016-P2-Q7:(d)(i):2",
+   "from": "2016-P2-Q7",
+   "q": "Each of 8 cylindrical pipes has radius 1.65 m and length 23 m. What is the sum of the curved surface areas of all 8 pipes, to the nearest m²?",
+   "right": "1908 m²",
+   "wrong": [
+    "2044 m²",
+    "954 m²",
+    "238 m²"
+   ],
+   "why": "One pipe: 2πrh = 2π(1.65)(23) = 75.9π. Eight pipes: 8 × 75.9π = 607.2π = 1907.57… ≈ 1908 m².",
+   "hook": "Curved only: no circular ends. Then × 8 for 8 pipes.",
+   "keys": [
+    "8 × 75.9π = 607.2π"
+   ]
+  },
+  {
+   "id": "2016-P2-Q7:(d)(ii):1",
+   "from": "2016-P2-Q7",
+   "q": "12 equal cylindrical pipes, each of radius 1.45 m, have total curved surface area 3170 m². Which equation gives the length h of one pipe?",
+   "right": "12 × 2π(1.45)h = 3170",
+   "wrong": [
+    "2π(1.45)h = 3170",
+    "12 × π(1.45)²h = 3170",
+    "12 × π(1.45)h = 3170"
+   ],
+   "why": "One pipe has curved area 2πrh = 2π(1.45)h, and 12 of them make 3170 m².",
+   "hook": "Area of one × number of pipes = total area.",
+   "keys": [
+    "2πrh = 2π(1.45)h"
+   ]
+  },
+  {
+   "id": "2016-P2-Q7:(d)(ii):2",
+   "from": "2016-P2-Q7",
+   "q": "12 equal cylindrical pipes, each of radius 1.45 m, have total curved surface area 3170 m². Find the length of one pipe, to the nearest metre.",
+   "right": "29 m",
+   "wrong": [
+    "348 m",
+    "40 m",
+    "58 m"
+   ],
+   "why": "One pipe: 3170 ÷ 12 = 264.17 m². Then 2π(1.45)h = 264.17, so h = 264.17 ÷ 9.11 = 28.997… ≈ 29 m.",
+   "hook": "Share the total out first: ÷ 12 gives one pipe.",
+   "keys": [
+    "3170 ÷ 12 = 264.17"
+   ]
+  },
+  {
+   "id": "2016-P2-Q7:(d)(iii):1",
+   "from": "2016-P2-Q7",
+   "q": "Curved areas: 8 pipes 1908 m², 12 pipes 3170 m², 9 spheres 9161 m². Steel costs €70 per m². What is the cost of steel to cover all of them?",
+   "right": "€996,730",
+   "wrong": [
+    "€774,830",
+    "€426,720",
+    "€863,170"
+   ],
+   "why": "Add every area: 1908 + 3170 + 9161 = 14 239 m². Then × €70: 14 239 × 70 = €996,730.",
+   "hook": "Total area first, then × the price per m².",
+   "keys": [
+    "1908 + 3170 + 9161 = 14 239"
+   ]
+  },
+  {
+   "id": "2017-P1-Q5:(a):1",
+   "from": "2017-P1-Q5",
+   "q": "A field is cut into 8 strips of width 3 m. The heights are 4, 5.8, 7, 6.5, 6, 4.8, 6, 6.5 and 8 m. Use the trapezoidal rule to estimate its area.",
+   "right": "145.8 m²",
+   "wrong": [
+    "81.9 m²",
+    "291.6 m²",
+    "163.8 m²"
+   ],
+   "why": "(3/2)[4 + 8 + 2(5.8 + 7 + 6.5 + 6 + 4.8 + 6 + 6.5)] = 1.5 × [12 + 85.2] = 145.8 m².",
+   "hook": "h over 2, times: first + last + twice the rest.",
+   "keys": [
+    "1.5 × [12 + 85.2]"
+   ]
+  },
+  {
+   "id": "2017-P1-Q5:(a):2",
+   "from": "2017-P1-Q5",
+   "q": "In the trapezoidal rule, which of the heights get doubled?",
+   "right": "All except the first and last",
+   "wrong": [
+    "Only the first and last",
+    "All of them",
+    "None of them"
+   ],
+   "why": "Area ≈ (h/2)[first + last + 2(all the others)]: each middle height is shared by two strips, so it counts twice.",
+   "hook": "Ends once, middles twice: the middles are shared by two strips.",
+   "keys": [
+    "2(all the others)",
+    "shared by two strips"
+   ]
+  },
+  {
+   "id": "2017-P1-Q5:(b):1",
+   "from": "2017-P1-Q5",
+   "q": "Strips of width 4 m, heights 4, 6.4, 6.9, 6, x, 6.2, 8 m (the known middle heights add to 25.5). The trapezoidal area is 145.6 m². Which equation finds x?",
+   "right": "145.6 = 2[12 + 2(25.5 + x)]",
+   "wrong": [
+    "145.6 = 2[12 + 25.5 + x]",
+    "145.6 = 4[12 + 2(25.5 + x)]",
+    "145.6 = 2[2(12) + 2(25.5 + x)]"
+   ],
+   "why": "h/2 = 4/2 = 2; first + last = 4 + 8 = 12; x is a middle height, so it is doubled with the others.",
+   "hook": "An unknown height goes in the same place a number would.",
+   "keys": [
+    "h/2 = 4/2 = 2",
+    "x is a middle height"
+   ]
+  },
+  {
+   "id": "2017-P1-Q5:(b):2",
+   "from": "2017-P1-Q5",
+   "q": "Strips of width 4 m, heights 4, 6.4, 6.9, 6, x, 6.2, 8 m. The trapezoidal rule gives the area as 145.6 m². What is x?",
+   "right": "4.9 m",
+   "wrong": [
+    "9.8 m",
+    "35.3 m",
+    "17.65 m"
+   ],
+   "why": "145.6 = 2[12 + 2(25.5 + x)] = 2[63 + 2x] = 126 + 4x, so 4x = 19.6 and x = 4.9 m.",
+   "hook": "Multiply out the brackets carefully: 2 × 2x = 4x.",
+   "keys": [
+    "126 + 4x",
+    "x = 4.9"
+   ]
+  },
+  {
+   "id": "2017-P2-Q4:(a):1",
+   "from": "2017-P2-Q4",
+   "q": "You are constructing triangle ABC with |AB| = 8 cm, |AC| = 5 cm, |BC| = 7 cm. You have drawn [AB]. What next?",
+   "right": "Arcs: 5 cm from A, 7 cm from B",
+   "wrong": [
+    "Arcs: 7 cm from A, 5 cm from B",
+    "A 90° angle at A, then 5 cm up",
+    "Arcs of 5 cm and 7 cm, both from A"
+   ],
+   "why": "C is 5 cm from A and 7 cm from B, so draw those two arcs; where they cross is C. Leave the arcs showing.",
+   "hook": "Three sides given? Ruler for one, compass arcs for the other two.",
+   "keys": [
+    "where they cross is C"
+   ]
+  },
+  {
+   "id": "2017-P2-Q4:(b)(i):1",
+   "from": "2017-P2-Q4",
+   "q": "A square has side length 2k cm. What is its area, in terms of k?",
+   "right": "4k² cm²",
+   "wrong": [
+    "2k² cm²",
+    "8k cm²",
+    "4k cm²"
+   ],
+   "why": "Area = side × side = (2k)(2k) = 4k²: square the 2 as well as the k.",
+   "hook": "(2k)² means 2k × 2k: square the number too.",
+   "keys": [
+    "square the 2 as well"
+   ]
+  },
+  {
+   "id": "2017-P2-Q4:(b)(ii):1",
+   "from": "2017-P2-Q4",
+   "q": "A right-angled isosceles triangle with two sides of 20 cm has a hypotenuse of 2k cm. Find k, correct to 2 decimal places.",
+   "right": "k = 14.14",
+   "wrong": [
+    "k = 20.00",
+    "k = 28.28",
+    "k = 3.16"
+   ],
+   "why": "Pythagoras: (2k)² = 20² + 20², so 4k² = 800, k² = 200 and k = √200 = 14.14.",
+   "hook": "Pythagoras: hyp² = a² + b². Square the WHOLE 2k.",
+   "keys": [
+    "4k² = 800",
+    "k = √200 = 14.14"
+   ]
+  },
+  {
+   "id": "2017-P2-Q4:(b)(ii):2",
+   "from": "2017-P2-Q4",
+   "q": "A square of area 800 cm² has a right-angled triangle with two 20 cm sides cut from one corner. What is the area of the shaded part left?",
+   "right": "600 cm²",
+   "wrong": [
+    "400 cm²",
+    "200 cm²",
+    "800 cm²"
+   ],
+   "why": "Triangle = ½ × 20 × 20 = 200 cm². Shaded part = square − triangle = 800 − 200 = 600 cm².",
+   "hook": "Shaded = whole − the bit cut out.",
+   "keys": [
+    "800 − 200 = 600"
+   ]
+  },
+  {
+   "id": "2017-P2-Q7:(a)(i):1",
+   "from": "2017-P2-Q7",
+   "q": "The height of a cone equals the diameter of its base. The radius of the base is 2.25 m. What is the height of the cone?",
+   "right": "4.5 m",
+   "wrong": [
+    "2.25 m",
+    "1.125 m",
+    "9 m"
+   ],
+   "why": "The diameter is twice the radius: 2 × 2.25 = 4.5 m, and the height equals the diameter.",
+   "hook": "Diameter = 2 × radius.",
+   "keys": [
+    "2 × 2.25 = 4.5"
+   ]
+  },
+  {
+   "id": "2017-P2-Q7:(a)(ii):1",
+   "from": "2017-P2-Q7",
+   "q": "A cone has vertical height 4.5 m and base radius 2.25 m. Which calculation gives its slant height l?",
+   "right": "l² = 4.5² + 2.25²",
+   "wrong": [
+    "l² = 4.5² − 2.25²",
+    "l = 4.5 + 2.25",
+    "l² = 4.5² + 4.5²"
+   ],
+   "why": "Height, radius and slant height make a right-angled triangle with l the hypotenuse: l² = 4.5² + 2.25², l = 5.03 m.",
+   "hook": "Slant height is the hypotenuse: l² = h² + r².",
+   "keys": [
+    "l the hypotenuse"
+   ]
+  },
+  {
+   "id": "2017-P2-Q7:(b)(i):1",
+   "from": "2017-P2-Q7",
+   "q": "Which formula gives the curved surface area of a cone of base radius r?",
+   "right": "πrl, with l the slant height",
+   "wrong": [
+    "πrh, with h the vertical height",
+    "πrl + πr²",
+    "(1/3)πr²h"
+   ],
+   "why": "Curved surface area of a cone = πrl, using the slant height l. Adding πr² gives the total (with the base); (1/3)πr²h is the volume.",
+   "hook": "Curved surface: slant height. Volume: vertical height.",
+   "keys": [
+    "πrl, using the slant height l"
+   ]
+  },
+  {
+   "id": "2017-P2-Q7:(b)(i):2",
+   "from": "2017-P2-Q7",
+   "q": "A sculpture is 14 identical cones, each with base radius 2.25 m, height 4.5 m and slant height 5.03 m. What is their total curved surface area, to 2 decimal places?",
+   "right": "497.77 m²",
+   "wrong": [
+    "445.32 m²",
+    "720.43 m²",
+    "35.55 m²"
+   ],
+   "why": "One cone: πrl = π(2.25)(5.03) = 35.55… m². Fourteen cones: 14 × 35.55… = 497.77 m².",
+   "hook": "Cone skin: πrl, with the slant height l.",
+   "keys": [
+    "πrl = π(2.25)(5.03)"
+   ]
+  },
+  {
+   "id": "2017-P2-Q7:(b)(ii):1",
+   "from": "2017-P2-Q7",
+   "q": "A sculpture has curved surface area 497.77 m². One litre of polish covers 12.25 m². How many litres are needed, to the nearest litre?",
+   "right": "41 litres",
+   "wrong": [
+    "40 litres",
+    "6098 litres",
+    "3 litres"
+   ],
+   "why": "497.77 ÷ 12.25 = 40.63…, which is 41 litres to the nearest litre.",
+   "hook": "Coverage: area ÷ (m² per litre).",
+   "keys": [
+    "497.77 ÷ 12.25 = 40.63"
+   ]
+  },
+  {
+   "id": "2017-P2-Q7:(b)(iii):1",
+   "from": "2017-P2-Q7",
+   "q": "41 litres of polish are needed. A 5 litre container costs 110 Australian dollars (AUD), and AUD 1 = €0.68. What is the cost of the polish, to the nearest euro?",
+   "right": "€673",
+   "wrong": [
+    "€598",
+    "€1456",
+    "€613"
+   ],
+   "why": "41 ÷ 5 = 8.2, so buy 9 containers: 9 × AUD 110 = AUD 990, and 990 × 0.68 = €673.20 ≈ €673.",
+   "hook": "Round containers UP; to change AUD to €, multiply by the rate.",
+   "keys": [
+    "buy 9 containers",
+    "990 × 0.68"
+   ]
+  },
+  {
+   "id": "2017-P2-Q7:(c)(i):1",
+   "from": "2017-P2-Q7",
+   "q": "The net of a cone’s curved surface is a sector. When the net is rolled up into the cone, the arc of the sector becomes…",
+   "right": "the circumference of the base",
+   "wrong": [
+    "the slant height",
+    "the radius of the base",
+    "the height of the cone"
+   ],
+   "why": "The arc wraps once round the bottom of the cone, so the arc length is the circumference of the base: p = 2πr.",
+   "hook": "Roll the sector up: its arc runs round the base.",
+   "keys": [
+    "circumference of the base"
+   ]
+  },
+  {
+   "id": "2017-P2-Q7:(c)(i):2",
+   "from": "2017-P2-Q7",
+   "q": "A cone has base radius 2.25 m and slant height 5.03 m. Its net is a sector of radius 5.03 m. Find the arc length p of the sector, to 2 decimal places.",
+   "right": "14.14 m",
+   "wrong": [
+    "31.60 m",
+    "7.07 m",
+    "15.90 m"
+   ],
+   "why": "The arc wraps round the base of the cone, so p = 2πr = 2π(2.25) = 14.137… ≈ 14.14 m.",
+   "hook": "Arc of the net = circumference of the cone’s base.",
+   "keys": [
+    "p = 2πr = 2π(2.25)"
+   ]
+  },
+  {
+   "id": "2017-P2-Q7:(c)(ii):1",
+   "from": "2017-P2-Q7",
+   "q": "A sector of radius 5.03 m has arc length 14.14 m. Find θ, the angle at the centre, to the nearest degree.",
+   "right": "161°",
+   "wrong": [
+    "64°",
+    "322°",
+    "199°"
+   ],
+   "why": "(θ/360) × 2π(5.03) = 14.14, so θ = 14.14 × 360 ÷ 31.605… = 161.07… ≈ 161°.",
+   "hook": "Arc = (θ/360) × 2πr: the slice of the whole circumference.",
+   "keys": [
+    "(θ/360) × 2π(5.03) = 14.14"
+   ]
+  },
+  {
+   "id": "2018-P2-Q5:(a):1",
+   "from": "2018-P2-Q5",
+   "q": "Square ABCD has sides of 7 cm. Tilted square PQRS has its corners on the sides of ABCD, with Q on [AB] and |AQ| = 5 cm. What is the area of PQRS?",
+   "right": "29 cm²",
+   "wrong": [
+    "9 cm²",
+    "25 cm²",
+    "5.39 cm²"
+   ],
+   "why": "Each corner triangle has sides 5 and 2, area ½(5)(2) = 5. PQRS = 49 − 4(5) = 29 cm². (Or |PQ|² = 5² + 2² = 29.)",
+   "hook": "Tilted square = big square − 4 corner triangles.",
+   "keys": [
+    "49 − 4(5) = 29"
+   ]
+  },
+  {
+   "id": "2018-P2-Q5:(a):2",
+   "from": "2018-P2-Q5",
+   "q": "Square ABCD has sides of 7 cm; Q on [AB] with |AQ| = 5 cm, so the corner triangle has sides 5 cm and 2 cm. What is the side |PQ| of the tilted square?",
+   "right": "√29 cm",
+   "wrong": [
+    "√21 cm",
+    "7 cm",
+    "√74 cm"
+   ],
+   "why": "|PQ| is the hypotenuse of the corner triangle: |PQ|² = 5² + 2² = 29, so |PQ| = √29 cm.",
+   "hook": "Hypotenuse² = sum of the squares of the other two sides.",
+   "keys": [
+    "|PQ|² = 5² + 2² = 29"
+   ]
+  },
+  {
+   "id": "2018-P2-Q5:(b)(i):1",
+   "from": "2018-P2-Q5",
+   "q": "Wheel u has radius 4 cm and wheel v has radius 6 cm. What are their circumferences, in terms of π?",
+   "right": "u: 8π cm, v: 12π cm",
+   "wrong": [
+    "u: 16π cm, v: 36π cm",
+    "u: 4π cm, v: 6π cm",
+    "u: 16π cm, v: 24π cm"
+   ],
+   "why": "Circumference = 2πr: u = 2π(4) = 8π cm and v = 2π(6) = 12π cm.",
+   "hook": "Circumference 2πr (a length, cm); area πr² (cm²).",
+   "keys": [
+    "Circumference = 2πr"
+   ]
+  },
+  {
+   "id": "2018-P2-Q5:(b)(ii):1",
+   "from": "2018-P2-Q5",
+   "q": "Two wheels are in non-slip contact, so turning one turns the other. What is the same for both wheels?",
+   "right": "The distance moved by each rim",
+   "wrong": [
+    "The number of rotations",
+    "The angle each wheel turns",
+    "The time for one rotation"
+   ],
+   "why": "The rims grip each other, so each moves the same distance. A smaller wheel has a shorter circumference, so it turns more times.",
+   "hook": "Non-slip: same rim distance, so the small wheel spins more.",
+   "keys": [
+    "each moves the same distance"
+   ]
+  },
+  {
+   "id": "2018-P2-Q5:(b)(ii):2",
+   "from": "2018-P2-Q5",
+   "q": "Wheel u (circumference 8π cm) and wheel v (circumference 12π cm) are in non-slip contact. Wheel v makes 100 rotations. How many rotations does u make?",
+   "right": "150 rotations",
+   "wrong": [
+    "66 rotations",
+    "100 rotations",
+    "225 rotations"
+   ],
+   "why": "v’s rim moves 100 × 12π = 1200π cm. u’s rim moves the same, so u turns 1200π ÷ 8π = 150 times.",
+   "hook": "Distance ÷ circumference = number of turns.",
+   "keys": [
+    "1200π ÷ 8π = 150"
+   ]
+  },
+  {
+   "id": "2018-P2-Q9:(a)(i):1",
+   "from": "2018-P2-Q9",
+   "q": "What is the volume of a solid sphere of radius 0.3 cm, in cm³, correct to 3 decimal places?",
+   "right": "0.113 cm³",
+   "wrong": [
+    "0.085 cm³",
+    "1.131 cm³",
+    "0.377 cm³"
+   ],
+   "why": "V = (4/3)πr³ = (4/3)π(0.3)³ = (4/3)π(0.027) = 0.113097… ≈ 0.113 cm³.",
+   "hook": "Sphere: (4/3)πr³. Cube small decimals carefully: 0.3³ = 0.027.",
+   "keys": [
+    "(4/3)π(0.027)"
+   ]
+  },
+  {
+   "id": "2018-P2-Q9:(a)(ii):1",
+   "from": "2018-P2-Q9",
+   "q": "A gold sphere has volume 0.113 cm³. Each cm³ of gold weighs 19.3 g. How many grams of gold are in the sphere, to 2 decimal places?",
+   "right": "2.18 g",
+   "wrong": [
+    "0.01 g",
+    "170.80 g",
+    "2.12 g"
+   ],
+   "why": "Every cm³ weighs 19.3 g, so multiply: 0.113 × 19.3 = 2.1809 ≈ 2.18 g. (Rounding 0.113 to 0.11 first gives 2.12.)",
+   "hook": "Grams per cm³ × cm³ = grams. Round only at the end.",
+   "keys": [
+    "0.113 × 19.3 = 2.1809"
+   ]
+  },
+  {
+   "id": "2018-P2-Q9:(a)(iii):1",
+   "from": "2018-P2-Q9",
+   "q": "There are about 6.02 × 10²³ atoms in 197 g of gold. How many atoms are in 2.18 g of gold? (a to 2 significant figures)",
+   "right": "6.7 × 10²¹",
+   "wrong": [
+    "1.3 × 10²⁴",
+    "3.1 × 10²¹",
+    "5.4 × 10²⁵"
+   ],
+   "why": "Atoms in 1 g: 6.02 × 10²³ ÷ 197. In 2.18 g: (6.02 × 10²³ ÷ 197) × 2.18 = 6.66… × 10²¹ ≈ 6.7 × 10²¹.",
+   "hook": "Go through 1: divide to get one gram, then multiply up.",
+   "keys": [
+    "(6.02 × 10²³ ÷ 197) × 2.18"
+   ]
+  },
+  {
+   "id": "2018-P2-Q9:(b)(i):1",
+   "from": "2018-P2-Q9",
+   "q": "A random sample of 1560 television viewers was surveyed. What is the margin of error of the survey, as a percentage to 1 decimal place?",
+   "right": "2.5%",
+   "wrong": [
+    "0.1%",
+    "5.0%",
+    "4.3%"
+   ],
+   "why": "Margin of error = 1/√n = 1/√1560 = 0.0253… = 2.5%.",
+   "hook": "Margin of error: one over root n.",
+   "keys": [
+    "1/√n = 1/√1560"
+   ]
+  },
+  {
+   "id": "2018-P2-Q9:(b)(ii):1",
+   "from": "2018-P2-Q9",
+   "q": "In a survey of 1560 viewers (margin of error 2.5%), 546 said they liked the show. What is the 95% confidence interval for the percentage who like it?",
+   "right": "32.5% to 37.5%",
+   "wrong": [
+    "35% to 37.5%",
+    "30% to 40%",
+    "33.75% to 36.25%"
+   ],
+   "why": "Sample proportion: 546 ÷ 1560 = 0.35 = 35%. Go 2.5% either side: 35 − 2.5 to 35 + 2.5, so 32.5% to 37.5%.",
+   "hook": "Confidence interval: sample % ± margin of error.",
+   "keys": [
+    "546 ÷ 1560 = 0.35 = 35%",
+    "2.5% either side"
+   ]
+  },
+  {
+   "id": "2018-P2-Q9:(b)(iii):1",
+   "from": "2018-P2-Q9",
+   "q": "An executive claims 40% of viewers like a show. A survey found 35% liked it. To test the claim, what is the null hypothesis?",
+   "right": "H₀: p = 40%",
+   "wrong": [
+    "H₀: p ≠ 40%",
+    "H₀: p = 35%",
+    "H₀: p > 40%"
+   ],
+   "why": "The null hypothesis is the claim being tested: H₀: p = 40%. The alternative is H₁: p ≠ 40%.",
+   "hook": "H₀ is the claim (an \"equals\"); H₁ says it is wrong.",
+   "keys": [
+    "the claim being tested"
+   ]
+  },
+  {
+   "id": "2018-P2-Q9:(b)(iii):2",
+   "from": "2018-P2-Q9",
+   "q": "H₀: 40% of viewers like a show. The 95% confidence interval from a survey is 32.5% to 37.5%. What is the conclusion at the 5% level?",
+   "right": "Reject H₀: 40% is outside the interval",
+   "wrong": [
+    "Don’t reject H₀: 40% is outside it",
+    "Don’t reject H₀: 40% is near 37.5%",
+    "Don’t reject H₀: 35% is inside it"
+   ],
+   "why": "40% is not in [32.5%, 37.5%], so reject H₀: the evidence suggests the percentage who like the show is not 40%.",
+   "hook": "Claim inside the interval: keep it. Outside: reject it.",
+   "keys": [
+    "40% is not in [32.5%, 37.5%]"
+   ]
+  },
+  {
+   "id": "2019-P1-Q5:(a):1",
+   "from": "2019-P1-Q5",
+   "q": "A scale diagram (1 cm = 3 m) of a lawn is cut into 8 strips each 1 cm wide. Heights: 0, 5, 6, 5, 4, 5, 6, 5, 0 cm. Use the trapezoidal rule to estimate the real area.",
+   "right": "324 m²",
+   "wrong": [
+    "108 m²",
+    "162 m²",
+    "648 m²"
+   ],
+   "why": "In metres: h = 3, heights 0, 15, 18, 15, 12, 15, 18, 15, 0. Area ≈ (3/2)[0 + 0 + 2(108)] = 1.5 × 216 = 324 m².",
+   "hook": "Change every length to real metres first, then use the rule.",
+   "keys": [
+    "(3/2)[0 + 0 + 2(108)]"
+   ]
+  },
+  {
+   "id": "2019-P1-Q5:(a):2",
+   "from": "2019-P1-Q5",
+   "q": "On a scale diagram, 1 cm = 3 m. Each grid box is 0.5 cm tall. A vertical line is 10 boxes tall. What real length does it show?",
+   "right": "15 m",
+   "wrong": [
+    "30 m",
+    "5 m",
+    "1.67 m"
+   ],
+   "why": "10 boxes × 0.5 cm = 5 cm on the diagram, and each cm is 3 m, so 5 × 3 = 15 m.",
+   "hook": "Boxes → cm → metres: one step at a time.",
+   "keys": [
+    "10 boxes × 0.5 cm = 5 cm",
+    "5 × 3 = 15 m"
+   ]
+  },
+  {
+   "id": "2019-P1-Q5:(b):1",
+   "from": "2019-P1-Q5",
+   "q": "Nuala walks at a speed of 1.6 metres per second. What is this speed in kilometres per hour?",
+   "right": "5.76 km/h",
+   "wrong": [
+    "0.44 km/h",
+    "5760 km/h",
+    "0.096 km/h"
+   ],
+   "why": "In an hour (3600 s) she walks 1.6 × 3600 = 5760 m, and 5760 ÷ 1000 = 5.76 km. So 5.76 km/h.",
+   "hook": "m/s to km/h: × 3600 ÷ 1000, which is × 3.6.",
+   "keys": [
+    "1.6 × 3600 = 5760 m",
+    "5760 ÷ 1000 = 5.76"
+   ]
+  },
+  {
+   "id": "2019-P2-Q5:(a):1",
+   "from": "2019-P2-Q5",
+   "q": "A crescent is made by removing a disc of radius 2.5 cm from a disc of radius 3 cm. What is the area of the crescent, to 2 decimal places?",
+   "right": "8.64 cm²",
+   "wrong": [
+    "0.79 cm²",
+    "47.91 cm²",
+    "3.14 cm²"
+   ],
+   "why": "Area = big disc − small disc = π(3)² − π(2.5)² = 9π − 6.25π = 2.75π = 8.639… ≈ 8.64 cm².",
+   "hook": "Shape with a hole: area of the whole − area of the hole.",
+   "keys": [
+    "9π − 6.25π = 2.75π"
+   ]
+  },
+  {
+   "id": "2019-P2-Q5:(a):2",
+   "from": "2019-P2-Q5",
+   "q": "A crescent is made by removing a disc of radius 2.5 cm from a disc of radius 3 cm. What is the perimeter of the crescent, to 2 decimal places?",
+   "right": "34.56 cm",
+   "wrong": [
+    "3.14 cm",
+    "18.85 cm",
+    "17.28 cm"
+   ],
+   "why": "The edge runs round the outer circle and back round the inner one, so add: 2π(3) + 2π(2.5) = 11π = 34.557… ≈ 34.56 cm.",
+   "hook": "Perimeter: trace the whole edge. Both curves count, so add them.",
+   "keys": [
+    "2π(3) + 2π(2.5) = 11π"
+   ]
+  },
+  {
+   "id": "2019-P2-Q5:(b):1",
+   "from": "2019-P2-Q5",
+   "q": "An inverted cone has vertical height 12 cm and radius 7 cm. What is its volume, to 2 decimal places?",
+   "right": "615.75 cm³",
+   "wrong": [
+    "1847.26 cm³",
+    "2463.01 cm³",
+    "87.96 cm³"
+   ],
+   "why": "V = (1/3)πr²h = (1/3)π(7)²(12) = 196π = 615.75 cm³.",
+   "hook": "A cone is one third of the cylinder around it: (1/3)πr²h.",
+   "keys": [
+    "(1/3)π(7)²(12) = 196π"
+   ]
+  },
+  {
+   "id": "2019-P2-Q5:(b):2",
+   "from": "2019-P2-Q5",
+   "q": "A cone of volume 615.75 cm³ is filled by a pipe at 0.5 litres per minute (1 litre = 1000 cm³). How long does it take, to the nearest second?",
+   "right": "74 seconds",
+   "wrong": [
+    "222 seconds",
+    "739 seconds",
+    "83 seconds"
+   ],
+   "why": "0.5 litres = 500 cm³ a minute. 615.75 ÷ 500 = 1.2315 minutes, and 1.2315 × 60 = 73.89 ≈ 74 seconds.",
+   "hook": "Litres → cm³: × 1000. Decimal minutes → seconds: × 60.",
+   "keys": [
+    "0.5 litres = 500 cm³",
+    "1.2315 × 60 = 73.89"
+   ]
+  },
+  {
+   "id": "2019-P2-Q8:(a)(i):1",
+   "from": "2019-P2-Q8",
+   "q": "What is the volume of a solid sphere of radius 3 cm, in terms of π?",
+   "right": "36π cm³",
+   "wrong": [
+    "27π cm³",
+    "12π cm³",
+    "288π cm³"
+   ],
+   "why": "V = (4/3)πr³ = (4/3)π(3)³ = (4/3) × 27 × π = 36π cm³.",
+   "hook": "“In terms of π”: work out the number, leave π as it is.",
+   "keys": [
+    "(4/3) × 27 × π = 36π"
+   ]
+  },
+  {
+   "id": "2019-P2-Q8:(a)(ii):1",
+   "from": "2019-P2-Q8",
+   "q": "A sphere of volume 36π cm³ is taken out of a full cylinder of water with internal radius 5 cm. Which equation gives the drop h in the water level?",
+   "right": "π(5)²h = 36π",
+   "wrong": [
+    "π(3)²h = 36π",
+    "2π(5)h = 36π",
+    "π(5)²h = (4/3)π(5)³"
+   ],
+   "why": "The lost water is a short cylinder of radius 5 and height h, with the same volume as the sphere: π(5)²h = 36π.",
+   "hook": "Volume out = volume of the sphere. The water is a cylinder: πr²h.",
+   "keys": [
+    "π(5)²h = 36π"
+   ]
+  },
+  {
+   "id": "2019-P2-Q8:(a)(ii):2",
+   "from": "2019-P2-Q8",
+   "q": "A sphere of volume 36π cm³ is taken out of a full cylinder of water with internal radius 5 cm. By how much does the water level drop?",
+   "right": "1.44 cm",
+   "wrong": [
+    "7.2 cm",
+    "0.36 cm",
+    "4.52 cm"
+   ],
+   "why": "π(5)²h = 36π, so 25πh = 36π and h = 36π ÷ 25π = 36 ÷ 25 = 1.44 cm (the π’s cancel).",
+   "hook": "Divide by the whole πr² — the π’s cancel.",
+   "keys": [
+    "h = 36π ÷ 25π = 36 ÷ 25 = 1.44"
+   ]
+  },
+  {
+   "id": "2019-P2-Q8:(a)(iii):1",
+   "from": "2019-P2-Q8",
+   "q": "A cylinder has radius 5 cm and height 18 cm. Its curved surface is cut from a 35 cm by 20 cm sheet of metal. How much metal is left over, to 1 decimal place?",
+   "right": "134.5 cm²",
+   "wrong": [
+    "565.5 cm²",
+    "417.3 cm²",
+    "71.7 cm²"
+   ],
+   "why": "Curved surface = 2πrh = 2π(5)(18) = 180π = 565.49 cm². Sheet = 35 × 20 = 700 cm². Left over = 700 − 565.49 ≈ 134.5 cm².",
+   "hook": "Left over = whole sheet − the piece cut out.",
+   "keys": [
+    "700 − 565.49"
+   ]
+  },
+  {
+   "id": "2019-P2-Q8:(b)(i):1",
+   "from": "2019-P2-Q8",
+   "q": "A class surveyed a random sample of 800 people. What is the margin of error of the survey, as a percentage to 2 decimal places?",
+   "right": "3.54%",
+   "wrong": [
+    "0.13%",
+    "6.93%",
+    "5.35%"
+   ],
+   "why": "Margin of error = 1/√n = 1/√800 = 0.035355… = 3.54%.",
+   "hook": "Margin of error = 1 ÷ √(sample size).",
+   "keys": [
+    "1/√n = 1/√800"
+   ]
+  },
+  {
+   "id": "2019-P2-Q8:(b)(ii):1",
+   "from": "2019-P2-Q8",
+   "q": "In a random sample of 800 people (margin of error 3.54%), 350 supported a proposal. What is the 95% confidence interval for the percentage who support it?",
+   "right": "40.21% to 47.29%",
+   "wrong": [
+    "36.67% to 50.83%",
+    "52.71% to 59.79%",
+    "43.75% to 47.29%"
+   ],
+   "why": "Sample %: 350 ÷ 800 = 43.75%. Then 43.75 − 3.54 to 43.75 + 3.54: 40.21% to 47.29%.",
+   "hook": "Centre on the sample %, then go the margin of error each way.",
+   "keys": [
+    "350 ÷ 800 = 43.75%",
+    "43.75 − 3.54 to 43.75 + 3.54"
+   ]
+  },
+  {
+   "id": "2019-P2-Q8:(b)(iii):1",
+   "from": "2019-P2-Q8",
+   "q": "A newspaper claims 50% support a proposal. A survey gives a 95% confidence interval of 40.21% to 47.29%. What do you conclude at the 5% level?",
+   "right": "Reject the claim: 50% is outside it",
+   "wrong": [
+    "Don’t reject: 50% is outside it",
+    "Don’t reject: 43.75% is inside it",
+    "Don’t reject: 50% is within 3.54% of it"
+   ],
+   "why": "H₀: support is 50%. 50% is not in 40.21% to 47.29%, so reject H₀: support in the area is not 50%.",
+   "hook": "Test the CLAIM against the interval: outside means reject.",
+   "keys": [
+    "50% is not in 40.21% to 47.29%"
+   ]
+  },
+  {
+   "id": "2020-P2-Q9:(a)(i):1",
+   "from": "2020-P2-Q9",
+   "q": "A can’s net is cut from a sheet 16 cm tall: the side is a 10 cm tall rectangle, with the circular top (radius r) standing on it. What is r?",
+   "right": "3 cm",
+   "wrong": [
+    "6 cm",
+    "8 cm",
+    "5 cm"
+   ],
+   "why": "The sheet’s height is 10 + one diameter = 16, so the diameter is 6 cm and the radius r = 6 ÷ 2 = 3 cm.",
+   "hook": "A circle stands one diameter tall: halve it for the radius.",
+   "keys": [
+    "10 + one diameter = 16"
+   ]
+  },
+  {
+   "id": "2020-P2-Q9:(a)(ii):1",
+   "from": "2020-P2-Q9",
+   "q": "A can of radius 3 cm is made from a net. Its side is a rectangle of length y that wraps once round the can. Find y, to the nearest cm.",
+   "right": "19 cm",
+   "wrong": [
+    "12 cm",
+    "28 cm",
+    "38 cm"
+   ],
+   "why": "The side wraps once round the circle, so y is the circumference: y = 2πr = 2π(3) = 6π = 18.85… ≈ 19 cm.",
+   "hook": "Wrap the side round the lid: its length = circumference 2πr.",
+   "keys": [
+    "y = 2πr = 2π(3) = 6π"
+   ]
+  },
+  {
+   "id": "2020-P2-Q9:(a)(iii):1",
+   "from": "2020-P2-Q9",
+   "q": "A 6π cm by 16 cm sheet gives a can’s side (6π by 10 cm) and its top and bottom (circles of radius 3 cm). What area is wasted, to the nearest cm²?",
+   "right": "57 cm²",
+   "wrong": [
+    "85 cm²",
+    "75 cm²",
+    "245 cm²"
+   ],
+   "why": "Sheet 96π − side 60π − two circles 2π(3)² = 18π. Waste = 96π − 78π = 18π = 56.55 ≈ 57 cm².",
+   "hook": "Waste = sheet − every piece used (side, top AND bottom).",
+   "keys": [
+    "96π − 78π = 18π"
+   ]
+  },
+  {
+   "id": "2020-P2-Q9:(b)(i):1",
+   "from": "2020-P2-Q9",
+   "q": "What is the volume of a spherical ice cube of radius 1.5 cm, in terms of π?",
+   "right": "4.5π cm³",
+   "wrong": [
+    "3.375π cm³",
+    "3π cm³",
+    "36π cm³"
+   ],
+   "why": "V = (4/3)πr³ = (4/3)π(1.5)³ = (4/3) × 3.375 × π = 4.5π cm³ (= 9π/2).",
+   "hook": "Sphere: (4/3)πr³. Cube first: 1.5³ = 3.375.",
+   "keys": [
+    "(4/3) × 3.375 × π = 4.5π"
+   ]
+  },
+  {
+   "id": "2020-P2-Q9:(b)(ii):1",
+   "from": "2020-P2-Q9",
+   "q": "Ice cubes are held fully under the water in a cylinder, and the level rises by h. The volume of the risen layer of water (a cylinder of height h) equals…",
+   "right": "the volume of all the ice cubes",
+   "wrong": [
+    "the volume of one ice cube",
+    "the surface area of the ice cubes",
+    "the volume of the water"
+   ],
+   "why": "The ice pushes up exactly its own volume of water, so π(3.5)²h = the total volume of the ice cubes put in.",
+   "hook": "Volume in = volume of the rise.",
+   "keys": [
+    "its own volume of water"
+   ]
+  },
+  {
+   "id": "2020-P2-Q9:(b)(ii):2",
+   "from": "2020-P2-Q9",
+   "q": "Three ice spheres, each 4.5π cm³, are fully submerged in a cylinder of water of internal radius 3.5 cm. Find the rise h in the water level, to 1 decimal place.",
+   "right": "1.1 cm",
+   "wrong": [
+    "0.4 cm",
+    "3.9 cm",
+    "0.3 cm"
+   ],
+   "why": "π(3.5)²h = 3 × 4.5π = 13.5π, so h = 13.5 ÷ 12.25 = 1.102… ≈ 1.1 cm.",
+   "hook": "Count every sphere, then divide by r² (the π’s cancel).",
+   "keys": [
+    "π(3.5)²h = 3 × 4.5π = 13.5π"
+   ]
+  },
+  {
+   "id": "2021-P2-Q8:(a)(i):1",
+   "from": "2021-P2-Q8",
+   "q": "Across a lake, every 10 m along [PQ], the offsets above + below the line are: 0+10, 20+20, 10+20, 30+20, 30+10, 20+20, 0. Estimate the lake’s area (trapezoidal rule).",
+   "right": "2050 m²",
+   "wrong": [
+    "1050 m²",
+    "4100 m²",
+    "1100 m²"
+   ],
+   "why": "Widths: 10, 40, 30, 50, 40, 40, 0. Area ≈ (10/2)[10 + 0 + 2(40 + 30 + 50 + 40 + 40)] = 5 × 410 = 2050 m².",
+   "hook": "Add the offsets above and below first: that is the width.",
+   "keys": [
+    "5 × 410 = 2050"
+   ]
+  },
+  {
+   "id": "2021-P2-Q8:(a)(ii):1",
+   "from": "2021-P2-Q8",
+   "q": "A lake has a surface area of 2050 m² and is, on average, 8 m deep. Estimate the volume of water in the lake.",
+   "right": "16,400 m³",
+   "wrong": [
+    "256.25 m³",
+    "8200 m³",
+    "5466.67 m³"
+   ],
+   "why": "Treat the lake as a slab: area × average depth = 2050 × 8 = 16 400 m³. The average depth already allows for the sloping bed.",
+   "hook": "Volume of a slab = area of the top × depth.",
+   "keys": [
+    "2050 × 8 = 16 400"
+   ]
+  },
+  {
+   "id": "2021-P2-Q8:(b)(i):1",
+   "from": "2021-P2-Q8",
+   "q": "What is the volume of a hemisphere of radius 21 cm, in terms of π?",
+   "right": "6174π cm³",
+   "wrong": [
+    "12,348π cm³",
+    "882π cm³",
+    "3087π cm³"
+   ],
+   "why": "V = (2/3)πr³ = (2/3)π(21)³ = (2/3) × 9261 × π = 6174π cm³.",
+   "hook": "Hemisphere = half a sphere: (2/3)πr³.",
+   "keys": [
+    "(2/3) × 9261 × π = 6174π"
+   ]
+  },
+  {
+   "id": "2021-P2-Q8:(b)(ii):1",
+   "from": "2021-P2-Q8",
+   "q": "A buoy is a cone standing on a hemisphere, both of radius 21 cm. The total height of the buoy is the height of the cone plus…",
+   "right": "the radius of the hemisphere",
+   "wrong": [
+    "the diameter of the hemisphere",
+    "the slant height of the cone",
+    "nothing more"
+   ],
+   "why": "The hemisphere hangs below the cone, and its depth is its radius, 21 cm. So total height = cone height + 21.",
+   "hook": "A hemisphere is as deep as its radius.",
+   "keys": [
+    "its depth is its radius"
+   ]
+  },
+  {
+   "id": "2021-P2-Q8:(b)(ii):2",
+   "from": "2021-P2-Q8",
+   "q": "A buoy is a cone on a hemisphere, both radius 21 cm. The cone’s volume equals the hemisphere’s, 6174π cm³. What is the total height of the buoy?",
+   "right": "63 cm",
+   "wrong": [
+    "42 cm",
+    "35 cm",
+    "84 cm"
+   ],
+   "why": "(1/3)π(21)²h = 6174π, so 147h = 6174 and the cone’s height is 42 cm. Add the hemisphere’s depth: 42 + 21 = 63 cm.",
+   "hook": "Solve for the cone’s height, then add the hemisphere’s radius.",
+   "keys": [
+    "147h = 6174",
+    "42 + 21 = 63"
+   ]
+  },
+  {
+   "id": "2021-P2-Q8:(c):1",
+   "from": "2021-P2-Q8",
+   "q": "In triangle PBQ, |PB| = 43 m, |BQ| = 26 m and |PQ| = 60 m. Which rule finds the angle QBP?",
+   "right": "The cosine rule",
+   "wrong": [
+    "The sine rule",
+    "Pythagoras’ theorem",
+    "Area = ½ab sin C"
+   ],
+   "why": "All three sides are known and no angle, so use the cosine rule: 60² = 26² + 43² − 2(26)(43)cos B.",
+   "hook": "Three sides, no angle? Cosine rule.",
+   "keys": [
+    "use the cosine rule"
+   ]
+  },
+  {
+   "id": "2021-P2-Q8:(c):2",
+   "from": "2021-P2-Q8",
+   "q": "In triangle PBQ, |PB| = 43 m, |BQ| = 26 m and |PQ| = 60 m. Find the angle QBP, correct to two decimal places.",
+   "right": "118.74°",
+   "wrong": [
+    "61.26°",
+    "38.93°",
+    "2.07°"
+   ],
+   "why": "cos B = (26² + 43² − 60²) ÷ (2 × 26 × 43) = −1075 ÷ 2236 = −0.4807…, so B = 118.74° (obtuse, as cos B is negative).",
+   "hook": "Angle opposite the longest side; a minus cos means over 90°.",
+   "keys": [
+    "−1075 ÷ 2236 = −0.4807"
+   ]
+  },
+  {
+   "id": "2022-P2-Q8:(a)(i):1",
+   "from": "2022-P2-Q8",
+   "q": "The top of a lighthouse is a hemisphere of radius 3 m. What is the volume of the hemisphere, in terms of π?",
+   "right": "18π m³",
+   "wrong": [
+    "36π m³",
+    "9π m³",
+    "6π m³"
+   ],
+   "why": "V = (2/3)πr³ = (2/3)π(3)³ = (2/3) × 27 × π = 18π m³.",
+   "hook": "Hemisphere: half of (4/3)πr³ is (2/3)πr³.",
+   "keys": [
+    "(2/3) × 27 × π = 18π"
+   ]
+  },
+  {
+   "id": "2022-P2-Q8:(a)(ii):1",
+   "from": "2022-P2-Q8",
+   "q": "A cylinder of radius 3 m has volume 36π m³. What is its height h?",
+   "right": "4 m",
+   "wrong": [
+    "12 m",
+    "6 m",
+    "1 m"
+   ],
+   "why": "πr²h = 36π, so π(3)²h = 36π, 9πh = 36π and h = 36π ÷ 9π = 4 m.",
+   "hook": "Volume ÷ (area of the circular end) = height.",
+   "keys": [
+    "9πh = 36π"
+   ]
+  },
+  {
+   "id": "2022-P2-Q8:(b)(i):1",
+   "from": "2022-P2-Q8",
+   "q": "A cone has base radius 7.5 m and vertical height 47 m. Find the angle A between its slanting side and its base, to the nearest degree.",
+   "right": "81°",
+   "wrong": [
+    "9°",
+    "72°",
+    "85°"
+   ],
+   "why": "Cut the cone in half: a right-angled triangle with 47 opposite A and 7.5 next to it. tan A = 47 ÷ 7.5, so A = 80.93… ≈ 81°.",
+   "hook": "Height is opposite the base angle; the radius is adjacent. TOA.",
+   "keys": [
+    "tan A = 47 ÷ 7.5"
+   ]
+  },
+  {
+   "id": "2022-P2-Q8:(b)(ii):1",
+   "from": "2022-P2-Q8",
+   "q": "A cone of radius 7.5 m and height 47 m has its top cut off at a level circle of radius 3 m. What is the height k of the part left?",
+   "right": "28.2 m",
+   "wrong": [
+    "18.8 m",
+    "46.5 m",
+    "42.5 m"
+   ],
+   "why": "The removed top is a similar cone: x/47 = 3/7.5, so x = 18.8 m. What is left: k = 47 − 18.8 = 28.2 m.",
+   "hook": "Similar cones: match radius to radius and height to height.",
+   "keys": [
+    "x/47 = 3/7.5",
+    "k = 47 − 18.8 = 28.2"
+   ]
+  },
+  {
+   "id": "2022-P2-Q8:(c)(i):1",
+   "from": "2022-P2-Q8",
+   "q": "A lighthouse can be seen from anywhere within a circle of radius 50 km. What is the area of the circle, to the nearest km²?",
+   "right": "7854 km²",
+   "wrong": [
+    "314 km²",
+    "31,416 km²",
+    "2500 km²"
+   ],
+   "why": "Area = πr² = π(50)² = 2500π = 7853.98… ≈ 7854 km².",
+   "hook": "Area of a circle: πr². 2πr is the distance round it.",
+   "keys": [
+    "π(50)² = 2500π"
+   ]
+  },
+  {
+   "id": "2022-P2-Q8:(c)(ii):1",
+   "from": "2022-P2-Q8",
+   "q": "50 km = 27 nautical miles. How many km are in 1 nautical mile, correct to 4 significant figures?",
+   "right": "1.852 km",
+   "wrong": [
+    "0.5400 km",
+    "1.851 km",
+    "1.85 km"
+   ],
+   "why": "27 nautical miles = 50 km, so 1 nautical mile = 50 ÷ 27 = 1.85185… ≈ 1.852 km (the 5th figure, 8, rounds the 1 up).",
+   "hook": "Unitary method: divide to get ONE, then multiply.",
+   "keys": [
+    "50 ÷ 27 = 1.85185"
+   ]
+  },
+  {
+   "id": "2022-P2-Q8:(d):1",
+   "from": "2022-P2-Q8",
+   "q": "The top of a lighthouse is 49 m above sea level. From a ship, its angle of elevation is 1.2°. Which equation gives the horizontal distance d?",
+   "right": "tan 1.2° = 49/d",
+   "wrong": [
+    "tan 1.2° = d/49",
+    "cos 1.2° = 49/d",
+    "sin 1.2° = d/49"
+   ],
+   "why": "The 49 m height is opposite the 1.2° angle and d is adjacent to it, so tan 1.2° = 49/d.",
+   "hook": "Opposite and adjacent? Tan (TOA).",
+   "keys": [
+    "tan 1.2° = 49/d"
+   ]
+  },
+  {
+   "id": "2022-P2-Q8:(d):2",
+   "from": "2022-P2-Q8",
+   "q": "The top of a lighthouse is 49 m above sea level. From a ship, its angle of elevation is 1.2°. Find the horizontal distance d, in km to 2 decimal places.",
+   "right": "2.34 km",
+   "wrong": [
+    "23.39 km",
+    "2339.24 km",
+    "0.02 km"
+   ],
+   "why": "d = 49 ÷ tan 1.2° = 2339.2… m, and ÷ 1000 gives 2.34 km. (Calculator in degree mode.)",
+   "hook": "Metres to km: ÷ 1000. Check DEG mode on the calculator.",
+   "keys": [
+    "d = 49 ÷ tan 1.2° = 2339.2"
+   ]
+  },
+  {
+   "id": "2022-P2-Q9:(a):1",
+   "from": "2022-P2-Q9",
+   "q": "A shed is 8.5 m high at its highest point. Which is most likely true, with a height for Seán to back it up?",
+   "right": "5 times as high: Seán about 1.7 m",
+   "wrong": [
+    "3 times as high: Seán about 2.8 m",
+    "8 times as high: Seán about 1.1 m",
+    "5 times as high: Seán about 42.5 m"
+   ],
+   "why": "Divide the shed’s height by each number: 8.5 ÷ 5 = 1.7 m, a normal adult height. 8.5 ÷ 3 = 2.8 m is too tall; 8.5 ÷ 8 = 1.06 m is a small child.",
+   "hook": "Test each claim: divide, then ask \"is that a real person?\"",
+   "keys": [
+    "8.5 ÷ 5 = 1.7 m"
+   ]
+  },
+  {
+   "id": "2022-P2-Q9:(b):1",
+   "from": "2022-P2-Q9",
+   "q": "A shed is a prism 18 m long. Its front is a 12 m wide, 7 m high rectangle with a triangular roof on top, 8.5 m high at its peak. What is its volume?",
+   "right": "1674 m³",
+   "wrong": [
+    "2430 m³",
+    "1836 m³",
+    "1512 m³"
+   ],
+   "why": "Front = rectangle 12 × 7 = 84 + triangle ½(12)(1.5) = 9, so 93 m². Volume = 93 × 18 = 1674 m³.",
+   "hook": "Prism: area of the front face × length. Roof height = 8.5 − 7.",
+   "keys": [
+    "½(12)(1.5) = 9",
+    "93 × 18 = 1674"
+   ]
+  },
+  {
+   "id": "2022-P2-Q9:(b):2",
+   "from": "2022-P2-Q9",
+   "q": "A shed has a volume of 1674 m³, and 1 m³ = 1000 litres. What is its capacity in litres?",
+   "right": "1,674,000 litres",
+   "wrong": [
+    "1.674 litres",
+    "167,400 litres",
+    "1674 litres"
+   ],
+   "why": "Each m³ holds 1000 litres, so multiply: 1674 × 1000 = 1 674 000 litres, which is over one million.",
+   "hook": "m³ to litres: × 1000 (a cubic metre is a big box).",
+   "keys": [
+    "1674 × 1000 = 1 674 000"
+   ]
+  },
+  {
+   "id": "2022-P2-Q9:(c):1",
+   "from": "2022-P2-Q9",
+   "q": "A roof is 12 m wide and rises from 7 m to 8.5 m, with its peak above the centre. Find its slant length d, to 1 decimal place.",
+   "right": "6.2 m",
+   "wrong": [
+    "12.1 m",
+    "10.4 m",
+    "5.8 m"
+   ],
+   "why": "Half the roof is a right-angled triangle: across 12 ÷ 2 = 6, up 8.5 − 7 = 1.5. d² = 6² + 1.5² = 38.25, so d = 6.18… ≈ 6.2 m.",
+   "hook": "Draw the right-angled triangle first: half the width, the rise.",
+   "keys": [
+    "d² = 6² + 1.5² = 38.25"
+   ]
+  },
+  {
+   "id": "2022-P2-Q9:(d):1",
+   "from": "2022-P2-Q9",
+   "q": "To enlarge a shape with centre A and scale factor 3, you draw a ray from A through each corner. Where does each image corner go?",
+   "right": "On the ray, 3 times as far from A",
+   "wrong": [
+    "On the ray, 3 cm further out",
+    "On the ray, ⅓ as far from A",
+    "On the ray, 4 times as far from A"
+   ],
+   "why": "Scale factor 3: measure from A to the corner, multiply by 3, and mark the image point that far from A on the same ray.",
+   "hook": "Always measure from the centre of enlargement.",
+   "keys": [
+    "multiply by 3"
+   ]
+  },
+  {
+   "id": "2022-P2-Q9:(e)(i):1",
+   "from": "2022-P2-Q9",
+   "q": "In triangle ABC, |AB| = 3 m, |AC| = 7 m and the angle at A is 30°. Which gives |BC|²?",
+   "right": "3² + 7² − 2(3)(7)cos 30°",
+   "wrong": [
+    "3² + 7²",
+    "3² + 7² + 2(3)(7)cos 30°",
+    "7² − 3²"
+   ],
+   "why": "Two sides and the angle between them: cosine rule. |BC|² = 3² + 7² − 2(3)(7)cos 30° = 21.627, so |BC| = 4.65 m.",
+   "hook": "Two sides and the angle between: cosine rule (it isn’t right-angled).",
+   "keys": [
+    "Two sides and the angle between them"
+   ]
+  },
+  {
+   "id": "2022-P2-Q9:(e)(ii):1",
+   "from": "2022-P2-Q9",
+   "q": "In triangle ABC, |AB| = 3 m, |AC| = 7 m, |BC| = 4.65 m and the angle at A is 30°. Find the angle ACB, to the nearest degree.",
+   "right": "19°",
+   "wrong": [
+    "49°",
+    "51°",
+    "131°"
+   ],
+   "why": "Angle C is opposite the 3 m side: sin C / 3 = sin 30° / 4.65, so sin C = 0.3225… and C = 18.8… ≈ 19°.",
+   "hook": "Sine rule: pair each angle with the side opposite it.",
+   "keys": [
+    "sin C / 3 = sin 30° / 4.65"
+   ]
+  },
+  {
+   "id": "2023-P1-Q8:(a):1",
+   "from": "2023-P1-Q8",
+   "q": "A rectangular garden measures 50 m by 30 m. What is the area of the whole garden?",
+   "right": "1500 m²",
+   "wrong": [
+    "160 m²",
+    "750 m²",
+    "80 m²"
+   ],
+   "why": "Area of a rectangle = length × width = 50 × 30 = 1500 m².",
+   "hook": "Area: multiply. Perimeter: add all the way round.",
+   "keys": [
+    "50 × 30 = 1500"
+   ]
+  },
+  {
+   "id": "2023-P1-Q8:(b):1",
+   "from": "2023-P1-Q8",
+   "q": "A pond is 18 m long. Its widths every 3 m are 0, 10, 14, 12, 10, 8 and 2 m. Use the trapezoidal rule to estimate the area of the pond.",
+   "right": "165 m²",
+   "wrong": [
+    "84 m²",
+    "330 m²",
+    "168 m²"
+   ],
+   "why": "(3/2)[0 + 2 + 2(10 + 14 + 12 + 10 + 8)] = 1.5 × [2 + 108] = 1.5 × 110 = 165 m².",
+   "hook": "h/2 × [first + last + 2 × (all the middle ones)].",
+   "keys": [
+    "1.5 × [2 + 108]"
+   ]
+  },
+  {
+   "id": "2023-P1-Q8:(c):1",
+   "from": "2023-P1-Q8",
+   "q": "How could the trapezoidal rule (with different measurements) give a more accurate estimate of the area of a pond?",
+   "right": "Measure the widths at smaller intervals",
+   "wrong": [
+    "Measure the widths at larger intervals",
+    "Double the first and last widths too",
+    "Round each width to the nearest 5 m"
+   ],
+   "why": "Each strip is treated as a straight-sided trapezium. Thinner strips (more measurements) follow the curved edge more closely.",
+   "hook": "More, thinner strips hug the curve better.",
+   "keys": [
+    "Thinner strips"
+   ]
+  },
+  {
+   "id": "2023-P1-Q8:(d):1",
+   "from": "2023-P1-Q8",
+   "q": "A 1500 m² garden has a pond of actual area 172 m² (estimated 165 m²). The rest is grass, resown at €2.55 per m². What is the cost, to the nearest ten euro?",
+   "right": "€3390",
+   "wrong": [
+    "€3400",
+    "€3830",
+    "€3380"
+   ],
+   "why": "Grass = 1500 − 172 = 1328 m² (use the actual area). 1328 × 2.55 = €3386.40, which is €3390 to the nearest ten euro.",
+   "hook": "Grass = garden − pond. Nearest ten: look at the units digit.",
+   "keys": [
+    "1500 − 172 = 1328",
+    "1328 × 2.55 = €3386.40"
+   ]
+  },
+  {
+   "id": "2023-P1-Q8:(e):1",
+   "from": "2023-P1-Q8",
+   "q": "Materials cost £840, which includes an import duty of 16.9%. £840 is what percentage of the price before duty?",
+   "right": "116.9%",
+   "wrong": [
+    "100%",
+    "83.1%",
+    "16.9%"
+   ],
+   "why": "The price before duty is 100%. Adding 16.9% duty makes it 116.9%, so £840 = 116.9%.",
+   "hook": "Price with the tax added = 100% + the tax %.",
+   "keys": [
+    "£840 = 116.9%"
+   ]
+  },
+  {
+   "id": "2023-P1-Q8:(e):2",
+   "from": "2023-P1-Q8",
+   "q": "Materials cost £840, which includes an import duty of 16.9%. What was the cost before the duty was added, to the nearest penny?",
+   "right": "£718.56",
+   "wrong": [
+    "£698.04",
+    "£981.96",
+    "£1010.83"
+   ],
+   "why": "£840 is 116.9% of the original, so 1% = 840 ÷ 116.9 and 100% = 840 ÷ 116.9 × 100 = £718.56.",
+   "hook": "Going back: divide by 1.169. Don’t take 16.9% off £840.",
+   "keys": [
+    "840 ÷ 116.9 × 100 = £718.56"
+   ]
+  },
+  {
+   "id": "2023-P1-Q8:(f):1",
+   "from": "2023-P1-Q8",
+   "q": "A bill of £840 is paid in euro, at €1 = £0.8547, plus a commission of 2.5% of the £840. What is the total paid in euro, to the nearest cent?",
+   "right": "€1007.37",
+   "wrong": [
+    "€735.90",
+    "€982.81",
+    "€958.23"
+   ],
+   "why": "With commission: 840 × 1.025 = £861. In euro: £861 ÷ 0.8547 = €1007.37 (each €1 buys only £0.8547).",
+   "hook": "€1 = £0.8547: pounds to euro, divide by 0.8547.",
+   "keys": [
+    "840 × 1.025 = £861",
+    "£861 ÷ 0.8547 = €1007.37"
+   ]
+  },
+  {
+   "id": "2023-P2-Q5:(a):1",
+   "from": "2023-P2-Q5",
+   "q": "A square has sides of 12 cm. Circle c is inside the square and touches all four sides. What is the radius of c?",
+   "right": "6 cm",
+   "wrong": [
+    "12 cm",
+    "8.49 cm",
+    "3 cm"
+   ],
+   "why": "c touches opposite sides, so its diameter is the side of the square, 12 cm. Radius = 12 ÷ 2 = 6 cm.",
+   "hook": "A circle that fits snugly in a square: diameter = side.",
+   "keys": [
+    "its diameter is the side of the square"
+   ]
+  },
+  {
+   "id": "2023-P2-Q5:(b):1",
+   "from": "2023-P2-Q5",
+   "q": "A circle has radius 6 cm. What is its area, correct to 2 decimal places?",
+   "right": "113.10 cm²",
+   "wrong": [
+    "37.70 cm²",
+    "452.39 cm²",
+    "36.00 cm²"
+   ],
+   "why": "Area = πr² = π(6)² = 36π = 113.097… ≈ 113.10 cm².",
+   "hook": "Area πr² (square the radius); 2πr is the circumference.",
+   "keys": [
+    "π(6)² = 36π"
+   ]
+  },
+  {
+   "id": "2023-P2-Q5:(c):1",
+   "from": "2023-P2-Q5",
+   "q": "A circle of area 113.10 cm² fits inside a square of side 12 cm. What percentage of the square’s area does the circle take up, to the nearest percent?",
+   "right": "79%",
+   "wrong": [
+    "127%",
+    "21%",
+    "78%"
+   ],
+   "why": "Square = 12 × 12 = 144 cm². Part ÷ whole × 100: 113.10 ÷ 144 × 100 = 78.54…% ≈ 79%.",
+   "hook": "Percentage = part ÷ whole × 100. The whole goes underneath.",
+   "keys": [
+    "113.10 ÷ 144 × 100 = 78.54"
+   ]
+  },
+  {
+   "id": "2023-P2-Q5:(d):1",
+   "from": "2023-P2-Q5",
+   "q": "Circle k goes through the four corners of a square of side 12 cm, and has the same centre. Which calculation gives the radius of k?",
+   "right": "r = √(6² + 6²)",
+   "wrong": [
+    "r = √(12² + 12²)",
+    "r = √(12² − 6²)",
+    "r = 12 ÷ 2"
+   ],
+   "why": "Centre to corner: across 6 and up 6, so r² = 6² + 6² = 72 and r = √72 = 8.49 cm. √(12² + 12²) is the whole diagonal (the diameter).",
+   "hook": "Radius = half the diagonal: centre to corner.",
+   "keys": [
+    "r² = 6² + 6² = 72"
+   ]
+  },
+  {
+   "id": "2023-P2-Q5:(e):1",
+   "from": "2023-P2-Q5",
+   "q": "Circle k has radius 8.49 cm. What is its circumference, correct to 2 decimal places?",
+   "right": "53.34 cm",
+   "wrong": [
+    "26.67 cm",
+    "106.63 cm",
+    "226.45 cm"
+   ],
+   "why": "Circumference = 2πr = 2π(8.49) = 53.344… ≈ 53.34 cm.",
+   "hook": "Circumference: 2πr, or πd. Not both 2 and d!",
+   "keys": [
+    "2π(8.49) = 53.344"
+   ]
+  },
+  {
+   "id": "2023-P2-Q8:(a):1",
+   "from": "2023-P2-Q8",
+   "q": "A cylindrical paddling pool has internal diameter 2.4 m and depth 0.9 m. It is filled to a depth of 0.75 m. What is the volume of water, to 2 decimal places?",
+   "right": "3.39 m³",
+   "wrong": [
+    "13.57 m³",
+    "4.07 m³",
+    "5.65 m³"
+   ],
+   "why": "r = 2.4 ÷ 2 = 1.2 and the water is 0.75 deep: V = πr²h = π(1.2)²(0.75) = 3.3929… ≈ 3.39 m³.",
+   "hook": "Halve the diameter, and use the depth of the WATER.",
+   "keys": [
+    "π(1.2)²(0.75)"
+   ]
+  },
+  {
+   "id": "2023-P2-Q8:(b)(i):1",
+   "from": "2023-P2-Q8",
+   "q": "Each of 3 pool seats is a cube with sides of 0.5 m. What is the total volume of the 3 seats?",
+   "right": "0.375 m³",
+   "wrong": [
+    "1.5 m³",
+    "0.75 m³",
+    "3.375 m³"
+   ],
+   "why": "One cube: 0.5 × 0.5 × 0.5 = 0.125 m³. Three cubes: 3 × 0.125 = 0.375 m³.",
+   "hook": "Cube volume = side³. A decimal cubed gets smaller.",
+   "keys": [
+    "0.5 × 0.5 × 0.5 = 0.125"
+   ]
+  },
+  {
+   "id": "2023-P2-Q8:(b)(ii):1",
+   "from": "2023-P2-Q8",
+   "q": "A cylindrical pool of radius 1.2 m holds water 0.6 m deep. Seats of total volume 0.375 m³ go fully under water. By how much does the level rise, to 2 decimal places?",
+   "right": "0.08 m",
+   "wrong": [
+    "0.02 m",
+    "0.26 m",
+    "0.68 m"
+   ],
+   "why": "The rise is a cylinder with the seats’ volume: π(1.2)²h = 0.375, so h = 0.375 ÷ 4.524 = 0.0829 ≈ 0.08 m.",
+   "hook": "Rise × πr² = volume put in. The rise, not the new depth.",
+   "keys": [
+    "π(1.2)²h = 0.375"
+   ]
+  },
+  {
+   "id": "2023-P2-Q8:(c)(i):1",
+   "from": "2023-P2-Q8",
+   "q": "A cone-shaped cover has radius 1.3 m and vertical height 0.8 m. What is its slant height l, to 2 decimal places?",
+   "right": "1.53 m",
+   "wrong": [
+    "1.02 m",
+    "2.10 m",
+    "2.72 m"
+   ],
+   "why": "l² = h² + r² = 0.8² + 1.3² = 0.64 + 1.69 = 2.33, so l = √2.33 = 1.526… ≈ 1.53 m.",
+   "hook": "Slant height is the hypotenuse: square, add, square root.",
+   "keys": [
+    "0.64 + 1.69 = 2.33"
+   ]
+  },
+  {
+   "id": "2023-P2-Q8:(c)(ii):1",
+   "from": "2023-P2-Q8",
+   "q": "A cone-shaped cover has radius 1.3 m, vertical height 0.8 m and slant height 1.53 m. What is its curved surface area, to 2 decimal places?",
+   "right": "6.25 m²",
+   "wrong": [
+    "3.27 m²",
+    "11.56 m²",
+    "12.50 m²"
+   ],
+   "why": "Curved surface area = πrl = π(1.3)(1.53) = 6.2486… ≈ 6.25 m². It uses the slant height, not 0.8.",
+   "hook": "Cone skin: πrl. No base: it is a cover.",
+   "keys": [
+    "πrl = π(1.3)(1.53)"
+   ]
+  },
+  {
+   "id": "2023-P2-Q8:(c)(iii):1",
+   "from": "2023-P2-Q8",
+   "q": "A cone (radius 1.3 m, height 0.8 m, slant height 1.53 m) is cut open and laid flat: a sector of radius x. What is x?",
+   "right": "1.53 m",
+   "wrong": [
+    "1.3 m",
+    "0.8 m",
+    "2.6 m"
+   ],
+   "why": "The sector’s radius runs from the tip of the cone down its side to the base, so x is the slant height: 1.53 m.",
+   "hook": "In the net, the slant height becomes the sector’s radius.",
+   "keys": [
+    "x is the slant height"
+   ]
+  },
+  {
+   "id": "2023-P2-Q8:(c)(iii):2",
+   "from": "2023-P2-Q8",
+   "q": "A cone of base radius 1.3 m opens out into a sector of radius 1.53 m. Find the sector’s angle A, to the nearest degree.",
+   "right": "306°",
+   "wrong": [
+    "188°",
+    "153°",
+    "54°"
+   ],
+   "why": "The arc wraps round the base: (A/360) × 2π(1.53) = 2π(1.3), so A = 1.3 × 360 ÷ 1.53 = 305.88… ≈ 306°.",
+   "hook": "Arc of the sector = circumference of the base.",
+   "keys": [
+    "(A/360) × 2π(1.53) = 2π(1.3)"
+   ]
+  },
+  {
+   "id": "2024-P2-Q10:(a)(i):1",
+   "from": "2024-P2-Q10",
+   "q": "The fastest women’s serve at Wimbledon 2023 was 121 miles per hour. Using 1 mile = 1.61 km, how many km is 121 miles?",
+   "right": "194.81 km",
+   "wrong": [
+    "75.16 km",
+    "193.60 km",
+    "1948.10 km"
+   ],
+   "why": "Each mile is 1.61 km, so 121 miles = 121 × 1.61 = 194.81 km. (A km is shorter than a mile, so there are more of them.)",
+   "hook": "Miles to km: × 1.61 — the km number is always bigger.",
+   "keys": [
+    "121 × 1.61 = 194.81"
+   ]
+  },
+  {
+   "id": "2024-P2-Q10:(a)(ii):1",
+   "from": "2024-P2-Q10",
+   "q": "How many seconds are in one hour?",
+   "right": "3600 seconds",
+   "wrong": [
+    "360 seconds",
+    "6000 seconds",
+    "60 seconds"
+   ],
+   "why": "An hour has 60 minutes and each minute has 60 seconds: 60 × 60 = 3600 seconds.",
+   "hook": "Time is in 60s, not 100s: 60 × 60 = 3600.",
+   "keys": [
+    "60 × 60 = 3600"
+   ]
+  },
+  {
+   "id": "2024-P2-Q10:(a)(iii):1",
+   "from": "2024-P2-Q10",
+   "q": "A serve travels at 194.81 km per hour, and 1 hour = 3600 seconds. What is this speed in metres per second, to 2 decimal places?",
+   "right": "54.11 m/s",
+   "wrong": [
+    "0.05 m/s",
+    "701.32 m/s",
+    "3246.83 m/s"
+   ],
+   "why": "194.81 km = 194 810 m, travelled in 3600 s: 194 810 ÷ 3600 = 54.11 m/s.",
+   "hook": "km/h to m/s: × 1000 for metres, ÷ 3600 for seconds.",
+   "keys": [
+    "194 810 ÷ 3600 = 54.11"
+   ]
+  },
+  {
+   "id": "2024-P2-Q10:(b):1",
+   "from": "2024-P2-Q10",
+   "q": "The smallest tennis ball allowed has a radius of 3.27 cm. What is its surface area, to 2 decimal places?",
+   "right": "134.37 cm²",
+   "wrong": [
+    "33.59 cm²",
+    "146.46 cm²",
+    "537.48 cm²"
+   ],
+   "why": "Surface area of a sphere = 4πr² = 4π(3.27)² = 134.3709… ≈ 134.37 cm².",
+   "hook": "Sphere skin: 4πr² (squared, cm²). Volume is (4/3)πr³.",
+   "keys": [
+    "4π(3.27)² = 134.3709"
+   ]
+  },
+  {
+   "id": "2024-P2-Q10:(c):1",
+   "from": "2024-P2-Q10",
+   "q": "A tennis ball has external radius 3.4 cm; its air-filled centre has radius 3.1 cm. What is the volume of the rubber layer, to 2 decimal places?",
+   "right": "39.85 cm³",
+   "wrong": [
+    "0.11 cm³",
+    "24.50 cm³",
+    "164.64 cm³"
+   ],
+   "why": "Whole ball (4/3)π(3.4)³ = 164.636 minus the air (4/3)π(3.1)³ = 124.788 leaves 39.847… ≈ 39.85 cm³.",
+   "hook": "A hollow shell: big volume − small volume, not (big − small)³.",
+   "keys": [
+    "164.636 minus the air"
+   ]
+  },
+  {
+   "id": "2024-P2-Q10:(d)(i):1",
+   "from": "2024-P2-Q10",
+   "q": "Three tennis balls of radius 3.4 cm are stacked one on top of the other in the smallest closed cylinder. What is the height h of the cylinder?",
+   "right": "20.4 cm",
+   "wrong": [
+    "10.2 cm",
+    "6.8 cm",
+    "40.8 cm"
+   ],
+   "why": "Each ball is one diameter tall: 2 × 3.4 = 6.8 cm. Three balls: 3 × 6.8 = 20.4 cm (six radii).",
+   "hook": "Stacked balls: count diameters, not radii.",
+   "keys": [
+    "3 × 6.8 = 20.4"
+   ]
+  },
+  {
+   "id": "2024-P2-Q10:(d)(ii):1",
+   "from": "2024-P2-Q10",
+   "q": "A closed cylinder holds 3 tennis balls exactly: radius 3.4 cm, height 20.4 cm. What is the volume of the cylinder, to the nearest whole number?",
+   "right": "741 cm³",
+   "wrong": [
+    "2963 cm³",
+    "436 cm³",
+    "494 cm³"
+   ],
+   "why": "V = πr²h = π(3.4)²(20.4) = 740.86… ≈ 741 cm³.",
+   "hook": "Cylinder volume: πr²h, with the radius (half the width).",
+   "keys": [
+    "π(3.4)²(20.4)"
+   ]
+  },
+  {
+   "id": "2024-P2-Q10:(d)(iii):1",
+   "from": "2024-P2-Q10",
+   "q": "Three tennis balls of radius 3.4 cm are stacked in the smallest closed rectangular box. What are the box’s dimensions?",
+   "right": "6.8 cm × 6.8 cm × 20.4 cm",
+   "wrong": [
+    "3.4 cm × 3.4 cm × 20.4 cm",
+    "6.8 cm × 20.4 cm × 20.4 cm",
+    "3.4 cm × 3.4 cm × 10.2 cm"
+   ],
+   "why": "One ball must fit across, so the base is one diameter each way, 6.8 by 6.8; the height is three diameters, 20.4.",
+   "hook": "A ball needs a full diameter in every direction.",
+   "keys": [
+    "the base is one diameter each way"
+   ]
+  },
+  {
+   "id": "2024-P2-Q10:(d)(iii):2",
+   "from": "2024-P2-Q10",
+   "q": "A closed rectangular box measures 6.8 cm × 6.8 cm × 20.4 cm. What is its total surface area?",
+   "right": "647.36 cm²",
+   "wrong": [
+    "601.12 cm²",
+    "323.68 cm²",
+    "943.30 cm²"
+   ],
+   "why": "Two square ends 2(6.8 × 6.8) = 92.48 plus four sides 4(6.8 × 20.4) = 554.88: total 647.36 cm².",
+   "hook": "Closed box: six faces, in three matching pairs.",
+   "keys": [
+    "92.48 plus four sides",
+    "647.36"
+   ]
+  }
+ ]
+}
