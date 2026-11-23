@@ -1,0 +1,145 @@
+/* Maths: the working board, the pictures and the answer box (maths/maths-render.js), on the desk's dark guide card
+   and on the maths hub. Colours are the site's: white type on near-black, yellow for what matters now, green right,
+   red wrong, blue for the curve. */
+:root { --mx-ink: #F1F7FB; --mx-soft: #9EB0B9; --mx-line: #37464F; --mx-card: #131F24; --mx-yellow: #FFC800; --mx-green: #58CC02;
+  --mx-red: #FF4B4B; --mx-blue: #1CB0F6; --mx-pink: #FF86D0; --mx-purple: #CE82FF; }
+
+/* The working: each line of maths, the newest bright and the ones before it dimmer, so the eye follows the method. */
+.mx-board { display: flex; flex-direction: column; gap: 2px; margin: 0 0 12px; padding: 10px 14px; border-radius: 14px; background: #0B1418;
+  box-shadow: inset 0 0 0 2px #1E2B31; color: var(--mx-ink); overflow-x: auto; overflow-y: hidden; }
+.mx-board:empty { display: none; }
+.mx-line { color: var(--mx-soft); transition: color .4s ease; }
+.mx-line .katex-display { margin: .22em 0; text-align: left; }
+.mx-line .katex-display > .katex { text-align: left; }
+.mx-line .katex { font-size: 1.22em; }
+.mx-line.is-new { color: var(--mx-ink); }
+.mx-line .mx-hl { padding: 0 .12em; border-radius: .22em; background: rgba(255, 200, 0, .18); color: #FFE27A; }
+.mx-line:not(.is-new) .mx-hl { background: transparent; color: inherit; }
+
+/* Pictures: sized to sit above the step's words without pushing them out of view. */
+.mx-vis { display: flex; justify-content: center; margin: 0 0 12px; }
+.mx-vis > svg { display: block; width: 100%; max-width: 560px; height: auto; max-height: 30vh; }
+.mx-vis--table, .mx-vis--grid, .mx-vis--stem { overflow-x: auto; justify-content: flex-start; }
+.mx-svg { font-family: Nunito, system-ui, sans-serif; }
+.mx-svg text { fill: var(--mx-ink); font-size: 14px; font-weight: 700; }
+.mx-svg .mx-tick { fill: var(--mx-soft); font-size: 12px; font-weight: 700; }
+.mx-svg .mx-axlab { fill: var(--mx-soft); font-size: 13px; }
+.mx-grid line, .mx-svg .mx-gridl { stroke: #1E2B31; stroke-width: 1; }
+.mx-axes line, .mx-svg .mx-axisline { stroke: #6B7F88; stroke-width: 2; }
+.mx-curve { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.mx-curve.mx-c0 { stroke: var(--mx-blue); } .mx-curve.mx-c1 { stroke: var(--mx-pink); } .mx-curve.mx-c2 { stroke: var(--mx-purple); }
+.mx-curve.is-faint { opacity: .45; }
+.mx-svg .mx-flabel.mx-c0 { fill: var(--mx-blue); } .mx-svg .mx-flabel.mx-c1 { fill: var(--mx-pink); } .mx-svg .mx-flabel.mx-c2 { fill: var(--mx-purple); }
+.mx-line2 { fill: none; stroke: var(--mx-purple); stroke-width: 2.5; stroke-dasharray: 7 6; }
+.mx-tangent { fill: none; stroke: var(--mx-yellow); stroke-width: 3; stroke-linecap: round; }
+.mx-svg .mx-tlabel { fill: var(--mx-yellow); font-size: 13px; }
+.mx-pt { fill: #FFFFFF; stroke: #0B1418; stroke-width: 2.5; }
+.mx-pt.is-hl { fill: var(--mx-yellow); }
+.mx-svg .mx-plabel { fill: #FFFFFF; font-size: 13px; }
+/* f′(x) signs */
+.mx-pos { fill: rgba(88, 204, 2, .22); } .mx-neg { fill: rgba(255, 75, 75, .2); }
+.mx-svg .mx-signt { font-size: 13px; }
+.mx-rootline { stroke: var(--mx-yellow); stroke-width: 2; stroke-dasharray: 4 4; }
+/* Solids and shapes */
+.mx-face { fill: rgba(28, 176, 246, .14); stroke: #8FD8FB; stroke-width: 2.5; stroke-linejoin: round; }
+.mx-face.mx-top { fill: rgba(28, 176, 246, .26); } .mx-face.mx-side { fill: rgba(28, 176, 246, .08); }
+.mx-edge { fill: none; stroke: #8FD8FB; stroke-width: 2; }
+.mx-hidden { fill: none; stroke: #8FD8FB; stroke-width: 1.6; stroke-dasharray: 5 5; opacity: .7; }
+.mx-dim line { stroke: var(--mx-soft); stroke-width: 1.6; }
+.mx-svg .mx-dimt { fill: var(--mx-ink); font-size: 15px; }
+.mx-dim.is-hl line { stroke: var(--mx-yellow); stroke-width: 3; }
+.mx-svg .mx-dim.is-hl .mx-dimt, .mx-svg .mx-dimt.is-hl { fill: var(--mx-yellow); }
+.mx-dim.is-hl { animation: mx-pulse 1.4s ease-in-out .9s 2; }
+@keyframes mx-pulse { 50% { opacity: .45; } }
+/* The trapezoidal rule */
+.mx-strip { fill: rgba(28, 176, 246, .2); stroke: #8FD8FB; stroke-width: 1.5; }
+.mx-strip.is-alt { fill: rgba(28, 176, 246, .1); }
+.mx-height { stroke: var(--mx-yellow); stroke-width: 2.5; }
+/* Tables, sample spaces and stem-and-leaf */
+.mx-table { border-collapse: collapse; margin: 0 auto; color: var(--mx-ink); font: 700 15px/1.3 Nunito, system-ui, sans-serif; }
+.mx-table th, .mx-table td { padding: 6px 10px; border: 2px solid #1E2B31; text-align: center; white-space: nowrap; }
+.mx-table th { background: #1A272D; color: var(--mx-soft); }
+.mx-table td.is-hl, .mx-table th.is-hl { background: rgba(255, 200, 0, .3); color: #FFFFFF; }
+.mx-grid-t td { min-width: 34px; font-size: 13px; }
+.mx-grid-t .mx-corner { font-size: 11px; }
+.mx-stem th { border: 0; border-right: 2px solid var(--mx-soft); background: transparent; color: var(--mx-yellow); }
+.mx-stem td { border: 0; text-align: left; letter-spacing: .25em; }
+.mx-stem td.is-left { text-align: right; border-right: 0; }
+.mx-stem caption { caption-side: bottom; padding-top: 6px; color: var(--mx-soft); font-size: 13px; }
+/* Trees and Venn diagrams */
+.mx-branch { stroke: #6B7F88; stroke-width: 2.5; }
+.mx-branch.is-hl { stroke: var(--mx-yellow); stroke-width: 4; }
+.mx-node { fill: #6B7F88; }
+.mx-svg .mx-bp { fill: var(--mx-yellow); font-size: 13px; }
+.mx-svg .mx-blabel { font-size: 15px; }
+.mx-universal { fill: none; stroke: #6B7F88; stroke-width: 2; }
+.mx-universal.is-hl { fill: rgba(255, 200, 0, .12); }
+.mx-set { fill: rgba(28, 176, 246, .16); stroke: #8FD8FB; stroke-width: 2.5; }
+.mx-set.is-b { fill: rgba(255, 134, 208, .14); stroke: #FFB4E3; }
+.mx-set.is-hl { fill: rgba(255, 200, 0, .22); }
+.mx-svg .mx-setname { font-size: 18px; }
+.mx-svg .mx-vnum { font-size: 20px; }
+.mx-svg .mx-vnum.is-hl { fill: var(--mx-yellow); }
+/* Charts */
+.mx-bar { fill: var(--mx-blue); }
+.mx-bar.is-hl { fill: var(--mx-yellow); }
+.mx-mx-bars .mx-bar { stroke: #0B1418; }
+.mx-vis--bars .mx-bar { stroke: #0B1418; stroke-width: 1; }
+.mx-slice { stroke: #0B1418; stroke-width: 2; }
+.mx-slice.mx-s0, .mx-svg text.mx-s0 { fill: var(--mx-blue); } .mx-slice.mx-s1, .mx-svg text.mx-s1 { fill: var(--mx-pink); }
+.mx-slice.mx-s2, .mx-svg text.mx-s2 { fill: var(--mx-yellow); } .mx-slice.mx-s3, .mx-svg text.mx-s3 { fill: var(--mx-green); }
+.mx-slice.mx-s4, .mx-svg text.mx-s4 { fill: var(--mx-purple); } .mx-slice.mx-s5, .mx-svg text.mx-s5 { fill: #FF9600; }
+
+/* The part's own question, as printed (with its maths), at the top of its card. */
+.mx-q { margin: 0 0 12px; padding: 0 0 0 12px; border-left: 3px solid var(--mx-line); color: #C9D6DD; font-size: calc(18px * var(--hf-s, 1)); line-height: 1.45; }
+.mx-q b { color: #FFFFFF; }
+.mx-q .katex { font-size: 1.08em; }
+
+/* "Have a go": the answer box, then right or not. Duolingo-like buttons with a solid bottom edge. */
+.mx-try { margin: 0 0 14px; }
+.mx-try.is-put-away { display: none; }
+.mx-try__row { display: flex; gap: 8px; align-items: stretch; flex-wrap: wrap; }
+.mx-try__in { flex: 1 1 180px; min-width: 0; min-height: 48px; padding: 8px 14px; border: 2px solid var(--mx-line); border-radius: 14px; background: #0B1418; color: #FFFFFF;
+  font: 700 calc(18px * var(--hf-s, 1)) Nunito, system-ui, sans-serif !important; }
+.mx-try__in:focus { outline: 3px solid #FFE14D; outline-offset: 1px; }
+.mx-btn { min-height: 48px; padding: 8px 18px; border: 2px solid var(--mx-line); border-radius: 14px; background: #202F36; box-shadow: 0 4px 0 var(--mx-line); color: var(--mx-ink);
+  font: 600 calc(17px * var(--hf-s, 1)) Fredoka, Nunito, sans-serif !important; cursor: pointer; transition: transform .08s ease, box-shadow .08s ease, background-color .15s ease; }
+.mx-btn:hover { background: #2B3B42; }
+.mx-btn:active { transform: translateY(4px); box-shadow: 0 0 0 var(--mx-line); }
+.mx-btn:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
+.mx-btn--go { border-color: #58A700; background: var(--mx-green); box-shadow: 0 4px 0 #58A700; color: #FFFFFF; }
+.mx-btn--go:hover { background: #61D90A; }
+.mx-try__choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+.mx-try__choices .mx-btn { text-align: left; }
+.mx-btn.is-right { border-color: var(--mx-green); background: #1E3A12; box-shadow: 0 4px 0 #58A700; color: #A5ED6E; }
+.mx-btn.is-wrong { border-color: var(--mx-red); background: #3A1C1F; box-shadow: 0 4px 0 #EA2B2B; color: #FF9C9C; }
+.mx-try__say { margin: 10px 0 0; color: var(--mx-ink); font-size: calc(16px * var(--hf-s, 1)); line-height: 1.45; }
+.mx-try__say b.is-right { color: #A5ED6E; } .mx-try__say b.is-wrong { color: #FF9C9C; }
+.mx-try__say .katex { font-size: 1.05em; }
+.mx-try.is-done .mx-try__in { border-color: #26353C; }
+.mx-try.is-right .mx-try__in { border-color: var(--mx-green); }
+.mx-try__hint { margin: 6px 0 0; color: var(--mx-soft); font-size: calc(14px * var(--hf-s, 1)); }
+
+/* The steps: only the one being explained shows its words (the working above keeps every line). */
+.hf-guide .mx-steps > li:not(.is-now) { display: none !important; }
+.hf-guide .mx-steps > li { font-size: calc(19px * var(--hf-s, 1)); line-height: 1.45; }
+.hf-guide .mx-steps > li > span:last-child:not(#hf-weight) { font-weight: 400 !important; }
+.hf-guide .mx-steps .mx-n { display: inline-grid; place-items: center; min-width: 1.6em; height: 1.6em; margin-right: .45em; border-radius: 50%; background: #202F36; color: var(--mx-yellow);
+  font: 700 .8em Fredoka, sans-serif !important; vertical-align: .08em; }
+.mx-pace { display: flex; align-items: center; gap: 6px; margin: 0 0 12px; }
+.mx-pace__seg { flex: 1; height: 6px; border-radius: 3px; background: var(--mx-line); }
+.mx-pace__seg.is-done { background: var(--mx-green); } .mx-pace__seg.is-now { background: var(--mx-yellow); }
+
+/* The end of a part: the answer, what the scheme wants, one tip. */
+.mx-end { margin: 4px 0 0; padding: 12px 14px; border-radius: 14px; background: #10261A; box-shadow: inset 0 0 0 2px #1E4A2A; color: var(--mx-ink); }
+.mx-end__ans { margin: 0; font: 600 calc(19px * var(--hf-s, 1)) Fredoka, Nunito, sans-serif !important; color: #A5ED6E; }
+.mx-end__ans .katex { font-size: 1.05em; }
+.mx-end__scheme, .mx-end__tip { margin: 8px 0 0; font-size: calc(15px * var(--hf-s, 1)); line-height: 1.45; color: #C9D6DD; }
+.mx-end__scheme b, .mx-end__tip b { color: #FFFFFF; }
+.mx-end__marks { float: right; margin-left: 10px; padding: 2px 10px; border-radius: 999px; background: #1E4A2A; color: #A5ED6E; font: 600 14px/1.6 Fredoka, sans-serif !important; }
+
+@media (max-width: 819px) {
+  .mx-vis > svg { max-height: 26vh; }
+  .mx-line .katex { font-size: 1.08em; }
+}
+@media (prefers-reduced-motion: reduce) { .mx-dim.is-hl { animation: none; } .mx-btn { transition: none; } }

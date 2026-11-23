@@ -1,0 +1,49 @@
+/* The Maths desk (maths/maths-desk.js) on the desk page: the parts of Biology's desk look it shares, made for maths. */
+body.maths-desk .geography-focus-target--3b { display: none !important; }
+body.maths-desk .hf-guide .hf-guide__summary:not(#hf-weight) { margin: 0 0 calc(10px * var(--hf-s, 1)); padding: 0; border: 0; color: #9EB0B9;
+  font: 600 calc(15px * var(--hf-s, 1)) Fredoka, Nunito, sans-serif !important; letter-spacing: .02em; }
+body.maths-desk .hf-guide .hf-guide__summary::before { display: none; }
+body.maths-desk .hf-eye-frame--spotlight { transition: opacity .3s ease; }
+body.maths-desk.hf-whipping .hf-eye-frame--spotlight { opacity: .45; }
+/* The desk page sets Verdana on everything; maths reads in the site's own type. */
+body.maths-desk .hf-guide :is(.mx-q, .mx-try, .mx-try__lead, .mx-try__say, .mx-try__hint, .mx-steps li, .mx-steps li span, .mx-end p, .mx-table) { font-family: Nunito, system-ui, sans-serif !important; }
+/* The guide forces one font, weight and style on everything in it; KaTeX needs its own back. */
+body.maths-desk .hf-guide .katex:not(#hf-weight), body.maths-desk .hf-guide .katex *:not(#hf-weight) { font-family: KaTeX_Main, 'Times New Roman', serif !important; font-weight: 400 !important; font-style: normal !important; }
+body.maths-desk .hf-guide .katex .mathnormal:not(#hf-weight), body.maths-desk .hf-guide .katex .mathnormal *:not(#hf-weight) { font-family: KaTeX_Math, 'Times New Roman', serif !important; font-style: italic !important; }
+body.maths-desk .hf-guide .katex .mathit:not(#hf-weight), body.maths-desk .hf-guide .katex .textit:not(#hf-weight) { font-style: italic !important; }
+body.maths-desk .hf-guide .katex .mathbf:not(#hf-weight), body.maths-desk .hf-guide .katex .textbf:not(#hf-weight), body.maths-desk .hf-guide .katex .mathbf *:not(#hf-weight), body.maths-desk .hf-guide .katex .textbf *:not(#hf-weight) { font-weight: 700 !important; }
+body.maths-desk .hf-guide .katex .boldsymbol:not(#hf-weight) { font-family: KaTeX_Math !important; font-weight: 700 !important; font-style: italic !important; }
+body.maths-desk .hf-guide .katex .amsrm:not(#hf-weight), body.maths-desk .hf-guide .katex .mathbb:not(#hf-weight), body.maths-desk .hf-guide .katex .textbb:not(#hf-weight) { font-family: KaTeX_AMS !important; }
+body.maths-desk .hf-guide .katex .mathcal:not(#hf-weight) { font-family: KaTeX_Caligraphic !important; }
+body.maths-desk .hf-guide .katex .mathsf:not(#hf-weight), body.maths-desk .hf-guide .katex .textsf:not(#hf-weight) { font-family: KaTeX_SansSerif !important; }
+body.maths-desk .hf-guide .katex .mathtt:not(#hf-weight), body.maths-desk .hf-guide .katex .texttt:not(#hf-weight) { font-family: KaTeX_Typewriter !important; }
+body.maths-desk .hf-guide .katex .delimsizing.size1:not(#hf-weight), body.maths-desk .hf-guide .katex .delim-size1 > span:not(#hf-weight), body.maths-desk .hf-guide .katex .op-symbol.small-op:not(#hf-weight) { font-family: KaTeX_Size1 !important; }
+body.maths-desk .hf-guide .katex .delimsizing.size2:not(#hf-weight), body.maths-desk .hf-guide .katex .op-symbol.large-op:not(#hf-weight) { font-family: KaTeX_Size2 !important; }
+body.maths-desk .hf-guide .katex .delimsizing.size3:not(#hf-weight) { font-family: KaTeX_Size3 !important; }
+body.maths-desk .hf-guide .katex .delimsizing.size4:not(#hf-weight), body.maths-desk .hf-guide .katex .delim-size4 > span:not(#hf-weight) { font-family: KaTeX_Size4 !important; }
+body.maths-desk .hf-guide .mx-svg text { font-family: Nunito, system-ui, sans-serif !important; }
+body.maths-desk .hf-guide .mx-try__lead { margin: 0 0 8px; color: #C9D6DD; font-size: calc(16px * var(--hf-s, 1)); }
+body.maths-desk .hf-guide .mx-try__lead b { color: #FFC800; }
+.mx-part-focus[data-hf-target] { pointer-events: none; }
+@media (max-width: 819px) {
+  body.maths-desk .hf-guide { background: #050505; border-radius: 18px 18px 0 0; }
+}
+
+/* When the last part is done: how it went and where next, bottom centre over the desk. */
+.mx-donecard { position: fixed; z-index: 70; left: 50%; bottom: 24px; transform: translateX(-50%); width: min(520px, calc(100vw - 24px)); box-sizing: border-box; padding: 18px 20px;
+  border-radius: 18px; background: #131F24; box-shadow: 0 18px 54px rgba(0, 0, 0, .45); color: #F1F7FB; animation: mx-rise .4s cubic-bezier(.2, .8, .2, 1) both; }
+.mx-donecard__title { margin: 0 0 12px; font: 600 22px/1.25 Fredoka, Nunito, sans-serif !important; }
+.mx-donecard__row { display: flex; flex-wrap: wrap; gap: 10px; }
+.mx-donecard .mx-btn { display: inline-flex; align-items: center; text-decoration: none; }
+@keyframes mx-rise { from { opacity: 0; transform: translate(-50%, 16px); } }
+@media (prefers-reduced-motion: reduce) { .mx-donecard { animation: none; } }
+/* On a phone the card is the bottom half of the screen: a smaller title and picture leave room for the working. */
+@media (max-width: 819px) {
+  body.maths-desk .hf-guide .hf-guide__title:not(#hf-weight) { font-size: 21px !important; line-height: 1.2; }
+  body.maths-desk .hf-guide .mx-vis > svg { max-height: 19vh; }
+  body.maths-desk .hf-guide .mx-board { padding: 6px 10px; margin-bottom: 8px; }
+  body.maths-desk .hf-guide .mx-steps > li { font-size: 17px; }
+  body.maths-desk .hf-guide .mx-q { font-size: 16px; }
+}
+/* Topic titles can be long ("Back-to-back stem-and-leaf plot, correlation and a two-way table"): a size that fits two lines. */
+body.maths-desk .hf-guide .hf-guide__title:not(#hf-weight) { font-size: calc(22px * var(--hf-s, 1)); line-height: 1.2; }

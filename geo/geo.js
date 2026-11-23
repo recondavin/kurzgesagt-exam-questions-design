@@ -68,7 +68,7 @@
   function rules(t) { return (t && t.normalise) || []; }
 
   // ---------- the shell: top bar with the menu (no sidebar, as on the English pages) ----------
-  var SUBJECTS = '<a href="geography.html" aria-current="page">Geography</a><a href="biology.html">Biology</a><a href="english.html">English</a><a href="irish.html">Irish</a><a href="german.html">German</a>';
+  var SUBJECTS = '<a href="geography.html" aria-current="page">Geography</a><a href="biology.html">Biology</a><a href="maths.html">Maths</a><a href="english.html">English</a><a href="irish.html">Irish</a><a href="german.html">German</a>';
   function link(href, label, active, extra) {
     return '<a class="sh-link" href="' + href + '"' + (active ? ' aria-current="page"' : '') + '>' + (extra || '') + '<span class="sh-t">' + esc(label) + '</span></a>';
   }

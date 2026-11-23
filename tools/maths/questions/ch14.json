@@ -1,0 +1,4187 @@
+{
+  "chapter": 14,
+  "title": "Statistics I",
+  "questions": [
+    {
+      "id": "2015-P2-Q6",
+      "year": 2015,
+      "paper": 2,
+      "q": 6,
+      "section": "A",
+      "total": 25,
+      "pages": [
+        8,
+        9
+      ],
+      "topic": "Scatter graphs and correlation; margin of error",
+      "stem": "",
+      "fig": "Three blank scatter-graph grids with axes, labelled (i) Strong positive correlation, (ii) Strong negative correlation and (iii) No correlation.",
+      "table": null,
+      "parts": [
+        {
+          "l": "(a)(i)",
+          "q": "Mark ten or more points on each of the scatter graphs below to show an example of the type of correlation named under each graph.\nStrong positive correlation",
+          "marks": 20,
+          "markNote": "(a)(i), (ii) and (iii) together: 20 marks",
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "At least ten points climbing from bottom left to top right, all close to one straight line."
+          },
+          "scheme": "Scale 20D for (a)(i), (ii) and (iii) together. Full marks: ten or more points on each graph showing the named type of correlation. High partial credit: two types correct, or all three types with fewer than ten points on some. Mid partial: one type correct.",
+          "idea": {
+            "title": "What correlation means",
+            "text": "A scatter graph shows pairs of numbers as dots. Correlation is the pattern in the dots: positive means they go up as you move right, negative means they go down. Strong means the dots lie close to a straight line; weak means they are loosely spread around one.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Strong positive correlation means: as you move to the right, the points go up, and they stay close to one straight line.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "Mark ten or more dots in a thin band climbing from the bottom left to the top right, like the model answer in the marking scheme.",
+              "math": [],
+              "vis": {
+                "t": "scatter",
+                "x": [
+                  0,
+                  14
+                ],
+                "y": [
+                  0,
+                  14
+                ],
+                "pts": [
+                  [
+                    2.5,
+                    2.5
+                  ],
+                  [
+                    3.5,
+                    3
+                  ],
+                  [
+                    5,
+                    4.5
+                  ],
+                  [
+                    5,
+                    5.5
+                  ],
+                  [
+                    7,
+                    6
+                  ],
+                  [
+                    7,
+                    8
+                  ],
+                  [
+                    9,
+                    8.5
+                  ],
+                  [
+                    9.5,
+                    10
+                  ],
+                  [
+                    11,
+                    10.5
+                  ],
+                  [
+                    11.5,
+                    12.5
+                  ]
+                ],
+                "line": null,
+                "xlab": "",
+                "ylab": ""
+              }
+            },
+            {
+              "say": "Count your dots: you need at least ten. Then check that one straight line going up would pass close to every dot. That is a strong positive correlation.",
+              "math": [],
+              "vis": null
+            }
+          ],
+          "tip": "Make each dot clear and count them: fewer than ten dots loses marks even if the pattern is right."
+        },
+        {
+          "l": "(a)(ii)",
+          "q": "Strong negative correlation",
+          "marks": null,
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "At least ten points falling from top left to bottom right, all close to one straight line."
+          },
+          "scheme": "Marked with (a)(i) and (iii) (Scale 20D): ten or more points close to a straight line going down.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Strong negative correlation means: as you move to the right, the points go down. Strong again means they hug one straight line.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "Mark ten or more dots in a thin band falling from the top left to the bottom right.",
+              "math": [],
+              "vis": {
+                "t": "scatter",
+                "x": [
+                  0,
+                  14
+                ],
+                "y": [
+                  0,
+                  14
+                ],
+                "pts": [
+                  [
+                    2,
+                    11
+                  ],
+                  [
+                    2.5,
+                    10
+                  ],
+                  [
+                    4,
+                    8.5
+                  ],
+                  [
+                    5,
+                    8.5
+                  ],
+                  [
+                    5.5,
+                    6.5
+                  ],
+                  [
+                    7.5,
+                    6.5
+                  ],
+                  [
+                    8,
+                    4.5
+                  ],
+                  [
+                    9.5,
+                    4
+                  ],
+                  [
+                    10,
+                    2.5
+                  ],
+                  [
+                    12,
+                    2
+                  ]
+                ],
+                "line": null,
+                "xlab": "",
+                "ylab": ""
+              }
+            },
+            {
+              "say": "Count to ten or more, and check that a single straight line going down would pass close to every dot. That is a strong negative correlation.",
+              "math": [],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(iii)",
+          "q": "No correlation",
+          "marks": null,
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "At least ten points spread over the whole grid with no upward or downward pattern."
+          },
+          "scheme": "Marked with (a)(i) and (ii) (Scale 20D): ten or more points showing no pattern.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "No correlation means knowing one value tells you nothing about the other: there is no trend up or down.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "Spread ten or more dots all over the grid in no pattern, like the model answer in the marking scheme.",
+              "math": [],
+              "vis": {
+                "t": "scatter",
+                "x": [
+                  0,
+                  14
+                ],
+                "y": [
+                  0,
+                  14
+                ],
+                "pts": [
+                  [
+                    2,
+                    12.5
+                  ],
+                  [
+                    7.5,
+                    12
+                  ],
+                  [
+                    12.5,
+                    12
+                  ],
+                  [
+                    13.5,
+                    10.5
+                  ],
+                  [
+                    4.5,
+                    9
+                  ],
+                  [
+                    4,
+                    6
+                  ],
+                  [
+                    8,
+                    5.5
+                  ],
+                  [
+                    2.5,
+                    2.5
+                  ],
+                  [
+                    5,
+                    2
+                  ],
+                  [
+                    6.5,
+                    2.5
+                  ]
+                ],
+                "line": null,
+                "xlab": "",
+                "ylab": ""
+              }
+            },
+            {
+              "say": "Check that no straight line going up or down fits the dots, and that you have not made a curve or a line by accident. That shows no correlation.",
+              "math": [],
+              "vis": null
+            }
+          ],
+          "tip": "Use the whole grid, top to bottom and left to right, so that no trend up or down can show."
+        },
+        {
+          "l": "(b)(i)",
+          "q": "A few days before the Scottish Independence Referendum in September 2014 a YouGov poll estimated the support for the ‘No’ campaign to be 54%.\nIf YouGov sampled 1000 people, find the margin of error.\nWrite your answer as a percentage, correct to one decimal place.",
+          "marks": 5,
+          "markNote": "(b)(i) and (b)(ii) together: 5 marks",
+          "chapter": 15,
+          "answer": {
+            "type": "number",
+            "value": 3.2,
+            "tol": 0.05,
+            "unit": "%"
+          },
+          "scheme": "1/√n = 1/√1000 = 0·03162 = 3·2%. (Scale 5C for (b)(i) and (ii) together.)",
+          "idea": {
+            "title": "Margin of error",
+            "text": "A survey of a sample only estimates the true figure for everyone. At 95% confidence the margin of error is about 1 divided by the square root of the sample size, so a bigger sample gives a smaller margin of error.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Use the margin of error formula. n is the number of people in the sample.",
+              "math": [
+                "E = \\frac{1}{\\sqrt{\\mv{n}{n}}}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Put in n = 1000 and work it out on your calculator.",
+              "math": [
+                "E = \\frac{1}{\\sqrt{\\mv{n}{1000}}}",
+                "E = 0.031622\\ldots"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Change it to a percentage by multiplying by 100, then round to one decimal place. So the margin of error is 3.2%.",
+              "math": [
+                "0.031622\\ldots \\times 100 = 3.162\\ldots\\%",
+                "E \\approx \\hl{3.2\\%}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "Write the formula 1/√n first: it earns marks even if you slip later."
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "Create a 95% confidence interval for the level of support for the ‘No’ campaign in the population.",
+          "marks": null,
+          "chapter": 15,
+          "answer": {
+            "type": "numbers",
+            "values": [
+              50.8,
+              57.2
+            ],
+            "tol": 0.05,
+            "show": "50.8% ≤ p ≤ 57.2%"
+          },
+          "scheme": "p̂ ± 1/√n = 54 ± 3·2, so 50·8% ≤ p ≤ 57·2%.",
+          "idea": {
+            "title": "Confidence interval",
+            "text": "Take the sample's result and go one margin of error below it and one above it. We are 95% confident that the true figure for the whole population lies in that range.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "The poll's result, 54%, is the sample proportion, p̂. The interval goes one margin of error below it and one above it.",
+              "math": [
+                "\\hat{p} - E \\le p \\le \\hat{p} + E"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Put in 54% and the margin of error 3.2% from part (i).",
+              "math": [
+                "54 - 3.2 \\le p \\le 54 + 3.2"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Work out each end. So the 95% confidence interval is 50.8% ≤ p ≤ 57.2%.",
+              "math": [
+                "\\hl{50.8\\%} \\le p \\le \\hl{57.2\\%}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "Write the interval with ≤ signs and a % on both ends."
+        }
+      ]
+    },
+    {
+      "id": "2019-P2-Q1",
+      "year": 2019,
+      "paper": 2,
+      "q": 1,
+      "section": "A",
+      "total": 25,
+      "pages": [
+        4,
+        5
+      ],
+      "topic": "Stem-and-leaf diagram of employees' ages",
+      "stem": "A business has 28 employees.\nTheir ages, in years, are given below.\n32  41  57  64  19  21  35\n18  43  54  63  65  33  22\n39  58  18  42  20  34  21\n49  33  55  34  57  43  63",
+      "fig": "An empty stem-and-leaf diagram with stems 1 to 6 and KEY: 1|9 = 19 years of age.",
+      "table": null,
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "Complete the stem-and-leaf diagram, showing the ages of all 28 employees.",
+          "marks": 10,
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "1 | 8 8 9;  2 | 0 1 1 2;  3 | 2 3 3 4 4 5 9;  4 | 1 2 3 3 9;  5 | 4 5 7 7 8;  6 | 3 3 4 5  (KEY 1|9 = 19 years)"
+          },
+          "scheme": "1 | 8 8 9, 2 | 0 1 1 2, 3 | 2 3 3 4 4 5 9, 4 | 1 2 3 3 9, 5 | 4 5 7 7 8, 6 | 3 3 4 5 (KEY: 1|9 = 19 years of age). Scale 10C: 15 correct entries gets high partial credit; a correct answer without work gets full marks.",
+          "idea": {
+            "title": "Stem-and-leaf diagrams",
+            "text": "Each number is split in two: the stem is the tens digit and the leaf is the units digit. Leaves go on their stem's row in order from smallest to largest, so every value is kept and the diagram shows the shape of the data like a sideways bar chart.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Use the key: 1|9 means 19. The tens digit is the stem and the units digit is the leaf, so 32 splits into stem 3 and leaf 2.",
+              "math": [
+                "\\mv{t}{3}\\mv{u}{2}",
+                "\\mv{t}{3} \\mid \\mv{u}{2}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Go through the ages row by row and write each leaf beside its stem. Tick each age off as you use it, so none is missed or used twice.",
+              "math": [],
+              "vis": {
+                "t": "stem",
+                "rows": [
+                  [
+                    "1",
+                    "9 8 8"
+                  ],
+                  [
+                    "2",
+                    "1 2 0 1"
+                  ],
+                  [
+                    "3",
+                    "2 5 3 9 4 3 4"
+                  ],
+                  [
+                    "4",
+                    "1 3 2 9 3"
+                  ],
+                  [
+                    "5",
+                    "7 4 8 5 7"
+                  ],
+                  [
+                    "6",
+                    "4 3 5 3"
+                  ]
+                ],
+                "key": "1 | 9 = 19 years of age"
+              }
+            },
+            {
+              "say": "Now rewrite each row with its leaves in order, smallest first.",
+              "math": [],
+              "vis": {
+                "t": "stem",
+                "rows": [
+                  [
+                    "1",
+                    "8 8 9"
+                  ],
+                  [
+                    "2",
+                    "0 1 1 2"
+                  ],
+                  [
+                    "3",
+                    "2 3 3 4 4 5 9"
+                  ],
+                  [
+                    "4",
+                    "1 2 3 3 9"
+                  ],
+                  [
+                    "5",
+                    "4 5 7 7 8"
+                  ],
+                  [
+                    "6",
+                    "3 3 4 5"
+                  ]
+                ],
+                "key": "1 | 9 = 19 years of age"
+              }
+            },
+            {
+              "say": "Count the leaves to check: 3 + 4 + 7 + 5 + 5 + 4 = 28, the same as the number of employees. The diagram is complete.",
+              "math": [
+                "3 + 4 + 7 + 5 + 5 + 4 = \\hl{28}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "Count your leaves at the end: the total must equal the number of values (28 here)."
+        },
+        {
+          "l": "(b)",
+          "q": "Find the percentage of employees who are older than 40 years of age.",
+          "marks": 5,
+          "chapter": 14,
+          "answer": {
+            "type": "number",
+            "value": 50,
+            "tol": 1e-09,
+            "unit": "%"
+          },
+          "scheme": "14/28 = 50%. (Correct answer without work: full marks.)",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Older than 40 means the 40s, 50s and 60s rows. Nobody is exactly 40, so every leaf on those rows counts.",
+              "math": [],
+              "vis": {
+                "t": "stem",
+                "rows": [
+                  [
+                    "1",
+                    "8 8 9"
+                  ],
+                  [
+                    "2",
+                    "0 1 1 2"
+                  ],
+                  [
+                    "3",
+                    "2 3 3 4 4 5 9"
+                  ],
+                  [
+                    "4",
+                    "1 2 3 3 9"
+                  ],
+                  [
+                    "5",
+                    "4 5 7 7 8"
+                  ],
+                  [
+                    "6",
+                    "3 3 4 5"
+                  ]
+                ],
+                "key": "1 | 9 = 19 years of age"
+              }
+            },
+            {
+              "say": "Count the leaves on those three rows.",
+              "math": [
+                "5 + 5 + 4 = 14"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Write it as a fraction of all 28 employees and multiply by 100. So 50% of the employees are older than 40.",
+              "math": [
+                "\\frac{14}{28} \\times 100 = \\hl{50\\%}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)(i)",
+          "q": "One employee is chosen at random on a day when all employees are present at work.\nFind the probability that the employee is a teenager (<20 years of age).",
+          "marks": 5,
+          "chapter": 13,
+          "answer": {
+            "type": "number",
+            "value": 0.10714285714285714,
+            "tol": 0.0005,
+            "show": "3/28"
+          },
+          "scheme": "3/28. (Correct answer without work: full marks; a probability greater than 1 gets zero.)",
+          "idea": {
+            "title": "Probability from a list",
+            "text": "When every person is equally likely to be picked, the probability is the number of people who fit, divided by the total number of people.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Teenagers are under 20, so they are on the 1 row: 18, 18 and 19. That is 3 people.",
+              "math": [],
+              "vis": {
+                "t": "stem",
+                "rows": [
+                  [
+                    "1",
+                    "8 8 9"
+                  ],
+                  [
+                    "2",
+                    "0 1 1 2"
+                  ],
+                  [
+                    "3",
+                    "2 3 3 4 4 5 9"
+                  ],
+                  [
+                    "4",
+                    "1 2 3 3 9"
+                  ],
+                  [
+                    "5",
+                    "4 5 7 7 8"
+                  ],
+                  [
+                    "6",
+                    "3 3 4 5"
+                  ]
+                ],
+                "key": "1 | 9 = 19 years of age"
+              }
+            },
+            {
+              "say": "Probability = number of people who fit ÷ total number of people. So the probability is 3/28.",
+              "math": [
+                "P(\\text{teenager}) = \\frac{3}{28}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "A probability can never be more than 1: if yours is, check what you divided by."
+        },
+        {
+          "l": "(c)(ii)",
+          "q": "Find the probability that the employee chosen is a person in their thirties whose age is even or a person in their forties whose age is odd.",
+          "marks": 5,
+          "chapter": 13,
+          "answer": {
+            "type": "number",
+            "value": 0.25,
+            "tol": 1e-09,
+            "show": "7/28 = 1/4"
+          },
+          "scheme": "3/28 + 4/28 = 7/28 (= 1/4).",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Thirties with an even age: on the 3 row, the even leaves are 2, 4 and 4, so 32, 34 and 34. That is 3 people.",
+              "math": [
+                "32,\\ 34,\\ 34 \\rightarrow 3"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Forties with an odd age: on the 4 row, the odd leaves are 1, 3, 3 and 9, so 41, 43, 43 and 49. That is 4 people.",
+              "math": [
+                "41,\\ 43,\\ 43,\\ 49 \\rightarrow 4"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Nobody can be in both groups, so add the two probabilities. So the probability is 7/28, which is 1/4.",
+              "math": [
+                "P = \\frac{3}{28} + \\frac{4}{28}",
+                "P = \\frac{7}{28} = \\hl{\\frac{1}{4}}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "Repeated ages are different people: 34 appears twice, so it counts twice."
+        }
+      ]
+    },
+    {
+      "id": "2020-P2-Q8",
+      "year": 2020,
+      "paper": 2,
+      "q": 8,
+      "section": "B",
+      "total": 55,
+      "pages": [
+        19,
+        20,
+        21
+      ],
+      "topic": "Reading data tables; pie chart angles",
+      "stem": "",
+      "fig": "A table of municipal waste in Ireland 2005–2011; a table of the percentage of energy from six sources in 13 European countries in 2014 (Denmark's renewable value is blank); a table of Ireland's energy percentages with the Renewable angle 22°; and a circle with the 22° Renewable sector drawn.",
+      "table": {
+        "head": [
+          "Year",
+          "Total Waste Collected (Kilotonnes)",
+          "Waste Sent to Landfill (Kilotonnes)"
+        ],
+        "rows": [
+          [
+            "2005",
+            "2779",
+            "1833"
+          ],
+          [
+            "2006",
+            "3100",
+            "1981"
+          ],
+          [
+            "2007",
+            "3175",
+            "2015"
+          ],
+          [
+            "2008",
+            "3104",
+            "1939"
+          ],
+          [
+            "2009",
+            "2825",
+            "1724"
+          ],
+          [
+            "2010",
+            "2580",
+            "1496"
+          ],
+          [
+            "2011",
+            "2547",
+            "1344"
+          ]
+        ]
+      },
+      "parts": [
+        {
+          "l": "(a)(i)",
+          "q": "The table below shows data (measured in kilotonnes) on how municipal waste was dealt with in Ireland from 2005 to 2011.\nFind the difference between the percentage of the waste collected which was sent to landfill in 2005 and the percentage of waste sent to landfill in 2011.\nGive your answer correct to 1 decimal place.",
+          "marks": 5,
+          "chapter": 14,
+          "answer": {
+            "type": "number",
+            "value": 13.2,
+            "tol": 0.05,
+            "unit": "%"
+          },
+          "scheme": "(1833 × 100)/2779 − (1344 × 100)/2547 = 65·95% − 52·77% = 13·18% = 13·2%.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Percentage sent to landfill = landfill ÷ total collected × 100. Do 2005 first.",
+              "math": [
+                "\\text{2005: } \\frac{1833}{2779} \\times 100 = 65.958\\ldots\\%"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Year",
+                  "Total Waste Collected (Kilotonnes)",
+                  "Waste Sent to Landfill (Kilotonnes)"
+                ],
+                "rows": [
+                  [
+                    "2005",
+                    "2779",
+                    "1833"
+                  ],
+                  [
+                    "2006",
+                    "3100",
+                    "1981"
+                  ],
+                  [
+                    "2007",
+                    "3175",
+                    "2015"
+                  ],
+                  [
+                    "2008",
+                    "3104",
+                    "1939"
+                  ],
+                  [
+                    "2009",
+                    "2825",
+                    "1724"
+                  ],
+                  [
+                    "2010",
+                    "2580",
+                    "1496"
+                  ],
+                  [
+                    "2011",
+                    "2547",
+                    "1344"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ]
+                ]
+              }
+            },
+            {
+              "say": "Now 2011, the same way.",
+              "math": [
+                "\\text{2011: } \\frac{1344}{2547} \\times 100 = 52.768\\ldots\\%"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Year",
+                  "Total Waste Collected (Kilotonnes)",
+                  "Waste Sent to Landfill (Kilotonnes)"
+                ],
+                "rows": [
+                  [
+                    "2005",
+                    "2779",
+                    "1833"
+                  ],
+                  [
+                    "2006",
+                    "3100",
+                    "1981"
+                  ],
+                  [
+                    "2007",
+                    "3175",
+                    "2015"
+                  ],
+                  [
+                    "2008",
+                    "3104",
+                    "1939"
+                  ],
+                  [
+                    "2009",
+                    "2825",
+                    "1724"
+                  ],
+                  [
+                    "2010",
+                    "2580",
+                    "1496"
+                  ],
+                  [
+                    "2011",
+                    "2547",
+                    "1344"
+                  ]
+                ],
+                "hl": [
+                  [
+                    6,
+                    1
+                  ],
+                  [
+                    6,
+                    2
+                  ]
+                ]
+              }
+            },
+            {
+              "say": "Subtract the smaller percentage from the bigger one, then round to 1 decimal place. So the difference is 13.2%.",
+              "math": [
+                "65.958\\ldots - 52.768\\ldots = 13.19\\ldots",
+                "\\approx \\hl{13.2\\%}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "Don't subtract the kilotonnes: the question compares two percentages. Keep full calculator values until the end."
+        },
+        {
+          "l": "(a)(ii)",
+          "q": "Find the mean amount of waste collected each year, from 2005 to 2011.\nGive your answer correct to 1 decimal place.",
+          "marks": 10,
+          "chapter": 15,
+          "answer": {
+            "type": "number",
+            "value": 2872.9,
+            "tol": 0.05,
+            "unit": "kilotonnes"
+          },
+          "scheme": "(2779 + 3100 + 3175 + 3104 + 2825 + 2580 + 2547) ÷ 7 = 20110/7 = 2872·857 = 2872·9 kt.",
+          "idea": {
+            "title": "The mean",
+            "text": "The mean is the fair-share average: add up all the values, then divide by how many values there are.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Add the seven values in the 'Total Waste Collected' column.",
+              "math": [
+                "2779 + 3100 + 3175 + 3104 + 2825 + 2580 + 2547 = 20110"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Year",
+                  "Total Waste Collected (Kilotonnes)",
+                  "Waste Sent to Landfill (Kilotonnes)"
+                ],
+                "rows": [
+                  [
+                    "2005",
+                    "2779",
+                    "1833"
+                  ],
+                  [
+                    "2006",
+                    "3100",
+                    "1981"
+                  ],
+                  [
+                    "2007",
+                    "3175",
+                    "2015"
+                  ],
+                  [
+                    "2008",
+                    "3104",
+                    "1939"
+                  ],
+                  [
+                    "2009",
+                    "2825",
+                    "1724"
+                  ],
+                  [
+                    "2010",
+                    "2580",
+                    "1496"
+                  ],
+                  [
+                    "2011",
+                    "2547",
+                    "1344"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    5,
+                    1
+                  ],
+                  [
+                    6,
+                    1
+                  ]
+                ]
+              }
+            },
+            {
+              "say": "There are 7 years, so divide by 7 and round to 1 decimal place. The mean is 2872.9 kilotonnes.",
+              "math": [
+                "\\text{Mean} = \\frac{20110}{7} = 2872.857\\ldots",
+                "\\approx \\hl{2872.9 \\text{ kilotonnes}}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "2005 to 2011 is 7 years, not 6: count the rows."
+        },
+        {
+          "l": "(a)(iii)",
+          "q": "The mean amount of waste sent to landfill in the 4 years from 2009 to 2012 was 1398 kilotonnes. Find the amount of waste sent to landfill in 2012.",
+          "marks": 5,
+          "chapter": 15,
+          "answer": {
+            "type": "number",
+            "value": 1028,
+            "tol": 0.5,
+            "unit": "kilotonnes"
+          },
+          "scheme": "(1724 + 1496 + 1344 + x)/4 = 1398, so 4564 + x = 5592 and x = 1028 kt.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "If 4 years have a mean of 1398, then together they add up to 4 × 1398.",
+              "math": [
+                "\\text{Total} = 4 \\times 1398 = 5592"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Add the three landfill amounts we know: 2009, 2010 and 2011.",
+              "math": [
+                "1724 + 1496 + 1344 = 4564"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Year",
+                  "Total Waste Collected (Kilotonnes)",
+                  "Waste Sent to Landfill (Kilotonnes)"
+                ],
+                "rows": [
+                  [
+                    "2005",
+                    "2779",
+                    "1833"
+                  ],
+                  [
+                    "2006",
+                    "3100",
+                    "1981"
+                  ],
+                  [
+                    "2007",
+                    "3175",
+                    "2015"
+                  ],
+                  [
+                    "2008",
+                    "3104",
+                    "1939"
+                  ],
+                  [
+                    "2009",
+                    "2825",
+                    "1724"
+                  ],
+                  [
+                    "2010",
+                    "2580",
+                    "1496"
+                  ],
+                  [
+                    "2011",
+                    "2547",
+                    "1344"
+                  ]
+                ],
+                "hl": [
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    5,
+                    2
+                  ],
+                  [
+                    6,
+                    2
+                  ]
+                ]
+              }
+            },
+            {
+              "say": "2012 is whatever is left to make the total. So 1028 kilotonnes were sent to landfill in 2012.",
+              "math": [
+                "5592 - 4564 = \\hl{1028 \\text{ kilotonnes}}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "Mean × number of values = total. This lets you work backwards from any mean."
+        },
+        {
+          "l": "(b)(i)",
+          "q": "The table below shows the percentages of all the different types of energy sources used in each of 13 European countries during 2014.\nWhat percentage of the energy used in Denmark in 2014 was renewable?",
+          "marks": 5,
+          "chapter": 14,
+          "answer": {
+            "type": "number",
+            "value": 20,
+            "tol": 1e-09,
+            "unit": "%"
+          },
+          "scheme": "31 + 11 + 13 + 12 + 13 = 80, so 100 − 80 = 20%. (Correct answer without work: full marks.)",
+          "idea": {
+            "title": "Reading a table of percentages",
+            "text": "Each row shows how one country's energy is split up, so the percentages along a row add up to 100%. A missing value is whatever brings the row up to 100.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Each row is one country's whole energy use, so the six percentages in a row add up to 100%. Find Denmark's row.",
+              "math": [],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Country",
+                  "Renewable",
+                  "Oil",
+                  "Solid Fuel",
+                  "Gas",
+                  "Electricity",
+                  "Other"
+                ],
+                "rows": [
+                  [
+                    "Austria",
+                    "25",
+                    "31",
+                    "8",
+                    "17",
+                    "13",
+                    "6"
+                  ],
+                  [
+                    "Bulgaria",
+                    "8",
+                    "19",
+                    "28",
+                    "11",
+                    "11",
+                    "23"
+                  ],
+                  [
+                    "Cyprus",
+                    "5",
+                    "82",
+                    "0",
+                    "0",
+                    "13",
+                    "0"
+                  ],
+                  [
+                    "Denmark",
+                    "",
+                    "31",
+                    "11",
+                    "13",
+                    "12",
+                    "13"
+                  ],
+                  [
+                    "France",
+                    "7",
+                    "26",
+                    "3",
+                    "11",
+                    "12",
+                    "41"
+                  ],
+                  [
+                    "Germany",
+                    "10",
+                    "29",
+                    "22",
+                    "17",
+                    "12",
+                    "10"
+                  ],
+                  [
+                    "Greece",
+                    "9",
+                    "43",
+                    "24",
+                    "9",
+                    "15",
+                    "0"
+                  ],
+                  [
+                    "Ireland",
+                    "6",
+                    "42",
+                    "13",
+                    "24",
+                    "15",
+                    "0"
+                  ],
+                  [
+                    "Latvia",
+                    "31",
+                    "26",
+                    "1",
+                    "20",
+                    "11",
+                    "11"
+                  ],
+                  [
+                    "Luxembourg",
+                    "4",
+                    "61",
+                    "1",
+                    "19",
+                    "12",
+                    "3"
+                  ],
+                  [
+                    "Malta",
+                    "2",
+                    "82",
+                    "0",
+                    "0",
+                    "16",
+                    "0"
+                  ],
+                  [
+                    "Netherlands",
+                    "4",
+                    "38",
+                    "10",
+                    "33",
+                    "10",
+                    "5"
+                  ],
+                  [
+                    "Portugal",
+                    "21",
+                    "38",
+                    "10",
+                    "13",
+                    "15",
+                    "3"
+                  ]
+                ],
+                "hl": [
+                  [
+                    3,
+                    0
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ]
+              }
+            },
+            {
+              "say": "Add the five values Denmark has.",
+              "math": [
+                "31 + 11 + 13 + 12 + 13 = 80"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Renewable is whatever is missing to make 100%. So 20% of Denmark's energy was renewable.",
+              "math": [
+                "100 - 80 = \\hl{20\\%}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "Name the four countries that used a lower percentage of renewable energy than Ireland.",
+          "marks": 5,
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "Cyprus, Luxembourg, Malta and the Netherlands"
+          },
+          "scheme": "Cyprus, Luxembourg, Malta, Netherlands. (Three correct only: high partial credit.)",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Ireland's renewable figure is 6%. Go down the Renewable column looking for numbers smaller than 6.",
+              "math": [],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Country",
+                  "Renewable",
+                  "Oil",
+                  "Solid Fuel",
+                  "Gas",
+                  "Electricity",
+                  "Other"
+                ],
+                "rows": [
+                  [
+                    "Austria",
+                    "25",
+                    "31",
+                    "8",
+                    "17",
+                    "13",
+                    "6"
+                  ],
+                  [
+                    "Bulgaria",
+                    "8",
+                    "19",
+                    "28",
+                    "11",
+                    "11",
+                    "23"
+                  ],
+                  [
+                    "Cyprus",
+                    "5",
+                    "82",
+                    "0",
+                    "0",
+                    "13",
+                    "0"
+                  ],
+                  [
+                    "Denmark",
+                    "",
+                    "31",
+                    "11",
+                    "13",
+                    "12",
+                    "13"
+                  ],
+                  [
+                    "France",
+                    "7",
+                    "26",
+                    "3",
+                    "11",
+                    "12",
+                    "41"
+                  ],
+                  [
+                    "Germany",
+                    "10",
+                    "29",
+                    "22",
+                    "17",
+                    "12",
+                    "10"
+                  ],
+                  [
+                    "Greece",
+                    "9",
+                    "43",
+                    "24",
+                    "9",
+                    "15",
+                    "0"
+                  ],
+                  [
+                    "Ireland",
+                    "6",
+                    "42",
+                    "13",
+                    "24",
+                    "15",
+                    "0"
+                  ],
+                  [
+                    "Latvia",
+                    "31",
+                    "26",
+                    "1",
+                    "20",
+                    "11",
+                    "11"
+                  ],
+                  [
+                    "Luxembourg",
+                    "4",
+                    "61",
+                    "1",
+                    "19",
+                    "12",
+                    "3"
+                  ],
+                  [
+                    "Malta",
+                    "2",
+                    "82",
+                    "0",
+                    "0",
+                    "16",
+                    "0"
+                  ],
+                  [
+                    "Netherlands",
+                    "4",
+                    "38",
+                    "10",
+                    "33",
+                    "10",
+                    "5"
+                  ],
+                  [
+                    "Portugal",
+                    "21",
+                    "38",
+                    "10",
+                    "13",
+                    "15",
+                    "3"
+                  ]
+                ],
+                "hl": [
+                  [
+                    7,
+                    1
+                  ]
+                ]
+              }
+            },
+            {
+              "say": "They are Cyprus (5), Luxembourg (4), Malta (2) and the Netherlands (4). Denmark is 20% from part (i), so it is not lower. The four countries are Cyprus, Luxembourg, Malta and the Netherlands.",
+              "math": [],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Country",
+                  "Renewable",
+                  "Oil",
+                  "Solid Fuel",
+                  "Gas",
+                  "Electricity",
+                  "Other"
+                ],
+                "rows": [
+                  [
+                    "Austria",
+                    "25",
+                    "31",
+                    "8",
+                    "17",
+                    "13",
+                    "6"
+                  ],
+                  [
+                    "Bulgaria",
+                    "8",
+                    "19",
+                    "28",
+                    "11",
+                    "11",
+                    "23"
+                  ],
+                  [
+                    "Cyprus",
+                    "5",
+                    "82",
+                    "0",
+                    "0",
+                    "13",
+                    "0"
+                  ],
+                  [
+                    "Denmark",
+                    "",
+                    "31",
+                    "11",
+                    "13",
+                    "12",
+                    "13"
+                  ],
+                  [
+                    "France",
+                    "7",
+                    "26",
+                    "3",
+                    "11",
+                    "12",
+                    "41"
+                  ],
+                  [
+                    "Germany",
+                    "10",
+                    "29",
+                    "22",
+                    "17",
+                    "12",
+                    "10"
+                  ],
+                  [
+                    "Greece",
+                    "9",
+                    "43",
+                    "24",
+                    "9",
+                    "15",
+                    "0"
+                  ],
+                  [
+                    "Ireland",
+                    "6",
+                    "42",
+                    "13",
+                    "24",
+                    "15",
+                    "0"
+                  ],
+                  [
+                    "Latvia",
+                    "31",
+                    "26",
+                    "1",
+                    "20",
+                    "11",
+                    "11"
+                  ],
+                  [
+                    "Luxembourg",
+                    "4",
+                    "61",
+                    "1",
+                    "19",
+                    "12",
+                    "3"
+                  ],
+                  [
+                    "Malta",
+                    "2",
+                    "82",
+                    "0",
+                    "0",
+                    "16",
+                    "0"
+                  ],
+                  [
+                    "Netherlands",
+                    "4",
+                    "38",
+                    "10",
+                    "33",
+                    "10",
+                    "5"
+                  ],
+                  [
+                    "Portugal",
+                    "21",
+                    "38",
+                    "10",
+                    "13",
+                    "15",
+                    "3"
+                  ]
+                ],
+                "hl": [
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    9,
+                    1
+                  ],
+                  [
+                    10,
+                    1
+                  ],
+                  [
+                    11,
+                    1
+                  ]
+                ]
+              }
+            }
+          ],
+          "tip": "'Lower than' means strictly less: a country with exactly 6% would not count."
+        },
+        {
+          "l": "(b)(iii)",
+          "q": "Name a country which did not use gas as a fuel source.",
+          "marks": 5,
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "Cyprus (Malta is also correct)"
+          },
+          "scheme": "Cyprus or Malta.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Not using gas means 0% in the Gas column.",
+              "math": [],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Country",
+                  "Renewable",
+                  "Oil",
+                  "Solid Fuel",
+                  "Gas",
+                  "Electricity",
+                  "Other"
+                ],
+                "rows": [
+                  [
+                    "Austria",
+                    "25",
+                    "31",
+                    "8",
+                    "17",
+                    "13",
+                    "6"
+                  ],
+                  [
+                    "Bulgaria",
+                    "8",
+                    "19",
+                    "28",
+                    "11",
+                    "11",
+                    "23"
+                  ],
+                  [
+                    "Cyprus",
+                    "5",
+                    "82",
+                    "0",
+                    "0",
+                    "13",
+                    "0"
+                  ],
+                  [
+                    "Denmark",
+                    "",
+                    "31",
+                    "11",
+                    "13",
+                    "12",
+                    "13"
+                  ],
+                  [
+                    "France",
+                    "7",
+                    "26",
+                    "3",
+                    "11",
+                    "12",
+                    "41"
+                  ],
+                  [
+                    "Germany",
+                    "10",
+                    "29",
+                    "22",
+                    "17",
+                    "12",
+                    "10"
+                  ],
+                  [
+                    "Greece",
+                    "9",
+                    "43",
+                    "24",
+                    "9",
+                    "15",
+                    "0"
+                  ],
+                  [
+                    "Ireland",
+                    "6",
+                    "42",
+                    "13",
+                    "24",
+                    "15",
+                    "0"
+                  ],
+                  [
+                    "Latvia",
+                    "31",
+                    "26",
+                    "1",
+                    "20",
+                    "11",
+                    "11"
+                  ],
+                  [
+                    "Luxembourg",
+                    "4",
+                    "61",
+                    "1",
+                    "19",
+                    "12",
+                    "3"
+                  ],
+                  [
+                    "Malta",
+                    "2",
+                    "82",
+                    "0",
+                    "0",
+                    "16",
+                    "0"
+                  ],
+                  [
+                    "Netherlands",
+                    "4",
+                    "38",
+                    "10",
+                    "33",
+                    "10",
+                    "5"
+                  ],
+                  [
+                    "Portugal",
+                    "21",
+                    "38",
+                    "10",
+                    "13",
+                    "15",
+                    "3"
+                  ]
+                ],
+                "hl": [
+                  [
+                    2,
+                    4
+                  ],
+                  [
+                    10,
+                    4
+                  ]
+                ]
+              }
+            },
+            {
+              "say": "Cyprus and Malta both have 0 for gas, so either one is a correct answer: Cyprus.",
+              "math": [],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(iv)",
+          "q": "The table below shows the percentage of the different types of energy that were used in Ireland during 2014.\nIt also shows one of the angles in a pie chart to represent this data.\nThe angle for renewable energy (6%) is 22°.\nComplete the table to show the angle for each energy type.\nGive each angle correct to the nearest degree.",
+          "marks": 10,
+          "chapter": 14,
+          "answer": {
+            "type": "numbers",
+            "values": [
+              151,
+              47,
+              86,
+              54
+            ],
+            "tol": 0.5,
+            "show": "Oil 151°, Solid Fuel 47°, Gas 86°, Electricity 54°"
+          },
+          "scheme": "42/100 × 360 = 151·2 = 151°; 13/100 × 360 = 46·8 = 47°; 24/100 × 360 = 86·4 = 86°; 15/100 × 360 = 54°.",
+          "idea": {
+            "title": "Pie chart angles",
+            "text": "A whole pie is 360°. Each group gets a slice in proportion to its share, so angle = (percentage ÷ 100) × 360°.",
+            "vis": {
+              "t": "pie",
+              "labels": [
+                "Renewable",
+                "Oil",
+                "Solid Fuel",
+                "Gas",
+                "Electricity"
+              ],
+              "vals": [
+                22,
+                151,
+                47,
+                86,
+                54
+              ],
+              "show": "angles"
+            }
+          },
+          "steps": [
+            {
+              "say": "All the energy (100%) is the full circle of 360°. So every 1% is worth 3.6°.",
+              "math": [
+                "100\\% \\rightarrow 360^\\circ",
+                "1\\% \\rightarrow 3.6^\\circ"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Oil is 42% of the energy.",
+              "math": [
+                "\\frac{42}{100} \\times 360 = 151.2 \\approx \\hl{151^\\circ}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Solid fuel is 13%. Round 46.8 up, because .8 is more than .5.",
+              "math": [
+                "\\frac{13}{100} \\times 360 = 46.8 \\approx \\hl{47^\\circ}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Gas is 24% and electricity is 15%.",
+              "math": [
+                "\\frac{24}{100} \\times 360 = 86.4 \\approx \\hl{86^\\circ}",
+                "\\frac{15}{100} \\times 360 = \\hl{54^\\circ}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Check that all five angles add up to 360°. So the angles are Oil 151°, Solid Fuel 47°, Gas 86° and Electricity 54°.",
+              "math": [
+                "22 + 151 + 47 + 86 + 54 = 360^\\circ"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Type",
+                  "Percentage",
+                  "Angle"
+                ],
+                "rows": [
+                  [
+                    "Renewable",
+                    "6",
+                    "22°"
+                  ],
+                  [
+                    "Oil",
+                    "42",
+                    "151°"
+                  ],
+                  [
+                    "Solid Fuel",
+                    "13",
+                    "47°"
+                  ],
+                  [
+                    "Gas",
+                    "24",
+                    "86°"
+                  ],
+                  [
+                    "Electricity",
+                    "15",
+                    "54°"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    4,
+                    2
+                  ]
+                ]
+              }
+            }
+          ],
+          "tip": "Always check that your pie chart angles add up to 360°."
+        },
+        {
+          "l": "(b)(v)",
+          "q": "Complete the pie chart below to show the energy types used in Ireland in 2014.\nLabel each section clearly.",
+          "marks": 10,
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "After the 22° Renewable sector: Oil 151°, Solid Fuel 47°, Gas 86° and Electricity 54°, each sector labelled."
+          },
+          "scheme": "Pie chart with the four new sectors drawn at the angles from (iv). Scale 10D: one, two, three correct new sectors give low, mid, high partial credit; labels omitted: high partial credit.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Put the centre of your protractor on the centre of the circle and line up 0° with the edge of the Renewable sector. Measure 151° and draw the line for Oil.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "From that new line, measure 47° for Solid Fuel, then from the next line 86° for Gas.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "The space that is left should be 54° for Electricity. Measure it to check your drawing.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "Write the name of each energy type in its sector. The finished pie chart has Renewable 22°, Oil 151°, Solid Fuel 47°, Gas 86° and Electricity 54°.",
+              "math": [],
+              "vis": {
+                "t": "pie",
+                "labels": [
+                  "Renewable",
+                  "Oil",
+                  "Solid Fuel",
+                  "Gas",
+                  "Electricity"
+                ],
+                "vals": [
+                  22,
+                  151,
+                  47,
+                  86,
+                  54
+                ],
+                "show": "angles"
+              }
+            }
+          ],
+          "tip": "Labels are worth marks: name every sector."
+        }
+      ]
+    },
+    {
+      "id": "2021-P2-Q5",
+      "year": 2021,
+      "paper": 2,
+      "q": 5,
+      "section": "A",
+      "total": 30,
+      "pages": [
+        12,
+        13
+      ],
+      "topic": "Empirical rule; scatter plot and correlation (height and arm span)",
+      "stem": "",
+      "fig": "(a) A normal curve with 147·9 and 178·7 marked under it. (b)(i) A scatter plot 'Height vs Arm Span' (Height (cm) 125 to 185 across, Arm Span (cm) up to 190) with the 12 females already plotted; (b)(ii) a small table with 0·2, 0·9 and −0·6 to tick.",
+      "table": {
+        "head": [
+          "",
+          "Gender",
+          "Height (cm)",
+          "Arm Span (cm)"
+        ],
+        "rows": [
+          [
+            "1",
+            "F",
+            "162",
+            "155"
+          ],
+          [
+            "2",
+            "F",
+            "169",
+            "174"
+          ],
+          [
+            "3",
+            "F",
+            "164",
+            "144"
+          ],
+          [
+            "4",
+            "F",
+            "157",
+            "160"
+          ],
+          [
+            "5",
+            "F",
+            "160",
+            "160"
+          ],
+          [
+            "6",
+            "F",
+            "170",
+            "170"
+          ],
+          [
+            "7",
+            "F",
+            "174",
+            "170"
+          ],
+          [
+            "8",
+            "F",
+            "159",
+            "154"
+          ],
+          [
+            "9",
+            "F",
+            "153",
+            "148"
+          ],
+          [
+            "10",
+            "F",
+            "167",
+            "167"
+          ],
+          [
+            "11",
+            "F",
+            "150",
+            "152"
+          ],
+          [
+            "12",
+            "F",
+            "139",
+            "129"
+          ],
+          [
+            "13",
+            "M",
+            "168",
+            "169"
+          ],
+          [
+            "14",
+            "M",
+            "147",
+            "150"
+          ],
+          [
+            "15",
+            "M",
+            "134",
+            "121"
+          ],
+          [
+            "16",
+            "M",
+            "177",
+            "176"
+          ],
+          [
+            "17",
+            "M",
+            "172",
+            "170"
+          ],
+          [
+            "18",
+            "M",
+            "160",
+            "163"
+          ],
+          [
+            "19",
+            "M",
+            "152",
+            "151"
+          ],
+          [
+            "20",
+            "M",
+            "153",
+            "151"
+          ]
+        ]
+      },
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "The heights of a given population are normally distributed. 95% of the population fall within the height range [147·9 cm ↔ 178·7 cm].\nUsing the empirical rule, find the mean and the standard deviation of the distribution of heights in the population.",
+          "marks": 10,
+          "chapter": 15,
+          "answer": {
+            "type": "numbers",
+            "values": [
+              163.3,
+              7.7
+            ],
+            "tol": 0.05,
+            "show": "Mean = 163.3 cm, Standard deviation = 7.7 cm"
+          },
+          "scheme": "Mean = (178·7 + 147·9)/2 = 163·3; 4σ = 178·7 − 147·9 so σ = 7·7 (or 2σ = 178·7 − 163·3).",
+          "idea": {
+            "title": "The empirical rule",
+            "text": "For a normal (bell-shaped) distribution, about 68% of values are within 1 standard deviation of the mean, 95% within 2 and 99.7% within 3. The curve is symmetrical, so the mean is in the exact middle.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "The empirical rule says 95% of the data lies within 2 standard deviations of the mean. So the two ends are μ − 2σ and μ + 2σ.",
+              "math": [
+                "\\mu - 2\\sigma = 147.9",
+                "\\mu + 2\\sigma = 178.7"
+              ],
+              "vis": null
+            },
+            {
+              "say": "A normal curve is symmetrical, so the mean is exactly halfway between the two ends.",
+              "math": [
+                "\\mu = \\frac{147.9 + 178.7}{2} = \\frac{326.6}{2} = \\hl{163.3 \\text{ cm}}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "From one end to the other is 4 standard deviations (2 below the mean and 2 above). So the mean is 163.3 cm and the standard deviation is 7.7 cm.",
+              "math": [
+                "4\\sigma = 178.7 - 147.9 = 30.8",
+                "\\sigma = \\frac{30.8}{4} = \\hl{7.7 \\text{ cm}}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "Find the mean first (the middle); then the standard deviation is the distance from the mean to an end, divided by 2."
+        },
+        {
+          "l": "(b)(i)",
+          "q": "The following table shows data on the height and arm span of twenty teenagers.\nComplete the scatter plot below by adding in the data for the males (the data in the shaded section of the table).",
+          "marks": 10,
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "Plot (168, 169), (147, 150), (134, 121), (177, 176), (172, 170), (160, 163), (152, 151) and (153, 151)."
+          },
+          "scheme": "All eight male points plotted as (height, arm span). Scale 10D: one, four, six correct plots give low, mid, high partial credit; all points plotted as (y, x): high partial credit.",
+          "idea": {
+            "title": "Plotting a scatter plot",
+            "text": "Each person in the table becomes one dot. The first variable (height) goes across on the x-axis and the second (arm span) goes up on the y-axis, so each dot sits at (height, arm span).",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Each male is one point: (height, arm span). Height goes across the bottom (x) and arm span goes up the side (y). These are the 12 points already on the plot.",
+              "math": [
+                "\\text{Person 13: } (168,\\ 169)"
+              ],
+              "vis": {
+                "t": "scatter",
+                "x": [
+                  125,
+                  185
+                ],
+                "y": [
+                  120,
+                  190
+                ],
+                "pts": [
+                  [
+                    162,
+                    155
+                  ],
+                  [
+                    169,
+                    174
+                  ],
+                  [
+                    164,
+                    144
+                  ],
+                  [
+                    157,
+                    160
+                  ],
+                  [
+                    160,
+                    160
+                  ],
+                  [
+                    170,
+                    170
+                  ],
+                  [
+                    174,
+                    170
+                  ],
+                  [
+                    159,
+                    154
+                  ],
+                  [
+                    153,
+                    148
+                  ],
+                  [
+                    167,
+                    167
+                  ],
+                  [
+                    150,
+                    152
+                  ],
+                  [
+                    139,
+                    129
+                  ]
+                ],
+                "line": null,
+                "xlab": "Height (cm)",
+                "ylab": "Arm Span (cm)"
+              }
+            },
+            {
+              "say": "Write out the eight points from the shaded rows 13 to 20.",
+              "math": [
+                "(168, 169),\\ (147, 150),\\ (134, 121),\\ (177, 176)",
+                "(172, 170),\\ (160, 163),\\ (152, 151),\\ (153, 151)"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Plot each one: go across to the height, then straight up to the arm span. The grid lines are 5 cm apart, so 168 is a little past halfway from 165 to 170.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "When all eight are in, there are 20 points, and the boys follow the same upward pattern as the girls. The scatter plot is complete.",
+              "math": [],
+              "vis": {
+                "t": "scatter",
+                "x": [
+                  125,
+                  185
+                ],
+                "y": [
+                  120,
+                  190
+                ],
+                "pts": [
+                  [
+                    162,
+                    155
+                  ],
+                  [
+                    169,
+                    174
+                  ],
+                  [
+                    164,
+                    144
+                  ],
+                  [
+                    157,
+                    160
+                  ],
+                  [
+                    160,
+                    160
+                  ],
+                  [
+                    170,
+                    170
+                  ],
+                  [
+                    174,
+                    170
+                  ],
+                  [
+                    159,
+                    154
+                  ],
+                  [
+                    153,
+                    148
+                  ],
+                  [
+                    167,
+                    167
+                  ],
+                  [
+                    150,
+                    152
+                  ],
+                  [
+                    139,
+                    129
+                  ],
+                  [
+                    168,
+                    169
+                  ],
+                  [
+                    147,
+                    150
+                  ],
+                  [
+                    134,
+                    121
+                  ],
+                  [
+                    177,
+                    176
+                  ],
+                  [
+                    172,
+                    170
+                  ],
+                  [
+                    160,
+                    163
+                  ],
+                  [
+                    152,
+                    151
+                  ],
+                  [
+                    153,
+                    151
+                  ]
+                ],
+                "line": null,
+                "xlab": "Height (cm)",
+                "ylab": "Arm Span (cm)"
+              }
+            }
+          ],
+          "tip": "Height across, arm span up: plotting them the wrong way round loses marks."
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "The table on the right shows three numbers.\nOne of the numbers is the correlation coefficient of the data shown in the table above.\nTick (✔) the one which you think best represents the correlation coefficient between height and arm span for this data set.",
+          "marks": 5,
+          "chapter": 14,
+          "answer": {
+            "type": "choice",
+            "options": [
+              "0·2",
+              "0·9",
+              "−0·6"
+            ],
+            "value": 1
+          },
+          "scheme": "0·9. (0·2 ticked: partial credit.)",
+          "idea": {
+            "title": "The correlation coefficient r",
+            "text": "r is a number from −1 to 1 that measures how close the points are to a straight line. Near 1 means strong positive, near −1 means strong negative, and near 0 means little or no correlation.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "The points go up from left to right: taller teenagers have longer arm spans. So the correlation is positive, which rules out −0.6.",
+              "math": [],
+              "vis": {
+                "t": "scatter",
+                "x": [
+                  125,
+                  185
+                ],
+                "y": [
+                  120,
+                  190
+                ],
+                "pts": [
+                  [
+                    162,
+                    155
+                  ],
+                  [
+                    169,
+                    174
+                  ],
+                  [
+                    164,
+                    144
+                  ],
+                  [
+                    157,
+                    160
+                  ],
+                  [
+                    160,
+                    160
+                  ],
+                  [
+                    170,
+                    170
+                  ],
+                  [
+                    174,
+                    170
+                  ],
+                  [
+                    159,
+                    154
+                  ],
+                  [
+                    153,
+                    148
+                  ],
+                  [
+                    167,
+                    167
+                  ],
+                  [
+                    150,
+                    152
+                  ],
+                  [
+                    139,
+                    129
+                  ],
+                  [
+                    168,
+                    169
+                  ],
+                  [
+                    147,
+                    150
+                  ],
+                  [
+                    134,
+                    121
+                  ],
+                  [
+                    177,
+                    176
+                  ],
+                  [
+                    172,
+                    170
+                  ],
+                  [
+                    160,
+                    163
+                  ],
+                  [
+                    152,
+                    151
+                  ],
+                  [
+                    153,
+                    151
+                  ]
+                ],
+                "line": null,
+                "xlab": "Height (cm)",
+                "ylab": "Arm Span (cm)"
+              }
+            },
+            {
+              "say": "The points lie close to a straight line, so the correlation is strong and r is near 1. 0.2 would mean weak, so the answer is 0.9.",
+              "math": [
+                "r \\approx \\hl{0.9}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(iii)",
+          "q": "Explain what this correlation coefficient tells us about the relationship between height and arm span for this data set.",
+          "marks": 5,
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "There is a strong positive (linear) relationship: the taller the teenager, the longer their arm span tends to be."
+          },
+          "scheme": "e.g. There is a strong positive linear relationship between height and arm span, or tall people are very likely to have a long arm span. (Only 'high' or only 'positive': partial credit.)",
+          "idea": null,
+          "steps": [
+            {
+              "say": "0.9 is close to 1, so the relationship is strong: the points are close to a straight line.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "It is positive, so as height goes up, arm span goes up too.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "Say both in context: there is a strong positive relationship between height and arm span, so taller teenagers tend to have longer arm spans.",
+              "math": [],
+              "vis": null
+            }
+          ],
+          "tip": "Use both words, 'strong' and 'positive', and link them to height and arm span."
+        }
+      ]
+    },
+    {
+      "id": "2022-P2-Q4",
+      "year": 2022,
+      "paper": 2,
+      "q": 4,
+      "section": "A",
+      "total": 30,
+      "pages": [
+        10,
+        11
+      ],
+      "topic": "Pie chart; empirical rule; range and standard deviation",
+      "stem": "",
+      "fig": "(a) A circle with the Distinction sector (40°) already drawn. (b) A normal curve with the mean, 100, marked in the middle.",
+      "table": {
+        "head": [
+          "Grade",
+          "Distinction",
+          "High Merit",
+          "Merit",
+          "Achieved"
+        ],
+        "rows": [
+          [
+            "Number of students",
+            "8",
+            "12",
+            "39",
+            "13"
+          ]
+        ]
+      },
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "A group of students sat an exam. Each student was given a grade.\nThe following table shows how many students got each grade.\nComplete the pie chart below to show this information.\nLabel each sector clearly. Show your working out.\nThe sector for Distinction is already given.\nIt has an angle of 40°.",
+          "marks": 15,
+          "chapter": 14,
+          "answer": {
+            "type": "numbers",
+            "values": [
+              60,
+              195,
+              65
+            ],
+            "tol": 1e-09,
+            "show": "High Merit 60°, Merit 195°, Achieved 65° (then draw and label the sectors)"
+          },
+          "scheme": "8 + 12 + 39 + 13 = 72, so 360 ÷ 72 = 5° per person (or 40 ÷ 8 = 5°). High Merit 5 × 12 = 60°, Merit 5 × 39 = 195°, Achieved 5 × 13 = 65°; fully labelled pie chart. (One label missing: full credit −1.)",
+          "idea": {
+            "title": "Pie chart angles",
+            "text": "A whole pie is 360°. Each group gets a share of the 360° in proportion to its size: find the angle for one person, then multiply by the number in each group.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Find the total number of students.",
+              "math": [
+                "8 + 12 + 39 + 13 = 72"
+              ],
+              "vis": null
+            },
+            {
+              "say": "The whole circle, 360°, is shared between 72 students, so each student gets 5°. Check: Distinction has 8 students and 40°, and 40 ÷ 8 = 5.",
+              "math": [
+                "\\frac{360^\\circ}{72} = \\hl{5^\\circ} \\text{ per student}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Multiply each group's number of students by 5°.",
+              "math": [
+                "\\text{High Merit: } 12 \\times 5 = \\hl{60^\\circ}",
+                "\\text{Merit: } 39 \\times 5 = \\hl{195^\\circ}",
+                "\\text{Achieved: } 13 \\times 5 = \\hl{65^\\circ}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Check that the angles add up to 360°.",
+              "math": [
+                "40 + 60 + 195 + 65 = 360^\\circ"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Draw them with a protractor, starting from the edge of the Distinction sector, and label each sector with its grade. So the angles are High Merit 60°, Merit 195° and Achieved 65°.",
+              "math": [],
+              "vis": {
+                "t": "pie",
+                "labels": [
+                  "Distinction",
+                  "High Merit",
+                  "Merit",
+                  "Achieved"
+                ],
+                "vals": [
+                  40,
+                  60,
+                  195,
+                  65
+                ],
+                "show": "angles"
+              }
+            }
+          ],
+          "tip": "For an angle over 180°, like 195°, draw the smaller sectors first: the last gap is the big one."
+        },
+        {
+          "l": "(b)(i)",
+          "q": "A large group of people took a reading test.\nThe scores were normally distributed, with a mean of 100 and a standard deviation of 20.\nUse the empirical rule to answer parts (b)(i) and (b)(ii).\nWhat percentage of the people had scores between 80 and 120?",
+          "marks": 10,
+          "markNote": "(b)(i) and (b)(ii) together: 10 marks",
+          "chapter": 15,
+          "answer": {
+            "type": "number",
+            "value": 68,
+            "tol": 1e-09,
+            "unit": "%"
+          },
+          "scheme": "68%. (Scale 10C for (b)(i) and (ii) together; correct answer without work: full credit.)",
+          "idea": {
+            "title": "The empirical rule",
+            "text": "For a normal distribution, about 68% of values lie within 1 standard deviation of the mean, 95% within 2 and 99.7% within 3.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "80 and 120 are each 20 away from the mean, 100, and 20 is one standard deviation.",
+              "math": [
+                "80 = 100 - 20 = \\mu - \\sigma",
+                "120 = 100 + 20 = \\mu + \\sigma"
+              ],
+              "vis": null
+            },
+            {
+              "say": "The empirical rule says about 68% of the data lies within one standard deviation of the mean. So 68% of the people scored between 80 and 120.",
+              "math": [
+                "\\hl{68\\%}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "The top 2·5% of scores were given a grade of ‘Exceptional’.\nWhat was the least score that was needed to get this grade?",
+          "marks": null,
+          "chapter": 15,
+          "answer": {
+            "type": "number",
+            "value": 140,
+            "tol": 1e-09
+          },
+          "scheme": "100 + 2(20) = 140.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "95% of scores are within 2 standard deviations of the mean: between 60 and 140.",
+              "math": [
+                "100 - 2(20) = 60",
+                "100 + 2(20) = 140"
+              ],
+              "vis": null
+            },
+            {
+              "say": "That leaves 5% outside, split equally between the two ends: 2.5% below 60 and 2.5% above 140.",
+              "math": [
+                "\\frac{100\\% - 95\\%}{2} = 2.5\\%"
+              ],
+              "vis": null
+            },
+            {
+              "say": "So the top 2.5% starts at 140. The least score needed for 'Exceptional' was 140.",
+              "math": [
+                "\\hl{140}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)",
+          "q": "The scores of six people on this test were as follows:\n104,  82,  94,  113,  98,  105\nFind the range and the standard deviation of these numbers.\nGive the standard deviation correct to 1 decimal place.",
+          "marks": 5,
+          "chapter": 15,
+          "answer": {
+            "type": "numbers",
+            "values": [
+              31,
+              9.8
+            ],
+            "tol": 0.05,
+            "show": "Range = 31, Standard deviation = 9.8"
+          },
+          "scheme": "Range = 113 − 82 = 31. Standard deviation = 9·758… = 9·8 (by hand from the mean 596/6 = 99·3, or σ from the calculator). Range given as min and max instead of a number, or wrong rounding: full credit −1.",
+          "idea": {
+            "title": "Range and standard deviation",
+            "text": "The range is the biggest value minus the smallest. The standard deviation measures how spread out the values are around the mean: small means bunched together, big means spread out.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "The range is the largest value minus the smallest.",
+              "math": [
+                "113 - 82 = \\hl{31}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "For the standard deviation, find the mean first.",
+              "math": [
+                "\\mu = \\frac{104 + 82 + 94 + 113 + 98 + 105}{6} = \\frac{596}{6} = 99.33\\ldots"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Square each value's distance from the mean, add them, divide by 6 and take the square root. (Your calculator's statistics mode gives this as σx.)",
+              "math": [
+                "\\sigma = \\sqrt{\\frac{\\sum (x - \\mu)^2}{n}}",
+                "\\sigma = \\sqrt{\\frac{571.33\\ldots}{6}} = 9.758\\ldots"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Round to 1 decimal place. So the range is 31 and the standard deviation is 9.8.",
+              "math": [
+                "\\sigma \\approx \\hl{9.8}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "Give the range as one number (31), not as 82 to 113."
+        }
+      ]
+    },
+    {
+      "id": "2022-P2-Q7",
+      "year": 2022,
+      "paper": 2,
+      "q": 7,
+      "section": "B",
+      "total": 50,
+      "pages": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "topic": "Back-to-back stem-and-leaf plot, correlation and a two-way table",
+      "stem": "An animal shelter takes cats and dogs.",
+      "fig": "(a)(i) An empty back-to-back stem-and-leaf grid: Day X leaves on the left, stems 4 to 8, Day Y leaves on the right, Key: 6 | 0 = 6·0 kg. (a)(iii) Tick boxes for −0·9, −0·2, 0·2 and 0·9. (b) A two-way table of cats and dogs by sex with four blanks.",
+      "table": {
+        "head": [
+          "Animal",
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J"
+        ],
+        "rows": [
+          [
+            "Weight Day X (kg)",
+            "4·5",
+            "4·9",
+            "5·3",
+            "5·3",
+            "5·5",
+            "5·7",
+            "6·7",
+            "6·9",
+            "7·3",
+            "7·4"
+          ],
+          [
+            "Weight Day Y (kg)",
+            "4·8",
+            "5·4",
+            "5·5",
+            "6·1",
+            "6·3",
+            "6·0",
+            "7·0",
+            "7·6",
+            "8·1",
+            "7·9"
+          ]
+        ]
+      },
+      "parts": [
+        {
+          "l": "(a)(i)",
+          "q": "The staff record the weight of each animal in the shelter on two different days: the day they are taken in to the shelter (Day X) and a number of days later (Day Y).\nThe table below shows the weights of 10 dogs (labelled A to J) on these two days.\nDraw a back-to-back stem-and-leaf plot to show this information.",
+          "marks": 15,
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "Day X | stem | Day Y:  9 5 | 4 | 8;  7 5 3 3 | 5 | 4 5;  9 7 | 6 | 0 1 3;  4 3 | 7 | 0 6 9;  | 8 | 1"
+          },
+          "scheme": "Day X leaves (left) | stem | Day Y leaves (right): 9 5 | 4 | 8; 7 5 3 3 | 5 | 4 5; 9 7 | 6 | 0 1 3; 4 3 | 7 | 0 6 9; | 8 | 1. Scale 15D: 5, 10, 15 correct values give low, mid, high partial credit; 19 correct: full credit −1. Values not in order are accepted, but gaps on rows are penalised once.",
+          "idea": {
+            "title": "Back-to-back stem-and-leaf plots",
+            "text": "Two sets of data share the same stems in the middle. One set's leaves go out to the right and the other set's go out to the left, each with its smallest leaf next to the stem, so you can compare the two shapes side by side.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Use the key: 6 | 0 = 6.0 kg. The stem is the whole kilograms and the leaf is the tenths, so 4.5 kg is stem 4, leaf 5.",
+              "math": [
+                "\\mv{w}{4}.\\mv{f}{5} \\text{ kg}",
+                "\\mv{w}{4} \\mid \\mv{f}{5}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Fill in Day Y on the right of the stems, leaves in order going outwards: 4.8; 5.4, 5.5; 6.0, 6.1, 6.3; 7.0, 7.6, 7.9; 8.1.",
+              "math": [],
+              "vis": {
+                "t": "stem",
+                "rows": [
+                  [
+                    "4",
+                    "8"
+                  ],
+                  [
+                    "5",
+                    "4 5"
+                  ],
+                  [
+                    "6",
+                    "0 1 3"
+                  ],
+                  [
+                    "7",
+                    "0 6 9"
+                  ],
+                  [
+                    "8",
+                    "1"
+                  ]
+                ],
+                "left": [
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                "key": "6 | 0 = 6·0 kg"
+              }
+            },
+            {
+              "say": "Fill in Day X on the left. The smallest leaf goes next to the stem and they get bigger going out to the left: 4.5, 4.9 become 9 5; 5.3, 5.3, 5.5, 5.7 become 7 5 3 3; then 9 7 and 4 3.",
+              "math": [],
+              "vis": {
+                "t": "stem",
+                "rows": [
+                  [
+                    "4",
+                    "8"
+                  ],
+                  [
+                    "5",
+                    "4 5"
+                  ],
+                  [
+                    "6",
+                    "0 1 3"
+                  ],
+                  [
+                    "7",
+                    "0 6 9"
+                  ],
+                  [
+                    "8",
+                    "1"
+                  ]
+                ],
+                "left": [
+                  "9 5",
+                  "7 5 3 3",
+                  "9 7",
+                  "4 3",
+                  ""
+                ],
+                "key": "6 | 0 = 6·0 kg"
+              }
+            },
+            {
+              "say": "Count the leaves: 10 on each side, one for each dog. The back-to-back plot is complete.",
+              "math": [
+                "\\text{Day X: } 2 + 4 + 2 + 2 = 10",
+                "\\text{Day Y: } 1 + 2 + 3 + 3 + 1 = 10"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "Fill every row with no gaps, and keep the leaves in order outwards from the stem."
+        },
+        {
+          "l": "(a)(ii)",
+          "q": "What does the stem-and-leaf plot show about the weights of the dogs on Day X and Day Y ?",
+          "marks": 5,
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "The weights of the dogs increased from Day X to Day Y."
+          },
+          "scheme": "That the weight of the dogs has increased from Day X to Day Y. The word 'increase' or similar must feature.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Compare the two sides. On Day X most leaves are on the 5 row; on Day Y they have moved down to the 6 and 7 rows, and one dog reaches the 8 row.",
+              "math": [],
+              "vis": {
+                "t": "stem",
+                "rows": [
+                  [
+                    "4",
+                    "8"
+                  ],
+                  [
+                    "5",
+                    "4 5"
+                  ],
+                  [
+                    "6",
+                    "0 1 3"
+                  ],
+                  [
+                    "7",
+                    "0 6 9"
+                  ],
+                  [
+                    "8",
+                    "1"
+                  ]
+                ],
+                "left": [
+                  "9 5",
+                  "7 5 3 3",
+                  "9 7",
+                  "4 3",
+                  ""
+                ],
+                "key": "6 | 0 = 6·0 kg"
+              }
+            },
+            {
+              "say": "The table agrees: every dog is heavier on Day Y than on Day X (A goes from 4.5 to 4.8 kg, B from 4.9 to 5.4 kg, and so on).",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "So the plot shows that the weights of the dogs increased from Day X to Day Y.",
+              "math": [],
+              "vis": null
+            }
+          ],
+          "tip": "The scheme needs the word 'increased' (or similar) in your answer."
+        },
+        {
+          "l": "(a)(iii)",
+          "q": "$r$ is the correlation coefficient between the weight on Day X and the weight on Day Y.\nBased on the data in the table, pick the most likely value of $r$ from the list below.\nGive a reason for your answer, based on the data in the table.\nMost likely value of $r$:  −0·9   −0·2   0·2   0·9",
+          "marks": 5,
+          "chapter": 14,
+          "answer": {
+            "type": "choice",
+            "options": [
+              "−0·9",
+              "−0·2",
+              "0·2",
+              "0·9"
+            ],
+            "value": 3
+          },
+          "scheme": "0·9. Reason: there's a strong positive linear relationship, or the dogs' weights all increased by roughly the same amount, or the points would lie close to a straight line. (Value without a valid reason, or calculator r = 0·979… alone: partial credit.)",
+          "idea": {
+            "title": "The correlation coefficient r",
+            "text": "r is a number from −1 to 1. Close to 1: strong positive (both go up together). Close to −1: strong negative. Close to 0: little or no link.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Think of each dog as a point (Day X weight, Day Y weight). The dogs that were heaviest on Day X are still the heaviest on Day Y.",
+              "math": [],
+              "vis": {
+                "t": "scatter",
+                "x": [
+                  4,
+                  8
+                ],
+                "y": [
+                  4,
+                  8.5
+                ],
+                "pts": [
+                  [
+                    4.5,
+                    4.8
+                  ],
+                  [
+                    4.9,
+                    5.4
+                  ],
+                  [
+                    5.3,
+                    5.5
+                  ],
+                  [
+                    5.3,
+                    6.1
+                  ],
+                  [
+                    5.5,
+                    6.3
+                  ],
+                  [
+                    5.7,
+                    6.0
+                  ],
+                  [
+                    6.7,
+                    7.0
+                  ],
+                  [
+                    6.9,
+                    7.6
+                  ],
+                  [
+                    7.3,
+                    8.1
+                  ],
+                  [
+                    7.4,
+                    7.9
+                  ]
+                ],
+                "line": null,
+                "xlab": "Weight Day X (kg)",
+                "ylab": "Weight Day Y (kg)"
+              }
+            },
+            {
+              "say": "So as X goes up, Y goes up: the correlation is positive. That rules out −0.9 and −0.2.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "The points lie very close to a straight line, so the correlation is strong: r = 0.9, not 0.2. A calculator gives r = 0.979…, which agrees.",
+              "math": [
+                "r \\approx \\hl{0.9}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)",
+          "q": "The table below shows the breakdown of the animals in the shelter, by type of animal (cat or dog) and by sex (male or female), on a particular Monday.\nComplete the table, by filling in the four missing values.",
+          "marks": 10,
+          "chapter": 14,
+          "answer": {
+            "type": "numbers",
+            "values": [
+              15,
+              26,
+              16,
+              24
+            ],
+            "tol": 1e-09,
+            "show": "Dogs: Female 15, Total 26.  Total: Male 16, Female 24."
+          },
+          "scheme": "Dogs: Male 11, Female 15, Total 26. Total: Male 16, Female 24, 40. Scale 10D: 1, 2, 3 correct values give low, mid, high partial credit.",
+          "idea": {
+            "title": "Two-way tables",
+            "text": "A two-way table sorts the same group in two ways at once (here cat/dog and male/female). Each row adds across to its total and each column adds down to its total, so one missing value can always be found from the others.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Every row and every column adds up to its total. Start with what you can find straight away: the dogs' total is all animals minus the cats.",
+              "math": [
+                "40 - 14 = \\hl{26} \\text{ dogs}"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Male",
+                  "Female",
+                  "Total"
+                ],
+                "rows": [
+                  [
+                    "Cats",
+                    "5",
+                    "9",
+                    "14"
+                  ],
+                  [
+                    "Dogs",
+                    "11",
+                    "",
+                    ""
+                  ],
+                  [
+                    "Total",
+                    "",
+                    "",
+                    "40"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    3
+                  ]
+                ]
+              }
+            },
+            {
+              "say": "Female dogs are the dogs that are not male.",
+              "math": [
+                "26 - 11 = \\hl{15}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Now add down the columns for the male and female totals.",
+              "math": [
+                "\\text{Male: } 5 + 11 = \\hl{16}",
+                "\\text{Female: } 9 + 15 = \\hl{24}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Check: 16 + 24 = 40. So the missing values are 15 and 26 for dogs, and 16 and 24 in the Total row.",
+              "math": [
+                "16 + 24 = 40"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Male",
+                  "Female",
+                  "Total"
+                ],
+                "rows": [
+                  [
+                    "Cats",
+                    "5",
+                    "9",
+                    "14"
+                  ],
+                  [
+                    "Dogs",
+                    "11",
+                    "15",
+                    "26"
+                  ],
+                  [
+                    "Total",
+                    "16",
+                    "24",
+                    "40"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    1,
+                    3
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ]
+              }
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)(i)",
+          "q": "Three different animals were picked at random from the animals in the shelter on this Monday.\nFind the probability that the first animal picked was a cat.",
+          "marks": 5,
+          "markNote": "(c)(i) and (c)(ii) together: 5 marks",
+          "chapter": 13,
+          "answer": {
+            "type": "number",
+            "value": 0.35,
+            "tol": 1e-09,
+            "show": "14/40 = 7/20"
+          },
+          "scheme": "P(cat) = 14/40 or 7/20. (Scale 5D for (c)(i) and (ii) together.)",
+          "idea": null,
+          "steps": [
+            {
+              "say": "There are 14 cats out of 40 animals.",
+              "math": [],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Male",
+                  "Female",
+                  "Total"
+                ],
+                "rows": [
+                  [
+                    "Cats",
+                    "5",
+                    "9",
+                    "14"
+                  ],
+                  [
+                    "Dogs",
+                    "11",
+                    "15",
+                    "26"
+                  ],
+                  [
+                    "Total",
+                    "16",
+                    "24",
+                    "40"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    2,
+                    3
+                  ]
+                ]
+              }
+            },
+            {
+              "say": "Probability = cats ÷ all animals. So the probability is 14/40, which is 7/20.",
+              "math": [
+                "P(\\text{cat}) = \\frac{14}{40} = \\hl{\\frac{7}{20}}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)(ii)",
+          "q": "Find the probability that all three animals picked were male dogs.\nGive your answer correct to 3 decimal places.",
+          "marks": null,
+          "chapter": 13,
+          "answer": {
+            "type": "number",
+            "value": 0.017,
+            "tol": 0.0005
+          },
+          "scheme": "11/40 × 10/39 × 9/38 = 33/1976 = 0·0167 = 0·017. (Incorrect rounding: full credit −1.)",
+          "idea": {
+            "title": "Picking without replacement",
+            "text": "When the same item can't be picked twice, each pick leaves one fewer: both the top (what you want) and the bottom (the total) go down by one. 'And' means multiply the probabilities.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "There are 11 male dogs out of 40 animals, so the first pick is 11/40.",
+              "math": [
+                "\\frac{11}{40}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "The animals are different, so one male dog has gone: now 10 male dogs out of 39. Then 9 out of 38.",
+              "math": [
+                "\\frac{11}{40} \\times \\frac{10}{39} \\times \\frac{9}{38}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Multiply, then round to 3 decimal places. So the probability is 0.017.",
+              "math": [
+                "= \\frac{990}{59280} = 0.01670\\ldots",
+                "\\approx \\hl{0.017}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "Three different animals: the totals go 40, 39, 38."
+        },
+        {
+          "l": "(d)",
+          "q": "The 9 female cats were put in 9 separate pens.\nWork out the number of ways in which this could have been done\n(that is, the number of different possible arrangements).",
+          "marks": 5,
+          "chapter": 12,
+          "answer": {
+            "type": "number",
+            "value": 362880,
+            "tol": 1e-09
+          },
+          "scheme": "9! = 362 880.",
+          "idea": {
+            "title": "Arrangements",
+            "text": "To arrange n different things in a row of n places, multiply n × (n − 1) × … × 1, which is written n!.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "The first pen can have any of the 9 cats, the next pen any of the 8 left, then 7, and so on down to 1.",
+              "math": [
+                "9 \\times 8 \\times 7 \\times 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1"
+              ],
+              "vis": null
+            },
+            {
+              "say": "That product is 9 factorial (the n! button on your calculator). So there are 362 880 arrangements.",
+              "math": [
+                "9! = \\hl{362\\,880}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(e)",
+          "q": "By the end of this week, 10 of the animals had left the shelter, and no new animals had been taken in. If an animal was picked at random at the end of this week, the probability of picking a dog would be $\\frac{11}{15}$.\nWork out how many cats left the shelter during this week.",
+          "marks": 5,
+          "chapter": 13,
+          "answer": {
+            "type": "number",
+            "value": 6,
+            "tol": 1e-09
+          },
+          "scheme": "40 − 10 = 30 animals at the end of the week; P(dog) = 22/30 = 11/15, so 22 dogs remain; 30 − 22 = 8 cats remain; 14 − 8 = 6 cats left.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "10 of the 40 animals left, so 30 are still there.",
+              "math": [
+                "40 - 10 = 30"
+              ],
+              "vis": null
+            },
+            {
+              "say": "The probability of a dog is 11/15, so 11/15 of the 30 animals are dogs.",
+              "math": [
+                "\\frac{11}{15} \\times 30 = 22 \\text{ dogs}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "The rest of the 30 are cats.",
+              "math": [
+                "30 - 22 = 8 \\text{ cats remain}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "There were 14 cats at the start of the week. So 6 cats left the shelter.",
+              "math": [
+                "14 - 8 = \\hl{6}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "Write each step's meaning in words (animals left, dogs left, cats left): the scheme marks each step."
+        }
+      ]
+    },
+    {
+      "id": "2023-P2-Q9",
+      "year": 2023,
+      "paper": 2,
+      "q": 9,
+      "section": "B",
+      "total": 50,
+      "pages": [
+        24,
+        25,
+        26
+      ],
+      "topic": "Grouped data, sampling bias, histogram; hypothesis test",
+      "stem": "",
+      "fig": "A grouped frequency table of minutes spent reading per day by 200 students, and a blank grid for drawing a graph or chart.",
+      "table": {
+        "head": [
+          "Minutes spent reading per day",
+          "0 − 30",
+          "30 − 60",
+          "60 − 90",
+          "90 − 120",
+          "120 − 150",
+          "150 − 180"
+        ],
+        "rows": [
+          [
+            "Number of students",
+            "16",
+            "35",
+            "62",
+            "59",
+            "18",
+            "10"
+          ]
+        ]
+      },
+      "parts": [
+        {
+          "l": "(a)(i)",
+          "q": "A group of students decided to investigate the average amount of time that students in Ireland spend reading each day.\nOne Monday morning, they asked the first 200 students who came into their school how long, on average, they spend reading each day. Their results are shown in the table below.\nNote: 30 − 60 means “30 minutes or more, but less than 60 minutes”, and so on.\nWork out the maximum number of students in this sample who, on average, could have read for more than 100 minutes per day.",
+          "marks": 10,
+          "markNote": "(a)(i) and (a)(iii) together: 10 marks",
+          "chapter": 14,
+          "answer": {
+            "type": "number",
+            "value": 87,
+            "tol": 1e-09
+          },
+          "scheme": "59 + 18 + 10 = 87. (Scale 10C for (a)(i) and (iii) together.)",
+          "idea": {
+            "title": "Grouped frequency tables",
+            "text": "A grouped table only tells you how many values are in each class (like 90 − 120), not the exact values. So when a cut-off falls inside a class, you can only give the largest or smallest possible count.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "100 minutes is inside the 90 − 120 class. We don't know exactly where those 59 students are in that class, so for the maximum, assume all of them read more than 100 minutes.",
+              "math": [],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Minutes spent reading per day",
+                  "0 − 30",
+                  "30 − 60",
+                  "60 − 90",
+                  "90 − 120",
+                  "120 − 150",
+                  "150 − 180"
+                ],
+                "rows": [
+                  [
+                    "Number of students",
+                    "16",
+                    "35",
+                    "62",
+                    "59",
+                    "18",
+                    "10"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    5
+                  ],
+                  [
+                    0,
+                    6
+                  ]
+                ]
+              }
+            },
+            {
+              "say": "Add them to everyone in the higher classes. So at most 87 students could have read for more than 100 minutes.",
+              "math": [
+                "59 + 18 + 10 = \\hl{87}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "'Maximum' means count the whole class that the cut-off falls in."
+        },
+        {
+          "l": "(a)(ii)",
+          "q": "Estimate the median time spent reading by these 200 students, as accurately as possible.\nJustify your answer.",
+          "marks": 5,
+          "chapter": 15,
+          "answer": {
+            "type": "number",
+            "value": 74.99,
+            "tol": 15,
+            "unit": "minutes",
+            "show": "Any value with 60 ≤ median < 90, e.g. 75 minutes (the 100th and 101st students are in the 60 − 90 class)"
+          },
+          "scheme": "Any value of the median in the range 60 ≤ median < 90. ([60 − 90] interval indicated: high partial credit; answer 90: low partial credit; the mean 83·7: zero.)",
+          "idea": {
+            "title": "The median of grouped data",
+            "text": "The median is the middle value when the data are in order. In a grouped table, add up the frequencies class by class: the class where the running total passes the halfway point holds the median.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "The median is the middle student. With 200 students in order, the middle is between the 100th and the 101st.",
+              "math": [
+                "\\frac{200}{2} = 100"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Keep a running total of the students, class by class, until you pass 100.",
+              "math": [
+                "\\text{0 to 30: } 16",
+                "\\text{0 to 60: } 16 + 35 = 51",
+                "\\text{0 to 90: } 51 + 62 = \\hl{113}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "The 100th and 101st students are in the 60 − 90 class, so the median is between 60 and 90 minutes. A good estimate is the middle of that class: 75 minutes.",
+              "math": [
+                "60 \\le \\text{median} < 90",
+                "\\text{median} \\approx \\hl{75 \\text{ minutes}}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "Any value from 60 up to (not including) 90 earns full marks if you justify it with the running totals."
+        },
+        {
+          "l": "(a)(iii)",
+          "q": "Explain why the method of choosing the students for this survey could limit the validity of the conclusions.",
+          "marks": null,
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "The sample is not random or representative: the first 200 students into one school (e.g. local students, or those off the same bus) may not represent all students in Ireland."
+          },
+          "scheme": "e.g. Might be local students getting there first, or students arriving together by school buses; might not be representative; leaves out students who arrive later to school.",
+          "idea": {
+            "title": "Bias in sampling",
+            "text": "A sample should be a fair mini-version of the whole population. If the way people are chosen makes some groups more likely to be picked than others, the sample is biased and conclusions about everyone may be wrong.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "A good sample is random, so that it represents everyone being studied: here, all students in Ireland.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "They only asked the first 200 students to arrive at one school on one Monday morning. These could be local students, or students who all came on the same early bus, and they all go to the same school.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "So the sample may not be representative (it is biased), and its results may not be true for all students in Ireland.",
+              "math": [],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(iv)",
+          "q": "Draw a graph or chart to represent the data in the table.\nShow clearly any relevant calculations. Label your graph or chart clearly.",
+          "marks": 15,
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "A histogram: minutes spent reading per day (0 to 180 in 30-minute classes) across, number of students up, touching bars of heights 16, 35, 62, 59, 18 and 10, with labelled axes."
+          },
+          "scheme": "A histogram (or a pie chart, or another suitable graph/chart) of the six classes. Scale 15C: four intervals drawn correctly: high partial credit; no labels: full credit −1.",
+          "idea": {
+            "title": "Histograms",
+            "text": "A histogram is a bar chart for continuous data in classes. The classes run along the x-axis with no gaps, and each bar's height shows how many values are in that class.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "The data is continuous (time) in equal classes of 30 minutes, so a histogram is a good choice: the bars touch, with no gaps.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "Draw the axes: minutes spent reading per day across, from 0 to 180 in steps of 30; number of students up, from 0 to 70 in steps of 10.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "Draw a bar over each class with height equal to its number of students: 16, 35, 62, 59, 18 and 10.",
+              "math": [],
+              "vis": {
+                "t": "bars",
+                "kind": "hist",
+                "labels": [
+                  "0–30",
+                  "30–60",
+                  "60–90",
+                  "90–120",
+                  "120–150",
+                  "150–180"
+                ],
+                "vals": [
+                  16,
+                  35,
+                  62,
+                  59,
+                  18,
+                  10
+                ],
+                "ylab": "Number of students"
+              }
+            },
+            {
+              "say": "Label both axes and give the graph a title. The finished histogram shows most students read for 60 to 120 minutes a day.",
+              "math": [],
+              "vis": null
+            }
+          ],
+          "tip": "Label both axes: a missing label costs a mark."
+        },
+        {
+          "l": "(b)(i)",
+          "q": "A random sample of 500 students in Cork took a statistics test.\n61 of these students were given a rating of Excellent.\nWork out the percentage of students in this sample who were given a rating of Excellent.",
+          "marks": 10,
+          "chapter": 15,
+          "answer": {
+            "type": "number",
+            "value": 12.2,
+            "tol": 0.05,
+            "unit": "%"
+          },
+          "scheme": "p̂ = 61/500 = 0·122 × 100 = 12·2%.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "The sample proportion is the number rated Excellent out of the 500 in the sample.",
+              "math": [
+                "\\hat{p} = \\frac{61}{500} = 0.122"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Multiply by 100 to get a percentage. So 12.2% of the sample were rated Excellent.",
+              "math": [
+                "0.122 \\times 100 = \\hl{12.2\\%}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "Show that the margin of error for this sample is 4·5%, correct to 1 decimal place.",
+          "marks": 5,
+          "chapter": 15,
+          "answer": {
+            "type": "number",
+            "value": 4.5,
+            "tol": 0.05,
+            "unit": "%"
+          },
+          "scheme": "1/√n = 1/√500 = 0·044721359 = 4·5%.",
+          "idea": {
+            "title": "Margin of error",
+            "text": "At 95% confidence, the margin of error of a sample of size n is about 1/√n.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Use the margin of error formula with the sample size n.",
+              "math": [
+                "E = \\frac{1}{\\sqrt{\\mv{n}{n}}}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Put in n = 500 and multiply by 100 for a percentage. Rounded to 1 decimal place, the margin of error is 4.5%.",
+              "math": [
+                "E = \\frac{1}{\\sqrt{\\mv{n}{500}}} = 0.044721\\ldots",
+                "0.044721\\ldots \\times 100 = 4.47\\ldots \\approx \\hl{4.5\\%}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "In a 'show that' question, write the unrounded value (4.47…) before the rounded one."
+        },
+        {
+          "l": "(b)(iii)",
+          "q": "In general, 10% of students get a rating of Excellent on this statistics test.\nUse your answers to parts (b)(i) and (b)(ii) to test the claim that the percentage of students in Cork who would get a rating of Excellent is different to the population percentage, at the 5% level of significance.\nShow relevant calculations, state your conclusion, and give a reason for your conclusion.",
+          "marks": 5,
+          "chapter": 15,
+          "answer": {
+            "type": "choice",
+            "options": [
+              "Yes: there is evidence that Cork is different",
+              "No: there is no evidence that Cork is different"
+            ],
+            "value": 1
+          },
+          "scheme": "12·2 − 4·5 ≤ p ≤ 12·2 + 4·5, so 7·7 ≤ p ≤ 16·7. Conclusion: no difference between Cork and the population proportion. Reason: 10% is inside the range found (within the confidence interval). (Conclusion or reason missing: full credit −1.)",
+          "idea": {
+            "title": "Hypothesis test with a confidence interval",
+            "text": "Make the 95% confidence interval from the sample. If the claimed population value is inside it, there is no evidence of a difference; if it is outside, there is evidence of a difference.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Build the 95% confidence interval: the sample percentage minus and plus the margin of error.",
+              "math": [
+                "12.2 - 4.5 \\le p \\le 12.2 + 4.5",
+                "7.7\\% \\le p \\le 16.7\\%"
+              ],
+              "vis": null
+            },
+            {
+              "say": "The population percentage is 10%. Is 10% inside the interval? Yes: 7.7 < 10 < 16.7.",
+              "math": [
+                "7.7 < \\hl{10} < 16.7"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Because 10% is inside the confidence interval, there is no evidence that Cork is different. Conclusion: no difference between Cork and the population percentage.",
+              "math": [],
+              "vis": null
+            }
+          ],
+          "tip": "Write all three: the interval, the conclusion, and the reason (10% is inside the interval)."
+        }
+      ]
+    },
+    {
+      "id": "2025-P2-Q8",
+      "year": 2025,
+      "paper": 2,
+      "q": 8,
+      "section": "B",
+      "total": 50,
+      "pages": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "topic": "Pie chart and scatter plot (new cars); hypothesis test",
+      "stem": "",
+      "fig": "A table of new private cars sold in 2023 by fuel type, with percentages and pie-chart angles (some blank); a circle with the Petrol sector (119°) drawn; a scatter plot of fuel efficiency (km per litre, 0–20) against engine size (litres, 0–5) for ten petrol car types; tick boxes Strong positive, Strong negative, Weak positive, Weak negative.",
+      "table": {
+        "head": [
+          "Fuel type",
+          "Number of new cars",
+          "Percentage of new cars",
+          "Angle in pie chart"
+        ],
+        "rows": [
+          [
+            "Petrol",
+            "38 700",
+            "32·96%",
+            "119°"
+          ],
+          [
+            "Diesel",
+            "25 900",
+            "",
+            ""
+          ],
+          [
+            "Fully Electric",
+            "22 500",
+            "19·17%",
+            ""
+          ],
+          [
+            "Hybrid",
+            "30 300",
+            "",
+            "93°"
+          ],
+          [
+            "Total",
+            "117 400",
+            "100%",
+            "360°"
+          ]
+        ]
+      },
+      "parts": [
+        {
+          "l": "(a)(i)",
+          "q": "The table below shows the number of new private cars sold in 2023 (to the nearest hundred) broken down by fuel type. It also shows the percentage of these cars that were of each fuel type (correct to 2 decimal places) and the size of the angle that would represent each fuel type in a pie chart.\nComplete the table above by working out the two missing percentages for Diesel and for Hybrid and the size of the two missing angles for Diesel and Fully Electric.\nGive each percentage correct to 2 decimal places and give the size of each angle correct to the nearest degree.",
+          "marks": 5,
+          "chapter": 14,
+          "answer": {
+            "type": "numbers",
+            "values": [
+              22.06,
+              25.81,
+              79,
+              69
+            ],
+            "tol": 0.005,
+            "show": "Diesel 22.06% and 79°; Hybrid 25.81%; Fully Electric 69°"
+          },
+          "scheme": "Diesel: 22·06%, 79°. Fully Electric: 69°. Hybrid: 25·81%. Correct answers without work accepted. (No or incorrect rounding: full credit −1.)",
+          "idea": {
+            "title": "Percentages and pie chart angles",
+            "text": "A part's share of the total can be written out of 100 (a percentage) or out of 360° (a pie chart angle). Both use the same fraction: part ÷ total.",
+            "vis": {
+              "t": "pie",
+              "labels": [
+                "Petrol",
+                "Diesel",
+                "Fully Electric",
+                "Hybrid"
+              ],
+              "vals": [
+                119,
+                79,
+                69,
+                93
+              ],
+              "show": "angles"
+            }
+          },
+          "steps": [
+            {
+              "say": "Percentage = number of that type ÷ total × 100. Do Diesel.",
+              "math": [
+                "\\frac{25\\,900}{117\\,400} \\times 100 = 22.061\\ldots \\approx \\hl{22.06\\%}"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Fuel type",
+                  "Number of new cars",
+                  "Percentage of new cars",
+                  "Angle in pie chart"
+                ],
+                "rows": [
+                  [
+                    "Petrol",
+                    "38 700",
+                    "32·96%",
+                    "119°"
+                  ],
+                  [
+                    "Diesel",
+                    "25 900",
+                    "",
+                    ""
+                  ],
+                  [
+                    "Fully Electric",
+                    "22 500",
+                    "19·17%",
+                    ""
+                  ],
+                  [
+                    "Hybrid",
+                    "30 300",
+                    "",
+                    "93°"
+                  ],
+                  [
+                    "Total",
+                    "117 400",
+                    "100%",
+                    "360°"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    4,
+                    1
+                  ]
+                ]
+              }
+            },
+            {
+              "say": "Hybrid the same way.",
+              "math": [
+                "\\frac{30\\,300}{117\\,400} \\times 100 = 25.809\\ldots \\approx \\hl{25.81\\%}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Angle = number of that type ÷ total × 360°. Do Diesel.",
+              "math": [
+                "\\frac{25\\,900}{117\\,400} \\times 360 = 79.42\\ldots \\approx \\hl{79^\\circ}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Fully Electric the same way.",
+              "math": [
+                "\\frac{22\\,500}{117\\,400} \\times 360 = 68.99\\ldots \\approx \\hl{69^\\circ}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Check: the angles add up to 360°. So Diesel is 22.06% and 79°, Hybrid is 25.81%, and Fully Electric is 69°.",
+              "math": [
+                "119 + 79 + 69 + 93 = 360^\\circ"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": "Use the numbers of cars, not the rounded percentages, so your answers match the table."
+        },
+        {
+          "l": "(a)(ii)",
+          "q": "Use the information from the table on the previous page to complete the pie chart for Diesel, Fully Electric and Hybrid. Label each sector clearly with the fuel type.",
+          "marks": 15,
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "After Petrol (119°): Diesel 79°, Fully Electric 69° and Hybrid 93°, each sector labelled with its fuel type."
+          },
+          "scheme": "Pie chart with sectors of 79° (Diesel), 69° (Fully Electric) and 93° (Hybrid). Scale 15C: one sector correct: high partial credit; not fully labelled: full credit −1.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Put the protractor's centre on the centre of the circle, line up 0° with one edge of the Petrol sector, and measure 79° for Diesel.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "From the new line, measure 69° for Fully Electric.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "The gap that is left should be 93° for Hybrid. Measure it to check.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "Write the fuel type in each sector. The pie chart now shows Petrol 119°, Diesel 79°, Fully Electric 69° and Hybrid 93°.",
+              "math": [],
+              "vis": {
+                "t": "pie",
+                "labels": [
+                  "Petrol",
+                  "Diesel",
+                  "Fully Electric",
+                  "Hybrid"
+                ],
+                "vals": [
+                  119,
+                  79,
+                  69,
+                  93
+                ],
+                "show": "angles"
+              }
+            }
+          ],
+          "tip": "Label every sector with its fuel type: missing labels cost a mark."
+        },
+        {
+          "l": "(b)(i)",
+          "q": "The scatter plot below shows the fuel efficiency of ten popular petrol car types and their engine sizes.\nThere is a correlation between engine size and fuel efficiency.\nBased on the diagram above, pick a description from the list below that best describes the correlation between engine size and fuel efficiency.\nExplain your choice in relation to fuel efficiency and engine size.",
+          "marks": 15,
+          "markNote": "(b)(i) and (b)(ii) together: 15 marks",
+          "chapter": 14,
+          "answer": {
+            "type": "choice",
+            "options": [
+              "Strong positive",
+              "Strong negative",
+              "Weak positive",
+              "Weak negative"
+            ],
+            "value": 1
+          },
+          "scheme": "Strong negative: cars with greater engine size are less fuel efficient. (Scale 15D for (b)(i) and (ii) together.)",
+          "idea": {
+            "title": "Describing correlation",
+            "text": "Positive: as one goes up, the other goes up. Negative: as one goes up, the other goes down. Strong: the points stay close to a clear line or pattern. Weak: they are loosely scattered around it.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Read the pattern from left to right. A 1-litre engine gets about 17.5 km per litre; a 4-litre engine gets only about 7. As engine size goes up, fuel efficiency goes down, so the correlation is negative.",
+              "math": [],
+              "vis": {
+                "t": "scatter",
+                "x": [
+                  0,
+                  5
+                ],
+                "y": [
+                  0,
+                  20
+                ],
+                "pts": [
+                  [
+                    1,
+                    17.5
+                  ],
+                  [
+                    1.2,
+                    16
+                  ],
+                  [
+                    1.4,
+                    14
+                  ],
+                  [
+                    1.6,
+                    13
+                  ],
+                  [
+                    1.9,
+                    10.5
+                  ],
+                  [
+                    2,
+                    11
+                  ],
+                  [
+                    2.5,
+                    9
+                  ],
+                  [
+                    3,
+                    9
+                  ],
+                  [
+                    3.5,
+                    8.5
+                  ],
+                  [
+                    4,
+                    7
+                  ]
+                ],
+                "line": null,
+                "xlab": "Engine size (litres)",
+                "ylab": "Fuel efficiency (km per litre)"
+              }
+            },
+            {
+              "say": "The points follow a clear downward pattern closely, with no point far away from the others, so the correlation is strong.",
+              "math": [],
+              "vis": null
+            },
+            {
+              "say": "So the correlation is strong negative: cars with bigger engines are less fuel efficient (they travel fewer km on each litre).",
+              "math": [],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "Tom says that the correlation coefficient for two sets of data is 5.\nExplain why this cannot be correct.",
+          "marks": null,
+          "chapter": 14,
+          "answer": {
+            "type": "none",
+            "show": "A correlation coefficient is always between −1 and 1, so it cannot be 5."
+          },
+          "scheme": "r cannot be greater than 1.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "The correlation coefficient r always lies between −1 and 1.",
+              "math": [
+                "-1 \\le r \\le 1"
+              ],
+              "vis": null
+            },
+            {
+              "say": "5 is bigger than 1, so it cannot be a correlation coefficient. Tom is wrong.",
+              "math": [],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)(i)",
+          "q": "A random sample of 815 cars was picked from new cars in 2024.\nShow that, for this sample, the margin of error for a population proportion is 3·5%, correct to 1 decimal place.",
+          "marks": 5,
+          "chapter": 15,
+          "answer": {
+            "type": "number",
+            "value": 3.5,
+            "tol": 0.05,
+            "unit": "%"
+          },
+          "scheme": "1/√815 = 0·035028 = 3·5%.",
+          "idea": {
+            "title": "Margin of error",
+            "text": "At 95% confidence, the margin of error of a sample of size n is about 1/√n.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Use the margin of error formula with the sample size n.",
+              "math": [
+                "E = \\frac{1}{\\sqrt{\\mv{n}{n}}}"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Put in n = 815, multiply by 100 and round to 1 decimal place. The margin of error is 3.5%.",
+              "math": [
+                "E = \\frac{1}{\\sqrt{\\mv{n}{815}}} = 0.035028\\ldots",
+                "0.035028\\ldots \\times 100 = 3.50\\ldots \\approx \\hl{3.5\\%}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)(ii)",
+          "q": "106 of the 815 new cars bought in 2024 were electric cars.\nWork out the percentage of new cars in this sample that were electric cars.\nGive your answer correct to the nearest percent.",
+          "marks": 5,
+          "chapter": 15,
+          "answer": {
+            "type": "number",
+            "value": 13,
+            "tol": 0.5,
+            "unit": "%"
+          },
+          "scheme": "106/815 = 0·13006… = 13%. (Incorrect rounding: full credit −1.)",
+          "idea": null,
+          "steps": [
+            {
+              "say": "The sample proportion is the electric cars out of all 815 in the sample.",
+              "math": [
+                "\\hat{p} = \\frac{106}{815} = 0.13006\\ldots"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Multiply by 100 and round to the nearest percent. So 13% of the sample were electric.",
+              "math": [
+                "0.13006\\ldots \\times 100 = 13.006\\ldots \\approx \\hl{13\\%}"
+              ],
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)(iii)",
+          "q": "In 2023, 19·2% of all new cars bought were electric. A reporter claimed that the proportion of new electric cars being bought in 2024 was different to 2023.\nUse your answers to parts (c)(i) and (c)(ii) to test the claim that the percentage of new electric cars being bought in 2024 is different from that in 2023, at the 5% level of significance.\nShow relevant calculations, state your conclusion, and give a reason for your conclusion.",
+          "marks": 5,
+          "chapter": 15,
+          "answer": {
+            "type": "choice",
+            "options": [
+              "Yes: there is evidence that the 2024 percentage is different",
+              "No: there is no evidence that the 2024 percentage is different"
+            ],
+            "value": 0
+          },
+          "scheme": "p̂ ± 1/√n: 13 − 3·5 ≤ p ≤ 13 + 3·5, so 9·5 ≤ p ≤ 16·5. Conclusion: there is evidence that the percentage of new electric cars bought in 2024 is different to 2023. Reason: 19·2% is not inside the range found (outside the CI).",
+          "idea": {
+            "title": "Hypothesis test with a confidence interval",
+            "text": "Make the 95% confidence interval from the sample. If the old (claimed) value is outside it, there is evidence of a change; if it is inside, there is no evidence of a change.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Build the 95% confidence interval from the sample: 13% minus and plus the 3.5% margin of error.",
+              "math": [
+                "13 - 3.5 \\le p \\le 13 + 3.5",
+                "9.5\\% \\le p \\le 16.5\\%"
+              ],
+              "vis": null
+            },
+            {
+              "say": "The 2023 figure is 19.2%. Is it inside the interval? No: 19.2 is bigger than 16.5.",
+              "math": [
+                "\\hl{19.2} > 16.5"
+              ],
+              "vis": null
+            },
+            {
+              "say": "Because 19.2% is outside the confidence interval, there is evidence that the percentage of new electric cars in 2024 is different from 2023. The reporter's claim is supported.",
+              "math": [],
+              "vis": null
+            }
+          ],
+          "tip": "Give the interval, a conclusion in context, and the reason (19.2% is outside the interval)."
+        }
+      ]
+    }
+  ]
+}

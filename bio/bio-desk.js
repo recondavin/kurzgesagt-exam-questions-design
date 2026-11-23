@@ -59,8 +59,11 @@
     if (old) old.remove();
     var nav = el('nav', 'desk-subjects');
     nav.setAttribute('aria-label', 'Subject');
-    nav.innerHTML = '<a href="geography.html"' + (bio ? '' : ' aria-current="page"') + '>Geography</a>' +
+    // On a Maths question (maths/maths-desk.js) Maths is the subject.
+    var maths = /^#maths\//.test(location.hash);
+    nav.innerHTML = '<a href="geography.html"' + (bio || maths ? '' : ' aria-current="page"') + '>Geography</a>' +
       '<a href="' + BIO_PAGE + (ch ? '#ch' + ch : '') + '"' + (bio ? ' aria-current="page"' : '') + '>Biology</a>' +
+      '<a href="maths.html"' + (maths ? ' aria-current="page"' : '') + '>Maths</a>' +
       '<a href="english.html">English</a><a href="irish.html">Irish</a><a href="german.html">German</a>';
     document.body.appendChild(nav);
   }
@@ -512,7 +515,8 @@
     if (!r) { whenDeskReady().then(function () { addSwitch(false, null); }); }
     route();
     window.addEventListener('hashchange', route);
-    new MutationObserver(function () { if (document.body.classList.contains('hf-active')) seatInGuide(); }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    // The examiner sits in Biology's guide only (the Maths desk has its own card).
+    new MutationObserver(function () { if (document.body.classList.contains('hf-active') && !document.body.classList.contains('maths-desk')) seatInGuide(); }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
     document.addEventListener('hf-exit', rest);
     document.addEventListener('hf-page', function (e) {
       var card = e.target.closest && e.target.closest('.hf-guide__visual');

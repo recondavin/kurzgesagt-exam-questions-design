@@ -1,0 +1,9 @@
+/* maths.html (maths/maths-hub.js): Biology's shell and cards, with Maths' own question tiles. */
+.mx-level { margin-left: 10px; color: var(--faint); font: 600 18px/1 Fredoka, Nunito, sans-serif; vertical-align: .12em; }
+.sh-canvas .mx-qlist { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+.sh-canvas .mx-q-tile { position: relative; text-decoration: none; border-top: 4px solid var(--c); }
+.mx-q-tile__topic { flex: 1; color: var(--muted); font: 700 14px/1.35 Nunito, system-ui, sans-serif; }
+.mx-chs .bh-ch { text-decoration: none; }
+@media (max-width: 1100px) { .mx-chs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .mx-chs { grid-template-columns: 1fr; } .sh-canvas .mx-qlist { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.cv-title a.btn-primary { display: inline-flex; align-items: center; text-decoration: none; }
