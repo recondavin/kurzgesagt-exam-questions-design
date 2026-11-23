@@ -332,7 +332,7 @@
     "Ireland",
     "Latvia"
    ],
-   "why": "Not using gas means 0% in the Gas column, the fourth number. Only Cyprus has 0 there (Malta does too). Greece and Ireland have 0 under Other, not Gas.",
+   "why": "Not using gas means 0% in the Gas column, the fourth number. Of these four only Cyprus has 0 there (Malta does too). Greece and Ireland have 0 under Other, not Gas.",
    "hook": "Find the right column first, then look for the 0.",
    "keys": [
     "0% in the Gas column"
@@ -774,7 +774,7 @@
   {
    "id": "2023-P2-Q9:(a)(ii):1",
    "from": "2023-P2-Q9",
-   "q": "Minutes reading per day for 200 students: 0−30: 16, 30−60: 35, 60−90: 62, 90−120: 59, 120−150: 18, 150−180: 10. Which is the best estimate of the median time spent reading?",
+   "q": "Minutes reading per day for 200 students: 0−30: 16, 30−60: 35, 60−90: 62, 90−120: 59, 120−150: 18, 150−180: 10 (60−90 means 60 or more but under 90). Best estimate of the median time spent reading?",
    "right": "75 minutes",
    "wrong": [
     "100.5 minutes",
@@ -957,7 +957,7 @@
     "Engine size barely affects km/l",
     "Every bigger engine does fewer km/l"
    ],
-   "why": "Negative: as engine size rises, km per litre falls. Strong: the cars follow that pattern closely. It's a trend, not a rule: a 2-litre car beats a 1.9-litre one.",
+   "why": "Negative: as engine size rises, km per litre falls; strong: the cars follow it closely. It's a trend, not a rule: the 2-litre car does 11 km/l, the 1.9-litre 10.5.",
    "hook": "Explain in context: name both variables and say which way they move.",
    "keys": [
     "It's a trend, not a rule"
