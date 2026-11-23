@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pool | Leaving Cert Maths</title>
+<meta name="description" content="Pool against the examiner, with real Ordinary Level maths exam questions before every shot.">
+<link rel="icon" href="assets/examiner/bro-icon.svg?v=1" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Nunito:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="bio/bio.css?v=eng-108">
+<link rel="stylesheet" href="bio/bio-shell.css?v=eng-108">
+</head>
+<body class="mg-page">
+<!-- Biology's Pool (bio/bio-pool.js) with Maths questions: maths/maths-deck.js gives bio/bio-board.js a deck of the
+     real exam questions 2015-2025 (calculus, measure, counting, probability, statistics) as four-option cards. -->
+<main class="mg-land">
+<h1>Pool</h1>
+<p>Maths: pool against the examiner, a real exam question before every shot.</p>
+<button type="button" class="tb-btn tb-btn--go" data-pl-play>Play</button>
+<p><a href="maths.html">Back to Maths</a></p>
+</main>
+<script src="./examiner-art.js?v=teacher-15"></script>
+<script src="./answer-mode.js?v=answer-mode-48"></script>
+<script src="./maths/maths-cards.js?v=maths-cards-1"></script>
+<script src="./maths/maths-deck.js?v=maths-cards-1"></script>
+<script src="./bio/bio-games.js?v=eng-108"></script>
+<script src="./bio/bio-board.js?v=eng-108"></script>
+<script src="./bio/vendor/three.min.js?v=eng-108"></script>
+<script src="./bio/bio-pool.js?v=eng-108"></script>
+<script>
+(function () {
+  function play() { if (window.BioPool) window.BioPool.open(); }
+  document.querySelector('[data-pl-play]').addEventListener('click', play);
+  play();
+})();
+</script>
+</body>
+</html>

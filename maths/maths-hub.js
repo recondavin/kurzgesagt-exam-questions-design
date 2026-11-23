@@ -33,6 +33,7 @@
     var T = window.ExamTeacher;
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (T ? T.head() : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
       '<nav class="sh-nav" aria-label="Maths"><a class="sh-link" href="#"' + (active === 'home' ? ' aria-current="page"' : '') + '><span class="sh-t">Home</span></a>' +
+      (GAMES_ON ? '<a class="sh-link" href="maths-golf.html"><span class="sh-t">Mini Golf</span></a><a class="sh-link" href="maths-pool.html"><span class="sh-t">Pool</span></a>' : '') +
       '<p class="sh-group">Chapters</p>' + CHAPTERS.map(function (c) {
         var s = stats(c.n), v = s.pct != null ? s.pct + '%' : '<span class="dash">–</span>';
         return '<a class="sh-link" href="#ch' + c.n + '"' + (active === c.n ? ' aria-current="page"' : '') + '><span class="sh-n num">' + c.n + '</span><span class="sh-t">' + esc(c.title) +
@@ -52,7 +53,23 @@
           '<span class="bh-big">' + (s.pct == null ? '<span class="dash">–</span>' : '<b class="num">' + s.pct + '%</b><i>right first time</i>') + '</span>' +
           '<span class="pg-track bh-track"><i style="--w:' + (s.pct || 0) + '%"></i></span>' +
           '<span class="bh-facts"><span><b class="num">' + s.tried + '</b><span class="of"> of ' + s.all + '</span> questions</span></span></a>';
-      }).join('') + '</section></div>';
+      }).join('') + '</section>' + games() + '</div>';
+  }
+  // The games: Biology's Mini Golf and Pool with the real maths exam questions (maths/maths-deck.js), four options
+  // each, the wrong ones the mistakes students really make.
+  var GAMES = [
+    { href: 'maths-golf.html', name: 'Mini Golf', say: 'Ten holes against the examiner, from the parabola to the scatter. Answer a real exam question before every putt.',
+      art: '<svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="54" rx="24" ry="6" fill="#2BD4BD" opacity=".35"/><path d="M30 52V10" stroke="#F1F7FB" stroke-width="3" stroke-linecap="round"/><path d="M31 11l18 7-18 7z" fill="#FF86D0"/><circle cx="44" cy="50" r="5" fill="#F1F7FB"/></svg>' },
+    { href: 'maths-pool.html', name: 'Pool', say: 'Pool against the examiner. Get the question right to take your shot; the wrong answers are the classic mistakes.',
+      art: '<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="24" cy="36" r="13" fill="#1CB0F6"/><circle cx="24" cy="36" r="6" fill="#F1F7FB"/><text x="24" y="39.5" text-anchor="middle" font-size="9" font-weight="800" fill="#131F24">9</text><circle cx="45" cy="24" r="9" fill="#F1F7FB"/><path d="M52 52L37 37" stroke="#C08552" stroke-width="3" stroke-linecap="round"/></svg>' }
+  ];
+  var GAMES_ON = false; // on once maths/maths-cards.js has the cards (tools/maths/build_cards.py)
+  function games() {
+    if (!GAMES_ON) return '';
+    return '<section class="mx-games rise" style="--i:2" aria-labelledby="mx-games-h"><h2 class="mx-h2" id="mx-games-h">Games</h2><div class="mx-games__row">' +
+      GAMES.map(function (g) {
+        return '<a class="card mx-game" href="' + g.href + '"><span class="mx-game__art">' + g.art + '</span><span class="mx-game__txt"><b>' + esc(g.name) + '</b><span>' + esc(g.say) + '</span></span></a>';
+      }).join('') + '</div></section>';
   }
   function chapter(n) {
     var c = CHAPTERS.filter(function (x) { return x.n === n; })[0];
