@@ -204,7 +204,8 @@
               }
             }
           ],
-          "tip": "Put brackets round negatives when you substitute: (−1)(−4), not −1 −4."
+          "tip": "Put brackets round negatives when you substitute: (−1)(−4), not −1 −4.",
+          "ask": "Solve −x² + 6x − 4 = 0, each answer to one decimal place."
         },
         {
           "l": "(b)",
@@ -380,7 +381,8 @@
               }
             }
           ],
-          "tip": "−(3)² is −9: square first, then put the minus in front."
+          "tip": "−(3)² is −9: square first, then put the minus in front.",
+          "ask": "Find the turning point of f(x) = −x² + 6x − 4."
         },
         {
           "l": "(c)",
@@ -524,7 +526,8 @@
               }
             }
           ],
-          "tip": "A sketch needs a smooth curve and a scale on both axes — no ruler lines or pointed tops."
+          "tip": "A sketch needs a smooth curve and a scale on both axes — no ruler lines or pointed tops.",
+          "ask": "Sketch y = f(x) using your answers to (a) and (b), with a scale on both axes."
         }
       ]
     },
@@ -724,7 +727,8 @@
               }
             }
           ],
-          "tip": "Square first, then multiply by 0.03: 0.03 × 1000² = 0.03 × 1 000 000 = 30 000."
+          "tip": "Square first, then multiply by 0.03: 0.03 × 1000² = 0.03 × 1 000 000 = 30 000.",
+          "ask": "Complete the table of daily profit p for 1000 to 2500 barrels."
         },
         {
           "l": "(b)",
@@ -825,7 +829,8 @@
               }
             }
           ],
-          "tip": "Join the points freehand with a smooth curve, not with a ruler."
+          "tip": "Join the points freehand with a smooth curve, not with a ruler.",
+          "ask": "Draw the graph of the profit function for 500 ≤ x ≤ 2500."
         },
         {
           "l": "(c)(i)",
@@ -915,7 +920,8 @@
               "vis": null
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "From your graph, estimate the daily profit when 1750 barrels are traded."
         },
         {
           "l": "(c)(ii)",
@@ -1026,7 +1032,8 @@
               "vis": null
             }
           ],
-          "tip": "A horizontal line can cut this curve twice — give both answers."
+          "tip": "A horizontal line can cut this curve twice — give both answers.",
+          "ask": "From your graph, estimate the barrels traded when the profit is €60 000."
         },
         {
           "l": "(d)(i)",
@@ -1179,7 +1186,8 @@
               "vis": null
             }
           ],
-          "tip": "'Use calculus' means you must differentiate — reading the top off the graph gets no marks here."
+          "tip": "'Use calculus' means you must differentiate — reading the top off the graph gets no marks here.",
+          "ask": "Use calculus to find how many barrels give the maximum daily profit."
         },
         {
           "l": "(d)(ii)",
@@ -1314,7 +1322,8 @@
               }
             }
           ],
-          "tip": "The derivative tells you WHERE the maximum is; the original function tells you HOW BIG it is."
+          "tip": "The derivative tells you WHERE the maximum is; the original function tells you HOW BIG it is.",
+          "ask": "Find that maximum daily profit."
         },
         {
           "l": "(e)",
@@ -1477,7 +1486,8 @@
               }
             }
           ],
-          "tip": "If you factorise, the answer x = 0 is real but not the one asked for — say which one you choose."
+          "tip": "If you factorise, the answer x = 0 is real but not the one asked for — say which one you choose.",
+          "ask": "Find k, the number of barrels above which the trader makes no profit."
         }
       ]
     },
@@ -1574,7 +1584,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find where the graph of f(x) = x³ + x² − 2x + 7 cuts the y-axis."
         },
         {
           "l": "(b)",
@@ -1690,7 +1701,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Show, using algebra, that the point A(1, 7) is on the graph of f."
         },
         {
           "l": "(c)(i)",
@@ -1848,7 +1860,8 @@
               }
             }
           ],
-          "tip": "Find the slope by putting x into f′(x), never into f(x)."
+          "tip": "Find the slope by putting x into f′(x), never into f(x).",
+          "ask": "Find f′(x), then the slope of the tangent at x = 1."
         },
         {
           "l": "(c)(ii)",
@@ -2027,7 +2040,8 @@
               }
             }
           ],
-          "tip": "Write the formula y − y₁ = m(x − x₁) down first — it earns marks even before you substitute."
+          "tip": "Write the formula y − y₁ = m(x − x₁) down first — it earns marks even before you substitute.",
+          "ask": "Find the equation of the tangent to f at A(1, 7)."
         }
       ]
     },
@@ -2159,7 +2173,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Use the perimeter (21 m of fencing) to show that y = 10.5 − x."
         },
         {
           "l": "(b)(i)",
@@ -2430,7 +2445,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Complete the table of y and the area A for x = 0 to 10."
         },
         {
           "l": "(b)(ii)",
@@ -2579,7 +2595,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Plot the graph of A against x using your table."
         },
         {
           "l": "(c)",
@@ -2687,7 +2704,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "From your graph, estimate the biggest area and its length and width."
         },
         {
           "l": "(d)(i)",
@@ -2756,7 +2774,8 @@
               }
             }
           ],
-          "tip": "In a max/min problem, first write the thing you want as a formula in ONE letter."
+          "tip": "In a max/min problem, first write the thing you want as a formula in ONE letter.",
+          "ask": "Show that the area can be written as A = 10.5x − x²."
         },
         {
           "l": "(d)(ii)",
@@ -2840,7 +2859,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find dA/dx for A = 10.5x − x²."
         },
         {
           "l": "(d)(iii)",
@@ -2961,7 +2981,8 @@
               "vis": null
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Use dA/dx to find the value of x that gives the maximum area."
         },
         {
           "l": "(d)(iv)",
@@ -3055,7 +3076,8 @@
               }
             }
           ],
-          "tip": "Write the units: m² for area."
+          "tip": "Write the units: m² for area.",
+          "ask": "Find that maximum area."
         }
       ]
     },
@@ -3259,7 +3281,8 @@
               }
             }
           ],
-          "tip": "Minus times minus is plus: −4(3)(−8) = +96."
+          "tip": "Minus times minus is plus: −4(3)(−8) = +96.",
+          "ask": "Solve 3x² − 6x − 8 = 0, each answer to 1 decimal place."
         },
         {
           "l": "(b)",
@@ -3431,7 +3454,8 @@
               }
             }
           ],
-          "tip": "'Co-ordinates' means give both x and y."
+          "tip": "'Co-ordinates' means give both x and y.",
+          "ask": "Find the minimum point of f(x) = 3x² − 6x − 8."
         }
       ]
     },
@@ -3570,7 +3594,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find how much money the company loses if it sells no cable."
         },
         {
           "l": "(b)",
@@ -3739,7 +3764,8 @@
               }
             }
           ],
-          "tip": "Always check answers against the limits given in the question (here x ≤ 200)."
+          "tip": "Always check answers against the limits given in the question (here x ≤ 200).",
+          "ask": "Find the km of cable sold in a week with a profit of €8350."
         },
         {
           "l": "(c)(i)",
@@ -3882,7 +3908,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Use P(x) to complete the profit table for 50 to 100 km."
         },
         {
           "l": "(c)(ii)",
@@ -3991,7 +4018,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Draw the graph of P(x) for 50 ≤ x ≤ 100 using the table."
         },
         {
           "l": "(c)(iii)",
@@ -4127,7 +4155,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "From your graph, find the km range for a profit of €10 000 to €14 000."
         },
         {
           "l": "(d)",
@@ -4281,7 +4310,8 @@
               "vis": null
             }
           ],
-          "tip": "'Rate of change' always means 'derivative' — set dP/dx equal to the rate given."
+          "tip": "'Rate of change' always means 'derivative' — set dP/dx equal to the rate given.",
+          "ask": "Use calculus to find the km sold when profit is rising at €105 per km."
         }
       ]
     },
@@ -4398,7 +4428,8 @@
               }
             }
           ],
-          "tip": "Co-ordinates are always (x, y): across first, then up."
+          "tip": "Co-ordinates are always (x, y): across first, then up.",
+          "ask": "Write down the co-ordinates of A, B and C from the graph."
         },
         {
           "l": "(b)",
@@ -4577,7 +4608,8 @@
               }
             }
           ],
-          "tip": "Turn each root into a factor by changing its sign: root −2 → (x + 2)."
+          "tip": "Turn each root into a factor by changing its sign: root −2 → (x + 2).",
+          "ask": "Show that the function can be written as f(x) = −x² + x + 6."
         },
         {
           "l": "(c)",
@@ -4747,7 +4779,8 @@
               }
             }
           ],
-          "tip": "In a 'show that' question, show every line — the answer is already given."
+          "tip": "In a 'show that' question, show every line — the answer is already given.",
+          "ask": "Show, using calculus, that the maximum point of f(x) is (0.5, 6.25)."
         }
       ]
     },
@@ -4919,7 +4952,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Show that there are 224 units of the drug in the blood after 4 hours."
         },
         {
           "l": "(b)",
@@ -5097,7 +5131,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Use C(t) to complete the table for t = 0 to 9 hours."
         },
         {
           "l": "(c)",
@@ -5238,7 +5273,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Draw the graph of C(t) for 0 ≤ t ≤ 9."
         },
         {
           "l": "(d)(i)",
@@ -5322,7 +5358,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "From your graph, estimate the amount of the drug after 3½ hours."
         },
         {
           "l": "(d)(ii)",
@@ -5425,7 +5462,8 @@
               "vis": null
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "From your graph, estimate when the amount of the drug is 100 units."
         },
         {
           "l": "(e)(i)",
@@ -5524,7 +5562,8 @@
               "vis": null
             }
           ],
-          "tip": "'Rate of change', 'how fast' and 'increasing at' all mean: differentiate."
+          "tip": "'Rate of change', 'how fast' and 'increasing at' all mean: differentiate.",
+          "ask": "Find C′(t), the rate the drug amount is changing after t hours."
         },
         {
           "l": "(e)(ii)",
@@ -5634,7 +5673,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Use C′(t) to find the rate of change after 4 hours."
         },
         {
           "l": "(e)(iii)",
@@ -5805,7 +5845,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Use C′(t) to find the maximum amount of the drug in the first 9 hours."
         },
         {
           "l": "(e)(iv)",
@@ -5922,7 +5963,8 @@
               }
             }
           ],
-          "tip": "'Explain' needs a sentence: say the derivative is negative, so the amount is decreasing."
+          "tip": "'Explain' needs a sentence: say the derivative is negative, so the amount is decreasing.",
+          "ask": "Use C′(t) to show the amount is decreasing after 7 hours, and explain."
         }
       ]
     },
@@ -6160,7 +6202,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Complete the table for −1 ≤ x ≤ 4, then draw the graph of f(x)."
         },
         {
           "l": "(a)(ii)",
@@ -6249,7 +6292,8 @@
               }
             }
           ],
-          "tip": "Roots = where the curve cuts the x-axis."
+          "tip": "Roots = where the curve cuts the x-axis.",
+          "ask": "From your graph, estimate the two roots of f(x) between −1 and 4."
         },
         {
           "l": "(b)",
@@ -6430,7 +6474,8 @@
               }
             }
           ],
-          "tip": "f″ means differentiate twice — don't stop after the first one."
+          "tip": "f″ means differentiate twice — don't stop after the first one.",
+          "ask": "Find the value of x where f″(x) = 0."
         }
       ]
     },
@@ -6540,7 +6585,8 @@
               "vis": null
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the height of the ball at the moment the goalkeeper hit it."
         },
         {
           "l": "(b)(i)",
@@ -6714,7 +6760,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Complete the table of the ball's height for t = 0 to 4 seconds."
         },
         {
           "l": "(b)(ii)",
@@ -6847,7 +6894,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Draw the graph of the ball's height while it is in the air."
         },
         {
           "l": "(c)(i)",
@@ -6938,7 +6986,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "From your graph, estimate how long the ball was in the air."
         },
         {
           "l": "(c)(ii)",
@@ -7100,7 +7149,8 @@
               }
             }
           ],
-          "tip": "'Length of time' means a difference: later time minus earlier time."
+          "tip": "'Length of time' means a difference: later time minus earlier time.",
+          "ask": "From your graph, estimate how long the ball was 10 m or more up."
         },
         {
           "l": "(d)(i)",
@@ -7192,7 +7242,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find f′(t) for f(t) = −4t² + 16t + 1."
         },
         {
           "l": "(d)(ii)",
@@ -7280,7 +7331,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Use f′(t) to find the ball's speed after 4 seconds, in m/s."
         },
         {
           "l": "(d)(iii)",
@@ -7408,7 +7460,8 @@
               }
             }
           ],
-          "tip": "Going down = negative derivative. Using +8 gives t = 1, when the ball is still rising."
+          "tip": "Going down = negative derivative. Using +8 gives t = 1, when the ball is still rising.",
+          "ask": "Use f′(t) to find when the ball is coming down at 8 m/s."
         }
       ]
     },
@@ -7587,7 +7640,8 @@
               }
             }
           ],
-          "tip": "Write −7 → 0 in your working — the scheme wants to see that the constant was differentiated."
+          "tip": "Write −7 → 0 in your working — the scheme wants to see that the constant was differentiated.",
+          "ask": "Find f′(x) for f(x) = 4x³ − 3x² + x − 7."
         },
         {
           "l": "(a)(ii)",
@@ -7705,7 +7759,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the slope of the tangent to f at the point (1, −5)."
         },
         {
           "l": "(a)(iii)",
@@ -7854,7 +7909,8 @@
               }
             }
           ],
-          "tip": "Subtracting a negative: y − (−5) = y + 5."
+          "tip": "Subtracting a negative: y − (−5) = y + 5.",
+          "ask": "Find the equation of the tangent at (1, −5)."
         },
         {
           "l": "(b)",
@@ -8030,7 +8086,8 @@
               }
             }
           ],
-          "tip": "Start with the equation that has only one unknown."
+          "tip": "Start with the equation that has only one unknown.",
+          "ask": "Find p and q in g(x) = 2x² + px + q, given g(2) = 6 and g′(3) = 9."
         }
       ]
     },
@@ -8183,7 +8240,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the height of the starting block above the water."
         },
         {
           "l": "(b)(i)",
@@ -8288,7 +8346,8 @@
               "vis": null
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Show that the swimmer is at the surface (h = 0) 12 m from the block."
         },
         {
           "l": "(b)(ii)",
@@ -8444,7 +8503,8 @@
               }
             }
           ],
-          "tip": "Multiply through by the lowest common denominator (60) to get rid of the fractions."
+          "tip": "Multiply through by the lowest common denominator (60) to get rid of the fractions.",
+          "ask": "Find how far from the block the swimmer enters the water."
         },
         {
           "l": "(c)(i)",
@@ -8550,7 +8610,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find h′(x), the derivative of h(x)."
         },
         {
           "l": "(c)(ii)",
@@ -8694,7 +8755,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Use h′(x) to find how far from the block she is at her deepest."
         },
         {
           "l": "(c)(iii)",
@@ -8833,7 +8895,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find her greatest depth."
         },
         {
           "l": "(d)(i)",
@@ -8953,7 +9016,8 @@
               }
             }
           ],
-          "tip": "Always divide by the OLD value (the previous split)."
+          "tip": "Always divide by the OLD value (the previous split).",
+          "ask": "Complete Phelps's table: % increase in each split time, to 1 d.p."
         },
         {
           "l": "(d)(ii)",
@@ -9109,7 +9173,8 @@
               "vis": null
             }
           ],
-          "tip": "Write down each split you calculate — the marks are given step by step."
+          "tip": "Write down each split you calculate — the marks are given step by step.",
+          "ask": "Find the gap between the 25.01 s swimmer's finishing time and Phelps's."
         }
       ]
     },
@@ -9251,7 +9316,8 @@
               }
             }
           ],
-          "tip": "Write the unrounded answer (4.3267) before you round."
+          "tip": "Write the unrounded answer (4.3267) before you round.",
+          "ask": "Find f(0.67) for f(x) = 3x² − 6x + 7, to 2 decimal places."
         },
         {
           "l": "(b)",
@@ -9401,7 +9467,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the value of x when f(x) = 4."
         },
         {
           "l": "(c)",
@@ -9590,7 +9657,8 @@
               }
             }
           ],
-          "tip": "'Use calculus' — no marks without f′(x)."
+          "tip": "'Use calculus' — no marks without f′(x).",
+          "ask": "Use calculus to find the local minimum point of f."
         }
       ]
     },
@@ -9701,7 +9769,8 @@
               }
             }
           ],
-          "tip": "Powers before multiplying: 7(5)² is 7 × 25, not 35²."
+          "tip": "Powers before multiplying: 7(5)² is 7 × 25, not 35².",
+          "ask": "Work out g(5) for g(x) = x³ − 7x² + x − 12."
         },
         {
           "l": "(a)(ii)",
@@ -9800,7 +9869,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find g′(x), the derivative of g(x)."
         },
         {
           "l": "(a)(iii)",
@@ -9949,7 +10019,8 @@
               "vis": null
             }
           ],
-          "tip": "Answer in the form asked: ax + by + c = 0."
+          "tip": "Answer in the form asked: ax + by + c = 0.",
+          "ask": "Use g′(5) = 6 to find the tangent at x = 5, as ax + by + c = 0."
         },
         {
           "l": "(b)(i)",
@@ -10051,7 +10122,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "From the graph of u(x), give a value of x where u′(x) is negative."
         },
         {
           "l": "(b)(ii)",
@@ -10212,7 +10284,8 @@
               "vis": null
             }
           ],
-          "tip": "Use two points far apart on your tangent — the slope comes out more accurate."
+          "tip": "Use two points far apart on your tangent — the slope comes out more accurate.",
+          "ask": "Draw the tangent at (4, 2) and use it to estimate u′(4)."
         }
       ]
     },
@@ -10441,7 +10514,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Complete the table of Joseph's heart-rate h(x), to the nearest whole number."
         },
         {
           "l": "(a)(ii)",
@@ -10565,7 +10639,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Draw the graph of y = h(x) for 0 ≤ x ≤ 6, ending at A (6, 169)."
         },
         {
           "l": "(b)",
@@ -10720,7 +10795,8 @@
               }
             }
           ],
-          "tip": "Use both numbers and both units in your sentence."
+          "tip": "Use both numbers and both units in your sentence.",
+          "ask": "Explain what the point A (6, 169) means for Joseph's heart-rate."
         },
         {
           "l": "(c)",
@@ -10986,7 +11062,8 @@
               }
             }
           ],
-          "tip": "A steady rate always gives a straight line."
+          "tip": "A steady rate always gives a straight line.",
+          "ask": "Continue the graph: flat for 2 min, then down 10 BPM per minute for 2 min."
         },
         {
           "l": "(d)",
@@ -11115,7 +11192,8 @@
               "vis": null
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Work out c(6), the calories per minute Joseph burns after 6 minutes."
         },
         {
           "l": "(e)",
@@ -11233,7 +11311,8 @@
               }
             }
           ],
-          "tip": "Count the first beep: number of beeps = number of gaps + 1."
+          "tip": "Count the first beep: number of beeps = number of gaps + 1.",
+          "ask": "How many times does the watch beep, every 15 s from 2:55 to 3:23 p.m.?"
         },
         {
           "l": "(f)",
@@ -11387,7 +11466,8 @@
               }
             }
           ],
-          "tip": "When you get two answers, say which one you are choosing and why."
+          "tip": "When you get two answers, say which one you are choosing and why.",
+          "ask": "Solve h′(x) = 0 to find when Joseph's heart-rate is highest, to 2 d.p."
         }
       ]
     },
@@ -11511,7 +11591,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the height of the ball when Keith hit it (t = 0)."
         },
         {
           "l": "(a)(ii)",
@@ -11610,7 +11691,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the height of the ball when it was caught after 2.4 seconds."
         },
         {
           "l": "(a)(iii)",
@@ -11795,7 +11877,8 @@
               }
             }
           ],
-          "tip": "Two answers? Use the extra information (here 'decreasing') to choose one, and say why."
+          "tip": "Two answers? Use the extra information (here 'decreasing') to choose one, and say why.",
+          "ask": "Find when the ball, on its way down, was 3.2 m high over halfway."
         },
         {
           "l": "(a)(iv)",
@@ -11951,7 +12034,8 @@
               "vis": null
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find dh/dt, then how long the ball took to reach its greatest height."
         },
         {
           "l": "(b)",
@@ -12118,7 +12202,8 @@
               }
             }
           ],
-          "tip": "Symmetry gives you a free third point on any quadratic."
+          "tip": "Symmetry gives you a free third point on any quadratic.",
+          "ask": "Write three points on y = k(t), then draw it until the ball hits the ground."
         },
         {
           "l": "(c)(i)",
@@ -12184,7 +12269,8 @@
               "vis": null
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Work out the price of the €33 hurl after a 15% student discount."
         },
         {
           "l": "(c)(ii)",
@@ -12264,7 +12350,8 @@
               "vis": null
             }
           ],
-          "tip": "Don't take 23% of €49.50 — that price already includes the VAT."
+          "tip": "Don't take 23% of €49.50 — that price already includes the VAT.",
+          "ask": "Work out the VAT on the €49.50 jersey (price includes 23% VAT)."
         }
       ]
     },
@@ -12367,7 +12454,8 @@
               }
             }
           ],
-          "tip": "Draw the up-and-across lines on the graph — that is the 'work' they ask for."
+          "tip": "Draw the up-and-across lines on the graph — that is the 'work' they ask for.",
+          "ask": "From the graph, estimate g(1.5)."
         },
         {
           "l": "(a)(ii)",
@@ -12450,7 +12538,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "From the graph, estimate the value of x when g(x) = −6."
         },
         {
           "l": "(a)(iii)",
@@ -12530,7 +12619,8 @@
               }
             }
           ],
-          "tip": "Give a reason in words: 'the graph cuts the x-axis only once'."
+          "tip": "Give a reason in words: 'the graph cuts the x-axis only once'.",
+          "ask": "Tick how many real roots g(x) has, and give a reason."
         },
         {
           "l": "(a)(iv)",
@@ -12696,7 +12786,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Estimate the local maximum and local minimum points of g(x) from the graph."
         },
         {
           "l": "(b)(i)",
@@ -12771,7 +12862,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find h′(x) for h(x) = x³ + 2x² − x − 8."
         },
         {
           "l": "(b)(ii)",
@@ -12911,7 +13003,8 @@
               "vis": null
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the equation of the tangent to h(x) at (2, 6)."
         }
       ]
     },
@@ -13015,7 +13108,8 @@
               }
             }
           ],
-          "tip": "(−5)² is +25: a negative times a negative is positive."
+          "tip": "(−5)² is +25: a negative times a negative is positive.",
+          "ask": "Find g(−5) for g(x) = x² + 8x − 6."
         },
         {
           "l": "(a)(ii)",
@@ -13192,7 +13286,8 @@
               }
             }
           ],
-          "tip": "Set the DERIVATIVE equal to zero, not g(x) itself."
+          "tip": "Set the DERIVATIVE equal to zero, not g(x) itself.",
+          "ask": "Use calculus to find the x that gives the minimum value of g(x)."
         },
         {
           "l": "(b)",
@@ -13300,7 +13395,8 @@
               }
             }
           ],
-          "tip": "(2x − 4)² is not 4x² + 16: you need the two middle terms too."
+          "tip": "(2x − 4)² is not 4x² + 16: you need the two middle terms too.",
+          "ask": "Expand and simplify (2x − 4)² − 6."
         },
         {
           "l": "(c)",
@@ -13424,7 +13520,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Solve 9x² + 6x − 5 = 0, each answer to 2 decimal places."
         }
       ]
     },
@@ -13531,7 +13628,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the runoff number C = 1000/(S + 10) when S = 15."
         },
         {
           "l": "(a)(ii)",
@@ -13624,7 +13722,8 @@
               }
             }
           ],
-          "tip": "A quick example with two numbers makes a good justification."
+          "tip": "A quick example with two numbers makes a good justification.",
+          "ask": "Explain whether C goes up or down when S increases, using the formula."
         },
         {
           "l": "(a)(iii)",
@@ -13721,7 +13820,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Rearrange C = 1000/(S + 10) to get S in terms of C."
         },
         {
           "l": "(a)(iv)",
@@ -13856,7 +13956,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the range of values of S when C goes from 30 to 100."
         },
         {
           "l": "(b)(i)",
@@ -13952,7 +14053,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find P(0) and P(24), the chance of rain at the start and end of the day."
         },
         {
           "l": "(b)(ii)",
@@ -14077,7 +14179,8 @@
               "vis": null
             }
           ],
-          "tip": "Explain in context: say what is changing (the probability of rain), by how much, and per what (per hour)."
+          "tip": "Explain in context: say what is changing (the probability of rain), by how much, and per what (per hour).",
+          "ask": "Find P′(t) and explain what it means for the chance of rain."
         },
         {
           "l": "(b)(iii)",
@@ -14205,7 +14308,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "The chance of rain is 0.35: work out the chance 1 hour later."
         }
       ]
     },
@@ -14305,7 +14409,8 @@
               }
             }
           ],
-          "tip": "Your calculator's fraction button gives a/b form directly — but write the working too."
+          "tip": "Your calculator's fraction button gives a/b form directly — but write the working too.",
+          "ask": "Work out (3x + 5)/10 − 1/(x + 3) when x = 2, as a fraction a/b."
         },
         {
           "l": "(b)",
@@ -14498,7 +14603,8 @@
               "vis": null
             }
           ],
-          "tip": "Three things earn the marks: f′(x), the x value, and f(2)."
+          "tip": "Three things earn the marks: f′(x), the x value, and f(2).",
+          "ask": "Use calculus to find the local minimum point of f(x) = 5x² − 20x + 2."
         },
         {
           "l": "(c)",
@@ -14696,7 +14802,8 @@
               }
             }
           ],
-          "tip": "Choose points exactly on grid corners so you read them without guessing."
+          "tip": "Choose points exactly on grid corners so you read them without guessing.",
+          "ask": "Use the graph of the line g(x) to find its rate of change g′(x), as a/b."
         }
       ]
     },
@@ -14884,7 +14991,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Complete the table of bacteria p(t) for t = 0 to 5 hours."
         },
         {
           "l": "(a)(ii)",
@@ -14992,7 +15100,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Draw the graph of p(t) for 0 ≤ t ≤ 5."
         },
         {
           "l": "(a)(iii)",
@@ -15111,7 +15220,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find p′(t) for p(t) = t³ − 6t² + 6t + 20."
         },
         {
           "l": "(a)(iv)",
@@ -15243,7 +15353,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the value of p′(2)."
         },
         {
           "l": "(a)(v)",
@@ -15377,7 +15488,8 @@
               }
             }
           ],
-          "tip": "Say 'increasing' (positive) and give the units: 6000 bacteria per hour, not just 6."
+          "tip": "Say 'increasing' (positive) and give the units: 6000 bacteria per hour, not just 6.",
+          "ask": "Explain what p′(4) = 6 means for the number of bacteria."
         },
         {
           "l": "(b)(i)",
@@ -15481,7 +15593,8 @@
               }
             }
           ],
-          "tip": "Use the power button (x^y or ^) and put the whole power 0.5t in brackets."
+          "tip": "Use the power button (x^y or ^) and put the whole power 0.5t in brackets.",
+          "ask": "Use k(t) to find the number of bacteria after 1 hour and after 2 hours."
         },
         {
           "l": "(b)(ii)",
@@ -15721,7 +15834,8 @@
               }
             }
           ],
-          "tip": "Show the value just below AND just above 35 000 — that proves 5 is the smallest."
+          "tip": "Show the value just below AND just above 35 000 — that proves 5 is the smallest.",
+          "ask": "Find the smallest whole number of hours n with at least 35 000 bacteria."
         }
       ]
     },
@@ -15837,7 +15951,8 @@
               }
             }
           ],
-          "tip": "An answer like 22/3 is fine as a fraction — no need to round."
+          "tip": "An answer like 22/3 is fine as a fraction — no need to round.",
+          "ask": "Solve 5(a − 3) = 2a + 7."
         },
         {
           "l": "(b)",
@@ -15995,7 +16110,8 @@
               "vis": null
             }
           ],
-          "tip": "Putting 2 into f(x) just gives −4, the y of the point — it is not the slope."
+          "tip": "Putting 2 into f(x) just gives −4, the y of the point — it is not the slope.",
+          "ask": "Find f′(x), then the slope of the tangent at (2, −4)."
         },
         {
           "l": "(c)(i)",
@@ -16243,7 +16359,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Match P, Q and R to going down, flat and going up."
         },
         {
           "l": "(c)(ii)",
@@ -16347,7 +16464,8 @@
               }
             }
           ],
-          "tip": "Either reason is enough: 'turning point' or 'the tangent is horizontal'."
+          "tip": "Either reason is enough: 'turning point' or 'the tangent is horizontal'.",
+          "ask": "Explain why the point you matched to g′(x) = 0 belongs there."
         }
       ]
     },
@@ -16479,7 +16597,8 @@
               "vis": null
             }
           ],
-          "tip": "Explain in context: say what x = 0 means AND what −4 means, with units."
+          "tip": "Explain in context: say what x = 0 means AND what −4 means, with units.",
+          "ask": "Find P(0) and explain what it means for the company."
         },
         {
           "l": "(a)(ii)",
@@ -16654,7 +16773,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Complete the table of profit P(x) for x = 0 to 7."
         },
         {
           "l": "(a)(iii)",
@@ -16778,7 +16898,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Draw the graph of P(x) for 0 ≤ x ≤ 7."
         },
         {
           "l": "(a)(iv)",
@@ -16929,7 +17050,8 @@
               }
             }
           ],
-          "tip": "'At least 6' means on or above the line, so the answer is the range BETWEEN the two crossings."
+          "tip": "'At least 6' means on or above the line, so the answer is the range BETWEEN the two crossings.",
+          "ask": "From your graph, find the x range for a profit of at least €6 million."
         },
         {
           "l": "(b)(i)",
@@ -17127,7 +17249,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find Q′(x), then the x that gives the maximum second-year profit."
         },
         {
           "l": "(b)(ii)",
@@ -17227,7 +17350,8 @@
               "vis": null
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the maximum value of Q(x)."
         },
         {
           "l": "(c)(i)",
@@ -17321,7 +17445,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Estimate R(2) from the graph, then work out R(2) + 3."
         },
         {
           "l": "(c)(ii)",
@@ -17518,7 +17643,8 @@
               }
             }
           ],
-          "tip": "+3 outside the function moves the graph UP by 3; it does not move it sideways."
+          "tip": "+3 outside the function moves the graph UP by 3; it does not move it sideways.",
+          "ask": "Draw the graph of y = R(x) + 3 for 0 ≤ x ≤ 6 on the same axes."
         }
       ]
     }

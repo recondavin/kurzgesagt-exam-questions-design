@@ -74,7 +74,8 @@
               "vis": null
             }
           ],
-          "tip": "Almost every sphere, cylinder and cone formula uses the radius. If you are given the diameter, halve it first."
+          "tip": "Almost every sphere, cylinder and cone formula uses the radius. If you are given the diameter, halve it first.",
+          "ask": "Write down the radius of the spherical tank, diameter 12 m."
         },
         {
           "l": "(a)(ii)",
@@ -190,7 +191,8 @@
               }
             }
           ],
-          "tip": "Volume units are always cubed: m³. Type the whole calculation into the calculator in one go so you don't round too early."
+          "tip": "Volume units are always cubed: m³. Type the whole calculation into the calculator in one go so you don't round too early.",
+          "ask": "Find the volume of the tank, to the nearest m³."
         },
         {
           "l": "(b)(i)",
@@ -276,7 +278,8 @@
               }
             }
           ],
-          "tip": "Area is squared (m²), volume is cubed (m³). Check you used the right power of r."
+          "tip": "Area is squared (m²), volume is cubed (m³). Check you used the right power of r.",
+          "ask": "Find the curved surface area of the tank, to one decimal place."
         },
         {
           "l": "(b)(ii)",
@@ -359,7 +362,8 @@
               }
             }
           ],
-          "tip": "\"How many fit into\" means divide."
+          "tip": "\"How many fit into\" means divide.",
+          "ask": "Find the litres of paint used if 1 litre covers 3.5 m²."
         },
         {
           "l": "(b)(iii)",
@@ -480,7 +484,8 @@
               }
             }
           ],
-          "tip": "When you buy tins, boxes or buses, always round UP — 5.16 tins means you need 6."
+          "tip": "When you buy tins, boxes or buses, always round UP — 5.16 tins means you need 6.",
+          "ask": "Find the cost of the paint in 25-litre tins at €180 each."
         },
         {
           "l": "(c)(i)",
@@ -601,7 +606,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the volume of one hemispherical end, radius 4.5 m, to the nearest m³."
         },
         {
           "l": "(c)(ii)",
@@ -811,7 +817,8 @@
               }
             }
           ],
-          "tip": "Write the equation \"parts = total\" first — the examiner gives marks for setting it up even if the arithmetic slips."
+          "tip": "Write the equation \"parts = total\" first — the examiner gives marks for setting it up even if the arithmetic slips.",
+          "ask": "Find the length h of the cylinder part, to one decimal place."
         }
       ]
     },
@@ -936,7 +943,8 @@
               "vis": null
             }
           ],
-          "tip": "Check: 'a' must be at least 1 and less than 10. 16.5 × 10¹⁰ is the right size but loses marks."
+          "tip": "Check: 'a' must be at least 1 and less than 10. 16.5 × 10¹⁰ is the right size but loses marks.",
+          "ask": "Write 165 billion in the form a × 10ⁿ."
         },
         {
           "l": "(b)(i)",
@@ -993,7 +1001,8 @@
               "vis": null
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the radius of each sphere, diameter 18 m."
         },
         {
           "l": "(b)(ii)",
@@ -1089,7 +1098,8 @@
               }
             }
           ],
-          "tip": "Use the π button, not 3.14, unless the question tells you to."
+          "tip": "Use the π button, not 3.14, unless the question tells you to.",
+          "ask": "Find the volume of each sphere, to 2 decimal places."
         },
         {
           "l": "(c)",
@@ -1178,7 +1188,8 @@
               }
             }
           ],
-          "tip": "Keep π in until the very end, then round once."
+          "tip": "Keep π in until the very end, then round once.",
+          "ask": "Find the total surface area of all 9 spheres, to the nearest m²."
         },
         {
           "l": "(d)(i)",
@@ -1296,7 +1307,8 @@
               }
             }
           ],
-          "tip": "A pipe's 'length' is the cylinder's height h."
+          "tip": "A pipe's 'length' is the cylinder's height h.",
+          "ask": "Find the curved area of all 8 pipes (radius 1.65 m, length 23 m)."
         },
         {
           "l": "(d)(ii)",
@@ -1413,7 +1425,8 @@
               }
             }
           ],
-          "tip": "Write the equation with the formula on one side and the given area on the other — that alone gets you partial credit."
+          "tip": "Write the equation with the formula on one side and the given area on the other — that alone gets you partial credit.",
+          "ask": "Find the length of one of the 12 pipes (radius 1.45 m, total 3170 m²)."
         },
         {
           "l": "(d)(iii)",
@@ -1477,7 +1490,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the cost of steel for all the pipes and spheres at €70 per m²."
         }
       ]
     },
@@ -1620,7 +1634,8 @@
               }
             }
           ],
-          "tip": "Count the heights: 8 sections means 9 heights. Only the first and last are NOT doubled."
+          "tip": "Count the heights: 8 sections means 9 heights. Only the first and last are NOT doubled.",
+          "ask": "Use the trapezoidal rule to estimate the area of the field (3 m strips)."
         },
         {
           "l": "(b)",
@@ -1769,7 +1784,8 @@
               "vis": null
             }
           ],
-          "tip": "Getting the formula fully filled in with x earns most of the marks — then it is just solving an equation."
+          "tip": "Getting the formula fully filled in with x earns most of the marks — then it is just solving an equation.",
+          "ask": "Find the height x, given the area with 4 m strips is 145.6 m²."
         }
       ]
     },
@@ -2123,7 +2139,8 @@
               }
             }
           ],
-          "tip": "Never rub out your construction arcs."
+          "tip": "Never rub out your construction arcs.",
+          "ask": "Construct triangle ABC with |AB| = 8 cm, |AC| = 5 cm and |BC| = 7 cm."
         },
         {
           "l": "(b)(i)",
@@ -2189,7 +2206,8 @@
               }
             }
           ],
-          "tip": "(2k)² is 4k², not 2k² — the 2 gets squared too."
+          "tip": "(2k)² is 4k², not 2k² — the 2 gets squared too.",
+          "ask": "Write the area of the square of side 2k cm in terms of k."
         },
         {
           "l": "(b)(ii)",
@@ -2319,7 +2337,8 @@
               }
             }
           ],
-          "tip": "Use k² = 200 for the square's area instead of the rounded 14.14 — you get the exact 600."
+          "tip": "Use k² = 200 for the square's area instead of the rounded 14.14 — you get the exact 600.",
+          "ask": "Find k (to 2 d.p.) and the shaded area left after the triangle is cut."
         }
       ]
     },
@@ -2425,7 +2444,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Write down the height of a cone with base radius 2.25 m."
         },
         {
           "l": "(a)(ii)",
@@ -2518,7 +2538,8 @@
               }
             }
           ],
-          "tip": "In a 'show that' question, write every line of working and finish on the number they gave you."
+          "tip": "In a 'show that' question, write every line of working and finish on the number they gave you.",
+          "ask": "Show that the slant height l of a cone is 5.03 m."
         },
         {
           "l": "(b)(i)",
@@ -2620,7 +2641,8 @@
               }
             }
           ],
-          "tip": "Cone area uses l (slant); cone volume uses h (height). Don't mix them up."
+          "tip": "Cone area uses l (slant); cone volume uses h (height). Don't mix them up.",
+          "ask": "Find the curved surface area of all 14 cones, to 2 decimal places."
         },
         {
           "l": "(b)(ii)",
@@ -2702,7 +2724,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the litres of polish needed if 1 litre covers 12.25 m²."
         },
         {
           "l": "(b)(iii)",
@@ -2868,7 +2891,8 @@
               }
             }
           ],
-          "tip": "Containers: round UP. Money: round as asked."
+          "tip": "Containers: round UP. Money: round as asked.",
+          "ask": "Find the 5-litre containers needed (110 Australian dollars each) and the cost in euro."
         },
         {
           "l": "(c)(i)",
@@ -2953,7 +2977,8 @@
               }
             }
           ],
-          "tip": "Use the base radius 2.25 here, not 5.03 — the arc matches the BASE of the cone."
+          "tip": "Use the base radius 2.25 here, not 5.03 — the arc matches the BASE of the cone.",
+          "ask": "Find the arc length p of the cone's net, to 2 decimal places."
         },
         {
           "l": "(c)(ii)",
@@ -3060,7 +3085,8 @@
               }
             }
           ],
-          "tip": "Sector questions: arc = (θ/360) × 2πr and area = (θ/360) × πr². Learn both."
+          "tip": "Sector questions: arc = (θ/360) × 2πr and area = (θ/360) × πr². Learn both.",
+          "ask": "Find the angle θ at the centre of the net, to the nearest degree."
         }
       ]
     },
@@ -3356,7 +3382,8 @@
               }
             }
           ],
-          "tip": "Check with Pythagoras: |PQ|² = 5² + 2² = 29, and the area of a square is side², so 29 again."
+          "tip": "Check with Pythagoras: |PQ|² = 5² + 2² = 29, and the area of a square is side², so 29 again.",
+          "ask": "Find the area of square PQRS inside the 7 cm square, with |AQ| = 5 cm."
         },
         {
           "l": "(b)(i)",
@@ -3508,7 +3535,8 @@
               "vis": null
             }
           ],
-          "tip": "'In terms of π' — write 8π, not 25.13."
+          "tip": "'In terms of π' — write 8π, not 25.13.",
+          "ask": "Find the circumference of wheels u (radius 4 cm) and v (6 cm) in terms of π."
         },
         {
           "l": "(b)(ii)",
@@ -3677,7 +3705,8 @@
               "vis": null
             }
           ],
-          "tip": "The π cancels — that's why they asked for answers in terms of π."
+          "tip": "The π cancels — that's why they asked for answers in terms of π.",
+          "ask": "How many full turns does wheel u make when wheel v turns 100 times?"
         }
       ]
     },
@@ -3789,7 +3818,8 @@
               }
             }
           ],
-          "tip": "Always round to what they ask: 3 decimal places here."
+          "tip": "Always round to what they ask: 3 decimal places here.",
+          "ask": "Find the volume of a sphere of radius 0.3 cm, to 3 decimal places."
         },
         {
           "l": "(a)(ii)",
@@ -3871,7 +3901,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the grams of gold in the sphere if 1 cm³ weighs 19.3 g."
         },
         {
           "l": "(a)(iii)",
@@ -4028,7 +4059,8 @@
               }
             }
           ],
-          "tip": "Use the calculator's ×10ˣ button for 10²³ so the powers come out right."
+          "tip": "Use the calculator's ×10ˣ button for 10²³ so the powers come out right.",
+          "ask": "Find the number of gold atoms in the sphere, in the form a × 10ⁿ."
         },
         {
           "l": "(b)(i)",
@@ -4147,7 +4179,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the margin of error for a sample of 1560 viewers, as a %."
         },
         {
           "l": "(b)(ii)",
@@ -4223,7 +4256,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Make a 95% confidence interval for viewers who like the show (546)."
         },
         {
           "l": "(b)(iii)",
@@ -4295,7 +4329,8 @@
               }
             }
           ],
-          "tip": "Always finish with a sentence about the actual question (the show and the executive's claim), not just 'reject H₀'."
+          "tip": "Always finish with a sentence about the actual question (the show and the executive's claim), not just 'reject H₀'.",
+          "ask": "Test the claim that 40% of viewers like the show, at the 5% level."
         }
       ]
     },
@@ -4488,7 +4523,8 @@
               }
             }
           ],
-          "tip": "Convert every length to metres BEFORE using the rule; then the area comes out in m²."
+          "tip": "Convert every length to metres BEFORE using the rule; then the area comes out in m².",
+          "ask": "Use the trapezoidal rule to estimate the lawn's area, with 1 cm = 3 m."
         },
         {
           "l": "(b)",
@@ -4615,7 +4651,8 @@
               }
             }
           ],
-          "tip": "Sense check: walking speed of about 5 or 6 km/h is right."
+          "tip": "Sense check: walking speed of about 5 or 6 km/h is right.",
+          "ask": "Write Nuala's walking speed of 1.6 m/s in km/h."
         }
       ]
     },
@@ -4889,7 +4926,8 @@
               }
             }
           ],
-          "tip": "Area: subtract the hole. Perimeter: add the hole's edge."
+          "tip": "Area: subtract the hole. Perimeter: add the hole's edge.",
+          "ask": "Find the area and the perimeter of the crescent, to 2 decimal places."
         },
         {
           "l": "(b)",
@@ -5046,7 +5084,8 @@
               }
             }
           ],
-          "tip": "Get the units to match before dividing: cm³ with cm³ (1 litre = 1000 cm³)."
+          "tip": "Get the units to match before dividing: cm³ with cm³ (1 litre = 1000 cm³).",
+          "ask": "Find how long it takes to fill the cone at 0.5 litres per minute."
         }
       ]
     },
@@ -5148,7 +5187,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the volume of the sphere of radius 3 cm, in terms of π."
         },
         {
           "l": "(a)(ii)",
@@ -5253,7 +5293,8 @@
               }
             }
           ],
-          "tip": "Volume removed = volume of water 'lost': set the two volumes equal."
+          "tip": "Volume removed = volume of water 'lost': set the two volumes equal.",
+          "ask": "Find how far the water level drops when the sphere is taken out."
         },
         {
           "l": "(a)(iii)",
@@ -5408,7 +5449,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the metal left over when the cylinder's side is cut from 35 × 20 cm."
         },
         {
           "l": "(b)(i)",
@@ -5527,7 +5569,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the margin of error for a sample of 800 people, as a %."
         },
         {
           "l": "(b)(ii)",
@@ -5586,7 +5629,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Make a 95% confidence interval for support for the proposal (350)."
         },
         {
           "l": "(b)(iii)",
@@ -5667,7 +5711,8 @@
               }
             }
           ],
-          "tip": "The reason is the key mark: '50% is not inside the confidence interval'."
+          "tip": "The reason is the key mark: '50% is not inside the confidence interval'.",
+          "ask": "Test the newspaper's claim that 50% support the proposal, at the 5% level."
         }
       ]
     },
@@ -5789,7 +5834,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Show that the radius r of the can is 3 cm."
         },
         {
           "l": "(a)(ii)",
@@ -5864,7 +5910,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the width y of the sheet, to the nearest centimetre."
         },
         {
           "l": "(a)(iii)",
@@ -6043,7 +6090,8 @@
               }
             }
           ],
-          "tip": "Keep y as 6π (not the rounded 19) so your answer isn't thrown off."
+          "tip": "Keep y as 6π (not the rounded 19) so your answer isn't thrown off.",
+          "ask": "Find the area of waste aluminium once the can's pieces are cut out."
         },
         {
           "l": "(b)(i)",
@@ -6111,7 +6159,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the volume of a spherical ice cube of radius 1.5 cm, in terms of π."
         },
         {
           "l": "(b)(ii)",
@@ -6244,7 +6293,8 @@
               }
             }
           ],
-          "tip": "Rise problems: (volume of cylinder with height h) = (volume dropped in)."
+          "tip": "Rise problems: (volume of cylinder with height h) = (volume dropped in).",
+          "ask": "Find the rise h when 3 ice cubes go into a cylinder of radius 3.5 cm."
         }
       ]
     },
@@ -6418,7 +6468,8 @@
               }
             }
           ],
-          "tip": "Write the list of heights in order before you start; it makes the formula easy to fill in."
+          "tip": "Write the list of heights in order before you start; it makes the formula easy to fill in.",
+          "ask": "Use the trapezoidal rule to estimate the surface area of the lake."
         },
         {
           "l": "(a)(ii)",
@@ -6483,7 +6534,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Estimate the volume of water if the lake is 8 m deep on average."
         },
         {
           "l": "(b)(i)",
@@ -6551,7 +6603,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the volume of a hemisphere of radius 21 cm, in terms of π."
         },
         {
           "l": "(b)(ii)",
@@ -6702,7 +6755,8 @@
               "vis": null
             }
           ],
-          "tip": "Don't forget to add the hemisphere's height (its radius) at the end — the question asks for the TOTAL height."
+          "tip": "Don't forget to add the hemisphere's height (its radius) at the end — the question asks for the TOTAL height.",
+          "ask": "Find the total height h of the buoy (cone with the hemisphere's volume)."
         },
         {
           "l": "(c)",
@@ -6939,7 +6993,8 @@
               }
             }
           ],
-          "tip": "Make sure your calculator is in degrees (D), not radians."
+          "tip": "Make sure your calculator is in degrees (D), not radians.",
+          "ask": "Find the angle QBP at the buoy, with |BP| = 43 m and |BQ| = 26 m."
         }
       ]
     },
@@ -7043,7 +7098,8 @@
               }
             }
           ],
-          "tip": "'In terms of π' — leave the π in your answer."
+          "tip": "'In terms of π' — leave the π in your answer.",
+          "ask": "Find the volume of the hemisphere of radius 3 m, in terms of π."
         },
         {
           "l": "(a)(ii)",
@@ -7149,7 +7205,8 @@
               "vis": null
             }
           ],
-          "tip": "When both sides have π, it cancels — no calculator needed."
+          "tip": "When both sides have π, it cancels — no calculator needed.",
+          "ask": "Work out the height h of the cylinder if its volume is 36π m³."
         },
         {
           "l": "(b)(i)",
@@ -7229,7 +7286,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the base angle A of the cone (radius 7.5 m, height 47 m)."
         },
         {
           "l": "(b)(ii)",
@@ -7343,7 +7401,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the height k of the cone once its top is cut off."
         },
         {
           "l": "(c)(i)",
@@ -7410,7 +7469,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the area of a circle of radius 50 km, to the nearest km²."
         },
         {
           "l": "(c)(ii)",
@@ -7485,7 +7545,8 @@
               }
             }
           ],
-          "tip": "Significant figures count from the first non-zero digit, not from the decimal point."
+          "tip": "Significant figures count from the first non-zero digit, not from the decimal point.",
+          "ask": "Work out how many km are in 1 nautical mile, to 4 significant figures."
         },
         {
           "l": "(d)",
@@ -7568,7 +7629,8 @@
               }
             }
           ],
-          "tip": "The question wants kilometres — don't stop at 2339 m."
+          "tip": "The question wants kilometres — don't stop at 2339 m.",
+          "ask": "Find the distance d from the ship to the lighthouse, elevation 1.2°."
         }
       ]
     },
@@ -7657,7 +7719,8 @@
               }
             }
           ],
-          "tip": "Know rough real-life sizes: an adult is about 1.5–1.9 m tall."
+          "tip": "Know rough real-life sizes: an adult is about 1.5–1.9 m tall.",
+          "ask": "Tick how many times taller the shed is than Seán, and give a height for him."
         },
         {
           "l": "(b)",
@@ -7833,7 +7896,8 @@
               }
             }
           ],
-          "tip": "The triangle's height is only the part above the rectangle: 8.5 − 7."
+          "tip": "The triangle's height is only the part above the rectangle: 8.5 − 7.",
+          "ask": "Work out the shed's volume to show it holds over one million litres."
         },
         {
           "l": "(c)",
@@ -7929,7 +7993,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Use Pythagoras to find d, the slant length of the roof, to 1 d.p."
         },
         {
           "l": "(d)",
@@ -8142,7 +8207,8 @@
               }
             }
           ],
-          "tip": "Corners that lie on A's own lines (like the bottom-right corner) still need a ray — label every image point."
+          "tip": "Corners that lie on A's own lines (like the bottom-right corner) still need a ray — label every image point.",
+          "ask": "Construct an enlargement of the shed's front, centre A, scale factor 3."
         },
         {
           "l": "(e)(i)",
@@ -8326,7 +8392,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Show that |BC| = 4.65 m."
         },
         {
           "l": "(e)(ii)",
@@ -8512,7 +8579,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the angle ACB that the roof makes at C, to the nearest degree."
         }
       ]
     },
@@ -8592,7 +8660,8 @@
               "vis": null
             }
           ],
-          "tip": "Write the units (m²) — a mark is lost without them."
+          "tip": "Write the units (m²) — a mark is lost without them.",
+          "ask": "Find the area of the 50 m by 30 m garden."
         },
         {
           "l": "(b)",
@@ -8708,7 +8777,8 @@
               }
             }
           ],
-          "tip": "The pointed end counts as a height of 0 — don't leave it out."
+          "tip": "The pointed end counts as a height of 0 — don't leave it out.",
+          "ask": "Use the trapezoidal rule to estimate the area of the pond."
         },
         {
           "l": "(c)",
@@ -8746,7 +8816,8 @@
               "vis": null
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Suggest how the trapezoidal rule could give a more accurate estimate."
         },
         {
           "l": "(d)",
@@ -8829,7 +8900,8 @@
               }
             }
           ],
-          "tip": "'Nearest ten euro' means the answer ends in 0."
+          "tip": "'Nearest ten euro' means the answer ends in 0.",
+          "ask": "Work out the cost of resowing the grass at €2.55 per m², to the nearest €10."
         },
         {
           "l": "(e)",
@@ -8935,7 +9007,8 @@
               }
             }
           ],
-          "tip": "Don't take 16.9% OFF £840 — that gives the wrong answer, because the 16.9% was of the smaller original price."
+          "tip": "Don't take 16.9% OFF £840 — that gives the wrong answer, because the 16.9% was of the smaller original price.",
+          "ask": "Work out the cost before the 16.9% import duty, given £840 includes it."
         },
         {
           "l": "(f)",
@@ -9004,7 +9077,8 @@
               "vis": null
             }
           ],
-          "tip": "€1 = £0.8547: going from £ to € you DIVIDE by 0.8547."
+          "tip": "€1 = £0.8547: going from £ to € you DIVIDE by 0.8547.",
+          "ask": "Work out the total paid in euro for £840 plus a 2.5% commission."
         }
       ]
     },
@@ -9091,7 +9165,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the radius of circle c, which touches the sides of the 12 cm square."
         },
         {
           "l": "(b)",
@@ -9159,7 +9234,8 @@
               }
             }
           ],
-          "tip": "2 decimal places means 113.10, keep the 0."
+          "tip": "2 decimal places means 113.10, keep the 0.",
+          "ask": "Work out the area of circle c, to 2 decimal places."
         },
         {
           "l": "(c)",
@@ -9240,7 +9316,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Work out what percentage of the square is taken up by circle c."
         },
         {
           "l": "(d)",
@@ -9334,7 +9411,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Show that the radius of circle k is 8.49 cm."
         },
         {
           "l": "(e)",
@@ -9401,7 +9479,8 @@
               }
             }
           ],
-          "tip": "Show the formula with the numbers put in — '53.3' with no work got zero here."
+          "tip": "Show the formula with the numbers put in — '53.3' with no work got zero here.",
+          "ask": "Work out the circumference of circle k, to 2 decimal places."
         }
       ]
     },
@@ -9533,7 +9612,8 @@
               }
             }
           ],
-          "tip": "Use the depth of the WATER, not the depth of the pool."
+          "tip": "Use the depth of the WATER, not the depth of the pool.",
+          "ask": "Find the volume of water in the pool filled to 0.75 m deep, to 2 d.p."
         },
         {
           "l": "(b)(i)",
@@ -9616,7 +9696,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Show that the 3 cube seats of side 0.5 m have a volume of 0.375 m³."
         },
         {
           "l": "(b)(ii)",
@@ -9712,7 +9793,8 @@
               }
             }
           ],
-          "tip": "The 0.6 m starting depth doesn't matter — only the volume added does."
+          "tip": "The 0.6 m starting depth doesn't matter — only the volume added does.",
+          "ask": "Find how much the water level rises when the 3 seats go in."
         },
         {
           "l": "(c)(i)",
@@ -9802,7 +9884,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Show that the slant height l of the cone cover is 1.53 m."
         },
         {
           "l": "(c)(ii)",
@@ -9887,7 +9970,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Work out the curved surface area of the cone cover, to 2 d.p."
         },
         {
           "l": "(c)(iii)",
@@ -9991,7 +10075,8 @@
               }
             }
           ],
-          "tip": "A big flat cone gives a net that is nearly a full circle — 306° makes sense."
+          "tip": "A big flat cone gives a net that is nearly a full circle — 306° makes sense.",
+          "ask": "Write down x and find the angle A in the net of the cone cover."
         }
       ]
     },
@@ -10068,7 +10153,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Convert 121 miles to km, using 1 mile = 1.61 km."
         },
         {
           "l": "(a)(ii)",
@@ -10125,7 +10211,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Convert one hour to seconds."
         },
         {
           "l": "(a)(iii)",
@@ -10271,7 +10358,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Convert 121 miles per hour to metres per second, to 2 d.p."
         },
         {
           "l": "(b)",
@@ -10338,7 +10426,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Find the surface area of a tennis ball of radius 3.27 cm."
         },
         {
           "l": "(c)",
@@ -10429,7 +10518,8 @@
               }
             }
           ],
-          "tip": "Don't subtract the radii first (3.4 − 3.1) and cube that — that is a different, wrong volume."
+          "tip": "Don't subtract the radii first (3.4 − 3.1) and cube that — that is a different, wrong volume.",
+          "ask": "Find the volume of the rubber layer between radii 3.4 cm and 3.1 cm."
         },
         {
           "l": "(d)(i)",
@@ -10493,7 +10583,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Show that the cylinder holding 3 balls of radius 3.4 cm has h = 20.4 cm."
         },
         {
           "l": "(d)(ii)",
@@ -10576,7 +10667,8 @@
               }
             }
           ],
-          "tip": null
+          "tip": null,
+          "ask": "Work out the volume of the cylinder, to the nearest whole number."
         },
         {
           "l": "(d)(iii)",
@@ -10703,7 +10795,8 @@
               }
             }
           ],
-          "tip": "Count the faces: a closed box has 6. Draw the net if you're unsure."
+          "tip": "Count the faces: a closed box has 6. Draw the net if you're unsure.",
+          "ask": "Find the surface area of the smallest box holding the 3 stacked balls."
         }
       ]
     }
