@@ -36,7 +36,27 @@
           "idea": {
             "title": "The quadratic formula",
             "text": "Any equation ax² + bx + c = 0 can be solved by putting a, b and c into x = (−b ± √(b² − 4ac)) / 2a. It is in the Formulae and Tables booklet. The ± gives two answers.",
-            "vis": null
+            "vis": {
+              "t": "graph",
+              "x": [
+                -1,
+                7
+              ],
+              "y": [
+                -5,
+                8
+              ],
+              "fns": [
+                {
+                  "f": "-x^2+6x-4"
+                }
+              ],
+              "roots": [
+                0.764,
+                5.236
+              ],
+              "cap": "The $\\pm$ gives two answers: the two places the curve meets the x-axis"
+            }
           },
           "steps": [
             {
@@ -45,7 +65,30 @@
                 "-x^2+6x-4=0",
                 "a=\\hl{-1},\\quad b=6,\\quad c=-4"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1,
+                  7
+                ],
+                "y": [
+                  -5,
+                  8
+                ],
+                "fns": [
+                  {
+                    "f": "-x^2+6x-4"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 0,
+                    "y": -4,
+                    "label": "c = −4"
+                  }
+                ],
+                "cap": "$a=-1$: the minus makes the curve an upside-down U"
+              }
             },
             {
               "say": "Put a, b and c into the quadratic formula. Use brackets around every negative number.",
@@ -60,7 +103,30 @@
               "math": [
                 "x=\\frac{-6\\pm\\sqrt{\\hl{20}}}{-2}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1,
+                  7
+                ],
+                "y": [
+                  -5,
+                  8
+                ],
+                "fns": [
+                  {
+                    "f": "-x^2+6x-4"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 0,
+                    "y": -4,
+                    "label": "c = −4"
+                  }
+                ],
+                "cap": "$b^2-4ac=20$ is positive, so there are two answers"
+              }
             },
             {
               "say": "The ± means two answers: one with +, one with −. Use your calculator for each, then round to one decimal place.",
@@ -68,7 +134,36 @@
                 "x=\\frac{-6+\\sqrt{20}}{-2}=0.763\\ldots\\approx\\hl{0.8}",
                 "x=\\frac{-6-\\sqrt{20}}{-2}=5.236\\ldots\\approx\\hl{5.2}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1,
+                  7
+                ],
+                "y": [
+                  -5,
+                  8
+                ],
+                "fns": [
+                  {
+                    "f": "-x^2+6x-4"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 0.764,
+                    "y": 0,
+                    "label": "x ≈ 0.8",
+                    "hl": true
+                  },
+                  {
+                    "x": 5.236,
+                    "y": 0,
+                    "label": "x ≈ 5.2",
+                    "hl": true
+                  }
+                ]
+              }
             },
             {
               "say": "So the solutions are x = 0.8 and x = 5.2. These are where the curve crosses the x-axis.",
@@ -81,28 +176,31 @@
                 ],
                 "y": [
                   -5,
-                  6
+                  8
                 ],
                 "fns": [
                   {
-                    "f": "-x^2+6*x-4",
-                    "c": "main"
+                    "f": "-x^2+6x-4"
                   }
+                ],
+                "roots": [
+                  0.764,
+                  5.236
                 ],
                 "pts": [
                   {
                     "x": 0.764,
                     "y": 0,
-                    "label": "0.8"
+                    "label": "x ≈ 0.8",
+                    "hl": true
                   },
                   {
                     "x": 5.236,
                     "y": 0,
-                    "label": "5.2"
+                    "label": "x ≈ 5.2",
+                    "hl": true
                   }
-                ],
-                "hl": null,
-                "shade": null
+                ]
               }
             }
           ],
@@ -133,21 +231,17 @@
               ],
               "y": [
                 -5,
-                6
+                8
               ],
               "fns": [
                 {
-                  "f": "-x^2+6*x-4",
-                  "c": "main"
+                  "f": "-x^2+6x-4"
                 }
               ],
-              "pts": [],
-              "tangent": {
-                "f": "-x^2+6*x-4",
-                "x": 3
-              },
-              "hl": "max",
-              "shade": null
+              "ride": {
+                "from": 0.6,
+                "to": 3
+              }
             }
           },
           "steps": [
@@ -157,7 +251,27 @@
                 "f(x)=-x^{\\mv{p}{2}}+6x-4",
                 "f'(x)=-\\mv{p}{2}x+6"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1,
+                  7
+                ],
+                "y": [
+                  -5,
+                  8
+                ],
+                "fns": [
+                  {
+                    "f": "-x^2+6x-4"
+                  }
+                ],
+                "tangent": {
+                  "f": "-x^2+6x-4",
+                  "x": 1
+                },
+                "cap": "$f'(x)=-2x+6$ gives the slope at any x: at $x=1$ it is $4$"
+              }
             },
             {
               "say": "At a turning point the curve is flat, so the slope is zero. Set f′(x) = 0 and solve.",
@@ -166,7 +280,26 @@
                 "6=\\mv{s}{2x}",
                 "x=\\hl{3}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1,
+                  7
+                ],
+                "y": [
+                  -5,
+                  8
+                ],
+                "fns": [
+                  {
+                    "f": "-x^2+6x-4"
+                  }
+                ],
+                "ride": {
+                  "from": 1,
+                  "to": 3
+                }
+              }
             },
             {
               "say": "That only gives the x. Put x = 3 back into the original f(x) to get the y.",
@@ -174,7 +307,34 @@
                 "f(3)=-(3)^2+6(3)-4",
                 "=-9+18-4=\\hl{5}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1,
+                  7
+                ],
+                "y": [
+                  -5,
+                  8
+                ],
+                "fns": [
+                  {
+                    "f": "-x^2+6x-4"
+                  }
+                ],
+                "ride": {
+                  "from": 1,
+                  "to": 3
+                },
+                "reads": [
+                  {
+                    "x": 3,
+                    "y": 5,
+                    "from": "x",
+                    "label": "f(3) = 5"
+                  }
+                ]
+              }
             },
             {
               "say": "So the turning point is (3, 5). It is the top of the curve, because the minus x² makes an upside-down U.",
@@ -189,27 +349,34 @@
                 ],
                 "y": [
                   -5,
-                  6
+                  8
                 ],
                 "fns": [
                   {
-                    "f": "-x^2+6*x-4",
-                    "c": "main"
+                    "f": "-x^2+6x-4"
+                  }
+                ],
+                "ride": {
+                  "from": 1,
+                  "to": 3,
+                  "label": false
+                },
+                "reads": [
+                  {
+                    "x": 3,
+                    "y": 5,
+                    "from": "x",
+                    "label": "f(3) = 5"
                   }
                 ],
                 "pts": [
                   {
                     "x": 3,
                     "y": 5,
-                    "label": "(3, 5)"
+                    "label": "(3, 5) max",
+                    "hl": true
                   }
-                ],
-                "tangent": {
-                  "f": "-x^2+6*x-4",
-                  "x": 3
-                },
-                "hl": "max",
-                "shade": null
+                ]
               }
             }
           ],
@@ -230,7 +397,21 @@
             {
               "say": "Put a scale on both axes first: 1 to 6 across and 1 to 6 up is enough. The scale is part of the marks.",
               "math": [],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1,
+                  7
+                ],
+                "y": [
+                  -5,
+                  8
+                ],
+                "fns": [],
+                "xlab": "x",
+                "ylab": "y",
+                "cap": "Number both axes first: that is your scale"
+              }
             },
             {
               "say": "Mark the two places the curve crosses the x-axis, from part (a): about 0.8 and 5.2.",
@@ -245,9 +426,11 @@
                 ],
                 "y": [
                   -5,
-                  6
+                  8
                 ],
                 "fns": [],
+                "xlab": "x",
+                "ylab": "y",
                 "pts": [
                   {
                     "x": 0.764,
@@ -259,9 +442,7 @@
                     "y": 0,
                     "label": "(5.2, 0)"
                   }
-                ],
-                "hl": null,
-                "shade": null
+                ]
               }
             },
             {
@@ -277,9 +458,11 @@
                 ],
                 "y": [
                   -5,
-                  6
+                  8
                 ],
                 "fns": [],
+                "xlab": "x",
+                "ylab": "y",
                 "pts": [
                   {
                     "x": 0.764,
@@ -294,11 +477,10 @@
                   {
                     "x": 3,
                     "y": 5,
-                    "label": "(3, 5)"
+                    "label": "(3, 5)",
+                    "hl": true
                   }
-                ],
-                "hl": null,
-                "shade": null
+                ]
               }
             },
             {
@@ -312,14 +494,15 @@
                 ],
                 "y": [
                   -5,
-                  6
+                  8
                 ],
                 "fns": [
                   {
-                    "f": "-x^2+6*x-4",
-                    "c": "main"
+                    "f": "-x^2+6x-4"
                   }
                 ],
+                "xlab": "x",
+                "ylab": "y",
                 "pts": [
                   {
                     "x": 0.764,
@@ -334,11 +517,10 @@
                   {
                     "x": 3,
                     "y": 5,
-                    "label": "(3, 5)"
+                    "label": "(3, 5)",
+                    "hl": true
                   }
-                ],
-                "hl": "max",
-                "shade": null
+                ]
               }
             }
           ],
@@ -401,7 +583,35 @@
           "idea": {
             "title": "Using a function",
             "text": "A function is a rule: put an x in, get a p out. To fill in a table, replace x with each number and work it out.",
-            "vis": null
+            "vis": {
+              "t": "graph",
+              "x": [
+                0,
+                2700
+              ],
+              "y": [
+                0,
+                86000
+              ],
+              "fns": [
+                {
+                  "f": "96x-0.03x^2",
+                  "from": 500,
+                  "to": 2500
+                }
+              ],
+              "xlab": "x",
+              "ylab": "p (€)",
+              "reads": [
+                {
+                  "x": 500,
+                  "y": 40500,
+                  "from": "x",
+                  "label": "p = 40 500"
+                }
+              ],
+              "cap": "Put $x=500$ in, get $p=40\\,500$ out"
+            }
           },
           "steps": [
             {
@@ -410,7 +620,33 @@
                 "p=96(1000)-0.03(1000)^2",
                 "=96\\,000-30\\,000=\\hl{66\\,000}"
               ],
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x",
+                  "500",
+                  "1000",
+                  "1500",
+                  "2000",
+                  "2500"
+                ],
+                "rows": [
+                  [
+                    "p (€)",
+                    "40 500",
+                    "66 000",
+                    "",
+                    "",
+                    ""
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    2
+                  ]
+                ]
+              }
             },
             {
               "say": "Do the same for 1500, 2000 and 2500.",
@@ -419,7 +655,41 @@
                 "x=2000:\\ 192\\,000-120\\,000=\\hl{72\\,000}",
                 "x=2500:\\ 240\\,000-187\\,500=\\hl{52\\,500}"
               ],
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x",
+                  "500",
+                  "1000",
+                  "1500",
+                  "2000",
+                  "2500"
+                ],
+                "rows": [
+                  [
+                    "p (€)",
+                    "40 500",
+                    "66 000",
+                    "76 500",
+                    "72 000",
+                    "52 500"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    5
+                  ]
+                ]
+              }
             },
             {
               "say": "Check your method on the value already given: x = 500 gives 48 000 − 7500 = 40 500. It matches, so the table is right.",
@@ -447,21 +717,10 @@
                 "hl": [
                   [
                     0,
-                    2
-                  ],
-                  [
-                    0,
-                    3
-                  ],
-                  [
-                    0,
-                    4
-                  ],
-                  [
-                    0,
-                    5
+                    1
                   ]
-                ]
+                ],
+                "cap": "Check: $48\\,000-7500=40\\,500$ ✓"
               }
             }
           ],
@@ -490,38 +749,33 @@
                 ],
                 "y": [
                   38000,
-                  82000
+                  86000
                 ],
                 "fns": [],
-                "pts": [
-                  {
-                    "x": 500,
-                    "y": 40500,
-                    "label": ""
-                  },
-                  {
-                    "x": 1000,
-                    "y": 66000,
-                    "label": ""
-                  },
-                  {
-                    "x": 1500,
-                    "y": 76500,
-                    "label": ""
-                  },
-                  {
-                    "x": 2000,
-                    "y": 72000,
-                    "label": ""
-                  },
-                  {
-                    "x": 2500,
-                    "y": 52500,
-                    "label": ""
-                  }
+                "plot": [
+                  [
+                    500,
+                    40500
+                  ],
+                  [
+                    1000,
+                    66000
+                  ],
+                  [
+                    1500,
+                    76500
+                  ],
+                  [
+                    2000,
+                    72000
+                  ],
+                  [
+                    2500,
+                    52500
+                  ]
                 ],
-                "hl": null,
-                "shade": null
+                "xlab": "x",
+                "ylab": "profit p (€)"
               }
             },
             {
@@ -535,43 +789,39 @@
                 ],
                 "y": [
                   38000,
-                  82000
+                  86000
                 ],
                 "fns": [
                   {
-                    "f": "96*x-0.03*x^2",
-                    "c": "main"
+                    "f": "96x-0.03x^2",
+                    "from": 500,
+                    "to": 2500
                   }
                 ],
-                "pts": [
-                  {
-                    "x": 500,
-                    "y": 40500,
-                    "label": ""
-                  },
-                  {
-                    "x": 1000,
-                    "y": 66000,
-                    "label": ""
-                  },
-                  {
-                    "x": 1500,
-                    "y": 76500,
-                    "label": ""
-                  },
-                  {
-                    "x": 2000,
-                    "y": 72000,
-                    "label": ""
-                  },
-                  {
-                    "x": 2500,
-                    "y": 52500,
-                    "label": ""
-                  }
+                "plot": [
+                  [
+                    500,
+                    40500
+                  ],
+                  [
+                    1000,
+                    66000
+                  ],
+                  [
+                    1500,
+                    76500
+                  ],
+                  [
+                    2000,
+                    72000
+                  ],
+                  [
+                    2500,
+                    52500
+                  ]
                 ],
-                "hl": null,
-                "shade": null
+                "xlab": "x",
+                "ylab": "profit p (€)"
               }
             }
           ],
@@ -604,23 +854,25 @@
                 ],
                 "y": [
                   38000,
-                  82000
+                  86000
                 ],
                 "fns": [
                   {
-                    "f": "96*x-0.03*x^2",
-                    "c": "main"
+                    "f": "96x-0.03x^2",
+                    "from": 500,
+                    "to": 2500
                   }
                 ],
+                "xlab": "x",
+                "ylab": "profit p (€)",
                 "pts": [
                   {
                     "x": 1750,
                     "y": 76125,
-                    "label": ""
+                    "label": "x = 1750",
+                    "hl": true
                   }
-                ],
-                "hl": null,
-                "shade": null
+                ]
               }
             },
             {
@@ -634,29 +886,25 @@
                 ],
                 "y": [
                   38000,
-                  82000
+                  86000
                 ],
                 "fns": [
                   {
-                    "f": "96*x-0.03*x^2",
-                    "c": "main"
+                    "f": "96x-0.03x^2",
+                    "from": 500,
+                    "to": 2500
                   }
                 ],
-                "pts": [
+                "xlab": "x",
+                "ylab": "profit p (€)",
+                "reads": [
                   {
                     "x": 1750,
                     "y": 76125,
-                    "label": "≈ 76 125"
+                    "from": "x",
+                    "label": "≈ €76 125"
                   }
-                ],
-                "lines": [
-                  {
-                    "m": 0,
-                    "c": 76125
-                  }
-                ],
-                "hl": null,
-                "shade": null
+                ]
               }
             },
             {
@@ -697,23 +945,33 @@
                 ],
                 "y": [
                   38000,
-                  82000
+                  86000
                 ],
                 "fns": [
                   {
-                    "f": "96*x-0.03*x^2",
-                    "c": "main"
+                    "f": "96x-0.03x^2",
+                    "from": 500,
+                    "to": 2500
                   }
                 ],
-                "pts": [],
+                "xlab": "x",
+                "ylab": "profit p (€)",
                 "lines": [
                   {
                     "m": 0,
                     "c": 60000
                   }
                 ],
-                "hl": null,
-                "shade": null
+                "pts": [
+                  {
+                    "x": 851.7,
+                    "y": 60000
+                  },
+                  {
+                    "x": 2348.3,
+                    "y": 60000
+                  }
+                ]
               }
             },
             {
@@ -727,34 +985,37 @@
                 ],
                 "y": [
                   38000,
-                  82000
+                  86000
                 ],
                 "fns": [
                   {
-                    "f": "96*x-0.03*x^2",
-                    "c": "main"
+                    "f": "96x-0.03x^2",
+                    "from": 500,
+                    "to": 2500
                   }
                 ],
-                "pts": [
-                  {
-                    "x": 852,
-                    "y": 60000,
-                    "label": "≈ 850"
-                  },
-                  {
-                    "x": 2348,
-                    "y": 60000,
-                    "label": "≈ 2350"
-                  }
-                ],
+                "xlab": "x",
+                "ylab": "profit p (€)",
                 "lines": [
                   {
                     "m": 0,
                     "c": 60000
                   }
                 ],
-                "hl": null,
-                "shade": null
+                "reads": [
+                  {
+                    "x": 851.7,
+                    "y": 60000,
+                    "from": "y",
+                    "label": "≈ 850"
+                  },
+                  {
+                    "x": 2348.3,
+                    "y": 60000,
+                    "from": "y",
+                    "label": "≈ 2350"
+                  }
+                ]
               }
             },
             {
@@ -791,21 +1052,21 @@
               ],
               "y": [
                 38000,
-                82000
+                86000
               ],
               "fns": [
                 {
-                  "f": "96*x-0.03*x^2",
-                  "c": "main"
+                  "f": "96x-0.03x^2",
+                  "from": 500,
+                  "to": 2500
                 }
               ],
-              "pts": [],
-              "tangent": {
-                "f": "96*x-0.03*x^2",
-                "x": 1600
-              },
-              "hl": "max",
-              "shade": null
+              "xlab": "x",
+              "ylab": "profit p (€)",
+              "ride": {
+                "from": 800,
+                "to": 1600
+              }
             }
           },
           "steps": [
@@ -816,26 +1077,6 @@
                 "\\frac{dp}{dx}=96-\\mv{p}{2}(0.03)x",
                 "\\frac{dp}{dx}=96-0.06x"
               ],
-              "vis": null
-            },
-            {
-              "say": "At the maximum the curve is flat, so its slope is zero. Set dp/dx = 0.",
-              "math": [
-                "96-0.06x=0"
-              ],
-              "vis": null
-            },
-            {
-              "say": "Move the x term across and divide.",
-              "math": [
-                "96=0.06x",
-                "x=\\frac{96}{0.06}=\\hl{1600}"
-              ],
-              "vis": null
-            },
-            {
-              "say": "So trading 1600 barrels a day gives the maximum profit.",
-              "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
@@ -844,28 +1085,98 @@
                 ],
                 "y": [
                   38000,
-                  82000
+                  86000
                 ],
                 "fns": [
                   {
-                    "f": "96*x-0.03*x^2",
-                    "c": "main"
+                    "f": "96x-0.03x^2",
+                    "from": 500,
+                    "to": 2500
                   }
                 ],
+                "xlab": "x",
+                "ylab": "profit p (€)",
+                "tangent": {
+                  "f": "96x-0.03x^2",
+                  "x": 1000
+                },
+                "cap": "$\\frac{dp}{dx}=96-0.06x$: at $x=1000$ the slope is $36$"
+              }
+            },
+            {
+              "say": "At the maximum the curve is flat, so its slope is zero. Set dp/dx = 0.",
+              "math": [
+                "96-0.06x=0"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  400,
+                  2600
+                ],
+                "y": [
+                  38000,
+                  86000
+                ],
+                "fns": [
+                  {
+                    "f": "96x-0.03x^2",
+                    "from": 500,
+                    "to": 2500
+                  }
+                ],
+                "xlab": "x",
+                "ylab": "profit p (€)",
+                "ride": {
+                  "from": 1000,
+                  "to": 1600
+                }
+              }
+            },
+            {
+              "say": "Move the x term across and divide.",
+              "math": [
+                "96=0.06x",
+                "x=\\frac{96}{0.06}=\\hl{1600}"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  400,
+                  2600
+                ],
+                "y": [
+                  38000,
+                  86000
+                ],
+                "fns": [
+                  {
+                    "f": "96x-0.03x^2",
+                    "from": 500,
+                    "to": 2500
+                  }
+                ],
+                "xlab": "x",
+                "ylab": "profit p (€)",
+                "ride": {
+                  "from": 1000,
+                  "to": 1600,
+                  "label": false
+                },
                 "pts": [
                   {
                     "x": 1600,
                     "y": 76800,
-                    "label": "x = 1600"
+                    "label": "x = 1600",
+                    "hl": true
                   }
-                ],
-                "tangent": {
-                  "f": "96*x-0.03*x^2",
-                  "x": 1600
-                },
-                "hl": "max",
-                "shade": null
+                ]
               }
+            },
+            {
+              "say": "So trading 1600 barrels a day gives the maximum profit.",
+              "math": [],
+              "vis": null
             }
           ],
           "tip": "'Use calculus' means you must differentiate — reading the top off the graph gets no marks here."
@@ -890,21 +1201,117 @@
               "math": [
                 "p=96(1600)-0.03(1600)^2"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  400,
+                  2600
+                ],
+                "y": [
+                  38000,
+                  86000
+                ],
+                "fns": [
+                  {
+                    "f": "96x-0.03x^2",
+                    "from": 500,
+                    "to": 2500
+                  }
+                ],
+                "xlab": "x",
+                "ylab": "profit p (€)",
+                "pts": [
+                  {
+                    "x": 1600,
+                    "y": 76800,
+                    "label": "x = 1600",
+                    "hl": true
+                  }
+                ]
+              }
             },
             {
               "say": "Work it out: 153 600 − 76 800.",
               "math": [
                 "=153\\,600-76\\,800=\\hl{76\\,800}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  400,
+                  2600
+                ],
+                "y": [
+                  38000,
+                  86000
+                ],
+                "fns": [
+                  {
+                    "f": "96x-0.03x^2",
+                    "from": 500,
+                    "to": 2500
+                  }
+                ],
+                "xlab": "x",
+                "ylab": "profit p (€)",
+                "reads": [
+                  {
+                    "x": 1600,
+                    "y": 76800,
+                    "from": "x",
+                    "label": "p = 76 800"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 1600,
+                    "y": 76800,
+                    "hl": true
+                  }
+                ]
+              }
             },
             {
               "say": "So the maximum daily profit is €76 800.",
               "math": [
                 "\\text{Maximum profit}=\\text{€}76\\,800"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  400,
+                  2600
+                ],
+                "y": [
+                  38000,
+                  86000
+                ],
+                "fns": [
+                  {
+                    "f": "96x-0.03x^2",
+                    "from": 500,
+                    "to": 2500
+                  }
+                ],
+                "xlab": "x",
+                "ylab": "profit p (€)",
+                "reads": [
+                  {
+                    "x": 1600,
+                    "y": 76800,
+                    "from": "x",
+                    "label": "p = 76 800"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 1600,
+                    "y": 76800,
+                    "label": "max €76 800",
+                    "hl": true
+                  }
+                ]
+              }
             }
           ],
           "tip": "The derivative tells you WHERE the maximum is; the original function tells you HOW BIG it is."
@@ -929,7 +1336,27 @@
               "math": [
                 "96x-0.03x^2=0"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -300,
+                  3900
+                ],
+                "y": [
+                  -75000,
+                  90000
+                ],
+                "fns": [
+                  {
+                    "f": "96x-0.03x^2",
+                    "from": -100,
+                    "to": 3800
+                  }
+                ],
+                "xlab": "x",
+                "ylab": "p",
+                "cap": "No profit: $p=0$, where the curve meets the x-axis"
+              }
             },
             {
               "say": "Both terms have an x, so take x out as a common factor.",
@@ -943,14 +1370,67 @@
               "math": [
                 "x=0\\quad\\text{or}\\quad 96-0.03x=0"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -300,
+                  3900
+                ],
+                "y": [
+                  -75000,
+                  90000
+                ],
+                "fns": [
+                  {
+                    "f": "96x-0.03x^2",
+                    "from": -100,
+                    "to": 3800
+                  }
+                ],
+                "xlab": "x",
+                "ylab": "p",
+                "roots": [
+                  0
+                ],
+                "cap": "$x=0$: trading nothing gives no profit"
+              }
             },
             {
               "say": "x = 0 means trading nothing. Solve the other one: 0.03x = 96.",
               "math": [
                 "x=\\frac{96}{0.03}=\\hl{3200}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -300,
+                  3900
+                ],
+                "y": [
+                  -75000,
+                  90000
+                ],
+                "fns": [
+                  {
+                    "f": "96x-0.03x^2",
+                    "from": -100,
+                    "to": 3800
+                  }
+                ],
+                "xlab": "x",
+                "ylab": "p",
+                "roots": [
+                  0,
+                  3200
+                ],
+                "pts": [
+                  {
+                    "x": 3200,
+                    "y": 0,
+                    "label": "x = 3200"
+                  }
+                ]
+              }
             },
             {
               "say": "Beyond 3200 barrels the profit is negative, so k = 3200.",
@@ -960,33 +1440,40 @@
               "vis": {
                 "t": "graph",
                 "x": [
-                  -200,
-                  3500
+                  -300,
+                  3900
                 ],
                 "y": [
-                  -12000,
-                  85000
+                  -75000,
+                  90000
                 ],
                 "fns": [
                   {
-                    "f": "96*x-0.03*x^2",
-                    "c": "main"
+                    "f": "96x-0.03x^2",
+                    "from": -100,
+                    "to": 3800
+                  },
+                  {
+                    "f": "96x-0.03x^2",
+                    "from": 3200,
+                    "to": 3800
                   }
+                ],
+                "xlab": "x",
+                "ylab": "p",
+                "roots": [
+                  0,
+                  3200
                 ],
                 "pts": [
                   {
-                    "x": 0,
-                    "y": 0,
-                    "label": "0"
-                  },
-                  {
                     "x": 3200,
                     "y": 0,
-                    "label": "3200"
+                    "label": "k = 3200",
+                    "hl": true
                   }
                 ],
-                "hl": null,
-                "shade": null
+                "cap": "Past 3200 barrels the curve is below the axis: a loss"
               }
             }
           ],
@@ -1030,7 +1517,30 @@
               "math": [
                 "f(0)=0^3+0^2-2(0)+7=\\hl{7}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2.5,
+                  2
+                ],
+                "y": [
+                  -3,
+                  16
+                ],
+                "fns": [
+                  {
+                    "f": "x^3+x^2-2x+7",
+                    "label": "f(x)"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 0,
+                    "y": 7,
+                    "label": "f(0) = 7"
+                  }
+                ]
+              }
             },
             {
               "say": "So the graph cuts the y-axis at (0, 7).",
@@ -1044,24 +1554,23 @@
                   2
                 ],
                 "y": [
-                  0,
+                  -3,
                   16
                 ],
                 "fns": [
                   {
-                    "f": "x^3+x^2-2*x+7",
-                    "c": "main"
+                    "f": "x^3+x^2-2x+7",
+                    "label": "f(x)"
                   }
                 ],
                 "pts": [
                   {
                     "x": 0,
                     "y": 7,
-                    "label": "(0, 7)"
+                    "label": "(0, 7)",
+                    "hl": true
                   }
-                ],
-                "hl": null,
-                "shade": null
+                ]
               }
             }
           ],
@@ -1084,21 +1593,101 @@
               "math": [
                 "f(1)=(1)^3+(1)^2-2(1)+7"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2.5,
+                  2
+                ],
+                "y": [
+                  -3,
+                  16
+                ],
+                "fns": [
+                  {
+                    "f": "x^3+x^2-2x+7",
+                    "label": "f(x)"
+                  }
+                ],
+                "reads": [
+                  {
+                    "x": 1,
+                    "y": 7,
+                    "from": "x",
+                    "label": "f(1) = ?"
+                  }
+                ]
+              }
             },
             {
               "say": "Work it out.",
               "math": [
                 "=1+1-2+7=\\hl{7}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2.5,
+                  2
+                ],
+                "y": [
+                  -3,
+                  16
+                ],
+                "fns": [
+                  {
+                    "f": "x^3+x^2-2x+7",
+                    "label": "f(x)"
+                  }
+                ],
+                "reads": [
+                  {
+                    "x": 1,
+                    "y": 7,
+                    "from": "x",
+                    "label": "f(1) = 7"
+                  }
+                ]
+              }
             },
             {
               "say": "The answer is 7, which is the y of A(1, 7). So A is on the graph of f.",
               "math": [
                 "7=7\\ \\checkmark"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2.5,
+                  2
+                ],
+                "y": [
+                  -3,
+                  16
+                ],
+                "fns": [
+                  {
+                    "f": "x^3+x^2-2x+7",
+                    "label": "f(x)"
+                  }
+                ],
+                "reads": [
+                  {
+                    "x": 1,
+                    "y": 7,
+                    "from": "x",
+                    "label": "f(1) = 7"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 1,
+                    "y": 7,
+                    "label": "A(1, 7) ✓",
+                    "hl": true
+                  }
+                ]
+              }
             }
           ],
           "tip": null
@@ -1125,28 +1714,20 @@
                 2
               ],
               "y": [
-                0,
+                -3,
                 16
               ],
               "fns": [
                 {
-                  "f": "x^3+x^2-2*x+7",
-                  "c": "main"
+                  "f": "x^3+x^2-2x+7",
+                  "label": "f(x)"
                 }
               ],
-              "pts": [
-                {
-                  "x": 1,
-                  "y": 7,
-                  "label": ""
-                }
-              ],
-              "tangent": {
-                "f": "x^3+x^2-2*x+7",
-                "x": 1
+              "ride": {
+                "from": -2.3,
+                "to": 1.5
               },
-              "hl": null,
-              "shade": null
+              "cap": "The slope changes from point to point: f′(x) gives it at every x"
             }
           },
           "steps": [
@@ -1156,7 +1737,31 @@
                 "f(x)=x^{\\mv{a}{3}}+x^{\\mv{b}{2}}-2x+7",
                 "f'(x)=\\mv{a}{3}x^{2}+\\mv{b}{2}x-2"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2.5,
+                  2
+                ],
+                "y": [
+                  -3,
+                  16
+                ],
+                "fns": [
+                  {
+                    "f": "x^3+x^2-2x+7",
+                    "label": "f(x)"
+                  },
+                  {
+                    "f": "3x^2+2x-2",
+                    "c": "faint",
+                    "from": 1.75,
+                    "to": -2.3,
+                    "label": "f′(x)"
+                  }
+                ],
+                "cap": "Differentiating gives a new curve, $f'(x)$: the slope of $f$ at each x"
+              }
             },
             {
               "say": "−2x becomes −2 (x on its own just leaves its number), and the 7 disappears — a number on its own never changes, so its slope is 0.",
@@ -1171,7 +1776,43 @@
                 "f'(1)=3(1)^2+2(1)-2",
                 "=3+2-2=\\hl{3}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2.5,
+                  2
+                ],
+                "y": [
+                  -3,
+                  16
+                ],
+                "fns": [
+                  {
+                    "f": "x^3+x^2-2x+7",
+                    "label": "f(x)"
+                  },
+                  {
+                    "f": "3x^2+2x-2",
+                    "c": "faint",
+                    "from": 1.75,
+                    "to": -2.3,
+                    "label": "f′(x)"
+                  }
+                ],
+                "tangent": {
+                  "f": "x^3+x^2-2x+7",
+                  "x": 1,
+                  "label": "slope = 3"
+                },
+                "pts": [
+                  {
+                    "x": 1,
+                    "y": 3,
+                    "label": "f′(1) = 3",
+                    "hl": true
+                  }
+                ]
+              }
             },
             {
               "say": "So f′(x) = 3x² + 2x − 2, and the slope of the tangent at x = 1 is 3.",
@@ -1183,28 +1824,27 @@
                   2
                 ],
                 "y": [
-                  0,
+                  -3,
                   16
                 ],
                 "fns": [
                   {
-                    "f": "x^3+x^2-2*x+7",
-                    "c": "main"
+                    "f": "x^3+x^2-2x+7",
+                    "label": "f(x)"
                   }
                 ],
+                "tangent": {
+                  "f": "x^3+x^2-2x+7",
+                  "x": 1,
+                  "label": "slope = 3"
+                },
                 "pts": [
                   {
                     "x": 1,
                     "y": 7,
                     "label": "A(1, 7)"
                   }
-                ],
-                "tangent": {
-                  "f": "x^3+x^2-2*x+7",
-                  "x": 1
-                },
-                "hl": null,
-                "shade": null
+                ]
               }
             }
           ],
@@ -1224,7 +1864,36 @@
           "idea": {
             "title": "Equation of a line",
             "text": "To write down a line you need one point (x₁, y₁) on it and its slope m. Put them into y − y₁ = m(x − x₁), from the Formulae and Tables booklet.",
-            "vis": null
+            "vis": {
+              "t": "graph",
+              "x": [
+                -2.5,
+                2
+              ],
+              "y": [
+                -3,
+                16
+              ],
+              "fns": [
+                {
+                  "f": "x^3+x^2-2x+7",
+                  "c": "faint"
+                }
+              ],
+              "tangent": {
+                "f": "3x+4",
+                "x": 1,
+                "label": "slope m = 3"
+              },
+              "pts": [
+                {
+                  "x": 1,
+                  "y": 7,
+                  "label": "(x₁, y₁)"
+                }
+              ],
+              "cap": "One point and the slope fix the line"
+            }
           },
           "steps": [
             {
@@ -1232,7 +1901,35 @@
               "math": [
                 "(x_1,y_1)=(1,\\ 7),\\qquad m=3"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2.5,
+                  2
+                ],
+                "y": [
+                  -3,
+                  16
+                ],
+                "fns": [
+                  {
+                    "f": "x^3+x^2-2x+7",
+                    "c": "faint"
+                  }
+                ],
+                "tangent": {
+                  "f": "3x+4",
+                  "x": 1,
+                  "label": "m = 3"
+                },
+                "pts": [
+                  {
+                    "x": 1,
+                    "y": 7,
+                    "label": "A(1, 7)"
+                  }
+                ]
+              }
             },
             {
               "say": "Put them into the equation of a line.",
@@ -1248,7 +1945,43 @@
                 "y-7=3x-3",
                 "y=3x+4"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2.5,
+                  2
+                ],
+                "y": [
+                  -3,
+                  16
+                ],
+                "fns": [
+                  {
+                    "f": "x^3+x^2-2x+7",
+                    "c": "faint"
+                  }
+                ],
+                "lines": [
+                  {
+                    "m": 3,
+                    "c": 4
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 1,
+                    "y": 7,
+                    "label": "A(1, 7)",
+                    "hl": true
+                  },
+                  {
+                    "x": 0,
+                    "y": 4,
+                    "label": "(0, 4)"
+                  }
+                ],
+                "cap": "$y=3x+4$: slope 3, and it crosses the y-axis at 4"
+              }
             },
             {
               "say": "So the tangent at A is y = 3x + 4, which you can also write as 3x − y + 4 = 0.",
@@ -1262,28 +1995,35 @@
                   2
                 ],
                 "y": [
-                  0,
+                  -3,
                   16
                 ],
                 "fns": [
                   {
-                    "f": "x^3+x^2-2*x+7",
-                    "c": "main"
+                    "f": "x^3+x^2-2x+7",
+                    "c": "faint"
+                  }
+                ],
+                "lines": [
+                  {
+                    "m": 3,
+                    "c": 4
                   }
                 ],
                 "pts": [
                   {
                     "x": 1,
                     "y": 7,
-                    "label": "A(1, 7)"
+                    "label": "A(1, 7)",
+                    "hl": true
+                  },
+                  {
+                    "x": 0,
+                    "y": 4,
+                    "label": "(0, 4)"
                   }
                 ],
-                "tangent": {
-                  "f": "x^3+x^2-2*x+7",
-                  "x": 1
-                },
-                "hl": null,
-                "shade": null
+                "cap": "$y=3x+4$, or $3x-y+4=0$: it touches the curve at A"
               }
             }
           ],
@@ -1369,21 +2109,54 @@
               "math": [
                 "2x+2y=21"
               ],
-              "vis": null
+              "vis": {
+                "t": "shape",
+                "kind": "rectangle",
+                "labels": {
+                  "b": "x",
+                  "h": "y"
+                },
+                "hl": [
+                  "b",
+                  "h"
+                ],
+                "cap": "Perimeter: $x+y+x+y=2x+2y=21$ m of fencing"
+              }
             },
             {
               "say": "Divide every term by 2.",
               "math": [
                 "x+y=10.5"
               ],
-              "vis": null
+              "vis": {
+                "t": "shape",
+                "kind": "rectangle",
+                "labels": {
+                  "b": "x",
+                  "h": "y"
+                },
+                "hl": [
+                  "b",
+                  "h"
+                ],
+                "cap": "Half way round: $x+y=10.5$"
+              }
             },
             {
               "say": "Move x to the other side to get y on its own. That is what we had to show.",
               "math": [
                 "y=10.5-\\hl{x}"
               ],
-              "vis": null
+              "vis": {
+                "t": "shape",
+                "kind": "rectangle",
+                "labels": {
+                  "b": "x",
+                  "h": "y = 10.5 − x"
+                },
+                "hl": "h",
+                "cap": "Width = $10.5-x$"
+              }
             }
           ],
           "tip": null
@@ -1407,7 +2180,95 @@
                 "x=1:\\ y=9.5",
                 "x=2:\\ y=8.5\\quad\\ldots\\quad x=10:\\ y=0.5"
               ],
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x (m)",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10"
+                ],
+                "rows": [
+                  [
+                    "y (m)",
+                    "10.5",
+                    "9.5",
+                    "8.5",
+                    "7.5",
+                    "6.5",
+                    "5.5",
+                    "4.5",
+                    "3.5",
+                    "2.5",
+                    "1.5",
+                    "0.5"
+                  ],
+                  [
+                    "A (m²)",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "26",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    6
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    0,
+                    8
+                  ],
+                  [
+                    0,
+                    9
+                  ],
+                  [
+                    0,
+                    10
+                  ],
+                  [
+                    0,
+                    11
+                  ]
+                ]
+              }
             },
             {
               "say": "The area of a rectangle is length × width, so multiply each x by its y.",
@@ -1416,7 +2277,95 @@
                 "x=5:\\ A=5\\times5.5=27.5",
                 "x=10:\\ A=10\\times0.5=5"
               ],
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x (m)",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10"
+                ],
+                "rows": [
+                  [
+                    "y (m)",
+                    "10.5",
+                    "9.5",
+                    "8.5",
+                    "7.5",
+                    "6.5",
+                    "5.5",
+                    "4.5",
+                    "3.5",
+                    "2.5",
+                    "1.5",
+                    "0.5"
+                  ],
+                  [
+                    "A (m²)",
+                    "0",
+                    "9.5",
+                    "17",
+                    "22.5",
+                    "26",
+                    "27.5",
+                    "27",
+                    "24.5",
+                    "20",
+                    "13.5",
+                    "5"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    1,
+                    3
+                  ],
+                  [
+                    1,
+                    4
+                  ],
+                  [
+                    1,
+                    6
+                  ],
+                  [
+                    1,
+                    7
+                  ],
+                  [
+                    1,
+                    8
+                  ],
+                  [
+                    1,
+                    9
+                  ],
+                  [
+                    1,
+                    10
+                  ],
+                  [
+                    1,
+                    11
+                  ]
+                ]
+              }
             },
             {
               "say": "Here is the full table. Check it against the given column: x = 4, y = 6.5, A = 26.",
@@ -1469,10 +2418,15 @@
                 ],
                 "hl": [
                   [
+                    0,
+                    5
+                  ],
+                  [
                     1,
                     5
                   ]
-                ]
+                ],
+                "cap": "Given: $x=4$, $y=6.5$, $A=26$ ✓"
               }
             }
           ],
@@ -1501,68 +2455,57 @@
                 ],
                 "y": [
                   0,
-                  30
+                  35
                 ],
                 "fns": [],
-                "pts": [
-                  {
-                    "x": 0,
-                    "y": 0,
-                    "label": ""
-                  },
-                  {
-                    "x": 1,
-                    "y": 9.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 2,
-                    "y": 17,
-                    "label": ""
-                  },
-                  {
-                    "x": 3,
-                    "y": 22.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 4,
-                    "y": 26,
-                    "label": ""
-                  },
-                  {
-                    "x": 5,
-                    "y": 27.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 6,
-                    "y": 27,
-                    "label": ""
-                  },
-                  {
-                    "x": 7,
-                    "y": 24.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 8,
-                    "y": 20,
-                    "label": ""
-                  },
-                  {
-                    "x": 9,
-                    "y": 13.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 10,
-                    "y": 5,
-                    "label": ""
-                  }
+                "plot": [
+                  [
+                    0,
+                    0.0
+                  ],
+                  [
+                    1,
+                    9.5
+                  ],
+                  [
+                    2,
+                    17.0
+                  ],
+                  [
+                    3,
+                    22.5
+                  ],
+                  [
+                    4,
+                    26.0
+                  ],
+                  [
+                    5,
+                    27.5
+                  ],
+                  [
+                    6,
+                    27.0
+                  ],
+                  [
+                    7,
+                    24.5
+                  ],
+                  [
+                    8,
+                    20.0
+                  ],
+                  [
+                    9,
+                    13.5
+                  ],
+                  [
+                    10,
+                    5.0
+                  ]
                 ],
-                "hl": null,
-                "shade": null
+                "xlab": "x (m)",
+                "ylab": "A (m²)"
               }
             },
             {
@@ -1576,73 +2519,63 @@
                 ],
                 "y": [
                   0,
-                  30
+                  35
                 ],
                 "fns": [
                   {
-                    "f": "10.5*x-x^2",
-                    "c": "main"
+                    "f": "10.5x-x^2",
+                    "from": 0,
+                    "to": 10
                   }
                 ],
-                "pts": [
-                  {
-                    "x": 0,
-                    "y": 0,
-                    "label": ""
-                  },
-                  {
-                    "x": 1,
-                    "y": 9.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 2,
-                    "y": 17,
-                    "label": ""
-                  },
-                  {
-                    "x": 3,
-                    "y": 22.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 4,
-                    "y": 26,
-                    "label": ""
-                  },
-                  {
-                    "x": 5,
-                    "y": 27.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 6,
-                    "y": 27,
-                    "label": ""
-                  },
-                  {
-                    "x": 7,
-                    "y": 24.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 8,
-                    "y": 20,
-                    "label": ""
-                  },
-                  {
-                    "x": 9,
-                    "y": 13.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 10,
-                    "y": 5,
-                    "label": ""
-                  }
+                "plot": [
+                  [
+                    0,
+                    0.0
+                  ],
+                  [
+                    1,
+                    9.5
+                  ],
+                  [
+                    2,
+                    17.0
+                  ],
+                  [
+                    3,
+                    22.5
+                  ],
+                  [
+                    4,
+                    26.0
+                  ],
+                  [
+                    5,
+                    27.5
+                  ],
+                  [
+                    6,
+                    27.0
+                  ],
+                  [
+                    7,
+                    24.5
+                  ],
+                  [
+                    8,
+                    20.0
+                  ],
+                  [
+                    9,
+                    13.5
+                  ],
+                  [
+                    10,
+                    5.0
+                  ]
                 ],
-                "hl": null,
-                "shade": null
+                "xlab": "x (m)",
+                "ylab": "A (m²)"
               }
             }
           ],
@@ -1674,23 +2607,25 @@
                 ],
                 "y": [
                   0,
-                  30
+                  35
                 ],
                 "fns": [
                   {
-                    "f": "10.5*x-x^2",
-                    "c": "main"
+                    "f": "10.5x-x^2",
+                    "from": 0,
+                    "to": 10
                   }
                 ],
+                "xlab": "x (m)",
+                "ylab": "A (m²)",
                 "pts": [
                   {
                     "x": 5.25,
                     "y": 27.5625,
-                    "label": "top"
+                    "label": "top",
+                    "hl": true
                   }
-                ],
-                "hl": "max",
-                "shade": null
+                ]
               }
             },
             {
@@ -1698,14 +2633,58 @@
               "math": [
                 "A\\approx27.5\\ \\text{m}^2,\\qquad x\\approx5.25\\ \\text{m}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10.5
+                ],
+                "y": [
+                  0,
+                  35
+                ],
+                "fns": [
+                  {
+                    "f": "10.5x-x^2",
+                    "from": 0,
+                    "to": 10
+                  }
+                ],
+                "xlab": "x (m)",
+                "ylab": "A (m²)",
+                "reads": [
+                  {
+                    "x": 5.25,
+                    "y": 27.5625,
+                    "from": "x",
+                    "label": "A ≈ 27.5"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 5.25,
+                    "y": 0,
+                    "label": "x ≈ 5.25",
+                    "hl": true
+                  }
+                ]
+              }
             },
             {
               "say": "The width is y = 10.5 − x = 10.5 − 5.25 = 5.25 m. So the largest garden is about 27.5 m², with length and width about 5.25 m each.",
               "math": [
                 "y=10.5-5.25=5.25\\ \\text{m}"
               ],
-              "vis": null
+              "vis": {
+                "t": "shape",
+                "kind": "square",
+                "labels": {
+                  "b": "x ≈ 5.25 m",
+                  "h": "y ≈ 5.25 m"
+                },
+                "hl": "h",
+                "cap": "$y=10.5-5.25=5.25$ m: the best garden is about $27.5$ m²"
+              }
             }
           ],
           "tip": null
@@ -1727,21 +2706,54 @@
               "math": [
                 "A=x\\mv{y}{y}"
               ],
-              "vis": null
+              "vis": {
+                "t": "shape",
+                "kind": "rectangle",
+                "labels": {
+                  "b": "x",
+                  "h": "y"
+                },
+                "hl": [
+                  "b",
+                  "h"
+                ],
+                "cap": "$A=$ length $\\times$ width $=xy$"
+              }
             },
             {
               "say": "Replace y with 10.5 − x, from part (a). Now the area depends on x only.",
               "math": [
                 "A=x(\\mv{y}{10.5-x})"
               ],
-              "vis": null
+              "vis": {
+                "t": "shape",
+                "kind": "rectangle",
+                "labels": {
+                  "b": "x",
+                  "h": "10.5 − x"
+                },
+                "hl": "h",
+                "cap": "$A=x(10.5-x)$"
+              }
             },
             {
               "say": "Multiply out the bracket: x × 10.5 = 10.5x and x × x = x². That is the formula we had to show.",
               "math": [
                 "A=10.5x-x^2"
               ],
-              "vis": null
+              "vis": {
+                "t": "shape",
+                "kind": "rectangle",
+                "labels": {
+                  "b": "x",
+                  "h": "10.5 − x"
+                },
+                "hl": [
+                  "b",
+                  "h"
+                ],
+                "cap": "$A=10.5x-x^2$"
+              }
             }
           ],
           "tip": "In a max/min problem, first write the thing you want as a formula in ONE letter."
@@ -1761,7 +2773,31 @@
           "idea": {
             "title": "dA/dx",
             "text": "dA/dx is the derivative of A: how fast the area changes as x changes. It is the slope of the graph of A.",
-            "vis": null
+            "vis": {
+              "t": "graph",
+              "x": [
+                0,
+                10.5
+              ],
+              "y": [
+                0,
+                35
+              ],
+              "fns": [
+                {
+                  "f": "10.5x-x^2",
+                  "from": 0,
+                  "to": 10
+                }
+              ],
+              "xlab": "x (m)",
+              "ylab": "A (m²)",
+              "ride": {
+                "from": 0.5,
+                "to": 9
+              },
+              "cap": "$\\frac{dA}{dx}$ is the slope of the area curve"
+            }
           },
           "steps": [
             {
@@ -1777,7 +2813,31 @@
                 "A=10.5x-x^{\\mv{p}{2}}",
                 "\\frac{dA}{dx}=10.5-\\mv{p}{2}x"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10.5
+                ],
+                "y": [
+                  0,
+                  35
+                ],
+                "fns": [
+                  {
+                    "f": "10.5x-x^2",
+                    "from": 0,
+                    "to": 10
+                  }
+                ],
+                "xlab": "x (m)",
+                "ylab": "A (m²)",
+                "tangent": {
+                  "f": "10.5x-x^2",
+                  "x": 2
+                },
+                "cap": "$\\frac{dA}{dx}=10.5-2x$: at $x=2$ the slope is $6.5$"
+              }
             }
           ],
           "tip": null
@@ -1806,21 +2866,21 @@
               ],
               "y": [
                 0,
-                30
+                35
               ],
               "fns": [
                 {
-                  "f": "10.5*x-x^2",
-                  "c": "main"
+                  "f": "10.5x-x^2",
+                  "from": 0,
+                  "to": 10
                 }
               ],
-              "pts": [],
-              "tangent": {
-                "f": "10.5*x-x^2",
-                "x": 5.25
-              },
-              "hl": "max",
-              "shade": null
+              "xlab": "x (m)",
+              "ylab": "A (m²)",
+              "ride": {
+                "from": 8.5,
+                "to": 5.25
+              }
             }
           },
           "steps": [
@@ -1829,19 +2889,6 @@
               "math": [
                 "10.5-2x=0"
               ],
-              "vis": null
-            },
-            {
-              "say": "Solve for x.",
-              "math": [
-                "10.5=2x",
-                "x=\\frac{10.5}{2}=\\hl{5.25}"
-              ],
-              "vis": null
-            },
-            {
-              "say": "So a length of 5.25 m gives the maximum area — the same as your graph showed.",
-              "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
@@ -1850,28 +2897,68 @@
                 ],
                 "y": [
                   0,
-                  30
+                  35
                 ],
                 "fns": [
                   {
-                    "f": "10.5*x-x^2",
-                    "c": "main"
+                    "f": "10.5x-x^2",
+                    "from": 0,
+                    "to": 10
                   }
                 ],
-                "pts": [
+                "xlab": "x (m)",
+                "ylab": "A (m²)",
+                "ride": {
+                  "from": 2,
+                  "to": 5.25
+                },
+                "cap": "$\\frac{dA}{dx}=10.5-2x=0$ at the top"
+              }
+            },
+            {
+              "say": "Solve for x.",
+              "math": [
+                "10.5=2x",
+                "x=\\frac{10.5}{2}=\\hl{5.25}"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10.5
+                ],
+                "y": [
+                  0,
+                  35
+                ],
+                "fns": [
+                  {
+                    "f": "10.5x-x^2",
+                    "from": 0,
+                    "to": 10
+                  }
+                ],
+                "xlab": "x (m)",
+                "ylab": "A (m²)",
+                "ride": {
+                  "from": 2,
+                  "to": 5.25,
+                  "label": false
+                },
+                "reads": [
                   {
                     "x": 5.25,
                     "y": 27.5625,
+                    "from": "y",
                     "label": "x = 5.25"
                   }
-                ],
-                "tangent": {
-                  "f": "10.5*x-x^2",
-                  "x": 5.25
-                },
-                "hl": "max",
-                "shade": null
+                ]
               }
+            },
+            {
+              "say": "So a length of 5.25 m gives the maximum area — the same as your graph showed.",
+              "math": [],
+              "vis": null
             }
           ],
           "tip": null
@@ -1896,21 +2983,76 @@
               "math": [
                 "y=10.5-5.25=5.25"
               ],
-              "vis": null
+              "vis": {
+                "t": "shape",
+                "kind": "square",
+                "labels": {
+                  "b": "5.25 m",
+                  "h": "5.25 m"
+                },
+                "hl": "h",
+                "cap": "Width $y=10.5-5.25=5.25$ m: a square"
+              }
             },
             {
               "say": "Area = length × width.",
               "math": [
                 "A=5.25\\times5.25=27.5625"
               ],
-              "vis": null
+              "vis": {
+                "t": "shape",
+                "kind": "square",
+                "labels": {
+                  "b": "5.25 m",
+                  "h": "5.25 m"
+                },
+                "hl": [
+                  "b",
+                  "h"
+                ],
+                "cap": "$A=5.25\\times5.25$"
+              }
             },
             {
               "say": "So the maximum area is about 27.56 m².",
               "math": [
                 "A\\approx\\hl{27.56}\\ \\text{m}^2"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10.5
+                ],
+                "y": [
+                  0,
+                  35
+                ],
+                "fns": [
+                  {
+                    "f": "10.5x-x^2",
+                    "from": 0,
+                    "to": 10
+                  }
+                ],
+                "xlab": "x (m)",
+                "ylab": "A (m²)",
+                "reads": [
+                  {
+                    "x": 5.25,
+                    "y": 27.5625,
+                    "from": "x",
+                    "label": "A ≈ 27.56 m²"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 5.25,
+                    "y": 27.5625,
+                    "hl": true
+                  }
+                ]
+              }
             }
           ],
           "tip": "Write the units: m² for area."
@@ -1950,7 +3092,27 @@
           "idea": {
             "title": "The quadratic formula",
             "text": "Any equation ax² + bx + c = 0 can be solved with x = (−b ± √(b² − 4ac)) / 2a, from the Formulae and Tables booklet. The ± gives two answers.",
-            "vis": null
+            "vis": {
+              "t": "graph",
+              "x": [
+                -2,
+                4
+              ],
+              "y": [
+                -15,
+                18
+              ],
+              "fns": [
+                {
+                  "f": "3x^2-6x-8"
+                }
+              ],
+              "roots": [
+                -0.915,
+                2.915
+              ],
+              "cap": "The $\\pm$ gives two answers: the two places the curve meets the x-axis"
+            }
           },
           "steps": [
             {
@@ -1958,7 +3120,30 @@
               "math": [
                 "a=3,\\quad b=-6,\\quad c=-8"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2,
+                  4
+                ],
+                "y": [
+                  -15,
+                  18
+                ],
+                "fns": [
+                  {
+                    "f": "3x^2-6x-8"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 0,
+                    "y": -8,
+                    "label": "c = −8"
+                  }
+                ],
+                "cap": "$a=3$ is positive: the curve is a U"
+              }
             },
             {
               "say": "Put them into the quadratic formula. −b is −(−6) = +6.",
@@ -1973,7 +3158,30 @@
               "math": [
                 "x=\\frac{6\\pm\\sqrt{\\hl{132}}}{6}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2,
+                  4
+                ],
+                "y": [
+                  -15,
+                  18
+                ],
+                "fns": [
+                  {
+                    "f": "3x^2-6x-8"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 0,
+                    "y": -8,
+                    "label": "c = −8"
+                  }
+                ],
+                "cap": "$b^2-4ac=132$ is positive, so there are two answers"
+              }
             },
             {
               "say": "Work out the + answer and the − answer, then round each to 1 decimal place.",
@@ -1981,12 +3189,74 @@
                 "x=\\frac{6+\\sqrt{132}}{6}=2.914\\ldots\\approx\\hl{2.9}",
                 "x=\\frac{6-\\sqrt{132}}{6}=-0.948\\ldots\\approx\\hl{-0.9}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2,
+                  4
+                ],
+                "y": [
+                  -15,
+                  18
+                ],
+                "fns": [
+                  {
+                    "f": "3x^2-6x-8"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": -0.915,
+                    "y": 0,
+                    "label": "x ≈ −0.9",
+                    "hl": true
+                  },
+                  {
+                    "x": 2.915,
+                    "y": 0,
+                    "label": "x ≈ 2.9",
+                    "hl": true
+                  }
+                ]
+              }
             },
             {
               "say": "So x = 2.9 or x = −0.9.",
               "math": [],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2,
+                  4
+                ],
+                "y": [
+                  -15,
+                  18
+                ],
+                "fns": [
+                  {
+                    "f": "3x^2-6x-8"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": -0.915,
+                    "y": 0,
+                    "label": "x ≈ −0.9",
+                    "hl": true
+                  },
+                  {
+                    "x": 2.915,
+                    "y": 0,
+                    "label": "x ≈ 2.9",
+                    "hl": true
+                  }
+                ],
+                "roots": [
+                  -0.915,
+                  2.915
+                ]
+              }
             }
           ],
           "tip": "Minus times minus is plus: −4(3)(−8) = +96."
@@ -2015,22 +3285,18 @@
                 4
               ],
               "y": [
-                -13,
+                -15,
                 18
               ],
               "fns": [
                 {
-                  "f": "3*x^2-6*x-8",
-                  "c": "main"
+                  "f": "3x^2-6x-8"
                 }
               ],
-              "pts": [],
-              "tangent": {
-                "f": "3*x^2-6*x-8",
-                "x": 1
-              },
-              "hl": "min",
-              "shade": null
+              "ride": {
+                "from": -1,
+                "to": 1
+              }
             }
           },
           "steps": [
@@ -2040,7 +3306,27 @@
                 "f(x)=3x^{\\mv{p}{2}}-6x-8",
                 "f'(x)=\\mv{p}{2}(3)x-6=6x-6"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2,
+                  4
+                ],
+                "y": [
+                  -15,
+                  18
+                ],
+                "fns": [
+                  {
+                    "f": "3x^2-6x-8"
+                  }
+                ],
+                "tangent": {
+                  "f": "3x^2-6x-8",
+                  "x": 3
+                },
+                "cap": "$f'(x)=6x-6$ gives the slope at any x: at $x=3$ it is $12$"
+              }
             },
             {
               "say": "At the minimum the curve is flat, so set the derivative equal to zero.",
@@ -2049,7 +3335,26 @@
                 "6x=6",
                 "x=\\hl{1}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2,
+                  4
+                ],
+                "y": [
+                  -15,
+                  18
+                ],
+                "fns": [
+                  {
+                    "f": "3x^2-6x-8"
+                  }
+                ],
+                "ride": {
+                  "from": 3,
+                  "to": 1
+                }
+              }
             },
             {
               "say": "Put x = 1 into the original function to get the y co-ordinate.",
@@ -2057,7 +3362,35 @@
                 "f(1)=3(1)^2-6(1)-8",
                 "=3-6-8=\\hl{-11}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -2,
+                  4
+                ],
+                "y": [
+                  -15,
+                  18
+                ],
+                "fns": [
+                  {
+                    "f": "3x^2-6x-8"
+                  }
+                ],
+                "ride": {
+                  "from": 3,
+                  "to": 1,
+                  "label": false
+                },
+                "reads": [
+                  {
+                    "x": 1,
+                    "y": -11,
+                    "from": "x",
+                    "label": "f(1) = −11"
+                  }
+                ]
+              }
             },
             {
               "say": "So the minimum point is (1, −11).",
@@ -2071,28 +3404,30 @@
                   4
                 ],
                 "y": [
-                  -13,
+                  -15,
                   18
                 ],
                 "fns": [
                   {
-                    "f": "3*x^2-6*x-8",
-                    "c": "main"
+                    "f": "3x^2-6x-8"
+                  }
+                ],
+                "reads": [
+                  {
+                    "x": 1,
+                    "y": -11,
+                    "from": "x",
+                    "label": "f(1) = −11"
                   }
                 ],
                 "pts": [
                   {
                     "x": 1,
                     "y": -11,
-                    "label": "(1, −11)"
+                    "label": "(1, −11) min",
+                    "hl": true
                   }
-                ],
-                "tangent": {
-                  "f": "3*x^2-6*x-8",
-                  "x": 1
-                },
-                "hl": "min",
-                "shade": null
+                ]
               }
             }
           ],
@@ -2157,14 +3492,82 @@
               "math": [
                 "P(0)=275(0)-0^2-2000=\\hl{-2000}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -10,
+                  250
+                ],
+                "y": [
+                  -6000,
+                  20000
+                ],
+                "fns": [
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 0,
+                    "to": 200
+                  },
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 200,
+                    "to": 245,
+                    "c": "faint"
+                  }
+                ],
+                "xlab": "km",
+                "ylab": "€",
+                "pts": [
+                  {
+                    "x": 0,
+                    "y": -2000,
+                    "label": "−€2000",
+                    "hl": true
+                  }
+                ],
+                "cap": "$P(0)=-2000$"
+              }
             },
             {
               "say": "A profit of −€2000 is a loss. So the company loses €2000.",
               "math": [
                 "\\text{Loss}=\\text{€}2000"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -10,
+                  250
+                ],
+                "y": [
+                  -6000,
+                  20000
+                ],
+                "fns": [
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 0,
+                    "to": 200
+                  },
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 200,
+                    "to": 245,
+                    "c": "faint"
+                  }
+                ],
+                "xlab": "km",
+                "ylab": "€",
+                "pts": [
+                  {
+                    "x": 0,
+                    "y": -2000,
+                    "label": "−€2000",
+                    "hl": true
+                  }
+                ],
+                "cap": "Below 0: a loss of €2000 when nothing is sold"
+              }
             }
           ],
           "tip": null
@@ -2189,7 +3592,39 @@
               "math": [
                 "275x-x^2-2000=8350"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -10,
+                  250
+                ],
+                "y": [
+                  -6000,
+                  20000
+                ],
+                "fns": [
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 0,
+                    "to": 200
+                  },
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 200,
+                    "to": 245,
+                    "c": "faint"
+                  }
+                ],
+                "xlab": "km",
+                "ylab": "€",
+                "lines": [
+                  {
+                    "m": 0,
+                    "c": 8350
+                  }
+                ],
+                "cap": "Profit $P=8350$: a line across at €8350"
+              }
             },
             {
               "say": "Bring everything to one side and tidy it so the x² is positive.",
@@ -2205,14 +3640,103 @@
                 "(x-45)(x-230)=0",
                 "x=45\\quad\\text{or}\\quad x=230"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -10,
+                  250
+                ],
+                "y": [
+                  -6000,
+                  20000
+                ],
+                "fns": [
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 0,
+                    "to": 200
+                  },
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 200,
+                    "to": 245,
+                    "c": "faint"
+                  }
+                ],
+                "xlab": "km",
+                "ylab": "€",
+                "lines": [
+                  {
+                    "m": 0,
+                    "c": 8350
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 45,
+                    "y": 8350,
+                    "label": "x = 45",
+                    "hl": true
+                  },
+                  {
+                    "x": 230,
+                    "y": 8350,
+                    "label": "x = 230",
+                    "hl": true
+                  }
+                ]
+              }
             },
             {
               "say": "The company can sell at most 200 km, so 230 is impossible. It sold 45 km.",
               "math": [
                 "x=\\hl{45}\\ \\text{km}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -10,
+                  250
+                ],
+                "y": [
+                  -6000,
+                  20000
+                ],
+                "fns": [
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 0,
+                    "to": 200
+                  },
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 200,
+                    "to": 245,
+                    "c": "faint"
+                  }
+                ],
+                "xlab": "km",
+                "ylab": "€",
+                "lines": [
+                  {
+                    "m": 0,
+                    "c": 8350
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 45,
+                    "y": 8350,
+                    "label": "45 km ✓",
+                    "hl": true
+                  },
+                  {
+                    "x": 230,
+                    "y": 8350,
+                    "label": "230 > 200 ✗"
+                  }
+                ]
+              }
             }
           ],
           "tip": "Always check answers against the limits given in the question (here x ≤ 200)."
@@ -2243,7 +3767,35 @@
                 "P(50)=275(50)-50^2-2000",
                 "=13\\,750-2500-2000=\\hl{9250}"
               ],
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x (km)",
+                  "50",
+                  "60",
+                  "70",
+                  "80",
+                  "90",
+                  "100"
+                ],
+                "rows": [
+                  [
+                    "Profit (€)",
+                    "9250",
+                    "",
+                    "12 350",
+                    "",
+                    "",
+                    ""
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
             },
             {
               "say": "Do the same for 60, 80, 90 and 100.",
@@ -2253,7 +3805,47 @@
                 "P(90)=24\\,750-8100-2000=14\\,650",
                 "P(100)=27\\,500-10\\,000-2000=15\\,500"
               ],
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x (km)",
+                  "50",
+                  "60",
+                  "70",
+                  "80",
+                  "90",
+                  "100"
+                ],
+                "rows": [
+                  [
+                    "Profit (€)",
+                    "9250",
+                    "10 900",
+                    "12 350",
+                    "13 600",
+                    "14 650",
+                    "15 500"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    5
+                  ],
+                  [
+                    0,
+                    6
+                  ]
+                ]
+              }
             },
             {
               "say": "Check with the given value: P(70) = 19 250 − 4900 − 2000 = 12 350. ✓",
@@ -2283,25 +3875,10 @@
                 "hl": [
                   [
                     0,
-                    1
-                  ],
-                  [
-                    0,
-                    2
-                  ],
-                  [
-                    0,
-                    4
-                  ],
-                  [
-                    0,
-                    5
-                  ],
-                  [
-                    0,
-                    6
+                    3
                   ]
-                ]
+                ],
+                "cap": "Check: $P(70)=12\\,350$ ✓"
               }
             }
           ],
@@ -2329,44 +3906,38 @@
                   105
                 ],
                 "y": [
-                  8500,
+                  8000,
                   16500
                 ],
                 "fns": [],
-                "pts": [
-                  {
-                    "x": 50,
-                    "y": 9250,
-                    "label": ""
-                  },
-                  {
-                    "x": 60,
-                    "y": 10900,
-                    "label": ""
-                  },
-                  {
-                    "x": 70,
-                    "y": 12350,
-                    "label": ""
-                  },
-                  {
-                    "x": 80,
-                    "y": 13600,
-                    "label": ""
-                  },
-                  {
-                    "x": 90,
-                    "y": 14650,
-                    "label": ""
-                  },
-                  {
-                    "x": 100,
-                    "y": 15500,
-                    "label": ""
-                  }
+                "plot": [
+                  [
+                    50,
+                    9250
+                  ],
+                  [
+                    60,
+                    10900
+                  ],
+                  [
+                    70,
+                    12350
+                  ],
+                  [
+                    80,
+                    13600
+                  ],
+                  [
+                    90,
+                    14650
+                  ],
+                  [
+                    100,
+                    15500
+                  ]
                 ],
-                "hl": null,
-                "shade": null
+                "xlab": "km of cable x",
+                "ylab": "profit (€)"
               }
             },
             {
@@ -2379,49 +3950,44 @@
                   105
                 ],
                 "y": [
-                  8500,
+                  8000,
                   16500
                 ],
                 "fns": [
                   {
-                    "f": "275*x-x^2-2000",
-                    "c": "main"
+                    "f": "275x-x^2-2000",
+                    "from": 50,
+                    "to": 100
                   }
                 ],
-                "pts": [
-                  {
-                    "x": 50,
-                    "y": 9250,
-                    "label": ""
-                  },
-                  {
-                    "x": 60,
-                    "y": 10900,
-                    "label": ""
-                  },
-                  {
-                    "x": 70,
-                    "y": 12350,
-                    "label": ""
-                  },
-                  {
-                    "x": 80,
-                    "y": 13600,
-                    "label": ""
-                  },
-                  {
-                    "x": 90,
-                    "y": 14650,
-                    "label": ""
-                  },
-                  {
-                    "x": 100,
-                    "y": 15500,
-                    "label": ""
-                  }
+                "plot": [
+                  [
+                    50,
+                    9250
+                  ],
+                  [
+                    60,
+                    10900
+                  ],
+                  [
+                    70,
+                    12350
+                  ],
+                  [
+                    80,
+                    13600
+                  ],
+                  [
+                    90,
+                    14650
+                  ],
+                  [
+                    100,
+                    15500
+                  ]
                 ],
-                "hl": null,
-                "shade": null
+                "xlab": "km of cable x",
+                "ylab": "profit (€)"
               }
             }
           ],
@@ -2454,30 +4020,26 @@
                   105
                 ],
                 "y": [
-                  8500,
+                  8000,
                   16500
                 ],
                 "fns": [
                   {
-                    "f": "275*x-x^2-2000",
-                    "c": "main"
+                    "f": "275x-x^2-2000",
+                    "from": 50,
+                    "to": 100
                   }
                 ],
-                "pts": [
+                "xlab": "km of cable x",
+                "ylab": "profit (€)",
+                "reads": [
                   {
                     "x": 54.4,
                     "y": 10000,
+                    "from": "y",
                     "label": "≈ 55"
                   }
-                ],
-                "lines": [
-                  {
-                    "m": 0,
-                    "c": 10000
-                  }
-                ],
-                "hl": null,
-                "shade": null
+                ]
               }
             },
             {
@@ -2490,39 +4052,32 @@
                   105
                 ],
                 "y": [
-                  8500,
+                  8000,
                   16500
                 ],
                 "fns": [
                   {
-                    "f": "275*x-x^2-2000",
-                    "c": "main"
+                    "f": "275x-x^2-2000",
+                    "from": 50,
+                    "to": 100
                   }
                 ],
-                "pts": [
+                "xlab": "km of cable x",
+                "ylab": "profit (€)",
+                "reads": [
                   {
                     "x": 54.4,
                     "y": 10000,
+                    "from": "y",
                     "label": "≈ 55"
                   },
                   {
                     "x": 83.6,
                     "y": 14000,
+                    "from": "y",
                     "label": "≈ 83"
                   }
-                ],
-                "lines": [
-                  {
-                    "m": 0,
-                    "c": 10000
-                  },
-                  {
-                    "m": 0,
-                    "c": 14000
-                  }
-                ],
-                "hl": null,
-                "shade": null
+                ]
               }
             },
             {
@@ -2530,7 +4085,46 @@
               "math": [
                 "55\\le x\\le83"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  45,
+                  105
+                ],
+                "y": [
+                  8000,
+                  16500
+                ],
+                "fns": [
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 50,
+                    "to": 100
+                  },
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 54.4,
+                    "to": 83.6
+                  }
+                ],
+                "xlab": "km of cable x",
+                "ylab": "profit (€)",
+                "reads": [
+                  {
+                    "x": 54.4,
+                    "y": 10000,
+                    "from": "y",
+                    "label": "≈ 55"
+                  },
+                  {
+                    "x": 83.6,
+                    "y": 14000,
+                    "from": "y",
+                    "label": "≈ 83"
+                  }
+                ],
+                "cap": "Profit from €10 000 to €14 000: $55\\le x\\le 83$"
+              }
             }
           ],
           "tip": null
@@ -2558,22 +4152,23 @@
                 105
               ],
               "y": [
-                8500,
+                8000,
                 16500
               ],
               "fns": [
                 {
-                  "f": "275*x-x^2-2000",
-                  "c": "main"
+                  "f": "275x-x^2-2000",
+                  "from": 50,
+                  "to": 100
                 }
               ],
-              "pts": [],
-              "tangent": {
-                "f": "275*x-x^2-2000",
-                "x": 85
+              "xlab": "km of cable x",
+              "ylab": "profit (€)",
+              "ride": {
+                "from": 50,
+                "to": 95
               },
-              "hl": null,
-              "shade": null
+              "cap": "The slope is the extra profit per extra km: it falls as x grows"
             }
           },
           "steps": [
@@ -2583,14 +4178,62 @@
                 "P(x)=275x-x^{\\mv{p}{2}}-2000",
                 "\\frac{dP}{dx}=275-\\mv{p}{2}x"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  45,
+                  105
+                ],
+                "y": [
+                  8000,
+                  16500
+                ],
+                "fns": [
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 50,
+                    "to": 100
+                  }
+                ],
+                "xlab": "km of cable x",
+                "ylab": "profit (€)",
+                "tangent": {
+                  "f": "275x-x^2-2000",
+                  "x": 50
+                },
+                "cap": "$\\frac{dP}{dx}=275-2x$: at $x=50$ the slope is $175$"
+              }
             },
             {
               "say": "The rate the profit is increasing IS the derivative. Set it equal to 105 (not 0 this time).",
               "math": [
                 "275-2x=\\hl{105}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  45,
+                  105
+                ],
+                "y": [
+                  8000,
+                  16500
+                ],
+                "fns": [
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 50,
+                    "to": 100
+                  }
+                ],
+                "xlab": "km of cable x",
+                "ylab": "profit (€)",
+                "ride": {
+                  "from": 50,
+                  "to": 85
+                },
+                "cap": "Slide along until the slope is $105$"
+              }
             },
             {
               "say": "Solve for x.",
@@ -2599,11 +4242,6 @@
                 "170=2x",
                 "x=\\hl{85}"
               ],
-              "vis": null
-            },
-            {
-              "say": "So when 85 km have been sold, profit is rising at €105 per extra km.",
-              "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
@@ -2611,29 +4249,36 @@
                   105
                 ],
                 "y": [
-                  8500,
+                  8000,
                   16500
                 ],
                 "fns": [
                   {
-                    "f": "275*x-x^2-2000",
-                    "c": "main"
+                    "f": "275x-x^2-2000",
+                    "from": 50,
+                    "to": 100
                   }
                 ],
-                "pts": [
+                "xlab": "km of cable x",
+                "ylab": "profit (€)",
+                "ride": {
+                  "from": 50,
+                  "to": 85
+                },
+                "reads": [
                   {
                     "x": 85,
                     "y": 14150,
+                    "from": "y",
                     "label": "x = 85"
                   }
-                ],
-                "tangent": {
-                  "f": "275*x-x^2-2000",
-                  "x": 85
-                },
-                "hl": null,
-                "shade": null
+                ]
               }
+            },
+            {
+              "say": "So when 85 km have been sold, profit is rising at €105 per extra km.",
+              "math": [],
+              "vis": null
             }
           ],
           "tip": "'Rate of change' always means 'derivative' — set dP/dx equal to the rate given."
@@ -2672,7 +4317,40 @@
               "math": [
                 "A=(0,\\ 6)"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -3,
+                  4
+                ],
+                "y": [
+                  -2,
+                  7.5
+                ],
+                "fns": [
+                  {
+                    "f": "-x^2+x+6"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 0,
+                    "y": 6,
+                    "label": "A(0, 6)",
+                    "hl": true
+                  },
+                  {
+                    "x": -2,
+                    "y": 0,
+                    "label": "B"
+                  },
+                  {
+                    "x": 3,
+                    "y": 0,
+                    "label": "C"
+                  }
+                ]
+              }
             },
             {
               "say": "B and C are on the x-axis, so their y is 0. Read their x values off the scale: −2 and 3.",
@@ -2687,33 +4365,36 @@
                 ],
                 "y": [
                   -2,
-                  7
+                  7.5
                 ],
                 "fns": [
                   {
-                    "f": "-x^2+x+6",
-                    "c": "main"
+                    "f": "-x^2+x+6"
                   }
+                ],
+                "roots": [
+                  -2,
+                  3
                 ],
                 "pts": [
                   {
                     "x": 0,
                     "y": 6,
-                    "label": "A"
+                    "label": "A(0, 6)"
                   },
                   {
                     "x": -2,
                     "y": 0,
-                    "label": "B"
+                    "label": "B(−2, 0)",
+                    "hl": true
                   },
                   {
                     "x": 3,
                     "y": 0,
-                    "label": "C"
+                    "label": "C(3, 0)",
+                    "hl": true
                   }
-                ],
-                "hl": null,
-                "shade": null
+                ]
               }
             }
           ],
@@ -2736,14 +4417,82 @@
               "math": [
                 "x=-2\\ \\Rightarrow\\ (x+2),\\qquad x=3\\ \\Rightarrow\\ (x-3)"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -3,
+                  4
+                ],
+                "y": [
+                  -7,
+                  7.5
+                ],
+                "fns": [
+                  {
+                    "f": "-x^2+x+6"
+                  }
+                ],
+                "roots": [
+                  -2,
+                  3
+                ],
+                "pts": [
+                  {
+                    "x": -2,
+                    "y": 0,
+                    "label": "(x + 2)",
+                    "hl": true
+                  },
+                  {
+                    "x": 3,
+                    "y": 0,
+                    "label": "(x − 3)",
+                    "hl": true
+                  }
+                ]
+              }
             },
             {
               "say": "The curve is an upside-down U, so there is a minus in front.",
               "math": [
                 "f(x)=-(x+2)(x-3)"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -3,
+                  4
+                ],
+                "y": [
+                  -7,
+                  7.5
+                ],
+                "fns": [
+                  {
+                    "f": "-x^2+x+6"
+                  },
+                  {
+                    "f": "(x+2)(x-3)",
+                    "c": "faint",
+                    "label": "(x+2)(x−3)"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": -2,
+                    "y": 0,
+                    "label": "(x + 2)",
+                    "hl": true
+                  },
+                  {
+                    "x": 3,
+                    "y": 0,
+                    "label": "(x − 3)",
+                    "hl": true
+                  }
+                ],
+                "cap": "$(x+2)(x-3)$ alone is a U; the minus flips it: $-(x+2)(x-3)$"
+              }
             },
             {
               "say": "Multiply out the brackets, then apply the minus to every term.",
@@ -2752,14 +4501,80 @@
                 "=-(x^2-x-6)",
                 "=-x^2+x+6"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -3,
+                  4
+                ],
+                "y": [
+                  -7,
+                  7.5
+                ],
+                "fns": [
+                  {
+                    "f": "-x^2+x+6"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": -2,
+                    "y": 0,
+                    "label": "(x + 2)",
+                    "hl": true
+                  },
+                  {
+                    "x": 3,
+                    "y": 0,
+                    "label": "(x − 3)",
+                    "hl": true
+                  }
+                ],
+                "cap": "$-(x+2)(x-3)=-x^2+x+6$"
+              }
             },
             {
               "say": "Check with A: f(0) = −0 + 0 + 6 = 6, which is the height of A. So f(x) = −x² + x + 6.",
               "math": [
                 "f(0)=6\\ \\checkmark"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -3,
+                  4
+                ],
+                "y": [
+                  -7,
+                  7.5
+                ],
+                "fns": [
+                  {
+                    "f": "-x^2+x+6"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": -2,
+                    "y": 0,
+                    "label": "(x + 2)",
+                    "hl": true
+                  },
+                  {
+                    "x": 3,
+                    "y": 0,
+                    "label": "(x − 3)",
+                    "hl": true
+                  },
+                  {
+                    "x": 0,
+                    "y": 6,
+                    "label": "f(0) = 6 ✓",
+                    "hl": true
+                  }
+                ],
+                "cap": "$f(x)=-x^2+x+6$"
+              }
             }
           ],
           "tip": "Turn each root into a factor by changing its sign: root −2 → (x + 2)."
@@ -2785,21 +4600,17 @@
               ],
               "y": [
                 -2,
-                7
+                9
               ],
               "fns": [
                 {
-                  "f": "-x^2+x+6",
-                  "c": "main"
+                  "f": "-x^2+x+6"
                 }
               ],
-              "pts": [],
-              "tangent": {
-                "f": "-x^2+x+6",
-                "x": 0.5
-              },
-              "hl": "max",
-              "shade": null
+              "ride": {
+                "from": -1.5,
+                "to": 0.5
+              }
             }
           },
           "steps": [
@@ -2809,7 +4620,27 @@
                 "f(x)=-x^{\\mv{p}{2}}+x+6",
                 "f'(x)=-\\mv{p}{2}x+1"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -3,
+                  4
+                ],
+                "y": [
+                  -2,
+                  9
+                ],
+                "fns": [
+                  {
+                    "f": "-x^2+x+6"
+                  }
+                ],
+                "tangent": {
+                  "f": "-x^2+x+6",
+                  "x": 2
+                },
+                "cap": "$f'(x)=-2x+1$ gives the slope at any x: at $x=2$ it is $-3$"
+              }
             },
             {
               "say": "At the maximum the slope is zero. Set f′(x) = 0 and solve.",
@@ -2817,7 +4648,26 @@
                 "-2x+1=0",
                 "x=\\frac12=\\hl{0.5}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -3,
+                  4
+                ],
+                "y": [
+                  -2,
+                  9
+                ],
+                "fns": [
+                  {
+                    "f": "-x^2+x+6"
+                  }
+                ],
+                "ride": {
+                  "from": 2,
+                  "to": 0.5
+                }
+              }
             },
             {
               "say": "Put x = 0.5 into f(x) to get the height of the top.",
@@ -2825,7 +4675,38 @@
                 "f(0.5)=-(0.5)^2+0.5+6",
                 "=-0.25+0.5+6=\\hl{6.25}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -3,
+                  4
+                ],
+                "y": [
+                  -2,
+                  9
+                ],
+                "fns": [
+                  {
+                    "f": "-x^2+x+6"
+                  }
+                ],
+                "reads": [
+                  {
+                    "x": 0.5,
+                    "y": 6.25,
+                    "from": "x",
+                    "label": "6.25"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 0.5,
+                    "y": 6.25,
+                    "hl": true
+                  }
+                ],
+                "cap": "$f(0.5)=6.25$"
+              }
             },
             {
               "say": "So the maximum point is (0.5, 6.25), as required.",
@@ -2840,27 +4721,29 @@
                 ],
                 "y": [
                   -2,
-                  7
+                  9
                 ],
                 "fns": [
                   {
-                    "f": "-x^2+x+6",
-                    "c": "main"
+                    "f": "-x^2+x+6"
+                  }
+                ],
+                "reads": [
+                  {
+                    "x": 0.5,
+                    "y": 6.25,
+                    "from": "x",
+                    "label": "6.25"
                   }
                 ],
                 "pts": [
                   {
                     "x": 0.5,
                     "y": 6.25,
-                    "label": "(0.5, 6.25)"
+                    "label": "(0.5, 6.25) max",
+                    "hl": true
                   }
-                ],
-                "tangent": {
-                  "f": "-x^2+x+6",
-                  "x": 0.5
-                },
-                "hl": "max",
-                "shade": null
+                ]
               }
             }
           ],
@@ -2931,7 +4814,34 @@
               "math": [
                 "C(4)=-(4)^3+4.5(4)^2+54(4)"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  350
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
+                  }
+                ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
+                "reads": [
+                  {
+                    "x": 4,
+                    "y": 224,
+                    "from": "x",
+                    "label": "C(4) = ?"
+                  }
+                ]
+              }
             },
             {
               "say": "Work out each term: −64, 4.5 × 16 = 72, and 54 × 4 = 216.",
@@ -2939,12 +4849,74 @@
                 "=-64+72+216",
                 "=\\hl{224}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  350
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
+                  }
+                ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
+                "reads": [
+                  {
+                    "x": 4,
+                    "y": 224,
+                    "from": "x",
+                    "label": "C(4) = 224"
+                  }
+                ]
+              }
             },
             {
               "say": "So after 4 hours there are 224 units of the drug in the bloodstream.",
               "math": [],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  350
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
+                  }
+                ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
+                "reads": [
+                  {
+                    "x": 4,
+                    "y": 224,
+                    "from": "x",
+                    "label": "C(4) = 224"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 4,
+                    "y": 224,
+                    "hl": true
+                  }
+                ],
+                "cap": "After 4 hours: 224 units in the bloodstream"
+              }
             }
           ],
           "tip": null
@@ -2976,7 +4948,43 @@
               "math": [
                 "C(2)=-8+4.5(4)+108=\\hl{118}"
               ],
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "t (hours)",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9"
+                ],
+                "rows": [
+                  [
+                    "C(t) (units)",
+                    "0",
+                    "57.5",
+                    "118",
+                    "",
+                    "224",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    3
+                  ]
+                ]
+              }
             },
             {
               "say": "Repeat for t = 3, 5, 6, 7, 8 and 9.",
@@ -2988,7 +4996,63 @@
                 "C(8)=-512+288+432=208",
                 "C(9)=-729+364.5+486=121.5"
               ],
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "t (hours)",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9"
+                ],
+                "rows": [
+                  [
+                    "C(t) (units)",
+                    "0",
+                    "57.5",
+                    "118",
+                    "175.5",
+                    "224",
+                    "257.5",
+                    "270",
+                    "255.5",
+                    "208",
+                    "121.5"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    6
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    0,
+                    8
+                  ],
+                  [
+                    0,
+                    9
+                  ],
+                  [
+                    0,
+                    10
+                  ]
+                ]
+              }
             },
             {
               "say": "The completed table:",
@@ -3026,33 +5090,10 @@
                 "hl": [
                   [
                     0,
-                    3
-                  ],
-                  [
-                    0,
-                    4
-                  ],
-                  [
-                    0,
-                    6
-                  ],
-                  [
-                    0,
                     7
-                  ],
-                  [
-                    0,
-                    8
-                  ],
-                  [
-                    0,
-                    9
-                  ],
-                  [
-                    0,
-                    10
                   ]
-                ]
+                ],
+                "cap": "Largest in the table: 270 at $t=6$"
               }
             }
           ],
@@ -3081,63 +5122,53 @@
                 ],
                 "y": [
                   0,
-                  325
+                  350
                 ],
                 "fns": [],
-                "pts": [
-                  {
-                    "x": 0,
-                    "y": 0,
-                    "label": ""
-                  },
-                  {
-                    "x": 1,
-                    "y": 57.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 2,
-                    "y": 118,
-                    "label": ""
-                  },
-                  {
-                    "x": 3,
-                    "y": 175.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 4,
-                    "y": 224,
-                    "label": ""
-                  },
-                  {
-                    "x": 5,
-                    "y": 257.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 6,
-                    "y": 270,
-                    "label": ""
-                  },
-                  {
-                    "x": 7,
-                    "y": 255.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 8,
-                    "y": 208,
-                    "label": ""
-                  },
-                  {
-                    "x": 9,
-                    "y": 121.5,
-                    "label": ""
-                  }
+                "plot": [
+                  [
+                    0,
+                    0.0
+                  ],
+                  [
+                    1,
+                    57.5
+                  ],
+                  [
+                    2,
+                    118.0
+                  ],
+                  [
+                    3,
+                    175.5
+                  ],
+                  [
+                    4,
+                    224.0
+                  ],
+                  [
+                    5,
+                    257.5
+                  ],
+                  [
+                    6,
+                    270.0
+                  ],
+                  [
+                    7,
+                    255.5
+                  ],
+                  [
+                    8,
+                    208.0
+                  ],
+                  [
+                    9,
+                    121.5
+                  ]
                 ],
-                "hl": null,
-                "shade": null
+                "xlab": "t (hours)",
+                "ylab": "C (units)"
               }
             },
             {
@@ -3151,68 +5182,59 @@
                 ],
                 "y": [
                   0,
-                  325
+                  350
                 ],
                 "fns": [
                   {
-                    "f": "-x^3+4.5*x^2+54*x",
-                    "c": "main"
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
                   }
                 ],
-                "pts": [
-                  {
-                    "x": 0,
-                    "y": 0,
-                    "label": ""
-                  },
-                  {
-                    "x": 1,
-                    "y": 57.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 2,
-                    "y": 118,
-                    "label": ""
-                  },
-                  {
-                    "x": 3,
-                    "y": 175.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 4,
-                    "y": 224,
-                    "label": ""
-                  },
-                  {
-                    "x": 5,
-                    "y": 257.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 6,
-                    "y": 270,
-                    "label": ""
-                  },
-                  {
-                    "x": 7,
-                    "y": 255.5,
-                    "label": ""
-                  },
-                  {
-                    "x": 8,
-                    "y": 208,
-                    "label": ""
-                  },
-                  {
-                    "x": 9,
-                    "y": 121.5,
-                    "label": ""
-                  }
+                "plot": [
+                  [
+                    0,
+                    0.0
+                  ],
+                  [
+                    1,
+                    57.5
+                  ],
+                  [
+                    2,
+                    118.0
+                  ],
+                  [
+                    3,
+                    175.5
+                  ],
+                  [
+                    4,
+                    224.0
+                  ],
+                  [
+                    5,
+                    257.5
+                  ],
+                  [
+                    6,
+                    270.0
+                  ],
+                  [
+                    7,
+                    255.5
+                  ],
+                  [
+                    8,
+                    208.0
+                  ],
+                  [
+                    9,
+                    121.5
+                  ]
                 ],
-                "hl": null,
-                "shade": null
+                "xlab": "t (hours)",
+                "ylab": "C (units)"
               }
             }
           ],
@@ -3244,23 +5266,25 @@
                 ],
                 "y": [
                   0,
-                  325
+                  350
                 ],
                 "fns": [
                   {
-                    "f": "-x^3+4.5*x^2+54*x",
-                    "c": "main"
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
                   }
                 ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
                 "pts": [
                   {
                     "x": 3.5,
                     "y": 201.25,
-                    "label": ""
+                    "label": "t = 3.5",
+                    "hl": true
                   }
-                ],
-                "hl": null,
-                "shade": null
+                ]
               }
             },
             {
@@ -3276,29 +5300,25 @@
                 ],
                 "y": [
                   0,
-                  325
+                  350
                 ],
                 "fns": [
                   {
-                    "f": "-x^3+4.5*x^2+54*x",
-                    "c": "main"
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
                   }
                 ],
-                "pts": [
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
+                "reads": [
                   {
                     "x": 3.5,
                     "y": 201.25,
-                    "label": "≈ 200"
+                    "from": "x",
+                    "label": "≈ 200 units"
                   }
-                ],
-                "lines": [
-                  {
-                    "m": 0,
-                    "c": 201.25
-                  }
-                ],
-                "hl": null,
-                "shade": null
+                ]
               }
             }
           ],
@@ -3330,23 +5350,31 @@
                 ],
                 "y": [
                   0,
-                  325
+                  350
                 ],
                 "fns": [
                   {
-                    "f": "-x^3+4.5*x^2+54*x",
-                    "c": "main"
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
                   }
                 ],
-                "pts": [],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
                 "lines": [
                   {
                     "m": 0,
                     "c": 100
                   }
                 ],
-                "hl": null,
-                "shade": null
+                "pts": [
+                  {
+                    "x": 1.7,
+                    "y": 100,
+                    "hl": true
+                  }
+                ],
+                "cap": "A line across at $C=100$"
               }
             },
             {
@@ -3362,29 +5390,31 @@
                 ],
                 "y": [
                   0,
-                  325
+                  350
                 ],
                 "fns": [
                   {
-                    "f": "-x^3+4.5*x^2+54*x",
-                    "c": "main"
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
                   }
                 ],
-                "pts": [
-                  {
-                    "x": 1.7,
-                    "y": 100,
-                    "label": "≈ 1.75"
-                  }
-                ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
                 "lines": [
                   {
                     "m": 0,
                     "c": 100
                   }
                 ],
-                "hl": null,
-                "shade": null
+                "reads": [
+                  {
+                    "x": 1.7,
+                    "y": 100,
+                    "from": "y",
+                    "label": "t ≈ 1.75"
+                  }
+                ]
               }
             },
             {
@@ -3412,7 +5442,46 @@
           "idea": {
             "title": "Rate of change is the derivative",
             "text": "How fast an amount is changing is the slope of its graph. The derivative C′(t) gives that slope at any time t: positive means the amount is going up, negative means it is going down, zero means it is at a peak or a low point.",
-            "vis": null
+            "vis": {
+              "t": "graph",
+              "x": [
+                0,
+                10
+              ],
+              "y": [
+                0,
+                350
+              ],
+              "fns": [
+                {
+                  "f": "-x^3+4.5x^2+54x",
+                  "from": 0,
+                  "to": 9
+                }
+              ],
+              "xlab": "t (hours)",
+              "ylab": "C (units)",
+              "shade": [
+                {
+                  "from": 0,
+                  "to": 6,
+                  "sign": "+"
+                },
+                {
+                  "from": 6,
+                  "to": 9,
+                  "sign": "-"
+                }
+              ],
+              "pts": [
+                {
+                  "x": 6,
+                  "y": 270,
+                  "label": "C′ = 0"
+                }
+              ],
+              "cap": "Slope $+$: rising. Slope $0$: the peak. Slope $-$: falling"
+            }
           },
           "steps": [
             {
@@ -3421,7 +5490,31 @@
                 "C(t)=-t^{\\mv{a}{3}}+4.5t^{\\mv{b}{2}}+54t",
                 "C'(t)=-\\mv{a}{3}t^2+\\mv{b}{2}(4.5)t+54"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  350
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
+                  }
+                ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
+                "ride": {
+                  "from": 0.5,
+                  "to": 8.5
+                },
+                "cap": "$C'(t)$ is the slope of the curve at time t"
+              }
             },
             {
               "say": "Tidy up: 2 × 4.5 = 9.",
@@ -3453,14 +5546,62 @@
               "math": [
                 "C'(4)=-3(4)^2+9(4)+54"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  350
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
+                  }
+                ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
+                "tangent": {
+                  "f": "-x^3+4.5x^2+54x",
+                  "x": 4,
+                  "label": "slope = C′(4)"
+                }
+              }
             },
             {
               "say": "Work it out.",
               "math": [
                 "=-48+36+54=\\hl{42}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  350
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
+                  }
+                ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
+                "tangent": {
+                  "f": "-x^3+4.5x^2+54x",
+                  "x": 4,
+                  "label": "slope = 42"
+                }
+              }
             },
             {
               "say": "So after 4 hours the amount is rising by 42 units per hour.",
@@ -3473,27 +5614,23 @@
                 ],
                 "y": [
                   0,
-                  325
+                  350
                 ],
                 "fns": [
                   {
-                    "f": "-x^3+4.5*x^2+54*x",
-                    "c": "main"
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
                   }
                 ],
-                "pts": [
-                  {
-                    "x": 4,
-                    "y": 224,
-                    "label": "t = 4"
-                  }
-                ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
                 "tangent": {
-                  "f": "-x^3+4.5*x^2+54*x",
-                  "x": 4
+                  "f": "-x^3+4.5x^2+54x",
+                  "x": 4,
+                  "label": "slope = 42"
                 },
-                "hl": null,
-                "shade": null
+                "cap": "After 4 hours: rising by 42 units per hour"
               }
             }
           ],
@@ -3519,7 +5656,30 @@
               "math": [
                 "-3t^2+9t+54=0"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  350
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
+                  }
+                ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
+                "ride": {
+                  "from": 3,
+                  "to": 6
+                }
+              }
             },
             {
               "say": "Divide every term by −3 to make it easier.",
@@ -3534,14 +5694,70 @@
                 "(t-6)(t+3)=0",
                 "t=6\\quad\\text{or}\\quad t=-3"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  350
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
+                  }
+                ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
+                "ride": {
+                  "from": 3,
+                  "to": 6
+                },
+                "cap": "$t=6$ (time can't be $-3$)"
+              }
             },
             {
               "say": "Time can't be negative, so t = 6. Put it into C(t) to get the amount.",
               "math": [
                 "C(6)=-216+162+324=\\hl{270}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  350
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
+                  }
+                ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
+                "ride": {
+                  "from": 3,
+                  "to": 6,
+                  "label": false
+                },
+                "reads": [
+                  {
+                    "x": 6,
+                    "y": 270,
+                    "from": "x",
+                    "label": "C(6) = 270"
+                  }
+                ]
+              }
             },
             {
               "say": "So the maximum amount is 270 units, 6 hours after taking the drug.",
@@ -3554,27 +5770,38 @@
                 ],
                 "y": [
                   0,
-                  325
+                  350
                 ],
                 "fns": [
                   {
-                    "f": "-x^3+4.5*x^2+54*x",
-                    "c": "main"
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
+                  }
+                ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
+                "ride": {
+                  "from": 3,
+                  "to": 6,
+                  "label": false
+                },
+                "reads": [
+                  {
+                    "x": 6,
+                    "y": 270,
+                    "from": "x",
+                    "label": "C(6) = 270"
                   }
                 ],
                 "pts": [
                   {
                     "x": 6,
                     "y": 270,
-                    "label": "(6, 270)"
+                    "label": "max 270",
+                    "hl": true
                   }
-                ],
-                "tangent": {
-                  "f": "-x^3+4.5*x^2+54*x",
-                  "x": 6
-                },
-                "hl": "max",
-                "shade": null
+                ]
               }
             }
           ],
@@ -3598,25 +5825,64 @@
                 "C'(7)=-3(7)^2+9(7)+54",
                 "=-147+63+54=\\hl{-30}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  350
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
+                  }
+                ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
+                "tangent": {
+                  "f": "-x^3+4.5x^2+54x",
+                  "x": 7
+                }
+              }
             },
             {
               "say": "A negative rate means the amount is going down. Here it is falling by 30 units per hour.",
               "math": [],
               "vis": {
-                "t": "signs",
+                "t": "graph",
                 "x": [
                   0,
-                  9
+                  10
                 ],
-                "roots": [
-                  6
+                "y": [
+                  0,
+                  350
                 ],
-                "signs": [
-                  "+",
-                  "-"
+                "fns": [
+                  {
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
+                  }
                 ],
-                "label": "C′(t)"
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
+                "tangent": {
+                  "f": "-x^3+4.5x^2+54x",
+                  "x": 7
+                },
+                "shade": [
+                  {
+                    "from": 6,
+                    "to": 9,
+                    "sign": "-"
+                  }
+                ]
               }
             },
             {
@@ -3630,27 +5896,29 @@
                 ],
                 "y": [
                   0,
-                  325
+                  350
                 ],
                 "fns": [
                   {
-                    "f": "-x^3+4.5*x^2+54*x",
-                    "c": "main"
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
                   }
                 ],
-                "pts": [
-                  {
-                    "x": 7,
-                    "y": 255.5,
-                    "label": "t = 7"
-                  }
-                ],
+                "xlab": "t (hours)",
+                "ylab": "C (units)",
                 "tangent": {
-                  "f": "-x^3+4.5*x^2+54*x",
+                  "f": "-x^3+4.5x^2+54x",
                   "x": 7
                 },
-                "hl": null,
-                "shade": null
+                "shade": [
+                  {
+                    "from": 6,
+                    "to": 9,
+                    "sign": "-"
+                  }
+                ],
+                "cap": "$C'(7)=-30$ is negative, so the amount is decreasing"
               }
             }
           ],
@@ -3721,7 +5989,35 @@
                 "f(-1)=-(-1)^3+4(-1)^2+(-1)-2",
                 "=1+4-1-2=\\hl{2}"
               ],
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x",
+                  "−1",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "rows": [
+                  [
+                    "f(x)",
+                    "2",
+                    "",
+                    "",
+                    "",
+                    "10",
+                    ""
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
             },
             {
               "say": "Do the same for the other values of x.",
@@ -3731,7 +6027,47 @@
                 "f(2)=-8+16+2-2=8",
                 "f(4)=-64+64+4-2=2"
               ],
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x",
+                  "−1",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "rows": [
+                  [
+                    "f(x)",
+                    "2",
+                    "−2",
+                    "2",
+                    "8",
+                    "10",
+                    "2"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    6
+                  ]
+                ]
+              }
             },
             {
               "say": "Plot the six points, including the given (3, 10).",
@@ -3747,40 +6083,32 @@
                   12
                 ],
                 "fns": [],
-                "pts": [
-                  {
-                    "x": -1,
-                    "y": 2,
-                    "label": ""
-                  },
-                  {
-                    "x": 0,
-                    "y": -2,
-                    "label": ""
-                  },
-                  {
-                    "x": 1,
-                    "y": 2,
-                    "label": ""
-                  },
-                  {
-                    "x": 2,
-                    "y": 8,
-                    "label": ""
-                  },
-                  {
-                    "x": 3,
-                    "y": 10,
-                    "label": ""
-                  },
-                  {
-                    "x": 4,
-                    "y": 2,
-                    "label": ""
-                  }
-                ],
-                "hl": null,
-                "shade": null
+                "plot": [
+                  [
+                    -1,
+                    2
+                  ],
+                  [
+                    0,
+                    -2
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    8
+                  ],
+                  [
+                    3,
+                    10
+                  ],
+                  [
+                    4,
+                    2
+                  ]
+                ]
               }
             },
             {
@@ -3798,44 +6126,37 @@
                 ],
                 "fns": [
                   {
-                    "f": "-x^3+4*x^2+x-2",
-                    "c": "main"
+                    "f": "-x^3+4x^2+x-2",
+                    "from": -1,
+                    "to": 4
                   }
                 ],
-                "pts": [
-                  {
-                    "x": -1,
-                    "y": 2,
-                    "label": ""
-                  },
-                  {
-                    "x": 0,
-                    "y": -2,
-                    "label": ""
-                  },
-                  {
-                    "x": 1,
-                    "y": 2,
-                    "label": ""
-                  },
-                  {
-                    "x": 2,
-                    "y": 8,
-                    "label": ""
-                  },
-                  {
-                    "x": 3,
-                    "y": 10,
-                    "label": ""
-                  },
-                  {
-                    "x": 4,
-                    "y": 2,
-                    "label": ""
-                  }
-                ],
-                "hl": null,
-                "shade": null
+                "plot": [
+                  [
+                    -1,
+                    2
+                  ],
+                  [
+                    0,
+                    -2
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    8
+                  ],
+                  [
+                    3,
+                    10
+                  ],
+                  [
+                    4,
+                    2
+                  ]
+                ]
               }
             }
           ],
@@ -3873,24 +6194,16 @@
                 ],
                 "fns": [
                   {
-                    "f": "-x^3+4*x^2+x-2",
-                    "c": "main"
+                    "f": "-x^3+4x^2+x-2",
+                    "from": -1,
+                    "to": 4
                   }
                 ],
-                "pts": [
-                  {
-                    "x": -0.76,
-                    "y": 0,
-                    "label": "≈ −0.7"
-                  },
-                  {
-                    "x": 0.64,
-                    "y": 0,
-                    "label": "≈ 0.7"
-                  }
+                "roots": [
+                  -0.762,
+                  0.637
                 ],
-                "hl": null,
-                "shade": null
+                "cap": "Roots: where the curve crosses the x-axis, $f(x)=0$"
               }
             },
             {
@@ -3898,7 +6211,42 @@
               "math": [
                 "x\\approx-0.7\\quad\\text{and}\\quad x\\approx0.7"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1.2,
+                  4.2
+                ],
+                "y": [
+                  -4,
+                  12
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4x^2+x-2",
+                    "from": -1,
+                    "to": 4
+                  }
+                ],
+                "roots": [
+                  -0.762,
+                  0.637
+                ],
+                "pts": [
+                  {
+                    "x": -0.762,
+                    "y": 0,
+                    "label": "≈ −0.7",
+                    "hl": true
+                  },
+                  {
+                    "x": 0.637,
+                    "y": 0,
+                    "label": "≈ 0.7",
+                    "hl": true
+                  }
+                ]
+              }
             }
           ],
           "tip": "Roots = where the curve cuts the x-axis."
@@ -3918,7 +6266,37 @@
           "idea": {
             "title": "The second derivative",
             "text": "The second derivative f″(x) is what you get when you differentiate twice: first find f′(x), then differentiate that. Where f″(x) = 0 the curve changes from bending one way to bending the other.",
-            "vis": null
+            "vis": {
+              "t": "graph",
+              "x": [
+                -1.2,
+                4.2
+              ],
+              "y": [
+                -4,
+                12
+              ],
+              "fns": [
+                {
+                  "f": "-x^3+4x^2+x-2",
+                  "from": -1,
+                  "to": 1.3333333333333333
+                },
+                {
+                  "f": "-x^3+4x^2+x-2",
+                  "from": 1.3333333333333333,
+                  "to": 4
+                }
+              ],
+              "pts": [
+                {
+                  "x": 1.3333333333333333,
+                  "y": 4.074,
+                  "hl": true
+                }
+              ],
+              "cap": "Blue bends up (∪), pink bends down (∩): they meet where $f''(x)=0$"
+            }
           },
           "steps": [
             {
@@ -3927,7 +6305,29 @@
                 "f(x)=-x^{\\mv{a}{3}}+4x^{\\mv{b}{2}}+x-2",
                 "f'(x)=-\\mv{a}{3}x^2+\\mv{b}{8}x+1"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1.2,
+                  4.2
+                ],
+                "y": [
+                  -4,
+                  12
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4x^2+x-2",
+                    "from": -1,
+                    "to": 4
+                  }
+                ],
+                "ride": {
+                  "from": -0.9,
+                  "to": 3.6
+                },
+                "cap": "$f'(x)=-3x^2+8x+1$: the slope at each x"
+              }
             },
             {
               "say": "Now differentiate f′(x) again. That gives the second derivative f″(x).",
@@ -3935,7 +6335,29 @@
                 "f'(x)=-3x^{\\mv{c}{2}}+8x+1",
                 "f''(x)=-\\mv{c}{6}x+8"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1.2,
+                  4.2
+                ],
+                "y": [
+                  -4,
+                  12
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4x^2+x-2",
+                    "from": -1,
+                    "to": 4
+                  }
+                ],
+                "ride": {
+                  "from": 0,
+                  "to": 1.3333333333333333
+                },
+                "cap": "$f''(x)=-6x+8$: how fast the slope is changing"
+              }
             },
             {
               "say": "Set the second derivative equal to zero and solve.",
@@ -3944,7 +6366,32 @@
                 "8=6x",
                 "x=\\frac86=\\hl{\\frac43}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1.2,
+                  4.2
+                ],
+                "y": [
+                  -4,
+                  12
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4x^2+x-2",
+                    "from": -1,
+                    "to": 4
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 1.3333333333333333,
+                    "y": 4.074,
+                    "label": "x = 4/3",
+                    "hl": true
+                  }
+                ]
+              }
             },
             {
               "say": "So f″(x) = 0 when x = 4/3 (about 1.33). That is where the curve stops bending one way and starts bending the other.",
@@ -3961,19 +6408,25 @@
                 ],
                 "fns": [
                   {
-                    "f": "-x^3+4*x^2+x-2",
-                    "c": "main"
+                    "f": "-x^3+4x^2+x-2",
+                    "from": -1,
+                    "to": 1.3333333333333333
+                  },
+                  {
+                    "f": "-x^3+4x^2+x-2",
+                    "from": 1.3333333333333333,
+                    "to": 4
                   }
                 ],
                 "pts": [
                   {
                     "x": 1.3333333333333333,
-                    "y": 4.074074074074074,
-                    "label": "x = 4/3"
+                    "y": 4.074,
+                    "label": "x = 4/3",
+                    "hl": true
                   }
                 ],
-                "hl": null,
-                "shade": null
+                "cap": "Bends up (blue) until $x=\\frac43$, then bends down (pink)"
               }
             }
           ],
@@ -4045,7 +6498,41 @@
               "math": [
                 "f(0)=-4(0)^2+16(0)+1=\\hl{1}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  5
+                ],
+                "y": [
+                  0,
+                  18
+                ],
+                "fns": [
+                  {
+                    "f": "-4x^2+16x+1",
+                    "from": 0,
+                    "to": 4.062,
+                    "c": "faint"
+                  }
+                ],
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "obj": {
+                  "from": 0,
+                  "to": 4.062,
+                  "c": "white",
+                  "label": "ball"
+                },
+                "pts": [
+                  {
+                    "x": 0,
+                    "y": 1,
+                    "label": "f(0) = 1",
+                    "hl": true
+                  }
+                ]
+              }
             },
             {
               "say": "So the ball was 1 m above the pitch when it was hit.",
@@ -4084,7 +6571,41 @@
               "math": [
                 "f(0.5)=-4(0.5)^2+16(0.5)+1=-1+8+1=\\hl{8}"
               ],
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "t",
+                  "0",
+                  "0.5",
+                  "1",
+                  "1.5",
+                  "2",
+                  "2.5",
+                  "3",
+                  "3.5",
+                  "4"
+                ],
+                "rows": [
+                  [
+                    "Height (m)",
+                    "1",
+                    "8",
+                    "",
+                    "",
+                    "",
+                    "16",
+                    "",
+                    "",
+                    ""
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    2
+                  ]
+                ]
+              }
             },
             {
               "say": "Do the same for the other times.",
@@ -4096,7 +6617,61 @@
                 "f(3.5)=-49+56+1=8",
                 "f(4)=-64+64+1=1"
               ],
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "t",
+                  "0",
+                  "0.5",
+                  "1",
+                  "1.5",
+                  "2",
+                  "2.5",
+                  "3",
+                  "3.5",
+                  "4"
+                ],
+                "rows": [
+                  [
+                    "Height (m)",
+                    "1",
+                    "8",
+                    "13",
+                    "16",
+                    "17",
+                    "16",
+                    "13",
+                    "8",
+                    "1"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    5
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    0,
+                    8
+                  ],
+                  [
+                    0,
+                    9
+                  ]
+                ]
+              }
             },
             {
               "say": "Notice the pattern: the heights go up to 17 at t = 2 and then come back down in the same order. That is the symmetry of a quadratic.",
@@ -4134,7 +6709,8 @@
                     0,
                     5
                   ]
-                ]
+                ],
+                "cap": "Up to 17 at $t=2$, then back down the same way"
               }
             }
           ],
@@ -4166,55 +6742,46 @@
                   18
                 ],
                 "fns": [],
-                "pts": [
-                  {
-                    "x": 0,
-                    "y": 1,
-                    "label": ""
-                  },
-                  {
-                    "x": 0.5,
-                    "y": 8,
-                    "label": ""
-                  },
-                  {
-                    "x": 1,
-                    "y": 13,
-                    "label": ""
-                  },
-                  {
-                    "x": 1.5,
-                    "y": 16,
-                    "label": ""
-                  },
-                  {
-                    "x": 2,
-                    "y": 17,
-                    "label": ""
-                  },
-                  {
-                    "x": 2.5,
-                    "y": 16,
-                    "label": ""
-                  },
-                  {
-                    "x": 3,
-                    "y": 13,
-                    "label": ""
-                  },
-                  {
-                    "x": 3.5,
-                    "y": 8,
-                    "label": ""
-                  },
-                  {
-                    "x": 4,
-                    "y": 1,
-                    "label": ""
-                  }
+                "plot": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0.5,
+                    8.0
+                  ],
+                  [
+                    1,
+                    13
+                  ],
+                  [
+                    1.5,
+                    16.0
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    2.5,
+                    16.0
+                  ],
+                  [
+                    3,
+                    13
+                  ],
+                  [
+                    3.5,
+                    8.0
+                  ],
+                  [
+                    4,
+                    1
+                  ]
                 ],
-                "hl": null,
-                "shade": null
+                "xlab": "time t (s)",
+                "ylab": "height (m)"
               }
             },
             {
@@ -4232,59 +6799,51 @@
                 ],
                 "fns": [
                   {
-                    "f": "-4*x^2+16*x+1",
-                    "c": "main"
+                    "f": "-4x^2+16x+1",
+                    "from": 0,
+                    "to": 4.062
                   }
                 ],
-                "pts": [
-                  {
-                    "x": 0,
-                    "y": 1,
-                    "label": ""
-                  },
-                  {
-                    "x": 0.5,
-                    "y": 8,
-                    "label": ""
-                  },
-                  {
-                    "x": 1,
-                    "y": 13,
-                    "label": ""
-                  },
-                  {
-                    "x": 1.5,
-                    "y": 16,
-                    "label": ""
-                  },
-                  {
-                    "x": 2,
-                    "y": 17,
-                    "label": ""
-                  },
-                  {
-                    "x": 2.5,
-                    "y": 16,
-                    "label": ""
-                  },
-                  {
-                    "x": 3,
-                    "y": 13,
-                    "label": ""
-                  },
-                  {
-                    "x": 3.5,
-                    "y": 8,
-                    "label": ""
-                  },
-                  {
-                    "x": 4,
-                    "y": 1,
-                    "label": ""
-                  }
+                "plot": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0.5,
+                    8.0
+                  ],
+                  [
+                    1,
+                    13
+                  ],
+                  [
+                    1.5,
+                    16.0
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    2.5,
+                    16.0
+                  ],
+                  [
+                    3,
+                    13
+                  ],
+                  [
+                    3.5,
+                    8.0
+                  ],
+                  [
+                    4,
+                    1
+                  ]
                 ],
-                "hl": null,
-                "shade": null
+                "xlab": "time t (s)",
+                "ylab": "height (m)"
               }
             }
           ],
@@ -4320,19 +6879,20 @@
                 ],
                 "fns": [
                   {
-                    "f": "-4*x^2+16*x+1",
-                    "c": "main"
+                    "f": "-4x^2+16x+1",
+                    "from": 0,
+                    "to": 4.062,
+                    "c": "faint"
                   }
                 ],
-                "pts": [
-                  {
-                    "x": 4.06,
-                    "y": 0,
-                    "label": "≈ 4.1"
-                  }
-                ],
-                "hl": null,
-                "shade": null
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "obj": {
+                  "from": 0,
+                  "to": 4.062,
+                  "c": "white",
+                  "label": "ball"
+                }
               }
             },
             {
@@ -4340,7 +6900,42 @@
               "math": [
                 "t\\approx\\hl{4.1}\\ \\text{s}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  5
+                ],
+                "y": [
+                  0,
+                  18
+                ],
+                "fns": [
+                  {
+                    "f": "-4x^2+16x+1",
+                    "from": 0,
+                    "to": 4.062,
+                    "c": "faint"
+                  }
+                ],
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "obj": {
+                  "from": 0,
+                  "to": 4.062,
+                  "c": "white"
+                },
+                "roots": [
+                  4.062
+                ],
+                "pts": [
+                  {
+                    "x": 4.062,
+                    "y": 0,
+                    "label": "lands ≈ 4.1 s"
+                  }
+                ]
+              }
             }
           ],
           "tip": null
@@ -4375,30 +6970,32 @@
                 ],
                 "fns": [
                   {
-                    "f": "-4*x^2+16*x+1",
-                    "c": "main"
+                    "f": "-4x^2+16x+1",
+                    "from": 0,
+                    "to": 4.062
+                  }
+                ],
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "lines": [
+                  {
+                    "m": 0,
+                    "c": 10,
+                    "label": "10 m"
                   }
                 ],
                 "pts": [
                   {
-                    "x": 0.68,
+                    "x": 0.677,
                     "y": 10,
-                    "label": "≈ 0.6"
+                    "hl": true
                   },
                   {
-                    "x": 3.32,
+                    "x": 3.323,
                     "y": 10,
-                    "label": "≈ 3.4"
+                    "hl": true
                   }
-                ],
-                "lines": [
-                  {
-                    "m": 0,
-                    "c": 10
-                  }
-                ],
-                "hl": null,
-                "shade": null
+                ]
               }
             },
             {
@@ -4406,14 +7003,101 @@
               "math": [
                 "t\\approx0.6\\ \\text{s}\\quad\\text{and}\\quad t\\approx3.4\\ \\text{s}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  5
+                ],
+                "y": [
+                  0,
+                  18
+                ],
+                "fns": [
+                  {
+                    "f": "-4x^2+16x+1",
+                    "from": 0,
+                    "to": 4.062
+                  }
+                ],
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "lines": [
+                  {
+                    "m": 0,
+                    "c": 10,
+                    "label": "10 m"
+                  }
+                ],
+                "reads": [
+                  {
+                    "x": 0.677,
+                    "y": 10,
+                    "from": "y",
+                    "label": "≈ 0.6"
+                  },
+                  {
+                    "x": 3.323,
+                    "y": 10,
+                    "from": "y",
+                    "label": "≈ 3.4"
+                  }
+                ]
+              }
             },
             {
               "say": "Subtract to get the length of time.",
               "math": [
                 "3.4-0.6=\\hl{2.8}\\ \\text{s}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  5
+                ],
+                "y": [
+                  0,
+                  18
+                ],
+                "fns": [
+                  {
+                    "f": "-4x^2+16x+1",
+                    "from": 0,
+                    "to": 4.062,
+                    "c": "faint"
+                  }
+                ],
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "lines": [
+                  {
+                    "m": 0,
+                    "c": 10,
+                    "label": "10 m"
+                  }
+                ],
+                "reads": [
+                  {
+                    "x": 0.677,
+                    "y": 10,
+                    "from": "y",
+                    "label": "≈ 0.6"
+                  },
+                  {
+                    "x": 3.323,
+                    "y": 10,
+                    "from": "y",
+                    "label": "≈ 3.4"
+                  }
+                ],
+                "obj": {
+                  "from": 0.677,
+                  "to": 3.323,
+                  "c": "white",
+                  "label": "≈ 2.8 s"
+                }
+              }
             }
           ],
           "tip": "'Length of time' means a difference: later time minus earlier time."
@@ -4433,7 +7117,39 @@
           "idea": {
             "title": "Speed is the derivative of height",
             "text": "The derivative of height with respect to time tells you how fast the height is changing — the speed. Positive means the ball is going up, negative means it is coming down.",
-            "vis": null
+            "vis": {
+              "t": "graph",
+              "x": [
+                0,
+                5
+              ],
+              "y": [
+                0,
+                21
+              ],
+              "fns": [
+                {
+                  "f": "-4x^2+16x+1",
+                  "from": 0,
+                  "to": 4.062
+                }
+              ],
+              "xlab": "time t (s)",
+              "ylab": "height (m)",
+              "shade": [
+                {
+                  "from": 0,
+                  "to": 2,
+                  "sign": "+"
+                },
+                {
+                  "from": 2,
+                  "to": 4.062,
+                  "sign": "-"
+                }
+              ],
+              "cap": "Slope $+$: the ball is going up. Slope $-$: it is coming down"
+            }
           },
           "steps": [
             {
@@ -4449,7 +7165,31 @@
               "math": [
                 "f'(t)=-8t+16"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  5
+                ],
+                "y": [
+                  0,
+                  21
+                ],
+                "fns": [
+                  {
+                    "f": "-4x^2+16x+1",
+                    "from": 0,
+                    "to": 4.062
+                  }
+                ],
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "ride": {
+                  "from": 0,
+                  "to": 2
+                },
+                "cap": "$f'(t)=-8t+16$: 16 m/s up at the start, 0 at the top"
+              }
             }
           ],
           "tip": null
@@ -4475,7 +7215,30 @@
                 "f'(4)=-8(4)+16",
                 "=-32+16=\\hl{-16}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  5
+                ],
+                "y": [
+                  0,
+                  18
+                ],
+                "fns": [
+                  {
+                    "f": "-4x^2+16x+1",
+                    "from": 0,
+                    "to": 4.062
+                  }
+                ],
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "tangent": {
+                  "f": "-4x^2+16x+1",
+                  "x": 4
+                }
+              }
             },
             {
               "say": "The minus sign only tells you the ball is coming down. Speed is how fast, so it is 16 m/s.",
@@ -4489,28 +7252,31 @@
                   5
                 ],
                 "y": [
-                  -2,
+                  0,
                   18
                 ],
                 "fns": [
                   {
-                    "f": "-4*x^2+16*x+1",
-                    "c": "main"
+                    "f": "-4x^2+16x+1",
+                    "from": 0,
+                    "to": 4.062,
+                    "c": "faint"
                   }
                 ],
-                "pts": [
-                  {
-                    "x": 4,
-                    "y": 1,
-                    "label": "t = 4"
-                  }
-                ],
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
                 "tangent": {
-                  "f": "-4*x^2+16*x+1",
-                  "x": 4
+                  "f": "-4x^2+16x+1",
+                  "x": 4,
+                  "label": false
                 },
-                "hl": null,
-                "shade": null
+                "obj": {
+                  "from": 0,
+                  "to": 4,
+                  "c": "white",
+                  "label": "↓ 16 m/s"
+                },
+                "cap": "$f'(4)=-16$: falling at 16 m/s"
               }
             }
           ],
@@ -4536,7 +7302,31 @@
               "math": [
                 "-8t+16=\\hl{-8}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  5
+                ],
+                "y": [
+                  0,
+                  18
+                ],
+                "fns": [
+                  {
+                    "f": "-4x^2+16x+1",
+                    "from": 0,
+                    "to": 4.062
+                  }
+                ],
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "ride": {
+                  "from": 2,
+                  "to": 3
+                },
+                "cap": "Coming down at 8 m/s: slope $=-8$"
+              }
             },
             {
               "say": "Solve for t.",
@@ -4545,7 +7335,38 @@
                 "24=8t",
                 "t=\\hl{3}"
               ],
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  5
+                ],
+                "y": [
+                  0,
+                  18
+                ],
+                "fns": [
+                  {
+                    "f": "-4x^2+16x+1",
+                    "from": 0,
+                    "to": 4.062
+                  }
+                ],
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "ride": {
+                  "from": 2,
+                  "to": 3
+                },
+                "reads": [
+                  {
+                    "x": 3,
+                    "y": 13,
+                    "from": "y",
+                    "label": "t = 3"
+                  }
+                ]
+              }
             },
             {
               "say": "So 3 seconds after it was hit, the ball was falling at 8 m/s.",
@@ -4562,23 +7383,28 @@
                 ],
                 "fns": [
                   {
-                    "f": "-4*x^2+16*x+1",
-                    "c": "main"
+                    "f": "-4x^2+16x+1",
+                    "from": 0,
+                    "to": 4.062,
+                    "c": "faint"
                   }
                 ],
-                "pts": [
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "reads": [
                   {
                     "x": 3,
                     "y": 13,
+                    "from": "y",
                     "label": "t = 3"
                   }
                 ],
-                "tangent": {
-                  "f": "-4*x^2+16*x+1",
-                  "x": 3
-                },
-                "hl": null,
-                "shade": null
+                "obj": {
+                  "from": 0,
+                  "to": 3,
+                  "c": "white",
+                  "label": "↓ 8 m/s"
+                }
               }
             }
           ],

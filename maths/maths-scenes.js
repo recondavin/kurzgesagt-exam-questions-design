@@ -558,7 +558,7 @@
       el('path', { d: 'M' + cx + ' ' + top + 'L' + (cx - rw) + ' ' + bot + 'A' + rw + ' ' + ry + ' 0 0 0 ' + (cx + rw) + ' ' + bot + 'Z', class: 'mx-face' }, sol);
       Array.prototype.forEach.call(sol.children, function (n, i) { q.draw(n, K + 's' + i, 800, 200); });
       // The sector: its radius is the slant height, its arc is the base's circumference (angle = 360 × r ÷ l).
-      var l = d.l || 10, r = d.r || 4, theta = d.angle || 360 * r / l, Rp = 132, ox = 290, oy = 36, cr = Rp * r / l;
+      var l = d.l || 10, r = d.r || 4, theta = d.angle || 360 * r / l, wide = theta > 180, Rp = wide ? 96 : 132, ox = wide ? 228 : 290, oy = wide ? 132 : 36, cr = Rp * r / l;
       var sec = el('path', { class: 'mx-face mx-netface' }, out), a0 = Math.PI / 2 - theta * Math.PI / 360;
       q.tw(K + 'sector' + theta, 300, 1600, function (k) {
         var th = theta * k * Math.PI / 180, a = a0 + (theta * Math.PI / 180 - th) / 2, b = a + th;
@@ -567,7 +567,7 @@
       var base = el('circle', { cx: W - 14 - cr, cy: oy + Rp - cr + 10, r: cr, class: 'mx-face mx-top' }, out);
       q.pop(base, K + 'base', 300);
       dim(ox, oy, ox + Rp * Math.cos(a0), oy + Rp * Math.sin(a0), 'l', [10, -6]);
-      word(ox, oy + Rp + 24, 'arc');
+      word(ox, Math.min(H - 6, oy + Rp + 24), 'arc');
       word(ox, oy + 40, 'angle');
       dim(W - 14 - cr, oy + Rp - cr + 10, W - 14, oy + Rp - cr + 10, 'r', [0, -6]);
     } else {
@@ -623,7 +623,7 @@
   function slots(v, q) {
     var boxes = v.boxes || [], n = boxes.length || 1, pool = v.pool || null, op = v.op || '×';
     var W = 520, gap = 30, bw = Math.min(68, (W - 40 - (n - 1) * gap) / n), bh = Math.min(76, bw * 1.15);
-    var py = pool ? 34 : 0, by = py + (pool ? 46 : 18), H = by + bh + (v.result != null ? 92 : 56);
+    var py = pool ? 34 : 0, fills = pool && boxes.some(function (b) { return b.fill != null; }), by = py + (pool ? (fills ? 76 : 46) : 18), H = by + bh + (v.result != null ? 92 : 56);
     var s = svgBox(W, H, 'mx-slots'), K = 'sl:' + (pool ? pool.join('') : '') + ':';
     var x0 = (W - (n * bw + (n - 1) * gap)) / 2, BX = function (i) { return x0 + i * (bw + gap); };
     var tiles = [];
@@ -654,15 +654,17 @@
         var t = tiles.filter(function (tt) { return !tt.used && tt.label === String(b.fill); })[0] || tiles.filter(function (tt) { return !tt.used; })[0];
         if (t) {
           t.used = true;
-          var fg = el('g', { transform: 'translate(' + cxb + ',' + (by + 20) + ')' }, s), inner = el('g', { class: 'mx-tile is-moved' }, fg);
-          el('rect', { x: -14, y: -14, width: 28, height: 28, rx: 6 }, inner);
+          var ts = Math.min(28, bw * .7), ty = by - ts / 2 - 6;
+          var fg = el('g', { transform: 'translate(' + cxb + ',' + ty + ')' }, s), inner = el('g', { class: 'mx-tile is-moved' }, fg);
+          el('rect', { x: -ts / 2, y: -ts / 2, width: ts, height: ts, rx: 6 }, inner);
           txt(inner, 0, 6, b.fill, 'mx-tilet');
-          q.anim(inner, K + 'fly' + i + b.fill, 300, [{ transform: 'translate(' + (t.x - cxb) + 'px,' + (t.y - by - 20) + 'px)', opacity: 1 }, { transform: 'none', opacity: 1 }], { duration: 650, easing: 'cubic-bezier(.5,0,.2,1)' });
+          q.anim(inner, K + 'fly' + i + b.fill, 300, [{ transform: 'translate(' + (t.x - cxb) + 'px,' + (t.y - ty) + 'px)', opacity: 1 }, { transform: 'none', opacity: 1 }], { duration: 650, easing: 'cubic-bezier(.5,0,.2,1)' });
           t.g.classList.add('is-used');
           q.anim(t.g, K + 'use' + i + b.fill, 0, [{ opacity: 1 }, { opacity: .25 }], { duration: 300, delay: 0 });
         }
       }
-      var big = txt(g, cxb, by + bh / 2 + (b.fill != null && pool ? 22 : 12), b.n == null ? '' : String(b.n), 'mx-slotn');
+      var big = txt(g, cxb, by + bh / 2 + 10, b.n == null ? '' : String(b.n), 'mx-slotn');
+      if (bw < 54 || String(b.n).length > 2) big.style.fontSize = Math.max(14, Math.min(28, bw * .5, bw * 1.6 / Math.max(1, String(b.n).length))) + 'px';
       q.pop(big, K + 'n' + i + ':' + b.n, step === 0 ? 300 : 420, 520);
       if (i < n - 1 && op) { var o = txt(s, BX(i) + bw + gap / 2, by + bh / 2 + 9, op, 'mx-op'); q.pop(o, K + 'op' + i + op, 0, 360); }
     });
@@ -794,7 +796,7 @@
       var a = +rows[i], b = +cols[j];
       return op === '×' || op === '*' ? a * b : op === '-' || op === '−' ? Math.abs(a - b) : op === 'max' ? Math.max(a, b) : op === 'pair' ? '' + rows[i] + ',' + cols[j] : a + b;
     };
-    var cs = Math.min(38, 250 / Math.max(nR, nC)), hx = 58, hy = 62, W = 520, H = hy + nR * cs + 26, s = svgBox(W, H, 'mx-dice'), K = 'dc' + rows.join('') + '|' + cols.join('') + op + ':';
+    var lit = (list(v.hl).length || (v.hlCells || []).length) && v.count !== false, cs = Math.min(38, 250 / Math.max(nR, nC)), hx = 58, hy = 62, W = 520, H = Math.max(hy + nR * cs + 26, hy + (lit ? (v.frac === false ? 84 : 166) : 84)), s = svgBox(W, H, 'mx-dice'), K = 'dc' + rows.join('') + '|' + cols.join('') + op + ':';
     var face = function (x) { return v.faces !== false && /^[1-6]$/.test(String(x)); };
     if (v.colsLabel) txt(s, hx + nC * cs / 2, 13, v.colsLabel, 'mx-axlab');
     if (v.rowsLabel) { var rl = txt(s, 14, hy + nR * cs / 2, v.rowsLabel, 'mx-axlab'); rl.setAttribute('transform', 'rotate(-90 14 ' + (hy + nR * cs / 2) + ')'); }
@@ -826,7 +828,7 @@
     });
     if (freshHl) q.t = start + hits.length * 110 + 200;
     var px = hx + nC * cs + 28, N = nR * nC;
-    if (hl.length || hc.length) {
+    if (v.count === false) { /* only the cells */ } else if (hl.length || hc.length) {
       var big = txt(s, px, hy + 40, '', 'mx-count is-big', 'start');
       var of = txt(s, px, hy + 66, 'out of ' + N + ' outcomes', 'mx-legt is-soft', 'start');
       if (freshHl) q.job(function () { tween(Math.max(1, hits.length * 110), start, function (k) { big.textContent = String(Math.round(hits.length * k)); }, linear); });
@@ -851,7 +853,7 @@
   function spinner(v, q) {
     var secs = (v.sectors || []).map(function (sc, i) { return { label: String(sc.label == null ? '' : sc.label), w: +sc.w || 1, c: colour(sc.c || sc.label, i), t: sc.t }; });
     var tot = sum(secs.map(function (x) { return x.w; })) || 1, W = 520, H = 290, cx = 148, cy = 150, r = 116, s = svgBox(W, H, 'mx-spinner'), K = 'sp' + secs.map(function (x) { return x.label + x.w; }).join(',') + ':';
-    var hl = list(v.hl).map(String), any = hl.length > 0, on = function (sc, i) { return hl.indexOf(String(i)) >= 0 || hl.some(function (h) { return h.toLowerCase() === sc.label.toLowerCase(); }); };
+    var hl = list(v.hl), any = hl.length > 0, on = function (sc, i) { return hl.some(function (h) { return typeof h === 'number' ? h === i : String(h).toLowerCase() === sc.label.toLowerCase(); }); };
     var wheel = el('g', { class: 'mx-wheel' }, s), a = -90, mids = [];
     secs.forEach(function (sc, i) {
       var sweep = sc.w / tot * 360, a1 = a + sweep, r0 = a * Math.PI / 180, r1 = a1 * Math.PI / 180;
@@ -897,6 +899,7 @@
     });
     if (any && v.frac !== false) {
       var hitW = sum(secs.filter(on).map(function (x) { return x.w; })), fr = el('g', { class: 'mx-frac' }, s), side = rows.length > 5;
+      if (side && rows.some(function (rw) { return rw.sc.label.length > 12; }) && v.frac == null) fr.style.display = 'none';
       var fx = side ? 456 : lx + 30, fy = side ? 96 : Math.min(H - 52, ly + Math.min(rows.length, 7) * 28 + 28);
       txt(fr, fx, fy, String(v.frac || (equal ? secs.filter(on).length : hitW)), 'mx-fracn');
       el('line', { x1: fx - 26, x2: fx + 26, y1: fy + 8, y2: fy + 8, class: 'mx-fracbar' }, fr);

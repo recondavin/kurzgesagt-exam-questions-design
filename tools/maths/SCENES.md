@@ -154,7 +154,8 @@ shows; `pick` lifts one out; `out` shows balls already taken (without replacemen
 `rows`/`cols` default to 1–6 (drawn as dice faces); give other lists for other experiments (a coin
 `["H", "T"]`, a spinner's numbers). `op`: "+", "×", "-" (difference), "max", or "pair" (shows "3,H"). `cells`: your own
 grid (rows × cols). `hl`: the values that count; `hlCells`: `[[row, col], ...]` instead. `frac`, `of` and `say` as in bag.
-With no `hl` it shows the count of outcomes ("6 × 6 = 36").
+With no `hl` it shows the count of outcomes ("6 × 6 = 36"). `count: false` lights the cells with no count or
+fraction beside them (e.g. filling in the gaps of a table).
 
 **spinner**: it spins and stops on a sector; the sectors that count light up and the fraction shows.
 ```json
@@ -162,7 +163,7 @@ With no `hl` it shows the count of outcomes ("6 × 6 = 36").
 ```
 `sectors`: `{label, c?, w?, t?}` (w = relative size, default 1; `t` = short text written on the sector, e.g. a number;
 labels of 3 characters or fewer are written on it anyway). `land`: index of the sector it stops on (leave it out for
-no spin). `hl`: labels or indices that count. `frac`, `of`, `say` as in bag.
+no spin). `hl`: labels (text) or positions (numbers, from 0) of the sectors that count. `frac`, `of`, `say` as in bag.
 
 **pscale**: the probability scale from 0 to 1 with markers sliding to their places.
 ```json

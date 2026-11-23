@@ -51,6 +51,8 @@
     ['trap: the ends count once', { t: 'trap', h: 3, ys: [4, 5.8, 7, 6.5, 6, 4.8, 6, 6.5, 8], hl: 'ends' }],
     ['slots: six-digit password', { t: 'slots', boxes: [{ n: 10, label: '1st' }, { n: 10, label: '2nd' }, { n: 10, label: '3rd' }, { n: 10, label: '4th' }, { n: 10, label: '5th' }, { n: 10, label: '6th' }], result: '10⁶ = 1 000 000' }],
     ['slots: RAINBOW, letters used up', { t: 'slots', pool: ['R', 'A', 'I', 'N', 'B', 'O', 'W'], boxes: [{ n: 7, fill: 'R', label: '1st' }, { n: 6, fill: 'A', label: '2nd' }, { n: 5, fill: 'I', label: '3rd' }], result: '7 × 6 × 5 = 210' }],
+    ['slots: CAMOGIE, seven letters', { t: 'slots', pool: ['C', 'A', 'M', 'O', 'G', 'I', 'E'], boxes: [{ n: 7, fill: 'C' }, { n: 6, fill: 'A' }, { n: 5, fill: 'M' }, { n: 4, fill: 'O' }, { n: 3, fill: 'G' }, { n: 2, fill: 'I' }, { n: 1, fill: 'E' }], result: '7! = 5040' }],
+    ['net: a wide cone (306°)', { t: 'net', kind: 'cone', dims: { r: 8.5, l: 10, angle: 306 }, labels: { l: 'l = 10', arc: '2πr', angle: '306°' } }],
     ['list: two coins', { t: 'list', head: ['1st', '2nd'], rows: [['H', 'H'], ['H', 'T'], ['T', 'H'], ['T', 'T']], hl: [1, 2], count: true, colors: { H: 'blue', T: 'pink' } }],
     ['bag: pick a red', { t: 'bag', groups: [{ label: 'red', n: 3 }, { label: 'blue', n: 5 }, { label: 'green', n: 2 }], hl: 'red', pick: 'red', say: 'P(red)' }],
     ['dice: total of 7 or 11', { t: 'dice', op: '+', hl: [7, 11], rowsLabel: 'Die 2', colsLabel: 'Die 1', frac: '8', of: '36' }],

@@ -31,35 +31,99 @@
           "idea": {
             "title": "The fundamental principle of counting",
             "text": "If you make several choices one after another, multiply the number of options for each choice. 4 starters and 6 mains give 4 × 6 = 24 different pairs, because every starter can go with every main.",
-            "vis": null
+            "vis": {
+              "t": "dice",
+              "rows": [
+                "S1",
+                "S2",
+                "S3",
+                "S4"
+              ],
+              "cols": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "cells": [
+                [
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓"
+                ]
+              ],
+              "rowsLabel": "Starter",
+              "colsLabel": "Main",
+              "cap": "every starter with every main: 4 × 6 = 24 pairs"
+            }
           },
           "steps": [
             {
               "say": "Think of the password as six empty boxes. Each box can hold any digit from 0 to 9: that is 10 options. Digits can repeat, so every box still has all 10 options.",
               "math": [],
               "vis": {
-                "t": "table",
-                "head": [
-                  "Box",
-                  "1st",
-                  "2nd",
-                  "3rd",
-                  "4th",
-                  "5th",
-                  "6th"
-                ],
-                "rows": [
-                  [
-                    "Options",
-                    "10",
-                    "10",
-                    "10",
-                    "10",
-                    "10",
-                    "10"
-                  ]
-                ],
-                "hl": null
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 10,
+                    "label": "1st",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "2nd",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "3rd",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "4th",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "5th",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "6th",
+                    "note": "0–9"
+                  }
+                ]
               }
             },
             {
@@ -68,14 +132,84 @@
                 "10 \\times 10 \\times 10 \\times 10 \\times 10 \\times 10",
                 "= \\hl{10^6}"
               ],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 10,
+                    "label": "1st",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "2nd",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "3rd",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "4th",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "5th",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "6th",
+                    "note": "0–9"
+                  }
+                ],
+                "result": "10⁶"
+              }
             },
             {
               "say": "Work it out. So 1 000 000 different passwords are possible.",
               "math": [
                 "10^6 = \\hl{1\\,000\\,000}"
               ],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 10,
+                    "label": "1st",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "2nd",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "3rd",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "4th",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "5th",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "6th",
+                    "note": "0–9"
+                  }
+                ],
+                "result": "10⁶ = 1 000 000"
+              }
             }
           ],
           "tip": "Repeats allowed means the number of options stays the same for every box."
@@ -98,28 +232,39 @@
               "say": "No zero allowed, so each box can only be 1, 2, 3, 4, 5, 6, 7, 8 or 9. That is 9 options for every box.",
               "math": [],
               "vis": {
-                "t": "table",
-                "head": [
-                  "Box",
-                  "1st",
-                  "2nd",
-                  "3rd",
-                  "4th",
-                  "5th",
-                  "6th"
-                ],
-                "rows": [
-                  [
-                    "Options",
-                    "9",
-                    "9",
-                    "9",
-                    "9",
-                    "9",
-                    "9"
-                  ]
-                ],
-                "hl": null
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 9,
+                    "label": "1st",
+                    "note": "1–9"
+                  },
+                  {
+                    "n": 9,
+                    "label": "2nd",
+                    "note": "1–9"
+                  },
+                  {
+                    "n": 9,
+                    "label": "3rd",
+                    "note": "1–9"
+                  },
+                  {
+                    "n": 9,
+                    "label": "4th",
+                    "note": "1–9"
+                  },
+                  {
+                    "n": 9,
+                    "label": "5th",
+                    "note": "1–9"
+                  },
+                  {
+                    "n": 9,
+                    "label": "6th",
+                    "note": "1–9"
+                  }
+                ]
               }
             },
             {
@@ -128,7 +273,42 @@
                 "9 \\times 9 \\times 9 \\times 9 \\times 9 \\times 9 = 9^6",
                 "= \\hl{531\\,441}"
               ],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 9,
+                    "label": "1st",
+                    "note": "1–9"
+                  },
+                  {
+                    "n": 9,
+                    "label": "2nd",
+                    "note": "1–9"
+                  },
+                  {
+                    "n": 9,
+                    "label": "3rd",
+                    "note": "1–9"
+                  },
+                  {
+                    "n": 9,
+                    "label": "4th",
+                    "note": "1–9"
+                  },
+                  {
+                    "n": 9,
+                    "label": "5th",
+                    "note": "1–9"
+                  },
+                  {
+                    "n": 9,
+                    "label": "6th",
+                    "note": "1–9"
+                  }
+                ],
+                "result": "9⁶ = 531 441"
+              }
             }
           ],
           "tip": null
@@ -149,7 +329,19 @@
           "idea": {
             "title": "\"At least one\" is everything except \"none\"",
             "text": "A password either has no zeros or it has at least one zero. Those two groups make up all the passwords, so: at least one zero = total − no zeros. In probability: P(at least one) = 1 − P(none).",
-            "vis": null
+            "vis": {
+              "t": "pie",
+              "labels": [
+                "no zero",
+                "at least one 0"
+              ],
+              "vals": [
+                531441,
+                468559
+              ],
+              "show": "values",
+              "cap": "every password has no zero or at least one zero"
+            }
           },
           "steps": [
             {
@@ -157,14 +349,65 @@
               "math": [
                 "P = \\frac{\\text{passwords with at least one } 0}{\\text{all passwords}}"
               ],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 10,
+                    "label": "1st",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "2nd",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "3rd",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "4th",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "5th",
+                    "note": "0–9"
+                  },
+                  {
+                    "n": 10,
+                    "label": "6th",
+                    "note": "0–9"
+                  }
+                ],
+                "result": "10⁶ = 1 000 000 in all",
+                "cap": "the total, from part (a)"
+              }
             },
             {
               "say": "Counting \"at least one zero\" directly is hard. Instead, take the passwords with no zero (from (b)(i)) away from the total. Every password that is left has at least one zero.",
               "math": [
                 "1\\,000\\,000 - 531\\,441 = \\hl{\\mv{r}{468\\,559}}"
               ],
-              "vis": null
+              "vis": {
+                "t": "pie",
+                "labels": [
+                  "no zero",
+                  "at least one 0"
+                ],
+                "vals": [
+                  531441,
+                  468559
+                ],
+                "show": "values",
+                "hl": [
+                  1
+                ],
+                "cap": "at least one 0: 1 000 000 − 531 441 = 468 559"
+              }
             },
             {
               "say": "Divide by the total. So the probability is 0.468559.",
@@ -172,7 +415,17 @@
                 "P = \\frac{\\mv{r}{468\\,559}}{1\\,000\\,000}",
                 "= \\hl{0.468559}"
               ],
-              "vis": null
+              "vis": {
+                "t": "pscale",
+                "marks": [
+                  {
+                    "v": 0.468559,
+                    "label": "P(at least one 0)",
+                    "show": "0.468559",
+                    "hl": true
+                  }
+                ]
+              }
             }
           ],
           "tip": "\"At least one\" questions: count \"none\" first, then subtract."
@@ -191,13 +444,87 @@
           "idea": {
             "title": "When the order does not matter",
             "text": "Here the bank only cares which 3 boxes, not the order it asks for them. So list each group of boxes once, always writing the box numbers from smallest to biggest.",
-            "vis": null
+            "vis": {
+              "t": "list",
+              "rows": [
+                [
+                  "2",
+                  "4",
+                  "5"
+                ],
+                [
+                  "2",
+                  "5",
+                  "4"
+                ],
+                [
+                  "4",
+                  "2",
+                  "5"
+                ],
+                [
+                  "4",
+                  "5",
+                  "2"
+                ],
+                [
+                  "5",
+                  "2",
+                  "4"
+                ],
+                [
+                  "5",
+                  "4",
+                  "2"
+                ]
+              ],
+              "hl": [
+                0
+              ],
+              "count": true,
+              "cap": "boxes 2, 4, 5 asked in 6 orders: the same choice, written once going up"
+            }
           },
           "steps": [
             {
               "say": "Number the boxes 1 to 6. The bank picks 3 different boxes. Asking for boxes 2, 4, 5 is the same as asking for 5, 2, 4, so write every choice with its numbers going up. Then no choice is counted twice.",
               "math": [],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": "",
+                    "label": "1"
+                  },
+                  {
+                    "n": "*",
+                    "label": "2"
+                  },
+                  {
+                    "n": "",
+                    "label": "3"
+                  },
+                  {
+                    "n": "*",
+                    "label": "4"
+                  },
+                  {
+                    "n": "*",
+                    "label": "5"
+                  },
+                  {
+                    "n": "",
+                    "label": "6"
+                  }
+                ],
+                "op": " ",
+                "hl": [
+                  1,
+                  3,
+                  4
+                ],
+                "cap": "asking for boxes 2, 4, 5 is the same as 5, 2, 4"
+              }
             },
             {
               "say": "Start with every choice that uses box 1. After the 1, pick the second box and then the third, always going up.",
@@ -205,7 +532,75 @@
                 "123,\\ 124,\\ 125,\\ 126,\\ 134,\\ 135,\\ 136,\\ 145,\\ 146,\\ 156",
                 "\\hl{10} \\text{ choices}"
               ],
-              "vis": null
+              "vis": {
+                "t": "list",
+                "rows": [
+                  [
+                    "1",
+                    "2",
+                    "3"
+                  ],
+                  [
+                    "1",
+                    "2",
+                    "4"
+                  ],
+                  [
+                    "1",
+                    "2",
+                    "5"
+                  ],
+                  [
+                    "1",
+                    "2",
+                    "6"
+                  ],
+                  [
+                    "1",
+                    "3",
+                    "4"
+                  ],
+                  [
+                    "1",
+                    "3",
+                    "5"
+                  ],
+                  [
+                    "1",
+                    "3",
+                    "6"
+                  ],
+                  [
+                    "1",
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "1",
+                    "4",
+                    "6"
+                  ],
+                  [
+                    "1",
+                    "5",
+                    "6"
+                  ]
+                ],
+                "perCol": 5,
+                "hl": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9
+                ],
+                "count": " start with box 1"
+              }
             },
             {
               "say": "Next, the choices that start with box 2. (Choices with box 1 are all in the first list.)",
@@ -213,7 +608,101 @@
                 "234,\\ 235,\\ 236,\\ 245,\\ 246,\\ 256",
                 "\\hl{6} \\text{ choices}"
               ],
-              "vis": null
+              "vis": {
+                "t": "list",
+                "rows": [
+                  [
+                    "1",
+                    "2",
+                    "3"
+                  ],
+                  [
+                    "1",
+                    "2",
+                    "4"
+                  ],
+                  [
+                    "1",
+                    "2",
+                    "5"
+                  ],
+                  [
+                    "1",
+                    "2",
+                    "6"
+                  ],
+                  [
+                    "1",
+                    "3",
+                    "4"
+                  ],
+                  [
+                    "1",
+                    "3",
+                    "5"
+                  ],
+                  [
+                    "1",
+                    "3",
+                    "6"
+                  ],
+                  [
+                    "1",
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "1",
+                    "4",
+                    "6"
+                  ],
+                  [
+                    "1",
+                    "5",
+                    "6"
+                  ],
+                  [
+                    "2",
+                    "3",
+                    "4"
+                  ],
+                  [
+                    "2",
+                    "3",
+                    "5"
+                  ],
+                  [
+                    "2",
+                    "3",
+                    "6"
+                  ],
+                  [
+                    "2",
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "2",
+                    "4",
+                    "6"
+                  ],
+                  [
+                    "2",
+                    "5",
+                    "6"
+                  ]
+                ],
+                "perCol": 5,
+                "hl": [
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15
+                ],
+                "count": " start with box 2"
+              }
             },
             {
               "say": "Then the choices starting with 3, and the only one starting with 4.",
@@ -221,7 +710,119 @@
                 "345,\\ 346,\\ 356 \\quad (\\hl{3})",
                 "456 \\quad (\\hl{1})"
               ],
-              "vis": null
+              "vis": {
+                "t": "list",
+                "rows": [
+                  [
+                    "1",
+                    "2",
+                    "3"
+                  ],
+                  [
+                    "1",
+                    "2",
+                    "4"
+                  ],
+                  [
+                    "1",
+                    "2",
+                    "5"
+                  ],
+                  [
+                    "1",
+                    "2",
+                    "6"
+                  ],
+                  [
+                    "1",
+                    "3",
+                    "4"
+                  ],
+                  [
+                    "1",
+                    "3",
+                    "5"
+                  ],
+                  [
+                    "1",
+                    "3",
+                    "6"
+                  ],
+                  [
+                    "1",
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "1",
+                    "4",
+                    "6"
+                  ],
+                  [
+                    "1",
+                    "5",
+                    "6"
+                  ],
+                  [
+                    "2",
+                    "3",
+                    "4"
+                  ],
+                  [
+                    "2",
+                    "3",
+                    "5"
+                  ],
+                  [
+                    "2",
+                    "3",
+                    "6"
+                  ],
+                  [
+                    "2",
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "2",
+                    "4",
+                    "6"
+                  ],
+                  [
+                    "2",
+                    "5",
+                    "6"
+                  ],
+                  [
+                    "3",
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "3",
+                    "4",
+                    "6"
+                  ],
+                  [
+                    "3",
+                    "5",
+                    "6"
+                  ],
+                  [
+                    "4",
+                    "5",
+                    "6"
+                  ]
+                ],
+                "perCol": 5,
+                "hl": [
+                  16,
+                  17,
+                  18,
+                  19
+                ],
+                "count": " start with box 3 or 4"
+              }
             },
             {
               "say": "Add them up. So the bank can select the three boxes in 20 different ways.",
@@ -229,45 +830,112 @@
                 "10 + 6 + 3 + 1 = \\hl{20}"
               ],
               "vis": {
-                "t": "table",
-                "head": [
-                  "Starts with box",
-                  "Choices",
-                  "How many"
-                ],
+                "t": "list",
                 "rows": [
                   [
                     "1",
-                    "123 124 125 126 134 135 136 145 146 156",
-                    "10"
+                    "2",
+                    "3"
+                  ],
+                  [
+                    "1",
+                    "2",
+                    "4"
+                  ],
+                  [
+                    "1",
+                    "2",
+                    "5"
+                  ],
+                  [
+                    "1",
+                    "2",
+                    "6"
+                  ],
+                  [
+                    "1",
+                    "3",
+                    "4"
+                  ],
+                  [
+                    "1",
+                    "3",
+                    "5"
+                  ],
+                  [
+                    "1",
+                    "3",
+                    "6"
+                  ],
+                  [
+                    "1",
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "1",
+                    "4",
+                    "6"
+                  ],
+                  [
+                    "1",
+                    "5",
+                    "6"
                   ],
                   [
                     "2",
-                    "234 235 236 245 246 256",
+                    "3",
+                    "4"
+                  ],
+                  [
+                    "2",
+                    "3",
+                    "5"
+                  ],
+                  [
+                    "2",
+                    "3",
+                    "6"
+                  ],
+                  [
+                    "2",
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "2",
+                    "4",
+                    "6"
+                  ],
+                  [
+                    "2",
+                    "5",
                     "6"
                   ],
                   [
                     "3",
-                    "345 346 356",
-                    "3"
+                    "4",
+                    "5"
+                  ],
+                  [
+                    "3",
+                    "4",
+                    "6"
+                  ],
+                  [
+                    "3",
+                    "5",
+                    "6"
                   ],
                   [
                     "4",
-                    "456",
-                    "1"
-                  ],
-                  [
-                    "",
-                    "Total",
-                    "20"
+                    "5",
+                    "6"
                   ]
                 ],
-                "hl": [
-                  [
-                    4,
-                    2
-                  ]
-                ]
+                "perCol": 5,
+                "hl": [],
+                "count": " choices in all"
               }
             }
           ],
@@ -305,29 +973,81 @@
           "idea": {
             "title": "The fundamental principle of counting",
             "text": "If you make several choices one after another, multiply the number of options for each choice. 4 starters and 6 mains give 4 × 6 = 24 different pairs, because every starter can go with every main.",
-            "vis": null
+            "vis": {
+              "t": "dice",
+              "rows": [
+                "S1",
+                "S2",
+                "S3",
+                "S4"
+              ],
+              "cols": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "cells": [
+                [
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓"
+                ]
+              ],
+              "rowsLabel": "Starter",
+              "colsLabel": "Main",
+              "cap": "every starter with every main: 4 × 6 = 24 pairs"
+            }
           },
           "steps": [
             {
               "say": "A meal is three choices made one after another: a starter, then a main course, then a dessert. Write down how many options each course has.",
               "math": [],
               "vis": {
-                "t": "table",
-                "head": [
-                  "Course",
-                  "Starter",
-                  "Main",
-                  "Dessert"
-                ],
-                "rows": [
-                  [
-                    "Options",
-                    "4",
-                    "6",
-                    "8"
-                  ]
-                ],
-                "hl": null
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 4,
+                    "label": "starter"
+                  },
+                  {
+                    "n": 6,
+                    "label": "main"
+                  },
+                  {
+                    "n": 8,
+                    "label": "dessert"
+                  }
+                ]
               }
             },
             {
@@ -337,7 +1057,24 @@
                 "= 24 \\times 8",
                 "= \\hl{192}"
               ],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 4,
+                    "label": "starter"
+                  },
+                  {
+                    "n": 6,
+                    "label": "main"
+                  },
+                  {
+                    "n": 8,
+                    "label": "dessert"
+                  }
+                ],
+                "result": "4 × 6 × 8 = 192"
+              }
             }
           ],
           "tip": "Multiply, don't add: 4 + 6 + 8 = 18 counts dishes, not meals."
@@ -361,27 +1098,25 @@
                 "4 \\times 6 \\times \\hl{d} = 120"
               ],
               "vis": {
-                "t": "table",
-                "head": [
-                  "Course",
-                  "Starter",
-                  "Main",
-                  "Dessert"
-                ],
-                "rows": [
-                  [
-                    "Options",
-                    "4",
-                    "6",
-                    "d"
-                  ]
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 4,
+                    "label": "starter"
+                  },
+                  {
+                    "n": 6,
+                    "label": "main"
+                  },
+                  {
+                    "n": "d",
+                    "label": "dessert"
+                  }
                 ],
                 "hl": [
-                  [
-                    0,
-                    3
-                  ]
-                ]
+                  2
+                ],
+                "result": "120"
               }
             },
             {
@@ -389,7 +1124,29 @@
               "math": [
                 "\\mv{a}{24}d = 120"
               ],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 4,
+                    "label": "starter"
+                  },
+                  {
+                    "n": 6,
+                    "label": "main"
+                  },
+                  {
+                    "n": "d",
+                    "label": "dessert"
+                  }
+                ],
+                "hl": [
+                  0,
+                  1
+                ],
+                "result": "24 × d = 120",
+                "cap": "4 × 6 = 24 starter-and-main pairs"
+              }
             },
             {
               "say": "Divide both sides by 24. So 5 desserts are still available.",
@@ -397,7 +1154,27 @@
                 "d = \\frac{120}{\\mv{a}{24}}",
                 "d = \\hl{5}"
               ],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 4,
+                    "label": "starter"
+                  },
+                  {
+                    "n": 6,
+                    "label": "main"
+                  },
+                  {
+                    "n": 5,
+                    "label": "dessert"
+                  }
+                ],
+                "hl": [
+                  2
+                ],
+                "result": "4 × 6 × 5 = 120"
+              }
             }
           ],
           "tip": "Check your answer: 4 × 6 × 5 = 120."
@@ -417,7 +1194,47 @@
           "idea": {
             "title": "Independent events: multiply",
             "text": "If one result does not change the chances of the next, the chance of a whole list of results is the single chances multiplied together. And P(not A) = 1 − P(A).",
-            "vis": null
+            "vis": {
+              "t": "tree",
+              "root": [
+                {
+                  "label": "T",
+                  "p": "1/8",
+                  "kids": [
+                    {
+                      "label": "T",
+                      "p": "1/8"
+                    },
+                    {
+                      "label": "N",
+                      "p": "7/8"
+                    }
+                  ]
+                },
+                {
+                  "label": "N",
+                  "p": "7/8",
+                  "kids": [
+                    {
+                      "label": "T",
+                      "p": "1/8",
+                      "out": "7/64"
+                    },
+                    {
+                      "label": "N",
+                      "p": "7/8"
+                    }
+                  ]
+                }
+              ],
+              "hl": [
+                [
+                  "N",
+                  "T"
+                ]
+              ],
+              "cap": "N then T: 7/8 × 1/8 = 7/64 (T = plays tennis, N = doesn't)"
+            }
           },
           "steps": [
             {
@@ -426,46 +1243,80 @@
                 "P(T) = \\frac{1}{8}",
                 "P(\\text{not } T) = 1 - \\frac{1}{8} = \\hl{\\frac{7}{8}}"
               ],
-              "vis": null
+              "vis": {
+                "t": "bag",
+                "groups": [
+                  {
+                    "label": "tennis",
+                    "n": 1,
+                    "c": "yellow"
+                  },
+                  {
+                    "label": "no tennis",
+                    "n": 7,
+                    "c": "blue"
+                  }
+                ],
+                "hl": "no tennis",
+                "say": "P(not T)",
+                "unit": "people: 1 in 8 play"
+              }
             },
             {
               "say": "\"The fourth is the only one\" means: 1st no, 2nd no, 3rd no, 4th yes. The question says which person plays, so there is only one order.",
               "math": [],
               "vis": {
-                "t": "table",
-                "head": [
-                  "Person",
-                  "1st",
-                  "2nd",
-                  "3rd",
-                  "4th"
-                ],
-                "rows": [
-                  [
-                    "Plays tennis?",
-                    "No",
-                    "No",
-                    "No",
-                    "Yes"
-                  ],
-                  [
-                    "Probability",
-                    "7/8",
-                    "7/8",
-                    "7/8",
-                    "1/8"
-                  ]
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "T",
+                    "p": "1/8"
+                  },
+                  {
+                    "label": "N",
+                    "p": "7/8",
+                    "kids": [
+                      {
+                        "label": "T",
+                        "p": "1/8"
+                      },
+                      {
+                        "label": "N",
+                        "p": "7/8",
+                        "kids": [
+                          {
+                            "label": "T",
+                            "p": "1/8"
+                          },
+                          {
+                            "label": "N",
+                            "p": "7/8",
+                            "kids": [
+                              {
+                                "label": "T",
+                                "p": "1/8",
+                                "out": "NNNT"
+                              },
+                              {
+                                "label": "N",
+                                "p": "7/8"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 ],
                 "hl": [
                   [
-                    0,
-                    4
-                  ],
-                  [
-                    1,
-                    4
+                    "N",
+                    "N",
+                    "N",
+                    "T"
                   ]
-                ]
+                ],
+                "cap": "1st N, 2nd N, 3rd N, 4th T (N = doesn't play)"
               }
             },
             {
@@ -474,7 +1325,59 @@
                 "\\frac{7}{8} \\times \\frac{7}{8} \\times \\frac{7}{8} \\times \\frac{1}{8} = \\frac{343}{4096}",
                 "\\approx \\hl{0.08374}"
               ],
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "T",
+                    "p": "1/8"
+                  },
+                  {
+                    "label": "N",
+                    "p": "7/8",
+                    "kids": [
+                      {
+                        "label": "T",
+                        "p": "1/8"
+                      },
+                      {
+                        "label": "N",
+                        "p": "7/8",
+                        "kids": [
+                          {
+                            "label": "T",
+                            "p": "1/8"
+                          },
+                          {
+                            "label": "N",
+                            "p": "7/8",
+                            "kids": [
+                              {
+                                "label": "T",
+                                "p": "1/8",
+                                "out": "343/4096"
+                              },
+                              {
+                                "label": "N",
+                                "p": "7/8"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "hl": [
+                  [
+                    "N",
+                    "N",
+                    "N",
+                    "T"
+                  ]
+                ],
+                "cap": "7/8 × 7/8 × 7/8 × 1/8 = 343/4096 ≈ 0.08374"
+              }
             }
           ],
           "tip": null
@@ -494,41 +1397,139 @@
           "idea": {
             "title": "\"Exactly\" means count the orders",
             "text": "When the question doesn't say which people, the result can happen in different orders. Work out the probability of one order, then multiply by the number of orders.",
-            "vis": null
+            "vis": {
+              "t": "list",
+              "head": [
+                "1st",
+                "2nd"
+              ],
+              "rows": [
+                [
+                  "H",
+                  "H"
+                ],
+                [
+                  "H",
+                  "T"
+                ],
+                [
+                  "T",
+                  "H"
+                ],
+                [
+                  "T",
+                  "T"
+                ]
+              ],
+              "hl": [
+                1,
+                2
+              ],
+              "count": " orders give exactly one H",
+              "colors": {
+                "H": "blue",
+                "T": "pink"
+              },
+              "cap": "two coins: exactly one head can come first or second"
+            }
           },
           "steps": [
             {
               "say": "Exactly two play and one doesn't. The one who doesn't could be the 1st, the 2nd or the 3rd person, so there are 3 different orders.",
               "math": [],
               "vis": {
-                "t": "table",
-                "head": [
-                  "Order",
-                  "1st",
-                  "2nd",
-                  "3rd"
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "T",
+                    "p": "1/8",
+                    "kids": [
+                      {
+                        "label": "T",
+                        "p": "1/8",
+                        "kids": [
+                          {
+                            "label": "T",
+                            "p": "1/8"
+                          },
+                          {
+                            "label": "N",
+                            "p": "7/8",
+                            "out": "TTN"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "N",
+                        "p": "7/8",
+                        "kids": [
+                          {
+                            "label": "T",
+                            "p": "1/8",
+                            "out": "TNT"
+                          },
+                          {
+                            "label": "N",
+                            "p": "7/8"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "N",
+                    "p": "7/8",
+                    "kids": [
+                      {
+                        "label": "T",
+                        "p": "1/8",
+                        "kids": [
+                          {
+                            "label": "T",
+                            "p": "1/8",
+                            "out": "NTT"
+                          },
+                          {
+                            "label": "N",
+                            "p": "7/8"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "N",
+                        "p": "7/8",
+                        "kids": [
+                          {
+                            "label": "T",
+                            "p": "1/8"
+                          },
+                          {
+                            "label": "N",
+                            "p": "7/8"
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 ],
-                "rows": [
+                "hl": [
                   [
-                    "1",
                     "T",
                     "T",
-                    "not T"
+                    "N"
                   ],
                   [
-                    "2",
                     "T",
-                    "not T",
+                    "N",
                     "T"
                   ],
                   [
-                    "3",
-                    "not T",
+                    "N",
                     "T",
                     "T"
                   ]
                 ],
-                "hl": null
+                "cap": "exactly two T: the N can be 1st, 2nd or 3rd"
               }
             },
             {
@@ -536,7 +1537,100 @@
               "math": [
                 "\\frac{1}{8} \\times \\frac{1}{8} \\times \\frac{7}{8} = \\frac{7}{512}"
               ],
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "T",
+                    "p": "1/8",
+                    "kids": [
+                      {
+                        "label": "T",
+                        "p": "1/8",
+                        "kids": [
+                          {
+                            "label": "T",
+                            "p": "1/8"
+                          },
+                          {
+                            "label": "N",
+                            "p": "7/8",
+                            "out": "TTN 7/512"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "N",
+                        "p": "7/8",
+                        "kids": [
+                          {
+                            "label": "T",
+                            "p": "1/8",
+                            "out": "TNT 7/512"
+                          },
+                          {
+                            "label": "N",
+                            "p": "7/8"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "N",
+                    "p": "7/8",
+                    "kids": [
+                      {
+                        "label": "T",
+                        "p": "1/8",
+                        "kids": [
+                          {
+                            "label": "T",
+                            "p": "1/8",
+                            "out": "NTT 7/512"
+                          },
+                          {
+                            "label": "N",
+                            "p": "7/8"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "N",
+                        "p": "7/8",
+                        "kids": [
+                          {
+                            "label": "T",
+                            "p": "1/8"
+                          },
+                          {
+                            "label": "N",
+                            "p": "7/8"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "hl": [
+                  [
+                    "T",
+                    "T",
+                    "N"
+                  ],
+                  [
+                    "T",
+                    "N",
+                    "T"
+                  ],
+                  [
+                    "N",
+                    "T",
+                    "T"
+                  ]
+                ],
+                "cap": "each order: 1/8 × 1/8 × 7/8 = 7/512"
+              }
             },
             {
               "say": "There are 3 orders, so multiply by 3. The probability is 21/512 ≈ 0.04101.",
@@ -544,7 +1638,100 @@
                 "\\hl{3} \\times \\frac{7}{512} = \\frac{21}{512}",
                 "\\approx \\hl{0.04101}"
               ],
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "T",
+                    "p": "1/8",
+                    "kids": [
+                      {
+                        "label": "T",
+                        "p": "1/8",
+                        "kids": [
+                          {
+                            "label": "T",
+                            "p": "1/8"
+                          },
+                          {
+                            "label": "N",
+                            "p": "7/8",
+                            "out": "TTN 7/512"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "N",
+                        "p": "7/8",
+                        "kids": [
+                          {
+                            "label": "T",
+                            "p": "1/8",
+                            "out": "TNT 7/512"
+                          },
+                          {
+                            "label": "N",
+                            "p": "7/8"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "N",
+                    "p": "7/8",
+                    "kids": [
+                      {
+                        "label": "T",
+                        "p": "1/8",
+                        "kids": [
+                          {
+                            "label": "T",
+                            "p": "1/8",
+                            "out": "NTT 7/512"
+                          },
+                          {
+                            "label": "N",
+                            "p": "7/8"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "N",
+                        "p": "7/8",
+                        "kids": [
+                          {
+                            "label": "T",
+                            "p": "1/8"
+                          },
+                          {
+                            "label": "N",
+                            "p": "7/8"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "hl": [
+                  [
+                    "T",
+                    "T",
+                    "N"
+                  ],
+                  [
+                    "T",
+                    "N",
+                    "T"
+                  ],
+                  [
+                    "N",
+                    "T",
+                    "T"
+                  ]
+                ],
+                "cap": "3 orders: 3 × 7/512 = 21/512 ≈ 0.04101"
+              }
             }
           ],
           "tip": "Don't forget the × 3: any one of the three people could be the one who doesn't play."
@@ -614,7 +1801,16 @@
           "idea": {
             "title": "The mean",
             "text": "The mean is the \"fair share\": add up all the numbers, then divide by how many numbers there are.",
-            "vis": null
+            "vis": {
+              "t": "bars",
+              "vals": [
+                3,
+                7,
+                5
+              ],
+              "level": true,
+              "cap": "a small example: 3 + 7 + 5 = 15, shared out evenly is 5 each"
+            }
           },
           "steps": [
             {
@@ -622,7 +1818,20 @@
               "math": [
                 "17 + 8 + 9 + 8 + 14 + 11 + 28 = \\hl{95}"
               ],
-              "vis": null
+              "vis": {
+                "t": "dots",
+                "vals": [
+                  17,
+                  8,
+                  9,
+                  8,
+                  14,
+                  11,
+                  28
+                ],
+                "sort": false,
+                "say": "add them: 17 + 8 + 9 + 8 + 14 + 11 + 28 = 95"
+              }
             },
             {
               "say": "Divide by how many numbers there are (7). Round to 1 decimal place: the next digit is 7, so round up. The mean is 13.6.",
@@ -630,7 +1839,21 @@
                 "\\text{Mean} = \\frac{95}{7} = 13.571...",
                 "\\approx \\hl{13.6}"
               ],
-              "vis": null
+              "vis": {
+                "t": "dots",
+                "vals": [
+                  17,
+                  8,
+                  9,
+                  8,
+                  14,
+                  11,
+                  28
+                ],
+                "sort": false,
+                "show": "mean",
+                "say": "95 ÷ 7 = 13.571… ≈ 13.6"
+              }
             }
           ],
           "tip": null
@@ -649,7 +1872,18 @@
           "idea": {
             "title": "The median",
             "text": "The median is the middle number once the list is in order. With an odd number of values there is one middle number; with an even number, it is halfway between the two middle numbers.",
-            "vis": null
+            "vis": {
+              "t": "dots",
+              "vals": [
+                4,
+                9,
+                2,
+                7,
+                5
+              ],
+              "show": "median",
+              "cap": "a small example: 5 numbers, the 3rd is the middle"
+            }
           },
           "steps": [
             {
@@ -657,7 +1891,18 @@
               "math": [
                 "8,\\ 8,\\ 9,\\ \\hl{11},\\ 14,\\ 17,\\ 28"
               ],
-              "vis": null
+              "vis": {
+                "t": "dots",
+                "vals": [
+                  17,
+                  8,
+                  9,
+                  8,
+                  14,
+                  11,
+                  28
+                ]
+              }
             },
             {
               "say": "There are 7 numbers, so the middle one is the 4th: (7 + 1) ÷ 2 = 4. The median is 11.",
@@ -665,7 +1910,20 @@
                 "\\frac{7 + 1}{2} = 4\\text{th}",
                 "\\text{Median} = \\hl{11}"
               ],
-              "vis": null
+              "vis": {
+                "t": "dots",
+                "vals": [
+                  17,
+                  8,
+                  9,
+                  8,
+                  14,
+                  11,
+                  28
+                ],
+                "show": "median",
+                "say": "the 4th of 7: median = 11"
+              }
             }
           ],
           "tip": null
@@ -686,14 +1944,71 @@
             {
               "say": "Now there are 8 numbers. With an even count, the median is halfway between the two middle numbers (the 4th and the 5th).",
               "math": [],
-              "vis": null
+              "vis": {
+                "t": "list",
+                "head": [
+                  "1st",
+                  "2nd",
+                  "3rd",
+                  "4th",
+                  "5th",
+                  "6th",
+                  "7th",
+                  "8th"
+                ],
+                "rows": [
+                  [
+                    "·",
+                    "·",
+                    "·",
+                    "?",
+                    "?",
+                    "·",
+                    "·",
+                    "·"
+                  ]
+                ],
+                "colors": {
+                  "?": "yellow"
+                },
+                "cap": "8 numbers: the middle two are the 4th and the 5th"
+              }
             },
             {
               "say": "10.5 is between 9 and 11, so the new number x must sit between 9 and 11 in the list. Then the two middle numbers are x and 11.",
               "math": [
                 "8,\\ 8,\\ 9,\\ \\hl{x},\\ \\hl{11},\\ 14,\\ 17,\\ 28"
               ],
-              "vis": null
+              "vis": {
+                "t": "list",
+                "head": [
+                  "1st",
+                  "2nd",
+                  "3rd",
+                  "4th",
+                  "5th",
+                  "6th",
+                  "7th",
+                  "8th"
+                ],
+                "rows": [
+                  [
+                    "8",
+                    "8",
+                    "9",
+                    "x",
+                    "11",
+                    "14",
+                    "17",
+                    "28"
+                  ]
+                ],
+                "colors": {
+                  "x": "yellow",
+                  "11": "yellow"
+                },
+                "cap": "x goes between 9 and 11: the middle two are x and 11"
+              }
             },
             {
               "say": "Halfway between x and 11 is 10.5. Solve it. The number added was 10.",
@@ -702,7 +2017,21 @@
                 "x + 11 = 21",
                 "x = \\hl{10}"
               ],
-              "vis": null
+              "vis": {
+                "t": "dots",
+                "vals": [
+                  17,
+                  8,
+                  9,
+                  8,
+                  14,
+                  11,
+                  28,
+                  10
+                ],
+                "show": "median",
+                "cap": "with x = 10 the median is 10.5"
+              }
             }
           ],
           "tip": "Check: 8, 8, 9, 10, 11, 14, 17, 28 has middle numbers 10 and 11, so the median is 10.5."
@@ -721,29 +2050,84 @@
           "idea": {
             "title": "The fundamental principle of counting",
             "text": "If you make several choices one after another, multiply the number of options for each choice. 4 starters and 6 mains give 4 × 6 = 24 different pairs, because every starter can go with every main.",
-            "vis": null
+            "vis": {
+              "t": "dice",
+              "rows": [
+                "S1",
+                "S2",
+                "S3",
+                "S4"
+              ],
+              "cols": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "cells": [
+                [
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓"
+                ],
+                [
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓",
+                  "✓"
+                ]
+              ],
+              "rowsLabel": "Starter",
+              "colsLabel": "Main",
+              "cap": "every starter with every main: 4 × 6 = 24 pairs"
+            }
           },
           "steps": [
             {
               "say": "Ben makes three choices one after another: one subject from A (3 options), one from B (4 options) and one from C (5 options).",
               "math": [],
               "vis": {
-                "t": "table",
-                "head": [
-                  "Group",
-                  "A",
-                  "B",
-                  "C"
-                ],
-                "rows": [
-                  [
-                    "Options",
-                    "3",
-                    "4",
-                    "5"
-                  ]
-                ],
-                "hl": null
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 3,
+                    "label": "Group A",
+                    "note": "3 subjects"
+                  },
+                  {
+                    "n": 4,
+                    "label": "Group B",
+                    "note": "4 subjects"
+                  },
+                  {
+                    "n": 5,
+                    "label": "Group C",
+                    "note": "5 subjects"
+                  }
+                ]
               }
             },
             {
@@ -751,7 +2135,27 @@
               "math": [
                 "3 \\times 4 \\times 5 = \\hl{60}"
               ],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 3,
+                    "label": "Group A",
+                    "note": "3 subjects"
+                  },
+                  {
+                    "n": 4,
+                    "label": "Group B",
+                    "note": "4 subjects"
+                  },
+                  {
+                    "n": 5,
+                    "label": "Group C",
+                    "note": "5 subjects"
+                  }
+                ],
+                "result": "3 × 4 × 5 = 60"
+              }
             }
           ],
           "tip": "Multiply, don't add: 3 + 4 + 5 = 12 is the number of subjects, not the number of choices."
@@ -781,27 +2185,23 @@
                 "\\text{Extra in C: } 3 \\times 4 \\times \\hl{6} = 72"
               ],
               "vis": {
-                "t": "table",
-                "head": [
-                  "Extra subject in",
-                  "A",
-                  "B",
-                  "C"
+                "t": "bars",
+                "vals": [
+                  80,
+                  75,
+                  72
                 ],
-                "rows": [
-                  [
-                    "Choices",
-                    "4 × 4 × 5 = 80",
-                    "3 × 5 × 5 = 75",
-                    "3 × 4 × 6 = 72"
-                  ]
+                "labels": [
+                  "A: 4 × 4 × 5",
+                  "B: 3 × 5 × 5",
+                  "C: 3 × 4 × 6"
                 ],
-                "hl": [
-                  [
-                    0,
-                    1
-                  ]
-                ]
+                "line": {
+                  "v": 60,
+                  "label": "now: 60"
+                },
+                "ylab": "choices",
+                "xlab": "extra subject added to"
               }
             },
             {
@@ -809,7 +2209,29 @@
               "math": [
                 "80 > 75 > 72 \\;\\Rightarrow\\; \\text{Group } \\hl{A}"
               ],
-              "vis": null
+              "vis": {
+                "t": "bars",
+                "vals": [
+                  80,
+                  75,
+                  72
+                ],
+                "labels": [
+                  "A: 4 × 4 × 5",
+                  "B: 3 × 5 × 5",
+                  "C: 3 × 4 × 6"
+                ],
+                "line": {
+                  "v": 60,
+                  "label": "now: 60"
+                },
+                "ylab": "choices",
+                "xlab": "extra subject added to",
+                "hl": [
+                  0
+                ],
+                "cap": "an extra subject in A pairs with all 4 × 5 = 20 B-and-C pairs"
+              }
             }
           ],
           "tip": "Show all three calculations: \"Group A\" on its own only gets partial credit."
@@ -846,42 +2268,140 @@
           "idea": {
             "title": "Arrangements and n!",
             "text": "To arrange different things in a row, fill the places one at a time. The first place can take any of the items, the next place one fewer, and so on down to 1. 7 × 6 × 5 × 4 × 3 × 2 × 1 is written 7! (\"7 factorial\").",
-            "vis": null
+            "vis": {
+              "t": "list",
+              "head": [
+                "1st",
+                "2nd",
+                "3rd"
+              ],
+              "rows": [
+                [
+                  "A",
+                  "B",
+                  "C"
+                ],
+                [
+                  "A",
+                  "C",
+                  "B"
+                ],
+                [
+                  "B",
+                  "A",
+                  "C"
+                ],
+                [
+                  "B",
+                  "C",
+                  "A"
+                ],
+                [
+                  "C",
+                  "A",
+                  "B"
+                ],
+                [
+                  "C",
+                  "B",
+                  "A"
+                ]
+              ],
+              "count": " arrangements = 3 × 2 × 1",
+              "cap": "3 different letters: 3 for the 1st place, then 2, then 1. That is 3!"
+            }
           },
           "steps": [
             {
               "say": "CAMOGIE has 7 letters and they are all different. Think of 7 places to fill, one at a time.",
               "math": [],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": "",
+                    "label": "1"
+                  },
+                  {
+                    "n": "",
+                    "label": "2"
+                  },
+                  {
+                    "n": "",
+                    "label": "3"
+                  },
+                  {
+                    "n": "",
+                    "label": "4"
+                  },
+                  {
+                    "n": "",
+                    "label": "5"
+                  },
+                  {
+                    "n": "",
+                    "label": "6"
+                  },
+                  {
+                    "n": "",
+                    "label": "7"
+                  }
+                ],
+                "pool": [
+                  "C",
+                  "A",
+                  "M",
+                  "O",
+                  "G",
+                  "I",
+                  "E"
+                ]
+              }
             },
             {
               "say": "The 1st place can take any of the 7 letters. One is now used, so 6 are left for the 2nd place, then 5 for the 3rd, and so on down to 1.",
               "math": [],
               "vis": {
-                "t": "table",
-                "head": [
-                  "Place",
-                  "1",
-                  "2",
-                  "3",
-                  "4",
-                  "5",
-                  "6",
-                  "7"
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 7,
+                    "label": "1"
+                  },
+                  {
+                    "n": 6,
+                    "label": "2"
+                  },
+                  {
+                    "n": 5,
+                    "label": "3"
+                  },
+                  {
+                    "n": 4,
+                    "label": "4"
+                  },
+                  {
+                    "n": 3,
+                    "label": "5"
+                  },
+                  {
+                    "n": 2,
+                    "label": "6"
+                  },
+                  {
+                    "n": 1,
+                    "label": "7"
+                  }
                 ],
-                "rows": [
-                  [
-                    "Options",
-                    "7",
-                    "6",
-                    "5",
-                    "4",
-                    "3",
-                    "2",
-                    "1"
-                  ]
-                ],
-                "hl": null
+                "pool": [
+                  "C",
+                  "A",
+                  "M",
+                  "O",
+                  "G",
+                  "I",
+                  "E"
+                ]
               }
             },
             {
@@ -890,7 +2410,49 @@
                 "7 \\times 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 7!",
                 "= \\hl{5040}"
               ],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 7,
+                    "label": "1"
+                  },
+                  {
+                    "n": 6,
+                    "label": "2"
+                  },
+                  {
+                    "n": 5,
+                    "label": "3"
+                  },
+                  {
+                    "n": 4,
+                    "label": "4"
+                  },
+                  {
+                    "n": 3,
+                    "label": "5"
+                  },
+                  {
+                    "n": 2,
+                    "label": "6"
+                  },
+                  {
+                    "n": 1,
+                    "label": "7"
+                  }
+                ],
+                "pool": [
+                  "C",
+                  "A",
+                  "M",
+                  "O",
+                  "G",
+                  "I",
+                  "E"
+                ],
+                "result": "7! = 5040"
+              }
             }
           ],
           "tip": "Your calculator has a factorial key (x! or n!): 7! = 5040."
@@ -909,55 +2471,222 @@
           "idea": {
             "title": "Fill the fussy places first",
             "text": "When some places have rules, count their options first. Then fill the free places with whatever letters are left, going down by one each time.",
-            "vis": null
+            "vis": {
+              "t": "slots",
+              "boxes": [
+                {
+                  "n": 2,
+                  "label": "1st",
+                  "fill": "C"
+                },
+                {
+                  "n": 1,
+                  "label": "2nd",
+                  "fill": "T"
+                },
+                {
+                  "n": 1,
+                  "label": "3rd",
+                  "fill": "A",
+                  "note": "vowel"
+                }
+              ],
+              "pool": [
+                "C",
+                "A",
+                "T"
+              ],
+              "order": [
+                2,
+                0,
+                1
+              ],
+              "hl": [
+                2
+              ],
+              "result": "2 × 1 × 1 = 2",
+              "cap": "C, A, T ending in a vowel: fill the last place first"
+            }
           },
           "steps": [
             {
               "say": "Fill the places with rules first. The 1st place must be M: only 1 option.",
               "math": [],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 1,
+                    "label": "1",
+                    "note": "M"
+                  },
+                  {
+                    "n": "",
+                    "label": "2"
+                  },
+                  {
+                    "n": "",
+                    "label": "3"
+                  },
+                  {
+                    "n": "",
+                    "label": "4"
+                  },
+                  {
+                    "n": "",
+                    "label": "5"
+                  },
+                  {
+                    "n": "",
+                    "label": "6"
+                  },
+                  {
+                    "n": "",
+                    "label": "7"
+                  }
+                ],
+                "pool": [
+                  "C",
+                  "A",
+                  "M",
+                  "O",
+                  "G",
+                  "I",
+                  "E"
+                ],
+                "order": [
+                  0,
+                  6,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                "hl": [
+                  0
+                ]
+              }
             },
             {
               "say": "The last place must be a vowel: A, O, I or E. That is 4 options. (M is not a vowel, so putting M first doesn't use up a vowel.)",
               "math": [],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 1,
+                    "label": "1",
+                    "note": "M"
+                  },
+                  {
+                    "n": "",
+                    "label": "2"
+                  },
+                  {
+                    "n": "",
+                    "label": "3"
+                  },
+                  {
+                    "n": "",
+                    "label": "4"
+                  },
+                  {
+                    "n": "",
+                    "label": "5"
+                  },
+                  {
+                    "n": "",
+                    "label": "6"
+                  },
+                  {
+                    "n": 4,
+                    "label": "7",
+                    "note": "A, O, I, E"
+                  }
+                ],
+                "pool": [
+                  "C",
+                  "A",
+                  "M",
+                  "O",
+                  "G",
+                  "I",
+                  "E"
+                ],
+                "order": [
+                  0,
+                  6,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                "hl": [
+                  0,
+                  6
+                ]
+              }
             },
             {
               "say": "Two letters are now used, so 5 letters are left for the 5 middle places: 5, 4, 3, 2, 1 options.",
               "math": [],
               "vis": {
-                "t": "table",
-                "head": [
-                  "Place",
-                  "1",
-                  "2",
-                  "3",
-                  "4",
-                  "5",
-                  "6",
-                  "7"
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 1,
+                    "label": "1",
+                    "note": "M"
+                  },
+                  {
+                    "n": 5,
+                    "label": "2"
+                  },
+                  {
+                    "n": 4,
+                    "label": "3"
+                  },
+                  {
+                    "n": 3,
+                    "label": "4"
+                  },
+                  {
+                    "n": 2,
+                    "label": "5"
+                  },
+                  {
+                    "n": 1,
+                    "label": "6"
+                  },
+                  {
+                    "n": 4,
+                    "label": "7",
+                    "note": "A, O, I, E"
+                  }
                 ],
-                "rows": [
-                  [
-                    "Options",
-                    "1 (M)",
-                    "5",
-                    "4",
-                    "3",
-                    "2",
-                    "1",
-                    "4 (vowel)"
-                  ]
+                "pool": [
+                  "C",
+                  "A",
+                  "M",
+                  "O",
+                  "G",
+                  "I",
+                  "E"
+                ],
+                "order": [
+                  0,
+                  6,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
                 ],
                 "hl": [
-                  [
-                    0,
-                    1
-                  ],
-                  [
-                    0,
-                    7
-                  ]
+                  0,
+                  6
                 ]
               }
             },
@@ -968,7 +2697,64 @@
                 "= 5! \\times 4 = 120 \\times 4",
                 "= \\hl{480}"
               ],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 1,
+                    "label": "1",
+                    "note": "M"
+                  },
+                  {
+                    "n": 5,
+                    "label": "2"
+                  },
+                  {
+                    "n": 4,
+                    "label": "3"
+                  },
+                  {
+                    "n": 3,
+                    "label": "4"
+                  },
+                  {
+                    "n": 2,
+                    "label": "5"
+                  },
+                  {
+                    "n": 1,
+                    "label": "6"
+                  },
+                  {
+                    "n": 4,
+                    "label": "7",
+                    "note": "A, O, I, E"
+                  }
+                ],
+                "pool": [
+                  "C",
+                  "A",
+                  "M",
+                  "O",
+                  "G",
+                  "I",
+                  "E"
+                ],
+                "order": [
+                  0,
+                  6,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                "hl": [
+                  0,
+                  6
+                ],
+                "result": "5! × 4 = 120 × 4 = 480"
+              }
             }
           ],
           "tip": "Always deal with the restricted places (first, last, vowels...) before the free ones."
@@ -990,22 +2776,33 @@
               "say": "Now there are only 3 places, but still 7 letters to choose from, with no letter used twice.",
               "math": [],
               "vis": {
-                "t": "table",
-                "head": [
-                  "Place",
-                  "1",
-                  "2",
-                  "3"
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 7,
+                    "label": "1st",
+                    "fill": "C"
+                  },
+                  {
+                    "n": 6,
+                    "label": "2nd",
+                    "fill": "A"
+                  },
+                  {
+                    "n": 5,
+                    "label": "3rd",
+                    "fill": "M"
+                  }
                 ],
-                "rows": [
-                  [
-                    "Options",
-                    "7",
-                    "6",
-                    "5"
-                  ]
-                ],
-                "hl": null
+                "pool": [
+                  "C",
+                  "A",
+                  "M",
+                  "O",
+                  "G",
+                  "I",
+                  "E"
+                ]
               }
             },
             {
@@ -1013,7 +2810,36 @@
               "math": [
                 "7 \\times 6 \\times 5 = \\hl{210}"
               ],
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 7,
+                    "label": "1st",
+                    "fill": "C"
+                  },
+                  {
+                    "n": 6,
+                    "label": "2nd",
+                    "fill": "A"
+                  },
+                  {
+                    "n": 5,
+                    "label": "3rd",
+                    "fill": "M"
+                  }
+                ],
+                "pool": [
+                  "C",
+                  "A",
+                  "M",
+                  "O",
+                  "G",
+                  "I",
+                  "E"
+                ],
+                "result": "7 × 6 × 5 = 210"
+              }
             }
           ],
           "tip": "Stop after 3 places: 7 × 6 × 5, not 7!."
@@ -1038,18 +2864,166 @@
           "idea": {
             "title": "Reading a correlation coefficient",
             "text": "r is always between −1 and 1. The sign gives the direction: + means as one goes up, the other goes up; − means as one goes up, the other goes down. The size gives the strength: close to 1 or −1 means the points are close to a straight line; close to 0 means scattered.",
-            "vis": null
+            "vis": {
+              "t": "scatter",
+              "x": [
+                0,
+                7
+              ],
+              "y": [
+                0,
+                8
+              ],
+              "pts": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  3.2
+                ],
+                [
+                  3,
+                  3.8
+                ],
+                [
+                  4,
+                  5.1
+                ],
+                [
+                  5,
+                  5.8
+                ],
+                [
+                  6,
+                  7.1
+                ]
+              ],
+              "line": {
+                "m": 1.0,
+                "c": 1.0
+              },
+              "label": "up and close to a line",
+              "cap": "a small example: r near +1 (up, tight); going down would make r negative"
+            }
           },
           "steps": [
             {
               "say": "A goes down from left to right, so it is the negative one: A is −0.95.",
               "math": [],
-              "vis": null
+              "vis": {
+                "t": "scatter",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  26
+                ],
+                "pts": [
+                  [
+                    1,
+                    19
+                  ],
+                  [
+                    2,
+                    20
+                  ],
+                  [
+                    3,
+                    15
+                  ],
+                  [
+                    4,
+                    17
+                  ],
+                  [
+                    5,
+                    15
+                  ],
+                  [
+                    6,
+                    12
+                  ],
+                  [
+                    7,
+                    7
+                  ],
+                  [
+                    8,
+                    8
+                  ],
+                  [
+                    9,
+                    5
+                  ]
+                ],
+                "line": {
+                  "m": -1.883,
+                  "c": 22.528
+                },
+                "label": "A: goes down → −0.95"
+              }
             },
             {
               "say": "B and C both go up, so they are 0.95 and 0.6. B's points sit close to a straight line; C's are spread out. The closer the points are to a line, the nearer r is to 1.",
               "math": [],
-              "vis": null
+              "vis": {
+                "t": "scatter",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  26
+                ],
+                "pts": [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    4
+                  ],
+                  [
+                    3,
+                    4
+                  ],
+                  [
+                    4,
+                    8
+                  ],
+                  [
+                    5,
+                    8
+                  ],
+                  [
+                    6,
+                    7
+                  ],
+                  [
+                    7,
+                    10
+                  ],
+                  [
+                    8,
+                    14
+                  ],
+                  [
+                    9,
+                    15
+                  ]
+                ],
+                "line": {
+                  "m": 1.55,
+                  "c": 0.25
+                },
+                "label": "B: up, close to a line"
+              }
             },
             {
               "say": "So B is 0.95 and C is 0.6.",
@@ -1058,7 +3032,61 @@
                 "0.6 \\to \\hl{C}",
                 "-0.95 \\to \\hl{A}"
               ],
-              "vis": null
+              "vis": {
+                "t": "scatter",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  26
+                ],
+                "pts": [
+                  [
+                    1,
+                    8
+                  ],
+                  [
+                    2,
+                    4
+                  ],
+                  [
+                    3,
+                    12
+                  ],
+                  [
+                    4,
+                    14
+                  ],
+                  [
+                    5,
+                    16
+                  ],
+                  [
+                    6,
+                    10
+                  ],
+                  [
+                    7,
+                    12
+                  ],
+                  [
+                    8,
+                    20
+                  ],
+                  [
+                    9,
+                    12
+                  ]
+                ],
+                "line": {
+                  "m": 1.0,
+                  "c": 7.0
+                },
+                "label": "C: up, spread out → 0.6",
+                "cap": "0.95 → B,   0.6 → C,   −0.95 → A"
+              }
             }
           ],
           "tip": null
@@ -1079,12 +3107,118 @@
             {
               "say": "Say two things: the direction (the points go up, so it's positive) and the strength (they're close to a straight line, so it's strong).",
               "math": [],
-              "vis": null
+              "vis": {
+                "t": "scatter",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  26
+                ],
+                "pts": [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    4
+                  ],
+                  [
+                    3,
+                    4
+                  ],
+                  [
+                    4,
+                    8
+                  ],
+                  [
+                    5,
+                    8
+                  ],
+                  [
+                    6,
+                    7
+                  ],
+                  [
+                    7,
+                    10
+                  ],
+                  [
+                    8,
+                    14
+                  ],
+                  [
+                    9,
+                    15
+                  ]
+                ],
+                "line": {
+                  "m": 1.55,
+                  "c": 0.25
+                },
+                "label": "up → positive, tight → strong"
+              }
             },
             {
               "say": "Model answer: B has a strong positive linear correlation: as x goes up, y goes up, and the points all lie close to a straight line, so r is close to 1.",
               "math": [],
-              "vis": null
+              "vis": {
+                "t": "scatter",
+                "x": [
+                  0,
+                  10
+                ],
+                "y": [
+                  0,
+                  26
+                ],
+                "pts": [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    4
+                  ],
+                  [
+                    3,
+                    4
+                  ],
+                  [
+                    4,
+                    8
+                  ],
+                  [
+                    5,
+                    8
+                  ],
+                  [
+                    6,
+                    7
+                  ],
+                  [
+                    7,
+                    10
+                  ],
+                  [
+                    8,
+                    14
+                  ],
+                  [
+                    9,
+                    15
+                  ]
+                ],
+                "line": {
+                  "m": 1.55,
+                  "c": 0.25
+                },
+                "label": "strong positive: r = 0.95"
+              }
             }
           ],
           "tip": null
