@@ -8,7 +8,7 @@
 (function () {
   'use strict';
   var PAGE = 'maths.html';
-  var V = 'maths-4';
+  var V = 'maths-5';
   var loaded = {}, current = null, started = false;
   var R = function () { return window.MathsRender; };
 
@@ -138,7 +138,10 @@
         id: 'question-maths-' + k, target: 'question-maths', focus: current.P.parts && current.P.parts[k] ? 'question-maths-p' + k : null,
         enter: function () { part(k); },
         motion: '.geography-page-shell', kicker: '', title: q.topic || 'Question ' + q.q, summary: 'Part ' + p.l, summaryStill: true, spotlight: true, voice: [], prose: '', points: [],
-        visual: '<div class="mx-q" data-hf-still>' + R().inline(p.q) + (p.marks ? ' <b>(' + p.marks + ')</b>' : '') + '</div>' + tryHtml(p, k) +
+        // What you have to do, in one plain line (the question itself is on the paper beside it, lit up); a part
+        // without its short line shows the question as printed.
+        visual: (p.ask ? '<div class="mx-q mx-q--ask" data-hf-still>' + R().inline(p.ask) + (p.marks ? ' <span class="mx-q__marks">' + p.marks + ' marks</span>' : '') + '</div>'
+          : '<div class="mx-q" data-hf-still>' + R().inline(p.q) + (p.marks ? ' <b>(' + p.marks + ')</b>' : '') + '</div>') + tryHtml(p, k) +
           (n ? '<div class="mx-stage" data-hf-still data-hf-gate="Show me how" data-mx-stage="' + k + '"><div class="mx-pace">' + list.map(function (s, i) {
             return '<span class="mx-pace__seg' + (i ? '' : ' is-now') + '" data-mx-seg="' + i + '"></span>';
           }).join('') + '</div><div class="mx-visbox"></div><div class="mx-boardhost"></div></div>' + steps : '') + end

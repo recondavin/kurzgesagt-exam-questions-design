@@ -55,6 +55,7 @@ for (const f of (fs.existsSync(QDIR) ? fs.readdirSync(QDIR) : []).sort()) {
       parts++;
       const P = W + ' ' + p.l;
       inlineOk(P + ' q', p.q); inlineOk(P + ' scheme', p.scheme); inlineOk(P + ' tip', p.tip);
+      if (p.ask != null) { inlineOk(P + ' ask', p.ask); if (String(p.ask).length > 90) fail(P, 'ask is over 90 characters'); }
       if (p.idea) { inlineOk(P + ' idea', p.idea.text); visOk(P + ' idea', p.idea.vis); }
       if (!p.steps || !p.steps.length) fail(P, 'no steps');
       (p.steps || []).forEach((s, i) => {

@@ -196,6 +196,9 @@
 .mx-q { margin: 0 0 12px; padding: 0 0 0 12px; border-left: 3px solid var(--mx-line); color: #C9D6DD; font-size: calc(18px * var(--hf-s, 1)); line-height: 1.45; }
 .mx-q b { color: #FFFFFF; }
 .mx-q .katex { font-size: 1.08em; }
+/* The part's short line (what to do): bold and white, the marks in a pill after it. */
+.mx-q--ask { border-left-color: var(--mx-yellow); color: #FFFFFF; font-weight: 700; font-size: calc(20px * var(--hf-s, 1)); line-height: 1.35; }
+.mx-q__marks { display: inline-block; margin-left: 6px; padding: 1px 9px; border-radius: 999px; background: #202F36; color: var(--mx-yellow); font: 600 .72em/1.6 Fredoka, Nunito, sans-serif; vertical-align: .12em; white-space: nowrap; }
 
 /* "Have a go": the answer box, then right or not. Duolingo-like buttons with a solid bottom edge. */
 .mx-try { margin: 0 0 14px; }
