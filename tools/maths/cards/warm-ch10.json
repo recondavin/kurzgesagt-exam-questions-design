@@ -1,0 +1,771 @@
+{
+ "chapter": 10,
+ "warm": true,
+ "cards": [
+  {
+   "id": "warm:10:1",
+   "from": "warm",
+   "lvl": 1,
+   "q": "f(x) = 3x² − 6x + 7. Find f(4).",
+   "right": "31",
+   "wrong": [
+    "127",
+    "7",
+    "17"
+   ],
+   "why": "f(4) = 3(4)² − 6(4) + 7 = 3(16) − 24 + 7 = 48 − 24 + 7 = 31. Square the 4 first, then multiply by 3.",
+   "hook": "Brackets round the number, power first: 3(4)² = 3 × 16.",
+   "keys": [
+    "3(16) − 24 + 7"
+   ]
+  },
+  {
+   "id": "warm:10:2",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A ball's height is h(t) = −5t² + 20t + 2 metres, t seconds after it is hit. How high is the ball when it is hit?",
+   "right": "2 m",
+   "wrong": [
+    "20 m",
+    "0 m",
+    "17 m"
+   ],
+   "why": "It is hit at t = 0: h(0) = −5(0)² + 20(0) + 2 = 2 m. Every term with a t in it becomes 0.",
+   "hook": "\"At the start\" means t = 0: only the number on its own is left.",
+   "keys": [
+    "It is hit at t = 0"
+   ]
+  },
+  {
+   "id": "warm:10:3",
+   "from": "warm",
+   "lvl": 1,
+   "q": "How do you show that the point A(2, 5) is on the graph of y = f(x)?",
+   "right": "Work out f(2) and show it is 5",
+   "wrong": [
+    "Work out f(5) and show it is 2",
+    "Work out f′(2) and show it is 5",
+    "Work out f(2) and show it is 0"
+   ],
+   "why": "A point (x, y) is on the graph when f(x) = y. Here x = 2 and y = 5, so put 2 into f(x): the answer must be 5.",
+   "hook": "(x, y): the first number goes in, the second comes out.",
+   "keys": [
+    "f(x) = y"
+   ]
+  },
+  {
+   "id": "warm:10:4",
+   "from": "warm",
+   "lvl": 2,
+   "q": "f(x) = −x² + 3x + 10. Find f(−2).",
+   "right": "0",
+   "wrong": [
+    "8",
+    "12",
+    "20"
+   ],
+   "why": "f(−2) = −(−2)² + 3(−2) + 10 = −4 − 6 + 10 = 0. Square first, (−2)² = 4, then the minus in front makes it −4.",
+   "hook": "−x² means −(x²): square first, then put the minus on.",
+   "keys": [
+    "−4 − 6 + 10 = 0"
+   ]
+  },
+  {
+   "id": "warm:10:5",
+   "from": "warm",
+   "lvl": 1,
+   "q": "The graph of y = f(x) cuts the x-axis at (−2, 0) and (3, 0), and the y-axis at (0, −6). What are the roots of f(x)?",
+   "right": "x = −2 and x = 3",
+   "wrong": [
+    "x = 2 and x = −3",
+    "x = −6",
+    "x = 0"
+   ],
+   "why": "The roots are where f(x) = 0: the x values where the graph meets the x-axis, x = −2 and x = 3. (0, −6) is on the y-axis.",
+   "hook": "Roots sit on the x-axis, where y = 0.",
+   "keys": [
+    "where f(x) = 0"
+   ]
+  },
+  {
+   "id": "warm:10:6",
+   "from": "warm",
+   "lvl": 1,
+   "q": "You have the graph of y = f(x). How do you estimate the values of x for which f(x) = 4?",
+   "right": "Across from 4 on the y-axis, then down",
+   "wrong": [
+    "Up from 4 on the x-axis, then across",
+    "Read where the curve cuts the x-axis",
+    "Read where the curve cuts the y-axis"
+   ],
+   "why": "f(x) = 4 means the height is 4: start at 4 on the y-axis, go across to the curve (every place it meets it), then down to read x.",
+   "hook": "f(x) is the height, so a given height starts on the y-axis.",
+   "keys": [
+    "start at 4 on the y-axis"
+   ]
+  },
+  {
+   "id": "warm:10:7",
+   "from": "warm",
+   "lvl": 1,
+   "q": "How do you get the graph of y = f(x) + 3 from the graph of y = f(x)?",
+   "right": "Move it up 3 units",
+   "wrong": [
+    "Move it 3 units to the right",
+    "Move it 3 units to the left",
+    "Stretch it to 3 times as tall"
+   ],
+   "why": "Every height gets 3 added: each point (x, y) moves to (x, y + 3). So the whole graph moves straight up 3 units.",
+   "hook": "+3 outside the f adds to the height: up.",
+   "keys": [
+    "each point (x, y) moves to (x, y + 3)"
+   ]
+  },
+  {
+   "id": "warm:10:8",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Expand (x − 3)².",
+   "right": "x² − 6x + 9",
+   "wrong": [
+    "x² + 9",
+    "x² − 9",
+    "x² − 6x − 9"
+   ],
+   "why": "(x − 3)² = (x − 3)(x − 3) = x² − 3x − 3x + 9 = x² − 6x + 9. And (−3)(−3) = +9.",
+   "hook": "Write it out twice: (x − 3)(x − 3). Four terms, then tidy up.",
+   "keys": [
+    "x² − 3x − 3x + 9"
+   ]
+  },
+  {
+   "id": "warm:10:9",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Expand and simplify (2x − 3)² − 5.",
+   "right": "4x² − 12x + 4",
+   "wrong": [
+    "2x² − 12x + 4",
+    "4x² + 4",
+    "4x² − 6x + 4"
+   ],
+   "why": "(2x − 3)(2x − 3) = 4x² − 6x − 6x + 9 = 4x² − 12x + 9. Then 9 − 5 = 4, so the answer is 4x² − 12x + 4.",
+   "hook": "(2x)² = 4x²: the 2 gets squared too.",
+   "keys": [
+    "4x² − 12x + 9"
+   ]
+  },
+  {
+   "id": "warm:10:10",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Solve 3(x − 4) = x + 6.",
+   "right": "x = 9",
+   "wrong": [
+    "x = 5",
+    "x = −3",
+    "x = 4.5"
+   ],
+   "why": "3x − 12 = x + 6, so 3x − x = 6 + 12: 2x = 18 and x = 9. Multiply the 3 into both terms; a term that crosses the = changes sign.",
+   "hook": "Change side, change sign.",
+   "keys": [
+    "2x = 18"
+   ]
+  },
+  {
+   "id": "warm:10:11",
+   "from": "warm",
+   "lvl": 1,
+   "q": "You use the quadratic formula on −2x² + 5x − 1 = 0. What are a, b and c?",
+   "right": "a = −2, b = 5, c = −1",
+   "wrong": [
+    "a = 2, b = 5, c = 1",
+    "a = −2, b = 5, c = 1",
+    "a = 2, b = 5, c = −1"
+   ],
+   "why": "Match it to ax² + bx + c = 0 and keep each sign with its number: a = −2 (with x²), b = 5 (with x), c = −1 (on its own).",
+   "hook": "The sign in front belongs to the number: take it with you.",
+   "keys": [
+    "keep each sign with its number"
+   ]
+  },
+  {
+   "id": "warm:10:12",
+   "from": "warm",
+   "lvl": 1,
+   "q": "For x² − 3x − 4 = 0, find b² − 4ac, the number under the √ in the quadratic formula.",
+   "right": "25",
+   "wrong": [
+    "7",
+    "−7",
+    "10"
+   ],
+   "why": "a = 1, b = −3, c = −4: b² − 4ac = (−3)² − 4(1)(−4) = 9 + 16 = 25.",
+   "hook": "Brackets round negatives: (−3)² = 9, and −4(1)(−4) = +16.",
+   "keys": [
+    "9 + 16 = 25"
+   ]
+  },
+  {
+   "id": "warm:10:13",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Solve x² − 4x + 1 = 0. Give each answer correct to one decimal place.",
+   "right": "x = 3.7 or x = 0.3",
+   "wrong": [
+    "x = −0.3 or x = −3.7",
+    "x = 5.7 or x = 2.3",
+    "x = 4.2 or x = −0.2"
+   ],
+   "why": "a = 1, b = −4, c = 1: x = (4 ± √(16 − 4)) / 2 = (4 ± √12)/2, so x = 3.73… ≈ 3.7 or x = 0.27… ≈ 0.3.",
+   "hook": "−b with b = −4 is +4. Divide the whole top by 2a.",
+   "keys": [
+    "(4 ± √12)/2"
+   ]
+  },
+  {
+   "id": "warm:10:14",
+   "from": "warm",
+   "lvl": 2,
+   "q": "f(x) = x² − 2x + 5. Find the values of x for which f(x) = 8.",
+   "right": "x = 3 or x = −1",
+   "wrong": [
+    "x = 1 or x = −3",
+    "x = 3 or x = 5",
+    "x = 1 or x = 3"
+   ],
+   "why": "Make one side 0 first: x² − 2x + 5 = 8 gives x² − 2x − 3 = 0, so (x − 3)(x + 1) = 0 and x = 3 or x = −1.",
+   "hook": "Get 0 on one side before you factorise.",
+   "keys": [
+    "x² − 2x − 3 = 0"
+   ]
+  },
+  {
+   "id": "warm:10:15",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A rectangle has length x m and width y m. Its perimeter is 20 m. Write y in terms of x.",
+   "right": "y = 10 − x",
+   "wrong": [
+    "y = 20 − x",
+    "y = 10 − 2x",
+    "y = 20/x"
+   ],
+   "why": "Perimeter: 2x + 2y = 20. Divide every term by 2: x + y = 10, so y = 10 − x.",
+   "hook": "Perimeter goes all the way round: two lengths and two widths.",
+   "keys": [
+    "x + y = 10"
+   ]
+  },
+  {
+   "id": "warm:10:16",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A rectangle has length x m and width (10 − x) m. Write its area A in terms of x.",
+   "right": "A = 10x − x²",
+   "wrong": [
+    "A = 10 − x²",
+    "A = 8x",
+    "A = 20"
+   ],
+   "why": "Area = length × width = x(10 − x) = 10x − x². The x multiplies both terms in the bracket.",
+   "hook": "Area multiplies, perimeter adds. And x × x = x², not 2x.",
+   "keys": [
+    "x(10 − x) = 10x − x²"
+   ]
+  },
+  {
+   "id": "warm:10:17",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A profit is P = 60x − 2x². Apart from x = 0, for which value of x is the profit 0?",
+   "right": "x = 30",
+   "wrong": [
+    "x = 15",
+    "x = −30",
+    "x = 120"
+   ],
+   "why": "Take out the common factor: 60x − 2x² = 2x(30 − x) = 0, so x = 0 or 30 − x = 0, which gives x = 30.",
+   "hook": "Profit 0 means P = 0 (not P′ = 0). Take x out as a factor.",
+   "keys": [
+    "2x(30 − x) = 0"
+   ]
+  },
+  {
+   "id": "warm:10:18",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A hurl costs €40. A student gets a 15% discount. What price does the student pay?",
+   "right": "€34",
+   "wrong": [
+    "€6",
+    "€25",
+    "€46"
+   ],
+   "why": "15% of €40 = 0.15 × 40 = €6 off, so the student pays €40 − €6 = €34 (or 85% of €40).",
+   "hook": "Pay what is left: 100% − 15% = 85% of the price.",
+   "keys": [
+    "€40 − €6 = €34"
+   ]
+  },
+  {
+   "id": "warm:10:19",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A jersey costs €61.50, including VAT at 23%. Which sum gives its price before VAT?",
+   "right": "€61.50 ÷ 1.23",
+   "wrong": [
+    "€61.50 × 0.77",
+    "€61.50 × 1.23",
+    "€61.50 ÷ 0.23"
+   ],
+   "why": "With VAT the price is 123% of the price before VAT, so price = €61.50 ÷ 1.23 = €50. The VAT is €61.50 − €50 = €11.50.",
+   "hook": "The price with VAT is 123%: divide by 1.23 to get back to 100%.",
+   "keys": [
+    "price = €61.50 ÷ 1.23 = €50"
+   ]
+  },
+  {
+   "id": "warm:10:20",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Differentiate f(x) = 4x⁵.",
+   "right": "20x⁴",
+   "wrong": [
+    "4x⁴",
+    "20x⁵",
+    "9x⁴"
+   ],
+   "why": "Multiply by the power, then take one off the power: 5 × 4 = 20, and x⁵ becomes x⁴. So f′(x) = 20x⁴.",
+   "hook": "Power down in front, then one off the power.",
+   "keys": [
+    "5 × 4 = 20"
+   ]
+  },
+  {
+   "id": "warm:10:21",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Differentiate f(x) = x² + 6x + 5.",
+   "right": "2x + 6",
+   "wrong": [
+    "2x + 11",
+    "x + 6",
+    "2x² + 6"
+   ],
+   "why": "x² → 2x, 6x → 6 (an x on its own leaves its number), 5 → 0 (a number on its own goes). So f′(x) = 2x + 6.",
+   "hook": "An x term leaves its number; a number on its own disappears.",
+   "keys": [
+    "5 → 0"
+   ]
+  },
+  {
+   "id": "warm:10:22",
+   "from": "warm",
+   "lvl": 1,
+   "q": "C(t) = −t³ + 6t². Find C′(t).",
+   "right": "−3t² + 12t",
+   "wrong": [
+    "3t² + 12t",
+    "−t² + 6t",
+    "−3t³ + 12t²"
+   ],
+   "why": "Same rule with t: −t³ → −3t² (the minus stays) and 6t² → 2 × 6t = 12t. So C′(t) = −3t² + 12t.",
+   "hook": "Any letter, same rule. Keep the minus in front.",
+   "keys": [
+    "−t³ → −3t²"
+   ]
+  },
+  {
+   "id": "warm:10:23",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A profit is p = 80x − 0.02x². Find dp/dx.",
+   "right": "80 − 0.04x",
+   "wrong": [
+    "80 − 0.02x",
+    "80 − 0.04x²",
+    "80x − 0.04x"
+   ],
+   "why": "80x → 80, and −0.02x² → 2 × (−0.02)x = −0.04x. So dp/dx = 80 − 0.04x.",
+   "hook": "dp/dx just means: differentiate p. Decimals follow the same rule.",
+   "keys": [
+    "2 × (−0.02)x = −0.04x"
+   ]
+  },
+  {
+   "id": "warm:10:24",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Differentiate f(x) = 2x³ − 5x² + 4x − 1.",
+   "right": "6x² − 10x + 4",
+   "wrong": [
+    "6x² − 10x + 3",
+    "6x³ − 10x² + 4x",
+    "2x² − 5x + 4"
+   ],
+   "why": "Term by term: 2x³ → 6x², −5x² → −10x, 4x → 4, and −1 → 0. So f′(x) = 6x² − 10x + 4.",
+   "hook": "One term at a time: power down, one off. A number on its own goes.",
+   "keys": [
+    "−5x² → −10x"
+   ]
+  },
+  {
+   "id": "warm:10:25",
+   "from": "warm",
+   "lvl": 1,
+   "q": "What does f′(x) tell you about the graph of y = f(x)?",
+   "right": "The slope of the tangent at x",
+   "wrong": [
+    "The height of the graph at x",
+    "Where the graph crosses the x-axis",
+    "Where the graph crosses the y-axis"
+   ],
+   "why": "f′(x) is a formula for the slope: put in an x and it gives the slope of the tangent to the curve there. f(x) gives the height.",
+   "hook": "f gives the height, f′ gives the slope.",
+   "keys": [
+    "the slope of the tangent"
+   ]
+  },
+  {
+   "id": "warm:10:26",
+   "from": "warm",
+   "lvl": 1,
+   "q": "f(x) = x³ − x, so f′(x) = 3x² − 1. Find the slope of the tangent to the graph at x = 2.",
+   "right": "11",
+   "wrong": [
+    "6",
+    "35",
+    "5"
+   ],
+   "why": "The slope of the tangent is f′(2) = 3(2)² − 1 = 12 − 1 = 11. f(2) = 6 is the height of the point, not the slope.",
+   "hook": "Slope: put x into f′, never into f.",
+   "keys": [
+    "f′(2) = 3(2)² − 1 = 12 − 1 = 11"
+   ]
+  },
+  {
+   "id": "warm:10:27",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Find the slope of the tangent to y = x² − 5x + 2 at the point where x = 4.",
+   "right": "3",
+   "wrong": [
+    "−2",
+    "12",
+    "−1"
+   ],
+   "why": "dy/dx = 2x − 5, so at x = 4 the slope is 2(4) − 5 = 3. (Putting 4 into y gives −2: the height of the point.)",
+   "hook": "First differentiate, then put in the x.",
+   "keys": [
+    "2(4) − 5 = 3"
+   ]
+  },
+  {
+   "id": "warm:10:28",
+   "from": "warm",
+   "lvl": 2,
+   "q": "f(x) = x³ − 6x² + 5x. Find the value of x for which f″(x) = 0.",
+   "right": "x = 2",
+   "wrong": [
+    "x = −2",
+    "x = 0.5",
+    "x = 6"
+   ],
+   "why": "f′(x) = 3x² − 12x + 5, then f″(x) = 6x − 12. Solve 6x − 12 = 0: 6x = 12, so x = 2.",
+   "hook": "f″: differentiate twice, then solve = 0.",
+   "keys": [
+    "f″(x) = 6x − 12"
+   ]
+  },
+  {
+   "id": "warm:10:29",
+   "from": "warm",
+   "lvl": 1,
+   "q": "To find the x value of the turning point of a curve y = f(x), which equation do you solve?",
+   "right": "f′(x) = 0",
+   "wrong": [
+    "f(x) = 0",
+    "f″(x) = 0",
+    "x = 0"
+   ],
+   "why": "At a turning point (top of a hill or bottom of a valley) the curve is flat for a moment: its slope f′(x) is 0. f(x) = 0 gives the roots.",
+   "hook": "Turning point: flat, so slope = 0.",
+   "keys": [
+    "its slope f′(x) is 0"
+   ]
+  },
+  {
+   "id": "warm:10:30",
+   "from": "warm",
+   "lvl": 1,
+   "q": "The graph of f(x) = −2x² + 8x + 1 has one turning point. Which is right?",
+   "right": "∩ shape, so it is a maximum",
+   "wrong": [
+    "∪ shape, so it is a minimum",
+    "∩ shape, so it is a minimum",
+    "∪ shape, so it is a maximum"
+   ],
+   "why": "The x² term is negative (−2x²), so the curve is an upside-down U (∩): its turning point is the top, a maximum.",
+   "hook": "Negative x² frowns (∩, a maximum); positive x² smiles (∪, a minimum).",
+   "keys": [
+    "an upside-down U (∩)"
+   ]
+  },
+  {
+   "id": "warm:10:31",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Find the co-ordinates of the turning point of f(x) = x² − 6x + 5.",
+   "right": "(3, −4)",
+   "wrong": [
+    "(3, 0)",
+    "(−3, 32)",
+    "(3, −7)"
+   ],
+   "why": "f′(x) = 2x − 6 = 0 gives x = 3. Then y = f(3) = 9 − 18 + 5 = −4, so the turning point is (3, −4).",
+   "hook": "f′ = 0 finds the x; the original f finds the y.",
+   "keys": [
+    "f(3) = 9 − 18 + 5 = −4"
+   ]
+  },
+  {
+   "id": "warm:10:32",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Q(x) = −x² + 10x − 9. Use calculus to find the maximum value of Q(x).",
+   "right": "16",
+   "wrong": [
+    "5",
+    "66",
+    "−84"
+   ],
+   "why": "Q′(x) = −2x + 10 = 0 gives x = 5. Then Q(5) = −25 + 50 − 9 = 16, the maximum value.",
+   "hook": "The x tells you where; put it into Q for how much.",
+   "keys": [
+    "Q(5) = −25 + 50 − 9 = 16"
+   ]
+  },
+  {
+   "id": "warm:10:33",
+   "from": "warm",
+   "lvl": 2,
+   "q": "The tangent to a curve at the point (2, 5) has slope 3. Find the equation of the tangent.",
+   "right": "y = 3x − 1",
+   "wrong": [
+    "y = 3x + 5",
+    "y = 3x − 11",
+    "y = 3x + 3"
+   ],
+   "why": "y − y₁ = m(x − x₁): y − 5 = 3(x − 2), so y − 5 = 3x − 6 and y = 3x − 1.",
+   "hook": "Multiply the slope into both terms of the bracket, then add the 5 back.",
+   "keys": [
+    "y − 5 = 3x − 6"
+   ]
+  },
+  {
+   "id": "warm:10:34",
+   "from": "warm",
+   "lvl": 2,
+   "q": "Find the equation of the tangent to y = x² − 3x at the point (4, 4).",
+   "right": "y = 5x − 16",
+   "wrong": [
+    "y = 4x − 12",
+    "y = 5x − 24",
+    "y = 5x + 4"
+   ],
+   "why": "dy/dx = 2x − 3, so the slope at x = 4 is 5. Then y − 4 = 5(x − 4), y − 4 = 5x − 20, so y = 5x − 16.",
+   "hook": "Tangent = point + slope. The slope comes from dy/dx, not from the point.",
+   "keys": [
+    "the slope at x = 4 is 5"
+   ]
+  },
+  {
+   "id": "warm:10:35",
+   "from": "warm",
+   "lvl": 1,
+   "q": "A straight line goes through (0, 3) and (4, 11). What is its rate of change (its slope)?",
+   "right": "2",
+   "wrong": [
+    "0.5",
+    "2.75",
+    "8"
+   ],
+   "why": "Slope = rise ÷ run = (11 − 3) ÷ (4 − 0) = 8 ÷ 4 = 2. A line rises the same amount everywhere, so its rate of change is 2.",
+   "hook": "Rise over run: up first, then along.",
+   "keys": [
+    "(11 − 3) ÷ (4 − 0) = 8 ÷ 4 = 2"
+   ]
+  },
+  {
+   "id": "warm:10:36",
+   "from": "warm",
+   "lvl": 1,
+   "q": "P(t) = 0.2 + 0.05t. Find P′(t).",
+   "right": "0.05",
+   "wrong": [
+    "0.25",
+    "0.2",
+    "0.05t"
+   ],
+   "why": "The number 0.2 → 0 and 0.05t → 0.05. So P′(t) = 0.05: a straight line has the same slope everywhere.",
+   "hook": "A line's derivative is just its slope: the number in front of t.",
+   "keys": [
+    "P′(t) = 0.05"
+   ]
+  },
+  {
+   "id": "warm:10:37",
+   "from": "warm",
+   "lvl": 2,
+   "q": "The chance of rain t hours after midnight is P(t) = 0.2 + 0.05t. At one time the chance is 0.45. What is it one hour later?",
+   "right": "0.5",
+   "wrong": [
+    "0.25",
+    "0.65",
+    "0.4"
+   ],
+   "why": "P′(t) = 0.05: the chance goes up by 0.05 every hour. One hour later it is 0.45 + 0.05 = 0.5.",
+   "hook": "Rate × time = change: 0.05 per hour for 1 hour adds 0.05.",
+   "keys": [
+    "0.45 + 0.05 = 0.5"
+   ]
+  },
+  {
+   "id": "warm:10:38",
+   "from": "warm",
+   "lvl": 1,
+   "q": "Moving left to right, a graph is going downhill at the point P. What is true of f′(x) at P?",
+   "right": "f′(x) < 0",
+   "wrong": [
+    "f′(x) > 0",
+    "f′(x) = 0",
+    "f(x) < 0"
+   ],
+   "why": "f′(x) is the slope. Downhill (moving right) the slope is negative, so f′(x) < 0. Uphill f′(x) > 0; flat, f′(x) = 0.",
+   "hook": "Read a graph like a page, left to right: downhill is negative.",
+   "keys": [
+    "the slope is negative"
+   ]
+  },
+  {
+   "id": "warm:10:39",
+   "from": "warm",
+   "lvl": 1,
+   "q": "p(t) is the number of bacteria, in thousands, after t hours, and p′(4) = 6. What does p′(4) = 6 mean?",
+   "right": "Growing by 6 thousand per hour at t = 4",
+   "wrong": [
+    "There are 6 thousand bacteria at t = 4",
+    "Growing by 4 thousand per hour at t = 6",
+    "Falling by 6 thousand per hour at t = 4"
+   ],
+   "why": "p′ is the rate of change of p. At t = 4 hours it is +6, so the number is going up by 6 thousand bacteria per hour.",
+   "hook": "f′ is a rate (\"per hour\", \"per km\"). Plus means going up.",
+   "keys": [
+    "the rate of change of p"
+   ]
+  },
+  {
+   "id": "warm:10:40",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A drug amount is C(t) = −t³ + 6t² + 15t. Find C′(6). Is the amount increasing or decreasing at t = 6?",
+   "right": "−21, so decreasing",
+   "wrong": [
+    "−21, so increasing",
+    "90, so increasing",
+    "195, so increasing"
+   ],
+   "why": "C′(t) = −3t² + 12t + 15, so C′(6) = −108 + 72 + 15 = −21. The rate is negative, so the amount is decreasing.",
+   "hook": "Sign of the derivative: + going up, − going down.",
+   "keys": [
+    "C′(6) = −108 + 72 + 15 = −21"
+   ]
+  },
+  {
+   "id": "warm:10:41",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A profit is P(x) = 200x − x² euro, for x km of cable sold. For which x is the profit increasing at a rate of €120 per km?",
+   "right": "x = 40",
+   "wrong": [
+    "x = 100",
+    "x = 160",
+    "x = 80"
+   ],
+   "why": "\"Rate\" means the derivative: P′(x) = 200 − 2x = 120, so 2x = 80 and x = 40 km.",
+   "hook": "Rate of change = the derivative: set P′(x) equal to the rate.",
+   "keys": [
+    "P′(x) = 200 − 2x = 120"
+   ]
+  },
+  {
+   "id": "warm:10:42",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A ball's height is h(t) = −5t² + 30t + 2 metres after t seconds. Find its speed at t = 2 s.",
+   "right": "10 m/s",
+   "wrong": [
+    "42 m/s",
+    "20 m/s",
+    "50 m/s"
+   ],
+   "why": "Speed is the derivative of height: h′(t) = −10t + 30, so h′(2) = −20 + 30 = 10 m/s.",
+   "hook": "Height: h(t). Speed: h′(t).",
+   "keys": [
+    "h′(2) = −20 + 30 = 10 m/s"
+   ]
+  },
+  {
+   "id": "warm:10:43",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A ball's height is h(t) = −5t² + 30t + 2 metres. Which equation gives the time when it is coming down at 10 m/s?",
+   "right": "−10t + 30 = −10",
+   "wrong": [
+    "−10t + 30 = 10",
+    "−10t + 30 = 0",
+    "−5t² + 30t + 2 = 10"
+   ],
+   "why": "h′(t) = −10t + 30 is how fast the height changes. Coming down means h′(t) is negative, so solve −10t + 30 = −10 (t = 4 s).",
+   "hook": "Going down: the derivative is negative.",
+   "keys": [
+    "Coming down means h′(t) is negative"
+   ]
+  },
+  {
+   "id": "warm:10:44",
+   "from": "warm",
+   "lvl": 2,
+   "q": "g(x) = x² + px, and g′(3) = 10. Find the value of p.",
+   "right": "p = 4",
+   "wrong": [
+    "p = 1/3",
+    "p = 7",
+    "p = 16"
+   ],
+   "why": "g′(x) = 2x + p, so g′(3) = 6 + p. Then 6 + p = 10 gives p = 4.",
+   "hook": "Differentiate first, then put in x = 3.",
+   "keys": [
+    "g′(3) = 6 + p"
+   ]
+  },
+  {
+   "id": "warm:10:45",
+   "from": "warm",
+   "lvl": 2,
+   "q": "A heart-rate h(x) is greatest when h′(x) = −x² + 3x + 4 = 0, where x is the time in minutes, 0 ≤ x ≤ 6. Find x.",
+   "right": "x = 4",
+   "wrong": [
+    "x = −1",
+    "x = 1",
+    "x = 1.5"
+   ],
+   "why": "Multiply by −1: x² − 3x − 4 = 0, so (x − 4)(x + 1) = 0 and x = 4 or x = −1. Only x = 4 is in 0 ≤ x ≤ 6.",
+   "hook": "Two roots: keep the one that fits the story (time can't be negative).",
+   "keys": [
+    "Only x = 4 is in 0 ≤ x ≤ 6"
+   ]
+  }
+ ]
+}
