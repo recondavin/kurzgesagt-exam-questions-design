@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maths scenes gallery</title>
+<!-- Every kind of maths picture (maths/maths-scenes.js) with an example, for checking how they look and move.
+     ?still=1 shows the end of each animation (for screenshots); ?only=bag shows one kind; click a card to replay it.
+     The "Steps" cards show a picture building over several steps: only what's new animates. -->
+<link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<link rel="stylesheet" href="../../maths/maths.css">
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; padding: 16px; background: #050505; color: #F1F7FB; font: 16px/1.4 Nunito, system-ui, sans-serif; }
+  h1 { margin: 0 0 12px; font: 600 22px Fredoka, Nunito, sans-serif; }
+  .g { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 520px), 1fr)); gap: 14px; }
+  .c { padding: 12px; border-radius: 14px; background: #131F24; cursor: pointer; }
+  .c h2 { margin: 0 0 8px; font: 600 15px Fredoka, Nunito, sans-serif; color: #9EB0B9; }
+  .c .mx-vis > svg { max-height: 330px; }
+  .steps { display: flex; gap: 6px; margin-top: 8px; }
+  .steps button { padding: 4px 10px; border-radius: 8px; border: 2px solid #37464F; background: #202F36; color: #F1F7FB; font: 600 14px Nunito, sans-serif; cursor: pointer; }
+  .steps button.on { border-color: #FFC800; }
+</style>
+</head>
+<body>
+<h1>Maths scenes</h1>
+<div class="g" id="g"></div>
+<script src="../../lib/katex/katex.min.js"></script>
+<script src="../../maths/maths-render.js"></script>
+<script>
+  if (/[?&]still=1/.test(location.search)) window.MATHS_STILL = true;
+</script>
+<script src="../../maths/maths-scenes.js"></script>
+<script>
+(function () {
+  var R = window.MathsRender, only = (/[?&]only=([\w-]+)/.exec(location.search) || [])[1];
+  var EX = [
+    ['graph: a dot rides the curve to its turning point', { t: 'graph', x: [-1, 5], y: [-4, 6], fns: [{ f: 'x^2-4x+1', label: 'f(x)' }], ride: { from: -0.6, to: 2 }, pts: [{ x: 2, y: -3, label: '(2, −3)' }] }],
+    ['graph: plot the table, join, read off', { t: 'graph', x: [0, 6], y: [0, 50], fns: [{ f: '-3x^2+18x+20' }], plot: [[0, 20], [1, 35], [2, 44], [3, 47], [4, 44], [5, 35], [6, 20]], reads: [{ x: 1.5, y: 40.25, label: 'y ≈ 40' }], xlab: 'x', ylab: 'P(x)' }],
+    ['graph: the ball\'s flight', { t: 'graph', x: [0, 2.6], y: [0, 9], fns: [{ f: '-4.9t^2+11t+1.2'.replace(/t/g, 'x'), c: 'faint' }], obj: { from: 0, to: 2.4, c: 'white', label: 'sliotar' }, xlab: 'time (s)', ylab: 'height (m)' }],
+    ['graph: up and down, roots, tangent', { t: 'graph', x: [-2, 4], y: [-8, 8], fns: [{ f: 'x^3-3x^2+4' }], shade: [{ from: -2, to: 0, sign: '+' }, { from: 0, to: 2, sign: '-' }, { from: 2, to: 4, sign: '+' }], roots: [-1, 2], tangent: { f: 'x^3-3x^2+4', x: 3 } }],
+    ['signs of f′(x)', { t: 'signs', x: [0, 9], roots: [6], signs: ['+', '-'], label: 'C′(t)' }],
+    ['shape: water rises when a sphere drops in', { t: 'shape', kind: 'cylinder', dims: { r: 5, h: 8 }, labels: { r: '5 cm', h: '18 cm' }, inside: { n: 1, r: 3, label: 'r = 3 cm' }, fill: { from: .45, to: .62, label: 'water', rise: 'rise' } }],
+    ['shape: three tennis balls in a tube', { t: 'shape', kind: 'cylinder', dims: { r: 3.3, h: 19.8 }, labels: { r: '3.3 cm', h: 'h' }, hl: 'h', inside: { n: 3, c: '#D7F25A' } }],
+    ['shape: filling an inverted cone', { t: 'shape', kind: 'cone', inverted: true, labels: { r: '5 cm', h: '12 cm' }, fill: { from: 0, to: .8, label: 'water' } }],
+    ['shape: cuboid filling', { t: 'shape', kind: 'cuboid', labels: { l: '4 m', w: '3 m', h: '2 m' }, hl: 'h', fill: { from: 0, to: .7 } }],
+    ['shape: sphere, hemisphere', { t: 'shape', kind: 'sphere', labels: { r: 'r = 9 cm' }, hl: 'r' }],
+    ['composite: silo', { t: 'shape', kind: 'composite', parts: [{ kind: 'hemisphere', dims: { r: 3 }, labels: { r: '3 m' } }, { kind: 'cylinder', dims: { r: 3, h: 8 }, labels: { h: '8 m' }, hl: 'h' }] }],
+    ['net: a cylinder unrolls', { t: 'net', kind: 'cylinder', dims: { r: 3, h: 10 }, labels: { w: '2πr = 6π cm', h: '10 cm', r: '3 cm' }, hl: 'w' }],
+    ['net: a cone opens into a sector', { t: 'net', kind: 'cone', dims: { r: 4, l: 10 }, labels: { l: 'l = 10', arc: '2πr = 8π', angle: '144°' }, hl: 'arc' }],
+    ['trap: the ends count once', { t: 'trap', h: 3, ys: [4, 5.8, 7, 6.5, 6, 4.8, 6, 6.5, 8], hl: 'ends' }],
+    ['slots: six-digit password', { t: 'slots', boxes: [{ n: 10, label: '1st' }, { n: 10, label: '2nd' }, { n: 10, label: '3rd' }, { n: 10, label: '4th' }, { n: 10, label: '5th' }, { n: 10, label: '6th' }], result: '10⁶ = 1 000 000' }],
+    ['slots: RAINBOW, letters used up', { t: 'slots', pool: ['R', 'A', 'I', 'N', 'B', 'O', 'W'], boxes: [{ n: 7, fill: 'R', label: '1st' }, { n: 6, fill: 'A', label: '2nd' }, { n: 5, fill: 'I', label: '3rd' }], result: '7 × 6 × 5 = 210' }],
+    ['list: two coins', { t: 'list', head: ['1st', '2nd'], rows: [['H', 'H'], ['H', 'T'], ['T', 'H'], ['T', 'T']], hl: [1, 2], count: true, colors: { H: 'blue', T: 'pink' } }],
+    ['bag: pick a red', { t: 'bag', groups: [{ label: 'red', n: 3 }, { label: 'blue', n: 5 }, { label: 'green', n: 2 }], hl: 'red', pick: 'red', say: 'P(red)' }],
+    ['dice: total of 7 or 11', { t: 'dice', op: '+', hl: [7, 11], rowsLabel: 'Die 2', colsLabel: 'Die 1', frac: '8', of: '36' }],
+    ['spinner: lands on Green', { t: 'spinner', sectors: [{ label: 'Red' }, { label: 'Orange' }, { label: 'Yellow' }, { label: 'Green' }, { label: 'Blue' }, { label: 'Indigo' }, { label: 'Violet' }], land: 3, hl: ['Green'] }],
+    ['pscale', { t: 'pscale', marks: [{ v: .25, label: 'P(red)' }, { v: .8, label: 'P(not 6)', show: '0.8', hl: true }] }],
+    ['tree: three stages, one path', { t: 'tree', root: [{ label: 'W', p: '0.6', kids: [{ label: 'W', p: '0.6', kids: [{ label: 'W', p: '0.6', out: '0.216' }, { label: 'L', p: '0.4', out: '0.144' }] }, { label: 'L', p: '0.4' }] }, { label: 'L', p: '0.4', kids: [{ label: 'W', p: '0.6' }, { label: 'L', p: '0.4' }] }], hl: [['W', 'W', 'L']] }],
+    ['venn: neither', { t: 'venn', sets: ['Cats', 'Dogs'], n: { a: 37, ab: 64, b: 48, none: 19 }, hl: 'none' }],
+    ['venn: three sets', { t: 'venn', sets: ['Vanilla', 'Chocolate', 'Strawberry'], n: { a: 8, b: 10, c: 5, ab: 4, ac: 3, bc: 2, abc: 1, none: 7 }, hl: ['A'] }],
+    ['dots: median', { t: 'dots', vals: [23, 19, 31, 27, 19, 35, 22, 28, 30], show: 'median', unit: 'years' }],
+    ['dots: range', { t: 'dots', vals: [4, 9, 2, 7, 5, 8], show: 'range' }],
+    ['dots: mode / mean', { t: 'dots', vals: [3, 5, 3, 6, 4, 3, 8], show: 'mode' }],
+    ['bars: the mean levels them', { t: 'bars', vals: [4, 8, 3, 9, 6], labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'], level: true }],
+    ['bars: histogram', { t: 'bars', kind: 'hist', labels: ['0–30', '30–60', '60–90', '90–120', '120–150', '150–180'], vals: [16, 35, 62, 59, 18, 10], hl: [2], ylab: 'students' }],
+    ['pie', { t: 'pie', labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'], vals: [72, 30, 45, 90, 123], show: 'angles', hl: [3] }],
+    ['stem', { t: 'stem', rows: [['1', '8 8 9'], ['2', '0 1 1 2'], ['3', '2 3 3 4 4 5 9'], ['4', '1 2 3 3 9'], ['5', '4 5 7 7 8']], key: '1 | 8 = 18 years', hl: [[3, 0], [3, 1], [3, 2], [3, 3], [3, 4], [4, 0], [4, 1], [4, 2], [4, 3], [4, 4]], count: '10 employees are over 40' }],
+    ['scatter', { t: 'scatter', x: [0, 14], y: [0, 14], pts: [[2.5, 2.5], [3.5, 3], [5, 4.5], [5, 5.5], [7, 6], [7, 8], [9, 8.5], [9.5, 10], [11, 10.5], [11.5, 12.5]], line: { m: .95, c: .1 }, label: 'strong positive' }],
+    ['normal: 95% within 2 sd', { t: 'normal', mean: 165, sd: 8, shade: [149, 181], label: '95%', unit: 'cm' }],
+    ['normal: top 2.5%', { t: 'normal', mean: 60, sd: 10, shade: [80, null], label: '2.5%' }],
+    ['ci: margin of error', { t: 'ci', p: .54, n: 1000, claim: .5, claimLabel: 'claim' }],
+    ['table', { t: 'table', head: ['x', '0', '1', '2', '3'], rows: [['f(x)', '7', '5', '3', '1']], hl: [[0, 2]] }],
+    ['grid: 4 starters × 3 mains', { t: 'grid', rowsLabel: 'Starter', colsLabel: 'Main', rows: ['S1', 'S2', 'S3', 'S4'], cols: ['M1', 'M2', 'M3'], hl: [[1, 2]] }]
+  ];
+  var STEPS = [
+    ['Steps: one graph building up', [
+      { t: 'graph', x: [-1, 5], y: [-4, 6], fns: [{ f: 'x^2-4x+1' }] },
+      { t: 'graph', x: [-1, 5], y: [-4, 6], fns: [{ f: 'x^2-4x+1' }], ride: { from: -0.6, to: 2 } },
+      { t: 'graph', x: [-1, 5], y: [-4, 6], fns: [{ f: 'x^2-4x+1' }], ride: { from: -0.6, to: 2 }, pts: [{ x: 2, y: -3, label: '(2, −3)' }] }]],
+    ['Steps: a bag, then the reds', [
+      { t: 'bag', groups: [{ label: 'red', n: 3 }, { label: 'blue', n: 5 }] },
+      { t: 'bag', groups: [{ label: 'red', n: 3 }, { label: 'blue', n: 5 }], hl: 'red' },
+      { t: 'bag', groups: [{ label: 'red', n: 2 }, { label: 'blue', n: 5 }], hl: 'red', out: [{ label: 'red', c: 'red', n: 1 }] }]]
+  ];
+  var g = document.getElementById('g');
+  function card(title, specs) {
+    if (only && specs[0].t !== only) return;
+    var c = document.createElement('div'), h = document.createElement('h2'), box = document.createElement('div'), at = 0, seen = {};
+    c.className = 'c'; h.textContent = title; c.appendChild(h); c.appendChild(box); g.appendChild(c);
+    function show(i, fresh) {
+      at = i;
+      box.innerHTML = '';
+      var v = R.vis(specs[i], fresh ? {} : seen);
+      if (!v) { box.textContent = 'FAILED: ' + JSON.stringify(R.validate(specs[i])); return; }
+      box.appendChild(v); v.play(); seen = v.keys;
+      if (bar) bar.querySelectorAll('button').forEach(function (b, k) { b.classList.toggle('on', k === i); });
+    }
+    var bar = null;
+    if (specs.length > 1) {
+      bar = document.createElement('div'); bar.className = 'steps';
+      specs.forEach(function (s, i) { var b = document.createElement('button'); b.textContent = 'Step ' + (i + 1); b.onclick = function (e) { e.stopPropagation(); show(i); }; bar.appendChild(b); });
+      c.appendChild(bar);
+    }
+    c.addEventListener('click', function () { seen = {}; show(at, true); });
+    show(0, true);
+  }
+  EX.forEach(function (e) { card(e[0], [e[1]]); });
+  STEPS.forEach(function (e) { card(e[0], e[1]); });
+  window.GALLERY_PROBLEMS = EX.map(function (e) { return [e[0], R.validate(e[1])]; }).filter(function (p) { return p[1].length; });
+})();
+</script>
+</body>
+</html>

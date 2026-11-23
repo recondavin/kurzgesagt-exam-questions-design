@@ -1,6 +1,6 @@
 // Checks every Maths question (tools/maths/questions/ch<N>.json):
 //  - every bit of maths renders in KaTeX without an error (question text, steps, answers, scheme, tips),
-//  - every \mv key in a line is unique, and every picture is one the site can draw,
+//  - every \mv key in a line is unique, and every picture is one the site can draw (MathsRender.validate),
 //  - typing the answer as it's shown to the student ("show") is marked right, and a wrong answer isn't.
 // Run: node tools/maths/tests/check.mjs [chapter] [-v]
 import fs from 'fs';
@@ -11,10 +11,11 @@ const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..',
 global.window = { matchMedia: null };
 window.katex = require(path.join(ROOT, 'lib/katex/katex.min.js'));
 require(path.join(ROOT, 'maths/maths-render.js'));
+require(path.join(ROOT, 'maths/maths-scenes.js'));
 const M = window.MathsRender, katex = window.katex;
 const only = process.argv.find(a => /^\d+$/.test(a)), verbose = process.argv.includes('-v');
 const MACROS = { '\\hl': '\\htmlClass{mx-hl}{#1}', '\\mv': '\\htmlData{mv=#1}{#2}' };
-const VIS = ['graph', 'signs', 'shape', 'trap', 'table', 'grid', 'tree', 'venn', 'bars', 'pie', 'stem', 'scatter'];
+function visOk(where, v) { if (v) M.validate(v).forEach(p => fail(where, 'picture: ' + p)); }
 const QDIR = process.env.MATHS_Q || path.join(ROOT, 'tools/maths/questions');
 let bad = 0, parts = 0, checked = 0;
 function fail(where, msg) { bad++; console.log('FAIL', where + ':', msg); }
@@ -54,7 +55,7 @@ for (const f of (fs.existsSync(QDIR) ? fs.readdirSync(QDIR) : []).sort()) {
       parts++;
       const P = W + ' ' + p.l;
       inlineOk(P + ' q', p.q); inlineOk(P + ' scheme', p.scheme); inlineOk(P + ' tip', p.tip);
-      if (p.idea) { inlineOk(P + ' idea', p.idea.text); if (p.idea.vis && !VIS.includes(p.idea.vis.t)) fail(P, 'unknown picture ' + p.idea.vis.t); }
+      if (p.idea) { inlineOk(P + ' idea', p.idea.text); visOk(P + ' idea', p.idea.vis); }
       if (!p.steps || !p.steps.length) fail(P, 'no steps');
       (p.steps || []).forEach((s, i) => {
         inlineOk(P + ' step ' + (i + 1) + ' say', s.say);
@@ -63,7 +64,7 @@ for (const f of (fs.existsSync(QDIR) ? fs.readdirSync(QDIR) : []).sort()) {
           const keys = [...line.matchAll(/\\mv\{([^}]*)\}/g)].map(x => x[1]);
           if (new Set(keys).size !== keys.length) fail(P + ' step ' + (i + 1), 'a \\mv key is used twice in one line');
         });
-        if (s.vis && !VIS.includes(s.vis.t)) fail(P + ' step ' + (i + 1), 'unknown picture ' + s.vis.t);
+        visOk(P + ' step ' + (i + 1), s.vis);
       });
       const a = p.answer;
       if (!a) { fail(P, 'no answer'); return; }

@@ -7,3 +7,6 @@ checkpoints/
 node_modules/
 .env
 .env.*
+
+# Scenes patches being worked on and their previews (tools/maths/apply_scenes.py)
+tools/maths/work/

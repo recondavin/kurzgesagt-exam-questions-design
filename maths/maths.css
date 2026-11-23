@@ -18,11 +18,11 @@
 
 /* Pictures: sized to sit above the step's words without pushing them out of view. */
 .mx-vis { display: flex; justify-content: center; margin: 0 0 12px; }
-.mx-vis > svg { display: block; width: 100%; max-width: 560px; height: auto; max-height: 30vh; }
-.mx-vis--table, .mx-vis--grid, .mx-vis--stem { overflow-x: auto; justify-content: flex-start; }
+.mx-vis > svg { display: block; width: 100%; max-width: 600px; height: auto; max-height: 36vh; }
+.mx-vis--table, .mx-vis--grid, .mx-vis--stem { overflow-x: auto; align-items: flex-start; }
 .mx-svg { font-family: Nunito, system-ui, sans-serif; }
-.mx-svg text { fill: var(--mx-ink); font-size: 14px; font-weight: 700; }
-.mx-svg .mx-tick { fill: var(--mx-soft); font-size: 12px; font-weight: 700; }
+.mx-svg text { fill: var(--mx-ink); font-size: 15px; font-weight: 700; }
+.mx-svg .mx-tick { fill: var(--mx-soft); font-size: 13px; font-weight: 700; }
 .mx-svg .mx-axlab { fill: var(--mx-soft); font-size: 13px; }
 .mx-grid line, .mx-svg .mx-gridl { stroke: #1E2B31; stroke-width: 1; }
 .mx-axes line, .mx-svg .mx-axisline { stroke: #6B7F88; stroke-width: 2; }
@@ -32,10 +32,10 @@
 .mx-svg .mx-flabel.mx-c0 { fill: var(--mx-blue); } .mx-svg .mx-flabel.mx-c1 { fill: var(--mx-pink); } .mx-svg .mx-flabel.mx-c2 { fill: var(--mx-purple); }
 .mx-line2 { fill: none; stroke: var(--mx-purple); stroke-width: 2.5; stroke-dasharray: 7 6; }
 .mx-tangent { fill: none; stroke: var(--mx-yellow); stroke-width: 3; stroke-linecap: round; }
-.mx-svg .mx-tlabel { fill: var(--mx-yellow); font-size: 13px; }
+.mx-svg .mx-tlabel { fill: var(--mx-yellow); font-size: 15px; }
 .mx-pt { fill: #FFFFFF; stroke: #0B1418; stroke-width: 2.5; }
 .mx-pt.is-hl { fill: var(--mx-yellow); }
-.mx-svg .mx-plabel { fill: #FFFFFF; font-size: 13px; }
+.mx-svg .mx-plabel { fill: #FFFFFF; font-size: 15px; }
 /* f′(x) signs */
 .mx-pos { fill: rgba(88, 204, 2, .22); } .mx-neg { fill: rgba(255, 75, 75, .2); }
 .mx-svg .mx-signt { font-size: 13px; }
@@ -63,32 +63,134 @@
 .mx-grid-t td { min-width: 34px; font-size: 13px; }
 .mx-grid-t .mx-corner { font-size: 11px; }
 .mx-stem th { border: 0; border-right: 2px solid var(--mx-soft); background: transparent; color: var(--mx-yellow); }
-.mx-stem td { border: 0; text-align: left; letter-spacing: .25em; }
+.mx-stem td { border: 0; text-align: left; }
 .mx-stem td.is-left { text-align: right; border-right: 0; }
 .mx-stem caption { caption-side: bottom; padding-top: 6px; color: var(--mx-soft); font-size: 13px; }
 /* Trees and Venn diagrams */
-.mx-branch { stroke: #6B7F88; stroke-width: 2.5; }
-.mx-branch.is-hl { stroke: var(--mx-yellow); stroke-width: 4; }
+.mx-branch { stroke: #6B7F88; stroke-width: 2.5; stroke-linecap: round; }
+.mx-branch.is-hl { stroke: var(--mx-yellow); stroke-width: 5; }
 .mx-node { fill: #6B7F88; }
-.mx-svg .mx-bp { fill: var(--mx-yellow); font-size: 13px; }
+.mx-svg .mx-bp { fill: #C9D6DD; font-size: 13px; }
+.mx-svg .mx-bp.is-hl { fill: var(--mx-yellow); font-size: 15px; }
 .mx-svg .mx-blabel { font-size: 15px; }
-.mx-universal { fill: none; stroke: #6B7F88; stroke-width: 2; }
-.mx-universal.is-hl { fill: rgba(255, 200, 0, .12); }
-.mx-set { fill: rgba(28, 176, 246, .16); stroke: #8FD8FB; stroke-width: 2.5; }
-.mx-set.is-b { fill: rgba(255, 134, 208, .14); stroke: #FFB4E3; }
-.mx-set.is-hl { fill: rgba(255, 200, 0, .22); }
+.mx-svg .mx-bout { fill: var(--mx-soft); font-size: 13px; }
+.mx-svg .mx-bout.is-hl { fill: var(--mx-yellow); font-size: 15px; }
+.mx-universal { fill: rgba(255, 255, 255, .02); stroke: #6B7F88; stroke-width: 2; }
+.mx-set { fill: rgba(28, 176, 246, .1); stroke: #8FD8FB; stroke-width: 2.5; }
+.mx-set.is-b { fill: rgba(255, 134, 208, .08); stroke: #FFB4E3; }
+.mx-set.is-c { fill: rgba(88, 204, 2, .08); stroke: #A5ED6E; }
+.mx-region { fill: rgba(255, 200, 0, .4); }
 .mx-svg .mx-setname { font-size: 18px; }
 .mx-svg .mx-vnum { font-size: 20px; }
-.mx-svg .mx-vnum.is-hl { fill: var(--mx-yellow); }
+.mx-svg .mx-vnum.is-hl { fill: #FFFFFF; font-size: 22px; }
 /* Charts */
 .mx-bar { fill: var(--mx-blue); }
 .mx-bar.is-hl { fill: var(--mx-yellow); }
-.mx-mx-bars .mx-bar { stroke: #0B1418; }
-.mx-vis--bars .mx-bar { stroke: #0B1418; stroke-width: 1; }
+.mx-bar.is-hist, .mx-vis--bars .mx-bar { stroke: #0B1418; stroke-width: 1; }
+.mx-ghost { fill: none; stroke: #6B7F88; stroke-width: 1.5; stroke-dasharray: 4 4; }
+.mx-meanline { stroke: var(--mx-yellow); stroke-width: 2.5; stroke-dasharray: 8 6; }
 .mx-slice { stroke: #0B1418; stroke-width: 2; }
 .mx-slice.mx-s0, .mx-svg text.mx-s0 { fill: var(--mx-blue); } .mx-slice.mx-s1, .mx-svg text.mx-s1 { fill: var(--mx-pink); }
 .mx-slice.mx-s2, .mx-svg text.mx-s2 { fill: var(--mx-yellow); } .mx-slice.mx-s3, .mx-svg text.mx-s3 { fill: var(--mx-green); }
 .mx-slice.mx-s4, .mx-svg text.mx-s4 { fill: var(--mx-purple); } .mx-slice.mx-s5, .mx-svg text.mx-s5 { fill: #FF9600; }
+.mx-slice.is-hl { stroke: #FFFFFF; stroke-width: 3; }
+.mx-svg .mx-plabel.is-hl { font-size: 15px; text-decoration: underline; }
+.mx-svg .mx-pieang { fill: #0B1418; font-size: 15px; }
+.mx-svg .mx-barv { fill: #FFFFFF; font-size: 13px; }
+.mx-svg .mx-shadet, .mx-svg .mx-dimt { paint-order: stroke; stroke: #131F24; stroke-width: 4px; stroke-linejoin: round; }
+
+/* ---------- the animated scenes (maths/maths-scenes.js) ---------- */
+.mx-svg .mx-tick.is-hl { fill: var(--mx-yellow); }
+.mx-svg .mx-tick.is-soft, .mx-svg .mx-legt.is-soft { fill: var(--mx-soft); }
+.mx-svg .mx-tick.is-head { fill: var(--mx-ink); font-size: 14px; }
+.mx-svg .mx-flabel.mx-l2 { fill: var(--mx-purple); }
+/* Calculus: increasing / decreasing, roots, readings, the riding tangent, a ball's flight */
+.mx-shade { fill: none; stroke-width: 9; stroke-linecap: round; opacity: .55; }
+.mx-shade.is-up { stroke: var(--mx-green); } .mx-shade.is-down { stroke: var(--mx-red); }
+.mx-svg .mx-shadet.is-up, .mx-svg .mx-signt.is-up { fill: #A5ED6E; } .mx-svg .mx-shadet.is-down, .mx-svg .mx-signt.is-down { fill: #FF9C9C; }
+.mx-ring { fill: none; stroke: var(--mx-yellow); stroke-width: 2.5; animation: mx-ring 1.6s ease-out 1s 3 both; transform-box: fill-box; transform-origin: center; }
+@keyframes mx-ring { from { transform: scale(.6); opacity: 1; } to { transform: scale(2.2); opacity: 0; } }
+.mx-read { fill: none; stroke: var(--mx-yellow); stroke-width: 2.5; stroke-dasharray: 6 5; }
+.mx-svg .mx-readt { fill: var(--mx-yellow); font-size: 14px; paint-order: stroke; stroke: #0B1418; stroke-width: 4px; }
+.mx-svg .mx-tlabel, .mx-svg .mx-plabel { paint-order: stroke; stroke: #0B1418; stroke-width: 4px; stroke-linejoin: round; }
+.mx-ride.is-flat .mx-tangent { stroke: #FFFFFF; stroke-width: 4; }
+.mx-svg .mx-ride.is-flat .mx-tlabel { fill: #FFFFFF; }
+.mx-trail { fill: none; stroke: var(--mx-yellow); stroke-width: 2.5; stroke-dasharray: 2 6; stroke-linecap: round; }
+.mx-ball { stroke: rgba(0, 0, 0, .35); stroke-width: 1.5; }
+.mx-pt.is-plot { fill: var(--mx-pink); stroke: #0B1418; }
+/* Measure: water, balls in a tube, nets, the trapezoidal rule */
+.mx-liquid rect, .mx-liquid polygon { fill: rgba(28, 176, 246, .5); }
+.mx-liquid polygon.is-side { fill: rgba(28, 176, 246, .34); }
+.mx-liquid-top { fill: rgba(143, 216, 251, .75); stroke: #C9EEFF; stroke-width: 1.5; }
+.mx-svg .mx-dimt.is-water { fill: #8FD8FB; }
+.mx-svg .mx-dimt.is-ball { fill: #D7F25A; }
+.mx-netface { fill: rgba(255, 200, 0, .16); stroke: var(--mx-yellow); }
+.mx-trapedge { fill: none; stroke: #8FD8FB; stroke-width: 2.5; stroke-linejoin: round; }
+.mx-hgt.is-hl .mx-height { stroke: #FFFFFF; stroke-width: 4; }
+.mx-svg .mx-hgt.is-hl text { fill: var(--mx-yellow); }
+/* Counting: tiles, slots and the sum that comes out */
+.mx-tile rect { fill: #202F36; stroke: #4B5E67; stroke-width: 2; }
+.mx-svg .mx-tilet { fill: #FFFFFF; font: 800 16px Nunito, system-ui, sans-serif; }
+.mx-tile.is-used { opacity: .25; }
+.mx-tile.is-moved rect { fill: #3A2F05; stroke: var(--mx-yellow); }
+.mx-slot rect { fill: #0B1418; stroke: #6B7F88; stroke-width: 2.5; stroke-dasharray: 7 5; }
+.mx-slot.is-hl rect { stroke: var(--mx-yellow); stroke-dasharray: none; fill: rgba(255, 200, 0, .08); }
+.mx-svg .mx-slotn { fill: var(--mx-yellow); font: 800 28px Fredoka, Nunito, sans-serif; }
+.mx-svg .mx-op { fill: var(--mx-soft); font: 700 24px Nunito, sans-serif; }
+.mx-svg .mx-slotres { fill: #FFFFFF; font: 700 26px Fredoka, Nunito, sans-serif; }
+.mx-lring { fill: none; stroke: var(--mx-yellow); stroke-width: 3; }
+.mx-lrow.is-hl .mx-tile rect { stroke: var(--mx-yellow); }
+.mx-svg .mx-count { fill: var(--mx-yellow); font: 700 20px Fredoka, Nunito, sans-serif; }
+.mx-svg .mx-count.is-big { font-size: 40px; }
+/* Probability: the jar of balls, dice, spinners, the scale */
+.mx-jar { fill: rgba(143, 216, 251, .06); stroke: #8FD8FB; stroke-width: 3; stroke-linejoin: round; }
+.mx-jarrim { stroke: #8FD8FB; stroke-width: 3; stroke-linecap: round; }
+.mx-ball.is-hl { stroke: var(--mx-yellow); stroke-width: 3; }
+.mx-bwrap.is-dim { opacity: .28; }
+.mx-ball.is-gap { stroke: #6B7F88; stroke-dasharray: 3 3; stroke-width: 2; }
+.mx-ball.is-picked { stroke: #FFFFFF; stroke-width: 3; }
+.mx-svg .mx-legt { font-size: 16px; }
+.mx-leg.is-dim { opacity: .35; }
+.mx-svg .mx-fracn { fill: var(--mx-yellow); font: 700 26px Fredoka, Nunito, sans-serif; }
+.mx-fracbar { stroke: var(--mx-yellow); stroke-width: 3; stroke-linecap: round; }
+.mx-out { opacity: .5; }
+.mx-die { fill: #F1F7FB; stroke: #9EB0B9; stroke-width: 1; }
+.mx-pip { fill: #131F24; }
+.mx-cell rect { fill: #16232A; stroke: #26353C; stroke-width: 1; }
+.mx-cell.is-hl rect { fill: rgba(255, 200, 0, .45); stroke: var(--mx-yellow); }
+.mx-svg .mx-cellt { fill: #C9D6DD; font-size: 13px; }
+.mx-svg .mx-cell.is-hl .mx-cellt { fill: #FFFFFF; font-weight: 800; }
+.mx-sector { stroke: #0B1418; stroke-width: 2; }
+.mx-sector.is-hl { stroke: #FFFFFF; stroke-width: 4; }
+.mx-sector.is-dim { opacity: .3; }
+.mx-svg .mx-sectort { fill: #0B1418; font: 800 15px Nunito, sans-serif; }
+.mx-wheelrim { fill: none; stroke: #F1F7FB; stroke-width: 3; }
+.mx-hub { fill: #F1F7FB; stroke: #0B1418; stroke-width: 2; }
+.mx-pointer { fill: #FFFFFF; stroke: #0B1418; stroke-width: 2; stroke-linejoin: round; }
+.mx-pbar { fill: #26353C; }
+.mx-pmark path { fill: #FFFFFF; } .mx-pmark.is-hl path { fill: var(--mx-yellow); }
+/* Statistics: chips in order, the bell curve, margins of error */
+.mx-chip rect { fill: #202F36; stroke: #4B5E67; stroke-width: 2; }
+.mx-svg .mx-chipt { fill: #FFFFFF; font: 800 15px Nunito, sans-serif; }
+.mx-chip.is-out { opacity: .25; }
+.mx-chip.is-hl rect { fill: #3A2F05; stroke: var(--mx-yellow); stroke-width: 3; }
+.mx-svg .mx-chip.is-hl .mx-chipt { fill: var(--mx-yellow); }
+.mx-bracket { fill: none; stroke: var(--mx-yellow); stroke-width: 2.5; }
+.mx-svg .mx-statt { fill: #FFFFFF; font: 700 18px Fredoka, Nunito, sans-serif; }
+.mx-line2.is-fit { stroke: var(--mx-yellow); stroke-dasharray: none; }
+.mx-narea { fill: rgba(255, 200, 0, .38); }
+.mx-nline { stroke: #6B7F88; stroke-width: 1.2; stroke-dasharray: 3 4; }
+.mx-svg .mx-nlabel { fill: var(--mx-yellow); font: 700 22px Fredoka, Nunito, sans-serif; paint-order: stroke; stroke: #0B1418; stroke-width: 5px; }
+.mx-ciband { fill: rgba(28, 176, 246, .3); stroke: var(--mx-blue); stroke-width: 2; }
+.mx-ciend { stroke: var(--mx-blue); stroke-width: 3; }
+.mx-claim path { fill: #FFFFFF; } .mx-claim.is-in path { fill: var(--mx-green); } .mx-claim.is-outside path { fill: var(--mx-red); }
+.mx-svg .mx-verdict { font: 700 15px Nunito, sans-serif; } .mx-svg .mx-verdict.is-in { fill: #A5ED6E; } .mx-svg .mx-verdict.is-outside { fill: #FF9C9C; }
+.mx-stembox { margin: 0 auto; }
+.mx-leafd { display: inline-block; min-width: .9em; margin-right: .32em; padding: 0 .12em; border-radius: 4px; text-align: center; letter-spacing: 0; }
+.mx-leafd.is-hl { background: rgba(255, 200, 0, .4); color: #FFFFFF; }
+.mx-stemcount, .mx-cap { margin: 8px 0 0; color: var(--mx-yellow); font: 700 16px/1.35 Nunito, system-ui, sans-serif; text-align: center; }
+.mx-cap { color: #C9D6DD; font-weight: 600; }
+.mx-vis { flex-direction: column; align-items: center; }
 
 /* The part's own question, as printed (with its maths), at the top of its card. */
 .mx-q { margin: 0 0 12px; padding: 0 0 0 12px; border-left: 3px solid var(--mx-line); color: #C9D6DD; font-size: calc(18px * var(--hf-s, 1)); line-height: 1.45; }
@@ -142,4 +244,4 @@
   .mx-vis > svg { max-height: 26vh; }
   .mx-line .katex { font-size: 1.08em; }
 }
-@media (prefers-reduced-motion: reduce) { .mx-dim.is-hl { animation: none; } .mx-btn { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .mx-dim.is-hl, .mx-ring { animation: none; } .mx-btn { transition: none; } }

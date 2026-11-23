@@ -2,12 +2,13 @@
 // puts that question's real SEC paper page on the desk (same desk, hands and pen) and the guide (hyper-focus.js) goes
 // through it part by part. Each part: its own question with the camera on it, "Have a go" (type the answer and check
 // it), then "Show me how": the working builds up line by line on a board, the pieces that carry over sliding into
-// place, a picture (graph, solid, tree...) where it helps, and one short sentence per step saying what to do and why.
+// place, an animated scene of the situation (maths/maths-scenes.js: a graph, a solid filling, a bag of balls, dice,
+// counting boxes...) that builds up step by step, and one short sentence per step saying what to do and why.
 // It ends on the answer, what the marking scheme gives the marks for, and a tip. Results save per part.
 (function () {
   'use strict';
   var PAGE = 'maths.html';
-  var V = 'maths-1';
+  var V = 'maths-2';
   var loaded = {}, current = null, started = false;
   var R = function () { return window.MathsRender; };
 
@@ -39,7 +40,7 @@
     css('lib/katex/katex.min.css');
     css('maths/maths.css');
     css('maths/maths-desk.css');
-    return ['lib/katex/katex.min.js', 'maths/maths-render.js', 'maths/papers.js', 'maths/q' + ch + '.js']
+    return ['lib/katex/katex.min.js', 'maths/maths-render.js', 'maths/maths-scenes.js', 'maths/papers.js', 'maths/q' + ch + '.js']
       .reduce(function (p, f) { return p.then(function () { return script(f); }); }, Promise.resolve());
   }
   function whenDeskReady() {
@@ -156,12 +157,13 @@
     if (!stage.board) { stage.board = new (R().Board)(el('div')); host.appendChild(stage.board.host); }
     stage.board.step(s.math || []);
     var vis = s.vis || null;
-    // A step with no picture of its own keeps the last one shown (it's still the same graph or solid).
+    // A step with no picture of its own keeps the last one shown (it's still the same graph or solid). A step's picture
+    // builds on the last one: what was already there stays still and only what's new animates.
     if (vis || i === 0) {
       var box = stage.querySelector('.mx-visbox');
       box.innerHTML = '';
-      var v = vis && R().vis(vis);
-      if (v) box.appendChild(v);
+      var v = vis && R().vis(vis, i === 0 ? {} : stage.seen);
+      if (v) { box.appendChild(v); v.play(); stage.seen = v.keys; } else stage.seen = {};
     }
     stage.querySelectorAll('[data-mx-seg]').forEach(function (g) {
       var j = +g.getAttribute('data-mx-seg');

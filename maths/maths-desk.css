@@ -40,7 +40,7 @@ body.maths-desk .hf-guide .mx-try__lead b { color: #FFC800; }
 /* On a phone the card is the bottom half of the screen: a smaller title and picture leave room for the working. */
 @media (max-width: 819px) {
   body.maths-desk .hf-guide .hf-guide__title:not(#hf-weight) { font-size: 21px !important; line-height: 1.2; }
-  body.maths-desk .hf-guide .mx-vis > svg { max-height: 19vh; }
+  body.maths-desk .hf-guide .mx-vis > svg { max-height: 24vh; }
   body.maths-desk .hf-guide .mx-board { padding: 6px 10px; margin-bottom: 8px; }
   body.maths-desk .hf-guide .mx-steps > li { font-size: 17px; }
   body.maths-desk .hf-guide .mx-q { font-size: 16px; }
