@@ -8,7 +8,7 @@
 (function () {
   'use strict';
   var PAGE = 'maths.html';
-  var V = 'maths-5';
+  var V = 'maths-6';
   var loaded = {}, current = null, started = false;
   var R = function () { return window.MathsRender; };
 

@@ -394,139 +394,243 @@
             "show": "An upside-down U that crosses the x-axis at about 0.8 and 5.2 and has its top at (3, 5), with a scale on both axes."
           },
           "scheme": "Sketch passing through the roots (about 0.8 and 5.2 on the $x$-axis) with its maximum at $(3, 5)$, and a scale on both axes. Partial credit for a scale or the right general shape.",
-          "idea": null,
+          "idea": {
+            "title": "Sketch, and show your scale",
+            "text": "A sketch needs no table: it uses the key points you have already found, the roots $x\\approx0.8$ and $x\\approx5.2$ from (a) and the turning point $(3,\\ 5)$ from (b). 'Show your scale' means writing numbers on the paper's tick marks. No domain is given and $x\\in\\mathbb{R}$, so draw one smooth unbroken curve that carries on a little past each root.",
+            "vis": {
+              "t": "graph",
+              "x": [
+                -0.5,
+                6.9
+              ],
+              "y": [
+                -1.6,
+                6.9
+              ],
+              "ticks": {
+                "x": 1,
+                "y": 1
+              },
+              "xlab": "x",
+              "ylab": "y",
+              "cap": "Number the tick marks: that is your scale"
+            }
+          },
           "steps": [
             {
-              "say": "Put a scale on both axes first: 1 to 6 across and 1 to 6 up is enough. The scale is part of the marks.",
+              "say": "The paper gives you an x-axis and a y-axis with six tick marks on each, two squares apart, but no numbers. Your curve has to reach 5.2 across and 5 up, so number the ticks 1, 2, 3, 4, 5, 6 on both axes: each tick is 1. Those numbers are your scale, and they earn marks on their own.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
-                  -1,
-                  7
+                  -0.5,
+                  6.9
                 ],
                 "y": [
-                  -5,
-                  8
+                  -1.6,
+                  6.9
                 ],
-                "fns": [],
+                "ticks": {
+                  "x": 1,
+                  "y": 1
+                },
                 "xlab": "x",
                 "ylab": "y",
-                "cap": "Number both axes first: that is your scale"
+                "cap": "Each tick is 1: number them 1 to 6 on both axes"
               }
             },
             {
-              "say": "Mark the two places the curve crosses the x-axis, from part (a): about 0.8 and 5.2.",
+              "say": "The points come from your answers, not from a table. Part (a) solved f(x) = 0, so it found where the curve crosses the x-axis. Part (b) found the turning point, which is the top of this curve.",
               "math": [
-                "(0.8,\\ 0)\\quad(5.2,\\ 0)"
+                "\\text{(a) roots: }(0.8,\\ 0)\\text{ and }(5.2,\\ 0)",
+                "\\text{(b) turning point: }(3,\\ 5)"
               ],
               "vis": {
                 "t": "graph",
                 "x": [
-                  -1,
-                  7
+                  -0.5,
+                  6.9
                 ],
                 "y": [
-                  -5,
-                  8
+                  -1.6,
+                  6.9
                 ],
-                "fns": [],
+                "ticks": {
+                  "x": 1,
+                  "y": 1
+                },
                 "xlab": "x",
                 "ylab": "y",
-                "pts": [
-                  {
-                    "x": 0.764,
-                    "y": 0,
-                    "label": "(0.8, 0)"
-                  },
-                  {
-                    "x": 5.236,
-                    "y": 0,
-                    "label": "(5.2, 0)"
-                  }
-                ]
+                "roots": [
+                  0.8,
+                  5.2
+                ],
+                "cap": "Part (a): it crosses the x-axis at 0.8 and 5.2"
               }
             },
             {
-              "say": "Mark the turning point from part (b), (3, 5). It is halfway between the two roots, as it should be.",
+              "say": "Plot the turning point (3, 5) first: go across to 3, then up to 5, and put a small dot exactly there. It is the highest point of the curve.",
               "math": [
-                "(3,\\ 5)"
+                "(3,\\ 5):\\ \\text{3 across, 5 up}"
               ],
               "vis": {
                 "t": "graph",
                 "x": [
-                  -1,
-                  7
+                  -0.5,
+                  6.9
                 ],
                 "y": [
-                  -5,
-                  8
+                  -1.6,
+                  6.9
                 ],
-                "fns": [],
+                "ticks": {
+                  "x": 1,
+                  "y": 1
+                },
                 "xlab": "x",
                 "ylab": "y",
-                "pts": [
-                  {
-                    "x": 0.764,
-                    "y": 0,
-                    "label": "(0.8, 0)"
-                  },
-                  {
-                    "x": 5.236,
-                    "y": 0,
-                    "label": "(5.2, 0)"
-                  },
-                  {
-                    "x": 3,
-                    "y": 5,
-                    "label": "(3, 5)",
-                    "hl": true
-                  }
-                ]
+                "roots": [
+                  0.8,
+                  5.2
+                ],
+                "plot": [
+                  [
+                    3,
+                    5
+                  ]
+                ],
+                "guides": true,
+                "plotLabels": true
               }
             },
             {
-              "say": "Join the three points with one smooth upside-down U, carrying on a little past the roots. That is your sketch of y = f(x).",
+              "say": "Now mark the two roots on the x-axis itself: 0.8 is just before the 1 tick (four fifths of the way from 0), and 5.2 is just after the 5 tick. Notice that 3 is exactly halfway between them, as the top of a U-shape should be.",
+              "math": [
+                "\\frac{0.8+5.2}{2}=3"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -0.5,
+                  6.9
+                ],
+                "y": [
+                  -1.6,
+                  6.9
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 1
+                },
+                "xlab": "x",
+                "ylab": "y",
+                "plot": [
+                  [
+                    0.8,
+                    0
+                  ],
+                  [
+                    3,
+                    5
+                  ],
+                  [
+                    5.2,
+                    0
+                  ]
+                ],
+                "guides": true,
+                "plotLabels": true
+              }
+            },
+            {
+              "say": "Join the three points with one smooth upside-down U, freehand: up through (0.8, 0), round the top at (3, 5), and down through (5.2, 0). It is upside down because the x² term, −x², is negative. There is no domain, so carry the curve on a little below the x-axis past each root.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
-                  -1,
-                  7
+                  -0.5,
+                  6.9
                 ],
                 "y": [
-                  -5,
-                  8
+                  -1.6,
+                  6.9
                 ],
+                "ticks": {
+                  "x": 1,
+                  "y": 1
+                },
+                "xlab": "x",
+                "ylab": "y",
+                "plot": [
+                  [
+                    0.8,
+                    0
+                  ],
+                  [
+                    3,
+                    5
+                  ],
+                  [
+                    5.2,
+                    0
+                  ]
+                ],
+                "plotLabels": true,
                 "fns": [
                   {
-                    "f": "-x^2+6x-4"
-                  }
-                ],
-                "xlab": "x",
-                "ylab": "y",
-                "pts": [
-                  {
-                    "x": 0.764,
-                    "y": 0,
-                    "label": "(0.8, 0)"
-                  },
-                  {
-                    "x": 5.236,
-                    "y": 0,
-                    "label": "(5.2, 0)"
-                  },
-                  {
-                    "x": 3,
-                    "y": 5,
-                    "label": "(3, 5)",
-                    "hl": true
+                    "f": "-x^2+6x-4",
+                    "from": 0.5,
+                    "to": 5.5
                   }
                 ]
+              }
+            },
+            {
+              "say": "Check it the way the marker will: numbers on both axes, the curve crossing at about 0.8 and 5.2, its top at (3, 5), and the top rounded, not a sharp point.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -0.5,
+                  6.9
+                ],
+                "y": [
+                  -1.6,
+                  6.9
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 1
+                },
+                "xlab": "x",
+                "ylab": "y",
+                "plot": [
+                  [
+                    0.8,
+                    0
+                  ],
+                  [
+                    3,
+                    5
+                  ],
+                  [
+                    5.2,
+                    0
+                  ]
+                ],
+                "plotLabels": true,
+                "fns": [
+                  {
+                    "f": "-x^2+6x-4",
+                    "from": 0.5,
+                    "to": 5.5
+                  }
+                ],
+                "cap": "Scale on both axes, roots 0.8 and 5.2, top (3, 5)"
               }
             }
           ],
-          "tip": "A sketch needs a smooth curve and a scale on both axes — no ruler lines or pointed tops.",
+          "tip": "The marks are for a curve through 0.8 and 5.2 with its top at (3, 5), and a scale on both axes: a scale or the right shape alone still earns some.",
           "ask": "Sketch y = f(x) using your answers to (a) and (b), with a scale on both axes."
         }
       ]
@@ -740,22 +844,161 @@
             "show": "Plot (500, 40 500), (1000, 66 000), (1500, 76 500), (2000, 72 000), (2500, 52 500) and join them with a smooth curve."
           },
           "scheme": "All five points from the table plotted correctly and joined with a smooth curve. Points joined with straight lines, or not joined, lose marks.",
-          "idea": null,
+          "idea": {
+            "title": "For 500 ≤ x ≤ 2500, x ∈ ℝ",
+            "text": "$500\\le x\\le 2500$ is the domain: the graph starts at $x=500$ barrels and stops at $x=2500$, and ≤ means both ends are included, so the points at 500 and 2500 are plotted too. $x\\in\\mathbb{R}$ means x can be any number in between, like 1750, so the five points are joined by one smooth unbroken curve, not left as dots.",
+            "vis": {
+              "t": "graph",
+              "x": [
+                -450,
+                2900
+              ],
+              "y": [
+                35000,
+                82500
+              ],
+              "ticks": {
+                "x": 500,
+                "y": 5000
+              },
+              "xlab": "x",
+              "ylab": "p (€)",
+              "domain": [
+                500,
+                2500
+              ],
+              "cap": "Nothing before $x=500$ or after $x=2500$"
+            }
+          },
           "steps": [
             {
-              "say": "Each column of the table is a point (x, p). Plot all five on the grid.",
+              "say": "First read the axes on the paper. Across is x, the number of barrels: the numbers go up in 500s, and each small square is 125 (four squares for every 500). Up is the daily profit p in euro: the numbers go up in 5000s, and each small square is 2500. The zigzag at the bottom of the profit axis means it doesn't start at 0: the first number on it is 40 000.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
-                  400,
-                  2600
+                  -450,
+                  2900
                 ],
                 "y": [
-                  38000,
-                  86000
+                  35000,
+                  82500
                 ],
-                "fns": [],
+                "ticks": {
+                  "x": 500,
+                  "y": 5000
+                },
+                "xlab": "x",
+                "ylab": "p (€)",
+                "cap": "Across: 500 per number. Up: 5000 per number"
+              }
+            },
+            {
+              "say": "The points come from the table you completed in part (a). Each column is one point (x, p): the number of barrels says how far across, the profit how far up.",
+              "math": [
+                "(500,\\ 40\\,500),\\ (1000,\\ 66\\,000),\\ (1500,\\ 76\\,500)",
+                "(2000,\\ 72\\,000),\\ (2500,\\ 52\\,500)"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x",
+                  "500",
+                  "1000",
+                  "1500",
+                  "2000",
+                  "2500"
+                ],
+                "rows": [
+                  [
+                    "p (€)",
+                    "40 500",
+                    "66 000",
+                    "76 500",
+                    "72 000",
+                    "52 500"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    5
+                  ]
+                ],
+                "cap": "Each column is a point: $(500,\\ 40\\,500),\\ \\ldots$"
+              }
+            },
+            {
+              "say": "Plot (500, 40 500) first: go across to 500, then up to just above the 40 000 line (500 more, a fifth of a 2500 square). Then (1500, 76 500): across to 1500, then up past the 75 000 line by 1500, a bit more than half a square. Put a small dot exactly there.",
+              "math": [
+                "(500,\\ 40\\,500):\\ 40\\,000+500",
+                "(1500,\\ 76\\,500):\\ 75\\,000+1500"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -450,
+                  2900
+                ],
+                "y": [
+                  35000,
+                  82500
+                ],
+                "ticks": {
+                  "x": 500,
+                  "y": 5000
+                },
+                "xlab": "x",
+                "ylab": "p (€)",
+                "plot": [
+                  [
+                    500,
+                    40500
+                  ],
+                  [
+                    1500,
+                    76500
+                  ]
+                ],
+                "guides": true,
+                "plotLabels": true
+              }
+            },
+            {
+              "say": "Plot (1000, 66 000), (2000, 72 000) and (2500, 52 500) the same way: across to x first, then up to p, then the dot.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -450,
+                  2900
+                ],
+                "y": [
+                  35000,
+                  82500
+                ],
+                "ticks": {
+                  "x": 500,
+                  "y": 5000
+                },
+                "xlab": "x",
+                "ylab": "p (€)",
                 "plot": [
                   [
                     500,
@@ -778,22 +1021,107 @@
                     52500
                   ]
                 ],
-                "xlab": "x",
-                "ylab": "profit p (€)"
+                "guides": true
               }
             },
             {
-              "say": "Join them with one smooth curve. It rises, reaches a top between 1500 and 2000, then falls again.",
+              "say": "Join the dots with one smooth curve, drawn freehand: not with a ruler, and not with straight lines from dot to dot. Start at x = 500 and stop at x = 2500. Expect an upside-down U, because the x² term, −0.03x², is negative: it climbs steeply, is highest between 1500 and 2000 (nearer 1500, since 76 500 is more than 72 000), then falls.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
-                  400,
-                  2600
+                  -450,
+                  2900
                 ],
                 "y": [
-                  38000,
-                  86000
+                  35000,
+                  82500
+                ],
+                "ticks": {
+                  "x": 500,
+                  "y": 5000
+                },
+                "xlab": "x",
+                "ylab": "p (€)",
+                "domain": [
+                  500,
+                  2500
+                ],
+                "plot": [
+                  [
+                    500,
+                    40500
+                  ],
+                  [
+                    1000,
+                    66000
+                  ],
+                  [
+                    1500,
+                    76500
+                  ],
+                  [
+                    2000,
+                    72000
+                  ],
+                  [
+                    2500,
+                    52500
+                  ]
+                ],
+                "fns": [
+                  {
+                    "f": "96x-0.03x^2",
+                    "from": 500,
+                    "to": 2500
+                  }
+                ]
+              }
+            },
+            {
+              "say": "Check it the way the marker will: all five dots in the right places, joined by one smooth curve with a rounded top, from x = 500 to x = 2500. Part (c) reads values off this curve, so care here pays off there.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -450,
+                  2900
+                ],
+                "y": [
+                  35000,
+                  82500
+                ],
+                "ticks": {
+                  "x": 500,
+                  "y": 5000
+                },
+                "xlab": "x",
+                "ylab": "p (€)",
+                "domain": [
+                  500,
+                  2500
+                ],
+                "plot": [
+                  [
+                    500,
+                    40500
+                  ],
+                  [
+                    1000,
+                    66000
+                  ],
+                  [
+                    1500,
+                    76500
+                  ],
+                  [
+                    2000,
+                    72000
+                  ],
+                  [
+                    2500,
+                    52500
+                  ]
                 ],
                 "fns": [
                   {
@@ -802,34 +1130,11 @@
                     "to": 2500
                   }
                 ],
-                "plot": [
-                  [
-                    500,
-                    40500
-                  ],
-                  [
-                    1000,
-                    66000
-                  ],
-                  [
-                    1500,
-                    76500
-                  ],
-                  [
-                    2000,
-                    72000
-                  ],
-                  [
-                    2500,
-                    52500
-                  ]
-                ],
-                "xlab": "x",
-                "ylab": "profit p (€)"
+                "cap": "5 points, one smooth curve, from 500 to 2500"
               }
             }
           ],
-          "tip": "Join the points freehand with a smooth curve, not with a ruler.",
+          "tip": "The marks are for all five points plotted correctly and joined with a smooth curve: straight lines between them, or no line at all, lose marks.",
           "ask": "Draw the graph of the profit function for 500 ≤ x ≤ 2500."
         },
         {
@@ -854,12 +1159,12 @@
               "vis": {
                 "t": "graph",
                 "x": [
-                  400,
-                  2600
+                  -450,
+                  2900
                 ],
                 "y": [
-                  38000,
-                  86000
+                  35000,
+                  82500
                 ],
                 "fns": [
                   {
@@ -877,7 +1182,11 @@
                     "label": "x = 1750",
                     "hl": true
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 500,
+                  "y": 5000
+                }
               }
             },
             {
@@ -886,12 +1195,12 @@
               "vis": {
                 "t": "graph",
                 "x": [
-                  400,
-                  2600
+                  -450,
+                  2900
                 ],
                 "y": [
-                  38000,
-                  86000
+                  35000,
+                  82500
                 ],
                 "fns": [
                   {
@@ -909,7 +1218,11 @@
                     "from": "x",
                     "label": "≈ €76 125"
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 500,
+                  "y": 5000
+                }
               }
             },
             {
@@ -946,12 +1259,12 @@
               "vis": {
                 "t": "graph",
                 "x": [
-                  400,
-                  2600
+                  -450,
+                  2900
                 ],
                 "y": [
-                  38000,
-                  86000
+                  35000,
+                  82500
                 ],
                 "fns": [
                   {
@@ -977,7 +1290,11 @@
                     "x": 2348.3,
                     "y": 60000
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 500,
+                  "y": 5000
+                }
               }
             },
             {
@@ -986,12 +1303,12 @@
               "vis": {
                 "t": "graph",
                 "x": [
-                  400,
-                  2600
+                  -450,
+                  2900
                 ],
                 "y": [
-                  38000,
-                  86000
+                  35000,
+                  82500
                 ],
                 "fns": [
                   {
@@ -1021,7 +1338,11 @@
                     "from": "y",
                     "label": "≈ 2350"
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 500,
+                  "y": 5000
+                }
               }
             },
             {
@@ -2458,10 +2779,35 @@
             "show": "Plot the 11 points (x, A) from the table and join them with a smooth curve."
           },
           "scheme": "All 11 points plotted correctly and joined with a smooth curve.",
-          "idea": null,
+          "idea": {
+            "title": "No domain written: the table gives it",
+            "text": "This question doesn't say 'for $0\\le x\\le 10$', so the table sets where the graph goes: from $x=0$ to $x=10$, both ends included. It doesn't say $x\\in\\mathbb{R}$ either, but x is a length in metres, which can be any value in between (like 5.25 m), so the points are still joined by one smooth curve, not left as dots.",
+            "vis": {
+              "t": "graph",
+              "x": [
+                0,
+                10.5
+              ],
+              "y": [
+                0,
+                31.5
+              ],
+              "ticks": {
+                "x": 1,
+                "y": 3
+              },
+              "xlab": "x",
+              "ylab": "A (m²)",
+              "domain": [
+                0,
+                10
+              ],
+              "cap": "The table runs from $x=0$ to $x=10$"
+            }
+          },
           "steps": [
             {
-              "say": "Each column gives a point (x, A): (0, 0), (1, 9.5), (2, 17) and so on. Plot all eleven.",
+              "say": "First read the grid's axes. Across is x, the length in metres: the numbers go up in 1s from 0 to 10, and each small square is 0.5. Up is A, the area in m²: the numbers go up in 3s (3, 6, 9, … 30), so each small square is 1.5.",
               "math": [],
               "vis": {
                 "t": "graph",
@@ -2471,13 +2817,130 @@
                 ],
                 "y": [
                   0,
-                  35
+                  31.5
                 ],
-                "fns": [],
+                "ticks": {
+                  "x": 1,
+                  "y": 3
+                },
+                "xlab": "x",
+                "ylab": "A (m²)",
+                "cap": "Across: 1 per number. Up: 3 per number"
+              }
+            },
+            {
+              "say": "The points come from the table you completed in part (b)(i): use the x row and the A row, and skip the y row (that's the width). Each column gives one point (x, A).",
+              "math": [
+                "(0,\\ 0),\\ (1,\\ 9.5),\\ (2,\\ 17),\\ (3,\\ 22.5)",
+                "(4,\\ 26),\\ (5,\\ 27.5),\\ (6,\\ 27),\\ (7,\\ 24.5)",
+                "(8,\\ 20),\\ (9,\\ 13.5),\\ (10,\\ 5)"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "…",
+                  "10"
+                ],
+                "rows": [
+                  [
+                    "A",
+                    "0",
+                    "9.5",
+                    "17",
+                    "22.5",
+                    "…",
+                    "5"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    6
+                  ]
+                ],
+                "cap": "Use the x and A rows: $(0,\\ 0),\\ (1,\\ 9.5),\\ \\ldots$"
+              }
+            },
+            {
+              "say": "Plot (1, 9.5): across to 1, then up to 9.5, a little above the 9 line (a third of a small square, as each is 1.5). Then (9, 13.5): across to 9, up to 13.5, which is exactly on the small line between 12 and 15. Put a small dot exactly there.",
+              "math": [
+                "(1,\\ 9.5):\\ 9+0.5",
+                "(9,\\ 13.5):\\ 12+1.5"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10.5
+                ],
+                "y": [
+                  0,
+                  31.5
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 3
+                },
+                "xlab": "x",
+                "ylab": "A (m²)",
+                "plot": [
+                  [
+                    1,
+                    9.5
+                  ],
+                  [
+                    9,
+                    13.5
+                  ]
+                ],
+                "guides": true,
+                "plotLabels": true
+              }
+            },
+            {
+              "say": "Plot the other nine the same way: across to x, up to A, then the dot. The first one, (0, 0), is the corner where the two axes meet.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10.5
+                ],
+                "y": [
+                  0,
+                  31.5
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 3
+                },
+                "xlab": "x",
+                "ylab": "A (m²)",
                 "plot": [
                   [
                     0,
-                    0.0
+                    0
                   ],
                   [
                     1,
@@ -2485,7 +2948,7 @@
                   ],
                   [
                     2,
-                    17.0
+                    17
                   ],
                   [
                     3,
@@ -2493,7 +2956,7 @@
                   ],
                   [
                     4,
-                    26.0
+                    26
                   ],
                   [
                     5,
@@ -2501,7 +2964,7 @@
                   ],
                   [
                     6,
-                    27.0
+                    27
                   ],
                   [
                     7,
@@ -2509,7 +2972,7 @@
                   ],
                   [
                     8,
-                    20.0
+                    20
                   ],
                   [
                     9,
@@ -2517,15 +2980,14 @@
                   ],
                   [
                     10,
-                    5.0
+                    5
                   ]
                 ],
-                "xlab": "x (m)",
-                "ylab": "A (m²)"
+                "guides": true
               }
             },
             {
-              "say": "Join them with a smooth curve — it is a hill shape, highest between x = 5 and x = 6.",
+              "say": "Join the dots with one smooth curve, drawn freehand: not with a ruler, and not with straight lines from dot to dot. Go from (0, 0) to (10, 5) and no further. It is a hill shape: the areas rise to 27.5 and 27, then fall. The top is between x = 5 and x = 6, nearer 5 because 27.5 is more than 27, and a little higher than 27.5, so round it off rather than making a point.",
               "math": [],
               "vis": {
                 "t": "graph",
@@ -2535,7 +2997,141 @@
                 ],
                 "y": [
                   0,
-                  35
+                  31.5
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 3
+                },
+                "xlab": "x",
+                "ylab": "A (m²)",
+                "domain": [
+                  0,
+                  10
+                ],
+                "plot": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    9.5
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    3,
+                    22.5
+                  ],
+                  [
+                    4,
+                    26
+                  ],
+                  [
+                    5,
+                    27.5
+                  ],
+                  [
+                    6,
+                    27
+                  ],
+                  [
+                    7,
+                    24.5
+                  ],
+                  [
+                    8,
+                    20
+                  ],
+                  [
+                    9,
+                    13.5
+                  ],
+                  [
+                    10,
+                    5
+                  ]
+                ],
+                "fns": [
+                  {
+                    "f": "10.5x-x^2",
+                    "from": 0,
+                    "to": 10
+                  }
+                ]
+              }
+            },
+            {
+              "say": "Check it the way the marker will: all eleven points in the right places and joined by one smooth curve. The column the paper gave you, (4, 26), should be on your curve.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10.5
+                ],
+                "y": [
+                  0,
+                  31.5
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 3
+                },
+                "xlab": "x",
+                "ylab": "A (m²)",
+                "domain": [
+                  0,
+                  10
+                ],
+                "plot": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    9.5
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    3,
+                    22.5
+                  ],
+                  [
+                    4,
+                    26
+                  ],
+                  [
+                    5,
+                    27.5
+                  ],
+                  [
+                    6,
+                    27
+                  ],
+                  [
+                    7,
+                    24.5
+                  ],
+                  [
+                    8,
+                    20
+                  ],
+                  [
+                    9,
+                    13.5
+                  ],
+                  [
+                    10,
+                    5
+                  ]
                 ],
                 "fns": [
                   {
@@ -2544,58 +3140,11 @@
                     "to": 10
                   }
                 ],
-                "plot": [
-                  [
-                    0,
-                    0.0
-                  ],
-                  [
-                    1,
-                    9.5
-                  ],
-                  [
-                    2,
-                    17.0
-                  ],
-                  [
-                    3,
-                    22.5
-                  ],
-                  [
-                    4,
-                    26.0
-                  ],
-                  [
-                    5,
-                    27.5
-                  ],
-                  [
-                    6,
-                    27.0
-                  ],
-                  [
-                    7,
-                    24.5
-                  ],
-                  [
-                    8,
-                    20.0
-                  ],
-                  [
-                    9,
-                    13.5
-                  ],
-                  [
-                    10,
-                    5.0
-                  ]
-                ],
-                "xlab": "x (m)",
-                "ylab": "A (m²)"
+                "cap": "11 points, one smooth curve, from $x=0$ to $x=10$"
               }
             }
           ],
-          "tip": null,
+          "tip": "The marks are for all 11 points plotted correctly and joined with a smooth curve.",
           "ask": "Plot the graph of A against x using your table."
         },
         {
@@ -2624,7 +3173,7 @@
                 ],
                 "y": [
                   0,
-                  35
+                  31.5
                 ],
                 "fns": [
                   {
@@ -2642,7 +3191,11 @@
                     "label": "top",
                     "hl": true
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 3
+                }
               }
             },
             {
@@ -2658,7 +3211,7 @@
                 ],
                 "y": [
                   0,
-                  35
+                  31.5
                 ],
                 "fns": [
                   {
@@ -2684,7 +3237,11 @@
                     "label": "x ≈ 5.25",
                     "hl": true
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 3
+                }
               }
             },
             {
@@ -3921,22 +4478,167 @@
             "show": "Plot the six points from the table and join them with a smooth curve."
           },
           "scheme": "All six points plotted correctly and joined with a smooth curve.",
-          "idea": null,
+          "idea": {
+            "title": "For 50 ≤ x ≤ 100, x ∈ ℝ",
+            "text": "$50\\le x\\le 100$ is the domain: the graph starts at $x=50$ km and stops at $x=100$ km, and ≤ means both ends are included, so the points at 50 and 100 are plotted too. $x\\in\\mathbb{R}$ means any length of cable in between, like 55.5 km, so the six points are joined by one smooth unbroken curve, not left as dots.",
+            "vis": {
+              "t": "graph",
+              "x": [
+                40,
+                102
+              ],
+              "y": [
+                8000,
+                16300
+              ],
+              "ticks": {
+                "x": 10,
+                "y": 1000
+              },
+              "xlab": "x",
+              "ylab": "profit (€)",
+              "domain": [
+                50,
+                100
+              ],
+              "cap": "From $x=50$ to $x=100$ only"
+            }
+          },
           "steps": [
             {
-              "say": "Plot each pair (x, profit) from the table.",
+              "say": "First read the axes on the paper. Across is x, the km of cable sold: the numbers go up in 10s from 50 to 100, one line for each 10. Up is the profit in euro: the numbers go up in 1000s from 9000 to 16 000, with a line every 500. The zigzags at the corner mean neither axis starts at 0: they jump straight to the part you need.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
-                  45,
-                  105
+                  40,
+                  102
                 ],
                 "y": [
                   8000,
-                  16500
+                  16300
                 ],
-                "fns": [],
+                "ticks": {
+                  "x": 10,
+                  "y": 1000
+                },
+                "xlab": "x",
+                "ylab": "profit (€)",
+                "cap": "Across: 10 per line. Up: 1000 per number, 500 per line"
+              }
+            },
+            {
+              "say": "The points come from the table you completed in part (c)(i). Each column is one point (x, profit): km across, euro up.",
+              "math": [
+                "(50,\\ 9250),\\ (60,\\ 10\\,900),\\ (70,\\ 12\\,350)",
+                "(80,\\ 13\\,600),\\ (90,\\ 14\\,650),\\ (100,\\ 15\\,500)"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x",
+                  "50",
+                  "60",
+                  "70",
+                  "80",
+                  "90",
+                  "100"
+                ],
+                "rows": [
+                  [
+                    "P(x)",
+                    "9250",
+                    "10 900",
+                    "12 350",
+                    "13 600",
+                    "14 650",
+                    "15 500"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    5
+                  ],
+                  [
+                    0,
+                    6
+                  ]
+                ],
+                "cap": "Each column is a point: $(50,\\ 9250),\\ (60,\\ 10\\,900),\\ \\ldots$"
+              }
+            },
+            {
+              "say": "Plot (50, 9250) first: across to 50, then up to 9250, halfway between the 9000 line and the next line (9500). Then (60, 10 900): across to 60, then up to just under the 11 000 line (100 below it, a fifth of a square). Put a small dot exactly there.",
+              "math": [
+                "(50,\\ 9250):\\ 9000+250",
+                "(60,\\ 10\\,900):\\ 11\\,000-100"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  40,
+                  102
+                ],
+                "y": [
+                  8000,
+                  16300
+                ],
+                "ticks": {
+                  "x": 10,
+                  "y": 1000
+                },
+                "xlab": "x",
+                "ylab": "profit (€)",
+                "plot": [
+                  [
+                    50,
+                    9250
+                  ],
+                  [
+                    60,
+                    10900
+                  ]
+                ],
+                "guides": true,
+                "plotLabels": true
+              }
+            },
+            {
+              "say": "Plot (70, 12 350), (80, 13 600), (90, 14 650) and (100, 15 500) the same way: across to x, up to the profit, then the dot.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  40,
+                  102
+                ],
+                "y": [
+                  8000,
+                  16300
+                ],
+                "ticks": {
+                  "x": 10,
+                  "y": 1000
+                },
+                "xlab": "x",
+                "ylab": "profit (€)",
                 "plot": [
                   [
                     50,
@@ -3963,22 +4665,117 @@
                     15500
                   ]
                 ],
-                "xlab": "km of cable x",
-                "ylab": "profit (€)"
+                "guides": true
               }
             },
             {
-              "say": "Join them with a smooth curve. It rises, but more and more slowly.",
+              "say": "Join the dots with one smooth curve, drawn freehand: not with a ruler, and not with straight lines from dot to dot. Start at x = 50 and stop at x = 100. It keeps rising, but more and more slowly, because each 10 km adds less profit than the last, so the curve bends over. (The −x² makes it part of an upside-down U, but its top is at x = 137.5, past the end of this domain.)",
+              "math": [
+                "\\text{rises by }1650,\\ 1450,\\ 1250,\\ 1050,\\ 850"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  40,
+                  102
+                ],
+                "y": [
+                  8000,
+                  16300
+                ],
+                "ticks": {
+                  "x": 10,
+                  "y": 1000
+                },
+                "xlab": "x",
+                "ylab": "profit (€)",
+                "domain": [
+                  50,
+                  100
+                ],
+                "plot": [
+                  [
+                    50,
+                    9250
+                  ],
+                  [
+                    60,
+                    10900
+                  ],
+                  [
+                    70,
+                    12350
+                  ],
+                  [
+                    80,
+                    13600
+                  ],
+                  [
+                    90,
+                    14650
+                  ],
+                  [
+                    100,
+                    15500
+                  ]
+                ],
+                "fns": [
+                  {
+                    "f": "275x-x^2-2000",
+                    "from": 50,
+                    "to": 100
+                  }
+                ]
+              }
+            },
+            {
+              "say": "Check it the way the marker will: all six points in the right places and joined by one smooth curve from x = 50 to x = 100. Part (c)(iii) reads values off this curve.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
-                  45,
-                  105
+                  40,
+                  102
                 ],
                 "y": [
                   8000,
-                  16500
+                  16300
+                ],
+                "ticks": {
+                  "x": 10,
+                  "y": 1000
+                },
+                "xlab": "x",
+                "ylab": "profit (€)",
+                "domain": [
+                  50,
+                  100
+                ],
+                "plot": [
+                  [
+                    50,
+                    9250
+                  ],
+                  [
+                    60,
+                    10900
+                  ],
+                  [
+                    70,
+                    12350
+                  ],
+                  [
+                    80,
+                    13600
+                  ],
+                  [
+                    90,
+                    14650
+                  ],
+                  [
+                    100,
+                    15500
+                  ]
                 ],
                 "fns": [
                   {
@@ -3987,38 +4784,11 @@
                     "to": 100
                   }
                 ],
-                "plot": [
-                  [
-                    50,
-                    9250
-                  ],
-                  [
-                    60,
-                    10900
-                  ],
-                  [
-                    70,
-                    12350
-                  ],
-                  [
-                    80,
-                    13600
-                  ],
-                  [
-                    90,
-                    14650
-                  ],
-                  [
-                    100,
-                    15500
-                  ]
-                ],
-                "xlab": "km of cable x",
-                "ylab": "profit (€)"
+                "cap": "6 points, one smooth curve, from 50 to 100"
               }
             }
           ],
-          "tip": null,
+          "tip": "The marks are for all six points plotted correctly and joined with a smooth curve.",
           "ask": "Draw the graph of P(x) for 50 ≤ x ≤ 100 using the table."
         },
         {
@@ -4044,12 +4814,12 @@
               "vis": {
                 "t": "graph",
                 "x": [
-                  45,
-                  105
+                  40,
+                  102
                 ],
                 "y": [
                   8000,
-                  16500
+                  16300
                 ],
                 "fns": [
                   {
@@ -4067,7 +4837,11 @@
                     "from": "y",
                     "label": "≈ 55"
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 10,
+                  "y": 1000
+                }
               }
             },
             {
@@ -4076,12 +4850,12 @@
               "vis": {
                 "t": "graph",
                 "x": [
-                  45,
-                  105
+                  40,
+                  102
                 ],
                 "y": [
                   8000,
-                  16500
+                  16300
                 ],
                 "fns": [
                   {
@@ -4105,7 +4879,11 @@
                     "from": "y",
                     "label": "≈ 83"
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 10,
+                  "y": 1000
+                }
               }
             },
             {
@@ -4116,12 +4894,12 @@
               "vis": {
                 "t": "graph",
                 "x": [
-                  45,
-                  105
+                  40,
+                  102
                 ],
                 "y": [
                   8000,
-                  16500
+                  16300
                 ],
                 "fns": [
                   {
@@ -4151,7 +4929,11 @@
                     "label": "≈ 83"
                   }
                 ],
-                "cap": "Profit from €10 000 to €14 000: $55\\le x\\le 83$"
+                "cap": "Profit from €10 000 to €14 000: $55\\le x\\le 83$",
+                "ticks": {
+                  "x": 10,
+                  "y": 1000
+                }
               }
             }
           ],
@@ -5144,26 +5926,168 @@
             "show": "Plot the ten points from the table and join them with a smooth curve."
           },
           "scheme": "All points from the table plotted and joined with a smooth curve.",
-          "idea": null,
+          "idea": {
+            "title": "For 0 ≤ t ≤ 9, t ∈ ℝ",
+            "text": "$0\\le t\\le 9$ is the domain: the graph starts at $t=0$ and stops at $t=9$ hours, even though the time axis goes on to 10, and ≤ means both ends are included, so (0, 0) and (9, 121.5) are plotted too. $t\\in\\mathbb{R}$ means time can be any number in between, like 3.5 hours, so the ten points are joined by one smooth unbroken curve, not left as dots.",
+            "vis": {
+              "t": "graph",
+              "x": [
+                0,
+                10.2
+              ],
+              "y": [
+                0,
+                330
+              ],
+              "ticks": {
+                "x": 1,
+                "y": 25
+              },
+              "xlab": "t",
+              "ylab": "C (units)",
+              "domain": [
+                0,
+                9
+              ],
+              "dvar": "t",
+              "cap": "Stop at $t=9$: the space up to 10 stays empty"
+            }
+          },
           "steps": [
             {
-              "say": "Plot each (t, C(t)) pair from your table.",
+              "say": "First read the axes on the paper. Across is t, the time in hours: each line is 1, from 0 to 10. Up is C(t), the amount of the drug in units: the numbers go up in 25s, so each line is 25, from 0 to 325.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
                   0,
-                  10
+                  10.2
                 ],
                 "y": [
                   0,
-                  350
+                  330
                 ],
-                "fns": [],
+                "ticks": {
+                  "x": 1,
+                  "y": 25
+                },
+                "xlab": "t",
+                "ylab": "C (units)",
+                "cap": "Across: 1 per line. Up: 25 per line"
+              }
+            },
+            {
+              "say": "The points come from the table you completed in part (b). Each column is one point (t, C(t)): hours across, units up.",
+              "math": [
+                "(0,\\ 0),\\ (1,\\ 57.5),\\ (2,\\ 118),\\ (3,\\ 175.5),\\ (4,\\ 224)",
+                "(5,\\ 257.5),\\ (6,\\ 270),\\ (7,\\ 255.5),\\ (8,\\ 208),\\ (9,\\ 121.5)"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "t",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "…",
+                  "9"
+                ],
+                "rows": [
+                  [
+                    "C(t)",
+                    "0",
+                    "57.5",
+                    "118",
+                    "175.5",
+                    "…",
+                    "121.5"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    6
+                  ]
+                ],
+                "cap": "Each column is a point: $(0,\\ 0),\\ (1,\\ 57.5),\\ \\ldots$"
+              }
+            },
+            {
+              "say": "Plot (1, 57.5): across to 1, then up past the 50 line by 7.5, a bit less than a third of the way to 75. Then (3, 175.5): across to 3, then up to just above the 175 line. Put a small dot exactly there.",
+              "math": [
+                "(1,\\ 57.5):\\ 50+7.5",
+                "(3,\\ 175.5):\\ 175+0.5"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10.2
+                ],
+                "y": [
+                  0,
+                  330
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 25
+                },
+                "xlab": "t",
+                "ylab": "C (units)",
+                "plot": [
+                  [
+                    1,
+                    57.5
+                  ],
+                  [
+                    3,
+                    175.5
+                  ]
+                ],
+                "guides": true,
+                "plotLabels": true
+              }
+            },
+            {
+              "say": "Plot the other eight the same way: across to t, up to C(t), then the dot. The first one, (0, 0), is the corner where the two axes meet.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10.2
+                ],
+                "y": [
+                  0,
+                  330
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 25
+                },
+                "xlab": "t",
+                "ylab": "C (units)",
                 "plot": [
                   [
                     0,
-                    0.0
+                    0
                   ],
                   [
                     1,
@@ -5171,7 +6095,7 @@
                   ],
                   [
                     2,
-                    118.0
+                    118
                   ],
                   [
                     3,
@@ -5179,7 +6103,7 @@
                   ],
                   [
                     4,
-                    224.0
+                    224
                   ],
                   [
                     5,
@@ -5187,7 +6111,7 @@
                   ],
                   [
                     6,
-                    270.0
+                    270
                   ],
                   [
                     7,
@@ -5195,29 +6119,156 @@
                   ],
                   [
                     8,
-                    208.0
+                    208
                   ],
                   [
                     9,
                     121.5
                   ]
                 ],
-                "xlab": "t (hours)",
-                "ylab": "C (units)"
+                "guides": true
               }
             },
             {
-              "say": "Join them with a smooth curve: it rises to a peak at about t = 6, then falls.",
+              "say": "Join the dots with one smooth curve, drawn freehand: not with a ruler, and not with straight lines from dot to dot. Start at (0, 0) and stop at (9, 121.5), even though the axis carries on to 10. It rises to a peak and comes back down: the biggest value in the table is 270 at t = 6, with 257.5 and 255.5 almost level either side, so the top is at about t = 6. Draw the top rounded, not pointed.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
                   0,
-                  10
+                  10.2
                 ],
                 "y": [
                   0,
-                  350
+                  330
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 25
+                },
+                "xlab": "t",
+                "ylab": "C (units)",
+                "domain": [
+                  0,
+                  9
+                ],
+                "dvar": "t",
+                "plot": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    57.5
+                  ],
+                  [
+                    2,
+                    118
+                  ],
+                  [
+                    3,
+                    175.5
+                  ],
+                  [
+                    4,
+                    224
+                  ],
+                  [
+                    5,
+                    257.5
+                  ],
+                  [
+                    6,
+                    270
+                  ],
+                  [
+                    7,
+                    255.5
+                  ],
+                  [
+                    8,
+                    208
+                  ],
+                  [
+                    9,
+                    121.5
+                  ]
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4.5x^2+54x",
+                    "from": 0,
+                    "to": 9
+                  }
+                ]
+              }
+            },
+            {
+              "say": "Check it the way the marker will: all ten points in the right places and joined by one smooth curve from t = 0 to t = 9. Part (d) reads values off this curve.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10.2
+                ],
+                "y": [
+                  0,
+                  330
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 25
+                },
+                "xlab": "t",
+                "ylab": "C (units)",
+                "domain": [
+                  0,
+                  9
+                ],
+                "dvar": "t",
+                "plot": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    57.5
+                  ],
+                  [
+                    2,
+                    118
+                  ],
+                  [
+                    3,
+                    175.5
+                  ],
+                  [
+                    4,
+                    224
+                  ],
+                  [
+                    5,
+                    257.5
+                  ],
+                  [
+                    6,
+                    270
+                  ],
+                  [
+                    7,
+                    255.5
+                  ],
+                  [
+                    8,
+                    208
+                  ],
+                  [
+                    9,
+                    121.5
+                  ]
                 ],
                 "fns": [
                   {
@@ -5226,54 +6277,11 @@
                     "to": 9
                   }
                 ],
-                "plot": [
-                  [
-                    0,
-                    0.0
-                  ],
-                  [
-                    1,
-                    57.5
-                  ],
-                  [
-                    2,
-                    118.0
-                  ],
-                  [
-                    3,
-                    175.5
-                  ],
-                  [
-                    4,
-                    224.0
-                  ],
-                  [
-                    5,
-                    257.5
-                  ],
-                  [
-                    6,
-                    270.0
-                  ],
-                  [
-                    7,
-                    255.5
-                  ],
-                  [
-                    8,
-                    208.0
-                  ],
-                  [
-                    9,
-                    121.5
-                  ]
-                ],
-                "xlab": "t (hours)",
-                "ylab": "C (units)"
+                "cap": "10 points, one smooth curve, from $t=0$ to $t=9$"
               }
             }
           ],
-          "tip": null,
+          "tip": "The marks are for all ten points plotted and joined with a smooth curve.",
           "ask": "Draw the graph of C(t) for 0 ≤ t ≤ 9."
         },
         {
@@ -5298,11 +6306,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  10
+                  10.2
                 ],
                 "y": [
                   0,
-                  350
+                  330
                 ],
                 "fns": [
                   {
@@ -5320,7 +6328,11 @@
                     "label": "t = 3.5",
                     "hl": true
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 25
+                }
               }
             },
             {
@@ -5332,11 +6344,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  10
+                  10.2
                 ],
                 "y": [
                   0,
-                  350
+                  330
                 ],
                 "fns": [
                   {
@@ -5354,7 +6366,11 @@
                     "from": "x",
                     "label": "≈ 200 units"
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 25
+                }
               }
             }
           ],
@@ -5383,11 +6399,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  10
+                  10.2
                 ],
                 "y": [
                   0,
-                  350
+                  330
                 ],
                 "fns": [
                   {
@@ -5411,7 +6427,11 @@
                     "hl": true
                   }
                 ],
-                "cap": "A line across at $C=100$"
+                "cap": "A line across at $C=100$",
+                "ticks": {
+                  "x": 1,
+                  "y": 25
+                }
               }
             },
             {
@@ -5423,11 +6443,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  10
+                  10.2
                 ],
                 "y": [
                   0,
-                  350
+                  330
                 ],
                 "fns": [
                   {
@@ -5451,7 +6471,11 @@
                     "from": "y",
                     "label": "t ≈ 1.75"
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 25
+                }
               }
             },
             {
@@ -6023,51 +7047,41 @@
             "show": "f(−1) = 2, f(0) = −2, f(1) = 2, f(2) = 8, f(4) = 2; then plot and join with a smooth curve"
           },
           "scheme": "Table: f(−1) = 2, f(0) = −2, f(1) = 2, f(2) = 8, f(3) = 10, f(4) = 2; all points plotted and joined with a smooth curve.",
-          "idea": null,
+          "idea": {
+            "title": "For −1 ≤ x ≤ 4, x ∈ ℝ",
+            "text": "$-1\\le x\\le 4$ is the domain: the graph starts at $x=-1$, one line left of the y-axis, and stops at $x=4$, and ≤ means both ends are included, so the points at $-1$ and 4 are plotted too. $x\\in\\mathbb{R}$ means x can be any real number, decimals too, so the six points are joined by one smooth unbroken curve, not left as dots.",
+            "vis": {
+              "t": "graph",
+              "x": [
+                -1.2,
+                4.2
+              ],
+              "y": [
+                -4,
+                12.5
+              ],
+              "ticks": {
+                "x": 1,
+                "y": 2
+              },
+              "xlab": "x",
+              "ylab": "y",
+              "domain": [
+                -1,
+                4
+              ],
+              "cap": "From $x=-1$ to $x=4$"
+            }
+          },
           "steps": [
             {
-              "say": "Put each x into f(x). Be careful with negatives: (−1)³ = −1, so −(−1)³ = +1.",
+              "say": "First complete the table: put each x into f(x) = −x³ + 4x² + x − 2. Use brackets for the negative one: (−1)³ = −1, so −(−1)³ = +1. Each column then gives a point (x, f(x)).",
               "math": [
                 "f(-1)=-(-1)^3+4(-1)^2+(-1)-2",
-                "=1+4-1-2=\\hl{2}"
-              ],
-              "vis": {
-                "t": "table",
-                "head": [
-                  "x",
-                  "−1",
-                  "0",
-                  "1",
-                  "2",
-                  "3",
-                  "4"
-                ],
-                "rows": [
-                  [
-                    "f(x)",
-                    "2",
-                    "",
-                    "",
-                    "",
-                    "10",
-                    ""
-                  ]
-                ],
-                "hl": [
-                  [
-                    0,
-                    1
-                  ]
-                ]
-              }
-            },
-            {
-              "say": "Do the same for the other values of x.",
-              "math": [
-                "f(0)=-2",
-                "f(1)=-1+4+1-2=2",
-                "f(2)=-8+16+2-2=8",
-                "f(4)=-64+64+4-2=2"
+                "=1+4-1-2=\\hl{2}",
+                "f(0)=\\hl{-2},\\quad f(1)=-1+4+1-2=\\hl{2}",
+                "f(2)=-8+16+2-2=\\hl{8}",
+                "f(4)=-64+64+4-2=\\hl{2}"
               ],
               "vis": {
                 "t": "table",
@@ -6094,6 +7108,10 @@
                 "hl": [
                   [
                     0,
+                    1
+                  ],
+                  [
+                    0,
                     2
                   ],
                   [
@@ -6108,11 +7126,12 @@
                     0,
                     6
                   ]
-                ]
+                ],
+                "cap": "Each column is a point: $(-1,\\ 2),\\ (0,\\ -2),\\ \\ldots$"
               }
             },
             {
-              "say": "Plot the six points, including the given (3, 10).",
+              "say": "Now read the axes on the paper. Across is x: each line is 1, from −1 to 4, so −1 is one line to the left of the y-axis. Up is y: the numbers go up in 2s, so each line is 2, from −4 to 12.",
               "math": [],
               "vis": {
                 "t": "graph",
@@ -6122,9 +7141,72 @@
                 ],
                 "y": [
                   -4,
-                  12
+                  12.5
                 ],
-                "fns": [],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "x",
+                "ylab": "y",
+                "cap": "Across: 1 per line. Up: 2 per line"
+              }
+            },
+            {
+              "say": "Plot (−1, 2) first: go one line left, to −1, then up to the 2 line. Then (0, −2): x = 0, so stay on the y-axis and go down to the −2 line. Put a small dot exactly there.",
+              "math": [
+                "(-1,\\ 2),\\ (0,\\ -2),\\ (1,\\ 2),\\ (2,\\ 8),\\ (3,\\ 10),\\ (4,\\ 2)",
+                "(-1,\\ 2):\\ \\text{1 left, 2 up}\\qquad(0,\\ {-2}):\\ \\text{2 down}"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1.2,
+                  4.2
+                ],
+                "y": [
+                  -4,
+                  12.5
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "x",
+                "ylab": "y",
+                "plot": [
+                  [
+                    -1,
+                    2
+                  ],
+                  [
+                    0,
+                    -2
+                  ]
+                ],
+                "guides": true,
+                "plotLabels": true
+              }
+            },
+            {
+              "say": "Plot (1, 2), (2, 8), (3, 10) and (4, 2) the same way: across to x, up to f(x), then the dot.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1.2,
+                  4.2
+                ],
+                "y": [
+                  -4,
+                  12.5
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "x",
+                "ylab": "y",
                 "plot": [
                   [
                     -1,
@@ -6150,11 +7232,12 @@
                     4,
                     2
                   ]
-                ]
+                ],
+                "guides": true
               }
             },
             {
-              "say": "Join them with a smooth curve. It dips to a low point near x = 0 and rises to a high point near x = 3.",
+              "say": "Join the dots with one smooth curve, drawn freehand: not with a ruler, and not with straight lines from dot to dot. Start at x = −1 and stop at x = 4. A cubic with a negative x³ has this shape: down to a low point near x = 0 (a little below −2), up to a high point a little before x = 3 (a little above 10), then down to (4, 2). Draw both turns rounded.",
               "math": [],
               "vis": {
                 "t": "graph",
@@ -6164,7 +7247,101 @@
                 ],
                 "y": [
                   -4,
-                  12
+                  12.5
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "x",
+                "ylab": "y",
+                "domain": [
+                  -1,
+                  4
+                ],
+                "plot": [
+                  [
+                    -1,
+                    2
+                  ],
+                  [
+                    0,
+                    -2
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    8
+                  ],
+                  [
+                    3,
+                    10
+                  ],
+                  [
+                    4,
+                    2
+                  ]
+                ],
+                "fns": [
+                  {
+                    "f": "-x^3+4x^2+x-2",
+                    "from": -1,
+                    "to": 4
+                  }
+                ]
+              }
+            },
+            {
+              "say": "Check it the way the marker will: all six points in the right places and joined by one smooth curve from x = −1 to x = 4. Part (a)(ii) reads the roots off this curve, where it crosses the x-axis.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1.2,
+                  4.2
+                ],
+                "y": [
+                  -4,
+                  12.5
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "x",
+                "ylab": "y",
+                "domain": [
+                  -1,
+                  4
+                ],
+                "plot": [
+                  [
+                    -1,
+                    2
+                  ],
+                  [
+                    0,
+                    -2
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    8
+                  ],
+                  [
+                    3,
+                    10
+                  ],
+                  [
+                    4,
+                    2
+                  ]
                 ],
                 "fns": [
                   {
@@ -6173,36 +7350,11 @@
                     "to": 4
                   }
                 ],
-                "plot": [
-                  [
-                    -1,
-                    2
-                  ],
-                  [
-                    0,
-                    -2
-                  ],
-                  [
-                    1,
-                    2
-                  ],
-                  [
-                    2,
-                    8
-                  ],
-                  [
-                    3,
-                    10
-                  ],
-                  [
-                    4,
-                    2
-                  ]
-                ]
+                "cap": "6 points, one smooth curve, from $x=-1$ to $x=4$"
               }
             }
           ],
-          "tip": null,
+          "tip": "The marks are for the missing values, then all six points plotted and joined with one smooth curve.",
           "ask": "Complete the table for −1 ≤ x ≤ 4, then draw the graph of f(x)."
         },
         {
@@ -6233,7 +7385,7 @@
                 ],
                 "y": [
                   -4,
-                  12
+                  12.5
                 ],
                 "fns": [
                   {
@@ -6246,7 +7398,15 @@
                   -0.762,
                   0.637
                 ],
-                "cap": "Roots: where the curve crosses the x-axis, $f(x)=0$"
+                "cap": "Roots: where the curve crosses the x-axis, $f(x)=0$",
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "domain": [
+                  -1,
+                  4
+                ]
               }
             },
             {
@@ -6262,7 +7422,7 @@
                 ],
                 "y": [
                   -4,
-                  12
+                  12.5
                 ],
                 "fns": [
                   {
@@ -6288,6 +7448,14 @@
                     "label": "≈ 0.7",
                     "hl": true
                   }
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "domain": [
+                  -1,
+                  4
                 ]
               }
             }
@@ -6773,128 +7941,372 @@
             "show": "Plot the nine points from the table and join them with a smooth curve, continuing it down to the time axis (just after t = 4)."
           },
           "scheme": "Points from the table plotted and joined with a smooth curve.",
-          "idea": null,
+          "idea": {
+            "title": "While it was in the air",
+            "text": "No '$0\\le t\\le\\ldots$' is written: 'while it was in the air' is the domain. It starts at $t=0$, when the ball is hit (1 m up), and stops when the ball lands at height 0, just after $t=4$, since the table ends at $t=4$ with the ball still 1 m up. $t\\in\\mathbb{R}$ (in the question's first lines) means time goes on between the half-seconds, so the points are joined by one smooth unbroken curve.",
+            "vis": {
+              "t": "graph",
+              "x": [
+                -0.25,
+                5.2
+              ],
+              "y": [
+                -0.6,
+                18.6
+              ],
+              "ticks": {
+                "x": 1,
+                "y": 2
+              },
+              "xlab": "time t (s)",
+              "ylab": "height (m)",
+              "domain": [
+                0,
+                4.06
+              ],
+              "dvar": "t",
+              "cap": "From the hit, $t=0$, to the landing, just after $t=4$"
+            }
+          },
           "steps": [
             {
-              "say": "Plot the nine points (t, height) from the table.",
+              "say": "First read the grid's axes. Across is t, the time in seconds: the numbers go up in 1s from 0 to 5, and each small square is 0.5, which suits the table's half-seconds. Up is the height in metres: the numbers go up in 2s to 18, so each small square is 1.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
-                  0,
-                  5
+                  -0.25,
+                  5.2
                 ],
                 "y": [
-                  0,
-                  18
+                  -0.6,
+                  18.6
                 ],
-                "fns": [],
-                "plot": [
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "cap": "Across: 1 per number, 0.5 per square. Up: 2 per number"
+              }
+            },
+            {
+              "say": "The points come from the table you completed in part (b)(i). Each column is one point (t, height): seconds across, metres up.",
+              "math": [
+                "(0,\\ 1),\\ (0.5,\\ 8),\\ (1,\\ 13),\\ (1.5,\\ 16),\\ (2,\\ 17)",
+                "(2.5,\\ 16),\\ (3,\\ 13),\\ (3.5,\\ 8),\\ (4,\\ 1)"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "t",
+                  "0",
+                  "0.5",
+                  "1",
+                  "1.5",
+                  "2",
+                  "2.5",
+                  "3",
+                  "3.5",
+                  "4"
+                ],
+                "rows": [
+                  [
+                    "Height (m)",
+                    "1",
+                    "8",
+                    "13",
+                    "16",
+                    "17",
+                    "16",
+                    "13",
+                    "8",
+                    "1"
+                  ]
+                ],
+                "hl": [
                   [
                     0,
                     1
                   ],
                   [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    5
+                  ],
+                  [
+                    0,
+                    6
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    0,
+                    8
+                  ],
+                  [
+                    0,
+                    9
+                  ]
+                ],
+                "cap": "Each column is a point: $(0,\\ 1),\\ (0.5,\\ 8),\\ \\ldots$"
+              }
+            },
+            {
+              "say": "Plot (0.5, 8): across to 0.5, the first small line after 0, then up to the 8 line. Then the top of the table, (2, 17): across to 2, then up to 17, the small line between 16 and 18. Put a small dot exactly there.",
+              "math": [
+                "(0.5,\\ 8):\\ \\text{one small square across}",
+                "(2,\\ 17):\\ 16+1"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -0.25,
+                  5.2
+                ],
+                "y": [
+                  -0.6,
+                  18.6
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "plot": [
+                  [
                     0.5,
-                    8.0
-                  ],
-                  [
-                    1,
-                    13
-                  ],
-                  [
-                    1.5,
-                    16.0
+                    8
                   ],
                   [
                     2,
                     17
-                  ],
-                  [
-                    2.5,
-                    16.0
-                  ],
-                  [
-                    3,
-                    13
-                  ],
-                  [
-                    3.5,
-                    8.0
-                  ],
-                  [
-                    4,
-                    1
                   ]
                 ],
-                "xlab": "time t (s)",
-                "ylab": "height (m)"
+                "guides": true,
+                "plotLabels": true
               }
             },
             {
-              "say": "Join them with a smooth hill-shaped curve. The ball lands when the height reaches 0, just after t = 4, so carry the curve down to the axis.",
+              "say": "Plot the other seven the same way. (0, 1) is on the height axis, one small square up: the ball is 1 m up when it is hit.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
-                  0,
-                  5
+                  -0.25,
+                  5.2
                 ],
                 "y": [
+                  -0.6,
+                  18.6
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "plot": [
+                  [
+                    0.0,
+                    1
+                  ],
+                  [
+                    0.5,
+                    8
+                  ],
+                  [
+                    1.0,
+                    13
+                  ],
+                  [
+                    1.5,
+                    16
+                  ],
+                  [
+                    2.0,
+                    17
+                  ],
+                  [
+                    2.5,
+                    16
+                  ],
+                  [
+                    3.0,
+                    13
+                  ],
+                  [
+                    3.5,
+                    8
+                  ],
+                  [
+                    4.0,
+                    1
+                  ]
+                ],
+                "guides": true
+              }
+            },
+            {
+              "say": "Join the dots with one smooth curve, drawn freehand: not with a ruler, and not with straight lines from dot to dot. Start at (0, 1), where the ball is hit. At (4, 1) the ball is still in the air, so don't stop there: carry the curve on down until it touches the time axis, just after t = 4. That is where the ball lands and where the graph ends. It is an upside-down U (−4t² is negative) with its top at (2, 17): the heights 16, 17, 16 are symmetric about t = 2.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -0.25,
+                  5.2
+                ],
+                "y": [
+                  -0.6,
+                  18.6
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "domain": [
                   0,
-                  18
+                  4.06
+                ],
+                "dvar": "t",
+                "plot": [
+                  [
+                    0.0,
+                    1
+                  ],
+                  [
+                    0.5,
+                    8
+                  ],
+                  [
+                    1.0,
+                    13
+                  ],
+                  [
+                    1.5,
+                    16
+                  ],
+                  [
+                    2.0,
+                    17
+                  ],
+                  [
+                    2.5,
+                    16
+                  ],
+                  [
+                    3.0,
+                    13
+                  ],
+                  [
+                    3.5,
+                    8
+                  ],
+                  [
+                    4.0,
+                    1
+                  ]
                 ],
                 "fns": [
                   {
                     "f": "-4x^2+16x+1",
                     "from": 0,
-                    "to": 4.062
+                    "to": 4.06
                   }
+                ]
+              }
+            },
+            {
+              "say": "Check it the way the marker will: all nine points in the right places, joined by one smooth curve with a rounded top, ending on the time axis. Part (c)(i) reads the landing time off that end.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -0.25,
+                  5.2
                 ],
+                "y": [
+                  -0.6,
+                  18.6
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "time t (s)",
+                "ylab": "height (m)",
+                "domain": [
+                  0,
+                  4.06
+                ],
+                "dvar": "t",
                 "plot": [
                   [
-                    0,
+                    0.0,
                     1
                   ],
                   [
                     0.5,
-                    8.0
+                    8
                   ],
                   [
-                    1,
+                    1.0,
                     13
                   ],
                   [
                     1.5,
-                    16.0
+                    16
                   ],
                   [
-                    2,
+                    2.0,
                     17
                   ],
                   [
                     2.5,
-                    16.0
+                    16
                   ],
                   [
-                    3,
+                    3.0,
                     13
                   ],
                   [
                     3.5,
-                    8.0
+                    8
                   ],
                   [
-                    4,
+                    4.0,
                     1
                   ]
                 ],
-                "xlab": "time t (s)",
-                "ylab": "height (m)"
+                "fns": [
+                  {
+                    "f": "-4x^2+16x+1",
+                    "from": 0,
+                    "to": 4.06
+                  }
+                ],
+                "cap": "Ends where the ball lands, at height 0"
               }
             }
           ],
-          "tip": null,
+          "tip": "The marks are for the table's points plotted and joined with a smooth curve: take it down to the time axis, part (c)(i) needs that.",
           "ask": "Draw the graph of the ball's height while it is in the air."
         },
         {
@@ -6918,12 +8330,12 @@
               "vis": {
                 "t": "graph",
                 "x": [
-                  0,
-                  5
+                  -0.25,
+                  5.2
                 ],
                 "y": [
-                  0,
-                  18
+                  -0.6,
+                  18.6
                 ],
                 "fns": [
                   {
@@ -6940,6 +8352,10 @@
                   "to": 4.062,
                   "c": "white",
                   "label": "ball"
+                },
+                "ticks": {
+                  "x": 1,
+                  "y": 2
                 }
               }
             },
@@ -6951,12 +8367,12 @@
               "vis": {
                 "t": "graph",
                 "x": [
-                  0,
-                  5
+                  -0.25,
+                  5.2
                 ],
                 "y": [
-                  0,
-                  18
+                  -0.6,
+                  18.6
                 ],
                 "fns": [
                   {
@@ -6982,7 +8398,11 @@
                     "y": 0,
                     "label": "lands ≈ 4.1 s"
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                }
               }
             }
           ],
@@ -7010,12 +8430,12 @@
               "vis": {
                 "t": "graph",
                 "x": [
-                  0,
-                  5
+                  -0.25,
+                  5.2
                 ],
                 "y": [
-                  0,
-                  18
+                  -0.6,
+                  18.6
                 ],
                 "fns": [
                   {
@@ -7044,7 +8464,11 @@
                     "y": 10,
                     "hl": true
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                }
               }
             },
             {
@@ -7055,12 +8479,12 @@
               "vis": {
                 "t": "graph",
                 "x": [
-                  0,
-                  5
+                  -0.25,
+                  5.2
                 ],
                 "y": [
-                  0,
-                  18
+                  -0.6,
+                  18.6
                 ],
                 "fns": [
                   {
@@ -7091,7 +8515,11 @@
                     "from": "y",
                     "label": "≈ 3.4"
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                }
               }
             },
             {
@@ -7102,12 +8530,12 @@
               "vis": {
                 "t": "graph",
                 "x": [
-                  0,
-                  5
+                  -0.25,
+                  5.2
                 ],
                 "y": [
-                  0,
-                  18
+                  -0.6,
+                  18.6
                 ],
                 "fns": [
                   {
@@ -7145,6 +8573,10 @@
                   "to": 3.323,
                   "c": "white",
                   "label": "≈ 2.8 s"
+                },
+                "ticks": {
+                  "x": 1,
+                  "y": 2
                 }
               }
             }
@@ -10527,23 +11959,201 @@
             "show": "Plot the seven points from the table and join them with a smooth curve ending at A (6, 169)."
           },
           "scheme": "Points plotted and joined by an appropriate curve that includes A.",
-          "idea": null,
+          "idea": {
+            "title": "For 0 ≤ x ≤ 6, x ∈ ℝ",
+            "text": "$0\\le x\\le 6$ is the domain: the graph starts at $x=0$ and stops at $x=6$ minutes, at the point A the paper has marked, even though the time axis goes on to 10 (part (c) uses the rest). ≤ means both ends are included, so (0, 158) and A are on it, and $x\\in\\mathbb{R}$ means time can be any number in between, so the points are joined by one smooth unbroken curve, not left as dots.",
+            "vis": {
+              "t": "graph",
+              "x": [
+                0,
+                10.4
+              ],
+              "y": [
+                130,
+                182
+              ],
+              "ticks": {
+                "x": 1,
+                "y": 5
+              },
+              "xlab": "time (min)",
+              "ylab": "BPM",
+              "pts": [
+                {
+                  "x": 6,
+                  "y": 169,
+                  "label": "A (6, 169)"
+                }
+              ],
+              "domain": [
+                0,
+                6
+              ],
+              "cap": "Draw from $x=0$ to A, at $x=6$"
+            }
+          },
           "steps": [
             {
-              "say": "Plot the seven points (time, heart-rate) from the table.",
+              "say": "First read the axes on the paper. Across is x, the time in minutes: each line is 1, from 0 to 10. Up is the heart-rate in beats per minute: the numbers go up in 5s, so each line is 5, from 135 to 180. This axis doesn't start at 0: the time axis sits at 130, one line below 135.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
                   0,
-                  10.5
+                  10.4
                 ],
                 "y": [
-                  135,
-                  180
+                  130,
+                  182
                 ],
+                "ticks": {
+                  "x": 1,
+                  "y": 5
+                },
                 "xlab": "time (min)",
                 "ylab": "BPM",
+                "pts": [
+                  {
+                    "x": 6,
+                    "y": 169,
+                    "label": "A (6, 169)"
+                  }
+                ],
+                "cap": "Across: 1 per line. Up: 5 per line, starting at 130"
+              }
+            },
+            {
+              "say": "The points come from the table you completed in part (a)(i), rounded to whole numbers. Each column is one point (x, h(x)): minutes across, BPM up. The last one, (6, 169), is A, already on the paper.",
+              "math": [
+                "(0,\\ 158),\\ (1,\\ 160),\\ (2,\\ 165),\\ (3,\\ 171)",
+                "(4,\\ 175),\\ (5,\\ 175),\\ (6,\\ 169)"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6"
+                ],
+                "rows": [
+                  [
+                    "h(x)",
+                    "158",
+                    "160",
+                    "165",
+                    "171",
+                    "175",
+                    "175",
+                    "169"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    5
+                  ],
+                  [
+                    0,
+                    6
+                  ],
+                  [
+                    0,
+                    7
+                  ]
+                ],
+                "cap": "Each column is a point: $(0,\\ 158),\\ (1,\\ 160),\\ \\ldots$"
+              }
+            },
+            {
+              "say": "Plot (0, 158) first: x = 0, so stay on the heart-rate axis and go up to 158, three fifths of the way from the 155 line to the 160 line. Then (3, 171): across to 3, then up to just above the 170 line (1 out of 5). Put a small dot exactly there.",
+              "math": [
+                "(0,\\ 158):\\ 155+3",
+                "(3,\\ 171):\\ 170+1"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10.4
+                ],
+                "y": [
+                  130,
+                  182
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 5
+                },
+                "xlab": "time (min)",
+                "ylab": "BPM",
+                "pts": [
+                  {
+                    "x": 6,
+                    "y": 169,
+                    "label": "A (6, 169)"
+                  }
+                ],
+                "plot": [
+                  [
+                    0,
+                    158
+                  ],
+                  [
+                    3,
+                    171
+                  ]
+                ],
+                "guides": true,
+                "plotLabels": true
+              }
+            },
+            {
+              "say": "Plot (1, 160), (2, 165), (4, 175) and (5, 175) the same way; these four sit exactly on lines. A (6, 169) is already there.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10.4
+                ],
+                "y": [
+                  130,
+                  182
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 5
+                },
+                "xlab": "time (min)",
+                "ylab": "BPM",
+                "pts": [
+                  {
+                    "x": 6,
+                    "y": 169,
+                    "label": "A (6, 169)"
+                  }
+                ],
                 "plot": [
                   [
                     0,
@@ -10573,24 +12183,109 @@
                     6,
                     169
                   ]
-                ]
+                ],
+                "guides": true
               }
             },
             {
-              "say": "Join them with a smooth curve. It rises to a peak between 4 and 5 minutes, then drops to A.",
+              "say": "Join the dots with one smooth curve, drawn freehand: not with a ruler, and not with straight lines from dot to dot. Start at (0, 158) and stop at A. It rises, more and more slowly, to a peak between x = 4 and x = 5 (175 at both, so the top is about halfway, a little above 175), then falls to A. Draw the top rounded, not flat or pointed.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
                   0,
-                  10.5
+                  10.4
                 ],
                 "y": [
-                  135,
-                  180
+                  130,
+                  182
                 ],
+                "ticks": {
+                  "x": 1,
+                  "y": 5
+                },
                 "xlab": "time (min)",
                 "ylab": "BPM",
+                "pts": [
+                  {
+                    "x": 6,
+                    "y": 169,
+                    "label": "A (6, 169)"
+                  }
+                ],
+                "domain": [
+                  0,
+                  6
+                ],
+                "plot": [
+                  [
+                    0,
+                    158
+                  ],
+                  [
+                    1,
+                    160
+                  ],
+                  [
+                    2,
+                    165
+                  ],
+                  [
+                    3,
+                    171
+                  ],
+                  [
+                    4,
+                    175
+                  ],
+                  [
+                    5,
+                    175
+                  ],
+                  [
+                    6,
+                    169
+                  ]
+                ],
+                "fns": [
+                  {
+                    "f": "-0.38x^3+2.6x^2-0.13x+158",
+                    "from": 0,
+                    "to": 6
+                  }
+                ]
+              }
+            },
+            {
+              "say": "Check it the way the marker will: all the points in the right places, joined by one smooth curve that ends at A (6, 169). Part (c) carries the graph on from A with straight lines.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  10.4
+                ],
+                "y": [
+                  130,
+                  182
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 5
+                },
+                "xlab": "time (min)",
+                "ylab": "BPM",
+                "pts": [
+                  {
+                    "x": 6,
+                    "y": 169,
+                    "label": "A (6, 169)"
+                  }
+                ],
+                "domain": [
+                  0,
+                  6
+                ],
                 "plot": [
                   [
                     0,
@@ -10628,18 +12323,11 @@
                     "to": 6
                   }
                 ],
-                "pts": [
-                  {
-                    "x": 6,
-                    "y": 169,
-                    "label": "A (6, 169)",
-                    "hl": true
-                  }
-                ]
+                "cap": "Ends at A (6, 169)"
               }
             }
           ],
-          "tip": null,
+          "tip": "The marks are for the points plotted and joined by a smooth curve that goes through A.",
           "ask": "Draw the graph of y = h(x) for 0 ≤ x ≤ 6, ending at A (6, 169)."
         },
         {
@@ -10663,11 +12351,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  10.5
+                  10.4
                 ],
                 "y": [
-                  135,
-                  180
+                  130,
+                  182
                 ],
                 "xlab": "time (min)",
                 "ylab": "BPM",
@@ -10722,7 +12410,11 @@
                     "y": 169,
                     "label": "169 BPM"
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 5
+                }
               }
             },
             {
@@ -10732,11 +12424,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  10.5
+                  10.4
                 ],
                 "y": [
-                  135,
-                  180
+                  130,
+                  182
                 ],
                 "xlab": "time (min)",
                 "ylab": "BPM",
@@ -10791,7 +12483,11 @@
                     "y": 169,
                     "label": "169 BPM"
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 5
+                }
               }
             }
           ],
@@ -10819,11 +12515,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  10.5
+                  10.4
                 ],
                 "y": [
-                  135,
-                  180
+                  130,
+                  182
                 ],
                 "xlab": "time (min)",
                 "ylab": "BPM",
@@ -10882,7 +12578,11 @@
                     "label": "(8, 169)",
                     "hl": true
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 5
+                }
               }
             },
             {
@@ -10895,11 +12595,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  10.5
+                  10.4
                 ],
                 "y": [
-                  135,
-                  180
+                  130,
+                  182
                 ],
                 "xlab": "time (min)",
                 "ylab": "BPM",
@@ -10969,7 +12669,11 @@
                     "label": "(10, 149)",
                     "hl": true
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 5
+                }
               }
             },
             {
@@ -10979,11 +12683,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  10.5
+                  10.4
                 ],
                 "y": [
-                  135,
-                  180
+                  130,
+                  182
                 ],
                 "xlab": "time (min)",
                 "ylab": "BPM",
@@ -11058,7 +12762,11 @@
                     "hl": true
                   }
                 ],
-                "cap": "Down 10 for every minute across"
+                "cap": "Down 10 for every minute across",
+                "ticks": {
+                  "x": 1,
+                  "y": 5
+                }
               }
             }
           ],
@@ -11089,11 +12797,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  10.5
+                  10.4
                 ],
                 "y": [
-                  135,
-                  180
+                  130,
+                  182
                 ],
                 "xlab": "time (min)",
                 "ylab": "BPM",
@@ -11148,7 +12856,11 @@
                     "y": 169,
                     "label": "h(6) = 169"
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 5
+                }
               }
             },
             {
@@ -15004,23 +16716,168 @@
             "show": "Plot the six points and join them with a smooth curve: up a little, down to a low point near t = 3.4, then up steeply."
           },
           "scheme": "6 points plotted and joined with an appropriate curve.",
-          "idea": null,
+          "idea": {
+            "title": "For 0 ≤ t ≤ 5, t ∈ ℝ",
+            "text": "$0\\le t\\le 5$ is the domain: the graph starts at $t=0$ and stops at $t=5$ hours, and ≤ means both ends are included, so the points at $t=0$ and $t=5$ are plotted too. $t\\in\\mathbb{R}$ means time can be any number in between, like 3.4 hours, so the six points are joined by one smooth unbroken curve, not left as dots.",
+            "vis": {
+              "t": "graph",
+              "x": [
+                0,
+                5.5
+              ],
+              "y": [
+                0,
+                29
+              ],
+              "ticks": {
+                "x": 1,
+                "y": 2
+              },
+              "xlab": "t",
+              "ylab": "p(t) (1000s)",
+              "domain": [
+                0,
+                5
+              ],
+              "dvar": "t",
+              "cap": "From $t=0$ to $t=5$"
+            }
+          },
           "steps": [
             {
-              "say": "Plot the six points (t, p(t)) from the table.",
+              "say": "First read the axes on the paper. Across is t, the time in hours: each line is 1, from 0 to 5. Up is p(t), the number of bacteria in thousands: the numbers go up in 2s, so each line is 2, from 0 to 28. An odd number like 21 goes halfway between two lines.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
                   0,
-                  5.6
+                  5.5
                 ],
                 "y": [
                   0,
-                  28
+                  29
                 ],
-                "xlab": "t (hours)",
-                "ylab": "p(t)",
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "t",
+                "ylab": "p(t) (1000s)",
+                "cap": "Across: 1 per line. Up: 2 per line"
+              }
+            },
+            {
+              "say": "The points come from the table you completed in part (a)(i). Each column is one point (t, p(t)): hours across, thousands of bacteria up.",
+              "math": [
+                "(0,\\ 20),\\ (1,\\ 21),\\ (2,\\ 16)",
+                "(3,\\ 11),\\ (4,\\ 12),\\ (5,\\ 25)"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "t (hours)",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5"
+                ],
+                "rows": [
+                  [
+                    "p(t) (1000s)",
+                    "20",
+                    "21",
+                    "16",
+                    "11",
+                    "12",
+                    "25"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    5
+                  ],
+                  [
+                    0,
+                    6
+                  ]
+                ],
+                "cap": "Each column is a point: $(0,\\ 20),\\ (1,\\ 21),\\ \\ldots$"
+              }
+            },
+            {
+              "say": "Plot (0, 20) first: t = 0, so stay on the up axis and go to the 20 line. Then (1, 21): across to 1, then up to 21, halfway between the 20 and 22 lines. Put a small dot exactly there.",
+              "math": [
+                "(0,\\ 20):\\ \\text{on the 20 line}",
+                "(1,\\ 21):\\ \\text{halfway from 20 to 22}"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  5.5
+                ],
+                "y": [
+                  0,
+                  29
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "t",
+                "ylab": "p(t) (1000s)",
+                "plot": [
+                  [
+                    0,
+                    20
+                  ],
+                  [
+                    1,
+                    21
+                  ]
+                ],
+                "guides": true,
+                "plotLabels": true
+              }
+            },
+            {
+              "say": "Plot (2, 16), (3, 11), (4, 12) and (5, 25) the same way; 11 and 25 also sit halfway between lines.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  5.5
+                ],
+                "y": [
+                  0,
+                  29
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "t",
+                "ylab": "p(t) (1000s)",
                 "plot": [
                   [
                     0,
@@ -15046,24 +16903,34 @@
                     5,
                     25
                   ]
-                ]
+                ],
+                "guides": true
               }
             },
             {
-              "say": "Join them with a smooth curve. It rises slightly, falls to a low point between 3 and 4 hours, then rises steeply.",
+              "say": "Join the dots with one smooth curve, drawn freehand: not with a ruler, and not with straight lines from dot to dot. Start at t = 0 and stop at t = 5. The t³ term is positive, so the curve rises a little first (to just under 22, at about t = 0.6), comes down to a low point between t = 3 and t = 4 (a little below 11), then climbs steeply to 25. Draw both turns rounded.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
                   0,
-                  5.6
+                  5.5
                 ],
                 "y": [
                   0,
-                  28
+                  29
                 ],
-                "xlab": "t (hours)",
-                "ylab": "p(t)",
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "t",
+                "ylab": "p(t) (1000s)",
+                "domain": [
+                  0,
+                  5
+                ],
+                "dvar": "t",
                 "plot": [
                   [
                     0,
@@ -15098,9 +16965,69 @@
                   }
                 ]
               }
+            },
+            {
+              "say": "Check it the way the marker will: all six points in the right places, joined by one smooth curve from t = 0 to t = 5, with rounded turns.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  5.5
+                ],
+                "y": [
+                  0,
+                  29
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "t",
+                "ylab": "p(t) (1000s)",
+                "domain": [
+                  0,
+                  5
+                ],
+                "dvar": "t",
+                "plot": [
+                  [
+                    0,
+                    20
+                  ],
+                  [
+                    1,
+                    21
+                  ],
+                  [
+                    2,
+                    16
+                  ],
+                  [
+                    3,
+                    11
+                  ],
+                  [
+                    4,
+                    12
+                  ],
+                  [
+                    5,
+                    25
+                  ]
+                ],
+                "fns": [
+                  {
+                    "f": "x^3-6x^2+6x+20",
+                    "from": 0,
+                    "to": 5
+                  }
+                ],
+                "cap": "6 points, one smooth curve, from $t=0$ to $t=5$"
+              }
             }
           ],
-          "tip": null,
+          "tip": "The marks are for all 6 points plotted and joined with a smooth curve.",
           "ask": "Draw the graph of p(t) for 0 ≤ t ≤ 5."
         },
         {
@@ -16786,23 +18713,179 @@
             "show": "Plot the eight points and join them with a smooth upside-down U, highest between x = 3 and x = 4."
           },
           "scheme": "8 points plotted and joined with a smooth curve.",
-          "idea": null,
+          "idea": {
+            "title": "For 0 ≤ x ≤ 7, x ∈ ℝ",
+            "text": "$0\\le x\\le 7$ is the domain: the graph starts at $x=0$ and stops at $x=7$, and ≤ means both ends are included, so the points at $x=0$ and $x=7$ are plotted too. $x\\in\\mathbb{R}$ means x can be any real number, decimals like 3.5 too, so the eight points are joined by one smooth unbroken curve, not left as dots.",
+            "vis": {
+              "t": "graph",
+              "x": [
+                0,
+                7.5
+              ],
+              "y": [
+                -4,
+                16.5
+              ],
+              "ticks": {
+                "x": 1,
+                "y": 2
+              },
+              "xlab": "x",
+              "ylab": "P(x) (€ m)",
+              "domain": [
+                0,
+                7
+              ],
+              "cap": "Draw only between the dashed lines: from $x=0$ to $x=7$"
+            }
+          },
           "steps": [
             {
-              "say": "Plot the eight points (x, P(x)).",
+              "say": "First read the axes the paper gives you. Across is x, the number of phones (in tens of thousands): each line is 1, from 0 to 7. Up is P(x), the profit in millions of euro: the numbers go up in 2s, so each line is 2, from −4 to 16. The x-axis is the line through 0, so a negative profit goes below it.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
                   0,
-                  7.2
+                  7.5
                 ],
                 "y": [
-                  -5,
-                  16
+                  -4,
+                  16.5
                 ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
                 "xlab": "x",
-                "ylab": "€ million",
+                "ylab": "P(x) (€ m)",
+                "cap": "Across: 1 per line. Up: 2 per line, from $-4$ to $16$"
+              }
+            },
+            {
+              "say": "The points come from the table you completed in part (a)(ii). Each column is one point (x, P(x)): the top number says how far across, the bottom number how far up (or down). Eight columns, eight points.",
+              "math": [
+                "(0,\\ -4),\\ (1,\\ 5),\\ (2,\\ 11),\\ (3,\\ 14)",
+                "(4,\\ 14),\\ (5,\\ 11),\\ (6,\\ 5),\\ (7,\\ -4)"
+              ],
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7"
+                ],
+                "rows": [
+                  [
+                    "P(x)",
+                    "−4",
+                    "5",
+                    "11",
+                    "14",
+                    "14",
+                    "11",
+                    "5",
+                    "−4"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    5
+                  ],
+                  [
+                    0,
+                    6
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    0,
+                    8
+                  ]
+                ],
+                "cap": "Each column is a point: $(0,\\ -4),\\ (1,\\ 5),\\ \\ldots$"
+              }
+            },
+            {
+              "say": "Plot the first point, (0, −4): x = 0 means you don't move across at all, so stay on the P(x) axis and go down to −4, the bottom line. Then a tricky one, (1, 5): across to 1, then up to 5, which is halfway between the 4 and 6 lines, because each line is 2. Put a small dot exactly there.",
+              "math": [
+                "(0,\\ {-4}):\\ \\text{0 across, down to }{-4}",
+                "(1,\\ 5):\\ \\text{1 across, up to 5 (between 4 and 6)}"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  7.5
+                ],
+                "y": [
+                  -4,
+                  16.5
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "x",
+                "ylab": "P(x) (€ m)",
+                "plot": [
+                  [
+                    0,
+                    -4
+                  ],
+                  [
+                    1,
+                    5
+                  ]
+                ],
+                "guides": true,
+                "plotLabels": true
+              }
+            },
+            {
+              "say": "Plot the other six the same way: across to x first, then up or down to P(x), then the dot. (2, 11), (5, 11) and (6, 5) also sit halfway between lines; (7, −4) is on the bottom line again.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  7.5
+                ],
+                "y": [
+                  -4,
+                  16.5
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "x",
+                "ylab": "P(x) (€ m)",
                 "plot": [
                   [
                     0,
@@ -16836,24 +18919,35 @@
                     7,
                     -4
                   ]
-                ]
+                ],
+                "guides": true
               }
             },
             {
-              "say": "Join them with a smooth upside-down U. The top is between x = 3 and x = 4, a little above 14.",
-              "math": [],
+              "say": "Join the dots with one smooth curve, drawn freehand: not with a ruler, and not with straight lines from dot to dot. Start exactly at (0, −4) and stop exactly at (7, −4), not past either end. Expect an upside-down U, because the x² term, −1.5x², is negative. The table is symmetric (14 and 14 in the middle), so the top is halfway between x = 3 and x = 4, a little above 14.",
+              "math": [
+                "P(3.5)=-1.5(3.5)^2+10.5(3.5)-4=14.375"
+              ],
               "vis": {
                 "t": "graph",
                 "x": [
                   0,
-                  7.2
+                  7.5
                 ],
                 "y": [
-                  -5,
-                  16
+                  -4,
+                  16.5
                 ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
                 "xlab": "x",
-                "ylab": "€ million",
+                "ylab": "P(x) (€ m)",
+                "domain": [
+                  0,
+                  7
+                ],
                 "plot": [
                   [
                     0,
@@ -16894,11 +18988,92 @@
                     "from": 0,
                     "to": 7
                   }
+                ],
+                "pts": [
+                  {
+                    "x": 3.5,
+                    "y": 14.375,
+                    "label": "top ≈ 14.4"
+                  }
                 ]
+              }
+            },
+            {
+              "say": "Check it the way the marker will: the curve goes through all eight dots, it is smooth with a rounded top (not a point), it starts at x = 0 and stops at x = 7, and each dot is on the paper's scale (5 halfway between 4 and 6). Part (a)(iv) reads values off this curve, so care here pays off there.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  7.5
+                ],
+                "y": [
+                  -4,
+                  16.5
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                },
+                "xlab": "x",
+                "ylab": "P(x) (€ m)",
+                "domain": [
+                  0,
+                  7
+                ],
+                "plot": [
+                  [
+                    0,
+                    -4
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    2,
+                    11
+                  ],
+                  [
+                    3,
+                    14
+                  ],
+                  [
+                    4,
+                    14
+                  ],
+                  [
+                    5,
+                    11
+                  ],
+                  [
+                    6,
+                    5
+                  ],
+                  [
+                    7,
+                    -4
+                  ]
+                ],
+                "fns": [
+                  {
+                    "f": "-1.5x^2+10.5x-4",
+                    "from": 0,
+                    "to": 7
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 3.5,
+                    "y": 14.375,
+                    "label": "top ≈ 14.4"
+                  }
+                ],
+                "cap": "8 points, one smooth curve, from $x=0$ to $x=7$"
               }
             }
           ],
-          "tip": null,
+          "tip": "The marks are for all 8 points plotted correctly and joined with one smooth curve.",
           "ask": "Draw the graph of P(x) for 0 ≤ x ≤ 7."
         },
         {
@@ -16925,11 +19100,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  7.2
+                  7.5
                 ],
                 "y": [
-                  -5,
-                  16
+                  -4,
+                  16.5
                 ],
                 "xlab": "x",
                 "ylab": "€ million",
@@ -16946,7 +19121,11 @@
                     "c": 6,
                     "label": "€6 m"
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                }
               }
             },
             {
@@ -16958,11 +19137,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  7.2
+                  7.5
                 ],
                 "y": [
-                  -5,
-                  16
+                  -4,
+                  16.5
                 ],
                 "xlab": "x",
                 "ylab": "€ million",
@@ -16993,7 +19172,11 @@
                     "from": "y",
                     "label": "≈ 5.8"
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                }
               }
             },
             {
@@ -17005,11 +19188,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  7.2
+                  7.5
                 ],
                 "y": [
-                  -5,
-                  16
+                  -4,
+                  16.5
                 ],
                 "xlab": "x",
                 "ylab": "€ million",
@@ -17046,7 +19229,11 @@
                     "label": "≈ 5.8"
                   }
                 ],
-                "cap": "On or above the line between them: $1.2 \\le x \\le 5.8$"
+                "cap": "On or above the line between them: $1.2 \\le x \\le 5.8$",
+                "ticks": {
+                  "x": 1,
+                  "y": 2
+                }
               }
             }
           ],
@@ -17377,11 +19564,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  6.2
+                  6.4
                 ],
                 "y": [
-                  -5,
-                  16
+                  -4,
+                  14.5
                 ],
                 "xlab": "x",
                 "ylab": "€ million",
@@ -17399,7 +19586,11 @@
                     "y": 8,
                     "label": "R(2) = 8"
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 1
+                }
               }
             },
             {
@@ -17411,11 +19602,11 @@
                 "t": "graph",
                 "x": [
                   0,
-                  6.2
+                  6.4
                 ],
                 "y": [
-                  -5,
-                  16
+                  -4,
+                  14.5
                 ],
                 "xlab": "x",
                 "ylab": "€ million",
@@ -17441,7 +19632,11 @@
                     "label": "R(2) + 3 = 11",
                     "hl": true
                   }
-                ]
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 1
+                }
               }
             }
           ],
@@ -17458,21 +19653,57 @@
             "show": "The same curve moved straight up 3: from (0, −1), through (2, 11), top at (3, 12.5), down to (6, −1)."
           },
           "scheme": "Graph of $R(x)$ moved up by 3 units, for $0\\le x\\le6$.",
-          "idea": null,
+          "idea": {
+            "title": "R(x) + 3, for 0 ≤ x ≤ 6",
+            "text": "Adding 3 to R(x) adds 3 to every height, so every point of the printed graph moves straight up 3: the same shape, 3 higher, and nothing moves sideways. The domain works as in (a)(iii): start at $x=0$, stop at $x=6$, both ends included, and $x\\in\\mathbb{R}$ means one smooth curve.",
+            "vis": {
+              "t": "graph",
+              "x": [
+                0,
+                6.4
+              ],
+              "y": [
+                -4,
+                14.5
+              ],
+              "ticks": {
+                "x": 1,
+                "y": 1
+              },
+              "xlab": "x",
+              "ylab": "€ million",
+              "fns": [
+                {
+                  "f": "-1.5x^2+9x-4",
+                  "from": 0,
+                  "to": 6
+                }
+              ],
+              "domain": [
+                0,
+                6
+              ],
+              "cap": "Draw on these axes, from $x=0$ to $x=6$"
+            }
+          },
           "steps": [
             {
-              "say": "Adding 3 to every profit moves every point of the graph straight up by 3. The shape doesn't change.",
+              "say": "'The same axes and scales' means you draw on the graph of R(x) the paper already has. Across is x, each line is 1, from 0 to 6. Up is the profit in millions of euro, and here each line is 1, not 2 as in part (a): the numbers go up in 1s to 14, and down to −4.",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
                   0,
-                  6.2
+                  6.4
                 ],
                 "y": [
-                  -5,
-                  16
+                  -4,
+                  14.5
                 ],
+                "ticks": {
+                  "x": 1,
+                  "y": 1
+                },
                 "xlab": "x",
                 "ylab": "€ million",
                 "fns": [
@@ -17483,43 +19714,94 @@
                     "label": "R(x)"
                   }
                 ],
-                "plot": [
-                  [
-                    0,
-                    -4
-                  ],
-                  [
-                    2,
-                    8
-                  ],
-                  [
-                    3,
-                    9.5
-                  ],
-                  [
-                    6,
-                    -4
-                  ]
-                ],
-                "cap": "Every point moves straight up 3"
+                "cap": "Across: 1 per line. Up: 1 per line, from $-4$ to $14$"
               }
             },
             {
-              "say": "Move some easy points up 3: (0, −4) goes to (0, −1), (2, 8) to (2, 11), the top (3, 9.5) to (3, 12.5) and (6, −4) to (6, −1).",
+              "say": "There is no table this time: the points come from the printed graph of R(x). Read its height at each whole number x (R(2) = 8 is the one you read in part (c)(i)), then add 3 to each height.",
               "math": [
-                "(0,-4)\\to(0,-1)",
+                "R(0)=-4,\\ R(1)=3.5,\\ R(2)=8,\\ R(3)=9.5",
+                "R(4)=8,\\ R(5)=3.5,\\ R(6)=-4",
+                "+3:\\ (0,\\ -1),\\ (1,\\ 6.5),\\ (2,\\ 11),\\ (3,\\ 12.5)",
+                "(4,\\ 11),\\ (5,\\ 6.5),\\ (6,\\ -1)"
+              ],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  6.4
+                ],
+                "y": [
+                  -4,
+                  14.5
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 1
+                },
+                "xlab": "x",
+                "ylab": "€ million",
+                "fns": [
+                  {
+                    "f": "-1.5x^2+9x-4",
+                    "from": 0,
+                    "to": 6,
+                    "label": "R(x)"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 0,
+                    "y": -4
+                  },
+                  {
+                    "x": 1,
+                    "y": 3.5
+                  },
+                  {
+                    "x": 2,
+                    "y": 8
+                  },
+                  {
+                    "x": 3,
+                    "y": 9.5
+                  },
+                  {
+                    "x": 4,
+                    "y": 8
+                  },
+                  {
+                    "x": 5,
+                    "y": 3.5
+                  },
+                  {
+                    "x": 6,
+                    "y": -4
+                  }
+                ],
+                "cap": "Read R(x) at $x=0,\\ 1,\\ 2,\\ \\ldots,\\ 6$"
+              }
+            },
+            {
+              "say": "Plot (0, −1) first: x = 0, so stay on the y-axis and go to −1, one line below 0 and exactly 3 lines above where R(x) starts. Then the new top, (3, 12.5): across to 3, then up to halfway between the 12 and 13 lines, 3 above the old top at 9.5. Put a small dot exactly there.",
+              "math": [
+                "(0,\\ {-4})\\to(0,\\ {-1})",
                 "(3,\\ 9.5)\\to(3,\\ 12.5)"
               ],
               "vis": {
                 "t": "graph",
                 "x": [
                   0,
-                  6.2
+                  6.4
                 ],
                 "y": [
-                  -5,
-                  16
+                  -4,
+                  14.5
                 ],
+                "ticks": {
+                  "x": 1,
+                  "y": 1
+                },
                 "xlab": "x",
                 "ylab": "€ million",
                 "fns": [
@@ -17528,63 +19810,69 @@
                     "from": 0,
                     "to": 6,
                     "label": "R(x)"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 0,
+                    "y": -4
+                  },
+                  {
+                    "x": 1,
+                    "y": 3.5
+                  },
+                  {
+                    "x": 2,
+                    "y": 8
+                  },
+                  {
+                    "x": 3,
+                    "y": 9.5
+                  },
+                  {
+                    "x": 4,
+                    "y": 8
+                  },
+                  {
+                    "x": 5,
+                    "y": 3.5
+                  },
+                  {
+                    "x": 6,
+                    "y": -4
                   }
                 ],
                 "plot": [
                   [
                     0,
-                    -4
-                  ],
-                  [
-                    2,
-                    8
+                    -1
                   ],
                   [
                     3,
-                    9.5
-                  ],
-                  [
-                    6,
-                    -4
+                    12.5
                   ]
                 ],
-                "pts": [
-                  {
-                    "x": 0,
-                    "y": -1
-                  },
-                  {
-                    "x": 2,
-                    "y": 11,
-                    "label": "(2, 11)",
-                    "hl": true
-                  },
-                  {
-                    "x": 3,
-                    "y": 12.5,
-                    "label": "(3, 12.5)",
-                    "hl": true
-                  },
-                  {
-                    "x": 6,
-                    "y": -1
-                  }
-                ]
+                "guides": true,
+                "plotLabels": true
               }
             },
             {
-              "say": "Join the new points with the same upside-down U shape.",
+              "say": "Plot the other five the same way, each one 3 lines straight above the point of R(x) under it: (1, 6.5), (2, 11), (4, 11), (5, 6.5) and (6, −1).",
               "math": [],
               "vis": {
                 "t": "graph",
                 "x": [
                   0,
-                  6.2
+                  6.4
                 ],
                 "y": [
-                  -5,
-                  16
+                  -4,
+                  14.5
                 ],
+                "ticks": {
+                  "x": 1,
+                  "y": 1
+                },
                 "xlab": "x",
                 "ylab": "€ million",
                 "fns": [
@@ -17593,6 +19881,159 @@
                     "from": 0,
                     "to": 6,
                     "label": "R(x)"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 0,
+                    "y": -4
+                  },
+                  {
+                    "x": 1,
+                    "y": 3.5
+                  },
+                  {
+                    "x": 2,
+                    "y": 8
+                  },
+                  {
+                    "x": 3,
+                    "y": 9.5
+                  },
+                  {
+                    "x": 4,
+                    "y": 8
+                  },
+                  {
+                    "x": 5,
+                    "y": 3.5
+                  },
+                  {
+                    "x": 6,
+                    "y": -4
+                  }
+                ],
+                "plot": [
+                  [
+                    0,
+                    -1
+                  ],
+                  [
+                    1,
+                    6.5
+                  ],
+                  [
+                    2,
+                    11
+                  ],
+                  [
+                    3,
+                    12.5
+                  ],
+                  [
+                    4,
+                    11
+                  ],
+                  [
+                    5,
+                    6.5
+                  ],
+                  [
+                    6,
+                    -1
+                  ]
+                ],
+                "guides": true
+              }
+            },
+            {
+              "say": "Join the dots with one smooth curve, drawn freehand: not with a ruler, and not with straight lines from dot to dot. Start at (0, −1) and stop at (6, −1), because the domain is 0 ≤ x ≤ 6. It is the same upside-down U as R(x), with its top at (3, 12.5), and the two curves stay exactly 3 apart all the way along.",
+              "math": [],
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  6.4
+                ],
+                "y": [
+                  -4,
+                  14.5
+                ],
+                "ticks": {
+                  "x": 1,
+                  "y": 1
+                },
+                "xlab": "x",
+                "ylab": "€ million",
+                "pts": [
+                  {
+                    "x": 0,
+                    "y": -4
+                  },
+                  {
+                    "x": 1,
+                    "y": 3.5
+                  },
+                  {
+                    "x": 2,
+                    "y": 8
+                  },
+                  {
+                    "x": 3,
+                    "y": 9.5
+                  },
+                  {
+                    "x": 4,
+                    "y": 8
+                  },
+                  {
+                    "x": 5,
+                    "y": 3.5
+                  },
+                  {
+                    "x": 6,
+                    "y": -4
+                  }
+                ],
+                "plot": [
+                  [
+                    0,
+                    -1
+                  ],
+                  [
+                    1,
+                    6.5
+                  ],
+                  [
+                    2,
+                    11
+                  ],
+                  [
+                    3,
+                    12.5
+                  ],
+                  [
+                    4,
+                    11
+                  ],
+                  [
+                    5,
+                    6.5
+                  ],
+                  [
+                    6,
+                    -1
+                  ]
+                ],
+                "domain": [
+                  0,
+                  6
+                ],
+                "fns": [
+                  {
+                    "f": "-1.5x^2+9x-4",
+                    "from": 0,
+                    "to": 6
                   },
                   {
                     "f": "-1.5x^2+9x-1",
@@ -17600,50 +20041,11 @@
                     "to": 6
                   }
                 ],
-                "plot": [
-                  [
-                    0,
-                    -4
-                  ],
-                  [
-                    2,
-                    8
-                  ],
-                  [
-                    3,
-                    9.5
-                  ],
-                  [
-                    6,
-                    -4
-                  ]
-                ],
-                "pts": [
-                  {
-                    "x": 0,
-                    "y": -1
-                  },
-                  {
-                    "x": 2,
-                    "y": 11,
-                    "hl": true
-                  },
-                  {
-                    "x": 3,
-                    "y": 12.5,
-                    "label": "(3, 12.5)",
-                    "hl": true
-                  },
-                  {
-                    "x": 6,
-                    "y": -1
-                  }
-                ],
-                "cap": "The upper curve is $y=R(x)+3$: the same shape, 3 higher"
+                "cap": "Blue: $R(x)$. Pink: $R(x)+3$, exactly 3 higher"
               }
             }
           ],
-          "tip": "+3 outside the function moves the graph UP by 3; it does not move it sideways.",
+          "tip": "The marks are for the graph of R(x) moved straight up 3, drawn only from x = 0 to x = 6.",
           "ask": "Draw the graph of y = R(x) + 3 for 0 ≤ x ≤ 6 on the same axes."
         }
       ]
