@@ -33,7 +33,7 @@
     var T = window.ExamTeacher;
     side.innerHTML = '<a class="sh-brand" href="#"><span class="sh-mark" aria-hidden="true">' + (T ? T.head() : '') + '</span><span class="sh-name">Leaving Cert</span></a>' +
       '<nav class="sh-nav" aria-label="Maths"><a class="sh-link" href="#"' + (active === 'home' ? ' aria-current="page"' : '') + '><span class="sh-t">Home</span></a>' +
-      (GAMES_ON ? '<a class="sh-link" href="maths-golf.html"><span class="sh-t">Mini Golf</span></a><a class="sh-link" href="maths-pool.html"><span class="sh-t">Pool</span></a>' : '') +
+      (GAMES_ON ? '<a class="sh-link" href="#games"><span class="sh-t">Games</span></a>' : '') +
       '<p class="sh-group">Chapters</p>' + CHAPTERS.map(function (c) {
         var s = stats(c.n), v = s.pct != null ? s.pct + '%' : '<span class="dash">–</span>';
         return '<a class="sh-link" href="#ch' + c.n + '"' + (active === c.n ? ' aria-current="page"' : '') + '><span class="sh-n num">' + c.n + '</span><span class="sh-t">' + esc(c.title) +
@@ -63,12 +63,15 @@
     { href: 'maths-pool.html', name: 'Pool', say: 'Pool against the examiner. Get the question right to take your shot; the wrong answers are the classic mistakes.',
       art: '<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="24" cy="36" r="13" fill="#1CB0F6"/><circle cx="24" cy="36" r="6" fill="#F1F7FB"/><text x="24" y="39.5" text-anchor="middle" font-size="9" font-weight="800" fill="#131F24">9</text><circle cx="45" cy="24" r="9" fill="#F1F7FB"/><path d="M52 52L37 37" stroke="#C08552" stroke-width="3" stroke-linecap="round"/></svg>' }
   ];
+  var WARM_ON = false; // the Warm-up level, once its cards are in maths/maths-cards.js (window.MathsWarm)
   var GAMES_ON = true; // the cards are in maths/maths-cards.js (tools/maths/build_cards.py)
   function games() {
     if (!GAMES_ON) return '';
     return '<section class="mx-games rise" style="--i:2" aria-labelledby="mx-games-h"><h2 class="mx-h2" id="mx-games-h">Games</h2><div class="mx-games__row">' +
       GAMES.map(function (g) {
-        return '<a class="card mx-game" href="' + g.href + '"><span class="mx-game__art">' + g.art + '</span><span class="mx-game__txt"><b>' + esc(g.name) + '</b><span>' + esc(g.say) + '</span></span></a>';
+        // Two levels: Warm-up (short basics) and the real exam questions.
+        return '<div class="card mx-game"><span class="mx-game__art">' + g.art + '</span><span class="mx-game__txt"><b>' + esc(g.name) + '</b><span>' + esc(g.say) + '</span>' +
+          '<span class="mx-game__go">' + (WARM_ON ? '<a class="mx-game__btn" href="' + g.href + '?warm">Warm-up</a>' : '') + '<a class="mx-game__btn is-exam" href="' + g.href + '">Exam questions</a></span></span></div>';
       }).join('') + '</div></section>';
   }
   function chapter(n) {
@@ -92,7 +95,8 @@
     document.body.classList.remove('sh-open');
     var m = /^#ch(\d+)$/.exec(location.hash);
     if (m) chapter(+m[1]); else home();
-    window.scrollTo(0, 0);
+    var g = location.hash === '#games' && document.getElementById('mx-games-h');
+    if (g) g.scrollIntoView(); else window.scrollTo(0, 0);
   }
   document.addEventListener('click', function (e) {
     var b = e.target.closest('[data-sh-menu]');

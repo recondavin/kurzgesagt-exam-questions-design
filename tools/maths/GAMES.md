@@ -51,3 +51,24 @@ Write `tools/maths/cards/<name>.json`: `{"chapter": 13, "cards": [...]}` (only c
 match real parts) and writes `maths/maths-cards.js` (`window.MathsCards[ch] = [...]`, each card under its part's own chapter: a probability
 part in a counting question is a probability card, a chapter-15 part goes with statistics), which `maths/maths-deck.js`
 gives to the games (maths-golf.html, maths-pool.html).
+
+## Warm-up cards (the games' Warm-up level)
+
+The user, after trying the games: "add a warm up level to the games". The exam cards are hard (every one is a real exam
+part), so the Warm-up level has short basics: the one- and two-step skills the chapter's exam questions are built
+from, so a student can get going and then move up to the real questions.
+
+```json
+{"id": "warm:10:7", "from": "warm", "lvl": 1,
+ "q": "Differentiate f(x) = 5x³.",
+ "right": "15x²", "wrong": ["5x²", "15x³", "8x²"],
+ "why": "Bring the power down and multiply: 3 × 5 = 15, then take one off the power: x³ becomes x².",
+ "hook": "Power down in front, then one off the power.", "keys": ["take one off the power"]}
+```
+- Write them to `tools/maths/cards/warm-<name>.json`: `{"chapter": 10, "warm": true, "cards": [...]}`.
+- `id`: `warm:<chapter>:<n>`; `from`: `"warm"`; `lvl`: 1 (one step: a fact, a formula, one calculation) or 2 (two or
+  three steps, still short, a small context).
+- About 40 per chapter, about half level 1 and half level 2, covering **every skill the chapter's exam questions use**
+  (read the chapter file's ideas and steps to list them). Simple, friendly numbers; no long stories.
+- Everything else as the exam cards: four different options, the wrong ones real mistakes (worked out by doing the
+  mistake), `why` the working, `hook` a way to remember it, `keys` from the why, plain Unicode, checked in python.

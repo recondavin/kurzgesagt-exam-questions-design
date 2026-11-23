@@ -8,7 +8,7 @@
 .mx-board { display: flex; flex-direction: column; gap: 2px; margin: 0 0 12px; padding: 10px 14px; border-radius: 14px; background: #0B1418;
   box-shadow: inset 0 0 0 2px #1E2B31; color: var(--mx-ink); overflow-x: auto; overflow-y: hidden; }
 .mx-board:empty { display: none; }
-.mx-line { color: var(--mx-soft); transition: color .4s ease; }
+.mx-line { color: var(--mx-soft); font-size: calc(16px * var(--hf-s, 1)); transition: color .4s ease; }
 .mx-line .katex-display { margin: .22em 0; text-align: left; }
 .mx-line .katex-display > .katex { text-align: left; }
 .mx-line .katex { font-size: 1.22em; }
@@ -188,7 +188,7 @@
 .mx-stembox { margin: 0 auto; }
 .mx-leafd { display: inline-block; min-width: .9em; margin-right: .32em; padding: 0 .12em; border-radius: 4px; text-align: center; letter-spacing: 0; }
 .mx-leafd.is-hl { background: rgba(255, 200, 0, .4); color: #FFFFFF; }
-.mx-stemcount, .mx-cap { margin: 8px 0 0; color: var(--mx-yellow); font: 700 16px/1.35 Nunito, system-ui, sans-serif; text-align: center; }
+.mx-stemcount, .mx-cap { margin: 8px 0 0; color: var(--mx-yellow); font: 700 calc(17px * var(--hf-s, 1))/1.35 Nunito, system-ui, sans-serif; text-align: center; }
 .mx-cap { color: #C9D6DD; font-weight: 600; }
 .mx-vis { flex-direction: column; align-items: center; }
 
@@ -242,6 +242,13 @@
 
 @media (max-width: 819px) {
   .mx-vis > svg { max-height: 26vh; }
-  .mx-line .katex { font-size: 1.08em; }
+  .mx-line .katex { font-size: 1.12em; }
+}
+/* On a phone a picture is drawn at about two thirds of its size, so its words are drawn bigger to stay readable. */
+@media (max-width: 600px) {
+  .mx-svg text { font-size: 19px; }
+  .mx-svg .mx-tick { font-size: 17px; }
+  .mx-svg .mx-tlabel, .mx-svg .mx-plabel, .mx-svg .mx-dimt, .mx-svg .mx-readt, .mx-svg .mx-legt { font-size: 19px; }
+  .mx-svg .mx-axlab, .mx-svg .mx-shadet, .mx-svg .mx-signt, .mx-svg .mx-bp, .mx-svg .mx-cellt { font-size: 16px; }
 }
 @media (prefers-reduced-motion: reduce) { .mx-dim.is-hl, .mx-ring { animation: none; } .mx-btn { transition: none; } }

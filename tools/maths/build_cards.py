@@ -1,5 +1,6 @@
 """Checks the maths game cards (tools/maths/cards/*.json, written to tools/maths/GAMES.md) and writes
-maths/maths-cards.js: window.MathsCards = {10: [cards], 11: [...], ...}, read by maths/maths-deck.js for the games.
+maths/maths-cards.js: window.MathsCards = {10: [cards], 11: [...], ...} (the real exam parts) and window.MathsWarm
+(the Warm-up level's basics, from the files with "warm": true), read by maths/maths-deck.js for the games.
 
   python3 tools/maths/build_cards.py            check every file and write maths/maths-cards.js
   python3 tools/maths/build_cards.py --check    check only (also: --only <file> to check one file)
@@ -36,7 +37,7 @@ def norm(s):
     return re.sub(r'\s+', '', str(s)).lower()
 
 
-def check_card(c, ch, real, seen):
+def check_card(c, ch, real, seen, warm=False):
     p = []
     where = c.get('id', '?')
     for f in FIELDS:
@@ -48,7 +49,12 @@ def check_card(c, ch, real, seen):
         p.append('id used twice')
     seen.add(c['id'])
     bits = c['id'].split(':')
-    if len(bits) != 3 or bits[0] != c['from']:
+    if warm:
+        if len(bits) != 3 or bits[0] != 'warm' or bits[1] != str(ch) or c['from'] != 'warm':
+            p.append('a warm-up card\'s id is warm:<chapter>:<n>, from = "warm"')
+        if c.get('lvl') not in (1, 2):
+            p.append('lvl must be 1 or 2')
+    elif len(bits) != 3 or bits[0] != c['from']:
         p.append('id should be <question id>:<part label>:<n>, from = the question id')
     elif (ch, c['from']) not in real:
         p.append('no question %s in chapter %s' % (c['from'], ch))
@@ -84,10 +90,15 @@ def check_card(c, ch, real, seen):
 def main():
     only = sys.argv[sys.argv.index('--only') + 1] if '--only' in sys.argv else None
     files = [only] if only else sorted(glob.glob(os.path.join(HERE, 'cards', '*.json')))
-    real, out, problems, seen = parts_of(), {}, [], set()
+    real, out, warm, problems, seen = parts_of(), {}, {}, [], set()
     for path in files:
         d = json.load(open(path, encoding='utf-8'))
         ch = int(d['chapter'])
+        if d.get('warm'):
+            for c in d.get('cards', []):
+                problems += check_card(c, ch, real, seen, warm=True)
+                warm.setdefault(ch, []).append({k: c[k] for k in FIELDS + ['lvl', 'hook', 'keys'] if c.get(k)})
+            continue
         for c in d.get('cards', []):
             problems += check_card(c, ch, real, seen)
             card = {k: c[k] for k in FIELDS + ['hook', 'keys'] if c.get(k)}
@@ -96,7 +107,8 @@ def main():
             out.setdefault(topic(ch, part_ch), []).append(card)
     for p in problems:
         print(p)
-    print('%d cards (%s), %d problems' % (sum(len(v) for v in out.values()), ', '.join('ch%d %d' % (k, len(out[k])) for k in sorted(out)), len(problems)))
+    print('%d cards (%s), %d warm-up cards (%s), %d problems' % (sum(len(v) for v in out.values()), ', '.join('ch%d %d' % (k, len(out[k])) for k in sorted(out)),
+          sum(len(v) for v in warm.values()), ', '.join('ch%d %d' % (k, len(warm[k])) for k in sorted(warm)), len(problems)))
     if '--check' in sys.argv or only:
         sys.exit(1 if problems else 0)
     if problems:
@@ -105,6 +117,7 @@ def main():
     with open(os.path.join(ROOT, 'maths', 'maths-cards.js'), 'w', encoding='utf-8') as f:
         f.write('// Built by tools/maths/build_cards.py from tools/maths/cards/*.json (see tools/maths/GAMES.md). Do not edit by hand.\n')
         f.write('window.MathsCards = %s;\n' % json.dumps({str(k): out[k] for k in sorted(out)}, ensure_ascii=False, separators=(',', ':')))
+        f.write('window.MathsWarm = %s;\n' % json.dumps({str(k): warm[k] for k in sorted(warm)}, ensure_ascii=False, separators=(',', ':')))
     print('written maths/maths-cards.js')
 
 

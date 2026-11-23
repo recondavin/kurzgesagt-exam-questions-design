@@ -11,10 +11,16 @@
 .mx-games { margin-top: 28px; }
 .mx-h2 { margin: 0 0 12px; font: 600 22px/1.2 Fredoka, Nunito, sans-serif; color: var(--ink, #F1F7FB); }
 .mx-games__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-.mx-game { display: flex; align-items: center; gap: 16px; padding: 16px 18px; text-decoration: none; color: inherit; }
+.mx-game { display: flex; align-items: center; gap: 16px; padding: 16px 18px; color: inherit; }
 .mx-game__art { flex: 0 0 64px; width: 64px; height: 64px; }
 .mx-game__art svg { display: block; width: 100%; height: 100%; }
 .mx-game__txt { display: flex; flex-direction: column; gap: 4px; }
 .mx-game__txt b { font: 600 20px/1.2 Fredoka, Nunito, sans-serif; }
 .mx-game__txt span { color: var(--muted); font: 700 14px/1.4 Nunito, system-ui, sans-serif; }
 @media (max-width: 760px) { .mx-games__row { grid-template-columns: 1fr; } }
+.mx-game__go { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.mx-game__btn { display: inline-flex; align-items: center; min-height: 40px; padding: 6px 14px; border-radius: 12px; border: 2px solid #37464F; background: #202F36; box-shadow: 0 3px 0 #37464F;
+  color: #F1F7FB !important; font: 600 16px Fredoka, Nunito, sans-serif; text-decoration: none; }
+.mx-game__btn.is-exam { border-color: #58A700; background: #58CC02; box-shadow: 0 3px 0 #58A700; }
+.mx-game__btn:active { transform: translateY(3px); box-shadow: none; }
+.mx-game__btn:focus-visible { outline: 3px solid #FFE14D; outline-offset: 2px; }
