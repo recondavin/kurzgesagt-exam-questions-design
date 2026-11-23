@@ -63,7 +63,7 @@
     { href: 'maths-pool.html', name: 'Pool', say: 'Pool against the examiner. Get the question right to take your shot; the wrong answers are the classic mistakes.',
       art: '<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="24" cy="36" r="13" fill="#1CB0F6"/><circle cx="24" cy="36" r="6" fill="#F1F7FB"/><text x="24" y="39.5" text-anchor="middle" font-size="9" font-weight="800" fill="#131F24">9</text><circle cx="45" cy="24" r="9" fill="#F1F7FB"/><path d="M52 52L37 37" stroke="#C08552" stroke-width="3" stroke-linecap="round"/></svg>' }
   ];
-  var GAMES_ON = false; // on once maths/maths-cards.js has the cards (tools/maths/build_cards.py)
+  var GAMES_ON = true; // the cards are in maths/maths-cards.js (tools/maths/build_cards.py)
   function games() {
     if (!GAMES_ON) return '';
     return '<section class="mx-games rise" style="--i:2" aria-labelledby="mx-games-h"><h2 class="mx-h2" id="mx-games-h">Games</h2><div class="mx-games__row">' +
