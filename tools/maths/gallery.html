@@ -37,6 +37,7 @@
   var EX = [
     ['graph: a dot rides the curve to its turning point', { t: 'graph', x: [-1, 5], y: [-4, 6], fns: [{ f: 'x^2-4x+1', label: 'f(x)' }], ride: { from: -0.6, to: 2 }, pts: [{ x: 2, y: -3, label: '(2, −3)' }] }],
     ['graph: plot the table, join, read off', { t: 'graph', x: [0, 6], y: [0, 50], fns: [{ f: '-3x^2+18x+20' }], plot: [[0, 20], [1, 35], [2, 44], [3, 47], [4, 44], [5, 35], [6, 20]], reads: [{ x: 1.5, y: 40.25, label: 'y ≈ 40' }], xlab: 'x', ylab: 'P(x)' }],
+    ['graph: drawing for 0 ≤ x ≤ 7 on the paper\'s axes', { t: 'graph', x: [-0.4, 7.6], y: [-4, 16], ticks: { x: 1, y: 2 }, xlab: 'x', ylab: 'P(x)', domain: [0, 7], plot: [[0, -4], [1, 5], [2, 11], [3, 14], [4, 14], [5, 11], [6, 5], [7, -4]], guides: true, plotLabels: true, fns: [{ f: '-1.5x^2+10.5x-4', from: 0, to: 7 }] }],
     ['graph: the ball\'s flight', { t: 'graph', x: [0, 2.6], y: [0, 9], fns: [{ f: '-4.9t^2+11t+1.2'.replace(/t/g, 'x'), c: 'faint' }], obj: { from: 0, to: 2.4, c: 'white', label: 'sliotar' }, xlab: 'time (s)', ylab: 'height (m)' }],
     ['graph: up and down, roots, tangent', { t: 'graph', x: [-2, 4], y: [-8, 8], fns: [{ f: 'x^3-3x^2+4' }], shade: [{ from: -2, to: 0, sign: '+' }, { from: 0, to: 2, sign: '-' }, { from: 2, to: 4, sign: '+' }], roots: [-1, 2], tangent: { f: 'x^3-3x^2+4', x: 3 } }],
     ['signs of f′(x)', { t: 'signs', x: [0, 9], roots: [6], signs: ['+', '-'], label: 'C′(t)' }],

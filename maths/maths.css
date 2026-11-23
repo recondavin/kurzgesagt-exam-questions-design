@@ -118,6 +118,11 @@
 .mx-trail { fill: none; stroke: var(--mx-yellow); stroke-width: 2.5; stroke-dasharray: 2 6; stroke-linecap: round; }
 .mx-ball { stroke: rgba(0, 0, 0, .35); stroke-width: 1.5; }
 .mx-pt.is-plot { fill: var(--mx-pink); stroke: #0B1418; }
+.mx-outside { fill: rgba(5, 5, 5, .55); }
+.mx-domline { stroke: var(--mx-yellow); stroke-width: 2; stroke-dasharray: 6 5; }
+.mx-svg .mx-domt { fill: var(--mx-yellow); font-size: 13px; paint-order: stroke; stroke: #0B1418; stroke-width: 4px; }
+.mx-guide { fill: none; stroke: var(--mx-pink); stroke-width: 1.6; stroke-dasharray: 3 4; opacity: .8; }
+.mx-svg .mx-plotlab { fill: #FFD6EE; font-size: 12px; paint-order: stroke; stroke: #0B1418; stroke-width: 4px; }
 /* Measure: water, balls in a tube, nets, the trapezoidal rule */
 .mx-liquid rect, .mx-liquid polygon { fill: rgba(28, 176, 246, .5); }
 .mx-liquid polygon.is-side { fill: rgba(28, 176, 246, .34); }

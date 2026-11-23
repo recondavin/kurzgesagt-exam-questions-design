@@ -53,6 +53,12 @@ under it (one line, may use `$...$`).
 - `pts`: points `{x, y, label?, hl?}` (hl = yellow).
 - `plot`: `[[x, y], ...]` table points that pop on one at a time (for "draw the graph"; list `plot` and then the curve
   in `fns`: the points come first and the curve joins them).
+  `guides: true` draws each point's guide from the x-axis up (or down) to it before the dot goes on (how to plot);
+  `plotLabels: true` writes each point's coordinates beside it.
+- `ticks`: `{"x": 1, "y": 2}` puts the grid lines at the paper's own scale (always use it when the paper has axes to
+  draw on, with `x`/`y` ranges matching the paper's axes, so the student can copy the drawing).
+- `domain`: `[0, 7]` marks where the graph starts and stops ("for 0 ≤ x ≤ 7"): dashed lines labelled "from x = 0" and
+  "to x = 7", with the outside greyed. `dvar` names the variable ("t").
 - `tangent`: `{f, x, label?}` the tangent at x, with its point and "slope = m" (or your label).
 - `ride`: `{f?, from, to, label?: false}` a dot slides along the curve from `from` to `to` with its tangent attached,
   the slope reading out live; at a turning point it reads "slope = 0 (turning point)". Defaults to the first curve.

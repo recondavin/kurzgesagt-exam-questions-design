@@ -172,9 +172,11 @@
     var cy = function (y) { return clamp(y, T + 12, H - B - 6); };
     var s = svgBox(W, H, 'mx-graph'), K = 'g' + [x0, x1, y0, y1].join(',') + ':';
     var AX = X(x0 <= 0 && x1 >= 0 ? 0 : x0), AY = Y(y0 <= 0 && y1 >= 0 ? 0 : y0);
-    var grid = el('g', { class: 'mx-grid' }, s);
-    ticks(x0, x1).forEach(function (t) { el('line', { x1: X(t), x2: X(t), y1: T, y2: H - B }, grid); if (Math.abs(X(t) - AX) > 2) txt(grid, X(t), Math.min(H - B, AY) + 16, nice(t), 'mx-tick'); });
-    ticks(y0, y1).forEach(function (t) { el('line', { x1: L, x2: W - Rm, y1: Y(t), y2: Y(t) }, grid); if (Math.abs(Y(t) - AY) > 2) txt(grid, Math.max(L, AX) - 6, Y(t) + 4, nice(t), 'mx-tick', 'end'); });
+    var grid = el('g', { class: 'mx-grid' }, s), TK = v.ticks || {};
+    // ticks: {x: 1, y: 2} draws the paper's own scale (a line every 1 across, every 2 up), so it can be copied.
+    var steps = function (a, b, st) { if (!(st > 0)) return ticks(a, b); var out = []; for (var t = Math.ceil(a / st - 1e-9) * st; t <= b + 1e-9; t += st) out.push(+t.toFixed(10)); return out; };
+    steps(x0, x1, TK.x).forEach(function (t) { el('line', { x1: X(t), x2: X(t), y1: T, y2: H - B }, grid); if (Math.abs(X(t) - AX) > 2) txt(grid, X(t), Math.min(H - B, AY) + 16, nice(t), 'mx-tick'); });
+    steps(y0, y1, TK.y).forEach(function (t) { el('line', { x1: L, x2: W - Rm, y1: Y(t), y2: Y(t) }, grid); if (Math.abs(Y(t) - AY) > 2) txt(grid, Math.max(L, AX) - 6, Y(t) + 4, nice(t), 'mx-tick', 'end'); });
     q.fade(grid, K + 'grid', 0, 500);
     var ax = el('g', { class: 'mx-axes' }, s);
     q.draw(el('line', { x1: L, x2: W - Rm, y1: AY, y2: AY }, ax), K + 'xa', 600, 0);
@@ -185,9 +187,28 @@
     el('rect', { x: L, y: T - 4, width: W - L - Rm, height: H - T - B + 8 }, el('clipPath', { id: cid }, defs(s)));
     var plot = el('g', { 'clip-path': 'url(#' + cid + ')' }, s), top = el('g', {}, s);
     // Points from a table, plotted one at a time before the curve joins them.
+    // The domain ("for 0 ≤ x ≤ 7"): where the graph starts and stops; outside it is greyed and the curve isn't drawn.
+    if (v.domain) {
+      var da = +v.domain[0], db = +v.domain[1], dv = v.dvar || 'x', dg = el('g', { class: 'mx-domain' }, s);
+      if (da > x0) el('rect', { x: L, y: T, width: Math.max(0, X(da) - L), height: H - T - B, class: 'mx-outside' }, dg);
+      if (db < x1) el('rect', { x: X(db), y: T, width: Math.max(0, W - Rm - X(db)), height: H - T - B, class: 'mx-outside' }, dg);
+      q.fade(dg, K + 'dom' + da + ',' + db, 200, 500);
+      [[da, 'from ' + dv + ' = ' + nice(da), 'start'], [db, 'to ' + dv + ' = ' + nice(db), 'end']].forEach(function (e, i) {
+        var ln = el('line', { x1: X(e[0]), x2: X(e[0]), y1: T, y2: H - B, class: 'mx-domline' }, s);
+        q.draw(ln, K + 'doml' + i + e[0], 600, 250);
+        var t = txt(s, X(e[0]) + (i ? -6 : 6), T + (v.ylab ? 32 : 14), e[1], 'mx-domt', i ? 'end' : 'start');
+        q.fade(t, K + 'domt' + i + e[0], 0);
+      });
+    }
+    // Plotting: each point's guide runs from the x-axis straight up (or down) to its height, then the dot goes on.
     (v.plot || []).forEach(function (p) {
+      if (v.guides) {
+        var gl = el('path', { d: 'M' + X(p[0]) + ' ' + AY + 'V' + Y(p[1]), class: 'mx-guide' }, top);
+        q.draw(gl, K + 'guide' + p.join(','), 380, 260);
+      }
       var c = el('circle', { cx: X(p[0]), cy: Y(p[1]), r: 5.5, class: 'mx-pt is-plot' }, top);
-      q.pop(c, K + 'plot' + p.join(','), 130, 380);
+      q.pop(c, K + 'plot' + p.join(','), v.guides ? 200 : 130, 380);
+      if (v.plotLabels) { var edge = X(p[0]) > W - 80, pl = txt(top, X(p[0]) + (edge ? -8 : 8), clamp(Y(p[1]) + (p[1] >= 0 ? -9 : 18), T + 12, H - B - 4), '(' + nice(p[0]) + ', ' + nice(p[1]) + ')', 'mx-plotlab', edge ? 'end' : 'start'); q.fade(pl, K + 'plotl' + p.join(','), 0); }
     });
     var F = [];
     (v.fns || []).forEach(function (fn, k) {
