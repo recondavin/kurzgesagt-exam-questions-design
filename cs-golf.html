@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mini Golf | Leaving Cert Computer Science</title>
+<meta name="description" content="Mini Golf against the examiner, with real Higher Level Computer Science exam questions before every putt.">
+<link rel="icon" href="assets/examiner/bro-icon.svg?v=1" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Nunito:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="bio/bio.css?v=eng-108">
+<link rel="stylesheet" href="bio/bio-shell.css?v=eng-108">
+<style>
+  .mx-levelpick { font: 700 17px Nunito, sans-serif; }
+  .mx-levelpick a { color: inherit; }
+  .mx-levelpick a[aria-current="page"] { color: #FFC800; text-decoration: none; }
+</style>
+</head>
+<body class="mg-page">
+<!-- Biology's Mini Golf (bio/bio-golf.js) with Computer Science questions: cs/cs-deck.js gives bio/bio-board.js a deck of
+     the real Higher Level exam questions 2020-2025 on chapters 6 and 7 as four-option cards. -->
+<main class="mg-land">
+<h1>Mini Golf</h1>
+<p data-mx-intro>Computer Science: ten holes against the examiner, from the CPU to the pixel, a real exam question before every putt.</p>
+<p class="mx-levelpick" aria-label="Level" hidden><a href="cs-golf.html?warm" data-mx-level="warm">Warm-up</a> · <a href="cs-golf.html" data-mx-level="exam">Exam questions</a></p>
+<button type="button" class="tb-btn tb-btn--go" data-mg-play>Play</button>
+<p><a href="computer-science.html">Back to Computer Science</a></p>
+</main>
+<script src="./examiner-art.js?v=teacher-15"></script>
+<script src="./answer-mode.js?v=answer-mode-48"></script>
+<script>
+(function () {
+  // Warm-up (?warm) or the real exam questions: say which on the page, and mark the one you're on.
+  var warm = /[?&]warm\b/.test(location.search);
+  if (warm) document.querySelector('[data-mx-intro]').textContent = 'Warm-up: short basics from every topic before every putt, to get going before the real exam questions.';
+  document.querySelectorAll('[data-mx-level]').forEach(function (a) { if ((a.getAttribute('data-mx-level') === 'warm') === warm) a.setAttribute('aria-current', 'page'); });
+  document.title = (warm ? 'Warm-up ' : '') + document.title;
+})();
+</script>
+<script src="./cs/cs-cards.js?v=cs-1"></script>
+<script src="./cs/cs-deck.js?v=cs-1"></script>
+<script src="./bio/bio-games.js?v=eng-108"></script>
+<script src="./bio/bio-board.js?v=eng-108"></script>
+<script src="./bio/vendor/three.min.js?v=eng-108"></script>
+<script src="./bio/golf-head.js?v=eng-108"></script>
+<script src="./bio/bio-golf.js?v=geo-1"></script>
+<script>
+(function () {
+  function play() { if (window.BioGolf) window.BioGolf.open(); }
+  document.querySelector('[data-mg-play]').addEventListener('click', play);
+  play();
+})();
+</script>
+</body>
+</html>

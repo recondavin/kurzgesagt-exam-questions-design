@@ -1,0 +1,8 @@
+/* computer-science.html (cs/cs-hub.js): on top of the Maths hub's look (maths/maths-hub.css). */
+.cs-sub { margin: 0 0 26px; }
+.cs-sub .mx-h2 { display: flex; align-items: center; gap: 10px; }
+.cs-sub__n { display: inline-grid; place-items: center; min-width: 30px; height: 30px; padding: 0 8px; border-radius: 999px; background: var(--card-2, #202F36); color: var(--muted, #9EB0B9); font: 600 16px Fredoka, Nunito, sans-serif; }
+.mx-games__row.cs-games { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.cs-games .mx-game { flex-direction: column; align-items: flex-start; text-decoration: none; }
+@media (max-width: 1300px) { .mx-games__row.cs-games { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .mx-games__row.cs-games { grid-template-columns: 1fr; } }

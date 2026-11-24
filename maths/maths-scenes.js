@@ -1380,6 +1380,11 @@
   }
   R.vis = vis;
   R.kinds = function () { return Object.keys(KINDS); };
+  // Another subject adds its own kinds (cs/cs-scenes.js): draw(v, q) gets the spec and the sequence, `need` the fields
+  // it must have; the kit is the helpers the kinds here use.
+  R.addKind = function (name, draw, need) { KINDS[name] = [draw, need || []]; };
+  R.sceneKit = { el: el, txt: txt, svgBox: svgBox, defs: defs, colour: colour, nice: nice, clamp: clamp, tween: tween, ease: ease,
+    easeOut: easeOut, linear: linear, list: list, isHl: isHl, uid: uid, ballGrad: ballGrad, countTo: countTo, reduce: reduce };
   R.validate = validate;
   R.shapes = SHAPES;
 })();

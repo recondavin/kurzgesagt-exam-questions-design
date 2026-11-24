@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Games | Leaving Cert Computer Science</title>
+<meta name="description" content="Games against the examiner with real Higher Level Computer Science exam questions: Trivia board, Outrun the Examiner, Points Grid, Sea Battle, Cannon Duel and Topple the Examiner.">
+<link rel="icon" href="assets/examiner/bro-icon.svg?v=1" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Nunito:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="bio/bio.css?v=eng-108">
+<link rel="stylesheet" href="bio/bio-shell.css?v=eng-108">
+</head>
+<body class="mg-page">
+<!-- Biology's turn-by-turn games (bio/bio-board.js, bio/bio-quizgames.js, bio/bio-arcade.js) with Computer Science
+     questions: cs/cs-deck.js gives the board a deck of the real Higher Level exam parts on chapters 6 and 7.
+     cs-play.html?g=board | chase | grid | sea | cannon | tower opens that game. -->
+<main class="mg-land">
+<h1 data-cs-game>Games</h1>
+<p>Computer Science: a real exam question every turn.</p>
+<button type="button" class="tb-btn tb-btn--go" data-cs-play>Play</button>
+<p><a href="computer-science.html#games">Back to Computer Science</a></p>
+</main>
+<script src="./examiner-art.js?v=teacher-15"></script>
+<script src="./answer-mode.js?v=answer-mode-48"></script>
+<script src="./cs/cs-cards.js?v=cs-1"></script>
+<script src="./cs/cs-deck.js?v=cs-1"></script>
+<script src="./bio/bio-games.js?v=eng-108"></script>
+<script src="./bio/bio-board.js?v=eng-108"></script>
+<script src="./bio/bio-quizgames.js?v=bio-91"></script>
+<script src="./bio/vendor/matter.min.js?v=bio-91"></script>
+<script src="./bio/bio-arcade.js?v=bio-91"></script>
+<script>
+(function () {
+  var NAMES = { board: 'Trivia board', chase: 'Outrun the Examiner', grid: 'Points Grid', sea: 'Sea Battle', cannon: 'Cannon Duel', tower: 'Topple the Examiner' };
+  var g = (/[?&]g=(\w+)/.exec(location.search) || [])[1] || 'board';
+  if (!NAMES[g]) g = 'board';
+  document.querySelector('[data-cs-game]').textContent = NAMES[g];
+  document.title = NAMES[g] + ' | Leaving Cert Computer Science';
+  function play() {
+    if (g === 'board') { if (window.BioBoard) window.BioBoard.open(); }
+    else if (g === 'chase' || g === 'grid') { if (window.BioQuizGames) window.BioQuizGames.open(g); }
+    else if (window.BioArcade) window.BioArcade.open(g);
+  }
+  document.querySelector('[data-cs-play]').addEventListener('click', play);
+  play();
+})();
+</script>
+</body>
+</html>

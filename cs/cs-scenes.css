@@ -1,0 +1,85 @@
+/* Computer Science scenes (cs/cs-scenes.js), on the maths scenes' dark card look (maths/maths.css). */
+/* bits */
+.mx-svg .cs-placet { fill: var(--mx-soft, #9EB0B9); font: 700 14px Nunito, sans-serif; }
+.cs-place.is-on .cs-placet { fill: #FFC800; }
+.cs-bit rect { fill: #16232A; stroke: #37464F; stroke-width: 2; }
+.cs-bit.is-on rect { fill: #3A2F05; stroke: #FFC800; }
+.cs-bit.is-hl rect { stroke: #FFFFFF; stroke-width: 3; }
+.mx-svg .cs-bitt { fill: #6B7F88; font: 800 22px 'DejaVu Sans Mono', Menlo, monospace; }
+.mx-svg .cs-bit.is-on .cs-bitt { fill: #FFC800; }
+.mx-svg .cs-sumt { fill: #FFFFFF; font: 700 18px Fredoka, Nunito, sans-serif; }
+.cs-brace { fill: none; stroke: #9EB0B9; stroke-width: 2; }
+.mx-svg .cs-nibt { fill: #CE82FF; font: 700 15px 'DejaVu Sans Mono', Menlo, monospace; }
+/* logic gates */
+.cs-gatebody { fill: #16232A; stroke: #8FD8FB; stroke-width: 2.5; stroke-linejoin: round; }
+.cs-gateline { fill: none; stroke: #8FD8FB; stroke-width: 2.5; }
+.cs-gate.is-on .cs-gatebody { fill: #3A2F05; stroke: #FFC800; }
+.mx-svg .cs-gatename { fill: #C9D6DD; font: 800 11px Nunito, sans-serif; }
+.cs-wire { fill: none; stroke: #6B7F88; stroke-width: 3; stroke-linejoin: round; }
+.cs-wire.is-on { stroke: #FFC800; }
+.cs-wire.is-off { stroke: #47555C; }
+.mx-svg .cs-gatet { fill: #FFFFFF; font: 800 16px Nunito, sans-serif; }
+.cs-led { fill: #26353C; stroke: #6B7F88; stroke-width: 2; }
+.cs-in.is-on .cs-led { fill: #FFC800; stroke: #FFE27A; }
+.mx-svg .cs-ledt { fill: #FFFFFF; font: 800 13px Nunito, sans-serif; }
+.mx-svg .cs-in.is-on .cs-ledt { fill: #131F24; }
+.cs-ttrow rect { fill: transparent; }
+.cs-ttrow.is-hl rect { fill: rgba(255, 200, 0, .28); }
+.mx-svg .cs-ttt { fill: #C9D6DD; font: 700 13px 'DejaVu Sans Mono', Menlo, monospace; }
+.mx-svg .cs-ttt.is-head { fill: #FFFFFF; font-family: Nunito, sans-serif; font-weight: 800; }
+/* the CPU */
+.cs-cpubox { fill: rgba(28, 176, 246, .05); stroke: #8FD8FB; stroke-width: 2.5; }
+.mx-svg .cs-cputitle { fill: #8FD8FB; font: 800 15px Nunito, sans-serif; }
+.mx-svg .cs-cpustep { fill: #FFC800; font: 700 16px Fredoka, Nunito, sans-serif; }
+.cs-unit rect { fill: #16232A; stroke: #37464F; stroke-width: 2; }
+.cs-unit.is-ram > rect { fill: rgba(206, 130, 255, .07); stroke: #CE82FF; }
+.cs-unit.is-hl > rect { stroke: #FFC800; stroke-width: 3; fill: rgba(255, 200, 0, .1); }
+.mx-svg .cs-unitt { fill: #F1F7FB; font: 800 13px Nunito, sans-serif; }
+.mx-svg .cs-regval { fill: #FFC800; font: 700 13px 'DejaVu Sans Mono', Menlo, monospace; }
+.cs-memrow rect { fill: #0B1418; }
+.cs-memrow.is-hl rect { fill: rgba(255, 200, 0, .3); }
+.mx-svg .cs-memaddr { fill: #9EB0B9; font: 700 11px 'DejaVu Sans Mono', Menlo, monospace; }
+.mx-svg .cs-memval { fill: #F1F7FB; font: 700 11px 'DejaVu Sans Mono', Menlo, monospace; }
+.cs-bus line { stroke: #6B7F88; stroke-width: 5; stroke-linecap: round; }
+.cs-bus.is-address line { stroke: #1CB0F6; } .cs-bus.is-data line { stroke: #58CC02; } .cs-bus.is-control line { stroke: #FF86D0; }
+.cs-bus.is-hl line { stroke-width: 8; }
+.mx-svg .cs-bust { fill: #9EB0B9; font: 700 10px Nunito, sans-serif; text-anchor: middle; }
+.cs-flowpath { fill: none; stroke: #FFC800; stroke-width: 2; stroke-dasharray: 5 5; opacity: .8; }
+.cs-token rect { fill: #FFC800; stroke: #131F24; stroke-width: 2; }
+.mx-svg .cs-tokent { fill: #131F24; font: 800 11px 'DejaVu Sans Mono', Menlo, monospace; }
+/* networks */
+.cs-dev { fill: #16232A; stroke: #8FD8FB; stroke-width: 2.2; stroke-linejoin: round; }
+.cs-devline { stroke: #8FD8FB; stroke-width: 2.2; stroke-linecap: round; }
+.cs-devdot { fill: #58CC02; }
+.cs-node.is-hl .cs-dev { stroke: #FFC800; fill: #3A2F05; }
+.cs-link { stroke: #6B7F88; stroke-width: 3; }
+.cs-link.is-wifi { stroke-dasharray: 6 6; }
+.mx-svg .cs-nodet { fill: #F1F7FB; font: 700 13px Nunito, sans-serif; }
+.mx-svg .cs-nodet.is-tag { fill: #FFC800; font-size: 11px; }
+.mx-svg .cs-nodeip { fill: #9EB0B9; font: 700 11px 'DejaVu Sans Mono', Menlo, monospace; }
+.cs-packet rect { fill: #FFC800; stroke: #131F24; stroke-width: 1.5; }
+.cs-packet.is-blue rect { fill: #1CB0F6; } .cs-packet.is-pink rect { fill: #FF86D0; } .cs-packet.is-green rect { fill: #58CC02; }
+.cs-packetflap { fill: none; stroke: #131F24; stroke-width: 1.5; }
+.mx-svg .cs-packett { fill: #FFFFFF; font: 700 11px Nunito, sans-serif; paint-order: stroke; stroke: #0B1418; stroke-width: 3px; }
+/* flowcharts */
+.cs-fnode > :first-child { fill: #16232A; stroke: #8FD8FB; stroke-width: 2.2; }
+.cs-fnode.is-decision > :first-child { stroke: #CE82FF; }
+.cs-fnode.is-start > :first-child, .cs-fnode.is-end > :first-child { stroke: #58CC02; }
+.cs-fnode.is-io > :first-child { stroke: #FF9600; }
+.cs-fnode.is-hl > :first-child { fill: #3A2F05; stroke: #FFC800; stroke-width: 3; }
+.mx-svg .cs-fnodet { fill: #F1F7FB; font: 700 12.5px Nunito, sans-serif; }
+.cs-fedge { fill: none; stroke: #6B7F88; stroke-width: 2; }
+.cs-farrow { fill: #6B7F88; }
+.mx-svg .cs-fedget { fill: #9EB0B9; font: 700 11px Nunito, sans-serif; }
+.cs-ftoken { fill: #FFC800; stroke: #131F24; stroke-width: 2; }
+/* arrays */
+.cs-cell rect { fill: #16232A; stroke: #37464F; stroke-width: 2; }
+.cs-cell.is-cmp rect { stroke: #FFC800; }
+.cs-cell.is-hl rect { fill: #3A2F05; stroke: #FFC800; }
+.cs-cell.is-done rect { fill: rgba(88, 204, 2, .16); stroke: #58CC02; }
+.cs-cell.is-found rect { fill: #58CC02; stroke: #A5ED6E; }
+.mx-svg .cs-cellt { fill: #FFFFFF; font: 800 17px 'DejaVu Sans Mono', Menlo, monospace; }
+.mx-svg .cs-idx { fill: #6B7F88; font: 700 11px Nunito, sans-serif; }
+.cs-ptr path { fill: #1CB0F6; }
+.mx-svg .cs-ptrt { fill: #1CB0F6; font: 800 12px Nunito, sans-serif; }
+.mx-svg .cs-arrlabel { fill: #C9D6DD; font: 700 14px Nunito, sans-serif; }

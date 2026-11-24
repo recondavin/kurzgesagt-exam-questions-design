@@ -41,7 +41,7 @@
       }).join('') + '</nav>';
     bar.innerHTML = '<button type="button" class="sh-menu" data-sh-menu aria-expanded="false" aria-controls="mx-side"><span class="sh-burger" aria-hidden="true"></span><span class="sr">Menu</span></button>' +
       '<p class="sh-crumb">' + (crumb ? '<a href="#">Maths</a><span class="sh-sep" aria-hidden="true">/</span><span class="sh-here">' + esc(crumb) + '</span>' : '<span class="sh-here">Maths</span>') + '</p>' +
-      '<nav class="sh-switch" aria-label="Subject"><a href="geography.html">Geography</a><a href="biology.html">Biology</a><a href="maths.html" aria-current="page">Maths</a><a href="english.html">English</a><a href="irish.html">Irish</a><a href="german.html">German</a></nav>';
+      '<nav class="sh-switch" aria-label="Subject"><a href="geography.html">Geography</a><a href="biology.html">Biology</a><a href="maths.html" aria-current="page">Maths</a><a href="computer-science.html">Computer Science</a><a href="english.html">English</a><a href="irish.html">Irish</a><a href="german.html">German</a></nav>';
   }
   function home() {
     document.title = 'Maths | Leaving Cert';

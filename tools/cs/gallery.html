@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CS scenes gallery</title>
+<!-- Every Computer Science picture kind (cs/cs-scenes.js) with an example. ?still=1 shows the end states. -->
+<link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<link rel="stylesheet" href="../../maths/maths.css">
+<link rel="stylesheet" href="../../cs/cs-scenes.css">
+<style>
+  body { margin: 0; padding: 16px; background: #050505; color: #F1F7FB; font: 16px/1.4 Nunito, system-ui, sans-serif; }
+  .g { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 520px), 1fr)); gap: 14px; }
+  .c { padding: 12px; border-radius: 14px; background: #131F24; cursor: pointer; }
+  .c h2 { margin: 0 0 8px; font: 600 15px Nunito, sans-serif; color: #9EB0B9; }
+  .c .mx-vis > svg { max-height: 330px; }
+</style>
+</head>
+<body>
+<div class="g" id="g"></div>
+<script src="../../lib/katex/katex.min.js"></script>
+<script src="../../maths/maths-render.js"></script>
+<script>if (/[?&]still=1/.test(location.search)) window.MATHS_STILL = true;</script>
+<script src="../../maths/maths-scenes.js"></script>
+<script src="../../cs/cs-scenes.js"></script>
+<script>
+(function () {
+  var R = window.MathsRender, only = (/[?&]only=([\w-]+)/.exec(location.search) || [])[1];
+  var EX = [
+    ['bits: 121 as 8 bits', { t: 'bits', value: 121, n: 8 }],
+    ['bits: two\'s complement −58', { t: 'bits', value: -58, n: 8, signed: true }],
+    ['bits: hex B6', { t: 'bits', bits: '10110110', hex: true, show: false }],
+    ['gates: NOT (A AND B)', { t: 'gates', inputs: { A: 1, B: 1 }, gates: [{ id: 'x', type: 'AND', in: ['A', 'B'] }, { id: 'y', type: 'NOT', in: ['x'] }], out: 'y', table: true }],
+    ['gates: (A OR B) AND C, XOR, NAND', { t: 'gates', inputs: { A: 0, B: 1, C: 1 }, gates: [{ id: 'x', type: 'OR', in: ['A', 'B'] }, { id: 'y', type: 'XOR', in: ['x', 'C'] }, { id: 'z', type: 'NAND', in: ['x', 'C'] }], out: ['y', 'z'], outName: ['P', 'Q'] }],
+    ['cpu: fetch', { t: 'cpu', step: 'Fetch', regs: { PC: '0100', MAR: '0100', MDR: 'LOAD 7', CIR: 'LOAD 7', ACC: '' }, mem: [['0100', 'LOAD 7'], ['0101', 'ADD 8'], ['0110', 'STORE 9'], ['0111', '5'], ['1000', '3']], hl: ['pc', 'mar', 'mem0'], flow: [['pc', 'mar', null, '0100'], ['mar', 'ram', 'address', '0100'], ['ram', 'mdr', 'data', 'LOAD 7'], ['mdr', 'cir', null, 'LOAD 7']] }],
+    ['cpu: with input, output and storage', { t: 'cpu', io: true, cache: true, hl: ['alu', 'acc'] }],
+    ['network: a web request with DNS', { t: 'network', nodes: [{ id: 'pc', kind: 'laptop', label: 'Your laptop', ip: '192.168.1.5', x: 0, y: 60 }, { id: 'r', kind: 'router', label: 'Router', x: 30, y: 60 }, { id: 'dns', kind: 'dns', label: 'DNS server', x: 60, y: 0 }, { id: 'web', kind: 'server', label: 'Web server', ip: '93.184.216.34', x: 100, y: 60 }], links: [['pc', 'r'], ['r', 'dns'], ['r', 'web']], send: [{ path: ['pc', 'r', 'dns'], label: 'example.com?' }, { path: ['dns', 'r', 'pc'], label: '93.184.216.34', c: 'blue' }, { path: ['pc', 'r', 'web'], label: 'GET /', c: 'green' }] }],
+    ['flow: is n even?', { t: 'flow', nodes: [{ id: 's', type: 'start', text: 'Start' }, { id: 'i', type: 'io', text: 'Input n' }, { id: 'd', type: 'decision', text: 'n mod 2 = 0?' }, { id: 'y', type: 'io', text: 'Output "even"' }, { id: 'e', type: 'end', text: 'End' }], edges: [['s', 'i'], ['i', 'd'], ['d', 'y', 'yes'], ['y', 'e'], ['d', 'e', 'no']], path: ['s', 'i', 'd', 'y', 'e'], hl: 'd' }],
+    ['array: bubble sort swap', { t: 'array', vals: [3, 5, 8, 9, 12], swap: [1, 2], cmp: [1, 2], sorted: [4, 4], label: 'Pass 1: swap 8 and 5' }],
+    ['array: binary search for 23', { t: 'array', vals: [2, 5, 8, 12, 16, 23, 38, 56, 72, 91], ptr: { lo: 5, mid: 7, hi: 9 }, hl: [7], find: 23, label: 'mid = 56: too big, so hi = mid − 1' }]
+  ];
+  var g = document.getElementById('g');
+  EX.forEach(function (e) {
+    if (only && e[1].t !== only) return;
+    var c = document.createElement('div'), h = document.createElement('h2'), box = document.createElement('div');
+    c.className = 'c'; h.textContent = e[0]; c.appendChild(h); c.appendChild(box); g.appendChild(c);
+    function show() { box.innerHTML = ''; var v = R.vis(e[1], {}); if (!v) { box.textContent = 'FAILED ' + JSON.stringify(R.validate(e[1])); return; } box.appendChild(v); v.play(); }
+    c.addEventListener('click', show); show();
+  });
+  window.GALLERY_PROBLEMS = EX.map(function (e) { return [e[0], R.validate(e[1])]; }).filter(function (p) { return p[1].length; });
+})();
+</script>
+</body>
+</html>

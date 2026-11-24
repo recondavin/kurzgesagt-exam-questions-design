@@ -59,11 +59,12 @@
     if (old) old.remove();
     var nav = el('nav', 'desk-subjects');
     nav.setAttribute('aria-label', 'Subject');
-    // On a Maths question (maths/maths-desk.js) Maths is the subject.
-    var maths = /^#maths\//.test(location.hash);
-    nav.innerHTML = '<a href="geography.html"' + (bio || maths ? '' : ' aria-current="page"') + '>Geography</a>' +
+    // On a Maths question (maths/maths-desk.js) Maths is the subject; on a Computer Science one (cs/cs-desk.js), that.
+    var maths = /^#maths\//.test(location.hash), cs = /^#cs\//.test(location.hash);
+    nav.innerHTML = '<a href="geography.html"' + (bio || maths || cs ? '' : ' aria-current="page"') + '>Geography</a>' +
       '<a href="' + BIO_PAGE + (ch ? '#ch' + ch : '') + '"' + (bio ? ' aria-current="page"' : '') + '>Biology</a>' +
       '<a href="maths.html"' + (maths ? ' aria-current="page"' : '') + '>Maths</a>' +
+      '<a href="computer-science.html"' + (cs ? ' aria-current="page"' : '') + '>Computer Science</a>' +
       '<a href="english.html">English</a><a href="irish.html">Irish</a><a href="german.html">German</a>';
     document.body.appendChild(nav);
   }
