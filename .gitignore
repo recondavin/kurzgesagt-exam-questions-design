@@ -10,3 +10,6 @@ node_modules/
 
 # Scenes patches being worked on and their previews (tools/maths/apply_scenes.py)
 tools/maths/work/
+
+# Scene patches and preview copies while they are written (applied into tools/cs/questions/ch<N>.json)
+tools/cs/work/
