@@ -1,0 +1,1422 @@
+{
+ "chapter": 7,
+ "cards": [
+  {
+   "id": "2023-Q2:(a):1",
+   "from": "2023-Q2",
+   "q": "Many software developers write numbers in hexadecimal instead of binary. Which is an advantage of hexadecimal?",
+   "right": "Shorter: each hex digit stands for 4 bits",
+   "wrong": [
+    "It takes up less memory in the computer",
+    "Each hex digit stands for a whole byte",
+    "The CPU processes hex faster than binary"
+   ],
+   "why": "Hex is concise: one hex digit is exactly 4 bits, so the byte 11001001 is just C9. Fewer digits means fewer mistakes, and converting to binary is quick.",
+   "hook": "16 = 2⁴: one hex digit is one nibble of 4 bits.",
+   "keys": [
+    "one hex digit is exactly 4 bits",
+    "fewer mistakes"
+   ]
+  },
+  {
+   "id": "2023-Q2:(a):2",
+   "from": "2023-Q2",
+   "q": "Hexadecimal is used because it is easy for humans to read and write. Which of these is it a convenient way to show?",
+   "right": "Memory addresses and colour codes",
+   "wrong": [
+    "Passwords, to encrypt them",
+    "Text files, to compress them",
+    "Money amounts, to avoid rounding"
+   ],
+   "why": "Hex is a compact way to show binary values to people: memory addresses, machine code, error codes and colours like #0A33F0. It doesn't encrypt or compress anything.",
+   "hook": "Hex is just binary written short, for humans.",
+   "keys": [
+    "compact way to show binary values to people"
+   ]
+  },
+  {
+   "id": "2023-Q2:(b):1",
+   "from": "2023-Q2",
+   "q": "Convert the hexadecimal number C9 into a decimal number.",
+   "right": "201",
+   "wrong": [
+    "185",
+    "129",
+    "156"
+   ],
+   "why": "C = 12, so C9 = 12 × 16 + 9 × 1 = 192 + 9 = 201. Check in binary: 1100 1001 = 128 + 64 + 8 + 1 = 201.",
+   "hook": "Left hex digit counts 16s. A=10, B=11, C=12, D=13, E=14, F=15.",
+   "keys": [
+    "12 × 16 + 9 × 1",
+    "192 + 9 = 201"
+   ]
+  },
+  {
+   "id": "2023-Q2:(b):2",
+   "from": "2023-Q2",
+   "q": "The hexadecimal number C9 can be converted to decimal through binary. What is C9 in binary?",
+   "right": "1100 1001",
+   "wrong": [
+    "1011 1001",
+    "1001 1100",
+    "0011 1001"
+   ],
+   "why": "Turn each hex digit into 4 bits, in order: C = 12 = 1100 and 9 = 1001, so C9 = 1100 1001 = 128 + 64 + 8 + 1 = 201.",
+   "hook": "One hex digit becomes one group of 4 bits, in the same order.",
+   "keys": [
+    "C = 12 = 1100",
+    "9 = 1001"
+   ]
+  },
+  {
+   "id": "2023-Q8:(a):1",
+   "from": "2023-Q8",
+   "q": "A farmer must ferry a wolf, a goat and a cabbage from the east (E) to the west (W) bank. A state is written (farmer, wolf, goat, cabbage) and starts as (E, E, E, E). What is the desired final state?",
+   "right": "(W, W, W, W)",
+   "wrong": [
+    "(E, E, E, E)",
+    "(E, W, W, W)",
+    "(W, W, W)"
+   ],
+   "why": "The goal is for everyone to end up on the west bank, the farmer as well, so all four values are W: (W, W, W, W). (E, E, E, E) is the start.",
+   "hook": "Four slots, always: farmer first, then wolf, goat, cabbage.",
+   "keys": [
+    "the farmer as well",
+    "all four values are W"
+   ]
+  },
+  {
+   "id": "2023-Q8:(b)(i):1",
+   "from": "2023-Q8",
+   "q": "States are (farmer, wolf, goat, cabbage), each E or W bank. Without the farmer, the wolf eats the goat and the goat eats the cabbage. (W, E, E, W) is a loss state. Which of these is another loss state?",
+   "right": "(E, E, W, W)",
+   "wrong": [
+    "(W, E, W, E)",
+    "(W, W, W, E)",
+    "(W, W, E, W)"
+   ],
+   "why": "In (E, E, W, W) the farmer is on the east bank and the goat is alone with the cabbage on the west bank, so the goat eats the cabbage.",
+   "hook": "Loss = the goat away from the farmer, with the wolf or the cabbage.",
+   "keys": [
+    "the goat is alone with the cabbage"
+   ]
+  },
+  {
+   "id": "2023-Q8:(b)(i):2",
+   "from": "2023-Q8",
+   "q": "States are (farmer, wolf, goat, cabbage), each E or W bank. Without the farmer, the wolf eats the goat and the goat eats the cabbage. Why is (W, W, E, E) a loss state?",
+   "right": "The goat eats the cabbage on the east bank",
+   "wrong": [
+    "The wolf eats the goat on the east bank",
+    "The wolf eats the goat on the west bank",
+    "It isn't: the farmer is with the wolf"
+   ],
+   "why": "The farmer and the wolf are on the west bank, so the goat and the cabbage are left alone on the east bank and the goat eats the cabbage.",
+   "hook": "Read the slots in order: farmer, wolf, goat, cabbage.",
+   "keys": [
+    "left alone on the east bank"
+   ]
+  },
+  {
+   "id": "2023-Q8:(b)(ii):1",
+   "from": "2023-Q8",
+   "q": "States are (farmer, wolf, goat, cabbage), each E or W bank. Without the farmer, the wolf eats the goat and the goat eats the cabbage. Which is a non-loss state, other than the start and the end?",
+   "right": "(W, E, W, E)",
+   "wrong": [
+    "(W, E, E, E)",
+    "(E, W, W, W)",
+    "(E, W, W, E)"
+   ],
+   "why": "In (W, E, W, E) the farmer is with the goat on the west bank, and the wolf and the cabbage are together on the east bank: a wolf doesn't eat cabbage.",
+   "hook": "Safe = the goat is with the farmer, or on its own.",
+   "keys": [
+    "the farmer is with the goat",
+    "a wolf doesn't eat cabbage"
+   ]
+  },
+  {
+   "id": "2023-Q8:(b)(ii):2",
+   "from": "2023-Q8",
+   "q": "Wolf, goat and cabbage puzzle: left without the farmer, the wolf eats the goat and the goat eats the cabbage. Which test tells you a state is safe?",
+   "right": "The goat is with the farmer or on its own",
+   "wrong": [
+    "The wolf is with the farmer",
+    "The cabbage is with the farmer",
+    "The farmer is on the west bank"
+   ],
+   "why": "Only the goat eats or is eaten. A state is safe if the goat is with the farmer, or alone on its bank, away from both the wolf and the cabbage.",
+   "hook": "Watch the goat: it is both the eater and the eaten.",
+   "keys": [
+    "safe if the goat is with the farmer"
+   ]
+  },
+  {
+   "id": "2023-Q9:(a):1",
+   "from": "2023-Q9",
+   "q": "Chop Cup: move A swaps the cups at positions 1 and 2, B swaps positions 1 and 3, C swaps positions 2 and 3. The ball starts under the cup at position 1 and stays under that cup. Where is the ball after each move of ABCBCA?",
+   "right": "2, 2, 3, 1, 1, 2",
+   "wrong": [
+    "2, 3, 1, 1, 3, 3",
+    "2, 3, 3, 1, 1, 3",
+    "1, 3, 3, 1, 2, 3"
+   ],
+   "why": "A moves it 1→2; B (1↔3) leaves 2; C moves it 2→3; B moves it 3→1; C (2↔3) leaves 1; A moves it 1→2. It ends at position 2, the middle cup.",
+   "hook": "Follow only the ball: a move changes it only if it swaps the ball's position.",
+   "keys": [
+    "It ends at position 2"
+   ]
+  },
+  {
+   "id": "2023-Q9:(b):1",
+   "from": "2023-Q9",
+   "q": "Chop Cup: move A swaps the cups at positions 1 and 2, B swaps positions 1 and 3, C swaps positions 2 and 3. Without knowing which cup the ball is under, which sequence of at least three moves always ends with the ball where it started?",
+   "right": "ABBA",
+   "wrong": [
+    "ABA",
+    "ABAB",
+    "ABCBA"
+   ],
+   "why": "Each swap undoes itself, so ABBA is AB followed by its undo BA: every cup returns. ABA and ABCBA use an odd number of swaps, and ABAB cycles the three cups.",
+   "hook": "Undo in reverse: do some moves, then the same moves backwards.",
+   "keys": [
+    "Each swap undoes itself",
+    "an odd number of swaps"
+   ]
+  },
+  {
+   "id": "2023-Q9:(b):2",
+   "from": "2023-Q9",
+   "q": "Chop Cup: each move (A, B or C) swaps two of the three cups. A sequence of at least three moves must put every cup back where it started. What is the shortest such sequence?",
+   "right": "4 moves",
+   "wrong": [
+    "3 moves",
+    "6 moves",
+    "5 moves"
+   ],
+   "why": "An odd number of swaps always leaves two cups swapped, so 3 or 5 moves can't work. Four can, e.g. ABBA, AABB or AAAA.",
+   "hook": "Swaps undo in pairs, so the length must be even.",
+   "keys": [
+    "An odd number of swaps always leaves two cups swapped"
+   ]
+  },
+  {
+   "id": "2023-Q10:(a):1",
+   "from": "2023-Q10",
+   "q": "Quicksort the list 60, 30, 80, 40, 10, 50, 20, 70, 90 using the leftmost element as the pivot. What is the list after the first partition, if the sub-lists are not re-ordered?",
+   "right": "30, 40, 10, 50, 20, 60, 80, 70, 90",
+   "wrong": [
+    "10, 20, 30, 40, 50, 60, 70, 80, 90",
+    "60, 30, 40, 10, 50, 20, 80, 70, 90",
+    "80, 70, 90, 60, 30, 40, 10, 50, 20"
+   ],
+   "why": "The pivot is 60. The smaller values keep their order on its left (30, 40, 10, 50, 20) and the bigger ones on its right (80, 70, 90): 60 is now in its final place.",
+   "hook": "Smaller left, pivot, bigger right: one partition, not a full sort.",
+   "keys": [
+    "The pivot is 60",
+    "60 is now in its final place"
+   ]
+  },
+  {
+   "id": "2023-Q10:(a):2",
+   "from": "2023-Q10",
+   "q": "Quicksort works by recursively partitioning a list about a pivot. What does one partition guarantee?",
+   "right": "The pivot is in its final sorted place",
+   "wrong": [
+    "Both sub-lists are now sorted",
+    "The list is split into equal halves",
+    "The smallest value is now first"
+   ],
+   "why": "After a partition every smaller value is left of the pivot and every bigger one is right of it, so the pivot is where it belongs. The sub-lists are still unsorted.",
+   "hook": "Each partition locks one pivot into place.",
+   "keys": [
+    "the pivot is where it belongs",
+    "The sub-lists are still unsorted"
+   ]
+  },
+  {
+   "id": "2023-Q10:(b):1",
+   "from": "2023-Q10",
+   "q": "Why would 90 be a poor choice of pivot to partition the list 60, 30, 80, 40, 10, 50, 20, 70, 90 with quicksort?",
+   "right": "It's the largest: all 8 others go on one side",
+   "wrong": [
+    "All 8 others would go in its right sub-list",
+    "A pivot must be the leftmost element",
+    "Quicksort can't use the largest value"
+   ],
+   "why": "90 is the largest value, so all eight others go to its left and none to its right. The list barely shrinks, so more partitions are needed and the sort takes longer.",
+   "hook": "A good pivot splits the list near the middle.",
+   "keys": [
+    "90 is the largest value",
+    "the sort takes longer"
+   ]
+  },
+  {
+   "id": "2023-Q10:(b):2",
+   "from": "2023-Q10",
+   "q": "Partition 60, 30, 80, 40, 10, 50, 20, 70, 90 about the pivot 90, as quicksort does. How many values end up in the left and right sub-lists?",
+   "right": "8 left, 0 right",
+   "wrong": [
+    "0 left, 8 right",
+    "4 left, 4 right",
+    "9 left, 0 right"
+   ],
+   "why": "Every other value is smaller than 90, so all 8 go to its left and the right sub-list is empty. The pivot itself is in neither sub-list.",
+   "hook": "The biggest pivot gives the most lopsided split.",
+   "keys": [
+    "all 8 go to its left",
+    "The pivot itself is in neither sub-list"
+   ]
+  },
+  {
+   "id": "2023-Q11:(a):1",
+   "from": "2023-Q11",
+   "q": "A flowchart inputs first_name, surname and date_of_birth (ddmmyyyy), sets first_name = first_name[0:2] and date_of_birth = date_of_birth[4:8], then outputs username = first_name + surname + date_of_birth. Name one input and one output.",
+   "right": "Input surname; output username",
+   "wrong": [
+    "Input username; output surname",
+    "Input Joe; output JoSoap2003",
+    "Input first_name[0:2]; output surname"
+   ],
+   "why": "first_name, surname and date_of_birth are read in (Steps 2 to 4) and username is shown at the end (Step 8). Name variables: values like Joe or JoSoap2003 get no marks.",
+   "hook": "Inputs come in before the processing; the output goes out after it.",
+   "keys": [
+    "username is shown at the end",
+    "Name variables"
+   ]
+  },
+  {
+   "id": "2023-Q11:(a):2",
+   "from": "2023-Q11",
+   "q": "In a flowchart such as the username generator (input first_name, surname, date_of_birth; output username), which shape shows an input or an output?",
+   "right": "Parallelogram",
+   "wrong": [
+    "Rectangle",
+    "Diamond",
+    "Rounded rectangle"
+   ],
+   "why": "Inputs and outputs (Steps 2 to 4 and Step 8) go in parallelograms. Rectangles are processes, diamonds are decisions and rounded ends are Start and Stop.",
+   "hook": "Slanted box = data in or out.",
+   "keys": [
+    "go in parallelograms"
+   ]
+  },
+  {
+   "id": "2023-Q13:(b)(i):1",
+   "from": "2023-Q13",
+   "q": "Hubs A, B, C, D; road distances in km: A–B 20, A–C 15, A–D 15, B–C 25, B–D 30, C–D 35. A technician starts at A, visits every hub exactly once and returns to A. What is the shortest possible route?",
+   "right": "A→C→B→D→A: 85 km",
+   "wrong": [
+    "A→B→C→D→A: 95 km",
+    "A→B→D→C→A: 100 km",
+    "A→C→B→D: 70 km"
+   ],
+   "why": "Only 3 round trips need checking: A B C D A = 20+25+35+15 = 95, A B D C A = 20+30+35+15 = 100, A C B D A = 15+25+30+15 = 85. Shortest: 85 km.",
+   "hook": "A round trip includes the last leg back to the start.",
+   "keys": [
+    "15+25+30+15 = 85"
+   ]
+  },
+  {
+   "id": "2023-Q13:(b)(i):2",
+   "from": "2023-Q13",
+   "q": "Four hubs A, B, C, D are all joined by roads. A technician starts at A, visits each other hub once and returns to A. How many different round trips must be checked, if a route and its reverse count as one?",
+   "right": "3",
+   "wrong": [
+    "6",
+    "24",
+    "12"
+   ],
+   "why": "From A the other three hubs can be visited in 3 × 2 × 1 = 6 orders, but each route is the reverse of another, so 6 ÷ 2 = 3 different trips.",
+   "hook": "Fix the start, order the rest, halve for reverses: (n − 1)! ÷ 2.",
+   "keys": [
+    "3 × 2 × 1 = 6",
+    "6 ÷ 2 = 3"
+   ]
+  },
+  {
+   "id": "2023-Q13:(b)(ii):1",
+   "from": "2023-Q13",
+   "q": "Figure 8 shows four digital hubs as lettered circles joined by straight lines labelled with distances in km. Which is a feature of abstraction in it?",
+   "right": "Scale and the landscape are left out",
+   "wrong": [
+    "The route problem is split into sub-problems",
+    "The same pattern repeats for every hub",
+    "It lists the steps to find the shortest route"
+   ],
+   "why": "Abstraction keeps only what the route problem needs: circles and letters for hubs, lines for roads, numbers for distances. Scale, rivers, hills and buildings are ignored.",
+   "hook": "Abstraction = keep what matters, drop the rest.",
+   "keys": [
+    "keeps only what the route problem needs",
+    "Scale, rivers, hills and buildings are ignored"
+   ]
+  },
+  {
+   "id": "2023-Q13:(b)(ii):2",
+   "from": "2023-Q13",
+   "q": "Figure 8 models four digital hubs as circles A to D joined by lines. Which real-world detail does this abstraction keep?",
+   "right": "The distance between each pair of hubs",
+   "wrong": [
+    "The real bends in each road",
+    "Each road's length drawn to scale",
+    "The rivers and hills along the way"
+   ],
+   "why": "Each line is labelled with its distance in km, the one detail the route problem needs. The roads' shapes, the scale and the geography are left out.",
+   "hook": "Ask: does the problem need this detail? If not, abstract it away.",
+   "keys": [
+    "labelled with its distance in km"
+   ]
+  },
+  {
+   "id": "2023-Q13:(b)(iii):1",
+   "from": "2023-Q13",
+   "q": "To plan her daily visits to the hubs in the shortest time possible, a technician uses heuristics. What is meant by a heuristic?",
+   "right": "A rule of thumb that finds a good answer fast",
+   "wrong": [
+    "A method that always finds the optimal answer",
+    "Trying every route and picking the shortest",
+    "Splitting a problem into smaller parts"
+   ],
+   "why": "A heuristic is a problem-solving shortcut that finds a good, approximate solution quickly when methods such as brute force would take too long. It may not be the best.",
+   "hook": "Heuristic: good enough, fast. Brute force: perfect, slow.",
+   "keys": [
+    "good, approximate solution quickly",
+    "brute force would take too long"
+   ]
+  },
+  {
+   "id": "2023-Q13:(b)(iii):2",
+   "from": "2023-Q13",
+   "q": "A technician must visit hundreds of hubs each day. Which of these is a heuristic she could use to plan her route?",
+   "right": "Always drive to the nearest unvisited hub",
+   "wrong": [
+    "Work out the length of every possible route",
+    "Draw hubs as circles and roads as lines",
+    "Visit every hub exactly once"
+   ],
+   "why": "Always choosing the nearest hub not yet visited is a rule of thumb: quick and usually good. Checking every route is brute force, too slow for hundreds.",
+   "hook": "Nearest neighbour: the classic route heuristic.",
+   "keys": [
+    "Always choosing the nearest hub not yet visited is a rule of thumb"
+   ]
+  },
+  {
+   "id": "2023-Q15:(a)(i):1",
+   "from": "2023-Q15",
+   "q": "Which search algorithm suits the list Amir, Dean, Eoin, Helen, Natalia, Steve, Terry, with a correct justification?",
+   "right": "Binary: the names are already sorted",
+   "wrong": [
+    "Binary: it works on any list",
+    "Linear: the names are already sorted",
+    "Binary: there are only seven names"
+   ],
+   "why": "The names are in alphabetical order, which binary search needs, so it can halve the list each time. (Linear search, justified by the list being short, is also accepted.)",
+   "hook": "Binary search needs sorted data; linear search works on anything.",
+   "keys": [
+    "which binary search needs",
+    "halve the list each time"
+   ]
+  },
+  {
+   "id": "2023-Q15:(a)(ii):1",
+   "from": "2023-Q15",
+   "q": "List, in order, the names compared until Natalia is found by linear search in: Amir, Dean, Eoin, Helen, Natalia, Steve, Terry.",
+   "right": "Amir, Dean, Eoin, Helen, Natalia",
+   "wrong": [
+    "Amir, Dean, Eoin, Helen",
+    "Helen, Steve, Natalia",
+    "Amir, Dean, Eoin, Helen, Natalia, Steve, Terry"
+   ],
+   "why": "Linear search checks from the start, one name at a time: Amir, Dean, Eoin and Helen are not the key; Natalia, the fifth, is, and the search stops there.",
+   "hook": "Linear: start at the front, one by one, stop when found.",
+   "keys": [
+    "one name at a time",
+    "the search stops there"
+   ]
+  },
+  {
+   "id": "2023-Q15:(a)(iii):1",
+   "from": "2023-Q15",
+   "q": "List, in order, the names compared until Natalia is found by binary search, with mid = (lo + hi)//2, in: Amir, Dean, Eoin, Helen, Natalia, Steve, Terry.",
+   "right": "Helen, Steve, Natalia",
+   "wrong": [
+    "Helen, Steve",
+    "Eoin, Natalia",
+    "Amir, Dean, Eoin, Helen, Natalia"
+   ],
+   "why": "Positions 0–6: mid 3 is Helen, and Natalia comes later, so search 4–6. Mid 5 is Steve, and Natalia comes earlier, so search 4–4: Natalia, found.",
+   "hook": "Count the key too: the last compare is the one that finds it.",
+   "keys": [
+    "mid 3 is Helen",
+    "Mid 5 is Steve"
+   ]
+  },
+  {
+   "id": "2023-Q15:(a)(iii):2",
+   "from": "2023-Q15",
+   "q": "Binary search for Natalia in Amir, Dean, Eoin, Helen, Natalia, Steve, Terry first compares her with Helen. Which names are still searched after that comparison?",
+   "right": "Natalia, Steve, Terry",
+   "wrong": [
+    "Amir, Dean, Eoin",
+    "Helen, Natalia, Steve, Terry",
+    "Amir, Dean, Eoin, Helen"
+   ],
+   "why": "Natalia comes after Helen alphabetically, so she can only be in the right half. Helen is already checked: lo = mid + 1 leaves Natalia, Steve, Terry.",
+   "hook": "Throw away the half that can't hold the key, and the middle too.",
+   "keys": [
+    "Natalia comes after Helen alphabetically",
+    "lo = mid + 1"
+   ]
+  },
+  {
+   "id": "2023-Q15:(a)(iv):1",
+   "from": "2023-Q15",
+   "q": "What is the worst-case time complexity of binary search on a sorted list of size N?",
+   "right": "O(log N)",
+   "wrong": [
+    "O(N)",
+    "O(1)",
+    "O(N log N)"
+   ],
+   "why": "Each comparison halves the part of the list still being searched, and N can only be halved about log₂ N times, so at most about log₂ N comparisons: O(log N).",
+   "hook": "Halving each step → about log N steps.",
+   "keys": [
+    "halves the part of the list",
+    "about log₂ N times"
+   ]
+  },
+  {
+   "id": "2023-Q15:(a)(iv):2",
+   "from": "2023-Q15",
+   "q": "For a list of size N, what are linear search's worst-case and binary search's best-case time complexities?",
+   "right": "O(N) and O(1)",
+   "wrong": [
+    "O(1) and O(N)",
+    "O(N) and O(log N)",
+    "O(N²) and O(1)"
+   ],
+   "why": "Linear search's worst case checks all N items (the key is last or missing): O(N). Binary search's best case finds the key at the first middle it checks: O(1).",
+   "hook": "Best case: found on the first look. Worst case: the longest path.",
+   "keys": [
+    "checks all N items",
+    "finds the key at the first middle it checks"
+   ]
+  },
+  {
+   "id": "2023-Q15:(a)(iv):3",
+   "from": "2023-Q15",
+   "q": "Binary search on the sorted names Amir, Dean, Eoin, Helen, Natalia, Steve, Terry. What is the most comparisons it can need to find one of the names?",
+   "right": "3",
+   "wrong": [
+    "7",
+    "4",
+    "1"
+   ],
+   "why": "Each comparison removes the middle name and half of the rest: 7 names → 3 → 1. So any name is found within 3 comparisons, as log₂ 8 = 3.",
+   "hook": "Worst case for binary search ≈ log₂ N, rounded up.",
+   "keys": [
+    "7 names → 3 → 1",
+    "within 3 comparisons"
+   ]
+  },
+  {
+   "id": "2023-Q15:(a)(v):1",
+   "from": "2023-Q15",
+   "q": "Linear and binary search both have a best case of O(1). What is meant by O(1) time complexity?",
+   "right": "Time stays the same whatever the input size",
+   "wrong": [
+    "The time grows in step with the input size",
+    "It always takes exactly one second",
+    "The time grows slowly, like log N"
+   ],
+   "why": "O(1), constant time, means the time needed stays constant regardless of the size of the input, N: doubling N doesn't change it.",
+   "hook": "O(1): the same few steps, however big the list.",
+   "keys": [
+    "stays constant regardless of the size of the input"
+   ]
+  },
+  {
+   "id": "2023-Q15:(a)(v):2",
+   "from": "2023-Q15",
+   "q": "Which of these takes O(1) time?",
+   "right": "A search that finds the key on its first check",
+   "wrong": [
+    "Linear search when the key is last",
+    "Binary search in its worst case",
+    "Bubble sorting a list of N items"
+   ],
+   "why": "If the key is at the first position checked, it takes one comparison however long the list is: constant time, O(1). It is the best case of both searches.",
+   "hook": "Constant time doesn't care how big N is.",
+   "keys": [
+    "one comparison however long the list is"
+   ]
+  },
+  {
+   "id": "2023-Q15:(b)(i):1",
+   "from": "2023-Q15",
+   "q": "In binary_search1, line 6 is `while (lo <= hi):`, line 7 is `mid = (lo + hi)//2`, lines 9–13 are an if/elif/else, line 14 is `return mid` and line 16 is `return len(L)`. On which lines does the iteration start and end?",
+   "right": "Starts on line 6, ends on line 14",
+   "wrong": [
+    "Starts on line 7, ends on line 14",
+    "Starts on line 6, ends on line 16",
+    "Starts on line 3, ends on line 16"
+   ],
+   "why": "The loop starts with the while statement on line 6, and its indented body runs to return mid on line 14. Line 16 only runs after the loop has finished.",
+   "hook": "A loop = its header line plus every indented line under it.",
+   "keys": [
+    "while statement on line 6",
+    "return mid on line 14"
+   ]
+  },
+  {
+   "id": "2023-Q15:(b)(i):2",
+   "from": "2023-Q15",
+   "q": "binary_search1's loop sets `mid = (lo + hi)//2`, then `if L[mid] > v: hi = mid - 1`, `elif L[mid] < v: lo = mid + 1`, `else: return mid`. What happens on a pass where L[mid] < v?",
+   "right": "lo = mid + 1: search the right half",
+   "wrong": [
+    "hi = mid - 1: search the left half",
+    "lo = mid: keep mid in the range",
+    "return mid: v has been found"
+   ],
+   "why": "If the middle value is smaller than v, v can only be to its right, so lo moves to mid + 1. The range halves on each pass until v is found or lo passes hi.",
+   "hook": "Too small? Go right. Too big? Go left. Skip the middle both ways.",
+   "keys": [
+    "lo moves to mid + 1",
+    "The range halves on each pass"
+   ]
+  },
+  {
+   "id": "2023-Q15:(b)(i):3",
+   "from": "2023-Q15",
+   "q": "binary_search1 loops `while (lo <= hi):`, moving lo or hi past the middle each pass, and returns mid when L[mid] == v. When does the loop stop if v is not in the list?",
+   "right": "When lo becomes greater than hi",
+   "wrong": [
+    "When lo becomes equal to hi",
+    "After len(L) passes of the loop",
+    "When mid reaches the end of the list"
+   ],
+   "why": "Each pass shrinks the range from lo to hi. If v isn't there, lo finally crosses over hi, the range is empty, the loop ends and the function returns len(L).",
+   "hook": "lo <= hi means there is still something left to search.",
+   "keys": [
+    "lo finally crosses over hi",
+    "the range is empty"
+   ]
+  },
+  {
+   "id": "2024-Q3::1",
+   "from": "2024-Q3",
+   "q": "Express the decimal number 121 as an 8-bit binary number.",
+   "right": "01111001",
+   "wrong": [
+    "10011110",
+    "11110010",
+    "01111000"
+   ],
+   "why": "121 = 64 + 32 + 16 + 8 + 1, so put 1s under 64, 32, 16, 8 and 1 and 0s under 128, 4 and 2: 0111 1001. Keep the leading 0 to make 8 bits.",
+   "hook": "128 64 32 16 8 4 2 1: take the biggest that fits, every time.",
+   "keys": [
+    "121 = 64 + 32 + 16 + 8 + 1",
+    "Keep the leading 0"
+   ]
+  },
+  {
+   "id": "2024-Q3::2",
+   "from": "2024-Q3",
+   "q": "To write 121 in 8-bit binary, take off the place values 128, 64, 32, 16, 8, 4, 2, 1 whenever they fit. 128 doesn't fit; 64 and 32 do. What is left, and which place value is used next?",
+   "right": "25 is left; 16 is used next",
+   "wrong": [
+    "25 is left; 8 is used next",
+    "57 is left; 32 is used next",
+    "35 is left; 32 is used next"
+   ],
+   "why": "121 − 64 = 57 and 57 − 32 = 25. Then 16 fits (leaving 9), then 8 (leaving 1), then 1: 121 = 64 + 32 + 16 + 8 + 1 = 01111001.",
+   "hook": "Biggest place value that fits, subtract, repeat.",
+   "keys": [
+    "121 − 64 = 57",
+    "57 − 32 = 25"
+   ]
+  },
+  {
+   "id": "2024-Q4::1",
+   "from": "2024-Q4",
+   "q": "Squares 0–4 hold W W _ B B. A disc may slide into an adjacent empty square or jump over one disc into the empty square just beyond. Which sequence of moves (from → to) turns the row into B B _ W W?",
+   "right": "1→2, 3→1, 4→3, 2→4, 0→2, 1→0, 3→1, 2→3",
+   "wrong": [
+    "1→2, 3→1, 4→3, 2→4, 0→2, 1→0, 2→3, 3→1",
+    "1→2, 3→1, 4→3, 0→2, 2→4, 1→0, 3→1, 2→3",
+    "1→2, 3→1, 4→3, 2→4, 1→0, 0→2, 3→1, 2→3"
+   ],
+   "why": "W_WBB, WBW_B, WBWB_, WB_BW, _BWBW, B_WBW, BBW_W, BB_WW. Each other option has two moves swapped, so a disc is sent onto a full square.",
+   "hook": "Keep the colours alternating so there is always a gap to move into.",
+   "keys": [
+    "two moves swapped"
+   ]
+  },
+  {
+   "id": "2024-Q4::2",
+   "from": "2024-Q4",
+   "q": "Squares 0–4 hold W W _ B B. A disc may slide into an adjacent empty square or jump over one disc into the empty square just beyond. What is the row after the moves 1→2, 3→1, 4→3, 2→4?",
+   "right": "W B _ B W",
+   "wrong": [
+    "W B W B _",
+    "_ B W B W",
+    "W B B W _"
+   ],
+   "why": "1→2 slides: W _ W B B. 3→1 jumps: W B W _ B. 4→3 slides: W B W B _. 2→4 jumps over square 3: W B _ B W.",
+   "hook": "Write out the whole row after every move.",
+   "keys": [
+    "2→4 jumps over square 3"
+   ]
+  },
+  {
+   "id": "2024-Q11:(a):1",
+   "from": "2024-Q11",
+   "q": "Row of shapes (S = square, T = triangle): S T T S T S T T S S. Each step: find the leftmost square and the rightmost triangle; if the square is to the right of the triangle, stop; otherwise swap them. What is the row after step 1?",
+   "right": "T T T S T S T S S S",
+   "wrong": [
+    "T S T S T S T T S S",
+    "T T T S T S S T S S",
+    "T T T T T S S S S S"
+   ],
+   "why": "The leftmost square is at position 1 and the rightmost triangle at position 8. Swapping them gives T T T S T S T S S S.",
+   "hook": "Leftmost square, rightmost triangle: swap from the two ends inward.",
+   "keys": [
+    "leftmost square is at position 1",
+    "rightmost triangle at position 8"
+   ]
+  },
+  {
+   "id": "2024-Q11:(a):2",
+   "from": "2024-Q11",
+   "q": "Row of shapes (S = square, T = triangle): S T T S T S T T S S. Each step: find the leftmost square and the rightmost triangle; if the square is to the right of the triangle, stop; otherwise swap them. How many swaps are made before it stops?",
+   "right": "2",
+   "wrong": [
+    "3",
+    "4",
+    "5"
+   ],
+   "why": "Swap 1: positions 1 and 8. Swap 2: positions 4 and 7, giving T T T T T S S S S S. Now the leftmost square (6) is right of the rightmost triangle (5): stop.",
+   "hook": "Each swap puts two shapes in place at once.",
+   "keys": [
+    "Swap 2: positions 4 and 7"
+   ]
+  },
+  {
+   "id": "2024-Q11:(b):1",
+   "from": "2024-Q11",
+   "q": "An algorithm keeps swapping the leftmost square with the rightmost triangle until every triangle is left of every square. It provides 'a general solution'. What does that mean?",
+   "right": "It works for any number or order of shapes",
+   "wrong": [
+    "It always uses the fewest possible swaps",
+    "It only solves this one row of 10 shapes",
+    "It is written in pseudocode, not code"
+   ],
+   "why": "A general solution is a broad approach that always gives the correct output whatever the input: here, any arrangement and any number of squares and triangles.",
+   "hook": "General = works for every input, not just the example.",
+   "keys": [
+    "always gives the correct output whatever the input"
+   ]
+  },
+  {
+   "id": "2024-Q14:(a)(i):1",
+   "from": "2024-Q14",
+   "q": "A flowchart: Start → input a, b ('Enter two values') → t ← a → a ← b → b ← t → output a, b → Stop. What are the names of the two input variables?",
+   "right": "a and b",
+   "wrong": [
+    "t and a",
+    "a, b and t",
+    "Enter two values"
+   ],
+   "why": "The input box reads two values into a and b. t is not an input: it is given its value inside the algorithm (t ← a). 'Enter two values' is just the prompt.",
+   "hook": "An input variable gets its value from the user, not from ←.",
+   "keys": [
+    "reads two values into a and b",
+    "t is not an input"
+   ]
+  },
+  {
+   "id": "2024-Q14:(a)(ii):1",
+   "from": "2024-Q14",
+   "q": "A flowchart reads two values, swaps them and displays them: t ← a, then a ← b, then b ← t. What is the purpose of the variable t?",
+   "right": "It holds a's old value so it isn't lost",
+   "wrong": [
+    "It holds the total of a and b",
+    "It counts how many swaps are made",
+    "It stores the output to be displayed"
+   ],
+   "why": "t is a temporary variable: it keeps a copy of a, because a ← b overwrites a. Then b ← t puts the old value of a into b.",
+   "hook": "To swap two full glasses you need a third, empty glass.",
+   "keys": [
+    "temporary variable",
+    "a ← b overwrites a"
+   ]
+  },
+  {
+   "id": "2024-Q14:(a)(ii):2",
+   "from": "2024-Q14",
+   "q": "To swap a and b, a student leaves out t and writes just a ← b, then b ← a. If a = 3 and b = 8 at the start, what are a and b at the end?",
+   "right": "a = 8, b = 8",
+   "wrong": [
+    "a = 8, b = 3",
+    "a = 3, b = 3",
+    "a = 3, b = 8"
+   ],
+   "why": "a ← b makes a = 8, and the 3 is lost. b ← a then copies that 8 back into b, so both are 8. That is why t must keep a copy of a first.",
+   "hook": "Assignment overwrites: save the old value before you lose it.",
+   "keys": [
+    "the 3 is lost",
+    "both are 8"
+   ]
+  },
+  {
+   "id": "2024-Q14:(a)(iii):1",
+   "from": "2024-Q14",
+   "q": "Flowcharts are commonly used in the design process to describe algorithms. Which is an advantage of using flowcharts?",
+   "right": "Visual, so the logic is easy to follow",
+   "wrong": [
+    "They run faster than the finished code",
+    "The computer can execute them directly",
+    "They stay small even for complex algorithms"
+   ],
+   "why": "A flowchart shows the flow and logic of an algorithm visually, so it is easier to understand than code, even for non-programmers, and it doesn't depend on any language.",
+   "hook": "Flowcharts are for people to read, not for computers to run.",
+   "keys": [
+    "easier to understand than code",
+    "even for non-programmers"
+   ]
+  },
+  {
+   "id": "2024-Q14:(a)(iii):2",
+   "from": "2024-Q14",
+   "q": "Flowcharts are commonly used in the design process to describe algorithms. Which is a disadvantage of using flowcharts?",
+   "right": "Unwieldy and slow to draw for big algorithms",
+   "wrong": [
+    "They tie you to one programming language",
+    "Non-programmers can't follow them",
+    "They can't show decisions or loops"
+   ],
+   "why": "For detailed, complex algorithms a flowchart gets huge and unwieldy and takes a lot of time to draw; a lack of standards can also cause confusion.",
+   "hook": "Great for small algorithms, a maze for big ones.",
+   "keys": [
+    "huge and unwieldy",
+    "takes a lot of time to draw"
+   ]
+  },
+  {
+   "id": "2024-Q14:(b)(vi):1",
+   "from": "2024-Q14",
+   "q": "State one advantage of sorting a data set.",
+   "right": "It lets you use binary search",
+   "wrong": [
+    "Sorted data takes up less memory",
+    "Linear search only works on sorted data",
+    "Once sorted, it never needs sorting again"
+   ],
+   "why": "Binary search requires a sorted data set and is far faster than linear search on big data. Sorted data is also easier to read and analyse (median, outliers).",
+   "hook": "Sort once, then search fast many times.",
+   "keys": [
+    "Binary search requires a sorted data set"
+   ]
+  },
+  {
+   "id": "2024-Q14:(b)(vi):2",
+   "from": "2024-Q14",
+   "q": "State one disadvantage of sorting a data set.",
+   "right": "It takes time and uses CPU and memory",
+   "wrong": [
+    "Sorted data can't be searched by linear search",
+    "Sorting deletes duplicate items",
+    "Binary search is slower on sorted data"
+   ],
+   "why": "Sorting algorithms take time and consume resources such as CPU and memory, with little benefit if the data is already nearly sorted, and new data must be kept in order.",
+   "hook": "Sorting has a cost: time and processing power.",
+   "keys": [
+    "take time and consume resources such as CPU and memory"
+   ]
+  },
+  {
+   "id": "2024-Q14:(c)(i):1",
+   "from": "2024-Q14",
+   "q": "values = [50, 70, 30, 60, 20] is bubble sorted by `for i in range(len(values)):` and inside it `for j in range(len(values)-1):`, swapping values[j] and values[j+1] when values[j] > values[j+1]. What is values after pass 1?",
+   "right": "50, 30, 60, 20, 70",
+   "wrong": [
+    "70, 50, 60, 30, 20",
+    "30, 50, 20, 60, 70",
+    "50, 30, 70, 60, 20"
+   ],
+   "why": "Compare neighbours left to right: 50, 70 stay; then 70 swaps with 30, with 60 and with 20. The largest value, 70, bubbles to the end: 50, 30, 60, 20, 70.",
+   "hook": "After pass k, the k largest values are in place at the end.",
+   "keys": [
+    "The largest value, 70, bubbles to the end"
+   ]
+  },
+  {
+   "id": "2024-Q14:(c)(i):2",
+   "from": "2024-Q14",
+   "q": "values = [50, 70, 30, 60, 20] is bubble sorted by `for i in range(len(values)):` and inside it `for j in range(len(values)-1):`, swapping values[j] and values[j+1] when values[j] > values[j+1]. After pass 2 it is 30, 50, 20, 60, 70. What is it after pass 3?",
+   "right": "30, 20, 50, 60, 70",
+   "wrong": [
+    "20, 30, 50, 60, 70",
+    "30, 50, 20, 60, 70",
+    "70, 60, 50, 30, 20"
+   ],
+   "why": "Pass 3: 30, 50 stay; 50 and 20 swap; 50, 60 and 60, 70 stay. That gives 30, 20, 50, 60, 70; pass 4 then swaps 30 and 20.",
+   "hook": "A small value moves only one place left in each pass.",
+   "keys": [
+    "50 and 20 swap"
+   ]
+  },
+  {
+   "id": "2024-Q14:(c)(i):3",
+   "from": "2024-Q14",
+   "q": "A bubble sort of [50, 70, 30, 60, 20] uses `for i in range(len(values)):` with no early stop. After pass 4 it is 20, 30, 50, 60, 70. Why is it the same after pass 5?",
+   "right": "It was sorted after pass 4; pass 5 still runs",
+   "wrong": [
+    "Pass 5 swaps pairs back and forth",
+    "The loop stops after pass 4",
+    "range(5) makes only 4 passes"
+   ],
+   "why": "range(len(values)) always makes 5 passes. The list is already sorted after pass 4, so pass 5 compares every pair but makes no swaps: still 20, 30, 50, 60, 70.",
+   "hook": "No early stop: every pass runs, even when nothing changes.",
+   "keys": [
+    "always makes 5 passes",
+    "makes no swaps"
+   ]
+  },
+  {
+   "id": "2024-Q14:(c)(ii):1",
+   "from": "2024-Q14",
+   "q": "A bubble sort uses `for i in range(len(values)):` and inside it `for j in range(len(values)-1):`, comparing values[j] with values[j+1]. How many comparisons does it make on a list of 5 values?",
+   "right": "20",
+   "wrong": [
+    "25",
+    "16",
+    "10"
+   ],
+   "why": "5 passes of 4 comparisons each: 5 × 4 = 20, which is n² − n. For large n that is about n², which is why bubble sort is O(n²).",
+   "hook": "n passes × (n − 1) compares ≈ n².",
+   "keys": [
+    "5 × 4 = 20",
+    "n² − n"
+   ]
+  },
+  {
+   "id": "2024-Q14:(c)(ii):2",
+   "from": "2024-Q14",
+   "q": "A bubble sort uses `for i in range(len(values)):` and inside it `for j in range(len(values)-1):`, comparing values[j] with values[j+1]. It makes 20 comparisons on [50, 70, 30, 60, 20]. How many does it make on the sorted list [20, 30, 50, 60, 70]?",
+   "right": "20",
+   "wrong": [
+    "4",
+    "0",
+    "10"
+   ],
+   "why": "It has no early stop, so it still makes 5 passes of 4 comparisons: 20. Its best case (sorted) and worst case (reversed) make the same number of comparisons.",
+   "hook": "O(n²) best and worst: this code never takes a shortcut.",
+   "keys": [
+    "5 passes of 4 comparisons",
+    "the same number of comparisons"
+   ]
+  },
+  {
+   "id": "2024-Q14:(c)(ii):3",
+   "from": "2024-Q14",
+   "q": "A bubble sort uses `for i in range(len(values)):` and inside it `for j in range(len(values)-1):`, comparing values[j] with values[j+1]. It makes 20 comparisons on 5 values. How many would it make on a list of 10 values?",
+   "right": "90",
+   "wrong": [
+    "40",
+    "100",
+    "45"
+   ],
+   "why": "10 passes of 9 comparisons: 10 × 9 = 90. Doubling the list multiplied the comparisons by about 4 (20 → 90): quadratic growth, O(n²).",
+   "hook": "Double n, and the work goes up about four times.",
+   "keys": [
+    "10 × 9 = 90",
+    "quadratic growth"
+   ]
+  },
+  {
+   "id": "2024-Q14:(c)(iii):1",
+   "from": "2024-Q14",
+   "q": "A bubble sort uses `for i in range(len(values)):` and inside it `for j in range(len(values)-1):`, comparing values[j] with values[j+1]. Which change would reduce the number of comparisons needed?",
+   "right": "Stop when a pass makes no swaps",
+   "wrong": [
+    "Run the outer loop one extra time",
+    "Compare values[j] with values[j+2]",
+    "Swap when values[j] < values[j+1]"
+   ],
+   "why": "Use a flag: set it to False at the start of each pass and True on a swap. A pass with no swaps means the list is sorted, so stop: a sorted list needs only one pass.",
+   "hook": "No swaps in a whole pass? Then it's sorted: stop.",
+   "keys": [
+    "Use a flag",
+    "A pass with no swaps means the list is sorted"
+   ]
+  },
+  {
+   "id": "2024-Q14:(c)(iii):2",
+   "from": "2024-Q14",
+   "q": "Each bubble sort pass puts the largest remaining value at the end, so the inner loop is changed to `for j in range(len(values)-1-i):`. How many comparisons does it now make on 5 values?",
+   "right": "10",
+   "wrong": [
+    "20",
+    "15",
+    "16"
+   ],
+   "why": "Pass i skips the i values already in place: 4 + 3 + 2 + 1 + 0 = 10 comparisons instead of 5 × 4 = 20. The sorted end is never compared again.",
+   "hook": "Don't re-check the end that's already sorted.",
+   "keys": [
+    "4 + 3 + 2 + 1 + 0 = 10"
+   ]
+  },
+  {
+   "id": "2024-Q14:(c)(iii):3",
+   "from": "2024-Q14",
+   "q": "A bubble sort of 5 values is improved with a swapped flag: if a pass makes no swaps, the loop stops. How many passes does it make on the already sorted list [20, 30, 50, 60, 70]?",
+   "right": "1",
+   "wrong": [
+    "0",
+    "4",
+    "5"
+   ],
+   "why": "Pass 1 compares every pair, makes no swaps and leaves the flag False, so the loop stops after 1 pass. It still needs that pass to find out the list is sorted.",
+   "hook": "One clean pass proves the list is sorted.",
+   "keys": [
+    "stops after 1 pass",
+    "It still needs that pass"
+   ]
+  },
+  {
+   "id": "2025-Q2::1",
+   "from": "2025-Q2",
+   "q": "ASCII and Unicode are both character encoding systems. Compare them under the heading memory usage.",
+   "right": "ASCII 7 bits per character; Unicode 1–4 bytes",
+   "wrong": [
+    "ASCII 1–4 bytes per character; Unicode 7 bits",
+    "ASCII 7 bytes per character; Unicode 1–4 bytes",
+    "Both use exactly 1 byte per character"
+   ],
+   "why": "ASCII uses a fixed 7 bits (128 characters), so it is memory-efficient for English. Unicode uses 1 to 4 bytes per character: more memory, but over a million characters.",
+   "hook": "ASCII: small and English-only. Unicode: bigger and covers the world.",
+   "keys": [
+    "7 bits (128 characters",
+    "1 to 4 bytes per character"
+   ]
+  },
+  {
+   "id": "2025-Q2::2",
+   "from": "2025-Q2",
+   "q": "ASCII and Unicode are both character encoding systems. Compare them under the heading compatibility.",
+   "right": "Unicode's first 128 codes are the ASCII codes",
+   "wrong": [
+    "ASCII's 128 codes include all of Unicode",
+    "Unicode and ASCII share no codes",
+    "Only ASCII text works in every country"
+   ],
+   "why": "Unicode is backward compatible with ASCII: its first 128 characters are the same. It also covers every language, so text works across countries.",
+   "hook": "Unicode starts where ASCII does: 'A' is 65 in both.",
+   "keys": [
+    "backward compatible with ASCII",
+    "covers every language"
+   ]
+  },
+  {
+   "id": "2025-Q2::3",
+   "from": "2025-Q2",
+   "q": "Standard ASCII uses 7 bits for each character. How many different characters can it represent?",
+   "right": "128",
+   "wrong": [
+    "256",
+    "127",
+    "64"
+   ],
+   "why": "7 bits give 2⁷ = 128 different codes, numbered 0 to 127. Extended ASCII uses 8 bits for 2⁸ = 256; Unicode has room for over 1.1 million.",
+   "hook": "n bits give 2ⁿ codes, numbered 0 to 2ⁿ − 1.",
+   "keys": [
+    "2⁷ = 128",
+    "0 to 127"
+   ]
+  },
+  {
+   "id": "2025-Q3::1",
+   "from": "2025-Q3",
+   "q": "Ada, Grace, Joy and Kay each made a different project and got a different rank. The AI project came 1st. Grace came 3rd. Ada's web development project was not last. Kay beat the embedded-system maker. The data-analytics maker beat Joy. Where did Ada come?",
+   "right": "2nd",
+   "wrong": [
+    "1st",
+    "4th",
+    "3rd"
+   ],
+   "why": "Ada did web development, so she wasn't 1st (that was the AI project) and she wasn't last. Grace came 3rd, so Ada came 2nd.",
+   "hook": "Each clue rules places out: the one left is the answer.",
+   "keys": [
+    "Ada came 2nd"
+   ]
+  },
+  {
+   "id": "2025-Q3::2",
+   "from": "2025-Q3",
+   "q": "Ada, Grace, Joy and Kay each made a different project and got a different rank. The AI project came 1st. Grace came 3rd. Ada's web development project was not last. Kay beat the embedded-system maker. The data-analytics maker beat Joy. Who came 1st?",
+   "right": "Kay",
+   "wrong": [
+    "Ada",
+    "Joy",
+    "Grace"
+   ],
+   "why": "Ada is 2nd and Grace 3rd, leaving Kay and Joy for 1st and 4th. Kay beat the embedded-system maker, so she can't be last: Kay came 1st, with the AI project.",
+   "hook": "Fix what a clue forces, then rule out the rest.",
+   "keys": [
+    "Kay came 1st"
+   ]
+  },
+  {
+   "id": "2025-Q3::3",
+   "from": "2025-Q3",
+   "q": "Ada, Grace, Joy and Kay each made a different project and got a different rank. The AI project came 1st. Grace came 3rd. Ada's web development project was not last. Kay beat the embedded-system maker. The data-analytics maker beat Joy. Who came last, and with which project?",
+   "right": "Joy, embedded system",
+   "wrong": [
+    "Joy, data analytics",
+    "Kay, embedded system",
+    "Ada, web development"
+   ],
+   "why": "Ada (web) is 2nd and Kay, who beat someone, is 1st, so Joy is last. The data-analytics maker beat Joy, so that is Grace, leaving Joy the embedded system.",
+   "hook": "Check the finished table against every clue once more.",
+   "keys": [
+    "Joy is last",
+    "so that is Grace"
+   ]
+  },
+  {
+   "id": "2025-Q5::1",
+   "from": "2025-Q5",
+   "q": "In web design the hex colour #0A33F0 gives red 0A, green 33 and blue F0, each from 00 to FF (0 to 255). What are its RGB decimal values?",
+   "right": "Red 10, green 51, blue 240",
+   "wrong": [
+    "Red 10, green 33, blue 150",
+    "Red 11, green 51, blue 240",
+    "Red 160, green 51, blue 15"
+   ],
+   "why": "Left digit counts 16s, right digit counts 1s: 0A = 0 × 16 + 10 = 10, 33 = 3 × 16 + 3 = 51, F0 = 15 × 16 + 0 = 240. So RGB(10, 51, 240).",
+   "hook": "Two hex digits: (left × 16) + right. A=10 … F=15.",
+   "keys": [
+    "0A = 0 × 16 + 10 = 10",
+    "33 = 3 × 16 + 3 = 51"
+   ]
+  },
+  {
+   "id": "2025-Q5::2",
+   "from": "2025-Q5",
+   "q": "In the hex colour #0A33F0 the green component is 33 in hexadecimal. What is it in decimal?",
+   "right": "51",
+   "wrong": [
+    "33",
+    "6",
+    "48"
+   ],
+   "why": "The left 3 counts sixteens and the right 3 counts ones: 3 × 16 + 3 = 48 + 3 = 51.",
+   "hook": "Hex 33 is not decimal 33: the left digit is worth 16.",
+   "keys": [
+    "3 × 16 + 3 = 48 + 3 = 51"
+   ]
+  },
+  {
+   "id": "2025-Q5::3",
+   "from": "2025-Q5",
+   "q": "In the hex colour #0A33F0 the blue component is F0 in hexadecimal. What is it in decimal?",
+   "right": "240",
+   "wrong": [
+    "15",
+    "150",
+    "224"
+   ],
+   "why": "F stands for 15 and counts sixteens; 0 counts ones: 15 × 16 + 0 = 240, near the maximum FF = 255, so the colour is mostly blue.",
+   "hook": "F = 15, the biggest hex digit; FF = 255.",
+   "keys": [
+    "15 × 16 + 0 = 240"
+   ]
+  },
+  {
+   "id": "2025-Q7:(a):1",
+   "from": "2025-Q7",
+   "q": "Finding a dice roll with yes/no questions: Algorithm 1 asks 1? 2? 3? 4? 5? in turn until a yes (a no to 5? means 6). Algorithm 2 asks ≥4?, then 3? or 6?, then 2? or 5?. Name each search algorithm.",
+   "right": "1: linear search; 2: binary search",
+   "wrong": [
+    "1: binary search; 2: linear search",
+    "1: linear search; 2: quicksort",
+    "1: bubble sort; 2: binary search"
+   ],
+   "why": "Algorithm 1 checks one value at a time from the start: a linear search. Algorithm 2 splits the values left in half with each question: a binary search.",
+   "hook": "One at a time = linear. Halve each time = binary.",
+   "keys": [
+    "one value at a time",
+    "in half with each question"
+   ]
+  },
+  {
+   "id": "2025-Q7:(b):1",
+   "from": "2025-Q7",
+   "q": "Finding a dice roll with yes/no questions: Algorithm 1 asks 1? 2? 3? 4? 5? in turn until a yes (a no to 5? means 6). Algorithm 2 asks ≥4?, then 3? or 6?, then 2? or 5?. What is the most questions each algorithm can need?",
+   "right": "Algorithm 1: 5, Algorithm 2: 3",
+   "wrong": [
+    "Algorithm 1: 6, Algorithm 2: 3",
+    "Algorithm 1: 5, Algorithm 2: 2",
+    "Algorithm 1: 3, Algorithm 2: 5"
+   ],
+   "why": "Algorithm 1 needs 5 questions for a 5 or a 6 (tree depth 5). Algorithm 2 never needs more than 3, as each question halves what is left (depth 3): 2³ = 8 ≥ 6.",
+   "hook": "Tree depth = the worst-case number of questions.",
+   "keys": [
+    "tree depth 5",
+    "depth 3"
+   ]
+  },
+  {
+   "id": "2025-Q7:(b):2",
+   "from": "2025-Q7",
+   "q": "To find a dice roll, Algorithm 1 is a linear search (up to 5 yes/no questions) and Algorithm 2 a binary search (up to 3). Which is more efficient in general, and why?",
+   "right": "Binary: about log₂ n questions, not n",
+   "wrong": [
+    "Linear: it always needs fewer questions",
+    "Binary: it never needs more than 2",
+    "Linear: it is O(log n), binary is O(n)"
+   ],
+   "why": "Each binary question halves the options, so at worst it needs about log₂ n questions, O(log n), while a linear search can need about n, O(n). The gap grows with n.",
+   "hook": "Halving beats stepping: log n against n.",
+   "keys": [
+    "halves the options",
+    "O(log n)"
+   ]
+  },
+  {
+   "id": "2025-Q14:(a)(ii):1",
+   "from": "2025-Q14",
+   "q": "This GCD code starts with a = 45, b = 18: `while a != b:` then `if a > b: a = a - b`, `elif b > a: b = b - a`, and finally `return a`. Which rows (a, b) of the trace table follow (45, 18)?",
+   "right": "(27, 18), (9, 18), (9, 9)",
+   "wrong": [
+    "(27, 18), (9, 18)",
+    "(9, 18), (9, 9)",
+    "(27, 18), (9, 18), (9, 9), (0, 9)"
+   ],
+   "why": "45 > 18, so a = 27; 27 > 18, so a = 9; now 18 > 9, so b = 9. a == b, so the loop stops: the GCD is 9.",
+   "hook": "New row each time a value changes; stop the moment a equals b.",
+   "keys": [
+    "so a = 27",
+    "so b = 9",
+    "the GCD is 9"
+   ]
+  },
+  {
+   "id": "2025-Q14:(a)(ii):2",
+   "from": "2025-Q14",
+   "q": "This GCD code starts with a = 45, b = 18: `while a != b:` then `if a > b: a = a - b`, `elif b > a: b = b - a`, and finally `return a`. What does gcd(45, 18) return?",
+   "right": "9",
+   "wrong": [
+    "18",
+    "27",
+    "3"
+   ],
+   "why": "45, 18 → 27, 18 → 9, 18 → 9, 9. The loop stops when a == b and returns a: 9, the largest number that divides both 45 and 18.",
+   "hook": "Subtract the smaller until they are equal: that is the GCD.",
+   "keys": [
+    "returns a: 9"
+   ]
+  },
+  {
+   "id": "2025-Q14:(c)(i):1",
+   "from": "2025-Q14",
+   "q": "Partition the list 29, 10, 14, 37, 13 about the pivot 13, as in one quicksort step, keeping the values in their original order. What are the two sub-lists?",
+   "right": "Left [10], right [29, 14, 37]",
+   "wrong": [
+    "Left [10, 13], right [29, 14, 37]",
+    "Left [10], right [14, 29, 37]",
+    "Left [29, 14, 37], right [10]"
+   ],
+   "why": "Only 10 is smaller than 13, so the left sub-list is [10]; 29, 14 and 37 are bigger, so the right one is [29, 14, 37]. The pivot 13 goes between them.",
+   "hook": "Leave the pivot out: it is already in its final place.",
+   "keys": [
+    "Only 10 is smaller than 13",
+    "The pivot 13 goes between them"
+   ]
+  },
+  {
+   "id": "2025-Q14:(c)(ii):1",
+   "from": "2025-Q14",
+   "q": "Quicksort has partitioned 29, 10, 14, 37, 13 about the pivot 13 into [10] and [29, 14, 37]. What does it do next?",
+   "right": "Repeats the same process on each sub-list",
+   "wrong": [
+    "Merges the sub-lists by comparing front items",
+    "Uses 13 again as the pivot for each side",
+    "Bubble sorts the right sub-list"
+   ],
+   "why": "Quicksort is recursive: it partitions each sub-list the same way, with a new pivot, until every sub-list has one element (or none); then they are combined in order.",
+   "hook": "Divide and conquer: the same partition again on smaller and smaller lists.",
+   "keys": [
+    "Quicksort is recursive",
+    "with a new pivot"
+   ]
+  },
+  {
+   "id": "2025-Q14:(c)(ii):2",
+   "from": "2025-Q14",
+   "q": "After quicksort partitions 29, 10, 14, 37, 13 about the pivot 13, the left sub-list is [10]. Why is it not partitioned again?",
+   "right": "A one-element list is already sorted",
+   "wrong": [
+    "10 is smaller than the pivot",
+    "Only right sub-lists are partitioned",
+    "Sub-lists under 3 items are skipped"
+   ],
+   "why": "A sub-list with only one element is already sorted, so the recursion stops there (the base case). [29, 14, 37] has 3 elements, so it is partitioned again.",
+   "hook": "One item: nothing to sort. That is where the recursion stops.",
+   "keys": [
+    "already sorted",
+    "the base case"
+   ]
+  },
+  {
+   "id": "2025-Q14:(c)(ii):3",
+   "from": "2025-Q14",
+   "q": "Quicksort continues on the sub-list [29, 14, 37] with 37 as the new pivot, keeping the values in order. What are the two new sub-lists?",
+   "right": "Left [29, 14], right []",
+   "wrong": [
+    "Left [], right [29, 14]",
+    "Left [29, 14, 37], right []",
+    "Left [14, 29], right []"
+   ],
+   "why": "29 and 14 are both smaller than 37, so they form the left sub-list [29, 14] and the right one is empty. Then [29, 14] is split about 14, giving 10, 13, 14, 29, 37.",
+   "hook": "Smaller left, bigger right, the pivot in neither.",
+   "keys": [
+    "the right one is empty"
+   ]
+  },
+  {
+   "id": "2025-Q14:(c)(iii):1",
+   "from": "2025-Q14",
+   "q": "Quicksort partitions a list around a chosen pivot. Which is a common strategy for selecting the pivot?",
+   "right": "The median of the first, middle and last",
+   "wrong": [
+    "Always the largest value in the list",
+    "The mean of all the values",
+    "The value that occurs most often"
+   ],
+   "why": "Common choices are the first, last or middle element, a random element, or the median of the first, middle and last elements. The largest value gives the worst split.",
+   "hook": "Pick a pivot likely to land near the middle.",
+   "keys": [
+    "the median of the first, middle and last elements"
+   ]
+  },
+  {
+   "id": "2025-Q14:(c)(iv):1",
+   "from": "2025-Q14",
+   "q": "Figure 4 plots time against the number of values n for the curves O(n²) and O(n log n). What are quicksort's best and worst-case time complexities?",
+   "right": "Best O(n log n), worst O(n²)",
+   "wrong": [
+    "Best O(n²), worst O(n log n)",
+    "Best O(1), worst O(n)",
+    "Best O(log n), worst O(n log n)"
+   ],
+   "why": "Best case O(n log n), the lower curve: even splits. Worst case O(n²), the steep curve: the pivot is always the smallest or largest value, so the splits are lopsided.",
+   "hook": "Even splits → n log n. Lopsided splits → n².",
+   "keys": [
+    "Best case O(n log n), the lower curve",
+    "Worst case O(n²), the steep curve"
+   ]
+  },
+  {
+   "id": "2025-Q14:(c)(iv):2",
+   "from": "2025-Q14",
+   "q": "Why is quicksort's best-case time complexity O(n log n)?",
+   "right": "Even halves: about log n levels, n items each",
+   "wrong": [
+    "Each partition takes constant time",
+    "Only log n items are ever compared",
+    "Each pivot removes just one item"
+   ],
+   "why": "If every pivot splits its list into two equal halves, the recursion is about log n levels deep, and all n elements are processed at each level: n × log n.",
+   "hook": "Levels × work per level: log n × n.",
+   "keys": [
+    "about log n levels deep",
+    "all n elements are processed at each level"
+   ]
+  },
+  {
+   "id": "2025-Q14:(c)(iv):3",
+   "from": "2025-Q14",
+   "q": "A quicksort always takes the first element of each sub-list as its pivot. Which input makes it hit its worst case, O(n²)?",
+   "right": "A list that is already sorted",
+   "wrong": [
+    "A list in random order",
+    "A list whose first value is the median",
+    "A list with an even number of values"
+   ],
+   "why": "On a sorted list the first element is always the smallest, so each split leaves n − 1 elements on one side and 0 on the other: n levels of about n work, O(n²).",
+   "hook": "Sorted input + first-element pivot = quicksort's worst case.",
+   "keys": [
+    "the first element is always the smallest",
+    "n − 1 elements on one side"
+   ]
+  },
+  {
+   "id": "2025-Q15:(a)(iii):1",
+   "from": "2025-Q15",
+   "q": "Driving test model (age, transmission, outcome): 18 manual FAIL; 22 auto PASS; 20 auto PASS; 19 manual FAIL; 30 auto PASS; 25 manual FAIL; 23 auto PASS; 17 manual FAIL; 19 manual FAIL; 21 manual PASS. Which pattern does it show?",
+   "right": "Every automatic driver passed",
+   "wrong": [
+    "Every manual driver failed",
+    "Every driver aged 20 or over passed",
+    "Most drivers under 20 passed"
+   ],
+   "why": "All 4 automatic drivers passed, while 5 of the 6 manual drivers failed; and all 4 under-20s failed. But the 21-year-old manual driver passed and the 25-year-old failed.",
+   "hook": "A pattern must fit the data: check for the exceptions.",
+   "keys": [
+    "All 4 automatic drivers passed",
+    "all 4 under-20s failed"
+   ]
+  },
+  {
+   "id": "2025-Q15:(a)(iii):2",
+   "from": "2025-Q15",
+   "q": "Driving test model: the 5 candidates who passed had instructors with 5, 8, 12, 10 and 15 years' experience; the 5 who failed had 8, 3, 2, 6 and 5 years. Which pattern does it show?",
+   "right": "More instructor experience, more passes",
+   "wrong": [
+    "Less instructor experience, more passes",
+    "Instructor experience makes no difference",
+    "Every instructor with 8+ years got a pass"
+   ],
+   "why": "Passes average (5+8+12+10+15) ÷ 5 = 10 years of instructor experience, fails (8+3+2+6+5) ÷ 5 = 4.8. One 8-year instructor's pupil failed: a trend, not a rule.",
+   "hook": "Compare the averages of the two groups.",
+   "keys": [
+    "= 10 years",
+    "a trend, not a rule"
+   ]
+  },
+  {
+   "id": "2025-Q15:(b)(ii):1",
+   "from": "2025-Q15",
+   "q": "Modelling and simulation help solve complex real-world problems. Why is abstraction important when developing a model?",
+   "right": "It keeps the key details and drops the rest",
+   "wrong": [
+    "It splits the system into smaller problems",
+    "It includes every detail for exact results",
+    "It finds trends that repeat in the data"
+   ],
+   "why": "Abstraction focuses on the most essential elements of a system and ignores unnecessary details, so the model is simple enough to understand, analyse and simulate.",
+   "hook": "Abstraction filters: keep what matters, hide the rest.",
+   "keys": [
+    "ignores unnecessary details",
+    "simple enough to understand, analyse and simulate"
+   ]
+  },
+  {
+   "id": "2025-Q15:(b)(ii):2",
+   "from": "2025-Q15",
+   "q": "A student models driving test outcomes from gender, age, transmission and instructor experience. Using abstraction, which detail is best left out?",
+   "right": "The colour of the candidate's car",
+   "wrong": [
+    "Whether the car is manual or automatic",
+    "The candidate's age",
+    "Whether the test was a pass or a fail"
+   ],
+   "why": "Abstraction keeps only what affects the outcome: age, transmission and experience stay, and the result is the output. The car's colour is an unnecessary detail.",
+   "hook": "Ask of each detail: does it change the outcome?",
+   "keys": [
+    "The car's colour is an unnecessary detail"
+   ]
+  }
+ ]
+}
