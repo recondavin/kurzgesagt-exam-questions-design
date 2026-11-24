@@ -82,11 +82,15 @@
     { href: 'cs-play.html?g=tower', name: 'Topple the Examiner', art: ART.tower, say: 'Answer, pull back and knock him down.' }
   ];
   var GAMES_ON = false; // on once cs/cs-cards.js has the cards (tools/cs/build_cards.py)
+  var WARM_ON = false; // the Warm-up level: its cards are in cs/cs-cards.js (window.CsWarm)
   function games() {
     if (!GAMES_ON) return '';
     return '<section class="mx-games rise" style="--i:2" aria-labelledby="mx-games-h"><h2 class="mx-h2" id="mx-games-h">Games</h2><div class="mx-games__row cs-games">' +
       GAMES.map(function (g) {
-        return '<a class="card mx-game" href="' + g.href + '"><span class="mx-game__art">' + g.art + '</span><span class="mx-game__txt"><b>' + esc(g.name) + '</b><span>' + esc(g.say) + '</span></span></a>';
+        // Two levels, as in Maths: Warm-up (short basics) and the real exam questions.
+        var warm = g.href + (g.href.indexOf('?') < 0 ? '?' : '&') + 'warm';
+        return '<div class="card mx-game"><span class="mx-game__art">' + g.art + '</span><span class="mx-game__txt"><b>' + esc(g.name) + '</b><span>' + esc(g.say) + '</span>' +
+          '<span class="mx-game__go">' + (WARM_ON ? '<a class="mx-game__btn" href="' + warm + '">Warm-up</a>' : '') + '<a class="mx-game__btn is-exam" href="' + g.href + '">Exam questions</a></span></span></div>';
       }).join('') + '</div></section>';
   }
   function tile(n, q, c) {

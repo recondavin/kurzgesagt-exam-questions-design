@@ -11,6 +11,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;family=Nunito:wght@600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="bio/bio.css?v=eng-108">
 <link rel="stylesheet" href="bio/bio-shell.css?v=eng-108">
+<style>
+  .mx-levelpick { font: 700 17px Nunito, sans-serif; }
+  .mx-levelpick a { color: inherit; }
+  .mx-levelpick a[aria-current="page"] { color: #FFC800; text-decoration: none; }
+</style>
 </head>
 <body class="mg-page">
 <!-- Biology's turn-by-turn games (bio/bio-board.js, bio/bio-quizgames.js, bio/bio-arcade.js) with Computer Science
@@ -18,7 +23,8 @@
      cs-play.html?g=board | chase | grid | sea | cannon | tower opens that game. -->
 <main class="mg-land">
 <h1 data-cs-game>Games</h1>
-<p>Computer Science: a real exam question every turn.</p>
+<p data-cs-intro>Computer Science: a real exam question every turn.</p>
+<p class="mx-levelpick" aria-label="Level" data-cs-levels hidden><a data-mx-level="warm">Warm-up</a> · <a data-mx-level="exam">Exam questions</a></p>
 <button type="button" class="tb-btn tb-btn--go" data-cs-play>Play</button>
 <p><a href="computer-science.html#games">Back to Computer Science</a></p>
 </main>
@@ -36,8 +42,18 @@
   var NAMES = { board: 'Trivia board', chase: 'Outrun the Examiner', grid: 'Points Grid', sea: 'Sea Battle', cannon: 'Cannon Duel', tower: 'Topple the Examiner' };
   var g = (/[?&]g=(\w+)/.exec(location.search) || [])[1] || 'board';
   if (!NAMES[g]) g = 'board';
+  // Warm-up (?warm: short basics, window.CsWarm) or the real exam questions (window.CsCards).
+  var warm = /[?&]warm\b/.test(location.search);
   document.querySelector('[data-cs-game]').textContent = NAMES[g];
-  document.title = NAMES[g] + ' | Leaving Cert Computer Science';
+  document.title = (warm ? 'Warm-up ' : '') + NAMES[g] + ' | Leaving Cert Computer Science';
+  if (warm) document.querySelector('[data-cs-intro]').textContent = 'Warm-up: short basics from every topic, to get going before the real exam questions.';
+  var levels = document.querySelector('[data-cs-levels]');
+  if (window.CsWarm && Object.keys(window.CsWarm).length) levels.hidden = false;
+  levels.querySelectorAll('[data-mx-level]').forEach(function (a) {
+    var w = a.getAttribute('data-mx-level') === 'warm';
+    a.href = 'cs-play.html?g=' + g + (w ? '&warm' : '');
+    if (w === warm) a.setAttribute('aria-current', 'page');
+  });
   function play() {
     if (g === 'board') { if (window.BioBoard) window.BioBoard.open(); }
     else if (g === 'chase' || g === 'grid') { if (window.BioQuizGames) window.BioQuizGames.open(g); }
