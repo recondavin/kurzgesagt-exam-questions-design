@@ -1,0 +1,440 @@
+{
+  "chapter": 8,
+  "cards": [
+    {
+      "id": "2021-Q12:(a):1",
+      "from": "2021-Q12",
+      "q": "A DOGS table has fields dog_name, breed, dob and microchip. Two of the six dogs are called fido. Why is dog_name a poor primary key?",
+      "right": "Its values are not unique",
+      "wrong": [
+        "A primary key must be a number",
+        "A primary key must be the first field",
+        "It is a foreign key in another table"
+      ],
+      "why": "A primary key must be different in every record. fido appears twice, so dog_name can't pick out one dog.",
+      "hook": "Primary key = one value, one record. Any repeat rules a field out.",
+      "keys": [
+        "different in every record"
+      ]
+    },
+    {
+      "id": "2021-Q12:(a):2",
+      "from": "2021-Q12",
+      "q": "In the DOGS table no breed repeats among the six dogs shown. Why is breed still a poor choice of primary key?",
+      "right": "Two dogs could share a breed later",
+      "wrong": [
+        "It is unique, so it is a good key",
+        "A String field can't be a key",
+        "Breeds are written in lower case"
+      ],
+      "why": "A key must stay unique as records are added. Another labrador could join, so breed can't be guaranteed unique.",
+      "hook": "Unique today isn't enough: it must stay unique for every record added.",
+      "keys": [
+        "guaranteed unique"
+      ]
+    },
+    {
+      "id": "2021-Q12:(b):1",
+      "from": "2021-Q12",
+      "q": "One owner can own many dogs, and every dog's row repeats its owner's owner_id, name and address. How does a foreign key improve this design?",
+      "right": "OWNERS table; owner_id as FK in DOGS",
+      "wrong": [
+        "DOGS table; dog_id as FK in OWNERS",
+        "Make owner_name the primary key",
+        "Add dog_id to the same single table"
+      ],
+      "why": "Split it into OWNERS (primary key owner_id) and DOGS. owner_id in DOGS is a foreign key, so each owner is stored once and linked to many dogs.",
+      "hook": "The foreign key goes on the \"many\" side: each dog points to its one owner.",
+      "keys": [
+        "foreign key",
+        "stored once"
+      ]
+    },
+    {
+      "id": "2021-Q12:(b):2",
+      "from": "2021-Q12",
+      "q": "The dog table is split into OWNERS and DOGS, and owner_id is in both tables. What is owner_id in each table?",
+      "right": "PK in OWNERS, FK in DOGS",
+      "wrong": [
+        "FK in OWNERS, PK in DOGS",
+        "The primary key of both",
+        "A foreign key in both"
+      ],
+      "why": "owner_id identifies one owner, so it is the primary key of OWNERS; in DOGS it refers to that owner, so it is a foreign key.",
+      "hook": "A foreign key is another table's primary key.",
+      "keys": [
+        "primary key of OWNERS",
+        "foreign key"
+      ]
+    },
+    {
+      "id": "2024-Q15:(a)(i):1",
+      "from": "2024-Q15",
+      "q": "Alex's BOOKS table has fields book_id, title, year, cost, author, author_dob and on_loan, with four books. In this table, what is a record?",
+      "right": "One row: all the fields about one book",
+      "wrong": [
+        "One column, such as title",
+        "The whole BOOKS table",
+        "One cell, such as 6.95"
+      ],
+      "why": "A record is a single row of related fields about one item, e.g. book 1, The Cat in the Hat. A column is a field.",
+      "hook": "Record = a row (across). Field = a column (down).",
+      "keys": [
+        "single row"
+      ]
+    },
+    {
+      "id": "2024-Q15:(a)(i):2",
+      "from": "2024-Q15",
+      "q": "Alex keeps her Dr. Seuss books in a database with a table called BOOKS. What is a database?",
+      "right": "An organised collection of data",
+      "wrong": [
+        "The hard drive the data is saved on",
+        "A program for calculating in cells",
+        "One table's column headings"
+      ],
+      "why": "A database is an organised collection of structured data, kept in tables so it can be easily retrieved, added to, updated and deleted.",
+      "hook": "Database = organised data you can search, add, change and delete.",
+      "keys": [
+        "organised collection of structured data"
+      ]
+    },
+    {
+      "id": "2024-Q15:(a)(ii):1",
+      "from": "2024-Q15",
+      "q": "BOOKS has book_id (1, 2, 3, 4), title, year (1957, 1960, 1954, 1957), cost, author (Dr. Seuss for most) and on_loan. Which field is the best primary key?",
+      "right": "book_id",
+      "wrong": [
+        "title",
+        "year",
+        "author"
+      ],
+      "why": "book_id is unique: each book gets its own number. year repeats (1957 twice), author repeats, and two books could share a title.",
+      "hook": "Pick the ID field: it is made to be unique.",
+      "keys": [
+        "unique"
+      ]
+    },
+    {
+      "id": "2024-Q15:(a)(ii):2",
+      "from": "2024-Q15",
+      "q": "Alex chooses book_id as the primary key of her BOOKS table. How should she justify that choice?",
+      "right": "Its value is unique for each record",
+      "wrong": [
+        "It is the first column in the table",
+        "Keys must be numbers, and it is one",
+        "It is the shortest field"
+      ],
+      "why": "A primary key must identify exactly one record, so its value must be unique: book_id is guaranteed different for every book.",
+      "hook": "Justify a key with one word: unique.",
+      "keys": [
+        "guaranteed different for every book"
+      ]
+    },
+    {
+      "id": "2024-Q15:(a)(iii):1",
+      "from": "2024-Q15",
+      "q": "The cost field of BOOKS holds 6.95, 8.95, €10 and 9.95. Why is €10 a data inconsistency?",
+      "right": "It is written in a different format",
+      "wrong": [
+        "€10 is the wrong price",
+        "Costs over €10 are not allowed",
+        "It is a duplicate value"
+      ],
+      "why": "Inconsistent data is the same kind of fact written differently: €10 has a euro sign and no decimals, the others are plain numbers like 6.95.",
+      "hook": "Inconsistent = same kind of data, different format.",
+      "keys": [
+        "written differently"
+      ]
+    },
+    {
+      "id": "2024-Q15:(a)(iii):2",
+      "from": "2024-Q15",
+      "q": "The on_loan field of BOOKS holds Yes, Y, N and No for its four books. What is the inconsistency?",
+      "right": "Yes/Y and No/N mean the same things",
+      "wrong": [
+        "Two books are on loan, two are not",
+        "on_loan should hold dates",
+        "on_loan repeats book_id"
+      ],
+      "why": "Yes and Y both mean on loan, N and No both mean not on loan: one value written in two ways, so a search for Yes misses Y.",
+      "hook": "Pick one spelling for each value and stick to it.",
+      "keys": [
+        "one value written in two ways"
+      ]
+    },
+    {
+      "id": "2024-Q15:(a)(iii):3",
+      "from": "2024-Q15",
+      "q": "The author field of BOOKS reads Dr. Seuss, Dr. Seuss, Doc Seus, Dr. Seuss. What problem does Doc Seus cause?",
+      "right": "A search for Dr. Seuss misses it",
+      "wrong": [
+        "It makes author a good primary key",
+        "The database corrects it itself",
+        "It is a duplicate record"
+      ],
+      "why": "It is an inconsistency: the database can't tell Doc Seus means Dr. Seuss, so a query for author = 'Dr. Seuss' misses Horton Hears a Who!",
+      "hook": "Computers match text exactly: one wrong letter is a different value.",
+      "keys": [
+        "can't tell Doc Seus means Dr. Seuss"
+      ]
+    },
+    {
+      "id": "2024-Q15:(a)(iv):1",
+      "from": "2024-Q15",
+      "q": "With its inconsistencies fixed, BOOKS has book_id (1–4), title, year (1957…), cost (6.95, 8.95, 10.00, 9.95), author, author_dob and on_loan (Yes/No). Which field is Real?",
+      "right": "cost",
+      "wrong": [
+        "year",
+        "book_id",
+        "on_loan"
+      ],
+      "why": "Real is a number with a decimal part: cost (6.95, 9.95). year and book_id are whole numbers (Integer); on_loan is Boolean.",
+      "hook": "Real has a point: 6.95. Integer is whole: 1957.",
+      "keys": [
+        "a number with a decimal part"
+      ]
+    },
+    {
+      "id": "2024-Q15:(a)(iv):2",
+      "from": "2024-Q15",
+      "q": "With its inconsistencies fixed, the on_loan field of BOOKS holds only Yes or No. Which data type is it?",
+      "right": "Boolean",
+      "wrong": [
+        "String",
+        "Integer",
+        "Real"
+      ],
+      "why": "Boolean holds one of two values (true/false, yes/no), so on_loan, which is only ever Yes or No, is Boolean.",
+      "hook": "Only two possible values? Boolean.",
+      "keys": [
+        "one of two values"
+      ]
+    },
+    {
+      "id": "2024-Q15:(b)(i):1",
+      "from": "2024-Q15",
+      "q": "LOANS (member_id, book_id, date_borrowed) has a row ?, 4, 01/05/24. Amy is member 1 and borrowed book 4 (How the Grinch Stole Christmas!) on 1 May. What is the missing member_id?",
+      "right": "1",
+      "wrong": [
+        "4",
+        "2",
+        "3"
+      ],
+      "why": "LOANS stores keys, not names: Amy's member_id in MEMBERS is 1, so the row reads 1, 4, 01/05/24.",
+      "hook": "A LOANS row is keys and a date: who, which book, when.",
+      "keys": [
+        "stores keys, not names"
+      ]
+    },
+    {
+      "id": "2024-Q15:(b)(i):2",
+      "from": "2024-Q15",
+      "q": "The exam was on Wednesday 22 May 2024. Chloe borrowed Horton Hears a Who! \"7 days ago\". What date goes in date_borrowed?",
+      "right": "15/05/2024",
+      "wrong": [
+        "29/05/2024",
+        "14/05/2024",
+        "16/05/2024"
+      ],
+      "why": "Count back 7 days from 22 May: 22 − 7 = 15, so the date is 15/05/2024.",
+      "hook": "\"Ago\" means count back from the day of the exam.",
+      "keys": [
+        "22 − 7 = 15"
+      ]
+    },
+    {
+      "id": "2024-Q15:(b)(i):3",
+      "from": "2024-Q15",
+      "q": "Chloe is member 3 and Horton Hears a Who! is book 3. She borrowed it on 15/05/2024. Which row is added to LOANS (member_id, book_id, date_borrowed)?",
+      "right": "3, 3, 15/05/2024",
+      "wrong": [
+        "3, 2, 15/05/2024",
+        "Chloe, Horton, 15/05/2024",
+        "3, 3, 29/05/2024"
+      ],
+      "why": "Each column takes a key: Chloe's member_id is 3 and Horton's book_id is 3, then the date: 3, 3, 15/05/2024.",
+      "hook": "Look each name up in its own table and write its key.",
+      "keys": [
+        "Each column takes a key"
+      ]
+    },
+    {
+      "id": "2024-Q15:(b)(ii):1",
+      "from": "2024-Q15",
+      "q": "A library has MEMBERS (member_id, member_name) and LOANS (member_id, book_id, date_borrowed). Which field of LOANS is a foreign key?",
+      "right": "member_id",
+      "wrong": [
+        "date_borrowed",
+        "member_name",
+        "LOANS has no foreign key"
+      ],
+      "why": "member_id in LOANS holds a primary key from MEMBERS, so it is a foreign key (book_id is one too, from BOOKS).",
+      "hook": "Spot an FK: a column that is another table's primary key.",
+      "keys": [
+        "holds a primary key from MEMBERS"
+      ]
+    },
+    {
+      "id": "2024-Q15:(b)(ii):2",
+      "from": "2024-Q15",
+      "q": "In the library design, what does the foreign key member_id do in the LOANS table?",
+      "right": "Links each loan to its member",
+      "wrong": [
+        "Makes each loan record unique",
+        "Stores the member's name in LOANS",
+        "Links each member to a book title"
+      ],
+      "why": "A foreign key links two tables: member_id in LOANS holds a member's primary key, so each loan points to the member who borrowed the book.",
+      "hook": "Primary key: identifies. Foreign key: links.",
+      "keys": [
+        "links two tables"
+      ]
+    },
+    {
+      "id": "2024-Q15:(b)(iii):1",
+      "from": "2024-Q15",
+      "q": "The library has BOOKS, MEMBERS and LOANS (member_id, book_id, date_borrowed). Why does BOOKS no longer need its on_loan field?",
+      "right": "A LOANS record shows the book is out",
+      "wrong": [
+        "on_loan is a Boolean field",
+        "on_loan has inconsistent values",
+        "BOOKS already has a primary key"
+      ],
+      "why": "If a book has a record in LOANS it is on loan, and its date borrowed can be looked up too, so on_loan in BOOKS would repeat that fact.",
+      "hook": "If another table already shows it, don't store it again.",
+      "keys": [
+        "has a record in LOANS"
+      ]
+    },
+    {
+      "id": "2024-Q15:(b)(iv):1",
+      "from": "2024-Q15",
+      "q": "Relational databases reduce data redundancy. What is data redundancy?",
+      "right": "The same data stored in several places",
+      "wrong": [
+        "Data that is no longer needed",
+        "A backup copy kept off-site",
+        "Data stored in the wrong type"
+      ],
+      "why": "Data redundancy is a single piece of data stored in more than one place in a database, e.g. Dr. Seuss typed into every BOOKS record.",
+      "hook": "Redundant = repeated. Store each fact once.",
+      "keys": [
+        "more than one place"
+      ]
+    },
+    {
+      "id": "2024-Q15:(b)(iv):2",
+      "from": "2024-Q15",
+      "q": "In Alex's single BOOKS table the author and author_dob are typed into every record. Why is this data redundancy bad practice?",
+      "right": "The copies can become inconsistent",
+      "wrong": [
+        "It makes the data harder to back up",
+        "It stops a table having a primary key",
+        "It makes queries return no rows"
+      ],
+      "why": "Repeated copies waste storage, and when one copy changes and another doesn't they disagree, as Doc Seus and Dr. Seuss do.",
+      "hook": "Two copies of a fact will drift apart.",
+      "keys": [
+        "waste storage",
+        "they disagree"
+      ]
+    },
+    {
+      "id": "2024-Q15:(c)(i):1",
+      "from": "2024-Q15",
+      "q": "A data analytics project starts with a hypothesis. Which is a hypothesis Alex's library data could test?",
+      "right": "The Cat in the Hat is borrowed most",
+      "wrong": [
+        "Which book is borrowed most?",
+        "Add a LOANS table to the database",
+        "Clean the data before analysing it"
+      ],
+      "why": "A hypothesis is a statement that the data can show to be true or false; a question or a task is not a hypothesis.",
+      "hook": "A hypothesis is a statement you can test, not a question.",
+      "keys": [
+        "a statement"
+      ]
+    },
+    {
+      "id": "2024-Q15:(c)(i):2",
+      "from": "2024-Q15",
+      "q": "Alex's hypothesis: \"More books are borrowed in summer than in winter.\" Which LOANS field must she analyse to test it?",
+      "right": "date_borrowed",
+      "wrong": [
+        "book_id",
+        "member_id",
+        "on_loan"
+      ],
+      "why": "The hypothesis is about the time of year, so it needs the date of every loan: date_borrowed, counted by season.",
+      "hook": "Match the hypothesis to the field that measures it.",
+      "keys": [
+        "date of every loan"
+      ]
+    },
+    {
+      "id": "2024-Q15:(c)(ii):1",
+      "from": "2024-Q15",
+      "q": "The date_borrowed field holds 20/05/2024, 01/05/24 and 18/05/2024. Which type of data error does data cleaning fix here?",
+      "right": "Inconsistent formatting",
+      "wrong": [
+        "Missing values",
+        "Duplicate records",
+        "An outlier"
+      ],
+      "why": "One kind of data is written in two date formats; cleaning rewrites them all in one standard format, dd/mm/yyyy.",
+      "hook": "Same data, different look: inconsistent formatting.",
+      "keys": [
+        "two date formats"
+      ]
+    },
+    {
+      "id": "2024-Q15:(c)(ii):2",
+      "from": "2024-Q15",
+      "q": "Data cleaning finds duplicate records in the LOANS table. What is usually done with them?",
+      "right": "Find them and remove the copies",
+      "wrong": [
+        "Fill them in with an average value",
+        "Convert them to the right data type",
+        "Keep them: more data is better"
+      ],
+      "why": "Repeated entries skew counts and statistics, so they are identified and removed, leaving each record once.",
+      "hook": "Duplicates: remove. Missing: fill in or remove. Formats: standardise.",
+      "keys": [
+        "skew counts and statistics"
+      ]
+    },
+    {
+      "id": "2025-Q13:(b)(iii):1",
+      "from": "2025-Q13",
+      "q": "A Deposit Return Scheme app has a database management component. Which is a specific use case for it?",
+      "right": "Store each machine's location, status",
+      "wrong": [
+        "Recognise containers with a camera",
+        "Read the screen aloud to users",
+        "Test each component as it is written"
+      ],
+      "why": "A database stores records: e.g. each RVM's location, date last emptied and status, or the deposits and refunds for financial reports.",
+      "hook": "A database use case = what records it keeps and what they're used for.",
+      "keys": [
+        "stores records"
+      ]
+    },
+    {
+      "id": "2025-Q13:(b)(iii):2",
+      "from": "2025-Q13",
+      "q": "The DRS database tracks every returned container with a unique identifier, its size, its deposit and the machine that took it. Which is the primary key?",
+      "right": "The container's unique identifier",
+      "wrong": [
+        "The container's size",
+        "The deposit amount",
+        "The machine that took it"
+      ],
+      "why": "Only the identifier is different for every container: many containers share a size, a deposit (15c or 25c) or a machine.",
+      "hook": "The primary key is the field that is never the same twice.",
+      "keys": [
+        "different for every container"
+      ]
+    }
+  ]
+}

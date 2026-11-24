@@ -1,0 +1,492 @@
+{
+  "chapter": 8,
+  "warm": true,
+  "cards": [
+    {
+      "id": "warm:8:1",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "In a database table, what is a field?",
+      "right": "A column: one fact for every record",
+      "wrong": [
+        "A row: all the data about one item",
+        "The whole table",
+        "A value that must be unique"
+      ],
+      "why": "A field is a column: the same kind of fact (like title) stored for every record. A row is a record.",
+      "hook": "Field = column (down). Record = row (across).",
+      "keys": [
+        "A field is a column"
+      ]
+    },
+    {
+      "id": "warm:8:2",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "In a database table, what is a record?",
+      "right": "A row of fields about one item",
+      "wrong": [
+        "A column of one kind of data",
+        "A single value in a cell",
+        "The name of the table"
+      ],
+      "why": "A record is one row: all the related fields about one item, such as one book or one student.",
+      "hook": "One record = one thing (one book, one dog, one student).",
+      "keys": [
+        "one row"
+      ]
+    },
+    {
+      "id": "warm:8:3",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "What must be true of the values in a primary key field?",
+      "right": "Every value is unique",
+      "wrong": [
+        "Every value is a number",
+        "Values may be left blank",
+        "Values are in alphabetical order"
+      ],
+      "why": "A primary key picks out exactly one record, so no two records can share its value (and it can't be blank).",
+      "hook": "Primary key: one value, one record, never repeated.",
+      "keys": [
+        "no two records can share its value"
+      ]
+    },
+    {
+      "id": "warm:8:4",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "What is a foreign key?",
+      "right": "A field holding another table's key",
+      "wrong": [
+        "A key unique within its own table",
+        "A key made from two fields",
+        "A password that locks a table"
+      ],
+      "why": "A foreign key is a field in one table that holds the primary key of another table, linking the two.",
+      "hook": "Foreign key = someone else's primary key.",
+      "keys": [
+        "holds the primary key of another table"
+      ]
+    },
+    {
+      "id": "warm:8:5",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "Which data type suits a book's number of pages, such as 96?",
+      "right": "Integer",
+      "wrong": [
+        "Real",
+        "String",
+        "Boolean"
+      ],
+      "why": "A count of pages is a whole number with no decimal part, so it is an Integer.",
+      "hook": "Whole number: Integer. Decimal point: Real.",
+      "keys": [
+        "whole number"
+      ]
+    },
+    {
+      "id": "warm:8:6",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "Which data type suits a price such as 4.99?",
+      "right": "Real",
+      "wrong": [
+        "Integer",
+        "String",
+        "Boolean"
+      ],
+      "why": "A price has a decimal part, so it is a Real (a floating-point number), not an Integer.",
+      "hook": "A point in the number? Real.",
+      "keys": [
+        "decimal part"
+      ]
+    },
+    {
+      "id": "warm:8:7",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "Which data type suits a phone number such as 087 123 4567?",
+      "right": "String",
+      "wrong": [
+        "Integer",
+        "Real",
+        "Boolean"
+      ],
+      "why": "It has a leading 0 and spaces and you never do sums with it, so it is stored as text: a String.",
+      "hook": "If you'd never add it up, store it as a String.",
+      "keys": [
+        "never do sums"
+      ]
+    },
+    {
+      "id": "warm:8:8",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "A field paid is always either true or false. Which data type is it?",
+      "right": "Boolean",
+      "wrong": [
+        "String",
+        "Integer",
+        "Real"
+      ],
+      "why": "A Boolean holds one of only two values: true or false (yes or no).",
+      "hook": "Two values only: Boolean.",
+      "keys": [
+        "one of only two values"
+      ]
+    },
+    {
+      "id": "warm:8:9",
+      "from": "warm",
+      "lvl": 2,
+      "slot": 32,
+      "q": "STUDENTS has the fields student_id, name and class. Which is the best primary key?",
+      "right": "student_id",
+      "wrong": [
+        "name",
+        "class",
+        "name and class together"
+      ],
+      "why": "Two students can share a name, and many share a class; student_id is given to each student once, so it is unique.",
+      "hook": "Look for the ID: it was made to be unique.",
+      "keys": [
+        "unique"
+      ]
+    },
+    {
+      "id": "warm:8:10",
+      "from": "warm",
+      "lvl": 2,
+      "slot": 32,
+      "q": "ORDERS (order_id, customer_id, date) and CUSTOMERS (customer_id, name). Which field in ORDERS is a foreign key?",
+      "right": "customer_id",
+      "wrong": [
+        "order_id",
+        "date",
+        "name"
+      ],
+      "why": "customer_id is the primary key of CUSTOMERS; stored in ORDERS it links each order to its customer, so it is a foreign key.",
+      "hook": "In a table, the other table's ID is the foreign key.",
+      "keys": [
+        "links each order to its customer"
+      ]
+    },
+    {
+      "id": "warm:8:11",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "What does SQL stand for?",
+      "right": "Structured Query Language",
+      "wrong": [
+        "Simple Question Language",
+        "Sequential Query Logic",
+        "Standard Quick Lookup"
+      ],
+      "why": "SQL is Structured Query Language: the language used to query (ask questions of) a relational database.",
+      "hook": "SQL asks the database questions: a Query Language.",
+      "keys": [
+        "Structured Query Language"
+      ]
+    },
+    {
+      "id": "warm:8:12",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "In an SQL query, which keyword chooses the columns to show?",
+      "right": "SELECT",
+      "wrong": [
+        "WHERE",
+        "FROM",
+        "ORDER BY"
+      ],
+      "why": "SELECT names the columns to show, FROM names the table and WHERE filters the rows.",
+      "hook": "SELECT columns FROM table WHERE condition.",
+      "keys": [
+        "SELECT names the columns"
+      ]
+    },
+    {
+      "id": "warm:8:13",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "In an SQL query, which keyword filters the rows?",
+      "right": "WHERE",
+      "wrong": [
+        "SELECT",
+        "FROM",
+        "ORDER BY"
+      ],
+      "why": "WHERE gives the condition a row must meet to be in the result; SELECT only chooses the columns.",
+      "hook": "WHERE picks rows; SELECT picks columns.",
+      "keys": [
+        "condition a row must meet"
+      ]
+    },
+    {
+      "id": "warm:8:14",
+      "from": "warm",
+      "lvl": 2,
+      "slot": 32,
+      "q": "BOOKS has years 1957, 1960, 1954 and 1957. How many rows does SELECT title FROM BOOKS WHERE year = 1957 return?",
+      "right": "2",
+      "wrong": [
+        "1",
+        "3",
+        "4"
+      ],
+      "why": "Only rows whose year equals 1957 are returned: books 1 and 4, so 2 rows.",
+      "hook": "WHERE keeps only the rows that match exactly.",
+      "keys": [
+        "books 1 and 4"
+      ]
+    },
+    {
+      "id": "warm:8:15",
+      "from": "warm",
+      "lvl": 2,
+      "slot": 32,
+      "q": "Costs are 6.95, 8.95, 10.00 and 9.95. How many rows does SELECT title FROM BOOKS WHERE cost < 9 return?",
+      "right": "2",
+      "wrong": [
+        "1",
+        "3",
+        "4"
+      ],
+      "why": "Only 6.95 and 8.95 are less than 9; 9.95 and 10.00 are more, so 2 rows.",
+      "hook": "Check each value against the condition, one row at a time.",
+      "keys": [
+        "6.95 and 8.95"
+      ]
+    },
+    {
+      "id": "warm:8:16",
+      "from": "warm",
+      "lvl": 2,
+      "slot": 32,
+      "q": "Which SQL query lists every column of every row in BOOKS?",
+      "right": "SELECT * FROM BOOKS",
+      "wrong": [
+        "SELECT ALL BOOKS",
+        "SELECT BOOKS FROM *",
+        "GET * FROM BOOKS"
+      ],
+      "why": "The * after SELECT means every column, and FROM BOOKS names the table; with no WHERE, every row comes back.",
+      "hook": "SELECT * = all the columns.",
+      "keys": [
+        "every column"
+      ]
+    },
+    {
+      "id": "warm:8:17",
+      "from": "warm",
+      "lvl": 2,
+      "slot": 32,
+      "q": "Which SQL query lists BOOKS sorted by year?",
+      "right": "SELECT * FROM BOOKS ORDER BY year",
+      "wrong": [
+        "SELECT * FROM BOOKS SORT year",
+        "SELECT * FROM BOOKS WHERE year",
+        "SELECT year FROM BOOKS GROUP"
+      ],
+      "why": "ORDER BY sorts the result by a column (lowest first; add DESC for highest first). WHERE filters, it does not sort.",
+      "hook": "Sort with ORDER BY, filter with WHERE.",
+      "keys": [
+        "ORDER BY sorts the result"
+      ]
+    },
+    {
+      "id": "warm:8:18",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "What is data redundancy?",
+      "right": "The same data stored more than once",
+      "wrong": [
+        "Data that is no longer needed",
+        "A backup copy of the database",
+        "Data in the wrong data type"
+      ],
+      "why": "Redundant data is the same value stored in more than one place, like a customer's address on every one of their orders.",
+      "hook": "Redundant = repeated.",
+      "keys": [
+        "stored in more than one place"
+      ]
+    },
+    {
+      "id": "warm:8:19",
+      "from": "warm",
+      "lvl": 2,
+      "slot": 32,
+      "q": "A customer's address is stored on all 12 of their orders. They move and only 11 are updated. What problem is this?",
+      "right": "Inconsistent data",
+      "wrong": [
+        "Missing values",
+        "A duplicate primary key",
+        "A wrong data type"
+      ],
+      "why": "Redundancy led to inconsistency: the copies of one fact now disagree. Storing the address once in CUSTOMERS avoids it.",
+      "hook": "Store a fact once and it can't disagree with itself.",
+      "keys": [
+        "the copies of one fact now disagree"
+      ]
+    },
+    {
+      "id": "warm:8:20",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "One field holds the dates 02/03/1904 and March 2, 1904. What kind of problem is this?",
+      "right": "Inconsistent formatting",
+      "wrong": [
+        "A duplicate record",
+        "A missing value",
+        "An outlier"
+      ],
+      "why": "The same kind of data is written in two different formats, so it is inconsistent; one format should be used throughout.",
+      "hook": "Same data, two looks: inconsistent.",
+      "keys": [
+        "two different formats"
+      ]
+    },
+    {
+      "id": "warm:8:21",
+      "from": "warm",
+      "lvl": 2,
+      "slot": 32,
+      "q": "One teacher teaches many classes. Where should the foreign key go?",
+      "right": "teacher_id in CLASSES",
+      "wrong": [
+        "class_id in TEACHERS",
+        "teacher_id as CLASSES' primary key",
+        "class_id in both tables"
+      ],
+      "why": "The foreign key goes on the \"many\" side: each class stores its one teacher's teacher_id. A teacher can't store many class_ids in one field.",
+      "hook": "One-to-many: the \"many\" table holds the foreign key.",
+      "keys": [
+        "the \"many\" side"
+      ]
+    },
+    {
+      "id": "warm:8:22",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "What is the first stage of a data analytics project?",
+      "right": "Form a hypothesis",
+      "wrong": [
+        "Clean the data",
+        "Analyse the data",
+        "Draw conclusions"
+      ],
+      "why": "A project starts with a hypothesis, then collects and cleans the data, analyses it and accepts or rejects the hypothesis.",
+      "hook": "Guess first, then test: hypothesis, data, clean, analyse.",
+      "keys": [
+        "starts with a hypothesis"
+      ]
+    },
+    {
+      "id": "warm:8:23",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "Which of these is a hypothesis?",
+      "right": "Older members borrow more books",
+      "wrong": [
+        "Do older members borrow more?",
+        "Count the books borrowed",
+        "Collect members' ages"
+      ],
+      "why": "A hypothesis is a statement the data can show to be true or false. A question or an instruction is not a hypothesis.",
+      "hook": "A hypothesis is a statement, not a question.",
+      "keys": [
+        "a statement"
+      ]
+    },
+    {
+      "id": "warm:8:24",
+      "from": "warm",
+      "lvl": 2,
+      "slot": 32,
+      "q": "Members' ages are 12, 15, 14, 140 and 13. What is 140?",
+      "right": "An outlier",
+      "wrong": [
+        "A missing value",
+        "A duplicate",
+        "A primary key"
+      ],
+      "why": "140 is far from the other values (probably a typing slip for 14). Cleaning investigates it and corrects or removes it.",
+      "hook": "Far from the rest? An outlier: check it, then fix or remove.",
+      "keys": [
+        "far from the other values"
+      ]
+    },
+    {
+      "id": "warm:8:25",
+      "from": "warm",
+      "lvl": 1,
+      "slot": 32,
+      "q": "What does data cleaning do?",
+      "right": "Finds and fixes errors before analysis",
+      "wrong": [
+        "Deletes all the old records",
+        "Makes a backup of the data",
+        "Encrypts the data"
+      ],
+      "why": "Cleaning finds errors (missing values, duplicates, bad formats, outliers) and fixes or removes them so the analysis can be trusted.",
+      "hook": "Clean data in, trustworthy results out.",
+      "keys": [
+        "fixes or removes them"
+      ]
+    },
+    {
+      "id": "warm:8:26",
+      "from": "warm",
+      "lvl": 2,
+      "slot": 32,
+      "q": "A member_name cell is empty. What does data cleaning do with this missing value?",
+      "right": "Fill it in or remove the record",
+      "wrong": [
+        "Convert it to a number",
+        "Standardise its format",
+        "Make it the primary key"
+      ],
+      "why": "A missing value is filled in with the right or a suitable value, or the record is removed if it can't be fixed.",
+      "hook": "Missing: fill in or remove. Formats: standardise.",
+      "keys": [
+        "filled in"
+      ]
+    },
+    {
+      "id": "warm:8:27",
+      "from": "warm",
+      "lvl": 2,
+      "slot": 32,
+      "q": "LOANS has member_id 3 and MEMBERS lists 3 as Chloe. Which field links a loan to the member's name?",
+      "right": "member_id",
+      "wrong": [
+        "member_name",
+        "book_id",
+        "date_borrowed"
+      ],
+      "why": "member_id is in both tables: the primary key of MEMBERS and a foreign key in LOANS, so 3 in a loan finds Chloe.",
+      "hook": "Follow the shared key from one table to the other.",
+      "keys": [
+        "in both tables"
+      ]
+    }
+  ]
+}
