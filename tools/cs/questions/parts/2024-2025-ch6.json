@@ -1,0 +1,884 @@
+{
+  "chapter": 6,
+  "title": "Computer systems",
+  "questions": [
+    {
+      "id": "2024-Q1",
+      "year": 2024,
+      "q": 1,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        3
+      ],
+      "topic": "Logic gate outputs",
+      "sub": "electronics",
+      "stem": "Logic gates have one or more inputs and a single output.",
+      "fig": "A two-column table: Column A shows six gate symbols with their inputs (AND 1, 1; AND 0, 1; NOT 1; OR 1, 0; OR 0, 0; NAND 1, 1); Column B is left blank for each output.",
+      "parts": [
+        {
+          "l": "",
+          "q": "For each logic gate in Column A in the table below enter the output, either 0 or 1, in Column B.",
+          "ask": "Write the output (0 or 1) of each of the six logic gates",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "table",
+            "head": [
+              "Column A: Logic gate with input(s)",
+              "Column B: Output (0 or 1)"
+            ],
+            "rows": [
+              [
+                "AND gate, inputs 1 and 1",
+                "1"
+              ],
+              [
+                "AND gate, inputs 0 and 1",
+                "0"
+              ],
+              [
+                "NOT gate, input 1",
+                "0"
+              ],
+              [
+                "OR gate, inputs 1 and 0",
+                "1"
+              ],
+              [
+                "OR gate, inputs 0 and 0",
+                "0"
+              ],
+              [
+                "NAND gate, inputs 1 and 1",
+                "0"
+              ]
+            ],
+            "blank": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                5,
+                1
+              ]
+            ]
+          },
+          "scheme": "1 mark for each correct output, in order: 1, 0, 0, 1, 0, 0.",
+          "model": "1, 0, 0, 1, 0, 0 (AND 1,1 = 1; AND 0,1 = 0; NOT 1 = 0; OR 1,0 = 1; OR 0,0 = 0; NAND 1,1 = 0).",
+          "idea": {
+            "title": "Each gate has a rule",
+            "text": "AND gives 1 only when every input is 1. OR gives 1 when at least one input is 1. NOT flips its input, and NAND is an AND followed by a NOT.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Name each gate from its shape: a flat back with a round front is AND, a curved back with a pointed front is OR, and a triangle is NOT. A small circle on the output adds a NOT, so the last gate is NAND.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "AND needs every input to be 1. Inputs 1 and 1 give 1; inputs 0 and 1 give 0.",
+              "math": [
+                "1 \\text{ AND } 1 = 1",
+                "0 \\text{ AND } 1 = 0"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "NOT flips its single input, so 1 becomes 0.",
+              "math": [
+                "\\text{NOT } 1 = 0"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "OR needs at least one 1. Inputs 1 and 0 give 1; inputs 0 and 0 give 0.",
+              "math": [
+                "1 \\text{ OR } 0 = 1",
+                "0 \\text{ OR } 0 = 0"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "NAND works out the AND first (1 AND 1 = 1), then flips it, so its output is 0.",
+              "math": [
+                "\\text{NOT}(1 \\text{ AND } 1) = \\text{NOT } 1 = 0"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "You can ask the superintendent for page 78 of the Formulae and Tables booklet: it shows every gate symbol with its truth table."
+        }
+      ]
+    },
+    {
+      "id": "2024-Q8",
+      "year": 2024,
+      "q": 8,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        6
+      ],
+      "topic": "RAM and ROM",
+      "sub": "architecture",
+      "stem": "RAM and ROM are two types of primary memory used to store data.",
+      "fig": "Pictures of a RAM stick and a ROM chip.",
+      "parts": [
+        {
+          "l": "",
+          "q": "Provide one example of data that might be stored in RAM and one example of data that might be stored in ROM.",
+          "ask": "Give one example of data held in RAM and one example held in ROM",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Data in RAM:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "System software, e.g. the operating system",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "operating system|OS|system software"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Application software, e.g. office productivity software",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "application|app"
+                        ],
+                        [
+                          "word processor|office|browser|spreadsheet|game"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Programs (e.g. Python programs) and data (e.g. documents) in use",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "program"
+                        ],
+                        [
+                          "document"
+                        ],
+                        [
+                          "open",
+                          "file"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Any temporary data",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "temporar"
+                        ],
+                        [
+                          "currently|in use|running"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Data in ROM:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Firmware: the software embedded into hardware devices",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "firmware"
+                        ],
+                        [
+                          "embedded"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "The BIOS (Basic Input Output System), essential for the computer's startup",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "BIOS"
+                        ],
+                        [
+                          "basic input"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Bootstrap programs",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "boot"
+                        ],
+                        [
+                          "startup|start-up|start up"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "System-level configuration data",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "configuration|config|settings"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Any permanent data necessary for the device to operate",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "permanent"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "3 marks each for RAM and ROM (very good example 3, fair example 2). RAM: system software such as the operating system, application software, programs and documents in use, any temporary data. ROM: firmware, the BIOS needed at startup, bootstrap programs, system-level configuration data, any permanent data the device needs to operate.",
+          "model": "Data in RAM: the document I am editing in a word processor, which is only needed while the program is running and is lost when the power is off. Data in ROM: the BIOS/bootstrap program the computer runs when it starts up.",
+          "idea": {
+            "title": "Temporary or permanent",
+            "text": "RAM is volatile read-write memory that holds the programs and data in use right now, and it is wiped when the power goes. ROM is non-volatile and read-only, so it keeps the instructions a device needs every time it starts.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "RAM holds whatever the computer is working on at the moment: the operating system, open programs and their data.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So a good RAM example is something temporary, like a document you are editing or a Python program that is running.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "ROM keeps its contents with the power off and is not changed in normal use.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So a good ROM example is start-up code: the BIOS or bootstrap program, or a device's firmware.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Name a specific example and say why it suits that memory (temporary or permanent) for the full 3 marks."
+        }
+      ]
+    },
+    {
+      "id": "2025-Q4",
+      "year": 2025,
+      "q": 4,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        4
+      ],
+      "topic": "Operating system functions",
+      "sub": "os",
+      "stem": "Two key functions of an operating system are resource management and file management.",
+      "fig": null,
+      "parts": [
+        {
+          "l": "",
+          "q": "Explain what is meant by the terms ‘resource management’ and ‘file management’.",
+          "ask": "Explain resource management and file management in an operating system",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Resource management:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "The OS controls and coordinates the computer's hardware resources such as CPU time, memory (RAM), secondary storage and input/output devices",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "control|coordinat|allocat|share|shares|assign|distribut|schedul|decid",
+                          "CPU|processor|memory|RAM|hardware|device|storage|input|printer"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "File management:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "The OS organises and keeps track of files on storage devices (hard drives, USB drives) so they can be created, accessed or modified when needed",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "organis|organiz|track|folder|director"
+                        ],
+                        [
+                          "creat|access|modif|delet|renam"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "3 marks each (very good 3, fair 2). Resource management: how the OS controls and coordinates the computer's hardware resources such as CPU time, memory (RAM), secondary storage and input/output devices. File management: how the OS organises and keeps track of files on storage devices (hard drives, USB drives) and makes sure they can be created, accessed or modified when needed.",
+          "model": "Resource management: the OS controls and shares out the computer's hardware, deciding how much CPU time and RAM each running program gets and which program can use a device such as the printer. File management: the OS organises files into folders on storage devices, keeps track of where each one is stored, and lets users create, open, modify and delete them.",
+          "idea": {
+            "title": "The OS is the manager",
+            "text": "Many programs run at once but share one CPU, one RAM and the same storage and devices. The operating system decides who gets each resource, and keeps the files on storage organised and findable.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Resources are the hardware that programs need: CPU time, memory, storage and input/output devices.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Resource management means the OS controls and shares these out, e.g. giving each running program its turn on the CPU and its own part of RAM.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "File management means the OS organises the files on storage devices: folders, names and where each file is stored.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "It also lets users and programs create, open, change and delete those files when needed.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Give an example for each term (CPU time, a folder) to show clear understanding."
+        }
+      ]
+    },
+    {
+      "id": "2025-Q8",
+      "year": 2025,
+      "q": 8,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        6
+      ],
+      "topic": "IP and VoIP",
+      "sub": "internet",
+      "stem": "",
+      "fig": null,
+      "parts": [
+        {
+          "l": "",
+          "q": "Distinguish between the IP and VoIP communication protocols.",
+          "ask": "Explain how the IP and VoIP protocols differ",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Internet Protocol (IP) is the general protocol used for sending all types of data in the form of packets over the internet (e.g. browsing websites and sending emails)",
+                "marks": 3,
+                "alts": [
+                  [
+                    "packet"
+                  ],
+                  [
+                    "all|any|every|general",
+                    "data|type"
+                  ],
+                  [
+                    "address",
+                    "rout|send|deliver"
+                  ]
+                ]
+              },
+              {
+                "text": "Voice over Internet Protocol (VoIP) is a specific application of IP used for voice and video communication (e.g. Zoom and WhatsApp)",
+                "marks": 3,
+                "alts": [
+                  [
+                    "voice|phone|telephon"
+                  ],
+                  [
+                    "video",
+                    "call|chat|communicat|conferenc"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good distinction 6, good 4, fair 2 (1 mark each for just naming a protocol correctly). IP (Internet Protocol) is the general protocol for sending all types of data in packets over the internet (browsing websites, sending emails); VoIP (Voice over Internet Protocol) is a specific application of IP used for voice and video communication (Zoom, WhatsApp).",
+          "model": "IP (Internet Protocol) is the general protocol that addresses and sends all types of data across the internet in packets, e.g. web pages and emails. VoIP (Voice over Internet Protocol) is one specific use of IP: it turns voice (and video) into packets so calls can be made over the internet, e.g. WhatsApp or Zoom calls.",
+          "idea": {
+            "title": "General and specific",
+            "text": "IP is the basic set of rules for addressing and routing packets of any kind of data across the internet. VoIP is built on top of it: it digitises speech into packets so calls travel over the internet instead of phone lines.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Expand both names: IP is Internet Protocol, and VoIP is Voice over Internet Protocol.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "IP is the general protocol for every kind of data. It splits data into packets, gives them IP addresses and routes them across networks (web pages, emails).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "VoIP is one specific use of IP, for voice and video calls: speech is digitised and sent as IP packets (WhatsApp, Zoom).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Distinguish means show the difference: general data delivery for everything, against real-time voice communication that relies on IP.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Say what each protocol is and how they differ; an example of each (an email, a WhatsApp call) helps."
+        }
+      ]
+    },
+    {
+      "id": "2025-Q12",
+      "year": 2025,
+      "q": 12,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        8
+      ],
+      "topic": "CPU components",
+      "sub": "architecture",
+      "stem": "The Central Processing Unit (CPU) is often referred to as the \"brain\" of the computer.",
+      "fig": "A picture of a CPU chip.",
+      "parts": [
+        {
+          "l": "",
+          "q": "Identify and state the purpose of two CPU components.",
+          "ask": "Name two parts of the CPU and say what each one does",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "CPU Component 1:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Arithmetic Logic Unit (ALU)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "ALU"
+                        ],
+                        [
+                          "arithmetic"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Control Unit (CU)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "control"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Registers",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "register"
+                        ],
+                        [
+                          "MAR|MDR|CIR|accumulator"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Cache",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "cache"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Program Counter (PC)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "program",
+                          "counter"
+                        ],
+                        [
+                          "PC"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Clock",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "clock"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Purpose:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "ALU: performs arithmetic operations (e.g. addition, subtraction) and logical operations (e.g. AND, OR, NOT) needed to process instructions",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "arithmetic|calculat|add|subtract|math"
+                        ],
+                        [
+                          "logic"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Control unit: directs and coordinates the activities of the CPU by fetching, decoding and executing instructions from memory",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "fetch|decod"
+                        ],
+                        [
+                          "direct|coordinat|control|signal",
+                          "component|part|instruction|operation"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Registers: small, high-speed storage locations within the CPU that temporarily hold data, instructions or addresses during processing",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "small|fast|high-speed|high speed|quick",
+                          "stor|memory|hold|location"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Cache: stores frequently accessed data and instructions close to the CPU to reduce latency and improve processing speed",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "frequent|often|recent|commonly",
+                          "data|instruction|used|access"
+                        ],
+                        [
+                          "latency"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Program counter: keeps track of the memory address of the next instruction to be executed",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "next",
+                          "instruction|address"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Clock: generates a consistent timing signal (clock pulse) that synchronises the CPU's operations and sets the speed at which it processes data",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "timing|pulse|tick|synchron|cycle|GHz|hertz"
+                        ],
+                        [
+                          "speed",
+                          "process|instruction"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "CPU Component 2:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Arithmetic Logic Unit (ALU)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "ALU"
+                        ],
+                        [
+                          "arithmetic"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Control Unit (CU)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "control"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Registers",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "register"
+                        ],
+                        [
+                          "MAR|MDR|CIR|accumulator"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Cache",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "cache"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Program Counter (PC)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "program",
+                          "counter"
+                        ],
+                        [
+                          "PC"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Clock",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "clock"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Purpose:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "ALU: performs arithmetic operations (e.g. addition, subtraction) and logical operations (e.g. AND, OR, NOT) needed to process instructions",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "arithmetic|calculat|add|subtract|math"
+                        ],
+                        [
+                          "logic"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Control unit: directs and coordinates the activities of the CPU by fetching, decoding and executing instructions from memory",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "fetch|decod"
+                        ],
+                        [
+                          "direct|coordinat|control|signal",
+                          "component|part|instruction|operation"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Registers: small, high-speed storage locations within the CPU that temporarily hold data, instructions or addresses during processing",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "small|fast|high-speed|high speed|quick",
+                          "stor|memory|hold|location"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Cache: stores frequently accessed data and instructions close to the CPU to reduce latency and improve processing speed",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "frequent|often|recent|commonly",
+                          "data|instruction|used|access"
+                        ],
+                        [
+                          "latency"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Program counter: keeps track of the memory address of the next instruction to be executed",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "next",
+                          "instruction|address"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Clock: generates a consistent timing signal (clock pulse) that synchronises the CPU's operations and sets the speed at which it processes data",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "timing|pulse|tick|synchron|cycle|GHz|hertz"
+                        ],
+                        [
+                          "speed",
+                          "process|instruction"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "1 mark for each correctly identified component and 2 for each purpose (very good 2, fair 1). ALU: arithmetic and logical operations; control unit: directs and coordinates the CPU by fetching, decoding and executing instructions; registers: small, high-speed storage for data, instructions or addresses during processing; cache: frequently used data and instructions kept close to the CPU to cut latency; program counter: the address of the next instruction to be executed; clock: a timing signal that synchronises operations and sets the processing speed.",
+          "model": "CPU Component 1: Arithmetic Logic Unit (ALU). Purpose: it carries out arithmetic operations such as addition and subtraction, and logical operations such as AND, OR and comparisons. CPU Component 2: Control Unit (CU). Purpose: it directs the other parts of the CPU, fetching each instruction from memory, decoding it and making sure it is executed.",
+          "idea": {
+            "title": "Inside the CPU",
+            "text": "The control unit runs the fetch-decode-execute cycle and directs everything else; the ALU does the maths and logic; registers and cache are tiny, fast memories; the clock keeps every step in time.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Pick two components you know well, e.g. the ALU and the control unit (registers, cache, the program counter and the clock also count).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "ALU: it does the arithmetic (add, subtract) and the logic (AND, OR, NOT, comparisons).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Control unit: it fetches instructions from memory, decodes them and sends signals so they are executed.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "For each one, write the full name and one clear sentence on what it does.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Each purpose needs a clear sentence, not one word, to get both of its marks."
+        }
+      ]
+    }
+  ]
+}

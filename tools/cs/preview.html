@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CS question preview</title>
+<!-- Computer Science (from tools/maths/preview.html). One exam question's walkthrough on one page, every step with its words, working and picture, for checking the
+     content: preview.html?ch=13&q=2018-P2-Q1 (&still=1 shows each picture's end state, for screenshots; &part=2 shows
+     one part; &src=work/<name>.q.js previews a scenes patch). Pictures build up across a part's steps as on the desk. -->
+<link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<link rel="stylesheet" href="../../maths/maths.css">
+<link rel="stylesheet" href="../../cs/cs-scenes.css">
+<link rel="stylesheet" href="../../cs/cs-desk.css">
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; padding: 16px; background: #050505; color: #F1F7FB; font: 16px/1.45 Nunito, system-ui, sans-serif; }
+  h1 { margin: 0 0 4px; font: 600 22px Fredoka, Nunito, sans-serif; }
+  .meta { margin: 0 0 14px; color: #9EB0B9; }
+  .part { margin: 0 0 22px; padding: 14px; border-radius: 16px; background: #0E171B; }
+  .part > h2 { margin: 0 0 8px; font: 600 18px Fredoka, Nunito, sans-serif; color: #FFC800; }
+  .steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 470px), 1fr)); gap: 12px; }
+  .step { padding: 12px; border-radius: 14px; background: #131F24; }
+  .say { margin: 0 0 8px; }
+  .say b.n { display: inline-grid; place-items: center; min-width: 1.5em; height: 1.5em; margin-right: .4em; border-radius: 50%; background: #202F36; color: #FFC800; font: 700 .85em Fredoka, sans-serif; }
+  .none { color: #6B7F88; font-style: italic; margin: 0 0 8px; }
+  .end { color: #A5ED6E; margin: 8px 0 0; }
+  .err { color: #FF9C9C; }
+</style>
+</head>
+<body>
+<div id="out"></div>
+<script src="../../lib/katex/katex.min.js"></script>
+<script src="../../maths/maths-render.js"></script>
+<script>
+  var Q = new URLSearchParams(location.search);
+  if (Q.get('still') === '1') window.MATHS_STILL = true;
+  // &src=work/<name>.q.js previews a scenes patch before it's applied (tools/maths/apply_scenes.py writes it).
+  var SRC = /^work\/[\w.-]+\.q\.js$/.test(Q.get('src') || '') ? Q.get('src') : '../../cs/q' + (+Q.get('ch') || 6) + '.js';
+  document.write('<script src="../../maths/maths-scenes.js"><\/script><script src="../../cs/cs-scenes.js"><\/script><script src="' + SRC + '?t=' + Date.now() + '"><\/script>');
+</script>
+<script>
+(function () {
+  var R = window.MathsRender, ch = +Q.get('ch') || 6, qid = Q.get('q'), only = Q.get('part'), out = document.getElementById('out');
+  var data = (window.CsQuestions || {})[ch], q = data && data.questions.filter(function (x) { return x.id === qid; })[0];
+  if (!q) { out.innerHTML = '<p class="err">No question ' + R.esc(qid) + ' in chapter ' + ch + '.</p>'; return; }
+  var problems = [];
+  out.innerHTML = '<h1>' + R.esc(q.topic || '') + '</h1><p class="meta">' + q.year + ' Q' + q.q + (q.stem ? ' · ' + R.inline(q.stem) : '') + '</p>';
+  q.parts.forEach(function (p, k) {
+    if (only != null && +only !== k) return;
+    var sec = document.createElement('section'), grid = document.createElement('div'), seen = {};
+    sec.className = 'part';
+    sec.innerHTML = '<h2>' + R.esc(p.l) + ' ' + R.inline(p.q) + '</h2>';
+    grid.className = 'steps';
+    sec.appendChild(grid);
+    out.appendChild(sec);
+    var list = (p.idea ? [{ say: '<b>' + R.esc(p.idea.title) + '.</b> ' + p.idea.text, vis: p.idea.vis, idea: true, math: [] }] : []).concat(p.steps || []);
+    var last = null;
+    list.forEach(function (s, i) {
+      var d = document.createElement('div');
+      d.className = 'step';
+      d.innerHTML = '<p class="say">' + (s.idea ? '' : '<b class="n">' + (i + 1 - (p.idea ? 1 : 0)) + '</b>') + (s.idea ? s.say.replace(/(\$[^$]+\$)/g, function (m) { return R.inline(m); }) : R.inline(s.say)) + '</p>';
+      grid.appendChild(d);
+      var v = s.vis || last;
+      if (s.vis) {
+        (R.validate(s.vis) || []).forEach(function (e) { problems.push(p.l + ' step ' + (i + 1) + ': ' + e); });
+        var box = R.vis(s.vis, i === 0 ? {} : seen);
+        if (box) { d.appendChild(box); box.play(); seen = box.keys; last = s.vis; } else { d.insertAdjacentHTML('beforeend', '<p class="err">picture failed: ' + R.esc(s.vis.t) + '</p>'); problems.push(p.l + ' step ' + (i + 1) + ': picture failed'); }
+      } else if (v) d.insertAdjacentHTML('beforeend', '<p class="none">(the picture above stays)</p>');
+      else d.insertAdjacentHTML('beforeend', '<p class="none">(no picture)</p>');
+      if (s.code) { var pre = document.createElement('pre'); pre.className = 'cs-code'; pre.textContent = s.code; d.appendChild(pre); }
+      if (s.math && s.math.length) {
+        var b = document.createElement('div');
+        d.appendChild(b);
+        new R.Board(b).step(s.math, { still: true });
+      }
+    });
+    var a = p.answer || {};
+    sec.insertAdjacentHTML('beforeend', '<p class="end">Full-marks answer: ' + R.inline(String(p.model || a.show || (a.value != null ? a.value : ''))) + '</p>');
+  });
+  window.PREVIEW_PROBLEMS = problems;
+  if (problems.length) out.insertAdjacentHTML('afterbegin', '<p class="err">' + problems.map(R.esc).join('<br>') + '</p>');
+})();
+</script>
+</body>
+</html>

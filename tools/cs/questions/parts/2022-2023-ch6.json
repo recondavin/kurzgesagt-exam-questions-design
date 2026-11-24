@@ -1,0 +1,2613 @@
+{
+  "chapter": 6,
+  "title": "Computer systems",
+  "questions": [
+    {
+      "id": "2022-Q2",
+      "year": 2022,
+      "q": 2,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        3,
+        4
+      ],
+      "topic": "Registers and RAM (volatile memory)",
+      "sub": "architecture",
+      "stem": "Registers and RAM are both types of volatile memory.",
+      "fig": null,
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "What is volatile memory?",
+          "ask": "Say what volatile memory is and why it is called volatile.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Its entire contents are cleared when the computer is switched off",
+                "marks": 2,
+                "alts": [
+                  [
+                    "lost|lose|loses|clear|eras|wipe|disappear|gone|delet|empt|forget|not kept|not saved|not retain",
+                    "off|power|electric|shut"
+                  ]
+                ]
+              },
+              {
+                "text": "It stores data/programs while the computer is switched on/running",
+                "marks": 1,
+                "alts": [
+                  [
+                    "hold|store|keep|contain|save",
+                    "switched on|turned on|is on|powered|running|in use|while on|operat|working"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "A type of memory used to store data/programs when the computer is switched on/running; called volatile because its entire contents are cleared when the computer is switched off. Very good description 3 marks, fair description 1 mark.",
+          "model": "Volatile memory is memory that needs power to keep its contents: it stores the data and programs being used while the computer is running, and everything in it is lost when the power is switched off.",
+          "idea": {
+            "title": "Volatile means it needs power",
+            "text": "Volatile memory keeps its contents only while electricity flows through it. Switch the computer off and the registers and RAM are wiped; ROM and secondary storage are non-volatile and keep their data.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Start with what it does: it holds the data and instructions the computer is using right now.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Then explain the word: volatile means the contents vanish as soon as the power goes off.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "You can contrast it: ROM, SSDs and hard drives are non-volatile, so they keep data with no power.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Give both ideas (holds data while on, loses it all when off) for the full 3 marks."
+        },
+        {
+          "l": "(b)",
+          "q": "Describe two differences between registers and RAM.",
+          "ask": "Give two ways in which registers and RAM differ.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Physical location: registers are inside (part of) the CPU; RAM is not as close to the CPU",
+                "marks": 1,
+                "alts": [
+                  [
+                    "inside|within|part of|located in|built into|on the",
+                    "cpu|processor"
+                  ],
+                  [
+                    "outside|separate|not in|away from|motherboard|further",
+                    "cpu|processor"
+                  ]
+                ]
+              },
+              {
+                "text": "Access time: the CPU accesses the contents of registers much faster than RAM",
+                "marks": 1,
+                "alts": [
+                  [
+                    "fast|quick|speed|slow"
+                  ]
+                ]
+              },
+              {
+                "text": "Cost: registers are more expensive than RAM (per byte)",
+                "marks": 1,
+                "alts": [
+                  [
+                    "expens|cost|cheap|price|dear"
+                  ]
+                ]
+              },
+              {
+                "text": "Capacity: registers hold far less than RAM",
+                "marks": 1,
+                "alts": [
+                  [
+                    "capacit|size|smaller|larger|bigger|hold less|hold more|store less|store more|much less|much more|few|gigabyte|gb"
+                  ]
+                ]
+              },
+              {
+                "text": "Material: they are made from different materials",
+                "marks": 1,
+                "alts": [
+                  [
+                    "material|made of|made from|technolog"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "1 mark for each difference clearly described: physical location (registers are inside the CPU, RAM is not as close); access time (registers can be accessed much faster); cost (registers are more expensive per byte); capacity (registers hold less, because of cost); material (made from different materials); any other valid difference.",
+          "model": "1. Registers are located inside the CPU itself, whereas RAM is on separate chips connected to the CPU by buses. 2. The CPU can access its registers much faster than RAM, but registers hold only a few bytes while RAM holds gigabytes.",
+          "idea": {
+            "title": "The memory hierarchy",
+            "text": "Memory close to the CPU is fast, small and expensive; memory further away is slower, bigger and cheaper. Registers sit at the very top of this hierarchy, with cache and then RAM below them.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Think about where each one lives: registers are built into the CPU; RAM sits on the motherboard, reached over the buses.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Location gives speed: the CPU reads a register almost instantly, far faster than fetching from RAM.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Speed costs money: register memory is much dearer per byte, so a CPU has only a handful of registers while RAM holds gigabytes.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Write each difference as a comparison: 'Registers are …, whereas RAM is …'.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Make each difference a comparison of both: 'registers are fast' on its own may not be accepted."
+        }
+      ]
+    },
+    {
+      "id": "2022-Q3",
+      "year": 2022,
+      "q": 3,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        4
+      ],
+      "topic": "Transistors, integrated circuits and Moore's Law",
+      "sub": "electronics",
+      "stem": "In 1965 Gordon Moore, co-founder of Intel Corporation, predicted that the number of transistors on an integrated circuit will approximately double every two years. This prediction became known as Moore’s Law and has turned out to be very accurate to the present day.",
+      "fig": "Photo of Gordon Moore.",
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "Explain the terms transistor and integrated circuit.",
+          "ask": "Explain what a transistor is and what an integrated circuit is.",
+          "marks": 4,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Transistor:",
+                "marks": 2,
+                "answer": {
+                  "type": "keys",
+                  "need": 2,
+                  "points": [
+                    {
+                      "text": "A type of electronic switch",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "switch"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "A semiconductor device used to amplify or switch electronic signals and power, with at least three terminals",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "semiconductor|silicon"
+                        ],
+                        [
+                          "amplif"
+                        ],
+                        [
+                          "terminal"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "The building block of gates, logic circuits and microprocessors / used to represent binary 1s and 0s",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "gate|logic|building block|microprocessor|chip"
+                        ],
+                        [
+                          "binary|1s|0s|ones|zeros|1 or 0|0 or 1|on or off|on and off"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Integrated circuit:",
+                "marks": 2,
+                "answer": {
+                  "type": "keys",
+                  "need": 2,
+                  "points": [
+                    {
+                      "text": "An electronic component (chip) that contains multiple discrete components",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "many|multiple|lots|million|billion|several|number of",
+                          "component|transistor|part"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Combined together into logic circuits on a single silicon board/chip",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "single|one",
+                          "chip|board|silicon|piece"
+                        ],
+                        [
+                          "silicon|microchip"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "Transistor: a type of electronic switch; a semiconductor device used to amplify or switch electronic signals and electrical power, with at least three terminals; the fundamental building block of gates, logic circuits, integrated circuits and microprocessors; used to represent binary 1s and 0s. Integrated circuit: an electronic component (chip) that contains multiple discrete components combined together into logic circuits on a single silicon board. For each term: very good 2 marks, fair 1 mark.",
+          "model": "Transistor: a tiny semiconductor switch that turns an electric current on or off, so it can represent a binary 1 or 0; transistors are the building blocks of logic gates. Integrated circuit: a single silicon chip on which many transistors and other components are built and connected together into circuits.",
+          "idea": {
+            "title": "Switches make logic",
+            "text": "A transistor lets a small signal switch a current on or off: on is 1, off is 0. Wire transistors together and you get logic gates; pack millions of them onto one silicon chip and you have an integrated circuit such as a CPU.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Transistor: say what it is: an electronic switch made from a semiconductor such as silicon.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Link it to binary: switched on it lets current through (1), switched off it doesn't (0); logic gates are built from transistors.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Integrated circuit: say that it puts many components, mostly transistors, together on one small chip of silicon.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Give an example: a CPU is an integrated circuit with billions of transistors.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Give two clear facts for each term to earn its 2 marks."
+        },
+        {
+          "l": "(b)",
+          "q": "State one reason why Moore’s Law might not remain accurate in the future.",
+          "ask": "Give a reason why the doubling of transistors might stop.",
+          "marks": 1,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "There is a physical limit to the number of transistors that can fit on a single chip",
+                "marks": 1,
+                "alts": [
+                  [
+                    "physic"
+                  ],
+                  [
+                    "atom|quantum|molecul"
+                  ],
+                  [
+                    "limit|cannot|can't|can not|impossible|only so",
+                    "small|size|shrink|fit|space|room"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "There is a physical limitation to the number of transistors that can fit on a single chip. Full correct response 1 mark.",
+          "model": "Transistors are already only a few nanometres wide and cannot keep shrinking for ever: there is a physical limit (the size of atoms) to how many can fit on a single chip.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Moore's Law only holds while transistors keep getting smaller, so that twice as many fit on a chip.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "They are now only a few atoms wide, so there is a physical limit to how small, and how many, they can get.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        }
+      ]
+    },
+    {
+      "id": "2022-Q4",
+      "year": 2022,
+      "q": 4,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        5
+      ],
+      "topic": "Truth table and logic circuit: garage door",
+      "sub": "electronics",
+      "stem": "An automatic garage door has three inputs:\n- A, the master ON/OFF switch\n- B, a sensor on the left hand side\n- C, a sensor on the right hand side\nOnce the master switch has been set ON, either sensor can trigger the door. This scenario can be represented by the logical statement: A AND (B OR C).",
+      "fig": "Photo of an automatic garage door; a truth table with columns A, B, C and A AND (B OR C), with the outputs of the first two rows (000 and 001) given as 0.",
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "Complete the truth table for the logical statement A AND (B OR C).",
+          "ask": "Fill in the output for the six empty rows of the truth table.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "table",
+            "head": [
+              "A",
+              "B",
+              "C",
+              "A AND (B OR C)"
+            ],
+            "rows": [
+              [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "1",
+                "0"
+              ],
+              [
+                "0",
+                "1",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "1",
+                "1",
+                "0"
+              ],
+              [
+                "1",
+                "0",
+                "0",
+                "0"
+              ],
+              [
+                "1",
+                "0",
+                "1",
+                "1"
+              ],
+              [
+                "1",
+                "1",
+                "0",
+                "1"
+              ],
+              [
+                "1",
+                "1",
+                "1",
+                "1"
+              ]
+            ],
+            "blank": [
+              [
+                2,
+                3
+              ],
+              [
+                3,
+                3
+              ],
+              [
+                4,
+                3
+              ],
+              [
+                5,
+                3
+              ],
+              [
+                6,
+                3
+              ],
+              [
+                7,
+                3
+              ]
+            ]
+          },
+          "scheme": "Outputs 0, 0, 0, 0, 0, 1, 1, 1 for rows 000 to 111. Every value correct 2 marks; 3 (or more) correct values 1 mark.",
+          "model": "The six missing outputs are 0, 0, 0, 1, 1, 1 (rows 010, 011, 100, 101, 110, 111): the output is 1 only when A = 1 and at least one of B and C is 1.",
+          "idea": {
+            "title": "AND and OR",
+            "text": "OR gives 1 if at least one input is 1. AND gives 1 only if both inputs are 1. Work out the bracket (B OR C) first, then AND the result with A.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Work out the bracket first: B OR C is 1 whenever B or C (or both) is 1.",
+              "math": [
+                "BC = 00,\\ 01,\\ 10,\\ 11 \\;\\Rightarrow\\; B \\text{ OR } C = 0,\\ 1,\\ 1,\\ 1"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "When A = 0, AND makes the output 0 whatever the bracket is, so rows 010 and 011 are 0.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "When A = 1, the output is just B OR C: 0 for row 100, then 1, 1, 1 for rows 101, 110 and 111.",
+              "math": [
+                "1 \\text{ AND } 0 = 0,\\quad 1 \\text{ AND } 1 = 1"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Add a working column for B OR C: it makes mistakes much less likely."
+        },
+        {
+          "l": "(b)",
+          "q": "Use the relevant gate symbols to draw the circuit diagram for this system.",
+          "ask": "Draw the logic circuit for A AND (B OR C) using gate symbols.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "none"
+          },
+          "scheme": "Gates combined correctly (B and C into an OR gate giving B + C; its output and A into an AND gate giving A.(B + C)) 3 marks; use of AND and OR gates with either input correctly labelled 2 marks; use of AND or OR gates with either inputs correctly labelled 1 mark.",
+          "model": "Inputs B and C go into an OR gate, whose output is B OR C. That output and input A go into a two-input AND gate, whose output, A AND (B OR C), triggers the door.",
+          "idea": {
+            "title": "Gate symbols",
+            "text": "An AND gate is D-shaped: a flat back and a round front. An OR gate has a curved back and a pointed front. Inputs come in on the left and the output leaves on the right.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "The bracket is worked out first, so start with an OR gate whose two inputs are B and C.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Draw an AND gate. Its two inputs are A and the output wire from the OR gate.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Label the inputs A, B and C, and label the AND gate's output A AND (B OR C).",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Label every input: marks are given for correctly labelled inputs."
+        }
+      ]
+    },
+    {
+      "id": "2022-Q6",
+      "year": 2022,
+      "q": 6,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        7
+      ],
+      "topic": "The client-server model",
+      "sub": "internet",
+      "stem": "Figure 2 shows an example of the client-server model of computing.",
+      "fig": "Figure 2: a Web Client (desktop computer) sends a Browser Request arrow to a Web Server, which sends a Server Response arrow back.",
+      "parts": [
+        {
+          "l": "",
+          "q": "Explain the client-server model of computing. In your answer you should make reference to the terms included in Figure 2.",
+          "ask": "Explain how the client and server communicate, using the terms in Figure 2.",
+          "marks": 5,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 3,
+            "points": [
+              {
+                "text": "A web client sends a browser request to a web server",
+                "marks": 2,
+                "alts": [
+                  [
+                    "client|browser|user",
+                    "request|ask|send"
+                  ]
+                ]
+              },
+              {
+                "text": "The web server processes the request",
+                "marks": 1,
+                "alts": [
+                  [
+                    "process|handl|deal with|find|look up|fetch|retriev|run|execut|prepar|generat|work out"
+                  ]
+                ]
+              },
+              {
+                "text": "The server responds by sending the result back to the client in the form of a server response",
+                "marks": 2,
+                "alts": [
+                  [
+                    "respon|repl|return|back|deliver"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "A web client sends a browser request to a web server. This browser request is then processed by the web server, which responds by sending the result back to the client in the form of a server response. Very good explanation 5 marks; good explanation (clear but lacking full understanding) 3 marks; fair 1 mark.",
+          "model": "In the client-server model the web client (the user's computer running a browser) sends a browser request, for example for a web page, over the network to the web server. The web server processes the request, finding or building the page, and sends the result back to the client as a server response, which the browser then displays. One server can serve many clients.",
+          "idea": {
+            "title": "Ask and answer",
+            "text": "A client is a device that asks for a service; a server is a powerful computer that waits for requests and answers them. The web works this way: browsers ask, web servers reply.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Name the two roles: the web client (your browser) asks; the web server provides.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Describe the request: the client sends a browser request, e.g. for a web page, over the internet.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Describe the server's job: it processes the request, finding or building what was asked for.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Close the loop: the server sends the result back as a server response, and the browser displays it.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Use all four terms from the figure (web client, browser request, web server, server response), in order."
+        }
+      ]
+    },
+    {
+      "id": "2022-Q8",
+      "year": 2022,
+      "q": 8,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        8
+      ],
+      "topic": "Cloud computing: cost and environment",
+      "sub": "internet",
+      "stem": "Cloud computing has been described as the third wave of the digital revolution.",
+      "fig": null,
+      "parts": [
+        {
+          "l": "",
+          "q": "Outline one advantage and one disadvantage of cloud computing under the headings of both cost and impact on the environment.",
+          "ask": "Give a cost advantage and disadvantage, and an environmental one of each.",
+          "marks": 5,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Cost (advantage):",
+                "marks": 2,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "No need for one-off up-front capital costs",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "up-front|upfront|up front|initial|capital|one-off|buy|purchas|hardware|server|equipment|setup|set up|start"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "No need for upgrading/replacement costs",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "upgrad|replac|maint|repair|update"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Cost (disadvantage):",
+                "marks": 1,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Costs are ongoing (pay-as-you-go), which could work out more expensive in the long run",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "ongoing|subscri|monthly|pay as you go|pay-as-you-go|recurring|continu|every month|every year|yearly|long run|long term|fee|rent|forever"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Ongoing costs to the cloud provider to keep software and hardware up to date",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "up to date|up-to-date|provider"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Environment (advantage):",
+                "marks": 1,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Economy of scale: providers share services more efficiently, reducing the carbon footprint",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "efficien|share|shared|economy of scale|economies of scale|fewer|less energy|less electric|less power|carbon|footprint"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Many cloud companies generate their own energy (and supply it to the grid)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "renewabl|own energy|own power|own electric|green|solar|wind"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Less paper",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "paper"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Environment (disadvantage):",
+                "marks": 1,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Greater demand for cloud services increases energy demand and the carbon footprint",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "energy|electric|power|carbon|emission|footprint|cooling|water|heat|demand"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "Cost advantage: no one-off up-front capital costs; no upgrade/replacement costs. Cost disadvantage: ongoing pay-as-you-go costs that could work out more expensive in the long run; ongoing costs to keep software and hardware up to date. Environment advantage: economies of scale let providers offer shared services more efficiently, reducing the carbon footprint; many cloud companies generate their own energy; less paper. Environment disadvantage: growing demand for cloud services increases energy demand and the carbon footprint. 3 marks for the better heading (2 for the better point, 1 for the other) and 2 marks for the other heading (1 + 1).",
+          "model": "Cost (advantage): a business has no big up-front bill for buying servers, and the provider pays for upgrades and replacements. Cost (disadvantage): the pay-as-you-go fees never stop, so over many years they can add up to more than owning the hardware. Environment (advantage): huge shared data centres run servers far more efficiently than many small server rooms, so less energy is used per user. Environment (disadvantage): cloud use keeps growing, so data centres use ever more electricity, increasing the carbon footprint.",
+          "idea": {
+            "title": "Renting computing",
+            "text": "Cloud computing means using storage and processing power on someone else's servers over the internet, paying for what you use, instead of buying and running your own.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Cost, advantage: no large purchase of servers at the start, and the provider pays for upgrades.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Cost, disadvantage: you keep paying (pay-as-you-go), which can cost more in the long run.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Environment, advantage: big shared data centres are more efficient, so less energy per user; some generate their own power.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Environment, disadvantage: demand keeps growing, so data centres use more and more electricity, raising the carbon footprint.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Write a full sentence under each heading: one word such as 'cheaper' earns little."
+        }
+      ]
+    },
+    {
+      "id": "2023-Q3",
+      "year": 2023,
+      "q": 3,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        4
+      ],
+      "topic": "Truth tables and Boolean expressions",
+      "sub": "electronics",
+      "stem": "The diagram in Figure 1 below, shows the Cartesian plane divided into four quadrants by an x-y axis, centred on the point (0, 0).",
+      "fig": "Figure 1: x-y axes through (0, 0) with a point P(x, y) in the top right quadrant. Figure 2: a shaded square in the top left quadrant, from (-d, d) down to (0, 0).",
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "A point P(x, y) is plotted inside the top right quadrant, as shown. Complete the truth table below to verify that P is inside the top right quadrant.",
+          "ask": "Fill in the last column of the truth table for the three empty rows.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "table",
+            "head": [
+              "x > 0",
+              "y > 0",
+              "x > 0 and y > 0"
+            ],
+            "rows": [
+              [
+                "False",
+                "False",
+                "False"
+              ],
+              [
+                "False",
+                "True",
+                "False"
+              ],
+              [
+                "True",
+                "False",
+                "False"
+              ],
+              [
+                "True",
+                "True",
+                "True"
+              ]
+            ],
+            "blank": [
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                2
+              ]
+            ]
+          },
+          "scheme": "False, False, True for the last three rows. Each correct response 1 mark.",
+          "model": "False, False, True: P is in the top right quadrant only when x > 0 and y > 0 are both True.",
+          "idea": {
+            "title": "and needs both",
+            "text": "An and expression is True only when both sides are True; if either side is False the whole expression is False. It is the same rule as an AND gate, with 1 for True and 0 for False.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "and is True only when both conditions are True.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The second and third rows each contain one False, so the result is False.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The last row has both True, so the result is True: P is to the right of and above (0, 0).",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)",
+          "q": "Construct a Boolean expression in the space below that will evaluate to True for all points (x, y) inside the shaded area shown in Figure 2.",
+          "ask": "Write one expression that is True only for points inside the shaded square.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "text",
+            "value": "(x > -d and x < 0) and (y > 0 and y < d)",
+            "accept": [
+              "x > -d and x < 0 and y > 0 and y < d",
+              "(x < 0 and x > -d) and (y > 0 and y < d)",
+              "x < 0 and x > -d and y > 0 and y < d",
+              "(x > -d and x < 0) and (y < d and y > 0)",
+              "x > -d and x < 0 and y < d and y > 0",
+              "(y > 0 and y < d) and (x > -d and x < 0)",
+              "y > 0 and y < d and x > -d and x < 0",
+              "-d < x < 0 and 0 < y < d",
+              "(-d < x < 0) and (0 < y < d)",
+              "0 < y < d and -d < x < 0",
+              "-d < x and x < 0 and 0 < y and y < d"
+            ]
+          },
+          "scheme": "(x > -d and x < 0) and (y > 0 and y < d); brackets are not necessary and order is not important. Correct 3 marks; half correct 2 marks; response with some merit 1 mark.",
+          "model": "(x > -d and x < 0) and (y > 0 and y < d)",
+          "idea": {
+            "title": "Four limits make a box",
+            "text": "A rectangle on a graph is every point between a left and a right x-limit and between a bottom and a top y-limit. Each limit is one comparison, and and joins them so that all four must hold.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Read the x-limits from Figure 2: the square runs from x = -d on the left to x = 0 on the right.",
+              "math": [
+                "-d < x < 0"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Read the y-limits: from y = 0 at the bottom to y = d at the top.",
+              "math": [
+                "0 < y < d"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Join all four comparisons with and, because a point must pass every one to be inside.",
+              "math": [],
+              "code": "(x > -d and x < 0) and (y > 0 and y < d)",
+              "vis": null
+            }
+          ],
+          "tip": "Test your expression with a point inside, such as (-d/2, d/2), and one outside, such as P."
+        }
+      ]
+    },
+    {
+      "id": "2023-Q4",
+      "year": 2023,
+      "q": 4,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        5
+      ],
+      "topic": "User interfaces",
+      "sub": "os",
+      "stem": "User interfaces have evolved constantly over the past 40 years to become more user-friendly and accessible.",
+      "fig": null,
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "What is meant by the term ‘user interface’?",
+          "ask": "Say what a user interface is.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "The means by which the user provides input to the computer and the computer conveys output to the user",
+                "marks": 2,
+                "alts": [
+                  [
+                    "input|command|instruct|control|tell",
+                    "output|display|feedback|respon|show"
+                  ],
+                  [
+                    "communicat|interact"
+                  ]
+                ]
+              },
+              {
+                "text": "The point of interaction between a user and a computer, through input/output devices",
+                "marks": 1,
+                "alts": [
+                  [
+                    "interact|between|point of contact|meet"
+                  ],
+                  [
+                    "device|screen|keyboard|mouse|touch|i/o"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "The means by which the user provides input to a computer and the computer conveys output to the user; the point of interaction between a user and a computer through the use of i/o devices. Very good description 3 marks; fair description 2 marks.",
+          "model": "A user interface is the point where a person and a computer interact: it is how the user gives input and commands (by clicking, typing, touching or speaking) and how the computer shows output and feedback to the user, using input/output devices such as the screen, keyboard and mouse.",
+          "idea": {
+            "title": "Where human meets machine",
+            "text": "The user interface is everything the user sees, touches or hears when using a computer. The operating system provides one, such as a desktop of windows and icons or a command line.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Say what it is: the point where the user and the computer interact.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Say what passes each way: the user gives input and commands; the computer gives output and feedback.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Mention the devices it works through, such as the screen, keyboard, mouse or touchscreen.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)",
+          "q": "Name and describe one type of user interface that a computer system might use.",
+          "ask": "Name one type of user interface and describe how it works.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Name:",
+                "marks": 1,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "A type of user interface correctly named: GUI, command line, menu-driven, touch, natural language/voice, VR/AR, form-based",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "graphic|gui|wimp"
+                        ],
+                        [
+                          "command|cli"
+                        ],
+                        [
+                          "menu"
+                        ],
+                        [
+                          "touch"
+                        ],
+                        [
+                          "voice|speech|natural language|nli|vui"
+                        ],
+                        [
+                          "virtual reality|augmented|vr"
+                        ],
+                        [
+                          "form"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Description:",
+                "marks": 2,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "GUI: windows, icons, menus and a pointing device (WIMP); the user interacts with images",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "window|icon|image|picture|pointer|wimp|click|mouse"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "CLI: non-graphical, text-only; the user types commands and must know them",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "type|typed|typing|text",
+                          "command"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Menu-driven: the user selects from a number of options",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "option|choose|select|list"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Touch: the user touches the screen and the computer responds",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "touch|tap|swipe|finger"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Voice/natural language: the user interacts through spoken commands, e.g. Siri, Alexa",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "speak|spoken|voice|talk|say|speech|siri|alexa|google assistant"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "VR/AR or form-based interfaces described",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "headset|virtual|augmented|form|field"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "Name: type of user interface correctly named 1 mark. Description: very good 2 marks, fair 1 mark. GUI (windows, icons, menus, pointing device: WIMP; user interacts with images via mouse, keyboard or touchscreen); command line interface (non-graphical, text-only, needs knowledge of the commands); menu driven (select from a number of options); touch user interface (physical touch on the screen); natural language/voice user interface (speech commands, e.g. Siri, Alexa); also VR/AR and form-based interfaces.",
+          "model": "Name: graphical user interface (GUI). Description: the user interacts with pictures on the screen, using windows, icons, menus and a pointer (WIMP), clicking with a mouse or tapping a touchscreen instead of typing commands. Most PCs and smartphones use one.",
+          "idea": {
+            "title": "Main types",
+            "text": "GUI: windows, icons, menus and a pointer. Command line: typed text commands. Menu-driven: pick from a list of options. Touch: tap and swipe on the screen. Voice: spoken commands.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Pick the type you know best, for example a graphical user interface (GUI).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Describe what the user sees: windows, icons, menus and a pointer (WIMP).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Describe how it is used: by clicking or tapping on images rather than typing commands.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Name the type exactly (e.g. 'command line interface'), then give two of its features."
+        }
+      ]
+    },
+    {
+      "id": "2023-Q5",
+      "year": 2023,
+      "q": 5,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        5
+      ],
+      "topic": "TCP/IP layers",
+      "sub": "internet",
+      "stem": "Transmission Control Protocol / Internet Protocol (TCP/IP) refers to a suite of protocols used to send and receive messages over the internet. The TCP/IP protocol suite contains a number of different layers.",
+      "fig": "TCP/IP logo.",
+      "parts": [
+        {
+          "l": "",
+          "q": "Name one of these layers and describe what happens within this layer.",
+          "ask": "Name one TCP/IP layer and describe what it does.",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Layer Name:",
+                "marks": 2,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "A TCP/IP layer correctly named: application, transport, network (internet) or data link (OSI layers also accepted)",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "applicat"
+                        ],
+                        [
+                          "transport"
+                        ],
+                        [
+                          "network|internet"
+                        ],
+                        [
+                          "data link|link"
+                        ],
+                        [
+                          "presentation"
+                        ],
+                        [
+                          "session"
+                        ],
+                        [
+                          "physical"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Layer Description:",
+                "marks": 4,
+                "answer": {
+                  "type": "keys",
+                  "need": 2,
+                  "points": [
+                    {
+                      "text": "Application: encodes/decodes the message into a form understood by sender and recipient",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "encod|decod|format|form understood"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Application: uses protocols such as HTTP, FTP and SMTP",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "http|ftp|smtp|pop|imap|dns"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Transport: breaks the message into small pieces called packets",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "packet|segment|break|split|divid|chop"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Transport: each packet gets a packet number and the total number of packets, so the recipient can reassemble them in order and see if any are missing",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "number|order|reassembl|assembl|sequence|missing|lost|resend|re-send|put back together"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Network: adds the sender's and the recipient's IP addresses",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "ip|address"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Network: so the network knows where to send the message and where it came from",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "rout|where|destination|direct|path|came from"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Data link: physically transfers packets between nodes on a network and between networks",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "physical|transfer|transmit|node|hardware|cable|wire|signal|mac|frame"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "Layer correctly named 2 marks: application, transport, network (internet) or data link (layers of the older 7-layer OSI model also accepted). Description: very good 4 marks, fair 2 marks. Application layer: encodes/decodes the message into a form understood by sender and recipient, using protocols like HTTP, FTP and SMTP. Transport layer: breaks the message into packets, each given a packet number and the total number of packets so the recipient can reassemble them in order and see if any are missing. Network layer: adds the sender's and recipient's IP addresses so the network knows where to send the message and where it came from. Data link layer: physical transfer of packets between nodes and between networks.",
+          "model": "Layer Name: transport layer. Layer Description: the transport layer breaks the message into small pieces called packets. Each packet is given its packet number and the total number of packets, so the recipient can put the packets back together in the right order and can tell if any packet is missing.",
+          "idea": {
+            "title": "A stack of jobs",
+            "text": "TCP/IP splits sending a message into layers, each with one job: the application layer formats the message (HTTP, SMTP), transport splits it into numbered packets, network adds the IP addresses, and data link moves the bits across the physical network.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Choose a layer you can describe in detail; the transport layer is a good choice.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Say what it does to the message: it splits it into small packets.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Say what it adds: each packet gets its own number and the total number of packets.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Say why: the recipient can reassemble the packets in order and spot any that are missing.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Describe two things that happen in your layer to reach the full 4 marks for the description."
+        }
+      ]
+    },
+    {
+      "id": "2023-Q6",
+      "year": 2023,
+      "q": 6,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        6
+      ],
+      "topic": "Embedded systems",
+      "sub": "architecture",
+      "stem": "Smart homes make use of embedded systems to make living spaces more enjoyable and convenient for home owners.",
+      "fig": null,
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "State two examples of embedded systems you might find in a smart home.",
+          "ask": "Name two embedded systems you could find in a smart home.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Programmable appliances, e.g. washing machine, dishwasher, dryer, kettle, fridge",
+                "marks": 1,
+                "alts": [
+                  [
+                    "wash|dishwash|dryer|kettle|fridge|oven|microwave|cooker|toaster|freezer|appliance"
+                  ]
+                ]
+              },
+              {
+                "text": "Heating, ventilation and air conditioning system",
+                "marks": 1,
+                "alts": [
+                  [
+                    "heat|thermostat|ventilat|air con|hvac|boiler|temperature"
+                  ]
+                ]
+              },
+              {
+                "text": "Lighting control system",
+                "marks": 1,
+                "alts": [
+                  [
+                    "light|bulb|lamp"
+                  ]
+                ]
+              },
+              {
+                "text": "Alarm/security systems",
+                "marks": 1,
+                "alts": [
+                  [
+                    "alarm|security|camera|cctv|doorbell|lock"
+                  ]
+                ]
+              },
+              {
+                "text": "Home robots, e.g. Roomba, lawnmowers, window cleaners",
+                "marks": 1,
+                "alts": [
+                  [
+                    "robot|roomba|vacuum|lawnmower|mower|window clean"
+                  ]
+                ]
+              },
+              {
+                "text": "Leak detection, smoke and carbon monoxide detectors",
+                "marks": 1,
+                "alts": [
+                  [
+                    "smoke|carbon|leak|detector"
+                  ]
+                ]
+              },
+              {
+                "text": "Voice control devices such as Amazon Alexa or Google Home",
+                "marks": 1,
+                "alts": [
+                  [
+                    "alexa|google home|echo|voice|smart speaker|assistant"
+                  ]
+                ]
+              },
+              {
+                "text": "Home safety for the elderly and disabled; pet and baby care",
+                "marks": 1,
+                "alts": [
+                  [
+                    "pet|baby|elderly|disabled"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "1 mark for each correct example: programmable appliances (washing machine, dishwasher, dryer, kettle, fridge); heating, ventilation and air conditioning; lighting control; alarm/security systems; home robots (Roomba, lawnmowers, window cleaners); leak, smoke and carbon monoxide detectors; home safety for the elderly and disabled; pet and baby care; voice control devices (Alexa, Google Home); any acceptable smart home embedded system. Micro:bit and Raspberry Pi are not accepted.",
+          "model": "1. A smart thermostat that controls the central heating. 2. A security alarm system with motion sensors.",
+          "idea": {
+            "title": "A computer with one job",
+            "text": "An embedded system is a small computer, usually a microcontroller, built into a bigger device to do one dedicated job, such as running a washing machine's wash cycles.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Think of devices in a home that contain a small computer controlling one job.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Pick two clearly different ones, for example a smart thermostat and a security alarm.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Don't give a Micro:bit or Raspberry Pi: the scheme rejects them."
+        },
+        {
+          "l": "(b)",
+          "q": "Describe two characteristics of embedded systems that distinguish them from general computer systems.",
+          "ask": "Give two ways embedded systems differ from general computers.",
+          "marks": 4,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "They perform a specific function; unlike computer systems they cannot be programmed beyond it",
+                "marks": 2,
+                "alts": [
+                  [
+                    "specific|dedicated|single|one task|one job|one function|particular|limited|only do"
+                  ]
+                ]
+              },
+              {
+                "text": "Low cost: relatively inexpensive",
+                "marks": 2,
+                "alts": [
+                  [
+                    "cheap|low cost|low-cost|inexpens|cost"
+                  ]
+                ]
+              },
+              {
+                "text": "Time specific: perform tasks within a certain time frame (real time)",
+                "marks": 2,
+                "alts": [
+                  [
+                    "real time|real-time|time frame|time limit|instant"
+                  ]
+                ]
+              },
+              {
+                "text": "Low power: don't require much power to operate",
+                "marks": 2,
+                "alts": [
+                  [
+                    "power|energy|battery"
+                  ]
+                ]
+              },
+              {
+                "text": "Minimal user interface",
+                "marks": 2,
+                "alts": [
+                  [
+                    "interface|screen|button|display"
+                  ]
+                ]
+              },
+              {
+                "text": "Little or no human intervention",
+                "marks": 2,
+                "alts": [
+                  [
+                    "human|intervention|automatic|autonomous|on its own|by itself"
+                  ]
+                ]
+              },
+              {
+                "text": "Highly stable: they don't change frequently, so are easier to maintain",
+                "marks": 2,
+                "alts": [
+                  [
+                    "stable|rarely|seldom|not change|don't change|doesn't change|maintain"
+                  ]
+                ]
+              },
+              {
+                "text": "High reliability: they perform their tasks consistently well",
+                "marks": 2,
+                "alts": [
+                  [
+                    "reliab|consistent"
+                  ]
+                ]
+              },
+              {
+                "text": "They use microprocessors or microcontrollers with limited memory",
+                "marks": 2,
+                "alts": [
+                  [
+                    "microcontroller|microprocessor|limited memory|little memory|small memory"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "For each characteristic: clear distinction from general computer systems 2 marks, limited distinction 1 mark. Specific function (cannot be programmed beyond what they were designed for); low cost; time specific (real time); low power; minimal user interface; less human intervention; highly stable; high reliability; use microprocessors or microcontrollers with limited memory.",
+          "model": "1. An embedded system is designed to do one specific task, such as controlling a washing machine, whereas a general computer can run any program the user installs. 2. An embedded system uses very little power and is cheap to make, while a PC or laptop needs much more power and costs far more.",
+          "idea": {
+            "title": "Built for one job",
+            "text": "Because it only ever does one job, an embedded system can be small, cheap, low-power and very reliable. A general-purpose computer must be able to run anything, so it needs more memory, more power and a full user interface.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Start with the main one: an embedded system does one dedicated job; a PC can run any software.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Write it as a comparison ('whereas a general computer …') to earn both marks.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Choose a second characteristic: low power, low cost, real-time response, minimal interface or high reliability.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Each characteristic must be contrasted with a general computer to get both of its marks."
+        }
+      ]
+    },
+    {
+      "id": "2023-Q14",
+      "year": 2023,
+      "q": 14,
+      "section": "B",
+      "total": 38,
+      "pages": [
+        15,
+        16,
+        17
+      ],
+      "topic": "Von Neumann architecture, the CPU and storage",
+      "sub": "architecture",
+      "stem": "In the 1940s John von Neumann discovered that computer systems could treat instructions as data and, as such, could be manipulated inside the computer’s memory while a program is running. This major breakthrough in computing became known as the stored program concept, and is still used in the majority of computer systems we use today. The von Neumann architecture is shown in Figure 9.",
+      "fig": "Figure 9: von Neumann architecture: Input Devices → Central Processing Unit (Control Unit, Arithmetic Logic Unit) linked both ways to Primary Memory → Output Devices. Figure 10: a cycle Fetch Instruction → (a) ____ Instruction → (b) ____ Instruction → back to Fetch Instruction.",
+      "parts": [
+        {
+          "l": "(a)(i)",
+          "q": "Explain the term ‘output device’. Provide two examples.",
+          "ask": "Say what an output device is and name two examples.",
+          "marks": 4,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Explain:",
+                "marks": 2,
+                "answer": {
+                  "type": "keys",
+                  "need": 2,
+                  "points": [
+                    {
+                      "text": "A piece of hardware used to convey information from the computer",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "convey|present|display|show|send|produce|communicat|transfer|give|deliver|take|takes",
+                          "computer|cpu|processor|system|memory"
+                        ],
+                        [
+                          "hardware|device|peripheral",
+                          "computer|cpu|processor|system"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "to the user",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "user|human|person|people|outside world|see|hear|read"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Example 1:",
+                "marks": 1,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "A valid output device: monitor/screen, printer/plotter, speaker/headphones, projector, etc.",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "screen|monitor|display|vdu|projector"
+                        ],
+                        [
+                          "printer|plotter"
+                        ],
+                        [
+                          "speaker|headphone|earphone|earbud"
+                        ],
+                        [
+                          "web cam|webcam"
+                        ],
+                        [
+                          "storage|disk|drive|usb"
+                        ],
+                        [
+                          "led|motor|actuator|buzzer|haptic|vibrat"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Example 2:",
+                "marks": 1,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "A valid output device: monitor/screen, printer/plotter, speaker/headphones, projector, etc.",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "screen|monitor|display|vdu|projector"
+                        ],
+                        [
+                          "printer|plotter"
+                        ],
+                        [
+                          "speaker|headphone|earphone|earbud"
+                        ],
+                        [
+                          "web cam|webcam"
+                        ],
+                        [
+                          "storage|disk|drive|usb"
+                        ],
+                        [
+                          "led|motor|actuator|buzzer|haptic|vibrat"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "Any piece of hardware used to convey information from the computer to the user, e.g. screen/monitor, printer/plotter, speaker/headphones, web cam, secondary storage devices. Explanation: very good 2 marks, fair 1 mark. Each valid output device 1 mark.",
+          "model": "Explain: an output device is a piece of hardware that takes the results of processing from the computer and presents them to the user, as a picture, sound or printed page. Example 1: monitor. Example 2: printer.",
+          "idea": {
+            "title": "Out of the computer",
+            "text": "Input devices carry data into the computer (keyboard, mouse, microphone); output devices carry the results out to the user (monitor, printer, speakers).",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Define it by direction: information flows out of the computer to the user.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Say it is hardware, and what form the output takes: a picture, a sound or a printout.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Give two everyday examples, such as a monitor and a printer.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(ii)",
+          "q": "The CPU cycle carried out to process data and instructions has three steps to it. The first step ‘Fetch Instruction’ has been completed for you in Figure 10 below. Complete the diagram by filling in the next two steps of the process, labelled (a) and (b).",
+          "ask": "Name the two steps that come after fetch in the CPU cycle.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "(a)",
+                "marks": 1,
+                "answer": {
+                  "type": "text",
+                  "value": "Decode",
+                  "accept": [
+                    "Decode Instruction",
+                    "Decoding"
+                  ]
+                }
+              },
+              {
+                "label": "(b)",
+                "marks": 1,
+                "answer": {
+                  "type": "text",
+                  "value": "Execute",
+                  "accept": [
+                    "Execute Instruction",
+                    "Executing"
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "(a) Decode, (b) Execute: 1 mark each. 1 mark for the correct names in the wrong order.",
+          "model": "(a) Decode (b) Execute",
+          "idea": {
+            "title": "Fetch, decode, execute",
+            "text": "The CPU repeats three steps billions of times a second: fetch the next instruction from memory, decode it to work out what it means, then execute (carry it out).",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "After fetching, the control unit has to work out what the instruction means: that is decoding.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Then the CPU carries the instruction out: that is executing. The cycle then fetches the next one.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Keep the order: the right names in the wrong order earn only 1 mark."
+        },
+        {
+          "l": "(a)(iii)",
+          "q": "The CPU contains a number of registers including the Program Counter and the Accumulator. Explain one difference between these two registers.",
+          "ask": "Explain one difference between the Program Counter and the Accumulator.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "The Program Counter (PC) contains the address of the next instruction to be executed",
+                "marks": 1,
+                "alts": [
+                  [
+                    "address|location|next instruction"
+                  ],
+                  [
+                    "control unit"
+                  ]
+                ]
+              },
+              {
+                "text": "whereas the Accumulator (ACC) is used to store data to be operated on",
+                "marks": 1,
+                "alts": [
+                  [
+                    "result|data|value|calculat|arithmetic|operand|answer|interim|intermediate|operated"
+                  ],
+                  [
+                    "alu|arithmetic logic"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "The Program Counter contains the address of the next instruction to be executed whereas the Accumulator is used to store data to be operated on; or the PC is typically part of the control unit whereas the ACC is typically found in the ALU; any valid difference. Very good explanation 2 marks, fair 1 mark.",
+          "model": "The Program Counter holds the memory address of the next instruction to be fetched, whereas the Accumulator holds the data being worked on, such as the result of the last calculation done by the ALU.",
+          "idea": {
+            "title": "Address or data",
+            "text": "Some registers hold addresses (where something is in memory) and others hold data (the values being processed). The PC holds an address; the accumulator holds data.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Program Counter: it holds the address of the next instruction, and goes up by one after each fetch.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Accumulator: it holds the data the ALU is working on and the results of calculations.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Join the two halves with 'whereas' so the difference is clear.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(iv)",
+          "q": "The CPU is often described as the brains of the computer. It is made up of two main components, namely the Arithmetic Logic Unit (ALU) and the Control Unit (CU). State the purpose of these two components.",
+          "ask": "State what the ALU does and what the CU does.",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "ALU:",
+                "marks": 3,
+                "answer": {
+                  "type": "keys",
+                  "need": 2,
+                  "points": [
+                    {
+                      "text": "Performs all the basic arithmetic operations (calculations such as add and subtract)",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "calculat|add|subtract|multipl|divid|math|sum|arithmetic"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Performs the logical operations (comparisons, AND/OR/NOT)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "logic|compar|greater|less than|equal|true|false|boolean"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "CU:",
+                "marks": 3,
+                "answer": {
+                  "type": "keys",
+                  "need": 2,
+                  "points": [
+                    {
+                      "text": "Directs and coordinates most of the operations in the computer",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "direct|coordinat|control|manag|organis|organiz|oversee|in charge"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Instructs the memory, ALU and input/output devices how to respond to the program's instructions",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "memory|alu|logic unit|input|output|device|signal|instruct|decod|fetch"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "ALU: performs all the basic arithmetic and logical operations. CU: directs and coordinates most of the operations in the computer, instructing the memory, logic unit and both output and input devices how to respond to the program's instructions. For each component: very good 3 marks, fair 2 marks.",
+          "model": "ALU: carries out all the arithmetic calculations, such as adding and subtracting, and the logical operations, such as comparing two values or AND, OR and NOT. CU: directs and coordinates the work of the computer: it fetches and decodes each instruction and sends control signals telling the memory, the ALU and the input and output devices what to do.",
+          "idea": {
+            "title": "Manager and calculator",
+            "text": "The control unit is the manager: it reads each instruction and tells the other parts what to do. The ALU is the calculator: it does the actual maths and comparisons.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "ALU: say that it does the arithmetic, and give an example such as adding two numbers.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Add the logic half: comparisons such as 'is A greater than B?' and AND, OR, NOT.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "CU: say that it directs and coordinates everything the CPU does.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Add how: it decodes instructions and sends signals to the memory, the ALU and the I/O devices.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Give an example for each: just restating the name ('it does arithmetic and logic') looks like fair understanding."
+        },
+        {
+          "l": "(a)(v)",
+          "q": "The CPU is the most important component of a computer system and determines how fast a computer can run. Describe two factors that can impact the performance of the CPU.",
+          "ask": "Describe two factors that affect how well a CPU performs.",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Number of cores: each core fetches, decodes and executes its own instructions, so more cores process more instructions in a given time",
+                "marks": 3,
+                "alts": [
+                  [
+                    "core",
+                    "more|instruct|parallel|same time|simultan|at once|each|task"
+                  ]
+                ]
+              },
+              {
+                "text": "Clock speed: the number of pulses per second (Hz); more pulses means more fetch-decode-execute cycles and more instructions processed",
+                "marks": 3,
+                "alts": [
+                  [
+                    "clock|hertz|ghz|mhz|hz",
+                    "pulse|cycle|per second|instruct|faster|more"
+                  ]
+                ]
+              },
+              {
+                "text": "Cache: fast, small memory inside the processor storing the instructions and data most likely to be needed, so less waiting",
+                "marks": 3,
+                "alts": [
+                  [
+                    "cache",
+                    "fast|quick|close|instruct|data|wait|reuse|frequent|often"
+                  ]
+                ]
+              },
+              {
+                "text": "RAM: more memory means data and instructions don't have to be fetched from slower secondary storage",
+                "marks": 3,
+                "alts": [
+                  [
+                    "ram|main memory|primary memory",
+                    "more|secondary|hard|storage|disk|swap|virtual|space|hold"
+                  ]
+                ]
+              },
+              {
+                "text": "Temperature: if the CPU gets too hot its performance decreases",
+                "marks": 3,
+                "alts": [
+                  [
+                    "temperat|heat|hot",
+                    "slow|throttl|reduc|decreas|damag|lower|performance"
+                  ]
+                ]
+              },
+              {
+                "text": "Word size / bus width",
+                "marks": 3,
+                "alts": [
+                  [
+                    "word|bus",
+                    "bit|wide|width|size|more|data"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "For each factor: very good 3 marks, fair 2 marks. Number of cores (each core fetches, decodes and executes its own instructions); clock speed (pulses per second, in hertz: more pulses, more fetch-decode-execute cycles); cache (fast, small memory in the processor storing instructions and data likely to be reused: bigger cache, less waiting); RAM (more memory means less fetching from slower secondary storage); temperature (too hot, performance decreases); any other valid factor, e.g. word size, bus width.",
+          "model": "1. Clock speed: the clock's pulses per second (e.g. 3.5 GHz) set how many fetch-decode-execute cycles happen each second, so a faster clock processes more instructions per second. 2. Number of cores: each core fetches, decodes and executes its own instructions, so a quad-core CPU can work on four tasks at the same time.",
+          "idea": {
+            "title": "More cycles, more workers, less waiting",
+            "text": "A CPU gets faster by doing more cycles per second (clock speed), having more processing units working at once (cores) and waiting less for data (cache and RAM).",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Pick two factors you can explain fully: clock speed and number of cores are the classic pair.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Clock speed: pulses per second (GHz); more pulses means more fetch-decode-execute cycles every second.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Cores: each core runs its own instructions, so more cores means more instructions processed at the same time.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Other options: a bigger cache means less waiting for instructions to arrive from slower RAM.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Naming a factor is not enough: say how it makes the CPU faster to earn its 3 marks."
+        },
+        {
+          "l": "(b)(i)",
+          "q": "As well as having main memory, computer systems tend to have secondary storage which allows users to save data such as programs and files.\n\nSarah is looking to buy a new laptop. So far, all the laptops she has looked at have either magnetic or solid state hard drives. Which type of secondary storage would you recommend? Justify your answer.",
+          "ask": "Recommend magnetic or solid state storage for the laptop and justify it.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Recommendation:",
+                "marks": 0,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Either type, clearly named (no marks on its own)",
+                      "marks": 0,
+                      "alts": [
+                        [
+                          "solid|ssd|flash"
+                        ],
+                        [
+                          "magnetic|hdd|hard disk"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Justify:",
+                "marks": 3,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "SSD: faster, so the laptop starts and loads quicker",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "fast|quick|speed",
+                          "boot|load|open|access|start|read|write|transfer|file|program"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "SSD: no moving parts, so more reliable and durable, better for transporting",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "moving|mechanical",
+                          "reliab|durab|robust|break|damag|drop|transport|carry|portab|travel"
+                        ],
+                        [
+                          "durab|robust|shock|knock|drop",
+                          "laptop|carry|transport|portab|travel|move"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "SSD: smaller and quieter",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "small|light|thin|compact|quiet|silent|noise",
+                          "laptop|carry|portab|weight|size|sound"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "SSD: completely electronic, so it consumes less power",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "power|energy|electric",
+                          "less|low|battery"
+                        ],
+                        [
+                          "battery",
+                          "longer|last|life"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "SSD: safe from magnets",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "safe|affect|damag|wipe|eras",
+                          "magnet"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Magnetic: cheaper per gigabyte, therefore greater capacity",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "cheap|cost|price|afford",
+                          "storage|capacit|gigabyte|gb|terabyte|tb|space|more"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Magnetic: data can be overwritten directly (SSDs have a limit to the number of writes)",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "overwrit|rewrit|write|wear",
+                          "limit|times|unlimited|direct|out|many"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Magnetic: around longer, so a more proven technology",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "proven|older|established|longer|been around",
+                          "technolog|reliab|trust"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "Either recommendation can score; the marks are for the justification: very good 3 marks, fair 2 marks. Solid state: smaller, faster, quieter; no moving parts so more reliable, durable, better for transport; completely electronic so consumes less power; safe from magnets. Magnetic: cheaper per gigabyte and therefore greater capacity; data can be overwritten directly (SSDs have a write limit); a longer-proven technology.",
+          "model": "Recommendation: solid state drive (SSD). Justify: an SSD has no moving parts, so it is far less likely to be damaged if the laptop is knocked or dropped while Sarah carries it around, and it reads data much faster, so the laptop starts up and opens programs quickly.",
+          "idea": {
+            "title": "Spinning disk or chips",
+            "text": "A magnetic hard drive stores data on spinning metal platters read by a moving arm. A solid state drive stores it in flash memory chips with no moving parts.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Choose one: either type can get full marks if the reasons suit a laptop.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "For an SSD: no moving parts, so it copes far better with knocks while being carried about.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Add a second benefit: faster access (quicker start-up and loading) or lower power use (longer battery life).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "If you choose magnetic instead: it is much cheaper per gigabyte, so far more storage for the same money.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Link your reason to Sarah's situation: a laptop that gets carried around."
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "When a computer is carrying out lots of tasks it can start to run out of memory. In some cases, a computer may have to rely on virtual memory. What is meant by the term ‘virtual memory’?",
+          "ask": "Explain what virtual memory is.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "An area of secondary storage (hard drive) allocated by the operating system",
+                "marks": 2,
+                "alts": [
+                  [
+                    "secondary|hard|disk|drive|ssd|storage"
+                  ]
+                ]
+              },
+              {
+                "text": "to store data from RAM temporarily (usually when RAM is full); it takes longer to access",
+                "marks": 1,
+                "alts": [
+                  [
+                    "full|temporar|swap|move|slow|longer|not enough|extra|extend|paging|page"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Virtual memory is an area of secondary storage (hard drive) that is allocated (by the operating system) to store data from RAM temporarily, usually when RAM is full; data in virtual memory takes longer to access and process as it is no longer in RAM. Very good explanation 3 marks, fair 2 marks.",
+          "model": "Virtual memory is part of the secondary storage (hard drive or SSD) that the operating system uses as if it were extra RAM: when RAM is full, data that isn't needed right now is moved out of RAM into it temporarily. It is much slower to access than real RAM.",
+          "idea": {
+            "title": "Borrowing the disk",
+            "text": "When RAM fills up, the operating system moves data it isn't using right now onto the disk and brings it back when it is needed. More programs can run, but swapping data to and from the disk is slow.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Say where it is: on secondary storage (hard drive or SSD), not in RAM.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Say what it is for: when RAM is full, the operating system moves data there temporarily.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Add the drawback: it is much slower to access than RAM.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(iii)",
+          "q": "For a school software development project Sarah has to work with classmates to produce a computational artefact for a local business. The group will be working on this both at school and at home. Sarah suggests working in the cloud for the project. Describe one advantage and one disadvantage of working in the cloud.",
+          "ask": "Describe one advantage and one disadvantage of working in the cloud.",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Advantage:",
+                "marks": 3,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Mobility and accessibility: available 24/7 from anywhere (with internet)",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "anywhere|any device|any computer|any location|any place|24/7|any time|anytime|wherever|remote"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Supports collaboration",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "collaborat|share|sharing|same time|together|real time|real-time|simultan"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Automatic back-up and restoration of data",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "backup|back up|back-up|backed up|restor|recover"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Low set-up costs",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "cost|cheap|free|money"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Unlimited storage capacity",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "storage|space|capacit|unlimited"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Security looked after by the cloud service provider",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "secur|protect"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Disadvantage:",
+                "marks": 3,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Needs internet connectivity",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "internet|connect|online|wifi|wi-fi|offline|broadband"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Vendor lock-in",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "vendor|lock|tied|depend on"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Subscription/maintenance costs can become high",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "subscri|cost|pay|fee|expens|money"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Limited control",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "control"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Security out of your control",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "secur|hack|privacy|breach|data protection|stolen|leak"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "Advantages: mobility and accessibility (available 24/7 from anywhere, with internet); supports collaboration; automatic back-up and restoration of data; low set-up costs; unlimited storage capacity; security looked after by the provider. Disadvantages: internet connectivity; vendor lock-in; subscription/maintenance costs can become high; limited control; security out of your control. For each advantage and disadvantage: very good 3 marks, fair 2 marks.",
+          "model": "Advantage: the group's files are stored online, so every member can open and edit the latest version from school or at home, even at the same time, which makes working together easy. Disadvantage: the work can only be reached with an internet connection, so if the school Wi-Fi or someone's home broadband goes down, that person cannot work on the project.",
+          "idea": {
+            "title": "Your files on someone else's computer",
+            "text": "Working in the cloud means files and apps are kept on a provider's servers and reached over the internet, instead of being stored on one machine.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Read the scenario: a group working both at school and at home. Choose an advantage that suits it.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Advantage: everyone can reach the same up-to-date files from anywhere and edit them together.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Disadvantage: it needs a working internet connection; no connection means no access to the work.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "For each one, explain the effect on the group, not just the name of the point.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Tie both points to the scenario: describing the effect turns 2 marks into 3."
+        },
+        {
+          "l": "(b)(iv)",
+          "q": "As part of the school project Sarah has been assigned the role of Business Analyst. Describe two activities typically undertaken by a Business Analyst in a software development company.",
+          "ask": "Describe two activities a Business Analyst carries out.",
+          "marks": 6,
+          "chapter": null,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Activity 1:",
+                "marks": 3,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Identify areas within the business that need improvement (gather information about current processes, research possible solutions)",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "improv|current process|research|investigat|analys|problem|interview|meet|gather"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Create presentations and reports communicating the required improvements/system requirements",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "present|report|document"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Work with the development team: communicate system requirements to systems analysts, designers, programmers and testers",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "requirement|communicat|liais|programmer|developer|designer|tester|team"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Organise staff training so the new system fits into the business",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "train"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Activity 2:",
+                "marks": 3,
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Identify areas within the business that need improvement (gather information about current processes, research possible solutions)",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "improv|current process|research|investigat|analys|problem|interview|meet|gather"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Create presentations and reports communicating the required improvements/system requirements",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "present|report|document"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Work with the development team: communicate system requirements to systems analysts, designers, programmers and testers",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "requirement|communicat|liais|programmer|developer|designer|tester|team"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Organise staff training so the new system fits into the business",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "train"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "Identify areas within a business that need improvement (gathering information about current processes and researching possible solutions); create presentations and reports about the required improvements/system requirements; work as part of the development team, communicating requirements to systems analysts, designers, programmers and testers; organise staff training so the new system fits the business. Equivalent responses score for the best one only. For each activity: very good 3 marks, fair 2 marks.",
+          "model": "Activity 1: meeting the local business to find out how it currently works and what problems it has, so that the requirements of the new system can be identified. Activity 2: writing up those requirements in a report and explaining them to the designers and programmers, so the team builds what the business actually needs.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "A Business Analyst is the link between the client business and the software team.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Activity 1: investigate how the business works now and identify what needs improving (the requirements).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Activity 2: communicate those requirements, in reports or meetings, to the designers, programmers and testers.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Two activities that mean the same thing score only once, so make them clearly different."
+        }
+      ]
+    }
+  ]
+}

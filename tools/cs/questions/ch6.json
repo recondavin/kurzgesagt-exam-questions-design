@@ -1,0 +1,3930 @@
+{
+  "chapter": 6,
+  "title": "Computer systems",
+  "questions": [
+    {
+      "id": "2020-Q2",
+      "year": 2020,
+      "q": 2,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        3
+      ],
+      "topic": "HDD vs SSD and storage units",
+      "sub": "architecture",
+      "stem": "Many modern laptops have a hard-disk drive (HDD) which can exceed 1TB in capacity. If you are buying a laptop you may also have the option of a solid-state drive (SSD) with a capacity of 512GB.",
+      "fig": null,
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "In terms of storage capacity, what do the letters GB and TB stand for?",
+          "ask": "Write out in full what GB and TB stand for.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "GB:",
+                "answer": {
+                  "type": "text",
+                  "value": "Gigabyte",
+                  "accept": [
+                    "Gigabytes"
+                  ]
+                }
+              },
+              {
+                "label": "TB:",
+                "answer": {
+                  "type": "text",
+                  "value": "Terabyte",
+                  "accept": [
+                    "Terabytes"
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "GB: Gigabyte, TB: Terabyte; 1 mark each.",
+          "model": "GB: Gigabyte. TB: Terabyte.",
+          "idea": {
+            "title": "Units of storage",
+            "text": "Storage is measured in bytes (1 byte = 8 bits). Each prefix is about a thousand times the one before: kilobyte, megabyte, gigabyte, terabyte.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "G is the prefix giga and T is the prefix tera; the B stands for byte.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Giga means about a billion and tera about a trillion, so a terabyte is about 1000 gigabytes: the 1TB HDD holds about twice the 512GB SSD.",
+              "math": [
+                "1\\,\\text{TB} \\approx 1000\\,\\text{GB}",
+                "1\\,\\text{GB} \\approx 1000\\,\\text{MB}"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Write the whole word, Gigabyte: the B (byte) is part of the answer."
+        },
+        {
+          "l": "(b)",
+          "q": "Assuming that neither cost nor capacity were issues, explain why you might opt for the SSD rather than the HDD.",
+          "ask": "Explain what makes an SSD better than an HDD, apart from cost and capacity.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 3,
+            "points": [
+              {
+                "text": "SSD is faster (quicker to read/write, boot and load)",
+                "marks": 1,
+                "alts": [
+                  [
+                    "fast|quick|speed|rapid"
+                  ]
+                ]
+              },
+              {
+                "text": "SSD has no moving parts",
+                "marks": 1,
+                "alts": [
+                  [
+                    "no|not|without|nothing|doesn|don|lack|zero",
+                    "mov|mechanical|spin|rotat"
+                  ]
+                ]
+              },
+              {
+                "text": "So it is more reliable, durable, better for transport",
+                "marks": 1,
+                "alts": [
+                  [
+                    "reliab|durab|robust|sturdy|shock|damag|break|drop|tough"
+                  ]
+                ]
+              },
+              {
+                "text": "Completely electronic, so it consumes less power",
+                "marks": 1,
+                "alts": [
+                  [
+                    "less|low|little|sav|consum|efficien|longer",
+                    "power|energy|battery|electricity"
+                  ]
+                ]
+              },
+              {
+                "text": "SSD is quieter",
+                "marks": 1,
+                "alts": [
+                  [
+                    "quiet|silent|nois"
+                  ]
+                ]
+              },
+              {
+                "text": "SSD is smaller / lighter",
+                "marks": 1,
+                "alts": [
+                  [
+                    "small|light|compact|thin"
+                  ]
+                ]
+              },
+              {
+                "text": "SSD is safe from magnets",
+                "marks": 1,
+                "alts": [
+                  [
+                    "magnet"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good description 3, good 2, fair 1. Points: SSD is smaller, faster, quieter; no moving parts so more reliable, durable, better for transportation; completely electronic so consumes less power; safe from magnets.",
+          "model": "An SSD has no moving parts, so it is much faster to read and write (quicker boot and load times) and more durable and reliable if the laptop is knocked or carried around. It is also quieter and uses less power, so the battery lasts longer.",
+          "idea": {
+            "title": "How each drive stores data",
+            "text": "An HDD stores data magnetically on spinning platters, read by a head on a moving arm. An SSD stores data in flash memory chips and has no moving parts, so data is reached electronically.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Picture how each one works: an HDD has a spinning disk and a moving read/write head; an SSD is just memory chips.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The head of an HDD takes time to move to the data, so an SSD reads and writes much faster: the laptop boots and opens programs quicker.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Moving parts can be damaged if the laptop is dropped or bumped, so an SSD is more durable and reliable in a portable device.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Being fully electronic, an SSD is also quieter, lighter and uses less power, so the battery lasts longer.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Cost and capacity are ruled out, so don't mention them; give each advantage with its reason."
+        }
+      ]
+    },
+    {
+      "id": "2020-Q3",
+      "year": 2020,
+      "q": 3,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        4
+      ],
+      "topic": "Program counter",
+      "sub": "architecture",
+      "stem": "The program counter is a special register in the processor of a computer.",
+      "fig": null,
+      "parts": [
+        {
+          "l": "",
+          "q": "Outline the purpose of the program counter.",
+          "ask": "Say what the program counter holds and what it is for.",
+          "marks": 5,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "It holds a memory address",
+                "marks": 3,
+                "alts": [
+                  [
+                    "address"
+                  ],
+                  [
+                    "location|where",
+                    "memory|ram"
+                  ]
+                ]
+              },
+              {
+                "text": "of the next instruction to be fetched / executed",
+                "marks": 2,
+                "alts": [
+                  [
+                    "next|following|upcoming",
+                    "instruction|command"
+                  ],
+                  [
+                    "instruction|command",
+                    "fetch|execut|run|carr|process"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good description 5, good 3, fair 1: it contains the address (in memory) of the instruction to be executed, or similar.",
+          "model": "The program counter holds the memory address of the next instruction to be fetched and executed. After each fetch it is incremented so that it points to the following instruction.",
+          "idea": {
+            "title": "The PC in the fetch-decode-execute cycle",
+            "text": "At the start of each fetch the address in the PC is copied to the MAR and the instruction at that address is fetched from memory. The PC is then increased by one, so it always points to the next instruction (unless a jump changes it).",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "A register is a tiny, very fast storage location inside the CPU, and each special register has one job.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The program counter keeps the CPU's place in the program: it stores the memory address of the next instruction.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "In the fetch stage that address is copied to the MAR, the instruction is fetched from RAM, and the PC is incremented to point at the instruction after it.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So its purpose is to hold the address of the next instruction to be fetched and executed.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Say 'address of the next instruction': the PC holds where the instruction is, not the instruction itself (that goes into the CIR)."
+        }
+      ]
+    },
+    {
+      "id": "2020-Q4",
+      "year": 2020,
+      "q": 4,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        4
+      ],
+      "topic": "Network protocols",
+      "sub": "internet",
+      "stem": "The World Wide Web (WWW) and the network infrastructure that supports it allow for seamless transmission of data such as web pages, voice applications and streaming services. This is all possible due to the protocols that it uses.",
+      "fig": null,
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "When referring to World Wide Web infrastructure, what is meant by the term protocol?",
+          "ask": "Say what a protocol is in networking.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "Rules and procedures for network communication / an agreed way for two computers, devices or processes to communicate",
+                "marks": 2,
+                "alts": [
+                  [
+                    "rule|procedure|standard|agree|convention",
+                    "communicat|transmi|exchang|send|transfer|talk"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Any one: rules and procedures for network communication, or an agreed way to communicate between two computers/devices/processes. Good description 2, fair 1.",
+          "model": "A protocol is an agreed set of rules that computers and devices follow so that they can communicate and exchange data over a network.",
+          "idea": {
+            "title": "Why protocols are needed",
+            "text": "Computers made by different companies and running different software can only understand each other if they follow the same rules for formatting, addressing, sending and checking data. A protocol is that shared set of rules.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Think of a protocol as a language and etiquette that both sides agree on before they start talking.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "In networking it sets out how data is formatted, addressed, sent, received and checked.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So: a protocol is a set of rules for how devices communicate over a network.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Use the word 'rules' and say they are for communication between devices to get both marks."
+        },
+        {
+          "l": "(b)",
+          "q": "State the name and purpose of one such protocol.",
+          "ask": "Name one network protocol and say what it does.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Name:",
+                "answer": {
+                  "type": "text",
+                  "value": "HTTP",
+                  "accept": [
+                    "HTTPS",
+                    "TCP",
+                    "IP",
+                    "TCP/IP",
+                    "VOIP",
+                    "VoIP",
+                    "Ethernet",
+                    "SMTP",
+                    "FTP",
+                    "Telnet",
+                    "Echo",
+                    "Finger",
+                    "Gopher",
+                    "POP3",
+                    "DNS",
+                    "UDP",
+                    "Hypertext Transfer Protocol",
+                    "Transmission Control Protocol",
+                    "Internet Protocol",
+                    "File Transfer Protocol",
+                    "Simple Mail Transfer Protocol",
+                    "Domain Name System"
+                  ]
+                }
+              },
+              {
+                "label": "Purpose:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "HTTP: high level protocol to exchange WWW documents (typically HTML) between server and browser",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "web|www|html|hypertext",
+                          "page|document|site|request|transfer|exchang|fetch|send"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "HTTPS: HTTP plus an added security layer (encryption/decryption)",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "secur|encrypt|ssl|tls"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "TCP: breaks messages into packets, hands them to IP, and reassembles and orders them at the destination",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "packet|segment",
+                          "break|split|divid|reassembl|order|sequenc"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "IP: routes packets from the source to the destination across connected networks",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "rout|address|deliver|direct",
+                          "packet|destination|network|device|computer"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "VOIP: transmission of voice over IP",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "voice|call|phone"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "SMTP / POP3: sending or receiving email",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "email|e-mail|mail"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "FTP: transferring files",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "file",
+                          "transfer|upload|download|send|cop|move"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "DNS: translates domain names into IP addresses",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "domain|url|web address|website name|hostname|host name",
+                          "ip|address|number"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "Name of a protocol (HTTP, HTTPS, TCP, IP, VOIP, Ethernet, SMTP, FTP, Telnet, POP3, DNS, UDP...) 1 mark. Purpose: good description 2, fair 1, e.g. HTTP exchanges WWW documents (HTML); HTTPS adds a security/encryption layer; TCP splits messages into packets and reassembles them in order; IP routes packets to the destination; VOIP carries voice over IP.",
+          "model": "Name: HTTP (HyperText Transfer Protocol). Purpose: it is the protocol a web browser uses to request web pages (HTML documents) from a web server and the server uses to send them back.",
+          "idea": {
+            "title": "Each protocol has one job",
+            "text": "Networks use a stack of protocols: HTTP handles web pages, TCP splits data into numbered packets and puts them back together, IP addresses and routes each packet, and others handle email (SMTP), files (FTP) or names (DNS).",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Pick a protocol you know well; HTTP is the natural choice for a question about the web.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Name it: HTTP, HyperText Transfer Protocol.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Give its purpose clearly: it lets a browser request web pages from a web server and lets the server send them back.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "One mark is for the name; the other two need a clear purpose, so say what it does rather than just expanding the letters."
+        }
+      ]
+    },
+    {
+      "id": "2020-Q5",
+      "year": 2020,
+      "q": 5,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        5
+      ],
+      "topic": "Half-adder logic circuit",
+      "sub": "electronics",
+      "stem": "The half-adder logic circuit shown below generates two outputs, S and C, from two inputs, A and B.",
+      "fig": "Half-adder circuit: C comes from an AND gate on A and B; S comes from an OR gate fed by two AND gates, one on A and NOT B, the other on NOT A and B.",
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "What is the value of C when the inputs A and B are both 0?",
+          "ask": "Work out output C when A = 0 and B = 0.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "text",
+            "value": "0",
+            "accept": [
+              "False"
+            ]
+          },
+          "scheme": "0 / False: 3 marks.",
+          "model": "C = 0",
+          "idea": {
+            "title": "The AND gate",
+            "text": "An AND gate outputs 1 only when both of its inputs are 1; otherwise it outputs 0.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Follow the wires: C comes straight out of the top AND gate, whose inputs are A and B.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "With A = 0 and B = 0 the AND gate receives 0 and 0.",
+              "math": [
+                "C = A \\cdot B = 0 \\cdot 0 = 0"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "An AND gate needs both inputs to be 1, so C = 0.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "C is the carry bit: it is 1 only for 1 + 1."
+        },
+        {
+          "l": "(b)",
+          "q": "What is the value of S when the inputs A and B are both 1?",
+          "ask": "Work out output S when A = 1 and B = 1.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "text",
+            "value": "0",
+            "accept": [
+              "False"
+            ]
+          },
+          "scheme": "0 / False: 2 marks.",
+          "model": "S = 0",
+          "idea": {
+            "title": "What a half-adder does",
+            "text": "A half-adder adds two bits. S is the sum bit, A XOR B (1 when exactly one input is 1), and C is the carry bit, A AND B.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "S comes from an OR gate fed by two AND gates: one gets A and NOT B, the other gets NOT A and B.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "With A = 1 and B = 1, NOT A = 0 and NOT B = 0, so both AND gates output 0.",
+              "math": [
+                "A \\cdot \\overline{B} = 1 \\cdot 0 = 0",
+                "\\overline{A} \\cdot B = 0 \\cdot 1 = 0"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The OR gate receives 0 and 0, so S = 0.",
+              "math": [
+                "S = 0 + 0 = 0"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Check: in binary 1 + 1 = 10, so the sum digit S is 0 and the carry C is 1.",
+              "math": [
+                "1 + 1 = 10_2"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Work gate by gate, writing the value on each wire, rather than guessing from the name."
+        }
+      ]
+    },
+    {
+      "id": "2021-Q2",
+      "year": 2021,
+      "q": 2,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        3,
+        4
+      ],
+      "topic": "Why computers use binary",
+      "sub": "electronics",
+      "stem": "",
+      "fig": null,
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "Explain why data is stored in computers in binary format.",
+          "ask": "Explain why computers store data in binary.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Circuits are made of transistors: switches with two states, on and off (e.g. 5V or 0V), which match the binary digits 1 and 0",
+                "marks": 2,
+                "alts": [
+                  [
+                    "transistor|switch"
+                  ],
+                  [
+                    "on",
+                    "off"
+                  ],
+                  [
+                    "voltage|volt|0v|5v|current"
+                  ]
+                ]
+              },
+              {
+                "text": "With only two possible states, binary is more reliable than any other number system",
+                "marks": 1,
+                "alts": [
+                  [
+                    "reliab|accura|error|simpl|easy|easier|distinguish|tell apart|noise|clear"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 3, fair 1. The processor's circuits are made of transistors, switches activated by electronic signals of 0V or 5V; binary's 1 and 0 reflect the on and off states of a transistor. As there are only two possible states, binary is more reliable than any other number system.",
+          "model": "A computer's circuits are built from transistors, which are switches that are either on or off (a signal of 5V or 0V). Binary has exactly two digits, 1 and 0, which match these two states, and having only two states makes the signals simple and reliable to tell apart.",
+          "idea": {
+            "title": "Transistors as switches",
+            "text": "A transistor is a tiny electronic switch turned on or off by a voltage. Each one is either on (a high voltage, read as 1) or off (0V, read as 0), so base 2 is the natural number system for a computer.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Think about what a computer is made of: circuits containing billions of transistors.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "A transistor is a switch: it is either on or off, carrying a high voltage (such as 5V) or none (0V).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Binary also has exactly two digits, so 1 = on and 0 = off: each switch or memory cell holds one bit.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "With only two states, a signal can be read correctly even if the voltage wobbles a little, so binary is more reliable than, say, ten voltage levels for denary.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Link binary's two digits to the two states of a transistor; 'computers only understand binary' on its own earns little."
+        },
+        {
+          "l": "(b)(i)",
+          "q": "A single bit can be used to represent two pieces of information.\n\nHow many unique pieces of information could be represented using four bits?",
+          "ask": "Work out how many different values four bits can represent.",
+          "marks": 1,
+          "chapter": 7,
+          "answer": {
+            "type": "number",
+            "value": 16,
+            "tol": 0,
+            "unit": ""
+          },
+          "scheme": "2^4 = 16 unique pieces of information: 1 mark.",
+          "model": "16, because 2^4 = 16.",
+          "idea": {
+            "title": "Patterns of bits",
+            "text": "Each extra bit doubles the number of patterns, because every old pattern can now end in 0 or in 1. So n bits give 2^n different patterns.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "One bit gives 2 patterns (0 and 1); each extra bit doubles the count.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Four bits: 2 × 2 × 2 × 2.",
+              "math": [
+                "2^4 = 16"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So 16 patterns, from 0000 to 1111.",
+              "math": [
+                "\\texttt{0000} \\ldots \\texttt{1111} = 0 \\ldots 15"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "What is the minimum number of bits required to represent eight unique pieces of information?",
+          "ask": "Find the fewest bits that give eight different patterns.",
+          "marks": 1,
+          "chapter": 7,
+          "answer": {
+            "type": "number",
+            "value": 3,
+            "tol": 0,
+            "unit": "bits"
+          },
+          "scheme": "log2 8 = 3 bits: 1 mark.",
+          "model": "3 bits, because 2^3 = 8.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Find the smallest n for which 2^n is at least 8.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "2 bits are too few; 3 bits give exactly 8 patterns.",
+              "math": [
+                "2^2 = 4 < 8",
+                "2^3 = 8"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So 3 bits (000 to 111).",
+              "math": [
+                "\\log_2 8 = 3"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        }
+      ]
+    },
+    {
+      "id": "2021-Q3",
+      "year": 2021,
+      "q": 3,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        4,
+        5
+      ],
+      "topic": "RAM and ROM",
+      "sub": "architecture",
+      "stem": "",
+      "fig": null,
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "State two differences between RAM and ROM.",
+          "ask": "Give two ways RAM and ROM differ.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "RAM can be written to, whereas ROM is read-only",
+                "marks": 1,
+                "alts": [
+                  [
+                    "write|writ|chang|edit|modif|alter|overwrit|updat"
+                  ]
+                ]
+              },
+              {
+                "text": "ROM is non-volatile (keeps its contents without power); RAM is volatile",
+                "marks": 1,
+                "alts": [
+                  [
+                    "volatil"
+                  ],
+                  [
+                    "power|switch|turn",
+                    "lost|lose|wipe|eras|clear|keep|retain|disappear"
+                  ]
+                ]
+              },
+              {
+                "text": "Data in ROM is permanent; RAM stores temporary information",
+                "marks": 1,
+                "alts": [
+                  [
+                    "temporar|permanent"
+                  ]
+                ]
+              },
+              {
+                "text": "ROM is used in the start-up process; RAM in normal operation after start-up",
+                "marks": 1,
+                "alts": [
+                  [
+                    "boot|start|bios|firmware"
+                  ]
+                ]
+              },
+              {
+                "text": "RAM chips can be read faster than ROM",
+                "marks": 1,
+                "alts": [
+                  [
+                    "fast|quick|speed|slow"
+                  ]
+                ]
+              },
+              {
+                "text": "Capacity: RAM stores gigabytes, ROM only a few megabytes",
+                "marks": 1,
+                "alts": [
+                  [
+                    "capacit|gb|mb|gigabyte|megabyte|more data|more storage|hold more|store more"
+                  ]
+                ]
+              },
+              {
+                "text": "RAM chips are physically bigger and cost more than ROM",
+                "marks": 1,
+                "alts": [
+                  [
+                    "cost|expens|cheap|price|physical"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Any two, 1 mark each: RAM can be written, ROM is read-only; RAM read faster; ROM non-volatile, RAM volatile; ROM permanent, RAM temporary; CPU cannot use ROM data directly; ROM used in start-up, RAM in normal operation; RAM larger capacity (GB vs MB); RAM chips physically bigger; RAM costs more.",
+          "model": "1. RAM is volatile, so it loses its contents when the power is turned off, whereas ROM is non-volatile and keeps its contents. 2. RAM can be read from and written to, whereas ROM can only be read (it holds fixed start-up instructions).",
+          "idea": {
+            "title": "Two kinds of primary memory",
+            "text": "RAM is the working memory: it holds the programs and data in use and is wiped when the power goes off. ROM holds fixed instructions, such as the start-up (boot) program, which must survive without power and are not changed.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Compare them under a few headings: can it be changed? Does it keep data without power? What is it used for?",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Changing data: RAM is read/write; ROM is read-only.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Power: RAM is volatile (contents lost when switched off); ROM is non-volatile.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Use: RAM holds the programs and data in use now; ROM holds the boot-up instructions. Write two of these as full comparisons.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Write each difference as a comparison of both: 'RAM is ..., whereas ROM is ...'."
+        },
+        {
+          "l": "(b)",
+          "q": "Explain how increasing the amount of RAM on a computer might improve its performance.",
+          "ask": "Explain why adding RAM can make a computer faster.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 3,
+            "points": [
+              {
+                "text": "More applications/data can be loaded in RAM at the same time",
+                "marks": 1,
+                "alts": [
+                  [
+                    "more|several|multiple|many|bigger|larger",
+                    "program|application|app|data|process|task|file"
+                  ]
+                ]
+              },
+              {
+                "text": "The CPU spends less time loading RAM from secondary storage / paging / thrashing",
+                "marks": 1,
+                "alts": [
+                  [
+                    "secondary|hard disk|hard drive|disk|hdd|ssd|storage|virtual memory|pag|swap|thrash"
+                  ]
+                ]
+              },
+              {
+                "text": "So applications run faster / quicker response times",
+                "marks": 1,
+                "alts": [
+                  [
+                    "fast|quick|speed|less time|respon|lag|slow|wait"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 3, fair 1. More RAM means more applications can be loaded in RAM at the same time, so the CPU spends less time loading RAM from secondary storage and/or paging/thrashing and more time running user applications: they run faster with quicker response times.",
+          "model": "With more RAM, more programs and data can be held in memory at the same time. The CPU then spends less time swapping data to and from the much slower secondary storage (paging), so programs run faster and respond more quickly.",
+          "idea": {
+            "title": "RAM versus secondary storage",
+            "text": "The CPU can only work on what is in RAM. When RAM is full, the operating system moves data out to the much slower disk (virtual memory) and back again, which slows everything down.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Programs and the data they use must be in RAM for the CPU to work on them.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "If RAM is full, the operating system swaps parts out to secondary storage (paging, virtual memory), and a disk is far slower than RAM.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "More RAM means more programs and data fit at once, so there is less swapping (and no thrashing).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The CPU waits less and spends more time running programs: applications load and respond faster.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Explain the whole chain: more fits in RAM, so less swapping with the slow disk, so faster performance."
+        }
+      ]
+    },
+    {
+      "id": "2021-Q7",
+      "year": 2021,
+      "q": 7,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        8
+      ],
+      "topic": "HTTP, HTTPS and TCP",
+      "sub": "internet",
+      "stem": "",
+      "fig": null,
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "Differentiate between HTTP and HTTPS.",
+          "ask": "Say how HTTPS differs from HTTP.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "HTTP is unsecured while HTTPS is secured (encrypted, SSL/TLS)",
+                "marks": 2,
+                "alts": [
+                  [
+                    "secur|encrypt|ssl|tls|safe"
+                  ]
+                ]
+              },
+              {
+                "text": "HTTP sends data over port 80, HTTPS uses port 443",
+                "marks": 2,
+                "alts": [
+                  [
+                    "80"
+                  ],
+                  [
+                    "443"
+                  ]
+                ]
+              },
+              {
+                "text": "HTTPS requires an SSL certificate signed by a CA",
+                "marks": 2,
+                "alts": [
+                  [
+                    "certificat"
+                  ]
+                ]
+              },
+              {
+                "text": "HTTP operates at the application layer, HTTPS at the transport layer",
+                "marks": 2,
+                "alts": [
+                  [
+                    "layer"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Good description 2: HTTP is unsecured while HTTPS is secured; HTTP uses port 80, HTTPS port 443; HTTP at application layer, HTTPS at transport layer; HTTPS requires an SSL certificate signed by a CA.",
+          "model": "HTTP sends data unencrypted, so it is not secure. HTTPS is HTTP with a security layer (SSL/TLS): data is encrypted between browser and server, and the site needs an SSL certificate signed by a certificate authority. HTTP uses port 80, HTTPS port 443.",
+          "idea": {
+            "title": "The S in HTTPS",
+            "text": "HTTPS stands for HyperText Transfer Protocol Secure. It wraps normal HTTP in an encrypted SSL/TLS connection, so anyone who intercepts the data sees only scrambled bytes.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Both are protocols a browser uses to request web pages from a web server.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "HTTP sends everything unencrypted, so passwords or card numbers could be read if intercepted.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "HTTPS adds SSL/TLS encryption and uses a certificate, signed by a certificate authority, to prove the server is genuine; it uses port 443 instead of 80.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Say what HTTPS adds (encryption) rather than only 'the S means secure'."
+        },
+        {
+          "l": "(b)",
+          "q": "Explain how the TCP communication protocol provides reliable communication between computers.",
+          "ask": "Explain how TCP makes sure all the data arrives, in order.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 3,
+            "points": [
+              {
+                "text": "TCP breaks messages into chunks called packets and passes them to the IP layer",
+                "marks": 1,
+                "alts": [
+                  [
+                    "packet|segment|chunk|piece"
+                  ]
+                ]
+              },
+              {
+                "text": "At the receiving end TCP reassembles the packets into the correct order (sequence numbers)",
+                "marks": 1,
+                "alts": [
+                  [
+                    "order|sequenc|reassembl|re-assembl|put back together|rebuil|number"
+                  ]
+                ]
+              },
+              {
+                "text": "Reliability by acknowledgements and timeouts: if no acknowledgement arrives in time, packets are resent",
+                "marks": 1,
+                "alts": [
+                  [
+                    "acknowledg|ack|confirm|receipt"
+                  ],
+                  [
+                    "resen|re-sen|retransmi|sent again|send again|resubmit|timeout|time out|time-out"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 3, fair 1. TCP breaks messages into packets and passes them to the IP layer; the receiving TCP reassembles them in the correct order using sequence numbers; reliability comes from acknowledgements and timeouts: if no acknowledgement is received within the timeout, TCP resends individual packets or the whole message.",
+          "model": "TCP breaks the message into packets, numbers each one and passes them to IP. At the receiving end TCP uses the sequence numbers to put the packets back in the correct order. The receiver sends acknowledgements, and if the sender gets none within a timeout it resends the missing packets, so nothing is lost.",
+          "idea": {
+            "title": "Reliable delivery on an unreliable network",
+            "text": "IP just sends packets, which may be lost, delayed or arrive out of order. TCP adds numbering, acknowledgements and resending on top of IP so the whole message arrives intact and in order.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Sending: TCP splits the message into packets and gives each a sequence number.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Packets can take different routes and arrive in any order, so the receiving TCP reassembles them using the numbers.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The receiver acknowledges the packets it gets.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "If the sender gets no acknowledgement before a timeout, it resends the packet, so lost data is replaced.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "The reliability comes from acknowledgements and resending, so mention them, not only packets."
+        }
+      ]
+    },
+    {
+      "id": "2021-Q9",
+      "year": 2021,
+      "q": 9,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        9,
+        10
+      ],
+      "topic": "Operating systems",
+      "sub": "os",
+      "stem": "",
+      "fig": "Figure 3: four operating system layers stacked: I/O Management, File System, Memory Management, Processor Scheduling.",
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "What is an operating system?",
+          "ask": "Say what an operating system is and what it does.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "The software that controls the hardware of a computer",
+                "marks": 2,
+                "alts": [
+                  [
+                    "control|manag|run|coordinat",
+                    "hardware|resource|device|memory|processor|cpu"
+                  ]
+                ]
+              },
+              {
+                "text": "An interface between other software and the hardware, or between the user and the machine",
+                "marks": 2,
+                "alts": [
+                  [
+                    "interface|between|link|bridge|middle",
+                    "hardware|machine|application|program|user"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Good description 2: the software that controls the hardware of a computer; acts as an interface between other software and the hardware, or between the user and the machine.",
+          "model": "An operating system is the system software that controls and manages the computer's hardware and acts as an interface between the user (and application programs) and the hardware.",
+          "idea": {
+            "title": "The OS in the middle",
+            "text": "The operating system (Windows, macOS, Linux, Android) sits between the hardware and everything else. Applications ask the OS for memory, files or the screen, and the OS manages the hardware to provide them.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Say what kind of thing it is: system software, such as Windows, Linux or Android.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Say what it does: it controls and manages the hardware: processor time, memory, storage and devices.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Say its role: it is the interface between the user (and applications) and the hardware.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)",
+          "q": "The diagram in Figure 3 depicts some of the main layers of an operating system. Select any two layers and explain their function.",
+          "ask": "Pick two of the OS layers and explain what each one does.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Layer 1:",
+                "answer": {
+                  "type": "text",
+                  "value": "Memory Management",
+                  "accept": [
+                    "I/O Management",
+                    "IO Management",
+                    "Input/Output Management",
+                    "Input Output Management",
+                    "I/O",
+                    "File System",
+                    "File Systems",
+                    "File Management",
+                    "Memory Manager",
+                    "Memory",
+                    "Processor Scheduling",
+                    "CPU Scheduling",
+                    "Process Scheduling",
+                    "Scheduling",
+                    "Scheduler"
+                  ]
+                }
+              },
+              {
+                "label": "Explain:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "I/O Management: controls the user interface and gives access to peripheral devices through device drivers",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "driver"
+                        ],
+                        [
+                          "peripheral|keyboard|mouse|printer|screen|monitor|display|graphic|user interface"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "File System: keeps track of where files are located, controls access to files and handles file security",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "file|folder|director",
+                          "locat|where|track|stor|access|secur|permission|organi|sav|allocat|disk"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Memory Management: allocates RAM, loads data from secondary to primary storage and swaps it back out",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "ram|memory|primary",
+                          "allocat|assign|give|divid|share|swap|load|free|track"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Processor Scheduling: decides which job runs next and for how long, keeps each process's state, handles multitasking",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "process|job|task|program",
+                          "next|turn|order|how long|time|priorit|queue"
+                        ],
+                        [
+                          "multitask|round robin|first come|first-come|shortest job"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Layer 2:",
+                "answer": {
+                  "type": "text",
+                  "value": "Processor Scheduling",
+                  "accept": [
+                    "I/O Management",
+                    "IO Management",
+                    "Input/Output Management",
+                    "Input Output Management",
+                    "I/O",
+                    "File System",
+                    "File Systems",
+                    "File Management",
+                    "Memory Management",
+                    "Memory Manager",
+                    "Memory",
+                    "CPU Scheduling",
+                    "Process Scheduling",
+                    "Scheduling",
+                    "Scheduler"
+                  ]
+                }
+              },
+              {
+                "label": "Explain:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "I/O Management: controls the user interface and gives access to peripheral devices through device drivers",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "driver"
+                        ],
+                        [
+                          "peripheral|keyboard|mouse|printer|screen|monitor|display|graphic|user interface"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "File System: keeps track of where files are located, controls access to files and handles file security",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "file|folder|director",
+                          "locat|where|track|stor|access|secur|permission|organi|sav|allocat|disk"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Memory Management: allocates RAM, loads data from secondary to primary storage and swaps it back out",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "ram|memory|primary",
+                          "allocat|assign|give|divid|share|swap|load|free|track"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Processor Scheduling: decides which job runs next and for how long, keeps each process's state, handles multitasking",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "process|job|task|program",
+                          "next|turn|order|how long|time|priorit|queue"
+                        ],
+                        [
+                          "multitask|round robin|first come|first-come|shortest job"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "For each layer, good explanation 2, fair 1, up to a total of 3 marks. I/O Management: user interface, access to peripherals through device drivers. File System: tracks where files are located (e.g. FAT), controls access, file security, disk scheduling. Memory Management: allocates RAM, loads data from secondary to primary storage and swaps it out. Processor Scheduling: decides which job runs next and for how long (FCFS, shortest job first, round robin), keeps each process's state, deadlock avoidance, multitasking, multiple users.",
+          "model": "Layer 1: Memory Management. Explain: it allocates RAM to each running program, keeps track of which memory is free, and swaps data between secondary storage and RAM when memory is full. Layer 2: Processor Scheduling. Explain: it decides which process runs on the CPU next and for how long (e.g. round robin), which allows multitasking.",
+          "idea": {
+            "title": "What each layer manages",
+            "text": "Each layer looks after one resource: I/O management handles devices and the user interface, the file system organises files on storage, memory management shares out RAM, and processor scheduling shares out CPU time.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Choose two layers you can explain clearly, for example memory management and processor scheduling.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Memory management: gives each program its own part of RAM, tracks which parts are free, and moves data between RAM and secondary storage when needed.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Processor scheduling: a processor core runs one process at a time, so the scheduler decides which runs next and for how long (round robin, first-come first-served), making multitasking possible.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Explain each function in a full sentence rather than repeating the layer's name.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Don't just restate the name ('the file system manages files'); say what it actually does."
+        }
+      ]
+    },
+    {
+      "id": "2021-Q13",
+      "year": 2021,
+      "q": 13,
+      "section": "B",
+      "total": 30,
+      "pages": [
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "topic": "Eircode validation and truth tables",
+      "sub": "electronics",
+      "stem": "Eircode is the postal address code system used in Ireland to uniquely identify every individual address in the country. An Eircode is a seven-character code made up of two parts – a three-character Routing Key and a four-character Unique Identifier.\n\nThe first character in the Routing Key must always be a letter, and the second and third characters must always be digits.\nEvery character in the Unique Identifier must be alpha-numeric i.e. either a letter or a number.\n\nThe format of the Eircode, A65 F4E2, is shown below in Figure 4.",
+      "fig": "Figure 4: A65 F4E2 split into the Routing Key A (letter), 6 (digit), 5 (digit) and the Unique Identifier F, 4, E, 2 (each alpha-numeric); part (b) shows a Python function is_valid_eircode.",
+      "parts": [
+        {
+          "l": "(a)(i)",
+          "q": "Explain why each of the following are not valid Eircodes.\n\nGA5 AOK1",
+          "ask": "Say which Eircode rule GA5 AOK1 breaks.",
+          "marks": 1,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "The second character ('A') is not a digit",
+                "marks": 1,
+                "alts": [
+                  [
+                    "second|2nd",
+                    "digit|number|numeric|letter"
+                  ],
+                  [
+                    "routing",
+                    "digit|number"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "The second character ('A') is not a digit, or any other valid reason: 1 mark.",
+          "model": "The second character, A, is a letter, but the second character of the Routing Key must be a digit.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Check the Routing Key against its rule: letter, digit, digit.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "G is a letter (correct), A should be a digit (wrong), 5 is a digit (correct).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So it is invalid because the second character is not a digit.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(ii)",
+          "q": "X234 Y56",
+          "ask": "Say which Eircode rule X234 Y56 breaks.",
+          "marks": 1,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "The Routing Key must be 3 characters (not 4) / the Unique Identifier must be 4 characters (not 3)",
+                "marks": 1,
+                "alts": [
+                  [
+                    "3|three",
+                    "4|four"
+                  ],
+                  [
+                    "routing",
+                    "long|length|charact|too many"
+                  ],
+                  [
+                    "unique|identifier",
+                    "short|length|charact|too few"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "The Routing Key must be 3 characters (not 4), or the Unique ID must be 4 characters (not 3), or the Unique ID must come after the Routing Key, or any other valid reason: 1 mark.",
+          "model": "The Routing Key, X234, has four characters instead of three, and the Unique Identifier, Y56, has only three instead of four.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Count the characters in each part: X234 has 4 and Y56 has 3.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The Routing Key must be exactly 3 characters and the Unique Identifier exactly 4, so the code is split in the wrong place.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(iii)",
+          "q": "8XT A43Y",
+          "ask": "Say which Eircode rule 8XT A43Y breaks.",
+          "marks": 1,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "The first character ('8') is not a letter / the second ('X') or third ('T') character is not a digit",
+                "marks": 1,
+                "alts": [
+                  [
+                    "first|1st",
+                    "letter|digit|number"
+                  ],
+                  [
+                    "second|2nd|third|3rd",
+                    "digit|number|letter"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "The first character ('8') is not a letter, or the second character ('X') is not a digit, or the third character ('T') is not a digit, or any other valid reason: 1 mark.",
+          "model": "The first character, 8, is a digit, but the Routing Key must start with a letter (and X and T should be digits).",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Check the Routing Key: it should be letter, digit, digit.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "8XT is digit, letter, letter: the first character is not a letter, and the second and third are not digits.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(i)",
+          "q": "The intention of the Python code shown below is to implement a validation check for an Eircode.\n```python\ndef is_valid_eircode(test_eircode):\n\n# This function checks whether 'test_eircode' is a valid Eircode or not\n# It returns True if 'test_eircode' is a valid Eircode. False otherwise.\n\n# Uses:\n#    s.isalpha() -> True if s contains alphabetic only; False otherwise\n#    s.idigit() -> True if s contains digits only; False otherwise\n#    s.isalnum() -> True if s contains alpha-numeric only; False otherwise\n\n    if not test_eircode[0].isalpha():\n        return False\n\n    # if the second character isn’t a digit or the third character isn’t a\n    # digit the Eircode is invalid so return False\n    if ((not test_eircode[1].isdigit()) or (not test_eircode[2].isdigit())):\n        return False\n\n    if not test_eircode[-4:].isalnum():\n        return False\n\n    return True\n```\nWhat is meant by the term ‘validation check’?",
+          "ask": "Say what a validation check is.",
+          "marks": 2,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "A test carried out by a program to make sure data is in the correct format (follows the rules)",
+                "marks": 2,
+                "alts": [
+                  [
+                    "format|rule|sensibl|reasonabl|allowed|acceptabl|range|length|criteria|requirement"
+                  ],
+                  [
+                    "correct|right|proper",
+                    "form|type|data|input"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Good explanation 2: a test carried out by a program to make sure data is in the correct format; here, that the Eircode conforms to the rules for the Routing Key and the Unique Identifier.",
+          "model": "A validation check is a test the program carries out on data to make sure it is in the correct format and follows the rules, for example that an Eircode starts with a letter followed by two digits.",
+          "idea": {
+            "title": "Validation",
+            "text": "Validation means the program automatically checks that data is reasonable and in the right format before using it. It cannot prove the data is true (the Eircode might not exist), only that it follows the rules.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "A validation check is done by the program itself, on the data it is given.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "It checks the data against rules: here, letter-digit-digit, then four alpha-numeric characters.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Don't confuse validation (the data follows the rules) with verification (the data was entered correctly, e.g. typing a password twice)."
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "Outline briefly how a test case could be used to test the above code.",
+          "ask": "Explain how you would use a test case on this function.",
+          "marks": 2,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "A value (e.g. an Eircode) is passed into the function and the result is compared to the expected result (True if valid, False otherwise)",
+                "marks": 2,
+                "alts": [
+                  [
+                    "expect|predict|known|should",
+                    "result|output|return|answer|true|false|value"
+                  ],
+                  [
+                    "compar",
+                    "result|output|return|answer"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Good explanation 2: a test case is a value passed into the function, e.g. 123 4568, and the result is compared to an expected result: True if the Eircode is valid, False otherwise.",
+          "model": "Choose an input with a known expected result, such as A65 F4E2 (expected True), pass it into is_valid_eircode and compare the value returned with the expected result; if they differ, the code has a bug.",
+          "idea": {
+            "title": "Test cases",
+            "text": "A test case is an input together with the output you expect. You run the code on the input and check the actual output matches the expected output.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Pick an input and decide in advance what the function should return: A65 F4E2 should give True, 8XT A43Y should give False.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Call the function with the input and compare the actual result with the expected one: a mismatch shows a bug.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(iii)",
+          "q": "Two types of testing that could be performed on the code are unit testing and system testing. Distinguish between these two types of testing.",
+          "ask": "Explain the difference between unit testing and system testing.",
+          "marks": 4,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Unit testing tests specific units of code (e.g. one function), usually by the programmer, often automated, white box",
+                "marks": 2,
+                "alts": [
+                  [
+                    "individual|single|specific|each|small|separate|one|isolat",
+                    "function|module|part|piece|component|section|unit"
+                  ],
+                  [
+                    "white box|white-box|programmer|developer"
+                  ]
+                ]
+              },
+              {
+                "text": "System testing tests the whole system to check it meets the user requirements, usually by testers, black box",
+                "marks": 2,
+                "alts": [
+                  [
+                    "whole|entire|complete|full|overall|all",
+                    "system|program|software|application|together"
+                  ],
+                  [
+                    "requirement|specification|black box|black-box"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Good explanation of each, 2 marks each. Unit testing: usually by the programmer; tests specific units of code; test cases trigger all execution paths; typically automated; white box. System testing: usually by testers (proxies for end-users); checks the system meets the user requirements; includes abnormal conditions (power cut, no internet, stress); black box.",
+          "model": "Unit testing tests individual units of code, such as the is_valid_eircode function, on their own; it is usually done by the programmer, often automatically, as white-box testing. System testing tests the whole finished system to check it meets the user requirements, including under abnormal conditions; it is usually done by testers as black-box testing.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Unit testing: one small unit (a function or module) is tested on its own, usually by the programmer who wrote it (white box).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "System testing: the whole system is tested together to check it does what the user needs, usually by testers who don't see the code (black box).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Write it as a contrast: what is tested (one unit vs the whole system) and who tests it.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(iv)",
+          "q": "This Python code will show that the Eircode, A99 SP@M A1OK, is valid even though it is not. Why does the code indicate that this Eircode is valid?",
+          "ask": "Explain why the function wrongly accepts A99 SP@M A1OK.",
+          "marks": 2,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "The function only looks at the first three and the last four characters; it does not check the length or any characters in between",
+                "marks": 2,
+                "alts": [
+                  [
+                    "length|long|how many|count"
+                  ],
+                  [
+                    "first",
+                    "last"
+                  ],
+                  [
+                    "middle|between"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 2: the function only looks at the first three characters and the last four characters; it does not check for length or look at any characters in between.",
+          "model": "The function only checks the first three characters (A99) and the last four (A1OK), which both pass. It never checks the length or the characters in between, so the invalid SP@M is ignored.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "test_eircode[0], [1] and [2] are A, 9 and 9: a letter and two digits, so the first two checks pass.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "test_eircode[-4:] is the last four characters, A1OK, all alpha-numeric, so the third check passes.",
+              "math": [],
+              "code": "test_eircode[-4:]  # 'A1OK'",
+              "vis": null
+            },
+            {
+              "say": "Nothing checks the length or the middle characters (SP@M), so the function returns True.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(v)",
+          "q": "After code has been changed it is important to conduct regression testing. Why is this important?",
+          "ask": "Explain why regression testing matters after code changes.",
+          "marks": 5,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "It ensures a change to the code does not break pieces of code that had already been tested",
+                "marks": 3,
+                "alts": [
+                  [
+                    "break|broke|broken|affect|stop|damag|interfer|mess",
+                    "work|exist|other|previous|already|old|tested|rest"
+                  ]
+                ]
+              },
+              {
+                "text": "It ensures no new bugs are introduced by a software update",
+                "marks": 2,
+                "alts": [
+                  [
+                    "new",
+                    "bug|error|fault|problem|issue"
+                  ],
+                  [
+                    "introduc|caus|creat",
+                    "bug|error|fault|problem|issue"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Good explanation 5: regression testing ensures that a change to the code does not break pieces of code that had already been tested, and that no new bugs are introduced by a software update.",
+          "model": "Regression testing re-runs the earlier tests after a change. It is important because fixing or adding one part of the code can accidentally break other parts that had already been tested and worked, so it ensures the change has not introduced new bugs.",
+          "idea": {
+            "title": "Regression testing",
+            "text": "After any change you re-run the tests that passed before. If one now fails, the change has made the code 'regress': it broke something that used to work.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Code is connected: changing one function can affect other parts that use it.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Regression testing re-runs the tests that already passed, after every change.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "If they still pass, the change has not broken old features or introduced new bugs.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)(i)",
+          "q": "The following questions are based on the code in part (b).\n\nExplain what the following code does:\n```python\nif not test_eircode[0].isalpha():\n    return False\n```",
+          "ask": "Explain what these two lines check and do.",
+          "marks": 2,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "It checks whether the first character is a letter; if it is not, the function returns False",
+                "marks": 2,
+                "alts": [
+                  [
+                    "first|0",
+                    "letter|alpha"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Good explanation 2: it checks whether the first character of the Eircode passed in is a letter; if it is not a letter (A-Z or a-z) the condition is True and the function returns False.",
+          "model": "It checks whether the first character of the Eircode (index 0) is a letter. If it is not a letter, the condition is True and the function returns False, because the Eircode is invalid.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "test_eircode[0] is the first character; .isalpha() is True if it is a letter.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "not flips it, so the condition is True only when the first character is not a letter, and then the function returns False straight away.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)(ii)",
+          "q": "Consider the following statement from line 16.\n```python\nif ((not test_eircode[1].isdigit()) or (not test_eircode[2].isdigit())):\n```\nIf we let P represent the possible boolean values for test_eircode[1].isdigit() and Q represent the possible boolean values for test_eircode[2].isdigit(), complete the truth table below for the expression, not P or not Q.",
+          "ask": "Fill in not P, not Q and not P or not Q for each row.",
+          "marks": 4,
+          "chapter": 6,
+          "answer": {
+            "type": "table",
+            "head": [
+              "P",
+              "Q",
+              "not P",
+              "not Q",
+              "not P or not Q"
+            ],
+            "rows": [
+              [
+                "False",
+                "False",
+                "True",
+                "True",
+                "True"
+              ],
+              [
+                "False",
+                "True",
+                "True",
+                "False",
+                "True"
+              ],
+              [
+                "True",
+                "False",
+                "False",
+                "True",
+                "True"
+              ],
+              [
+                "True",
+                "True",
+                "False",
+                "False",
+                "False"
+              ]
+            ],
+            "blank": [
+              [
+                0,
+                2
+              ],
+              [
+                0,
+                3
+              ],
+              [
+                0,
+                4
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                1,
+                4
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                2,
+                4
+              ],
+              [
+                3,
+                2
+              ],
+              [
+                3,
+                3
+              ],
+              [
+                3,
+                4
+              ]
+            ]
+          },
+          "scheme": "1 mark per correct row; or 2 marks for the first fully correct column and 1 each for the 2nd and 3rd; or 1 mark for more than 2 correct values in each column.",
+          "model": "not P: True, True, False, False. not Q: True, False, True, False. not P or not Q: True, True, True, False.",
+          "idea": {
+            "title": "NOT and OR",
+            "text": "NOT flips a value (True becomes False). OR is True if at least one input is True, so it is False only when both inputs are False.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "not P: flip each P. P = False, False, True, True gives True, True, False, False.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "not Q: flip each Q. Q = False, True, False, True gives True, False, True, False.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "OR the two new columns: only the last row has both False, so not P or not Q is True, True, True, False.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Fill the table column by column: not P and not Q first, then combine them."
+        },
+        {
+          "l": "(c)(iii)",
+          "q": "Using the same meanings for P and Q from part (ii) complete the truth table below for the expression, not (P and Q).",
+          "ask": "Fill in P and Q, then not (P and Q), for each row.",
+          "marks": 3,
+          "chapter": 6,
+          "answer": {
+            "type": "table",
+            "head": [
+              "P",
+              "Q",
+              "P and Q",
+              "not (P and Q)"
+            ],
+            "rows": [
+              [
+                "False",
+                "False",
+                "False",
+                "True"
+              ],
+              [
+                "False",
+                "True",
+                "False",
+                "True"
+              ],
+              [
+                "True",
+                "False",
+                "False",
+                "True"
+              ],
+              [
+                "True",
+                "True",
+                "True",
+                "False"
+              ]
+            ],
+            "blank": [
+              [
+                0,
+                2
+              ],
+              [
+                0,
+                3
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                3,
+                2
+              ],
+              [
+                3,
+                3
+              ]
+            ]
+          },
+          "scheme": "Every value correct 3; otherwise 1 mark for each correct row (max 2), or 1 mark for more than 2 correct values in each column, or 1 mark for any correct value.",
+          "model": "P and Q: False, False, False, True. not (P and Q): True, True, True, False.",
+          "idea": {
+            "title": "De Morgan's law",
+            "text": "not (P and Q) always has the same value as not P or not Q. In logic gates, this is why a NAND gate behaves like an OR gate with both inputs inverted.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "P and Q is True only when both are True: False, False, False, True.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "not (P and Q) flips that column: True, True, True, False.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Compare with part (ii): the last columns are identical, so the two expressions mean the same thing.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)(iv)",
+          "q": "Use your findings from parts (ii) and (iii) to re-write the statement on line 16, without changing its logical meaning.\n```python\nif ((not test_eircode[1].isdigit()) or (not test_eircode[2].isdigit())):\n```",
+          "ask": "Rewrite line 16 as an equivalent condition with a single not.",
+          "marks": 1,
+          "chapter": 6,
+          "answer": {
+            "type": "text",
+            "value": "if not (test_eircode[1].isdigit() and test_eircode[2].isdigit()):",
+            "accept": [
+              "if not (test_eircode[1].isdigit() and test_eircode[2].isdigit())",
+              "if not ((test_eircode[1].isdigit()) and (test_eircode[2].isdigit())):",
+              "if (not (test_eircode[1].isdigit() and test_eircode[2].isdigit())):",
+              "if not (P and Q):",
+              "if not (P and Q)",
+              "not (P and Q)"
+            ]
+          },
+          "scheme": "if not (test_eircode[1].isdigit() and test_eircode[2].isdigit()): or if not (P and Q): 1 mark.",
+          "model": "if not (test_eircode[1].isdigit() and test_eircode[2].isdigit()):",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Parts (ii) and (iii) show that not P or not Q has the same truth table as not (P and Q).",
+              "math": [
+                "\\lnot P \\lor \\lnot Q \\equiv \\lnot (P \\land Q)"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Put the real tests back in for P and Q.",
+              "math": [],
+              "code": "if not (test_eircode[1].isdigit() and test_eircode[2].isdigit()):",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)(v)",
+          "q": "Explain how the technique of string slicing could be used to provide an alternative to the statement on line 16.\n```python\nif ((not test_eircode[1].isdigit()) or (not test_eircode[2].isdigit())):\n```",
+          "ask": "Explain how a slice could replace the two separate digit tests.",
+          "marks": 2,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "Slicing extracts the 2nd and 3rd characters and tests them together for digits, e.g. if not (test_eircode[1:3].isdigit()):",
+                "marks": 2,
+                "alts": [
+                  [
+                    "[1:3]|1:3"
+                  ],
+                  [
+                    "second|2nd",
+                    "third|3rd",
+                    "together|both|once|single|same time|substring|one"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 2: slicing could extract the 2nd and 3rd characters and test them together (as a slice) for digits, as opposed to testing them individually, e.g. if not (test_eircode[1:3].isdigit()):",
+          "model": "A slice can take the second and third characters together as one string, test_eircode[1:3], and test them in one go: if not test_eircode[1:3].isdigit(): return False.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "test_eircode[1:3] takes the characters at index 1 and 2 (the end index 3 is not included): for A65 F4E2 that is '65'.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "isdigit() on the slice is True only if both characters are digits, so one test replaces two.",
+              "math": [],
+              "code": "if not test_eircode[1:3].isdigit():\n    return False",
+              "vis": null
+            }
+          ],
+          "tip": null
+        }
+      ]
+    },
+    {
+      "id": "2021-Q15",
+      "year": 2021,
+      "q": 15,
+      "section": "B",
+      "total": 30,
+      "pages": [
+        24,
+        25,
+        26,
+        27,
+        28
+      ],
+      "topic": "Embedded systems",
+      "sub": "architecture",
+      "stem": "Charles Stark Draper is often credited with the invention of embedded systems.\n\nEmbedded systems are a combination of hardware and software designed to perform a specific function. They are called ‘embedded’ because they are often used as part of a larger system. Many embedded systems use sensors to receive analogue or digital inputs. The input data which is often supplied in real time is then processed resulting in some sort of output. While not every embedded system will have a user interface, some are designed to meet the principles of universal design.",
+      "fig": "Photo of Charles Stark Draper.",
+      "parts": [
+        {
+          "l": "(a)(i)",
+          "q": "Explain the terms hardware and software. Provide two examples of each.",
+          "ask": "Define hardware and software and give two examples of each.",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Hardware:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "The physical components of a computer system",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "physical|tangible|touch|component|part|device|equipment"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Example 1:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "A hardware component: processor, memory, storage device, input or output device, peripheral, register, logic gate...",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "cpu|processor|memory|ram|rom|hard|disk|ssd|keyboard|mouse|monitor|screen|printer|sensor|camera|speaker|microphone|motherboard|register|gate|chip|webcam|touchscreen|usb|drive|storage|graphics card|gpu|router|headphone|scanner|led|motor|microcontroller|arduino|raspberry|micro:bit|microbit"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Example 2:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "A second hardware component",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "cpu|processor|memory|ram|rom|hard|disk|ssd|keyboard|mouse|monitor|screen|printer|sensor|camera|speaker|microphone|motherboard|register|gate|chip|webcam|touchscreen|usb|drive|storage|graphics card|gpu|router|headphone|scanner|led|motor|microcontroller|arduino|raspberry|micro:bit|microbit"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Software:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Programs / instructions that are executed by the processor",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "program|instruction|code|app|application"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Example 1:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "A named application or system software package",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "windows|word|excel|chrome|firefox|linux|android|ios|macos|mac os|python|photoshop|powerpoint|spotify|safari|edge|antivirus|operating system|browser|game|minecraft|fortnite|zoom|teams|whatsapp|instagram|tiktok|snapchat|outlook|unix|app|compiler|interpreter|driver|firmware|thonny|idle|vs code|visual studio|youtube|netflix"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Example 2:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "A second named application or system software package",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "windows|word|excel|chrome|firefox|linux|android|ios|macos|mac os|python|photoshop|powerpoint|spotify|safari|edge|antivirus|operating system|browser|game|minecraft|fortnite|zoom|teams|whatsapp|instagram|tiktok|snapchat|outlook|unix|app|compiler|interpreter|driver|firmware|thonny|idle|vs code|visual studio|youtube|netflix"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "For each of hardware and software: good explanation 1 mark, each relevant example 1 mark + 1 mark. Hardware: the physical components of a computer system (processor, memory, storage devices, any input or output device, peripherals, registers, logic gates...). Software: programs/instructions executed by the processor (any named application or system software package).",
+          "model": "Hardware: the physical components of a computer system, the parts you can touch. Example 1: the processor (CPU). Example 2: a keyboard. Software: the programs, sets of instructions, that the processor executes. Example 1: Microsoft Windows. Example 2: Google Chrome.",
+          "idea": {
+            "title": "Hardware and software",
+            "text": "Hardware is every physical part of the system; software is the programs that tell the hardware what to do. In an embedded system like a washing machine, the hardware is the microcontroller, sensors and motor, and the software is the program stored in its memory.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Hardware: the physical parts you can touch: processor, memory, storage, input and output devices.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Software: the programs (instructions) the processor runs: system software such as an operating system, or applications.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Give specific examples for each, such as a CPU and a keyboard, and Windows and Chrome.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Each definition and each example earns a mark, so name specific items, not just 'a device' or 'an app'."
+        },
+        {
+          "l": "(a)(ii)",
+          "q": "Provide one example of a digital sensor and one example of an analogue sensor.",
+          "ask": "Name one digital sensor and one analogue sensor.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Digital Sensor:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Pushbutton, switch, keypad, keyboard or similar",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "push|button|switch|keypad|keyboard|key"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Analogue Sensor:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Temperature sensor, PIR sensor, accelerometer, humidity, sound, light, CO2 or similar",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "temperat|thermo|thermistor|pir|motion|acceler|humid|sound|microphone|light|ldr|co2|carbon|gas|pressure|moisture|potentiometer|infrared"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "Digital sensor (pushbutton, switch, keypad, keyboard or similar) 1 mark; analogue sensor (temperature, PIR, accelerometer, humidity, sound, light, CO2 or similar) 1 mark.",
+          "model": "Digital Sensor: a push-button switch. Analogue Sensor: a temperature sensor.",
+          "idea": {
+            "title": "Digital and analogue sensors",
+            "text": "A digital sensor gives one of two values (pressed or not pressed, 1 or 0). An analogue sensor gives a value that can vary continuously across a range, such as a temperature.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Digital: think of something that is only ever on or off, such as a push button or a switch.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Analogue: think of something measured on a smooth scale, such as temperature, light level or sound.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(iii)",
+          "q": "Explain, with the aid of a diagram, the difference between digital and analogue input.",
+          "ask": "Explain digital vs analogue input and sketch both signals.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Digital input has two discrete values (1/0, ON/OFF, 5V/0V); analogue input can have any value within a range and varies continuously",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "two|discrete|binary|on/off|on or off|on and off|0 and 1|1 and 0|1/0|0/1|0 or 1|1 or 0",
+                          "any|continu|range|infinite|vary|varies|smooth"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Diagram:",
+                "answer": {
+                  "type": "none"
+                }
+              }
+            ]
+          },
+          "scheme": "Difference between digital and analogue 1 mark; diagram of both 1 mark (definition and diagram of only one: 1 mark). Digital input: two discrete values (1/0, ON/OFF), represented by voltages (5V = ON, 0V = OFF). Analogue input: any value within a range, continuously varying, used for continuous data.",
+          "model": "A digital input has only two discrete values, on or off (1 or 0, e.g. 5V or 0V), like a button. An analogue input can be any value within a range and varies continuously, like temperature. Diagram: a digital signal drawn as a square wave jumping between 0 and 1, and an analogue signal drawn as a smooth curve.",
+          "idea": {
+            "title": "Picturing the two signals",
+            "text": "Plotted against time, a digital signal is a square wave that jumps between two levels, while an analogue signal is a smooth curve that can take any value in between.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Digital: two discrete states only (1/0, ON/OFF, 5V/0V).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Analogue: any value in a range, changing continuously.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Draw two small graphs of voltage against time: a square wave labelled digital and a smooth wave labelled analogue.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Draw and label both signals; a diagram of only one of them loses the diagram mark."
+        },
+        {
+          "l": "(a)(iv)",
+          "q": "In the context of embedded systems what is meant by the term ‘real-time’?",
+          "ask": "Explain what 'real-time' means for an embedded system.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "Systems that respond to external stimuli within a stated/minimum time, e.g. an alarm sounds immediately when a PIR sensor detects movement",
+                "marks": 2,
+                "alts": [
+                  [
+                    "immediate|instant|straight away|right away|as soon as|within|no delay|without delay|guarantee|deadline|stated time|fixed time|set time|millisecond"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good description 2: real-time systems respond to external stimuli within a stated/minimum time, e.g. an alarm sounds immediately (or a light switches on) when a PIR sensor detects movement.",
+          "model": "A real-time system responds to an input from its sensors immediately, within a guaranteed time limit: for example, an alarm sounds the instant a PIR sensor detects movement.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Real-time is about response time: the system must react to an input within a fixed, short time.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Give an example where a delay would matter: a car's airbag, or an alarm that sounds as soon as movement is detected.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(v)",
+          "q": "Describe two advantages of embedded systems over general purpose computer systems, such as desktop computers and laptops.",
+          "ask": "Give two advantages of embedded systems over desktops and laptops.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Cost: embedded systems are generally cheaper",
+                "marks": 1,
+                "alts": [
+                  [
+                    "cheap|cost|price|inexpensiv"
+                  ]
+                ]
+              },
+              {
+                "text": "Speed: they typically run on a dedicated micro-controller",
+                "marks": 1,
+                "alts": [
+                  [
+                    "fast|quick|speed|dedicated|efficien"
+                  ]
+                ]
+              },
+              {
+                "text": "Reliability: often less complex and so more reliable",
+                "marks": 1,
+                "alts": [
+                  [
+                    "reliab|simpl|less complex|fewer|crash|robust|stabl"
+                  ]
+                ]
+              },
+              {
+                "text": "Automated: once started they need minimal user intervention",
+                "marks": 1,
+                "alts": [
+                  [
+                    "automat|no user|without user|minimal user|little user|intervention|on its own|by itself"
+                  ]
+                ]
+              },
+              {
+                "text": "Portability",
+                "marks": 1,
+                "alts": [
+                  [
+                    "portab|small|compact|light|size"
+                  ]
+                ]
+              },
+              {
+                "text": "Low power use",
+                "marks": 1,
+                "alts": [
+                  [
+                    "power|energy|battery"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Each relevant advantage (max 2) 1 mark: cost (generally cheaper); speed (dedicated micro-controller); reliability (less complex, so more reliable); automated (minimal user intervention once started); portability; or similar.",
+          "model": "1. They are cheaper, because they only need the hardware for one specific task. 2. They are more reliable, because they are simpler, with less that can go wrong, and run automatically with little user intervention.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "An embedded system is built for one job, so it needs only the hardware for that job: it is cheaper and smaller.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Doing one job means simpler software, so it is more reliable and runs automatically without a user.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Pick two of these and describe each in a sentence.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(i)",
+          "q": "According to the description provided in part (a), mobile devices such as smartphones and tablets could be considered to contain multiple embedded systems.\n\nDescribe two examples of embedded systems on mobile devices.",
+          "ask": "Give two embedded systems found inside a phone or tablet.",
+          "marks": 2,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Camera",
+                "marks": 1,
+                "alts": [
+                  [
+                    "camera"
+                  ]
+                ]
+              },
+              {
+                "text": "GPS",
+                "marks": 1,
+                "alts": [
+                  [
+                    "gps|location|navigation|sat nav"
+                  ]
+                ]
+              },
+              {
+                "text": "Voice recognition system",
+                "marks": 1,
+                "alts": [
+                  [
+                    "voice|speech|siri|assistant"
+                  ]
+                ]
+              },
+              {
+                "text": "Microphone",
+                "marks": 1,
+                "alts": [
+                  [
+                    "microphone|mic"
+                  ]
+                ]
+              },
+              {
+                "text": "Fingerprint / face recognition",
+                "marks": 1,
+                "alts": [
+                  [
+                    "fingerprint|face|biometric"
+                  ]
+                ]
+              },
+              {
+                "text": "Other similar named example",
+                "marks": 1,
+                "alts": [
+                  [
+                    "accelerometer|gyroscope|compass|bluetooth|wi-fi|wifi|nfc|touchscreen|touch screen|battery|modem|flashlight|torch|speaker|vibrat|pedometer|step count|heart"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Each correct example (max 2) 1 mark: camera, GPS, voice recognition systems, microphone, or any similar named example.",
+          "model": "1. The camera, which has its own processor and software to capture and process photos. 2. The GPS receiver, which works out the phone's location for maps.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Look for parts of a phone that do one specific job, with their own hardware and software.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Examples: the camera, the GPS receiver, voice recognition, the fingerprint sensor.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "In the context of mobile devices distinguish clearly between the terms, ‘user interface’ and ‘universal design’.",
+          "ask": "Explain the difference between user interface and universal design.",
+          "marks": 2,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "User interface: how the user interacts with the device: touchscreen, swipes and gestures, virtual keyboard, voice",
+                "marks": 1,
+                "alts": [
+                  [
+                    "touch|swipe|gesture|keyboard|voice|button|icon|menu|screen|interact|control"
+                  ]
+                ]
+              },
+              {
+                "text": "Universal design: design principles universally recognised and understood; accessibility, adaptive technology, overall user experience",
+                "marks": 1,
+                "alts": [
+                  [
+                    "everyone|anyone|everybody|all people|all users|wide|divers|accessib|disabilit|abilit|adaptive|universally"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Each of UI and UD, good description 1 mark. UI on mobile devices: often touchscreen, responding to swipes and gestures, a virtual keyboard and voice. Universal design: design principles that are universally recognised and understood; also accessibility, adaptive technology and overall user experience.",
+          "model": "The user interface is how the user interacts with the device: on a phone, the touchscreen, swipes, gestures, a virtual keyboard and voice input. Universal design means designing the device so it can be used by as many people as possible, whatever their age or ability, for example with accessibility features such as a screen reader or adjustable text size.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "User interface: the means of interaction: what you touch, see and hear on the device.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Universal design: an approach to design so that everyone, including people with disabilities, can use it.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(iii)",
+          "q": "State two principles of universal design. For each principle you should describe how it relates to the design of an embedded system of your choice.",
+          "ask": "Name two universal design principles and apply each to an embedded system.",
+          "marks": 4,
+          "chapter": null,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Principle 1:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Equitable use",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "equit|equal|fair"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Flexibility in use",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "flexib"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Simple and intuitive use",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "simpl|intuitiv|easy to understand|easy to use"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Perceptible information",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "percept"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Tolerance for error",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "toleran|error|mistake"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Low physical effort",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "effort|fatigue|physical"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Size and space for approach and use",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "size|space|reach"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Describe:",
+                "answer": {
+                  "type": "none"
+                }
+              },
+              {
+                "label": "Principle 2:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Equitable use",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "equit|equal|fair"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Flexibility in use",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "flexib"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Simple and intuitive use",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "simpl|intuitiv|easy to understand|easy to use"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Perceptible information",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "percept"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Tolerance for error",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "toleran|error|mistake"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Low physical effort",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "effort|fatigue|physical"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Size and space for approach and use",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "size|space|reach"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Describe:",
+                "answer": {
+                  "type": "none"
+                }
+              }
+            ]
+          },
+          "scheme": "For each principle 2 marks: principle identified 1, good description of how it relates to the embedded system 1. Principles: equitable use; flexibility in use; simple (intuitive) use; perceptible information; tolerance for error; low physical effort; size and space for approach and use.",
+          "model": "Principle 1: Perceptible information. Describe: a smart thermostat shows the temperature in large, high-contrast digits and also beeps, so the information reaches users with poor eyesight or hearing. Principle 2: Tolerance for error. Describe: a microwave asks for confirmation and lets you cancel easily, so pressing the wrong button by accident does no harm.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Learn the seven principles: equitable use, flexibility, simple and intuitive, perceptible information, tolerance for error, low physical effort, size and space.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Choose one embedded system (a microwave, a smart thermostat, a fitness watch) and use it for both principles.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "For each, say what the design does and how it helps users of different abilities.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Name the principle exactly, then link it to a specific feature of your chosen system."
+        },
+        {
+          "l": "(c)",
+          "q": "The market for embedded systems is likely to continue to grow for the foreseeable future as they are seen as key drivers of current and emerging trends in computing such as the Internet of Things (IoT), smart homes, smart cities, drones and surveillance technology.\n\nDiscuss the potential impact of embedded systems on society. In your answer you should provide evidence that you have considered alternative perspectives of any two stakeholders that you think are relevant.",
+          "ask": "Discuss how embedded systems affect society from two stakeholders' views.",
+          "marks": 8,
+          "chapter": null,
+          "answer": {
+            "type": "none"
+          },
+          "scheme": "For each of two stakeholders 4 marks: stakeholder identified 1, impact of embedded systems on that stakeholder 3 (very good 3, fair 1). Stakeholders: end-users/citizens, industry/business owners, government etc. Positive impacts: social media, healthcare, crime/justice, transport, education, housing, agriculture, environment, science, exploration. Alternative perspectives: privacy, misuse of data, profiling, equality, digital divide, surveillance, polarisation, democracy, employment, military uses.",
+          "model": "Citizens: smart-home devices and wearables can make life safer and healthier, such as fitness watches spotting heart problems or sensors that turn off the heating to save energy; but these devices collect constant data about where people are and what they do, which could be misused or hacked, and not everyone can afford them, widening the digital divide. Government: smart-city sensors can reduce traffic and pollution and help emergency services respond faster; but networks of cameras and drones make mass surveillance possible, raising questions about privacy and civil liberties.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Choose two stakeholders, for example citizens and the government (or businesses).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "For each, give a positive impact with a specific example (health monitoring, smart traffic lights).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Then give the other side for the same stakeholder: privacy, data misuse, surveillance, jobs or the digital divide.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Keep the two perspectives clearly separate so the examiner can mark each stakeholder.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Each stakeholder is worth 4 marks: name them, then discuss both a benefit and a concern for them."
+        }
+      ]
+    },
+    {
+      "id": "2024-Q1",
+      "year": 2024,
+      "q": 1,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        3
+      ],
+      "topic": "Logic gate outputs",
+      "sub": "electronics",
+      "stem": "Logic gates have one or more inputs and a single output.",
+      "fig": "A two-column table: Column A shows six gate symbols with their inputs (AND 1, 1; AND 0, 1; NOT 1; OR 1, 0; OR 0, 0; NAND 1, 1); Column B is left blank for each output.",
+      "parts": [
+        {
+          "l": "",
+          "q": "For each logic gate in Column A in the table below enter the output, either 0 or 1, in Column B.",
+          "ask": "Write the output (0 or 1) of each of the six logic gates",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "table",
+            "head": [
+              "Column A: Logic gate with input(s)",
+              "Column B: Output (0 or 1)"
+            ],
+            "rows": [
+              [
+                "AND gate, inputs 1 and 1",
+                "1"
+              ],
+              [
+                "AND gate, inputs 0 and 1",
+                "0"
+              ],
+              [
+                "NOT gate, input 1",
+                "0"
+              ],
+              [
+                "OR gate, inputs 1 and 0",
+                "1"
+              ],
+              [
+                "OR gate, inputs 0 and 0",
+                "0"
+              ],
+              [
+                "NAND gate, inputs 1 and 1",
+                "0"
+              ]
+            ],
+            "blank": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                5,
+                1
+              ]
+            ]
+          },
+          "scheme": "1 mark for each correct output, in order: 1, 0, 0, 1, 0, 0.",
+          "model": "1, 0, 0, 1, 0, 0 (AND 1,1 = 1; AND 0,1 = 0; NOT 1 = 0; OR 1,0 = 1; OR 0,0 = 0; NAND 1,1 = 0).",
+          "idea": {
+            "title": "Each gate has a rule",
+            "text": "AND gives 1 only when every input is 1. OR gives 1 when at least one input is 1. NOT flips its input, and NAND is an AND followed by a NOT.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Name each gate from its shape: a flat back with a round front is AND, a curved back with a pointed front is OR, and a triangle is NOT. A small circle on the output adds a NOT, so the last gate is NAND.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "AND needs every input to be 1. Inputs 1 and 1 give 1; inputs 0 and 1 give 0.",
+              "math": [
+                "1 \\text{ AND } 1 = 1",
+                "0 \\text{ AND } 1 = 0"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "NOT flips its single input, so 1 becomes 0.",
+              "math": [
+                "\\text{NOT } 1 = 0"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "OR needs at least one 1. Inputs 1 and 0 give 1; inputs 0 and 0 give 0.",
+              "math": [
+                "1 \\text{ OR } 0 = 1",
+                "0 \\text{ OR } 0 = 0"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "NAND works out the AND first (1 AND 1 = 1), then flips it, so its output is 0.",
+              "math": [
+                "\\text{NOT}(1 \\text{ AND } 1) = \\text{NOT } 1 = 0"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "You can ask the superintendent for page 78 of the Formulae and Tables booklet: it shows every gate symbol with its truth table."
+        }
+      ]
+    },
+    {
+      "id": "2024-Q8",
+      "year": 2024,
+      "q": 8,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        6
+      ],
+      "topic": "RAM and ROM",
+      "sub": "architecture",
+      "stem": "RAM and ROM are two types of primary memory used to store data.",
+      "fig": "Pictures of a RAM stick and a ROM chip.",
+      "parts": [
+        {
+          "l": "",
+          "q": "Provide one example of data that might be stored in RAM and one example of data that might be stored in ROM.",
+          "ask": "Give one example of data held in RAM and one example held in ROM",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Data in RAM:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "System software, e.g. the operating system",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "operating system|OS|system software"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Application software, e.g. office productivity software",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "application|app"
+                        ],
+                        [
+                          "word processor|office|browser|spreadsheet|game"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Programs (e.g. Python programs) and data (e.g. documents) in use",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "program"
+                        ],
+                        [
+                          "document"
+                        ],
+                        [
+                          "open",
+                          "file"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Any temporary data",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "temporar"
+                        ],
+                        [
+                          "currently|in use|running"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Data in ROM:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Firmware: the software embedded into hardware devices",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "firmware"
+                        ],
+                        [
+                          "embedded"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "The BIOS (Basic Input Output System), essential for the computer's startup",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "BIOS"
+                        ],
+                        [
+                          "basic input"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Bootstrap programs",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "boot"
+                        ],
+                        [
+                          "startup|start-up|start up"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "System-level configuration data",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "configuration|config|settings"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Any permanent data necessary for the device to operate",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "permanent"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "3 marks each for RAM and ROM (very good example 3, fair example 2). RAM: system software such as the operating system, application software, programs and documents in use, any temporary data. ROM: firmware, the BIOS needed at startup, bootstrap programs, system-level configuration data, any permanent data the device needs to operate.",
+          "model": "Data in RAM: the document I am editing in a word processor, which is only needed while the program is running and is lost when the power is off. Data in ROM: the BIOS/bootstrap program the computer runs when it starts up.",
+          "idea": {
+            "title": "Temporary or permanent",
+            "text": "RAM is volatile read-write memory that holds the programs and data in use right now, and it is wiped when the power goes. ROM is non-volatile and read-only, so it keeps the instructions a device needs every time it starts.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "RAM holds whatever the computer is working on at the moment: the operating system, open programs and their data.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So a good RAM example is something temporary, like a document you are editing or a Python program that is running.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "ROM keeps its contents with the power off and is not changed in normal use.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So a good ROM example is start-up code: the BIOS or bootstrap program, or a device's firmware.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Name a specific example and say why it suits that memory (temporary or permanent) for the full 3 marks."
+        }
+      ]
+    },
+    {
+      "id": "2025-Q4",
+      "year": 2025,
+      "q": 4,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        4
+      ],
+      "topic": "Operating system functions",
+      "sub": "os",
+      "stem": "Two key functions of an operating system are resource management and file management.",
+      "fig": null,
+      "parts": [
+        {
+          "l": "",
+          "q": "Explain what is meant by the terms ‘resource management’ and ‘file management’.",
+          "ask": "Explain resource management and file management in an operating system",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Resource management:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "The OS controls and coordinates the computer's hardware resources such as CPU time, memory (RAM), secondary storage and input/output devices",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "control|coordinat|allocat|share|shares|assign|distribut|schedul|decid",
+                          "CPU|processor|memory|RAM|hardware|device|storage|input|printer"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "File management:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "The OS organises and keeps track of files on storage devices (hard drives, USB drives) so they can be created, accessed or modified when needed",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "organis|organiz|track|folder|director"
+                        ],
+                        [
+                          "creat|access|modif|delet|renam"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "3 marks each (very good 3, fair 2). Resource management: how the OS controls and coordinates the computer's hardware resources such as CPU time, memory (RAM), secondary storage and input/output devices. File management: how the OS organises and keeps track of files on storage devices (hard drives, USB drives) and makes sure they can be created, accessed or modified when needed.",
+          "model": "Resource management: the OS controls and shares out the computer's hardware, deciding how much CPU time and RAM each running program gets and which program can use a device such as the printer. File management: the OS organises files into folders on storage devices, keeps track of where each one is stored, and lets users create, open, modify and delete them.",
+          "idea": {
+            "title": "The OS is the manager",
+            "text": "Many programs run at once but share one CPU, one RAM and the same storage and devices. The operating system decides who gets each resource, and keeps the files on storage organised and findable.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Resources are the hardware that programs need: CPU time, memory, storage and input/output devices.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Resource management means the OS controls and shares these out, e.g. giving each running program its turn on the CPU and its own part of RAM.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "File management means the OS organises the files on storage devices: folders, names and where each file is stored.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "It also lets users and programs create, open, change and delete those files when needed.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Give an example for each term (CPU time, a folder) to show clear understanding."
+        }
+      ]
+    },
+    {
+      "id": "2025-Q8",
+      "year": 2025,
+      "q": 8,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        6
+      ],
+      "topic": "IP and VoIP",
+      "sub": "internet",
+      "stem": "",
+      "fig": null,
+      "parts": [
+        {
+          "l": "",
+          "q": "Distinguish between the IP and VoIP communication protocols.",
+          "ask": "Explain how the IP and VoIP protocols differ",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Internet Protocol (IP) is the general protocol used for sending all types of data in the form of packets over the internet (e.g. browsing websites and sending emails)",
+                "marks": 3,
+                "alts": [
+                  [
+                    "packet"
+                  ],
+                  [
+                    "all|any|every|general",
+                    "data|type"
+                  ],
+                  [
+                    "address",
+                    "rout|send|deliver"
+                  ]
+                ]
+              },
+              {
+                "text": "Voice over Internet Protocol (VoIP) is a specific application of IP used for voice and video communication (e.g. Zoom and WhatsApp)",
+                "marks": 3,
+                "alts": [
+                  [
+                    "voice|phone|telephon"
+                  ],
+                  [
+                    "video",
+                    "call|chat|communicat|conferenc"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good distinction 6, good 4, fair 2 (1 mark each for just naming a protocol correctly). IP (Internet Protocol) is the general protocol for sending all types of data in packets over the internet (browsing websites, sending emails); VoIP (Voice over Internet Protocol) is a specific application of IP used for voice and video communication (Zoom, WhatsApp).",
+          "model": "IP (Internet Protocol) is the general protocol that addresses and sends all types of data across the internet in packets, e.g. web pages and emails. VoIP (Voice over Internet Protocol) is one specific use of IP: it turns voice (and video) into packets so calls can be made over the internet, e.g. WhatsApp or Zoom calls.",
+          "idea": {
+            "title": "General and specific",
+            "text": "IP is the basic set of rules for addressing and routing packets of any kind of data across the internet. VoIP is built on top of it: it digitises speech into packets so calls travel over the internet instead of phone lines.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Expand both names: IP is Internet Protocol, and VoIP is Voice over Internet Protocol.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "IP is the general protocol for every kind of data. It splits data into packets, gives them IP addresses and routes them across networks (web pages, emails).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "VoIP is one specific use of IP, for voice and video calls: speech is digitised and sent as IP packets (WhatsApp, Zoom).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Distinguish means show the difference: general data delivery for everything, against real-time voice communication that relies on IP.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Say what each protocol is and how they differ; an example of each (an email, a WhatsApp call) helps."
+        }
+      ]
+    },
+    {
+      "id": "2025-Q12",
+      "year": 2025,
+      "q": 12,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        8
+      ],
+      "topic": "CPU components",
+      "sub": "architecture",
+      "stem": "The Central Processing Unit (CPU) is often referred to as the \"brain\" of the computer.",
+      "fig": "A picture of a CPU chip.",
+      "parts": [
+        {
+          "l": "",
+          "q": "Identify and state the purpose of two CPU components.",
+          "ask": "Name two parts of the CPU and say what each one does",
+          "marks": 6,
+          "chapter": 6,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "CPU Component 1:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Arithmetic Logic Unit (ALU)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "ALU"
+                        ],
+                        [
+                          "arithmetic"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Control Unit (CU)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "control"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Registers",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "register"
+                        ],
+                        [
+                          "MAR|MDR|CIR|accumulator"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Cache",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "cache"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Program Counter (PC)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "program",
+                          "counter"
+                        ],
+                        [
+                          "PC"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Clock",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "clock"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Purpose:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "ALU: performs arithmetic operations (e.g. addition, subtraction) and logical operations (e.g. AND, OR, NOT) needed to process instructions",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "arithmetic|calculat|add|subtract|math"
+                        ],
+                        [
+                          "logic"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Control unit: directs and coordinates the activities of the CPU by fetching, decoding and executing instructions from memory",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "fetch|decod"
+                        ],
+                        [
+                          "direct|coordinat|control|signal",
+                          "component|part|instruction|operation"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Registers: small, high-speed storage locations within the CPU that temporarily hold data, instructions or addresses during processing",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "small|fast|high-speed|high speed|quick",
+                          "stor|memory|hold|location"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Cache: stores frequently accessed data and instructions close to the CPU to reduce latency and improve processing speed",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "frequent|often|recent|commonly",
+                          "data|instruction|used|access"
+                        ],
+                        [
+                          "latency"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Program counter: keeps track of the memory address of the next instruction to be executed",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "next",
+                          "instruction|address"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Clock: generates a consistent timing signal (clock pulse) that synchronises the CPU's operations and sets the speed at which it processes data",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "timing|pulse|tick|synchron|cycle|GHz|hertz"
+                        ],
+                        [
+                          "speed",
+                          "process|instruction"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "CPU Component 2:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Arithmetic Logic Unit (ALU)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "ALU"
+                        ],
+                        [
+                          "arithmetic"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Control Unit (CU)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "control"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Registers",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "register"
+                        ],
+                        [
+                          "MAR|MDR|CIR|accumulator"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Cache",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "cache"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Program Counter (PC)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "program",
+                          "counter"
+                        ],
+                        [
+                          "PC"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Clock",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "clock"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Purpose:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "ALU: performs arithmetic operations (e.g. addition, subtraction) and logical operations (e.g. AND, OR, NOT) needed to process instructions",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "arithmetic|calculat|add|subtract|math"
+                        ],
+                        [
+                          "logic"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Control unit: directs and coordinates the activities of the CPU by fetching, decoding and executing instructions from memory",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "fetch|decod"
+                        ],
+                        [
+                          "direct|coordinat|control|signal",
+                          "component|part|instruction|operation"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Registers: small, high-speed storage locations within the CPU that temporarily hold data, instructions or addresses during processing",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "small|fast|high-speed|high speed|quick",
+                          "stor|memory|hold|location"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Cache: stores frequently accessed data and instructions close to the CPU to reduce latency and improve processing speed",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "frequent|often|recent|commonly",
+                          "data|instruction|used|access"
+                        ],
+                        [
+                          "latency"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Program counter: keeps track of the memory address of the next instruction to be executed",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "next",
+                          "instruction|address"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Clock: generates a consistent timing signal (clock pulse) that synchronises the CPU's operations and sets the speed at which it processes data",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "timing|pulse|tick|synchron|cycle|GHz|hertz"
+                        ],
+                        [
+                          "speed",
+                          "process|instruction"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "1 mark for each correctly identified component and 2 for each purpose (very good 2, fair 1). ALU: arithmetic and logical operations; control unit: directs and coordinates the CPU by fetching, decoding and executing instructions; registers: small, high-speed storage for data, instructions or addresses during processing; cache: frequently used data and instructions kept close to the CPU to cut latency; program counter: the address of the next instruction to be executed; clock: a timing signal that synchronises operations and sets the processing speed.",
+          "model": "CPU Component 1: Arithmetic Logic Unit (ALU). Purpose: it carries out arithmetic operations such as addition and subtraction, and logical operations such as AND, OR and comparisons. CPU Component 2: Control Unit (CU). Purpose: it directs the other parts of the CPU, fetching each instruction from memory, decoding it and making sure it is executed.",
+          "idea": {
+            "title": "Inside the CPU",
+            "text": "The control unit runs the fetch-decode-execute cycle and directs everything else; the ALU does the maths and logic; registers and cache are tiny, fast memories; the clock keeps every step in time.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Pick two components you know well, e.g. the ALU and the control unit (registers, cache, the program counter and the clock also count).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "ALU: it does the arithmetic (add, subtract) and the logic (AND, OR, NOT, comparisons).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Control unit: it fetches instructions from memory, decodes them and sends signals so they are executed.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "For each one, write the full name and one clear sentence on what it does.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Each purpose needs a clear sentence, not one word, to get both of its marks."
+        }
+      ]
+    }
+  ]
+}

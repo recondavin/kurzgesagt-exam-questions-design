@@ -1,0 +1,2447 @@
+{
+  "chapter": 7,
+  "title": "Computational thinking, algorithms and data representation",
+  "questions": [
+    {
+      "id": "2020-Q6",
+      "year": 2020,
+      "q": 6,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        6
+      ],
+      "topic": "ASCII encoding",
+      "sub": "data",
+      "stem": "The American Standard Code for Information Interchange (ASCII) is a character encoding standard adopted by the Institute of Electrical and Electronics Engineers (IEEE) in 1963.",
+      "fig": null,
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "Why are encoding standards such as ASCII important?",
+          "ask": "Explain why a shared character encoding standard matters.",
+          "marks": 3,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "Allows data to be encoded in a standard way (every computer uses the same code for each character)",
+                "marks": 3,
+                "alts": [
+                  [
+                    "same|agreed|common|consistent|universal|identical",
+                    "code|encod|number|binary|value|way|representation"
+                  ],
+                  [
+                    "standard way|standardised way|standardized way"
+                  ]
+                ]
+              },
+              {
+                "text": "Provides a means of representing data as information",
+                "marks": 3,
+                "alts": [
+                  [
+                    "represent|convert|translat|turn",
+                    "text|character|letter|information|readable|symbol"
+                  ]
+                ]
+              },
+              {
+                "text": "Allows for worldwide communication in electronic form",
+                "marks": 3,
+                "alts": [
+                  [
+                    "communicat|exchang|share|shar|transfer|send|compatib",
+                    "computer|device|system|machine|worldwide|world|different|other|global|countr"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Any one point: good description 3, fair 2. Allows data to be encoded in a standard way; provides a means of representing data as information; allows for worldwide communication in electronic form, or similar.",
+          "model": "Standards like ASCII mean every computer uses the same binary code for each character, so text created on one device is read correctly on any other. This allows data to be exchanged and communicated electronically worldwide.",
+          "idea": {
+            "title": "Character encoding",
+            "text": "Computers only store numbers, so a character set gives every character a number code (in ASCII, 'A' is 65). If everyone uses the same table, text saved or sent by one computer appears as the same text on another.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Computers store everything as binary numbers, so each letter or symbol must be given a number code.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "If two computers used different codes, the same binary would show up as different characters and the text would be garbled.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "A standard means everyone agrees on the same codes, so text can be shared and communicated between any devices, worldwide.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Give both halves: the same codes everywhere, and what that allows (sharing text between different computers)."
+        },
+        {
+          "l": "(b)",
+          "q": "State one limitation of ASCII.",
+          "ask": "Give one thing ASCII cannot do.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "7 bits, so only a maximum of 2^7 = 128 characters (accept 8 bits, 256 characters)",
+                "marks": 2,
+                "alts": [
+                  [
+                    "128|256|7 bit|7-bit|seven bit|8 bit|8-bit|eight bit"
+                  ],
+                  [
+                    "limited|not many|small|few|not enough",
+                    "character|symbol"
+                  ]
+                ]
+              },
+              {
+                "text": "Does not allow for emojis",
+                "marks": 2,
+                "alts": [
+                  [
+                    "emoji"
+                  ]
+                ]
+              },
+              {
+                "text": "Does not support symbols from different languages / not enough symbols for languages with large character sets",
+                "marks": 2,
+                "alts": [
+                  [
+                    "language|alphabet|chinese|japanese|arabic|accent|foreign|non-english|non english|international|greek|russian"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Good description 2, fair 1: 7 bits so only a maximum of 2^7 = 128 characters, 94 printable (accept 8 bits, max 256 characters); does not allow for emojis; does not support symbols from different languages; not enough symbols for languages with large character sets; and similar.",
+          "model": "ASCII uses only 7 bits, so it can represent at most 128 characters: not enough for the letters of other languages or for emojis.",
+          "idea": {
+            "title": "How many characters fit",
+            "text": "With n bits you can make 2^n different codes. ASCII's 7 bits give 128 codes: enough for English letters, digits, punctuation and control codes, but nothing more.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Count ASCII's codes: 7 bits give 2^7 combinations.",
+              "math": [
+                "2^7 = 128"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "128 is enough for English letters, digits and punctuation, but not for accented letters, other alphabets (Chinese, Arabic, Greek...) or emojis.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "State one of these as the limitation, with the reason: only 128 characters.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Unicode was created to fix exactly this limitation."
+        }
+      ]
+    },
+    {
+      "id": "2020-Q7",
+      "year": 2020,
+      "q": 7,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        6
+      ],
+      "topic": "Binary to hexadecimal",
+      "sub": "data",
+      "stem": "The 8-bit binary representation for the ASCII character K is shown below.",
+      "fig": "The binary number 0100 1011 printed in the answer box.",
+      "parts": [
+        {
+          "l": "",
+          "q": "Convert this binary number to hexadecimal notation.\n\n0100 1011",
+          "ask": "Convert 0100 1011 to hexadecimal.",
+          "marks": 5,
+          "chapter": 7,
+          "answer": {
+            "type": "text",
+            "value": "4B",
+            "accept": [
+              "0x4B",
+              "4B16",
+              "4Bh",
+              "&4B"
+            ]
+          },
+          "scheme": "4B. Correct 5 marks, half correct 3, response with some merit 1.",
+          "model": "4B",
+          "idea": {
+            "title": "Binary to hex in nibbles",
+            "text": "One hex digit stands for exactly 4 bits. Split the byte into two nibbles of 4 bits and convert each nibble to a hex digit (0-9, then A = 10 up to F = 15).",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Split the 8 bits into two groups of four (nibbles).",
+              "math": [
+                "\\texttt{0100}\\;|\\;\\texttt{1011}"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Convert the left nibble using the place values 8, 4, 2, 1.",
+              "math": [
+                "\\texttt{0100} = 4"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Convert the right nibble; 11 is written B in hex.",
+              "math": [
+                "\\texttt{1011} = 8 + 2 + 1 = 11 = \\text{B}_{16}"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Write the two hex digits in the same order.",
+              "math": [
+                "\\texttt{01001011}_2 = \\text{4B}_{16}"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Check: 4B hex = 4 × 16 + 11 = 75, which is the ASCII code for K."
+        }
+      ]
+    },
+    {
+      "id": "2020-Q8",
+      "year": 2020,
+      "q": 8,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        7
+      ],
+      "topic": "Bubble sort passes",
+      "sub": "algorithms",
+      "stem": "The diagram below sets out the operation of the bubble sort algorithm to sort the list of integers [8, 5, 9, 7, 6]. The algorithm works by scanning over the data in four passes. The diagram is complete for pass 1 and started for pass 2.",
+      "fig": "Bubble sort diagram in four columns: pass 1 complete (8 5 9 7 6, 5 8 9 7 6, 5 8 9 7 6, 5 8 7 9 6, 5 8 7 6 9); pass 2 begins 5 8 7 6 9, 5 8 7 6 9 with two empty rows; pass 3 begins 5 7 6 8 9 with two empty rows; pass 4 begins 5 6 7 8 9 with one empty row, then (finished).",
+      "parts": [
+        {
+          "l": "",
+          "q": "Complete the diagram for passes 2, 3 and 4. You only need to fill in the numbers.",
+          "ask": "Fill in each empty row of the bubble sort for passes 2, 3 and 4.",
+          "marks": 5,
+          "chapter": 7,
+          "answer": {
+            "type": "table",
+            "head": [
+              "Pass",
+              "Row",
+              "1st",
+              "2nd",
+              "3rd",
+              "4th",
+              "5th"
+            ],
+            "rows": [
+              [
+                "1",
+                "1",
+                "8",
+                "5",
+                "9",
+                "7",
+                "6"
+              ],
+              [
+                "1",
+                "2",
+                "5",
+                "8",
+                "9",
+                "7",
+                "6"
+              ],
+              [
+                "1",
+                "3",
+                "5",
+                "8",
+                "9",
+                "7",
+                "6"
+              ],
+              [
+                "1",
+                "4",
+                "5",
+                "8",
+                "7",
+                "9",
+                "6"
+              ],
+              [
+                "1",
+                "5",
+                "5",
+                "8",
+                "7",
+                "6",
+                "9"
+              ],
+              [
+                "2",
+                "1",
+                "5",
+                "8",
+                "7",
+                "6",
+                "9"
+              ],
+              [
+                "2",
+                "2",
+                "5",
+                "8",
+                "7",
+                "6",
+                "9"
+              ],
+              [
+                "2",
+                "3",
+                "5",
+                "7",
+                "8",
+                "6",
+                "9"
+              ],
+              [
+                "2",
+                "4",
+                "5",
+                "7",
+                "6",
+                "8",
+                "9"
+              ],
+              [
+                "3",
+                "1",
+                "5",
+                "7",
+                "6",
+                "8",
+                "9"
+              ],
+              [
+                "3",
+                "2",
+                "5",
+                "7",
+                "6",
+                "8",
+                "9"
+              ],
+              [
+                "3",
+                "3",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9"
+              ],
+              [
+                "4",
+                "1",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9"
+              ],
+              [
+                "4",
+                "2",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9"
+              ]
+            ],
+            "blank": [
+              [
+                7,
+                2
+              ],
+              [
+                7,
+                3
+              ],
+              [
+                7,
+                4
+              ],
+              [
+                7,
+                5
+              ],
+              [
+                7,
+                6
+              ],
+              [
+                8,
+                2
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                8,
+                4
+              ],
+              [
+                8,
+                5
+              ],
+              [
+                8,
+                6
+              ],
+              [
+                10,
+                2
+              ],
+              [
+                10,
+                3
+              ],
+              [
+                10,
+                4
+              ],
+              [
+                10,
+                5
+              ],
+              [
+                10,
+                6
+              ],
+              [
+                11,
+                2
+              ],
+              [
+                11,
+                3
+              ],
+              [
+                11,
+                4
+              ],
+              [
+                11,
+                5
+              ],
+              [
+                11,
+                6
+              ],
+              [
+                13,
+                2
+              ],
+              [
+                13,
+                3
+              ],
+              [
+                13,
+                4
+              ],
+              [
+                13,
+                5
+              ],
+              [
+                13,
+                6
+              ]
+            ]
+          },
+          "scheme": "Each correct step (row) 1 mark: pass 2: 5 7 8 6 9 and 5 7 6 8 9; pass 3: 5 7 6 8 9 and 5 6 7 8 9; pass 4: 5 6 7 8 9.",
+          "model": "Pass 2: 5 7 8 6 9, then 5 7 6 8 9. Pass 3: 5 7 6 8 9, then 5 6 7 8 9. Pass 4: 5 6 7 8 9 (finished).",
+          "idea": {
+            "title": "How bubble sort works",
+            "text": "Bubble sort compares neighbouring pairs from left to right and swaps them if they are in the wrong order. After each pass the largest unsorted number has 'bubbled' to its final place at the end, so each pass needs one comparison fewer.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Pass 2 starts with 5 8 7 6 9. The 9 is already in place, so there are 3 comparisons; the first (5 and 8, no swap) is given.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Compare 8 and 7: swap, giving 5 7 8 6 9. Compare 8 and 6: swap, giving 5 7 6 8 9. Now the 8 is in place too.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Pass 3 starts with 5 7 6 8 9 and needs 2 comparisons. 5 and 7: no swap, so the row stays 5 7 6 8 9. 7 and 6: swap, giving 5 6 7 8 9.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Pass 4 needs 1 comparison: 5 and 6 are in order, so the row is 5 6 7 8 9 and the list is sorted.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Write a row even when nothing is swapped (it repeats the row above): each row is one comparison and one mark."
+        }
+      ]
+    },
+    {
+      "id": "2020-Q12",
+      "year": 2020,
+      "q": 12,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        10
+      ],
+      "topic": "Heuristics and the travelling salesperson problem",
+      "sub": "algorithms",
+      "stem": "The travelling salesperson problem is commonly used in the study of algorithms and appears in formats similar to the problem below.\n\n“Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city once and returns to the original city?”",
+      "fig": "A map of six cities, city 1 marked Start/Finish, with road distances 1-2: 10, 1-3: 10, 1-4: 5, 2-3: 8, 2-5: 14, 3-5: 1, 3-4: 7, 3-6: 6, 5-6: 22, 4-6: 20.",
+      "parts": [
+        {
+          "l": "",
+          "q": "Why would heuristics be considered a good approach to solving a problem such as this?",
+          "ask": "Explain why heuristics suit the travelling salesperson problem.",
+          "marks": 5,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Calculating the best actual solution (checking every route) would take too long",
+                "marks": 3,
+                "alts": [
+                  [
+                    "too long|too much time|too slow|long time|ages|forever|impractical|infeasible|not feasible|unfeasible|years|centuries"
+                  ],
+                  [
+                    "grow|increas|explod",
+                    "route|possib|combination|time"
+                  ],
+                  [
+                    "factorial|exponential"
+                  ]
+                ]
+              },
+              {
+                "text": "A heuristic, a guess or rule of thumb based on experience, finds the best approximate solution",
+                "marks": 2,
+                "alts": [
+                  [
+                    "approximat|near|close|good enough|reasonabl|acceptabl|good solution|good route|estimat"
+                  ],
+                  [
+                    "rule of thumb|educated guess|guess|experience|shortcut|short cut"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good description 5, good 3, fair 1. Heuristics will find the best approximate solution when it would take too long to calculate the best actual solution, or similar. A heuristic is a guess which can be based on previous experience or a rule of thumb.",
+          "model": "To be sure of the shortest route you would have to check every possible route, and the number of routes grows so fast as cities are added that this would take far too long. A heuristic, a rule of thumb such as always travelling to the nearest unvisited city, finds a good approximate route quickly, which is usually good enough.",
+          "idea": {
+            "title": "What a heuristic is",
+            "text": "A heuristic is a rule of thumb or educated guess that finds a good answer quickly without guaranteeing the best one. It is used when the exact method would take far too long.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "The exact (brute force) method: list every route that starts and ends at city 1 and pick the shortest.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "If every city were linked to every other, n cities would give (n − 1)!/2 different round trips, so the count explodes as cities are added.",
+              "math": [
+                "6 \\text{ cities: } \\tfrac{5!}{2} = 60 \\text{ routes}",
+                "20 \\text{ cities: } \\tfrac{19!}{2} \\approx 6 \\times 10^{16} \\text{ routes}"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Checking them all would take far too long for real problems, even on a fast computer.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "A heuristic such as nearest neighbour (always go to the closest unvisited city) gives a good, near-shortest route very quickly: an approximate answer that is good enough.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Contrast the two: the exact solution takes too long; a heuristic gives a good approximate solution quickly."
+        }
+      ]
+    },
+    {
+      "id": "2020-Q13",
+      "year": 2020,
+      "q": 13,
+      "section": "B",
+      "total": 30,
+      "pages": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "topic": "Linear and binary search",
+      "sub": "algorithms",
+      "stem": "In his book The Art of Computer Programming, Donald Knuth states that “searching is the most time-consuming part of many programs, and the substitution of a good search method for a bad one often leads to a substantial increase in speed.”",
+      "fig": "Photo of Donald Knuth; in (a) a Python search program; in (b)(ii) the sorted list L = [3, 7, 13, 18, 28, 35, 41, 50] (indexes 0-7) with left at index 0, mid at index 3 and right at index 7.",
+      "parts": [
+        {
+          "l": "(a)(i)",
+          "q": "The Python code below shows an implementation of a search algorithm. Examine the code and answer the questions that follow:\n```python\nnames = [\"John\", \"Mary\", \"Zoe\", \"Alex\", \"Séamas\"]\nname = input(\"Enter lookup name: \")\n\nfound = False\nindex = 0\n\nwhile (not found) and (index != len(names)):\n    if name == names[index]:\n        found = True\n    else:\n        index = index + 1\n\nprint(\"Result:\", index)\n```\nState the name of the above search algorithm.",
+          "ask": "Name the search algorithm the code uses.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "text",
+            "value": "Linear search",
+            "accept": [
+              "Linear",
+              "Sequential search",
+              "Sequential",
+              "Serial search"
+            ]
+          },
+          "scheme": "Linear search: 2 marks.",
+          "model": "Linear search.",
+          "idea": {
+            "title": "Linear search",
+            "text": "A linear search checks the items one at a time from the start of the list until it finds the target or reaches the end. The list does not need to be sorted.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Look at how index changes: it starts at 0 and goes up by 1 each time round the loop.",
+              "math": [],
+              "code": "index = index + 1",
+              "vis": null
+            },
+            {
+              "say": "So each name is compared with the target in turn, first to last, until there is a match or the list runs out.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Checking the items one after another in order is a linear (sequential) search.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(ii)",
+          "q": "What is the data type of the variable called found?",
+          "ask": "Give the data type of the variable found.",
+          "marks": 2,
+          "chapter": null,
+          "answer": {
+            "type": "text",
+            "value": "Boolean",
+            "accept": [
+              "Bool",
+              "Boole"
+            ]
+          },
+          "scheme": "Boole / Boolean 2 marks; True / False 1 mark.",
+          "model": "Boolean (bool).",
+          "idea": {
+            "title": "Boolean variables",
+            "text": "A Boolean variable holds one of only two values, True or False. Here found is a flag recording whether the name has been found yet.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Look at the values found is given: False at the start and True when the name matches.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "A variable that can only be True or False is a Boolean (bool in Python).",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "'True/False' on its own earned only 1 mark: name the type, Boolean."
+        },
+        {
+          "l": "(a)(iii)",
+          "q": "Step through how the algorithm finds the name Zoe in the list called names.",
+          "ask": "Trace the loop step by step until it finds Zoe.",
+          "marks": 5,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 4,
+            "points": [
+              {
+                "text": "Starts at index 0: compares the first name, John; found stays False, index increased by 1",
+                "marks": 1,
+                "alts": [
+                  [
+                    "john",
+                    "0|first|not|no|false|differ|increas|1"
+                  ]
+                ]
+              },
+              {
+                "text": "Index 1: compares the second name, Mary; found stays False, index increased to 2",
+                "marks": 1,
+                "alts": [
+                  [
+                    "mary",
+                    "1|second|not|no|false|differ|increas|2"
+                  ]
+                ]
+              },
+              {
+                "text": "Index 2: compares the third name, Zoe; found changes to True",
+                "marks": 2,
+                "alts": [
+                  [
+                    "zoe",
+                    "true|match|found|equal|same"
+                  ]
+                ]
+              },
+              {
+                "text": "Exits the while loop and prints the index, 2",
+                "marks": 1,
+                "alts": [
+                  [
+                    "2|two",
+                    "print|output|display|result"
+                  ],
+                  [
+                    "exit|stop|end|terminat|break|leave",
+                    "loop"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good description 5, good 3, fair 1: starts at index 0, compares John, found stays False; index increased by 1, compares Mary, found stays False; index increased by 1, compares Zoe, found changes to True; exits the while loop and prints index 2. Or any similar relevant explanation.",
+          "model": "index = 0: names[0] is John, not Zoe, so found stays False and index becomes 1. index = 1: Mary is not Zoe, so index becomes 2. index = 2: names[2] is Zoe, a match, so found becomes True. not found is now False, so the loop ends and it prints Result: 2.",
+          "idea": {
+            "title": "The loop condition",
+            "text": "The while loop keeps going only while found is False and index has not reached the end of the list. Setting found to True stops the loop.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Start: found = False, index = 0. The loop condition is True, so the loop runs.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "names[0] is \"John\", not \"Zoe\": the else branch runs and index becomes 1.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "names[1] is \"Mary\", not \"Zoe\": index becomes 2.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "names[2] is \"Zoe\": a match, so found = True (index stays 2).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "not found is now False, so the loop stops and the program prints Result: 2.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Give index and found at every comparison: a step-by-step trace earns full marks, a one-line summary does not."
+        },
+        {
+          "l": "(a)(iv)",
+          "q": "What would be the value of index after running the algorithm if the user entered a name that was not present in the list called names?",
+          "ask": "Give index's final value when the name is not in the list.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "number",
+            "value": 5,
+            "tol": 0,
+            "unit": ""
+          },
+          "scheme": "Index = 5: 2 marks.",
+          "model": "index = 5",
+          "idea": null,
+          "steps": [
+            {
+              "say": "If the name never matches, found stays False and the else branch runs for every name.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "index goes up by 1 after each of the 5 names.",
+              "math": [
+                "0 \\to 1 \\to 2 \\to 3 \\to 4 \\to 5"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "When index = 5 = len(names), the condition index != len(names) is False, so the loop stops with index = 5.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "5 is one past the last valid index (4), so it signals 'not found'."
+        },
+        {
+          "l": "(a)(v)",
+          "q": "What is the worst-case time complexity of this search algorithm? Explain your answer.",
+          "ask": "State linear search's worst-case complexity and explain why.",
+          "marks": 3,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Worst case: O(n) / proportional to the length of the list",
+                "marks": 1,
+                "alts": [
+                  [
+                    "o(n)|o( n )|big o of n|order n|order of n"
+                  ],
+                  [
+                    "linear time|proportional"
+                  ]
+                ]
+              },
+              {
+                "text": "Worst case is when the item is not in the list (or last), so each of the n items is checked: at most n comparisons",
+                "marks": 2,
+                "alts": [
+                  [
+                    "not|last|end|absent|missing|isn",
+                    "every|all|each|whole|entire"
+                  ],
+                  [
+                    "n comparison|n checks|n steps|n items|n times|n elements|n names"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Answer O(n) / length of list 1 mark. Explanation (good 2, fair 1): the worst case means the item is not in the list, so each item is searched before it is found or not found; in a list of n items there would be at most n comparisons.",
+          "model": "O(n). In the worst case the name is not in the list (or is the last one), so the loop has to compare it with every one of the n names: n comparisons, so the time grows in direct proportion to the length of the list.",
+          "idea": {
+            "title": "Big O notation",
+            "text": "Big O describes how the number of steps grows as the input size n grows. O(n) means the work grows in direct proportion to n: double the list, double the comparisons.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "The worst case is the input that makes the algorithm do the most work.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "For a linear search that is a name that is not in the list (or is the last one): every item must be checked.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "A list of n items then needs n comparisons, so the time is proportional to n.",
+              "math": [
+                "\\text{comparisons} = n \\;\\Rightarrow\\; O(n)"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "1 mark is for O(n) and 2 for the explanation: say what the worst case is and why it needs n comparisons."
+        },
+        {
+          "l": "(b)(i)",
+          "q": "Binary search is generally regarded as a highly efficient search algorithm.\n\nState one disadvantage of the binary search algorithm.",
+          "ask": "Give one drawback of binary search.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "The data set must be sorted and remain sorted",
+                "marks": 2,
+                "alts": [
+                  [
+                    "sort|order"
+                  ]
+                ]
+              },
+              {
+                "text": "Can be slower than linear search",
+                "marks": 2,
+                "alts": [
+                  [
+                    "slow"
+                  ]
+                ]
+              },
+              {
+                "text": "More complicated than linear search and unnecessary for small data sets",
+                "marks": 2,
+                "alts": [
+                  [
+                    "complicat|complex|harder|difficult|tricky"
+                  ],
+                  [
+                    "small",
+                    "list|data|set"
+                  ]
+                ]
+              },
+              {
+                "text": "Only works on data with a 'less-than' relationship / data has to be of the same type",
+                "marks": 2,
+                "alts": [
+                  [
+                    "less than|less-than"
+                  ],
+                  [
+                    "same type|same data type|one type"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Any suitable answer, 2 marks: the data must be sorted and remain sorted; can be slower than linear search; more complicated and unnecessary for small data sets; only works on data with a 'less-than' relationship; data has to be of the same type.",
+          "model": "The list must already be sorted (and kept sorted) for binary search to work.",
+          "idea": {
+            "title": "Why binary search needs sorted data",
+            "text": "Binary search looks at the middle item and throws away the half that cannot contain the target. That only works if the list is in order, so it knows which half the target must be in.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Recall how binary search chooses a half: if the target is bigger than the middle item, it must be to the right.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "That reasoning is only true if the list is sorted.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So a disadvantage: the data must be sorted first (and kept sorted), which costs extra time.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "Step through how the binary search algorithm finds the integer 28 in the list L shown below.\n```\nindex  0   1   2    3    4    5    6    7\nL      3   7   13   18   28   35   41   50\n       ^             ^                   ^\n       left          mid                 right\n```",
+          "ask": "Trace binary search for 28, giving left, mid and right at each step.",
+          "marks": 5,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 3,
+            "points": [
+              {
+                "text": "Compares 28 with the value at mid (18): it is greater, so the left subarray is dismissed (left = 4)",
+                "marks": 2,
+                "alts": [
+                  [
+                    "18",
+                    "great|bigger|larger|more|higher|discard|dismiss|ignor|eliminat|left|right"
+                  ]
+                ]
+              },
+              {
+                "text": "Compares 28 with the new mid value (35, or 41 depending on the implementation): it is smaller, so the right subarray is dismissed",
+                "marks": 2,
+                "alts": [
+                  [
+                    "35|41",
+                    "less|small|lower|discard|dismiss|ignor|eliminat|left|right"
+                  ]
+                ]
+              },
+              {
+                "text": "Compares 28 with mid (index 4): equal, found; returns index 4",
+                "marks": 1,
+                "alts": [
+                  [
+                    "index 4|position 4|returns 4|return 4|l[4]"
+                  ],
+                  [
+                    "28",
+                    "found|match|equal"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good description 5, good 3, fair 1. 28 > 18 (mid) so the left subarray is dismissed: left = 4, mid = 5 (35; mid may also be 41 depending on implementation, no deduction), right = 7. 28 < 35 so the right subarray is dismissed: right = 4, mid = 4. L[4] = 28: found, returns index 4. A left/mid/right/L[mid] table (0 3 7 18; 4 5 7 35; 4 4 4 28) is also accepted.",
+          "model": "Step 1: left = 0, right = 7, mid = 3, L[3] = 18. 28 > 18, so discard the left half: left = 4. Step 2: mid = (4 + 7) // 2 = 5, L[5] = 35. 28 < 35, so discard the right half: right = 4. Step 3: mid = (4 + 4) // 2 = 4, L[4] = 28: found at index 4.",
+          "idea": {
+            "title": "Binary search",
+            "text": "Binary search repeatedly checks the middle item of the part of the list still in play. If the target is bigger it keeps the right half, if smaller the left half, halving the search area each time until the target is found or nothing is left.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Start: left = 0, right = 7, so mid = 3 and L[3] = 18.",
+              "math": [
+                "\\text{mid} = \\lfloor (0+7)/2 \\rfloor = 3"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "28 > 18, so 28 must be to the right: left = mid + 1 = 4. New mid = 5 and L[5] = 35.",
+              "math": [
+                "\\text{mid} = \\lfloor (4+7)/2 \\rfloor = 5"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "28 < 35, so 28 must be to the left: right = mid − 1 = 4. New mid = 4 and L[4] = 28.",
+              "math": [
+                "\\text{mid} = \\lfloor (4+4)/2 \\rfloor = 4"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "L[4] = 28 matches, so the search stops: 28 is at index 4, found in 3 comparisons.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "A small table of left, mid, right and L[mid] for each step is the clearest answer; rounding mid up (to 41) was also accepted."
+        },
+        {
+          "l": "(b)(iii)",
+          "q": "What is the maximum number of comparisons the binary search algorithm would need to make if the value to be searched for did not exist in a list of 8 items?",
+          "ask": "Find the most comparisons binary search makes on 8 items (value absent).",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Answer:",
+                "answer": {
+                  "type": "number",
+                  "value": 4,
+                  "tol": 0,
+                  "unit": "comparisons"
+                }
+              }
+            ]
+          },
+          "scheme": "4: correct answer 2 marks; any relevant rough work 1 mark.",
+          "model": "4",
+          "idea": {
+            "title": "Halving the list",
+            "text": "Each comparison halves the number of items still to be searched. A list of 8 items halves 8 → 4 → 2 → 1, and the last single item still needs a comparison.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Each comparison discards about half of the items left (plus the middle one just checked).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Worst case, the larger part is kept each time: 8 items, then 4, then 2, then 1, with one comparison at each size.",
+              "math": [
+                "8 \\to 4 \\to 2 \\to 1"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "That is 4 comparisons before nothing is left and the search reports 'not found'.",
+              "math": [
+                "\\log_2 8 + 1 = 3 + 1 = 4"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Try it on L: searching for 60 compares with 18, 35, 41 and 50, then stops: 4 comparisons."
+        },
+        {
+          "l": "(c)",
+          "q": "Why is the study of algorithmic efficiency considered to be important in computer science?",
+          "ask": "Explain why it matters to study how efficient algorithms are.",
+          "marks": 7,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 3,
+            "points": [
+              {
+                "text": "It allows different algorithms to be compared on time and efficiency",
+                "marks": 3,
+                "alts": [
+                  [
+                    "compar",
+                    "algorithm|method|solution|approach|way"
+                  ],
+                  [
+                    "which",
+                    "better|best|faster|quicker|more efficient"
+                  ]
+                ]
+              },
+              {
+                "text": "This matters particularly as data sets grow",
+                "marks": 2,
+                "alts": [
+                  [
+                    "grow|large|big|increas|huge|scale|million|billion",
+                    "data|input|list|set|item|value"
+                  ]
+                ]
+              },
+              {
+                "text": "It allows the best algorithm to be selected for the problem: the fastest and/or using the least memory",
+                "marks": 2,
+                "alts": [
+                  [
+                    "memory|space|resource|storage|energy|power"
+                  ],
+                  [
+                    "best|right|suitable|appropriate|optimal|choose|chos|select|pick",
+                    "problem|task|job|situation"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good description 7, good 5, fair 3. It is important to understand the time and efficiency so that different algorithms can be compared, particularly as data sets grow; it allows the best algorithm to be selected for the specific problem; the best algorithm should be the fastest and/or use the least amount of memory.",
+          "model": "Studying efficiency lets us compare different algorithms for the same problem by how their running time and memory use grow with the size of the input. This matters most for large data sets, where an inefficient algorithm such as an O(n) linear search can be vastly slower than an O(log n) binary search. It lets programmers select the best algorithm for the problem: the one that is fastest and uses the least memory.",
+          "idea": {
+            "title": "Algorithmic efficiency",
+            "text": "Efficiency is how much time (number of steps) and memory an algorithm needs as its input grows. Two correct algorithms can differ hugely: on a million sorted items a linear search may need a million comparisons, a binary search about 20.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Start from Knuth's point: swapping a bad method for a good one gives a big speed-up, so we need a way to tell which is better.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Efficiency analysis (such as Big O) compares algorithms by how their time and memory grow as the data grows.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Give an example: for 1,000,000 items, linear search needs up to 1,000,000 comparisons but binary search only about 20.",
+              "math": [
+                "\\lceil \\log_2 1\\,000\\,000 \\rceil = 20"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "This lets us choose the best algorithm for a problem, the fastest and the one using the least memory, which matters most for large data sets.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "A 7-mark answer needs several developed points: comparing algorithms, large data sets, and choosing the fastest/least-memory option, with an example."
+        }
+      ]
+    },
+    {
+      "id": "2021-Q5",
+      "year": 2021,
+      "q": 5,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        6
+      ],
+      "topic": "Flowchart trace table",
+      "sub": "algorithms",
+      "stem": "The flowchart in Figure 1 is a representation of an algorithm.",
+      "fig": "Figure 1, a flowchart: Start; INITIALISE count, total and n to 0; decision count < 3: if TRUE, INPUT n, LET total = total + n, LET count = count + 1 and loop back; if FALSE, PRINT total/count; Stop.",
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "Using inputs of 7, 3 and 8 for n, complete the trace table showing the execution of the algorithm.",
+          "ask": "Fill in total and count after each input.",
+          "marks": 3,
+          "chapter": 7,
+          "answer": {
+            "type": "table",
+            "head": [
+              "n",
+              "total",
+              "count"
+            ],
+            "rows": [
+              [
+                "0",
+                "0",
+                "0"
+              ],
+              [
+                "7",
+                "7",
+                "1"
+              ],
+              [
+                "3",
+                "10",
+                "2"
+              ],
+              [
+                "8",
+                "18",
+                "3"
+              ]
+            ],
+            "blank": [
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                1
+              ],
+              [
+                3,
+                2
+              ]
+            ]
+          },
+          "scheme": "total 7, 10, 18; count 1, 2, 3. First correct column 2 marks, second column correct 1 mark; or each correct row 1 mark; or one correct value 1 mark.",
+          "model": "n = 7: total 7, count 1. n = 3: total 10, count 2. n = 8: total 18, count 3.",
+          "idea": {
+            "title": "Trace tables",
+            "text": "A trace table records the value of each variable after every step, so you can follow exactly what an algorithm does. Work through the flowchart box by box and write each new value in.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Start: count, total and n are all 0 (the first row). count < 3 is TRUE, so go into the loop.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "INPUT n = 7, then total = 0 + 7 = 7 and count = 0 + 1 = 1.",
+              "math": [
+                "\\text{total} = 0 + 7 = 7"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "count = 1 < 3: INPUT n = 3, total = 7 + 3 = 10, count = 2.",
+              "math": [
+                "\\text{total} = 7 + 3 = 10"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "count = 2 < 3: INPUT n = 8, total = 10 + 8 = 18, count = 3. Now count < 3 is FALSE, so the loop ends.",
+              "math": [
+                "\\text{total} = 10 + 8 = 18"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)",
+          "q": "What output does the algorithm display?",
+          "ask": "Work out what the algorithm prints.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "number",
+            "value": 6,
+            "tol": 0,
+            "unit": ""
+          },
+          "scheme": "18/3 = 6: full correct response 2 marks.",
+          "model": "6 (total/count = 18/3).",
+          "idea": {
+            "title": "What the algorithm does",
+            "text": "The loop adds up three inputs and counts them, then prints total divided by count: it calculates the average (mean) of the three numbers.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "After the loop, total = 18 and count = 3.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The output box prints total/count.",
+              "math": [
+                "\\frac{18}{3} = 6"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So it displays 6, the average of 7, 3 and 8.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "The output is the value 6, not the words 'total/count'; show the division 18/3."
+        }
+      ]
+    },
+    {
+      "id": "2021-Q8",
+      "year": 2021,
+      "q": 8,
+      "section": "A",
+      "total": 5,
+      "pages": [
+        8,
+        9
+      ],
+      "topic": "Unicode and hexadecimal to binary",
+      "sub": "data",
+      "stem": "The Unicode representation for the ‘thumbs up’ emoji character, shown in Figure 2, is the hexadecimal number 1F44D.",
+      "fig": "Figure 2: the thumbs up emoji; in (b) 1F44D with an arrow to a row of 20 bit boxes, the first four filled in as 0001.",
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "Explain why emoji characters are not represented using the American Standard Code for Information Interchange (ASCII).",
+          "ask": "Explain why ASCII cannot be used for emojis.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "ASCII is a 7-bit system and cannot represent more than 128 characters (256 in extended ASCII)",
+                "marks": 2,
+                "alts": [
+                  [
+                    "128|256|7 bit|7-bit|seven bit|8 bit|8-bit|eight bit"
+                  ],
+                  [
+                    "limited|not enough|too few|few|small",
+                    "character|symbol|code|number|space|room"
+                  ]
+                ]
+              },
+              {
+                "text": "ASCII was designed in the 1960s for the characters used then; emojis had not been invented",
+                "marks": 2,
+                "alts": [
+                  [
+                    "1960|1963|before|old|invent|didn't exist|did not exist|not exist|existed"
+                  ]
+                ]
+              },
+              {
+                "text": "Emoji characters are represented using Unicode",
+                "marks": 2,
+                "alts": [
+                  [
+                    "unicode"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Good explanation 2: ASCII is a 7-bit system and cannot represent more than 128 characters (extended ASCII 256); it was published in 1963 with the characters commonly used then (digits, English letters, punctuation, control codes); emojis were not invented then so were not considered; emojis are represented using Unicode.",
+          "model": "ASCII uses only 7 bits, so it has room for just 128 characters (256 in extended ASCII), all chosen in the 1960s for English text and control codes, long before emojis existed. Emojis need many more codes, so they are encoded in Unicode.",
+          "idea": {
+            "title": "ASCII and Unicode",
+            "text": "ASCII has 128 codes for English letters, digits, punctuation and control characters. Unicode gives a unique code to over a million possible characters, covering every writing system and emojis.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Count ASCII's capacity: 7 bits give 128 codes.",
+              "math": [
+                "2^7 = 128"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Those codes were all used in 1963 for English letters, digits, punctuation and control codes; emojis did not exist then.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The thumbs up's code, 1F44D, is 128077 in denary, far beyond ASCII's top code of 127, so it needs Unicode.",
+              "math": [
+                "\\text{1F44D}_{16} = 128\\,077 > 127"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)",
+          "q": "Express the hexadecimal number 1F44D as a binary number. The first four bits have been completed for you.",
+          "ask": "Convert 1F44D to binary, four bits for each hex digit.",
+          "marks": 3,
+          "chapter": 7,
+          "answer": {
+            "type": "text",
+            "value": "00011111010001001101",
+            "accept": [
+              "11111010001001101"
+            ]
+          },
+          "scheme": "0001 1111 0100 0100 1101. Correct 3, half correct 2, response with some merit 1.",
+          "model": "0001 1111 0100 0100 1101",
+          "idea": {
+            "title": "Hex to binary",
+            "text": "Each hex digit is exactly 4 bits, so convert each digit on its own into a 4-bit group and write the groups side by side in the same order.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Write each hex digit's denary value: 1, F = 15, 4, 4, D = 13.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Convert each to 4 bits using the place values 8, 4, 2, 1.",
+              "math": [
+                "1 = \\texttt{0001}",
+                "\\text{F} = 15 = 8+4+2+1 = \\texttt{1111}",
+                "4 = \\texttt{0100}",
+                "\\text{D} = 13 = 8+4+1 = \\texttt{1101}"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Join the groups in order.",
+              "math": [
+                "\\text{1F44D}_{16} = \\texttt{0001}\\;\\texttt{1111}\\;\\texttt{0100}\\;\\texttt{0100}\\;\\texttt{1101}_2"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Keep all four bits in every group (4 is 0100, not 100), or the digits shift and the answer is wrong."
+        }
+      ]
+    },
+    {
+      "id": "2021-Q14",
+      "year": 2021,
+      "q": 14,
+      "section": "B",
+      "total": 30,
+      "pages": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "topic": "Matchstick game strategy",
+      "sub": "thinking",
+      "stem": "Consider a two-player game in which each player takes alternate turns at removing matchsticks from a board. The rules of the game are simple:\n- at each turn a player must remove either one or two matchsticks\n- the player who takes the last matchstick wins\n\nWinning and losing positions are defined in terms of the number of matchsticks left on the board.\n\nA winning position (W) is a position from which a player cannot lose if she/he makes all the optimal moves until the end of the game. For example, 2 is a winning position because if the player whose turn it is, makes the optimal move (i.e. removes the two remaining matchsticks) they will win that game.\n\nA losing position (L) is a position from which a player cannot win (assuming that their opponent makes all the optimal moves until the game is over).\n\nThe win/loss table below depicts winning and losing positions for the scenarios where there are 0, 1, 2, 3 or 4 matchsticks left on the board.\n\nNo. of matchsticks remaining: 0, 1, 2, 3, 4\nPosition (W or L): L, W, W, L, W",
+      "fig": "Photo of a pile of matchsticks; win/loss tables for 0-4 (L W W L W), 0-6 and 0-9 matchsticks; in (b)(i) a game tree from state (1, 2) with the AX1 branch complete.",
+      "parts": [
+        {
+          "l": "(a)(i)",
+          "q": "Explain why 3 is a losing position.",
+          "ask": "Show that every move from 3 leaves the opponent winning.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "The only options are to take 1 or 2; taking 1 leaves 2 and taking 2 leaves 1, both winning positions for the opponent",
+                "marks": 2,
+                "alts": [
+                  [
+                    "1|one",
+                    "2|two",
+                    "opponent|other player|win"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 2: the only options are to take 1 or 2 matchsticks and both leave the opponent in a winning position: taking 1 leaves 2 (the opponent takes both and wins); taking 2 leaves 1, also a winning position for the opponent.",
+          "model": "From 3 you must take 1 or 2. Taking 1 leaves 2 and taking 2 leaves 1, and both 2 and 1 are winning positions for your opponent, who just takes the rest. Every move loses, so 3 is a losing position.",
+          "idea": {
+            "title": "Winning and losing positions",
+            "text": "A position is losing if every possible move leaves the opponent in a winning position. It is winning if at least one move leaves the opponent in a losing position.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "List the moves from 3: take 1 (leaving 2) or take 2 (leaving 1).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Look both up in the table: 2 is W and 1 is W, and it is now the opponent's turn.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Every move hands the opponent a winning position, so 3 is L.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(ii)",
+          "q": "Explain why 4 is a winning position.",
+          "ask": "Find a move from 4 that leaves the opponent losing.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "The player can take 1 matchstick to leave the opponent with 3, a losing position",
+                "marks": 2,
+                "alts": [
+                  [
+                    "1|one",
+                    "3|three"
+                  ],
+                  [
+                    "los",
+                    "opponent|leav|left"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 2: 4 is a winning position because the player can take 1 matchstick to leave the opponent with 3, which is a losing position (part (i)).",
+          "model": "From 4, take 1 matchstick. That leaves your opponent with 3, which is a losing position (part (i)), so you can force a win.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Moves from 4: take 1 (leaving 3) or take 2 (leaving 2).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "3 is L for the opponent, so taking 1 is a winning move.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "One move to an L position is enough to make 4 a W.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(iii)",
+          "q": "Calculate whether 5 and 6 are winning or losing positions and place your answers in the table below.",
+          "ask": "Work out W or L for 5 and 6 matchsticks.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "table",
+            "head": [
+              "No. of matchsticks remaining",
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6"
+            ],
+            "rows": [
+              [
+                "Position (W or L)",
+                "L",
+                "W",
+                "W",
+                "L",
+                "W",
+                "W",
+                "L"
+              ]
+            ],
+            "blank": [
+              [
+                0,
+                6
+              ],
+              [
+                0,
+                7
+              ]
+            ]
+          },
+          "scheme": "5: W (taking two leaves the next player in a losing position); 6: L (any move, take 1 or 2, leaves the next player in a winning position). Each correct response 1 mark.",
+          "model": "5 is W: take 2 to leave 3 (L). 6 is L: taking 1 leaves 5 (W) and taking 2 leaves 4 (W).",
+          "idea": null,
+          "steps": [
+            {
+              "say": "5: taking 2 leaves 3, which is L for the opponent, so 5 is W.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "6: taking 1 leaves 5 (W) and taking 2 leaves 4 (W). Every move gives the opponent a W, so 6 is L.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The pattern so far: L at 0, 3 and 6, the multiples of 3.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(iv)",
+          "q": "Assume you are about to start a new game with 21 matchsticks. If your opponent offered you the choice of going first or second, which would you choose? Justify your answer.",
+          "ask": "Decide whether to go first or second with 21 and justify it.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Decision: ask the opponent to go first (go second)",
+                "marks": 1,
+                "alts": [
+                  [
+                    "second|2nd"
+                  ],
+                  [
+                    "let|ask|allow|make",
+                    "first"
+                  ]
+                ]
+              },
+              {
+                "text": "Reason: all multiples of 3 are losing positions, and 21 is a multiple of 3",
+                "marks": 1,
+                "alts": [
+                  [
+                    "multipl|divisib|divid"
+                  ],
+                  [
+                    "3|three",
+                    "los"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Correct decision 1 mark: ask the opponent to go first (go second). Justification 1 mark: 0, 3, 6, 9 etc. are losing positions; all multiples of 3 are losing positions, and 21 is a multiple of 3, so it is a losing position.",
+          "model": "I would go second. The losing positions are the multiples of 3 (0, 3, 6, 9, ...), and 21 = 3 × 7 is a multiple of 3, so whoever moves first from 21 is in a losing position if the other player plays well.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Extend the pattern: the losing positions are 0, 3, 6, 9, ..., the multiples of 3.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "21 = 3 × 7, so 21 is a losing position for the player about to move.",
+              "math": [
+                "21 = 3 \\times 7"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So let the opponent go first, then always take enough to leave them a multiple of 3.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(v)",
+          "q": "What strategy would you recommend in a game that started off with 20 matchsticks? Justify your answer.",
+          "ask": "Give a winning strategy for a 20-matchstick game and justify it.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "Leave the opponent a multiple of 3 every turn: take 2 first (leaving 18), then take the opposite number to the opponent (they take 1, take 2; they take 2, take 1)",
+                "marks": 2,
+                "alts": [
+                  [
+                    "multipl|divisib"
+                  ],
+                  [
+                    "18"
+                  ],
+                  [
+                    "opposite|3 minus|add up to 3|adds up to 3|total of 3|make 3|makes 3|sum to 3|add to 3|adds to 3"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 2: leave the opponent with a multiple of 3 matchsticks on every turn, so start by taking 2 (leaving 18), then for the rest of the game take the opposite number to the opponent: if they take 1, take 2; if they take 2, take 1.",
+          "model": "Go first and take 2, leaving 18, a multiple of 3. After that always take the opposite of your opponent (if they take 1, take 2; if they take 2, take 1), so each round removes 3 and they always face a multiple of 3, a losing position.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "20 is not a multiple of 3, so it is a winning position for the player who moves first.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Take 2 to leave 18 = 3 × 6, a losing position for the opponent.",
+              "math": [
+                "20 - 2 = 18 = 3 \\times 6"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Then each turn take 3 minus what they took, so together you remove 3 every round and they always face a multiple of 3, all the way down to 0.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(vi)",
+          "q": "Assume the rules of the game are amended so that players can remove 3 matches (as well as 1 or 2). Calculate whether or not each position in a game with 9 matchsticks is a winning or losing position and place your answers in the table below.",
+          "ask": "Work out W or L for 1 to 9 matchsticks when 1, 2 or 3 can be taken.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "table",
+            "head": [
+              "No. of matchsticks remaining",
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9"
+            ],
+            "rows": [
+              [
+                "Position (W or L)",
+                "L",
+                "W",
+                "W",
+                "W",
+                "L",
+                "W",
+                "W",
+                "W",
+                "L",
+                "W"
+              ]
+            ],
+            "blank": [
+              [
+                0,
+                2
+              ],
+              [
+                0,
+                3
+              ],
+              [
+                0,
+                4
+              ],
+              [
+                0,
+                5
+              ],
+              [
+                0,
+                6
+              ],
+              [
+                0,
+                7
+              ],
+              [
+                0,
+                8
+              ],
+              [
+                0,
+                9
+              ],
+              [
+                0,
+                10
+              ]
+            ]
+          },
+          "scheme": "L W W W L W W W L W for 0-9. All W's and L's correct 2 marks; 4 correct responses or all W's or all L's correct 1 mark.",
+          "model": "0 L, 1 W, 2 W, 3 W, 4 L, 5 W, 6 W, 7 W, 8 L, 9 W.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "0 is L. With moves of 1, 2 or 3, positions 1, 2 and 3 are W: take them all.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "4: every move leaves 3, 2 or 1, all W for the opponent, so 4 is L.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "5, 6 and 7 are W (move to 4); 8 is L (every move leaves 7, 6 or 5); 9 is W (take 1 to leave 8).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The losing positions are now the multiples of 4.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Build the table up from 0 one position at a time, checking each against the positions 1, 2 and 3 below it."
+        },
+        {
+          "l": "(b)(i)",
+          "q": "Consider a variation of the game described in part (a) with two key differences: the matchsticks are initially arranged into two separate piles on the board and a player can remove any number of matchsticks from a single pile on their go. We will call the two piles pile X and pile Y.\n\nFor example, in a game where pile X contains 10 matchsticks and pile Y contains 9 matchsticks, a player may decide to remove 9 matchsticks from pile Y on their go.\n\nThe player who removes the last matchstick(s) wins the game.\n\nBelow is a partially completed diagram for an end game scenario in which it is player A’s turn and there is only one matchstick left in pile X and two matchsticks left in pile Y (denoted by 1, 2).\n\nThe purpose of the diagram is to depict the eventual outcome for every possible move from this point in the game. The left-hand branch of the diagram has been completed covering all eventualities if player A removes 1 matchstick from pile X (denoted by AX1).\n\nComplete the diagram to illustrate all possible moves and show who wins in each case.",
+          "ask": "Complete the game tree from (1, 2): the state after each move and the winner.",
+          "marks": 5,
+          "chapter": 7,
+          "answer": {
+            "type": "table",
+            "head": [
+              "Path",
+              "A moves",
+              "State",
+              "B moves",
+              "State",
+              "A moves",
+              "State",
+              "Winner"
+            ],
+            "rows": [
+              [
+                "1",
+                "AX1",
+                "0, 2",
+                "BY1",
+                "0, 1",
+                "AY1",
+                "0, 0",
+                "A"
+              ],
+              [
+                "2",
+                "AX1",
+                "0, 2",
+                "BY2",
+                "0, 0",
+                "-",
+                "-",
+                "B"
+              ],
+              [
+                "3",
+                "AY1",
+                "1, 1",
+                "BX1",
+                "0, 1",
+                "AY1",
+                "0, 0",
+                "A"
+              ],
+              [
+                "4",
+                "AY1",
+                "1, 1",
+                "BY1",
+                "1, 0",
+                "AX1",
+                "0, 0",
+                "A"
+              ],
+              [
+                "5",
+                "AY2",
+                "1, 0",
+                "BX1",
+                "0, 0",
+                "-",
+                "-",
+                "B"
+              ]
+            ],
+            "blank": [
+              [
+                2,
+                2
+              ],
+              [
+                2,
+                4
+              ],
+              [
+                2,
+                5
+              ],
+              [
+                2,
+                6
+              ],
+              [
+                2,
+                7
+              ],
+              [
+                3,
+                2
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                3,
+                5
+              ],
+              [
+                3,
+                6
+              ],
+              [
+                3,
+                7
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                4,
+                4
+              ],
+              [
+                4,
+                7
+              ]
+            ]
+          },
+          "scheme": "Full correct solution 5 marks: AY1 → (1, 1), then BX1 → (0, 1), AY1 → (0, 0) player A wins, or BY1 → (1, 0), AX1 → (0, 0) player A wins; AY2 → (1, 0), BX1 → (0, 0) player B wins. Otherwise 2 marks for the 1st full correct path, 2 for the 2nd, 1 for the 3rd (or 1 mark for correct pairs in a path).",
+          "model": "AY1 → (1, 1); then BX1 → (0, 1), AY1 → (0, 0): A wins; or BY1 → (1, 0), AX1 → (0, 0): A wins. AY2 → (1, 0); then BX1 → (0, 0): B wins.",
+          "idea": {
+            "title": "Game trees",
+            "text": "A game tree shows every possible move from a position as a branch and every resulting position as a node, until each game ends. Reading the end of each path tells you who wins down that path.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "From (1, 2), A's other moves take from pile Y: AY1 leaves (1, 1) and AY2 leaves (1, 0).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "From (1, 1), B can play BX1 → (0, 1) or BY1 → (1, 0). Either way A takes the last matchstick (AY1 or AX1) → (0, 0): A wins.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "From (1, 0), B's only move is BX1 → (0, 0): B takes the last matchstick and wins.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Keep the (X, Y) notation and label every arrow with the player, the pile and the number taken, like the given branch."
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "Based on the completed diagram which is player A’s best move? Why?",
+          "ask": "Pick player A's best move from (1, 2) and say why.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Player A’s best move:",
+                "answer": {
+                  "type": "text",
+                  "value": "AY1",
+                  "accept": [
+                    "Y1",
+                    "Take 1 from pile Y",
+                    "Take one from pile Y",
+                    "Remove 1 from pile Y",
+                    "Remove one from pile Y",
+                    "1 from pile Y"
+                  ]
+                }
+              },
+              {
+                "label": "Reason:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "It is the only move that leads to certain victory for A",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "only|always|certain|guarantee|every|both|whatever|no matter|either|sure",
+                          "win|victor"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "Best move AY1, 1 mark; reason 1 mark: it is the only move that leads to certain victory for A.",
+          "model": "Player A’s best move: AY1. Reason: it leaves (1, 1), and whichever matchstick B takes, A takes the last one, so it is the only move that guarantees A wins.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Check each of A's first moves on the tree.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "AX1 can lose (if B plays BY2) and AY2 always loses (B plays BX1).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "After AY1, both of B's moves lead to A winning, so AY1 is the only move that guarantees victory.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(iii)",
+          "q": "Describe a winning move from state (2, 3).",
+          "ask": "Describe a winning move from (2, 3).",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "AY1: take 1 from pile Y, leaving (2, 2); every move B makes from (2, 2) leads to certain victory for A",
+                "marks": 2,
+                "alts": [
+                  [
+                    "ay1|y1"
+                  ],
+                  [
+                    "pile y",
+                    "1|one"
+                  ],
+                  [
+                    "2, 2|2,2|(2,2)|(2, 2)|equal|same|even|level"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good description 2: a winning move from (2, 3) is AY1, which leaves B in state (2, 2). From (2, 2) B can play BX1 → (1, 2) or BY1 → (2, 1), certain victory for A (as in part (ii)), or BX2 → (0, 2) or BY2 → (2, 0), also certain victories for A.",
+          "model": "Take 1 matchstick from pile Y (AY1), leaving (2, 2). If B then takes a whole pile, A takes the other pile and wins; if B takes 1, leaving (1, 2) or (2, 1), A wins as shown in part (ii).",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Look for a move that leaves the opponent equal piles: from (2, 3), take 1 from Y to leave (2, 2).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Check B's replies: if B takes 2 from a pile, A takes the other pile and wins; if B takes 1, the state is (1, 2) or (2, 1), which A wins by the tree in parts (i) and (ii).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So AY1 is a winning move.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(iv)",
+          "q": "Hence, or otherwise, describe a winning strategy from state $(n, m)$, where $n \\neq m$.",
+          "ask": "Describe a winning strategy from two unequal piles.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "Even the piles: leave (n, n) or (m, m); for m > n take m − n matchsticks, for m < n take n − m",
+                "marks": 2,
+                "alts": [
+                  [
+                    "equal|same|even|level|n, n|(n, n)|n,n|(n,n)|m, m|(m, m)"
+                  ],
+                  [
+                    "differen",
+                    "bigger|larger|more|greater"
+                  ],
+                  [
+                    "m - n|m-n|n - m|n-m|m − n|n − m"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good description 2: even the piles, leaving (n, n) or (m, m): for m > n take m − n matchsticks; for m < n take n − m.",
+          "model": "Take the difference between the piles from the bigger pile (m − n matchsticks if m > n) so the piles are equal. Then after every move by the opponent, make the same move on the other pile so the piles stay equal; you will take the last matchstick.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "Parts (ii) and (iii) show that leaving equal piles puts the opponent in a losing position.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "If m > n, take m − n from the bigger pile to leave (n, n).",
+              "math": [
+                "(n, m) \\to (n, n) \\text{ by taking } m - n"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Then mirror the opponent: whatever they take from one pile, take the same from the other, so the piles stay equal until you take the last matchstick.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(v)",
+          "q": "Explain why $(n, n, n)$ is a winning position in a game where 3 piles are used?",
+          "ask": "Explain why three equal piles is a winning position.",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "Remove one of the piles, leaving (n, n), equal piles",
+                "marks": 2,
+                "alts": [
+                  [
+                    "whole|entire|all|one|empty|clear|complete",
+                    "pile"
+                  ],
+                  [
+                    "n, n|(n, n)|n,n|(n,n)|two equal|2 equal"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good description 2: since (n, n) is the position to leave the opponent, a winning strategy would be to remove one of the piles.",
+          "model": "The player to move removes one whole pile, leaving two equal piles (n, n). By part (iv), equal piles are a losing position for the opponent: whatever they take from one pile, you take the same from the other, so you take the last matchstick.",
+          "idea": null,
+          "steps": [
+            {
+              "say": "From (n, n, n), you may take any number from one pile, including the whole pile.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Take a whole pile: the opponent faces (n, n), two equal piles.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "From equal piles the mirroring strategy of part (iv) wins for you, so (n, n, n) is a winning position.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)",
+          "q": "Explain the use of any one of decomposition, abstraction or pattern recognition in developing solutions to problems such as those in parts (a) and (b). You may refer to the solutions you used in answering parts (a) and (b).",
+          "ask": "Explain how one computational thinking skill helped solve the game.",
+          "marks": 5,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "Abstraction: ignoring other details to focus on one, and using representations for physical objects/actions: (1, 2) for the piles, A and B for players, AX1 for a move, win/loss tables and tree diagrams",
+                "marks": 5,
+                "alts": [
+                  [
+                    "ignor|irrelevant|unnecessary|detail|hide|hid",
+                    "focus|import|relevant|need|essential|key|matter"
+                  ],
+                  [
+                    "represent|stand for|symbol|notation",
+                    "pile|matchstick|move|player|state|position"
+                  ]
+                ]
+              },
+              {
+                "text": "Decomposition: breaking the problem down to work out every possible outcome, e.g. starting from 0 matchsticks (a losing position) and building up a winning strategy",
+                "marks": 5,
+                "alts": [
+                  [
+                    "break|broke|split|divid",
+                    "small|part|step|sub|piece|down"
+                  ],
+                  [
+                    "build|built|work",
+                    "up|0|zero"
+                  ]
+                ]
+              },
+              {
+                "text": "Pattern recognition: seeing that multiples of 3 are losing positions, or that keeping both piles equal wins, and generalising to a strategy",
+                "marks": 5,
+                "alts": [
+                  [
+                    "multipl",
+                    "3|three|4|four"
+                  ],
+                  [
+                    "equal|same|even",
+                    "pile"
+                  ],
+                  [
+                    "repeat|generalis|generaliz|similar|pattern",
+                    "los|win|position|strategy|3|three|multipl"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Best answer marked: very good explanation 5, good 3, fair 1. Abstraction: ignoring other details to focus on one; representations such as (1, 2), A and B, AX1, win/loss tables and tree diagrams. Decomposition: breaking the problem down to work out every outcome; starting from zero matchsticks as a losing position and building up a strategy. Pattern recognition: multiples of 3 are losing positions; keeping both piles equal generalises to (n, n), (n, n, n) and more piles.",
+          "model": "Pattern recognition: working out W and L for 0, 1, 2, ... matchsticks showed that the losing positions were 0, 3, 6, 9, ..., every multiple of 3. Spotting this pattern meant I did not have to work out every position separately: I could see at once that 21 is a losing position (so go second) and that from 20 I should take 2 to leave 18 and then always leave a multiple of 3. In the two-pile game, noticing that equal piles always lose for the player to move gave the general strategy of evening the piles.",
+          "idea": {
+            "title": "Three computational thinking skills",
+            "text": "Decomposition breaks a problem into smaller parts; abstraction keeps only the essential details (writing (1, 2) instead of drawing matchsticks); pattern recognition spots repeating features (multiples of 3 lose) so that one solution can be generalised.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Choose one of the three skills and say in a sentence what it is.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Link it to something you actually did in (a) or (b): for pattern recognition, L at 0, 3, 6 shows that the multiples of 3 lose.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Show how it built the solution: it gave the strategies for 21 and 20 matchsticks without working out every position.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Other choices work too: decomposition (building up from 0 matchsticks one position at a time) or abstraction ((1, 2) notation, W/L tables and trees instead of real matchsticks).",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Explain only one skill, and tie it to a specific step in parts (a) or (b); a general definition alone earns little."
+        }
+      ]
+    }
+  ]
+}

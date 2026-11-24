@@ -1,0 +1,4150 @@
+{
+  "chapter": 7,
+  "title": "Computational thinking, algorithms and data representation",
+  "questions": [
+    {
+      "id": "2024-Q3",
+      "year": 2024,
+      "q": 3,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        4
+      ],
+      "topic": "Decimal to 8-bit binary",
+      "sub": "data",
+      "stem": "",
+      "fig": null,
+      "parts": [
+        {
+          "l": "",
+          "q": "Express the decimal number 121 as an 8-bit binary number.",
+          "ask": "Convert 121 into an 8-bit binary number",
+          "marks": 6,
+          "chapter": 7,
+          "answer": {
+            "type": "text",
+            "value": "01111001",
+            "accept": [
+              "1111001"
+            ]
+          },
+          "scheme": "0111 1001: 6 marks with the leading zero, 5 marks without it; deduct 2 marks for each calculation error; 2 marks for a response with some merit.",
+          "model": "121 = 64 + 32 + 16 + 8 + 1, so 121 = 01111001.",
+          "idea": {
+            "title": "Place values",
+            "text": "Each bit of an 8-bit number has a place value: 128, 64, 32, 16, 8, 4, 2, 1. A 1 means that value is part of the total and a 0 means it isn't.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Write out the eight place values, from 128 down to 1.",
+              "math": [
+                "128\\quad 64\\quad 32\\quad 16\\quad 8\\quad 4\\quad 2\\quad 1"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "128 is bigger than 121, so the first bit is 0. 64 fits, leaving 57.",
+              "math": [
+                "121 - 64 = 57"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Keep taking away the biggest place value that fits: 32, then 16, then 8, then 1.",
+              "math": [
+                "57 - 32 = 25",
+                "25 - 16 = 9",
+                "9 - 8 = 1",
+                "1 - 1 = 0"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Put a 1 under each value you used and a 0 under the rest (128, 4 and 2).",
+              "math": [
+                "121 = 64 + 32 + 16 + 8 + 1",
+                "\\texttt{01111001}"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "It asks for 8 bits, so keep the leading 0: leaving it off costs a mark."
+        }
+      ]
+    },
+    {
+      "id": "2024-Q4",
+      "year": 2024,
+      "q": 4,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        4
+      ],
+      "topic": "Disc-swapping puzzle",
+      "sub": "algorithms",
+      "stem": "Figure 1 shows a row of black and white discs with their position numbers shown under each square. There are only two ways to move a disc:\n1. Move into an empty square one position to the left or right, for example 1 → 2 means move the disc from square 1 to square 2.\n2. Jump in either direction over a single adjacent disc into an empty space immediately beyond, for example 3 → 1 means move the disc from square 3 to square 1, jumping over a disc in square 2.",
+      "fig": "Figure 1 (start state): five squares numbered 0 to 4 holding white, white, empty, black, black. Figure 2 (end state): black, black, empty, white, white.",
+      "parts": [
+        {
+          "l": "",
+          "q": "Write a sequence of steps, or an algorithm, that swaps all the white discs with the black discs so that the row looks like that shown in Figure 2. You can only move a single disc in each step.",
+          "ask": "List the moves (from → to) that swap the white and black discs",
+          "marks": 6,
+          "chapter": 7,
+          "answer": {
+            "type": "text",
+            "value": "1→2, 3→1, 4→3, 2→4, 0→2, 1→0, 3→1, 2→3",
+            "accept": [
+              "1→2 3→1 4→3 2→4 0→2 1→0 3→1 2→3",
+              "1->2, 3->1, 4->3, 2->4, 0->2, 1->0, 3->1, 2->3",
+              "1->2 3->1 4->3 2->4 0->2 1->0 3->1 2->3",
+              "1-2, 3-1, 4-3, 2-4, 0-2, 1-0, 3-1, 2-3",
+              "1-2 3-1 4-3 2-4 0-2 1-0 3-1 2-3",
+              "3→2, 1→3, 0→1, 2→0, 4→2, 3→4, 1→3, 2→1",
+              "3→2 1→3 0→1 2→0 4→2 3→4 1→3 2→1",
+              "3->2, 1->3, 0->1, 2->0, 4->2, 3->4, 1->3, 2->1",
+              "3->2 1->3 0->1 2->0 4->2 3->4 1->3 2->1",
+              "3-2, 1-3, 0-1, 2-0, 4-2, 3-4, 1-3, 2-1",
+              "3-2 1-3 0-1 2-0 4-2 3-4 1-3 2-1"
+            ]
+          },
+          "scheme": "Full correct solution 6 marks, e.g. 1→2, 3→1, 4→3, 2→4, 0→2, 1→0, 3→1, 2→3; four or more correct steps in the correct order 4 marks; a response with some merit 2 marks.",
+          "model": "1→2, 3→1, 4→3, 2→4, 0→2, 1→0, 3→1, 2→3",
+          "idea": {
+            "title": "A sequence of moves",
+            "text": "A puzzle like this is solved by an algorithm: a sequence of legal moves from the start state to the end state. The trick is to keep the colours alternating, so a disc always has an empty square to slide into or jump to.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Start: W W _ B B. Slide a white disc into the gap: 1→2 gives W _ W B B.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "A black disc jumps over the white one into the gap: 3→1 gives W B W _ B. Then 4→3 slides the other black disc: W B W B _.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Now the whites jump right over the blacks: 2→4 gives W B _ B W, and 0→2 gives _ B W B W.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The blacks move left: 1→0 slides (B _ W B W), then 3→1 jumps (B B W _ W).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Last, 2→3 slides the white disc: B B _ W W, which is Figure 2. That is 8 moves.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Write each move in the paper's own from → to format and check the row after every move. The mirror solution, starting 3→2, is just as good."
+        }
+      ]
+    },
+    {
+      "id": "2024-Q11",
+      "year": 2024,
+      "q": 11,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        8
+      ],
+      "topic": "Applying a pseudocode algorithm",
+      "sub": "algorithms",
+      "stem": "",
+      "fig": "Pseudocode that keeps swapping the leftmost square with the rightmost triangle until the square is to the right of the triangle; Figure 4 is a row of ten boxes: square, triangle, triangle, square, triangle, square, triangle, triangle, square, square; below it two blank rows of ten boxes (Step 1, Step 2).",
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "Apply the algorithm shown in pseudo code below to the row of shapes shown in Figure 4 and illustrate your answer in the boxes provided.\n```\nproblem_solved ← FALSE\nLOOP until problem_solved IS TRUE\n   square ← find the leftmost square\n   triangle ← find the rightmost triangle\n   IF position of square IS GREATER THAN position of triangle\n      problem solved ← TRUE\n   ELSE\n      swap(square, triangle)\n```",
+          "ask": "Show the row after each swap, using S for a square and T for a triangle",
+          "marks": 4,
+          "chapter": 7,
+          "answer": {
+            "type": "table",
+            "head": [
+              "",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10"
+            ],
+            "rows": [
+              [
+                "Figure 4",
+                "S",
+                "T",
+                "T",
+                "S",
+                "T",
+                "S",
+                "T",
+                "T",
+                "S",
+                "S"
+              ],
+              [
+                "Step 1:",
+                "T",
+                "T",
+                "T",
+                "S",
+                "T",
+                "S",
+                "T",
+                "S",
+                "S",
+                "S"
+              ],
+              [
+                "Step 2:",
+                "T",
+                "T",
+                "T",
+                "T",
+                "T",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S"
+              ]
+            ],
+            "blank": [
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                1,
+                4
+              ],
+              [
+                1,
+                5
+              ],
+              [
+                1,
+                6
+              ],
+              [
+                1,
+                7
+              ],
+              [
+                1,
+                8
+              ],
+              [
+                1,
+                9
+              ],
+              [
+                1,
+                10
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                2,
+                4
+              ],
+              [
+                2,
+                5
+              ],
+              [
+                2,
+                6
+              ],
+              [
+                2,
+                7
+              ],
+              [
+                2,
+                8
+              ],
+              [
+                2,
+                9
+              ],
+              [
+                2,
+                10
+              ]
+            ]
+          },
+          "scheme": "2 marks for each correct step (2 marks for a response with some merit). Step 1 swaps the square in position 0 with the triangle in position 7; step 2 swaps the square in position 4 with the triangle in position 6, leaving all the triangles to the left of all the squares.",
+          "model": "Step 1: T T T S T S T S S S (the first square swapped with the last triangle). Step 2: T T T T T S S S S S (the next square swapped with the next triangle).",
+          "idea": {
+            "title": "Trace it by hand",
+            "text": "To apply an algorithm, follow its lines exactly, one loop at a time, and write down the state after each change. The loop ends as soon as its condition becomes true.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Number the boxes 1 to 10. The row starts as S T T S T S T T S S.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Loop 1: the leftmost square is in box 1 and the rightmost triangle is in box 8. 1 is not greater than 8, so swap them: T T T S T S T S S S.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Loop 2: the leftmost square is now in box 4 and the rightmost triangle in box 7. Swap them: T T T T T S S S S S.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Loop 3: the leftmost square is in box 6 and the rightmost triangle in box 5. 6 is greater than 5, so problem_solved becomes TRUE and the loop stops. Only two swaps were made.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Draw a row only after a swap: the final check changes nothing, which is why there are just two rows."
+        },
+        {
+          "l": "(b)",
+          "q": "The algorithm described in part (a) provides a general solution to the problem it solves. Explain what is meant by the phrase ‘a general solution’.",
+          "ask": "Explain what 'a general solution' means",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "A general solution provides a broad approach that can be applied to different situations",
+                "marks": 2,
+                "alts": [
+                  [
+                    "different|any|other|many|every",
+                    "situation|problem|case|row|arrangement|order"
+                  ]
+                ]
+              },
+              {
+                "text": "A general solution will always produce the correct output regardless of the input",
+                "marks": 2,
+                "alts": [
+                  [
+                    "any|regardless|whatever|all|every",
+                    "input"
+                  ],
+                  [
+                    "always",
+                    "correct|work"
+                  ]
+                ]
+              },
+              {
+                "text": "The algorithm does not depend on the size of the input, e.g. the number of squares and triangles",
+                "marks": 2,
+                "alts": [
+                  [
+                    "size"
+                  ],
+                  [
+                    "length"
+                  ],
+                  [
+                    "how many"
+                  ],
+                  [
+                    "number",
+                    "shape|square|triangle|item|box"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 2 marks, fair 1: a general solution is a broad approach that can be applied to different situations; it always produces the correct output regardless of the input; it does not depend on the size of the input (e.g. the number of squares and triangles).",
+          "model": "It means the algorithm works for any input, not just this row: it will move all the triangles to the left of all the squares for any arrangement and any number of shapes.",
+          "idea": {
+            "title": "Works for any input",
+            "text": "A general solution solves every case of a problem, not just one example. It doesn't rely on the particular input, so the same steps work whatever the arrangement or size.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Look at the pseudocode: it never mentions 10 boxes or any particular positions.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "It only says 'find the leftmost square' and 'find the rightmost triangle', which you can do in any row of shapes.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So the same steps would sort a row of 5 shapes or 500, in any order: that is what a general solution means.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Link your answer to this algorithm (any number or arrangement of squares and triangles) to show clear understanding."
+        }
+      ]
+    },
+    {
+      "id": "2024-Q14",
+      "year": 2024,
+      "q": 14,
+      "section": "B",
+      "total": 38,
+      "pages": [
+        15,
+        16,
+        17
+      ],
+      "topic": "Flowcharts and bubble sort",
+      "sub": "algorithms",
+      "stem": "",
+      "fig": "Figure 6: a flowchart Start → input a, b ('Enter two values') → t ← a → a ← b → b ← t → output a, b → Stop; then Python code for a bubble sort of values = [50, 70, 30, 60, 20], and a table to fill in the list after each of the five passes.",
+      "parts": [
+        {
+          "l": "(a)(i)",
+          "q": "The flowchart, shown in Figure 6 below, describes an algorithm that reads two values, swaps them, and then displays their new values.\n\nState the names of the two input variables.",
+          "ask": "Name the two input variables in the flowchart",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Input variable 1:",
+                "answer": {
+                  "type": "text",
+                  "value": "a",
+                  "accept": [
+                    "b"
+                  ]
+                }
+              },
+              {
+                "label": "Input variable 2:",
+                "answer": {
+                  "type": "text",
+                  "value": "b",
+                  "accept": [
+                    "a"
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "1 mark each: a and b.",
+          "model": "Input variable 1: a. Input variable 2: b.",
+          "idea": {
+            "title": "The input symbol",
+            "text": "In a flowchart a parallelogram is an input or output step. The variables named in the input parallelogram are the ones whose values are read in.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Find the parallelogram near the top of the flowchart: it says a, b ← INPUT.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The variables given their values by INPUT are the input variables: a and b.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "t is not an input: it gets its value inside the algorithm (t ← a).",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(ii)",
+          "q": "Explain the purpose of the variable t.",
+          "ask": "Explain why the flowchart needs the variable t",
+          "marks": 3,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "t is a temporary variable used to store the value of a",
+                "marks": 3,
+                "alts": [
+                  [
+                    "temporar"
+                  ],
+                  [
+                    "store|hold|keep|save|copy",
+                    "value",
+                    "first|original|old"
+                  ]
+                ]
+              },
+              {
+                "text": "Without t, the contents of a would be lost when b is assigned to a",
+                "marks": 3,
+                "alts": [
+                  [
+                    "lost|lose|overwrit|replac|destroy|erase"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 3 marks, fair 2: t is a temporary variable used to store the value of a; without t the contents of a would be lost when b is assigned to a.",
+          "model": "t is a temporary variable that holds a copy of a's value, so that when a is overwritten by b (a ← b) the original value of a is not lost and can then be put into b (b ← t).",
+          "idea": {
+            "title": "The temporary swap",
+            "text": "Assigning a ← b overwrites a, so its old value would be gone for good. Saving it first in a temporary variable lets you finish the swap.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Try the swap without t: if a = 3 and b = 5, a ← b makes a = 5, then b ← a makes b = 5 as well. The 3 is lost.",
+              "math": [],
+              "code": "a ← b   # a = 5\nb ← a   # b = 5, the 3 is gone",
+              "vis": null
+            },
+            {
+              "say": "With t, t ← a keeps a copy of the 3 before a is overwritten.",
+              "math": [],
+              "code": "t ← a   # t = 3\na ← b   # a = 5\nb ← t   # b = 3",
+              "vis": null
+            },
+            {
+              "say": "So t is a temporary store that stops a's value being lost during the swap.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Say both what t holds (a copy of a) and why it is needed (a is overwritten)."
+        },
+        {
+          "l": "(a)(iii)",
+          "q": "Flowcharts are commonly used in the design process to describe algorithms. State one advantage and one disadvantage of using flowcharts.",
+          "ask": "Give one advantage and one disadvantage of flowcharts",
+          "marks": 4,
+          "chapter": 7,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Advantage:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "They are easier to understand than code (especially for non-programmers)",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "easier|easy|simple|simpler",
+                          "understand|read|follow"
+                        ],
+                        [
+                          "non-programmer|non programmer|anyone|everyone"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "The visual representation clearly depicts the flow and logic of an algorithm",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "visual|diagram|picture|graphic"
+                        ],
+                        [
+                          "logic"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "They are independent of any programming language",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "language"
+                        ],
+                        [
+                          "independent"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "They are flexible tools for representing algorithms during the design stage",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "flexib"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Disadvantage:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "They take a significant amount of time to develop",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "time|long|slow"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "They can become unwieldy for detailed and complex algorithms",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "complex|large|big|detailed|unwieldy|messy|cluttered|huge"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Lack of standards can lead to ambiguity and cause confusion",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "standard"
+                        ],
+                        [
+                          "ambigu|confus"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "2 marks for each advantage and disadvantage (very good 2, fair 1). Advantages: easier to understand than code (especially for non-programmers); the visual layout clearly shows the flow and logic; independent of any programming language; flexible tools in the design stage. Disadvantages: they take a significant amount of time to develop; they become unwieldy for detailed and complex algorithms; a lack of standards can lead to ambiguity and confusion.",
+          "model": "Advantage: a flowchart is visual, so the logic of the algorithm is easier to follow than code, even for someone who can't program. Disadvantage: for a large, complex algorithm the flowchart becomes huge and unwieldy and takes a long time to draw.",
+          "idea": {
+            "title": "Pictures of algorithms",
+            "text": "A flowchart draws an algorithm with standard shapes joined by arrows, so its flow can be seen at a glance and doesn't depend on any programming language. The cost is size: every step needs its own box.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Think about who reads it: a picture with arrows is easy to follow, even for non-programmers, and it suits any programming language.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Think about size: one box per step means a big algorithm gives a huge flowchart that is slow to draw and hard to change.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Write one of each, with a few words on why.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(i)",
+          "q": "The Python code below shows an implementation of the bubble sort algorithm.\n```python\nvalues = [50, 70, 30, 60, 20]\n\nfor i in range(len(values)):\n    for j in range(len(values)-1):\n        if values[j] > values[j+1]:\n            t = values[j+1]\n            values[j+1] = values[j]\n            values[j] = t\n\nprint(\"OUTPUT:\", values)\n```\nState the data type of the variable, values.",
+          "ask": "State the data type of values",
+          "marks": 1,
+          "chapter": null,
+          "answer": {
+            "type": "text",
+            "value": "list",
+            "accept": [
+              "array",
+              "a list"
+            ]
+          },
+          "scheme": "1 mark: a list (array).",
+          "model": "values is a list.",
+          "idea": {
+            "title": "Lists",
+            "text": "Square brackets around comma-separated items make a Python list: an ordered collection whose items are reached by their index.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Look at how values is created on line 1: values = [50, 70, 30, 60, 20].",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Square brackets holding several items separated by commas make a list (an array in many other languages).",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "What is the index of the element 70?",
+          "ask": "Give the index of 70 in values",
+          "marks": 1,
+          "chapter": null,
+          "answer": {
+            "type": "number",
+            "value": 1,
+            "tol": 0,
+            "unit": ""
+          },
+          "scheme": "1 mark: 1.",
+          "model": "1",
+          "idea": {
+            "title": "Counting from zero",
+            "text": "Python numbers the positions in a list from 0, so the first item has index 0, the second index 1, and so on.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Number the items from 0: 50 is index 0, 70 is index 1, 30 is index 2, 60 is index 3 and 20 is index 4.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So the element 70 is at index 1.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Indexes start at 0, not 1: the common slip is to answer 2."
+        },
+        {
+          "l": "(b)(iii)",
+          "q": "What does the Python expression len(values) return?",
+          "ask": "Give the value that len(values) returns",
+          "marks": 1,
+          "chapter": null,
+          "answer": {
+            "type": "number",
+            "value": 5,
+            "tol": 0,
+            "unit": ""
+          },
+          "scheme": "1 mark: 5.",
+          "model": "5",
+          "idea": {
+            "title": "len()",
+            "text": "len() returns the number of items in a list.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Count the items in [50, 70, 30, 60, 20]: there are five.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So len(values) returns 5, which is one more than the last index (4).",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(iv)",
+          "q": "What does the slice expression values[2:4] return?",
+          "ask": "Give the list that values[2:4] returns",
+          "marks": 2,
+          "chapter": null,
+          "answer": {
+            "type": "text",
+            "value": "[30, 60]",
+            "accept": [
+              "30, 60"
+            ]
+          },
+          "scheme": "Full correct response 2 marks: the list [30, 60]; 1 mark for some merit.",
+          "model": "[30, 60]",
+          "idea": {
+            "title": "Slices stop early",
+            "text": "values[start:stop] gives the items from index start up to, but not including, index stop.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "values[2:4] starts at index 2 and stops before index 4, so it takes indexes 2 and 3.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Index 2 holds 30 and index 3 holds 60, so the slice returns the list [30, 60].",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "The stop index is left out: [2:4] gives two items, not three."
+        },
+        {
+          "l": "(b)(v)",
+          "q": "Explain why the expression values[5] would generate a runtime error.",
+          "ask": "Explain why values[5] causes a runtime error",
+          "marks": 3,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "The index 5 is out of bounds: the list's indexes only go from 0 to 4",
+                "marks": 3,
+                "alts": [
+                  [
+                    "out",
+                    "range|bound"
+                  ],
+                  [
+                    "outside|beyond|past",
+                    "list|range|bound|end"
+                  ],
+                  [
+                    "exist"
+                  ],
+                  [
+                    "0",
+                    "4"
+                  ],
+                  [
+                    "highest|last|largest|max",
+                    "4"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 3 marks, fair 2: the index 5 is out of bounds.",
+          "model": "values has 5 elements, so its indexes run from 0 to 4. Index 5 is out of bounds (there is no sixth element), so Python raises an IndexError when that line runs.",
+          "idea": {
+            "title": "Out of range",
+            "text": "A list of n items has indexes 0 to n − 1. Asking for an index past the end can't be done, so the program crashes when that line runs.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "The list has 5 items, so its last index is 4.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "values[5] asks for a sixth item that isn't there: the index is out of range (out of bounds).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The line is valid Python, so it only fails when the program runs: that is why it is a runtime error (an IndexError).",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(vi)",
+          "q": "State one advantage and one disadvantage of sorting a data set.",
+          "ask": "Give one advantage and one disadvantage of sorting a data set",
+          "marks": 6,
+          "chapter": 7,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Advantage:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Binary search requires a data set to be sorted",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "binary"
+                        ],
+                        [
+                          "search|find|look",
+                          "fast|quick|easi|efficien"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Sorted data can be more user friendly, e.g. a social media timeline sorted by date/time or a product catalogue sorted by cost",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "user friend|user-friend"
+                        ],
+                        [
+                          "easi|easy|easier",
+                          "read|use|view|browse|understand"
+                        ],
+                        [
+                          "timeline|catalogue|alphabetical"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Sorted data makes data analysis easier, e.g. finding the median or quartiles, or identifying patterns, trends and outliers",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "median|quartile|outlier|trend|pattern"
+                        ],
+                        [
+                          "analys|analyz"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Disadvantage:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Sorting algorithms can take time",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "time|slow|long"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Sorting algorithms can consume valuable computational resources such as CPU and memory",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "resource|CPU|memory|processing|power"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "If a data set is already (or almost) sorted, the time and resources spent may bring little benefit",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "already"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Sorting efficiency varies a lot with the size of the data set, which may not be known in advance",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "size",
+                          "vary|varies|depend|known|large"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Once a data set is sorted there is a cost to keeping it sorted",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "maintain|keep|kept",
+                          "sorted|order"
+                        ],
+                        [
+                          "new|add|insert",
+                          "data|item|record"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "3 marks for each valid statement. Advantages: binary search needs a sorted data set; sorted data is more user friendly (a timeline sorted by date, a catalogue sorted by cost); it makes analysis easier (median, quartiles, patterns, trends, outliers). Disadvantages: sorting takes time; it uses CPU and memory; there is little benefit if the data is already (almost) sorted; the efficiency of a sort varies with the data's size, which may not be known in advance; there is a cost to keeping the data sorted.",
+          "model": "Advantage: a sorted data set can be searched with binary search, which is much faster than a linear search on a large data set. Disadvantage: sorting a large data set takes time and uses up CPU and memory.",
+          "idea": {
+            "title": "Sorting costs, then pays",
+            "text": "Sorting puts data in order once so that later jobs are quicker or easier: binary search, finding the median, reading a list. The price is the time, processing and memory the sort itself takes.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Advantage: think about what sorted data lets you do. Binary search only works on sorted data, and finding a median or reading a timeline is easier.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Disadvantage: think about the cost. A sort takes time and uses CPU and memory, especially on a big data set.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Another cost: if new data is added later, the data set has to be kept in order.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)(i)",
+          "q": "The algorithm takes five passes to complete the bubble sort of the integers in values.\n\nApply the bubble sort algorithm to sort values. Show the contents of values after each of the five passes.",
+          "ask": "Fill in values after each of the five bubble sort passes",
+          "marks": 5,
+          "chapter": 7,
+          "answer": {
+            "type": "table",
+            "head": [
+              "",
+              "[0]",
+              "[1]",
+              "[2]",
+              "[3]",
+              "[4]"
+            ],
+            "rows": [
+              [
+                "Initial state of values:",
+                "50",
+                "70",
+                "30",
+                "60",
+                "20"
+              ],
+              [
+                "After pass 1:",
+                "50",
+                "30",
+                "60",
+                "20",
+                "70"
+              ],
+              [
+                "After pass 2:",
+                "30",
+                "50",
+                "20",
+                "60",
+                "70"
+              ],
+              [
+                "After pass 3:",
+                "30",
+                "20",
+                "50",
+                "60",
+                "70"
+              ],
+              [
+                "After pass 4:",
+                "20",
+                "30",
+                "50",
+                "60",
+                "70"
+              ],
+              [
+                "After pass 5:",
+                "20",
+                "30",
+                "50",
+                "60",
+                "70"
+              ]
+            ],
+            "blank": [
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                1,
+                4
+              ],
+              [
+                1,
+                5
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                2,
+                4
+              ],
+              [
+                2,
+                5
+              ],
+              [
+                3,
+                1
+              ],
+              [
+                3,
+                2
+              ],
+              [
+                3,
+                3
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                3,
+                5
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                4,
+                3
+              ],
+              [
+                4,
+                4
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                5,
+                2
+              ],
+              [
+                5,
+                3
+              ],
+              [
+                5,
+                4
+              ],
+              [
+                5,
+                5
+              ]
+            ]
+          },
+          "scheme": "1 mark for each pass correctly completed: 50 30 60 20 70; 30 50 20 60 70; 30 20 50 60 70; 20 30 50 60 70; 20 30 50 60 70.",
+          "model": "After pass 1: 50 30 60 20 70. After pass 2: 30 50 20 60 70. After pass 3: 30 20 50 60 70. After pass 4: 20 30 50 60 70. After pass 5: 20 30 50 60 70.",
+          "idea": {
+            "title": "Bubble sort passes",
+            "text": "One pass compares each neighbouring pair from left to right and swaps them if the left one is bigger. Each pass carries the biggest unsorted value to the end of the list.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Pass 1 on 50 70 30 60 20: 50 and 70 stay; 70 and 30 swap; 70 and 60 swap; 70 and 20 swap.",
+              "math": [
+                "\\texttt{50 70 30 60 20} \\to \\texttt{50 30 60 20 70}"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Pass 2: 50 and 30 swap; 50 and 60 stay; 60 and 20 swap; 60 and 70 stay.",
+              "math": [
+                "\\texttt{50 30 60 20 70} \\to \\texttt{30 50 20 60 70}"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Pass 3: 30 and 50 stay; 50 and 20 swap; the rest stay.",
+              "math": [
+                "\\texttt{30 50 20 60 70} \\to \\texttt{30 20 50 60 70}"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Pass 4: 30 and 20 swap and nothing else moves, so the list is now sorted.",
+              "math": [
+                "\\texttt{30 20 50 60 70} \\to \\texttt{20 30 50 60 70}"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Pass 5 still runs (the code always makes 5 passes) but makes no swaps, so the row is the same: 20 30 50 60 70.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Pass 5 is the same as pass 4: the code doesn't stop early, so still write that row out."
+        },
+        {
+          "l": "(c)(ii)",
+          "q": "The bubble sort algorithm has O($n^2$) best and worst case time complexity. Explain what this means in terms of the number of compare operations performed.",
+          "ask": "Explain what O(n²) means for bubble sort's number of comparisons",
+          "marks": 5,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "In a list of size N bubble sort performs N passes, each with N − 1 compares: N² − N in total, which for large N is about N²",
+                "marks": 3,
+                "alts": [
+                  [
+                    "n-1|n − 1|n minus 1|n - 1"
+                  ],
+                  [
+                    "pass",
+                    "each|every"
+                  ],
+                  [
+                    "20"
+                  ]
+                ]
+              },
+              {
+                "text": "The best case (already sorted) and the worst case (reverse order) carry out the same number of comparisons",
+                "marks": 3,
+                "alts": [
+                  [
+                    "same",
+                    "number|amount"
+                  ],
+                  [
+                    "already",
+                    "sorted"
+                  ],
+                  [
+                    "reverse"
+                  ]
+                ]
+              },
+              {
+                "text": "As the number of elements increases the compares increase quadratically: a list of 5 needs about 25, and doubling the list increases them about four times",
+                "marks": 3,
+                "alts": [
+                  [
+                    "quadratic"
+                  ],
+                  [
+                    "four|4",
+                    "times|x|fold"
+                  ],
+                  [
+                    "double"
+                  ],
+                  [
+                    "25"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 5 marks, good 3, fair 1. A list of N items gets N passes of N − 1 compares, N² − N in all, about N² for large N; the best case (already sorted) and the worst case (reverse order) make the same number of compares; the compares grow quadratically, so a list of 5 needs about 25 and doubling the list's size could make four times as many.",
+          "model": "For a list of n items the algorithm makes n passes with n − 1 comparisons in each, so n² − n comparisons, which is about n² for large n. It makes this many whether the list is already sorted (best case) or in reverse order (worst case), so doubling the length of the list roughly quadruples the number of comparisons.",
+          "idea": {
+            "title": "Big O counts growth",
+            "text": "O(n²) means the work grows with the square of the input's size. Bubble sort compares every neighbouring pair on every pass, so doubling n makes about four times as many compares.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Count the compares in this code: the outer loop runs n times and the inner loop n − 1 times each time.",
+              "math": [
+                "n \\times (n-1) = n^2 - n"
+              ],
+              "code": "for i in range(len(values)):        # n passes\n    for j in range(len(values)-1):  # n - 1 compares each",
+              "vis": null
+            },
+            {
+              "say": "For values, n = 5: 5 × 4 = 20 compares, close to 5² = 25. For a large n the − n hardly matters, so it's about n².",
+              "math": [
+                "5 \\times 4 = 20 \\approx 5^2 = 25"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The loops never stop early, so a sorted list (best case) and a reversed list (worst case) get exactly the same number of compares: both are O(n²).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Squared growth: 10 items need about 100 compares, 20 items about 400. Double the list and the work goes up four times.",
+              "math": [
+                "10^2 = 100",
+                "20^2 = 400"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Use numbers from the question (5 items, 20 compares) to show the n² growth clearly."
+        },
+        {
+          "l": "(c)(iii)",
+          "q": "Suggest one possible improvement that could be made to the algorithm that would reduce either the number of comparisons or the number of swaps required to complete the sort.",
+          "ask": "Suggest one way to cut bubble sort's comparisons or swaps",
+          "marks": 5,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "Each pass moves the largest remaining item to its correct place at the end, so reduce the number of adjacent compares by 1 on each pass (range(len(L)-1-i)) to skip the already sorted end",
+                "marks": 5,
+                "alts": [
+                  [
+                    "end|last|right",
+                    "already|sorted|place|position"
+                  ],
+                  [
+                    "len(l)-1-i|-1-i|minus i"
+                  ],
+                  [
+                    "reduc|fewer|one less|1 less|shorter",
+                    "each pass|every pass|each time"
+                  ]
+                ]
+              },
+              {
+                "text": "Use a flag to record whether any swap was made on a pass; if no swap was made the list is sorted and the algorithm can stop",
+                "marks": 5,
+                "alts": [
+                  [
+                    "flag"
+                  ],
+                  [
+                    "no",
+                    "swap",
+                    "stop|end|break|finish|terminat"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 5 marks, good 3, fair 1, for one enhancement: (1) each pass puts the largest remaining item in its place at the end, so cut the adjacent compares by 1 on each pass (range(len(L)-1-i)) to avoid comparing the already sorted end; or (2) use a flag to show whether a swap was made during a pass, and end the algorithm when a pass makes no swaps (e.g. a sorted list stops after the first pass).",
+          "model": "Use a flag: set swapped = False at the start of each pass and set it to True whenever a swap is made. If a whole pass makes no swaps the list is already sorted, so the loop can stop. Here pass 5 would be skipped, and an already sorted list would need only one pass.",
+          "idea": {
+            "title": "Stop wasted work",
+            "text": "Plain bubble sort keeps comparing items that are already in place. Skipping the sorted end of the list, or stopping as soon as a pass makes no swaps, removes those useless comparisons.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Look at your trace in (c)(i): after pass 1, 70 is already in its final place, yet every later pass compares it again, and pass 5 changes nothing at all.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Improvement 1: make each pass one compare shorter, because the last i items are already sorted.",
+              "math": [],
+              "code": "for j in range(len(values)-1-i):",
+              "vis": null
+            },
+            {
+              "say": "Improvement 2: keep a flag. If a pass makes no swaps the list is sorted, so stop; here pass 5 would be skipped.",
+              "math": [],
+              "code": "swapped = False\n# ...set swapped = True whenever two items are swapped\nif not swapped:\n    break",
+              "vis": null
+            },
+            {
+              "say": "Describe one improvement and say why it reduces the number of comparisons.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Explain why the change helps (the end of the list is already sorted, or no swaps means sorted), not just the code change."
+        }
+      ]
+    },
+    {
+      "id": "2025-Q2",
+      "year": 2025,
+      "q": 2,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        3
+      ],
+      "topic": "ASCII and Unicode",
+      "sub": "data",
+      "stem": "ASCII and Unicode are both examples of character encoding systems.",
+      "fig": null,
+      "parts": [
+        {
+          "l": "",
+          "q": "Compare ASCII and Unicode under the headings, memory usage and compatibility.",
+          "ask": "Compare ASCII and Unicode on memory usage and on compatibility",
+          "marks": 6,
+          "chapter": 7,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Memory usage:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "ASCII is a fixed-width encoding using 7 bits (128 characters; extended ASCII 8 bits, 256), which makes it very memory-efficient for English text",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "ASCII",
+                          "7|seven|8|eight|128|256|fixed|less|fewer|smaller|efficien|one byte|1 byte"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Unicode may use 1 to 4 bytes per character, which can increase memory usage but allows over 1.1 million characters (other alphabets, maths symbols, emojis)",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "Unicode",
+                          "bytes|more|million|larger|bigger|16|32|four|4"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Compatibility:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Unicode was designed to be backward compatible with ASCII: its first 128 characters are identical to ASCII",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "backward"
+                        ],
+                        [
+                          "128",
+                          "same|identical"
+                        ],
+                        [
+                          "superset"
+                        ],
+                        [
+                          "includ",
+                          "ASCII"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Unicode supports characters from all languages, so applications in different countries can communicate seamlessly",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "language|alphabet|countr|international|worldwide|global|emoji"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "3 marks for each heading (very good 3, fair 2). Memory usage: ASCII is fixed width, 7 bits for 128 characters (extended ASCII 8 bits, 256), so very memory-efficient for English; Unicode may use 1 to 4 bytes per character, more memory but over 1.1 million characters (other scripts, symbols, emojis). Compatibility: Unicode is backward compatible with ASCII (its first 128 characters are the same); Unicode supports all languages, so applications in different countries can communicate.",
+          "model": "Memory usage: ASCII uses 7 bits (stored in 1 byte) per character, so it uses little memory but has only 128 characters; Unicode uses 1 to 4 bytes per character, so it can use more memory but can represent over a million characters. Compatibility: Unicode is backward compatible with ASCII, since its first 128 codes are the ASCII codes, and it covers every language, so text works on systems in any country.",
+          "idea": {
+            "title": "Codes for characters",
+            "text": "A character encoding gives every character a number that is stored in binary. ASCII's small 7-bit code only covers English letters, digits and symbols; Unicode's bigger codes cover every writing system, emojis included.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Memory: ASCII gives each character 7 bits (8 in extended ASCII), so 128 (or 256) characters, about 1 byte each.",
+              "math": [
+                "2^7 = 128",
+                "2^8 = 256"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Unicode can use 1 to 4 bytes per character, so text can take more memory, but there is room for over a million characters.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Compatibility: Unicode's first 128 codes are the ASCII codes, so ASCII text is also valid Unicode (backward compatible).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Because Unicode covers all languages and emojis, text can be shared between countries and systems; ASCII only really suits English.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "The question says compare, so mention both ASCII and Unicode under each heading."
+        }
+      ]
+    },
+    {
+      "id": "2025-Q3",
+      "year": 2025,
+      "q": 3,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        4
+      ],
+      "topic": "Hackathon logic puzzle",
+      "sub": "thinking",
+      "stem": "Four girls recently competed in a coding hackathon, each creating a project with a unique theme. Each girl achieved a different ranking in the competition. Use the following clues to determine who created each project and where they came in the competition (ranking).\n- Clue 1: The person who completed an artificial intelligence project took first place.\n- Clue 2: Grace came third.\n- Clue 3: Ada's web development project was not last.\n- Clue 4: Kay beat the person who created an embedded system project.\n- Clue 5: The person who completed a data analytics project beat Joy.",
+      "fig": "A roughwork box and a table with columns Ranking, Girl's Name and Project theme for rankings 1 to 4, with 'Artificial intelligence' filled in at 1 and 'Grace' at 3; a Girls Who Code logo.",
+      "parts": [
+        {
+          "l": "",
+          "q": "Write your answers in the table below. Clues 1 and 2 have already been answered. Space is provided for roughwork if you need it.",
+          "ask": "Use the clues to fill in each girl's ranking and project theme",
+          "marks": 6,
+          "chapter": 7,
+          "answer": {
+            "type": "table",
+            "head": [
+              "Ranking",
+              "Girl's Name",
+              "Project theme"
+            ],
+            "rows": [
+              [
+                "1",
+                "Kay",
+                "Artificial intelligence"
+              ],
+              [
+                "2",
+                "Ada",
+                "Web development"
+              ],
+              [
+                "3",
+                "Grace",
+                "Data analytics"
+              ],
+              [
+                "4",
+                "Joy",
+                "Embedded system"
+              ]
+            ],
+            "blank": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                1
+              ],
+              [
+                3,
+                2
+              ]
+            ]
+          },
+          "scheme": "1 mark for each correct entry: 1 Kay (artificial intelligence), 2 Ada (web development), 3 Grace (data analytics), 4 Joy (embedded system).",
+          "model": "1: Kay, artificial intelligence. 2: Ada, web development. 3: Grace, data analytics. 4: Joy, embedded system.",
+          "idea": {
+            "title": "Rule things out",
+            "text": "A logic puzzle is solved one clue at a time: use each clue to rule out what is impossible, and fix any slot that has only one option left. Then check the result against every clue.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Clue 3: Ada did web development, so she isn't first (that was the AI project) and she isn't last. Grace is third, so Ada must be second.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "That leaves Kay and Joy for 1st and 4th. Clue 4 says Kay beat someone, so Kay can't be last: Kay is 1st (artificial intelligence) and Joy is 4th.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The themes left are data analytics and embedded system, for Grace (3rd) and Joy (4th).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Clue 5: the data analytics person beat Joy, so it wasn't Joy. Grace did data analytics and Joy did the embedded system. Clue 4 checks out too: Kay (1st) beat Joy (4th).",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Check your finished table against every clue once more before you move on."
+        }
+      ]
+    },
+    {
+      "id": "2025-Q5",
+      "year": 2025,
+      "q": 5,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        5
+      ],
+      "topic": "Hex colour to RGB",
+      "sub": "data",
+      "stem": "In web design, colours are often represented using a hexadecimal code which defines the red, green, and blue (RGB) components of the colour.\nFor example, the hex colour #0A33F0 represents a shade of blue, where:\n- the first two characters (0A) represent the red component.\n- the next two characters (33) represent the green component.\n- the last two characters (F0) represent the blue component.\nEach component is represented in hexadecimal from 00 to FF (0 to 255 in decimal).",
+      "fig": "An RGB colour-mixing diagram of overlapping red, green and blue circles.",
+      "parts": [
+        {
+          "l": "",
+          "q": "Convert the hexadecimal colour #0A33F0 to its RGB decimal values.",
+          "ask": "Convert each pair of hex digits in #0A33F0 to decimal",
+          "marks": 6,
+          "chapter": 7,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Red:",
+                "answer": {
+                  "type": "number",
+                  "value": 10,
+                  "tol": 0,
+                  "unit": ""
+                }
+              },
+              {
+                "label": "Green:",
+                "answer": {
+                  "type": "number",
+                  "value": 51,
+                  "tol": 0,
+                  "unit": ""
+                }
+              },
+              {
+                "label": "Blue:",
+                "answer": {
+                  "type": "number",
+                  "value": 240,
+                  "tol": 0,
+                  "unit": ""
+                }
+              }
+            ]
+          },
+          "scheme": "2 marks for each conversion (1 for some merit): red 0A = 10, green 33 = 3 × 16 + 3 = 51, blue F0 = 15 × 16 + 0 = 240, so RGB(10, 51, 240).",
+          "model": "Red: 0A = 0 × 16 + 10 = 10. Green: 33 = 3 × 16 + 3 = 51. Blue: F0 = 15 × 16 + 0 = 240. So the colour is RGB(10, 51, 240).",
+          "idea": {
+            "title": "Two hex digits make a byte",
+            "text": "Hex digits run 0 to 9 and then A to F (10 to 15). In a two-digit hex number the left digit counts sixteens and the right digit counts ones, so 00 to FF covers 0 to 255.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Each pair has a sixteens digit and a ones digit. Remember A = 10 up to F = 15.",
+              "math": [
+                "\\text{A}=10,\\ \\text{B}=11,\\ \\dots,\\ \\text{F}=15"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Red: 0A has 0 sixteens and A = 10 ones.",
+              "math": [
+                "0\\text{A} = 0 \\times 16 + 10 = 10"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Green: 33 has 3 sixteens and 3 ones.",
+              "math": [
+                "33 = 3 \\times 16 + 3 = 51"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Blue: F0 has F = 15 sixteens and 0 ones.",
+              "math": [
+                "\\text{F}0 = 15 \\times 16 + 0 = 240"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So #0A33F0 is RGB(10, 51, 240): lots of blue with a little green and red.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Show the working for each colour: if a value slips, the method can still earn a mark."
+        }
+      ]
+    },
+    {
+      "id": "2025-Q7",
+      "year": 2025,
+      "q": 7,
+      "section": "A",
+      "total": 6,
+      "pages": [
+        6
+      ],
+      "topic": "Linear and binary search",
+      "sub": "algorithms",
+      "stem": "A binary question is a question that has two possible answers – yes or no. The diagrams, in Figure 1 and Figure 2 below, describe how binary questions can be chained together to determine the outcome of tossing a six-sided dice. Two different search algorithms are illustrated.",
+      "fig": "Figure 1 (Algorithm 1, tree depth = 5): a chain of questions 1? 2? 3? 4? 5?, where each Yes gives that number and each No goes on to the next question. Figure 2 (Algorithm 2, tree depth = 3): first >=4?, then 3? or 6?, then 2? or 5?, splitting the numbers in half each time.",
+      "parts": [
+        {
+          "l": "(a)",
+          "q": "State the name of each search algorithm.",
+          "ask": "Name the search algorithm shown in each figure",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Algorithm 1:",
+                "answer": {
+                  "type": "text",
+                  "value": "Linear search",
+                  "accept": [
+                    "Linear",
+                    "Sequential search",
+                    "Sequential"
+                  ]
+                }
+              },
+              {
+                "label": "Algorithm 2:",
+                "answer": {
+                  "type": "text",
+                  "value": "Binary search",
+                  "accept": [
+                    "Binary"
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "1 mark each: Algorithm 1 is a linear search; Algorithm 2 is a binary search.",
+          "model": "Algorithm 1: linear search. Algorithm 2: binary search.",
+          "idea": {
+            "title": "Two ways to search",
+            "text": "A linear search checks the items one at a time from the start. A binary search compares with the middle and throws away half of the remaining items with every question.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Figure 1 asks about each number in turn (1? 2? 3? ...) until it gets a yes: checking one item at a time is a linear search.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Figure 2 first asks >=4?, which splits the six numbers into two halves, then splits again: halving each time is a binary search.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)",
+          "q": "Suggest which of the two algorithms is most efficient. Justify your answer.",
+          "ask": "Pick the more efficient algorithm and justify your choice",
+          "marks": 4,
+          "chapter": 7,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Most efficient:",
+                "answer": {
+                  "type": "text",
+                  "value": "Binary search",
+                  "accept": [
+                    "Binary",
+                    "Algorithm 2",
+                    "2",
+                    "Algorithm 2 (binary search)",
+                    "Linear search",
+                    "Linear",
+                    "Algorithm 1",
+                    "1"
+                  ]
+                }
+              },
+              {
+                "label": "Justify:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "In general binary search is more efficient: at worst it needs about log(n) operations, while linear search needs O(n)",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "log"
+                        ],
+                        [
+                          "half|halv"
+                        ],
+                        [
+                          "fewer|less",
+                          "question|step|comparison|operation|level"
+                        ],
+                        [
+                          "3",
+                          "5"
+                        ],
+                        [
+                          "depth|deep",
+                          "3|less|lower|smaller|shallow"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Linear search may be more efficient: there is no sort overhead, the target is sometimes one of the first items, and for small lists it can beat binary search",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "sort"
+                        ],
+                        [
+                          "first",
+                          "item|number|one"
+                        ],
+                        [
+                          "small",
+                          "list"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "Very good justification 4 marks, fair 2. Either: binary search is in general more efficient, as at worst it needs only log(n) operations while linear search needs O(n); or: linear search may be more efficient, as there is no sort overhead, the target is sometimes one of the first items, and for small lists it can beat a binary search.",
+          "model": "Most efficient: Algorithm 2 (binary search). Justify: each question halves the numbers that are left, so it needs at most 3 questions (about log₂ n) to find the result, while the linear search can need 5, and that number grows in step with n.",
+          "idea": {
+            "title": "Halving beats stepping",
+            "text": "A linear search can take as many steps as there are items, O(n). A binary search halves what is left each time, so it takes only about log₂ n steps: 3 for 6 outcomes, 10 for 1,000.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Worst case for Algorithm 1: the dice shows 5 or 6, which takes 5 questions (the tree depth).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Worst case for Algorithm 2: never more than 3 questions, because each question halves the numbers left.",
+              "math": [
+                "2^3 = 8 \\ge 6"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So the binary search is more efficient here, and the gap grows with more items: O(log n) against O(n).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "A linear search can win when the answer is one of the first items, the list is tiny or the data isn't sorted (no sort overhead): the scheme accepts that choice too if you justify it.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Use the tree depths in the figures (5 against 3) as evidence in your justification."
+        }
+      ]
+    },
+    {
+      "id": "2025-Q14",
+      "year": 2025,
+      "q": 14,
+      "section": "B",
+      "total": 38,
+      "pages": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "topic": "Euclid's GCD, recursion and quicksort",
+      "sub": "algorithms",
+      "stem": "",
+      "fig": "Python code for Euclid's subtraction algorithm gcd(a, b), with a two-column trace table (a, b) starting at 45, 18 and three empty rows; a recursive version recursive_gcd(a, b) using a%b; the list 29, 10, 14, 37, 13 for quicksort; Figure 4: a graph of time against number of values (n) with the curves O(n²) and O(n log(n)).",
+      "parts": [
+        {
+          "l": "(a)(i)",
+          "q": "The Greatest Common Divisor (GCD) of two integers a and b is the largest number that divides into both with no remainder. One of the oldest and most famous algorithms was first described by Greek mathematician, Euclid, in his book of Elements written around 300BC. The code snippet below is an implementation of Euclid’s algorithm using subtraction to find the GCD of 45 and 18.\n```python\n 1  def gcd(a, b):\n 2      while a != b:\n 3          if a > b:\n 4              a = a - b\n 5          elif b > a:\n 6              b = b - a\n 7\n 8      return a\n 9\n10  print(\"The GCD is\", gcd(45,18))\n```\nState the purpose of the def keyword on line 1 of the code.",
+          "ask": "Say what the def keyword does on line 1",
+          "marks": 2,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "To introduce (define) the function gcd",
+                "marks": 2,
+                "alts": [
+                  [
+                    "defin|declar|creat|introduc|start|make",
+                    "function|subroutine|procedure|method"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "2 marks: it introduces (defines) the function gcd.",
+          "model": "def defines a function: it introduces a new function called gcd that takes the parameters a and b.",
+          "idea": {
+            "title": "Defining a function",
+            "text": "def tells Python that a function definition follows: its name, its parameters in brackets, then the indented body that runs each time the function is called.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Read line 1: def gcd(a, b): has the keyword def, then a name, then the parameters.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "def is the keyword that defines (creates) a function, here one named gcd with parameters a and b.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The function's body only runs when it is called, as on line 10: gcd(45,18).",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(ii)",
+          "q": "Starting from line 2 of the code, complete the trace table shown below. The variables a and b have been initialised to 45 and 18 respectively.",
+          "ask": "Trace a and b through the while loop until they are equal",
+          "marks": 4,
+          "chapter": 7,
+          "answer": {
+            "type": "table",
+            "head": [
+              "a",
+              "b"
+            ],
+            "rows": [
+              [
+                "45",
+                "18"
+              ],
+              [
+                "27",
+                "18"
+              ],
+              [
+                "9",
+                "18"
+              ],
+              [
+                "9",
+                "9"
+              ]
+            ],
+            "blank": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                0
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                0
+              ],
+              [
+                3,
+                1
+              ]
+            ]
+          },
+          "scheme": "1 mark for each correct row, 4 marks for a full correct response: 27, 18; 9, 18; 9, 9.",
+          "model": "a, b: 45, 18 → 27, 18 → 9, 18 → 9, 9 (so the GCD is 9).",
+          "idea": {
+            "title": "Subtract the smaller",
+            "text": "Euclid's algorithm keeps replacing the bigger number with the difference of the two. Any common divisor of both also divides their difference, so when the two numbers become equal that number is the GCD.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "45 != 18 and a > b, so line 4 runs: a = a − b.",
+              "math": [
+                "a = 45 - 18 = 27"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "27 != 18 and a > b again.",
+              "math": [
+                "a = 27 - 18 = 9"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "9 != 18, but now b > a, so line 6 runs: b = b − a.",
+              "math": [
+                "b = 18 - 9 = 9"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Now a = b = 9, so the condition a != b is false, the loop stops and gcd returns 9.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Write a new row only when a value changes, and stop as soon as a equals b."
+        },
+        {
+          "l": "(a)(iii)",
+          "q": "This implementation uses a while loop. Explain why a for loop would not be suitable for this algorithm.",
+          "ask": "Explain why a for loop doesn't suit this algorithm",
+          "marks": 4,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "The number of iterations is not known in advance of running the algorithm",
+                "marks": 4,
+                "alts": [
+                  [
+                    "not|don't|doesn't|unknown|can't|cannot",
+                    "know|predict|fixed|tell|determin",
+                    "iteration|loop|times|how many|repeat|number"
+                  ],
+                  [
+                    "advance|beforehand",
+                    "iteration|loop|times|how many|repeat|number"
+                  ]
+                ]
+              },
+              {
+                "text": "The number of iterations required can vary depending on the arguments passed into the function gcd",
+                "marks": 4,
+                "alts": [
+                  [
+                    "vary|varies|depend|different"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 4 marks, fair 2: the number of iterations is not known before the algorithm runs; it can vary depending on the arguments passed into gcd.",
+          "model": "A for loop is used when the number of iterations is known in advance. Here we can't tell how many subtractions are needed until a and b become equal, as it depends on the values passed in, so a while loop that repeats until a == b is needed.",
+          "idea": {
+            "title": "Definite and indefinite loops",
+            "text": "A for loop repeats a fixed, known number of times (over a range or a list). A while loop repeats until a condition changes, which suits work where you can't tell in advance how many steps it will take.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "For 45 and 18 the loop ran 3 times; for 100 and 1 it would run 99 times.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "So the number of iterations depends on a and b and isn't known before the loop starts.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "A for loop needs that count up front; a while loop just keeps going until a != b becomes false, which is what this algorithm needs.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(i)",
+          "q": "The code below shows a recursive implementation to find the GCD of two integers.\n```python\n 1  def recursive_gcd(a, b):\n 2      if b == 0:\n 3          return a\n 4      return recursive_gcd(b, a%b)\n 5\n 6  print(\"The GCD is\", recursive_gcd(45, 18))\n```\nEvery recursive function, including the one shown here, has a base case and a recursive case. Outline the meaning of the terms ‘base case’ and ‘recursive case’.",
+          "ask": "Explain the terms 'base case' and 'recursive case'",
+          "marks": 4,
+          "chapter": null,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Base case:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "The condition that stops the recursive function from calling itself indefinitely (or until a stack overflow error occurs)",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "stop|stops|end|halt|terminat|exit"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "The simplest version of the problem, whose answer is known, e.g. recursive_gcd(a, 0) is a",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "simplest|smallest|known|directly"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "In the example code the condition b == 0 is the base case",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "b == 0|b==0|b is 0|b is zero|b = 0|b equals 0|b equals zero"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Recursive case:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "The part of the function that calls itself to solve a simpler/smaller version of the problem",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "call|calls",
+                          "itself"
+                        ],
+                        [
+                          "smaller|simpler"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "The recursive calls eventually converge on the base case",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "converge|towards|toward|closer|reach"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "2 marks for each case (very good 2, fair 1). Base case: the condition that stops the function calling itself indefinitely (or until a stack overflow); the simplest version of the problem, whose answer is known, e.g. recursive_gcd(a, 0) is a; here b == 0. Recursive case: the part of the function that calls itself to solve a simpler or smaller version of the problem; the calls eventually converge on the base case; here recursive_gcd(b, a % b).",
+          "model": "Base case: the simplest case, which the function answers directly without calling itself, so the recursion stops; here, when b == 0 it returns a. Recursive case: the part where the function calls itself on a smaller version of the problem, here recursive_gcd(b, a%b), getting closer to the base case each time.",
+          "idea": {
+            "title": "Recursion",
+            "text": "A recursive function solves a problem by calling itself on a smaller version of it. The base case is the version small enough to answer straight away, and it stops the chain of calls.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Lines 2 and 3 are the base case: if b == 0 the answer is simply a, returned with no further call.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Line 4 is the recursive case: the function calls itself with smaller values, (b, a%b).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Each call gets closer to b = 0: (45, 18) → (18, 9) → (9, 0), which returns 9.",
+              "math": [
+                "(45,18) \\to (18,9) \\to (9,0) \\Rightarrow 9"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Without a base case the calls would never stop, and the program would crash with a stack overflow.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "Explain the use of the variable b and the expression a%b on line 4 of the code.\n```python\n 4      return recursive_gcd(b, a%b)\n```",
+          "ask": "Explain what b and a%b do in the call on line 4",
+          "marks": 6,
+          "chapter": null,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "b:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "b is the first argument (parameter/value) passed into the function, as a",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "first",
+                          "argument|parameter|input|position|value"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Within the function b decides whether the base case (b == 0) is reached",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "base case"
+                        ],
+                        [
+                          "b == 0|b==0|zero"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "a%b:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "a%b is the second argument (parameter/value) passed into the function, as b",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "second",
+                          "argument|parameter|input|position|value"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "It computes the remainder when a is divided by b; the remainder becomes the new value of b in the next recursive call",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "remainder"
+                        ],
+                        [
+                          "modul|mod"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "It reduces the problem size, as the GCD of a and b is the same as the GCD of b and a % b",
+                      "marks": 3,
+                      "alts": [
+                        [
+                          "reduc|smaller|shrink"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "3 marks for each (very good 3, fair 2). b: it is the first argument passed into the function, as a (and within the function b decides whether the base case b == 0 is reached). a%b: it is the second argument, passed in as b; it computes the remainder when a is divided by b, which becomes the new b in the next call, reducing the problem since the GCD of a and b equals the GCD of b and a%b.",
+          "model": "b: the current b is passed as the first argument, so it becomes the new a in the next call. a%b: the remainder when a is divided by b is passed as the second argument, so it becomes the new b; this makes the numbers smaller with each call until the remainder is 0, the base case.",
+          "idea": {
+            "title": "Remainders shrink it",
+            "text": "The GCD of a and b is also the GCD of b and the remainder a % b. Passing (b, a%b) gives a smaller pair every call, until the remainder is 0 and the GCD is left in a.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "a%b is the remainder of a ÷ b. For 45 and 18: 45 = 2 × 18 + 9, so 45 % 18 = 9.",
+              "math": [
+                "45 = 2 \\times 18 + 9",
+                "45 \\,\\%\\, 18 = 9"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Line 4 calls recursive_gcd(b, a%b): b goes into the first position, so the old b becomes the new a.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The remainder a%b goes into the second position, so it becomes the new b, which is smaller than before.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Trace: (45, 18) → (18, 9) → (9, 0). Now b == 0, the base case, so 9 is returned.",
+              "math": [
+                "(45,18) \\to (18,\\ 45\\,\\%\\,18 = 9) \\to (9,\\ 18\\,\\%\\,9 = 0)"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(iii)",
+          "q": "Given a choice of using gcd shown in part (a), or recursive_gcd shown here in part (b), which version would you recommend to find the greatest common divisor of very large numbers on machines with limited RAM? Justify your answer, in terms of memory utilisation.",
+          "ask": "Choose gcd or recursive_gcd for a machine with little RAM, and justify it",
+          "marks": 5,
+          "chapter": null,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "gcd or recursive_gcd:",
+                "answer": {
+                  "type": "text",
+                  "value": "gcd",
+                  "accept": [
+                    "gcd()"
+                  ]
+                }
+              },
+              {
+                "label": "Justify:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "The non-recursive solution avoids the potentially high memory overhead of recursion (and the possibility of a stack overflow)",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "stack"
+                        ],
+                        [
+                          "overhead"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "In the non-recursive solution memory usage stays constant, as the loop reuses the same variables",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "constant|same|fixed|reuse|reuses"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "In the recursive solution memory usage grows with each recursive call as the call stack increases, which could exhaust the stack for very large numbers",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "each|every",
+                          "call"
+                        ],
+                        [
+                          "grow|increas|more",
+                          "memory|RAM"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "1 mark for gcd; justification very good 4 marks, fair 2: the non-recursive version avoids the memory overhead of recursion (and a possible stack overflow); its memory use stays constant because the loop reuses the same variables; in the recursive version memory use grows with every call as the call stack grows, and for very large numbers this could exhaust the stack.",
+          "model": "gcd or recursive_gcd: gcd. Justify: the while-loop version reuses the same two variables, so its memory use stays constant. Every call of recursive_gcd adds a new frame to the call stack, so memory use grows with the number of calls, and with very large numbers on a machine with little RAM it could run out of stack space (a stack overflow).",
+          "idea": {
+            "title": "The call stack",
+            "text": "Every function call that hasn't finished keeps a stack frame in memory with its own copies of its variables. A loop reuses the same variables; deep recursion piles up frames until memory runs out.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "gcd uses a while loop: the same two variables, a and b, are updated each time round, so its memory use doesn't grow.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "recursive_gcd calls itself; each call waits for the next one to finish and keeps its own a and b on the call stack.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Very large numbers can need many calls, so the stack can grow until it runs out of memory: a stack overflow.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "With limited RAM, recommend gcd, the iterative version.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Name your choice and justify it in terms of memory, as asked: constant memory against a growing call stack."
+        },
+        {
+          "l": "(c)(i)",
+          "q": "Quicksort is a widely used sorting algorithm developed by British computer scientist Tony Hoare in 1960. The algorithm itself is recursive and it uses a process called partitioning around a chosen pivot to achieve its objective. Quicksort is known for its efficiency and speed, especially in handling very long lists of data.\n\nGiven the unsorted list shown below and a pivot of 13, state the contents of the two sub-lists created after one partitioning step of quicksort.\n\n29    10    14    37    13",
+          "ask": "Partition the list around the pivot 13 into two sub-lists",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Left sub-list:",
+                "answer": {
+                  "type": "text",
+                  "value": "[10]",
+                  "accept": [
+                    "10"
+                  ]
+                }
+              },
+              {
+                "label": "Right sub-list:",
+                "answer": {
+                  "type": "text",
+                  "value": "[29, 14, 37]",
+                  "accept": [
+                    "29, 14, 37",
+                    "29 14 37"
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "1 mark for each correct sub-list: left [10], right [29, 14, 37].",
+          "model": "Left sub-list: [10]. Right sub-list: [29, 14, 37].",
+          "idea": {
+            "title": "Partitioning",
+            "text": "Partitioning puts every item smaller than the pivot into a left sub-list and every item bigger (or equal) into a right sub-list. The pivot then sits between them, in its final position.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Go through the list and compare each item with the pivot, 13.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "29 > 13 goes right; 10 < 13 goes left; 14 > 13 goes right; 37 > 13 goes right.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Left sub-list: [10]. Right sub-list: [29, 14, 37], in their original order. The pivot sits between them: [10] 13 [29, 14, 37].",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Leave the pivot out of both sub-lists: it is already in its final place."
+        },
+        {
+          "l": "(c)(ii)",
+          "q": "Describe the next steps quicksort would take in order to achieve its objective.",
+          "ask": "Describe what quicksort does after this first partition",
+          "marks": 5,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Quicksort applies the same process (recursively) to each sub-list created by the partitioning",
+                "marks": 3,
+                "alts": [
+                  [
+                    "same|repeat|again",
+                    "sub-list|sublist|sub list|each|both|left|right"
+                  ],
+                  [
+                    "recurs"
+                  ]
+                ]
+              },
+              {
+                "text": "If a sub-list has only one element it is already sorted",
+                "marks": 3,
+                "alts": [
+                  [
+                    "one|single|1",
+                    "element|item|value|number"
+                  ]
+                ]
+              },
+              {
+                "text": "For larger sub-lists a new pivot is chosen and the list is divided into elements less than the pivot and elements greater than or equal to it",
+                "marks": 3,
+                "alts": [
+                  [
+                    "new",
+                    "pivot"
+                  ]
+                ]
+              },
+              {
+                "text": "Once all sub-lists are reduced to single elements they are combined in order, giving a fully sorted list",
+                "marks": 3,
+                "alts": [
+                  [
+                    "combin|join|merg|put together|concatenat"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 5 marks, good 3, fair 1 (an appropriate diagram is accepted): quicksort applies the same process to each sub-list; a sub-list of one element is already sorted; for a larger sub-list a new pivot is chosen and it is divided into elements less than the pivot and elements greater than or equal to it; this divide and conquer repeats recursively until all sub-lists are single elements, which are combined in order to give the fully sorted list.",
+          "model": "Quicksort now repeats the same process recursively on each sub-list. [10] has one element, so it is already sorted. For [29, 14, 37] a new pivot is chosen, e.g. 37, giving [29, 14] and []; then [29, 14] is partitioned with the pivot 14 into [] and [29]. When every sub-list has one element (or none) they are combined in order: [10, 13, 14, 29, 37].",
+          "idea": {
+            "title": "Divide and conquer",
+            "text": "Quicksort splits the problem into smaller sub-lists and sorts each one the same way. A list with zero or one items is already sorted, and that is where the recursion stops.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "After one partition the list is [10] 13 [29, 14, 37], with the pivot 13 in its final place.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "[10] has only one item, so it is already sorted: nothing more to do there.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "[29, 14, 37] gets a new pivot (say 37, the last item) and is partitioned: [29, 14] 37 [ ].",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Repeat on [29, 14] with the pivot 14: [ ] 14 [29]. Every sub-list now has at most one item.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Put the pieces back together in order: 10, 13, 14, 29, 37.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "A small diagram of the sub-lists splitting is accepted and makes the recursion easy to show."
+        },
+        {
+          "l": "(c)(iii)",
+          "q": "Outline two common strategies used when selecting a pivot for a quicksort algorithm.",
+          "ask": "Give two ways of choosing a quicksort pivot",
+          "marks": 2,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "First element",
+                "marks": 1,
+                "alts": [
+                  [
+                    "first"
+                  ]
+                ]
+              },
+              {
+                "text": "Last element",
+                "marks": 1,
+                "alts": [
+                  [
+                    "last"
+                  ]
+                ]
+              },
+              {
+                "text": "Middle element",
+                "marks": 1,
+                "alts": [
+                  [
+                    "middle|centre|center|mid"
+                  ]
+                ]
+              },
+              {
+                "text": "Median of the first, middle and last element",
+                "marks": 1,
+                "alts": [
+                  [
+                    "median",
+                    "three|3|first"
+                  ]
+                ]
+              },
+              {
+                "text": "Median of medians",
+                "marks": 1,
+                "alts": [
+                  [
+                    "medians"
+                  ]
+                ]
+              },
+              {
+                "text": "Random element",
+                "marks": 1,
+                "alts": [
+                  [
+                    "random"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "1 mark for each correct strategy: first element, last element, middle element, median of the first, middle and last elements, median of medians, a random element.",
+          "model": "1. Choose the last element of the list as the pivot. 2. Choose a random element as the pivot.",
+          "idea": {
+            "title": "Pivot choice matters",
+            "text": "Any element can be the pivot, but one near the median splits the list evenly and keeps quicksort fast. Simple rules take a fixed position; better ones take a random element or a median.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "The simplest strategies take a fixed position: the first, the last or the middle element.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Better strategies aim for a value near the median: a random element, or the median of the first, middle and last elements.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Write two, each in a few words: e.g. 'the last element of the list' and 'a random element'.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)(iv)",
+          "q": "Referring to Figure 4 below, explain the best and worst-case time complexity of the quicksort algorithm.",
+          "ask": "Explain quicksort's best and worst case, using the graph",
+          "marks": 4,
+          "chapter": 7,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Best case:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "O(n log n): each pivot divides the list evenly into two halves, giving a balanced recursion tree of about log n levels, with all n elements processed at each level",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "log"
+                        ],
+                        [
+                          "half|halves|halv|even|equal|balanc|median"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Worst case:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "O(n²): the pivot repeatedly creates very unbalanced splits (it is always the smallest or largest element), so one sub-list has n − 1 elements and the other 0, giving n levels of n elements",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "n²|n^2|n squared|n2|squar|quadratic"
+                        ],
+                        [
+                          "smallest|largest|biggest|lowest|highest|unbalanc|uneven|already sorted|reverse"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "2 marks for each case (very good 2, fair 1). Best case O(n log n): each pivot divides the list evenly into two halves, a balanced recursion tree about log n levels deep, with all n elements processed once at each level. Worst case O(n²): the pivot repeatedly makes very unbalanced splits (always the smallest or largest element), so one sub-list has n − 1 elements and the other 0, a tree n levels deep with n elements processed at each level; this can happen on sorted or reverse-sorted lists if no precautions are taken.",
+          "model": "Best case: O(n log n), the lower curve. Each pivot splits the list into two equal halves, so there are about log n levels of splitting and each level processes all n items. Worst case: O(n²), the steep curve. If the pivot is always the smallest or largest item (e.g. an already sorted list with the last item as pivot), each split only removes one item, so there are n levels of about n items each.",
+          "idea": {
+            "title": "Even splits are fast",
+            "text": "Quicksort's speed depends on how evenly each pivot splits the list. Even halves give about log n levels of work; lopsided splits give n levels, so the time grows like n².",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Each level of partitioning compares every item with a pivot: about n operations per level.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Best case: the pivot is the median each time, so the lists halve, and halving n items takes about log₂ n levels.",
+              "math": [
+                "n \\times \\log_2 n"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Worst case: the pivot is the smallest or largest item each time, so a split only removes one item and there are n levels.",
+              "math": [
+                "n \\times n = n^2"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "On Figure 4, O(n log n) rises gently while O(n²) shoots up: for 1,000 items that is about 10,000 steps against 1,000,000.",
+              "math": [
+                "1000 \\times \\log_2 1000 \\approx 10\\,000",
+                "1000^2 = 1\\,000\\,000"
+              ],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Refer to the figure, as the question asks: say which curve is the best case and which the worst."
+        }
+      ]
+    },
+    {
+      "id": "2025-Q15",
+      "year": 2025,
+      "q": 15,
+      "section": "B",
+      "total": 38,
+      "pages": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "topic": "Modelling, abstraction and patterns",
+      "sub": "thinking",
+      "stem": "Modelling and simulation are essential tools for understanding and solving complex real-world problems. These approaches often involve breaking down systems, identifying key components, and examining how changes can influence outcomes.",
+      "fig": "Figure 5: a table of 10 driving test candidates with the columns ID, Gender, Age, Transmission, Instructor experience (years) and Test outcome (PASS/FAIL); later a quote attributed to George Box, \"All models are wrong, but some are useful\".",
+      "parts": [
+        {
+          "l": "(a)(i)",
+          "q": "Consider the dataset shown in Figure 5 below which is being used by a computer science student as part of her Applied Learning Task 3 (modelling and simulation) to model driving test outcomes.\n```\nID  Gender  Age  Transmission  Instructor experience (years)  Test outcome\n 1  Male     18  Manual         8                             FAIL\n 2  Female   22  Automatic      5                             PASS\n 3  Male     20  Automatic      8                             PASS\n 4  Male     19  Manual         3                             FAIL\n 5  Female   30  Automatic     12                             PASS\n 6  Female   25  Manual         2                             FAIL\n 7  Female   23  Automatic     10                             PASS\n 8  Male     17  Manual         6                             FAIL\n 9  Male     19  Manual         5                             FAIL\n10  Female   21  Manual        15                             PASS\n```\nState the name of the output variable in the model.",
+          "ask": "Name the model's output variable",
+          "marks": 1,
+          "chapter": null,
+          "answer": {
+            "type": "text",
+            "value": "Test outcome",
+            "accept": [
+              "Outcome",
+              "Test result"
+            ]
+          },
+          "scheme": "1 mark: test outcome.",
+          "model": "Test outcome.",
+          "idea": {
+            "title": "Inputs and outputs",
+            "text": "In a model the input variables are the factors you feed in or change; the output variable is the result the model predicts from them.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Ask what the model is trying to predict: whether a candidate passes or fails.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "That column, Test outcome (PASS/FAIL), is the output variable.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(a)(ii)",
+          "q": "State the names of two input variables.",
+          "ask": "Name two of the model's input variables",
+          "marks": 2,
+          "chapter": null,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Input variable 1:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Gender",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "gender|sex"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Age",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "age"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Transmission",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "transmission|manual|automatic|gear"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Instructor experience (years)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "instructor|experience"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Input variable 2:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Gender",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "gender|sex"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Age",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "age"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Transmission",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "transmission|manual|automatic|gear"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Instructor experience (years)",
+                      "marks": 1,
+                      "alts": [
+                        [
+                          "instructor|experience"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "1 mark each for two of: gender, age, transmission, instructor experience (years).",
+          "model": "Input variable 1: Age. Input variable 2: Transmission.",
+          "idea": {
+            "title": "Inputs and outputs",
+            "text": "Input variables are the factors that might affect the result: here every column except the ID and the test outcome.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "The ID only labels each row; it doesn't affect the outcome, so it isn't an input variable.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "The other columns are factors that might change the outcome: gender, age, transmission and instructor experience.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Name any two of them.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Don't give ID: it identifies a row, it isn't a factor in the model."
+        },
+        {
+          "l": "(a)(iii)",
+          "q": "Describe two patterns you can identify from the model.",
+          "ask": "Describe two patterns in the driving test data",
+          "marks": 4,
+          "chapter": 7,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Pattern 1:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Younger drivers (under 20) tend to have higher failure rates",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "young|younger|older|teen|under 20"
+                        ],
+                        [
+                          "age",
+                          "fail|pass"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Drivers using automatic cars tend to pass, while manual transmission drivers have higher failure rates",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "automatic|manual",
+                          "pass|fail"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "More experienced instructors are correlated with higher pass rates",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "instructor|experience",
+                          "more|higher|pass|better|longer"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "The number of females who pass is the same as the number of males who fail",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "female|women|girl|male|men|boy|gender",
+                          "pass|fail"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Pattern 2:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Younger drivers (under 20) tend to have higher failure rates",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "young|younger|older|teen|under 20"
+                        ],
+                        [
+                          "age",
+                          "fail|pass"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Drivers using automatic cars tend to pass, while manual transmission drivers have higher failure rates",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "automatic|manual",
+                          "pass|fail"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "More experienced instructors are correlated with higher pass rates",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "instructor|experience",
+                          "more|higher|pass|better|longer"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "The number of females who pass is the same as the number of males who fail",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "female|women|girl|male|men|boy|gender",
+                          "pass|fail"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "2 marks for each pattern correctly identified, e.g. younger drivers (under 20) tend to fail more; automatic drivers tend to pass while manual drivers fail more; more experienced instructors go with higher pass rates; the number of females who pass equals the number of males who fail; any other valid pattern.",
+          "model": "Pattern 1: every candidate who used an automatic car passed, while 5 of the 6 using a manual car failed. Pattern 2: all four candidates under 20 failed, while 5 of the 6 aged 20 or over passed.",
+          "idea": {
+            "title": "Pattern recognition",
+            "text": "Spotting a pattern means finding something that repeats in the data, such as an input value that keeps going with the same output. Patterns like these are what a model uses to make predictions.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Compare one input column at a time with the Test outcome column.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Transmission: all 4 automatic candidates passed, and 5 of the 6 manual ones failed.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Age: all 4 candidates under 20 (aged 17, 18, 19 and 19) failed.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Instructor experience: the passes had instructors with 10 years' experience on average, the fails under 5, so more experience goes with passing.",
+              "math": [
+                "\\tfrac{5+8+12+10+15}{5} = 10",
+                "\\tfrac{8+3+2+6+5}{5} = 4.8"
+              ],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Write each pattern as a clear statement linking an input to the outcome, with numbers from the table.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Quote numbers from the table to back up each pattern."
+        },
+        {
+          "l": "(a)(iv)",
+          "q": "Identify two additional variables that could be used to enhance the driving test outcome model.",
+          "ask": "Suggest two more variables that could improve the model",
+          "marks": 4,
+          "chapter": null,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Variable 1:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Number of lessons",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "lesson"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Number of previous attempts",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "previous|attempt|retake|tries|resit"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Driving test time of day",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "time|morning|afternoon|evening|hour"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Weather conditions",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "weather|rain|wet|snow|fog|ice|icy"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Familiarity with car",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "familiar|own car|same car"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Any other valid variable, e.g. hours of practice, the test centre or route, traffic",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "practi"
+                        ],
+                        [
+                          "centre|center|route|location|examiner|traffic|nerv|anxi|sleep|eyesight"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Variable 2:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Number of lessons",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "lesson"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Number of previous attempts",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "previous|attempt|retake|tries|resit"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Driving test time of day",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "time|morning|afternoon|evening|hour"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Weather conditions",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "weather|rain|wet|snow|fog|ice|icy"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Familiarity with car",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "familiar|own car|same car"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Any other valid variable, e.g. hours of practice, the test centre or route, traffic",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "practi"
+                        ],
+                        [
+                          "centre|center|route|location|examiner|traffic|nerv|anxi|sleep|eyesight"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "2 marks for each variable correctly identified, e.g. number of lessons, number of previous attempts, time of day of the test, weather conditions, familiarity with the car, any other valid variable.",
+          "model": "Variable 1: the number of lessons taken. Variable 2: the number of previous attempts at the test.",
+          "idea": {
+            "title": "Better inputs, better model",
+            "text": "A model is only as good as the factors it includes. Adding variables that plausibly affect the result helps it predict more accurately.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Think about what else could change whether someone passes a driving test.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Preparation: the number of lessons or hours of practice, and previous attempts at the test.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Conditions on the day: the weather, the time of day, or whether they know the car.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Name two that are not already columns in the table.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Don't repeat a variable that is already in the table."
+        },
+        {
+          "l": "(b)(i)",
+          "q": "The quote below is attributed to statistician George Box and is often cited in the context of modelling and simulation. It highlights the limitations of models while emphasising their practical value.\n\n\"All models are wrong, but some are useful\"\n\nOutline one limitation and one benefit of modelling and simulation.",
+          "ask": "Give one limitation and one benefit of modelling and simulation",
+          "marks": 4,
+          "chapter": null,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Limitation:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Models are abstractions that simplify complex systems and omit many details, so they never fully represent reality",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "simplif|leave out|leaves out|left out|omit|ignor|miss|detail|abstract"
+                        ],
+                        [
+                          "not",
+                          "real|accurate|exact|perfect"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Underlying assumptions of the model may not always hold true",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "assum"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Data limitations (e.g. bias, errors, size) can make models inaccurate",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "bias|error|inaccura|incomplete|limited data|not enough data"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Ethical concerns regarding privacy, security and accountability",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "ethic|privacy|security|accountab"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "High development costs",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "cost|expensive|money"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Benefit:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Models make complex systems easier to understand and identify patterns, relationships and areas for intervention",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "easier|easy|better|help",
+                          "understand"
+                        ],
+                        [
+                          "pattern|relationship"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Models can provide valuable predictions within a defined scope",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "predict|forecast"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Models help decision-makers weigh options and test scenarios in a controlled, low-risk environment",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "risk|safe|safely|controlled"
+                        ],
+                        [
+                          "test|try|scenario|option|experiment",
+                          "cheap|before|real"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "2 marks for each (very good 2, fair 1). Limitations: models are abstractions that omit details, so are never fully accurate; their assumptions may not hold; data limitations (bias, errors, size); ethical concerns (privacy, security, accountability); high development costs. Benefits: they make complex systems easier to understand (patterns, relationships, where to intervene); valuable predictions within a defined scope; options and scenarios can be tested in a controlled, low-risk environment (e.g. a traffic flow simulation for city planners).",
+          "model": "Limitation: a model is a simplification that leaves out details of the real system, so its predictions are never exactly right. Benefit: different scenarios, like changing traffic-light timings, can be tested safely and cheaply on the model before being tried in the real world.",
+          "idea": {
+            "title": "Wrong but useful",
+            "text": "Every model leaves things out, so it can never match reality exactly: it is 'wrong'. But if it keeps the factors that matter, it can still explain and predict well enough to make decisions: it is 'useful'.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "'Wrong' points to a limitation: models simplify, and their assumptions and data may be imperfect.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "'Useful' points to a benefit: models let us understand, predict and test 'what if' scenarios safely and cheaply.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Write one of each, with a short reason or example.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(b)(ii)",
+          "q": "Explain why abstraction is important when developing a model.",
+          "ask": "Explain why abstraction matters when building a model",
+          "marks": 4,
+          "chapter": 7,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "Abstraction allows us to focus on the most essential elements of a system while ignoring unnecessary details",
+                "marks": 4,
+                "alts": [
+                  [
+                    "ignor|remov|leav|hid|filter|omit|unnecessary|irrelevant|unimportant",
+                    "detail|information|factor"
+                  ],
+                  [
+                    "focus"
+                  ],
+                  [
+                    "essential|key|main|relevant",
+                    "element|feature|part|detail|factor"
+                  ]
+                ]
+              },
+              {
+                "text": "By simplifying complex systems, abstraction makes it easier to understand, analyse and simulate the system's behaviour",
+                "marks": 4,
+                "alts": [
+                  [
+                    "simplif|simpler",
+                    "understand|analys|simulat|easier"
+                  ]
+                ]
+              },
+              {
+                "text": "Without abstraction, models would become too complicated, difficult to interpret and less effective in predicting outcomes or testing scenarios",
+                "marks": 4,
+                "alts": [
+                  [
+                    "too complicated|too complex|too detailed|overly complex|overcomplicated"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good explanation 4 marks, fair 2: abstraction lets you focus on the most essential elements of a system while ignoring unnecessary details; simplifying the system makes it easier to understand, analyse and simulate its behaviour; without it models would be too complicated, hard to interpret and less effective at predicting outcomes or testing scenarios.",
+          "model": "Abstraction means keeping only the details that matter and ignoring the rest. In the driving test model we keep age, transmission and instructor experience but not, say, the colour of the car. This keeps the model simple enough to understand, build and run, whereas including every detail would make it far too complicated to be useful.",
+          "idea": {
+            "title": "Abstraction",
+            "text": "Abstraction is a computational thinking skill: removing unnecessary detail so you can focus on what matters for the problem. A map is an abstraction of a city: it leaves most things out, and that is why it is useful.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Start with the definition: abstraction removes unnecessary detail and keeps the essential features.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Why it matters for a model: a real system has endless details, and a model can't include them all.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Keeping only the key factors makes the model simple enough to understand, build, run and interpret.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Give an example: the driving test model keeps age and transmission but ignores the colour of the car.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Define abstraction, then say why it helps (simpler, easier to understand and run) for the full 4 marks."
+        },
+        {
+          "l": "(b)(iii)",
+          "q": "Modelling and simulation can be used in many situations to address a wide variety of problems. Some example areas where modelling and simulation can be used to improve outcomes include:\n- Education\n- Mental wellbeing\n- Environment\n- Traffic management\nPick any two of the above areas and briefly describe how modelling could be used to address a problem and improve outcomes.",
+          "ask": "For two of the areas, describe how modelling could tackle a problem",
+          "marks": 8,
+          "chapter": null,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Area 1:",
+                "answer": {
+                  "type": "text",
+                  "value": "Traffic management",
+                  "accept": [
+                    "Traffic",
+                    "Education",
+                    "Mental wellbeing",
+                    "Mental health",
+                    "Wellbeing",
+                    "Environment"
+                  ]
+                }
+              },
+              {
+                "label": "Describe:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Education: simulate different teaching methods or learning environments to find the most effective approaches for student engagement and performance (e.g. a virtual classroom)",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "teach|student|class|learn|school|exams|grade|pupil",
+                          "simulat|predict|test|optimi|identif|try|forecast|what if|scenario|plan"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Mental wellbeing: simulate factors like stress levels, social interactions and lifestyle choices to predict outcomes and suggest personalised interventions (e.g. identify triggers for anxiety)",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "stress|anxi|lifestyle|sleep|social|depress|coping|therap",
+                          "simulat|predict|test|optimi|identif|try|forecast|what if|scenario|plan"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Environment: simulate natural systems such as climate change or ecosystem dynamics to predict future conditions, guiding policy decisions and sustainable resource management",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "climate|ecosystem|pollut|weather|emission|flood|carbon|species|temperature|wildlife",
+                          "simulat|predict|test|optimi|identif|try|forecast|what if|scenario|plan"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Traffic management: simulate the movement of vehicles in a city to identify congestion points and optimise traffic signal timings, reducing delays and accidents",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "congest|vehicle|cars|road|signal|jam|junction|lights|commut",
+                          "simulat|predict|test|optimi|identif|try|forecast|what if|scenario|plan"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Area 2:",
+                "answer": {
+                  "type": "text",
+                  "value": "Traffic management",
+                  "accept": [
+                    "Traffic",
+                    "Education",
+                    "Mental wellbeing",
+                    "Mental health",
+                    "Wellbeing",
+                    "Environment"
+                  ]
+                }
+              },
+              {
+                "label": "Describe:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Education: simulate different teaching methods or learning environments to find the most effective approaches for student engagement and performance (e.g. a virtual classroom)",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "teach|student|class|learn|school|exams|grade|pupil",
+                          "simulat|predict|test|optimi|identif|try|forecast|what if|scenario|plan"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Mental wellbeing: simulate factors like stress levels, social interactions and lifestyle choices to predict outcomes and suggest personalised interventions (e.g. identify triggers for anxiety)",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "stress|anxi|lifestyle|sleep|social|depress|coping|therap",
+                          "simulat|predict|test|optimi|identif|try|forecast|what if|scenario|plan"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Environment: simulate natural systems such as climate change or ecosystem dynamics to predict future conditions, guiding policy decisions and sustainable resource management",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "climate|ecosystem|pollut|weather|emission|flood|carbon|species|temperature|wildlife",
+                          "simulat|predict|test|optimi|identif|try|forecast|what if|scenario|plan"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Traffic management: simulate the movement of vehicles in a city to identify congestion points and optimise traffic signal timings, reducing delays and accidents",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "congest|vehicle|cars|road|signal|jam|junction|lights|commut",
+                          "simulat|predict|test|optimi|identif|try|forecast|what if|scenario|plan"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "4 marks for each area (very good 4, fair 2). Education: simulate teaching methods or learning environments to find what best improves engagement and performance (e.g. a virtual classroom). Mental wellbeing: simulate factors such as stress, social interactions and lifestyle to predict outcomes and suggest personalised interventions (e.g. anxiety triggers). Environment: simulate climate change or ecosystems to predict future conditions, guiding policy and sustainable resource management. Traffic management: simulate vehicle movement to find congestion points and optimise traffic-signal timings, reducing delays and accidents.",
+          "model": "Area 1: Traffic management. Describe: a simulation of cars moving through a town's junctions can show where congestion builds up, and different traffic-light timings can be tested on it to find the one that cuts delays before the real lights are changed. Area 2: Environment. Describe: a climate model can simulate how emissions affect temperatures and flooding, so the effect of different policies can be predicted and the best one chosen.",
+          "idea": {
+            "title": "Test it on a model",
+            "text": "A simulation lets you try changes on a model of a system and see what happens, faster, cheaper and more safely than in real life. Then you make the change that gives the best outcome.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Pick two areas you can give a concrete example for, e.g. traffic management and the environment.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "For each, name the problem (congestion, rising emissions).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Say what the model would simulate and what you would change in it (light timings, emission policies).",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Finish with the improved outcome: shorter delays, better policy decisions.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": "Each description is worth 4 marks: give a problem, how the model is used and the outcome."
+        },
+        {
+          "l": "(c)(i)",
+          "q": "A health agency wants to predict how an infectious disease might spread in a school and evaluate different containment strategies.\n\nDescribe how agent-based modelling could be used to simulate disease spread in this scenario.",
+          "ask": "Describe an agent-based model of a disease spreading in a school",
+          "marks": 3,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 2,
+            "points": [
+              {
+                "text": "Each student and teacher could be modelled as an agent with attributes (e.g. vaccination, infection rate)",
+                "marks": 2,
+                "alts": [
+                  [
+                    "each|every|individual",
+                    "student|teacher|person|pupil|people"
+                  ],
+                  [
+                    "attribut|propert|vaccinat|infected|immun"
+                  ]
+                ]
+              },
+              {
+                "text": "Agents interact in different locations (e.g. classroom, canteen) and the model's rules simulate infection spread (e.g. contact duration, mask-wearing)",
+                "marks": 2,
+                "alts": [
+                  [
+                    "interact|contact|meet|mix"
+                  ],
+                  [
+                    "rule"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good description 3 marks, fair 2: each student and teacher is modelled as an agent with attributes (e.g. vaccination, infection rate); agents interact in different locations (classroom, canteen) and the model's rules simulate infection spread (contact duration, mask-wearing).",
+          "model": "Each student and teacher would be an agent with attributes such as infected or not, vaccinated or not, and their timetable. The agents move between classrooms, the canteen and corridors, and when they meet, rules based on contact time, distance and mask-wearing decide whether the infection passes on. Running the simulation shows how the disease spreads through the school.",
+          "idea": {
+            "title": "Agent-based models",
+            "text": "An agent-based model simulates many individuals (agents), each with its own attributes and simple rules for how it behaves and interacts. The overall pattern comes out of all those interactions.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Agents: make every student and teacher an agent.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Attributes: give each one properties, e.g. infected, vaccinated, wears a mask.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Interactions: the agents move between locations (classrooms, the canteen) and meet each other.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Rules: each meeting has a chance of passing on the infection, depending on contact time, masks and so on. Run it to watch the disease spread.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)(ii)",
+          "q": "Outline one emergent behaviour that could be revealed by this simulation.",
+          "ask": "Give one emergent behaviour the simulation might reveal",
+          "marks": 2,
+          "chapter": null,
+          "answer": {
+            "type": "keys",
+            "need": 1,
+            "points": [
+              {
+                "text": "Clusters of infection forming in areas with high interaction, like hallways",
+                "marks": 2,
+                "alts": [
+                  [
+                    "cluster|hotspot|hot spot|outbreak"
+                  ],
+                  [
+                    "corridor|hallway|canteen|crowd"
+                  ]
+                ]
+              },
+              {
+                "text": "Clusters of infection associated with a specific activity, e.g. sports or music",
+                "marks": 2,
+                "alts": [
+                  [
+                    "sport|music|activit|club|team"
+                  ]
+                ]
+              },
+              {
+                "text": "Patterns showing higher infection rates among specific people or age groups (superspreaders)",
+                "marks": 2,
+                "alts": [
+                  [
+                    "superspread|super-spread|super spread"
+                  ],
+                  [
+                    "age|year|group",
+                    "higher|more"
+                  ]
+                ]
+              },
+              {
+                "text": "Recovery leading to patterns such as slowing transmission rates or the end of an outbreak",
+                "marks": 2,
+                "alts": [
+                  [
+                    "recover|immun"
+                  ],
+                  [
+                    "slow|die out|peak|wave"
+                  ]
+                ]
+              }
+            ]
+          },
+          "scheme": "Very good description 2 marks, fair 1, for one of: clusters of infection where interaction is high (e.g. hallways); clusters linked to a specific activity (sport, music); higher infection rates among specific people or age groups (superspreaders); recovery leading to slowing transmission or the end of the outbreak; any other valid emergent behaviour.",
+          "model": "Clusters of infection could form in crowded places like the corridors and the canteen, even though no rule in the model mentions clusters: they emerge from many individual contacts.",
+          "idea": {
+            "title": "Emergent behaviour",
+            "text": "Emergent behaviour is an overall pattern that appears from many agents following simple rules, without anyone programming that pattern in directly.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Emergent means a big pattern that no single rule describes: it comes out of many interactions.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Ask what patterns would show up across the whole school: where and in whom infections bunch up, and how the outbreak rises and falls.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Describe one, e.g. clusters of infection in crowded corridors at break time.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        },
+        {
+          "l": "(c)(iii)",
+          "q": "Suggest one strategy the health agency could test in the model to reduce infection rates and explain how you would measure its success.",
+          "ask": "Suggest one strategy to test, and how you would measure its success",
+          "marks": 6,
+          "chapter": null,
+          "answer": {
+            "type": "fields",
+            "fields": [
+              {
+                "label": "Strategy:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Measures to reduce crowding, e.g. social distancing, staggered lunch breaks, quarantine",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "distanc|stagger|quarantin|isolat|crowd|bubble|pod"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Mask wearing",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "mask"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Vaccination/booster campaigns",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "vaccin|booster"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Regular testing/contact tracing",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "testing|tested|tracing|trace"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Increased hygiene",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "hygien|hand|sanitis|sanitiz|wash|clean"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Enhanced air ventilation systems",
+                      "marks": 2,
+                      "alts": [
+                        [
+                          "ventilat|air|window"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Explain:",
+                "answer": {
+                  "type": "keys",
+                  "need": 1,
+                  "points": [
+                    {
+                      "text": "Compare infection rates before and after the strategy",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "compar|before|without",
+                          "infect|case|rate"
+                        ]
+                      ]
+                    },
+                    {
+                      "text": "Analyse the time it takes for the disease to stop spreading",
+                      "marks": 4,
+                      "alts": [
+                        [
+                          "time|how long|quick|fast|days",
+                          "stop|end|die|spread"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "scheme": "Strategy 2 marks: measures to reduce crowding (social distancing, staggered lunch breaks, quarantine), mask wearing, vaccination or booster campaigns, regular testing or contact tracing, increased hygiene, better air ventilation, or another valid strategy. Measuring success 4 marks (very good 4, fair 2): compare infection rates before and after the strategy; analyse how long it takes the disease to stop spreading.",
+          "model": "Strategy: staggered lunch breaks, so fewer students are in the canteen at once. Explain: run the simulation with and without the staggered breaks and compare the number of infected students over the same period; the strategy works if infections are lower and the outbreak ends sooner.",
+          "idea": {
+            "title": "Run it both ways",
+            "text": "A simulation is a safe place to test a strategy: run it once without the change and once with it, keeping everything else the same, then compare the results.",
+            "vis": null
+          },
+          "steps": [
+            {
+              "say": "Pick a strategy that changes the model's rules or attributes: masks, vaccination, fewer people in one place at a time.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Run the simulation without the strategy to get a baseline.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Run it again with the strategy, keeping everything else the same.",
+              "math": [],
+              "code": "",
+              "vis": null
+            },
+            {
+              "say": "Measure success: compare the number or rate of infections, and how long it takes until the spread stops.",
+              "math": [],
+              "code": "",
+              "vis": null
+            }
+          ],
+          "tip": null
+        }
+      ]
+    }
+  ]
+}
