@@ -2982,7 +2982,7 @@
             ]
           },
           "scheme": "For each principle 2 marks: principle identified 1, good description of how it relates to the embedded system 1. Principles: equitable use; flexibility in use; simple (intuitive) use; perceptible information; tolerance for error; low physical effort; size and space for approach and use.",
-          "model": "Principle 1: Perceptible information. Describe: a smart thermostat shows the temperature in large, high-contrast digits and also beeps, so the information reaches users with poor eyesight or hearing. Principle 2: Tolerance for error. Describe: a microwave asks for confirmation and lets you cancel easily, so pressing the wrong button by accident does no harm.",
+          "model": "Principle 1: Perceptible information. Describe: a microwave shows the time left in large, high-contrast digits and also beeps when it finishes, so the information reaches users with poor eyesight or hearing. Principle 2: Tolerance for error. Describe: the same microwave asks for confirmation and lets you cancel easily, so pressing the wrong button by accident does no harm.",
           "idea": null,
           "steps": [
             {
