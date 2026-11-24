@@ -66,26 +66,103 @@
           "idea": {
             "title": "Character encoding",
             "text": "Computers only store numbers, so a character set gives every character a number code (in ASCII, 'A' is 65). If everyone uses the same table, text saved or sent by one computer appears as the same text on another.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Character",
+                "ASCII code",
+                "Binary"
+              ],
+              "rows": [
+                [
+                  "A",
+                  "65",
+                  "1000001"
+                ],
+                [
+                  "B",
+                  "66",
+                  "1000010"
+                ],
+                [
+                  "a",
+                  "97",
+                  "1100001"
+                ]
+              ],
+              "cap": "Everyone uses the same table: 'A' is always 65"
+            }
           },
           "steps": [
             {
               "say": "Computers store everything as binary numbers, so each letter or symbol must be given a number code.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "bits",
+                "value": 65,
+                "n": 7,
+                "sum": "'A' = 64 + 1 = 65",
+                "cap": "Stored as a number: 'A' is 65 in binary"
+              }
             },
             {
               "say": "If two computers used different codes, the same binary would show up as different characters and the text would be garbled.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Binary",
+                  "Computer 1 (ASCII)",
+                  "Computer 2 (own code)"
+                ],
+                "rows": [
+                  [
+                    "1000001",
+                    "A",
+                    "?"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    2
+                  ]
+                ],
+                "cap": "Different codes: the same bits show different text"
+              }
             },
             {
               "say": "A standard means everyone agrees on the same codes, so text can be shared and communicated between any devices, worldwide.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Binary",
+                  "Computer 1 (ASCII)",
+                  "Computer 2 (ASCII)"
+                ],
+                "rows": [
+                  [
+                    "1000001",
+                    "A",
+                    "A"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ]
+                ],
+                "cap": "One standard: the text reads the same everywhere"
+              }
             }
           ],
           "tip": "Give both halves: the same codes everywhere, and what that allows (sharing text between different computers)."
@@ -138,7 +215,46 @@
           "idea": {
             "title": "How many characters fit",
             "text": "With n bits you can make 2^n different codes. ASCII's 7 bits give 128 codes: enough for English letters, digits, punctuation and control codes, but nothing more.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Bits",
+                "Codes (2ⁿ)"
+              ],
+              "rows": [
+                [
+                  "1",
+                  "2"
+                ],
+                [
+                  "2",
+                  "4"
+                ],
+                [
+                  "3",
+                  "8"
+                ],
+                [
+                  "7",
+                  "128"
+                ],
+                [
+                  "8",
+                  "256"
+                ]
+              ],
+              "hl": [
+                [
+                  3,
+                  0
+                ],
+                [
+                  3,
+                  1
+                ]
+              ],
+              "cap": "Each extra bit doubles the number of codes"
+            }
           },
           "steps": [
             {
@@ -147,19 +263,122 @@
                 "2^7 = 128"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 2,
+                    "label": "bit 1"
+                  },
+                  {
+                    "n": 2,
+                    "label": "bit 2"
+                  },
+                  {
+                    "n": 2,
+                    "label": "bit 3"
+                  },
+                  {
+                    "n": 2,
+                    "label": "bit 4"
+                  },
+                  {
+                    "n": 2,
+                    "label": "bit 5"
+                  },
+                  {
+                    "n": 2,
+                    "label": "bit 6"
+                  },
+                  {
+                    "n": 2,
+                    "label": "bit 7"
+                  }
+                ],
+                "result": "2⁷ = 128 codes",
+                "cap": "7 bits: 2 choices for each bit"
+              }
             },
             {
               "say": "128 is enough for English letters, digits and punctuation, but not for accented letters, other alphabets (Chinese, Arabic, Greek...) or emojis.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Fits in 128 codes",
+                  "Does not fit"
+                ],
+                "rows": [
+                  [
+                    "A–Z, a–z",
+                    "é, á, ñ (accents)"
+                  ],
+                  [
+                    "0–9",
+                    "Chinese, Arabic, Greek…"
+                  ],
+                  [
+                    "punctuation",
+                    "emojis"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ]
+              }
             },
             {
               "say": "State one of these as the limitation, with the reason: only 128 characters.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Fits in 128 codes",
+                  "Does not fit"
+                ],
+                "rows": [
+                  [
+                    "A–Z, a–z",
+                    "é, á, ñ (accents)"
+                  ],
+                  [
+                    "0–9",
+                    "Chinese, Arabic, Greek…"
+                  ],
+                  [
+                    "punctuation",
+                    "emojis"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "cap": "Limitation: only 128 characters"
+              }
             }
           ],
           "tip": "Unicode was created to fix exactly this limitation."
@@ -201,7 +420,52 @@
           "idea": {
             "title": "Binary to hex in nibbles",
             "text": "One hex digit stands for exactly 4 bits. Split the byte into two nibbles of 4 bits and convert each nibble to a hex digit (0-9, then A = 10 up to F = 15).",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "4 bits",
+                "Value",
+                "Hex digit"
+              ],
+              "rows": [
+                [
+                  "1001",
+                  "9",
+                  "9"
+                ],
+                [
+                  "1010",
+                  "10",
+                  "A"
+                ],
+                [
+                  "1011",
+                  "11",
+                  "B"
+                ],
+                [
+                  "1100",
+                  "12",
+                  "C"
+                ],
+                [
+                  "1101",
+                  "13",
+                  "D"
+                ],
+                [
+                  "1110",
+                  "14",
+                  "E"
+                ],
+                [
+                  "1111",
+                  "15",
+                  "F"
+                ]
+              ],
+              "cap": "4 bits make one hex digit: 0–9, then A–F"
+            }
           },
           "steps": [
             {
@@ -210,7 +474,18 @@
                 "\\texttt{0100}\\;|\\;\\texttt{1011}"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "bits",
+                "bits": "01001011",
+                "show": false,
+                "hl": [
+                  0,
+                  1,
+                  2,
+                  3
+                ],
+                "cap": "K: split into 0100 | 1011"
+              }
             },
             {
               "say": "Convert the left nibble using the place values 8, 4, 2, 1.",
@@ -218,7 +493,11 @@
                 "\\texttt{0100} = 4"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "bits",
+                "bits": "0100",
+                "sum": "0100 = 4"
+              }
             },
             {
               "say": "Convert the right nibble; 11 is written B in hex.",
@@ -226,7 +505,11 @@
                 "\\texttt{1011} = 8 + 2 + 1 = 11 = \\text{B}_{16}"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "bits",
+                "bits": "1011",
+                "sum": "8 + 2 + 1 = 11 = B"
+              }
             },
             {
               "say": "Write the two hex digits in the same order.",
@@ -234,7 +517,13 @@
                 "\\texttt{01001011}_2 = \\text{4B}_{16}"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "bits",
+                "bits": "01001011",
+                "hex": true,
+                "sum": "0100 1011 = 4B",
+                "cap": "4B in hex = 75, the ASCII code for K"
+              }
             }
           ],
           "tip": "Check: 4B hex = 4 × 16 + 11 = 75, which is the ASCII code for K."
@@ -508,32 +797,118 @@
           "idea": {
             "title": "How bubble sort works",
             "text": "Bubble sort compares neighbouring pairs from left to right and swaps them if they are in the wrong order. After each pass the largest unsorted number has 'bubbled' to its final place at the end, so each pass needs one comparison fewer.",
-            "vis": null
+            "vis": {
+              "t": "array",
+              "vals": [
+                5,
+                8,
+                7,
+                6,
+                9
+              ],
+              "sorted": [
+                4,
+                4
+              ],
+              "label": "After pass 1: the 9 has bubbled to the end"
+            }
           },
           "steps": [
             {
               "say": "Pass 2 starts with 5 8 7 6 9. The 9 is already in place, so there are 3 comparisons; the first (5 and 8, no swap) is given.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  5,
+                  8,
+                  7,
+                  6,
+                  9
+                ],
+                "cmp": [
+                  0,
+                  1
+                ],
+                "sorted": [
+                  4,
+                  4
+                ],
+                "label": "Pass 2: 5 and 8, no swap (given)"
+              }
             },
             {
               "say": "Compare 8 and 7: swap, giving 5 7 8 6 9. Compare 8 and 6: swap, giving 5 7 6 8 9. Now the 8 is in place too.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  5,
+                  7,
+                  6,
+                  8,
+                  9
+                ],
+                "swap": [
+                  2,
+                  3
+                ],
+                "sorted": [
+                  3,
+                  4
+                ],
+                "label": "8↔7 then 8↔6: the 8 is in place"
+              }
             },
             {
               "say": "Pass 3 starts with 5 7 6 8 9 and needs 2 comparisons. 5 and 7: no swap, so the row stays 5 7 6 8 9. 7 and 6: swap, giving 5 6 7 8 9.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  5,
+                  6,
+                  7,
+                  8,
+                  9
+                ],
+                "swap": [
+                  1,
+                  2
+                ],
+                "sorted": [
+                  2,
+                  4
+                ],
+                "label": "Pass 3: 5, 7 no swap; 7↔6 swap"
+              }
             },
             {
               "say": "Pass 4 needs 1 comparison: 5 and 6 are in order, so the row is 5 6 7 8 9 and the list is sorted.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  5,
+                  6,
+                  7,
+                  8,
+                  9
+                ],
+                "cmp": [
+                  0,
+                  1
+                ],
+                "sorted": [
+                  0,
+                  4
+                ],
+                "label": "Pass 4: 5 and 6 in order: sorted"
+              }
             }
           ],
           "tip": "Write a row even when nothing is swapped (it repeats the row above): each row is one comparison and one mark."
@@ -599,14 +974,78 @@
           "idea": {
             "title": "What a heuristic is",
             "text": "A heuristic is a rule of thumb or educated guess that finds a good answer quickly without guaranteeing the best one. It is used when the exact method would take far too long.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "",
+                "Exact: check every route",
+                "Heuristic: rule of thumb"
+              ],
+              "rows": [
+                [
+                  "Answer",
+                  "the best, guaranteed",
+                  "good, not always best"
+                ],
+                [
+                  "Time",
+                  "far too long",
+                  "quick"
+                ]
+              ],
+              "hl": [
+                [
+                  1,
+                  2
+                ]
+              ]
+            }
           },
           "steps": [
             {
               "say": "The exact (brute force) method: list every route that starts and ends at city 1 and pick the shortest.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Round trip from city 1",
+                  "Length"
+                ],
+                "rows": [
+                  [
+                    "1-2-5-3-6-4-1",
+                    "10+14+1+6+20+5 = 56"
+                  ],
+                  [
+                    "1-2-5-6-3-4-1",
+                    "64"
+                  ],
+                  [
+                    "1-2-3-5-6-4-1",
+                    "66"
+                  ],
+                  [
+                    "1-3-2-5-6-4-1",
+                    "79"
+                  ],
+                  [
+                    "1-2-5-6-4-3-1",
+                    "83"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    1
+                  ]
+                ],
+                "cap": "The map's 5 round trips: the shortest is 56"
+              }
             },
             {
               "say": "If every city were linked to every other, n cities would give (n − 1)!/2 different round trips, so the count explodes as cities are added.",
@@ -615,19 +1054,137 @@
                 "20 \\text{ cities: } \\tfrac{19!}{2} \\approx 6 \\times 10^{16} \\text{ routes}"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "bars",
+                "vals": [
+                  3,
+                  12,
+                  60,
+                  360,
+                  2520,
+                  20160
+                ],
+                "labels": [
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9"
+                ],
+                "hl": [
+                  2
+                ],
+                "xlab": "cities",
+                "ylab": "round trips",
+                "cap": "(n − 1)!/2 round trips: 6 cities give 60"
+              }
             },
             {
               "say": "Checking them all would take far too long for real problems, even on a fast computer.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Cities",
+                  "Round trips to check"
+                ],
+                "rows": [
+                  [
+                    "6",
+                    "60"
+                  ],
+                  [
+                    "10",
+                    "181 440"
+                  ],
+                  [
+                    "20",
+                    "≈ 6 × 10¹⁶"
+                  ]
+                ],
+                "hl": [
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "cap": "Far too many to check one by one"
+              }
             },
             {
-              "say": "A heuristic such as nearest neighbour (always go to the closest unvisited city) gives a good, near-shortest route very quickly: an approximate answer that is good enough.",
+              "say": "A heuristic such as nearest neighbour (always go to the closest unvisited city) gives a good, near-shortest route very quickly: an approximate answer that is usually good enough, though not always the shortest.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "flow",
+                "nodes": [
+                  {
+                    "id": "s",
+                    "type": "start",
+                    "text": "Start at city 1"
+                  },
+                  {
+                    "id": "g",
+                    "type": "process",
+                    "text": "Go to nearest city"
+                  },
+                  {
+                    "id": "d",
+                    "type": "decision",
+                    "text": "All visited?"
+                  },
+                  {
+                    "id": "r",
+                    "type": "process",
+                    "text": "Return to city 1"
+                  },
+                  {
+                    "id": "e",
+                    "type": "end",
+                    "text": "Good route, fast"
+                  }
+                ],
+                "edges": [
+                  [
+                    "s",
+                    "g"
+                  ],
+                  [
+                    "g",
+                    "d"
+                  ],
+                  [
+                    "d",
+                    "r",
+                    "yes"
+                  ],
+                  [
+                    "d",
+                    "g",
+                    "no"
+                  ],
+                  [
+                    "r",
+                    "e"
+                  ]
+                ],
+                "path": [
+                  "s",
+                  "g",
+                  "d",
+                  "g",
+                  "d",
+                  "r",
+                  "e"
+                ],
+                "cap": "Nearest neighbour: a near-shortest route, quickly"
+              }
             }
           ],
           "tip": "Contrast the two: the exact solution takes too long; a heuristic gives a good approximate solution quickly."
@@ -673,26 +1230,163 @@
           "idea": {
             "title": "Linear search",
             "text": "A linear search checks the items one at a time from the start of the list until it finds the target or reaches the end. The list does not need to be sorted.",
-            "vis": null
+            "vis": {
+              "t": "array",
+              "vals": [
+                4,
+                9,
+                2,
+                7,
+                5
+              ],
+              "hl": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "find": 7,
+              "ptr": {
+                "i": 3
+              },
+              "label": "Check 4, 9, 2, then 7: found"
+            }
           },
           "steps": [
             {
               "say": "Look at how index changes: it starts at 0 and goes up by 1 each time round the loop.",
               "math": [],
               "code": "index = index + 1",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "index",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "rows": [
+                  [
+                    "names[index]",
+                    "John",
+                    "Mary",
+                    "Zoe",
+                    "Alex",
+                    "Séamas"
+                  ]
+                ],
+                "hl": [
+                  [
+                    -1,
+                    1
+                  ],
+                  [
+                    0,
+                    1
+                  ]
+                ],
+                "cap": "index = 0, then + 1 each time round the loop"
+              }
             },
             {
               "say": "So each name is compared with the target in turn, first to last, until there is a match or the list runs out.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "index",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "rows": [
+                  [
+                    "names[index]",
+                    "John",
+                    "Mary",
+                    "Zoe",
+                    "Alex",
+                    "Séamas"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    5
+                  ]
+                ],
+                "cap": "Each name compared in turn, first to last"
+              }
             },
             {
               "say": "Checking the items one after another in order is a linear (sequential) search.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "index",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+                ],
+                "rows": [
+                  [
+                    "names[index]",
+                    "John",
+                    "Mary",
+                    "Zoe",
+                    "Alex",
+                    "Séamas"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    5
+                  ]
+                ],
+                "cap": "One after another, in order: a linear (sequential) search"
+              }
             }
           ],
           "tip": null
@@ -716,20 +1410,93 @@
           "idea": {
             "title": "Boolean variables",
             "text": "A Boolean variable holds one of only two values, True or False. Here found is a flag recording whether the name has been found yet.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Data type",
+                "Values it can hold"
+              ],
+              "rows": [
+                [
+                  "Boolean",
+                  "True or False only"
+                ],
+                [
+                  "Integer",
+                  "whole numbers: 0, 1, 2…"
+                ],
+                [
+                  "String",
+                  "text: \"Zoe\""
+                ]
+              ],
+              "hl": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ]
+            }
           },
           "steps": [
             {
               "say": "Look at the values found is given: False at the start and True when the name matches.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Line of code",
+                  "found"
+                ],
+                "rows": [
+                  [
+                    "found = False",
+                    "False"
+                  ],
+                  [
+                    "found = True",
+                    "True"
+                  ]
+                ]
+              }
             },
             {
               "say": "A variable that can only be True or False is a Boolean (bool in Python).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Line of code",
+                  "found"
+                ],
+                "rows": [
+                  [
+                    "found = False",
+                    "False"
+                  ],
+                  [
+                    "found = True",
+                    "True"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "cap": "Only True or False: a Boolean (bool)"
+              }
             }
           ],
           "tip": "'True/False' on its own earned only 1 mark: name the type, Boolean."
@@ -795,38 +1562,283 @@
           "idea": {
             "title": "The loop condition",
             "text": "The while loop keeps going only while found is False and index has not reached the end of the list. Setting found to True stops the loop.",
-            "vis": null
+            "vis": {
+              "t": "flow",
+              "nodes": [
+                {
+                  "id": "s",
+                  "type": "start",
+                  "text": "Start"
+                },
+                {
+                  "id": "i",
+                  "type": "process",
+                  "text": "found = False"
+                },
+                {
+                  "id": "d",
+                  "type": "decision",
+                  "text": "Found or at end?"
+                },
+                {
+                  "id": "c",
+                  "type": "process",
+                  "text": "Check next name"
+                },
+                {
+                  "id": "p",
+                  "type": "io",
+                  "text": "Print index"
+                },
+                {
+                  "id": "e",
+                  "type": "end",
+                  "text": "End"
+                }
+              ],
+              "edges": [
+                [
+                  "s",
+                  "i"
+                ],
+                [
+                  "i",
+                  "d"
+                ],
+                [
+                  "d",
+                  "c",
+                  "no"
+                ],
+                [
+                  "c",
+                  "d"
+                ],
+                [
+                  "d",
+                  "p",
+                  "yes"
+                ],
+                [
+                  "p",
+                  "e"
+                ]
+              ],
+              "path": [
+                "s",
+                "i",
+                "d",
+                "c",
+                "d",
+                "p",
+                "e"
+              ],
+              "cap": "found = True ends the loop"
+            }
           },
           "steps": [
             {
               "say": "Start: found = False, index = 0. The loop condition is True, so the loop runs.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "index",
+                  "names[index]",
+                  "= \"Zoe\"?",
+                  "found"
+                ],
+                "rows": [
+                  [
+                    "0",
+                    "",
+                    "",
+                    "False"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    3
+                  ]
+                ],
+                "cap": "Condition True: the loop runs"
+              }
             },
             {
               "say": "names[0] is \"John\", not \"Zoe\": the else branch runs and index becomes 1.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "index",
+                  "names[index]",
+                  "= \"Zoe\"?",
+                  "found"
+                ],
+                "rows": [
+                  [
+                    "0",
+                    "John",
+                    "no",
+                    "False"
+                  ],
+                  [
+                    "1",
+                    "",
+                    "",
+                    "False"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ],
+                "cap": "John ≠ Zoe: index becomes 1"
+              }
             },
             {
               "say": "names[1] is \"Mary\", not \"Zoe\": index becomes 2.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "index",
+                  "names[index]",
+                  "= \"Zoe\"?",
+                  "found"
+                ],
+                "rows": [
+                  [
+                    "0",
+                    "John",
+                    "no",
+                    "False"
+                  ],
+                  [
+                    "1",
+                    "Mary",
+                    "no",
+                    "False"
+                  ],
+                  [
+                    "2",
+                    "",
+                    "",
+                    "False"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    0
+                  ]
+                ],
+                "cap": "Mary ≠ Zoe: index becomes 2"
+              }
             },
             {
               "say": "names[2] is \"Zoe\": a match, so found = True (index stays 2).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "index",
+                  "names[index]",
+                  "= \"Zoe\"?",
+                  "found"
+                ],
+                "rows": [
+                  [
+                    "0",
+                    "John",
+                    "no",
+                    "False"
+                  ],
+                  [
+                    "1",
+                    "Mary",
+                    "no",
+                    "False"
+                  ],
+                  [
+                    "2",
+                    "Zoe",
+                    "yes",
+                    "True"
+                  ]
+                ],
+                "hl": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "cap": "Zoe matches: found = True"
+              }
             },
             {
               "say": "not found is now False, so the loop stops and the program prints Result: 2.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "index",
+                  "names[index]",
+                  "= \"Zoe\"?",
+                  "found"
+                ],
+                "rows": [
+                  [
+                    "0",
+                    "John",
+                    "no",
+                    "False"
+                  ],
+                  [
+                    "1",
+                    "Mary",
+                    "no",
+                    "False"
+                  ],
+                  [
+                    "2",
+                    "Zoe",
+                    "yes",
+                    "True"
+                  ]
+                ],
+                "hl": [
+                  [
+                    2,
+                    0
+                  ]
+                ],
+                "cap": "not found is False: loop stops, prints Result: 2"
+              }
             }
           ],
           "tip": "Give index and found at every comparison: a step-by-step trace earns full marks, a one-line summary does not."
@@ -851,7 +1863,52 @@
               "say": "If the name never matches, found stays False and the else branch runs for every name.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "index",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5"
+                ],
+                "rows": [
+                  [
+                    "names[index]",
+                    "John",
+                    "Mary",
+                    "Zoe",
+                    "Alex",
+                    "Séamas",
+                    "(end)"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    5
+                  ]
+                ],
+                "cap": "No name matches: found stays False, else runs every time"
+              }
             },
             {
               "say": "index goes up by 1 after each of the 5 names.",
@@ -859,13 +1916,91 @@
                 "0 \\to 1 \\to 2 \\to 3 \\to 4 \\to 5"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "index",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5"
+                ],
+                "rows": [
+                  [
+                    "names[index]",
+                    "John",
+                    "Mary",
+                    "Zoe",
+                    "Alex",
+                    "Séamas",
+                    "(end)"
+                  ]
+                ],
+                "hl": [
+                  [
+                    -1,
+                    2
+                  ],
+                  [
+                    -1,
+                    3
+                  ],
+                  [
+                    -1,
+                    4
+                  ],
+                  [
+                    -1,
+                    5
+                  ],
+                  [
+                    -1,
+                    6
+                  ]
+                ],
+                "cap": "index + 1 after each name: 1, 2, 3, 4, 5"
+              }
             },
             {
               "say": "When index = 5 = len(names), the condition index != len(names) is False, so the loop stops with index = 5.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "index",
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5"
+                ],
+                "rows": [
+                  [
+                    "names[index]",
+                    "John",
+                    "Mary",
+                    "Zoe",
+                    "Alex",
+                    "Séamas",
+                    "(end)"
+                  ]
+                ],
+                "hl": [
+                  [
+                    -1,
+                    6
+                  ],
+                  [
+                    0,
+                    6
+                  ]
+                ],
+                "cap": "index = 5 = len(names): the loop stops"
+              }
             }
           ],
           "tip": "5 is one past the last valid index (4), so it signals 'not found'."
@@ -912,20 +2047,79 @@
           "idea": {
             "title": "Big O notation",
             "text": "Big O describes how the number of steps grows as the input size n grows. O(n) means the work grows in direct proportion to n: double the list, double the comparisons.",
-            "vis": null
+            "vis": {
+              "t": "bars",
+              "vals": [
+                4,
+                8
+              ],
+              "labels": [
+                "n = 4",
+                "n = 8"
+              ],
+              "ylab": "comparisons",
+              "hl": [
+                1
+              ],
+              "cap": "O(n): double the list, double the comparisons"
+            }
           },
           "steps": [
             {
               "say": "The worst case is the input that makes the algorithm do the most work.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "bars",
+                "vals": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  5
+                ],
+                "labels": [
+                  "John",
+                  "Mary",
+                  "Zoe",
+                  "Alex",
+                  "Séamas",
+                  "not there"
+                ],
+                "ylab": "comparisons",
+                "cap": "Comparisons to find each name: which needs the most?"
+              }
             },
             {
               "say": "For a linear search that is a name that is not in the list (or is the last one): every item must be checked.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "bars",
+                "vals": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  5
+                ],
+                "labels": [
+                  "John",
+                  "Mary",
+                  "Zoe",
+                  "Alex",
+                  "Séamas",
+                  "not there"
+                ],
+                "ylab": "comparisons",
+                "hl": [
+                  4,
+                  5
+                ],
+                "cap": "Worst case: last, or not there: all 5 checked"
+              }
             },
             {
               "say": "A list of n items then needs n comparisons, so the time is proportional to n.",
@@ -933,7 +2127,33 @@
                 "\\text{comparisons} = n \\;\\Rightarrow\\; O(n)"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  6
+                ],
+                "y": [
+                  0,
+                  6
+                ],
+                "xlab": "n items",
+                "ylab": "comparisons",
+                "fns": [
+                  {
+                    "f": "x",
+                    "label": "O(n)"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": 5,
+                    "y": 5,
+                    "label": "5 names: 5 checks",
+                    "hl": true
+                  }
+                ]
+              }
             }
           ],
           "tip": "1 mark is for O(n) and 2 for the explanation: say what the worst case is and why it needs n comparisons."
@@ -998,26 +2218,116 @@
           "idea": {
             "title": "Why binary search needs sorted data",
             "text": "Binary search looks at the middle item and throws away the half that cannot contain the target. That only works if the list is in order, so it knows which half the target must be in.",
-            "vis": null
+            "vis": {
+              "t": "array",
+              "vals": [
+                2,
+                5,
+                8,
+                12,
+                16,
+                23,
+                38
+              ],
+              "ptr": {
+                "mid": 3
+              },
+              "cmp": [
+                3
+              ],
+              "hl": [
+                4,
+                5,
+                6
+              ],
+              "label": "Looking for 23: 23 > 12, throw the left half away"
+            }
           },
           "steps": [
             {
               "say": "Recall how binary search chooses a half: if the target is bigger than the middle item, it must be to the right.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  3,
+                  7,
+                  13,
+                  18,
+                  28,
+                  35,
+                  41,
+                  50
+                ],
+                "ptr": {
+                  "mid": 3
+                },
+                "cmp": [
+                  3
+                ],
+                "hl": [
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "label": "Sorted: target > 18 must be to the right"
+              }
             },
             {
               "say": "That reasoning is only true if the list is sorted.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  28,
+                  3,
+                  50,
+                  18,
+                  7,
+                  41,
+                  13,
+                  35
+                ],
+                "ptr": {
+                  "mid": 3
+                },
+                "cmp": [
+                  3
+                ],
+                "hl": [
+                  0,
+                  2,
+                  5,
+                  7
+                ],
+                "label": "Unsorted: values over 18 are on both sides"
+              }
             },
             {
               "say": "So a disadvantage: the data must be sorted first (and kept sorted), which costs extra time.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  3,
+                  7,
+                  13,
+                  18,
+                  28,
+                  35,
+                  41,
+                  50
+                ],
+                "sorted": [
+                  0,
+                  7
+                ],
+                "label": "Sort it first (and keep it sorted): extra time"
+              }
             }
           ],
           "tip": null
@@ -1072,7 +2382,32 @@
           "idea": {
             "title": "Binary search",
             "text": "Binary search repeatedly checks the middle item of the part of the list still in play. If the target is bigger it keeps the right half, if smaller the left half, halving the search area each time until the target is found or nothing is left.",
-            "vis": null
+            "vis": {
+              "t": "array",
+              "vals": [
+                4,
+                9,
+                15,
+                21,
+                30,
+                42,
+                57
+              ],
+              "ptr": {
+                "left": 4,
+                "mid": 5,
+                "right": 6
+              },
+              "cmp": [
+                5
+              ],
+              "hl": [
+                4,
+                5,
+                6
+              ],
+              "label": "Each check halves the part still in play"
+            }
           },
           "steps": [
             {
@@ -1081,7 +2416,28 @@
                 "\\text{mid} = \\lfloor (0+7)/2 \\rfloor = 3"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  3,
+                  7,
+                  13,
+                  18,
+                  28,
+                  35,
+                  41,
+                  50
+                ],
+                "ptr": {
+                  "left": 0,
+                  "mid": 3,
+                  "right": 7
+                },
+                "cmp": [
+                  3
+                ],
+                "label": "mid = 3: L[3] = 18"
+              }
             },
             {
               "say": "28 > 18, so 28 must be to the right: left = mid + 1 = 4. New mid = 5 and L[5] = 35.",
@@ -1089,7 +2445,34 @@
                 "\\text{mid} = \\lfloor (4+7)/2 \\rfloor = 5"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  3,
+                  7,
+                  13,
+                  18,
+                  28,
+                  35,
+                  41,
+                  50
+                ],
+                "ptr": {
+                  "left": 4,
+                  "mid": 5,
+                  "right": 7
+                },
+                "cmp": [
+                  5
+                ],
+                "hl": [
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "label": "28 > 18: left = 4, mid = 5, L[5] = 35"
+              }
             },
             {
               "say": "28 < 35, so 28 must be to the left: right = mid − 1 = 4. New mid = 4 and L[4] = 28.",
@@ -1097,13 +2480,55 @@
                 "\\text{mid} = \\lfloor (4+4)/2 \\rfloor = 4"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  3,
+                  7,
+                  13,
+                  18,
+                  28,
+                  35,
+                  41,
+                  50
+                ],
+                "ptr": {
+                  "left = mid = right": 4
+                },
+                "cmp": [
+                  4
+                ],
+                "hl": [
+                  4
+                ],
+                "label": "28 < 35: right = 4, mid = 4, L[4] = 28"
+              }
             },
             {
               "say": "L[4] = 28 matches, so the search stops: 28 is at index 4, found in 3 comparisons.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  3,
+                  7,
+                  13,
+                  18,
+                  28,
+                  35,
+                  41,
+                  50
+                ],
+                "find": 28,
+                "ptr": {
+                  "left = mid = right": 4
+                },
+                "hl": [
+                  4
+                ],
+                "label": "L[4] = 28: found at index 4 in 3 comparisons"
+              }
             }
           ],
           "tip": "A small table of left, mid, right and L[mid] for each step is the clearest answer; rounding mid up (to 41) was also accepted."
@@ -1133,14 +2558,54 @@
           "idea": {
             "title": "Halving the list",
             "text": "Each comparison halves the number of items still to be searched. A list of 8 items halves 8 → 4 → 2 → 1, and the last single item still needs a comparison.",
-            "vis": null
+            "vis": {
+              "t": "bars",
+              "vals": [
+                8,
+                4,
+                2,
+                1
+              ],
+              "labels": [
+                "start",
+                "after 1",
+                "after 2",
+                "after 3"
+              ],
+              "ylab": "items left to search"
+            }
           },
           "steps": [
             {
               "say": "Each comparison discards about half of the items left (plus the middle one just checked).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  3,
+                  7,
+                  13,
+                  18,
+                  28,
+                  35,
+                  41,
+                  50
+                ],
+                "ptr": {
+                  "mid": 3
+                },
+                "cmp": [
+                  3
+                ],
+                "hl": [
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "label": "Looking for 60: 60 > 18, 4 items left"
+              }
             },
             {
               "say": "Worst case, the larger part is kept each time: 8 items, then 4, then 2, then 1, with one comparison at each size.",
@@ -1148,7 +2613,29 @@
                 "8 \\to 4 \\to 2 \\to 1"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "op": "→",
+                "boxes": [
+                  {
+                    "n": 8,
+                    "label": "1st"
+                  },
+                  {
+                    "n": 4,
+                    "label": "2nd"
+                  },
+                  {
+                    "n": 2,
+                    "label": "3rd"
+                  },
+                  {
+                    "n": 1,
+                    "label": "4th"
+                  }
+                ],
+                "cap": "Items in play at each comparison"
+              }
             },
             {
               "say": "That is 4 comparisons before nothing is left and the search reports 'not found'.",
@@ -1156,7 +2643,29 @@
                 "\\log_2 8 + 1 = 3 + 1 = 4"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "op": "→",
+                "boxes": [
+                  {
+                    "n": 8,
+                    "label": "1st"
+                  },
+                  {
+                    "n": 4,
+                    "label": "2nd"
+                  },
+                  {
+                    "n": 2,
+                    "label": "3rd"
+                  },
+                  {
+                    "n": 1,
+                    "label": "4th"
+                  }
+                ],
+                "result": "4 comparisons, then 'not found'"
+              }
             }
           ],
           "tip": "Try it on L: searching for 60 compares with 18, 35, 41 and 50, then stops: 4 comparisons."
@@ -1215,20 +2724,70 @@
           "idea": {
             "title": "Algorithmic efficiency",
             "text": "Efficiency is how much time (number of steps) and memory an algorithm needs as its input grows. Two correct algorithms can differ hugely: on a million sorted items a linear search may need a million comparisons, a binary search about 20.",
-            "vis": null
+            "vis": {
+              "t": "bars",
+              "vals": [
+                1000000,
+                20
+              ],
+              "labels": [
+                "linear search",
+                "binary search"
+              ],
+              "ylab": "comparisons",
+              "cap": "1 000 000 sorted items"
+            }
           },
           "steps": [
             {
               "say": "Start from Knuth's point: swapping a bad method for a good one gives a big speed-up, so we need a way to tell which is better.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "bars",
+                "vals": [
+                  8,
+                  4
+                ],
+                "labels": [
+                  "linear search",
+                  "binary search"
+                ],
+                "ylab": "comparisons",
+                "hl": [
+                  1
+                ],
+                "cap": "List L (8 items), worst case: the better method does half the work"
+              }
             },
             {
               "say": "Efficiency analysis (such as Big O) compares algorithms by how their time and memory grow as the data grows.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  64
+                ],
+                "y": [
+                  0,
+                  64
+                ],
+                "xlab": "n items",
+                "ylab": "steps",
+                "fns": [
+                  {
+                    "f": "x",
+                    "label": "linear: O(n)"
+                  },
+                  {
+                    "f": "ln(x)/0.693147+1",
+                    "from": 1,
+                    "label": "binary: O(log n)"
+                  }
+                ]
+              }
             },
             {
               "say": "Give an example: for 1,000,000 items, linear search needs up to 1,000,000 comparisons but binary search only about 20.",
@@ -1236,13 +2795,87 @@
                 "\\lceil \\log_2 1\\,000\\,000 \\rceil = 20"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Items n",
+                  "Linear search (worst)",
+                  "Binary search (worst)"
+                ],
+                "rows": [
+                  [
+                    "8",
+                    "8",
+                    "4"
+                  ],
+                  [
+                    "1 000",
+                    "1 000",
+                    "10"
+                  ],
+                  [
+                    "1 000 000",
+                    "1 000 000",
+                    "20"
+                  ]
+                ],
+                "hl": [
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "cap": "1 000 000 items: 1 000 000 against about 20"
+              }
             },
             {
               "say": "This lets us choose the best algorithm for a problem, the fastest and the one using the least memory, which matters most for large data sets.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Items n",
+                  "Linear search (worst)",
+                  "Binary search (worst)"
+                ],
+                "rows": [
+                  [
+                    "8",
+                    "8",
+                    "4"
+                  ],
+                  [
+                    "1 000",
+                    "1 000",
+                    "10"
+                  ],
+                  [
+                    "1 000 000",
+                    "1 000 000",
+                    "20"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "cap": "The bigger the data, the more the choice matters"
+              }
             }
           ],
           "tip": "A 7-mark answer needs several developed points: comparing algorithms, large data sets, and choosing the fastest/least-memory option, with an example."
@@ -1330,14 +2963,133 @@
           "idea": {
             "title": "Trace tables",
             "text": "A trace table records the value of each variable after every step, so you can follow exactly what an algorithm does. Work through the flowchart box by box and write each new value in.",
-            "vis": null
+            "vis": {
+              "t": "flow",
+              "nodes": [
+                {
+                  "id": "s",
+                  "type": "start",
+                  "text": "Start"
+                },
+                {
+                  "id": "i",
+                  "type": "process",
+                  "text": "count, total, n = 0"
+                },
+                {
+                  "id": "d",
+                  "type": "decision",
+                  "text": "count < 3?"
+                },
+                {
+                  "id": "n",
+                  "type": "io",
+                  "text": "INPUT n"
+                },
+                {
+                  "id": "t",
+                  "type": "process",
+                  "text": "total = total + n"
+                },
+                {
+                  "id": "c",
+                  "type": "process",
+                  "text": "count = count + 1"
+                },
+                {
+                  "id": "p",
+                  "type": "io",
+                  "text": "PRINT total/count"
+                },
+                {
+                  "id": "e",
+                  "type": "end",
+                  "text": "Stop"
+                }
+              ],
+              "edges": [
+                [
+                  "s",
+                  "i"
+                ],
+                [
+                  "i",
+                  "d"
+                ],
+                [
+                  "d",
+                  "n",
+                  "TRUE"
+                ],
+                [
+                  "n",
+                  "t"
+                ],
+                [
+                  "t",
+                  "c"
+                ],
+                [
+                  "c",
+                  "d"
+                ],
+                [
+                  "d",
+                  "p",
+                  "FALSE"
+                ],
+                [
+                  "p",
+                  "e"
+                ]
+              ],
+              "path": [
+                "s",
+                "i",
+                "d",
+                "n",
+                "t",
+                "c",
+                "d"
+              ],
+              "cap": "Follow the boxes; write each new value in the table"
+            }
           },
           "steps": [
             {
               "say": "Start: count, total and n are all 0 (the first row). count < 3 is TRUE, so go into the loop.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "n",
+                  "total",
+                  "count"
+                ],
+                "rows": [
+                  [
+                    "0",
+                    "0",
+                    "0"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ]
+                ],
+                "cap": "count < 3 is TRUE: into the loop"
+              }
             },
             {
               "say": "INPUT n = 7, then total = 0 + 7 = 7 and count = 0 + 1 = 1.",
@@ -1345,7 +3097,41 @@
                 "\\text{total} = 0 + 7 = 7"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "n",
+                  "total",
+                  "count"
+                ],
+                "rows": [
+                  [
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "7",
+                    "7",
+                    "1"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1,
+                    2
+                  ]
+                ],
+                "cap": "total = 0 + 7 = 7, count = 1"
+              }
             },
             {
               "say": "count = 1 < 3: INPUT n = 3, total = 7 + 3 = 10, count = 2.",
@@ -1353,7 +3139,46 @@
                 "\\text{total} = 7 + 3 = 10"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "n",
+                  "total",
+                  "count"
+                ],
+                "rows": [
+                  [
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "7",
+                    "7",
+                    "1"
+                  ],
+                  [
+                    "3",
+                    "10",
+                    "2"
+                  ]
+                ],
+                "hl": [
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "cap": "total = 7 + 3 = 10, count = 2"
+              }
             },
             {
               "say": "count = 2 < 3: INPUT n = 8, total = 10 + 8 = 18, count = 3. Now count < 3 is FALSE, so the loop ends.",
@@ -1361,7 +3186,51 @@
                 "\\text{total} = 10 + 8 = 18"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "n",
+                  "total",
+                  "count"
+                ],
+                "rows": [
+                  [
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "7",
+                    "7",
+                    "1"
+                  ],
+                  [
+                    "3",
+                    "10",
+                    "2"
+                  ],
+                  [
+                    "8",
+                    "18",
+                    "3"
+                  ]
+                ],
+                "hl": [
+                  [
+                    3,
+                    0
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    3,
+                    2
+                  ]
+                ],
+                "cap": "total = 10 + 8 = 18, count = 3: count < 3 is FALSE"
+              }
             }
           ],
           "tip": null
@@ -1383,14 +3252,114 @@
           "idea": {
             "title": "What the algorithm does",
             "text": "The loop adds up three inputs and counts them, then prints total divided by count: it calculates the average (mean) of the three numbers.",
-            "vis": null
+            "vis": {
+              "t": "bars",
+              "vals": [
+                7,
+                3,
+                8
+              ],
+              "labels": [
+                "7",
+                "3",
+                "8"
+              ],
+              "level": true,
+              "cap": "Add up, divide by how many: the mean"
+            }
           },
           "steps": [
             {
               "say": "After the loop, total = 18 and count = 3.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "flow",
+                "nodes": [
+                  {
+                    "id": "s",
+                    "type": "start",
+                    "text": "Start"
+                  },
+                  {
+                    "id": "i",
+                    "type": "process",
+                    "text": "count, total, n = 0"
+                  },
+                  {
+                    "id": "d",
+                    "type": "decision",
+                    "text": "count < 3?"
+                  },
+                  {
+                    "id": "n",
+                    "type": "io",
+                    "text": "INPUT n"
+                  },
+                  {
+                    "id": "t",
+                    "type": "process",
+                    "text": "total = total + n"
+                  },
+                  {
+                    "id": "c",
+                    "type": "process",
+                    "text": "count = count + 1"
+                  },
+                  {
+                    "id": "p",
+                    "type": "io",
+                    "text": "PRINT total/count"
+                  },
+                  {
+                    "id": "e",
+                    "type": "end",
+                    "text": "Stop"
+                  }
+                ],
+                "edges": [
+                  [
+                    "s",
+                    "i"
+                  ],
+                  [
+                    "i",
+                    "d"
+                  ],
+                  [
+                    "d",
+                    "n",
+                    "TRUE"
+                  ],
+                  [
+                    "n",
+                    "t"
+                  ],
+                  [
+                    "t",
+                    "c"
+                  ],
+                  [
+                    "c",
+                    "d"
+                  ],
+                  [
+                    "d",
+                    "p",
+                    "FALSE"
+                  ],
+                  [
+                    "p",
+                    "e"
+                  ]
+                ],
+                "path": [
+                  "d",
+                  "p"
+                ],
+                "hl": "d",
+                "cap": "total = 18, count = 3: count < 3 is FALSE"
+              }
             },
             {
               "say": "The output box prints total/count.",
@@ -1398,13 +3367,112 @@
                 "\\frac{18}{3} = 6"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "flow",
+                "nodes": [
+                  {
+                    "id": "s",
+                    "type": "start",
+                    "text": "Start"
+                  },
+                  {
+                    "id": "i",
+                    "type": "process",
+                    "text": "count, total, n = 0"
+                  },
+                  {
+                    "id": "d",
+                    "type": "decision",
+                    "text": "count < 3?"
+                  },
+                  {
+                    "id": "n",
+                    "type": "io",
+                    "text": "INPUT n"
+                  },
+                  {
+                    "id": "t",
+                    "type": "process",
+                    "text": "total = total + n"
+                  },
+                  {
+                    "id": "c",
+                    "type": "process",
+                    "text": "count = count + 1"
+                  },
+                  {
+                    "id": "p",
+                    "type": "io",
+                    "text": "PRINT total/count"
+                  },
+                  {
+                    "id": "e",
+                    "type": "end",
+                    "text": "Stop"
+                  }
+                ],
+                "edges": [
+                  [
+                    "s",
+                    "i"
+                  ],
+                  [
+                    "i",
+                    "d"
+                  ],
+                  [
+                    "d",
+                    "n",
+                    "TRUE"
+                  ],
+                  [
+                    "n",
+                    "t"
+                  ],
+                  [
+                    "t",
+                    "c"
+                  ],
+                  [
+                    "c",
+                    "d"
+                  ],
+                  [
+                    "d",
+                    "p",
+                    "FALSE"
+                  ],
+                  [
+                    "p",
+                    "e"
+                  ]
+                ],
+                "path": [
+                  "p"
+                ],
+                "hl": "p",
+                "cap": "PRINT total/count = 18/3 = 6"
+              }
             },
             {
               "say": "So it displays 6, the average of 7, 3 and 8.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "bars",
+                "vals": [
+                  7,
+                  3,
+                  8
+                ],
+                "labels": [
+                  "1st input",
+                  "2nd input",
+                  "3rd input"
+                ],
+                "level": true,
+                "cap": "6 is the average (mean) of 7, 3 and 8"
+              }
             }
           ],
           "tip": "The output is the value 6, not the words 'total/count'; show the division 18/3."
@@ -1474,7 +3542,26 @@
           "idea": {
             "title": "ASCII and Unicode",
             "text": "ASCII has 128 codes for English letters, digits, punctuation and control characters. Unicode gives a unique code to over a million possible characters, covering every writing system and emojis.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "",
+                "ASCII",
+                "Unicode"
+              ],
+              "rows": [
+                [
+                  "Codes",
+                  "128",
+                  "over 1 000 000"
+                ],
+                [
+                  "Covers",
+                  "English text",
+                  "every script, and emojis"
+                ]
+              ]
+            }
           },
           "steps": [
             {
@@ -1483,13 +3570,75 @@
                 "2^7 = 128"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "slots",
+                "boxes": [
+                  {
+                    "n": 2,
+                    "label": "bit 1"
+                  },
+                  {
+                    "n": 2,
+                    "label": "bit 2"
+                  },
+                  {
+                    "n": 2,
+                    "label": "bit 3"
+                  },
+                  {
+                    "n": 2,
+                    "label": "bit 4"
+                  },
+                  {
+                    "n": 2,
+                    "label": "bit 5"
+                  },
+                  {
+                    "n": 2,
+                    "label": "bit 6"
+                  },
+                  {
+                    "n": 2,
+                    "label": "bit 7"
+                  }
+                ],
+                "result": "2⁷ = 128 codes (0 to 127)"
+              }
             },
             {
               "say": "Those codes were all used in 1963 for English letters, digits, punctuation and control codes; emojis did not exist then.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "ASCII codes",
+                  "Used for (1963)"
+                ],
+                "rows": [
+                  [
+                    "0–31, 127",
+                    "control codes"
+                  ],
+                  [
+                    "48–57",
+                    "digits 0–9"
+                  ],
+                  [
+                    "65–90",
+                    "A–Z"
+                  ],
+                  [
+                    "97–122",
+                    "a–z"
+                  ],
+                  [
+                    "the rest",
+                    "space, punctuation"
+                  ]
+                ],
+                "cap": "All 128 codes used: no emojis"
+              }
             },
             {
               "say": "The thumbs up's code, 1F44D, is 128077 in denary, far beyond ASCII's top code of 127, so it needs Unicode.",
@@ -1497,7 +3646,21 @@
                 "\\text{1F44D}_{16} = 128\\,077 > 127"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "bars",
+                "vals": [
+                  127,
+                  128077
+                ],
+                "labels": [
+                  "ASCII's top code",
+                  "thumbs up (1F44D)"
+                ],
+                "hl": [
+                  1
+                ],
+                "cap": "1F44D = 128 077: far beyond 127"
+              }
             }
           ],
           "tip": null
@@ -1520,14 +3683,49 @@
           "idea": {
             "title": "Hex to binary",
             "text": "Each hex digit is exactly 4 bits, so convert each digit on its own into a 4-bit group and write the groups side by side in the same order.",
-            "vis": null
+            "vis": {
+              "t": "bits",
+              "bits": "1101",
+              "sum": "8 + 4 + 1 = 13 = D",
+              "cap": "One hex digit = exactly 4 bits"
+            }
           },
           "steps": [
             {
               "say": "Write each hex digit's denary value: 1, F = 15, 4, 4, D = 13.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Hex",
+                  "1",
+                  "F",
+                  "4",
+                  "4",
+                  "D"
+                ],
+                "rows": [
+                  [
+                    "Denary",
+                    "1",
+                    "15",
+                    "4",
+                    "4",
+                    "13"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    5
+                  ]
+                ]
+              }
             },
             {
               "say": "Convert each to 4 bits using the place values 8, 4, 2, 1.",
@@ -1538,7 +3736,57 @@
                 "\\text{D} = 13 = 8+4+1 = \\texttt{1101}"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Hex",
+                  "1",
+                  "F",
+                  "4",
+                  "4",
+                  "D"
+                ],
+                "rows": [
+                  [
+                    "Denary",
+                    "1",
+                    "15",
+                    "4",
+                    "4",
+                    "13"
+                  ],
+                  [
+                    "4 bits",
+                    "0001",
+                    "1111",
+                    "0100",
+                    "0100",
+                    "1101"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    1,
+                    3
+                  ],
+                  [
+                    1,
+                    4
+                  ],
+                  [
+                    1,
+                    5
+                  ]
+                ]
+              }
             },
             {
               "say": "Join the groups in order.",
@@ -1546,7 +3794,50 @@
                 "\\text{1F44D}_{16} = \\texttt{0001}\\;\\texttt{1111}\\;\\texttt{0100}\\;\\texttt{0100}\\;\\texttt{1101}_2"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Hex",
+                  "1",
+                  "F",
+                  "4",
+                  "4",
+                  "D"
+                ],
+                "rows": [
+                  [
+                    "Binary",
+                    "0001",
+                    "1111",
+                    "0100",
+                    "0100",
+                    "1101"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    0,
+                    5
+                  ]
+                ],
+                "cap": "Joined in order: 0001 1111 0100 0100 1101 (20 bits)"
+              }
             }
           ],
           "tip": "Keep all four bits in every group (4 is 0100, not 100), or the digits shift and the answer is wrong."
@@ -1600,26 +3891,95 @@
           "idea": {
             "title": "Winning and losing positions",
             "text": "A position is losing if every possible move leaves the opponent in a winning position. It is winning if at least one move leaves the opponent in a losing position.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Your moves leave the opponent…",
+                "Your position"
+              ],
+              "rows": [
+                [
+                  "at least one L",
+                  "W (winning)"
+                ],
+                [
+                  "only W positions",
+                  "L (losing)"
+                ]
+              ]
+            }
           },
           "steps": [
             {
               "say": "List the moves from 3: take 1 (leaving 2) or take 2 (leaving 1).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "2",
+                    "p": "take 1",
+                    "out": "?"
+                  },
+                  {
+                    "label": "1",
+                    "p": "take 2",
+                    "out": "?"
+                  }
+                ],
+                "cap": "From 3 matchsticks"
+              }
             },
             {
               "say": "Look both up in the table: 2 is W and 1 is W, and it is now the opponent's turn.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "2",
+                    "p": "take 1",
+                    "out": "W for them"
+                  },
+                  {
+                    "label": "1",
+                    "p": "take 2",
+                    "out": "W for them"
+                  }
+                ],
+                "cap": "Opponent's turn: 2 is W, 1 is W"
+              }
             },
             {
               "say": "Every move hands the opponent a winning position, so 3 is L.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "2",
+                    "p": "take 1",
+                    "out": "W for them"
+                  },
+                  {
+                    "label": "1",
+                    "p": "take 2",
+                    "out": "W for them"
+                  }
+                ],
+                "cap": "Every move hands them a W: 3 is L",
+                "hl": [
+                  [
+                    "2"
+                  ],
+                  [
+                    "1"
+                  ]
+                ]
+              }
             }
           ],
           "tip": null
@@ -1658,19 +4018,74 @@
               "say": "Moves from 4: take 1 (leaving 3) or take 2 (leaving 2).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "3",
+                    "p": "take 1",
+                    "out": "?"
+                  },
+                  {
+                    "label": "2",
+                    "p": "take 2",
+                    "out": "?"
+                  }
+                ],
+                "cap": "From 4 matchsticks"
+              }
             },
             {
               "say": "3 is L for the opponent, so taking 1 is a winning move.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "3",
+                    "p": "take 1",
+                    "out": "L for them"
+                  },
+                  {
+                    "label": "2",
+                    "p": "take 2",
+                    "out": "W for them"
+                  }
+                ],
+                "hl": [
+                  [
+                    "3"
+                  ]
+                ],
+                "cap": "Take 1: the opponent faces 3, an L"
+              }
             },
             {
               "say": "One move to an L position is enough to make 4 a W.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "3",
+                    "p": "take 1",
+                    "out": "L for them"
+                  },
+                  {
+                    "label": "2",
+                    "p": "take 2",
+                    "out": "W for them"
+                  }
+                ],
+                "hl": [
+                  [
+                    "3"
+                  ]
+                ],
+                "cap": "One move to an L is enough: 4 is W"
+              }
             }
           ],
           "tip": null
@@ -1724,19 +4139,73 @@
               "say": "5: taking 2 leaves 3, which is L for the opponent, so 5 is W.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  "L",
+                  "W",
+                  "W",
+                  "L",
+                  "W",
+                  "W",
+                  "?"
+                ],
+                "cmp": [
+                  3
+                ],
+                "hl": [
+                  5
+                ],
+                "label": "5: take 2 → 3 (L), so 5 is W"
+              }
             },
             {
               "say": "6: taking 1 leaves 5 (W) and taking 2 leaves 4 (W). Every move gives the opponent a W, so 6 is L.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  "L",
+                  "W",
+                  "W",
+                  "L",
+                  "W",
+                  "W",
+                  "L"
+                ],
+                "cmp": [
+                  4,
+                  5
+                ],
+                "hl": [
+                  6
+                ],
+                "label": "6: leaves 5 (W) or 4 (W), so 6 is L"
+              }
             },
             {
               "say": "The pattern so far: L at 0, 3 and 6, the multiples of 3.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  "L",
+                  "W",
+                  "W",
+                  "L",
+                  "W",
+                  "W",
+                  "L"
+                ],
+                "hl": [
+                  0,
+                  3,
+                  6
+                ],
+                "label": "L at 0, 3 and 6: the multiples of 3"
+              }
             }
           ],
           "tip": null
@@ -1787,7 +4256,28 @@
               "say": "Extend the pattern: the losing positions are 0, 3, 6, 9, ..., the multiples of 3.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  "L",
+                  "W",
+                  "W",
+                  "L",
+                  "W",
+                  "W",
+                  "L",
+                  "W",
+                  "W",
+                  "L"
+                ],
+                "hl": [
+                  0,
+                  3,
+                  6,
+                  9
+                ],
+                "label": "Losing positions: 0, 3, 6, 9, … (multiples of 3)"
+              }
             },
             {
               "say": "21 = 3 × 7, so 21 is a losing position for the player about to move.",
@@ -1795,13 +4285,64 @@
                 "21 = 3 \\times 7"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Matchsticks",
+                  "15",
+                  "16",
+                  "17",
+                  "18",
+                  "19",
+                  "20",
+                  "21"
+                ],
+                "rows": [
+                  [
+                    "Position",
+                    "L",
+                    "W",
+                    "W",
+                    "L",
+                    "W",
+                    "W",
+                    "L"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    7
+                  ]
+                ],
+                "cap": "21 = 3 × 7: L for the player to move"
+              }
             },
             {
               "say": "So let the opponent go first, then always take enough to leave them a multiple of 3.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Opponent takes",
+                  "You take",
+                  "Round total"
+                ],
+                "rows": [
+                  [
+                    "1",
+                    "2",
+                    "3"
+                  ],
+                  [
+                    "2",
+                    "1",
+                    "3"
+                  ]
+                ],
+                "cap": "Go second: 21 → 18 → 15 → … → 0, always a multiple of 3"
+              }
             }
           ],
           "tip": null
@@ -1841,7 +4382,36 @@
               "say": "20 is not a multiple of 3, so it is a winning position for the player who moves first.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Matchsticks",
+                  "15",
+                  "16",
+                  "17",
+                  "18",
+                  "19",
+                  "20"
+                ],
+                "rows": [
+                  [
+                    "Position",
+                    "L",
+                    "W",
+                    "W",
+                    "L",
+                    "W",
+                    "W"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    6
+                  ]
+                ],
+                "cap": "20 is not a multiple of 3: W for the first player"
+              }
             },
             {
               "say": "Take 2 to leave 18 = 3 × 6, a losing position for the opponent.",
@@ -1849,13 +4419,65 @@
                 "20 - 2 = 18 = 3 \\times 6"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Matchsticks",
+                  "15",
+                  "16",
+                  "17",
+                  "18",
+                  "19",
+                  "20"
+                ],
+                "rows": [
+                  [
+                    "Position",
+                    "L",
+                    "W",
+                    "W",
+                    "L",
+                    "W",
+                    "W"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    4
+                  ]
+                ],
+                "cap": "Take 2: leave 18 = 3 × 6, an L"
+              }
             },
             {
               "say": "Then each turn take 3 minus what they took, so together you remove 3 every round and they always face a multiple of 3, all the way down to 0.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "bars",
+                "vals": [
+                  18,
+                  15,
+                  12,
+                  9,
+                  6,
+                  3,
+                  0
+                ],
+                "labels": [
+                  "start",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6"
+                ],
+                "xlab": "after round",
+                "ylab": "left for opponent",
+                "cap": "Take 3 minus their move: 3 go each round"
+              }
             }
           ],
           "tip": null
@@ -1943,25 +4565,110 @@
               "say": "0 is L. With moves of 1, 2 or 3, positions 1, 2 and 3 are W: take them all.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  "L",
+                  "W",
+                  "W",
+                  "W",
+                  "?",
+                  "?",
+                  "?",
+                  "?",
+                  "?",
+                  "?"
+                ],
+                "hl": [
+                  1,
+                  2,
+                  3
+                ],
+                "label": "Take 1, 2 or 3: 1, 2 and 3 are W"
+              }
             },
             {
               "say": "4: every move leaves 3, 2 or 1, all W for the opponent, so 4 is L.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  "L",
+                  "W",
+                  "W",
+                  "W",
+                  "L",
+                  "?",
+                  "?",
+                  "?",
+                  "?",
+                  "?"
+                ],
+                "cmp": [
+                  1,
+                  2,
+                  3
+                ],
+                "hl": [
+                  4
+                ],
+                "label": "4: every move leaves 3, 2 or 1 (all W): L"
+              }
             },
             {
               "say": "5, 6 and 7 are W (move to 4); 8 is L (every move leaves 7, 6 or 5); 9 is W (take 1 to leave 8).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  "L",
+                  "W",
+                  "W",
+                  "W",
+                  "L",
+                  "W",
+                  "W",
+                  "W",
+                  "L",
+                  "W"
+                ],
+                "hl": [
+                  5,
+                  6,
+                  7,
+                  8,
+                  9
+                ],
+                "label": "5–7 W (move to 4), 8 L, 9 W (take 1 → 8)"
+              }
             },
             {
               "say": "The losing positions are now the multiples of 4.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  "L",
+                  "W",
+                  "W",
+                  "W",
+                  "L",
+                  "W",
+                  "W",
+                  "W",
+                  "L",
+                  "W"
+                ],
+                "hl": [
+                  0,
+                  4,
+                  8
+                ],
+                "label": "L at 0, 4, 8: the multiples of 4"
+              }
             }
           ],
           "tip": "Build the table up from 0 one position at a time, checking each against the positions 1, 2 and 3 below it."
@@ -2096,26 +4803,225 @@
           "idea": {
             "title": "Game trees",
             "text": "A game tree shows every possible move from a position as a branch and every resulting position as a node, until each game ends. Reading the end of each path tells you who wins down that path.",
-            "vis": null
+            "vis": {
+              "t": "tree",
+              "root": [
+                {
+                  "label": "1",
+                  "p": "take 1",
+                  "kids": [
+                    {
+                      "label": "0",
+                      "p": "take 1",
+                      "out": "opponent wins"
+                    }
+                  ]
+                },
+                {
+                  "label": "0",
+                  "p": "take 2",
+                  "out": "you win"
+                }
+              ],
+              "cap": "One pile of 2: each branch a move, each end a winner"
+            }
           },
           "steps": [
             {
               "say": "From (1, 2), A's other moves take from pile Y: AY1 leaves (1, 1) and AY2 leaves (1, 0).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "0,2",
+                    "p": "AX1",
+                    "kids": [
+                      {
+                        "label": "0,1",
+                        "p": "BY1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AY1",
+                            "out": "A wins"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "0,0",
+                        "p": "BY2",
+                        "out": "B wins"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "1,0",
+                    "p": "AY2"
+                  },
+                  {
+                    "label": "1,1",
+                    "p": "AY1"
+                  }
+                ],
+                "cap": "From (1, 2): AY1 → (1, 1), AY2 → (1, 0)"
+              }
             },
             {
               "say": "From (1, 1), B can play BX1 → (0, 1) or BY1 → (1, 0). Either way A takes the last matchstick (AY1 or AX1) → (0, 0): A wins.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "0,2",
+                    "p": "AX1",
+                    "kids": [
+                      {
+                        "label": "0,1",
+                        "p": "BY1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AY1",
+                            "out": "A wins"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "0,0",
+                        "p": "BY2",
+                        "out": "B wins"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "1,0",
+                    "p": "AY2"
+                  },
+                  {
+                    "label": "1,1",
+                    "p": "AY1",
+                    "kids": [
+                      {
+                        "label": "0,1",
+                        "p": "BX1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AY1",
+                            "out": "A wins"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "1,0",
+                        "p": "BY1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AX1",
+                            "out": "A wins"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "hl": [
+                  [
+                    "1,1",
+                    "0,1",
+                    "0,0"
+                  ],
+                  [
+                    "1,1",
+                    "1,0",
+                    "0,0"
+                  ]
+                ],
+                "cap": "From (1, 1): either way A takes the last one"
+              }
             },
             {
               "say": "From (1, 0), B's only move is BX1 → (0, 0): B takes the last matchstick and wins.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "0,2",
+                    "p": "AX1",
+                    "kids": [
+                      {
+                        "label": "0,1",
+                        "p": "BY1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AY1",
+                            "out": "A wins"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "0,0",
+                        "p": "BY2",
+                        "out": "B wins"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "1,0",
+                    "p": "AY2",
+                    "kids": [
+                      {
+                        "label": "0,0",
+                        "p": "BX1",
+                        "out": "B wins"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "1,1",
+                    "p": "AY1",
+                    "kids": [
+                      {
+                        "label": "0,1",
+                        "p": "BX1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AY1",
+                            "out": "A wins"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "1,0",
+                        "p": "BY1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AX1",
+                            "out": "A wins"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "cap": "From (1, 0): BX1 → (0, 0), B wins",
+                "hl": [
+                  [
+                    "1,0",
+                    "0,0"
+                  ]
+                ]
+              }
             }
           ],
           "tip": "Keep the (X, Y) notation and label every arrow with the player, the pile and the number taken, like the given branch."
@@ -2173,19 +5079,239 @@
               "say": "Check each of A's first moves on the tree.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "0,2",
+                    "p": "AX1",
+                    "kids": [
+                      {
+                        "label": "0,1",
+                        "p": "BY1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AY1",
+                            "out": "A wins"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "0,0",
+                        "p": "BY2",
+                        "out": "B wins"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "1,0",
+                    "p": "AY2",
+                    "kids": [
+                      {
+                        "label": "0,0",
+                        "p": "BX1",
+                        "out": "B wins"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "1,1",
+                    "p": "AY1",
+                    "kids": [
+                      {
+                        "label": "0,1",
+                        "p": "BX1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AY1",
+                            "out": "A wins"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "1,0",
+                        "p": "BY1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AX1",
+                            "out": "A wins"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "cap": "Check each of A's first moves"
+              }
             },
             {
               "say": "AX1 can lose (if B plays BY2) and AY2 always loses (B plays BX1).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "0,2",
+                    "p": "AX1",
+                    "kids": [
+                      {
+                        "label": "0,1",
+                        "p": "BY1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AY1",
+                            "out": "A wins"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "0,0",
+                        "p": "BY2",
+                        "out": "B wins"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "1,0",
+                    "p": "AY2",
+                    "kids": [
+                      {
+                        "label": "0,0",
+                        "p": "BX1",
+                        "out": "B wins"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "1,1",
+                    "p": "AY1",
+                    "kids": [
+                      {
+                        "label": "0,1",
+                        "p": "BX1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AY1",
+                            "out": "A wins"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "1,0",
+                        "p": "BY1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AX1",
+                            "out": "A wins"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "cap": "AX1 can lose (BY2); AY2 always loses (BX1)",
+                "hl": [
+                  [
+                    "0,2",
+                    "0,0"
+                  ],
+                  [
+                    "1,0",
+                    "0,0"
+                  ]
+                ]
+              }
             },
             {
               "say": "After AY1, both of B's moves lead to A winning, so AY1 is the only move that guarantees victory.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "0,2",
+                    "p": "AX1",
+                    "kids": [
+                      {
+                        "label": "0,1",
+                        "p": "BY1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AY1",
+                            "out": "A wins"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "0,0",
+                        "p": "BY2",
+                        "out": "B wins"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "1,0",
+                    "p": "AY2",
+                    "kids": [
+                      {
+                        "label": "0,0",
+                        "p": "BX1",
+                        "out": "B wins"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "1,1",
+                    "p": "AY1",
+                    "kids": [
+                      {
+                        "label": "0,1",
+                        "p": "BX1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AY1",
+                            "out": "A wins"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "1,0",
+                        "p": "BY1",
+                        "kids": [
+                          {
+                            "label": "0,0",
+                            "p": "AX1",
+                            "out": "A wins"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "cap": "AY1: A wins whatever B does",
+                "hl": [
+                  [
+                    "1,1",
+                    "0,1",
+                    "0,0"
+                  ],
+                  [
+                    "1,1",
+                    "1,0",
+                    "0,0"
+                  ]
+                ]
+              }
             }
           ],
           "tip": null
@@ -2226,19 +5352,119 @@
               "say": "Look for a move that leaves the opponent equal piles: from (2, 3), take 1 from Y to leave (2, 2).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "2,2",
+                    "p": "AY1",
+                    "out": "equal piles"
+                  }
+                ],
+                "cap": "From (2, 3): take 1 from Y"
+              }
             },
             {
               "say": "Check B's replies: if B takes 2 from a pile, A takes the other pile and wins; if B takes 1, the state is (1, 2) or (2, 1), which A wins by the tree in parts (i) and (ii).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "1,2",
+                    "p": "BX1",
+                    "out": "A wins (part ii)"
+                  },
+                  {
+                    "label": "0,2",
+                    "p": "BX2",
+                    "kids": [
+                      {
+                        "label": "0,0",
+                        "p": "AY2",
+                        "out": "A wins"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "2,1",
+                    "p": "BY1",
+                    "out": "A wins (part ii)"
+                  },
+                  {
+                    "label": "2,0",
+                    "p": "BY2",
+                    "kids": [
+                      {
+                        "label": "0,0",
+                        "p": "AX2",
+                        "out": "A wins"
+                      }
+                    ]
+                  }
+                ],
+                "cap": "From (2, 2), B to move: every reply"
+              }
             },
             {
               "say": "So AY1 is a winning move.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "tree",
+                "root": [
+                  {
+                    "label": "1,2",
+                    "p": "BX1",
+                    "out": "A wins (part ii)"
+                  },
+                  {
+                    "label": "0,2",
+                    "p": "BX2",
+                    "kids": [
+                      {
+                        "label": "0,0",
+                        "p": "AY2",
+                        "out": "A wins"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "2,1",
+                    "p": "BY1",
+                    "out": "A wins (part ii)"
+                  },
+                  {
+                    "label": "2,0",
+                    "p": "BY2",
+                    "kids": [
+                      {
+                        "label": "0,0",
+                        "p": "AX2",
+                        "out": "A wins"
+                      }
+                    ]
+                  }
+                ],
+                "hl": [
+                  [
+                    "1,2"
+                  ],
+                  [
+                    "0,2",
+                    "0,0"
+                  ],
+                  [
+                    "2,1"
+                  ],
+                  [
+                    "2,0",
+                    "0,0"
+                  ]
+                ],
+                "cap": "A wins every time: AY1 is a winning move"
+              }
             }
           ],
           "tip": null
@@ -2279,7 +5505,34 @@
               "say": "Parts (ii) and (iii) show that leaving equal piles puts the opponent in a losing position.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "You leave the opponent",
+                  "Result"
+                ],
+                "rows": [
+                  [
+                    "(1, 1)  part (ii)",
+                    "A wins"
+                  ],
+                  [
+                    "(2, 2)  part (iii)",
+                    "A wins"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ],
+                "cap": "Equal piles lose for the player to move"
+              }
             },
             {
               "say": "If m > n, take m − n from the bigger pile to leave (n, n).",
@@ -2287,13 +5540,155 @@
                 "(n, m) \\to (n, n) \\text{ by taking } m - n"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "flow",
+                "nodes": [
+                  {
+                    "id": "s",
+                    "type": "start",
+                    "text": "(n, m), m > n"
+                  },
+                  {
+                    "id": "a",
+                    "type": "process",
+                    "text": "Take m − n from Y"
+                  },
+                  {
+                    "id": "b",
+                    "type": "process",
+                    "text": "Opponent moves"
+                  },
+                  {
+                    "id": "c",
+                    "type": "process",
+                    "text": "Copy on other pile"
+                  },
+                  {
+                    "id": "d",
+                    "type": "decision",
+                    "text": "Piles empty?"
+                  },
+                  {
+                    "id": "e",
+                    "type": "end",
+                    "text": "You win"
+                  }
+                ],
+                "edges": [
+                  [
+                    "s",
+                    "a"
+                  ],
+                  [
+                    "a",
+                    "b"
+                  ],
+                  [
+                    "b",
+                    "c"
+                  ],
+                  [
+                    "c",
+                    "d"
+                  ],
+                  [
+                    "d",
+                    "e",
+                    "yes"
+                  ],
+                  [
+                    "d",
+                    "b",
+                    "no"
+                  ]
+                ],
+                "path": [
+                  "s",
+                  "a"
+                ],
+                "hl": "a",
+                "cap": "(n, m) → (n, n)"
+              }
             },
             {
               "say": "Then mirror the opponent: whatever they take from one pile, take the same from the other, so the piles stay equal until you take the last matchstick.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "flow",
+                "nodes": [
+                  {
+                    "id": "s",
+                    "type": "start",
+                    "text": "(n, m), m > n"
+                  },
+                  {
+                    "id": "a",
+                    "type": "process",
+                    "text": "Take m − n from Y"
+                  },
+                  {
+                    "id": "b",
+                    "type": "process",
+                    "text": "Opponent moves"
+                  },
+                  {
+                    "id": "c",
+                    "type": "process",
+                    "text": "Copy on other pile"
+                  },
+                  {
+                    "id": "d",
+                    "type": "decision",
+                    "text": "Piles empty?"
+                  },
+                  {
+                    "id": "e",
+                    "type": "end",
+                    "text": "You win"
+                  }
+                ],
+                "edges": [
+                  [
+                    "s",
+                    "a"
+                  ],
+                  [
+                    "a",
+                    "b"
+                  ],
+                  [
+                    "b",
+                    "c"
+                  ],
+                  [
+                    "c",
+                    "d"
+                  ],
+                  [
+                    "d",
+                    "e",
+                    "yes"
+                  ],
+                  [
+                    "d",
+                    "b",
+                    "no"
+                  ]
+                ],
+                "path": [
+                  "a",
+                  "b",
+                  "c",
+                  "d",
+                  "b",
+                  "c",
+                  "d",
+                  "e"
+                ],
+                "hl": "c",
+                "cap": "Mirror every move: the piles stay equal"
+              }
             }
           ],
           "tip": null
@@ -2331,19 +5726,104 @@
               "say": "From (n, n, n), you may take any number from one pile, including the whole pile.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Pile 1",
+                  "Pile 2",
+                  "Pile 3"
+                ],
+                "rows": [
+                  [
+                    "Start",
+                    "n",
+                    "n",
+                    "n"
+                  ]
+                ],
+                "cap": "Any number from one pile, even all of it"
+              }
             },
             {
               "say": "Take a whole pile: the opponent faces (n, n), two equal piles.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Pile 1",
+                  "Pile 2",
+                  "Pile 3"
+                ],
+                "rows": [
+                  [
+                    "Start",
+                    "n",
+                    "n",
+                    "n"
+                  ],
+                  [
+                    "You take pile 3",
+                    "n",
+                    "n",
+                    "0"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    3
+                  ]
+                ],
+                "cap": "Take a whole pile: they face (n, n)"
+              }
             },
             {
               "say": "From equal piles the mirroring strategy of part (iv) wins for you, so (n, n, n) is a winning position.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Pile 1",
+                  "Pile 2",
+                  "Pile 3"
+                ],
+                "rows": [
+                  [
+                    "Start",
+                    "n",
+                    "n",
+                    "n"
+                  ],
+                  [
+                    "You take pile 3",
+                    "n",
+                    "n",
+                    "0"
+                  ],
+                  [
+                    "They take k, you copy",
+                    "n − k",
+                    "n − k",
+                    "0"
+                  ]
+                ],
+                "hl": [
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "cap": "Mirror them (part iv): you take the last one"
+              }
             }
           ],
           "tip": null
@@ -2411,32 +5891,139 @@
           "idea": {
             "title": "Three computational thinking skills",
             "text": "Decomposition breaks a problem into smaller parts; abstraction keeps only the essential details (writing (1, 2) instead of drawing matchsticks); pattern recognition spots repeating features (multiples of 3 lose) so that one solution can be generalised.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Skill",
+                "What it does"
+              ],
+              "rows": [
+                [
+                  "Decomposition",
+                  "breaks a problem into smaller parts"
+                ],
+                [
+                  "Abstraction",
+                  "keeps only the essential details"
+                ],
+                [
+                  "Pattern recognition",
+                  "spots repeats, so a solution generalises"
+                ]
+              ]
+            }
           },
           "steps": [
             {
               "say": "Choose one of the three skills and say in a sentence what it is.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Skill",
+                  "What it does"
+                ],
+                "rows": [
+                  [
+                    "Decomposition",
+                    "breaks a problem into smaller parts"
+                  ],
+                  [
+                    "Abstraction",
+                    "keeps only the essential details"
+                  ],
+                  [
+                    "Pattern recognition",
+                    "spots repeats, so a solution generalises"
+                  ]
+                ],
+                "hl": [
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ]
+              }
             },
             {
               "say": "Link it to something you actually did in (a) or (b): for pattern recognition, L at 0, 3, 6 shows that the multiples of 3 lose.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  "L",
+                  "W",
+                  "W",
+                  "L",
+                  "W",
+                  "W",
+                  "L",
+                  "W",
+                  "W",
+                  "L"
+                ],
+                "hl": [
+                  0,
+                  3,
+                  6,
+                  9
+                ],
+                "label": "Pattern: L at 0, 3, 6, 9: multiples of 3 lose"
+              }
             },
             {
               "say": "Show how it built the solution: it gave the strategies for 21 and 20 matchsticks without working out every position.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Start",
+                  "Multiple of 3?",
+                  "Strategy"
+                ],
+                "rows": [
+                  [
+                    "21",
+                    "yes: L",
+                    "go second"
+                  ],
+                  [
+                    "20",
+                    "no: W",
+                    "take 2, leave 18"
+                  ]
+                ],
+                "cap": "No need to work out every position"
+              }
             },
             {
               "say": "Other choices work too: decomposition (building up from 0 matchsticks one position at a time) or abstraction ((1, 2) notation, W/L tables and trees instead of real matchsticks).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Skill",
+                  "In this game"
+                ],
+                "rows": [
+                  [
+                    "Decomposition",
+                    "build up from 0, one position at a time"
+                  ],
+                  [
+                    "Abstraction",
+                    "(1, 2), W/L tables, trees: no real matchsticks"
+                  ]
+                ]
+              }
             }
           ],
           "tip": "Explain only one skill, and tie it to a specific step in parts (a) or (b); a general definition alone earns little."

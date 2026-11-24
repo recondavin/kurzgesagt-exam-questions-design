@@ -8141,26 +8141,163 @@
           "idea": {
             "title": "Volatile means it needs power",
             "text": "Volatile memory keeps its contents only while electricity flows through it. Switch the computer off and the registers and RAM are wiped; ROM and secondary storage are non-volatile and keep their data.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Memory",
+                "Power switched off"
+              ],
+              "rows": [
+                [
+                  "Registers",
+                  "wiped (volatile)"
+                ],
+                [
+                  "RAM",
+                  "wiped (volatile)"
+                ],
+                [
+                  "ROM",
+                  "kept"
+                ],
+                [
+                  "SSD / hard drive",
+                  "kept"
+                ]
+              ],
+              "hl": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            }
           },
           "steps": [
             {
               "say": "Start with what it does: it holds the data and instructions the computer is using right now.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "step": "Running",
+                "regs": {
+                  "PC": "0101",
+                  "CIR": "LOAD 7",
+                  "ACC": "5"
+                },
+                "mem": [
+                  [
+                    "0100",
+                    "LOAD 7"
+                  ],
+                  [
+                    "0101",
+                    "ADD 8"
+                  ],
+                  [
+                    "0110",
+                    "STORE 9"
+                  ],
+                  [
+                    "0111",
+                    "5"
+                  ],
+                  [
+                    "1000",
+                    "3"
+                  ]
+                ],
+                "hl": [
+                  "pc",
+                  "cir",
+                  "acc",
+                  "ram"
+                ],
+                "cap": "Switched on: registers and RAM hold the program and data in use"
+              }
             },
             {
               "say": "Then explain the word: volatile means the contents vanish as soon as the power goes off.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "step": "Power off",
+                "regs": {
+                  "PC": "",
+                  "CIR": "",
+                  "ACC": ""
+                },
+                "mem": [
+                  [
+                    "0100",
+                    ""
+                  ],
+                  [
+                    "0101",
+                    ""
+                  ],
+                  [
+                    "0110",
+                    ""
+                  ],
+                  [
+                    "0111",
+                    ""
+                  ],
+                  [
+                    "1000",
+                    ""
+                  ]
+                ],
+                "cap": "Power off: everything in them is lost"
+              }
             },
             {
               "say": "You can contrast it: ROM, SSDs and hard drives are non-volatile, so they keep data with no power.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "step": "Power off",
+                "regs": {
+                  "PC": "",
+                  "CIR": "",
+                  "ACC": ""
+                },
+                "mem": [
+                  [
+                    "0100",
+                    ""
+                  ],
+                  [
+                    "0101",
+                    ""
+                  ],
+                  [
+                    "0110",
+                    ""
+                  ],
+                  [
+                    "0111",
+                    ""
+                  ],
+                  [
+                    "1000",
+                    ""
+                  ]
+                ],
+                "cap": "Non-volatile: ROM, SSDs and hard drives keep their data",
+                "io": true,
+                "hl": [
+                  "storage"
+                ]
+              }
             }
           ],
           "tip": "Give both ideas (holds data while on, loses it all when off) for the full 3 marks."
@@ -8232,32 +8369,207 @@
           "idea": {
             "title": "The memory hierarchy",
             "text": "Memory close to the CPU is fast, small and expensive; memory further away is slower, bigger and cheaper. Registers sit at the very top of this hierarchy, with cache and then RAM below them.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Memory",
+                "Speed",
+                "Size",
+                "Cost per byte"
+              ],
+              "rows": [
+                [
+                  "Registers",
+                  "fastest",
+                  "bytes",
+                  "highest"
+                ],
+                [
+                  "Cache",
+                  "fast",
+                  "megabytes",
+                  "high"
+                ],
+                [
+                  "RAM",
+                  "slower",
+                  "gigabytes",
+                  "lower"
+                ]
+              ],
+              "cap": "Closer to the CPU: faster, smaller, dearer"
+            }
           },
           "steps": [
             {
               "say": "Think about where each one lives: registers are built into the CPU; RAM sits on the motherboard, reached over the buses.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "regs": {
+                  "PC": "0101",
+                  "MAR": "0101",
+                  "ACC": "5"
+                },
+                "mem": [
+                  [
+                    "0100",
+                    "LOAD 7"
+                  ],
+                  [
+                    "0101",
+                    "ADD 8"
+                  ],
+                  [
+                    "0110",
+                    "STORE 9"
+                  ],
+                  [
+                    "0111",
+                    "5"
+                  ],
+                  [
+                    "1000",
+                    "3"
+                  ]
+                ],
+                "hl": [
+                  "pc",
+                  "mar",
+                  "mdr",
+                  "cir",
+                  "acc",
+                  "ram",
+                  "address",
+                  "data"
+                ],
+                "cap": "Registers: in the CPU. RAM: outside, reached over the buses"
+              }
             },
             {
               "say": "Location gives speed: the CPU reads a register almost instantly, far faster than fetching from RAM.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Registers",
+                  "RAM"
+                ],
+                "rows": [
+                  [
+                    "Where",
+                    "inside the CPU",
+                    "outside, over the buses"
+                  ],
+                  [
+                    "Speed",
+                    "fastest",
+                    "much slower"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1,
+                    2
+                  ]
+                ]
+              }
             },
             {
               "say": "Speed costs money: register memory is much dearer per byte, so a CPU has only a handful of registers while RAM holds gigabytes.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Registers",
+                  "RAM"
+                ],
+                "rows": [
+                  [
+                    "Where",
+                    "inside the CPU",
+                    "outside, over the buses"
+                  ],
+                  [
+                    "Speed",
+                    "fastest",
+                    "much slower"
+                  ],
+                  [
+                    "Cost per byte",
+                    "much higher",
+                    "lower"
+                  ],
+                  [
+                    "Size",
+                    "a few bytes",
+                    "gigabytes"
+                  ]
+                ],
+                "hl": [
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    3,
+                    2
+                  ]
+                ]
+              }
             },
             {
               "say": "Write each difference as a comparison: 'Registers are …, whereas RAM is …'.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Registers",
+                  "RAM"
+                ],
+                "rows": [
+                  [
+                    "Where",
+                    "inside the CPU",
+                    "outside, over the buses"
+                  ],
+                  [
+                    "Speed",
+                    "fastest",
+                    "much slower"
+                  ],
+                  [
+                    "Cost per byte",
+                    "much higher",
+                    "lower"
+                  ],
+                  [
+                    "Size",
+                    "a few bytes",
+                    "gigabytes"
+                  ]
+                ],
+                "cap": "'Registers are …, whereas RAM is …'"
+              }
             }
           ],
           "tip": "Make each difference a comparison of both: 'registers are fast' on its own may not be accepted."
@@ -8373,32 +8685,114 @@
           "idea": {
             "title": "Switches make logic",
             "text": "A transistor lets a small signal switch a current on or off: on is 1, off is 0. Wire transistors together and you get logic gates; pack millions of them onto one silicon chip and you have an integrated circuit such as a CPU.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Build from",
+                "To make"
+              ],
+              "rows": [
+                [
+                  "a transistor (on = 1, off = 0)",
+                  "a switch for one bit"
+                ],
+                [
+                  "a few transistors",
+                  "a logic gate"
+                ],
+                [
+                  "millions on one chip",
+                  "an integrated circuit (a CPU)"
+                ]
+              ]
+            }
           },
           "steps": [
             {
               "say": "Transistor: say what it is: an electronic switch made from a semiconductor such as silicon.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Transistor",
+                  ""
+                ],
+                "rows": [
+                  [
+                    "What it is",
+                    "an electronic switch"
+                  ],
+                  [
+                    "Made of",
+                    "a semiconductor such as silicon"
+                  ]
+                ]
+              }
             },
             {
               "say": "Link it to binary: switched on it lets current through (1), switched off it doesn't (0); logic gates are built from transistors.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "gates",
+                "inputs": {
+                  "A": 1,
+                  "B": 1
+                },
+                "gates": [
+                  {
+                    "id": "g",
+                    "type": "AND",
+                    "in": [
+                      "A",
+                      "B"
+                    ]
+                  }
+                ],
+                "out": "g",
+                "cap": "On = 1, off = 0: logic gates are built from transistors"
+              }
             },
             {
               "say": "Integrated circuit: say that it puts many components, mostly transistors, together on one small chip of silicon.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Integrated circuit",
+                  ""
+                ],
+                "rows": [
+                  [
+                    "What it is",
+                    "one small chip of silicon"
+                  ],
+                  [
+                    "Holds",
+                    "many components, mostly transistors"
+                  ]
+                ]
+              }
             },
             {
               "say": "Give an example: a CPU is an integrated circuit with billions of transistors.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "hl": [
+                  "cu",
+                  "alu",
+                  "pc",
+                  "mar",
+                  "mdr",
+                  "cir",
+                  "acc"
+                ],
+                "cap": "A CPU: one integrated circuit with billions of transistors"
+              }
             }
           ],
           "tip": "Give two clear facts for each term to earn its 2 marks."
@@ -8439,13 +8833,115 @@
               "say": "Moore's Law only holds while transistors keep getting smaller, so that twice as many fit on a chip.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  11
+                ],
+                "y": [
+                  0,
+                  36
+                ],
+                "ticks": {
+                  "x": 2,
+                  "y": 100
+                },
+                "xlab": "years",
+                "ylab": "transistors on a chip",
+                "plot": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    4
+                  ],
+                  [
+                    6,
+                    8
+                  ],
+                  [
+                    8,
+                    16
+                  ],
+                  [
+                    10,
+                    32
+                  ]
+                ],
+                "fns": [
+                  {
+                    "f": "2^(x/2)",
+                    "label": "×2 every 2 years"
+                  }
+                ],
+                "cap": "Shrinking transistors: twice as many fit every two years"
+              }
             },
             {
               "say": "They are now only a few atoms wide, so there is a physical limit to how small, and how many, they can get.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  0,
+                  11
+                ],
+                "y": [
+                  0,
+                  36
+                ],
+                "ticks": {
+                  "x": 2,
+                  "y": 100
+                },
+                "xlab": "years",
+                "ylab": "transistors on a chip",
+                "plot": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    4
+                  ],
+                  [
+                    6,
+                    8
+                  ]
+                ],
+                "fns": [
+                  {
+                    "f": "2^(x/2)",
+                    "to": 8.64
+                  },
+                  {
+                    "f": "2^(x/2)",
+                    "from": 8.64,
+                    "c": "faint"
+                  }
+                ],
+                "lines": [
+                  {
+                    "m": 0,
+                    "c": 20,
+                    "label": "physical limit"
+                  }
+                ],
+                "cap": "A few atoms wide: they cannot keep shrinking"
+              }
             }
           ],
           "tip": null
@@ -8562,7 +9058,42 @@
           "idea": {
             "title": "AND and OR",
             "text": "OR gives 1 if at least one input is 1. AND gives 1 only if both inputs are 1. Work out the bracket (B OR C) first, then AND the result with A.",
-            "vis": null
+            "vis": {
+              "t": "gates",
+              "inputs": {
+                "P": 1,
+                "Q": 0,
+                "R": 1,
+                "S": 0
+              },
+              "gates": [
+                {
+                  "id": "x",
+                  "type": "OR",
+                  "in": [
+                    "P",
+                    "Q"
+                  ]
+                },
+                {
+                  "id": "y",
+                  "type": "AND",
+                  "in": [
+                    "R",
+                    "S"
+                  ]
+                }
+              ],
+              "out": [
+                "x",
+                "y"
+              ],
+              "outName": [
+                "OR",
+                "AND"
+              ],
+              "cap": "Inputs 1 and 0: OR gives 1, AND gives 0"
+            }
           },
           "steps": [
             {
@@ -8571,13 +9102,193 @@
                 "BC = 00,\\ 01,\\ 10,\\ 11 \\;\\Rightarrow\\; B \\text{ OR } C = 0,\\ 1,\\ 1,\\ 1"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "A",
+                  "B",
+                  "C",
+                  "B OR C",
+                  "A AND (B OR C)"
+                ],
+                "rows": [
+                  [
+                    "0",
+                    "0",
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "1",
+                    "1",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "1",
+                    "0",
+                    "1",
+                    ""
+                  ],
+                  [
+                    "0",
+                    "1",
+                    "1",
+                    "1",
+                    ""
+                  ],
+                  [
+                    "1",
+                    "0",
+                    "0",
+                    "0",
+                    ""
+                  ],
+                  [
+                    "1",
+                    "0",
+                    "1",
+                    "1",
+                    ""
+                  ],
+                  [
+                    "1",
+                    "1",
+                    "0",
+                    "1",
+                    ""
+                  ],
+                  [
+                    "1",
+                    "1",
+                    "1",
+                    "1",
+                    ""
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    1,
+                    3
+                  ],
+                  [
+                    2,
+                    3
+                  ],
+                  [
+                    3,
+                    3
+                  ],
+                  [
+                    4,
+                    3
+                  ],
+                  [
+                    5,
+                    3
+                  ],
+                  [
+                    6,
+                    3
+                  ],
+                  [
+                    7,
+                    3
+                  ]
+                ],
+                "cap": "Work out the bracket first"
+              }
             },
             {
               "say": "When A = 0, AND makes the output 0 whatever the bracket is, so rows 010 and 011 are 0.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "A",
+                  "B",
+                  "C",
+                  "B OR C",
+                  "A AND (B OR C)"
+                ],
+                "rows": [
+                  [
+                    "0",
+                    "0",
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "1",
+                    "1",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "1",
+                    "0",
+                    "1",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "1",
+                    "1",
+                    "1",
+                    "0"
+                  ],
+                  [
+                    "1",
+                    "0",
+                    "0",
+                    "0",
+                    ""
+                  ],
+                  [
+                    "1",
+                    "0",
+                    "1",
+                    "1",
+                    ""
+                  ],
+                  [
+                    "1",
+                    "1",
+                    "0",
+                    "1",
+                    ""
+                  ],
+                  [
+                    "1",
+                    "1",
+                    "1",
+                    "1",
+                    ""
+                  ]
+                ],
+                "hl": [
+                  [
+                    2,
+                    4
+                  ],
+                  [
+                    3,
+                    4
+                  ]
+                ],
+                "cap": "A = 0: the output is 0"
+              }
             },
             {
               "say": "When A = 1, the output is just B OR C: 0 for row 100, then 1, 1, 1 for rows 101, 110 and 111.",
@@ -8585,7 +9296,93 @@
                 "1 \\text{ AND } 0 = 0,\\quad 1 \\text{ AND } 1 = 1"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "A",
+                  "B",
+                  "C",
+                  "B OR C",
+                  "A AND (B OR C)"
+                ],
+                "rows": [
+                  [
+                    "0",
+                    "0",
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "0",
+                    "1",
+                    "1",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "1",
+                    "0",
+                    "1",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "1",
+                    "1",
+                    "1",
+                    "0"
+                  ],
+                  [
+                    "1",
+                    "0",
+                    "0",
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "1",
+                    "0",
+                    "1",
+                    "1",
+                    "1"
+                  ],
+                  [
+                    "1",
+                    "1",
+                    "0",
+                    "1",
+                    "1"
+                  ],
+                  [
+                    "1",
+                    "1",
+                    "1",
+                    "1",
+                    "1"
+                  ]
+                ],
+                "hl": [
+                  [
+                    4,
+                    4
+                  ],
+                  [
+                    5,
+                    4
+                  ],
+                  [
+                    6,
+                    4
+                  ],
+                  [
+                    7,
+                    4
+                  ]
+                ],
+                "cap": "A = 1: the output is just B OR C"
+              }
             }
           ],
           "tip": "Add a working column for B OR C: it makes mistakes much less likely."
@@ -8604,26 +9401,136 @@
           "idea": {
             "title": "Gate symbols",
             "text": "An AND gate is D-shaped: a flat back and a round front. An OR gate has a curved back and a pointed front. Inputs come in on the left and the output leaves on the right.",
-            "vis": null
+            "vis": {
+              "t": "gates",
+              "inputs": [
+                "P",
+                "Q",
+                "R",
+                "S"
+              ],
+              "gates": [
+                {
+                  "id": "a",
+                  "type": "AND",
+                  "in": [
+                    "P",
+                    "Q"
+                  ]
+                },
+                {
+                  "id": "o",
+                  "type": "OR",
+                  "in": [
+                    "R",
+                    "S"
+                  ]
+                }
+              ],
+              "out": [
+                "a",
+                "o"
+              ],
+              "outName": [
+                "AND",
+                "OR"
+              ],
+              "cap": "AND: flat back, round front. OR: curved back, pointed front"
+            }
           },
           "steps": [
             {
               "say": "The bracket is worked out first, so start with an OR gate whose two inputs are B and C.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "gates",
+                "inputs": [
+                  "B",
+                  "C"
+                ],
+                "gates": [
+                  {
+                    "id": "o",
+                    "type": "OR",
+                    "in": [
+                      "B",
+                      "C"
+                    ]
+                  }
+                ],
+                "out": "o",
+                "outName": "B OR C",
+                "cap": "The bracket first: an OR gate with inputs B and C"
+              }
             },
             {
               "say": "Draw an AND gate. Its two inputs are A and the output wire from the OR gate.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "gates",
+                "inputs": [
+                  "A",
+                  "B",
+                  "C"
+                ],
+                "gates": [
+                  {
+                    "id": "o",
+                    "type": "OR",
+                    "in": [
+                      "B",
+                      "C"
+                    ]
+                  },
+                  {
+                    "id": "q",
+                    "type": "AND",
+                    "in": [
+                      "A",
+                      "o"
+                    ]
+                  }
+                ],
+                "out": "q",
+                "outName": "?",
+                "cap": "An AND gate: inputs A and the OR gate's output"
+              }
             },
             {
               "say": "Label the inputs A, B and C, and label the AND gate's output A AND (B OR C).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "gates",
+                "inputs": [
+                  "A",
+                  "B",
+                  "C"
+                ],
+                "gates": [
+                  {
+                    "id": "o",
+                    "type": "OR",
+                    "in": [
+                      "B",
+                      "C"
+                    ]
+                  },
+                  {
+                    "id": "q",
+                    "type": "AND",
+                    "in": [
+                      "A",
+                      "o"
+                    ]
+                  }
+                ],
+                "out": "q",
+                "outName": "Q",
+                "cap": "Inputs A, B, C labelled; output Q = A AND (B OR C)"
+              }
             }
           ],
           "tip": "Label every input: marks are given for correctly labelled inputs."
@@ -8689,32 +9596,274 @@
           "idea": {
             "title": "Ask and answer",
             "text": "A client is a device that asks for a service; a server is a powerful computer that waits for requests and answers them. The web works this way: browsers ask, web servers reply.",
-            "vis": null
+            "vis": {
+              "t": "network",
+              "nodes": [
+                {
+                  "id": "p",
+                  "kind": "phone",
+                  "label": "Client",
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "id": "l",
+                  "kind": "laptop",
+                  "label": "Client",
+                  "x": 0,
+                  "y": 50
+                },
+                {
+                  "id": "d",
+                  "kind": "pc",
+                  "label": "Client",
+                  "x": 0,
+                  "y": 100
+                },
+                {
+                  "id": "s",
+                  "kind": "server",
+                  "label": "Server",
+                  "x": 100,
+                  "y": 50
+                }
+              ],
+              "links": [
+                [
+                  "p",
+                  "s"
+                ],
+                [
+                  "l",
+                  "s"
+                ],
+                [
+                  "d",
+                  "s"
+                ]
+              ],
+              "send": [
+                {
+                  "path": [
+                    "l",
+                    "s"
+                  ],
+                  "label": "ask"
+                },
+                {
+                  "path": [
+                    "s",
+                    "l"
+                  ],
+                  "label": "answer",
+                  "c": "blue"
+                }
+              ],
+              "cap": "Clients ask, one server answers many"
+            }
           },
           "steps": [
             {
               "say": "Name the two roles: the web client (your browser) asks; the web server provides.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "network",
+                "nodes": [
+                  {
+                    "id": "c",
+                    "kind": "pc",
+                    "label": "Web client",
+                    "x": 0,
+                    "y": 50
+                  },
+                  {
+                    "id": "i",
+                    "kind": "cloud",
+                    "label": "Internet",
+                    "x": 50,
+                    "y": 50
+                  },
+                  {
+                    "id": "s",
+                    "kind": "server",
+                    "label": "Web server",
+                    "x": 100,
+                    "y": 50
+                  }
+                ],
+                "links": [
+                  [
+                    "c",
+                    "i"
+                  ],
+                  [
+                    "i",
+                    "s"
+                  ]
+                ],
+                "hl": [
+                  "c",
+                  "s"
+                ],
+                "cap": "The client asks; the server provides"
+              }
             },
             {
               "say": "Describe the request: the client sends a browser request, e.g. for a web page, over the internet.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "network",
+                "nodes": [
+                  {
+                    "id": "c",
+                    "kind": "pc",
+                    "label": "Web client",
+                    "x": 0,
+                    "y": 50
+                  },
+                  {
+                    "id": "i",
+                    "kind": "cloud",
+                    "label": "Internet",
+                    "x": 50,
+                    "y": 50
+                  },
+                  {
+                    "id": "s",
+                    "kind": "server",
+                    "label": "Web server",
+                    "x": 100,
+                    "y": 50
+                  }
+                ],
+                "links": [
+                  [
+                    "c",
+                    "i"
+                  ],
+                  [
+                    "i",
+                    "s"
+                  ]
+                ],
+                "send": [
+                  {
+                    "path": [
+                      "c",
+                      "i",
+                      "s"
+                    ],
+                    "label": "Browser request"
+                  }
+                ],
+                "hl": [
+                  "c"
+                ],
+                "cap": "Browser request: e.g. for a web page"
+              }
             },
             {
               "say": "Describe the server's job: it processes the request, finding or building what was asked for.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "network",
+                "nodes": [
+                  {
+                    "id": "c",
+                    "kind": "pc",
+                    "label": "Web client",
+                    "x": 0,
+                    "y": 50
+                  },
+                  {
+                    "id": "i",
+                    "kind": "cloud",
+                    "label": "Internet",
+                    "x": 50,
+                    "y": 50
+                  },
+                  {
+                    "id": "s",
+                    "kind": "server",
+                    "label": "Web server",
+                    "x": 100,
+                    "y": 50
+                  }
+                ],
+                "links": [
+                  [
+                    "c",
+                    "i"
+                  ],
+                  [
+                    "i",
+                    "s"
+                  ]
+                ],
+                "hl": [
+                  "s"
+                ],
+                "cap": "The server processes it: finds or builds the page"
+              }
             },
             {
               "say": "Close the loop: the server sends the result back as a server response, and the browser displays it.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "network",
+                "nodes": [
+                  {
+                    "id": "c",
+                    "kind": "pc",
+                    "label": "Web client",
+                    "x": 0,
+                    "y": 50
+                  },
+                  {
+                    "id": "i",
+                    "kind": "cloud",
+                    "label": "Internet",
+                    "x": 50,
+                    "y": 50
+                  },
+                  {
+                    "id": "s",
+                    "kind": "server",
+                    "label": "Web server",
+                    "x": 100,
+                    "y": 50
+                  }
+                ],
+                "links": [
+                  [
+                    "c",
+                    "i"
+                  ],
+                  [
+                    "i",
+                    "s"
+                  ]
+                ],
+                "send": [
+                  {
+                    "path": [
+                      "s",
+                      "i",
+                      "c"
+                    ],
+                    "label": "Server response",
+                    "c": "blue"
+                  }
+                ],
+                "hl": [
+                  "c"
+                ],
+                "cap": "Server response: the browser displays it"
+              }
             }
           ],
           "tip": "Use all four terms from the figure (web client, browser request, web server, server response), in order."
@@ -8863,32 +10012,187 @@
           "idea": {
             "title": "Renting computing",
             "text": "Cloud computing means using storage and processing power on someone else's servers over the internet, paying for what you use, instead of buying and running your own.",
-            "vis": null
+            "vis": {
+              "t": "network",
+              "nodes": [
+                {
+                  "id": "b",
+                  "kind": "laptop",
+                  "label": "Your business",
+                  "x": 0,
+                  "y": 50
+                },
+                {
+                  "id": "i",
+                  "kind": "cloud",
+                  "label": "Internet",
+                  "x": 50,
+                  "y": 50
+                },
+                {
+                  "id": "s",
+                  "kind": "server",
+                  "label": "Provider's servers",
+                  "x": 100,
+                  "y": 50
+                }
+              ],
+              "links": [
+                [
+                  "b",
+                  "i"
+                ],
+                [
+                  "i",
+                  "s"
+                ]
+              ],
+              "send": [
+                {
+                  "path": [
+                    "b",
+                    "i",
+                    "s"
+                  ],
+                  "label": "store, process"
+                },
+                {
+                  "path": [
+                    "s",
+                    "i",
+                    "b"
+                  ],
+                  "label": "results",
+                  "c": "blue"
+                }
+              ],
+              "cap": "Rent storage and processing, pay for what you use"
+            }
           },
           "steps": [
             {
               "say": "Cost, advantage: no large purchase of servers at the start, and the provider pays for upgrades.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Advantage",
+                  "Disadvantage"
+                ],
+                "rows": [
+                  [
+                    "Cost",
+                    "no servers to buy; provider upgrades",
+                    ""
+                  ],
+                  [
+                    "Environment",
+                    "",
+                    ""
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
             },
             {
               "say": "Cost, disadvantage: you keep paying (pay-as-you-go), which can cost more in the long run.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Advantage",
+                  "Disadvantage"
+                ],
+                "rows": [
+                  [
+                    "Cost",
+                    "no servers to buy; provider upgrades",
+                    "pay-as-you-go never stops"
+                  ],
+                  [
+                    "Environment",
+                    "",
+                    ""
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    2
+                  ]
+                ]
+              }
             },
             {
               "say": "Environment, advantage: big shared data centres are more efficient, so less energy per user; some generate their own power.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Advantage",
+                  "Disadvantage"
+                ],
+                "rows": [
+                  [
+                    "Cost",
+                    "no servers to buy; provider upgrades",
+                    "pay-as-you-go never stops"
+                  ],
+                  [
+                    "Environment",
+                    "shared data centres: less energy per user",
+                    ""
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    1
+                  ]
+                ]
+              }
             },
             {
               "say": "Environment, disadvantage: demand keeps growing, so data centres use more and more electricity, raising the carbon footprint.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Advantage",
+                  "Disadvantage"
+                ],
+                "rows": [
+                  [
+                    "Cost",
+                    "no servers to buy; provider upgrades",
+                    "pay-as-you-go never stops"
+                  ],
+                  [
+                    "Environment",
+                    "shared data centres: less energy per user",
+                    "growing demand: more electricity, more carbon"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    2
+                  ]
+                ]
+              }
             }
           ],
           "tip": "Write a full sentence under each heading: one word such as 'cheaper' earns little."
@@ -8964,26 +10268,158 @@
           "idea": {
             "title": "and needs both",
             "text": "An and expression is True only when both sides are True; if either side is False the whole expression is False. It is the same rule as an AND gate, with 1 for True and 0 for False.",
-            "vis": null
+            "vis": {
+              "t": "gates",
+              "inputs": {
+                "A": 1,
+                "B": 1
+              },
+              "gates": [
+                {
+                  "id": "g",
+                  "type": "AND",
+                  "in": [
+                    "A",
+                    "B"
+                  ]
+                }
+              ],
+              "out": "g",
+              "outName": "A and B",
+              "table": true,
+              "cap": "1 = True, 0 = False: True only in the last row"
+            }
           },
           "steps": [
             {
               "say": "and is True only when both conditions are True.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x > 0",
+                  "y > 0",
+                  "x > 0 and y > 0"
+                ],
+                "rows": [
+                  [
+                    "False",
+                    "False",
+                    "False"
+                  ],
+                  [
+                    "False",
+                    "True",
+                    ""
+                  ],
+                  [
+                    "True",
+                    "False",
+                    ""
+                  ],
+                  [
+                    "True",
+                    "True",
+                    ""
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    2
+                  ]
+                ],
+                "cap": "and: True only when both are True"
+              }
             },
             {
               "say": "The second and third rows each contain one False, so the result is False.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x > 0",
+                  "y > 0",
+                  "x > 0 and y > 0"
+                ],
+                "rows": [
+                  [
+                    "False",
+                    "False",
+                    "False"
+                  ],
+                  [
+                    "False",
+                    "True",
+                    "False"
+                  ],
+                  [
+                    "True",
+                    "False",
+                    "False"
+                  ],
+                  [
+                    "True",
+                    "True",
+                    ""
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "cap": "One False in the row: the result is False"
+              }
             },
             {
               "say": "The last row has both True, so the result is True: P is to the right of and above (0, 0).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "x > 0",
+                  "y > 0",
+                  "x > 0 and y > 0"
+                ],
+                "rows": [
+                  [
+                    "False",
+                    "False",
+                    "False"
+                  ],
+                  [
+                    "False",
+                    "True",
+                    "False"
+                  ],
+                  [
+                    "True",
+                    "False",
+                    "False"
+                  ],
+                  [
+                    "True",
+                    "True",
+                    "True"
+                  ]
+                ],
+                "hl": [
+                  [
+                    3,
+                    2
+                  ]
+                ],
+                "cap": "Both True: P is right of and above (0, 0)"
+              }
             }
           ],
           "tip": null
@@ -9016,7 +10452,32 @@
           "idea": {
             "title": "Four limits make a box",
             "text": "A rectangle on a graph is every point between a left and a right x-limit and between a bottom and a top y-limit. Each limit is one comparison, and and joins them so that all four must hold.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Limit",
+                "Comparison"
+              ],
+              "rows": [
+                [
+                  "left edge",
+                  "x > left"
+                ],
+                [
+                  "right edge",
+                  "x < right"
+                ],
+                [
+                  "bottom edge",
+                  "y > bottom"
+                ],
+                [
+                  "top edge",
+                  "y < top"
+                ]
+              ],
+              "cap": "A box: four comparisons joined by and"
+            }
           },
           "steps": [
             {
@@ -9025,7 +10486,44 @@
                 "-d < x < 0"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1.85,
+                  1.4
+                ],
+                "y": [
+                  -0.6,
+                  1.5
+                ],
+                "ticks": {
+                  "x": 5,
+                  "y": 5
+                },
+                "xlab": "x",
+                "ylab": "y",
+                "reads": [
+                  {
+                    "x": -1,
+                    "y": 1,
+                    "from": "y",
+                    "label": " "
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": -1,
+                    "y": 0,
+                    "label": "x = −d"
+                  },
+                  {
+                    "x": 0,
+                    "y": 0,
+                    "label": "(0, 0)"
+                  }
+                ],
+                "cap": "x-limits: from x = −d to x = 0, so −d < x < 0"
+              }
             },
             {
               "say": "Read the y-limits: from y = 0 at the bottom to y = d at the top.",
@@ -9033,13 +10531,105 @@
                 "0 < y < d"
               ],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1.85,
+                  1.4
+                ],
+                "y": [
+                  -0.6,
+                  1.5
+                ],
+                "ticks": {
+                  "x": 5,
+                  "y": 5
+                },
+                "xlab": "x",
+                "ylab": "y",
+                "reads": [
+                  {
+                    "x": -1,
+                    "y": 1,
+                    "from": "y",
+                    "label": " "
+                  },
+                  {
+                    "x": -1,
+                    "y": 1,
+                    "from": "x",
+                    "label": "y = d"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": -1,
+                    "y": 0,
+                    "label": "x = −d"
+                  },
+                  {
+                    "x": 0,
+                    "y": 0,
+                    "label": "(0, 0)"
+                  }
+                ],
+                "cap": "y-limits: from y = 0 to y = d, so 0 < y < d"
+              }
             },
             {
               "say": "Join all four comparisons with and, because a point must pass every one to be inside.",
               "math": [],
               "code": "(x > -d and x < 0) and (y > 0 and y < d)",
-              "vis": null
+              "vis": {
+                "t": "graph",
+                "x": [
+                  -1.85,
+                  1.4
+                ],
+                "y": [
+                  -0.6,
+                  1.5
+                ],
+                "ticks": {
+                  "x": 5,
+                  "y": 5
+                },
+                "xlab": "x",
+                "ylab": "y",
+                "reads": [
+                  {
+                    "x": -1,
+                    "y": 1,
+                    "from": "y",
+                    "label": " "
+                  },
+                  {
+                    "x": -1,
+                    "y": 1,
+                    "from": "x",
+                    "label": "y = d"
+                  }
+                ],
+                "pts": [
+                  {
+                    "x": -1,
+                    "y": 0,
+                    "label": "x = −d"
+                  },
+                  {
+                    "x": 0,
+                    "y": 0,
+                    "label": "(0, 0)"
+                  },
+                  {
+                    "x": -0.5,
+                    "y": 0.5,
+                    "label": "(−d/2, d/2): all 4 True",
+                    "hl": true
+                  }
+                ],
+                "cap": "Inside only if all four comparisons pass: join with and"
+              }
             }
           ],
           "tip": "Test your expression with a point inside, such as (-d/2, d/2), and one outside, such as P."
@@ -9102,26 +10692,92 @@
           "idea": {
             "title": "Where human meets machine",
             "text": "The user interface is everything the user sees, touches or hears when using a computer. The operating system provides one, such as a desktop of windows and icons or a command line.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Interface",
+                "What the user sees"
+              ],
+              "rows": [
+                [
+                  "Desktop (GUI)",
+                  "windows and icons"
+                ],
+                [
+                  "Command line",
+                  "a prompt for typed commands"
+                ]
+              ],
+              "cap": "Provided by the operating system"
+            }
           },
           "steps": [
             {
               "say": "Say what it is: the point where the user and the computer interact.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "User interface"
+                ],
+                "rows": [
+                  [
+                    "where the user and the computer interact"
+                  ]
+                ]
+              }
             },
             {
               "say": "Say what passes each way: the user gives input and commands; the computer gives output and feedback.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "User → computer",
+                  "Computer → user"
+                ],
+                "rows": [
+                  [
+                    "input and commands",
+                    "output and feedback"
+                  ]
+                ]
+              }
             },
             {
               "say": "Mention the devices it works through, such as the screen, keyboard, mouse or touchscreen.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "User → computer",
+                  "Computer → user"
+                ],
+                "rows": [
+                  [
+                    "input and commands",
+                    "output and feedback"
+                  ],
+                  [
+                    "keyboard, mouse, touchscreen",
+                    "screen, speakers"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "cap": "It works through the input and output devices"
+              }
             }
           ],
           "tip": null
@@ -9244,26 +10900,131 @@
           "idea": {
             "title": "Main types",
             "text": "GUI: windows, icons, menus and a pointer. Command line: typed text commands. Menu-driven: pick from a list of options. Touch: tap and swipe on the screen. Voice: spoken commands.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Type",
+                "How you use it"
+              ],
+              "rows": [
+                [
+                  "GUI",
+                  "windows, icons, menus, pointer"
+                ],
+                [
+                  "Command line",
+                  "type text commands"
+                ],
+                [
+                  "Menu-driven",
+                  "pick from a list of options"
+                ],
+                [
+                  "Touch",
+                  "tap and swipe the screen"
+                ],
+                [
+                  "Voice",
+                  "speak commands"
+                ]
+              ]
+            }
           },
           "steps": [
             {
               "say": "Pick the type you know best, for example a graphical user interface (GUI).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Type",
+                  "How you use it"
+                ],
+                "rows": [
+                  [
+                    "GUI",
+                    "windows, icons, menus, pointer"
+                  ],
+                  [
+                    "Command line",
+                    "type text commands"
+                  ],
+                  [
+                    "Menu-driven",
+                    "pick from a list of options"
+                  ],
+                  [
+                    "Touch",
+                    "tap and swipe the screen"
+                  ],
+                  [
+                    "Voice",
+                    "speak commands"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    1
+                  ]
+                ],
+                "cap": "Pick one you know well: the GUI"
+              }
             },
             {
               "say": "Describe what the user sees: windows, icons, menus and a pointer (WIMP).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "W",
+                  "I",
+                  "M",
+                  "P"
+                ],
+                "rows": [
+                  [
+                    "Windows",
+                    "Icons",
+                    "Menus",
+                    "Pointer"
+                  ]
+                ],
+                "cap": "What a GUI user sees: WIMP"
+              }
             },
             {
               "say": "Describe how it is used: by clicking or tapping on images rather than typing commands.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "GUI",
+                  "Command line"
+                ],
+                "rows": [
+                  [
+                    "You",
+                    "click or tap on images",
+                    "type commands"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ]
+                ],
+                "cap": "Click or tap images instead of typing commands"
+              }
             }
           ],
           "tip": "Name the type exactly (e.g. 'command line interface'), then give two of its features."
@@ -9410,32 +11171,240 @@
           "idea": {
             "title": "A stack of jobs",
             "text": "TCP/IP splits sending a message into layers, each with one job: the application layer formats the message (HTTP, SMTP), transport splits it into numbered packets, network adds the IP addresses, and data link moves the bits across the physical network.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Layer",
+                "Its job"
+              ],
+              "rows": [
+                [
+                  "Application",
+                  "formats the message (HTTP, SMTP)"
+                ],
+                [
+                  "Transport",
+                  "splits it into numbered packets"
+                ],
+                [
+                  "Network",
+                  "adds the IP addresses"
+                ],
+                [
+                  "Data link",
+                  "moves the bits across the network"
+                ]
+              ]
+            }
           },
           "steps": [
             {
               "say": "Choose a layer you can describe in detail; the transport layer is a good choice.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Layer",
+                  "Its job"
+                ],
+                "rows": [
+                  [
+                    "Application",
+                    "formats the message (HTTP, SMTP)"
+                  ],
+                  [
+                    "Transport",
+                    "splits it into numbered packets"
+                  ],
+                  [
+                    "Network",
+                    "adds the IP addresses"
+                  ],
+                  [
+                    "Data link",
+                    "moves the bits across the network"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "cap": "The transport layer"
+              }
             },
             {
               "say": "Say what it does to the message: it splits it into small packets.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "network",
+                "nodes": [
+                  {
+                    "id": "a",
+                    "kind": "pc",
+                    "label": "Sender",
+                    "x": 0,
+                    "y": 50
+                  },
+                  {
+                    "id": "r1",
+                    "kind": "router",
+                    "label": "Router",
+                    "x": 35,
+                    "y": 50
+                  },
+                  {
+                    "id": "r2",
+                    "kind": "router",
+                    "label": "Router",
+                    "x": 67,
+                    "y": 50
+                  },
+                  {
+                    "id": "b",
+                    "kind": "laptop",
+                    "label": "Recipient",
+                    "x": 100,
+                    "y": 50
+                  }
+                ],
+                "links": [
+                  [
+                    "a",
+                    "r1"
+                  ],
+                  [
+                    "r1",
+                    "r2"
+                  ],
+                  [
+                    "r2",
+                    "b"
+                  ]
+                ],
+                "send": [
+                  {
+                    "path": [
+                      "a",
+                      "r1",
+                      "r2",
+                      "b"
+                    ],
+                    "label": "packet"
+                  },
+                  {
+                    "path": [
+                      "a",
+                      "r1",
+                      "r2",
+                      "b"
+                    ],
+                    "label": "packet",
+                    "c": "blue"
+                  },
+                  {
+                    "path": [
+                      "a",
+                      "r1",
+                      "r2",
+                      "b"
+                    ],
+                    "label": "packet",
+                    "c": "pink"
+                  }
+                ],
+                "hl": [
+                  "a"
+                ],
+                "cap": "The message is split into small packets"
+              }
             },
             {
               "say": "Say what it adds: each packet gets its own number and the total number of packets.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Packet",
+                  "Packet number",
+                  "Total packets"
+                ],
+                "rows": [
+                  [
+                    "1st",
+                    "1",
+                    "3"
+                  ],
+                  [
+                    "2nd",
+                    "2",
+                    "3"
+                  ],
+                  [
+                    "3rd",
+                    "3",
+                    "3"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "cap": "Each packet carries its number and the total"
+              }
             },
             {
               "say": "Say why: the recipient can reassemble the packets in order and spot any that are missing.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "array",
+                "vals": [
+                  "1/3",
+                  "2/3",
+                  "3/3"
+                ],
+                "swap": [
+                  0,
+                  1
+                ],
+                "sorted": [
+                  0,
+                  2
+                ],
+                "label": "Arrived 2, 1, 3: put back in order",
+                "cap": "A number with no packet shows one is missing"
+              }
             }
           ],
           "tip": "Describe two things that happen in your layer to reach the full 4 marks for the description."
@@ -9545,20 +11514,145 @@
           "idea": {
             "title": "A computer with one job",
             "text": "An embedded system is a small computer, usually a microcontroller, built into a bigger device to do one dedicated job, such as running a washing machine's wash cycles.",
-            "vis": null
+            "vis": {
+              "t": "flow",
+              "nodes": [
+                {
+                  "id": "s",
+                  "type": "start",
+                  "text": "Start"
+                },
+                {
+                  "id": "f",
+                  "type": "process",
+                  "text": "Fill with water"
+                },
+                {
+                  "id": "w",
+                  "type": "process",
+                  "text": "Wash"
+                },
+                {
+                  "id": "r",
+                  "type": "process",
+                  "text": "Rinse"
+                },
+                {
+                  "id": "p",
+                  "type": "process",
+                  "text": "Spin"
+                },
+                {
+                  "id": "e",
+                  "type": "end",
+                  "text": "End"
+                }
+              ],
+              "edges": [
+                [
+                  "s",
+                  "f"
+                ],
+                [
+                  "f",
+                  "w"
+                ],
+                [
+                  "w",
+                  "r"
+                ],
+                [
+                  "r",
+                  "p"
+                ],
+                [
+                  "p",
+                  "e"
+                ]
+              ],
+              "path": [
+                "s",
+                "f",
+                "w",
+                "r",
+                "p",
+                "e"
+              ],
+              "cap": "A washing machine's computer runs one job: its cycles"
+            }
           },
           "steps": [
             {
               "say": "Think of devices in a home that contain a small computer controlling one job.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Device in the home",
+                  "Its one job"
+                ],
+                "rows": [
+                  [
+                    "Smart thermostat",
+                    "controls the heating"
+                  ],
+                  [
+                    "Security alarm",
+                    "detects intruders"
+                  ],
+                  [
+                    "Washing machine",
+                    "runs the wash cycles"
+                  ],
+                  [
+                    "Smoke detector",
+                    "sounds the alarm"
+                  ]
+                ],
+                "cap": "A small computer inside, doing one job"
+              }
             },
             {
               "say": "Pick two clearly different ones, for example a smart thermostat and a security alarm.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Device in the home",
+                  "Its one job"
+                ],
+                "rows": [
+                  [
+                    "Smart thermostat",
+                    "controls the heating"
+                  ],
+                  [
+                    "Security alarm",
+                    "detects intruders"
+                  ],
+                  [
+                    "Washing machine",
+                    "runs the wash cycles"
+                  ],
+                  [
+                    "Smoke detector",
+                    "sounds the alarm"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ],
+                "cap": "Two clearly different ones"
+              }
             }
           ],
           "tip": "Don't give a Micro:bit or Raspberry Pi: the scheme rejects them."
@@ -9661,26 +11755,156 @@
           "idea": {
             "title": "Built for one job",
             "text": "Because it only ever does one job, an embedded system can be small, cheap, low-power and very reliable. A general-purpose computer must be able to run anything, so it needs more memory, more power and a full user interface.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "",
+                "Embedded system",
+                "General computer"
+              ],
+              "rows": [
+                [
+                  "Job",
+                  "one dedicated job",
+                  "runs any software"
+                ],
+                [
+                  "Power",
+                  "low",
+                  "much higher"
+                ],
+                [
+                  "Cost",
+                  "low",
+                  "much higher"
+                ],
+                [
+                  "Interface",
+                  "minimal",
+                  "full screen, keyboard"
+                ]
+              ]
+            }
           },
           "steps": [
             {
               "say": "Start with the main one: an embedded system does one dedicated job; a PC can run any software.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Embedded system",
+                  "General computer"
+                ],
+                "rows": [
+                  [
+                    "Job",
+                    "one dedicated job",
+                    "runs any software"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              }
             },
             {
               "say": "Write it as a comparison ('whereas a general computer …') to earn both marks.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Embedded system",
+                  "General computer"
+                ],
+                "rows": [
+                  [
+                    "Job",
+                    "one dedicated job",
+                    "runs any software"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    2
+                  ]
+                ],
+                "cap": "'… whereas a general computer runs any software'"
+              }
             },
             {
               "say": "Choose a second characteristic: low power, low cost, real-time response, minimal interface or high reliability.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Embedded system",
+                  "General computer"
+                ],
+                "rows": [
+                  [
+                    "Job",
+                    "one dedicated job",
+                    "runs any software"
+                  ],
+                  [
+                    "Power",
+                    "low",
+                    "much higher"
+                  ],
+                  [
+                    "Cost",
+                    "low",
+                    "much higher"
+                  ],
+                  [
+                    "Interface",
+                    "minimal",
+                    "full screen, keyboard"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    3,
+                    2
+                  ]
+                ],
+                "cap": "A second one, also compared"
+              }
             }
           ],
           "tip": "Each characteristic must be contrasted with a general computer to get both of its marks."
@@ -9820,26 +12044,115 @@
           "idea": {
             "title": "Out of the computer",
             "text": "Input devices carry data into the computer (keyboard, mouse, microphone); output devices carry the results out to the user (monitor, printer, speakers).",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Input devices (in)",
+                "Output devices (out)"
+              ],
+              "rows": [
+                [
+                  "keyboard",
+                  "monitor"
+                ],
+                [
+                  "mouse",
+                  "printer"
+                ],
+                [
+                  "microphone",
+                  "speakers"
+                ]
+              ]
+            }
           },
           "steps": [
             {
               "say": "Define it by direction: information flows out of the computer to the user.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "io": true,
+                "regs": {
+                  "ACC": "8"
+                },
+                "hl": [
+                  "output"
+                ],
+                "flow": [
+                  [
+                    "acc",
+                    "output",
+                    null,
+                    "result"
+                  ]
+                ],
+                "cap": "Output: information out of the computer to the user"
+              }
             },
             {
               "say": "Say it is hardware, and what form the output takes: a picture, a sound or a printout.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Form of output",
+                  "Device"
+                ],
+                "rows": [
+                  [
+                    "a picture",
+                    ""
+                  ],
+                  [
+                    "a sound",
+                    ""
+                  ],
+                  [
+                    "a printout",
+                    ""
+                  ]
+                ],
+                "cap": "A piece of hardware"
+              }
             },
             {
               "say": "Give two everyday examples, such as a monitor and a printer.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Form of output",
+                  "Device"
+                ],
+                "rows": [
+                  [
+                    "a picture",
+                    "monitor"
+                  ],
+                  [
+                    "a sound",
+                    "speakers"
+                  ],
+                  [
+                    "a printout",
+                    "printer"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ]
+              }
             }
           ],
           "tip": null
@@ -9884,20 +12197,164 @@
           "idea": {
             "title": "Fetch, decode, execute",
             "text": "The CPU repeats three steps billions of times a second: fetch the next instruction from memory, decode it to work out what it means, then execute (carry it out).",
-            "vis": null
+            "vis": {
+              "t": "cpu",
+              "step": "Fetch",
+              "regs": {
+                "PC": "0100",
+                "MAR": "0100",
+                "MDR": "LOAD 7",
+                "CIR": "LOAD 7"
+              },
+              "mem": [
+                [
+                  "0100",
+                  "LOAD 7"
+                ],
+                [
+                  "0101",
+                  "ADD 8"
+                ],
+                [
+                  "0110",
+                  "STORE 9"
+                ],
+                [
+                  "0111",
+                  "5"
+                ],
+                [
+                  "1000",
+                  "3"
+                ]
+              ],
+              "hl": [
+                "pc",
+                "mar",
+                "mem0"
+              ],
+              "flow": [
+                [
+                  "pc",
+                  "mar",
+                  null,
+                  "0100"
+                ],
+                [
+                  "mar",
+                  "ram",
+                  "address",
+                  "0100"
+                ],
+                [
+                  "ram",
+                  "mdr",
+                  "data",
+                  "LOAD 7"
+                ],
+                [
+                  "mdr",
+                  "cir",
+                  null,
+                  "LOAD 7"
+                ]
+              ],
+              "cap": "Fetch: the next instruction comes in from memory"
+            }
           },
           "steps": [
             {
               "say": "After fetching, the control unit has to work out what the instruction means: that is decoding.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "flow",
+                "nodes": [
+                  {
+                    "id": "f",
+                    "type": "process",
+                    "text": "Fetch instruction"
+                  },
+                  {
+                    "id": "a",
+                    "type": "process",
+                    "text": "(a) Decode"
+                  },
+                  {
+                    "id": "b",
+                    "type": "process",
+                    "text": "(b) ?"
+                  }
+                ],
+                "edges": [
+                  [
+                    "f",
+                    "a"
+                  ],
+                  [
+                    "a",
+                    "b"
+                  ],
+                  [
+                    "b",
+                    "f",
+                    "next"
+                  ]
+                ],
+                "hl": "a",
+                "path": [
+                  "f",
+                  "a"
+                ],
+                "cap": "Decode: work out what the instruction means"
+              }
             },
             {
               "say": "Then the CPU carries the instruction out: that is executing. The cycle then fetches the next one.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "flow",
+                "nodes": [
+                  {
+                    "id": "f",
+                    "type": "process",
+                    "text": "Fetch instruction"
+                  },
+                  {
+                    "id": "a",
+                    "type": "process",
+                    "text": "(a) Decode"
+                  },
+                  {
+                    "id": "b",
+                    "type": "process",
+                    "text": "(b) Execute"
+                  }
+                ],
+                "edges": [
+                  [
+                    "f",
+                    "a"
+                  ],
+                  [
+                    "a",
+                    "b"
+                  ],
+                  [
+                    "b",
+                    "f",
+                    "next"
+                  ]
+                ],
+                "hl": "b",
+                "path": [
+                  "a",
+                  "b",
+                  "f"
+                ],
+                "cap": "Execute: carry it out, then fetch the next"
+              }
             }
           ],
           "tip": "Keep the order: the right names in the wrong order earn only 1 mark."
@@ -9943,26 +12400,154 @@
           "idea": {
             "title": "Address or data",
             "text": "Some registers hold addresses (where something is in memory) and others hold data (the values being processed). The PC holds an address; the accumulator holds data.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Register",
+                "Holds"
+              ],
+              "rows": [
+                [
+                  "PC",
+                  "an address"
+                ],
+                [
+                  "MAR",
+                  "an address"
+                ],
+                [
+                  "MDR",
+                  "data or an instruction"
+                ],
+                [
+                  "ACC",
+                  "data"
+                ]
+              ],
+              "hl": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  3,
+                  1
+                ]
+              ]
+            }
           },
           "steps": [
             {
               "say": "Program Counter: it holds the address of the next instruction, and goes up by one after each fetch.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "regs": {
+                  "PC": "0101",
+                  "ACC": "5"
+                },
+                "mem": [
+                  [
+                    "0100",
+                    "LOAD 7"
+                  ],
+                  [
+                    "0101",
+                    "ADD 8"
+                  ],
+                  [
+                    "0110",
+                    "STORE 9"
+                  ],
+                  [
+                    "0111",
+                    "5"
+                  ],
+                  [
+                    "1000",
+                    "3"
+                  ]
+                ],
+                "hl": [
+                  "pc",
+                  "mem1"
+                ],
+                "cap": "PC = 0101: the address of the next instruction (ADD 8)"
+              }
             },
             {
               "say": "Accumulator: it holds the data the ALU is working on and the results of calculations.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "regs": {
+                  "PC": "0110",
+                  "ACC": "8"
+                },
+                "mem": [
+                  [
+                    "0100",
+                    "LOAD 7"
+                  ],
+                  [
+                    "0101",
+                    "ADD 8"
+                  ],
+                  [
+                    "0110",
+                    "STORE 9"
+                  ],
+                  [
+                    "0111",
+                    "5"
+                  ],
+                  [
+                    "1000",
+                    "3"
+                  ]
+                ],
+                "hl": [
+                  "acc",
+                  "alu"
+                ],
+                "flow": [
+                  [
+                    "alu",
+                    "acc",
+                    null,
+                    "5 + 3 = 8"
+                  ]
+                ],
+                "cap": "ACC: the data being worked on, here the result 8"
+              }
             },
             {
               "say": "Join the two halves with 'whereas' so the difference is clear.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Program Counter",
+                  "Accumulator"
+                ],
+                "rows": [
+                  [
+                    "Holds",
+                    "address of the next instruction",
+                    "data and results"
+                  ],
+                  [
+                    "Works with",
+                    "the control unit (fetch)",
+                    "the ALU"
+                  ]
+                ],
+                "cap": "The PC holds an address, whereas the ACC holds data"
+              }
             }
           ],
           "tip": null
@@ -10039,32 +12624,102 @@
           "idea": {
             "title": "Manager and calculator",
             "text": "The control unit is the manager: it reads each instruction and tells the other parts what to do. The ALU is the calculator: it does the actual maths and comparisons.",
-            "vis": null
+            "vis": {
+              "t": "cpu",
+              "hl": [
+                "cu",
+                "alu"
+              ],
+              "cap": "Control unit: the manager. ALU: the calculator"
+            }
           },
           "steps": [
             {
               "say": "ALU: say that it does the arithmetic, and give an example such as adding two numbers.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "regs": {
+                  "ACC": "8"
+                },
+                "hl": [
+                  "alu",
+                  "acc"
+                ],
+                "flow": [
+                  [
+                    "alu",
+                    "acc",
+                    null,
+                    "5 + 3 = 8"
+                  ]
+                ],
+                "cap": "ALU: arithmetic, such as adding"
+              }
             },
             {
               "say": "Add the logic half: comparisons such as 'is A greater than B?' and AND, OR, NOT.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "hl": [
+                  "alu"
+                ],
+                "flow": [
+                  [
+                    "alu",
+                    "acc",
+                    null,
+                    "5 > 3? yes"
+                  ]
+                ],
+                "cap": "ALU: logic: comparisons (is 5 > 3?), AND, OR, NOT"
+              }
             },
             {
               "say": "CU: say that it directs and coordinates everything the CPU does.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "hl": [
+                  "cu"
+                ],
+                "cap": "CU: directs and coordinates everything"
+              }
             },
             {
               "say": "Add how: it decodes instructions and sends signals to the memory, the ALU and the I/O devices.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "io": true,
+                "hl": [
+                  "cu",
+                  "control"
+                ],
+                "regs": {
+                  "CIR": "ADD 8"
+                },
+                "flow": [
+                  [
+                    "cir",
+                    "cu",
+                    null,
+                    "decode"
+                  ],
+                  [
+                    "cu",
+                    "alu",
+                    null,
+                    "signal"
+                  ]
+                ],
+                "cap": "It decodes, then sends control signals to memory, ALU and I/O"
+              }
             }
           ],
           "tip": "Give an example for each: just restating the name ('it does arithmetic and logic') looks like fair understanding."
@@ -10146,32 +12801,157 @@
           "idea": {
             "title": "More cycles, more workers, less waiting",
             "text": "A CPU gets faster by doing more cycles per second (clock speed), having more processing units working at once (cores) and waiting less for data (cache and RAM).",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "Factor",
+                "Makes the CPU faster by…"
+              ],
+              "rows": [
+                [
+                  "Clock speed",
+                  "more cycles every second"
+                ],
+                [
+                  "Number of cores",
+                  "more units working at once"
+                ],
+                [
+                  "Cache and RAM",
+                  "less waiting for data"
+                ]
+              ]
+            }
           },
           "steps": [
             {
               "say": "Pick two factors you can explain fully: clock speed and number of cores are the classic pair.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "Factor",
+                  "Makes the CPU faster by…"
+                ],
+                "rows": [
+                  [
+                    "Clock speed",
+                    "more cycles every second"
+                  ],
+                  [
+                    "Number of cores",
+                    "more units working at once"
+                  ],
+                  [
+                    "Cache and RAM",
+                    "less waiting for data"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ],
+                "cap": "The classic pair: clock speed and cores"
+              }
             },
             {
               "say": "Clock speed: pulses per second (GHz); more pulses means more fetch-decode-execute cycles every second.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "bars",
+                "vals": [
+                  1,
+                  2,
+                  3.5
+                ],
+                "labels": [
+                  "1 GHz",
+                  "2 GHz",
+                  "3.5 GHz"
+                ],
+                "ylab": "billion cycles per second",
+                "hl": [
+                  2
+                ],
+                "cap": "More pulses: more fetch-decode-execute cycles"
+              }
             },
             {
               "say": "Cores: each core runs its own instructions, so more cores means more instructions processed at the same time.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "bars",
+                "vals": [
+                  1,
+                  2,
+                  4
+                ],
+                "labels": [
+                  "1 core",
+                  "2 cores",
+                  "4 cores"
+                ],
+                "ylab": "instructions at the same time",
+                "hl": [
+                  2
+                ],
+                "cap": "Each core runs its own instructions"
+              }
             },
             {
               "say": "Other options: a bigger cache means less waiting for instructions to arrive from slower RAM.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "cache": true,
+                "regs": {
+                  "CIR": "ADD 8"
+                },
+                "mem": [
+                  [
+                    "0100",
+                    "LOAD 7"
+                  ],
+                  [
+                    "0101",
+                    "ADD 8"
+                  ],
+                  [
+                    "0110",
+                    "STORE 9"
+                  ],
+                  [
+                    "0111",
+                    "5"
+                  ],
+                  [
+                    "1000",
+                    "3"
+                  ]
+                ],
+                "hl": [
+                  "cache"
+                ],
+                "flow": [
+                  [
+                    "cache",
+                    "cir",
+                    null,
+                    "ADD 8"
+                  ]
+                ],
+                "cap": "A bigger cache: less waiting for slower RAM"
+              }
             }
           ],
           "tip": "Naming a factor is not enough: say how it makes the CPU faster to earn its 3 marks."
@@ -10312,7 +13092,26 @@
           "idea": {
             "title": "Spinning disk or chips",
             "text": "A magnetic hard drive stores data on spinning metal platters read by a moving arm. A solid state drive stores it in flash memory chips with no moving parts.",
-            "vis": null
+            "vis": {
+              "t": "table",
+              "head": [
+                "",
+                "Magnetic (HDD)",
+                "Solid state (SSD)"
+              ],
+              "rows": [
+                [
+                  "Stores data on",
+                  "spinning platters",
+                  "flash memory chips"
+                ],
+                [
+                  "Moving parts",
+                  "disk and read arm",
+                  "none"
+                ]
+              ]
+            }
           },
           "steps": [
             {
@@ -10325,19 +13124,109 @@
               "say": "For an SSD: no moving parts, so it copes far better with knocks while being carried about.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "For a laptop",
+                  "Magnetic (HDD)",
+                  "Solid state (SSD)"
+                ],
+                "rows": [
+                  [
+                    "Knocks and drops",
+                    "moving parts can break",
+                    "no moving parts: robust"
+                  ]
+                ],
+                "hl": [
+                  [
+                    0,
+                    2
+                  ]
+                ]
+              }
             },
             {
               "say": "Add a second benefit: faster access (quicker start-up and loading) or lower power use (longer battery life).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "For a laptop",
+                  "Magnetic (HDD)",
+                  "Solid state (SSD)"
+                ],
+                "rows": [
+                  [
+                    "Knocks and drops",
+                    "moving parts can break",
+                    "no moving parts: robust"
+                  ],
+                  [
+                    "Speed",
+                    "slower",
+                    "faster start-up, loading"
+                  ],
+                  [
+                    "Battery",
+                    "uses more power",
+                    "uses less power"
+                  ]
+                ],
+                "hl": [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ]
+              }
             },
             {
               "say": "If you choose magnetic instead: it is much cheaper per gigabyte, so far more storage for the same money.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "For a laptop",
+                  "Magnetic (HDD)",
+                  "Solid state (SSD)"
+                ],
+                "rows": [
+                  [
+                    "Knocks and drops",
+                    "moving parts can break",
+                    "no moving parts: robust"
+                  ],
+                  [
+                    "Speed",
+                    "slower",
+                    "faster start-up, loading"
+                  ],
+                  [
+                    "Battery",
+                    "uses more power",
+                    "uses less power"
+                  ],
+                  [
+                    "Cost per GB",
+                    "much cheaper: more space",
+                    "dearer"
+                  ]
+                ],
+                "hl": [
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "cap": "Choose magnetic? Far more storage for the money"
+              }
             }
           ],
           "tip": "Link your reason to Sarah's situation: a laptop that gets carried around."
@@ -10377,26 +13266,222 @@
           "idea": {
             "title": "Borrowing the disk",
             "text": "When RAM fills up, the operating system moves data it isn't using right now onto the disk and brings it back when it is needed. More programs can run, but swapping data to and from the disk is slow.",
-            "vis": null
+            "vis": {
+              "t": "cpu",
+              "io": true,
+              "mem": [
+                [
+                  "0000",
+                  "browser"
+                ],
+                [
+                  "0001",
+                  "browser"
+                ],
+                [
+                  "0010",
+                  "music"
+                ],
+                [
+                  "0011",
+                  "music"
+                ],
+                [
+                  "0100",
+                  "game"
+                ],
+                [
+                  "0101",
+                  "game"
+                ],
+                [
+                  "0110",
+                  "game"
+                ],
+                [
+                  "0111",
+                  "editor"
+                ]
+              ],
+              "hl": [
+                "ram",
+                "storage"
+              ],
+              "flow": [
+                [
+                  "ram",
+                  "storage",
+                  null,
+                  "out"
+                ],
+                [
+                  "storage",
+                  "ram",
+                  null,
+                  "back"
+                ]
+              ],
+              "cap": "RAM full: data moves to the disk and back"
+            }
           },
           "steps": [
             {
               "say": "Say where it is: on secondary storage (hard drive or SSD), not in RAM.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "io": true,
+                "mem": [
+                  [
+                    "0000",
+                    "browser"
+                  ],
+                  [
+                    "0001",
+                    "browser"
+                  ],
+                  [
+                    "0010",
+                    "music"
+                  ],
+                  [
+                    "0011",
+                    "music"
+                  ],
+                  [
+                    "0100",
+                    "game"
+                  ],
+                  [
+                    "0101",
+                    "game"
+                  ],
+                  [
+                    "0110",
+                    "game"
+                  ],
+                  [
+                    "0111",
+                    "editor"
+                  ]
+                ],
+                "hl": [
+                  "storage"
+                ],
+                "cap": "Virtual memory: an area of the hard drive or SSD"
+              }
             },
             {
               "say": "Say what it is for: when RAM is full, the operating system moves data there temporarily.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "io": true,
+                "mem": [
+                  [
+                    "0000",
+                    "browser"
+                  ],
+                  [
+                    "0001",
+                    "browser"
+                  ],
+                  [
+                    "0010",
+                    ""
+                  ],
+                  [
+                    "0011",
+                    ""
+                  ],
+                  [
+                    "0100",
+                    "game"
+                  ],
+                  [
+                    "0101",
+                    "game"
+                  ],
+                  [
+                    "0110",
+                    "game"
+                  ],
+                  [
+                    "0111",
+                    "editor"
+                  ]
+                ],
+                "hl": [
+                  "ram",
+                  "storage"
+                ],
+                "flow": [
+                  [
+                    "ram",
+                    "storage",
+                    null,
+                    "music"
+                  ]
+                ],
+                "cap": "RAM full: the OS moves unused data out for now"
+              }
             },
             {
               "say": "Add the drawback: it is much slower to access than RAM.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "cpu",
+                "io": true,
+                "mem": [
+                  [
+                    "0000",
+                    "browser"
+                  ],
+                  [
+                    "0001",
+                    "browser"
+                  ],
+                  [
+                    "0010",
+                    "music"
+                  ],
+                  [
+                    "0011",
+                    "music"
+                  ],
+                  [
+                    "0100",
+                    "game"
+                  ],
+                  [
+                    "0101",
+                    "game"
+                  ],
+                  [
+                    "0110",
+                    "game"
+                  ],
+                  [
+                    "0111",
+                    "editor"
+                  ]
+                ],
+                "hl": [
+                  "storage"
+                ],
+                "flow": [
+                  [
+                    "storage",
+                    "ram",
+                    null,
+                    "slow"
+                  ]
+                ],
+                "cap": "Bringing it back is much slower than RAM"
+              }
             }
           ],
           "tip": null
@@ -10536,32 +13621,263 @@
           "idea": {
             "title": "Your files on someone else's computer",
             "text": "Working in the cloud means files and apps are kept on a provider's servers and reached over the internet, instead of being stored on one machine.",
-            "vis": null
+            "vis": {
+              "t": "network",
+              "nodes": [
+                {
+                  "id": "l",
+                  "kind": "laptop",
+                  "label": "Your laptop",
+                  "x": 0,
+                  "y": 50
+                },
+                {
+                  "id": "i",
+                  "kind": "cloud",
+                  "label": "Internet",
+                  "x": 50,
+                  "y": 50
+                },
+                {
+                  "id": "s",
+                  "kind": "server",
+                  "label": "Provider's servers",
+                  "x": 100,
+                  "y": 50
+                }
+              ],
+              "links": [
+                [
+                  "l",
+                  "i"
+                ],
+                [
+                  "i",
+                  "s"
+                ]
+              ],
+              "send": [
+                {
+                  "path": [
+                    "l",
+                    "i",
+                    "s"
+                  ],
+                  "label": "save file"
+                }
+              ],
+              "cap": "Files kept on a provider's servers, reached online"
+            }
           },
           "steps": [
             {
               "say": "Read the scenario: a group working both at school and at home. Choose an advantage that suits it.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "network",
+                "nodes": [
+                  {
+                    "id": "sc",
+                    "kind": "pc",
+                    "label": "At school",
+                    "x": 0,
+                    "y": 0
+                  },
+                  {
+                    "id": "hm",
+                    "kind": "laptop",
+                    "label": "At home",
+                    "x": 0,
+                    "y": 100
+                  },
+                  {
+                    "id": "i",
+                    "kind": "cloud",
+                    "label": "Internet",
+                    "x": 50,
+                    "y": 50
+                  },
+                  {
+                    "id": "s",
+                    "kind": "server",
+                    "label": "Cloud storage",
+                    "x": 100,
+                    "y": 50
+                  }
+                ],
+                "links": [
+                  [
+                    "sc",
+                    "i"
+                  ],
+                  [
+                    "hm",
+                    "i"
+                  ],
+                  [
+                    "i",
+                    "s"
+                  ]
+                ],
+                "hl": [
+                  "sc",
+                  "hm"
+                ],
+                "cap": "One group, working at school and at home"
+              }
             },
             {
               "say": "Advantage: everyone can reach the same up-to-date files from anywhere and edit them together.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "network",
+                "nodes": [
+                  {
+                    "id": "sc",
+                    "kind": "pc",
+                    "label": "At school",
+                    "x": 0,
+                    "y": 0
+                  },
+                  {
+                    "id": "hm",
+                    "kind": "laptop",
+                    "label": "At home",
+                    "x": 0,
+                    "y": 100
+                  },
+                  {
+                    "id": "i",
+                    "kind": "cloud",
+                    "label": "Internet",
+                    "x": 50,
+                    "y": 50
+                  },
+                  {
+                    "id": "s",
+                    "kind": "server",
+                    "label": "Cloud storage",
+                    "x": 100,
+                    "y": 50
+                  }
+                ],
+                "links": [
+                  [
+                    "sc",
+                    "i"
+                  ],
+                  [
+                    "hm",
+                    "i"
+                  ],
+                  [
+                    "i",
+                    "s"
+                  ]
+                ],
+                "send": [
+                  {
+                    "path": [
+                      "sc",
+                      "i",
+                      "s"
+                    ],
+                    "label": "save"
+                  },
+                  {
+                    "path": [
+                      "s",
+                      "i",
+                      "hm"
+                    ],
+                    "label": "latest version",
+                    "c": "blue"
+                  }
+                ],
+                "hl": [
+                  "s"
+                ],
+                "cap": "Advantage: the same up-to-date files, anywhere"
+              }
             },
             {
               "say": "Disadvantage: it needs a working internet connection; no connection means no access to the work.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "network",
+                "nodes": [
+                  {
+                    "id": "sc",
+                    "kind": "pc",
+                    "label": "At school",
+                    "x": 0,
+                    "y": 0
+                  },
+                  {
+                    "id": "hm",
+                    "kind": "laptop",
+                    "label": "At home",
+                    "x": 0,
+                    "y": 100
+                  },
+                  {
+                    "id": "i",
+                    "kind": "cloud",
+                    "label": "Internet",
+                    "x": 50,
+                    "y": 50
+                  },
+                  {
+                    "id": "s",
+                    "kind": "server",
+                    "label": "Cloud storage",
+                    "x": 100,
+                    "y": 50
+                  }
+                ],
+                "links": [
+                  [
+                    "sc",
+                    "i"
+                  ],
+                  [
+                    "i",
+                    "s"
+                  ]
+                ],
+                "hl": [
+                  "hm"
+                ],
+                "cap": "Disadvantage: no connection, no access to the work"
+              }
             },
             {
               "say": "For each one, explain the effect on the group, not just the name of the point.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "table",
+                "head": [
+                  "",
+                  "Point",
+                  "Effect on the group"
+                ],
+                "rows": [
+                  [
+                    "Advantage",
+                    "same files from anywhere",
+                    "edit together, at school or at home"
+                  ],
+                  [
+                    "Disadvantage",
+                    "needs the internet",
+                    "broadband down: that person can't work"
+                  ]
+                ]
+              }
             }
           ],
           "tip": "Tie both points to the scenario: describing the effect turns 2 marks into 3."
@@ -10677,19 +13993,123 @@
               "say": "A Business Analyst is the link between the client business and the software team.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "flow",
+                "nodes": [
+                  {
+                    "id": "b",
+                    "type": "io",
+                    "text": "Local business"
+                  },
+                  {
+                    "id": "a",
+                    "type": "process",
+                    "text": "Business Analyst"
+                  },
+                  {
+                    "id": "t",
+                    "type": "io",
+                    "text": "Software team"
+                  }
+                ],
+                "edges": [
+                  [
+                    "b",
+                    "a"
+                  ],
+                  [
+                    "a",
+                    "t"
+                  ]
+                ],
+                "hl": "a",
+                "cap": "The link between the business and the team"
+              }
             },
             {
               "say": "Activity 1: investigate how the business works now and identify what needs improving (the requirements).",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "flow",
+                "nodes": [
+                  {
+                    "id": "b",
+                    "type": "io",
+                    "text": "Local business"
+                  },
+                  {
+                    "id": "a",
+                    "type": "process",
+                    "text": "Business Analyst"
+                  },
+                  {
+                    "id": "t",
+                    "type": "io",
+                    "text": "Software team"
+                  }
+                ],
+                "edges": [
+                  [
+                    "b",
+                    "a",
+                    "how it works now"
+                  ],
+                  [
+                    "a",
+                    "t"
+                  ]
+                ],
+                "hl": "b",
+                "path": [
+                  "b",
+                  "a"
+                ],
+                "cap": "1: investigate the business, find what to improve"
+              }
             },
             {
               "say": "Activity 2: communicate those requirements, in reports or meetings, to the designers, programmers and testers.",
               "math": [],
               "code": "",
-              "vis": null
+              "vis": {
+                "t": "flow",
+                "nodes": [
+                  {
+                    "id": "b",
+                    "type": "io",
+                    "text": "Local business"
+                  },
+                  {
+                    "id": "a",
+                    "type": "process",
+                    "text": "Business Analyst"
+                  },
+                  {
+                    "id": "t",
+                    "type": "io",
+                    "text": "Software team"
+                  }
+                ],
+                "edges": [
+                  [
+                    "b",
+                    "a",
+                    "how it works now"
+                  ],
+                  [
+                    "a",
+                    "t",
+                    "requirements"
+                  ]
+                ],
+                "hl": "t",
+                "path": [
+                  "a",
+                  "t"
+                ],
+                "cap": "2: report the requirements to designers, programmers, testers"
+              }
             }
           ],
           "tip": "Two activities that mean the same thing score only once, so make them clearly different."

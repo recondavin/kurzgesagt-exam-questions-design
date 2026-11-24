@@ -624,7 +624,7 @@
               "vis": null
             },
             {
-              "say": "A heuristic such as nearest neighbour (always go to the closest unvisited city) gives a good, near-shortest route very quickly: an approximate answer that is good enough.",
+              "say": "A heuristic such as nearest neighbour (always go to the closest unvisited city) gives a good, near-shortest route very quickly: an approximate answer that is usually good enough, though not always the shortest.",
               "math": [],
               "code": "",
               "vis": null
