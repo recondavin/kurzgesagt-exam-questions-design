@@ -1,0 +1,1122 @@
+{
+ "chapter": 6,
+ "warm": true,
+ "cards": [
+  {
+   "id": "warm:6:1",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 28,
+   "q": "Which CPU register holds the memory address of the next instruction to be fetched?",
+   "right": "Program Counter (PC)",
+   "wrong": [
+    "Current Instruction Register (CIR)",
+    "Memory Data Register (MDR)",
+    "Accumulator (ACC)"
+   ],
+   "why": "The PC keeps the CPU's place in the program: it holds the address of the next instruction. The CIR holds the instruction itself once it has been fetched.",
+   "hook": "PC: it points to where the next instruction is, not the instruction.",
+   "keys": [
+    "the address of the next instruction"
+   ]
+  },
+  {
+   "id": "warm:6:2",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 28,
+   "q": "Which register holds the address of the memory location the CPU is about to read from or write to?",
+   "right": "Memory Address Register (MAR)",
+   "wrong": [
+    "Memory Data Register (MDR)",
+    "Current Instruction Register (CIR)",
+    "Accumulator (ACC)"
+   ],
+   "why": "The MAR holds the address: where in memory. The MDR holds the data or instruction travelling to or from that address.",
+   "hook": "The letter tells you: MAR = Address, MDR = Data.",
+   "keys": [
+    "The MAR holds the address"
+   ]
+  },
+  {
+   "id": "warm:6:3",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 28,
+   "q": "During a fetch, the instruction arrives from RAM. Which register does it go into first?",
+   "right": "Memory Data Register (MDR)",
+   "wrong": [
+    "Memory Address Register (MAR)",
+    "Program Counter (PC)",
+    "Current Instruction Register (CIR)"
+   ],
+   "why": "Everything read from memory lands in the MDR first. It is then copied to the CIR to be decoded. The MAR only held the address it came from.",
+   "hook": "All data in or out of memory passes through the MDR.",
+   "keys": [
+    "lands in the MDR first"
+   ]
+  },
+  {
+   "id": "warm:6:4",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 28,
+   "q": "Which part of the CPU does the arithmetic and logic, such as adding 5 + 3 or checking whether A > B?",
+   "right": "Arithmetic Logic Unit (ALU)",
+   "wrong": [
+    "Control Unit (CU)",
+    "Accumulator (ACC)",
+    "Cache"
+   ],
+   "why": "The ALU is the calculator: it adds, subtracts and compares. The control unit decodes instructions and directs the rest; the accumulator only stores the result.",
+   "hook": "ALU does the maths; the CU is the manager telling it what to do.",
+   "keys": [
+    "The ALU is the calculator"
+   ]
+  },
+  {
+   "id": "warm:6:5",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 28,
+   "q": "The instruction ADD 5 has just been copied into the CIR. Which part works out what it means, and which part does the adding?",
+   "right": "CU decodes it, ALU adds",
+   "wrong": [
+    "ALU decodes it, CU adds",
+    "CIR decodes it, ACC adds",
+    "CU decodes it and adds it"
+   ],
+   "why": "The control unit decodes the instruction and sends signals to carry it out; the ALU does the arithmetic. The CIR and ACC are registers: they only hold values.",
+   "hook": "CU = the manager (decode, give orders); ALU = the calculator.",
+   "keys": [
+    "The control unit decodes the instruction"
+   ]
+  },
+  {
+   "id": "warm:6:6",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 28,
+   "q": "What are the three stages the CPU repeats for every instruction, in order?",
+   "right": "Fetch, decode, execute",
+   "wrong": [
+    "Fetch, execute, decode",
+    "Decode, fetch, execute",
+    "Input, process, output"
+   ],
+   "why": "The CPU fetches the next instruction from memory, decodes it to work out what it means, then executes it, billions of times a second.",
+   "hook": "You can't carry it out (execute) before you know what it says (decode).",
+   "keys": [
+    "decodes it to work out what it means"
+   ]
+  },
+  {
+   "id": "warm:6:7",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 28,
+   "q": "Put the fetch stage in order: (1) the MDR is copied to the CIR, (2) the PC is copied to the MAR, (3) the instruction comes from memory into the MDR.",
+   "right": "2, 3, 1",
+   "wrong": [
+    "1, 2, 3",
+    "3, 2, 1",
+    "2, 1, 3"
+   ],
+   "why": "First the PC's address goes to the MAR (2), then the instruction at that address comes into the MDR (3), then it is copied to the CIR to be decoded (1).",
+   "hook": "Address out, data in, then into the CIR.",
+   "keys": [
+    "the PC's address goes to the MAR (2)"
+   ]
+  },
+  {
+   "id": "warm:6:8",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 28,
+   "q": "The PC holds 25 when a fetch begins. When the fetch has finished, what do the PC and the MAR hold?",
+   "right": "PC 26, MAR 25",
+   "wrong": [
+    "PC 25, MAR 25",
+    "PC 26, MAR 26",
+    "PC 25, MAR 26"
+   ],
+   "why": "The PC's 25 is copied to the MAR, the instruction at 25 is fetched, then the PC goes up by 1 to 26, ready for the next instruction.",
+   "hook": "Copy the PC first, then add 1 to it.",
+   "keys": [
+    "then the PC goes up by 1 to 26"
+   ]
+  },
+  {
+   "id": "warm:6:9",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 28,
+   "q": "The CPU writes the value 42 into memory address 100. What travels along the address bus and the data bus?",
+   "right": "Address bus: 100, data bus: 42",
+   "wrong": [
+    "Address bus: 42, data bus: 100",
+    "Data bus: both 100 and 42",
+    "Address bus: 100, control bus: 42"
+   ],
+   "why": "The address bus (one-way, out of the CPU) says where: 100. The data bus (two-way) carries what: 42. The control bus carries signals such as 'write'.",
+   "hook": "Address = where, data = what, control = do it.",
+   "keys": [
+    "The address bus (one-way, out of the CPU) says where"
+   ]
+  },
+  {
+   "id": "warm:6:10",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 28,
+   "q": "Which memory is volatile: its contents are lost when the power is switched off?",
+   "right": "RAM",
+   "wrong": [
+    "ROM",
+    "Solid state drive (SSD)",
+    "Hard disk drive (HDD)"
+   ],
+   "why": "RAM is volatile, so it is wiped when the power goes. ROM, SSDs and hard drives are non-volatile: they keep their data with no power.",
+   "hook": "RAM forgets when the plug is pulled; ROM remembers.",
+   "keys": [
+    "RAM is volatile"
+   ]
+  },
+  {
+   "id": "warm:6:11",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 28,
+   "q": "Which of these is normally stored in ROM?",
+   "right": "The start-up (boot) instructions",
+   "wrong": [
+    "The document you are editing",
+    "The programs open right now",
+    "Data moved out of a full RAM"
+   ],
+   "why": "ROM is non-volatile and read-only, so it keeps the boot program that must survive with the power off. Open programs and documents are in RAM.",
+   "hook": "ROM: Read Only, and still there at switch-on.",
+   "keys": [
+    "ROM is non-volatile and read-only"
+   ]
+  },
+  {
+   "id": "warm:6:12",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 28,
+   "q": "Which statement about registers and RAM is correct?",
+   "right": "Registers are inside the CPU and faster",
+   "wrong": [
+    "Registers are slower, on the motherboard",
+    "Registers are bigger and cheaper",
+    "Registers keep their data with no power"
+   ],
+   "why": "Registers are built into the CPU, so they are the fastest memory, but a CPU has only a few of them, whereas RAM sits on the motherboard and holds gigabytes.",
+   "hook": "Registers: tiny, inside, instant.",
+   "keys": [
+    "Registers are built into the CPU"
+   ]
+  },
+  {
+   "id": "warm:6:13",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 28,
+   "q": "A laptop with 4 GB of RAM slows down when many programs are open. Why does adding more RAM help?",
+   "right": "Less swapping to slow virtual memory",
+   "wrong": [
+    "It raises the CPU's clock speed",
+    "It gives more space to save files",
+    "Programs stay in RAM when it's off"
+   ],
+   "why": "When RAM is full the OS moves data out to virtual memory on the much slower disk. More RAM means more fits at once, so there is less swapping.",
+   "hook": "RAM is the desk: a bigger desk, fewer trips to the filing cabinet.",
+   "keys": [
+    "virtual memory on the much slower disk"
+   ]
+  },
+  {
+   "id": "warm:6:14",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 28,
+   "q": "What is cache memory?",
+   "right": "Small, fast memory close to the CPU",
+   "wrong": [
+    "Large, slow storage for saving files",
+    "Memory that keeps data with no power",
+    "The register holding the next address"
+   ],
+   "why": "Cache is small, very fast memory in or next to the CPU. It holds instructions and data used often, so the CPU waits less for slower RAM.",
+   "hook": "Cache: keep what you use most within arm's reach.",
+   "keys": [
+    "holds instructions and data used often"
+   ]
+  },
+  {
+   "id": "warm:6:15",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 28,
+   "q": "Put these in order from fastest to slowest: RAM, registers, SSD, cache.",
+   "right": "Registers, cache, RAM, SSD",
+   "wrong": [
+    "Cache, registers, RAM, SSD",
+    "Registers, RAM, cache, SSD",
+    "SSD, RAM, cache, registers"
+   ],
+   "why": "The closer to the CPU, the faster (and smaller and dearer): registers are inside the CPU, then cache, then RAM on the motherboard, then the SSD.",
+   "hook": "Closest to the CPU is quickest: registers, cache, RAM, storage.",
+   "keys": [
+    "registers are inside the CPU, then cache"
+   ]
+  },
+  {
+   "id": "warm:6:16",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 28,
+   "q": "A CPU's clock runs at 2 GHz. How many clock cycles does it make in half a second?",
+   "right": "1,000,000,000",
+   "wrong": [
+    "4,000,000,000",
+    "1,073,741,824",
+    "1,000,000"
+   ],
+   "why": "Giga means a billion (10⁹) and hertz means per second: 2 GHz is 2,000,000,000 cycles a second, so half a second is 1,000,000,000.",
+   "hook": "Clock speeds use 1000s: kilo, mega, giga, each × 1000.",
+   "keys": [
+    "2 GHz is 2,000,000,000 cycles a second"
+   ]
+  },
+  {
+   "id": "warm:6:17",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 28,
+   "q": "Two CPUs have the same clock speed. One has 4 cores and the other has 2. Why can the 4-core CPU get more done?",
+   "right": "It runs more instructions at once",
+   "wrong": [
+    "Its clock ticks twice as fast",
+    "It has twice as much RAM",
+    "It can store more programs"
+   ],
+   "why": "Each core is a processor of its own, running its own fetch-decode-execute cycle, so 4 cores work on 4 instructions at the same time. The clock speed is the same.",
+   "hook": "Clock speed = how fast each worker is; cores = how many workers.",
+   "keys": [
+    "4 cores work on 4 instructions at the same time"
+   ]
+  },
+  {
+   "id": "warm:6:18",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 28,
+   "q": "Why is a solid state drive (SSD) better than a hard disk drive (HDD) in a laptop that gets carried around?",
+   "right": "No moving parts, so it copes with knocks",
+   "wrong": [
+    "It is cheaper per gigabyte",
+    "It stores data on magnetic platters",
+    "It is volatile, so it uses less power"
+   ],
+   "why": "An SSD stores data in flash memory chips with no moving parts, so a bump can't damage a spinning disk or a moving head. An HDD is cheaper per gigabyte.",
+   "hook": "Solid state: nothing spins, nothing breaks.",
+   "keys": [
+    "no moving parts"
+   ]
+  },
+  {
+   "id": "warm:6:19",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 28,
+   "q": "Which of these is an embedded system?",
+   "right": "The microcontroller in a washing machine",
+   "wrong": [
+    "A laptop running Windows",
+    "A web server in a data centre",
+    "A desktop PC used for gaming"
+   ],
+   "why": "An embedded system is a small computer built into a bigger device to do one dedicated job. Laptops, PCs and servers are general-purpose: they run any software.",
+   "hook": "Embedded = built in, one job.",
+   "keys": [
+    "one dedicated job"
+   ]
+  },
+  {
+   "id": "warm:6:20",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 28,
+   "q": "Which of these is true of an embedded system but not of a general-purpose computer?",
+   "right": "It does one job, often in real time",
+   "wrong": [
+    "It can install and run any app",
+    "It needs a keyboard, mouse and screen",
+    "It uses lots of power and memory"
+   ],
+   "why": "An embedded system is built for one dedicated job, so it can be small, cheap, low-power and react in real time. A PC must run anything, so it needs more.",
+   "hook": "One job, done fast and cheaply: that's embedded.",
+   "keys": [
+    "built for one dedicated job"
+   ]
+  },
+  {
+   "id": "warm:6:21",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 28,
+   "q": "Partway through a program the PC holds 7 and the accumulator holds 7. What does each 7 mean?",
+   "right": "PC: address 7 is next; ACC: the value 7",
+   "wrong": [
+    "PC: the value 7; ACC: address 7",
+    "Both are memory addresses",
+    "Both are values being calculated"
+   ],
+   "why": "The PC holds an address: the next instruction is at location 7. The accumulator holds data: 7 is the value the ALU has just worked out.",
+   "hook": "PC points somewhere; ACC holds something.",
+   "keys": [
+    "The PC holds an address"
+   ]
+  },
+  {
+   "id": "warm:6:22",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 29,
+   "q": "Which logic gate outputs 1 only when both of its inputs are 1?",
+   "right": "AND",
+   "wrong": [
+    "OR",
+    "NAND",
+    "XOR"
+   ],
+   "why": "AND gives 1 only for inputs 1 and 1; any 0 makes the output 0. OR gives 1 if at least one input is 1, and NAND is the opposite of AND.",
+   "hook": "AND is fussy: it needs this AND that.",
+   "keys": [
+    "AND gives 1 only for inputs 1 and 1"
+   ]
+  },
+  {
+   "id": "warm:6:23",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 29,
+   "q": "Inputs (A, B) go 00, 01, 10, 11. What is the output column of an OR gate, in that order?",
+   "right": "0, 1, 1, 1",
+   "wrong": [
+    "0, 0, 0, 1",
+    "1, 0, 0, 0",
+    "0, 1, 1, 0"
+   ],
+   "why": "OR gives 1 when at least one input is 1, so only 00 gives 0: 0, 1, 1, 1. (0, 0, 0, 1 is AND and 0, 1, 1, 0 is XOR.)",
+   "hook": "OR is easy-going: either one will do.",
+   "keys": [
+    "only 00 gives 0"
+   ]
+  },
+  {
+   "id": "warm:6:24",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 29,
+   "q": "Which gate outputs 1 when exactly one of its two inputs is 1, but 0 when both are 1?",
+   "right": "XOR",
+   "wrong": [
+    "OR",
+    "AND",
+    "NAND"
+   ],
+   "why": "XOR (exclusive OR) is 1 when the inputs are different. OR also gives 1 for 01 and 10, but it gives 1 for 11 too.",
+   "hook": "XOR: one or the other, but not both.",
+   "keys": [
+    "XOR (exclusive OR) is 1 when the inputs are different"
+   ]
+  },
+  {
+   "id": "warm:6:25",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 29,
+   "q": "What does a NAND gate output for inputs 1, 1 and for inputs 0, 1?",
+   "right": "0, then 1",
+   "wrong": [
+    "1, then 0",
+    "0, then 0",
+    "1, then 1"
+   ],
+   "why": "NAND is AND then NOT. 1 AND 1 = 1, flipped to 0; 0 AND 1 = 0, flipped to 1. The small circle on its output is the NOT.",
+   "hook": "NAND = Not AND: do the AND, then flip it.",
+   "keys": [
+    "NAND is AND then NOT"
+   ]
+  },
+  {
+   "id": "warm:6:26",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 29,
+   "q": "Inputs (A, B) go 00, 01, 10, 11. What is the output column of a NOR gate, in that order?",
+   "right": "1, 0, 0, 0",
+   "wrong": [
+    "0, 1, 1, 1",
+    "1, 1, 1, 0",
+    "0, 0, 0, 1"
+   ],
+   "why": "NOR is OR then NOT. OR gives 0, 1, 1, 1; flipping each gives 1, 0, 0, 0: the output is 1 only when both inputs are 0.",
+   "hook": "NOR = Not OR: work out OR, then flip every row.",
+   "keys": [
+    "OR gives 0, 1, 1, 1"
+   ]
+  },
+  {
+   "id": "warm:6:27",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 29,
+   "q": "A logic gate is drawn with a flat back and a round, D-shaped front. Which gate is it?",
+   "right": "AND",
+   "wrong": [
+    "OR",
+    "NOT",
+    "XOR"
+   ],
+   "why": "AND is D-shaped: flat back, round front. OR has a curved back and a pointed front, XOR adds an extra curved line, and NOT is a triangle.",
+   "hook": "D-shape = anD.",
+   "keys": [
+    "AND is D-shaped"
+   ]
+  },
+  {
+   "id": "warm:6:28",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 29,
+   "q": "How many rows does a truth table need for a circuit with 3 inputs?",
+   "right": "8",
+   "wrong": [
+    "6",
+    "9",
+    "3"
+   ],
+   "why": "Each input can be 0 or 1, and each extra input doubles the rows: 2 × 2 × 2 = 2³ = 8 rows, from 000 to 111.",
+   "hook": "Rows = 2 to the power of the number of inputs.",
+   "keys": [
+    "2 × 2 × 2 = 2³ = 8 rows"
+   ]
+  },
+  {
+   "id": "warm:6:29",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 29,
+   "q": "A half adder adds two bits, A and B. Which gate gives its carry bit C?",
+   "right": "AND",
+   "wrong": [
+    "XOR",
+    "OR",
+    "NAND"
+   ],
+   "why": "A carry happens only for 1 + 1 = 10, when both bits are 1: that is A AND B. The sum bit S is A XOR B.",
+   "hook": "Carry only when both are 1: AND. Sum when they differ: XOR.",
+   "keys": [
+    "that is A AND B"
+   ]
+  },
+  {
+   "id": "warm:6:30",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 29,
+   "q": "A half adder has S = A XOR B and C = A AND B. What are S and C when A = 1 and B = 1?",
+   "right": "S = 0, C = 1",
+   "wrong": [
+    "S = 1, C = 0",
+    "S = 1, C = 1",
+    "S = 0, C = 0"
+   ],
+   "why": "In binary 1 + 1 = 10. 1 XOR 1 = 0, so the sum digit S is 0, and 1 AND 1 = 1, so the carry C is 1.",
+   "hook": "1 + 1 = 10 in binary: write 0, carry 1.",
+   "keys": [
+    "1 + 1 = 10"
+   ]
+  },
+  {
+   "id": "warm:6:31",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 29,
+   "q": "What is a transistor?",
+   "right": "A tiny electronic switch: on 1, off 0",
+   "wrong": [
+    "A chip with millions of components on it",
+    "A cell that keeps data with no power",
+    "A wire carrying data between CPU parts"
+   ],
+   "why": "A transistor is a switch made from a semiconductor such as silicon: on lets current through (1), off doesn't (0). Logic gates are built from transistors.",
+   "hook": "Transistor = switch; billions of switches = a CPU.",
+   "keys": [
+    "A transistor is a switch"
+   ]
+  },
+  {
+   "id": "warm:6:32",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 29,
+   "q": "What is an integrated circuit?",
+   "right": "Many transistors on one silicon chip",
+   "wrong": [
+    "A single electronic switch",
+    "A board that joins separate chips",
+    "The bus joining the CPU and RAM"
+   ],
+   "why": "An integrated circuit puts many components, mostly transistors, together on one small chip of silicon. A CPU is an integrated circuit with billions of them.",
+   "hook": "Integrated = all built into one chip.",
+   "keys": [
+    "on one small chip of silicon"
+   ]
+  },
+  {
+   "id": "warm:6:33",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 29,
+   "q": "Why do computers store data in binary?",
+   "right": "Transistors have two states: on and off",
+   "wrong": [
+    "Binary numbers need fewer digits",
+    "Binary uses less memory than denary",
+    "Each transistor holds ten voltage levels"
+   ],
+   "why": "A computer is built from transistors, switches that are either on (1) or off (0). Two states are easy to tell apart even if the voltage wobbles a little.",
+   "hook": "Two states, two digits: on = 1, off = 0.",
+   "keys": [
+    "either on (1) or off (0)"
+   ]
+  },
+  {
+   "id": "warm:6:34",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 29,
+   "q": "A chip has 2 billion transistors. Moore's Law says the number doubles about every 2 years. About how many will there be after 6 years?",
+   "right": "16 billion",
+   "wrong": [
+    "12 billion",
+    "8 billion",
+    "128 billion"
+   ],
+   "why": "6 years is 3 doublings of 2 years each: 2 → 4 → 8 → 16 billion. Doubling every single year would be wrong: the law says about every 2 years.",
+   "hook": "Count the doublings first: years ÷ 2.",
+   "keys": [
+    "2 → 4 → 8 → 16 billion"
+   ]
+  },
+  {
+   "id": "warm:6:35",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 29,
+   "q": "A push button and a temperature sensor are inputs to an embedded system. Which kind of signal does each give?",
+   "right": "Button digital, temperature analogue",
+   "wrong": [
+    "Button analogue, temperature digital",
+    "Both digital",
+    "Both analogue"
+   ],
+   "why": "A button is only ever pressed or not, two values (1 or 0): digital. Temperature varies smoothly across a range: analogue.",
+   "hook": "Digital = steps (on/off); analogue = a smooth dial.",
+   "keys": [
+    "two values (1 or 0): digital"
+   ]
+  },
+  {
+   "id": "warm:6:36",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 29,
+   "q": "Which input row makes A AND (B OR C) equal 1?",
+   "right": "A = 1, B = 0, C = 1",
+   "wrong": [
+    "A = 0, B = 1, C = 1",
+    "A = 1, B = 0, C = 0",
+    "A = 0, B = 0, C = 1"
+   ],
+   "why": "Work out the bracket first: B OR C must be 1, and then A must be 1 too. Only A = 1, B = 0, C = 1 gives 1 AND 1 = 1.",
+   "hook": "Brackets first, then the gate outside.",
+   "keys": [
+    "Work out the bracket first"
+   ]
+  },
+  {
+   "id": "warm:6:37",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 29,
+   "q": "In the 8-row truth table of A AND (B OR C), how many rows have output 1?",
+   "right": "3",
+   "wrong": [
+    "5",
+    "4",
+    "7"
+   ],
+   "why": "A must be 1 (rows 100, 101, 110, 111) and B OR C must be 1, which rules out 100. That leaves 101, 110 and 111: 3 rows.",
+   "hook": "AND with A: cross out every row where A = 0 first.",
+   "keys": [
+    "That leaves 101, 110 and 111"
+   ]
+  },
+  {
+   "id": "warm:6:38",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 29,
+   "q": "Which expression always has the same value as not (P and Q)?",
+   "right": "not P or not Q",
+   "wrong": [
+    "not P and not Q",
+    "not P or Q",
+    "P or Q"
+   ],
+   "why": "not (P and Q) is False only when P and Q are both True. not P or not Q is also False only then, so the two truth tables match.",
+   "hook": "Break the bracket: flip each letter and swap and ↔ or.",
+   "keys": [
+    "False only when P and Q are both True"
+   ]
+  },
+  {
+   "id": "warm:6:39",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 29,
+   "q": "(P, Q) go (F, F), (F, T), (T, F), (T, T). What is the column for not P or not Q, in that order?",
+   "right": "T, T, T, F",
+   "wrong": [
+    "T, F, F, F",
+    "F, T, T, T",
+    "F, F, F, T"
+   ],
+   "why": "not P is T, T, F, F and not Q is T, F, T, F. OR is False only when both are False, which is the last row: T, T, T, F.",
+   "hook": "Flip first, then OR: only the all-False row gives False.",
+   "keys": [
+    "OR is False only when both are False"
+   ]
+  },
+  {
+   "id": "warm:6:40",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 29,
+   "q": "A and B each go through a NOT gate, and the two results go into an OR gate. Which single gate does this behave like?",
+   "right": "NAND",
+   "wrong": [
+    "NOR",
+    "AND",
+    "OR"
+   ],
+   "why": "(NOT A) OR (NOT B) is 0 only when A and B are both 1, exactly like NAND: AND then NOT. The truth tables match row for row.",
+   "hook": "Flipped inputs into OR = NAND; flipped inputs into AND = NOR.",
+   "keys": [
+    "exactly like NAND"
+   ]
+  },
+  {
+   "id": "warm:6:41",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 29,
+   "q": "Which Python condition is True only for points inside the square that runs from x = 0 to 5 and from y = 0 to 5?",
+   "right": "0 <= x <= 5 and 0 <= y <= 5",
+   "wrong": [
+    "0 <= x <= 5 or 0 <= y <= 5",
+    "x <= 5 and y <= 5",
+    "0 <= x and 0 <= y <= 5"
+   ],
+   "why": "A point is inside only if it passes all four limits (left, right, bottom, top), so join them with and. With or, a point passing just the x test would count.",
+   "hook": "Inside a box: every limit must hold, so use and.",
+   "keys": [
+    "passes all four limits"
+   ]
+  },
+  {
+   "id": "warm:6:42",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 30,
+   "q": "What is an operating system?",
+   "right": "System software managing the hardware",
+   "wrong": [
+    "An application, like a word processor",
+    "The CPU that runs the programs",
+    "The start-up program kept in ROM"
+   ],
+   "why": "The OS (Windows, Linux, Android) is system software: it manages the CPU, memory, storage and devices, and is the interface between users, apps and hardware.",
+   "hook": "OS = the manager between you, your apps and the hardware.",
+   "keys": [
+    "it manages the CPU, memory, storage and devices"
+   ]
+  },
+  {
+   "id": "warm:6:43",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 30,
+   "q": "Which job of the operating system decides which program runs on the CPU next, and for how long?",
+   "right": "Processor scheduling",
+   "wrong": [
+    "Memory management",
+    "File management",
+    "Device (I/O) management"
+   ],
+   "why": "A core runs one process at a time, so the scheduler shares out CPU time (e.g. round robin), switching so fast that programs seem to run together.",
+   "hook": "Scheduling shares out the CPU's time; memory management shares out RAM.",
+   "keys": [
+    "the scheduler shares out CPU time"
+   ]
+  },
+  {
+   "id": "warm:6:44",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 30,
+   "q": "You save an essay as Hamlet.docx in a folder called English, then later rename it. Which job of the operating system looks after this?",
+   "right": "File management",
+   "wrong": [
+    "Memory management",
+    "Processor scheduling",
+    "The user interface"
+   ],
+   "why": "Saving puts the essay on storage. File management organises files on storage: their names, folders and where each is kept, and lets you create, rename and delete them.",
+   "hook": "Saved = on storage = file management.",
+   "keys": [
+    "File management organises files on storage"
+   ]
+  },
+  {
+   "id": "warm:6:45",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 30,
+   "q": "Round robin scheduling: programs A, B and C take turns on the CPU, 10 ms each, starting with A at 0 ms. Which runs from 30 ms to 40 ms?",
+   "right": "A, on its second turn",
+   "wrong": [
+    "C, on its first turn",
+    "B, on its second turn",
+    "None: each has had its turn"
+   ],
+   "why": "Turns go A 0–10, B 10–20, C 20–30 ms, then back to A for 30–40 ms. Round robin keeps cycling until each program has finished.",
+   "hook": "Round robin: everyone gets a slice, then back to the front of the queue.",
+   "keys": [
+    "back to A for 30–40 ms"
+   ]
+  },
+  {
+   "id": "warm:6:46",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 30,
+   "q": "A graphical user interface (GUI) is often called WIMP. What does WIMP stand for?",
+   "right": "Windows, icons, menus, pointer",
+   "wrong": [
+    "Windows, internet, mouse, programs",
+    "Words, icons, mouse, printer",
+    "Windows, icons, memory, processor"
+   ],
+   "why": "A GUI shows windows, icons, menus and a pointer: you click or tap on pictures instead of typing commands as in a command line interface.",
+   "hook": "W-I-M-P: everything you see and point at on a desktop.",
+   "keys": [
+    "windows, icons, menus and a pointer"
+   ]
+  },
+  {
+   "id": "warm:6:47",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 30,
+   "q": "What is a protocol in networking?",
+   "right": "Rules for how devices communicate",
+   "wrong": [
+    "A cable joining two computers",
+    "A device that forwards packets",
+    "The address of a device on a network"
+   ],
+   "why": "A protocol is a set of agreed rules for formatting, addressing, sending and checking data, so devices from different makers understand each other.",
+   "hook": "Protocol = the shared language and manners of a network.",
+   "keys": [
+    "a set of agreed rules"
+   ]
+  },
+  {
+   "id": "warm:6:48",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 30,
+   "q": "What does HTTP do?",
+   "right": "Lets a browser request web pages",
+   "wrong": [
+    "Turns a web address into an IP address",
+    "Splits data into numbered packets",
+    "Sends emails between mail servers"
+   ],
+   "why": "HTTP (HyperText Transfer Protocol) lets a browser request a web page from a web server and the server send it back. DNS finds addresses; TCP makes the packets.",
+   "hook": "HTTP: hypertext = web pages, transfer = fetch them.",
+   "keys": [
+    "lets a browser request a web page from a web server"
+   ]
+  },
+  {
+   "id": "warm:6:49",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 30,
+   "q": "What does HTTPS add to HTTP?",
+   "right": "Encryption of the data (SSL/TLS)",
+   "wrong": [
+    "Faster loading of web pages",
+    "Compression of the web page",
+    "A check that no packets are lost"
+   ],
+   "why": "HTTPS is HTTP Secure: it sends the data through an encrypted SSL/TLS connection, so anyone who intercepts it sees only scrambled bytes.",
+   "hook": "S for Secure: scrambled on the way.",
+   "keys": [
+    "an encrypted SSL/TLS connection"
+   ]
+  },
+  {
+   "id": "warm:6:50",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 30,
+   "q": "You type your card number into a page whose address begins http:// rather than https://. What is the risk?",
+   "right": "It is sent unencrypted and can be read",
+   "wrong": [
+    "The packets may arrive out of order",
+    "The site's IP address can't be found",
+    "The number is lost if a packet drops"
+   ],
+   "why": "HTTP sends everything as plain, unencrypted text, so anyone who intercepts the packets can read the card number. HTTPS would encrypt it.",
+   "hook": "No S, no secret.",
+   "keys": [
+    "plain, unencrypted text"
+   ]
+  },
+  {
+   "id": "warm:6:51",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 30,
+   "q": "A message is sent by TCP as packets 1 to 5. They arrive in the order 3, 1, 5, 2, 4. What happens?",
+   "right": "TCP reorders them by sequence number",
+   "wrong": [
+    "It is shown in the order 3, 1, 5, 2, 4",
+    "The whole message is sent again",
+    "The router sorts them before delivery"
+   ],
+   "why": "Packets can take different routes, so they arrive in any order. TCP numbers each one, and the receiver reassembles them in order using those sequence numbers.",
+   "hook": "Number the packets, and the order can't get lost.",
+   "keys": [
+    "using those sequence numbers"
+   ]
+  },
+  {
+   "id": "warm:6:52",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 30,
+   "q": "A TCP sender sends packets 1 to 6 but gets no acknowledgement for packet 4 before the timeout. What does it do?",
+   "right": "Sends packet 4 again",
+   "wrong": [
+    "Sends all six packets again",
+    "Carries on without packet 4",
+    "Asks the router for packet 4"
+   ],
+   "why": "The receiver acknowledges each packet it gets. No acknowledgement before the timeout means packet 4 was lost, so the sender resends just that packet.",
+   "hook": "No 'got it' back? Send that one again.",
+   "keys": [
+    "the sender resends just that packet"
+   ]
+  },
+  {
+   "id": "warm:6:53",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 30,
+   "q": "Which protocol suits a live video call, where speed matters more than every packet arriving?",
+   "right": "UDP",
+   "wrong": [
+    "TCP",
+    "HTTPS",
+    "DNS"
+   ],
+   "why": "UDP sends packets with no acknowledgements or resending, so it is fast and a lost packet is just a small glitch. TCP would pause to resend, causing lag.",
+   "hook": "UDP: fire and forget. TCP: check and resend.",
+   "keys": [
+    "no acknowledgements or resending"
+   ]
+  },
+  {
+   "id": "warm:6:54",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 30,
+   "q": "Which of these is a valid IPv4 address?",
+   "right": "192.168.1.25",
+   "wrong": [
+    "192.168.1.256",
+    "00:1A:2B:3C:4D:5E",
+    "www.example.ie"
+   ],
+   "why": "An IPv4 address is four numbers 0 to 255 (8 bits each) with dots. 256 doesn't fit in 8 bits; 00:1A:… is a MAC address and www.example.ie is a domain name.",
+   "hook": "IPv4: four numbers, each from 0 to 255.",
+   "keys": [
+    "four numbers 0 to 255 (8 bits each)"
+   ]
+  },
+  {
+   "id": "warm:6:55",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 30,
+   "q": "Which address is fixed into a device's network card when it is made, and stays the same on any network?",
+   "right": "MAC address",
+   "wrong": [
+    "IP address",
+    "Domain name",
+    "Port number"
+   ],
+   "why": "A MAC address is burned into the network card at the factory. An IP address is given by the network the device joins, so it can change.",
+   "hook": "MAC is made in the factory; IP is issued by the network.",
+   "keys": [
+    "burned into the network card at the factory"
+   ]
+  },
+  {
+   "id": "warm:6:56",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 30,
+   "q": "What does a DNS server do?",
+   "right": "Turns a domain name into an IP address",
+   "wrong": [
+    "Forwards packets to their destination",
+    "Encrypts data between browser and server",
+    "Gives each device its MAC address"
+   ],
+   "why": "DNS (Domain Name System) is the internet's phone book: it looks up a name like rte.ie and returns its IP address. Routers, not DNS, forward the packets.",
+   "hook": "DNS: names in, numbers out.",
+   "keys": [
+    "the internet's phone book"
+   ]
+  },
+  {
+   "id": "warm:6:57",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 30,
+   "q": "What does a router do?",
+   "right": "Forwards packets between networks",
+   "wrong": [
+    "Turns domain names into IP addresses",
+    "Stores the web pages of a site",
+    "Encrypts the data in each packet"
+   ],
+   "why": "A router reads each packet's destination IP address and sends it on along the best route to the next network. DNS, not the router, finds IP addresses.",
+   "hook": "Router: it picks the route.",
+   "keys": [
+    "reads each packet's destination IP address"
+   ]
+  },
+  {
+   "id": "warm:6:58",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 30,
+   "q": "You type a web address. Put in order: (1) the server sends the page back, (2) DNS finds the server's IP address, (3) the browser sends an HTTP request.",
+   "right": "2, 3, 1",
+   "wrong": [
+    "3, 2, 1",
+    "1, 2, 3",
+    "2, 1, 3"
+   ],
+   "why": "The browser needs the server's IP address before it can send anything, so DNS comes first (2). Then the HTTP request goes out (3) and the server replies (1).",
+   "hook": "Look up the number before you can call.",
+   "keys": [
+    "DNS comes first (2)"
+   ]
+  },
+  {
+   "id": "warm:6:59",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 30,
+   "q": "In the client-server model, what does the client do?",
+   "right": "Sends requests and shows the replies",
+   "wrong": [
+    "Stores the site and answers requests",
+    "Forwards packets between networks",
+    "Turns names into IP addresses"
+   ],
+   "why": "The client (e.g. your browser) sends a request; the server, a powerful computer waiting for requests, processes it and sends back a response.",
+   "hook": "Client asks, server serves.",
+   "keys": [
+    "The client (e.g. your browser) sends a request"
+   ]
+  },
+  {
+   "id": "warm:6:60",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 30,
+   "q": "In the TCP/IP model, which layer splits a message into numbered packets?",
+   "right": "Transport layer",
+   "wrong": [
+    "Application layer",
+    "Network (internet) layer",
+    "Data link layer"
+   ],
+   "why": "The transport layer (TCP) splits the message into packets, numbers them and checks they all arrive. The network layer adds the IP addresses.",
+   "hook": "Application formats, transport packs, network addresses, link sends.",
+   "keys": [
+    "The transport layer (TCP) splits the message into packets"
+   ]
+  },
+  {
+   "id": "warm:6:61",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 30,
+   "q": "A class keeps all its project files in the cloud. Which of these is a real disadvantage?",
+   "right": "No internet connection, no access",
+   "wrong": [
+    "Only one person can open each file",
+    "Files are wiped when a laptop is off",
+    "Files can only be opened on one device"
+   ],
+   "why": "Cloud files sit on a provider's servers and are reached over the internet: everyone can open them from anywhere, but without a connection no one can reach the work.",
+   "hook": "The cloud is only as close as your internet connection.",
+   "keys": [
+    "without a connection no one can reach the work"
+   ]
+  },
+  {
+   "id": "warm:6:62",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 30,
+   "q": "How are the protocols IP and VoIP related?",
+   "right": "VoIP sends voice calls as IP packets",
+   "wrong": [
+    "IP is one type of VoIP",
+    "VoIP uses phone lines, not the internet",
+    "They are two names for one protocol"
+   ],
+   "why": "IP addresses and routes packets of any data. VoIP (Voice over IP) is one use of it: speech is digitised and sent as IP packets, as on WhatsApp calls.",
+   "hook": "VoIP = Voice over IP: IP is the road, voice is one kind of traffic.",
+   "keys": [
+    "Voice over IP"
+   ]
+  }
+ ]
+}

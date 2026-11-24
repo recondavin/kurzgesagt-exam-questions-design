@@ -1,0 +1,924 @@
+{
+ "chapter": 7,
+ "warm": true,
+ "cards": [
+  {
+   "id": "warm:7:1",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 31,
+   "q": "In computational thinking, what is abstraction?",
+   "right": "Removing details that don't matter",
+   "wrong": [
+    "Breaking a problem into smaller parts",
+    "Spotting things that repeat",
+    "Writing the steps in order"
+   ],
+   "why": "Abstraction removes the details that don't affect the problem and keeps the essential ones, like a map that leaves out every tree and shows only the roads.",
+   "hook": "Abstraction = leave it out. Decomposition = break it down.",
+   "keys": [
+    "removes the details that don't affect the problem"
+   ]
+  },
+  {
+   "id": "warm:7:2",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 31,
+   "q": "In computational thinking, what is decomposition?",
+   "right": "Breaking a problem into smaller parts",
+   "wrong": [
+    "Removing details that don't matter",
+    "Spotting similarities and patterns",
+    "Testing a program for errors"
+   ],
+   "why": "Decomposition breaks a big problem into smaller parts that are easier to solve one at a time, e.g. working out each game position from 0 upwards.",
+   "hook": "Decompose = take it apart, like a Lego model.",
+   "keys": [
+    "breaks a big problem into smaller parts"
+   ]
+  },
+  {
+   "id": "warm:7:3",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 31,
+   "q": "To find the one heavier fake among 8 coins, you ignore their plating, diameter and €2 value and think only about their weight. Which skill is this?",
+   "right": "Abstraction",
+   "wrong": [
+    "Decomposition",
+    "Pattern recognition",
+    "A heuristic"
+   ],
+   "why": "Only the weight helps find the fake, so the other details are left out. Removing details that don't affect the problem is abstraction.",
+   "hook": "Ignoring what doesn't matter = abstraction.",
+   "keys": [
+    "Removing details that don't affect the problem is abstraction"
+   ]
+  },
+  {
+   "id": "warm:7:4",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 31,
+   "q": "In a matchstick game you find that the losing positions are 0, 3, 6 and 9, and decide that every multiple of 3 loses. Which skill is this?",
+   "right": "Pattern recognition",
+   "wrong": [
+    "Abstraction",
+    "Decomposition",
+    "Brute force"
+   ],
+   "why": "Spotting that the losing positions repeat every 3 and using it for every multiple of 3 is pattern recognition: it solves 21 sticks without checking each case.",
+   "hook": "Same thing again and again? That's a pattern.",
+   "keys": [
+    "pattern recognition"
+   ]
+  },
+  {
+   "id": "warm:7:5",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 31,
+   "q": "What is a heuristic?",
+   "right": "A rule of thumb for a quick, good answer",
+   "wrong": [
+    "A method sure to find the best answer",
+    "Breaking a problem into smaller parts",
+    "A list of every possible solution"
+   ],
+   "why": "A heuristic, such as 'always go to the nearest unvisited town', finds a good answer quickly but not always the best. It is used when checking everything takes too long.",
+   "hook": "Heuristic = educated guess: quick and good enough.",
+   "keys": [
+    "finds a good answer quickly but not always the best"
+   ]
+  },
+  {
+   "id": "warm:7:6",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 31,
+   "q": "A van starts at depot A, visits B, C and D once each, and returns to A. Counting a route and its reverse as the same, how many different routes are there?",
+   "right": "3",
+   "wrong": [
+    "6",
+    "24",
+    "12"
+   ],
+   "why": "B, C and D can be visited in 3 × 2 × 1 = 6 orders, but each is the reverse of another (ABCDA and ADCBA), so 6 ÷ 2 = 3 routes.",
+   "hook": "Fix the start, order the rest, then halve for the reverses.",
+   "keys": [
+    "6 ÷ 2 = 3 routes"
+   ]
+  },
+  {
+   "id": "warm:7:7",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 31,
+   "q": "In a flowchart, which shape shows a decision such as 'pH < 7?', with a TRUE and a FALSE arrow leaving it?",
+   "right": "Diamond",
+   "wrong": [
+    "Parallelogram",
+    "Rectangle",
+    "Rounded rectangle"
+   ],
+   "why": "A diamond is a decision with TRUE and FALSE arrows. A parallelogram is an input or output, a rectangle is a process, and a rounded box is Start or Stop.",
+   "hook": "Diamond = decision: two ways out.",
+   "keys": [
+    "A diamond is a decision"
+   ]
+  },
+  {
+   "id": "warm:7:8",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 31,
+   "q": "count = 0 and total = 0. While count < 3: input n, total = total + n, count = count + 1. Then output total / count. The inputs are 4, 6 and 5. What is output?",
+   "right": "5",
+   "wrong": [
+    "15",
+    "7.5",
+    "3.75"
+   ],
+   "why": "The loop runs 3 times: total = 4 + 6 + 5 = 15 and count = 3. Then 15 ÷ 3 = 5, the average of the three numbers.",
+   "hook": "Trace it row by row: write each variable down after every step.",
+   "keys": [
+    "total = 4 + 6 + 5 = 15 and count = 3"
+   ]
+  },
+  {
+   "id": "warm:7:9",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 31,
+   "q": "total = 0, then `for i in range(1, 5): total = total + i`. What is total at the end?",
+   "right": "10",
+   "wrong": [
+    "15",
+    "6",
+    "4"
+   ],
+   "why": "range(1, 5) gives 1, 2, 3, 4: it stops before 5. So total = 1 + 2 + 3 + 4 = 10.",
+   "hook": "range stops one before the end number.",
+   "keys": [
+    "it stops before 5"
+   ]
+  },
+  {
+   "id": "warm:7:10",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 31,
+   "q": "a = 3 and b = 5. To swap them, the lines `a = b` and then `b = a` are run. What are a and b afterwards?",
+   "right": "a = 5, b = 5",
+   "wrong": [
+    "a = 5, b = 3",
+    "a = 3, b = 3",
+    "a = 3, b = 5"
+   ],
+   "why": "a = b makes a 5, and the 3 is gone. Then b = a copies that 5 into b. A temporary variable must save a first: t = a, a = b, b = t.",
+   "hook": "To swap two cups of juice you need a third cup.",
+   "keys": [
+    "the 3 is gone"
+   ]
+  },
+  {
+   "id": "warm:7:11",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 31,
+   "q": "Which search only works if the list is sorted?",
+   "right": "Binary search",
+   "wrong": [
+    "Linear search",
+    "Both linear and binary search",
+    "Neither: both work on any list"
+   ],
+   "why": "Binary search checks the middle and throws away the half that can't hold the target, which only works if the list is in order. Linear search works on any list.",
+   "hook": "Binary search halves: it must know which half to keep.",
+   "keys": [
+    "which only works if the list is in order"
+   ]
+  },
+  {
+   "id": "warm:7:12",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 31,
+   "q": "A linear search looks for 9 in the list [4, 7, 9, 2, 5]. How many comparisons does it make to find 9?",
+   "right": "3",
+   "wrong": [
+    "2",
+    "1",
+    "5"
+   ],
+   "why": "Linear search starts at the first item and checks each in turn: 4 (no), 7 (no), 9 (yes). That is 3 comparisons; 9 is at index 2.",
+   "hook": "Linear: one at a time, from the front.",
+   "keys": [
+    "4 (no), 7 (no), 9 (yes)"
+   ]
+  },
+  {
+   "id": "warm:7:13",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 31,
+   "q": "A linear search is run on a list of 100 items. What are the fewest and the most comparisons it can make?",
+   "right": "Fewest 1, most 100",
+   "wrong": [
+    "Fewest 0, most 100",
+    "Fewest 1, most 50",
+    "Fewest 1, most 7"
+   ],
+   "why": "Best case: the target is the first item, 1 comparison. Worst case: it is last or missing, so all 100 are checked: O(n). (7 is binary search's worst case.)",
+   "hook": "Best case: lucky first time. Worst case: check every item.",
+   "keys": [
+    "Best case: the target is the first item"
+   ]
+  },
+  {
+   "id": "warm:7:14",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 31,
+   "q": "Binary search for 28 in [3, 9, 14, 18, 28, 35, 40, 51]: left = 0, right = 7, mid = 3 and L[3] = 18. 28 > 18. What changes next?",
+   "right": "left = 4",
+   "wrong": [
+    "left = 3",
+    "right = 2",
+    "right = 3"
+   ],
+   "why": "28 is bigger than 18, so it must be in the right half. 18 has been checked, so the search starts just after it: left = mid + 1 = 4.",
+   "hook": "Bigger: move left up past mid. Smaller: move right down below mid.",
+   "keys": [
+    "left = mid + 1 = 4"
+   ]
+  },
+  {
+   "id": "warm:7:15",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 31,
+   "q": "A binary search runs on 16 sorted items and the value is not in the list. What is the most comparisons it can make?",
+   "right": "5",
+   "wrong": [
+    "4",
+    "16",
+    "8"
+   ],
+   "why": "Each comparison halves what is left: 16 → 8 → 4 → 2 → 1, one comparison at each size. That is 5, and then nothing is left: not found.",
+   "hook": "Keep halving down to 1 item, and count that last check too.",
+   "keys": [
+    "16 → 8 → 4 → 2 → 1"
+   ]
+  },
+  {
+   "id": "warm:7:16",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 31,
+   "q": "What are the worst-case time complexities of linear search and of binary search on n items?",
+   "right": "Linear O(n), binary O(log n)",
+   "wrong": [
+    "Linear O(log n), binary O(n)",
+    "Linear O(1), binary O(log n)",
+    "Linear O(n), binary O(n²)"
+   ],
+   "why": "Linear search may check all n items: O(n). Binary search halves the list each time, and n can only be halved about log₂ n times: O(log n).",
+   "hook": "Halving each time grows like log n: 1000 items, about 10 checks.",
+   "keys": [
+    "n can only be halved about log₂ n times"
+   ]
+  },
+  {
+   "id": "warm:7:17",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 31,
+   "q": "What does O(1) time complexity mean?",
+   "right": "The time stays the same whatever n is",
+   "wrong": [
+    "It always takes exactly 1 second",
+    "The time grows in step with n",
+    "It only works on a list of 1 item"
+   ],
+   "why": "O(1) is constant time: the number of steps doesn't grow with the input size n, e.g. finding the key on the very first check, or reading L[0].",
+   "hook": "O(1): flat line. O(n): straight slope. O(n²): steep curve.",
+   "keys": [
+    "O(1) is constant time"
+   ]
+  },
+  {
+   "id": "warm:7:18",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 31,
+   "q": "Bubble sort is O(n²). Sorting 10 items takes about 100 comparisons. About how many will 20 items take?",
+   "right": "About 400",
+   "wrong": [
+    "About 200",
+    "About 10,000",
+    "About 100"
+   ],
+   "why": "O(n²) means doubling n multiplies the work by 2² = 4: 20 items need about 20² = 400 comparisons, not 200.",
+   "hook": "n² growth: double the list, four times the work.",
+   "keys": [
+    "2² = 4"
+   ]
+  },
+  {
+   "id": "warm:7:19",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 31,
+   "q": "Bubble sort (ascending) on [5, 1, 4, 2, 8]. What is the list after the first pass?",
+   "right": "1, 4, 2, 5, 8",
+   "wrong": [
+    "1, 2, 4, 5, 8",
+    "1, 5, 4, 2, 8",
+    "1, 5, 2, 4, 8"
+   ],
+   "why": "Compare neighbours left to right and swap if needed: 5↔1, 5↔4, 5↔2, then 5 and 8 stay. The 5 bubbles along: 1, 4, 2, 5, 8. One pass doesn't sort it all.",
+   "hook": "Each pass carries the biggest unsorted value to the end.",
+   "keys": [
+    "Compare neighbours left to right"
+   ]
+  },
+  {
+   "id": "warm:7:20",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 31,
+   "q": "After the first pass of a bubble sort into ascending order, where is the largest value?",
+   "right": "At the end of the list",
+   "wrong": [
+    "At the start of the list",
+    "In the middle of the list",
+    "Wherever it started"
+   ],
+   "why": "Each comparison swaps the larger value to the right, so the largest is carried all the way to the end on the first pass, and the next pass can stop one sooner.",
+   "hook": "Bubbles rise: the biggest floats to the end first.",
+   "keys": [
+    "carried all the way to the end"
+   ]
+  },
+  {
+   "id": "warm:7:21",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 31,
+   "q": "Selection sort (ascending) on [7, 3, 9, 1]: pass 1 finds the smallest value and swaps it into first place. What is the list after pass 1?",
+   "right": "1, 3, 9, 7",
+   "wrong": [
+    "3, 7, 1, 9",
+    "1, 7, 3, 9",
+    "3, 7, 9, 1"
+   ],
+   "why": "The smallest value is 1, at the end. Swap it with the first value, 7: [1, 3, 9, 7]. Now 1 is in its final place and pass 2 starts from the 3.",
+   "hook": "Selection: select the smallest, swap it to the front.",
+   "keys": [
+    "Swap it with the first value, 7"
+   ]
+  },
+  {
+   "id": "warm:7:22",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 31,
+   "q": "Insertion sort: the sorted part is [2, 5, 8] and the next item to insert is 4. What is the sorted part after this pass?",
+   "right": "2, 4, 5, 8",
+   "wrong": [
+    "4, 2, 5, 8",
+    "2, 5, 8, 4",
+    "2, 5, 4, 8"
+   ],
+   "why": "4 is compared with the sorted items to its left: 8 and 5 are bigger, so they shift right, and 2 is smaller, so 4 goes in after 2: [2, 4, 5, 8].",
+   "hook": "Insertion: slide the new card left until it fits, like a hand of cards.",
+   "keys": [
+    "8 and 5 are bigger, so they shift right"
+   ]
+  },
+  {
+   "id": "warm:7:23",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 31,
+   "q": "Quicksort partitions [40, 20, 70, 10, 50] around the pivot 40, keeping the original order on each side. What is the result?",
+   "right": "[20, 10] 40 [70, 50]",
+   "wrong": [
+    "[10, 20] 40 [50, 70]",
+    "[70, 50] 40 [20, 10]",
+    "[20, 70] 40 [10, 50]"
+   ],
+   "why": "Every item smaller than the pivot goes left (20, 10) and every bigger one goes right (70, 50). The pivot 40 is now in its final place; each side is sorted later.",
+   "hook": "Partition: smaller to the left, bigger to the right, pivot between.",
+   "keys": [
+    "Every item smaller than the pivot goes left"
+   ]
+  },
+  {
+   "id": "warm:7:24",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 31,
+   "q": "In Python, what are 17 % 5 and 17 // 5?",
+   "right": "2 and 3",
+   "wrong": [
+    "3 and 2",
+    "2 and 3.4",
+    "3.4 and 2"
+   ],
+   "why": "17 ÷ 5 = 3 remainder 2. % gives the remainder, 2, and // gives the whole-number part, 3.",
+   "hook": "% = what's left over; // = how many whole times.",
+   "keys": [
+    "17 ÷ 5 = 3 remainder 2"
+   ]
+  },
+  {
+   "id": "warm:7:25",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 31,
+   "q": "values = [50, 70, 30, 60, 20]. What are values[1] and len(values)?",
+   "right": "70 and 5",
+   "wrong": [
+    "50 and 5",
+    "70 and 4",
+    "50 and 4"
+   ],
+   "why": "Python counts positions from 0, so values[0] is 50 and values[1] is 70. len() counts the items: 5, one more than the last index, 4.",
+   "hook": "Index from 0; length counts from 1.",
+   "keys": [
+    "Python counts positions from 0"
+   ]
+  },
+  {
+   "id": "warm:7:26",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 32,
+   "q": "Convert the binary number 1011 to denary.",
+   "right": "11",
+   "wrong": [
+    "13",
+    "7",
+    "3"
+   ],
+   "why": "Place values from the right are 1, 2, 4, 8. 1011 has 8 + 2 + 1 = 11. Each place is double the one to its right.",
+   "hook": "Write 8 4 2 1 over the bits and add the ones under a 1.",
+   "keys": [
+    "8 + 2 + 1 = 11"
+   ]
+  },
+  {
+   "id": "warm:7:27",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 32,
+   "q": "Convert 37 to an 8-bit binary number.",
+   "right": "00100101",
+   "wrong": [
+    "10100100",
+    "00100001",
+    "01001010"
+   ],
+   "why": "Place values 128 64 32 16 8 4 2 1. 37 = 32 + 4 + 1, so put a 1 under 32, 4 and 1 and a 0 under the rest: 00100101.",
+   "hook": "Take away the biggest place value that fits, again and again.",
+   "keys": [
+    "37 = 32 + 4 + 1"
+   ]
+  },
+  {
+   "id": "warm:7:28",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 32,
+   "q": "What is the largest whole number that can be stored in 8 bits (unsigned)?",
+   "right": "255",
+   "wrong": [
+    "256",
+    "128",
+    "127"
+   ],
+   "why": "11111111 = 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255. 8 bits give 2⁸ = 256 values, but one of them is 0, so the top is 255.",
+   "hook": "n bits go from 0 up to 2ⁿ − 1.",
+   "keys": [
+    "one of them is 0, so the top is 255"
+   ]
+  },
+  {
+   "id": "warm:7:29",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 32,
+   "q": "How many different values can 4 bits represent?",
+   "right": "16",
+   "wrong": [
+    "8",
+    "15",
+    "32"
+   ],
+   "why": "Each extra bit doubles the number of patterns: 2 × 2 × 2 × 2 = 2⁴ = 16, from 0000 to 1111. 15 is the largest value, not the count.",
+   "hook": "n bits give 2ⁿ patterns.",
+   "keys": [
+    "2 × 2 × 2 × 2 = 2⁴ = 16"
+   ]
+  },
+  {
+   "id": "warm:7:30",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 32,
+   "q": "Each of 20 students needs a different binary code. What is the fewest number of bits that will do?",
+   "right": "5",
+   "wrong": [
+    "4",
+    "20",
+    "10"
+   ],
+   "why": "4 bits give 2⁴ = 16 codes, too few for 20. 5 bits give 2⁵ = 32, which is enough, so 5 bits is the fewest.",
+   "hook": "Find the first power of 2 that is at least the number you need.",
+   "keys": [
+    "5 bits give 2⁵ = 32"
+   ]
+  },
+  {
+   "id": "warm:7:31",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 32,
+   "q": "Convert the hexadecimal number 2B to denary.",
+   "right": "43",
+   "wrong": [
+    "44",
+    "13",
+    "211"
+   ],
+   "why": "B = 11. The left digit counts 16s and the right digit counts 1s: 2 × 16 + 11 = 32 + 11 = 43.",
+   "hook": "A B C D E F = 10 11 12 13 14 15. Left digit × 16.",
+   "keys": [
+    "2 × 16 + 11 = 32 + 11 = 43"
+   ]
+  },
+  {
+   "id": "warm:7:32",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 32,
+   "q": "Convert the binary number 1010 0111 to hexadecimal.",
+   "right": "A7",
+   "wrong": [
+    "107",
+    "B7",
+    "7A"
+   ],
+   "why": "One hex digit is 4 bits. 1010 = 8 + 2 = 10 = A, and 0111 = 4 + 2 + 1 = 7. Keep the order: A7.",
+   "hook": "Split into nibbles of 4, convert each one, keep the order.",
+   "keys": [
+    "1010 = 8 + 2 = 10 = A"
+   ]
+  },
+  {
+   "id": "warm:7:33",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 32,
+   "q": "Convert the hexadecimal number 3D to binary, using 4 bits for each hex digit.",
+   "right": "0011 1101",
+   "wrong": [
+    "0011 1100",
+    "1101 0011",
+    "1100 1011"
+   ],
+   "why": "3 = 0011 and D = 13 = 8 + 4 + 1 = 1101. Write the groups side by side in the same order: 0011 1101.",
+   "hook": "One hex digit in, four bits out.",
+   "keys": [
+    "D = 13 = 8 + 4 + 1 = 1101"
+   ]
+  },
+  {
+   "id": "warm:7:34",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 32,
+   "q": "Why is hexadecimal often used to write binary values such as memory addresses or colours?",
+   "right": "It's shorter: 1 hex digit = 4 bits",
+   "wrong": [
+    "It uses less memory in the computer",
+    "The CPU processes hex faster",
+    "It can store bigger numbers than binary"
+   ],
+   "why": "16 = 2⁴, so each hex digit is exactly 4 bits: 11001001 becomes C9. It is shorter and easier for people to read; the computer still stores binary.",
+   "hook": "Hex is for humans; the computer still thinks in binary.",
+   "keys": [
+    "each hex digit is exactly 4 bits"
+   ]
+  },
+  {
+   "id": "warm:7:35",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 32,
+   "q": "A web colour is written #2080FF: red 20, green 80 and blue FF, in hex. What is the green value in denary?",
+   "right": "128",
+   "wrong": [
+    "80",
+    "255",
+    "32"
+   ],
+   "why": "Green is the middle pair, 80: 8 sixteens and 0 ones, so 8 × 16 + 0 = 128. Each pair runs from 00 (0) to FF (255).",
+   "hook": "#RRGGBB: two hex digits each for red, green and blue.",
+   "keys": [
+    "8 × 16 + 0 = 128"
+   ]
+  },
+  {
+   "id": "warm:7:36",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 32,
+   "q": "Write −5 as an 8-bit two's complement number.",
+   "right": "11111011",
+   "wrong": [
+    "11111010",
+    "10000101",
+    "11111001"
+   ],
+   "why": "+5 is 00000101. Flip every bit: 11111010. Then add 1: 11111011. Forgetting to add 1 is the usual slip.",
+   "hook": "Two's complement: flip the bits, then add 1.",
+   "keys": [
+    "Then add 1: 11111011"
+   ]
+  },
+  {
+   "id": "warm:7:37",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 32,
+   "q": "The 8-bit two's complement number 11111110 is stored. What denary value is it?",
+   "right": "−2",
+   "wrong": [
+    "254",
+    "−1",
+    "−126"
+   ],
+   "why": "The leftmost bit is worth −128: −128 + 64 + 32 + 16 + 8 + 4 + 2 = −2. (Or flip the bits, 00000001, add 1: 00000010 = 2, so it is −2.)",
+   "hook": "In 8-bit two's complement the top bit is worth −128.",
+   "keys": [
+    "The leftmost bit is worth −128"
+   ]
+  },
+  {
+   "id": "warm:7:38",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 32,
+   "q": "What range of whole numbers can 8-bit two's complement hold?",
+   "right": "−128 to 127",
+   "wrong": [
+    "−127 to 127",
+    "−128 to 128",
+    "0 to 255"
+   ],
+   "why": "The top bit is worth −128, so the lowest is 10000000 = −128 and the highest is 01111111 = 127: still 256 values in all.",
+   "hook": "One more negative than positive: −128 up to 127.",
+   "keys": [
+    "the highest is 01111111 = 127"
+   ]
+  },
+  {
+   "id": "warm:7:39",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 32,
+   "q": "Add the binary numbers 0101 + 0011.",
+   "right": "1000",
+   "wrong": [
+    "0110",
+    "0111",
+    "0100"
+   ],
+   "why": "Right to left: 1 + 1 = 10 (write 0, carry 1); 0 + 1 + 1 = 10 (0, carry 1); 1 + 0 + 1 = 10 (0, carry 1); then 1. Answer 1000 (5 + 3 = 8).",
+   "hook": "In binary 1 + 1 = 10: write 0, carry 1.",
+   "keys": [
+    "5 + 3 = 8"
+   ]
+  },
+  {
+   "id": "warm:7:40",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 32,
+   "q": "Two 4-bit numbers are added: 1100 + 0101. Only 4 bits can be kept. What is stored?",
+   "right": "0001, with an overflow",
+   "wrong": [
+    "10001, it fits",
+    "1001, no overflow",
+    "1111, the largest value"
+   ],
+   "why": "12 + 5 = 17 = 10001, which needs 5 bits. The extra carry bit doesn't fit in 4 bits, so it is lost: 0001 is stored and an overflow error happens.",
+   "hook": "Answer too big for the bits? The top carry falls off: overflow.",
+   "keys": [
+    "12 + 5 = 17 = 10001"
+   ]
+  },
+  {
+   "id": "warm:7:41",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 32,
+   "q": "A piece of data is 32 bits long. How many bytes is that?",
+   "right": "4 bytes",
+   "wrong": [
+    "256 bytes",
+    "32 bytes",
+    "8 bytes"
+   ],
+   "why": "1 byte = 8 bits, so divide by 8: 32 ÷ 8 = 4 bytes. Multiplying by 8 goes the wrong way.",
+   "hook": "Bits to bytes: ÷ 8. Bytes to bits: × 8.",
+   "keys": [
+    "32 ÷ 8 = 4 bytes"
+   ]
+  },
+  {
+   "id": "warm:7:42",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 32,
+   "q": "Put these storage units in order, smallest first: GB, KB, TB, MB.",
+   "right": "KB, MB, GB, TB",
+   "wrong": [
+    "KB, GB, MB, TB",
+    "MB, KB, GB, TB",
+    "TB, GB, MB, KB"
+   ],
+   "why": "Kilo, mega, giga, tera: each is about 1000 (or 1024) times the one before. So KB < MB < GB < TB, and 1 TB is about 1000 GB.",
+   "hook": "King Midas Gets Treasure: kilo, mega, giga, tera.",
+   "keys": [
+    "Kilo, mega, giga, tera"
+   ]
+  },
+  {
+   "id": "warm:7:43",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 32,
+   "q": "Using 1 KB = 1024 bytes and 1 MB = 1024 KB, how many KB is a 2 MB file?",
+   "right": "2,048 KB",
+   "wrong": [
+    "2,000 KB",
+    "2,097,152 KB",
+    "16,384 KB"
+   ],
+   "why": "One step down from MB to KB is × 1024: 2 × 1024 = 2,048 KB. 2,000 KB would use the decimal 1000; 2,097,152 is the number of bytes.",
+   "hook": "One unit down: × 1024. One unit up: ÷ 1024.",
+   "keys": [
+    "2 × 1024 = 2,048 KB"
+   ]
+  },
+  {
+   "id": "warm:7:44",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 32,
+   "q": "A broadband line downloads at 40 Mbps (megabits per second). How many megabytes is that per second?",
+   "right": "5 MB/s",
+   "wrong": [
+    "40 MB/s",
+    "320 MB/s",
+    "4 MB/s"
+   ],
+   "why": "The small b means bits, and 8 bits make a byte: 40 ÷ 8 = 5 megabytes per second.",
+   "hook": "Little b = bits, big B = Bytes. Bits ÷ 8 = bytes.",
+   "keys": [
+    "40 ÷ 8 = 5 megabytes per second"
+   ]
+  },
+  {
+   "id": "warm:7:45",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 32,
+   "q": "Standard ASCII uses 7 bits for each character. How many different characters can it represent?",
+   "right": "128",
+   "wrong": [
+    "127",
+    "256",
+    "14"
+   ],
+   "why": "7 bits give 2⁷ = 128 codes, numbered 0 to 127. 256 is extended ASCII, which uses 8 bits.",
+   "hook": "7 bits: 2⁷ = 128 characters, codes 0 to 127.",
+   "keys": [
+    "7 bits give 2⁷ = 128 codes"
+   ]
+  },
+  {
+   "id": "warm:7:46",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 32,
+   "q": "In ASCII the code for 'A' is 65. What is the code for 'D'?",
+   "right": "68",
+   "wrong": [
+    "69",
+    "4",
+    "100"
+   ],
+   "why": "The capital letters have codes in alphabetical order: A = 65, B = 66, C = 67, D = 68. Lowercase 'd' is a different code, 100.",
+   "hook": "Count on from A = 65, starting at A itself.",
+   "keys": [
+    "A = 65, B = 66, C = 67, D = 68"
+   ]
+  },
+  {
+   "id": "warm:7:47",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 32,
+   "q": "Which of these is true of Unicode, compared with ASCII?",
+   "right": "It covers every language and emojis",
+   "wrong": [
+    "It uses fewer bits per character",
+    "Its first 128 codes differ from ASCII",
+    "It only covers English letters"
+   ],
+   "why": "Unicode has room for over a million characters, every writing system and emojis, using 1 to 4 bytes each. Its first 128 codes are the ASCII codes.",
+   "hook": "ASCII: English only. Unicode: the whole world, and emojis.",
+   "keys": [
+    "Its first 128 codes are the ASCII codes"
+   ]
+  },
+  {
+   "id": "warm:7:48",
+   "from": "warm",
+   "lvl": 1,
+   "slot": 32,
+   "q": "An image has a colour depth of 8 bits per pixel. How many different colours can each pixel be?",
+   "right": "256",
+   "wrong": [
+    "8",
+    "16",
+    "255"
+   ],
+   "why": "Each pixel's colour is an 8-bit code, and 8 bits give 2⁸ = 256 different patterns, so 256 colours (codes 0 to 255).",
+   "hook": "Colours = 2 to the power of the colour depth.",
+   "keys": [
+    "8 bits give 2⁸ = 256 different patterns"
+   ]
+  },
+  {
+   "id": "warm:7:49",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 32,
+   "q": "A small image is 100 × 50 pixels with a colour depth of 8 bits. What is its file size in bytes?",
+   "right": "5,000 bytes",
+   "wrong": [
+    "40,000 bytes",
+    "150 bytes",
+    "625 bytes"
+   ],
+   "why": "Pixels = 100 × 50 = 5,000. Each needs 8 bits, so 5,000 × 8 = 40,000 bits, and 40,000 bits ÷ 8 = 5,000 bytes.",
+   "hook": "Size = width × height × colour depth, then ÷ 8 for bytes.",
+   "keys": [
+    "40,000 bits ÷ 8 = 5,000 bytes"
+   ]
+  },
+  {
+   "id": "warm:7:50",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 32,
+   "q": "A sound is sampled 2000 times a second, with 8 bits per sample, for 3 seconds. What is its file size in bytes?",
+   "right": "6,000 bytes",
+   "wrong": [
+    "48,000 bytes",
+    "2,000 bytes",
+    "16,000 bytes"
+   ],
+   "why": "Bits = samples per second × bits per sample × seconds = 2000 × 8 × 3 = 48,000 bits. Divide by 8: 6,000 bytes.",
+   "hook": "Sound size = sample rate × bits × seconds, then ÷ 8.",
+   "keys": [
+    "2000 × 8 × 3 = 48,000 bits"
+   ]
+  },
+  {
+   "id": "warm:7:51",
+   "from": "warm",
+   "lvl": 2,
+   "slot": 32,
+   "q": "A program file and a holiday photo are both compressed. Which compression should the program file use, and why?",
+   "right": "Lossless: every bit must come back",
+   "wrong": [
+    "Lossy: it makes the file smaller",
+    "Lossy: code has no detail to lose",
+    "Lossless: it gives the smallest file"
+   ],
+   "why": "Lossless compression restores the file exactly; lossy throws data away for good. A photo can lose detail no one notices, but one changed bit can break a program.",
+   "hook": "Lossy loses for good: fine for photos, never for code or text.",
+   "keys": [
+    "Lossless compression restores the file exactly"
+   ]
+  }
+ ]
+}
