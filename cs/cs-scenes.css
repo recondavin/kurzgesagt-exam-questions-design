@@ -32,8 +32,9 @@
 .mx-svg .cs-cputitle { fill: #8FD8FB; font: 800 15px Nunito, sans-serif; }
 .mx-svg .cs-cpustep { fill: #FFC800; font: 700 16px Fredoka, Nunito, sans-serif; }
 .cs-unit rect { fill: #16232A; stroke: #37464F; stroke-width: 2; }
-.cs-unit.is-ram > rect { fill: rgba(206, 130, 255, .07); stroke: #CE82FF; }
-.cs-unit.is-hl > rect { stroke: #FFC800; stroke-width: 3; fill: rgba(255, 200, 0, .1); }
+/* Solid fills (the same tints, mixed with the box colour): a value's trail runs under the boxes, never through their text. */
+.cs-unit.is-ram > rect { fill: #232A39; stroke: #CE82FF; }
+.cs-unit.is-hl > rect { stroke: #FFC800; stroke-width: 3; fill: #2D3326; }
 .mx-svg .cs-unitt { fill: #F1F7FB; font: 800 13px Nunito, sans-serif; }
 .mx-svg .cs-regval { fill: #FFC800; font: 700 13px 'DejaVu Sans Mono', Menlo, monospace; }
 .cs-memrow rect { fill: #0B1418; }
@@ -56,6 +57,9 @@
 .cs-link.is-wifi { stroke-dasharray: 6 6; }
 .mx-svg .cs-nodet { fill: #F1F7FB; font: 700 13px Nunito, sans-serif; }
 .mx-svg .cs-nodet.is-tag { fill: #FFC800; font-size: 11px; }
+.mx-svg .cs-nodet.is-in { fill: #FFFFFF; font-weight: 800; }
+.cs-linklab rect { fill: #131F24; stroke: #37464F; stroke-width: 1.5; }
+.mx-svg .cs-linkt { fill: #FFC800; font: 800 12px Nunito, sans-serif; text-anchor: middle; }
 .mx-svg .cs-nodeip { fill: #9EB0B9; font: 700 11px 'DejaVu Sans Mono', Menlo, monospace; }
 .cs-packet rect { fill: #FFC800; stroke: #131F24; stroke-width: 1.5; }
 .cs-packet.is-blue rect { fill: #1CB0F6; } .cs-packet.is-pink rect { fill: #FF86D0; } .cs-packet.is-green rect { fill: #58CC02; }
@@ -78,6 +82,8 @@
 .cs-cell.is-hl rect { fill: #3A2F05; stroke: #FFC800; }
 .cs-cell.is-done rect { fill: rgba(88, 204, 2, .16); stroke: #58CC02; }
 .cs-cell.is-found rect { fill: #58CC02; stroke: #A5ED6E; }
+.cs-cell.is-bad rect { fill: rgba(255, 75, 75, .2); stroke: #FF4B4B; }
+.cs-cell.is-dim { opacity: .3; }
 .mx-svg .cs-cellt { fill: #FFFFFF; font: 800 17px 'DejaVu Sans Mono', Menlo, monospace; }
 .mx-svg .cs-idx { fill: #6B7F88; font: 700 11px Nunito, sans-serif; }
 .cs-ptr path { fill: #1CB0F6; }

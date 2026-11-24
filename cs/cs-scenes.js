@@ -34,11 +34,14 @@
     var hl = list(v.hl).map(Number), total = 0, terms = [];
     weights.forEach(function (w, i) {
       var g = el('g', { class: 'cs-place' + (b[i] ? ' is-on' : '') + (hl.indexOf(i) >= 0 ? ' is-hl' : '') }, s);
-      txt(g, X(i) + cw / 2, 26, (w < 0 ? '−' : '') + Math.abs(w), 'cs-placet');
+      // Over 8 bits the place values get long: with hex each nibble shows 8 4 2 1; otherwise they shrink to fit.
+      var pv = v.hex && n > 8 ? String(Math.pow(2, 3 - i % 4)) : (w < 0 ? '−' : '') + Math.abs(w), pt = txt(g, X(i) + cw / 2, 26, pv, 'cs-placet');
+      if (pv.length * 8.4 > cw - 2) pt.style.fontSize = Math.max(8, (cw - 2) / (pv.length * .6)) + 'px';
       q.fade(g, KK + 'w' + i, 25, 300);
       var c = el('g', { class: 'cs-bit' + (b[i] ? ' is-on' : '') + (hl.indexOf(i) >= 0 ? ' is-hl' : '') }, s);
-      el('rect', { x: X(i) + 3, y: 38, width: cw - 6, height: cw - 6, rx: 8 }, c);
-      txt(c, X(i) + cw / 2, 38 + (cw - 6) / 2 + 9, b[i], 'cs-bitt');
+      el('rect', { x: X(i) + 3, y: 38, width: cw - 6, height: cw - 6, rx: Math.min(8, (cw - 6) / 4) }, c);
+      var bt = txt(c, X(i) + cw / 2, 38 + (cw - 6) / 2 + 9 * Math.min(1, cw / 40), b[i], 'cs-bitt');
+      if (cw < 40) bt.style.fontSize = Math.round(cw * .55) + 'px';
       if (b[i]) { total += w; terms.push((w < 0 ? '−' : '') + Math.abs(w)); }
     });
     // The bits go on left to right, each 1 lighting its place value.
@@ -57,7 +60,9 @@
         var nib = b.slice(k, k + 4), val = parseInt(nib.join(''), 2), hx = val.toString(16).toUpperCase();
         var g2 = el('g', { class: 'cs-nib' }, s), xa = X(k) + 3, xb = X(Math.min(n, k + 4) - 1) + cw - 3;
         el('path', { d: 'M' + xa + ' ' + (H - 52) + 'V' + (H - 44) + 'H' + xb + 'V' + (H - 52), class: 'cs-brace' }, g2);
-        txt(g2, (xa + xb) / 2, H - 20, nib.join('') + ' = ' + val + ' = ' + hx, 'cs-nibt');
+        var nt = n > 8 ? (val < 10 ? hx : val + '→' + hx) : nib.join('') + ' = ' + val + (val < 10 ? '' : ' = ' + hx);
+        var nibT = txt(g2, (xa + xb) / 2, H - 20, nt, 'cs-nibt');
+        if (n > 8) nibT.style.fontSize = Math.min(15, cw * .62) + 'px';
         q.rise(g2, KK + 'nib' + k + hx, 260);
       }
     }
@@ -85,17 +90,20 @@
       G.forEach(function (g) { if (col[g.id] == null && g.in.every(function (x) { return col[x] != null; })) { col[g.id] = 1 + Math.max.apply(null, g.in.map(function (x) { return col[x]; })); var vs = g.in.map(function (x) { return val[x]; }); val[g.id] = vs.some(function (x) { return x == null; }) ? null : OPS[g.type](vs); } });
     }
     var depth = Math.max.apply(null, G.map(function (g) { return col[g.id] || 1; }).concat([1])), tableW = v.table ? 170 : 0;
-    var W = 520, cw = (W - tableW - 90) / (depth + .3), H = Math.max(180, Math.max(ins.length, G.length) * 52 + 40);
+    // Room for the names: inputs on the left (their value lights after them), outputs on the right.
+    var CH = 9.6, inW = Math.max(10, Math.max.apply(null, ins.map(function (p) { return String(p[0]).length; }).concat([1])) * CH), ledX = 14 + inW + 14, shift = ledX - 38;
+    var outNames = list(v.outName || 'Q').map(String), outW = Math.max.apply(null, outNames.map(function (t) { return t.length * CH; }).concat([10])), extra = Math.max(0, outW - 40);
+    var W = 520, cw = (W - tableW - 90 - shift - extra) / (depth + .3), H = Math.max(180, Math.max(ins.length, G.length) * 52 + 40);
     var s = svgBox(W, H, 'mx-gates'), KK = 'gates' + G.map(function (g) { return g.type + g.in.join(''); }).join(',') + ':';
     var pos = {}, perCol = {};
-    ins.forEach(function (p, i) { pos[p[0]] = { x: 36, y: 30 + (i + .5) * ((H - 60) / ins.length), out: [46, 30 + (i + .5) * ((H - 60) / ins.length)] }; });
+    ins.forEach(function (p, i) { pos[p[0]] = { x: ledX - 2, y: 30 + (i + .5) * ((H - 60) / ins.length), out: [ledX + 8, 30 + (i + .5) * ((H - 60) / ins.length)] }; });
     G.forEach(function (g) { var c = col[g.id]; (perCol[c] = perCol[c] || []).push(g); });
     Object.keys(perCol).forEach(function (c) {
       perCol[c].forEach(function (g, i) {
         // A gate sits level with the middle of its inputs where it can.
         var ys = g.in.map(function (x) { return pos[x] ? pos[x].y : H / 2; }), y = ys.reduce(function (a, b) { return a + b; }, 0) / ys.length;
         if (perCol[c].length > 1) y = 30 + (i + .5) * ((H - 60) / perCol[c].length);
-        var x = 60 + c * cw - cw * .45;
+        var x = 60 + shift + c * cw - cw * .45;
         var bub = g.type === 'NOT' ? x + 53 : /^N|^XN/.test(g.type) ? x + 63 + (/^X/.test(g.type) ? 6 : 0) : null;
         pos[g.id] = { x: x, y: y, bub: bub, out: [bub != null ? bub + 5 : x + 58 + (/^X/.test(g.type) ? 6 : 0), y] };
       });
@@ -105,7 +113,7 @@
     ins.forEach(function (p) {
       var g = el('g', { class: 'cs-in' + (val[p[0]] ? ' is-on' : '') }, parts);
       txt(g, 14, pos[p[0]].y + 5, p[0], 'cs-gatet', 'start');
-      if (val[p[0]] != null) { el('circle', { cx: 38, cy: pos[p[0]].y, r: 9, class: 'cs-led' }, g); txt(g, 38, pos[p[0]].y + 5, val[p[0]], 'cs-ledt'); }
+      if (val[p[0]] != null) { el('circle', { cx: ledX, cy: pos[p[0]].y, r: 9, class: 'cs-led' }, g); txt(g, ledX, pos[p[0]].y + 5, val[p[0]], 'cs-ledt'); }
       q.fade(g, KK + 'in' + p[0] + val[p[0]], 60);
     });
     G.forEach(function (g) {
@@ -123,9 +131,10 @@
       });
     });
     // The output(s).
-    list(v.out || (G.length ? G[G.length - 1].id : null)).forEach(function (o, i) {
-      if (!pos[o]) return;
-      var P = pos[o], ox = Math.min(W - tableW - 34, P.out[0] + 28), g = el('g', { class: 'cs-in' + (val[o] ? ' is-on' : '') }, parts);
+    var outs = list(v.out || (G.length ? G[G.length - 1].id : null)).filter(function (o) { return pos[o]; });
+    var oX = Math.min(W - tableW - 24 - outW, Math.max.apply(null, outs.map(function (o) { return pos[o].out[0]; }).concat([0])) + 28);
+    outs.forEach(function (o, i) {
+      var P = pos[o], ox = Math.max(P.out[0] + 16, oX), g = el('g', { class: 'cs-in' + (val[o] ? ' is-on' : '') }, parts);
       var w = el('path', { d: 'M' + P.out[0] + ' ' + P.out[1] + 'H' + (ox - 10), class: 'cs-wire' + (val[o] ? ' is-on' : val[o] === 0 ? ' is-off' : '') }, wires);
       q.draw(w, KK + 'wo' + o + val[o], 300, 80);
       var name = (v.outName && list(v.outName)[i]) || 'Q';
@@ -171,6 +180,7 @@
       txt(g, 338, y - 6, b + ' bus', 'cs-bust');
       q.draw(g.firstChild, KK + 'bus' + b, 400, 80);
     });
+    var under = el('g', {}, s); // the values' trails, under the units: they show only between the boxes
     var shown = ['cu', 'alu', 'pc', 'mar', 'mdr', 'cir', 'acc', 'ram'].concat(v.cache ? ['cache'] : [], v.io ? ['input', 'output', 'storage'] : []);
     var nodes = {};
     shown.forEach(function (k) {
@@ -193,14 +203,14 @@
       if (on) q.anim(g.firstChild, KK + 'hl' + k + hl.join(','), 0, [{ strokeWidth: 2 }, { strokeWidth: 6, offset: .5 }, { strokeWidth: 3 }], { duration: 700 });
       nodes[k] = r;
     });
-    if (v.step) { var stp = txt(s, 286, 32, v.step, 'cs-cpustep', 'end'); q.pop(stp, KK + 'step' + v.step, 100); }
+    if (v.step) { var stp = txt(s, 66, 32, v.step, 'cs-cpustep', 'start'); q.pop(stp, KK + 'step' + v.step, 100); }
     // Values travelling: from one unit to the next, along a bus when there is one.
     var mid = function (k) { var r = nodes[k] || at[k]; return [r[0] + r[2] / 2, r[1] + r[3] / 2]; };
     (v.flow || []).forEach(function (f, i) {
       var a = mid(f[0]), b = mid(f[1]), bus = f[2], pts;
       if (bus && BUS_Y[bus]) { var y = BUS_Y[bus], ax = f[0] === 'ram' ? 380 : 296, bx = f[1] === 'ram' ? 380 : 296; pts = [a, [a[0] < 300 ? 296 : 380, a[1]], [ax, y], [bx === ax ? (ax === 296 ? 380 : 296) : bx, y], [b[0] < 300 ? 296 : 380, b[1]], b]; }
       else pts = [a, b];
-      var path = el('path', { d: 'M' + pts.map(function (p) { return p.join(' '); }).join('L'), class: 'cs-flowpath' }, s);
+      var path = el('path', { d: 'M' + pts.map(function (p) { return p.join(' '); }).join('L'), class: 'cs-flowpath' }, under);
       q.draw(path, KK + 'fp' + i + f.join('-'), 500, 60);
       var tok = el('g', { class: 'cs-token' }, s), lbl = f[3] || '';
       el('rect', { x: -Math.max(18, lbl.length * 4.2), y: -11, width: Math.max(36, lbl.length * 8.4), height: 22, rx: 11 }, tok);
@@ -230,6 +240,8 @@
       [-20, -4, 12].forEach(function (d) { el('rect', { x: x - 20, y: y + d, width: 40, height: 14, rx: 3, class: 'cs-dev' }, g); el('circle', { cx: x + 12, cy: y + d + 7, r: 2.2, class: 'cs-devdot' }, g); });
     } else if (k === 'cloud') {
       el('path', { d: 'M' + (x - 30) + ' ' + (y + 12) + 'a12 12 0 0 1 4-23a16 16 0 0 1 30-6a13 13 0 0 1 24 12a10 10 0 0 1 2 17Z', class: 'cs-dev' }, g);
+    } else if (k === 'node') {
+      el('circle', { cx: x, cy: y, r: 16, class: 'cs-dev' }, g);
     } else if (k === 'phone') {
       el('rect', { x: x - 11, y: y - 20, width: 22, height: 40, rx: 5, class: 'cs-dev' }, g);
     } else if (k === 'laptop') {
@@ -242,24 +254,39 @@
   }
   function network(v, q) {
     var nodes = v.nodes || [], W = 520, H = v.h || 250, s = svgBox(W, H, 'mx-network'), KK = 'net' + nodes.map(function (n) { return n.id; }).join(',') + ':', at = {}, hl = list(v.hl);
+    var below = Math.max.apply(null, nodes.map(function (n) { var dns = n.kind === 'dns'; return (n.ip ? (dns ? 78 : 60) : (dns ? 62 : 44)) + 6; }).concat([50]));
     nodes.forEach(function (n, i) {
       var x = n.x != null ? 56 + n.x / 100 * (W - 112) : 56 + i * (W - 112) / Math.max(1, nodes.length - 1);
-      var y = n.y != null ? 34 + n.y / 100 * (H - 90) : H / 2 - 10 + (i % 2 ? 22 : -22) * (nodes.length > 3 ? 1 : 0);
+      var y = n.y != null ? 34 + n.y / 100 * (H - 34 - below) : H / 2 - 10 + (i % 2 ? 22 : -22) * (nodes.length > 3 ? 1 : 0);
       at[n.id] = [x, y];
     });
     var lg = el('g', {}, s);
     (v.links || []).forEach(function (l, i) {
       var a = at[l[0]], b = at[l[1]];
       if (!a || !b) return;
-      var ln = el('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], class: 'cs-link' + (l[2] ? ' is-' + l[2] : '') }, lg);
+      var ln = el('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], class: 'cs-link' + (l[2] === 'wifi' ? ' is-wifi' : '') }, lg);
       q.draw(ln, KK + 'l' + l.join('-'), 400, 70);
+      var lab = l[3] != null ? l[3] : l[2] != null && l[2] !== 'wifi' ? l[2] : null;
+      if (lab != null && lab !== '') {
+        var lgp = el('g', { class: 'cs-linklab' }, lg), mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2, lw = String(lab).length * 7.5 + 12;
+        el('rect', { x: mx - lw / 2, y: my - 11, width: lw, height: 21, rx: 10 }, lgp);
+        txt(lgp, mx, my + 4.5, lab, 'cs-linkt');
+        q.fade(lgp, KK + 'll' + l.join('-'), 240, 300);
+      }
     });
     nodes.forEach(function (n) {
       var g = el('g', { class: 'cs-node' + (hl.indexOf(n.id) >= 0 ? ' is-hl' : '') }, s), p = at[n.id];
       icon(g, n.kind, p[0], p[1]);
+      if (n.kind === 'node' && n.name != null) txt(g, p[0], p[1] + 5, n.name, 'cs-nodet is-in');
       if (n.kind === 'dns') txt(g, p[0], p[1] + 46, 'DNS', 'cs-nodet is-tag');
-      txt(g, p[0], p[1] + (n.kind === 'dns' ? 62 : 44), n.label || '', 'cs-nodet');
-      if (n.ip) txt(g, p[0], p[1] + (n.kind === 'dns' ? 78 : 60), n.ip, 'cs-nodeip');
+      // A label near the edge is kept inside the picture.
+      var keep = function (t, y, cls, per) {
+        var tw = String(t).length * per, a = 'middle', tx = p[0];
+        if (p[0] - tw / 2 < 4) { a = 'start'; tx = 4; } else if (p[0] + tw / 2 > W - 4) { a = 'end'; tx = W - 4; }
+        txt(g, tx, y, t, cls, a);
+      };
+      keep(n.label || '', p[1] + (n.kind === 'dns' ? 62 : n.kind === 'node' ? 36 : 44), 'cs-nodet', 7.2);
+      if (n.ip) keep(n.ip, p[1] + (n.kind === 'dns' ? 78 : n.kind === 'node' ? 52 : 60), 'cs-nodeip', 7);
       q.pop(g, KK + 'n' + n.id + (hl.indexOf(n.id) >= 0 ? 'h' : ''), 110, 420);
     });
     // Packets: each goes along its path, one hop after another, with its label.
@@ -276,8 +303,9 @@
         var want = tot * k, j = 0;
         while (j < segs.length - 1 && want > segs[j]) { want -= segs[j]; j++; }
         var t = segs[j] ? want / segs[j] : 1;
-        tok.setAttribute('transform', 'translate(' + (pts[j][0] + (pts[j + 1][0] - pts[j][0]) * t) + ',' + (pts[j][1] + (pts[j + 1][1] - pts[j][1]) * t - 6) + ')');
-        tok.style.opacity = k >= 1 ? '0' : '1';
+        // A packet that stays (stay: true) rides above the line, so where it ends it sits over the device, not on it.
+        tok.setAttribute('transform', 'translate(' + (pts[j][0] + (pts[j + 1][0] - pts[j][0]) * t) + ',' + (pts[j][1] + (pts[j + 1][1] - pts[j][1]) * t - (m.stay ? 34 : 6)) + ')');
+        tok.style.opacity = k >= 1 && !m.stay ? '0' : '1';
       };
       q.tw(KK + 'p' + i + path.join('>') + lbl, 300 + pts.length * 200, 700 + pts.length * 450, put, ease);
     });
@@ -287,7 +315,17 @@
 
   // ---------- flowcharts ----------
   function flow(v, q) {
-    var nodes = v.nodes || [], n = nodes.length, W = 520, rowH = Math.min(62, 420 / Math.max(1, n)), H = 30 + n * rowH, cx = 200;
+    var nodes = v.nodes || [], n = nodes.length, W = 520, rowH = Math.max(42, Math.min(62, 330 / Math.max(1, n))), H = 30 + n * rowH, cx = 200;
+    var hh = Math.min(34, rowH - 18), byId = {};
+    nodes.forEach(function (nd) { byId[nd.id] = nd; });
+    // How far right a node's shape reaches at dy from its middle: edges start and end on it.
+    var edgeX = function (id, dy) {
+      var t = (byId[id] || {}).type;
+      if (t === 'decision') return cx + 78 * (1 - Math.abs(dy) / (hh / 2 + 6));
+      if (t === 'start' || t === 'end') return cx + 55;
+      if (t === 'io') return cx + 72 - dy * (18 / hh);
+      return cx + 75;
+    };
     var s = svgBox(W, H, 'mx-flow'), KK = 'flow' + nodes.map(function (nd) { return nd.id; }).join(',') + ':', at = {}, idx = {};
     nodes.forEach(function (nd, i) { at[nd.id] = [cx, 20 + i * rowH + rowH / 2]; idx[nd.id] = i; });
     var eg = el('g', {}, s), side = 0;
@@ -296,7 +334,14 @@
       if (!a || !b) return;
       var d, la;
       if (idx[e[1]] === idx[e[0]] + 1) { d = 'M' + a[0] + ' ' + (a[1] + 16) + 'V' + (b[1] - 16); la = [a[0] + 8, (a[1] + b[1]) / 2 + 4, 'start']; }
-      else { side++; var x = cx + 150 + side * 16; d = 'M' + (a[0] + 76) + ' ' + a[1] + 'H' + x + 'V' + b[1] + 'H' + (b[0] + 76); la = [x + 6, a[1] - 6, 'start']; }
+      else {
+        side++;
+        var x = cx + 150 + side * 16, ya = a[1] + (idx[e[1]] > idx[e[0]] ? 0 : -5), yb = b[1] + (idx[e[1]] < idx[e[0]] ? -6 : 0);
+        // A loop back into a node enters a little above its middle, so it never shares a line with an exit from it.
+        if (idx[e[1]] < idx[e[0]]) yb = b[1] - 6; else ya = a[1] + 6;
+        d = 'M' + edgeX(e[0], ya - a[1]) + ' ' + ya + 'H' + x + 'V' + yb + 'H' + (edgeX(e[1], yb - b[1]) + 2);
+        la = [x + 6, ya - 6, 'start'];
+      }
       var p = el('path', { d: d, class: 'cs-fedge', 'marker-end': 'url(#cs-arrow)' }, eg);
       q.draw(p, KK + 'e' + e.join('-'), 300, 40);
       if (e[2]) { var t = txt(eg, la[0], la[1], e[2], 'cs-fedget', la[2]); q.fade(t, KK + 'el' + e.join('-'), 0); }
@@ -305,12 +350,25 @@
     el('path', { d: 'M0 0L10 5L0 10Z', class: 'cs-farrow' }, mk);
     var hl = list(v.hl);
     nodes.forEach(function (nd) {
-      var p = at[nd.id], g = el('g', { class: 'cs-fnode is-' + (nd.type || 'process') + (hl.indexOf(nd.id) >= 0 ? ' is-hl' : '') }, s), w = 150, h = Math.min(34, rowH - 18);
+      var p = at[nd.id], g = el('g', { class: 'cs-fnode is-' + (nd.type || 'process') + (hl.indexOf(nd.id) >= 0 ? ' is-hl' : '') }, s), w = 150, h = hh;
       if (nd.type === 'decision') el('path', { d: 'M' + (p[0] - 78) + ' ' + p[1] + 'L' + p[0] + ' ' + (p[1] - h / 2 - 6) + 'L' + (p[0] + 78) + ' ' + p[1] + 'L' + p[0] + ' ' + (p[1] + h / 2 + 6) + 'Z' }, g);
       else if (nd.type === 'start' || nd.type === 'end') el('rect', { x: p[0] - w / 2 + 20, y: p[1] - h / 2, width: w - 40, height: h, rx: h / 2 }, g);
       else if (nd.type === 'io') el('path', { d: 'M' + (p[0] - w / 2 + 12) + ' ' + (p[1] - h / 2) + 'H' + (p[0] + w / 2 + 6) + 'L' + (p[0] + w / 2 - 12) + ' ' + (p[1] + h / 2) + 'H' + (p[0] - w / 2 - 6) + 'Z' }, g);
       else el('rect', { x: p[0] - w / 2, y: p[1] - h / 2, width: w, height: h, rx: 5 }, g);
-      txt(g, p[0], p[1] + 5, nd.text || '', 'cs-fnodet');
+      // The words fit the shape: smaller, then on two lines.
+      var words = String(nd.text || ''), room = nd.type === 'decision' ? 108 : nd.type === 'start' || nd.type === 'end' ? 100 : 136, fs = 12.5;
+      if (words.length * 6.9 > room) fs = Math.max(10, room / (words.length * .55));
+      var lines = [words];
+      if (words.length * fs * .55 > room && words.indexOf(' ') > 0) {
+        var cut = -1, best = 1e9;
+        words.replace(/ /g, function (m0, at0) { if (Math.abs(at0 - words.length / 2) < best) { best = Math.abs(at0 - words.length / 2); cut = at0; } return m0; });
+        lines = [words.slice(0, cut), words.slice(cut + 1)];
+        fs = Math.max(9.5, Math.min(12.5, room / (Math.max(lines[0].length, lines[1].length) * .55)));
+      }
+      lines.forEach(function (ln, li) {
+        var tt = txt(g, p[0], p[1] + 5 + (lines.length > 1 ? (li ? 1 : -1) * fs * .58 : 0), ln, 'cs-fnodet');
+        if (fs !== 12.5) tt.style.fontSize = fs + 'px';
+      });
       q.fade(g, KK + 'n' + nd.id + (hl.indexOf(nd.id) >= 0 ? 'h' : ''), 90, 300);
     });
     // A token runs along the path, stopping at each box it passes.
@@ -332,20 +390,25 @@
     var vals = v.vals || [], n = vals.length, W = 520, bw = Math.min(52, (W - 40) / Math.max(1, n) - 6), x0 = (W - (n * (bw + 6) - 6)) / 2, H = v.ptr ? 170 : 128;
     var s = svgBox(W, H, 'mx-array'), KK = 'arr' + n + ':', X = function (i) { return x0 + i * (bw + 6); };
     var cmp = list(v.cmp).map(Number), hl = list(v.hl).map(Number), done = list(v.done).map(Number), sw = list(v.swap).map(Number);
+    var dim = list(v.dim).map(Number), bad = list(v.bad).map(Number), from = v.from != null ? +v.from : 0;
     if (v.sorted) for (var d = v.sorted[0]; d <= v.sorted[1]; d++) done.push(d);
     vals.forEach(function (x, i) {
-      var g = el('g', { transform: 'translate(' + X(i) + ',30)' }, s), inner = el('g', { class: 'cs-cell' + (cmp.indexOf(i) >= 0 ? ' is-cmp' : '') + (hl.indexOf(i) >= 0 ? ' is-hl' : '') + (done.indexOf(i) >= 0 ? ' is-done' : '') + (v.find != null && String(x) === String(v.find) && hl.indexOf(i) >= 0 ? ' is-found' : '') }, g);
+      var g = el('g', { transform: 'translate(' + X(i) + ',30)' }, s), inner = el('g', { class: 'cs-cell' + (cmp.indexOf(i) >= 0 ? ' is-cmp' : '') + (hl.indexOf(i) >= 0 ? ' is-hl' : '') + (done.indexOf(i) >= 0 ? ' is-done' : '') + (v.find != null && String(x) === String(v.find) && hl.indexOf(i) >= 0 ? ' is-found' : '') + (dim.indexOf(i) >= 0 ? ' is-dim' : '') + (bad.indexOf(i) >= 0 ? ' is-bad' : '') }, g);
       el('rect', { x: 0, y: 0, width: bw, height: bw, rx: 8 }, inner);
-      txt(inner, bw / 2, bw / 2 + 6, x, 'cs-cellt');
-      txt(g, bw / 2, bw + 18, i, 'cs-idx');
+      var ct = txt(inner, bw / 2, bw / 2 + 6, x, 'cs-cellt'), cl = String(x).length;
+      if (cl * 10.5 > bw - 6) ct.style.fontSize = Math.max(9, (bw - 6) / (cl * .62)) + 'px';
+      txt(g, bw / 2, bw + 18, i + from, 'cs-idx');
       if (sw.length === 2 && sw.indexOf(i) >= 0) {
         var other = sw[0] === i ? sw[1] : sw[0], dx = X(other) - X(i);
         q.anim(inner, KK + 'sw' + sw.join('-') + i + x, 0, [{ transform: 'translate(' + dx + 'px,0)' }, { transform: 'translate(' + dx / 2 + 'px,' + (i < other ? -26 : 26) + 'px)', offset: .5 }, { transform: 'none' }], { duration: 800, easing: 'ease-in-out' });
       } else q.fade(inner, KK + 'c' + i + x, 30, 260);
       if (cmp.indexOf(i) >= 0) q.anim(inner.firstChild, KK + 'cmp' + cmp.join('-') + i, 0, [{ strokeWidth: 2 }, { strokeWidth: 7, offset: .5 }, { strokeWidth: 3.5 }], { duration: 600 });
     });
-    if (v.ptr) Object.keys(v.ptr).forEach(function (k, j) {
-      var i = v.ptr[k], g = el('g', { class: 'cs-ptr' }, s), x = X(i) + bw / 2, y = 30 + bw + 28 + (j % 2) * 18;
+    // Pointers (named arrows under boxes, given as indices from 0); two on one box share an arrow ("mid = hi").
+    var at0 = {}, order = [];
+    if (v.ptr) Object.keys(v.ptr).forEach(function (k) { var i = v.ptr[k]; if (!at0[i]) { at0[i] = []; order.push(i); } at0[i].push(k); });
+    order.forEach(function (i, j) {
+      var k = at0[i].join(' = '), g = el('g', { class: 'cs-ptr' }, s), x = X(i) + bw / 2, y = 30 + bw + 28 + (j % 2) * 18;
       el('path', { d: 'M' + x + ' ' + (y - 4) + 'l-6 10h12z' }, g);
       txt(g, x, y + 20, k, 'cs-ptrt');
       q.anim(g, KK + 'ptr' + k + i, 60, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 400 });
