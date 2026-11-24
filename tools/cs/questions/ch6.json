@@ -6143,7 +6143,7 @@
               "vis": null
             },
             {
-              "say": "IP is the general protocol for every kind of data. It splits data into packets, gives them IP addresses and routes them across networks (web pages, emails).",
+              "say": "IP is the general protocol for every kind of data. It sends data in packets, gives them IP addresses and routes them across networks (web pages, emails).",
               "math": [],
               "code": "",
               "vis": null
