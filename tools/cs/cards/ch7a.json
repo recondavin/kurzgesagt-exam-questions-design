@@ -1,0 +1,1483 @@
+{
+ "chapter": 7,
+ "cards": [
+  {
+   "id": "2020-Q6:(a):1",
+   "from": "2020-Q6",
+   "q": "ASCII is a character encoding standard adopted in 1963. Why are encoding standards such as ASCII important?",
+   "right": "All computers share one code per character",
+   "wrong": [
+    "They compress text so files take less space",
+    "They encrypt text so it can be sent safely",
+    "They let computers store text without binary"
+   ],
+   "why": "A standard means every device gives each character the same binary code, so text made on one computer is read correctly on any other: data can be shared worldwide.",
+   "hook": "A standard is an agreement: same code, same character, on every machine.",
+   "keys": [
+    "the same binary code",
+    "shared worldwide"
+   ]
+  },
+  {
+   "id": "2020-Q6:(a):2",
+   "from": "2020-Q6",
+   "q": "Computer X saves some text using one character code table. Computer Y opens the file using a different table. What happens to the text?",
+   "right": "It shows up as wrong, garbled characters",
+   "wrong": [
+    "It shows correctly: text is universal",
+    "It shows correctly, only in a different font",
+    "Y converts it to its own table automatically"
+   ],
+   "why": "The file only holds numbers. Y looks each number up in its own table and gets different characters. A shared standard such as ASCII makes every computer use the same table.",
+   "hook": "Text is stored as numbers; the code table turns them back into letters.",
+   "keys": [
+    "The file only holds numbers",
+    "the same table"
+   ]
+  },
+  {
+   "id": "2020-Q6:(b):1",
+   "from": "2020-Q6",
+   "q": "Standard ASCII uses 7 bits for each character. How many different characters can it represent?",
+   "right": "128",
+   "wrong": [
+    "127",
+    "14",
+    "49"
+   ],
+   "why": "7 bits give 2⁷ = 2 × 2 × 2 × 2 × 2 × 2 × 2 = 128 different codes, numbered 0 to 127. 127 is the highest code, not the number of codes.",
+   "hook": "n bits give 2ⁿ codes; counting from 0, the top code is 2ⁿ − 1.",
+   "keys": [
+    "2⁷ = 2 × 2 × 2 × 2 × 2 × 2 × 2 = 128"
+   ]
+  },
+  {
+   "id": "2020-Q6:(b):2",
+   "from": "2020-Q6",
+   "q": "State one limitation of ASCII.",
+   "right": "No codes for emojis or other alphabets",
+   "wrong": [
+    "It cannot store the digits 0 to 9",
+    "It only has capital letters",
+    "It uses too many bits per character"
+   ],
+   "why": "ASCII's 7 bits allow only 128 characters: English letters, digits, punctuation and control codes. There is no room for emojis or for alphabets such as Chinese or Arabic.",
+   "hook": "ASCII: 128 characters, English only. Unicode fixes it.",
+   "keys": [
+    "only 128 characters",
+    "no room for emojis"
+   ]
+  },
+  {
+   "id": "2020-Q7::1",
+   "from": "2020-Q7",
+   "q": "The 8-bit ASCII code for the character K is the binary number 0100 1011. Convert it to hexadecimal.",
+   "right": "4B",
+   "wrong": [
+    "411",
+    "B4",
+    "2D"
+   ],
+   "why": "Split into nibbles: 0100 = 4 and 1011 = 8 + 2 + 1 = 11, which is B in hex. Keep the order: 4B (check: 4 × 16 + 11 = 75, the code for K).",
+   "hook": "One hex digit = 4 bits. 10 to 15 are A to F.",
+   "keys": [
+    "0100 = 4",
+    "1011 = 8 + 2 + 1 = 11"
+   ]
+  },
+  {
+   "id": "2020-Q7::2",
+   "from": "2020-Q7",
+   "q": "To convert the binary number 0100 1011 to hexadecimal, how do you group the bits?",
+   "right": "Two groups of 4: 0100 | 1011",
+   "wrong": [
+    "Groups of 3: 01 | 001 | 011",
+    "Four groups of 2: 01 | 00 | 10 | 11",
+    "One group of 8: a hex digit per byte"
+   ],
+   "why": "16 = 2⁴, so one hex digit holds exactly 4 bits. Split the byte into two nibbles, 0100 and 1011, and change each into a hex digit: 4 and B. Groups of 3 are for octal.",
+   "hook": "Hex = 4 bits a digit; octal = 3 bits a digit.",
+   "keys": [
+    "16 = 2⁴",
+    "two nibbles"
+   ]
+  },
+  {
+   "id": "2020-Q8::1",
+   "from": "2020-Q8",
+   "q": "Bubble sort on [8, 5, 9, 7, 6]: after pass 1 the list is 5 8 7 6 9. Comparing neighbours left to right and swapping any pair out of order, what is the list after pass 2?",
+   "right": "5 7 6 8 9",
+   "wrong": [
+    "5 7 8 6 9",
+    "5 6 8 7 9",
+    "5 6 7 8 9"
+   ],
+   "why": "Pass 2: 5,8 no swap; 8,7 swap → 5 7 8 6 9; 8,6 swap → 5 7 6 8 9. The 9 is already in place, so pass 2 stops there.",
+   "hook": "Each pass carries the largest unsorted number to the end, one swap at a time.",
+   "keys": [
+    "8,7 swap → 5 7 8 6 9",
+    "8,6 swap → 5 7 6 8 9"
+   ]
+  },
+  {
+   "id": "2020-Q8::2",
+   "from": "2020-Q8",
+   "q": "In a bubble sort that compares neighbours from left to right, why does each pass need one comparison fewer than the pass before?",
+   "right": "The largest is now fixed at the end",
+   "wrong": [
+    "The smallest is now fixed at the start",
+    "Each pass halves the part still to sort",
+    "The first pair never needs checking again"
+   ],
+   "why": "Each pass bubbles the largest unsorted number to its final place at the end. On [8, 5, 9, 7, 6], after pass 1 the 9 is fixed, so pass 2 compares only the first 4 numbers.",
+   "hook": "Biggest bubbles to the end: one more number is fixed after every pass.",
+   "keys": [
+    "bubbles the largest unsorted number",
+    "the 9 is fixed"
+   ]
+  },
+  {
+   "id": "2020-Q8::3",
+   "from": "2020-Q8",
+   "q": "Bubble sort on [8, 5, 9, 7, 6] uses four passes, each making one comparison fewer than the pass before. How many comparisons are made in all?",
+   "right": "10",
+   "wrong": [
+    "16",
+    "20",
+    "15"
+   ],
+   "why": "Pass 1 makes 4 comparisons, then 3, 2 and 1: 4 + 3 + 2 + 1 = 10, one row of the diagram for each comparison.",
+   "hook": "5 items: 4 + 3 + 2 + 1 comparisons, not the same number every pass.",
+   "keys": [
+    "4 + 3 + 2 + 1 = 10"
+   ]
+  },
+  {
+   "id": "2020-Q12::1",
+   "from": "2020-Q12",
+   "q": "Travelling salesperson problem: given the distances between cities, find the shortest route that visits each city once and returns to the start. Why are heuristics a good approach?",
+   "right": "Checking every route would take far too long",
+   "wrong": [
+    "A heuristic always finds the shortest route",
+    "There are only a few routes to check",
+    "A heuristic checks every route, only faster"
+   ],
+   "why": "The number of routes explodes as cities are added, so checking them all takes too long. A heuristic (a rule of thumb) finds a good approximate route quickly.",
+   "hook": "Heuristic: good enough, fast. Brute force: the best, but far too slow.",
+   "keys": [
+    "checking them all takes too long",
+    "a good approximate route quickly"
+   ]
+  },
+  {
+   "id": "2020-Q12::2",
+   "from": "2020-Q12",
+   "q": "In solving problems like the travelling salesperson problem, what is a heuristic?",
+   "right": "A rule of thumb: a good approximate answer",
+   "wrong": [
+    "A method that always finds the best answer",
+    "Checking every possible answer in turn",
+    "A random guess with no rule behind it"
+   ],
+   "why": "A heuristic is an educated guess or rule of thumb based on experience, such as 'go to the nearest unvisited city'. It is fast but doesn't promise the best answer.",
+   "hook": "Rule of thumb: quick and usually close.",
+   "keys": [
+    "educated guess or rule of thumb"
+   ]
+  },
+  {
+   "id": "2020-Q12::3",
+   "from": "2020-Q12",
+   "q": "If 6 cities were all linked to each other, how many different round trips start and end at city 1 and visit every city once? (A route and its reverse count as one.)",
+   "right": "60",
+   "wrong": [
+    "720",
+    "120",
+    "360"
+   ],
+   "why": "City 1 is fixed, so the other 5 can be visited in 5! = 120 orders; a route and its reverse are the same, so 5!/2 = 60. At 20 cities it is about 6 × 10¹⁶.",
+   "hook": "Fix the start, arrange the rest, halve for reverses: (n − 1)!/2.",
+   "keys": [
+    "5! = 120 orders",
+    "5!/2 = 60"
+   ]
+  },
+  {
+   "id": "2020-Q13:(a)(i):1",
+   "from": "2020-Q13",
+   "q": "A program sets `index = 0` and loops `while (not found) and (index != len(names))`, checking `name == names[index]` and adding 1 to index after each miss. Name this search algorithm.",
+   "right": "Linear search",
+   "wrong": [
+    "Binary search",
+    "Bubble sort",
+    "Selection sort"
+   ],
+   "why": "index starts at 0 and goes up by 1 each time, so the names are checked one after another, first to last, until a match or the end: a linear (sequential) search.",
+   "hook": "Linear: one by one, front to back.",
+   "keys": [
+    "checked one after another",
+    "a linear (sequential) search"
+   ]
+  },
+  {
+   "id": "2020-Q13:(a)(i):2",
+   "from": "2020-Q13",
+   "q": "A linear search runs on names = [\"John\", \"Mary\", \"Zoe\", \"Alex\", \"Séamas\"], which is not in alphabetical order. Will it still find a name that is in the list?",
+   "right": "Yes: it checks every name in turn",
+   "wrong": [
+    "No: the list must be sorted first",
+    "Only if the name is in the first half",
+    "Yes: it jumps to the middle and halves"
+   ],
+   "why": "A linear search compares the target with each item in turn, so the order of the list doesn't matter. Only binary search needs the data sorted.",
+   "hook": "Unsorted list: linear search. Sorted list: binary search can be used.",
+   "keys": [
+    "the order of the list doesn't matter",
+    "Only binary search needs the data sorted"
+   ]
+  },
+  {
+   "id": "2020-Q13:(a)(iii):1",
+   "from": "2020-Q13",
+   "q": "names = [\"John\", \"Mary\", \"Zoe\", \"Alex\", \"Séamas\"]. A linear search starts at index = 0, adds 1 to index after each miss and stops when found. Searching for Zoe, what does `print(\"Result:\", index)` show?",
+   "right": "Result: 2",
+   "wrong": [
+    "Result: 3",
+    "Result: 5",
+    "Result: True"
+   ],
+   "why": "index 0: John, no, index becomes 1. index 1: Mary, no, index becomes 2. index 2: Zoe, found = True, so index stays 2 and the loop ends: Result: 2.",
+   "hook": "Python counts from 0: the third name is at index 2.",
+   "keys": [
+    "index 2: Zoe, found = True"
+   ]
+  },
+  {
+   "id": "2020-Q13:(a)(iii):2",
+   "from": "2020-Q13",
+   "q": "Linear search loop: `while (not found) and (index != len(names))`, with 5 names. At index 2 it matches Zoe and sets found = True. Why does the loop then stop?",
+   "right": "`not found` is now False",
+   "wrong": [
+    "index has reached len(names)",
+    "index has gone past the last name",
+    "The loop always runs 5 times"
+   ],
+   "why": "With found = True, `not found` is False, so the whole 'and' condition is False and the loop ends with index still 2. index != len(names) is still True (2 ≠ 5).",
+   "hook": "An 'and' loop stops as soon as either half is False.",
+   "keys": [
+    "`not found` is False",
+    "index != len(names) is still True"
+   ]
+  },
+  {
+   "id": "2020-Q13:(a)(iv):1",
+   "from": "2020-Q13",
+   "q": "Linear search on names = [\"John\", \"Mary\", \"Zoe\", \"Alex\", \"Séamas\"]: `while (not found) and (index != len(names))`, adding 1 to index (from 0) after each miss. The name entered is not in the list. What is index at the end?",
+   "right": "5",
+   "wrong": [
+    "4",
+    "6",
+    "−1"
+   ],
+   "why": "Every name misses, so index goes 0 → 1 → 2 → 3 → 4 → 5. At 5, index != len(names) is False (5 = 5) and the loop stops.",
+   "hook": "Not found: index ends one past the last index, at len(names).",
+   "keys": [
+    "0 → 1 → 2 → 3 → 4 → 5"
+   ]
+  },
+  {
+   "id": "2020-Q13:(a)(v):1",
+   "from": "2020-Q13",
+   "q": "What is the worst-case time complexity of a linear search on a list of n items?",
+   "right": "O(n)",
+   "wrong": [
+    "O(1)",
+    "O(log n)",
+    "O(n²)"
+   ],
+   "why": "In the worst case every one of the n items is compared: n comparisons, so the time grows in direct proportion to the length of the list: O(n).",
+   "hook": "Double the list, double the work: O(n).",
+   "keys": [
+    "n comparisons"
+   ]
+  },
+  {
+   "id": "2020-Q13:(a)(v):2",
+   "from": "2020-Q13",
+   "q": "When does a linear search on a list of n names do the most work (its worst case)?",
+   "right": "The name is not in the list: n comparisons",
+   "wrong": [
+    "The name is first: 1 comparison",
+    "The name is in the middle: n/2 comparisons",
+    "The list is unsorted: n² comparisons"
+   ],
+   "why": "The worst case is the input that needs the most work: a name that is missing (or last), so all n names are checked before it stops.",
+   "hook": "Best case: the first item. Worst case: the last item, or missing.",
+   "keys": [
+    "a name that is missing (or last)",
+    "all n names are checked"
+   ]
+  },
+  {
+   "id": "2020-Q13:(b)(i):1",
+   "from": "2020-Q13",
+   "q": "Binary search is generally regarded as a highly efficient search algorithm. State one disadvantage of binary search.",
+   "right": "The data must be sorted (and kept sorted)",
+   "wrong": [
+    "It must check every item one by one",
+    "It is slower than linear search on big lists",
+    "It cannot search a list of odd length"
+   ],
+   "why": "Binary search checks the middle item and throws away the half the target can't be in. That only works if the list is in order, so the data must be sorted first and kept sorted.",
+   "hook": "No order, no halving: binary search needs sorted data.",
+   "keys": [
+    "only works if the list is in order"
+   ]
+  },
+  {
+   "id": "2020-Q13:(b)(ii):1",
+   "from": "2020-Q13",
+   "q": "Binary search for 28 in L = [3, 7, 13, 18, 28, 35, 41, 50] (indexes 0 to 7). left = 0, right = 7, mid = 3 and L[3] = 18. What are left and right for the next step?",
+   "right": "left = 4, right = 7",
+   "wrong": [
+    "left = 3, right = 7",
+    "left = 0, right = 2",
+    "left = 0, right = 3"
+   ],
+   "why": "28 > 18, so 28 must be to the right of mid: the left half is dismissed, left = mid + 1 = 4 and right stays 7.",
+   "hook": "Target bigger than the middle? Move left to mid + 1.",
+   "keys": [
+    "28 > 18",
+    "left = mid + 1 = 4"
+   ]
+  },
+  {
+   "id": "2020-Q13:(b)(ii):2",
+   "from": "2020-Q13",
+   "q": "Binary search for 28 in L = [3, 7, 13, 18, 28, 35, 41, 50] (indexes 0 to 7). Now left = 4 and right = 7, and `mid = (left + right) // 2`. Which item is checked next?",
+   "right": "mid = 5, L[5] = 35",
+   "wrong": [
+    "mid = 5, L[5] = 28",
+    "mid = 3, L[3] = 18",
+    "mid = 2, L[2] = 13"
+   ],
+   "why": "(4 + 7) // 2 = 11 // 2 = 5, and L[5] = 35, counting from index 0. 28 < 35, so then right = 4, mid = 4 and L[4] = 28 is found.",
+   "hook": "Count indexes from 0: L[5] is the 6th item.",
+   "keys": [
+    "(4 + 7) // 2 = 11 // 2 = 5",
+    "L[5] = 35"
+   ]
+  },
+  {
+   "id": "2020-Q13:(b)(ii):3",
+   "from": "2020-Q13",
+   "q": "Binary search for 28 in L = [3, 7, 13, 18, 28, 35, 41, 50] (indexes 0 to 7), with `mid = (left + right) // 2`. How many comparisons does it make, and at which index does it find 28?",
+   "right": "3 comparisons, index 4",
+   "wrong": [
+    "5 comparisons, index 4",
+    "3 comparisons, index 5",
+    "4 comparisons, index 4"
+   ],
+   "why": "It compares 28 with L[3] = 18 (go right), L[5] = 35 (go left), then L[4] = 28: found at index 4 after 3 comparisons. A linear search would need 5.",
+   "hook": "Each comparison throws away half of what's left.",
+   "keys": [
+    "found at index 4 after 3 comparisons"
+   ]
+  },
+  {
+   "id": "2020-Q13:(b)(iii):1",
+   "from": "2020-Q13",
+   "q": "What is the maximum number of comparisons binary search would need if the value searched for is not in a sorted list of 8 items?",
+   "right": "4",
+   "wrong": [
+    "3",
+    "8",
+    "5"
+   ],
+   "why": "Each comparison halves the items still in play: 8 → 4 → 2 → 1. The last single item still needs a comparison, so log₂ 8 + 1 = 3 + 1 = 4.",
+   "hook": "Halve until one item is left, then check it: log₂ n + 1.",
+   "keys": [
+    "8 → 4 → 2 → 1",
+    "log₂ 8 + 1 = 3 + 1 = 4"
+   ]
+  },
+  {
+   "id": "2020-Q13:(b)(iii):2",
+   "from": "2020-Q13",
+   "q": "Binary search on L = [3, 7, 13, 18, 28, 35, 41, 50] (indexes 0 to 7) with `mid = (left + right) // 2`, looking for 60, which is not in L. Which values does it compare 60 with?",
+   "right": "18, 35, 41, 50",
+   "wrong": [
+    "18, 35, 41",
+    "28, 41, 50",
+    "3, 7, 13, 18, 28, 35, 41, 50"
+   ],
+   "why": "mid = 3 (18), then 5 (35), then 6 (41), then 7 (50). 60 is bigger each time, so left passes right and the search stops: 4 comparisons, not found.",
+   "hook": "Not found: keep halving until left passes right.",
+   "keys": [
+    "4 comparisons, not found"
+   ]
+  },
+  {
+   "id": "2020-Q13:(c):1",
+   "from": "2020-Q13",
+   "q": "Why is the study of algorithmic efficiency considered to be important in computer science?",
+   "right": "To compare algorithms and choose the best one",
+   "wrong": [
+    "To prove an algorithm gives the right answer",
+    "To find which programming language is fastest",
+    "To make the code as short as possible"
+   ],
+   "why": "Measuring how time and memory grow with the input lets different algorithms for the same problem be compared, so the best one (fastest, least memory) is selected.",
+   "hook": "Efficiency: time and memory as the data grows.",
+   "keys": [
+    "different algorithms for the same problem be compared",
+    "fastest, least memory"
+   ]
+  },
+  {
+   "id": "2020-Q13:(c):2",
+   "from": "2020-Q13",
+   "q": "Worst case on 1,000,000 sorted items: how many comparisons does a linear search need, and about how many does a binary search need?",
+   "right": "1,000,000 and about 20",
+   "wrong": [
+    "1,000,000 and about 500,000",
+    "1,000,000 and about 6",
+    "500,000 and about 20"
+   ],
+   "why": "Linear search may check every item: 1,000,000. Binary search halves the list each time, and 2²⁰ ≈ 1,000,000, so about 20. The gap grows as data sets grow.",
+   "hook": "Halving a million takes only about 20 steps (2¹⁰ ≈ 1000).",
+   "keys": [
+    "2²⁰ ≈ 1,000,000, so about 20"
+   ]
+  },
+  {
+   "id": "2020-Q13:(c):3",
+   "from": "2020-Q13",
+   "q": "The study of algorithmic efficiency looks at how the time an algorithm takes grows with the size of its input. What else does it measure?",
+   "right": "The memory (space) the algorithm uses",
+   "wrong": [
+    "The number of lines of code",
+    "How readable the code is",
+    "How many comments the code has"
+   ],
+   "why": "The best algorithm for a problem is the fastest and/or the one using the least memory, so efficiency looks at both time and memory (space) as data sets grow.",
+   "hook": "Two costs: time and space.",
+   "keys": [
+    "both time and memory (space)"
+   ]
+  },
+  {
+   "id": "2021-Q5:(a):1",
+   "from": "2021-Q5",
+   "q": "Flowchart: count, total and n start at 0. While count < 3: INPUT n, total = total + n, count = count + 1. Then PRINT total/count. The inputs are 7, 3 and 8. What are total and count after the second input?",
+   "right": "total = 10, count = 2",
+   "wrong": [
+    "total = 3, count = 2",
+    "total = 18, count = 3",
+    "total = 7, count = 1"
+   ],
+   "why": "First input: total = 0 + 7 = 7, count = 1. Second input: total = 7 + 3 = 10, count = 2. total adds each n on; it doesn't replace it.",
+   "hook": "One trace-table row per loop: work each row from the row above.",
+   "keys": [
+    "total = 7 + 3 = 10, count = 2"
+   ]
+  },
+  {
+   "id": "2021-Q5:(a):2",
+   "from": "2021-Q5",
+   "q": "Flowchart: count starts at 0. While count < 3 it inputs n, adds n to total and adds 1 to count. How many times does the loop run?",
+   "right": "3 times",
+   "wrong": [
+    "2 times",
+    "4 times",
+    "Until 0 is input"
+   ],
+   "why": "count goes 0 → 1 → 2 → 3. The test count < 3 is TRUE for 0, 1 and 2 and FALSE at 3, so the loop runs 3 times: inputs 7, 3 and 8 give total 18.",
+   "hook": "Starting at 0, 'count < 3' means 0, 1, 2: three goes.",
+   "keys": [
+    "TRUE for 0, 1 and 2 and FALSE at 3"
+   ]
+  },
+  {
+   "id": "2021-Q5:(b):1",
+   "from": "2021-Q5",
+   "q": "Flowchart: count, total and n start at 0. While count < 3: INPUT n, total = total + n, count = count + 1. Then PRINT total/count. The inputs are 7, 3 and 8. What output does the algorithm display?",
+   "right": "6",
+   "wrong": [
+    "18",
+    "3",
+    "9"
+   ],
+   "why": "After the loop total = 7 + 3 + 8 = 18 and count = 3, so it prints total/count = 18/3 = 6.",
+   "hook": "Print the value, not the words: work out total/count.",
+   "keys": [
+    "18/3 = 6"
+   ]
+  },
+  {
+   "id": "2021-Q5:(b):2",
+   "from": "2021-Q5",
+   "q": "An algorithm adds up three input numbers in total, counts them in count, then prints total/count. What does it calculate?",
+   "right": "The mean (average) of the numbers",
+   "wrong": [
+    "The total of the numbers",
+    "The largest of the numbers",
+    "How many numbers were entered"
+   ],
+   "why": "Adding the inputs and dividing by how many there are gives the mean: for 7, 3 and 8 it prints 18/3 = 6.",
+   "hook": "Sum ÷ how many = mean.",
+   "keys": [
+    "gives the mean"
+   ]
+  },
+  {
+   "id": "2021-Q8:(a):1",
+   "from": "2021-Q8",
+   "q": "The Unicode code for the 'thumbs up' emoji is the hexadecimal number 1F44D. Explain why emoji characters are not represented using ASCII.",
+   "right": "ASCII's 7 bits allow only 128 characters",
+   "wrong": [
+    "Emojis are images, stored as bitmaps",
+    "ASCII uses 16 bits, too many for one emoji",
+    "ASCII can only store numbers, not symbols"
+   ],
+   "why": "ASCII is a 7-bit code: at most 2⁷ = 128 characters, chosen in 1963 for English text. 1F44D is 128,077 in denary, far past 127, so emojis use Unicode.",
+   "hook": "ASCII: 7 bits, 128 characters, 1963. Emojis: Unicode.",
+   "keys": [
+    "at most 2⁷ = 128 characters",
+    "1F44D is 128,077 in denary"
+   ]
+  },
+  {
+   "id": "2021-Q8:(a):2",
+   "from": "2021-Q8",
+   "q": "Emoji characters such as 'thumbs up' (1F44D) can't be stored in ASCII. Which character encoding is used for them instead?",
+   "right": "Unicode",
+   "wrong": [
+    "Extended ASCII",
+    "Hexadecimal",
+    "JPEG"
+   ],
+   "why": "Unicode gives a unique code to over a million possible characters, covering every writing system and emojis. Extended ASCII has only 256; hex is just a way of writing the number.",
+   "hook": "Uni-code: one code table for every character.",
+   "keys": [
+    "Unicode gives a unique code",
+    "Extended ASCII has only 256"
+   ]
+  },
+  {
+   "id": "2021-Q8:(b):1",
+   "from": "2021-Q8",
+   "q": "Express the hexadecimal number 1F44D as a binary number, using 4 bits for each hex digit.",
+   "right": "0001 1111 0100 0100 1101",
+   "wrong": [
+    "0001 1111 0100 0100 1110",
+    "0001 1111 0100 0100 1011",
+    "0001 1111 100 100 1101"
+   ],
+   "why": "1 = 0001, F = 15 = 1111, 4 = 0100, 4 = 0100, D = 13 = 8 + 4 + 1 = 1101. Keep all 4 bits in every group.",
+   "hook": "A = 10, B = 11, C = 12, D = 13, E = 14, F = 15.",
+   "keys": [
+    "D = 13 = 8 + 4 + 1 = 1101"
+   ]
+  },
+  {
+   "id": "2021-Q8:(b):2",
+   "from": "2021-Q8",
+   "q": "How many bits long is the binary form of the 5-digit hexadecimal number 1F44D, keeping every leading zero?",
+   "right": "20",
+   "wrong": [
+    "40",
+    "15",
+    "5"
+   ],
+   "why": "Each hex digit is exactly 4 bits (16 = 2⁴), so 5 digits × 4 bits = 20 bits: 0001 1111 0100 0100 1101.",
+   "hook": "Hex digit: 4 bits. Byte: 8 bits.",
+   "keys": [
+    "5 digits × 4 bits = 20 bits"
+   ]
+  },
+  {
+   "id": "2021-Q14:(a)(i):1",
+   "from": "2021-Q14",
+   "q": "Matchstick game: players take turns removing 1 or 2 matchsticks; whoever takes the last one wins. 1 and 2 are winning positions (W). Why is 3 a losing position (L)?",
+   "right": "Every move leaves the opponent a W position",
+   "wrong": [
+    "One move leaves the opponent an L position",
+    "3 is odd, and odd numbers are losing",
+    "The player could take all 3 and win"
+   ],
+   "why": "From 3 you must take 1 or 2. Taking 1 leaves 2 and taking 2 leaves 1, both winning positions for the opponent, who takes the rest. Every move loses.",
+   "hook": "L: every move hands them a W. W: some move hands them an L.",
+   "keys": [
+    "Taking 1 leaves 2 and taking 2 leaves 1"
+   ]
+  },
+  {
+   "id": "2021-Q14:(a)(ii):1",
+   "from": "2021-Q14",
+   "q": "Matchstick game: players take turns removing 1 or 2 matchsticks; whoever takes the last one wins. 1 and 2 are winning positions (W) and 3 is a losing position (L). Why is 4 a winning position?",
+   "right": "Take 1: the opponent is left with 3, an L",
+   "wrong": [
+    "Take 2: the opponent is left with 2, an L",
+    "4 is even, and even numbers win",
+    "Every move leaves the opponent a W"
+   ],
+   "why": "From 4, taking 1 leaves the opponent 3, a losing position: whatever they take, you take the rest. One move to an L is enough to make 4 a W.",
+   "hook": "Find one move that leaves them an L.",
+   "keys": [
+    "taking 1 leaves the opponent 3, a losing position"
+   ]
+  },
+  {
+   "id": "2021-Q14:(a)(iii):1",
+   "from": "2021-Q14",
+   "q": "Matchstick game: players take turns removing 1 or 2 matchsticks; whoever takes the last one wins. Positions 0 to 4 are L W W L W (W winning, L losing). Are 5 and 6 winning or losing positions?",
+   "right": "5 is W, 6 is L",
+   "wrong": [
+    "5 is L, 6 is W",
+    "5 is W, 6 is W",
+    "5 is L, 6 is L"
+   ],
+   "why": "5: take 2 to leave 3, an L for the opponent, so 5 is W. 6: taking 1 leaves 5 (W) and taking 2 leaves 4 (W), so every move helps the opponent: 6 is L.",
+   "hook": "Look back 1 and 2 places: an L there makes it a W.",
+   "keys": [
+    "take 2 to leave 3",
+    "every move helps the opponent"
+   ]
+  },
+  {
+   "id": "2021-Q14:(a)(iii):2",
+   "from": "2021-Q14",
+   "q": "Matchstick game: players take turns removing 1 or 2 matchsticks; whoever takes the last one wins. Positions 0 to 4 are L W W L W (W winning, L losing). It is your turn with 5 matchsticks left. Which move wins?",
+   "right": "Take 2, leaving 3",
+   "wrong": [
+    "Take 1, leaving 4",
+    "Either move wins",
+    "No move wins: 5 is L"
+   ],
+   "why": "Taking 2 leaves 3, a losing position for the opponent. Taking 1 would leave 4, which is a winning position for them.",
+   "hook": "Aim to leave your opponent on an L.",
+   "keys": [
+    "Taking 2 leaves 3"
+   ]
+  },
+  {
+   "id": "2021-Q14:(a)(iv):1",
+   "from": "2021-Q14",
+   "q": "Matchstick game: players take turns removing 1 or 2 matchsticks; whoever takes the last one wins. The losing positions are 0, 3, 6, 9, … A new game starts with 21 matchsticks. Would you choose to go first or second?",
+   "right": "Second: 21 is a multiple of 3, an L",
+   "wrong": [
+    "First: take 1 to leave 20",
+    "Second: 21 is an odd number",
+    "First: 21 is a multiple of 3, a W"
+   ],
+   "why": "All multiples of 3 are losing positions, and 21 = 3 × 7, so whoever moves first from 21 loses against good play. Ask the opponent to go first.",
+   "hook": "A multiple of 3 in front of you at your turn means trouble.",
+   "keys": [
+    "21 = 3 × 7"
+   ]
+  },
+  {
+   "id": "2021-Q14:(a)(v):1",
+   "from": "2021-Q14",
+   "q": "Matchstick game: players take turns removing 1 or 2 matchsticks; whoever takes the last one wins. Multiples of 3 are losing positions. What strategy would you recommend in a game that starts with 20 matchsticks?",
+   "right": "Go first, take 2, then make 3 each round",
+   "wrong": [
+    "Go first, take 1, then copy what they take",
+    "Go second, then make 3 each round",
+    "Go first, take 2, then copy what they take"
+   ],
+   "why": "20 is not a multiple of 3, so go first and take 2 to leave 18 = 3 × 6. Then take 3 minus what they take (they take 1, you take 2), so they always face a multiple of 3.",
+   "hook": "You and them together: always 3 per round.",
+   "keys": [
+    "take 2 to leave 18 = 3 × 6",
+    "take 3 minus what they take"
+   ]
+  },
+  {
+   "id": "2021-Q14:(a)(v):2",
+   "from": "2021-Q14",
+   "q": "Matchstick game: players take turns removing 1 or 2 matchsticks; whoever takes the last one wins. Multiples of 3 are losing positions. You left 18; your opponent takes 1, leaving 17. How many should you take?",
+   "right": "2, leaving 15",
+   "wrong": [
+    "1, leaving 16",
+    "Either: 16 and 15 both lose",
+    "3, leaving 14"
+   ],
+   "why": "Keep handing over a multiple of 3: 17 − 2 = 15 = 3 × 5. Taking 1 would leave 16, a winning position for them, and taking 3 is against the rules.",
+   "hook": "They take 1, you take 2; they take 2, you take 1.",
+   "keys": [
+    "17 − 2 = 15 = 3 × 5"
+   ]
+  },
+  {
+   "id": "2021-Q14:(a)(vi):1",
+   "from": "2021-Q14",
+   "q": "Matchstick game with a new rule: take 1, 2 or 3 matchsticks per turn; whoever takes the last one wins. 0 is a losing position (L). Which of the positions 1 to 9 are also L?",
+   "right": "4 and 8",
+   "wrong": [
+    "3, 6 and 9",
+    "2, 4, 6 and 8",
+    "3 and 7"
+   ],
+   "why": "1, 2 and 3 are W (take them all). 4 is L: every move leaves 3, 2 or 1. 5, 6, 7 are W (move to 4); 8 is L; 9 is W. The losing positions are now multiples of 4.",
+   "hook": "Take up to k each turn: the losing positions are the multiples of k + 1.",
+   "keys": [
+    "4 is L: every move leaves 3, 2 or 1",
+    "multiples of 4"
+   ]
+  },
+  {
+   "id": "2021-Q14:(a)(vi):2",
+   "from": "2021-Q14",
+   "q": "Matchstick game: take 1, 2 or 3 per turn; whoever takes the last one wins. The losing positions up to 9 are 0, 4 and 8. Is 9 a winning (W) or losing (L) position?",
+   "right": "W: take 1 to leave 8, an L",
+   "wrong": [
+    "L: 9 is a multiple of 3",
+    "W: take 3 to leave 6, an L",
+    "L: every move leaves a W"
+   ],
+   "why": "From 9, taking 1 leaves 8, a losing position for the opponent, so 9 is W. 6 is a W in this game: multiples of 3 only lost when 3 couldn't be taken.",
+   "hook": "Change the rule, redo the table: the old pattern doesn't carry over.",
+   "keys": [
+    "taking 1 leaves 8"
+   ]
+  },
+  {
+   "id": "2021-Q14:(b)(i):1",
+   "from": "2021-Q14",
+   "q": "Two piles X and Y; a turn removes any number from one pile; taking the last matchstick wins. From (1, 2), player A takes both matchsticks from pile Y (AY2). What happens next?",
+   "right": "(1, 0): B takes the last one and wins",
+   "wrong": [
+    "(1, 0): A takes the last one and wins",
+    "(0, 2): B takes both and wins",
+    "Pile Y is empty, so A wins at once"
+   ],
+   "why": "AY2 leaves (1, 0). It is B's turn, and B's only move is BX1, to (0, 0): B takes the last matchstick and wins.",
+   "hook": "Write (X, Y) after every move and check whose turn it is.",
+   "keys": [
+    "AY2 leaves (1, 0)",
+    "B's only move is BX1"
+   ]
+  },
+  {
+   "id": "2021-Q14:(b)(i):2",
+   "from": "2021-Q14",
+   "q": "Two piles X and Y; a turn removes any number from one pile; taking the last matchstick wins. From (1, 2), A takes 1 from pile Y (AY1), leaving (1, 1). Who wins?",
+   "right": "A, whichever matchstick B takes",
+   "wrong": [
+    "B: B takes both remaining matchsticks",
+    "It depends on which one B takes",
+    "B, whichever matchstick A takes next"
+   ],
+   "why": "From (1, 1) B can only take from one pile: BX1 → (0, 1) or BY1 → (1, 0). Either way A takes the last matchstick, reaching (0, 0): A wins.",
+   "hook": "One pile per turn: B can't clear both piles at once.",
+   "keys": [
+    "BX1 → (0, 1) or BY1 → (1, 0)"
+   ]
+  },
+  {
+   "id": "2021-Q14:(b)(i):3",
+   "from": "2021-Q14",
+   "q": "Two piles X and Y; a turn removes any number from one pile; taking the last matchstick wins. A game tree from (1, 2), with A to move, shows every possible game to the end. How many paths does it have, and how many does A win?",
+   "right": "5 paths; A wins 3",
+   "wrong": [
+    "5 paths; A wins 2",
+    "3 paths; A wins 1",
+    "6 paths; A wins 3"
+   ],
+   "why": "AX1 → (0, 2): BY1 then AY1 (A wins) or BY2 (B wins). AY1 → (1, 1): both B moves, then A wins. AY2 → (1, 0): BX1, B wins. 5 paths, 3 won by A.",
+   "hook": "List A's moves, then B's replies to each, down to (0, 0).",
+   "keys": [
+    "5 paths, 3 won by A"
+   ]
+  },
+  {
+   "id": "2021-Q14:(b)(ii):1",
+   "from": "2021-Q14",
+   "q": "Two piles X and Y; a turn removes any number from one pile; taking the last matchstick wins. From (1, 2), A can play AX1, AY1 or AY2. Which is A's best move, and why?",
+   "right": "AY1: every reply by B leads to A winning",
+   "wrong": [
+    "AX1: it empties pile X",
+    "AY2: it empties pile Y",
+    "Any move: A always wins from (1, 2)"
+   ],
+   "why": "AY1 leaves (1, 1): whatever B takes, A takes the last one, so it is the only move that guarantees victory. AX1 loses to BY2 and AY2 loses to BX1.",
+   "hook": "Best move: the one where every reply still loses for them.",
+   "keys": [
+    "the only move that guarantees victory",
+    "AX1 loses to BY2"
+   ]
+  },
+  {
+   "id": "2021-Q14:(b)(iii):1",
+   "from": "2021-Q14",
+   "q": "Two piles X and Y; a turn removes any number from one pile; taking the last matchstick wins. It is your turn at (2, 3). Describe a winning move.",
+   "right": "Take 1 from Y, leaving (2, 2)",
+   "wrong": [
+    "Take 2 from X, leaving (0, 3)",
+    "Take 3 from Y, leaving (2, 0)",
+    "Take 1 from X, leaving (1, 3)"
+   ],
+   "why": "AY1 leaves (2, 2). If B takes a whole pile, A takes the other; if B takes 1, leaving (1, 2) or (2, 1), A plays to (1, 1) and wins. Equal piles lose for the player to move.",
+   "hook": "Leave your opponent equal piles.",
+   "keys": [
+    "AY1 leaves (2, 2)",
+    "Equal piles lose for the player to move"
+   ]
+  },
+  {
+   "id": "2021-Q14:(b)(iv):1",
+   "from": "2021-Q14",
+   "q": "Two piles X and Y; a turn removes any number from one pile; taking the last matchstick wins. Describe a winning strategy from (n, m), where the piles are unequal and m > n.",
+   "right": "Take m − n from the bigger pile, then copy",
+   "wrong": [
+    "Take the whole of the bigger pile",
+    "Take m − n from the smaller pile",
+    "Empty the smaller pile first"
+   ],
+   "why": "Taking m − n evens the piles to (n, n). Then copy the opponent on the other pile: whatever they take from one, you take from the other, so you take the last matchstick.",
+   "hook": "Even the piles, then copy them on the other pile.",
+   "keys": [
+    "Taking m − n evens the piles to (n, n)"
+   ]
+  },
+  {
+   "id": "2021-Q14:(b)(iv):2",
+   "from": "2021-Q14",
+   "q": "Two piles X and Y; a turn removes any number from one pile; taking the last matchstick wins. The piles are (4, 9) and it is your turn. What is the winning move?",
+   "right": "Take 5 from the 9, leaving (4, 4)",
+   "wrong": [
+    "Take 4 from the 9, leaving (4, 5)",
+    "Take all 9, leaving (4, 0)",
+    "Take all 4, leaving (0, 9)"
+   ],
+   "why": "The difference is 9 − 4 = 5, so take 5 from the bigger pile to leave equal piles, (4, 4), a losing position for your opponent.",
+   "hook": "Take the difference from the bigger pile.",
+   "keys": [
+    "9 − 4 = 5"
+   ]
+  },
+  {
+   "id": "2021-Q14:(b)(v):1",
+   "from": "2021-Q14",
+   "q": "Three piles; a turn removes any number from one pile; taking the last matchstick wins. Two equal piles (n, n) lose for the player to move. Why is (3, 3, 3) a winning position?",
+   "right": "Take a whole pile, leaving (3, 3)",
+   "wrong": [
+    "Take 1 from each pile, leaving (2, 2, 2)",
+    "Take 1 from one pile, leaving (2, 3, 3)",
+    "Equal piles always win for the mover"
+   ],
+   "why": "Remove one whole pile: the opponent faces (3, 3), two equal piles, a losing position. Then copy their moves on the other pile. Taking from two piles at once isn't allowed.",
+   "hook": "Three equal piles? Make it two.",
+   "keys": [
+    "Remove one whole pile",
+    "a losing position"
+   ]
+  },
+  {
+   "id": "2021-Q14:(c):1",
+   "from": "2021-Q14",
+   "q": "In the matchstick game, working out W or L for 0, 1, 2, … showed that the losing positions are 0, 3, 6, 9, … Spotting this is which computational thinking skill?",
+   "right": "Pattern recognition",
+   "wrong": [
+    "Abstraction",
+    "Decomposition",
+    "Algorithm design"
+   ],
+   "why": "Pattern recognition spots repeating features: every multiple of 3 is L. That gives the strategy for 21 and 20 matchsticks without working out every position.",
+   "hook": "Spot it once, use it everywhere.",
+   "keys": [
+    "every multiple of 3 is L"
+   ]
+  },
+  {
+   "id": "2021-Q14:(c):2",
+   "from": "2021-Q14",
+   "q": "In the two-pile matchstick game, writing (1, 2) for the piles, A and B for the players and AX1 for a move, instead of drawing real matchsticks, is which computational thinking skill?",
+   "right": "Abstraction",
+   "wrong": [
+    "Decomposition",
+    "Pattern recognition",
+    "Algorithm design"
+   ],
+   "why": "Abstraction ignores the details that don't matter (what the matchsticks look like) and keeps what does: how many are in each pile, whose turn it is and the move.",
+   "hook": "Abstraction: keep the numbers, drop the matchsticks.",
+   "keys": [
+    "ignores the details that don't matter"
+   ]
+  },
+  {
+   "id": "2021-Q14:(c):3",
+   "from": "2021-Q14",
+   "q": "In the matchstick game, starting from 0 matchsticks (a losing position) and working out W or L one position at a time to build up a strategy is which computational thinking skill?",
+   "right": "Decomposition",
+   "wrong": [
+    "Abstraction",
+    "Pattern recognition",
+    "Heuristics"
+   ],
+   "why": "Decomposition breaks the big problem (who wins from 21?) into small ones, one position at a time from 0 upwards, and builds the strategy from their answers.",
+   "hook": "Decompose: break it into small steps you can solve.",
+   "keys": [
+    "breaks the big problem"
+   ]
+  },
+  {
+   "id": "2022-Q5::1",
+   "from": "2022-Q5",
+   "q": "A solution is an acid if its pH is below 7, a base if above 7, and neutral otherwise. Flowchart: INPUT pH, then decision A, whose TRUE arrow leads to OUTPUT \"Acid\". What goes in decision A?",
+   "right": "pH < 7",
+   "wrong": [
+    "pH > 7",
+    "pH ≤ 7",
+    "pH = 7"
+   ],
+   "why": "A's TRUE arrow outputs \"Acid\", so A must test for an acid: pH < 7. pH ≤ 7 would wrongly call a neutral pH of 7 an acid.",
+   "hook": "Read the TRUE arrow to work out the question in the diamond.",
+   "keys": [
+    "A must test for an acid: pH < 7"
+   ]
+  },
+  {
+   "id": "2022-Q5::2",
+   "from": "2022-Q5",
+   "q": "Flowchart: decision pH < 7 has its TRUE arrow to OUTPUT \"Acid\" and arrow B down to decision pH > 7. From pH > 7, arrow C goes across to output D; its downward arrow is FALSE. What are B and C labelled?",
+   "right": "B: FALSE, C: TRUE",
+   "wrong": [
+    "B: TRUE, C: FALSE",
+    "B: TRUE, C: TRUE",
+    "B: FALSE, C: FALSE"
+   ],
+   "why": "A diamond has one TRUE and one FALSE arrow. The pH < 7 TRUE arrow goes to \"Acid\", so B is FALSE. The pH > 7 down arrow is FALSE, so C is TRUE.",
+   "hook": "Every diamond: one TRUE exit and one FALSE exit.",
+   "keys": [
+    "so B is FALSE",
+    "so C is TRUE"
+   ]
+  },
+  {
+   "id": "2022-Q5::3",
+   "from": "2022-Q5",
+   "q": "Flowchart for acid (pH < 7), base (pH > 7) or neutral: when pH < 7 is FALSE comes decision pH > 7. Its TRUE arrow goes to output D and its FALSE arrow to output E. What do D and E show?",
+   "right": "D: OUTPUT \"Base\", E: OUTPUT \"Neutral\"",
+   "wrong": [
+    "D: OUTPUT \"Neutral\", E: OUTPUT \"Base\"",
+    "D: OUTPUT \"Base\", E: OUTPUT \"Acid\"",
+    "D: OUTPUT \"Acid\", E: OUTPUT \"Neutral\""
+   ],
+   "why": "pH > 7 TRUE means a base, so D outputs \"Base\". Reaching E means pH is neither below nor above 7: it is 7, so E outputs \"Neutral\".",
+   "hook": "The last FALSE exit catches whatever is left over.",
+   "keys": [
+    "pH > 7 TRUE means a base"
+   ]
+  },
+  {
+   "id": "2022-Q10:(a):1",
+   "from": "2022-Q10",
+   "q": "You have 8 identical-looking coins: 7 genuine and 1 fake that is heavier. Using a two-pan scales, what is the minimum number of weighings that always finds the fake?",
+   "right": "2",
+   "wrong": [
+    "3",
+    "4",
+    "6"
+   ],
+   "why": "A weighing has three results (left down, right down, balance), so split 8 into 3 + 3 + 2. At most 3 coins are left after one weighing, and one more weighing finds the fake: 2.",
+   "hook": "A scales gives 3 answers: split into 3 groups, not 2.",
+   "keys": [
+    "split 8 into 3 + 3 + 2"
+   ]
+  },
+  {
+   "id": "2022-Q10:(a):2",
+   "from": "2022-Q10",
+   "q": "8 coins, one of them a heavier fake, and a two-pan scales. To find the fake in the fewest weighings, what is the first weighing?",
+   "right": "3 coins against 3, with 2 kept aside",
+   "wrong": [
+    "4 coins against 4",
+    "1 coin against 1, with 6 kept aside",
+    "2 coins against 2, with 4 kept aside"
+   ],
+   "why": "3 v 3 leaves at most 3 suspects (the heavier 3, or the 2 aside if it balances), which one more weighing settles. 4 v 4 leaves 4 suspects and needs 3 weighings in all.",
+   "hook": "Split into thirds: 3, 3 and 2.",
+   "keys": [
+    "3 v 3 leaves at most 3 suspects",
+    "needs 3 weighings in all"
+   ]
+  },
+  {
+   "id": "2022-Q10:(a):3",
+   "from": "2022-Q10",
+   "q": "8 coins, one a heavier fake. Weighing 1: 3 coins against 3, and the left pan goes down. Weighing 2: two of the left pan's coins, one on each pan, and they balance. Which coin is fake?",
+   "right": "The third coin from the left pan",
+   "wrong": [
+    "Either of the two just weighed",
+    "One of the 2 coins kept aside",
+    "Can't tell without a third weighing"
+   ],
+   "why": "The fake is in the heavier 3. If two of them balance, both are genuine, so the fake is the third coin, not weighed. Had they not balanced, the heavier one would be fake.",
+   "hook": "Balance means both coins are genuine.",
+   "keys": [
+    "both are genuine",
+    "the third coin, not weighed"
+   ]
+  },
+  {
+   "id": "2022-Q10:(b):1",
+   "from": "2022-Q10",
+   "q": "8 gold-plated €2 coins, all exactly the same diameter and circumference; one is a heavier fake. Outline your use of abstraction: which details do you ignore?",
+   "right": "The gold plating, size and €2 value",
+   "wrong": [
+    "The weight of each coin",
+    "Which pan of the scales goes down",
+    "How many coins there are"
+   ],
+   "why": "Abstraction ignores the details that make no difference, here the gold plating, diameter, circumference and €2 value, and focuses on what matters: each coin's weight.",
+   "hook": "Abstraction: drop what doesn't change the answer.",
+   "keys": [
+    "ignores the details that make no difference"
+   ]
+  },
+  {
+   "id": "2022-Q11:(a):1",
+   "from": "2022-Q11",
+   "q": "Honey bees: a male (M) has only a mother (F); a female (F) has a mother and a father (F and M). Generation 5 of a bee's family tree is F M F M F. How many bees are in generation 6?",
+   "right": "8",
+   "wrong": [
+    "10",
+    "5",
+    "7"
+   ],
+   "why": "Each of the 3 females has 2 parents and each of the 2 males has 1: 3 × 2 + 2 × 1 = 8. Generation 6 is F M, F, F M, F, F M.",
+   "hook": "Females: 2 parents. Males: 1 parent, a mother.",
+   "keys": [
+    "3 × 2 + 2 × 1 = 8"
+   ]
+  },
+  {
+   "id": "2022-Q11:(a):2",
+   "from": "2022-Q11",
+   "q": "Honey bees: a male (M) has only a mother (F); a female (F) has a mother and a father (F and M). Generation 6 of a bee's family tree has 5 females and 3 males. How many bees are in generation 7, and how many of them are male?",
+   "right": "13 bees, 5 male",
+   "wrong": [
+    "13 bees, 8 male",
+    "16 bees, 8 male",
+    "11 bees, 3 male"
+   ],
+   "why": "Each female gives a mother and a father, each male a mother: 5 × 2 + 3 × 1 = 13 bees. Only the 5 females have fathers, so 5 are male and 8 female.",
+   "hook": "Every bee has a mother; only females also have a father.",
+   "keys": [
+    "5 × 2 + 3 × 1 = 13 bees",
+    "Only the 5 females have fathers"
+   ]
+  },
+  {
+   "id": "2022-Q11:(b):1",
+   "from": "2022-Q11",
+   "q": "The numbers of bees in generations 1 to 7 of a honey bee's family tree are 1, 1, 2, 3, 5, 8, 13. Describe the pattern that models the number in any generation.",
+   "right": "The sum of the previous two generations",
+   "wrong": [
+    "Double the previous generation",
+    "The previous generation plus 2",
+    "Add 1, then 2, then 3, and so on"
+   ],
+   "why": "Each number is the sum of the two before it: 2 = 1 + 1, 3 = 1 + 2, 5 = 2 + 3, 8 = 3 + 5, 13 = 5 + 8. This is the Fibonacci sequence.",
+   "hook": "Fibonacci: add the last two to get the next.",
+   "keys": [
+    "the sum of the two before it",
+    "Fibonacci sequence"
+   ]
+  },
+  {
+   "id": "2022-Q11:(b):2",
+   "from": "2022-Q11",
+   "q": "The numbers of bees in generations 1 to 7 of a honey bee's family tree are 1, 1, 2, 3, 5, 8, 13. Following the same pattern, how many bees are in generation 8?",
+   "right": "21",
+   "wrong": [
+    "26",
+    "18",
+    "13"
+   ],
+   "why": "Each generation is the sum of the previous two: generation 8 = 8 + 13 = 21. Doubling 13 would give 26, but males have only one parent.",
+   "hook": "Next = the last one + the one before it.",
+   "keys": [
+    "generation 8 = 8 + 13 = 21"
+   ]
+  },
+  {
+   "id": "2022-Q12::1",
+   "from": "2022-Q12",
+   "q": "A Turing machine's arrows are labelled (read, write): S0 (0,0)→S2 and S2 (1,0)→S1. It starts in S0 on the tape 0110B, head on the first 0, and moves one cell right after each step. What are the state and tape after 2 steps?",
+   "right": "S1, 0010B",
+   "wrong": [
+    "S1, 0110B",
+    "S2, 0010B",
+    "S2, 0110B"
+   ],
+   "why": "Step 1: S0 reads 0, writes 0 and goes to S2. Step 2: S2 reads 1, writes 0 and goes to S1, so the tape becomes 0010B.",
+   "hook": "Each step: read, write, change state, move right.",
+   "keys": [
+    "S2 reads 1, writes 0 and goes to S1"
+   ]
+  },
+  {
+   "id": "2022-Q12::2",
+   "from": "2022-Q12",
+   "q": "A Turing machine is in state S1 with tape 0010B, head on the third cell (a 1). Arrows from S1, labelled (read, write): (1,1) loops back to S1; (0,1) goes to S2. The head moves right after each step. What are the state and tape 2 steps later?",
+   "right": "S2, 0011B",
+   "wrong": [
+    "S2, 0010B",
+    "S1, 0011B",
+    "S1, 0010B"
+   ],
+   "why": "Step 3: S1 reads 1, writes 1 and stays in S1 (tape 0010B). Step 4: S1 reads 0, writes 1 and goes to S2: tape 0011B. Then B takes it to S3.",
+   "hook": "A loop arrow still counts as a step: write out the whole tape.",
+   "keys": [
+    "S1 reads 0, writes 1 and goes to S2"
+   ]
+  },
+  {
+   "id": "2022-Q14:(a)(i):1",
+   "from": "2022-Q14",
+   "q": "Selection sort with two lists: repeat N times: move the smallest element of list1 to the next place in list2. list1 starts as [15, 28, 14, 21]. After pass 1, list1 = 15, 28, 21 and list2 = 14. What are they after pass 2?",
+   "right": "list1: 28, 21; list2: 14, 15",
+   "wrong": [
+    "list1: 15, 21; list2: 14, 28",
+    "list1: 15, 28, 21; list2: 14, 15",
+    "list1: 28, 21; list2: 15, 14"
+   ],
+   "why": "The smallest left in list1 (15, 28, 21) is 15. Moving it takes it out of list1 and adds it to list2: list1 = 28, 21 and list2 = 14, 15.",
+   "hook": "Move: take it out of list1 and put it next in list2.",
+   "keys": [
+    "The smallest left in list1 (15, 28, 21) is 15"
+   ]
+  },
+  {
+   "id": "2022-Q14:(a)(i):2",
+   "from": "2022-Q14",
+   "q": "Selection sort with two lists: repeat N times: move the smallest element of list1 to the next place in list2. list1 = [15, 28, 14, 21], so N = 4. How many passes are made, and what is left in list1 at the end?",
+   "right": "4 passes; list1 is empty",
+   "wrong": [
+    "3 passes; list1 holds 28",
+    "4 passes; list1 still holds all 4",
+    "3 passes; list1 is empty"
+   ],
+   "why": "It repeats N = 4 times: 14, then 15, then 21, then 28 move across. list1 ends empty and list2 = 14, 15, 21, 28.",
+   "hook": "Two lists: N passes, one element moved each time.",
+   "keys": [
+    "14, then 15, then 21, then 28"
+   ]
+  },
+  {
+   "id": "2022-Q14:(a)(ii):1",
+   "from": "2022-Q14",
+   "q": "Two-list selection sort: step 4 selects the smallest (minimum) element of list1 and step 5 moves it to list2, so list2 ends in ascending order. What change makes it sort in descending order?",
+   "right": "Select the largest (maximum) element instead",
+   "wrong": [
+    "Repeat the loop N − 1 times instead",
+    "Copy the smallest element, not move it",
+    "Select the last element of list1 instead"
+   ],
+   "why": "The order of list2 depends on which element is picked each pass. Picking the largest each time in steps 4 and 5 fills list2 from biggest to smallest: 28, 21, 15, 14.",
+   "hook": "Minimum each pass: ascending. Maximum each pass: descending.",
+   "keys": [
+    "Picking the largest each time in steps 4 and 5"
+   ]
+  },
+  {
+   "id": "2022-Q14:(a)(iii):1",
+   "from": "2022-Q14",
+   "q": "Step 4 of a selection sort says to select the smallest (minimum) element from list1. Which method finds the smallest element in any list?",
+   "right": "min = first item; update on any smaller item",
+   "wrong": [
+    "min = 0; update on any smaller item",
+    "min = first item; update on any bigger item",
+    "Check the middle item, then halve the list"
+   ],
+   "why": "Set min to the first element, then compare each element with min in turn; if it is smaller, it becomes the new min. At the end of the list, min is the smallest.",
+   "hook": "Keep a 'smallest so far' and update it as you go.",
+   "keys": [
+    "if it is smaller, it becomes the new min"
+   ]
+  },
+  {
+   "id": "2022-Q14:(a)(iii):2",
+   "from": "2022-Q14",
+   "q": "To find the smallest value in L = [15, 28, 14, 21], a student writes `m = 0`, then `for x in L:` with `if x < m: m = x`. What is m at the end?",
+   "right": "0, because m should start as L[0]",
+   "wrong": [
+    "14, the smallest value",
+    "21, the last value",
+    "15, the first value"
+   ],
+   "why": "No item is less than 0, so m never changes and stays 0, which isn't even in the list. Start with m = L[0] (15): then 14 < 15 updates it and m ends as 14.",
+   "hook": "Start 'smallest so far' at a real item: the first one.",
+   "keys": [
+    "No item is less than 0",
+    "Start with m = L[0]"
+   ]
+  },
+  {
+   "id": "2022-Q14:(a)(iv):1",
+   "from": "2022-Q14",
+   "q": "Selection sort with two lists: repeat N times: move the smallest element of list1 to the next place in list2. list1 = [15, 28, 14, 21]. Why would the algorithm not work if step 5 said to copy the smallest element to list2 instead of moving it?",
+   "right": "It picks 14 every time: 14, 14, 14, 14",
+   "wrong": [
+    "list2 comes out in descending order",
+    "It works, but uses more memory",
+    "list1 empties out twice as fast"
+   ],
+   "why": "Copying leaves 14 in list1, so every pass selects the same smallest element again. list2 fills with 14, 14, 14, 14 and list1 never changes.",
+   "hook": "Move, don't copy: the element has to leave list1.",
+   "keys": [
+    "every pass selects the same smallest element again"
+   ]
+  },
+  {
+   "id": "2022-Q14:(a)(v):1",
+   "from": "2022-Q14",
+   "q": "In-place selection sort: for each position from the left, find the smallest element from there to the end and swap it into that position. L = [15, 28, 14, 21]. What is L after the first pass?",
+   "right": "[14, 28, 15, 21]",
+   "wrong": [
+    "[14, 15, 28, 21]",
+    "[15, 14, 21, 28]",
+    "[15, 14, 28, 21]"
+   ],
+   "why": "The smallest of the whole list is 14, at index 2. Swap it with the first element, 15: [14, 28, 15, 21]. 15 goes to 14's old place; nothing else moves.",
+   "hook": "Selection swaps two items; insertion shifts several.",
+   "keys": [
+    "Swap it with the first element, 15"
+   ]
+  },
+  {
+   "id": "2022-Q14:(a)(v):2",
+   "from": "2022-Q14",
+   "q": "Describe a selection sort algorithm that sorts a list 'in place', without the need for a second list.",
+   "right": "Swap the smallest unsorted item into place",
+   "wrong": [
+    "Keep swapping out-of-order neighbours",
+    "Insert each item into the sorted part",
+    "Split in half, sort each half, merge"
+   ],
+   "why": "Pass across the list from the left: for each current element, find the minimum element to its right and swap it with the current element, then move on. The sorted part grows from the left.",
+   "hook": "Select the minimum, swap it in, move on.",
+   "keys": [
+    "find the minimum element to its right",
+    "swap it with the current element"
+   ]
+  },
+  {
+   "id": "2022-Q14:(b)(i):1",
+   "from": "2022-Q14",
+   "q": "Insertion sort puts books in alphabetical order. Start: F B E C A G D. After pass 1: B F E C A G D. After pass 2: B E F C A G D. What is the order after pass 3?",
+   "right": "B C E F A G D",
+   "wrong": [
+    "B E C F A G D",
+    "B E F A C G D",
+    "C B E F A G D"
+   ],
+   "why": "Pass 3 takes the next unsorted book, C, and slides it left past F and E until it is just after B: B C E F | A G D.",
+   "hook": "Insertion: take the next book and slide it left into place.",
+   "keys": [
+    "slides it left past F and E"
+   ]
+  },
+  {
+   "id": "2022-Q14:(b)(i):2",
+   "from": "2022-Q14",
+   "q": "Insertion sort on the books F B E C A G D: pass 1 inserts B, pass 2 E, pass 3 C, pass 4 A, pass 5 G and pass 6 D. Which pass leaves the order unchanged?",
+   "right": "Pass 5: G already comes after F",
+   "wrong": [
+    "Pass 4: A is already in place",
+    "Pass 6: D is already in place",
+    "None: every pass moves a book"
+   ],
+   "why": "After pass 4 the order is A B C E F | G D. G is later than F, so it stays put: pass 5 gives A B C E F G D again. Pass 6 then inserts D between C and E.",
+   "hook": "A pass with nothing to move still counts: copy the row out.",
+   "keys": [
+    "G is later than F",
+    "Pass 6 then inserts D between C and E"
+   ]
+  },
+  {
+   "id": "2022-Q14:(b)(i):3",
+   "from": "2022-Q14",
+   "q": "Insertion sort on the 7 books F B E C A G D, with one book inserted on each pass. How many passes are needed to sort them?",
+   "right": "6",
+   "wrong": [
+    "7",
+    "21",
+    "49"
+   ],
+   "why": "The first book starts as the sorted part, so each of the other 6 books needs one pass to be inserted: 7 − 1 = 6 passes, passes 1 to 6.",
+   "hook": "n items: n − 1 passes, as the first one starts 'sorted'.",
+   "keys": [
+    "7 − 1 = 6 passes"
+   ]
+  },
+  {
+   "id": "2022-Q14:(b)(ii):1",
+   "from": "2022-Q14",
+   "q": "Explain how the insertion sort algorithm works. At the start, which part of the list is considered sorted?",
+   "right": "Just the first element",
+   "wrong": [
+    "None of it",
+    "The first half",
+    "The largest element"
+   ],
+   "why": "At the start the first element alone is the sorted part and everything to its right is unsorted. Each pass then inserts the next unsorted element, starting with the second.",
+   "hook": "One item on its own is always sorted.",
+   "keys": [
+    "the first element alone is the sorted part"
+   ]
+  },
+  {
+   "id": "2022-Q14:(b)(ii):2",
+   "from": "2022-Q14",
+   "q": "Explain how the insertion sort algorithm works. What does it do on each pass?",
+   "right": "Inserts the next unsorted item in place",
+   "wrong": [
+    "Swaps the smallest item to the front",
+    "Swaps neighbours that are out of order",
+    "Splits the list in two and merges"
+   ],
+   "why": "Each pass takes the first element of the unsorted part, compares it with the sorted elements to its left, shifting bigger ones right, and inserts it at its correct position.",
+   "hook": "Like sorting a hand of cards: pick up the next, slide it into place.",
+   "keys": [
+    "takes the first element of the unsorted part",
+    "inserts it at its correct position"
+   ]
+  },
+  {
+   "id": "2022-Q14:(b)(iv):1",
+   "from": "2022-Q14",
+   "q": "Using Big O notation, what is the worst-case complexity of insertion sort, and which input causes it?",
+   "right": "O(n²): a list in reverse order",
+   "wrong": [
+    "O(n²): a list already sorted",
+    "O(n): a list in reverse order",
+    "O(log n): a list in reverse order"
+   ],
+   "why": "In a reversed list each new element is compared with, and moved past, every sorted element: 1 + 2 + … + (n − 1) = n(n − 1)/2, so O(n²). The average case is O(n²) too.",
+   "hook": "Reversed: worst for insertion sort. Already sorted: best.",
+   "keys": [
+    "1 + 2 + … + (n − 1) = n(n − 1)/2",
+    "The average case is O(n²) too"
+   ]
+  },
+  {
+   "id": "2022-Q14:(b)(iv):2",
+   "from": "2022-Q14",
+   "q": "Using Big O notation, what is the best-case complexity of insertion sort, and which input gives it?",
+   "right": "O(n): a list already sorted",
+   "wrong": [
+    "O(1): a list already sorted",
+    "O(n²): a list already sorted",
+    "O(n): a list in reverse order"
+   ],
+   "why": "If the list is already sorted, each element is compared once with the one before it and nothing moves: n − 1 comparisons, so O(n). The inner loop never runs.",
+   "hook": "Best case still looks at every item once: O(n), not O(1).",
+   "keys": [
+    "n − 1 comparisons, so O(n)"
+   ]
+  },
+  {
+   "id": "2022-Q14:(b)(iv):3",
+   "from": "2022-Q14",
+   "q": "Insertion sort on a reversed list of 7 items, [7, 6, 5, 4, 3, 2, 1]. How many comparisons does it make in all?",
+   "right": "21",
+   "wrong": [
+    "49",
+    "42",
+    "6"
+   ],
+   "why": "Each new item is compared with every sorted item before it: 1 + 2 + 3 + 4 + 5 + 6 = 21 = 7 × 6 ÷ 2. An already sorted list would need only 6.",
+   "hook": "Worst case: 1 + 2 + … + (n − 1) = n(n − 1)/2.",
+   "keys": [
+    "1 + 2 + 3 + 4 + 5 + 6 = 21"
+   ]
+  },
+  {
+   "id": "2022-Q15:(a):1",
+   "from": "2022-Q15",
+   "q": "ISBN check: multiply each digit by its position (10 for the leftmost, down to 1 for the check digit on the right) and add the results. What is the total for the ISBN 1020041102?",
+   "right": "55",
+   "wrong": [
+    "66",
+    "11",
+    "53"
+   ],
+   "why": "1×10 + 0×9 + 2×8 + 0×7 + 0×6 + 4×5 + 1×4 + 1×3 + 0×2 + 2×1 = 10 + 16 + 20 + 4 + 3 + 2 = 55.",
+   "hook": "Weights count down from 10 on the left to 1 on the check digit.",
+   "keys": [
+    "10 + 16 + 20 + 4 + 3 + 2 = 55"
+   ]
+  },
+  {
+   "id": "2022-Q15:(a):2",
+   "from": "2022-Q15",
+   "q": "ISBN check: the weighted total for the ISBN 1020041102 is 55. Step 3 divides the total by 11; step 4 decides. What is the result?",
+   "right": "Remainder 0, so the ISBN is valid",
+   "wrong": [
+    "Remainder 5, so the ISBN is invalid",
+    "Quotient 5 ≠ check digit 2: invalid",
+    "Remainder 0 ≠ check digit 2: invalid"
+   ],
+   "why": "55 ÷ 11 = 5 remainder 0. Step 4: if the remainder is zero the ISBN is valid, so 1020041102 is valid. A mistyped digit would almost always leave a remainder.",
+   "hook": "Valid ISBN: the weighted total is a multiple of 11.",
+   "keys": [
+    "55 ÷ 11 = 5 remainder 0"
+   ]
+  },
+  {
+   "id": "2022-Q15:(c)(i):1",
+   "from": "2022-Q15",
+   "q": "Code: `for i in range(2, 11):` `digit = isbn % 10` `total = total + digit*i` `isbn = isbn//10`. At the start of the i = 8 pass, isbn = 102 and total = 27. What are digit, total and isbn after that pass?",
+   "right": "digit 2, total 43, isbn 10",
+   "wrong": [
+    "digit 2, total 29, isbn 10",
+    "digit 1, total 35, isbn 10",
+    "digit 2, total 43, isbn 10.2"
+   ],
+   "why": "102 % 10 = 2 (the last digit), total = 27 + 2 × 8 = 43, and 102 // 10 = 10: whole-number division drops the last digit.",
+   "hook": "% 10 takes the last digit; // 10 chops it off.",
+   "keys": [
+    "102 % 10 = 2",
+    "27 + 2 × 8 = 43"
+   ]
+  },
+  {
+   "id": "2022-Q15:(c)(i):2",
+   "from": "2022-Q15",
+   "q": "Code: `for i in range(2, 11):` `digit = isbn % 10` `total = total + digit*i` `isbn = isbn//10`. At the start of the last pass, i = 10, isbn = 1 and total = 43. What are digit, total and isbn after it?",
+   "right": "digit 1, total 53, isbn 0",
+   "wrong": [
+    "digit 1, total 44, isbn 0",
+    "digit 0, total 43, isbn 0",
+    "digit 1, total 53, isbn 0.1"
+   ],
+   "why": "1 % 10 = 1, total = 43 + 1 × 10 = 53, and 1 // 10 = 0. range(2, 11) stops before 11, so i = 10 is the last pass.",
+   "hook": "range(2, 11) runs from 2 to 10: the end number is left out.",
+   "keys": [
+    "43 + 1 × 10 = 53",
+    "range(2, 11) stops before 11"
+   ]
+  },
+  {
+   "id": "2022-Q15:(c)(i):3",
+   "from": "2022-Q15",
+   "q": "The trace of the check-digit program for isbn = 102004110 ends with total = 53. The next line is `check_digit = 11 - (total % 11)`. What check digit does it print?",
+   "right": "2",
+   "wrong": [
+    "9",
+    "7",
+    "4"
+   ],
+   "why": "% gives the remainder: 53 = 4 × 11 + 9, so 53 % 11 = 9 and 11 − 9 = 2, the check digit of the ISBN 1020041102.",
+   "hook": "% gives the remainder; // gives the whole-number quotient.",
+   "keys": [
+    "53 % 11 = 9 and 11 − 9 = 2"
+   ]
+  }
+ ]
+}
