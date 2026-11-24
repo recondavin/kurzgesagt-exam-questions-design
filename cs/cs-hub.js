@@ -43,6 +43,7 @@
     bar.innerHTML = '<button type="button" class="sh-menu" data-sh-menu aria-expanded="false" aria-controls="mx-side"><span class="sh-burger" aria-hidden="true"></span><span class="sr">Menu</span></button>' +
       '<p class="sh-crumb">' + (crumb ? '<a href="#">Computer Science</a><span class="sh-sep" aria-hidden="true">/</span><span class="sh-here">' + esc(crumb) + '</span>' : '<span class="sh-here">Computer Science</span>') + '</p>' +
       '<nav class="sh-switch" aria-label="Subject"><a href="geography.html">Geography</a><a href="biology.html">Biology</a><a href="maths.html">Maths</a><a href="computer-science.html" aria-current="page">Computer Science</a><a href="english.html">English</a><a href="irish.html">Irish</a><a href="german.html">German</a></nav>';
+    (function (s) { var a = s && s.querySelector('[aria-current]'); if (a && s.scrollWidth > s.clientWidth) s.scrollLeft = a.offsetLeft - s.offsetLeft - 12; })(bar.querySelector('.sh-switch')); // phones: the bar scrolls, so show this subject
   }
   function home() {
     document.title = 'Computer Science | Leaving Cert';
@@ -81,8 +82,8 @@
     { href: 'cs-play.html?g=cannon', name: 'Cannon Duel', art: ART.cannon, say: 'Answer, aim and fire.' },
     { href: 'cs-play.html?g=tower', name: 'Topple the Examiner', art: ART.tower, say: 'Answer, pull back and knock him down.' }
   ];
-  var GAMES_ON = false; // on once cs/cs-cards.js has the cards (tools/cs/build_cards.py)
-  var WARM_ON = false; // the Warm-up level: its cards are in cs/cs-cards.js (window.CsWarm)
+  var GAMES_ON = true; // the cards are in cs/cs-cards.js (tools/cs/build_cards.py)
+  var WARM_ON = true; // the Warm-up level: its cards are in cs/cs-cards.js (window.CsWarm)
   function games() {
     if (!GAMES_ON) return '';
     return '<section class="mx-games rise" style="--i:2" aria-labelledby="mx-games-h"><h2 class="mx-h2" id="mx-games-h">Games</h2><div class="mx-games__row cs-games">' +

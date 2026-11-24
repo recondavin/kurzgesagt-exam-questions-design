@@ -316,6 +316,9 @@ tr .pg-track i { animation-delay: inherit; }
 @media (max-width: 700px) {
   .sh-crumb a, .sh-sep { display: none; }
   .sh-switch a { font-size: 14px; }
+  /* Seven subjects are wider than a phone: the bar scrolls sideways on its own, the page doesn't. */
+  .sh-switch { min-width: 0; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; }
+  .sh-switch::-webkit-scrollbar { display: none; }
   .sh-crumb { font-size: 15px; }
   .sh-canvas.bio-app { padding: 20px 16px 56px; }
   .cv-title { flex-direction: column; gap: 14px; margin-bottom: 20px; }

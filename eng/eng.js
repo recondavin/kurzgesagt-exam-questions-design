@@ -65,6 +65,7 @@
     bar.innerHTML = '<button type="button" class="sh-menu" data-sh-menu aria-expanded="false" aria-controls="eng-side"><span class="sh-burger" aria-hidden="true"></span><span class="sr">Menu</span></button>' +
       '<p class="sh-crumb">' + (crumb ? '<a href="#">English</a><span class="sh-sep" aria-hidden="true">/</span><span class="sh-here">' + esc(crumb) + '</span>' : '<span class="sh-here">English</span>') + '</p>' +
       '<nav class="sh-switch" aria-label="Subject">' + SUBJECTS + '</nav>';
+    (function (s) { var a = s && s.querySelector('[aria-current]'); if (a && s.scrollWidth > s.clientWidth) s.scrollLeft = a.offsetLeft - s.offsetLeft - 12; })(bar.querySelector('.sh-switch')); // phones: the bar scrolls, so show this subject
   }
   function menu(open) {
     document.body.classList.toggle('sh-open', open);

@@ -42,6 +42,7 @@
     bar.innerHTML = '<button type="button" class="sh-menu" data-sh-menu aria-expanded="false" aria-controls="mx-side"><span class="sh-burger" aria-hidden="true"></span><span class="sr">Menu</span></button>' +
       '<p class="sh-crumb">' + (crumb ? '<a href="#">Maths</a><span class="sh-sep" aria-hidden="true">/</span><span class="sh-here">' + esc(crumb) + '</span>' : '<span class="sh-here">Maths</span>') + '</p>' +
       '<nav class="sh-switch" aria-label="Subject"><a href="geography.html">Geography</a><a href="biology.html">Biology</a><a href="maths.html" aria-current="page">Maths</a><a href="computer-science.html">Computer Science</a><a href="english.html">English</a><a href="irish.html">Irish</a><a href="german.html">German</a></nav>';
+    (function (s) { var a = s && s.querySelector('[aria-current]'); if (a && s.scrollWidth > s.clientWidth) s.scrollLeft = a.offsetLeft - s.offsetLeft - 12; })(bar.querySelector('.sh-switch')); // phones: the bar scrolls, so show this subject
   }
   function home() {
     document.title = 'Maths | Leaving Cert';

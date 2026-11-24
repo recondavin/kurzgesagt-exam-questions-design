@@ -9,7 +9,7 @@
 (function () {
   'use strict';
   var PAGE = 'computer-science.html';
-  var V = 'cs-1';
+  var V = 'cs-2';
   var loaded = {}, current = null, started = false;
   var R = function () { return window.MathsRender; };
 
