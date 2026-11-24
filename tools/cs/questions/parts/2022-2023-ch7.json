@@ -3115,7 +3115,7 @@
               "CCCCCC"
             ]
           },
-          "scheme": "Any correct sequence, 2 marks: any 'same move' an even number of times (at least 4), e.g. AAAA, BBBBBB; any palindromic sequence, e.g. ABBA, ABCCBA; any other correct sequence (the four-move ones are AAAA, AABB, AACC, ABAC, ABBA, ABCB, ACAB, ACBC, ACCA, BAAB, BABC, BACA, BBAA, BBBB, BBCC, BCAC, BCBA, BCCB, CAAC, CABA, CACB, CBAB, CBBC, CBCA, CCAA, CCBB, CCCC). Odd-length sequences will not work.",
+          "scheme": "Any correct sequence, 2 marks: any 'same move' an even number of times (at least 4), e.g. AAAA, BBBBBB; any even-length palindromic sequence, e.g. ABBA, ABCCBA; any other correct sequence (the four-move ones are AAAA, AABB, AACC, ABAC, ABBA, ABCB, ACAB, ACBC, ACCA, BAAB, BABC, BACA, BBAA, BBBB, BBCC, BCAC, BCBA, BCCB, CAAC, CABA, CACB, CBAB, CBBC, CBCA, CCAA, CCBB, CCCC). Odd-length sequences will not work.",
           "model": "ABBA",
           "idea": {
             "title": "Every swap undoes itself",

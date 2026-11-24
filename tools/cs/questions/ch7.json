@@ -5556,7 +5556,7 @@
               "CCCCCC"
             ]
           },
-          "scheme": "Any correct sequence, 2 marks: any 'same move' an even number of times (at least 4), e.g. AAAA, BBBBBB; any palindromic sequence, e.g. ABBA, ABCCBA; any other correct sequence (the four-move ones are AAAA, AABB, AACC, ABAC, ABBA, ABCB, ACAB, ACBC, ACCA, BAAB, BABC, BACA, BBAA, BBBB, BBCC, BCAC, BCBA, BCCB, CAAC, CABA, CACB, CBAB, CBBC, CBCA, CCAA, CCBB, CCCC). Odd-length sequences will not work.",
+          "scheme": "Any correct sequence, 2 marks: any 'same move' an even number of times (at least 4), e.g. AAAA, BBBBBB; any even-length palindromic sequence, e.g. ABBA, ABCCBA; any other correct sequence (the four-move ones are AAAA, AABB, AACC, ABAC, ABBA, ABCB, ACAB, ACBC, ACCA, BAAB, BABC, BACA, BBAA, BBBB, BBCC, BCAC, BCBA, BCCB, CAAC, CABA, CACB, CBAB, CBBC, CBCA, CCAA, CCBB, CCCC). Odd-length sequences will not work.",
           "model": "ABBA",
           "idea": {
             "title": "Every swap undoes itself",
@@ -7887,7 +7887,7 @@
               ]
             ]
           },
-          "scheme": "2 marks for each correct step (2 marks for a response with some merit). Step 1 swaps the square in position 0 with the triangle in position 7; step 2 swaps the square in position 4 with the triangle in position 6, leaving all the triangles to the left of all the squares.",
+          "scheme": "2 marks for each correct step (2 marks for a response with some merit). Step 1 swaps the square in box 1 with the triangle in box 8; step 2 swaps the square in box 4 with the triangle in box 7, leaving all the triangles to the left of all the squares.",
           "model": "Step 1: T T T S T S T S S S (the first square swapped with the last triangle). Step 2: T T T T T S S S S S (the next square swapped with the next triangle).",
           "idea": {
             "title": "Trace it by hand",
@@ -9009,7 +9009,7 @@
             ]
           },
           "scheme": "Very good explanation 5 marks, good 3, fair 1, for one enhancement: (1) each pass puts the largest remaining item in its place at the end, so cut the adjacent compares by 1 on each pass (range(len(L)-1-i)) to avoid comparing the already sorted end; or (2) use a flag to show whether a swap was made during a pass, and end the algorithm when a pass makes no swaps (e.g. a sorted list stops after the first pass).",
-          "model": "Use a flag: set swapped = False at the start of each pass and set it to True whenever a swap is made. If a whole pass makes no swaps the list is already sorted, so the loop can stop. Here pass 5 would be skipped, and an already sorted list would need only one pass.",
+          "model": "Use a flag: set swapped = False at the start of each pass and set it to True whenever a swap is made. If a whole pass makes no swaps the list is already sorted, so the loop can stop. An already sorted list would then need only one pass of 4 comparisons instead of 20. (Here pass 4 still swaps 30 and 20, so this list still takes all five passes.)",
           "idea": {
             "title": "Stop wasted work",
             "text": "Plain bubble sort keeps comparing items that are already in place. Skipping the sorted end of the list, or stopping as soon as a pass makes no swaps, removes those useless comparisons.",
@@ -9029,7 +9029,7 @@
               "vis": null
             },
             {
-              "say": "Improvement 2: keep a flag. If a pass makes no swaps the list is sorted, so stop; here pass 5 would be skipped.",
+              "say": "Improvement 2: keep a flag. If a pass makes no swaps the list is sorted, so stop: an already sorted list stops after one pass. Here pass 4 still swaps 30 and 20, so this list still needs all five.",
               "math": [],
               "code": "swapped = False\n# ...set swapped = True whenever two items are swapped\nif not swapped:\n    break",
               "vis": null
