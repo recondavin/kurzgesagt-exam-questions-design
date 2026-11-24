@@ -15,7 +15,8 @@ FIELDS = ['id', 'from', 'q', 'right', 'wrong', 'why']
 TEXISH = re.compile(r'\$|\\[a-zA-Z]+|\^\{|_\{')
 
 
-SLOT_OF = {'systems': 28, 'architecture': 28, 'electronics': 29, 'os': 30, 'internet': 30, 'thinking': 31, 'algorithms': 31, 'data': 32}
+SLOT_OF = {'systems': 28, 'architecture': 28, 'electronics': 29, 'os': 30, 'internet': 30, 'thinking': 31, 'algorithms': 31, 'data': 32,
+           'databases': 32, 'sql': 32, 'analytics': 32}  # chapter 8 (Databases) plays in the Data topic
 SUBS = {}
 
 
@@ -111,8 +112,8 @@ def main():
             card = {k: c[k] for k in FIELDS + ['hook', 'keys'] if c.get(k)}
             bits = str(c.get('id', '')).split(':')
             part_ch = real.get((ch, c.get('from')), {}).get(bits[1]) if len(bits) == 3 else None
-            if part_ch not in (6, 7):
-                problems.append('%s: its part is not on chapter 6 or 7' % c.get('id'))
+            if part_ch not in (6, 7, 8):
+                problems.append('%s: its part is not on chapter 6, 7 or 8' % c.get('id'))
                 continue
             out.setdefault(SLOT_OF.get(SUBS.get(c.get('from')), 31), []).append(card)
     for p in problems:

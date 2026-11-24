@@ -89,3 +89,19 @@
 .cs-ptr path { fill: #1CB0F6; }
 .mx-svg .cs-ptrt { fill: #1CB0F6; font: 800 12px Nunito, sans-serif; }
 .mx-svg .cs-arrlabel { fill: #C9D6DD; font: 700 14px Nunito, sans-serif; }
+/* databases */
+.mx-svg .cs-dbquery { fill: #FFC800; font: 700 14px 'DejaVu Sans Mono', Menlo, monospace; }
+.cs-dbnamebar { fill: #1A3A36; stroke: #2BD4BD; stroke-width: 1.5; }
+.cs-dbt.is-result .cs-dbnamebar { fill: #3A2F05; stroke: #FFC800; }
+.mx-svg .cs-dbname { fill: #F1F7FB; font: 800 12.5px Nunito, sans-serif; }
+.cs-dbhead { fill: #1A272D; stroke: #37464F; stroke-width: 1.5; }
+.cs-dbcol.is-hl .cs-dbhead { fill: #3A2F05; stroke: #FFC800; }
+.mx-svg .cs-dbheadt { fill: #C9D6DD; font: 800 11.5px Nunito, sans-serif; }
+.mx-svg .cs-dbheadt.is-fk { fill: #8FD8FB; }
+.cs-dbcell { fill: #0F191D; stroke: #26353C; stroke-width: 1.5; }
+.cs-dbcell.is-col { fill: #1B2418; }
+.cs-dbrow.is-hl .cs-dbcell { fill: #3A2F05; stroke: #FFC800; }
+.cs-dbcell.is-bad { fill: rgba(255, 75, 75, .22); stroke: #FF4B4B; }
+.mx-svg .cs-dbcellt { fill: #F1F7FB; font: 600 11.5px 'DejaVu Sans Mono', Menlo, monospace; }
+.cs-dblink { fill: none; stroke: #8FD8FB; stroke-width: 2; stroke-linejoin: round; }
+.mx-svg .cs-dblinkt { fill: #8FD8FB; font: 700 11px Nunito, sans-serif; }

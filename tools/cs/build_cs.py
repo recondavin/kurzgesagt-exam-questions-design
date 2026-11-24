@@ -18,7 +18,7 @@ import build_maths as B  # noqa: E402
 
 B.FOOT = 775  # CS pages' footer starts at about 779 pt
 OUT = os.path.join(ROOT, 'assets', 'cs', 'papers')
-TITLES = {6: 'Computer systems', 7: 'Computational thinking, algorithms and data representation'}
+TITLES = {6: 'Computer systems', 7: 'Computational thinking, algorithms and data representation', 8: 'Databases'}
 
 
 def keep_pictures(dest, qs):
@@ -53,7 +53,7 @@ def keep_pictures(dest, qs):
 
 
 def merge():
-    for ch in (6, 7):
+    for ch in (6, 7, 8):
         qs, seen = [], set()
         for f in sorted(glob.glob(os.path.join(HERE, 'questions', 'parts', '*-ch%d.json' % ch))):
             for q in json.load(open(f, encoding='utf-8')).get('questions', []):

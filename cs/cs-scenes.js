@@ -8,6 +8,7 @@
 //   network  computers, routers, servers and the cloud; packets travel along the links
 //   flow     a flowchart; a token follows the path through it
 //   array    a list in boxes: comparisons, swaps, sorted parts, search pointers (lo, mid, hi)
+//   db       database tables with their keys, a foreign key's link to its primary key, a query and its result
 (function () {
   'use strict';
   var R = window.MathsRender;
@@ -417,10 +418,88 @@
     return s;
   }
 
+  // ---------- databases: tables with their keys, a foreign key's link to its primary key, a query and its result ----------
+  function db(v, q) {
+    var T = (v.tables || []).slice(0, 3), W = 520, CH = 7.2, rowH = 21, headH = 22, nameH = 22;
+    var hl = v.hl || {}, bad = v.bad || {}, KK = 'db' + T.map(function (t) { return t.name; }).join(',') + ':';
+    var colW = function (t, c, j) {
+      var key = (t.pk && list(t.pk).indexOf(c) >= 0) || (t.fk && t.fk[c]) ? 2.5 : 0, m = String(c).length + key;
+      (t.rows || []).forEach(function (r) { m = Math.max(m, String(r[j] == null ? '' : r[j]).length); });
+      return Math.max(40, m * CH + 16);
+    };
+    var widths = T.map(function (t) { return t.cols.map(function (c, j) { return colW(t, c, j); }); });
+    var tw = widths.map(function (ws) { return ws.reduce(function (a, b) { return a + b; }, 0); });
+    var gap = 26, total = tw.reduce(function (a, b) { return a + b; }, 0) + gap * Math.max(0, T.length - 1);
+    var sc = Math.min(1, (W - 24) / Math.max(1, total));
+    var linkBand = T.some(function (t) { return t.fk; }) && v.link !== false ? 30 : 0;
+    var top = (v.query ? 34 : 8) + linkBand, maxRows = Math.max.apply(null, T.map(function (t) { return (t.rows || []).length; }).concat([0]));
+    var R0 = v.result, resH = R0 ? 30 + headH + (R0.rows || []).length * rowH : 0;
+    var H = Math.round(top + (nameH + headH + maxRows * rowH) * sc + (R0 ? 18 + resH : 0) + 14);
+    var s = svgBox(W, H, 'mx-db');
+    if (v.query) { var qt = txt(s, 14, 22, v.query, 'cs-dbquery', 'start'); q.fade(qt, KK + 'q' + v.query, 0, 300); }
+    var stage = el('g', { transform: 'translate(' + ((W - total * sc) / 2) + ',' + top + ') scale(' + sc + ')' }, s);
+    var colX = {}, x = 0;
+    function grid(g, name, cols, rows, ws, h, b, key, pk, fk, isRes) {
+      var tot = ws.reduce(function (a, c) { return a + c; }, 0);
+      var head = el('g', { class: 'cs-dbt' + (isRes ? ' is-result' : '') }, g);
+      el('rect', { x: 0, y: 0, width: tot, height: nameH, rx: 6, class: 'cs-dbnamebar' }, head);
+      txt(head, 8, 15.5, name, 'cs-dbname', 'start');
+      var cx = 0;
+      cols.forEach(function (c, j) {
+        var lit = list(h.cols).indexOf(c) >= 0, gg = el('g', { class: 'cs-dbcol' + (lit ? ' is-hl' : '') }, head);
+        el('rect', { x: cx, y: nameH, width: ws[j], height: headH, class: 'cs-dbhead' }, gg);
+        var mark = pk && list(pk).indexOf(c) >= 0 ? '🔑 ' : fk && fk[c] ? 'FK ' : '';
+        txt(gg, cx + ws[j] / 2, nameH + 15, mark + c, 'cs-dbheadt' + (mark === 'FK ' ? ' is-fk' : ''));
+        cx += ws[j];
+      });
+      q.fade(head, key + 'h', 40, 300);
+      (rows || []).forEach(function (r, i) {
+        var lit = list(h.rows).map(Number).indexOf(i) >= 0, rg = el('g', { class: 'cs-dbrow' + (lit ? ' is-hl' : '') }, g), rx = 0;
+        cols.forEach(function (c, j) {
+          var isBad = (b.cells || []).some(function (bc) { return bc[0] === i && bc[1] === j; }), colLit = list(h.cols).indexOf(c) >= 0;
+          el('rect', { x: rx, y: nameH + headH + i * rowH, width: ws[j], height: rowH, class: 'cs-dbcell' + (isBad ? ' is-bad' : '') + (colLit ? ' is-col' : '') }, rg);
+          txt(rg, rx + ws[j] / 2, nameH + headH + i * rowH + 14.5, r[j] == null ? '' : r[j], 'cs-dbcellt');
+          rx += ws[j];
+        });
+        q.rise(rg, key + 'r' + i + r.join('|'), 120 + i * 60);
+      });
+    }
+    T.forEach(function (t, k) {
+      var g = el('g', { transform: 'translate(' + x + ',0)' }, stage);
+      grid(g, t.name, t.cols, t.rows, widths[k], hl[t.name] || {}, bad[t.name] || {}, KK + 't' + t.name, t.pk, t.fk);
+      var cx = x;
+      t.cols.forEach(function (c, j) { colX[t.name + '.' + c] = cx + widths[k][j] / 2; cx += widths[k][j]; });
+      x += tw[k] + gap;
+    });
+    // Each foreign key's line, over the top, to the primary key it points at.
+    if (linkBand) T.forEach(function (t) {
+      Object.keys(t.fk || {}).forEach(function (c, i) {
+        var to = t.fk[c], tt = T.filter(function (u) { return u.name === to; })[0];
+        if (!tt) return;
+        var a = colX[t.name + '.' + c], b = colX[to + '.' + list(tt.pk)[0]], yb = -4, ya = -4, up = -linkBand / sc + 6 + i * 6;
+        if (a == null || b == null) return;
+        var path = el('path', { d: 'M' + a + ' ' + ya + 'V' + up + 'H' + b + 'V' + (yb - 2), class: 'cs-dblink' }, stage);
+        el('path', { d: 'M' + (b - 5) + ' ' + (yb - 9) + 'L' + b + ' ' + (yb - 1) + 'L' + (b + 5) + ' ' + (yb - 9), class: 'cs-dblink' }, stage);
+        q.draw(path, KK + 'fk' + t.name + c, 500, 300);
+        if (v.linkLabel) { var lt = txt(stage, (a + b) / 2, up - 5, v.linkLabel, 'cs-dblinkt'); q.fade(lt, KK + 'fkl' + v.linkLabel, 500); }
+      });
+    });
+    if (R0) {
+      var ry = top + (nameH + headH + maxRows * rowH) * sc + 18;
+      var rws = R0.cols.map(function (c, j) { return colW({ rows: R0.rows }, c, j); }), rt = rws.reduce(function (a, b) { return a + b; }, 0);
+      var need = String(R0.name || 'Result').length * 8 + 18;
+      if (rt < need) { rws[rws.length - 1] += need - rt; rt = need; } // room for the table's name
+      var rg = el('g', { transform: 'translate(' + ((W - rt) / 2) + ',' + (ry + 8) + ')' }, s);
+      grid(rg, R0.name || 'Result', R0.cols, R0.rows, rws, R0.hl || {}, {}, KK + 'res' + R0.cols.join(','), null, null, true);
+    }
+    return s;
+  }
+
   R.addKind('bits', bits, []);
   R.addKind('gates', gates, ['gates']);
   R.addKind('cpu', cpu, []);
   R.addKind('network', network, ['nodes']);
   R.addKind('flow', flow, ['nodes']);
   R.addKind('array', array, ['vals']);
+  R.addKind('db', db, ['tables']);
 })();

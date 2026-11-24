@@ -9,7 +9,7 @@
   'use strict';
   var WARM = /[?&]warm\b/.test(location.search);
   var C = (WARM ? window.CsWarm : window.CsCards) || {};
-  var NAMES = { 28: 'Computer systems', 29: 'Logic and electronics', 30: 'OS and the Internet', 31: 'Algorithms', 32: 'Data' };
+  var NAMES = { 28: 'Computer systems', 29: 'Logic and electronics', 30: 'OS and the Internet', 31: 'Algorithms', 32: 'Data and databases' };
   // Never green or red (right and wrong in the games).
   var COLS = { 28: '#1CB0F6', 29: '#FFC800', 30: '#FF9600', 31: '#CE82FF', 32: '#2BD4BD' };
   function items() {

@@ -82,6 +82,21 @@ each other's place; give `vals` after the swap), `sorted` [from, to] or `done` (
 `from: 1` (number the boxes from 1, as a question does; `ptr` and the rest stay 0-based), `label` (a line above).
 Values up to about 7 characters shrink to fit their box. One step per comparison or swap shows an algorithm running.
 
+**db**: database tables (up to 3 side by side), their keys, a query and its result.
+```json
+{"t": "db", "query": "SELECT name FROM DOGS WHERE owner_id = 2", "linkLabel": "one owner, many dogs",
+ "tables": [{"name": "OWNERS", "cols": ["owner_id", "name"], "pk": "owner_id", "rows": [["1", "Aoife"], ["2", "Cian"]]},
+            {"name": "DOGS", "cols": ["dog_id", "name", "owner_id"], "pk": "dog_id", "fk": {"owner_id": "OWNERS"},
+             "rows": [["D1", "Rex", "1"], ["D2", "Bran", "2"]]}],
+ "hl": {"DOGS": {"rows": [1], "cols": ["owner_id"]}}, "result": {"cols": ["name"], "rows": [["Bran"]]}}
+```
+`pk`: the primary key column(s), marked 🔑; `fk`: {column: the table it points at}, marked FK, with a line drawn to
+that table's primary key (`link: false` leaves it out; `linkLabel` words on it). `hl`: per table, `rows` (indices from
+0) and `cols` (names) to light. `bad`: per table, `cells` [[row, col], ...] in red (a duplicate key, a wrong data
+type, an inconsistent value). `query`: a line of SQL over the tables; `result`: {name, cols, rows} the table it gives.
+Rows appear one at a time and only new rows animate, so add rows, light rows or show the result step by step. Keep
+cell values short (long tables shrink to fit).
+
 ## Choosing scenes
 - Binary, hex, two's complement, units: `bits` (each step sets more bits, or changes `hl`), `table` for conversions
   tables, `slots` for counting combinations (2ⁿ values from n bits).
@@ -92,5 +107,6 @@ Values up to about 7 characters shrink to fit their box. One step per comparison
 - Networks, the Internet, DNS, packets, IP addresses, protocols, client-server: `network`.
 - Algorithms: `flow` for flowcharts and decisions, `array` for searching and sorting traces, `list` or `table` for
   traces of variables, `slots` for counting moves.
+- Databases (tables, records, fields, primary and foreign keys, data types, relational design, queries): `db`.
 - Computational thinking (decomposition, abstraction, pattern recognition): `list` (sub-problems as rows), `table`
   (what's kept and what's left out), `tree` for a problem broken into parts.

@@ -7,12 +7,16 @@
   var DESK = 'Geography Questions.dc.html';
   var CHAPTERS = [
     { n: 6, title: 'Computer systems', c: '#1CB0F6' },
-    { n: 7, title: 'Computational thinking, algorithms and data representation', short: 'Algorithms and data', c: '#CE82FF' }
+    { n: 7, title: 'Computational thinking, algorithms and data representation', short: 'Algorithms and data', c: '#CE82FF' },
+    { n: 8, title: 'Databases', c: '#2BD4BD' }
   ];
   // The topics inside each chapter (a question's "sub"), in the book's order.
+  // A chapter shows once it has questions (cs/q<N>.js).
+  CHAPTERS = CHAPTERS.filter(function (c) { var d = (window.CsQuestions || {})[c.n]; return d && d.questions && d.questions.length; });
   var SUBS = { systems: 'Computer systems', architecture: 'Computer architecture', electronics: 'Electronics and logic gates', os: 'Operating systems',
-    internet: 'The Internet and the web', thinking: 'Computational thinking', algorithms: 'Algorithms', data: 'Representing data' };
-  var SUB_ORDER = ['systems', 'architecture', 'electronics', 'os', 'internet', 'thinking', 'algorithms', 'data'];
+    internet: 'The Internet and the web', thinking: 'Computational thinking', algorithms: 'Algorithms', data: 'Representing data',
+    databases: 'Databases', sql: 'Queries and SQL', analytics: 'Data and analytics' };
+  var SUB_ORDER = ['systems', 'architecture', 'electronics', 'os', 'internet', 'thinking', 'algorithms', 'data', 'databases', 'sql', 'analytics'];
   var side = document.getElementById('mx-side'), bar = document.getElementById('mx-top'), app = document.getElementById('mx-app');
   function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
   function qs(n) { var d = (window.CsQuestions || {})[n]; return d ? d.questions.slice() : []; }
