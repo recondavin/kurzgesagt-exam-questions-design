@@ -753,7 +753,7 @@
                 "marks": 1,
                 "alts": [
                   [
-                    "new|replac|updat|becom|change|swap|record|keep|store"
+                    "new|replac|updat|becom|change|swap|record|keep|store|smaller|less|lower|set min to"
                   ]
                 ]
               }
@@ -862,7 +862,7 @@
                 "marks": 1,
                 "alts": [
                   [
-                    "current|each position|every position|left to right|each element|every element|each index|each item|one at a time|in turn"
+                    "current|each position|every position|left to right|each element|every element|each index|each item|one at a time|in turn|next position|first position|move on|each time"
                   ]
                 ]
               },
@@ -1925,7 +1925,7 @@
           "q": "The Python program below shows an alternative implementation.\n```\n 1  # A program to determine a check digit for a number\n 2  isbn = 102004110\n 3  isbn1 = isbn\n 4  total = 0\n 5  for i in range(2, 11):\n 6      digit = isbn % 10\n 7      total = total + digit*i\n 8      isbn = isbn//10\n 9\n10  check_digit = 11 - (total % 11)\n11  print(\"The check digit for\", isbn1, \"is\", check_digit)\n```\n\nComplete the trace table below to show the changing states of the variables during program execution.",
           "ask": "Complete the trace table for i = 7, 8, 9 and 10.",
           "marks": 5,
-          "chapter": null,
+          "chapter": 7,
           "answer": {
             "type": "table",
             "head": [
@@ -4699,7 +4699,7 @@
           "q": "The Python code below shows an implementation of a binary search function.\n```\n 1  def binary_search1(v, L):\n 2\n 3      lo = 0\n 4      hi = len(L) - 1\n 5\n 6      while (lo <= hi):\n 7          mid = (lo + hi)//2\n 8\n 9          if L[mid] > v:\n10              hi = mid - 1\n11          elif L[mid] < v:\n12              lo = mid + 1\n13          else:\n14              return mid\n15\n16      return len(L)\n```\n\nIn the code there is one example of iteration. State on which lines the iteration starts and ends and explain what it does.",
           "ask": "Give the lines where the loop starts and ends and explain what it does.",
           "marks": 5,
-          "chapter": null,
+          "chapter": 7,
           "answer": {
             "type": "fields",
             "fields": [

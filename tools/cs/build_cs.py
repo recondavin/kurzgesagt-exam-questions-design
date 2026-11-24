@@ -21,6 +21,37 @@ OUT = os.path.join(ROOT, 'assets', 'cs', 'papers')
 TITLES = {6: 'Computer systems', 7: 'Computational thinking, algorithms and data representation'}
 
 
+def keep_pictures(dest, qs):
+    """The pictures (apply_scenes.py) live only in questions/ch<N>.json, so a re-merge copies them across onto the
+    same question's same part, step by step, wherever the part still has that many steps."""
+    if not os.path.exists(dest):
+        return 0
+    old = {q['id']: q for q in json.load(open(dest, encoding='utf-8')).get('questions', [])}
+    kept = 0
+    for q in qs:
+        o = old.get(q['id'])
+        if not o:
+            continue
+        for k, part in enumerate(q.get('parts') or []):
+            if k >= len(o.get('parts') or []):
+                break
+            op = o['parts'][k]
+            if op.get('l') != part.get('l'):
+                continue
+            hit = False
+            if part.get('idea') and (op.get('idea') or {}).get('vis') and not part['idea'].get('vis'):
+                part['idea']['vis'] = op['idea']['vis']
+                hit = True
+            ns, os_ = part.get('steps') or [], op.get('steps') or []
+            if len(ns) == len(os_):
+                for a, b in zip(ns, os_):
+                    if b.get('vis') and not a.get('vis'):
+                        a['vis'] = b['vis']
+                        hit = True
+            kept += hit
+    return kept
+
+
 def merge():
     for ch in (6, 7):
         qs, seen = [], set()
@@ -32,8 +63,12 @@ def merge():
                 seen.add(q['id'])
                 qs.append(q)
         qs.sort(key=lambda q: (q['year'], q['q']))
+        dest = os.path.join(HERE, 'questions', 'ch%d.json' % ch)
+        kept = keep_pictures(dest, qs)
+        if kept:
+            print('ch%d: kept the pictures on %d parts' % (ch, kept))
         data = {'chapter': ch, 'title': TITLES[ch], 'questions': qs}
-        with open(os.path.join(HERE, 'questions', 'ch%d.json' % ch), 'w', encoding='utf-8') as fh:
+        with open(dest, 'w', encoding='utf-8') as fh:
             fh.write(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
         print('ch%d: %d questions, %d parts' % (ch, len(qs), sum(len(q['parts']) for q in qs)))
 

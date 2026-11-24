@@ -1,6 +1,6 @@
 // Screenshots a Computer Science question's preview page (tools/cs/preview.html) (every step's words, working and picture, each picture at its end state).
 // Needs a local server on the repository: python3 -m http.server 8765
-// Run: node tools/maths/tests/preview-shot.cjs <chapter> <question id> <out.png> [part index] [work/<name>.q.js] [port]
+// Run: node tools/cs/tests/preview-shot.cjs <chapter> <question id> <out.png> [part index] [work/<name>.q.js] [port]
 const { chromium } = require('playwright');
 (async () => {
   const [ch, qid, out, part, src, port = '8765'] = process.argv.slice(2);
