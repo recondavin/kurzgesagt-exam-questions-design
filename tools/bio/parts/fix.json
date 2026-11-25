@@ -154,5 +154,95 @@
   "own": {
    "h1": 3
   }
+ },
+ "34/2011-Q11c": {
+  "extra": [
+   {
+    "id": "c21",
+    "pg": 8,
+    "box": [
+     12.15,
+     55.35,
+     71.27,
+     1.44
+    ],
+    "kind": "fig",
+    "text": "(b) (i) Name the group of substances in plants which control responses to external stimuli."
+   }
+  ],
+  "add": [
+   [],
+   [
+    "c21"
+   ]
+  ]
+ },
+ "34/2013-Q13a": {
+  "extra": [
+   {
+    "id": "c21",
+    "pg": 12,
+    "box": [
+     6.19,
+     4.91,
+     6.82,
+     1.44
+    ],
+    "kind": "lead",
+    "text": "13. (a)"
+   },
+   {
+    "id": "c22",
+    "pg": 12,
+    "box": [
+     20.48,
+     4.91,
+     67.92,
+     2.95
+    ],
+    "kind": "lead",
+    "text": "In humans, widening of the female hips is one example of physical changes that distinguish the sexes but are not essential for reproduction."
+   }
+  ]
+ },
+ "34/S1-Q1d": {
+  "extra": [
+   {
+    "id": "c21",
+    "pg": 5,
+    "box": [
+     14.29,
+     33.18,
+     71.27,
+     35.82
+    ],
+    "kind": "fig",
+    "text": "The graph shows a person's relative blood glucose concentration ... (its lead-in, title, axis labels)"
+   }
+  ],
+  "add": [
+   [
+    "c21"
+   ],
+   [
+    "c21"
+   ]
+  ]
+ },
+ "34/2007-Q4": {
+  "extra": [
+   {
+    "id": "c21",
+    "pg": 3,
+    "box": [
+     80.96,
+     56.34,
+     11.64,
+     1.96
+    ],
+    "kind": "lead",
+    "text": "graph key: B and its dashed line (the dashes are not text)"
+   }
+  ]
  }
 }
