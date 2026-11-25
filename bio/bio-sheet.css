@@ -88,3 +88,27 @@
   .bio-dia--two { grid-template-columns: 1fr; }
   .bio-paper { padding: 12px; }
 }
+/* Fix it before you move on (bio.js learnStep, coverStep, redoCheck; the user: "i dont feel confident just moving on
+   to the next question after i got it wrong"): a written part short of full marks is learnt, then rewritten from
+   memory with your first answer and the scheme covered. */
+.bio-fix { margin: 10px 0 0; }
+.bio-fix:empty { display: none; }
+.bio-fix__ask { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 14px; padding: 12px 14px; border-radius: 12px; background: var(--ink); color: #F1F7FB; }
+.bio-fix__ask p { margin: 0; flex: 1 1 260px; font-size: 15px; line-height: 1.4; }
+.bio-fix__ask b { color: var(--yellow); }
+.bio-fix__done { margin: 0; padding: 10px 14px; border-radius: 12px; background: #D4F7E2; color: #0B4F2C; font-size: 15px; line-height: 1.4; }
+.bio-learn, .bio-redo { padding: 14px 16px; border: 2px solid var(--ink); border-radius: 14px; background: #F4F7FB; color: var(--ink); }
+.bio-learn__h { margin: 14px 0 4px; font: 700 13px Fredoka, Nunito, sans-serif; letter-spacing: .02em; color: #5D7079; }
+.bio-learn__h:first-child { margin-top: 0; }
+.bio-learn__lead { margin: 0; font-size: 15.5px; line-height: 1.45; font-weight: 700; }
+.bio-learn__lines { margin: 0; padding: 0 0 0 20px; font-size: 15.5px; line-height: 1.45; }
+.bio-learn__lines li { margin: 3px 0; }
+.bio-learn__p { margin: 0; font-size: 15.5px; line-height: 1.45; }
+.bio-learn__hook { margin: 14px 0 0; padding: 8px 12px; border-left: 5px solid var(--yellow); border-radius: 8px; background: #FFF6D1; font-size: 15.5px; line-height: 1.4; }
+.bio-learn__idea { margin-top: 14px; }
+.bio-learn__lines b { color: var(--ink); }
+.bio-learn__hook span { display: block; font: 700 12.5px Fredoka, Nunito, sans-serif; letter-spacing: .02em; color: #7A5B00; }
+.bio-redo__lead { margin: 0 0 8px; font-size: 15.5px; line-height: 1.4; }
+.bio-redo .am-type__box { background: #FFFFFF; border-color: #E5E5E5; }
+.bio-learn .bio-btn--ghost, .bio-redo .bio-btn--ghost { color: var(--ink); border-color: #C3CED8; }
+.bio-part.is-redo > .bio-in, .bio-part.is-redo > .bio-fields, .bio-part.is-redo > .bio-part__act, .bio-part.is-redo > .bio-part__res { display: none; }

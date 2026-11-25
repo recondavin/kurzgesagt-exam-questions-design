@@ -594,7 +594,7 @@
     }
     return '<section class="bio-part" data-bio-part="' + k + '"><p class="bio-part__q"><b>' + esc(part.l) + '</b> ' + esc(part.q) + ' <span class="bio-part__m">' + marks + '</span></p>' + ui +
       '<div class="bio-part__act"><button type="button" class="bio-btn" data-bio-check="' + k + '">' + (part.kind === 'draw' || (part.kind === 'tap' && !part.tap) ? 'Show the scheme' : 'Check') + '</button>' +
-      '<span class="bio-part__got" data-bio-got="' + k + '" aria-live="polite"></span></div><div class="bio-part__res" data-bio-res="' + k + '"></div></section>';
+      '<span class="bio-part__got" data-bio-got="' + k + '" aria-live="polite"></span></div><div class="bio-part__res" data-bio-res="' + k + '"></div><div class="bio-fix" data-bio-fix="' + k + '"></div></section>';
   }
   // Real questions, then our practice questions for course topics never examined yet.
   function allQuestions(n) {
@@ -611,7 +611,7 @@
     card.classList.add('bio-sheet');
     var tapPart = null;
     q.parts.forEach(function (p, k) { if (p.kind === 'tap' && p.tap) tapPart = String(k); });
-    sheet = { n: n, q: q, card: card, got: q.parts.map(function () { return null; }), tap: {}, tf: {}, cancel: {}, helped: {}, missed: {}, before: {}, onNext: onNext };
+    sheet = { n: n, q: q, card: card, got: q.parts.map(function () { return null; }), tap: {}, tf: {}, cancel: {}, helped: {}, missed: {}, before: {}, fixed: {}, fixing: {}, short: {}, onNext: onNext };
     K.gameHud(card, q.parts.length, '/' + questionOutOf(q));
     K.gameBody(card, '<div class="bio-paper">' +
       '<p class="bio-src">' + esc(q.src) + (q.fresh !== 'yes' ? ' <i class="bio-old' + (q.fresh === 'partly' ? ' bio-old--part' : '') + '">' + (q.fresh === 'no' ? 'Old course' : 'Partly old course') + '</i>' : '') +
@@ -667,7 +667,25 @@
       return;
     }
     if ((t = e.target.closest('[data-bio-self]'))) { selfTick(t); return; }
-    if ((t = e.target.closest('[data-bio-next]'))) { if (sheet.onNext) sheet.onNext(t.getAttribute('data-bio-next')); else openQuestion(sheet.n, t.getAttribute('data-bio-next')); return; }
+    if ((t = e.target.closest('[data-bio-learn]'))) { learnStep(+t.getAttribute('data-bio-learn')); return; }
+    if ((t = e.target.closest('[data-bio-cover]'))) { coverStep(+t.getAttribute('data-bio-cover')); return; }
+    if ((t = e.target.closest('[data-bio-redo]'))) { redoCheck(+t.getAttribute('data-bio-redo')); return; }
+    if ((t = e.target.closest('[data-bio-next]'))) {
+      // Before moving on: a part you got wrong and haven't fixed gets its Learn it step, once (the user: "i dont feel
+      // confident just moving on to the next question after i got it wrong"); pressed again, it moves on.
+      var todo = sheet.q.parts.map(function (p, k) { return needsFix(k) ? k : -1; }).filter(function (k) { return k >= 0; });
+      if (todo.length && !sheet.warned) {
+        sheet.warned = true;
+        if (!sheet.fixing[todo[0]]) learnStep(todo[0]);
+        nextLabel();
+        var f = fixEl(todo[0]);
+        if (f && f.scrollIntoView) f.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        K.mascot('angry', 'Not so fast. Fix ' + todo.map(function (k) { return sheet.q.parts[k].l; }).join(', ') + ' first.');
+        return;
+      }
+      if (sheet.onNext) sheet.onNext(t.getAttribute('data-bio-next')); else openQuestion(sheet.n, t.getAttribute('data-bio-next'));
+      return;
+    }
   }
   function answerWords(sec, part, k) {
     if (part.kind === 'fields') {
@@ -705,6 +723,12 @@
     // The answer stays open: change it and check again (the best total is what's saved). Arrows stay as marked until
     // Clear starts them again.
     sec.querySelectorAll('[data-bio-alabel]').forEach(function (b) { b.disabled = true; });
+    // Short of full marks once on this sheet: it needs fixing from memory (copying the scheme into the box and checking
+    // again doesn't fix it).
+    if (canFix(part)) {
+      if (partScore(part, got) < partOutOf(part) || sheet.helped[k]) sheet.short[k] = true;
+      sheet.fixing[k] = null;
+    }
     renderResult(k);
     var s = partScore(part, got), out = partOutOf(part);
     remember(k, s >= out && !sheet.helped[k]);
@@ -748,6 +772,135 @@
     // A drawing's scheme is shown once (its points are ticked by hand); a written or tapped answer can be checked again.
     if (part.kind === 'draw' || (part.kind === 'tap' && !part.tap)) btn.disabled = true;
     else btn.textContent = part.kind === 'arrows' ? 'Check' : 'Check again';
+    fixPanel(k);
+  }
+
+  // ---------- fix it before you move on ----------
+  // The user, after getting part of an answer wrong: "i dont feel confident just moving on to the next question after i
+  // got it wrong". A written part short of full marks (or done with his help) gets Learn it and try again: what you
+  // missed, a full-marks answer in the scheme's words, why, a way to remember it and the idea from the desk's guide;
+  // then your answer and the scheme are covered and you write the whole part again from memory, marked the same way,
+  // till it gets full marks. It's practice: the saved score stays your own first answers' best, and the part still comes
+  // back in the games (remember, bio-board.js). Next question first asks you to fix what isn't fixed (Move on anyway).
+  function canFix(part) { return part.kind === 'text' || part.kind === 'fields'; }
+  function needsFix(k) {
+    var part = sheet.q.parts[k];
+    return canFix(part) && Boolean(sheet.got[k]) && Boolean(sheet.short[k]) && !sheet.fixed[k];
+  }
+  function fixEl(k) { return sheet.card.querySelector('[data-bio-fix="' + k + '"]'); }
+  function partEl(k) { return sheet.card.querySelector('[data-bio-part="' + k + '"]'); }
+  function fixPanel(k) {
+    var el = fixEl(k);
+    if (!el || sheet.fixing[k]) return;
+    if (sheet.fixed[k]) {
+      el.innerHTML = '<p class="bio-fix__done"><b>✓ Fixed.</b> Full marks from memory. It still comes back in the games, so it sticks.</p>';
+      return;
+    }
+    el.innerHTML = !needsFix(k) ? '' : '<div class="bio-fix__ask"><p><b>Not sure of it yet?</b> Learn what you missed, then write the whole answer again from memory.</p>' +
+      '<button type="button" class="bio-btn bio-fix__go" data-bio-learn="' + k + '">Learn it and try again</button></div>';
+  }
+  function fieldsOf(part) {
+    var out = [];
+    part.pts.forEach(function (pt) { if (pt.f && out.indexOf(pt.f) < 0) out.push(pt.f); });
+    return out;
+  }
+  function plainPoint(pt) { return pt.a.replace(/\*/g, '').trim(); }
+  // The desk's guide idea for this part (bio/guide<N>.js, loaded on the desk), or null.
+  function guideIdea(k) {
+    var G = window.BioGuide && window.BioGuide.chapters && window.BioGuide.chapters[sheet.n];
+    var id = G && G.parts && (G.parts[sheet.q.id] || [])[k];
+    return id ? (G.concepts || []).filter(function (c) { return c.id === id; })[0] || null : null;
+  }
+  function learnStep(k) {
+    var part = sheet.q.parts[k], got = sheet.got[k] || [], el = fixEl(k), C = ((window.BioChecks || {})[sheet.n] || {})[sheet.q.id];
+    var c = C && C[k], idea = guideIdea(k);
+    sheet.fixing[k] = 'learn';
+    partEl(k).classList.remove('is-redo');
+    var need = Math.min(part.n || 1, part.pts.length), gotN = got.filter(Boolean).length, still = Math.max(0, need - gotN);
+    var missing = [];
+    part.pts.forEach(function (pt, i) { if (!got[i] && !pt.self) missing.push(i); });
+    // What you missed is just above (the scheme's points, in red); the card teaches the answer.
+    var lead = still === 0 ? 'You had it, with his help. Learn it, then do it on your own.' :
+      'You needed ' + still + ' more ' + (still === 1 ? 'point' : 'points') + ' (in red above). Learn the whole answer, then cover it and write it again.';
+    var full;
+    if (part.kind === 'fields') {
+      full = '<ul class="bio-learn__lines">' + fieldsOf(part).map(function (f) {
+        // A point can start with its box's name ("X: Thyroid"): it's on the left already.
+        var pts = part.pts.filter(function (pt) { return pt.f === f; }).map(function (pt) { var a = plainPoint(pt); return a.indexOf(f + ':') === 0 ? a.slice(f.length + 1).trim() : a; });
+        return '<li><b>' + esc(f) + ':</b> ' + esc(pts.join('; ')) + '</li>';
+      }).join('') + '</ul>';
+    } else {
+      // What you had, then the first of the rest the marks need, in the scheme's order and words.
+      var use = [];
+      part.pts.forEach(function (pt, i) { if (got[i]) use.push(i); });
+      use = use.concat(missing.slice(0, still)).sort(function (a, b) { return a - b; });
+      full = '<ul class="bio-learn__lines">' + use.map(function (i) { return '<li>' + esc(plainPoint(part.pts[i])) + '</li>'; }).join('') + '</ul>';
+    }
+    el.innerHTML = '<div class="bio-learn"><p class="bio-learn__lead">' + esc(lead) + '</p>' +
+      '<p class="bio-learn__h">A full-marks answer</p>' + full +
+      (c && c.why ? '<p class="bio-learn__h">Why</p><p class="bio-learn__p">' + esc(c.why) + '</p>' : '') +
+      (c && c.hook ? '<p class="bio-learn__hook"><span>Remember it</span>' + esc(c.hook) + '</p>' : '') +
+      (idea ? '<div class="bio-learn__idea"><p class="bio-learn__h">The idea: ' + esc(idea.title) + '</p><ul class="bio-learn__lines">' +
+        (idea.bullets || []).map(function (b) { return '<li><b>' + esc(b[0]) + ':</b> ' + esc(b[1]) + '</li>'; }).join('') + '</ul></div>' : '') +
+      '<div class="bio-part__act"><button type="button" class="bio-btn" data-bio-cover="' + k + '">Cover it and write it again</button></div></div>';
+    if (el.scrollIntoView) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    K.mascot('ok', pick(['Read it. Then cover it.', 'Learn it, then show me.', 'Look properly. I\'ll be asking.']));
+  }
+  function coverStep(k) {
+    var part = sheet.q.parts[k], el = fixEl(k);
+    sheet.fixing[k] = 'cover';
+    partEl(k).classList.add('is-redo');
+    var ui = part.kind === 'fields' ? '<div class="bio-fields">' + fieldsOf(part).map(function (f) {
+      return '<label class="bio-field"><b>' + esc(f) + '</b><input type="text" class="bio-redo-in" data-bio-rf="' + esc(f) + '" autocomplete="off" spellcheck="true"></label>';
+    }).join('') + '</div>' : '<textarea class="am-type__box bio-redo-in" rows="4" spellcheck="true" aria-label="Your answer to ' + esc(part.l) + ' from memory"></textarea>';
+    el.innerHTML = '<div class="bio-redo"><p class="bio-redo__lead"><b>From memory.</b> Write the whole answer to ' + esc(part.l) + ' again. <span class="bio-part__m">' + (part.m ? '[' + part.m + ' marks]' : '[' + part.n + (part.n === 1 ? ' point' : ' points') + ']') + '</span></p>' + ui +
+      '<div class="bio-part__act"><button type="button" class="bio-btn" data-bio-redo="' + k + '">Check</button>' +
+      '<button type="button" class="bio-btn bio-btn--ghost bio-redo__peek" data-bio-learn="' + k + '">Show me again</button>' +
+      '<span class="bio-part__got" data-bio-redogot="' + k + '" aria-live="polite"></span></div><div data-bio-redores="' + k + '"></div></div>';
+    var first = el.querySelector('.bio-redo-in');
+    if (first) first.focus({ preventScroll: true });
+    if (el.scrollIntoView) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+  function redoCheck(k) {
+    var part = sheet.q.parts[k], el = fixEl(k), words, text = '';
+    if (part.kind === 'fields') {
+      words = {};
+      el.querySelectorAll('[data-bio-rf]').forEach(function (inp) { words[inp.getAttribute('data-bio-rf')] = bioWords(inp.value); text += inp.value + ' '; });
+    } else {
+      text = el.querySelector('.bio-redo-in').value;
+      words = bioWords(text);
+    }
+    var gotEl = el.querySelector('[data-bio-redogot="' + k + '"]');
+    if (!text.trim()) { gotEl.textContent = 'Write your answer first.'; return; }
+    var got = part.pts.map(function (pt) { return pt.self ? false : part.kind === 'fields' ? hasPoint(pt, words[pt.f] || []) : hasPoint(pt, words); });
+    if (part.kind === 'text') got = onePerSentence(part, got, text);
+    var bad = part.kind === 'text' ? cancelStars(sheet.n, sheet.q, k, words, got) : '';
+    var s = partScore(part, got), out = partOutOf(part);
+    if (s >= out) {
+      sheet.fixed[k] = true;
+      sheet.fixing[k] = null;
+      partEl(k).classList.remove('is-redo');
+      fixPanel(k);
+      nextLabel();
+      K.ding(4, true);
+      K.mascot('happy', pick(['From memory. Better.', 'Full marks, on your own.', 'Now you have it.']));
+      return;
+    }
+    var need = Math.min(part.n || 1, part.pts.length), still = Math.max(0, need - got.filter(Boolean).length);
+    gotEl.innerHTML = '<b>' + s + '/' + out + '</b> from memory';
+    el.querySelector('[data-bio-redores="' + k + '"]').innerHTML = (bad ? '<p class="bio-cancel">Cancelled: you also wrote "' + esc(bad) + '".</p>' : '') +
+      '<p class="bio-pts__head bio-pts__head--need">Not yet: ' + still + ' more ' + (still === 1 ? 'point' : 'points') + ' needed. Look again, then try once more.</p>' +
+      '<div class="bio-part__act"><button type="button" class="bio-btn" data-bio-learn="' + k + '">Show me again</button>' +
+      '<button type="button" class="bio-btn bio-btn--ghost" data-bio-cover="' + k + '">Try again</button></div>';
+    var peek = el.querySelector('.bio-redo__peek');
+    if (peek) peek.remove();
+    K.bonk();
+    K.mascot('ok', pick(['Not yet. Look again.', 'Closer. Look at what you left out.', 'Not full marks. Again.']));
+  }
+  // The sheet's Next question: "Move on anyway" while a part isn't fixed and you've been asked once.
+  function nextLabel() {
+    var b = sheet.card.querySelector('[data-bio-next]');
+    if (b) b.textContent = sheet.warned && sheet.q.parts.some(function (p, k) { return needsFix(k); }) ? 'Move on anyway' : 'Next question';
   }
   // Under the scheme's points, only what helps you answer: what the marks need ("both arrows, each labelled") and the
   // scheme's notes on what it accepts. Not the mark arithmetic, the asterisks, or where the answers came from (the
@@ -900,6 +1053,7 @@
     var p = btn.getAttribute('data-bio-self').split(':'), k = +p[0], i = +p[1];
     sheet.got[k][i] = true;
     remember(k, partScore(sheet.q.parts[k], sheet.got[k]) >= partOutOf(sheet.q.parts[k]) && !sheet.helped[k], true);
+    if (partScore(sheet.q.parts[k], sheet.got[k]) >= partOutOf(sheet.q.parts[k]) && !sheet.helped[k]) { sheet.short[k] = false; sheet.fixing[k] = null; }
     renderResult(k);
     updateTotal();
   }
@@ -1080,7 +1234,7 @@
     helped: function (k) {
       if (!sheet || !sheet.q.parts[k] || sheet.helped[k]) return;
       sheet.helped[k] = true;
-      if (sheet.got[k]) { renderResult(k); updateTotal(); }
+      if (sheet.got[k]) { sheet.short[k] = true; renderResult(k); updateTotal(); }
     },
     refresh: refresh, words: bioWords, hasPoint: hasPoint, addedWrong: addedWrong, partScore: partScore, pointMarks: pointMarks, partOutOf: partOutOf, chapter: chapter, onePerSentence: onePerSentence,
     graphSvg: graphSvg, diagramHtml: diagramHtml, questions: allQuestions, openQuestion: openQuestion, outOf: questionOutOf, missedCheck: missedCheck,
