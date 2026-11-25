@@ -1,0 +1,1878 @@
+{
+ "chapter": 34,
+ "topic": "The Endocrine System",
+ "questions": [
+  {
+   "id": "2004-Q12c",
+   "source": "LC Biology HL 2004, Section C, Question 12 (c) (iv)",
+   "file": "papers/2004_ep_LC025ALPO00EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "Answer the following questions in relation to human body temperature.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iv)",
+     "text": "Describe briefly the hormonal and nervous responses that occur when internal body temperature drops.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Receptor (or detection)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Receptor in skin",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Receptor in medulla or brain",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Shiver",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Generates heat",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Hairs stand up or goose bumps",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Air trapped",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Vasoconstriction (or explained)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Increased metabolic rate or increased respiration",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Any relevant comment on named hormone e.g. thyroxine increases metabolic rate or increases respiration",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any three 3(3)",
+     "scheme_note": "Only (c)(iv) is on this chapter (the hormonal response with the nervous one); (c)(i)-(iii) are on temperature and insulation.",
+     "outcomes": [
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "The skin's part in temperature regulation (shivering, hairs standing up, vasoconstriction) is not in the new specification; detecting the change with receptors and responding through nervous and hormonal pathways (thyroxine raising the metabolic rate) is homeostasis as stimulus and response (2.4.5)."
+  },
+  {
+   "id": "2005-Q3c",
+   "source": "LC Biology HL 2005, Section A, Question 3 (c)",
+   "file": "papers/2005_ep_LC025ALPO00EV.pdf",
+   "page": 2,
+   "section": "A",
+   "stem": "Indicate whether the following are true (T) or false (F) by drawing a circle around T or F.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(c)",
+     "text": "Endocrine glands secrete hormones.   T   F",
+     "marks": null,
+     "points": [
+      {
+       "answer": "True",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Q3 (ten items (a)-(j)) marked 5(1) + 5(3)",
+     "scheme_note": "Ambiguous: the scheme gives only '5(1) + 5(3)' for the whole question (20 marks), so this single item is worth 1 or 3 marks.",
+     "outcomes": [
+      "2.4.1",
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2005-Q13a",
+   "source": "LC Biology HL 2005, Section C, Question 13 (a)",
+   "file": "papers/2005_ep_LC025ALPO00EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Where is testosterone secreted in the body of the human male?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Testis",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Give a brief account of the role of testosterone.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Development of secondary sexual characteristics or example named",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Development of sex organs",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Sperm production",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2005-Q14c",
+   "source": "LC Biology HL 2005, Section C, Question 14 (c) (i), (ii)",
+   "file": "papers/2005_ep_LC025ALPO00EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "Answer the following questions in relation to systems of response to stimuli in the human body.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "The pancreas is both an exocrine gland and an endocrine gland. Explain the underlined terms. [The underlined terms are 'exocrine' and 'endocrine'.]",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Exocrine: ducted or explained",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Endocrine: ductless or hormone producing",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.1",
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name a product of the endocrine portion of the pancreas and state one of its functions.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Insulin or glucagon",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Regulates blood sugar or regulates sugar (level) or correct explanation",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "(c)(iii), disorders of the musculoskeletal and nervous systems, belongs to other chapters.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2007-Q4",
+   "source": "LC Biology HL 2007, Section A, Question 4 (c) (i)",
+   "file": "papers/2007_ep_LC025ALP000EV.pdf",
+   "page": 3,
+   "section": "A",
+   "stem": "The graphs illustrate changes in the levels of two hormones, A and B, which are involved in the development of the endometrium, during the human female menstrual cycle.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(c)(i)",
+     "text": "Apart from the two hormones illustrated, another hormone called FSH has a role in the cycle. Where is FSH produced?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Pituitary",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Q4: 2(5) + 5(2)",
+     "scheme_note": "The scheme prints 3 beside this item but heads Q4 '2(5) + 5(2)' (20 marks). Only (c)(i), the gland that makes FSH, is on this chapter; the rest of Q4 is the menstrual cycle.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2007-Q15a",
+   "source": "LC Biology HL 2007, Section C, Question 15 (a) (iv)",
+   "file": "papers/2007_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iv)",
+     "text": "State two functions of testosterone.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Growth",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Development of primary sex characteristics or example",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Development of secondary sex characteristics or example",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Sperm production",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Comment on male behaviour",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "Only (a)(iv) is on this chapter; the rest of (a) is the male reproductive system.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2007-Q15b",
+   "source": "LC Biology HL 2007, Section C, Question 15 (b)",
+   "file": "papers/2007_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "",
+   "diagram": {
+    "page": 10,
+    "what": "Table with four columns: Endocrine Gland, Location, Hormone, Role of Hormone. Row 1 gives Pancreas (location) and Insulin (hormone); row 2 gives Thyroid Gland (endocrine gland); row 3 gives “fight or flight” (role of hormone); the other eight boxes are empty.",
+    "labels": {}
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Other than the secretion of hormones, how does an endocrine gland differ from an exocrine gland?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Ductless or secretes into blood stream",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.1",
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "State two ways in which hormone action differs from nerve action.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Chemical transmission",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Slower action",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Longer lasting effect",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Many target organs",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.5"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Copy the following table into your answer book and fill each of the empty boxes. [Table: Endocrine Gland | Location | Hormone | Role of Hormone. Row 1: (empty) | Pancreas | Insulin | (empty). Row 2: Thyroid Gland | (empty) | (empty) | (empty). Row 3: (empty) | (empty) | (empty) | “fight or flight”.]",
+     "marks": 16,
+     "points": [
+      {
+       "answer": "Endocrine gland (pancreas, insulin row): Islets of Langerhans",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Role of hormone (insulin row): regulates blood sugar or explained",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Location (thyroid row): neck or described",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Hormone (thyroid row): thyroxine",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Role of hormone (thyroid row): growth in young or (rate of) metabolism",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Endocrine gland (“fight or flight” row): adrenal",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Location (“fight or flight” row): on kidney",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Hormone (“fight or flight” row): adrenalin(e)",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "8(2)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "In the case of a named hormone give: 1. a deficiency symptom, 2. a corrective measure.",
+     "marks": 5,
+     "points": [
+      {
+       "answer": "Named hormone",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "1. Deficiency symptom",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "2. Corrective measure",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "1 + 2 + 2",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10",
+      "2.4.11"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "(iv) 1., a deficiency symptom of a named hormone, is not in the new specification; the corrective measure (giving the hormone as a treatment) is a hormonal manipulation in health (2.4.11)."
+  },
+  {
+   "id": "2008-Q13c",
+   "source": "LC Biology HL 2008, Section C, Question 13 (c) (ii), (iii)",
+   "file": "papers/2008_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii)",
+     "text": "When the water content of the blood drops a hormone is released. Name this hormone and the endocrine gland from which it is secreted.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "*ADH (vasopressin)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "*Pituitary",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* = only this specific term accepted. (c)(i) and (iv) are in the urinary system chapter.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Give a precise target area for this hormone. How does the hormone reach the target area?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Distal tubule or collecting duct",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "In the blood",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.6.3",
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2010-Q11c",
+   "source": "LC Biology HL 2010, Section C, Question 11 (c)",
+   "file": "papers/2010_ep_LC025ALP000EV.pdf",
+   "page": 8,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What term is used to describe the glands that secrete hormones in the human body?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Endocrine (or ductless)",
+       "marks": 3,
+       "accept": [
+        "ductless"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* = only this specific term accepted.",
+     "outcomes": [
+      "2.4.1",
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "1. Name a hormone-producing gland in the human body. 2. Where in the body is the gland located? 3. Name a hormone that this gland secretes. 4. State a role of this hormone. 5. Describe what happens if the body experiences a deficiency of this hormone.",
+     "marks": 15,
+     "points": [
+      {
+       "answer": "1. Name of a hormone-producing gland",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Location of named gland",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "3. Hormone secreted by named gland",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "4. Role of hormone",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "5. Description of deficiency symptom",
+       "marks": 3,
+       "accept": [
+        "named condition"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Give two examples of the use of hormone supplements.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Treatment of diabetes",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Contraception",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "The scheme gives these two as examples ('e.g. 1. Treatment of diabetes 2. Contraception').",
+     "outcomes": [
+      "2.4.11"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "(ii) 5., what happens when a hormone is lacking, is not in the new specification; the rest is (2.4.1, 2.4.10, 2.4.11)."
+  },
+  {
+   "id": "2010-Q15a",
+   "source": "LC Biology HL 2010, Section C, Question 15 (a) (iv)",
+   "file": "papers/2010_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iv)",
+     "text": "What maintains the secondary sexual characteristics in the adult human male?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Testosterone",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* = only this specific term accepted. Only (a)(iv) is on this chapter; the rest of (a) is the male reproductive system.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2011-Q11c",
+   "source": "LC Biology HL 2011, Section C, Question 11 (c)",
+   "file": "papers/2011_ep_LC025ALP000EV.pdf",
+   "page": 8,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What is a hormone?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "A chemical messenger or product of endocrine (or ductless) gland",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.1"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "State two ways in which hormones are similar to the group of substances referred to in (b)(i). [The substances in (b)(i) are the substances in plants which control responses to external stimuli: plant growth regulators.]",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Produced in one location",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Acts in different location",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Prolonged effect",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.1"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "1. What is meant by feedback in relation to hormone action? 2. Give a brief account of the feedback mechanism for a named hormone.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "1. When the level of a hormone (in the blood)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "1. Controls (the production) of another (or itself)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Named hormone",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Inhibits (or causes production of) a named hormone",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.5"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Describe one deficiency symptom of a named hormone.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "One deficiency symptom of a named hormone",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": []
+    }
+   ],
+   "new_course": "partly",
+   "why": "(iv), the deficiency symptom of a named hormone, is not in the new specification; (i)-(iii) are (2.4.1, 2.4.5)."
+  },
+  {
+   "id": "2012-Q13a",
+   "source": "LC Biology HL 2012, Section C, Question 13 (a) (ii)",
+   "file": "papers/2012_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii)",
+     "text": "Give one way in which a nervous response differs from a hormonal response.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Faster or shorter-lived or electrical",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Only (a)(ii) is on this chapter; the rest of Q13 is the nervous system.",
+     "outcomes": [
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2013-Q1d",
+   "source": "LC Biology HL 2013, Section A, Question 1 (d)",
+   "file": "papers/2013_ep_LC025ALP000EV.pdf",
+   "page": 2,
+   "section": "A",
+   "stem": "In the case of any five of the following pairs of terms, clearly distinguish between the first term and second term by writing a brief sentence about each.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(d)",
+     "text": "Enzymes. Hormones.",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "Enzyme – a catalyst (or explained)",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Hormone – a (chemical) messenger (or explained)",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "Q1: best five of (a)-(f), 5(4, 2, 0)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.1.1",
+      "1.2.1",
+      "2.4.1"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2013-Q10a",
+   "source": "LC Biology HL 2013, Section C, Question 10 (a)",
+   "file": "papers/2013_ep_LC025ALP000EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What term is used for glands that secrete hormones?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Endocrine",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* = only this specific term accepted.",
+     "outcomes": [
+      "2.4.1",
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "How do these glands differ from those that do not secrete hormones?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Ductless",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.1",
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Explain why the pancreas may be described as a dual-function gland.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Hormone (or insulin) secretion & non-hormone (enzyme) secretions or has endocrine and exocrine function (or described)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2013-Q10b",
+   "source": "LC Biology HL 2013, Section C, Question 10 (b)",
+   "file": "papers/2013_ep_LC025ALP000EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "Answer the following by reference to hormones, other than sex hormones, which you have encountered in the course of your studies.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What is the chemical nature of many hormones?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Protein",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "1.2.1",
+      "2.4.1"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "In the case of each of two named hormones secreted in the human body state: 1. The precise location of the gland that secretes it. 2. A function of the hormone.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Hormone name",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Hormone name",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "1. Gland location",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "1. Gland location",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "2. Hormone function",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "2. Hormone function",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "Hormone name 2(2) + 1. gland location 2(2) + 2. hormone function 2(2)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "In the case of one of the hormones referred to in part (b) (ii): 1. Give a deficiency symptom. 2. Give a symptom of excess secretion. 3. Give a corrective measure for either its deficiency or its excess, clearly stating which you have chosen.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. Deficiency symptom",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "2. Excess symptom",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "3. Corrective measure",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.11"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Explain why hormonal responses are slower than nervous responses.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Hormones travel in blood or are chemical",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Electrical transmission in nerves",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "(iii) 1. and 2., the deficiency and excess symptoms of a hormone, are not in the new specification; the corrective measure (a hormone treatment) is a hormonal manipulation in health (2.4.11), and (i), (ii) and (iv) are in 1.2.1, 2.4.10 and 2.4.5."
+  },
+  {
+   "id": "2013-Q13a",
+   "source": "LC Biology HL 2013, Section C, Question 13 (a) (iii)",
+   "file": "papers/2013_ep_LC025ALP000EV.pdf",
+   "page": 12,
+   "section": "C",
+   "stem": "In humans, widening of the female hips is one example of physical changes that distinguish the sexes but are not essential for reproduction.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iii)",
+     "text": "Name the hormone that maintains such changes throughout the life of a male.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Testosterone",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* = only this specific term accepted. Only (a)(iii) is on this chapter: (i) secondary sexual characteristics and (ii) puberty are reproduction.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2016-Q15b",
+   "source": "LC Biology HL 2016, Section C, Question 15 (b) (ii)",
+   "file": "papers/2016_ep_LC025ALP000EV.pdf",
+   "page": 15,
+   "section": "C",
+   "stem": "Answer the following questions in relation to the typical human female menstrual cycle.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii)",
+     "text": "FSH and LH each plays a role in the cycle. Where in the body are these hormones produced?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Pituitary (gland)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* = only this specific term accepted. Only (b)(ii), the gland that makes FSH and LH, is on this chapter; the rest of (b) is the menstrual cycle.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2016-Q15c",
+   "source": "LC Biology HL 2016, Section C, Question 15 (c) (ii) 3.",
+   "file": "papers/2016_ep_LC025ALP000EV.pdf",
+   "page": 15,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii) 3.",
+     "text": "Diseases in humans occur for a number of different reasons. In each of the following cases explain how the presence of a named disease may be recognised. 3. Excessive secretion of a named hormone.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Named hormone + matching recognition",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3, 2, 0",
+     "scheme_note": "Only (c)(ii) 3. is on this chapter; the other items of (c) are on bone, vitamins, genetics, viruses and other topics.",
+     "outcomes": []
+    }
+   ],
+   "new_course": "no",
+   "why": "Recognising the excess secretion of a named hormone by its signs is not in the new specification."
+  },
+  {
+   "id": "2018-Q6",
+   "source": "LC Biology HL 2018, Section A, Question 6 (e)",
+   "file": "papers/2018_ep_LC025ALP000EV.pdf",
+   "page": 6,
+   "section": "A",
+   "stem": "The diagram shows the structure of a nephron and part of its associated blood supply.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(e)",
+     "text": "Name the endocrine gland in which ADH is produced.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Hypothalamus",
+       "marks": null,
+       "accept": [
+        "(posterior) pituitary"
+       ]
+      }
+     ],
+     "rule": "Q6 marked 2(5) + 5(2): first two correct answers 5 marks each, each later correct answer 2 marks",
+     "scheme_note": "Scheme: 'Hypothalamus [allow (posterior) pituitary]'. Other years' schemes and the new specification give the pituitary. Only (e) is on this chapter; the rest of Q6 is in the urinary system chapter.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2018-Q14c",
+   "source": "LC Biology HL 2018, Section C, Question 14 (c)",
+   "file": "papers/2018_ep_LC025ALP000EV.pdf",
+   "page": 14,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "The pancreas is both an exocrine and endocrine organ. Define the term endocrine.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Ductless or secretes (products) into bloodstream",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Q14 (c) marked 2(5) + 4(4) + 4(1) (30 marks over its ten answers: the first two correct answers 5 marks each, the next four 4 each, the last four 1 each)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.1",
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Using your knowledge of the endocrine role of the pancreas, state: 1. A substance produced. 2. The name of the endocrine tissue in the pancreas that produces it. 3. A site of action of the substance mentioned in 1. 4. The role of the substance mentioned in 1.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "1. Insulin",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "2. Islets of Langerhans",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "3. (Body) cells or liver",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "4. Absorption of glucose from blood or lowers (or regulates) (blood) sugar levels",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Q14 (c) marked 2(5) + 4(4) + 4(1) (30 marks over its ten answers: the first two correct answers 5 marks each, the next four 4 each, the last four 1 each)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Describe how a feedback mechanism works in the human endocrine system.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Production (or inhibition) of one hormone",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Inhibits (or stimulates) the production of",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Itself (or another hormone)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Can be positive or negative",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any three; Q14 (c) marked 2(5) + 4(4) + 4(1) (30 marks over its ten answers: the first two correct answers 5 marks each, the next four 4 each, the last four 1 each)",
+     "scheme_note": "Named hormones or another example are allowed.",
+     "outcomes": [
+      "2.4.5"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Give two examples of the use of hormone supplements.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Treatment of deficiency of named hormone (or of a named condition)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Contraception",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Fertility treatments",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "HRT (for menopause)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Any valid answer",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any two; Q14 (c) marked 2(5) + 4(4) + 4(1) (30 marks over its ten answers: the first two correct answers 5 marks each, the next four 4 each, the last four 1 each)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.11"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2019-Q14a",
+   "source": "LC Biology HL 2019, Section C, Question 14 (a) (iv), (v), (vi)",
+   "file": "papers/2019_ep_LC025ALP040EV.pdf",
+   "page": 7,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iv)",
+     "text": "Endocrine glands produce hormones. What is meant by the term endocrine?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Ductless or secretes directly into blood (or into lymph)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Only (iv)-(vi) are on this chapter; (i)-(iii), the brain, are in the nervous system chapter.",
+     "outcomes": [
+      "2.4.1",
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "The pituitary gland is an example of an endocrine gland. 1. Name a hormone secreted by the pituitary gland. 2. Give a function of this hormone in the human body.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. ACTH or FSH or GH or LH or TSH or ADH (vasopressin) or oxytocin or prolactin or MSH",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Correct matching function",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "Name one gland in the human body that has both endocrine and exocrine function.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Pancreas or testis or ovary or liver or kidney",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2020-Q14a",
+   "source": "LC Biology HL 2020, Section C, Question 14 (a) (iv)",
+   "file": "papers/2020_ep_LC025ALP040EV.pdf",
+   "page": 6,
+   "section": "C",
+   "stem": "The diagram below summarises some of the changes that take place in a typical human female during the menstrual cycle. Answer the questions that follow, based on this diagram.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iv)",
+     "text": "Where is the hormone oestrogen produced?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Graafian follicle or *ovary",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Q14 (a): 3 marks for each correct response (30 marks)",
+     "scheme_note": "* = only this specific term accepted. Only (a)(iv), where oestrogen is made, is on this chapter; the rest of (a) is the menstrual cycle.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2021-Q6a",
+   "source": "LC Biology HL 2021, Section A, Question 6 (a)",
+   "file": "papers/2021_ep_LC025ALP038EV.pdf",
+   "page": 8,
+   "section": "A",
+   "stem": "Indicate whether the following statements are true or false by placing a tick (✓) in the appropriate box in each case.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Adrenaline is secreted into the blood when experiencing a threat.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "True",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Q6 (a)-(g): 6(3) + 2 (1-7 correct responses: 3, 6, 9, 12, 15, 18, 20 marks)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2021-Q16b",
+   "source": "LC Biology HL 2021, Section C, Question 16 (b) (iv)",
+   "file": "papers/2021_ep_LC025ALP040EV.pdf",
+   "page": 7,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iv)",
+     "text": "Name the hormone responsible for the development of male secondary sexual characteristics.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Testosterone",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Q16 (b) (ii)-(v): 3 marks for each correct response (18 marks)",
+     "scheme_note": "* = only this specific term accepted. Only (b)(iv) is on this chapter; the rest of (b) is the male reproductive system.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2021-Q17c",
+   "source": "LC Biology HL 2021, Section C, Question 17 (c) (vi)",
+   "file": "papers/2021_ep_LC025ALP040EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "The diagram shows a cross section of the spinal cord along with some neurons from the peripheral nervous system.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(vi)",
+     "text": "Give two ways in which a nervous response differs from a hormonal response.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Nervous response is fast and hormonal response is slow",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Nervous response is electrical and hormonal response is chemical",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Nervous response is short-lived and hormonal response is prolonged",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "Only (c)(vi) is on this chapter; (i)-(v), the spinal cord and the reflex action, are in the nervous system chapter.",
+     "outcomes": [
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2023-Q17a",
+   "source": "LC Biology HL 2023, Section C, Question 17 (a)",
+   "file": "papers/2023_ep_LC025ALP040EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "",
+   "diagram": {
+    "page": 9,
+    "what": "A plain outline of the human body (front view) beside the question, to copy and draw the glands into.",
+    "labels": {}
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Give one difference between endocrine and exocrine glands.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Endocrine glands do not have ducts and exocrine glands do have ducts",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Endocrine glands secrete products into the blood and exocrine glands secrete products into ducts",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any one; Q17 (a) (i)-(ii) 4(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.1",
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name a gland that has both an endocrine function and an exocrine function. Name its endocrine product and its exocrine product.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Name: Any correct gland (e.g. pancreas or testes or kidney or other correct)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Endocrine product: Correct matching product",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Exocrine product: Correct matching product",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Q17 (a) (i)-(ii) 4(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Copy the outline of the human body into your answerbook. Draw in each of the following endocrine glands labelling them in their correct locations: 1. Pituitary gland 2. Thyroid gland 3. Adrenal glands",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Pituitary gland: drawn and labelled in the head",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Thyroid gland: drawn and labelled in the neck",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Adrenal glands: drawn and labelled, a pair in the abdomen",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "3(2)",
+     "scheme_note": "The scheme shows the three glands on a body outline: the pituitary in the head, the thyroid in the neck and the two adrenal glands in the abdomen.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "For each of the following endocrine glands, name a hormone it secretes and give its corresponding function: thyroid; adrenals",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Thyroid: Name of hormone: thyroxine",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Thyroid: Function: (stimulates) metabolism",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Adrenals: Name of hormone: adrenaline",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Adrenals: Function: ‘fight or flight’ (response) or other correct function",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "4(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2024-Q16b",
+   "source": "LC Biology HL 2024, Section C, Question 16 (b)",
+   "file": "papers/2024_ep_LC025ALP040EV.pdf",
+   "page": 7,
+   "section": "C",
+   "stem": "The diagram shows an outline of the human female body. Three important endocrine glands are indicated by the letters X, Y and Z.",
+   "diagram": {
+    "page": 7,
+    "what": "Outline of a human female body (front view) with glands drawn in: X points to the gland in the neck, Y to the glands on top of the kidneys (Kidney is labelled), Z to the two glands either side of the uterus in the lower abdomen.",
+    "labels": {
+     "X": "thyroid",
+     "Y": "adrenal",
+     "Z": "ovary",
+     "Kidney": "given"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name glands X, Y and Z.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "X: *Thyroid",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Y: *Adrenal",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Z: *Ovary",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* = only this specific term accepted.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name one hormone secreted by each gland and give one function for each named hormone.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Thyroid: Hormone: Thyroxine or other correct",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Thyroid: Function: Controls the rate of metabolism or other correct (must match)",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Adrenal: Hormone: Adrenaline or other correct",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Adrenal: Function: Fight or flight response or other correct (must match)",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Ovary: Hormone: Oestrogen or other correct",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Ovary: Function: Secondary sexual characteristics or other correct (must match)",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "6(2)",
+     "scheme_note": "Each function must match the hormone named.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "For any named human (male or female) hormone, give: 1. a symptom of its deficiency. 2. a symptom of its excess. 3. a corrective measure for either its deficiency or excess.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. Deficiency symptom to match hormone named",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "2. Excess symptom to match hormone named",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "3. Corrective measure to match either symptom",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.11"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Briefly describe the feedback mechanism of any one human hormone.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "The concentration (or secretion) of one (named) hormone",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Inhibits or stimulates the concentration (or secretion) of another (named) hormone or itself",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "(iii) 1. and 2., the deficiency and excess symptoms of a hormone, are not in the new specification; the corrective measure is a hormonal manipulation in health (2.4.11), and (i), (ii) and (iv) are in 2.4.10 and 2.4.5."
+  },
+  {
+   "id": "2025-Q17c",
+   "source": "LC Biology HL 2025, Section C, Question 17 (c) (ii)",
+   "file": "papers/2025_ep_LC025ALP040EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "Homeostasis is an important process in living organisms. [Homeostasis is underlined]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii)",
+     "text": "ADH (anti-diuretic hormone) is an important hormone in homeostasis. Name the endocrine gland that secretes ADH.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Pituitary",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* = only this specific term accepted. Only (c)(ii) is on this chapter; the rest of (c) is in the urinary system chapter.",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2026-Q7d",
+   "source": "LC Biology HL 2026, Section A, Question 7 (d)",
+   "file": "papers/2026_ep_LC025ALP038EV.pdf",
+   "page": 9,
+   "section": "A",
+   "stem": "For each of the following structures, identify its precise location and its main function.",
+   "diagram": null,
+   "total_marks": 20,
+   "parts": [
+    {
+     "label": "(d)",
+     "text": "Adrenal gland",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "Precise location: On top of the kidneys",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Main function: Produce adrenaline",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.10"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "Other structures in Q7 (retina, SA node, gall bladder, cerebellum) belong to other chapters."
+  },
+  {
+   "id": "S1-Q1d",
+   "source": "SEC Sample Paper 1 (2027), Higher Level, Question 1 (d) (iii), (iv)",
+   "file": "sample/lc-biology-2027-1-qp-smlwu.pdf",
+   "page": 5,
+   "section": "sample",
+   "stem": "The hormone insulin stimulates the uptake of glucose from the bloodstream into cells, particularly in muscles. Glucagon is another hormone that converts stored glycogen back into glucose when needed. Glucose and glycogen are types of carbohydrate. The graph shows a person’s relative blood glucose concentration over a period of time. The person begins eating at the 20 minute mark. Analyse the data and answer the questions that follow.",
+   "diagram": {
+    "page": 5,
+    "what": "Line graph 'Blood glucose levels after a meal': relative blood glucose concentration against time, 0-100 minutes. The line is level until about 25 minutes, rises to a peak at about 45 minutes, falls below its starting level to a low at about 90 minutes and starts to rise again by 100.",
+    "labels": {}
+   },
+   "parts": [
+    {
+     "label": "(iii)",
+     "text": "On the horizontal axis above, indicate a time with the letter X, when the secretion of the hormone insulin is likely to start increasing.",
+     "marks": 2,
+     "points": [
+      {
+       "answer": "X marked on the time axis shortly after 20 minutes, where the blood glucose concentration begins to rise after eating",
+       "marks": 2,
+       "accept": [
+        "Any point from about 20 to 30 minutes"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "SimpleStudy practice marking scheme (not an official SEC scheme). (i) and (ii), on carbohydrates, are in another chapter.",
+     "outcomes": [
+      "2.4.5",
+      "2.4.10"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(iv)",
+     "text": "Low blood glucose concentration is a stimulus for the secretion of glucagon. On the horizontal axis above, indicate a time with the letter Y, when the secretion of the hormone glucagon is likely to start increasing.",
+     "marks": 2,
+     "points": [
+      {
+       "answer": "Y marked on the time axis late in the trace, where the blood glucose concentration has fallen back to or below the resting level, about 80 to 100 minutes; Y must be later than X",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "SimpleStudy practice marking scheme (not an official SEC scheme).",
+     "outcomes": [
+      "2.4.5",
+      "2.4.10"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  }
+ ],
+ "not_covered": [
+  "The parathyroid glands and parathyroid hormone (their place on the thyroid, the hormone raising blood calcium): never asked (2.4.10).",
+  "TSH, oxytocin and the other pituitary hormones as hormones of the pituitary: only accepted answers (2019 Q14 (a)(v)); oxytocin is asked only in birth questions (reproduction).",
+  "Hormonal manipulation in sport (anabolic steroids, EPO, testosterone doping): never asked (2.4.11).",
+  "Hormonal manipulation in agriculture (growth hormones in livestock, hormones to time breeding): never asked (2.4.11).",
+  "Blood glucose kept steady by insulin and glucagon as a negative feedback loop (receptor, control centre, response): only the timing on a graph in SEC Sample Paper 1 Q1 (d) (2.4.5).",
+  "Homeostasis as a model of stimulus and response with a control centre, receptors and effectors, for a hormonal pathway: asked only as feedback between hormones (2.4.5)."
+ ],
+ "diagrams_to_memorise": [
+  {
+   "name": "The main endocrine glands on an outline of the human body",
+   "labels": [
+    "pituitary gland (base of the brain)",
+    "thyroid gland (neck, in front of the trachea)",
+    "parathyroid glands (on the thyroid)",
+    "adrenal glands (on top of each kidney)",
+    "pancreas, with its islets of Langerhans (behind the stomach)",
+    "ovaries (either side of the uterus)",
+    "testes (in the scrotum)"
+   ],
+   "asked_in": [
+    "2023-Q17a",
+    "2024-Q16b",
+    "2026-Q7d",
+    "2007-Q15b",
+    "2010-Q11c",
+    "2013-Q10b"
+   ]
+  },
+  {
+   "name": "Blood glucose after a meal (graph): insulin secretion rises as the glucose level rises, glucagon secretion as it falls below the resting level",
+   "labels": [
+    "time the person starts eating",
+    "rise in blood glucose (insulin secretion starts to increase)",
+    "peak",
+    "fall below the resting level (glucagon secretion starts to increase)"
+   ],
+   "asked_in": [
+    "S1-Q1d"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,3232 @@
+{
+ "chapter": 33,
+ "topic": "The Nervous System",
+ "questions": [
+  {
+   "id": "2004-Q12c",
+   "source": "LC Biology HL 2004, Section C, Question 12 (c) (iv)",
+   "file": "papers/2004_ep_LC025ALPO00EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "Answer the following questions in relation to human body temperature.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iv)",
+     "text": "Describe briefly the hormonal and nervous responses that occur when internal body temperature drops.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Receptor (or detection)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Receptor in skin",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Receptor in medulla or brain",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Shiver",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Generates heat",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Hairs stand up or goose bumps",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Air trapped",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Vasoconstriction (or explained)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Increased metabolic rate or increased respiration",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Any relevant comment on named hormone e.g. thyroxine increases metabolic rate or increases respiration",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any three 3(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "partly",
+   "why": "Temperature regulation itself (skin receptors, shivering, hair erection, vasoconstriction) is not in the new specification; the part is kept for 2.4.5, a homeostatic response in which receptors, a control centre in the brain and effectors are linked by nervous and hormonal (thyroxine) pathways. (c)(i)-(iii), on the source of body heat, insulation and the responses to overheating, are left out."
+  },
+  {
+   "id": "2004-Q15a",
+   "source": "LC Biology HL 2004, Section C, Question 15 (a)",
+   "file": "papers/2004_ep_LC025ALPO00EV.pdf",
+   "page": 13,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Draw and label sufficient of two neurons to show a synaptic cleft.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Diagram of synaptic cleft (two neurons)",
+       "marks": 6,
+       "accept": []
+      },
+      {
+       "answer": "1st correct label",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "2nd correct label",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "3rd correct label",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "Diagram 6, 3, 0 + 3 labels 3(2)",
+     "scheme_note": "The scheme does not list the labels.",
+     "outcomes": [
+      "2.4.7",
+      "2.4.8"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Describe the sequence of events that allows an impulse to be transmitted across a synapse from one neuron to the next.",
+     "marks": 15,
+     "points": [
+      {
+       "answer": "Arrival of impulse",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Synaptic bulbs (or vesicles)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Secretes) transmitter (substance)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Passage of neurotransmitter",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Impulse starts in next neuron",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Neurotransmitter broken down",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "By enzymes",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any five 5(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.7",
+      "2.4.8"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Suggest a possible role for a drug in relation to the events that you have outlined in (ii).",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "A drug may be used to inhibit or enhance transmission of impulse or similar comment",
+       "marks": 3,
+       "accept": [
+        "any reasonable suggestion"
+       ]
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.8"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2005-Q3b",
+   "source": "LC Biology HL 2005, Section A, Question 3 (b)",
+   "file": "papers/2005_ep_LC025ALPO00EV.pdf",
+   "page": 2,
+   "section": "A",
+   "stem": "Indicate whether the following are true (T) or false (F) by drawing a circle around T or F.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(b)",
+     "text": "Motor neurons conduct impulses towards the central nervous system.   T   F",
+     "marks": null,
+     "points": [
+      {
+       "answer": "False",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Q3 (ten items (a)-(j)) marked 5(1) + 5(3)",
+     "scheme_note": "The scheme gives only '5(1) + 5(3)' for the whole question (20 marks), so this item is worth 1 or 3 marks. (Not in scheme: motor neurons carry impulses away from the central nervous system, to muscles or glands.)",
+     "outcomes": [
+      "2.4.6",
+      "2.4.7"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2005-Q14c",
+   "source": "LC Biology HL 2005, Section C, Question 14 (c) (iii) 2.",
+   "file": "papers/2005_ep_LC025ALPO00EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "Answer the following questions in relation to systems of response to stimuli in the human body.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iii) 2.",
+     "text": "Name a disorder other than cancer for each of the following and indicate a possible cause and a means of treatment: 2. Nervous system.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Name: Paralysis / Parkinson's disease",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Cause: Injury / genetic / disease / lack of dopamine",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Treatment: Physiotherapy / dopamine or drugs to promote neurotransmitter production / stem cell / implant",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.8",
+      "2.4.9"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2006-Q14b",
+   "source": "LC Biology HL 2006, Section C, Question 14 (b)",
+   "file": "papers/2006_ep_LC025ALPO00EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What is a neuron?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Nerve cell",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Distinguish between sensory, motor and interneurons (association neurons).",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Sensory: towards CNS or named part or from receptor or structural feature",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Motor: away from CNS or named part or to effector or structural feature",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Inter: links two neurons",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6",
+      "2.4.7"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Briefly explain the role of neurotransmitter substances.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Carries impulse",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Across synaptic cleft",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Triggers impulse in next neuron",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.7"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "State a function for 1. Schwann cells, 2. Myelin sheath.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. Schwann cell: produces myelin (sheath)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Myelin sheath: insulation or protection or speeds impulse",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "In relation to Parkinson's disease or paralysis give; 1. A possible cause, 2. A method of treatment.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. Cause: injury / genetic / disease / lack of dopamine",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Treatment: physiotherapy / stem cell / dopamine or drugs qualified",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "The scheme heads this 'Disorder:' and gives no marks for naming it.",
+     "outcomes": [
+      "2.4.8",
+      "2.4.9"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2007-Q15b",
+   "source": "LC Biology HL 2007, Section C, Question 15 (b) (ii)",
+   "file": "papers/2007_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii)",
+     "text": "State two ways in which hormone action differs from nerve action.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Chemical transmission",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Slower action",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Longer lasting effect",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Many target organs",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "The rest of (b), on endocrine glands and hormones, is in the endocrine chapter."
+  },
+  {
+   "id": "2008-Q4",
+   "source": "LC Biology HL 2008, Section A, Question 4",
+   "file": "papers/2008_ep_LC025ALP000EV.pdf",
+   "page": 3,
+   "section": "A",
+   "stem": "The diagram shows a motor neuron.",
+   "diagram": {
+    "page": 3,
+    "what": "Line drawing of a motor neuron lying across the page: on the right a star-shaped cell body with a nucleus and short branching dendrites; from it a long axon runs to the left inside segments of myelin sheath, each with a small Schwann cell nucleus, and ends on the left in two branches of terminal (axon) dendrites. A points to a segment of the sheath; B points to the axon (the line inside the sheath); C, with a bracket, marks the short branches on the cell body.",
+    "labels": {
+     "A": "myelin sheath or Schwann cell",
+     "B": "myelin sheath or axon",
+     "C": "dendrite"
+    }
+   },
+   "total_marks": 20,
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Identify parts A, B and C.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "A = myelin sheath or Schwann cell",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "B = myelin sheath or axon",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "C = dendrite",
+       "marks": 1,
+       "accept": []
+      }
+     ],
+     "rule": "3(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(b)",
+     "text": "Give a function of A.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "A (myelin sheath): insulates or protection or speeds up impulse (message)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "A (Schwann cell): produces myelin (or sheath) or insulates or protection or speeds up impulse (message)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3",
+     "scheme_note": "The function must match what A was named in (a).",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(c)",
+     "text": "Place an arrow on the diagram to show the direction of the impulse.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Arrow (right to left) or from dendrites towards cell body",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(d)",
+     "text": "Give a function of C.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Receives impulse or carries impulse (message) to cell body",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(e)",
+     "text": "Place an X on the diagram at a point at which a neurotransmitter substance is secreted.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "X on terminal dendrites on left",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6",
+      "2.4.7"
+     ]
+    },
+    {
+     "label": "(f)",
+     "text": "What is the role of the motor neuron?",
+     "marks": 5,
+     "points": [
+      {
+       "answer": "Receive or carry impulse (message) and to muscle or gland or effector or from CNS",
+       "marks": 5,
+       "accept": []
+      }
+     ],
+     "rule": "5, 0",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6",
+      "2.4.7"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2009-Q15c",
+   "source": "LC Biology HL 2009, Section C, Question 15 (c) (ii)",
+   "file": "papers/2009_ep_LC025ALP000EV.pdf",
+   "page": 12,
+   "section": "C",
+   "stem": "Write notes on three of the following topics: [topics (i) and (iii)-(v), on lymphocytes, homeostasis, wind-pollinated flowers and viruses, are in other chapters]",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii)",
+     "text": "Neurotransmitters.",
+     "marks": 10,
+     "points": [
+      {
+       "answer": "Secreted by neuron (or vesicle)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Presynaptic (neuron)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "In response to impulse",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Chemical transmission",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Across synaptic cleft",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Cause impulse in next neuron",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Destroyed by enzymes",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Recycled or reabsorbed by pre-synaptic neuron",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "any three points: 4 + 3 + 3 (question marked 'Any three' topics, 3(4+3+3))",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.7",
+      "2.4.8"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2010-Q11a",
+   "source": "LC Biology HL 2010, Section C, Question 11 (a)",
+   "file": "papers/2010_ep_LC025ALP000EV.pdf",
+   "page": 8,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name a disorder of the human nervous system.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Paralysis or Parkinson's . . .",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "The scheme's '. . .' leaves other disorders of the nervous system open.",
+     "outcomes": [
+      "2.4.8"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "In the case of the disorder referred to in part (i) state: 1. A possible cause. 2. A means of prevention or a treatment.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. Relevant cause",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Relevant means of prevention or treatment",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.8",
+      "2.4.9"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2010-Q11b",
+   "source": "LC Biology HL 2010, Section C, Question 11 (b)",
+   "file": "papers/2010_ep_LC025ALP000EV.pdf",
+   "page": 8,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What is a reflex action?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Automatic",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Response to a stimulus",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Involuntary (or not controlled by brain)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Give one example of a reflex action.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "e.g. coughing, blinking, sneezing etc.",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Suggest an advantage of reflex actions.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Protection or fast (response)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(iv) 1.",
+     "text": "The parts of the nervous system involved in a reflex action make up a reflex arc. 1. Draw a large labelled diagram to show the structures involved in a reflex arc.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Diagram (sensory neuron, motor neuron, spinal cord and correct position of cell bodies for 6 marks)",
+       "marks": 6,
+       "accept": []
+      },
+      {
+       "answer": "Label: receptor (or named)",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Label: sensory neuron",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Label: inter neuron",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Label: motor neuron",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Label: cell body",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Label: effector (or named)",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "Diagram 6, 3, 0 + labels 3(2)",
+     "scheme_note": "Any three labels.",
+     "outcomes": [
+      "2.4.4",
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(iv) 2.",
+     "text": "2. Place arrows on your diagram to show the direction of impulse transmission in the reflex arc.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Arrow in (dorsal) + arrow out (ventral)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2012-Q13a",
+   "source": "LC Biology HL 2012, Section C, Question 13 (a)",
+   "file": "papers/2012_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Distinguish between the central nervous system and the peripheral nervous system. Include a clear reference to each in your answer.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "CNS: brain and spinal cord",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "PNS: nerves leading to and from CNS or nerves not in CNS",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Give one way in which a nervous response differs from a hormonal response.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Faster or shorter-lived or electrical",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2012-Q13b",
+   "source": "LC Biology HL 2012, Section C, Question 13 (b)",
+   "file": "papers/2012_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Draw a large labelled diagram of a motor neuron.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Diagram: cell body with dendrites + axon + terminal dendrites shown",
+       "marks": 6,
+       "accept": []
+      },
+      {
+       "answer": "Label: Cell body",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Label: dendrites",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Label: axon",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Label: myelin sheath",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Label: Schwann cells",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Label: (neurotransmitter) vesicles (or swellings)",
+       "marks": 1,
+       "accept": []
+      }
+     ],
+     "rule": "Diagram 6, 3, 0 + labels 6(1)",
+     "scheme_note": "Diagram of a sensory neuron gets 0 marks.",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Give one function each of any two parts found only in neurons.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Function of first named part",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Function of second named part",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "The scheme gives no model answers.",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Place an arrow on or near your diagram to indicate the direction of impulse transmission.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Arrow",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Name and state the role of any two types of neuron, other than the motor neuron.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Sensory neuron carry impulses to CNS (or to named part of CNS)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Interneuron carry impulses within CNS or Interneuron carry impulses from sensory to motor neuron or connect sensory and motor neurons",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6",
+      "2.4.7"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2012-Q13c",
+   "source": "LC Biology HL 2012, Section C, Question 13 (c)",
+   "file": "papers/2012_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "State one function for each of the following parts of the human brain. Cerebrum; Hypothalamus; Cerebellum; Medulla oblongata.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Cerebrum: language or reason or consciousness or senses or memory or intelligence or emotions or other",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Hypothalamus: homeostasis or example of homeostasis or endocrine function or other",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Cerebellum: movement or balance or coordination or example",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Medulla oblongata: involuntary muscle control or example",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "4(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "In relation to the nervous system, distinguish between grey matter and white matter. Include a clear reference to each in your answer.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Grey: few axons or little myelin or mostly cell bodies",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "White: many axons or much myelin or few cell bodies",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "In the case of either paralysis or Parkinson's disease state: 1. a possible cause, other than accident; 2. a method of treatment.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Cause: Parkinson's - lack of dopamine or genetic or toxins OR Paralysis - damage to spinal cord or other",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Treatment: Parkinson's - levodopa or drugs that mimic dopamine or physiotherapy or exercise OR Paralysis - surgery or physiotherapy",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "The cause and the treatment must be for the disorder chosen.",
+     "outcomes": [
+      "2.4.8",
+      "2.4.9"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2013-Q10b",
+   "source": "LC Biology HL 2013, Section C, Question 10 (b) (iv)",
+   "file": "papers/2013_ep_LC025ALP000EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "Answer the following by reference to hormones, other than sex hormones, which you have encountered in the course of your studies.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(iv)",
+     "text": "Explain why hormonal responses are slower than nervous responses.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Hormones travel in blood or are chemical",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Electrical transmission in nerves",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "(b)(i)-(iii), on named hormones, are in the endocrine chapter."
+  },
+  {
+   "id": "2014-Q11b",
+   "source": "LC Biology HL 2014, Section C, Question 11 (b)",
+   "file": "papers/2014_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "Answer the following questions in relation to the human nervous system.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name the type of particle whose movement in and out of neurons is an essential feature of nerve impulse transmission.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Ion",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.7"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "One of the roles of the particles referred to in (i) is the activation of neurotransmitters. Give an account of how neurotransmitters work.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "(Neurotransmitters are) secreted by the neuron",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Into (or crosses) the synaptic cleft",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "React with receptors",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(On) the next neuron",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Set up the impulse in this neuron",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Inactivated by enzymes",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Reabsorbed by (presynaptic neuron)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any four 4(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.7",
+      "2.4.8"
+     ]
+    },
+    {
+     "label": "(iii) 1.",
+     "text": "1. Distinguish between the position of the cerebellum and the position of the cerebrum in the human brain.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "The cerebellum - hind brain and cerebrum - forebrain",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(iii) 2.",
+     "text": "2. State three functions of the cerebrum.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Memory",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Learning",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Emotion",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Speech",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Vision",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Intelligence",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Movement",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Language",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Smell",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Hearing",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Logic",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Personality",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Taste",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any three 3(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2014-Q11c",
+   "source": "LC Biology HL 2014, Section C, Question 11 (c)",
+   "file": "papers/2014_ep_LC025ALP000EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "Read the following extract and then answer the questions below. Alzheimer's disease (a degenerative brain condition), like many other degenerative illnesses, is driven by genes and recently scientists have identified a group of genes that are thought to be associated with this disease. The disease is thought to be caused by a build up of protein-based plaques in the brain, and investigators now believe they have an understanding of ways to interrupt that process. Technology is helping too, as researchers exploit new ways to scan the brain and detect the first signs of trouble, peering deeper into human and animal neural tissue to pinpoint the very molecules that give rise to the disease. (Adapted from Alzheimer's Unlocked, TIME, Volume 176, No. 17. 2010.)",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What do you think is meant by the term \"degenerative illnesses\"?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Getting worse",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.8"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Is Alzheimer's disease driven by a single gene or by many genes?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Many (or group)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.8"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "What is thought to cause the disease?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "A build up of protein plaques",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.8"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Suggest a possible symptom of Alzheimer' disease.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "e.g. memory loss",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.8"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "How is the advance of technology helping in the fight against the disease?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Scans can examine the brain (for early detection)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.8"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "There are probably more people suffering from the disease now than ever before. Suggest a reason for this.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Larger population or more people living into old age",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.8"
+     ]
+    },
+    {
+     "label": "(vii)",
+     "text": "Name another disorder of the nervous system and give a possible treatment for it.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Name",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Treatment",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "The scheme gives no model answers (Name / treatment).",
+     "outcomes": [
+      "2.4.8"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2015-Q14b",
+   "source": "LC Biology HL 2015, Section C, Question 14 (b)",
+   "file": "papers/2015_ep_LC025ALP000EV.pdf",
+   "page": 13,
+   "section": "C",
+   "stem": "",
+   "diagram": {
+    "page": 13,
+    "what": "Line drawing of a cross section of the spinal cord: an oval outline split by a groove at top and bottom, a shaded butterfly-shaped (H-shaped) inner region with a small hole in its centre, and nerves with small cell bodies joining it on the right. A points to the shaded inner region; B to the pale outer region; C to the central hole.",
+    "labels": {
+     "A": "grey matter",
+     "B": "white matter",
+     "C": "central canal or cerebrospinal fluid (CSF)"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name the parts labelled A, B and C in the diagram of the cross section of the spinal cord.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "A = *grey matter",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "B = *white matter",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "C = *central canal or *cerebrospinal fluid (CSF)",
+       "marks": 1,
+       "accept": []
+      }
+     ],
+     "rule": "3(1)",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "What is the main structural difference between A and B?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "A: consists (mainly) of cell bodies or (mostly) no myelin",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "B: consists (mainly) of axons or (mostly) myelin",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "1. What is the function of the meninges? 2. How many layers are present in the meninges?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. Protection (of CNS)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. *Three",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(iv) 1.",
+     "text": "Reflex actions are very important in animals. 1. What is a reflex action?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Automatic (or involuntary) response to a stimulus",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(iv) 2.",
+     "text": "2. Outline the mechanism of a reflex action.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Stimulus at receptor",
+       "marks": 6,
+       "accept": []
+      },
+      {
+       "answer": "(Causes) impulse along sensory neuron",
+       "marks": 6,
+       "accept": []
+      },
+      {
+       "answer": "(Impulse) through interneuron",
+       "marks": 6,
+       "accept": []
+      },
+      {
+       "answer": "(Impulse) through motor neuron",
+       "marks": 6,
+       "accept": []
+      },
+      {
+       "answer": "To effector (or muscle or gland) or effector reacts",
+       "marks": 6,
+       "accept": []
+      },
+      {
+       "answer": "(Another impulse is sent) to the brain",
+       "marks": 6,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(6)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4",
+      "2.4.7"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2017-Q14c",
+   "source": "LC Biology HL 2017, Section C, Question 14 (c) (ii)",
+   "file": "papers/2017_ep_LC025ALP000EV.pdf",
+   "page": 14,
+   "section": "C",
+   "stem": "In each of the following, state two features that show how the named structure is adapted to carry out the named function.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(ii)",
+     "text": "A neuron for transmitting impulses.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Receptors",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Insulated (or myelin)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Axon",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Dendrites",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Neurotransmitters (or named neurotransmitter)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Any two; Q14(c) as a whole is marked 5(4) + 5(2)",
+     "scheme_note": "The 30 marks for (c) are 5(4) + 5(2) over its five structures: the first five correct answers encountered get 4 marks each and each later correct answer 2 marks, so a point here is worth 4 or 2 depending on its position in the answer.",
+     "outcomes": [
+      "2.4.6"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "The other structures in (c) (the lens of the eye, a villus, a glomerulus, a wind-pollinated flower) are in other chapters or not on the course."
+  },
+  {
+   "id": "2018-Q11c",
+   "source": "LC Biology HL 2018, Section C, Question 11 (c)",
+   "file": "papers/2018_ep_LC025ALP000EV.pdf",
+   "page": 11,
+   "section": "C",
+   "stem": "Answer the following questions from your knowledge of the human nervous system.",
+   "diagram": null,
+   "total_marks": 24,
+   "scheme_rule": "2(5) + 2(4) + 3 + 3(1)",
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Outline the role of each of the following in the transmission of a nerve impulse: 1. Dendrites 2. Axon 3. Cell body.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "1. Role of dendrites: receive impulses or carry impulses towards cell body",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "2. Role of the axon: carries impulses away from cell body or carries impulses to effector (or named example)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "3. Role of cell body: receives impulses or produces neurotransmitters or controls passage of impulses or passes impulse to axon",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "(c) 2(5) + 2(4) + 3 + 3(1) over (i)-(iii): of the eight correct answers, the first two get 5 marks, the next two 4, the next 3 and the last three 1",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Describe how a nerve impulse is transmitted across a synaptic cleft, from one neuron to the next.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Impulse arrives (at synaptic knob)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Neurotransmitter (or named)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Released into synapse",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Diffuses across gap",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Binds to receptors",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Impulse starts in next neuron (post synaptic)",
+       "marks": null,
+       "accept": []
+      },
+      {
+       "answer": "Enzymes break down neurotransmitter or neurotransmitter recycled (or reabsorbed)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "Any four; (c) 2(5) + 2(4) + 3 + 3(1) over (i)-(iii): of the eight correct answers, the first two get 5 marks, the next two 4, the next 3 and the last three 1",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.7",
+      "2.4.8"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Explain the importance of the myelin sheath in the transmission of a nerve impulse.",
+     "marks": null,
+     "points": [
+      {
+       "answer": "Speeds up (transmission of nerve impulse)",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "(c) 2(5) + 2(4) + 3 + 3(1) over (i)-(iii): of the eight correct answers, the first two get 5 marks, the next two 4, the next 3 and the last three 1",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2019-Q14a",
+   "source": "LC Biology HL 2019, Section C, Question 14 (a) (i)-(iii)",
+   "file": "papers/2019_ep_LC025ALP040EV.pdf",
+   "page": 7,
+   "section": "C",
+   "stem": "The diagram shows parts of the human central nervous system and some related structures.",
+   "diagram": {
+    "page": 7,
+    "what": "Grey drawing of a vertical (median) section of the human brain, front to the left: the folded cerebrum on top, the cerebellum at the back below it, the brain stem running down into the spinal cord, the pituitary gland hanging below the middle of the brain and the hypothalamus just above it. B points to the top of the cerebrum, F to the region above the pituitary, C to the small gland below the brain, D to the brain stem low down; on the right, A points to the cerebellum and E to the spinal cord.",
+    "labels": {
+     "A": "Cerebellum",
+     "B": "Cerebrum",
+     "C": "Pituitary gland",
+     "D": "Medulla oblongata",
+     "E": "Spinal cord",
+     "F": "Hypothalamus"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "In your answer book, match each of the parts labelled A ‒ F to one of the names from the list below. cerebrum medulla oblongata pituitary gland cerebellum hypothalamus spinal cord",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "A: Cerebellum",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "B: Cerebrum",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "C: Pituitary gland",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "D: Medulla oblongata",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "E: Spinal cord",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "F: Hypothalamus",
+       "marks": 1,
+       "accept": []
+      }
+     ],
+     "rule": "6(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "1. Give a function of the medulla oblongata. 2. Give a function of the cerebellum.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. Medulla oblongata function: controls (or regulates) involuntary actions or controls (or regulates) breathing (or heart function or digestion or sneezing or coughing or swallowing or blood pressure or vomiting)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Cerebellum function: controls (or regulates) voluntary movements or controls (or regulates) posture (or balance or walking or writing or fine muscle movements or speech) or coordination",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "The brain is composed of both grey matter and white matter. 1. Why is grey matter so called? 2. Why is white matter so called?",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. Grey matter: composed of cell bodies",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. White matter: composed of myelin or composed of axons",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": "(iv)-(vi), on endocrine glands and the pituitary, are in the endocrine chapter."
+  },
+  {
+   "id": "2020-Q6",
+   "source": "LC Biology HL 2020, Section A, Question 6",
+   "file": "papers/2020_ep_LC025ALP038EV.pdf",
+   "page": 8,
+   "section": "A",
+   "stem": "The diagram shows the structure of a sensory neuron in the human body.",
+   "diagram": {
+    "page": 8,
+    "what": "Line drawing of a sensory neuron lying diagonally: at the top left fine branching ends (A, a box with two pointer lines); a long fibre covered in black segments of myelin runs down to the right, with the round cell body ('Cell body') on a short stalk above it; B points to the fibre near its left end; 'Schwann cell' points to a segment near the lower right end, where the fibre branches again. An empty box below the fibre is for the arrow.",
+    "labels": {
+     "A": "the branched ends that release neurotransmitter (not named in the scheme)",
+     "B": "Axon"
+    }
+   },
+   "total_marks": 20,
+   "scheme_rule": "6(3) + 2",
+   "parts": [
+    {
+     "label": "(a)",
+     "text": "Identify the part of the neuron labelled B.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Axon",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2: 7 responses = 20 marks",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(b)",
+     "text": "Name the substance (or group of substances) released by A during a nerve impulse.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Neurotransmitter (or named example)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2: 7 responses = 20 marks",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.7"
+     ]
+    },
+    {
+     "label": "(c)",
+     "text": "Name the substance produced by the Schwann cell.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Myelin",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2: 7 responses = 20 marks",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(d)",
+     "text": "What is the function of this substance named at (c) during a nerve impulse?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "To speed up the impulse or to insulate (the axon)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2: 7 responses = 20 marks",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(e)",
+     "text": "Draw an arrow, in the box provided near the diagram, to show the direction of the impulse.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Arrow drawn on diagram from right to left",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2: 7 responses = 20 marks",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(f)",
+     "text": "Parkinson's disease and paralysis are two disorders of the human nervous system. Choose either Parkinson's disease or paralysis and suggest how it may be caused and treated. Disorder: Cause: Treatment:",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Cause: Paralysis - damage (injury) to spinal cord or stroke or cerebral palsy or multiple sclerosis or other valid cause; Parkinson's disease - decrease in dopamine levels or decrease in serotonin levels or unknown or genetic (mutations) factors or environmental factors or mild stroke or drug induced or aging or other valid cause",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Treatment: Paralysis - physical therapy or occupational therapy or electrical stimulation of spinal cord or surgery or other valid treatment; Parkinson's disease - Levo (L)-Dopa (with carbidopa) or serotonin (or dopamine) mimicking drug or exercise or physiotherapy or deep brain stimulation or other valid treatment",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2: 7 responses = 20 marks",
+     "scheme_note": "The scheme sets out each disorder with its own causes and treatments, so they must match the disorder chosen. Naming the disorder earns no marks. The seventh correct response earns 2, not 3 (total 20).",
+     "outcomes": [
+      "2.4.8",
+      "2.4.9"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2021-Q6c",
+   "source": "LC Biology HL 2021, Section A, Question 6 (c)",
+   "file": "papers/2021_ep_LC025ALP038EV.pdf",
+   "page": 8,
+   "section": "A",
+   "stem": "Indicate whether the following statements are true or false by placing a tick (✓) in the appropriate box in each case.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(c)",
+     "text": "Neurotransmitters are transported in the blood.   True / False",
+     "marks": null,
+     "points": [
+      {
+       "answer": "False",
+       "marks": null,
+       "accept": []
+      }
+     ],
+     "rule": "6(3) + 2: seven statements, 7 responses = 20 marks",
+     "scheme_note": "(Not in scheme: neurotransmitters cross the synaptic cleft; hormones are the messengers carried in the blood.)",
+     "outcomes": [
+      "2.4.5",
+      "2.4.7"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2021-Q17c",
+   "source": "LC Biology HL 2021, Section C, Question 17 (c)",
+   "file": "papers/2021_ep_LC025ALP040EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "The diagram shows a cross section of the spinal cord along with some neurons from the peripheral nervous system.",
+   "diagram": {
+    "page": 10,
+    "what": "Outline drawing of a cross section of the spinal cord (butterfly-shaped grey matter round a central canal) with a reflex arc on its left: Neuron B runs from a box labelled 'Receptor' into the back of the cord, with its cell body in a swelling on the way; Neuron C is a short neuron inside the grey matter; Neuron A runs out of the cord to a box labelled 'Effector'. X points to the outer covering of the cord.",
+    "labels": {
+     "X": "Meninges",
+     "Neuron A": "motor neuron",
+     "Neuron B": "sensory neuron",
+     "Neuron C": "interneuron"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name the tissue labelled X which covers and protects the spinal cord.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "X: *Meninges",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(c) 10(3)",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "What is a reflex action?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Automatic (or involuntary) response to a stimulus",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(c) 10(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Give one example of a reflex action in the human body.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Blinking or iris response to light or knee jerk or grasp or startle or any correct example",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(c) 10(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Give one advantage of a reflex action.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Protection or fast or involuntary",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(c) 10(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Using the labels from the diagram, describe in detail how a reflex action works.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "Stimulus (or named) detected by receptor",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Impulse (or message) set up (at receptor)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Impulse (or message) sent along B (or sensory neuron)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Passes) to C (or interneuron)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "In CNS (or grey matter)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Passes) to A (or motor neuron)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "To the effector",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Effector reacts",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any four 4(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4",
+      "2.4.7"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "Give two ways in which a nervous response differs from a hormonal response.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Nervous response is fast and hormonal response is slow",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Nervous response is electrical and hormonal response is chemical",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Nervous response is short-lived and hormonal response is prolonged",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any two 2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.5"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2022-Q16a",
+   "source": "LC Biology HL 2022, Section C, Question 16 (a)",
+   "file": "papers/2022_ep_LC025ALP040EV.pdf",
+   "page": 7,
+   "section": "C",
+   "stem": "",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "The human nervous system is divided into two parts. Name each of these parts.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Central nervous system (CNS)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Peripheral nervous system (PNS)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Draw a large diagram of a neuron and label the following parts: dendrites; axon; myelin sheath.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Drawing: cell body + dendrites + axon visible (any one missing = 3)",
+       "marks": 6,
+       "accept": []
+      },
+      {
+       "answer": "Label: Dendrites",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Label: Axon",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Label: Myelin sheath",
+       "marks": 1,
+       "accept": []
+      }
+     ],
+     "rule": "Drawing 6, 3, 0 + labels 3(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Distinguish between the function of an interneuron and a sensory neuron by writing a brief sentence on each.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Interneuron: transmit impulse within the CNS (or from sensory to motor neuron)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Sensory neuron: transmit impulse (from sense organ) to CNS",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Q16 (a) (iii)-(vi): 5 correct responses, 5(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6",
+      "2.4.7"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "How is a nerve impulse conducted along a neuron?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "(Movement of) ions (or example)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Q16 (a) (iii)-(vi): 5 correct responses, 5(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.7"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Name the gap that exists between two neurons in close contact.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Synaptic cleft",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Q16 (a) (iii)-(vi): 5 correct responses, 5(3)",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.7"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "Give one possible cause for either paralysis or Parkinson's disease. In your answer, state clearly to which nervous system disorder you are referring.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Cause: Paralysis - injury (damage) to spinal cord or stroke or multiple sclerosis or other valid cause; Parkinson's disease - decrease in dopamine levels or decrease in serotonin levels or genetic or drug-induced or aging or other valid cause",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "Q16 (a) (iii)-(vi): 5 correct responses, 5(3)",
+     "scheme_note": "Cause must match named disorder.",
+     "outcomes": [
+      "2.4.8",
+      "2.4.9"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2023-Q17b",
+   "source": "LC Biology HL 2023, Section C, Question 17 (b)",
+   "file": "papers/2023_ep_LC025ALP040EV.pdf",
+   "page": 9,
+   "section": "C",
+   "stem": "The diagram shows two separate neurons in close contact. Chemical A is produced by one of the neurons to allow the transfer of nerve impulses.",
+   "diagram": {
+    "page": 9,
+    "what": "Grey drawing of the swollen end of one neuron (left) meeting the next neuron (right) across a narrow gap. A points to small dots of chemical in the gap near the top; B points to the gap lower down.",
+    "labels": {
+     "A": "neurotransmitter",
+     "B": "(synaptic) cleft"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "What term describes the region where two neurons come into close contact?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Synapse",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(b) 10(3)",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.7"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "What is the name given to the gap between two neurons, indicated by the letter B in the diagram?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*(Synaptic) cleft",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(b) 10(3)",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.7"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "What is the general name given to the chemical A in the diagram?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Neurotransmitter",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(b) 10(3)",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.7"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "Where in a neuron is chemical A made?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*Cell body",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(b) 10(3)",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.6",
+      "2.4.8"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Describe in detail how nerve impulses travel between two neurons in close contact.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Impulse arrives (at axon terminal)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Neurotransmitter (or chemical A or named neurotransmitter) released",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Diffuses across gap",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Binds to receptors (on neuron)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Impulse starts in (next neuron)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Enzymes break down neurotransmitter or neurotransmitter recycled (or reabsorbed)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Correct mention of presynaptic or postsynaptic",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any three 3(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.7",
+      "2.4.8"
+     ]
+    },
+    {
+     "label": "(vi)",
+     "text": "Interneurons are one type of neuron found within the central nervous system. Give the names of the other two types of neuron found in the human nervous system.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Sensory",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Motor",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6",
+      "2.4.7"
+     ]
+    },
+    {
+     "label": "(vii)",
+     "text": "Describe one possible treatment for either of the following nervous system disorders: paralysis or Parkinson's disease.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Physiotherapy or surgery or other correct",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "(b) 10(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.8"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2025-Q14a",
+   "source": "LC Biology HL 2025, Section C, Question 14 (a)",
+   "file": "papers/2025_ep_LC025ALP040EV.pdf",
+   "page": 5,
+   "section": "C",
+   "stem": "The nervous system is composed of a central nervous system (CNS) and a peripheral nervous system (PNS).",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Distinguish between the central nervous system and peripheral nervous system.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Central: brain and spinal cord",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Peripheral: nerves throughout body (and ganglia)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Name one way in which the human central nervous system is protected.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Skull or spine or vertebrae or meninges",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "The scheme ends the list with '……….', so other ways are open.",
+     "outcomes": [
+      "2.4.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2025-Q14b",
+   "source": "LC Biology HL 2025, Section C, Question 14 (b)",
+   "file": "papers/2025_ep_LC025ALP040EV.pdf",
+   "page": 5,
+   "section": "C",
+   "stem": "The eye and the ear are both sense organs that detect external stimuli.",
+   "diagram": {
+    "page": 5,
+    "what": "Two cartoon eyes side by side: A has a small black pupil in a wide grey iris; B has a large black pupil with a narrow ring of iris.",
+    "labels": {
+     "A": "small pupil",
+     "B": "exposed to low light: the pupil is larger (dilated)"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Describe the role of each of the following in the eye: 1. Cornea 2. Retina 3. Optic nerve 4. Lens.",
+     "marks": 12,
+     "points": [
+      {
+       "answer": "1. Cornea: allows light in or refracts light",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Retina: convert light into nerve impulse",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "3. Optic nerve: carry (nerve) impulses to the brain",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "4. Lens: focus the light onto the retina",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "4(3)",
+     "scheme_note": "",
+     "outcomes": []
+    },
+    {
+     "label": "(ii)",
+     "text": "The diagram shows two eyes. Which eye (A or B) is exposed to low light levels? Justify your answer.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "*B",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Justify: the pupil is larger (dilated)",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "1 + 2",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": []
+    },
+    {
+     "label": "(iii)",
+     "text": "Describe the role of each of the following in the ear: 1. Ossicles 2. Cochlea 3. Eustachian tube.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "1. Ossicles: transfer sound (vibrations) or amplify the sound",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "2. Cochlea: convert the sound (stimulus) into nerve impulses",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "3. Eustachian tube: equalise pressure (between the middle ear and the outside)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3(3)",
+     "scheme_note": "",
+     "outcomes": []
+    },
+    {
+     "label": "(iv)",
+     "text": "Describe one corrective measure for one of the following: long sightedness or short sightedness or a hearing defect. In your answer, state clearly to which disorder you are referring.",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Matching corrective measure described",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "The scheme gives no model answer; 2022's scheme for the same question gives convex lens (long sight) or concave lens (short sight).",
+     "outcomes": []
+    }
+   ],
+   "new_course": "no",
+   "why": "The eye and the ear (the senses) are not in the new specification or in the chapter. Kept because it is part (b) of Question 14, a nervous-system question whose (a) and (c) are on the course."
+  },
+  {
+   "id": "2025-Q14c",
+   "source": "LC Biology HL 2025, Section C, Question 14 (c)",
+   "file": "papers/2025_ep_LC025ALP040EV.pdf",
+   "page": 5,
+   "section": "C",
+   "stem": "Neurons are the functional unit of the nervous system.",
+   "diagram": {
+    "page": 5,
+    "what": "Two grey drawings of neurons side by side. Neuron X: a star-shaped cell body with many dendrites at the top and a long axon with Schwann cells running down to branches on a bundle of muscle fibres ('Muscle cells'). Neuron Y: branching ends at the top (Z, with a bracket), a fibre with Schwann cells running down, the round cell body on a short side branch partway down, and branching ends in a circle of skin at the bottom ('Skin'). 'Schwann cells' points to both fibres.",
+    "labels": {
+     "X": "motor neuron (connected to muscle cells)",
+     "Y": "sensory neuron (connected to the skin)",
+     "Z": "where the neurotransmitters are (the fibre endings at a synapse; not named in the scheme)"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "The diagrams show two neurons (X and Y). 1. Which neuron (X or Y) is a motor neuron? Justify your answer. 2. Which neuron (X or Y) is a sensory neuron? Justify your answer.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "1. *X",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "1. Justify: it is connected to a muscle cell or cell body position described",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "2. *Y",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "2. Justify: it is connected to the skin (sensory structure) or cell body position described",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "1 + 2 + 1 + 2",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "Neurotransmitters are found at position Z. Describe how neurotransmitters work.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Impulse arrives at synaptic terminal",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Vesicles release neurotransmitter (or named example)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Neurotransmitter crosses the cleft",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Attaches to receptors on the next neuron",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Impulse is created in the next neuron",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Neurotransmitter inactivated or described",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any three 3(3)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.7",
+      "2.4.8"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Schwann cells are associated with both neurons. What is the function of a Schwann cell?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Produce myelin (sheath)",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(iv)",
+     "text": "In relation to Parkinson's disease or paralysis, give one possible cause and one possible treatment. In your answer, state clearly to which disorder you are referring.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Correct matching cause",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Correct matching treatment",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "3 + 3",
+     "scheme_note": "The scheme gives no model answers here; see 2020-Q6 and 2022-Q16a for the causes and treatments it accepts.",
+     "outcomes": [
+      "2.4.8",
+      "2.4.9"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2026-Q7e",
+   "source": "LC Biology HL 2026, Section A, Question 7 (e)",
+   "file": "papers/2026_ep_LC025ALP038EV.pdf",
+   "page": 9,
+   "section": "A",
+   "stem": "For each of the following structures, identify its precise location and its main function.",
+   "diagram": null,
+   "parts": [
+    {
+     "label": "(e)",
+     "text": "Cerebellum. Precise location: ... Main function: ...",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "Precise location: back of the brain",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Main function: coordination (control) of muscular movement or balance or posture or walking or writing or fine muscle movements or speech",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "2 marks per answer (10 answers = 20 marks)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.4"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "2026-Q17d",
+   "source": "LC Biology HL 2026, Section C, Question 17 (d)",
+   "file": "papers/2026_ep_LC025ALP040EV.pdf",
+   "page": 10,
+   "section": "C",
+   "stem": "The human nervous system can be divided into two main parts – the central nervous system (CNS) and the peripheral nervous system (PNS). The CNS contains the brain and the spinal cord. Electrical impulses are carried through these systems by neurons. The diagram shows a section through the spinal cord.",
+   "diagram": {
+    "page": 10,
+    "what": "Grey drawing of a transverse section of the spinal cord: a pale outer region round a darker butterfly-shaped inner region, with a tiny central canal in the middle ('Central canal'); P points to the pale outer region near the top, Q to the darker inner region, and Y to the thin covering round the outside at the bottom right.",
+    "labels": {
+     "P": "White matter",
+     "Q": "Grey matter",
+     "Y": "Meninges",
+     "Central canal": "contains cerebrospinal fluid"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Name the fluid found in the central canal.",
+     "marks": 2,
+     "points": [
+      {
+       "answer": "*Cerebrospinal (fluid)",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "(d) (i)-(iii) 5(2)",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(ii)",
+     "text": "1. Name the protective tissue Y surrounding the spinal cord that has three layers. 2. Name one other structure that protects the spinal cord.",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "1. *Meninges",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "2. *Vertebrae",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "(d) (i)-(iii) 5(2)",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(iii)",
+     "text": "Name the regions of the spinal cord labelled P and Q.",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "P: *White matter",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "Q: *Grey matter",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "(d) (i)-(iii) 5(2)",
+     "scheme_note": "* in scheme = a specific term is required; a correct answer is cancelled if an incorrect answer is added.",
+     "outcomes": [
+      "2.4.4"
+     ]
+    },
+    {
+     "label": "(iv) 1.",
+     "text": "1. Draw a large diagram of a neuron.",
+     "marks": 6,
+     "points": [
+      {
+       "answer": "Diagram: dendrites and cell body with a nucleus and axon",
+       "marks": 6,
+       "accept": []
+      }
+     ],
+     "rule": "2(3)",
+     "scheme_note": "One missing = 3 marks; two missing = 0 marks.",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(iv) 2.",
+     "text": "2. On your diagram label the following parts: Axon; Dendrite; Myelin sheath",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "Label: Axon",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Label: Dendrite",
+       "marks": 1,
+       "accept": []
+      },
+      {
+       "answer": "Label: Myelin sheath",
+       "marks": 1,
+       "accept": []
+      }
+     ],
+     "rule": "3(1)",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(iv) 3.",
+     "text": "3. On your diagram indicate with an arrow the direction of travel of an impulse.",
+     "marks": 2,
+     "points": [
+      {
+       "answer": "Arrow from dendrite towards axon or away from the cell body",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "",
+     "outcomes": [
+      "2.4.6"
+     ]
+    },
+    {
+     "label": "(v)",
+     "text": "Describe the mechanism of a reflex action.",
+     "marks": 9,
+     "points": [
+      {
+       "answer": "Receptor detects stimulus or impulse (or message) generated (at receptor)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "(Impulse) travels along sensory neuron",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Passes to an interneuron or to the CNS (or grey matter)",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Passes to motor neuron",
+       "marks": 3,
+       "accept": []
+      },
+      {
+       "answer": "Passes to the effector or effector reacts or muscle contracts",
+       "marks": 3,
+       "accept": []
+      }
+     ],
+     "rule": "any three 3(3)",
+     "scheme_note": "If 'impulse' or 'message' is not mentioned, award a maximum of 2(3).",
+     "outcomes": [
+      "2.4.4",
+      "2.4.7"
+     ]
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  },
+  {
+   "id": "S1-Q1b",
+   "source": "SEC Sample Paper 1 (2027), Higher Level, Question 1 (b)",
+   "file": "sample/lc-biology-2027-1-qp-smlwu.pdf",
+   "page": 3,
+   "section": "sample",
+   "stem": "The diagram shows a synapse in the nervous system.",
+   "diagram": {
+    "page": 3,
+    "what": "Coloured diagram of a synapse: the swollen end of one neuron (below, orange outline) holding round vesicles with dots inside; across a gap above it, the membrane of the next neuron with Y-shaped receptors; small dots of chemical in the gap. A points to one of the dots in the gap; B to a vesicle in the lower neuron.",
+    "labels": {
+     "A": "neurotransmitter",
+     "B": "synaptic vesicle"
+    }
+   },
+   "parts": [
+    {
+     "label": "(i)",
+     "text": "Molecule A and structure B have roles in neurotransmission. Identify A and B.",
+     "marks": 4,
+     "points": [
+      {
+       "answer": "A: neurotransmitter",
+       "marks": 2,
+       "accept": [
+        "acetylcholine"
+       ]
+      },
+      {
+       "answer": "B: synaptic vesicle",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "2 + 2",
+     "scheme_note": "Unofficial: SimpleStudy practice marking scheme for the SEC sample paper (not an SEC document); the marks are its indicative allocation. The scheme accepts a named neurotransmitter, such as acetylcholine.",
+     "outcomes": [
+      "2.4.7"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(ii)",
+     "text": "On the diagram on the right, draw an arrow to show the direction the nerve impulse is transferred.",
+     "marks": 2,
+     "points": [
+      {
+       "answer": "An arrow drawn pointing from the lower structure containing the vesicles towards the upper membrane carrying the receptors (upwards in the printed diagram, from the presynaptic neuron across the cleft to the postsynaptic membrane)",
+       "marks": 2,
+       "accept": []
+      }
+     ],
+     "rule": "",
+     "scheme_note": "Unofficial: SimpleStudy practice marking scheme for the SEC sample paper (not an SEC document); the marks are its indicative allocation.",
+     "outcomes": [
+      "2.4.8"
+     ],
+     "unofficial": true
+    },
+    {
+     "label": "(iii)",
+     "text": "What happens to the molecules labelled A after the nerve impulse transmission is complete?",
+     "marks": 3,
+     "points": [
+      {
+       "answer": "It is broken down by an enzyme in the synaptic cleft, for example acetylcholinesterase breaking down acetylcholine",
+       "marks": 2,
+       "accept": []
+      },
+      {
+       "answer": "The products are reabsorbed into the presynaptic neuron and used to resynthesise the transmitter",
+       "marks": 1,
+       "accept": [
+        "reuptake of the intact transmitter"
+       ]
+      }
+     ],
+     "rule": "2 + 1",
+     "scheme_note": "Unofficial: SimpleStudy practice marking scheme for the SEC sample paper (not an SEC document); the marks are its indicative allocation. The essential point either way is that the transmitter is removed, so that the postsynaptic neuron is not stimulated continuously.",
+     "outcomes": [
+      "2.4.8"
+     ],
+     "unofficial": true
+    }
+   ],
+   "new_course": "yes",
+   "why": ""
+  }
+ ],
+ "not_covered": [
+  "Dopamine and endorphins: their roles in mood and behaviour, and how lifestyle choices (non-medical drug use, exercise, diet) change their levels (2.4.9) - never asked; dopamine appears only as 'lack of dopamine' in the cause of Parkinson's disease.",
+  "Drugs that work at the synapse: enzyme inhibitors that stop a neurotransmitter being broken down, reuptake inhibitors, psychoactive drugs and painkillers, and the enhanced effect they create (2.4.8) - only 2004-Q15a(iii) (a drug may inhibit or enhance transmission).",
+  "Acute and chronic disorders caused by disruptions to synaptic transmission, as a group (2.4.8) - questions ask only for the cause and treatment of Parkinson's disease or paralysis (and Alzheimer's, 2014-Q11c).",
+  "Homeostasis as stimulus-response by negative feedback, with a control centre linking receptors and effectors (2.4.5) - never asked of the nervous system; only 2004-Q12c(iv) (the responses to a fall in body temperature). Hormonal feedback is in the endocrine chapter.",
+  "The peripheral nervous system: where its nerve fibres and cell bodies lie (ganglia, dorsal and ventral roots) (2.4.4) - only the scheme's 'and ganglia' (2025-Q14a) and the reflex-arc arrows in and out of the cord (2010-Q11b).",
+  "Modelling impulse travel across a synaptic cleft (2.4.8) - no question asks for a model."
+ ],
+ "diagrams_to_memorise": [
+  {
+   "name": "Motor neuron - cell body at one end, a long myelinated axon, ending on a muscle or gland",
+   "labels": [
+    "cell body (with nucleus)",
+    "dendrites",
+    "axon",
+    "myelin sheath",
+    "Schwann cell",
+    "node (gap in the sheath)",
+    "terminal (axon) dendrites / synaptic knobs",
+    "neurotransmitter vesicles",
+    "arrow: dendrites -> cell body -> axon"
+   ],
+   "asked_in": [
+    "2008-Q4",
+    "2012-Q13b",
+    "2022-Q16a",
+    "2026-Q17d",
+    "2025-Q14c"
+   ]
+  },
+  {
+   "name": "Sensory neuron - dendrites at a receptor, the cell body on a short side branch, the axon running to the CNS",
+   "labels": [
+    "dendrites (at the receptor, e.g. skin)",
+    "cell body on a side branch",
+    "axon",
+    "myelin sheath",
+    "Schwann cell",
+    "axon terminals (release neurotransmitter)",
+    "arrow: receptor -> CNS"
+   ],
+   "asked_in": [
+    "2020-Q6",
+    "2025-Q14c"
+   ]
+  },
+  {
+   "name": "Synapse - the end of one neuron, the synaptic cleft and the next neuron",
+   "labels": [
+    "presynaptic neuron (synaptic knob)",
+    "synaptic vesicles",
+    "neurotransmitter",
+    "synaptic cleft",
+    "receptors",
+    "postsynaptic neuron",
+    "arrow: presynaptic -> postsynaptic"
+   ],
+   "asked_in": [
+    "2004-Q15a",
+    "2023-Q17b",
+    "S1-Q1b"
+   ]
+  },
+  {
+   "name": "Reflex arc through the spinal cord",
+   "labels": [
+    "receptor",
+    "sensory neuron (enters at the back, cell body in a ganglion)",
+    "interneuron (in the grey matter)",
+    "motor neuron (leaves at the front)",
+    "effector (muscle or gland)",
+    "grey matter",
+    "white matter",
+    "arrows in and out"
+   ],
+   "asked_in": [
+    "2010-Q11b",
+    "2021-Q17c"
+   ]
+  },
+  {
+   "name": "Spinal cord in cross section",
+   "labels": [
+    "grey matter (butterfly-shaped, cell bodies)",
+    "white matter (outside, myelinated axons)",
+    "central canal (cerebrospinal fluid)",
+    "meninges (three layers)"
+   ],
+   "asked_in": [
+    "2015-Q14b",
+    "2021-Q17c",
+    "2026-Q17d"
+   ]
+  },
+  {
+   "name": "Brain in vertical section",
+   "labels": [
+    "cerebrum",
+    "cerebellum",
+    "medulla oblongata",
+    "hypothalamus",
+    "pituitary gland",
+    "spinal cord"
+   ],
+   "asked_in": [
+    "2019-Q14a",
+    "2012-Q13c",
+    "2014-Q11b",
+    "2026-Q7e"
+   ]
+  }
+ ]
+}
