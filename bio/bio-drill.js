@@ -26,7 +26,7 @@
   if (!K || !BK || !BB) return;
   var esc = BK.esc, shuffle = BK.shuffle, pick = BK.pick;
   var CH = BB.chapters, NAME = BB.names, COL = BB.colours;
-  var NEW_PER = 8, CARDS = 15, LATER = { type: 5, again: 3 };
+  var NEW_PER = 8, CARDS = 15, WRONG_PER = 8, LATER = { type: 5, again: 2 };
   // Labels that describe a process, not a part, can't be asked as "the part labelled X" (as in bio-quick.js).
   var NOT_A_PART = /^\d+\.|:|diffuses|entering|^Cut |^Blood (from|to) /;
   // Only what the 2025 specification covers: exam parts that test a learning outcome, less the parts and diagram labels
@@ -157,16 +157,18 @@
     BK.buttons(D.card, close || [['more', 'data-am-keep', 'Close']], true);
     BB.nearMascot(D.card);
   }
-  // A session: questions to type first met right last time, the ones you got wrong, then up to eight new ones, mixed;
+  // A session: the ones you got wrong first (here, in a game or in the exam question on the desk: the user, "hammer
+  // them with it"), the most-missed first, then questions to type met right last time and up to eight new ones, mixed;
   // fifteen cards, with each answered one coming back in the session where it's due.
   function start(ch) {
     var all = items(ch), st = load(), by = function (s) { return shuffle(all.filter(function (it) { return st[it.id] && st[it.id].s === s; })); };
-    var type = by('type').slice(0, 5), box = by('box').slice(0, 4), fresh = shuffle(all.filter(function (it) { return !st[it.id]; })).slice(0, NEW_PER);
-    var queue = [];
-    type.forEach(function (it) { queue.push({ it: it, stage: 'type' }); });
-    box.concat(fresh).forEach(function (it) { queue.push({ it: it, stage: 'box' }); });
+    var box = by('box').sort(function (a, b) { return (st[b.id].m || 1) - (st[a.id].m || 1); }).slice(0, WRONG_PER);
+    var type = by('type').slice(0, 5), fresh = shuffle(all.filter(function (it) { return !st[it.id]; })).slice(0, NEW_PER);
+    var rest = [];
+    type.forEach(function (it) { rest.push({ it: it, stage: 'type' }); });
+    fresh.forEach(function (it) { rest.push({ it: it, stage: 'box' }); });
     D.ch = ch;
-    D.queue = shuffle(queue);
+    D.queue = box.map(function (it) { return { it: it, stage: 'box' }; }).concat(shuffle(rest));
     D.shown = 0;
     D.tally = { learnt: 0, toType: 0, again: 0, right: 0 };
     D.total = all.length;
@@ -182,7 +184,8 @@
     D.shown += 1;
     K.gameSeg(D.card, D.shown - 1, 'is-current');
     var it = c.it, typed = c.stage === 'type';
-    show('<div class="ed"><p class="ed-stage' + (typed ? ' is-type' : '') + '">' + (typed ? 'Now type it: you ticked this right before' : 'Tick the right box') + '</p>' +
+    var again = typed ? '' : BB.memAgain(load()[it.id]);
+    show('<div class="ed"><p class="ed-stage' + (typed ? ' is-type' : again ? ' is-again' : '') + '">' + (typed ? 'Now type it: you ticked this right before' : again ? esc(again) + '. Tick the right box' : 'Tick the right box') + '</p>' +
       '<div class="ed-paper" style="--c:' + COL[it.ch] + '"><p class="ed-from">' + esc(it.from) + '</p>' +
       (it.fig ? figure(it) : '') +
       '<p class="tb-q ed-q">' + esc(it.q) + '</p><p class="ed-marks">[' + it.marks + ' marks]</p>' +
@@ -231,9 +234,11 @@
   }
   function answered(ok, stage, mine) {
     D.phase = 'shown';
-    var c = D.cur, it = c.it, st = load(), typed = c.stage === 'type';
-    st[it.id] = { s: stage, t: Date.now() };
-    save(st);
+    var c = D.cur, it = c.it, typed = c.stage === 'type';
+    // Saved the way every game saves it (bio-board.js memSet): a wrong one needs two rights in a row before it moves on.
+    BB.memSet(it.id, typed, ok, true);
+    var once = ok && !typed && load()[it.id].s === 'box';
+    stage = load()[it.id].s;
     if (ok) D.tally.right++;
     if (stage === 'done') D.tally.learnt++;
     else if (stage === 'type') D.tally.toType++;
@@ -242,7 +247,7 @@
     if (stage !== 'done') D.queue.splice(Math.min(D.queue.length, stage === 'type' ? LATER.type : LATER.again), 0, { it: it, stage: stage });
     K.gameSeg(D.card, D.shown - 1, ok ? 'is-ok' : 'is-no');
     if (ok) K.ding(typed ? 4 : 2, true); else K.bonk();
-    K.mascot(ok ? (typed ? 'angry' : 'ok') : 'happy', ok ? (typed ? 'Full marks. Hmph.' : 'Right. You\'ll type it later.') : (typed ? 'Not full marks. Boxes again.' : 'Wrong. It\'ll come back.'));
+    K.mascot(ok ? (typed ? 'angry' : 'ok') : 'happy', ok ? (typed ? 'Full marks. Hmph.' : once ? 'Right. Again, to be sure.' : 'Right. You\'ll type it later.') : (typed ? 'Not full marks. Boxes again.' : 'Wrong. It\'ll come back.'));
     // The scheme's points (a star in the scheme means only that exact term is accepted).
     var scheme = it.kind === 'diagram' ? '' : '<p class="ed-scheme"><span>Marking scheme</span>' + it.pts.slice(0, Math.max(it.need, 3)).map(function (p) {
       var star = /\*/.test(p.a);
@@ -252,7 +257,7 @@
       (mine ? '<p class="tb-mine">' + esc(mine) + '</p>' : '') +
       '<p class="tb-ans"><span>' + (typed || !ok ? 'A full-marks answer' : 'Right answer') + '</span>' + esc(it.right) + '</p>' + scheme +
       window.BioBoard.why(it) +
-      '<p class="ed-later">' + (stage === 'done' ? 'Learnt.' : stage === 'type' ? 'It\'ll come back for you to type.' : 'It\'ll come back as boxes.') + '</p>';
+      '<p class="ed-later">' + (stage === 'done' ? 'Learnt.' : stage === 'type' ? 'It\'ll come back for you to type.' : once ? 'Right. It\'ll come back once more as boxes, then you type it.' : 'It\'ll come back as boxes till you get it right twice.') + '</p>';
     var r = document.createElement('div');
     r.className = 'tb-row tb-row--next';
     r.innerHTML = '<button type="button" class="tb-btn tb-btn--go" data-ed-next>' + (D.shown >= CARDS || !D.queue.length ? 'See how you did' : 'Next question') + '</button>';

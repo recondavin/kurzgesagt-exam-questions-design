@@ -611,7 +611,7 @@
     card.classList.add('bio-sheet');
     var tapPart = null;
     q.parts.forEach(function (p, k) { if (p.kind === 'tap' && p.tap) tapPart = String(k); });
-    sheet = { n: n, q: q, card: card, got: q.parts.map(function () { return null; }), tap: {}, tf: {}, cancel: {}, helped: {}, onNext: onNext };
+    sheet = { n: n, q: q, card: card, got: q.parts.map(function () { return null; }), tap: {}, tf: {}, cancel: {}, helped: {}, missed: {}, before: {}, onNext: onNext };
     K.gameHud(card, q.parts.length, '/' + questionOutOf(q));
     K.gameBody(card, '<div class="bio-paper">' +
       '<p class="bio-src">' + esc(q.src) + (q.fresh !== 'yes' ? ' <i class="bio-old' + (q.fresh === 'partly' ? ' bio-old--part' : '') + '">' + (q.fresh === 'no' ? 'Old course' : 'Partly old course') + '</i>' : '') +
@@ -707,6 +707,7 @@
     sec.querySelectorAll('[data-bio-alabel]').forEach(function (b) { b.disabled = true; });
     renderResult(k);
     var s = partScore(part, got), out = partOutOf(part);
+    remember(k, s >= out && !sheet.helped[k]);
     if (!selfOnly && sheet.helped[k] && s > 0) { K.ding(2); K.mascot('ok', pick(['With my help. That doesn\'t count.', 'I told you that one. It doesn\'t count.'])); }
     else if (!selfOnly) {
       if (s >= out) { K.ding(4, true); K.mascot('happy', pick(['Full marks. Hmph.', 'Correct. All of it.', 'That\'s what the scheme wants.'])); }
@@ -898,6 +899,7 @@
   function selfTick(btn) {
     var p = btn.getAttribute('data-bio-self').split(':'), k = +p[0], i = +p[1];
     sheet.got[k][i] = true;
+    remember(k, partScore(sheet.q.parts[k], sheet.got[k]) >= partOutOf(sheet.q.parts[k]) && !sheet.helped[k], true);
     renderResult(k);
     updateTotal();
   }
@@ -921,6 +923,44 @@
     if (!best || saved > best.got || (saved === best.got && done > (best.done || 0))) store(scoreKey(sheet.n, sheet.q), JSON.stringify({ got: saved, out: out, done: done, tried: tried }));
     logScore(sheet.n, sheet.q.id, saved, tried);
     if (all && saved >= out) K.later(K.fanfare, 300);
+  }
+
+  // ---------- what you got wrong comes back in the games ----------
+  // A part of a real exam question checked short of full marks (or with his help) goes into the memory Exam drill and
+  // every game share ('bio-drill', under the part's id 'e' + chapter : question : part; bio-board.js memSet reads it):
+  // it comes first there, as boxes, till it's right twice in a row (the user: "take the answers the student got wrong
+  // in the exam questions or in games previously and hammer them with it in the minigames"). Full marks: learnt, unless
+  // it's one you got wrong before (the games take it off once it's right there twice). Ticking a point the checker
+  // missed by hand puts back what it was before this sheet. Drawings, which you mark yourself, and practice questions
+  // aren't saved.
+  function remember(k, full, byHand) {
+    var part = sheet && sheet.q.parts[k];
+    if (!part || sheet.q.sec === 'practice' || part.kind === 'draw' || (part.kind === 'tap' && !part.tap)) return;
+    var id = 'e' + sheet.n + ':' + sheet.q.id + ':' + k, st = drillState(), was = st[id];
+    if (!(k in sheet.before)) sheet.before[k] = was || null;
+    if (!full) {
+      if (sheet.missed[k]) return;
+      st[id] = { s: 'box', m: ((was && was.m) || 0) + 1, h: 2, x: 1, t: Date.now() };
+      sheet.missed[k] = true;
+    } else if (sheet.missed[k]) {
+      if (!byHand) return;
+      if (sheet.before[k]) st[id] = sheet.before[k]; else delete st[id];
+      sheet.missed[k] = false;
+    } else {
+      if (was && was.s === 'box') return;
+      st[id] = { s: 'done', t: Date.now() };
+      if (was && was.m) st[id].m = was.m;
+    }
+    store('bio-drill', JSON.stringify(st));
+  }
+  function drillState() {
+    try { var st = JSON.parse(store('bio-drill') || '{}'); return st && typeof st === 'object' ? st : {}; } catch (err) { return {}; }
+  }
+  // A quick check on the desk (bio-desk.js) answered wrong: the same, for that part.
+  function missedCheck(n, qid, k) {
+    var st = drillState(), id = 'e' + n + ':' + qid + ':' + k, was = st[id];
+    st[id] = { s: 'box', m: ((was && was.m) || 0) + 1, h: 2, x: 1, t: Date.now() };
+    store('bio-drill', JSON.stringify(st));
   }
 
   // The day's best for each question goes in the log (the saved score is the best ever, so the two agree).
@@ -1043,7 +1083,7 @@
       if (sheet.got[k]) { renderResult(k); updateTotal(); }
     },
     refresh: refresh, words: bioWords, hasPoint: hasPoint, addedWrong: addedWrong, partScore: partScore, pointMarks: pointMarks, partOutOf: partOutOf, chapter: chapter, onePerSentence: onePerSentence,
-    graphSvg: graphSvg, diagramHtml: diagramHtml, questions: allQuestions, openQuestion: openQuestion, outOf: questionOutOf,
+    graphSvg: graphSvg, diagramHtml: diagramHtml, questions: allQuestions, openQuestion: openQuestion, outOf: questionOutOf, missedCheck: missedCheck,
     // For tests: does a typed answer get each point of a part?
     check: function (n, qid, partIndex, text) {
       var q = QS[n].questions.filter(function (x) { return x.id === qid; })[0], part = q.parts[partIndex], w = bioWords(text);

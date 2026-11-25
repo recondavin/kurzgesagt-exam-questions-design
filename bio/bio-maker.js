@@ -63,7 +63,7 @@
   ];
   var TYPE_HOW = [[0, 'Never'], [1, 'Sometimes'], [2, 'Always']], FIG_HOW = [[0, 'None'], [1, 'Some'], [2, 'Lots']], CHOICES = [[2, '2'], [3, '3'], [4, '4']];
   var MOODS = [['calm', 'Calm'], ['strict', 'Strict'], ['furious', 'Furious']];
-  var LIVES = 3, NAME_MAX = 24, THINGS_MAX = 6, LATER = { box: 3, type: 5 };
+  var LIVES = 3, NAME_MAX = 24, THINGS_MAX = 6, LATER = { box: 3, type: 5, again: 2 };
   // What he says, by his mood: when you're right, when you're wrong, when you win and when you lose. Against him he's
   // your rival (sore when you win); against anyone else he's the referee, and the win and lose lines name them.
   var SAY = {
@@ -296,20 +296,20 @@
   // How a game asks: typing 0 never, 1 sometimes (every third, and whenever one is due to type), 2 always.
   function typing(g) { return g.ans === 'own' ? g.t : g.ans === 'type' ? 2 : g.ans === 'box' ? 0 : 1; }
   function choices(g) { return g.ans === 'own' ? g.o : 4; }
-  // The next question: the best-ranked one not asked in the last few (due to type, then wrong, then new, then learnt;
-  // a slot that wants typing takes due-to-type, then new, then wrong), one of those at random.
+  // The next question: the best-ranked one not asked in the last few (wrong first, after two others, then due to type,
+  // new, learnt; a slot that wants typing takes due-to-type, then new, then wrong), one of those at random.
   function nextQuestion(S, g) {
     var mode = typing(g), k = S.asked, st = stages();
     var figTurn = S.qs.figs.length && (g.f === 2 ? k % 2 === 1 : k % 4 === 3);
     var list = figTurn ? S.qs.figs : S.qs.main, slot = mode === 2 || (mode === 1 && k % 3 === 2), best = [], rank = 99;
     list.forEach(function (it) {
       var s = st[it.id] && st[it.id].s, r;
-      if (s === 'type') r = mode ? 0 : 4;
-      else if (s === 'box') r = slot ? 2 : 1;
+      if (s === 'type') r = !mode ? 4 : slot ? 0 : 1;
+      else if (s === 'box') r = slot && mode !== 2 ? 2 : 0; // a game that's all typing asks them first, typed
       else if (!s) r = slot ? 1 : 2;
       else r = 3;
       var last = S.recent[it.id];
-      if (last != null && k - last < (r === 0 ? LATER.type : LATER.box)) r += 5;
+      if (last != null && k - last < (s === 'type' ? LATER.type : s === 'box' ? LATER.again : LATER.box)) r += 5;
       if (r < rank) { rank = r; best = []; }
       if (r === rank) best.push(it);
     });
@@ -319,7 +319,7 @@
     var it = pick(other.length ? other : best);
     S.lastFig = it.fig || null;
     S.recent[it.id] = k + 1;
-    return { it: it, typed: mode === 2 || (mode === 1 && (slot || rank === 0)) };
+    return { it: it, typed: mode === 2 || (mode === 1 && (slot || rank === 1)), again: BB.memAgain(st[it.id]) };
   }
   // A diagram question can also be asked by tapping the part on the diagram, when it has at least three parts to tap.
   function tapSpots(it) {
@@ -966,7 +966,7 @@
     var text = M.tap ? 'Tap the ' + lower(it.right) + '.' : fig && it.letter ? NAME_IT[M.n % NAME_IT.length].replace('{L}', it.letter) : it.q, label = M.typed ? 'Type it' : M.tap ? 'Tap it' : 'Question ' + M.n;
     var opts = shuffle([it.right].concat(shuffle(it.wrong).slice(0, choices(g) - 1)));
     frame('<div class="tb-card mk-card" style="--c:' + COL[it.ch] + '"><div class="tb-card__in"><div class="tb-card__face"><div class="tb-card__band"><b>' + esc(NAME[it.ch]) + '</b><span>' + label + '</span></div><div class="tb-card__body">' +
-      '<p class="mk-from">' + esc(it.from) + '</p>' + (fig ? figure(it, M.tap) : '') +
+      '<p class="mk-from">' + esc(it.from) + '</p>' + BB.againHtml(m) + (fig ? figure(it, M.tap) : '') +
       '<p class="tb-q">' + esc(text) + (M.typed && it.need > 1 ? ' <span class="mk-need">(' + it.need + ' points)</span>' : '') + '</p>' +
       (M.typed ? '<textarea class="tb-text" data-mk-text rows="' + (it.need > 1 ? 3 : 2) + '" placeholder="Type your answer" aria-label="Your answer"></textarea>'
         : M.tap ? '' : '<div class="tb-opts mk-qopts">' + opts.map(function (o, k) { return '<button type="button" class="tb-opt" data-mk-opt="' + esc(o) + '"><kbd>' + (k + 1) + '</kbd><span>' + esc(o) + '</span></button>'; }).join('') + '</div>') +

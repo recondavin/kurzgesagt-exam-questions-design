@@ -192,13 +192,13 @@
   // Your questions come from the memory you share with Exam drill (bio-board.js): one due to type first, then one
   // you got wrong, then a new one; never one already asked in this chase. He answers the same question from its boxes.
   function chaseAsk() {
-    var fresh = function (i) { return i.c.wrong.length >= 2 && !S.seen[BB.memKey(i)] && !S.seen[same(i)]; };
+    var fresh = function (i) { return i.c.wrong.length >= 2 && (BB.memWrong(i) || (!S.seen[BB.memKey(i)] && !S.seen[same(i)])); };
     var m = BB.memNext(S, S.pools, null, false, fresh) || BB.memNext(S, S.pools, null, false, function (i) { return i.c.wrong.length >= 2; }), item = m.item;
     S.seen[BB.memKey(item)] = S.seen[same(item)] = 1;
     S.item = item;
     S.typed = Boolean(m.typed && item.want);
     S.phase = 'ask';
-    q('[data-qg-panel]').innerHTML = card(item.ch, S.typed ? 'Type it' : 'Question ' + (S.asked + 1), '<p class="tb-q">' + asked(item, S.typed) + '</p>' +
+    q('[data-qg-panel]').innerHTML = card(item.ch, S.typed ? 'Type it' : 'Question ' + (S.asked + 1), BB.againHtml(m) + '<p class="tb-q">' + asked(item, S.typed) + '</p>' +
       (S.typed ? typedBox() : options(item)) + '<div class="qg-after" data-oe-after></div>');
     S.card.querySelector('.am-finish__card').scrollTop = 0;
     BB.reveal(q('.tb-card'), function () {
@@ -339,9 +339,14 @@
     // 400 and 500 (a two-point answer for 500 where there is one; never one that needs its options to make sense,
     // which BioBoard.pools leaves out of the typed ones). Dealt in the order of the memory you share with Exam drill:
     // the typed 400 and 500 from questions due to type, the boxes from ones you got wrong, then new ones.
-    // Five columns: with more chapters than that (Biology's seven), each grid is five of them, picked at random, in order.
-    var cols = CH.slice();
-    while (cols.length > 5) cols.splice(Math.floor(Math.random() * cols.length), 1);
+    // Five columns: with more chapters than that (Biology's seven), each grid is five of them, picked at random, in order,
+    // keeping the chapters with the most you got wrong (the user: "hammer them with it").
+    var cols = CH.slice(), wrongIn = {};
+    cols.forEach(function (ch) { wrongIn[ch] = P[ch].mc.filter(BB.memWrong).length; });
+    while (cols.length > 5) {
+      var least = Math.min.apply(null, cols.map(function (ch) { return wrongIn[ch]; })), drop = cols.filter(function (ch) { return wrongIn[ch] === least; });
+      cols.splice(cols.indexOf(drop[Math.floor(Math.random() * drop.length)]), 1);
+    }
     S.cols = cols.map(function (ch) {
       var typedList = BB.memOrder(P, P[ch].typed, true), boxList = BB.memOrder(P, P[ch].mc, false);
       var five = take(typedList, function (i) { return i.want >= 2; }), four = take(typedList, function (i) { return i.want === 1; });
@@ -430,7 +435,7 @@
     S.value = v;
     S.typed = r >= 3;
     show('<div class="pts-q"><div class="tb-panel" data-qg-panel aria-live="polite">' +
-      card(item.ch, v + ' points', '<p class="tb-q">' + asked(item, S.typed) + '</p>' + (S.typed ? typedBox() : options(item) + '<div class="tb-row"><button type="button" class="tb-btn tb-btn--ghost" data-qg-pass>Pass</button></div>') + '<div class="qg-after" data-pts-after></div>') +
+      card(item.ch, v + ' points', BB.againFor(item) + '<p class="tb-q">' + asked(item, S.typed) + '</p>' + (S.typed ? typedBox() : options(item) + '<div class="tb-row"><button type="button" class="tb-btn tb-btn--ghost" data-qg-pass>Pass</button></div>') + '<div class="qg-after" data-pts-after></div>') +
       '</div></div>', [['more', 'data-am-keep', 'Close']]);
     var c = q('.tb-card');
     zoom(from, v, c, function () {

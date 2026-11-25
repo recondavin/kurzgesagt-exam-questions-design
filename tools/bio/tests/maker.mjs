@@ -232,7 +232,8 @@ for (const ch of [[28], [29], [30], [31], [32], BIO_CHAPTERS]) {
   n++;
   if (F1.main.some(it => st[it.id])) fail('"What I haven\'t done" asks one already done');
 }
-// The memory: a wrong one comes back as options three questions on; a right one comes back typed five on.
+// The memory: a wrong one comes back as options two questions on (the user: "hammer them with it"); a right one
+// comes back typed five on.
 {
   for (const k of Object.keys(saved)) delete saved[k];
   const g = T.clean({ src: 'short', ans: 'own', t: 1, f: 0, ch: [30] }), S = { asked: 0, recent: {}, qs: T.questionsFor(g) };
@@ -243,7 +244,7 @@ for (const ch of [[28], [29], [30], [31], [32], BIO_CHAPTERS]) {
   for (let i = 0; i < 6; i++) { const m = ask(); log.push(m); window.BioBoard.memSet(m.it.id, m.typed, true, true); }
   const at = log.findIndex(m => m.it.id === first.it.id);
   n++;
-  if (at !== 3) fail(`a wrong one came back after ${at} others, not 3`);
+  if (at !== 2) fail(`a wrong one came back after ${at} others, not 2`);
   else if (log[at].typed) fail('a wrong one came back typed, not as options');
   // log[0] was right as options: it comes back typed after five others.
   const right = log.find(m => !m.typed && m.it.id !== first.it.id), more = [];

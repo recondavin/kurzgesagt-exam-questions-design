@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var BIO_PAGE = 'biology.html';
-  var V = 'bio-96';
+  var V = 'bio-97';
   var loaded = {}, current = null, started = false;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
@@ -155,6 +155,8 @@
       if (b.hasAttribute('data-right')) b.classList.add('is-right');
     });
     if (!right) button.classList.add('is-wrong');
+    // Wrong: the part comes first in Exam drill and the games till it's right there twice (bio.js missedCheck).
+    if (!right && current && window.BioApp && window.BioApp.missedCheck) window.BioApp.missedCheck(current.ch, current.qid, +box.getAttribute('data-part'));
     var why = box.querySelector('.hf-bio-check__why');
     var helped = current && current.guideHelped && current.guideHelped[+box.getAttribute('data-part')];
     why.innerHTML = '<b>' + (right ? (helped ? 'Right, with his help.' : 'Right!') : 'Not quite.') + '</b> ' + esc(c ? c.why : '');

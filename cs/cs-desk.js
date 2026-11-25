@@ -9,7 +9,7 @@
 (function () {
   'use strict';
   var PAGE = 'computer-science.html';
-  var V = 'cs-6';
+  var V = 'cs-7';
   var loaded = {}, current = null, started = false;
   var R = function () { return window.MathsRender; };
 
@@ -69,6 +69,28 @@
     s.total = total;
     s.at = Date.now();
     try { localStorage.setItem(key(ch, qid), JSON.stringify(s)); } catch (e) {}
+  }
+
+  // What you get wrong here comes first in the games (bio/bio-board.js memState; the user: "take the answers the
+  // student got wrong in the exam questions or in games previously and hammer them with it in the minigames"): the
+  // part's entry in their memory ('x' + question : part label), which every card made from the part takes till the
+  // card's own answer is newer; it keeps coming till it's right twice. Right the first time: learnt, unless you got it
+  // wrong before. Right after a wrong go (the working is showing by then) doesn't take it off.
+  var MEMORY = 'cs-drill';
+  function remember(qid, label, k, ok) {
+    var seen = current.missed || (current.missed = {}), id = 'x' + qid + ':' + label, st;
+    if (seen[k]) return;
+    try { st = JSON.parse(localStorage.getItem(MEMORY) || '{}') || {}; } catch (e) { st = {}; }
+    var was = st[id];
+    if (ok) {
+      if (was && was.s === 'box') return;
+      st[id] = { s: 'done', t: Date.now() };
+      if (was && was.m) st[id].m = was.m;
+    } else {
+      st[id] = { s: 'box', m: ((was && was.m) || 0) + 1, h: 2, x: 1, t: Date.now() };
+      seen[k] = true;
+    }
+    try { localStorage.setItem(MEMORY, JSON.stringify(st)); } catch (e) {}
   }
 
   // ---------- one question on the desk ----------
@@ -214,6 +236,7 @@
     if (res.error) { say.hidden = false; say.innerHTML = esc(res.error); return; }
     if (res.ok == null) return;
     save(current.ch, current.qid, k, res.ok, current.q.parts.length, res.got, res.max);
+    remember(current.qid, p.l, k, res.ok);
     box.classList.add('is-done');
     box.classList.toggle('is-right', !!res.ok);
     if (a.type === 'choice') box.querySelectorAll('[data-mx-pick]').forEach(function (b) {

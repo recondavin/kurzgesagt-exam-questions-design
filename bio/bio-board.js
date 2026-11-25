@@ -566,7 +566,7 @@
     G.item = item;
     G.kind = false;
     var opts = shuffle([item.c.right].concat(item.c.wrong));
-    panel(card(ch, '', '<p class="tb-q">' + esc(plain(item.text)) + '</p><div class="tb-opts">' + opts.map(function (o) {
+    panel(card(ch, '', againHtml(m) + '<p class="tb-q">' + esc(plain(item.text)) + '</p><div class="tb-opts">' + opts.map(function (o) {
       return '<button type="button" class="tb-opt" data-tb-opt="' + esc(o) + '">' + esc(o) + '</button>';
     }).join('') + '</div>'));
     reveal(G.card.querySelector('.tb-card__front'));
@@ -611,7 +611,7 @@
     G.phase = 'ask';
     G.item = item;
     G.kind = why;
-    panel(card(ch, why === 'final' ? 'Final question' : why ? 'Wedge question' : 'Type it', '<p class="tb-q">' + esc(item.text) + '</p>' +
+    panel(card(ch, why === 'final' ? 'Final question' : why ? 'Wedge question' : 'Type it', againHtml(m) + '<p class="tb-q">' + esc(item.text) + '</p>' +
       '<textarea class="tb-text" data-tb-text rows="3" placeholder="Type your answer" aria-label="Your answer"></textarea>' +
       '<div class="tb-row"><button type="button" class="tb-btn tb-btn--go" data-tb-check>Check</button><button type="button" class="tb-btn tb-btn--ghost" data-tb-dunno>I don\'t know</button></div>'));
     reveal(G.card.querySelector('.tb-card__front'), function () {
@@ -874,63 +874,89 @@
   // ---------------------------------------------------------------- memory
   // Every game with these questions remembers your answers with Exam drill (bio-drill.js), in the same 'bio-drill' map
   // of each question's stage (its id: 'e' + the chapter file : question : part). The user: "it repeats ones you got
-  // wrong and the ones you got right it makes you type it out", "do it for every minigame". Wrong: it comes back as
-  // boxes after three other questions. Right in the boxes: it comes back for you to type after five (in any game, or
-  // the drill).
-  // Typed with full marks: learnt, and it comes last. A question that can't be typed is learnt once it's right.
-  var LATER = { box: 3, type: 5 };
+  // wrong and the ones you got right it makes you type it out", "do it for every minigame", then "take the answers the
+  // student got wrong in the exam questions or in games previously and hammer them with it in the minigames".
+  // Wrong (in any game, the drill, or the exam question on the desk and its answer sheet): it comes first, as boxes,
+  // after two other questions, and keeps coming until it's right twice in a row (h, the rights still needed; m, how
+  // many times it's been wrong; x, it was the exam question). Right in the boxes: it comes back for you to type after
+  // five. Typed with full marks: learnt, and it comes last. A question that can't be typed is learnt once it's right.
+  // Maths and Computer Science have several cards for one exam part: their desks save the part ('x' + question : part
+  // label) and each card made from it (item.part) takes that until the card's own answer is newer.
+  var LATER = { box: 3, type: 5, again: 2 }, AGAIN = 2;
   function memKey(item) { return 'e' + item.src + ':' + item.qid + ':' + item.k; }
   function memLoad() { try { return JSON.parse(K.store(MEMORY) || '{}') || {}; } catch (e) { return {}; } }
+  function memState(st, item) {
+    // The part's, when it's newer; right on the desk doesn't take off a card you got wrong in a game.
+    var e = st[memKey(item)], x = item.part ? st['x' + item.part] : null;
+    return x && (!e || ((x.t || 0) > (e.t || 0) && (x.s === 'box' || e.s !== 'box'))) ? x : e;
+  }
   function typeable(P, item) {
     var key = memKey(item);
     return (P[item.ch] ? P[item.ch].typed : []).filter(function (t) { return memKey(t) === key; })[0] || null;
   }
-  // How soon a question should come: 0 due to type, 1 got wrong, 2 new, 3 learnt, 4 the rest. A typed slot (the game
+  // How soon a question should come: 0 got wrong, 1 due to type, 2 new, 3 learnt, 4 the rest. A typed slot (the game
   // wants one typed here: a wedge, a big shell) takes due-to-type, then new, then wrong ones.
   function memRank(st, item, typed, can) {
-    var e = st[memKey(item)], s = e ? e.s : '';
-    if (s === 'type' && can) return 0;
-    if (s === 'box') return typed ? 2 : 1;
-    if (!s) return typed ? 1 : 2;
+    var e = memState(st, item), s = e ? e.s : '';
+    if (typed) return s === 'type' ? 0 : !s ? 1 : s === 'box' ? 2 : s === 'done' ? 3 : 4;
+    if (s === 'box') return 0;
+    if (s === 'type' && can) return 1;
+    if (!s) return 2;
     return s === 'done' ? 3 : 4;
   }
+  // What the question says above it when it's one you got wrong ('' when it isn't).
+  function memAgain(e) {
+    if (!e || e.s !== 'box') return '';
+    return (e.x ? 'You got this wrong in the exam question' : 'You got this wrong before') + (e.m > 1 ? ' (' + e.m + ' times)' : '') +
+      (e.h > 1 || e.h == null ? '' : '. Once more and it\'s off your list');
+  }
+  function memWrong(item) { var e = memState(memLoad(), item); return Boolean(e && e.s === 'box'); }
+  function againHtml(m) { return m && m.again ? '<p class="tb-again">' + esc(m.again) + '</p>' : ''; }
+  function againFor(item) { return againHtml({ again: memAgain(memState(memLoad(), item)) }); }
   // A list in the order its questions should come (the grid's columns are dealt from it).
   function memOrder(P, list, typed) {
     var st = memLoad();
     // In a list of boxes, one due to type goes late: it belongs in a typed slot.
-    return list.map(function (it, i) { var r = memRank(st, it, typed, typed || typeable(P, it)); return { it: it, i: i, r: !typed && r === 0 ? 4 : r }; })
+    return list.map(function (it, i) { var r = memRank(st, it, typed, typed || typeable(P, it)); return { it: it, i: i, r: !typed && r === 1 ? 4 : r }; })
       .sort(function (a, b) { return a.r - b.r || a.i - b.i; }).map(function (x) { return x.it; });
   }
   // Your next question in a game (S, its state; P, its pools; ch, one chapter or any; ok, a filter): the best-ranked
-  // one not asked in the last few, a random one of those. { item, typed }: typed when it's due to type, or the game
-  // wanted it typed. Null when there's none.
+  // one not asked in the last few, a random one of those. { item, typed, again }: typed when it's due to type, or the
+  // game wanted it typed; again, the line saying you got it wrong. Null when there's none.
   function memNext(S, P, ch, typed, ok) {
     var st = memLoad(), M = S.mem || (S.mem = { n: 0, last: {} }), best = [], rank = 9;
     (ch ? [ch] : CH).forEach(function (c) {
       ((P[c] || {})[typed ? 'typed' : 'mc'] || []).forEach(function (it) {
         if (ok && !ok(it)) return;
-        var t = typed ? it : typeable(P, it), r = memRank(st, it, typed, t), l = M.last[memKey(it)];
-        if (l != null && M.n - l < (r === 0 ? LATER.type : LATER.box)) r += 5;
+        var t = typed ? it : typeable(P, it), r = memRank(st, it, typed, t), l = M.last[memKey(it)], e = memState(st, it), s = e && e.s;
+        if (l != null && M.n - l < (s === 'type' ? LATER.type : s === 'box' ? LATER.again : LATER.box)) r += 5;
         if (r < rank) { rank = r; best = []; }
-        if (r === rank) best.push(r % 5 === 0 ? t : it);
+        if (r === rank) best.push(!typed && r % 5 === 1 ? t : it);
       });
     });
     if (!best.length) return typed ? memNext(S, P, ch, false, ok) : null;
     var item = pick(best);
     M.n += 1;
     M.last[memKey(item)] = M.n;
-    return { item: item, typed: typed || rank % 5 === 0 };
+    return { item: item, typed: typed || rank % 5 === 1, again: memAgain(memState(st, item)) };
   }
   // Saves how you did; returns the line that says when it comes back.
-  function memRecord(P, item, typed, ok) { return memSet(memKey(item), typed, ok, Boolean(typeable(P, item))); }
-  // By id (Label sprint's parts are the drill's diagram questions, 'd' + chapter : question : spot). Right in the boxes
-  // keeps a learnt one learnt.
-  function memSet(id, typed, ok, canType) {
-    var st = memLoad(), was = st[id] && st[id].s;
-    var s = !ok ? 'box' : typed || was === 'done' || !canType ? 'done' : 'type';
-    st[id] = { s: s, t: Date.now() };
+  function memRecord(P, item, typed, ok) { return memSet(memKey(item), typed, ok, Boolean(typeable(P, item)), memState(memLoad(), item)); }
+  // By id (Label sprint's parts are the drill's diagram questions, 'd' + chapter : question : spot). was: the stage it
+  // had (a card's part from the desk), else its own. Right in the boxes keeps a learnt one learnt.
+  function memSet(id, typed, ok, canType, was) {
+    var st = memLoad(), e;
+    was = was || st[id] || {};
+    if (!ok) e = { s: 'box', m: (was.m || 0) + 1, h: AGAIN };
+    else if (typed) e = { s: 'done' };
+    else if (was.s === 'box' && was.h > 1) e = { s: 'box', h: was.h - 1 };
+    else e = { s: was.s === 'done' || !canType ? 'done' : 'type' };
+    if (was.m && e.m == null) e.m = was.m;
+    e.t = Date.now();
+    st[id] = e;
     K.store(MEMORY, JSON.stringify(st));
-    return s === 'done' ? 'Learnt.' : s === 'type' ? 'It\'ll come back for you to type.' : 'It\'ll come back.';
+    return !ok ? 'It\'ll keep coming back till you get it right twice.' : e.s === 'box' ? 'Right. Once more and it\'s off your list.' :
+      e.s === 'done' ? 'Learnt.' : 'It\'ll come back for you to type.';
   }
   // The other games (Match pairs, Spot the mistake, Label sprint, Don't Say It) can't be typed later, but what you miss
   // comes first next time ('bio-missed': { game: { key: 1 } }); getting it right takes it off the list.
@@ -947,5 +973,5 @@
   function memLine(line) { return '<p class="tb-later">' + esc(line) + '</p>'; }
 
   window.BioBoard = { open: open, state: function () { return G; }, pools: pools, nearMascot: nearMascot, reveal: reveal, chapters: CH, names: NAME, colours: COL,
-    stamp: stamp, plain: plain, why: whyHtml, needsOptions: needsOptions, memNext: memNext, memRecord: memRecord, memSet: memSet, memOrder: memOrder, memLine: memLine, memKey: memKey, missFirst: missFirst, missMark: missMark };
+    stamp: stamp, plain: plain, why: whyHtml, needsOptions: needsOptions, memNext: memNext, memRecord: memRecord, memSet: memSet, memOrder: memOrder, memLine: memLine, memKey: memKey, memAgain: memAgain, againHtml: againHtml, againFor: againFor, memWrong: memWrong, memory: MEMORY, missFirst: missFirst, missMark: missMark };
 })();

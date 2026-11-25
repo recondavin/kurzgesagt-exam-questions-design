@@ -24,7 +24,8 @@
       (C[ch] || []).forEach(function (c) {
         // The year it was asked, so it reads as the exam question it is (or Warm-up).
         var q = (WARM ? 'Warm-up · ' : String(c.from).slice(0, 4) + ' exam · ') + c.q;
-        out.push({ ch: slot, src: 'maths', qid: c.id, k: 0, text: q,
+        // part: the exam part it's made from (question : part label), where the desk saves what you got wrong.
+        out.push({ ch: slot, src: 'maths', qid: c.id, k: 0, text: q, part: WARM ? null : c.id.replace(/:[^:]*$/, ''),
           c: { q: q, right: c.right, wrong: c.wrong.slice(), why: c.why, hook: c.hook || '', keys: c.keys || [] } });
       });
     });

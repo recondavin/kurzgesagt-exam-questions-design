@@ -398,7 +398,7 @@
     A.typed = Boolean(m.typed && item.want);
     A.done = done;
     A.phase = 'ask';
-    layer(card(item.ch, label, '<p class="tb-q">' + esc(A.typed ? item.text : bare(item.text)) + '</p>' + (A.typed
+    layer(card(item.ch, label, BB.againHtml(m) + '<p class="tb-q">' + esc(A.typed ? item.text : bare(item.text)) + '</p>' + (A.typed
       ? '<textarea class="tb-text" data-ar-text rows="3" placeholder="Type your answer" aria-label="Your answer"></textarea>' +
         '<div class="tb-row"><button type="button" class="tb-btn tb-btn--go" data-ar-check>Check</button><button type="button" class="tb-btn tb-btn--ghost" data-ar-pass>I don\'t know</button></div>'
       : '<div class="tb-opts">' + shuffle([item.c.right].concat(item.c.wrong)).map(function (o) {
