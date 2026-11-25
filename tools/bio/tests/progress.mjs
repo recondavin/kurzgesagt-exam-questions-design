@@ -1,15 +1,18 @@
 // Checks the Progress model (bio/bio-progress.js): grade bands and CAO points, the predicted grade and its range, and
 // the history replayed from the log. Run: node tools/bio/tests/progress.mjs
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = {};
-for (const n of [28, 29, 30, 31, 32]) require(`../../../bio/q${n}.js`);
+for (const n of BIO_CHAPTERS) require(`../../../bio/q${n}.js`);
 require('../../../bio/bio-progress.js');
 const P = window.BioProgress, Q = window.BioQuestions;
 let fails = 0;
 const fail = msg => { fails++; console.log('   FAIL', msg); };
 const outOf = q => q.parts.reduce((s, p) => s + (p.m || p.n * 3), 0);
-const chapters = [28, 29, 30, 31, 32].map(n => ({ n, weight: Q[n].questions.length, total: Q[n].questions.length, questions: Q[n].questions }));
+const chapters = BIO_CHAPTERS.map(n => ({ n, weight: Q[n].questions.length, total: Q[n].questions.length, questions: Q[n].questions }));
 // Every question at the same rate r: { "n/id": { got, out, tried } }.
 const at = (r, pick = () => true) => {
   const s = {};

@@ -5,16 +5,19 @@
 // Run: node tools/bio/tests/accept.mjs [-v]
 import { readFileSync } from 'fs';
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = { ExamAnswerMode: { kit: {} } };
 global.document = { readyState: 'loading', addEventListener() {}, getElementById() { return null; } };
-for (const ch of [28, 29, 30, 31, 32]) require(`../../../bio/q${ch}.js`);
+for (const ch of BIO_CHAPTERS) require(`../../../bio/q${ch}.js`);
 require('../../../bio/bio.js');
 const B = window.BioApp, verbose = process.argv.includes('-v');
 // The same notes the builder (tools/bio/build_bio_questions.py META) leaves out.
 const META = /\b(any|other|valid|correct|correctly|example|examples|named|explained|described|description|plausible|suitable|appropriate|reasonable|relevant|similar|equivalent|e\.g)\b/i;
 let fails = 0, tried = 0;
-for (const ch of [28, 29, 30, 31, 32]) {
+for (const ch of BIO_CHAPTERS) {
   const src = JSON.parse(readFileSync(new URL(`../questions/ch${ch}.json`, import.meta.url)));
   const Q = window.BioQuestions[ch].questions;
   src.questions.forEach(q => {

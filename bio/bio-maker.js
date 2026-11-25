@@ -841,7 +841,7 @@
     var W = WORLDS[g.w], name = function (list, id) { return list.filter(function (x) { return x[0] === id; })[0][1]; };
     var Q = questionsFor(g), n = Q.note ? 0 : Q.main.length + Q.figs.length;
     var asks = g.ans === 'own' ? ['typing ' + TYPE_HOW[g.t][1].toLowerCase(), FIG_HOW[g.f][1].toLowerCase() === 'none' ? 'no diagrams' : FIG_HOW[g.f][1].toLowerCase() + ' diagrams', g.o + ' options'].join(', ') : name(ANSWERS, g.ans).toLowerCase();
-    var chs = g.ch.length === CH.length ? 'all five chapters' : g.ch.map(function (c) { return NAME[c]; }).join(', ');
+    var chs = g.ch.length === CH.length ? 'all ' + (['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'][CH.length] || CH.length) + ' chapters' : g.ch.map(function (c) { return NAME[c]; }).join(', ');
     var goal = g.w === 'battle' ? g.s + ' hearts each' : g.w === 'race' ? g.s + ' steps to the flag' : g.w === 'points' ? g.s + ' points to win' : g.w === 'shoot' ? 'first to ' + g.s + ' goals' : g.s + ' ' + W.unit + ' to win';
     var look = '<span class="mk-sum__vs">' + meIcon(g, 40) + '<i>vs</i>' + (g.op === 'draw' ? drawnImg(g.dr, 'char', 'mk-drawn-icon') : g.op === 'make' ? A.playerSvg({ p: 'make', d: g.od, c: g.oc }, 40) : g.op === 'examiner' ? '<span class="mk-face">' + (K.face || '') + '</span>' : A.rivalSvg(g.op, 40)) + '</span>';
     var me = playerName(g);

@@ -38,7 +38,7 @@ def tint(img, c):
 
 def main():
     data = {}
-    for ch in (28, 29, 30, 31, 32):
+    for ch in [n for n in range(28, 35) if os.path.exists(os.path.join(HERE, 'questions', 'ch%d.json' % n))]:  # chapters 28-34 with questions
         path = os.path.join(HERE, 'sprint', 'ch%d.json' % ch)
         if not os.path.exists(path):
             continue

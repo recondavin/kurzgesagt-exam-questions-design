@@ -12,11 +12,14 @@
 //   The ids are Exam drill's, so what you do in a game counts in the drill and the other way round.
 // Run: node tools/bio/tests/memory.mjs
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 const saved = {};
 global.window = { ExamAnswerMode: { kit: { store(k, v) { if (v == null) return saved[k] == null ? null : saved[k]; saved[k] = v; return null; }, later() {} } }, addEventListener() {} };
 global.document = { readyState: 'loading', addEventListener() {}, getElementById() { return null; } };
-for (const ch of [28, 29, 30, 31, 32]) { require(`../../../bio/q${ch}.js`); require(`../../../bio/checks${ch}.js`); }
+for (const ch of BIO_CHAPTERS) { require(`../../../bio/q${ch}.js`); require(`../../../bio/checks${ch}.js`); }
 require('../../../bio/bio.js');
 let seed = 7;
 const rand = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
@@ -122,8 +125,8 @@ function play(rounds, wrongKeys, typedOk) {
   window.BioDrillNew = {};
   require('../../../bio/sprint.js');
   require('../../../bio/bio-drill.js');
-  const ids = new Set(); [28, 29, 30, 31, 32].forEach(ch => P[ch].typed.forEach(t => ids.add(BB.memKey(t))));
-  const drill = [28, 29, 30, 31, 32].flatMap(ch => window.BioDrill.items(ch)).filter(it => it.kind === 'exam');
+  const ids = new Set(); BIO_CHAPTERS.forEach(ch => P[ch].typed.forEach(t => ids.add(BB.memKey(t))));
+  const drill = BIO_CHAPTERS.flatMap(ch => window.BioDrill.items(ch)).filter(it => it.kind === 'exam');
   const shared = drill.filter(it => ids.has(it.id)).length;
   n++;
   if (shared < drill.length * 0.5) fail(`only ${shared} of the drill's ${drill.length} exam questions have the games' ids`);

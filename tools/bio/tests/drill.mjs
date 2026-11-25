@@ -10,10 +10,13 @@
 // Run: node tools/bio/tests/drill.mjs [-v] [chapter]
 import { readFileSync, existsSync } from 'fs';
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = { ExamAnswerMode: { kit: {} }, addEventListener() {} };
 global.document = { readyState: 'loading', addEventListener() {}, getElementById() { return null; } };
-for (const ch of [28, 29, 30, 31, 32]) require(`../../../bio/q${ch}.js`);
+for (const ch of BIO_CHAPTERS) require(`../../../bio/q${ch}.js`);
 require('../../../bio/bio.js');
 const B = window.BioApp, verbose = process.argv.includes('-v'), only = +process.argv.find(a => /^\d\d$/.test(a)) || 0;
 let fails = 0, made = 0;
@@ -22,7 +25,7 @@ const fail = msg => { fails++; console.log('   FAIL', msg); };
 // alternatives has enough of its word stems).
 const earned = (text, pts) => { const w = B.words(text); return pts.filter(p => p.k && B.hasPoint(p, w)).length; };
 const off = JSON.parse(readFileSync(new URL('../drill/off_spec.json', import.meta.url)));
-for (const ch of [28, 29, 30, 31, 32].filter(c => !only || c === only)) {
+for (const ch of BIO_CHAPTERS.filter(c => !only || c === only)) {
   const src = new URL(`../drill/ch${ch}.json`, import.meta.url);
   if (!existsSync(src)) { fail(`chapter ${ch}: no new questions yet`); continue; }
   const list = JSON.parse(readFileSync(src)), topics = JSON.parse(readFileSync(new URL(`../questions/ch${ch}.json`, import.meta.url))).not_covered || [];
@@ -55,10 +58,10 @@ for (const ch of [28, 29, 30, 31, 32].filter(c => !only || c === only)) {
 // The real exam questions and diagrams the drill draws from.
 let real = 0;
 if (existsSync(new URL('../../../bio/bio-drill.js', import.meta.url))) {
-  for (const ch of [28, 29, 30, 31, 32]) require(`../../../bio/checks${ch}.js`);
+  for (const ch of BIO_CHAPTERS) require(`../../../bio/checks${ch}.js`);
   require('../../../bio/sprint.js');
   window.BioKit = { esc: String, shuffle: a => a, pick: a => a[0], buttons() {}, host() {} };
-  window.BioBoard = { pools() {}, nearMascot() {}, reveal() {}, chapters: [28, 29, 30, 31, 32], names: {}, colours: {} };
+  window.BioBoard = { pools() {}, nearMascot() {}, reveal() {}, chapters: BIO_CHAPTERS, names: {}, colours: {} };
   require('../../../bio/drill.js');
   require('../../../bio/bio-drill.js');
   // Every part off_spec.json leaves out is a real part, so the list can't go stale unnoticed.
@@ -66,7 +69,7 @@ if (existsSync(new URL('../../../bio/bio-drill.js', import.meta.url))) {
     const [qid, k] = id.split(':'), q = (window.BioQuestions[ch].questions || []).find(x => x.id === qid);
     if (!q || !q.parts[+k]) fail(`off_spec.json: chapter ${ch} has no part ${id}`);
   }
-  for (const ch of [28, 29, 30, 31, 32].filter(c => !only || c === only)) {
+  for (const ch of BIO_CHAPTERS.filter(c => !only || c === only)) {
     window.BioDrill.items(ch).filter(it => it.kind !== 'new').forEach(it => {
       real++;
       // Only what the 2025 specification covers: an exam part that tests a learning outcome, a diagram part it names.

@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from build_bio_papers import ROMAN, ROOT, OUT_DIR, WIDTH, headings, labels, paper_for, paths_of, pdf_lines  # noqa: E402
 
-CHAPTERS = (28, 29, 30, 31, 32)
+CHAPTERS = tuple(n for n in range(28, 35) if os.path.exists(os.path.join(HERE, 'questions', 'ch%d.json' % n)))  # chapters 28-34, once each has its questions
 SHOW = os.path.join(HERE, 'parts')  # the checked lists: ch<N>.json and fix.json
 FOOT = re.compile(r'(Page \d+ of \d+|^\d+$|Leaving Certificate|Higher Level|Sections? [ABC]|Answerbook|M44|Turn over|^OVER$|^\[?Blank Page)', re.I)
 SECTION = re.compile(r'^\s*(Section|SECTION|Roinn)\s+[ABC]\b')

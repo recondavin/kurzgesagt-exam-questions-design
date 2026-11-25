@@ -1,8 +1,9 @@
 // Trivia board: Trivial Pursuit with the course, against the examiner (the user: "what about trivia the board game but
 // instead it's like" the course). One move at a time, nothing against the clock.
-//   The board  Like the real game's: a ring of 30 squares in the chapters' colours, each chapter's headquarters (its
-//              wedge square) and white roll-again squares, with spokes into a five-sided hub for the final.
-//   The start  A full game (five wedges) or a quick one (three); a game in progress is saved and can be carried on.
+//   The board  Like the real game's: a ring of six squares per chapter in the chapters' colours, each chapter's
+//              headquarters (its wedge square) and white roll-again squares, with a spoke per chapter into the hub (a
+//              polygon with a side per chapter) for the final. Seven chapters (28-34) make 42 squares; a deck of five, 30.
+//   The start  A full game (a wedge per chapter) or a quick one (three); a game in progress is saved and can be carried on.
 //   Your turn  Roll, then pick which way to go (both squares light up). A chapter's square asks one of its quick checks
 //              (pick the answer); a wedge square you haven't won asks you to type the answer, marked against the
 //              marking scheme. Right: roll again (and win the wedge). Wrong: you see the answer and his turn starts.
@@ -23,12 +24,14 @@
   // BUILT"): window.BoardDeck, set before this file loads, with five slots under the same keys (28-32, so the golf
   // holes and the pool picker keep working), their names and colours, its items, and where its memory is kept.
   var DECK = window.BoardDeck || null;
-  var CH = DECK ? DECK.chapters : [28, 29, 30, 31, 32];
-  var NAME = DECK ? DECK.names : { 28: 'Breathing', 29: 'Urinary system', 30: 'Digestion', 31: 'Circulation', 32: 'Immunity' };
+  // Biology's chapters: 28-34, each once its questions are on the page (bio/q<N>.js).
+  var BIO = [28, 29, 30, 31, 32, 33, 34].filter(function (n) { var d = (window.BioQuestions || {})[n]; return d && d.questions && d.questions.length; });
+  var CH = DECK ? DECK.chapters : (BIO.length ? BIO : [28, 29, 30, 31, 32]);
+  var NAME = DECK ? DECK.names : { 28: 'Breathing', 29: 'Urinary system', 30: 'Digestion', 31: 'Circulation', 32: 'Immunity', 33: 'Nervous system', 34: 'Endocrine system' };
   // The chapters' colours: never green or red, which mean right and wrong.
-  var COL = DECK ? DECK.colours : { 28: '#1CB0F6', 29: '#FFC800', 30: '#FF9600', 31: '#CE82FF', 32: '#2BD4BD' };
+  var COL = DECK ? DECK.colours : { 28: '#1CB0F6', 29: '#FFC800', 30: '#FF9600', 31: '#CE82FF', 32: '#2BD4BD', 33: '#FF86D0', 34: '#7C83FD' };
   var MEMORY = DECK ? DECK.memory : 'bio-drill';
-  var N = 30, STEP = 120, MAX_RUN = 3;
+  var NC = CH.length, N = 6 * NC, STEP = 120, MAX_RUN = 3;
   // A question that needs the paper (its diagram, graph, table, an earlier part, or a letter on a diagram: "(B)", "X",
   // "organ A") can't be asked on its own. B and T cells and vitamin letters aren't diagram letters.
   var PIC = /diagram|graph|table|figure|picture|drawing|shown|above|below|underlined|experiment|investigation|the results|the data|labelled|\b(this|these|another)\b|\(([A-Z])\)|\b[B-HJ-Z]\b|\b(organ|part|structure|region|label|letter|vessel|gland|tube|area|point|line|layer|at|is) A\b/;
@@ -46,10 +49,12 @@
       29: /\b(kidneys?|nephron|urine|urin\w*|urea|adh|glomerul\w*|bowman\w*|tubules?|bladder|ureters?|urethra|excret\w*|homeostasis|renal|loop of henle|collecting duct|dialysis|filtration|reabsorb\w*|osmoregulat\w*)\b/gi,
       30: /\b(digest\w*|amylase|lipase|pepsin|protease|stomach|intestin\w*|vill\w*|bile|teeth|tooth|saliva\w*|oesophag\w*|peristal\w*|pancrea\w*|duoden\w*|ileum|colon|fibre|diet\w*|food|enzymes?|chyme|gall bladder|appendix|rectum|egest\w*|absorb\w*|lacteal|nutrition|vitamins?|faeces|mouth|chew\w*|emulsif\w*)\b/gi,
       31: /\b(heart|arter\w*|veins?|venous|capillar\w*|ventricl\w*|atri\w*|valves?|pulse|pulse rate|heart ?beats?|blood pressure|plasma|red blood cells?|platelets?|haemoglobin|sa node|av node|sino\w*|pacemaker|pulmonary|aorta|vena cava|circulat\w*|blood groups?|transfusion|clot\w*|systol\w*|diastol\w*|coronary|portal|cardiac|lymph\w*|heart rate|blood vessels?)\b/gi,
+      33: /\b(nerv\w*|neuron\w*|neurone\w*|axons?|dendrit\w*|myelin|schwann|synap\w*|neurotransmitt\w*|impulses?|reflex\w*|spinal cord|brain|cerebr\w*|cerebell\w*|medulla oblongata|hypothalam\w*|dopamine|endorphins?|acetylcholine|sensory|motor neurons?|interneurons?|receptors?|effectors?|parkinson\w*|grey matter|white matter|meninges)\b/gi,
+      34: /\b(hormon\w*|endocrine|exocrine|glands?|thyroxine|thyroid|parathyroid|insulin|glucagon|adrenaline|adrenal|pituitary|oestrogen|progesterone|testosterone|fsh|lh|tsh|oxytocin|diabet\w*|goitre|anabolic|steroids?|ductless|negative feedback|glucose level|blood sugar)\b/gi,
       32: /\b(immun\w*|antibod\w*|antigens?|lymphocytes?|b cells?|t cells?|vaccin\w*|pathogens?|phagocyt\w*|virus\w*|viral|bacteri\w*|infect\w*|inflammat\w*|macrophage\w*|monocyte\w*|white blood cells?|disease|antibiotic\w*|interferon|complement|memory cells?|helper|killer|suppressor|allerg\w*|hiv|aids)\b/gi
     };
     var text = c.q + ' ' + c.right, n = {}, best = ch;
-    Object.keys(TOPIC).forEach(function (t) {
+    Object.keys(TOPIC).filter(function (t) { return CH.indexOf(+t) >= 0; }).forEach(function (t) {
       var seen = {};
       (text.match(TOPIC[t]) || []).forEach(function (w) { seen[w.toLowerCase()] = 1; });
       n[t] = Object.keys(seen).length;
@@ -91,7 +96,7 @@
     var out = [];
     for (var i = 0; i < N; i++) {
       var k = Math.floor(i / 6), off = i % 6;
-      out.push(off === 0 ? { type: 'hq', ch: CH[k] } : off === 3 ? { type: 'again' } : { type: 'q', ch: CH[(k + (off < 3 ? off : off - 1)) % 5] });
+      out.push(off === 0 ? { type: 'hq', ch: CH[k] } : off === 3 ? { type: 'again' } : { type: 'q', ch: CH[(k + (off < 3 ? off : off - 1)) % NC] });
     }
     return out;
   }
@@ -146,10 +151,11 @@
   }
   function f(n) { return Math.round(n * 10) / 10; }
   function mid(i) { return i * 360 / N + 180 / N; }
-  // A pie of the five wedges: the won ones in their chapter's colour.
+  // A pie of a wedge per chapter: the won ones in their chapter's colour.
   function pie(won, cx, cy, r) {
+    var w = 360 / NC;
     return CH.map(function (ch, i) {
-      var a1 = i * 72, a2 = a1 + 72, p1 = [cx + r * Math.sin(a1 * Math.PI / 180), cy - r * Math.cos(a1 * Math.PI / 180)], p2 = [cx + r * Math.sin(a2 * Math.PI / 180), cy - r * Math.cos(a2 * Math.PI / 180)];
+      var a1 = i * w, a2 = a1 + w, p1 = [cx + r * Math.sin(a1 * Math.PI / 180), cy - r * Math.cos(a1 * Math.PI / 180)], p2 = [cx + r * Math.sin(a2 * Math.PI / 180), cy - r * Math.cos(a2 * Math.PI / 180)];
       return '<path d="M' + cx + ' ' + cy + 'L' + p1.map(f).join(' ') + 'A' + r + ' ' + r + ' 0 0 1 ' + p2.map(f).join(' ') + 'Z" fill="' + (won[ch] ? COL[ch] : '#D9DEE3') + '" stroke="' + INK + '" stroke-width="' + (r > 20 ? 2 : 1) + '"/>';
     }).join('');
   }
@@ -173,7 +179,7 @@
       var a = mid(i), k = CH.indexOf(s.ch);
       [0, 1, 2, 3].forEach(function (j) {
         var c = polar(64 + j * 21.5, a);
-        out += '<rect x="-12" y="-10" width="24" height="20" rx="3" fill="' + COL[CH[(k + 1 + j) % 5]] + '" stroke="' + INK + '" stroke-width="1.5" transform="translate(' + f(c[0]) + ' ' + f(c[1]) + ') rotate(' + f(a) + ')"/>';
+        out += '<rect x="-12" y="-10" width="24" height="20" rx="3" fill="' + COL[CH[(k + 1 + j) % NC]] + '" stroke="' + INK + '" stroke-width="1.5" transform="translate(' + f(c[0]) + ' ' + f(c[1]) + ') rotate(' + f(a) + ')"/>';
       });
     });
     G.sq.forEach(function (s, i) {
@@ -182,10 +188,10 @@
         ? '<path d="' + sector(142, 194, a1 + 0.2, a2 - 0.2) + '" fill="' + COL[s.ch] + '" stroke="' + INK + '" stroke-width="2"/>' + wedgeIcon(c[0], c[1])
         : '<path d="' + sector(150, 186, a1 + 0.2, a2 - 0.2) + '" fill="' + (s.type === 'again' ? '#FFFFFF' : COL[s.ch]) + '" stroke="' + INK + '" stroke-width="1.5"/>' + (s.type === 'again' ? dieIcon(c[0], c[1]) : '')) + '</g>';
     });
-    // The hub: five triangles, one pointing up each chapter's spoke.
+    // The hub: a triangle per chapter, each pointing up its spoke.
     var hub = G.sq.map(function (s, i) {
       if (s.type !== 'hq') return '';
-      var a = mid(i), p1 = polar(54, a - 36), p2 = polar(54, a + 36);
+      var a = mid(i), p1 = polar(54, a - 180 / NC), p2 = polar(54, a + 180 / NC);
       return '<path d="M200 200L' + p1.map(f).join(' ') + 'L' + p2.map(f).join(' ') + 'Z" fill="' + COL[s.ch] + '" stroke="' + INK + '" stroke-width="2" stroke-linejoin="round"/>';
     }).join('');
     return '<svg viewBox="0 0 400 400" role="img" aria-label="The board"><circle cx="200" cy="200" r="199" fill="' + INK + '"/><circle cx="200" cy="200" r="193" fill="#F6EBD3"/>' +
@@ -222,7 +228,7 @@
   }
   // The deck of question cards, face down.
   function deck() {
-    return '<div class="tb-deck" aria-hidden="true"><i></i><i></i><i><svg viewBox="0 0 40 40">' + pie({ 28: 1, 29: 1, 30: 1, 31: 1, 32: 1 }, 20, 20, 13) + '</svg></i></div>';
+    return '<div class="tb-deck" aria-hidden="true"><i></i><i></i><i><svg viewBox="0 0 40 40">' + pie(CH.reduce(function (o, ch) { o[ch] = 1; return o; }, {}), 20, 20, 13) + '</svg></i></div>';
   }
   // A question card: the chapter's band, the question on the front; the answer on the back, shown by flipping it.
   function card(ch, label, front) {
@@ -313,14 +319,15 @@
   }
   function save(turn, step) {
     if (!G || G.phase === 'over' || G.phase === 'intro') return;
-    K.store(SAVE, JSON.stringify({ v: 1, need: G.need, pos: G.pos, turn: turn, step: step, run: turn ? G.run : 0, right: G.right, asked: G.asked, stats: G.stats, his: G.his, t: Date.now(),
+    K.store(SAVE, JSON.stringify({ v: 1, n: N, need: G.need, pos: G.pos, turn: turn, step: step, run: turn ? G.run : 0, right: G.right, asked: G.asked, stats: G.stats, his: G.his, t: Date.now(),
       wedges: G.wedges.map(function (w) { return CH.filter(function (ch) { return w[ch]; }); }) }));
   }
   function loadSave() {
     var s;
     try { s = JSON.parse(K.store(SAVE) || 'null'); } catch (e) { return null; }
     var spot = function (p) { return p === 'hub' || (typeof p === 'number' && p % 1 === 0 && p >= 0 && p < N); };
-    if (!s || s.v !== 1 || (s.need !== 3 && s.need !== 5) || !Array.isArray(s.pos) || s.pos.length !== 2 || !s.pos.every(spot) || !Array.isArray(s.wedges) || s.wedges.length !== 2) return null;
+    // A game saved on a board of another size (before a chapter was added) can't be carried on.
+    if (!s || s.v !== 1 || (s.n || 30) !== N || (s.need !== 3 && s.need !== NC) || !Array.isArray(s.pos) || s.pos.length !== 2 || !s.pos.every(spot) || !Array.isArray(s.wedges) || s.wedges.length !== 2) return null;
     return s;
   }
   function restore(s) {
@@ -339,7 +346,7 @@
   // ---------------------------------------------------------------- the game
   function open() {
     var saved = loadSave();
-    G = fresh(saved ? saved.need : 5);
+    G = fresh(saved ? saved.need : NC);
     if (saved) restore(saved);
     G.card = BK.host(28, 'Trivia board');
     K.gameHud(G.card, 0, '');
@@ -375,13 +382,13 @@
       due.forEach(function (fn) { if (live()) fn(); });
     });
   }
-  // The start: a full game (five wedges) or a quick one (three), or carry on with the saved one, drawn on the board.
+  // The start: a full game (a wedge per chapter) or a quick one (three), or carry on with the saved one, drawn on the board.
   function intro(saved) {
     G.phase = 'intro';
     K.playing(false);
     var wins = +(K.store('bio-board-wins') || 0);
-    // Each choice shows its pie: all five wedges, or three.
-    var modes = [[5, 'Full game', '5 wedges · about 20 min'], [3, 'Quick game', '3 wedges · about 8 min']].map(function (m) {
+    // Each choice shows its pie: every wedge, or three.
+    var modes = [[NC, 'Full game', NC + ' wedges · about ' + NC * 4 + ' min'], [3, 'Quick game', '3 wedges · about 8 min']].map(function (m) {
       var w = {};
       CH.slice(0, m[0]).forEach(function (ch) { w[ch] = 1; });
       return '<button type="button" class="tb-mode" data-tb-mode="' + m[0] + '"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#FFFFFF" stroke="' + INK + '" stroke-width="2"/>' + pie(w, 20, 20, 13) + '</svg>' +

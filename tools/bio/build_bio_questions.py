@@ -224,7 +224,7 @@ def diagram_of(q, overrides, base_of, anchor_words):
     return out
 
 
-CHAPTERS = (28, 29, 30, 31, 32)
+CHAPTERS = tuple(n for n in range(28, 35) if os.path.exists(os.path.join(HERE, 'questions', 'ch%d.json' % n)))  # chapters 28-34, once each has its questions
 
 
 def build(ch):

@@ -1,4 +1,4 @@
-// Leaving Cert Biology (Higher Level, exam from 2027): chapters 28-32, the human body.
+// Leaving Cert Biology (Higher Level, exam from 2027): chapters 28-34, the human body.
 // The page lists every real exam question on each chapter (bio/q<N>.js), marks typed answers against the
 // SEC marking-scheme points, and opens the practice games. Cards run inside answer-mode.js's practice host
 // (ExamAnswerMode.practice), so the examiner, the sounds, Draw it and the mini games are the same as Geography's.
@@ -11,8 +11,10 @@
     { n: 29, title: 'The Urinary System', short: 'Urinary system', unit: 'Humans: fuelling and filtering the body' },
     { n: 30, title: 'The Digestive System', short: 'Digestion', unit: 'Humans: fuelling and filtering the body' },
     { n: 31, title: 'The Circulatory System', short: 'Circulation', unit: 'Humans: blood' },
-    { n: 32, title: 'Infectious Disease and the Human Immune Response', short: 'Immunity', unit: 'Humans: blood' }
-  ];
+    { n: 32, title: 'Infectious Disease and the Human Immune Response', short: 'Immunity', unit: 'Humans: blood' },
+    { n: 33, title: 'The Nervous System', short: 'Nervous system', unit: 'Humans: response' },
+    { n: 34, title: 'The Endocrine System', short: 'Endocrine system', unit: 'Humans: response' }
+  ].filter(function (c) { return c.n <= 32 || (QS[c.n] && QS[c.n].questions && QS[c.n].questions.length); }); // 33 and 34 once their questions are on the page
   var app = null, sheet = null;
 
   // ---------- small helpers ----------
@@ -460,11 +462,19 @@
   function renderChapter(n, tab) {
     var c = chapter(n);
     if (!c) { renderHome(); return; }
+    // Only the tabs with something in them (chapters 33 and 34 have no drawn diagrams).
+    var items = drillItems(n), tabs = TABS.filter(function (t) {
+      if (t[0] === 'diagrams') return Object.keys(ART).some(function (id) { return ART[id].chapter === n; });
+      if (t[0] === 'games') return items.some(function (x) { return x.kind === 'game'; });
+      if (t[0] === 'learn') return items.some(function (x) { return x.kind === 'learn'; });
+      return true;
+    });
     tab = tab || store('bio-tab') || 'questions';
+    if (!tabs.some(function (t) { return t[0] === tab; })) tab = 'questions';
     document.title = c.short + ' | Leaving Cert Biology';
     renderShell(n, c.title);
     app.innerHTML = '<div class="cv-title rise" style="--i:0"><h1 class="cv-h1">' + esc(c.title) + '</h1></div>' +
-      '<div class="ch-layout"><div class="ch-main"><nav class="bio-tabs rise" style="--i:1" role="tablist">' + TABS.map(function (t) {
+      '<div class="ch-layout"><div class="ch-main"><nav class="bio-tabs rise" style="--i:1" role="tablist">' + tabs.map(function (t) {
         return '<button type="button" role="tab" class="bio-tab" data-bio-tab="' + t[0] + '" aria-selected="' + (t[0] === tab) + '">' + t[1] + '</button>';
       }).join('') + '</nav><section class="bio-panel" data-bio-panel></section></div>' + chapterRail(n) + '</div>';
     showTab(n, tab);

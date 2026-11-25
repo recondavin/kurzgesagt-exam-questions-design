@@ -1,10 +1,13 @@
 // Checks the quick games' content in every chapter (bio/learnNN.js: match, spot, sprint; played by bio/bio-quick.js).
 // Run: node tools/bio/tests/quick.mjs
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = {};
-const CH = [28, 29, 30, 31, 32];
-for (const n of CH) { require(`../../../bio/d${n}.js`); require(`../../../bio/learn${n}.js`); }
+const CH = BIO_CHAPTERS;
+for (const n of CH) { (__exists(new URL(`../../../bio/d${n}.js`, import.meta.url)) && require(`../../../bio/d${n}.js`)); require(`../../../bio/learn${n}.js`); }
 const NOT_A_PART = /^\d+\.|:|diffuses|entering|^Cut |^Blood (from|to) /;
 let fails = 0;
 const fail = msg => { fails++; console.log('   FAIL', msg); };

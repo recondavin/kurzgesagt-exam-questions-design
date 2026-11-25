@@ -4,6 +4,9 @@
 // tell which was tapped (the game takes the nearest spot). Run: node tools/bio/tests/sprint.mjs
 import { existsSync } from 'fs';
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = {};
 require('../../../bio/sprint.js');
@@ -13,7 +16,7 @@ const fail = msg => { fails++; console.log('   FAIL', msg); };
 const inBox = (p, b) => p[0] >= b[0] && p[1] >= b[1] && p[0] <= b[0] + b[2] && p[1] <= b[1] + b[3];
 const px = p => [p[0] * PAGE[0] / 100, p[1] * PAGE[1] / 100];
 
-for (const ch of [28, 29, 30, 31, 32]) {
+for (const ch of BIO_CHAPTERS) {
   const list = S[ch] || [];
   if (list.length < 3) fail(`chapter ${ch}: only ${list.length} diagrams`);
   for (const d of list) {

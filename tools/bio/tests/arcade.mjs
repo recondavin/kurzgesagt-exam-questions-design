@@ -11,12 +11,15 @@
 //               level takes a steady player more shots than the one before.
 // Run: node tools/bio/tests/arcade.mjs
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = { ExamAnswerMode: { kit: {} }, addEventListener() {} };
 global.document = { readyState: 'loading', addEventListener() {}, getElementById() { return null; } };
 window.Matter = require('../../../bio/vendor/matter.min.js');
 window.BioKit = { esc: String, shuffle: a => a, pick: a => a[0], buttons() {} };
-window.BioBoard = { pools() {}, nearMascot() {}, chapters: [28, 29, 30, 31, 32], names: {}, colours: {} };
+window.BioBoard = { pools() {}, nearMascot() {}, chapters: BIO_CHAPTERS, names: {}, colours: {} };
 require('../../../bio/bio-arcade.js');
 const T = window.BioArcade.test, M = window.Matter;
 let fails = 0;

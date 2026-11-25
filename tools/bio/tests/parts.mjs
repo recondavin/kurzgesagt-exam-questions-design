@@ -4,9 +4,12 @@
 // Run: node tools/bio/tests/parts.mjs
 import { createRequire } from 'module';
 import { existsSync } from 'fs';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = {};
-for (const n of [28, 29, 30, 31, 32]) require(`../../../bio/q${n}.js`);
+for (const n of BIO_CHAPTERS) require(`../../../bio/q${n}.js`);
 require('../../../bio/papers.js');
 const P = window.BioPapers, Q = window.BioQuestions;
 let fails = 0, views = 0, holes = 0;
@@ -14,7 +17,7 @@ const fail = msg => { fails++; console.log('   FAIL', msg); };
 const inPage = b => b[0] >= -2 && b[1] >= -2 && b[0] + b[2] <= 102 && b[1] + b[3] <= 102 && b[2] > 0 && b[3] > 0;
 const within = (d, b) => d[0] >= b[0] - 0.01 && d[1] >= b[1] - 0.01 && d[0] + d[2] <= b[0] + b[2] + 0.01 && d[1] + d[3] <= b[1] + b[3] + 0.01;
 
-for (const n of [28, 29, 30, 31, 32]) {
+for (const n of BIO_CHAPTERS) {
   for (const q of Q[n].questions) {
     const p = P[n + '/' + q.id];
     if (!p) continue;

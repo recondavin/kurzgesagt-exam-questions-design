@@ -14,7 +14,7 @@ ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
 
 def main():
     out, missing = {}, []
-    for ch in (28, 29, 30, 31, 32):
+    for ch in [n for n in range(28, 35) if os.path.exists(os.path.join(HERE, 'questions', 'ch%d.json' % n))]:  # chapters 28-34 with questions
         src = os.path.join(HERE, 'drill', 'ch%d.json' % ch)
         if not os.path.exists(src):
             missing.append(ch)

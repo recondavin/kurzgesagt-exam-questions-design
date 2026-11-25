@@ -3,11 +3,14 @@
 // wrong answers (one for true or false), none repeated, a why, and a hint (at most 100 letters, not the answer itself)
 // for the examiner's help on the desk. Run: node tools/bio/tests/checks.mjs
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = {};
 let fails = 0, checks = 0;
 const fail = msg => { fails++; console.log('   FAIL', msg); };
-for (const n of [28, 29, 30, 31, 32]) {
+for (const n of BIO_CHAPTERS) {
   require(`../../../bio/q${n}.js`);
   require(`../../../bio/checks${n}.js`);
   const C = window.BioChecks[n];

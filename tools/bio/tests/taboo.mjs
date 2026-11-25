@@ -6,21 +6,24 @@
 // Run: node tools/bio/tests/taboo.mjs [-v] [chapter]
 import { readFileSync, existsSync } from 'fs';
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = { ExamAnswerMode: { kit: {} }, addEventListener() {} };
 global.document = { readyState: 'loading', addEventListener() {}, getElementById() { return null; } };
-for (const ch of [28, 29, 30, 31, 32]) require(`../../../bio/q${ch}.js`);
+for (const ch of BIO_CHAPTERS) require(`../../../bio/q${ch}.js`);
 require('../../../bio/bio.js');
 // The game's own rule for banned words (bio-quizgames.js), loaded with just enough of the site around it.
 window.BioKit = { esc: String, shuffle: a => a, pick: a => a[0], buttons() {} };
-window.BioBoard = { pools() {}, chapters: [28, 29, 30, 31, 32], names: {}, colours: {} };
+window.BioBoard = { pools() {}, chapters: BIO_CHAPTERS, names: {}, colours: {} };
 require('../../../bio/bio-quizgames.js');
 const B = window.BioApp, G = window.BioQuizGames, verbose = process.argv.includes('-v'), only = +process.argv.find(a => /^\d\d$/.test(a)) || 0;
 let fails = 0, terms = 0;
 const fail = msg => { fails++; console.log('   FAIL', msg); };
 export const banned = G.banned;
 export function ideas(text, t) { const words = B.words(text); return t.ideas.filter(i => B.hasPoint(i, words)).length; }
-for (const ch of [28, 29, 30, 31, 32].filter(c => !only || c === only)) {
+for (const ch of BIO_CHAPTERS.filter(c => !only || c === only)) {
   const src = new URL(`../taboo/ch${ch}.json`, import.meta.url);
   if (!existsSync(src)) { fail(`chapter ${ch}: no terms yet`); continue; }
   const list = JSON.parse(readFileSync(src));

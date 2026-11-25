@@ -247,8 +247,11 @@
     }
     return out;
   }
-  // A fleet: a ship for each chapter, none touching another, even at a corner.
+  // A fleet: a ship for each chapter, none touching another, even at a corner. With more chapters than ships (Biology's
+  // seven), each game's five ships are five of them, picked at random.
   function place(rand) {
+    var sail = CH.slice();
+    for (var s = sail.length - 1; s > 0 && sail.length > FLEET.length; s--) { var t = Math.floor(rand() * (s + 1)), x = sail[s]; sail[s] = sail[t]; sail[t] = x; }
     for (;;) {
       var at = {}, ships = [], ok = FLEET.every(function (len, i) {
         for (var tries = 0; tries < 200; tries++) {
@@ -256,7 +259,7 @@
           for (var k = 0; k < len; k++) cells.push((r + (across ? 0 : k)) * SEA + c + (across ? k : 0));
           if (cells.some(function (x) { return at[x] || around(x, true).some(function (n) { return at[n]; }); })) continue;
           cells.forEach(function (x) { at[x] = i + 1; });
-          ships.push({ cells: cells, ch: CH[i], across: across, hits: 0 });
+          ships.push({ cells: cells, ch: sail[i % sail.length], across: across, hits: 0 });
           return true;
         }
         return false;

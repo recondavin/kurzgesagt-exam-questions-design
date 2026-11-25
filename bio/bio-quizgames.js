@@ -321,7 +321,7 @@
   // ======================================================================== Points Grid
   var VALUES = [100, 200, 300, 400, 500];
   // On a phone the five columns are too narrow for the chapters' names.
-  var SHORT = { 28: 'Lungs', 29: 'Urine', 30: 'Gut', 31: 'Blood', 32: 'Immune' };
+  var SHORT = { 28: 'Lungs', 29: 'Urine', 30: 'Gut', 31: 'Blood', 32: 'Immune', 33: 'Nerves', 34: 'Hormones' };
   function gridOpen() {
     start('grid', 'Points Grid', 25, 'points');
     var P = BB.pools(), used = {};
@@ -339,7 +339,10 @@
     // 400 and 500 (a two-point answer for 500 where there is one; never one that needs its options to make sense,
     // which BioBoard.pools leaves out of the typed ones). Dealt in the order of the memory you share with Exam drill:
     // the typed 400 and 500 from questions due to type, the boxes from ones you got wrong, then new ones.
-    S.cols = CH.map(function (ch) {
+    // Five columns: with more chapters than that (Biology's seven), each grid is five of them, picked at random, in order.
+    var cols = CH.slice();
+    while (cols.length > 5) cols.splice(Math.floor(Math.random() * cols.length), 1);
+    S.cols = cols.map(function (ch) {
       var typedList = BB.memOrder(P, P[ch].typed, true), boxList = BB.memOrder(P, P[ch].mc, false);
       var five = take(typedList, function (i) { return i.want >= 2; }), four = take(typedList, function (i) { return i.want === 1; });
       var tf = function (i) { return /^(True|False)$/.test(i.c.right); }, mc = function (i) { return !tf(i); };
@@ -446,7 +449,7 @@
     S.cells[S.id] = { how: how, v: v, pts: pts };
     S.score += pts;
     S.last = { id: S.id, pts: pts };
-    K.gameSeg(S.card, CH.indexOf(+at[0]) * 5 + +at[1], how === 'ok' ? 'is-ok' : how === 'no' ? 'is-no' : how === 'part' ? 'is-half' : '');
+    K.gameSeg(S.card, S.cols.map(function (c) { return c.ch; }).indexOf(+at[0]) * 5 + +at[1], how === 'ok' ? 'is-ok' : how === 'no' ? 'is-no' : how === 'part' ? 'is-half' : '');
     // The answer buttons go; the options stay, marked.
     S.card.querySelectorAll('[data-qg-pass], [data-qg-check]').forEach(function (b) { var row = b.closest('.tb-row'); if (row) row.remove(); });
     if (!S.typed) markOptions(item, null);

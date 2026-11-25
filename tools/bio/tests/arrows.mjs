@@ -4,6 +4,9 @@
 // (zoneDist, zoneOf, arrowFits), copied here. Run: node tools/bio/tests/arrows.mjs
 import { existsSync } from 'fs';
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = {};
 const PAGE = [2055, 2908];
@@ -38,11 +41,11 @@ function arrowFits(r, rule, A, D) {
   return true;
 }
 
-for (const n of [28, 29, 30, 31, 32]) {
-  require(`../../../bio/d${n}.js`);
+for (const n of BIO_CHAPTERS) {
+  (__exists(new URL(`../../../bio/d${n}.js`, import.meta.url)) && require(`../../../bio/d${n}.js`));
   require(`../../../bio/q${n}.js`);
 }
-for (const n of [28, 29, 30, 31, 32]) {
+for (const n of BIO_CHAPTERS) {
   for (const q of window.BioQuestions[n].questions) {
     const where = `${n}/${q.id}`, dia = q.dia;
     if (dia && dia.note) fail(`${where}: diagram is only a written note`);

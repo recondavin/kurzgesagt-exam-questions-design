@@ -5,6 +5,9 @@
 // Run: node tools/bio/tests/chains.mjs [-v]
 import { createRequire } from 'module';
 import { readFileSync } from 'fs';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = {};
 const STOP = new Set('the a an and or it its is are be of to in into on onto by from with as at for this that these them they their there which then so but you your than e g'.split(' '));
@@ -18,7 +21,7 @@ function words(t) {
 }
 // Biology's chains (bio/learn<N>.js) and Geography's (written in answer-mode.js).
 const all = [];
-for (const ch of [28, 29, 30, 31, 32]) {
+for (const ch of BIO_CHAPTERS) {
   require(`../../../bio/learn${ch}.js`);
   window.BioLearn[ch].games.chains.forEach(c => all.push([ch, c]));
 }

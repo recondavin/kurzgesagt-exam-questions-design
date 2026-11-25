@@ -8,11 +8,14 @@
 //   trail     your aim's dots start at the ball's edge, are at least MIN_TRAIL long, at most TRAIL, and stay off the cup.
 // Run: node tools/bio/tests/golf.mjs
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = { ExamAnswerMode: { kit: {} }, addEventListener() {} };
 global.document = { readyState: 'loading', addEventListener() {}, getElementById() { return null; } };
 window.BioKit = { esc: String, shuffle: a => a, pick: a => a[0], buttons() {} };
-window.BioBoard = { pools() {}, nearMascot() {}, reveal() {}, chapters: [28, 29, 30, 31, 32], names: {}, colours: {} };
+window.BioBoard = { pools() {}, nearMascot() {}, reveal() {}, chapters: BIO_CHAPTERS, names: {}, colours: {} };
 require('../../../bio/bio-golf.js');
 const T = window.BioGolf.test;
 let fails = 0;

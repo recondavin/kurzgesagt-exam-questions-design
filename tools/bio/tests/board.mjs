@@ -6,20 +6,24 @@
 // Run: node tools/bio/tests/board.mjs
 import { readFileSync } from 'fs';
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = { ExamAnswerMode: { kit: {} } };
 global.document = { readyState: 'loading', addEventListener() {}, getElementById() { return null; } };
-for (const ch of [28, 29, 30, 31, 32]) { require(`../../../bio/q${ch}.js`); require(`../../../bio/checks${ch}.js`); }
+for (const ch of BIO_CHAPTERS) { require(`../../../bio/q${ch}.js`); require(`../../../bio/checks${ch}.js`); }
 require('../../../bio/bio.js');
 const src = readFileSync(new URL('../../../bio/bio-board.js', import.meta.url), 'utf8');
 const PIC = eval(src.match(/var PIC = (\/.*\/);/)[1]);
 const needsPaper = eval('(' + src.match(/function needsPaper\(c\) \{[\s\S]*?\n  \}/)[0] + ')');
+const CH = BIO_CHAPTERS; // topicOf only moves a question to a chapter on the board
 const topicOf = eval('(' + src.match(/function topicOf\(c, ch\) \{[\s\S]*?\n  \}/)[0] + ')');
 const B = window.BioApp;
 const board = { 28: [0, 0], 29: [0, 0], 30: [0, 0], 31: [0, 0], 32: [0, 0] };
 let fails = 0;
 const fail = msg => { fails++; console.log('   FAIL', msg); };
-for (const ch of [28, 29, 30, 31, 32]) {
+for (const ch of BIO_CHAPTERS) {
   let mc = 0, typed = 0;
   for (const q of window.BioQuestions[ch].questions) (window.BioChecks[ch][q.id] || []).forEach((c, k) => {
     if (!('board' in c)) fail(`${ch}/${q.id} part ${k + 1}: no "board" (does it make sense alone?)`);
@@ -53,12 +57,12 @@ const BB = window.BioBoard, P = BB.pools();
   .forEach(t => { if (!BB.needsOptions(t)) fail(`"${t}" would be asked typed`); });
 ['Which enzyme digests fat?', 'Which gas dissolved in plasma controls the rate of breathing?', 'Explain the importance of folding in proteins. (2 points)']
   .forEach(t => { if (BB.needsOptions(t)) fail(`"${t}" is kept out of the typed questions`); });
-for (const ch of [28, 29, 30, 31, 32]) {
+for (const ch of BIO_CHAPTERS) {
   P[ch].typed.filter(t => BB.needsOptions(t.text)).forEach(t => fail(`${ch}: typed question needs its options: ${t.text}`));
   if (P[ch].typed.length < 20) fail(`chapter ${ch}: only ${P[ch].typed.length} typed questions in the game`);
   P[ch].mc.filter(i => /\bpoints?\)$/.test(BB.plain(i.text))).forEach(i => fail(`${ch}: "${i.text}" keeps its points as a pick-the-answer question`));
 }
-for (const ch of [28, 29, 30, 31, 32]) {
+for (const ch of BIO_CHAPTERS) {
   if (board[ch][0] < 30) fail(`chapter ${ch}: only ${board[ch][0]} questions on its squares`);
   if (board[ch][1] < 20) fail(`chapter ${ch}: only ${board[ch][1]} wedge questions`);
   console.log(`   ${ch}: ${board[ch][0]} questions on its squares, ${board[ch][1]} wedge questions`);

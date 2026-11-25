@@ -20,6 +20,9 @@
 //              right one comes back typed five on (typing sometimes); typing never or always is kept to.
 // Run: node tools/bio/tests/maker.mjs
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 const saved = {};
 global.window = { ExamAnswerMode: { kit: { store(k, v) { if (v == null) return saved[k] == null ? null : saved[k]; saved[k] = v; return null; }, later() {} } }, addEventListener() {} };
@@ -27,7 +30,7 @@ global.document = { readyState: 'loading', addEventListener() {}, getElementById
 global.location = { origin: 'https://example.org', pathname: '/biology.html' };
 global.btoa = s => Buffer.from(s, 'binary').toString('base64');
 global.atob = s => Buffer.from(s, 'base64').toString('binary');
-for (const ch of [28, 29, 30, 31, 32]) { require(`../../../bio/q${ch}.js`); require(`../../../bio/checks${ch}.js`); }
+for (const ch of BIO_CHAPTERS) { require(`../../../bio/q${ch}.js`); require(`../../../bio/checks${ch}.js`); }
 require('../../../bio/bio.js');
 require('../../../bio/sprint.js');
 require('../../../bio/drill.js');
@@ -191,7 +194,7 @@ bank.forEach(it => {
     if (spots.indexOf(it.spot) < 0) fail(`${it.id}: its part isn't one to tap`);
   }
 });
-for (const ch of [[28], [29], [30], [31], [32], [28, 29, 30, 31, 32]]) {
+for (const ch of [[28], [29], [30], [31], [32], BIO_CHAPTERS]) {
   const kinds = {
     short: it => it.kind === 'exam' && it.need === 1, long: it => it.kind !== 'new' && it.kind !== 'diagram' && it.size === 'long', new: it => it.kind === 'new', all: it => it.kind !== 'diagram'
   };

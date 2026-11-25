@@ -11,15 +11,18 @@
 // right answer, and the scheme's own answers aren't cancelled.
 // Run: node tools/bio/tests/whichway.mjs
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = { ExamAnswerMode: { kit: {} }, addEventListener() {} };
 global.document = { readyState: 'loading', addEventListener() {}, getElementById() { return null; } };
-for (const ch of [28, 29, 30, 31, 32]) { require(`../../../bio/q${ch}.js`); require(`../../../bio/checks${ch}.js`); }
+for (const ch of BIO_CHAPTERS) { require(`../../../bio/q${ch}.js`); require(`../../../bio/checks${ch}.js`); }
 require('../../../bio/bio.js');
 require('../../../bio/sprint.js');
 require('../../../bio/drill.js');
 window.BioKit = { esc: String, shuffle: a => a, pick: a => a[0], buttons() {}, host() {} };
-window.BioBoard = { pools() {}, nearMascot() {}, reveal() {}, chapters: [28, 29, 30, 31, 32], names: {}, colours: {} };
+window.BioBoard = { pools() {}, nearMascot() {}, reveal() {}, chapters: BIO_CHAPTERS, names: {}, colours: {} };
 require('../../../bio/bio-drill.js');
 const B = window.BioApp, D = window.BioDrill;
 let fails = 0, n = 0;
@@ -70,7 +73,7 @@ const DRILL = [
   [31, 'n31:D31-29', 'the left atrium, then the tricuspid valve', false],
 ];
 const byId = {};
-[28, 29, 30, 31, 32].forEach(ch => D.items(ch).forEach(it => { byId[it.id] = it; }));
+BIO_CHAPTERS.forEach(ch => D.items(ch).forEach(it => { byId[it.id] = it; }));
 DRILL.forEach(([ch, id, text, full]) => {
   n++;
   const it = byId[id];
@@ -86,7 +89,7 @@ Object.values(byId).forEach(it => {
     if (bad) fail(`${it.id}: the right answer "${text}" is cancelled by "${bad}"`);
   });
 });
-[28, 29, 30, 31, 32].forEach(ch => {
+BIO_CHAPTERS.forEach(ch => {
   for (const q of window.BioQuestions[ch].questions) q.parts.forEach((p, k) => {
     const c = ((window.BioChecks[ch] || {})[q.id] || [])[k];
     if (!c || p.kind !== 'text' || !p.pts.some(t => /\*/.test(t.a))) return;

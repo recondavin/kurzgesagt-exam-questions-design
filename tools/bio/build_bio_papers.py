@@ -175,7 +175,7 @@ def main():
     pdirs = (sys.argv[1], sys.argv[2])
     check = '--check' in sys.argv
     cache, out, missing, pages = {}, {}, [], {}
-    for ch in (28, 29, 30, 31, 32):
+    for ch in [n for n in range(28, 35) if os.path.exists(os.path.join(HERE, 'questions', 'ch%d.json' % n))]:  # chapters 28-34 with questions
         src = json.load(open(os.path.join(HERE, 'questions', 'ch%d.json' % ch)))
         for q in src['questions']:
             m = re.search(r'Question\s+(\d+)(.*)$', q['source'])

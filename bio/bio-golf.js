@@ -8,6 +8,9 @@
 //   4 The heart (Circulation)          atrium, ventricle and artery, with valves between them that only open forwards.
 //   5 The white cells (Immunity)       white cells slide across the green while a ball rolls, and knock it about; one
 //                                      rests in front of the cup.
+//   6 The synapse (Nervous system)     two blocks offset across a gap (the fault's shape below).
+//   7 The gland (Endocrine system)     a cone in the way of the cup (the volcano's shape below).
+//   (6 and 7 only once chapters 33 and 34 are on the page.)
 // You take turns on each hole (the user: "make you take turns"), a question from the hole's chapter before every go (the
 // trivia board's cards; every third of yours typed and marked like the answer sheet). The rule for turns (the user: "if
 // you get them wrong then u dont rlly get to continue and u can get 2 right then its capped"):
@@ -97,6 +100,15 @@
     var h = MORE[k];
     if (m.name) h.name = m.name;
     if (m.ch != null) h.ch = m.ch;
+    HOLES.push(h);
+  });
+  // Biology's chapters 33 and 34 get a hole each, from the shapes above (their par is tested): the synapse is the fault
+  // (two blocks and the gap between them, like the cleft between two neurons), the gland the cone.
+  if (!window.BoardDeck) [[33, 'The synapse', 4], [34, 'The gland', 0]].forEach(function (x) {
+    if (CH.indexOf(x[0]) < 0) return;
+    var h = JSON.parse(JSON.stringify(MORE[x[2]]));
+    h.ch = x[0];
+    h.name = x[1];
     HOLES.push(h);
   });
   var HOLE_WORD = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'][HOLES.length] || String(HOLES.length);

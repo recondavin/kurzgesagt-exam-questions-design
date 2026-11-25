@@ -5,16 +5,19 @@
 // Run: node tools/bio/tests/checkmark.mjs [-v] [chapter]
 import { readFileSync } from 'fs';
 import { createRequire } from 'module';
+import { existsSync as __exists } from 'fs';
+// Biology's chapters: 28-32, and 33 and 34 once their questions, checks and learn content are built.
+const BIO_CHAPTERS = [28, 29, 30, 31, 32, 33, 34].filter(n => ['q', 'checks', 'learn'].every(f => __exists(new URL(`../../../bio/${f}${n}.js`, import.meta.url))));
 const require = createRequire(import.meta.url);
 global.window = { ExamAnswerMode: { kit: {} } };
 global.document = { readyState: 'loading', addEventListener() {}, getElementById() { return null; } };
-for (const ch of [28, 29, 30, 31, 32]) require(`../../../bio/q${ch}.js`);
+for (const ch of BIO_CHAPTERS) require(`../../../bio/q${ch}.js`);
 require('../../../bio/bio.js');
 const B = window.BioApp, verbose = process.argv.includes('-v'), only = +process.argv.find(a => /^\d\d$/.test(a)) || 0;
 const CHECKS = {};
-for (const ch of [28, 29, 30, 31, 32]) CHECKS[ch] = JSON.parse(readFileSync(new URL(`../checks/ch${ch}.json`, import.meta.url)));
+for (const ch of BIO_CHAPTERS) CHECKS[ch] = JSON.parse(readFileSync(new URL(`../checks/ch${ch}.json`, import.meta.url)));
 let ok = 0, n = 0;
-for (const ch of [28, 29, 30, 31, 32].filter(c => !only || c === only)) for (const q of window.BioQuestions[ch].questions) q.parts.forEach((p, k) => {
+for (const ch of BIO_CHAPTERS.filter(c => !only || c === only)) for (const q of window.BioQuestions[ch].questions) q.parts.forEach((p, k) => {
   const c = (CHECKS[ch][q.id] || [])[k], keyed = p.pts.filter(pt => pt.k && !pt.self).length;
   if (p.kind !== 'text' || !keyed || !c) return;
   const m = c.q.match(/\((\d) points\)$/), want = Math.min(m ? +m[1] : 1, keyed, p.n || 1);
