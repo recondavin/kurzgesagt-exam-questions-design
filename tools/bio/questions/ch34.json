@@ -525,9 +525,7 @@
       {
        "answer": "*Endocrine (or ductless)",
        "marks": 3,
-       "accept": [
-        "ductless"
-       ]
+       "accept": []
       }
      ],
      "rule": "",
