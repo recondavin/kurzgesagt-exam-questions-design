@@ -18,6 +18,7 @@ const px = p => [p[0] * PAGE[0] / 100, p[1] * PAGE[1] / 100];
 
 for (const ch of BIO_CHAPTERS) {
   const list = S[ch] || [];
+  if (!S[ch] && ch > 32) continue; // chapters 33 and 34 have no Label sprint diagrams
   if (list.length < 3) fail(`chapter ${ch}: only ${list.length} diagrams`);
   for (const d of list) {
     diagrams++;

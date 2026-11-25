@@ -35,8 +35,11 @@ for (const n of CH) {
     if (!it.why) fail(`${n} spot: no why: ${it.s}`);
   }
   if ((L.spot || []).length < 8) fail(`${n} spot: ${(L.spot || []).length} sentences, needs 8`);
-  // Label sprint: every diagram is there, with at least three parts to tap, and twelve different parts in all.
-  const set = window.ExamDrawDiagrams['bio-' + n].diagrams, names = new Set();
+  // Label sprint: every diagram is there, with at least three parts to tap, and twelve different parts in all (a chapter
+  // without drawn diagrams, like 33 and 34, has no Label sprint).
+  const names = new Set();
+  if (!window.ExamDrawDiagrams['bio-' + n]) { console.log(`ch${n}: ${m.length} pairs, ${(L.spot || []).length} mistakes, no drawn diagrams`); continue; }
+  const set = window.ExamDrawDiagrams['bio-' + n].diagrams;
   for (const id of L.sprint || []) {
     const d = set.find(x => x.id === id);
     if (!d) { fail(`${n} sprint: no diagram ${id}`); continue; }

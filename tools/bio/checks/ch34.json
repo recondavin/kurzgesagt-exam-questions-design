@@ -502,7 +502,7 @@
         "Nucleic acid",
         "Mineral salt"
       ],
-      "why": "Many hormones, such as insulin and ADH, are proteins, made on the ribosomes of gland cells.",
+      "why": "Many hormones, such as insulin, are proteins: chains of amino acids made on the ribosomes of gland cells.",
       "hint": "Insulin is one: it's made of amino acids joined in chains.",
       "board": true,
       "hook": "Insulin is a protein: many hormones are amino acid chains",
@@ -611,12 +611,12 @@
         "ADH: lots of dilute urine",
         "Thyroxine: feeling cold and sluggish"
       ],
-      "why": "Thyroxine controls the metabolic rate, so too much of it raises the metabolic rate: weight loss and a fast heartbeat.",
+      "why": "Thyroxine controls the metabolic rate, so too much of it is recognised by a metabolic rate raised above normal.",
       "hint": "Think what thyroxine normally controls, then imagine it turned up too high.",
       "board": false,
       "hook": "Thyroxine sets the pace; too much and everything runs too fast",
       "keys": [
-        "raises the metabolic rate",
+        "controls the metabolic rate",
         "too much"
       ]
     }
@@ -663,7 +663,7 @@
       "right": "Insulin; islets of Langerhans; the liver; lowers blood glucose",
       "wrong": [
         "Amylase; islets of Langerhans; the gut; digests starch",
-        "Insulin; the adrenal cortex; the brain; raises blood glucose",
+        "Insulin; the thyroid; the brain; raises blood glucose",
         "Glucagon; the pancreatic duct; the gut; digests fat"
       ],
       "why": "The islets of Langerhans secrete insulin; it acts on body cells and the liver, which take in glucose (stored as glycogen), lowering blood glucose.",

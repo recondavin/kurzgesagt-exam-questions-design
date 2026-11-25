@@ -173,7 +173,48 @@ _TREAT_DEFICIENCY = _k(*_x(['treat', 'cure', 'correct', 'replac', 'inject', 'sup
                                                                                              'cretin', 'myxoedema', 'condit']),
                        'insulin diabet', 'insulin inject', 'thyroxine tablet', 'diabet', 'deficien')
 
+# 2013-Q10b(ii), two hormones of the student's choice: one box each (Hormone 1, Hormone 2). In a box, the gland's
+# location and the hormone's function earn only with the hormone the box names: "insulin ... in the neck" doesn't.
+_HORMONES = {
+    'insulin': (['pancrea', 'islet', 'langerhan', 'abdomen', 'stomach', 'duoden', 'liver'], ['sugar', 'glucose', 'glycogen']),
+    'glucagon': (['pancrea', 'islet', 'langerhan', 'abdomen', 'stomach', 'duoden', 'liver'], ['sugar', 'glucose', 'glycogen']),
+    'thyroxine': (['neck', 'throat', 'trachea', 'larynx', 'windpipe', 'voice box', 'thyroid'],
+                  ['metabol', 'growth', 'grow', 'develop', 'heat', 'temperatur', 'energy', 'respir']),
+    'adrenalin': (['kidney', 'adrenal', 'abdomen'], None),
+    'epinephrin': (['kidney', 'adrenal', 'abdomen'], None),
+    'noradrenalin': (['kidney', 'adrenal', 'abdomen'], None),
+    'adh': (['brain', 'skull', 'pituitar', 'hypothalam'], ['water', 'urine', 'reabsorb', 'permeab', 'osmoregul', 'conserv water']),
+    'vasopressin': (['brain', 'skull', 'pituitar', 'hypothalam'], ['water', 'urine', 'reabsorb', 'permeab', 'osmoregul', 'conserv water']),
+    'antidiuret': (['brain', 'skull', 'pituitar', 'hypothalam'], ['water', 'urine', 'reabsorb', 'permeab', 'osmoregul', 'conserv water']),
+    'tsh': (['brain', 'skull', 'pituitar'], ['thyroid', 'thyroxine']),
+    'fsh': (['brain', 'skull', 'pituitar'], ['follic', 'egg', 'ovum', 'oestrogen', 'estrogen', 'sperm']),
+    'lh': (['brain', 'skull', 'pituitar'], ['ovulat', 'corpus luteum', 'progesteron', 'testosteron', 'egg', 'ovum']),
+    'parathyroid hormon': (['neck', 'throat', 'thyroid'], ['calcium', 'bone']),
+    'growth hormon': (['brain', 'skull', 'pituitar'], ['growth', 'grow', 'bone', 'protein']),
+}
+
+
+def _pair(where):
+    """Each hormone's own location (where=True) or function words, each said with the hormone's name."""
+    out = []
+    for name, (places, jobs) in _HORMONES.items():
+        if where:
+            words = places
+        elif jobs:
+            words = jobs
+        else:  # adrenaline: the fight-or-flight keys
+            words = [' '.join(k['w']) for k in _ADR_FN]
+        out += [{'w': name.split() + w.split(), 'n': len(name.split()) + len(w.split())} for w in words]
+    return out
+
+
+_WHERE_OF = _pair(True)
+_FN_OF = _pair(False)
+
 OVERRIDES = {
+    # A box per label: 2024 names its three glands, 2013 asks for two hormones.
+    'fields': {'2024-Q16b(ii)': ['Thyroid', 'Thyroid', 'Adrenal', 'Adrenal', 'Ovary', 'Ovary'],
+               '2013-Q10b(ii)': ['Hormone 1', 'Hormone 2', 'Hormone 1', 'Hormone 2', 'Hormone 1', 'Hormone 2']},
     # The picture each answer needs, cut from the paper page (box: left, top, width, height in % of the page).
     'dia': {
         '2007-Q15b': {'fig': [{'img': 'assets/bio/papers/2007-p10.webp', 'box': [15.0, 29.6, 73.9, 14.0]}]},  # the table to fill in
@@ -235,7 +276,7 @@ OVERRIDES = {
         '2013-Q10a(ii)': {0: _DUCTLESS + _c('exocrine ducted', 'other ducted')},
         '2013-Q10a(iii)': {0: _k('endocrine exocrine', *_x(['hormon', 'insulin', 'glucagon'], ['enzyme', 'digest', 'juice', 'amylase', 'lipase',
                                                                                            'trypsin', 'protease']))},
-        '2013-Q10b(ii)': {0: _NAMES_NON_SEX, 1: _NAMES_NON_SEX, 2: _LOCATIONS, 3: _LOCATIONS, 4: _FN, 5: _FN},
+        '2013-Q10b(ii)': {0: _NAMES_NON_SEX, 1: _NAMES_NON_SEX, 2: _WHERE_OF, 3: _WHERE_OF, 4: _FN_OF, 5: _FN_OF},
         '2013-Q10b(iii)': {0: _DEF_WORDS, 1: _EXC_WORDS, 2: _COR_WORDS},
         '2013-Q10b(iv)': {0: _k('blood', 'chemic'), 1: _k('electric')},
         '2016-Q15c(ii)': {0: _EXC_PAIRS},
@@ -262,7 +303,7 @@ OVERRIDES = {
                                 'urine', 'bile')},
         '2023-Q17a(iv)': {0: _k('thyroxine'), 1: _k('metabol'), 2: _k('adrenalin', 'epinephrin'), 3: _ADR_FN},
         '2024-Q16b(ii)': {0: _k('thyroxine', 'calcitonin', 'triiodothyronin'),
-                          1: _k('metabol', 'calcitonin calcium', *_x(['thyroxine', 'thyroid'], ['growth', 'grow', 'heat', 'respir'])),
+                          1: _k('metabol', 'calcitonin calcium', 'growth', 'grow', 'heat', 'respir', 'develop', 'energy releas'),
                           2: _k('adrenalin', 'epinephrin', 'noradrenalin', 'cortisol', 'aldosteron'), 3: _ADR_FN,
                           4: _k('oestrogen', 'estrogen', 'progesteron'), 5: _OVA_FN},
         '2024-Q16b(iii)': {0: _DEF_WORDS, 1: _EXC_WORDS, 2: _COR_WORDS},

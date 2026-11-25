@@ -20,7 +20,7 @@ const needsPaper = eval('(' + src.match(/function needsPaper\(c\) \{[\s\S]*?\n  
 const CH = BIO_CHAPTERS; // topicOf only moves a question to a chapter on the board
 const topicOf = eval('(' + src.match(/function topicOf\(c, ch\) \{[\s\S]*?\n  \}/)[0] + ')');
 const B = window.BioApp;
-const board = { 28: [0, 0], 29: [0, 0], 30: [0, 0], 31: [0, 0], 32: [0, 0] };
+const board = Object.fromEntries(BIO_CHAPTERS.map(ch => [ch, [0, 0]]));
 let fails = 0;
 const fail = msg => { fails++; console.log('   FAIL', msg); };
 for (const ch of BIO_CHAPTERS) {

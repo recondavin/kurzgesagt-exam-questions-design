@@ -243,8 +243,13 @@ def build(ch):
             # label's first word ('2008-Q12b(iii)'), which covers every numbered part under it.
             pid = q['id'] + p['label'].split()[0]
             full = q['id'] + p['label']
-            pid = full if any(full in ov.get(t, {}) for t in ('kind', 'tap', 'n', 'points', 'arrows')) else pid
+            pid = full if any(full in ov.get(t, {}) for t in ('kind', 'tap', 'n', 'points', 'arrows', 'fields')) else pid
             kind = ov.get('kind', {}).get(pid) or kind_of(p)
+            # A box per label, each point marked only in its own box (OVERRIDES['fields'][part id] = a label per point):
+            # a function then earns only in the box of the gland it belongs to.
+            box_of = ov.get('fields', {}).get(pid)
+            if box_of:
+                kind = 'fields'
             if pid in ov.get('tap', {}):
                 kind = 'tap'
             max_n = ov.get('n', {}).get(pid) or rule_count(p.get('rule'), p)  # the chapter's count where the rule reads wrong
@@ -252,7 +257,7 @@ def build(ch):
             pts = []
             for j, pt in enumerate(p['points']):
                 item = {'a': pt['answer'], 'm': pt.get('marks')}
-                f = field_of(pt['answer'])
+                f = box_of[j] if box_of else field_of(pt['answer'])
                 if kind == 'fields' and f:
                     item['f'] = f
                 alts = alternatives(pt['answer'])

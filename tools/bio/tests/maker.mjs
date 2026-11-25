@@ -66,7 +66,7 @@ for (const w of Object.keys(T.WORLDS)) {
     op: 'shark', pl: 'mars', th: [['bomb', 1, 1], ['star', -50, 400], 'x', ['tree', 50]], e: 9, ch: [1, 2] }));
   const d = T.defaults();
   if (!g || /[<>]/.test(g.n) || g.src !== d.src || g.ans !== d.ans || g.t !== d.t || g.f !== d.f || g.o !== d.o || g.w !== 'race' || g.r !== 'step1' || g.x !== 'him1' || g.s !== 8 ||
-    g.p !== d.p || g.d.join() !== '0,0,0,0,0' || g.c !== 0 || g.op !== d.op || g.pl !== d.pl || g.e !== 1 || g.ch.length !== 5)
+    g.p !== d.p || g.d.join() !== '0,0,0,0,0' || g.c !== 0 || g.op !== d.op || g.pl !== d.pl || g.e !== 1 || g.ch.length !== BIO_CHAPTERS.length)
     fail(`an altered link should fall back to real cards: ${JSON.stringify(g)}`);
   if (!g || JSON.stringify(g.th) !== JSON.stringify([['star', 3, 84], ['tree', 50, 84]])) fail(`things off the picture should come back on it: ${JSON.stringify(g && g.th)}`);
   const seven = T.clean({ th: new Array(9).fill(['rock', 50, 84]) });

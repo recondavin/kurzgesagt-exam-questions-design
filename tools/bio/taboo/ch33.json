@@ -1,0 +1,155 @@
+[
+  { "term": "Synapse",
+    "ban": ["gap", "cleft", "junction"],
+    "ideas": [
+      { "a": "It is where two neurons meet (or a neuron meets a muscle)", "k": [{ "w": ["two", "neuron"], "n": 2 }, { "w": ["neuron", "meet"], "n": 2 }, { "w": ["nerve", "meet"], "n": 2 }, { "w": ["neuron", "muscl"], "n": 2 }, { "w": ["neuron", "join"], "n": 2 }] },
+      { "a": "A chemical is released from vesicles and crosses it", "k": [{ "w": ["vesicl"], "n": 1 }, { "w": ["chemic", "releas"], "n": 2 }, { "w": ["chemic", "cross"], "n": 2 }, { "w": ["chemic", "diffus"], "n": 2 }] },
+      { "a": "The impulse can only cross it one way", "k": [{ "w": ["one", "way"], "n": 2 }, { "w": ["one", "direction"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "The place where two neurons meet; a chemical is released from vesicles and crosses over, so the impulse only passes one way." },
+  { "term": "Neurotransmitter",
+    "ban": ["chemical", "synapse", "dopamine", "acetylcholine"],
+    "ideas": [
+      { "a": "It is released from vesicles at the end of an axon", "k": [{ "w": ["vesicl"], "n": 1 }, { "w": ["releas", "axon"], "n": 2 }, { "w": ["releas", "end"], "n": 2 }, { "w": ["releas", "knob"], "n": 2 }] },
+      { "a": "It crosses to the next nerve cell and binds to its receptors", "k": [{ "w": ["receptor"], "n": 1 }, { "w": ["bind"], "n": 1 }, { "w": ["attach"], "n": 1 }] },
+      { "a": "An enzyme breaks it down afterwards, or it is taken back in", "k": [{ "w": ["enzym"], "n": 1 }, { "w": ["reabsorb"], "n": 1 }, { "w": ["recycl"], "n": 1 }, { "w": ["break", "down"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "A substance released from vesicles at a nerve ending; it diffuses across the tiny space to the next nerve cell and binds to its receptors, then enzymes break it down." },
+  { "term": "Myelin sheath",
+    "ban": ["fatty", "insulate", "Schwann"],
+    "ideas": [
+      { "a": "It is a coat wrapped round the axon", "k": [{ "w": ["axon", "wrap"], "n": 2 }, { "w": ["axon", "cover"], "n": 2 }, { "w": ["axon", "coat"], "n": 2 }, { "w": ["axon", "around"], "n": 2 }, { "w": ["axon", "round"], "n": 2 }] },
+      { "a": "It makes the impulse travel faster", "k": [{ "w": ["speed"], "n": 1 }, { "w": ["fast"], "n": 1 }, { "w": ["quick"], "n": 1 }] },
+      { "a": "It is what makes white matter white", "k": [{ "w": ["white"], "n": 1 }, { "w": ["pale"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "The pale lipid coat wrapped around an axon; it stops the impulse leaking away, so it travels much faster, and it is why white matter looks white." },
+  { "term": "Schwann cell",
+    "ban": ["myelin", "wrap", "sheath"],
+    "ideas": [
+      { "a": "It sits along the axon of a neuron", "k": [{ "w": ["axon"], "n": 1 }] },
+      { "a": "It makes the insulating fatty layer", "k": [{ "w": ["make", "insul"], "n": 2 }, { "w": ["make", "fat"], "n": 2 }, { "w": ["make", "layer"], "n": 2 }, { "w": ["make", "coat"], "n": 2 }, { "w": ["form", "insul"], "n": 2 }, { "w": ["form", "fat"], "n": 2 }, { "w": ["form", "layer"], "n": 2 }] },
+      { "a": "Many of them lie along each axon, end to end", "k": [{ "w": ["many", "along"], "n": 2 }, { "w": ["end", "to", "end"], "n": 3 }] }
+    ],
+    "need": 2,
+    "model": "One of many found along a nerve fibre, it rolls itself round and round the axon, making the insulating fatty layer that speeds up impulses." },
+  { "term": "Dendrite",
+    "ban": ["branch", "receive", "tree"],
+    "ideas": [
+      { "a": "It is a short extension on the cell body", "k": [{ "w": ["cell", "body"], "n": 2 }, { "w": ["soma"], "n": 1 }] },
+      { "a": "It picks up impulses from other neurons or receptors", "k": [{ "w": ["pick", "impuls"], "n": 2 }, { "w": ["collect", "impuls"], "n": 2 }, { "w": ["bring", "impuls"], "n": 2 }, { "w": ["take", "impuls"], "n": 2 }, { "w": ["accept", "impuls"], "n": 2 }] },
+      { "a": "It carries impulses towards the cell body", "k": [{ "w": ["toward", "cell", "body"], "n": 3 }, { "w": ["into", "cell", "body"], "n": 3 }] }
+    ],
+    "need": 2,
+    "model": "Short, many-fingered threads on a nerve's cell body that pick up impulses from other neurons and carry them towards the cell body." },
+  { "term": "Axon",
+    "ban": ["fibre", "long", "terminal"],
+    "ideas": [
+      { "a": "It carries impulses away from the cell body", "k": [{ "w": ["away", "cell"], "n": 2 }, { "w": ["away", "body"], "n": 2 }, { "w": ["away", "soma"], "n": 2 }] },
+      { "a": "It is covered by the myelin sheath", "k": [{ "w": ["myelin"], "n": 1 }, { "w": ["schwann"], "n": 1 }, { "w": ["sheath"], "n": 1 }] },
+      { "a": "It ends in knobs that release neurotransmitter", "k": [{ "w": ["knob"], "n": 1 }, { "w": ["vesicl"], "n": 1 }, { "w": ["end", "releas"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "The single extended part of a neuron that carries impulses away from the cell body; it is wrapped in myelin and ends in knobs that release neurotransmitter." },
+  { "term": "Sensory neuron",
+    "ban": ["receptor", "sense", "CNS"],
+    "ideas": [
+      { "a": "It carries impulses into the spinal cord or brain", "k": [{ "w": ["into", "spin"], "n": 2, "o": true }, { "w": ["into", "brain"], "n": 2, "o": true }, { "w": ["to", "spin"], "n": 2, "o": true }, { "w": ["to", "brain"], "n": 2, "o": true }, { "w": ["toward", "spin"], "n": 2, "o": true }, { "w": ["toward", "brain"], "n": 2, "o": true }] },
+      { "a": "It starts where a stimulus is detected, e.g. in the skin", "k": [{ "w": ["skin"], "n": 1 }, { "w": ["detect"], "n": 1 }, { "w": ["stimul"], "n": 1 }] },
+      { "a": "Its cell body is on a short side branch", "k": [{ "w": ["side"], "n": 1 }, { "w": ["stalk"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "Carries impulses from the skin and other detectors into the spinal cord or brain; its cell body sits on a short side branch." },
+  { "term": "Motor neuron",
+    "ban": ["muscle", "effector", "movement"],
+    "ideas": [
+      { "a": "It carries impulses out from the brain or spinal cord", "k": [{ "w": ["out", "spin"], "n": 2, "o": true }, { "w": ["from", "spin"], "n": 2, "o": true }, { "w": ["out", "brain"], "n": 2, "o": true }, { "w": ["from", "brain"], "n": 2, "o": true }, { "w": ["from", "cns"], "n": 2, "o": true }, { "w": ["away", "cns"], "n": 2 }] },
+      { "a": "It ends on a gland, or on something that contracts", "k": [{ "w": ["gland"], "n": 1 }, { "w": ["contract"], "n": 1 }] },
+      { "a": "Its cell body is at one end, with the dendrites", "k": [{ "w": ["one", "end"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "Carries impulses out from the spinal cord or brain to a gland or something that contracts; its cell body, with dendrites, is at one end." },
+  { "term": "Interneuron",
+    "ban": ["relay", "link", "connect"],
+    "ideas": [
+      { "a": "It is found only inside the CNS (in the grey matter)", "k": [{ "w": ["grey"], "n": 1 }, { "w": ["inside", "spin"], "n": 2 }, { "w": ["within", "spin"], "n": 2 }, { "w": ["inside", "cns"], "n": 2 }, { "w": ["within", "cns"], "n": 2 }, { "w": ["inside", "brain"], "n": 2 }] },
+      { "a": "It passes impulses from sensory neurons to motor neurons", "k": [{ "w": ["sensor", "motor"], "n": 2 }] },
+      { "a": "It is the middle neuron of a reflex arc", "k": [{ "w": ["middle"], "n": 1 }, { "w": ["reflex", "arc"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "A short neuron found only inside the grey matter of the brain and spinal cord; it passes impulses from sensory neurons on to motor neurons." },
+  { "term": "Reflex action",
+    "ban": ["automatic", "involuntary", "knee"],
+    "ideas": [
+      { "a": "It happens without thinking about it", "k": [{ "w": ["without", "think"], "n": 2 }, { "w": ["not", "think"], "n": 2 }, { "w": ["without", "decid"], "n": 2 }, { "w": ["unconscious"], "n": 1 }, { "w": ["no", "thought"], "n": 2 }] },
+      { "a": "It is a response to a stimulus", "k": [{ "w": ["respons", "stimul"], "n": 2 }, { "w": ["react", "stimul"], "n": 2 }] },
+      { "a": "It is very fast and protects the body", "k": [{ "w": ["protect"], "n": 1 }, { "w": ["fast"], "n": 1 }, { "w": ["quick"], "n": 1 }] },
+      { "a": "For example blinking, or pulling a hand off something hot", "k": [{ "w": ["blink"], "n": 1 }, { "w": ["sneez"], "n": 1 }, { "w": ["cough"], "n": 1 }, { "w": ["hot"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "A quick response to a stimulus that happens without you thinking, like blinking or pulling your hand off a hot pan; it protects you." },
+  { "term": "Central nervous system",
+    "ban": ["brain", "spinal", "cord"],
+    "ideas": [
+      { "a": "It is the organ in the skull and the tissue down the backbone", "k": [{ "w": ["skull"], "n": 1 }, { "w": ["backbon"], "n": 1 }, { "w": ["vertebr"], "n": 1 }, { "w": ["head"], "n": 1 }] },
+      { "a": "It is the body's control centre", "k": [{ "w": ["control"], "n": 1 }, { "w": ["headquart"], "n": 1 }, { "w": ["decid"], "n": 1 }] },
+      { "a": "It is wrapped in the meninges", "k": [{ "w": ["mening"], "n": 1 }, { "w": ["cerebrospin"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "The body's control headquarters: the organ inside the skull and the column of tissue running down inside the backbone, both wrapped in meninges." },
+  { "term": "Meninges",
+    "ban": ["membranes", "layers", "protect"],
+    "ideas": [
+      { "a": "There are three of them", "k": [{ "w": ["three"], "n": 1 }, { "w": ["3"], "n": 1 }] },
+      { "a": "They cover the brain and spinal cord", "k": [{ "w": ["wrap", "brain"], "n": 2 }, { "w": ["cover", "brain"], "n": 2 }, { "w": ["around", "brain"], "n": 2 }, { "w": ["wrap", "spin"], "n": 2 }, { "w": ["cover", "spin"], "n": 2 }, { "w": ["around", "spin"], "n": 2 }] },
+      { "a": "Cerebrospinal fluid fills the space between them", "k": [{ "w": ["cerebrospin"], "n": 1 }, { "w": ["csf"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "Three thin sheets of tissue wrapped around the brain and spinal cord, with cerebrospinal fluid between them; they shield the CNS from injury." },
+  { "term": "Grey matter",
+    "ban": ["cell", "bodies", "butterfly"],
+    "ideas": [
+      { "a": "It is mostly the parts of neurons holding the nucleus, with little myelin", "k": [{ "w": ["nucle"], "n": 1 }, { "w": ["soma"], "n": 1 }, { "w": ["little", "myelin"], "n": 2 }, { "w": ["no", "myelin"], "n": 2 }, { "w": ["few", "myelin"], "n": 2 }, { "w": ["unmyelin"], "n": 1 }] },
+      { "a": "It is the core of the spinal cord, and the outer layer of the brain", "k": [{ "w": ["core"], "n": 1 }, { "w": ["inner", "spin"], "n": 2 }, { "w": ["middle", "spin"], "n": 2 }, { "w": ["outer", "brain"], "n": 2 }, { "w": ["outside", "brain"], "n": 2 }] },
+      { "a": "It holds the interneurons and synapses", "k": [{ "w": ["interneuron"], "n": 1 }, { "w": ["synaps"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "The darker tissue made of the parts of neurons that hold the nucleus, with little myelin; it forms the core of the spinal cord and the outer layer of the brain." },
+  { "term": "Cerebellum",
+    "ban": ["balance", "coordination", "back"],
+    "ideas": [
+      { "a": "It is under the cerebrum, at the rear of the brain", "k": [{ "w": ["rear"], "n": 1 }, { "w": ["hind"], "n": 1 }, { "w": ["behind"], "n": 1 }, { "w": ["under", "cerebrum"], "n": 2 }, { "w": ["below", "cerebrum"], "n": 2 }, { "w": ["little", "brain"], "n": 2 }] },
+      { "a": "It keeps posture steady and muscle movements smooth", "k": [{ "w": ["postur"], "n": 1 }, { "w": ["steady"], "n": 1 }, { "w": ["smooth"], "n": 1 }, { "w": ["walk"], "n": 1 }, { "w": ["fine", "movement"], "n": 2 }] }
+    ],
+    "need": 2,
+    "model": "The 'little brain' tucked under the cerebrum at the rear of the head; it keeps your posture steady and makes muscle movements smooth, like walking." },
+  { "term": "Cerebrospinal fluid",
+    "ban": ["canal", "cushion", "liquid"],
+    "ideas": [
+      { "a": "It fills the hollow centre of the spinal cord and spaces in the brain", "k": [{ "w": ["hollow"], "n": 1 }, { "w": ["space", "brain"], "n": 2 }, { "w": ["ventricl"], "n": 1 }, { "w": ["centre", "spin"], "n": 2 }, { "w": ["middle", "spin"], "n": 2 }] },
+      { "a": "It absorbs shocks and protects the CNS", "k": [{ "w": ["shock"], "n": 1 }, { "w": ["protect"], "n": 1 }, { "w": ["absorb"], "n": 1 }] },
+      { "a": "It lies between the meninges", "k": [{ "w": ["mening"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "The clear watery stuff that fills the hollow centre of the spinal cord and the spaces round the brain, between the meninges; it absorbs shocks." },
+  { "term": "Dopamine",
+    "ban": ["reward", "pleasure", "Parkinson"],
+    "ideas": [
+      { "a": "It is a neurotransmitter released at synapses in the brain", "k": [{ "w": ["synaps"], "n": 1 }, { "w": ["synapt"], "n": 1 }, { "w": ["brain", "chemic"], "n": 2 }] },
+      { "a": "Too little of it causes shaking and stiffness", "k": [{ "w": ["shak"], "n": 1 }, { "w": ["tremor"], "n": 1 }, { "w": ["stiff"], "n": 1 }] },
+      { "a": "It makes you feel good and motivated, and drugs raise it", "k": [{ "w": ["feel", "good"], "n": 2 }, { "w": ["motivat"], "n": 1 }, { "w": ["mood"], "n": 1 }, { "w": ["drug"], "n": 1 }, { "w": ["addict"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "A brain chemical released at synapses that makes you feel good and motivated; drugs and junk food raise it, and too little causes shaking and stiffness." },
+  { "term": "Endorphins",
+    "ban": ["pain", "exercise", "runner"],
+    "ideas": [
+      { "a": "They are the body's own painkillers", "k": [{ "w": ["hurt"], "n": 1 }, { "w": ["ache"], "n": 1 }, { "w": ["analges"], "n": 1 }, { "w": ["sore"], "n": 1 }] },
+      { "a": "They are released during hard physical activity or laughter", "k": [{ "w": ["run"], "n": 1 }, { "w": ["workout"], "n": 1 }, { "w": ["laugh"], "n": 1 }, { "w": ["sport"], "n": 1 }, { "w": ["jog"], "n": 1 }] },
+      { "a": "They give a feeling of well-being, a 'high'", "k": [{ "w": ["high"], "n": 1 }, { "w": ["well", "being"], "n": 2 }, { "w": ["euphor"], "n": 1 }, { "w": ["happ"], "n": 1 }] }
+    ],
+    "need": 2,
+    "model": "Brain chemicals released during a hard run or a big laugh; they dull hurt and give a feeling of well-being, the 'high' after a workout." }
+]
