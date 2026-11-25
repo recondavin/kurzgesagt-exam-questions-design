@@ -82,7 +82,9 @@
   var CONFUSE = [['arter', 'arteriol'], ['lymph', 'lymphocyt'], ['pepsin', 'pepsinog'], ['trypsin', 'trypsinog'], ['bronch', 'bronchit'], ['bronch', 'bronchiol'], ['with', 'without'], ['gene', 'gener'], ['syst', 'systol'], ['anti', 'antigen'],
     ['bronch', 'bronchod'], ['uret', 'ureth'], ['filtr', 'filtrat'], ['viru', 'virul'], ['thin', 'think'], ['thin', 'thing'],
     // A gland isn't its hormone: the testes make testosterone, the adrenal glands adrenaline.
-    ['test', 'testost'], ['adren', 'adrenalin']];
+    ['test', 'testost'], ['adren', 'adrenalin'],
+    // A neuron isn't a neurotransmitter.
+    ['neuro', 'neurot']];
   function bioStem(w) {
     if (/^\d+$/.test(w) || w.length <= 3) return w;
     if (w.length > 4 && /ies$/.test(w)) w = w.slice(0, -3) + 'y';

@@ -57,7 +57,7 @@
   },
   {
    "q": "Suggest a role for a drug in the events at a synapse.",
-   "right": "Block the enzyme that breaks down neurotransmitter, enhancing it",
+   "right": "Stop the enzyme breaking down neurotransmitter, enhancing transmission",
    "wrong": [
     "Carry the impulse through the blood instead",
     "Replace the myelin sheath around the axon",
@@ -458,7 +458,7 @@
    ],
    "why": "The sensory neuron enters the cord at the back (dorsal root) and the motor neuron leaves at the front (ventral root): one arrow in, one out.",
    "hint": "Sensory comes in on one side of the cord and motor goes out the other. Which is the back?",
-   "board": true,
+   "board": "In a reflex arc, where does the impulse enter and leave the spinal cord?",
    "hook": "Sensory enters by the back door, motor leaves by the front",
    "keys": [
     "enters the cord at the back",

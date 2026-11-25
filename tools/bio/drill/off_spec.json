@@ -55,6 +55,20 @@
       "2024-Q16b:2": "A hormone's deficiency and excess symptoms aren't on the specification; only the corrective measure is (hormonal manipulation in health).",
       "2007-Q15b:2": "Full marks needs the islets of Langerhans; the specification has the pancreas making insulin and doesn't name the islets.",
       "2018-Q14c:1": "Full marks needs the islets of Langerhans; the specification has the pancreas making insulin and doesn't name the islets."
+    },
+    "33": {
+      "2004-Q12c:0": "Body temperature control (shivering, hair erection, vasoconstriction) isn't on the specification; its homeostasis is a general model.",
+      "2012-Q13c:0": "The specification says the brain; the cerebrum, hypothalamus, cerebellum and medulla oblongata aren't on it.",
+      "2014-Q11b:2": "The specification says the brain; the cerebellum and cerebrum aren't on it.",
+      "2014-Q11b:3": "The specification says the brain; the cerebrum isn't on it.",
+      "2019-Q14a:0": "The specification says the brain; the cerebrum, cerebellum, hypothalamus and medulla oblongata aren't on it.",
+      "2019-Q14a:1": "The specification says the brain; the medulla oblongata and cerebellum aren't on it.",
+      "2026-Q7e:0": "The specification says the brain; the cerebellum isn't on it.",
+      "2015-Q14b:0": "Full marks needs the central canal or cerebrospinal fluid, which aren't on the specification.",
+      "2015-Q14b:2": "The meninges aren't on the specification.",
+      "2021-Q17c:0": "The meninges aren't on the specification.",
+      "2026-Q17d:0": "Cerebrospinal fluid isn't on the specification.",
+      "2026-Q17d:1": "Full marks needs the meninges, which aren't on the specification."
     }
   }
 }
