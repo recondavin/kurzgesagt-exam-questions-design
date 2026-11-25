@@ -1,0 +1,123 @@
+[
+  {"term": "Hormone", "ban": ["chemical", "messenger", "endocrine"],
+   "ideas": [
+     {"a": "It is released by a ductless gland straight into the bloodstream", "k": [{"w": ["secret", "blood"], "n": 2}, {"w": ["releas", "blood"], "n": 2}, {"w": ["carri", "blood"], "n": 2}, {"w": ["travel", "blood"], "n": 2}, {"w": ["ductless"], "n": 1}]},
+     {"a": "It acts on a target organ somewhere else in the body", "k": [{"w": ["target"], "n": 1}, {"w": ["act", "elsewhere"], "n": 2}, {"w": ["work", "elsewhere"], "n": 2}, {"w": ["somewhere", "else"], "n": 2}]},
+     {"a": "Many are proteins", "k": [{"w": ["protein"], "n": 1}]}
+   ], "need": 2,
+   "model": "A signal substance that a ductless gland releases into the bloodstream; it travels round the body and acts on a target organ elsewhere."},
+  {"term": "Endocrine gland", "ban": ["hormone", "exocrine", "thyroid"],
+   "ideas": [
+     {"a": "It has no duct", "k": [{"w": ["no", "duct"], "n": 2, "c": true}, {"w": ["without", "duct"], "n": 2, "c": true}, {"w": ["lack", "duct"], "n": 2, "c": true}]},
+     {"a": "It secretes straight into the blood", "k": [{"w": ["secret", "blood"], "n": 2}, {"w": ["releas", "blood"], "n": 2}, {"w": ["into", "blood"], "n": 2}]},
+     {"a": "It makes chemical messengers, e.g. the thyroid or pituitary", "k": [{"w": ["messeng"], "n": 1}, {"w": ["thyroid"], "n": 1}, {"w": ["pituitar"], "n": 1}, {"w": ["adrenal"], "n": 1}]}
+   ], "need": 2,
+   "model": "An organ with no duct that releases chemical messengers straight into the blood, such as the pituitary."},
+  {"term": "Exocrine gland", "ban": ["duct", "ducts", "enzyme"],
+   "ideas": [
+     {"a": "Its product leaves through a little tube", "k": [{"w": ["tube"], "n": 1}, {"w": ["pipe"], "n": 1}, {"w": ["channel"], "n": 1}]},
+     {"a": "Examples: the sweat, tear or salivary glands", "k": [{"w": ["sweat"], "n": 1}, {"w": ["tear"], "n": 1}, {"w": ["salivar"], "n": 1}, {"w": ["saliva"], "n": 1}]},
+     {"a": "What it makes does not go into the blood", "k": [{"w": ["not", "blood"], "n": 2}, {"w": ["not", "hormon"], "n": 2}, {"w": ["no", "hormon"], "n": 2}]}
+   ], "need": 2,
+   "model": "An organ that empties what it makes down a little tube, like the ones that make sweat or tears; its product does not go into the bloodstream."},
+  {"term": "Pituitary gland", "ban": ["master", "brain", "pea"],
+   "ideas": [
+     {"a": "It makes FSH, LH, TSH, ADH and oxytocin", "k": [{"w": ["fsh"], "n": 1}, {"w": ["lh"], "n": 1}, {"w": ["tsh"], "n": 1}, {"w": ["adh"], "n": 1}, {"w": ["oxytocin"], "n": 1}]},
+     {"a": "It controls the other glands, such as the thyroid and ovaries", "k": [{"w": ["control", "thyroid"], "n": 2}, {"w": ["control", "ovary"], "n": 2}, {"w": ["boss"], "n": 1}, {"w": ["stimul", "thyroid"], "n": 2}]},
+     {"a": "It hangs from the underside of the head's control centre, inside the skull", "k": [{"w": ["skull"], "n": 1}, {"w": ["head"], "n": 1}]}
+   ], "need": 2,
+   "model": "Sits deep in the head and bosses the thyroid and ovaries about: it makes TSH, FSH, LH, ADH and oxytocin."},
+  {"term": "Thyroxine", "ban": ["thyroid", "metabolism", "neck"],
+   "ideas": [
+     {"a": "It controls how fast cells respire and release energy", "k": [{"w": ["respir"], "n": 1}, {"w": ["energy", "cell"], "n": 2}, {"w": ["how", "fast", "cell"], "n": 3}]},
+     {"a": "It controls growth and development in children", "k": [{"w": ["growth"], "n": 1}, {"w": ["develop"], "n": 1}, {"w": ["children"], "n": 1}]},
+     {"a": "TSH from the pituitary makes the gland release it", "k": [{"w": ["tsh"], "n": 1}, {"w": ["pituitary"], "n": 1}]},
+     {"a": "It is made by a gland wrapped round the windpipe", "k": [{"w": ["trachea"], "n": 1}, {"w": ["windpipe"], "n": 1}, {"w": ["throat"], "n": 1}]}
+   ], "need": 2,
+   "model": "Made by a gland around the windpipe when TSH arrives; it sets how fast cells respire and release energy, and controls growth in children."},
+  {"term": "Adrenaline", "ban": ["adrenal", "fight", "flight"],
+   "ideas": [
+     {"a": "It is made by the glands on top of the kidneys", "k": [{"w": ["kidney"], "n": 1}]},
+     {"a": "It is released when you face danger or stress", "k": [{"w": ["danger"], "n": 1}, {"w": ["threat"], "n": 1}, {"w": ["stress"], "n": 1}, {"w": ["fright"], "n": 1}, {"w": ["scare"], "n": 1}, {"w": ["emergenc"], "n": 1}]},
+     {"a": "It speeds up the heart rate and breathing", "k": [{"w": ["heart"], "n": 1}, {"w": ["breath"], "n": 1}, {"w": ["pupil"], "n": 1}]}
+   ], "need": 2,
+   "model": "Made by the glands sitting on the kidneys when you face danger; it speeds up the heart rate and breathing so you can run away."},
+  {"term": "Insulin", "ban": ["pancreas", "sugar", "glucose", "diabetes"],
+   "ideas": [
+     {"a": "It is made by the islets of Langerhans", "k": [{"w": ["islet"], "n": 1}, {"w": ["langerhan"], "n": 1}]},
+     {"a": "It makes cells take in the blood's fuel, and the liver store it as glycogen", "k": [{"w": ["glycogen"], "n": 1}, {"w": ["liver", "store"], "n": 2}, {"w": ["cell", "take"], "n": 2}]},
+     {"a": "Some people have to inject it", "k": [{"w": ["inject"], "n": 1}, {"w": ["pump"], "n": 1}]}
+   ], "need": 2,
+   "model": "Made in the islets of Langerhans after a meal; it makes the liver store the extra fuel as glycogen. Some people have to inject it."},
+  {"term": "ADH", "ban": ["water", "kidney", "urine"],
+   "ideas": [
+     {"a": "It is released by the pituitary", "k": [{"w": ["pituitary"], "n": 1}]},
+     {"a": "It makes the collecting ducts of the nephrons reabsorb more", "k": [{"w": ["reabsorb"], "n": 1}, {"w": ["collect", "duct"], "n": 2}, {"w": ["tubule"], "n": 1}, {"w": ["nephron"], "n": 1}]},
+     {"a": "It is released when you are dehydrated", "k": [{"w": ["dehydrat"], "n": 1}, {"w": ["thirst"], "n": 1}]}
+   ], "need": 2,
+   "model": "Released by the pituitary when you are dehydrated; it makes the collecting ducts of the nephrons reabsorb more, so you keep your fluid."},
+  {"term": "TSH", "ban": ["thyroid", "stimulating", "thyroxine"],
+   "ideas": [
+     {"a": "It is made by the pituitary", "k": [{"w": ["pituitary"], "n": 1}]},
+     {"a": "It acts on the gland in the neck", "k": [{"w": ["neck"], "n": 1}, {"w": ["throat"], "n": 1}, {"w": ["windpipe"], "n": 1}, {"w": ["trachea"], "n": 1}]},
+     {"a": "Feedback switches it off when there is enough of the other hormone", "k": [{"w": ["feedback"], "n": 1}, {"w": ["inhibit"], "n": 1}, {"w": ["switch", "off"], "n": 2}]}
+   ], "need": 2,
+   "model": "Made by the pituitary; it travels to the gland in the neck and makes it release its hormone. Feedback switches it off when there is enough."},
+  {"term": "Oxytocin", "ban": ["birth", "labour", "milk"],
+   "ideas": [
+     {"a": "It is made by the pituitary", "k": [{"w": ["pituitary"], "n": 1}]},
+     {"a": "It makes the muscles of the uterus contract", "k": [{"w": ["uterus", "contract"], "n": 2}, {"w": ["womb", "contract"], "n": 2}, {"w": ["uterus", "squeez"], "n": 2}]},
+     {"a": "It lets breastfeeding happen", "k": [{"w": ["breast"], "n": 1}, {"w": ["baby"], "n": 1}]}
+   ], "need": 2,
+   "model": "Made by the pituitary; it makes the muscles of the uterus contract to push the baby out, and helps breastfeeding to start."},
+  {"term": "Parathyroid hormone", "ban": ["calcium", "thyroid", "bone"],
+   "ideas": [
+     {"a": "It is made by four tiny glands in the neck", "k": [{"w": ["neck"], "n": 1}, {"w": ["four", "gland"], "n": 2}]},
+     {"a": "It raises the level of a mineral in the blood", "k": [{"w": ["mineral", "blood"], "n": 2}, {"w": ["mineral", "increas"], "n": 2}]},
+     {"a": "That mineral is what skeletons and teeth are made of", "k": [{"w": ["skeleton"], "n": 1}, {"w": ["teeth"], "n": 1}]}
+   ], "need": 2,
+   "model": "Made by four tiny glands at the back of the neck; it raises the level in the blood of the mineral that skeletons and teeth are made of."},
+  {"term": "Testosterone", "ban": ["testes", "male", "sperm"],
+   "ideas": [
+     {"a": "It is made in the organs in the scrotum", "k": [{"w": ["scrotum"], "n": 1}]},
+     {"a": "It gives a beard, a deeper voice and more muscle at puberty", "k": [{"w": ["beard"], "n": 1}, {"w": ["facial", "hair"], "n": 2}, {"w": ["voice"], "n": 1}, {"w": ["muscl"], "n": 1}]},
+     {"a": "Anabolic steroids copy it", "k": [{"w": ["steroid"], "n": 1}, {"w": ["anabolic"], "n": 1}]}
+   ], "need": 2,
+   "model": "Made in the scrotum from puberty on; it gives a beard, a deeper voice and more muscle. Anabolic steroids copy it."},
+  {"term": "Oestrogen", "ban": ["ovary", "ovaries", "female", "woman"],
+   "ideas": [
+     {"a": "It is made by the developing Graafian follicle", "k": [{"w": ["follicl"], "n": 1}, {"w": ["graafian"], "n": 1}]},
+     {"a": "It builds up the lining of the uterus after a period", "k": [{"w": ["lining"], "n": 1}, {"w": ["endometri"], "n": 1}]},
+     {"a": "It gives breasts and wider hips at puberty", "k": [{"w": ["breast"], "n": 1}, {"w": ["hip"], "n": 1}]}
+   ], "need": 2,
+   "model": "Made by the developing Graafian follicle; it builds up the lining of the uterus again after a period, and widens the hips at puberty."},
+  {"term": "Negative feedback", "ban": ["reverse", "opposite", "loop"],
+   "ideas": [
+     {"a": "A change triggers a response that undoes it, back to normal", "k": [{"w": ["undo"], "n": 1}, {"w": ["counteract"], "n": 1}, {"w": ["back", "normal"], "n": 2}, {"w": ["cancel"], "n": 1}]},
+     {"a": "For example, high thyroxine switches off TSH", "k": [{"w": ["thyroxine"], "n": 1}, {"w": ["tsh"], "n": 1}, {"w": ["insulin"], "n": 1}, {"w": ["switch", "off"], "n": 2}]},
+     {"a": "It keeps conditions steady", "k": [{"w": ["steady"], "n": 1}, {"w": ["stable"], "n": 1}, {"w": ["constant"], "n": 1}]}
+   ], "need": 2,
+   "model": "When a level drifts, the response pushes it back to normal and then switches itself off, keeping things steady: high thyroxine stops TSH."},
+  {"term": "Islets of Langerhans", "ban": ["pancreas", "insulin", "clusters"],
+   "ideas": [
+     {"a": "Groups of cells in the gland behind the stomach", "k": [{"w": ["stomach"], "n": 1}, {"w": ["duodenum"], "n": 1}]},
+     {"a": "They make the hormone that lowers blood glucose", "k": [{"w": ["lower", "glucose"], "n": 2}, {"w": ["lower", "sugar"], "n": 2}, {"w": ["decreas", "glucose"], "n": 2}, {"w": ["glucagon"], "n": 1}]},
+     {"a": "They are the endocrine part of a gland that also makes digestive enzymes", "k": [{"w": ["endocrine", "part"], "n": 2}, {"w": ["digest", "enzyme"], "n": 2}]}
+   ], "need": 2,
+   "model": "Little groups of cells in the gland behind the stomach; they release the hormone that lowers blood glucose after a meal."},
+  {"term": "Homeostasis", "ban": ["constant", "balance", "internal"],
+   "ideas": [
+     {"a": "Keeping conditions inside the body steady", "k": [{"w": ["steady"], "n": 1}, {"w": ["stable"], "n": 1}, {"w": ["same", "level"], "n": 2}]},
+     {"a": "For example temperature, water and blood glucose", "k": [{"w": ["temperatur"], "n": 1}, {"w": ["water"], "n": 1}, {"w": ["glucose"], "n": 1}]},
+     {"a": "Receptors, a control centre and effectors do it", "k": [{"w": ["receptor"], "n": 1}, {"w": ["effector"], "n": 1}, {"w": ["control", "centre"], "n": 2}]}
+   ], "need": 2,
+   "model": "Keeping conditions inside you steady, like body temperature and blood glucose, using receptors, a control centre and effectors."},
+  {"term": "Anabolic steroids", "ban": ["muscle", "testosterone", "athletes"],
+   "ideas": [
+     {"a": "They copy the male sex hormone", "k": [{"w": ["sex", "hormon"], "n": 2}, {"w": ["male", "hormon"], "n": 2}]},
+     {"a": "They are banned in sport as cheating", "k": [{"w": ["sport"], "n": 1}, {"w": ["cheat"], "n": 1}, {"w": ["ban"], "n": 1}, {"w": ["unfair"], "n": 1}]},
+     {"a": "They build strength and bulk", "k": [{"w": ["strength"], "n": 1}, {"w": ["strong"], "n": 1}, {"w": ["bulk"], "n": 1}]},
+     {"a": "They can damage the liver and heart", "k": [{"w": ["liver"], "n": 1}, {"w": ["heart"], "n": 1}]}
+   ], "need": 2,
+   "model": "Drugs that copy the male sex hormone to build strength and bulk; banned in sport as cheating, and they can damage the liver and heart."}
+]

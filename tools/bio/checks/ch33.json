@@ -1,0 +1,1866 @@
+{
+ "2004-Q12c": [
+  {
+   "q": "When body temperature drops, give the nervous and hormonal responses. (3 points)",
+   "right": "Skin receptors detect it, you shiver, thyroxine raises metabolism",
+   "wrong": [
+    "Skin receptors detect it, you sweat, thyroxine lowers metabolism",
+    "Skin vessels widen, you sweat, and the hairs lie flat",
+    "Skin receptors detect it, vessels widen, insulin raises metabolism"
+   ],
+   "why": "Receptors in the skin and brain detect the drop; effectors respond: shivering makes heat, hairs stand up, vessels narrow, thyroxine raises metabolism.",
+   "hint": "Think receptor, control centre, effector: what detects the cold, and what makes or keeps in heat?",
+   "board": true,
+   "hook": "Cold? Shiver, goose bumps, narrow skin vessels, and thyroxine turns up the furnace",
+   "keys": [
+    "Receptors in the skin",
+    "shivering makes heat",
+    "thyroxine raises metabolism"
+   ]
+  }
+ ],
+ "2004-Q15a": [
+  {
+   "q": "In your drawing of a synapse, what must separate the two neurons?",
+   "right": "A narrow gap: the synaptic cleft",
+   "wrong": [
+    "A myelin sheath",
+    "A Schwann cell",
+    "A layer of meninges"
+   ],
+   "why": "At a synapse the two neurons don't touch: a narrow gap, the synaptic cleft, lies between the synaptic knob and the next neuron.",
+   "hint": "The neurons don't actually touch. Label the knob with its vesicles, the gap and the next neuron.",
+   "board": "What separates two neurons at a synapse?",
+   "hook": "Neurons never shake hands: there's always a gap, the cleft, between them",
+   "keys": [
+    "synaptic cleft",
+    "don't touch"
+   ]
+  },
+  {
+   "q": "Give one step in passing an impulse across a synapse. (one of 5 points)",
+   "right": "Vesicles release neurotransmitter into the cleft",
+   "wrong": [
+    "The impulse jumps the gap as an electric spark",
+    "Myelin carries the impulse over the gap",
+    "Hormones in the blood carry it across"
+   ],
+   "why": "Five of: the impulse arrives, vesicles release neurotransmitter, it crosses the cleft, starts an impulse in the next neuron, then enzymes break it down.",
+   "hint": "Follow the chemical: where is it stored, where does it go, what does it do, and what then?",
+   "board": true,
+   "hook": "Arrive, release, cross, trigger, clean up: the synapse in five beats",
+   "keys": [
+    "vesicles release neurotransmitter",
+    "crosses the cleft",
+    "enzymes break it down"
+   ]
+  },
+  {
+   "q": "Suggest a role for a drug in the events at a synapse.",
+   "right": "Block the enzyme that breaks down neurotransmitter, enhancing it",
+   "wrong": [
+    "Carry the impulse through the blood instead",
+    "Replace the myelin sheath around the axon",
+    "Make new neurons grow in the spinal cord"
+   ],
+   "why": "A drug can inhibit or enhance transmission: blocking the enzyme or the reuptake of neurotransmitter leaves more in the cleft, an enhanced effect.",
+   "hint": "Drugs act on the chemical step. What if the neurotransmitter weren't cleared away?",
+   "board": true,
+   "hook": "Jam the clean-up crew and the message keeps shouting: an enhanced effect",
+   "keys": [
+    "inhibit or enhance transmission",
+    "an enhanced effect"
+   ]
+  }
+ ],
+ "2005-Q3b": [
+  {
+   "q": "True or false: motor neurons conduct impulses towards the central nervous system.",
+   "right": "False",
+   "wrong": [
+    "True"
+   ],
+   "why": "Motor neurons carry impulses away from the CNS to muscles or glands; sensory neurons carry them towards it.",
+   "hint": "Motor means movement. Where does a message have to go to make a muscle move?",
+   "board": true,
+   "hook": "Motor = Movement = Muscle: out from the CNS to the effector",
+   "keys": [
+    "away from the CNS",
+    "sensory neurons carry them towards it"
+   ]
+  }
+ ],
+ "2005-Q14c": [
+  {
+   "q": "Name a nervous system disorder, a possible cause and a treatment. (3 points)",
+   "right": "Parkinson's disease: lack of dopamine; treated with levodopa",
+   "wrong": [
+    "Parkinson's disease: too much dopamine; treated with levodopa",
+    "Paralysis: lack of dopamine; treated with insulin",
+    "Parkinson's disease: a bacterium; treated with antibiotics"
+   ],
+   "why": "Three points: the disorder named, a matching cause and a treatment, e.g. Parkinson's: lack of dopamine, treated with levodopa or physiotherapy.",
+   "hint": "One disorder of the brain lacks a neurotransmitter. Which one, and what replaces it?",
+   "board": true,
+   "hook": "Parkinson's runs low on dopamine, so top it up: L-dopa becomes dopamine in the brain",
+   "keys": [
+    "lack of dopamine",
+    "levodopa or physiotherapy"
+   ]
+  }
+ ],
+ "2006-Q14b": [
+  {
+   "q": "What is a neuron?",
+   "right": "A nerve cell",
+   "wrong": [
+    "A bundle of nerve fibres",
+    "A cell that makes myelin",
+    "A message sent along a nerve"
+   ],
+   "why": "A neuron is a nerve cell; a nerve is a bundle of many neurons' fibres, and Schwann cells make myelin.",
+   "hint": "It's the basic unit of the nervous system, the way a red cell is a unit of blood.",
+   "board": true,
+   "hook": "Neuron = nerve cell; nerve = a cable of many neurons' fibres",
+   "keys": [
+    "is a nerve cell"
+   ]
+  },
+  {
+   "q": "Distinguish between sensory, motor and interneurons. (3 points)",
+   "right": "Sensory: receptor to CNS; motor: CNS to effector; inter: links them",
+   "wrong": [
+    "Sensory: CNS to effector; motor: receptor to CNS; inter: links them",
+    "Sensory: receptor to CNS; motor: CNS to effector; inter: makes myelin",
+    "Sensory: receptor to CNS; motor: effector to CNS; inter: links them"
+   ],
+   "why": "Sensory neurons carry impulses from receptors to the CNS, motor neurons from the CNS to effectors, and interneurons link the two inside the CNS.",
+   "hint": "Follow an impulse in a reflex: which neuron brings it in, which links, which sends it out?",
+   "board": true,
+   "hook": "S-I-M: Sensory in, Interneuron in the middle, Motor out to Muscle",
+   "keys": [
+    "from receptors to the CNS",
+    "from the CNS to effectors",
+    "link the two"
+   ]
+  },
+  {
+   "q": "Briefly explain the role of neurotransmitter substances. (2 points)",
+   "right": "They carry the impulse across the synaptic cleft to the next neuron",
+   "wrong": [
+    "They insulate the axon so the impulse travels faster",
+    "They carry the impulse in the blood to target organs",
+    "They make the myelin sheath around the axon"
+   ],
+   "why": "Neurotransmitters carry the impulse across the synaptic cleft and set off a new impulse in the next neuron.",
+   "hint": "The impulse can't jump the gap between neurons. What gets the message across?",
+   "board": true,
+   "hook": "Neurotransmitters are the ferry: they carry the message over the gap",
+   "keys": [
+    "across the synaptic cleft",
+    "new impulse in the next neuron"
+   ]
+  },
+  {
+   "q": "State a function of 1. Schwann cells and 2. the myelin sheath. (2 points)",
+   "right": "Schwann cells make myelin; myelin insulates the axon",
+   "wrong": [
+    "Schwann cells release neurotransmitter; myelin insulates the axon",
+    "Schwann cells carry impulses; myelin stores neurotransmitter",
+    "Schwann cells make myelin; myelin carries impulses across the cleft"
+   ],
+   "why": "Schwann cells make the myelin sheath; the myelin sheath insulates and protects the axon and speeds up the impulse.",
+   "hint": "One is a cell wrapped round the axon; the other is the fatty layer it makes. What does that do?",
+   "board": true,
+   "hook": "Schwann cells wrap the axon like insulating tape round a wire",
+   "keys": [
+    "make the myelin sheath",
+    "insulates",
+    "speeds up the impulse"
+   ]
+  },
+  {
+   "q": "For Parkinson's disease or paralysis, give a possible cause and a treatment. (2 points)",
+   "right": "Paralysis: spinal cord injury; treated with physiotherapy",
+   "wrong": [
+    "Paralysis: lack of insulin; treated with insulin injections",
+    "Paralysis: spinal cord injury; treated with antibiotics",
+    "Paralysis: too much myelin; treated with a vaccine"
+   ],
+   "why": "Matching cause and treatment: paralysis from spinal cord injury, treated with physiotherapy; Parkinson's from a lack of dopamine, treated with L-dopa.",
+   "hint": "Pick one disorder. For paralysis, what gets damaged, and what therapy helps the muscles?",
+   "board": true,
+   "hook": "Paralysis: the cable (spinal cord) is cut, so physio keeps the muscles working",
+   "keys": [
+    "spinal cord injury",
+    "physiotherapy",
+    "lack of dopamine"
+   ]
+  }
+ ],
+ "2007-Q15b": [
+  {
+   "q": "State two ways in which hormone action differs from nerve action. (2 points)",
+   "right": "Hormones are chemical and slower, and their effects last longer",
+   "wrong": [
+    "Hormones are electrical and faster, with short-lived effects",
+    "Hormones travel along axons and act on one target",
+    "Hormones act within milliseconds and pass along neurons"
+   ],
+   "why": "Hormones are chemical messengers carried in the blood: slower, longer lasting and acting on many target organs; nerve impulses are electrical and fast.",
+   "hint": "Compare a text message with a letter in the post: how each travels, how fast, how long it lasts.",
+   "board": true,
+   "hook": "Nerves are a phone call (fast, brief); hormones a letter in the post (slow, lasting)",
+   "keys": [
+    "chemical messengers",
+    "slower, longer lasting",
+    "many target organs"
+   ]
+  }
+ ],
+ "2008-Q4": [
+  {
+   "q": "Identify parts A, B and C. (3 points)",
+   "right": "Myelin sheath, axon, dendrites",
+   "wrong": [
+    "Axon, myelin sheath, dendrites",
+    "Myelin sheath, axon, axon terminals",
+    "Schwann cell, dendrite, axon"
+   ],
+   "why": "A is the myelin sheath (or a Schwann cell), B the axon it wraps, and C the dendrites: short branches on the cell body.",
+   "hint": "Work from the outside in on the long fibre, then look at the branches on the cell body.",
+   "board": "On a motor neuron, name the fatty sheath, the long fibre inside it and the short branches on the cell body. (3 points)",
+   "hook": "Wire, insulation, plugs: axon, myelin sheath, dendrites",
+   "keys": [
+    "myelin sheath",
+    "the axon it wraps",
+    "dendrites"
+   ]
+  },
+  {
+   "q": "Give a function of A, the myelin sheath.",
+   "right": "It insulates the axon and speeds up the impulse",
+   "wrong": [
+    "It receives impulses from other neurons",
+    "It releases neurotransmitter at the synapse",
+    "It carries impulses across the synaptic cleft"
+   ],
+   "why": "The myelin sheath insulates and protects the axon, which speeds up the impulse; a Schwann cell is what makes it.",
+   "hint": "Think of the plastic coating on an electrical wire. What does it do for the current?",
+   "board": "Give a function of the myelin sheath on a neuron.",
+   "hook": "Myelin is the insulation on the wire: the signal goes faster and doesn't leak",
+   "keys": [
+    "insulates and protects the axon",
+    "speeds up the impulse"
+   ]
+  },
+  {
+   "q": "Which way does an impulse travel along this motor neuron?",
+   "right": "Dendrites to cell body, then along the axon",
+   "wrong": [
+    "Axon terminals to cell body, then the dendrites",
+    "From both ends towards the cell body",
+    "Along the axon, then back to the dendrites"
+   ],
+   "why": "An impulse enters at the dendrites, passes the cell body and runs along the axon to its terminals: on the diagram, from C towards the left end.",
+   "hint": "Find where the neuron picks up messages, then follow it to where it passes them on.",
+   "board": "Which way does an impulse travel along a motor neuron?",
+   "hook": "In at the dendrites, out at the terminals: like water through a pipe",
+   "keys": [
+    "enters at the dendrites",
+    "along the axon to its terminals"
+   ]
+  },
+  {
+   "q": "Give a function of C, the dendrites.",
+   "right": "They receive impulses and carry them to the cell body",
+   "wrong": [
+    "They carry impulses to the muscle",
+    "They insulate the axon to speed the impulse",
+    "They release neurotransmitter into the cleft"
+   ],
+   "why": "Dendrites receive impulses from other neurons or receptors and carry them towards the cell body.",
+   "hint": "Where on the neuron do messages come in? Which way do they go from there?",
+   "board": "Give a function of the dendrites of a neuron.",
+   "hook": "Dendrites are the antennae: they pick up the signal and pass it in",
+   "keys": [
+    "receive impulses",
+    "towards the cell body"
+   ]
+  },
+  {
+   "q": "Where on this motor neuron is a neurotransmitter secreted?",
+   "right": "At the axon terminals, at the far end",
+   "wrong": [
+    "At the dendrites on the cell body",
+    "From the nucleus in the cell body",
+    "Along the axon, between Schwann cells"
+   ],
+   "why": "Neurotransmitter is released from vesicles in the swollen axon terminals, at the far end from the cell body: put X on the terminal dendrites.",
+   "hint": "Messages pass on to the next cell at one end. Which end does the impulse finish at?",
+   "board": "Where on a motor neuron is neurotransmitter released?",
+   "hook": "Signal in at the dendrites, chemical out at the terminals",
+   "keys": [
+    "axon terminals",
+    "far end from the cell body"
+   ]
+  },
+  {
+   "q": "What is the role of the motor neuron?",
+   "right": "It carries impulses from the CNS to a muscle or gland",
+   "wrong": [
+    "It carries impulses from receptors to the CNS",
+    "It links sensory neurons inside the CNS",
+    "It insulates nerve fibres in the spinal cord"
+   ],
+   "why": "A motor neuron carries impulses from the CNS to an effector, a muscle or gland, which then responds.",
+   "hint": "Motor means movement. Where must the message go to move something?",
+   "board": true,
+   "hook": "Motor = Movement = Muscle: the CNS's message out to the effector",
+   "keys": [
+    "from the CNS to an effector",
+    "a muscle or gland"
+   ]
+  }
+ ],
+ "2009-Q15c": [
+  {
+   "q": "Write notes on neurotransmitters. (3 points)",
+   "right": "Released from vesicles, they cross the cleft; enzymes break them down",
+   "wrong": [
+    "Released into the blood, they travel to many target organs",
+    "Released from vesicles, they cross the cleft, then stay there for good",
+    "Made by Schwann cells, they insulate the axon"
+   ],
+   "why": "Three of: released by the presynaptic neuron's vesicles when an impulse arrives, cross the cleft, start an impulse, broken down by enzymes or reabsorbed.",
+   "hint": "Where are they stored, what sets them off, where do they go, what do they do, and then what?",
+   "board": true,
+   "hook": "Store, release, cross, trigger, recycle: a neurotransmitter's whole life",
+   "keys": [
+    "presynaptic neuron's vesicles",
+    "cross the cleft",
+    "broken down by enzymes"
+   ]
+  }
+ ],
+ "2010-Q11a": [
+  {
+   "q": "Name a disorder of the human nervous system.",
+   "right": "Parkinson's disease",
+   "wrong": [
+    "Diabetes",
+    "Goitre",
+    "Asthma"
+   ],
+   "why": "Parkinson's disease and paralysis are nervous system disorders; diabetes and goitre are endocrine, asthma is of the breathing system.",
+   "hint": "Think of a disease where the brain runs short of dopamine, so movements shake.",
+   "board": true,
+   "hook": "Parkinson's: the brain's dopamine runs low, so movement shakes and slows",
+   "keys": [
+    "Parkinson's disease and paralysis"
+   ]
+  },
+  {
+   "q": "For that disorder, state a possible cause and a prevention or treatment. (2 points)",
+   "right": "Lack of dopamine in the brain; treated with levodopa",
+   "wrong": [
+    "Too much dopamine in the brain; treated with levodopa",
+    "Lack of insulin in the blood; treated with levodopa",
+    "Too much insulin; treated with a low-sugar diet"
+   ],
+   "why": "For Parkinson's disease: a lack of dopamine (or genetic causes), treated with levodopa, which the brain turns into dopamine, or physiotherapy.",
+   "hint": "Which neurotransmitter is in short supply in Parkinson's, and what drug tops it up?",
+   "board": "Give a possible cause and a treatment of Parkinson's disease. (2 points)",
+   "hook": "Low dopamine? L-dopa crosses into the brain and is turned into dopamine",
+   "keys": [
+    "lack of dopamine",
+    "levodopa"
+   ]
+  }
+ ],
+ "2010-Q11b": [
+  {
+   "q": "What is a reflex action? (2 points)",
+   "right": "An automatic response to a stimulus, without thinking",
+   "wrong": [
+    "A response you choose to make after thinking it over",
+    "A slow, learned response controlled by the cerebrum",
+    "A hormone released into the blood when stressed"
+   ],
+   "why": "A reflex action is an automatic, involuntary response to a stimulus: it happens without the brain having to think about it.",
+   "hint": "Think of pulling your hand off a hot plate. Did you decide to do it?",
+   "board": true,
+   "hook": "Reflex = automatic: the body acts before the brain has a say",
+   "keys": [
+    "automatic, involuntary response",
+    "without the brain having to think"
+   ]
+  },
+  {
+   "q": "Give one example of a reflex action.",
+   "right": "Blinking when something comes near your eye",
+   "wrong": [
+    "Writing your name",
+    "Walking to school",
+    "Reading a book"
+   ],
+   "why": "Reflexes are automatic: blinking, sneezing, coughing, the knee jerk, pulling your hand off something hot. Writing and walking are voluntary.",
+   "hint": "Think of something your body does without you deciding, to protect your eyes or airways.",
+   "board": true,
+   "hook": "If you didn't decide to do it, and it protects you, it's a reflex",
+   "keys": [
+    "blinking, sneezing, coughing",
+    "Writing and walking are voluntary"
+   ]
+  },
+  {
+   "q": "Suggest an advantage of reflex actions.",
+   "right": "They are fast, so they protect the body from harm",
+   "wrong": [
+    "You can think them over before acting",
+    "They use hormones, so the effect lasts",
+    "They let the brain choose the best response"
+   ],
+   "why": "Reflexes are fast and automatic, so they protect the body from harm before the brain has time to think.",
+   "hint": "Imagine your hand on a hot plate. Why is it good not to wait for a decision?",
+   "board": true,
+   "hook": "Reflexes are the body's bodyguard: so quick you're safe before you know it",
+   "keys": [
+    "fast and automatic",
+    "protect the body from harm"
+   ]
+  },
+  {
+   "q": "In your reflex arc, in what order does the impulse pass through its parts?",
+   "right": "Receptor, sensory neuron, interneuron, motor neuron, effector",
+   "wrong": [
+    "Receptor, motor neuron, interneuron, sensory neuron, effector",
+    "Effector, sensory neuron, interneuron, motor neuron, receptor",
+    "Receptor, interneuron, sensory neuron, motor neuron, effector"
+   ],
+   "why": "The receptor, then the sensory neuron into the cord, an interneuron in the grey matter, the motor neuron out, and the effector.",
+   "hint": "Start where the stimulus is detected and finish at the muscle that responds.",
+   "board": "In what order does an impulse pass through the parts of a reflex arc?",
+   "hook": "RSIME: Receptor, Sensory, Interneuron, Motor, Effector",
+   "keys": [
+    "sensory neuron into the cord",
+    "interneuron in the grey matter",
+    "motor neuron out"
+   ]
+  },
+  {
+   "q": "On your reflex arc, where does the impulse enter and leave the spinal cord?",
+   "right": "Enters at the back (dorsal), leaves at the front (ventral)",
+   "wrong": [
+    "Enters at the front (ventral), leaves at the back (dorsal)",
+    "Enters and leaves at the back (dorsal)",
+    "Enters through the brain, leaves at the back"
+   ],
+   "why": "The sensory neuron enters the cord at the back (dorsal root) and the motor neuron leaves at the front (ventral root): one arrow in, one out.",
+   "hint": "Sensory comes in on one side of the cord and motor goes out the other. Which is the back?",
+   "board": true,
+   "hook": "Sensory enters by the back door, motor leaves by the front",
+   "keys": [
+    "enters the cord at the back",
+    "leaves at the front"
+   ]
+  }
+ ],
+ "2012-Q13a": [
+  {
+   "q": "Distinguish between the central and the peripheral nervous systems. (2 points)",
+   "right": "CNS: brain and spinal cord; PNS: nerves outside the CNS",
+   "wrong": [
+    "CNS: nerves outside the brain; PNS: brain and spinal cord",
+    "CNS: the brain only; PNS: the spinal cord and nerves",
+    "CNS: brain and spinal cord; PNS: the meninges around them"
+   ],
+   "why": "The CNS is the brain and spinal cord; the PNS is the nerves leading to and from it, outside the CNS, throughout the body.",
+   "hint": "One part is protected by bone in the middle of the body. The other spreads out everywhere else.",
+   "board": true,
+   "hook": "Central = the control room (brain and cord); peripheral = the wiring out to the edges",
+   "keys": [
+    "brain and spinal cord",
+    "leading to and from it"
+   ]
+  },
+  {
+   "q": "Give one way in which a nervous response differs from a hormonal response.",
+   "right": "A nervous response is faster",
+   "wrong": [
+    "A nervous response lasts longer",
+    "A nervous response uses chemicals in the blood",
+    "A nervous response reaches many target organs"
+   ],
+   "why": "Nervous responses are faster, shorter-lived and electrical; hormonal responses are slower, last longer and are chemical.",
+   "hint": "Compare pulling away from a flame with growing taller. Which happens in a split second?",
+   "board": true,
+   "hook": "Nerves: lightning (fast, brief, electrical). Hormones: the tide (slow, lasting, chemical)",
+   "keys": [
+    "faster, shorter-lived and electrical"
+   ]
+  }
+ ],
+ "2012-Q13b": [
+  {
+   "q": "What makes your drawing a motor neuron, not a sensory one?",
+   "right": "The cell body is at one end, with dendrites on it",
+   "wrong": [
+    "The cell body is on a side branch off the axon",
+    "It has no myelin sheath on its axon",
+    "It has dendrites at both ends of the axon"
+   ],
+   "why": "A motor neuron's cell body, with its dendrites, is at one end of the axon; a sensory neuron's is on a side branch. A sensory one here gets 0.",
+   "hint": "Where does the cell body sit in each type? Draw it, then label six parts along the neuron.",
+   "board": "Where is the cell body on a motor neuron?",
+   "hook": "Motor: the body leads at the front. Sensory: the body hangs off to the side",
+   "keys": [
+    "at one end of the axon",
+    "on a side branch"
+   ]
+  },
+  {
+   "q": "Give one function each of any two parts found only in neurons. (2 points)",
+   "right": "Dendrites receive impulses; myelin insulates the axon",
+   "wrong": [
+    "Nucleus controls the cell; membrane lets ions in",
+    "Dendrites carry impulses away; myelin stores neurotransmitter",
+    "Axon releases hormones; Schwann cells store glucose"
+   ],
+   "why": "Parts only neurons have, each with its job: dendrites receive impulses, the axon carries them away, myelin insulates, vesicles store neurotransmitter.",
+   "hint": "Skip the nucleus and membrane: every cell has those. Pick two parts on the long fibre or its ends.",
+   "board": true,
+   "hook": "Only neurons have the wiring: dendrites in, axon out, myelin round it",
+   "keys": [
+    "dendrites receive impulses",
+    "myelin insulates"
+   ]
+  },
+  {
+   "q": "Which way should the arrow on your motor neuron point?",
+   "right": "Away from the cell body, along the axon to its ends",
+   "wrong": [
+    "Towards the cell body, from the axon's ends",
+    "From the axon's ends back to the dendrites",
+    "Along the myelin sheath towards the dendrites"
+   ],
+   "why": "Impulses travel from the dendrites to the cell body and then away from it along the axon to the terminals; one arrow shows it.",
+   "hint": "Messages come in at the branched end near the cell body. Which way do they leave?",
+   "board": "Which way does an impulse travel along a motor neuron's axon?",
+   "hook": "One-way street: dendrites, cell body, axon, terminals",
+   "keys": [
+    "away from it along the axon"
+   ]
+  },
+  {
+   "q": "Name and state the role of two types of neuron other than the motor neuron. (2 points)",
+   "right": "Sensory: impulses to the CNS; interneuron: links sensory to motor",
+   "wrong": [
+    "Sensory: links sensory to motor; interneuron: impulses to the CNS",
+    "Sensory: impulses to muscles; interneuron: makes myelin",
+    "Sensory: impulses from the CNS; interneuron: makes myelin"
+   ],
+   "why": "Sensory neurons carry impulses from receptors to the CNS; interneurons carry them within the CNS, linking sensory and motor neurons.",
+   "hint": "There's one bringing messages in and one in the middle of the CNS. What does each do?",
+   "board": true,
+   "hook": "Sensory brings news in; the interneuron is the go-between inside the CNS",
+   "keys": [
+    "from receptors to the CNS",
+    "linking sensory and motor neurons"
+   ]
+  }
+ ],
+ "2012-Q13c": [
+  {
+   "q": "State a function of the cerebrum, hypothalamus, cerebellum or medulla. (one of 4 points)",
+   "right": "Cerebellum: balance and coordination",
+   "wrong": [
+    "Cerebellum: memory and reasoning",
+    "Medulla oblongata: memory and reasoning",
+    "Hypothalamus: balance and coordination"
+   ],
+   "why": "Cerebrum: thought, memory, senses; hypothalamus: homeostasis, e.g. temperature; cerebellum: balance and coordination; medulla: breathing, heartbeat.",
+   "hint": "One part is at the back, under the big folded part: think of riding a bike without falling.",
+   "board": true,
+   "hook": "The cerebellum keeps you balanced on a bike; the cerebrum does your homework",
+   "keys": [
+    "cerebellum: balance and coordination",
+    "medulla: breathing, heartbeat"
+   ]
+  },
+  {
+   "q": "Distinguish between grey matter and white matter. (2 points)",
+   "right": "Grey: mostly cell bodies; white: mostly myelinated axons",
+   "wrong": [
+    "Grey: mostly myelinated axons; white: mostly cell bodies",
+    "Grey: mostly cell bodies; white: mostly cerebrospinal fluid",
+    "Grey: in the brain only; white: in the spinal cord only"
+   ],
+   "why": "Grey matter is mostly cell bodies with little myelin; white matter is mostly axons wrapped in myelin, which is fatty and white.",
+   "hint": "Myelin is pale and fatty. Which matter is packed with myelin-wrapped fibres?",
+   "board": true,
+   "hook": "White = wires (myelinated axons); grey = the bodies (cell bodies)",
+   "keys": [
+    "mostly cell bodies",
+    "mostly axons wrapped in myelin"
+   ]
+  },
+  {
+   "q": "For paralysis or Parkinson's, give a cause other than accident, and a treatment. (2 points)",
+   "right": "Paralysis: a stroke damaging the brain; treated with physiotherapy",
+   "wrong": [
+    "Paralysis: a car accident; treated with physiotherapy",
+    "Paralysis: lack of dopamine; treated with antibiotics",
+    "Paralysis: a stroke damaging the brain; treated with insulin"
+   ],
+   "why": "Matching cause and treatment: paralysis from a stroke or MS, treated with physiotherapy; Parkinson's from lack of dopamine, treated with L-dopa.",
+   "hint": "The question rules out accidents. What illness can damage the brain and cause paralysis?",
+   "board": true,
+   "hook": "Paralysis: the brain can't send the message, so physio retrains the muscles",
+   "keys": [
+    "a stroke or MS",
+    "physiotherapy",
+    "lack of dopamine"
+   ]
+  }
+ ],
+ "2013-Q10b": [
+  {
+   "q": "Explain why hormonal responses are slower than nervous responses. (2 points)",
+   "right": "Hormones travel in the blood; nerve impulses are electrical",
+   "wrong": [
+    "Hormones are electrical; nerve impulses travel in the blood",
+    "Hormones travel along axons; nerves diffuse across slowly",
+    "Hormones are made in the brain; nerves are much longer"
+   ],
+   "why": "Hormones are chemicals carried in the blood, which takes time to reach target organs; nerve impulses are electrical and travel fast along neurons.",
+   "hint": "How does each message travel: along a wire, or carried in a stream?",
+   "board": true,
+   "hook": "An email (electrical nerves) beats a parcel in the post (hormones in the blood)",
+   "keys": [
+    "carried in the blood",
+    "electrical"
+   ]
+  }
+ ],
+ "2014-Q11b": [
+  {
+   "q": "Name the type of particle whose movement in and out of neurons carries a nerve impulse.",
+   "right": "Ions",
+   "wrong": [
+    "Electrons",
+    "Neurotransmitters",
+    "Hormones"
+   ],
+   "why": "A nerve impulse is carried by ions (charged particles such as sodium and potassium) moving in and out of the neuron.",
+   "hint": "Think of charged particles, like sodium and potassium, crossing the membrane.",
+   "board": true,
+   "hook": "In, out, all the way down: a wave of charged particles is the impulse",
+   "keys": [
+    "ions",
+    "sodium and potassium"
+   ]
+  },
+  {
+   "q": "Give an account of how neurotransmitters work. (one of 4 points)",
+   "right": "They bind to receptors on the next neuron",
+   "wrong": [
+    "They travel in the blood to the target organ",
+    "They speed up impulses along the axon",
+    "They insulate the axon, like myelin"
+   ],
+   "why": "Four of: secreted into the synaptic cleft, they react with receptors on the next neuron, set up an impulse there, then are broken down or reabsorbed.",
+   "hint": "Follow one molecule from the knob, across the gap, to the next cell, and say what happens after.",
+   "board": true,
+   "hook": "Lock and key: the neurotransmitter is the key, the receptor on the next neuron the lock",
+   "keys": [
+    "receptors on the next neuron",
+    "set up an impulse",
+    "broken down or reabsorbed"
+   ]
+  },
+  {
+   "q": "Distinguish between the positions of the cerebellum and the cerebrum in the brain.",
+   "right": "Cerebellum at the back (hindbrain), cerebrum at the front (forebrain)",
+   "wrong": [
+    "Cerebellum at the front (forebrain), cerebrum at the back (hindbrain)",
+    "Both in the forebrain, side by side",
+    "Cerebellum on top, with the cerebrum below it"
+   ],
+   "why": "The cerebellum is at the back of the brain, in the hindbrain, under the cerebrum; the cerebrum is the large folded forebrain at the front and top.",
+   "hint": "One is the big folded part on top; the 'little brain' tucks in underneath at the back.",
+   "board": true,
+   "hook": "Cerebellum = 'little brain', tucked in at the back; cerebrum = the big dome in front",
+   "keys": [
+    "back of the brain, in the hindbrain",
+    "forebrain at the front"
+   ]
+  },
+  {
+   "q": "State three functions of the cerebrum. (3 points)",
+   "right": "Memory, learning and speech",
+   "wrong": [
+    "Balance, breathing and heart rate",
+    "Memory, balance and breathing",
+    "Learning, swallowing and posture"
+   ],
+   "why": "The cerebrum handles conscious activity: memory, learning, speech and language, intelligence, emotion and the senses; breathing and balance are elsewhere.",
+   "hint": "It's the thinking part of the brain. What do you use it for in class?",
+   "board": true,
+   "hook": "The cerebrum is the classroom: memory, learning, speech, thinking",
+   "keys": [
+    "memory, learning, speech",
+    "conscious activity"
+   ]
+  }
+ ],
+ "2014-Q11c": [
+  {
+   "q": "What is meant by a 'degenerative' illness?",
+   "right": "One that gets worse over time",
+   "wrong": [
+    "One caused by a virus",
+    "One that is present from birth",
+    "One that is cured within weeks"
+   ],
+   "why": "A degenerative illness gets steadily worse over time, as cells or tissue (here, brain tissue) break down.",
+   "hint": "De- means down: does the condition improve, stay the same, or go downhill?",
+   "board": true,
+   "hook": "Degenerate = going downhill: each year a little worse",
+   "keys": [
+    "gets steadily worse over time"
+   ]
+  },
+  {
+   "q": "Is Alzheimer's disease driven by a single gene or by many genes?",
+   "right": "Many genes (a group of genes)",
+   "wrong": [
+    "A single gene",
+    "No genes: only diet",
+    "Only genes on the Y chromosome"
+   ],
+   "why": "The extract says scientists have identified a group of genes linked to it, so it is driven by many genes.",
+   "hint": "Read the extract again: did scientists find one gene, or something bigger?",
+   "board": "Scientists have linked a group of genes to Alzheimer's disease. Is it driven by one gene or many?",
+   "hook": "A group of genes, not a lone culprit",
+   "keys": [
+    "a group of genes"
+   ]
+  },
+  {
+   "q": "What is thought to cause Alzheimer's disease?",
+   "right": "A build-up of protein plaques in the brain",
+   "wrong": [
+    "A lack of dopamine in the brain",
+    "An injury to the spinal cord",
+    "A bacterial infection of the meninges"
+   ],
+   "why": "Alzheimer's is thought to be caused by a build-up of protein-based plaques in the brain; a lack of dopamine is Parkinson's disease.",
+   "hint": "The extract says something builds up in the brain. What is it made of?",
+   "board": true,
+   "hook": "Alzheimer's: protein plaques clog the brain, like limescale in a kettle",
+   "keys": [
+    "build-up of protein-based plaques"
+   ]
+  },
+  {
+   "q": "Suggest a possible symptom of Alzheimer's disease.",
+   "right": "Memory loss",
+   "wrong": [
+    "A fever and a rash",
+    "High blood sugar",
+    "A swollen thyroid (goitre)"
+   ],
+   "why": "Alzheimer's damages the brain, so memory loss and confusion are early symptoms.",
+   "hint": "It damages the brain. What do people with it start to have trouble with?",
+   "board": true,
+   "hook": "Alzheimer's steals memories first: keys lost, names forgotten",
+   "keys": [
+    "memory loss and confusion"
+   ]
+  },
+  {
+   "q": "How is advancing technology helping in the fight against Alzheimer's disease?",
+   "right": "Brain scans can detect the first signs early",
+   "wrong": [
+    "Antibiotics can now cure it",
+    "A vaccine now prevents it",
+    "Brain transplants replace damaged tissue"
+   ],
+   "why": "New ways to scan the brain let researchers detect the first signs early and study the molecules that cause it.",
+   "hint": "The extract mentions a new way of looking inside the brain. What does it let doctors do?",
+   "board": true,
+   "hook": "Scan early, act early: brain scans spot the first signs",
+   "keys": [
+    "scan the brain",
+    "detect the first signs early"
+   ]
+  },
+  {
+   "q": "Suggest why more people suffer from Alzheimer's disease now than ever before.",
+   "right": "More people now live into old age",
+   "wrong": [
+    "It has become infectious",
+    "Brain scans cause it",
+    "People inherit fewer genes now"
+   ],
+   "why": "The population is larger and people live longer, and Alzheimer's is mostly a disease of old age.",
+   "hint": "Who mostly gets Alzheimer's? Think how life expectancy has changed.",
+   "board": true,
+   "hook": "More birthdays, more Alzheimer's: it's mostly a disease of old age",
+   "keys": [
+    "people live longer",
+    "a disease of old age"
+   ]
+  },
+  {
+   "q": "Name another disorder of the nervous system and a possible treatment for it. (2 points)",
+   "right": "Parkinson's disease, treated with levodopa (L-dopa)",
+   "wrong": [
+    "Diabetes, treated with insulin",
+    "Parkinson's disease, treated with antibiotics",
+    "Alzheimer's disease, treated with physiotherapy"
+   ],
+   "why": "Another disorder and a matching treatment: Parkinson's disease, treated with L-dopa or physiotherapy; paralysis, treated with physiotherapy.",
+   "hint": "Not Alzheimer's: name another brain disorder, then how doctors treat it.",
+   "board": true,
+   "hook": "Parkinson's: low dopamine, so give L-dopa",
+   "keys": [
+    "Parkinson's disease, treated with L-dopa"
+   ]
+  }
+ ],
+ "2015-Q14b": [
+  {
+   "q": "Name the parts labelled A, B and C on the section of the spinal cord. (3 points)",
+   "right": "Grey matter, white matter, central canal",
+   "wrong": [
+    "White matter, grey matter, central canal",
+    "Grey matter, white matter, meninges",
+    "Grey matter, myelin sheath, central canal"
+   ],
+   "why": "Grey matter (cell bodies) is the butterfly-shaped core, white matter (axons) is around it, and the central canal holds cerebrospinal fluid.",
+   "hint": "In the spinal cord the cell bodies are in the middle and the fatty fibres outside. Then the hole.",
+   "board": "In a section of the spinal cord, name the butterfly-shaped core, the pale outer part and the hole in the middle. (3 points)",
+   "hook": "The spinal cord: a grey butterfly in a white coat, with a canal through its middle",
+   "keys": [
+    "grey matter (cell bodies)",
+    "white matter (axons)",
+    "central canal"
+   ]
+  },
+  {
+   "q": "What is the main structural difference between A and B? (2 points)",
+   "right": "Grey (A): mostly cell bodies; white (B): mostly myelinated axons",
+   "wrong": [
+    "Grey (A): mostly myelinated axons; white (B): mostly cell bodies",
+    "Grey (A): mostly fluid; white (B): mostly cell bodies",
+    "Grey (A): mostly cell bodies; white (B): mostly fluid"
+   ],
+   "why": "Grey matter consists mainly of cell bodies with little myelin; white matter consists mainly of axons covered in myelin.",
+   "hint": "One region is full of the neurons' bodies, the other of their fatty wrapped fibres.",
+   "board": "What is the main structural difference between grey and white matter? (2 points)",
+   "hook": "Grey = bodies, white = wires (myelinated axons)",
+   "keys": [
+    "mainly of cell bodies",
+    "axons covered in myelin"
+   ]
+  },
+  {
+   "q": "What is the function of the meninges, and how many layers do they have? (2 points)",
+   "right": "They protect the CNS; there are three layers",
+   "wrong": [
+    "They insulate axons; there are three layers",
+    "They protect the CNS; there are two layers",
+    "They carry impulses; there are four layers"
+   ],
+   "why": "The meninges are three membranes around the brain and spinal cord that protect the CNS; cerebrospinal fluid between them cushions it.",
+   "hint": "Count the membranes wrapped around the brain and spinal cord. What do they do for it?",
+   "board": true,
+   "hook": "Three meninges wrap the CNS like a three-layer cushion",
+   "keys": [
+    "three membranes",
+    "protect the CNS"
+   ]
+  },
+  {
+   "q": "Reflex actions are very important in animals. What is a reflex action?",
+   "right": "An involuntary reaction to a stimulus",
+   "wrong": [
+    "A reaction you decide on after thinking",
+    "A voluntary movement controlled by the cerebrum",
+    "A slow hormonal response to stress"
+   ],
+   "why": "A reflex action is an automatic, involuntary reaction to a stimulus, made without conscious thought.",
+   "hint": "Tap just below the kneecap and the leg kicks. Did you choose that?",
+   "board": true,
+   "hook": "Reflex: stimulus in, response out, no decision in between",
+   "keys": [
+    "involuntary reaction to a stimulus"
+   ]
+  },
+  {
+   "q": "Outline the mechanism of a reflex action. (2 points)",
+   "right": "Receptor detects the stimulus; impulse goes along a sensory neuron",
+   "wrong": [
+    "Receptor detects the stimulus; the brain decides how to respond",
+    "Impulse goes straight from the receptor to the brain",
+    "A hormone is released into the blood and reaches the muscle"
+   ],
+   "why": "Two of: a receptor detects the stimulus, an impulse passes along the sensory neuron, through an interneuron, along the motor neuron to the effector.",
+   "hint": "Follow the impulse from where the stimulus is felt to the muscle that moves.",
+   "board": true,
+   "hook": "Receptor, sensory, inter, motor, effector: in, across, out",
+   "keys": [
+    "receptor detects the stimulus",
+    "along the sensory neuron"
+   ]
+  }
+ ],
+ "2017-Q14c": [
+  {
+   "q": "State two features that adapt a neuron for transmitting impulses. (2 points)",
+   "right": "A myelin sheath insulates it; dendrites receive impulses",
+   "wrong": [
+    "A cell wall for support; chloroplasts for energy",
+    "Thick muscular walls; valves to stop backflow",
+    "No nucleus, to leave room; a myelin sheath"
+   ],
+   "why": "Two of: dendrites and receptors pick up impulses, a long axon carries them, myelin insulates it, and neurotransmitters pass them on.",
+   "hint": "Think of a neuron as a cable: what picks up the signal, carries it far, keeps it insulated?",
+   "board": true,
+   "hook": "A neuron is a cable: dendrites plug in, the axon runs far, myelin insulates",
+   "keys": [
+    "dendrites and receptors",
+    "long axon",
+    "myelin insulates"
+   ]
+  }
+ ],
+ "2018-Q11c": [
+  {
+   "q": "Outline the role in a nerve impulse of the dendrites, axon and cell body. (3 points)",
+   "right": "Dendrites receive; cell body passes impulses to axon; axon takes away",
+   "wrong": [
+    "Dendrites carry away; cell body receives; axon makes neurotransmitter",
+    "Dendrites insulate; cell body speeds impulses; axon receives them",
+    "Dendrites receive; cell body makes myelin; axon carries impulses in"
+   ],
+   "why": "Dendrites receive impulses and carry them to the cell body; the cell body passes them on (and makes neurotransmitter); the axon carries them away.",
+   "hint": "Follow an impulse in at one end, through the middle and out along the long fibre.",
+   "board": true,
+   "hook": "Dendrites in, cell body through, axon out",
+   "keys": [
+    "Dendrites receive impulses",
+    "the axon carries them away"
+   ]
+  },
+  {
+   "q": "Describe how a nerve impulse is transmitted across a synaptic cleft. (one of 4 points)",
+   "right": "Neurotransmitter diffuses across the gap to the next neuron",
+   "wrong": [
+    "Ions jump the gap as an electric spark",
+    "Myelin carries the impulse over the cleft",
+    "Hormones in the blood carry it across"
+   ],
+   "why": "Four of: the impulse arrives, neurotransmitter is released into the synapse, diffuses across the gap, binds to receptors, starts an impulse, is broken down.",
+   "hint": "The electrical signal stops at the gap. What crosses it instead, and how?",
+   "board": true,
+   "hook": "Electric to chemical to electric: the synapse changes the message's form to cross",
+   "keys": [
+    "diffuses across the gap",
+    "binds to receptors"
+   ]
+  },
+  {
+   "q": "Explain the importance of the myelin sheath in the transmission of a nerve impulse.",
+   "right": "It speeds up the impulse",
+   "wrong": [
+    "It slows the impulse so it is not lost",
+    "It releases neurotransmitter at the synapse",
+    "It receives impulses from other neurons"
+   ],
+   "why": "Myelin insulates the axon, so the impulse jumps quickly along it: it speeds up transmission.",
+   "hint": "Compare a bare wire with a well-insulated one. What happens to the signal?",
+   "board": true,
+   "hook": "Myelin = the express lane: the impulse races along",
+   "keys": [
+    "speeds up transmission"
+   ]
+  }
+ ],
+ "2019-Q14a": [
+  {
+   "q": "Part A is at the back of the brain, under the cerebrum. Which part is it? (one of 6 points)",
+   "right": "Cerebellum",
+   "wrong": [
+    "Medulla oblongata",
+    "Hypothalamus",
+    "Pituitary gland"
+   ],
+   "why": "A is the cerebellum, at the back under the cerebrum; B the cerebrum, C the pituitary, D the medulla, E the spinal cord, F the hypothalamus.",
+   "hint": "Its name means 'little brain'. Find the small folded part tucked under the back.",
+   "board": "Which part of the brain is at the back, under the cerebrum?",
+   "hook": "Cerebellum = little brain, tucked under the back of the big one",
+   "keys": [
+    "A is the cerebellum",
+    "D the medulla",
+    "F the hypothalamus"
+   ]
+  },
+  {
+   "q": "Give a function of 1. the medulla oblongata and 2. the cerebellum. (2 points)",
+   "right": "Medulla: controls breathing and heartbeat; cerebellum: balance",
+   "wrong": [
+    "Medulla: balance; cerebellum: controls breathing and heartbeat",
+    "Medulla: memory and thought; cerebellum: balance",
+    "Medulla: controls breathing; cerebellum: memory and thought"
+   ],
+   "why": "The medulla oblongata controls involuntary actions such as breathing and heartbeat; the cerebellum controls balance, posture and coordination.",
+   "hint": "One keeps you alive without thinking; the other keeps you steady on your feet.",
+   "board": true,
+   "hook": "Medulla = autopilot (breathing, heartbeat); cerebellum = balance on a bike",
+   "keys": [
+    "involuntary actions",
+    "balance, posture and coordination"
+   ]
+  },
+  {
+   "q": "Why is grey matter so called, and why is white matter so called? (2 points)",
+   "right": "Grey: it is made of cell bodies; white: it is made of myelin",
+   "wrong": [
+    "Grey: it is made of myelin; white: it is made of cell bodies",
+    "Grey: it is full of blood; white: it is made of bone",
+    "Grey: it is made of cell bodies; white: it is full of fluid"
+   ],
+   "why": "Grey matter is made of cell bodies, which look grey; white matter is made of axons wrapped in myelin, which is white and fatty.",
+   "hint": "Myelin is a pale, fatty substance. Which matter is full of it?",
+   "board": true,
+   "hook": "Myelin is white fat: white matter is white because it's all wrapped wires",
+   "keys": [
+    "made of cell bodies",
+    "axons wrapped in myelin"
+   ]
+  }
+ ],
+ "2020-Q6": [
+  {
+   "q": "B is the long fibre of this sensory neuron, wrapped in myelin. What is it?",
+   "right": "The axon",
+   "wrong": [
+    "A dendrite",
+    "A Schwann cell",
+    "The cell body"
+   ],
+   "why": "B is the axon, the long fibre that carries impulses; Schwann cells wrap it in myelin.",
+   "hint": "It's the long fibre the myelin wraps round. Think of the wire inside a cable's plastic coat.",
+   "board": "What is the long fibre of a neuron, wrapped in myelin, called?",
+   "hook": "Axon = the long wire; myelin = its plastic coat",
+   "keys": [
+    "the axon",
+    "long fibre"
+   ]
+  },
+  {
+   "q": "Name the substance released by A, the branched ends, during a nerve impulse.",
+   "right": "Neurotransmitter",
+   "wrong": [
+    "Myelin",
+    "Hormones",
+    "Antibodies"
+   ],
+   "why": "The branched axon endings (A) release neurotransmitter, e.g. acetylcholine, into the synaptic cleft.",
+   "hint": "These ends meet the next cell at a synapse. What chemical passes the message across?",
+   "board": "What substance do a neuron's branched endings release during a nerve impulse?",
+   "hook": "Axon endings are the neuron's mouth: they speak in chemicals",
+   "keys": [
+    "neurotransmitter",
+    "acetylcholine"
+   ]
+  },
+  {
+   "q": "Name the substance produced by the Schwann cell.",
+   "right": "Myelin",
+   "wrong": [
+    "Neurotransmitter",
+    "Cerebrospinal fluid",
+    "Dopamine"
+   ],
+   "why": "Schwann cells wrap around the axon and produce myelin, the fatty sheath that insulates it.",
+   "hint": "It's the fatty, white layer that wraps round the axon.",
+   "board": true,
+   "hook": "Schwann cells are the axon's tailors: they wrap it in a fatty coat",
+   "keys": [
+    "produce myelin",
+    "fatty sheath"
+   ]
+  },
+  {
+   "q": "What is the function of myelin during a nerve impulse?",
+   "right": "It insulates the axon, so the impulse travels faster",
+   "wrong": [
+    "It carries the impulse across the cleft",
+    "It stores neurotransmitter for release",
+    "It detects the stimulus in the skin"
+   ],
+   "why": "Myelin insulates the axon, which speeds up the impulse; either answer earns the mark.",
+   "hint": "Think of the plastic coat on a wire. What does it do for the current?",
+   "board": true,
+   "hook": "Insulation means speed: the impulse leaps along a myelinated axon",
+   "keys": [
+    "insulates the axon",
+    "speeds up the impulse"
+   ]
+  },
+  {
+   "q": "Which way does an impulse travel along this sensory neuron?",
+   "right": "From the receptor towards the CNS",
+   "wrong": [
+    "From the CNS towards the receptor",
+    "From the axon endings back to the receptor",
+    "Both ways along the axon at once"
+   ],
+   "why": "A sensory neuron carries impulses from the receptor (here the lower right end) towards the CNS: on the diagram, right to left.",
+   "hint": "Sensory neurons bring news in. Where does the news come from, and where is it going?",
+   "board": "Which way does an impulse travel along a sensory neuron?",
+   "hook": "Sensory = news coming in: receptor first, CNS last",
+   "keys": [
+    "from the receptor",
+    "towards the CNS"
+   ]
+  },
+  {
+   "q": "Choose Parkinson's disease or paralysis and suggest how it may be caused and treated. (2 points)",
+   "right": "Parkinson's: low dopamine levels; treated with levodopa",
+   "wrong": [
+    "Parkinson's: low insulin levels; treated with levodopa",
+    "Parkinson's: a spinal cord injury; treated with antibiotics",
+    "Paralysis: low dopamine levels; treated with physiotherapy"
+   ],
+   "why": "Each disorder with its own cause and treatment: Parkinson's from low dopamine, treated with L-dopa (levodopa); paralysis from spinal cord damage, physio.",
+   "hint": "Pick one. For Parkinson's: which brain chemical runs low, and what drug replaces it?",
+   "board": true,
+   "hook": "Parkinson's: dopamine down, so L-dopa up",
+   "keys": [
+    "low dopamine",
+    "L-dopa (levodopa)",
+    "spinal cord damage"
+   ]
+  }
+ ],
+ "2021-Q6c": [
+  {
+   "q": "True or false: neurotransmitters are transported in the blood.",
+   "right": "False",
+   "wrong": [
+    "True"
+   ],
+   "why": "Neurotransmitters only cross the tiny synaptic cleft between neurons; hormones are the messengers carried in the blood.",
+   "hint": "Where do neurotransmitters travel: a tiny gap between two cells, or all round the body?",
+   "board": true,
+   "hook": "Neurotransmitters cross a gap; hormones ride the bloodstream",
+   "keys": [
+    "synaptic cleft",
+    "carried in the blood"
+   ]
+  }
+ ],
+ "2021-Q17c": [
+  {
+   "q": "Name the tissue X which covers and protects the spinal cord.",
+   "right": "Meninges",
+   "wrong": [
+    "Myelin sheath",
+    "White matter",
+    "Schwann cells"
+   ],
+   "why": "The meninges are the three membranes covering and protecting the brain and spinal cord; the vertebrae protect them too.",
+   "hint": "Three thin membranes wrap the brain and spinal cord. Name them as a group.",
+   "board": "What tissue covers and protects the spinal cord?",
+   "hook": "Meninges wrap the CNS (meningitis is when they're inflamed)",
+   "keys": [
+    "meninges",
+    "three membranes"
+   ]
+  },
+  {
+   "q": "What is a reflex action?",
+   "right": "An automatic response to a stimulus",
+   "wrong": [
+    "A response that you think about first",
+    "A movement you learn by practising",
+    "A hormone's slow effect on the body"
+   ],
+   "why": "A reflex action is an automatic (involuntary) response to a stimulus: no thinking or learning is needed.",
+   "hint": "When the doctor taps your knee, do you decide to kick?",
+   "board": true,
+   "hook": "Reflex = autopilot: stimulus in, response out",
+   "keys": [
+    "automatic (involuntary) response",
+    "a stimulus"
+   ]
+  },
+  {
+   "q": "Give one example of a reflex action in the human body.",
+   "right": "The knee jerk when the knee is tapped",
+   "wrong": [
+    "Riding a bicycle",
+    "Writing a letter",
+    "Choosing what to eat"
+   ],
+   "why": "Any reflex: the knee jerk, blinking, the iris narrowing in bright light, sneezing, coughing, a grasp. Riding and writing are learned and voluntary.",
+   "hint": "Think of what a doctor does with a little hammer just below your kneecap.",
+   "board": true,
+   "hook": "Tap the knee, the leg kicks: the classic reflex",
+   "keys": [
+    "the knee jerk",
+    "blinking"
+   ]
+  },
+  {
+   "q": "Give one advantage of a reflex action.",
+   "right": "It protects the body from injury",
+   "wrong": [
+    "It lets you think before you act",
+    "It lasts longer than a hormone",
+    "It uses less energy than thinking"
+   ],
+   "why": "A reflex is fast and involuntary, so it protects the body from injury, e.g. pulling away from heat before you are burned.",
+   "hint": "Your hand touches a hot pan. What does a quick, automatic reaction save you from?",
+   "board": true,
+   "hook": "Reflexes are bodyguards: quick enough to stop the burn",
+   "keys": [
+    "fast and involuntary",
+    "protects the body from injury"
+   ]
+  },
+  {
+   "q": "Using the labels from the diagram, describe how a reflex action works. (one of 4 points)",
+   "right": "The impulse travels along the sensory neuron to the spinal cord",
+   "wrong": [
+    "The brain decides on the response first",
+    "The impulse jumps straight to the brain, which decides",
+    "Hormones in the blood carry the message"
+   ],
+   "why": "Four of: a receptor detects the stimulus, an impulse passes along B (sensory) to C (interneuron) in the grey matter, then along A (motor) to the effector.",
+   "hint": "Start at the receptor box and follow B, C and A to the effector, naming each.",
+   "board": "Describe how a reflex action works. (one of 4 points)",
+   "hook": "Receptor, B, C, A, effector: in, across, out",
+   "keys": [
+    "receptor detects the stimulus",
+    "along B (sensory)",
+    "along A (motor) to the effector"
+   ]
+  },
+  {
+   "q": "Give two ways in which a nervous response differs from a hormonal response. (2 points)",
+   "right": "Nervous is faster and electrical; hormonal is slower and chemical",
+   "wrong": [
+    "Nervous is slower and chemical; hormonal is faster and electrical",
+    "Nervous uses hormones; hormonal uses neurotransmitters",
+    "Nervous travels in the blood; hormonal travels along neurons"
+   ],
+   "why": "Nervous responses are fast, electrical and short-lived; hormonal responses are slow, chemical and long-lasting.",
+   "hint": "Compare jerking your hand off a hot plate with growing up. Speed? Type of signal? How long?",
+   "board": true,
+   "hook": "Nerves: a text (instant, brief). Hormones: a letter (slow, lasting)",
+   "keys": [
+    "fast, electrical and short-lived",
+    "slow, chemical and long-lasting"
+   ]
+  }
+ ],
+ "2022-Q16a": [
+  {
+   "q": "The human nervous system is divided into two parts. Name each part. (2 points)",
+   "right": "The central and the peripheral nervous systems",
+   "wrong": [
+    "The brain and the spinal cord",
+    "The sensory and the motor nervous systems",
+    "The grey matter and the white matter"
+   ],
+   "why": "The central nervous system (brain and spinal cord) and the peripheral nervous system (the nerves throughout the body).",
+   "hint": "One part is in the middle of the body; the other reaches out to its edges.",
+   "board": true,
+   "hook": "CNS = the centre, PNS = the periphery (the edges)",
+   "keys": [
+    "central nervous system",
+    "peripheral nervous system"
+   ]
+  },
+  {
+   "q": "On your neuron drawing, where does the myelin sheath go?",
+   "right": "Wrapped around the axon",
+   "wrong": [
+    "Around the cell body",
+    "On the tips of the dendrites",
+    "Across the synaptic cleft"
+   ],
+   "why": "The myelin sheath wraps around the axon in segments (made by Schwann cells); the dendrites branch from the cell body.",
+   "hint": "Draw a cell body with branches and one long fibre. Which part gets the fatty coat?",
+   "board": "Where is the myelin sheath found on a neuron?",
+   "hook": "Myelin coats the long wire (axon), not the plug (cell body)",
+   "keys": [
+    "wraps around the axon"
+   ]
+  },
+  {
+   "q": "Distinguish between the function of an interneuron and a sensory neuron. (2 points)",
+   "right": "Interneuron: links neurons within the CNS; sensory: receptor to CNS",
+   "wrong": [
+    "Interneuron: receptor to CNS; sensory: links neurons within the CNS",
+    "Interneuron: makes myelin; sensory: from receptors",
+    "Interneuron: makes myelin; sensory: impulses to muscles"
+   ],
+   "why": "Interneurons pass impulses within the CNS, from sensory to motor neurons; sensory neurons carry impulses from receptors (sense organs) to the CNS.",
+   "hint": "One works only inside the brain and spinal cord; the other brings messages in from outside.",
+   "board": true,
+   "hook": "Sensory: the messenger running in; interneuron: the switchboard inside",
+   "keys": [
+    "within the CNS",
+    "from receptors (sense organs) to the CNS"
+   ]
+  },
+  {
+   "q": "How is a nerve impulse conducted along a neuron?",
+   "right": "By the movement of ions in and out of it",
+   "wrong": [
+    "By neurotransmitter flowing along the axon",
+    "By blood flowing through the axon",
+    "By hormones moving through the myelin"
+   ],
+   "why": "An impulse is conducted by the movement of ions (e.g. sodium and potassium) in and out of the neuron, along its membrane.",
+   "hint": "Charged particles cross the membrane one after another, all down the fibre. What are they?",
+   "board": true,
+   "hook": "In, out, all the way down: that ripple of charged particles is the impulse",
+   "keys": [
+    "movement of ions",
+    "sodium and potassium"
+   ]
+  },
+  {
+   "q": "Name the gap that exists between two neurons in close contact.",
+   "right": "The synaptic cleft",
+   "wrong": [
+    "The synaptic vesicle",
+    "The synaptic knob",
+    "The myelin sheath"
+   ],
+   "why": "The gap between two neurons is the synaptic cleft; neurotransmitter from the synaptic vesicles diffuses across it.",
+   "hint": "The junction is a synapse. The narrow gap in it has its own name.",
+   "board": true,
+   "hook": "Cleft = a split: the tiny split between two neurons",
+   "keys": [
+    "synaptic cleft"
+   ]
+  },
+  {
+   "q": "Give a possible cause of paralysis or Parkinson's disease, saying which disorder you mean.",
+   "right": "Paralysis: damage to the spinal cord",
+   "wrong": [
+    "Paralysis: too much dopamine",
+    "Paralysis: a lack of insulin",
+    "Parkinson's disease: damage to the spinal cord"
+   ],
+   "why": "The cause must match the disorder: paralysis from damage to the spinal cord, a stroke or MS; Parkinson's from a decrease in dopamine or genes.",
+   "hint": "Paralysis: the message can't get from the brain to the muscles. What could be damaged?",
+   "board": true,
+   "hook": "Paralysis: a cut cable; Parkinson's: the brain runs low on dopamine",
+   "keys": [
+    "damage to the spinal cord",
+    "decrease in dopamine"
+   ]
+  }
+ ],
+ "2023-Q17b": [
+  {
+   "q": "What term describes the region where two neurons come into close contact?",
+   "right": "A synapse",
+   "wrong": [
+    "A synaptic cleft",
+    "A dendrite",
+    "A myelin sheath"
+   ],
+   "why": "The region where two neurons meet is a synapse; the gap within it is the synaptic cleft.",
+   "hint": "The whole junction has one name; the gap inside it has another. This asks for the junction.",
+   "board": true,
+   "hook": "Synapse = the whole junction; cleft = the gap inside it",
+   "keys": [
+    "is a synapse",
+    "the gap within it"
+   ]
+  },
+  {
+   "q": "What is the gap B between the two neurons called?",
+   "right": "The synaptic cleft",
+   "wrong": [
+    "The synaptic knob",
+    "The central canal",
+    "The axon terminal"
+   ],
+   "why": "B, the narrow gap between the two neurons, is the synaptic cleft: neurotransmitter (A) crosses it.",
+   "hint": "This gap is part of a synapse, and it has its own name.",
+   "board": "What is the narrow gap between two neurons at a synapse called?",
+   "hook": "Mind the gap: the synaptic cleft",
+   "keys": [
+    "synaptic cleft"
+   ]
+  },
+  {
+   "q": "What is the general name given to chemical A?",
+   "right": "Neurotransmitter",
+   "wrong": [
+    "Hormone",
+    "Enzyme",
+    "Antibody"
+   ],
+   "why": "Chemical A is a neurotransmitter, such as acetylcholine or dopamine, which carries the impulse across the cleft.",
+   "hint": "It transmits the message from one neuron to the next. Its name says so.",
+   "board": "What is the general name for the chemicals that carry impulses across a synapse?",
+   "hook": "Neuro + transmitter: it transmits the message between neurons",
+   "keys": [
+    "neurotransmitter",
+    "acetylcholine or dopamine"
+   ]
+  },
+  {
+   "q": "Where in a neuron is chemical A, the neurotransmitter, made?",
+   "right": "In the cell body",
+   "wrong": [
+    "In the Schwann cells",
+    "In the dendrites",
+    "In the myelin sheath"
+   ],
+   "why": "Neurotransmitter is made in the cell body and stored in vesicles at the axon terminals, ready to be released.",
+   "hint": "It's made where the nucleus and most of the cell's machinery are.",
+   "board": "Where in a neuron is neurotransmitter made?",
+   "hook": "Made in the factory (cell body), stored in the warehouse (vesicles)",
+   "keys": [
+    "made in the cell body",
+    "stored in vesicles"
+   ]
+  },
+  {
+   "q": "Describe in detail how nerve impulses travel between two neurons in close contact. (3 points)",
+   "right": "Neurotransmitter is released, crosses the cleft, binds to receptors",
+   "wrong": [
+    "Neurotransmitter enters the blood and is carried to the next neuron",
+    "The impulse jumps the gap as electricity; no chemical is needed",
+    "Neurotransmitter is released, crosses the cleft and makes myelin"
+   ],
+   "why": "Three of: the impulse arrives, neurotransmitter is released, diffuses across the gap, binds to receptors, starts an impulse in the next neuron, is broken down.",
+   "hint": "Follow the chemical from where it's stored, across the gap, to what it attaches to.",
+   "board": true,
+   "hook": "Release, cross, bind, fire: four beats at every synapse",
+   "keys": [
+    "neurotransmitter is released",
+    "diffuses across the gap",
+    "binds to receptors"
+   ]
+  },
+  {
+   "q": "Interneurons are one type of neuron. Name the other two types. (2 points)",
+   "right": "Sensory and motor neurons",
+   "wrong": [
+    "Sensory and relay neurons",
+    "Motor and association neurons",
+    "Schwann and myelin neurons"
+   ],
+   "why": "There are three types: sensory neurons bring impulses to the CNS, interneurons (relay neurons) link inside it, motor neurons carry them out to effectors.",
+   "hint": "One brings messages in from receptors; one sends them out to muscles.",
+   "board": true,
+   "hook": "In, middle, out: sensory, interneuron, motor",
+   "keys": [
+    "sensory neurons",
+    "motor neurons"
+   ]
+  },
+  {
+   "q": "Describe one possible treatment for paralysis or Parkinson's disease.",
+   "right": "Physiotherapy to keep the muscles working",
+   "wrong": [
+    "Antibiotics to kill the bacteria",
+    "A vaccine to prevent infection",
+    "Insulin injections to lower blood sugar"
+   ],
+   "why": "Physiotherapy or surgery for paralysis; for Parkinson's, L-dopa (which becomes dopamine), drugs that mimic dopamine, or physiotherapy.",
+   "hint": "One treatment works on the muscles and joints with exercise, for either disorder.",
+   "board": true,
+   "hook": "Physio keeps muscles moving when the nerves can't",
+   "keys": [
+    "Physiotherapy or surgery",
+    "L-dopa"
+   ]
+  }
+ ],
+ "2025-Q14a": [
+  {
+   "q": "Distinguish between the central nervous system and the peripheral nervous system. (2 points)",
+   "right": "Central: brain and spinal cord; peripheral: nerves throughout the body",
+   "wrong": [
+    "Central: nerves throughout the body; peripheral: brain and spinal cord",
+    "Central: the brain only; peripheral: the spinal cord",
+    "Central: brain and spinal cord; peripheral: the skull and spine"
+   ],
+   "why": "The CNS is the brain and spinal cord; the PNS is the nerves throughout the rest of the body (and ganglia), linking it to receptors and effectors.",
+   "hint": "One part is the control centre inside the skull and spine; the other is the network reaching out.",
+   "board": true,
+   "hook": "CNS = HQ (brain and cord); PNS = the cables out to every corner",
+   "keys": [
+    "brain and spinal cord",
+    "nerves throughout the rest of the body"
+   ]
+  },
+  {
+   "q": "Name one way in which the human central nervous system is protected.",
+   "right": "By the skull",
+   "wrong": [
+    "By the myelin sheath",
+    "By the grey matter",
+    "By the Schwann cells"
+   ],
+   "why": "The CNS is protected by bone (the skull and the vertebrae of the spine), by the meninges and by cerebrospinal fluid.",
+   "hint": "The brain sits inside a case of bone. Name that case.",
+   "board": true,
+   "hook": "Bone armour: the skull for the brain, vertebrae for the cord",
+   "keys": [
+    "the skull and the vertebrae",
+    "meninges"
+   ]
+  }
+ ],
+ "2025-Q14b": [
+  {
+   "q": "Describe the role of the cornea, retina, optic nerve or lens. (one of 4 points)",
+   "right": "Retina: converts light into nerve impulses",
+   "wrong": [
+    "Retina: lets light into the eye",
+    "Optic nerve: lets light into the eye",
+    "Cornea: carries impulses to the brain"
+   ],
+   "why": "Cornea lets light in and refracts it; retina converts light into nerve impulses; optic nerve carries them to the brain; lens focuses light on the retina.",
+   "hint": "Light comes in, gets bent, lands on a screen, and a message goes to the brain. Which does which?",
+   "board": false,
+   "hook": "Retina = the eye's screen: it turns light into impulses",
+   "keys": [
+    "converts light into nerve impulses"
+   ]
+  },
+  {
+   "q": "Which eye, A (small pupil) or B (large pupil), is in low light? Justify. (2 points)",
+   "right": "B, because its pupil is larger (dilated) to let in more light",
+   "wrong": [
+    "A, because its pupil is smaller to let in more light",
+    "B, because its pupil is smaller to protect the retina",
+    "A, because its pupil is larger to let in less light"
+   ],
+   "why": "B: in dim light the iris widens the pupil (it dilates) to let in more light; in bright light it narrows to protect the retina.",
+   "hint": "In the dark you need to collect as much light as you can. What does the pupil do?",
+   "board": false,
+   "hook": "Dark room, big pupil: open wide to gather light",
+   "keys": [
+    "dilates",
+    "let in more light"
+   ]
+  },
+  {
+   "q": "Describe the role of the ossicles, the cochlea and the Eustachian tube. (3 points)",
+   "right": "Ossicles amplify; cochlea makes impulses; tube equalises pressure",
+   "wrong": [
+    "Ossicles make impulses; cochlea amplifies; tube equalises pressure",
+    "Ossicles amplify; cochlea equalises pressure; tube makes impulses",
+    "Ossicles amplify; cochlea makes impulses; tube drains tears"
+   ],
+   "why": "The ossicles pass on and amplify sound vibrations; the cochlea converts sound into nerve impulses; the Eustachian tube equalises pressure.",
+   "hint": "Tiny bones, a snail-shaped coil, a tube to the throat: which passes on, converts, balances?",
+   "board": false,
+   "hook": "Bones boost it, the snail converts it, the tube balances the pressure",
+   "keys": [
+    "amplify sound vibrations",
+    "converts sound into nerve impulses",
+    "equalises pressure"
+   ]
+  },
+  {
+   "q": "Describe a corrective measure for long sight, short sight or a hearing defect.",
+   "right": "Short sight: glasses with a concave (diverging) lens",
+   "wrong": [
+    "Short sight: glasses with a convex lens",
+    "Long sight: glasses with a concave lens",
+    "Long sight: a grommet in the eardrum"
+   ],
+   "why": "Short sight is corrected with a concave (diverging) lens, long sight with a convex (converging) lens, and deafness with a hearing aid or implant.",
+   "hint": "Match the disorder to the lens shape that moves the focus back onto the retina.",
+   "board": false,
+   "hook": "Short sight: a conCAVE lens (caves in); long sight: convex (bulges out)",
+   "keys": [
+    "concave (diverging) lens",
+    "convex (converging) lens"
+   ]
+  }
+ ],
+ "2025-Q14c": [
+  {
+   "q": "Which neuron (X or Y) is motor and which sensory? Justify each. (4 points)",
+   "right": "X is motor (it ends on muscle); Y is sensory (it starts in the skin)",
+   "wrong": [
+    "X is sensory (it ends on muscle); Y is motor (it starts in the skin)",
+    "Y is motor (cell body on a side branch); X is sensory",
+    "X is motor (its cell body is on a side branch); Y is sensory"
+   ],
+   "why": "X is motor: it ends on muscle cells, with its cell body at one end. Y is sensory: it starts in the skin, with its cell body on a side branch.",
+   "hint": "Which one ends on muscle cells, and which one picks up messages in the skin?",
+   "board": false,
+   "hook": "Motor to Muscle; Sensory from the Skin",
+   "keys": [
+    "X is motor",
+    "Y is sensory",
+    "cell body on a side branch"
+   ]
+  },
+  {
+   "q": "Neurotransmitters are found at position Z. Describe how they work. (3 points)",
+   "right": "Vesicles release them; they cross the cleft and attach to receptors",
+   "wrong": [
+    "Vesicles release them into the blood to reach target organs",
+    "They cross the cleft and make myelin around the next axon",
+    "They are made in the cleft and stay attached for good"
+   ],
+   "why": "Three of: an impulse arrives, vesicles release neurotransmitter, it crosses the cleft, attaches to receptors, starts an impulse, then is inactivated.",
+   "hint": "What's stored at the end of the neuron, where does it go, and what does it attach to?",
+   "board": "Describe how neurotransmitters work at a synapse. (3 points)",
+   "hook": "Vesicles pop, the chemical crosses, receptors catch it, the next neuron fires",
+   "keys": [
+    "vesicles release neurotransmitter",
+    "crosses the cleft",
+    "attaches to receptors"
+   ]
+  },
+  {
+   "q": "Schwann cells are found on both neurons. What is the function of a Schwann cell?",
+   "right": "It produces the myelin sheath",
+   "wrong": [
+    "It releases neurotransmitter",
+    "It carries impulses to the cell body",
+    "It detects stimuli in the skin"
+   ],
+   "why": "A Schwann cell wraps around the axon and produces the myelin sheath, which insulates it and speeds up the impulse.",
+   "hint": "It wraps itself round and round the axon. What does that wrapping form?",
+   "board": "What is the function of a Schwann cell?",
+   "hook": "Schwann cells roll round the axon like a Swiss roll, making its coat",
+   "keys": [
+    "produces the myelin sheath"
+   ]
+  },
+  {
+   "q": "Give one possible cause and one treatment of Parkinson's disease or paralysis, saying which. (2 points)",
+   "right": "Parkinson's: genetic (inherited); treated with physiotherapy",
+   "wrong": [
+    "Parkinson's: too much dopamine; treated with antibiotics",
+    "Paralysis: inherited lack of dopamine; treated with insulin",
+    "Parkinson's: lack of insulin; treated with antibiotics"
+   ],
+   "why": "A matching cause and treatment: Parkinson's from low dopamine or genes, treated with L-dopa or physiotherapy; paralysis from spinal cord damage, physio.",
+   "hint": "Choose one disorder. Then: what goes wrong in the brain or cord, and what helps?",
+   "board": true,
+   "hook": "Parkinson's can run in families: genes plus low dopamine",
+   "keys": [
+    "low dopamine or genes",
+    "L-dopa or physiotherapy"
+   ]
+  }
+ ],
+ "2026-Q7e": [
+  {
+   "q": "Give the precise location and the main function of the cerebellum. (2 points)",
+   "right": "At the back of the brain; it coordinates movement and balance",
+   "wrong": [
+    "At the front of the brain; it controls memory and thought",
+    "At the back of the brain; it controls memory and thought",
+    "In the brain stem; it controls breathing and heartbeat"
+   ],
+   "why": "The cerebellum is at the back of the brain, under the cerebrum; it coordinates muscle movement, balance and posture.",
+   "hint": "It's the 'little brain' tucked under the big one. What goes wrong if it's damaged?",
+   "board": true,
+   "hook": "The cerebellum at the back keeps you balanced: think of a tightrope walker",
+   "keys": [
+    "back of the brain",
+    "coordinates muscle movement"
+   ]
+  }
+ ],
+ "2026-Q17d": [
+  {
+   "q": "Name the fluid found in the central canal of the spinal cord.",
+   "right": "Cerebrospinal fluid",
+   "wrong": [
+    "Lymph",
+    "Tissue fluid",
+    "Plasma"
+   ],
+   "why": "The central canal and the spaces round the brain hold cerebrospinal fluid (CSF), which cushions and nourishes the CNS.",
+   "hint": "Its name joins the two parts of the CNS: the brain (cerebrum) and the spinal cord.",
+   "board": true,
+   "hook": "Cerebro (brain) + spinal (cord): the CNS's own cushioning fluid",
+   "keys": [
+    "cerebrospinal fluid (CSF)",
+    "cushions"
+   ]
+  },
+  {
+   "q": "Name tissue Y, with three layers, and one other structure that protects the spinal cord. (2 points)",
+   "right": "The meninges, and the vertebrae (backbone)",
+   "wrong": [
+    "The myelin sheath, and the vertebrae (backbone)",
+    "The meninges, and the skull",
+    "The white matter, and the ribs"
+   ],
+   "why": "Y is the meninges, three membranes round the CNS; the spinal cord is also protected by the vertebrae (and cerebrospinal fluid).",
+   "hint": "Three thin layers wrap it, and a column of bones surrounds those. Name both.",
+   "board": "Name the three-layered tissue around the spinal cord, and one other structure that protects it. (2 points)",
+   "hook": "Spinal cord armour: three meninges inside a column of vertebrae",
+   "keys": [
+    "meninges",
+    "vertebrae"
+   ]
+  },
+  {
+   "q": "P is the pale outer region and Q the darker core. Name them. (2 points)",
+   "right": "Outer: white matter; core: grey matter",
+   "wrong": [
+    "Outer: grey matter; core: white matter",
+    "Outer: meninges; core: white matter",
+    "Outer: myelin sheath; core: central canal"
+   ],
+   "why": "In the spinal cord, white matter (myelinated axons) is outside and grey matter (cell bodies) forms the core; in the brain it is the other way round.",
+   "hint": "Myelin is pale. In the spinal cord, are the myelinated fibres inside or outside?",
+   "board": "In a cross section of the spinal cord, name the pale outer region and the darker core. (2 points)",
+   "hook": "The spinal cord: a grey butterfly wrapped in white",
+   "keys": [
+    "white matter (myelinated axons)",
+    "grey matter (cell bodies)"
+   ]
+  },
+  {
+   "q": "What three parts must your drawing of a neuron show?",
+   "right": "Dendrites, a cell body with a nucleus, and an axon",
+   "wrong": [
+    "Dendrites, a cell wall and an axon",
+    "A nucleus, a vacuole and an axon",
+    "A cell body, a synaptic cleft and a cell wall"
+   ],
+   "why": "The drawing needs dendrites, a cell body with its nucleus, and an axon: miss one and you lose half the marks, miss two and you get none.",
+   "hint": "Think of a tree: the branches, the trunk's base with its nucleus, and one long root.",
+   "board": "What three main parts make up a neuron?",
+   "hook": "Branches, body, long tail: dendrites, cell body, axon",
+   "keys": [
+    "dendrites",
+    "cell body with its nucleus",
+    "an axon"
+   ]
+  },
+  {
+   "q": "On your neuron, which part do you label as a dendrite?",
+   "right": "A short branch on the cell body",
+   "wrong": [
+    "The long fibre leaving the cell body",
+    "The fatty layer around the axon",
+    "The gap at the end of the axon"
+   ],
+   "why": "Dendrites are the short branches on the cell body; the axon is the long fibre, and the myelin sheath the fatty layer round it.",
+   "hint": "Three labels: the branches, the long fibre and its coat. Which are the branches?",
+   "board": "Which part of a neuron is a dendrite?",
+   "hook": "Dendrites = little twigs on the cell body",
+   "keys": [
+    "short branches on the cell body"
+   ]
+  },
+  {
+   "q": "On your diagram, which way should the impulse arrow point?",
+   "right": "From the dendrites towards the axon",
+   "wrong": [
+    "From the axon towards the dendrites",
+    "Into the cell body from the axon",
+    "Both ways along the axon"
+   ],
+   "why": "The impulse travels from the dendrites, through the cell body and away along the axon: point the arrow away from the cell body.",
+   "hint": "Where does a neuron pick up messages, and where does it pass them on?",
+   "board": "In which direction does an impulse travel through a neuron?",
+   "hook": "D, C, A: Dendrites, Cell body, Axon, always that way",
+   "keys": [
+    "away from the cell body"
+   ]
+  },
+  {
+   "q": "Describe the mechanism of a reflex action. (3 points)",
+   "right": "Impulse goes along sensory neuron, then interneuron, then motor neuron",
+   "wrong": [
+    "Impulse goes along motor neuron, then interneuron, then sensory neuron",
+    "Impulse goes along sensory neuron straight to the brain, which decides",
+    "A hormone travels in the blood from the receptor to the muscle"
+   ],
+   "why": "Three of: a receptor detects the stimulus, the impulse travels along a sensory neuron, through an interneuron in the CNS, along a motor neuron, to the effector.",
+   "hint": "Name the three neurons the impulse passes through, in order. And say 'impulse'!",
+   "board": true,
+   "hook": "Receptor, sensory, inter, motor, effector: say 'impulse' or lose a mark",
+   "keys": [
+    "receptor detects the stimulus",
+    "sensory neuron",
+    "motor neuron"
+   ]
+  }
+ ],
+ "S1-Q1b": [
+  {
+   "q": "Identify molecule A and structure B, the sac holding it. (2 points)",
+   "right": "Neurotransmitter, stored in a synaptic vesicle",
+   "wrong": [
+    "Hormone, stored in a synaptic vesicle",
+    "Neurotransmitter, stored in a Schwann cell",
+    "Enzyme, stored in the synaptic cleft"
+   ],
+   "why": "A is a neurotransmitter, e.g. acetylcholine; B is a synaptic vesicle, a sac that stores it until an impulse arrives.",
+   "hint": "A crosses the gap to carry the message; B is the little bubble it waits in.",
+   "board": "At a synapse, name the chemical that crosses the gap and the sac that stores it. (2 points)",
+   "hook": "Vesicles are water balloons full of neurotransmitter, popped by the impulse",
+   "keys": [
+    "neurotransmitter, e.g. acetylcholine",
+    "synaptic vesicle"
+   ]
+  },
+  {
+   "q": "Which way is a nerve impulse passed across a synapse?",
+   "right": "From the neuron with vesicles to the one with receptors",
+   "wrong": [
+    "From the neuron with receptors to the one with vesicles",
+    "Both ways across the cleft",
+    "Along the cleft, parallel to the membranes"
+   ],
+   "why": "Vesicles are only in the presynaptic neuron and receptors only on the postsynaptic one, so the impulse crosses one way only.",
+   "hint": "Which side releases the chemical, and which side has the receptors that catch it?",
+   "board": true,
+   "hook": "One-way traffic: vesicles send, receptors receive",
+   "keys": [
+    "presynaptic neuron",
+    "postsynaptic one"
+   ]
+  },
+  {
+   "q": "What happens to molecules A after the nerve impulse transmission is complete? (2 points)",
+   "right": "Broken down by an enzyme; the products are reabsorbed and reused",
+   "wrong": [
+    "Carried away in the blood to the kidneys",
+    "They stay bound to the receptors for good",
+    "Made into myelin by the Schwann cells"
+   ],
+   "why": "An enzyme in the cleft (e.g. acetylcholinesterase) breaks the transmitter down, and the presynaptic neuron reabsorbs the products to make more.",
+   "hint": "If it stayed, the next neuron would fire non-stop. What clears it, and is any of it reused?",
+   "board": "What happens to a neurotransmitter after it has passed on an impulse? (2 points)",
+   "hook": "Clean up and recycle: an enzyme breaks it down, the knob takes the bits back",
+   "keys": [
+    "breaks the transmitter down",
+    "reabsorbs the products"
+   ]
+  }
+ ]
+}
